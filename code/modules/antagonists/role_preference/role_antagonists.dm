@@ -31,11 +31,11 @@
 	uniform = /obj/item/clothing/under/syndicate
 	gloves = /obj/item/clothing/gloves/tackler/combat
 	mask = /obj/item/clothing/mask/gas
-	l_hand = /obj/item/melee/transforming/energy/sword
+	l_hand = /obj/item/melee/energy/sword
 	r_hand = /obj/item/gun/energy/recharge/ebow
 
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
-	var/obj/item/melee/transforming/energy/sword/sword = locate() in H.held_items
+	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_inv_hands()
 	H.hair_style = "Messy"
