@@ -42,8 +42,6 @@
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 
-	var/pocket_storage_component_path
-
 	//These allow head/mask items to dynamically alter the user's hair
 	// and facial hair, checking hair_extensions.dmi and facialhair_extensions.dmi
 	// for a state matching hair_state+dynamic_hair_suffix
@@ -68,8 +66,6 @@
 	if(clothing_flags & VOICEBOX_TOGGLABLE)
 		actions_types += /datum/action/item_action/toggle_voice_box
 	. = ..()
-	if(ispath(pocket_storage_component_path))
-		LoadComponent(pocket_storage_component_path)
 	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
 		LoadComponent(/datum/component/bloodysoles)
 
@@ -576,17 +572,15 @@ BLIND     // can't see anything
 	if(prob(0.2))
 		to_chat(L, span_warning("The damaged threads on your [src.name] chafe!"))
 
-/*
 /obj/item/clothing/get_armor_rating(d_type)
 	. = ..()
 	if(high_pressure_multiplier == 1)
 		return
-	var/turf/T = get_turf(usr)
+	var/turf/T = get_turf(src)
 	if(!T || !(d_type in high_pressure_multiplier_types))
 		return
-	if(!lavaland_equipment_pressure_check(T))
-		. *= high_pressure_multiplier
-*/
+	if (!is_mining_level(T.z))
+		return . * high_pressure_multiplier
 
 #undef SENSORS_OFF
 #undef SENSORS_BINARY
