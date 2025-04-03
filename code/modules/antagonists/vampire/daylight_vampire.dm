@@ -164,8 +164,6 @@
 		return FALSE
 	RegisterSignal(SSsunlight, COMSIG_SOL_END, PROC_REF(on_sol_end))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_owner_moved))
-	owner.remove_filter(id)
-	owner.add_filter(id, 2, drop_shadow_filter(x = 0, y = 0, size = 3, offset = 1.5, color = "#ee7440"))
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/vampire_sol)
 	owner.add_actionspeed_modifier(/datum/actionspeed_modifier/vampire_sol)
 	to_chat(owner, span_userdanger("Sol has risen! Your powers are suppressed, your body is burdened, and you will not heal outside of a coffin!"), type = MESSAGE_TYPE_INFO)
@@ -199,9 +197,6 @@
 		power.update_desc()
 		power.update_buttons()
 	LAZYNULL(burdened_actions)
-
-/datum/status_effect/vampire_sol/get_examine_text()
-	return span_warning("[capitalize(owner.p_they())] seem[owner.p_s()] sickly and painfully overburned!")
 
 /datum/status_effect/vampire_sol/proc/on_sol_end()
 	SIGNAL_HANDLER
