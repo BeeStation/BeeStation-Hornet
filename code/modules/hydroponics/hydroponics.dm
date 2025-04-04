@@ -821,7 +821,7 @@
 		message += "- Toxicity level: [span_notice("[toxic] / 100")]"
 		message += "- Water level: [span_notice("[waterlevel] / [maxwater]")]"
 		message += "- Nutrition level: [span_notice("[nutrilevel] / [maxnutri]")]"
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+		to_chat(user, examine_block(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)

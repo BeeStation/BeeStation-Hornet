@@ -1069,6 +1069,16 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		else
 			. = ""
 
+/proc/weight_class_to_tooltip(w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY to WEIGHT_CLASS_SMALL)
+			return "This item can fit into pockets, boxes and backpacks."
+		if(WEIGHT_CLASS_NORMAL)
+			return "This item can fit into backpacks."
+		if(WEIGHT_CLASS_BULKY to WEIGHT_CLASS_GIGANTIC)
+			return "This item is too large to fit into any standard storage."
+	return ""
+
 /atom/proc/get_boozepower_text(booze_power, mob/living/L)
 	if(isnull(booze_power))
 		return

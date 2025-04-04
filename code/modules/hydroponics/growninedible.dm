@@ -45,7 +45,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown)
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
-		to_chat(usr, EXAMINE_BLOCK(msg))
+		to_chat(usr, examine_block(msg))
 		return
 
 /obj/item/grown/proc/add_juice()
