@@ -15,10 +15,10 @@
  * THE GENESIS CALL
  *
  * THE VERY FIRST LINE OF DM CODE TO EXECUTE
- * Ong this must be done before !!!EVERYTHING!!! else
+ * Ong this must be done after !!!EVERYTHING!!! else
  * NO IFS ANDS OR BUTS
  * it's a hack, not an example of any sort, and DEFINITELY should NOT be emulated
- * IT JUST HAS TO BE FIRST!!!!!!
+ * IT JUST HAS TO BE LAST!!!!!!
  * If you want to do something in the initialization pipeline
  * FIRST RTFM IN /code/game/world.dm
  * AND THEN NEVER RETURN TO THIS PLACE

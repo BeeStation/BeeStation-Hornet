@@ -77,7 +77,7 @@
 	var/static/list/mail_advmedtool= pick(
 		/obj/item/scalpel/advanced,
 		/obj/item/retractor/advanced,
-		/obj/item/cautery/advanced,)
+		/obj/item/surgicaldrill/advanced,)
 	new mail_advmedtool(loc)
 	return INITIALIZE_HINT_QDEL
 

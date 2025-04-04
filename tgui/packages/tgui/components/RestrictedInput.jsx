@@ -40,7 +40,8 @@ export class RestrictedInput extends Component {
       }
     };
     this.handleChange = (e) => {
-      const { onChange } = this.props;
+      const { maxValue, minValue, onChange, allowFloats } = this.props;
+      e.target.value = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
       if (onChange) {
         onChange(e, +e.target.value);
       }
@@ -65,7 +66,6 @@ export class RestrictedInput extends Component {
       const { maxValue, minValue, onChange, onEnter, allowFloats } = this.props;
       if (e.key === KEY.Enter) {
         const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
-        e.target.value = safeNum;
         this.setEditing(false);
         if (onChange) {
           onChange(e, +safeNum);
@@ -104,6 +104,19 @@ export class RestrictedInput extends Component {
           input.select();
         }
       }, 1);
+    }
+  }
+
+  componentDidUpdate(prevProps, _) {
+    const { maxValue, minValue, allowFloats } = this.props;
+    const { editing } = this.state;
+    const prevValue = prevProps.value?.toString();
+    const nextValue = this.props.value?.toString();
+    const input = this.inputRef.current;
+    if (input && !editing) {
+      if (nextValue !== prevValue && nextValue !== input.value) {
+        input.value = getClampedNumber(nextValue, minValue, maxValue, allowFloats);
+      }
     }
   }
 

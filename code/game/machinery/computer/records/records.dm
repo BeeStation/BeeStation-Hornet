@@ -43,23 +43,18 @@
 
 	switch(action)
 		if("edit_field")
-			if (!target_record)
-				return FALSE
-			if (!authenticated)
-				return FALSE
+			target_record = locate(params["record_ref"]) in GLOB.manifest.general
 			var/field = params["field"]
-			if(!field || !can_edit_field(field))
+			if(!field || !(field in target_record?.vars))
 				return FALSE
 			var/text = "[params["value"]]" //Converts the value to a string, due to fuckery in TGUI.
-			var/value = sanitize_ic(trim(text, MAX_BROADCAST_LEN))
+			var/value = trim(text, MAX_BROADCAST_LEN)
 			target_record.vars[field] = value || null
 			update_all_security_huds()
 			return TRUE
 
 		if("anonymize_record")
 			if(!target_record)
-				return FALSE
-			if (!authenticated)
 				return FALSE
 
 			target_record.anonymize_record_info()
@@ -80,8 +75,6 @@
 			return TRUE
 
 		if("purge_records")
-			if (!authenticated)
-				return FALSE
 			ui.close()
 			balloon_alert(user, "purging records")
 			playsound(src, 'sound/machines/terminal_alert.ogg', 70, TRUE)
@@ -99,16 +92,11 @@
 		if("view_record")
 			if(!target_record)
 				return FALSE
-			if (!authenticated)
-				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
-			update_preview(user, sanitize(params["character_preview_view"]), target_record)
+			update_preview(user, params["character_preview_view"], target_record)
 			return TRUE
 
-	return FALSE
-
-/obj/machinery/computer/records/proc/can_edit_field(field)
 	return FALSE
 
 /// Creates a character preview view for the UI.
