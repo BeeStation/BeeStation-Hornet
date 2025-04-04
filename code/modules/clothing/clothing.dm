@@ -337,41 +337,45 @@
 			if (istype(thing, /obj/item/clothing))
 				compare_to = thing
 				break
+		to_chat(usr, EXAMINE_BLOCK("[generate_armor_readout(compare_to)]"))
 
-		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
+/obj/item/clothing/proc/generate_armor_readout(obj/item/clothing/compare_to)
+	var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
-		var/datum/armor/armor = get_armor()
-		var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
+	var/datum/armor/armor = get_armor()
+	var/datum/armor/comparison_armor = compare_to?.get_armor()
+	var/added_damage_header = FALSE
+	for(var/damage_key in ARMOR_LIST_DAMAGE)
+		var/rating = armor.get_rating(damage_key)
+		var/second_rating = comparison_armor?.get_rating(damage_key)
+		if(!rating && !second_rating)
+			continue
+		if(!added_damage_header)
+			readout += "\n<b>ARMOR (I-X)</b>"
+			added_damage_header = TRUE
+		readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, second_rating)]"
 
-		var/added_damage_header = FALSE
-		for(var/damage_key in ARMOR_LIST_DAMAGE)
-			var/rating = armor.get_rating(damage_key)
-			var/compare_rating = compare_armor ? compare_armor.get_rating(damage_key) : null
-			if(!rating && !compare_rating)
-				continue
-			if(!added_damage_header)
-				readout += "\n<b>ARMOR (I-X)</b>"
-				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, compare_rating)]"
+	var/added_durability_header = FALSE
+	for(var/durability_key in ARMOR_LIST_DURABILITY)
+		var/rating = armor.get_rating(durability_key)
+		var/second_rating = comparison_armor?.get_rating(durability_key)
+		if(!rating && !second_rating)
+			continue
+		if(!added_durability_header)
+			readout += "\n<b>DURABILITY (I-X)</b>"
+			added_damage_header = TRUE
+		readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, second_rating)]"
 
-		var/added_durability_header = FALSE
-		for(var/durability_key in ARMOR_LIST_DURABILITY)
-			var/rating = armor.get_rating(durability_key)
-			var/compare_rating = compare_armor ? compare_armor.get_rating(durability_key) : null
-			if(!rating && !compare_rating)
-				continue
-			if(!added_durability_header)
-				readout += "\n<b>DURABILITY (I-X)</b>"
-				added_durability_header = TRUE
-			readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
+	if(flags_cover & HEADCOVERSMOUTH)
+		readout += "<br /><b>COVERAGE</b>"
+		readout += "<br />It will block Facehuggers."
+		/* We dont have the tooltips for this
+		readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
+		*/
 
-		if(flags_cover & HEADCOVERSMOUTH)
-			readout += "<br /><b>COVERAGE</b>"
-			readout += "<br />It will block Facehuggers."
+	readout += "</span>"
 
-		readout += "</span>"
-
-		to_chat(usr, EXAMINE_BLOCK("[readout.Join()]"))
+	return readout.Join()
 
 /**
  * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
