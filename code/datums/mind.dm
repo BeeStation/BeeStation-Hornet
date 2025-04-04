@@ -363,10 +363,6 @@
 	if (!implant)
 		. = uplink_loc
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
-		if(src.has_antag_datum(/datum/antagonist/incursion))
-			U.uplink_flag = UPLINK_INCURSION
-		if(src.has_antag_datum(/datum/antagonist/traitor/excommunicate))
-			U.uplink_flag = UPLINK_EXCOMMUNICATE
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
