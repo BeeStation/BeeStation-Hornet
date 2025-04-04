@@ -28,7 +28,7 @@
 	if(living_mob.see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return FALSE
 
-	if(isturf(the_target.loc) && living_mob.z != the_target.z) // z check will always fail if target is in a mech
+	if(isturf(the_target.loc) && living_mob.get_virtual_z_level() != the_target.get_virtual_z_level()) // z check will always fail if target is in a mech
 		return FALSE
 
 	if(isliving(the_target)) //Targetting vs living mobs
