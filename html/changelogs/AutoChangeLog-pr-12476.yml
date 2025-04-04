@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - tweak: removed some duplicate MMI emotes
-  - tweak: renames silicon *warn emote to *alarm
-  - bugfix: fixed somebody jumping twice when using the jump emote
