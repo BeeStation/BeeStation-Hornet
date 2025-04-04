@@ -2226,6 +2226,17 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/security/prison)
+"auH" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/hallway/primary/fore)
 "auJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3132,9 +3143,6 @@
 	},
 /turf/open/floor/iron,
 /area/construction/storage_wing)
-"aDC" = (
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "aDQ" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet3";
@@ -37027,6 +37035,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/camera/directional/west{
+	c_tag = "Cryogenics Lounge";
+	name = "recreation camera"
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
 "iMO" = (
@@ -46198,6 +46210,21 @@
 	dir = 1
 	},
 /area/security/main)
+"mqR" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating,
+/area/hallway/primary/fore)
 "mqU" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54047,7 +54074,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "pda" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
-/turf/open/floor/iron,
+/turf/open/floor/plating,
 /area/medical/break_room)
 "pdk" = (
 /obj/structure/cable/yellow{
@@ -62855,6 +62882,17 @@
 /obj/structure/closet/crate,
 /turf/open/floor/iron,
 /area/maintenance/starboard/secondary)
+"sqN" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/hallway/primary/fore)
 "sqT" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -69661,10 +69699,6 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "uKH" = (
-/obj/machinery/camera/directional/west{
-	c_tag = "Cryogenics Lounge";
-	name = "recreation camera"
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
 "uKI" = (
@@ -70239,21 +70273,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"uWf" = (
-/obj/effect/spawner/structure/window/reinforced/prison,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating,
-/area/security/prison)
 "uWj" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/stripes/end{
@@ -73213,6 +73232,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"vWs" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "vWU" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
@@ -78777,17 +78802,6 @@
 /obj/structure/pool_ladder,
 /turf/open/indestructible/sound/pool/end,
 /area/crew_quarters/fitness/recreation)
-"xTF" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/structure/window/reinforced/prison,
-/turf/open/floor/plating,
-/area/security/prison)
 "xTL" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -79418,17 +79432,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
-"yeu" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/structure/window/reinforced/prison,
-/turf/open/floor/plating,
-/area/security/prison)
 "yev" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -104016,10 +104019,10 @@ phD
 phD
 phD
 ftT
+srs
 tTJ
-yeu
+sqN
 thM
-sbU
 kcV
 sWw
 aHx
@@ -104273,10 +104276,10 @@ pZF
 dAL
 dAL
 mAd
+vWs
 dwx
-uWf
+mqR
 thM
-aDC
 etl
 tfG
 aHy
@@ -104530,10 +104533,10 @@ aax
 aax
 qEy
 oBL
+srs
 sjA
-xTF
+auH
 thM
-aDC
 etq
 sag
 aHx
