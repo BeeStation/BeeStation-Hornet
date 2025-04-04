@@ -21,25 +21,29 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	faction = list(FACTION_BLOB)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = /datum/hud/blob_overmind
-	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
+	var/obj/structure/blob/special/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
 	var/max_blob_points = OVERMIND_MAX_POINTS_DEFAULT
 	var/last_attack = 0
-	var/datum/blobstrain/blobstrain
+	var/datum/blobstrain/reagent/blobstrain
 	var/list/blob_mobs = list()
+	/// A list of all blob structures
+	var/list/all_blobs = list()
 	var/list/resource_blobs = list()
+	var/list/factory_blobs = list()
+	var/list/node_blobs = list()
 	var/free_strain_rerolls = OVERMIND_STARTING_REROLLS
 	var/last_reroll_time = 0 //time since we last rerolled, used to give free rerolls
-	var/nodes_required = 1 //if the blob needs nodes to place resource and factory blobs
-	var/placed = 0
-	var/manualplace_min_time = OVERMIND_STARTING_MIN_PLACE_TIME // Some time to get your bearings
-	var/autoplace_max_time = OVERMIND_STARTING_AUTO_PLACE_TIME // Automatically place the core in a random spot
+	var/nodes_required = TRUE //if the blob needs nodes to place resource and factory blobs
+	var/placed = FALSE
+	var/manualplace_min_time = OVERMIND_STARTING_MIN_PLACE_TIME	// Some time to get your bearings
+	var/autoplace_max_time = OVERMIND_STARTING_AUTO_PLACE_TIME	// Automatically place the core in a random spot
 	var/list/blobs_legit = list()
 	var/max_count = 0 //The biggest it got before death
 	var/blobwincount = OVERMIND_WIN_CONDITION_AMOUNT
 	var/victory_in_progress = FALSE
 	var/rerolling = FALSE
-	var/announcement_size = OVERMIND_ANNOUNCEMENT_MIN_SIZE
+	var/announcement_size = OVERMIND_ANNOUNCEMENT_MIN_SIZE // Announce the biohazard when this size is reached
 	var/announcement_time
 	var/has_announced = FALSE
 
@@ -65,7 +69,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	if(blob_core)
 		blob_core.update_icon()
 	SSshuttle.registerHostileEnvironment(src)
-	announcement_time = world.time + OVERMIND_ANNOUNCEMENT_MAX_TIME
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -190,6 +193,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 		if(BM)
 			BM.overmind = null
 			BM.update_icons()
+	for(var/obj/structure/blob/blob_structure as anything in all_blobs)
+		blob_structure.overmind = null
+	all_blobs = null
+	resource_blobs = null
+	factory_blobs = null
+	node_blobs = null
+	blob_mobs = null
 	GLOB.overminds -= src
 	QDEL_LIST_ASSOC_VAL(strain_choices)
 

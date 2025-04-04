@@ -1108,3 +1108,29 @@
 	category = list("initial", "Construction")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/potion
+	name = "Potion Bottle"
+	id = "potion"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/glass = 500)
+	build_path = /obj/item/reagent_containers/cup/bottle/big_potion
+	category = list("initial", "Medical")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/small_potion
+	name = "Small Potion Bottle"
+	id = "small_potion"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/glass = 200)
+	build_path = /obj/item/reagent_containers/cup/bottle/small_potion
+	category = list("initial", "Medical")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/vial
+	name = "Potion Vial"
+	id = "vial"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/glass = 100)
+	build_path = /obj/item/reagent_containers/cup/bottle/vial
+	category = list("initial", "Medical")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL

@@ -361,7 +361,7 @@
 			number++
 	list += {"<br><br><A href='byond://?src=[REF(src)];laws=1'>State Laws</A>"}
 
-	usr << browse(list, "window=laws")
+	usr << browse(HTML_SKELETON(list), "window=laws")
 
 /mob/living/silicon/proc/ai_roster()
 	if(!client || !COOLDOWN_FINISHED(client, crew_manifest_delay))
@@ -449,7 +449,7 @@
 /mob/living/silicon/get_inactive_held_item()
 	return FALSE
 
-/mob/living/silicon/handle_high_gravity(gravity)
+/mob/living/silicon/handle_high_gravity(gravity, delta_time, times_fired)
 	return
 
 /mob/living/silicon/rust_heretic_act()

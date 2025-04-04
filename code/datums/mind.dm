@@ -363,10 +363,6 @@
 	if (!implant)
 		. = uplink_loc
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
-		if(src.has_antag_datum(/datum/antagonist/incursion))
-			U.uplink_flag = UPLINK_INCURSION
-		if(src.has_antag_datum(/datum/antagonist/traitor/excommunicate))
-			U.uplink_flag = UPLINK_EXCOMMUNICATE
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
@@ -451,7 +447,7 @@
 			output += "<br>[objective.explanation_text]"
 
 	if(window)
-		recipient << browse(output,"window=memory")
+		recipient << browse(HTML_SKELETON(output),"window=memory")
 	else if(antag_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 
