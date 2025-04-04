@@ -7704,6 +7704,9 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "cvC" = (
@@ -8746,6 +8749,9 @@
 	dir = 2
 	},
 /obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -11374,6 +11380,9 @@
 	dir = 4
 	},
 /obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -18931,8 +18940,10 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "fVq" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -19737,6 +19748,7 @@
 	dir = 2
 	},
 /obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/blue/corner,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "giD" = (
@@ -26446,6 +26458,7 @@
 /area/ai_monitored/storage/eva)
 "itB" = (
 /obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/blue/corner,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "itK" = (
@@ -26998,6 +27011,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 8
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
@@ -27671,6 +27690,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/blue/corner,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "iQH" = (
@@ -33710,6 +33730,15 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/medical/genetics)
+"kOG" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/hallway/primary/central)
 "kOH" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -34953,6 +34982,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "lii" = (
@@ -35030,6 +35062,9 @@
 	dir = 2
 	},
 /obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -39801,6 +39836,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "mIc" = (
@@ -39847,6 +39885,9 @@
 "mIH" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -40997,6 +41038,9 @@
 	dir = 8
 	},
 /obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -42878,6 +42922,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "nFj" = (
@@ -43143,6 +43190,7 @@
 	dir = 1
 	},
 /obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/blue/corner,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "nJn" = (
@@ -44136,7 +44184,6 @@
 /turf/open/floor/iron/ridged/steel,
 /area/crew_quarters/heads/hos)
 "obd" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -45332,7 +45379,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "ouv" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 8;
 	pixel_y = 1
@@ -47244,6 +47290,9 @@
 	dir = 2
 	},
 /obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -51049,6 +51098,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "qhN" = (
@@ -52484,6 +52536,9 @@
 "qFJ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/blue/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -62692,6 +62747,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/blue/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "tSx" = (
@@ -66525,6 +66583,7 @@
 	dir = 8
 	},
 /obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/blue/corner,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "vjD" = (
@@ -99155,13 +99214,13 @@ eUN
 eUN
 fZg
 deg
-eUN
+odG
 qFC
 nnR
 eUN
 iaP
 eUN
-odG
+eUN
 wer
 ppt
 teu
@@ -106865,7 +106924,7 @@ wlS
 wlS
 iDQ
 wlS
-fVq
+eLs
 lCr
 chV
 eXl
@@ -107123,7 +107182,7 @@ wlS
 wlS
 roY
 gOA
-cFx
+kOG
 lCr
 cFD
 ppw
@@ -107381,7 +107440,7 @@ wlS
 sTd
 smT
 xeZ
-cFx
+kOG
 qBR
 ppw
 jSx
@@ -109180,7 +109239,7 @@ wlS
 qKa
 iDQ
 qlO
-wZl
+fVq
 rTC
 dFC
 wYg
@@ -109436,7 +109495,7 @@ wlS
 fcL
 wlS
 xhA
-wZl
+fVq
 ajn
 idu
 dFC
@@ -109692,7 +109751,7 @@ wlS
 wlS
 kPT
 odf
-fVq
+eLs
 ajn
 nQt
 dFC
