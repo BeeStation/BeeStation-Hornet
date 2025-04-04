@@ -1,4 +1,0 @@
-author: Fresh839
-delete-after: true
-changes:
-  - bugfix: Fixes the captain's spare ID safe being unlocked at roundstart.
