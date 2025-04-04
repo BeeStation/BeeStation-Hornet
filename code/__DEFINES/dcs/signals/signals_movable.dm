@@ -81,13 +81,6 @@
 	///prevents pressure movement
 	#define COMSIG_MOVABLE_BLOCKS_PRESSURE (1<<0)
 
-///from base of atom/movable/on_enter_storage(): (datum/component/storage/concrete/master_storage)
-#define COMSIG_STORAGE_ENTERED "storage_entered"
-///from base of atom/movable/on_exit_storage(): (datum/component/storage/concrete/master_storage)
-#define COMSIG_STORAGE_EXITED "storage_exited"
-
-
-
 // /datum/element/movetype_handler signals
 /// Called when the floating anim has to be temporarily stopped and restarted later: (timer)
 #define COMSIG_PAUSE_FLOATING_ANIM "pause_floating_anim"

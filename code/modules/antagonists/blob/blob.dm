@@ -9,7 +9,6 @@
 
 	var/datum/action/innate/blobpop/pop_action
 	var/starting_points_human_blob = OVERMIND_STARTING_POINTS
-	var/point_rate_human_blob = 2
 
 /datum/antagonist/blob/roundend_report()
 	var/basic_report = ..()
@@ -80,14 +79,18 @@
 
 /datum/action/innate/blobpop/on_activate()
 	var/mob/old_body = owner
+	if(!owner)
+		return
+
 	var/datum/antagonist/blob/blobtag = owner.mind.has_antag_datum(/datum/antagonist/blob)
 	if(!blobtag)
 		Remove()
 		return
-	var/mob/camera/blob/blob = new /mob/camera/blob(get_turf(old_body), blobtag.starting_points_human_blob)
-	owner.mind.transfer_to(blob)
+
+	var/mob/camera/blob/blob_cam = new /mob/camera/blob(get_turf(old_body), blobtag.starting_points_human_blob)
+	owner.mind.transfer_to(blob_cam)
 	old_body.gib()
-	blob.place_blob_core(blobtag.point_rate_human_blob, pop_override = TRUE)
+	blob_cam.place_blob_core(placement_override = TRUE, pop_override = TRUE)
 
 /datum/antagonist/blob/antag_listing_status()
 	. = ..()

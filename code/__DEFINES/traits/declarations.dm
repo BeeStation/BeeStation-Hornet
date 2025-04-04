@@ -254,6 +254,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WIELDED "wielded"
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
+/// A transforming item that is actively extended / transformed
+#define TRAIT_TRANSFORM_ACTIVE "active_transform"
 
 //important_recursive_contents traits
 /*
@@ -263,6 +265,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AREA_SENSITIVE "area-sensitive"
 ///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+///every object that is currently the active storage of some client mob has this trait
+#define TRAIT_ACTIVE_STORAGE "active_storage"
 
 /**
  * Item Traits

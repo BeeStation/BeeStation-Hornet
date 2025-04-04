@@ -62,7 +62,7 @@
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1)
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber
+	l_pocket = /obj/item/melee/energy/sword/saber/blue
 
 /datum/outfit/centcom/ert/security
 	name = "ERT Security"
@@ -273,7 +273,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	suit_store = /obj/item/storage/bag/trash/bluespace
 	glasses = /obj/item/clothing/glasses/night
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/ert
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
 
@@ -306,16 +306,17 @@
 	id = /obj/item/card/id/ert/kudzu
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	glasses = /obj/item/clothing/glasses/night
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/ert
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_hand = /obj/item/scythe
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
+	backpack_contents = list(
+		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/choice_beacon/pet/goat,
-		/obj/item/grenade/clusterbuster/antiweed=2)
+		/obj/item/choice_beacon/pet/goat=1,
+		)
 
 /datum/outfit/centcom/ert/kudzu/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -457,8 +458,8 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	glasses = /obj/item/clothing/glasses/hud/toggle/thermal
-	back = /obj/item/storage/backpack/security
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber
+	back = /obj/item/storage/backpack/ert/security
+	l_pocket = /obj/item/melee/energy/sword/saber/blue
 	r_pocket = /obj/item/shield/energy
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	belt = /obj/item/gun/ballistic/revolver/mateba
@@ -466,7 +467,8 @@
 	id = /obj/item/card/id/centcom
 	ears = /obj/item/radio/headset/headset_cent/alt
 
-	backpack_contents = list(/obj/item/storage/box=1,\
+	backpack_contents = list(
+		/obj/item/storage/box=1,\
 		/obj/item/ammo_box/a357=1,\
 		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
