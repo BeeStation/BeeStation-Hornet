@@ -751,7 +751,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	icon_state = "cleaving_saw"
-	item_state = "cleaving_saw"
 	worn_icon_state = "cleaving_saw"
 	attack_verb_continuous = list("attacks", "saws", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "saw", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -765,9 +764,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	/// List of factions we deal bonus damage to
-	var/list/nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
+	var/list/nemesis_factions = list("mining", "boss")
 	/// Amount of damage we deal to the above factions
 	var/faction_bonus_force = 45
+	/// Whether the cleaver is actively AoE swiping something.
 	/// Whether the cleaver is actively AoE swiping something.
 	var/swiping = FALSE
 	/// Amount of bleed stacks gained per hit
@@ -779,17 +779,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/melee/cleaving_saw/Initialize(mapload)
 	. = ..()
-	AddComponent( \
-		/datum/component/transforming, \
-		transform_cooldown_time = (CLICK_CD_MELEE * 0.50), \
+	AddComponent(/datum/component/transforming, \
+		transform_cooldown_time = (CLICK_CD_MELEE * 0.25), \
 		force_on = open_force, \
 		throwforce_on = open_throwforce, \
 		sharpness_on = sharpness, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
 		attack_verb_continuous_on = list("cleaves", "swipes", "slashes", "chops"), \
-		attack_verb_simple_on = list("cleave", "swipe", "slash", "chop"), \
-	)
+		attack_verb_simple_on = list("cleave", "swipe", "slash", "chop"))
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /obj/item/melee/cleaving_saw/examine(mob/user)
@@ -831,10 +829,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		swiping = TRUE
 		var/static/list/cleaving_saw_cleave_angles = list(0, -45, 45) //so that the animation animates towards the target clicked and not towards a side target
 		for(var/i in cleaving_saw_cleave_angles)
-			var/turf/turf = get_step(user_turf, turn(dir_to_target, i))
-			for(var/mob/living/living_target in turf)
-				if(user.Adjacent(living_target) && living_target.body_position != LYING_DOWN)
-					melee_attack_chain(user, living_target)
+			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
+			for(var/mob/living/L in T)
+				if(user.Adjacent(L) && L.density)
+					melee_attack_chain(user, L)
 		swiping = FALSE
 
 /*

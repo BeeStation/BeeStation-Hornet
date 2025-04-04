@@ -281,8 +281,6 @@
 		if(stacks >= stack_threshold && !threshold_crossed) //threshold_crossed check prevents threshold effect from occuring if changing from above threshold to still above threshold
 			threshold_crossed = TRUE
 			on_threshold_cross()
-			if(consumed_on_threshold)
-				return
 		else if(stacks < stack_threshold && threshold_crossed)
 			threshold_crossed = FALSE //resets threshold effect if we fall below threshold so threshold effect can trigger again
 			on_threshold_drop()
@@ -298,9 +296,8 @@
 		qdel(src) //deletes status if stacks fall under one
 
 /datum/status_effect/stacking/on_creation(mob/living/new_owner, stacks_to_apply)
-	. = ..()
-	if(.)
-		add_stacks(stacks_to_apply)
+	..()
+	src.add_stacks(stacks_to_apply)
 
 /datum/status_effect/stacking/on_apply()
 	if(!can_have_status())

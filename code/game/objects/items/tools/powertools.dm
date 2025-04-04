@@ -40,7 +40,7 @@
 /obj/item/powertool/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 
-	tool_behaviour = (active ? tool_act_on : tool_act_off)
+	tool_behaviour = (active ? tool_act_off : tool_act_on)
 	if(user)
 		balloon_alert(user, "attached [active ? "[action_off]" : "[action_on]"]")
 	playsound(user ? user : src, 'sound/items/change_jaws.ogg', 50, TRUE)
@@ -67,8 +67,8 @@
 
 	tool_act_off = TOOL_SCREWDRIVER
 	tool_act_on = TOOL_WRENCH
-	action_off = "bolt driver"
-	action_on = "screw driver"
+	action_off = "screw driver"
+	action_on = "bolt driver"
 
 /obj/item/powertool/hand_drill/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
@@ -94,8 +94,8 @@
 
 	tool_act_off = TOOL_CROWBAR
 	tool_act_on = TOOL_WIRECUTTER
-	action_on = "prying jaws"
-	action_off = "cutting jaws"
+	action_off = "prying jaws"
+	action_on = "cutting jaws"
 
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
