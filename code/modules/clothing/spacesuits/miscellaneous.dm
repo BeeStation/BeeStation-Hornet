@@ -205,7 +205,17 @@ Contains:
 	icon_state = "pirate"
 	item_state = "pirate"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/cup/glass/bottle/rum)
+	allowed = list(
+		/obj/item/gun,
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/melee/baton,
+		/obj/item/restraints/handcuffs,
+		/obj/item/tank/internals,
+		/obj/item/melee/energy/sword/pirate,
+		/obj/item/clothing/glasses/eyepatch,
+		/obj/item/reagent_containers/cup/glass/bottle/rum
+		)
 	slowdown = 0
 	armor_type = /datum/armor/space_pirate
 	strip_delay = 40

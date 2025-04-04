@@ -69,7 +69,7 @@
 	suit_type = /obj/item/clothing/suit/space/eva
 	helmet_type = /obj/item/clothing/head/helmet/space/eva
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps
+	storage_type = /obj/item/gps/off
 
 /obj/machinery/suit_storage_unit/captain
 	mask_type = /obj/item/clothing/mask/gas/sechailer
@@ -99,27 +99,27 @@
 /obj/machinery/suit_storage_unit/security
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type = /obj/item/clothing/mask/gas/sechailer
-	storage_type = /obj/item/gps/security
+	storage_type = /obj/item/gps/security/off
 
 /obj/machinery/suit_storage_unit/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer
-	storage_type = /obj/item/tank/internals/oxygen
+	storage_type = /obj/item/gps/security/off
 	mod_type = /obj/item/mod/control/pre_equipped/safeguard
 
 /obj/machinery/suit_storage_unit/mining
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
-	storage_type = /obj/item/gps/mining
+	storage_type = /obj/item/gps/mining/off
 
 /obj/machinery/suit_storage_unit/mining/eva
 	suit_type = /obj/item/clothing/suit/space/hardsuit/mining
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps/mining
+	storage_type = /obj/item/gps/mining/off
 
 /obj/machinery/suit_storage_unit/exploration
 	suit_type = /obj/item/clothing/suit/space/hardsuit/exploration
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps/mining/exploration
+	storage_type = /obj/item/gps/mining/exploration/off
 
 /obj/machinery/suit_storage_unit/medical
 	mask_type = /obj/item/clothing/mask/breath/medical
@@ -128,13 +128,13 @@
 
 /obj/machinery/suit_storage_unit/cmo
 	mask_type = /obj/item/clothing/mask/breath/medical
-	storage_type = /obj/item/tank/internals/oxygen
+	storage_type = /obj/item/gps/off
 	mod_type = /obj/item/mod/control/pre_equipped/rescue
 
 /obj/machinery/suit_storage_unit/rd
 	mask_type = /obj/item/clothing/mask/breath
 	mod_type = /obj/item/mod/control/pre_equipped/research
-	storage_type = /obj/item/gps
+	storage_type = /obj/item/gps/off
 
 /obj/machinery/suit_storage_unit/syndicate
 	mask_type = /obj/item/clothing/mask/gas/syndicate
@@ -152,7 +152,7 @@
 	helmet_type = /obj/item/clothing/head/helmet/space/hunter
 	suit_type = /obj/item/clothing/suit/space/hunter
 	mask_type = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/gps
+	storage_type = /obj/item/gps/off
 
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE

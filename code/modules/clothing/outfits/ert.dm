@@ -61,11 +61,10 @@
 
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	backpack_contents = list(
-		/obj/item/storage/box/survival/engineer=1,
-		)
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber
-	l_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
+	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
+		/obj/item/melee/baton/loaded=1,
+		/obj/item/gun/energy/pulse/pistol/loyalpin=1)
+	l_pocket = /obj/item/melee/energy/sword/saber/blue
 
 /datum/outfit/centcom/ert/security
 	name = "ERT Security"
@@ -478,7 +477,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	shoes = /obj/item/clothing/shoes/magboots/commando
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber
+	l_pocket = /obj/item/melee/energy/sword/saber
 	r_pocket = /obj/item/shield/energy
 	l_hand = /obj/item/gun/energy/pulse/loyalpin
 
