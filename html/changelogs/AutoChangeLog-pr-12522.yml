@@ -1,0 +1,8 @@
+author: Electronics
+delete-after: true
+changes:
+  - bugfix: Fixes the RBMK constantly increasing in heat and pressure
+  - bugfix: The RBMK no longer makes the entire station uninhabitable if the engineers
+      screw up
+  - balance: Rebalances the RBMK gas, heat, and power interactions to make them more
+      dependent on each other and generally more interesting to use
