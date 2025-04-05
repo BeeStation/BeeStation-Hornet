@@ -69,7 +69,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
-	AddComponent(/datum/component/ntnet_interface)
 
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)

@@ -23,9 +23,14 @@
 	var/netadmin_mode = FALSE		// Administrator mode (invisible to other users + bypasses passwords)
 	//A list of all the converstations we're a part of
 	var/list/datum/ntnet_conversation/conversations = list()
+	var/list/clients = list()
 
 /datum/computer_file/program/chatclient/New()
-	username = "DefaultUser[rand(100, 999)]"
+	. = ..()
+	change_name(computer?.saved_identification || "DefaultUser[rand(100, 999)]")
+	RegisterSignal(src, COMSIG_MODPC_PROGRAM_STATE_CHANGED, PROC_REF(state_change))
+	RegisterSignal(get_network_card(), COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
+	set_program_state(PROGRAM_STATE_BACKGROUND) // auto launches
 
 /datum/computer_file/program/chatclient/Destroy()
 	for(var/datum/ntnet_conversation/discussion as anything in conversations)
@@ -58,6 +63,9 @@
 				if(channel.password == message)
 					channel.add_client(src)
 					return TRUE
+				else
+					to_chat(usr, "<span class='warning'>ERROR: Incorrect password.</span>")
+					return
 
 			channel.add_message(message, username)
 			var/mob/living/user = usr
@@ -186,6 +194,19 @@
 			channel.ping_user(src, pinged)
 			return TRUE
 
+/datum/computer_file/program/chatclient/proc/change_name(newname)
+	newname = replacetext(newname, " ", "_")
+	if(!newname || newname == username)
+		return
+	if(OOC_FILTER_CHECK(newname))
+		to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in new username.</span>")
+		return
+	for(var/datum/ntnet_conversation/anychannel as anything in SSnetworks.station_network.chat_channels)
+		if(src in anychannel.active_clients)
+			anychannel.add_status_message("[username] is now known as [newname].")
+	username = newname
+	return TRUE
+
 /datum/computer_file/program/chatclient/process_tick()
 	. = ..()
 	var/datum/ntnet_conversation/channel = SSnetworks.station_network.get_chat_channel_by_id(active_channel)
@@ -282,3 +303,16 @@
 		data["messages"] = list()
 
 	return data
+
+// used to show if user is online/away/offline, also used to discover this program
+/datum/computer_file/program/chatclient/proc/state_change(datum/source, state)
+	SIGNAL_HANDLER
+	var/data = list()
+	data["type"] = "client_state_change"
+	data["state"] = state
+	ntnet_send(data)
+
+/datum/computer_file/program/chatclient/proc/ntnet_receive(datum/source, datum/netdata/data)
+	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+	to_chat(world, "NTNET_RECEIVE([src]) - source: [source] - receiver_id: [data.receiver_id] - sender_id: [data.sender_id] - hardware_id: [network_card.hardware_id] - identification_string: [network_card.identification_string] - data: [data.data]")
+

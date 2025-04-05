@@ -171,7 +171,7 @@
 				return
 
 			idle_threads.Add(active_program)
-			active_program.program_state = PROGRAM_STATE_BACKGROUND // Should close any existing UIs
+			active_program.set_program_state(PROGRAM_STATE_BACKGROUND) // Should close any existing UIs
 			active_program = null
 			if(ismob(usr))
 				ui_interact(usr) // Re-open the UI on this computer. It should show the main screen now.
