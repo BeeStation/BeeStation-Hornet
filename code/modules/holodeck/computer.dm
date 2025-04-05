@@ -73,11 +73,14 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	///every holo object created by the holodeck goes in here to track it
 	var/list/spawned = list()
 	var/list/effects = list() //like above, but for holo effects
+	var/list/from_spawner = list() // spawner-created atoms aren't working well for going into 'spawned' list
 
 	///TRUE if the holodeck is using extra power because of a program, FALSE otherwise
 	var/active = FALSE
 	///increases the holodeck cooldown if TRUE, causing the holodeck to take longer to allow loading new programs
 	var/damaged = FALSE
+	///TRUE if this is meant for debugging
+	var/debug_holodeck = FALSE
 
 	//creates the timer that determines if another program can be manually loaded
 	COOLDOWN_DECLARE(holodeck_cooldown)
@@ -210,7 +213,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 	if (add_delay)
 		COOLDOWN_START(src, holodeck_cooldown, (damaged ? HOLODECK_CD + HOLODECK_DMG_CD : HOLODECK_CD))
-		if (damaged && floorcheck())
+		if (!debug_holodeck && damaged && floorcheck())
 			damaged = FALSE
 
 	spawning_simulation = TRUE
@@ -248,8 +251,10 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 		say("Special note from \"1218 AD\" developer: I see you too are interested in the REAL dark ages of humanity! I've made this program also unlock some interesting shuttle designs on any communication console around. Have fun!")
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
-	nerf(!(obj_flags & EMAGGED))
+	if(!debug_holodeck)
+		nerf(!(obj_flags & EMAGGED))
 
+	spawned += from_spawner
 	for(var/atom/holo_atom as anything in spawned)
 		if(QDELETED(holo_atom))
 			spawned -= holo_atom
@@ -273,21 +278,25 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 		if(isobj(holo_atom))
 			var/obj/holo_object = holo_atom
-			holo_object.resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+			if(!debug_holodeck)
+				holo_object.resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 			if(isstructure(holo_object))
-				holo_object.flags_1 |= NODECONSTRUCT_1
+				if(!debug_holodeck)
+					holo_object.flags_1 |= NODECONSTRUCT_1
 				continue
 
 			if(ismachinery(holo_object))
 				var/obj/machinery/holo_machine = holo_object
-				holo_machine.flags_1 |= NODECONSTRUCT_1
+				if(!debug_holodeck)
+					holo_machine.flags_1 |= NODECONSTRUCT_1
 				holo_machine.power_change()
 
 				if(istype(holo_machine, /obj/machinery/button))
 					var/obj/machinery/button/holo_button = holo_machine
 					holo_button.setup_device()
 
+	from_spawner.Cut()
 	spawning_simulation = FALSE
 
 ///this qdels holoitems that should no longer exist for whatever reason
@@ -312,13 +321,13 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	UnregisterSignal(to_remove, COMSIG_PARENT_PREQDELETED)
 
 /obj/machinery/computer/holodeck/process(delta_time=2)
-	if(damaged && DT_PROB(10, delta_time))
+	if(!debug_holodeck && damaged && DT_PROB(10, delta_time))
 		for(var/turf/holo_turf in linked)
 			if(DT_PROB(5, delta_time))
 				do_sparks(2, 1, holo_turf)
 				return
 	. = ..()
-	if(!. || program == offline_program)//we dont need to scan the holodeck if the holodeck is offline
+	if(!. || program == offline_program || debug_holodeck)//we dont need to scan the holodeck if the holodeck is offline
 		return
 
 	if(!floorcheck()) //if any turfs in the floor of the holodeck are broken
@@ -369,6 +378,8 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 ///returns TRUE if all floors of the holodeck are present, returns FALSE if any are broken or removed
 /obj/machinery/computer/holodeck/proc/floorcheck()
+	if(debug_holodeck)
+		return TRUE
 	for(var/turf/holo_floor in linked)
 		if (is_type_in_typecache(holo_floor, GLOB.typecache_holodeck_linked_floorcheck_ok))
 			continue
@@ -429,6 +440,23 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 /obj/machinery/computer/holodeck/small/LateInitialize()
 	..()
+
+// ---------------------------------------------
+//                DEBUG Holodeck
+// ---------------------------------------------
+/obj/machinery/computer/holodeck/debug
+	name = "CentCom holodeck console"
+	desc = "This seems to be a proof of a suspicion that our shifts are not real... Nevermind, I was joking."
+	debug_holodeck = TRUE
+
+	mapped_start_area = /area/holodeck/debug
+	program_type = /datum/map_template/holodeck/debug
+	offline_program = "debug-offline"
+	req_access = list(ACCESS_CENT_GENERAL)
+
+	idle_power_usage = 0
+	active_power_usage = 0
+
 
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD
