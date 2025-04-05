@@ -1,0 +1,9 @@
+author: TwiggyJrr, ClownMoff
+delete-after: true
+changes:
+  - rscadd: Adds coconut seeds to megaseed vendor
+  - rscadd: Adds a new coconut cup for a more tropical themed cup at the bar.
+  - rscadd: Adds coconut flesh, a new food item, upon processing of the coconut with
+      a hatchet/sharp object.
+  - tweak: changes the bahama mama and pina colada recipe to use coconut milk instead
+      of "creme de coconut"
