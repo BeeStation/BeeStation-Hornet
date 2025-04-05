@@ -91,67 +91,78 @@
 	flora_density = 40
 	flora_x_offset = 8
 	flora_y_offset = 8
-//	turf_type = /turf/open/floor/plating/asteroid/snow
+//	turf_type = /turf/open/floor/plating/dirt/grass
 	flora_types = list(
-		/obj/structure/flora/tree/dead,
-		/obj/structure/flora/grass/brown,
-		/obj/structure/flora/grass/green,
-		/obj/structure/flora/grass/both,
-		/obj/structure/flora/stump,
-		/obj/structure/flora/rock/pile/icy,
-		/obj/structure/flora/bush,
-		/obj/effect/decal/cleanable/generic
+		/obj/structure/flora/tree/palm,
+		/obj/structure/flora/ausbushes/fullgrass,
+		/obj/structure/flora/ausbushes/sparsegrass,
+		/obj/structure/flora/ausbushes/lavendergrass,
+		/obj/structure/flora/ausbushes/ywflowers,
+		/obj/structure/flora/rock/jungle,
+		/obj/structure/flora/rock/pile
 	)
 
 /datum/biome/grasslush
-	flora_density = 50
-	fauna_density = 1
+	flora_density = 90
+	fauna_density = 5
 	flora_x_offset = 8
 	flora_y_offset = 8
-//	turf_type = /turf/open/floor/plating/asteroid/snow/ice
+//	turf_type = /turf/open/floor/plating/dirt/planetary
 	flora_types = list(
-		/obj/structure/flora/tree/pine,
-		/obj/structure/flora/tree/dead,
-		/obj/structure/flora/tree/pine/xmas,
-		/obj/structure/flora/grass/brown,
-		/obj/structure/flora/grass/green,
-		/obj/structure/flora/grass/both,
-		/obj/structure/flora/rock/pile/icy,
-		/obj/structure/flora/bush,
-		/obj/item/toy/snowball
+		/obj/structure/flora/tree/jungle/small,
+		/obj/structure/flora/tree/jungle,
+		/obj/structure/flora/junglebush/large,
+		/obj/structure/flora/grass/jungle/b,
+		/obj/structure/flora/ausbushes/fernybush,
+		/obj/structure/flora/ausbushes/palebush,
+		/obj/structure/flora/grass/jungle,
+		/obj/structure/flora/junglebush,
+		/obj/structure/flora/ausbushes/brflowers,
+		/obj/structure/flora/ausbushes/grassybush,
+		/obj/structure/flora/junglebush/b,
+		/obj/structure/flora/junglebush/c,
+		/obj/structure/flora/ausbushes/ppflowers,
+		/obj/structure/flora/rock,
+		/obj/structure/flora/rock/jungle,
+		/obj/structure/flora/rock/pile,
+		/obj/structure/flora/rock/pile/largejungle
 	)
 	fauna_types = list(
 		/mob/living/simple_animal/crab,
-		/mob/living/simple_animal/hostile/tree,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+		/mob/living/simple_animal/butterfly,
+		/mob/living/simple_animal/chicken/rabbit/easter, //it's currently spring
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/sloth,
+		/mob/living/carbon/monkey
 	)
 
 /datum/biome/grassclearing
-	flora_density = 30
+	flora_density = 60
 	flora_x_offset = 8
 	flora_y_offset = 8
-//	turf_type = /turf/open/floor/plating/asteroid/snow
+//	turf_type = /turf/open/floor/plating/dirt/grass
 	flora_types = list(
-		/obj/structure/flora/tree/pine,
-		/obj/structure/flora/tree/dead,
-		/obj/structure/flora/grass/brown,
-		/obj/structure/flora/grass/green,
-		/obj/structure/flora/grass/both,
-		/obj/structure/flora/rock/pile/icy,
-		/obj/structure/flora/bush,
-		/obj/item/toy/snowball
+		/obj/structure/flora/grass/jungle/b,
+		/obj/structure/flora/ausbushes/fernybush,
+		/obj/structure/flora/ausbushes/palebush,
+		/obj/structure/flora/grass/jungle,
+		/obj/structure/flora/ausbushes/brflowers,
+		/obj/structure/flora/ausbushes/ppflowers,
+		/obj/structure/flora/rock,
+		/obj/structure/flora/rock/jungle,
+		/obj/structure/flora/rock/pile,
+		/obj/structure/flora/rock/pile/largejungle
 	)
 
 /datum/biome/sand
-	flora_density = 20
+	flora_density = 3
 	flora_x_offset = 8
 	flora_y_offset = 8
-//	turf_type = /turf/open/floor/plating/asteroid/snow/ice
+//	turf_type = /turf/open/floor/plating/beach/sand
 	flora_types = list(
 		/obj/structure/flora/tree/palm,
-		/obj/structure/flora/rock/pile/icy,
-		/obj/structure/flora/bush,
-		/obj/effect/overlay/coconut,
-		/obj/structure/flora/rock/pile,
-		/obj/item/toy/snowball
+		/obj/structure/flora/ausbushes/sparsegrass,
+		/obj/structure/flora/ausbushes/lavendergrass,
+		/obj/structure/flora/ausbushes/ywflowers,
+		/obj/effect/overlay/coconut
 	)
