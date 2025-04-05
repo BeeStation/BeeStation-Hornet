@@ -26,7 +26,7 @@
 	for(var/datum/mind/M as() in team.members)
 		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
 		if(R)
-			R.objectives -= src
+			R.remove_objective(src)
 			to_chat(M.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 			M.announce_objectives()
 	qdel(src)

@@ -42427,7 +42427,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -59557,7 +59556,6 @@
 /area/science/server)
 "nje" = (
 /obj/effect/landmark/blobstart,
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 4
 	},
@@ -62479,6 +62477,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "ocd" = (
@@ -67330,7 +67329,6 @@
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "pJI" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 1
 	},

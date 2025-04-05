@@ -21,6 +21,8 @@
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
 	var/abductor_surgery_blacklist = FALSE
+	/// If true, it must be performed by a surgeon
+	var/required_trait = null
 	//Blacklisted surgeries aren't innately known by Abductor Scientists
 	//However, they can still be used by them if they meet the normal requirements to access the surgery
 
@@ -48,11 +50,6 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
-		if(replaced_by)
-			return FALSE
-		else
-			return TRUE
 	//Grants the user innate access to all surgeries
 
 	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
@@ -61,6 +58,9 @@
 		else if(!abductor_surgery_blacklist)
 			return TRUE
 	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
+
+	if (required_trait && !HAS_TRAIT(user, required_trait) && (!user.mind || !HAS_TRAIT(user.mind, required_trait)))
+		return FALSE
 
 	if(!requires_tech && !replaced_by)
 		return TRUE
@@ -79,7 +79,7 @@
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT)
 		if(!isnull(IMP))
 			if(replaced_by in IMP.advanced_surgeries)
 				return FALSE
@@ -144,6 +144,7 @@
 /datum/surgery/advanced
 	name = "advanced surgery"
 	requires_tech = TRUE
+	required_trait = TRAIT_SURGEON
 
 /datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())

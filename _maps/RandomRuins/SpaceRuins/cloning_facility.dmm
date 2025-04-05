@@ -241,7 +241,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "Pw" = (
-/obj/machinery/computer/cloning/prototype,
+/obj/machinery/computer/cloning,
 /obj/machinery/light{
 	dir = 1
 	},
