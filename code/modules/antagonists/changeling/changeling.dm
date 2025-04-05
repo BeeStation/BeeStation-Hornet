@@ -320,7 +320,7 @@
 			prof.name_list[slot] = I.name
 			prof.appearance_list[slot] = I.appearance
 			prof.flags_cover_list[slot] = I.flags_cover
-			prof.item_state_list[slot] = I.item_state
+			prof.inhand_icon_state_list[slot] = I.inhand_icon_state
 			prof.lefthand_file_list[slot] = I.lefthand_file
 			prof.righthand_file_list[slot] = I.righthand_file
 			prof.worn_icon_list[slot] = I.worn_icon
@@ -546,7 +546,7 @@
 	var/list/appearance_list = list()
 	var/list/flags_cover_list = list()
 	var/list/exists_list = list()
-	var/list/item_state_list = list()
+	var/list/inhand_icon_state_list = list()
 	var/list/lefthand_file_list = list()
 	var/list/righthand_file_list = list()
 	var/list/worn_icon_list = list()
@@ -573,7 +573,7 @@
 	newprofile.appearance_list = appearance_list.Copy()
 	newprofile.flags_cover_list = flags_cover_list.Copy()
 	newprofile.exists_list = exists_list.Copy()
-	newprofile.item_state_list = item_state_list.Copy()
+	newprofile.inhand_icon_state_list = inhand_icon_state_list.Copy()
 	newprofile.lefthand_file_list = lefthand_file_list.Copy()
 	newprofile.righthand_file_list = righthand_file_list.Copy()
 	newprofile.worn_icon_list = worn_icon_list.Copy()

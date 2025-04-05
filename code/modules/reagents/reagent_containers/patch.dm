@@ -3,7 +3,7 @@
 	desc = "A chemical patch for touch based applications."
 	icon = 'icons/obj/medicine_containers.dmi'
 	icon_state = "bandaid_small_cross"
-	item_state = "bandaid_small_cross"
+	inhand_icon_state = "bandaid_small_cross"
 	volume = 40
 	apply_type = PATCH
 	apply_method = "apply"
