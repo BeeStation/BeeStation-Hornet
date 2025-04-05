@@ -220,7 +220,7 @@ It remains quite flush against the wall, and there only seems to be enough room 
 	can_hack_open = FALSE
 	armor_type = /datum/armor/safe_caps_spare
 	max_integrity = 300
-	color = "#ffdd33"
+	icon_state = "safe_spare_id"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 
