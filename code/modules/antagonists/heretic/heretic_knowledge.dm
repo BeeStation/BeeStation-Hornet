@@ -258,7 +258,7 @@
 		if(!istype(carbon_to_check, /mob/living/carbon/human))
 			continue
 		var/mob/living/carbon/human/human_to_check = carbon_to_check
-		if(fingerprints[md5(human_to_check.dna.uni_identity)])
+		if(fingerprints[md5(human_to_check.dna.unique_identity)])
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 
