@@ -9,7 +9,7 @@
 		/datum/reagent/consumable/ice = 5,
 		/obj/item/food/icecream = 1
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/strawberryicecreamsandwich
 	name = "Strawberry ice cream sandwich"
@@ -19,7 +19,7 @@
 		/datum/reagent/consumable/ice = 5,
 		/obj/item/food/grown/berries = 2,
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/spacefreezy
 	name ="Space freezy"
@@ -29,7 +29,7 @@
 		/datum/reagent/consumable/spacemountainwind = 15,
 		/obj/item/food/icecream = 1
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/sundae
 	name ="Sundae"
@@ -40,7 +40,7 @@
 		/obj/item/food/grown/banana = 1,
 		/obj/item/food/icecream = 1
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/honkdae
 	name ="Honkdae"
@@ -52,7 +52,7 @@
 		/obj/item/food/grown/banana = 2,
 		/obj/item/food/icecream = 1
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 //////////////////////////SNOW CONES///////////////////////
 
@@ -63,7 +63,7 @@
 		/obj/item/reagent_containers/cup/glass/sillycup = 1,
 		/datum/reagent/consumable/ice = 15
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/pineapple_sc
 	name = "Pineapple snowcone"
@@ -73,7 +73,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/pineapplejuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/lime_sc
 	name = "Lime snowcone"
@@ -83,7 +83,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/limejuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/lemon_sc
 	name = "Lemon snowcone"
@@ -93,7 +93,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/lemonjuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/apple_sc
 	name = "Apple snowcone"
@@ -103,7 +103,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/applejuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/grape_sc
 	name = "Grape snowcone"
@@ -113,7 +113,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/berryjuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/orange_sc
 	name = "Orange snowcone"
@@ -123,7 +123,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/orangejuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/blue_sc
 	name = "Bluecherry snowcone"
@@ -133,7 +133,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/bluecherryjelly= 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/red_sc
 	name = "Cherry snowcone"
@@ -143,7 +143,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/cherryjelly= 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/berry_sc
 	name = "Berry snowcone"
@@ -153,7 +153,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/berryjuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/fruitsalad_sc
 	name = "Fruit Salad snowcone"
@@ -166,7 +166,7 @@
 		/datum/reagent/consumable/limejuice = 5,
 		/datum/reagent/consumable/lemonjuice = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/mime_sc
 	name = "Mime snowcone"
@@ -176,7 +176,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/nothing = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/clown_sc
 	name = "Clown snowcone"
@@ -186,7 +186,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/laughter = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/soda_sc
 	name = "Space Cola snowcone"
@@ -196,7 +196,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/space_cola = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/spacemountainwind_sc
 	name = "Space Mountain Wind snowcone"
@@ -206,7 +206,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/spacemountainwind = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/pwrgame_sc
 	name = "Pwrgame snowcone"
@@ -216,7 +216,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/pwr_game = 15
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/honey_sc
 	name = "Honey snowcone"
@@ -226,7 +226,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/honey = 5
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE
 
 /datum/crafting_recipe/food/rainbow_sc
 	name = "Rainbow snowcone"
@@ -236,4 +236,4 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/colorful_reagent = 1 //Harder to make
 	)
-	subcategory = CAT_ICE
+	category = CAT_ICE

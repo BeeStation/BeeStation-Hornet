@@ -15795,7 +15795,7 @@
 	pixel_x = 1;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -23407,7 +23407,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 5;
 	pixel_y = 1
 	},

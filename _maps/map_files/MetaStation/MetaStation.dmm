@@ -53124,7 +53124,7 @@
 /obj/structure/desk_bell{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 1
 	},

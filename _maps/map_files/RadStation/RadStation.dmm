@@ -6531,7 +6531,7 @@
 /area/engine/atmos)
 "cey" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 1
 	},
@@ -35907,7 +35907,7 @@
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -44561,7 +44561,7 @@
 	pixel_x = -7;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -8;
 	pixel_y = 10
 	},
@@ -53806,7 +53806,7 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "rge" = (
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 3;
 	pixel_y = 12
 	},
@@ -58648,7 +58648,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 7;
 	pixel_y = 1
 	},
@@ -62161,7 +62161,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 2;
 	pixel_y = 9
 	},

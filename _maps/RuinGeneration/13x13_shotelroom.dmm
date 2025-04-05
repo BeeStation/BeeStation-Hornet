@@ -221,7 +221,7 @@
 	pixel_y = -1
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -8;
 	pixel_y = -1
 	},
