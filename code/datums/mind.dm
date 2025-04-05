@@ -712,6 +712,12 @@
 	add_antag_datum(head)
 	special_role = ROLE_REV_HEAD
 
+/datum/mind/proc/make_vampire(datum/mind/creator)
+	if(!has_antag_datum(/datum/antagonist/vampire))
+		special_role = ROLE_VAMPIRE
+		assigned_role = ROLE_VAMPIRE
+		add_antag_datum(/datum/antagonist/vampire)
+
 /datum/mind/proc/owns_soul()
 	return soulOwner == src
 

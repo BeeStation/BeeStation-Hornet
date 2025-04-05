@@ -23,7 +23,7 @@
 			continue
 		if(!(MOB_ORGANIC in H.mob_biotypes))
 			continue
-		if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
+		if(!H.get_organ_slot(ORGAN_SLOT_ZOMBIE))
 			var/obj/item/organ/zombie_infection/ZI = new()
 			ZI.Insert(H)
 		announce_to_ghosts(H)
