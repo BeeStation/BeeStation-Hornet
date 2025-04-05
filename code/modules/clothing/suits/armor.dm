@@ -72,27 +72,6 @@
 	acid = 50
 	stamina = 40
 
-/obj/item/clothing/suit/armor/vest/corporate
-	name = "corporate Jacket"
-	desc = "A Stylish Corporate Jacket which also provides Protection."
-	icon_state = "secjacket"
-	item_state = "secjacket"
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/vest_corporate
-	slowdown = 0.02
-
-
-/datum/armor/vest_corporate
-	melee = 25
-	bullet = 25
-	laser = 25
-	energy = 35
-	bomb = 20
-	fire = 45
-	acid = 45
-	stamina = 30
-	bleed = 20
-
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
 	desc = "A greatcoat enhanced with a special alloy for some extra protection and style for those with a commanding presence."
