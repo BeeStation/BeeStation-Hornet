@@ -294,6 +294,11 @@
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
 
+/obj/item/organ/tongue/robot/cat
+	name = "cursed robotic voicebox"
+	desc = "A voice synthesizer that can interface with organic lifeforms. Sounds feline."
+	say_mod = "robotically meows"
+
 /obj/item/organ/tongue/robot/get_possible_languages()
 	return ..() + /datum/language/machine + /datum/language/voltaic
 
@@ -360,6 +365,7 @@
 	say_mod = "meows"
 	disliked_food = GROSS | VEGETABLES | SUGAR | CLOTH
 	liked_food = DAIRY | MEAT | GORE
+
 
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
