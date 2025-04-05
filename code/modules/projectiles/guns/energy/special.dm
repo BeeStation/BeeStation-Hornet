@@ -246,7 +246,7 @@
 			if(istype(WH))
 				WH.gun = WEAKREF(src)
 
-/obj/item/gun/energy/wormhole_projector/process_chamber()
+/obj/item/gun/energy/wormhole_projector/on_chamber_fired()
 	..()
 	select_fire()
 
