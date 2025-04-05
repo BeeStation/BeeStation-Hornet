@@ -195,7 +195,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined."
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
-			to_chat(GLOB.admins, span_boldannounce("[msg]"))
+			to_chat(GLOB.admins, span_boldannounce(msg))
 			log_world(msg)
 
 	if (istype(Master.subsystems))
@@ -264,7 +264,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 
 	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, span_boldannounce("[msg]"))
+	to_chat(world, span_boldannounce(msg))
 	log_world(msg)
 
 	// Set world options.
@@ -348,7 +348,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			chat_warning = TRUE
 
 	var/message = "[message_prefix] [seconds] second[seconds == 1 ? "" : "s"]!"
-	var/chat_message = chat_warning ? span_boldwarning("[message]") : span_announce("[message]")
+	var/chat_message = chat_warning ? span_boldwarning(message) : span_announce(message)
 
 	to_chat(world, chat_message)
 	log_world(message)

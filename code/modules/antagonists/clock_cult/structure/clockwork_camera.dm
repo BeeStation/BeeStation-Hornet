@@ -33,7 +33,7 @@
 		to_chat(owner, "[span_sevtugsmall("You cannot warp into dense objects.")]")
 		return
 	if(!AR.clockwork_warp_allowed)
-		to_chat(owner, "[span_sevtugsmall("[AR.clockwork_warp_fail]")]")
+		to_chat(owner, "[span_sevtugsmall(AR.clockwork_warp_fail)]")
 		return
 	do_sparks(5, TRUE, get_turf(cam))
 	warping = TRUE
