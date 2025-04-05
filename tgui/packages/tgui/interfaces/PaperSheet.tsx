@@ -617,7 +617,7 @@ export class PreviewView extends Component<PreviewViewProps> {
 
   // Wraps the given raw text in a font span based on the supplied props.
   setFontInText = (text: string, font: string, color: string, bold: boolean = false): string => {
-    return `<span style={{color:${color};font-family:${font};${bold ? 'font-weight: bold;' : ''}}}>${text}</span>`;
+    return `<span style="color:${color};font-family:${font};${bold ? 'font-weight: bold;' : ''}">${text}</span>`;
   };
 
   // Parses the given raw text through marked for applying markdown.
@@ -882,7 +882,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     const { scrollableRef, handleOnScroll } = this.props;
 
     return (
-      <Section fill fitted scrollable scrollableRef={scrollableRef} onScroll={handleOnScroll}>
+      <Section fill fitted scrollable ref={scrollableRef} onScroll={handleOnScroll}>
         <Box
           fillPositionedParent
           position="relative"
