@@ -8,7 +8,6 @@
 	light_color = LIGHT_COLOR_PINK
 	var/extracting = FALSE
 	var/obj/item/radio/radio
-	var/radio_channel = RADIO_CHANNEL_COMMAND
 	var/timerid
 
 /obj/machinery/computer/robotics/Initialize(mapload)
@@ -25,9 +24,9 @@
 	return ..()
 
 /obj/machinery/computer/robotics/proc/extraction(mob/user)
-	var/obj/item/paper/P = new /obj/item/paper(loc)
-	P.name = "Silicon Upload key"
-	P.add_raw_text("Current Upload key is: [GLOB.upload_code]")
+	var/obj/item/paper/paper = new /obj/item/paper(loc)
+	paper.name = "Silicon Upload key"
+	paper.add_raw_text("Current Upload key is: [GLOB.upload_code]")
 	extracting = FALSE
 	ui_update()
 
@@ -182,7 +181,7 @@
 				src.timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), 300, TIMER_STOPPABLE)
 			else
 				var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
-				radio.talk_into(src, message, radio_channel)
+				radio.talk_into(src, message)
 				src.timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), 600, TIMER_STOPPABLE)
 
 
