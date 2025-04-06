@@ -31,7 +31,6 @@
 		"Rimshot" = "selected_sound=sound/effects/rimshot.ogg&shiftpitch=1&volume=65",
 		"Trombone" = "selected_sound=sound/misc/sadtrombone.ogg&shiftpitch=1&volume=50",
 		"Airhorn" = "selected_sound=sound/items/airhorn.ogg&shiftpitch=1&volume=50",
-		"Tator" = "selected_sound=sound/ambience/antag/tatoralert.ogg&shiftpitch=0&volume=80",
 		"Hiss" = "selected_sound=sound/voice/hiss4.ogg&shiftpitch=0&volume=80",
 		"Tick" = "selected_sound=sound/items/timer.ogg&shiftpitch=0&volume=80",
 		"Primed" = "selected_sound=sound/weapons/armbomb.ogg&shiftpitch=0&volume=80",
