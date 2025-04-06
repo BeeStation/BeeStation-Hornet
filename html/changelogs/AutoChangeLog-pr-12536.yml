@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: fixed an exploit with swarmer replication so they can no longer generate
-      infinite resources
-  - tweak: tweaked the description of swarmer shells so it is better communicated
-      to players that the shells can be deactivated with a screwdriver
