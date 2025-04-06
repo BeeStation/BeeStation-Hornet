@@ -331,6 +331,7 @@
 	icon_state = "cig_paper_pack"
 	base_icon_state = "cig_paper_pack"
 	contents_tag = "rolling paper"
+	spawn_count = 10
 	spawn_type = /obj/item/rollingpaper
 	custom_price = PAYCHECK_LOWER
 	has_open_closed_states = FALSE

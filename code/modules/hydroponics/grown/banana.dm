@@ -36,7 +36,7 @@
 		peel.juice_typepath = /datum/reagent/medicine/coagulant/banana_peel
 */
 
-/obj/item/food/grown/banana/suicide_act(mob/user)
+/obj/item/food/grown/banana/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
