@@ -138,7 +138,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/machinery/door/airlock/centcom)),
 
 		"robots"   = typecacheof(list(
-			/obj/machinery/computer/upload, /obj/item/aiModule/, /obj/machinery/recharge_station,
+			/obj/machinery/computer/upload, /obj/item/ai_module/, /obj/machinery/recharge_station,
 			/obj/item/aicard, /obj/item/deactivated_swarmer, /obj/effect/mob_spawn/swarmer)),
 
 		"doctors"   = typecacheof(list(

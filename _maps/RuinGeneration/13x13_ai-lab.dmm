@@ -310,7 +310,7 @@
 /area/ruin/unpowered)
 "Pw" = (
 /obj/structure/table/glass,
-/obj/item/aiModule/core/full/damaged{
+/obj/item/ai_module/core/full/damaged{
 	pixel_x = 5;
 	pixel_y = 5
 	},

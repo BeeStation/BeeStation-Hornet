@@ -529,8 +529,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/datum/round_event/ion_storm/add_law_only/ion = new()
 	ion.announceChance = announce_ion_laws
-	ion.ionMessage = input
-	ion.lawsource = "Admin fuckery by [key_name(usr)]"
+	ion.ion_message = input
+	ion.law_source = "Admin fuckery by [key_name(usr)]"
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

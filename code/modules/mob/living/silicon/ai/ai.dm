@@ -10,7 +10,6 @@
 				subject.attack_ai(M)
 	return is_in_use
 
-
 /mob/living/silicon/ai
 	name = JOB_NAME_AI
 	real_name = JOB_NAME_AI
@@ -910,10 +909,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(malf_picker)
 		stack_trace("Attempted to give malf AI malf picker to \[[src]\], who already has a malf picker.")
 		return
+
 	malf_picker = new /datum/module_picker
-	if(!IS_MALF_AI(src)) //antagonists have their modules built into their antag info panel. this is for adminbus and the combat upgrade
-		modules_action = new(malf_picker)
-		modules_action.Grant(src)
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...

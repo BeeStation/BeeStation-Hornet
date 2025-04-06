@@ -17,7 +17,7 @@ export const MalfunctionModulePicker = (props) => {
         id: item.name,
         name: item.name,
         category: category.name,
-        cost: `${item.cost} PT`,
+        cost: item.cost,
         desc: item.desc,
         disabled: processingTime < item.cost,
       });
@@ -30,7 +30,8 @@ export const MalfunctionModulePicker = (props) => {
         <GenericUplink
           categories={categoriesList}
           items={items}
-          currencyAmount={`${processingTime} PT`}
+          currencyAmount={processingTime}
+          currencySymbol="PT"
           handleBuy={(item) => act('buy', { name: item.name })}
         />
       </Window.Content>

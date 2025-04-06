@@ -500,8 +500,8 @@
 				log_attack("[key_name(user)] deconstructed [name] at [AREACOORD(src)].")
 				deconstruct()
 
-	else if(istype(W, /obj/item/aiModule))
-		var/obj/item/aiModule/MOD = W
+	else if(istype(W, /obj/item/ai_module))
+		var/obj/item/ai_module/MOD = W
 		if(!opened)
 			to_chat(user, span_warning("You need access to the robot's insides to do that!"))
 			return

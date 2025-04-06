@@ -41,7 +41,7 @@
 	belt = /obj/item/storage/belt/security/full
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/aiModule/core/full/ert=1)
+		/obj/item/ai_module/core/full/ert=1)
 	l_pocket = /obj/item/switchblade
 	r_pocket = /obj/item/door_remote/omni
 
@@ -207,7 +207,7 @@
 	l_hand = /obj/item/nullrod/scythe/talking/chainsword
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
-		/obj/item/aiModule/core/full/ert=1,
+		/obj/item/ai_module/core/full/ert=1,
 		/obj/item/door_remote/omni=1)
 
 /datum/outfit/centcom/ert/security/inquisitor
@@ -495,7 +495,7 @@
 /datum/outfit/centcom/death_commando/officer
 	name = "Death Commando Officer"
 	head = /obj/item/clothing/head/helmet/space/beret
-	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
+	backpack_contents = list(/obj/item/ai_module/core/full/deathsquad=1,\
 		/obj/item/ammo_box/a357=1,\
 		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
