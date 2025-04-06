@@ -852,6 +852,15 @@
 	. = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
+/atom/proc/update_inhand_icon(mob/target = loc)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!istype(target))
+		return
+
+	target.update_inv_hands()
+
+	//SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_INHAND_ICON, target)
+
 /// Handles updates to greyscale value updates.
 /// The colors argument can be either a list or the full color string.
 /// Child procs should call parent last so the update happens after all changes.
