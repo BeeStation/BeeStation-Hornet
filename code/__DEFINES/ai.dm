@@ -197,6 +197,9 @@
 ///Current partner target
 #define BB_BABIES_TARGET "BB_babies_target"
 
+///List of mobs who have damaged us
+#define BB_BASIC_MOB_RETALIATE_LIST "BB_basic_mob_shitlist"
+
 // AI laws
 #define LAW_VALENTINES "valentines"
 #define LAW_ZEROTH "zeroth"
