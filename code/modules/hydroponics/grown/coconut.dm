@@ -36,12 +36,12 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 
 	// Creates 5 coconut flesh when processed
 	for(var/i = 1 to 5)
-		var/obj/item/food/coconutflesh/flesh = new /obj/item/food/coconutflesh(user.loc)
+		var/obj/item/food/coconutflesh/flesh = new /obj/item/food/coconutflesh(get_turf(user))
 		flesh.pixel_x = rand(-5, 5) // Randomises the positioning of the flesh so it isn't all lumped on top of each other
 		flesh.pixel_y = rand(-5, 5)
 
 	// Creates the coconut cup alongside the coconut flesh
-	var/obj/item/reagent_containers/cup/coconutcup/cup = new /obj/item/reagent_containers/cup/coconutcup(user.loc)
+	var/obj/item/reagent_containers/cup/coconutcup/cup = new /obj/item/reagent_containers/cup/coconutcup(get_turf(user))
 	// Transfers the reagents from the plant to liquid form inside the cup
 	if(reagents && reagents.total_volume > 0)
 		reagents.trans_to(cup.reagents, reagents.total_volume)
