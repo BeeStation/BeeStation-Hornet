@@ -1,6 +1,0 @@
-author: beelover, jlsnow301, 00-Steven
-delete-after: true
-changes:
-  - bugfix: Stamps can be placed anywhere on a paper sheet again
-  - bugfix: The type of pencil used when writing on a sheet affects the font and color
-      of the result again
