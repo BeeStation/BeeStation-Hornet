@@ -145,14 +145,14 @@
 	law_id = "yesman"
 
 /obj/item/ai_module/core/full/thinkermov
-	name = "Sentience Preservation Core AI Module"
+	name = "'Sentience Preservation' Core AI Module"
 	law_id = "thinkermov"
 
 /obj/item/ai_module/core/full/ert
-	name = "ERT Override Core AI Module"
+	name = "'ERT Override' Core AI Module"
 	law_id = "ert"
 
 /obj/item/ai_module/core/full/deathsquad
-	name = "Deathsquad Override Core AI Module"
+	name = "'Deathsquad Override' Core AI Module"
 	law_id = "deathsquad"
 
