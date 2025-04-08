@@ -19,7 +19,7 @@
 	SIGNAL_HANDLER
 
 	//Trait check - This is different from an anti artifact check and should be done here to avoid activations, this trait is a helper essentially
-	if(target && HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
+	if(isatom(target) && HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
 		return FALSE
 	//Stop traits that don't register targets activating when we feel them
 	if(component_parent?.anti_check(target, type))

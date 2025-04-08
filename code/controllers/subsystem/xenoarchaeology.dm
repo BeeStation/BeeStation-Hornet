@@ -40,7 +40,6 @@ SUBSYSTEM_DEF(xenoarchaeology)
 	var/list/discovered_traits = list()
 
 /datum/controller/subsystem/xenoarchaeology/Initialize(timeofday)
-	. = ..()
 //Poplate seller & artifact personalities
 	xenoa_seller_names = world.file2list("strings/names/science_seller.txt")
 	xenoa_seller_dialogue = world.file2list("strings/science_dialogue.txt")

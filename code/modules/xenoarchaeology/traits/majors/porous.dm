@@ -43,9 +43,13 @@
 		return
 	var/turf/T = get_turf(component_parent.parent)
 	var/datum/gas_mixture/air = T.return_air()
+	if(!air)
+		return
 	var/input_id = initial(choosen_target.id)
 	var/output_id = initial(choosen_exchange.id)
 	var/moles = min(air.total_moles(input_id), max_moles)
+	if(!input_id || !output_id || !moles)
+		return
 	SET_MOLES(input_id, air, -moles)
 	SET_MOLES(output_id, air, moles)
 

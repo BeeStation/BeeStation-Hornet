@@ -368,6 +368,8 @@
 	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
 
 /datum/component/xenoartifact/proc/anti_check(atom/target, activation_type = XENOA_ACTIVATION_CONTACT)
+	if(!isatom(target))
+		return
 	var/mob/M = target
 	var/slot = ~ITEM_SLOT_GLOVES
 	//Throw you custom clothing block logic here
