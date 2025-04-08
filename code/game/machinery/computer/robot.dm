@@ -80,7 +80,7 @@
 			locked_down = robot.lockcharge,
 			status = robot.stat,
 			charge = robot.cell ? round(robot.cell.percent()) : null,
-			module = robot.module ? "[robot.module.name] Module" : "No Module Detected",
+			module = robot.model ? "[robot.model.name] Model" : "No Model Detected",
 			synchronization = robot.connected_ai,
 			emagged =  robot.emagged,
 			ref = REF(robot)

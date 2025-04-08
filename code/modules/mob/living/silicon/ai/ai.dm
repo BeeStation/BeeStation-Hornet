@@ -292,12 +292,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 				robot_status = "OFFLINE"
 			else if(!R.cell || R.cell.charge <= 0)
 				robot_status = "DEPOWERED"
-			//Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+			//Name, Health, Battery, Model, Area, and Status! Everything an AI wants to know about its borgies!
 			index++
 			tab_data["[R.name] (Connection [index])"] = list(
 				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
-					Module: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]",
-				type=STAT_TEXT)
+					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]", type = STAT_TEXT)
 		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")

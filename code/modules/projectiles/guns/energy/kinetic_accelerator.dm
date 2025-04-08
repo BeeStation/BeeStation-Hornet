@@ -200,9 +200,9 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-	require_module = 1
-	module_type = list(/obj/item/robot_module/miner)
-	module_flags = BORG_MODULE_MINER
+	require_model = TRUE
+	model_type = list(/obj/item/robot_model/miner)
+	model_flags = BORG_MODEL_MINER
 	///Should be the type path of mods in the same group
 	var/restricted_mod_type = null
 	///Only used if restricted_mod_type is defined. How many mods of this type are allowed?
@@ -222,11 +222,11 @@
 	else
 		..()
 
-/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/robot)
 	. = ..()
-	if (.)
-		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/H in R.module.modules)
-			return install(H, usr, FALSE)
+	if(.)
+		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/kinetic_accelerator in robot.model.modules)
+			return install(kinetic_accelerator, usr, FALSE)
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/recharge/kinetic_accelerator/KA, mob/user, transfer_to_loc = TRUE)
 	. = TRUE
@@ -254,11 +254,11 @@
 		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar or right click with an empty hand to remove existing modkits.</span>")
 		. = FALSE
 
-/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
-	if (.)
-		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/KA in R.module.modules)
-			uninstall(KA)
+	if(.)
+		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/kinetic_accelerator in robot.model.modules)
+			uninstall(kinetic_accelerator)
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.modkits -= src
