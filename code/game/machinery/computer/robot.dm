@@ -8,7 +8,6 @@
 	light_color = LIGHT_COLOR_PINK
 	var/extracting = FALSE
 	var/obj/item/radio/radio
-	var/radio_channel = RADIO_CHANNEL_COMMAND
 	var/timerid
 
 /obj/machinery/computer/robotics/Initialize(mapload)
@@ -25,9 +24,9 @@
 	return ..()
 
 /obj/machinery/computer/robotics/proc/extraction(mob/user)
-	var/obj/item/paper/P = new /obj/item/paper(loc)
-	P.name = "Silicon Upload key"
-	P.add_raw_text("Current Upload key is: [GLOB.upload_code]")
+	var/obj/item/paper/paper = new /obj/item/paper(loc)
+	paper.name = "Silicon Upload key"
+	paper.add_raw_text("Current Upload key is: [GLOB.upload_code]")
 	extracting = FALSE
 	ui_update()
 
@@ -182,11 +181,20 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
 			extracting = TRUE
 			ui_update()
+
+			var/time = 60 SECONDS
 			if(allowed(usr))
 				say("Credentials successfully verified, commencing extraction.")
-				src.timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), 300, TIMER_STOPPABLE)
+				time = 30 SECONDS
 			else
-				var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
-				radio.talk_into(src, message, radio_channel)
-				src.timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), 600, TIMER_STOPPABLE)
+				radio.talk_into(src, "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]")
 
+			timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), time, TIMER_STOPPABLE)
+
+			// Alert silicons
+			for(var/mob/player in GLOB.player_list)
+				if(player.binarycheck())
+					var/message = span_srtradiobinarysay("Robotic Talk, \the [span_name(name)] states, \
+						an upload key is being extracted at [get_area_name(loc, TRUE)] \
+						and will be finished in [time / (1 SECONDS)] seconds.")
+					to_chat(player, message)
