@@ -218,3 +218,40 @@ GLOBAL_LIST_INIT(all_radial_directions, list(
 	"WEST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = WEST),
 	"NORTHWEST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTHWEST)
 ))
+
+///Tipped blackboards
+///Bool that means a basic mob will start reacting to being tipped in its planning
+#define BB_BASIC_MOB_TIP_REACTING "BB_basic_tip_reacting"
+///the motherfucker who tipped us
+#define BB_BASIC_MOB_TIPPER "BB_basic_tip_tipper"
+
+///list of foods this mob likes
+#define BB_BASIC_FOODS "BB_basic_foods"
+
+//cat AI keys
+/// key that holds the target we will battle over our turf
+#define BB_TRESSPASSER_TARGET "tresspasser_target"
+/// key that holds angry meows
+#define BB_HOSTILE_MEOWS "hostile_meows"
+/// key that holds the mouse target
+#define BB_MOUSE_TARGET "mouse_target"
+/// key that holds our dinner target
+#define BB_CAT_FOOD_TARGET "cat_food_target"
+/// key that holds the food we must deliver
+#define BB_FOOD_TO_DELIVER "food_to_deliver"
+/// key that holds things we can hunt
+#define BB_HUNTABLE_PREY "huntable_prey"
+/// key that holds target kitten to feed
+#define BB_KITTEN_TO_FEED "kitten_to_feed"
+/// key that holds our hungry meows
+#define BB_HUNGRY_MEOW "hungry_meows"
+/// key that holds maximum distance food is to us so we can pursue it
+#define BB_MAX_DISTANCE_TO_FOOD "max_distance_to_food"
+/// key that holds the stove we must turn off
+#define BB_STOVE_TARGET "stove_target"
+/// key that holds the donut we will decorate
+#define BB_DONUT_TARGET "donut_target"
+/// key that holds our home...
+#define BB_CAT_HOME "cat_home"
+/// key that holds the human we will beg
+#define BB_HUMAN_BEG_TARGET "human_beg_target"
