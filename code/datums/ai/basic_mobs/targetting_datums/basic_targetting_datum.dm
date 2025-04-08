@@ -28,13 +28,12 @@
 	if(living_mob.see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return FALSE
 
-	if(living_mob.get_virtual_z_level() != the_target.get_virtual_z_level())
+	if(isturf(the_target.loc) && living_mob.get_virtual_z_level() != the_target.get_virtual_z_level()) // z check will always fail if target is in a mech
 		return FALSE
 
 	if(isliving(the_target)) //Targetting vs living mobs
 		var/mob/living/L = the_target
-		var/faction_check = living_mob.faction_check_mob(L, exact_match = check_factions_exactly)
-		if(faction_check || L.stat)
+		if(faction_check(living_mob, L) || L.stat)
 			return FALSE
 		return TRUE
 
@@ -53,4 +52,15 @@
 			return FALSE
 		return TRUE
 
+	return FALSE
+
+/// Returns true if the mob and target share factions
+/datum/targetting_datum/basic/proc/faction_check(mob/living/living_mob, mob/living/the_target)
+	return living_mob.faction_check_mob(the_target, exact_match = check_factions_exactly)
+
+/// Subtype which doesn't care about faction
+/// Mobs which retaliate but don't otherwise target seek should just attack anything which annoys them
+/datum/targetting_datum/basic/ignore_faction
+
+/datum/targetting_datum/basic/ignore_faction/faction_check(mob/living/living_mob, mob/living/the_target)
 	return FALSE
