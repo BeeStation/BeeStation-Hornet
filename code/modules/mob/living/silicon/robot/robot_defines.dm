@@ -151,10 +151,6 @@
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
 
-
-/***************************************************************************************
- *                          Defining specific kinds of robots
- ***************************************************************************************/
 ///This is the subtype that gets created by robot suits. It's needed so that those kind of borgs don't have a useless cell in them
 /mob/living/silicon/robot/nocell
 	cell = null
@@ -165,7 +161,7 @@
 /mob/living/silicon/robot/model
 	var/set_model = /obj/item/robot_model
 
-/mob/living/silicon/robot/model/Initialize()
+/mob/living/silicon/robot/model/Initialize(mapload)
 	. = ..()
 	model.transform_to(set_model)
 
