@@ -175,7 +175,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The chance that holding this item will block attacks.
 	var/block_level = 0
 	//does the item block better if walking?
-	var/block_upgrade_walk = 0
+	var/block_upgrade_walk = FALSE
 	//blocking flags
 	var/block_flags = BLOCKING_ACTIVE
 	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
@@ -744,7 +744,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// Remove any item actions we temporary gave out.
 	for(var/datum/action/action_item_has as anything in actions)
 		action_item_has.Remove(user)
-		
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)

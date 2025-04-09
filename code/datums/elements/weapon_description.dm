@@ -59,6 +59,11 @@
 	if(href_list["examine"])
 		to_chat(user, span_notice(examine_block("[build_label_text(source)]")))
 
+//Some readouts are coded competently to go from 0-100.
+//Others are zeskocode. What's considered a very good block in normal people terms is a 0.75x in zeskocode.
+//This is a multiplier to make the readouts less shit
+#define OUTPUT_MODIFIER 1.5
+
 /**
  *
  * Compiles a warning label detailing various statistics of the examined weapon
@@ -96,13 +101,13 @@
 		if(source.block_level || source.block_upgrade_walk)
 			//empty line
 			readout += ""
-			if(source.block_upgrade_walk == 1 && !source.block_level)
+			if(source.block_upgrade_walk && !source.block_level)
 				readout += "While walking, it can block attacks in a <b>narrow</b> arc."
 			else
-				readout += "It can block attacks in a [span_warning("[weapon_tag_convert(source.block_upgrade_walk + source.block_level)]")] arc."
+				readout += "It can block attacks in a [span_warning("[weapon_tag_convert(source.block_upgrade_walk + source.block_level * OUTPUT_MODIFIER)]")] arc."
 				if(source.block_upgrade_walk)
 					readout += "It is [span_warning("less")] effective at blocking while the user is [span_warning("running")]."
-			readout += "It has [span_warning("[weapon_tag_convert(source.block_power)]")] blocking ability."
+			readout += "It has [span_warning("[weapon_tag_convert((source.block_power * OUTPUT_MODIFIER))]")] blocking ability."
 
 	// Custom manual notes
 	if(source.offensive_notes)
@@ -114,6 +119,8 @@
 
 	// Finally bringing the fields together
 	return readout.Join("\n")
+
+#undef OUTPUT_MODIFIER
 
 /**
  *
