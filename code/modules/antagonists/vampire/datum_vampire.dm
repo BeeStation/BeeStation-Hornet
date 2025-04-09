@@ -455,7 +455,7 @@
 	user_eyes?.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	user.update_sight()
 
-/datum/antagonist/vampire/proc/claim_coffin(obj/structure/closet/crate/claimed, area/current_area)
+/datum/antagonist/vampire/proc/claim_coffin(obj/structure/closet/crate/claimed)
 	// ALREADY CLAIMED
 	if(claimed.resident)
 		if(claimed.resident == owner.current)
@@ -463,12 +463,13 @@
 		else
 			to_chat(owner, "This [src] has already been claimed by another.")
 		return FALSE
-	if(!(GLOB.the_station_areas.Find(current_area.type)))
+	var/area/coffin_area = get_area(claimed)
+	if(!GLOB.the_station_areas.Find(coffin_area.type))
 		claimed.balloon_alert(owner.current, "not part of station!")
 		return
 	// This is my Lair
 	coffin = claimed
-	vampire_lair_area = current_area
+	vampire_lair_area = coffin_area
 	to_chat(owner, span_userdanger("You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
 	return TRUE
 

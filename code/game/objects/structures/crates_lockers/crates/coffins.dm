@@ -122,9 +122,9 @@
 	acid = 60
 
 /// NOTE: This can be any coffin that you are resting AND inside of.
-/obj/structure/closet/crate/coffin/proc/claim_coffin(mob/living/claimer, area/current_area)
+/obj/structure/closet/crate/coffin/proc/claim_coffin(mob/living/claimer)
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(claimer)
-	if(vampiredatum.claim_coffin(src, current_area))
+	if(vampiredatum.claim_coffin(src))
 		resident = claimer
 		anchored = TRUE
 		START_PROCESSING(SSprocessing, src)
@@ -171,6 +171,7 @@
 	for(var/obj/structure/vampire/vampire_structure in get_area(src))
 		if(vampire_structure.owner == resident)
 			vampire_structure.unbolt()
+
 	if(manual)
 		to_chat(resident, span_cultitalic("You have unclaimed your coffin! This also unclaims all your other Vampire structures!"))
 	else
@@ -201,11 +202,10 @@
 		var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 		if(!vampiredatum)
 			return FALSE
-		var/area/current_area = get_area(src)
 		if(!vampiredatum.coffin && !resident)
-			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [current_area] will be your lair.", "Claim Lair", list("Yes", "No")))
+			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [get_area(src)] will be your lair.", "Claim Lair", list("Yes", "No")))
 				if("Yes")
-					claim_coffin(user, current_area)
+					claim_coffin(user)
 				if("No")
 					return
 		LockMe(user)
@@ -217,7 +217,6 @@
 			vampiredatum.spend_rank()
 		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the oppertunity to do so.
 		vampiredatum.check_begin_torpor()
-	return TRUE
 
 /// You cannot weld or deconstruct an owned coffin. Only the owner can destroy their own coffin.
 /obj/structure/closet/crate/coffin/attackby(obj/item/item, mob/user, params)
