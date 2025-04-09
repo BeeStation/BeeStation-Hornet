@@ -621,7 +621,7 @@
 	ret |= contents //add our contents
 	for(var/i in ret.Copy()) //iterate storage objects
 		var/atom/A = i
-		A.atom_storage.return_inv(ret)
+		A.atom_storage?.return_inv(ret)
 	for(var/obj/item/folder/F in ret.Copy())		//very snowflakey-ly iterate folders
 		ret |= F.contents
 	return ret
