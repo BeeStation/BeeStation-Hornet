@@ -50,7 +50,7 @@
 	if(!target_name || !user.is_holding(src))
 		return
 	laws.Cut()
-	var/datum/ai_laws/asimovpp/lawset = new
+	var/datum/ai_laws/default/asimovpp/lawset = new
 	subject = target_name
 	for (var/law in lawset.inherent)
 		laws += replacetext(replacetext(law, "human being", subject), "human", subject)
