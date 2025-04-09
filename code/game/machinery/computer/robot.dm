@@ -170,8 +170,8 @@
 					robot.investigate_log("has been gibbed by a robotics console.", INVESTIGATE_DEATHS)
 					robot.gib()
 		if("extract")
-			var/turf/currentloc = get_turf(usr)
-			if(!is_station_level(currentloc.z))
+			var/area/current_area = get_area(src)
+			if(!GLOB.the_station_areas.Find(current_area.type))
 				say("Unable to establish a connection to station.")
 				return
 
