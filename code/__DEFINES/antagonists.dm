@@ -103,11 +103,6 @@
 #define LOG_SPELL_TYPE "type"
 #define LOG_SPELL_AMOUNT "amount"
 
-
-
-/// How much does it cost to reroll strains?
-#define BLOB_REROLL_COST 40
-
 /// How many telecrystals a normal traitor starts with
 #define TELECRYSTALS_DEFAULT 20
 /// How many telecrystals mapper/admin only "precharged" uplink implant

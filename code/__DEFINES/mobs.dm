@@ -45,6 +45,9 @@
 
 #define AMOUNT_TO_BLEED_INTENSITY(x) ((x) ** 0.3333)
 
+/// How efficiently humans regenerate blood.
+#define BLOOD_REGEN_FACTOR 0.25
+
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
 #define MOB_SIZE_SMALL 1
@@ -128,18 +131,18 @@
 
 // Health/damage defines for carbon mobs
 #define HUMAN_MAX_OXYLOSS 3
-#define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
+#define HUMAN_CRIT_MAX_OXYLOSS (SSMOBS_DT/3)
 
 #define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
 #define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
 
-#define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //! Amount of damage applied when your body temperature passes the 460K point and you are on fire
+#define HEAT_DAMAGE_LEVEL_1 1 //Amount of damage applied when your body temperature just passes the 360.15k safety point
+#define HEAT_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 400K point
+#define HEAT_DAMAGE_LEVEL_3 4 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
 
-#define COLD_DAMAGE_LEVEL_1 0.5 //! Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 1.5 //! Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 3 //! Amount of damage applied when your body temperature passes the 120K point
+#define COLD_DAMAGE_LEVEL_1 0.25 //Amount of damage applied when your body temperature just passes the 260.15k safety point
+#define COLD_DAMAGE_LEVEL_2 0.75 //Amount of damage applied when your body temperature passes the 200K point
+#define COLD_DAMAGE_LEVEL_3 1.5 //Amount of damage applied when your body temperature passes the 120K point
 
 //Note that gas heat damage is only applied once every FOUR ticks.
 #define HEAT_GAS_DAMAGE_LEVEL_1 2 //! Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
@@ -392,9 +395,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
-#define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
-#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
+#define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
+#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
 // Roundstart trait system
 

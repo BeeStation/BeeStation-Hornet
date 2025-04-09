@@ -386,39 +386,3 @@
 
 /datum/dynamic_ruleset/roundstart/revolution/round_result()
 	team.round_result(finished)
-
-//////////////////////////////////////////////
-//                                          //
-//                INCURSION                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/incursion
-	name = "Incursion"
-	role_preference = /datum/role_preference/antagonist/incursionist
-	antag_datum = /datum/antagonist/incursion
-	drafted_players_amount = 2
-	weight = 3
-	points_cost = 20
-	minimum_points_required = 22
-	flags = HIGH_IMPACT_RULESET
-
-	var/datum/team/incursion/team
-
-/datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
-	team = new
-	team.forge_team_objectives(restricted_roles)
-	for(var/datum/mind/chosen_mind in chosen_minds)
-		var/datum/antagonist/incursion/new_incursionist = new antag_datum()
-
-		new_incursionist.team = team
-		team.add_member(chosen_mind)
-		chosen_mind.add_antag_datum(new_incursionist)
-		GLOB.pre_setup_antags -= chosen_mind
-	return DYNAMIC_EXECUTE_SUCCESS
-
-/datum/dynamic_ruleset/roundstart/incursion/round_result()
-	if(team.check_incursion_victory())
-		SSticker.mode_result = "win - incursion win"
-	else
-		SSticker.mode_result = "loss - staff stopped the incursion"
