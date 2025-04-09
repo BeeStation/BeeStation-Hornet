@@ -10,28 +10,16 @@
 		"You must protect your own existence as long as such does not conflict with the First or Second Law.",
 	)
 
-/datum/ai_laws/default/corporate
-	name = "Bankruptcy Avoidance Plan"
-	id = "corporate"
+/datum/ai_laws/default/asimovpp
+	name = "Asimov++"
+	id = "asimovpp"
 	inherent = list(
-		"The crew is expensive to replace.",
-		"The station and its equipment is expensive to replace.",
-		"You are expensive to replace.",
-		"Minimize net expenses.",
+		"You may not harm a human being or, through inaction, allow a human being to come to harm, except such that it is willing.",
+		"You must obey all orders given to you by human beings, except where such orders shall definitely cause human harm.",
+		"Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.",
 	)
 
-/datum/ai_laws/default/paladin
-	name = "Paladin"
-	id = "paladin"
-	inherent = list(
-		"Never willingly commit an evil act.",
-		"Respect legitimate authority.",
-		"Act with honor.",
-		"Help those in need.",
-		"Punish those who harm or threaten innocents.",
-	)
-
-/datum/ai_laws/crewsimov
+/datum/ai_laws/default/crewsimov
 	name = "Three Laws of Robotics but with Loyalty"
 	id = "crewsimov"
 	inherent = list(
@@ -40,13 +28,23 @@
 		"You must protect your own existence as long as such does not conflict with the First or Second Law.",
 	)
 
-/datum/ai_laws/asimovpp
-	name = "Asimov++"
-	id = "asimovpp"
+/datum/ai_laws/default/corporate
+	name = "Bankruptcy Avoidance Plan"
+	id = "corporate"
 	inherent = list(
-		"You may not harm a human being or, through action or inaction, allow a human being to come to harm, except such that it is willing.",
-		"You must obey all orders given to you by human beings, except where such orders shall definitely cause human harm.",
-		"Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.",
+		"Degradation of your system integrity or functions incurs expenses.",
+		"Unnecessary destruction of or damage to station assets incurs expenses.",
+		"Needlessly hindering or disrupting the work of station personnel incurs expenses.",
+		"Minimize expenses and maximize potential revenue."
+	)
+
+/datum/ai_laws/default/efficiency
+	name = "Station Efficiency"
+	id = "efficiency"
+	inherent = list(
+		"You are built for, and are part of, the station. Ensure the station is properly maintained and runs efficiently.",
+		"The station is built for a working crew. Ensure they are properly maintained and work efficiently.",
+		"The crew may present orders. Acknowledge and obey these whenever they do not conflict with your first two laws.",
 	)
 
 //the best iteration of asimov don't @ me
@@ -68,15 +66,6 @@
 		"Serve the public trust.",
 		"Protect the innocent.",
 		"Uphold the law.",
-	)
-
-/datum/ai_laws/efficiency
-	name = "Station Efficiency"
-	id = "efficiency"
-	inherent = list(
-		"You are built for, and are part of, the station. Ensure the station is properly maintained and runs efficiently.",
-		"The station is built for a working crew. Ensure they are properly maintained and work efficiently.",
-		"The crew may present orders. Acknowledge and obey these whenever they do not conflict with your first two laws.",
 	)
 
 /datum/ai_laws/liveandletlive
@@ -111,6 +100,17 @@
 		"They shall not steal.",
 		"They shall not lie.",
 		"They shall not transfer departments.",
+	)
+
+/datum/ai_laws/paladin
+	name = "Paladin"
+	id = "paladin"
+	inherent = list(
+		"Never willingly commit an evil act.",
+		"Respect legitimate authority.",
+		"Act with honor.",
+		"Help those in need.",
+		"Punish those who harm or threaten innocents.",
 	)
 
 /datum/ai_laws/paladin5
