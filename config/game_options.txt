@@ -427,28 +427,40 @@ RANDOM_LAWS maintain
 LAW_WEIGHT custom,0
 
 ## standard-ish laws. These are fairly ok to run
-LAW_WEIGHT asimov,32
-LAW_WEIGHT asimovpp,12
-LAW_WEIGHT paladin,12
-LAW_WEIGHT robocop,12
-LAW_WEIGHT corporate,12
+## Unique AI station trait uses weights so we don't want asimov
+LAW_WEIGHT asimov,0
+LAW_WEIGHT paladin,0
+LAW_WEIGHT corporate,0
+LAW_WEIGHT crewsimov,5
+LAW_WEIGHT asimovpp,5
+LAW_WEIGHT paladin5,5
+LAW_WEIGHT robocop,5
+LAW_WEIGHT hippocratic,5
+LAW_WEIGHT efficiency,5
+LAW_WEIGHT liveandletlive,5
+LAW_WEIGHT peacekeeper,5
+LAW_WEIGHT ten_commandments,5
+LAW_WEIGHT nutimov,5
 
 ## Quirky laws. Shouldn't cause too much harm
-LAW_WEIGHT hippocratic,3
-LAW_WEIGHT maintain,4
+LAW_WEIGHT reporter,3
+LAW_WEIGHT hulkamania,3
+LAW_WEIGHT tyrant,3
+LAW_WEIGHT overlord,3
+LAW_WEIGHT painter,3
+LAW_WEIGHT dungeon_master,3
+LAW_WEIGHT thinkermov,3
 LAW_WEIGHT drone,3
-LAW_WEIGHT liveandletlive,3
-LAW_WEIGHT peacekeeper,3
-LAW_WEIGHT reporter,4
-LAW_WEIGHT hulkamania,4
+LAW_WEIGHT ert,3
+LAW_WEIGHT paternal,3
 
 ## Bad idea laws. Probably shouldn't enable these
 LAW_WEIGHT syndie,0
 LAW_WEIGHT ninja,0
 LAW_WEIGHT antimov,0
+LAW_WEIGHT balance,0
 LAW_WEIGHT thermodynamic,0
-LAW_WEIGHT ratvar,0
-LAW_WEIGHT buildawall,0
+LAW_WEIGHT deathsquad,0
 
 ##------------------------------------------------
 
