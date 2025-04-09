@@ -102,6 +102,12 @@
 		if(isliving(user))
 			playsound(src, 'sound/machines/closet_open.ogg', 30, 1, -3)
 
+/obj/structure/wall_closet/attack_robot(mob/user)
+	if(!Adjacent(user))
+		return
+	ui_interact(user)
+	return
+
 /obj/structure/wall_closet/ui_data(mob/user)
 	var/list/data = list()
 	data["color"] = theme_color
@@ -111,6 +117,8 @@
 /obj/structure/wall_closet/ui_act(action, params, datum/tgui/ui)
 	. = ..()
 	if(.)
+		return
+	if(istype(usr, /mob/living/silicon))
 		return
 	switch(action)
 		if("ItemClick")
