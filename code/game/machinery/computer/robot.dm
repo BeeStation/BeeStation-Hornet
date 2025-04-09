@@ -195,6 +195,6 @@
 			for(var/mob/player in GLOB.player_list)
 				if(player.binarycheck())
 					var/message = span_srtradiobinarysay("Robotic Talk, \the [span_name(name)] states, \
-						an upload key is being extracted at [get_area_name(loc, TRUE)] \
+						An upload key is being extracted at [get_area_name(loc, TRUE)] \
 						and will be finished in [time / (1 SECONDS)] seconds.")
 					to_chat(player, message)
