@@ -359,71 +359,73 @@
 			if (istype(thing, /obj/item/clothing))
 				compare_to = thing
 				break
+		to_chat(usr, examine_block("[generate_armor_readout(compare_to)]"))
 
-		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
+/obj/item/clothing/proc/generate_armor_readout(obj/item/clothing/compare_to)
+	var/list/readout = list(span_notice("<u><b>PROTECTION CLASSES</b></u>"))
 
-		var/datum/armor/armor = get_armor()
-		var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
+	var/datum/armor/armor = get_armor()
+	var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
 
-		var/added_damage_header = FALSE
-		for(var/damage_key in ARMOR_LIST_DAMAGE)
-			var/rating = armor.get_rating(damage_key)
-			var/compare_rating = compare_armor ? compare_armor.get_rating(damage_key) : null
-			if(!rating && !compare_rating)
-				continue
-			if(!added_damage_header)
-				readout += "\n<b>ARMOR (I-X)</b>"
-				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, compare_rating)]"
+	var/added_damage_header = FALSE
+	for(var/damage_key in ARMOR_LIST_DAMAGE)
+		var/rating = armor.get_rating(damage_key)
+		var/compare_rating = compare_armor ? compare_armor.get_rating(damage_key) : null
+		if(!rating && !compare_rating)
+			continue
+		if(!added_damage_header)
+			readout += "\n<b>ARMOR (I-X)</b>"
+			added_damage_header = TRUE
+		readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, compare_rating)]"
 
-		var/added_durability_header = FALSE
-		for(var/durability_key in ARMOR_LIST_DURABILITY)
-			var/rating = armor.get_rating(durability_key)
-			var/compare_rating = compare_armor ? compare_armor.get_rating(durability_key) : null
-			if(!rating && !compare_rating)
-				continue
-			if(!added_durability_header)
-				readout += "\n<b>DURABILITY (I-X)</b>"
-				added_durability_header = TRUE
-			readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
+	var/added_durability_header = FALSE
+	for(var/durability_key in ARMOR_LIST_DURABILITY)
+		var/rating = armor.get_rating(durability_key)
+		var/compare_rating = compare_armor ? compare_armor.get_rating(durability_key) : null
+		if(!rating && !compare_rating)
+			continue
+		if(!added_durability_header)
+			readout += "\n<b>DURABILITY (I-X)</b>"
+			added_durability_header = TRUE
+		readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
 
+	if(flags_cover & HEADCOVERSMOUTH)
+		var/list/things_blocked = list()
 		if(flags_cover & HEADCOVERSMOUTH)
-			var/list/things_blocked = list()
-			if(flags_cover & HEADCOVERSMOUTH)
-				things_blocked += span_tooltip("Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing facehuggers.", "facehuggers")
-			if(length(things_blocked))
-				readout += "<br /><b>COVERAGE</b>"
-				readout += "\nIt will block [english_list(things_blocked)]."
+			things_blocked += span_tooltip("Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing facehuggers.", "facehuggers")
+		if(length(things_blocked))
+			readout += "<br /><b>COVERAGE</b>"
+			readout += "\nIt will block [english_list(things_blocked)]."
 
-		if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
-			var/list/parts_covered = list()
-			var/output_string = "It"
-			if(!(clothing_flags & STOPSPRESSUREDAMAGE))
-				output_string = "When sealed, it"
-			if(body_parts_covered & HEAD)
-				parts_covered += "head"
-			if(body_parts_covered & CHEST)
-				parts_covered += "torso"
-			if(length(parts_covered)) // Just in case someone makes spaceproof gloves or something
-				readout += "\n[output_string] will protect the wearer's [english_list(parts_covered)] from [span_tooltip("The extremely low pressure is the biggest danger posed by the vacuum of space.", "low pressure")]."
+	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		var/list/parts_covered = list()
+		var/output_string = "It"
+		if(!(clothing_flags & STOPSPRESSUREDAMAGE))
+			output_string = "When sealed, it"
+		if(body_parts_covered & HEAD)
+			parts_covered += "head"
+		if(body_parts_covered & CHEST)
+			parts_covered += "torso"
+		if(length(parts_covered)) // Just in case someone makes spaceproof gloves or something
+			readout += "\n[output_string] will protect the wearer's [english_list(parts_covered)] from [span_tooltip("The extremely low pressure is the biggest danger posed by the vacuum of space.", "low pressure")]."
 
-		var/heat_prot
-		switch (max_heat_protection_temperature)
-			if (400 to 1000)
-				heat_prot = "minor"
-			if (1001 to 1600)
-				heat_prot = "some"
-			if (1601 to 35000)
-				heat_prot = "extreme"
-		if (heat_prot)
-			. += "[src] offers the wearer [heat_protection] protection from heat, up to [max_heat_protection_temperature] kelvin."
+	var/heat_prot
+	switch (max_heat_protection_temperature)
+		if (400 to 1000)
+			heat_prot = "minor"
+		if (1001 to 1600)
+			heat_prot = "some"
+		if (1601 to 35000)
+			heat_prot = "extreme"
+	if (heat_prot)
+		. += "[src] offers the wearer [heat_protection] protection from heat, up to [max_heat_protection_temperature] kelvin."
 
-		if(min_cold_protection_temperature)
-			readout += "\nIt will insulate the wearer from [min_cold_protection_temperature <= SPACE_SUIT_MIN_TEMP_PROTECT ? span_tooltip("While not as dangerous as the lack of pressure, the extremely low temperature of space is also a hazard.", "the cold of space, down to [min_cold_protection_temperature] kelvin") : "cold, down to [min_cold_protection_temperature] kelvin"]."
+	if(min_cold_protection_temperature)
+		readout += "\nIt will insulate the wearer from [min_cold_protection_temperature <= SPACE_SUIT_MIN_TEMP_PROTECT ? span_tooltip("While not as dangerous as the lack of pressure, the extremely low temperature of space is also a hazard.", "the cold of space, down to [min_cold_protection_temperature] kelvin") : "cold, down to [min_cold_protection_temperature] kelvin"]."
 
-		readout += "</span>"
+	readout += "</span>"
 
-		to_chat(usr, examine_block("[readout.Join()]"))
+	return readout.Join()
 
 /**
  * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
