@@ -362,7 +362,7 @@
 		to_chat(usr, examine_block("[generate_armor_readout(compare_to)]"))
 
 /obj/item/clothing/proc/generate_armor_readout(obj/item/clothing/compare_to)
-	var/list/readout = list(span_notice("<u><b>PROTECTION CLASSES</b></u>"))
+	var/list/readout = list(span_notice("<u><b>PROTECTION CLASSES</u></b>"))
 
 	var/datum/armor/armor = get_armor()
 	var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
