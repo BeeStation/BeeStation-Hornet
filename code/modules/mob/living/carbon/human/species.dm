@@ -2469,8 +2469,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if((left_leg && !left_leg.bodypart_disabled) || (right_leg && !right_leg.bodypart_disabled))
 		if(HAS_TRAIT(H, TRAIT_CATROBATICS) && levels == 1)
 			// Nailed it!
-			H.visible_message("<span class='notice'>[H] lands elegantly on [H.p_their()] feet!</span>",
-				"<span class='warning'>You fall [levels] level\s into [T], perfecting the landing!</span>")
+			H.visible_message(
+				span_notice("[H] lands elegantly on [H.p_their()] feet!"),
+				span_warning("You fall [levels] level\s onto [T], perfecting the landing!")
+			)
 			H.Stun(35)
 			return
 
