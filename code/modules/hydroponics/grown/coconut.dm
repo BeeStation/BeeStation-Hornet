@@ -27,6 +27,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 4
+	var/max_volume = 100
 
 // Use a knife/sharp object to process the coconut
 /obj/item/grown/coconut/attackby(obj/item/W, mob/user, params)
@@ -43,9 +44,9 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	if(reagents && reagents.total_volume > 0)
 		if(reagents.has_reagent(/datum/reagent/consumable/coconutmilk)) // Remove coconut milk
 			var/datum/reagent/reg = reagents.get_reagent(/datum/reagent/consumable/coconutmilk)
+			revised_regredients.del_reagent(/datum/reagent/consumable/coconutmilk)
 			revised_regredients.add_reagent(/datum/reagent/consumable/nutriment/vitamin, reg.volume / 4)
 			revised_regredients.add_reagent(/datum/reagent/consumable/nutriment, reg.volume / 2)
-			revised_regredients.del_reagent(/datum/reagent/consumable/coconutmilk)
 
 	// Defaults to creating 1 coconut flesh when processed
 	var/part_amount = 1
