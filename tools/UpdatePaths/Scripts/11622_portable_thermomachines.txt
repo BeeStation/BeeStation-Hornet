@@ -1,0 +1,2 @@
+/obj/machinery/space_heater : /obj/machinery/portable_thermomachine {@OLD}
+

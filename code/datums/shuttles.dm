@@ -536,6 +536,11 @@
 	Definitely high quality meat, nothin' wrong with it, nothin' added, definitely no zombifyin' reagents!"
 	admin_notes = "Meat currently contains no zombifying reagents, lizard on meatspike must be spawned in."
 
+/datum/map_template/shuttle/ferry/standard
+	suffix = "standard"
+	name = "standard nanotrasen ferry"
+	description = "The standard Nanotrasen ERT Ferry, comes with everything you need to assist the station!"
+
 /datum/map_template/shuttle/ferry/lighthouse
 	suffix = "lighthouse"
 	name = "The Lighthouse(?)"
@@ -565,11 +570,11 @@
 
 /datum/map_template/shuttle/whiteship/pubby
 	suffix = "pubby"
-	name = "NT White UFO"
+	name = "NT Personal Trader"
 
 /datum/map_template/shuttle/whiteship/cere
 	suffix = "cere"
-	name = "NT Construction Vessel"
+	name = "Syndicate Probe Ship"
 
 /datum/map_template/shuttle/whiteship/delta
 	suffix = "delta"

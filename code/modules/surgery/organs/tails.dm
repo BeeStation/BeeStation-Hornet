@@ -3,6 +3,7 @@
 /obj/item/organ/tail
 	name = "tail"
 	desc = "A severed tail. What did you cut this off of?"
+	visual = TRUE
 	icon_state = "severedtail"
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_TAIL
@@ -21,6 +22,8 @@
 	name = "cat tail"
 	desc = "A severed cat tail. Who's wagging now?"
 	tail_type = "Cat"
+
+	organ_traits = list(TRAIT_CATROBATICS)
 
 /obj/item/organ/tail/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	..()

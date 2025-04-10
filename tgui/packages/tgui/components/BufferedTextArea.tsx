@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { TextArea } from './TextArea';
 
 const DEFAULT_UPDATE_INTERVAL = 4000;
@@ -18,7 +18,7 @@ interface BufferedTextAreaPropsUnique {
 type BufferedTextAreaProps = BufferedTextAreaPropsUnique & Record<string, unknown>;
 
 export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedTextAreaState> {
-  bufferTimer: NodeJS.Timer;
+  bufferTimer: NodeJS.Timeout;
   state = {
     bufferedText: this.props.value || '',
     textChanged: false,

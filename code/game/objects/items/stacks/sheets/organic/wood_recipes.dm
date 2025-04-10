@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	new/datum/stack_recipe("wooden crate",							/obj/structure/closet/crate/wooden, 6, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),\
 	new/datum/stack_recipe("baseball bat",							/obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),\
 	new/datum/stack_recipe("loom",									/obj/structure/loom, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-	new/datum/stack_recipe("mortar",								/obj/item/reagent_containers/glass/mortar, 3), \
+	new/datum/stack_recipe("mortar",								/obj/item/reagent_containers/cup/mortar, 3), \
 	new/datum/stack_recipe("firebrand",								/obj/item/match/firebrand, 2, time = 10 SECONDS), \
 	null, \
 	new/datum/stack_recipe_list("pews", list(

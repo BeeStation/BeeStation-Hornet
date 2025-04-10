@@ -15,7 +15,7 @@
 	else if(A.loc)
 		abstract_move(get_turf(A))
 
-/mob/dead/observer/ClickOn(var/atom/A, var/params)
+/mob/dead/observer/ClickOn(atom/A, params)
 	if(check_click_intercept(params,A))
 		return
 
@@ -50,7 +50,10 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
-		if(user.gas_scan && atmosanalyzer_scan(user, src))
+		if(user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
+			return TRUE
+		//additional arguments are here due to how extrapolators work
+		if(user.virus_scan && virusscan(user, src, 10, 10, list()))
 			return TRUE
 		else if(IsAdminGhost(user))
 			attack_ai(user)
@@ -59,28 +62,32 @@
 	return FALSE
 
 /mob/living/attack_ghost(mob/dead/observer/user)
-	if(user.client && user.health_scan)
-		healthscan(user, src, 1, TRUE)
-		chemscan(user, src, 1, TRUE)
+	if(user.client)
+		if(user.health_scan)
+			healthscan(user, src, 1, TRUE)
+			chemscan(user, src, 1, TRUE)
+		if(user.genetics_scan)
+			genescan(src, user)
+		if(user.nanite_scan)
+			var/response = SEND_SIGNAL(src, COMSIG_NANITE_SCAN, user, TRUE)
+			if(!response)
+				to_chat(user, span_info("No nanites detected in the subject."))
 	return ..()
 
 // ---------------------------------------
 // And here are some good things for free:
 // Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
 
-/obj/machinery/gateway/centerstation/attack_ghost(mob/user)
-	if(awaygate)
-		user.abstract_move(awaygate.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-	return ..()
+/obj/machinery/gateway/attack_ghost(mob/user)
+	. = ..()
+	if(.)
+		return
 
-/obj/machinery/gateway/centeraway/attack_ghost(mob/user)
-	if(stationgate)
-		user.abstract_move(stationgate.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-	return ..()
+	if(linked_gateway)
+		user.abstract_move(get_turf(linked_gateway))
+		return TRUE
+	to_chat(user, "[src] has no destination.")
+	return TRUE
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user)
 	if(!power_station?.engaged || !power_station.teleporter_console || !power_station.teleporter_console.target_ref)

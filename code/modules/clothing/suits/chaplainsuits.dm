@@ -1,7 +1,7 @@
 //Chaplain Suit Subtypes
 //If any new staple chaplain items get added, put them in these lists
 /obj/item/clothing/suit/chaplainsuit
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	icon = 'icons/obj/clothing/suits/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/suits/chaplain.dmi'
 
@@ -9,12 +9,22 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 35)
+	armor_type = /datum/armor/chaplainsuit_armor
 	strip_delay = 80
 	equip_delay_other = 60
 
+
+/datum/armor/chaplainsuit_armor
+	melee = 50
+	bullet = 10
+	laser = 10
+	energy = 10
+	fire = 80
+	acid = 80
+	stamina = 35
+
 /obj/item/clothing/suit/hooded/chaplainsuit
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 //Suits
 /obj/item/clothing/suit/chaplainsuit/holidaypriest
@@ -104,7 +114,7 @@
 	item_state = "clownpriest"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/megaphone/clown, /obj/item/soap, /obj/item/food/pie/cream, /obj/item/bikehorn, /obj/item/bikehorn/golden, /obj/item/bikehorn/airhorn, /obj/item/instrument/bikehorn, /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter, /obj/item/toy/crayon, /obj/item/toy/crayon/spraycan, /obj/item/toy/crayon/spraycan/lubecan, /obj/item/grown/bananapeel, /obj/item/food/grown/banana)
+	allowed = list(/obj/item/megaphone/clown, /obj/item/soap, /obj/item/food/pie/cream, /obj/item/bikehorn, /obj/item/bikehorn/golden, /obj/item/bikehorn/airhorn, /obj/item/instrument/bikehorn, /obj/item/reagent_containers/cup/soda_cans/canned_laughter, /obj/item/toy/crayon, /obj/item/toy/crayon/spraycan, /obj/item/toy/crayon/spraycan/lubecan, /obj/item/grown/bananapeel, /obj/item/food/grown/banana)
 
 //The good stuff below
 
@@ -115,18 +125,28 @@
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "knight_templar"
 	item_state = null
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 40)
+	armor_type = /datum/armor/helmet_chaplain
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
+
+
+/datum/armor/helmet_chaplain
+	melee = 50
+	bullet = 10
+	laser = 10
+	energy = 10
+	fire = 80
+	acid = 80
+	stamina = 40
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar
 	name = "crusader armour"
 	desc = "God wills it!"
 	icon_state = "knight_templar"
 	item_state = null
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	slowdown = 0
 	move_sound = null
 
@@ -136,9 +156,22 @@
 	icon = 'icons/obj/clothing/head/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "crusader"
+	item_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 50, BLEED = 60)
+	armor_type = /datum/armor/plate_crusader
+
+
+/datum/armor/plate_crusader
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 40
+	bomb = 60
+	fire = 60
+	acid = 60
+	stamina = 50
+	bleed = 60
 
 /obj/item/clothing/head/helmet/plate/crusader/blue
 	icon_state = "crusader-blue"
@@ -153,12 +186,25 @@
 	name = "Prophet's Hat"
 	desc = "A religious-looking hat."
 	icon_state = null
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	item_state = null
 	flags_1 = 0
-	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 70, BIO = 50, RAD = 50, FIRE = 60, ACID = 60, STAMINA = 60, BLEED = 60) //religion protects you from disease and radiation, honk.
-	worn_x_dimension = 64
-	worn_y_dimension = 64
+	armor_type = /datum/armor/crusader_prophet
+	worn_y_offset = 6
+
+
+/datum/armor/crusader_prophet
+	melee = 60
+	bullet = 60
+	laser = 60
+	energy = 50
+	bomb = 70
+	bio = 50
+	rad = 50
+	fire = 60
+	acid = 60
+	stamina = 60
+	bleed = 60
 
 /obj/item/clothing/head/helmet/plate/crusader/prophet/red
 	icon_state = "prophet-red"
@@ -172,12 +218,10 @@
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
 	flags_inv = NONE
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "cage"
 	item_state = null
-	worn_x_dimension = 64
-	worn_y_dimension = 64
 	dynamic_hair_suffix = ""
+	worn_y_offset = 7
 
 /obj/item/clothing/head/helmet/chaplain/ancient
 	name = "ancient helmet"
@@ -220,7 +264,18 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slowdown = 2.0 //gotta pretend we're balanced.
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 50)
+	armor_type = /datum/armor/armor_crusader
+
+
+/datum/armor/armor_crusader
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 40
+	bomb = 60
+	fire = 60
+	acid = 60
+	stamina = 50
 
 /obj/item/clothing/suit/chaplainsuit/armor/crusader/red
 	icon_state = "crusader-red"
@@ -236,7 +291,7 @@
 	worn_icon = 'icons/mob/clothing/suits/chaplain.dmi'
 	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
 
 /obj/item/clothing/head/hooded/chaplain_hood
@@ -282,13 +337,18 @@
 	desc = "A pair of leather gloves in poor condition."
 	icon_state = "graverobber-gloves"
 	item_state = "graverobber-gloves"
-	permeability_coefficient = 0.9
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 20, STAMINA = 0)
+	armor_type = /datum/armor/gloves_graverobber_gloves
+
+
+/datum/armor/gloves_graverobber_gloves
+	bio = 10
+	fire = 30
+	acid = 20
 
 /obj/item/clothing/under/rank/civilian/graverobber_under
 	name = "grave robber uniform"

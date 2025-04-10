@@ -17,18 +17,20 @@
 	if(IsAdminGhost(accessor))
 		//Access can't stop the abuse
 		return TRUE
-	else if(istype(accessor) && SEND_SIGNAL(accessor, COMSIG_MOB_ALLOWED, src))
+		//If the mob has the simple_access component with the requried access, we let them in.
+	else if(SEND_SIGNAL(accessor, COMSIG_MOB_TRIED_ACCESS, src) & ACCESS_ALLOWED)
+		return TRUE
+	//If the mob is holding a valid ID, we let them in. get_active_held_item() is on the mob level, so no need to copypasta everywhere.
+	else if(check_access(accessor.get_active_held_item()))
+		return TRUE
+	//if they are wearing a card that has access, that works
+	else if(istype(accessor) && SEND_SIGNAL(accessor, ACCESS_ALLOWED, src))
 		return TRUE
 	else if(ishuman(accessor))
-		var/mob/living/carbon/human/H = accessor
-		//if they are holding or wearing a card that has access, that works
-		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
+		var/mob/living/carbon/human/human_accessor = accessor
+		if(check_access(human_accessor.wear_id))
 			return TRUE
-	else if(ismonkey(accessor) || isalienadult(accessor))
-		var/mob/living/carbon/george = accessor
-		//they can only hold things :(
-		if(check_access(george.get_active_held_item()))
-			return TRUE
+	//if they have a hacky abstract animal ID with the required access, let them in i guess...
 	else if(isanimal(accessor))
 		var/mob/living/simple_animal/A = accessor
 		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
@@ -350,7 +352,7 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 /proc/get_all_centcom_jobs()
 	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
 
-/obj/item/proc/GetJobIcon() //Used in secHUD icon generation (the new one)
+/obj/item/proc/get_item_job_icon() //Used in secHUD icon generation (the new one)
 	var/obj/item/card/id/I = GetID()
 	if(!I)
 		return

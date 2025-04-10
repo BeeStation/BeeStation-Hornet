@@ -164,6 +164,16 @@
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/mech_scattershot_ammo
+	name = "LBX AC 10 Scattershot Ammunition"
+	desc = "Ammunition for the LBX AC 10 exosuit weapon."
+	id = "mech_scattershot_ammo"
+	build_type = PROTOLATHE | MECHFAB
+	build_path = /obj/item/mecha_ammo/scattershot
+	materials = list(/datum/material/iron=6000)
+	construction_time = 20
+	category = list("Exosuit Ammunition", "Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_carbine
 	name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
@@ -174,6 +184,17 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
 	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/mech_carbine_ammo
+	name = "FNX-99 Carbine Ammunition"
+	desc = "Ammunition for the FNX-99 \"Hades\" Carbine."
+	id = "mech_carbine_ammo"
+	build_type = PROTOLATHE | MECHFAB
+	build_path = /obj/item/mecha_ammo/incendiary
+	materials = list(/datum/material/iron=6000)
+	construction_time = 20
+	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_ion
@@ -240,6 +261,38 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_grenade_launcher_ammo
+	name = "SGL-6 Grenade Launcher Ammunition"
+	desc = "Ammunition for the SGL-6 Grenade Launcher."
+	id = "mech_grenade_launcher_ammo"
+	build_type = PROTOLATHE | MECHFAB
+	build_path = /obj/item/mecha_ammo/flashbang
+	materials = list(/datum/material/iron=4000,/datum/material/gold=500)
+	construction_time = 20
+	category = list("Exosuit Ammunition", "Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/mech_missile_rack
+	name = "Exosuit Weapon (BRM-6 Missile Rack)"
+	desc = "Allows for the construction of an BRM-6 Breaching Missile Rack."
+	id = "mech_missile_rack"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/breaching
+	materials = list(/datum/material/iron=22000,/datum/material/gold=6000,/datum/material/silver=8000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_missile_rack_ammo
+	name = "BRM-6 Missile Rack Ammunition"
+	desc = "Ammunition for the BRM-6 Missile Rack."
+	id = "mech_missile_rack_ammo"
+	build_type = PROTOLATHE | MECHFAB
+	build_path = /obj/item/mecha_ammo/missiles_br
+	materials = list(/datum/material/iron=8000,/datum/material/gold=500)
+	construction_time = 20
+	category = list("Exosuit Ammunition", "Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
 /datum/design/clusterbang_launcher
 	name = "Exosuit Weapon (SOB-3 Clusterbang Launcher)"
 	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"
@@ -249,6 +302,17 @@
 	materials = list(/datum/material/iron=20000,/datum/material/gold=10000,/datum/material/uranium=10000)
 	construction_time = 100
 	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/clusterbang_launcher_ammo
+	name = "SOB-3 Clusterbang Launcher Ammunition"
+	desc = "Ammunition for the SOB-3 Clusterbang Launcher"
+	id = "clusterbang_launcher_ammo"
+	build_type = PROTOLATHE | MECHFAB
+	build_path = /obj/item/mecha_ammo/clusterbang
+	materials = list(/datum/material/iron=6000,/datum/material/gold=1500,/datum/material/uranium=1500)
+	construction_time = 20
+	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_wormhole_gen
@@ -390,6 +454,17 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
 	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/mech_lmg_ammo
+	name = "Ultra AC 2 Ammunition"
+	desc = "Ammunition for the Ultra AC 2 LMG"
+	id = "mech_lmg_ammo"
+	build_type = PROTOLATHE | MECHFAB
+	build_path = /obj/item/mecha_ammo/lmg
+	materials = list(/datum/material/iron=4000)
+	construction_time = 20
+	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_sleeper

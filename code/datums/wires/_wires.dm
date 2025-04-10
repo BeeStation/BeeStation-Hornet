@@ -200,6 +200,7 @@
 	var/obj/item/assembly/S = get_attached(color)
 	if(S && istype(S))
 		assemblies -= color
+		S.connected = null
 		S.on_detach() // Notify the assembly.  This should remove the reference to our holder
 		ui_update()
 		return S
@@ -218,6 +219,9 @@
 
 // Overridable Procs
 /datum/wires/proc/interactable(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	if((SEND_SIGNAL(user, COMSIG_TRY_WIRES_INTERACT, holder) & COMPONENT_CANT_INTERACT_WIRES))
+		return FALSE
 	return TRUE
 
 /datum/wires/proc/get_status()
@@ -303,7 +307,7 @@
 				cut_color(target_wire, usr)
 				. = TRUE
 			else
-				to_chat(L, "<span class='warning'>You need wirecutters!</span>")
+				to_chat(L, span_warning("You need wirecutters!"))
 		if("pulse")
 			I = L.is_holding_tool_quality(TOOL_MULTITOOL)
 			if(I || IsAdminGhost(usr))
@@ -312,7 +316,7 @@
 				pulse_color(target_wire, L)
 				. = TRUE
 			else
-				to_chat(L, "<span class='warning'>You need a multitool!</span>")
+				to_chat(L, span_warning("You need a multitool!"))
 		if("attach")
 			if(is_attached(target_wire))
 				I = detach_assembly(target_wire)
@@ -330,6 +334,6 @@
 							A.forceMove(L.drop_location())
 						. = TRUE
 					else
-						to_chat(L, "<span class='warning'>You need an attachable assembly!</span>")
+						to_chat(L, span_warning("You need an attachable assembly!"))
 
 #undef MAXIMUM_EMP_WIRES

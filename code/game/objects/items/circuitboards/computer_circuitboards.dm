@@ -36,7 +36,7 @@
 /obj/item/circuitboard/computer/card/minor/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		target_dept = (target_dept == dept_list.len) ? 1 : (target_dept + 1)
-		to_chat(user, "<span class='notice'>You set the board to \"[dept_list[target_dept]]\".</span>")
+		to_chat(user, span_notice("You set the board to \"[dept_list[target_dept]]\"."))
 	else
 		return ..()
 
@@ -56,10 +56,10 @@
 		insecure = !insecure
 		if(insecure)
 			desc = "Tampering has removed some safety features from this circuit board. A screwdriver can undo this."
-			to_chat(user, "<span class='notice'>You disable the shuttle safety features of the board.</span>")
+			to_chat(user, span_notice("You disable the shuttle safety features of the board."))
 		else
 			desc = "Can be modified using a screwdriver."
-			to_chat(user, "<span class='notice'>You re-enable the shuttle safety features of the board.</span>")
+			to_chat(user, span_notice("You re-enable the shuttle safety features of the board."))
 	else
 		return ..()
 
@@ -82,53 +82,85 @@
 	build_path = /obj/machinery/computer/atmos_alert
 
 /obj/item/circuitboard/computer/atmos_control
-	name = "atmospheric monitor console (Computer Board)"
+	name = "Atmospheric Control (Computer Board)"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/atmos_control
 
-/obj/item/circuitboard/computer/atmos_control/tank
-	name = "tank control console (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank
+/obj/item/circuitboard/computer/atmos_control/nocontrol
+	name = "Atmospheric Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nocontrol
 
-/obj/item/circuitboard/computer/atmos_control/tank/oxygen_tank
-	name = "oxygen supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/oxygen_tank
+/obj/item/circuitboard/computer/atmos_control/noreconnect
+	name = "Atmospheric Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/noreconnect
 
-/obj/item/circuitboard/computer/atmos_control/tank/plasma_tank
-	name = "plasma supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/plasma_tank
+/obj/item/circuitboard/computer/atmos_control/fixed
+	name = "Atmospheric Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/fixed
 
-/obj/item/circuitboard/computer/atmos_control/tank/air_tank
-	name = "mixed air supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/air_tank
+/obj/item/circuitboard/computer/atmos_control/nocontrol/master
+	name = "Station Atmospheric Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nocontrol/master
 
-/obj/item/circuitboard/computer/atmos_control/tank/mix_tank
-	name = "gas mix supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/mix_tank
+/obj/item/circuitboard/computer/atmos_control/nocontrol/incinerator
+	name = "Incinerator Chamber Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nocontrol/incinerator
 
-/obj/item/circuitboard/computer/atmos_control/tank/nitrous_tank
-	name = "nitrous oxide supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/nitrous_tank
+/obj/item/circuitboard/computer/atmos_control/toxinsmix
+	name = "Toxins Chamber Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/toxinsmix
 
-/obj/item/circuitboard/computer/atmos_control/tank/nitrogen_tank
-	name = "nitrogen supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/nitrogen_tank
+/obj/item/circuitboard/computer/atmos_control/oxygen_tank
+	name = "Oxygen Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/oxygen_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/carbon_tank
-	name = "carbon dioxide supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/carbon_tank
+/obj/item/circuitboard/computer/atmos_control/plasma_tank
+	name = "Plasma Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/plasma_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/incinerator
-	name = "incinerator air control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/incinerator
+/obj/item/circuitboard/computer/atmos_control/air_tank
+	name = "Mixed Air Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/air_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/sm_waste
-	name = "supermatter waste control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/sm_waste
+/obj/item/circuitboard/computer/atmos_control/mix_tank
+	name = "Gas Mix Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/mix_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/toxins_waste
-	name = "toxins waste control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/toxins_waste_tank
+/obj/item/circuitboard/computer/atmos_control/nitrous_tank
+	name = "Nitrous Oxide Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nitrous_tank
+
+/obj/item/circuitboard/computer/atmos_control/nitrogen_tank
+	name = "Nitrogen Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nitrogen_tank
+
+/obj/item/circuitboard/computer/atmos_control/carbon_tank
+	name = "Carbon Dioxide Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/carbon_tank
+
+/obj/item/circuitboard/computer/atmos_control/bz_tank
+	name = "BZ Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/bz_tank
+
+/obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
+	name = "Hypernoblium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
+
+/obj/item/circuitboard/computer/atmos_control/nitryl_tank
+	name = "Nitryl Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nitryl_tank
+
+/obj/item/circuitboard/computer/atmos_control/pluoxium_tank
+	name = "Pluoxium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/pluoxium_tank
+
+/obj/item/circuitboard/computer/atmos_control/tritium_tank
+	name = "Tritium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/tritium_tank
+
+/obj/item/circuitboard/computer/atmos_control/water_vapor
+	name = "Water Vapor Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/water_vapor
 
 /obj/item/circuitboard/computer/auxillary_base
 	name = "auxillary base management console (Computer Board)"
@@ -194,6 +226,10 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
 
+/obj/item/circuitboard/computer/control_rods
+	name = "rbmk reactor control rod console (Computer Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/reactor/control_rods
 
 //Generic
 
@@ -241,11 +277,11 @@
 		if(build_path == /obj/machinery/computer/libraryconsole/bookmanagement)
 			name = "Library Visitor Console (Computer Board)"
 			build_path = /obj/machinery/computer/libraryconsole
-			to_chat(user, "<span class='notice'>Defaulting access protocols.</span>")
+			to_chat(user, span_notice("Defaulting access protocols."))
 		else
 			name = "Book Inventory Management Console (Computer Board)"
 			build_path = /obj/machinery/computer/libraryconsole/bookmanagement
-			to_chat(user, "<span class='notice'>Access protocols successfully updated.</span>")
+			to_chat(user, span_notice("Access protocols successfully updated."))
 	else
 		return ..()
 
@@ -303,10 +339,10 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/crew
 
-/obj/item/circuitboard/computer/med_data
+/obj/item/circuitboard/computer/records/medical
 	name = "medical records console (Computer Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/computer/med_data
+	build_path = /obj/machinery/computer/records/medical
 
 /obj/item/circuitboard/computer/operating
 	name = "operating computer (Computer Board)"
@@ -376,11 +412,11 @@
 		if(build_path == /obj/machinery/computer/rdconsole/core)
 			name = "R&D Console - Robotics (Computer Board)"
 			build_path = /obj/machinery/computer/rdconsole/robotics
-			to_chat(user, "<span class='notice'>Access protocols successfully updated.</span>")
+			to_chat(user, span_notice("Access protocols successfully updated."))
 		else
 			name = "R&D Console (Computer Board)"
 			build_path = /obj/machinery/computer/rdconsole/core
-			to_chat(user, "<span class='notice'>Defaulting access protocols.</span>")
+			to_chat(user, span_notice("Defaulting access protocols."))
 	else
 		return ..()
 
@@ -417,10 +453,10 @@
 	icon_state = "security"
 	build_path = /obj/machinery/computer/prisoner
 
-/obj/item/circuitboard/computer/secure_data
+/obj/item/circuitboard/computer/records/security
 	name = "security records console (Computer Board)"
 	icon_state = "security"
-	build_path = /obj/machinery/computer/secure_data
+	build_path = /obj/machinery/computer/records/security
 
 /obj/item/circuitboard/computer/security
 	name = "security camera console (Computer Board)"
@@ -456,14 +492,14 @@
 /obj/item/circuitboard/computer/cargo/multitool_act(mob/living/user)
 	if(!(obj_flags & EMAGGED))
 		contraband = !contraband
-		to_chat(user, "<span class='notice'>Receiver spectrum set to [contraband ? "Broad" : "Standard"].</span>")
+		to_chat(user, span_notice("Receiver spectrum set to [contraband ? "Broad" : "Standard"]."))
 	else
-		to_chat(user, "<span class='notice'>The spectrum chip is unresponsive.</span>")
+		to_chat(user, span_notice("The spectrum chip is unresponsive."))
 
 /obj/item/circuitboard/computer/cargo/on_emag(mob/user)
 	..()
 	contraband = TRUE
-	to_chat(user, "<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
+	to_chat(user, span_notice("You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband."))
 
 /obj/item/circuitboard/computer/cargo/configure_machine(obj/machinery/computer/cargo/machine)
 	if(!istype(machine))
@@ -482,7 +518,7 @@
 
 /obj/item/circuitboard/computer/cargo/express/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You change the routing protocols, allowing the Drop Pod to land anywhere on the station.</span>")
+	to_chat(user, span_notice("You change the routing protocols, allowing the Drop Pod to land anywhere on the station."))
 
 /obj/item/circuitboard/computer/cargo/request
 	name = "supply request console (Computer Board)"
@@ -503,9 +539,9 @@
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		hacked = !hacked
 		if(hacked)
-			to_chat(user, "<span class='notice'>You disable the circuitboard's ID scanning protocols.</span>")
+			to_chat(user, span_notice("You disable the circuitboard's ID scanning protocols."))
 		else
-			to_chat(user, "<span class='notice'>You reset the circuitboard's ID scanning protocols.</span>")
+			to_chat(user, span_notice("You reset the circuitboard's ID scanning protocols."))
 		return
 	. = ..()
 

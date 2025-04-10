@@ -8,7 +8,7 @@
 						/obj/item/book_of_babel,
 						/obj/item/gun/magic/hook,
 						/obj/item/wisp_lantern,
-						/obj/item/reagent_containers/glass/bottle/potion/flight,
+						/obj/item/reagent_containers/cup/bottle/potion/flight,
 						/obj/item/katana/cursed,
 						/obj/item/clothing/glasses/godeye,
 						/obj/item/melee/ghost_sword,
@@ -41,7 +41,7 @@
 	cost = 40000
 	unit_name = "major lava planet artifact"
 	export_types = list(/obj/item/hierophant_club,
-						/obj/item/melee/transforming/cleaving_saw,
+						/obj/item/melee/cleaving_saw,
 						/obj/item/organ/vocal_cords/colossus,
 						/obj/machinery/anomalous_crystal,
 						/obj/item/mayhem,

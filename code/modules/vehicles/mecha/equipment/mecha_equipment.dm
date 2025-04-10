@@ -52,7 +52,7 @@
 		update_chassis_page()
 		log_message("[src] is destroyed.", LOG_MECHA)
 		if(LAZYLEN(chassis.occupants))
-			to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)]<span class='danger'>[src] is destroyed!</span>")
+			to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_danger("[src] is destroyed!")]")
 			playsound(chassis, destroy_sound, 50)
 		chassis = null
 	return ..()
@@ -61,12 +61,12 @@
 	if(!do_after(user, 15, mech))
 		return FALSE
 	if(!can_attach(mech))
-		to_chat(user, "<span class='warning'>You are unable to attach [src] to [mech]!</span>")
+		to_chat(user, span_warning("You are unable to attach [src] to [mech]!"))
 		return FALSE
 	if(!user.temporarilyRemoveItemFromInventory(src))
 		return FALSE
 	attach(mech)
-	user.visible_message("[user] attaches [src] to [mech].", "<span class='notice'>You attach [src] to [mech].</span>")
+	user.visible_message("[user] attaches [src] to [mech].", span_notice("You attach [src] to [mech]."))
 	return TRUE
 
 ///fetches and returns a html formatted string with equippability status
@@ -77,7 +77,7 @@
 	if(chassis.selected == src)
 		txt += "<b>[src]</b>"
 	else if(selectable)
-		txt += "<a href='?src=[REF(chassis)];select_equip=[REF(src)]'>[src]</a>"
+		txt += "<a href='byond://?src=[REF(chassis)];select_equip=[REF(src)]'>[src]</a>"
 	else
 		txt += "[src]"
 
@@ -107,7 +107,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/proc/action(mob/source, atom/target, params)
+/obj/item/mecha_parts/mecha_equipment/proc/action(mob/source, atom/target, list/modifiers)
 	TIMER_COOLDOWN_START(chassis, COOLDOWN_MECHA_EQUIPMENT, equip_cooldown)//Cooldown is on the MECH so people dont bypass it by switching equipment
 	send_byjax(chassis.occupants,"exosuit.browser","[REF(src)]", get_equip_info())
 	chassis.use_power(energy_drain)

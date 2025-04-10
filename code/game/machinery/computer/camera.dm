@@ -420,4 +420,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	desc = "A telescreen that connects to the camera network of the bunker."
 	network = list(CAMERA_NETWORK_BUNKER)
 
+/obj/machinery/computer/security/telescreen/station
+	name = "station monitor"
+	desc = "A telescreen that monitors the station's camera network."
+	network = list(CAMERA_NETWORK_STATION)
+
 #undef DEFAULT_MAP_SIZE

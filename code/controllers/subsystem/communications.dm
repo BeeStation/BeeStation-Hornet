@@ -24,9 +24,9 @@ SUBSYSTEM_DEF(communications)
 		silicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN_AI
 	else
 		if(emagged)
-			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce_syndi.ogg', "Syndicate", has_important_message = TRUE, auth_id = auth_id)
+			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce_syndi.ogg', ANNOUNCEMENT_TYPE_SYNDICATE, has_important_message = TRUE)
 		else
-			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', "Captain", has_important_message = TRUE, auth_id = auth_id)
+			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', ANNOUNCEMENT_TYPE_CAPTAIN, has_important_message = TRUE)
 		nonsilicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN
 	user.log_talk(input, LOG_SAY, tag="priority announcement")
 	message_admins("[ADMIN_LOOKUPFLW(user)] has made a priority announcement.")

@@ -7,24 +7,37 @@
 	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
 	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	cold_protection = CHEST|GROIN|LEGS|ARMS
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = CHEST|GROIN|LEGS|ARMS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	hoodtype = /obj/item/clothing/head/hooded/explorer
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/hooded_explorer
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals,
 		/obj/item/resonator,
 		/obj/item/mining_scanner,
 		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/gun/energy/recharge/kinetic_accelerator,
 		/obj/item/pickaxe
 	)
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 	flags_inv = HIDEJUMPSUIT
+
+
+/datum/armor/hooded_explorer
+	melee = 30
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 50
+	rad = 50
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/head/hooded/explorer
 	name = "explorer hood"
@@ -34,11 +47,26 @@
 	icon_state = "explorer"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, STAMINA = 20, BLEED = 30)
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
+	armor_type = /datum/armor/hooded_explorer
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
+
+
+/datum/armor/hooded_explorer
+	melee = 30
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 50
+	rad = 50
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/suit/hooded/explorer/Initialize(mapload)
 	. = ..()
@@ -58,8 +86,20 @@
 	visor_flags_inv = HIDEFACIALHAIR
 	visor_flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	actions_types = list(/datum/action/item_action/adjust)
-	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/gas_explorer
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/gas_explorer
+	melee = 10
+	bullet = 5
+	laser = 5
+	energy = 5
+	bio = 50
+	fire = 20
+	acid = 40
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
@@ -83,9 +123,22 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
-	armor = list(MELEE = 70,  BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 40, BLEED = 50)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
+	armor_type = /datum/armor/space_hostile_environment
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/pickaxe)
 	high_pressure_multiplier = 0.6
+
+
+/datum/armor/space_hostile_environment
+	melee = 70
+	bullet = 40
+	laser = 20
+	energy = 20
+	bomb = 50
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 40
+	bleed = 50
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
@@ -97,9 +150,9 @@
 	if(istype(C) && DT_PROB(1, delta_time)) //cursed by bubblegum
 		if(DT_PROB(7.5, delta_time))
 			new /datum/hallucination/oh_yeah(C)
-			to_chat(C, "<span class='colossus'><b>[pick("I AM IMMORTAL.","I SHALL TAKE BACK WHAT'S MINE.","I SEE YOU.","YOU CANNOT ESCAPE ME FOREVER.","DEATH CANNOT HOLD ME.")]</b></span>")
+			to_chat(C, span_colossus("<b>[pick("I AM IMMORTAL.","I SHALL TAKE BACK WHAT'S MINE.","I SEE YOU.","YOU CANNOT ESCAPE ME FOREVER.","DEATH CANNOT HOLD ME.")]</b>"))
 		else
-			to_chat(C, "<span class='warning'>[pick("You hear faint whispers.","You smell ash.","You feel hot.","You hear a roar in the distance.")]</span>")
+			to_chat(C, span_warning("[pick("You hear faint whispers.","You smell ash.","You feel hot.","You hear a roar in the distance.")]"))
 
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
@@ -111,9 +164,22 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing_flags = THICKMATERIAL // no space protection
-	armor = list(MELEE = 70,  BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 40, BLEED = 50)
+	armor_type = /datum/armor/space_hostile_environment
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	high_pressure_multiplier = 0.6
+
+
+/datum/armor/space_hostile_environment
+	melee = 70
+	bullet = 40
+	laser = 20
+	energy = 20
+	bomb = 50
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 40
+	bleed = 50
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()

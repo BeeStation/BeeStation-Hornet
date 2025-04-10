@@ -14,7 +14,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
-	inert_mutation = CATCLAWS
+	inert_mutation = /datum/mutation/catclaws
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
@@ -56,10 +56,10 @@
 		if(prob(40))
 			M.adjust_disgust(20)
 		if(prob(5))
-			M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","sputters!")]</span>")
+			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","sputters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
-			to_chat(M, "<span class='notice'>[sick_message]</span>")
+			to_chat(M, span_notice("[sick_message]"))
 		if(prob(15))
 			if(locate(/obj/item/organ/stomach) in M.internal_organs)
 				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]

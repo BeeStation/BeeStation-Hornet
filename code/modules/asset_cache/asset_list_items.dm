@@ -60,9 +60,9 @@
 
 /datum/asset/simple/radar_assets
 	assets = list(
-		"ntosradarbackground.png"	= 'icons/UI_Icons/tgui/ntosradar_background.png',
-		"ntosradarpointer.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer.png',
-		"ntosradarpointerS.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer_S.png'
+		"ntosradarbackground.png"	= 'icons/ui_icons/tgui/ntosradar_background.png',
+		"ntosradarpointer.png"		= 'icons/ui_icons/tgui/ntosradar_pointer.png',
+		"ntosradarpointerS.png"		= 'icons/ui_icons/tgui/ntosradar_pointer_S.png'
 	)
 
 /datum/asset/spritesheet/simple/pda
@@ -226,18 +226,43 @@
 
 /datum/asset/simple/arcade
 	assets = list(
-		"boss1.gif" = 'icons/UI_Icons/Arcade/boss1.gif',
-		"boss2.gif" = 'icons/UI_Icons/Arcade/boss2.gif',
-		"boss3.gif" = 'icons/UI_Icons/Arcade/boss3.gif',
-		"boss4.gif" = 'icons/UI_Icons/Arcade/boss4.gif',
-		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
-		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
+		"boss1.gif" = 'icons/ui_icons/Arcade/boss1.gif',
+		"boss2.gif" = 'icons/ui_icons/Arcade/boss2.gif',
+		"boss3.gif" = 'icons/ui_icons/Arcade/boss3.gif',
+		"boss4.gif" = 'icons/ui_icons/Arcade/boss4.gif',
+		"boss5.gif" = 'icons/ui_icons/Arcade/boss5.gif',
+		"boss6.gif" = 'icons/ui_icons/Arcade/boss6.gif',
 		)
 
 /datum/asset/spritesheet/simple/achievements
 	name ="achievements"
 	assets = list(
-		"default" = 'icons/UI_Icons/Achievements/default.png'
+		"default" = 'icons/ui_icons/Achievements/default.png'
+	)
+
+/datum/asset/spritesheet/simple/condiments
+	name = "condiments"
+	assets = list(
+		CONDIMASTER_STYLE_FALLBACK = 'icons/ui_icons/condiments/bottle.png',
+		"flour" = 'icons/ui_icons/condiments/flour.png',
+		"rice" = 'icons/ui_icons/condiments/rice.png',
+		"sugar" = 'icons/ui_icons/condiments/sugar.png',
+		"milk" = 'icons/ui_icons/condiments/milk.png',
+		"enzyme" = 'icons/ui_icons/condiments/enzyme.png',
+		"capsaicin" = 'icons/ui_icons/condiments/hotsauce.png',
+		"frostoil" = 'icons/ui_icons/condiments/coldsauce.png',
+		"bbqsauce" = 'icons/ui_icons/condiments/bbqsauce.png',
+		"soymilk" = 'icons/ui_icons/condiments/soymilk.png',
+		"soysauce" = 'icons/ui_icons/condiments/soysauce.png',
+		"ketchup" = 'icons/ui_icons/condiments/ketchup.png',
+		"mayonnaise" = 'icons/ui_icons/condiments/mayonnaise.png',
+		"oliveoil" = 'icons/ui_icons/condiments/oliveoil.png',
+		"cooking_oil" = 'icons/ui_icons/condiments/cookingoil.png',
+		"peanut_butter" = 'icons/ui_icons/condiments/peanutbutter.png',
+		"cherryjelly" = 'icons/ui_icons/condiments/cherryjelly.png',
+		"honey" = 'icons/ui_icons/condiments/honey.png',
+		"blackpepper" = 'icons/ui_icons/condiments/peppermillsmall.png',
+		"sodiumchloride" = 'icons/ui_icons/condiments/saltshakersmall.png',
 	)
 
 /datum/asset/spritesheet_batched/medicine_containers
@@ -336,7 +361,7 @@
 			if (!ispath(item, /atom))
 				// biogenerator outputs to beakers by default
 				if (initial(D.build_type) & BIOGENERATOR)
-					item = /obj/item/reagent_containers/glass/beaker/large
+					item = /obj/item/reagent_containers/cup/beaker/large
 				else
 					continue  // shouldn't happen, but just in case
 					// hint^ it does fucking happen. this was giving me so much trouble
@@ -459,7 +484,7 @@
 		"cultivator" = uni_icon('icons/obj/items_and_weapons.dmi', "cultivator"),
 		"spade" = uni_icon('icons/obj/mining.dmi', "spade"),
 		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
-		TOOL_ROLLINGPIN = uni_icon('icons/obj/kitchen.dmi', "rolling_pin"),
+		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
 		TOOL_BIKEHORN = uni_icon('icons/obj/items_and_weapons.dmi', "bike_horn"),
 		"debug_placeholder" = uni_icon('icons/obj/device.dmi', "hypertool")
 	)
@@ -552,13 +577,25 @@
 	var/tab = "use subtypes of this please"
 	assets = list()
 
+/datum/asset/simple/portraits/library
+	tab = "library"
+
+/datum/asset/simple/portraits/library_secure
+	tab = "library_secure"
+
+/datum/asset/simple/portraits/library_private
+	tab = "library_private"
+
+/datum/asset/simple/portraits
+	assets = list()
+
 /datum/asset/simple/portraits/New()
-	if(!length(SSpersistence.paintings[tab]))
+	if(!length(SSpersistent_paintings.paintings))
 		return
-	for(var/list/portrait as anything in SSpersistence.paintings[tab])
-		var/png = "data/paintings/[tab]/[portrait["md5"]].png"
+	for(var/datum/painting/portrait as anything in SSpersistent_paintings.paintings)
+		var/png = "data/paintings/images/[portrait.md5].png"
 		if(fexists(png))
-			var/asset_name = "[tab]_[portrait["md5"]]"
+			var/asset_name = "paintings_[portrait.md5]"
 			assets[asset_name] = png
 	..() //this is where it registers all these assets we added to the list
 

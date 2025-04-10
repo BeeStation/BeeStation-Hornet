@@ -162,7 +162,7 @@
 	var/queued = 0
 	var/destruction_timer
 	var/mimiced_type
-	var/original_z
+	var/original_depth
 	var/override_depth
 	var/have_performed_fixup = FALSE
 
@@ -181,11 +181,11 @@
 	return ..()
 
 /atom/movable/openspace/mimic/attackby(obj/item/W, mob/user)
-	to_chat(user, "<span class='notice'>\The [src] is too far away.</span>")
+	to_chat(user, span_notice("\The [src] is too far away."))
 	return TRUE
 
-/atom/movable/openspace/mimic/attack_hand(mob/user)
-	to_chat(user, "<span class='notice'>You cannot reach \the [src] from here.</span>")
+/atom/movable/openspace/mimic/attack_hand(mob/user, list/modifiers)
+	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 
 /atom/movable/openspace/mimic/examine(...)
@@ -235,8 +235,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/turf/delegate
 
-CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/openspace/turf_mimic)
-
 /atom/movable/openspace/turf_mimic/Initialize(mapload, ...)
 	. = ..()
 	ASSERT(isturf(loc))
@@ -246,7 +244,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/openspace/turf_mimic)
 	loc.attackby(W, user)
 
 /atom/movable/openspace/turf_mimic/attack_hand(mob/user as mob)
-	to_chat(user, "<span class='notice'>You cannot reach \the [src] from here.</span>")
+	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 
 /atom/movable/openspace/turf_mimic/examine(mob/examiner)

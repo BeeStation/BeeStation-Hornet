@@ -11,13 +11,13 @@
 /obj/item/assembly/control/examine(mob/user)
 	. = ..()
 	if(id)
-		. += "<span class='notice'>Its channel ID is '[id]'.</span>"
+		. += span_notice("Its channel ID is '[id]'.")
 
 /obj/item/assembly/control/multitool_act(mob/living/user)
 	var/change_id = input("Set the shutters/blast door controller's ID. It must be a number between 1 and 100.", "ID", id) as num|null
 	if(change_id)
 		id = clamp(round(change_id, 1), 1, 100)
-		to_chat(user, "<span class='notice'>You change the ID to [id].</span>")
+		to_chat(user, span_notice("You change the ID to [id]."))
 
 /obj/item/assembly/control/activate()
 	var/openclose
@@ -152,3 +152,20 @@
 			C.cremate(usr)
 
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 50)
+
+/obj/item/assembly/control/shieldwallgen
+	name = "holofield controller"
+	desc = "A small device used to remotely operate holofield generators."
+
+/obj/item/assembly/control/shieldwallgen/activate()
+	if(cooldown)
+		return
+	cooldown = TRUE
+	for(var/obj/machinery/power/shieldwallgen/machine in GLOB.machines)
+		if(machine.id == src.id)
+			INVOKE_ASYNC(machine, TYPE_PROC_REF(/obj/machinery/power/shieldwallgen, toggle))
+
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 20)
+
+/obj/item/assembly/control/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
+	id = "[REF(port)][id]"

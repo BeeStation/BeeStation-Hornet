@@ -32,7 +32,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ah" = (
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ai" = (
@@ -64,7 +64,9 @@
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ao" = (
-/turf/open/floor/plating/ice,
+/turf/open/floor/plating/ice{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
 /area/ruin/powered/snow_biodome)
 "ap" = (
 /obj/structure/flora/rock/icy,
@@ -136,7 +138,7 @@
 /area/ruin/powered/snow_biodome)
 "aF" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cocoa,
+/obj/item/reagent_containers/cup/glass/mug/cocoa,
 /turf/open/floor/wood,
 /area/ruin/powered/snow_biodome)
 "aG" = (
@@ -195,7 +197,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plating/ice,
+/turf/open/floor/plating/ice{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
 /area/ruin/powered/snow_biodome)
 "bw" = (
 /obj/machinery/light/small{
@@ -238,7 +242,9 @@
 /area/ruin/powered/snow_biodome)
 "bN" = (
 /obj/machinery/light,
-/turf/open/floor/plating/ice,
+/turf/open/floor/plating/ice{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
 /area/ruin/powered/snow_biodome)
 "dS" = (
 /obj/machinery/light/small,

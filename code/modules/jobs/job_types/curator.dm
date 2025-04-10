@@ -8,7 +8,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
-
+	exp_requirements = 60 //medium grief percentage
 	outfit = /datum/outfit/job/curator
 
 	base_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
@@ -57,4 +57,4 @@
 	if(visualsOnly)
 		return
 
-	H.grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_CURATOR)
+	H.grant_all_languages(source = LANGUAGE_CURATOR)

@@ -18,10 +18,9 @@
 
 		if(istype(I, /obj/item/storage))
 			var/obj/item/storage/S = I
-			var/datum/component/storage/STR = S.GetComponent(/datum/component/storage)
-			if(prob(upgrade_scroll_chance) && S.contents.len < STR.max_items && !S.invisibility)
+			if(prob(upgrade_scroll_chance) && S.contents.len < I.atom_storage.max_slots && !S.invisibility)
 				var/obj/item/upgradescroll/scroll = new(get_turf(S))
-				SEND_SIGNAL(S, COMSIG_TRY_STORAGE_INSERT, scroll, null, TRUE, TRUE)
+				I.atom_storage?.attempt_insert(S, scroll, null, TRUE, TRUE)
 				upgrade_scroll_chance = max(0,upgrade_scroll_chance-100)
 				if(isturf(scroll.loc))
 					qdel(scroll)
@@ -57,10 +56,10 @@
 		var/effect_description
 		if(target.rpg_loot.quality >= 0)
 			span = "<span class='notice'>"
-			effect_description = "<span class='heavy_brass'>shimmering golden shield</span>"
+			effect_description = span_heavybrass("shimmering golden shield")
 		else
 			span = "<span class='danger'>"
-			effect_description = "<span class='umbra_emphasis'>mottled black glow</span>"
+			effect_description = span_umbraemphasis("mottled black glow")
 
 		T.visible_message("[span][original_name] is covered by a [effect_description] and then transforms into [target]!</span>")
 
@@ -68,10 +67,10 @@
 		var/quality = rpg_loot_datum.quality
 
 		if(can_backfire && quality > 9 && prob((quality - 9)*10))
-			T.visible_message("<span class='danger'>[target] <span class='inathneq_large'>violently glows blue</span> for a while, then evaporates.</span>")
+			T.visible_message(span_danger("[target] [span_inathneqlarge("violently glows blue")] for a while, then evaporates."))
 			target.burn()
 		else
-			T.visible_message("<span class='notice'>[target] <span class='inathneq_small'>glows blue</span> and seems vaguely \"better\"!</span>")
+			T.visible_message(span_notice("[target] [span_inathneqsmall("glows blue")] and seems vaguely \"better\"!"))
 			rpg_loot_datum.modify(upgrade_amount)
 
 	if(--uses <= 0)
@@ -135,6 +134,6 @@
 	I.force = max(0,I.force + quality_mod)
 	I.throwforce = max(0,I.throwforce + quality_mod)
 
-	I.armor = I.armor.modifyAllRatings(quality)
+	I.set_armor(I.get_armor().generate_new_with_modifiers(list(ARMOR_ALL = -quality)))
 
 	rename()

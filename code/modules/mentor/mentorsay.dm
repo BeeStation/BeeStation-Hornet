@@ -15,9 +15,9 @@
 
 	log_mentor("MSAY: [key_name(src)] : [msg]")
 	if(check_rights_for(src, R_ADMIN,0))
-		msg = "<b><span class='mentorsay'><font color ='#8A2BE2'><span class='prefix'>MENTOR:</span> <EM>[key_name(src, 0, 0)]</EM>: <span class='message'>[msg]</span></font></b>"
+		msg = "<b>[span_mentorsay("<font color ='#FF69B4'>[span_prefix("MENTOR:")]")] <EM>[key_name(src, 0, 0)]</EM>: [span_message("[msg]")]</font></b>"
 	else
-		msg = "<b><span class='mentorsay'><span class='prefix'>MENTOR:</span> <EM>[key_name(src, 0, 0)]</EM>: <span class='message'>[msg]</span></font></b>"
+		msg = "<b>[span_mentorsay("<font color ='#e236d8'>[span_prefix("MENTOR:")]")] <EM>[key_name(src, 0, 0)]</EM>: [span_message("[msg]")]</font></b>"
 	for(var/client/client in GLOB.admins | GLOB.mentors)
 		to_chat(client, msg, avoid_highlighting = client == src)
 

@@ -15,7 +15,7 @@
 	name = "old sink";
 	pixel_y = 28
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (

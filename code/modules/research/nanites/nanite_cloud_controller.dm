@@ -25,7 +25,7 @@
 	if(istype(I, /obj/item/disk/nanite_program))
 		var/obj/item/disk/nanite_program/N = I
 		if (user.transferItemToLoc(N, src))
-			to_chat(user, "<span class='notice'>You insert [N] into [src].</span>")
+			to_chat(user, span_notice("You insert [N] into [src]."))
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 			if(disk)
 				eject(user)
@@ -36,7 +36,7 @@
 
 /obj/machinery/computer/nanite_cloud_controller/AltClick(mob/user)
 	if(disk && user.canUseTopic(src, !issilicon(user)))
-		to_chat(user, "<span class='notice'>You take out [disk] from [src].</span>")
+		to_chat(user, span_notice("You take out [disk] from [src]."))
 		eject(user)
 	return
 
@@ -56,7 +56,7 @@
 
 /obj/machinery/computer/nanite_cloud_controller/proc/generate_backup(cloud_id, mob/user)
 	if(SSnanites.get_cloud_backup(cloud_id, TRUE))
-		to_chat(user, "<span class='warning'>Cloud ID already registered.</span>")
+		to_chat(user, span_warning("Cloud ID already registered."))
 		return
 
 	var/datum/nanite_cloud_backup/backup = new(src)
@@ -261,11 +261,11 @@
 				if(!islist(params["rule_ids"]))
 					return
 				if(length(params["rule_ids"]) <= 1)
-					to_chat(usr, "<span class='warning'>Warning: you need to combine at least 2 rules.</span>")
+					to_chat(usr, span_warning("Warning: you need to combine at least 2 rules."))
 					balloon_alert(usr, "not enough rules to combine")
 					return
 				if(length(params["rule_ids"]) > 5)
-					to_chat(usr, "<span class='warning'>Warning: cannot combine more than 5 rules.</span>")
+					to_chat(usr, span_warning("Warning: cannot combine more than 5 rules."))
 					balloon_alert(usr, "too many rules to combine")
 					return
 				var/list/datum/nanite_rule/rules_to_copy = list()
@@ -276,13 +276,13 @@
 						continue
 					if(!rule.combinable)
 						balloon_alert(usr, "rules cannot be combined")
-						to_chat(usr, "<span class='warning'>Warning: rule '[rule.display()]' cannot be combined.</span>")
+						to_chat(usr, span_warning("Warning: rule '[rule.display()]' cannot be combined."))
 						return
 					rule_displays += rule.display()
 					rules_to_copy += rule
 				if(!length(rules_to_copy))
 					balloon_alert(usr, "no rules to combine")
-					to_chat(usr, "<span class='warning'>Warning: no rules to combine!</span>")
+					to_chat(usr, span_warning("Warning: no rules to combine!"))
 					return
 				var/list/datum/nanite_rule/copied_rules = list()
 				for(var/R in rules_to_copy)
