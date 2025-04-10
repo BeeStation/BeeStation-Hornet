@@ -31,7 +31,7 @@ map metastation
 	votable
 endmap
 
-map backrooms
+map multimeta
 	minplayers 20
 	votable
 endmap

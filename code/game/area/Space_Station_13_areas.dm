@@ -273,11 +273,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Maintenance - Generic
 
-/area/maintenance/backrooms
-	name = "Backrooms"
-	requires_power = 0
-	teleport_restriction = 1
-	clockwork_warp_allowed = 0
+/area/maintenance/multimeta
+	name = "Meta Tunnels"
 
 /area/maintenance/aft
 	name = "Aft Maintenance"

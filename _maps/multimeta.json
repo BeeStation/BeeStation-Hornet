@@ -1,8 +1,8 @@
 {
-	"map_name": "Multi-Z Meta?",
-	"map_link": "backrooms",
-	"map_path": "map_files/Backrooms",
-	"map_file": "Backrooms.dmm",
+	"map_name": "MultiMeta",
+	"map_link": "multimeta",
+	"map_path": "map_files/MultiMeta",
+	"map_file": "MultiMeta.dmm",
 	"shuttles": {
 		"cargo": "cargo_box",
 		"ferry": "ferry_standard",
