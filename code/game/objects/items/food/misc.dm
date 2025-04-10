@@ -364,3 +364,7 @@
 	juice_typepath = /datum/reagent/consumable/coconutjuice
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/food/coconutflesh/empty // Chem less version used in coconut spliting
+	food_reagents = list()
+
+
