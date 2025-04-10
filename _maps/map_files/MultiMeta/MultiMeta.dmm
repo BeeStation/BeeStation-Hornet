@@ -4939,6 +4939,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
+"bFB" = (
+/obj/machinery/power/apc/auto_name/directional/north,
+/turf/open/floor/iron/grimy,
+/area/maintenance/multimeta)
 "bFF" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4
@@ -114521,7 +114525,7 @@ xvg
 xvg
 xvg
 qGT
-xvg
+bFB
 xvg
 xvg
 xvg
