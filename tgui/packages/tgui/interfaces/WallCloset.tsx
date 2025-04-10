@@ -1,4 +1,3 @@
-import { sortBy } from '../../common/collections';
 import { useBackend } from '../backend';
 import { Box, Flex, DmIcon, Icon } from '../components';
 import { Window } from '../layouts';
@@ -16,7 +15,7 @@ type StoredItems = {
   show: boolean;
 };
 
-export const WallCloset = (props) => {
+export const WallCloset = () => {
   const { data } = useBackend<WallClosetData>();
   const contents = data.contents;
   return (
@@ -65,7 +64,7 @@ export const WallCloset = (props) => {
 };
 
 const Cell = (props) => {
-  const { act, data } = useBackend<WallClosetData>();
+  const { act } = useBackend<WallClosetData>();
   return (
     <Flex.Item className="WallCloset_FlexItem" width="80px" height="80px">
       <Box className="WallCloset_Box" position="relative">
@@ -81,6 +80,10 @@ const Cell = (props) => {
                   height="100%"
                   width="100%"
                   backgroundColor="red"
+                  style={{
+                    imageRendering: 'pixelated',
+                    msInterpolationMode: 'nearest-neighbor',
+                  }}
                 />
               ) : (
                 <Box
@@ -89,10 +92,10 @@ const Cell = (props) => {
                   width="100%"
                   height="100%"
                   style={{
-                    msInterpolationMode: 'nearest-neighbor',
                     textAlign: 'center',
                     verticalAlign: 'middle',
                     imageRendering: 'pixelated',
+                    msInterpolationMode: 'nearest-neighbor',
                   }}
                 />
               )}
