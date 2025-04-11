@@ -174,7 +174,6 @@
 
 /atom/proc/attack_animal(mob/user, list/modifiers)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ANIMAL, user)
-	return
 
 /**
  * Called when a simple animal or basic mob right clicks an atom.

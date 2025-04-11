@@ -126,20 +126,30 @@
 		return
 	else
 		health = 0
-		icon_state = icon_dead
-		if(flip_on_death)
-			transform = transform.Turn(180)
-		set_density(FALSE)
-		..()
+		look_dead()
+
+/**
+ * Apply the appearance and properties this mob has when it dies
+ * This is called by the mob pretending to be dead too so don't put loot drops in here or something
+ */
+/mob/living/basic/proc/look_dead()
+	icon_state = icon_dead
+	if(flip_on_death)
+		transform = transform.Turn(180)
+	set_density(FALSE)
 
 // copied from simplemobs
 /mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
 	. = ..()
 	if(!.)
 		return
+	look_alive()
+
+/// Apply the appearance and properties this mob has when it is alive
+/mob/living/basic/proc/look_alive()
 	icon = initial(icon)
 	icon_state = icon_living
-	density = initial(density)
+	set_density(initial(density))
 
 /mob/living/basic/examine(mob/user)
 	. = ..()

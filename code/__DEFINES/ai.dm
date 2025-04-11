@@ -27,7 +27,10 @@
 #define AI_BEHAVIOR_MOVE_AND_PERFORM (1<<1)
 
 ///AI flags
+/// Don't move if being pulled
 #define STOP_MOVING_WHEN_PULLED (1<<0)
+/// Don't act if you're dead
+#define STOP_ACTING_WHILE_DEAD	(1<<1)
 
 ///Subtree defines
 
@@ -133,13 +136,10 @@
 ///Dog AI controller blackboard keys
 
 #define BB_SIMPLE_CARRY_ITEM "BB_SIMPLE_CARRY_ITEM"
-#define BB_FETCH_TARGET "BB_FETCH_TARGET"
 #define BB_FETCH_IGNORE_LIST "BB_FETCH_IGNORE_LISTlist"
 #define BB_FETCH_DELIVER_TO "BB_FETCH_DELIVER_TO"
-#define BB_DOG_FRIENDS "BB_DOG_FRIENDS"
-#define BB_DOG_ORDER_MODE "BB_DOG_ORDER_MODE"
-#define BB_DOG_PLAYING_DEAD "BB_DOG_PLAYING_DEAD"
 #define BB_DOG_HARASS_TARGET "BB_DOG_HARASS_TARGET"
+#define BB_DOG_HARASS_HARM "BB_DOG_HARASS_HARM"
 #define BB_DOG_IS_SLOW "BB_DOG_IS_SLOW"
 
 /// Basically, what is our vision/hearing range for picking up on things to fetch/
@@ -151,7 +151,9 @@
 /// After being ordered to heel, we spend this long chilling out
 #define AI_DOG_HEEL_DURATION 20 SECONDS
 /// After either being given a verbal order or a pointing order, ignore further of each for this duration
-#define AI_DOG_COMMAND_COOLDOWN	2 SECONDS
+#define AI_DOG_COMMAND_COOLDOWN 2 SECONDS
+/// If the dog is set to harass someone but doesn't bite them for this long, give up
+#define AI_DOG_HARASS_FRUSTRATE_TIME 50 SECONDS
 
 // dog command modes (what pointing at something/someone does depending on the last order the dog heard)
 /// Don't do anything (will still react to stuff around them though)

@@ -1,5 +1,21 @@
 //Dogs.
 
+// Add 'walkies' as valid input
+/datum/pet_command/follow/dog
+	speech_commands = list("heel", "follow", "walkies")
+
+// Add 'good dog' as valid input
+/datum/pet_command/good_boy/dog
+	speech_commands = list("good dog")
+
+// Set correct attack behaviour
+/datum/pet_command/point_targetting/attack/dog
+	attack_behaviour = /datum/ai_behavior/basic_melee_attack/dog
+
+/datum/pet_command/point_targetting/attack/dog/set_command_active(mob/living/parent, mob/living/commander)
+	. = ..()
+	parent.ai_controller.blackboard[BB_DOG_HARASS_HARM] = TRUE
+
 /mob/living/basic/pet/dog
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	response_help_continuous = "pets"
@@ -11,18 +27,31 @@
 	speak_emote = list("barks", "woofs")
 	faction = list(FACTION_NEUTRAL)
 	see_in_dark = 5
-	ai_controller = /datum/ai_controller/dog
+	ai_controller = /datum/ai_controller/basic_controller/dog
+	// The dog attack pet command can raise melee attack above 0
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	/// Instructions you can give to dogs
+	var/static/list/pet_commands = list(
+		/datum/pet_command/idle,
+		/datum/pet_command/free,
+		/datum/pet_command/good_boy/dog,
+		/datum/pet_command/follow/dog,
+		/datum/pet_command/point_targetting/attack/dog,
+		/datum/pet_command/point_targetting/fetch,
+		/datum/pet_command/play_dead,
+	)
 
 /mob/living/basic/pet/dog/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "woofs happily!")
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW)
+	AddElement(/datum/element/befriend_petting, tamed_reaction = "%SOURCE% licks at %TARGET% in a friendly manner!", untamed_reaction = "%SOURCE% fixes %TARGET% with a look of betrayal.")
+	AddComponent(/datum/component/obeys_commands, pet_commands)
 	var/dog_area = get_area(src)
 	for(var/obj/structure/bed/dogbed/D in dog_area)
 		if(D.update_owner(src)) //No muscling in on my turf you fucking parrot
@@ -46,7 +75,7 @@
 	butcher_results = list(/obj/item/food/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_icon_state = "corgi"
-	ai_controller = /datum/ai_controller/dog/corgi
+	ai_controller = /datum/ai_controller/basic_controller/dog/corgi
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	/// Access card for Ian.
@@ -411,6 +440,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		held_state = "old_corgi"
 		ai_controller?.blackboard[BB_DOG_IS_SLOW] = TRUE
 		is_slow = TRUE
+		speed = 2
 
 /mob/living/basic/pet/dog/corgi/Ian/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)

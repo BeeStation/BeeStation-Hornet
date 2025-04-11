@@ -127,7 +127,7 @@
 /datum/component/riding/creature/proc/setup_abilities(mob/living/rider)
 	if(!isliving(parent))
 		return
-		
+
 	var/mob/living/ridden_creature = parent
 
 	for(var/datum/action/action as anything in ridden_creature.actions)
