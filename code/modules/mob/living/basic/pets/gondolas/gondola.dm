@@ -26,7 +26,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/gondola
 
 	//Gondolas aren't affected by cold.
-	//unsuitable_atmos_damage = 0
+	unsuitable_atmos_damage = 0
 	basic_mob_flags = DEL_ON_DEATH
 
 	///List of loot drops on death, since it deletes itself on death (like trooper).
