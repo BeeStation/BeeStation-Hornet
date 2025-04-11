@@ -12,14 +12,6 @@
 	var/mob/dead/observer/G = usr
 	G.observe()
 
-/atom/movable/screen/ghost/cancel_camera_view
-	name = "Cancel camera view"
-	icon_state = "cancel_camera_view"
-
-/atom/movable/screen/ghost/cancel_camera_view/Click()
-	var/mob/dead/observer/G = usr
-	G.cancel_camera_ghosts()
-
 /atom/movable/screen/ghost/jumptomob
 	name = "Jump to mob"
 	icon_state = "jumptomob"
@@ -74,11 +66,6 @@
 
 	using = new /atom/movable/screen/ghost/observe()
 	using.screen_loc = ui_ghost_observe
-	using.hud = src
-	static_inventory += using
-
-	using = new /atom/movable/screen/ghost/cancel_camera_view()
-	using.screen_loc = ui_ghost_cancel_camera_view
 	using.hud = src
 	static_inventory += using
 
