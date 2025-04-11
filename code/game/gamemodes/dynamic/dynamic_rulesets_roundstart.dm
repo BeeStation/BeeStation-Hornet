@@ -40,7 +40,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//               TRAITOR                    //
+//                  TRAITOR                 //
 //                                          //
 //////////////////////////////////////////////
 
@@ -49,7 +49,6 @@
 	role_preference = /datum/role_preference/antagonist/traitor
 	antag_datum = /datum/antagonist/traitor
 	weight = 5
-	points_cost = 5
 
 //////////////////////////////////////////////
 //                                          //
@@ -62,11 +61,10 @@
 	role_preference = /datum/role_preference/antagonist/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 4
-	points_cost = 5
 
 //////////////////////////////////////////////
 //                                          //
-//                HERETIC                   //
+//                  HERETIC                 //
 //                                          //
 //////////////////////////////////////////////
 
@@ -75,11 +73,10 @@
 	role_preference = /datum/role_preference/antagonist/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 4
-	points_cost = 5
 
 //////////////////////////////////////////////
 //                                          //
-//            MALFUNCTIONING AI             //
+//             MALFUNCTIONING AI            //
 //                                          //
 //////////////////////////////////////////////
 

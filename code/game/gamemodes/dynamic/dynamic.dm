@@ -28,7 +28,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	/// Set at the beginning of the round. Used to purchase rules.
 	var/roundstart_points = 0
-	/// The list of rulesets to be executed at roundstart
+	/// List of all roundstart rulesets that have been executed
 	var/roundstart_executed_rulesets = list()
 	/// List of players ready on candidates used on roundstart rulesets.
 	var/list/roundstart_candidates = list()
@@ -37,21 +37,31 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	 * Midround variables
 	*/
 
-	/// A total list of all midrounds executed, for logging purposes
+	/// List of all midround rulesets that have been executed
 	var/midround_executed_rulesets = list()
 	/// How many points we currently have to spend on the next midround. Constantly changing
 	var/midround_points = 0
 	/// The midround that we are currently saving points up for.
-	/// Set in choose_midround_ruleset()
 	var/datum/dynamic_ruleset/midround/midround_chosen_ruleset
 	/// A list if midround rulesets configured from 'dynamic.json'
-	var/list/configured_midround_rulesets
+	var/list/midround_configured_rulesets
 
 	/// The chances for each type of midround ruleset to be picked
 	/// Set in pre_setup()
 	var/midround_light_chance
 	var/midround_medium_chance
 	var/midround_heavy_chance
+
+	/*
+	 * Latejoin variables
+	*/
+
+	/// List of all roundstart rulesets that have been executed
+	var/latejoin_executed_rulesets = list()
+	/// Only defined for admin interaction purposes
+	var/datum/dynamic_ruleset/latejoin/latejoin_forced_ruleset
+	/// A list if latejoin rulesets configured from 'dynamic.json'
+	var/list/latejoin_configured_rulesets
 
 	/*
 	 * Other variables
@@ -64,7 +74,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	/*
 	 * Configurable variables
-	 * All of these variables can be customized in 'dynamic.json'
+	 * All of these can be altered in 'dynamic.json'
 	*/
 
 	/// Roundstart
@@ -94,6 +104,14 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/midround_medium_increase_ratio = DYNAMIC_MIDROUND_INCREASE_RATIO
 	/// The time at which midrounds can start
 	var/midround_grace_period = DYNAMIC_MIDROUND_GRACEPERIOD
+
+	/// Latejoin
+
+	/// The max amount of latejoin rulesets that can be picked
+	var/latejoin_max_rulesets = DYNAMIC_LATEJOIN_MAX_RULESETS
+	/// The probability for a latejoin ruleset to be picked
+	var/latejoin_ruleset_probability = DYNAMIC_LATEJOIN_PROBABILITY
+
 
 // Yes, this is copy pasted from game_mode
 /datum/game_mode/dynamic/check_finished(force_ending)
@@ -302,6 +320,12 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		execute_ruleset(ruleset)
 
 	init_midround()
+
+	// Configure Latejoin rulesets
+	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin)
+	if(!length(latejoin_configured_rulesets))
+		stack_trace("DYNAMIC: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
+
 	. = ..()
 
 /*
@@ -325,9 +349,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * Configure the midround rulesets from 'dynamic.json' and start rolling midrounds
 */
 /datum/game_mode/dynamic/proc/init_midround()
-	configured_midround_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
-	if(!length(configured_midround_rulesets))
-		stack_trace("DYNAMIC: configured_midround_rulesets is empty. It is impossible to roll midrounds")
+	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
+	if(!length(midround_configured_rulesets))
+		stack_trace("DYNAMIC: midround_configured_rulesets is empty. It is impossible to roll midrounds")
 		return
 
 	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
@@ -422,7 +446,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	// Get possible rulesets
 	var/list/possible_rulesets = list()
-	for(var/datum/dynamic_ruleset/midround/ruleset in configured_midround_rulesets)
+	for(var/datum/dynamic_ruleset/midround/ruleset in midround_configured_rulesets)
 		if(!ruleset.weight)
 			continue
 		if(ruleset.severity != severity)
@@ -448,47 +472,54 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /*
 * latejoin
 */
-/*
-/datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/newPlayer)
+
+/datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/character)
+	// Extended
 	if(GLOB.dynamic_forced_extended)
 		return
-	if(EMERGENCY_ESCAPED_OR_ENDGAMED) // No more rules after the shuttle has left
+	// Shuttle at centcom
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+		return
+	// Already executed the max amount
+	if(length(latejoin_max_rulesets) > latejoin_max_rulesets)
+		return
+	// No possible rulesets
+	if(!length(latejoin_configured_rulesets))
 		return
 
-	if (forced_latejoin_rule)
-		forced_latejoin_rule.roundstart_candidates = list(newPlayer)
-		forced_latejoin_rule.trim_candidates()
-		log_game("DYNAMIC: Forcing ruleset [forced_latejoin_rule]")
-		if (forced_latejoin_rule.ready(TRUE))
-			if (!forced_latejoin_rule.repeatable)
-				latejoin_rules = remove_from_list(latejoin_rules, forced_latejoin_rule.type)
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/game_mode/dynamic, execute_midround_latejoin_rule), forced_latejoin_rule), forced_latejoin_rule.delay)
-		forced_latejoin_rule = null
+	if(prob(latejoin_ruleset_probability))
+		// No latejoin ruleset chosen, lets pick one
+		if(!latejoin_forced_ruleset)
+			var/list/possible_rulesets = list()
+			for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
+				if(!ruleset.weight)
+					continue
+				if(!ruleset.points_cost)
+					continue
 
-	else if (latejoin_injection_cooldown < get_time() && (forced_injection || prob(latejoin_roll_chance)))
-		forced_injection = FALSE
+				ruleset.candidates = list(character)
+				ruleset.trim_candidates()
 
-		var/list/drafted_rules = list()
-		for (var/datum/dynamic_ruleset/latejoin/rule in latejoin_rules)
-			if (!rule.weight)
-				continue
-			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())
-				continue
-			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && (mid_round_budget >= rule.cost || is_lategame()))
-				// No stacking : only one round-ender, unless threat level > stacking_limit.
-				if (threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
-					if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET) && high_impact_ruleset_active())
-						continue
+				if(!ruleset.allowed())
+					continue
 
-				rule.roundstart_candidates = list(newPlayer)
-				rule.trim_candidates()
-				if (rule.ready())
-					drafted_rules[rule] = rule.get_weight()
+				possible_rulesets[ruleset] = ruleset.weight
 
-		if (drafted_rules.len > 0 && pick_latejoin_rule(drafted_rules))
-			var/latejoin_injection_cooldown_middle = 0.5*(latejoin_delay_max + latejoin_delay_min)
-			latejoin_injection_cooldown = round(clamp(EXP_DISTRIBUTION(latejoin_injection_cooldown_middle), latejoin_delay_min, latejoin_delay_max)) + get_time()
-*/
+			// No allowed rulesets, our latejoin is probably a security officer.
+			if(!length(possible_rulesets))
+				return
+
+			latejoin_forced_ruleset = pick_weight_allow_zero(possible_rulesets)
+		else
+			latejoin_forced_ruleset.candidates = list(character)
+			latejoin_forced_ruleset.trim_candidates()
+
+			// Ruleset isn't allowed, our latejoin is probably a security officer.
+			if(!latejoin_forced_ruleset.allowed())
+				return
+
+		if(latejoin_forced_ruleset?.execute() == DYNAMIC_EXECUTE_SUCCESS)
+			message_admins("DYNAMIC: Executing latejoin: [latejoin_forced_ruleset]")
 
 /*
 * Station intercept to alert the crew that its not a greenshift

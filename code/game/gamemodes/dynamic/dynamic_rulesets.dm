@@ -10,7 +10,7 @@
 	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.
 	var/weight = 5
 	/// How many points this ruleset costs to run. (How many players for one of this antagonist to spawn)
-	var/points_cost = 5
+	var/points_cost = 7
 	/// How many players are drafted by this ruleset. This should usually be 1 but should be increased for team antagonists (cult, incursion)
 	var/drafted_players_amount = 1
 	/// The role preference used for this ruleset
