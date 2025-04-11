@@ -27,6 +27,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 4
+	var/max_volume = 100
 
 // Use a knife/sharp object to process the coconut
 /obj/item/grown/coconut/attackby(obj/item/W, mob/user, params)
@@ -34,16 +35,48 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 		return ..()
 	to_chat(user, span_notice("You use [W] to process the flesh from the coconut"))
 
-	// Creates 5 coconut flesh when processed
-	for(var/i = 1 to 5)
-		var/obj/item/food/coconutflesh/flesh = new /obj/item/food/coconutflesh(src.loc)
-		flesh.pixel_x = rand(-5, 5) // Randomises the positioning of the flesh so it isn't all lumped on top of each other
+	// Get the turf where the user is located
+	var/turf/location = get_turf(user)
+
+	var/datum/reagents/revised_regredients = new /datum/reagents // Reagents for coconut flesh
+	reagents.copy_to(revised_regredients, reagents.total_volume)
+
+	if(reagents && reagents.total_volume > 0)
+		if(reagents.has_reagent(/datum/reagent/consumable/coconutmilk)) // Remove coconut milk
+			var/datum/reagent/reg = reagents.get_reagent(/datum/reagent/consumable/coconutmilk)
+			revised_regredients.del_reagent(/datum/reagent/consumable/coconutmilk)
+			revised_regredients.add_reagent(/datum/reagent/consumable/nutriment/vitamin, reg.volume / 4)
+			revised_regredients.add_reagent(/datum/reagent/consumable/nutriment, reg.volume / 2)
+
+	// Defaults to creating 1 coconut flesh when processed
+	var/part_amount = 1
+	if(seed && seed.potency)
+		part_amount = floor(seed.potency / 20 + 1) // Min 1, Max 6 at 100 potency
+
+	for(var/i = 1 to part_amount)
+		var/obj/item/food/coconutflesh/flesh = new /obj/item/food/coconutflesh/empty(location)
+		if(reagents && reagents.total_volume > 0)
+			revised_regredients.copy_to(flesh.reagents, reagents.total_volume / clamp(part_amount, 1, 5))// So 100 potency isn't a punishment
+		flesh.pixel_x = rand(-5, 5) // Randomize the positioning of the flesh
 		flesh.pixel_y = rand(-5, 5)
 
 	// Creates the coconut cup alongside the coconut flesh
-	var/obj/item/reagent_containers/cup/coconutcup/cup = new /obj/item/reagent_containers/cup/coconutcup(src.loc)
+	var/obj/item/reagent_containers/cup/coconutcup/cup = new /obj/item/reagent_containers/cup/coconutcup(location)
+
+	// Scale the volume of the coconut cup based on the plant's potency
+	if(seed && seed.potency)
+		var/modifier = 1
+		if(seed.get_gene(/datum/plant_gene/trait/maxchem))
+			modifier = 2
+		cup.volume = max(10, seed.potency) * modifier // Without trait 10-100, with it 20-200
+	else
+		cup.volume = 50 // Default volume if potency is unavailable
+
 	// Transfers the reagents from the plant to liquid form inside the cup
 	if(reagents && reagents.total_volume > 0)
 		reagents.trans_to(cup.reagents, reagents.total_volume)
+
+	// Delete the coconut after processing
+	. = ..()
 	qdel(src)
-	return ..()
+
