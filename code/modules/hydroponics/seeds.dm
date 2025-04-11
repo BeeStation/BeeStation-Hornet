@@ -398,7 +398,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 		to_chat(user, span_info("*---------*\n This is \a [span_name("[src]")]."))
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, EXAMINE_BLOCK(span_notice("[text]")))
+			to_chat(user, examine_block(span_notice("[text]")))
 
 		return
 

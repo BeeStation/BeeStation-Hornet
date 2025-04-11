@@ -75,7 +75,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	icon_state = "asclepius_dormant"
 	item_state = "asclepius_dormant"
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_level = 1
 	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
 	block_flags = null //not active, so it's null
@@ -894,7 +894,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_level = 1
 	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY

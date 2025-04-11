@@ -64,7 +64,7 @@
 	obj_flags = UNIQUE_RENAME
 	force = 15
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
@@ -196,6 +196,12 @@
 	var/force_on // Damage when on - not stunning
 	var/force_off // Damage when off - not stunning
 	var/weight_class_on // What is the new size class when turned on
+
+/obj/item/melee/classic_baton/Initialize(mapload)
+	. = ..()
+	// Adding an extra break for the sake of presentation
+	if(stamina_damage != 0)
+		offensive_notes = "It takes [span_warning("[CEILING(100 / stamina_damage, 1)] stunning hit\s")] to stun an enemy."
 
 // Description for trying to stun when still on cooldown.
 /obj/item/melee/classic_baton/proc/get_wait_description()
@@ -620,7 +626,7 @@
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	force_string = "INFINITE"
 

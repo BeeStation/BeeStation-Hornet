@@ -56,6 +56,41 @@
 /obj/item/gun/energy/get_cell()
 	return cell
 
+/obj/item/gun/energy/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_energy))
+
+/**
+ *
+ * Outputs type-specific weapon stats for energy-based firearms based on its firing modes
+ * and the stats of those firing modes. Esoteric firing modes like ion are currently not supported
+ * but can be added easily
+ *
+ */
+/obj/item/gun/energy/proc/add_notes_energy()
+	var/list/readout = list()
+	// Make sure there is something to actually retrieve
+	if(!ammo_type.len)
+		return
+	var/obj/projectile/exam_proj
+	readout += "\nStandard models of this projectile weapon have [span_warning("[ammo_type.len] mode\s")]."
+	readout += "Our heroic interns have shown that one can theoretically stay standing after..."
+	if(projectile_damage_multiplier <= 0)
+		readout += "a theoretically infinite number of shots on [span_warning("every")] mode due to esoteric or nonexistent offensive potential."
+		return readout.Join("\n") // Sending over the singular string, rather than the whole list
+	for(var/obj/item/ammo_casing/energy/for_ammo as anything in ammo_type)
+		exam_proj = for_ammo.projectile_type
+		if(!ispath(exam_proj))
+			continue
+
+		if(initial(exam_proj.damage) > 0) // Don't divide by 0!!!!!
+			readout += "[span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * projectile_damage_multiplier) * for_ammo.pellets)] shot\s")] on [span_warning("[for_ammo.select_name]")] mode before collapsing from [initial(exam_proj.damage_type) == STAMINA ? "immense pain" : "their wounds"]."
+			if(initial(exam_proj.stamina) > 0) // In case a projectile does damage AND stamina damage (Energy Crossbow)
+				readout += "[span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * projectile_damage_multiplier) * for_ammo.pellets)] shot\s")] on [span_warning("[for_ammo.select_name]")] mode before collapsing from immense pain."
+		else
+			readout += "a theoretically infinite number of shots on [span_warning("[for_ammo.select_name]")] mode."
+
+	return readout.Join("\n") // Sending over the singular string, rather than the whole list
+
 /obj/item/gun/energy/Initialize(mapload)
 	. = ..()
 	if(cell_type)

@@ -8,7 +8,7 @@
 	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	item_flags = ISWEAPON

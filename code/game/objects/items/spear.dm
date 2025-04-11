@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	slot_flags = ITEM_SLOT_BACK
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	throwforce = 20
 	throw_speed = 4
 	embedding = list("armour_block" = 60, "max_damage_mult" = 0.5)
@@ -193,7 +193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	throwforce = 22
 	throw_speed = 4
 	embedding = list("armour_block" = 30, "max_damage_mult" = 0.5)
