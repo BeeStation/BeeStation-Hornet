@@ -599,4 +599,41 @@
 		SSticker.news_report = CULT_FAILURE
 		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
 
+//////////////////////////////////////////////
+//                                          //
+//           ROUNDSTART VAMPIRE             //
+//                                          //
+//////////////////////////////////////////////
 
+/datum/dynamic_ruleset/roundstart/vampire
+	name = "Vampires"
+	role_preference = /datum/role_preference/antagonist/vampire
+	antag_datum = /datum/antagonist/vampire
+	protected_roles = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_CURATOR)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 1
+	weight = 3
+	cost = 10
+	scaling_cost = 9
+	requirements = list(10,10,10,10,10,10,10,10,10,10)
+	antag_cap = list("denominator" = 24)
+
+/datum/dynamic_ruleset/roundstart/vampire/pre_execute(population)
+	. = ..()
+	var/num_vampires = get_antag_cap(population) * (scaled_times + 1)
+
+	for(var/i = 1 to num_vampires)
+		if(candidates.len <= 0)
+			break
+		var/mob/selected_mobs = pick_n_take(candidates)
+		assigned += selected_mobs.mind
+		selected_mobs.mind.special_role = ROLE_VAMPIRE
+		selected_mobs.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += selected_mobs.mind
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/vampire/execute()
+	for(var/datum/mind/candidate_mind as anything in assigned)
+		candidate_mind.make_vampire()
+		GLOB.pre_setup_antags -= candidate_mind
+	return TRUE

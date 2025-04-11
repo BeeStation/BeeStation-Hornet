@@ -281,8 +281,7 @@
 
 /datum/role_preference/antagonist/wizard
 	name = "Wizard"
-	description = "GREETINGS. WE'RE THE WIZARDS OF THE WIZARD'S FEDERATION.\n\
-	Choose between a variety of powerful spells in order to cause chaos among Space Station 13."
+	description = "GREETINGS. WE'RE THE WIZARDS OF THE WIZARD'S FEDERATION.\nChoose between a variety of powerful spells in order to cause chaos among Space Station 13."
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
 
@@ -312,3 +311,24 @@
 	malf_ai_icon.Scale(ANTAGONIST_PREVIEW_ICON_SIZE, ANTAGONIST_PREVIEW_ICON_SIZE)
 
 	return malf_ai_icon
+
+/datum/role_preference/antagonist/vampire
+	name = "Vampire"
+	description = "After your death, you awaken to see yourself as an undead monster.\nScrape by Space Station 13, or take it over, vassalizing your way!"
+	antag_datum = /datum/antagonist/vampire
+
+/datum/role_preference/antagonist/vampire/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
+	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+
+	return finish_preview_icon(icon)
+
+/datum/role_preference/midround_living/vampire
+	name = "Vampiric Accident"
+	description = "After your death, you awaken to see yourself as an undead monster.\nScrape by Space Station 13, or take it over, vassalizing your way!"
+	antag_datum = /datum/antagonist/vampire
+	use_icon = /datum/role_preference/antagonist/vampire
+
+/datum/outfit/vampire
+	name = "Vampire outfit (Preview only)"
+	suit = /obj/item/clothing/suit/costume/dracula
