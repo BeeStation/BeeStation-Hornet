@@ -16,7 +16,7 @@
 	limb_id = "robotic"
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	static_icon = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	flags_1 = CONDUCT_1
@@ -42,7 +42,7 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	static_icon = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = "robotic"
@@ -69,7 +69,7 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
 	attack_verb_simple = list("kick", "stomp")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	static_icon = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = "robotic"
@@ -96,7 +96,7 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
 	attack_verb_simple = list("kick", "stomp")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	static_icon = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = "robotic"
@@ -121,7 +121,7 @@
 /obj/item/bodypart/chest/robot
 	name = "cyborg torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	static_icon = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = "robotic"
@@ -228,7 +228,7 @@
 /obj/item/bodypart/head/robot
 	name = "cyborg head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	static_icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = "robotic"
 	icon = null

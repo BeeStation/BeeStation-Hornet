@@ -4,7 +4,9 @@
 	desc = "A cable that can connect integrated circuits to anything with a USB port, such as computers and machines."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "usb_cable"
-	item_state = "coil"
+	inhand_icon_state = "coil_yellow"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 75)
 	var/usb_range = USB_CABLE_MAX_RANGE

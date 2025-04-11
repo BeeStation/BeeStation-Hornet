@@ -29,7 +29,7 @@
 	singular_name = "plasma floor tile"
 	desc = "A tile made out of highly flammable plasma. This can only end well."
 	icon_state = "tile_plasma"
-	item_state = "tile-plasma"
+	inhand_icon_state = "tile-plasma"
 	turf_type = /turf/open/floor/mineral/plasma
 	mineralType = "plasma"
 	mats_per_unit = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT*0.25)
@@ -40,7 +40,7 @@
 	singular_name = "uranium floor tile"
 	desc = "A tile made out of uranium. You feel a bit woozy."
 	icon_state = "tile_uranium"
-	item_state = "tile-uranium"
+	inhand_icon_state = "tile-uranium"
 	turf_type = /turf/open/floor/mineral/uranium
 	mineralType = "uranium"
 	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT*0.25)
@@ -51,7 +51,7 @@
 	singular_name = "gold floor tile"
 	desc = "A tile made out of gold, the swag seems strong here."
 	icon_state = "tile_gold"
-	item_state = "tile-gold"
+	inhand_icon_state = "tile-gold"
 	turf_type = /turf/open/floor/mineral/gold
 	mineralType = "gold"
 	mats_per_unit = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT*0.25)
@@ -62,7 +62,7 @@
 	singular_name = "silver floor tile"
 	desc = "A tile made out of silver, the light shining from it is blinding."
 	icon_state = "tile_silver"
-	item_state = "tile-silver"
+	inhand_icon_state = "tile-silver"
 	turf_type = /turf/open/floor/mineral/silver
 	mineralType = "silver"
 	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT*0.25)
@@ -83,7 +83,7 @@
 	singular_name = "diamond floor tile"
 	desc = "A tile made out of diamond. Wow, just, wow."
 	icon_state = "tile_diamond"
-	item_state = "tile-diamond"
+	inhand_icon_state = "tile-diamond"
 	turf_type = /turf/open/floor/mineral/diamond
 	mineralType = "diamond"
 	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT*0.25)
@@ -94,7 +94,7 @@
 	singular_name = "bananium floor tile"
 	desc = "A tile made out of bananium, HOOOOOOOOONK!"
 	icon_state = "tile_bananium"
-	item_state = "tile-bananium"
+	inhand_icon_state = "tile-bananium"
 	turf_type = /turf/open/floor/mineral/bananium
 	mineralType = "bananium"
 	mats_per_unit = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT*0.25)
@@ -107,7 +107,7 @@
 	desc = "A tile made out of alien alloy."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "tile_abductor"
-	item_state = "tile-abductor"
+	inhand_icon_state = "tile-abductor"
 	turf_type = /turf/open/floor/mineral/abductor
 	mats_per_unit = list(/datum/material/alloy/alien=MINERAL_MATERIAL_AMOUNT*0.25)
 	mineralType = "abductor"
@@ -118,7 +118,7 @@
 	singular_name = "titanium floor tile"
 	desc = "Sleek titanium tiles, used for shuttles."
 	icon_state = "tile_titanium"
-	item_state = "tile-shuttle"
+	inhand_icon_state = "tile-shuttle"
 	turf_type = /turf/open/floor/mineral/titanium
 	mineralType = "titanium"
 	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT*0.25)
@@ -215,7 +215,7 @@
 	singular_name = "plastitanium floor tile"
 	desc = "A tile made of plastitanium, used for very evil shuttles."
 	icon_state = "tile_plastitanium"
-	item_state = "tile-darkshuttle"
+	inhand_icon_state = "tile-darkshuttle"
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
 	mats_per_unit = list(/datum/material/alloy/plastitanium=MINERAL_MATERIAL_AMOUNT*0.50)
@@ -238,7 +238,7 @@
 	singular_name = "snow tile"
 	desc = "A layer of snow."
 	icon_state = "tile_snow"
-	item_state = "tile-silver"
+	inhand_icon_state = "tile-silver"
 	turf_type = /turf/open/floor/grass/snow/safe
 	mineralType = "snow"
 	merge_type = /obj/item/stack/tile/mineral/snow
@@ -248,7 +248,7 @@
 	singular_name = "wax tile"
 	desc = "A large, flat sheet of wax."
 	icon_state = "tile_wax"
-	item_state = "tile-wax"
+	inhand_icon_state = "tile-wax"
 	turf_type = /turf/open/floor/wax
 	mineralType = "wax"
 	merge_type = /obj/item/stack/tile/mineral/wax
@@ -257,7 +257,7 @@
 	name = "brass tiles"
 	desc = "An ornante tile made out of brass."
 	icon_state = "tile_brass"
-	item_state = "tile_brass"
+	inhand_icon_state = "tile_brass"
 	turf_type = /turf/open/floor/clockwork
 	mineralType = "brass"
 	merge_type = /obj/item/stack/tile/mineral/brass
@@ -266,7 +266,7 @@
 	name = "bronze tiles"
 	desc = "An ornate tile made out of... wait this is bronze!"
 	icon_state = "tile_brass"
-	item_state = "tile_brass"
+	inhand_icon_state = "tile_brass"
 	turf_type = /turf/open/floor/bronze
 	mineralType = "bronze"
 	merge_type = /obj/item/stack/tile/mineral/bronze

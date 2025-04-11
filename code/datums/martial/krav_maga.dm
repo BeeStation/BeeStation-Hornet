@@ -185,7 +185,7 @@
 	name = "krav maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
-	item_state = "fightgloves"
+	inhand_icon_state = "fightgloves"
 	worn_icon_state = "fightgloves"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -208,7 +208,7 @@
 	name = "combat gloves plus"
 	desc = "These tactical gloves are fireproof and shock resistant, and using nanochip technology it teaches you the powers of krav maga."
 	icon_state = "cgloves"
-	item_state = "combatgloves"
+	inhand_icon_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
 	strip_delay = 80
