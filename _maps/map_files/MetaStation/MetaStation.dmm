@@ -21833,7 +21833,6 @@
 	},
 /area/tcommsat/server)
 "dle" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 1
 	},
@@ -23868,7 +23867,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -31035,6 +31033,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "gIt" = (
@@ -38132,7 +38131,6 @@
 /turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
 "jqv" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 4
 	},

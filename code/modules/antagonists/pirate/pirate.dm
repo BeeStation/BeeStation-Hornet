@@ -90,7 +90,7 @@
 	for(var/datum/mind/M in members)
 		var/datum/antagonist/pirate/P = M.has_antag_datum(/datum/antagonist/pirate)
 		if(P)
-			P.objectives |= objectives
+			P.add_objective(objectives)
 
 
 /datum/objective/loot

@@ -98,6 +98,7 @@
 	requires_tech = TRUE
 	filtering_step_type = /datum/surgery_step/filter_blood/upgraded
 	replaced_by = /datum/surgery/blood_filter/femto
+	required_trait = TRAIT_SURGEON
 
 /datum/surgery_step/filter_blood/upgraded
 	time = 1.85 SECONDS
@@ -109,6 +110,7 @@
 	requires_tech = TRUE
 	filtering_step_type = /datum/surgery_step/filter_blood/upgraded/femto
 	replaced_by = null
+	required_trait = TRAIT_SURGEON
 
 /datum/surgery_step/filter_blood/upgraded/femto
 	time = 1 SECONDS

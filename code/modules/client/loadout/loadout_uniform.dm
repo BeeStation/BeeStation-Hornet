@@ -340,7 +340,7 @@
 
 /datum/gear/uniform/rank/medical
 	subtype_path = /datum/gear/uniform/rank/medical
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_SURGEON, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"

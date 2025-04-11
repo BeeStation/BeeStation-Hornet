@@ -5,8 +5,8 @@
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -18,9 +18,9 @@
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(
-		ACCOUNT_MED_ID = PAYCHECK_MEDIUM
+		ACCOUNT_MED_ID = PAYCHECK_HARD
 	)
-	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM, TRAIT_GENETICIST)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
 	rpg_title = "Genemancer"

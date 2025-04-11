@@ -2,6 +2,7 @@
 	name = "plastic surgery"
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/retract_skin, /datum/surgery_step/reshape_face, /datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_HEAD)
+	required_trait = TRAIT_SURGEON
 
 //reshape_face
 /datum/surgery_step/reshape_face

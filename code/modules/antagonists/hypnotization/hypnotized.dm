@@ -16,7 +16,7 @@
 	var/datum/mind/M = victim.mind
 	var/datum/antagonist/hypnotized/B = new()
 	var/datum/objective/hypnotized/objective = new(hypnotic_phrase)
-	B.objectives += objective
+	B.add_objective(objective)
 	log_objective(M, objective.explanation_text)
 	M.add_antag_datum(B)
 	var/rendered = span_deadsay("<b>[victim]</b> has been hypnotized with the following phrase: <b>[hypnotic_phrase]</b>.")
