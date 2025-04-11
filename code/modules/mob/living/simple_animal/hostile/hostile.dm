@@ -258,14 +258,14 @@
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
 	else
-		AttackingTarget()
+		AttackingTarget(target)
 	if(patience)
 		GainPatience()
 
 /mob/living/simple_animal/hostile/proc/CheckAndAttack()
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	if(target && isturf(target_from.loc) && target.Adjacent(target_from) && !incapacitated())
-		AttackingTarget()
+		AttackingTarget(target)
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
 	stop_automated_movement = 1
@@ -335,10 +335,13 @@
 			FindTarget()
 
 
-/mob/living/simple_animal/hostile/proc/AttackingTarget()
-	if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
-		return FALSE
+/mob/living/simple_animal/hostile/proc/AttackingTarget(atom/attacked_target)
+	if(isnull(attacked_target))
+		stack_trace("[src] did not pass args for target")
+
 	in_melee = TRUE
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, attacked_target) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE //but more importantly return before attack_animal called
 	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target)
 	return target.attack_animal(src)
 

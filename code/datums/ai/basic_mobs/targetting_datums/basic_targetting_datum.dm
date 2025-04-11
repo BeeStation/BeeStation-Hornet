@@ -39,8 +39,9 @@
 
 	if(ismecha(the_target)) //Targetting vs mechas
 		var/obj/vehicle/sealed/mecha/M = the_target
-		if(can_attack(living_mob, M.occupants)) //Can we attack any of the occupants?
-			return TRUE
+		for(var/occupant in M.occupants)
+			if(can_attack(living_mob, occupant)) //Can we attack any of the occupants?
+				return TRUE
 
 	if(istype(the_target, /obj/machinery/porta_turret)) //Cringe turret! kill it!
 		var/obj/machinery/porta_turret/P = the_target
@@ -53,6 +54,16 @@
 		return TRUE
 
 	return FALSE
+
+/// Subtype more forgiving for items.
+/// Careful, this can go wrong and keep a mob hyperfocused on an item it can't lose aggro on
+/datum/targetting_datum/basic/allow_items
+
+/datum/targetting_datum/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target)
+	. = ..()
+	if(isitem(the_target))
+		// trust fall exercise
+		return TRUE
 
 /// Returns true if the mob and target share factions
 /datum/targetting_datum/basic/proc/faction_check(mob/living/living_mob, mob/living/the_target)
