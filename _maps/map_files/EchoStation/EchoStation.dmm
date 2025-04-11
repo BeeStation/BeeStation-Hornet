@@ -6045,7 +6045,6 @@
 /turf/closed/wall/r_wall,
 /area/security/prison/shielded)
 "cIM" = (
-/obj/structure/wall_closet/fire,
 /obj/item/clothing/suit/utility/fire/firefighter,
 /obj/item/clothing/head/utility/hardhat/red,
 /obj/item/clothing/mask/gas,
@@ -33924,6 +33923,7 @@
 	},
 /obj/machinery/vending/job_disk,
 /obj/effect/turf_decal/bot,
+/obj/structure/wall_closet/command/directional/east,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "qDJ" = (
@@ -36284,6 +36284,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/structure/wall_closet/command/directional/south,
 /turf/open/floor/iron,
 /area/bridge)
 "rJY" = (

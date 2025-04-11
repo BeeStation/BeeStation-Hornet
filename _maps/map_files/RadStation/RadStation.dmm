@@ -9102,6 +9102,10 @@
 /obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
+"cTy" = (
+/obj/item/radio/intercom/directional/south,
+/turf/open/floor/wood,
+/area/crew_quarters/dorms)
 "cTF" = (
 /obj/machinery/camera/directional/north,
 /obj/machinery/conveyor{
@@ -16440,7 +16444,6 @@
 /area/crew_quarters/heads/hos)
 "fif" = (
 /obj/item/kirbyplants/random,
-/obj/structure/wall_closet/generic/directional/south,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "fik" = (
@@ -30185,7 +30188,6 @@
 "jGC" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/small,
-/obj/structure/wall_closet/generic/directional/south,
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
 "jGD" = (
@@ -35860,6 +35862,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/wall_closet/generic/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "lvJ" = (
@@ -59407,11 +59410,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = 23
-	},
+/obj/structure/wall_closet/generic/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "sTz" = (
@@ -114332,7 +114331,7 @@ vtI
 wII
 sTw
 djV
-iQe
+cTy
 wII
 jFI
 nKb
