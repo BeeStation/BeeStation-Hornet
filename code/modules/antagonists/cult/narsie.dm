@@ -107,7 +107,7 @@
 		if(get_dist(src, clashing) < 5)
 			if(next_attack_tick < world.time)
 				next_attack_tick = world.time + rand(50, 100)
-				to_chat(world, span_danger("[pick("You hear the scratching of cogs.","You hear the clanging of pipes.","You feel your bones start to rust...")]"))
+				to_chat(world, span_danger(pick("You hear the scratching of cogs.","You hear the clanging of pipes.","You feel your bones start to rust...")))
 				SEND_SOUND(world, 'sound/magic/clockwork/narsie_attack.ogg')
 				SpinAnimation(4, 0)
 				for(var/mob/living/M in GLOB.player_list)

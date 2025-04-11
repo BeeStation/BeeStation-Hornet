@@ -709,7 +709,7 @@
 		M.playsound_local(M, 'sound/effects/singlebeat.ogg', 100, 0)
 
 	if(DT_PROB(3.5, delta_time))
-		to_chat(M, span_notice("[pick("Your head pounds.", "You feel a tight pain in your chest.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
+		to_chat(M, span_notice(pick("Your head pounds.", "You feel a tight pain in your chest.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")))
 
 	if(DT_PROB(18, delta_time))
 		M.adjustToxLoss(1, 0)
