@@ -19,6 +19,9 @@
 		"beaker",
 		"bucket",
 		"circuit_imprinter",
+		"coffeemaker",
+		"coffeepot",
+		"coffee_cartridge",
 		"conveyor_belt",
 		"conveyor_switch",
 		"design_disk",
@@ -54,12 +57,12 @@
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
+		"syrup_bottle",
 		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -630,7 +633,8 @@
 		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
-	"bluespace_capsule",
+		"bluespace_coffeepot",
+		"bluespace_capsule",
 		"bs_rped",
 		"minerbag_holding",
 		"ore_silo",
