@@ -84,7 +84,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	var/datum/error_viewer/error_source/error_source
 	for (var/erroruid in error_sources)
 		error_source = error_sources[erroruid]
-		html += "[error_source.min_name]<br>"
+		html += "[error_source.min_name] (Len: [length(error_source.errors)])<br>"
 
 	browse_to(user, html)
 
@@ -96,7 +96,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		var/datum/error_viewer/error_source/error_source
 		for (var/erroruid in error_sources)
 			error_source = error_sources[erroruid]
-			html += "[error_source.make_link(null, src)]<br>"
+			html += "[error_source.make_link(null, src)] (Len: [length(error_source.errors)])<br>"
 
 	else
 		html += "[make_link("organized", null)] | linear<hr>"
