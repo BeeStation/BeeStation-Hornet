@@ -20,9 +20,11 @@
 /mob/living/carbon/human/GetVoice()
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
 		return ("Unknown")
+
 	var/current_name = real_name
 	if(GetSpecialVoice())
 		current_name = GetSpecialVoice()
+		
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.mimicing )

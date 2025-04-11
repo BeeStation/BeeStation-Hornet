@@ -4,7 +4,6 @@
 	plural_form = "Lizardpeople"
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
-	default_color = "00FF00"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_traits = list(TRAIT_TACKLING_TAILED_DEFENDER)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
