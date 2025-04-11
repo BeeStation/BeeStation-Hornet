@@ -35,7 +35,7 @@
 		new /obj/structure/spider/stickyweb(T)
 
 /obj/projectile/bullet/spidernet/prehit_pierce(atom/A)
-	if(istype(A, /mob/living/simple_animal/hostile/poison/giant_spider) || istype(A, /obj/structure/spider/stickyweb))
+	if(istype(A, /mob/living/simple_animal/hostile/giant_spider) || istype(A, /obj/structure/spider/stickyweb))
 		return PROJECTILE_PIERCE_PHASE
 	return ..()
 

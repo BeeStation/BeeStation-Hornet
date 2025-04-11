@@ -28,7 +28,7 @@
 /turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "j" = (
-/mob/living/simple_animal/hostile/poison/bees/space,
+/mob/living/simple_animal/hostile/bee/space,
 /turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "k" = (
