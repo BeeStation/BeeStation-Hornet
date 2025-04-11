@@ -933,7 +933,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 			observetarget = mob_eye
 
-
 /mob/dead/observer/verb/register_pai_candidate()
 	set category = "Ghost"
 	set name = "pAI Setup"
