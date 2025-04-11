@@ -9936,6 +9936,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/structure/wall_closet/fire/directional/west,
+/obj/item/clothing/suit/utility/fire/firefighter,
+/obj/item/clothing/head/utility/hardhat/red,
+/obj/item/clothing/mask/gas,
+/obj/item/extinguisher,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "cbX" = (
@@ -19379,6 +19384,9 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/airalarm/directional/west{
+	pixel_x = -23
 	},
 /turf/open/floor/iron/dark,
 /area/hydroponics)
@@ -31803,10 +31811,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
 "isi" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Starboad Hallway Custodial Bay";
-	name = "starboard camera"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -31815,6 +31819,15 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/structure/wall_closet/fire/directional/north,
+/obj/item/clothing/suit/utility/fire/firefighter,
+/obj/item/clothing/head/utility/hardhat/red,
+/obj/item/clothing/mask/gas,
+/obj/item/extinguisher,
+/obj/machinery/camera/directional/north{
+	c_tag = "Starboad Hallway Custodial Bay";
+	name = "starboard camera"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -38408,6 +38421,7 @@
 /area/security/courtroom)
 "kxE" = (
 /obj/effect/turf_decal/tile/dark_green/anticorner/contrasted,
+/obj/structure/wall_closet/med/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "kxO" = (
@@ -38545,6 +38559,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/structure/wall_closet/sec/directional/east,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "kAv" = (
@@ -41202,6 +41217,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
+/obj/structure/wall_closet/science/directional/south,
 /turf/open/floor/iron/dark,
 /area/science/mixing)
 "lxh" = (
@@ -43784,6 +43800,19 @@
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
+"mnc" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/wall_closet/fire/directional/north,
+/obj/item/clothing/suit/utility/fire/firefighter,
+/obj/item/clothing/head/utility/hardhat/red,
+/obj/item/clothing/mask/gas,
+/obj/item/extinguisher,
+/turf/open/floor/iron/dark/corner{
+	dir = 4
+	},
+/area/hallway/primary/fore)
 "mng" = (
 /obj/structure/cable/yellow,
 /obj/item/storage/box/pillbottles,
@@ -45156,6 +45185,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/wall_closet/command/directional/east,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "mKk" = (
@@ -46429,6 +46459,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/structure/wall_closet/science/directional/south,
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "nhx" = (
@@ -50921,6 +50952,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/structure/wall_closet/science/directional/north,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "oDa" = (
@@ -55490,6 +55522,7 @@
 /turf/open/floor/iron/dark,
 /area/science/research)
 "qbk" = (
+/obj/structure/wall_closet/sec/directional/north,
 /turf/open/floor/iron,
 /area/security/main)
 "qbn" = (
@@ -56974,6 +57007,20 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/science/research)
+"qyz" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/wall_closet/fire/directional/north,
+/obj/item/clothing/suit/utility/fire/firefighter,
+/obj/item/clothing/head/utility/hardhat/red,
+/obj/item/clothing/mask/gas,
+/obj/item/extinguisher,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "qyB" = (
 /obj/machinery/door/firedoor,
 /obj/structure/door_assembly/door_assembly_eng{
@@ -66257,9 +66304,6 @@
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -23
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -66267,6 +66311,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/structure/wall_closet/hydro/directional/west,
 /turf/open/floor/iron,
 /area/hydroponics)
 "tAh" = (
@@ -66587,14 +66632,20 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "tEv" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/structure/wall_closet/emergency/directional/north,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -71525,14 +71576,14 @@
 /turf/open/floor/grass,
 /area/security/prison)
 "vjT" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 22
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 22
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -106365,7 +106416,7 @@ bxf
 bxt
 bxX
 btA
-tfq
+mnc
 pcG
 mYI
 btE
@@ -109484,7 +109535,7 @@ arn
 arn
 asF
 asF
-kjJ
+qyz
 sVy
 jxS
 nbp
