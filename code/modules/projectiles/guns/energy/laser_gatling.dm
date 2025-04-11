@@ -143,7 +143,7 @@
 	else
 		qdel(src)
 
-/obj/item/gun/energy/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/energy/minigun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(ammo_pack)
 		if(cooldown < world.time)
 			if(current_heat >= overheat) //We've been firing too long, shut it down
@@ -166,7 +166,7 @@
 			to_chat(user, span_warning("[src] is not ready to fire again yet!"))
 	else
 		to_chat(user, span_warning("There is no power supply for [src]"))
-		return //don't process firing the gun if it's on cooldown or doesn't have an ammo pack somehow.
+	return FALSE
 
 /obj/item/gun/energy/minigun/proc/stop_firing()
 	if(current_heat) //Don't play the sound or apply cooldown unless it has actually fired at least once
