@@ -238,7 +238,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/throw_verb
 
 /obj/item/Initialize(mapload)
-
 	if(attack_verb_continuous)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
 	if(attack_verb_simple)
@@ -258,8 +257,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(loc, /obj/item/storage))
 		item_flags |= IN_STORAGE
 
-	if(istype(loc, /obj/item/robot_module))
-		var/obj/item/robot_module/parent_module = loc
+	if(istype(loc, /obj/item/robot_model))
+		var/obj/item/robot_model/parent_module = loc
 		var/mob/living/silicon/parent_robot = parent_module.loc
 		if (istype(parent_robot))
 			pickup(parent_robot)
@@ -614,7 +613,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = ..()
 	if(.)
 		return
-	if(istype(src.loc, /obj/item/robot_module))
+	if(istype(src.loc, /obj/item/robot_model))
 		//If the item is part of a cyborg module, equip it
 		var/mob/living/silicon/robot/R = user
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
@@ -753,7 +752,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// Remove any item actions we temporary gave out.
 	for(var/datum/action/action_item_has as anything in actions)
 		action_item_has.Remove(user)
-		
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)

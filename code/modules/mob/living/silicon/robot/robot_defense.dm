@@ -119,7 +119,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_emag), user), 1)
 
 /mob/living/silicon/robot/proc/after_emag(mob/user)
-	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
+	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/malf_ai))
 		to_chat(src, span_danger("ALERT: Foreign software execution prevented."))
 		logevent("ALERT: Foreign software execution prevented.")
 		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]] successfully defended against subversion."))
@@ -164,7 +164,7 @@
 	create_access_card(get_all_syndicate_access())
 
 /mob/living/silicon/robot/proc/after_emag_shell(mob/user)
-	ResetModule()
+	ResetModel()
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
