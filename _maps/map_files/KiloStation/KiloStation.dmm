@@ -19057,7 +19057,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
 "ekM" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/door/airlock/external{
 	name = "Mining Dock Airlock";
