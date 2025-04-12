@@ -125,7 +125,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
 		if(reag_txt)
 			msg += reag_txt
-		to_chat(user, EXAMINE_BLOCK(msg))
+		to_chat(user, examine_block(msg))
 	else
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
