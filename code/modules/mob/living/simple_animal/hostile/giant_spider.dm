@@ -5,20 +5,8 @@
 #define SPINNING_COCOON 4
 #define INTERACTION_SPIDER_KEY "spider_key"
 
-/mob/living/simple_animal/hostile/poison
-	mobchatspan = "researchdirector"
-	var/poison_per_bite = 5
-	var/poison_type = /datum/reagent/toxin
-
-/mob/living/simple_animal/hostile/poison/AttackingTarget()
-	. = ..()
-	if(. && isliving(target))
-		var/mob/living/L = target
-		if(poison_per_bite && L.reagents)
-			L.reagents.add_reagent(poison_type, poison_per_bite)
-
 //The base "Spider" mob
-/mob/living/simple_animal/hostile/poison/giant_spider
+/mob/living/simple_animal/hostile/giant_spider
 	name = "giant spider"
 	desc = "Furry and black, it makes you shudder to look at it. This one has deep red eyes."
 	icon_state = "tarantula"
@@ -41,8 +29,10 @@
 	health = 85
 	obj_damage = 25
 	melee_damage = 15
-	poison_per_bite = 3
-	poison_type = /datum/reagent/toxin/spidervenom
+	///How much of a reagent the mob injects on attack
+	var/poison_per_bite = 3
+	///What reagent the mob injects targets with
+	var/poison_type = /datum/reagent/toxin/spidervenom
 	var/spider_lightmask = "tarantula-light-mask" // Variable to prevent spider emissives from overlapping
 	faction = list(FACTION_SPIDER)
 	pass_flags = PASSTABLE
@@ -64,7 +54,7 @@
 	var/atom/movable/cocoon_target
 
 	//Special spider variables defined here to prevent duplicate procs
-	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target //used by nurses for healing
+	var/mob/living/simple_animal/hostile/giant_spider/heal_target //used by nurses for healing
 	var/fed = 0 //used by broodmothers to track food
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
@@ -77,21 +67,23 @@
 	discovery_points = 1000
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
-/mob/living/simple_animal/hostile/poison/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
+/mob/living/simple_animal/hostile/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
 	. = ..()
 	var/mutable_appearance/emissive_overlay = emissive_appearance(icon = 'icons/mob/animal.dmi', icon_state = spider_lightmask, layer = layer)
 	. += emissive_overlay
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
+/mob/living/simple_animal/hostile/giant_spider/Initialize(mapload)
 	. = ..()
 	update_appearance() //Used for emissive spider eyes.
 	webbing = new(src)
 	webbing.Grant(src)
 	wrap = new(src)
 	wrap.Grant(src)
+	if(poison_per_bite)
+		AddElement(/datum/element/venomous, poison_type, poison_per_bite)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
+/mob/living/simple_animal/hostile/giant_spider/mind_initialize()
 	. = ..()
 	if(!mind.has_antag_datum(/datum/antagonist/spider))
 		var/datum/antagonist/spider/spooder = new
@@ -100,19 +92,19 @@
 			spider_team = spooder.spider_team
 		mind.add_antag_datum(spooder, spider_team)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
+/mob/living/simple_animal/hostile/giant_spider/Destroy()
 	webbing.Remove()
 	GLOB.spidermobs -= src
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Login()
+/mob/living/simple_animal/hostile/giant_spider/Login()
 	. = ..()
 	if(!. || !client)
 		return FALSE
 	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	GLOB.spidermobs[src] = TRUE
 
-/mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
+/mob/living/simple_animal/hostile/giant_spider/give_mind(mob/user)
 	..()
 	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
 	if(spider_antag.spider_team.directive)
@@ -120,7 +112,7 @@
 	return TRUE
 
 // Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
-/mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
+/mob/living/simple_animal/hostile/giant_spider/updatehealth()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
@@ -133,7 +125,7 @@
 
 // Handles faster movement on webs
 // This is triggered after the first time a spider steps on/off a web, making web-peeking using this harder
-/mob/living/simple_animal/hostile/poison/giant_spider/Moved(atom/oldloc, dir)
+/mob/living/simple_animal/hostile/giant_spider/Moved(atom/oldloc, dir)
 	. = ..()
 	if(onweb_speed == null)
 		return
@@ -146,7 +138,7 @@
 		move_to_delay = initial(move_to_delay)
 
 // Handles webspinning of all varieties for spiders
-/mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement()
+/mob/living/simple_animal/hostile/giant_spider/handle_automated_movement()
 	..()
 	if(AIStatus == AI_IDLE)
 		if(!busy)
@@ -168,12 +160,12 @@
 			GiveUp() //if something interrupts the attempt to cocoon, there is probably an enemy entity nearby and we need to reset
 
 // Handles cocooning items and food
-/mob/living/simple_animal/hostile/poison/giant_spider/proc/cocoon()
+/mob/living/simple_animal/hostile/giant_spider/proc/cocoon()
 	if(stat != DEAD && cocoon_target && !cocoon_target.anchored)
 		if(cocoon_target == src)
 			to_chat(src, span_warning("You can't wrap yourself!"))
 			return
-		if(istype(cocoon_target, /mob/living/simple_animal/hostile/poison/giant_spider))
+		if(istype(cocoon_target, /mob/living/simple_animal/hostile/giant_spider))
 			to_chat(src, span_warning("You can't wrap other spiders!"))
 			return
 		if(!Adjacent(cocoon_target))
@@ -183,7 +175,7 @@
 			to_chat(src, span_warning("You're already spinning a cocoon!"))
 			return //we're already doing this, don't cancel out or anything
 		if(isliving(cocoon_target))
-			if(!istype(src, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+			if(!istype(src, /mob/living/simple_animal/hostile/giant_spider/broodmother))
 				to_chat(src, span_warning("You should bring food to your broodmother!"))
 				return
 			var/mob/living/M = cocoon_target
@@ -220,24 +212,24 @@
 	busy = SPIDER_IDLE
 	stop_automated_movement = FALSE
 
-/mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
+/mob/living/simple_animal/hostile/giant_spider/proc/do_action()
 	stop_automated_movement = FALSE
 	SSmove_manager.stop_looping(src)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
+/mob/living/simple_animal/hostile/giant_spider/AttackingTarget()
 	if(is_busy)
 		return
 	var/mob/target_mob = target
 	if(!istype(target_mob))
 		return ..()
 	// Spider IFF
-	if(istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(istype(target, /mob/living/simple_animal/hostile/giant_spider))
 		visible_message(span_notice("[src] nuzzles [target_mob.name]!"), \
 			span_notice("You nuzzle [target_mob.name]!"), null, COMBAT_MESSAGE_RANGE)
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/giant_spider/proc/GiveUp()
+/mob/living/simple_animal/hostile/giant_spider/proc/GiveUp()
 	if(busy == MOVING_TO_TARGET)
 		cocoon_target = null
 		heal_target = null
@@ -247,7 +239,7 @@
 
 
 // Nurses heal other spiders and maintain the core of the nest.
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse
+/mob/living/simple_animal/hostile/giant_spider/nurse
 	name = "nurse"
 	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes."
 	icon_state = "nurse"
@@ -267,21 +259,21 @@
 	var/datum/action/innate/spider/set_directive/set_directive
 
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
+/mob/living/simple_animal/hostile/giant_spider/nurse/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/datahud = GLOB.huds[health_hud]
 	datahud.add_hud_to(src)
 
 // Allows nurses to heal other spiders if they're adjacent
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/AttackingTarget()
+/mob/living/simple_animal/hostile/giant_spider/nurse/AttackingTarget()
 	if(DOING_INTERACTION(src, INTERACTION_SPIDER_KEY))
 		return
 	var/mob/target_mob = target
 	if(!istype(target_mob))
 		return ..()
-	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(!istype(target, /mob/living/simple_animal/hostile/giant_spider))
 		return ..()
-	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
+	var/mob/living/simple_animal/hostile/giant_spider/hurt_spider = target
 	if(hurt_spider.health >= hurt_spider.maxHealth)
 		to_chat(src, span_warning("You can't find any wounds to wrap up."))
 		return ..() // IFF is handled in parent
@@ -297,12 +289,12 @@
 	visible_message(span_notice("[src] wraps the wounds of [hurt_spider]."), span_notice("You wrap the wounds of [hurt_spider]."))
 
 //Handles AI nurse healing when spiders are idle
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement()
+/mob/living/simple_animal/hostile/giant_spider/nurse/handle_automated_movement()
 	if(AIStatus == AI_IDLE)
 		if(!busy)
 			var/list/can_see = view(10, src)
 			for(var/mob/living/C in can_see)
-				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && C.health < C.maxHealth)
+				if(istype(C, /mob/living/simple_animal/hostile/giant_spider) && C.health < C.maxHealth)
 					heal_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
@@ -314,7 +306,7 @@
 	..() //Do normal stuff after giving priority to healing attempts
 
 //Broodmothers have well rounded stats and are able to lay eggs, but somewhat slow.
-/mob/living/simple_animal/hostile/poison/giant_spider/broodmother
+/mob/living/simple_animal/hostile/giant_spider/broodmother
 	name = "broodmother"
 	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
 	icon_state = "broodmother"
@@ -339,7 +331,7 @@
 	/// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
 
-/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Initialize(mapload)
+/mob/living/simple_animal/hostile/giant_spider/broodmother/Initialize(mapload)
 	. = ..()
 	lay_eggs = new
 	lay_eggs.Grant(src)
@@ -348,18 +340,18 @@
 	set_directive = new
 	set_directive.Grant(src)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Destroy()
+/mob/living/simple_animal/hostile/giant_spider/broodmother/Destroy()
 	wrap.Remove()
 	QDEL_NULL(lay_eggs)
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
 //Handles Broodmother feeding and egglaying
-/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/handle_automated_movement()
+/mob/living/simple_animal/hostile/giant_spider/broodmother/handle_automated_movement()
 	if(AIStatus == AI_IDLE && !busy)
 		var/list/can_see = view(10, src)
 		for(var/mob/living/C in can_see)
-			if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider))
+			if(istype(C, /mob/living/simple_animal/hostile/giant_spider))
 				continue //Not interested in other spiders for food
 			else if(C.stat && !C.anchored)
 				cocoon_target = C
@@ -372,7 +364,7 @@
 
 // Hunters are the most independent of the spiders, not relying on web and having a bit more damage and venom at the cost of health.
 // They are intended to bring prey back from outside of the web.
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter
+/mob/living/simple_animal/hostile/giant_spider/hunter
 	name = "hunter"
 	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes."
 	icon_state = "hunter"
@@ -387,7 +379,7 @@
 	spider_lightmask = "hunter-light-mask"
 
 // Vipers are physically very weak and fragile, but also very fast and inject a lot of venom.
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
+/mob/living/simple_animal/hostile/giant_spider/hunter/viper
 	name = "viper"
 	desc = "Furry and black, it makes you shudder to look at it. This one has effervescent purple eyes."
 	icon_state = "viper"
@@ -403,7 +395,7 @@
 	spider_lightmask = "viper-light-mask"
 
 //Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs.
-/mob/living/simple_animal/hostile/poison/giant_spider/guard
+/mob/living/simple_animal/hostile/giant_spider/guard
 	name = "guard"
 	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes."
 	icon_state = "guard"
@@ -424,36 +416,36 @@
 	var/datum/action/innate/spider/block/block //Guards are huge and can block doorways
 	spider_lightmask = "guard-light-mask"
 
-/mob/living/simple_animal/hostile/poison/giant_spider/guard/Initialize(mapload)
+/mob/living/simple_animal/hostile/giant_spider/guard/Initialize(mapload)
 	. = ..()
 	block = new
 	block.Grant(src)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/guard/Destroy()
+/mob/living/simple_animal/hostile/giant_spider/guard/Destroy()
 	QDEL_NULL(block)
 	return ..()
 
 // Ice spiders - for when you want a spider that really doesn't care about atmos
-/mob/living/simple_animal/hostile/poison/giant_spider/ice
+/mob/living/simple_animal/hostile/giant_spider/ice
 	name = "ice spider"
 	maxbodytemp = 1500
 	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/ice
+/mob/living/simple_animal/hostile/giant_spider/nurse/ice
 	name = "ice nurse"
 	maxbodytemp = 1500
 	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice
+/mob/living/simple_animal/hostile/giant_spider/hunter/ice
 	name = "ice hunter"
 	maxbodytemp = 1500
 	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 
 // Buffed spider for wizards to use
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper/wizard
+/mob/living/simple_animal/hostile/giant_spider/hunter/viper/wizard
 	maxHealth = 100
 	health = 100
 
@@ -471,9 +463,9 @@
 	button_icon_state = "lay_web"
 
 /datum/action/innate/spider/lay_web/on_activate()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(!istype(owner, /mob/living/simple_animal/hostile/giant_spider))
 		return
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
+	var/mob/living/simple_animal/hostile/giant_spider/spider = owner
 
 	if(!isturf(spider.loc))
 		return
@@ -503,7 +495,7 @@
 
 /datum/action/innate/spider/block/on_activate()
 
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider)) // Update_button is here to make an effect to the icon as if it were a pointed/projectile icon.
+	if(!istype(owner, /mob/living/simple_animal/hostile/giant_spider)) // Update_button is here to make an effect to the icon as if it were a pointed/projectile icon.
 		return
 	var/mob/living/living_owner = owner
 	button_icon_state = "block_1"
@@ -533,7 +525,7 @@
 	if(!isspider(owner))
 		return FALSE
 
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
+	var/mob/living/simple_animal/hostile/giant_spider/spider = owner
 	var/obj/structure/spider/stickyweb/web = locate() in get_turf(spider)
 	if(web && (istype(web, /obj/structure/spider/stickyweb)))
 		to_chat(owner, span_warning("There's already a web here!"))
@@ -610,7 +602,7 @@
 	return TRUE
 
 /datum/action/wrap/proc/cocoon(atom/movable/to_wrap)
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
+	var/mob/living/simple_animal/hostile/giant_spider/spider = owner
 	spider.cocoon_target = to_wrap
 	spider.cocoon()
 
@@ -621,18 +613,18 @@
 
 /datum/action/innate/spider/lay_eggs/is_available()
 	. = ..()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+	if(!istype(owner, /mob/living/simple_animal/hostile/giant_spider/broodmother))
 		return FALSE
-	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
+	var/mob/living/simple_animal/hostile/giant_spider/broodmother/S = owner
 	var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
 	if((S.fed || S.enriched_fed) && (spider_antag?.spider_team.directive || !S.ckey))
 		return TRUE
 	return FALSE
 
 /datum/action/innate/spider/lay_eggs/on_activate()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+	if(!istype(owner, /mob/living/simple_animal/hostile/giant_spider/broodmother))
 		return
-	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/spider = owner
+	var/mob/living/simple_animal/hostile/giant_spider/broodmother/spider = owner
 	var/datum/antagonist/spider/spider_antag = spider.mind?.has_antag_datum(/datum/antagonist/spider)
 
 	var/obj/structure/spider/eggcluster/cluster = locate() in get_turf(spider)
@@ -681,7 +673,7 @@
 	button_icon_state = "command"
 
 /datum/action/innate/spider/comm/is_available()
-	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/giant_spider/broodmother)
 
 /datum/action/innate/spider/comm/on_activate(mob/user, atom/target)
 	var/input = stripped_input(owner, "Input a command for your children to follow.", "Command", "")
@@ -701,7 +693,7 @@
 	var/datum/antagonist/spider/spider_antag = user.mind?.has_antag_datum(/datum/antagonist/spider)
 	if(!spider_antag)
 		return
-	for(var/mob/living/simple_animal/hostile/poison/giant_spider/spider as anything in GLOB.spidermobs)
+	for(var/mob/living/simple_animal/hostile/giant_spider/spider as anything in GLOB.spidermobs)
 		var/datum/antagonist/spider/target_spider_antag = spider.mind?.has_antag_datum(/datum/antagonist/spider)
 		if(spider_antag?.spider_team == target_spider_antag?.spider_team)
 			to_chat(spider, my_message)
@@ -712,7 +704,7 @@
 
 // Temperature damage
 // Flat 10 brute if they're out of safe temperature, making them vulnerable to fire or spacing
-/mob/living/simple_animal/hostile/poison/giant_spider/handle_temperature_damage()
+/mob/living/simple_animal/hostile/giant_spider/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(10)
 		throw_alert("temp", /atom/movable/screen/alert/cold, 3)
@@ -724,19 +716,19 @@
 
 
 // Net casters are the balanced generalist of the spider family: Moderate stats all around, and a ranged knockdown to assist others
-/mob/living/simple_animal/hostile/poison/giant_spider/netcaster
+/mob/living/simple_animal/hostile/giant_spider/netcaster
 	name = "net caster"
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
 	var/datum/action/spell/pointed/projectile/throw_web/spidernet
 
-/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
+/mob/living/simple_animal/hostile/giant_spider/netcaster/Initialize(mapload)
 	. = ..()
 	spidernet = new
 	spidernet.Grant(src)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
+/mob/living/simple_animal/hostile/giant_spider/netcaster/Destroy()
 	. = ..()
 	spidernet.Remove()
 
@@ -754,9 +746,9 @@
 /datum/action/spell/pointed/projectile/throw_web/can_cast_spell(feedback)
 	. = ..()
 	var/mob/living/user = owner
-	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(!istype(user, /mob/living/simple_animal/hostile/giant_spider))
 		return FALSE
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	var/mob/living/simple_animal/hostile/giant_spider/spider = user
 	if(spider.busy != SPINNING_WEB)
 		return TRUE
 	else
@@ -764,9 +756,9 @@
 
 /datum/action/spell/pointed/projectile/throw_web/set_click_ability(mob/on_who)
 	var/mob/living/user = owner
-	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(!istype(user, /mob/living/simple_animal/hostile/giant_spider))
 		return FALSE
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	var/mob/living/simple_animal/hostile/giant_spider/spider = user
 	if(spider.busy != SPINNING_WEB)
 		spider.busy = SPINNING_WEB
 		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
@@ -792,17 +784,17 @@
 
 /datum/action/innate/spider/set_directive/is_available()
 	if(..())
-		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+		if(!istype(owner, /mob/living/simple_animal/hostile/giant_spider/broodmother))
 			return FALSE
 		return TRUE
 
 
 /datum/action/innate/spider/set_directive/on_activate()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+	if(!istype(owner, /mob/living/simple_animal/hostile/giant_spider/broodmother))
 		return
 	if(!owner.mind)
 		return
-	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
+	var/mob/living/simple_animal/hostile/giant_spider/broodmother/S = owner
 	var/datum/antagonist/spider/spider_antag = S.mind.has_antag_datum(/datum/antagonist/spider)
 	if(!spider_antag)
 		spider_antag = S.mind.add_antag_datum(/datum/antagonist/spider)
