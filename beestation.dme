@@ -1186,6 +1186,7 @@
 #include "code\game\gamemodes\objectives\basic\silicon\block.dm"
 #include "code\game\gamemodes\objectives\basic\silicon\purge.dm"
 #include "code\game\gamemodes\objectives\basic\silicon\robot_army.dm"
+#include "code\game\gamemodes\objectives\basic\untracked\cause_trouble.dm"
 #include "code\game\gamemodes\objectives\basic\untracked\chaos.dm"
 #include "code\game\gamemodes\objectives\basic\untracked\custom.dm"
 #include "code\game\gamemodes\objectives\finale\elimination.dm"

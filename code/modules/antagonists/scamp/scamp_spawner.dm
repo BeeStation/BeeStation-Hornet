@@ -1,6 +1,6 @@
 /*
  * Scamps are minor antagonists so they can be used alongside other compatible gamemodes with ease.
- * This code is what creates them.
+ * I really have no idea what i'm doing here.
  */
 
 /datum/special_role/scamp

@@ -17,6 +17,9 @@
 	var/datum/objective/cause_trouble/trouble = new
 	add_objective(trouble)
 
+	var/datum/objective/survive/survive = new
+	add_objective(survive)
+
 /datum/antagonist/scamp/on_removal()
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
