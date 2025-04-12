@@ -1,0 +1,4 @@
+author: therealdoooc, kawoppi
+delete-after: true
+changes:
+  - bugfix: basic mobs are no longer immune to space
