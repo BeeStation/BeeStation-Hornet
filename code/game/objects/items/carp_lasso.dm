@@ -28,7 +28,7 @@
 
 /obj/item/mob_lasso/proc/init_whitelists()
 	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp/lia,\
-	/mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
+	/mob/living/basic/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
