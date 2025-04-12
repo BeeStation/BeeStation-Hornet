@@ -1,0 +1,15 @@
+author: rkz,  Ryll/Shaps, SpaceDragon00, TJatPBnJ, EOBGames, GPeckman, LemonInTheDark,
+  SmArtKar, Hatterhat
+delete-after: true
+changes:
+  - rscadd: Combat Information tag for weapons. Shows how many hits or bullets a weapon
+      will take to crit
+  - bugfix: fixes armor comparisions
+  - bugfix: fixes suicides with guns
+  - rscadd: adds shorthands for item flags
+  - rscadd: adds variable on guns to modify bullet power. No weapon has anything except
+      the normal value of 1, this just makes sure if people modify the integrity of
+      guns or the like in the future, they go through this code which is accounted
+      for in the combat tags display
+  - rscadd: pressure/cold/heat-proof clothing now has appropriate display in armor
+      tag examine block
