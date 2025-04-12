@@ -753,7 +753,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// Remove any item actions we temporary gave out.
 	for(var/datum/action/action_item_has as anything in actions)
 		action_item_has.Remove(user)
-		
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -1084,11 +1084,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return 0
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
-	if (obj_flags & CAN_BE_HIT)
-		return ..()
-	return 0
-
-/obj/item/attack_basic_mob(mob/living/basic/user)
 	if (obj_flags & CAN_BE_HIT)
 		return ..()
 	return 0

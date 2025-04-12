@@ -8,5 +8,8 @@
 
 #define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
 
+// simple_animal signals
 /// called when a simplemob is given sentience from a sentience potion (target = person who sentienced)
 #define COMSIG_SIMPLEMOB_SENTIENCEPOTION "simplemob_sentiencepotion"
+/// called when a simplemob is given sentience from a consciousness transference potion (target = person who sentienced)
+#define COMSIG_SIMPLEMOB_TRANSFERPOTION "simplemob_transferpotion"

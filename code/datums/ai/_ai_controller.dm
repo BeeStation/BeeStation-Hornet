@@ -8,7 +8,7 @@ multiple modular subtrees with behaviors
 	///The atom this controller is controlling
 	var/atom/pawn
 	///Bitfield of traits for this AI to handle extra behavior
-	var/ai_traits = STOP_ACTING_WHILE_DEAD
+	var/ai_traits = NONE
 	///Current actions being performed by the AI.
 	var/list/current_behaviors
 	///Current actions and their respective last time ran as an assoc list.
@@ -109,10 +109,12 @@ multiple modular subtrees with behaviors
 	if(!continue_processing_when_client && mob_pawn.client)
 		final_status = AI_STATUS_OFF
 
-	if(ai_traits & STOP_ACTING_WHILE_DEAD)
-		RegisterSignal(pawn, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_changed))
-		if(mob_pawn.stat == DEAD)
-			final_status = AI_STATUS_OFF
+	if(ai_traits & CAN_ACT_WHILE_DEAD)
+		return final_status
+
+	RegisterSignal(pawn, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_changed))
+	if(mob_pawn.stat == DEAD)
+		final_status = AI_STATUS_OFF
 
 	return final_status
 

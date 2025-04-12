@@ -23,7 +23,7 @@
 		finish_action(controller, FALSE, target_key, targetting_datum_key, hiding_location_key)
 		return
 
-	if (!in_range(living_pawn, target))
+	if (!living_pawn.Adjacent(target))
 		growl_at(living_pawn, target, delta_time)
 		return
 
