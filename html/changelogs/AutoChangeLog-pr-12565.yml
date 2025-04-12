@@ -1,0 +1,8 @@
+author: rkz, tralezab, ma44, Capybara Holly
+delete-after: true
+changes:
+  - refactor: converts cows to basicmobs
+  - rscadd: moonicorns, aggressive cows that spread fairygrass, and Wisdom cows, passive
+      cows that belt out fortune cookie phrases(currently adminspawn only)
+  - rscadd: mob ai can now plan new actions while performing current actions
+  - rscadd: cows will now seek out wheat, and follow you if you hold it
