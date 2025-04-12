@@ -25,7 +25,7 @@ effective or pretty fucking useless.
 	throw_speed = 3
 	throw_range = 7
 	flags_1 = CONDUCT_1
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
@@ -187,7 +187,7 @@ effective or pretty fucking useless.
 	desc = "Makes you invisible for short periods of time. Recharges in darkness."
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
-	item_state = "utility"
+	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_continuous = list("whips", "lashes", "disciplines")
@@ -254,7 +254,7 @@ effective or pretty fucking useless.
 	lefthand_file = 'icons/mob/inhands/misc/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/bedsheet_righthand.dmi'
 	icon_state = "sheetmagician"
-	item_state = "sheetmagician"
+	inhand_icon_state = "sheetmagician"
 	worn_icon_state = "sheetblack"
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER

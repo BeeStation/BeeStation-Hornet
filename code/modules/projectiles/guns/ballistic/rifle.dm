@@ -2,7 +2,7 @@
 	name = "Bolt Rifle"
 	desc = "Some kind of bolt action rifle. You get the feeling you shouldn't have this."
 	icon_state = "moistnugget"
-	item_state = "moistnugget"
+	inhand_icon_state = "moistnugget"
 	worn_icon_state = "moistnugget"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	bolt_wording = "bolt"
@@ -36,7 +36,7 @@
 	name = "\improper Mosin Nagant"
 	desc = "This piece of junk looks like something that could have been used 700 years ago. It feels slightly moist."
 	icon_state = "moistnugget"
-	item_state = "moistnugget"
+	inhand_icon_state = "moistnugget"
 	can_sawoff = TRUE
 	sawn_name = "\improper Mosin Obrez"
 	sawn_desc = "A hand cannon of a rifle, try not to break your wrists."
@@ -76,7 +76,7 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	pin = /obj/item/firing_pin/magic
 	icon_state = "arcane_barrage"
-	item_state = "arcane_barrage"
+	inhand_icon_state = "arcane_barrage"
 	slot_flags = null
 	can_bayonet = FALSE
 	item_flags = NEEDS_PERMIT | DROPDEL | ABSTRACT | NOBLUDGEON
@@ -121,7 +121,7 @@
 	icon_state = "leverrifle"
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
-	item_state = "leveraction"
+	inhand_icon_state = "leveraction"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	slot_flags = ITEM_SLOT_BACK
@@ -151,7 +151,7 @@
 	icon_state = "piperifle"
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
-	item_state = "shotgun_improv"
+	inhand_icon_state = "shotgun_improv"
 	sawn_item_state = "shotgun_improv_shorty"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64

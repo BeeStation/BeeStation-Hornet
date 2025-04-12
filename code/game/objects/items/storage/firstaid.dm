@@ -15,7 +15,7 @@
 	desc = "It's an emergency medical kit for those serious boo-boos."
 	icon = 'icons/obj/storage/medkit.dmi'
 	icon_state = "firstaid"
-	item_state = "firstaid"
+	inhand_icon_state = "firstaid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
@@ -57,7 +57,7 @@
 /obj/item/storage/firstaid/medical
 	name = "doctor's bag"
 	icon_state = "firstaid-surgeryalt"
-	item_state = "firstaid-surgeryalt"
+	inhand_icon_state = "firstaid-surgeryalt"
 	worn_icon = 'icons/mob/clothing/belt.dmi'
 	worn_icon_state = "firstaid_surgeryalt"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
@@ -136,7 +136,7 @@
 /obj/item/storage/firstaid/medical/paramedic
 	name = "paramedics medical bag"
 	icon_state = "firstaid-surgeryalt"
-	item_state = "firstaid-surgeryalt"
+	inhand_icon_state = "firstaid-surgeryalt"
 	worn_icon = 'icons/mob/clothing/belt.dmi'
 	worn_icon_state = "firstaid_surgeryalt"
 	desc = "A not-so fancy high capacity aid kit for paramedics, filled with 'top of the line' medical supplies."
@@ -239,7 +239,7 @@
 	name = "burn treatment kit"
 	desc = "A specialized medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
 	icon_state = "firstaid-burn"
-	item_state = "firstaid-burn"
+	inhand_icon_state = "firstaid-burn"
 	skin_type = MEDBOT_SKIN_BURN
 
 /obj/item/storage/firstaid/fire/suicide_act(mob/living/carbon/user)
@@ -263,7 +263,7 @@
 	name = "toxin treatment kit"
 	desc = "Used to treat toxic blood content and radiation poisoning."
 	icon_state = "firstaid-toxin"
-	item_state = "firstaid-toxin"
+	inhand_icon_state = "firstaid-toxin"
 	skin_type = MEDBOT_SKIN_TOXIN
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
@@ -290,7 +290,7 @@
 	name = "radiation treatment kit"
 	desc = "Used to treat minor toxic blood content and major radiation poisoning."
 	icon_state = "firstaid-rad"
-	item_state = "firstaid-rad"
+	inhand_icon_state = "firstaid-rad"
 	skin_type = MEDBOT_SKIN_RADIATION
 
 /obj/item/storage/firstaid/radbgone/suicide_act(mob/living/carbon/user)
@@ -315,7 +315,7 @@
 	name = "oxygen deprivation treatment kit"
 	desc = "A box full of oxygen goodies."
 	icon_state = "firstaid-o2"
-	item_state = "firstaid-o2"
+	inhand_icon_state = "firstaid-o2"
 
 /obj/item/storage/firstaid/o2/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -340,7 +340,7 @@
 	name = "brute trauma treatment kit"
 	desc = "A first aid kit for when you get toolboxed."
 	icon_state = "firstaid-brute"
-	item_state = "firstaid-brute"
+	inhand_icon_state = "firstaid-brute"
 	skin_type = MEDBOT_SKIN_BRUTE
 
 /obj/item/storage/firstaid/brute/suicide_act(mob/living/carbon/user)
@@ -367,7 +367,7 @@
 	name = "advanced first aid kit"
 	desc = "An advanced kit to help deal with advanced wounds."
 	icon_state = "firstaid-advanced"
-	item_state = "firstaid-advanced"
+	inhand_icon_state = "firstaid-advanced"
 	custom_premium_price = 600
 	skin_type = MEDBOT_SKIN_ADVANCED
 
@@ -396,7 +396,7 @@
 	name = "mystery medical kit"
 	desc = "Are you feeling lucky today?"
 	icon_state = "firstaid-mystery"
-	item_state = "firstaid-mystery"
+	inhand_icon_state = "firstaid-mystery"
 	skin_type = NONE
 
 /obj/item/storage/firstaid/random/Initialize(mapload)
@@ -439,7 +439,7 @@
 	name = "combat medical kit"
 	desc = "I hope you've got insurance."
 	icon_state = "firstaid-combat"
-	item_state = "firstaid-combat"
+	inhand_icon_state = "firstaid-combat"
 	skin_type = MEDBOT_SKIN_SYNDI
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -503,7 +503,7 @@
 	name = "infiltrator medical kit"
 	desc = "(Un)fortunately for you, the Syndicate has a good medical plan."
 	icon_state = "firstaid-combat"
-	item_state = "firstaid-combat"
+	inhand_icon_state = "firstaid-combat"
 	skin_type = MEDBOT_SKIN_SYNDI
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -553,7 +553,7 @@
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister_0"
 	icon = 'icons/obj/medicine_containers.dmi'
-	item_state = "contsolid"
+	inhand_icon_state = "contsolid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL

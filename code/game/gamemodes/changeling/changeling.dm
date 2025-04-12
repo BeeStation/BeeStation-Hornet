@@ -151,7 +151,7 @@
 		C.flags_cover = chosen_prof.flags_cover_list[slot]
 		C.lefthand_file = chosen_prof.lefthand_file_list[slot]
 		C.righthand_file = chosen_prof.righthand_file_list[slot]
-		C.item_state = chosen_prof.item_state_list[slot]
+		C.inhand_icon_state = chosen_prof.inhand_icon_state_list[slot]
 		C.worn_icon = chosen_prof.worn_icon_list[slot]
 		C.worn_icon_state = chosen_prof.worn_icon_state_list[slot]
 

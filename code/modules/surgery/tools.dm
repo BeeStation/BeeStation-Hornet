@@ -3,9 +3,10 @@
 	desc = "Retracts stuff."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
+	inhand_icon_state = "retractor"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	item_state = "clamps"
+	inhand_icon_state = "clamps"
 	custom_materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
@@ -29,9 +30,10 @@
 	desc = "You think you have seen this before."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
+	inhand_icon_state = "hemostat"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	item_state = "clamps"
+	inhand_icon_state = "clamps"
 	custom_materials = list(/datum/material/iron=5000, /datum/material/glass=2500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
@@ -59,9 +61,10 @@
 	desc = "This stops bleeding."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
+	inhand_icon_state = "cautery"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	item_state = "cautery"
+	inhand_icon_state = "cautery"
 	custom_materials = list(/datum/material/iron=2500, /datum/material/glass=750)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
@@ -88,6 +91,7 @@
 	desc = "It projects a high power laser used for medical applications."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "e_cautery"
+	inhand_icon_state = "e_cautery"
 	hitsound = 'sound/items/welder.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	toolspeed = 0.7
@@ -143,6 +147,7 @@
 	desc = "You can drill using this item. You dig?"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "drill"
+	inhand_icon_state = "drill"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
@@ -182,9 +187,10 @@
 	desc = "Cut, cut, and once more cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
+	inhand_icon_state = "scalpel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	item_state = "scalpel"
+	inhand_icon_state = "scalpel"
 	flags_1 = CONDUCT_1
 	force = 10
 	w_class = WEIGHT_CLASS_TINY
@@ -232,6 +238,7 @@
 	desc = "For heavy duty cutting."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw"
+	inhand_icon_state = "saw"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
@@ -283,7 +290,7 @@
 	throwhitsound =  'sound/weapons/pierce.ogg'
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	item_state = "wrench"
+	inhand_icon_state = "wrench"
 	flags_1 = CONDUCT_1
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -305,7 +312,7 @@
 	icon_state = "surgical_drapes"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	item_state = "drapes"
+	inhand_icon_state = "drapes"
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("slaps")
 	attack_verb_simple = list("slap")
@@ -390,6 +397,7 @@
 	desc = "An advanced scalpel which uses laser technology to cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "e_scalpel"
+	inhand_icon_state = "e_scalpel"
 	hitsound = 'sound/weapons/blade1.ogg'
 	force = 16
 	toolspeed = 0.7
@@ -440,6 +448,9 @@
 	desc = "An agglomerate of rods and gears."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "adv_retractor"
+	inhand_icon_state = "adv_retractor"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	toolspeed = 0.7
 
 /obj/item/retractor/advanced/Initialize(mapload)

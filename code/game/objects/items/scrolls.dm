@@ -7,7 +7,7 @@
 	var/smoke_amt = 20 //How much smoke after teleporting
 	actions_types = list(/datum/action/spell/teleport/area_teleport/wizard/scroll)
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	throw_speed = 3
 	throw_range = 7
 	resistance_flags = FLAMMABLE

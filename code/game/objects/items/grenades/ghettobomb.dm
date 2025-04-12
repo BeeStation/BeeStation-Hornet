@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	icon_state_preview = "chemg" // a black stick is bad to recognise as a preview
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'

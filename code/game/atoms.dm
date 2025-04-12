@@ -1329,6 +1329,7 @@
 	switch(var_name)
 		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
+			update_appearance()
 
 /**
   * Return the markup to for the dropdown list for the VV panel for this atom
