@@ -16,14 +16,10 @@
 			E.mode = !E.mode
 			E.set_projectile()
 		if(WIRE_POWER)
-			if(!E.welded)
+			if(!E.welded || !E.powernet)
 				return FALSE
-			if(!E.powernet)
-				return FALSE
-			if(E.active)
-				E.active = FALSE
-			else
-				E.active = TRUE
+			E.active = !E.active
+			if(!E.active)
 				E.shot_number = 0
 				E.fire_delay = E.maximum_fire_delay
 			message_admins("Emitter turned [E.active ? "ON" : "OFF"] by signal in [ADMIN_VERBOSEJMP(E)]")
