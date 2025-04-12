@@ -1,0 +1,4 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - rscadd: Added an RBMK core which when map loaded will assemble itself.
