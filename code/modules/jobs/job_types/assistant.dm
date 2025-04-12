@@ -19,7 +19,7 @@ Assistant
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
-	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER) // Get a job. Job reassignment changes your paycheck now. Get over it.
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	rpg_title = "Lout"
