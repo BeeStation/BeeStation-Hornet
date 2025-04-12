@@ -36,6 +36,8 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 	var/filling_color
 	//Amount of discovery points given for scanning
 	var/discovery_points = 0
+	//otherwise this is a huge headache if you are an ashwalker or that survivalist, or just anyone without hydroponic gear access.
+	decomp_req_handle = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
