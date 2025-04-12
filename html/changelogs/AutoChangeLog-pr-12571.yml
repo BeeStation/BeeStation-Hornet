@@ -1,0 +1,4 @@
+author: Fresh839
+delete-after: true
+changes:
+  - bugfix: fixes the plant analyzer from causing a runtime error when scanning plants
