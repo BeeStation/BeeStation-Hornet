@@ -4,7 +4,7 @@
  */
 
 /datum/special_role/scamp
-	attached_antag_datum = /datum/antagonist/traitor
+	attached_antag_datum = /datum/antagonist/scamp
 	spawn_mode = SPAWNTYPE_ROUNDSTART
 	probability = 50
 	proportion = 1
