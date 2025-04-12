@@ -1,5 +1,0 @@
-author: MarkusLarsson421
-delete-after: true
-changes:
-  - rscadd: Added a bunch of sounds to the Sound Synthesizer.
-  - rscdel: Removed a bunch of sounds from the Sound Synthesizer.

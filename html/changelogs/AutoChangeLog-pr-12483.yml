@@ -1,7 +1,0 @@
-author: St0rmC4st3r
-delete-after: true
-changes:
-  - rscadd: Added a mapping helper that preserves food.
-  - tweak: Mapped food no longer starts decomposing on mapload. You need to pick it
-      up and put somewhere else first.
-  - tweak: Grown produce no longer starts spoiling on harvest.
