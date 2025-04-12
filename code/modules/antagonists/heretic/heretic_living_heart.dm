@@ -71,7 +71,7 @@
 	name = "Living Heartbeat"
 	desc = "Track a Sacrifice Target"
 	check_flags = AB_CHECK_CONSCIOUS
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	/// Whether the target radial is currently opened.
 	var/radial_open = FALSE
 	cooldown_time = 8 SECONDS
