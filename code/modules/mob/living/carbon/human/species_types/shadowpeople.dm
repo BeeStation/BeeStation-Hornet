@@ -499,14 +499,14 @@
 				to_chat(owner, span_warning("That path of darkness over there seems like a great spot to rest."))
 
 
-/obj/item/organ/heart/shadow_ritual/third/on_death()
+/obj/item/organ/heart/shadow_ritual/third/on_death(delta_time)
 	if(!owner)
 		return
 	var/turf/T = get_turf(owner)
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
-			respawn_progress = respawn_progress + 0.75
+			respawn_progress += 0.75 * delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
 		owner.revive(full_heal = TRUE)
