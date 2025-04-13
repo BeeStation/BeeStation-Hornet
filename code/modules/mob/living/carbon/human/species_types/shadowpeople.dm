@@ -32,7 +32,7 @@
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
 		var/sensitivity_damage = 1 + shadow_sect_dependency * 1.5
-		var/sensitivity_healing = 1 + shadow_sect_dependency * 0.75
+		var/sensitivity_healing = 1 + shadow_sect_dependency * 0.5
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(sensitivity_damage * delta_time/2, sensitivity_damage * delta_time/2, 0, BODYTYPE_ORGANIC)
