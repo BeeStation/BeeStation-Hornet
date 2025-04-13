@@ -168,7 +168,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	if(isturf(loc))
 		add_verb(list(
-//			/mob/living/silicon/ai/proc/ai_network_change,
 			/mob/living/silicon/ai/proc/ai_hologram_change,
 			/mob/living/silicon/ai/proc/botcall,
 			/mob/living/silicon/ai/proc/control_integrated_radio,
