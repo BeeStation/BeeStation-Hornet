@@ -18711,6 +18711,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
+	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "ega" = (
@@ -19515,6 +19519,10 @@
 "erU" = (
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
@@ -20755,6 +20763,10 @@
 "eOW" = (
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
@@ -29480,6 +29492,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
+	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "hEt" = (
@@ -33957,6 +33973,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
+	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "iZp" = (
@@ -35792,6 +35812,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
+	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "jEU" = (
@@ -36034,6 +36058,10 @@
 "jHP" = (
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
@@ -40744,7 +40772,6 @@
 	},
 /obj/machinery/door/firedoor/heavy,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/research/glass{
 	name = "exploration Shuttle Dock";
 	req_one_access_txt = "49"
@@ -40754,6 +40781,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/quartermaster/exploration_prep)
@@ -44626,9 +44656,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "mAB" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/effect/turf_decal/box,
 /obj/machinery/light{
 	dir = 4
@@ -58358,9 +58385,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "qVX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -69669,6 +69693,10 @@
 "uEN" = (
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
