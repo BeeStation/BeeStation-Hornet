@@ -48262,7 +48262,7 @@
 "nNq" = (
 /obj/machinery/door/airlock/maintenance/external{
 	name = "construction Zone";
-	req_access_txt = "32;47;48;37"
+	req_one_access_txt = "32;47;48;37"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
