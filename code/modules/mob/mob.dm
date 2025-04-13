@@ -536,7 +536,7 @@
 	face_atom(A)
 	var/list/result = A.examine(src)
 
-	to_chat(src, EXAMINE_BLOCK(jointext(result, "\n")))
+	to_chat(src, examine_block(jointext(result, "\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
 /mob/proc/blind_examine_check(atom/examined_thing)

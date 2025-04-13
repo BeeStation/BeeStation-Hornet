@@ -181,7 +181,7 @@
 	force = 30
 	throwforce = 15
 	block_level = 2
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 55
 	attack_weight = 2
 	armour_penetration = 80
@@ -364,4 +364,4 @@
 	food_flags = FOOD_FINGER_FOOD
 	juice_typepath = /datum/reagent/consumable/coconutjuice
 	w_class = WEIGHT_CLASS_SMALL
-	
+
