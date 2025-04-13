@@ -177,6 +177,10 @@
 	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
 	return result
 
+/mob/living/basic/vv_edit_var(vname, vval)
+	if(vname == NAMEOF(src, speed))
+		set_varspeed(vval)
+
 /mob/living/basic/proc/set_varspeed(var_value)
 	speed = var_value
 	update_basic_mob_varspeed()
