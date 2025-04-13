@@ -11047,11 +11047,8 @@
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "cnI" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy";
-	real_name = "Betsy"
-	},
-/turf/open/floor/grass,
+/mob/living/basic/cow,
+/turf/open/floor/plating/asteroid,
 /area/hydroponics/garden)
 "cnK" = (
 /obj/structure/extinguisher_cabinet/directional/west,
@@ -34139,11 +34136,9 @@
 /turf/closed/wall/r_wall,
 /area/tcommsat/server)
 "hhd" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy";
-	real_name = "Betsy"
-	},
-/turf/open/floor/plating/asteroid,
+/obj/machinery/hydroponics/soil,
+/mob/living/simple_animal/chicken,
+/turf/open/floor/grass,
 /area/hydroponics/garden)
 "hhm" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
@@ -37574,10 +37569,7 @@
 /obj/structure/flora/ausbushes/pointybush,
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/structure/window/reinforced/spawner,
-/mob/living/simple_animal/cow{
-	name = "Betsy";
-	real_name = "Betsy"
-	},
+/mob/living/basic/cow,
 /turf/open/floor/grass/no_border,
 /area/science/research)
 "hSX" = (
@@ -49344,6 +49336,11 @@
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/central)
+"kqY" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/mob/living/basic/cow,
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "krt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -57158,10 +57155,6 @@
 /obj/structure/flora/tree/jungle/small{
 	pixel_y = 16;
 	pixel_x = -23
-	},
-/mob/living/simple_animal/cow{
-	name = "Betsy";
-	real_name = "Betsy"
 	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -134849,7 +134842,7 @@ wUa
 wUa
 iik
 ddM
-fAz
+kqY
 fej
 xtL
 xcl
@@ -135362,7 +135355,7 @@ lzJ
 wUa
 aBG
 ddM
-ddM
+cnI
 xVO
 otV
 psb
@@ -135618,7 +135611,7 @@ ntc
 jLp
 aBG
 ddM
-hhd
+ddM
 iUr
 pLY
 tcx
@@ -136648,7 +136641,7 @@ fAz
 xVO
 hXu
 cut
-cnI
+xVO
 nFK
 vPU
 hni
@@ -137159,7 +137152,7 @@ hhU
 aca
 nJo
 ktj
-rcN
+hhd
 pQe
 xVO
 lbz
