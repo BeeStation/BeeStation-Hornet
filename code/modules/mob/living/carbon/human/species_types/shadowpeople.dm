@@ -42,7 +42,7 @@
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 			if(shadow_sect_dependency >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
 				H.nutrition += 2 * delta_time
-			H.heal_overall_damage(sensitivity * delta_time/2, sensitivity * delta_time/2, 0, BODYTYPE_ORGANIC)
+			H.heal_overall_damage(clamp((sensitivity * delta_time/2)/2, 1, 100), clamp((sensitivity * delta_time/2)/2, 1, 100), 0, BODYTYPE_ORGANIC) // Heals half of what ligth damages, clamp is there to stop it from affecting normal shadow people.
 			if(shadow_sect_dependency >= 2)
 				H.alpha = 125
 				if(shadow_sect_dependency == 3)
