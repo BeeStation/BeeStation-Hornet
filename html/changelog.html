@@ -56,6 +56,64 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">13 April 2025</h2>
+			<h3 class="author">Gilgax updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">AI internal camera no longer has a network so it doesn't display on camera consoles</li>
+				<li class="bugfix">Labor camera console now actually show labor area cameras on it</li>
+				<li class="tweak">EVA storage now shows up on normal camera network instead of the AI sattelite network.</li>
+				<li class="tweak">Removes the "Jump to network" function for AI. AIs "Show Camera List" button now shows all cameras on station and LL level no matter their network (note: AI could always see through them, just couldn't jump to them)</li>
+			</ul>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added an RBMK core which when map loaded will assemble itself.</li>
+			</ul>
+
+			<h2 class="date">12 April 2025</h2>
+			<h3 class="author">Fresh839 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes the plant analyzer from causing a runtime error when scanning plants</li>
+			</ul>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a bunch of sounds to the Sound Synthesizer.</li>
+				<li class="rscdel">Removed a bunch of sounds from the Sound Synthesizer.</li>
+			</ul>
+			<h3 class="author">St0rmC4st3r updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a mapping helper that preserves food.</li>
+				<li class="tweak">Mapped food no longer starts decomposing on mapload. You need to pick it up and put somewhere else first.</li>
+				<li class="tweak">Grown produce no longer starts spoiling on harvest.</li>
+			</ul>
+			<h3 class="author">Therealdoooc213 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">removes a firelock from KiloStation mining bay dock</li>
+			</ul>
+			<h3 class="author">mrmanlikesbt updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the robotics control console not alerting the crew when an unauthorized person prints an upload key</li>
+			</ul>
+			<h3 class="author">rkz,  Ryll/Shaps, SpaceDragon00, TJatPBnJ, EOBGames, GPeckman, LemonInTheDark, SmArtKar, Hatterhat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Combat Information tag for weapons. Shows how many hits or bullets a weapon will take to crit</li>
+				<li class="bugfix">fixes armor comparisions</li>
+				<li class="bugfix">fixes suicides with guns</li>
+				<li class="rscadd">adds shorthands for item flags</li>
+				<li class="rscadd">adds variable on guns to modify bullet power. No weapon has anything except the normal value of 1, this just makes sure if people modify the integrity of guns or the like in the future, they go through this code which is accounted for in the combat tags display</li>
+				<li class="rscadd">pressure/cold/heat-proof clothing now has appropriate display in armor tag examine block</li>
+			</ul>
+			<h3 class="author">rkz, tralezab, ma44, Capybara Holly updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">converts cows to basicmobs</li>
+				<li class="rscadd">moonicorns, aggressive cows that spread fairygrass, and Wisdom cows, passive cows that belt out fortune cookie phrases(currently adminspawn only)</li>
+				<li class="rscadd">mob ai can now plan new actions while performing current actions</li>
+				<li class="rscadd">cows will now seek out wheat, and follow you if you hold it</li>
+			</ul>
+			<h3 class="author">therealdoooc, kawoppi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">basic mobs are no longer immune to space</li>
+			</ul>
+
 			<h2 class="date">08 April 2025</h2>
 			<h3 class="author">Fresh839 updated:</h3>
 			<ul class="changes bgimages16">
@@ -885,43 +943,6 @@
 			<h3 class="author">rkz, mso,  itseasytosee updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">fixes admin transforms sending the wrong mind</li>
-			</ul>
-
-			<h2 class="date">09 February 2025</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Merges mob properties and traits.</li>
-				<li class="bugfix">Hulk limb colour no longer applies to robotic limbs.</li>
-			</ul>
-
-			<h2 class="date">08 February 2025</h2>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">swarmers may no longer ventcrawl, and will also spawn in a random location instead of at the gateway. Without ventcrawling, the event as a whole should be more of a stand-off and defense than a bunch of constantly scurrying roaches.</li>
-				<li class="tweak">swarmers now have 65 HP</li>
-				<li class="tweak">swarmer ranged attack is now half the speed of security's disablers</li>
-				<li class="tweak">swarmer melee attacks now do 35 stamina damage</li>
-				<li class="tweak">swarmer replication now costs 20 resources</li>
-				<li class="tweak">swarmer traps and walls now cost 2 resources to place</li>
-				<li class="tweak">swarmer traps now trigger in an AoE when destroyed and their visuals and sound effects have been updated. The AoE has a greater effect on cyborgs than previously as well, due to their immunity to stamina damage.</li>
-				<li class="tweak">swarmer objective text has been slightly modified to clarify they can attack crew as long as they don't harm them</li>
-			</ul>
-			<h3 class="author">marshmellow10, MarkusLarsson421, Therealdoooc213, Tsar-Salat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">adds the Syndicate Survey Shuttle as a lavaland ruin</li>
-				<li class="code_imp">Makes it a 50/50 between getting this or the old base (I think)</li>
-			</ul>
-			<h3 class="author">wikimody updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Brought back shadow sect</li>
-				<li class="rscadd">Summon obelisk - makes a obelisk with generates favour</li>
-				<li class="rscadd">Expand shadows - increases radius and power of darkness coming from obelisks</li>
-				<li class="rscadd">Shadow person conversion - self explainable</li>
-				<li class="rscadd">Night vision aura - people inside darkness radius of obelisks are given night vision.</li>
-				<li class="rscdel">Removed 2 antagonist focused rituals</li>
-				<li class="rscdel">Removed need for being shadow person to chose this sect</li>
-				<li class="code_imp">changed TRAIT_NIGHT_VISION to TRAIT_NIGHT_VISION_WEAK since the trait didn't actually add night vision</li>
-				<li class="code_imp">Added TRAIT_NIGHT_VISION with grant night vision to any mob</li>
 			</ul>
 		</div>
 
