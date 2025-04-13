@@ -571,8 +571,8 @@
 	..()
 
 
-///Can bring a corpse back to life temporarily (if heart is intact)
-///And prevents dying
+/// Can bring a corpse back to life temporarily (if heart is intact)
+/// Also prevents dying
 /datum/reagent/drug/nooartrium
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
@@ -580,7 +580,7 @@
 	self_consuming = TRUE //No pesky liver shenanigans
 	///If we brought someone back from the dead
 	var/back_from_the_dead = FALSE
-	var/consequnces = FALSE // This cant be healthy?
+	var/consequences  = FALSE // This can't be healthy?
 
 
 /datum/reagent/drug/nooartrium/on_mob_add(mob/living/affected_mob)
@@ -596,17 +596,17 @@
 	ADD_TRAIT(affected_mob, TRAIT_STABLEHEART, FROM_NOOARTRIUM)
 	ADD_TRAIT(affected_mob, TRAIT_NOLIMBDISABLE, FROM_NOOARTRIUM)
 	ADD_TRAIT(affected_mob, TRAIT_STUNRESISTANCE, FROM_NOOARTRIUM)
-	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses dont get tired
+	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses don't get tired
 	ADD_TRAIT(affected_mob, TRAIT_IGNOREDAMAGESLOWDOWN, FROM_NOOARTRIUM)
 	if(affected_mob.stat == DEAD)
 		back_from_the_dead = TRUE
-	affected_mob.set_stat(CONSCIOUS) //This doesn't touch knocked out
+	affected_mob.set_stat(CONSCIOUS) // This doesn't touch knocked out
 	affected_mob.updatehealth()
 	affected_mob.update_sight()
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, STAT_TRAIT)
-	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT) //Because these are normally updated using set_health() - but we don't want to adjust health, and the addition of NOHARDCRIT blocks it being added after, but doesn't remove it if it was added before
-	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT) //Prevents the user from being knocked out by oxyloss
-	affected_mob.set_resting(FALSE) //Please get up, no one wants a deaththrows juggernaught that lies on the floor all the time
+	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT) // Normally updated using set_health() - we don't want to adjust health, and NOHARDCRIT blocks it being re-added, but not removed
+	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT) // Prevents knockout by oxyloss
+	affected_mob.set_resting(FALSE) // Please get up. No one wants a death throes juggernaut lying on the floor
 	affected_mob.SetAllImmobility(0)
 	if(!back_from_the_dead)
 		to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength!"))
@@ -618,8 +618,8 @@
 
 /datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if (!consequnces && times_fired > 230)
-		consequnces = TRUE
+	if (!consequences && times_fired > 210)
+		consequences = TRUE
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	affected_mob.adjustBruteLoss(0.25 * delta_time)
@@ -639,7 +639,7 @@
 		affected_mob.add_splatter_floor(get_turf(affected_mob))
 		qdel(heart)
 		affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
-	else if(consequnces)
+	else if(consequences)
 		affected_mob.set_heartattack(TRUE)
 
 /datum/reagent/drug/nooartrium/overdose_start(mob/living/carbon/affected_mob)
@@ -647,7 +647,7 @@
 	to_chat(affected_mob, span_userdanger("You feel your heart tearing itself apart as it tries to beat stronger!"))
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
 	affected_mob.SetParalyzed(6 SECONDS)
-	consequnces = TRUE
+	consequences = TRUE
 
 
 /datum/reagent/drug/nooartrium/proc/remove_buffs(mob/living/carbon/affected_mob)
