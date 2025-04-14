@@ -24,6 +24,12 @@
 /obj/machinery/power/tesla_coil/power
 	circuit = /obj/item/circuitboard/machine/tesla_coil/power
 
+/obj/machinery/power/tesla_coil/anchored
+
+/obj/machinery/power/tesla_coil/anchored(mapload)
+	. = ..()
+	set_anchored(TRUE)
+
 /obj/machinery/power/tesla_coil/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/tesla_coil(src)

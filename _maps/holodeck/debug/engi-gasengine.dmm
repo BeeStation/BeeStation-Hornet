@@ -2,26 +2,6 @@
 "a" = (
 /turf/open/floor/engine,
 /area/template_noop)
-"o" = (
-/obj/item/RBMK_box/body/waste_output,
-/turf/open/floor/engine,
-/area/template_noop)
-"q" = (
-/obj/item/RBMK_box/core/pre_assemble_reactor,
-/turf/open/floor/engine,
-/area/template_noop)
-"r" = (
-/obj/item/RBMK_box/body/moderator_input,
-/turf/open/floor/engine,
-/area/template_noop)
-"s" = (
-/obj/item/RBMK_box/body/coolant_input,
-/turf/open/floor/engine,
-/area/template_noop)
-"R" = (
-/obj/item/RBMK_box,
-/turf/open/floor/engine,
-/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -112,9 +92,9 @@ a
 a
 a
 a
-R
-s
-R
+a
+a
+a
 a
 a
 a
@@ -126,9 +106,9 @@ a
 a
 a
 a
-R
-q
-o
+a
+a
+a
 a
 a
 a
@@ -140,9 +120,9 @@ a
 a
 a
 a
-R
-r
-R
+a
+a
+a
 a
 a
 a

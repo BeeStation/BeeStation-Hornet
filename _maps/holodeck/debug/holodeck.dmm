@@ -1,0 +1,211 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/engine{
+	name = "Holodeck Projector Floor"
+	},
+/area/holodeck/rec_center)
+"d" = (
+/obj/machinery/computer/holodeck,
+/turf/open/floor/iron,
+/area/template_noop)
+"f" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_y = 4
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"o" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Holodeck"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/iron/grid/steel,
+/area/template_noop)
+"u" = (
+/turf/open/floor/iron,
+/area/template_noop)
+"D" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Holodeck"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/iron/grid/steel,
+/area/template_noop)
+"J" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+J
+J
+J
+J
+o
+J
+J
+o
+J
+J
+J
+J
+"}
+(2,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(3,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(4,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(5,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(6,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(7,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(8,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(9,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(10,1,1) = {"
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+J
+"}
+(11,1,1) = {"
+J
+J
+J
+J
+D
+J
+J
+D
+J
+J
+J
+J
+"}
+(12,1,1) = {"
+u
+u
+u
+d
+u
+u
+u
+u
+f
+u
+u
+u
+"}
