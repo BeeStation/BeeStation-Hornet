@@ -18,15 +18,15 @@
 	active_msg = "You prepare to dominate the mind of a target..."
 
 /datum/action/spell/pointed/dominate/is_valid_spell(mob/user, atom/target)
-	if(!isanimal(target))
+	if(!isliving(target))
 		return FALSE
 
-	var/mob/living/simple_animal/animal = target
+	var/mob/living/animal = target
 	if(animal.mind)
 		return FALSE
 	if(animal.stat == DEAD)
 		return FALSE
-	if(animal.sentience_type != SENTIENCE_ORGANIC)
+	if(!animal.compare_sentience_type(SENTIENCE_ORGANIC)) // Will also return false if not a basic or simple mob, which are the only two we want anyway
 		return FALSE
 	if("cult" in animal.faction)
 		return FALSE
