@@ -1,0 +1,445 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating/airless,
+/area/space)
+"c" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"d" = (
+/obj/machinery/field/generator{
+	anchored = 1;
+	state = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"e" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"h" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"j" = (
+/obj/machinery/field/generator{
+	anchored = 1;
+	state = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"l" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"m" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"o" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/item/tank/internals/plasma/full,
+/obj/machinery/power/rad_collector/anchored,
+/turf/open/floor/plating/airless,
+/area/space)
+"q" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"r" = (
+/obj/structure/particle_accelerator/particle_emitter/left{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"s" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/tesla_coil,
+/turf/open/floor/plating/airless,
+/area/space)
+"t" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"w" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"x" = (
+/obj/machinery/field/generator{
+	anchored = 1;
+	state = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"A" = (
+/obj/structure/particle_accelerator/fuel_chamber{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"B" = (
+/obj/structure/cable/yellow,
+/obj/machinery/particle_accelerator/control_box,
+/turf/open/floor/plating/airless,
+/area/space)
+"C" = (
+/obj/structure/cable,
+/obj/machinery/power/tesla_coil,
+/turf/open/floor/plating/airless,
+/area/space)
+"D" = (
+/obj/machinery/the_singularitygen/tesla,
+/turf/open/floor/plating/airless,
+/area/space)
+"E" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/item/tank/internals/plasma/full,
+/obj/machinery/power/rad_collector/anchored,
+/turf/open/floor/plating/airless,
+/area/space)
+"F" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"G" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"H" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"I" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"J" = (
+/obj/machinery/the_singularitygen,
+/turf/open/floor/plating/airless,
+/area/space)
+"K" = (
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"L" = (
+/obj/structure/particle_accelerator/end_cap{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"M" = (
+/obj/structure/particle_accelerator/particle_emitter/right{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"N" = (
+/obj/structure/particle_accelerator/power_box{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"O" = (
+/obj/machinery/field/generator{
+	anchored = 1;
+	state = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"P" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/tesla_coil,
+/turf/open/floor/plating/airless,
+/area/space)
+"Q" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"R" = (
+/obj/structure/cable,
+/turf/open/floor/plating/airless,
+/area/space)
+"S" = (
+/obj/structure/particle_accelerator/particle_emitter/center{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"T" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"U" = (
+/obj/structure/cable,
+/obj/item/tank/internals/plasma/full,
+/obj/machinery/power/rad_collector/anchored,
+/turf/open/floor/plating/airless,
+/area/space)
+"V" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"W" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"Z" = (
+/obj/machinery/power/emitter/welded,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/airless,
+/area/space)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+C
+s
+I
+E
+o
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+V
+Z
+x
+W
+W
+W
+W
+W
+d
+a
+"}
+(3,1,1) = {"
+a
+a
+G
+o
+w
+a
+a
+a
+a
+a
+Q
+C
+"}
+(4,1,1) = {"
+a
+a
+G
+o
+w
+a
+a
+J
+J
+a
+Q
+C
+"}
+(5,1,1) = {"
+a
+a
+G
+F
+w
+a
+D
+a
+J
+a
+Q
+R
+"}
+(6,1,1) = {"
+a
+a
+G
+P
+w
+a
+D
+D
+a
+a
+Q
+U
+"}
+(7,1,1) = {"
+a
+a
+G
+C
+w
+a
+a
+a
+a
+a
+q
+o
+"}
+(8,1,1) = {"
+a
+a
+T
+Z
+j
+e
+e
+e
+e
+e
+O
+a
+"}
+(9,1,1) = {"
+a
+a
+G
+a
+m
+a
+r
+S
+M
+a
+a
+a
+"}
+(10,1,1) = {"
+V
+t
+H
+t
+c
+t
+B
+A
+a
+a
+a
+a
+"}
+(11,1,1) = {"
+G
+a
+a
+a
+m
+a
+a
+N
+a
+a
+a
+a
+"}
+(12,1,1) = {"
+K
+l
+e
+e
+h
+a
+a
+L
+a
+a
+a
+a
+"}

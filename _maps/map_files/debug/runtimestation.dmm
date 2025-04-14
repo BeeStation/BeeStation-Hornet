@@ -151,6 +151,12 @@
 /obj/machinery/atmospherics/components/binary/pump/on,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"aP" = (
+/obj/structure/window/depleteduranium/fulltile/debug,
+/obj/structure/grille,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/construction)
 "aQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -1607,6 +1613,16 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"ru" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/light_switch{
+	pixel_x = -20
+	},
+/turf/open/floor/iron,
+/area/construction)
 "rw" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -1884,6 +1900,11 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"xg" = (
+/obj/item/card/id/departmental_budget/car,
+/obj/structure/table,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "xi" = (
 /obj/structure/closet/secure_closet/captains{
 	locked = 0
@@ -2420,11 +2441,6 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
-"Ik" = (
-/obj/structure/window/depleteduranium/fulltile/debug,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/construction)
 "Iz" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -3222,19 +3238,6 @@
 /obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/engine/engineering)
-"Xj" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
-/obj/structure/fans/tiny/invisible,
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
-/turf/open/floor/iron,
-/area/construction)
 "Xp" = (
 /obj/machinery/light,
 /obj/structure/tank_dispenser{
@@ -6629,7 +6632,7 @@ cN
 cN
 cN
 cN
-cN
+aP
 ef
 ef
 cN
@@ -6721,11 +6724,11 @@ cA
 Js
 Mc
 JS
-Xj
+kL
 rd
 Mc
+ru
 Mc
-kL
 Mc
 hf
 Mc
@@ -6808,7 +6811,7 @@ bA
 Tb
 mS
 tn
-Ik
+cN
 RJ
 Uu
 Uu
@@ -7176,7 +7179,7 @@ bu
 Ak
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7268,7 +7271,7 @@ bu
 Mu
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7360,7 +7363,7 @@ bv
 rr
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7452,7 +7455,7 @@ bu
 rr
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7820,7 +7823,7 @@ bu
 rr
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7920,8 +7923,8 @@ Us
 Om
 Om
 Om
-Zi
 Om
+Zi
 Om
 sU
 Om
@@ -8012,7 +8015,7 @@ cN
 cN
 ef
 ef
-cN
+aP
 cN
 cN
 cN
@@ -9394,7 +9397,7 @@ eZ
 zM
 fq
 fr
-eu
+xg
 eu
 eu
 et
