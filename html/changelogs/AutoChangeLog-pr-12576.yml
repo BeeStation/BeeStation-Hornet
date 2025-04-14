@@ -1,0 +1,5 @@
+author: therealdoooc213, Ghommie
+delete-after: true
+changes:
+  - bugfix: caltrop's don't display the floor anymore
+  - code_imp: caltrop's now use span define thing
