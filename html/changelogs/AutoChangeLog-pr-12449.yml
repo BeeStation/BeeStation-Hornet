@@ -1,0 +1,5 @@
+author: Gilgax
+delete-after: true
+changes:
+  - imageadd: Added a new HUD button for ghosts (for observing).
+  - rscadd: Added cancel camera view to ghosts tab while observing.
