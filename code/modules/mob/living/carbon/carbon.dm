@@ -316,6 +316,16 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		. = clear_cuffs(cuffs, cuff_break)
 	cuffs.item_flags &= ~BEING_REMOVED
 
+	if(grabbedby || buckled)
+		if(prob(10))
+			if(grabbedby)
+				grabbedby.release_grab()
+				to_chat(src, span_notice("You manage to escape the grab with a quick motion!"))
+			if(buckled)
+				buckled.user_unbuckle_mob(src, src)
+				to_chat(src, span_notice("You manage to unbuckle yourself with a quick motion!"))
+			return
+
 /mob/living/carbon/proc/uncuff()
 	if (handcuffed)
 		var/obj/item/W = handcuffed
