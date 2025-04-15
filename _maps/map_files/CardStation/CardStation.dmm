@@ -4439,7 +4439,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron/tech,
@@ -8811,7 +8811,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/arrows,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /obj/structure/cable/cyan{
@@ -11780,10 +11780,7 @@
 "cuo" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/visible{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
+	dir = 6
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -13507,7 +13504,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/textured_half{
@@ -14370,10 +14367,10 @@
 "cVA" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/visible{
-	dir = 9
+	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
+/obj/structure/cable/green{
+	icon_state = "2-8"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -28348,6 +28345,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/alphabet/symbol_plus,
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "gaP" = (
@@ -30904,7 +30903,7 @@
 	dir = 1
 	},
 /obj/machinery/power/terminal,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "0-4"
 	},
 /obj/machinery/camera/motion/directional/west,
@@ -32263,6 +32262,13 @@
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/tcommsat/computer)
+"gNl" = (
+/obj/structure/lattice,
+/obj/structure/cable/green{
+	icon_state = "2-8"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "gNy" = (
 /obj/effect/landmark/start/chief_engineer,
 /obj/structure/chair/fancy/corp{
@@ -44239,6 +44245,13 @@
 	},
 /turf/closed/wall,
 /area/maintenance/disposal/incinerator)
+"jmX" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/visible{
+	dir = 9
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "jnd" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
@@ -45292,7 +45305,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/tech,
@@ -47585,7 +47598,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint,
@@ -50163,12 +50176,9 @@
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "kAV" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/green{
+	icon_state = "1-2"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -51825,7 +51835,7 @@
 /area/maintenance/disposal)
 "kVl" = (
 /obj/structure/lattice,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-2"
 	},
 /turf/open/space/basic,
@@ -63311,7 +63321,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/tech,
@@ -63388,6 +63398,9 @@
 /obj/machinery/airalarm/directional/south,
 /obj/effect/turf_decal/siding/dark,
 /obj/item/clipboard,
+/obj/item/book/fish_catalog,
+/obj/item/gun/ballistic/automatic/toy/pistol,
+/obj/item/reagent_containers/condiment/ketchup,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "nqM" = (
@@ -67373,7 +67386,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/textured_half{
@@ -71804,7 +71817,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/tech,
@@ -74038,7 +74051,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
@@ -76353,7 +76366,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 10
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron/tech,
@@ -79781,7 +79794,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/tech,
@@ -80810,11 +80823,8 @@
 /area/engine/atmos)
 "qXh" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/visible{
-	dir = 6
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -87092,7 +87102,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/stairs/right,
@@ -87461,7 +87471,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating/rust,
@@ -96858,8 +96868,11 @@
 /obj/machinery/light/small/directional/south,
 /obj/structure/wall_closet/emergency/directional/north,
 /obj/item/reagent_containers/hypospray/medipen/dexalin,
+/obj/structure/cable/green{
+	icon_state = "0-8"
+	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
 /turf/open/floor/catwalk_floor,
 /area/science/mixing)
@@ -107991,6 +108004,14 @@
 	},
 /turf/open/floor/plating,
 /area/teleporter)
+"wGa" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/camera/directional/west,
+/obj/structure/cable/green{
+	icon_state = "1-4"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "wGR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -110965,6 +110986,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/plasma_output,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
+"xoj" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/green{
+	icon_state = "1-4"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "xov" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -113084,7 +113112,7 @@
 /obj/machinery/ai_slipper,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark,
@@ -114140,7 +114168,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/textured_half{
@@ -129594,10 +129622,10 @@ nzj
 nzj
 nzj
 nzj
-qXh
+hyT
 cVA
-uLJ
-gFo
+kAV
+wGa
 hyT
 nzj
 nzj
@@ -129851,10 +129879,10 @@ nzj
 nzj
 nzj
 nzj
-kAV
 hyT
+kuA
 hyT
-hyT
+qXh
 hyT
 nzj
 nzj
@@ -130108,11 +130136,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -130365,11 +130393,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -130622,11 +130650,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -130879,11 +130907,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -131136,11 +131164,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -131393,11 +131421,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -131650,11 +131678,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -131907,11 +131935,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -132164,11 +132192,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -132421,11 +132449,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -132678,11 +132706,11 @@ nzj
 nzj
 nzj
 nzj
-kAV
 nzj
+kuA
 nzj
+qXh
 nzj
-hyT
 nzj
 nzj
 hyT
@@ -132936,14 +132964,14 @@ hyT
 hyT
 hyT
 cuo
+jmX
+hyT
+gNl
 kVl
 kVl
 kVl
-kVl
-kVl
-kVl
-pLl
-ipy
+kAV
+xoj
 cbI
 hyT
 hyT

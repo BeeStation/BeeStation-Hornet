@@ -58,6 +58,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 10
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "be" = (
@@ -941,7 +944,7 @@
 /area/shuttle/escape)
 "AP" = (
 /obj/structure/cable{
-	icon_state = "1-6"
+	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/corner{
@@ -1264,7 +1267,7 @@
 /area/shuttle/escape)
 "JH" = (
 /obj/structure/cable{
-	icon_state = "0-9"
+	icon_state = "0-8"
 	},
 /obj/machinery/power/terminal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
