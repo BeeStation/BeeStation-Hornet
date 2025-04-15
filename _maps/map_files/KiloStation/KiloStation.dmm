@@ -7530,9 +7530,7 @@
 "byY" = (
 /obj/structure/flora/grass/jungle,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "bzb" = (
 /obj/structure/table,
@@ -24660,9 +24658,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "gan" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24927,9 +24923,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "geV" = (
 /obj/machinery/power/apc{
@@ -25492,9 +25486,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "goQ" = (
 /obj/effect/turf_decal/box/corners{
@@ -25654,9 +25646,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "grE" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -25939,9 +25929,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
-/turf/open/floor/plating{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "gwl" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -26499,9 +26487,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "gHx" = (
 /obj/structure/filingcabinet,
@@ -27031,9 +27017,7 @@
 "gQV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/grass/jungle/b,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "gRe" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -28106,9 +28090,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "hhY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
@@ -33934,9 +33916,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
 "iXp" = (
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "iXC" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -39442,9 +39422,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "kQq" = (
 /obj/structure/disposalpipe/segment{
@@ -52659,9 +52637,7 @@
 /area/maintenance/fore)
 "peL" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "peN" = (
 /obj/machinery/status_display/ai{
@@ -59413,9 +59389,7 @@
 "rmu" = (
 /obj/structure/flora/ausbushes/palebush,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "rmD" = (
 /obj/structure/cable/yellow{
@@ -62954,9 +62928,7 @@
 "swh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/grass/jungle,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "sws" = (
 /obj/effect/decal/cleanable/dirt,
@@ -63514,9 +63486,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "sDD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -64745,9 +64715,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "sWQ" = (
 /obj/effect/spawner/randomvend/cola,
@@ -67866,9 +67834,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "ucl" = (
 /obj/machinery/light{
@@ -68883,9 +68849,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/flora/grass/jungle,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "uqQ" = (
 /obj/machinery/firealarm{
@@ -69514,9 +69478,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "uzO" = (
 /obj/structure/table/wood/fancy,
@@ -76388,9 +76350,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "wHZ" = (
 /obj/machinery/computer/card{
