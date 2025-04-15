@@ -9,30 +9,30 @@
 
 /obj/structure/wall_closet/Initialize(mapload)
 	. = ..()
-	Initalize_closet_storage()
+	initalize_closet_storage()
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/wall_closet/LateInitialize()
-	Pickup_items()
+	pickup_items()
 
-/obj/structure/wall_closet/proc/Initalize_closet_storage()
+/obj/structure/wall_closet/proc/initalize_closet_storage()
 	closet_contents = list()
-	for(var/i = 1, i <= 20, i++)
+	for(var/I in 1 to 20)
 		var/list/item_entry = list()
 		closet_contents += list(item_entry)
 
-/obj/structure/wall_closet/proc/Pickup_items()
+/obj/structure/wall_closet/proc/pickup_items()
 	var/atom/L = drop_location()
 	for(var/obj/item/I in L)
-		if(!Closet_insert_item(I, update_icons = FALSE))
+		if(!closet_insert_item(I, update_icons = FALSE))
 			break
 
-/obj/structure/wall_closet/proc/Closet_insert_item(obj/item/inserted_item, ui_index, update_icons = TRUE)
+/obj/structure/wall_closet/proc/closet_insert_item(obj/item/inserted_item, ui_index, update_icons = TRUE)
 	if(contents.len >= 20)
 		return FALSE
 	if(!ui_index)
-		for(var/index = 1, index <= closet_contents.len, index++)
+		for(var/index in 1 to closet_contents.len)
 			var/list/L = list()
 			L = closet_contents[index]
 			if(L.len <= 0)
@@ -60,7 +60,7 @@
 			list_item["name"] = current_item.name
 			list_item["show"] = TRUE
 
-/obj/structure/wall_closet/proc/Closet_remove_item(ui_index)
+/obj/structure/wall_closet/proc/closet_remove_item(ui_index)
 	var/obj/item/removed_item = closet_contents[ui_index]["item"]
 	usr.put_in_hands(removed_item)
 	var/list/L = list()
@@ -73,7 +73,7 @@
 
 /obj/structure/wall_closet/attackby(obj/item/I, mob/living/user)
 	if(!user.combat_mode)
-		if(Closet_insert_item(I))
+		if(closet_insert_item(I))
 			to_chat(user, span_notice("you stash \the [I.name] into \the [src.name]"))
 			playsound(src, 'sound/machines/closet_close.ogg', 30, 1, -3)
 		ui_update()
@@ -124,16 +124,14 @@
 		if("ItemClick")
 			var/ui_index = params["SlotKey"]
 			if(closet_contents[ui_index]["item"])
-				Closet_remove_item(ui_index)
+				closet_remove_item(ui_index)
 				return TRUE
 
 			if(usr.get_active_held_item())
 				var/obj/item/I = usr.get_active_held_item()
-				Closet_insert_item(I, ui_index)
+				closet_insert_item(I, ui_index)
 
 			return TRUE
-
-
 
 /obj/structure/wall_closet/Destroy()
 	dump_contents()
