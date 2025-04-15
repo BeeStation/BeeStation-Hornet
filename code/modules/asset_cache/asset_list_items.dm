@@ -664,8 +664,8 @@
 			if(path)
 				data[path] = ref
 		else if(mystery_meat)
-			continue; //Some other non-icon resource, ogg/json/whatever
+			continue //Some other non-icon resource, ogg/json/whatever
 		else //Out of resources end this, could also try to end this earlier as soon as runtime generated icons appear but eh
-			break;
+			break
 
 	return data
