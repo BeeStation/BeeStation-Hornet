@@ -15,7 +15,7 @@
 
 	var/atom/current_target = controller.blackboard[target_key]
 	if (targetting_datum.can_attack(living_mob, current_target))
-		finish_action(controller, succeeded = TRUE)
+		finish_action(controller, succeeded = FALSE)
 		return
 
 	controller.clear_blackboard_key(target_key)
@@ -26,7 +26,7 @@
 			potential_targets += HM
 
 	if(!potential_targets.len)
-		finish_action(controller, FALSE)
+		finish_action(controller, succeeded = FALSE)
 		return
 
 	var/list/filtered_targets = list()
@@ -37,10 +37,10 @@
 			continue
 
 	if(!filtered_targets.len)
-		finish_action(controller, FALSE)
+		finish_action(controller, succeeded = FALSE)
 		return
 
-	var/atom/target = pick(filtered_targets)
+	var/atom/target = pick_final_target(controller, filtered_targets)
 	controller.set_blackboard_key(target_key, target)
 
 	var/atom/potential_hiding_location = targetting_datum.find_hidden_mobs(living_mob, target)
@@ -48,4 +48,13 @@
 	if(potential_hiding_location) //If they're hiding inside of something, we need to know so we can go for that instead initially.
 		controller.set_blackboard_key(hiding_location_key, potential_hiding_location)
 
-	finish_action(controller, TRUE)
+	finish_action(controller, succeeded = TRUE)
+
+/datum/ai_behavior/find_potential_targets/finish_action(datum/ai_controller/controller, succeeded, ...)
+	. = ..()
+	if (succeeded)
+		controller.CancelActions() // On retarget cancel any further queued actions so that they will setup again with new target
+
+/// Returns the desired final target from the filtered list of targets
+/datum/ai_behavior/find_potential_targets/proc/pick_final_target(datum/ai_controller/controller, list/filtered_targets)
+	return pick(filtered_targets)

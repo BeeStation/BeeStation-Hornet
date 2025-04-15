@@ -678,7 +678,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/update_health_hud()
 	var/severity = 0
