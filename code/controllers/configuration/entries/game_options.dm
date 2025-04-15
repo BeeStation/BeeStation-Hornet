@@ -110,31 +110,6 @@
 	config_entry_value = 2
 	min_val = 0
 
-/datum/config_entry/number/incursion_cost_base	//how many players per the first incursionist
-	config_entry_value = 6
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/incursion_cost_increment	//How much each member of the incursion's spawn price increases by
-	config_entry_value = 0.25
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/incursion_count_min	//Min number of players in the group
-	config_entry_value = 2
-	integer = TRUE
-	min_val = 1
-
-/datum/config_entry/number/incursion_count_max	//Max number of players in the group
-	config_entry_value = 6
-	integer = TRUE
-	min_val = 1
-
-/datum/config_entry/number/incursion_objective_amount	//How many objective
-	config_entry_value = 4
-	integer = TRUE
-	min_val = 0
-
 /datum/config_entry/flag/reactionary_explosions	//If we use reactionary explosions, explosions that react to walls and doors
 
 /datum/config_entry/flag/protect_roles_from_antagonist	//If security and such can be traitor/cult/other
@@ -232,14 +207,33 @@
 /datum/config_entry/string/alert_blue_downto
 	config_entry_value = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
 
+/datum/config_entry/string/alert_engineering
+	config_entry_value = "The security alert level has been changed to yellow (Engineering). There is currently a critical engineering issue on the station. All crewmembers are instructed to obey all instructions given by the Chief Engineer for the duration of this alert."
+
+/datum/config_entry/string/alert_medical
+	config_entry_value = "The security alert level has been changed to yellow (Medical). There is an ongoing C-B-R-N threat to the station. Crewmembers are advised to don protective gear, and personal oxygen systems. All crew are instructed to obey all instructions given by the Chief Medical Officer for the duration of this alert."
+
 /datum/config_entry/string/alert_red_upto
 	config_entry_value = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
 
 /datum/config_entry/string/alert_red_downto
-	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
+	config_entry_value = "There is still an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
+
+/datum/config_entry/string/alert_gamma
+	config_entry_value = "Central Command has ordered the Gamma security level on the station. This station is now under direct central command control. Central command personnel are to be listened to in favor of heads of staff."
+
+/datum/config_entry/string/alert_black
+	config_entry_value = "Central Command has detected multiple syndicate infiltrator ships incoming. All crew are to prepare for hostile boarding. Any violations of orders from security personnel are punishable by death. This is not a drill, evacuate the station immediately."
+
+/datum/config_entry/string/alert_lambda
+	config_entry_value = "Central Command has detected a large spike of dimensional energy, consistent with the summoning of \[REDACTED\] entities. Any violations of orders from Heads of Staff and security can be punished by death. All crew are recommended to evacuate if possible."
 
 /datum/config_entry/string/alert_delta
 	config_entry_value = "Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
+
+/datum/config_entry/string/alert_epsilon
+	config_entry_value = "Central Command has ordered the Epsilon security level on the station. Consider your contracts terminated."
+
 
 /datum/config_entry/flag/diona_ghost_spawn
 

@@ -98,9 +98,39 @@
 		if(play_click)
 			playsound(src, 'sound/weapons/effects/ballistic_click.ogg', fire_sound_volume, vary_fire_sound, frequency = click_frequency_to_use)
 
+/obj/item/gun/ballistic/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ballistic))
+
+/**
+ *
+ * Outputs type-specific weapon stats for ballistic weaponry based on its magazine and its caliber.
+ * It contains extra breaks for the sake of presentation
+ *
+ */
+/obj/item/gun/ballistic/proc/add_notes_ballistic()
+	if(magazine) // Make sure you have a magazine, to get the notes from
+		return "\n[magazine.add_notes_box()]"
+	else if(chambered) // if you don't have a magazine, is there something chambered?
+		return "\n[chambered.add_notes_ammo()]"
+	else // we have a very expensive mechanical paperweight.
+		return "\nThe lack of magazine and usable cartridge in chamber makes its usefulness questionable, at best."
+
+/obj/item/gun/ballistic/vv_edit_var(vname, vval)
+	. = ..()
+	if(vname in list(NAMEOF(src, internal_magazine), NAMEOF(src, magazine), NAMEOF(src, chambered), NAMEOF(src, empty_indicator), NAMEOF(src, sawn_off), NAMEOF(src, bolt_locked), NAMEOF(src, bolt_type)))
+		update_appearance()
+
+/obj/item/gun/ballistic/update_icon()
+	if (QDELETED(src))
+		return
+	..()
+	if(current_skin)
+		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
+	else
+		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
+
 /obj/item/gun/ballistic/update_overlays()
 	. = ..()
-
 	switch(bolt_type)
 		if(BOLT_TYPE_LOCKING, BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
 			. += "[icon_state]_bolt[bolt_locked ? "_locked" : ""]"
@@ -402,11 +432,11 @@
 			playsound(src, empty_alarm_sound, empty_alarm_volume, empty_alarm_vary)
 			alarmed = TRUE
 			update_icon()
-		if (bolt_type == BOLT_TYPE_LOCKING)
+		if (bolt_type == BOLT_TYPE_LOCKING && semi_auto)
 			bolt_locked = TRUE
 			update_icon()
 
-/obj/item/gun/ballistic/afterattack()
+/obj/item/gun/ballistic/fire_gun(atom/target, mob/living/user, flag, params, aimed)
 	prefire_empty_checks()
 	. = ..() //The gun actually firing
 	postfire_empty_checks()

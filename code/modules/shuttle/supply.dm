@@ -27,7 +27,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/item/swapper,
 		/obj/item/mail,
 		/obj/docking_port,
-		/obj/effect/warped_rune // no teleporting to cc for you
+		/obj/effect/warped_rune, // no teleporting to cc for you
+		/obj/structure/slime_crystal/bluespace // Dang it, you still teleported to CC!
 	)))
 
 /obj/docking_port/mobile/supply
@@ -220,7 +221,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply/proc/create_mail()
 	//Early return if there's no mail waiting to prevent taking up a slot.
-	if(!SSeconomy.mail_waiting)
+	if(SSeconomy.mail_waiting < MAIL_REQUIRED_BEFORE_SPAWN)
 		return
 	//spawn crate
 	var/list/empty_turfs = list()

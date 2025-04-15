@@ -47,6 +47,7 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/weapon_weight = WEAPON_LIGHT
 	var/dual_wield_spread = 24			//additional spread when dual wielding
+
 	var/spread = 0						//Spread induced by the gun itself.
 	var/requires_wielding = TRUE
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
@@ -187,7 +188,7 @@
 		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
 			. += span_info("[bayonet] looks like it can be <b>unscrewed</b> from [src].")
-	else if(can_bayonet)
+	if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
 	if(weapon_weight == WEAPON_HEAVY)
@@ -306,9 +307,9 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || !user.combat_mode) //melee attack
+		if(!ismob(target) || user.combat_mode) //melee attack
 			return
-		if(target == user && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return
 	add_fingerprint(user)
 
@@ -318,9 +319,8 @@
 			return
 
 	if(flag)
-		var/simplified_mode = user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
 		var/mob/living/living_target = target
-		if (!simplified_mode)
+		if (!user.client || user.client.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_INTENT)
 			if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 				handle_suicide(user, target, params)
 				return
@@ -338,6 +338,7 @@
 	// Not ready to fire
 	if (ranged_cooldown>world.time)
 		return
+
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
@@ -631,7 +632,9 @@
 	if(chambered?.BB)
 		chambered.BB.damage *= 5
 
-	process_fire(target, user, TRUE, params)
+	var/fired = process_fire(target, user, TRUE, params, BODY_ZONE_HEAD)
+	if(!fired && chambered?.BB)
+		chambered.BB.damage /= 5
 
 /obj/item/gun/proc/unlock() //used in summon guns and as a convience for admins
 	if(pin)

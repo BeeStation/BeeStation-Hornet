@@ -83,3 +83,4 @@
 
 	/// Only load in visual organs
 	var/visual_only_organs = FALSE
+

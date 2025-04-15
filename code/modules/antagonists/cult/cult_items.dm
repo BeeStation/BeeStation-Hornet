@@ -37,7 +37,7 @@ Can be used to scrape blood runes away, removing any trace of them.
 Striking another cultist with it will purge all holy water from them and transform it into unholy water.
 Striking a noncultist, however, will tear their flesh."}
 
-	AddComponent(/datum/component/cult_ritual_item, span_cult("[examine_text]"))
+	AddComponent(/datum/component/cult_ritual_item, span_cult(examine_text))
 
 /obj/item/melee/cultblade
 	name = "eldritch longsword"
@@ -51,7 +51,7 @@ Striking a noncultist, however, will tear their flesh."}
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -573,7 +573,7 @@ Striking a noncultist, however, will tear their flesh."}
 	throwforce = 40
 	throw_speed = 2
 	armour_penetration = 30
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	sharpness = SHARP

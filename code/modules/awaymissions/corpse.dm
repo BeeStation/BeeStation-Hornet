@@ -290,7 +290,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type = 	/mob/living/basic/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
@@ -405,7 +405,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(STONER)
+	H.dna.add_mutation(/datum/mutation/stoner)
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -461,7 +461,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(STONER)
+	H.dna.add_mutation(/datum/mutation/stoner)
 
 /////////////////Officers+Nanotrasen Security//////////////////////
 
