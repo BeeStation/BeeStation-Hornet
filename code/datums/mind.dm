@@ -250,8 +250,8 @@
 	sleep(40)
 	current.flash_act(override_blindness_check = TRUE, visual = TRUE, type = /atom/movable/screen/fullscreen/flash/black)
 	current.reset_perspective()
-	to_chat(span_userdanger("False memories rush through your head..."))
-	to_chat(span_warning("You begin to process the visions of another world; and you realise the horrifying reality; if you die now then you will be unable to be cloned... <i>[pick("Maybe the geneticist can help...", "Perhaps you should try getting a re-scan.", "Maybe if you can just get another scan of your mind, everything will be alright.", "You wonder if killing the duplicate would help... -or maybe it's better to talk to the geneticist.")]</i>"))
+	to_chat(current, span_userdanger("False memories rush through your head..."))
+	to_chat(current, span_warning("You begin to process the visions of another world; and you realise the horrifying reality; if you die now then you will be unable to be cloned... <i>[pick("Maybe the geneticist can help...", "Perhaps you should try getting a re-scan.", "Maybe if you can just get another scan of your mind, everything will be alright.", "You wonder if killing the duplicate would help... -or maybe it's better to talk to the geneticist.")]</i>"))
 
 /datum/mind/proc/transfer_to(mob/new_character, var/force_key_move = 0)
 	if(current)	// remove ourself from our old body's mind variable
