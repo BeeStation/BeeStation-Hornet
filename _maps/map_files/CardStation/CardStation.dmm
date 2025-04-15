@@ -4048,8 +4048,6 @@
 	},
 /obj/item/reagent_containers/condiment/sugar,
 /obj/item/storage/pill_bottle/happiness,
-/obj/item/storage/box/coffeepack,
-/obj/item/storage/box/coffeepack/robusta,
 /obj/item/reagent_containers/condiment/soymilk,
 /obj/item/reagent_containers/condiment/milk,
 /obj/structure/wall_closet/freezer/directional/south,
@@ -9395,9 +9393,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "bXk" = (
-/obj/structure/sign/chalkboard_menu{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
@@ -9421,6 +9416,13 @@
 	},
 /obj/item/food/muffin/berry{
 	pixel_x = 4
+	},
+/obj/structure/sign/nanotrasen{
+	icon_state = "chalkboard_menu";
+	icon = 'icons/obj/barsigns.dmi';
+	pixel_y = 32;
+	desc = "A coffee shop menu. It doesn't seem to be filled out yet";
+	name = "coffee shop menu"
 	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissaryRandom)
@@ -37405,6 +37407,7 @@
 /obj/machinery/door/airlock/glass_large{
 	name = "Caffe"
 	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissaryRandom)
 "hPJ" = (
@@ -43759,18 +43762,6 @@
 /area/hallway/primary/port)
 "jgN" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur{
-	pixel_y = 19;
-	pixel_x = 9
-	},
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup{
-	pixel_x = 9;
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel{
-	pixel_x = 9;
-	pixel_y = 3
-	},
 /obj/item/reagent_containers/cup/glass/ice{
 	pixel_x = -3;
 	pixel_y = 15
@@ -43778,6 +43769,18 @@
 /obj/item/reagent_containers/cup/rag{
 	pixel_y = 4;
 	pixel_x = -7
+	},
+/obj/item/reagent_containers/cup/glass/coffee{
+	pixel_y = 14;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/cup/glass/coffee{
+	pixel_y = 8;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/cup/glass/coffee{
+	pixel_y = 2;
+	pixel_x = 9
 	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
@@ -62841,10 +62844,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/item/storage/fancy/coffee_condi_display{
-	pixel_y = 5
-	},
-/obj/structure/table/wood,
+/obj/machinery/vending/coffee,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/wood/big,
 /area/vacant_room/commissary/commissaryRandom)
@@ -86522,6 +86522,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/structure/barricade/wooden,
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissaryRandom)
 "sgW" = (
@@ -93311,17 +93312,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
-/obj/structure/table,
-/obj/machinery/coffeemaker/impressa,
-/obj/item/reagent_containers/cup/glass/coffee_cup,
-/obj/item/reagent_containers/cup/glass/coffee_cup,
-/obj/item/reagent_containers/cup/glass/coffee_cup,
-/obj/item/reagent_containers/cup/glass/coffee_cup,
-/obj/item/reagent_containers/cup/glass/coffee/no_lid,
-/obj/item/reagent_containers/cup/glass/coffee/no_lid,
-/obj/item/reagent_containers/cup/glass/coffee/no_lid,
-/obj/item/reagent_containers/cup/glass/coffee/no_lid,
-/obj/item/reagent_containers/cup/glass/mug/nanotrasen,
+/obj/machinery/food_cart/coffee,
 /obj/item/clothing/suit/apron/chef,
 /obj/item/clothing/head/soft/green,
 /obj/structure/wall_closet/generic/directional/south,
