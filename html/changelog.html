@@ -56,7 +56,46 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">15 April 2025</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed RGB hint was not shown in vv</li>
+			</ul>
+
+			<h2 class="date">14 April 2025</h2>
+			<h3 class="author">Gilgax updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Added a new HUD button for ghosts (for observing).</li>
+				<li class="rscadd">Added cancel camera view to ghosts tab while observing.</li>
+			</ul>
+			<h3 class="author">RDS88-beeman updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">The Research Director's labcoat has recieved an upgrade, and is now purple! Don't worry about not being able to see spills on it, it's made of fancy plasma-based textile, it'll be fine...</li>
+			</ul>
+			<h3 class="author">therealdoooc213, Ghommie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">caltrop's don't display the floor anymore</li>
+				<li class="code_imp">caltrop's now use span define thing</li>
+			</ul>
+
+			<h2 class="date">13 April 2025</h2>
+			<h3 class="author">Gilgax updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">AI internal camera no longer has a network so it doesn't display on camera consoles</li>
+				<li class="bugfix">Labor camera console now actually show labor area cameras on it</li>
+				<li class="tweak">EVA storage now shows up on normal camera network instead of the AI sattelite network.</li>
+				<li class="tweak">Removes the "Jump to network" function for AI. AIs "Show Camera List" button now shows all cameras on station and LL level no matter their network (note: AI could always see through them, just couldn't jump to them)</li>
+			</ul>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added an RBMK core which when map loaded will assemble itself.</li>
+			</ul>
+
 			<h2 class="date">12 April 2025</h2>
+			<h3 class="author">Fresh839 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes the plant analyzer from causing a runtime error when scanning plants</li>
+			</ul>
 			<h3 class="author">MarkusLarsson421 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Added a bunch of sounds to the Sound Synthesizer.</li>
@@ -75,6 +114,22 @@
 			<h3 class="author">mrmanlikesbt updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">fixed the robotics control console not alerting the crew when an unauthorized person prints an upload key</li>
+			</ul>
+			<h3 class="author">rkz,  Ryll/Shaps, SpaceDragon00, TJatPBnJ, EOBGames, GPeckman, LemonInTheDark, SmArtKar, Hatterhat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Combat Information tag for weapons. Shows how many hits or bullets a weapon will take to crit</li>
+				<li class="bugfix">fixes armor comparisions</li>
+				<li class="bugfix">fixes suicides with guns</li>
+				<li class="rscadd">adds shorthands for item flags</li>
+				<li class="rscadd">adds variable on guns to modify bullet power. No weapon has anything except the normal value of 1, this just makes sure if people modify the integrity of guns or the like in the future, they go through this code which is accounted for in the combat tags display</li>
+				<li class="rscadd">pressure/cold/heat-proof clothing now has appropriate display in armor tag examine block</li>
+			</ul>
+			<h3 class="author">rkz, tralezab, ma44, Capybara Holly updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">converts cows to basicmobs</li>
+				<li class="rscadd">moonicorns, aggressive cows that spread fairygrass, and Wisdom cows, passive cows that belt out fortune cookie phrases(currently adminspawn only)</li>
+				<li class="rscadd">mob ai can now plan new actions while performing current actions</li>
+				<li class="rscadd">cows will now seek out wheat, and follow you if you hold it</li>
 			</ul>
 			<h3 class="author">therealdoooc, kawoppi updated:</h3>
 			<ul class="changes bgimages16">
@@ -873,50 +928,6 @@
 			<h3 class="author">Therealdoooc213 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Moves the "Observe" verb from the OOC category to the Ghost category.</li>
-			</ul>
-
-			<h2 class="date">11 February 2025</h2>
-			<h3 class="author">PigeonVerde322, Rkz, Kylerace, ArcaneMusic, zxaber updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">refactors machine and power code to cut down on processing costs</li>
-				<li class="bugfix">fixes non-processing machines failing to consume power</li>
-				<li class="bugfix">fixes rechargers and inducers allowing for effectively infinite power. Now, what is used to charge these cells is exactly what can be expended from them.</li>
-				<li class="tweak">rechargers now suck power directly from surplus energy on the powergrid, as opposed to the Equipment part of an APC. This is to prevent the former fix from making every single recharger on the station a mini-energy siphon.</li>
-				<li class="rscadd">examining any machinery will now tell if it's powered or not.</li>
-			</ul>
-			<h3 class="author">RDS88 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Custom AI laws are now more readable on the end-of-round report. You don't need to squint to figure out why it was trying to door-crush you anymore</li>
-			</ul>
-			<h3 class="author">Therealdoooc213 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Chaplains can no longer sacrifice holodeck mobs.</li>
-			</ul>
-
-			<h2 class="date">10 February 2025</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes the stat panel crashing when you have a plasma vessel in your mob.</li>
-			</ul>
-			<h3 class="author">Therealdoooc213 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">head of security no longer spawns with a disabler</li>
-			</ul>
-			<h3 class="author">Tsar-Salat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">floating oven trays</li>
-				<li class="bugfix">inverted clockcult armor checks. Cultists can wear armor again, normals cannot</li>
-			</ul>
-			<h3 class="author">rkz, mso,  itseasytosee updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixes admin transforms sending the wrong mind</li>
-			</ul>
-
-			<h2 class="date">09 February 2025</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Merges mob properties and traits.</li>
-				<li class="bugfix">Hulk limb colour no longer applies to robotic limbs.</li>
 			</ul>
 		</div>
 
