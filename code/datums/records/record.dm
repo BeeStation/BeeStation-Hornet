@@ -285,13 +285,13 @@
 /// Handles adding a crime to a particular record.
 /datum/record/crew/proc/add_crime(mob/user, crime_name, fine_amount, details, crime_console)
 	var/input_name = trim(crime_name, MAX_CRIME_NAME_LEN)
-	if(!input_name)
+	if(!input_name && user)
 		to_chat(user, span_warning("You must enter a name for the crime."))
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
 
 	var/max = CONFIG_GET(number/maxfine)
-	if(fine_amount > max)
+	if(fine_amount > max && user)
 		to_chat(user, span_warning("The maximum fine is [max] credits."))
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
@@ -305,6 +305,7 @@
 		crimes += new_crime
 		wanted_status = WANTED_ARREST
 		user.investigate_log("New Crime: <strong>[input_name]</strong> | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
+		new_crime.alert_owner(user, crime_console, name, "A warrant for your arrest has been filed. Please appear before security immediately to discuss this matter. Failure to comply may result in increased punitive action.")
 
 		update_matching_security_huds(name)
 		return TRUE
@@ -312,10 +313,22 @@
 	var/datum/crime_record/citation/new_citation = new(name = input_name, details = input_details, author = user, fine = fine_amount)
 
 	citations += new_citation
-	new_citation.alert_owner(user, crime_console, name, "You have been issued a [fine_amount]cr citation for [input_name]. Fines are payable at Security.")
+	new_citation.alert_owner(user, crime_console, name, "You have been issued a [fine_amount]cr citation for [input_name]. Fines are payable at Security. You have 15 minutes to pay this amount.")
 	user.investigate_log("New Citation: <strong>[input_name]</strong> Fine: [fine_amount] | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
 
+	// Attach to the citation
+	addtimer(CALLBACK(src, PROC_REF(escalate_citation), WEAKREF(new_citation), WEAKREF(crime_console)), 15 MINUTES)
 	return TRUE
+
+/datum/record/crew/proc/escalate_citation(datum/weakref/r_citation, datum/weakref/r_crime_console)
+	var/datum/crime_record/citation/citation = r_citation.resolve()
+	if (!citation)
+		return
+	var/crime_console = r_crime_console.resolve()
+	if (citation.paid >= citation.fine || !citation.valid)
+		return
+	citation.valid = FALSE
+	add_crime(citation.author, "112: Fine Avoidance", 0, "Failed to pay citation valued at [citation.fine - citation.paid] credits which was issued for [citation.name].", crime_console)
 
 /// Handles editing a crime on a particular record. Also includes citations.
 /datum/record/crew/proc/edit_crime(mob/user, name, description, crime_ref)

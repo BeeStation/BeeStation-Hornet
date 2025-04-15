@@ -179,7 +179,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		stat_popups += "[span_holoparasitebig("Weapon: <b>[stats.weapon.name]</b>")]\n[weapon_info]"
 	if(length(stat_popups))
 		info_block += list(span_info("================"), span_bigboldinfo("\[ABILITY NOTES\]"), "[stat_popups.Join("\n[span_info("====")]\n")]")
-	to_chat(src, EXAMINE_BLOCK(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
+	to_chat(src, examine_block(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
 
 /mob/living/simple_animal/hostile/holoparasite/Life()
 	. = ..()

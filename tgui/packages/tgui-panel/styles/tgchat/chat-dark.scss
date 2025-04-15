@@ -466,7 +466,7 @@ em {
 }
 
 .deadsay {
-  color: #e2c1ff;
+  color: #c482ff;
 }
 .binarysay {
   color: #20c20e;
@@ -1585,4 +1585,9 @@ $border-width-px: $border-width * 1px;
   .chat_alert_#{$color-name} .major_announcement_text {
     background-color: darken(map.get($alert-stripe-colors, $color-name), 5);
   }
+}
+
+.tooltip {
+  font-style: italic;
+  border-bottom: 1px dashed #fff;
 }

@@ -30,7 +30,6 @@
 		/obj/item/melee/skateboard/pro = 3,
 		/obj/item/canvas/twentyfour_twentyfour = 5,
 		/obj/item/airlock_painter = 1,
-		/obj/item/clothing/shoes/wheelys= 3,
 		/obj/item/melee/skateboard/hoverboard = 1
 	)
 	refill_canister = /obj/item/vending_refill/games
