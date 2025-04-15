@@ -1,4 +1,5 @@
 /obj/machinery/computer/cloning/prototype : /obj/machinery/computer/cloning {@OLD}
 /obj/item/card/id/job/virologist : @DELETE
 /obj/effect/landmark/start/randommaint/virologist : @DELETE
+/obj/effect/landmark/start/virologist : @DELETE
 /obj/item/circuitboard/computer/cloning/prototype : @DELETE

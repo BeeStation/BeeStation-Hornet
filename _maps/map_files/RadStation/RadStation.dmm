@@ -28586,10 +28586,6 @@
 /obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/iron,
 /area/science/lab)
-"jsg" = (
-/obj/effect/landmark/start/virologist,
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "jsh" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -34077,7 +34073,6 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "loR" = (
@@ -115837,7 +115832,7 @@ hzd
 gBD
 hzd
 hzd
-jsg
+hzd
 fdM
 tfq
 dHW
