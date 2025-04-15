@@ -7,9 +7,8 @@
 	var/run_distance = 9
 
 /datum/ai_behavior/run_away_from_target/setup(datum/ai_controller/controller, target_key, hiding_location_key)
-	var/datum/weakref/weak_target = controller.blackboard[hiding_location_key] || controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
-	if(!target)
+	var/atom/target = controller.blackboard[hiding_location_key] || controller.blackboard[target_key]
+	if(QDELETED(target))
 		return FALSE
 	if(!plot_path_away_from(controller, target))
 		return FALSE
