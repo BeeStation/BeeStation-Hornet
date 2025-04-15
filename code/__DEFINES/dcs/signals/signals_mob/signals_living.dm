@@ -29,8 +29,6 @@
 #define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
 ///from base of mob/living/death(): (gibbed, was_dead_before)
 #define COMSIG_LIVING_DEATH "living_death"
-/// from base of mob/living/updatehealth(): ()
-#define COMSIG_LIVING_UPDATE_HEALTH "living_update_health"
 /// Called when a living mob has its resting updated: (resting_state)
 #define COMSIG_LIVING_RESTING_UPDATED "resting_updated"
 ///from base of mob/living/gib(): (no_brain, no_organs, no_bodyparts)
