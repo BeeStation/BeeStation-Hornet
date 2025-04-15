@@ -23230,7 +23230,10 @@
 	dir = 5
 	},
 /obj/machinery/light/directional/north,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/dead{
+	name = "potted plant";
+	desc = "It doesn't look very healthy..."
+	},
 /obj/machinery/camera/directional/east,
 /turf/open/floor/wood,
 /area/vacant_room/office)
