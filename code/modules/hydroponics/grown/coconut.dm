@@ -71,8 +71,6 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 		if(seed.get_gene(/datum/plant_gene/trait/maxchem))
 			modifier = 2
 		cup.volume = max(10, seed.potency) * modifier // Without trait 10-100, with it 20-200
-	else
-		cup.volume = 50 // Default volume if potency is unavailable
 
 	// Transfers the reagents from the plant to liquid form inside the cup
 	if(reagents && reagents.total_volume > 0)
