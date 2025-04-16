@@ -4,7 +4,7 @@
 	icon_state = "energy"
 	w_class = WEIGHT_CLASS_BULKY	//powergaming is kill
 	item_state = null	//so the human update icon uses the icon_state instead.
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler_egun, /obj/item/ammo_casing/energy/laser)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	modifystate = 1
 	ammo_x_offset = 3
 	weapon_weight = WEAPON_MEDIUM
