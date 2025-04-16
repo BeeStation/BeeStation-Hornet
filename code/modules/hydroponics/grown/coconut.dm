@@ -50,13 +50,15 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 
 	// Defaults to creating 1 coconut flesh when processed
 	var/part_amount = 1
+	var/div_mod = 1
 	if(seed && seed.potency)
 		part_amount = floor(seed.potency / 20 + 1) // Min 1, Max 6 at 100 potency
+		div_mod = clamp(part_amount, 1, 5) // So 100 potency isn't a punishment
 
 	for(var/i = 1 to part_amount)
 		var/obj/item/food/coconutflesh/flesh = new /obj/item/food/coconutflesh/empty(location)
 		if(reagents && reagents.total_volume > 0)
-			revised_regredients.copy_to(flesh.reagents, reagents.total_volume / clamp(part_amount, 1, 5))// So 100 potency isn't a punishment
+			revised_regredients.copy_to(flesh.reagents, reagents.total_volume / div_mod)
 		flesh.pixel_x = rand(-5, 5) // Randomize the positioning of the flesh
 		flesh.pixel_y = rand(-5, 5)
 
