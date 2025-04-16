@@ -133,7 +133,6 @@
 /datum/asset/spritesheet/antagonists
 	name = "antagonists"
 	early = TRUE
-	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/antagonists/create_spritesheets()
 	var/list/generated_icons = list()

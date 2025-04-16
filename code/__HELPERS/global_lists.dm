@@ -73,13 +73,7 @@
 		GLOB.hair_gradients_list[H.name] = H
 
 	// Keybindings
-	for(var/KB in subtypesof(/datum/keybinding))
-		var/datum/keybinding/keybinding = KB
-		if(!initial(keybinding.keys) || !initial(keybinding.keybind_signal))
-			continue
-		var/datum/keybinding/instance = new keybinding
-		GLOB.keybindings_by_name[instance.name] = instance
-		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
+	init_keybindings()
 
 	init_crafting_recipes(GLOB.crafting_recipes)
 
@@ -128,6 +122,14 @@
 			L+= path
 		return L
 
+/// Functions like init_subtypes, but uses the subtype's path as a key for easy access
+/proc/init_subtypes_w_path_keys(prototype, list/L)
+	if(!istype(L))
+		L = list()
+	for(var/path as anything in subtypesof(prototype))
+		L[path] = new path()
+	return L
+
 /*
 Checks if that loc and dir has an item on the wall
 */
@@ -147,7 +149,6 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/structure/noticeboard,
 	/obj/machinery/button,
 	/obj/machinery/computer/security/telescreen,
-	/obj/machinery/embedded_controller/radio/simple_vent_controller,
 	/obj/item/storage/secure/safe,
 	/obj/machinery/flasher,
 	/obj/machinery/keycard_auth,

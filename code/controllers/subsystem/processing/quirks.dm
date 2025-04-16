@@ -19,7 +19,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		list("Ageusia","Vegetarian","Deviant Tastes"),
 		list("Ananas Affinity","Ananas Aversion"),
 		list("Alcohol Tolerance","Light Drinker"),
-		list("Social Anxiety","Mute"),
+		list("Light Drinker","Drunken Resilience")
 	)
 
 /datum/controller/subsystem/processing/quirks/Initialize()
@@ -39,20 +39,18 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 
 	for(var/datum/quirk/T as() in quirk_list)
 		quirks[initial(T.name)] = T
-		quirk_points[initial(T.name)] = initial(T.value)
+		quirk_points[initial(T.name)] = initial(T.quirk_value)
 
 /datum/controller/subsystem/processing/quirks/proc/AssignQuirks(datum/mind/user, client/cli, spawn_effects)
-	var/bad_quirk_checker = 0
 	var/list/bad_quirks = list()
 	for(var/V in cli.prefs.all_quirks)
 		var/datum/quirk/Q = quirks[V]
 		if(Q)
 			user.add_quirk(Q, spawn_effects)
-			bad_quirk_checker += initial(Q.value)
 		else
 			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
 			bad_quirks += V
-	if(bad_quirk_checker > 0 || length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
+	if(length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
 		cli.prefs.all_quirks = list()
 		// save the new cleared quirks.
 		cli.prefs.mark_undatumized_dirty_character()
@@ -65,7 +63,6 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 /datum/controller/subsystem/processing/quirks/proc/filter_invalid_quirks(list/quirks)
 	var/list/new_quirks = list()
 	var/list/positive_quirks = list()
-	var/balance = 0
 
 	var/list/all_quirks = get_quirks()
 
@@ -94,26 +91,16 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		if (blacklisted)
 			continue
 
-		var/value = initial(quirk.value)
-		if (value > 0)
-			if (positive_quirks.len == MAX_QUIRKS)
+		//I don't fully understand why declaring this is necessary, but when I tried to simplify it to just calling quirk.quirk_value it runtimes with a null value??
+		var/initial_value = initial(quirk.quirk_value)
+
+		if (initial_value > 0)
+			if (length(positive_quirks) == MAX_POSITIVE_QUIRKS)
 				continue
 
-			positive_quirks[quirk_name] = value
+			positive_quirks[quirk_name] = initial_value
 
-		balance += value
 		new_quirks += quirk_name
-
-	if (balance > 0)
-		var/balance_left_to_remove = balance
-
-		for (var/positive_quirk in positive_quirks)
-			var/value = positive_quirks[positive_quirk]
-			balance_left_to_remove -= value
-			new_quirks -= positive_quirk
-
-			if (balance_left_to_remove <= 0)
-				break
 
 	// It is guaranteed that if no quirks are invalid, you can simply check through `==`
 	if (new_quirks.len == quirks.len)

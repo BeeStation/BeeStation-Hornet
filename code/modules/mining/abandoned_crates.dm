@@ -8,6 +8,7 @@
 	var/lastattempt = null
 	var/attempts = 10
 	var/codelen = 4
+	var/qdel_on_open = FALSE
 	var/spawned_loot = FALSE
 	tamperproof = 90
 
@@ -21,11 +22,11 @@
 		digits -= dig  //there are never matching digits in the answer
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
+/obj/structure/closet/crate/secure/loot/attack_hand(mob/user, list/modifiers)
 	if(locked)
-		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
+		to_chat(user, span_notice("The crate is locked with a Deca-code lock."))
 		var/input = capped_input(usr, "Enter [codelen] digits. All digits must be unique.", "Deca-Code Lock")
-		if(user.canUseTopic(src, BE_CLOSE))
+		if(user.canUseTopic(src, BE_CLOSE) && locked)
 			var/list/sanitised = list()
 			var/sanitycheck = TRUE
 			var/char = ""
@@ -38,24 +39,21 @@
 					if(sanitised[i] == sanitised[j])
 						sanitycheck = FALSE //if a digit is repeated, reject the input
 			if(input == code)
-				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
-				locked = FALSE
-				cut_overlays()
-				add_overlay("unlocked_secure")
-				add_overlay("[icon_door || icon_state]_door") //needs to put the door overlayer back cause of this snowflake code
-				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
 				if(!spawned_loot)
 					spawn_loot()
+				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
+				togglelock(user)
 			else if(!input || !sanitycheck || length(sanitised) != codelen)
-				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
+				to_chat(user, span_notice("You leave the crate alone."))
 			else
-				to_chat(user, "<span class='warning'>A red light flashes.</span>")
+				to_chat(user, span_warning("A red light flashes."))
 				lastattempt = input
 				attempts--
 				if(attempts == 0)
 					boom(user)
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/structure/closet/crate/secure/loot/AltClick(mob/living/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
@@ -65,11 +63,11 @@
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
 	if(locked)
 		if(W.tool_behaviour == TOOL_MULTITOOL)
-			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
+			to_chat(user, span_notice("DECA-CODE LOCK REPORT:"))
 			if(attempts == 1)
-				to_chat(user, "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>")
+				to_chat(user, span_warning("* Anti-Tamper Bomb will activate on next failed access attempt."))
 			else
-				to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [attempts] failed access attempts.</span>")
+				to_chat(user, span_notice("* Anti-Tamper Bomb will activate after [attempts] failed access attempts."))
 			if(lastattempt != null)
 				var/bulls = 0 //right position, right number
 				var/cows = 0 //wrong position but in the puzzle
@@ -93,14 +91,14 @@
 					lastattempt_it += length(lastattempt_char)
 					code_it += length(code_char)
 
-				to_chat(user, "<span class='notice'>Last code attempt, [lastattempt], had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
+				to_chat(user, span_notice("Last code attempt, [lastattempt], had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions."))
 			return
 	return ..()
 
 /obj/structure/closet/secure/loot/dive_into(mob/living/user)
 	if(!locked)
 		return ..()
-	to_chat(user, "<span class='notice'>That seems like a stupid idea.</span>")
+	to_chat(user, span_notice("That seems like a stupid idea."))
 	return FALSE
 
 /obj/structure/closet/crate/secure/loot/should_emag(mob/user)
@@ -108,16 +106,34 @@
 
 /obj/structure/closet/crate/secure/loot/on_emag(mob/user)
 	..()
-	boom(user)
-
-/obj/structure/closet/crate/secure/loot/togglelock(mob/user)
 	if(locked)
 		boom(user)
-	else
-		..()
+		return
+	return ..()
+
+/obj/structure/closet/crate/secure/loot/togglelock(mob/user, silent = FALSE)
+	if(!locked)
+		. = ..() //Run the normal code.
+		if(locked) //Double check if the crate actually locked itself when the normal code ran.
+			//reset the anti-tampering, number of attempts and last attempt when the lock is re-enabled.
+			tamperproof = initial(tamperproof)
+			attempts = initial(attempts)
+			lastattempt = null
+		return
+	if(tamperproof)
+		return
+	return ..()
 
 /obj/structure/closet/crate/secure/loot/deconstruct(disassembled = TRUE)
-	boom()
+	if(locked)
+		boom()
+		return
+	return ..()
+
+/obj/structure/closet/crate/secure/loot/open(mob/living/user, force = FALSE)
+	. = ..()
+	if(qdel_on_open)
+		qdel(src)
 
 /obj/structure/closet/crate/secure/loot/proc/spawn_loot()
 	var/loot = rand(1,100) //100 different crates with varying chances of spawning

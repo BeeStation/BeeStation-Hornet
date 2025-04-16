@@ -87,7 +87,7 @@ Mineral Sheets
 	walltype = /turf/closed/wall/mineral/plasma
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS//dont you kids know that stuff is toxic?
 
 /obj/item/stack/sheet/mineral/plasma/get_recipes()
@@ -99,9 +99,11 @@ Mineral Sheets
 	else
 		return ..()
 
-/obj/item/stack/sheet/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		plasma_ignition(amount/5)
+/obj/item/stack/sheet/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/item/stack/sheet/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	plasma_ignition(amount/5)
 
 /obj/item/stack/sheet/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)

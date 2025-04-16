@@ -41,11 +41,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown)
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
+		var/msg = "[span_info("This is \a [span_name(src)]")]\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
-		to_chat(usr, EXAMINE_BLOCK(msg))
+		to_chat(usr, examine_block(msg))
 		return
 
 /obj/item/grown/proc/add_juice()

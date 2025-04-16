@@ -44,21 +44,22 @@ Bonus
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(4, 5)
-			ADD_TRAIT(M, TRAIT_NOBREATH, DISEASE_TRAIT)
 			M.adjustOxyLoss(-7, 0)
 			M.losebreath = max(0, M.losebreath - 4)
 			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
 				M.blood_volume += 1
 		else
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, "<span class='notice'>[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.", "Something smells rotten.", "You feel peckish.")]</span>")
+				to_chat(M, span_notice("[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.", "Something smells rotten.", "You feel peckish.")]"))
 	return
 
-/datum/symptom/oxygen/on_stage_change(new_stage, datum/disease/advance/A)
+/datum/symptom/oxygen/on_stage_change(datum/disease/advance/A)
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/M = A.affected_mob
-	if(A.stage <= 3)
+	if(A.stage >= 4)
+		ADD_TRAIT(M, TRAIT_NOBREATH, DISEASE_TRAIT)
+	else
 		REMOVE_TRAIT(M, TRAIT_NOBREATH, DISEASE_TRAIT)
 	return TRUE
 

@@ -18,6 +18,10 @@
 /obj/item/ammo_casing/energy/electrode/old
 	e_cost = 1000
 
+/obj/item/ammo_casing/energy/electrode/broken
+	projectile_type = /obj/projectile/energy/electrode/broken
+
+
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/projectile/beam/disabler
 	select_name = "disable"

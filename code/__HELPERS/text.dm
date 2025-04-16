@@ -54,6 +54,15 @@
 /proc/sanitize(t,list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+/// Same as sanitize name, but doesn't reject common words like 'space'.
+/// Enforces that the filter isn't bypassed
+/// Enforces that HTML is encoded and certain bad characters are removed.
+/proc/sanitize_ic(t, list/repl_chars = null)
+	if(CHAT_FILTER_CHECK(t))
+		alert("You cannot set a name that contains a word prohibited in IC chat!")
+		return ""
+	return sanitize(t)
+
 /// Runs sanitize and strip_html_simple. I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(t,limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
@@ -1059,6 +1068,16 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 			. = "gigantic"
 		else
 			. = ""
+
+/proc/weight_class_to_tooltip(w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY to WEIGHT_CLASS_SMALL)
+			return "This item can fit into pockets, boxes and backpacks."
+		if(WEIGHT_CLASS_NORMAL)
+			return "This item can fit into backpacks."
+		if(WEIGHT_CLASS_BULKY to WEIGHT_CLASS_GIGANTIC)
+			return "This item is too large to fit into any standard storage."
+	return ""
 
 /atom/proc/get_boozepower_text(booze_power, mob/living/L)
 	if(isnull(booze_power))

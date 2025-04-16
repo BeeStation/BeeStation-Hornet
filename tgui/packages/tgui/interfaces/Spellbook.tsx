@@ -3,7 +3,7 @@ import { multiline } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Dimmer, Divider, Icon, Input, NoticeBox, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 
 enum SpellCategory {
   Offensive = 'Offensive',
@@ -23,7 +23,7 @@ type SpellEntry = {
   // Byond REF of the spell entry datum
   ref: byondRef;
   // Whether the spell requires wizard clothing to cast
-  clothes_req: BooleanLike;
+  requires_wizard_garb: BooleanLike;
   // Spell points required to buy the spell
   cost: number;
   // How many times the spell has been bought
@@ -49,7 +49,7 @@ type Data = {
 type TabType = {
   title: string;
   blurb?: string;
-  component?: () => InfernoNode;
+  component?: () => ReactNode;
   locked?: boolean;
   scrollable?: boolean;
 };
@@ -123,8 +123,8 @@ const BUYWORD2ICON = {
   Cast: 'meteor',
 };
 
-const EnscribedName = (props, context) => {
-  const { data } = useBackend<Data>(context);
+const EnscribedName = (props) => {
+  const { data } = useBackend<Data>();
   const { owner } = data;
   return (
     <>
@@ -138,8 +138,8 @@ const EnscribedName = (props, context) => {
 
 const lineHeightToc = '34.6px';
 
-const TableOfContents = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tab-index', 1);
+const TableOfContents = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
   return (
     <Box textAlign="center">
       <Button lineHeight={lineHeightToc} fluid icon="pen" disabled content="Name Enscription" />
@@ -178,8 +178,8 @@ const TableOfContents = (props, context) => {
   );
 };
 
-const LockedPage = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LockedPage = (props) => {
+  const { act, data } = useBackend<Data>();
   const { owner } = data;
   return (
     <Dimmer>
@@ -195,7 +195,7 @@ const LockedPage = (props, context) => {
   );
 };
 
-const PointLocked = (props, context) => {
+const PointLocked = (props) => {
   return (
     <Dimmer>
       <Stack vertical>
@@ -219,8 +219,8 @@ type WizardLoadout = {
   author: string;
 };
 
-const SingleLoadout = (props: WizardLoadout, context) => {
-  const { act } = useBackend<WizardLoadout>(context);
+const SingleLoadout = (props: WizardLoadout) => {
+  const { act } = useBackend<WizardLoadout>();
   const { author, name, blurb, icon, loadoutId, loadoutColor } = props;
   return (
     <Stack.Item grow>
@@ -249,8 +249,8 @@ const SingleLoadout = (props: WizardLoadout, context) => {
 
 const LoadoutWidth = 19.17;
 
-const Loadouts = (props, context) => {
-  const { data } = useBackend<Data>(context);
+const Loadouts = (props) => {
+  const { data } = useBackend<Data>();
   const { points } = data;
   // Future todo : Make these datums on the DM side
   return (
@@ -321,13 +321,15 @@ const Loadouts = (props, context) => {
 
 const lineHeightRandomize = 6;
 
-const Randomize = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const Randomize = (props) => {
+  const { act, data } = useBackend<Data>();
   const { points } = data;
   return (
     <Stack fill vertical>
       {points < 10 && <PointLocked />}
-      <Stack.Item>Semi-Randomize will ensure you at least get some mobility and lethality.</Stack.Item>
+      <Stack.Item>
+        Semi-Randomize will ensure you at least get some mobility and lethality and additional 20% spell value.
+      </Stack.Item>
       <Stack.Item>
         <Button.Confirm
           confirmContent="Cowabunga it is?"
@@ -340,7 +342,9 @@ const Randomize = (props, context) => {
         />
         <Divider />
       </Stack.Item>
-      <Stack.Item>Full Random will give you anything. There&apos;s no going back, either!</Stack.Item>
+      <Stack.Item>
+        Full Random will give you anything at a whopping 50% spell value increase!. There&apos;s no going back, either!
+      </Stack.Item>
       <Stack.Item>
         <NoticeBox danger>
           <Button.Confirm
@@ -359,16 +363,16 @@ const Randomize = (props, context) => {
   );
 };
 
-const SearchSpells = (props, context) => {
-  const { data } = useBackend<Data>(context);
-  const [spellSearch] = useLocalState(context, 'spell-search', '');
+const SearchSpells = (props) => {
+  const { data } = useBackend<Data>();
+  const [spellSearch] = useLocalState('spell-search', '');
   const { entries } = data;
 
   const filterEntryList = (entries: SpellEntry[]) => {
     const searchStatement = spellSearch.toLowerCase();
     if (searchStatement === 'robeless') {
       // Lets you just search for robeless spells, you're welcome mindswap-bros
-      return entries.filter((entry) => !entry.clothes_req);
+      return entries.filter((entry) => !entry.requires_wizard_garb);
     }
 
     return entries.filter(
@@ -404,13 +408,8 @@ const SearchSpells = (props, context) => {
   return <SpellTabDisplay TabSpells={filteredEntries} />;
 };
 
-const SpellTabDisplay = (
-  props: {
-    TabSpells: SpellEntry[];
-  },
-  context
-) => {
-  const { act, data } = useBackend<Data>(context);
+const SpellTabDisplay = (props: { TabSpells: SpellEntry[] }) => {
+  const { act, data } = useBackend<Data>();
   const { points } = data;
   const { TabSpells } = props;
 
@@ -450,9 +449,9 @@ const SpellTabDisplay = (
                 <Button
                   mt={-0.8}
                   icon="tshirt"
-                  color={entry.clothes_req ? 'bad' : 'green'}
+                  color={entry.requires_wizard_garb ? 'bad' : 'green'}
                   tooltipPosition="bottom-start"
-                  tooltip={entry.clothes_req ? 'Requires wizard garb.' : 'Can be cast without wizard garb.'}
+                  tooltip={entry.requires_wizard_garb ? 'Requires wizard garb.' : 'Can be cast without wizard garb.'}
                 />
               )
             }>
@@ -499,8 +498,8 @@ const SpellTabDisplay = (
   );
 };
 
-const CategoryDisplay = (props: { ActiveCat: TabType }, context) => {
-  const { data } = useBackend<Data>(context);
+const CategoryDisplay = (props: { ActiveCat: TabType }) => {
+  const { data } = useBackend<Data>();
   const { entries } = data;
   const { ActiveCat } = props;
 
@@ -526,11 +525,11 @@ const CategoryDisplay = (props: { ActiveCat: TabType }, context) => {
 const widthSection = '486px';
 const heightSection = '546px';
 
-export const Spellbook = (props, context) => {
-  const { data } = useBackend<Data>(context);
+export const Spellbook = (props) => {
+  const { data } = useBackend<Data>();
   const { points } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tab-index', 1);
-  const [spellSearch, setSpellSearch] = useLocalState(context, 'spell-search', '');
+  const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
+  const [spellSearch, setSpellSearch] = useLocalState('spell-search', '');
   const ActiveCat = TAB2NAME[tabIndex - 1];
   const ActiveNextCat = TAB2NAME[tabIndex];
 

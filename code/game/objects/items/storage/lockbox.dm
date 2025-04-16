@@ -12,41 +12,40 @@
 	var/open = FALSE
 	base_icon_state = "lockbox"
 
-/obj/item/storage/lockbox/ComponentInitialize()
+/obj/item/storage/lockbox/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 14
-	STR.max_items = 4
-	STR.locked = TRUE
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage = 14
+	atom_storage.max_slots = 4
+	atom_storage.locked = FALSE
 
 /obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
-	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+	var/locked = atom_storage.locked
 	if(W.GetID())
 		if(broken)
-			to_chat(user, "<span class='danger'>It appears to be broken.</span>")
+			to_chat(user, span_danger("It appears to be broken."))
 			return
 		if(allowed(user))
-			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, !locked)
-			locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+			atom_storage.locked = !locked
+			locked = atom_storage.locked
 			if(locked)
 				icon_state = "[base_icon_state]+l"
 				item_state = "[base_icon_state]+l"
-				to_chat(user, "<span class='danger'>You lock the [src.name]!</span>")
-				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
+				to_chat(user, span_danger("You lock the [src.name]!"))
+				atom_storage.close_all()
 				return
 			else
 				icon_state = "[base_icon_state]"
 				item_state = "[base_icon_state]"
-				to_chat(user, "<span class='danger'>You unlock the [src.name]!</span>")
+				to_chat(user, span_danger("You unlock the [src.name]!"))
 				return
 		else
-			to_chat(user, "<span class='danger'>Access Denied.</span>")
+			to_chat(user, span_danger("Access Denied."))
 			return
 	if(!locked)
 		return ..()
 	else
-		to_chat(user, "<span class='danger'>It's locked!</span>")
+		to_chat(user, span_danger("It's locked!"))
 
 /obj/item/storage/lockbox/should_emag(mob/user)
 	return !broken && ..()
@@ -54,11 +53,11 @@
 /obj/item/storage/lockbox/on_emag(mob/user)
 	..()
 	broken = TRUE
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
+	atom_storage.locked = FALSE
 	desc += "It appears to be broken."
 	icon_state = "[src.base_icon_state]+b"
 	item_state = "[src.base_icon_state]+b"
-	user?.visible_message("<span class='warning'>[user] breaks \the [src] with an electromagnetic card!</span>")
+	user?.visible_message(span_warning("[user] breaks \the [src] with an electromagnetic card!"))
 
 /obj/item/storage/lockbox/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -88,22 +87,21 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	req_access = list(ACCESS_CAPTAIN)
 
-/obj/item/storage/lockbox/medal/ComponentInitialize()
+/obj/item/storage/lockbox/medal/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_SMALL
-	STR.max_items = 10
-	STR.max_combined_w_class = 20
-	STR.can_hold = typecacheof(list(/obj/item/clothing/accessory/medal))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	atom_storage.max_slots = 10
+	atom_storage.max_total_storage = 20
+	atom_storage.set_holdable(list(/obj/item/clothing/accessory/medal))
 
 /obj/item/storage/lockbox/medal/examine(mob/user)
 	. = ..()
-	if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
-		. += "<span class='notice'>Alt-click to [open ? "close":"open"] it.</span>"
+	if(!atom_storage.locked)
+		. += span_notice("Alt-click to [open ? "close":"open"] it.")
 
 /obj/item/storage/lockbox/medal/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
-		if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
+		if(!atom_storage.locked)
 			open = (open ? FALSE : TRUE)
 			update_icon()
 
@@ -119,8 +117,7 @@
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
 /obj/item/storage/lockbox/medal/update_icon_state()
-	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
-	if(locked)
+	if(atom_storage?.locked)
 		icon_state = "[base_icon_state]+l"
 		item_state = "[base_icon_state]+l"
 	else
@@ -137,8 +134,7 @@
 	. = ..()
 	if(!contents || !open)
 		return
-	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
-	if(locked)
+	if(atom_storage?.locked)
 		return
 	for (var/i in 1 to contents.len)
 		var/obj/item/clothing/accessory/medal/M = contents[i]

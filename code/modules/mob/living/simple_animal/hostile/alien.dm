@@ -18,10 +18,10 @@
 	attack_verb_simple = "slash"
 	speak_emote = list("hisses")
 	bubble_icon = "alien"
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 15
+	unsuitable_atmos_damage = 7.5
 	faction = list(FACTION_ALIEN)
 	status_flags = CANPUSH
 	minbodytemp = 0
@@ -111,7 +111,7 @@
 		return
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
 		return
-	visible_message("<span class='alertalien'>[src] has planted some alien weeds!</span>")
+	visible_message(span_alertalien("[src] has planted some alien weeds!"))
 	new /obj/structure/alien/weeds/node(loc)
 
 /mob/living/simple_animal/hostile/alien/proc/LayEggs()
@@ -119,7 +119,7 @@
 		return
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
 		return
-	visible_message("<span class='alertalien'>[src] has laid an egg!</span>")
+	visible_message(span_alertalien("[src] has laid an egg!"))
 	new /obj/structure/alien/egg(loc)
 
 /mob/living/simple_animal/hostile/alien/queen/large
@@ -155,7 +155,7 @@
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"
 	melee_damage = 0
-	a_intent = INTENT_HELP
+	combat_mode = FALSE
 	friendly_verb_continuous = "caresses"
 	friendly_verb_simple = "caress"
 	obj_damage = 0
@@ -181,7 +181,7 @@
 	if(ismovable(target))
 		target.wash(CLEAN_WASH)
 		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("<span class='notice'>[src] cleans up \the [target].</span>")
+			visible_message(span_notice("[src] cleans up \the [target]."))
 		else
-			visible_message("<span class='notice'>[src] polishes \the [target].</span>")
+			visible_message(span_notice("[src] polishes \the [target]."))
 		return TRUE

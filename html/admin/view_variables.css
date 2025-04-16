@@ -7,6 +7,11 @@ body {
 	font-size: 8pt;
 	display: inline-block;
 }
+.value .colorbox {
+	font-size: 7pt;
+	border: 1px solid black;
+}
+
 
 table.matrix {
 	border-collapse: collapse; border-spacing: 0;

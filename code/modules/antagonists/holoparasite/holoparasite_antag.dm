@@ -9,6 +9,7 @@
 	show_to_ghosts = TRUE
 	ui_name = "AntagInfoHoloparasite"
 	banning_key = ROLE_HOLOPARASITE
+	required_living_playtime = 4
 	var/datum/team/holoparasites/team
 	var/datum/holoparasite_holder/holder
 	var/datum/holoparasite_stats/stats
@@ -161,7 +162,7 @@
 	return // Holoparasite HUD has its own info button
 
 /datum/antagonist/holoparasite/admin_add(datum/mind/new_owner, mob/admin)
-	to_chat(admin, "<span class='danger bold'>No. You're going to break things horribly (or if you're needing to do this for some reason - things have probably <i>already</i> broken horribly!)</span>")
+	to_chat(admin, span_dangerbold("No. You're going to break things horribly (or if you're needing to do this for some reason - things have probably <i>already</i> broken horribly!)"))
 
 /**
  * Change our stored summoner and updates static data when the holoparasite's summoner is changed.

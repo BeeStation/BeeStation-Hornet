@@ -38,6 +38,7 @@
 		add_tray_to_oven(new /obj/item/plate/oven_tray(src)) //Start with a tray
 
 /obj/machinery/oven/Destroy()
+	used_tray?.invisibility = 0
 	QDEL_NULL(oven_loop)
 	QDEL_NULL(particles)
 	. = ..()
@@ -55,10 +56,12 @@
 		var/mutable_appearance/door_overlay = mutable_appearance(icon, "oven_lid_open")
 		door_overlay.pixel_y = OVEN_LID_Y_OFFSET
 		. += door_overlay
+		used_tray?.invisibility = 0
 	else
 		. += mutable_appearance(icon, "oven_lid_closed")
 		if(used_tray?.contents.len)
 			. += emissive_appearance(icon, "oven_light_mask", alpha = src.alpha)
+		used_tray?.invisibility = 50
 
 /obj/machinery/oven/process(delta_time)
 	..()
@@ -83,7 +86,7 @@
 		baked_item.fire_act(1000) //Hot hot hot!
 
 		if(DT_PROB(10, delta_time))
-			visible_message("<span class='danger'>You smell a burnt smell coming from [src]!</span>")
+			visible_message(span_danger("You smell a burnt smell coming from [src]!"))
 	set_smoke_state(worst_cooked_food_state)
 	update_appearance()
 
@@ -91,7 +94,7 @@
 /obj/machinery/oven/attackby(obj/item/I, mob/user, params)
 	if(open && !used_tray && istype(I, /obj/item/plate/oven_tray))
 		if(user.transferItemToLoc(I, src, silent = FALSE))
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+			to_chat(user, span_notice("You put [I] in [src]."))
 			add_tray_to_oven(I)
 	else
 		return ..()
@@ -123,6 +126,7 @@
 	oven_tray.flags_1 &= ~IS_ONTOP_1
 	oven_tray.vis_flags &= ~VIS_INHERIT_PLANE
 	vis_contents -= oven_tray
+	oven_tray.invisibility = 0
 	used_tray = null
 	UnregisterSignal(oven_tray, COMSIG_MOVABLE_MOVED)
 	update_baking_audio()
@@ -133,16 +137,20 @@
 	if(open)
 		playsound(src, 'sound/machines/oven/oven_open.ogg', 75, TRUE)
 		set_smoke_state(OVEN_SMOKE_STATE_NONE)
-		to_chat(user, "<span class='notice'>You open [src].</span>")
+		to_chat(user, span_notice("You open [src]."))
 		end_processing()
 		if(used_tray)
 			used_tray.vis_flags &= ~VIS_HIDE
 	else
 		playsound(src, 'sound/machines/oven/oven_close.ogg', 75, TRUE)
-		to_chat(user, "<span class='notice'>You close [src].</span>")
+		to_chat(user, span_notice("You close [src]."))
 		if(used_tray)
 			begin_processing()
 			used_tray.vis_flags |= VIS_HIDE
+
+			// yeah yeah i figure you don't need connect loc for just baking trays
+			for(var/obj/item/baked_item in used_tray.contents)
+				SEND_SIGNAL(baked_item, COMSIG_ITEM_OVEN_PLACED_IN, src, user)
 
 	update_appearance()
 	update_baking_audio()

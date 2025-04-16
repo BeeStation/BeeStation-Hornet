@@ -36,6 +36,20 @@
 	var/trash_type
 	///How much junkiness this food has? God I should remove junkiness soon
 	var/junkiness
+	///Food that's immune to decomposition.
+	var/preserved_food = FALSE
+	///Does our food normally attract ants?
+	var/ant_attracting = FALSE
+	///What our food decomposes into.
+	var/decomp_type = /obj/item/food/badrecipe/moldy
+	///Food that needs to be picked up in order to decompose.
+	var/decomp_req_handle = FALSE
+	///Used to set custom decomposition times for food. Set to 0 to have it automatically set via the food's flags.
+	var/decomposition_time = 0
+	///How exquisite the meal is. Applicable to crafted food, increasing its quality. Spans from 0 to 5.
+	var/crafting_complexity = 0
+	///Buff given when a hand-crafted version of this item is consumed. Randomized according to crafting_complexity if not assigned.
+	var/datum/status_effect/food/crafted_food_buff = null
 
 /obj/item/food/Initialize(mapload)
 	. = ..()
@@ -49,7 +63,7 @@
 	make_processable()
 	make_leave_trash()
 	make_grillable()
-	//make_decompose(mapload)
+	make_decompose(mapload)	//if it was placed by a mapper, there is a good reason why it isn't ants already
 	make_bakeable()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
@@ -85,6 +99,12 @@
 	if(trash_type)
 		AddElement(/datum/element/food_trash, trash_type)
 	return
+
+///This proc makes things decompose. Set preserved_food to TRUE to make it never decompose.
+///Set decomp_req_handle to TRUE to only make it decompose when someone picks it up.
+/obj/item/food/proc/make_decompose(mapload)
+	if(!preserved_food)
+		AddComponent(/datum/component/decomposition, mapload, decomp_req_handle, decomp_flags = foodtypes, decomp_result = decomp_type, ant_attracting = ant_attracting, custom_time = decomposition_time)
 
 /obj/item/food/burn()
 	if(QDELETED(src))

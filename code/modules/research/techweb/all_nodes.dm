@@ -391,7 +391,6 @@
 	description = "A refresher course on modern engineering technology."
 	prereq_ids = list("base")
 	design_ids = list(
-		"aac_electronics",
 		"adv_capacitor",
 		"adv_matter_bin",
 		"adv_scanning",
@@ -1097,9 +1096,11 @@
 		"idcardconsole",
 		"libraryconsole",
 		"mining",
+		"photobooth",
 		"objective",
 		"rdcamera",
 		"seccamera",
+		"security_photobooth",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
@@ -1164,7 +1165,7 @@
 	prereq_ids = list("comptech")
 	design_ids = list(
 		"automated_announcement",
-		"med_data",
+		"records/medical",
 		"prisonmanage",
 		"secdata",
 		"vendor",
@@ -1650,7 +1651,7 @@
 		"pin_testing",
 		"tele_shield",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /datum/techweb_node/smartmine
@@ -1676,8 +1677,11 @@
 		"adv_engi",
 		"weaponry",
 	)
-	design_ids = list("pin_loyalty")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	design_ids = list(
+		"pin_loyalty",
+		"shieldbelt"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /datum/techweb_node/advmine
@@ -2400,7 +2404,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2443,7 +2447,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2482,7 +2486,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/crowbar/abductor,
 		/obj/item/multitool/abductor,
@@ -2547,6 +2551,17 @@
 	)
 
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 2500
+	hidden = TRUE
+
+/datum/techweb_node/tackle_advanced
+	id = "tackle_advanced"
+	display_name = "Advanced Grapple Technology"
+	description = "Nanotrasen would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
+	will no longer be accepted in its academic journals."
+	design_ids = list("tackle_dolphin", "tackle_rocket")
+
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 2500
 	hidden = TRUE
 

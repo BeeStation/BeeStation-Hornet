@@ -4,6 +4,7 @@ import { classes } from 'common/react';
 import { formatMoney, formatSiUnit } from '../../format';
 import { useSharedState } from '../../backend';
 import { BoxProps } from '../../components/Box';
+import { CSSProperties } from 'react';
 
 export const MATERIAL_KEYS = {
   'iron': 'sheet-metal_3',
@@ -38,15 +39,9 @@ export const MaterialIcon = (props: MaterialIconProps) => {
   return <Box {...rest} className={classes(['sheetmaterials32x32', MATERIAL_KEYS[material]])} />;
 };
 
-const EjectMaterial = (
-  props: {
-    material: Material;
-    onEject: (amount: number) => void;
-  },
-  context
-) => {
+const EjectMaterial = (props: { material: Material; onEject: (amount: number) => void }) => {
   const { name, removable, sheets } = props.material;
-  const [removeMaterials, setRemoveMaterials] = useSharedState(context, 'remove_mats_' + name, 1);
+  const [removeMaterials, setRemoveMaterials] = useSharedState('remove_mats_' + name, 1);
   if (removeMaterials > 1 && sheets < removeMaterials) {
     setRemoveMaterials(sheets || 1);
   }
@@ -58,11 +53,10 @@ const EjectMaterial = (
         value={removeMaterials}
         minValue={1}
         maxValue={sheets || 1}
-        initial={1}
-        onDrag={(e, val) => {
-          const newVal = parseInt(val, 10);
-          if (Number.isInteger(newVal)) {
-            setRemoveMaterials(newVal);
+        step={1}
+        onDrag={(val) => {
+          if (Number.isInteger(val)) {
+            setRemoveMaterials(val);
           }
         }}
       />
@@ -108,7 +102,7 @@ export const MaterialAmount = (props: {
   amount: number;
   formatting?: MaterialFormatting;
   color?: string;
-  style?: Record<string, string>;
+  style?: CSSProperties;
 }) => {
   const { name, amount, color, style } = props;
 

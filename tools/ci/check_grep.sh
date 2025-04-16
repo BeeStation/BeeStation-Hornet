@@ -105,6 +105,16 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/atmospherics(?<type>[/\w]*),[^)]*
     echo -e "${RED}ERROR: Found multiple idendical atmospherics machines or pipes on the same tile, ${HINT_REMOVE}"
     st=1
 fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo "ERROR: found multiple airlocks on the same tile, please remove them."
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/firedoor[/\w]*?,\n[^)]*?/obj/machinery/door/firedoor[/\w]*?,\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo "ERROR: found multiple firelocks on the same tile, please remove them."
+    st=1
+fi;
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/barricade(?<type>[/\w]*),[^)]*?\n/obj/structure/barricade\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical barricades on the same tile, ${HINT_REMOVE}"
@@ -134,6 +144,14 @@ if $grep 'allocate\(/mob/living/carbon/human[,\)]' $unit_test_files ||
 	echo
 	echo -e "${RED}ERROR: Usage of mob/living/carbon/human detected in a unit test, please use mob/living/carbon/human/consistent.${NC}"
 	st=1
+fi;
+
+section "516 Href Styles"
+part "byond href styles"
+if $grep "href[\s='\"\\\\]*\?" $code_files ; then
+    echo
+    echo -e "${RED}ERROR: BYOND requires internal href links to begin with \"byond://\".${NC}"
+    st=1
 fi;
 
 section "common mistakes"

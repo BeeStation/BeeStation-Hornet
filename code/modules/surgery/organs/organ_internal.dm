@@ -29,6 +29,10 @@
 	///When you take a bite you cant jam it in for surgery anymore.
 	var/useable = TRUE
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	juice_typepath = /datum/reagent/liquidgibs
+
+	///Do we effect the appearance of our mob. Used to save time in preference code
+	var/visual = TRUE
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -38,6 +42,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible,\
 		initial_reagents = food_reagents,\
@@ -46,6 +51,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
+	if(organ_flags & ORGAN_SYNTHETIC)
+		juice_typepath = null
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	if(!iscarbon(M) || owner == M)
@@ -95,39 +102,43 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
 
-/obj/item/organ/process(delta_time)
-	on_death(delta_time) //Kinda hate doing it like this, but I really don't want to call process directly.
+/obj/item/organ/process(delta_time, times_fired)
+	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
 
-/obj/item/organ/proc/on_death(delta_time = 2)	//runs decay when outside of a person
+/obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_SYNTHETIC | ORGAN_FROZEN))
 		return
-	applyOrganDamage(maxHealth * decay_factor * 0.5 * delta_time)
+	applyOrganDamage(decay_factor * maxHealth * delta_time)
 
-/obj/item/organ/proc/on_life()	//repair organ damage if the organ is not failing
+/obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	if(organ_flags & ORGAN_FAILING)
 		return
 	///Damage decrements by a percent of its maxhealth
-	var/healing_amount = -(maxHealth * healing_factor)
+	var/healing_amount = healing_factor
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
 	if(owner)
-		healing_amount -= owner.satiety > 0 ? 4 * healing_factor * owner.satiety / MAX_SATIETY : 0
-	applyOrganDamage(healing_amount)
+		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
+	applyOrganDamage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
 	. = ..()
 	if(organ_flags & ORGAN_FAILING)
 		if(status == ORGAN_ROBOTIC)
-			. += "<span class='warning'>[src] seems to be broken!</span>"
+			. += span_warning("[src] seems to be broken!")
 			return
-		. += "<span class='warning'>[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!</span>"
+		. += span_warning("[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!")
 		return
 	if(damage > high_threshold)
-		. += "<span class='warning'>[src] is starting to look discolored.</span>"
-	. += "<span class='info'>[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.</span>"
+		. += span_warning("[src] is starting to look discolored.")
+	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.")
 
-/obj/item/organ/Initialize(mapload)
-	. = ..()
+///Used as callbacks by object pooling
+/obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+
+//See above
+/obj/item/organ/proc/enter_wardrobe()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/Destroy()
 	if(owner)

@@ -22,5 +22,12 @@
 	flick("[icon_state]-punch", src)
 	playsound(loc, pick(hit_sounds), 25, TRUE, -1)
 	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-	user.apply_status_effect(STATUS_EFFECT_EXERCISED, 1)
+	user.apply_status_effect(/datum/status_effect/exercised, 1)
 
+/obj/structure/punching_bag/wirecutter_act(mob/living/user, obj/item/I)
+	to_chat(user, span_notice("You begin to cut [src] apart..."))
+	if(I.use_tool(src, user, 40, volume=50))
+		to_chat(user, span_notice("You cut [src] apart."))
+		new /obj/item/stack/sheet/cotton/cloth(loc, 10)
+		qdel(src)
+	return TRUE

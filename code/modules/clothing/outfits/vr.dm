@@ -17,12 +17,12 @@
 	name = "Syndicate VR Operative - Basic"
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	back = /obj/item/storage/backpack
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/gun/ballistic/automatic/pistol
 	l_pocket = /obj/item/paper/fluff/vr/fluke_ops
-	backpack_contents = list(/obj/item/storage/box/syndie=1,\
+	backpack_contents = list(/obj/item/storage/box/survival/syndie=1,\
 		/obj/item/knife/combat/survival)
 
 /datum/outfit/vr/syndicate/post_equip(mob/living/carbon/human/H)

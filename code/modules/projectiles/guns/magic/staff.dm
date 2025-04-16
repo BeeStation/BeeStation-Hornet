@@ -8,7 +8,7 @@
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
 	block_power = 20 //staffs can block shit if you're walking
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -107,7 +107,7 @@
 	force = 20
 	armour_penetration = 75
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_charges = 4
 
