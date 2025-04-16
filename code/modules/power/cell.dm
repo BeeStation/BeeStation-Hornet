@@ -426,4 +426,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/disabler //16 disabler shots
 	name = "disabler power cell"
 	maxcharge = 640
-	chargerate = 150
+	chargerate = 200
