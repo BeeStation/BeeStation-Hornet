@@ -21111,7 +21111,7 @@
 /turf/open/floor/iron/dark,
 /area/ctf)
 "aZT" = (
-/mob/living/simple_animal/cow,
+/mob/living/basic/cow,
 /turf/open/floor/grass,
 /area/centcom/holding)
 "aZU" = (
