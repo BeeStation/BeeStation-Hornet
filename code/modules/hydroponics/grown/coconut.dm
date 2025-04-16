@@ -40,10 +40,10 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	// Store the original reagents for readability
 	var/datum/reagents/original_reagent_holder = reagents
 
-	var/datum/reagents/revised_regredients = new /datum/reagents // Reagents for coconut flesh
-	original_reagent_holder.copy_to(revised_regredients, original_reagent_holder.total_volume)
-
+	var/datum/reagents/revised_regredients
 	if(original_reagent_holder && original_reagent_holder.total_volume > 0)
+		revised_regredients = new /datum/reagents // Reagents for coconut flesh
+		original_reagent_holder.copy_to(revised_regredients, original_reagent_holder.total_volume)
 		if(original_reagent_holder.has_reagent(/datum/reagent/consumable/coconutmilk)) // Remove coconut milk
 			var/datum/reagent/reg = original_reagent_holder.get_reagent(/datum/reagent/consumable/coconutmilk)
 			revised_regredients.del_reagent(/datum/reagent/consumable/coconutmilk)
