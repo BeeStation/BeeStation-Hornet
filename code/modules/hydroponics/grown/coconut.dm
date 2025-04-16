@@ -80,5 +80,6 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 
 	// Delete the coconut after processing
 	. = ..()
+	qdel(revised_regredients)
 	qdel(src)
 
