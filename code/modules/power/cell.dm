@@ -422,8 +422,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	var/area/A = get_area(src)
 	if(!A.lightswitch || !A.light_power)
 		charge = 0 //For naturally depowered areas, we start with no power
-
-/obj/item/stock_parts/cell/disabler //16 disabler shots
-	name = "disabler power cell"
-	maxcharge = 640
-	chargerate = 200
