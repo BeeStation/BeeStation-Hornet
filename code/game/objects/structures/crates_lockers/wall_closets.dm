@@ -147,7 +147,7 @@
 
 /obj/structure/wall_closet/generic
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/generic, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/generic, 33)
 
 /obj/structure/wall_closet/freezer
 	name = "wall freezer"
@@ -155,7 +155,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/generic, 30)
 	icon_state = "freezer"
 	theme_color = "#e7e7e7"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/freezer, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/freezer, 33)
 
 /obj/structure/wall_closet/med
 	name = "medical wall closet"
@@ -163,7 +163,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/freezer, 30)
 	icon_state = "med"
 	theme_color = "#e7e7e7"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/med, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/med, 33)
 
 /obj/structure/wall_closet/chemistry
 	name = "chemistry wall closet"
@@ -171,7 +171,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/med, 30)
 	icon_state = "chemistry"
 	theme_color = "#e7e7e7"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/chemistry, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/chemistry, 33)
 
 /obj/structure/wall_closet/sec
 	name = "security wall closet"
@@ -179,7 +179,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/chemistry, 30)
 	icon_state = "sec"
 	theme_color = "#8b3737"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/sec, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/sec, 33)
 
 /obj/structure/wall_closet/brig_phys
 	name = "brig physycian's wall closet"
@@ -187,7 +187,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/sec, 30)
 	icon_state = "brig_phys"
 	theme_color = "#e7e7e7"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/brig_phys, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/brig_phys, 33)
 
 /obj/structure/wall_closet/engi
 	name = "engineering wall closet"
@@ -195,7 +195,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/brig_phys, 30)
 	icon_state = "engi"
 	theme_color = "#c4a623"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/engi, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/engi, 33)
 
 /obj/structure/wall_closet/tool
 	name = "tool wall closet"
@@ -203,7 +203,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/engi, 30)
 	icon_state = "tool"
 	theme_color = "#c4a623"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/tool, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/tool, 33)
 
 /obj/structure/wall_closet/emergency
 	name = "emergency wall closet"
@@ -211,7 +211,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/tool, 30)
 	icon_state = "emergency"
 	theme_color = "#639ec5"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/emergency, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/emergency, 33)
 
 /obj/structure/wall_closet/fire
 	name = "fire-safety wall closet"
@@ -219,7 +219,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/emergency, 30)
 	icon_state = "fire"
 	theme_color = "#971717"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/fire, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/fire, 33)
 
 /obj/structure/wall_closet/science
 	name = "science wall closet"
@@ -227,7 +227,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/fire, 30)
 	icon_state = "science"
 	theme_color = "#e7e7e7"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/science, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/science, 33)
 
 /obj/structure/wall_closet/hydro
 	name = "hydroponics wall closet"
@@ -235,7 +235,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/science, 30)
 	icon_state = "hydro"
 	theme_color = "#457a37"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/hydro, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/hydro, 33)
 
 /obj/structure/wall_closet/syndicate
 	name = "syndicate wall closet"
@@ -243,15 +243,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/hydro, 30)
 	icon_state = "syndicate"
 	theme_color = "#915252"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/syndicate, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/syndicate, 33)
 
 /obj/structure/wall_closet/command
 	name = "command wall closet"
 	desc = "It's a high quality, wall mounted, storage unit."
 	icon_state = "command"
-	theme_color = "#325171"
+	theme_color = "#335171"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/command, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/command, 33)
 
 /obj/item/wallframe/wall_closet
 	name = "wall closet frame"
@@ -259,7 +259,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/command, 30)
 	icon = 'icons/obj/storage/wall_closet.dmi'
 	icon_state = "generic"
 	result_path = /obj/structure/wall_closet
-	pixel_shift = 30
+	pixel_shift = 33
 
 /obj/item/wallframe/wall_closet/emergency
 	name = "emergency wall closet frame"
