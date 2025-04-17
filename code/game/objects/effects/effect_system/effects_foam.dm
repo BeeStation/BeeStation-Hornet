@@ -216,7 +216,6 @@
 /obj/effect/particle_effect/foam/metal/resin/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return FALSE
 
-/obj/effect/particle_effect/foam/metal/chainreact_resin/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 
 /obj/effect/particle_effect/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
