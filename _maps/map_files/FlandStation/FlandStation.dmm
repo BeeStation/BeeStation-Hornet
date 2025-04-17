@@ -51738,14 +51738,11 @@
 /obj/machinery/computer/records/medical{
 	dir = 8
 	},
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 32
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/detectiveboard/directional/east,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "njr" = (

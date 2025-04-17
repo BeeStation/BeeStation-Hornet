@@ -38815,15 +38815,10 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "mkw" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/structure/noticeboard{
-	pixel_y = 26
-	},
 /obj/structure/chair/fancy/sofa/old/left{
 	color = "#742925"
 	},
+/obj/structure/detectiveboard/directional/north,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "mkD" = (
