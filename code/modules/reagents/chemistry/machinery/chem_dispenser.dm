@@ -230,7 +230,6 @@
 /obj/machinery/chem_dispenser/ui_static_data(mob/user)
 	var/list/data = list()
 	var/list/reactions = list()
-
 	for(var/i in GLOB.chemical_reactions_list_reactant_index)
 		for(var/datum/chemical_reaction/reaction as anything in GLOB.chemical_reactions_list_reactant_index[i])
 			var/list/required_reagents = list()
