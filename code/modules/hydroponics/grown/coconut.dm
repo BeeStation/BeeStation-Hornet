@@ -40,15 +40,15 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	// Store the original reagents for readability
 	var/datum/reagents/original_reagent_holder = reagents
 
-	var/datum/reagents/revised_regredients
+	var/datum/reagents/reagents_template
 	if(original_reagent_holder && original_reagent_holder.total_volume > 0)
-		revised_regredients = new /datum/reagents // Reagents for coconut flesh
-		original_reagent_holder.copy_to(revised_regredients, original_reagent_holder.total_volume)
+		reagents_template = new /datum/reagents // Reagents for coconut flesh
+		original_reagent_holder.copy_to(reagents_template, original_reagent_holder.total_volume)
 		if(original_reagent_holder.has_reagent(/datum/reagent/consumable/coconutmilk)) // Remove coconut milk
 			var/datum/reagent/reg = original_reagent_holder.get_reagent(/datum/reagent/consumable/coconutmilk)
-			revised_regredients.del_reagent(/datum/reagent/consumable/coconutmilk)
-			revised_regredients.add_reagent(/datum/reagent/consumable/nutriment/vitamin, reg.volume / 4)
-			revised_regredients.add_reagent(/datum/reagent/consumable/nutriment, reg.volume / 2)
+			reagents_template.del_reagent(/datum/reagent/consumable/coconutmilk)
+			reagents_template.add_reagent(/datum/reagent/consumable/nutriment/vitamin, reg.volume / 4)
+			reagents_template.add_reagent(/datum/reagent/consumable/nutriment, reg.volume / 2)
 
 	// Defaults to creating 1 coconut flesh when processed
 	var/part_amount = 1
@@ -60,7 +60,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	for(var/i = 1 to part_amount)
 		var/obj/item/food/coconutflesh/flesh = new /obj/item/food/coconutflesh/empty(location)
 		if(original_reagent_holder && original_reagent_holder.total_volume > 0)
-			revised_regredients.copy_to(flesh.reagents, original_reagent_holder.total_volume / div_mod)
+			reagents_template.copy_to(flesh.reagents, original_reagent_holder.total_volume / div_mod)
 		flesh.pixel_x = rand(-5, 5) // Randomize the positioning of the flesh
 		flesh.pixel_y = rand(-5, 5)
 
@@ -80,6 +80,6 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 
 	// Delete the coconut after processing
 	. = ..()
-	qdel(revised_regredients)
+	qdel(reagents_template)
 	qdel(src)
 
