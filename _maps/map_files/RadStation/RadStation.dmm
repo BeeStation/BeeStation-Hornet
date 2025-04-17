@@ -1642,7 +1642,6 @@
 /obj/machinery/airalarm/directional/west,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/vending/coffee,
@@ -6408,7 +6407,7 @@
 /area/engine/atmos)
 "cey" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 1
 	},
@@ -8164,7 +8163,6 @@
 /obj/item/paper,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /turf/closed/wall/r_wall,
@@ -23425,7 +23423,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/item/kirbyplants/random,
@@ -25903,7 +25900,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /turf/closed/wall/r_wall,
@@ -32131,7 +32127,7 @@
 /obj/structure/table/wood{
 	name = "Coffee warmer"
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 3;
 	pixel_y = 12
 	},
@@ -35645,7 +35641,7 @@
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -41078,7 +41074,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/secure_closet/detective,
@@ -43573,7 +43568,7 @@
 	pixel_x = -7;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -8;
 	pixel_y = 10
 	},
@@ -60241,7 +60236,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 2;
 	pixel_y = 9
 	},
