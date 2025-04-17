@@ -509,7 +509,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, EXAMINE_BLOCK(span_purple("<b>Tip of the round: </b>[html_encode(m)]")))
+		to_chat(world, examine_block(span_purple("<b>Tip of the round: </b>[html_encode(m)]")))
 
 /datum/controller/subsystem/ticker/proc/check_queue()
 	if(!queued_players.len)
