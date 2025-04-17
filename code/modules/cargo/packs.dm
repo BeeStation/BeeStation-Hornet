@@ -381,7 +381,6 @@
 	max_supply = 1
 	access_budget = ACCESS_MORGUE
 	contains = list(
-		/obj/item/detective_scanner,
 		/obj/item/storage/box/evidence,
 		/obj/item/camera/detective,
 		/obj/item/taperecorder,
