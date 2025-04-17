@@ -3921,7 +3921,7 @@
 "Ct" = (
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 3;
+	dwidth = 4;
 	height = 10;
 	id = "mining_away";
 	name = "lavaland mine";
