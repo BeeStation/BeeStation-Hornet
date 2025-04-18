@@ -1,9 +1,0 @@
-author: Wikimody, TwiggyJrr
-delete-after: true
-changes:
-  - bugfix: Processing a coconut in hand will now produce the coconut flesh & cup.
-  - bugfix: Fixed a bug with densified chemicals trait causing runtime errors
-  - rscadd: Coconut cup volume size scales on potency, min 10u max 100u. It can go
-      to 200u if it has densified chems trait
-  - rscadd: Coconut flesh now scales on potency size and also contains the plants
-      reagents
