@@ -203,6 +203,11 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/exploration)
+"iw" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/structure/wall_closet/generic/directional/north,
+/turf/open/floor/carpet/purple,
+/area/shuttle/exploration)
 "iB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{
@@ -239,6 +244,7 @@
 /obj/effect/turf_decal/edges/techfloor_orange/corners{
 	dir = 8
 	},
+/obj/structure/wall_closet/science/directional/south,
 /turf/open/floor/iron/tech,
 /area/shuttle/exploration)
 "lV" = (
@@ -613,7 +619,8 @@
 /area/shuttle/exploration)
 "HZ" = (
 /obj/structure/chair/fancy/shuttle{
-	dir = 1
+	dir = 1;
+	name = "copilot seat"
 	},
 /obj/effect/turf_decal/edges/techfloor_orange{
 	dir = 5
@@ -688,6 +695,14 @@
 	name = "Tom"
 	},
 /turf/open/floor/iron/tech,
+/area/shuttle/exploration)
+"IW" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/structure/wall_closet/generic/directional/north,
+/obj/structure/wall_closet/generic/directional/north{
+	pixel_x = -16
+	},
+/turf/open/floor/carpet/purple,
 /area/shuttle/exploration)
 "Kb" = (
 /obj/structure/chair/fancy/shuttle{
@@ -1005,7 +1020,8 @@
 /area/shuttle/exploration)
 "Zo" = (
 /obj/structure/chair/fancy/shuttle{
-	dir = 1
+	dir = 1;
+	name = "pilot seat"
 	},
 /obj/effect/turf_decal/edges/techfloor_orange{
 	dir = 9
@@ -1121,7 +1137,7 @@ yJ
 Pp
 iB
 ug
-Sp
+iw
 gC
 Kb
 hC
@@ -1142,7 +1158,7 @@ KA
 Zo
 Mn
 ug
-Sp
+IW
 gJ
 Ec
 bD
