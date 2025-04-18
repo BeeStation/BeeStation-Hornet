@@ -295,14 +295,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 	cuffs.item_flags |= BEING_REMOVED
 	breakouttime = cuffs.breakouttime
-	if(!cuff_break)
-		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)]"))
-		if(do_after(src, breakouttime, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
-			. = clear_cuffs(cuffs, cuff_break)
-		else
-			to_chat(src, span_warning("You fail to remove [cuffs]!"))
 
-	else if(cuff_break == FAST_CUFFBREAK)
+	if(cuff_break)
 		breakouttime = 5 SECONDS
 		visible_message(span_warning("[src] is trying to break [cuffs]!"))
 		to_chat(src, span_notice("You attempt to break [cuffs]... (This will take around 5 seconds)"))
@@ -311,8 +305,25 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		else
 			to_chat(src, span_warning("You fail to break [cuffs]!"))
 
-	else if(cuff_break == INSTANT_CUFFBREAK)
-		. = clear_cuffs(cuffs, cuff_break)
+	else if(istype(cuffs, /obj/item/restraints/handcuffs))
+
+		to_chat(src, span_notice("You attempt to wriggle your way out of [cuffs]..."))
+		while(do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
+			cuff_breakout_attempts++
+			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime || prob(cuff_breakout_attempts))
+				. = clear_cuffs(cuffs, cuff_break)
+				break
+			else if(prob(4))
+				visible_message(span_warning("[src] seems to be trying to wriggle out of [cuffs]!"))
+
+	else
+		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)]"))
+		if(do_after(src, breakouttime, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
+			. = clear_cuffs(cuffs, cuff_break)
+		else
+			to_chat(src, span_warning("You fail to remove [cuffs]!"))
+
+
 	cuffs.item_flags &= ~BEING_REMOVED
 
 /mob/living/carbon/proc/uncuff()
@@ -817,6 +828,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		stop_pulling()
 		throw_alert("handcuffed", /atom/movable/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "handcuffed", /datum/mood_event/handcuffed)
+		cuff_breakout_attempts = 0
 	else
 		clear_alert("handcuffed")
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "handcuffed")
