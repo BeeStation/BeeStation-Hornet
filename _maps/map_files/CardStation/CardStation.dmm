@@ -95327,7 +95327,6 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/suit/space/hardsuit/skinsuit,
-/obj/machinery/light/small/directional/south,
 /obj/structure/wall_closet/emergency/directional/north,
 /obj/item/reagent_containers/hypospray/medipen/dexalin,
 /obj/effect/turf_decal/siding/thinplating_new/terracotta{
