@@ -6,6 +6,7 @@
 	icon_state = "generic"
 	var/theme_color = "#5f5f5f"
 	var/list/closet_contents
+	var/user_count = 0
 
 /obj/structure/wall_closet/Initialize(mapload)
 	. = ..()
@@ -68,8 +69,11 @@
 	L.Cut()
 
 /obj/structure/wall_closet/ui_close(mob/user)
-	if(isliving(user))
+	if(user_count)
+		--user_count
 		playsound(src, 'sound/machines/closet_close.ogg', 30, 1, -3)
+		layer = initial(layer)
+		icon_state = initial(icon_state)
 
 /obj/structure/wall_closet/attackby(obj/item/I, mob/living/user)
 	if(!user.combat_mode)
@@ -99,8 +103,14 @@
 		ui = new(user, src, "WallCloset")
 		ui.set_autoupdate(FALSE)
 		ui.open()
-		if(isliving(user))
+		if(!isliving(user))
+			return
+		if(!user_count)
+			++user_count
 			playsound(src, 'sound/machines/closet_open.ogg', 30, 1, -3)
+			layer = LOW_ITEM_LAYER
+			icon_state = "[initial(icon_state)]_open"
+
 
 /obj/structure/wall_closet/attack_robot(mob/user)
 	if(!Adjacent(user))
@@ -132,6 +142,11 @@
 				closet_insert_item(I, ui_index)
 
 			return TRUE
+
+/obj/structure/wall_closet/ui_status(mob/user)
+	if(!in_range(user,src))
+		return UI_CLOSE
+	return ..()
 
 /obj/structure/wall_closet/Destroy()
 	dump_contents()
