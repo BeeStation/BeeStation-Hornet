@@ -236,8 +236,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/buckle_cd = 1 MINUTES
 
 	if(handcuffed)
-		var/obj/item/restraints/O = src.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
-		buckle_cd = O.breakouttime
+		to_chat(src, span_warning("You need to remove your restraints first!"))
+		return
 
 	visible_message(span_warning("[src] attempts to unbuckle [p_them()]self!"), span_notice("You attempt to unbuckle yourself... (This will take around [DisplayTimeText(buckle_cd)] and you need to stay still.)"))
 
@@ -298,7 +298,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!cuff_break)
 		visible_message(span_warning("[src] attempts to remove [cuffs]!"))
 		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)] and you need to stand still.)"))
-		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
+		if(do_after(src, breakouttime, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
 			. = clear_cuffs(cuffs, cuff_break)
 		else
 			to_chat(src, span_warning("You fail to remove [cuffs]!"))
@@ -307,7 +307,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		breakouttime = 5 SECONDS
 		visible_message(span_warning("[src] is trying to break [cuffs]!"))
 		to_chat(src, span_notice("You attempt to break [cuffs]... (This will take around 5 seconds and you need to stand still.)"))
-		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM))
+		if(do_after(src, breakouttime, timed_action_flags = IGNORE_HELD_ITEM))
 			. = clear_cuffs(cuffs, cuff_break)
 		else
 			to_chat(src, span_warning("You fail to break [cuffs]!"))
