@@ -69,6 +69,8 @@
 	L.Cut()
 
 /obj/structure/wall_closet/ui_close(mob/user)
+	if(!isliving(user))
+		return
 	if(user_count)
 		--user_count
 		playsound(src, 'sound/machines/closet_close.ogg', 30, 1, -3)
