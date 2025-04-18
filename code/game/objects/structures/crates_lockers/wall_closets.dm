@@ -71,11 +71,12 @@
 /obj/structure/wall_closet/ui_close(mob/user)
 	if(!isliving(user))
 		return
-	if(user_count)
-		--user_count
+	--user_count
+	if(!user_count)
 		playsound(src, 'sound/machines/closet_close.ogg', 30, 1, -3)
 		layer = initial(layer)
 		icon_state = initial(icon_state)
+
 
 /obj/structure/wall_closet/attackby(obj/item/I, mob/living/user)
 	if(!user.combat_mode)
@@ -108,10 +109,10 @@
 		if(!isliving(user))
 			return
 		if(!user_count)
-			++user_count
 			playsound(src, 'sound/machines/closet_open.ogg', 30, 1, -3)
 			layer = LOW_ITEM_LAYER
 			icon_state = "[initial(icon_state)]_open"
+		++user_count
 
 
 /obj/structure/wall_closet/attack_robot(mob/user)
