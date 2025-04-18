@@ -110,7 +110,6 @@
 
 //Cuff resist speeds
 #define FAST_CUFFBREAK 1
-#define INSTANT_CUFFBREAK 2
 
 //Grab levels
 #define GRAB_PASSIVE 0
