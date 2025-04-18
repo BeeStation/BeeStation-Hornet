@@ -59,10 +59,7 @@ function isRecipeList(value: Recipe | RecipeList): value is RecipeList {
  * @param list the recipe list to filter
  * @param filter the filter function for recipes
  */
-const filterRecipeList = (
-  list: RecipeList,
-  keyFilter: (key: string) => boolean
-) => {
+const filterRecipeList = (list: RecipeList, keyFilter: (key: string) => boolean) => {
   const filteredList: RecipeList = flow([
     map((entry: RecipeListEntry): RecipeListFilterableEntry => {
       const [key, recipe] = entry;
@@ -108,19 +105,10 @@ export const StackCrafting = (_props) => {
           buttons={
             <>
               Search
-              <Input
-                autoFocus
-                value={searchText}
-                onInput={(e, value) => setSearchText(value)}
-                mx={1}
-              />
+              <Input autoFocus value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
             </>
           }>
-          {filteredRecipes ? (
-            <RecipeListBox recipes={filteredRecipes} />
-          ) : (
-            <NoticeBox>No recipes found.</NoticeBox>
-          )}
+          {filteredRecipes ? <RecipeListBox recipes={filteredRecipes} /> : <NoticeBox>No recipes found.</NoticeBox>}
         </Section>
       </Window.Content>
     </Window>
@@ -163,10 +151,7 @@ const Multipliers = (props: MultiplierProps) => {
 
   const { recipe, maxMultiplier } = props;
 
-  const maxM = Math.min(
-    maxMultiplier,
-    Math.floor(recipe.max_res_amount / recipe.res_amount)
-  );
+  const maxM = Math.min(maxMultiplier, Math.floor(recipe.max_res_amount / recipe.res_amount));
 
   const multipliers = [5, 10, 25];
 
