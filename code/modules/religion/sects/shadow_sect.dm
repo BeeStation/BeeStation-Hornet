@@ -149,7 +149,7 @@
 			var/list/current_objects = view_or_range(5, src, "range")
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obelisks so close to each other!</span>")
+					to_chat(user,"<span class='warning'>You can't place obelisks so close to each other!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -162,7 +162,7 @@
 			var/list/current_objects = view_or_range(5, src, "range")
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obelisks so close to each other!</span>")
+					to_chat(user,"<span class='warning'>You can't place obelisks so close to each other!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -170,7 +170,7 @@
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 		else
-			to_chat(user,"<span class='warning'>You feel like only nullrod could move this obelisk.</span>")
+			to_chat(user,"<span class='warning'>You feel like only a nullrod could move this obelisk.</span>")
 		return
 	return ..()
 
@@ -278,7 +278,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/cost = 100 * sect.obelisk_number + 100
 	if(sect.favor < cost)
-		to_chat(user, "<span class='warning'>Your obelisk are getting harder to summon, as more materialize. You need [cost] favor.</span>")
+		to_chat(user, "<span class='warning'>Your obelisks are getting harder to summon as more materialize. You need [cost] favor.</span>")
 		return FALSE
 	return ..()
 
@@ -336,7 +336,7 @@
 
 /datum/religion_rites/night_vision_aura
 	name = "Provide night vision"
-	desc = "Grants obelisk aura of night vision, with lets people see in darkness. Any aditional casting will turn it on or off."
+	desc = "Grants obelisks an aura of night vision which lets people see in darkness. Any additional casting will turn it on or off."
 	ritual_length = 30 SECONDS
 	ritual_invocations = list(
 		"Spread out...",
