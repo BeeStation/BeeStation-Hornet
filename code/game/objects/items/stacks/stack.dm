@@ -74,6 +74,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
 				if(is_zero_amount(delete_if_zero = FALSE))
 					return INITIALIZE_HINT_QDEL
+
 	update_weight()
 	update_appearance()
 	var/static/list/loc_connections = list(
@@ -193,7 +194,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		. += "There are [get_amount()] in the stack."
 	else
 		. += "There is [get_amount()] in the stack."
-	. += "<span class='notice'><b>Right-click</b> with an empty hand to take a custom amount.</span>"
+	. += span_notice("<b>Right-click</b> with an empty hand to take a custom amount.")
 
 /obj/item/stack/proc/get_amount()
 	if(is_cyborg)
@@ -210,19 +211,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 /obj/item/stack/proc/recursively_build_recipes(list/recipe_to_iterate)
 	var/list/L = list()
 	for(var/recipe in recipe_to_iterate)
-		if(isnull(recipe))
-			L += list(list(
-				"spacer" = TRUE
-			))
 		if(istype(recipe, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/R = recipe
-			L += list(list(
-				"title" = R.title,
-				"sub_recipes" = recursively_build_recipes(R.recipes),
-			))
+			L["[R.title]"] = recursively_build_recipes(R.recipes)
 		if(istype(recipe, /datum/stack_recipe))
 			var/datum/stack_recipe/R = recipe
-			L += list(build_recipe(R))
+			L["[R.title]"] = build_recipe(R)
 	return L
 
 /**
@@ -233,11 +227,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
   */
 /obj/item/stack/proc/build_recipe(datum/stack_recipe/R)
 	return list(
-		"title" = R.title,
 		"res_amount" = R.res_amount,
 		"max_res_amount" = R.max_res_amount,
 		"req_amount" = R.req_amount,
-		"ref" = "[REF(R)]",
+		"ref" = text_ref(R),
 	)
 
 /**
@@ -269,7 +262,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 /obj/item/stack/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Stack", name)
+		ui = new(user, src, "StackCrafting", name)
 		ui.open()
 
 /obj/item/stack/ui_data(mob/user)
@@ -364,7 +357,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		return
 	if(!is_valid_recipe(recipe, get_recipes())) //href exploit protection
 		return
-	if(!multiplier || (multiplier <= 0)) //href exploit protection
+	if(!multiplier || multiplier < 1) //href exploit protection
 		return
 	if(!building_checks(builder, recipe, multiplier))
 		return
