@@ -296,7 +296,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	cuffs.item_flags |= BEING_REMOVED
 	breakouttime = cuffs.breakouttime
 	if(!cuff_break)
-		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)] and you need to stand still.)"))
+		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)]"))
 		if(do_after(src, breakouttime, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
 			. = clear_cuffs(cuffs, cuff_break)
 		else
