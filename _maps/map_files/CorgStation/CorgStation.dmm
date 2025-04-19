@@ -18326,6 +18326,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
+"fRv" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/effect/landmark/start/surgeon,
+/turf/open/floor/iron/white,
+/area/medical/surgery)
 "fRG" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 4
@@ -52118,7 +52125,6 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "rcs" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53122,7 +53128,6 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "rtL" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 1
 	},
@@ -67103,7 +67108,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "wbI" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -116621,7 +116625,7 @@ oin
 jKy
 fLx
 szh
-nIO
+fRv
 lYv
 kDe
 mVi

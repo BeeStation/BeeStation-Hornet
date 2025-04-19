@@ -177,9 +177,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Chief Medical Officer"
 	icon_state = "Chief Medical Officer"
 
-/obj/effect/landmark/start/virologist
-	name = "Virologist"
-	icon_state = "Virologist"
+/obj/effect/landmark/start/surgeon
+	name = "Surgeon"
+	icon_state = "Surgeon"
 
 /obj/effect/landmark/start/chaplain
 	name = "Chaplain"
@@ -241,11 +241,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint/experiment
 	name = "Experiment"
 	job = "Experiment"
-
-/obj/effect/landmark/start/randommaint/virologist
-	name = "Virologist"
-	icon_state = "Virologist"
-	job= "Virologist"
 
 //Department Security spawns
 
