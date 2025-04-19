@@ -61,12 +61,13 @@
 
 	var/outfit = null
 
-	/// Minutes of experience-time required to play in this job. 
+	/// Minutes of experience-time required to play in this job.
 	var/exp_requirements = 0
-	/// Experience required to play this job
+	/// What experience type is required to play this role
+	/// This does not determine the type of EXP that is granted, that is based
+	/// on department. You do not need to set this if exp_requirements is set
+	/// to 0, because this role has no exp requirement.
 	var/exp_type = ""
-	/// Department experience required to play this job
-	var/exp_type_department = ""
 
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
 	var/antag_rep = 10

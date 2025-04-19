@@ -14,7 +14,6 @@
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SCIENCE
-	exp_type_department = EXP_TYPE_SCIENCE
 
 	outfit = /datum/outfit/job/research_director
 
