@@ -20,6 +20,9 @@
 	var/catwalk_type = "maint"
 	var/static/list/catwalk_underlays = list()
 
+/turf/open/floor/catwalk_floor/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
 /turf/open/floor/catwalk_floor/Initialize(mapload)
 	. = ..()
 	if(!catwalk_underlays[catwalk_type])
