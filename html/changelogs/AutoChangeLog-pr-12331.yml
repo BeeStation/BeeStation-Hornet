@@ -1,0 +1,9 @@
+author: axietheaxolotl, PositiveEntropy, Imagonis16, OrionTheFox, Ebin-Halcyon, Gandalf,
+  ElorgRHG, OctusGit, Youtubeboy139, TetraZeta, FuryMcFlurry
+delete-after: true
+changes:
+  - rscadd: New security gear/uniform sprites
+  - rscadd: New spacepol uniform sprites
+  - tweak: Spacepol now spawn with their own uniform / better looking gear
+  - rscdel: Removes the mallcop outfit
+  - rscdel: Removes the deputy outfit
