@@ -1629,10 +1629,10 @@
 	},
 /obj/structure/chair/office,
 /obj/effect/landmark/start/detective,
-/obj/machinery/firealarm/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/detectiveboard/directional/north,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "auo" = (

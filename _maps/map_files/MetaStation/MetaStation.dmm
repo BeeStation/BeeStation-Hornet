@@ -52292,10 +52292,10 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "owo" = (
-/obj/machinery/airalarm/directional/east,
 /obj/machinery/computer/records/security{
 	dir = 8
 	},
+/obj/structure/detectiveboard/directional/east,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "owq" = (
@@ -76975,6 +76975,7 @@
 /area/security/brig)
 "xsb" = (
 /obj/machinery/vending/wardrobe/det_wardrobe,
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/carpet/grimy,
 /area/security/detectives_office)
 "xsg" = (

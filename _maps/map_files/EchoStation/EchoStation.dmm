@@ -2663,6 +2663,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/button/door{
+	id = "detectivewindows";
+	name = "Detective Private Shutters";
+	pixel_y = -26;
+	req_access_txt = "4"
+	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "bcv" = (
@@ -32833,12 +32839,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/button/door{
-	id = "detectivewindows";
-	name = "Detective Private Shutters";
-	pixel_y = 26;
-	req_access_txt = "4"
-	},
+/obj/structure/detectiveboard/directional/north,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "pXn" = (
@@ -35369,10 +35370,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
-	},
-/obj/machinery/status_display/ai{
-	pixel_x = 32;
-	pixel_y = 32
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"

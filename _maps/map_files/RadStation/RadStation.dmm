@@ -52131,10 +52131,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/machinery/computer/security/telescreen/interrogation{
-	dir = 4;
-	pixel_x = -25
-	},
 /obj/item/paper_bin{
 	pixel_y = 4
 	},
@@ -52145,6 +52141,7 @@
 	pixel_x = 3;
 	pixel_y = 7
 	},
+/obj/structure/detectiveboard/directional/west,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "rnz" = (
