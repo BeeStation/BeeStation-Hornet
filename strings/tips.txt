@@ -85,14 +85,14 @@ As an Explorer, you can use the Newscaster units to message the station if you e
 As an Explorer, you can find technology disks which will unlock new tech nodes when delievered back to R&D!
 As a Roboticist, keep an ear out for anomaly announcements. If you get your hands on an anomaly core, you can build a Phazon mech!
 As a Roboticist, you can repair your cyborgs with a welding tool. If they have taken burn damage, you can remove their battery, expose the wiring with a screwdriver and replace their wires with a cable coil.
-As a Roboticist, you can reset a cyborg's module by cutting and mending the reset wire with a wire cutter.
+As a Roboticist, you can reset a cyborg's model by cutting and mending the reset wire with a wire cutter.
 As a Roboticist, you can use a multitool on an assembled endoskeleton to enter debugging mode. Here you can change its name, master AI and a couple of other settings.
 As a Roboticist, you can greatly help out Shaft Miners by building a Firefighter APLU equipped with a hydraulic clamp and plasma cutter. The mech is ash storm proof and can even walk across lava!
 As a Roboticist, you can augment people with cyborg limbs. Augmented limbs can easily be repaired with cables and welders.
 As the AI, you can click on people's names to look at them. This only works if there are cameras that can see them, they aren't wearing agent IDs and aren't using digital camouflage as changelings.
 As the AI, you can quickly open and close doors by holding shift while clicking them, bolt them when holding ctrl, and even shock them while holding alt.
 As the AI, you can take pictures with your camera and upload them to newscasters.
-As a Cyborg, choose your module carefully, as only cutting and mending your reset wire will let you repick it. If possible, refrain from choosing a module until a situation that requires one occurs.
+As a Cyborg, choose your model carefully, as only cutting and mending your reset wire will let you repick it. If possible, refrain from choosing a model until a situation that requires one occurs.
 As a Cyborg, you are immune to most forms of stunning, and excel at almost everything far better than humans. However, flashes and laser pointers can easily stunlock you and you cannot do any precision work as you lack hands.
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
 As a Service Cyborg, your spray can knocks people down. However, it is blocked by masks and glasses.
