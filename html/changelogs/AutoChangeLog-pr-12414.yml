@@ -1,0 +1,5 @@
+author: BarteG44, PowerfulBacon, Absolucy, Aylong, jlsnow301
+delete-after: true
+changes:
+  - rscadd: Added wall closets
+  - code_imp: Ported \<Dmicon>
