@@ -39,6 +39,8 @@
 	var/welded_down = FALSE
 	/// The sound of item retrieval
 	var/vend_sound = 'sound/machines/machine_vend.ogg'
+	/// Whether the UI should be set to list view by default
+	var/default_list_view = FALSE
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -207,7 +209,7 @@
 
 /// Returns details related to the fridge structure
 /obj/machinery/smartfridge/proc/structure_examine()
-	. = ""
+	. = list()
 
 	if(welded_down)
 		. += span_info("It's moorings are firmly [EXAMINE_HINT("welded")] to the floor.")
@@ -409,7 +411,7 @@
 
 		var/atom/movable/atom = item
 		if (!QDELETED(atom))
-			var/key = "[atom.type]"
+			var/key = "[atom.type]-[atom.name]"
 			if (listofitems[key])
 				listofitems[key]["amount"]++
 			else
@@ -423,6 +425,7 @@
 	.["contents"] = sort_list(listofitems)
 	.["name"] = name
 	.["isdryer"] = FALSE
+	.["default_list_view"] = default_list_view
 	.["ui_theme"] = tgui_theme
 
 
@@ -435,41 +438,39 @@
 	if(. || !ui.user.canUseTopic(src, be_close = TRUE, no_dexterity = FALSE, no_tk = TRUE))
 		return
 
-	. = TRUE
 	var/mob/living_mob = ui.user
 
 	switch(action)
 		if("Release")
 			var/amount = text2num(params["amount"])
-			var/desired = 1
+			if(isnull(amount) || !isnum(amount))
+				return TRUE
+			var/dispensed_amount = 0
 
 			if(isAI(living_mob))
 				to_chat(living_mob, span_warning("[src] does not respect your authority!"))
-				return
+				return TRUE
 
-			if (amount > 1)
-				desired = tgui_input_number(living_mob, "How many items would you like to take out?", "Release", default = min(amount, 50), max_value = min(amount, 50))
-				if(!desired)
-					return
-
-			for(var/obj/item/dispensed_item in src)
-				if(desired <= 0)
+			for(var/obj/item/dispensed_item in contents)
+				if(amount <= 0)
 					break
-				if(istype(dispensed_item, text2path(params["path"])))
-					if(dispensed_item in component_parts)
-						CRASH("Attempted removal of [dispensed_item] component_part from smartfridge via smartfridge interface.")
-					//dispense the item
-					if(!living_mob.put_in_hands(dispensed_item))
-						dispensed_item.forceMove(drop_location())
-						adjust_item_drop_location(dispensed_item)
-					if(vend_sound)
-						playsound(src, vend_sound, 50, TRUE, extrarange = -3)
-					use_power(active_power_usage)
-					desired--
-
+				var/item_name = "[dispensed_item.type]-[replacetext(replacetext(dispensed_item.name, "\proper", ""), "\improper", "")]"
+				if(params["path"] != item_name)
+					continue
+				if(dispensed_item in component_parts)
+					CRASH("Attempted removal of [dispensed_item] component_part from smartfridge via smartfridge interface.")
+				//dispense the item
+				if(!living_mob.put_in_hands(dispensed_item))
+					dispensed_item.forceMove(drop_location())
+					adjust_item_drop_location(dispensed_item)
+				use_power(active_power_usage)
+				dispensed_amount++
+				amount--
+			if(dispensed_amount && vend_sound)
+				playsound(src, vend_sound, 50, TRUE, extrarange = -3)
 			if (visible_contents)
 				update_appearance()
-			return
+			return TRUE
 
 	return FALSE
 
@@ -744,6 +745,7 @@
 	desc = "A refrigerated storage unit for medicine storage."
 	base_build_path = /obj/machinery/smartfridge/chemistry
 	contents_overlay_icon = "chem"
+	default_list_view = TRUE
 
 /obj/machinery/smartfridge/chemistry/accept_check(obj/item/weapon)
 	// not an item or reagent container
