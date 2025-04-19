@@ -1,7 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - rscadd: Added a Wiremod Switch Case component
-  - rscadd: Added a Wiremod String Trim Component
-  - tweak: Wiremod String Concatenate component now has variable number of inputs
-  - tweak: Wiremod Index List component now has variable number of inputs
