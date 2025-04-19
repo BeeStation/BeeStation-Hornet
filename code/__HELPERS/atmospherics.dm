@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(gas_handbook)
 				factor_info["factor_name"] = factor
 				factor_info["factor_type"] = "misc"
 				if(factor == "Temperature" || factor == "Pressure")
-					factor_info["tooltip"] = "Reaction is influenced by the [lowertext(factor)] of the place where the reaction is occuring."
+					factor_info["tooltip"] = "Reaction is influenced by the [LOWERTEXT(factor)] of the place where the reaction is occuring."
 				else if(factor == "Energy")
 					factor_info["tooltip"] = "Energy released by the reaction, may or may not result in linear temperature change depending on a slew of other factors."
 				else if(factor == "Radiation")
