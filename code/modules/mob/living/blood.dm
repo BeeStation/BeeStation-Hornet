@@ -260,6 +260,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood(delta_time, times_fired)
+	if(mind && IS_VAMPIRE(src)) // vampires should not be affected by blood
+		return FALSE
 
 	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		cauterise_wounds()
@@ -338,7 +340,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		// As you get less bloodloss, you bleed slower
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
-		var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 		if (!heart || !heart.beating)
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
