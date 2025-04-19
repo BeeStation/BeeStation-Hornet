@@ -8,7 +8,7 @@
 	program_icon_state = "radarntos"
 	requires_ntnet = TRUE
 	available_on_ntnet = FALSE
-	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
+	usage_flags = PROGRAM_LAPTOP | PROGRAM_PDA
 	network_destination = "tracking program"
 	size = 5
 	tgui_id = "NtosRadar"

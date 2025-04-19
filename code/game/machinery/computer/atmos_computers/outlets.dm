@@ -40,9 +40,9 @@
 	name = "hypernoblium tank output inlet"
 	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitryl_output
-	name = "nitryl tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_NITRYL
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrium_output
+	name = "nitrium tank output inlet"
+	chamber_id = ATMOS_GAS_MONITOR_NITRIUM
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/pluoxium_output
 	name = "pluoxium tank output inlet"
