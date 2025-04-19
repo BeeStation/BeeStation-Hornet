@@ -305,7 +305,7 @@
 	ritual_invocations = list(
 		"Let the shadows combine...",
 		"... Solidify and grow ...",
-		"... Make an idol to eminate shadows ...")
+		"... Make an idol to emanate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 100
 
@@ -375,13 +375,13 @@
 
 /datum/religion_rites/night_vision_aura
 	name = "Provide night vision"
-	desc = "Grants obelisk aura of night vision, which lets people see in darkness. Any aditional casting will turn it on or off."
+	desc = "Grants obelisks an aura of night vision which lets people see in darkness. Any additional casting will turn it on or off."
 	ritual_length = 30 SECONDS
 	ritual_invocations = list(
 		"Spread out...",
 		"... Seep into them ...",
 		"... Infuse their sight ...")
-	invoke_msg = "Shadows, reach your tendrils from my altar, and grand thy sight to people."
+	invoke_msg = "Shadows, reach your tendrils from my altar, and grant thy sight to people."
 	favor_cost = 1000
 
 /datum/religion_rites/night_vision_aura/invoke_effect(mob/living/user, atom/religious_tool)

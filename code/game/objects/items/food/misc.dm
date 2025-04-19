@@ -181,7 +181,7 @@
 	force = 30
 	throwforce = 15
 	block_level = 2
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 55
 	attack_weight = 2
 	armour_penetration = 80
@@ -349,3 +349,22 @@
 	tastes = list()
 	icon_state = "onigiri"
 	desc = "A ball of cooked rice surrounding a filling formed into a triangular shape and wrapped in seaweed."
+
+/obj/item/food/coconutflesh //for when a coconut has been cut with a knife or hatchet
+	name = "coconut flesh"
+	desc = "The white flesh of a coconut."
+	icon_state = "coconutflesh"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 0.2,
+	)
+	tastes = list("coconut" = 1)
+	foodtypes = FRUIT
+	food_flags = FOOD_FINGER_FOOD
+	juice_typepath = /datum/reagent/consumable/coconutjuice
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/coconutflesh/empty // Chem less version used in coconut spliting
+	food_reagents = list()
+
+

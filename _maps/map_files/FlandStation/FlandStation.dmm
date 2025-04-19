@@ -6584,7 +6584,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "bGV" = (
-/mob/living/simple_animal/cow{
+/mob/living/basic/cow{
 	name = "Betsy";
 	real_name = "Betsy"
 	},
@@ -13393,7 +13393,7 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/port)
 "dBt" = (
-/mob/living/simple_animal/cow{
+/mob/living/basic/cow{
 	desc = "Allegedly a bull.";
 	name = "Otis";
 	real_name = "Betsy"

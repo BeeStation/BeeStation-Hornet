@@ -21,17 +21,17 @@ export const NtosRbmkStats = (props) => {
           Reactor Power (%):
           <ProgressBar value={data.power} minValue={0} maxValue={100} color="yellow" />
           <br />
-          Reactor Pressure (KPA):
+          Reactor Pressure (kPa):
           <ProgressBar value={data.kpa} minValue={0} maxValue={8200} color="white">
-            {data.kpa} KPA
+            {data.kpa} kPa
           </ProgressBar>
-          Coolant temperature (°C):
-          <ProgressBar value={data.coolantInput} minValue={-273.15} maxValue={1227} color="blue">
-            {data.coolantInput} °C
+          Coolant temperature (°K):
+          <ProgressBar value={data.coolantInput} minValue={0} maxValue={1200} color="blue">
+            {data.coolantInput} °K
           </ProgressBar>
-          Outlet temperature (°C):
-          <ProgressBar value={data.coolantOutput} minValue={-273.15} maxValue={1227} color="bad">
-            {data.coolantOutput} °C
+          Outlet temperature (°K):
+          <ProgressBar value={data.coolantOutput} minValue={0} maxValue={1200} color="bad">
+            {data.coolantOutput} °K
           </ProgressBar>
         </Section>
         <Section fill title="Reactor Statistics:" height="200px">
