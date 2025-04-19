@@ -129,6 +129,7 @@
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 
 /turf/open/floor/grass/no_border
+	layer = TURF_LAYER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	smoothing_flags = NONE
@@ -510,7 +511,6 @@
 	name = "concrete"
 	icon_state = "conc_smooth"
 	desc = "Cement Das Conk Creet Baybee."
-	footstep = FOOTSTEP_GENERIC_HEAVY
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
