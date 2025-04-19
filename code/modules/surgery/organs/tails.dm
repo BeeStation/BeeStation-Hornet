@@ -23,6 +23,8 @@
 	desc = "A severed cat tail. Who's wagging now?"
 	tail_type = "Cat"
 
+	organ_traits = list(TRAIT_LIGHT_LANDING)
+
 /obj/item/organ/tail/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	..()
 	if(pref_load && istype(H))
