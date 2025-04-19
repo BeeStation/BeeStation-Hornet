@@ -210,7 +210,6 @@
 	name = "long-range gas analyzer"
 	icon_state = "analyzerranged"
 	worn_icon_state = "analyzer"
-	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(/datum/material/iron = 400, /datum/material/glass = 1000, /datum/material/uranium = 800, /datum/material/gold = 200, /datum/material/plastic = 200)
 	grind_results = list(/datum/reagent/mercury = 5, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
 	ranged_scan_distance = 15
