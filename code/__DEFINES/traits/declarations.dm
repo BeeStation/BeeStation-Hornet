@@ -399,4 +399,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
+
+// This is trait for marking somone recently healed by a specyfic source, no effect by itself
+#define TRAIT_RECENTLY_HEALED "recently_healed"
+
 // END TRAIT DEFINES
