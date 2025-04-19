@@ -2467,7 +2467,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/bodypart/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
 	var/obj/item/bodypart/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
 	if((left_leg && !left_leg.bodypart_disabled) || (right_leg && !right_leg.bodypart_disabled))
-		if(HAS_TRAIT(H, TRAIT_CATROBATICS) && levels == 1)
+		if(HAS_TRAIT(H, TRAIT_LIGHT_LANDING) && levels == 1)
 			// Nailed it!
 			H.visible_message(
 				span_notice("[H] lands elegantly on [H.p_their()] feet!"),
