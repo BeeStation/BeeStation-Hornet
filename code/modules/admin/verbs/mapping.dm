@@ -67,6 +67,7 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 /obj/effect/debugging/marker
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "yellow"
+	plane = ABOVE_LIGHTING_PLANE
 
 /obj/effect/debugging/marker/Move()
 	return 0
@@ -81,10 +82,16 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 			on = TRUE
 		T.maptext = null
 
+	for(var/obj/effect/debugging/marker/M in world)
+		qdel(M)
+
 	if(!on)
 		var/list/seen = list()
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			for(var/turf/T in C.can_see())
+				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
+				if (!(T in C.can_see()))
+					qdel(F)
 				seen[T]++
 		for(var/turf/T in seen)
 			T.maptext = MAPTEXT("[seen[T]]")
