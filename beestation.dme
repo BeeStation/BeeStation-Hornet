@@ -1795,6 +1795,7 @@
 #include "code\game\objects\structures\beds_chairs\sofa.dm"
 #include "code\game\objects\structures\crates_lockers\closets.dm"
 #include "code\game\objects\structures\crates_lockers\crates.dm"
+#include "code\game\objects\structures\crates_lockers\wall_closets.dm"
 #include "code\game\objects\structures\crates_lockers\closets\bodybag.dm"
 #include "code\game\objects\structures\crates_lockers\closets\cardboardbox.dm"
 #include "code\game\objects\structures\crates_lockers\closets\fitness.dm"
