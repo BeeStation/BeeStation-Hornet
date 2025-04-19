@@ -1,6 +1,7 @@
 import { multiline } from 'common/string';
 import { useBackend, useLocalState } from 'tgui/backend';
 import { BlockQuote, Box, Button, Icon, LabeledList, Section, Tabs, TextArea, Tooltip } from 'tgui/components';
+
 import { getMedicalRecord } from './helpers';
 import { MedicalNote, MedicalRecordData } from './types';
 

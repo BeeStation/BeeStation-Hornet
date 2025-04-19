@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, ColorBox, Flex, Stack, Icon, Input, LabeledList, Section, Table, Divider } from '../components';
+import { Box, Button, ColorBox, Divider, Flex, Icon, Input, LabeledList, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 type ColorEntry = {

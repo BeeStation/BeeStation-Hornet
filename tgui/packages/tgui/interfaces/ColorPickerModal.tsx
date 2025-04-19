@@ -4,17 +4,18 @@
  * @license MIT
  */
 
-import { Loader } from './common/Loader';
-import { useBackend, useLocalState } from '../backend';
-import { Autofocus, Box, Flex, Section, Stack, Pointer, NumberInput, Tooltip } from '../components';
-import { Window } from '../layouts';
+import { HsvaColor, hexToHsva, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
 import { clamp } from 'common/math';
-import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
-import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
 import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
+import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { logger } from 'tgui/logging';
+
+import { useBackend, useLocalState } from '../backend';
+import { Autofocus, Box, Flex, NumberInput, Pointer, Section, Stack, Tooltip } from '../components';
+import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ColorPickerData = {
   autofocus: boolean;

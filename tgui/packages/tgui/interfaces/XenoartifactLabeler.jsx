@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote } from '../components';
+import { BlockQuote, Box, Button, Flex, Input, Section } from '../components';
 import { Window } from '../layouts';
 
 export const XenoartifactLabeler = (props) => {

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, ProgressBar, Section, AnimatedNumber } from '../components';
+import { AnimatedNumber, Box, Button, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const NtnetRelay = (props) => {

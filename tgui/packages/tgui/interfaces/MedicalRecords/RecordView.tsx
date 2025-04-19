@@ -1,11 +1,12 @@
-import { NoteKeeper } from './NoteKeeper';
-import { Stack, Section, NoticeBox, Box, LabeledList, Button, RestrictedInput } from 'tgui/components';
-import { CharacterPreview } from '../common/CharacterPreview';
-import { getMedicalRecord, getQuirkStrings } from './helpers';
+import { Box, Button, LabeledList, NoticeBox, RestrictedInput, Section, Stack } from 'tgui/components';
+
 import { useBackend } from '../../backend';
-import { PHYSICALSTATUS2COLOR, PHYSICALSTATUS2DESC, PHYSICALSTATUS2ICON, MENTALSTATUS2COLOR, MENTALSTATUS2DESC, MENTALSTATUS2ICON } from './constants';
-import { MedicalRecordData } from './types';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { EditableText } from '../common/EditableText';
+import { MENTALSTATUS2COLOR, MENTALSTATUS2DESC, MENTALSTATUS2ICON, PHYSICALSTATUS2COLOR, PHYSICALSTATUS2DESC, PHYSICALSTATUS2ICON } from './constants';
+import { getMedicalRecord, getQuirkStrings } from './helpers';
+import { NoteKeeper } from './NoteKeeper';
+import { MedicalRecordData } from './types';
 
 /** Views a selected record. */
 export const MedicalRecordView = (props) => {

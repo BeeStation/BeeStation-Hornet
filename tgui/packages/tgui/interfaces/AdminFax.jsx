@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Section, Box, Dropdown, Button, Input, TextArea, Divider, NumberInput, Tooltip, Knob } from '../components';
+import { Box, Button, Divider, Dropdown, Input, Knob, NumberInput, Section, TextArea, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 export const AdminFax = (props) => {

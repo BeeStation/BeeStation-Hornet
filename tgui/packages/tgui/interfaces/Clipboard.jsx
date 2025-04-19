@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Divider, LabeledList, Flex, Section } from '../components';
+import { Box, Button, Divider, Flex, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Clipboard = (props) => {

@@ -1,8 +1,9 @@
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Table, Tabs, Collapsible, BlockQuote } from '../components';
-import { Window } from '../layouts';
 import { capitalize } from 'common/string';
+
+import { useBackend, useLocalState } from '../backend';
+import { BlockQuote, Box, Button, Collapsible, Section, Table, Tabs } from '../components';
 import { ButtonConfirm } from '../components/Button';
+import { Window } from '../layouts';
 
 export const TicketBrowser = (_) => {
   const { data } = useBackend();

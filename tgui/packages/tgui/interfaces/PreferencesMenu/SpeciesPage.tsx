@@ -1,8 +1,9 @@
 import { classes } from 'common/react';
+
 import { useBackend } from '../../backend';
 import { BlockQuote, Box, Button, Divider, Icon, Section, Stack, Tooltip } from '../../components';
 import { CharacterPreview } from '../common/CharacterPreview';
-import { createSetPreference, Food, Perk, PreferencesMenuData, ServerData, Species } from './data';
+import { Food, Perk, PreferencesMenuData, ServerData, Species, createSetPreference } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const FOOD_ICONS = {

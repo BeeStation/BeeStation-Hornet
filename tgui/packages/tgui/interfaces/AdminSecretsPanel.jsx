@@ -1,8 +1,9 @@
-import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Button, Flex, Input, Section, Table, Collapsible } from '../components';
-import { Window } from '../layouts';
 import { isFalsy } from 'common/react';
+import { createSearch } from 'common/string';
+
+import { useBackend, useLocalState } from '../backend';
+import { Button, Collapsible, Flex, Input, Section, Table } from '../components';
+import { Window } from '../layouts';
 
 const pick = (array) => array[Math.floor(Math.random() * array.length)];
 const possTitles = [

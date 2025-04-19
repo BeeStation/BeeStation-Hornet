@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { AnimatedNumber, Box, Button, Flex, Fragment, Section, Slider, ProgressBar, LabeledList, Tabs } from '../components';
+import { AnimatedNumber, Box, Button, Flex, Fragment, LabeledList, ProgressBar, Section, Slider, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 import { sanitizeText } from '../sanitize';
 

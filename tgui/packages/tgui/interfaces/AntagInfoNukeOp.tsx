@@ -1,8 +1,9 @@
-import { useBackend } from '../backend';
-import { Box, BlockQuote, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
-import { Window } from '../layouts';
+
 import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
+import { BlockQuote, Box, Section, Stack } from '../components';
+import { Window } from '../layouts';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
 
 type Info = {

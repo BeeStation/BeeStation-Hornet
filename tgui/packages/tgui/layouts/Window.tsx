@@ -6,17 +6,18 @@
 
 import { classes } from 'common/react';
 import { decodeHtmlEntities, toTitleCase } from 'common/string';
+import { PropsWithChildren, ReactNode, useEffect } from 'react';
+
 import { backendSuspendStart, useBackend } from '../backend';
+import { globalStore } from '../backend';
 import { Icon } from '../components';
+import { BoxProps } from '../components/Box';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
 import { useDebug } from '../debug';
 import { toggleKitchenSink } from '../debug/actions';
 import { dragStartHandler, recallWindowGeometry, resizeStartHandler, setWindowKey } from '../drag';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
-import { globalStore } from '../backend';
-import { PropsWithChildren, ReactNode, useEffect } from 'react';
-import { BoxProps } from '../components/Box';
 
 const logger = createLogger('Window');
 

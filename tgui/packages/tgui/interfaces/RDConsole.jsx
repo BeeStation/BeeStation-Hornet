@@ -1,7 +1,8 @@
+import { toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
-import { toFixed } from 'common/math';
 
 const RDServerStatus = (props) => {
   const { act, data } = useBackend();

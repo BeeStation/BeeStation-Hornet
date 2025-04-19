@@ -1,8 +1,9 @@
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toTitleCase } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Table, Modal, Stack, LabeledList, NoticeBox, Box, Tooltip } from '../components';
+import { Box, Button, LabeledList, Modal, NoticeBox, Section, Stack, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 export const PlantDNAManipulator = (props) => {

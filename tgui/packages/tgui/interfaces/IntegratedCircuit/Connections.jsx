@@ -1,6 +1,7 @@
+import { classes } from 'common/react';
+
 import { CSS_COLORS } from '../../constants';
 import { SVG_CURVE_INTENSITY } from './constants';
-import { classes } from 'common/react';
 
 export const Connections = (props) => {
   const { connections } = props;

@@ -1,5 +1,5 @@
 import { useLocalState } from '../../backend';
-import { Box, Stack, Section, Button, Input, Dropdown } from '../../components';
+import { Box, Button, Dropdown, Input, Section, Stack } from '../../components';
 
 export const VariableMenu = (props) => {
   const { variables, onAddVariable, onRemoveVariable, handleAddSetter, handleAddGetter, types, ...rest } = props;

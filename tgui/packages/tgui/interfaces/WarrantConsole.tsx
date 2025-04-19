@@ -1,8 +1,9 @@
 import { sortBy } from 'common/collections';
+import { BooleanLike } from 'common/react';
+
 import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Button, Collapsible, LabeledList, NoticeBox, RestrictedInput, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
 
 type Data = {
   records: WarrantRecord[];

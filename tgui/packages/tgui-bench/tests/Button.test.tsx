@@ -1,6 +1,6 @@
+import type { ReactNode } from 'react';
 import { Button } from 'tgui/components';
 import { createRenderer } from 'tgui/renderer';
-import type { ReactNode } from 'react';
 
 const render = createRenderer();
 

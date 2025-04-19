@@ -1,8 +1,9 @@
+import { logger } from 'tgui/logging';
+
+import { useBackend, useLocalState } from '../../backend';
 import { Box, Icon, Stack, Tooltip } from '../../components';
 import { PreferencesMenuData, Quirk } from './data';
-import { useBackend, useLocalState } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
-import { logger } from 'tgui/logging';
 
 const getValueClass = (value: number): string => {
   if (value > 0) {

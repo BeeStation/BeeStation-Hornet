@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
+import { Box, Dropdown, Section } from '../components';
 import { NtosWindow } from '../layouts';
-import { Section, Dropdown, Box } from '../components';
 import { sanitizeText } from '../sanitize';
 
 export const NtosPhysScanner = (props) => {

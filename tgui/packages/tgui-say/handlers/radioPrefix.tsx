@@ -1,4 +1,4 @@
-import { RADIO_PREFIXES, CHANNELS, NO_RADIO_CHANNELS, RESTRICTED_CHANNELS } from '../constants';
+import { CHANNELS, NO_RADIO_CHANNELS, RADIO_PREFIXES, RESTRICTED_CHANNELS } from '../constants';
 import { Modal } from '../types';
 
 /**

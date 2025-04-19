@@ -5,9 +5,9 @@
  */
 
 import { useBackend } from './backend';
+import { Icon, Section, Stack } from './components';
 import { useDebug } from './debug';
 import { Window } from './layouts';
-import { Icon, Section, Stack } from './components';
 
 const requireInterface = require.context('./interfaces');
 

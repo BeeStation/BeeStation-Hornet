@@ -5,7 +5,8 @@
  */
 
 import { map, zipWith } from 'common/collections';
-import { Component, createRef, RefObject } from 'react';
+import { Component, RefObject, createRef } from 'react';
+
 import { Box, BoxProps } from './Box';
 
 type Props = {

@@ -1,7 +1,8 @@
-import { Component, createRef, PropsWithChildren, ReactNode, RefObject } from 'react';
-import { Button, Flex, Stack, Box } from '../../components';
-import { FlexProps } from '../../components/Flex';
+import { Component, PropsWithChildren, ReactNode, RefObject, createRef } from 'react';
 import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
+
+import { Box, Button, Flex, Stack } from '../../components';
+import { FlexProps } from '../../components/Flex';
 
 type TabbedMenuProps = {
   categoryEntries: [string, ReactNode][];

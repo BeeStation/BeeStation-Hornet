@@ -1,4 +1,4 @@
-import { FeatureToggle, CheckboxInput } from '../base';
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const sound_adminhelp: FeatureToggle = {
   name: 'Enable adminhelp sounds',

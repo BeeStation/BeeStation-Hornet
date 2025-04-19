@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumber, ProgressBar } from '../components';
+import { AnimatedNumber, BlockQuote, Box, Button, Collapsible, Icon, ProgressBar, Section, Tabs } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 

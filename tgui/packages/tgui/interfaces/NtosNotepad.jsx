@@ -1,6 +1,6 @@
-import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
-import { Section, BufferedTextArea, Button } from '../components';
+import { BufferedTextArea, Button, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 export const NtosNotepad = (props) => {
   const { act, data } = useBackend();

@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Dimmer, Stack, Box, Section, Tabs, Flex, Icon, Tooltip } from '../components';
+import { Box, Button, Dimmer, Flex, Icon, Section, Stack, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { AntagInfoTraitorContent } from './AntagInfoTraitor';
 

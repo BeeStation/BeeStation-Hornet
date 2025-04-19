@@ -1,9 +1,10 @@
-import { useBackend, useLocalState } from '../backend';
-import { Tabs, LabeledList, Section, Stack, ColorBox, Box, BlockQuote, Flex, Icon, Collapsible, RadarChart } from '../components';
 import { BooleanLike } from 'common/react';
-import { Window } from '../layouts';
-import { Ability, AbilityThreshold, GivenAbilities, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
 import { sanitizeText } from 'tgui/sanitize';
+
+import { useBackend, useLocalState } from '../backend';
+import { BlockQuote, Box, Collapsible, ColorBox, Flex, Icon, LabeledList, RadarChart, Section, Stack, Tabs } from '../components';
+import { Window } from '../layouts';
+import { Ability, AbilityThreshold, GivenAbilities, is_actually_a_threshold, sort_abilities, sort_thresholds, threshold_title } from './common/Holoparasite';
 
 /**
  * The current tab of the summoner info section.

@@ -1,7 +1,8 @@
-import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber, Table } from '../components';
-import { Window } from '../layouts';
 import { toFixed } from 'common/math';
+
+import { useBackend } from '../backend';
+import { AnimatedNumber, Box, Button, LabeledList, ProgressBar, Section, Table } from '../components';
+import { Window } from '../layouts';
 
 export const Sleeper = (props) => {
   const { act, data } = useBackend();

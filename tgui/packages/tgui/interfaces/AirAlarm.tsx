@@ -1,8 +1,8 @@
-import { Fragment } from 'react';
-import { Box, Button, Flex, LabeledList, Modal, NumberInput, Section, Table } from '../components';
 import { BooleanLike } from 'common/react';
+import { Fragment } from 'react';
 
 import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Flex, LabeledList, Modal, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { Scrubber, ScrubberProps, Vent, VentProps } from './common/AtmosControls';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';

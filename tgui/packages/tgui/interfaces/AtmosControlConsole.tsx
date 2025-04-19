@@ -1,6 +1,5 @@
-import { Box, Button, Dropdown, LabeledList, NumberInput, Section, Stack } from '../components';
-
 import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Dropdown, LabeledList, NumberInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { Gasmix, GasmixParser } from './common/GasmixParser';
 

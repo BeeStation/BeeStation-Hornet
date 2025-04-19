@@ -13,7 +13,7 @@
  */
 
 import { clamp } from 'common/math';
-import { useRef, useMemo, useEffect, memo } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 
 // Saves incoming handler to the ref in order to avoid "useCallback hell"
 // prettier-ignore

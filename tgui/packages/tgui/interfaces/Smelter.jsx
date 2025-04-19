@@ -1,8 +1,9 @@
+import { round, scale } from 'common/math';
 import { toTitleCase } from 'common/string';
+
 import { useBackend } from '../backend';
 import { Box, Button, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
-import { round, scale } from 'common/math';
 
 export const Smelter = (props) => {
   const { act, data } = useBackend();

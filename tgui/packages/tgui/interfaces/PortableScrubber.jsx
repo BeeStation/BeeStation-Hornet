@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, Button } from '../components';
+import { Button, Section } from '../components';
 import { getGasLabel } from '../constants';
 import { Window } from '../layouts';
 import { PortableBasicInfo } from './common/PortableAtmos';

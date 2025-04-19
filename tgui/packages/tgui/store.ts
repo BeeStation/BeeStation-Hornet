@@ -4,13 +4,13 @@
  * @license MIT
  */
 
+import { flow } from 'common/fp';
 import { Middleware, Reducer, Store, applyMiddleware, combineReducers, createStore } from 'common/redux';
-import { backendMiddleware, backendReducer } from './backend';
-import { debugMiddleware, debugReducer, relayMiddleware } from './debug';
 
 import { assetMiddleware } from './assets';
+import { backendMiddleware, backendReducer } from './backend';
+import { debugMiddleware, debugReducer, relayMiddleware } from './debug';
 import { createLogger } from './logging';
-import { flow } from 'common/fp';
 
 type ConfigureStoreOptions = {
   sideEffects?: boolean;

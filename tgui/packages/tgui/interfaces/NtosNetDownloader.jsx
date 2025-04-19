@@ -1,8 +1,9 @@
-import { scale, toFixed } from 'common/math';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Stack, Icon, LabeledList, NoticeBox, ProgressBar, Section, Tabs } from '../components';
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
+import { flow } from 'common/fp';
+import { scale, toFixed } from 'common/math';
+
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Icon, LabeledList, NoticeBox, ProgressBar, Section, Stack, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosNetDownloader = (props) => {

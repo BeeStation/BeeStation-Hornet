@@ -1,6 +1,7 @@
 import { useLocalState } from 'tgui/backend';
 import { Box, Button, Flex, Icon, Input, Popper, Section, Stack, TrackOutsideClicks } from 'tgui/components';
-import { CheckboxInput, FeatureColorInput, Feature, FeatureValueProps, FeatureChoicedServerData, FeatureToggle } from '../base';
+
+import { CheckboxInput, Feature, FeatureChoicedServerData, FeatureColorInput, FeatureToggle, FeatureValueProps } from '../base';
 
 export const asaycolor: Feature<string> = {
   name: 'Admin chat color',

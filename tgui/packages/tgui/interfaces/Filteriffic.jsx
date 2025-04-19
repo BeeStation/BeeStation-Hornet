@@ -1,9 +1,10 @@
+import { map } from 'common/collections';
+import { toFixed } from 'common/math';
+
+import { numberOfDecimalDigits } from '../../common/math';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Collapsible, ColorBox, Dropdown, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
-import { map } from 'common/collections';
-import { toFixed } from 'common/math';
-import { numberOfDecimalDigits } from '../../common/math';
 
 const FilterIntegerEntry = (props) => {
   const { value, name, filterName } = props;

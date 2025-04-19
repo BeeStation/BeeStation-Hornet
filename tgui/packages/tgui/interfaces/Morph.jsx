@@ -1,7 +1,8 @@
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Icon, Input, LabeledList, Section, Tabs } from '../components';
 import { Window } from '../layouts';
-import { Input, Button, Section, Tabs, LabeledList, Box, Icon } from '../components';
 
 export const Morph = () => {
   return (

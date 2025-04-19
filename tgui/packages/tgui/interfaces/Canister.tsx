@@ -1,8 +1,8 @@
-import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, AnimatedNumber, Section, Tooltip } from '../components';
 import { toFixed } from 'common/math';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
+import { AnimatedNumber, Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, Section, Tooltip } from '../components';
 import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 

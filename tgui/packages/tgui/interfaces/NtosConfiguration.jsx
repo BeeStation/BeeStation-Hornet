@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, ColorBox, Dropdown } from '../components';
+import { Box, Button, ColorBox, Dropdown, LabeledList, ProgressBar, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosConfiguration = (props) => {

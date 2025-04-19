@@ -1,8 +1,9 @@
 import { filter, map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
+
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
-import { Window, NtosWindow } from '../layouts';
+import { Box, Button, Collapsible, Divider, Dropdown, Flex, Icon, Input, Modal, ProgressBar, Section, Tabs, Tooltip } from '../components';
+import { NtosWindow, Window } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
 // This is primarily necessary due to measures that are taken to reduce the size

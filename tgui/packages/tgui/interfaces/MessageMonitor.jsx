@@ -1,10 +1,11 @@
 import { Component, createRef } from 'react';
+
 import { useBackend, useLocalState } from '../backend';
-import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
+import { BlockQuote, Box, Button, Dimmer, Flex, Icon, Section, Table, Tabs } from '../components';
 import { ButtonConfirm } from '../components/Button';
 import { Window } from '../layouts';
-import { MessageContent } from './NtosMessenger';
 import { sanitizeText } from '../sanitize';
+import { MessageContent } from './NtosMessenger';
 
 const processedText = (value) => {
   return {

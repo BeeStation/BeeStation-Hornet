@@ -1,8 +1,8 @@
+import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { resolveAsset } from '../assets';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 const teleportstyle = {
   color: 'yellow',

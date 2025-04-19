@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Section, Button, Icon } from '../components';
+import { Box, Button, Icon, Section } from '../components';
 import { Window } from '../layouts';
 
 export const PictureSelectModal = (_) => {

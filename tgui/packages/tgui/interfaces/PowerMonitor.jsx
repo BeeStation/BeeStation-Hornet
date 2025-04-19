@@ -1,8 +1,9 @@
 import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Section, Table, Dimmer, Stack } from '../components';
+import { Box, Button, Chart, ColorBox, Dimmer, Flex, Icon, LabeledList, ProgressBar, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 const PEAK_DRAW = 500000;

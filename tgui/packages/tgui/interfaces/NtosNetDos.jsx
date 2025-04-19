@@ -1,5 +1,5 @@
-import { Section, Button, LabeledList, Box, NoticeBox } from '../components';
 import { useBackend } from '../backend';
+import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosNetDos = (props) => {

@@ -1,4 +1,5 @@
 import { toTitleCase } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Button, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';

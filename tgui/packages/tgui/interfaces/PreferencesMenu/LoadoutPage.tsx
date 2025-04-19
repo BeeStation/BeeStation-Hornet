@@ -1,9 +1,10 @@
-import { Box, Tabs, Button, Tooltip, Stack, Flex, Table, Section, Icon, Input } from '../../components';
-import { LoadoutGear, PreferencesMenuData } from './data';
-import { useBackend, useLocalState } from '../../backend';
-import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
-import { CharacterPreview } from '../common/CharacterPreview';
 import { createSearch } from 'common/string';
+
+import { useBackend, useLocalState } from '../../backend';
+import { Box, Button, Flex, Icon, Input, Section, Stack, Table, Tabs, Tooltip } from '../../components';
+import { CharacterPreview } from '../common/CharacterPreview';
+import { LoadoutGear, PreferencesMenuData } from './data';
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const isPurchased = (purchased_gear: string[], gear: LoadoutGear) => purchased_gear.includes(gear.id) && !gear.multi_purchase;
 

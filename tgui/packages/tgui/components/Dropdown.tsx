@@ -1,9 +1,10 @@
 /* eslint-disable react/no-deprecated */
 // TODO: Rewrite as an FC, remove this lint disable
-import { createPopper, VirtualElement } from '@popperjs/core';
+import { VirtualElement, createPopper } from '@popperjs/core';
 import { classes } from 'common/react';
 import { Component, ReactNode } from 'react';
 import { findDOMNode, render } from 'react-dom';
+
 import { Box, BoxProps } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';

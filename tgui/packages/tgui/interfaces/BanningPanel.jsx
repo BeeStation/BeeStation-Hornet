@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import { useBackend } from '../backend';
-import { Button, Input, TextArea, LabeledList, Section, Box, Dropdown, Stack, Collapsible, Flex, NumberInput } from '../components';
+import { Box, Button, Collapsible, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Stack, TextArea } from '../components';
 import { Window } from '../layouts';
 
 const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;

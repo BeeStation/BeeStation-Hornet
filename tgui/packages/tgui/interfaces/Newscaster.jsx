@@ -7,11 +7,12 @@
  */
 
 import { decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { BountyBoardContent } from './BountyBoard';
-import { BlockQuote, Box, Button, Divider, LabeledList, Modal, Section, Stack, Tabs, TextArea, Icon, NoticeBox, Input } from '../components';
 import { marked } from 'marked';
+
+import { useBackend, useLocalState } from '../backend';
+import { BlockQuote, Box, Button, Divider, Icon, Input, LabeledList, Modal, NoticeBox, Section, Stack, Tabs, TextArea } from '../components';
 import { sanitizeText } from '../sanitize';
+import { BountyBoardContent } from './BountyBoard';
 
 const CENSOR_MESSAGE =
   'This channel has been deemed as threatening to \

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, NumberInput, Section, NoticeBox, Input, Table } from '../components';
+import { Button, Input, LabeledList, NoticeBox, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const NaniteRemote = (props) => {

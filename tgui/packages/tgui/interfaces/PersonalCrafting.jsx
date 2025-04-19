@@ -1,6 +1,7 @@
-import { useBackend, useLocalState } from '../backend';
 import { classes } from 'common/react';
-import { Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs, Box } from '../components';
+
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const PersonalCrafting = (props) => {

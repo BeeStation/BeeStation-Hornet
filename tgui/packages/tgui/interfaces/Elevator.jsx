@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Box } from '../components';
+import { Box, Button, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const Elevator = (props) => {

@@ -1,10 +1,11 @@
-import { Window } from '../layouts';
-import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Slider, Stack, Input, ProgressBar, ColorBox, Dimmer, Icon, Box, Tabs, Tooltip, Flex, BufferedTextArea, Collapsible, Autofocus } from '../components';
-import { ColorSelector } from './ColorPickerModal';
+import { HsvaColor, RgbColor, contrast, hexToHsva, hexToRgba, hsvaToHex } from 'common/color';
 import { BooleanLike } from 'common/react';
-import { AbilityThreshold, Ability, AvailableAbilities, StatThreshold, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
-import { hexToHsva, HsvaColor, hsvaToHex, hexToRgba, RgbColor, contrast } from 'common/color';
+
+import { useBackend, useLocalState } from '../backend';
+import { Autofocus, Box, BufferedTextArea, Button, Collapsible, ColorBox, Dimmer, Flex, Icon, Input, LabeledList, ProgressBar, Section, Slider, Stack, Tabs, Tooltip } from '../components';
+import { Window } from '../layouts';
+import { ColorSelector } from './ColorPickerModal';
+import { Ability, AbilityThreshold, AvailableAbilities, StatThreshold, is_actually_a_threshold, sort_abilities, sort_thresholds, threshold_title } from './common/Holoparasite';
 
 /**
  * The validity of an input field.

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Section, NoticeBox } from '../components';
+import { Button, Flex, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 export const GhostPoolProtection = (props) => {

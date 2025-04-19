@@ -1,8 +1,9 @@
-import { useSelector } from 'tgui/backend';
 import { decodeHtmlEntities } from 'common/string';
+import { useSelector } from 'tgui/backend';
 import { Box, Section } from 'tgui/components';
-import { selectStatPanel } from './selectors';
+
 import { Table } from '../../tgui/components';
+import { selectStatPanel } from './selectors';
 
 export const StatTicket = (props) => {
   const stat = useSelector(selectStatPanel);

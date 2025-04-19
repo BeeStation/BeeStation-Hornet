@@ -1,6 +1,7 @@
-import { Grid, NumberInput, Button, Section } from '../components';
-import { useBackend } from '../backend';
 import { toFixed } from 'common/math';
+
+import { useBackend } from '../backend';
+import { Button, Grid, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Signaler = (props) => {

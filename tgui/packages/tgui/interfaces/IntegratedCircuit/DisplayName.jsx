@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Flex } from '../../components';
-import { FUNDAMENTAL_DATA_TYPES, DATATYPE_DISPLAY_HANDLERS } from './FundamentalTypes';
 import { NULL_REF } from './constants';
+import { DATATYPE_DISPLAY_HANDLERS, FUNDAMENTAL_DATA_TYPES } from './FundamentalTypes';
 
 export const DisplayName = (props) => {
   const { act } = useBackend();

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Input, LabeledList, Section, Table, NoticeBox, NumberInput, LabeledControls, Box } from '../components';
+import { Box, Button, Input, LabeledControls, LabeledList, NoticeBox, NumberInput, Section, Table } from '../components';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 

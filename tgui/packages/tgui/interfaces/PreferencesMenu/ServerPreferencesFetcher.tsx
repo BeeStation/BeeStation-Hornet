@@ -1,8 +1,9 @@
 import { Component, ReactNode } from 'react';
+
 import { loadedMappings, resolveAsset } from '../../assets';
+import { Box, Dimmer } from '../../components';
 import { fetchRetry } from '../../http';
 import { ServerData } from './data';
-import { Dimmer, Box } from '../../components';
 
 // Cache response so it's only sent once
 let fetchServerData: Promise<ServerData> | undefined;

@@ -10,11 +10,14 @@ import './styles/themes/light.scss';
 
 import { perf } from 'common/perf';
 import { combineReducers } from 'common/redux';
-import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
+import { setGlobalStore } from 'tgui/backend';
 import { setupGlobalEvents } from 'tgui/events';
 import { captureExternalLinks } from 'tgui/links';
+import { logger } from 'tgui/logging';
 import { createRenderer } from 'tgui/renderer';
 import { configureStore } from 'tgui/store';
+import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
+
 import { audioMiddleware, audioReducer } from './audio';
 import { chatMiddleware, chatReducer } from './chat';
 import { gameMiddleware, gameReducer } from './game';
@@ -23,8 +26,6 @@ import { pingMiddleware, pingReducer } from './ping';
 import { settingsMiddleware, settingsReducer } from './settings';
 import { statMiddleware, statReducer } from './stat';
 import { telemetryMiddleware } from './telemetry';
-import { setGlobalStore } from 'tgui/backend';
-import { logger } from 'tgui/logging';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');

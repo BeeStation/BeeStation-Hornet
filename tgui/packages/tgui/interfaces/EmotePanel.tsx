@@ -1,9 +1,9 @@
-import { useBackend, useLocalState } from '../backend';
-import { Window } from '../layouts';
-import { Button, Section, Flex, Icon, Box } from '../components';
 import { BooleanLike } from '../../common/react';
-import { SearchBar } from '../components/SearchBar';
 import { capitalize } from '../../common/string';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Flex, Icon, Section } from '../components';
+import { SearchBar } from '../components/SearchBar';
+import { Window } from '../layouts';
 
 type Emote = {
   key: string;

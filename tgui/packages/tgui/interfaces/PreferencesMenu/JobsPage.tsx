@@ -1,9 +1,10 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
+
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Stack, Flex, Tooltip } from '../../components';
-import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData } from './data';
+import { Box, Button, Dropdown, Flex, Stack, Tooltip } from '../../components';
+import { Job, JobPriority, JoblessRole, PreferencesMenuData, createSetPreference } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const sortJobs = (entries: [string, Job][], head?: string) =>

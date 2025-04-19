@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'tgui/backend';
-import { Button, Flex, Box } from 'tgui/components';
+import { Box, Button, Flex } from 'tgui/components';
+
 import { selectStatPanel } from './selectors';
 import { StatText } from './StatText';
 

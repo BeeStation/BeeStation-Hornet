@@ -1,7 +1,8 @@
 import { BooleanLike } from 'common/react';
 import { capitalizeAll } from 'common/string';
+
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, LabeledList, Icon, NoticeBox, ProgressBar, Section, Stack, Table, Tabs, Tooltip } from '../components';
+import { Box, Button, Icon, LabeledList, NoticeBox, ProgressBar, Section, Stack, Table, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 type PaiInterfaceData = {

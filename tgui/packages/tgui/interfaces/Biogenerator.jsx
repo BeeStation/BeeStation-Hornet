@@ -1,7 +1,8 @@
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dimmer, Flex, Icon, Input, Section, Table, Tabs, NoticeBox, NumberInput } from '../components';
+import { Box, Button, Dimmer, Flex, Icon, Input, NoticeBox, NumberInput, Section, Table, Tabs } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 

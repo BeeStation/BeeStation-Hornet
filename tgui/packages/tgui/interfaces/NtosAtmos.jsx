@@ -1,6 +1,7 @@
 import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
 import { LabeledList, ProgressBar, Section } from '../components';
 import { getGasColor, getGasLabel } from '../constants';

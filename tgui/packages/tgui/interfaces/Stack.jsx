@@ -1,7 +1,8 @@
-import { createSearch } from 'common/string';
 import { sortBy } from 'common/collections';
+import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Input, NoticeBox, Section, Collapsible, Table } from '../components';
+import { Box, Button, Collapsible, Input, NoticeBox, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const Stack = (props) => {
