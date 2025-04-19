@@ -65,6 +65,9 @@
 				return TRUE
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
+/mob/living/carbon/take_sharpness_damage(amount, type, flag, zone)
+	..()
+	add_bleeding(amount / 10)
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting
@@ -73,10 +76,6 @@
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
-	if (I.bleed_force)
-		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
-		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(I.bleed_force * hit_amount)
 	if(I.force)
 		var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
@@ -526,10 +525,6 @@
 	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
-	if (P.bleed_force)
-		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = P.armour_penetration, silent = TRUE)
-		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(P.bleed_force * hit_amount)
 	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 		cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)

@@ -33,5 +33,4 @@
 	ricochet_incidence_leeway = 55
 	ricochet_decay_chance = 0.8
 	ricochet_decay_damage = 0.85
-	bleed_force = BLEED_SCRATCH
 	sharpness = SHARP_II

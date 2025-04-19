@@ -7,7 +7,6 @@
 	name = "beanbag slug"
 	damage = 10
 	stamina = 50
-	bleed_force = BLEED_TINY
 	sharpness = SHARP_III
 
 /obj/projectile/bullet/incendiary/shotgun
@@ -63,7 +62,6 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
-	bleed_force = BLEED_SCRATCH
 	sharpness = SHARP_III
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
@@ -81,7 +79,6 @@
 	ricochet_chance = 80
 	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
-	bleed_force = BLEED_TINY
 	sharpness = SHARP_NONE
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
@@ -136,7 +133,6 @@
 
 /obj/projectile/bullet/scattershot
 	damage = 18
-	bleed_force = BLEED_SURFACE
 	sharpness = SHARP_IV
 
 //Breaching Ammo
@@ -146,7 +142,6 @@
 	desc = "A breaching round designed to destroy airlocks and windows with only a few shots, but is ineffective against other targets."
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	damage = 10 //does shit damage to everything except doors and windows
-	bleed_force = BLEED_SURFACE
 	sharpness = SHARP_X
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)

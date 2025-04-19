@@ -58,4 +58,4 @@
 
 /obj/projectile/bullet/shrapnel/bleed
 	damage = 4
-	bleed_force = BLEED_DEEP_WOUND
+	sharpness = SHARP_VII

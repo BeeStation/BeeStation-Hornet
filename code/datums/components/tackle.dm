@@ -308,7 +308,7 @@
 	var/potential_roll_outcome = (roll * -10)
 
 	if(ishuman(user))
-		potential_roll_outcome *= ((100 - target.run_armor_check(BODY_ZONE_CHEST, ARMOUR_BLUNT)) /100)
+		potential_roll_outcome *= ((100 - target.get_bodyzone_armor_flag(BODY_ZONE_CHEST, ARMOUR_BLUNT)) /100)
 	else
 		potential_roll_outcome *= 0.9
 

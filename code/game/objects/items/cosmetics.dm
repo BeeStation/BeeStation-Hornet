@@ -278,7 +278,6 @@
 		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		sharpness = SHARP
-		bleed_force = BLEED_SURFACE
 		tool_behaviour = TOOL_SCALPEL
 	else
 		force = initial(force)
@@ -289,7 +288,6 @@
 		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = BLUNT
-		bleed_force = 0
 		tool_behaviour = null
 
 /obj/item/handmirror

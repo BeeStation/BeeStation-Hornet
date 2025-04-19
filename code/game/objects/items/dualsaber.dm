@@ -75,7 +75,6 @@
 			to_chat(user, span_warning("You lack the grace to wield this!"))
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
 	sharpness = SHARP_DISMEMBER_EASY
-	bleed_force = BLEED_DEEP_WOUND
 	w_class = w_class_on
 	hitsound = 'sound/weapons/blade1.ogg'
 	START_PROCESSING(SSobj, src)
@@ -88,7 +87,6 @@
 
 	sharpness = initial(sharpness)
 	w_class = initial(w_class)
-	bleed_force = initial(bleed_force)
 	hitsound = "swing_hit"
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)

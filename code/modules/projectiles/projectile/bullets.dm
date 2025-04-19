@@ -7,4 +7,3 @@
 	damage_flag = DAMAGE_STANDARD
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
-	bleed_force = BLEED_DEEP_WOUND

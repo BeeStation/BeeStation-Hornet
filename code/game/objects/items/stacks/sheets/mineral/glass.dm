@@ -217,7 +217,6 @@
 	armor_type = /datum/armor/tempered_glass
 	max_integrity = 40
 	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
 	var/icon_prefix
 	embedding = list("embed_chance" = 65)
 

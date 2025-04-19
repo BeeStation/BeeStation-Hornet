@@ -158,7 +158,6 @@
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP
-	bleed_force = BLEED_CUT
 	tool_behaviour = TOOL_SCALPEL
 	toolspeed = 1
 
@@ -183,7 +182,6 @@
 	toolspeed = 0.5
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP
-	bleed_force = BLEED_CUT
 
 /obj/item/scalpel/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] [pick("wrists", "throat", "stomach")] with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -208,7 +206,6 @@
 	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
 	attack_verb_simple = list("attack", "slash", "saw", "cut")
 	sharpness = SHARP
-	bleed_force = BLEED_DEEP_WOUND
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
@@ -234,7 +231,6 @@
 	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
 	attack_verb_simple = list("attack", "slash", "saw", "cut")
 	sharpness = SHARP
-	bleed_force = BLEED_DEEP_WOUND
 
 /obj/item/hacksaw
 	name = "hacksaw"
@@ -359,8 +355,6 @@
 	light_range = 1
 	light_color = LIGHT_COLOR_GREEN
 	sharpness = SHARP
-	// It cauterises the wound it causes
-	bleed_force = 0
 
 /obj/item/scalpel/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)

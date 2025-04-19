@@ -6,34 +6,36 @@
 			return facing_modifiers[MECHA_FRONT_ARMOUR]
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
-/obj/vehicle/sealed/mecha/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(. && atom_integrity > 0)
+// Sharp attacks can damage the internals
+/obj/vehicle/sealed/mecha/take_sharpness_damage(amount, type, flag, zone)
+	..()
+	if (atom_integrity > 0)
 		spark_system.start()
-		switch(damage_flag)
-			if(FIRE)
+		switch(flag)
+			if(DAMAGE_FIRE)
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL))
-			if(MELEE)
+			if(DAMAGE_LASER)
+				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
+			if (DAMAGE_STANDARD)
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
+			if (DAMAGE_ENERGY)
+				check_for_internal_damage(list(MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
-		if(. >= 5 || prob(33))
+		if(amount > 5 && prob(33))
 			to_chat(occupants, "[icon2html(src, occupants)][span_userdanger("Taking damage!")]")
-		log_message("Took [damage_amount] points of damage. Damage type: [damage_type].", LOG_MECHA)
+		log_message("Took [amount] points of damage. Damage type: [type].", LOG_MECHA)
 
-/obj/vehicle/sealed/mecha/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	. = ..()
-	if(!damage_amount)
-		return 0
+/obj/vehicle/sealed/mecha/run_armour_damage(amount, penetration, type, flag, attack_dir, zone)
 	var/booster_deflection_modifier = 1
 	var/booster_damage_modifier = 1
-	if(damage_flag == BULLET || damage_flag == LASER || damage_flag == ENERGY)
+	if(flag == DAMAGE_LASER || flag == DAMAGE_ENERGY)
 		for(var/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/B in equipment)
 			if(B.projectile_react())
 				booster_deflection_modifier = B.deflect_coeff
 				booster_damage_modifier = B.damage_coeff
 				break
-	else if(damage_flag == MELEE)
+	else if(flag == DAMAGE_STANDARD)
 		for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)
 			if(B.attack_react())
 				booster_deflection_modifier *= B.deflect_coeff
@@ -47,10 +49,9 @@
 	if(prob(deflect_chance * booster_deflection_modifier))
 		visible_message(span_danger("[src]'s armour deflects the attack!"))
 		log_message("Armor saved.", LOG_MECHA)
-		return 0
-	if(.)
-		. *= booster_damage_modifier
-
+		return
+	amount *= booster_damage_modifier
+	..()
 
 /obj/vehicle/sealed/mecha/attack_hand(mob/living/user)
 	. = ..()

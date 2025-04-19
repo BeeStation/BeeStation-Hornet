@@ -16,7 +16,6 @@
 	attack_verb_simple = list("attack", "chop", "cleave", "tear", "lacerate", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
 	max_integrity = 200
 	armor_type = /datum/armor/civilian_metal
 	resistance_flags = FIRE_PROOF

@@ -265,22 +265,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/blob/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	switch(damage_type)
-		if(BRUTE)
-			damage_amount *= brute_resist
-		if(BURN)
-			damage_amount *= fire_resist
-		if(CLONE)
+/obj/structure/blob/take_direct_damage(amount, type, flag, zone)
+	switch (type)
+		if (BRUTE)
+			amount *= brute_resist
+		if (BURN)
+			amount *= fire_resist
+		if (CLONE)
 		else
-			return 0
-	var/armor_protection = 0
-	if(damage_flag)
-		armor_protection = get_armor_rating(damage_flag)
-	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
-	if(overmind && damage_flag)
-		damage_amount = overmind.blobstrain.damage_reaction(src, damage_amount, damage_type, damage_flag)
-	return damage_amount
+			return
+	if(overmind && flag)
+		amount = overmind.blobstrain.damage_reaction(src, amount, type, flag)
+	..()
 
 /obj/structure/blob/take_direct_damage(amount, type, flag, zone)
 	..()

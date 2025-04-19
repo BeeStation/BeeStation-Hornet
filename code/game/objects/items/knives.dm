@@ -19,7 +19,6 @@
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP
-	bleed_force = BLEED_CUT
 	armor_type = /datum/armor/civilian_metal
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5

@@ -38,7 +38,7 @@
 		I.force = clamp(I.force + increment, 0, max)
 	user.visible_message(span_notice("[user] sharpens [I] with [src]!"), span_notice("You sharpen [I], making it much more deadly than before."))
 	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
-	I.bleed_force *= 1.1
+	I.sharpness += SHARP_I
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
 	name = "worn out [name]"

@@ -37,7 +37,6 @@
 	name = ".38 Bouncy Rubber bullet"
 	damage = 7
 	stamina = 27
-	bleed_force = BLEED_SCRATCH
 	ricochets_max = 5
 	ricochet_incidence_leeway = 70
 	ricochet_chance = 130
@@ -103,7 +102,6 @@
 	damage = 0
 	nodamage = TRUE
 	martial_arts_no_deflect = TRUE
-	bleed_force = 0
 
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))

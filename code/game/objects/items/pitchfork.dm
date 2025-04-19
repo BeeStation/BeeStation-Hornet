@@ -14,7 +14,6 @@
 	attack_verb_simple = list("attack", "impale", "pierce")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP
-	bleed_force = BLEED_CUT
 	max_integrity = 200
 	armor_type = /datum/armor/military_metal
 	resistance_flags = FIRE_PROOF

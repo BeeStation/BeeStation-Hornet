@@ -423,7 +423,6 @@
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	knockdown = 30
-	bleed_force = BLEED_SURFACE
 	var/chain
 
 /obj/projectile/hook/fire(setAngle)
@@ -754,7 +753,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	hitsound_on = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
 	faction_bonus_force = 45
 	nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
 	var/transform_cooldown
@@ -849,7 +847,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
 	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1

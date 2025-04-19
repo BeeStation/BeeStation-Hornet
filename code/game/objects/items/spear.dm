@@ -18,7 +18,6 @@
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	sharpness = SHARP_IV
-	bleed_force = BLEED_CUT
 	max_integrity = 200
 	armor_type = /datum/armor/civilian_metal
 	var/war_cry = "AAAAARGH!!!"
@@ -196,7 +195,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	sharpness = SHARP
-	bleed_force = BLEED_CUT
 
 /obj/item/spear/bamboospear/ComponentInitialize()
 	. = ..()
