@@ -4,6 +4,7 @@
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "scanner"
 	density = TRUE
+	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300

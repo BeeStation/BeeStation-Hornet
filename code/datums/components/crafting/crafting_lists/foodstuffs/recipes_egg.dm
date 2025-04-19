@@ -8,7 +8,7 @@
 		/obj/item/food/egg = 2,
 		/obj/item/food/cheese/wedge = 2
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/chocolateegg
 	name = "Chocolate egg"
@@ -17,7 +17,7 @@
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/chocolatebar = 1
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/eggsbenedict
 	name = "Eggs benedict"
@@ -27,7 +27,7 @@
 		/obj/item/food/meat/steak = 1,
 		/obj/item/food/breadslice/plain = 1,
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/eggbowl
 	name = "Egg bowl"
@@ -39,7 +39,7 @@
 		/obj/item/food/grown/carrot = 1,
 		/obj/item/food/grown/corn = 1
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/wrap
 	name = "Wrap"
@@ -48,7 +48,7 @@
 		/obj/item/food/friedegg = 1,
 		/obj/item/food/grown/cabbage = 1,
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/chawanmushi
 	name = "Chawanmushi"
@@ -59,4 +59,4 @@
 		/obj/item/food/boiledegg = 2,
 		/obj/item/food/grown/mushroom/chanterelle = 1
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG

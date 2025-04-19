@@ -332,6 +332,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
+	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
 	idle_power_usage = 50
 	active_power_usage = 300
 

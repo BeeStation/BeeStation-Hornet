@@ -32,30 +32,6 @@
 	)
 	category = CAT_MISC
 
-/datum/crafting_recipe/lizardhat
-	name = "Lizard Cloche Hat"
-	result = /obj/item/clothing/head/costume/lizard
-	time = 1 SECONDS
-	reqs = list(/obj/item/organ/tail/lizard = 1)
-	category = CAT_MISC
-
-/datum/crafting_recipe/lizardhat_alternate
-	name = "Lizard Cloche Hat (alternative variant)"
-	result = /obj/item/clothing/head/costume/lizard
-	time = 1 SECONDS
-	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1)
-	category = CAT_MISC
-
-/datum/crafting_recipe/kittyears
-	name = "Kitty Ears"
-	result = /obj/item/clothing/head/costume/kitty/genuine
-	time = 1 SECONDS
-	reqs = list(
-		/obj/item/organ/tail/cat = 1,
-		/obj/item/organ/ears/cat = 1
-	)
-	category = CAT_MISC
-
 /datum/crafting_recipe/skateboard
 	name = "Skateboard"
 	result = /obj/item/melee/skateboard
@@ -64,24 +40,24 @@
 		/obj/item/stack/sheet/iron = 5,
 		/obj/item/stack/rods = 10
 	)
-	category = CAT_MISC
+	category = CAT_ENTERTAINMENT
 
 /datum/crafting_recipe/scooter
 	name = "Scooter"
 	result = /obj/vehicle/ridden/scooter
 	time = 6.5 SECONDS
-	tools = list(TOOL_SCREWDRIVER,)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 5,
 		/obj/item/stack/rods = 12
 	)
-	category = CAT_MISC
+	category = CAT_ENTERTAINMENT
 
 /datum/crafting_recipe/wheelchair
 	name = "Wheelchair"
 	result = /obj/vehicle/ridden/wheelchair
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 4,
 		/obj/item/stack/rods = 6
@@ -92,7 +68,7 @@
 	name = "Motorized Wheelchair"
 	result = /obj/vehicle/ridden/wheelchair/motorized
 	time = 20 SECONDS
-	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
+	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 10,
 		/obj/item/stack/rods = 8,
@@ -134,7 +110,8 @@
 
 /datum/crafting_recipe/paperframes
 	name = "Paper Frames"
-	result = /obj/item/stack/sheet/paperframes/five
+	result = /obj/item/stack/sheet/paperframes
+	result_amount = 5
 	time = 1 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
@@ -150,7 +127,7 @@
 		/datum/reagent/water = 50,
 		/obj/item/stack/sheet/wood = 1
 	)
-	tools = list(/obj/item/hatchet)
+	tool_paths = list(/obj/item/hatchet)
 	category = CAT_MISC
 
 /datum/crafting_recipe/toysword
@@ -166,7 +143,8 @@
 
 /datum/crafting_recipe/blackcarpet
 	name = "Black Carpet"
-	result = /obj/item/stack/tile/carpet/black/fifty
+	result = /obj/item/stack/tile/carpet/black
+	result_amount = 50
 	time = 0.5 SECONDS
 	reqs = list(
 		/obj/item/stack/tile/carpet = 50,
@@ -233,7 +211,7 @@
 	name = "Makeshift Rapid Cable Layer"
 	result = /obj/item/rcl/ghetto
 	time = 4 SECONDS
-	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
+	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(/obj/item/stack/sheet/iron = 15)
 	category = CAT_MISC
 
@@ -241,7 +219,7 @@
 	name = "intelliTater"
 	result = /obj/item/aicard/aitater
 	time = 3 SECONDS
-	tools = list(TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(
 		/obj/item/aicard = 1,
 		/obj/item/food/grown/potato = 1,
@@ -253,7 +231,7 @@
 	name = "intelliLantern"
 	result = /obj/item/aicard/aispook
 	time = 3 SECONDS
-	tools = list(TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(
 		/obj/item/aicard = 1,
 		/obj/item/food/grown/pumpkin = 1,
@@ -265,7 +243,7 @@
 	name = "Improvised Jetpack"
 	result = /obj/item/tank/jetpack/improvised
 	time = 7.5 SECONDS //this thing is complex
-	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 	reqs = list(
 		/obj/item/tank/internals/oxygen/red = 2,//red oxygen tank so it looks right
 		/obj/item/extinguisher = 1,
@@ -278,7 +256,7 @@
 	name = "Multi-layer duct"
 	result = /obj/machinery/duct/multilayered
 	time = 2.5 SECONDS
-	tools = list(TOOL_WELDER)
+	tool_behaviors = list(TOOL_WELDER)
 	reqs = list(/obj/item/stack/ducts = 5)
 	category = CAT_MISC
 
@@ -333,7 +311,7 @@
 	name= "Paper Cup"
 	result = /obj/item/reagent_containers/cup/glass/sillycup
 	time = 1 SECONDS
-	tools = list(TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/paper = 1)
 	category = CAT_MISC
 
@@ -341,7 +319,7 @@
 	name = "Paper Slip"
 	result = /obj/item/card/id/paper
 	time = 1 SECONDS
-	tools = list(TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
@@ -356,7 +334,7 @@
 	name = "Foldable Chair"
 	result = /obj/item/chair/foldable
 	time = 4 SECONDS
-	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	reqs = list(
 		/obj/item/stack/rods = 2,
 		/obj/item/stack/sheet/plastic = 1
@@ -367,7 +345,7 @@
 	name = "Fancy Chair"
 	result = /obj/item/chair/fancy
 	time = 6 SECONDS
-	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	reqs = list(
 		/obj/item/stack/rods = 2,
 		/obj/item/chair = 1
@@ -392,7 +370,7 @@
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/stack/rods = 2,
-		/obj/item/clothing/under/rank/medical = 1
+		/obj/item/clothing/under/rank/medical/doctor = 1
 	)
 	category = CAT_MISC
 
