@@ -448,6 +448,21 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Central Primary Hallway"
 	icon_state = "hallC"
 
+/area/hallway/primary/floors/a_one
+	name = "Floor 1 Primary Hallway"
+
+/area/hallway/primary/floors/b_two
+	name = "Floor 2 Primary Hallway"
+
+/area/hallway/primary/floors/c_three
+	name = "Floor 3 Primary Hallway"
+
+/area/hallway/primary/floors/d_four
+	name = "Floor 4 Primary Hallway"
+
+/area/hallway/primary/floors/e_five
+	name = "Floor 5 Primary Hallway"
+
 /area/hallway/secondary/command
 	name = "Command Hallway"
 	icon_state = "bridge_hallway"
