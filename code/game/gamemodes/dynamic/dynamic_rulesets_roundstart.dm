@@ -13,9 +13,10 @@
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_AI)
 	required_candidates = 1
 	weight = 5
-	cost = 8	// Avoid raising traitor threat above this, as it is the default low cost ruleset.
+	cost = 15
 	scaling_cost = 9
-	requirements = list(8,8,8,8,8,8,8,8,8,8)
+	requirements = list(40,30,30,20,20,15,15,15,10,10)
+	minimum_players = 10
 	antag_cap = list("denominator" = 38)
 	var/autotraitor_cooldown = (15 MINUTES)
 
@@ -32,6 +33,36 @@
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
+//////////////////////////////////////////////
+//                                          //
+//               SCAMPS                     //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/scamp
+	name = "Scamp"
+	role_preference = /datum/role_preference/antagonist/scamp
+	antag_datum = /datum/antagonist/scamp
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 1
+	weight = 7
+	cost = 5
+	scaling_cost = 5
+	requirements = list(5,5,5,5,5,5,5,5,5,5)
+
+/datum/dynamic_ruleset/roundstart/scamp/pre_execute(population)
+	. = ..()
+	var/num_scamps = get_antag_cap(population) * (scaled_times + 1)
+	for (var/i = 1 to num_scamps)
+		if(candidates.len <= 0)
+			break
+		var/mob/M = antag_pick_n_take(candidates)
+		assigned += M.mind
+		M.mind.restricted_roles = restricted_roles
+		M.mind.special_role = ROLE_SCAMP
+		GLOB.pre_setup_antags += M.mind
+	return TRUE
 
 //////////////////////////////////////////
 //                                      //
@@ -50,6 +81,7 @@
 	cost = 12
 	scaling_cost = 15
 	requirements = list(40,30,30,20,20,15,15,15,10,10)
+	minimum_players = 10
 	antag_cap = 2	// Can pick 3 per team, but rare enough it doesn't matter.
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/min_team_size = 2
@@ -126,6 +158,7 @@
 	cost = 16
 	scaling_cost = 10
 	requirements = list(70,70,60,50,40,20,20,10,10,10)
+	minimum_players = 10
 	antag_cap = list("denominator" = 29)
 
 /datum/dynamic_ruleset/roundstart/changeling/pre_execute(population)
@@ -158,6 +191,7 @@
 	cost = 15
 	scaling_cost = 9
 	requirements = list(101,101,101,40,35,20,20,15,10,10)
+	minimum_players = 10
 	antag_cap = list("denominator" = 24)
 
 
@@ -193,6 +227,7 @@
 	weight = 2
 	cost = 20
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
+	minimum_players = 10
 	var/list/roundstart_wizards = list()
 
 /datum/dynamic_ruleset/roundstart/wizard/acceptable(population=0, threat=0)
@@ -294,6 +329,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
+	minimum_players = 10
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	antag_cap = list("denominator" = 18, "offset" = 1)
 	var/datum/team/nuclear/nuke_team
@@ -380,6 +416,7 @@
 	delay = 7 MINUTES
 	cost = 20
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
+	minimum_players = 10
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	// I give up, just there should be enough heads with 35 players...
