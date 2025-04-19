@@ -664,7 +664,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	if((L.mobility_flags & MOBILITY_MOVE) && (L.last_special <= world.time))
+	if(L.last_special <= world.time)
 		return L.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
