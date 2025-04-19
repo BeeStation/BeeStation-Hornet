@@ -62,7 +62,7 @@
 	var/atom/pawn = controller.pawn
 	pawn.visible_message(span_notice("[pawn] drops [carried_item]."))
 	carried_item.forceMove(get_turf(pawn))
-	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
+	controller.clear_blackboard_key(BB_SIMPLE_CARRY_ITEM)
 	return TRUE
 
 
@@ -98,7 +98,7 @@
 		controller.pawn.visible_message(span_notice("[controller.pawn] delivers [carried_item] to [return_target]."))
 
 	carried_item.forceMove(get_turf(return_target))
-	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
+	controller.clear_blackboard_key(BB_SIMPLE_CARRY_ITEM)
 	return TRUE
 
 /// This behavior involves either eating a snack we can reach, or begging someone holding a snack

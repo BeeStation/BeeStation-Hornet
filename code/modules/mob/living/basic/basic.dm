@@ -190,3 +190,6 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
+
+/mob/living/basic/compare_sentience_type(compare_type)
+	return sentience_type == compare_type
