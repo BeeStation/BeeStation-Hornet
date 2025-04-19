@@ -19,7 +19,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/newscaster/directional/east,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "cl" = (
@@ -61,6 +60,11 @@
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
+/area/shuttle/arrival)
+"gK" = (
+/obj/structure/window/shuttle,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating,
 /area/shuttle/arrival)
 "gM" = (
 /obj/structure/chair/fancy/shuttle,
@@ -186,6 +190,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/newscaster/directional/east,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "wI" = (
@@ -228,7 +233,7 @@
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/structure/closet/crate/internals,
+/obj/structure/wall_closet/emergency/directional/west,
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -543,6 +548,12 @@
 	},
 /turf/open/floor/iron/ridged,
 /area/shuttle/arrival)
+"TL" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible,
+/obj/structure/wall_closet/tool/directional/south,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/shuttle/arrival)
 "TQ" = (
 /obj/structure/window/shuttle,
 /turf/open/floor/plating,
@@ -717,7 +728,7 @@ ii
 Jz
 iM
 SY
-TQ
+gK
 "}
 (4,1,1) = {"
 SN
@@ -734,7 +745,7 @@ MH
 Xp
 aM
 Nm
-TQ
+gK
 "}
 (5,1,1) = {"
 Pd
@@ -751,7 +762,7 @@ ii
 bP
 wz
 Nm
-TQ
+gK
 "}
 (6,1,1) = {"
 Pd
@@ -825,7 +836,7 @@ wL
 PB
 Ex
 fZ
-ry
+TL
 Pd
 Wq
 ZG
