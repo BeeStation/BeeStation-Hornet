@@ -55,7 +55,7 @@
 	name = new_name
 	real_name = new_name
 	mind?.name = new_name
-	color_name = span_name("[COLOR_TEXT(accent_color, new_name)]")
+	color_name = span_name(COLOR_TEXT(accent_color, new_name))
 	SSblackbox.record_feedback("text", "holoparasite_name", 1, new_name)
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_NAME, old_name, new_name)
 	if(!internal)
@@ -82,7 +82,7 @@
 			tracking_beacon.add_to_huds()
 	for(var/mutable_appearance/overlay as() in accent_overlays)
 		overlay.color = new_color
-	color_name = span_name("[COLOR_TEXT(new_color, real_name)]")
+	color_name = span_name(COLOR_TEXT(new_color, real_name))
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_ACCENT_COLOR, old_accent_color, new_color)
 	if(!silent)
 		to_chat(src, span_holoparasite("Your [COLOR_TEXT(new_color, "new accent color")] has been set."))
