@@ -712,7 +712,7 @@
 	if(isorgan(item))
 		var/obj/item/organ/organ = item
 		organ.organ_flags |= ORGAN_FROZEN
-		
+
 	if(isbodypart(item))
 		var/obj/item/bodypart/bodypart = item
 		for(var/obj/item/organ/stored in bodypart.contents)
