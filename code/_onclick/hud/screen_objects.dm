@@ -11,6 +11,7 @@
 	name = ""
 	icon = 'icons/hud/screen_gen.dmi'
 	plane = HUD_PLANE
+	layer = HUD_LAYER
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
@@ -457,6 +458,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	return set_selected_zone(choice, usr)
 
 /atom/movable/screen/zone_sel/MouseEntered(location, control, params)
+	..()
 	MouseMove(location, control, params)
 
 /atom/movable/screen/zone_sel/MouseMove(location, control, params)
