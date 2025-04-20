@@ -8,7 +8,6 @@
 	head_announce = list("Science")
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffddff"
 	req_admin_notify = 1
 	minimal_player_age = 7

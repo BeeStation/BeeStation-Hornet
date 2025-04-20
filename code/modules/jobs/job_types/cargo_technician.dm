@@ -7,7 +7,6 @@
 	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 2
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/cargo_technician

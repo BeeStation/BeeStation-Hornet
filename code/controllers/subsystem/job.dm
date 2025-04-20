@@ -102,13 +102,11 @@ SUBSYSTEM_DEF(job)
 	var/cap = CONFIG_GET(number/overflow_cap)
 
 	new_overflow.allow_bureaucratic_error = FALSE
-	new_overflow.spawn_positions = cap
 	new_overflow.total_positions = cap
 
 	if(new_overflow_role != overflow_role)
 		var/datum/job/old_overflow = GetJob(overflow_role)
 		old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
-		old_overflow.spawn_positions = initial(old_overflow.spawn_positions)
 		old_overflow.total_positions = initial(old_overflow.total_positions)
 		overflow_role = new_overflow_role
 		JobDebug("Overflow role set to : [new_overflow_role]")
@@ -177,8 +175,6 @@ SUBSYSTEM_DEF(job)
 		if(job.required_playtime_remaining(player.client))
 			return FALSE
 		var/position_limit = job.total_positions
-		if(!latejoin)
-			position_limit = job.spawn_positions
 		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 		player.mind.assigned_role = rank
 		unassigned -= player
@@ -391,9 +387,110 @@ SUBSYSTEM_DEF(job)
 	JobDebug("DO, Running Standard Check")
 
 
-	// New job giving system by Donkie
-	// This will cause lots of more loops, but since it's only done once it shouldn't really matter much at all.
-	// Hopefully this will add more randomness and fairness to job giving.
+	// New job giving system by PowerfulBacon
+	// Attempting to create perfect configurations leads to players often getting the same
+	// jobs over and over, since if they have 1 job that nobody else has picked then it will
+	// try to take them (especially with command roles).
+	// This system favours giving out jobs to players who have highly random job selections
+	// first, so that players asking for a random experience aren't given only the jobs that
+	// nobody else wants to do, which you would get with stable-marriage style algorithms
+	//
+	// In these steps, we ignore high priority jobs and instead create a random ordering of
+	// the medium jobs that the player has selected.
+	// Example:
+	// Player A: Job C, Job B, (High priority: E)
+	// Player B: Job A, Job C, Job D (High priority: E)
+	// Player C: Job B, Job D
+	// Player D: Job A, Job E
+	// Step 1: Create random orderings
+	// A: [B, C]
+	// B: [C, D, A]
+	// C: [D, B]
+	// D: [A, E]
+	// Step 2: Sort these by the number of items in the list, sorting it randomly when
+	// the values are equal. The player will get the first job in the array that has not
+	// already been selected by someone previously. This is represented by the *
+	// B: [C*, D, A] (Gets job C because it is untaken)
+	// D: [A*, E] (Gets job A because it is untaken)
+	// A: [C, B*] (Gets job B because C is taken by person B)
+	// C: [D*, B] (Gets job D because it is untaken
+	// Step 3: Find all of the jobs that have additional spaces to allocate
+	// Additional spaces: E
+	// Step 4: Create a random ordering of all players
+	// D, C, B, A
+	// Step 5: Assign any high priority job roles that haven't been taken yet, and recalculate
+	// the random job ordering list.
+	// D: [A*, E]
+	// B: E* -> [C, D, A] (Gets E because it has not been taken yet, which frees up job C)
+	// C: E -> [D*, B] (Keeps job D because job E was taken by B)
+	// A: [C*, B] (Since player B changed from job C to job E, our highest priority job (Job C) is now available, so we switch to that instead)
+	// Step 6: Find all players that do not have a job, and repeat step 1 by including only their low priority job roles (ignoring high priority).
+	//
+	// High popularity jobs will still be less likely to be selected, so it isn't perfectly balanced, however
+	// this system balances the probabilities as much as possible.
+	// High priority jobs are done at the end so that it doesn't disrupt the probability selection for other
+	// players. If a job has a low demand, you will always switch to that if you select it as high priority
+	// but if a job has a high demand, you will only get it if the players who had more job roles selected
+	// wasn't assigned it first (even if you are the only one with it set to high priority, and everyone else
+	// had it set to medium).
+
+	// Create random orderings for all players
+	var/list/random_orderings = list()
+
+	// Shuffle the unassigned player list for fairness
+	shuffle_inplace(unassigned)
+
+	// Firstly, remove any players over the pop-cap
+	for(var/mob/dead/new_player/player in unassigned)
+		if(PopcapReached() && !IS_PATRON(player.ckey))
+			RejectPlayer(player)
+
+	// Step 1: Generate random orderings for the players medium jobs
+	for(var/mob/dead/new_player/player in unassigned)
+		var/list/available_jobs = list()
+		// Find all jobs that we are actually able to be
+		for(var/datum/job/job in occupations)
+			if(!job || job.lock_flags)
+				continue
+			if(is_banned_from(player.ckey, job.title))
+				JobDebug("DO isbanned failed, Player: [player], Job:[job.title]")
+				continue
+			if(QDELETED(player))
+				JobDebug("DO player deleted during job ban check")
+				break
+			if(!job.player_old_enough(player.client))
+				JobDebug("DO player not old enough, Player: [player], Job:[job.title]")
+				continue
+			if(job.required_playtime_remaining(player.client))
+				JobDebug("DO player not enough xp, Player: [player], Job:[job.title]")
+				continue
+			if(player.mind && (job.title in player.mind.restricted_roles))
+				JobDebug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
+				continue
+			if(player.client.prefs.job_preferences[job.title] != JP_MEDIUM && !(job.gimmick && player.client.prefs.job_preferences["Gimmick"] == JP_MEDIUM))
+				continue
+			JobDebug("Preparing, Player: [player], Job:[job.title]")
+			available_jobs += job
+		// Create random orderings
+		shuffle_inplace(available_jobs)
+		random_orderings[player] = available_jobs
+	// Step 2: Sort the list by the number of availble jobs that each person has, keeping it
+	// random when the amount is the same
+	shuffle_inplace(random_orderings)
+	random_orderings = sortTim(random_orderings, GLOBAL_PROC_REF(cmp_list_size), TRUE)
+	// Step 3: Assign provisional jobs
+	for(var/mob/dead/new_player/player in random_orderings)
+		// Get the first available job for this player
+		for (var/datum/job/job in random_orderings[player])
+			if (job.current_positions >= job.spawn_positions && job.spawn_positions != -1)
+				continue
+			// Provisional assignment
+			job.current_positions++
+			player.mind.assigned_role = job.title
+	// Step 4: Create a random ordering of players
+	// The player list is already shuffled, so we will re-use that for player preference
+	// Step 5: Assign high priority job roles
+	
 
 	// Loop through all levels from high to low
 	var/list/shuffledoccupations = shuffle(occupations)
@@ -616,14 +713,6 @@ SUBSYSTEM_DEF(job)
 	var/datum/job/J = SSjob.GetJob("Security Officer")
 	if(!J)
 		CRASH("setup_officer_positions(): Security officer job is missing")
-
-	var/ssc = CONFIG_GET(number/security_scaling_coeff)
-	if(ssc > 0)
-		if(J.spawn_positions > 0)
-			var/officer_positions = min(12, max(J.spawn_positions, round(unassigned.len / ssc))) //Scale between configured minimum and 12 officers
-			JobDebug("Setting open security officer positions to [officer_positions]")
-			J.total_positions = officer_positions
-			J.spawn_positions = officer_positions
 
 	//Spawn some extra eqipment lockers if we have more than 5 officers
 	var/equip_needed = J.total_positions

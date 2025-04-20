@@ -8,7 +8,6 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
 	total_positions = 0
-	spawn_positions = 0
 	supervisors = "your laws" //No AI yet as you are just a cube
 	selection_color = "#ddffdd"
 	minimal_player_age = 21

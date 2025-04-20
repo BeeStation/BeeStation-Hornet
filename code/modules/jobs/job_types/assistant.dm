@@ -8,7 +8,6 @@ Assistant
 	supervisors = "absolutely everyone"
 	faction = "Station"
 	total_positions = 5
-	spawn_positions = 5
 	selection_color = "#dddddd"
 	antag_rep = 7
 

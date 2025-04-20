@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 2
 	selection_color = "#bbe291"
 	exp_requirements = 120 //High grief percentage
 	exp_type = EXP_TYPE_SERVICE

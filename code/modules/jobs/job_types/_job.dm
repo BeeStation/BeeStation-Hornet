@@ -61,7 +61,7 @@
 
 	var/outfit = null
 
-	/// Minutes of experience-time required to play in this job. 
+	/// Minutes of experience-time required to play in this job.
 	var/exp_requirements = 0
 	/// Experience required to play this job
 	var/exp_type = ""
@@ -119,6 +119,10 @@
 	 */
 	var/list/minimal_lightup_areas = list()
 
+	/// The minimum population required at roundstart for this job to appear
+	var/min_pop = 14
+	/// The maximum population required at roundstart for this job to appear
+	var/max_pop = INFINITY
 
 /datum/job/New()
 	. = ..()

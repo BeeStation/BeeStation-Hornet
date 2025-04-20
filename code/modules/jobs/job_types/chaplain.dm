@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
 	exp_requirements = 120
 	outfit = /datum/outfit/job/chaplain

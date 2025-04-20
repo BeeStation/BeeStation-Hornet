@@ -6,7 +6,6 @@
 	supervisors = "the research director"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 3
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_CREW

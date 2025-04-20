@@ -9,7 +9,6 @@
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	minimal_player_age = 10

@@ -6,7 +6,6 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
 	req_admin_notify = TRUE
@@ -18,6 +17,8 @@
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
+	// Allowed on low-pop stations
+	min_pop = 0
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc
