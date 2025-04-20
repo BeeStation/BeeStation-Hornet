@@ -56,6 +56,7 @@
 #define CASTING_CLOTHES (1<<15)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
+#define NOSLIP_ALL (1<<19) //! noslip with includes the higher level sliping hazards, like ice or lube
 
 /// Integrity defines for clothing (not flags but close enough)
 #define CLOTHING_PRISTINE 0 // We have no damage on the clothing
