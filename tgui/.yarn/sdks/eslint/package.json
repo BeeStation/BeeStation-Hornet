@@ -2,5 +2,8 @@
   "name": "eslint",
   "version": "8.35.0-sdk",
   "main": "./lib/api.js",
-  "type": "commonjs"
+  "type": "commonjs",
+  "bin": {
+    "eslint": "./bin/eslint.js"
+  }
 }

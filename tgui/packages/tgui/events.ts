@@ -12,7 +12,9 @@ import { KEY_ALT, KEY_CTRL, KEY_F1, KEY_F12, KEY_SHIFT } from 'common/keycodes';
 export const globalEvents = new EventEmitter();
 let ignoreWindowFocus = false;
 
-export const setupGlobalEvents = (options: { ignoreWindowFocus?: boolean } = {}): void => {
+export const setupGlobalEvents = (
+  options: { ignoreWindowFocus?: boolean } = {},
+): void => {
   ignoreWindowFocus = !!options.ignoreWindowFocus;
 };
 
@@ -168,7 +170,9 @@ export class KeyEvent {
   }
 
   isModifierKey() {
-    return this.code === KEY_CTRL || this.code === KEY_SHIFT || this.code === KEY_ALT;
+    return (
+      this.code === KEY_CTRL || this.code === KEY_SHIFT || this.code === KEY_ALT
+    );
   }
 
   isDown() {

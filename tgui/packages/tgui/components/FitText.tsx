@@ -1,4 +1,10 @@
-import { Component, createRef, HTMLAttributes, PropsWithChildren, RefObject } from 'react';
+import {
+  Component,
+  createRef,
+  HTMLAttributes,
+  PropsWithChildren,
+  RefObject,
+} from 'react';
 
 const DEFAULT_ACCEPTABLE_DIFFERENCE = 5;
 
@@ -56,7 +62,10 @@ export class FitText extends Component<Props, State> {
 
       if (difference > 0) {
         end = middle;
-      } else if (difference < (this.props.acceptableDifference ?? DEFAULT_ACCEPTABLE_DIFFERENCE)) {
+      } else if (
+        difference <
+        (this.props.acceptableDifference ?? DEFAULT_ACCEPTABLE_DIFFERENCE)
+      ) {
         start = middle;
       } else {
         break;
@@ -78,8 +87,11 @@ export class FitText extends Component<Props, State> {
         ref={this.ref}
         style={{
           fontSize: `${this.state.fontSize}px`,
-          ...(typeof this.props.native?.style === 'object' ? this.props.native.style : {}),
-        }}>
+          ...(typeof this.props.native?.style === 'object'
+            ? this.props.native.style
+            : {}),
+        }}
+      >
         {this.props.children}
       </span>
     );

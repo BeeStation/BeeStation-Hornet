@@ -27,7 +27,12 @@ type State = {
 type Point = number[];
 type Range = [number, number];
 
-const normalizeData = (data: Point[], scale: number[], rangeX?: Range, rangeY?: Range) => {
+const normalizeData = (
+  data: Point[],
+  scale: number[],
+  rangeX?: Range,
+  rangeY?: Range,
+) => {
   if (data.length === 0) {
     return [];
   }
@@ -97,7 +102,15 @@ class LineChart extends Component<Props> {
   };
 
   render() {
-    const { data = [], rangeX, rangeY, fillColor = 'none', strokeColor = '#ffffff', strokeWidth = 2, ...rest } = this.props;
+    const {
+      data = [],
+      rangeX,
+      rangeY,
+      fillColor = 'none',
+      strokeColor = '#ffffff',
+      strokeWidth = 2,
+      ...rest
+    } = this.props;
     const { viewBox } = this.state;
     const normalized = normalizeData(data, viewBox, rangeX, rangeY);
     // Push data outside viewBox and form a fillable polygon
@@ -125,7 +138,8 @@ class LineChart extends Component<Props> {
               right: 0,
               bottom: 0,
               overflow: 'hidden',
-            }}>
+            }}
+          >
             <polyline
               transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
               fill={fillColor}

@@ -46,6 +46,6 @@ export const compose = (...funcs) => {
   return funcs.reduce(
     (a, b) =>
       (value, ...rest) =>
-        a(b(value, ...rest), ...rest)
+        a(b(value, ...rest), ...rest),
   );
 };

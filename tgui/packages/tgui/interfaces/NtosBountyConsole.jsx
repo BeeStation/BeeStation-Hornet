@@ -19,7 +19,8 @@ export const NtosBountyConsole = (props) => {
               disabled={!has_printer}
               tooltip={!has_printer && 'No printer found'}
             />
-          }>
+          }
+        >
           <Table border>
             <Table.Row bold italic color="label" fontSize={1.25}>
               <Table.Cell p={1} textAlign="center">
@@ -39,7 +40,12 @@ export const NtosBountyConsole = (props) => {
               </Table.Cell>
             </Table.Row>
             {bountydata.map((bounty) => (
-              <Table.Row key={bounty.name} backgroundColor={bounty.priority === 1 ? 'rgba(252, 152, 3, 0.25)' : ''}>
+              <Table.Row
+                key={bounty.name}
+                backgroundColor={
+                  bounty.priority === 1 ? 'rgba(252, 152, 3, 0.25)' : ''
+                }
+              >
                 <Table.Cell bold p={1}>
                   {bounty.name}
                 </Table.Cell>
@@ -82,7 +88,10 @@ const BountyHeader = (props) => {
   const { stored_cash } = data;
   return (
     <Box inline bold>
-      <AnimatedNumber value={stored_cash} format={(value) => formatMoney(value)} />
+      <AnimatedNumber
+        value={stored_cash}
+        format={(value) => formatMoney(value)}
+      />
       {' credits'}
     </Box>
   );

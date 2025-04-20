@@ -27,7 +27,8 @@ export const OutfitEditor = (props) => {
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
                   textOverflow: 'ellipsis',
-                }}>
+                }}
+              >
                 <Button
                   ml={0.5}
                   color="transparent"
@@ -54,14 +55,17 @@ export const OutfitEditor = (props) => {
                   color={!saveable && 'bad'}
                   icon={saveable ? 'save' : 'trash-alt'}
                   tooltip={
-                    saveable ? 'Save this outfit to the custom outfit list' : 'Remove this outfit from the custom outfit list'
+                    saveable
+                      ? 'Save this outfit to the custom outfit list'
+                      : 'Remove this outfit from the custom outfit list'
                   }
                   tooltipPosition="bottom-start"
                   onClick={() => act(saveable ? 'save' : 'delete')}
                 />
               </Stack.Item>
             </Stack>
-          }>
+          }
+        >
           <Box textAlign="center">
             <Stack mb={2}>
               <OutfitSlot name="Headgear" icon="hard-hat" slot="head" />
@@ -78,7 +82,11 @@ export const OutfitEditor = (props) => {
               <OutfitSlot name="Gloves" icon="mitten" slot="gloves" />
             </Stack>
             <Stack mb={2}>
-              <OutfitSlot name="Suit Storage" icon="briefcase-medical" slot="suit_store" />
+              <OutfitSlot
+                name="Suit Storage"
+                icon="briefcase-medical"
+                slot="suit_store"
+              />
               <OutfitSlot name="Back" icon="shopping-bag" slot="back" />
               <OutfitSlot name="ID" icon="id-card-o" slot="id" />
             </Stack>
@@ -89,8 +97,18 @@ export const OutfitEditor = (props) => {
             </Stack>
             <Stack mb={2}>
               <OutfitSlot name="Shoes" icon="socks" slot="shoes" />
-              <OutfitSlot name="Left Pocket" icon="envelope-open-o" iconRot={180} slot="l_pocket" />
-              <OutfitSlot name="Right Pocket" icon="envelope-open-o" iconRot={180} slot="r_pocket" />
+              <OutfitSlot
+                name="Left Pocket"
+                icon="envelope-open-o"
+                iconRot={180}
+                slot="l_pocket"
+              />
+              <OutfitSlot
+                name="Right Pocket"
+                icon="envelope-open-o"
+                iconRot={180}
+                slot="r_pocket"
+              />
             </Stack>
           </Box>
         </Section>
@@ -111,14 +129,19 @@ const OutfitSlot = (props) => {
         height={2}
         bold
         // todo: intuitive way to clear items
-        onClick={(e) => act(e.ctrlKey ? 'ctrlClick' : 'click', { slot })}>
+        onClick={(e) => act(e.ctrlKey ? 'ctrlClick' : 'click', { slot })}
+      >
         <Icon name={icon} rotation={iconRot} />
         {name}
       </Button>
       <Box height="32px">
         {currItem?.sprite && (
           <>
-            <Box as="img" src={`data:image/jpeg;base64,${currItem?.sprite}`} title={currItem?.desc} />
+            <Box
+              as="img"
+              src={`data:image/jpeg;base64,${currItem?.sprite}`}
+              title={currItem?.desc}
+            />
             <Icon
               position="absolute"
               name="times"
@@ -136,7 +159,8 @@ const OutfitSlot = (props) => {
           whiteSpace: 'nowrap',
           textOverflow: 'ellipsis',
         }}
-        title={currItem?.path}>
+        title={currItem?.path}
+      >
         {currItem?.name || 'Empty'}
       </Box>
     </Stack.Item>

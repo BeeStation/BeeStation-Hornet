@@ -1,7 +1,16 @@
 import { classes } from 'common/react';
 
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Dimmer,
+  Flex,
+  Icon,
+  LabeledList,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 export const PersonalCrafting = (props) => {
@@ -71,14 +80,19 @@ export const PersonalCrafting = (props) => {
           title="Personal Crafting"
           buttons={
             <>
-              <Button.Checkbox content="Compact" checked={display_compact} onClick={() => act('toggle_compact')} />
+              <Button.Checkbox
+                content="Compact"
+                checked={display_compact}
+                onClick={() => act('toggle_compact')}
+              />
               <Button.Checkbox
                 content="Craftable Only"
                 checked={display_craftable_only}
                 onClick={() => act('toggle_recipes')}
               />
             </>
-          }>
+          }
+        >
           <Flex>
             <Flex.Item>
               <Tabs vertical>
@@ -92,7 +106,8 @@ export const PersonalCrafting = (props) => {
                         category: category.category,
                         subcategory: category.subcategory,
                       });
-                    }}>
+                    }}
+                  >
                     {category.name}
                   </Tabs.Tab>
                 ))}
@@ -137,7 +152,9 @@ const CraftingList = (props) => {
               content="Craft"
               style={{ marginTop: '14px' }}
               disabled={!craftability[craftable.ref]}
-              tooltip={craftable.tool_text && 'Tools needed: ' + craftable.tool_text}
+              tooltip={
+                craftable.tool_text && 'Tools needed: ' + craftable.tool_text
+              }
               tooltipPosition="left"
               onClick={() =>
                 act('make', {
@@ -145,7 +162,8 @@ const CraftingList = (props) => {
                 })
               }
             />
-          }>
+          }
+        >
           {craftable.req_text}
         </LabeledList.Item>
       );
@@ -156,7 +174,10 @@ const CraftingList = (props) => {
         key={craftable.name}
         title={
           <>
-            <span style={{ marginRight: '2px' }} className={classes(['crafting42x42', craftable.path])} />
+            <span
+              style={{ marginRight: '2px' }}
+              className={classes(['crafting42x42', craftable.path])}
+            />
             {craftable.name}
           </>
         }
@@ -173,11 +194,24 @@ const CraftingList = (props) => {
               })
             }
           />
-        }>
+        }
+      >
         <LabeledList>
-          {!!craftable.req_text && <LabeledList.Item label="Required">{craftable.req_text}</LabeledList.Item>}
-          {!!craftable.catalyst_text && <LabeledList.Item label="Catalyst">{craftable.catalyst_text}</LabeledList.Item>}
-          {!!craftable.tool_text && <LabeledList.Item label="Tools">{craftable.tool_text}</LabeledList.Item>}
+          {!!craftable.req_text && (
+            <LabeledList.Item label="Required">
+              {craftable.req_text}
+            </LabeledList.Item>
+          )}
+          {!!craftable.catalyst_text && (
+            <LabeledList.Item label="Catalyst">
+              {craftable.catalyst_text}
+            </LabeledList.Item>
+          )}
+          {!!craftable.tool_text && (
+            <LabeledList.Item label="Tools">
+              {craftable.tool_text}
+            </LabeledList.Item>
+          )}
         </LabeledList>
       </Section>
     );

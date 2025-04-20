@@ -7,14 +7,38 @@
 import { toFixed } from 'common/math';
 import { capitalize } from 'common/string';
 import { useDispatch, useLocalState, useSelector } from 'tgui/backend';
-import { Box, Button, Collapsible, ColorBox, Divider, Input, LabeledList, NumberInput, Section, Stack, Tabs, TextArea } from 'tgui/components';
+import {
+  Box,
+  Button,
+  Collapsible,
+  ColorBox,
+  Divider,
+  Input,
+  LabeledList,
+  NumberInput,
+  Section,
+  Stack,
+  Tabs,
+  TextArea,
+} from 'tgui/components';
 
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
-import { addHighlightSetting, changeSettingsTab, removeHighlightSetting, updateHighlightSetting, updateSettings } from './actions';
+import {
+  addHighlightSetting,
+  changeSettingsTab,
+  removeHighlightSetting,
+  updateHighlightSetting,
+  updateSettings,
+} from './actions';
 import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
-import { selectActiveTab, selectHighlightSettingById, selectHighlightSettings, selectSettings } from './selectors';
+import {
+  selectActiveTab,
+  selectHighlightSettingById,
+  selectHighlightSettings,
+  selectSettings,
+} from './selectors';
 
 export const SettingsPanel = (props) => {
   const activeTab = useSelector(selectActiveTab);
@@ -32,9 +56,10 @@ export const SettingsPanel = (props) => {
                   dispatch(
                     changeSettingsTab({
                       tabId: tab.id,
-                    })
+                    }),
                   )
-                }>
+                }
+              >
                 {tab.name}
               </Tabs.Tab>
             ))}
@@ -51,7 +76,8 @@ export const SettingsPanel = (props) => {
 };
 
 export const SettingsGeneral = (props) => {
-  const { theme, fontFamily, highContrast, fontSize, lineHeight, statTabMode } = useSelector(selectSettings);
+  const { theme, fontFamily, highContrast, fontSize, lineHeight, statTabMode } =
+    useSelector(selectSettings);
   const dispatch = useDispatch();
   const [freeFont, setFreeFont] = useLocalState('freeFont', false);
   return (
@@ -68,7 +94,7 @@ export const SettingsGeneral = (props) => {
                 dispatch(
                   updateSettings({
                     theme: THEME,
-                  })
+                  }),
                 )
               }
             />
@@ -89,7 +115,8 @@ export const SettingsGeneral = (props) => {
                       setFreeFont(!freeFont);
                     }}
                   />
-                }>
+                }
+              >
                 {FONTS.map((FONT) => (
                   <Button
                     key={FONT}
@@ -101,7 +128,7 @@ export const SettingsGeneral = (props) => {
                       dispatch(
                         updateSettings({
                           fontFamily: FONT,
-                        })
+                        }),
                       )
                     }
                   />
@@ -116,7 +143,7 @@ export const SettingsGeneral = (props) => {
                     dispatch(
                       updateSettings({
                         fontFamily: value,
-                      })
+                      }),
                     )
                   }
                 />
@@ -140,9 +167,10 @@ export const SettingsGeneral = (props) => {
               dispatch(
                 updateSettings({
                   highContrast: !highContrast,
-                })
+                }),
               )
-            }>
+            }
+          >
             Colored names
           </Button.Checkbox>
         </LabeledList.Item>
@@ -160,7 +188,7 @@ export const SettingsGeneral = (props) => {
               dispatch(
                 updateSettings({
                   fontSize: value,
-                })
+                }),
               )
             }
           />
@@ -178,7 +206,7 @@ export const SettingsGeneral = (props) => {
               dispatch(
                 updateSettings({
                   lineHeight: value,
-                })
+                }),
               )
             }
           />
@@ -192,7 +220,7 @@ export const SettingsGeneral = (props) => {
               dispatch(
                 updateSettings({
                   statTabMode: 'Scroll',
-                })
+                }),
               )
             }
           />
@@ -204,7 +232,7 @@ export const SettingsGeneral = (props) => {
               dispatch(
                 updateSettings({
                   statTabMode: 'Multiline',
-                })
+                }),
               )
             }
           />
@@ -240,7 +268,11 @@ const TextHighlightSettings = (props) => {
     <Section fill scrollable height="250px">
       <Stack vertical>
         {highlightSettings.map((id, i) => (
-          <TextHighlightSetting key={i} id={id} mb={i + 1 === highlightSettings.length ? 0 : '10px'} />
+          <TextHighlightSetting
+            key={i}
+            id={id}
+            mb={i + 1 === highlightSettings.length ? 0 : '10px'}
+          />
         ))}
         {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
           <Stack.Item>
@@ -272,8 +304,15 @@ const TextHighlightSetting = (props) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(selectHighlightSettingById);
   const dispatch = useDispatch();
-  const { enabled, highlightColor, highlightText, highlightSelf, highlightWholeMessage, matchWord, matchCase } =
-    highlightSettingById[id];
+  const {
+    enabled,
+    highlightColor,
+    highlightText,
+    highlightSelf,
+    highlightWholeMessage,
+    matchWord,
+    matchCase,
+  } = highlightSettingById[id];
   return (
     <Stack.Item {...rest}>
       <Stack mb={1} color="label" align="baseline">
@@ -287,7 +326,7 @@ const TextHighlightSetting = (props) => {
                 updateHighlightSetting({
                   id: id,
                   enabled: !enabled,
-                })
+                }),
               )
             }
           />
@@ -299,7 +338,7 @@ const TextHighlightSetting = (props) => {
               dispatch(
                 removeHighlightSetting({
                   id: id,
-                })
+                }),
               )
             }
           />
@@ -315,7 +354,7 @@ const TextHighlightSetting = (props) => {
                 updateHighlightSetting({
                   id: id,
                   highlightWholeMessage: !highlightWholeMessage,
-                })
+                }),
               )
             }
           />
@@ -331,7 +370,7 @@ const TextHighlightSetting = (props) => {
                 updateHighlightSetting({
                   id: id,
                   matchWord: !matchWord,
-                })
+                }),
               )
             }
           />
@@ -346,7 +385,7 @@ const TextHighlightSetting = (props) => {
                 updateHighlightSetting({
                   id: id,
                   matchCase: !matchCase,
-                })
+                }),
               )
             }
           />
@@ -361,7 +400,7 @@ const TextHighlightSetting = (props) => {
                 updateHighlightSetting({
                   id: id,
                   highlightSelf: !highlightSelf,
-                })
+                }),
               )
             }
           />
@@ -378,7 +417,7 @@ const TextHighlightSetting = (props) => {
                 updateHighlightSetting({
                   id: id,
                   highlightColor: value,
-                })
+                }),
               )
             }
           />
@@ -393,7 +432,7 @@ const TextHighlightSetting = (props) => {
             updateHighlightSetting({
               id: id,
               highlightText: value,
-            })
+            }),
           )
         }
       />

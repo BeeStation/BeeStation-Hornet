@@ -3,7 +3,11 @@ import { storeChat, windowClose } from '../helpers';
 import { Modal } from '../types';
 
 /** User presses enter. Closes if no value. */
-export const handleEnter = function (this: Modal, event: KeyboardEvent, value: string) {
+export const handleEnter = function (
+  this: Modal,
+  event: KeyboardEvent,
+  value: string,
+) {
   const { channel } = this.state;
   const { maxLength, radioPrefix, showRadioPrefix } = this.fields;
   event.preventDefault();

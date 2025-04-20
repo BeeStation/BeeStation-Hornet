@@ -1,5 +1,15 @@
 import { useBackend } from '../backend';
-import { AnimatedNumber, BlockQuote, Box, Button, Collapsible, Icon, ProgressBar, Section, Tabs } from '../components';
+import {
+  AnimatedNumber,
+  BlockQuote,
+  Box,
+  Button,
+  Collapsible,
+  Icon,
+  ProgressBar,
+  Section,
+  Tabs,
+} from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -17,7 +27,8 @@ export const XenoartifactConsole = (props) => {
               average: [0.25, 0.5],
               bad: [-Infinity, 0.25],
             }}
-            value={stability * 0.01}>
+            value={stability * 0.01}
+          >
             Thread stability
           </ProgressBar>
           <Section
@@ -25,10 +36,14 @@ export const XenoartifactConsole = (props) => {
             fluid
             buttons={
               <Box fontFamily="verdana" inline bold>
-                <AnimatedNumber value={points} format={(value) => formatMoney(value)} />
+                <AnimatedNumber
+                  value={points}
+                  format={(value) => formatMoney(value)}
+                />
                 {' credits'}
               </Box>
-            }>
+            }
+          >
             <BlockQuote>{`${tab_info}`}</BlockQuote>
           </Section>
           <Tabs row>
@@ -60,7 +75,10 @@ const XenoartifactConsoleTabs = (props) => {
   const { tab_name } = props;
   return (
     <Box>
-      <Tabs.Tab selected={current_tab === tab_name} onClick={() => act(`set_tab_${tab_name}`)}>
+      <Tabs.Tab
+        selected={current_tab === tab_name}
+        onClick={() => act(`set_tab_${tab_name}`)}
+      >
         {`${tab_name}`}
       </Tabs.Tab>
     </Box>

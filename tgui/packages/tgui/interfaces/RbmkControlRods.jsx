@@ -31,7 +31,8 @@ export const RbmkControlRods = (props) => {
               good: [-Infinity, 0.4],
               average: [0.4, 0.6],
               bad: [0.6, Infinity],
-            }}>
+            }}
+          >
             {k}
           </ProgressBar>
           <br />

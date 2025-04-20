@@ -7,7 +7,14 @@
 import { classes } from 'common/react';
 import { RefObject } from 'react';
 
-import { FlexItemProps, FlexProps, computeFlexClassName, computeFlexItemClassName, computeFlexItemProps, computeFlexProps } from './Flex';
+import {
+  FlexItemProps,
+  FlexProps,
+  computeFlexClassName,
+  computeFlexItemClassName,
+  computeFlexItemProps,
+  computeFlexProps,
+} from './Flex';
 
 type Props = Partial<{
   vertical: boolean;
@@ -43,7 +50,11 @@ const StackItem = (props: StackItemProps) => {
   const { className, innerRef, ...rest } = props;
   return (
     <div
-      className={classes(['Stack__item', className, computeFlexItemClassName(rest)])}
+      className={classes([
+        'Stack__item',
+        className,
+        computeFlexItemClassName(rest),
+      ])}
       ref={innerRef}
       {...computeFlexItemProps(rest)}
     />

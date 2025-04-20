@@ -19,7 +19,9 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
   if (!value || !value.length) {
     return String(minimum);
   }
-  let parsedValue = allowFloats ? parseFloat(value.replace(/[^\-\d.]/g, '')) : parseInt(value.replace(/[^\-\d]/g, ''), 10);
+  let parsedValue = allowFloats
+    ? parseFloat(value.replace(/[^\-\d.]/g, ''))
+    : parseInt(value.replace(/[^\-\d]/g, ''), 10);
   if (isNaN(parsedValue)) {
     return String(minimum);
   } else {
@@ -65,7 +67,12 @@ export class RestrictedInput extends Component {
     this.handleKeyDown = (e) => {
       const { maxValue, minValue, onChange, onEnter, allowFloats } = this.props;
       if (e.key === KEY.Enter) {
-        const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
+        const safeNum = getClampedNumber(
+          e.target.value,
+          minValue,
+          maxValue,
+          allowFloats,
+        );
         e.target.value = safeNum;
         this.setEditing(false);
         if (onChange) {
@@ -95,7 +102,12 @@ export class RestrictedInput extends Component {
     const nextValue = this.props.value?.toString();
     const input = this.inputRef.current;
     if (input) {
-      input.value = getClampedNumber(nextValue, minValue, maxValue, allowFloats);
+      input.value = getClampedNumber(
+        nextValue,
+        minValue,
+        maxValue,
+        allowFloats,
+      );
     }
     if (this.props.autoFocus || this.props.autoSelect) {
       setTimeout(() => {
@@ -117,7 +129,15 @@ export class RestrictedInput extends Component {
     const { onChange, onEnter, onInput, value, ...boxProps } = props;
     const { className, fluid, monospace, ...rest } = boxProps;
     return (
-      <Box className={classes(['Input', fluid && 'Input--fluid', monospace && 'Input--monospace', className])} {...rest}>
+      <Box
+        className={classes([
+          'Input',
+          fluid && 'Input--fluid',
+          monospace && 'Input--monospace',
+          className,
+        ])}
+        {...rest}
+      >
         <div className="Input__baseline">.</div>
         <input
           className="Input__input"

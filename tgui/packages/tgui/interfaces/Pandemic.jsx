@@ -1,5 +1,14 @@
 import { useBackend } from '../backend';
-import { Box, Button, Collapsible, Grid, Input, LabeledList, NoticeBox, Section } from '../components';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Grid,
+  Input,
+  LabeledList,
+  NoticeBox,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const PandemicBeakerDisplay = (props) => {
@@ -21,16 +30,31 @@ export const PandemicBeakerDisplay = (props) => {
             disabled={cant_empty}
             onClick={() => act('empty_eject_beaker')}
           />
-          <Button icon="trash" content="Empty" disabled={cant_empty} onClick={() => act('empty_beaker')} />
-          <Button icon="eject" content="Eject" disabled={!has_beaker} onClick={() => act('eject_beaker')} />
+          <Button
+            icon="trash"
+            content="Empty"
+            disabled={cant_empty}
+            onClick={() => act('empty_beaker')}
+          />
+          <Button
+            icon="eject"
+            content="Eject"
+            disabled={!has_beaker}
+            onClick={() => act('eject_beaker')}
+          />
         </>
-      }>
+      }
+    >
       {has_beaker ? (
         !beaker_empty ? (
           has_blood ? (
             <LabeledList>
-              <LabeledList.Item label="Blood DNA">{(blood && blood.dna) || 'Unknown'}</LabeledList.Item>
-              <LabeledList.Item label="Blood Type">{(blood && blood.type) || 'Unknown'}</LabeledList.Item>
+              <LabeledList.Item label="Blood DNA">
+                {(blood && blood.dna) || 'Unknown'}
+              </LabeledList.Item>
+              <LabeledList.Item label="Blood Type">
+                {(blood && blood.type) || 'Unknown'}
+              </LabeledList.Item>
             </LabeledList>
           ) : (
             <Box color="bad">No blood detected</Box>
@@ -83,7 +107,8 @@ export const PandemicDiseaseDisplay = (props) => {
               })
             }
           />
-        }>
+        }
+      >
         <Grid>
           <Grid.Column>{virus.description}</Grid.Column>
           <Grid.Column>
@@ -91,7 +116,9 @@ export const PandemicDiseaseDisplay = (props) => {
               <LabeledList.Item label="Agent">{virus.agent}</LabeledList.Item>
               <LabeledList.Item label="Spread">{virus.spread}</LabeledList.Item>
               <LabeledList.Item label="Danger">{virus.danger}</LabeledList.Item>
-              <LabeledList.Item label="Possible Cure">{virus.cure}</LabeledList.Item>
+              <LabeledList.Item label="Possible Cure">
+                {virus.cure}
+              </LabeledList.Item>
             </LabeledList>
           </Grid.Column>
         </Grid>
@@ -101,15 +128,25 @@ export const PandemicDiseaseDisplay = (props) => {
               <Grid>
                 <Grid.Column>
                   <LabeledList>
-                    <LabeledList.Item label="Resistance">{virus.resistance}</LabeledList.Item>
-                    <LabeledList.Item label="Stealth">{virus.stealth}</LabeledList.Item>
+                    <LabeledList.Item label="Resistance">
+                      {virus.resistance}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Stealth">
+                      {virus.stealth}
+                    </LabeledList.Item>
                   </LabeledList>
                 </Grid.Column>
                 <Grid.Column>
                   <LabeledList>
-                    <LabeledList.Item label="Stage speed">{virus.stage_speed}</LabeledList.Item>
-                    <LabeledList.Item label="Transmissibility">{virus.transmission}</LabeledList.Item>
-                    <LabeledList.Item label="Severity">{virus.symptom_severity}</LabeledList.Item>
+                    <LabeledList.Item label="Stage speed">
+                      {virus.stage_speed}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Transmissibility">
+                      {virus.transmission}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Severity">
+                      {virus.symptom_severity}
+                    </LabeledList.Item>
                   </LabeledList>
                 </Grid.Column>
               </Grid>
@@ -132,7 +169,17 @@ export const PandemicDiseaseDisplay = (props) => {
 
 export const PandemicSymptomDisplay = (props) => {
   const { symptom } = props;
-  const { name, desc, stealth, resistance, stage_speed, transmission, severity, level, neutered } = symptom;
+  const {
+    name,
+    desc,
+    stealth,
+    resistance,
+    stage_speed,
+    transmission,
+    severity,
+    level,
+    neutered,
+  } = symptom;
 
   // TODO: Needs proper porting of DM code from tg upstream.
   const thresholds_unsafe = symptom.threshold_desc;
@@ -147,7 +194,8 @@ export const PandemicSymptomDisplay = (props) => {
             Neutered
           </Box>
         )
-      }>
+      }
+    >
       <Grid>
         <Grid.Column size={2}>{desc}</Grid.Column>
         <Grid.Column>
@@ -155,8 +203,12 @@ export const PandemicSymptomDisplay = (props) => {
             <LabeledList.Item label="Level">{level}</LabeledList.Item>
             <LabeledList.Item label="Resistance">{resistance}</LabeledList.Item>
             <LabeledList.Item label="Stealth">{stealth}</LabeledList.Item>
-            <LabeledList.Item label="Stage Speed">{stage_speed}</LabeledList.Item>
-            <LabeledList.Item label="Transmission">{transmission}</LabeledList.Item>
+            <LabeledList.Item label="Stage Speed">
+              {stage_speed}
+            </LabeledList.Item>
+            <LabeledList.Item label="Transmission">
+              {transmission}
+            </LabeledList.Item>
             <LabeledList.Item label="Severity">{severity}</LabeledList.Item>
           </LabeledList>
         </Grid.Column>

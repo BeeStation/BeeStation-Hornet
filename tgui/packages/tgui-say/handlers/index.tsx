@@ -7,7 +7,10 @@ import { handleComponentUpdate } from './componentUpdate';
 import { handleEnter } from './enter';
 import { handleEscape } from './escape';
 import { handleForce } from './force';
-import { handleDecrementChannel, handleIncrementChannel } from './incrementChannel';
+import {
+  handleDecrementChannel,
+  handleIncrementChannel,
+} from './incrementChannel';
 import { handleInput } from './input';
 import { handleKeyDown } from './keyDown';
 import { handleRadioPrefix } from './radioPrefix';

@@ -13,7 +13,8 @@ export const MiningVendor = (props) => {
         <Section title="User">
           {((data.user.access_valid || data.user.observer) && (
             <Box>
-              Welcome, <b>{data.user.name || 'Unknown'}</b>, <b>{data.user.job || 'Unemployed'}</b>!
+              Welcome, <b>{data.user.name || 'Unknown'}</b>,{' '}
+              <b>{data.user.job || 'Unemployed'}</b>!
               <br />
               Your balance is{' '}
               <b>
@@ -56,11 +57,15 @@ export const MiningVendor = (props) => {
                         minWidth: '95px',
                         textAlign: 'center',
                       }}
-                      disabled={!data.user.access_valid || data.user.observer || product.price > data.user.points}
+                      disabled={
+                        !data.user.access_valid ||
+                        data.user.observer ||
+                        product.price > data.user.points
+                      }
                       content={product.price + ' points'}
                       onClick={() =>
                         act('purchase', {
-                          'ref': product.ref,
+                          ref: product.ref,
                         })
                       }
                     />

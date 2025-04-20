@@ -1,7 +1,15 @@
 import { toFixed } from 'common/math';
 
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, LabeledList, ProgressBar, Section, Table } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 export const Sleeper = (props) => {
@@ -48,7 +56,8 @@ export const Sleeper = (props) => {
                 {occupant.stat}
               </Box>
             )
-          }>
+          }
+        >
           {!!occupied && (
             <>
               <ProgressBar
@@ -73,10 +82,16 @@ export const Sleeper = (props) => {
                     />
                   </LabeledList.Item>
                 ))}
-                <LabeledList.Item label="Cells" color={occupant.cloneLoss ? 'bad' : 'good'}>
+                <LabeledList.Item
+                  label="Cells"
+                  color={occupant.cloneLoss ? 'bad' : 'good'}
+                >
                   {occupant.cloneLoss ? 'Damaged' : 'Healthy'}
                 </LabeledList.Item>
-                <LabeledList.Item label="Brain" color={occupant.brainLoss ? 'bad' : 'good'}>
+                <LabeledList.Item
+                  label="Brain"
+                  color={occupant.brainLoss ? 'bad' : 'good'}
+                >
                   {occupant.brainLoss ? 'Abnormal' : 'Healthy'}
                 </LabeledList.Item>
                 <LabeledList.Item label="Reagents">
@@ -84,7 +99,10 @@ export const Sleeper = (props) => {
                     {occupant.reagents.length === 0 && '—'}
                     {occupant.reagents.map((chemical) => (
                       <Box key={chemical.name}>
-                        <AnimatedNumber value={chemical.volume} format={(value) => toFixed(value, 1)} />
+                        <AnimatedNumber
+                          value={chemical.volume}
+                          format={(value) => toFixed(value, 1)}
+                        />
                         {` units of ${chemical.name}`}
                       </Box>
                     ))}
@@ -98,8 +116,13 @@ export const Sleeper = (props) => {
           title="Medicines"
           minHeight="205px"
           buttons={
-            <Button icon={open ? 'door-open' : 'door-closed'} content={open ? 'Open' : 'Closed'} onClick={() => act('door')} />
-          }>
+            <Button
+              icon={open ? 'door-open' : 'door-closed'}
+              content={open ? 'Open' : 'Closed'}
+              onClick={() => act('door')}
+            />
+          }
+        >
           <Table>
             <style>
               {`

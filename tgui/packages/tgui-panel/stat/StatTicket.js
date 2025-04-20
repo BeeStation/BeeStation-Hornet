@@ -9,7 +9,11 @@ export const StatTicket = (props) => {
   const stat = useSelector(selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData) {
-    return <Box color="red">Passed stat panel data was null, contact coderperson.</Box>;
+    return (
+      <Box color="red">
+        Passed stat panel data was null, contact coderperson.
+      </Box>
+    );
   }
   return (
     <Box>
@@ -38,7 +42,10 @@ export const StatTicketChat = (props) => {
                 <Box>
                   <Box inline bold>
                     {message.from && message.to
-                      ? 'PM from ' + decodeHtmlEntities(message.from) + ' to ' + decodeHtmlEntities(message.to)
+                      ? 'PM from ' +
+                        decodeHtmlEntities(message.from) +
+                        ' to ' +
+                        decodeHtmlEntities(message.to)
                       : decodeHtmlEntities(message.from)
                         ? 'Reply PM from ' + decodeHtmlEntities(message.from)
                         : decodeHtmlEntities(message.to)

@@ -3,7 +3,17 @@ import { flow } from 'common/fp';
 import { scale, toFixed } from 'common/math';
 
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, LabeledList, NoticeBox, ProgressBar, Section, Stack, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Stack,
+  Tabs,
+} from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosNetDownloader = (props) => {
@@ -21,20 +31,28 @@ export const NtosNetDownloader = (props) => {
     programs,
   } = data;
   const all_categories = ['All'].concat(categories);
-  const downloadpercentage = toFixed(scale(downloadcompletion, 0, downloadsize) * 100);
-  const [selectedCategory, setSelectedCategory] = useLocalState('category', all_categories[0]);
+  const downloadpercentage = toFixed(
+    scale(downloadcompletion, 0, downloadsize) * 100,
+  );
+  const [selectedCategory, setSelectedCategory] = useLocalState(
+    'category',
+    all_categories[0],
+  );
   const items = flow([
     // This filters the list to only contain programs with category
-    selectedCategory !== all_categories[0] && filter((program) => program.category === selectedCategory),
+    selectedCategory !== all_categories[0] &&
+      filter((program) => program.category === selectedCategory),
     // This filters the list to only contain verified programs
     !emagged && filter((program) => program.verifiedsource === 1),
     // This sorts all programs in the lists by name and compatibility
     sortBy(
       (program) => -program.compatible,
-      (program) => program.filedesc
+      (program) => program.filedesc,
     ),
   ])(programs);
-  const disk_free_space = downloading ? disk_size - toFixed(disk_used + downloadcompletion) : disk_size - disk_used;
+  const disk_free_space = downloading
+    ? disk_size - toFixed(disk_used + downloadcompletion)
+    : disk_size - disk_used;
   return (
     <NtosWindow width={600} height={600}>
       <NtosWindow.Content scrollable>
@@ -54,14 +72,27 @@ export const NtosNetDownloader = (props) => {
                     icon="spinner"
                     iconSpin={1}
                     tooltipPosition="left"
-                    tooltip={!!downloading && `Download: ${downloadname}.prg (${downloadpercentage}%)`}
+                    tooltip={
+                      !!downloading &&
+                      `Download: ${downloadname}.prg (${downloadpercentage}%)`
+                    }
                   />
                 )) ||
                 (!!downloadname && (
-                  <Button color="good" icon="download" tooltipPosition="left" tooltip={`${downloadname}.prg downloaded`} />
+                  <Button
+                    color="good"
+                    icon="download"
+                    tooltipPosition="left"
+                    tooltip={`${downloadname}.prg downloaded`}
+                  />
                 ))
-              }>
-              <ProgressBar value={downloading ? disk_used + downloadcompletion : disk_used} minValue={0} maxValue={disk_size}>
+              }
+            >
+              <ProgressBar
+                value={downloading ? disk_used + downloadcompletion : disk_used}
+                minValue={0}
+                maxValue={disk_size}
+              >
                 <Box textAlign="left">{`${disk_free_space} GQ free of ${disk_size} GQ`}</Box>
               </ProgressBar>
             </LabeledList.Item>
@@ -71,7 +102,11 @@ export const NtosNetDownloader = (props) => {
           <Stack.Item minWidth="105px" shrink={0} basis={0}>
             <Tabs vertical>
               {all_categories.map((category) => (
-                <Tabs.Tab key={category} selected={category === selectedCategory} onClick={() => setSelectedCategory(category)}>
+                <Tabs.Tab
+                  key={category}
+                  selected={category === selectedCategory}
+                  onClick={() => setSelectedCategory(category)}
+                >
                   {category}
                 </Tabs.Tab>
               ))}
@@ -91,7 +126,15 @@ export const NtosNetDownloader = (props) => {
 const Program = (props) => {
   const { program } = props;
   const { act, data } = useBackend();
-  const { disk_size, disk_used, downloading, downloadname, downloadcompletion, emagged, id_inserted } = data;
+  const {
+    disk_size,
+    disk_used,
+    downloading,
+    downloadname,
+    downloadcompletion,
+    emagged,
+    id_inserted,
+  } = data;
   const disk_free = disk_size - disk_used;
   return (
     <Section>
@@ -100,7 +143,13 @@ const Program = (props) => {
           <Icon name={program.icon} mr={1} />
           {program.filedesc}
         </Stack.Item>
-        <Stack.Item shrink={0} width="48px" textAlign="right" color="label" nowrap>
+        <Stack.Item
+          shrink={0}
+          width="48px"
+          textAlign="right"
+          color="label"
+          nowrap
+        >
           {program.size} GQ
         </Stack.Item>
         <Stack.Item shrink={0} width="134px" textAlign="right">
@@ -114,25 +163,34 @@ const Program = (props) => {
               value={downloadcompletion}
             />
           )) ||
-            (!program.installed && program.compatible && program.access && program.size < disk_free && (
-              <Button
-                bold
-                icon="download"
-                content="Download"
-                disabled={downloading}
-                tooltipPosition="left"
-                tooltip={!!downloading && 'Awaiting download completion...'}
-                onClick={() =>
-                  act('PRG_downloadfile', {
-                    filename: program.filename,
-                  })
-                }
-              />
-            )) || (
+            (!program.installed &&
+              program.compatible &&
+              program.access &&
+              program.size < disk_free && (
+                <Button
+                  bold
+                  icon="download"
+                  content="Download"
+                  disabled={downloading}
+                  tooltipPosition="left"
+                  tooltip={!!downloading && 'Awaiting download completion...'}
+                  onClick={() =>
+                    act('PRG_downloadfile', {
+                      filename: program.filename,
+                    })
+                  }
+                />
+              )) || (
               <Button
                 bold
                 icon={program.installed ? 'check' : 'times'}
-                color={program.installed ? 'good' : !program.compatible ? 'bad' : null}
+                color={
+                  program.installed
+                    ? 'good'
+                    : !program.compatible
+                      ? 'bad'
+                      : null
+                }
                 disabled={!program.installed && program.compatible}
                 content={
                   program.installed
@@ -154,8 +212,8 @@ const Program = (props) => {
       </Box>
       {!program.verifiedsource && !emagged && (
         <NoticeBox mt={1} mb={0} danger fontSize="12px">
-          Unverified source. Please note that Nanotrasen does not recommend download and usage of software from non-official
-          servers.
+          Unverified source. Please note that Nanotrasen does not recommend
+          download and usage of software from non-official servers.
         </NoticeBox>
       )}
     </Section>

@@ -1,7 +1,24 @@
 import { useLocalState } from 'tgui/backend';
-import { Box, Button, Flex, Icon, Input, Popper, Section, Stack, TrackOutsideClicks } from 'tgui/components';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  Popper,
+  Section,
+  Stack,
+  TrackOutsideClicks,
+} from 'tgui/components';
 
-import { CheckboxInput, Feature, FeatureChoicedServerData, FeatureColorInput, FeatureToggle, FeatureValueProps } from '../base';
+import {
+  CheckboxInput,
+  Feature,
+  FeatureChoicedServerData,
+  FeatureColorInput,
+  FeatureToggle,
+  FeatureValueProps,
+} from '../base';
 
 export const asaycolor: Feature<string> = {
   name: 'Admin chat color',
@@ -19,10 +36,14 @@ export const brief_outfit: Feature<string> = {
   description: 'The outfit to gain when spawning as the briefing officer.',
   important: true,
   component: (
-    props: FeatureValueProps<string, string, FeatureChoicedServerData & { outfit_names: Record<string, string> }> & {
+    props: FeatureValueProps<
+      string,
+      string,
+      FeatureChoicedServerData & { outfit_names: Record<string, string> }
+    > & {
       disabled?: boolean;
       buttons?: boolean;
-    }
+    },
   ) => {
     const serverData = props.serverData;
     if (!serverData) {
@@ -30,7 +51,10 @@ export const brief_outfit: Feature<string> = {
     }
 
     let [isOpen, setOpen] = useLocalState('brief_outfit_pref_open', false);
-    let [searchText, setSearchText] = useLocalState('brief_outfit_pref_search_text', '');
+    let [searchText, setSearchText] = useLocalState(
+      'brief_outfit_pref_search_text',
+      '',
+    );
     const handleCloseInternal = () => {
       setOpen(false);
       setSearchText('');
@@ -58,14 +82,23 @@ export const brief_outfit: Feature<string> = {
         }}
         popperContent={
           isOpen ? (
-            <TrackOutsideClicks onOutsideClick={handleCloseInternal} removeOnOutsideClick>
+            <TrackOutsideClicks
+              onOutsideClick={handleCloseInternal}
+              removeOnOutsideClick
+            >
               <Box
                 className="theme-generic-yellow"
                 style={{
                   height: `250px`,
                   width: `400px`,
-                }}>
-                <Box className="PopupWindow" style={{ 'padding': '5px' }} width="100%" height="100%">
+                }}
+              >
+                <Box
+                  className="PopupWindow"
+                  style={{ padding: '5px' }}
+                  width="100%"
+                  height="100%"
+                >
                   <Section>
                     <Box>
                       <Icon mr={1} name="search" />
@@ -85,12 +118,21 @@ export const brief_outfit: Feature<string> = {
                           (choice) =>
                             searchText.length <= 1 ||
                             choice.includes(searchText) ||
-                            serverData.outfit_names[choice]?.includes(searchText)
+                            serverData.outfit_names[choice]?.includes(
+                              searchText,
+                            ),
                         )
                         .map((choice) => {
-                          const shortChoice = choice.replace('/datum/outfit/', '');
+                          const shortChoice = choice.replace(
+                            '/datum/outfit/',
+                            '',
+                          );
                           return (
-                            <Stack.Item key={shortChoice} className="candystripe" p={1}>
+                            <Stack.Item
+                              key={shortChoice}
+                              className="candystripe"
+                              p={1}
+                            >
                               <Flex fill>
                                 <Flex.Item grow>
                                   <Box>
@@ -104,7 +146,8 @@ export const brief_outfit: Feature<string> = {
                                     onClick={() => {
                                       props.handleSetValue(choice);
                                       handleCloseInternal();
-                                    }}>
+                                    }}
+                                  >
                                     Select
                                   </Button>
                                 </Flex.Item>
@@ -120,7 +163,8 @@ export const brief_outfit: Feature<string> = {
           ) : (
             <> </>
           )
-        }>
+        }
+      >
         <Flex pr={2}>
           <Flex.Item grow>
             {props.value ? (
@@ -145,7 +189,8 @@ export const brief_outfit: Feature<string> = {
                 } else {
                   setOpen(true);
                 }
-              }}>
+              }}
+            >
               Change
             </Button>
           </Flex.Item>

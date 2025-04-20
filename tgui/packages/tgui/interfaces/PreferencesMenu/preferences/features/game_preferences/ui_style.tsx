@@ -1,9 +1,18 @@
 import { classes } from 'common/react';
 
 import { Box, Dropdown, Stack } from '../../../../../components';
-import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureToggle, FeatureValueProps, sortChoices } from '../base';
+import {
+  CheckboxInput,
+  FeatureChoiced,
+  FeatureChoicedServerData,
+  FeatureToggle,
+  FeatureValueProps,
+  sortChoices,
+} from '../base';
 
-const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
+const UIStyleInput = (
+  props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+) => {
   const { serverData, value } = props;
   if (!serverData) {
     return null;
@@ -35,7 +44,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
           </Stack.Item>
         </Stack>,
       ];
-    })
+    }),
   );
 
   return (
@@ -48,12 +57,14 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
       onSelected={props.handleSetValue}
       width="100%"
       displayHeight="32px"
-      options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
-        return {
-          displayText: label,
-          value: dataValue,
-        };
-      })}
+      options={sortChoices(Object.entries(choices)).map(
+        ([dataValue, label]) => {
+          return {
+            displayText: label,
+            value: dataValue,
+          };
+        },
+      )}
     />
   );
 };

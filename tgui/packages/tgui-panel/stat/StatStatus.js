@@ -29,7 +29,8 @@ export const StatStatus = (props) => {
               </Flex.Item>
               <Flex.Item mt={2}>
                 <Box className="deadsay">
-                  Don&#39;t worry, you can still get back into the game if your body is revived or through ghost roles.
+                  Don&#39;t worry, you can still get back into the game if your
+                  body is revived or through ghost roles.
                 </Box>
               </Flex.Item>
             </div>
@@ -104,7 +105,11 @@ export const StatStatus = (props) => {
                   <Button
                     content="Start"
                     color="transparent"
-                    onClick={(e) => Byond.sendMessage('stat/pressed', { action_id: 'start_br' })}
+                    onClick={(e) =>
+                      Byond.sendMessage('stat/pressed', {
+                        action_id: 'start_br',
+                      })
+                    }
                   />
                   <Box inline>
                     <Button

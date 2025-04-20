@@ -20,7 +20,7 @@ const QuirkList = (props: {
     string,
     Quirk & {
       failTooltip?: string;
-    }
+    },
   ][];
   onClick: (quirkName: string, quirk: Quirk) => void;
 }) => {
@@ -41,7 +41,8 @@ const QuirkList = (props: {
             tabIndex="1"
             onClick={() => {
               props.onClick(quirkKey, quirk);
-            }}>
+            }}
+          >
             <Stack fill>
               <Stack.Item
                 align="center"
@@ -49,8 +50,11 @@ const QuirkList = (props: {
                   minWidth: '15%',
                   maxWidth: '15%',
                   textAlign: 'center',
-                }}>
-                {quirk.icon && <Icon color="#333" fontSize={3} name={quirk.icon} />}
+                }}
+              >
+                {quirk.icon && (
+                  <Icon color="#333" fontSize={3} name={quirk.icon} />
+                )}
               </Stack.Item>
 
               <Stack.Item
@@ -67,19 +71,22 @@ const QuirkList = (props: {
                 style={{
                   // Fixes an IE bug for text overflowing in Flex boxes
                   minWidth: '0%',
-                }}>
+                }}
+              >
                 <Stack vertical fill>
                   <Stack.Item
                     className={`${className}--${getValueClass(quirk.value)}`}
                     style={{
                       borderBottom: '1px solid black',
                       padding: '2px',
-                    }}>
+                    }}
+                  >
                     <Stack
                       fill
                       style={{
                         fontSize: '1.2em',
-                      }}>
+                      }}
+                    >
                       <Stack.Item grow basis="content">
                         <b>{quirk.name}</b>
                       </Stack.Item>
@@ -92,7 +99,8 @@ const QuirkList = (props: {
                     mt={0}
                     style={{
                       padding: '3px',
-                    }}>
+                    }}
+                  >
                     {quirk.description}
                   </Stack.Item>
                 </Stack>
@@ -117,7 +125,14 @@ const QuirkList = (props: {
 
 const StatDisplay = (props) => {
   return (
-    <Box backgroundColor="#eee" bold color="black" fontSize="1.2em" px={3} py={0.5}>
+    <Box
+      backgroundColor="#eee"
+      bold
+      color="black"
+      fontSize="1.2em"
+      px={3}
+      py={0.5}
+    >
       {props.children}
     </Box>
   );
@@ -126,7 +141,10 @@ const StatDisplay = (props) => {
 export const QuirksPage = (props) => {
   const { act, data } = useBackend<PreferencesMenuData>();
 
-  const [selectedQuirks, setSelectedQuirks] = useLocalState(`selectedQuirks_${data.active_slot}`, data.selected_quirks);
+  const [selectedQuirks, setSelectedQuirks] = useLocalState(
+    `selectedQuirks_${data.active_slot}`,
+    data.selected_quirks,
+  );
 
   return (
     <ServerPreferencesFetcher
@@ -135,7 +153,11 @@ export const QuirksPage = (props) => {
           return <Box>Loading quirks...</Box>;
         }
 
-        const { max_positive_quirks: maxPositiveQuirks, quirk_blacklist: quirkBlacklist, quirk_info: quirkInfo } = data.quirks;
+        const {
+          max_positive_quirks: maxPositiveQuirks,
+          quirk_blacklist: quirkBlacklist,
+          quirk_info: quirkInfo,
+        } = data.quirks;
 
         const quirks = Object.entries(quirkInfo);
         quirks.sort(([_, quirkA], [__, quirkB]) => {
@@ -178,7 +200,10 @@ export const QuirksPage = (props) => {
             }
 
             for (const incompatibleQuirk of blacklist) {
-              if (incompatibleQuirk !== quirk.name && selectedQuirkNames.indexOf(incompatibleQuirk) !== -1) {
+              if (
+                incompatibleQuirk !== quirk.name &&
+                selectedQuirkNames.indexOf(incompatibleQuirk) !== -1
+              ) {
                 return `This is incompatible with ${incompatibleQuirk}!`;
               }
             }
@@ -252,7 +277,11 @@ export const QuirksPage = (props) => {
                 <Stack.Item grow width="100%">
                   <QuirkList
                     onClick={(quirkName, quirk) => {
-                      setSelectedQuirks(selectedQuirks.filter((otherQuirk) => quirkName !== otherQuirk));
+                      setSelectedQuirks(
+                        selectedQuirks.filter(
+                          (otherQuirk) => quirkName !== otherQuirk,
+                        ),
+                      );
 
                       act('remove_quirk', { quirk: quirk.name });
                     }}

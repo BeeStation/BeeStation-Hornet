@@ -50,7 +50,10 @@
     align-items: center;
     border-radius: 4px;
     border: 1px solid colors.$primary;
-    transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+    transition:
+      background-color 0.3s,
+      box-shadow 0.3s,
+      border-color 0.3s;
     min-width: 0%;
     max-width: 100%;
 
@@ -85,11 +88,19 @@
         background-color: color.adjust(colors.$good, $alpha: -0.3);
 
         &.unfavourited {
-          background-color: color.adjust(colors.$good, $saturation: -10%, $alpha: -0.3);
+          background-color: color.adjust(
+            colors.$good,
+            $saturation: -10%,
+            $alpha: -0.3
+          );
         }
 
         &:hover {
-          background-color: color.adjust(colors.$good, $lightness: 30%, $alpha: -0.3);
+          background-color: color.adjust(
+            colors.$good,
+            $lightness: 30%,
+            $alpha: -0.3
+          );
         }
       }
     }
@@ -104,11 +115,19 @@
       transition: background-color 0.3s;
 
       &.unfavourited {
-        background-color: color.adjust(colors.$primary, $saturation: -10%, $alpha: -0.3);
+        background-color: color.adjust(
+          colors.$primary,
+          $saturation: -10%,
+          $alpha: -0.3
+        );
       }
 
       &:hover {
-        background-color: color.adjust(colors.$primary, $lightness: 30%, $alpha: -0.3);
+        background-color: color.adjust(
+          colors.$primary,
+          $lightness: 30%,
+          $alpha: -0.3
+        );
       }
     }
   }

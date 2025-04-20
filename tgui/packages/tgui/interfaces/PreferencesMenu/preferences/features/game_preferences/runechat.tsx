@@ -1,4 +1,11 @@
-import { CheckboxInput, Feature, FeatureButtonedDropdownInput, FeatureNumberInput, FeatureNumeric, FeatureToggle } from '../base';
+import {
+  CheckboxInput,
+  Feature,
+  FeatureButtonedDropdownInput,
+  FeatureNumberInput,
+  FeatureNumeric,
+  FeatureToggle,
+} from '../base';
 
 export const chat_on_map: FeatureToggle = {
   name: 'Enable Runechat',

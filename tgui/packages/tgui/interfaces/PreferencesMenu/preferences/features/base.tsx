@@ -1,17 +1,30 @@
 import { sortBy, sortStrings } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
-import { ComponentType, ReactNode, createElement } from 'react';
+import { ComponentType, createElement, ReactNode } from 'react';
 import { DropdownPartialProps } from 'tgui/components/Dropdown';
 
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
-import { Box, Button, Dropdown, Flex, Input, NumberInput, Stack, Tooltip } from '../../../../components';
-import { PreferencesMenuData, createSetPreference } from '../../data';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Flex,
+  Input,
+  NumberInput,
+  Stack,
+  Tooltip,
+} from '../../../../components';
+import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 
 export const sortChoices = sortBy<[string, ReactNode]>(([name]) => name);
 
-export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = {
+export type Feature<
+  TReceiving,
+  TSending = TReceiving,
+  TServerData = unknown,
+> = {
   name: string;
   component: FeatureValue<TReceiving, TSending, TServerData>;
   category?: string;
@@ -29,11 +42,17 @@ export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = 
  * TSending = The type you will be sending
  * TServerData = The data the server sends through preferences.json
  */
-type FeatureValue<TReceiving, TSending = TReceiving, TServerData = unknown> = ComponentType<
-  FeatureValueProps<TReceiving, TSending, TServerData>
->;
+type FeatureValue<
+  TReceiving,
+  TSending = TReceiving,
+  TServerData = unknown,
+> = ComponentType<FeatureValueProps<TReceiving, TSending, TServerData>>;
 
-export type FeatureValueProps<TReceiving, TSending = TReceiving, TServerData = undefined> = {
+export type FeatureValueProps<
+  TReceiving,
+  TSending = TReceiving,
+  TServerData = undefined,
+> = {
   act: typeof sendAct;
   featureId: string;
   handleSetValue: (newValue: TSending) => void;
@@ -50,20 +69,23 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
         props.act('set_color_preference', {
           preference: props.featureId,
         });
-      }}>
+      }}
+    >
       <Stack align="center" fill>
         <Stack.Item>
           <Box
             style={{
-              background: props.value?.startsWith('#') ? props.value : `#${props.value}`,
+              background: props.value?.startsWith('#')
+                ? props.value
+                : `#${props.value}`,
               border: '2px solid white',
               boxSizing: 'content-box',
               height: '11px',
               width: '11px',
               ...(props.shrink
                 ? {
-                  margin: '1px',
-                }
+                    margin: '1px',
+                  }
                 : {}),
             }}
           />
@@ -78,10 +100,18 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
 export type FeatureToggle = Feature<BooleanLike, boolean>;
 
 export const TextInput = (props: FeatureValueProps<string, string>) => {
-  return <Input value={props.value} onInput={(_, newValue) => props.handleSetValue(newValue)} width="100%" />;
+  return (
+    <Input
+      value={props.value}
+      onInput={(_, newValue) => props.handleSetValue(newValue)}
+      width="100%"
+    />
+  );
 };
 
-export const CheckboxInput = (props: FeatureValueProps<BooleanLike, boolean>) => {
+export const CheckboxInput = (
+  props: FeatureValueProps<BooleanLike, boolean>,
+) => {
   return (
     <Button.Checkbox
       checked={!!props.value}
@@ -92,7 +122,9 @@ export const CheckboxInput = (props: FeatureValueProps<BooleanLike, boolean>) =>
   );
 };
 
-export const CheckboxInputInverse = (props: FeatureValueProps<BooleanLike, boolean>) => {
+export const CheckboxInputInverse = (
+  props: FeatureValueProps<BooleanLike, boolean>,
+) => {
   return (
     <Button.Checkbox
       checked={!props.value}
@@ -106,7 +138,7 @@ export const CheckboxInputInverse = (props: FeatureValueProps<BooleanLike, boole
 export const createDropdownInput = <T extends string | number = string>(
   // Map of value to display texts
   choices: Record<T, ReactNode>,
-  dropdownProps?: DropdownPartialProps
+  dropdownProps?: DropdownPartialProps,
 ): FeatureValue<T> => {
   return (props: FeatureValueProps<T>) => {
     return (
@@ -116,12 +148,14 @@ export const createDropdownInput = <T extends string | number = string>(
         displayTextFirst
         onSelected={props.handleSetValue}
         width="100%"
-        options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
-          return {
-            displayText: label,
-            value: dataValue,
-          };
-        })}
+        options={sortChoices(Object.entries(choices)).map(
+          ([dataValue, label]) => {
+            return {
+              displayText: label,
+              value: dataValue,
+            };
+          },
+        )}
         {...dropdownProps}
       />
     );
@@ -138,10 +172,7 @@ export type FeatureChoicedServerData = {
 export type FeatureChoiced = Feature<string, string, FeatureChoicedServerData>;
 
 const capitalizeFirstLetter = (text: string) =>
-  text
-    .toString()
-    .charAt(0)
-    .toUpperCase() + text.toString().slice(1);
+  text.toString().charAt(0).toUpperCase() + text.toString().slice(1);
 
 export const StandardizedDropdown = (props: {
   choices: string[];
@@ -153,7 +184,16 @@ export const StandardizedDropdown = (props: {
   displayHeight?: string;
   menuWidth?: string;
 }) => {
-  const { choices, disabled, buttons, displayNames, onSetValue, displayHeight, menuWidth, value } = props;
+  const {
+    choices,
+    disabled,
+    buttons,
+    displayNames,
+    onSetValue,
+    displayHeight,
+    menuWidth,
+    value,
+  } = props;
 
   return (
     <Dropdown
@@ -180,7 +220,7 @@ export const StandardizedDropdown = (props: {
 export const FeatureButtonedDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     disabled?: boolean;
-  }
+  },
 ) => {
   return <FeatureDropdownInput disabled={props.disabled} buttons {...props} />;
 };
@@ -189,7 +229,7 @@ export const FeatureDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     disabled?: boolean;
     buttons?: boolean;
-  }
+  },
 ) => {
   const serverData = props.serverData;
   if (!serverData) {
@@ -197,7 +237,13 @@ export const FeatureDropdownInput = (
   }
 
   const displayNames =
-    serverData.display_names || Object.fromEntries(serverData.choices.map((choice) => [choice, capitalizeFirstLetter(choice)]));
+    serverData.display_names ||
+    Object.fromEntries(
+      serverData.choices.map((choice) => [
+        choice,
+        capitalizeFirstLetter(choice),
+      ]),
+    );
 
   return serverData.choices.length > 5 ? (
     <StandardizedDropdown
@@ -222,7 +268,7 @@ export const FeatureDropdownInput = (
 export const FeatureIconnedDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     buttons?: boolean;
-  }
+  },
 ) => {
   const serverData = props.serverData;
   if (!serverData) {
@@ -232,7 +278,13 @@ export const FeatureIconnedDropdownInput = (
   const icons = serverData.icons;
 
   const textNames =
-    serverData.display_names || Object.fromEntries(serverData.choices.map((choice) => [choice, capitalizeFirstLetter(choice)]));
+    serverData.display_names ||
+    Object.fromEntries(
+      serverData.choices.map((choice) => [
+        choice,
+        capitalizeFirstLetter(choice),
+      ]),
+    );
 
   const displayNames = Object.fromEntries(
     Object.entries(textNames).map(([choice, textName]) => {
@@ -260,7 +312,7 @@ export const FeatureIconnedDropdownInput = (
       }
 
       return [choice, element];
-    })
+    }),
   );
 
   return (
@@ -331,7 +383,9 @@ export const StandardizedPalette = (props: {
     includeHex = false,
     height = 16,
   } = props;
-  const choices_to_hex = hex_values ? Object.fromEntries(choices.map((v) => [v, v])) : props.choices_to_hex!;
+  const choices_to_hex = hex_values
+    ? Object.fromEntries(choices.map((v) => [v, v]))
+    : props.choices_to_hex!;
   const safeHex = (v: string) => {
     if (v.length === 3) {
       // sanitize short colors
@@ -341,32 +395,53 @@ export const StandardizedPalette = (props: {
     }
     return (v.startsWith('#') ? v : `#${v}`).toLowerCase();
   };
-  const safeValue = hex_values ? props.value && safeHex(props.value) : props.value;
+  const safeValue = hex_values
+    ? props.value && safeHex(props.value)
+    : props.value;
   return (
-    <Flex className="Preferences__standard-palette" style={{ alignItems: 'baseline', maxWidth: maxWidth }}>
+    <Flex
+      className="Preferences__standard-palette"
+      style={{ alignItems: 'baseline', maxWidth: maxWidth }}
+    >
       <Flex.Item
         shrink
-        style={{ borderRadius: '0.16em', maxWidth: maxWidth, paddingBottom: '-5px' }}
+        style={{
+          borderRadius: '0.16em',
+          maxWidth: maxWidth,
+          paddingBottom: '-5px',
+        }}
         className="section-background"
         backgroundColor={backgroundColor}
-        p={0.5}>
+        p={0.5}
+      >
         <Flex style={{ flexWrap: 'wrap', maxWidth: maxWidth }}>
           {choices.map((choice) => (
             <Flex.Item key={choice} ml={0}>
-              <Tooltip content={`${displayNames[choice]}${includeHex ? ` (${safeHex(choice)})` : ''}`} position="bottom">
+              <Tooltip
+                content={`${displayNames[choice]}${includeHex ? ` (${safeHex(choice)})` : ''}`}
+                position="bottom"
+              >
                 <Box
                   className={classes([
                     'ColorSelectBox',
-                    (hex_values ? safeHex(choice) : choice) === safeValue && 'ColorSelectBox--selected',
+                    (hex_values ? safeHex(choice) : choice) === safeValue &&
+                      'ColorSelectBox--selected',
                     disabled && 'ColorSelectBox--disabled',
                   ])}
-                  onClick={disabled ? null : () => onSetValue(hex_values ? safeHex(choice) : choice)}
+                  onClick={
+                    disabled
+                      ? null
+                      : () => onSetValue(hex_values ? safeHex(choice) : choice)
+                  }
                   width={height + 'px'}
-                  height={height + 'px'}>
+                  height={height + 'px'}
+                >
                   <Box
                     className="ColorSelectBox--inner"
                     style={{
-                      backgroundColor: hex_values ? choice : choices_to_hex[choice],
+                      backgroundColor: hex_values
+                        ? choice
+                        : choices_to_hex[choice],
                     }}
                   />
                 </Box>
@@ -380,11 +455,18 @@ export const StandardizedPalette = (props: {
                 .map(safeHex)
                 .includes(safeValue!) && (
                 <Flex.Item>
-                  <Tooltip content={`Your Custom Selection (${safeValue})`} position="bottom">
+                  <Tooltip
+                    content={`Your Custom Selection (${safeValue})`}
+                    position="bottom"
+                  >
                     <Box
-                      className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])}
+                      className={classes([
+                        'ColorSelectBox',
+                        'ColorSelectBox--selected',
+                      ])}
                       width={height + 'px'}
-                      height={height + 'px'}>
+                      height={height + 'px'}
+                    >
                       <Box
                         className="ColorSelectBox--inner"
                         style={{
@@ -431,7 +513,9 @@ export type FeatureNumericData = {
 
 export type FeatureNumeric = Feature<number, number, FeatureNumericData>;
 
-export const FeatureNumberInput = (props: FeatureValueProps<number, number, FeatureNumericData>) => {
+export const FeatureNumberInput = (
+  props: FeatureValueProps<number, number, FeatureNumericData>,
+) => {
   if (!props.serverData) {
     return <Box>Loading...</Box>;
   }
@@ -463,7 +547,10 @@ export const FeatureValueInput = (props: {
 
   const [predictedValue, setPredictedValue] =
     feature.predictable === undefined || feature.predictable
-      ? useLocalState(`${props.featureId}_predictedValue_${data.active_slot}`, props.value)
+      ? useLocalState(
+          `${props.featureId}_predictedValue_${data.active_slot}`,
+          props.value,
+        )
       : [props.value, () => {}];
 
   const changeValue = (newValue: unknown) => {

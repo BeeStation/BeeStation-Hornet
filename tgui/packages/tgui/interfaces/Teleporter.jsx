@@ -4,7 +4,14 @@ import { Window } from '../layouts';
 
 export const Teleporter = (props) => {
   const { act, data } = useBackend();
-  const { calibrated, calibrating, power_station, regime_set, teleporter_hub, target } = data;
+  const {
+    calibrated,
+    calibrating,
+    power_station,
+    regime_set,
+    teleporter_hub,
+    target,
+  } = data;
   return (
     <Window width={470} height={140}>
       <Window.Content>
@@ -22,19 +29,42 @@ export const Teleporter = (props) => {
               <LabeledList>
                 <LabeledList.Item
                   label="Current Regime"
-                  buttons={<Button icon="tools" content="Change Regime" onClick={() => act('regimeset')} />}>
+                  buttons={
+                    <Button
+                      icon="tools"
+                      content="Change Regime"
+                      onClick={() => act('regimeset')}
+                    />
+                  }
+                >
                   {regime_set}
                 </LabeledList.Item>
                 <LabeledList.Item
                   label="Current Target"
-                  buttons={<Button icon="tools" content="Set Target" onClick={() => act('settarget')} />}>
+                  buttons={
+                    <Button
+                      icon="tools"
+                      content="Set Target"
+                      onClick={() => act('settarget')}
+                    />
+                  }
+                >
                   {target}
                 </LabeledList.Item>
                 <LabeledList.Item
                   label="Calibration"
-                  buttons={<Button icon="tools" content="Calibrate Hub" onClick={() => act('calibrate')} />}>
+                  buttons={
+                    <Button
+                      icon="tools"
+                      content="Calibrate Hub"
+                      onClick={() => act('calibrate')}
+                    />
+                  }
+                >
                   {(calibrating && <Box color="average">In Progress</Box>) ||
-                    (calibrated && <Box color="good">Optimal</Box>) || <Box color="bad">Sub-Optimal</Box>}
+                    (calibrated && <Box color="good">Optimal</Box>) || (
+                      <Box color="bad">Sub-Optimal</Box>
+                    )}
                 </LabeledList.Item>
               </LabeledList>
             )}

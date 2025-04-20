@@ -7,7 +7,13 @@
 import { storage } from 'common/storage';
 
 import { setClientTheme } from '../themes';
-import { addHighlightSetting, loadSettings, removeHighlightSetting, updateHighlightSetting, updateSettings } from './actions';
+import {
+  addHighlightSetting,
+  loadSettings,
+  removeHighlightSetting,
+  updateHighlightSetting,
+  updateSettings,
+} from './actions';
 import { FONTS_DISABLED } from './constants';
 import { selectSettings } from './selectors';
 

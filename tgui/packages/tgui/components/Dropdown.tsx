@@ -37,7 +37,8 @@ export type DropdownPartialProps = Partial<{
   width: string;
 }>;
 
-type Props = { options: string[] | DropdownEntry[] } & DropdownPartialProps & BoxProps;
+type Props = { options: string[] | DropdownEntry[] } & DropdownPartialProps &
+  BoxProps;
 
 type State = {
   selected?: string;
@@ -74,7 +75,8 @@ export class Dropdown extends Component<Props, State> {
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentOpenMenu: Element | undefined;
   static virtualElement: VirtualElement = {
-    getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
+    getBoundingClientRect: () =>
+      Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
   state: State = {
@@ -175,10 +177,14 @@ export class Dropdown extends Component<Props, State> {
       return (
         <div
           key={value}
-          className={classes(['Dropdown__menuentry', this.state.selected === value && 'selected'])}
+          className={classes([
+            'Dropdown__menuentry',
+            this.state.selected === value && 'selected',
+          ])}
           onClick={() => {
             this.setSelected(value);
-          }}>
+          }}
+        >
           {displayText}
         </div>
       );
@@ -260,7 +266,8 @@ export class Dropdown extends Component<Props, State> {
       selectedIndex = startIndex;
     }
 
-    const previousIndex = selectedIndex === startIndex ? endIndex : selectedIndex - 1;
+    const previousIndex =
+      selectedIndex === startIndex ? endIndex : selectedIndex - 1;
 
     this.setSelected(this.getOptionValue(this.props.options[previousIndex]));
   }
@@ -279,7 +286,8 @@ export class Dropdown extends Component<Props, State> {
       selectedIndex = endIndex;
     }
 
-    const nextIndex = selectedIndex === endIndex ? startIndex : selectedIndex + 1;
+    const nextIndex =
+      selectedIndex === endIndex ? startIndex : selectedIndex + 1;
 
     this.setSelected(this.getOptionValue(this.props.options[nextIndex]));
   }
@@ -331,17 +339,33 @@ export class Dropdown extends Component<Props, State> {
                 onClick(event);
               }
             }}
-            {...rest}>
-            {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} mr={1} />}
+            {...rest}
+          >
+            {icon && (
+              <Icon
+                name={icon}
+                rotation={iconRotation}
+                spin={iconSpin}
+                mr={1}
+              />
+            )}
             <span
               className="Dropdown__selected-text"
               style={{
                 overflow: clipSelectedText ? 'hidden' : 'visible',
-              }}>
-              {displayTextFirst ? displayText || this.state.selected : this.state.selected || displayText}
+              }}
+            >
+              {displayTextFirst
+                ? displayText || this.state.selected
+                : this.state.selected || displayText}
             </span>
             {nochevron || (
-              <span className="Dropdown__arrow-button" style={displayHeight ? { lineHeight: displayHeight } : undefined}>
+              <span
+                className="Dropdown__arrow-button"
+                style={
+                  displayHeight ? { lineHeight: displayHeight } : undefined
+                }
+              >
                 <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
               </span>
             )}
@@ -355,7 +379,10 @@ export class Dropdown extends Component<Props, State> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{ display: 'inline-block', lineHeight: displayHeight || 'unset' }}
+                    style={{
+                      display: 'inline-block',
+                      lineHeight: displayHeight || 'unset',
+                    }}
                     name="chevron-left"
                   />
                 }
@@ -376,7 +403,10 @@ export class Dropdown extends Component<Props, State> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{ display: 'inline-block', lineHeight: displayHeight || 'unset' }}
+                    style={{
+                      display: 'inline-block',
+                      lineHeight: displayHeight || 'unset',
+                    }}
                     name="chevron-right"
                   />
                 }

@@ -88,7 +88,7 @@ class LinkServer {
             });
           }
           return arg;
-        })
+        }),
       );
       return;
     }

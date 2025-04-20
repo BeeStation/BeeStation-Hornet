@@ -17,7 +17,10 @@ export const AntagInfoBrother = (_props) => {
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
-            <AntagInfoHeader name={`${antag_name || 'Blood Brother'} of ${brothers}`} asset="traitor.png" />
+            <AntagInfoHeader
+              name={`${antag_name || 'Blood Brother'} of ${brothers}`}
+              asset="traitor.png"
+            />
           </Stack.Item>
           <Stack.Item grow>
             <ObjectivesSection objectives={objectives} />

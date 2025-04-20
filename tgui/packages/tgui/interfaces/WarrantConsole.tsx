@@ -2,7 +2,17 @@ import { sortBy } from 'common/collections';
 import { BooleanLike } from 'common/react';
 
 import { useBackend, useLocalState } from '../backend';
-import { BlockQuote, Button, Collapsible, LabeledList, NoticeBox, RestrictedInput, Section, Stack, Tabs } from '../components';
+import {
+  BlockQuote,
+  Button,
+  Collapsible,
+  LabeledList,
+  NoticeBox,
+  RestrictedInput,
+  Section,
+  Stack,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -30,7 +40,10 @@ export type Crime = {
 };
 
 export const WarrantConsole = (props) => {
-  const [selectedRecord] = useLocalState<WarrantRecord | undefined>('warrantRecord', undefined);
+  const [selectedRecord] = useLocalState<WarrantRecord | undefined>(
+    'warrantRecord',
+    undefined,
+  );
 
   return (
     <Window width={500} height={500}>
@@ -56,7 +69,9 @@ const RecordList = (props) => {
   const { records = [] } = data;
   const sorted = sortBy((record: WarrantRecord) => record.name)(records);
 
-  const [selectedRecord, setSelectedRecord] = useLocalState<WarrantRecord | undefined>('warrantRecord', undefined);
+  const [selectedRecord, setSelectedRecord] = useLocalState<
+    WarrantRecord | undefined
+  >('warrantRecord', undefined);
 
   const selectHandler = (record: WarrantRecord) => {
     if (selectedRecord?.record_ref === record.record_ref) {
@@ -68,10 +83,18 @@ const RecordList = (props) => {
 
   return (
     <Section
-      buttons={<Button icon="sync" onClick={() => act('refresh')} tooltip="Refresh" tooltipPosition="bottom-start" />}
+      buttons={
+        <Button
+          icon="sync"
+          onClick={() => act('refresh')}
+          tooltip="Refresh"
+          tooltipPosition="bottom-start"
+        />
+      }
       fill
       scrollable
-      title="Citations">
+      title="Citations"
+    >
       <Stack fill vertical>
         {records?.length ? (
           <Tabs vertical>
@@ -80,7 +103,8 @@ const RecordList = (props) => {
                 className="candystripe"
                 key={index}
                 onClick={() => selectHandler(record)}
-                selected={selectedRecord?.record_ref === record.record_ref}>
+                selected={selectedRecord?.record_ref === record.record_ref}
+              >
                 {record.crew_name}: {record.citations.length}
               </Tabs.Tab>
             ))}
@@ -130,12 +154,19 @@ const CitationManager = (props) => {
   return (
     <Collapsible
       buttons={
-        <Button disabled={fine <= 0} icon="print" onClick={() => act('print', { record_ref: record_ref, fine_ref: fine_ref })}>
+        <Button
+          disabled={fine <= 0}
+          icon="print"
+          onClick={() =>
+            act('print', { record_ref: record_ref, fine_ref: fine_ref })
+          }
+        >
           Print
         </Button>
       }
       color={getFineColor(fine)}
-      title={fine_name}>
+      title={fine_name}
+    >
       <LabeledList>
         <LabeledList.Item label="Details">
           <BlockQuote>{details}</BlockQuote>
@@ -146,7 +177,12 @@ const CitationManager = (props) => {
         <LabeledList.Item label="Paid">{paid}</LabeledList.Item>
         {fine > 0 && (
           <LabeledList.Item label="Pay">
-            <RestrictedInput maxValue={fine} minValue={5} onEnter={(event, value) => setPaying(value)} value={paying} />
+            <RestrictedInput
+              maxValue={fine}
+              minValue={5}
+              onEnter={(event, value) => setPaying(value)}
+              value={paying}
+            />
             <Button.Confirm
               content="Pay"
               onClick={() =>
@@ -166,11 +202,16 @@ const CitationManager = (props) => {
 
 /** We need an active reference and this a pain to rewrite */
 export const getCurrentRecord = (props) => {
-  const [selectedRecord] = useLocalState<WarrantRecord | undefined>('warrantRecord', undefined);
+  const [selectedRecord] = useLocalState<WarrantRecord | undefined>(
+    'warrantRecord',
+    undefined,
+  );
   if (!selectedRecord) return;
   const { data } = useBackend<Data>();
   const { records = [] } = data;
-  const foundRecord = records.find((record) => record.record_ref === selectedRecord.record_ref);
+  const foundRecord = records.find(
+    (record) => record.record_ref === selectedRecord.record_ref,
+  );
   if (!foundRecord) return;
 
   return foundRecord;

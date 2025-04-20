@@ -35,10 +35,13 @@ export const MartialInfo = (_props) => {
     <Window width={620} height={350} theme="abductor">
       <Window.Content>
         <Stack vertical fill>
-          <Stack.Item fontSize="25px">Guide to the {name} Martial Arts...</Stack.Item>
+          <Stack.Item fontSize="25px">
+            Guide to the {name} Martial Arts...
+          </Stack.Item>
           <Stack.Item>
             <BlockQuote>
-              You are a {name} martial artist, whether by circumstance, training, or brain injury;
+              You are a {name} martial artist, whether by circumstance,
+              training, or brain injury;
               <br />
               You are a most fearsome foe of any who would oppose you.
               <br />

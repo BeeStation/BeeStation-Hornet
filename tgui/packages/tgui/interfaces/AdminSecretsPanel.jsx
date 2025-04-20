@@ -2,7 +2,14 @@ import { isFalsy } from 'common/react';
 import { createSearch } from 'common/string';
 
 import { useBackend, useLocalState } from '../backend';
-import { Button, Collapsible, Flex, Input, Section, Table } from '../components';
+import {
+  Button,
+  Collapsible,
+  Flex,
+  Input,
+  Section,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 const pick = (array) => array[Math.floor(Math.random() * array.length)];
@@ -41,7 +48,12 @@ export const AdminSecretsPanel = (props) => {
           <Table.Row>
             <Table.Cell>{Title}</Table.Cell>
             <Table.Cell textAlign="right">
-              <Input placeholder="Search" value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
+              <Input
+                placeholder="Search"
+                value={searchText}
+                onInput={(e, value) => setSearchText(value)}
+                mx={1}
+              />
             </Table.Cell>
           </Table.Row>
         </Table>
@@ -52,7 +64,13 @@ export const AdminSecretsPanel = (props) => {
   const makeButton = (command) => {
     return (
       <Flex.Item grow={1} basis="49%">
-        <Button fluid ellipsis my={0.5} onClick={() => act(command[1])} content={command[0]} />
+        <Button
+          fluid
+          ellipsis
+          my={0.5}
+          onClick={() => act(command[1])}
+          content={command[0]}
+        />
       </Flex.Item>
     );
   };
@@ -61,7 +79,11 @@ export const AdminSecretsPanel = (props) => {
     let Commands = Category[1].filter(filterSearch).map(makeButton);
     if (Commands.length) {
       return (
-        <Collapsible title={`${Category[0]} (${Commands.length})`} bold key={Category[0]}>
+        <Collapsible
+          title={`${Category[0]} (${Commands.length})`}
+          bold
+          key={Category[0]}
+        >
           <Section>
             <Flex spacing={1} wrap="wrap" textAlign="center" justify="center">
               {Commands}

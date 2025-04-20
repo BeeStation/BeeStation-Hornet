@@ -1,4 +1,9 @@
-import { CheckboxInput, Feature, FeatureColorInput, FeatureToggle } from '../base';
+import {
+  CheckboxInput,
+  Feature,
+  FeatureColorInput,
+  FeatureToggle,
+} from '../base';
 
 export const itemoutline_pref: FeatureToggle = {
   name: 'Item outlines',
