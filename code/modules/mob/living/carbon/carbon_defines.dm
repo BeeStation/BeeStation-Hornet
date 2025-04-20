@@ -14,7 +14,7 @@
 	var/dreaming = 0 //How many dream images we have left to send
 	///Whether or not the mob is currently handcuffed, defined as the handcuff item restraining them
 	var/obj/item/restraints/handcuffs/handcuffed = null
-	///used to track how many times the mob has tried breaking away from their handcuffs since being cuffed
+	///used to track how many times the mob has tried breaking away from their handcuffs since being cuffed. Reset to zero in update_handcuffed()
 	var/cuff_breakout_attempts = 0
 	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
 
