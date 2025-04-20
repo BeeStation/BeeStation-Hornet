@@ -17,9 +17,9 @@ import {
 } from '../../components';
 import { CharacterPreview } from '../common/CharacterPreview';
 import {
+  createSetPreference,
   PreferencesMenuData,
   RandomSetting,
-  createSetPreference,
 } from './data';
 import { MultiNameInput, NameInput } from './names';
 import features from './preferences/features';
@@ -27,7 +27,7 @@ import {
   FeatureChoicedServerData,
   FeatureValueInput,
 } from './preferences/features/base';
-import { GENDERS, Gender } from './preferences/gender';
+import { Gender, GENDERS } from './preferences/gender';
 import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { useRandomToggleState } from './useRandomToggleState';

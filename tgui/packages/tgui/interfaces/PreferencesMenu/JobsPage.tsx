@@ -5,11 +5,11 @@ import { PropsWithChildren, ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Flex, Stack, Tooltip } from '../../components';
 import {
-  Job,
-  JobPriority,
-  JoblessRole,
-  PreferencesMenuData,
   createSetPreference,
+  Job,
+  JoblessRole,
+  JobPriority,
+  PreferencesMenuData,
 } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
