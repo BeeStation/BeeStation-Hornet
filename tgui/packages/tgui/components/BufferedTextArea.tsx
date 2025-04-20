@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { TextArea } from './TextArea';
 
-const DEFAULT_UPDATE_INTERVAL = 4000;
+const DEFAULT_UPDATE_INTERVAL = 2000;
 
 interface BufferedTextAreaState {
   bufferedText: string;
@@ -19,6 +19,7 @@ type BufferedTextAreaProps = BufferedTextAreaPropsUnique & Record<string, unknow
 
 export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedTextAreaState> {
   bufferTimer: NodeJS.Timeout;
+
   state = {
     bufferedText: this.props.value || '',
     textChanged: false,
@@ -45,7 +46,7 @@ export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedT
     return (
       <TextArea
         onInput={(_, value) => this.setState({ bufferedText: value, textChanged: true })}
-        onChange={this.pushBuffer.bind(this)}
+        onBlur={this.pushBuffer}
         value={this.state.bufferedText}
         {...rest}
       />
