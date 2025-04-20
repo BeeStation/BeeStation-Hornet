@@ -436,6 +436,10 @@
 			bolt_locked = TRUE
 			update_icon()
 
+/obj/item/gun/ballistic/pull_trigger(atom/target, mob/living/user, flag, params, aimed)
+	prefire_empty_checks()
+	return ..()
+
 /obj/item/gun/ballistic/on_chamber_fired()
 	. = ..()
 	postfire_empty_checks()
