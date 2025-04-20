@@ -80,6 +80,8 @@
 	var/list/data = list()
 	data["has_item"] = !copier_empty()
 	data["num_copies"] = num_copies
+	data["isAI"] = istype(user, /mob/living/silicon/ai)
+	data["can_AI_print"] = toner_cartridge ? toner_cartridge.charges >= PHOTO_TONER_USE : FALSE
 
 	try
 		var/list/blanks = json_decode(file2text("config/blanks.json"))
@@ -95,10 +97,6 @@
 	if(photo_copy)
 		data["is_photo"] = TRUE
 		data["color_mode"] = color_mode
-		data["isAI"] = TRUE
-		data["can_AI_print"] = toner_cartridge ? toner_cartridge.charges >= PHOTO_TONER_USE : FALSE
-	else
-		data["isAI"] = FALSE
 
 	if(toner_cartridge)
 		data["has_toner"] = TRUE
@@ -244,10 +242,12 @@
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
 			break
 		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE)
+			message_admins("I BREAK HERE 2")
 			break
 		addtimer(copy_cb, i SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), i SECONDS)
-
+	message_admins("[ass]")
+	message_admins("ass has been posted")
 /**
  * Sets busy to `FALSE`. Created as a proc so it can be used in callbacks.
  */
@@ -323,7 +323,10 @@
  * Additionally checks that the mob has their clothes off.
  */
 /obj/machinery/photocopier/proc/make_ass_copy()
+	message_admins("ass is: [ass]")
+	message_admins("check_ass() says: [check_ass()]")
 	if(!check_ass() || !toner_cartridge)
+		message_admins("NAH IM RETURNIN!")
 		return
 	if(ishuman(ass) && (ass.get_item_by_slot(ITEM_SLOT_ICLOTHING) || ass.get_item_by_slot(ITEM_SLOT_OCLOTHING)))
 		to_chat(usr, span_notice("You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.") )
@@ -333,6 +336,7 @@
 	if(isalienadult(ass) || istype(ass, /mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
 		temp_img = icon('icons/ass/assalien.png')
 	else if(ishuman(ass)) //Suit checks are in check_ass
+		message_admins("Its an ass for sure")
 		var/mob/living/carbon/human/temporary = ass
 		temp_img = icon(temporary.dna.features["body_model"] == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
 	else if(isdrone(ass)) //Drones are hot
@@ -345,6 +349,7 @@
 	toEmbed.psize_y = 128
 	copied_ass.set_picture(toEmbed, TRUE, TRUE)
 	toner_cartridge.charges -= ASS_TONER_USE
+	message_admins("We got to this point.")
 
 /**
  * Inserts the item into the copier. Called in `attackby()` after a human mob clicked on the copier with a paper, photo, or document.
@@ -395,7 +400,7 @@
 		if(copier_empty())
 			if(!user.temporarilyRemoveItemFromInventory(O))
 				return
-			paper_copy = O
+			photo_copy = O
 			do_insertion(O, user)
 		else
 			to_chat(user, span_warning("There is already something in [src]!"))
