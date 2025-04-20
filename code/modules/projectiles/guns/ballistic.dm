@@ -436,9 +436,8 @@
 			bolt_locked = TRUE
 			update_icon()
 
-/obj/item/gun/ballistic/fire_gun(atom/target, mob/living/user, flag, params, aimed)
-	prefire_empty_checks()
-	. = ..() //The gun actually firing
+/obj/item/gun/ballistic/on_chamber_fired()
+	. = ..()
 	postfire_empty_checks()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE

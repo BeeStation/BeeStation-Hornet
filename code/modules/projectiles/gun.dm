@@ -1,5 +1,4 @@
 
-#define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.1
 #define FIRING_PIN_REMOVAL_DELAY 50
 
 /obj/item/gun
@@ -407,7 +406,6 @@
 	var/sprd = 0
 	sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
 	sprd += (1 - get_integrity_ratio()) * damage_variance
-	sprd *= DUALWIELD_PENALTY_EXTRA_MULTIPLIER
 	return sprd
 
 /obj/item/gun/proc/process_burst(mob/living/user, atom/target, message = TRUE, params=null, zone_override = "", iteration = 0)
@@ -718,4 +716,3 @@
 		azoom.gun = src
 
 #undef FIRING_PIN_REMOVAL_DELAY
-#undef DUALWIELD_PENALTY_EXTRA_MULTIPLIER
