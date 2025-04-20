@@ -21,8 +21,8 @@ const getDmPath = async (namedVersion) => {
     const paths = [
       ...((process.env.DM_EXE && process.env.DM_EXE.split(",")) || []),
       ...getDefaultNamedByondVersionPath(),
-      "B:\\Games\\Byond\\bin\\dm.exe",
-      "B:\\Games\\Byond\\bin\\dm.exe",
+      "C:\\Program Files\\BYOND\\bin\\dm.exe",
+      "C:\\Program Files (x86)\\BYOND\\bin\\dm.exe",
       ["reg", "HKLM\\Software\\Dantom\\BYOND", "installpath"],
       ["reg", "HKLM\\SOFTWARE\\WOW6432Node\\Dantom\\BYOND", "installpath"],
     ];
