@@ -38,10 +38,10 @@
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/living/user)
 	if(magpulse)
-		clothing_flags &= ~NOSLIP
+		clothing_flags &= ~NOSLIP_ALL
 		slowdown = SHOES_SLOWDOWN
 	else
-		clothing_flags |= NOSLIP
+		clothing_flags |= NOSLIP_ALL
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
