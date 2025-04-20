@@ -3,7 +3,6 @@ import { flow } from 'common/fp';
 import { useBackend, useLocalState } from 'tgui/backend';
 import {
   Box,
-  Button,
   Icon,
   Input,
   NoticeBox,

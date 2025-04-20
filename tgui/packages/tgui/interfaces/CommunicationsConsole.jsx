@@ -9,7 +9,6 @@ import {
   Dimmer,
   Flex,
   Icon,
-  Input,
   Modal,
   NoticeBox,
   Section,

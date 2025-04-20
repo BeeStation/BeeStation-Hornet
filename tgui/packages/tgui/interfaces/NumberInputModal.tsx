@@ -1,4 +1,4 @@
-import { KEY, isEscape } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';

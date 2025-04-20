@@ -1,5 +1,5 @@
 import { KEY_A, KEY_Z } from 'common/keycodes';
-import { KEY, isEscape } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 import { capitalizeFirst, decodeHtmlEntities } from 'common/string';
 
 import { useBackend, useLocalState } from '../backend';

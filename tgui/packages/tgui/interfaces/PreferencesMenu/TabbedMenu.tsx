@@ -1,9 +1,9 @@
 import {
   Component,
+  createRef,
   PropsWithChildren,
   ReactNode,
   RefObject,
-  createRef,
 } from 'react';
 import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
 

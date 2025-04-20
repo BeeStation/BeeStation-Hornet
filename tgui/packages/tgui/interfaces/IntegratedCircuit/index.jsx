@@ -7,13 +7,12 @@ import {
   Button,
   InfinitePlane,
   Input,
-  Section,
   Stack,
 } from '../../components';
-import { Layout, Window } from '../../layouts';
+import { Window } from '../../layouts';
 import { CircuitInfo } from './CircuitInfo';
 import { Connections } from './Connections';
-import { ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT, NULL_REF } from './constants';
+import { ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
 import { ObjectComponent } from './ObjectComponent';
 import { VariableMenu } from './VariableMenu';
 

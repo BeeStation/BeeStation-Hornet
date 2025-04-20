@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { KEY, isEscape } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { Component, createRef } from 'react';
 

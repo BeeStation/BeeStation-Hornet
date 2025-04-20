@@ -8,12 +8,12 @@ import { classes } from 'common/react';
 import { RefObject } from 'react';
 
 import {
-  FlexItemProps,
-  FlexProps,
   computeFlexClassName,
   computeFlexItemClassName,
   computeFlexItemProps,
   computeFlexProps,
+  FlexItemProps,
+  FlexProps,
 } from './Flex';
 
 type Props = Partial<{

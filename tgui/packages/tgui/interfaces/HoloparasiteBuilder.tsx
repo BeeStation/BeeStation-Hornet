@@ -1,10 +1,10 @@
 import {
-  HsvaColor,
-  RgbColor,
   contrast,
   hexToHsva,
   hexToRgba,
+  HsvaColor,
   hsvaToHex,
+  RgbColor,
 } from 'common/color';
 import { BooleanLike } from 'common/react';
 
@@ -34,10 +34,10 @@ import {
   Ability,
   AbilityThreshold,
   AvailableAbilities,
-  StatThreshold,
   is_actually_a_threshold,
   sort_abilities,
   sort_thresholds,
+  StatThreshold,
   threshold_title,
 } from './common/Holoparasite';
 

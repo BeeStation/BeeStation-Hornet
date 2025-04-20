@@ -1,5 +1,5 @@
 import { range, sortBy } from 'common/collections';
-import { KEY, isEscape } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 import { Component } from 'react';
 
 import { resolveAsset } from '../../assets';

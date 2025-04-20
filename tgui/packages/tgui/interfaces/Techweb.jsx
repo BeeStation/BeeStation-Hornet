@@ -5,7 +5,6 @@ import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Collapsible,
   Divider,
   Dropdown,
   Flex,

@@ -1,6 +1,6 @@
 import { Color } from 'common/color';
 import { decodeHtmlEntities } from 'common/string';
-import { Component, RefObject, createRef } from 'react';
+import { Component, createRef, RefObject } from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, Flex, Icon, Tooltip } from '../components';

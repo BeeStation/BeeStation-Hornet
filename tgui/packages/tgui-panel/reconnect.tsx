@@ -11,30 +11,30 @@ setInterval(() => {
   });
 }, 5000);
 
-export const ReconnectButtons = (props) => {
+export const ReconnectButtons = () => {
+  if (!url) {
+    return null;
+  }
   return (
-    url && (
-      <>
-        <Button
-          color="white"
-          onClick={() => {
-            Byond.command('.reconnect');
-          }}
-        >
-          Reconnect
-        </Button>
-
-        <Button
-          color="white"
-          icon="power-off"
-          tooltip="Relaunch game"
-          tooltipPosition="bottom-end"
-          onClick={() => {
-            location.href = `byond://${url}`;
-            Byond.command('.quit');
-          }}
-        />
-      </>
-    )
+    <>
+      <Button
+        color="white"
+        onClick={() => {
+          Byond.command('.reconnect');
+        }}
+      >
+        Reconnect
+      </Button>
+      <Button
+        color="white"
+        icon="power-off"
+        tooltip="Relaunch game"
+        tooltipPosition="bottom-end"
+        onClick={() => {
+          location.href = `byond://${url}`;
+          Byond.command('.quit');
+        }}
+      />
+    </>
   );
 };

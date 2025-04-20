@@ -6,7 +6,7 @@
 
 import * as keycodes from 'common/keycodes';
 
-import { KeyEvent, globalEvents } from './events';
+import { globalEvents, KeyEvent } from './events';
 import { createLogger } from './logging';
 
 const logger = createLogger('hotkeys');

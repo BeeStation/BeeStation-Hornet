@@ -1,4 +1,4 @@
-import { KEY, isEscape } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 
 import { decodeHtmlEntities } from '../../common/string';
 import { useBackend, useLocalState } from '../backend';

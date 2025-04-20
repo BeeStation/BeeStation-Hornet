@@ -5,7 +5,7 @@
  */
 
 import { BooleanLike, classes } from 'common/react';
-import { ReactNode, createElement } from 'react';
+import { createElement, ReactNode } from 'react';
 
 import { CSS_COLORS } from '../constants';
 

@@ -4,8 +4,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Input, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import {
-  MATERIAL_KEYS,
   Material,
+  MATERIAL_KEYS,
   MaterialAmount,
   MaterialFormatting,
   Materials,

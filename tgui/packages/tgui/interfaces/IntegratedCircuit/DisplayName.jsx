@@ -1,6 +1,5 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Flex } from '../../components';
-import { NULL_REF } from './constants';
 import {
   DATATYPE_DISPLAY_HANDLERS,
   FUNDAMENTAL_DATA_TYPES,

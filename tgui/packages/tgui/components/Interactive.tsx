@@ -123,8 +123,9 @@ const InteractiveBase = ({ onMove, onKey, style, ...rest }: Props) => {
       if (isTouch(nativeEvent)) {
         hasTouch.current = true;
         const changedTouches = nativeEvent.changedTouches || [];
-        if (changedTouches.length)
+        if (changedTouches.length) {
           touchId.current = changedTouches[0].identifier;
+        }
       }
 
       el.focus();

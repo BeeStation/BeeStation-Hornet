@@ -11,7 +11,7 @@ import {
   Stack,
   Table,
 } from '../components';
-import { getGasColor, getGasLabel } from '../constants';
+import { getGasColor } from '../constants';
 import { Window } from '../layouts';
 
 const logScale = (value) => Math.log2(16 + Math.max(0, value)) - 4;

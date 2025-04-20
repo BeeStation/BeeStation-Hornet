@@ -13,7 +13,6 @@ import { combineReducers } from 'common/redux';
 import { setGlobalStore } from 'tgui/backend';
 import { setupGlobalEvents } from 'tgui/events';
 import { captureExternalLinks } from 'tgui/links';
-import { logger } from 'tgui/logging';
 import { createRenderer } from 'tgui/renderer';
 import { configureStore } from 'tgui/store';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
@@ -82,6 +81,7 @@ const setupApp = () => {
   Byond.winset('output', {
     'is-visible': false,
   });
+  
   Byond.winset('browseroutput', {
     'is-visible': true,
     'is-disabled': false,

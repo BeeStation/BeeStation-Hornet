@@ -5,8 +5,8 @@
  */
 
 import {
-  HsvaColor,
   hexToHsva,
+  HsvaColor,
   hsvaToHex,
   hsvaToHslString,
   hsvaToRgba,
@@ -15,7 +15,7 @@ import {
 } from 'common/color';
 import { clamp } from 'common/math';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
+import { Component, FocusEvent, FormEvent } from 'react';
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { logger } from 'tgui/logging';
 

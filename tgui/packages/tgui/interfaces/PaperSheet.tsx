@@ -7,10 +7,10 @@ import { classes } from 'common/react';
 import { marked } from 'marked';
 import {
   Component,
+  createRef,
   RefObject,
   UIEvent,
   UIEventHandler,
-  createRef,
 } from 'react';
 
 import { useBackend, useLocalState } from '../backend';

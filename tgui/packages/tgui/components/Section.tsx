@@ -6,10 +6,10 @@
 
 import { canRender, classes } from 'common/react';
 import {
+  forwardRef,
   ReactNode,
   RefObject,
   UIEventHandler,
-  forwardRef,
   useEffect,
 } from 'react';
 

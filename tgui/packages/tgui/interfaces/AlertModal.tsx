@@ -1,4 +1,4 @@
-import { KEY, isEscape } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 
 import { useBackend, useLocalState } from '../backend';
 import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
