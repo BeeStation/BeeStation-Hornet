@@ -26,15 +26,15 @@ export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedT
   };
 
   componentDidMount() {
-    this.bufferTimer = setInterval(this.pushBuffer.bind(this), this.props.updateInterval || DEFAULT_UPDATE_INTERVAL);
+    this.bufferTimer = setInterval(this.handlePush.bind(this), this.props.updateInterval || DEFAULT_UPDATE_INTERVAL);
   }
 
   componentWillUnmount() {
-    this.pushBuffer();
+    this.handlePush();
     clearInterval(this.bufferTimer);
   }
 
-  pushBuffer = () => {
+  handlePush = () => {
     if (this.state.textChanged) {
       this.props.updateValue(this.state.bufferedText);
       this.setState({ textChanged: false });
@@ -46,7 +46,7 @@ export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedT
     return (
       <TextArea
         onInput={(_, value) => this.setState({ bufferedText: value, textChanged: true })}
-        onBlur={this.pushBuffer}
+        onBlur={this.handlePush}
         value={this.state.bufferedText}
         {...rest}
       />

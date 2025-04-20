@@ -97,3 +97,5 @@
 	data["has_printer"] =  printer ? TRUE : FALSE
 
 	return data
+
+#undef PRINTER_TIMEOUT
