@@ -52,7 +52,7 @@ export type FeatureValueProps<
   TReceiving,
   TSending = TReceiving,
   TServerData = undefined,
-  > = Readonly<{
+> = Readonly<{
   act: typeof sendAct;
   featureId: string;
   handleSetValue: (newValue: TSending) => void;

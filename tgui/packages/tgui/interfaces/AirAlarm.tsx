@@ -401,9 +401,8 @@ const EditingModal = (props: EditingModalProps) => {
         title={'Threshold Value Editor'}
         buttons={<Button onClick={() => finish()} icon="times" color="red" />}
       >
-        <Box
-          mb={1.5}
-        >{`Editing the ${typeName.toLowerCase()} value for ${name.toLowerCase()}...`}
+        <Box mb={1.5}>
+          {`Editing the ${typeName.toLowerCase()} value for ${name.toLowerCase()}...`}
         </Box>
         {oldValue === -1 ? (
           <Button
