@@ -1,0 +1,50 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss';
+
+.WallCloset_FlexItem {
+  margin: 2px 5px 10px 5px;
+}
+
+.WallCloset_Slot {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: white;
+  opacity: 0;
+  border-radius: 5%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  text-transform: capitalize;
+  font-family: monospace;
+  color: black;
+}
+
+.WallCloset_Slot:hover {
+  opacity: 0.3;
+}
+
+.WallCloset_Box {
+  height: 100%;
+  width: 100%;
+}
+
+.WallCloset_Background {
+  border-bottom: 50px inset darkgrey;
+  border-left: 50px inset darkgrey;
+  border-right: 50px inset gray;
+  background-color: dimgray;
+  height: 90%;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.WallCloset_BackgroundShelf {
+  background-color: dimgray;
+  border-top: 2px outset gray;
+  border-bottom: 2px outset darkgray;
+  height: 10%;
+  width: 100%;
+  opacity: 0.8;
+}
