@@ -20,6 +20,9 @@
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
 
+	/// Can we latejoin as this role?
+	var/latejoin_allowed = TRUE
+
 	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
 	var/lock_flags = NONE
 
@@ -37,9 +40,6 @@
 
 	///How many players can be this job
 	var/total_positions = 0
-
-	///How many players can spawn in as this job
-	var/spawn_positions = 0
 
 	///How many players have this job
 	var/current_positions = 0
@@ -124,6 +124,13 @@
 	/// The maximum population required at roundstart for this job to appear
 	var/max_pop = INFINITY
 
+	/// If set, then roles job positions are infinite but the most popular job cannot exceed the
+	/// amount of people in the least popular job.
+	var/dynamic_spawn_group = null
+	/// The maximum allowed variance to other job roles in this group.
+	/// Should be the same as everything else in the dynamic spawn group
+	var/dynamic_spawn_variance_limit = 2
+
 /datum/job/New()
 	. = ..()
 	lightup_areas = typecacheof(lightup_areas)
@@ -135,6 +142,26 @@
 		lock_flags |= JOB_LOCK_REASON_MAP
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
+
+/datum/job/proc/get_spawn_position_count(player_count, list/current_jobs)
+	// Out of range
+	if (player_count < min_pop)
+		return 0
+	if (player_count > max_pop)
+		return 0
+	// Does not have a spawn group
+	if (!dynamic_spawn_group)
+		return total_positions
+	// Calculate spawn group size
+	var/spawn_group_minimum = INFINITY
+	for (var/datum/job/other in current_jobs)
+		// Find everything in the same group, doesn't matter if its us
+		if (other.dynamic_spawn_group != dynamic_spawn_group)
+			continue
+		// Find the least filled job in the group
+		spawn_group_minimum = min(spawn_group_minimum, other.current_positions)
+	// The amount of positions we have is the least filled job + our allowed variance
+	return spawn_group_minimum + dynamic_spawn_variance_limit
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it

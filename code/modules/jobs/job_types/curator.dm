@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
 	exp_requirements = 60 //medium grief percentage
 	outfit = /datum/outfit/job/curator

@@ -31,7 +31,6 @@
 	return
 
 /// * job_name<string/JOB_DEFINES>: 	JOB_NAME macros from jobs.dm
-/// * spawn_positions<number>: 			Sets the number of rounstart positions of this job, when spawning at roundstart
 /// * total_positions<number, null>: 	Sets the number of total positions of this job, including roundstart and latejoin
 /datum/map_adjustment/proc/change_job_position(job_name, total_positions = null)
 	SHOULD_NOT_OVERRIDE(TRUE) // no reason to override for a new behaviour
