@@ -22606,6 +22606,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/unlocked,
 /turf/open/floor/iron/smooth_edge{
 	dir = 4
 	},
@@ -77045,7 +77046,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airalarm/unlocked,
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
 	},
@@ -77733,6 +77733,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/unlocked,
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "qgz" = (
@@ -81381,6 +81382,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/unlocked,
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "qTw" = (
