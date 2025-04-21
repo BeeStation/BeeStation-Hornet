@@ -1,0 +1,5 @@
+author: wikimody
+delete-after: true
+changes:
+  - rscadd: Added 100u transfer rate for quality of life for coconut cup
+  - bugfix: Fixed the coconut cup volume bug
