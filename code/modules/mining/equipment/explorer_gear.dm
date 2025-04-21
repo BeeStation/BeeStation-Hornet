@@ -144,6 +144,15 @@
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 
+/obj/item/clothing/suit/space/hostile_environment/process(delta_time)
+	. = ..()
+	var/mob/living/carbon/C = loc
+	if(istype(C) && DT_PROB(1, delta_time)) //cursed by bubblegum
+		if(DT_PROB(7.5, delta_time))
+			to_chat(C, span_warning("<b>[pick("Eight runes formed a crimson circle...set them back and unseal the riches within...","The tumors of lavaland cry out in hunger...perhaps a stable legion core will sate them...","If you ever spot an encrypted signal, rejoice...its bearer is a great ally for your journey...","Seven ticks of gibtonite to free its true power...wield it and your enemies will shiver in fear...","Seek out the vial of gluttony's essence. Eat until your seams are bursting and claim it...for it shall grant you power overwhelming...","The powers of fate lie sealed in the machine of greed...five pulls of the lever is all you need...","A mighty warrior such as yourself can surely free us from the Legion...its chamber awaits in the northern walls...","You are mighty, warrior, but there is a cruel truth...only those who wield the crusher are worthy of the spoils...")]</b>"))
+		else
+			to_chat(C, span_warning("[pick("You hear a whisper, but cannot make it out.","You feel like you're being watched.","Your blood feels hotter than usual.","You hear a distant, brutal roar.")]"))
+
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
 	icon = 'icons/obj/clothing/head/helmet.dmi'
