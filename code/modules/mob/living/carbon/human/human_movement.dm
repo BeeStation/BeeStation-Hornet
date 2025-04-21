@@ -34,7 +34,7 @@
 		playsound_local(null, 'sound/effects/space_wind.ogg', clamp(pressure_difference, 10, 100), 1)
 	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
-		if((S.clothing_flags & NOSLIP))
+		if((S.clothing_flags & (NOSLIP || NOSLIP_ALL)))
 			return 0
 	return ..()
 
