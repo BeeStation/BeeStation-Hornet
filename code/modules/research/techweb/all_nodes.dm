@@ -1604,7 +1604,9 @@
 	tech_tier = 4
 	display_name = "Advanced RCD Designs Upgrade"
 	description = "Unlocks new RCD designs."
-	design_ids = list("rcd_upgrade_silo_link")
+	design_ids = list("rcd_upgrade_silo_link",
+		"arcd_loaded"
+	)
 	prereq_ids = list(
 		"bluespace_travel",
 		"rcd_upgrade",

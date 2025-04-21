@@ -274,6 +274,16 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/advancedbloodfilter
+	name = "Advanced Blood Filter"
+	desc = "Advanced tool For filtering the blood."
+	id = "advancedbloodfilter"
+	build_path = /obj/item/blood_filter/advanced
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 2000, /datum/material/plasma = 2000, /datum/material/uranium = 3000, /datum/material/titanium = 3000)
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/stethoscope
 	name = "Stethoscope"
 	desc = "A medical tool used for listening to the body. Makes you look competent"

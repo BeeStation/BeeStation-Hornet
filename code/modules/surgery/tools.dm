@@ -468,3 +468,9 @@
 /obj/item/retractor/advanced/examine()
 	. = ..()
 	. += " It resembles a retractor[tool_behaviour == TOOL_RETRACTOR ? "retractor" : "hemostat"]."
+
+/obj/item/blood_filter/advanced
+	name = "Advanced blood filter"
+	desc = "Advanced tool For filtering the blood."
+	icon_state = "e_bloodfilter"
+	toolspeed = 0.7

@@ -193,3 +193,13 @@
 	attack_verb_continuous = list("shanks", "shivs")
 	attack_verb_simple = list("shank", "shiv")
 	armor_type = /datum/armor/none
+
+/obj/item/knife/diamond
+	name = "Carbon Fiber Knife"
+	icon_state = "knife_carbon"
+	worn_icon_state = "knife"
+	desc = "A kitchen knife with a carbon fiber blade that cuts food faster."
+	force = 12
+	throwforce = 12
+	custom_materials = list(/datum/material/iron=12000,/datum/material/glass=1200)
+	toolspeed = 0.5
