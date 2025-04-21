@@ -7279,6 +7279,10 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/east,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/starboard)
 "bzh" = (
@@ -25677,6 +25681,19 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"fus" = (
+/obj/effect/turf_decal/trimline/neutral/filled/line{
+	dir = 1
+	},
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	pixel_y = 28
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "fuE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56109,6 +56126,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "lHf" = (
@@ -82983,7 +83004,7 @@
 	color = "#c2bfa3"
 	},
 /obj/machinery/microwave{
-	pixel_y = 8;
+	pixel_y = 6;
 	pixel_x = -1
 	},
 /turf/open/floor/vault/rock,
@@ -104060,6 +104081,10 @@
 "vDv" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/effect/spawner/randomvend/snack,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -28
+	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
 "vDw" = (
@@ -113397,10 +113422,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/firealarm{
-	pixel_x = -28;
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "xBV" = (
@@ -147285,7 +147306,7 @@ pHu
 cqY
 kEZ
 lmM
-gyF
+fus
 aNN
 cyE
 cJN
