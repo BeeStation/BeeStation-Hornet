@@ -2636,19 +2636,6 @@
 	},
 /turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
-"su" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "DOOM";
-	name = "DOOM navigate verb destination"
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "sy" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
@@ -3004,6 +2991,19 @@
 /obj/structure/necropolis_gate/locked,
 /obj/structure/stone_tile/slab,
 /turf/open/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"vs" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "DOOM";
+	name = "DOOM navigate verb destination"
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -3918,17 +3918,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
-"Ct" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 3;
-	height = 10;
-	id = "mining_away";
-	name = "lavaland mine";
-	width = 10
-	},
-/turf/open/floor/plating/lavaland,
-/area/lavaland/surface/outdoors)
 "Cv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4452,10 +4441,6 @@
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron,
 /area/mine/gateway)
-"Gt" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/mine/science)
 "Gw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -5186,6 +5171,17 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Lh" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "mining_away";
+	name = "lavaland mine";
+	width = 10
+	},
+/turf/open/floor/plating/lavaland,
+/area/lavaland/surface/outdoors)
 "Lk" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -5312,6 +5308,10 @@
 	},
 /turf/open/floor/iron,
 /area/mine/production)
+"Mh" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron,
+/area/mine/science)
 "Mi" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -5343,10 +5343,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Mz" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/mine/gateway)
 "MC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
@@ -6221,6 +6217,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/laborcamp)
+"Ts" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron,
+/area/mine/gateway)
 "Tv" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -37273,7 +37273,7 @@ lf
 sQ
 uw
 Nj
-Mz
+Ts
 HM
 an
 CF
@@ -39082,7 +39082,7 @@ Xa
 hb
 SX
 PA
-Ct
+Lh
 rf
 rf
 rf
@@ -39631,7 +39631,7 @@ az
 Ho
 yU
 De
-su
+vs
 De
 De
 yU
@@ -48839,7 +48839,7 @@ HT
 HT
 HT
 Lc
-Gt
+Mh
 FJ
 jh
 tk

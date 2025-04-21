@@ -52,6 +52,7 @@ import { setupGlobalEvents } from './events';
 import { setupHotKeys } from './hotkeys';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
 import { setGlobalStore } from './backend';
+import { loadIconRefMap } from './icons';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');
@@ -60,6 +61,7 @@ const store = configureStore();
 
 const renderApp = createRenderer(() => {
   setGlobalStore(store);
+  loadIconRefMap();
 
   const { getRoutedComponent } = require('./routes');
   const Component = getRoutedComponent(store);

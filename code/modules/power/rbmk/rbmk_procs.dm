@@ -153,11 +153,14 @@ Arguments:
 * -user: the player doing the action
 */
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate(mob/living/user)
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/user_activate(mob/living/user)
 	if(active)
 		to_chat(user, span_notice("You already activated the machine."))
 		return
 	to_chat(user, span_notice("You activate the machine."))
+	activate()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate()
 	active = TRUE
 	start_power = TRUE
 	update_appearance()
