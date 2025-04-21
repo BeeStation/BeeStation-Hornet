@@ -159,6 +159,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	ADD_TRAIT(src, TRAIT_SECURITY_HUD, ref(src))
 
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
+
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
 
@@ -898,6 +900,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
+/mob/dead/observer/verb/cancel_camera_ghosts()
+	set name = "Cancel Camera View"
+	set category = "Ghost"
+	reset_perspective(null)
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
+
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
 	set category = "Ghost"
@@ -917,6 +925,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && istype(mob_eye))
 		client.set_eye(mob_eye)
+		add_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 		if(mob_eye.hud_used)
 			client.screen = list()
 			LAZYINITLIST(mob_eye.observers)

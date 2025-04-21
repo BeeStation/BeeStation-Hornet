@@ -128,26 +128,28 @@
 		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
-	cut_overlays()
+
+/obj/item/gun/ballistic/update_overlays()
+	. = ..()
 	switch(bolt_type)
 		if(BOLT_TYPE_LOCKING, BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
-			add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
+			. += "[icon_state]_bolt[bolt_locked ? "_locked" : ""]"
 	if (bolt_type == BOLT_TYPE_OPEN && bolt_locked)
-		add_overlay("[icon_state]_bolt")
+		. += "[icon_state]_bolt"
 	if (suppressed)
-		add_overlay("[icon_state]_suppressor")
+		. += "[icon_state]_suppressor"
 	if(!chambered && empty_indicator)
-		add_overlay("[icon_state]_empty")
+		. += "[icon_state]_empty"
 	if (magazine)
 		if (special_mags)
 			if(magazine.multiple_sprites)
-				add_overlay("[icon_state]_mag_[initial(magazine.icon_state)]")
+				. += "[icon_state]_mag_[initial(magazine.icon_state)]"
 			else
-				add_overlay("[icon_state]_mag_[magazine.icon_state]")
+				. += "[icon_state]_mag_[magazine.icon_state]"
 			if (!magazine.ammo_count())
-				add_overlay("[icon_state]_mag_empty")
+				. += "[icon_state]_mag_empty"
 		else
-			add_overlay("[icon_state]_mag")
+			. += "[icon_state]_mag"
 			var/capacity_number = 0
 			switch(get_ammo() / magazine.max_ammo)
 				if(0.2 to 0.39)
@@ -161,25 +163,30 @@
 				if(1.0)
 					capacity_number = 100
 			if (capacity_number)
-				add_overlay("[icon_state]_mag_[capacity_number]")
+				. += "[icon_state]_mag_[capacity_number]"
 
+/obj/item/gun/ballistic/update_icon_state()
+	. = ..()
+	if(current_skin)
+		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
+	else
+		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
 
-/obj/item/gun/ballistic/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
-	if(!semi_auto && from_firing)
+/obj/item/gun/ballistic/on_chamber_fired()
+	if (casing_ejector)
+		eject_chamber()
+	else
+		chambered = null
+	if (!semi_auto)
 		return
-	var/obj/item/ammo_casing/casing = chambered //Find chambered round
-	if(istype(casing)) //there's a chambered round
-		if(QDELING(casing))
-			stack_trace("Trying to move a qdeleted casing of type [casing.type]!")
-			chambered = null
-		else if(casing_ejector || !from_firing)
-			casing.forceMove(drop_location()) //Eject casing onto ground.
-			casing.bounce_away(TRUE)
-			chambered = null
-		else if(empty_chamber)
-			chambered = null
-	if (chamber_next_round && (magazine?.max_ammo > 1))
-		chamber_round()
+	chamber_round()
+
+/obj/item/gun/ballistic/proc/eject_chamber()
+	if (!chambered)
+		return
+	chambered.forceMove(drop_location())
+	chambered.bounce_away(TRUE)
+	chambered = null
 
 /obj/item/gun/ballistic/proc/chamber_round(keep_bullet = FALSE)
 	if (chambered || !magazine)
@@ -212,7 +219,10 @@
 				user.visible_message(span_notice("[user] racks \the [src]'s [bolt_wording] with a single hand!"))
 			to_chat(user, span_notice("You open the [bolt_wording] of \the [src]."))
 			playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-			process_chamber(!chambered, FALSE, FALSE)
+			if (chambered)
+				eject_chamber()
+			else
+				chamber_round()
 			bolt_locked = TRUE
 			update_icon()
 			return
@@ -228,7 +238,10 @@
 			//Otherwise, we open the bolt and eject the current casing
 	if(user)
 		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
-	process_chamber(!chambered, FALSE)
+	if (chambered)
+		eject_chamber()
+	else
+		chamber_round()
 	if (bolt_type == BOLT_TYPE_LOCKING && !chambered)
 		bolt_locked = TRUE
 		playsound(src, lock_back_sound, lock_back_sound_volume, lock_back_sound_vary)
@@ -291,7 +304,7 @@
 	//If it's locked open (TWO_STEP and PUMP), it can't fire.
 	if((bolt_type == BOLT_TYPE_TWO_STEP || bolt_type == BOLT_TYPE_PUMP) && bolt_locked)
 		return FALSE
-	return chambered
+	return chambered && ..()
 
 /obj/item/gun/ballistic/attackby(obj/item/A, mob/user, params)
 	..()
@@ -366,10 +379,10 @@
 		return
 	return FALSE
 
-/obj/item/gun/ballistic/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	if (sawn_off)
-		bonus_spread += SAWN_OFF_ACC_PENALTY
+/obj/item/gun/ballistic/get_bullet_spread(mob/living/user, atom/target)
 	. = ..()
+	if (sawn_off)
+		. += SAWN_OFF_ACC_PENALTY
 
 /obj/item/gun/ballistic/proc/install_suppressor(obj/item/suppressor/S)
 	// this proc assumes that the suppressor is already inside src
@@ -396,7 +409,10 @@
 	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user && !bolt_locked)
 		to_chat(user, span_notice("You lock open the [bolt_wording] of \the [src]."))
 		playsound(src, half_rack_sound, rack_sound_volume, rack_sound_vary)
-		process_chamber(!chambered, FALSE, FALSE)
+		if (chambered)
+			eject_chamber()
+		else
+			chamber_round()
 		bolt_locked = TRUE
 		update_icon()
 		return
@@ -420,9 +436,12 @@
 			bolt_locked = TRUE
 			update_icon()
 
-/obj/item/gun/ballistic/fire_gun(atom/target, mob/living/user, flag, params, aimed)
+/obj/item/gun/ballistic/pull_trigger(atom/target, mob/living/user, flag, params, aimed)
 	prefire_empty_checks()
-	. = ..() //The gun actually firing
+	return ..()
+
+/obj/item/gun/ballistic/on_chamber_fired()
+	. = ..()
 	postfire_empty_checks()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
@@ -568,7 +587,6 @@
 		can_bayonet = FALSE				//you got rid of the mounting lug with the rest of the barrel, dumbass
 		can_suppress = FALSE			//ditto for the threaded barrel
 		sawn_off = TRUE
-		spread_multiplier = 1.6
 		update_icon()
 		return TRUE
 
