@@ -14,7 +14,7 @@
     "tgui:lint": "eslint packages --ext .js,.cjs,.jsx,.ts,.tsx",
     "tgui:prettier": "prettierx --check .",
     "tgui:prettier-format": "prettierx --write packages",
-    "tgui:sonar": "eslint packages --ext .js,.cjs,.jsx,.ts,.tsx -c .eslintrc-sonar.yml",
+    "tgui:sonar": "eslint packages --ext .js,.cjs,.ts,.jsx,.tsx -c .eslintrc-sonar.yml",
     "tgui:test": "jest --watch",
     "tgui:test-simple": "CI=true jest --color",
     "tgui:test-ci": "CI=true jest --color --collect-coverage",

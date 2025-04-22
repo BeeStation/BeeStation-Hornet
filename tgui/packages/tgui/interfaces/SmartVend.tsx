@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Button, Input, NoticeBox, NumberInput, Section, Stack } from 'tgui/components';
-import { ImageButton } from 'tgui-core/components';
-
-import { BooleanLike } from 'common/react';
-import { createSearch } from 'common/string';
+import { Button, ImageButton, Input, NoticeBox, NumberInput, Section, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { getLayoutState, LAYOUT, LayoutToggle } from './common/LayoutToggle';
 
 type Item = {
   path: string;
@@ -24,15 +23,12 @@ type Data = {
   default_list_view: BooleanLike;
 };
 
-enum MODE {
-  tile,
-  list,
-}
-
 export const SmartVend = (props) => {
   const { act, data } = useBackend<Data>();
   const [searchText, setSearchText] = useState('');
-  const [displayMode, setDisplayMode] = useState(data.default_list_view ? MODE.list : MODE.tile);
+  const [displayMode, setDisplayMode] = useState(
+    getLayoutState() === LAYOUT.Default ? (data.default_list_view ? LAYOUT.List : LAYOUT.Grid) : getLayoutState()
+  );
   const search = createSearch(searchText, (item: Item) => item.name);
   const contents = searchText.length > 0 ? Object.values(data.contents).filter(search) : Object.values(data.contents);
   return (
@@ -43,40 +39,46 @@ export const SmartVend = (props) => {
           scrollable
           title="Storage"
           buttons={
-            <>
+            <Stack>
               {data.isdryer ? (
-                <Button icon={data.drying ? 'stop' : 'tint'} onClick={() => act('Dry')}>
-                  {data.drying ? 'Stop drying' : 'Dry'}
-                </Button>
+                <Stack.Item>
+                  <Button icon={data.drying ? 'stop' : 'tint'} onClick={() => act('Dry')}>
+                    {data.drying ? 'Stop drying' : 'Dry'}
+                  </Button>
+                </Stack.Item>
               ) : (
                 <>
-                  <Input autoFocus placeholder={'Search...'} value={searchText} onInput={(e, value) => setSearchText(value)} />
-                  <Button
-                    icon={displayMode === MODE.tile ? 'list' : 'border-all'}
-                    tooltip={displayMode === MODE.tile ? 'Display as a list' : 'Display as a grid'}
-                    tooltipPosition="bottom"
-                    onClick={() => setDisplayMode(displayMode === MODE.tile ? MODE.list : MODE.tile)}
-                  />
+                  <Stack.Item>
+                    <Input
+                      autoFocus
+                      placeholder={'Search...'}
+                      value={searchText}
+                      onInput={(e, value) => setSearchText(value)}
+                    />
+                  </Stack.Item>
+                  <LayoutToggle state={displayMode} setState={setDisplayMode} />
                 </>
               )}
-              <Button
-                icon="question"
-                tooltip={
-                  <>
-                    LMB - Vend selected amount
-                    <br />
-                    RMB - Vend all
-                  </>
-                }
-                tooltipPosition={'bottom-end'}
-              />
-            </>
+              <Stack.Item>
+                <Button
+                  icon="question"
+                  tooltip={
+                    <>
+                      LMB - Vend selected amount
+                      <br />
+                      RMB - Vend all
+                    </>
+                  }
+                  tooltipPosition={'bottom-end'}
+                />
+              </Stack.Item>
+            </Stack>
           }>
           {!contents.length ? (
             <NoticeBox>Nothing found.</NoticeBox>
           ) : (
             contents.map((item) =>
-              displayMode === MODE.tile ? <ItemTile key={item.path} item={item} /> : <ItemList key={item.path} item={item} />
+              displayMode === LAYOUT.Grid ? <ItemTile key={item.path} item={item} /> : <ItemList key={item.path} item={item} />
             )
           )}
         </Section>
