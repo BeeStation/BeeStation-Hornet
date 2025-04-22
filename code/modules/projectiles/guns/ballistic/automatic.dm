@@ -249,12 +249,11 @@
 		playsound(user, 'sound/weapons/sawopen.ogg', 60, 1)
 	else
 		playsound(user, 'sound/weapons/sawopen.ogg', 60, 1)
-	update_icon()
+	update_appearance()
 
-
-/obj/item/gun/ballistic/automatic/l6_saw/update_icon()
+/obj/item/gun/ballistic/automatic/l6_saw/update_overlays()
 	. = ..()
-	add_overlay("l6_door_[cover_open ? "open" : "closed"]")
+	. += "l6_door_[cover_open ? "open" : "closed"]"
 
 
 /obj/item/gun/ballistic/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)

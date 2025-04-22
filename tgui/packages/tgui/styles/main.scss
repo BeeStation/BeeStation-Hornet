@@ -64,6 +64,7 @@
 @include meta.load-css('./interfaces/StripMenu.scss');
 @include meta.load-css('./interfaces/TechFab.scss');
 @include meta.load-css('./interfaces/DetectiveBoard.scss');
+@include meta.load-css('./interfaces/WallCloset.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');
