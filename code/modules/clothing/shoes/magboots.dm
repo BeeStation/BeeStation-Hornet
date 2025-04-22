@@ -5,9 +5,11 @@
 	item_state = "magboots"
 	var/magboot_state = "magboots"
 	var/magpulse = 0
+	var/high_magnet = FALSE
 	var/slowdown_active = 2
+	var/slowdown_high_power = 4
 	armor_type = /datum/armor/shoes_magboots
-	actions_types = list(/datum/action/item_action/toggle)
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/high_power_magnet)
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
@@ -35,13 +37,29 @@
 		return
 	attack_self(usr)
 
+/obj/item/clothing/shoes/magboots/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/toggle))
+		toggle()
+	else if(istype(action, /datum/action/item_action/high_power_magnet))
+		if(magpulse)
+			high_power_magnet()
+
+/obj/item/clothing/shoes/magboots/verb/high_power_magnet()
+	set name = "Toggle High Power Magnet"
+	set category = "Object"
+	set src in usr
+	if(!can_use(usr))
+		return
+	togle_high_power()
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/living/user)
 	if(magpulse)
+		clothing_flags &= ~NOSLIP
 		clothing_flags &= ~NOSLIP_ALL
 		slowdown = SHOES_SLOWDOWN
+		high_magnet = FALSE
 	else
-		clothing_flags |= NOSLIP_ALL
+		clothing_flags |= NOSLIP
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
@@ -55,6 +73,7 @@
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
 	. += "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
+	. += "Its high power magnet system appears to be [high_magnet ? "enabled" : "disabled"]."
 
 ///Adds/removes the gravity negation trait from the wearer depending on if the magpulse system is turned on.
 /obj/item/clothing/shoes/magboots/proc/update_gravity_trait(mob/user)
@@ -63,6 +82,18 @@
 	else
 		REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
 
+/obj/item/clothing/shoes/magboots/proc/togle_high_power()
+	if(!magpulse) // Shoudnt ever happen
+		return
+	if(high_magnet)
+		clothing_flags &= ~NOSLIP_ALL
+		slowdown = slowdown_active
+	else
+		clothing_flags |= NOSLIP_ALL
+		slowdown = slowdown_high_power
+	high_magnet = !high_magnet
+	update_action_buttons()
+
 
 /obj/item/clothing/shoes/magboots/advance
 	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
@@ -70,6 +101,7 @@
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
+	slowdown_high_power = 2
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
