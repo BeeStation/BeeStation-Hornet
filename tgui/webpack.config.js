@@ -32,7 +32,7 @@ module.exports = (env = {}, argv) => {
     context: path.resolve(__dirname),
     target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
-      'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
+      tgui: ['./packages/tgui-polyfill', './packages/tgui'],
       'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
       'tgui-say': ['./packages/tgui-polyfill', './packages/tgui-say'],
     },
@@ -41,6 +41,7 @@ module.exports = (env = {}, argv) => {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
+      publicPath: '/',
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
@@ -50,6 +51,7 @@ module.exports = (env = {}, argv) => {
       rules: [
         {
           test: /\.(js(x)?|cjs|ts(x)?)$/,
+          exclude: /node_modules[\\/]core-js/,
           use: [
             {
               loader: require.resolve('babel-loader'),
