@@ -11,8 +11,7 @@ export const tgui_fancy: FeatureToggle = {
 export const tgui_layout: Feature<string> = {
   name: 'Default TGUI Layout',
   category: 'UI',
-  description:
-    'Applies the selected layout type to all interfaces where it possible. Like on Smartfridge.',
+  description: 'Applies the selected layout type to all interfaces where it possible. Like on Smartfridge.',
   component: FeatureDropdownInput,
 };
 

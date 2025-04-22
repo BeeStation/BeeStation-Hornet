@@ -11,8 +11,8 @@
 /// Changes layout in some UI's, like Vending, Smartfridge etc. Making it list or grid
 /datum/preference/choiced/tgui_layout
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "tgui_layout"
-	savefile_identifier = PREFERENCE_PLAYER
+	db_key = "tgui_layout"
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/choiced/tgui_layout/init_possible_values()
 	return list(
