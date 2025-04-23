@@ -95,6 +95,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "ga" = (
@@ -926,6 +927,7 @@
 "RX" = (
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/edges/borderfloor/black/corner1,
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "Sp" = (
