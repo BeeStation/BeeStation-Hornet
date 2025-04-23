@@ -44,6 +44,10 @@
 	var/busy = FALSE
 	/// Variable needed to determine the selected category of forms on Photocopier.js
 	var/category
+	/// Name of the blank chosen
+	var/print_name
+	/// Info of the blank chosen
+	var/list/print_info = list()
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -203,16 +207,11 @@
 			if(toner_cartridge.charges - PAPER_TONER_USE < 0)
 				to_chat(usr, span_warning("There is not enough toner in [src] to print the form, please replace the cartridge."))
 				return FALSE
+			// Save name/info in machine vars so callback can access them
+			print_name = sanitize(params["name"])
+			print_info = params["info"]
 			do_copy_loop(CALLBACK(src, PROC_REF(make_blank_print)), usr)
-			var/obj/item/paper/printblank = new /obj/item/paper (loc)
-			var/printname = sanitize(params["name"])
-			var/list/printinfo
-			for(var/infoline as anything in params["info"])
-				printinfo += infoline
-			printblank.name = printname
-			printblank.add_raw_text(printinfo)
-			printblank.update_appearance()
-			return printblank
+			return TRUE
 
 /**
  * Determines if the photocopier has enough toner to create `num_copies` amount of copies of the currently inserted item.
@@ -241,13 +240,14 @@
 	for(i in 1 to num_copies)
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
 			break
-		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE)
-			message_admins("I BREAK HERE 2")
+		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE) // The user has no id, or not suficient funds, or no account.
+			var/mob/living/L = user
+			if(!L.get_idcard(TRUE) && !(istype(L.pulling, /obj/item/card/id)))
+				to_chat(user, span_warning("You need to have a valid ID card equipped or pulled to use the photocopier."))
 			break
 		addtimer(copy_cb, i SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), i SECONDS)
-	message_admins("[ass]")
-	message_admins("ass has been posted")
+
 /**
  * Sets busy to `FALSE`. Created as a proc so it can be used in callbacks.
  */
@@ -312,9 +312,15 @@
  * The procedure is called when printing a blank to write off toner consumption.
  */
 /obj/machinery/photocopier/proc/make_blank_print()
-	if(!toner_cartridge)
+	if(!toner_cartridge || toner_cartridge.charges < PAPER_TONER_USE)
 		return
 	toner_cartridge.charges -= PAPER_TONER_USE
+
+	var/obj/item/paper/printblank = new /obj/item/paper(loc)
+	printblank.name = print_name
+	for(var/line as anything in print_info)
+		printblank.add_raw_text(line)
+	printblank.update_appearance()
 
 /**
  * Handles the copying of an ass photo.
@@ -323,10 +329,7 @@
  * Additionally checks that the mob has their clothes off.
  */
 /obj/machinery/photocopier/proc/make_ass_copy()
-	message_admins("ass is: [ass]")
-	message_admins("check_ass() says: [check_ass()]")
 	if(!check_ass() || !toner_cartridge)
-		message_admins("NAH IM RETURNIN!")
 		return
 	if(ishuman(ass) && (ass.get_item_by_slot(ITEM_SLOT_ICLOTHING) || ass.get_item_by_slot(ITEM_SLOT_OCLOTHING)))
 		to_chat(usr, span_notice("You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.") )
@@ -336,7 +339,6 @@
 	if(isalienadult(ass) || istype(ass, /mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
 		temp_img = icon('icons/ass/assalien.png')
 	else if(ishuman(ass)) //Suit checks are in check_ass
-		message_admins("Its an ass for sure")
 		var/mob/living/carbon/human/temporary = ass
 		temp_img = icon(temporary.dna.features["body_model"] == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
 	else if(isdrone(ass)) //Drones are hot
@@ -349,7 +351,6 @@
 	toEmbed.psize_y = 128
 	copied_ass.set_picture(toEmbed, TRUE, TRUE)
 	toner_cartridge.charges -= ASS_TONER_USE
-	message_admins("We got to this point.")
 
 /**
  * Inserts the item into the copier. Called in `attackby()` after a human mob clicked on the copier with a paper, photo, or document.
