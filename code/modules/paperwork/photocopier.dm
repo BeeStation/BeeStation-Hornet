@@ -84,7 +84,7 @@
 	var/list/data = list()
 	data["has_item"] = !copier_empty()
 	data["num_copies"] = num_copies
-	data["isAI"] = istype(user, /mob/living/silicon/ai)
+	data["isAI"] = istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot)
 	data["can_AI_print"] = toner_cartridge ? toner_cartridge.charges >= PHOTO_TONER_USE : FALSE
 
 	try
