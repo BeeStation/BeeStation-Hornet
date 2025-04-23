@@ -30,10 +30,10 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/gun/chem/can_shoot()
-	return syringes_left
+	return syringes_left && ..()
 
-/obj/item/gun/chem/process_chamber()
-	if(chambered && !chambered.BB && syringes_left)
+/obj/item/gun/chem/on_chamber_fired()
+	if(syringes_left)
 		chambered.newshot()
 
 /obj/item/gun/chem/process()

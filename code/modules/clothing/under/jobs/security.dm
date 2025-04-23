@@ -44,6 +44,12 @@
 /obj/item/clothing/under/rank/security/officer/white
 	name = "white security jumpsuit"
 	desc = "A tactical relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
+	icon_state = "wsecurity"
+	item_state = "gy_suit"
+
+/obj/item/clothing/under/rank/security/officer/grey
+	name = "grey security jumpsuit"
+	desc = "A relic of a bygone age, before Nanotrasen decided an officers dignity was an unnecessary expense."
 	icon_state = "security"
 	item_state = "gy_suit"
 
@@ -83,7 +89,7 @@
  */
 
 /obj/item/clothing/under/rank/security/warden
-	name = "security suit"
+	name = "warden suit"
 	desc = "A formal security suit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rwarden"
 	item_state = "r_suit"
@@ -98,8 +104,14 @@
 	bleed = 10
 
 /obj/item/clothing/under/rank/security/warden/white
-	name = "white security suit"
+	name = "white warden suit"
 	desc = "A formal relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
+	icon_state = "wwarden"
+	item_state = "gy_suit"
+
+/obj/item/clothing/under/rank/security/warden/grey
+	name = "grey warden suit"
+	desc = "A relic of a bygone age, before Nanotrasen decided an officers dignity was an unnecessary expense."
 	icon_state = "warden"
 	item_state = "gy_suit"
 
@@ -209,6 +221,12 @@
 /obj/item/clothing/under/rank/security/head_of_security/white
 	name = "head of security's white jumpsuit"
 	desc = "There are old men, and there are bold men, but there are very few old, bold men."
+	icon_state = "whos"
+	item_state = "gy_suit"
+
+/obj/item/clothing/under/rank/security/head_of_security/grey
+	name = "head of security's grey jumpsuit"
+	desc = "There are old men, and there are bold men, but there are very few old, bold men."
 	icon_state = "hos"
 	item_state = "gy_suit"
 
@@ -299,19 +317,3 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-
-/*
- * Triiodine's security uniforms
- */
-
-
-/obj/item/clothing/under/rank/security/officer/mallcop
-	name = "NT mall cop uniform"
-	desc = "The radio and badge are sewn on, what a crappy knock off. Secway not included."
-	icon_state = "mallcop"
-	item_state = "gy_suit"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/security/officer/mallcop/deputy
-	name = "deputy uniform"
-	desc = "A lightly armored formal uniform fit for wannabe security members."
