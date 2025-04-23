@@ -666,10 +666,9 @@ SUBSYSTEM_DEF(job)
 	for(var/datum/job/J in occupations)
 		if(J.gimmick) //gimmick job slots are dependant on random maint
 			continue
-		var/regex/jobs = new("[J.title]=(-1|\\d+),(-1|\\d+)")
+		var/regex/jobs = new("[J.title]=(-1|\\d+)")
 		if(jobs.Find(jobstext))
 			J.total_positions = text2num(jobs.group[1])
-			J.spawn_positions = text2num(jobs.group[2])
 		else
 			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of title [J.title] in jobs.txt")
 

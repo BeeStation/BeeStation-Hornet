@@ -12,7 +12,6 @@ Chief Medical Officer=1
 Assistant=-1
 
 Quartermaster=1
-Cargo Technician=6
 Shaft Miner=3
 
 Bartender=2
@@ -27,16 +26,13 @@ Lawyer=2
 
 Chaplain=1
 
-Station Engineer=7
 Atmospheric Technician=2
 
-Medical Doctor=8
 Paramedic=2
 Chemist=2
 Geneticist=2
 Virologist=1
 
-Scientist=8
 Roboticist=2
 
 Warden=1
@@ -46,6 +42,3 @@ Deputy=0
 
 AI=1
 Cyborg=1
-
-#Infinite roles
-Security Officer=10
