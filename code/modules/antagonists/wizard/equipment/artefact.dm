@@ -38,7 +38,7 @@
 	icon_state = "rift"
 	density = TRUE
 	anchored = TRUE
-	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
+	var/spawn_path = /mob/living/basic/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 	var/spawn_fast = 0
 
@@ -78,7 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/item/veilrender/vealrender
 	name = "veal render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast farm."
-	spawn_type = /mob/living/simple_animal/cow
+	spawn_type = /mob/living/basic/cow
 	spawn_amt = 20
 	activate_descriptor = "hunger"
 	rend_desc = "Reverberates with the sound of ten thousand moos."

@@ -2463,28 +2463,43 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	// Check if legs are functional for catrobatics
+	var/obj/item/bodypart/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
+	if((left_leg && !left_leg.bodypart_disabled) || (right_leg && !right_leg.bodypart_disabled))
+		if(HAS_TRAIT(H, TRAIT_LIGHT_LANDING) && levels == 1)
+			// Nailed it!
+			H.visible_message(
+				span_notice("[H] lands elegantly on [H.p_their()] feet!"),
+				span_warning("You fall [levels] level\s onto [T], perfecting the landing!")
+			)
+			H.Stun(35)
+			return
+
+	// Apply general impact damage
 	H.apply_general_zimpact_damage(T, levels)
 	if(levels < 2)
 		return
-	// SPLAT!
-	// 5: 50%, 4: 32%, 3: 18%
+
+	// SPLAT! Chance to gib
 	if(levels >= 3 && prob(min((levels ** 2) * 2, 50)))
 		H.gib()
 		return
-	// owie
-	// 5: 60%, 4: 45%, 3: 30%, 2: 15%
+
+	// Chance to dismember limbs
 	if(prob(min((levels - 1) * 15, 75)))
+		var/list/limbs = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 		if(levels >= 3 && prob(25))
-			for(var/selected_part in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+			for(var/selected_part in limbs)
 				var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
 				if(bp)
 					bp.dismember()
 			return
-		var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+
+		var/selected_part = pick(limbs)
 		var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
 		if(bp)
 			bp.dismember()
-			return
 
 /datum/species/proc/get_laugh_sound(mob/living/carbon/user)
 	return

@@ -22,7 +22,7 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 2
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 70
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
@@ -171,7 +171,7 @@
 		return 1
 
 /obj/item/dualsaber/ignition_effect(atom/A, mob/user)
-	// same as /obj/item/melee/transforming/energy, mostly
+	// same as /obj/item/melee/energy, mostly
 	if(!ISWIELDED(src))
 		return ""
 	var/in_mouth = ""

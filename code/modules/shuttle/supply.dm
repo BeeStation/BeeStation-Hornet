@@ -27,7 +27,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/item/swapper,
 		/obj/item/mail,
 		/obj/docking_port,
-		/obj/effect/warped_rune // no teleporting to cc for you
+		/obj/effect/warped_rune, // no teleporting to cc for you
+		/obj/structure/slime_crystal/bluespace // Dang it, you still teleported to CC!
 	)))
 
 /obj/docking_port/mobile/supply
