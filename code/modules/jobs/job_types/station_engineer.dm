@@ -5,7 +5,7 @@
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"
-	total_positions = 5
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#fff5cc"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW

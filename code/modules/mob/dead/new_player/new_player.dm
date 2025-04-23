@@ -272,12 +272,12 @@
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
-	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
+	if((job.current_positions >= job.get_spawn_position_count()) && job.get_spawn_position_count() != -1)
 		if(job.title == JOB_NAME_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
 			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.title != job.title)
+				if(J && J.current_positions < J.get_spawn_position_count() && J.title != job.title)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
@@ -404,7 +404,7 @@
 				if(!SSshuttle.canRecall())
 					dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div><br>"
 	for(var/datum/job/prioritized_job in SSjob.prioritized_jobs)
-		if(prioritized_job.current_positions >= prioritized_job.total_positions)
+		if(prioritized_job.current_positions >= prioritized_job.get_spawn_position_count())
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0

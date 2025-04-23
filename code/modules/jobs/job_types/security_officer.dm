@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	faction = "Station"
-	total_positions = 5
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 840

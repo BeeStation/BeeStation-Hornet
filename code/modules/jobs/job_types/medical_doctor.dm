@@ -5,7 +5,7 @@
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
-	total_positions = 5
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW

@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
-	total_positions = 3
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/cargo_technician

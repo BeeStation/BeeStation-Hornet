@@ -131,6 +131,10 @@
 	/// Should be the same as everything else in the dynamic spawn group
 	var/dynamic_spawn_variance_limit = 2
 
+	/// The HOP can manually add or decrease the amount of players
+	/// that can apply for a job, which adjusts the delta value.
+	var/total_position_delta = 0
+
 /datum/job/New()
 	. = ..()
 	lightup_areas = typecacheof(lightup_areas)
@@ -143,25 +147,35 @@
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
 
-/datum/job/proc/get_spawn_position_count(player_count, list/current_jobs)
+/datum/job/proc/get_spawn_position_count()
+	var/player_count = SSjob.initial_players_to_assign
+	// SSjob has not been allocated yet
+	if (!player_count)
+		player_count = length(GLOB.clients)
 	// Out of range
 	if (player_count < min_pop)
 		return 0
 	if (player_count > max_pop)
 		return 0
+	// Unlimited
+	if (total_positions == -1)
+		return -1
 	// Does not have a spawn group
 	if (!dynamic_spawn_group)
-		return total_positions
+		return max(total_positions + total_position_delta, 0)
 	// Calculate spawn group size
 	var/spawn_group_minimum = INFINITY
-	for (var/datum/job/other in current_jobs)
+	for (var/datum/job/other in SSjob.occupations)
 		// Find everything in the same group, doesn't matter if its us
 		if (other.dynamic_spawn_group != dynamic_spawn_group)
 			continue
 		// Find the least filled job in the group
-		spawn_group_minimum = min(spawn_group_minimum, other.current_positions)
+		// If the HOP removes a position from another job, then that removed position.
+		// If the HOP adds a position to a job group, then it has to be filled before the spawn
+		// group bumps.
+		spawn_group_minimum = min(spawn_group_minimum, other.current_positions - other.total_position_delta)
 	// The amount of positions we have is the least filled job + our allowed variance
-	return spawn_group_minimum + dynamic_spawn_variance_limit
+	return max(spawn_group_minimum + dynamic_spawn_variance_limit + total_position_delta, 0)
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it

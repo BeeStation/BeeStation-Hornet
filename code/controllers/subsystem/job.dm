@@ -174,7 +174,7 @@ SUBSYSTEM_DEF(job)
 			return FALSE
 		if(job.required_playtime_remaining(player.client))
 			return FALSE
-		var/position_limit = job.total_positions
+		var/position_limit = job.get_spawn_position_count()
 		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 		player.mind.assigned_role = rank
 		unassigned -= player
@@ -246,7 +246,7 @@ SUBSYSTEM_DEF(job)
 			JobDebug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
-		if((job.current_positions < job.total_positions) || job.total_positions == -1)
+		if((job.current_positions < job.get_spawn_position_count()) || job.get_spawn_position_count() == -1)
 			JobDebug("GRJ Random job given, Player: [player], Job: [job]")
 			if(AssignRole(player, job.title))
 				return TRUE
@@ -291,9 +291,6 @@ SUBSYSTEM_DEF(job)
 	JobDebug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
 		return validate_required_jobs(required_jobs)
-
-	//Scale number of open security officer slots to population
-	setup_officer_positions()
 
 	//Jobs will have fewer access permissions if the number of players exceeds the threshold defined in game_options.txt
 	var/mat = CONFIG_GET(number/minimal_access_threshold)
@@ -382,6 +379,9 @@ SUBSYSTEM_DEF(job)
 			if(!AssignRole(player, SSjob.overflow_role)) //If everything is already filled, make them an assistant
 				return FALSE //Living on the edge, the forced antagonist couldn't be assigned to overflow role (bans, client age) - just reroll
 
+	//Scale number of open security officer slots to population
+	setup_officer_positions()
+
 	return validate_required_jobs(required_jobs)
 
 /datum/controller/subsystem/job/proc/assign_roles(priority = JP_MEDIUM)
@@ -408,7 +408,7 @@ SUBSYSTEM_DEF(job)
 	for(var/mob/dead/new_player/player in random_orderings)
 		// Get the first available job for this player
 		for (var/datum/job/job in random_orderings[player])
-			var/job_position_count = job.get_spawn_position_count(initial_players_to_assign, occupations)
+			var/job_position_count = job.get_spawn_position_count()
 			if (job.current_positions >= job_position_count && job_position_count != -1)
 				continue
 			// Provisional assignment
@@ -443,7 +443,7 @@ SUBSYSTEM_DEF(job)
 				if (player.mind.assigned_role == job.title)
 					break
 				// This job is full, skip
-				var/job_position_count = job.get_spawn_position_count(initial_players_to_assign, occupations)
+				var/job_position_count = job.get_spawn_position_count()
 				if (job.current_positions >= job_position_count && job_position_count != -1)
 					continue
 				JobDebug("DO [player.ckey] switched from job [player.mind.assigned_role] to job [job.title]")
@@ -649,7 +649,7 @@ SUBSYSTEM_DEF(job)
 		CRASH("setup_officer_positions(): Security officer job is missing")
 
 	//Spawn some extra eqipment lockers if we have more than 5 officers
-	var/equip_needed = J.total_positions
+	var/equip_needed = J.get_spawn_position_count()
 	if(equip_needed < 0) // -1: infinite available slots
 		equip_needed = 12
 	for(var/i=equip_needed-5, i>0, i--)
