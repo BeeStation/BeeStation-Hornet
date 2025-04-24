@@ -1,0 +1,6 @@
+author: DStarsthy
+delete-after: true
+changes:
+  - bugfix: Photos are once again printable at photocopiers
+  - bugfix: Fixed blanks printing without id on photocopiers
+  - tweak: Cyborgs and AIs can use photocopiers properly
