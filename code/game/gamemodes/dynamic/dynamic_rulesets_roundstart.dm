@@ -181,7 +181,7 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10)
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10, 1)
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	team = new
@@ -225,7 +225,7 @@
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10)
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10, 1)
 
 /datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
 	LoadReebe()
@@ -277,7 +277,7 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10)
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10, 1)
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
 	var/has_made_leader = FALSE
@@ -368,7 +368,7 @@
 	var/finished = FALSE
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 15)
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 15, 1)
 
 /datum/dynamic_ruleset/roundstart/revolution/execute()
 	team = new
