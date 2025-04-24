@@ -60,6 +60,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Teleporter")
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
