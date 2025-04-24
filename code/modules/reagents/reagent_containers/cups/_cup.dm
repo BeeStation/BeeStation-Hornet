@@ -438,7 +438,7 @@
 /obj/item/reagent_containers/cup/coconutcup
 	name = "coconut cup"
 	desc = "A showy form of cup typically intended for both use and display."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drinks.dmi'
 	icon_state = "coconutcup_empty"
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 100)
 	volume = 50
