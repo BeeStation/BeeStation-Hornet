@@ -8,7 +8,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
-	exp_requirements = 120
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
