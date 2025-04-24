@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: stack_trace() now individually reports runtimes.
+  - code_imp: runtime viewer now tells how many times an error has occcured
