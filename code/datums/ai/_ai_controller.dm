@@ -18,7 +18,7 @@ multiple modular subtrees with behaviors
 	var/list/blackboard = list()
 
 	///Bitfield of traits for this AI to handle extra behavior
-	var/ai_traits
+	var/ai_traits = NONE
 	///Current actions planned to be performed by the AI in the upcoming plan
 	var/list/planned_behaviors
 	///Current actions being performed by the AI.
@@ -44,7 +44,7 @@ multiple modular subtrees with behaviors
 	///All subtrees this AI has available, will run them in order, so make sure they're in the order you want them to run. On initialization of this type, it will start as a typepath(s) and get converted to references of ai_subtrees found in SSai_controllers when init_subtrees() is called
 	var/list/planning_subtrees
 
-	///The idle behavior this AI preforms when it has no actions.
+	///The idle behavior this AI performs when it has no actions.
 	var/datum/idle_behavior/idle_behavior = null
 
 	// Movement related things here
@@ -114,16 +114,35 @@ multiple modular subtrees with behaviors
 	pawn = new_pawn
 	pawn.ai_controller = src
 
-	if(!continue_processing_when_client && istype(new_pawn, /mob))
-		var/mob/possible_client_holder = new_pawn
-		if(possible_client_holder.client)
-			set_ai_status(AI_STATUS_OFF)
-		else
-			set_ai_status(AI_STATUS_ON)
-	else
-		set_ai_status(AI_STATUS_ON)
+	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_POSSESSED_PAWN)
 
+	reset_ai_status()
+	RegisterSignal(pawn, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_changed))
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
+
+/// Sets the AI on or off based on current conditions, call to reset after you've manually disabled it somewhere
+/datum/ai_controller/proc/reset_ai_status()
+	set_ai_status(get_expected_ai_status())
+
+/// Returns what the AI status should be based on current conditions.
+/datum/ai_controller/proc/get_expected_ai_status()
+	var/final_status = AI_STATUS_ON
+
+	if (!ismob(pawn))
+		return final_status
+
+	var/mob/living/mob_pawn = pawn
+
+	if(!continue_processing_when_client && mob_pawn.client)
+		final_status = AI_STATUS_OFF
+
+	if(ai_traits & CAN_ACT_WHILE_DEAD)
+		return final_status
+
+	if(mob_pawn.stat == DEAD)
+		final_status = AI_STATUS_OFF
+
+	return final_status
 
 ///Abstract proc for initializing the pawn to the new controller
 /datum/ai_controller/proc/TryPossessPawn(atom/new_pawn)
@@ -131,7 +150,7 @@ multiple modular subtrees with behaviors
 
 ///Proc for deinitializing the pawn to the old controller
 /datum/ai_controller/proc/UnpossessPawn(destroy)
-	UnregisterSignal(pawn, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT))
+	UnregisterSignal(pawn, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_STATCHANGE))
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
 	pawn.ai_controller = null
@@ -167,8 +186,8 @@ multiple modular subtrees with behaviors
 			CancelActions()
 			return
 
-	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 
+	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
 		// Then pick the max of this and the delta_time passed to ai_controller.process()
@@ -220,6 +239,7 @@ multiple modular subtrees with behaviors
 		return FALSE
 
 	LAZYINITLIST(current_behaviors)
+	LAZYCLEARLIST(planned_behaviors)
 
 	if(LAZYLEN(planning_subtrees))
 		for(var/datum/ai_planning_subtree/subtree as anything in planning_subtrees)
@@ -260,9 +280,14 @@ multiple modular subtrees with behaviors
 		CRASH("Behavior [behavior_type] not found.")
 	var/list/arguments = args.Copy()
 	arguments[1] = src
+
+	if(LAZYACCESS(current_behaviors, behavior)) ///It's still in the plan, don't add it again to current_behaviors but do keep it in the planned behavior list so its not cancelled
+		LAZYADDASSOC(planned_behaviors, behavior, TRUE)
+		return
+
 	if(!behavior.setup(arglist(arguments)))
 		return
-	LAZYADD(current_behaviors, behavior)
+	LAZYADDASSOC(current_behaviors, behavior, TRUE)
 	LAZYADDASSOC(planned_behaviors, behavior, TRUE)
 	arguments.Cut(1, 2)
 	if(length(arguments))
@@ -287,6 +312,11 @@ multiple modular subtrees with behaviors
 		if(stored_arguments)
 			arguments += stored_arguments
 		current_behavior.finish_action(arglist(arguments))
+
+/// Turn the controller on or off based on if you're alive, we only register to this if the flag is present so don't need to check again
+/datum/ai_controller/proc/on_stat_changed(mob/living/source, new_stat)
+	SIGNAL_HANDLER
+	reset_ai_status()
 
 /datum/ai_controller/proc/on_sentience_gained()
 	SIGNAL_HANDLER

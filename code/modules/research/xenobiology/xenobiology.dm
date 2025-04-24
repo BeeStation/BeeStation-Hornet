@@ -787,7 +787,9 @@
 	var/prompted = 0
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack(mob/living/switchy_mob, mob/user)
+/obj/item/slimepotion/transference/afterattack(mob/living/switchy_mob, mob/user, proximity)
+	if(!proximity)
+		return
 	if(prompted || !isliving(switchy_mob))
 		return
 	if(switchy_mob.ckey) //much like sentience, these will not work on something that is already player controlled
@@ -1088,8 +1090,8 @@
 	icon_state = "potgrey"
 
 /obj/item/slimepotion/slime/slimeradio/attack(mob/living/target, mob/user)
-	if(!isanimal(target))
-		to_chat(user, span_warning("[span_name("[target]")] is too complex for the potion!"))
+	if(!isanimal_or_basicmob(target))
+		to_chat(user, span_warning("[target] is too complex for the potion!"))
 		return
 	if(target.stat == DEAD)
 		to_chat(user, span_warning("[span_name("[target]")] is dead!"))

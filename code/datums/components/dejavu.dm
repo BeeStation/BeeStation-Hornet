@@ -49,9 +49,9 @@
 		saved_bodyparts = C.save_bodyparts()
 		rewind_type = PROC_REF(rewind_carbon)
 
-	else if(isanimal(parent))
-		var/mob/living/simple_animal/M = parent
-		brute_loss = M.bruteloss
+	else if(isanimal_or_basicmob(parent))
+		var/mob/living/animal = parent
+		brute_loss = animal.bruteloss
 		rewind_type = PROC_REF(rewind_animal)
 
 	else if(isobj(parent))
