@@ -5,7 +5,7 @@
 * allowed() from pick_roundstart_rulesets() - pre_setup()
 * pre_execute() from pick_roundstart_rulesets() - pre_setup()
 * execute() from execute_ruleset() - post_setup()
-* rule_process() from process()
+* rule_process() from process() - Only if the ruleset has the flag 'SHOULD_PROCESS_RULESET'
 */
 
 /datum/dynamic_ruleset/roundstart
@@ -180,6 +180,9 @@
 
 	var/datum/team/cult/team
 
+/datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10)
+
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	team = new
 	for(var/datum/mind/chosen_mind in chosen_minds)
@@ -221,10 +224,13 @@
 
 	var/datum/team/clock_cult/main_cult
 
+/datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10)
+
 /datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
 	LoadReebe()
-	. = ..()
 	generate_clockcult_scriptures()
+	. = ..()
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute(forced = FALSE)
 	main_cult = new
@@ -269,6 +275,9 @@
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
+
+/datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10)
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
 	var/has_made_leader = FALSE
@@ -358,7 +367,10 @@
 	var/datum/team/revolution/team
 	var/finished = FALSE
 
-/datum/dynamic_ruleset/roundstart/revolution/execute(forced = FALSE)
+/datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
+	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 15)
+
+/datum/dynamic_ruleset/roundstart/revolution/execute()
 	team = new
 	for(var/datum/mind/chosen_mind in chosen_minds)
 		var/datum/antagonist/rev/head/headrev_datum = new antag_datum()

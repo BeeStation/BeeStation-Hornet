@@ -45,6 +45,12 @@
 	. = ..()
 
 /*
+* Some rulesets, like cult, set their drafted players to an ammount relative to the server population.
+*/
+/datum/dynamic_ruleset/proc/set_drafted_players_amount()
+	return
+
+/*
 * Get a list of candidates
 */
 /datum/dynamic_ruleset/proc/get_candidates()

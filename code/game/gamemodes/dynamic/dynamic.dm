@@ -74,7 +74,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	/*
 	 * Configurable variables
-	 * All of these can be altered in 'dynamic.json'
+	 * All of these can be changed in 'dynamic.json'
 	*/
 
 	/// Roundstart
@@ -130,7 +130,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	return TRUE
 
 /*
-* Load dynamic.json
+* Load 'dynamic.json'
 * Configure roundstart_rulesets variables
 * Set roundstart points
 * Pick rulesets to execute
@@ -147,10 +147,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 						stack_trace("Invalid dynamic configuration variable [variable] in game mode variable changes.")
 						continue
 					vars[variable] = dynamic_configuration["Dynamic"][variable]
-
-	midround_light_chance = midround_light_starting_chance
-	midround_medium_chance = midround_medium_starting_chance
-	midround_heavy_chance = midround_heavy_starting_chance
 
 	// Apply 'dynamic.json' configurations into each roundstart ruleset
 	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
@@ -248,6 +244,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		if(!ruleset.points_cost)
 			continue
 
+		ruleset.set_drafted_players_amount()
 		ruleset.get_candidates()
 		ruleset.trim_candidates()
 
@@ -354,6 +351,10 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		stack_trace("DYNAMIC: midround_configured_rulesets is empty. It is impossible to roll midrounds")
 		return
 
+	midround_light_chance = midround_light_starting_chance
+	midround_medium_chance = midround_medium_starting_chance
+	midround_heavy_chance = midround_heavy_starting_chance
+
 	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
 
 /*
@@ -452,6 +453,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		if(ruleset.severity != severity)
 			continue
 
+		ruleset.set_drafted_players_amount()
 		ruleset.get_candidates()
 		ruleset.trim_candidates()
 
