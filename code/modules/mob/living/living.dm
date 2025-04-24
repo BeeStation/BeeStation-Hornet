@@ -957,6 +957,9 @@
 	set name = "Resist"
 	set category = "IC"
 
+	CALLBACK(src, TYPE_PROC_REF(/mob/living, execute_resist))
+
+/mob/living/proc/execute_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)

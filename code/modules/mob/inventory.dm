@@ -198,7 +198,7 @@
 	update_inv_hands()
 	I.pixel_x = I.base_pixel_x
 	I.pixel_y = I.base_pixel_y
-	eturn hand_index
+	return hand_index
 
 //Puts the item into the first available left hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/I)
