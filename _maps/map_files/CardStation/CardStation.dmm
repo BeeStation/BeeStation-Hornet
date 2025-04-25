@@ -50272,10 +50272,13 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/thinplating_new{
+/obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
 /obj/machinery/light/small/directional/east,
+/obj/effect/decal/fakelattice{
+	color = "#808080"
+	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
@@ -76794,8 +76797,11 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/thinplating_new{
+/obj/effect/turf_decal/siding/dark{
 	dir = 1
+	},
+/obj/effect/decal/fakelattice{
+	color = "#808080"
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
