@@ -8,7 +8,7 @@
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
 	block_power = 20 //staffs can block shit if you're walking
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -69,7 +69,7 @@
 		/obj/projectile/magic/wipe
 	)
 
-/obj/item/gun/magic/staff/chaos/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/magic/staff/chaos/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	chambered.projectile_type = pick(allowed_projectile_types)
 	. = ..()
 
@@ -107,7 +107,7 @@
 	force = 20
 	armour_penetration = 75
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_charges = 4
 

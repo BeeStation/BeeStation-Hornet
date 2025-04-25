@@ -91,9 +91,9 @@
 	reqs = list(
 		/datum/reagent/consumable/ethanol/vodka = 25,
 		/obj/item/food/grown/holymelon = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/vodka = 1
+		/obj/item/reagent_containers/cup/glass/bottle/vodka = 1
 	)
-	parts = list(/obj/item/reagent_containers/food/drinks/bottle/vodka = 1)
+	parts = list(/obj/item/reagent_containers/cup/glass/bottle/vodka = 1)
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/honeybar
@@ -131,7 +131,7 @@
 	name = "Rice pudding"
 	result = /obj/item/food/salad/ricepudding
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/datum/reagent/consumable/milk = 5,
 		/datum/reagent/consumable/sugar = 5,
 		/obj/item/food/boiledrice = 1
@@ -160,6 +160,16 @@
 		/obj/item/food/cheese/wedge = 1,
 		/obj/item/food/meat/rawcrab = 1
 	)
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/ant_candy
+	name = "Ant Candy"
+	reqs = list(/obj/item/stack/rods = 1,
+		/datum/reagent/consumable/sugar = 5,
+		/datum/reagent/water = 5,
+		/datum/reagent/ants = 10
+	)
+	result = /obj/item/food/ant_candy
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/pingles

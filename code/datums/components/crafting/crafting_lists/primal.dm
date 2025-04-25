@@ -268,7 +268,7 @@
 
 /datum/crafting_recipe/mushroom_bowl
 	name = "Mushroom Bowl"
-	result = /obj/item/reagent_containers/glass/bowl/mushroom_bowl
+	result = /obj/item/reagent_containers/cup/bowl/mushroom_bowl
 	time = 3 SECONDS
 	reqs = list(/obj/item/food/grown/ash_flora/shavings = 5)
 	category = CAT_PRIMAL

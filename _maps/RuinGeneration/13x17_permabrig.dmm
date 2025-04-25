@@ -365,7 +365,6 @@
 /area/ruin/unpowered)
 "My" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "MX" = (
@@ -440,7 +439,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "SX" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "TT" = (

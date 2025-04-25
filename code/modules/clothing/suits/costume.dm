@@ -18,7 +18,11 @@
 	icon_state = "pirate"
 	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
-	allowed = list(/obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/food/drinks/bottle/rum)
+	allowed = list(
+		/obj/item/melee/energy/sword/pirate,
+		/obj/item/clothing/glasses/eyepatch,
+		/obj/item/reagent_containers/cup/glass/bottle/rum
+		)
 
 /obj/item/clothing/suit/costume/pirate/captain
 	name = "pirate captain coat"
@@ -109,7 +113,7 @@
 	item_state = "imperium_monk"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/costume/chickensuit
 	name = "chicken suit"
@@ -216,9 +220,21 @@
 	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
 	icon_state = "ponchoshame_alt"
 	item_state = "ponchoshame_alt"
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 30, STAMINA = 35)
+	armor_type = /datum/armor/ponchoshame_outlaw
 	body_parts_covered = CHEST|GROIN
 	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/rifle/leveraction, /obj/item/gun/ballistic/revolver)
+
+
+/datum/armor/ponchoshame_outlaw
+	melee = 25
+	bullet = 25
+	laser = 25
+	energy = 20
+	bomb = 30
+	bio = 30
+	rad = 20
+	acid = 30
+	stamina = 35
 
 /obj/item/clothing/suit/costume/whitedress
 	name = "white dress"
@@ -249,7 +265,7 @@
 	icon_state = "carp_suit"
 	item_state = "space_suit_syndicate"
 	slowdown = 0	//Space carp magic, never stop believing
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
+	armor_type = /datum/armor/carp_costume_spaceproof
 	allowed = list(
 		/obj/item/tank/internals,
 		/obj/item/pneumatic_cannon/speargun,
@@ -266,6 +282,19 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof
 	resistance_flags = NONE
+
+
+/datum/armor/carp_costume_spaceproof
+	melee = 20
+	bullet = 10
+	laser = 20
+	energy = 20
+	bomb = 30
+	bio = 100
+	rad = 75
+	fire = 60
+	acid = 75
+	stamina = 40
 
 /obj/item/clothing/suit/hooded/ian_costume	//It's Ian, rub his bell- oh god what happened to his inside parts?
 	name = "corgi costume"
@@ -349,7 +378,8 @@
 	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_old"
-	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
+	armor_type = /datum/armor/costume_bronze
+
 
 /obj/item/clothing/suit/costume/joker
 	name = "comedian coat"

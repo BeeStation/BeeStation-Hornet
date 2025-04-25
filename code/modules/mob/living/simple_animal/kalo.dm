@@ -28,12 +28,11 @@
 	speak_language = /datum/language/metalanguage
 	emote_hear = list("hisses", "squeaks")
 	emote_see = list("pounces")
-	faction = list("Lizard")
+	faction = list(FACTION_LIZARD)
 	health = 15
 	maxHealth = 15
 	minbodytemp = 50
 	maxbodytemp = 800
-	var/turns_since_scan = 0
 	var/obj/item/food/movement_target
 	mobchatspan = "centcom"
 
@@ -117,7 +116,7 @@
 
 /mob/living/simple_animal/kalo/attack_hand(mob/living/carbon/human/M)
 	..()
-	if (M.a_intent == "help")
+	if (!M.combat_mode)
 		if(prob(20))
 			//yes lizards chirp I googled it it must be true
 			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("chirps","squeaks"))

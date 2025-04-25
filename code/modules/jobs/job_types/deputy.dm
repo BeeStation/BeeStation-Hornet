@@ -32,7 +32,7 @@
 	id = /obj/item/card/id/job/deputy
 	belt = /obj/item/storage/belt/security/deputy
 	ears = /obj/item/radio/headset/headset_sec
-	uniform = /obj/item/clothing/under/rank/security/officer/mallcop/deputy
+	uniform = /obj/item/clothing/under/rank/security/officer/blueshirt
 	accessory = /obj/item/clothing/accessory/armband/deputy
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/hud/security/deputy
@@ -42,7 +42,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /obj/item/card/id/pass/deputy
 	name = "deputy promotion card"

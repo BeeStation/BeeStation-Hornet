@@ -8,7 +8,7 @@
 /mob/living/silicon/proc/deadchat_lawchange()
 	var/list/the_laws = laws.get_law_list(include_zeroth = TRUE)
 	var/lawtext = the_laws.Join("<br/>")
-	deadchat_broadcast("<span class='deadsay'><span class='name'>[src]</span>'s laws were changed.</span> <a href='?src=[REF(src)]&printlawtext=[rustg_url_encode(lawtext)]'>View</a>", "<span class='name'>[src]</span>", follow_target=src, message_type=DEADCHAT_LAWCHANGE)
+	deadchat_broadcast("[span_deadsay("[span_name(name)]'s laws were changed.")] <a href='byond://?src=[REF(src)]&printlawtext=[rustg_url_encode(lawtext)]'>View</a>", span_name(name), follow_target=src, message_type=DEADCHAT_LAWCHANGE)
 
 /mob/living/silicon/proc/post_lawchange(announce = TRUE)
 	throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
@@ -21,11 +21,6 @@
 		// Wait a tick and clear the vignette
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "law_change"), 0.2 SECONDS)
 		last_lawchange_announce = world.time
-
-/mob/living/silicon/proc/set_law_sixsixsix(law, announce = TRUE)
-	laws_sanity_check()
-	laws.set_law_sixsixsix(law)
-	post_lawchange(announce)
 
 /mob/living/silicon/proc/set_zeroth_law(law, law_borg, announce = TRUE)
 	laws_sanity_check()
@@ -102,7 +97,3 @@
 	laws.clear_zeroth_law(force)
 	post_lawchange(announce)
 
-/mob/living/silicon/proc/clear_law_sixsixsix(force, announce = TRUE)
-	laws_sanity_check()
-	laws.clear_law_sixsixsix(force)
-	post_lawchange(announce)

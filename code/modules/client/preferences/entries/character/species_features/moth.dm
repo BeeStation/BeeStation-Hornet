@@ -51,7 +51,7 @@
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_roundstart_list[markings_name]
 		var/datum/universal_icon/icon_with_markings = moth_body.copy()
 
-		if (markings_name != "None")
+		if (markings_name != FEATURE_NONE)
 			for (var/body_part in body_parts)
 				var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "[markings.icon_state]_[body_part]", dir = SOUTH)
 				body_part_icon.crop(1, 1, 32, 32)

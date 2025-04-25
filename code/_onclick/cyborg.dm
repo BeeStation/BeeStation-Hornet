@@ -36,6 +36,12 @@
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !module_active)
+		var/secondary_result = A.attack_robot_secondary(src, modifiers)
+		if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
+			return
+		else if (secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
+			CRASH("attack_robot_secondary did not return a SECONDARY_ATTACK_* define.")
 
 	if(next_move >= world.time)
 		return
@@ -59,7 +65,7 @@
 
 		//while buckled, you can still connect to and control things like doors, but you can't use your modules
 		if(buckled)
-			to_chat(src, "<span class='warning'>You can't use modules while buckled to [buckled]!</span>")
+			to_chat(src, span_warning("You can't use modules while buckled to [buckled]!"))
 			return
 
 		//Same trait as humans.
@@ -182,5 +188,18 @@
 	A.attack_robot(src)
 
 /atom/proc/attack_robot(mob/user)
-	attack_ai(user)
-	return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ROBOT, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(attack_silicon(user))
+		return TRUE
+	return FALSE
+
+/**
+ * What happens when the cyborg without active module holds right-click on an item. Returns a SECONDARY_ATTACK_* value.
+ *
+ * Arguments:
+ * * user The mob holding the right click
+ * * modifiers The list of the custom click modifiers
+ */
+/atom/proc/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_ai_secondary(user, modifiers)

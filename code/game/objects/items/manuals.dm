@@ -12,19 +12,7 @@
 	author = "Farmer John" // Whoever wrote the paper or book, can be changed by pen or PC. It is not automatically assigned.
 	title = "The Human Harvest - From seed to market"
 	//book contents below
-	dat = {"<html>
-				<head>
-				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<h3>Growing Humans</h3>
+	dat = {"<h3>Growing Humans</h3>
 
 				Why would you want to grow humans? Well I'm expecting most readers to be in the slave trade, but a few might actually
 				want to revive fallen comrades. Growing pod people is easy, but prone to disaster.
@@ -37,30 +25,14 @@
 				<li>Tend to the plants water and nutrition levels until it is time to harvest the cloned human.</li>
 				</ol>
 				<p>
-				It really is that easy! Good luck!
-
-				</body>
-				</html>
-				"}
+				It really is that easy! Good luck!"}
 
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	icon_state ="book"
 	author = "Weyland-Yutani Corp"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
-	dat = {"<html>
-				<head>
-				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<center>
+	dat = {"<center>
 				<b style='font-size: 12px;'>Weyland-Yutani - Building Better Worlds</b>
 				<h1>Autonomous Power Loader Unit \"Ripley\"</h1>
 				</center>
@@ -102,39 +74,23 @@
 				<li>Secure the external reinforced armor plating with a wrench.</li>
 				<li>Weld the external reinforced armor plating to the chassis.</li>
 				</ol>
-				</body>
-				</html>
 
 				<h2>Operation:</h2>
-				Please consult the Nanotrasen compendium "Robotics for Dummies".
-			"}
+				Please consult the Nanotrasen compendium "Robotics for Dummies"."}
 
 /obj/item/book/manual/chef_recipes
 	name = "Chef Recipes"
 	icon_state = "cooked_book"
 	author = "Lord Frenrir Cageth"
 	title = "Chef Recipes"
-	dat = {"<html>
-				<head>
-				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-
-				<h1>Food for Dummies</h1>
+	dat = {"<h1>Food for Dummies</h1>
 				Here is a guide on basic food recipes and also how to not poison your customers accidentally.
 
 
 				<h2>Basic ingredients preparation:</h2>
 
 				<b>Dough:</b> 10u water + 15u flour for simple dough.<br>
-				15u egg yolk + 15u flour + 5u sugar for cake batter.<br>
+				6u egg yolk + 12 egg white + 15u flour + 5u sugar for cake batter.<br>
 				Doughs can be transformed by using a knife and rolling pin.<br>
 				All doughs can be microwaved.<br>
 				<b>Bowl:</b> Add water to it for soup preparation.<br>
@@ -186,22 +142,14 @@
 				<b>Fries:</b> Process potato.
 
 				<h2>Sharing your food:</h2>
-				You can put your meals on your kitchen counter or load them in the snack vending machines.
-				</body>
-				</html>
-			"}
+				You can put your meals on your kitchen counter or load them in the snack vending machines."}
 
 /obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
 	icon_state ="bookNuclear"
 	author = "Syndicate"
 	title = "Fission Mailed: Nuclear Sabotage 101"
-	dat = {"<html>
-			<head>
-			<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-			</head>
-			<body>
-			Nuclear Explosives 101:<br>
+	dat = {"Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
 			First and foremost, DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.<br>
@@ -227,9 +175,7 @@
 			Good luck. Remember the order:<br>
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
 			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
-			Good luck!
-			</body>
-			</html>"}
+			Good luck!"}
 
 // Wiki books that are linked to the configured wiki link.
 
@@ -245,7 +191,7 @@
 	if(!wikiurl)
 		user.balloon_alert(user, "what!? these pages are blank!")
 		return
-	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", "Open the wiki", list("Yes", "No")) != "Yes")
 		return
 
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
@@ -288,7 +234,7 @@
 	dye_color = DYE_LAW
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
+	user.visible_message(span_suicide("[user] pretends to read \the [src] intently... then promptly dies of laughter!"))
 	return OXYLOSS
 
 /obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
@@ -314,9 +260,6 @@
 					user.say("Number Three: In the 2030s, there were strict regulations to prevent monopolies; now those regulations have been dismantled, allowing a few companies to control entire industries. This concentration of power stifles competition and innovation.")
 				if (4)
 					user.say("Number Four: In the past, media outlets were independent; now a handful of conglomerates control the majority of information. Control the narrative, control the minds of the masses.")
-		else
-			var/datum/crime/chosen = pick(subtypesof(/datum/crime) - /datum/crime/minor - /datum/crime/capital - /datum/crime/major - /datum/crime/misdemeanour)
-			user.say("[initial(chosen.tooltip)]", forced = "space law")
 	if (user.do_afters)
 		return
 	if (!do_after(user, 2 SECONDS, target))
@@ -325,18 +268,18 @@
 		var/datum/antagonist/rev/rev = user.mind.has_antag_datum(/datum/antagonist/rev)
 		user.say("Isn't it obvious, Nanotrasen, the governments; everyone around us has been tricking us, playing us like we are pawns...", forced = "space law")
 		if (rev.add_revolutionary(target.mind, FALSE))
-			target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, the truth washes over you!</span>")
+			target.visible_message(span_notice("[target] nods in approval, taking in the information!"), span_notice("That all makes perfect sense, the truth washes over you!"))
 		else
-			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+			target.visible_message(span_userdanger("[target] spits on the floor, disrespecting [user]'s authority!"), span_notice("You finish listening to [user]'s waffling. What a knobhead, you think to yourself..."))
 	else
 		user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged to not commit them.", forced = "space law")
 		if(target.mind?.has_antag_datum(/datum/antagonist/rev/head) || target.mind?.unconvertable)
-			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+			target.visible_message(span_userdanger("[target] spits on the floor, disrespecting [user]'s authority!"), span_notice("You finish listening to [user]'s waffling. What a knobhead, you think to yourself..."))
 			return
 		var/datum/antagonist/rev/rev = target.mind?.has_antag_datum(/datum/antagonist/rev)
 		if(rev)
 			rev.remove_revolutionary(FALSE, user)
-		target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!</span>")
+		target.visible_message(span_notice("[target] nods in approval, taking in the information!"), span_notice("That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!"))
 
 /obj/item/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"
@@ -446,7 +389,7 @@
 
 /obj/item/book/manual/wiki/toxins/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='suicide'>[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	if (!QDELETED(H))
 		H.emote("spin")

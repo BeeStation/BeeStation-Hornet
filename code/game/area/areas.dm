@@ -5,6 +5,7 @@
   */
 /area
 	name = "Space"
+	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
@@ -27,12 +28,25 @@
 	var/list/turf/turfs_to_uncontain = list()
 
 	///Do we have an active fire alarm?
-	var/fire = null
-
+	var/fire = FALSE
+	///A var for whether the area allows for detecting fires/etc. Disabled or enabled at a fire alarm, checked by fire locks.
+	var/fire_detect = TRUE
+	///A list of all fire locks in this area. Used by fire alarm panels when resetting fire locks or activating all in an area
+	var/list/firedoors
+	///A list of firelocks currently active. Used by fire alarms when setting their icons.
+	var/list/active_firelocks
+	///A list of all fire alarms in this area. Used by firelocks and burglar alarms to change icon state.
+	var/list/firealarms = list()
 	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
 	var/list/active_alarms = list()
-	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing
+	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing. Fire alarms and fire locks will set and clear alarms.
 	var/datum/alarm_handler/alarm_manager
+	/// The current alarm fault status
+	var/fault_status = AREA_FAULT_NONE
+	/// The source machinery for the area's fault status
+	var/fault_location
+	///List of all lights in our area
+	var/list/lights = list()
 
 	var/lightswitch = TRUE
 	var/vacuum = null
@@ -43,7 +57,7 @@
 	var/areasize = 0 //Size of the area in open turfs, only calculated for indoors areas.
 
 	var/mood_bonus = 0 //Mood for being here
-	var/mood_message = "<span class='nicegreen'>This area is pretty nice!\n</span>" //Mood message for being here, only shows up if mood_bonus != 0
+	var/mood_message = span_nicegreen("This area is pretty nice!\n") //Mood message for being here, only shows up if mood_bonus != 0
 	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
 	var/list/mood_job_allowed = null
 	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
@@ -60,7 +74,8 @@
 	var/power_light = TRUE
 	var/power_environ = TRUE
 
-	var/has_gravity = FALSE
+	/// The default gravity for the area
+	var/default_gravity = ZERO_GRAVITY
 	///Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
 	var/teleport_restriction = TELEPORT_ALLOW_ALL
 
@@ -89,12 +104,15 @@
 
 	flags_1 = CAN_BE_DIRTY_1
 
-	var/list/firedoors
 	var/list/cameras
-	var/list/firealarms
-	var/firedoors_last_closed_on = 0
 	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
 	var/list/canSmoothWithAreas
+
+	/// List of all air vents in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_pump/air_vents = list()
+
+	/// List of all air scrubbers in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_scrubber/air_scrubbers = list()
 
 	var/list/power_usage
 
@@ -136,6 +154,9 @@
 
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
+
+	/// What networks should cameras in this area belong to?
+	var/list/camera_networks = list()
 
 /**
   * A list of teleport locations
@@ -232,6 +253,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
+
+/area/vv_edit_var(var_name, var_value)
+	// Reference type, so please don't touch
+	if (var_name == NAMEOF(src, camera_networks))
+		return FALSE
+	return ..()
 
 /**
  * Performs initial setup of the lighting overlays.
@@ -332,82 +359,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	GLOB.sortedAreas -= src
-	GLOB.areas -= src
-	if(fire)
-		STOP_PROCESSING(SSobj, src)
-	QDEL_NULL(alarm_manager)
-	return ..()
-
-/**
-  * Try to close all the firedoors in the area
-  */
-/area/proc/ModifyFiredoors(opening)
-	if(firedoors)
-		firedoors_last_closed_on = world.time
-		for(var/FD in firedoors)
-			var/obj/machinery/door/firedoor/D = FD
-			var/cont = !D.welded
-			if(cont && opening)	//don't open if adjacent area is on fire
-				for(var/I in D.affecting_areas)
-					var/area/A = I
-					if(A.fire)
-						cont = FALSE
-						break
-			if(cont && D.is_operational)
-				if(D.operating)
-					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
-				else if(!(D.density ^ opening))
-					INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/, close)))
-
-/**
-  * Generate an firealarm alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  *
-  * Also starts the area processing on SSobj
-  */
-/area/proc/firealert(obj/source)
-	if(always_unpowered == 1) //no fire alarms in space/asteroid
-		return
-
-	if(!fire)
-		set_fire_alarm_effect()
-		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_appearance()
-	alarm_manager.send_alarm(ALARM_FIRE, source)
-	START_PROCESSING(SSobj, src)
-
-
-
-/**
-  * Reset the firealarm alert for this area
-  *
-  * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
-  * in the world
-  *
-  * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
-  */
-/area/proc/firereset(obj/source)
-	if(fire)
-		unset_fire_alarm_effects()
-		ModifyFiredoors(TRUE)
-		STOP_PROCESSING(SSobj, src)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_appearance()
-	alarm_manager.clear_alarm(ALARM_FIRE, source)
+	//this is not initialized until get_sorted_areas() is called so we have to do a null check
+	if(!isnull(GLOB.sortedAreas))
+		GLOB.sortedAreas -= src
+	//just for sanity sake cause why not
+	if(!isnull(GLOB.areas))
+		GLOB.areas -= src
+	//machinery cleanup
 	STOP_PROCESSING(SSobj, src)
-
-
-/**
-  * If 100 ticks has elapsed, toggle all the firedoors closed again
-  */
-/area/process()
-	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
-		ModifyFiredoors(FALSE)
+	QDEL_NULL(alarm_manager)
+	firedoors = null
+	//atmos cleanup
+	firealarms = null
+	air_vents = null
+	air_scrubbers = null
+	//turf cleanup
+	contained_turfs = null
+	turfs_to_uncontain = null
+	//parent cleanup
+	return ..()
 
 /**
   * Close and lock a door passed into this proc
@@ -431,37 +401,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
 	//Trigger alarm effect
-	set_fire_alarm_effect()
+	set_fire_effect(TRUE)
 	for(var/obj/machinery/door/door in src)
 		close_and_lock_door(door)
 
 /**
-  * Trigger the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
-/area/proc/set_fire_alarm_effect()
-	fire = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
-	for(var/obj/machinery/light/L in src)
-		L.update(TRUE, TRUE, TRUE)
-
-/**
-  * unset the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
-/area/proc/unset_fire_alarm_effects()
-	fire = FALSE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
-	for(var/obj/machinery/light/L in src)
-		L.update(TRUE, TRUE, TRUE)
+ * Set the fire alarm visual affects in an area
+ *
+ * Allows interested parties (lights and fire alarms) to react
+ */
+/area/proc/set_fire_effect(new_fire, fault_type, fault_source)
+	if(new_fire == fire)
+		return
+	fire = new_fire
+	fault_status = fault_type
+	if(fire)
+		fault_location = fault_source
+	else
+		fault_location = null
+	SEND_SIGNAL(src, COMSIG_AREA_FIRE_CHANGED, fire)
 
 /area/proc/set_pressure_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE
@@ -516,11 +474,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
   */
 /area/proc/power_change()
-	for(var/obj/machinery/M in src)	// for each machine in the area
-		M.power_change()				// reverify power status (to update icons etc.)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	update_appearance()
-
 
 /**
   * Add a static amount of power load to an area
@@ -536,13 +491,27 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			power_usage[powerchannel] += value
 
 /**
-  * Clear all power usage in area
+ * Remove a static amount of power load to an area
+ *
+ * Possible channels
+ * *AREA_USAGE_STATIC_EQUIP
+ * *AREA_USAGE_STATIC_LIGHT
+ * *AREA_USAGE_STATIC_ENVIRON
+ */
+/area/proc/removeStaticPower(value, powerchannel)
+	switch(powerchannel)
+		if(AREA_USAGE_STATIC_START to AREA_USAGE_STATIC_END)
+			power_usage[powerchannel] -= value
+
+/**
+ * Clear all non-static power usage in area
   *
-  * Clears all power used for equipment, light and environment channels
+	* Clears all power used for the dynamic equipment, light and environment channels
   */
 /area/proc/clear_usage()
-	for(var/i in AREA_USAGE_DYNAMIC_START to AREA_USAGE_DYNAMIC_END)
-		power_usage[i] = 0
+	power_usage[AREA_USAGE_EQUIP] = 0
+	power_usage[AREA_USAGE_LIGHT] = 0
+	power_usage[AREA_USAGE_ENVIRON] = 0
 
 /**
   * Add a power value amount to the stored used_x variables
@@ -637,5 +606,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
 
-/area/proc/get_turf_textures()
+/area/proc/get_area_textures()
 	return list()
+
+/// returns a name of the area. some subtype area needs to return different value.
+/area/proc/get_navigation_area_name()
+	return navigation_area_name || name

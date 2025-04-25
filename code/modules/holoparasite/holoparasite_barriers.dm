@@ -17,7 +17,7 @@
 /mob/living/simple_animal/hostile/holoparasite/proc/setup_barriers()
 	cut_barriers()
 
-	if(!client || !isturf(loc) || !summoner.current || range <= 1)
+	if(!client || !isturf(loc) || !summoner.current || stats.range == 1)
 		return
 
 	var/list/view_size = getviewsize(world.view)

@@ -202,7 +202,6 @@
 		/datum/dynamic_ruleset/roundstart/nuclear,
 		/datum/dynamic_ruleset/roundstart/wizard,
 		/datum/dynamic_ruleset/roundstart/revs,
-		/datum/dynamic_ruleset/roundstart/hivemind
 	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
@@ -227,32 +226,24 @@
 
 //////////////////////////////////////////////
 //                                          //
-//         Malfunctioning AI                //
+//         	Value Drifted AI               	//
 //                              		    //
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround/malf
-	name = "Malfunctioning AI"
+	name = "Value Drifted AI"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_datum = /datum/antagonist/traitor
+	antag_datum = /datum/antagonist/malf_ai
 	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
-	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_SCIENTIST, JOB_NAME_CHEMIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFENGINEER)
 	exclusive_roles = list(JOB_NAME_AI)
-	required_enemies = list(3,3,2,2,2,1,1,1,1,0)
 	required_candidates = 1
-	minimum_players = 0 // Handled by /datum/dynamic_ruleset/proc/acceptable override
-	weight = 2
+	minimum_players = 30
+	weight = 4
 	cost = 13
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
-
-/datum/dynamic_ruleset/midround/malf/acceptable(population = 0, threat_level = 0)
-	. = ..()
-	if(population < CONFIG_GET(number/malf_ai_minimum_pop))
-		return FALSE
 
 /datum/dynamic_ruleset/midround/malf/trim_candidates()
 	..()
@@ -268,17 +259,19 @@
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/execute(forced = FALSE)
-	var/mob/living/silicon/ai/M = antag_pick_n_take(candidates)
-	assigned += M.mind
-	var/datum/antagonist/traitor/AI = new
-	M.mind.special_role = "Malf AI"
-	M.mind.add_antag_datum(AI)
+	if(!length(candidates))
+		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
+	var/mob/living/silicon/ai/AI = antag_pick_n_take(candidates)
+	assigned += AI.mind
+	var/datum/antagonist/malf_ai/malf_datum = new
+	AI.mind.special_role = ROLE_MALF
+	AI.mind.add_antag_datum(malf_datum)
 	if(prob(ion_announce))
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
 		if(prob(removeDontImproveChance))
-			M.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
+			AI.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 		else
-			M.add_ion_law(generate_ion_law())
+			AI.add_ion_law(generate_ion_law())
 	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
@@ -298,7 +291,7 @@
 	weight = 1
 	cost = 15
 	requirements = REQUIREMENTS_VERY_HIGH_THREAT_NEEDED
-	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if(!length(GLOB.wizardstart))
@@ -367,7 +360,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 22
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
 	var/body = applicant.become_overmind()
@@ -391,7 +384,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 22
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/vents
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/acceptable(population=0, threat=0)
@@ -407,12 +400,12 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue // No parent vent
 			// Stops Aliens getting stuck in small networks.
 			// See: Security, Virology
-			if(length(temp_vent_parent.other_atmosmch) > 20)
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
 				vents += temp_vent
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
@@ -492,7 +485,7 @@
 	cost = 11
 	minimum_players = 22
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/spawn_locs
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/ready(forced = FALSE)
@@ -626,7 +619,6 @@
 	cost = 8
 	minimum_players = 25
 	repeatable = FALSE
-	flags = LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/pirates/acceptable(population=0, threat=0)
 	if (!SSmapping.empty_space)
@@ -692,7 +684,7 @@
 	weight = 3
 	cost = 11
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	minimum_players = 25
 	var/fed = 1
 	var/list/vents
@@ -706,11 +698,11 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue // No parent vent
-			if(length(temp_vent_parent.other_atmosmch) > 20)
-				vents += temp_vent // Makes sure the pipeline is large enough
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
+				vents += temp_vent // Makes sure the pipenet is large enough
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
 		return FALSE
@@ -722,7 +714,7 @@
 	spider.key = applicant.key
 	if(fed)
 		spider.fed += 3
-		spider.lay_eggs.UpdateButtonIcon()
+		spider.lay_eggs.update_buttons()
 		fed--
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
@@ -760,8 +752,8 @@
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced = FALSE)
 	if(!..())
 		return FALSE
-	if(!GLOB.the_gateway)
-		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no gateway on map).")
+	if(!length(GLOB.xeno_spawn))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations")
 		return FALSE
 	return TRUE
 
@@ -769,7 +761,7 @@
 	var/datum/mind/player_mind = new /datum/mind(applicant.key)
 	player_mind.active = TRUE
 
-	var/mob/living/simple_animal/hostile/swarmer/S = new (get_turf(GLOB.the_gateway))
+	var/mob/living/simple_animal/hostile/swarmer/S = new (pick(GLOB.xeno_spawn))
 	player_mind.transfer_to(S)
 
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Swarmer by the midround ruleset.")
@@ -934,7 +926,6 @@
 	minimum_players = 20
 	repeatable = TRUE
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear, /datum/dynamic_ruleset/roundstart/clockcult)
-	flags = LATEGAME_RULESET
 	var/spawn_loc
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)

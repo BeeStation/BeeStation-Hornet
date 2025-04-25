@@ -6,16 +6,17 @@
 	strip_delay = 40
 	equip_delay_other = 40
 	var/modifies_speech = FALSE
-	var/mask_adjusted = 0
+	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
+	var/unique_death /// The unique sound effect of dying while wearing this
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		TOGGLE_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
 		var/status = !CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
-		to_chat(user, "<span class='notice'>You turn the voice box in [src] [status ? "on" : "off"].</span>")
+		to_chat(user, span_notice("You turn the voice box in [src] [status ? "on" : "off"]."))
 
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()
@@ -61,17 +62,15 @@
 	if(!mask_adjusted)
 		icon_state = initial(icon_state)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
-		permeability_coefficient = initial(permeability_coefficient)
 		clothing_flags |= visor_flags
 		flags_inv |= visor_flags_inv
 		flags_cover |= visor_flags_cover
-		to_chat(user, "<span class='notice'>You push \the [src] back into place.</span>")
+		to_chat(user, span_notice("You push \the [src] back into place."))
 		slot_flags = initial(slot_flags)
 	else
 		icon_state += "_up"
-		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
+		to_chat(user, span_notice("You push \the [src] out of the way."))
 		gas_transfer_coefficient = null
-		permeability_coefficient = null
 		clothing_flags &= ~visor_flags
 		flags_inv &= ~visor_flags_inv
 		flags_cover &= ~visor_flags_cover

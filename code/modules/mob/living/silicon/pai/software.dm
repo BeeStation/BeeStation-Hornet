@@ -82,12 +82,12 @@
 					var/datum/hud/pai/pAIhud = hud_used
 					pAIhud?.update_software_buttons()
 				else
-					to_chat(usr, "<span class='notice'>Insufficient RAM available.</span>")
+					to_chat(usr, span_notice("Insufficient RAM available."))
 			else
-				to_chat(usr, "<span class='notice'>Software not found.</span>")
+				to_chat(usr, span_notice("Software not found."))
 		if("atmosphere_sensor")
 			if(!holoform)
-				to_chat(usr, "<span class='notice'>You must be mobile to do this!</span>")
+				to_chat(usr, span_notice("You must be mobile to do this!"))
 				return FALSE
 			if(!atmos_analyzer)
 				atmos_analyzer = new(src)
@@ -104,12 +104,12 @@
 			card.update_icon()
 		if("check_dna")
 			if(!master_dna)
-				to_chat(src, "<span class='warning'>You do not have a master DNA to compare to!</span>")
+				to_chat(src, span_warning("You do not have a master DNA to compare to!"))
 				return FALSE
 			if(iscarbon(card.loc))
 				CheckDNA(card.loc, src) //you should only be able to check when directly in hand, muh immersions?
 			else
-				to_chat(src, "<span class='warning'>You are not being carried by anyone!</span>")
+				to_chat(src, span_warning("You are not being carried by anyone!"))
 				return FALSE
 		if("crew_manifest")
 			ai_roster()
@@ -124,7 +124,7 @@
 			if(params["jack"]  == "cable")
 				extendcable()
 		if("encryption_keys")
-			to_chat(src, "<span class='notice'>You have [!encryptmod ? "enabled" : "disabled"] encrypted radio frequencies.</span>")
+			to_chat(src, span_notice("You have [!encryptmod ? "enabled" : "disabled"] encrypted radio frequencies."))
 			encryptmod = !encryptmod
 			radio.subspace_transmission = !radio.subspace_transmission
 		if("host_scan")
@@ -163,9 +163,9 @@
 				return FALSE
 			refresh_spam = TRUE
 			if(params["list"] == "medical")
-				medical_records = GLOB.data_core.get_general_records()
+				medical_records = GLOB.manifest.get_general_records()
 			if(params["list"] == "security")
-				security_records = GLOB.data_core.get_security_records()
+				security_records = GLOB.manifest.get_security_records()
 			ui.send_full_update(bypass_cooldown = TRUE)
 			addtimer(CALLBACK(src, PROC_REF(refresh_again)), 3 SECONDS)
 		if("remote_signaler")
@@ -180,15 +180,23 @@
 				sec.remove_hud_from(src)
 		if("universal_translator")
 			if(!languages_granted)
-				grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_SOFTWARE)
+				grant_all_languages(source = LANGUAGE_SOFTWARE)
 				languages_granted = TRUE
+		if("digital_messenger")
+			var/mob/living/silicon/pai/pAI = usr
+			if(!pAI.modularInterface.turn_on(pAI, open_ui = FALSE))
+				return FALSE
+			var/obj/item/computer_hardware/hard_drive/drive = pAI.modularInterface.all_components[MC_HDD]
+			for(var/datum/computer_file/program/messenger/app in drive?.stored_files)
+				pAI.modularInterface.open_program(pAI, app)
+				pAI.modularInterface.interact(pAI)
 		if("wipe_core")
 			var/confirm = alert(src, "Are you certain you want to wipe yourself?", "Personality Wipe", "Yes", "No")
 			if(confirm == "Yes")
-				to_chat(src, "<span class='warning'>You feel yourself slipping away from reality.</span>")
-				to_chat(src, "<span class='danger'>Byte by byte you lose your sense of self.</span>")
-				to_chat(src, "<span class='userdanger'>Your mental faculties leave you.</span>")
-				to_chat(src, "<span class='rose'>oblivion... </span>")
+				to_chat(src, span_warning("You feel yourself slipping away from reality."))
+				to_chat(src, span_danger("Byte by byte you lose your sense of self."))
+				to_chat(src, span_userdanger("Your mental faculties leave you."))
+				to_chat(src, span_rose("oblivion... "))
 				death()
 
 	return TRUE
@@ -208,12 +216,12 @@
 /mob/living/silicon/pai/proc/CheckDNA(mob/living/carbon/master, mob/living/silicon/pai/pai)
 	if(!istype(master))
 		return
-	to_chat(pai, "<span class='notice'>Requesting a DNA sample.</span>")
+	to_chat(pai, span_notice("Requesting a DNA sample."))
 	var/confirm = alert(master, "[pai] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "Checking DNA", "Yes", "No")
 	if(confirm == "Yes")
-		master.visible_message("<span class='notice'>[master] presses [master.p_their()] thumb against [pai].</span>",\
-						"<span class='notice'>You press your thumb against [pai].</span>",\
-						"<span class='notice'>[pai] makes a sharp clicking sound as it extracts DNA material from [master].</span>")
+		master.visible_message(span_notice("[master] presses [master.p_their()] thumb against [pai]."),\
+						span_notice("You press your thumb against [pai]."),\
+						span_notice("[pai] makes a sharp clicking sound as it extracts DNA material from [master]."))
 		if(!master.has_dna())
 			to_chat(pai, "<b>No DNA detected.</b>")
 			return
@@ -223,7 +231,7 @@
 		else
 			to_chat(pai, "<b>DNA does not match stored Master DNA.</b>")
 	else
-		to_chat(pai, "<span class='warning'>[master] does not seem like [master.p_theyre()] going to provide a DNA sample willingly.</span>")
+		to_chat(pai, span_warning("[master] does not seem like [master.p_theyre()] going to provide a DNA sample willingly."))
 
 /**
  * Host scan supporting proc
@@ -237,7 +245,7 @@
 	if(holder)
 		pAI.hostscan.attack(holder, pAI)
 	else
-		to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
+		to_chat(usr, span_warning("You are not being carried by anyone!"))
 		return FALSE
 
 /**
@@ -255,10 +263,10 @@
 		var/mob/living/hacker = card.loc
 		if(hacker.put_in_hands(hacking_cable))
 			transfered_to_mob = TRUE
-			hacker.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which you quickly grab hold of.", "<span class='hear'>You hear the soft click of something light and manage to catch hold of [hacking_cable].</span></span>")
+			hacker.visible_message(span_warning("A port on [src] opens to reveal \a [hacking_cable], which you quickly grab hold of."), span_hear("You hear the soft click of something light and manage to catch hold of [hacking_cable]."))
 	if(!transfered_to_mob)
 		hacking_cable.forceMove(drop_location())
-		hacking_cable.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which promptly falls to the floor.", "<span class='hear'>You hear the soft click of something light and hard falling to the ground.</span></span>")
+		hacking_cable.visible_message(span_warning("A port on [src] opens to reveal \a [hacking_cable], which promptly falls to the floor."), span_hear("You hear the soft click of something light and hard falling to the ground."))
 
 /**
  * Door jacking supporting proc
@@ -270,7 +278,7 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/turf = get_turf(src)
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
-	to_chat(usr, "<span class='boldnotice'>You begin overriding the airlock security protocols.</span>")
+	to_chat(usr, span_boldnotice("You begin overriding the airlock security protocols."))
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		if(turf.loc)
 			to_chat(AI, "<font color = red><b>Network Alert: Brute-force security override in progress in [turf.loc].</b></font>")

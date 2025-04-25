@@ -206,7 +206,7 @@
 /area/ruin/powered/beach)
 "aR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aS" = (
@@ -236,7 +236,7 @@
 /area/ruin/powered/beach)
 "aX" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aY" = (
@@ -363,7 +363,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bP" = (
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bQ" = (
@@ -592,8 +592,8 @@
 "NQ" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/reagent_containers/cup/rag,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "QS" = (

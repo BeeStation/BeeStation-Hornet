@@ -89,21 +89,6 @@
 		var/mob/living/M = target
 		M.adjust_bodytemperature(((100-blocked)/100)*(temperature - M.bodytemperature))
 
-/obj/projectile/bullet/c38/emp
-	name = ".38 BLK_OUT bullet"
-	damage = 8
-	ricochets_max = 0
-
-/obj/projectile/bullet/c38/emp/on_hit(atom/target)
-	. = ..()
-	empulse(target, 0, 2)
-
-/obj/projectile/bullet/c38/improv
-	damage = 25
-	ricochets_max = 1
-	ricochet_chance = 80
-	ricochet_auto_aim_range = 0
-
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
 	icon_state = null
@@ -118,10 +103,10 @@
 		if(M.job == JOB_NAME_MIME)
 			var/defense = M.getarmor(CHEST, BULLET, armour_penetration)
 			M.apply_damage(5, BRUTE, CHEST, defense)
-			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \
-							"<span class='userdanger'>You get hit with a .38 bullet from a finger gun! Those hurt!...</span>")
+			M.visible_message(span_danger("A bullet wound appears in [M]'s chest!"), \
+							span_userdanger("You get hit with a .38 bullet from a finger gun! Those hurt!..."))
 		else
-			to_chat(M, "<span class='userdanger'>You get shot with the finger gun!</span>")
+			to_chat(M, span_userdanger("You get shot with the finger gun!"))
 
 /obj/projectile/bullet/c38/mime_lethal
 	name = "invisible .38 bullet"
@@ -138,10 +123,6 @@
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
-
-/obj/projectile/bullet/a357/improv
-	damage = 50
-	armour_penetration = -10
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

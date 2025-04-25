@@ -9,9 +9,9 @@
 		/datum/reagent/fuel = 50,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/assembly/igniter = 1,
-		/obj/item/reagent_containers/food/drinks/soda_cans = 1
+		/obj/item/reagent_containers/cup/soda_cans = 1
 	)
-	parts = list(/obj/item/reagent_containers/food/drinks/soda_cans = 1)
+	parts = list(/obj/item/reagent_containers/cup/soda_cans = 1)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	dangerous_craft = TRUE
@@ -47,13 +47,13 @@
 
 /datum/crafting_recipe/molotov
 	name = "Molotov"
-	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
+	result = /obj/item/reagent_containers/cup/glass/bottle/molotov
 	time = 4 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/glass/rag = 1,
-		/obj/item/reagent_containers/food/drinks/bottle = 1
+		/obj/item/reagent_containers/cup/rag = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1
 	)
-	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
+	parts = list(/obj/item/reagent_containers/cup/glass/bottle = 1)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	dangerous_craft = TRUE
@@ -372,7 +372,7 @@
 // Shank - Makeshift weapon that can embed on throw
 /datum/crafting_recipe/shank
 	name = "Shank"
-	result = /obj/item/knife/shank
+	result = /obj/item/knife/shiv
 	time = 2 SECONDS
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(

@@ -327,14 +327,6 @@
 	credit_cost = 2000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
-/datum/map_template/shuttle/emergency/honkco
-	suffix = "honkco"
-	name = "Honk.Co shuttle"
-	description = "From the creators of Snappop(tm)!, the signature Honk.Co shuttle is now avaiable to purchase, with no usable chairs and filled with bananas, clown artifacts and all types of clowns."
-	admin_notes = "Bananium shuttle full of clowns and cluwnes that turn hostile if attacked, 4 staffs of the honk mother, bananas everywhere, clown food and space suits and no usable chairs."
-	credit_cost = 5000
-	danger_level = SHUTTLE_DANGER_HIGH
-
 /datum/map_template/shuttle/emergency/discoinferno
 	suffix = "discoinferno"
 	name = "Disco Inferno"
@@ -544,6 +536,11 @@
 	Definitely high quality meat, nothin' wrong with it, nothin' added, definitely no zombifyin' reagents!"
 	admin_notes = "Meat currently contains no zombifying reagents, lizard on meatspike must be spawned in."
 
+/datum/map_template/shuttle/ferry/standard
+	suffix = "standard"
+	name = "standard nanotrasen ferry"
+	description = "The standard Nanotrasen ERT Ferry, comes with everything you need to assist the station!"
+
 /datum/map_template/shuttle/ferry/lighthouse
 	suffix = "lighthouse"
 	name = "The Lighthouse(?)"
@@ -573,11 +570,11 @@
 
 /datum/map_template/shuttle/whiteship/pubby
 	suffix = "pubby"
-	name = "NT White UFO"
+	name = "NT Personal Trader"
 
 /datum/map_template/shuttle/whiteship/cere
 	suffix = "cere"
-	name = "NT Construction Vessel"
+	name = "Syndicate Probe Ship"
 
 /datum/map_template/shuttle/whiteship/delta
 	suffix = "delta"
@@ -626,6 +623,15 @@
 	It seems strange and alien, you may need a special technology to access the signal.."
 	admin_notes = "Has an on-board experimental cloner that creates copies of its user, alien surgery tools, and a void core that provides unlimited power."
 	credit_cost = 8000
+
+/datum/map_template/shuttle/emergency/ragecage
+	suffix = "ragecage"
+	name = "THE RAGE CAGE"
+	description = "An abandoned underground electrified fight arena turned into a shuttle. Comes with a Brig, Medbay and Cockpit included."
+	admin_notes = "It's a normal shuttle but it has a rage cage with baseball bats in the middle powered by a PACMAN, plasma included."
+	credit_cost = 7500
+	danger_level = SHUTTLE_DANGER_SUBPAR
+
 
 /datum/map_template/shuttle/emergency/zeta/prerequisites_met()
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)

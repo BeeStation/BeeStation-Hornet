@@ -32,6 +32,7 @@
 
 	sec_radio = new/obj/item/radio(src)
 	sec_radio.set_listening(FALSE)
+	sec_radio.set_frequency(FREQ_SECURITY)
 
 	if(id != null)
 		for(var/obj/machinery/door/window/brigdoor/M in urange(20, src))
@@ -47,7 +48,7 @@
 				closets += WEAKREF(C)
 
 	if(!length(doors) && !length(flashers) && length(closets))
-		obj_break()
+		atom_break()
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
@@ -123,8 +124,7 @@
 		return 0
 
 	if(!forced)
-		sec_radio.set_frequency(FREQ_SECURITY)
-		sec_radio.talk_into(src, "Timer has expired. Releasing prisoner.", FREQ_SECURITY)
+		sec_radio.talk_into(src, "Timer has expired. Releasing prisoner.")
 
 	timing = FALSE
 	activation_time = null
@@ -216,7 +216,7 @@
 	var/mob/user = usr
 
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return FALSE
 
 	switch(action)

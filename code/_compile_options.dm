@@ -29,6 +29,7 @@
 #endif //ifdef REFERENCE_TRACKING
 
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
+//#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
 #endif //ifdef TESTING
 
 /// Enables BYOND TRACY, which allows profiling using Tracy.
@@ -39,7 +40,8 @@
 /////////////////////// ZMIMIC
 
 ///Enables Multi-Z lighting
-#define ZMIMIC_LIGHT_BLEED
+/// Doesn't work and causes artifacts when lights are deleted
+//#define ZMIMIC_LIGHT_BLEED
 
 /// If this is uncommented, will profile mapload atom initializations
 //#define PROFILE_MAPLOAD_INIT_ATOM
@@ -78,6 +80,10 @@
 #warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
 #endif
 
+/// If this is uncommented, Autowiki will generate edits and shut down the server.
+/// Prefer the autowiki build target instead.
+// #define AUTOWIKI
+
 #ifndef PRELOAD_RSC	//set to:
 #define PRELOAD_RSC	0 // 0 to allow using external resources or on-demand behaviour;
 #endif				// 1 to use the default behaviour;
@@ -101,10 +107,10 @@
 #endif
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
-#define MAX_COMPILER_VERSION 514
-#define MAX_COMPILER_BUILD 1589
+#define MAX_COMPILER_VERSION 516
+#define MAX_COMPILER_BUILD 1700
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (514.1589)! Stability is not guaranteed.
+#warn WARNING: Your BYOND version is over the recommended version (516.1700)! Stability is not guaranteed.
 #endif
 //Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
 #if DM_VERSION >= 514 && DM_BUILD >= 1556
@@ -138,24 +144,11 @@
 #define CBT
 #endif
 
+
 #if defined(OPENDREAM) && !defined(CIBUILDING)
-#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+#warn You are building with OpenDream. Remember to build TGUI manually.
+#warn You can do this by running tgui-build.cmd from the bin directory.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)
 #warn Building with Dream Maker is no longer supported and will result in missing interface files.
 #warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif
-
-#define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())
-
-/proc/__detect_auxmos()
-	var/static/auxmos_path
-	if(!auxmos_path)
-		if (fexists("./libauxmos.so"))
-			auxmos_path = "./libauxmos.so"
-		else if (fexists("./auxtools/libauxmos.so"))
-			auxmos_path = "./auxtools/libauxmos.so"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"))
-			auxmos_path = "[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"
-		else
-			CRASH("Could not find libauxmos.so")
-	return auxmos_path

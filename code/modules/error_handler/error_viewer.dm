@@ -72,7 +72,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	if (linear)
 		back_to_param += ";viewruntime_linear=1"
 
-	return "<a href='?_src_=holder;[HrefToken()];viewruntime=[REF(src)][back_to_param]'>[linktext]</a>"
+	return "<a href='byond://?_src_=holder;[HrefToken()];viewruntime=[REF(src)][back_to_param]'>[linktext]</a>"
 
 /datum/error_viewer/error_cache
 	var/list/errors = list()
@@ -84,7 +84,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	var/datum/error_viewer/error_source/error_source
 	for (var/erroruid in error_sources)
 		error_source = error_sources[erroruid]
-		html += "[error_source.min_name]<br>"
+		html += "[error_source.min_name] (Len: [length(error_source.errors)])<br>"
 
 	browse_to(user, html)
 
@@ -96,7 +96,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		var/datum/error_viewer/error_source/error_source
 		for (var/erroruid in error_sources)
 			error_source = error_sources[erroruid]
-			html += "[error_source.make_link(null, src)]<br>"
+			html += "[error_source.make_link(null, src)] (Len: [length(error_source.errors)])<br>"
 
 	else
 		html += "[make_link("organized", null)] | linear<hr>"
@@ -128,7 +128,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		var/const/viewtext = "\[view]" // Nesting these in other brackets went poorly
 		//log_debug("Runtime in <b>[e.file]</b>, line <b>[e.line]</b>: <b>[html_encode(e.name)]</b> [error_entry.make_link(viewtext)]")
 		var/err_msg_delay
-		if(config)
+		if(config?.loaded)
 			err_msg_delay = CONFIG_GET(number/error_msg_delay)
 		else
 			var/datum/config_entry/CE = /datum/config_entry/number/error_msg_delay
@@ -181,7 +181,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	if (istype(desclines))
 		for (var/line in desclines)
 			// There's probably a better way to do this than non-breaking spaces...
-			desc += "<span class='runtime_line'>[html_encode(line)]</span><br>"
+			desc += "[span_runtimeline("[html_encode(line)]")]<br>"
 
 	if (usr)
 		usr_ref = "[REF(usr)]"
@@ -194,12 +194,12 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	var/html = build_header(back_to, linear)
 	html += "[name]<div class='runtime'>[desc]</div>"
 	if (usr_ref)
-		html += "<br><b>usr</b>: <a href='?_src_=vars;[HrefToken()];Vars=[usr_ref]'>VV</a>"
-		html += " <a href='?_src_=holder;[HrefToken()];adminplayeropts=[usr_ref]'>PP</a>"
-		html += " <a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[usr_ref]'>Follow</a>"
+		html += "<br><b>usr</b>: <a href='byond://?_src_=vars;[HrefToken()];Vars=[usr_ref]'>VV</a>"
+		html += " <a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[usr_ref]'>PP</a>"
+		html += " <a href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[usr_ref]'>Follow</a>"
 		if (istype(usr_loc))
-			html += "<br><b>usr.loc</b>: <a href='?_src_=vars;[HrefToken()];Vars=[REF(usr_loc)]'>VV</a>"
-			html += " <a href='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[usr_loc.x];Y=[usr_loc.y];Z=[usr_loc.z]'>JMP</a>"
+			html += "<br><b>usr.loc</b>: <a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(usr_loc)]'>VV</a>"
+			html += " <a href='byond://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[usr_loc.x];Y=[usr_loc.y];Z=[usr_loc.z]'>JMP</a>"
 
 	browse_to(user, html)
 

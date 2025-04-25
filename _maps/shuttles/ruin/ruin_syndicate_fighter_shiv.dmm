@@ -26,7 +26,6 @@
 "fh" = (
 /obj/machinery/camera/xray/directional/west{
 	c_tag = "External View";
-	network = list("caravansyndicate1");
 	pixel_x = 32
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -56,9 +55,8 @@
 	req_access = null;
 	req_access_txt = "150"
 	},
-/obj/machinery/computer/security{
-	dir = 1;
-	network = list("caravansyndicate1")
+/obj/machinery/computer/security/caravansyndicate{
+	dir = 1
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium/red,

@@ -33,7 +33,7 @@
 	var/alert_pending = FALSE
 	/// If this program should process attack calls
 	var/use_attack = FALSE
-	/// If this program should process attack_obj calls
+	/// If this program should process attack_atom calls
 	var/use_attack_obj = FALSE
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
@@ -71,7 +71,7 @@
 /datum/computer_file/program/proc/is_supported_by_hardware(hardware_flag = 0, loud = 0, mob/user = null)
 	if(!(hardware_flag & usage_flags))
 		if(loud && computer && user)
-			to_chat(user, "<span class='danger'>\The [computer] flashes an \"Hardware Error - Incompatible software\" warning.</span>")
+			to_chat(user, span_danger("\The [computer] flashes an \"Hardware Error - Incompatible software\" warning."))
 		return 0
 	return 1
 
@@ -125,7 +125,7 @@
 
 		if(!access_card)
 			if(loud)
-				to_chat(user, "<span class='danger'>\The [computer] flashes an \"RFID Error - Unable to scan ID\" warning.</span>")
+				to_chat(user, span_danger("\The [computer] flashes an \"RFID Error - Unable to scan ID\" warning."))
 			return FALSE
 		access = access_card.GetAccess()
 
@@ -133,7 +133,7 @@
 		if(singular_access in access)//For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
 			return TRUE
 	if(loud)
-		to_chat(user, "<span class='danger'>\The [computer] flashes an \"Access Denied\" warning.</span>")
+		to_chat(user, span_danger("\The [computer] flashes an \"Access Denied\" warning."))
 	return FALSE
 
 /**
@@ -188,7 +188,7 @@
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
 /// Set use_attack_obj = TRUE to receive proccalls from the parent computer.
-/datum/computer_file/program/proc/attack_obj(obj/target, mob/living/user)
+/datum/computer_file/program/proc/attack_atom(obj/target, mob/living/user)
 	return TRUE
 
 /// Called when the datum/tgui is initialized by the computer

@@ -34,7 +34,7 @@
 
 /obj/item/grenade/iedcasing/CheckParts(list/parts_list)
 	..()
-	var/obj/item/reagent_containers/food/drinks/soda_cans/can = locate() in contents
+	var/obj/item/reagent_containers/cup/soda_cans/can = locate() in contents
 	if(can)
 		can.pixel_x = 0 //Reset the sprite's position to make it consistent with the rest of the IED
 		can.pixel_y = 0
@@ -47,7 +47,7 @@
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
 		if(!botch_check(user))
-			to_chat(user, "<span class='warning'>You light the [name]!</span>")
+			to_chat(user, span_warning("You light the [name]!"))
 			cut_overlay("improvised_grenade_filled")
 			preprime(user, null, FALSE)
 

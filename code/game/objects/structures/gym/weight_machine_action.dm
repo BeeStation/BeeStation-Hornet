@@ -10,14 +10,11 @@
 	///Reference to the weightpress we are created inside of.
 	var/obj/structure/weightmachine/weightpress
 
-/datum/action/push_weights/IsAvailable(feedback = FALSE)
-	if(INTERACTING_WITH(owner, weightpress))
+/datum/action/push_weights/is_available(feedback = FALSE)
+	if(DOING_INTERACTION_WITH_TARGET(owner, weightpress))
 		return FALSE
 	return TRUE
 
-/datum/action/push_weights/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return FALSE
+/datum/action/push_weights/on_activate(mob/user, atom/target)
 	weightpress.perform_workout(owner)
 

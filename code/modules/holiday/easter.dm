@@ -26,32 +26,26 @@
 		if(R.name != "blobspawn")
 			if(prob(35))
 				if(isspaceturf(R.loc))
-					new /mob/living/simple_animal/chicken/rabbit/space(R.loc)
+					new /mob/living/simple_animal/chicken/rabbit/easter/space(R.loc)
 				else
-					new /mob/living/simple_animal/chicken/rabbit(R.loc)
+					new /mob/living/simple_animal/chicken/rabbit/easter(R.loc)
 
-/mob/living/simple_animal/chicken/rabbit
-	name = "\improper rabbit"
+/mob/living/simple_animal/chicken/rabbit/easter
 	desc = "The hippiest hop around."
-	icon = 'icons/mob/easter.dmi'
 	icon_state = "rabbit_white"
 	icon_living = "rabbit_white"
 	icon_dead = "rabbit_white_dead"
 	speak = list("Hop into Easter!","Come get your eggs!","Prizes for everyone!")
-	speak_emote = list("sniffles","twitches")
 	speak_language = /datum/language/metalanguage // everyone should understand happy easter
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
-	butcher_results = list(/obj/item/food/meat/slab = 1)
-	egg_type = /obj/item/suprise_egg
+	egg_type = /obj/item/surprise_egg
 	food_type = /obj/item/food/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
-	icon_prefix = "rabbit"
-	feedMessages = list("It nibbles happily.","It noms happily.")
 	layMessage = list("hides an egg.","scampers around suspiciously.","begins making a huge racket.","begins shuffling.")
 
-/mob/living/simple_animal/chicken/rabbit/space
+/mob/living/simple_animal/chicken/rabbit/easter/space
 	icon_prefix = "s_rabbit"
 	icon_state = "s_rabbit_white"
 	icon_living = "s_rabbit_white"
@@ -69,11 +63,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/basket/ComponentInitialize()
+/obj/item/storage/basket/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage = 21
 
 //Easter Baskets
 /obj/item/storage/basket/easter
@@ -81,8 +74,7 @@
 
 /obj/item/storage/basket/easter/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
+	atom_storage.set_holdable(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg, /obj/item/surprise_egg))
 
 /obj/item/storage/basket/easter/proc/countEggs()
 	cut_overlays()
@@ -128,12 +120,12 @@
 	//righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
 	obj_flags = UNIQUE_RENAME
 
-/obj/item/suprise_egg/loaded/Initialize(mapload)
+/obj/item/surprise_egg/loaded/Initialize(mapload)
 	. = ..()
 	var/eggcolor = pick("blue","green","mime","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"
 
-/obj/item/suprise_egg/proc/dispensePrize(turf/where)
+/obj/item/surprise_egg/proc/dispensePrize(turf/where)
 	var/static/list/prize_list = list(
 		/obj/item/clothing/head/costume/bunnyhead,
 		/obj/item/clothing/suit/bunnysuit,
@@ -157,9 +149,9 @@
 	new won(where)
 	new/obj/item/food/chocolateegg(where)
 
-/obj/item/suprise_egg/attack_self(mob/user)
+/obj/item/surprise_egg/attack_self(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You unwrap [src] and find a prize inside!</span>")
+	to_chat(user, span_notice("You unwrap [src] and find a prize inside!"))
 	dispensePrize(get_turf(user))
 	qdel(src)
 
@@ -171,6 +163,7 @@
 	icon_state = "hotcrossbun"
 	foodtypes = SUGAR | GRAIN
 	tastes = list("easter")
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/scotchegg
 	name = "scotch egg"
@@ -179,9 +172,11 @@
 	icon_state = "scotchegg"
 	bite_consumption = 3
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/chocolatebunny
 	name = "chocolate bunny"
 	desc = "Contains less than 10% real rabbit!"
 	icon_state = "chocolatebunny"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
+	crafting_complexity = FOOD_COMPLEXITY_1

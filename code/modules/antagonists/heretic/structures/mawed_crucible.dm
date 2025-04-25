@@ -19,13 +19,13 @@
 
 /obj/structure/destructible/eldritch_crucible/Initialize(mapload)
 	. = ..()
-	break_message = "<span class='warning'>[src] falls apart with a thud!</span>"
+	break_message = span_warning("[src] falls apart with a thud!")
 
 /obj/structure/destructible/eldritch_crucible/deconstruct(disassembled = TRUE)
 
 	// Create a spillage if we were destroyed with leftover mass
 	if(current_mass)
-		break_message = "<span class='warning'>[src] falls apart with a thud, spilling shining extract everywhere!</span>"
+		break_message = span_warning("[src] falls apart with a thud, spilling shining extract everywhere!")
 		var/turf/our_turf = get_turf(src)
 
 		new /obj/effect/decal/cleanable/greenglow(our_turf)
@@ -43,19 +43,19 @@
 
 	if(current_mass < max_mass)
 		var/to_fill = max_mass - current_mass
-		. += "<span class='notice'>[src] requires <b>[to_fill]</b> more organ[to_fill == 1 ? "":"s"] or bodypart[to_fill == 1 ? "":"s"].</span>"
+		. += span_notice("[src] requires <b>[to_fill]</b> more organ[to_fill == 1 ? "":"s"] or bodypart[to_fill == 1 ? "":"s"].")
 	else
-		. += "<span class='boldnotice'>[src] is bubbling to the brim with viscous liquid, and is ready to use.</span>"
+		. += span_boldnotice("[src] is bubbling to the brim with viscous liquid, and is ready to use.")
 
-	. += "<span class='notice'>It can be <b>[anchored ? "unanchored and moved":"anchored in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Mansus Grasp</b>.</span>"
-	. += "<span class='info'>The following potions can be brewed:</span>"
+	. += span_notice("It can be <b>[anchored ? "unanchored and moved":"anchored in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Mansus Grasp</b>.")
+	. += span_info("The following potions can be brewed:")
 	for(var/obj/item/eldritch_potion/potion as anything in subtypesof(/obj/item/eldritch_potion))
-		var/potion_string = "<span class='info'>\tThe " + initial(potion.name) + " - " + initial(potion.crucible_tip) + "</span>"
+		var/potion_string = span_info("\tThe " + initial(potion.name) + " - " + initial(potion.crucible_tip) + "")
 		. += potion_string
 
 /obj/structure/destructible/eldritch_crucible/examine_status(mob/user)
 	if(IS_HERETIC_OR_MONSTER(user) || isobserver(user))
-		return "<span class='notice'>It's at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>"
+		return span_notice("It's at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.")
 	return ..()
 
 /obj/structure/destructible/eldritch_crucible/attacked_by(obj/item/weapon, mob/living/user)
@@ -155,7 +155,7 @@
 	var/obj/item/spawned_pot = new spawned_type(drop_location())
 
 	playsound(src, 'sound/misc/desecration-02.ogg', 75, TRUE)
-	visible_message("<span class='notice'>[src]'s shining liquid drains into a flask, creating a [spawned_pot.name]!</span>")
+	visible_message(span_notice("[src]'s shining liquid drains into a flask, creating a [spawned_pot.name]!"))
 	balloon_alert(user, "Potion created")
 
 	current_mass = 0
@@ -174,7 +174,7 @@
 	if(QDELETED(arm))
 		return
 
-	to_chat(user, "<span class='userdanger'>[src] grabs your [arm.name]!</span>")
+	to_chat(user, span_userdanger("[src] grabs your [arm.name]!"))
 	arm.dismember()
 	consume_fuel(consumed = arm)
 
@@ -190,7 +190,7 @@
 
 	current_mass++
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
-	visible_message("<span class='notice'>[src] devours [consumed] and fills itself with a little bit of liquid!</span>")
+	visible_message(span_notice("[src] devours [consumed] and fills itself with a little bit of liquid!"))
 
 	if(feeder)
 		balloon_alert(feeder, "Crucible fed ([current_mass] / [max_mass])")
@@ -218,7 +218,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
-	. += "<span class='notice'>[crucible_tip]</span>"
+	. += span_notice("[crucible_tip]")
 
 /obj/item/eldritch_potion/attack_self(mob/user)
 	. = ..()
@@ -231,13 +231,13 @@
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
 	if(!IS_HERETIC_OR_MONSTER(user))
-		to_chat(user, "<span class='danger'>You down some of the liquid from [src]. The taste causes you to retch, and the glass vanishes.</span>")
+		to_chat(user, span_danger("You down some of the liquid from [src]. The taste causes you to retch, and the glass vanishes."))
 		user.reagents?.add_reagent(/datum/reagent/eldritch, 10)
 		user.adjust_disgust(50)
 		qdel(src)
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You drink the viscous liquid from [src], causing the glass to dematerialize.</span>")
+	to_chat(user, span_notice("You drink the viscous liquid from [src], causing the glass to dematerialize."))
 	potion_effect(user)
 	qdel(src)
 	return TRUE

@@ -18,7 +18,7 @@
 /obj/item/hemostat,
 /obj/item/healthanalyzer,
 /obj/item/clothing/glasses/eyepatch,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = 3;
 	pixel_y = 2
 	},
@@ -38,7 +38,7 @@
 /area/template_noop)
 "f" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = 8;
 	pixel_y = 2
 	},

@@ -25,6 +25,7 @@
 		"[pick_list_replacements(HAL_LINES_FILE, "aggressive")]",\
 		"[pick_list_replacements(HAL_LINES_FILE, "help")]!!",\
 		"[pick_list_replacements(HAL_LINES_FILE, "escape")]",\
+		"[pick_list_replacements(HAL_LINES_FILE, "reportadvice")]",\
 		"I'm infected, [pick_list_replacements(HAL_LINES_FILE, "infection_advice")]!")
 
 	var/radio_messages = list("[pick_list_replacements(HAL_LINES_FILE, "people")] is [pick_list_replacements(HAL_LINES_FILE, "accusations")]!",\
@@ -92,32 +93,32 @@
 	if(other)
 		if(close_other) //increase the odds
 			for(var/i in 1 to 5)
-				message_pool.Add("<span class='warning'>You feel a tiny prick!</span>")
+				message_pool.Add(span_warning("You feel a tiny prick!"))
 		var/obj/item/storage/equipped_backpack = other.get_item_by_slot(ITEM_SLOT_BACK)
 		if(istype(equipped_backpack))
 			for(var/i in 1 to 5) //increase the odds
-				message_pool.Add("<span class='notice'>[other] puts the [pick(\
+				message_pool.Add(span_notice("[other] puts the [pick(\
 					"revolver","energy sword","cryptographic sequencer","power sink","energy bow",\
 					"hybrid taser","stun baton","flash","syringe gun","circular saw","tank transfer valve",\
 					"ritual dagger","clockwork slab","spellbook",\
 					"pulse rifle","captain's spare ID","hand teleporter","hypospray","antique laser gun","X-01 MultiPhase Energy Gun","station's blueprints"\
-					)] into [equipped_backpack].</span>")
+					)] into [equipped_backpack]."))
 
 		message_pool.Add("<B>[other]</B> [pick("sneezes","coughs")].")
 
-	message_pool.Add("<span class='notice'>You hear something squeezing through the ducts...</span>", \
-		"<span class='notice'>Your [pick("arm", "leg", "back", "head")] itches.</span>",\
-		"<span class='warning'>You feel [pick("hot","cold","dry","wet","woozy","faint")].</span>",
-		"<span class='warning'>Your stomach rumbles.</span>",
-		"<span class='warning'>Your head hurts.</span>",
-		"<span class='warning'>You hear a faint buzz in your head.</span>",
+	message_pool.Add(span_notice("You hear something squeezing through the ducts..."), \
+		span_notice("Your [pick("arm", "leg", "back", "head")] itches."),\
+		span_warning("You feel [pick("hot","cold","dry","wet","woozy","faint")]."),
+		span_warning("Your stomach rumbles."),
+		span_warning("Your head hurts."),
+		span_warning("You hear a faint buzz in your head."),
 		"<B>[target]</B> sneezes.")
 	if(prob(10))
-		message_pool.Add("<span class='warning'>Behind you.</span>",\
-			"<span class='warning'>You hear a faint laughter.</span>",
-			"<span class='warning'>You see something move.</span>",
-			"<span class='warning'>You hear skittering on the ceiling.</span>",
-			"<span class='warning'>You see an inhumanly tall silhouette moving in the distance.</span>")
+		message_pool.Add(span_warning("Behind you."),\
+			span_warning("You hear a faint laughter."),
+			span_warning("You see something move."),
+			span_warning("You hear skittering on the ceiling."),
+			span_warning("You see an inhumanly tall silhouette moving in the distance."))
 	if(prob(10))
 		message_pool.Add("[pick_list_replacements(HAL_LINES_FILE, "advice")]")
 	var/chosen = pick(message_pool)
@@ -137,9 +138,12 @@
 	feedback_details += "Type: [message]"
 	switch(message)
 		if("blob alert")
-			to_chat(target, "<h1 class='alert'>Biohazard Alert</h1>")
-			to_chat(target, "<br><br><span class='alert'>Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.</span><br><br>")
-			SEND_SOUND(target,  SSstation.announcer.event_sounds[ANNOUNCER_OUTBREAK5])
+			priority_announce(
+				text = "Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.",
+				title = "Biohazard Alert",
+				sound = ANNOUNCER_OUTBREAK5,
+				players = list(target),
+			)
 		if("ratvar")
 			target.playsound_local(target, 'sound/machines/clockcult/ark_deathrattle.ogg', 50, FALSE, pressure_affected = FALSE)
 			target.playsound_local(target, 'sound/effects/clockcult_gateway_disrupted.ogg', 50, FALSE, pressure_affected = FALSE)
@@ -156,19 +160,30 @@
 				/* pressure_affected = */ FALSE
 			), 27)
 		if("shuttle dock")
-			to_chat(target, "<h1 class='alert'>Priority Announcement</h1>")
-			to_chat(target, "<br><br><span class='alert'>The Emergency Shuttle has docked with the station. You have 3 minutes to board the Emergency Shuttle.</span><br><br>")
-			SEND_SOUND(target, SSstation.announcer.event_sounds[ANNOUNCER_SHUTTLEDOCK])
+			priority_announce(
+				text = "[SSshuttle.emergency] has docked with the station. You have [DisplayTimeText(SSshuttle.emergencyDockTime)] to board the emergency shuttle.",
+				title = "Emergency Shuttle Arrival",
+				sound = ANNOUNCER_SHUTTLEDOCK,
+				sender_override = "Emergency Shuttle Uplink Alert",
+				players = list(target),
+				color_override = "orange",
+			)
 		if("malf ai") //AI is doomsdaying!
-			to_chat(target, "<h1 class='alert'>Anomaly Alert</h1>")
-			to_chat(target, "<br><br><span class='alert'>Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.</span><br><br>")
-			SEND_SOUND(target, SSstation.announcer.event_sounds[ANNOUNCER_AIMALF])
+			priority_announce(
+				text = "Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.",
+				title = "Anomaly Alert",
+				sound = ANNOUNCER_AIMALF,
+				players = list(target),
+			)
 		if("meteors") //Meteors inbound!
-			to_chat(target, "<h1 class='alert'>Meteor Alert</h1>")
-			to_chat(target, "<br><br><span class='alert'>Meteors have been detected on collision course with the station.</span><br><br>")
-			SEND_SOUND(target, SSstation.announcer.event_sounds[ANNOUNCER_METEORS])
+			priority_announce(
+				text = "Meteors have been detected on collision course with the station.",
+				title = "Meteor Alert",
+				sound = ANNOUNCER_METEORS,
+				players = list(target),
+			)
 		if("supermatter")
 			SEND_SOUND(target, 'sound/magic/charge.ogg')
-			to_chat(target, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
+			to_chat(target, span_boldannounce("You feel reality distort for a moment..."))
 
 #undef HAL_LINES_FILE

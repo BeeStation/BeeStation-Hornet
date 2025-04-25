@@ -66,7 +66,7 @@
 		var/datum/effect_system/spark_spread/s = new
 		s.set_up(3, 1, T)
 		s.start()
-		T.set_temperature(5000)
+		T.temperature = (5000)
 		T.hotspot_expose(50000,50000,1)
 
 /obj/effect/holodeck_effect/random_book
@@ -108,8 +108,8 @@
 	mobtype = list(
 		/mob/living/simple_animal/butterfly, /mob/living/simple_animal/chick/holo,
 		/mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/cat/kitten,
-		/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/dog/corgi/puppy,
-		/mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/pet/fox)
+		/mob/living/basic/pet/dog/corgi, /mob/living/basic/pet/dog/corgi/puppy,
+		/mob/living/basic/pet/dog/pug, /mob/living/simple_animal/pet/fox)
 
 /obj/effect/holodeck_effect/mobspawner/bee
 	mobtype = /mob/living/simple_animal/hostile/poison/bees/toxin

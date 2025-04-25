@@ -2,13 +2,13 @@ import { Box, Tabs, Button, Tooltip, Stack, Flex, Table, Section, Icon, Input } 
 import { LoadoutGear, PreferencesMenuData } from './data';
 import { useBackend, useLocalState } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
-import { CharacterPreview } from './CharacterPreview';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { createSearch } from 'common/string';
 
 const isPurchased = (purchased_gear: string[], gear: LoadoutGear) => purchased_gear.includes(gear.id) && !gear.multi_purchase;
 
-export const LoadoutPage = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+export const LoadoutPage = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const { purchased_gear = [], metacurrency_balance = 0, is_donator = false } = data;
 
   return (
@@ -18,8 +18,8 @@ export const LoadoutPage = (props, context) => {
           return <Box>Loading loadout data...</Box>;
         }
         const { categories = [], metacurrency_name } = serverData.loadout;
-        const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', categories[0].name);
-        let [searchText, setSearchText] = useLocalState(context, 'loadout_search', '');
+        const [selectedCategory, setSelectedCategory] = useLocalState('category', categories[0].name);
+        let [searchText, setSearchText] = useLocalState('loadout_search', '');
         let search = createSearch(searchText, (gear: LoadoutGear) => {
           return gear.display_name + ' ' + gear.skirt_display_name + ' ' + gear.allowed_roles?.join(' ');
         });
@@ -31,14 +31,8 @@ export const LoadoutPage = (props, context) => {
 
         return (
           <Stack height="100%">
-            <Stack.Item style={{ 'max-height': '640px' }}>
-              <Flex
-                width="219px"
-                mb={1}
-                p={1}
-                fontSize="22px"
-                style={{ 'align-items': 'center' }}
-                className="section-background">
+            <Stack.Item style={{ maxHeight: '640px' }}>
+              <Flex width="219px" mb={1} p={1} fontSize="22px" style={{ alignItems: 'center' }} className="section-background">
                 <Flex.Item>
                   <Button icon="undo" tooltip="Rotate" tooltipPosition="top" onClick={() => act('rotate')} />
                 </Flex.Item>
@@ -89,18 +83,18 @@ export const LoadoutPage = (props, context) => {
                     width="100%"
                     height="100%"
                     className="section-background"
-                    style={{ padding: '0.66em 0.5em', 'overflow-y': 'scroll' }}>
+                    style={{ padding: '0.66em 0.5em', overflowY: 'scroll' }}>
                     <Table>
                       <Table.Row header>
                         <Table.Cell collapsing />
                         <Table.Cell>Name</Table.Cell>
-                        {showRoles || searchText.length ? <Table.Cell style={{ 'width': '15rem' }}>Roles</Table.Cell> : null}
+                        {showRoles || searchText.length ? <Table.Cell style={{ width: '15rem' }}>Roles</Table.Cell> : null}
                         {selectedCategory !== 'Donator' && (
                           <Table.Cell collapsing textAlign="center">
                             Cost
                           </Table.Cell>
                         )}
-                        <Table.Cell style={{ 'min-width': '7rem' }} collapsing />
+                        <Table.Cell style={{ minWidth: '7rem' }} collapsing />
                       </Table.Row>
                       {!searchText?.length && selectedCategoryObject
                         ? selectedCategoryObject.gear.map((gear) => (
@@ -139,11 +133,8 @@ export const LoadoutPage = (props, context) => {
   );
 };
 
-const GearEntry = (
-  props: { gear: LoadoutGear; metacurrency_name: string; selectedCategory: string; showRoles?: boolean },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const GearEntry = (props: { gear: LoadoutGear; metacurrency_name: string; selectedCategory: string; showRoles?: boolean }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const { equipped_gear = [], purchased_gear = [], metacurrency_balance, character_preferences, is_donator = false } = data;
   const { gear, metacurrency_name, selectedCategory, showRoles = true } = props;
   const jumpsuit_style = character_preferences.clothing.jumpsuit_style;
@@ -157,18 +148,18 @@ const GearEntry = (
             jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name ? '_skirt' : ''
           }`}
           style={{
-            'vertical-align': 'middle',
-            'horizontal-align': 'middle',
+            verticalAlign: 'middle',
+            horizontalAlign: 'middle',
           }}
         />
       </Table.Cell>
       <Table.Cell
         style={{
-          'max-width': '1px',
-          'white-space': 'nowrap',
-          'text-overflow': 'ellipsis',
-          'overflow': 'hidden',
-          'vertical-align': 'middle',
+          maxWidth: '1px',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+          verticalAlign: 'middle',
         }}>
         {gear.description || gear.skirt_description ? (
           <Tooltip
@@ -177,8 +168,8 @@ const GearEntry = (
               inline
               style={
                 gear.description || gear.skirt_description
-                  ? { 'border-bottom': '1px dotted #909090', 'padding-bottom': '1px' }
-                  : null
+                  ? { borderBottom: '1px dotted #909090', paddingBottom: '1px' }
+                  : undefined
               }>
               {jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name ? gear.skirt_display_name : gear.display_name}
             </Box>
@@ -193,14 +184,14 @@ const GearEntry = (
         <Table.Cell
           color="label"
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
           }}>
           {gear.allowed_roles && gear.allowed_roles.length > 0 ? (
             gear.allowed_roles.length === 1 ? (
               gear.allowed_roles[0]
             ) : (
               <Tooltip content={gear.allowed_roles.join(', ')}>
-                <Box inline style={{ 'border-bottom': '1px dotted #909090', 'padding-bottom': '1px' }}>
+                <Box inline style={{ borderBottom: '1px dotted #909090', paddingBottom: '1px' }}>
                   {gear.allowed_roles[0]}, {gear.allowed_roles[1][0]}...
                 </Box>
               </Tooltip>
@@ -213,7 +204,7 @@ const GearEntry = (
           collapsing
           textAlign="center"
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
           }}>
           {gear.cost.toLocaleString()}
         </Table.Cell>
@@ -221,7 +212,7 @@ const GearEntry = (
       <Table.Cell
         textAlign="center"
         style={{
-          'vertical-align': 'middle',
+          verticalAlign: 'middle',
         }}>
         <Button
           disabled={
