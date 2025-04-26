@@ -137,6 +137,9 @@
 	tool_behaviour = TOOL_BLOODFILTER
 	toolspeed = 1
 
+/obj/item/blood_filter/augment
+	toolspeed = 0.5
+
 
 /obj/item/surgicaldrill
 	name = "surgical drill"
