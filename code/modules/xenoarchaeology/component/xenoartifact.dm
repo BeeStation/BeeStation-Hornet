@@ -286,7 +286,7 @@
 	if(ispath(trait))
 		trait = new trait(src)
 	else
-		trait.remove_parent()
+		trait.remove_parent(pensive = FALSE)
 		trait.register_parent(src)
 	//List building, handle custom priorities, just appened to the end
 	if(!traits_catagories[trait.priority])

@@ -30,13 +30,21 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("produce a randomly colored light"))
 
-/datum/xenoartifact_trait/major/illuminating/proc/do_light()
-	lit = !lit
+/datum/xenoartifact_trait/major/illuminating/proc/do_light(force = FALSE)
+	if(!force)
+		lit = !lit
 	var/atom/light_source = component_parent.parent
 	if(lit)
 		light_source.set_light(component_parent.trait_strength*0.04, min(component_parent.trait_strength*0.1, 10), color)
-	else
-		light_source.set_light(0, 0)
+	light_source.set_light_on(lit)
+	light_source.update_light()
+
+/datum/xenoartifact_trait/major/illuminating/catch_move(datum/source, atom/mover, dir)
+	. = ..()
+	var/atom/light_source = component_parent.parent
+	if(!isturf(light_source.loc?.loc))
+		lit = FALSE
+		do_light(TRUE)
 
 /datum/xenoartifact_trait/major/illuminating/shadow
 	label_name = "Illuminating Δ"
