@@ -40,7 +40,7 @@
 	time = 2.5 SECONDS
 	success_sound = 'sound/machines/ping.ogg'
 	var/chem_purge_factor = 0.2
-	var/tox_heal_factor = 0
+	var/tox_heal_factor = 0.025
 
 /datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery,/datum/surgery/blood_filter))
@@ -112,3 +112,4 @@
 
 /datum/surgery_step/filter_blood/upgraded/femto
 	time = 1 SECONDS
+	tox_heal_factor = 0.15
