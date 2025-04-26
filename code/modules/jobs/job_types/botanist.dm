@@ -7,9 +7,8 @@
 	faction = "Station"
 	total_positions = 3
 	selection_color = "#bbe291"
-	exp_requirements = 120 //High grief percentage
-	exp_type = EXP_TYPE_SERVICE
-	exp_type_department = EXP_TYPE_SERVICE
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
 	min_pop = MINPOP_JOB_LIMIT
 
