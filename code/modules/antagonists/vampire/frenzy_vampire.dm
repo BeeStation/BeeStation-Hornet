@@ -34,7 +34,7 @@
 	duration = -1
 	tick_interval = 10
 	alert_type = /atom/movable/screen/alert/status_effect/frenzy
-	///Boolean on whether they were an AdvancedToolUser, to give the trait back upon exiting.
+	/// Boolean on whether they were an AdvancedToolUser, to give the trait back upon exiting.
 	var/was_tooluser = FALSE
 	/// The stored Vampire antag datum
 	var/datum/antagonist/vampire/vampiredatum
@@ -53,7 +53,7 @@
 	// Disable ALL Powers and notify their entry
 	vampiredatum.DisableAllPowers(forced = TRUE)
 	to_chat(owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
-	to_chat(owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun resistance, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
+	to_chat(owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	owner.balloon_alert(owner, "you enter a frenzy!")
 	SEND_SIGNAL(vampiredatum, VAMPIRE_ENTERS_FRENZY)
 
@@ -61,9 +61,9 @@
 	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FRENZY)
 	ADD_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
 	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
-	if(!HAS_TRAIT(owner, TRAIT_DISCOORDINATED))
+	if(!HAS_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER))
 		was_tooluser = TRUE
-		ADD_TRAIT(owner, TRAIT_DISCOORDINATED, TRAIT_FRENZY)
+		ADD_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
 
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
@@ -71,7 +71,7 @@
 	user.Jitter(60 SECONDS)
 	user.uncuff()
 	vampiredatum.frenzied = TRUE
-	return ..()
+	. = ..()
 
 /datum/status_effect/frenzy/on_remove()
 	var/mob/living/carbon/human/user = owner
@@ -80,7 +80,7 @@
 	REMOVE_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
 	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
 	if(was_tooluser)
-		REMOVE_TRAIT(owner, TRAIT_DISCOORDINATED, TRAIT_FRENZY)
+		REMOVE_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
 		was_tooluser = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 	vampiredatum.frenzygrab.remove(user)
