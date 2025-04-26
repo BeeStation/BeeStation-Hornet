@@ -138,6 +138,8 @@
 	toolspeed = 1
 
 /obj/item/blood_filter/augment
+	name = "integrated blood filter"
+	desc = "For filtering the blood, now inside your arm."
 	toolspeed = 0.5
 
 
