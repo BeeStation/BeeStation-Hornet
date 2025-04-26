@@ -42680,6 +42680,15 @@
 "iNr" = (
 /turf/closed/wall,
 /area/crew_quarters/locker)
+"iNy" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "!";
+	pixel_y = 30;
+	pixel_x = 11;
+	paint_colour = "#da3333"
+	},
+/turf/open/floor/plating,
+/area/maintenance/central)
 "iNA" = (
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/machinery/light/small/directional/south,
@@ -43076,17 +43085,17 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "iQN" = (
-/obj/effect/decal/remains/human{
-	pixel_y = 5;
-	pixel_x = -11;
-	color = "#808080"
-	},
-/obj/effect/turf_decal/siding/dark,
 /obj/structure/railing,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/plaque{
+	color = "#808080";
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "remains"
+	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
 	},
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
@@ -43129,11 +43138,11 @@
 /obj/structure/railing{
 	dir = 5
 	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 5
-	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 5
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
@@ -50272,12 +50281,12 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
 /obj/machinery/light/small/directional/east,
 /obj/effect/decal/fakelattice{
 	color = "#808080"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
@@ -54378,14 +54387,14 @@
 /turf/open/floor/iron/white/smooth_half,
 /area/medical/sleeper)
 "lod" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 10
-	},
 /obj/structure/railing{
 	dir = 10
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 10
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
@@ -55056,14 +55065,14 @@
 /turf/open/floor/concrete/slab,
 /area/crew_quarters/barbershop)
 "lvZ" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
 /obj/structure/railing{
 	dir = 1
 	},
 /obj/machinery/light/small/directional/south,
 /obj/effect/decal/fakelattice,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
@@ -59198,9 +59207,6 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/generic{
 	color = "#808080";
 	pixel_y = 12;
@@ -59208,6 +59214,9 @@
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 6
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
@@ -65480,9 +65489,6 @@
 	},
 /area/security/brig)
 "nDT" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
 /obj/structure/railing{
 	dir = 1
 	},
@@ -65491,6 +65497,9 @@
 	color = "#808080"
 	},
 /obj/effect/decal/fakelattice,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
@@ -66726,15 +66735,15 @@
 /area/hallway/upper/primary/port)
 "nRe" = (
 /obj/machinery/light/small/directional/south,
-/obj/item/stack/spacecash/c10{
-	pixel_y = 6;
+/obj/effect/turf_decal/plaque{
 	color = "#808080";
-	anchored = 1
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "gib1"
 	},
-/obj/effect/decal/cleanable/blood/gibs{
+/obj/effect/turf_decal/plaque{
 	color = "#808080";
-	pixel_y = 8;
-	pixel_x = -4
+	icon = 'icons/obj/economy.dmi';
+	icon_state = "spacecash10"
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
@@ -68411,11 +68420,10 @@
 /obj/structure/railing{
 	dir = 9
 	},
-/obj/item/trash/sosjerky{
-	pixel_x = 8;
-	pixel_y = -2;
+/obj/effect/turf_decal/plaque{
 	color = "#808080";
-	anchored = 1
+	icon = 'icons/obj/janitor.dmi';
+	icon_state = "sosjerky"
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
@@ -69263,13 +69271,13 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics/cloning)
 "orW" = (
-/obj/effect/turf_decal/siding/dark,
 /obj/structure/railing,
 /obj/machinery/light/small/directional/north,
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/decal/fakelattice{
 	color = "#808080"
 	},
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
@@ -74290,10 +74298,10 @@
 /obj/structure/railing{
 	dir = 5
 	},
+/obj/effect/decal/fakelattice,
 /obj/effect/turf_decal/siding/dark{
 	dir = 5
 	},
-/obj/effect/decal/fakelattice,
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
@@ -76797,11 +76805,11 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
@@ -82382,9 +82390,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/machinery/disposal/bin,
 /obj/item/clothing/head/cone{
-	pixel_y = -3;
-	pixel_x = 1
+	pixel_y = -12;
+	pixel_x = 11
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -88859,12 +88868,12 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
-	},
 /obj/machinery/light/small/directional/west,
 /obj/effect/decal/fakelattice{
 	color = "#808080"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
@@ -102872,15 +102881,15 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 8
-	},
 /obj/item/bodypart/head/monkey{
 	color = "#808080";
 	anchored = 1
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 8
 	},
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
@@ -109492,11 +109501,10 @@
 /turf/open/floor/iron/smooth_large,
 /area/engineering/hallway)
 "wJk" = (
-/obj/item/stack/spacecash/c1{
+/obj/effect/turf_decal/plaque{
 	color = "#808080";
-	anchored = 1;
-	pixel_x = 1;
-	pixel_y = -2
+	icon = 'icons/obj/economy.dmi';
+	icon_state = "spacecash"
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
@@ -115061,11 +115069,10 @@
 	dir = 1
 	},
 /obj/machinery/light/small/directional/south,
-/obj/item/trash/energybar{
+/obj/effect/turf_decal/plaque{
 	color = "#808080";
-	anchored = 1;
-	pixel_y = 1;
-	pixel_x = -4
+	icon = 'icons/obj/janitor.dmi';
+	icon_state = "energybar"
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
@@ -145496,7 +145503,7 @@ bpW
 bpW
 bpW
 qvI
-smP
+iNy
 vlQ
 qvI
 gBb
