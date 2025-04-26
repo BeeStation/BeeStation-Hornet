@@ -12837,7 +12837,9 @@
 	pixel_y = 8;
 	pixel_x = -8
 	},
-/obj/effect/spawner/lootdrop/minor/beret_or_rabbitears,
+/obj/effect/spawner/lootdrop/minor/beret_or_rabbitears{
+	pixel_y = 9
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -42680,15 +42682,6 @@
 "iNr" = (
 /turf/closed/wall,
 /area/crew_quarters/locker)
-"iNy" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "!";
-	pixel_y = 30;
-	pixel_x = 11;
-	paint_colour = "#da3333"
-	},
-/turf/open/floor/plating,
-/area/maintenance/central)
 "iNA" = (
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/machinery/light/small/directional/south,
@@ -55740,6 +55733,26 @@
 	dir = 4
 	},
 /area/security/warden)
+"lCK" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/item/holochip{
+	pixel_y = -3;
+	credits = 1;
+	pixel_x = -14
+	},
+/turf/open/floor/catwalk_floor/iron,
+/area/maintenance/starboard/central)
 "lCR" = (
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
@@ -63770,9 +63783,6 @@
 /obj/item/instrument/eguitar{
 	pixel_x = 18;
 	pixel_y = 4
-	},
-/obj/item/instrument/guitar{
-	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -74862,6 +74872,15 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
+"pxW" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "!";
+	pixel_y = 30;
+	pixel_x = 11;
+	paint_colour = "#da3333"
+	},
+/turf/open/floor/plating,
+/area/maintenance/central)
 "pya" = (
 /obj/structure/window/plasma/reinforced/spawner/west,
 /obj/machinery/power/rad_collector/anchored,
@@ -82390,7 +82409,11 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/machinery/disposal/bin,
+/obj/structure/disposalconstruct{
+	pipename = "disposal unit";
+	pipe_type = /obj/machinery/disposal/bin;
+	icon_state = "condisposal"
+	},
 /obj/item/clothing/head/cone{
 	pixel_y = -12;
 	pixel_x = 11
@@ -88422,6 +88445,9 @@
 /obj/structure/chair/fancy/sofa/old{
 	dir = 1
 	},
+/obj/item/instrument/guitar{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "stj" = (
@@ -91165,7 +91191,9 @@
 "sXF" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil/blue,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
+	pixel_y = -8
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -94490,6 +94518,21 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
+"tHF" = (
+/obj/item/holochip{
+	pixel_y = -4;
+	credits = 1;
+	pixel_x = 12
+	},
+/obj/item/chair/stool{
+	pixel_y = 9;
+	pixel_x = -3
+	},
+/obj/item/instrument/guitar{
+	pixel_y = -6
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/central)
 "tIe" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -99650,6 +99693,14 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/white,
 /area/storage/art)
+"uKe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/canned/beans/maint{
+	pixel_y = 8;
+	pixel_x = 8
+	},
+/turf/open/floor/iron,
+/area/maintenance/starboard/central)
 "uKo" = (
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/bot,
@@ -104163,7 +104214,10 @@
 /area/maintenance/department/engine)
 "vEg" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil/orange,
+/obj/item/stack/cable_coil/orange{
+	pixel_y = 8;
+	pixel_x = 9
+	},
 /obj/item/stack/cable_coil/white{
 	pixel_y = 13
 	},
@@ -114742,11 +114796,13 @@
 "xPT" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/artistic{
-	pixel_y = 7
+	pixel_y = 10
 	},
-/obj/item/storage/toolbox/artistic,
 /obj/item/storage/toolbox/artistic{
-	pixel_y = -7
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/artistic{
+	pixel_y = -4
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -115621,6 +115677,10 @@
 "xZQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
+/obj/item/holochip{
+	pixel_y = 16;
+	credits = 1
+	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
 "xZT" = (
@@ -145503,7 +145563,7 @@ bpW
 bpW
 bpW
 qvI
-iNy
+pxW
 vlQ
 qvI
 gBb
@@ -160746,9 +160806,9 @@ vZD
 vZD
 wMC
 nzC
-vZD
 fYh
-jVC
+tHF
+uKe
 xZQ
 mkV
 uyW
@@ -161005,7 +161065,7 @@ puP
 pAU
 iQp
 kjx
-kjx
+lCK
 gvK
 gvK
 gvK
