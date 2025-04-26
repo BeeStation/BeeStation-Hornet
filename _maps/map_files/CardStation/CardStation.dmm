@@ -460,6 +460,14 @@
 "aeT" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/engine)
+"aeU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/canned/beans/maint{
+	pixel_y = 8;
+	pixel_x = 8
+	},
+/turf/open/floor/iron,
+/area/maintenance/starboard/central)
 "aeV" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Office";
@@ -20681,15 +20689,14 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/item/reagent_containers/cup/bottle/nutrient/rh{
 	pixel_x = 2;
-	pixel_y = 1
+	pixel_y = 6
 	},
-/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez{
+	pixel_y = 3
+	},
 /obj/item/reagent_containers/spray/pestspray{
 	pixel_x = 10;
 	pixel_y = 4
-	},
-/obj/item/reagent_containers/spray/plantbgone{
-	pixel_x = -9
 	},
 /turf/open/floor/wood,
 /area/hydroponics/garden)
@@ -21136,7 +21143,10 @@
 /turf/open/floor/iron/tech/grid,
 /area/quartermaster/storage)
 "etN" = (
-/obj/item/toy/beach_ball,
+/obj/item/toy/beach_ball{
+	pixel_y = 8;
+	pixel_x = 9
+	},
 /turf/open/indestructible/sound/pool,
 /area/crew_quarters/fitness/recreation)
 "etW" = (
@@ -52210,7 +52220,10 @@
 /turf/open/floor/noslip/dark,
 /area/gateway)
 "kRb" = (
-/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky{
+	pixel_y = -6;
+	pixel_x = 7
+	},
 /turf/open/indestructible/sound/pool,
 /area/crew_quarters/fitness/recreation)
 "kRf" = (
@@ -53304,7 +53317,10 @@
 /turf/open/floor/carpet/cyan,
 /area/quartermaster/exploration_prep)
 "lbR" = (
-/obj/item/pool/rubber_ring,
+/obj/item/pool/rubber_ring{
+	pixel_y = 4;
+	pixel_x = 5
+	},
 /turf/open/indestructible/sound/pool,
 /area/crew_quarters/fitness/recreation)
 "lbS" = (
@@ -55733,26 +55749,6 @@
 	dir = 4
 	},
 /area/security/warden)
-"lCK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/item/holochip{
-	pixel_y = -3;
-	credits = 1;
-	pixel_x = -14
-	},
-/turf/open/floor/catwalk_floor/iron,
-/area/maintenance/starboard/central)
 "lCR" = (
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
@@ -59686,6 +59682,15 @@
 /obj/structure/grille,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
+"muH" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "!";
+	pixel_y = 30;
+	pixel_x = 11;
+	paint_colour = "#da3333"
+	},
+/turf/open/floor/plating,
+/area/maintenance/central)
 "mve" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Rations Storage"
@@ -60696,7 +60701,7 @@
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "Fireplace in a sauna? Yeah sure that makes sense - BarteG";
+	desc = "Fireplace in a sauna? Yeah sure, that makes sense - BarteG";
 	name = "Cardstation - Sauna"
 	},
 /turf/open/floor/wood,
@@ -63956,7 +63961,10 @@
 "noJ" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/structure/table,
-/obj/item/storage/firstaid/o2,
+/obj/item/storage/firstaid/o2{
+	pixel_y = 8;
+	pixel_x = -2
+	},
 /turf/open/floor/noslip/blue,
 /area/crew_quarters/fitness/recreation)
 "noK" = (
@@ -65562,7 +65570,10 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/storage/box/lights/mixed,
+/obj/item/storage/box/lights/mixed{
+	pixel_y = 7;
+	pixel_x = 2
+	},
 /obj/structure/fluff/fans{
 	pixel_x = 24
 	},
@@ -74872,15 +74883,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
-"pxW" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "!";
-	pixel_y = 30;
-	pixel_x = 11;
-	paint_colour = "#da3333"
-	},
-/turf/open/floor/plating,
-/area/maintenance/central)
 "pya" = (
 /obj/structure/window/plasma/reinforced/spawner/west,
 /obj/machinery/power/rad_collector/anchored,
@@ -81747,6 +81749,21 @@
 /obj/structure/railing/corner,
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/medical)
+"qWz" = (
+/obj/item/holochip{
+	pixel_y = -4;
+	credits = 1;
+	pixel_x = 12
+	},
+/obj/item/chair/stool{
+	pixel_y = 9;
+	pixel_x = -3
+	},
+/obj/item/instrument/guitar{
+	pixel_y = -6
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/central)
 "qWA" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
@@ -85318,6 +85335,26 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/aft)
+"rMl" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/item/holochip{
+	pixel_y = -3;
+	credits = 1;
+	pixel_x = -14
+	},
+/turf/open/floor/catwalk_floor/iron,
+/area/maintenance/starboard/central)
 "rMB" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -94518,21 +94555,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
-"tHF" = (
-/obj/item/holochip{
-	pixel_y = -4;
-	credits = 1;
-	pixel_x = 12
-	},
-/obj/item/chair/stool{
-	pixel_y = 9;
-	pixel_x = -3
-	},
-/obj/item/instrument/guitar{
-	pixel_y = -6
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/central)
 "tIe" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -99693,14 +99715,6 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/white,
 /area/storage/art)
-"uKe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/trash/canned/beans/maint{
-	pixel_y = 8;
-	pixel_x = 8
-	},
-/turf/open/floor/iron,
-/area/maintenance/starboard/central)
 "uKo" = (
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/bot,
@@ -100160,6 +100174,10 @@
 	},
 /obj/item/cultivator,
 /obj/machinery/requests_console/auto_name/directional/south,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 7;
+	pixel_y = 12
+	},
 /turf/open/floor/wood,
 /area/hydroponics/garden)
 "uOg" = (
@@ -101791,7 +101809,10 @@
 "vfw" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/structure/table,
-/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky{
+	pixel_y = 9;
+	pixel_x = 7
+	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -145563,7 +145584,7 @@ bpW
 bpW
 bpW
 qvI
-pxW
+muH
 vlQ
 qvI
 gBb
@@ -160807,8 +160828,8 @@ vZD
 wMC
 nzC
 fYh
-tHF
-uKe
+qWz
+aeU
 xZQ
 mkV
 uyW
@@ -161065,7 +161086,7 @@ puP
 pAU
 iQp
 kjx
-lCK
+rMl
 gvK
 gvK
 gvK
