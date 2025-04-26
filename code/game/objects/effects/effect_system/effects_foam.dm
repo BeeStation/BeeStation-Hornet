@@ -25,6 +25,7 @@
 	/turf/open/lava))
 	var/slippery_foam = TRUE
 
+
 /obj/effect/particle_effect/foam/firefighting
 	name = "firefighting foam"
 	lifetime = 20 //doesn't last as long as normal foam
@@ -212,6 +213,10 @@
 
 /obj/effect/particle_effect/foam/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return exposed_temperature > 475
+
+/obj/effect/particle_effect/foam/metal/resin/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return FALSE
+
 
 /obj/effect/particle_effect/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
