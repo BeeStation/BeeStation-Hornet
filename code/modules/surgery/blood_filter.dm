@@ -1,6 +1,6 @@
 /datum/surgery/blood_filter
 	name = "Filter Blood"
-	desc = "A surgical procedure that filters toxins from the patient's blood. Does not undo any toxin damage, however."
+	desc = "A surgical procedure that filters toxins from the patient's blood. Barely undoes any toxin damage, however."
 	steps = list(/datum/surgery_step/incise,
 				/datum/surgery_step/retract_skin,
 				/datum/surgery_step/incise,
@@ -9,7 +9,6 @@
 
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_bodypart_type = TRUE
 	ignore_clothes = FALSE
 	replaced_by = /datum/surgery/blood_filter/upgraded
 	var/antispam = FALSE
@@ -102,6 +101,7 @@
 /datum/surgery_step/filter_blood/upgraded
 	time = 1.85 SECONDS
 	tox_heal_factor = 0.075
+	chem_purge_factor = 0.3
 
 /datum/surgery/blood_filter/femto
 	name = "Filter Blood (Exp.)"
@@ -113,3 +113,4 @@
 /datum/surgery_step/filter_blood/upgraded/femto
 	time = 1 SECONDS
 	tox_heal_factor = 0.15
+	chem_purge_factor = 0.4
