@@ -120,7 +120,7 @@
 	var/list/minimal_lightup_areas = list()
 
 	/// The minimum population required at roundstart for this job to appear
-	var/min_pop = 14
+	var/min_pop = LOWPOP_JOB_LIMIT
 	/// The maximum population required at roundstart for this job to appear
 	var/max_pop = INFINITY
 
@@ -334,8 +334,6 @@
 		return base_access.Copy()
 
 	. = base_access.Copy()
-	if(!CONFIG_GET(flag/jobs_have_minimal_access))
-		. |= extra_access
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
 		. |= ACCESS_MAINT_TUNNELS

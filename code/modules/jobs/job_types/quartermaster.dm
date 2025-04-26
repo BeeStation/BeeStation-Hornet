@@ -10,6 +10,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SUPPLY
 	exp_type_department = EXP_TYPE_SUPPLY
+	min_pop = MINPOP_JOB_LIMIT
 
 	outfit = /datum/outfit/job/quartermaster
 

@@ -7,6 +7,7 @@
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	faction = "Station"
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
+	min_pop = 0
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 840
@@ -16,8 +17,7 @@
 
 	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS,
 					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/security_officer/get_access()
-					// NOTE: ACCESS_MAINT_TUNNELS will be given by check_config_for_sec_maint() config
-	extra_access = list(ACCESS_MORGUE, ACCESS_FORENSICS_LOCKERS, ACCESS_MAINT_TUNNELS)
+	// NOTE: ACCESS_MAINT_TUNNELS will be given by check_config_for_sec_maint() config
 
 	/// These accesses will be given in after_spawn()
 	var/list/dept_access_supply = list(ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_AUX_BASE)
@@ -44,6 +44,15 @@
 	. = ..()
 	if(check_config_for_sec_maint())
 		. |= ACCESS_MAINT_TUNNELS
+	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_MAINT_TUNNELS
+	if (SSjob.is_job_empty(JOB_NAME_DETECTIVE) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_FORENSICS_LOCKERS
+		. |= ACCESS_MORGUE
+	if (SSjob.is_job_empty(JOB_NAME_WARDEN) && SSjob.is_job_empty(JOB_NAME_HEADOFSECURITY) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_ARMORY
+	if (SSjob.is_job_empty(JOB_NAME_BRIGPHYSICIAN) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_BRIGPHYS
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 

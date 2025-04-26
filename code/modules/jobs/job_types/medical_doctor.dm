@@ -10,9 +10,9 @@
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/medical_doctor
+	min_pop = 0
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_VIROLOGY)
-	extra_access = list(ACCESS_CHEMISTRY, ACCESS_GENETICS)
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
@@ -38,6 +38,15 @@
 		/area/medical/surgery,
 		/area/medical/genetics/cloning
 	)
+
+/datum/job/medical_doctor/get_access()
+	. = ..()
+	if (SSjob.is_job_empty(JOB_NAME_CHEMIST))
+		. |= ACCESS_CHEMISTRY
+	if (SSjob.is_job_empty(JOB_NAME_GENETICIST))
+		. |= ACCESS_GENETICS
+	if (SSjob.is_job_empty(JOB_NAME_CHIEFMEDICALOFFICER) && SSjob.initial_players_to_assign < 14)
+		. |= ACCESS_CMO
 
 /datum/outfit/job/medical_doctor
 	name = JOB_NAME_MEDICALDOCTOR

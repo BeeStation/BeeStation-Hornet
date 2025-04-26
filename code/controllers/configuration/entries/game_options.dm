@@ -43,11 +43,6 @@
 	config_entry_value = 1
 	integer = FALSE
 
-/datum/config_entry/number/minimal_access_threshold	//If the number of players is larger than this threshold, minimal access will be turned on.
-	min_val = 0
-
-/datum/config_entry/flag/jobs_have_minimal_access	//determines whether jobs use minimal access or expanded access.
-
 /datum/config_entry/flag/assistants_have_maint_access
 
 /datum/config_entry/flag/security_has_maint_access

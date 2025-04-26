@@ -9,13 +9,13 @@
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
+	min_pop = 0
 
 	outfit = /datum/outfit/job/scientist
 
 
 	base_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
 						ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
-	extra_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE)
 
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
@@ -38,6 +38,15 @@
 		/area/science/storage,
 		/area/science/xenobiology
 	)
+
+/datum/job/scientist/get_access()
+	. = ..()
+	if (SSjob.initial_players_to_assign < 14)
+		. |= ACCESS_TECH_STORAGE
+	if (SSjob.is_job_empty(JOB_NAME_ROBOTICIST))
+		. |= ACCESS_ROBOTICS
+	if (SSjob.is_job_empty(JOB_NAME_EXPLORATIONCREW))
+		. |= ACCESS_EXPLORATION
 
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST

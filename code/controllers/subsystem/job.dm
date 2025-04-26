@@ -131,6 +131,8 @@ SUBSYSTEM_DEF(job)
 
 	return 1
 
+/datum/controller/subsystem/job/proc/is_job_empty(rank)
+	return GetJob(rank).current_positions == 0
 
 /datum/controller/subsystem/job/proc/GetJob(rank)
 	RETURN_TYPE(/datum/job)
@@ -291,14 +293,6 @@ SUBSYSTEM_DEF(job)
 	JobDebug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
 		return validate_required_jobs(required_jobs)
-
-	//Jobs will have fewer access permissions if the number of players exceeds the threshold defined in game_options.txt
-	var/mat = CONFIG_GET(number/minimal_access_threshold)
-	if(mat)
-		if(mat > unassigned.len)
-			CONFIG_SET(flag/jobs_have_minimal_access, FALSE)
-		else
-			CONFIG_SET(flag/jobs_have_minimal_access, TRUE)
 
 	//Shuffle players and jobs
 	unassigned = shuffle(unassigned)
@@ -616,8 +610,9 @@ SUBSYSTEM_DEF(job)
 		job.radio_help_message(M)
 		if(job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
-		if(CONFIG_GET(number/minimal_access_threshold))
-			to_chat(M, span_notice("<B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B>"))
+		var/obj/item/id_card = living_mob?.get_idcard()
+		if (id_card && length(id_card.GetAccess()) != length(job.base_access))
+			to_chat(M, span_notice("<B>You have been granted with additional access and responsibilities due to a lack of station personnel.</B>"))
 	if(ishuman(living_mob))
 		var/mob/living/carbon/human/wageslave = living_mob
 		if(wageslave.mind?.account_id)

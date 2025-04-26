@@ -9,6 +9,7 @@
 	selection_color = "#dddddd"
 	exp_requirements = 120
 	outfit = /datum/outfit/job/chaplain
+	min_pop = MINPOP_JOB_LIMIT
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
 	extra_access = list()

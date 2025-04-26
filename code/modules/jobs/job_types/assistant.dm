@@ -10,11 +10,11 @@ Assistant
 	total_positions = 5
 	selection_color = "#dddddd"
 	antag_rep = 7
+	min_pop = 0
 
 	outfit = /datum/outfit/job/assistant
 
 	base_access = list()	//See /datum/job/assistant/get_access()
-	extra_access = list()	//See /datum/job/assistant/get_access()
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
@@ -29,8 +29,22 @@ Assistant
 
 /datum/job/assistant/get_access()
 	. = ..()
-	if(CONFIG_GET(flag/assistants_have_maint_access) || !CONFIG_GET(flag/jobs_have_minimal_access)) //Config has assistant maint access set
+	if(CONFIG_GET(flag/assistants_have_maint_access)) //Config has assistant maint access set
 		. |= ACCESS_MAINT_TUNNELS
+	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= list(ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_AUX_BASE)
+	if (SSjob.is_job_empty(JOB_NAME_BARTENDER) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_BAR
+	if (SSjob.is_job_empty(JOB_NAME_JANITOR) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_JANITOR
+	if (SSjob.is_job_empty(JOB_NAME_COOK) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_KITCHEN
+	if (SSjob.is_job_empty(JOB_NAME_BOTANIST) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_HYDROPONICS
+	if (SSjob.is_job_empty(JOB_NAME_CLOWN) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_THEATRE
+	if (SSjob.is_job_empty(JOB_NAME_CURATOR) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_LIBRARY
 
 /datum/outfit/job/assistant
 	name = JOB_NAME_ASSISTANT

@@ -9,12 +9,12 @@
 	selection_color = "#fff5cc"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
+	min_pop = 0
 
 	outfit = /datum/outfit/job/engineer
 
 	base_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
 						ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
-	extra_access = list(ACCESS_ATMOSPHERICS)
 
 	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
@@ -28,6 +28,13 @@
 	)
 
 	lightup_areas = list(/area/engine/atmos)
+
+/datum/job/station_engineer/get_access()
+	. = ..()
+	if (SSjob.is_job_empty(JOB_NAME_ATMOSPHERICTECHNICIAN))
+		. |= ACCESS_ATMOSPHERICS
+	if (SSjob.is_job_empty(JOB_NAME_CHIEFENGINEER) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_CE
 
 /datum/outfit/job/engineer
 	name = JOB_NAME_STATIONENGINEER

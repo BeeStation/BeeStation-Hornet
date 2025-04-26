@@ -19,7 +19,7 @@
 	allow_bureaucratic_error = FALSE
 	// Allowed on lower pops than normal, but not completely allowed due to the lack of playability
 	// and the consumption of our important player roles
-	min_pop = 6
+	min_pop = MINPOP_JOB_LIMIT
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc

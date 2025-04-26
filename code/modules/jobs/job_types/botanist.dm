@@ -11,6 +11,7 @@
 	exp_type = EXP_TYPE_SERVICE
 	exp_type_department = EXP_TYPE_SERVICE
 	outfit = /datum/outfit/job/botanist
+	min_pop = MINPOP_JOB_LIMIT
 
 	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)

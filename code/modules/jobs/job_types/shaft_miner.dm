@@ -8,6 +8,7 @@
 	faction = "Station"
 	total_positions = 3
 	selection_color = "#dcba97"
+	min_pop = 0
 
 	outfit = /datum/outfit/job/miner
 
