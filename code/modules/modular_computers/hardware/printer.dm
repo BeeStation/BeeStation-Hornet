@@ -78,7 +78,7 @@
 			balloon_alert(user, "can't insert!")
 			return FALSE
 
-		playsound(src, 'sound/machines/paper_store.ogg', 60)
+		playsound(src, 'sound/machines/paper_insert.ogg', 60, 1)
 		to_chat(user, span_notice("You insert \the [I] into [src]'s paper recycler."))
 		balloon_alert(user, "inserted paper!")
 		qdel(I)
@@ -102,7 +102,7 @@
 			stored_paper++
 			bin.total_paper--
 
-		playsound(src, 'sound/machines/paper_store.ogg', 60, 1)
+		playsound(src, 'sound/machines/paper_insert.ogg', 60, 1)
 		to_chat(user, span_notice("Added in [papers_added] new sheets. You now have [stored_paper] / [max_paper] printing paper stored."))
 		balloon_alert(user, "added in [papers_added] new sheets!")
 		bin.update_appearance()
