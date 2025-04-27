@@ -26,14 +26,12 @@
 	icon_state = "pulse1_bl"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/death/on_hit(target)
+/obj/projectile/magic/death/on_hit(mob/living/target)
 	. = ..()
-	if(ismob(target))
-		var/mob/M = target
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		M.death(0)
+	if(!isliving(target))
+		return
+
+	target.death()
 
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
@@ -45,21 +43,19 @@
 
 /obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
-	if(isliving(target))
-		if(target.ishellbound())
-			return BULLET_ACT_BLOCK
-		if(target.can_block_magic(antimagic_flags))
-			target.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			C.regenerate_limbs()
-			C.regenerate_organs()
-		if(target.revive(full_heal = 1))
-			target.grab_ghost(force = TRUE) // even suicides
-			to_chat(target, span_notice("You rise with a start, you're alive!!!"))
-		else if(target.stat != DEAD)
-			to_chat(target, span_notice("You feel great!"))
+	if(!isliving(target))
+		return
+	if(target.ishellbound())
+		return BULLET_ACT_BLOCK
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.regenerate_limbs()
+		C.regenerate_organs()
+	if(target.revive(full_heal = 1))
+		target.grab_ghost(force = TRUE) // even suicides
+		to_chat(target, span_notice("You rise with a start, you're alive!!!"))
+	else if(target.stat != DEAD)
+		to_chat(target, span_notice("You feel great!"))
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
@@ -73,11 +69,6 @@
 
 /obj/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
-	if(ismob(target))
-		var/mob/M = target
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] fizzles on contact with [target]!"))
-			return BULLET_ACT_BLOCK
 	var/teleammount = 0
 	var/teleloc = target
 	if(!isturf(target))
@@ -100,11 +91,6 @@
 
 /obj/projectile/magic/safety/on_hit(atom/target)
 	. = ..()
-	if(ismob(target))
-		var/mob/M = target
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] fizzles on contact with [target]!"))
-			return BULLET_ACT_BLOCK
 	if(isturf(target))
 		return BULLET_ACT_HIT
 
@@ -153,166 +139,17 @@
 	damage_type = BURN
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
+	/// If set, this projectile will only do a certain wabbajack effect
+	var/set_wabbajack_effect
+	/// If set, this projectile will only pass certain changeflags to wabbajack
+	var/set_wabbajack_changeflags
 
-/obj/projectile/magic/change/on_hit(atom/change)
+/obj/projectile/magic/change/on_hit(atom/target)
 	. = ..()
-	if(ismob(change))
-		var/mob/M = change
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] fizzles on contact with [M]!"))
-			qdel(src)
-			return BULLET_ACT_BLOCK
-	wabbajack(change)
-	qdel(src)
 
-/proc/wabbajack(mob/living/M)
-	if(!istype(M) || M.stat == DEAD || M.notransform || (GODMODE & M.status_flags))
-		return
-
-	if(SEND_SIGNAL(M, COMSIG_LIVING_PRE_WABBAJACKED) & STOP_WABBAJACK)
-		return
-
-	M.notransform = TRUE
-	ADD_TRAIT(M, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
-	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
-	M.icon = null
-	M.cut_overlays()
-	M.invisibility = INVISIBILITY_ABSTRACT
-
-	var/list/contents = M.contents.Copy()
-	if(issilicon(M)) // silicons should not drop internal parts since they are supposed to be unobtainable
-		for(var/obj/item/W in contents)
-			qdel(W)
-		if(iscyborg(M))
-			var/mob/living/silicon/robot/Robot = M
-			if(Robot.deployed || Robot.mainframe)
-				Robot.undeploy() // disconnect any AI shells first
-			if(Robot.mmi)
-				qdel(Robot.mmi)
-			Robot.notify_ai(NEW_BORG)
-	else
-		for(var/obj/item/W in contents)
-			if(!M.dropItemToGround(W))
-				qdel(W)
-
-	var/mob/living/new_mob
-
-	var/randomize = pick("monkey","robot","slime","xeno","humanoid","animal")
-	switch(randomize)
-		if("monkey")
-			new_mob = new /mob/living/carbon/monkey(M.loc)
-
-		if("robot")
-			var/robot = pick(200;/mob/living/silicon/robot,
-							/mob/living/silicon/robot/modules/syndicate,
-							/mob/living/silicon/robot/modules/syndicate/medical,
-							/mob/living/silicon/robot/modules/syndicate/saboteur,
-							200;/mob/living/simple_animal/drone/polymorphed)
-			new_mob = new robot(M.loc)
-			if(issilicon(new_mob))
-				new_mob.gender = M.gender
-				new_mob.invisibility = 0
-				new_mob.job = JOB_NAME_CYBORG
-				var/mob/living/silicon/robot/Robot = new_mob
-				Robot.lawupdate = FALSE
-				Robot.connected_ai = null
-				Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
-				Robot.clear_inherent_laws(0)
-				Robot.clear_zeroth_law(0)
-
-		if("slime")
-			new_mob = new /mob/living/simple_animal/slime/random(M.loc)
-
-		if("xeno")
-			var/Xe
-			if(M.ckey)
-				Xe = pick(/mob/living/carbon/alien/humanoid/hunter,/mob/living/carbon/alien/humanoid/sentinel)
-			else
-				Xe = pick(/mob/living/carbon/alien/humanoid/hunter,/mob/living/simple_animal/hostile/alien/sentinel)
-			new_mob = new Xe(M.loc)
-
-		if("animal")
-			var/path = pick(/mob/living/simple_animal/hostile/carp,
-							/mob/living/simple_animal/hostile/bear,
-							/mob/living/simple_animal/hostile/mushroom,
-							/mob/living/simple_animal/hostile/statue,
-							/mob/living/simple_animal/hostile/retaliate/bat,
-							/mob/living/simple_animal/hostile/retaliate/goat,
-							/mob/living/simple_animal/hostile/killertomato,
-							/mob/living/simple_animal/hostile/poison/giant_spider,
-							/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-							/mob/living/simple_animal/hostile/blob/blobbernaut/independent,
-							/mob/living/simple_animal/hostile/carp/ranged,
-							/mob/living/simple_animal/hostile/carp/ranged/chaos,
-							/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
-							/mob/living/simple_animal/hostile/asteroid/goliath/beast,
-							/mob/living/simple_animal/hostile/headcrab,
-							/mob/living/simple_animal/hostile/morph,
-							/mob/living/simple_animal/hostile/stickman,
-							/mob/living/simple_animal/hostile/stickman/dog,
-							/mob/living/simple_animal/hostile/megafauna/dragon/lesser,
-							/mob/living/simple_animal/hostile/gorilla,
-							/mob/living/simple_animal/parrot,
-							/mob/living/basic/pet/dog/corgi,
-							/mob/living/simple_animal/crab,
-							/mob/living/basic/pet/dog/pug,
-							/mob/living/simple_animal/pet/cat,
-							/mob/living/simple_animal/mouse,
-							/mob/living/simple_animal/chicken,
-							/mob/living/basic/cow,
-							/mob/living/simple_animal/hostile/lizard,
-							/mob/living/simple_animal/pet/fox,
-							/mob/living/simple_animal/butterfly,
-							/mob/living/simple_animal/pet/cat/cak,
-							/mob/living/simple_animal/chick)
-			new_mob = new path(M.loc)
-
-		if("humanoid")
-			var/mob/living/carbon/human/new_human = new(M.loc)
-
-			if(prob(50))
-				var/list/chooseable_races = list()
-				for(var/speciestype in subtypesof(/datum/species))
-					var/datum/species/S = speciestype
-					if(initial(S.changesource_flags) & WABBAJACK)
-						chooseable_races += speciestype
-
-				if(chooseable_races.len)
-					new_human.set_species(pick(chooseable_races))
-
-			// Randomize everything but the species, which was already handled above.
-			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
-			new_human.update_hair()
-			new_human.update_body() // is_creating = TRUE
-			new_human.dna.update_dna_identity()
-			new_mob = new_human
-
-	if(!new_mob)
-		return
-	new_mob.grant_language(/datum/language/common)
-
-	// Some forms can still wear some items
-	for(var/obj/item/W in contents)
-		new_mob.equip_to_appropriate_slot(W)
-
-	M.log_message("became [new_mob.real_name]", LOG_ATTACK, color="orange")
-
-	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
-
-	new_mob.set_combat_mode(TRUE)
-
-	M.wabbajack_act(new_mob)
-
-	to_chat(new_mob, span_warning("Your form morphs into that of a [randomize]."))
-
-	var/poly_msg = CONFIG_GET(string/policy_polymorph)
-	if(poly_msg)
-		to_chat(new_mob, poly_msg)
-
-	M.transfer_observers_to(new_mob, TRUE)
-
-	qdel(M)
-	return new_mob
+	if(isliving(target))
+		var/mob/living/victim = target
+		victim.wabbajack(set_wabbajack_effect, set_wabbajack_changeflags)
 
 /obj/projectile/magic/animate
 	name = "bolt of animation"
@@ -322,8 +159,8 @@
 	nodamage = TRUE
 
 /obj/projectile/magic/animate/on_hit(atom/target, blocked = FALSE)
+	. = ..()
 	target.animate_atom_living(firer)
-	..()
 
 /atom/proc/animate_atom_living(var/mob/living/owner = null)
 	if((isitem(src) || isstructure(src)) && !is_type_in_list(src, GLOB.protected_objects))
@@ -368,15 +205,6 @@
 	nodamage = FALSE
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/spellblade/on_hit(target)
-	if(ismob(target))
-		var/mob/M = target
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			qdel(src)
-			return BULLET_ACT_BLOCK
-	. = ..()
-
 /obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
 	icon_state = "arcane_barrage"
@@ -386,16 +214,6 @@
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/arcane_barrage/on_hit(target)
-	if(ismob(target))
-		var/mob/M = target
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			qdel(src)
-			return
-	. = ..()
-
-
 /obj/projectile/magic/locker
 	name = "locker bolt"
 	icon_state = "locker"
@@ -404,18 +222,26 @@
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
 	var/locker_suck = TRUE
+	var/datum/weakref/locker_ref
 
+/obj/projectile/magic/locker/Initialize(mapload)
+	. = ..()
+	var/obj/structure/closet/decay/locker_temp_instance = new(src)
+	locker_ref = WEAKREF(locker_temp_instance)
 
 /obj/projectile/magic/locker/prehit_pierce(atom/A)
 	. = ..()
+	if(. == PROJECTILE_DELETE_WITHOUT_HITTING)
+		var/obj/structure/closet/decay/locker_temp_instance = locker_ref.resolve()
+		qdel(locker_temp_instance)
+		return PROJECTILE_DELETE_WITHOUT_HITTING
+
 	if(isliving(A) && locker_suck)
-		var/mob/living/M = A
-		if(M.can_block_magic(antimagic_flags))			// no this doesn't check if ..() returned to phase through do I care no it's magic ain't gotta explain shit
-			M.visible_message(span_warning("[src] vanishes on contact with [A]!"))
-			return PROJECTILE_DELETE_WITHOUT_HITTING
-		if(M.incorporeal_move || M.mob_size > MOB_SIZE_HUMAN || LAZYLEN(contents)>=5)
+		var/mob/living/target = A
+		var/obj/structure/closet/decay/locker_temp_instance = locker_ref.resolve()
+		if(!locker_temp_instance?.insertion_allowed(target))
 			return
-		M.forceMove(src)
+		target.forceMove(src)
 		return PROJECTILE_PIERCE_PHASE
 
 /obj/projectile/magic/locker/on_hit(target)
@@ -484,72 +310,52 @@
 	icon_state = "flight"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/flying/on_hit(target)
+/obj/projectile/magic/flying/on_hit(mob/living/target)
 	. = ..()
 	if(isliving(target))
-		var/mob/living/L = target
-		if(L.can_block_magic(antimagic_flags))
-			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		var/atom/throw_target = get_edge_target_turf(L, angle2dir(Angle))
-		L.throw_at(throw_target, 200, 4)
+		var/atom/throw_target = get_edge_target_turf(target, angle2dir(Angle))
+		target.throw_at(throw_target, 200, 4)
 
 /obj/projectile/magic/bounty
 	name = "bolt of bounty"
 	icon_state = "bounty"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/bounty/on_hit(target)
+/obj/projectile/magic/bounty/on_hit(mob/living/target)
 	. = ..()
 	if(isliving(target))
-		var/mob/living/L = target
-		if(L.can_block_magic(antimagic_flags) || !firer)
-			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		L.apply_status_effect(/datum/status_effect/bounty, firer)
+		target.apply_status_effect(/datum/status_effect/bounty, firer)
 
 /obj/projectile/magic/antimagic
 	name = "bolt of antimagic"
 	icon_state = "antimagic"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/antimagic/on_hit(target)
+/obj/projectile/magic/antimagic/on_hit(mob/living/target)
 	. = ..()
 	if(isliving(target))
-		var/mob/living/L = target
-		if(L.can_block_magic(antimagic_flags))
-			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		L.apply_status_effect(/datum/status_effect/antimagic)
+		target.apply_status_effect(/datum/status_effect/antimagic)
 
 /obj/projectile/magic/fetch
 	name = "bolt of fetching"
 	icon_state = "fetch"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/fetch/on_hit(target)
+/obj/projectile/magic/fetch/on_hit(mob/living/target)
 	. = ..()
 	if(isliving(target))
-		var/mob/living/L = target
-		if(L.can_block_magic(antimagic_flags) || !firer)
-			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		var/atom/throw_target = get_edge_target_turf(L, get_dir(L, firer))
-		L.throw_at(throw_target, 200, 4)
+		var/atom/throw_target = get_edge_target_turf(target, get_dir(target, firer))
+		target.throw_at(throw_target, 200, 4)
 
 /obj/projectile/magic/sapping
 	name = "bolt of sapping"
 	icon_state = "sapping"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/sapping/on_hit(target)
+/obj/projectile/magic/sapping/on_hit(mob/living/target)
 	. = ..()
-	if(ismob(target))
-		var/mob/M = target
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, REF(src), /datum/mood_event/sapped)
+	if(isliving(target))
+		SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, REF(src), /datum/mood_event/sapped)
 
 /obj/projectile/magic/necropotence
 	name = "bolt of necropotence"
@@ -574,19 +380,15 @@
 	icon_state = "wipe"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/wipe/on_hit(target)
+/obj/projectile/magic/wipe/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		if(M.can_block_magic(antimagic_flags) || istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
-			M.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		for(var/x in M.get_traumas())//checks to see if the victim is already going through possession
+		for(var/x in target.get_traumas())//checks to see if the victim is already going through possession
 			if(istype(x, /datum/brain_trauma/special/imaginary_friend/trapped_owner))
-				M.visible_message(span_warning("[src] vanishes on contact with [target]!"))
+				target.visible_message(span_warning("[src] vanishes on contact with [target]!"))
 				return BULLET_ACT_BLOCK
-		to_chat(M, span_warning("Your mind has been opened to possession!"))
-		possession_test(M)
+		to_chat(target, span_warning("Your mind has been opened to possession!"))
+		possession_test(target)
 		return BULLET_ACT_HIT
 
 /obj/projectile/magic/wipe/proc/possession_test(var/mob/living/carbon/M)

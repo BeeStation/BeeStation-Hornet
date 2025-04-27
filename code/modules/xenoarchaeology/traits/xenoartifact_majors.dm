@@ -126,53 +126,43 @@
 	///Ref to timer - if corgi is deleted early remove this reference to the puppy
 	var/timer
 
+	var/shapeshift_type = /mob/living/basic/pet/dog/corgi
+
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(istype(target, /mob/living) && !(istype(target, /mob/living/basic/pet/dog/corgi)) && !IS_DEAD_OR_INCAP(target))
-		var/mob/living/basic/pet/dog/corgi/new_corgi = transform(target)
-		timer = addtimer(CALLBACK(src, PROC_REF(transform_back), new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
-		victims |= new_corgi
+	if(isliving(target) && !(istype(target, shapeshift_type)) && !IS_DEAD_OR_INCAP(target))
+		var/mob/living/resulting_mob = transform(target)
+		timer = addtimer(CALLBACK(src, PROC_REF(transform_back), resulting_mob), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
+		victims |= resulting_mob
 		X.cooldownmod = (X.charge*0.8) SECONDS
 
 /datum/xenoartifact_trait/major/corginator/proc/transform(mob/living/target)
 	if(!istype(target))
 		return
-	var/obj/shapeshift_holder/H = locate() in target
-	if(H)
+	var/mob/living/new_shape = new shapeshift_type(target.loc)
+	var/datum/status_effect/shapechange_mob/shapechange = new_shape.apply_status_effect(/datum/status_effect/shapechange_mob, target, src)
+	if(!shapechange)
 		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	ADD_TRAIT(target, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
-	var/mob/living/basic/pet/dog/corgi/new_corgi = new(target.loc)
-	H = new(new_corgi,src,target)
-	//hat check
-	var/mob/living/carbon/C = target
-	if(istype(C))
-		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(hat?.dog_fashion)
-			new_corgi.place_on_head(hat,null,FALSE)
-	RegisterSignal(new_corgi, COMSIG_MOB_DEATH, PROC_REF(transform_back))
-	return new_corgi
+	RegisterSignal(new_shape, COMSIG_MOB_DEATH, PROC_REF(transform_back), target)
+	return new_shape
 
-/datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/basic/pet/dog/corgi/new_corgi)
+/datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/target)
 	//Kill timer
 	deltimer(timer)
 	timer = null
 
-	var/obj/shapeshift_holder/H = locate() in new_corgi
-	if(!H)
+	var/datum/status_effect/shapechange_mob/shapechange = target.has_status_effect(/datum/status_effect/shapechange_mob)
+	if(!shapechange)
 		return
-	var/mob/living/target = H.stored
-	UnregisterSignal(new_corgi, COMSIG_MOB_DEATH)
-	REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
-	victims -= new_corgi
-	var/turf/T = get_turf(new_corgi)
-	if(new_corgi.inventory_head && !target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
-		new_corgi.inventory_head.forceMove(T)
-	new_corgi.inventory_back?.forceMove(T)
-	new_corgi.inventory_head = null
-	new_corgi.inventory_back = null
-	H.restore(FALSE, FALSE)
-	target.Knockdown(0.2 SECONDS)
+	//Unhardcode this line eventually
+	var/mob/living/basic/pet/dog/corgi/unshapeshifted_mob = shapechange.caster_mob
+	target.remove_status_effect(/datum/status_effect/shapechange_mob)
+	UnregisterSignal(unshapeshifted_mob, COMSIG_MOB_DEATH)
+	REMOVE_TRAIT(unshapeshifted_mob, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
+	victims -= unshapeshifted_mob
+	unshapeshifted_mob.Knockdown(0.2 SECONDS)
 
 /datum/xenoartifact_trait/major/corginator/Destroy() //Transform goobers back if artifact is deleted.
 	. = ..()

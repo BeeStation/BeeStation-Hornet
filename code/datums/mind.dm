@@ -213,7 +213,7 @@
 	var/datum/team/antag_team = A.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
-	A.on_gain()
+	INVOKE_ASYNC(A, TYPE_PROC_REF(/datum/antagonist, on_gain))
 	log_game("[key_name(src)] has gained antag datum [A.name]([A.type])")
 	return A
 
@@ -399,7 +399,7 @@
 	if(creator.has_antag_datum(/datum/antagonist/cult))
 		SSticker.mode.add_cultist(src, stun = FALSE, equip = FALSE)
 	else if(creator.has_antag_datum(/datum/antagonist/servant_of_ratvar))
-		add_servant_of_ratvar(current, silent = TRUE)
+		INVOKE_ASYNC(src, PROC_REF(add_servant_of_ratvar), current, TRUE)
 	if(creator.has_antag_datum(/datum/antagonist/rev))
 		var/datum/antagonist/rev/converter = creator.has_antag_datum(/datum/antagonist/rev, TRUE)
 		converter.add_revolutionary(src, FALSE)
