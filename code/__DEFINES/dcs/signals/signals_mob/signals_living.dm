@@ -106,3 +106,7 @@
 #define COMSIG_LIVING_SHAPESHIFTED "living_shapeshifted"
 /// From /datum/status_effect/shapechange_mob/after_unchange(): (mob/living/caster)
 #define COMSIG_LIVING_UNSHAPESHIFTED "living_unshapeshifted"
+
+/// from /mob/proc/change_mob_type() : ()
+#define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
+	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
