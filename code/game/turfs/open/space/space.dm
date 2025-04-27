@@ -190,12 +190,6 @@
 			arrived.start_pulling(AM)
 			AM.can_be_z_moved = TRUE
 
-		// now we're on the new z_level, proceed the space drifting
-		// Stays as a comment for now most likely this is not needed at all but just in case i will leave it here
-		// stoplag() //Let a diagonal move finish, if necessary
-		// if(!arrived.inertia_moving)
-		// 	arrived.newtonian_move(get_dir(old_loc, src)) //we don't have inertial dir anymore so this has to do
-
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
