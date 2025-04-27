@@ -160,7 +160,7 @@
 			owner.blood_volume = caster_mob.blood_volume
 
 	for(var/datum/action/bodybound_action as anything in caster_mob.actions)
-		if(bodybound_action.master != caster_mob)
+		if(bodybound_action.get_master() != caster_mob)
 			continue
 		bodybound_action.Grant(owner)
 
@@ -174,7 +174,7 @@
 		source_spell.Grant(caster_mob)
 
 	for(var/datum/action/bodybound_action as anything in owner.actions)
-		if(bodybound_action.master != caster_mob)
+		if(bodybound_action.get_master() != caster_mob)
 			continue
 		bodybound_action.Grant(caster_mob)
 

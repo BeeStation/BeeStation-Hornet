@@ -131,38 +131,19 @@
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
 	if(isliving(target) && !(istype(target, shapeshift_type)) && !IS_DEAD_OR_INCAP(target))
-		var/mob/living/resulting_mob = transform(target)
+		var/mob/living/resulting_mob = target.do_shapeshift(shapeshift_type = shapeshift_type)
 		timer = addtimer(CALLBACK(src, PROC_REF(transform_back), resulting_mob), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
 		victims |= resulting_mob
 		X.cooldownmod = (X.charge*0.8) SECONDS
-
-/datum/xenoartifact_trait/major/corginator/proc/transform(mob/living/target)
-	if(!istype(target))
-		return
-	var/mob/living/new_shape = new shapeshift_type(target.loc)
-	var/datum/status_effect/shapechange_mob/shapechange = new_shape.apply_status_effect(/datum/status_effect/shapechange_mob, target, src)
-	if(!shapechange)
-		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-		return
-	ADD_TRAIT(target, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
-	RegisterSignal(new_shape, COMSIG_MOB_DEATH, PROC_REF(transform_back), target)
-	return new_shape
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/target)
 	//Kill timer
 	deltimer(timer)
 	timer = null
 
-	var/datum/status_effect/shapechange_mob/shapechange = target.has_status_effect(/datum/status_effect/shapechange_mob)
-	if(!shapechange)
-		return
-	//Unhardcode this line eventually
-	var/mob/living/basic/pet/dog/corgi/unshapeshifted_mob = shapechange.caster_mob
-	target.remove_status_effect(/datum/status_effect/shapechange_mob)
-	UnregisterSignal(unshapeshifted_mob, COMSIG_MOB_DEATH)
-	REMOVE_TRAIT(unshapeshifted_mob, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
-	victims -= unshapeshifted_mob
-	unshapeshifted_mob.Knockdown(0.2 SECONDS)
+	target.do_unshapeshift()
+	victims -= target
+	target.Knockdown(0.2 SECONDS)
 
 /datum/xenoartifact_trait/major/corginator/Destroy() //Transform goobers back if artifact is deleted.
 	. = ..()
