@@ -50,7 +50,7 @@
 /obj/structure/reagent_dispensers/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(. && atom_integrity > 0)
-		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
+		if(tank_volume && ((flag == DAMAGE_STANDARD && prob(penetration)) || flag == DAMAGE_LASER))
 			boom()
 
 /obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
