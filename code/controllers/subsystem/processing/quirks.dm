@@ -57,7 +57,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		cli.prefs.all_quirks = list()
 		// save the new cleared quirks.
 		cli.prefs.mark_undatumized_dirty_character()
-		client_alert(cli, "You have invalid quirks: ([length(bad_quirks) ? ": [english_list(bad_quirks)]" : "Too many positive quirks"]). Your quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")
+		client_alert(cli, "You have invalid quirks: [length(bad_quirks) ? ": [english_list(bad_quirks)]" : "Too many positive quirks"]. Your quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")
 
 /// Takes a list of quirk names and returns a new list of quirks that would
 /// be valid.
