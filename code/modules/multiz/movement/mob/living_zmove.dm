@@ -148,9 +148,8 @@
 	return
 
 /proc/do_jump_animation_on(atom/movable/target)
-	animate(target, 0.3 SECONDS, pixel_y = 16, transform = matrix() * 0.9, easing = QUAD_EASING)
-	sleep(0.3 SECONDS)
-	animate(target, 0.1 SECONDS, pixel_y = 0, transform = matrix(), easing = QUAD_EASING)
+	animate(target, 0.1 SECONDS, pixel_y = target.pixel_y + 4)
+	animate(time = 0.1 SECONDS, pixel_y = target.pixel_y - 4)
 
 /mob/living/carbon/after_jump_animation()
 	reset_lying_transform()
