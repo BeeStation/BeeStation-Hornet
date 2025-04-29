@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - balance: doubles storage implant total storage to a weight of 16, matching its
+      description
