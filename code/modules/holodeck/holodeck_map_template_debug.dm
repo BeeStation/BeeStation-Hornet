@@ -32,6 +32,8 @@
 
 /datum/map_template/holodeck/debug/engi
 	name = "Engineering"
+	template_id = "debug-offline"
+	mappath = "_maps/holodeck/debug/empty.dmm"
 
 /datum/map_template/holodeck/debug/engi/fusion
 	name = "Holodeck - Engineering Fusion"
@@ -80,6 +82,8 @@
 
 /datum/map_template/holodeck/debug/sci
 	name = "Science"
+	template_id = "debug-offline"
+	mappath = "_maps/holodeck/debug/empty.dmm"
 
 /datum/map_template/holodeck/debug/sci/robotics
 	name = "Holodeck - Science Robotics"
@@ -98,6 +102,8 @@
 
 /datum/map_template/holodeck/debug/serv
 	name = "Service"
+	template_id = "debug-offline"
+	mappath = "_maps/holodeck/debug/empty.dmm"
 
 /datum/map_template/holodeck/debug/serv/botany
 	name = "Holodeck - Service Botany"
