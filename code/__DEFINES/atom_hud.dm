@@ -51,7 +51,6 @@
 #define ANTAG_HUD_WIZ			13
 #define ANTAG_HUD_SHADOW    	14
 #define ANTAG_HUD_TRAITOR 		15
-#define ANTAG_HUD_SCAMP 		15
 #define ANTAG_HUD_NINJA 		16
 #define ANTAG_HUD_CHANGELING 	17
 #define ANTAG_HUD_ABDUCTOR 		18
@@ -75,6 +74,7 @@
 #define ANTAG_HUD_VALENTINE		37
 #define ANTAG_HUD_HEARTBREAKER	38
 #define ANTAG_HUD_PRISONER		39
+#define ANTAG_HUD_SCAMP 		40
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

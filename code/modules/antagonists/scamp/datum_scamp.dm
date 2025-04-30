@@ -3,13 +3,11 @@
 	roundend_category = "Scamps"
 	antagpanel_category = "Scamp"
 	banning_key = ROLE_SCAMP
-	required_living_playtime = 0
+	required_living_playtime = 1
 	antag_moodlet = /datum/mood_event/focused
 	var/special_role = ROLE_SCAMP
 
 /datum/antagonist/scamp/on_gain()
-	SSticker.mode.traitors += owner
-	owner.special_role = special_role
 	forge_objectives()
 	..()
 
@@ -23,7 +21,7 @@
 /datum/antagonist/scamp/on_removal()
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
-		to_chat(owner.current,span_userdanger(" You are no longer the [special_role]! "))
+		to_chat(owner.current,span_userdanger("You are no longer the [special_role]! "))
 	owner.special_role = null
 	..()
 

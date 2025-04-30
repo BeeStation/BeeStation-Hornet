@@ -13,9 +13,9 @@
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_AI)
 	required_candidates = 1
 	weight = 5
-	cost = 15
+	cost = 8
 	scaling_cost = 9
-	requirements = list(40,30,30,20,20,15,15,15,10,10)
+	requirements = list(25,25,20,15,10,10,10,10,10,10)
 	minimum_players = 10
 	antag_cap = list("denominator" = 38)
 	var/autotraitor_cooldown = (15 MINUTES)
@@ -46,16 +46,16 @@
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	required_candidates = 1
-	weight = 7
+	weight = 5
 	cost = 5
 	scaling_cost = 5
-	requirements = list(5,5,5,5,5,5,5,5,5,5)
+	minimum_players = 5
 
 /datum/dynamic_ruleset/roundstart/scamp/pre_execute(population)
 	. = ..()
 	var/num_scamps = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_scamps)
-		if(candidates.len <= 0)
+		if(!length(candidates))
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind

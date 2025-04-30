@@ -65,7 +65,6 @@
 	required_candidates = 1
 	weight = 7
 	cost = 8
-	requirements = list(10,10,10,10,10,10,10,10,10,10)
 	minimum_players = 10
 	repeatable = TRUE
 	flags = INTACT_STATION_RULESET
