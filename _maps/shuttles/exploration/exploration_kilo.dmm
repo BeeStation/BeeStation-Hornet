@@ -100,29 +100,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "iU" = (
-/obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/power/smes,
 /obj/structure/cable/orange{
-	icon_state = "0-2"
+	icon_state = "0-8"
 	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/closet/crate/science/mining,
-/turf/open/floor/mineral/titanium/yellow,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "km" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration)
-"kU" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -175,16 +160,6 @@
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
-"tv" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration)
 "uE" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/cable/orange{
@@ -219,8 +194,13 @@
 /area/shuttle/exploration)
 "wn" = (
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/power/smes,
-/obj/structure/cable/orange,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "wE" = (
@@ -333,7 +313,7 @@
 /area/shuttle/exploration)
 "IE" = (
 /obj/machinery/door/firedoor,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/titanium,
 /area/shuttle/exploration)
 "JR" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -400,11 +380,12 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Rb" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/orange{
+	icon_state = "0-4"
 	},
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "SQ" = (
@@ -473,7 +454,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/titanium,
 /area/shuttle/exploration)
 "XD" = (
 /obj/structure/chair/fancy/shuttle{
@@ -502,6 +483,9 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/cable/orange{
 	icon_state = "1-4"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
@@ -533,7 +517,7 @@ pY
 ao
 wG
 Rb
-kU
+km
 TQ
 si
 Vg
@@ -597,7 +581,7 @@ XZ
 pY
 IE
 xT
-tv
+km
 dt
 uU
 PK
