@@ -138,11 +138,6 @@
 /obj/machinery/particle_accelerator/control_box,
 /turf/open/floor/engine,
 /area/template_noop)
-"C" = (
-/obj/structure/cable,
-/obj/machinery/power/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/template_noop)
 "D" = (
 /obj/machinery/the_singularitygen/tesla,
 /turf/open/floor/plating/airless,
@@ -225,7 +220,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/tesla_coil,
 /turf/open/floor/engine,
 /area/template_noop)
 "Q" = (
@@ -289,7 +284,7 @@ a
 a
 a
 a
-v
+s
 s
 I
 E
@@ -323,7 +318,7 @@ z
 z
 z
 Q
-C
+v
 "}
 (4,1,1) = {"
 a
@@ -337,7 +332,7 @@ J
 J
 z
 Q
-C
+v
 "}
 (5,1,1) = {"
 a
