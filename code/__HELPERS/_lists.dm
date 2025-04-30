@@ -488,7 +488,7 @@
 /proc/sort_record(list/record_list, order = 1)
 	return sortTim(record_list, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
-/// sorting any value in a list with any comparator
+/// sorting any value in a list with any comparator. Ascending Alphabetize if no second arg is passed
 /proc/sort_list(list/list_to_sort, cmp=GLOBAL_PROC_REF(cmp_text_asc))
 	return sortTim(list_to_sort.Copy(), cmp)
 
