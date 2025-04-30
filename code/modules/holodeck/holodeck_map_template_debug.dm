@@ -2,9 +2,6 @@
 //            DEBUG Holodeck Maps
 // ---------------------------------------------
 /datum/map_template/holodeck/debug
-	name = "Holodeck - Offline"
-	template_id = "debug-offline"
-	mappath = "_maps/holodeck/debug/empty.dmm"
 
 /datum/map_template/holodeck/debug/on_placement_completed(datum/async_map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
 	. = ..()
@@ -30,42 +27,37 @@
 //         List of real templates below:
 // ------------------------------------------------
 
-/datum/map_template/holodeck/debug/engi
-	name = "Engineering"
-	template_id = "debug-offline"
-	mappath = "_maps/holodeck/debug/empty.dmm"
-
-/datum/map_template/holodeck/debug/engi/fusion
+/datum/map_template/holodeck/debug/fusion
 	name = "Holodeck - Engineering Fusion"
 	template_id = "debug-engi-fusion"
 	mappath = "_maps/holodeck/debug/engi-fusion.dmm"
 
-/datum/map_template/holodeck/debug/engi/rbmk
+/datum/map_template/holodeck/debug/rbmk
 	name = "Holodeck - Engineering RBMK"
 	template_id = "debug-rbmk"
 	mappath = "_maps/holodeck/debug/engi-rbmk.dmm"
 
-/datum/map_template/holodeck/debug/engi/sm/n2
+/datum/map_template/holodeck/debugn2
 	name = "Holodeck - Engineering N2 SM"
 	template_id = "debug-engi-n2-sm"
 	mappath = "_maps/holodeck/debug/engi-sm-n2.dmm"
 
-/datum/map_template/holodeck/debug/engi/sm/co2
+/datum/map_template/holodeck/debugco2
 	name = "Holodeck - Engineering CO2 SM"
 	template_id = "debug-engi-co2-sm"
 	mappath = "_maps/holodeck/debug/engi-sm-co2.dmm"
 
-/datum/map_template/holodeck/debug/engi/tesla
+/datum/map_template/holodeck/debug/tesla
 	name = "Holodeck - Engineering Tesla and Singularity"
 	template_id = "debug-engi-tesla"
 	mappath = "_maps/holodeck/debug/engi-tesla.dmm"
 
-/datum/map_template/holodeck/debug/engi/turbine
+/datum/map_template/holodeck/debug/turbine
 	name = "Holodeck - Engineering Turbine"
 	template_id = "debug-turbine"
 	mappath = "_maps/holodeck/debug/engi-turbine.dmm"
 
-/datum/map_template/holodeck/debug/engi/teg
+/datum/map_template/holodeck/debug/teg
 	name = "Holodeck - Engineering TEG"
 	template_id = "debug-engi-teg"
 	mappath = "_maps/holodeck/debug/engi-teg.dmm"
@@ -80,37 +72,27 @@
 	template_id = "debug-med"
 	mappath = "_maps/holodeck/debug/med.dmm"
 
-/datum/map_template/holodeck/debug/sci
-	name = "Science"
-	template_id = "debug-offline"
-	mappath = "_maps/holodeck/debug/empty.dmm"
-
-/datum/map_template/holodeck/debug/sci/robotics
+/datum/map_template/holodeck/debug/robotics
 	name = "Holodeck - Science Robotics"
 	template_id = "debug-sci-rob"
 	mappath = "_maps/holodeck/debug/sci-robotics.dmm"
 
-/datum/map_template/holodeck/debug/sci/xenobio
+/datum/map_template/holodeck/debug/xenobio
 	name = "Holodeck - Science Xenobiology"
 	template_id = "debug-sci-xenobio"
 	mappath = "_maps/holodeck/debug/sci-xenobio.dmm"
 
-/datum/map_template/holodeck/debug/sci/xenoarch
+/datum/map_template/holodeck/debug/xenoarch
 	name = "Holodeck - Science Xenoarchology"
 	template_id = "debug-sci-xenoarch"
 	mappath = "_maps/holodeck/debug/sci-xenoarch.dmm"
 
-/datum/map_template/holodeck/debug/serv
-	name = "Service"
-	template_id = "debug-offline"
-	mappath = "_maps/holodeck/debug/empty.dmm"
-
-/datum/map_template/holodeck/debug/serv/botany
+/datum/map_template/holodeck/debug/botany
 	name = "Holodeck - Service Botany"
 	template_id = "debug-serv-botany"
 	mappath = "_maps/holodeck/debug/serv-botany.dmm"
 
-/datum/map_template/holodeck/debug/serv/kitchen
+/datum/map_template/holodeck/debug/kitchen
 	name = "Holodeck - Service Kitchen"
 	template_id = "debug-serv-kitchen"
 	mappath = "_maps/holodeck/debug/serv-kitchen.dmm"
