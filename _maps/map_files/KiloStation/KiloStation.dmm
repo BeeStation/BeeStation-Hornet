@@ -25921,7 +25921,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/plating/asteroid,
 /area/docking/arrival)
 "gwl" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
