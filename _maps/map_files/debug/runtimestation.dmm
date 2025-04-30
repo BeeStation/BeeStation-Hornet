@@ -1866,7 +1866,6 @@
 	},
 /obj/machinery/camera/directional/south,
 /obj/structure/fans/tiny/invisible,
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/construction)
 "wA" = (
@@ -2833,6 +2832,14 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/space/basic,
 /area/space)
+"PN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/iron,
+/area/construction)
 "PQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3082,6 +3089,11 @@
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
+"UL" = (
+/obj/structure/window/depleteduranium/fulltile/debug,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/construction)
 "Va" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6620,7 +6632,7 @@ cN
 cN
 cN
 cN
-aP
+UL
 ef
 ef
 cN
@@ -6997,7 +7009,7 @@ Uu
 Uu
 Uu
 Uu
-ji
+PN
 vm
 cg
 vm
