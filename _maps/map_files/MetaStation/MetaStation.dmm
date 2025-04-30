@@ -57205,7 +57205,6 @@
 /area/maintenance/starboard/fore)
 "qla" = (
 /obj/structure/table,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/machinery/light,
 /obj/item/paper/guides/jobs/hydroponics,
 /obj/machinery/camera/directional/south{
@@ -70586,7 +70585,6 @@
 /area/crew_quarters/locker)
 "vei" = (
 /obj/machinery/camera/directional/west,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/item/paper/guides/jobs/hydroponics,
 /obj/machinery/requests_console{
 	department = "Hydroponics";
