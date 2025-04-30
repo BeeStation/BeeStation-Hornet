@@ -2241,12 +2241,6 @@
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/hallway/primary/fore)
-"aSS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/wardrobe/curator_wardrobe,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/carpet/royalblack,
-/area/library/abandoned)
 "aSX" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/hor)
@@ -4589,10 +4583,6 @@
 /area/science/xenobiology)
 "bYs" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/modular_computer/console/preset/curator,
-/obj/structure/light_construct{
-	dir = 1
-	},
 /turf/open/floor/carpet/royalblack,
 /area/library/abandoned)
 "bYv" = (
@@ -10581,6 +10571,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/large,
 /area/engine/engineering)
+"eXd" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/wall_closet/emergency/directional/south,
+/turf/open/floor/iron,
+/area/maintenance/department/crew_quarters/dorms)
 "eXn" = (
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
@@ -14955,10 +14951,6 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating/rust,
 /area/science/test_area)
-"han" = (
-/obj/structure/closet/firecloset/full,
-/turf/open/floor/iron,
-/area/maintenance/department/crew_quarters/dorms)
 "hao" = (
 /obj/structure/fence/cut/large{
 	dir = 8
@@ -23682,6 +23674,10 @@
 /obj/item/mmi{
 	pixel_y = 11
 	},
+/obj/item/storage/box/bodybags{
+	pixel_x = 6;
+	pixel_y = 3
+	},
 /turf/open/floor/iron/white,
 /area/science/robotics)
 "ltd" = (
@@ -25632,6 +25628,11 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"mwb" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/maintenance/department/crew_quarters/dorms)
 "mwd" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -28494,6 +28495,14 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"nOF" = (
+/obj/machinery/modular_computer/console/preset/curator,
+/obj/structure/light_construct{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblack,
+/area/library/abandoned)
 "nPk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
@@ -29393,10 +29402,7 @@
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "orp" = (
-/obj/structure/bookcase/random/adult,
-/obj/machinery/newscaster{
-	pixel_y = 33
-	},
+/obj/machinery/libraryscanner,
 /turf/open/floor/carpet/royalblack,
 /area/library/abandoned)
 "oru" = (
@@ -30471,6 +30477,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
+"oNt" = (
+/obj/structure/bookcase/random/adult,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblack,
+/area/library/abandoned)
 "oNz" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
@@ -43883,11 +43894,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"vpU" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/emcloset/anchored,
-/turf/open/floor/iron,
-/area/maintenance/department/crew_quarters/dorms)
 "vpZ" = (
 /obj/structure/chair/fancy/plastic{
 	dir = 8
@@ -46320,6 +46326,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"wGc" = (
+/obj/structure/wall_closet/fire/directional/south,
+/turf/open/floor/iron,
+/area/maintenance/department/crew_quarters/dorms)
 "wGp" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -47285,6 +47295,15 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/quartermaster/storage)
+"xfe" = (
+/obj/machinery/newscaster{
+	pixel_y = 33
+	},
+/obj/machinery/vending/wardrobe/curator_wardrobe,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblack,
+/area/library/abandoned)
 "xfm" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -65681,9 +65700,9 @@ rPT
 rPT
 rPT
 eaA
-oEJ
-han
-btX
+eXd
+eXB
+oNt
 orp
 aRb
 oJY
@@ -65938,9 +65957,9 @@ seo
 eXB
 eXB
 eXB
-qaU
-vpU
-btX
+wGc
+eXB
+nOF
 bYs
 ktw
 jkj
@@ -66196,9 +66215,9 @@ aVV
 mit
 eXB
 okk
-bwI
-btX
-aSS
+eXB
+xfe
+jkj
 bbB
 iHW
 tBs
@@ -66452,8 +66471,8 @@ oxK
 oxK
 rPT
 seo
-sUW
-rPT
+mwb
+eXB
 btX
 btX
 btX

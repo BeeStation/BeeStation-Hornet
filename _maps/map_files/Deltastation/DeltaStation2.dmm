@@ -14903,14 +14903,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"bYX" = (
-/obj/machinery/flasher{
-	id = "hopflash";
-	pixel_y = 58
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "bZa" = (
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -60086,6 +60078,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/flasher/directional/north,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "nrl" = (
@@ -60762,8 +60755,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
-	name = "HoS Privacy Blast Door"
+	id = "Prisongate"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -91709,8 +91701,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
-	name = "HoS Privacy Blast Door"
+	id = "Prisongate"
 	},
 /turf/open/floor/plating,
 /area/security/prison)
@@ -129991,7 +129982,7 @@ bQy
 bSx
 bUB
 nrk
-bYX
+qKq
 caL
 caL
 caL

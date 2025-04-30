@@ -4341,6 +4341,10 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=19-Cafeteria";
+	location = "18-Evac2"
+	},
 /turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
@@ -20674,10 +20678,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=19-Cafeteria";
-	location = "18-Evac2"
-	},
 /turf/open/floor/iron/dark/side,
 /area/hallway/secondary/exit/departure_lounge)
 "gGe" = (
@@ -20817,22 +20817,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
-"gHT" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=18-Evac2";
-	location = "17-Evac1"
-	},
-/turf/open/floor/iron/dark/side,
-/area/hallway/secondary/exit/departure_lounge)
 "gHZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52029,6 +52013,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=18-Evac2";
+	location = "17-Evac1"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
@@ -114660,7 +114648,7 @@ oTs
 evO
 jBF
 qPp
-gHT
+mHh
 mGL
 xCe
 xCe

@@ -45284,6 +45284,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
 /area/janitor)
 "lVd" = (
@@ -109057,8 +109058,8 @@ aaf
 aiD
 cHd
 iDw
-qSK
 ley
+qSK
 jNC
 hkU
 jut

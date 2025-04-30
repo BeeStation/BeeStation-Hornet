@@ -6053,6 +6053,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/machinery/holopad,
 /turf/open/floor/iron,
 /area/hydroponics)
 "boR" = (
@@ -6307,6 +6308,13 @@
 /obj/machinery/vending/coffee,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
+/area/security/brig)
+"bsm" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
 /area/security/brig)
 "bsp" = (
 /obj/machinery/light_switch{
@@ -9553,6 +9561,14 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/space,
 /area/space/nearstation)
+"bVv" = (
+/obj/effect/turf_decal/tile/dark_green/opposingcorners{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/machinery/holopad,
+/turf/open/floor/iron,
+/area/hydroponics)
 "bVI" = (
 /turf/closed/wall/r_wall,
 /area/tcommsat/server)
@@ -16101,6 +16117,16 @@
 /obj/effect/turf_decal/bot_red,
 /turf/open/floor/iron/dark,
 /area/security/prison)
+"daC" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	cycle_id = "atmos_external"
+	},
+/obj/machinery/door/airlock/external{
+	name = "Atmospherics External Airlock";
+	req_one_access_txt = "24,13"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "daM" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -22818,6 +22844,14 @@
 /obj/machinery/holopad,
 /turf/open/floor/wood,
 /area/vacant_room/office)
+"fLv" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/holopad,
+/turf/open/floor/iron/white,
+/area/security/brig)
 "fLB" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/window/reinforced{
@@ -31159,7 +31193,6 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/engineering)
 "jeO" = (
-/obj/machinery/vending/wardrobe/engi_wardrobe,
 /obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -31550,15 +31583,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/iron/dark/textured_large,
 /area/maintenance/disposal/incinerator)
-"jmH" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/security/brig)
 "jmI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36120,9 +36144,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
 "kYf" = (
-/obj/machinery/holopad{
-	pixel_y = 16
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
@@ -42814,6 +42835,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/holopad,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "nSt" = (
@@ -46426,6 +46448,13 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/crew_quarters/toilet)
+"puH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "puK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
@@ -50883,6 +50912,12 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"rgO" = (
+/obj/machinery/holopad{
+	pixel_x = -16
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
 "rgY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -66566,14 +66601,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
-"xqG" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room";
-	req_access_txt = "10"
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "xqO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -68703,9 +68730,6 @@
 /area/engine/atmos)
 "ykh" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "ykJ" = (
@@ -92010,7 +92034,7 @@ aKu
 aLN
 aLE
 aul
-aOl
+puH
 aSs
 aRT
 rdI
@@ -96575,7 +96599,7 @@ agj
 jvW
 aiX
 mFg
-jmH
+gwE
 dVW
 ykh
 oMF
@@ -96832,7 +96856,7 @@ gXs
 gXs
 aiX
 nTO
-gwE
+bsm
 pEP
 rfQ
 rfQ
@@ -96972,7 +96996,7 @@ cMD
 cFL
 cGf
 nXc
-xqG
+cMm
 dfK
 cHc
 cAu
@@ -97611,7 +97635,7 @@ xIi
 qnH
 rfQ
 kyW
-aEU
+rgO
 aEU
 aEU
 cGq
@@ -99170,7 +99194,7 @@ jcf
 djN
 aiX
 hxz
-gBM
+fLv
 wgR
 eBh
 aaQ
@@ -105432,7 +105456,7 @@ bLK
 gXs
 oSu
 oSu
-haj
+daC
 oSu
 lTm
 cnb
@@ -109490,7 +109514,7 @@ eYH
 taQ
 sfk
 fGZ
-hOj
+bVv
 taQ
 sfk
 buE

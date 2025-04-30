@@ -133,6 +133,7 @@
 "aaX" = (
 /obj/item/kirbyplants/random,
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "aba" = (
@@ -2005,9 +2006,7 @@
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "azP" = (
-/obj/machinery/computer/crew{
-	dir = 4
-	},
+/obj/machinery/computer/crew,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/bridge)
@@ -34760,7 +34759,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/security/telescreen/toxins{
-	dir = 8;
+	dir = 4;
 	pixel_x = -32
 	},
 /turf/open/floor/iron/white,
@@ -41400,6 +41399,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "nsZ" = (
@@ -55589,9 +55589,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/computer/crew{
-	dir = 4
-	},
+/obj/machinery/computer/crew,
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
 /area/bridge)
@@ -62917,6 +62915,10 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "uIa" = (
@@ -73001,7 +73003,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/security/telescreen/toxins{
-	dir = 8;
+	dir = 4;
 	pixel_x = -32
 	},
 /turf/open/floor/iron/white,
