@@ -39972,13 +39972,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
-"lbu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vendor/exploration,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/quartermaster/exploration_dock)
 "lbQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/door{
@@ -55469,11 +55462,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"pYr" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/stack/sheet/mineral/plasma/twenty,
-/turf/open/floor/plating,
-/area/quartermaster/exploration_dock)
 "pYw" = (
 /obj/machinery/computer/teleporter{
 	dir = 8
@@ -124506,7 +124494,7 @@ nmh
 nmh
 tfV
 pRx
-pYr
+qXd
 alF
 iuq
 nmh
@@ -124763,7 +124751,7 @@ mvl
 nmh
 mvl
 pRx
-lbu
+mvl
 nmh
 ouu
 sjE
