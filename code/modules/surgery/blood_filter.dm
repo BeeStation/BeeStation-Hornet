@@ -26,9 +26,7 @@
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(HAS_TRAIT(target, TRAIT_HUSK)) //Can't filter husk
 		return FALSE
-	var/datum/surgery_step/filter_blood/filtering_step = filtering_step_type
-	var/heals_tox = filtering_step ? initial(filtering_step.tox_heal_factor) > 0 : FALSE
-	if((!heals_tox || target.getToxLoss() <= 0) && target.reagents?.total_volume == 0)
+	if(target.getToxLoss() <= 0 && target.reagents?.total_volume == 0)
 		return FALSE
 	return ..()
 
@@ -40,6 +38,8 @@
 	success_sound = 'sound/machines/ping.ogg'
 	var/chem_purge_factor = 0.2
 	var/tox_heal_factor = 0.025
+	var/limited_healing = TRUE
+
 
 /datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery,/datum/surgery/blood_filter))
@@ -61,7 +61,16 @@
 		for(var/blood_chem in target.reagents.reagent_list)
 			var/datum/reagent/chem = blood_chem
 			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
-		if(tox_heal_factor > 0)
+		if(limited_healing)
+			if(tox_loss<=2)
+				target.setToxLoss(0) // To prevent chat spam over 1 toxy damage
+			else if(tox_loss <= 20 && tox_loss != 0)
+				to_chat(user, span_notice("You can't fix any more of toxin damage"))
+				if(!target.reagents.total_volume)
+					return FALSE
+			else
+				target.adjustToxLoss(-(tox_loss * tox_heal_factor), forced=TRUE) //forced so this will actually heal oozelings too
+		else if(tox_heal_factor > 0)
 			if(tox_loss <= 2)
 				target.setToxLoss(0)
 			else
@@ -102,6 +111,7 @@
 	time = 1.85 SECONDS
 	tox_heal_factor = 0.075
 	chem_purge_factor = 0.3
+	limited_healing = FALSE
 
 /datum/surgery/blood_filter/femto
 	name = "Filter Blood (Exp.)"
