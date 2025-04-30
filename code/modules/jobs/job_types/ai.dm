@@ -16,9 +16,7 @@
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
-	// Allowed on lower pops than normal, but not completely allowed due to the lack of playability
-	// and the consumption of our important player roles
-	min_pop = MINPOP_JOB_LIMIT
+	min_pop = 0
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc
