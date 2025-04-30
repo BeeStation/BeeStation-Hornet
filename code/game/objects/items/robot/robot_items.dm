@@ -522,7 +522,7 @@
 		A.BB.nodamage = FALSE
 	A.BB.speed = 0.5
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-	A.fire_casing(target, user, params, 0, 0, null, 0, 1, src)
+	A.fire_casing(target, user, params, fired_from = src)
 	user.visible_message(span_warning("[user] blasts a flying lollipop at [target]!"))
 	check_amount()
 
@@ -538,7 +538,7 @@
 	A.BB.speed = 0.5
 	A.BB.color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	playsound(src.loc, 'sound/weapons/bulletflyby3.ogg', 50, 1)
-	A.fire_casing(target, user, params, 0, 0, null, 0, 1, src)
+	A.fire_casing(target, user, params, fired_from = src)
 	user.visible_message(span_warning("[user] shoots a high-velocity gumball at [target]!"))
 	check_amount()
 
