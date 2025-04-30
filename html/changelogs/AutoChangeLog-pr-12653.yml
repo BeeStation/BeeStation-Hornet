@@ -1,6 +1,0 @@
-author: Gilgax
-delete-after: true
-changes:
-  - bugfix: Ghosts can no longer mess with people in ways they shouldn't (breath masks,
-      t-rayscanners, cigarettes packs, gas injectors, smartfoam upgrades and modulator
-      masks)
