@@ -71303,6 +71303,11 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
+"smT" = (
+/obj/effect/turf_decal/guideline/guideline_in/red,
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "smW" = (
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
@@ -78424,7 +78429,6 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "ueW" = (
@@ -133599,7 +133603,7 @@ kHY
 kHY
 kHY
 kHY
-wqJ
+smT
 sDy
 mEs
 xIV
