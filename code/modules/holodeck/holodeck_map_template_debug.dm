@@ -28,6 +28,7 @@
 // ------------------------------------------------
 
 /datum/map_template/holodeck/debug/engi
+	name = "---Engineering---"
 
 /datum/map_template/holodeck/debug/engi/fusion
 	name = "Holodeck - Engineering Fusion"
@@ -74,6 +75,9 @@
 	template_id = "debug-med"
 	mappath = "_maps/holodeck/debug/med.dmm"
 
+/datum/map_template/holodeck/debug/sci
+	name = "---Science---"
+
 /datum/map_template/holodeck/debug/sci/robotics
 	name = "Holodeck - Science Robotics"
 	template_id = "debug-sci-rob"
@@ -88,6 +92,9 @@
 	name = "Holodeck - Science Xenoarchology"
 	template_id = "debug-sci-xenoarch"
 	mappath = "_maps/holodeck/debug/sci-xenoarch.dmm"
+
+/datum/map_template/holodeck/debug/serv/botany
+	name = "---Service---"
 
 /datum/map_template/holodeck/debug/serv/botany
 	name = "Holodeck - Service Botany"
