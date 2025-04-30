@@ -155,13 +155,13 @@
 
 	if (!isturf(user.loc) || !magpulse)
 		return
-	var/modyfier = 1
+	var/modifier = 1
 	if(high_magnet)
-		modyfier = 2
+		modifier = 2
 	var/turf/T = user.loc
 	for (var/mob/living/A in T)
 		if (A != user && A.body_position == LYING_DOWN)
-			A.adjustBruteLoss(rand(10,13) * modyfier)
+			A.adjustBruteLoss(rand(10,13) * modifier)
 			to_chat(A,span_userdanger("[user]'s magboots press down on you, crushing you!"))
 			INVOKE_ASYNC(A, TYPE_PROC_REF(/mob, emote), "scream")
 
