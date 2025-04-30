@@ -9,6 +9,7 @@
 	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 	var/discovery_points = 0 //Amount of discovery points given for scanning
+	var/max_volume = 100 // There is the same variable in the food/grown.dm - this variable only exists to suppress a runtime error by /datum/plant_gene/trait/maxchem touching max_volume
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown)
 
