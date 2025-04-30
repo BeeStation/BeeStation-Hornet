@@ -41,7 +41,7 @@
 
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
-	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
+	to_chat(owner.current, examine_block(msg.Join("\n")))
 
 /datum/antagonist/scamp/proc/update_scamp_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/scamphud = GLOB.huds[ANTAG_HUD_SCAMP]
