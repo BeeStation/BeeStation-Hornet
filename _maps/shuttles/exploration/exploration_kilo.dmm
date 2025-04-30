@@ -153,7 +153,6 @@
 	req_one_access_txt = "49";
 	name = "Exploration Shuttle"
 	},
-/obj/structure/fans/tiny,
 /obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 10;
