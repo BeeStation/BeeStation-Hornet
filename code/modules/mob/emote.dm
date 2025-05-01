@@ -101,7 +101,8 @@
 
 /datum/emote/jump/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	user.do_jump_animation()
+	animate(user, 0.1 SECONDS, pixel_y = user.pixel_y + 4)
+	animate(time = 0.1 SECONDS, pixel_y = user.pixel_y - 4)
 	if(iscarbon(user))
 		var/mob/living/carbon/jumps_till_drops = user
 		jumps_till_drops.adjustStaminaLoss(10, forced = TRUE)
