@@ -38,7 +38,7 @@
 	success_sound = 'sound/machines/ping.ogg'
 	var/chem_purge_factor = 0.2
 	var/tox_heal_factor = 0.025
-	var/limited_healing = TRUE
+	var/limited_healing = 80 // Cant heal toxin damage under this treshold
 
 
 /datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
@@ -46,8 +46,8 @@
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		if(!the_surgery.antispam)
 			display_results(user, target, span_notice("You begin filtering [target]'s blood..."),
-		span_notice("[user] uses [tool] to filtering your blood."),
-		span_notice("[user] uses [tool] on [target]'s chest."))
+			span_notice("[user] uses [tool] to filtering your blood."),
+			span_notice("[user] uses [tool] on [target]'s chest."))
 
 /datum/surgery_step/filter_blood/initiate(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
@@ -61,20 +61,14 @@
 		for(var/blood_chem in target.reagents.reagent_list)
 			var/datum/reagent/chem = blood_chem
 			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
-		if(limited_healing)
-			if(tox_loss<=2)
-				target.setToxLoss(0) // To prevent chat spam over 1 toxy damage
-			else if(tox_loss <= 20 && tox_loss != 0)
-				to_chat(user, span_notice("You can't fix any more of toxin damage"))
-				if(!target.reagents.total_volume)
-					return FALSE
-			else
-				target.adjustToxLoss(-(tox_loss * tox_heal_factor), forced=TRUE) //forced so this will actually heal oozelings too
-		else if(tox_heal_factor > 0)
-			if(tox_loss <= 2)
-				target.setToxLoss(0)
-			else
-				target.adjustToxLoss(-(tox_loss * tox_heal_factor), forced=TRUE) //forced so this will actually heal oozelings too
+		if(tox_loss<=2)
+			target.setToxLoss(0) // To prevent chat spam over 1 toxy damage
+		else if(tox_loss <= limited_healing && tox_loss != 0)
+			to_chat(user, span_notice("You can't fix any more of toxin damage"))
+			if(!target.reagents.total_volume)
+				return FALSE
+		else
+			target.adjustToxLoss(-(tox_loss * tox_heal_factor), forced=TRUE) //forced so this will actually heal oozelings too
 		var/list/remaining = list()
 		if(locate(/obj/item/healthanalyzer) in user.held_items)
 			if(tox_heal_factor > 0 && tox_loss > 0)
@@ -111,7 +105,7 @@
 	time = 1.85 SECONDS
 	tox_heal_factor = 0.075
 	chem_purge_factor = 0.3
-	limited_healing = FALSE
+	limited_healing = 0
 
 /datum/surgery/blood_filter/femto
 	name = "Filter Blood (Exp.)"
