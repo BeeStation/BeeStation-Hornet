@@ -35406,7 +35406,6 @@
 	pixel_y = 32
 	},
 /obj/item/lighter,
-/obj/effect/turf_decal/tile/red/half,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "ims" = (
@@ -55630,6 +55629,14 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
+/obj/machinery/light/small,
+/obj/structure/table,
+/obj/item/crowbar,
+/obj/item/clothing/gloves/color/fyellow,
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
 /turf/open/floor/iron,
 /area/storage/primary)
 "pKU" = (
@@ -57635,21 +57642,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
-"qxw" = (
-/obj/machinery/firealarm{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "qxy" = (
 /obj/machinery/computer/station_alert,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -65308,14 +65300,6 @@
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "tmK" = (
-/obj/structure/table,
-/obj/item/crowbar,
-/obj/item/assembly/prox_sensor{
-	pixel_x = -8;
-	pixel_y = 4
-	},
-/obj/item/clothing/gloves/color/fyellow,
-/obj/machinery/light/small,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
 	},
@@ -67117,6 +67101,21 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"tSH" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	pixel_y = 32
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "tSN" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -67393,16 +67392,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
-"tXO" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/obj/structure/table,
-/turf/open/floor/iron,
-/area/storage/primary)
 "tYe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
@@ -69969,6 +69958,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/obj/structure/table,
 /turf/open/floor/iron,
 /area/storage/primary)
 "uRw" = (
@@ -98612,7 +98605,7 @@ bbo
 vqq
 dnk
 amS
-aRG
+dnd
 dnk
 aRG
 nSF
@@ -99123,7 +99116,7 @@ qrR
 dhb
 rKF
 aji
-dnd
+aRG
 aRG
 oDM
 rEv
@@ -99380,8 +99373,8 @@ bbo
 bbo
 bbo
 bbo
-dne
-kHh
+ajP
+ajP
 dne
 dne
 kHh
@@ -99896,7 +99889,7 @@ aRG
 aRG
 aRG
 aRG
-ajP
+ahS
 aRG
 alc
 aRG
@@ -100153,7 +100146,7 @@ aRG
 aRG
 aRG
 aRG
-ajP
+dne
 aRG
 aRG
 aRG
@@ -102998,8 +102991,8 @@ vvj
 beN
 sQI
 ryK
-aJN
-tXO
+ibR
+gEr
 aMB
 eTg
 dCt
@@ -103007,8 +103000,8 @@ aQx
 aMB
 aTb
 tmK
-aJR
-qxw
+sQb
+iVn
 dCE
 bqA
 rrB
@@ -103512,7 +103505,7 @@ cmZ
 sxz
 qDu
 evJ
-ibR
+aJN
 uRu
 oho
 pfB
@@ -103521,8 +103514,8 @@ wxX
 pfB
 uWn
 pKQ
-sQb
-iVn
+aJR
+tSH
 aYX
 eqw
 rrB
