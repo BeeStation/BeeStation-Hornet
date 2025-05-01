@@ -101,6 +101,14 @@
 	build_path = /obj/item/circuit_component/iterator
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
+
+/datum/design/component/switch_case
+	name = "Switch Case"
+	id = "comp_switch_case"
+	build_path = /obj/item/circuit_component/switch_case
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
+
 /datum/design/component/delay
 	name = "Delay Component"
 	id = "comp_delay"
@@ -136,6 +144,12 @@
 	id = "comp_length"
 	build_path = /obj/item/circuit_component/length
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS, WIREMOD_STRING_COMPONENTS)
+
+/datum/design/component/trim
+	name = "String Trim Component"
+	id = "comp_trim"
+	build_path = /obj/item/circuit_component/trim
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS)
 
 /datum/design/component/light
 	name = "Light Component"

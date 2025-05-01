@@ -8,9 +8,10 @@
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#fff5cc"
-	exp_requirements = 120 //High grief percentage
+	// Requires advanced knowledge of the engineering department
+	// and can easilly disrupt large portions of the station
+	exp_requirements = 120
 	exp_type = EXP_TYPE_ENGINEERING
-	exp_type_department = EXP_TYPE_ENGINEERING
 
 	outfit = /datum/outfit/job/atmospheric_technician
 
