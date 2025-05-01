@@ -49,7 +49,7 @@
 	var/mob/M = get_mob_by_ckey(fingerprint)
 	var/turf/T = get_turf(M)
 	grenade.log_grenade(M, T)
-	grenade.prime()
+	grenade.preprime()
 
 /datum/wires/explosive/chem_grenade/detach_assembly(color)
 	var/obj/item/grenade/chem_grenade/grenade = holder
