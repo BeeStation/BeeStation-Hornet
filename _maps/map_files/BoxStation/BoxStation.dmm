@@ -26059,16 +26059,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"haj" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "atmos_external"
-	},
-/obj/machinery/door/airlock/external{
-	name = "Atmospherics External Airlock";
-	req_one_access = "24, 13"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "haz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -104950,10 +104940,10 @@ ccB
 cbH
 bLK
 aaf
-haj
+daC
 ctl
 ctl
-haj
+daC
 ixA
 aoV
 aaf
