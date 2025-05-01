@@ -99,6 +99,13 @@
 	icon_state = "kitty"
 	visual = TRUE
 	bang_protect = -2
+	// Keeps track of which cat ears sprite is associated with this.
+	var/variant = "Cat"
+
+/obj/item/organ/ears/cat/Initialize(mapload, variant_pref)
+	. = ..()
+	if(variant_pref)
+		variant = variant_pref
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	..()
@@ -107,7 +114,7 @@
 		return
 	if(istype(H))
 		color = H.hair_color
-		H.dna.features["ears"] = H.dna.species.mutant_bodyparts["ears"] = "Cat"
+		H.dna.features["ears"] = H.dna.species.mutant_bodyparts["ears"] = variant
 		H.update_body()
 
 /obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
