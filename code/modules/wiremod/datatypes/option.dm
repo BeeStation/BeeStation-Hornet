@@ -22,7 +22,7 @@
 	return datatype_to_check == PORT_TYPE_STRING
 
 /datum/circuit_datatype/option/convert_value(datum/port/input/option/port, value_to_convert)
-	if(!port.possible_options)
+	if(!port.possible_options || !length(port.possible_options))
 		return null
 
 	if(value_to_convert in port.possible_options)

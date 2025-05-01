@@ -1,4 +1,3 @@
-/*
 /obj/item/mod/module/circuit
 	name = "MOD circuit adapter module"
 	desc = "A module shell that allows a circuit to be inserted into, and interface with, a MODsuit."
@@ -35,8 +34,6 @@
 
 /obj/item/mod/module/circuit/on_use()
 	. = ..()
-	if(!.)
-		return
 	if(!shell.attached_circuit)
 		return
 	var/list/action_components = shell.attached_circuit.GetAllContentsType(/obj/item/circuit_component/equipment_action/mod)
@@ -128,7 +125,7 @@
 	deployed = add_output_port("Deployed", PORT_TYPE_NUMBER)
 	activated = add_output_port("Activated", PORT_TYPE_NUMBER)
 	selected_module = add_output_port("Selected Module", PORT_TYPE_STRING)
-	deployed_parts = add_output_port("Deployed Parts", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	deployed_parts = add_output_port("Deployed Parts", PORT_TYPE_LIST)
 	// Output Signals
 	on_module_selected = add_output_port("On Module Selected", PORT_TYPE_SIGNAL)
 	on_deploy = add_output_port("On Deploy", PORT_TYPE_SIGNAL)
@@ -243,4 +240,3 @@
 	display_name = "MOD action"
 	desc = "Represents an action the user can take when wearing the MODsuit."
 	required_shells = list(/obj/item/mod/module/circuit)
-*/
