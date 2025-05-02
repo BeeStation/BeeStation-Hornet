@@ -265,7 +265,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/blob/take_direct_damage(amount, type, flag, zone)
+/obj/structure/blob/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	switch (type)
 		if (BRUTE)
 			amount *= brute_resist
@@ -278,7 +278,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		amount = overmind.blobstrain.damage_reaction(src, amount, type, flag)
 	..()
 
-/obj/structure/blob/take_direct_damage(amount, type, flag, zone)
+/obj/structure/blob/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	if (atom_integrity > 0)
 		update_icon()

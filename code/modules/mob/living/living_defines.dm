@@ -8,6 +8,10 @@
 
 	hud_type = /datum/hud/living
 
+	// Doesn't use atom_integrity, but accepts the atom damage procs
+	// which get converted into health based damage.
+	uses_integrity = TRUE
+
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
 	var/lastattackerckey = null

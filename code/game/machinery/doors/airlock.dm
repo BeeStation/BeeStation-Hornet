@@ -1461,7 +1461,7 @@
 		log_combat(user, src, message, important = FALSE)
 		add_hiddenprint(user)
 
-/obj/machinery/door/airlock/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
+/obj/machinery/door/airlock/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	if((amount >= atom_integrity) && (flag == DAMAGE_BOMB))
 		flags_1 |= NODECONSTRUCT_1  //If an explosive took us out, don't drop the assembly
 	. = ..()

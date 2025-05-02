@@ -1,4 +1,48 @@
 
+/mob/living/carbon/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	// Handle with adjust loss procs
+	if (!zone)
+		..()
+		return
+	// Handle with body zone damage
+	var/obj/item/bodypart/part = get_bodypart(zone)
+	if (!part)
+		return
+	switch (type)
+		if (BRUTE)
+			part.receive_damage(amount, 0, 0)
+			part.run_limb_injuries(amount, flag, 0)
+		if (BURN)
+			part.receive_damage(0, amount, 0)
+			part.run_limb_injuries(amount, flag, 0)
+		if (STAMINA)
+			part.receive_damage(0, 0, amount)
+		else
+			..()
+
+/mob/living/carbon/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null, sharpness = 0)
+	// Start bleeding
+	add_bleeding(amount / 10)
+	// Handle with adjust loss procs
+	if (!zone)
+		..()
+		return
+	// Handle with body zone damage
+	var/obj/item/bodypart/part = get_bodypart(zone)
+	if (!part)
+		return
+	switch (type)
+		if (BRUTE)
+			part.receive_damage(amount, 0, 0)
+			part.run_limb_injuries(amount, flag, sharpness)
+		if (BURN)
+			part.receive_damage(0, amount, 0)
+			part.run_limb_injuries(amount, flag, sharpness)
+		if (STAMINA)
+			part.receive_damage(0, 0, amount)
+		else
+			..()
+
 /mob/living/carbon/get_eye_protection()
 	. = ..()
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
@@ -64,10 +108,6 @@
 				throw_mode_off(THROW_MODE_TOGGLE)
 				return TRUE
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
-
-/mob/living/carbon/take_sharpness_damage(amount, type, flag, zone)
-	..()
-	add_bleeding(amount / 10)
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting

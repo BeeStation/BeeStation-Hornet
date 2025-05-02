@@ -31,7 +31,7 @@
 	for(var/mob/living/carbon/target in range(range, owner))
 		if(!ignore_owner && target == owner)
 			continue
-		if(target.run_armor_check(attack_flag = BIO, absorb_text = "Your armor protects you from [owner]!") >= 100)
+		if(target.is_biologically_sealed())
 			continue //We are protected
 
 		// Add target

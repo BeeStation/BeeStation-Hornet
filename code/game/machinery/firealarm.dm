@@ -436,7 +436,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 			return TRUE
 	return FALSE
 
-/obj/machinery/firealarm/take_direct_damage(amount, type, flag, zone)
+/obj/machinery/firealarm/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != FIRE_ALARM_BUILD_NO_CIRCUIT)
 		if(prob(33))

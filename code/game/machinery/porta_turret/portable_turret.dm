@@ -372,7 +372,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 		addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), rand(60,600))
 
-/obj/machinery/porta_turret/take_direct_damage(amount, type, flag, zone)
+/obj/machinery/porta_turret/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	if(atom_integrity > 0) //damage received
 		if(prob(30))

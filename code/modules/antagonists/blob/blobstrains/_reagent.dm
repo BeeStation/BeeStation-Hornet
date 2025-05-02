@@ -7,12 +7,12 @@
 
 
 /datum/blobstrain/reagent/attack_living(var/mob/living/L)
-	var/mob_protection = L.getarmor(null, BIO) * 0.01
+	var/mob_protection = L.get_average_armor_flag(ARMOUR_ABSORPTION) * 0.01
 	reagent.expose_mob(L, VAPOR, BLOB_REAGENT_INJECT_VOL, 1, mob_protection, overmind)
 	send_message(L)
 
 /datum/blobstrain/reagent/blobbernaut_attack(mob/living/L)
-	var/mob_protection = L.getarmor(null, BIO) * 0.01
+	var/mob_protection = L.get_average_armor_flag(ARMOUR_ABSORPTION) * 0.01
 	reagent.expose_mob(L, VAPOR, BLOBMOB_BLOBBERNAUT_REAGENT_INJECT_VOL, 0, mob_protection, overmind)//this will do between 10 and 20 damage(reduced by mob protection), depending on chemical, plus 4 from base brute damage.
 
 /datum/blobstrain/reagent/on_sporedeath(mob/living/spore)

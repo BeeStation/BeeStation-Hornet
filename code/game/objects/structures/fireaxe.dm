@@ -77,7 +77,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/fireaxecabinet/take_direct_damage(amount, type, flag, zone)
+/obj/structure/fireaxecabinet/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	if(open)
 		return
 	..()

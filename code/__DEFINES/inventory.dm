@@ -110,7 +110,8 @@
 #define HAND_RIGHT (1<<10)
 #define HANDS (HAND_LEFT | HAND_RIGHT)
 #define NECK (1<<11)
-#define FULL_BODY (~0)
+// All flags that exist enabled.
+#define FULL_BODY ((1<<12) - 1)
 
 //defines for the index of hands
 #define LEFT_HANDS 1

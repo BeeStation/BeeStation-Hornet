@@ -65,9 +65,9 @@
 		return FALSE
 	else
 		if(user.obj_damage)
-			. = attack_generic(user, user.obj_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.armour_penetration)
+			. = attack_generic(user, user.obj_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.sharpness)
 		else
-			. = attack_generic(user, user.melee_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.armour_penetration)
+			. = attack_generic(user, user.melee_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.sharpness)
 		if(.)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
@@ -80,9 +80,9 @@
 		if(M.environment_smash)
 			play_soundeffect = 0
 		if(M.obj_damage)
-			. = attack_generic(M, M.obj_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.obj_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.sharpness)
 		else
-			. = attack_generic(M, M.melee_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.melee_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.sharpness)
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 

@@ -87,7 +87,7 @@
 			var/penetration_proportion = penetration <= 0 ? 0 : CLAMP01((penetration - penetration_rating) / penetration)
 			var/penetration_damage = amount * penetration_proportion
 			// Unprotected damage
-			take_sharpness_damage(penetration_damage, type, flag, zone)
+			take_sharpness_damage(penetration_damage, type, flag, zone, penetration)
 			// Protected damage
 			var/blunt_damage = amount * (1 - penetration_proportion)
 			var/blunt_rating = 100 - (get_armor_rating(ARMOUR_BLUNT) / 100)
@@ -102,7 +102,7 @@
 			else
 				take_direct_damage(taken_damage, type, flag, zone)
 
-/atom/proc/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null)
+/atom/proc/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null, sharpness = 0)
 	if (!atom_integrity)
 		CRASH("take_direct_damage called on something not using atom integrity which also hasn't implemented it's own handling.")
 	take_direct_damage(amount, type)

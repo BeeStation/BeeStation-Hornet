@@ -63,7 +63,7 @@
 	worn_icon_state = "facehugger_impregnated"
 	stat = DEAD
 
-/obj/item/clothing/mask/facehugger/take_direct_damage(amount, type, flag, zone)
+/obj/item/clothing/mask/facehugger/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	if(atom_integrity < 90)
 		Die()

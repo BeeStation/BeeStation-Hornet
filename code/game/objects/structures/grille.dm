@@ -28,7 +28,7 @@
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
-/obj/structure/grille/take_direct_damage(amount, type, flag, zone)
+/obj/structure/grille/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	update_appearance()
 

@@ -289,7 +289,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 			return FALSE
 	return TRUE
 
-/obj/structure/window/take_direct_damage(amount, type, flag, zone)
+/obj/structure/window/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	//received damage
 	update_nearby_icons()

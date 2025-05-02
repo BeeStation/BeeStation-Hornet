@@ -341,6 +341,15 @@
 		I.dropped(src, was_thrown, silent)
 	return TRUE
 
+/// Are we completely biologically sealed in protective suits?
+/mob/living/proc/is_biologically_sealed()
+	var/zones_remaining = FULL_BODY
+	for (var/obj/item/clothing/clothing in get_equipped_items())
+		if ((clothing.clothing_flags & THICKMATERIAL))
+			continue
+		zones_remaining &= ~clothing.body_parts_covered
+	return zones_remaining == 0
+
 //Outdated but still in use apparently. This should at least be a human proc.
 //Daily reminder to murder this - Remie.
 /mob/living/proc/get_equipped_items(include_pockets = FALSE)

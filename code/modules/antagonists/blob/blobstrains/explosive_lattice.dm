@@ -33,7 +33,7 @@
 		for(var/mob/living/L in ohearers(1, get_turf(M)))
 			if(FACTION_BLOB in L.faction) //no friendly fire
 				continue
-			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.getarmor(null, BIO) * 0.01, O)
+			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.get_average_armor_flag(ARMOUR_ABSORPTION) * 0.01, O)
 			L.take_direct_damage(0.4*aoe_volume, BRUTE)
 		if(M)
 			M.take_direct_damage(0.6*reac_volume, BRUTE)

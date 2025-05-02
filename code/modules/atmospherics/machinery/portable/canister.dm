@@ -209,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(gone == internal_cell)
 		internal_cell = null
 
-/obj/machinery/portable_atmospherics/canister/take_direct_damage(amount, type, flag, zone)
+/obj/machinery/portable_atmospherics/canister/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	if (QDELETED(src))
 		return

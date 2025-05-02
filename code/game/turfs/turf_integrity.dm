@@ -232,7 +232,7 @@
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		to_chat(user, span_warning("This wall is too strong for you to destroy!"))
 		return
-	if(attack_generic(user, 60, BRUTE, MELEE, 0))
+	if(attack_generic(user, 60, BRUTE, DAMAGE_STANDARD, 0))
 		playsound(src, 'sound/weapons/slash.ogg', 100, 1)
 
 /turf/attack_animal(mob/living/simple_animal/M)
@@ -246,9 +246,9 @@
 		if(M.environment_smash)
 			play_soundeffect = 0
 		if(M.obj_damage)
-			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.obj_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.sharpness)
 		else
-			. = attack_generic(M, M.melee_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.melee_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.sharpness)
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
@@ -260,7 +260,7 @@
 	var/damage = 4
 	if(M.transformeffects & SLIME_EFFECT_RED)
 		damage = 10
-	attack_generic(M, damage, MELEE, 1)
+	attack_generic(M, damage, DAMAGE_STANDARD, 1)
 
 //====================================
 // Mechs
@@ -329,7 +329,7 @@
 		new acid_type(src, acidpwr, acid_volume)
 
 /turf/proc/acid_melt()
-	turf_destruction(ACID, 0)
+	turf_destruction(DAMAGE_ACID, 0)
 
 //====================================
 // Fire
@@ -350,7 +350,7 @@
 /turf/proc/burn()
 	if(resistance_flags & ON_FIRE)
 		SSfire_burning.processing -= src
-	turf_destruction(FIRE, 0)
+	turf_destruction(DAMAGE_FIRE, 0)
 
 /turf/proc/extinguish()
 	if(resistance_flags & ON_FIRE)

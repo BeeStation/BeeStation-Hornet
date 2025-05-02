@@ -17,8 +17,7 @@
  * Bedsheets on the sleeper will provide a custom subject for the dream, pulled from the dream_messages on each bedsheet.
  */
 
-/mob/living/carbon/
-	var/manus_dream_allowed = FALSE
+/mob/living/carbon/var/manus_dream_allowed = FALSE
 
 /mob/living/carbon/proc/finish_manus_dream_cooldown()
 	to_chat(src, span_hypnophrase("You feel ready to walk the forest of the manus again.."))

@@ -7,7 +7,7 @@
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
 // Sharp attacks can damage the internals
-/obj/vehicle/sealed/mecha/take_sharpness_damage(amount, type, flag, zone)
+/obj/vehicle/sealed/mecha/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null, sharpness = 0)
 	..()
 	if (atom_integrity > 0)
 		spark_system.start()

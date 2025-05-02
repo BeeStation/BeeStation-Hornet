@@ -43,7 +43,7 @@
 		if(BRUTE)
 			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 
-/obj/structure/emergency_shield/take_direct_damage(amount, type, flag, zone)
+/obj/structure/emergency_shield/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	new /obj/effect/temp_visual/impact_effect/ion(loc)
 
@@ -618,7 +618,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 
 //the shield wall is immune to damage but it drains the stored power of the generators.
-/obj/machinery/shieldwall/take_direct_damage(amount, type, flag, zone)
+/obj/machinery/shieldwall/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
 	..()
 	if(type == BRUTE || type == BURN)
 		drain_power(amount)
