@@ -64,9 +64,9 @@
 	return TRUE
 
 /obj/structure/weightmachine/screwdriver_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to take apart [src]...</span>")
+	to_chat(user, span_notice("You begin to take apart [src]..."))
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+		to_chat(user, span_notice("You deconstruct [src]."))
 		qdel(src)
 	return TRUE
 
@@ -97,7 +97,7 @@
 			user.client.give_award(/datum/award/achievement/misc/weights, user)
 		if(ishuman(user))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-			user.apply_status_effect(STATUS_EFFECT_EXERCISED, 40)
+			user.apply_status_effect(/datum/status_effect/exercised, 40)
 	end_workout()
 
 /obj/structure/weightmachine/proc/end_workout()

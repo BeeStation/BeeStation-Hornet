@@ -30,6 +30,44 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
 	ammo_x_offset = 3
 
+/obj/item/gun/energy/laser/repeater
+	name = "NT LRR Model 2284"
+	icon_state = "repeater"
+	item_state = null
+	desc = "An experimental laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
+	gun_charge = 200
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
+	can_charge = FALSE //don't put this in a recharger
+	var/cranking = FALSE
+	var/fire_interrupted = FALSE
+
+/obj/item/gun/energy/laser/repeater/proc/crank_charge(mob/living/user)
+	if(cell.charge >= gun_charge)
+		to_chat(user,"<span class='danger'>The gun is at maximum charge already!</span>")
+		return
+	else if(!cranking)
+		balloon_alert(user, "You start cranking")
+		while(cell.charge < gun_charge)
+			cranking = TRUE
+			if(do_after(user, 1 SECONDS) && !fire_interrupted)
+				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
+				cell.give(50)
+				flick("repeater", src)
+				update_icon()
+			else
+				break
+	cranking = FALSE
+	fire_interrupted = FALSE
+
+/obj/item/gun/energy/laser/repeater/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+	if(cranking)
+		fire_interrupted = TRUE //no more cranking when you shoot.
+	return ..()
+
+/obj/item/gun/energy/laser/repeater/attack_self(mob/living/user)
+	if(!cranking)
+		crank_charge(user)
+
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
 	icon_state = "caplaser"

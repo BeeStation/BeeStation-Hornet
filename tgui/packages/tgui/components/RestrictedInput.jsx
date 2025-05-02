@@ -1,8 +1,8 @@
 import { classes } from 'common/react';
 import { clamp } from 'common/math';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Box } from './Box';
-import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 10000;
@@ -27,8 +27,8 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
 };
 
 export class RestrictedInput extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.inputRef = createRef();
     this.state = {
       editing: false,
@@ -40,8 +40,7 @@ export class RestrictedInput extends Component {
       }
     };
     this.handleChange = (e) => {
-      const { maxValue, minValue, onChange, allowFloats } = this.props;
-      e.target.value = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
+      const { onChange } = this.props;
       if (onChange) {
         onChange(e, +e.target.value);
       }
@@ -64,8 +63,9 @@ export class RestrictedInput extends Component {
     };
     this.handleKeyDown = (e) => {
       const { maxValue, minValue, onChange, onEnter, allowFloats } = this.props;
-      if (e.keyCode === KEY_ENTER) {
+      if (e.key === KEY.Enter) {
         const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
+        e.target.value = safeNum;
         this.setEditing(false);
         if (onChange) {
           onChange(e, +safeNum);
@@ -76,7 +76,7 @@ export class RestrictedInput extends Component {
         e.target.blur();
         return;
       }
-      if (e.keyCode === KEY_ESCAPE) {
+      if (isEscape(e.key)) {
         if (this.props.onEscape) {
           this.props.onEscape(e);
           return;
@@ -104,19 +104,6 @@ export class RestrictedInput extends Component {
           input.select();
         }
       }, 1);
-    }
-  }
-
-  componentDidUpdate(prevProps, _) {
-    const { maxValue, minValue, allowFloats } = this.props;
-    const { editing } = this.state;
-    const prevValue = prevProps.value?.toString();
-    const nextValue = this.props.value?.toString();
-    const input = this.inputRef.current;
-    if (input && !editing) {
-      if (nextValue !== prevValue && nextValue !== input.value) {
-        input.value = getClampedNumber(nextValue, minValue, maxValue, allowFloats);
-      }
     }
   }
 

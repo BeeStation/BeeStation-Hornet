@@ -92,7 +92,7 @@
 					reactor_core.linked_interface = src
 					reactor_core.ui_update()
 					reactor = reactor_core
-					to_chat(user, "<span class='notice'>You upload the link to the [src].</span>")
+					to_chat(user, span_notice("You upload the link to the [src]."))
 
 
 /obj/machinery/computer/reactor/proc/get_held_buffer_item(mob/user)
@@ -216,10 +216,17 @@
 
 /obj/item/RBMK_box/core/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
+	var/list/parts = get_parts()
+
+	if(length(parts) == 8)
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = build_reactor(parts)
+		newCore.user_activate(user)
+	return
+
+/obj/item/RBMK_box/core/proc/get_parts()
 	var/list/parts = list()
 	var/types_seen = list()
 	for(var/obj/item/RBMK_box/box in orange(1,src))
-
 		var/direction = get_dir(src, box)
 		box.dir = direction
 		if(box.box_type in list("coolant_input", "waste_output", "moderator_input"))
@@ -231,8 +238,15 @@
 					types_seen += box.box_type
 		else
 			parts |= box
+	return parts
+
+/obj/item/RBMK_box/core/pre_assemble_reactor/Initialize(mapload)
+	. = ..()
+	var/list/parts = get_parts()
+
 	if(length(parts) == 8)
-		build_reactor(parts)
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = build_reactor(parts)
+		newCore.activate()
 	return
 
 /obj/item/RBMK_box/core/proc/build_reactor(list/parts)
@@ -240,19 +254,22 @@
 		if(box.box_type == "coolant_input")
 			var/obj/machinery/atmospherics/components/unary/rbmk/coolant_input/coolant_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/coolant_input(box.loc, TRUE)
 			coolant_input_machine.dir = box.dir
-			coolant_input_machine.SetInitDirections()
-			coolant_input_machine.build_network()
+			coolant_input_machine.set_init_directions()
+			coolant_input_machine.connect_nodes()
 		else if(box.box_type == "moderator_input")
 			var/obj/machinery/atmospherics/components/unary/rbmk/moderator_input/moderator_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/moderator_input(box.loc, TRUE)
 			moderator_input_machine.dir = box.dir
-			moderator_input_machine.SetInitDirections()
-			moderator_input_machine.build_network()
+			moderator_input_machine.set_init_directions()
+			moderator_input_machine.connect_nodes()
 		else if(box.box_type == "waste_output")
 			var/obj/machinery/atmospherics/components/unary/rbmk/waste_output/waste_output_machine = new/obj/machinery/atmospherics/components/unary/rbmk/waste_output(box.loc, TRUE)
 			waste_output_machine.dir = box.dir
-			waste_output_machine.SetInitDirections()
-			waste_output_machine.build_network()
-	new /obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE)
+			waste_output_machine.set_init_directions()
+			waste_output_machine.connect_nodes()
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = new /obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE) // create object before qdel'ing ourselves
+
 	for(var/obj/item/RBMK_box/box in parts)
 		qdel(box)
 	qdel(src)
+
+	return newCore

@@ -20,10 +20,10 @@ const possTitles = [
 ];
 const Title = pick(possTitles);
 
-export const AdminSecretsPanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AdminSecretsPanel = (props) => {
+  const { act, data } = useBackend();
   const { Categories = [] } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const Search = createSearch(searchText, (item) => {
     return item;
@@ -60,7 +60,7 @@ export const AdminSecretsPanel = (props, context) => {
     let Commands = Category[1].filter(filterSearch).map(makeButton);
     if (Commands.length) {
       return (
-        <Collapsible title={`${Category[0]} (${Commands.length})`} bold key>
+        <Collapsible title={`${Category[0]} (${Commands.length})`} bold key={Category[0]}>
           <Section>
             <Flex spacing={1} wrap="wrap" textAlign="center" justify="center">
               {Commands}

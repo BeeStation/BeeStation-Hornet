@@ -25,7 +25,7 @@
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Outputting <b>[rating_amount]</b> item(s) at <b>[rating_speed*100]%</b> speed.</span>"
+		. += span_notice("The status display reads: Outputting <b>[rating_amount]</b> item(s) at <b>[rating_speed*100]%</b> speed.")
 
 /obj/machinery/processor/proc/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	if (recipe.output && loc && !QDELETED(src))
@@ -49,9 +49,9 @@
 			continue
 		return recipe
 
-/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/processor/attackby(obj/item/O, mob/living/user, params)
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is in the process of processing!</span>")
+		to_chat(user, span_warning("[src] is in the process of processing!"))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "processor", "processor1", O))
 		return
@@ -73,11 +73,11 @@
 				continue
 			var/datum/food_processor_process/P = select_recipe(S)
 			if(P)
-				if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
+				if(T.atom_storage.attempt_remove(S, src))
 					loaded++
 
 		if(loaded)
-			to_chat(user, "<span class='notice'>You insert [loaded] items into [src].</span>")
+			to_chat(user, span_notice("You insert [loaded] items into [src]."))
 		return
 
 	var/datum/food_processor_process/P = select_recipe(O)
@@ -86,33 +86,32 @@
 			"You put [O] into [src].")
 		user.transferItemToLoc(O, src, TRUE)
 		return 1
+	else if(!user.combat_mode)
+		to_chat(user, "<span class='warning'>That probably won't blend!</span>")
+		return 1
 	else
-		if(user.a_intent != INTENT_HARM)
-			to_chat(user, "<span class='warning'>That probably won't blend!</span>")
-			return 1
-		else
-			return ..()
+		return ..()
 
 /obj/machinery/processor/interact(mob/user)
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is in the process of processing!</span>")
+		to_chat(user, span_warning("[src] is in the process of processing!"))
 		return TRUE
-	if(user.a_intent == INTENT_GRAB && ismob(user.pulling) && select_recipe(user.pulling))
+	if(ismob(user.pulling) && select_recipe(user.pulling))
 		if(user.grab_state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		var/mob/living/pushed_mob = user.pulling
-		visible_message("<span class='warner'>[user] stuffs [pushed_mob] into [src]!</span>")
+		visible_message(span_warner("[user] stuffs [pushed_mob] into [src]!"))
 		pushed_mob.forceMove(src)
 		user.stop_pulling()
 		return
 	if(contents.len == 0)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return TRUE
 	processing = TRUE
 	user.visible_message("[user] turns on [src].", \
-		"<span class='notice'>You turn on [src].</span>", \
-		"<span class='italics'>You hear a food processor.</span>")
+		span_notice("You turn on [src]."), \
+		span_italics("You hear a food processor."))
 	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(500)
 	var/total_time = 0
@@ -141,6 +140,8 @@
 	set src in oview(1)
 	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
+	if (!usr.canUseTopic())
+		return
 	if(isliving(usr))
 		var/mob/living/L = usr
 		if(!(L.mobility_flags & MOBILITY_UI))
@@ -150,7 +151,7 @@
 
 /obj/machinery/processor/container_resist(mob/living/user)
 	user.forceMove(drop_location())
-	user.visible_message("<span class='notice'>[user] crawls free of the processor!</span>")
+	user.visible_message(span_notice("[user] crawls free of the processor!"))
 
 /obj/machinery/processor/slime
 	name = "slime processor"

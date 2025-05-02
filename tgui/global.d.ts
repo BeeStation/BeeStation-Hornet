@@ -55,24 +55,9 @@ type ByondType = {
   TRIDENT: number | null;
 
   /**
-   * True if browser is IE8 or lower.
+   * Version of Blink engine of WebView2. Null if N/A.
    */
-  IS_LTE_IE8: boolean;
-
-  /**
-   * True if browser is IE9 or lower.
-   */
-  IS_LTE_IE9: boolean;
-
-  /**
-   * True if browser is IE10 or lower.
-   */
-  IS_LTE_IE10: boolean;
-
-  /**
-   * True if browser is IE11 or lower.
-   */
-  IS_LTE_IE11: boolean;
+  BLINK: number | null;
 
   /**
    * If `true`, unhandled errors and common mistakes result in a blue screen
@@ -191,6 +176,11 @@ type ByondType = {
    * Loads a script into the document.
    */
   loadJs(url: string): void;
+
+  /**
+   * Maps icons to their ref
+   */
+  iconRefMap: Record<string, string>;
 };
 
 /**
@@ -203,4 +193,13 @@ interface Window {
   Byond: ByondType;
   __store__: Store<unknown, AnyAction>;
   __augmentStack__: (store: Store) => StackAugmentor;
+
+  // IE IndexedDB stuff.
+  msIndexedDB: IDBFactory;
+  msIDBTransaction: IDBTransaction;
+
+  // 516 byondstorage API.
+  hubStorage: Storage;
+  domainStorage: Storage;
+  serverStorage: Storage;
 }

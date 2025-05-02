@@ -62,7 +62,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	if(isanimal(user))
 		var/mob/living/simple_animal/A = user
 		if(!A.dextrous)
-			to_chat(user, "<span class='warning'>You are too primitive to use this device!</span>")
+			to_chat(user, span_warning("You are too primitive to use this device!"))
 			return UI_CLOSE
 	return ..()
 
@@ -71,7 +71,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 		return
 	var/obj/item/card/swipe_id = usr.get_idcard()
 	if(!swipe_id || !istype(swipe_id))
-		to_chat(usr, "<span class='warning'>No ID card detected.</span>")
+		to_chat(usr, span_warning("No ID card detected."))
 		return
 	switch(action)
 		if("red_alert")
@@ -82,19 +82,24 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 			if(!event_source)
 				sendEvent(KEYCARD_EMERGENCY_MAINTENANCE_ACCESS, swipe_id)
 				. = TRUE
+		if("bsa_unlock")
+			if(!event_source)
+				sendEvent(KEYCARD_BSA_UNLOCK, swipe_id)
+				. = TRUE
 		if("auth_swipe")
 			if(event_source)
 				if(swipe_id == event_source.triggering_card)
-					to_chat(usr, "<span class='warning'>Invalid ID. Confirmation ID must not equal trigger ID.</span>")
+					to_chat(usr, span_warning("Invalid ID. Confirmation ID must not equal trigger ID."))
+					return
+				var/current_sec_level = SSsecurity_level.get_current_level_as_number()
+				if(current_sec_level > SEC_LEVEL_RED && event == KEYCARD_RED_ALERT)
+					to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
 					return
 				event_source.trigger_event(usr)
 				event_source = null
 				update_appearance()
 				. = TRUE
-		if("bsa_unlock")
-			if(!event_source)
-				sendEvent(KEYCARD_BSA_UNLOCK, swipe_id)
-				. = TRUE
+
 
 /obj/machinery/keycard_auth/update_appearance(updates)
 	. = ..()
@@ -116,8 +121,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	triggering_card = swipe_id //Shouldn't need qdel registering due to very short time before this var resets.
 	event = event_type
 	waiting = 1
-	GLOB.keycard_events.fireEvent("triggerEvent", src)
-	addtimer(CALLBACK(src, PROC_REF(eventSent)), 20)
+	GLOB.keycard_events.fireEvent("triggerEvent", src, event)
+	addtimer(CALLBACK(src, PROC_REF(eventSent)), 5 SECONDS)
 
 /obj/machinery/keycard_auth/proc/eventSent()
 	triggerer = null
@@ -125,13 +130,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	event = ""
 	waiting = 0
 
-/obj/machinery/keycard_auth/proc/triggerEvent(source)
+/obj/machinery/keycard_auth/proc/triggerEvent(source, event_trigered)
 	event_source = source
+	event = event_trigered
 	update_appearance()
-	addtimer(CALLBACK(src, PROC_REF(eventTriggered)), 20)
+	addtimer(CALLBACK(src, PROC_REF(eventTriggered)), 5 SECONDS)
 
 /obj/machinery/keycard_auth/proc/eventTriggered()
 	event_source = null
+	event = ""
 	update_appearance()
 
 /obj/machinery/keycard_auth/proc/trigger_event(confirmer)
@@ -139,10 +146,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	message_admins("[ADMIN_LOOKUPFLW(triggerer)] triggered and [ADMIN_LOOKUPFLW(confirmer)] confirmed event [event]")
 
 	var/area/A1 = get_area(triggerer)
-	deadchat_broadcast("<span class='deadsay'><span class='name'>[triggerer]</span> triggered [event] at <span class='name'>[A1.name]</span>.</span>", triggerer)
+	deadchat_broadcast(span_deadsay("[span_name("[triggerer]")] triggered [event] at [span_name("[A1.name]")]."), triggerer)
 
 	var/area/A2 = get_area(confirmer)
-	deadchat_broadcast("<span class='deadsay'><span class='name'>[confirmer]</span> confirmed [event] at <span class='name'>[A2.name]</span>.</span>", confirmer)
+	deadchat_broadcast(span_deadsay("[span_name("[confirmer]")] confirmed [event] at [span_name("[A2.name]")]."), confirmer)
 	switch(event)
 		if(KEYCARD_RED_ALERT)
 			SSsecurity_level.set_level(SEC_LEVEL_RED)

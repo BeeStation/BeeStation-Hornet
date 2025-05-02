@@ -93,7 +93,7 @@ Possible to do for anyone motivated enough:
 			new_disk.forceMove(src)
 			disk = new_disk
 
-/obj/machinery/holopad/tutorial/attack_hand(mob/user)
+/obj/machinery/holopad/tutorial/attack_hand(mob/user, list/modifiers)
 	if(!istype(user))
 		return
 	if(user.incapacitated() || !is_operational)
@@ -158,7 +158,7 @@ Possible to do for anyone motivated enough:
 /obj/machinery/holopad/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Current projection range: <b>[holo_range]</b> units.</span>"
+		. += span_notice("The status display reads: Current projection range: <b>[holo_range]</b> units.")
 
 /obj/machinery/holopad/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", P))
@@ -172,11 +172,11 @@ Possible to do for anyone motivated enough:
 
 	if(istype(P,/obj/item/disk/holodisk))
 		if(disk)
-			to_chat(user,"<span class='notice'>There's already a disk inside [src]</span>")
+			to_chat(user,span_notice("There's already a disk inside [src]"))
 			return
 		if (!user.transferItemToLoc(P,src))
 			return
-		to_chat(user,"<span class='notice'>You insert [P] into [src]</span>")
+		to_chat(user,span_notice("You insert [P] into [src]"))
 		disk = P
 		updateDialog()
 		return
@@ -198,20 +198,20 @@ Possible to do for anyone motivated enough:
 		dat = temp
 	else
 		if(on_network)
-			dat += "<a href='?src=[REF(src)];AIrequest=1'>Request an AI's presence</a><br>"
-			dat += "<a href='?src=[REF(src)];Holocall=1'>Call another holopad</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];AIrequest=1'>Request an AI's presence</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];Holocall=1'>Call another holopad</a><br>"
 		if(disk)
 			if(disk.record)
 				//Replay
-				dat += "<a href='?src=[REF(src)];replay_start=1'>Replay disk recording</a><br>"
-				dat += "<a href='?src=[REF(src)];loop_start=1'>Loop disk recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];replay_start=1'>Replay disk recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];loop_start=1'>Loop disk recording</a><br>"
 				//Clear
-				dat += "<a href='?src=[REF(src)];record_clear=1'>Clear disk recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];record_clear=1'>Clear disk recording</a><br>"
 			else
 				//Record
-				dat += "<a href='?src=[REF(src)];record_start=1'>Start new recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];record_start=1'>Start new recording</a><br>"
 			//Eject
-			dat += "<a href='?src=[REF(src)];disk_eject=1'>Eject disk</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];disk_eject=1'>Eject disk</a><br>"
 
 		if(LAZYLEN(holo_calls))
 			dat += "=====================================================<br>"
@@ -222,7 +222,7 @@ Possible to do for anyone motivated enough:
 			for(var/I in holo_calls)
 				var/datum/holocall/HC = I
 				if(HC.connected_holopad != src)
-					dat += "<a href='?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [get_area(HC.calling_holopad)]</a><br>"
+					dat += "<a href='byond://?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [get_area(HC.calling_holopad)]</a><br>"
 					one_unanswered_call = TRUE
 				else
 					one_answered_call = TRUE
@@ -233,7 +233,7 @@ Possible to do for anyone motivated enough:
 			for(var/I in holo_calls)
 				var/datum/holocall/HC = I
 				if(HC.connected_holopad == src)
-					dat += "<a href='?src=[REF(src)];disconnectcall=[REF(HC)]'>Disconnect call from [HC.user]</a><br>"
+					dat += "<a href='byond://?src=[REF(src)];disconnectcall=[REF(HC)]'>Disconnect call from [HC.user]</a><br>"
 
 
 	var/datum/browser/popup = new(user, "holopad", name, 300, 175)
@@ -300,22 +300,22 @@ Possible to do for anyone motivated enough:
 		if(last_request + 200 < world.time)
 			last_request = world.time
 			temp = "You requested an AI's presence.<BR>"
-			temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+			temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[REF(AI)];jumptoholopad=[REF(src)]'>\the [area]</a>.</span>")
+				to_chat(AI, span_info("Your presence is requested at <a href='byond://?src=[REF(AI)];jumptoholopad=[REF(src)]'>\the [area]</a>."))
 		else
 			temp = "A request for AI presence was already sent recently.<BR>"
-			temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+			temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 
 	else if(href_list["Holocall"])
 		if(outgoing_call)
 			return
 
 		temp = "You must stand on the holopad to make a call!<br>"
-		temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+		temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 		if(usr.loc == loc)
 			var/list/callnames = list()
 			for(var/I in holopads)
@@ -330,7 +330,7 @@ Possible to do for anyone motivated enough:
 
 			if(usr.loc == loc)
 				temp = "Dialing...<br>"
-				temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+				temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 				new /datum/holocall(usr, src, callnames[result])
 
 	else if(href_list["connectcall"])
@@ -399,13 +399,8 @@ Possible to do for anyone motivated enough:
 //this really should not be processing by default with how common holopads are
 //everything in here can start processing if need be once first set and stop processing after being unset
 /obj/machinery/holopad/process()
-	if(LAZYLEN(masters))
-		for(var/I in masters)
-			var/mob/living/master = I
-			var/mob/living/silicon/ai/AI = master
-			if(!istype(AI))
-				AI = null
-
+	if(LAZYLEN(masters)) //As someone in the original PR commented, the original code was indeed depressing
+		for(var/mob/living/master as anything in masters)
 			if(!is_operational || !validate_user(master))
 				clear_holo(master)
 
@@ -414,19 +409,25 @@ Possible to do for anyone motivated enough:
 
 	ringing = FALSE
 
-	for(var/I in holo_calls)
-		var/datum/holocall/HC = I
-		if(HC.connected_holopad != src)
-			if(force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
-				HC.Answer(src)
-				break
-			if(outgoing_call)
-				HC.Disconnect(src)//can't answer calls while calling
-			else
-				playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
-				ringing = TRUE
+	for(var/datum/holocall/holocall as anything in holo_calls)
+		if(holocall.connected_holopad == src)
+			continue
 
-	update_icon()
+		if(force_answer_call && world.time > (holocall.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
+			holocall.Answer(src)
+			break
+		/*
+		if(holocall.head_call && !secure)
+			holocall.Answer(src)
+			break
+		*/
+		if(outgoing_call)
+			holocall.Disconnect(src)//can't answer calls while calling
+		else
+			playsound(src, 'sound/machines/twobeep.ogg', 100) //bring, bring!
+			ringing = TRUE
+
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/holopad/proc/activate_holo(mob/living/user)
 	var/mob/living/silicon/ai/AI = user
@@ -435,7 +436,7 @@ Possible to do for anyone motivated enough:
 
 	if(is_operational && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
 		if (AI && istype(AI.current_holopad, /obj/machinery/holopad))
-			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
+			to_chat(user, "[span_danger("ERROR:")] \black Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/Hologram = new(loc)//Spawn a blank effect at the location.
@@ -463,11 +464,11 @@ Possible to do for anyone motivated enough:
 		move_hologram()
 
 		set_holo(user, Hologram)
-		visible_message("<span class='notice'>A holographic image of [user] flickers to life before your eyes!</span>")
+		visible_message(span_notice("A holographic image of [user] flickers to life before your eyes!"))
 
 		return Hologram
 	else
-		to_chat(user, "<span class='danger'>ERROR:</span> Unable to project hologram.")
+		to_chat(user, "[span_danger("ERROR:")] Unable to project hologram.")
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
@@ -494,8 +495,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/SetLightsAndPower()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
-	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
+	update_use_power(total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE)
+	update_mode_power_usage(ACTIVE_POWER_USE, HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users))
 	if(total_users || replay_mode)
 		set_light(2)
 	else
@@ -626,7 +627,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	Hologram.set_anchored(TRUE)//So space wind cannot drag it.
 	Hologram.name = "[record.caller_name] (Hologram)"//If someone decides to right click.
 	Hologram.set_light(2)	//hologram lighting
-	visible_message("<span class='notice'>A holographic image of [record.caller_name] flickers to life before your eyes!</span>")
+	visible_message(span_notice("A holographic image of [record.caller_name] flickers to life before your eyes!"))
 	return Hologram
 
 /obj/machinery/holopad/proc/replay_start()
@@ -634,8 +635,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		replay_mode = TRUE
 		replay_holo = setup_replay_holo(disk.record)
 		temp = "Replaying...<br>"
-		temp += "<A href='?src=[REF(src)];offset=1'>Change offset</A><br>"
-		temp += "<A href='?src=[REF(src)];replay_stop=1'>End replay</A>"
+		temp += "<A href='byond://?src=[REF(src)];offset=1'>Change offset</A><br>"
+		temp += "<A href='byond://?src=[REF(src)];replay_stop=1'>End replay</A>"
 		SetLightsAndPower()
 		replay_entry(1)
 	return
@@ -660,7 +661,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	record_user = user
 	disk.record.set_caller_image(user)
 	temp = "Recording...<br>"
-	temp += "<A href='?src=[REF(src)];record_stop=1'>End recording.</A>"
+	temp += "<A href='byond://?src=[REF(src)];record_stop=1'>End recording.</A>"
 
 /obj/machinery/holopad/proc/record_message(mob/living/speaker,message,language)
 	if(!record_mode)

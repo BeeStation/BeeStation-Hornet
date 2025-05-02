@@ -28,10 +28,10 @@
 
 /obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
-		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
+		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		log_bomber(user, "has detonated a", src)
-	for(var/atom/movable/AM in src)
-		qdel(AM)
+	for(var/obj/loot in src)
+		SSexplosions.high_mov_atom += loot
 	explosion(get_turf(src), 0, 1, 5, 5)
 	qdel(src)
 
@@ -101,7 +101,7 @@
 
 /obj/structure/closet/crate/secure/owned/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's locked with a privacy lock, and can only be unlocked by the buyer's ID with required access.</span>"
+	. += span_notice("It's locked with a privacy lock, and can only be unlocked by the buyer's ID with required access.")
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/crate/secure/owned)
 
@@ -117,36 +117,36 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/crate/secure/owned)
 	else
 		if(broken)
 			if(!silent)
-				to_chat(user, "<span class='warning'>[src] is broken!</span>")
+				to_chat(user, span_warning("[src] is broken!"))
 			return FALSE
 		var/obj/item/card/id/id_card = user.get_idcard(TRUE)
 		if(!id_card)
 			if(!silent)
-				to_chat(user, "<span class='notice'>No ID detected!</span>")
+				to_chat(user, span_notice("No ID detected!"))
 			return FALSE
 		if(!id_card.registered_account)
 			if(!silent)
-				to_chat(user, "<span class='notice'>No linked bank account detected!</span>")
+				to_chat(user, span_notice("No linked bank account detected!"))
 			return FALSE
 		if(!(id_card.registered_account == buyer_account))
 			if(!silent)
-				to_chat(user, "<span class='notice'>Bank account in ID card does not match with buyer!</span>")
+				to_chat(user, span_notice("Bank account in ID card does not match with buyer!"))
 			return FALSE
 		if(department_purchase && !istype(id_card, /obj/item/card/id/departmental_budget))
 			if(!silent)
-				to_chat(user, "<span class='notice'>ID isn't a budget card!</span>")
+				to_chat(user, span_notice("ID isn't a budget card!"))
 			return FALSE
 		if(!allowed(user))
 			if(!silent)
 				if(!department_purchase)
-					to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card.</span>")
+					to_chat(user, span_notice("Access Denied, insufficient access on ID card."))
 				else
-					to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card. Equip an ID card with the required access to open, and tap the budget card onto the crate.</span>")
+					to_chat(user, span_notice("Access Denied, insufficient access on ID card. Equip an ID card with the required access to open, and tap the budget card onto the crate."))
 			return FALSE
 		if(iscarbon(user))
 			add_fingerprint(user)
 		locked = !locked
-		user.visible_message("<span class='notice'>[user] unlocks [src]'s privacy lock.</span>",
-						"<span class='notice'>You unlock [src]'s privacy lock.</span>")
+		user.visible_message(span_notice("[user] unlocks [src]'s privacy lock."),
+						span_notice("You unlock [src]'s privacy lock."))
 		privacy_lock = FALSE
 		update_icon()

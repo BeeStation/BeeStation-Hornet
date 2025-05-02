@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Flex, Section, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
-export const GhostPoolProtection = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GhostPoolProtection = (props) => {
+  const { act, data } = useBackend();
   const { events_or_midrounds, spawners, station_sentience, silicons, minigames } = data;
   return (
     <Window theme="admin" title="Ghost Pool Protection" width={400} height={285}>

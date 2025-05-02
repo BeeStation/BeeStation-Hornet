@@ -4,7 +4,7 @@
 /obj/item/clothing/suit/space/eva/plasmaman
 	name = "EVA plasma envirosuit"
 	desc = "A special plasma containment suit designed to be space-worthy, as well as worn over other clothing. Like its smaller counterpart, it can automatically extinguish the wearer in a crisis, and holds twice as many charges."
-	allowed = list(/obj/item/gun, /obj/item/ammo_casing, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
+	allowed = list(/obj/item/gun, /obj/item/ammo_casing, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
 	armor_type = /datum/armor/eva_plasmaman
 	resistance_flags = FIRE_PROOF
 	icon_state = "plasmaman_suit"
@@ -23,7 +23,7 @@
 
 /obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There [extinguishes_left == 1 ? "is" : "are"] [extinguishes_left] extinguisher charge\s left in this suit.</span>"
+	. += span_notice("There [extinguishes_left == 1 ? "is" : "are"] [extinguishes_left] extinguisher charge\s left in this suit.")
 
 
 /obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
@@ -36,7 +36,7 @@
 				return
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
-			H.visible_message("<span class='warning'>[H]'s suit automatically extinguishes [H.p_them()]!</span>","<span class='warning'>Your suit automatically extinguishes you.</span>")
+			H.visible_message(span_warning("[H]'s suit automatically extinguishes [H.p_them()]!"),span_warning("Your suit automatically extinguishes you."))
 			H.ExtinguishMob()
 			new /obj/effect/particle_effect/water(get_turf(H))
 
@@ -69,8 +69,7 @@
 	var/smile_state = "envirohelm_smile"
 	var/visor_state = "enviro_visor"
 	var/lamp_functional = TRUE
-	var/obj/item/clothing/head/attached_hat
-	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
@@ -86,32 +85,23 @@
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	visor_toggling()
-	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
-
-/obj/item/clothing/head/helmet/space/plasmaman/Destroy()
-	if (attached_hat)
-		if (attached_hat.resistance_flags & INDESTRUCTIBLE)
-			attached_hat.forceMove(get_turf(src))
-		else
-			QDEL_NULL(attached_hat)
-	..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
 		toggle_welding_screen(user)
 
-/obj/item/clothing/head/helmet/space/plasmaman/examine(mob/user)
-	. = ..()
-	if(attached_hat)
-		. += "<span class='notice'>There's \a [attached_hat.name] on the helmet which can be removed through the context menu.</span>"
-	else
-		. += "<span class='notice'>A hat can be placed on the helmet.</span>"
+/obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/toggle_welding_screen))
+		toggle_welding_screen(user)
+		return
+
+	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(!weldingvisortoggle(user))
 		return
 	if(helmet_on)
-		to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
+		to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 	update_icon()
@@ -128,13 +118,13 @@
 	if(istype(item, /obj/item/light/bulb) && !lamp_functional)
 		lamp_functional = TRUE
 		qdel(item)
-		to_chat(user, "<span class='notice'>You repair the broken headlamp!</span>")
+		to_chat(user, span_notice("You repair the broken headlamp!"))
 	if(istype(item, /obj/item/toy/crayon))
 		if(smile)
-			to_chat(user, "<span class='notice'>Seems like someone already drew something on the helmet's visor.</span>")
+			to_chat(user, span_notice("Seems like someone already drew something on the helmet's visor."))
 		else
 			var/obj/item/toy/crayon/CR = item
-			to_chat(user, "<span class='notice'>You start drawing a smiley face on the helmet's visor..</span>")
+			to_chat(user, span_notice("You start drawing a smiley face on the helmet's visor.."))
 			if(do_after(user, 25, target = src))
 				smile = TRUE
 				smile_color = CR.paint_color
@@ -142,39 +132,21 @@
 				update_icon()
 				update_button_icons(user)
 		return
-	if(istype(item, /obj/item/clothing/head) \
-		// i know someone is gonna do it after i thought about it
-		&& !istype(item, /obj/item/clothing/head/helmet/space/plasmaman) \
-		// messy and icon can't be seen before putting on
-		&& !istype(item, /obj/item/clothing/head/costume/foilhat))
-		var/obj/item/clothing/head/hat = item
-		if(attached_hat)
-			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
-			return
-		attached_hat = hat
-		hat.forceMove(src)
-		if (user.get_item_by_slot(ITEM_SLOT_HEAD) == src)
-			hat.equipped(user, ITEM_SLOT_HEAD)
-		update_icon()
-		update_button_icons(user)
-		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
-/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/user, slot)
+/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/user, slot)
 	. = ..()
-	attached_hat?.equipped(user, slot)
-
-/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/user)
-	. = ..()
-	attached_hat?.dropped(user)
-
-/obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
-	if(!user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/lungs/living_lungs = human_user.getorganslot(ORGAN_SLOT_LUNGS)
+	//Early return if its not on the head slot, on a mob that breathes plasma
+	if(slot != ITEM_SLOT_HEAD || living_lungs.breathing_class == /datum/breathing_class/plasma)
 		return
 
-	//The icon's may look differently due to overlays being applied asynchronously
-	for(var/X in actions)
-		var/datum/action/A=X
-		A.UpdateButtonIcon()
+	user.dropItemToGround(src)
+	user.balloon_alert(user, "incompatible biology!")
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+	to_chat(user, span_danger("[src] buzzes smartly as it detaches from [user]'s head."))
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
@@ -190,18 +162,6 @@
 		if(attached_hat)
 			. += attached_hat.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 
-/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat()
-	set name = "Remove Hat"
-	set category = "Object"
-	set src in usr
-
-	usr.put_in_hands(attached_hat)
-	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
-		attached_hat.dropped(usr)
-	attached_hat = null
-	update_icon()
-	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
-
 /obj/item/clothing/head/helmet/space/plasmaman/wash(clean_types)
 	. = ..()
 	if(smile && (clean_types & CLEAN_TYPE_PAINT))
@@ -212,13 +172,13 @@
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
 	if(!lamp_functional)
-		to_chat(user, "<span class='notice'>Your helmet's torch is broken! You'll have to repair it with a lightbulb!</span>")
+		to_chat(user, span_notice("Your helmet's torch is broken! You'll have to repair it with a lightbulb!"))
 		set_light_on(FALSE)
 		helmet_on = FALSE
 		return
 	if(helmet_on)
 		if(!up)
-			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
+			to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
 			helmet_on = FALSE
 			return
 		else
@@ -238,7 +198,7 @@
 	set_light_on(FALSE)
 	helmet_on = FALSE
 	playsound(src, 'sound/effects/glass_step.ogg', 100)
-	to_chat(usr, "<span class='danger'>The [src]'s headlamp is smashed to pieces!</span>")
+	to_chat(usr, span_danger("The [src]'s headlamp is smashed to pieces!"))
 	lamp_functional = FALSE
 	update_icon()
 	usr.update_inv_head() //So the mob overlay updates
@@ -370,7 +330,7 @@
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
+	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/gold
 	name = "designer envirosuit helmet"
@@ -694,7 +654,7 @@
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
+	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
 
 // The Protective helmet variants
 /obj/item/clothing/head/helmet/space/plasmaman/protective
@@ -878,4 +838,4 @@
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
+	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)

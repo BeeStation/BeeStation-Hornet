@@ -48,11 +48,9 @@
 	var/datum/job/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
-
 	var/linglink
 	/// Martial art on this mind
-	var/datum/martial_art/martial_art
+	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
 	var/miming = 0 // Mime's vow of silence
 	var/hellbound = FALSE
@@ -131,7 +129,7 @@
 	else
 		key = new_character.key
 
-	if(new_character.mind)								//disassociate any mind currently in our new body's mind variable
+	if(new_character.mind)								//disassociate any mind curently in our new body's mind variable
 		new_character.mind.set_current(null)
 
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
@@ -159,17 +157,16 @@
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
-
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
-	transfer_antag_huds(hud_to_transfer) //inherit the antag HUD
-	transfer_actions(new_character)
-	transfer_martial_arts(new_character)
+	transfer_antag_huds(hud_to_transfer) //Inherit the antag HUD
+	transfer_martial_arts(new_character) //Todo: Port this proc
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
 
+	SEND_SIGNAL(src, COMSIG_MIND_TRANSFERRED, old_current)
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 	// Update SSD indicators
 	if(isliving(old_current))
@@ -366,10 +363,6 @@
 	if (!implant)
 		. = uplink_loc
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
-		if(src.has_antag_datum(/datum/antagonist/incursion))
-			U.uplink_flag = UPLINK_INCURSION
-		if(src.has_antag_datum(/datum/antagonist/traitor/excommunicate))
-			U.uplink_flag = UPLINK_EXCOMMUNICATE
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
@@ -380,7 +373,7 @@
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 			else if(uplink_loc == P)
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
-			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
+			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
 
 		if(uplink_owner)
 			uplink_owner.antag_memory += U.unlock_note + "<br>"
@@ -392,7 +385,7 @@
 		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
 		if(!silent)
 			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
-			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
+			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
 		return I
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
@@ -422,7 +415,7 @@
 		creator.current.faction |= current.faction
 	if(creator.special_role)
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator.current)], an antagonist.")
-		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
+		to_chat(current, span_userdanger("Despite your creator's current allegiances, your true master remains [creator.name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed."))
 
 /datum/mind/proc/show_memory(mob/recipient, window=1)
 	if(!recipient)
@@ -454,7 +447,7 @@
 			output += "<br>[objective.explanation_text]"
 
 	if(window)
-		recipient << browse(output,"window=memory")
+		recipient << browse(HTML_SKELETON(output),"window=memory")
 	else if(antag_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 
@@ -469,7 +462,7 @@
 	if(href_list["remove_antag"])
 		var/datum/antagonist/A = locate(href_list["remove_antag"]) in antag_datums
 		if(!istype(A))
-			to_chat(usr,"<span class='warning'>Invalid antagonist ref to be removed.</span>")
+			to_chat(usr,span_warning("Invalid antagonist ref to be removed."))
 			return
 		A.admin_remove(usr)
 
@@ -622,7 +615,7 @@
 							log_admin("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
 			if("uplink")
 				if(!equip_traitor())
-					to_chat(usr, "<span class='danger'>Equipping a syndicate failed!</span>")
+					to_chat(usr, span_danger("Equipping a syndicate failed!"))
 					log_admin("[key_name(usr)] tried and failed to give [current] an uplink.")
 				else
 					log_admin("[key_name(usr)] gave [current] an uplink.")
@@ -660,12 +653,15 @@
 	var/obj_count = 1
 	var/list/antag_objectives = get_all_antag_objectives()
 	if(antag_objectives.len)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		to_chat(current, span_notice("Your current objectives:"))
 		for(var/datum/objective/O as() in antag_objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 			obj_count++
+		// Objectives are often stored in the static data of antag uis, so we should update those as well
+		for(var/datum/antagonist/antag as anything in antag_datums)
+			antag.update_static_data(current)
 	if(crew_objectives.len)
-		to_chat(current, "<span class='notice'>Your optional objectives:</span>")
+		to_chat(current, span_notice("Your optional objectives:"))
 		for(var/datum/objective/C as() in crew_objectives)
 			to_chat(current, "[C.explanation_text]")
 
@@ -716,34 +712,8 @@
 	add_antag_datum(head)
 	special_role = ROLE_REV_HEAD
 
-/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
-	// HACK: Preferences menu creates one of every selectable species.
-	// Some species, like vampires, create spells when they're made.
-	// The "action" is created when those spells Initialize.
-	// Preferences menu can create these assets at *any* time, primarily before
-	// the atoms SS initializes.
-	// That means "action" won't exist.
-	if (isnull(S.action))
-		return
-	spell_list += S
-	S.action.Grant(current)
-
 /datum/mind/proc/owns_soul()
 	return soulOwner == src
-
-//To remove a specific spell from a mind
-/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)
-	if(!spell)
-		return
-	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		if(istype(S, spell))
-			spell_list -= S
-			qdel(S)
-
-/datum/mind/proc/RemoveAllSpells()
-	for(var/obj/effect/proc_holder/S in spell_list)
-		RemoveSpell(S)
 
 /datum/mind/proc/transfer_martial_arts(mob/living/new_character)
 	if(!ishuman(new_character))
@@ -753,28 +723,6 @@
 			martial_art.remove(new_character)
 		else
 			martial_art.teach(new_character)
-
-/datum/mind/proc/transfer_actions(mob/living/new_character)
-	if(current && current.actions)
-		for(var/datum/action/A in current.actions)
-			A.Grant(new_character)
-	transfer_mindbound_actions(new_character)
-
-/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
-	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		S.action.Grant(new_character)
-
-/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
-	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		for(var/type in exceptions)
-			if(istype(S, type))
-				continue
-		S.charge_counter = delay
-		S.updateButtonIcon()
-		INVOKE_ASYNC(S, TYPE_PROC_REF(/obj/effect/proc_holder/spell, start_recharge))
-
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients)
 	for(var/mob/dead/observer/G in (ghosts_with_clients ? GLOB.player_list : GLOB.dead_mob_list))
 		if(G.mind == src)

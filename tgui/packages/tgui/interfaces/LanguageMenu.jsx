@@ -3,8 +3,8 @@ import { classes } from 'common/react';
 import { Button, Box, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const LanguageMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const LanguageMenu = (props) => {
+  const { act, data } = useBackend();
   const { admin_mode, is_living, omnitongue, language_static_data = [], known_languages = [], unknown_languages = [] } = data;
   return (
     <Window theme="generic" width={700} height={600}>
@@ -22,7 +22,10 @@ export const LanguageMenu = (props, context) => {
                         <Stack.Item>
                           <Stack mb={-1}>
                             <Stack.Item mr={0.2}>
-                              <Box className={classes(['chat16x16', 'language-' + languageData.icon_state])} />
+                              <Box
+                                className={classes(['chat16x16', 'language-' + languageData.icon_state])}
+                                style={{ verticalAlign: 'bottom' }}
+                              />
                             </Stack.Item>
                             <Stack.Item>{languageData.name}</Stack.Item>
                           </Stack>

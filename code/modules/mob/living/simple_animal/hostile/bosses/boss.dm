@@ -4,7 +4,7 @@
 	robust_searching = 1
 	stat_attack = HARD_CRIT
 	status_flags = 0
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	gender = NEUTER
 	hardattacks = TRUE
 	var/list/boss_abilities = list() //list of /datum/action/boss
@@ -53,31 +53,22 @@
 	var/needs_target = TRUE //Does the boss need to have a target? (Only matters for the AI)
 	var/say_when_triggered = "" //What does the boss Say() when the ability triggers?
 
-/datum/action/boss/Trigger()
-	. = ..()
-	if(.)
-		if(!istype(boss, boss_type))
+/datum/action/boss/on_activate(mob/user, atom/target)
+	if(!istype(boss, boss_type))
+		return 0
+	if(!boss.atb)
+		return 0
+	if(boss.atb.points < boss_cost)
+		return 0
+	if(!boss.client)
+		if(needs_target && !boss.target)
 			return 0
-		if(!boss.atb)
+	if(boss)
+		if(say_when_triggered)
+			boss.say(say_when_triggered, forced = "boss action")
+		if(!boss.atb.spend(boss_cost))
 			return 0
-		if(boss.atb.points < boss_cost)
-			return 0
-		if(!boss.client)
-			if(needs_target && !boss.target)
-				return 0
-		if(boss)
-			if(say_when_triggered)
-				boss.say(say_when_triggered, forced = "boss action")
-			if(!boss.atb.spend(boss_cost))
-				return 0
-
-//Example:
-/*
-/datum/action/boss/selfgib/Trigger()
-	if(..())
-		boss.gib()
-*/
-
+	return TRUE
 
 //Designed for boss mobs only
 /datum/boss_active_timed_battle
@@ -129,7 +120,7 @@
 			abilities = shuffle(abilities)
 			for(var/ab in abilities)
 				var/datum/action/boss/AB = ab
-				if(prob(AB.usage_probability) && AB.Trigger())
+				if(prob(AB.usage_probability) && AB.trigger())
 					break
 
 

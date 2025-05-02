@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ChemDebugSynthesizer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemDebugSynthesizer = (props) => {
+  const { act, data } = useBackend();
   const { amount, beakerCurrentVolume, beakerMaxVolume, isBeakerLoaded, beakerContents = [] } = data;
   return (
     <Window width={390} height={330}>
@@ -21,7 +21,7 @@ export const ChemDebugSynthesizer = (props, context) => {
                   maxValue={beakerMaxVolume}
                   step={1}
                   stepPixelSize={2}
-                  onChange={(e, value) =>
+                  onChange={(value) =>
                     act('amount', {
                       amount: value,
                     })

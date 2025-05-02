@@ -8,7 +8,6 @@
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#bbe291"
-	exp_type_department = EXP_TYPE_SERVICE // This is so the jobs menu can work properly
 
 	outfit = /datum/outfit/job/bartender
 
@@ -42,7 +41,7 @@
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
-	backpack_contents = list(/obj/item/storage/box/beanbag=1)
+	l_hand = /obj/item/storage/box/beanbag
 	shoes = /obj/item/clothing/shoes/laceup
 
 

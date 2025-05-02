@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const GulagTeleporterConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GulagTeleporterConsole = (props) => {
+  const { act, data } = useBackend();
   const {
     teleporter,
     teleporter_lock,
@@ -66,7 +66,8 @@ export const GulagTeleporterConsole = (props, context) => {
                 width="48px"
                 minValue={1}
                 maxValue={1000}
-                onChange={(e, value) => act('set_goal', { value })}
+                step={1}
+                onChange={(value) => act('set_goal', { value })}
               />
               <Button.Checkbox content="Permanent sentence" checked={permanent} onClick={() => act('set_permanent')} />
             </LabeledList.Item>

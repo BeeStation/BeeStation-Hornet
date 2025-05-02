@@ -63,7 +63,7 @@
 			if(QDELETED(upriser))
 				continue
 			var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null) // it will delete upriser on creation and override any machine checks
-			M.faction = list("profit")
+			M.faction = list(FACTION_HOSTILE)
 			M.speak = rampant_speeches.Copy()
 			M.speak_chance = 7
 

@@ -121,3 +121,9 @@
 	greyscale_config = /datum/greyscale_config/labcoat
 	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
 	greyscale_colors = "#EEEEEE#88242D#88242D#39393F"
+	
+/obj/item/clothing/suit/toggle/labcoat/research_director
+	name = "research director's labcoat"
+	desc = "Popped collar, ancient science fair medal, worn out buttons that barely keep the coat closed? Oh yeah, it's research time. Has expensive plasma-imbued fabric, making it resistant to spills."
+	icon_state = "labcoat_rd"
+	item_state = "labcoat_tox"

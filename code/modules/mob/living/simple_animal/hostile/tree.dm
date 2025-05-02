@@ -13,7 +13,7 @@
 	response_help_simple = "brush"
 	response_disarm_continuous = "pushes"
 	response_disarm_simple = "push"
-	faction = list("plants")
+	faction = list(FACTION_PLANTS)
 	speed = 1
 	maxHealth = 250
 	health = 250
@@ -31,11 +31,11 @@
 	taunt_chance = 20
 
 	atmos_requirements = list("min_oxy" = 2, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 5
+	unsuitable_atmos_damage = 2.5
 	minbodytemp = 0
 	maxbodytemp = 1200
 
-	faction = list("hostile")
+	faction = list(FACTION_PLANTS)
 	deathmessage = "is hacked into pieces!"
 	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -44,17 +44,19 @@
 
 	discovery_points = 1000
 
-/mob/living/simple_animal/hostile/tree/Life()
+/mob/living/simple_animal/hostile/tree/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(isopenturf(loc))
-		var/turf/open/T = src.loc
-		if(T.air)
-			var/co2 = T.air.get_moles(GAS_CO2)
-			if(co2 > 0)
-				if(prob(25))
-					var/amt = min(co2, 9)
-					T.air.adjust_moles(GAS_CO2, -amt)
-					T.atmos_spawn_air("o2=[amt];TEMP=293.15")
+		return
+	var/turf/open/T = src.loc
+	if(!T.air || !T.air.gases[/datum/gas/carbon_dioxide])
+		return
+
+	var/co2 = T.air.gases[/datum/gas/carbon_dioxide][MOLES]
+	if(co2 > 0 && DT_PROB(13, delta_time))
+		var/amt = min(co2, 9)
+		T.air.gases[/datum/gas/carbon_dioxide][MOLES] -= amt
+		T.atmos_spawn_air("o2=[amt];TEMP=293.15")
 
 /mob/living/simple_animal/hostile/tree/festivus
 	name = "festivus pole"

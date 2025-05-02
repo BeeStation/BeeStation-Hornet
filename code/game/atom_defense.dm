@@ -61,6 +61,10 @@
 	SHOULD_BE_PURE(TRUE)
 	return atom_integrity
 
+/atom/proc/get_integrity_ratio()
+	SHOULD_BE_PURE(TRUE)
+	return (atom_integrity - integrity_failure * max_integrity) / (max_integrity * (1 - integrity_failure))
+
 ///returns the damage value of the attack after processing the atom's various armor protections
 /atom/proc/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(!uses_integrity)
@@ -112,7 +116,8 @@
 
 ///what happens when the atom's integrity reaches zero.
 /atom/proc/atom_destruction(damage_flag)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ATOM_DESTRUCTION, damage_flag)
 
 ///changes max_integrity while retaining current health percentage, returns TRUE if the atom got broken.
 /atom/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE)

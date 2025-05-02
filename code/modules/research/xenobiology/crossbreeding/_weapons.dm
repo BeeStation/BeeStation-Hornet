@@ -8,7 +8,7 @@ Slimecrossing Weapons
 /obj/item/melee/arm_blade/slime
 	name = "slimy boneblade"
 	desc = "What remains of the bones in your arm. Incredibly sharp, and painful for both you and your opponents."
-	force = 15
+	force = 20
 	sharpness = SHARP_DISMEMBER
 	force_string = "painful"
 
@@ -73,7 +73,7 @@ Slimecrossing Weapons
 	attack_weight = 2
 	block_power = 75
 	block_level = 3
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_PROJECTILE
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2

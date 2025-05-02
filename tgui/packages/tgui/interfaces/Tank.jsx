@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Tank = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Tank = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={400} height={120}>
       <Window.Content>
@@ -37,7 +37,8 @@ export const Tank = (props, context) => {
                 unit="kPa"
                 minValue={data.minReleasePressure}
                 maxValue={data.maxReleasePressure}
-                onChange={(e, value) =>
+                step={1}
+                onChange={(value) =>
                   act('pressure', {
                     pressure: value,
                   })

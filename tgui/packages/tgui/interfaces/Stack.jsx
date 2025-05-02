@@ -1,16 +1,15 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Input, NoticeBox, Section, Collapsible, Table } from '../components';
 import { Window } from '../layouts';
 
-export const Stack = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Stack = (props) => {
+  const { act, data } = useBackend();
 
   const { amount, recipes = [] } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const testSearch = createSearch(searchText, (item) => {
     return item.title;
@@ -42,10 +41,10 @@ export const Stack = (props, context) => {
         <Section
           title={'Amount: ' + amount}
           buttons={
-            <Fragment>
+            <>
               Search
               <Input autoFocus value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
-            </Fragment>
+            </>
           }>
           {(items.length === 0 && <NoticeBox>No recipes found.</NoticeBox>) || (
             <RecipeList recipes={items} do_sort={doSearch} expand={doSearch} />
@@ -56,8 +55,8 @@ export const Stack = (props, context) => {
   );
 };
 
-const RecipeList = (props, context) => {
-  const { act, data } = useBackend(context);
+const RecipeList = (props) => {
+  const { act, data } = useBackend();
 
   const { recipes, do_sort, expand } = props;
 
@@ -65,9 +64,9 @@ const RecipeList = (props, context) => {
     ? sortBy((recipe) => recipe.title.toLowerCase())(recipes.filter((recipe) => recipe.title !== undefined))
     : recipes;
 
-  return display_recipes.map((recipe) => {
+  return display_recipes.map((recipe, index) => {
     if (recipe.spacer) {
-      return <hr key="spacer" />;
+      return <hr key={`stack-spacer-${display_recipes.length}-${index}`} />;
     } else if (recipe.sub_recipes) {
       return (
         <Collapsible color="label" title={recipe.title} key={recipe.title} open={expand}>
@@ -90,8 +89,8 @@ const buildMultiplier = (recipe, amount) => {
   return Math.floor(amount / recipe.req_amount);
 };
 
-const Multipliers = (props, context) => {
-  const { act, data } = useBackend(context);
+const Multipliers = (props) => {
+  const { act, data } = useBackend();
 
   const { recipe, maxMultiplier } = props;
 
@@ -134,8 +133,8 @@ const Multipliers = (props, context) => {
   return finalResult;
 };
 
-const Recipe = (props, context) => {
-  const { act, data } = useBackend(context);
+const Recipe = (props) => {
+  const { act, data } = useBackend();
 
   const { amount } = data;
 

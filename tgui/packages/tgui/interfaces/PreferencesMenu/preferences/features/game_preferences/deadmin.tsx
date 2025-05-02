@@ -13,7 +13,7 @@ const DeadminCheckboxInput = (props: FeatureValueProps<BooleanLike, boolean, Fea
   return (
     <Button
       color="transparent"
-      style={forced ? { 'background-color': '#cc0000' } : null}
+      style={forced ? { backgroundColor: '#cc0000' } : undefined}
       tooltip={forced ? 'Forced by server config' : null}
       tooltipPosition="right"
       icon={forced ? 'minus-square-o' : props.value ? 'check-square-o' : 'square-o'}
@@ -33,6 +33,7 @@ export const deadmin_always: FeatureToggleDeadmin = {
   subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round.',
   component: DeadminCheckboxInput,
+  important: true,
 };
 
 export const deadmin_antagonist: FeatureToggleDeadmin = {
@@ -41,6 +42,7 @@ export const deadmin_antagonist: FeatureToggleDeadmin = {
   subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as an antagonist.',
   component: DeadminCheckboxInput,
+  important: true,
 };
 
 export const deadmin_position_head: FeatureToggleDeadmin = {
@@ -49,6 +51,7 @@ export const deadmin_position_head: FeatureToggleDeadmin = {
   subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as a head of staff.',
   component: DeadminCheckboxInput,
+  important: true,
 };
 
 export const deadmin_position_security: FeatureToggleDeadmin = {
@@ -57,6 +60,7 @@ export const deadmin_position_security: FeatureToggleDeadmin = {
   subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as security.',
   component: DeadminCheckboxInput,
+  important: true,
 };
 
 export const deadmin_position_silicon: FeatureToggleDeadmin = {
@@ -65,4 +69,5 @@ export const deadmin_position_silicon: FeatureToggleDeadmin = {
   subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as a silicon.',
   component: DeadminCheckboxInput,
+  important: true,
 };

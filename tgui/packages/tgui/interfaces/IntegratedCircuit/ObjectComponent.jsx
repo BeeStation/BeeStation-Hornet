@@ -1,13 +1,13 @@
 import { useBackend } from '../../backend';
 import { Box, Stack, Button } from '../../components';
-import { Component } from 'inferno';
-import { shallowDiffers } from 'common/react';
-import { ABSOLUTE_Y_OFFSET } from './constants';
+import { Component } from 'react';
+import { shallowDiffers } from '../../../common/react';
+import { ABSOLUTE_Y_OFFSET, noop } from './constants';
 import { Port } from './Port';
 
 export class ObjectComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isDragging: false,
       dragPos: null,
@@ -34,7 +34,7 @@ export class ObjectComponent extends Component {
   }
 
   handleStopDrag(e) {
-    const { act } = useBackend(this.context);
+    const { act } = useBackend();
     const { dragPos } = this.state;
     const { index } = this.props;
     if (dragPos) {
@@ -101,7 +101,7 @@ export class ObjectComponent extends Component {
       onPortMouseUp,
       ...rest
     } = this.props;
-    const { act } = useBackend(this.context);
+    const { act } = useBackend();
     const { startPos, dragPos } = this.state;
 
     let [x_pos, y_pos] = [x, y];
