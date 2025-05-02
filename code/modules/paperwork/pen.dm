@@ -324,5 +324,5 @@
 
 /obj/item/pen/screwdriver/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)][HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) ? "_out" : null]"
+	icon_state = "[initial(icon_state)][HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) ? "out" : null]"
 	item_state = initial(item_state) //since transforming component switches the icon.
