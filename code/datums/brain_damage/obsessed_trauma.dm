@@ -96,7 +96,7 @@
 		return
 	RegisterSignal(obsession, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
 	to_chat(owner, span_warning("[message] The voices have a new task for you..."))
-	antagonist.objectives = list()
+	antagonist.clear_objectives()
 	antagonist.forge_objectives(obsession)
 	to_chat(owner, span_bold("You don't know their connection, but The Voices compel you to stalk [obsession.name], forcing them into a state of constant paranoia."))
 	owner.mind.announce_objectives()

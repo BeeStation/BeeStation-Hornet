@@ -3,6 +3,7 @@
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/incise, /datum/surgery_step/extract_organ, /datum/surgery_step/gland_insert)
 	possible_locs = list(BODY_ZONE_CHEST)
 	ignore_clothes = 1
+	required_trait = TRAIT_SURGEON
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!ishuman(user))

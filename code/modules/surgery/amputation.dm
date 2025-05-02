@@ -7,7 +7,6 @@
 	requires_bodypart_type = 0
 	self_operable = TRUE
 
-
 /datum/surgery_step/sever_limb
 	name = "sever limb"
 	implements = list(TOOL_SCALPEL = 100, TOOL_SAW = 100, /obj/item/melee/arm_blade = 80, /obj/item/fireaxe = 50, /obj/item/hatchet = 40, /obj/item/knife/butcher = 25)

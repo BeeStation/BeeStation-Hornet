@@ -41,14 +41,6 @@
 	message = GLOB.syndicate_code_response_regex.Replace(message, span_red("$1"))
 	hearing_args[HEARING_RAW_MESSAGE] = message
 
-/datum/antagonist/traitor/proc/add_objective(datum/objective/O)
-	objectives += O
-	log_objective(owner, O.explanation_text)
-
-/datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
-	objectives -= O
-
-
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
 

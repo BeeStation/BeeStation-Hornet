@@ -19,13 +19,6 @@
 	owner.special_role = null
 	. = ..()
 
-/datum/antagonist/teratoma/proc/add_objective(datum/objective/O)
-	objectives += O
-	log_objective(owner, O.explanation_text)
-
-/datum/antagonist/teratoma/proc/remove_objective(datum/objective/O)
-	objectives -= O
-
 /datum/antagonist/teratoma/admin_remove(mob/admin)
 	var/mob/living/carbon/monkey/tumor/M = owner.current
 	if(alert(admin, "Humanize?", "Humanize", "Yes", "No") == "Yes")

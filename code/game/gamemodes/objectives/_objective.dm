@@ -35,7 +35,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		team.objectives -= src
 	for(var/datum/mind/own as() in get_owners())
 		for(var/datum/antagonist/A as() in own.antag_datums)
-			A.objectives -= src
+			A.remove_objective(src)
 		own.crew_objectives -= src
 	return ..()
 
@@ -104,7 +104,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			objectives_to_compare = M.get_all_objectives()
 		else if(istype(A,/datum/antagonist))
 			var/datum/antagonist/G = A
-			objectives_to_compare = G.objectives
+			objectives_to_compare = G.get_objectives()
 		else if(istype(A,/datum/team))
 			var/datum/team/T = A
 			objectives_to_compare = T.objectives
@@ -275,7 +275,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			team.objectives -= src
 		for(var/datum/mind/own as() in get_owners())
 			for(var/datum/antagonist/A as() in own.antag_datums)
-				A.objectives -= src
+				A.remove_objective(src)
 			own.crew_objectives -= src
 
 			to_chat(own.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")

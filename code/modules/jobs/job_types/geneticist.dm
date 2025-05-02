@@ -5,8 +5,8 @@
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	selection_color = "#d4ebf2"
 	// Requires a round in medical, this is a decent role for new players but is poorly
 	// communicated. Once the onboarding is better for this role, playtime requirements
@@ -21,9 +21,9 @@
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(
-		ACCOUNT_MED_ID = PAYCHECK_MEDIUM
+		ACCOUNT_MED_ID = PAYCHECK_HARD
 	)
-	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM, TRAIT_GENETICIST)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
 	rpg_title = "Genemancer"

@@ -249,11 +249,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
-"eL" = (
-/obj/effect/landmark/start/virologist,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "ff" = (
 /obj/item/toy/plush/moth/poison,
 /turf/open/floor/iron,
@@ -2560,7 +2555,7 @@ xJ
 ee
 cc
 TS
-eL
+UV
 jF
 Qk
 ff

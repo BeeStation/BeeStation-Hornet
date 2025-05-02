@@ -5,7 +5,6 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	self_operable = TRUE
 
-
 //handle cavity
 /datum/surgery_step/handle_cavity
 	name = "implant item"
