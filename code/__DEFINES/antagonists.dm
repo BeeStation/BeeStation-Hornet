@@ -58,9 +58,6 @@
 #define SPAWNTYPE_MIDROUND "midround"
 #define SPAWNTYPE_EITHER "either"
 
-/// Checks if the given mob is a blood cultist
-#define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
-
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
@@ -149,6 +146,10 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
 ///Checks if the given mob is a malfunctioning AI
 #define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
+/// Checks if the given mob is a blood cultist
+#define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+///Checks if the given mob is a clock cultist
+#define IS_SERVANT_OF_RATVAR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4
@@ -176,13 +177,6 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define LING_FAKEDEATH_TIME					600 //1 minute.
 #define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
-
-// Clockcult
-// ------------------------------------
-
-#define SIGIL_TRANSMISSION_RANGE 4
-/// Clockcult drone
-#define CLOCKDRONE	"drone_clock"
 
 // Abductors
 // ------------------------------------

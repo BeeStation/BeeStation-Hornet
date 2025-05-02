@@ -20,7 +20,7 @@
 			animate(M.client, color=COLOR_WHITE, time=5)
 			SEND_SOUND(M, sound(null))
 			SEND_SOUND(M, sound('sound/magic/fireball.ogg'))
-		if(!is_servant_of_ratvar(M) && isliving(M))
+		if(!IS_SERVANT_OF_RATVAR(M) && isliving(M))
 			var/mob/living/L = M
 			L.fire_stacks = INFINITY
 			L.IgniteMob()

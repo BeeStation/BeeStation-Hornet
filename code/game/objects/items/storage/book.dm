@@ -226,7 +226,7 @@
 			B.icon_state = icon_state
 			B.item_state = item_state
 
-	else if(istype(A, /obj/item/soulstone) && !iscultist(user))
+	else if(istype(A, /obj/item/soulstone) && !IS_CULTIST(user))
 		var/obj/item/soulstone/SS = A
 		if(SS.theme == THEME_HOLY)
 			return
@@ -240,7 +240,7 @@
 			for(var/mob/M in SS.contents)
 				if(M.mind)
 					SS.icon_state = "purified_soulstone2"
-					if(iscultist(M))
+					if(IS_CULTIST(M))
 						SSticker.mode.remove_cultist(M.mind, FALSE, FALSE)
 			for(var/mob/living/simple_animal/shade/EX in SS)
 				EX.icon_state = "ghost1"

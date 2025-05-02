@@ -151,9 +151,6 @@ GLOBAL_VAR(clockcult_eminence)
 //==== Clock cult procs ====
 //==========================
 
-/proc/is_servant_of_ratvar(mob/living/M)
-	return M?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar)
-
 //Similar to cultist one, except silicons are allowed
 /proc/is_convertable_to_clockcult(mob/living/M)
 	if(!istype(M))
@@ -164,13 +161,13 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		return FALSE
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return FALSE
 	if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		return FALSE
 	if(M.mind.unconvertable)
 		return FALSE
-	if(iscultist(M) || isconstruct(M) || ispAI(M))
+	if(IS_CULTIST(M) || isconstruct(M) || ispAI(M))
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		return FALSE
@@ -181,15 +178,6 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
 		var/datum/clockcult/scripture/S = new categorypath
 		GLOB.clockcult_all_scriptures[S.name] = S
-
-/proc/flee_reebe()
-	for(var/mob/living/M in GLOB.mob_list)
-		if(!is_reebe(M.z))
-			continue
-		var/safe_place = find_safe_turf()
-		M.forceMove(safe_place)
-		if(!is_servant_of_ratvar(M))
-			M.SetSleeping(50)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
@@ -213,7 +201,7 @@ GLOBAL_VAR(clockcult_eminence)
 		if(say)
 			sender.say("#[text2ratvar(msg)]")
 		msg = sender.treat_message_min(msg)
-		var/datum/antagonist/servant_of_ratvar/SoR = is_servant_of_ratvar(sender)
+		var/datum/antagonist/servant_of_ratvar/SoR = IS_SERVANT_OF_RATVAR(sender)
 		var/prefix = "Clockbrother"
 		switch(SoR.prefix)
 			if(CLOCKCULT_PREFIX_EMINENCE)

@@ -54,7 +54,7 @@
 			var/mob/living/L = cult_mind.current
 			L.narsie_act()
 	for(var/mob/living/carbon/player in GLOB.player_list)
-		if(player.stat != DEAD && is_station_level(player.loc?.z) && !iscultist(player))
+		if(player.stat != DEAD && is_station_level(player.loc?.z) && !IS_CULTIST(player))
 			souls_needed[player] = TRUE
 	soul_goal = round(1 + LAZYLEN(souls_needed) * 0.75)
 	INVOKE_ASYNC(src, PROC_REF(begin_the_end))
@@ -132,7 +132,7 @@
 /obj/eldritch/narsie/proc/mesmerize()
 	for (var/mob/living/carbon/victim in viewers(NARSIE_CONSUME_RANGE, src))
 		if (victim.stat == CONSCIOUS)
-			if (!iscultist(victim))
+			if (!IS_CULTIST(victim))
 				to_chat(victim, span_cultsmall("You feel conscious thought crumble away in an instant as you gaze upon [src]..."))
 				victim.apply_effect(NARSIE_MESMERIZE_EFFECT, EFFECT_STUN)
 
@@ -146,7 +146,7 @@
 		if (!pos || (pos.z != z))
 			continue
 
-		if(iscultist(food))
+		if(IS_CULTIST(food))
 			cultists += food
 		else
 			noncultists += food

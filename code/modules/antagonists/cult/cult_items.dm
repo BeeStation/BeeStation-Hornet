@@ -64,7 +64,7 @@ Striking a noncultist, however, will tear their flesh."}
 	AddComponent(/datum/component/butchering, 40, 100)
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		user.visible_message(span_warning("[user] cringes as they strike [target]!"), \
 							span_userdanger("Your arm throbs and your brain hurts!"))
 		user.adjustStaminaLoss(rand(force/2,force))
@@ -87,7 +87,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	..()
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 
 /datum/action/innate/dash/cult
@@ -102,7 +102,7 @@ Striking a noncultist, however, will tear their flesh."}
 	phaseout = /obj/effect/temp_visual/dir_setting/cult/phase/out
 
 /datum/action/innate/dash/cult/is_available()
-	if(iscultist(owner) && current_charges)
+	if(IS_CULTIST(owner) && current_charges)
 		return TRUE
 	else
 		return FALSE
@@ -116,12 +116,14 @@ Striking a noncultist, however, will tear their flesh."}
 	knockdown = 20
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(iscultist(hit_atom))
-		return
 	if(ismob(hit_atom))
-		var/mob/M = hit_atom
-		if(M.can_block_magic(MAGIC_RESISTANCE_HOLY))
-			M.visible_message("[src] passes right through [M]!")
+		var/mob/mob_target = hit_atom
+
+		if(IS_CULTIST(mob_target))
+			return
+
+		if(mob_target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+			mob_target.visible_message("[src] passes right through [mob_target]!")
 			return
 	. = ..()
 
@@ -337,7 +339,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user) && !allow_any)
+	if(!IS_CULTIST(user) && !allow_any)
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
@@ -375,7 +377,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
@@ -392,7 +394,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"You want to be blind, do you?\""))
 		user.dropItemToGround(src, TRUE)
 		user.Dizzy(30)
@@ -407,7 +409,7 @@ Striking a noncultist, however, will tear their flesh."}
 	var/static/curselimit = 0
 
 /obj/item/shuttle_curse/attack_self(mob/living/user)
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		user.dropItemToGround(src, TRUE)
 		user.Paralyze(100)
 		to_chat(user, span_warning("A powerful force shoves you away from [src]!"))
@@ -478,7 +480,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(!uses || !iscarbon(user))
 		to_chat(user, span_warning("\The [src] is dull and unmoving in your hands."))
 		return
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		user.dropItemToGround(src, TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, span_warning("\The [src] flickers out of your hands, your connection to this dimension is too strong!"))
@@ -522,7 +524,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/flashlight/flare/culttorch/afterattack(atom/movable/A, mob/user, proximity)
 	if(!proximity)
 		return
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, "That doesn't seem to do anything useful.")
 		return
 
@@ -543,7 +545,7 @@ Striking a noncultist, however, will tear their flesh."}
 			to_chat(user, span_cultitalic("[cultist_to_receive] has died!"))
 			log_game("Void torch failed  - target died")
 			return
-		if(!iscultist(cultist_to_receive))
+		if(!IS_CULTIST(cultist_to_receive))
 			to_chat(user, span_cultitalic("[cultist_to_receive] is not a follower of the Geometer!"))
 			log_game("Void torch failed - target was deconverted")
 			return
@@ -602,7 +604,7 @@ Striking a noncultist, however, will tear their flesh."}
 	var/turf/T = get_turf(hit_atom)
 	if(isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		if(iscultist(L))
+		if(IS_CULTIST(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			if(L.put_in_active_hand(src))
 				L.visible_message(span_warning("[L] catches [src] out of the air!"))
@@ -696,7 +698,9 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/projectile/magic/arcane_barrage/blood/Bump(atom/target)
 	var/turf/T = get_turf(target)
 	playsound(T, 'sound/effects/splat.ogg', 50, TRUE)
-	if(iscultist(target))
+
+	var/mob/living/living_target = target
+	if(IS_CULTIST(living_target))
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.stat != DEAD)
@@ -798,7 +802,7 @@ Striking a noncultist, however, will tear their flesh."}
 				break
 			T.narsie_act(TRUE, TRUE)
 			for(var/mob/living/target in T.contents)
-				if(iscultist(target))
+				if(IS_CULTIST(target))
 					new /obj/effect/temp_visual/cult/sparks(T)
 					if(ishuman(target))
 						var/mob/living/carbon/human/H = target
@@ -842,7 +846,7 @@ Striking a noncultist, however, will tear their flesh."}
 	var/illusions = 4
 
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(iscultist(owner))
+	if(IS_CULTIST(owner))
 		if (attack_type == MELEE_ATTACK && ishuman(hitby.loc))
 			// Cannot block someone who has the bible on their side
 			var/mob/living/carbon/human/attacker = hitby.loc
@@ -879,7 +883,7 @@ Striking a noncultist, however, will tear their flesh."}
 	var/datum/thrownthing/D = throwingdatum
 	if(isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		if(iscultist(L))
+		if(IS_CULTIST(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			if(L.put_in_active_hand(src))
 				L.visible_message(span_warning("[L] catches [src] out of the air!"))
@@ -890,7 +894,7 @@ Striking a noncultist, however, will tear their flesh."}
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))
-						if(!Next.density || iscultist(Next))
+						if(!Next.density || IS_CULTIST(Next))
 							continue
 						throw_at(Next, 3, 1, D.thrower)
 						return

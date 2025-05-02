@@ -9,13 +9,14 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 
-	var/datum/clockcult/scripture/invoking_scripture	//The scripture currently being invoked
+	/// The scripture currently being invoked
+	var/datum/clockcult/scripture/invoking_scripture
 	var/datum/clockcult/scripture/slab/active_scripture		//For scriptures that power the slab
 	var/datum/progressbar/invokation_bar
 
 	var/holder_class
 	var/list/scriptures = list()
-	var/empowerment
+
 	var/charge_overlay
 
 	var/calculated_cogs = 0
@@ -67,13 +68,13 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Remove(user)
 	if(active_scripture)
-		active_scripture.end_invokation()
+		active_scripture.end_invocation()
 	if(buffer)
 		buffer = null
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
 	..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	//Grant quickbound spells
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
@@ -93,12 +94,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		calculated_cogs += difference
 		cogs += difference
 
-/obj/item/clockwork/clockwork_slab/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	INVOKE_ASYNC(active_scripture, TYPE_PROC_REF(/datum/clockcult/scripture/slab, on_slab_attack), target, user)
-	if(active_scripture)
-		active_scripture.end_invokation()
-
 //==================================//
 // !   Quick bind spell handling  ! //
 //==================================//
@@ -108,7 +103,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		return
 	if(quick_bound_scriptures[position])
 		//Unbind the scripture that is quickbound
-		quick_bound_scriptures.Remove(M)
 		qdel(quick_bound_scriptures[position])
 	//Put the quickbound action onto the slab, the slab should grant when picked up
 	var/datum/action/innate/clockcult/quick_bind/quickbound = new
@@ -123,17 +117,17 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 //==================================//
 /obj/item/clockwork/clockwork_slab/attack_self(mob/living/user)
 	. = ..()
-	if(iscultist(user))
-		to_chat(user, "[span_bigbrass("You shouldn't be playing with my toys...")]")
-		user.Stun(60)
-		user.adjust_blindness(150)
-		user.electrocute_act(10, "[name]")
+	if(IS_CULTIST(user))
+		to_chat(user, span_bigbrass("You shouldn't be playing with my toys..."))
+		user.Stun(6 SECONDS)
+		user.adjust_blindness(15 SECONDS)
+		user.electrocute_act(10, name)
 		return
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_warning("You cannot figure out what the device is used for!"))
 		return
 	if(active_scripture)
-		active_scripture.end_invokation()
+		active_scripture.end_invocation()
 		return
 	if(buffer)
 		buffer = null
@@ -175,37 +169,31 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	return data
 
 /obj/item/clockwork/clockwork_slab/ui_act(action, params)
-	var/mob/living/M = usr
-	if(!istype(M))
+	var/mob/living/living_user = usr
+	if(!istype(living_user))
 		return FALSE
 	switch(action)
 		if("invoke")
-			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
-			if(!S)
+			var/scripture_name = params["scriptureName"]
+
+			var/datum/clockcult/scripture/chosen_scripture = GLOB.clockcult_all_scriptures[scripture_name]
+			if(!chosen_scripture)
 				return FALSE
-			if(S.type in purchased_scriptures)
-				if(invoking_scripture)
-					to_chat(M, span_brass("You fail to invoke [name]."))
-					return FALSE
-				if(S.power_cost > GLOB.clockcult_power)
-					to_chat(M, span_neovgre("You need [S.power_cost]W to invoke [S.name]."))
-					return FALSE
-				if(S.vitality_cost > GLOB.clockcult_vitality)
-					to_chat(M, span_neovgre("You need [S.vitality_cost] vitality to invoke [S.name]."))
-					return FALSE
-				var/datum/clockcult/scripture/new_scripture = new S.type()
-				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
+
+			if(chosen_scripture.type in purchased_scriptures)
+				var/datum/clockcult/scripture/new_scripture = new chosen_scripture(living_user, src)
+
 				new_scripture.qdel_on_completion = TRUE
-				new_scripture.begin_invoke(M, src)
+				new_scripture.try_to_invoke()
 			else
-				if(cogs >= S.cogs_required)
-					cogs -= S.cogs_required
-					to_chat(M, span_brass("You unlocked [S.name]. It can now be invoked and quickbound through your slab."))
-					log_game("[S.name] purchased by [M.ckey]/[M.name] the [M.job] for [S.cogs_required] cogs, [cogs] cogs remaining.")
-					purchased_scriptures += S.type
+				if(cogs >= chosen_scripture.cogs_required)
+					cogs -= chosen_scripture.cogs_required
+					to_chat(living_user, span_brass("You unlocked [chosen_scripture.name]. It can now be invoked and quickbound through your slab."))
+					log_game("[chosen_scripture.name] purchased by [ADMIN_LOOKUP(living_user)] for [chosen_scripture.cogs_required] cogs, [cogs] cogs remaining.")
+					purchased_scriptures += chosen_scripture.type
 				else
-					to_chat(M, span_brass("You need [S.cogs_required] cogs to unlock [S.name], you only have [cogs] left!"))
-					to_chat(M, span_brass("<b>Tip:</b> Invoke integration cog and insert the cog into APCs to get more."))
+					to_chat(living_user, span_brass("You need [chosen_scripture.cogs_required] cogs to unlock [chosen_scripture.name], you only have [cogs] left!"))
+					to_chat(living_user, span_brass("<b>Tip:</b> Invoke integration cog and insert the cog into APCs to get more."))
 			return TRUE
 		if("quickbind")
 			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
@@ -223,4 +211,4 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				return FALSE
 			//Create and assign the quickbind
 			var/datum/clockcult/scripture/new_scripture = new S.type()
-			bind_spell(M, new_scripture, positions.Find(position))
+			bind_spell(living_user, new_scripture, positions.Find(position))

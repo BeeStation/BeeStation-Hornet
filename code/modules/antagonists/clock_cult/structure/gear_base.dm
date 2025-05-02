@@ -4,26 +4,31 @@
 	clockwork_desc = "A large cog lying on the floor at feet level."
 	anchored = FALSE
 	break_message = span_warning("Oh, that broke. I guess you could report it to the coders, or just you know ignore this message and get on with killing those god damn heretics coming to break the Ark.")
-	var/default_icon_state = "gear_base"
+	icon_state = "gear_base"
+
+	/// This is added to the end of the icon state when unanchored
 	var/unwrenched_suffix = "_unwrenched"
-	var/list/transmission_sigils
-	var/depowered = FALSE	//Makes sure the depowered proc is only called when its depowered and not while its depowered
-	var/minimum_power = 0	//Minimum operation power
+	/// The transmission sigil supplying power to this gear base
+	var/obj/structure/destructible/clockwork/sigil/transmission/linked_transmission_sigil
+	/// Makes sure the depowered proc is only called when its depowered and not while its depowered
+	var/depowered = FALSE
+	/// Minimum operation power
+	var/minimum_power = 0
 
 /obj/structure/destructible/clockwork/gear_base/Initialize(mapload)
 	. = ..()
 	update_icon_state()
-	transmission_sigils = list()
-	for(var/obj/structure/destructible/clockwork/sigil/transmission/ST in range(src, SIGIL_TRANSMISSION_RANGE))
-		link_to_sigil(ST)
+
+	// Find a sigil
+	for(var/obj/structure/destructible/clockwork/sigil/transmission/sigil in range(src, SIGIL_TRANSMISSION_RANGE))
+		linked_transmission_sigil = sigil
 
 /obj/structure/destructible/clockwork/gear_base/Destroy()
+	linked_transmission_sigil.linked_structures -= src
 	. = ..()
-	for(var/obj/structure/destructible/clockwork/sigil/transmission/ST in transmission_sigils)
-		ST.linked_structures -= src
 
 /obj/structure/destructible/clockwork/gear_base/attackby(obj/item/I, mob/user, params)
-	if(is_servant_of_ratvar(user) && I.tool_behaviour == TOOL_WRENCH)
+	if(IS_SERVANT_OF_RATVAR(user) && I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin to [anchored ? "unwrench" : "wrench"] [src]."))
 		if(I.use_tool(src, user, 20, volume=50))
 			to_chat(user, span_notice("You successfully [anchored ? "unwrench" : "wrench"] [src]."))
@@ -34,21 +39,21 @@
 		return ..()
 
 /obj/structure/destructible/clockwork/gear_base/update_icon_state()
+	icon_state = initial(icon_state) + (anchored ? "" : unwrenched_suffix)
 	. = ..()
-	icon_state = default_icon_state
-	if(!anchored)
-		icon_state += unwrenched_suffix
 
-/obj/structure/destructible/clockwork/gear_base/proc/link_to_sigil(obj/structure/destructible/clockwork/sigil/transmission/T)
-	transmission_sigils |= T
-	T.linked_structures |= src
+/obj/structure/destructible/clockwork/gear_base/proc/unlink_sigil(obj/structure/destructible/clockwork/sigil/transmission/unliked_sigil)
+	linked_transmission_sigil = null
 
-/obj/structure/destructible/clockwork/gear_base/proc/unlink_to_sigil(obj/structure/destructible/clockwork/sigil/transmission/T)
-	if(!(T in transmission_sigils))
-		return
-	transmission_sigils -= T
-	T.linked_structures -= src
-	if(!LAZYLEN(transmission_sigils))
+	// Try and replace the linked transmission sigil with another one
+	for(var/obj/structure/destructible/clockwork/sigil/transmission/new_sigil in range(src, SIGIL_TRANSMISSION_RANGE))
+		if(new_sigil == unliked_sigil)
+			continue
+
+		linked_transmission_sigil = new_sigil
+
+	// Couldn't find a new sigil, depower the structure
+	if(!linked_transmission_sigil)
 		depowered()
 		depowered = TRUE
 
@@ -56,20 +61,20 @@
 
 /obj/structure/destructible/clockwork/gear_base/proc/update_power()
 	if(depowered)
-		if(GLOB.clockcult_power > minimum_power && LAZYLEN(transmission_sigils))
+		if(GLOB.clockcult_power > minimum_power && linked_transmission_sigil)
 			repowered()
 			depowered = FALSE
 			return TRUE
 		return FALSE
 	else
-		if(GLOB.clockcult_power <= minimum_power || !LAZYLEN(transmission_sigils))
+		if(GLOB.clockcult_power <= minimum_power || !linked_transmission_sigil)
 			depowered()
 			depowered = TRUE
 			return FALSE
 		return TRUE
 
 /obj/structure/destructible/clockwork/gear_base/proc/check_power(amount)
-	if(!LAZYLEN(transmission_sigils))
+	if(!linked_transmission_sigil)
 		return FALSE
 	if(depowered)
 		return FALSE

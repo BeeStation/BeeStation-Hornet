@@ -3,9 +3,6 @@
 /datum/game_mode
 	var/list/datum/mind/cult = list()
 
-/proc/iscultist(mob/living/M)
-	return M?.mind?.has_antag_datum(/datum/antagonist/cult)
-
 /datum/team/cult/proc/is_sacrifice_target(datum/mind/mind)
 	for(var/datum/objective/sacrifice/sac_objective in objectives)
 		if(mind == sac_objective.target)
@@ -20,7 +17,7 @@
 			return FALSE
 		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
 			return FALSE
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			return FALSE
 		if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/cult))
 			return FALSE

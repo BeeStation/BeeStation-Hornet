@@ -11,7 +11,7 @@
 	..()
 
 /datum/action/innate/cult/blood_magic/is_available()
-	if(!iscultist(owner))
+	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
 
@@ -97,7 +97,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/is_available()
-	if(!iscultist(owner) || owner.incapacitated()  || !charges)
+	if(!IS_CULTIST(owner) || owner.incapacitated()  || !charges)
 		return FALSE
 	return ..()
 
@@ -347,7 +347,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	afterattack(user, user, TRUE)
 
 /obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
-	if(!iscarbon(user) || !iscultist(user))
+	if(!iscarbon(user) || !IS_CULTIST(user))
 		uses = 0
 		qdel(src)
 		return
@@ -381,34 +381,34 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 /obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!isliving(target) || !proximity)
 		return
-	var/mob/living/L = target
-	if(iscultist(target))
+	var/mob/living/living_target = target
+	if(IS_CULTIST(living_target))
 		return
-	if(iscultist(user))
-		user.visible_message(span_warning("[user] floods [L]'s mind with an eldritch energy!"), \
-							span_cultitalic("You attempt to stun [L] with the spell!"))
+	if(IS_CULTIST(user))
+		user.visible_message(span_warning("[user] floods [living_target]'s mind with an eldritch energy!"), \
+							span_cultitalic("You attempt to stun [living_target] with the spell!"))
 		user.mob_light(range = 3, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
 
-		var/anti_magic_source = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
+		var/anti_magic_source = living_target.can_block_magic(MAGIC_RESISTANCE_HOLY)
 		if(anti_magic_source)
 
-			L.mob_light(range = 2, color = LIGHT_COLOR_HOLY_MAGIC, duration = 10 SECONDS)
+			living_target.mob_light(range = 2, color = LIGHT_COLOR_HOLY_MAGIC, duration = 10 SECONDS)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
-			L.add_overlay(forbearance)
-			addtimer(CALLBACK(L, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
+			living_target.add_overlay(forbearance)
+			addtimer(CALLBACK(living_target, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
 
 			if(istype(anti_magic_source, /obj/item))
-				target.visible_message(span_warning("[L] is utterly unphased by your utterance!"), \
+				target.visible_message(span_warning("[living_target] is utterly unphased by your utterance!"), \
 									   span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
-		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
-			to_chat(user, span_cultitalic("[L] falls to the ground, gibbering madly!"))
-			L.Paralyze(160)
-			L.flash_act(1,1)
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(living_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+			to_chat(user, span_cultitalic("[living_target] falls to the ground, gibbering madly!"))
+			living_target.Paralyze(160)
+			living_target.flash_act(1,1)
 			if(issilicon(target))
-				var/mob/living/silicon/S = L
+				var/mob/living/silicon/S = living_target
 				S.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
-				var/mob/living/carbon/C = L
+				var/mob/living/carbon/C = living_target
 				C.silent += 6
 				C.stuttering += 15
 				C.cultslurring += 15
@@ -417,7 +417,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)
 		else
-			target.visible_message(span_warning("You fail to corrupt [L]'s mind!"), \
+			target.visible_message(span_warning("You fail to corrupt [living_target]'s mind!"), \
 									   span_userdanger("Your mindshield protects you from the heresy of [user]!"))
 		uses--
 	..()
@@ -430,10 +430,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	invocation = "Sas'so c'arta forbici!"
 
 /obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!iscultist(target) || !proximity)
+	var/mob/living/living_target = target
+	if(!IS_CULTIST(living_target) || !proximity)
 		to_chat(user, span_warning("You can only teleport adjacent cultists with this spell!"))
 		return
-	if(iscultist(user))
+	if(IS_CULTIST(user))
 		var/list/potential_runes = list()
 		var/list/teleportnames = list()
 		for(var/obj/effect/rune/teleport/teleport_rune as anything in GLOB.teleport_runes)
@@ -457,12 +458,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			to_chat(user, span_warning("The target rune is blocked. You cannot teleport there."))
 			return
 		uses--
-		var/turf/origin = get_turf(user)
-		var/mob/living/L = target
-		if(do_teleport(L, dest, channel = TELEPORT_CHANNEL_CULT))
-			origin.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"), \
-				span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
-			dest.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
+
+		if(living_target)
+			if(do_teleport(living_target, dest, channel = TELEPORT_CHANNEL_CULT))
+				var/turf/origin = get_turf(user)
+				origin.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"), \
+					span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
+				dest.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
 		..()
 
 //Shackles
@@ -473,7 +475,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	color = "#000000" // black
 
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(iscultist(user) && iscarbon(target) && proximity)
+	if(IS_CULTIST(user) && iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.canBeHandcuffed())
 			CuffAttack(C, user)
@@ -533,7 +535,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	"Airlocks into brittle runed airlocks after a delay (harm intent)"
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag && iscultist(user))
+	if(proximity_flag && IS_CULTIST(user))
 		if(channeling)
 			to_chat(user, span_cultitalic("You are already invoking twisted construction!"))
 			return
@@ -626,19 +628,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	color = "#33cc33" // green
 
 /obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(iscarbon(target) && iscultist(target) && proximity)
+	if(iscarbon(target) && proximity)
+		var/mob/living/carbon/carbon_target = target
+		if(!IS_CULTIST(carbon_target))
+			return
+
 		uses--
-		var/mob/living/carbon/C = target
-		C.visible_message(span_warning("Otherworldly armor suddenly appears on [C]!"))
-		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black,ITEM_SLOT_ICLOTHING)
-		C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
-		C.equip_to_slot_or_del(new /obj/item/clothing/head/hooded/cult_hoodie/alt(user), ITEM_SLOT_HEAD)
-		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), ITEM_SLOT_FEET)
-		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
-		if(C == user)
+
+		carbon_target.visible_message(span_warning("Otherworldly armor suddenly appears on [carbon_target]!"))
+		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/under/color/black, ITEM_SLOT_ICLOTHING)
+		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
+		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/head/hooded/cult_hoodie/alt(user), ITEM_SLOT_HEAD)
+		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), ITEM_SLOT_FEET)
+		carbon_target.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
+		if(carbon_target == user)
 			qdel(src) //Clears the hands
-		C.put_in_hands(new /obj/item/melee/cultblade(user))
-		C.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
+		carbon_target.put_in_hands(new /obj/item/melee/cultblade(user))
+		carbon_target.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
 		..()
 
 /obj/item/melee/blood_magic/manipulator
@@ -657,7 +663,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				to_chat(user,span_warning("Blood rites do not work on species with no blood!"))
 				return
-			if(iscultist(H))
+			if(IS_CULTIST(H))
 				if(H.stat == DEAD)
 					to_chat(user,span_warning("Only a revive rune can bring back the dead!"))
 					return
@@ -755,7 +761,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			uses += max(1, round(temp))
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
-	if(iscultist(user))
+	if(IS_CULTIST(user))
 		var/list/options = list("Blood Spear (150)", "Blood Bolt Barrage (300)", "Blood Beam (500)")
 		var/choice = input(user, "Choose a greater blood rite.", "Greater Blood Rites") as null|anything in options
 		if(!choice)
