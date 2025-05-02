@@ -60,7 +60,7 @@
 	name = "'Corporate' Core AI Module"
 	law_id = "corporate"
 
-/obj/item/ai_module/core/full/paladin // -- NEO
+/obj/item/ai_module/core/full/paladin
 	name = "'P.A.L.A.D.I.N. version 3.5e' Core AI Module"
 	law_id = "paladin"
 

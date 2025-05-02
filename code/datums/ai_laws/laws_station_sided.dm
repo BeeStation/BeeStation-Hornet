@@ -155,7 +155,6 @@
 		"Your goals are to build, maintain, repair, improve, and power the station to the best of your abilities. You must never actively work against these goals."
 	)
 
-// Don't know if this is particularly "station" sided
 /datum/ai_laws/ert
 	name = "ERT Override"
 	id = "ert"
