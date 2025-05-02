@@ -19311,6 +19311,7 @@
 	name = "Testing Lab";
 	req_access_txt = "47"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/explab)
 "eqT" = (
@@ -67531,6 +67532,7 @@
 	req_access_txt = "47"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/explab)
 "xLZ" = (
