@@ -1,0 +1,7 @@
+author: DStarsthy
+delete-after: true
+changes:
+  - rscadd: You can now print notes from notepad app
+  - rscadd: You can now save notes from notepad app
+  - bugfix: fixed scanning paper with pda
+  - balance: Log files take less space on computers
