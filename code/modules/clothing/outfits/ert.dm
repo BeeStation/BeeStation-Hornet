@@ -61,9 +61,10 @@
 
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
-		/obj/item/melee/baton/loaded=1,
-		/obj/item/gun/energy/pulse/pistol/loyalpin=1)
+	backpack_contents = list(
+		/obj/item/storage/box/survival/engineer=1,
+		/obj/item/gun/energy/pulse/pistol/loyalpin=1
+	)
 	l_pocket = /obj/item/melee/energy/sword/saber/blue
 
 /datum/outfit/centcom/ert/security
