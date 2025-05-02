@@ -73286,7 +73286,7 @@
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 1
 	},
-/obj/item/clothing/under/rank/medical/doctor/purple{
+/obj/item/clothing/under/rank/medical/scrubs/purple{
 	pixel_y = -4
 	},
 /obj/item/stack/medical/gauze,

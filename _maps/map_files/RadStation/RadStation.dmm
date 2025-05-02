@@ -17571,7 +17571,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "fHF" = (
-/obj/item/clothing/under/rank/medical/doctor/green,
+/obj/item/clothing/under/rank/medical/scrubs/green,
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass{
 	dir = 1
