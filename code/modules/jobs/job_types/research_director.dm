@@ -61,7 +61,7 @@
 		/obj/item/melee/classic_baton/police/telescopic=1
 	)
 	belt = /obj/item/modular_computer/tablet/pda/heads/research_director
-	head = /obj/item/clothing/head/beret/sci
+	head = /obj/item/clothing/head/beret/science
 	ears = /obj/item/radio/headset/heads/research_director
 	shoes = /obj/item/clothing/shoes/jackboots_replica //nerd
 	l_pocket = /obj/item/laser_pointer

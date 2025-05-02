@@ -57,7 +57,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "p" = (
-/obj/item/clothing/head/beret/vintage,
+/obj/item/clothing/head/beret,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "q" = (
