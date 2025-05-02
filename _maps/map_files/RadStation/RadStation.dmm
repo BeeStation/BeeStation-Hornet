@@ -201,7 +201,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 29
 	},
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/research_director,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hor)

@@ -63351,7 +63351,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "sBS" = (
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/research_director,
 /obj/machinery/keycard_auth{
 	pixel_y = -24
 	},
