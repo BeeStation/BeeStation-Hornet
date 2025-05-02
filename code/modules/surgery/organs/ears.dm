@@ -104,8 +104,7 @@
 
 /obj/item/organ/ears/cat/Initialize(mapload, variant_pref)
 	. = ..()
-	if(variant_pref)
-		variant = variant_pref
+	variant = variant_pref || variant 
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	..()
