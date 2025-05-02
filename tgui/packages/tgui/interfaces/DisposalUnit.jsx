@@ -39,14 +39,21 @@ export const DisposalUnit = (props) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Eject">
-              <Button icon="sign-out-alt" disabled={data.isai} content="Eject Contents" onClick={() => act('eject')} />
+              <Button
+                icon="sign-out-alt"
+                disabled={data.isai}
+                content="Eject Contents"
+                onClick={() => act('eject')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Power">
               <Button
                 icon="power-off"
                 disabled={data.panel_open}
                 selected={data.pressure_charging}
-                onClick={() => act(data.pressure_charging ? 'pump-0' : 'pump-1')}
+                onClick={() =>
+                  act(data.pressure_charging ? 'pump-0' : 'pump-1')
+                }
               />
             </LabeledList.Item>
           </LabeledList>

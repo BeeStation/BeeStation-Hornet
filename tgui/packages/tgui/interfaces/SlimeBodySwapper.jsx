@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, LabeledList, Button, Box } from '../components';
+import { Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const BodyEntry = (props) => {
@@ -32,7 +32,8 @@ export const BodyEntry = (props) => {
           color={body.occupied === 'stranger' && 'bad'}
           onClick={() => swapFunc()}
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Status" bold color={statusMap[body.status]}>
           {body.status}
@@ -54,7 +55,11 @@ export const SlimeBodySwapper = (props) => {
       <Window.Content scrollable>
         <Section>
           {bodies.map((body) => (
-            <BodyEntry key={body.name} body={body} swapFunc={() => act('swap', { ref: body.ref })} />
+            <BodyEntry
+              key={body.name}
+              body={body}
+              swapFunc={() => act('swap', { ref: body.ref })}
+            />
           ))}
         </Section>
       </Window.Content>

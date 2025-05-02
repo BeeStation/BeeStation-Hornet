@@ -1,5 +1,22 @@
 import { useBackend, useLocalState } from '../../backend';
-import { BlockQuote, Box, Button, ByondUi, Collapsible, Flex, Icon, Input, Knob, LabeledList, NumberInput, ProgressBar, Section, Slider, Tabs, Tooltip } from '../../components';
+import {
+  BlockQuote,
+  Box,
+  Button,
+  ByondUi,
+  Collapsible,
+  Flex,
+  Icon,
+  Input,
+  Knob,
+  LabeledList,
+  NumberInput,
+  ProgressBar,
+  Section,
+  Slider,
+  Tabs,
+  Tooltip,
+} from '../../components';
 import { DraggableControl } from '../../components/DraggableControl';
 import { Window } from '../../layouts';
 
@@ -75,7 +92,11 @@ export const KitchenSink = (props) => {
             <Flex.Item>
               <Tabs vertical>
                 {PAGES.map((page, i) => (
-                  <Tabs.Tab key={i} selected={i === pageIndex} onClick={() => setPageIndex(i)}>
+                  <Tabs.Tab
+                    key={i}
+                    selected={i === pageIndex}
+                    onClick={() => setPageIndex(i)}
+                  >
                     {page.title}
                   </Tabs.Tab>
                 ))}
@@ -103,7 +124,13 @@ const KitchenSinkButton = (props) => {
         <Button icon="cog" content="Icon" />
         <Button icon="power-off" />
         <Button fluid content="Fluid" />
-        <Button my={1} lineHeight={2} minWidth={15} textAlign="center" content="With Box props" />
+        <Button
+          my={1}
+          lineHeight={2}
+          minWidth={15}
+          textAlign="center"
+          content="With Box props"
+        />
       </Box>
       <Box mb={1}>
         {COLORS_STATES.map((color) => (
@@ -152,7 +179,8 @@ const KitchenSinkProgressBar = (props) => {
         }}
         minValue={-1}
         maxValue={1}
-        value={progress}>
+        value={progress}
+      >
         Value: {Number(progress).toFixed(1)}
       </ProgressBar>
       <Box mt={1}>
@@ -171,12 +199,27 @@ const KitchenSinkTabs = (props) => {
   return (
     <Box>
       <Box mb={2}>
-        <Button.Checkbox inline content="vertical" checked={vertical} onClick={() => setVertical(!vertical)} />
-        <Button.Checkbox inline content="altSelection" checked={altSelection} onClick={() => setAltSelection(!altSelection)} />
+        <Button.Checkbox
+          inline
+          content="vertical"
+          checked={vertical}
+          onClick={() => setVertical(!vertical)}
+        />
+        <Button.Checkbox
+          inline
+          content="altSelection"
+          checked={altSelection}
+          onClick={() => setAltSelection(!altSelection)}
+        />
       </Box>
       <Tabs vertical={vertical}>
         {TAB_RANGE.map((number, i) => (
-          <Tabs.Tab key={i} altSelection={altSelection} selected={i === tabIndex} onClick={() => setTabIndex(i)}>
+          <Tabs.Tab
+            key={i}
+            altSelection={altSelection}
+            selected={i === tabIndex}
+            onClick={() => setTabIndex(i)}
+          >
             Tab #{number}
           </Tabs.Tab>
         ))}
@@ -186,7 +229,14 @@ const KitchenSinkTabs = (props) => {
 };
 
 const KitchenSinkTooltip = (props) => {
-  const positions = ['top', 'left', 'right', 'bottom', 'bottom-left', 'bottom-right'];
+  const positions = [
+    'top',
+    'left',
+    'right',
+    'bottom',
+    'bottom-left',
+    'bottom-right',
+  ];
   return (
     <>
       <Box>
@@ -199,7 +249,13 @@ const KitchenSinkTooltip = (props) => {
       </Box>
       <Box mt={1}>
         {positions.map((position) => (
-          <Button key={position} color="transparent" tooltip="Tooltip text." tooltipPosition={position} content={position} />
+          <Button
+            key={position}
+            color="transparent"
+            tooltip="Tooltip text."
+            tooltipPosition={position}
+            content={position}
+          />
         ))}
       </Box>
     </>
@@ -287,10 +343,16 @@ const KitchenSinkInput = (props) => {
               dragMatrix={[0, -1]}
               step={1}
               stepPixelSize={5}
-              onDrag={(e, value) => setNumber(value)}>
+              onDrag={(e, value) => setNumber(value)}
+            >
               {(control) => (
                 <Box onMouseDown={control.handleDragStart}>
-                  <Icon size={4} color="yellow" name="times" rotation={control.displayValue * 4} />
+                  <Icon
+                    size={4}
+                    color="yellow"
+                    name="times"
+                    rotation={control.displayValue * 4}
+                  />
                   {control.inputElement}
                 </Box>
               )}
@@ -317,7 +379,8 @@ const BoxWithSampleText = (props) => {
     <Box {...props}>
       <Box italic>Jackdaws love my big sphinx of quartz.</Box>
       <Box mt={1} bold>
-        The wide electrification of the southern provinces will give a powerful impetus to the growth of agriculture.
+        The wide electrification of the southern provinces will give a powerful
+        impetus to the growth of agriculture.
       </Box>
     </Box>
   );
@@ -353,7 +416,11 @@ const KitchenSinkThemes = (props) => {
     <Box>
       <LabeledList>
         <LabeledList.Item label="Use theme">
-          <Input placeholder="theme_name" value={theme} onInput={(e, value) => setTheme(value)} />
+          <Input
+            placeholder="theme_name"
+            value={theme}
+            onInput={(e, value) => setTheme(value)}
+          />
         </LabeledList.Item>
       </LabeledList>
     </Box>

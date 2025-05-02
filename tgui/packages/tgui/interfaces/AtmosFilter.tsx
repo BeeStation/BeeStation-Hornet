@@ -1,7 +1,7 @@
-import { Button, LabeledList, NumberInput, Section } from '../components';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
+import { Button, LabeledList, NumberInput, Section } from '../components';
 import { getGasLabel } from '../constants';
 import { Window } from '../layouts';
 
@@ -26,10 +26,16 @@ export const AtmosFilter = (props) => {
       <Window.Content>
         <Section
           buttons={
-            <Button icon={on ? 'power-off' : 'times'} content={on ? 'On' : 'Off'} selected={on} onClick={() => act('power')} />
+            <Button
+              icon={on ? 'power-off' : 'times'}
+              content={on ? 'On' : 'Off'}
+              selected={on}
+              onClick={() => act('power')}
+            />
           }
           fill
-          title="Gas Filter">
+          title="Gas Filter"
+        >
           <LabeledList>
             <LabeledList.Item label="Transfer Rate">
               <NumberInput
@@ -68,7 +74,8 @@ export const AtmosFilter = (props) => {
                     act('toggle_filter', {
                       val: gas_id,
                     })
-                  }>
+                  }
+                >
                   {getGasLabel(gas_id)}
                 </Button>
               ))}

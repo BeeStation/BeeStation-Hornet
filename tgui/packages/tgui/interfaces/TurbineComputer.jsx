@@ -4,7 +4,12 @@ import { Window } from '../layouts';
 
 export const TurbineComputer = (props) => {
   const { act, data } = useBackend();
-  const operational = Boolean(data.compressor && !data.compressor_broke && data.turbine && !data.turbine_broke);
+  const operational = Boolean(
+    data.compressor &&
+      !data.compressor_broke &&
+      data.turbine &&
+      !data.turbine_broke,
+  );
   return (
     <Window width={310} height={150}>
       <Window.Content>
@@ -19,23 +24,50 @@ export const TurbineComputer = (props) => {
                 disabled={!operational}
                 onClick={() => act('toggle_power')}
               />
-              <Button icon="sync" content="Reconnect" onClick={() => act('reconnect')} />
+              <Button
+                icon="sync"
+                content="Reconnect"
+                onClick={() => act('reconnect')}
+              />
             </>
-          }>
+          }
+        >
           {(!operational && (
             <LabeledList>
-              <LabeledList.Item label="Compressor Status" color={!data.compressor || data.compressor_broke ? 'bad' : 'good'}>
-                {data.compressor_broke ? (data.compressor ? 'Offline' : 'Missing') : 'Online'}
+              <LabeledList.Item
+                label="Compressor Status"
+                color={
+                  !data.compressor || data.compressor_broke ? 'bad' : 'good'
+                }
+              >
+                {data.compressor_broke
+                  ? data.compressor
+                    ? 'Offline'
+                    : 'Missing'
+                  : 'Online'}
               </LabeledList.Item>
-              <LabeledList.Item label="Turbine Status" color={!data.turbine || data.turbine_broke ? 'bad' : 'good'}>
-                {data.turbine_broke ? (data.turbine ? 'Offline' : 'Missing') : 'Online'}
+              <LabeledList.Item
+                label="Turbine Status"
+                color={!data.turbine || data.turbine_broke ? 'bad' : 'good'}
+              >
+                {data.turbine_broke
+                  ? data.turbine
+                    ? 'Offline'
+                    : 'Missing'
+                  : 'Online'}
               </LabeledList.Item>
             </LabeledList>
           )) || (
             <LabeledList>
-              <LabeledList.Item label="Turbine Speed">{data.rpm} RPM</LabeledList.Item>
-              <LabeledList.Item label="Internal Temp">{data.temp} K</LabeledList.Item>
-              <LabeledList.Item label="Generated Power">{data.power}</LabeledList.Item>
+              <LabeledList.Item label="Turbine Speed">
+                {data.rpm} RPM
+              </LabeledList.Item>
+              <LabeledList.Item label="Internal Temp">
+                {data.temp} K
+              </LabeledList.Item>
+              <LabeledList.Item label="Generated Power">
+                {data.power}
+              </LabeledList.Item>
             </LabeledList>
           )}
         </Section>

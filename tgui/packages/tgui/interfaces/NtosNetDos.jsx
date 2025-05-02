@@ -1,5 +1,5 @@
-import { Section, Button, LabeledList, Box, NoticeBox } from '../components';
 import { useBackend } from '../backend';
+import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosNetDos = (props) => {
@@ -21,7 +21,12 @@ export const NtosNetDosContent = (props) => {
     return (
       <>
         <NoticeBox>{error}</NoticeBox>
-        <Button fluid content="Reset" textAlign="center" onClick={() => act('PRG_reset')} />
+        <Button
+          fluid
+          content="Reset"
+          textAlign="center"
+          onClick={() => act('PRG_reset')}
+        />
       </>
     );
   }

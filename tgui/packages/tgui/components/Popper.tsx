@@ -2,7 +2,14 @@
 // TODO: Rewrite as an FC, remove this lint disable
 import { createPopper } from '@popperjs/core';
 import { ArgumentsOf } from 'common/types';
-import { Component, CSSProperties, JSXElementConstructor, PropsWithChildren, ReactElement, RefObject } from 'react';
+import {
+  Component,
+  CSSProperties,
+  JSXElementConstructor,
+  PropsWithChildren,
+  ReactElement,
+  RefObject,
+} from 'react';
 import { findDOMNode, render } from 'react-dom';
 
 type PopperProps = {
@@ -53,7 +60,11 @@ export class Popper extends Component<PopperProps> {
         return;
       }
 
-      this.popperInstance = createPopper(domNode, this.renderedContent, options);
+      this.popperInstance = createPopper(
+        domNode,
+        this.renderedContent,
+        options,
+      );
     });
   }
 

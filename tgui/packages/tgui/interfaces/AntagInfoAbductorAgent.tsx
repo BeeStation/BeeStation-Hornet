@@ -1,8 +1,8 @@
-import { useBackend } from '../backend';
-import { Box, BlockQuote, Section, Stack } from '../components';
-import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
+import { BlockQuote, Box, Section, Stack } from '../components';
+import { Window } from '../layouts';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 type Info = {
   members: string[];
@@ -21,7 +21,10 @@ const IntroSection = (_props) => {
           as="img"
           src={resolveAsset('ayylmao.png')}
           width="64px"
-          style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+          style={{
+            msInterpolationMode: 'nearest-neighbor',
+            imageRendering: 'pixelated',
+          }}
         />
       </Stack.Item>
       <Stack.Item grow>
@@ -54,13 +57,15 @@ const BasicLoreSection = (_props) => {
         </Box>{' '}
         of this abductor team!
         <br />
-        You&apos;re the <b>brawn</b> of the abductors, it is your job to work with your{' '}
+        You&apos;re the <b>brawn</b> of the abductors, it is your job to work
+        with your{' '}
         <Box inline textColor="blue">
           scientist
         </Box>{' '}
         to capture test subjects and bring them back to your ship!
         <br />
-        As an abductor, you have a telepathic link with your partner, and have no method of verbal communication.
+        As an abductor, you have a telepathic link with your partner, and have
+        no method of verbal communication.
       </BlockQuote>
     </Section>
   );
@@ -78,13 +83,17 @@ const EquipmentSection = (_props) => {
                 as="img"
                 src={resolveAsset('abaton.png')}
                 width="32px"
-                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+                style={{
+                  msInterpolationMode: 'nearest-neighbor',
+                  imageRendering: 'pixelated',
+                }}
               />
               Your{' '}
               <Box inline textColor="purple">
                 advanced baton
               </Box>{' '}
-              is a multi-purpose baton that does just about everything you need to subdue someone. It has four modes:
+              is a multi-purpose baton that does just about everything you need
+              to subdue someone. It has four modes:
               <br />
               <Box inline textColor="yellow">
                 Stun
@@ -94,7 +103,8 @@ const EquipmentSection = (_props) => {
               <Box inline textColor="blue">
                 Sleep
               </Box>
-              : Knocks someone out, as long as they&apos;re stunned. Only one person can be asleep at a time, however!
+              : Knocks someone out, as long as they&apos;re stunned. Only one
+              person can be asleep at a time, however!
               <br />
               <Box inline textColor="red">
                 Cuff
@@ -104,7 +114,8 @@ const EquipmentSection = (_props) => {
               <Box inline textColor="purple">
                 Probe
               </Box>
-              : Probes whether an organism is suitable for experimentation or not.
+              : Probes whether an organism is suitable for experimentation or
+              not.
               <br />
               People wearing{' '}
               <Box inline textColor="label">
@@ -119,13 +130,17 @@ const EquipmentSection = (_props) => {
                 as="img"
                 src={resolveAsset('atool.png')}
                 width="32px"
-                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+                style={{
+                  msInterpolationMode: 'nearest-neighbor',
+                  imageRendering: 'pixelated',
+                }}
               />
               You have{' '}
               <Box inline textColor="purple">
                 alien tools
               </Box>{' '}
-              , which are capable of working extremely fast, faster than any tool available to lesser lifeforms.
+              , which are capable of working extremely fast, faster than any
+              tool available to lesser lifeforms.
               <br />
               You can use these to{' '}
               <Box inline textColor="yellow">
@@ -147,13 +162,17 @@ const EquipmentSection = (_props) => {
               as="img"
               src={resolveAsset('apistol.png')}
               width="32px"
-              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+              style={{
+                msInterpolationMode: 'nearest-neighbor',
+                imageRendering: 'pixelated',
+              }}
             />
             Your{' '}
             <Box inline textColor="purple">
               alien pistol
             </Box>{' '}
-            is an effective self-defense weapon, with three different fire modes:
+            is an effective self-defense weapon, with three different fire
+            modes:
             <br />
             <Box inline textColor="green">
               Declone

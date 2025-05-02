@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Box } from '../components';
+import { Box, Button, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const Elevator = (props) => {
@@ -15,7 +15,10 @@ export const Elevator = (props) => {
                 <Box inline className="button-label" bold>
                   {level}
                 </Box>
-                <Button selected={`${level}` === `${current_z}` && in_transit} onClick={() => act(`${level}`)} />
+                <Button
+                  selected={`${level}` === `${current_z}` && in_transit}
+                  onClick={() => act(`${level}`)}
+                />
               </Box>
             </Flex.Item>
           ))}

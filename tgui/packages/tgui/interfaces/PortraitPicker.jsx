@@ -1,6 +1,6 @@
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Flex, NoticeBox, Section, Input } from '../components';
+import { Button, Flex, Input, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 export const PortraitPicker = (props) => {
@@ -9,8 +9,10 @@ export const PortraitPicker = (props) => {
   const { paintings, search_string, search_mode } = data;
   const got_paintings = !!paintings.length;
   const current_portrait_title = got_paintings && paintings[listIndex]['title'];
-  const current_portrait_author = got_paintings && 'By ' + paintings[listIndex]['creator'];
-  const current_portrait_asset_name = got_paintings && 'paintings' + '_' + paintings[listIndex]['md5'];
+  const current_portrait_author =
+    got_paintings && 'By ' + paintings[listIndex]['creator'];
+  const current_portrait_asset_name =
+    got_paintings && 'paintings' + '_' + paintings[listIndex]['md5'];
   return (
     <Window theme="ntos" title="Portrait Picker" width={400} height={406}>
       <Window.Content>
@@ -41,7 +43,12 @@ export const PortraitPicker = (props) => {
           </Flex.Item>
           <Flex.Item mb={1} grow={2}>
             <Section fill>
-              <Flex height="100%" align="center" justify="center" direction="column">
+              <Flex
+                height="100%"
+                align="center"
+                justify="center"
+                direction="column"
+              >
                 {got_paintings ? (
                   <>
                     <Flex.Item>
@@ -55,11 +62,15 @@ export const PortraitPicker = (props) => {
                         }}
                       />
                     </Flex.Item>
-                    <Flex.Item className="Section__titleText">{current_portrait_title}</Flex.Item>
+                    <Flex.Item className="Section__titleText">
+                      {current_portrait_title}
+                    </Flex.Item>
                     <Flex.Item>{current_portrait_author}</Flex.Item>
                   </>
                 ) : (
-                  <Flex.Item className="Section__titleText">No paintings found.</Flex.Item>
+                  <Flex.Item className="Section__titleText">
+                    No paintings found.
+                  </Flex.Item>
                 )}
               </Flex>
             </Section>
@@ -70,10 +81,18 @@ export const PortraitPicker = (props) => {
                 <Section height="100%">
                   <Flex justify="space-between">
                     <Flex.Item grow={1}>
-                      <Button icon="angle-double-left" disabled={listIndex === 0} onClick={() => setListIndex(0)} />
+                      <Button
+                        icon="angle-double-left"
+                        disabled={listIndex === 0}
+                        onClick={() => setListIndex(0)}
+                      />
                     </Flex.Item>
                     <Flex.Item grow={3}>
-                      <Button disabled={listIndex === 0} icon="chevron-left" onClick={() => setListIndex(listIndex - 1)} />
+                      <Button
+                        disabled={listIndex === 0}
+                        icon="chevron-left"
+                        onClick={() => setListIndex(listIndex - 1)}
+                      />
                     </Flex.Item>
                     <Flex.Item grow={3}>
                       <Button
@@ -107,15 +126,17 @@ export const PortraitPicker = (props) => {
             </Flex>
             <Flex.Item mt={1}>
               <NoticeBox info>
-                Only the 23x23 or 24x24 canvas size art can be displayed. Make sure you read the warning below before embracing
-                the wide wonderful world of artistic expression!
+                Only the 23x23 or 24x24 canvas size art can be displayed. Make
+                sure you read the warning below before embracing the wide
+                wonderful world of artistic expression!
               </NoticeBox>
             </Flex.Item>
             <Flex.Item>
               <NoticeBox danger>
-                WARNING: While Central Command loves art as much as you do, choosing erotic art will lead to severe
-                consequences. Additionally, Central Command reserves the right to request you change your display portrait, for
-                any reason.
+                WARNING: While Central Command loves art as much as you do,
+                choosing erotic art will lead to severe consequences.
+                Additionally, Central Command reserves the right to request you
+                change your display portrait, for any reason.
               </NoticeBox>
             </Flex.Item>
           </Flex.Item>

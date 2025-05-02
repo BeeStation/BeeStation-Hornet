@@ -25,7 +25,8 @@ export const captureExternalLinks = () => {
     }
     const hrefAttr = target.getAttribute('href') || '';
     // Leave BYOND links alone
-    const isByondLink = hrefAttr.charAt(0) === '?' || hrefAttr.startsWith('byond://');
+    const isByondLink =
+      hrefAttr.charAt(0) === '?' || hrefAttr.startsWith('byond://');
     if (isByondLink) {
       return;
     }

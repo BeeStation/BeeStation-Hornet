@@ -1,7 +1,17 @@
 import { BooleanLike, classes } from 'common/react';
 import { toTitleCase } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, ColorBox, LabeledList, Section, Stack, Table, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  ColorBox,
+  LabeledList,
+  Section,
+  Stack,
+  Table,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 const ROOT_CATEGORIES = ['Atmospherics', 'Disposals', 'Transit Tubes'];
@@ -129,7 +139,9 @@ export const ColorItem = (props) => {
           height="20px"
           width="20px"
           style={{
-            border: '3px solid ' + (colorName === selected_color ? '#20b142' : '#222'),
+            border:
+              '3px solid ' +
+              (colorName === selected_color ? '#20b142' : '#222'),
           }}
           color={paint_colors[colorName]}
           onClick={() =>
@@ -178,7 +190,8 @@ const CategoryItem = (props) => {
           selected={rootCategoryIndex === i}
           icon={ICON_BY_CATEGORY_NAME[categoryName]}
           color="transparent"
-          onClick={() => act('category', { category: i })}>
+          onClick={() => act('category', { category: i })}
+        >
           {categoryName}
         </Button>
       ))}
@@ -210,7 +223,11 @@ const LayerSelect = (props) => {
       {LAYERS.map((layer) => (
         <Button.Checkbox
           key={layer.bitmask}
-          checked={multi_layer ? pipe_layers & layer.bitmask : layer.bitmask === pipe_layers}
+          checked={
+            multi_layer
+              ? pipe_layers & layer.bitmask
+              : layer.bitmask === pipe_layers
+          }
           content={layer.name}
           onClick={() => act('pipe_layers', { pipe_layers: layer.bitmask })}
         />
@@ -251,9 +268,13 @@ const PreviewSelect = (props) => {
               dir: preview.dir,
               flipped: preview.flipped,
             });
-          }}>
+          }}
+        >
           <Box
-            className={classes(['pipes32x32', preview.dir + '-' + preview.icon_state])}
+            className={classes([
+              'pipes32x32',
+              preview.dir + '-' + preview.icon_state,
+            ])}
             style={{
               transform: 'scale(1.5) translate(9.5%, 9.5%)',
             }}
@@ -267,8 +288,13 @@ const PreviewSelect = (props) => {
 const PipeTypeSection = (props) => {
   const { act, data } = useBackend<Data>();
   const { categories = [], selected_category, selected_recipe } = data;
-  const [categoryName, setCategoryName] = useLocalState('selected_category', selected_category);
-  const shownCategory = categories.find((category) => category.cat_name === categoryName) || categories[0];
+  const [categoryName, setCategoryName] = useLocalState(
+    'selected_category',
+    selected_category,
+  );
+  const shownCategory =
+    categories.find((category) => category.cat_name === categoryName) ||
+    categories[0];
 
   return (
     <Section>
@@ -278,19 +304,29 @@ const PipeTypeSection = (props) => {
             key={category.cat_name}
             icon={ICON_BY_CATEGORY_NAME[category.cat_name]}
             selected={category.cat_name === shownCategory.cat_name}
-            onClick={() => setCategoryName(category.cat_name)}>
+            onClick={() => setCategoryName(category.cat_name)}
+          >
             {category.cat_name}
           </Tabs.Tab>
         ))}
       </Tabs>
       <Table>
         {shownCategory?.recipes.map((recipe) => (
-          <Table.Row key={recipe.pipe_index} style={{ borderBottom: '1px solid #333' }}>
+          <Table.Row
+            key={recipe.pipe_index}
+            style={{ borderBottom: '1px solid #333' }}
+          >
             <Table.Cell collapsing py="2px" pb="1px">
-              <PreviewSelect previews={recipe.previews} pipe_type={recipe.pipe_index} category={shownCategory.cat_name} />
+              <PreviewSelect
+                previews={recipe.previews}
+                pipe_type={recipe.pipe_index}
+                category={shownCategory.cat_name}
+              />
             </Table.Cell>
             <Table.Cell />
-            <Table.Cell style={{ verticalAlign: 'middle' }}>{recipe.pipe_name}</Table.Cell>
+            <Table.Cell style={{ verticalAlign: 'middle' }}>
+              {recipe.pipe_name}
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table>

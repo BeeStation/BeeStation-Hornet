@@ -34,7 +34,19 @@ export type ScrubberProps = {
 
 export const Vent = (props: VentProps) => {
   const { act } = useBackend();
-  const { refID, long_name, power, checks, excheck, incheck, direction, external, internal, extdefault, intdefault } = props;
+  const {
+    refID,
+    long_name,
+    power,
+    checks,
+    excheck,
+    incheck,
+    direction,
+    external,
+    internal,
+    extdefault,
+    intdefault,
+  } = props;
   return (
     <Section
       title={decodeHtmlEntities(long_name)}
@@ -50,7 +62,8 @@ export const Vent = (props: VentProps) => {
             })
           }
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Mode">
           <Button
@@ -168,7 +181,8 @@ export const Scrubber = (props: ScrubberProps) => {
             })
           }
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Mode">
           <Button
@@ -207,7 +221,8 @@ export const Scrubber = (props: ScrubberProps) => {
                     ref: refID,
                     val: filter.gas_id,
                   })
-                }>
+                }
+              >
                 {getGasLabel(filter.gas_id, filter.gas_name)}
               </Button>
             ))) ||

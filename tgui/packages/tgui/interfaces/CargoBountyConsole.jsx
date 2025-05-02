@@ -11,7 +11,14 @@ export const CargoBountyConsole = (props) => {
       <Window.Content scrollable>
         <Section
           title={<BountyHeader />}
-          buttons={<Button icon="print" content="Print Bounty List" onClick={() => act('Print')} />}>
+          buttons={
+            <Button
+              icon="print"
+              content="Print Bounty List"
+              onClick={() => act('Print')}
+            />
+          }
+        >
           <Table border>
             <Table.Row bold italic color="label" fontSize={1.25}>
               <Table.Cell p={1} textAlign="center">
@@ -31,7 +38,12 @@ export const CargoBountyConsole = (props) => {
               </Table.Cell>
             </Table.Row>
             {bountydata.map((bounty) => (
-              <Table.Row key={bounty.name} backgroundColor={bounty.priority === 1 ? 'rgba(252, 152, 3, 0.25)' : ''}>
+              <Table.Row
+                key={bounty.name}
+                backgroundColor={
+                  bounty.priority === 1 ? 'rgba(252, 152, 3, 0.25)' : ''
+                }
+              >
                 <Table.Cell bold p={1}>
                   {bounty.name}
                 </Table.Cell>
@@ -74,7 +86,10 @@ const BountyHeader = (props) => {
   const { stored_cash } = data;
   return (
     <Box inline bold>
-      <AnimatedNumber value={stored_cash} format={(value) => formatMoney(value)} />
+      <AnimatedNumber
+        value={stored_cash}
+        format={(value) => formatMoney(value)}
+      />
       {' credits'}
     </Box>
   );

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote } from '../components';
+import { BlockQuote, Box, Button, Flex, Input, Section } from '../components';
 import { Window } from '../layouts';
 
 export const XenoartifactLabeler = (props) => {
@@ -140,7 +140,10 @@ const XenoartifactLabelerSticker = (props) => {
   const { act } = useBackend();
   return (
     <Box>
-      <Input placeholder="Label Name..." onChange={(e, input) => act('change_print_name', { name: input })} />
+      <Input
+        placeholder="Label Name..."
+        onChange={(e, input) => act('change_print_name', { name: input })}
+      />
       <Button content="Print" onClick={() => act('print_traits')} />
       <Button content="Clear" onClick={() => act('clear_traits')} />
     </Box>

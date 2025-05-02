@@ -1,5 +1,5 @@
-import { Section, Button, LabeledList } from '../components';
 import { useBackend } from '../backend';
+import { Button, LabeledList, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosRevelation = (props) => {
@@ -27,7 +27,14 @@ export const NtosRevelation = (props) => {
               }
             />
           </LabeledList>
-          <Button fluid bold content="ACTIVATE" textAlign="center" color="bad" disabled={!data.armed} />
+          <Button
+            fluid
+            bold
+            content="ACTIVATE"
+            textAlign="center"
+            color="bad"
+            disabled={!data.armed}
+          />
         </Section>
       </NtosWindow.Content>
     </NtosWindow>

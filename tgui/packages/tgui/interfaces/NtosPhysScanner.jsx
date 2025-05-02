@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
+import { Box, Dropdown, Section } from '../components';
 import { NtosWindow } from '../layouts';
-import { Section, Dropdown, Box } from '../components';
 import { sanitizeText } from '../sanitize';
 
 export const NtosPhysScanner = (props) => {
@@ -25,7 +25,10 @@ export const NtosPhysScanner = (props) => {
         </Section>
         {textHtml.__html.length ? (
           <Section title="Results">
-            <Box style={{ whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={textHtml} />
+            <Box
+              style={{ whiteSpace: 'pre-line' }}
+              dangerouslySetInnerHTML={textHtml}
+            />
           </Section>
         ) : null}
       </NtosWindow.Content>

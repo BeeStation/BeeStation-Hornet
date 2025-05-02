@@ -1,5 +1,12 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
@@ -57,8 +64,10 @@ const malfMap = {
 const ApcContent = (props) => {
   const { act, data } = useBackend();
   const locked = data.locked && !data.siliconUser;
-  const externalPowerStatus = powerStatusMap[data.externalPower] || powerStatusMap[0];
-  const chargingStatus = powerStatusMap[data.chargingStatus] || powerStatusMap[0];
+  const externalPowerStatus =
+    powerStatusMap[data.externalPower] || powerStatusMap[0];
+  const chargingStatus =
+    powerStatusMap[data.chargingStatus] || powerStatusMap[0];
   const channelArray = data.powerChannels || [];
   const malfStatus = malfMap[data.malfStatus] || malfMap[0];
   const adjustedCellChange = data.powerCellStatus / 100;
@@ -71,7 +80,11 @@ const ApcContent = (props) => {
         <i>I/O regulators malfunction detected! Waiting for system reboot...</i>
         <br />
         Automatic reboot in {data.failTime} seconds...
-        <Button icon="sync" content="Reboot Now" onClick={() => act('reboot')} />
+        <Button
+          icon="sync"
+          content="Reboot Now"
+          onClick={() => act('reboot')}
+        />
       </NoticeBox>
     );
   }
@@ -92,7 +105,8 @@ const ApcContent = (props) => {
                 disabled={locked}
                 onClick={() => act('breaker')}
               />
-            }>
+            }
+          >
             [ {externalPowerStatus.externalPowerText} ]
           </LabeledList.Item>
           <LabeledList.Item label="Power Cell">
@@ -108,7 +122,8 @@ const ApcContent = (props) => {
                 disabled={locked}
                 onClick={() => act('charge')}
               />
-            }>
+            }
+          >
             [ {chargingStatus.chargingText} ]
           </LabeledList.Item>
         </LabeledList>
@@ -123,13 +138,20 @@ const ApcContent = (props) => {
                 label={channel.title}
                 buttons={
                   <>
-                    <Box inline mx={2} color={channel.status >= 2 ? 'good' : 'bad'}>
+                    <Box
+                      inline
+                      mx={2}
+                      color={channel.status >= 2 ? 'good' : 'bad'}
+                    >
                       {channel.status >= 2 ? 'On' : 'Off'}
                     </Box>
                     <Button
                       icon="sync"
                       content="Auto"
-                      selected={!locked && (channel.status === 1 || channel.status === 3)}
+                      selected={
+                        !locked &&
+                        (channel.status === 1 || channel.status === 3)
+                      }
                       disabled={locked}
                       onClick={() => act('channel', topicParams.auto)}
                     />
@@ -148,7 +170,8 @@ const ApcContent = (props) => {
                       onClick={() => act('channel', topicParams.off)}
                     />
                   </>
-                }>
+                }
+              >
                 {channel.powerLoad}
               </LabeledList.Item>
             );
@@ -171,10 +194,15 @@ const ApcContent = (props) => {
                   onClick={() => act(malfStatus.action)}
                 />
               )}
-              <Button icon="lightbulb-o" content="Overload" onClick={() => act('overload')} />
+              <Button
+                icon="lightbulb-o"
+                content="Overload"
+                onClick={() => act('overload')}
+              />
             </>
           )
-        }>
+        }
+      >
         <LabeledList.Item
           label="Cover Lock"
           buttons={

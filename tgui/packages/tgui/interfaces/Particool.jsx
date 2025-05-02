@@ -8,9 +8,22 @@
  */
 
 import { toFixed } from 'common/math';
+
 import { numberOfDecimalDigits } from '../../common/math';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Collapsible, ColorBox, Flex, Input, LabeledList, NoticeBox, NumberInput, Section, Tooltip } from '../components';
+import {
+  Box,
+  Button,
+  Collapsible,
+  ColorBox,
+  Flex,
+  Input,
+  LabeledList,
+  NoticeBox,
+  NumberInput,
+  Section,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
 import { logger } from '../logging';
 
@@ -97,11 +110,11 @@ const ParticleFloatEntry = (props) => {
                 value: isGen
                   ? 0
                   : {
-                    genType: 'num',
-                    a: value,
-                    b: value,
-                    rand: 'UNIFORM_RAND',
-                  },
+                      genType: 'num',
+                      a: value,
+                      b: value,
+                      rand: 'UNIFORM_RAND',
+                    },
                 type: isGen ? 'float' : 'generator',
               },
             })
@@ -164,11 +177,11 @@ const ParticleVectorEntry = (props) => {
                 value: isGen
                   ? [0, 0, 0]
                   : {
-                    genType: 'box',
-                    a: value,
-                    b: value,
-                    rand: 'UNIFORM_RAND',
-                  },
+                      genType: 'box',
+                      a: value,
+                      b: value,
+                      rand: 'UNIFORM_RAND',
+                    },
                 type: isGen ? 'vector' : 'generator',
               },
             })
@@ -244,11 +257,11 @@ const ParticleVector2Entry = (props) => {
                 value: isGen
                   ? [0, 0]
                   : {
-                    genType: 'box',
-                    a: value,
-                    b: value,
-                    rand: 'UNIFORM_RAND',
-                  },
+                      genType: 'box',
+                      a: value,
+                      b: value,
+                      rand: 'UNIFORM_RAND',
+                    },
                 type: isGen ? 'vector' : 'generator',
               },
             })
@@ -262,8 +275,22 @@ const ParticleVector2Entry = (props) => {
 const ParticleGeneratorEntry = (props) => {
   const { value, name } = props;
   const { act } = useBackend();
-  const generatorTypes = ['num', 'vector', 'box', 'color', 'circle', 'sphere', 'square', 'cube'];
-  const randTypes = ['UNIFORM_RAND', 'NORMAL_RAND', 'LINEAR_RAND', 'SQUARE_RAND'];
+  const generatorTypes = [
+    'num',
+    'vector',
+    'box',
+    'color',
+    'circle',
+    'sphere',
+    'square',
+    'cube',
+  ];
+  const randTypes = [
+    'UNIFORM_RAND',
+    'NORMAL_RAND',
+    'LINEAR_RAND',
+    'SQUARE_RAND',
+  ];
 
   let tempGenType = '';
   let tempA = '';
@@ -464,11 +491,11 @@ const ParticleColorEntry = (props) => {
                 value: isGen
                   ? '#ffffff'
                   : {
-                    genType: 'color',
-                    a: value,
-                    b: value,
-                    rand: 'UNIFORM_RAND',
-                  },
+                      genType: 'color',
+                      a: value,
+                      b: value,
+                      rand: 'UNIFORM_RAND',
+                    },
                 type: isGen ? 'color' : 'generator',
               },
             })
@@ -494,34 +521,82 @@ const ParticleIconEntry = (props) => {
 
 const particleEntryMap = {
   width: { type: 'float_nongen', tooltip: 'Width of particle image in pixels' },
-  height: { type: 'float_nongen', tooltip: 'Height of particle image in pixels' },
+  height: {
+    type: 'float_nongen',
+    tooltip: 'Height of particle image in pixels',
+  },
   count: { type: 'int', tooltip: 'Maximum particle count' },
-  spawning: { type: 'float_nongen', tooltip: 'Number of particles to spawn per tick (can be fractional)' },
-  bound1: { type: 'vector_nongen', tooltip: 'Minimum particle position in x,y,z space' },
-  bound2: { type: 'vector_nongen', tooltip: 'Maximum particle position in x,y,z space' },
+  spawning: {
+    type: 'float_nongen',
+    tooltip: 'Number of particles to spawn per tick (can be fractional)',
+  },
+  bound1: {
+    type: 'vector_nongen',
+    tooltip: 'Minimum particle position in x,y,z space',
+  },
+  bound2: {
+    type: 'vector_nongen',
+    tooltip: 'Maximum particle position in x,y,z space',
+  },
   gravity: {
     type: 'vector_nongen',
-    tooltip: 'Constant acceleration applied to all particles in this set (pixels per squared tick)',
+    tooltip:
+      'Constant acceleration applied to all particles in this set (pixels per squared tick)',
   },
   gradient: { type: 'list', tooltip: 'Color gradient used, if any' },
-  transform: { type: 'matrix', tooltip: 'Transform done to all particles, if any (can be higher than 2D)' },
-  lifespan: { type: 'float', tooltip: 'Maximum life of the particle, in ticks' },
-  fade: { type: 'float', tooltip: 'Fade-out time at end of lifespan, in ticks' },
+  transform: {
+    type: 'matrix',
+    tooltip: 'Transform done to all particles, if any (can be higher than 2D)',
+  },
+  lifespan: {
+    type: 'float',
+    tooltip: 'Maximum life of the particle, in ticks',
+  },
+  fade: {
+    type: 'float',
+    tooltip: 'Fade-out time at end of lifespan, in ticks',
+  },
   fadein: { type: 'float', tooltip: 'Fade-in time, in ticks' },
-  icon: { type: 'icon', tooltip: 'Icon to use, if any; no icon means this particle will be a dot' },
+  icon: {
+    type: 'icon',
+    tooltip: 'Icon to use, if any; no icon means this particle will be a dot',
+  },
   icon_state: { type: 'list', tooltip: 'Icon state to use, if any' },
-  color: { type: 'color', tooltip: 'Particle color; can be a number if a gradient is used' },
-  color_change: { type: 'float', tooltip: 'Color change per tick; only applies if gradient is used' },
-  position: { type: 'vector', tooltip: 'x,y,z position, from center in pixels' },
+  color: {
+    type: 'color',
+    tooltip: 'Particle color; can be a number if a gradient is used',
+  },
+  color_change: {
+    type: 'float',
+    tooltip: 'Color change per tick; only applies if gradient is used',
+  },
+  position: {
+    type: 'vector',
+    tooltip: 'x,y,z position, from center in pixels',
+  },
   velocity: { type: 'vector', tooltip: 'x,y,z velocity, in pixels' },
-  scale: { type: 'vector2', tooltip: '(2D)	Scale applied to icon, if used; defaults to list(1,1)' },
-  grow: { type: 'vector2', tooltip: 'Change in scale per tick; defaults to list(0,0)' },
-  rotation: { type: 'float', tooltip: 'Angle of rotation (clockwise); applies only if using an icon' },
+  scale: {
+    type: 'vector2',
+    tooltip: '(2D)	Scale applied to icon, if used; defaults to list(1,1)',
+  },
+  grow: {
+    type: 'vector2',
+    tooltip: 'Change in scale per tick; defaults to list(0,0)',
+  },
+  rotation: {
+    type: 'float',
+    tooltip: 'Angle of rotation (clockwise); applies only if using an icon',
+  },
   spin: { type: 'float', tooltip: 'Change in rotation per tick' },
-  friction: { type: 'float', tooltip: 'Amount of velocity to shed (0 to 1) per tick, also applied to acceleration from drift' },
+  friction: {
+    type: 'float',
+    tooltip:
+      'Amount of velocity to shed (0 to 1) per tick, also applied to acceleration from drift',
+  },
   drift: {
     type: 'vector',
-    tooltip: 'Added acceleration every tick; e.g. a circle or sphere generator can be applied to produce snow or ember effects',
+    tooltip:
+      'Added acceleration every tick; e.g. a circle or sphere generator can be applied to produce snow or ember effects',
   },
 };
 
@@ -546,7 +621,9 @@ const ParticleDataEntry = (props) => {
 
   return (
     <LabeledList.Item label={name}>
-      {particleEntryTypes[particleEntryMap[name].type] || particleEntryMap[name].type || 'Not Found (This is an error)'}
+      {particleEntryTypes[particleEntryMap[name].type] ||
+        particleEntryMap[name].type ||
+        'Not Found (This is an error)'}
     </LabeledList.Item>
   );
 };
@@ -558,8 +635,16 @@ const ParticleEntry = (props) => {
     <LabeledList>
       {Object.keys(particleEntryMap).map((entryName) => {
         const value = particle[entryName];
-        const tooltip = particleEntryMap[entryName].tooltip || 'Oh Bees! Tooltip is missing.';
-        return <ParticleDataEntry key={entryName} name={entryName} tooltip={tooltip} value={value} />;
+        const tooltip =
+          particleEntryMap[entryName].tooltip || 'Oh Bees! Tooltip is missing.';
+        return (
+          <ParticleDataEntry
+            key={entryName}
+            name={entryName}
+            tooltip={tooltip}
+            value={value}
+          />
+        );
       })}
     </LabeledList>
   );
@@ -590,40 +675,49 @@ const GeneratorHelp = () => {
             <tr>
               <td>box</td>
               <td>vector</td>
-              <td>A random vector within a box whose corners are at A and B.</td>
+              <td>
+                A random vector within a box whose corners are at A and B.
+              </td>
             </tr>
             <tr>
               <td>color</td>
               <td>color (string) or color matrix</td>
               <td>
-                Result type depends on whether A or B are matrices or not. The result is interpolated between A and B;
-                components are not randomized separately.
+                Result type depends on whether A or B are matrices or not. The
+                result is interpolated between A and B; components are not
+                randomized separately.
               </td>
             </tr>
             <tr>
               <td>circle</td>
               <td>vector</td>
-              <td>A random XY-only vector in a ring between radius A and B, centered at 0,0.</td>
+              <td>
+                A random XY-only vector in a ring between radius A and B,
+                centered at 0,0.
+              </td>
             </tr>
             <tr>
               <td>sphere</td>
               <td>vector</td>
-              <td>A random vector in a spherical shell between radius A and B, centered at 0,0,0.</td>
+              <td>
+                A random vector in a spherical shell between radius A and B,
+                centered at 0,0,0.
+              </td>
             </tr>
             <tr>
               <td>square</td>
               <td>vector</td>
               <td>
-                A random XY-only vector between squares of sizes A and B. (The length of the square is between A*2 and B*2,
-                centered at 0,0.)
+                A random XY-only vector between squares of sizes A and B. (The
+                length of the square is between A*2 and B*2, centered at 0,0.)
               </td>
             </tr>
             <tr>
               <td>cube</td>
               <td>vector</td>
               <td>
-                A random vector between cubes of sizes A and B. (The length of the cube is between A*2 and B*2, centered at
-                0,0,0.)
+                A random vector between cubes of sizes A and B. (The length of
+                the cube is between A*2 and B*2, centered at 0,0,0.)
               </td>
             </tr>
           </tbody>
@@ -647,7 +741,8 @@ export const Particool = (props) => {
           <NoticeBox danger>
             {' '}
             {String(Date.now())} <br />
-            Particles? {hasParticles.toString()} -{(data.target_particle === null).toString()} <br />
+            Particles? {hasParticles.toString()} -
+            {(data.target_particle === null).toString()} <br />
             Json - {JSON.stringify(data.target_particle)}
           </NoticeBox>
         )}
@@ -659,11 +754,20 @@ export const Particool = (props) => {
           }
           buttons={
             !hasParticles ? (
-              <Button icon="plus" content="Add Particle" onClick={() => act('add_particle')} />
+              <Button
+                icon="plus"
+                content="Add Particle"
+                onClick={() => act('add_particle')}
+              />
             ) : (
-              <Button.Confirm icon="minus" content="Remove Particle" onClick={() => act('remove_particle')} />
+              <Button.Confirm
+                icon="minus"
+                content="Remove Particle"
+                onClick={() => act('remove_particle')}
+              />
             )
-          }>
+          }
+        >
           <GeneratorHelp />
           <Box inline ml={2} mr={1}>
             Float change step:
@@ -677,7 +781,11 @@ export const Particool = (props) => {
             width="70px"
             onChange={(value) => setStep(value)}
           />
-          {!hasParticles ? <Box>No particle</Box> : <ParticleEntry particle={particles} />}
+          {!hasParticles ? (
+            <Box>No particle</Box>
+          ) : (
+            <ParticleEntry particle={particles} />
+          )}
         </Section>
       </Window.Content>
     </Window>

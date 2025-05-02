@@ -1,7 +1,7 @@
-import { Button, Dropdown, Input, LabeledList, Section } from '../components';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
+import { Button, Dropdown, Input, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -21,7 +21,10 @@ export const AiVoiceChanger = (props) => {
       <Section fill>
         <LabeledList>
           <LabeledList.Item label="Power">
-            <Button icon={on ? 'power-off' : 'times'} onClick={() => act('power')}>
+            <Button
+              icon={on ? 'power-off' : 'times'}
+              onClick={() => act('power')}
+            >
               {on ? 'On' : 'Off'}
             </Button>
           </LabeledList.Item>

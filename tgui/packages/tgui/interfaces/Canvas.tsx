@@ -1,8 +1,9 @@
 import { Color } from 'common/color';
 import { decodeHtmlEntities } from 'common/string';
 import { Component, createRef, RefObject } from 'react';
+
 import { useBackend } from '../backend';
-import { Tooltip, Icon, Box, Button, Flex } from '../components';
+import { Box, Button, Flex, Icon, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 const PX_PER_UNIT = 24;
@@ -70,7 +71,9 @@ class PaintCanvas extends Component<PaintCanvasProps> {
   componentDidUpdate() {
     // eslint-disable-next-line max-len
     if (
-      (this.props.value !== undefined && JSON.stringify(this.baseImageData) !== JSON.stringify(fromDM(this.props.value))) ||
+      (this.props.value !== undefined &&
+        JSON.stringify(this.baseImageData) !==
+          JSON.stringify(fromDM(this.props.value))) ||
       this.is_grid_shown !== this.props.show_grid
     ) {
       this.syncCanvas();
@@ -190,7 +193,14 @@ class PaintCanvas extends Component<PaintCanvasProps> {
   }
 
   render() {
-    const { value, width = 300, height = 300, imageWidth = 36, imageHeight = 36, ...rest } = this.props;
+    const {
+      value,
+      width = 300,
+      height = 300,
+      imageWidth = 36,
+      imageHeight = 36,
+      ...rest
+    } = this.props;
     return (
       <canvas
         ref={this.canvasRef}
@@ -201,7 +211,8 @@ class PaintCanvas extends Component<PaintCanvasProps> {
         onMouseMove={this.handleDrawing as any}
         onMouseUp={this.handleEndDrawing as any}
         onMouseOut={this.handleEndDrawing as any}
-        onContextMenu={this.handleDropper as any}>
+        onContextMenu={this.handleDropper as any}
+      >
         Canvas failed to render.
       </canvas>
     );
@@ -250,7 +261,8 @@ export const Canvas = (props) => {
         75 +
         (data.show_plaque ? average_plaque_height : 0) +
         (data.editable && data.paint_tool_palette ? palette_height : 0)
-      }>
+      }
+    >
       <Window.Content>
         <Flex align="start" direction="row">
           {!!data.paint_tool_palette && (
@@ -268,7 +280,8 @@ export const Canvas = (props) => {
                   or input a new one with Right-Click.
                 `
                     : '')
-                }>
+                }
+              >
                 <Icon name="question-circle" color="blue" size={1.5} m={0.5} />
               </Tooltip>
             </Flex.Item>
@@ -295,8 +308,12 @@ export const Canvas = (props) => {
             height={scaled_height}
             drawing_color={data.paint_tool_color}
             show_grid={griddy}
-            onCanvasModifiedHandler={(changed) => act('paint', { data: toMassPaintFormat(changed) })}
-            onCanvasDropperHandler={(x, y) => act('select_color_from_coords', { px: x, py: y })}
+            onCanvasModifiedHandler={(changed) =>
+              act('paint', { data: toMassPaintFormat(changed) })
+            }
+            onCanvasDropperHandler={(x, y) =>
+              act('select_color_from_coords', { px: x, py: y })
+            }
             editable={data.editable}
             has_palette={!!data.paint_tool_palette}
           />
@@ -332,7 +349,10 @@ export const Canvas = (props) => {
             )}
             {!data.finalized && (
               <Flex.Item>
-                <Button.Confirm onClick={() => act('finalize')} content="Finalize" />
+                <Button.Confirm
+                  onClick={() => act('finalize')}
+                  content="Finalize"
+                />
               </Flex.Item>
             )}
             {!!data.finalized && !!data.show_plaque && (
@@ -343,18 +363,25 @@ export const Canvas = (props) => {
                 textColor="black"
                 textAlign="left"
                 backgroundColor="white"
-                style={{ borderStyle: 'inset' }}>
+                style={{ borderStyle: 'inset' }}
+              >
                 <Box mb={1} fontSize="18px" bold>
                   {decodeHtmlEntities(data.name)}
                 </Box>
                 <Box bold>
                   {data.author}
-                  {!!data.date && `- ${new Date(data.date).getFullYear() + 540}`}
+                  {!!data.date &&
+                    `- ${new Date(data.date).getFullYear() + 540}`}
                 </Box>
                 <Box italic>{data.medium}</Box>
                 <Box italic>
                   {!!data.patron && `Sponsored by ${data.patron} `}
-                  <Button icon="hand-holding-usd" color="transparent" iconColor="black" onClick={() => act('patronage')} />
+                  <Button
+                    icon="hand-holding-usd"
+                    color="transparent"
+                    iconColor="black"
+                    onClick={() => act('patronage')}
+                  />
                 </Box>
               </Flex.Item>
             )}

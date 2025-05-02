@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, ProgressBar, Section, Box } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SatelliteControl = (props) => {
@@ -13,8 +13,15 @@ export const SatelliteControl = (props) => {
             <LabeledList>
               <LabeledList.Item label="Coverage">
                 <ProgressBar
-                  value={data.meteor_shield_coverage / data.meteor_shield_coverage_max}
-                  content={(100 * data.meteor_shield_coverage) / data.meteor_shield_coverage_max + '%'}
+                  value={
+                    data.meteor_shield_coverage /
+                    data.meteor_shield_coverage_max
+                  }
+                  content={
+                    (100 * data.meteor_shield_coverage) /
+                      data.meteor_shield_coverage_max +
+                    '%'
+                  }
                   ranges={{
                     good: [1, Infinity],
                     average: [0.3, 1],

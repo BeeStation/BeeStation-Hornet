@@ -5,30 +5,31 @@
  */
 
 import { useBackend } from './backend';
+import { Icon, Section, Stack } from './components';
 import { useDebug } from './debug';
 import { Window } from './layouts';
-import { Icon, Section, Stack } from './components';
 
 const requireInterface = require.context('./interfaces');
 
-const routingError = (type: 'notFound' | 'missingExport', name: string) => () => {
-  return (
-    <Window>
-      <Window.Content scrollable>
-        {type === 'notFound' && (
-          <div>
-            Interface <b>{name}</b> was not found.
-          </div>
-        )}
-        {type === 'missingExport' && (
-          <div>
-            Interface <b>{name}</b> is missing an export.
-          </div>
-        )}
-      </Window.Content>
-    </Window>
-  );
-};
+const routingError =
+  (type: 'notFound' | 'missingExport', name: string) => () => {
+    return (
+      <Window>
+        <Window.Content scrollable>
+          {type === 'notFound' && (
+            <div>
+              Interface <b>{name}</b> was not found.
+            </div>
+          )}
+          {type === 'missingExport' && (
+            <div>
+              Interface <b>{name}</b> is missing an export.
+            </div>
+          )}
+        </Window.Content>
+      </Window>
+    );
+  };
 
 // Displays an empty Window with scrollable content
 const SuspendedWindow = () => {

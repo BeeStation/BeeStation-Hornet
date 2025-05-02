@@ -1,8 +1,22 @@
 import { filter, map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
+
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
-import { Window, NtosWindow } from '../layouts';
+import {
+  Box,
+  Button,
+  Divider,
+  Dropdown,
+  Flex,
+  Icon,
+  Input,
+  Modal,
+  ProgressBar,
+  Section,
+  Tabs,
+  Tooltip,
+} from '../components';
+import { NtosWindow, Window } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
 // This is primarily necessary due to measures that are taken to reduce the size
@@ -122,7 +136,18 @@ export const AppTechweb = (props) => {
 
 export const TechwebContent = (props) => {
   const { act, data } = useRemappedBackend();
-  const { points, points_last_tick, web_org, sec_protocols, t_disk, d_disk, locked, linkedanalyzer, compact, tech_tier } = data;
+  const {
+    points,
+    points_last_tick,
+    web_org,
+    sec_protocols,
+    t_disk,
+    d_disk,
+    locked,
+    linkedanalyzer,
+    compact,
+    tech_tier,
+  } = data;
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
   const [lastPoints, setLastPoints] = useLocalState('lastPoints', {});
 
@@ -144,7 +169,9 @@ export const TechwebContent = (props) => {
             </Box>
             <Box>
               Security protocols:
-              <span className={`Techweb__SecProtocol ${!!sec_protocols && 'engaged'}`}>
+              <span
+                className={`Techweb__SecProtocol ${!!sec_protocols && 'engaged'}`}
+              >
                 {sec_protocols ? 'Engaged' : 'Disengaged'}
               </span>
             </Box>
@@ -155,17 +182,23 @@ export const TechwebContent = (props) => {
                 onClick={() => {
                   act('compactify');
                 }}
-                checked={!compact}>
+                checked={!compact}
+              >
                 Compactify
               </Button.Checkbox>
               <Button
                 icon="link"
                 onClick={() => {
                   act('linkmachines');
-                }}>
+                }}
+              >
                 Link
               </Button>
-              <Button icon="trash" disabled={!linkedanalyzer} onClick={() => setTechwebRoute({ route: 'analyzer' })}>
+              <Button
+                icon="trash"
+                disabled={!linkedanalyzer}
+                onClick={() => setTechwebRoute({ route: 'analyzer' })}
+              >
                 Analyzer
               </Button>
             </Box>
@@ -177,14 +210,24 @@ export const TechwebContent = (props) => {
             </Button>
             {d_disk && (
               <Flex.Item>
-                <Button fluid onClick={() => setTechwebRoute({ route: 'disk', diskType: 'design' })}>
+                <Button
+                  fluid
+                  onClick={() =>
+                    setTechwebRoute({ route: 'disk', diskType: 'design' })
+                  }
+                >
                   Design Disk Inserted
                 </Button>
               </Flex.Item>
             )}
             {t_disk && (
               <Flex.Item>
-                <Button fluid onClick={() => setTechwebRoute({ route: 'disk', diskType: 'tech' })}>
+                <Button
+                  fluid
+                  onClick={() =>
+                    setTechwebRoute({ route: 'disk', diskType: 'tech' })
+                  }
+                >
                   Tech Disk Inserted
                 </Button>
               </Flex.Item>
@@ -224,7 +267,9 @@ const TechwebOverview = (props) => {
       return (
         n.name.toLowerCase().includes(searchText) ||
         n.description.toLowerCase().includes(searchText) ||
-        n.design_ids.some((e) => design_cache[e].name.toLowerCase().includes(searchText))
+        n.design_ids.some((e) =>
+          design_cache[e].name.toLowerCase().includes(searchText),
+        )
       );
     });
     return filtered_search_nodes;
@@ -234,9 +279,15 @@ const TechwebOverview = (props) => {
   let displayedNodes = nodes;
   let researchednodes = nodes;
   let futurenodes = nodes;
-  displayedNodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 0));
-  researchednodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 1));
-  futurenodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 2));
+  displayedNodes = sortBy((x) => node_cache[x.id].name)(
+    nodes.filter((x) => x.tier === 0),
+  );
+  researchednodes = sortBy((x) => node_cache[x.id].name)(
+    nodes.filter((x) => x.tier === 1),
+  );
+  futurenodes = sortBy((x) => node_cache[x.id].name)(
+    nodes.filter((x) => x.tier === 2),
+  );
   if (searching) {
     displayedNodes = filterSearchNodes(displayedNodes);
     researchednodes = filterSearchNodes(researchednodes);
@@ -256,10 +307,16 @@ const TechwebOverview = (props) => {
             Web View
           </Flex.Item>
           <Flex.Item grow={1}>
-            <Tabs>{!!searching && <Tabs.Tab selected>Search Results</Tabs.Tab>}</Tabs>
+            <Tabs>
+              {!!searching && <Tabs.Tab selected>Search Results</Tabs.Tab>}
+            </Tabs>
           </Flex.Item>
           <Flex.Item align={'center'}>
-            <Input value={searchText} onInput={(e, value) => setSearchText(value)} placeholder={'Search...'} />
+            <Input
+              value={searchText}
+              onInput={(e, value) => setSearchText(value)}
+              placeholder={'Search...'}
+            />
           </Flex.Item>
         </Flex>
       </Flex.Item>
@@ -314,7 +371,8 @@ const TechwebNodeDetail = (props) => {
   const { nodes } = data;
   const { selectedNode } = props;
 
-  const selectedNodeData = selectedNode && nodes.find((x) => x.id === selectedNode);
+  const selectedNodeData =
+    selectedNode && nodes.find((x) => x.id === selectedNode);
   return <TechNodeDetail node={selectedNodeData} />;
 };
 
@@ -329,7 +387,8 @@ const TechwebDiskMenu = (props) => {
     return null;
   }
 
-  const DiskContent = (diskType === 'design' && TechwebDesignDisk) || TechwebTechDisk;
+  const DiskContent =
+    (diskType === 'design' && TechwebDesignDisk) || TechwebTechDisk;
   return (
     <Flex direction="column" height="100%">
       <Flex.Item>
@@ -348,10 +407,16 @@ const TechwebDiskMenu = (props) => {
                 Web &rarr; Disk
               </Button>
             )}
-            <Button icon="upload" onClick={() => act('uploadDisk', { type: diskType })}>
+            <Button
+              icon="upload"
+              onClick={() => act('uploadDisk', { type: diskType })}
+            >
               Disk &rarr; Web
             </Button>
-            <Button icon="trash" onClick={() => act('eraseDisk', { type: diskType })}>
+            <Button
+              icon="trash"
+              onClick={() => act('eraseDisk', { type: diskType })}
+            >
               Erase
             </Button>
             <Button
@@ -359,7 +424,8 @@ const TechwebDiskMenu = (props) => {
               onClick={() => {
                 act('ejectDisk', { type: diskType });
                 setTechwebRoute(null);
-              }}>
+              }}
+            >
               Eject
             </Button>
             <Button icon="home" onClick={() => setTechwebRoute(null)}>
@@ -387,12 +453,23 @@ const Techwebanalyzer = (props) => {
           <Flex.Item align="center" className="Techweb__HeaderTabTitle">
             Destructive Analyzer
           </Flex.Item>
-          <Flex.Item align="center">{analyzeritem ? analyzeritem : ''}</Flex.Item>
           <Flex.Item align="center">
-            <Button icon="trash" color="red" disabled={analyzeritem === null} onClick={() => act('destroyitem')}>
+            {analyzeritem ? analyzeritem : ''}
+          </Flex.Item>
+          <Flex.Item align="center">
+            <Button
+              icon="trash"
+              color="red"
+              disabled={analyzeritem === null}
+              onClick={() => act('destroyitem')}
+            >
               Destroy item(Material Reclaim)
             </Button>
-            <Button icon="eject" disabled={analyzeritem === null} onClick={() => act('ejectitem')}>
+            <Button
+              icon="eject"
+              disabled={analyzeritem === null}
+              onClick={() => act('ejectitem')}
+            >
               Eject
             </Button>
             <Button icon="home" onClick={() => setTechwebRoute(null)}>
@@ -405,7 +482,15 @@ const Techwebanalyzer = (props) => {
         <>
           <Flex.Item>{analyzeritem ? <TechwebItemmaterials /> : ''}</Flex.Item>
           <Flex.Item grow={1} className="Techweb__OverviewNodes">
-            {analyzeritem ? analyzertechs ? <TechwebItemtechs /> : 'Item has no new researchable nodes' : 'No inserted items!'}
+            {analyzeritem ? (
+              analyzertechs ? (
+                <TechwebItemtechs />
+              ) : (
+                'Item has no new researchable nodes'
+              )
+            ) : (
+              'No inserted items!'
+            )}
           </Flex.Item>
         </>
       )}
@@ -456,7 +541,10 @@ const TechwebDesignDisk = (props) => {
   const { act, data } = useRemappedBackend();
   const { design_cache, researched_designs, d_disk } = data;
   const { blueprints } = d_disk;
-  const [selectedDesign, setSelectedDesign] = useLocalState('designDiskSelect', null);
+  const [selectedDesign, setSelectedDesign] = useLocalState(
+    'designDiskSelect',
+    null,
+  );
   const [showModal, setShowModal] = useLocalState('showDesignModal', -1);
 
   const designIdByIdx = Object.keys(researched_designs);
@@ -477,13 +565,7 @@ const TechwebDesignDisk = (props) => {
                 width="100%"
                 options={designOptions}
                 onSelected={(val) => {
-                  const idx = parseInt(
-                    val
-                      .split('[')
-                      .pop()
-                      .split(']')[0],
-                    10
-                  );
+                  const idx = parseInt(val.split('[').pop().split(']')[0], 10);
                   setSelectedDesign(designIdByIdx[idx]);
                 }}
               />
@@ -499,7 +581,8 @@ const TechwebDesignDisk = (props) => {
                   });
                   setShowModal(-1);
                   setSelectedDesign(null);
-                }}>
+                }}
+              >
                 Select
               </Button>
             </Flex.Item>
@@ -513,7 +596,10 @@ const TechwebDesignDisk = (props) => {
           buttons={
             <>
               {x !== null && (
-                <Button icon="upload" onClick={() => act('uploadDesignSlot', { slot: i + 1 })}>
+                <Button
+                  icon="upload"
+                  onClick={() => act('uploadDesignSlot', { slot: i + 1 })}
+                >
                   Upload Design to Web
                 </Button>
               )}
@@ -521,16 +607,22 @@ const TechwebDesignDisk = (props) => {
                 {x !== null ? 'Overwrite Slot' : 'Load Design to Slot'}
               </Button>
               {x !== null && (
-                <Button icon="trash" onClick={() => act('clearDesignSlot', { slot: i + 1 })}>
+                <Button
+                  icon="trash"
+                  onClick={() => act('clearDesignSlot', { slot: i + 1 })}
+                >
                   Clear Slot
                 </Button>
               )}
             </>
-          }>
+          }
+        >
           {(x === null && 'Empty') || (
             <>
               Contains the design for <b>{design_cache[x].name}</b>:<br />
-              <span className={`${design_cache[x].class} Techweb__DesignIcon`} />
+              <span
+                className={`${design_cache[x].class} Techweb__DesignIcon`}
+              />
             </>
           )}
         </Section>
@@ -614,10 +706,12 @@ const DesignTooltip = (props) => {
 
 const TechNode = (props) => {
   const { act, data } = useRemappedBackend();
-  const { node_cache, design_cache, points, compact, researchable, tech_tier } = data;
+  const { node_cache, design_cache, points, compact, researchable, tech_tier } =
+    data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;
-  const { name, description, design_ids, prereq_ids, node_tier } = node_cache[id];
+  const { name, description, design_ids, prereq_ids, node_tier } =
+    node_cache[id];
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
   const [tabIndex, setTabIndex] = useLocalState('nodeDetailTabIndex', 0);
 
@@ -634,7 +728,8 @@ const TechNode = (props) => {
               onClick={() => {
                 setTechwebRoute({ route: 'details', selectedNode: id });
                 setTabIndex(0);
-              }}>
+              }}
+            >
               Details
             </Button>
           )}
@@ -649,7 +744,11 @@ const TechNode = (props) => {
                 content="Research"
               />
             ) : (
-              <Button icon="lightbulb" disabled={!can_unlock || tier > 1} onClick={() => act('researchNode', { node_id: id })}>
+              <Button
+                icon="lightbulb"
+                disabled={!can_unlock || tier > 1}
+                onClick={() => act('researchNode', { node_id: id })}
+              >
                 Research
               </Button>
             ))}
@@ -659,12 +758,22 @@ const TechNode = (props) => {
                 'Researching this node will cost additional discovery points. Please research more tier ' +
                 (tech_tier + 1) +
                 ' technology nodes first.'
-              }>
-              <Icon style={{ marginLeft: '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
+              }
+            >
+              <Icon
+                style={{ marginLeft: '3px' }}
+                mr={1}
+                name="exclamation-triangle"
+                color="yellow"
+              />
             </Tooltip>
           )}
           {destructive && (
-            <Button icon="trash" color="red" onClick={() => act('destroyfortech', { node_id: id })}>
+            <Button
+              icon="trash"
+              color="red"
+              onClick={() => act('destroyfortech', { node_id: id })}
+            >
               Destroy item for node
             </Button>
           )}
@@ -685,7 +794,12 @@ const TechNode = (props) => {
                       average: [0.25, 0.5],
                       bad: [-Infinity, 0.25],
                     }}
-                    value={reqPts === 0 ? 1 : Math.min(1, (points[key] || 0) / reqPts)}>
+                    value={
+                      reqPts === 0
+                        ? 1
+                        : Math.min(1, (points[key] || 0) / reqPts)
+                    }
+                  >
                     {abbreviateName(key)} ({nodeProg}/{reqPts})
                   </ProgressBar>
                 </Flex.Item>

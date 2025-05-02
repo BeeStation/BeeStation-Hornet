@@ -8,18 +8,32 @@ export const HypnoChair = (props) => {
     <Window width={500} height={500}>
       <Window.Content>
         <Section title="Information" backgroundColor="#450F44">
-          The Enhanced Interrogation Chamber is designed to induce a deep-rooted trance trigger into the subject. Once the
-          procedure is complete, by using the implanted trigger phrase, the authorities are able to ensure immediate and
-          complete obedience and truthfulness.
+          The Enhanced Interrogation Chamber is designed to induce a deep-rooted
+          trance trigger into the subject. Once the procedure is complete, by
+          using the implanted trigger phrase, the authorities are able to ensure
+          immediate and complete obedience and truthfulness.
         </Section>
         <Section title="Occupant Information" textAlign="center">
           <LabeledList>
-            <LabeledList.Item label="Name">{data.occupant.name ? data.occupant.name : 'No Occupant'}</LabeledList.Item>
+            <LabeledList.Item label="Name">
+              {data.occupant.name ? data.occupant.name : 'No Occupant'}
+            </LabeledList.Item>
             {!!data.occupied && (
               <LabeledList.Item
                 label="Status"
-                color={data.occupant.stat === 0 ? 'good' : data.occupant.stat === 1 ? 'average' : 'bad'}>
-                {data.occupant.stat === 0 ? 'Conscious' : data.occupant.stat === 1 ? 'Unconscious' : 'Dead'}
+                color={
+                  data.occupant.stat === 0
+                    ? 'good'
+                    : data.occupant.stat === 1
+                      ? 'average'
+                      : 'bad'
+                }
+              >
+                {data.occupant.stat === 0
+                  ? 'Conscious'
+                  : data.occupant.stat === 1
+                    ? 'Unconscious'
+                    : 'Dead'}
               </LabeledList.Item>
             )}
           </LabeledList>
@@ -47,10 +61,16 @@ export const HypnoChair = (props) => {
             <LabeledList.Item label="Interrogate Occupant">
               <Button
                 icon="code-branch"
-                content={data.interrogating ? 'Interrupt Interrogation' : 'Begin Enhanced Interrogation'}
+                content={
+                  data.interrogating
+                    ? 'Interrupt Interrogation'
+                    : 'Begin Enhanced Interrogation'
+                }
                 onClick={() => act('interrogate')}
               />
-              {data.interrogating === 1 && <Icon name="cog" color="orange" spin />}
+              {data.interrogating === 1 && (
+                <Icon name="cog" color="orange" spin />
+              )}
             </LabeledList.Item>
           </LabeledList>
         </Section>

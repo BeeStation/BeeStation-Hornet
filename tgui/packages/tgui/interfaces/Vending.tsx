@@ -1,7 +1,16 @@
 import { classes } from 'common/react';
 import { capitalizeAll } from 'common/string';
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Table } from 'tgui/components';
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Stack,
+  Table,
+} from 'tgui/components';
 import { Window } from 'tgui/layouts';
 
 type VendingData = {
@@ -61,9 +70,18 @@ type CustomInput = {
 
 export const Vending = (props) => {
   const { data } = useBackend<VendingData>();
-  const { onstation, product_records = [], coin_records = [], hidden_records = [], stock } = data;
+  const {
+    onstation,
+    product_records = [],
+    coin_records = [],
+    hidden_records = [],
+    stock,
+  } = data;
 
-  const [selectedCategory, setSelectedCategory] = useLocalState<string>('selectedCategory', Object.keys(data.categories)[0]);
+  const [selectedCategory, setSelectedCategory] = useLocalState<string>(
+    'selectedCategory',
+    Object.keys(data.categories)[0],
+  );
 
   let inventory: (ProductRecord | CustomInput)[];
   let custom = false;
@@ -90,7 +108,7 @@ export const Vending = (props) => {
           return false;
         }
       });
-    })
+    }),
   );
 
   return (
@@ -103,7 +121,11 @@ export const Vending = (props) => {
             </Stack.Item>
           )}
           <Stack.Item grow>
-            <ProductDisplay custom={custom} inventory={inventory} selectedCategory={selectedCategory} />
+            <ProductDisplay
+              custom={custom}
+              inventory={inventory}
+              selectedCategory={selectedCategory}
+            />
           </Stack.Item>
 
           {Object.keys(filteredCategories).length > 1 && (
@@ -127,7 +149,9 @@ export const UserDetails = (props) => {
   const { user } = data;
 
   if (!user) {
-    return <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>;
+    return (
+      <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>
+    );
   } else {
     return (
       <Section>
@@ -138,7 +162,9 @@ export const UserDetails = (props) => {
           <Stack.Item>
             <LabeledList>
               <LabeledList.Item label="User">{user.name}</LabeledList.Item>
-              <LabeledList.Item label="Occupation">{user.job || 'Unemployed'}</LabeledList.Item>
+              <LabeledList.Item label="Occupation">
+                {user.job || 'Unemployed'}
+              </LabeledList.Item>
             </LabeledList>
           </Stack.Item>
         </Stack>
@@ -169,7 +195,8 @@ const ProductDisplay = (props: {
             {(user && user.cash) || 0} cr <Icon name="coins" color="gold" />
           </Box>
         )
-      }>
+      }
+    >
       <Table>
         {inventory
           .filter((product) => {
@@ -180,7 +207,12 @@ const ProductDisplay = (props: {
             }
           })
           .map((product) => (
-            <VendingRow key={product.name} custom={custom} product={product} productStock={stock[product.name]} />
+            <VendingRow
+              key={product.name}
+              custom={custom}
+              product={product}
+              productStock={stock[product.name]}
+            />
           ))}
       </Table>
     </Section>
@@ -195,12 +227,20 @@ const VendingRow = (props) => {
   const { data } = useBackend<VendingData>();
   const { custom, product, productStock } = props;
   const { access, department_bitflag, jobDiscount, onstation, user } = data;
-  const free = !onstation || product.price === 0 || (!product.premium && department_bitflag === user?.department_bitflag);
-  const discount = !product.premium && department_bitflag === user?.department_bitflag;
+  const free =
+    !onstation ||
+    product.price === 0 ||
+    (!product.premium && department_bitflag === user?.department_bitflag);
+  const discount =
+    !product.premium && department_bitflag === user?.department_bitflag;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
   const disabled =
-    remaining === 0 || (onstation && !user) || (onstation && !access && (discount ? redPrice : product.price) > user?.cash);
+    remaining === 0 ||
+    (onstation && !user) ||
+    (onstation &&
+      !access &&
+      (discount ? redPrice : product.price) > user?.cash);
 
   return (
     <Table.Row>
@@ -208,7 +248,11 @@ const VendingRow = (props) => {
         <ProductImage product={product} />
       </Table.Cell>
       <Table.Cell bold>{capitalizeAll(product.name)}</Table.Cell>
-      <Table.Cell>{!!productStock?.colorable && <ProductColorSelect disabled={disabled} product={product} />}</Table.Cell>
+      <Table.Cell>
+        {!!productStock?.colorable && (
+          <ProductColorSelect disabled={disabled} product={product} />
+        )}
+      </Table.Cell>
       <Table.Cell collapsing textAlign="right">
         <ProductStock custom={custom} product={product} remaining={remaining} />
       </Table.Cell>
@@ -271,7 +315,13 @@ const ProductStock = (props) => {
   const { custom, product, remaining } = props;
 
   return (
-    <Box color={(remaining <= 0 && 'bad') || (!custom && remaining <= product.max_amount / 2 && 'average') || 'good'}>
+    <Box
+      color={
+        (remaining <= 0 && 'bad') ||
+        (!custom && remaining <= product.max_amount / 2 && 'average') ||
+        'good'
+      }
+    >
       {remaining} left
     </Box>
   );
@@ -295,9 +345,10 @@ const ProductButton = (props) => {
       disabled={disabled}
       onClick={() =>
         act('dispense', {
-          'item': product.name,
+          item: product.name,
         })
-      }>
+      }
+    >
       {customPrice}
     </Button>
   ) : (
@@ -306,17 +357,18 @@ const ProductButton = (props) => {
       disabled={disabled}
       onClick={() =>
         act('vend', {
-          'ref': product.ref,
+          ref: product.ref,
         })
-      }>
+      }
+    >
       {standardPrice === 'FREE' ? 'FREE' : standardPrice}
     </Button>
   );
 };
 
 const CATEGORY_COLORS = {
-  'Contraband': 'red',
-  'Premium': 'yellow',
+  Contraband: 'red',
+  Premium: 'yellow',
 };
 
 const CategorySelector = (props: {
@@ -336,7 +388,8 @@ const CategorySelector = (props: {
               selected={name === selectedCategory}
               color={CATEGORY_COLORS[name]}
               icon={category.icon}
-              onClick={() => onSelect(name)}>
+              onClick={() => onSelect(name)}
+            >
               {name}
             </Button>
           ))}

@@ -10,7 +10,9 @@ export const LaunchpadRemote = (props) => {
     <Window theme="syndicate" width={300} height={240}>
       <Window.Content>
         {(!has_pad && <NoticeBox>No Launchpad Connected</NoticeBox>) ||
-          (pad_closed && <NoticeBox>Launchpad Closed</NoticeBox>) || <LaunchpadControl topLevel />}
+          (pad_closed && <NoticeBox>Launchpad Closed</NoticeBox>) || (
+            <LaunchpadControl topLevel />
+          )}
       </Window.Content>
     </Window>
   );

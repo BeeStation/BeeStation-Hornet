@@ -1,6 +1,6 @@
-import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
-import { Section, BufferedTextArea, Button } from '../components';
+import { BufferedTextArea, Button, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 export const NtosNotepad = (props) => {
   const { act, data } = useBackend();
@@ -10,9 +10,18 @@ export const NtosNotepad = (props) => {
       <NtosWindow.Content>
         <Section
           title={'Notes'}
-          buttons={!!has_paper && <Button icon="file-alt" content="Show Scanned Paper" onClick={() => act('ShowPaper')} />}
+          buttons={
+            !!has_paper && (
+              <Button
+                icon="file-alt"
+                content="Show Scanned Paper"
+                onClick={() => act('ShowPaper')}
+              />
+            )
+          }
           fill
-          fitted>
+          fitted
+        >
           <BufferedTextArea
             fluid
             style={{ height: '100%' }}

@@ -1,6 +1,6 @@
+import type { ReactNode } from 'react';
 import { Box, Tooltip } from 'tgui/components';
 import { createRenderer } from 'tgui/renderer';
-import type { ReactNode } from 'react';
 
 const render = createRenderer();
 
@@ -13,7 +13,7 @@ export const ListOfTooltips = () => {
         <Box as="span" backgroundColor="blue" fontSize="48px" m={1}>
           Tooltip #{i}
         </Box>
-      </Tooltip>
+      </Tooltip>,
     );
   }
 

@@ -1,5 +1,13 @@
 import { useBackend, useLocalState } from '../backend';
-import { AnimatedNumber, Button, LabeledList, NoticeBox, ProgressBar, Section, Tabs } from '../components';
+import {
+  AnimatedNumber,
+  Button,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 const damageTypes = [
@@ -55,19 +63,25 @@ const PatientStateView = (props) => {
             <LabeledList.Item label="State" color={patient.statstate}>
               {patient.stat}
             </LabeledList.Item>
-            <LabeledList.Item label="Blood Type">{patient.blood_type}</LabeledList.Item>
+            <LabeledList.Item label="Blood Type">
+              {patient.blood_type}
+            </LabeledList.Item>
             <LabeledList.Item label="Health">
               <ProgressBar
                 value={patient.health}
                 minValue={patient.minHealth}
                 maxValue={patient.maxHealth}
-                color={patient.health >= 0 ? 'good' : 'average'}>
+                color={patient.health >= 0 ? 'good' : 'average'}
+              >
                 <AnimatedNumber value={patient.health} />
               </ProgressBar>
             </LabeledList.Item>
             {damageTypes.map((type) => (
               <LabeledList.Item key={type.type} label={type.label}>
-                <ProgressBar value={patient[type.type] / patient.maxHealth} color="bad">
+                <ProgressBar
+                  value={patient[type.type] / patient.maxHealth}
+                  color="bad"
+                >
                   <AnimatedNumber value={patient[type.type]} />
                 </ProgressBar>
               </LabeledList.Item>
@@ -114,7 +128,11 @@ const SurgeryProceduresView = (props) => {
   const { surgeries = [] } = data;
   return (
     <Section title="Advanced Surgery Procedures">
-      <Button icon="download" content="Sync Research Database" onClick={() => act('sync')} />
+      <Button
+        icon="download"
+        content="Sync Research Database"
+        onClick={() => act('sync')}
+      />
       {surgeries.map((surgery) => (
         <Section title={surgery.name} key={surgery.name} level={2}>
           {surgery.desc}

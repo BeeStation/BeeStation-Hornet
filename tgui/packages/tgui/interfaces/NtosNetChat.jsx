@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Button, Dimmer, Icon, Input, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  Dimmer,
+  Icon,
+  Input,
+  Section,
+  Stack,
+} from '../components';
 import { NtosWindow } from '../layouts';
 
 // byond defines for the program state
@@ -32,8 +40,12 @@ const NoChannelDimmer = (props) => {
             </Stack.Item>
           </Stack>
         </Stack.Item>
-        <Stack.Item fontSize="18px">Click a channel to start chatting!</Stack.Item>
-        <Stack.Item fontSize="15px">(If you&apos;re new, you may want to set your username below.)</Stack.Item>
+        <Stack.Item fontSize="18px">
+          Click a channel to start chatting!
+        </Stack.Item>
+        <Stack.Item fontSize="15px">
+          (If you&apos;re new, you may want to set your username below.)
+        </Stack.Item>
       </Stack>
     </Dimmer>
   );
@@ -152,24 +164,35 @@ export const NtosNetChat = (props) => {
                 <Section scrollable fill>
                   {(in_channel &&
                     (authorized ? (
-                      messages.map((message) => <Box key={message.msg}>{message.msg}</Box>)
+                      messages.map((message) => (
+                        <Box key={message.msg}>{message.msg}</Box>
+                      ))
                     ) : (
                       <Box textAlign="center">
-                        <Icon name="exclamation-triangle" mt={4} fontSize="40px" />
+                        <Icon
+                          name="exclamation-triangle"
+                          mt={4}
+                          fontSize="40px"
+                        />
                         <Box mt={1} bold fontSize="18px">
                           THIS CHANNEL IS PASSWORD PROTECTED
                         </Box>
                         <Box mt={1}>INPUT PASSWORD TO ACCESS</Box>
                       </Box>
                     ))) ||
-                    (PC_device_theme !== 'thinktronic-classic' && <NoChannelDimmer />)}
+                    (PC_device_theme !== 'thinktronic-classic' && (
+                      <NoChannelDimmer />
+                    ))}
                 </Section>
               </Stack.Item>
               {!!in_channel && (
                 <Input
                   backgroundColor={this_client && this_client.muted && 'red'}
                   height="22px"
-                  placeholder={(this_client && this_client.muted && 'You are muted!') || 'Message ' + title}
+                  placeholder={
+                    (this_client && this_client.muted && 'You are muted!') ||
+                    'Message ' + title
+                  }
                   fluid
                   selfClear
                   mt={1}
@@ -192,7 +215,11 @@ export const NtosNetChat = (props) => {
                       <Stack vertical>
                         {displayed_clients.map((client) => (
                           <Stack height="18px" fill key={client.name}>
-                            <Stack.Item basis={0} grow color={client_color(client)}>
+                            <Stack.Item
+                              basis={0}
+                              grow
+                              color={client_color(client)}
+                            >
                               {client.name}
                             </Stack.Item>
                             {client !== this_client && (
@@ -202,7 +229,10 @@ export const NtosNetChat = (props) => {
                                     disabled={this_client?.muted}
                                     compact
                                     icon="bullhorn"
-                                    tooltip={(!this_client?.muted && 'Ping') || 'You are muted!'}
+                                    tooltip={
+                                      (!this_client?.muted && 'Ping') ||
+                                      'You are muted!'
+                                    }
                                     tooltipPosition="left"
                                     onClick={() =>
                                       act('PRG_ping_user', {
@@ -215,9 +245,17 @@ export const NtosNetChat = (props) => {
                                   <Stack.Item>
                                     <Button
                                       compact
-                                      icon={(!client.muted && 'volume-up') || 'volume-mute'}
-                                      color={(!client.muted && 'green') || 'red'}
-                                      tooltip={(!client.muted && 'Mute this User') || 'Unmute this User'}
+                                      icon={
+                                        (!client.muted && 'volume-up') ||
+                                        'volume-mute'
+                                      }
+                                      color={
+                                        (!client.muted && 'green') || 'red'
+                                      }
+                                      tooltip={
+                                        (!client.muted && 'Mute this User') ||
+                                        'Unmute this User'
+                                      }
                                       tooltipPosition="left"
                                       onClick={() =>
                                         act('PRG_mute_user', {
@@ -249,7 +287,11 @@ export const NtosNetChat = (props) => {
                               })
                             }
                           />
-                          <Button.Confirm fluid content="Leave Channel" onClick={() => act('PRG_leavechannel')} />
+                          <Button.Confirm
+                            fluid
+                            content="Leave Channel"
+                            onClick={() => act('PRG_leavechannel')}
+                          />
                         </>
                       )}
                       {!!(is_operator && authed) && (

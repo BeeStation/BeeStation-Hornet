@@ -1,8 +1,8 @@
 import { useBackend } from '../backend';
 import { Stack } from '../components';
 import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 type Info = {
   antag_name: string;

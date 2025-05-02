@@ -1,18 +1,30 @@
 import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Stack, Input, Section, Tabs, NoticeBox, Box, Icon, Button } from 'tgui/components';
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  NoticeBox,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui/components';
+
 import { JOB2ICON } from '../common/JobToIcon';
 import { CRIMESTATUS2COLOR } from './constants';
 import { isRecordMatch } from './helpers';
-import { SecurityRecordsData, SecurityRecord } from './types';
+import { SecurityRecord, SecurityRecordsData } from './types';
 
 /** Tabs on left, with search bar */
 export const SecurityRecordTabs = (props) => {
   const { act, data } = useBackend<SecurityRecordsData>();
   const { higher_access, records = [] } = data;
 
-  const errorMessage = !records.length ? 'No records found.' : 'No match. Refine your search.';
+  const errorMessage = !records.length
+    ? 'No records found.'
+    : 'No match. Refine your search.';
 
   const [search, setSearch] = useLocalState('search', '');
 
@@ -24,7 +36,11 @@ export const SecurityRecordTabs = (props) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Input fluid placeholder="Name/Job/Fingerprints" onInput={(event, value) => setSearch(value)} />
+        <Input
+          fluid
+          placeholder="Name/Job/Fingerprints"
+          onInput={(event, value) => setSearch(value)}
+        />
       </Stack.Item>
       <Stack.Item grow>
         <Section fill scrollable>
@@ -32,7 +48,9 @@ export const SecurityRecordTabs = (props) => {
             {!sorted.length ? (
               <NoticeBox>{errorMessage}</NoticeBox>
             ) : (
-              sorted.map((record, index) => <CrewTab record={record} key={index} />)
+              sorted.map((record, index) => (
+                <CrewTab record={record} key={index} />
+              ))
             )}
           </Tabs>
         </Section>
@@ -43,7 +61,8 @@ export const SecurityRecordTabs = (props) => {
             <Button
               disabled
               icon="plus"
-              tooltip="Add new records by inserting a 1 by 1 meter photo into the terminal. You do not need this screen open.">
+              tooltip="Add new records by inserting a 1 by 1 meter photo into the terminal. You do not need this screen open."
+            >
               Create
             </Button>
           </Stack.Item>
@@ -64,7 +83,9 @@ export const SecurityRecordTabs = (props) => {
 
 /** Individual record */
 const CrewTab = (props: { record: SecurityRecord }) => {
-  const [selectedRecord, setSelectedRecord] = useLocalState<SecurityRecord | undefined>('securityRecord', undefined);
+  const [selectedRecord, setSelectedRecord] = useLocalState<
+    SecurityRecord | undefined
+  >('securityRecord', undefined);
 
   const { act, data } = useBackend<SecurityRecordsData>();
   const { character_preview_view } = data;
@@ -77,14 +98,22 @@ const CrewTab = (props: { record: SecurityRecord }) => {
       setSelectedRecord(undefined);
     } else {
       setSelectedRecord(record);
-      act('view_record', { character_preview_view: character_preview_view, record_ref: record_ref });
+      act('view_record', {
+        character_preview_view: character_preview_view,
+        record_ref: record_ref,
+      });
     }
   };
 
   const isSelected = selectedRecord?.record_ref === record_ref;
 
   return (
-    <Tabs.Tab className="candystripe" label={record.name} onClick={() => selectRecord(record)} selected={isSelected}>
+    <Tabs.Tab
+      className="candystripe"
+      label={record.name}
+      onClick={() => selectRecord(record)}
+      selected={isSelected}
+    >
       <Box bold={isSelected} color={CRIMESTATUS2COLOR[wanted_status]} wrap>
         <Icon name={JOB2ICON[rank] || 'question'} /> {name}
       </Box>

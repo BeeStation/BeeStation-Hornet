@@ -6,6 +6,7 @@
 
 import fs from 'fs';
 import { basename } from 'path';
+
 import { createLogger } from '../logging.js';
 import { require } from '../require.js';
 import { resolveGlob } from '../util.js';
@@ -29,7 +30,9 @@ export const loadSourceMaps = async (bundleDir) => {
   for (let path of paths) {
     try {
       const file = basename(path).replace('.map', '');
-      const consumer = await new SourceMapConsumer(JSON.parse(fs.readFileSync(path, 'utf8')));
+      const consumer = await new SourceMapConsumer(
+        JSON.parse(fs.readFileSync(path, 'utf8')),
+      );
       sourceMaps.push({ file, consumer });
     } catch (err) {
       logger.error(err);
@@ -76,7 +79,9 @@ export const retrace = (stack) => {
       if (!file) {
         return `  at ${methodName}`;
       }
-      const compactPath = file.replace(/^webpack:\/\/\/?/, './').replace(/.*node_modules\//, '');
+      const compactPath = file
+        .replace(/^webpack:\/\/\/?/, './')
+        .replace(/.*node_modules\//, '');
       return `  at ${methodName} (${compactPath}:${lineNumber})`;
     })
     .join('\n');

@@ -1,18 +1,33 @@
+import { toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
-import { toFixed } from 'common/math';
 
 const RDServerStatus = (props) => {
   const { act, data } = useBackend();
   const { value, ...rest } = props;
-  const { name, server_id, temperature, temperature_warning, temperature_max, enabled, overheated } = value;
+  const {
+    name,
+    server_id,
+    temperature,
+    temperature_warning,
+    temperature_max,
+    enabled,
+    overheated,
+  } = value;
   const tempState =
     (temperature < temperature_warning && 'good') ||
-    (temperature > temperature_warning && temperature < temperature_max && 'average') ||
+    (temperature > temperature_warning &&
+      temperature < temperature_max &&
+      'average') ||
     'bad';
   const overheadedState =
-    (overheated && 'Halted') || (temperature > temperature_warning && temperature < temperature_max && 'Warning') || 'Normal';
+    (overheated && 'Halted') ||
+    (temperature > temperature_warning &&
+      temperature < temperature_max &&
+      'Warning') ||
+    'Normal';
   return (
     <Box {...rest} width="170px" style={{ border: '1px solid #000000' }}>
       <Flex mx={0.5} my={0.5} direction="row" justify="space-around">
@@ -33,7 +48,8 @@ const RDServerStatus = (props) => {
           <Button
             icon={enabled ? 'sync-alt' : 'times'}
             selected={enabled}
-            onClick={() => act('enable_server', { server_id: server_id })}>
+            onClick={() => act('enable_server', { server_id: server_id })}
+          >
             {enabled ? 'On' : 'Off'}
           </Button>
         </Flex.Item>
@@ -45,7 +61,13 @@ const RDServerStatus = (props) => {
 const RDServerLogItem = (props) => {
   const { act, data } = useBackend();
   const { value, ...rest } = props;
-  const { entry = '', research_name = '', cost = '', researcher_name = '', location = '' } = value;
+  const {
+    entry = '',
+    research_name = '',
+    cost = '',
+    researcher_name = '',
+    location = '',
+  } = value;
   return (
     <Flex {...rest} align="baseline" justify="space-between">
       <Flex.Item width={3}>{entry}</Flex.Item>
@@ -72,7 +94,12 @@ export const RDConsole = (props) => {
           <Flex direction="column">
             <RDServerLogItem
               color="label"
-              value={{ researcher_name: 'Researcher', research_name: 'Technology', cost: 'Cost', location: 'Location' }}
+              value={{
+                researcher_name: 'Researcher',
+                research_name: 'Technology',
+                cost: 'Cost',
+                location: 'Location',
+              }}
             />
             {logs.map((entry) => (
               <RDServerLogItem key={entry.entry} value={entry} />

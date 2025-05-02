@@ -4,7 +4,13 @@ import { Window } from '../layouts';
 
 export const Holodeck = (props) => {
   const { act, data } = useBackend();
-  const { can_toggle_safety, default_programs = [], emag_programs = [], emagged, program } = data;
+  const {
+    can_toggle_safety,
+    default_programs = [],
+    emag_programs = [],
+    emagged,
+    program,
+  } = data;
   return (
     <Window width={400} height={500}>
       <Window.Content scrollable>
@@ -19,7 +25,8 @@ export const Holodeck = (props) => {
               selected={!emagged}
               onClick={() => act('safety')}
             />
-          }>
+          }
+        >
           {default_programs.map((def_program) => (
             <Button
               fluid
