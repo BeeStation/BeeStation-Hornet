@@ -1,0 +1,6 @@
+author: rkz, GoldenAlpharex
+delete-after: true
+changes:
+  - rscadd: made berets greyscale
+  - rscdel: removed unused berets
+  - rscadd: allowed GAGS color customization in vending machines
