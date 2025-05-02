@@ -43,6 +43,27 @@
 				computer.visible_message(span_warning("\The [computer] shows an \"I/O Error - Hard drive may be full. Please free some space and try again. Required space: [log.size]GQ\" warning."))
 				return
 			return TRUE
+		if("EditInNotepad")
+			var/data = params["data"]
+			if(!istype(computer))
+				return
+			var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
+			var/obj/item/computer_hardware/hard_drive/role/ssd = computer.all_components[MC_HDD_JOB]
+			var/datum/computer_file/program/notepad/notepad
+
+			// Find the notepad program in the drive
+			if(hard_drive)
+				notepad = hard_drive.find_file_by_name("notepad")
+			if(ssd && !notepad)
+				notepad = ssd.find_file_by_name("notepad")
+
+			if(!notepad || !istype(notepad))
+				to_chat(usr, span_danger("\The [computer]'s screen shows \"I/O ERROR - Notepad not found.\""))
+				return
+			notepad.set_note(data)
+			notepad.computer = computer
+			computer.open_program(usr, notepad)
+			return TRUE
 
 /datum/computer_file/program/log_viewer/ui_data(mob/user)
 	var/list/data = list()
@@ -79,6 +100,7 @@
 			)
 		)
 	data["files"] = files
+
 	return data
 
 /datum/computer_file/program/log_viewer/proc/get_silo_log()
