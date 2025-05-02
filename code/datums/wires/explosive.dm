@@ -28,11 +28,7 @@
 		return TRUE
 
 /datum/wires/explosive/chem_grenade/attach_assembly(color, obj/item/assembly/S)
-	if(istype(S,/obj/item/assembly/timer))
-		var/obj/item/grenade/chem_grenade/G = holder
-		var/obj/item/assembly/timer/T = S
-		G.det_time = T.saved_time*10
-	else if(istype(S,/obj/item/assembly/prox_sensor))
+	if(istype(S,/obj/item/assembly/prox_sensor))
 		var/obj/item/assembly/prox_sensor/sensor = S
 		var/obj/item/grenade/chem_grenade/grenade = holder
 		grenade.landminemode = sensor
