@@ -252,6 +252,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PARALYSIS "paralysis"
 /// Used for limbs.
 #define TRAIT_DISABLED_BY_WOUND "disabled-by-wound"
+/// This object has been slathered with a speed potion
+#define TRAIT_SPEED_POTIONED "speed_potioned"
 
 /// Can use the nuclear device's UI, regardless of a lack of hands
 #define TRAIT_CAN_USE_NUKE "can_use_nuke"
@@ -423,4 +425,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
+
+/// Prevents items from being speed potion-ed, but allows their speed to be altered in other ways
+#define TRAIT_NO_SPEED_POTION "no_speed_potion"
+
 // END TRAIT DEFINES

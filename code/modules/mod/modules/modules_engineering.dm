@@ -59,19 +59,26 @@
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
 
+/obj/item/mod/module/magboot/on_install()
+	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
+
+/obj/item/mod/module/magboot/on_uninstall(deleting)
+	UnregisterSignal(mod, COMSIG_MOD_UPDATE_SPEED)
+
 /obj/item/mod/module/magboot/on_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_NEGATES_GRAVITY, REF(src))
 	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, REF(src))
-	mod.slowdown += slowdown_active
-	mod.wearer.update_gravity(mod.wearer.has_gravity())
-	mod.wearer.update_equipment_speed_mods()
+	mod.update_speed()
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
 	REMOVE_TRAIT(mod.wearer, TRAIT_NEGATES_GRAVITY, REF(src))
 	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, REF(src))
-	mod.slowdown -= slowdown_active
-	mod.wearer.update_gravity(mod.wearer.has_gravity())
-	mod.wearer.update_equipment_speed_mods()
+	mod.update_speed()
+
+/obj/item/mod/module/magboot/proc/on_update_speed(datum/source, list/module_slowdowns, prevent_slowdown)
+	SIGNAL_HANDLER
+	if (!prevent_slowdown && active)
+		module_slowdowns += slowdown_active
 
 /obj/item/mod/module/magboot/advanced
 	name = "MOD advanced magnetic stability module"

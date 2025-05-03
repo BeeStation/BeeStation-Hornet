@@ -56,10 +56,8 @@
 	var/complexity = 0
 	/// Power usage of the MOD.
 	var/charge_drain = DEFAULT_CHARGE_DRAIN
-	/// Slowdown of the MOD when not active.
-	var/slowdown_inactive = 1 //a bit higher than hardsuits
-	/// Slowdown of the MOD when active.
-	var/slowdown_active = 0.50 //same as syndicate hardsuits
+	/// Slowdown of the MOD when all of its pieces are deployed.
+	var/slowdown_deployed = 0.50 //same as syndicate hardsuits
 	/// How long this MOD takes each part to seal.
 	var/activation_step_time = MOD_ACTIVATION_STEP_TIME
 	/// Extended description of the theme.
@@ -655,8 +653,21 @@
 	core.update_charge_alert()
 
 /obj/item/mod/control/proc/update_speed()
-	for(var/obj/item/part as anything in get_parts(all = TRUE))
-		part.slowdown = (get_part_datum(part).sealed ? slowdown_active : slowdown_inactive) / length(mod_parts)
+	var/total_slowdown = 0
+	var/prevent_slowdown = HAS_TRAIT(src, TRAIT_SPEED_POTIONED)
+	if (!prevent_slowdown)
+		total_slowdown += slowdown_deployed
+
+	var/list/module_slowdowns = list()
+	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns, prevent_slowdown)
+	for (var/module_slow in module_slowdowns)
+		total_slowdown += module_slow
+
+	for(var/datum/mod_part/part_datum as anything in get_part_datums(all = TRUE))
+		var/obj/item/part = part_datum.part_item
+		part.slowdown = total_slowdown / length(mod_parts)
+		if (!part_datum.sealed)
+			part.slowdown = max(part.slowdown, 0)
 	wearer?.update_equipment_speed_mods()
 
 /obj/item/mod/control/proc/power_off()
@@ -716,16 +727,17 @@
 /obj/item/mod/control/proc/on_potion(atom/movable/source, obj/item/slimepotion/speed/speed_potion, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(slowdown_inactive <= 0)
+	if(HAS_TRAIT(src, TRAIT_SPEED_POTIONED))
 		to_chat(user, span_warning("[src] has already been coated with red, that's as fast as it'll go!"))
 		return SPEED_POTION_STOP
+
 	if(active)
 		to_chat(user, span_warning("It's too dangerous to smear [speed_potion] on [src] while it's active!"))
 		return SPEED_POTION_STOP
+
 	to_chat(user, span_notice("You slather the red gunk over [src], making it faster."))
 	set_mod_color("#FF0000")
-	slowdown_inactive = 0
-	slowdown_active = 0
+	ADD_TRAIT(src, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
 	update_speed()
 	qdel(speed_potion)
 	return SPEED_POTION_STOP
@@ -735,4 +747,4 @@
 	SEND_SIGNAL(src, COMSIG_MOD_GET_VISOR_OVERLAY, standing, overrides)
 	if (length(overrides))
 		return overrides[1]
-	return mutable_appearance(worn_icon, "[skin]-helmet-visor", layer = standing.layer + 0.1)
+	return mutable_appearance(worn_icon, "[skin]-helmet-visor", layer = standing.layer + 0.5)

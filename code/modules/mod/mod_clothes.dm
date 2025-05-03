@@ -10,7 +10,10 @@
 	heat_protection = HEAD
 	cold_protection = HEAD
 	dynamic_hair_suffix = ""
-	obj_flags = IMMUTABLE_SLOW
+
+/obj/item/clothing/head/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
@@ -29,7 +32,11 @@
 	body_parts_covered = CHEST|GROIN
 	heat_protection = CHEST|GROIN
 	cold_protection = CHEST|GROIN
-	obj_flags = IMMUTABLE_SLOW
+	drop_sound = null
+
+/obj/item/clothing/suit/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
 
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
@@ -42,7 +49,13 @@
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
-	obj_flags = IMMUTABLE_SLOW
+	equip_sound = null
+	pickup_sound = null
+	drop_sound = null
+
+/obj/item/clothing/gloves/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
 
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"
@@ -55,6 +68,10 @@
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS
-	obj_flags = IMMUTABLE_SLOW
 	item_flags = IGNORE_DIGITIGRADE
 	//can_be_tied = FALSE
+	equip_sound = null
+
+/obj/item/clothing/shoes/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)

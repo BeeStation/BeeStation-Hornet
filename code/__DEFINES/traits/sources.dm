@@ -17,6 +17,7 @@
 #define ADMIN_TRAIT "admin" // (B)admins only.
 /// Any traits given through a smite.
 #define SMITE_TRAIT "smite"
+#define SLIME_POTION_TRAIT "slime_potion"
 #define CHANGELING_TRAIT "changeling"
 #define CULT_TRAIT "cult"
 #define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed

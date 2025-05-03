@@ -43,3 +43,5 @@
 #define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
 /// Called when the MOD control unit fetches its visor icon
 #define COMSIG_MOD_GET_VISOR_OVERLAY "mod_get_visor_overlay"
+/// Called when the MOD control unit updates its parts speed
+#define COMSIG_MOD_UPDATE_SPEED "mod_update_speed"
