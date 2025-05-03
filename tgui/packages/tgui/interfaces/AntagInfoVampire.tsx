@@ -76,6 +76,9 @@ const VampireIntroduction = (_props) => {
 };
 
 const VampireGuide = (_props) => {
+  const { data } = useBackend<VampireInformation>();
+  const { clan } = data;
+
   const [tab, setTab] = useLocalState('guideTab', 1);
   return (
     <Section title="Guide">
@@ -101,6 +104,9 @@ const VampireGuide = (_props) => {
               Your Lair
             </Tabs.Tab>
             <Tabs.Tab icon="list" selected={tab === 7} onClick={() => setTab(7)}>
+              Structures
+            </Tabs.Tab>
+            <Tabs.Tab icon="list" selected={tab === 8} onClick={() => setTab(8)}>
               Vassals
             </Tabs.Tab>
           </Tabs>
@@ -126,13 +132,13 @@ const VampireGuide = (_props) => {
               <br />
               Sooner or later you are going to want to vassalize the crew. However, before you do so, you need to build a{' '}
               <Box inline textColor="blue">
-                Persuasion Rack.
+                Persuasion Rack
               </Box>{' '}
               with{' '}
               <Box inline textColor="red">
-                Fleshy Mass
+                Fleshy Mass.
               </Box>{' '}
-              which is obtained by using your{' '}
+              This is obtained by using your{' '}
               <Box inline textColor="red">
                 Vampiric Conversion
               </Box>{' '}
@@ -333,17 +339,16 @@ const VampireGuide = (_props) => {
                 Blood
               </Box>{' '}
               to use and maintain, and other powers are completely blocked.
-              <br /> <br />
-              <Box textColor="orange">Revealed</Box>
-              When your body is affected by{' '}
-              <Box inline textColor="yellow">
-                Sol
-              </Box>
-              , it is <b>very</b> obvious. Your body gains an orange aura as if you were set on fire and you lose access to the{' '}
-              <Box inline textColor="gold">
-                Masquerade Ability
-              </Box>
-              . Aside from this, you are also 35% slower, making it hard to escape
+              {!clan.some((c) => c.name === 'Tremere Clan') && (
+                <>
+                  <br /> <br />
+                  After{' '}
+                  <Box inline textColor="yellow">
+                    Sol
+                  </Box>{' '}
+                  has passed, you will gain a rank to spend on a new power and level up your already existing ones.
+                </>
+              )}
             </Box>
           )}
           {tab === 6 && (
@@ -370,30 +375,43 @@ const VampireGuide = (_props) => {
               category, or they can be found across the station. Most stations have coffins in the Chapel
               <br /> <br />
               After obtaining a coffin, simply bring it to your chosen lair and rest in it to claim the area.
-              <br /> <br />
+            </Box>
+          )}
+          {tab === 7 && (
+            // Structures
+            <Box>
               <Box fontSize="20px" textColor="red">
                 Structures
               </Box>
               <br />
               <Box textColor="purple">Persuasion Rack</Box>The persuasion rack is used to vassalize crewmembers into your loyal
-              thralls. To use it, first secure it in your lair and capture and restrain a subject. After restraining them, drag
-              them onto the rack and repeatedly torture them by clicking on the rack.
+              thralls.
+              <br /> <br />
+              To use it, first secure it in your{' '}
+              <Box inline textColor="green">
+                Lair
+              </Box>{' '}
+              and then capture and restrain a subject. After restraining them, drag them onto the rack and repeatedly torture
+              them by clicking on the rack.
+              <br /> <br />
+              <b>Torturing someone with a sharp tool will make the process faster!</b>
               <br /> <br />
               If your target is{' '}
-              <Box inline textColor="red">
+              <Box inline textColor="blue">
                 Mindshielded
               </Box>{' '}
-              or otherwise disloyal to Nanotrasen they <b>can only be converted if their mind is weak enough</b>. Crew that
-              serve eldritch gods cannot be converted.
+              or otherwise disloyal to Nanotrasen they <b>can only be converted if their mind is weak enough.</b>
+              <br />
+              Crew that serve eldritch gods cannot be converted.
               <br /> <br />
               <Box textColor="blue">Candelabrum</Box>A vampiric candle that will drain the sanity of any mortals viewing it,
               excluding vassals.
               <br /> <br />
               <Box textColor="darkred">Blood Throne</Box>Sitting on this throne will allow you to commune with all vassals by{' '}
-              <b>speaking.</b> They cannot respond to you.
+              <b>speaking out loud.</b> They cannot respond to you.
             </Box>
           )}
-          {tab === 7 && (
+          {tab === 8 && (
             // Vassals
             <Box>
               <Box fontSize="20px" textColor="purple">
@@ -404,27 +422,29 @@ const VampireGuide = (_props) => {
               <Box inline textColor="purple">
                 Persuasion Rack.
               </Box>
+              <br /> <br />
               After securing this in your Lair you can use it by first capturing a subject and restraining them. After this,
-              drag them onto the rack and torture them by clicking on the rack.{' '}
-              <b>Torturing someone with a better tool will make the process faster!</b>
+              drag them onto the rack and torture them by clicking on the rack.
+              <br /> <br />
+              <b>Torturing someone with a sharp tool will make the process faster!</b>
               <br /> <br />
               If your target is{' '}
-              <Box inline textColor="red">
+              <Box inline textColor="blue">
                 Mindshielded
               </Box>{' '}
               or otherwise disloyal to Nanotrasen they <b>can only be converted if their mind is weak enough</b>. Crew that
               serve eldritch gods cannot be converted.
               <br /> <br />
               After sucessfully torturing your latest vassal, they can only be deconverted by use of{' '}
-              <Box inline textColor="red">
+              <Box inline textColor="blue">
                 Mindshield.
               </Box>{' '}
               You can however promote <b>one</b> vassal into your{' '}
-              <Box inline textColor="blue">
+              <Box inline textColor="gold">
                 Favorite Vassal
               </Box>
               , which will gain powers unique to the Clan that you have chosen and will be immune to{' '}
-              <Box inline textColor="red">
+              <Box inline textColor="blue">
                 Mindshields.
               </Box>{' '}
             </Box>
