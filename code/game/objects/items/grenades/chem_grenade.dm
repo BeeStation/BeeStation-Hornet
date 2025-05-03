@@ -60,7 +60,18 @@
 	if(stage == GRENADE_WIRED)
 		wires.interact(user)
 
+
+/obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
+
+	else
+		return ..()
+
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
+		if(!user.transferItemToLoc(I, src))
+			return
+		to_chat(user, span_notice("You add [I] to the [initial(name)] assembly."))
+		beakers += I
 	if(istype(I,/obj/item/assembly) && stage == GRENADE_WIRED)
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -190,8 +201,27 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/chem_grenade/prime(mob/living/lanced_by)
-	if(stage != GRENADE_READY)
+	if(stage != GRENADE_READY || dud_flags)
+		active = FALSE
+		update_icon()
 		return
+
+	for(var/obj/item/slime_extract/S in beakers)
+		if(S.Uses)
+			for(var/obj/item/reagent_containers/cup/G in beakers)
+				G.reagents.trans_to(S, G.reagents.total_volume)
+
+			//If there is still a core (sometimes it's used up)
+			//and there are reagents left, behave normally,
+			//otherwise drop it on the ground for timed reactions like gold.
+
+			if(S)
+				if(S.reagents?.total_volume)
+					for(var/obj/item/reagent_containers/cup/G in beakers)
+						S.reagents.trans_to(G, S.reagents.total_volume)
+				else
+					S.forceMove(get_turf(src))
+					no_splash = TRUE
 
 	. = ..()
 	if(!.)
