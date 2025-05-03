@@ -60,12 +60,6 @@
 	if(stage == GRENADE_WIRED)
 		wires.interact(user)
 
-
-/obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
-
-	else
-		return ..()
-
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
 		if(!user.transferItemToLoc(I, src))
