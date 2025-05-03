@@ -11,6 +11,7 @@
 // #define FORCE_MAP "radstation"
 // #define FORCE_MAP "echostation"
 // #define FORCE_MAP "runtimestation"
+// #define FORCE_MAP "pubbystation"
 // #define FORCE_MAP "multiz_debug"
 
 #include "map_files\generic\CentCom.dmm"
@@ -27,6 +28,7 @@
 		#include "map_files\flandstation\flandstation.dmm"
 		#include "map_files\RadStation\RadStation.dmm"
 		#include "map_files\EchoStation\EchoStation.dmm"
+		#include "map_files\PubbyStation\PubbyStation.dmm"
 
 		#ifdef CIBUILDING
 			#include "templates.dm"
