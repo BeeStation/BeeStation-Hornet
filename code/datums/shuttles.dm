@@ -572,6 +572,10 @@
 	suffix = "pubby"
 	name = "NT Personal Trader"
 
+/datum/map_template/shuttle/whiteship/pubby1
+	suffix = "pubby"
+	name = "MK7 Zealot Cruiser"
+
 /datum/map_template/shuttle/whiteship/cere
 	suffix = "cere"
 	name = "Syndicate Probe Ship"
