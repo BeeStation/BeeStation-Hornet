@@ -497,10 +497,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
 
-/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, damage_flag = NONE, sharpness = 0)
-	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
-		blocked += 50
-	. = ..(damage, damagetype, def_zone, blocked, forced)
+/mob/living/simple_animal/slime/deal_damage(amount, penetration, type, flag, dir, sound, zone)
+	if(type == BRUTE && (transformeffects & SLIME_EFFECT_ADAMANTINE))
+		amount *= 0.5
+	return ..()
 
 /mob/living/simple_animal/slime/get_discovery_id()
 	return "[colour] slime"

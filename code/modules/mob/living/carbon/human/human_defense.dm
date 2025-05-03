@@ -196,11 +196,8 @@
 		visible_message(span_danger("[user] [hulk_verb]ed [src]!"), \
 					span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
 		to_chat(user, span_danger("You [hulk_verb] [src]!"))
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-		apply_damage(20, BRUTE, affecting, armor_block)
+		var/zone = ran_zone(user.get_combat_bodyzone(src))
+		deal_damage(20, SHARP_NONE, zone = zone)
 		return 1
 
 /mob/living/carbon/human/attack_hand(mob/user, modifiers)
@@ -216,10 +213,7 @@
 						span_danger("[user] attempts to touch you!"), span_hear("You hear a swoosh!"), null, user)
 		to_chat(user, span_warning("You attempt to touch [src]!"))
 		return 0
-	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/dam_zone = ran_zone()
 
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
@@ -234,13 +228,13 @@
 		return FALSE
 
 	if(user.limb_destroyer)
-		dismembering_strike(user, affecting.body_zone)
+		dismembering_strike(user, dam_zone)
 
-	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
+	if(try_inject(user, dam_zone, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
 			var/damage = rand(1, 3)
 			if(stat != DEAD)
-				apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
+				deal_damage(damage, SHARP_II, zone = dam_zone)
 		return TRUE
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M, list/modifiers)
@@ -272,19 +266,16 @@
 	if(M.combat_mode)
 		if (w_uniform)
 			w_uniform.add_fingerprint(M)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
+		var/zone = ran_zone(M.get_combat_bodyzone(src))
 
 		playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 		visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
 						"<span class='userdanger'>[M] slashes at you!</span>", "<span class='hear'>You hear a sickening sound of a slice!</span>", null, M)
 		to_chat(M, "<span class='danger'>You slash at [src]!</span>")
 		log_combat(M, src, "attacked", M)
-		if(!dismembering_strike(M, M.get_combat_bodyzone(src))) //Dismemberment successful
+		if(!dismembering_strike(M, zone)) //Dismemberment successful
 			return TRUE
-		apply_damage(20, BRUTE, affecting, armor_block)
+		deal_damage(20, SHARP_III, zone = zone)
 
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
@@ -294,11 +285,8 @@
 			return 0
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
-			var/armor_block = run_armor_check(affecting, MELEE)
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			var/zone = ran_zone(L.get_combat_bodyzone(src))
+			deal_damage(damage, SHARP_I, zone = zone)
 
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
@@ -312,15 +300,10 @@
 		if(check_shields(M, damage, "the [M.name]"))
 			return 0
 
-		var/dam_zone = dismembering_strike(M, pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		var/dam_zone = dismembering_strike(M, ran_zone())
 		if(!dam_zone) //Dismemberment successful
 			return 1
-
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor_block = run_armor_check(affecting, MELEE)
-		apply_damage(damage, BRUTE, affecting, armor_block)
+		deal_damage(damage, M.sharpness, BRUTE, DAMAGE_ACID, zone = dam_zone)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
 	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)
@@ -330,7 +313,7 @@
 		return
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = damage_flag_to_armour_rating(BOMB)
 
 //200 max knockdown for EXPLODE_HEAVY
 //160 max knockdown for EXPLODE_LIGHT

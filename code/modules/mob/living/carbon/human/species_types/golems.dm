@@ -477,7 +477,7 @@
 
 /datum/species/golem/glass/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
-		if(P.armor_fladamage_flag == DAMAGE_LASER || P.damage_flag == DAMAGE_ENERGY)
+		if(P.damage_flag == DAMAGE_LASER || P.damage_flag == DAMAGE_ENERGY)
 			H.visible_message(span_danger("The [P.name] gets reflected by [H]'s glass skin!"), \
 			span_userdanger("The [P.name] gets reflected by [H]'s glass skin!"))
 			if(P.starting)

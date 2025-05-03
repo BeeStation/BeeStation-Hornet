@@ -25,51 +25,80 @@
 		return
 	run_armour_damage(amount, penetration, type, flag, dir, zone)
 
-/atom/proc/run_armour_damage(amount, penetration, type = BRUTE, flag = DAMAGE_STANDARD, dir = NONE, zone = null)
+/// Convert a damage flag into an armour rating.
+/// Does not work for DAMAGE_STANDARD, as the logic is more complex.
+/// Output value is between 0 and 100.
+/atom/proc/damage_flag_to_armour_rating(damage_flag)
 	switch (flag)
 		// Runs through absorption and blunt independantly
 		if (DAMAGE_ACID)
-			// Damage reduced by absorption and then blunt, ignoring penetration
-			var/absorption = (100 - get_armor_rating(ARMOUR_ABSORPTION)) / 100
-			var/blunt = (100 - get_armor_rating(ARMOUR_BLUNT)) / 100
-			var/damage_amount = round(amount * absorption * blunt, DAMAGE_PRECISION)
-			if (damage_amount < 0)
-				return
-			take_direct_damage(damage_amount, type, flag, zone)
+			var/absorption = (100 - get_armor_rating(ARMOUR_ABSORPTION) * 0.5) / 100
+			var/blunt = (100 - get_armor_rating(ARMOUR_BLUNT) * 0.5) / 100
+			// 0 = 100, 1 = 0
+			var/multiplier = absorption * blunt
+			return (1 - multiplier) * 100
 		// Runs through absorption
 		if (DAMAGE_ABSORPTION)
-			var/absorption = (100 - get_armor_rating(ARMOUR_ABSORPTION)) / 100
-			var/damage_amount = round(amount * absorption, DAMAGE_PRECISION)
-			if (damage_amount < 0)
-				return
-			take_direct_damage(damage_amount, type, flag, zone)
+			return get_armor_rating(ARMOUR_ABSORPTION)
 		// Runs through absorption and 50% of the heat, 50% of the absorption and 50% of the blunt independantly
 		if (DAMAGE_BOMB)
 			var/heat = (100 - get_armor_rating(ARMOUR_HEAT) * 0.5) / 100
 			var/absorption = (100 - get_armor_rating(ARMOUR_ABSORPTION) * 0.5) / 100
 			var/blunt = (100 - get_armor_rating(ARMOUR_BLUNT) * 0.5) / 100
-			var/damage_amount = round(amount * absorption * heat * blunt, DAMAGE_PRECISION)
+			// 0 = 100, 1 = 0
+			var/multiplier = heat * absorption * blunt
+			return (1 - multiplier) * 100
+		// Runs through 50% of the reflectivity
+		if (DAMAGE_ENERGY)
+			return get_armor_rating(ARMOUR_REFLECTIVITY) * 0.5
+		// Runs through 100% of the heat armour
+		if (DAMAGE_FIRE)
+			return get_armor_rating(ARMOUR_HEAT)
+		// Runs through the average armour between reflectivity and heat, simultaneously
+		if (DAMAGE_LASER)
+			return get_armor_rating(ARMOUR_REFLECTIVITY) * 0.5 + get_armor_rating(ARMOUR_HEAT) * 0.5
+	CRASH("Could not convert damage flag '[damage_flag]' into an armour value as it is incompatible.")
+
+/atom/proc/run_armour_damage(amount, penetration, type = BRUTE, flag = DAMAGE_STANDARD, dir = NONE, zone = null)
+	switch (flag)
+		// Runs through absorption and blunt independantly
+		if (DAMAGE_ACID)
+			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
+			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
+			if (damage_amount < 0)
+				return
+			take_direct_damage(damage_amount, type, flag, zone)
+		// Runs through absorption
+		if (DAMAGE_ABSORPTION)
+			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
+			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
+			if (damage_amount < 0)
+				return
+			take_direct_damage(damage_amount, type, flag, zone)
+		// Runs through absorption and 50% of the heat, 50% of the absorption and 50% of the blunt independantly
+		if (DAMAGE_BOMB)
+			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
+			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
 			if (damage_amount < 0)
 				return
 			take_direct_damage(damage_amount, type, flag, zone)
 		// Runs through 50% of the reflectivity
 		if (DAMAGE_ENERGY)
-			var/reflectivity = (100 - get_armor_rating(ARMOUR_REFLECTIVITY) * 0.5) / 100
-			var/damage_amount = round(amount * reflectivity, DAMAGE_PRECISION)
+			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
+			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
 			if (damage_amount < 0)
 				return
 			take_direct_damage(damage_amount, type, flag, zone)
 		// Runs through 100% of the heat armour
 		if (DAMAGE_FIRE)
-			var/heat = (100 - get_armor_rating(ARMOUR_HEAT)) / 100
-			var/damage_amount = round(amount * heat, DAMAGE_PRECISION)
+			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
+			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
 			if (damage_amount < 0)
 				return
 			take_direct_damage(damage_amount, type, flag, zone)
 		// Runs through the average armour between reflectivity and heat, simultaneously
 		if (DAMAGE_LASER)
-			var/armour_rating = get_armor_rating(ARMOUR_REFLECTIVITY) * 0.5 + get_armor_rating(ARMOUR_HEAT) * 0.5
-			var/armour_multiplier = (100 - armour_rating) / 100
+			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
 			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
 			if (damage_amount < 0)
 				return

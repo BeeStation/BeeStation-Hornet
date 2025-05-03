@@ -201,7 +201,7 @@
 	health = clamp(health, 0, maxHealth)
 
 /mob/living/simple_animal/get_attack_sharpness()
-	return sharpnses
+	return sharpness
 
 /mob/living/simple_animal/update_stat()
 	if(status_flags & GODMODE)

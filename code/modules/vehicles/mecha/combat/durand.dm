@@ -225,7 +225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 
 	setDir(newdir)
 
-/obj/durand_shield/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
+/obj/durand_shield/take_direct_damage(amount, type, flag, zone)
 	if(!chassis)
 		qdel(src)
 		return

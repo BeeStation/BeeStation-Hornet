@@ -16,3 +16,8 @@
 	mob_size = MOB_SIZE_LARGE
 	hardattacks = TRUE
 	discovery_points = 2000
+	armor = /datum/armor/jungle_mob
+
+/// Fully immune to acid rain
+/datum/armor/jungle_mob
+	absorption = 100

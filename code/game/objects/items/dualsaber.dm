@@ -140,7 +140,7 @@
 /obj/item/dualsaber/proc/impale(mob/living/user)
 	to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on [src]."))
 	if(ISWIELDED(src))
-		user.take_bodypart_damage(20,25,check_armor = TRUE)
+		user.take_bodypart_damage(20,25)
 	else
 		user.adjustStaminaLoss(25)
 

@@ -40,7 +40,7 @@
 			var/flesh_wound = ran_zone(user.get_combat_bodyzone(target))
 			if(H.check_shields(src, 0))
 				return
-			if(prob(base_infection_chance-H.getarmor(flesh_wound, MELEE, armour_penetration)))
+			if (!H.is_biologically_sealed() && prob(base_infection_chance - H.get_average_armor_flag(ARMOUR_PENETRATION)))
 				if(viral && isliving(user))
 					var/mob/living/L = user
 					var/mob/living/T = target

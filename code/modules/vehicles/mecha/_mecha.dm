@@ -320,8 +320,8 @@
 		step_energy_drain = normal_step_energy_drain
 	if(capacitor)
 		var/datum/armor/stock_armor = get_armor_by_type(armor_type)
-		var/initial_energy = stock_armor.get_rating(ENERGY)
-		set_armor_rating(ENERGY, initial_energy + (capacitor.rating * 5))
+		var/initial_energy = stock_armor.get_rating(ARMOUR_REFLECTIVITY)
+		set_armor_rating(ARMOUR_REFLECTIVITY, initial_energy + (capacitor.rating * 5))
 
 
 ////////////////////////
@@ -408,7 +408,7 @@
 			if(cabin_air && cabin_air.return_volume()>0)
 				cabin_air.temperature = (min(6000+T0C, cabin_air.return_temperature()+rand(10,15)))
 				if(cabin_air.return_temperature() > max_temperature/2)
-					apply_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), 0, BURN, sound = 0)
+					take_direct_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, DAMAGE_FIRE)
 
 		if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 			if(internal_tank)

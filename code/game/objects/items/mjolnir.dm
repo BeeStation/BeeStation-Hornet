@@ -109,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 		if (mob_on_tile.mobility_flags & MOBILITY_STAND || iswizard(mob_on_tile))
 			continue
 		mob_on_tile.emote("scream")
-		mob_on_tile.take_bodypart_damage(40, 0, 0, check_armor = TRUE)
+		mob_on_tile.deal_damage(40, SHARP_NONE, BRUTE, DAMAGE_STANDARD, zone = ran_zone(BODY_ZONE_CHEST, 0))
 		to_chat(mob_on_tile, span_userdanger("You are crushed by [god_hammer]!"))
 
 //How did this even happen?

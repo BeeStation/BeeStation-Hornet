@@ -1264,7 +1264,7 @@
 	var/blocked = get_radiation_protection() * 100
 
 	if(amount > RAD_BURN_THRESHOLD)
-		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
+		take_overall_damage(0, (amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD * (blocked / 100))
 
 	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
 

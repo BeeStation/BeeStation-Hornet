@@ -1,3 +1,37 @@
+/// Convert a damage flag into an armour rating.
+/// Does not work for DAMAGE_STANDARD, as the logic is more complex.
+/// Output value is between 0 and 100.
+/mob/living/damage_flag_to_armour_rating(damage_flag)
+	switch (flag)
+		// Runs through absorption and blunt independantly
+		if (DAMAGE_ACID)
+			var/absorption = (100 - get_bodyzone_armor_flag(zone, ARMOUR_ABSORPTION) * 0.5) / 100
+			var/blunt = (100 - get_bodyzone_armor_flag(zone, ARMOUR_BLUNT) * 0.5) / 100
+			// 0 = 100, 1 = 0
+			var/multiplier = absorption * blunt
+			return (1 - multiplier) * 100
+		// Runs through absorption
+		if (DAMAGE_ABSORPTION)
+			return get_bodyzone_armor_flag(zone, ARMOUR_ABSORPTION)
+		// Runs through absorption and 50% of the heat, 50% of the absorption and 50% of the blunt independantly
+		if (DAMAGE_BOMB)
+			var/heat = (100 - get_bodyzone_armor_flag(zone, ARMOUR_HEAT) * 0.5) / 100
+			var/absorption = (100 - get_bodyzone_armor_flag(zone, ARMOUR_ABSORPTION) * 0.5) / 100
+			var/blunt = (100 - get_bodyzone_armor_flag(zone, ARMOUR_BLUNT) * 0.5) / 100
+			// 0 = 100, 1 = 0
+			var/multiplier = heat * absorption * blunt
+			return (1 - multiplier) * 100
+		// Runs through 50% of the reflectivity
+		if (DAMAGE_ENERGY)
+			return get_bodyzone_armor_flag(zone, ARMOUR_REFLECTIVITY) * 0.5
+		// Runs through 100% of the heat armour
+		if (DAMAGE_FIRE)
+			return get_bodyzone_armor_flag(zone, ARMOUR_HEAT)
+		// Runs through the average armour between reflectivity and heat, simultaneously
+		if (DAMAGE_LASER)
+			return get_bodyzone_armor_flag(zone, ARMOUR_REFLECTIVITY) * 0.5 + get_bodyzone_armor_flag(zone, ARMOUR_HEAT) * 0.5
+	CRASH("Could not convert damage flag '[damage_flag]' into an armour value as it is incompatible.")
+
 /// Runs an armour check against a mob and returns the armour value to use.
 /// 0 represents 0% protection, while 100 represents 100% protection.
 /// The return value for this proc can be negative, indicating that the damage values should be increased.
@@ -48,7 +82,7 @@
 /// Returns: An integer value with 0 representing 0% protection and 100 representing 100% protection.
 /// - The return value can be negative which indicates additional armour, but will never exceed 100.
 /mob/living/proc/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
-	return 0
+	return get_armor_rating(armour_flag)
 
 /// Get percentage of the body protected by radiation
 /mob/living/proc/get_radiation_protection()
