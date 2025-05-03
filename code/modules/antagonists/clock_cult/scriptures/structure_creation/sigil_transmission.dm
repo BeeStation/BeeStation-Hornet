@@ -62,7 +62,8 @@
 		if(!mech_cell)
 			return ..()
 
-		if(IS_SERVANT_OF_RATVAR(mech.occupants))
+		var/mob/living/mech_occupant = mech.occupants
+		if(IS_SERVANT_OF_RATVAR(mech_occupant))
 			if(mech_cell.charge < mech_cell.maxcharge && GLOB.clockcult_power > 40)
 				mech.give_power(mech_cell.chargerate)
 				GLOB.clockcult_power -= 40
