@@ -1,7 +1,7 @@
 import { resolveAsset } from '../assets';
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Divider, Dropdown, Section, Stack, Tabs } from '../components';
+import { Box, DmIcon, Icon, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
@@ -13,15 +13,17 @@ type VampireInformation = {
 };
 
 type ClanInfo = {
-  clan_name: string;
-  clan_description: string;
-  clan_icon: string;
+  name: string;
+  description: string;
+  icon: string;
+  icon_state: string;
 };
 
 type PowerInfo = {
   name: string;
   explanation: string;
   icon: string;
+  icon_state: string;
   cost: string;
   constant_cost: string;
   cooldown: string;
@@ -450,12 +452,16 @@ const PowerSection = (_props) => {
               <Tabs.Tab key={index} selected={tab === index} onClick={() => setTab(index)}>
                 <Stack align="center">
                   <Stack.Item>
-                    <Box
+                    <DmIcon
                       inline
-                      as="img"
-                      src={resolveAsset(`${power.icon}.png`)}
+                      icon={power.icon}
+                      icon_state={power.icon_state}
+                      fallback={<Icon mr={1} name="spinner" spin fontSize="30px" />}
                       width="32px"
-                      style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+                      style={{
+                        imageRendering: 'pixelated',
+                        msInterpolationMode: 'nearest-neighbor',
+                      }}
                     />
                   </Stack.Item>
                   <Stack.Item>{power.name}</Stack.Item>
@@ -498,7 +504,7 @@ const PowerSection = (_props) => {
   );
 };
 
-const ClanSection = (props: any) => {
+const ClanSection = () => {
   const { data } = useBackend<VampireInformation>();
   const { clan, in_clan } = data;
 
@@ -522,20 +528,24 @@ const ClanSection = (props: any) => {
       {clan.map((ClanInfo, index) => (
         <Stack key={index}>
           <Stack.Item>
-            <Box
-              as="img"
-              src={resolveAsset(`${ClanInfo.clan_icon}.png`)}
+            <DmIcon
+              icon={ClanInfo.icon}
+              icon_state={ClanInfo.icon_state}
+              fallback={<Icon mr={1} name="spinner" spin fontSize="30px" />}
               width="128px"
-              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+              style={{
+                imageRendering: 'pixelated',
+                msInterpolationMode: 'nearest-neighbor',
+              }}
             />
           </Stack.Item>
           <Stack.Item grow>
             <Stack.Item textAlign="center">
               <Box inline fontSize="20px" textColor="red">
-                You are part of the <b>{ClanInfo.clan_name}!</b>
+                You are part of the <b>{ClanInfo.name}!</b>
               </Box>
             </Stack.Item>
-            <Box fontSize="16px">{ClanInfo.clan_description}</Box>
+            <Box fontSize="16px">{ClanInfo.description}</Box>
           </Stack.Item>
         </Stack>
       ))}

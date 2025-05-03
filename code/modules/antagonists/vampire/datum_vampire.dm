@@ -6,46 +6,45 @@
 	required_living_playtime = 4
 	ui_name = "AntagInfoVampire"
 	hijack_speed = 0.5
+
 	/// How much blood we have, starting off at default blood levels.
 	var/vampire_blood_volume = BLOOD_VOLUME_NORMAL
 	/// How much blood we can have at once, increases per level.
 	var/max_blood_volume = 600
 
-	// Only created if vampire makes vassals
+	/// Only created if vampire makes vassals
 	var/datum/team/vampire/vampire_team
-
+	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
 
-	// TIMERS //
-	///Timer between alerts for Burn messages
+	/// Timer between alerts for Burn messages
 	COOLDOWN_DECLARE(vampire_spam_sol_burn)
-	///Timer between alerts for Healing messages
+	/// Timer between alerts for Healing messages
 	COOLDOWN_DECLARE(vampire_spam_healing)
 
-	///Used for assigning your name
+	/// Flavor only
 	var/vampire_name
-	///Used for assigning your title
 	var/vampire_title
-	///Used for assigning your reputation
 	var/vampire_reputation
 
-	///Have we been broken the Masquerade?
+	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
-	///How many Masquerade Infractions do we have?
+	/// How many Masquerade Infractions do we have?
 	var/masquerade_infractions = 0
-	///Blood required to enter Frenzy
+
+	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
-	///If we are currently in a Frenzy
+	/// If we are currently in a Frenzy
 	var/frenzied = FALSE
 
-	///ALL Powers currently owned
+	/// Powers currently owned
 	var/list/datum/action/cooldown/vampire/powers = list()
-	///Frenzy Grab Martial art given to Vampires in a Frenzy
+	/// Frenzy Grab Martial art given to Vampires in a Frenzy
 	var/datum/martial_art/frenzygrab/frenzygrab = new
 
-	///Vassals under my control. Periodically remove the dead ones.
+	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
-	///Special vassals I own, to not have double of the same type.
+	/// Special vassals I own, to not have double of the same type.
 	var/list/datum/antagonist/vassal/special_vassals = list()
 
 	var/vampire_level = 0
@@ -53,9 +52,11 @@
 	var/additional_regen
 	var/vampire_regen_rate = 0.3
 
-	// Used for Vampire Objectives
+	/// Lair
 	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
+
+	/// To keep track of objectives
 	var/total_blood_drank = 0
 
 	///Blood display HUD
@@ -74,7 +75,8 @@
 		/datum/antagonist/cult,
 		/datum/antagonist/servant_of_ratvar,
 	)
-	///Default Vampire traits
+
+	/// List of traits applied inherently
 	var/static/list/vampire_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_SLEEPIMMUNE,
@@ -92,6 +94,7 @@
 		TRAIT_OOZELING_NO_CANNIBALIZE,
 	)
 
+	/// List of traits applied while in torpor
 	var/static/list/torpor_traits = list(
 		TRAIT_NODEATH,
 		TRAIT_FAKEDEATH,
@@ -101,9 +104,8 @@
 	)
 
 /datum/antagonist/vampire/proc/create_vampire_team()
-	var/static/count = 0
 	vampire_team = new(owner)
-	vampire_team.name = "Vampire team #[++count]" // only displayed to admins
+	vampire_team.name = "[ADMIN_LOOKUP(owner.current)]'s vampire team" // only displayed to admins
 	vampire_team.master_vampire = src
 
 /datum/team/vampire
@@ -320,9 +322,10 @@
 	data["in_clan"] = !!my_clan
 	var/list/clan_data = list()
 	if(my_clan)
-		clan_data["clan_name"] = my_clan.name
-		clan_data["clan_description"] = my_clan.description
-		clan_data["clan_icon"] = my_clan.join_icon_state
+		clan_data["name"] = my_clan.name
+		clan_data["description"] = my_clan.description
+		clan_data["icon"] = my_clan.join_icon
+		clan_data["icon_state"] = my_clan.join_icon_state
 
 	data["clan"] += list(clan_data)
 
@@ -331,7 +334,8 @@
 
 		power_data["name"] = power.name
 		power_data["explanation"] = power.power_explanation
-		power_data["icon"] = power.button_icon_state
+		power_data["icon"] = power.button_icon
+		power_data["icon_state"] = power.button_icon_state
 
 		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
 		power_data["constant_cost"] = power.constant_bloodcost ? power.constant_bloodcost : "0"
