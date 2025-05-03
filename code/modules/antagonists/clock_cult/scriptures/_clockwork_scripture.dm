@@ -12,27 +12,27 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 
 /datum/clockcult/scripture
 	/// The name of the scripture
-	var/name
+	var/name = ""
 	/// The description of the scripture
-	var/desc
+	var/desc = ""
 	/// A tip on how to use the scripture
-	var/tip
-	/// The category of the scripture (SPELLTYPE_ABSTRACT, SPELLTYPE_SERVITUDE, SPELLTYPE_PRESERVATION, SPELLTYPE_STRUCTURES)
-	var/category = SPELLTYPE_ABSTRACT
+	var/tip = ""
+	/// The text that is recited when invoking this scripture
+	var/list/invokation_text = list()
+	/// How long it takes to invoke this scripture
+	var/invokation_time = 1 SECONDS
+	/// How many clock cultists that must be in range of the slab to invoke this scripture
+	var/invokers_required = 1
+	/// The icon for the scripture's quick bind button
+	var/button_icon_state = "telerune"
 	/// How much power this scripture draws from the ark
 	var/power_cost = 0
 	/// How much vitality this scripture draws from the ark
 	var/vitality_cost = 0
 	/// The amount of cogs required to invoke this scripture
 	var/cogs_required = 0
-	/// How long it takes to invoke this scripture
-	var/invokation_time = 1 SECONDS
-	/// How many clock cultists that must be in range of the slab to invoke this scripture
-	var/invokers_required = 1
-	/// The text that is recited when invoking this scripture
-	var/list/invokation_text = list()
-	/// The icon for the scripture's quick bind button
-	var/button_icon_state = "telerune"
+	/// The category of the scripture (SPELLTYPE_ABSTRACT, SPELLTYPE_SERVITUDE, SPELLTYPE_PRESERVATION, SPELLTYPE_STRUCTURES)
+	var/category = SPELLTYPE_ABSTRACT
 	/// Set to FALSE if the scripture should not end after it finishes charging, for example: Kindle
 	var/end_on_invokation = TRUE
 	/// The person invoking the scripture
@@ -41,8 +41,6 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 	var/obj/item/clockwork/clockwork_slab/invoking_slab
 	/// The sound that plays when reciting the scripture
 	var/sound/recital_sound
-	/// Should the scripture be deleted when it is done invoking
-	var/qdel_on_completion = FALSE
 	/// If this is TRUE, the scripture does not have to be unlocked to be invoked
 	var/should_bypass_unlock_checks = FALSE
 
@@ -125,8 +123,6 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 */
 /datum/clockcult/scripture/proc/dispose()
 	invoking_slab.invoking_scripture = null
-	if(qdel_on_completion)
-		qdel(src)
 
 /*
 * A recursive proc that calls itself until all parts of invokation_text have been recited

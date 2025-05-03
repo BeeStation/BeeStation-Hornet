@@ -12,6 +12,8 @@
 /obj/item/borg/ratvar/Initialize(mapload)
 	. = ..()
 
+	scripture_datum = new scripture_datum.type(null, bypass_unlock_checks = TRUE)
+
 	name = scripture_datum.name
 	desc = scripture_datum.desc
 	icon_state = scripture_datum.button_icon_state
@@ -21,27 +23,24 @@
 
 	if(!IS_SERVANT_OF_RATVAR(user))
 		return
-	if(!scripture_datum)
-		return
 	if(!iscyborg(user))
 		return
 
+	// Set slab
 	var/mob/living/silicon/robot/robot_user = user
-
 	var/obj/item/clockwork/clockwork_slab/internal_slab = robot_user.internal_clock_slab
-	if(!internal_slab)
-		return
+
+	if(!scripture_datum.invoking_slab)
+		if(!internal_slab)
+			return
+
+		scripture_datum.invoking_slab = internal_clock_slab
 
 	if(internal_slab.invoking_scripture)
 		user.balloon_alert(user, "already invoking scripture!")
 		return
 
-	// Time to invoke the scripture
-	var/datum/clockcult/scripture/new_scripture = new scripture_datum(internal_slab, bypass_unlock_checks = TRUE)
-
-	//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
-	new_scripture.qdel_on_completion = TRUE
-	new_scripture.try_to_invoke(user)
+	scripture_datum.try_to_invoke(user)
 
 /obj/item/borg/ratvar/abscond
 	scripture_datum = /datum/clockcult/scripture/abscond
