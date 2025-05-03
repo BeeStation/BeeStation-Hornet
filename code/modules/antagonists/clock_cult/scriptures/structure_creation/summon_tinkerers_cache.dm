@@ -2,12 +2,13 @@
 	name = "Tinkerer's Cache"
 	desc = "Creates a tinkerer's cache, a powerful forge capable of crafting elite equipment."
 	tip = "Use the cache to create more powerful equipment with a cooldown."
+	invokation_text = list("Guide my hand and we shall create greatness.")
+	invokation_time = 5 SECONDS
 	button_icon_state = "Tinkerer's Cache"
 	power_cost = 700
-	invokation_time = 5 SECONDS
-	invokation_text = list("Guide my hand and we shall create greatness.")
-	summoned_structure = /obj/structure/destructible/clockwork/gear_base/tinkerers_cache
 	cogs_required = 4
+	summoned_structure = /obj/structure/destructible/clockwork/gear_base/tinkerers_cache
+	category = SPELLTYPE_STRUCTURES
 
 /obj/structure/destructible/clockwork/gear_base/tinkerers_cache
 	name = "tinkerer's cache"
@@ -17,7 +18,7 @@
 	anchored = TRUE
 	break_message = span_warning("The tinkerer's cache melts into a pile of brass.")
 
-	/// How long inbetween enchants
+	/// How long in between enchants
 	var/cooldown_time = 4 MINUTES
 
 	COOLDOWN_DECLARE(craft_cooldown)
@@ -45,8 +46,10 @@
 	)
 
 	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
-	var/obj/item/clothing/picked
+	if(!choice)
+		return
 
+	var/obj/item/clothing/picked
 	switch(choice)
 		if("Robes of Divinity")
 			picked = /obj/item/clothing/suit/clockwork/speed
@@ -55,14 +58,12 @@
 		if("Wraith Spectacles")
 			picked = /obj/item/clothing/glasses/clockwork/wraith_spectacles
 
-	if(!picked)
-		return
-
-	// Instantiate item and start cooldown
-	COOLDOWN_START(src, craft_cooldown, cooldown_time)
-
-	to_chat(user, span_brass("You craft a [choice] to near perfection."))
+	// Spawn item and start cooldown
 	new picked(get_turf(src))
+
+	balloon_alert(user, "[choice] crafted!")
+
+	COOLDOWN_START(src, craft_cooldown, cooldown_time)
 
 /obj/structure/destructible/clockwork/gear_base/tinkerers_cache/proc/check_menu(mob/user)
 	if(!istype(user))

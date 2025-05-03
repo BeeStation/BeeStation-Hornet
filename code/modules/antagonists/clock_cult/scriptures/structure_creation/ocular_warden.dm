@@ -2,13 +2,14 @@
 	name = "Ocular Warden"
 	desc = "An eye turret that will fire upon nearby targets. Requires 2 invokers."
 	tip = "Place these around to prevent crew from rushing past your defenses."
+	invokation_text = list("Summon thee to defend our temple")
+	invokation_time = 5 SECONDS
+	invokers_required = 2
 	button_icon_state = "Ocular Warden"
 	power_cost = 400
-	invokation_time = 5 SECONDS
-	invokation_text = list("Summon thee to defend our temple")
-	summoned_structure = /obj/structure/destructible/clockwork/ocular_warden
 	cogs_required = 3
-	invokers_required = 2
+	summoned_structure = /obj/structure/destructible/clockwork/ocular_warden
+	category = SPELLTYPE_STRUCTURES
 
 	/// How far the warden must be from other wardens
 	var/place_range = 4
@@ -48,20 +49,21 @@
 /obj/structure/destructible/clockwork/ocular_warden/process(delta_time)
 	if(!COOLDOWN_FINISHED(src, attack_cooldown))
 		return
-	COOLDOWN_START(src, attack_cooldown, cooldown)
 
 	// Select a target
 	var/list/valid_targets = list()
-	for(var/mob/living/potential in viewers(range, src))
-		if(IS_SERVANT_OF_RATVAR(potential))
+	for(var/mob/living/potential_target in viewers(range, src))
+		if(IS_SERVANT_OF_RATVAR(potential_target))
 			continue
-		if(potential.stat == CONSCIOUS)
+		if(potential_target.stat != CONSCIOUS)
 			continue
 
-		valid_targets += potential
+		valid_targets += potential_target
 
 	if(!length(valid_targets))
 		return
+
+	COOLDOWN_START(src, attack_cooldown, cooldown)
 
 	var/mob/living/target = pick(valid_targets)
 

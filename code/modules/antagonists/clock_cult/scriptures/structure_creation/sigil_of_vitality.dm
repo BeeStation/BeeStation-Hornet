@@ -2,13 +2,13 @@
 	name = "Vitality Matrix"
 	desc = "Summons a vitality matrix, which drains the life force of non servants, and can be used to heal or revive servants. Requires 2 invokers."
 	tip = "Heal and revive dead servants, while draining the health from non servants."
-	button_icon_state = "Vitality Matrix"
-	power_cost = 300
-	invokation_time = 5 SECONDS
 	invokation_text = list("My life in your hands.")
-	summoned_structure = /obj/structure/destructible/clockwork/sigil/vitality
-	cogs_required = 2
+	invokation_time = 5 SECONDS
+	button_icon_state = "Vitality Matrix"
 	invokers_required = 2
+	power_cost = 300
+	cogs_required = 2
+	summoned_structure = /obj/structure/destructible/clockwork/sigil/vitality
 	category = SPELLTYPE_SERVITUDE
 
 /obj/structure/destructible/clockwork/sigil/vitality
@@ -79,6 +79,11 @@
 			living_target.adjustOxyLoss(-5, FALSE)
 			living_target.adjustToxLoss(-5, FALSE, TRUE)
 			living_target.adjustCloneLoss(-5)
+
+			// Stop bleeding
+			if(iscarbon(living_target))
+				var/mob/living/carbon/carbon_target = living_target
+				carbon_target.suppress_bloodloss(BLEED_SCRATCH)
 		else
 			visible_message(span_neovgre("\The [src] fails to heal [living_target]!"))
 			to_chat(living_target, span_neovgre("There is insufficient vitality to heal your wounds!"))
@@ -105,10 +110,9 @@
 
 	// Replace the target with a cogscarab if the sigil kills them
 	if(living_target.stat == DEAD)
-		living_target.become_husk()
+		living_target.dust(drop_items = TRUE)
 
 		playsound(loc, 'sound/magic/exit_blood.ogg', 60)
-		hierophant_message("[living_target] has had their vitality drained by the [src]!", null, "<span class='inathneq'>")
 
 		var/mob/cogger = new /mob/living/simple_animal/drone/cogscarab(get_turf(living_target))
 		cogger.key = living_target.key

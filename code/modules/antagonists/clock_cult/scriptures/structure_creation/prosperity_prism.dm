@@ -2,14 +2,14 @@
 	name = "Prosperity Prism"
 	desc = "Creates a prism that will remove a large amount of toxin damage and a small amount of other forms of damage from nearby servants. Requires power from a sigil of transmission."
 	tip = "Create a prosperity prism to heal servants using sentinel's compromise without taking any damage."
+	invokation_text = list("Your light shall heal the wounds beneath my skin.")
+	invokation_time = 8 SECONDS
 	button_icon_state = "Prolonging Prism"
 	power_cost = 300
-	invokation_time = 8 SECONDS
-	invokation_text = list("Your light shall heal the wounds beneath my skin.")
-	summoned_structure = /obj/structure/destructible/clockwork/gear_base/prosperityprism
 	cogs_required = 2
+	summoned_structure = /obj/structure/destructible/clockwork/gear_base/prosperityprism
+	category = SPELLTYPE_STRUCTURES
 
-//Stargazer structure
 /obj/structure/destructible/clockwork/gear_base/prosperityprism
 	name = "prosperity prism"
 	desc = "A prism that seems to somehow always have its gaze locked to you."
@@ -19,6 +19,7 @@
 	break_message = span_warning("The prism falls apart, toxic liquid leaking out into the air.")
 	max_integrity = 150
 	minimum_power = 4
+	depowered = FALSE
 	var/powered = FALSE
 	var/enabled = TRUE
 	var/datum/reagents/holder
@@ -96,4 +97,4 @@
 
 	enabled = !enabled
 	balloon_alert(user, "[enabled ? "enabled" : "disabled"]!")
-
+	update_icon_state()

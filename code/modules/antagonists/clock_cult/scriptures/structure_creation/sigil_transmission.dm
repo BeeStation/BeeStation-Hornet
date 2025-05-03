@@ -2,13 +2,12 @@
 	name = "Sigil of Transmission"
 	desc = "Summons a sigil of transmission, required to power clockwork structures. Will also charge clockwork cyborgs on top of it, and drain power from any objects on it. Requires 2 invokers."
 	tip = "Power structures using this."
+	invokation_text = list("Oh great holy one...", "your energy...", "the power of the holy light!")
+	invokation_time = 5 SECONDS
+	invokers_required = 2
 	button_icon_state = "Sigil of Transmission"
 	power_cost = 100
-	invokation_time = 5 SECONDS
-	invokation_text = list("Oh great holy one...", "your energy...", "the power of the holy light!")
 	summoned_structure = /obj/structure/destructible/clockwork/sigil/transmission
-	cogs_required = 0
-	invokers_required = 2
 	category = SPELLTYPE_PRESERVATION
 
 /obj/structure/destructible/clockwork/sigil/transmission
@@ -31,11 +30,12 @@
 	. = ..()
 	for(var/obj/structure/destructible/clockwork/gear_base/gear_base in range(src, SIGIL_TRANSMISSION_RANGE))
 		gear_base.linked_transmission_sigil = src
+		linked_structures += gear_base
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/destructible/clockwork/sigil/transmission/Destroy()
-	for(var/obj/structure/destructible/clockwork/gear_base/gear_base as anything in linked_structures)
-		gear_base.unlink_sigil(src)
+	for(var/obj/structure/destructible/clockwork/gear_base/gear_base in linked_structures)
+		gear_base.unlink_sigil()
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
@@ -43,7 +43,7 @@
 * Update the power of all linked structures
 */
 /obj/structure/destructible/clockwork/sigil/transmission/process()
-	for(var/obj/structure/destructible/clockwork/gear_base/gear_base as anything in linked_structures)
+	for(var/obj/structure/destructible/clockwork/gear_base/gear_base in linked_structures)
 		gear_base.update_power()
 
 /obj/structure/destructible/clockwork/sigil/transmission/can_affect(atom/movable/target_atom)
@@ -60,7 +60,7 @@
 		var/obj/vehicle/sealed/mecha/mech = affected_atom
 		var/obj/item/stock_parts/cell/mech_cell = mech.cell
 		if(!mech_cell)
-			return
+			return ..()
 
 		if(IS_SERVANT_OF_RATVAR(mech.occupants))
 			if(mech_cell.charge < mech_cell.maxcharge && GLOB.clockcult_power > 40)
@@ -75,7 +75,7 @@
 		var/mob/living/silicon/robot/borg = affected_atom
 		var/obj/item/stock_parts/cell/borg_cell = borg.get_cell()
 		if(!borg_cell)
-			return
+			return ..()
 
 		if(IS_SERVANT_OF_RATVAR(borg))
 			if(GLOB.clockcult_power >= 40)
@@ -90,9 +90,9 @@
 		// Drain the target's cells or charge them if they are a servant
 		var/mob/living/carbon/human/human_target = affected_atom
 		for(var/obj/item in human_target.get_contents())
-			var/obj/item/stock_parts/cell/power_cell = item.get_cell()
+			var/obj/item/stock_parts/cell/power_cell = item
 			if(!power_cell)
-				return
+				return ..()
 
 			if(IS_SERVANT_OF_RATVAR(human_target))
 				if(GLOB.clockcult_power >= 40)
@@ -103,3 +103,4 @@
 				if(power_cell.charge > power_cell.chargerate)
 					power_cell.give(-power_cell.chargerate)
 					GLOB.clockcult_power += 40
+	. = ..()

@@ -4,12 +4,13 @@
 	name = "Interdiction Lens"
 	desc = "Creates a device that will slow non servants in the area and damage mechanised exosuits. Requires power from a sigil of transmission."
 	tip = "Construct interdiction lens to slow down a hostile assault."
+	invokation_text = list("Oh great lord...", "may your divinity block the outsiders.")
+	invokation_time = 8 SECONDS
 	button_icon_state = "Interdiction Lens"
 	power_cost = 500
-	invokation_time = 8 SECONDS
-	invokation_text = list("Oh great lord...", "may your divinity block the outsiders.")
-	summoned_structure = /obj/structure/destructible/clockwork/gear_base/interdiction_lens
 	cogs_required = 4
+	summoned_structure = /obj/structure/destructible/clockwork/gear_base/interdiction_lens
+	category = SPELLTYPE_STRUCTURES
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens
 	name = "interdiction lens"

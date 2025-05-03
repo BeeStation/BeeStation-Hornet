@@ -1,6 +1,4 @@
 /datum/clockcult/scripture/create_structure
-	category = SPELLTYPE_STRUCTURES
-
 	/// The structure to spawn
 	var/obj/structure/destructible/clockwork/summoned_structure
 
@@ -14,6 +12,10 @@
 		return FALSE
 
 /datum/clockcult/scripture/create_structure/on_invoke_success()
-	summoned_structure = new(get_turf(invoker))
-	summoned_structure.owner = invoker.mind
+	// Spawn
+	var/created_structure = new summoned_structure.type(get_turf(invoker))
+
+	// Set owner
+	var/obj/structure/destructible/clockwork/clockwork_structure = created_structure
+	clockwork_structure?.owner = invoker.mind
 	. = ..()

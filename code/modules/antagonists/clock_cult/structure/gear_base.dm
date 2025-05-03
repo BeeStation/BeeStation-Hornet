@@ -11,7 +11,7 @@
 	/// The transmission sigil supplying power to this gear base
 	var/obj/structure/destructible/clockwork/sigil/transmission/linked_transmission_sigil
 	/// Makes sure the depowered proc is only called when its depowered and not while its depowered
-	var/depowered = FALSE
+	var/depowered = TRUE
 	/// Minimum operation power
 	var/minimum_power = 0
 
@@ -42,15 +42,17 @@
 	icon_state = initial(icon_state) + (anchored ? "" : unwrenched_suffix)
 	. = ..()
 
-/obj/structure/destructible/clockwork/gear_base/proc/unlink_sigil(obj/structure/destructible/clockwork/sigil/transmission/unliked_sigil)
-	linked_transmission_sigil = null
-
+/obj/structure/destructible/clockwork/gear_base/proc/unlink_sigil()
 	// Try and replace the linked transmission sigil with another one
-	for(var/obj/structure/destructible/clockwork/sigil/transmission/new_sigil in range(src, SIGIL_TRANSMISSION_RANGE))
-		if(new_sigil == unliked_sigil)
+	var/obj/structure/destructible/clockwork/sigil/transmission/new_sigil = null
+	for(var/obj/structure/destructible/clockwork/sigil/transmission/potential_sigil in range(src, SIGIL_TRANSMISSION_RANGE))
+		if(potential_sigil == linked_transmission_sigil)
 			continue
 
-		linked_transmission_sigil = new_sigil
+		new_sigil = potential_sigil
+		break
+
+	linked_transmission_sigil = new_sigil
 
 	// Couldn't find a new sigil, depower the structure
 	if(!linked_transmission_sigil)

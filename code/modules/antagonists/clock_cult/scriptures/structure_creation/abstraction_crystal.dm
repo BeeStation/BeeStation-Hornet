@@ -7,12 +7,13 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	name = "Abstraction Crystal"
 	desc = "Summons an Abstraction Crystal, which allows servants to manifest themself to protect the nearby area."
 	tip = "Upon your manifestation taking damage, you will only receive 40% of the damage."
+	invokation_text = list("Through the boundaries and planes..", "..we break with ease")
+	invokation_time = 5 SECONDS
 	button_icon_state = "Clockwork Obelisk"
 	power_cost = 750
-	invokation_time = 5 SECONDS
-	invokation_text = list("Through the boundaries and planes..", "..we break with ease")
-	summoned_structure = /obj/structure/destructible/clockwork/abstraction_crystal
 	cogs_required = 5
+	summoned_structure = /obj/structure/destructible/clockwork/abstraction_crystal
+	category = SPELLTYPE_STRUCTURES
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal/can_invoke()
 	. = ..()
@@ -24,10 +25,15 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		return FALSE
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal/on_invoke_success()
-	var/obj/structure/destructible/clockwork/abstraction_crystal/clockwork_structure = summoned_structure
+	var/created_structure = new summoned_structure.type(get_turf(invoker))
+	var/obj/structure/destructible/clockwork/abstraction_crystal/clockwork_structure = created_structure
 
 	// Chose keyword for the crystal
-	var/chosen_keyword = tgui_input_text(invoker, "Enter a keyword for the crystal.", "Keyword", "Abstraction Crystal - [length(GLOB.abstraction_crystals)]")
+	var/chosen_keyword = tgui_input_text(invoker, "Enter a keyword for the crystal.", "Keyword", "Abstraction Crystal - [length(GLOB.abstraction_crystals) + 1]")
+	if(!chosen_keyword)
+		clockwork_structure.deconstruct(FALSE)
+		return
+
 	clockwork_structure.key_word = chosen_keyword
 
 	// Check if the keyword is already taken
@@ -37,7 +43,10 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 	// Add the crystal to the global list
 	GLOB.abstraction_crystals[clockwork_structure.key_word] = clockwork_structure
-	. = ..()
+
+	// Don't call parent because it will spawn another crystal
+	GLOB.clockcult_power -= power_cost
+	GLOB.clockcult_vitality -= vitality_cost
 
 /*
 * A human that can do human things, however it is linked to a crystal
@@ -84,15 +93,15 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/health_lost = previous_health - health
 	if(health_lost > 0)
 		damage_crystal(health_lost)
-
-	// We either died or were forcibly moved out of the crystal's range, lets break the crystal
-	if(incapacitated() || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
-		linked_crystal.deconstruct(FALSE)
-
 	previous_health = health
 
+	// We were forcibly moved out of the crystal's range, lets break the crystal
+	if(incapacitated() || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
+		linked_crystal.deconstruct(FALSE)
 	. = ..()
-
+/*
+* On taking damage, 40% goes to the owner's mob and 60% goes to the crystal
+*/
 /mob/living/carbon/human/abstraction_hologram/proc/damage_crystal(amount)
 	if(QDELETED(src) || QDELETED(linked_crystal) || QDELETED(owner))
 		return
@@ -100,13 +109,8 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
 		carbon_owner.take_overall_damage(amount * 0.4)
-	linked_crystal.take_damage(amount)
+	linked_crystal.take_damage(amount * 0.6)
 
-/*
-* Allows cultists to manifest themselves at another crystal with a phantom that can attack
-* and perform all normal human actions.
-* On taking damage, 40% goes to the owner's mob and 60% goes to the crystal
-*/
 /obj/structure/destructible/clockwork/abstraction_crystal
 	name = "abstraction crystal"
 	desc = "An other-worldly structure, its lattice pulsating with a bright, pulsating light."
@@ -128,6 +132,8 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	/// Whether or not we're currently dusting the hologram.
 	/// PowerfulBacon from 4 years ago says this will crash the game if not here but I need to test it out
 	var/dusting_hologram = FALSE
+	/// The beam effect from the crystal to the abstraction
+	var/datum/beam/abstraction_beam
 
 /obj/structure/destructible/clockwork/abstraction_crystal/attack_hand(mob/user)
 	. = ..()
@@ -177,8 +183,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	if(!QDELETED(linked_hologram))
 		return
 
-	new /obj/effect/temp_visual/steam_release(get_turf(src))
-
+	dusting_hologram = FALSE
 	activator = user
 
 	// Create hologram
@@ -195,14 +200,14 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	else
 		linked_hologram.real_name = "The Eminence"
 
-	// Add overlay
+	// Effects
 	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 	linked_hologram.add_overlay(forbearance)
 
-	to_chat(linked_hologram, span_neovgre("You manifest yourself at [src]."))
+	to_chat(linked_hologram, span_neovgre("You manifest yourself at [key_word]."))
 
 	// Equip with generic gear
-	add_servant_of_ratvar(linked_hologram, silent=TRUE, servant_type=/datum/antagonist/servant_of_ratvar/manifestation)
+	add_servant_of_ratvar(linked_hologram, silent = TRUE, servant_type=/datum/antagonist/servant_of_ratvar/manifestation)
 	linked_hologram.equipOutfit(/datum/outfit/clockcult/armaments)
 
 	tracked_items = list()
@@ -212,7 +217,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		tracked_items += item
 
 	// Create a beam from the crystal to the linked hologram
-	Beam(linked_hologram, icon_state = "nzcrentrs_power", time = INFINITY)
+	abstraction_beam = Beam(linked_hologram, icon_state = "nzcrentrs_power", time = INFINITY)
 
 	// Start processing
 	START_PROCESSING(SSobj, src)
@@ -221,6 +226,11 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 /obj/structure/destructible/clockwork/abstraction_crystal/Destroy()
 	GLOB.abstraction_crystals.Remove(key_word)
 	clear_ghost()
+
+	// Stop processing
+	if(processing)
+		STOP_PROCESSING(SSobj, src)
+		processing = FALSE
 	. = ..()
 
 /obj/structure/destructible/clockwork/abstraction_crystal/process()
@@ -247,6 +257,9 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	// Delete tracked items
 	for(var/obj/item as anything in tracked_items)
 		derez(item)
+
+	// Clear beam
+	qdel(abstraction_beam)
 
 	// Drop any items the hologram may have picked up and dust them
 	if(!QDELETED(linked_hologram))

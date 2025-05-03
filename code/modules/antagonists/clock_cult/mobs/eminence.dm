@@ -93,7 +93,8 @@
 	//Wooooo, you are a ghost
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	internal_radio = new(src)
-	cog_change()
+
+	cogs = GLOB.installed_integration_cogs
 
 /mob/living/simple_animal/eminence/Destroy()
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)

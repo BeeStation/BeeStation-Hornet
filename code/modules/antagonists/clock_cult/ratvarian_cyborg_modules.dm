@@ -37,11 +37,11 @@
 		return
 
 	// Time to invoke the scripture
-	var/datum/clockcult/scripture/new_scripture = new scripture_datum(user, internal_slab, bypass_unlock_checks = TRUE)
+	var/datum/clockcult/scripture/new_scripture = new scripture_datum(internal_slab, bypass_unlock_checks = TRUE)
 
 	//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
 	new_scripture.qdel_on_completion = TRUE
-	new_scripture.try_to_invoke()
+	new_scripture.try_to_invoke(user)
 
 /obj/item/borg/ratvar/abscond
 	scripture_datum = /datum/clockcult/scripture/abscond

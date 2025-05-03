@@ -201,8 +201,8 @@
 	charges = 4
 	check_flags = AB_CHECK_CONSCIOUS
 	requires_target = TRUE
-	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
-	disable_text = ("<span class='cult'>You dispel the magic...</span>")
+	enable_text = span_cult("You prepare to horrify a target...")
+	disable_text = span_cult("You dispel the magic...")
 
 /datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
 	var/turf/clicker_turf = get_turf(clicker)

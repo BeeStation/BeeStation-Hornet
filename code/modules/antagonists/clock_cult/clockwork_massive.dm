@@ -68,7 +68,7 @@
 /obj/structure/destructible/clockwork/massive/celestial_gateway/examine(mob/user)
 	. = ..()
 	if(GLOB.ratvar_arrival_tick)
-		. += span_brass("It will open in [DisplayTimeText(max(GLOB.ratvar_arrival_tick - world.time), 0)].")
+		. += span_brass("It will open in [DisplayTimeText(GLOB.ratvar_arrival_tick - world.time)].")
 	else
 		. += span_brass("It doesn't seem to be doing much right now, maybe one day it will serve its purpose.")
 
@@ -266,6 +266,10 @@
 	animate(src, transform = original_matrix * 3, alpha = 0, time = 5)
 	QDEL_IN(src, 3)
 	sleep(3)
+
+	// Remove portals to Reebe
+	for(var/obj/effect/portal/wormhole/clockcult/portal in GLOB.all_wormholes)
+		qdel(portal)
 
 	// Summon Ratvar
 	var/turf/center_station = SSmapping.get_station_center()

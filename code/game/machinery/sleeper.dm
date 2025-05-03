@@ -376,6 +376,7 @@
 		/datum/reagent/medicine/oculine = 100,
 		/datum/reagent/medicine/inacusiate = 100,
 		/datum/reagent/medicine/mannitol = 100)
+	max_vials = 7
 	synthesizing = TRUE
 
 /obj/machinery/sleeper/old

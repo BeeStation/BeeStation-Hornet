@@ -58,7 +58,6 @@
 /obj/structure/destructible/clockwork/sigil/proc/on_entered(datum/source, atom/movable/target_atom)
 	SIGNAL_HANDLER
 
-	// We don't want to try and apply effects if a box or something is on top of us
 	if(!isliving(target_atom) && living_only)
 		return
 	if(affected_atom)
@@ -90,8 +89,6 @@
 		var/mob/mob_target = target_atom
 		if(mob_target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			return FALSE
-	if(!affected_atom)
-		return FALSE
 
 	return TRUE
 
@@ -107,28 +104,31 @@
 	affected_atom = target_atom
 
 	// The effect charge time is 0, lets instantly apply the effect
-	if(!effect_charge_time)
+	if(effect_charge_time <= 0)
 		apply_effects()
 	else
-		active_timer = addtimer(CALLBACK(src, PROC_REF(apply_effects), target_atom), effect_charge_time, TIMER_UNIQUE | TIMER_STOPPABLE)
+		animate(src, color = invokation_color, alpha = SIGIL_INVOKATION_ALPHA, effect_charge_time)
+		active_timer = addtimer(CALLBACK(src, PROC_REF(apply_effects)), effect_charge_time, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 /*
-* Play a success animation
-* Apply the effects to the target atom
+* Play a success animation and apply the effects to the target atom
 * When inhereting this, call . = ..() at the END
 */
 /obj/structure/destructible/clockwork/sigil/proc/apply_effects()
+	if(!can_affect(affected_atom))
+		return
+
 	color = success_color
 	transform = matrix() * 1.2
 	alpha = SIGIL_INVOKED_ALPHA
 
 	if(looping)
-		animate(src, transform = matrix(), color = invokation_color, alpha = SIGIL_INVOKATION_ALPHA, effect_charge_time)
-		active_timer = addtimer(CALLBACK(src, PROC_REF(try_apply_effects), affected_atom), effect_charge_time, TIMER_UNIQUE | TIMER_STOPPABLE)
+		animate(src, transform = matrix(), color = invokation_color, alpha = SIGIL_INVOKATION_ALPHA, time = effect_charge_time)
+		active_timer = addtimer(CALLBACK(src, PROC_REF(apply_effects)), effect_charge_time, TIMER_UNIQUE | TIMER_STOPPABLE)
 	else
 		active_timer = null
 		affected_atom = null
-		animate(src, transform = matrix(), color = idle_color, alpha = initial(alpha), time = 5)
+		animate(src, transform = matrix(), color = idle_color, alpha = initial(alpha), time = effect_charge_time)
 
 /*
 * We failed to apply the effects to the target atom
@@ -141,6 +141,7 @@
 		deltimer(active_timer)
 		active_timer = null
 	affected_atom = null
+
 	// Flavor
 	color = fail_color
 	transform = matrix() * 1.2

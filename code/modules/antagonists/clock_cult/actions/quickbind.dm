@@ -14,12 +14,17 @@
 	/// The scripture to invoke
 	var/datum/clockcult/scripture/scripture
 
+/datum/action/innate/clockcult/quick_bind/New(datum/clockcult/scripture/new_scripture, obj/item/clockwork/clockwork_slab/slab)
+	. = ..()
+	scripture = new_scripture
+	activation_slab = slab
+
 /datum/action/innate/clockcult/quick_bind/Destroy()
 	activation_slab = null
 	Remove(owner)
 	. = ..()
 
-/datum/action/innate/clockcult/quick_bind/Grant(mob/living/M)
+/datum/action/innate/clockcult/quick_bind/Grant(mob/living/user)
 	name = scripture.name
 	desc = scripture.tip
 	button_icon_state = scripture.button_icon_state
@@ -27,7 +32,7 @@
 		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
 	. = ..()
 
-/datum/action/innate/clockcult/quick_bind/Remove(mob/M)
+/datum/action/innate/clockcult/quick_bind/Remove(mob/user)
 	if(activation_slab.invoking_scripture == scripture)
 		activation_slab.invoking_scripture = null
 	. = ..()
@@ -37,12 +42,6 @@
 		return FALSE
 	. = ..()
 
-/*
 /datum/action/innate/clockcult/quick_bind/on_activate()
-	if(!activation_slab)
-		return
-	if(!activation_slab.invoking_scripture)
-		scripture.begin_invoke(owner, activation_slab)
-	else
-		to_chat(owner, span_brass("You fail to invoke [name]."))
-*/
+	if(!activation_slab?.invoking_scripture)
+		scripture.try_to_invoke(owner)

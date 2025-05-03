@@ -11,7 +11,7 @@
 	cogs_required = 5
 	category = SPELLTYPE_PRESERVATION
 
-/datum/clockcult/scripture/cogscarab/try_to_invoke(mob/living/user, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
+/datum/clockcult/scripture/cogscarab/try_to_invoke(mob/living/user)
 	invokation_time = initial(invokation_time) + ((6 SECONDS) * length(GLOB.cogscarabs))
 	. = ..()
 

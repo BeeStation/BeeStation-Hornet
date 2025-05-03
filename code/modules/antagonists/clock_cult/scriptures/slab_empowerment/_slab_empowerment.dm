@@ -22,6 +22,7 @@
 		action = new
 		action.name = src.name
 		action.parent_scripture = src
+		action.deactive_msg = ""
 
 /datum/clockcult/scripture/slab/Destroy()
 	progress_bar?.end_progress()
@@ -64,11 +65,12 @@
 
 	// Decrease progress bar
 	if(!currently_applying_effects)
-		progress_bar.update(max_time)
+		progress_bar?.update(max_time)
 		max_time--
 
+	// Update progress bar in one tick
 	if(max_time > 0)
-		addtimer(CALLBACK(src, PROC_REF(count_down)), 0.1 SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(count_down)), 1, TIMER_STOPPABLE)
 	else
 		invoker.balloon_alert(invoker, "ran out of time!")
 		end_invocation()
@@ -88,6 +90,8 @@
 	if(!apply_effects(clicked_on))
 		currently_applying_effects = FALSE
 		return
+
+	currently_applying_effects = FALSE
 
 	// Apply cost
 	GLOB.clockcult_power -= power_cost
@@ -110,9 +114,16 @@
 	if(should_set_click_ability)
 		action.unset_click_ability(invoker)
 
-	// Clear overlay
+	// Clear overlay and slab's active scripture
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
+
+	invoking_slab.active_scripture = null
+
+	// Reset progress bar
+	progress_bar?.end_progress()
+	progress_bar = null
+	max_time = initial(max_time)
 
 	on_invoke_end()
 

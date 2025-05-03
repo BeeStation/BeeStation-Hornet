@@ -1,3 +1,15 @@
+GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
+
+/*
+* Create a global list to reference scriptures by their name
+* Only needs to be called once
+*/
+/proc/generate_clockcult_scriptures()
+	// Generate scriptures
+	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
+		var/datum/clockcult/scripture/scripture = new categorypath
+		GLOB.clockcult_all_scriptures[scripture.name] = scripture
+
 /datum/clockcult/scripture
 	/// The name of the scripture
 	var/name
@@ -34,12 +46,12 @@
 	/// If this is TRUE, the scripture does not have to be unlocked to be invoked
 	var/should_bypass_unlock_checks = FALSE
 
-/datum/clockcult/scripture/New(mob/living/user, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
-	invoker = user
+/datum/clockcult/scripture/New(obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
 	invoking_slab = slab
 	should_bypass_unlock_checks = bypass_unlock_checks
 
-/datum/clockcult/scripture/proc/try_to_invoke()
+/datum/clockcult/scripture/proc/try_to_invoke(mob/living/user)
+	invoker = user
 	invoking_slab.invoking_scripture = src
 
 	// Basic checks
@@ -56,6 +68,8 @@
 		on_invoke_success()
 		if(end_on_invokation)
 			on_invoke_end()
+	else
+		dispose()
 
 /*
 * Basic checks to see if the scripture can be invoked
@@ -70,7 +84,7 @@
 	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
 		invoker.balloon_alert(invoker, "not in hand!")
 		return FALSE
-	if(!should_bypass_unlock_checks && !(type in invoking_slab.purchased_scriptures))
+	if(!should_bypass_unlock_checks && !invoking_slab.scriptures[src.type])
 		log_runtime("Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
 		invoker.balloon_alert(invoker, "not unlocked!")
 		return FALSE
@@ -85,7 +99,7 @@
 		invokers++
 
 	if(invokers < invokers_required)
-		invoker.balloon_alert(invoker, "missing [invokers_required - invokers] invokers!")
+		invoker.balloon_alert(invoker, "missing [invokers_required - invokers] invoker\s!")
 		return FALSE
 
 	return TRUE
@@ -107,7 +121,7 @@
 	dispose()
 
 /*
-* Dispose of this scripture
+* This isn't with on_invoke_end() because we don't want to call whatever logic we use whenever we for example, fail the do_after in try_to_invoke()
 */
 /datum/clockcult/scripture/proc/dispose()
 	invoking_slab.invoking_scripture = null

@@ -11,6 +11,9 @@
 
 /datum/action/spell/eminence/can_cast_spell(feedback = TRUE)
 	. = ..()
+	if(!.)
+		return FALSE
+
 	var/mob/living/simple_animal/eminence/eminence = owner
 	if(!istype(eminence))
 		return FALSE

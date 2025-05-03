@@ -18,7 +18,7 @@
 	. = ..()
 
 /datum/clockcult/scripture/abscond/on_invoke_success()
-	try_warp_servant(invoker, get_turf(pick(GLOB.servant_spawns)), TRUE)
+	try_warp_servant(invoker, get_turf(pick(GLOB.servant_spawns)), bring_dragging = TRUE)
 
 	// Fade the invoker from being invisible to.. not
 	var/prev_alpha = invoker.alpha
