@@ -29,7 +29,7 @@
 /// Does not work for DAMAGE_STANDARD, as the logic is more complex.
 /// Output value is between 0 and 100.
 /atom/proc/damage_flag_to_armour_rating(damage_flag)
-	switch (flag)
+	switch (damage_flag)
 		// Runs through absorption and blunt independantly
 		if (DAMAGE_ACID)
 			var/absorption = (100 - get_armor_rating(ARMOUR_ABSORPTION) * 0.5) / 100
