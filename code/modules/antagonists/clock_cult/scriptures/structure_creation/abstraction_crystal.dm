@@ -279,5 +279,5 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 	qdel(object)
 
-#undef ABSTRACTION_HOLOGRAM_TRAIT
+#undef TRAIT_ABSTRACTION_HOLOGRAM
 #undef ABSTRACTION_CRYSTAL_RANGE
