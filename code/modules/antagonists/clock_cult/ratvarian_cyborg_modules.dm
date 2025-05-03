@@ -34,7 +34,7 @@
 		if(!internal_slab)
 			return
 
-		scripture_datum.invoking_slab = internal_clock_slab
+		scripture_datum.invoking_slab = internal_slab
 
 	if(internal_slab.invoking_scripture)
 		user.balloon_alert(user, "already invoking scripture!")
