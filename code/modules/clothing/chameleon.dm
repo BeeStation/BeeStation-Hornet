@@ -919,7 +919,7 @@
 	. = ..()
 
 /obj/item/clothing/shoes/chameleon/noslip
-	clothing_flags = NOSLIP_ALL
+	clothing_flags = NOSLIP
 	can_be_bloody = FALSE
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
