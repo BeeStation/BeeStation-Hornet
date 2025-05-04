@@ -117,7 +117,6 @@
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
-	slowdown_high_power = 2
 	armor_type = /datum/armor/magboots_commando
 	clothing_flags = NOSLIP
 
