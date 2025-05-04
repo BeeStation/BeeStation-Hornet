@@ -7,7 +7,7 @@
 	item_flags = NOBLUDGEON
 
 	/// The scripture this module invokes
-	var/datum/clockcult/scripture/scripture_datum = /datum/clockcult/scripture/scripture_datum
+	var/datum/clockcult/scripture/scripture_datum = /datum/clockcult/scripture
 
 /obj/item/borg/ratvar/Initialize(mapload)
 	. = ..()
