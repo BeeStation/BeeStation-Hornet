@@ -57,6 +57,8 @@
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
 #define NOSLIP_ALL (1<<19) //! noslip with includes the higher level sliping hazards, like ice or lube
+#define NOSLIP_WALKING (1<<20) //! noslip with only works if wearer is walking
+#define NOSLIP_ALL_WALKING (1<<21) //! noslip_all with only works if wearer is walking
 
 /// Integrity defines for clothing (not flags but close enough)
 #define CLOTHING_PRISTINE 0 // We have no damage on the clothing
