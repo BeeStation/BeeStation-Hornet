@@ -195,7 +195,7 @@
 		/obj/item/clothing/suit/hazardvest,
 		/obj/item/clothing/shoes/workboots,
 		/obj/item/clothing/head/utility/hardhat,
-		/obj/item/clothing/head/beret/eng
+		/obj/item/clothing/head/beret/engi
 	)
 
 /obj/structure/closet/wardrobe/white/medical
@@ -217,7 +217,7 @@
 		/obj/item/clothing/suit/toggle/labcoat/paramedic = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/clothing/head/soft/paramedic = 3,
-		/obj/item/clothing/head/beret/med = 3)
+		/obj/item/clothing/head/beret/medical = 3)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -233,7 +233,7 @@
 		/obj/item/clothing/shoes/sneakers/black = 2,
 		/obj/item/clothing/gloves/fingerless = 2,
 		/obj/item/clothing/head/soft/black = 2,
-		/obj/item/clothing/head/beret/sci = 2)
+		/obj/item/clothing/head/beret/science = 2)
 	generate_items_inside(items_inside,src)
 	if(prob(40))
 		new /obj/item/clothing/mask/bandana/skull/black(src)
@@ -285,7 +285,7 @@
 		/obj/item/clothing/mask/surgical = 2,
 		/obj/item/storage/backpack/virology = 2,
 		/obj/item/storage/backpack/satchel/vir = 2,
-		/obj/item/clothing/head/beret/med = 2)
+		/obj/item/clothing/head/beret/medical = 2)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -304,7 +304,7 @@
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/radio/headset/headset_sci = 2,
 		/obj/item/clothing/mask/gas = 3,
-		/obj/item/clothing/head/beret/sci = 3)
+		/obj/item/clothing/head/beret/science = 3)
 	generate_items_inside(items_inside,src)
 	return
 
