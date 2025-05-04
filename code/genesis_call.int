@@ -1,0 +1,12 @@
+// BEGIN_INTERNALS
+/*
+MAP_PLANE_MASTERS: 
+MAP_ZOOM: 1.000
+DIR: __DEFINES datums 
+AUTO_FILE_DIR: OFF
+MAP_ICON_TYPE: 0
+WINDOW: datums\shuttles.dm
+FILE: datums\shuttles.dm
+MAP_INSTANCE_MODE: copy
+*/
+// END_INTERNALS
