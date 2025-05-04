@@ -5,7 +5,7 @@
 	"map_file": "PubbyStation.dmm",
 	"shuttles": {
 		"emergency": "emergency_pubby",
-		"whiteship": "whiteship_pubby1",
+		"whiteship": "whiteship_pubby",
 		"ferry": "ferry_fancy",
 		"cargo": "cargo_box"
 	}
