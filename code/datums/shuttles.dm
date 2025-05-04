@@ -568,11 +568,11 @@
 	suffix = "meta"
 	name = "Salvage Ship"
 
-/datum/map_template/shuttle/whiteship/pubby
-	suffix = "pubby"
+/datum/map_template/shuttle/whiteship/birdboat
+	suffix = "birdboat"
 	name = "NT Personal Trader"
 
-/datum/map_template/shuttle/whiteship/pubby1
+/datum/map_template/shuttle/whiteship/pubby
 	suffix = "pubby"
 	name = "MK7 Zealot Cruiser"
 
