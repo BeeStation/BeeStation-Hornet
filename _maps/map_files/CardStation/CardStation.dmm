@@ -36714,7 +36714,6 @@
 	name = "formal uniform crate";
 	req_access_txt = "3"
 	},
-/obj/item/clothing/head/beret/sec/navyhos,
 /obj/item/clothing/head/beret/sec/navywarden,
 /obj/item/clothing/head/beret/sec/navyofficer,
 /obj/item/clothing/head/beret/sec/navyofficer,
