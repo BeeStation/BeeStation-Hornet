@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 	/// How many clock cultists that must be in range of the slab to invoke this scripture
 	var/invokers_required = 1
 	/// The icon for the scripture's quick bind button
-	var/button_icon_state = "telerune"
+	var/button_icon_state = "Abscond"
 	/// How much power this scripture draws from the ark
 	var/power_cost = 0
 	/// How much vitality this scripture draws from the ark

@@ -7,7 +7,7 @@
 
 /datum/action/innate/clockcult/quick_bind
 	name = "Quick Bind"
-	button_icon_state = "telerune"
+	button_icon_state = "Abscond"
 	desc = "A quick bound spell."
 
 	/// The slab this action is bound to
