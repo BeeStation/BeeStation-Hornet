@@ -80,15 +80,6 @@
 		return FALSE
 	return ..()
 
-/datum/action/item_action/high_power_magnet
-	name = "Toggle High Power Magnet"
-
-/datum/action/item_action/high_power_magnet/is_available()
-	var/obj/item/clothing/shoes/magboots/linked_magboots = master
-	if(!istype(linked_magboots) || !linked_magboots.magpulse)
-		return FALSE
-	return ..()
-
 /datum/action/item_action/wheelys
 	name = "Toggle Wheels"
 	desc = "Pops out or in your shoes' wheels."
