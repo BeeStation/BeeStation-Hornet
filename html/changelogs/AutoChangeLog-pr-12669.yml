@@ -1,5 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: fix silicon shoving. AI's should be able to be pushed into teleporters
-      again
