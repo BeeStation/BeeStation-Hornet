@@ -12,7 +12,7 @@
 /obj/item/borg/ratvar/Initialize(mapload)
 	. = ..()
 
-	scripture_datum = new scripture_datum.type(null, bypass_unlock_checks = TRUE)
+	scripture_datum = new scripture_datum(null, bypass_unlock_checks = TRUE)
 
 	name = scripture_datum.name
 	desc = scripture_datum.desc
