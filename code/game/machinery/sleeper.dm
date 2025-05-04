@@ -83,7 +83,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		I += M.rating
 
-	max_vials = 5 + E
+	max_vials = initial(max_vials) - 1 + E
 	efficiency = initial(efficiency) * sqrt(I)
 	available_chems = list()
 
@@ -378,6 +378,9 @@
 		/datum/reagent/medicine/mannitol = 100)
 	max_vials = 7
 	synthesizing = TRUE
+
+/obj/machinery/sleeper/clockwork/RefreshParts()
+	return // nah
 
 /obj/machinery/sleeper/old
 	icon_state = "oldpod"
