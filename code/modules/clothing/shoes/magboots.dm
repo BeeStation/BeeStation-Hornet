@@ -1,5 +1,5 @@
 /obj/item/clothing/shoes/magboots
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle. Walking carefully lets the user gain better traction."
 	name = "magboots"
 	icon_state = "magboots0"
 	item_state = "magboots"
