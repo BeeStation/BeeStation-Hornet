@@ -311,7 +311,7 @@
 	icon = 'icons/obj/flora/_flora.dmi'
 	icon_state = "random_mini_plant"
 	desc = "A little bit of nature contained in a pot."
-	layer = BELOW_MOB_LAYER
+	layer = OBJ_LAYER
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	attack_weight = 1
