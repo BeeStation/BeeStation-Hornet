@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	///every holo object created by the holodeck goes in here to track it
 	var/list/spawned = list()
 	var/list/effects = list() //like above, but for holo effects
-	var/list/from_spawner = list() // spawner-created atoms aren't working well for going into 'spawned' list
+	var/list/from_spawner = list() // spawner-created atoms aren't working well that they don't go into 'spawned' list
 
 	///TRUE if the holodeck is using extra power because of a program, FALSE otherwise
 	var/active = FALSE
@@ -99,10 +99,9 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 	var/area/computer_area = get_area(src)
 	if(istype(computer_area, /area/holodeck))
-		if(!istype(computer_area, /area/holodeck/debug))
-			log_mapping("Holodeck computer cannot be in a holodeck, This would cause circular power dependency.")
-			qdel(src)
-			return
+		log_mapping("Holodeck computer cannot be in a holodeck, This would cause circular power dependency.")
+		qdel(src)
+		return
 
 	// the following is necessary for power reasons
 	if(!linked)
@@ -212,9 +211,11 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	if(spawning_simulation)
 		return
 
-	if (add_delay)
+	if(debug_holodeck)
+		COOLDOWN_START(src, holodeck_cooldown, 1 SECONDS)
+	else if (add_delay)
 		COOLDOWN_START(src, holodeck_cooldown, (damaged ? HOLODECK_CD + HOLODECK_DMG_CD : HOLODECK_CD))
-		if (!debug_holodeck && damaged && floorcheck())
+		if (damaged && floorcheck())
 			damaged = FALSE
 
 	spawning_simulation = TRUE
@@ -322,13 +323,15 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	UnregisterSignal(to_remove, COMSIG_PARENT_PREQDELETED)
 
 /obj/machinery/computer/holodeck/process(delta_time=2)
-	if(!debug_holodeck && damaged && DT_PROB(10, delta_time))
+	if(debug_holodeck)
+		return ..()
+	if(damaged && DT_PROB(10, delta_time))
 		for(var/turf/holo_turf in linked)
 			if(DT_PROB(5, delta_time))
 				do_sparks(2, 1, holo_turf)
 				return
 	. = ..()
-	if(!. || program == offline_program || debug_holodeck)//we dont need to scan the holodeck if the holodeck is offline
+	if(!. || program == offline_program)//we dont need to scan the holodeck if the holodeck is offline
 		return
 
 	if(!floorcheck()) //if any turfs in the floor of the holodeck are broken
@@ -379,13 +382,15 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 ///returns TRUE if all floors of the holodeck are present, returns FALSE if any are broken or removed
 /obj/machinery/computer/holodeck/proc/floorcheck()
-	if(debug_holodeck)
-		return TRUE
 	for(var/turf/holo_floor in linked)
 		if (is_type_in_typecache(holo_floor, GLOB.typecache_holodeck_linked_floorcheck_ok))
 			continue
 		return FALSE
 	return TRUE
+
+/obj/machinery/computer/holodeck/debug/floorcheck()
+	if(debug_holodeck)
+		return TRUE
 
 ///changes all weapons in the holodeck to do stamina damage if set
 /obj/machinery/computer/holodeck/proc/nerf(nerf_this, is_loading = TRUE)

@@ -29,11 +29,6 @@
 // ------------------------------------------------
 //         List of real templates below:
 // ------------------------------------------------
-/datum/map_template/holodeck/debug/rbmk
-	name = "Holodeck - Engineering RBMK"
-	template_id = "debug-rbmk"
-	mappath = "_maps/holodeck/debug/engi-rbmk.dmm"
-
 /datum/map_template/holodeck/debug/n2
 	name = "Holodeck - Engineering N2 SM"
 	template_id = "debug-engi-n2-sm"

@@ -593,6 +593,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	anchored = FALSE
 
 /obj/structure/window/depleteduranium/fulltile/debug
+	name = "unbreakable depleted uranium window"
 	max_integrity = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
