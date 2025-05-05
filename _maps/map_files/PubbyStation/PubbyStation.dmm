@@ -20089,9 +20089,7 @@
 /turf/open/floor/prison/dark,
 /area/security/prison/shielded)
 "cJw" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 9
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cJx" = (
@@ -23766,8 +23764,10 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/prison/shielded)
 "eDz" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
+/obj/machinery/atmospherics/components/binary/pump/on{
+	dir = 4;
+	name = "Cooling Loop to Gas"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -28914,11 +28914,6 @@
 /area/engine/atmos)
 "hxc" = (
 /obj/machinery/bookbinder,
-/obj/item/paper/fluff{
-	name = "Exploration Shuttle Receipt";
-	desc = "It seems to be written in invisible ink, perhaps a book binder would decipher it ";
-	default_raw_text = "<font face="Nyala" color=#FFFFFF size=3><i><!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8">  <title>Shuttle Reconstruction Log</title>  <style>    body {      font-family: monospace;      background-color: #0b0c10;      color: #66fcf1;      padding: 2em;    }    h1, h2 {      color: #45a29e;    }    .section {      border: 1px solid #45a29e;      padding: 1em;      margin-bottom: 1em;      background-color: #1f2833;    }    .label {      font-weight: bold;      margin-top: 0.5em;      color: #c5c6c7;    }    .content {      margin-left: 1em;      white-space: pre-wrap;    }    .footer {      color: #888;      font-size: 0.9em;      margin-top: 2em;    }  </style></head><body>  <h1>�️ NSV Ryvius</h1>  <h2>Shuttle Reconstruction Log - Form A-17</h2>  <div class="section">    <div class="label">Date of Recovery:</div>    <div class="content">2565-11-19</div>    <div class="label">Recovered By (Name & Rank):</div>    <div class="content">Livian Levan - Self Proclaimed Archeoloist</div>    <div class="label">Vessel ID / Designation:</div>    <div class="content">XR-72 "ArmoredFreighter"</div>  </div>  <div class="section">    <div class="label">Structural Condition Summary:</div>    <div class="content">Hull integrity at 43%. Extensive corrosion and Laser Scarring on outer layers.Life support and propulsion offline. Internal compartments show signs of vacuum exposure.    </div>    <div class="label">Information Observed:</div>    <div class="content">Hybridized systems combining pre-Ftl reactor tech with primitive foreign Additions.No AI core detected. Absense of Shuttle Blackbox.    </div>    <div class="label">Anomalies or Hazardous Findings:</div>    <div class="content">Anomylous Heat Signature present within shuttles plasma Engines.Organic material fused into hull plating—likely deceased lifeforms.One preserved stasis pod unlocked, Occupant Recovered.    </div>  </div>  <div class="section">    <div class="label">Chief Engineer’s Report:</div>    <div class="content">Donate the Vessel to those Shmucks at SS13 and say its brand new, this relic's been littering the dockyard for too long, should be just about functional.    </div>    <div class="label">Signed:</div>    <div class="content">Chief Engineer M. Redfrie</div>  </div>  <div class="footer">    Filed under NSV Ryvius - Central Salvage Operation Record<br>    Document ID: A-17/XR72/2565<br>    — End of Log —  </div></body></html></i></font>"
-	},
 /turf/open/floor/iron,
 /area/maintenance/department/science)
 "hxn" = (
@@ -29445,8 +29440,8 @@
 /turf/open/floor/grass,
 /area/hallway/primary/central)
 "hNq" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 5
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Waste to Space"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -35385,8 +35380,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 9
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -38436,14 +38431,9 @@
 /turf/open/floor/plating,
 /area/security)
 "mrO" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/trimline/yellow/filled/line{
-	dir = 4
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Cooling Loop Bypass";
+	dir = 1
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -43447,9 +43437,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8
+/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
+	filter_type = list(/datum/gas/nitrogen)
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -45648,8 +45637,8 @@
 /turf/open/floor/grass,
 /area/hydroponics)
 "qeW" = (
-/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
-	filter_type = list(/datum/gas/nitrogen)
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Gas to Chamber"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -46452,12 +46441,7 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "qBV" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 10
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "qBX" = (
@@ -53122,11 +53106,8 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/security/main)
 "udy" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Waste to Space"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 10
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -89676,7 +89657,7 @@ ulY
 eCe
 ulY
 xSX
-hNq
+iUE
 bXk
 bXk
 cdm
@@ -89933,8 +89914,8 @@ xzn
 imB
 xzn
 cJw
-eDz
 iUE
+ulY
 bXk
 gOn
 cdm
@@ -90189,9 +90170,9 @@ hhi
 hCX
 hhi
 hCX
-cWS
 eDz
-iUE
+cWS
+ulY
 bXk
 eor
 bXk
@@ -90445,10 +90426,10 @@ xxk
 xxk
 xxk
 xxk
-xxk
+mrO
 qBV
 udy
-hhi
+hNq
 mBM
 wWS
 bXk
@@ -90704,7 +90685,7 @@ fAM
 hYa
 jEe
 kJh
-mrO
+aPz
 aPz
 aLs
 nsL
