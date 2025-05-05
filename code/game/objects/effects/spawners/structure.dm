@@ -11,7 +11,7 @@ again.
 
 /obj/effect/spawner/structure/Initialize(mapload)
 	. = ..()
-	// When spawner is created from holodeck templates
+	// When spawner is created at a holodeck template
 	var/area/holodeck/holodeck_area = get_area(src)
 	if(istype(holodeck_area, /area/holodeck))
 		var/obj/machinery/computer/holodeck/holocomputer = holodeck_area.linked

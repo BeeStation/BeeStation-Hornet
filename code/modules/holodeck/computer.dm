@@ -389,8 +389,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	return TRUE
 
 /obj/machinery/computer/holodeck/debug/floorcheck()
-	if(debug_holodeck)
-		return TRUE
+	return TRUE
 
 ///changes all weapons in the holodeck to do stamina damage if set
 /obj/machinery/computer/holodeck/proc/nerf(nerf_this, is_loading = TRUE)
