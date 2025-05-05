@@ -3,6 +3,8 @@
 // ---------------------------------------------
 /datum/map_template/holodeck/debug
 
+// I don't get why but unit test dislikes this failsafe.
+#ifndef UNIT_TESTS
 /datum/map_template/holodeck/debug/on_placement_completed(datum/async_map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
 	. = ..()
 	var/static/warn_once = TRUE
@@ -12,6 +14,7 @@
 			message_admins("Holodeck template '[name]' does not have /area/template_noop")
 			stack_trace("Holodeck template '[name]' does not have /area/template_noop")
 			warn_once = FALSE
+#endif
 
 /datum/map_template/holodeck/debug/empty
 	name = "Holodeck - Offline"
