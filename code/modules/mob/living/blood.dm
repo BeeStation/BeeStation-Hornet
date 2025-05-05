@@ -132,7 +132,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/carbon/proc/is_bandaged()
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return FALSE
 	return bleed.bandaged_bleeding > 0
@@ -140,7 +140,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/carbon/proc/is_bleeding()
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return FALSE
 	return bleed.bleed_rate > 0
@@ -149,7 +149,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return
 	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
-	apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
+	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
 		to_chat(src, "[span_userdanger("Blood starts rushing out of the open wound!")]")
@@ -164,13 +164,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	..()
 
 /mob/living/carbon/proc/get_bleed_intensity()
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return 0
 	return 3 ** bleed.bleed_rate
 
 /mob/living/carbon/proc/get_bleed_rate()
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	return bleed?.bleed_rate
 
 /// Can we heal bleeding using a welding tool?
@@ -182,7 +182,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return "0.0/s"
 
 /mob/living/carbon/get_bleed_rate_string()
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return "0.0/s"
 	var/final_bleed_rate = bleed.bleed_rate
@@ -196,12 +196,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return "[final_bleed_rate]/s"
 
 /mob/living/carbon/proc/cauterise_wounds(amount = INFINITY)
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return FALSE
 	bleed.bleed_rate -= amount
 	if (bleed.bleed_rate <= 0)
-		remove_status_effect(STATUS_EFFECT_BLEED)
+		remove_status_effect(/datum/status_effect/bleeding)
 	return TRUE
 
 /mob/living/carbon/proc/hold_wounds()
@@ -222,7 +222,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/obj/item/offhand/bleeding_suppress/supressed_thing = new()
 	put_in_active_hand(supressed_thing)
 	balloon_alert(src, "You apply pressure to your wounds...")
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return
 	bleed.update_icon()
@@ -234,13 +234,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		located = TRUE
 	if (located)
 		balloon_alert(src, "You stop applying pressure to your wounds...")
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return
 	bleed.update_icon()
 
 /mob/living/carbon/proc/suppress_bloodloss(amount)
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return
 	var/reduced_amount = min(bleed.bleed_rate, amount)
@@ -259,7 +259,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 
 // Takes care blood loss and regeneration
-/mob/living/carbon/human/handle_blood()
+/mob/living/carbon/human/handle_blood(delta_time, times_fired)
 
 	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		cauterise_wounds()
@@ -282,8 +282,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 					nutrition_ratio = 1
 			if(satiety > 80)
 				nutrition_ratio *= 1.25
-			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR)
-			blood_volume = min(BLOOD_VOLUME_NORMAL, blood_volume + 0.5 * nutrition_ratio)
+			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time)
+			blood_volume = min(blood_volume + (BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time), BLOOD_VOLUME_NORMAL)
 
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
@@ -308,14 +308,17 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			return
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-				if(prob(5))
+				if(DT_PROB(2.5, delta_time))
 					to_chat(src, span_warning("You feel [word]."))
+				//adjustOxyLoss(round(0.005 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				if(prob(5))
+				//adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
+				if(DT_PROB(2.5, delta_time))
 					blur_eyes(6)
 					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				if(prob(30))
+				//adjustOxyLoss(2.5 * delta_time)
+				if(DT_PROB(15, delta_time))
 					blur_eyes(6)
 					Unconscious(rand(3,6))
 					to_chat(src, span_warning("You feel extremely [word]."))

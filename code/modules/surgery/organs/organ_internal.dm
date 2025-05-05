@@ -33,6 +33,8 @@
 
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
+	/// Traits that are given to the holder of the organ.
+	var/list/organ_traits = list()
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -73,9 +75,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
 	moveToNullspace()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Grant(M)
+	for(var/trait in organ_traits)
+		ADD_TRAIT(M, trait, REF(src))
+	for(var/datum/action/action as anything in actions)
+		action.Grant(M)
 	STOP_PROCESSING(SSobj, src)
 
 //Special is for instant replacement like autosurgeons
@@ -89,36 +92,51 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 			if(organ_owner.stat != DEAD)
 				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 			organ_owner.death()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Remove(organ_owner)
+	for(var/trait in organ_traits)
+		REMOVE_TRAIT(organ_owner, trait, REF(src))
+
+	for(var/datum/action/action as anything in actions)
+		action.Remove(organ_owner)
 
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	START_PROCESSING(SSobj, src)
 
+/// Add a trait to an organ that it will give its owner.
+/obj/item/organ/proc/add_organ_trait(trait)
+	LAZYADD(organ_traits, trait)
+	if(isnull(owner))
+		return
+	ADD_TRAIT(owner, trait, REF(src))
+
+/// Removes a trait from an organ, and by extension, its owner.
+/obj/item/organ/proc/remove_organ_trait(trait)
+	LAZYREMOVE(organ_traits, trait)
+	if(isnull(owner))
+		return
+	REMOVE_TRAIT(owner, trait, REF(src))
 
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
 
-/obj/item/organ/process(delta_time)
-	on_death(delta_time) //Kinda hate doing it like this, but I really don't want to call process directly.
+/obj/item/organ/process(delta_time, times_fired)
+	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
 
-/obj/item/organ/proc/on_death(delta_time = 2)	//runs decay when outside of a person
+/obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_SYNTHETIC | ORGAN_FROZEN))
 		return
-	applyOrganDamage(maxHealth * decay_factor * 0.5 * delta_time)
+	applyOrganDamage(decay_factor * maxHealth * delta_time)
 
-/obj/item/organ/proc/on_life()	//repair organ damage if the organ is not failing
+/obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	if(organ_flags & ORGAN_FAILING)
 		return
 	///Damage decrements by a percent of its maxhealth
-	var/healing_amount = -(maxHealth * healing_factor)
+	var/healing_amount = healing_factor
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
 	if(owner)
-		healing_amount -= owner.satiety > 0 ? 4 * healing_factor * owner.satiety / MAX_SATIETY : 0
-	applyOrganDamage(healing_amount)
+		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
+	applyOrganDamage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
 	. = ..()

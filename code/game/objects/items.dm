@@ -175,7 +175,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The chance that holding this item will block attacks.
 	var/block_level = 0
 	//does the item block better if walking?
-	var/block_upgrade_walk = 0
+	var/block_upgrade_walk = FALSE
 	//blocking flags
 	var/block_flags = BLOCKING_ACTIVE
 	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
@@ -228,6 +228,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/canMouseDown = FALSE
 
+	/// Used in obj/item/examine to give additional notes on what the weapon does, separate from the predetermined output variables
+	var/offensive_notes
+	/// Used in obj/item/examine to determines whether or not to detail an item's statistics even if it does not meet the force requirements
+	var/override_notes = FALSE
+
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
 	var/icon_state_preview = null
 
@@ -269,6 +274,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == BRUTE)
 			hitsound = "swing_hit"
+
+	add_weapon_description()
 
 	if(LAZYLEN(embedding))
 		updateEmbedding()
@@ -326,6 +333,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	UnregisterSignal(action, COMSIG_PARENT_QDELETING)
 	LAZYREMOVE(actions, action)
 	qdel(action)
+
+/// Adds the weapon_description element, which shows the 'warning label' for especially dangerous objects. Override this for item types with special notes.
+/obj/item/proc/add_weapon_description()
+	AddElement(/datum/element/weapon_description)
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -401,55 +412,32 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	abstract_move(null)
 	forceMove(T)
 
-/obj/item/examine(mob/user) //This might be spammy. Remove?
-	. = ..()
+/obj/item/examine_tags(mob/user)
+	var/list/parent_tags = ..()
+	parent_tags.Insert(1, weight_class_to_text(w_class)) // To make size display first, otherwise it looks goofy
+	. = parent_tags
+	.[weight_class_to_text(w_class)] = weight_class_to_tooltip(w_class)
 
-	. += "[gender == PLURAL ? "They are" : "It is"] a [weight_class_to_text(w_class)] item."
+	if (siemens_coefficient == 0)
+		.["insulated"] = "It is made from a robust electrical insulator and will block any electricity passing through it!"
+	else if (siemens_coefficient <= 0.5)
+		.["partially insulated"] = "It is made from a poor insulator that will dampen (but not fully block) electric shocks passing through it."
 
 	if(resistance_flags & INDESTRUCTIBLE)
-		. += "[src] seems extremely robust! It'll probably withstand anything that could happen to it!"
-	else
-		if(resistance_flags & LAVA_PROOF)
-			. += "[src] is made of an extremely heat-resistant material, it'd probably be able to withstand lava!"
-		if(resistance_flags & (ACID_PROOF | UNACIDABLE))
-			. += "[src] looks pretty robust! It'd probably be able to withstand acid!"
-		if(resistance_flags & FREEZE_PROOF)
-			. += "[src] is made of cold-resistant materials."
-		if(resistance_flags & FIRE_PROOF)
-			. += "[src] is made of fire-retardant materials."
-	if(!(item_flags & NOBLUDGEON) && !(item_flags & ISWEAPON) && force != 0)
-		. += span_notice("You'll have to apply a <b>conscious effort</b> to harm someone with [src].")
-	if(block_level || block_upgrade_walk)
-		if(block_upgrade_walk == 1 && !block_level)
-			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
-		else
-			switch(block_upgrade_walk + block_level)
-				if(1)
-					. += "[src] can block attacks in a <b>narrow</b> arc."
-				if(2)
-					. += "[src] can block attacks in a <b>wide</b> arc."
-				if(3)
-					. += "[src] can block attacks in a <b>very wide</b> arc."
-				if(4 to INFINITY)
-					. += "[src] can block attacks in a <b>nearly complete</b> arc."
-			if(block_upgrade_walk)
-				. += "[src] is <b>less</b> effective at blocking while the user is <b>running</b>."
-		switch(block_power)
-			if(-INFINITY to -1)
-				. += "[src] is weighted extremely poorly for blocking"
-			if(0 to 10)
-				. += "[src] is average at blocking"
-			if(10 to 30)
-				. += "[src] is well-weighted for blocking"
-			if(31 to 50)
-				. += "[src] is extremely well-weighted for blocking"
-			if(51 to INFINITY)
-				. += "[src] is as well weighted as possible for blocking"
-	if(force)
-		if(!force_string)
-			set_force_string()
-		. += "Force: [force_string]"
+		.["indestructible"] = "It is extremely robust! It'll probably withstand anything that could happen to it!"
+		return
 
+	if(resistance_flags & LAVA_PROOF)
+		.["lavaproof"] = "It is made of an extremely heat-resistant material, it'd probably be able to withstand lava!"
+	if(resistance_flags & (ACID_PROOF | UNACIDABLE))
+		.["acidproof"] = "It looks pretty robust! It'd probably be able to withstand acid!"
+	if(resistance_flags & FREEZE_PROOF)
+		.["freezeproof"] = "It is made of cold-resistant materials."
+	if(resistance_flags & FIRE_PROOF)
+		.["fireproof"] = "It is made of fire-retardant materials."
+
+	if(!(item_flags & NOBLUDGEON) && !(item_flags & ISWEAPON) && force != 0)
+		.["hesitant"] = "You'll have to apply a conscious effort to harm someone with [src]."
 
 	if(!user.research_scanner)
 		return
@@ -487,6 +475,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		research_msg += "None"
 	research_msg += "."
 	. += research_msg.Join()
+
+/obj/item/examine_descriptor(mob/user)
+	return "item"
 
 /obj/item/interact(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
@@ -551,7 +542,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 
 	//If the item is in a storage item, take it out
-	SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user.loc, TRUE)
+	if(loc.atom_storage && !loc.atom_storage.remove_single(user, src, user.loc, silent = TRUE))
+		return
 	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
 		return
 
@@ -583,7 +575,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(anchored)
 		return
 
-	SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user.loc, TRUE)
+	//If the item is in a storage item, take it out
+	if(loc.atom_storage?.remove_single(user, src, user.loc, silent = TRUE))
+		return
+	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
+		return
 
 	if(throwing)
 		throwing.finalize(FALSE)
@@ -741,11 +737,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
 	return ITALICS | REDUCE_RANGE
 
+/// Called when a mob drops an item.
 /obj/item/proc/dropped(mob/user, silent = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+
 	// Remove any item actions we temporary gave out.
 	for(var/datum/action/action_item_has as anything in actions)
 		action_item_has.Remove(user)
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -940,9 +939,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else
 		return
 
-/obj/item/on_exit_storage(datum/component/storage/concrete/master_storage)
+/obj/item/on_exit_storage(datum/storage/master_storage)
 	. = ..()
-	var/atom/location = master_storage.real_location()
+	var/atom/location = master_storage.real_location?.resolve()
 	do_drop_animation(location)
 
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -986,11 +985,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pixel_x = rand(-8,8)
 		pixel_y = rand(-8,8)
 
-/obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
+/// Takes the location to move the item to, and optionally the mob doing the removing
+/// If no mob is provided, we'll pass in the location, assuming it is a mob
+/// Please use this if you're going to snowflake an item out of a obj/item/storage
+/obj/item/proc/remove_item_from_storage(atom/newLoc, mob/removing)
 	if(!newLoc)
 		return FALSE
-	if(SEND_SIGNAL(loc, COMSIG_CONTAINS_STORAGE))
-		return SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, newLoc, TRUE)
+	if(!removing)
+		if(ismob(newLoc))
+			removing = newLoc
+		else
+			stack_trace("Tried to remove an item and place it into [newLoc] without implicitly or explicitly passing in a mob doing the removing")
+			return
+	if(loc.atom_storage)
+		return loc.atom_storage.remove_single(removing, src, newLoc, silent = TRUE)
 	return FALSE
 
 /// Returns the icon used for overlaying the object on a belt
@@ -1175,15 +1183,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
-		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
-		var/user = usr
-		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
-	var/mob/living/L = usr
-	if(istype(L) && L.incapacitated())
-		apply_outline(COLOR_RED_GRAY)
-	else
-		apply_outline()
+	if(((get(src, /mob) == usr) || src.loc.atom_storage || (src.item_flags & IN_STORAGE)) && !QDELETED(src))
+		var/mob/living/L = usr
+		if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
+			var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
+			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, usr), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
+		if(usr.client.prefs.read_preference(/datum/preference/toggle/item_outlines))
+			if(istype(L) && L.incapacitated())
+				apply_outline(COLOR_RED_GRAY)
+			else
+				apply_outline()
 
 /obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
@@ -1195,8 +1204,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
-	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
-		return
+	if(((get(src, /mob) != usr) && !src.loc.atom_storage && !(src.item_flags & IN_STORAGE)) || QDELETED(src) || isobserver(usr)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
+		return FALSE
 	if(!usr.client?.prefs?.read_player_preference(/datum/preference/toggle/item_outlines))
 		return
 	if(!colour)
@@ -1523,6 +1532,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// Special stuff you want to do when an outfit equips this item.
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
 	return
+
+/// Whether or not this item can be put into a storage item through attackby
+/obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
+	return TRUE
 
 /**
  * * Overridden to generate icons for monkey clothing

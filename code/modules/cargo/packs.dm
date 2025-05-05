@@ -440,7 +440,7 @@
 					/obj/item/clothing/head/beret/sec/navywarden,
 					/obj/item/clothing/under/rank/security/head_of_security/formal,
 					/obj/item/clothing/suit/jacket/hos/blue,
-					/obj/item/clothing/head/beret/sec/navyhos)
+					/obj/item/clothing/head/hats/hos/beret/navyhos)
 	crate_name = "security clothing crate"
 
 /datum/supply_pack/security/stingpack
@@ -2823,7 +2823,7 @@
 	name = "Cow Crate"
 	desc = "The cow goes moo!"
 	cost = 3000
-	contains = list(/mob/living/simple_animal/cow)
+	contains = list(/mob/living/basic/cow)
 	crate_name = "cow crate"
 
 /datum/supply_pack/critter/crab

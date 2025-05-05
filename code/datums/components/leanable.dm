@@ -50,7 +50,7 @@
 	if(!is_currently_leanable) //Is the object currently able to be leaned on?
 		return FALSE
 
-	leaner.apply_status_effect(STATUS_EFFECT_LEANING, source, leaning_offset)
+	leaner.apply_status_effect(/datum/status_effect/leaning, source, leaning_offset)
 	return TRUE
 
 /datum/component/leanable/proc/on_density_change()

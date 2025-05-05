@@ -14,7 +14,6 @@
 	minimal_player_age = 14
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
-	exp_type_department = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/head_of_security
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
@@ -74,5 +73,3 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
-	backpack_contents = list(/obj/item/melee/baton/loaded=1)
-

@@ -24,6 +24,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	var/geiger_counter = TRUE
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
@@ -115,11 +116,14 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
 	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
+	if(amount <= RAD_BACKGROUND_RADIATION || !geiger_counter)
 		return
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
+	if(!geiger_counter)
+		return
+
 	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
 
 	if(current_tick_amount)
@@ -162,7 +166,6 @@
 	)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
-	pocket_storage_component_path = null
 	var/hardsuit_type
 	/// Whether the helmet is on.
 	var/helmet_on = FALSE
@@ -750,7 +753,7 @@
 	resistance_flags = ACID_PROOF
 	supports_variations = DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_syndi
-	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 	cell = /obj/item/stock_parts/cell/hyper
@@ -1499,7 +1502,7 @@
 	item_state = "syndie_hardsuit"
 	hardsuit_type = "syndi"
 	armor_type = /datum/armor/shielded_syndi
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	slowdown = 0
 	actions_types = list(

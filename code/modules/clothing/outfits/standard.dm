@@ -14,7 +14,7 @@
 	box = /obj/item/storage/box/debugtools
 	back = /obj/item/storage/backpack/debug
 	backpack_contents = list(/obj/item/gun/magic/wand/resurrection/debug=1,\
-		/obj/item/melee/transforming/energy/axe=1,\
+		/obj/item/melee/energy/axe=1,\
 		/obj/item/storage/part_replacer/bluespace/tier4=1,\
 		/obj/item/debug/human_spawner=1,\
 		/obj/item/debug/omnitool=1,\
@@ -102,7 +102,7 @@
 	suit = /obj/item/clothing/suit/redtag
 	back = /obj/item/storage/backpack
 	suit_store = /obj/item/gun/energy/laser/redtag
-	backpack_contents = list(/obj/item/storage/box=1)
+	backpack_contents = list(/obj/item/storage/box/survival=1)
 
 /datum/outfit/laser_tag/blue
 	name = "Laser Tag Blue"
@@ -201,7 +201,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber
+	l_pocket = /obj/item/melee/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/modular_computer/tablet/pda/heads
@@ -218,11 +218,11 @@
 	for(var/obj/item/briefcase_item in sec_briefcase)
 		qdel(briefcase_item)
 	for(var/i = 3 to 0 step -1)
-		SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/stack/spacecash/c1000, null, TRUE, TRUE)
-	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/energy/recharge/ebow, null, TRUE, TRUE)
-	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/ballistic/revolver/mateba, null, TRUE, TRUE)
-	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/a357, null, TRUE, TRUE)
-	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/plastic/x4, null, TRUE, TRUE)
+		sec_briefcase.contents += new /obj/item/stack/spacecash/c1000
+	sec_briefcase.contents += new /obj/item/gun/energy/recharge/ebow
+	sec_briefcase.contents += new /obj/item/gun/ballistic/revolver/mateba
+	sec_briefcase.contents += new /obj/item/ammo_box/a357
+	sec_briefcase.contents += new /obj/item/grenade/plastic/x4
 
 	var/obj/item/modular_computer/tablet/pda/heads/pda = H.belt
 	pda.saved_identification = H.real_name
@@ -326,7 +326,6 @@
 	r_hand = /obj/item/spellbook
 	l_hand = /obj/item/staff
 	back = /obj/item/storage/backpack
-	backpack_contents = list(/obj/item/storage/box=1)
 
 /datum/outfit/wizard/apprentice
 	name = "Wizard Apprentice"

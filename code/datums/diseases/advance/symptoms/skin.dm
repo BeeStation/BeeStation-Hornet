@@ -332,7 +332,7 @@ Thresholds
 						pustule.diseases += D
 				pustule.pellets = popped
 				pustule.variance = rand(50, 200)
-				pustule.fire_casing(T, M, (get_turf(M)))
+				pustule.fire_casing(T, M, fired_from = M)
 				pustules -= popped
 				M.visible_message(span_warning("[popped] pustules on [M]'s body burst open!"))
 

@@ -92,11 +92,10 @@
 	name = "improvised shell"
 	desc = "A shotgun shell improvised from small metal shards. It won't travel as far as a regular shotgun shell, but it will still pack a punch against unarmoured opponents at close ranges."
 	icon_state = "improvshell"
-	high_power = FALSE
-	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
 	custom_materials = list(/datum/material/iron=250)
-	pellets = 9
-	variance = 15
+	pellets = 6
+	variance = 10
+	gun_damage = 50
 
 /obj/item/ammo_casing/shotgun/improvised/glasspack
 	name = "improvised glass-packed shell"

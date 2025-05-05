@@ -215,3 +215,7 @@
 #define span_warningholoparasite(str) ("<span class='warning holoparasite'>" + (str) + "</span>")
 #define span_warningitalics(str) ("<span class='warning italics'>" + (str) + "</span>")
 #define span_warningrobot(str) ("<span class='warning robot'>" + (str) + "</span>")
+
+// Spans that use embedded tgui components:
+// Sorted alphabetically
+#define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
