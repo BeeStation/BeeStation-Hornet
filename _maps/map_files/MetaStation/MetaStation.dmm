@@ -64486,7 +64486,7 @@
 "sSz" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Foyer";
-	req_one_access_txt = "32"
+	req_one_access_txt = "32;19"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
