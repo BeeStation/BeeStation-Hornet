@@ -21,10 +21,10 @@
 	template_id = "debug-offline"
 	mappath = "_maps/holodeck/debug/empty.dmm"
 
-/datum/map_template/holodeck/debug/space
-	name = "Holodeck - Space"
-	template_id = "debug-space"
-	mappath = "_maps/holodeck/debug/space.dmm"
+/datum/map_template/holodeck/debug/chasm
+	name = "Holodeck - Chasm (WARN: Flushes everything)"
+	template_id = "debug-chasm"
+	mappath = "_maps/holodeck/debug/chasm.dmm"
 
 // ------------------------------------------------
 //         List of real templates below:
