@@ -227,8 +227,12 @@
 "acm" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -1339,6 +1343,8 @@
 "ahO" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/structure/rack,
+/obj/item/poster/random_contraband,
+/obj/item/poster/random_contraband,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "ahQ" = (
@@ -1411,8 +1417,12 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/structure/disposalpipe/segment,
@@ -1903,8 +1913,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Brig Infirmary Maintenance";
@@ -2557,7 +2571,7 @@
 	height = 6;
 	id = "monastery_shuttle_station";
 	name = "Station";
-	roundstart_template = /datum/map_template/shuttle/escape_pod/large;
+	roundstart_template = /datum/map_template/shuttle/escape_pod/larges;
 	width = 5
 	},
 /turf/open/space/basic,
@@ -2841,6 +2855,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/cult_spear,
+/obj/item/gun/energy/disabler,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -3003,6 +3019,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/item/clothing/head/collectable/HoS,
 /turf/open/floor/mineral/plastitanium,
 /area/ai_monitored/nuke_storage)
 "aug" = (
@@ -3730,6 +3747,7 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/medical3,
+/obj/effect/spawner/lootdrop/techstorage/medical,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "ayH" = (
@@ -4449,8 +4467,12 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/security/armory)
@@ -13241,7 +13263,7 @@
 	},
 /obj/item/clothing/head/costume/nursehat,
 /turf/open/floor/iron/tech,
-/area/medical/exam_room)
+/area/maintenance/department/engine)
 "bEN" = (
 /obj/machinery/door/airlock/security{
 	name = "Prison Intake";
@@ -13249,6 +13271,15 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "El Psy Kongroo";
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/prison/shielded)
@@ -13409,7 +13440,7 @@
 	},
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/tech,
-/area/medical/exam_room)
+/area/maintenance/department/engine)
 "bFX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/cmo,
@@ -13420,7 +13451,7 @@
 	pixel_y = -22
 	},
 /turf/open/floor/iron/tech,
-/area/medical/exam_room)
+/area/maintenance/department/engine)
 "bGa" = (
 /obj/structure/sign/departments/science,
 /turf/closed/wall,
@@ -14108,6 +14139,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/item/clothing/head/collectable/kitty,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -17557,6 +17589,8 @@
 	amount = 20;
 	layer = 3.1
 	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
 "cjP" = (
@@ -19878,6 +19912,7 @@
 	dir = 4
 	},
 /obj/structure/table,
+/obj/item/stack/sheet/mineral/plasma/twenty,
 /obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /turf/open/floor/iron/ridged/steel,
 /area/science/shuttledock)
@@ -19956,7 +19991,7 @@
 /obj/item/reagent_containers/pill/morphine,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/tech,
-/area/medical/exam_room)
+/area/maintenance/department/engine)
 "cGs" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/visible{
 	dir = 1
@@ -20506,8 +20541,12 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 8
@@ -23074,7 +23113,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/tech,
-/area/medical/exam_room)
+/area/maintenance/department/engine)
 "eom" = (
 /obj/structure/disposalpipe/sorting/wrap{
 	dir = 1
@@ -23754,9 +23793,7 @@
 	id = "exploration_home";
 	name = "Exploration Dock";
 	roundstart_template = /datum/map_template/shuttle/exploration/pubby;
-	width = 17;
-	pixel_x = 0;
-	pixel_y = 0
+	width = 17
 	},
 /turf/open/space/basic,
 /area/space)
@@ -23903,7 +23940,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/tech,
-/area/medical/exam_room)
+/area/maintenance/department/engine)
 "eGF" = (
 /obj/structure/chair/stool,
 /obj/structure/cable/yellow{
@@ -27320,8 +27357,12 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -28543,8 +28584,12 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 8
@@ -28865,6 +28910,11 @@
 /area/engine/atmos)
 "hxc" = (
 /obj/machinery/bookbinder,
+/obj/item/paper/fluff{
+	name = "Exploration Shuttle Receipt";
+	desc = "It seems to be written in invisible ink, perhaps a book binder would decipher it ";
+	default_raw_text = "<font face="Nyala" color=#FFFFFF size=3><i><!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8">  <title>Shuttle Reconstruction Log</title>  <style>    body {      font-family: monospace;      background-color: #0b0c10;      color: #66fcf1;      padding: 2em;    }    h1, h2 {      color: #45a29e;    }    .section {      border: 1px solid #45a29e;      padding: 1em;      margin-bottom: 1em;      background-color: #1f2833;    }    .label {      font-weight: bold;      margin-top: 0.5em;      color: #c5c6c7;    }    .content {      margin-left: 1em;      white-space: pre-wrap;    }    .footer {      color: #888;      font-size: 0.9em;      margin-top: 2em;    }  </style></head><body>  <h1>�️ NSV Ryvius</h1>  <h2>Shuttle Reconstruction Log - Form A-17</h2>  <div class="section">    <div class="label">Date of Recovery:</div>    <div class="content">2565-11-19</div>    <div class="label">Recovered By (Name & Rank):</div>    <div class="content">Livian Levan - Self Proclaimed Archeoloist</div>    <div class="label">Vessel ID / Designation:</div>    <div class="content">XR-72 "ArmoredFreighter"</div>  </div>  <div class="section">    <div class="label">Structural Condition Summary:</div>    <div class="content">Hull integrity at 43%. Extensive corrosion and Laser Scarring on outer layers.Life support and propulsion offline. Internal compartments show signs of vacuum exposure.    </div>    <div class="label">Information Observed:</div>    <div class="content">Hybridized systems combining pre-Ftl reactor tech with primitive foreign Additions.No AI core detected. Absense of Shuttle Blackbox.    </div>    <div class="label">Anomalies or Hazardous Findings:</div>    <div class="content">Anomylous Heat Signature present within shuttles plasma Engines.Organic material fused into hull plating—likely deceased lifeforms.One preserved stasis pod unlocked, Occupant Recovered.    </div>  </div>  <div class="section">    <div class="label">Chief Engineer’s Report:</div>    <div class="content">Donate the Vessel to those Shmucks at SS13 and say its brand new, this relic's been littering the dockyard for too long, should be just about functional.    </div>    <div class="label">Signed:</div>    <div class="content">Chief Engineer M. Redfrie</div>  </div>  <div class="footer">    Filed under NSV Ryvius - Central Salvage Operation Record<br>    Document ID: A-17/XR72/2565<br>    — End of Log —  </div></body></html></i></font>"
+	},
 /turf/open/floor/iron,
 /area/maintenance/department/science)
 "hxn" = (
@@ -29477,6 +29527,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/item/mop,
+/obj/structure/mopbucket,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
 "hPN" = (
@@ -30275,7 +30327,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/medical/exam_room)
+/area/maintenance/department/engine)
 "ihx" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
@@ -31011,12 +31063,6 @@
 /obj/structure/safe,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/tank/internals/plasma/full,
-/obj/item/stack/ore/diamond,
-/obj/item/ammo_box/a357,
-/obj/item/clothing/head/collectable/HoS,
-/obj/item/gun/energy/disabler,
-/obj/item/clothing/head/collectable/kitty,
-/obj/item/cult_spear,
 /turf/open/floor/mineral/plastitanium,
 /area/ai_monitored/nuke_storage)
 "iCg" = (
@@ -34744,7 +34790,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	name = "Crematorium";
-	req_access_txt = "2;27"
+	req_one_access_txt = "2;34"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -37753,6 +37799,10 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
+"mcp" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/space/basic,
+/area/space)
 "mdw" = (
 /obj/structure/janitorialcart,
 /obj/structure/disposalpipe/segment,
@@ -38875,8 +38925,12 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
@@ -43869,8 +43923,12 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 8
@@ -47475,8 +47533,12 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/security/armory)
@@ -49717,6 +49779,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/item/bikehorn/golden,
+/obj/item/stack/ore/diamond,
 /turf/open/floor/mineral/plastitanium,
 /area/ai_monitored/nuke_storage)
 "skY" = (
@@ -49870,6 +49933,7 @@
 	dir = 1;
 	pixel_y = 10
 	},
+/obj/item/survivalcapsule/medical,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
 "spT" = (
@@ -51871,8 +51935,12 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
@@ -52670,8 +52738,12 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -53685,6 +53757,15 @@
 /obj/machinery/door/airlock/security{
 	name = "Prison Intake";
 	req_access_txt = "2"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "El Psy Kongroo";
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/prison/shielded)
@@ -54712,6 +54793,7 @@
 "vdW" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/item/ammo_box/a357,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -57542,8 +57624,12 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "El Psy Kongroo";
-	name = "Lockdown Shutter";
-	desc = "Heavy duty metal shutters that open mechanically,despite appearances its made of low quality matereals"
+	name = "Compromised Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0;
+	pixel_y = 0;
+	damage_deflection = 0
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/dark/smooth_large,
@@ -59206,6 +59292,10 @@
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"xwz" = (
+/turf/open/space/basic,
+/area/space,
+/area/space)
 "xxk" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 1
@@ -59646,6 +59736,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/item/storage/firstaid/medical,
 /turf/open/floor/iron/white/smooth_large,
 /area/crew_quarters/heads/cmo)
 "xHJ" = (
@@ -76872,7 +76963,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+mcp
 aaa
 aaa
 aaa
@@ -91086,9 +91177,9 @@ bpY
 bpY
 bpY
 osr
-bDy
-bDy
-bDy
+bva
+bva
+bva
 bFU
 pUc
 aqh
@@ -91343,7 +91434,7 @@ bnM
 duD
 bpY
 pMl
-bDy
+bva
 bEI
 cGg
 bFU
@@ -91600,7 +91691,7 @@ bBY
 oXA
 een
 pvT
-bDy
+bva
 enX
 bFW
 bFU
@@ -91857,7 +91948,7 @@ bsK
 qbP
 bpY
 gsW
-bDy
+bva
 eGu
 bFX
 bFU
@@ -92114,9 +92205,9 @@ bwV
 qBt
 bpY
 ije
-bDy
+bva
 ihv
-bDy
+bva
 bFU
 bFU
 cdq
@@ -112681,7 +112772,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+xwz
 aaa
 aaa
 aaa
@@ -112936,7 +113027,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+xwz
 aaa
 aaa
 aaa
@@ -113442,7 +113533,7 @@ pmj
 aed
 pmj
 pmj
-aht
+aaa
 aaa
 aaa
 aaa
