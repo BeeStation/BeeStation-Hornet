@@ -10935,16 +10935,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/hydroponics)
-"bum" = (
-/obj/structure/table/glass,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/hydroponics)
 "buo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -22033,6 +22023,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"cMN" = (
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/main)
 "cMO" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -45481,6 +45479,37 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
+"iBH" = (
+/obj/structure/closet/crate/secure/weapon{
+	desc = "A secure clothing crate.";
+	name = "formal uniform crate";
+	req_access_txt = "3"
+	},
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/warden/formal,
+/obj/item/clothing/under/rank/security/head_of_security/formal,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navywarden,
+/obj/item/clothing/head/hats/hos/beret/navyhos,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "iBI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/machinery/light/small{
@@ -46156,6 +46185,16 @@
 	},
 /turf/open/floor/plating,
 /area/medical/genetics)
+"iOw" = (
+/obj/structure/table/glass,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/hydroponics)
 "iOD" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Reflector Access";
@@ -58477,6 +58516,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
+"mTh" = (
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "mTm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60072,14 +60119,6 @@
 /obj/machinery/recharger,
 /turf/open/floor/iron/dark,
 /area/security/warden)
-"nrk" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/flasher/directional/north,
-/turf/open/floor/iron/dark,
-/area/hallway/primary/central)
 "nrl" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -60750,14 +60789,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
-"nAF" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate"
-	},
-/turf/open/floor/plating,
-/area/security/main)
 "nAG" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
@@ -74275,6 +74306,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
+"rPT" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/flasher/directional/north,
+/turf/open/floor/iron/dark,
+/area/hallway/primary/central)
 "rQi" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
@@ -79778,37 +79817,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard)
-"tAk" = (
-/obj/structure/closet/crate/secure/weapon{
-	desc = "A secure clothing crate.";
-	name = "formal uniform crate";
-	req_access_txt = "3"
-	},
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/warden/formal,
-/obj/item/clothing/under/rank/security/head_of_security/formal,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navywarden,
-/obj/item/clothing/head/beret/sec/navyhos,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "tAs" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -91696,14 +91704,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"xnZ" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate"
-	},
-/turf/open/floor/plating,
-/area/security/prison)
 "xod" = (
 /obj/structure/fans/tiny/invisible,
 /obj/docking_port/stationary{
@@ -128422,7 +128422,7 @@ bnm
 boC
 bqC
 bqC
-bum
+iOw
 bvD
 bwQ
 bar
@@ -129980,7 +129980,7 @@ bOw
 bQy
 bSx
 bUB
-nrk
+rPT
 qKq
 caL
 caL
@@ -148212,7 +148212,7 @@ aKV
 aFm
 jTo
 gIZ
-xnZ
+mTh
 sjv
 sjv
 sjv
@@ -149240,7 +149240,7 @@ hZQ
 aFm
 wGF
 sxo
-nAF
+cMN
 beh
 pJP
 xxT
@@ -152081,7 +152081,7 @@ ucj
 hbN
 wdB
 qUt
-tAk
+iBH
 biP
 xbD
 roT
