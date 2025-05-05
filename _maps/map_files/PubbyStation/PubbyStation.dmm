@@ -2571,7 +2571,7 @@
 	height = 6;
 	id = "monastery_shuttle_station";
 	name = "Station";
-	roundstart_template = /datum/map_template/shuttle/escape_pod/larges;
+	roundstart_template = /datum/map_template/shuttle/escape_pod/large;
 	width = 5
 	},
 /turf/open/space/basic,
@@ -23135,6 +23135,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
+"eoy" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/space/basic,
+/area/space)
 "epb" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -37799,10 +37803,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
-"mcp" = (
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/space/basic,
-/area/space)
 "mdw" = (
 /obj/structure/janitorialcart,
 /obj/structure/disposalpipe/segment,
@@ -76963,7 +76963,7 @@ aaa
 aaa
 aaa
 aaa
-mcp
+eoy
 aaa
 aaa
 aaa
