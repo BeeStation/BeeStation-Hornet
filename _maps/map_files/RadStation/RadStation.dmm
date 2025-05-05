@@ -968,6 +968,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
@@ -7880,6 +7881,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -9526,6 +9528,7 @@
 	dir = 1;
 	alpha = 180
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -12277,6 +12280,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -24118,6 +24122,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
 	},
@@ -33868,6 +33873,7 @@
 	dir = 1;
 	alpha = 180
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -46533,6 +46539,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "peT" = (
@@ -50835,6 +50842,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "qCB" = (
@@ -51265,6 +51273,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
@@ -54083,6 +54092,7 @@
 	dir = 1;
 	alpha = 180
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -54462,6 +54472,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
 	},
@@ -58069,6 +58080,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -59748,6 +59760,7 @@
 /obj/effect/turf_decal/tile/dark_blue/half{
 	alpha = 180
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -66681,6 +66694,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -70377,6 +70391,7 @@
 	dir = 1;
 	alpha = 180
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -70433,6 +70448,7 @@
 	dir = 1;
 	alpha = 180
 	},
+/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},

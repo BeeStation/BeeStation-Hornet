@@ -306,6 +306,44 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 	. = ..()
 
+/obj/item/kirbyplants/mini
+	name = "small potted plant"
+	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "plant-01"
+	w_class = WEIGHT_CLASS_SMALL
+	force = 10
+	attack_weight = 1
+	throwforce = 5
+
+/obj/item/kirbyplants/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/mini_plant)
+
+/obj/item/kirbyplants/mini/ComponentInitialize()
+	. = ..()
+
+/datum/storage/mini_plant
+	max_specific_storage = WEIGHT_CLASS_SMALL
+	max_slots = 1
+	silent = TRUE
+	allow_big_nesting = TRUE
+
+/obj/item/kirbyplants/mini/random
+	icon = 'icons/obj/flora/_flora.dmi'
+	icon_state = "random_mini_plant"
+	var/list/static/mini_states
+
+/obj/item/kirbyplants/mini/random/proc/generate_states()
+	mini_states = list()
+	for(var/i in 1 to 34)
+		var/number
+		if(i < 10)
+			number = "0[i]"
+		else
+			number = "[i]"
+		mini_states += "plant-[number]"
+	mini_states += "applebush"
+
 /obj/item/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
@@ -349,7 +387,7 @@
 
 /obj/item/kirbyplants/random/proc/generate_states()
 	states = list()
-	for(var/i in 1 to 34)
+	for(var/i in 1 to 35)
 		var/number
 		if(i < 10)
 			number = "0[i]"
