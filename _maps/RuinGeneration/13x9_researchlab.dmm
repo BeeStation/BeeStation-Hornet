@@ -48,7 +48,7 @@
 "aw" = (
 /obj/machinery/door/window/eastleft{
 	name = "Research and Development Deliveries";
-	req_access_txt = "7;29"
+	req_one_access_txt = "7;29"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,

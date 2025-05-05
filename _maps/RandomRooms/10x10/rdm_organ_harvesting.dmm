@@ -80,8 +80,8 @@
 "nR" = (
 /obj/machinery/computer/records/medical/laptop{
 	pixel_y = 8;
-	req_access = null;
-	req_access_txt = "5"
+	req_one_access = null;
+	req_one_access_txt = "5"
 	},
 /obj/structure/table/wood,
 /obj/item/healthanalyzer{

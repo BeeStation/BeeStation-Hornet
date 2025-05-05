@@ -1631,7 +1631,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/mining{
 	name = "Mining Station Storage";
-	req_access_txt = "54;18"
+	req_one_access_txt = "54;18"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
@@ -2005,7 +2005,7 @@
 "nv" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Infirmary";
-	req_access_txt = "54;5"
+	req_one_access_txt = "54;5"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -2093,7 +2093,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Communications";
-	req_access_txt = "54;61"
+	req_one_access_txt = "54;61"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
@@ -2639,7 +2639,7 @@
 "sx" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Science Shuttle Airlock";
-	req_access_txt = "54;18;47;49"
+	req_one_access_txt = "54;18;47;49"
 	},
 /obj/structure/fans/tiny,
 /obj/structure/cable/yellow{
@@ -2884,7 +2884,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	name = "Science Outpost Airlock";
-	req_access_txt = "54;18;47"
+	req_one_access_txt = "54;18;47"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
@@ -3267,7 +3267,7 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Mining Station Gateway Maintenance";
-	req_access_txt = "54;64;12"
+	req_one_access_txt = "54;64;12"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/gateway)
@@ -4064,7 +4064,7 @@
 "Dy" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Radioisotope Containment Room";
-	req_access_txt = "54;18;10"
+	req_one_access_txt = "54;18;10"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4285,7 +4285,7 @@
 "Fi" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "mining Relay Room";
-	req_access_txt = "54;61"
+	req_one_access_txt = "54;61"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -5773,7 +5773,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external/glass{
 	name = "Science Outpost Airlock";
-	req_access_txt = "54;18;47"
+	req_one_access_txt = "54;18;47"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/science)
@@ -7068,7 +7068,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Maintenance";
-	req_access_txt = "54;18"
+	req_one_access_txt = "54;18"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/turf_decal/stripes/closeup,

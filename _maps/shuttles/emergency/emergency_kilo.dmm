@@ -467,7 +467,7 @@
 "vM" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area";
-	req_access_txt = "19"
+	req_one_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -858,7 +858,7 @@
 "TW" = (
 /obj/machinery/door/airlock/command{
 	name = "Shuttle Control";
-	req_access_txt = "19"
+	req_one_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -946,7 +946,7 @@
 "VU" = (
 /obj/machinery/door/airlock/command{
 	name = "Shuttle Control";
-	req_access_txt = "19"
+	req_one_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -996,7 +996,7 @@
 "Yl" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Emergency Shuttle Airlock";
-	req_access_txt = "63"
+	req_one_access_txt = "63"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup{
