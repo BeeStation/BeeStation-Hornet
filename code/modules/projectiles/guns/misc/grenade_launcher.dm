@@ -31,9 +31,9 @@
 			to_chat(usr, span_danger("The grenade launcher cannot hold more grenades."))
 
 /obj/item/gun/grenadelauncher/can_shoot()
-	return grenades.len
+	return grenades.len && ..()
 
-/obj/item/gun/grenadelauncher/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/grenadelauncher/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	user.visible_message(span_danger("[user] fired a grenade!"), \
 						span_danger("You fire the grenade launcher!"))
 	var/obj/item/grenade/F = grenades[1] //Now with less copypasta!
