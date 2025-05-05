@@ -730,6 +730,10 @@
 	suffix = "rad"
 	name = "rad exploration shuttle"
 
+/datum/map_template/shuttle/exploration/pubby
+	suffix = "pubby"
+	name = "pubby exploration shuttle"
+
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"
 	name = "labour shuttle (Delta)"
