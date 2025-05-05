@@ -136,17 +136,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
 	DYE_REGISTRY_BERET = list(
-		DYE_WHITE = /obj/item/clothing/head/beret/color,
 		DYE_RAINBOW = /obj/item/clothing/head/beret/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret/mime,
 		DYE_CLOWN = /obj/item/clothing/head/beret/clown,
-		DYE_QM = /obj/item/clothing/head/beret/supply,
+		DYE_QM = /obj/item/clothing/head/beret/cargo,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
-		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
+		DYE_CAPTAIN = /obj/item/clothing/head/caphat/beret,
 		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
-		DYE_RD = /obj/item/clothing/head/beret/sci,
-		DYE_CMO = /obj/item/clothing/head/beret/cmo,
+		DYE_RD = /obj/item/clothing/head/beret/science,
+		DYE_CMO = /obj/item/clothing/head/beret/medical/cmo,
 		DYE_SECURITY = /obj/item/clothing/head/beret/sec
 	),
 	DYE_REGISTRY_FANNYPACK = list(
@@ -311,6 +310,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
 	gib()
 
+/mob/living/basic/pet/machine_wash(obj/machinery/washing_machine/washer)
+	washer.bloody_mess = TRUE
+	gib()
+
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(WM.color_source)
@@ -452,7 +455,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(L.buckled || L.has_buckled_mobs())
 			return
 		if(state_open)
-			if(istype(L, /mob/living/simple_animal/pet))
+			if(istype(L, /mob/living/simple_animal/pet) || istype(L, /mob/living/basic/pet))
 				L.forceMove(src)
 				update_appearance()
 		return

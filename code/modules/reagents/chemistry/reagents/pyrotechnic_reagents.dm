@@ -12,8 +12,8 @@
 	if(reac_volume >= 1)
 		T.AddComponent(/datum/component/thermite, reac_volume)
 
-/datum/reagent/thermite/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(1, 0)
+/datum/reagent/thermite/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustFireLoss(1 * REM * delta_time, 0)
 	..()
 	return TRUE
 
@@ -38,14 +38,13 @@
 	reagent_state = LIQUID
 	color = "#FFC8C8"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	metabolization_rate = 4
+	metabolization_rate = 10 * REAGENTS_METABOLISM
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/clf3/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(2)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
+/datum/reagent/clf3/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjust_fire_stacks(2 * REM * delta_time)
+	M.adjustFireLoss(0.3 * max(M.fire_stacks, 1) * REM * delta_time, 0)
 	..()
 	return TRUE
 
@@ -99,7 +98,7 @@
 	reagent_state = LIQUID
 	color = "#000000"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	metabolization_rate = 0.05
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	taste_description = "salt"
 
 /datum/reagent/blackpowder/on_new(data)
@@ -112,10 +111,10 @@
 		UnregisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT)
 	return ..()
 
-/datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M)
+/datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	..()
 	if(isplasmaman(M))
-		M.hallucination += 5
+		M.hallucination += 5 * REM * delta_time
 
 /datum/reagent/blackpowder/proc/on_ex_act(atom/source, severity, target)
 	SIGNAL_HANDLER
@@ -168,10 +167,9 @@
 	M.IgniteMob()
 	..()
 
-/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(1)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
+/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/metabolizer, delta_time, times_fired)
+	metabolizer.adjust_fire_stacks(1 * REM * delta_time)
+	metabolizer.adjustFireLoss(0.3 * max(metabolizer.fire_stacks, 0.15) * REM * delta_time, 0)
 	..()
 	return TRUE
 
@@ -185,8 +183,8 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/napalm/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(1)
+/datum/reagent/napalm/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjust_fire_stacks(1 * REM * delta_time)
 	..()
 
 /datum/reagent/napalm/expose_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -205,13 +203,13 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 
-/datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M) //TODO: code freezing into an ice cube
+/datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M, delta_time, times_fired) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
-		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
-		M.adjust_bodytemperature(-15)
+		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5 * REM * delta_time)
+		M.adjust_bodytemperature(-15 * REM * delta_time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/humi = M
-			humi.adjust_coretemperature(-15)
+			humi.adjust_coretemperature(-15 * REM * delta_time)
 	..()
 
 /datum/reagent/cryostylane/expose_turf(turf/T, reac_volume)
@@ -230,13 +228,13 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 
-/datum/reagent/pyrosium/on_mob_life(mob/living/carbon/M)
-	if(M.reagents.has_reagent(/datum/reagent/oxygen))
-		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
-		M.adjust_bodytemperature(15)
+/datum/reagent/pyrosium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(holder.has_reagent(/datum/reagent/oxygen))
+		holder.remove_reagent(/datum/reagent/oxygen, 0.5 * REM * delta_time)
+		M.adjust_bodytemperature(15 * REM * delta_time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/humi = M
-			humi.adjust_coretemperature(15)
+			humi.adjust_coretemperature(15 * REM * delta_time)
 	..()
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
@@ -251,7 +249,7 @@
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/teslium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/teslium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
@@ -280,15 +278,15 @@
 	taste_description = "jelly"
 	overdose_threshold = 30
 
-/datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M)
+/datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(isoozeling(M))
 		shock_timer = 0 //immune to shocks
-		M.AdjustAllImmobility(-40)
-		M.adjustStaminaLoss(-2, 0)
+		M.AdjustAllImmobility(-40  *REM * delta_time)
+		M.adjustStaminaLoss(-2 * REM * delta_time, 0)
 		if(isluminescent(M))
 			var/mob/living/carbon/human/H = M
 			var/datum/species/oozeling/luminescent/L = H.dna.species
-			L.extract_cooldown = max(0, L.extract_cooldown - 20)
+			L.extract_cooldown = max(L.extract_cooldown - (20 * REM * delta_time), 0)
 	..()
 
 /datum/reagent/teslium/energized_jelly/overdose_process(mob/living/carbon/M)

@@ -47,11 +47,11 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			if(!M.check_dock(S, silent=TRUE))
 				continue
 			destination_found = 1
-			dat += "<A href='?src=[REF(src)];move=[S.id]'>Send to [S.name]</A><br>"
+			dat += "<A href='byond://?src=[REF(src)];move=[S.id]'>Send to [S.name]</A><br>"
 		if(!destination_found && is_station_level(z)) //Only available if miners are lazy and did not set an LZ using the remote.
-			dat += "<A href='?src=[REF(src)];random=1'>Prepare for blind drop? (Dangerous)</A><br>"
+			dat += "<A href='byond://?src=[REF(src)];random=1'>Prepare for blind drop? (Dangerous)</A><br>"
 	if(LAZYLEN(turrets))
-		dat += "<br><b>Perimeter Defense System:</b> <A href='?src=[REF(src)];turrets_power=on'>Enable All</A> / <A href='?src=[REF(src)];turrets_power=off'>Disable All</A><br> \
+		dat += "<br><b>Perimeter Defense System:</b> <A href='byond://?src=[REF(src)];turrets_power=on'>Enable All</A> / <A href='byond://?src=[REF(src)];turrets_power=off'>Disable All</A><br> \
 		Units connected: [LAZYLEN(turrets)]<br>\
 		Unit | Condition | Status | Direction | Distance<br>"
 		for(var/PDT in turrets)
@@ -66,10 +66,10 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 				status = span_average("<b>Firing</b>")
 			else
 				status = span_good("All Clear")
-			dat += "[T.name] | [integrity]% | [status] | [dir2text(get_dir(src, T))] | [get_dist(src, T)]m <A href='?src=[REF(src)];single_turret_power=[REF(T)]'>Toggle Power</A><br>"
+			dat += "[T.name] | [integrity]% | [status] | [dir2text(get_dir(src, T))] | [get_dist(src, T)]m <A href='byond://?src=[REF(src)];single_turret_power=[REF(T)]'>Toggle Power</A><br>"
 
 
-	dat += "<a href='?src=[REF(user)];mach_close=computer'>Close</a>"
+	dat += "<a href='byond://?src=[REF(user)];mach_close=computer'>Close</a>"
 
 	var/datum/browser/popup = new(user, "computer", "base management", 550, 300) //width, height
 	popup.set_content("<center>[dat]</center>")

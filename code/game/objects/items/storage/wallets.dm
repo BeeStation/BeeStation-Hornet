@@ -10,11 +10,10 @@
 	var/obj/item/card/id/front_id = null
 	var/list/combined_access
 
-/obj/item/storage/wallet/ComponentInitialize()
+/obj/item/storage/wallet/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 4
-	STR.set_holdable(list(
+	atom_storage.max_slots = 4
+	atom_storage.set_holdable(list(
 		/obj/item/stack/spacecash,
 		/obj/item/holochip,
 		/obj/item/card,

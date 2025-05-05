@@ -53,6 +53,9 @@
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
+	// Adding an extra break for the sake of presentation
+	if(stamina_loss_amt != 0)
+		offensive_notes = "\nVarious interviewed security forces report being able to beat criminals into exhaustion with only <span class='warning'>[round(100 / stamina_loss_amt, 0.1)] hit\s!</span>"
 	if(preload_cell_type)
 		if(!ispath(preload_cell_type,/obj/item/stock_parts/cell))
 			log_mapping("[src] at [AREACOORD(src)] had an invalid preload_cell_type: [preload_cell_type].")
@@ -215,7 +218,7 @@
 	// L.adjustStaminaLoss(stun_time)
 	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
-	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 	target.stuttering = 20
 
 	// Shoving

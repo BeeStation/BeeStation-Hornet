@@ -1,6 +1,6 @@
 /datum/job/botanist
 	title = JOB_NAME_BOTANIST
-	description = "Grow plants for the Kitchen, Bar and Chemistry. Sell cannabis and other goods to the crew. Clone people with Replica Pods when needed."
+	description = "Grow plants for the Kitchen, Bar and Chemistry. Sell cannabis and other goods to the crew."
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
@@ -8,9 +8,8 @@
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#bbe291"
-	exp_requirements = 120 //High grief percentage
-	exp_type = EXP_TYPE_SERVICE
-	exp_type_department = EXP_TYPE_SERVICE
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
 
 	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)

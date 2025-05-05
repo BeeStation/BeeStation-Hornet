@@ -30,16 +30,6 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
-"cb" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "ci" = (
 /obj/machinery/computer/emergency_shuttle,
 /obj/effect/turf_decal/stripes/line{
@@ -64,14 +54,6 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/surgery,
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
-"do" = (
-/obj/machinery/door/firedoor/border_only,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "dw" = (
 /obj/structure/bodycontainer/morgue{
@@ -187,6 +169,16 @@
 /obj/item/kitchen/rollingpin,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"ha" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "hs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -213,16 +205,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"iu" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -300,14 +282,6 @@
 "kF" = (
 /turf/open/floor/wood,
 /area/shuttle/escape)
-"lk" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "lw" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/duffelbag/med/surgery,
@@ -383,12 +357,38 @@
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"oz" = (
+/obj/structure/table/wood,
+/obj/structure/sign/poster/random{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "oO" = (
 /obj/structure/displaycase,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"pi" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "pj" = (
 /obj/machinery/light/small{
@@ -594,6 +594,14 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"uW" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "vc" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
@@ -606,6 +614,25 @@
 "vf" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"vi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Emergency Shuttle Engineering";
+	req_access_txt = "32;19"
+	},
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "vM" = (
 /obj/structure/chair/fancy/shuttle{
@@ -637,7 +664,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Emergency Shuttle Engineering";
-	req_access_txt = "32;19"
+	req_one_access_txt = "32;19"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
@@ -742,17 +769,6 @@
 /obj/machinery/vending/medical,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"yt" = (
-/obj/structure/table/wood,
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "yL" = (
 /obj/machinery/computer/communications,
 /obj/effect/turf_decal/stripes/line{
@@ -801,14 +817,6 @@
 "AF" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"AL" = (
-/obj/machinery/door/firedoor/border_only,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Bi" = (
 /obj/structure/table/reinforced,
@@ -883,12 +891,7 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"DF" = (
-/obj/structure/closet/emcloset/anchored,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"DP" = (
+"CI" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -899,6 +902,11 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"DF" = (
+/obj/structure/closet/emcloset/anchored,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "DT" = (
 /obj/structure/table/reinforced,
@@ -965,10 +973,6 @@
 "Fp" = (
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"FS" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "Gu" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -1016,6 +1020,16 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
+"HG" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "HL" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -1041,6 +1055,16 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
+/area/shuttle/escape)
+"IB" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow/opposingcorners,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ID" = (
 /obj/structure/closet/crate/internals,
@@ -1087,11 +1111,6 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/shuttle/escape)
-"JN" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "JU" = (
 /obj/structure/shuttle/engine/propulsion/burst,
@@ -1179,6 +1198,14 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"LS" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "LW" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/computer/security,
@@ -1246,25 +1273,6 @@
 /obj/machinery/vending/wardrobe/engi_wardrobe,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
-/area/shuttle/escape)
-"OO" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"OS" = (
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "OY" = (
 /obj/effect/turf_decal/stripes/line,
@@ -1407,6 +1415,16 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"SG" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "SZ" = (
 /obj/machinery/door/airlock/security{
 	req_access_txt = "2"
@@ -1519,12 +1537,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"WF" = (
+"Wi" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced/spawner{
-	dir = 1
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Xk" = (
@@ -1551,29 +1569,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"Xz" = (
-/obj/structure/table/wood,
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"XL" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "XV" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -1588,16 +1583,6 @@
 /obj/structure/bodycontainer/morgue{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"Yk" = (
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Yt" = (
@@ -1635,6 +1620,20 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"ZJ" = (
+/obj/structure/table/wood,
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ZN" = (
@@ -1776,11 +1775,11 @@ Tw
 KA
 qE
 qE
-DP
+CI
 qE
 qE
 qE
-DP
+CI
 qE
 vf
 BI
@@ -1934,8 +1933,8 @@ Kb
 Bt
 Bt
 Bt
-Bt
 wg
+vi
 Bt
 pB
 pB
@@ -1972,11 +1971,11 @@ EL
 HL
 HL
 ZA
-iu
-Xz
-XL
-Vx
-FS
+Sy
+pi
+Cc
+oz
+IB
 pB
 Xo
 bR
@@ -2012,11 +2011,11 @@ Vp
 nP
 nP
 ia
-WF
-JN
-lk
-Vx
-Vx
+Bt
+uW
+nA
+LS
+SG
 Bt
 kF
 kF
@@ -2052,9 +2051,9 @@ Vp
 ek
 Zm
 ia
-OS
-Cc
-AL
+nH
+Vx
+Vx
 Vx
 Vx
 iy
@@ -2092,9 +2091,9 @@ Vp
 EL
 ZA
 ia
-Yk
-nA
-do
+nH
+Vx
+Vx
 Vx
 Vx
 iy
@@ -2132,11 +2131,11 @@ tv
 HL
 HL
 ia
-cb
-OO
-XL
-Vx
-Vx
+Bt
+HG
+Cc
+ha
+IB
 Bt
 kF
 kF
@@ -2172,11 +2171,11 @@ Vp
 EL
 EL
 ia
-WF
-yt
-lk
-Vx
-FS
+Sy
+Wi
+nA
+ZJ
+SG
 pB
 JL
 hP
@@ -2214,8 +2213,8 @@ Zm
 ia
 Bt
 Bt
-pB
 VF
+Bt
 pB
 pB
 pB
