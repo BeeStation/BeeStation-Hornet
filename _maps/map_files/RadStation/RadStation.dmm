@@ -510,6 +510,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "ahT" = (
@@ -968,7 +969,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
@@ -4398,6 +4398,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "bwT" = (
@@ -4412,6 +4413,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "bxa" = (
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/medium{
 	dir = 8
 	},
@@ -5158,6 +5160,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "bJl" = (
@@ -7881,7 +7884,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -9303,6 +9305,7 @@
 	},
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/siding/wideplating/dark/corner,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central)
 "cVJ" = (
@@ -9528,7 +9531,6 @@
 	dir = 1;
 	alpha = 180
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -9968,6 +9970,7 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
 "dfy" = (
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/medium{
 	dir = 1
 	},
@@ -11341,6 +11344,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
@@ -11554,6 +11558,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "dHW" = (
@@ -12280,7 +12285,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -12799,6 +12803,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
@@ -13646,6 +13651,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "eqr" = (
@@ -15176,6 +15182,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
@@ -15596,6 +15603,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "eXA" = (
@@ -15645,6 +15653,7 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "eXZ" = (
@@ -16538,6 +16547,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "fon" = (
@@ -17255,6 +17265,7 @@
 /obj/effect/landmark/start/randommaint/vip,
 /obj/effect/landmark/observer_start,
 /obj/item/beacon,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "fyZ" = (
@@ -19101,6 +19112,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "giD" = (
@@ -19497,6 +19509,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
@@ -20240,6 +20253,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "gDO" = (
@@ -21417,6 +21431,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 6
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "gYa" = (
@@ -22519,6 +22534,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/railing/corner,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central)
 "hpt" = (
@@ -22701,6 +22717,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/right,
 /area/hallway/primary/central)
 "hsY" = (
@@ -23230,6 +23247,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "hBZ" = (
@@ -24122,7 +24140,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
 	},
@@ -24230,6 +24247,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/left{
 	dir = 1
 	},
@@ -24409,6 +24427,7 @@
 	pixel_y = 34
 	},
 /obj/machinery/camera/directional/north,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
@@ -26508,6 +26527,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/left{
 	dir = 8
 	},
@@ -27315,6 +27335,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/right{
 	dir = 8
 	},
@@ -29715,6 +29736,7 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "jRg" = (
@@ -33873,7 +33895,6 @@
 	dir = 1;
 	alpha = 180
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -34608,6 +34629,7 @@
 "luO" = (
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/siding/white,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "luW" = (
@@ -35042,6 +35064,18 @@
 	},
 /turf/open/floor/iron/white/side,
 /area/medical/medbay/central)
+"lBf" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/yellow/half{
+	alpha = 180;
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half,
+/obj/item/kirbyplants_mini_random,
+/turf/open/floor/iron/half{
+	dir = 1
+	},
+/area/hallway/primary/central)
 "lBn" = (
 /obj/machinery/computer/pandemic,
 /obj/effect/turf_decal/bot,
@@ -35873,6 +35907,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "lQx" = (
@@ -37546,6 +37581,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "mqJ" = (
@@ -37715,6 +37751,7 @@
 /turf/open/floor/iron/white,
 /area/medical/genetics/cloning)
 "muH" = (
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/medium,
 /area/hallway/primary/central)
 "muM" = (
@@ -40246,6 +40283,7 @@
 	},
 /area/medical/surgery)
 "nfS" = (
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/right{
 	dir = 4
 	},
@@ -40583,6 +40621,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "nlx" = (
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/medium{
 	dir = 4
 	},
@@ -42147,6 +42186,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "nNP" = (
@@ -44429,6 +44469,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
@@ -44604,6 +44645,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/railing/corner,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central)
 "oDk" = (
@@ -44628,6 +44670,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "oDI" = (
@@ -46539,7 +46582,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "peT" = (
@@ -47363,6 +47405,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
@@ -48016,6 +48059,7 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "pEA" = (
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/left{
 	dir = 4
 	},
@@ -50842,7 +50886,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "qCB" = (
@@ -51139,6 +51182,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "qJh" = (
@@ -51273,7 +51317,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
@@ -54092,7 +54135,6 @@
 	dir = 1;
 	alpha = 180
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -54472,7 +54514,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
 	},
@@ -55270,6 +55311,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "see" = (
@@ -56084,6 +56126,7 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
 "stl" = (
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/right{
 	dir = 1
 	},
@@ -56223,6 +56266,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "svm" = (
@@ -57088,6 +57132,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "sKi" = (
@@ -57974,6 +58019,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
@@ -58080,7 +58126,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -59760,7 +59805,6 @@
 /obj/effect/turf_decal/tile/dark_blue/half{
 	alpha = 180
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -61149,6 +61193,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/stairs/left,
 /area/hallway/primary/central)
 "tXa" = (
@@ -63751,6 +63796,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "uSD" = (
@@ -64894,6 +64940,7 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "voS" = (
@@ -65437,6 +65484,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
 	dir = 4
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central)
 "vzS" = (
@@ -65576,6 +65624,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "vCj" = (
@@ -65647,6 +65696,7 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "vDw" = (
@@ -66051,6 +66101,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "vJz" = (
@@ -66694,7 +66745,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 4
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 8
 	},
@@ -67053,6 +67103,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera/directional/north,
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
@@ -70391,7 +70442,6 @@
 	dir = 1;
 	alpha = 180
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -70448,7 +70498,6 @@
 	dir = 1;
 	alpha = 180
 	},
-/obj/item/kirbyplants/mini/random,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
@@ -72380,6 +72429,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
 	dir = 8
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
@@ -73239,6 +73289,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/kirbyplants_mini_random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "yff" = (
@@ -106186,7 +106237,7 @@ fyR
 luO
 dfy
 hBG
-jon
+lBf
 jon
 tDA
 ppO

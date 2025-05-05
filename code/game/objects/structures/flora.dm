@@ -306,21 +306,35 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 	. = ..()
 
-/obj/item/kirbyplants/mini
+/obj/item/kirbyplants_mini_random
 	name = "small potted plant"
-	icon = 'icons/obj/flora/plants.dmi'
-	icon_state = "plant-01"
-	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/flora/_flora.dmi'
+	icon_state = "random_mini_plant"
+	desc = "A little bit of nature contained in a pot."
+	layer = BELOW_MOB_LAYER
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	attack_weight = 1
 	throwforce = 5
+	throw_speed = 2
+	throw_range = 4
+	item_flags = NO_PIXEL_RANDOM_DROP
+	var/list/static/mini_states
 
-/obj/item/kirbyplants/Initialize(mapload)
+/obj/item/kirbyplants_mini_random/Initialize(mapload)
 	. = ..()
+	icon = 'icons/obj/flora/mini.dmi'
+	if(!mini_states)
+		generate_states()
+	icon_state = pick(mini_states)
+	update_appearance()
+
+/obj/item/kirbyplants_mini_random/Initialize(mapload)
+	..()
 	create_storage(storage_type = /datum/storage/mini_plant)
 
-/obj/item/kirbyplants/mini/ComponentInitialize()
-	. = ..()
+/obj/item/kirbyplants_mini_random/ComponentInitialize()
+	..()
 
 /datum/storage/mini_plant
 	max_specific_storage = WEIGHT_CLASS_SMALL
@@ -328,12 +342,9 @@
 	silent = TRUE
 	allow_big_nesting = TRUE
 
-/obj/item/kirbyplants/mini/random
-	icon = 'icons/obj/flora/_flora.dmi'
-	icon_state = "random_mini_plant"
-	var/list/static/mini_states
+/obj/item/kirbyplants_mini_random
 
-/obj/item/kirbyplants/mini/random/proc/generate_states()
+/obj/item/kirbyplants_mini_random/proc/generate_states()
 	mini_states = list()
 	for(var/i in 1 to 34)
 		var/number
@@ -342,7 +353,6 @@
 		else
 			number = "[i]"
 		mini_states += "plant-[number]"
-	mini_states += "applebush"
 
 /obj/item/kirbyplants
 	name = "potted plant"
@@ -394,7 +404,6 @@
 		else
 			number = "[i]"
 		states += "plant-[number]"
-	states += "applebush"
 
 
 /obj/item/kirbyplants/dead
