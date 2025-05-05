@@ -1675,9 +1675,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/damage = user.dna.species.punchdamage
 
-		var/obj/item/bodypart/zone = ran_zone(user.get_combat_bodyzone(target))
+		var/zone = ran_zone(user.get_combat_bodyzone(target))
 
-		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
+		if(!damage)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
 			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
 							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
@@ -1696,7 +1696,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		user.dna.species.spec_unarmedattack(user, target)
 
 		if(user.limb_destroyer)
-			target.dismembering_strike(user, affecting.body_zone)
+			target.dismembering_strike(user, zone)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
 			target.deal_damage(damage*1, user.dna.species.attack_sharpness, attack_type, zone = zone)
@@ -1778,15 +1778,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	hit_area = parse_zone(affecting.body_zone)
 	var/def_zone = affecting.body_zone
 
-	var/armor_block = H.run_armor_check(affecting, MELEE, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"), I.sharpness)
+	H.deal_damage(I.force, I.sharpness, I.damtype, DAMAGE_STANDARD, get_dir(user, H), TRUE, def_zone)
+
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
-	apply_damage(I.force, I.damtype, def_zone, armor_block, H, FALSE, MELEE, I.sharpness)
 
-	if (I.bleed_force)
-		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
-		var/hit_amount = (100 - armour_block) / 100
-		H.add_bleeding(I.bleed_force * hit_amount)
+	if (I.sharpness)
 		if(IS_ORGANIC_LIMB(affecting))
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
 			if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
@@ -1836,7 +1833,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		I.add_mob_blood(H)
 		playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
-	if(I.damtype == BRUTE && (I.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
+	if(I.damtype == BRUTE && (I.force >= max(10, H.get_bodyzone_armor_flag(BODY_ZONE_HEAD, ARMOUR_BLUNT)) && hit_area == BODY_ZONE_HEAD))
 		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
 			var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
 			if(rev)
