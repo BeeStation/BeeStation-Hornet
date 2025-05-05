@@ -26,17 +26,32 @@
 // ------------------------------------------------
 //         List of real templates below:
 // ------------------------------------------------
-/datum/map_template/holodeck/debug/engi_sm
+/datum/map_template/holodeck/debug/rbmk
+	name = "Holodeck - Engineering RBMK"
+	template_id = "debug-rbmk"
+	mappath = "_maps/holodeck/debug/engi-rbmk.dmm"
+
+/datum/map_template/holodeck/debug/n2
 	name = "Holodeck - Engineering N2 SM"
 	template_id = "debug-engi-n2-sm"
-	mappath = "_maps/holodeck/debug/engi-n2-sm.dmm"
+	mappath = "_maps/holodeck/debug/engi-sm-n2.dmm"
 
-/datum/map_template/holodeck/debug/engi_sm/co2
+/datum/map_template/holodeck/debug/co2
 	name = "Holodeck - Engineering CO2 SM"
 	template_id = "debug-engi-co2-sm"
-	mappath = "_maps/holodeck/debug/engi-co2-sm.dmm"
+	mappath = "_maps/holodeck/debug/engi-sm-co2.dmm"
 
-/datum/map_template/holodeck/debug/sci_robotics
+/datum/map_template/holodeck/debug/tesla
+	name = "Holodeck - Engineering Tesla and Singularity"
+	template_id = "debug-engi-tesla"
+	mappath = "_maps/holodeck/debug/engi-tesla.dmm"
+
+/datum/map_template/holodeck/debug/robotics
 	name = "Holodeck - Science Robotics"
 	template_id = "debug-sci-rob"
-	mappath = "_maps/holodeck/debug/sci-rob.dmm"
+	mappath = "_maps/holodeck/debug/sci-robotics.dmm"
+
+/datum/map_template/holodeck/debug/syndicates
+	name = "Holodeck - Syndicates"
+	template_id = "debug-syndicates"
+	mappath = "_maps/holodeck/debug/syndicates.dmm"

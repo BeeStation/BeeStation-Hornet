@@ -38,11 +38,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"j" = (
-/obj/structure/closet/crate/secure/gear/debug/mech,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "k" = (
 /obj/item/assembly/prox_sensor{
 	pixel_y = 8;
@@ -243,6 +238,11 @@
 /obj/machinery/rnd/production/techfab/department/science,
 /turf/open/floor/iron,
 /area/template_noop)
+"R" = (
+/obj/structure/closet/crate/secure/gear/debug/mech,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
 "S" = (
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /turf/open/floor/iron,
@@ -392,7 +392,7 @@ a
 a
 a
 a
-j
+R
 a
 p
 a

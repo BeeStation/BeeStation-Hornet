@@ -433,3 +433,24 @@
 		qdel(src)
 		return
 	return ..()
+
+//A cup made from coconuts harvested in botany
+/obj/item/reagent_containers/cup/coconutcup
+	name = "coconut cup"
+	desc = "A showy form of cup typically intended for both use and display."
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "coconutcup_empty"
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
+	volume = 50
+	spillable = TRUE
+	resistance_flags = ACID_PROOF
+	obj_flags = UNIQUE_RENAME
+	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
+
+/obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
+	if (reagents && reagents.total_volume > 0)
+		icon_state = "coconutcup_full"
+	else
+		icon_state = "coconutcup_empty"
+

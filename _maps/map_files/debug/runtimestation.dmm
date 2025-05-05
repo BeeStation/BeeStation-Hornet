@@ -151,6 +151,12 @@
 /obj/machinery/atmospherics/components/binary/pump/on,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"aP" = (
+/obj/structure/window/depleteduranium/fulltile/debug,
+/obj/structure/grille,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/construction)
 "aQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -1179,15 +1185,6 @@
 	},
 /turf/open/floor/iron,
 /area/science)
-"ji" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light,
-/obj/structure/fans/tiny/invisible,
-/obj/machinery/light,
-/turf/open/floor/iron,
-/area/construction)
 "jm" = (
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 8
@@ -1257,16 +1254,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"kL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
-/obj/structure/fans/tiny/invisible,
-/turf/open/floor/iron,
-/area/construction)
 "kM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -1607,6 +1594,16 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"ru" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/light_switch{
+	pixel_x = -20
+	},
+/turf/open/floor/iron,
+/area/construction)
 "rw" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -1752,6 +1749,13 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron,
 /area/medical/medbay)
+"tK" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "uq" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -1776,12 +1780,6 @@
 "vm" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/aft)
-"vp" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "vw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -1859,7 +1857,6 @@
 	},
 /obj/machinery/camera/directional/south,
 /obj/structure/fans/tiny/invisible,
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/construction)
 "wA" = (
@@ -1884,6 +1881,11 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"xg" = (
+/obj/item/card/id/departmental_budget/car,
+/obj/structure/table,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "xi" = (
 /obj/structure/closet/secure_closet/captains{
 	locked = 0
@@ -2420,11 +2422,6 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
-"Ik" = (
-/obj/structure/window/depleteduranium/fulltile/debug,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/construction)
 "Iz" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -2440,7 +2437,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
+/turf/open/floor/iron,
 /area/hallway/primary/central)
 "IC" = (
 /obj/machinery/door/airlock,
@@ -2826,6 +2823,14 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/space/basic,
 /area/space)
+"PN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/iron,
+/area/construction)
 "PQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3047,9 +3052,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = 20
-	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron,
 /area/construction)
@@ -3078,6 +3080,11 @@
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
+"UL" = (
+/obj/structure/window/depleteduranium/fulltile/debug,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/construction)
 "Va" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3222,19 +3229,6 @@
 /obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/engine/engineering)
-"Xj" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
-/obj/structure/fans/tiny/invisible,
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
-/turf/open/floor/iron,
-/area/construction)
 "Xp" = (
 /obj/machinery/light,
 /obj/structure/tank_dispenser{
@@ -6629,7 +6623,7 @@ cN
 cN
 cN
 cN
-cN
+UL
 ef
 ef
 cN
@@ -6721,11 +6715,11 @@ cA
 Js
 Mc
 JS
-Xj
+Mc
 rd
 Mc
+ru
 Mc
-kL
 Mc
 hf
 Mc
@@ -6808,7 +6802,7 @@ bA
 Tb
 mS
 tn
-Ik
+cN
 RJ
 Uu
 Uu
@@ -7006,7 +7000,7 @@ Uu
 Uu
 Uu
 Uu
-ji
+PN
 vm
 cg
 vm
@@ -7176,7 +7170,7 @@ bu
 Ak
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7268,7 +7262,7 @@ bu
 Mu
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7360,7 +7354,7 @@ bv
 rr
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7452,7 +7446,7 @@ bu
 rr
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7558,7 +7552,7 @@ Uu
 Uu
 Uu
 Uu
-ji
+PN
 vm
 Hk
 Rb
@@ -7820,7 +7814,7 @@ bu
 rr
 rw
 bE
-Ik
+cN
 wg
 Uu
 Uu
@@ -7920,8 +7914,8 @@ Us
 Om
 Om
 Om
-Zi
 Om
+Zi
 Om
 sU
 Om
@@ -8012,7 +8006,7 @@ cN
 cN
 ef
 ef
-cN
+aP
 cN
 cN
 cN
@@ -8093,8 +8087,8 @@ ki
 Ce
 VZ
 cE
-jV
-vp
+tK
+rw
 bE
 cS
 Iz
@@ -9394,7 +9388,7 @@ eZ
 zM
 fq
 fr
-eu
+xg
 eu
 eu
 et

@@ -99,9 +99,10 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 	var/area/computer_area = get_area(src)
 	if(istype(computer_area, /area/holodeck))
-		log_mapping("Holodeck computer cannot be in a holodeck, This would cause circular power dependency.")
-		qdel(src)
-		return
+		if(!istype(computer_area, /area/holodeck/debug))
+			log_mapping("Holodeck computer cannot be in a holodeck, This would cause circular power dependency.")
+			qdel(src)
+			return
 
 	// the following is necessary for power reasons
 	if(!linked)
