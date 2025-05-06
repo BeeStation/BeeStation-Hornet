@@ -53,6 +53,11 @@
 /// 50% reflectivity
 /// 50% heat
 #define DAMAGE_LASER "laser"
+/// Damaged caused by shocking items like stun batons
+/// 50% blunt
+/// 50% absorption
+/// 50% reflectivity
+#define DAMAGE_SHOCK "shock"
 /// Standard penetration based damage
 /// 100% blunt, with sharpness converting to blunt
 #define DAMAGE_STANDARD "standard"

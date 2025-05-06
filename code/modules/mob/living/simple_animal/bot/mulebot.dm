@@ -761,12 +761,12 @@
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5,15)
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, MELEE))
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, MELEE))
+	H.deal_damage(2 * damage, 0, zone = BODY_ZONE_HEAD)
+	H.deal_damage(2 * damage, 0, zone = BODY_ZONE_CHEST)
+	H.deal_damage(2 * damage, 0, zone = BODY_ZONE_L_ARM)
+	H.deal_damage(2 * damage, 0, zone = BODY_ZONE_L_LEG)
+	H.deal_damage(2 * damage, 0, zone = BODY_ZONE_R_ARM)
+	H.deal_damage(2 * damage, 0, zone = BODY_ZONE_R_LEG)
 
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)

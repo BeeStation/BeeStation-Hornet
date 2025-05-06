@@ -205,9 +205,8 @@
 			return FALSE
 
 	var/zone = ran_zone(user.get_combat_bodyzone(target))
-	var/armor_block = target.run_armor_check(zone, STAMINA)
 	// L.adjustStaminaLoss(stun_time)
-	target.deal_damage(stun_time, 0, STAMINA, zone = zone)
+	target.deal_damage(stun_time, 0, STAMINA, DAMAGE_SHOCK, zone = zone)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 	target.stuttering = 20

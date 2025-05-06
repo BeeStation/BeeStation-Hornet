@@ -120,7 +120,7 @@
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE)
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = DAMAGE_STANDARD)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -131,7 +131,7 @@
 		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		deal_damage(damage, sharpness, damagetype, armorcheck)
 		return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
@@ -142,7 +142,7 @@
 		return BULLET_ACT_BLOCK
 	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
 		return BULLET_ACT_HIT
-	apply_damage(Proj.damage, Proj.damage_type)
+	deal_damage(Proj.damage, Proj.sharpness, Proj.damage_type, Proj.damage_flag)
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
@@ -152,7 +152,7 @@
 	..()
 	if(QDELETED(src))
 		return
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = damage_flag_to_armour_rating(DAMAGE_BOMB)
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))

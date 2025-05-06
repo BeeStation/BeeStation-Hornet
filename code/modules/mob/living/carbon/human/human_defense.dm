@@ -57,10 +57,9 @@
 				covering_part += C
 	return covering_part
 
-/mob/living/carbon/human/on_hit(obj/projectile/P)
+/mob/living/carbon/human/on_hit(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	if(dna?.species)
 		dna.species.on_hit(P, src)
-
 
 /mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	if(dna && dna.species)
@@ -429,7 +428,7 @@
 			if(prob(30/severity)) //Random chance to disable and burn limbs
 				bodypart.receive_damage(burn = 5)
 				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-				bodypart.owner.run_limb_injuries(10, FIRE, 0)
+				bodypart.run_limb_injuries(10, DAMAGE_FIRE, 0)
 			else
 				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
 			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")

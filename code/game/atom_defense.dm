@@ -28,7 +28,7 @@
 /// Convert a damage flag into an armour rating.
 /// Does not work for DAMAGE_STANDARD, as the logic is more complex.
 /// Output value is between 0 and 100.
-/atom/proc/damage_flag_to_armour_rating(damage_flag)
+/atom/proc/damage_flag_to_armour_rating(damage_flag, zone = null)
 	switch (damage_flag)
 		// Runs through absorption and blunt independantly
 		if (DAMAGE_ACID)
@@ -47,6 +47,15 @@
 			var/blunt = (100 - get_armor_rating(ARMOUR_BLUNT) * 0.5) / 100
 			// 0 = 100, 1 = 0
 			var/multiplier = heat * absorption * blunt
+			return (1 - multiplier) * 100
+		// 50% heat, 50% absorption and 50% blunt independantly.
+		// Having 50% in all categories results in 87.5% protection.
+		if (DAMAGE_SHOCK)
+			var/reflectivity = (100 - get_armor_rating(ARMOUR_REFLECTIVITY) * 0.5) / 100
+			var/absorption = (100 - get_armor_rating(ARMOUR_ABSORPTION) * 0.5) / 100
+			var/blunt = (100 - get_armor_rating(ARMOUR_BLUNT) * 0.5) / 100
+			// 0 = 100, 1 = 0
+			var/multiplier = reflectivity * absorption * blunt
 			return (1 - multiplier) * 100
 		// Runs through 50% of the reflectivity
 		if (DAMAGE_ENERGY)
@@ -77,6 +86,13 @@
 			take_direct_damage(damage_amount, type, flag, zone)
 		// Runs through absorption and 50% of the heat, 50% of the absorption and 50% of the blunt independantly
 		if (DAMAGE_BOMB)
+			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
+			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
+			if (damage_amount < 0)
+				return
+			take_direct_damage(damage_amount, type, flag, zone)
+		// Shock damage
+		if (DAMAGE_SHOCK)
 			var/armour_multiplier = (100 - damage_flag_to_armour_rating(flag)) / 100
 			var/damage_amount = round(amount * armour_multiplier, DAMAGE_PRECISION)
 			if (damage_amount < 0)
