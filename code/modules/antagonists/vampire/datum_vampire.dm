@@ -49,7 +49,9 @@
 
 	var/vampire_level = 0
 	var/vampire_level_unspent = 0
+	/// Additional regeneration when the vampire has a lot of blood
 	var/additional_regen
+	/// How much damage the vampire heals each life tick. Increases per rank up
 	var/vampire_regen_rate = 0.3
 
 	/// Lair
@@ -59,11 +61,11 @@
 	/// To keep track of objectives
 	var/total_blood_drank = 0
 
-	///Blood display HUD
+	/// Blood display HUD
 	var/atom/movable/screen/vampire/blood_counter/blood_display
-	///Vampire level display HUD
+	/// Vampire level display HUD
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
-	///Sunlight timer HUD
+	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
 	/// Static typecache of all vampire powers.

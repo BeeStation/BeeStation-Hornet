@@ -34,10 +34,17 @@
 	duration = -1
 	tick_interval = 10
 	alert_type = /atom/movable/screen/alert/status_effect/frenzy
+
 	/// Boolean on whether they were an AdvancedToolUser, to give the trait back upon exiting.
 	var/was_tooluser = FALSE
 	/// The stored Vampire antag datum
 	var/datum/antagonist/vampire/vampiredatum
+
+	var/static/frenzy_traits = list(
+		TRAIT_MUTE,
+		TRAIT_DEAF,
+		TRAIT_STUNIMMUNE
+	)
 
 /datum/status_effect/frenzy/get_examine_text()
 	return span_notice("They seem... inhumane, and feral!")
@@ -57,10 +64,8 @@
 	owner.balloon_alert(owner, "you enter a frenzy!")
 	SEND_SIGNAL(vampiredatum, VAMPIRE_ENTERS_FRENZY)
 
-	// Give the other Frenzy effects
-	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FRENZY)
-	ADD_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
-	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
+	// Traits
+	owner.add_traits(frenzy_traits, TRAIT_VAMPIRE)
 	if(!HAS_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER))
 		was_tooluser = TRUE
 		ADD_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
@@ -76,12 +81,13 @@
 /datum/status_effect/frenzy/on_remove()
 	var/mob/living/carbon/human/user = owner
 	owner.balloon_alert(owner, "you come back to your senses.")
-	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FRENZY)
-	REMOVE_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
-	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
+
+	// Traits
+	owner.add_traits(frenzy_traits, TRAIT_VAMPIRE)
 	if(was_tooluser)
 		REMOVE_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
 		was_tooluser = FALSE
+
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 	vampiredatum.frenzygrab.remove(user)
 	owner.remove_client_colour(/datum/client_colour/cursed_heart_blood)
@@ -94,4 +100,4 @@
 	var/mob/living/carbon/human/user = owner
 	if(!vampiredatum?.frenzied)
 		return
-	user.adjustFireLoss(1.5)
+	user.adjustFireLoss(0.75)

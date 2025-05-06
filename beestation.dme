@@ -2304,7 +2304,7 @@
 #include "code\modules\antagonists\vampire\objectives_vampire.dm"
 #include "code\modules\antagonists\vampire\clans\_clan.dm"
 #include "code\modules\antagonists\vampire\clans\assignclan.dm"
-#include "code\modules\antagonists\vampire\clans\clan_flavortext.dm"
+#include "code\modules\antagonists\vampire\clans\flavortext_clans.dm"
 #include "code\modules\antagonists\vampire\clans\malkavian.dm"
 #include "code\modules\antagonists\vampire\clans\nosferatu.dm"
 #include "code\modules\antagonists\vampire\clans\tremere.dm"

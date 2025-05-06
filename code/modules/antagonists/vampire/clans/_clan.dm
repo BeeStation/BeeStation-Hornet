@@ -29,7 +29,7 @@
 
 /datum/vampire_clan/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
-	src.vampiredatum = owner_datum
+	vampiredatum = owner_datum
 
 	RegisterSignal(vampiredatum, COMSIG_VAMPIRE_ON_LIFETICK, PROC_REF(handle_clan_life))
 	RegisterSignal(vampiredatum, VAMPIRE_RANK_UP, PROC_REF(on_spend_rank))
@@ -58,7 +58,7 @@
 	))
 	remove_clan_objective()
 	vampiredatum = null
-	return ..()
+	. = ..()
 
 /datum/vampire_clan/proc/on_enter_frenzy(datum/antagonist/vampire/source)
 	SIGNAL_HANDLER
@@ -157,7 +157,7 @@
 		else
 			power_response = show_radial_menu(user, user, radial_display)
 
-		if(!power_response || QDELETED(src) || QDELETED(user) || QDELETED(user))
+		if(!power_response || QDELETED(src) || QDELETED(user))
 			return FALSE
 
 		var/datum/action/cooldown/vampire/purchased_power = options[power_response]

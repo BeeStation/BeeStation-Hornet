@@ -7,12 +7,6 @@
 		The Favorite Vassal turns into a Werewolf whenever their Master does."
 	joinable_clan = FALSE
 
-/datum/vampire_clan/gangrel/on_enter_frenzy(datum/antagonist/vampire/source)
-	ADD_TRAIT(vampiredatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
-
-/datum/vampire_clan/gangrel/on_exit_frenzy(datum/antagonist/vampire/source)
-	REMOVE_TRAIT(vampiredatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
-
 /datum/vampire_clan/gangrel/handle_clan_life(datum/antagonist/vampire/source)
 	. = ..()
 	var/area/current_area = get_area(vampiredatum.owner.current)
