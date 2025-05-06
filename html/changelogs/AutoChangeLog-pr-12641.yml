@@ -1,6 +1,0 @@
-author: BeeLover66
-delete-after: true
-changes:
-  - bugfix: The bounty consoles now accurately display the bounty values
-  - code_imp: Removes a hardcoded multiplier to the bounty reward amount, and compensates
-      for it by changing the actual modifier
