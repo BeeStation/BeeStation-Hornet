@@ -516,3 +516,8 @@
 
 /datum/action/proc/is_active()
 	return active
+
+//Exists to keep master private
+/datum/action/proc/get_master()
+	SHOULD_BE_PURE(TRUE)
+	return master

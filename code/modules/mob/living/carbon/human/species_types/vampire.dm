@@ -47,9 +47,6 @@
 	C.blood_volume -= 0.125 * delta_time
 	if(C.blood_volume <= BLOOD_VOLUME_SURVIVE)
 		to_chat(C, span_danger("You ran out of blood!"))
-		var/obj/shapeshift_holder/H = locate() in C
-		if(H)
-			H.shape.dust() //make sure we're killing the bat if you are out of blood, if you don't it creates weird situations where the bat is alive but the caster is dusted.
 		C.investigate_log("has been dusted by a lack of blood (vampire).", INVESTIGATE_DEATHS)
 		C.dust()
 	var/area/A = get_area(C)

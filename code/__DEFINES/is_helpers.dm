@@ -296,3 +296,6 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
 
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
+
+/// Helper for checking of someone's shapeshifted currently.
+#define is_shifted(mob) mob.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)
