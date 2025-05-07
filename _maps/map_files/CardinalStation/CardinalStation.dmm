@@ -24492,6 +24492,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"fgD" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/siding/blue{
+	dir = 6
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/aft)
 "fgE" = (
 /obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/iron/dark/side{
@@ -51675,7 +51684,6 @@
 	},
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -87697,11 +87705,11 @@
 	},
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "skw" = (
@@ -103032,6 +103040,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/machinery/vending/wallmed/directional/west,
 /turf/open/floor/iron/tiled/light,
 /area/medical/surgery)
 "vsf" = (
@@ -113658,7 +113667,6 @@
 "xEz" = (
 /obj/item/radio/intercom/directional/east,
 /obj/structure/closet/crate/freezer/surplus_limbs,
-/obj/machinery/vending/wallmed/directional/south,
 /turf/open/floor/iron/grid,
 /area/medical/surgery)
 "xEA" = (
@@ -167203,7 +167211,7 @@ hRR
 xVg
 mgM
 hRR
-xVg
+fgD
 mgM
 hRR
 dup
