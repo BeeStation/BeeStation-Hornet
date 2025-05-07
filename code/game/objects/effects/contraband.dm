@@ -679,7 +679,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	\n\
 	Artifacts can be labeled and sold through cargo to obtain research & discovery points.\n\
 	Poorly labeled artifacts will yield fewer rewards than accurately labeled ones."
-	icon_state = "poster51"
+	icon_state = "poster52"
 
 /obj/structure/sign/poster/official/xenoarchaeology_pearl
 	name = "???"
