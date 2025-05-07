@@ -40,7 +40,7 @@
 	icon_state = "officer-12"
 	max_ammo = 12
 	multiple_sprites = 1
-	ammo_type = /obj/item/ammo_casing/caseless/laser/lesslethal
+	ammo_type = /obj/item/ammo_casing/energy/disabler
 
 /obj/item/ammo_box/magazine/recharge/service/update_icon()
 	..()
