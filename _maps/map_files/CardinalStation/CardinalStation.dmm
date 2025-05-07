@@ -42870,7 +42870,9 @@
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/turf/open/floor/plating/ashplanet/wateryrock,
+/turf/open/floor/plating/ashplanet/wateryrock{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "iOK" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -84428,7 +84430,9 @@
 	pixel_x = 13;
 	pixel_y = -10
 	},
-/turf/open/floor/plating/ashplanet/ash,
+/turf/open/floor/plating/ashplanet/ash{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "rzd" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
@@ -110986,7 +110990,9 @@
 	pixel_y = -7;
 	pixel_x = 7
 	},
-/turf/open/floor/plating/ashplanet/wateryrock,
+/turf/open/floor/plating/ashplanet/wateryrock{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/space/nearstation)
 "xae" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
