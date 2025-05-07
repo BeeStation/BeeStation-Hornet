@@ -60,9 +60,7 @@
 	BuyPower(new /datum/action/cooldown/vampire/recuperate)
 	BuyPower(new /datum/action/cooldown/vampire/distress)
 	/// Give Objectives
-	var/datum/objective/vampire/vassal/vassal_objective = new
-	vassal_objective.owner = owner
-	objectives += vassal_objective
+	forge_objectives()
 	/// Give Vampire Language
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE)
 	owner.current.grant_language(/datum/language/vampiric)
@@ -100,8 +98,8 @@
 		return
 
 	to_chat(owner, span_userdanger("You are now the mortal servant of [master.owner.current], a Vampire!"))
-	to_chat(owner, "<span class='boldannounce'>The power of [master.owner.current.p_their()] immortal blood compels you to obey [master.owner.current.p_them()] in all things, even offering your own life to prolong theirs.\n\
-		You are not required to obey any other Vampire, for only [master.owner.current] is your master. The laws of Nanotrasen do not apply to you now; only your vampiric master's word must be obeyed.</span>") // if only there was a /p_theirs() proc...
+	to_chat(owner, span_boldannounce("The power of [master.owner.current.p_their()] immortal blood compels you to obey [master.owner.current.p_them()] in all things, even offering your own life to prolong theirs.\n\
+		You are not required to obey any other Vampire, for only [master.owner.current] is your master. The laws of Nanotrasen do not apply to you now; only your vampiric master's word must be obeyed."))
 	owner.current.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "You are the mortal servant of <b>[master.owner.current]</b>, a bloodsucking vampire!<br>"
 	/// Message told to your Master.
@@ -141,14 +139,20 @@
 	new_owner.add_antag_datum(src)
 	to_chat(choice, span_notice("Through divine intervention, you've gained a new vassal!"))
 
+/datum/antagonist/vassal/proc/forge_objectives()
+	var/datum/objective/vampire/vassal/vassal_objective = new
+	vassal_objective.owner = owner
+	objectives += vassal_objective
+
 /datum/antagonist/vassal/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
-	if(!iscarbon(source))
-		return
+	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vassal")
 
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(examiner)
 	if(src in vampiredatum?.vassals)
-		examine_text += span_warning("<EM>This is your vassal!</EM>")
+		text += span_cult("<EM>This is your vassal!</EM>")
 	else if(vampiredatum || IS_CURATOR(examiner) || IS_VASSAL(examiner))
-		examine_text += span_warning("<EM>This is [master.return_full_name()]'s vassal</EM>")
+		text += span_cult("<EM>This is [master.return_full_name()]'s vassal</EM>")
+
+	examine_text += text

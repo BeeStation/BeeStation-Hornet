@@ -45,7 +45,10 @@
 	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
 	/// Special vassals I own, to not have double of the same type.
-	var/list/datum/antagonist/vassal/special_vassals = list()
+	var/list/datum/antagonist/vassal/special_vassals = list(
+		// This is an unlockable vassal, this prevents normal vampires from making one.
+		DISCORDANT_VASSAL,
+	)
 
 	var/vampire_level = 0
 	var/vampire_level_unspent = 0
@@ -515,13 +518,10 @@
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
-	if(!iscarbon(source))
-		return
-
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
 	if(IS_VASSAL(examiner) in vassals)
-		text += span_warning("<EM>This is your Master!</EM>")
-		examine_text += text
+		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)
-		text += span_warning("<EM>[return_full_name()]</EM>")
-		examine_text += text
+		text += span_cult("<EM>[return_full_name()]</EM>")
+
+	examine_text += text

@@ -27,13 +27,17 @@
 	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your Vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
 	set_antag_hud(owner.current, "masquerade_broken")
+
 	SEND_GLOBAL_SIGNAL(COMSIG_VAMPIRE_BROKE_MASQUERADE, src)
+	GLOB.masquerade_breakers.Add(src)
 
 ///This is admin-only of reverting a broken masquerade, sadly it doesn't remove the Malkavian objectives yet.
 /datum/antagonist/vampire/proc/fix_masquerade(mob/admin)
 	if(!broke_masquerade)
 		return
 	broke_masquerade = FALSE
+
+	GLOB.masquerade_breakers.Remove(src)
 
 	set_antag_hud(owner.current, "vampire")
 	to_chat(owner.current, span_cultbigbold("You have re-entered the Masquerade."))
@@ -45,7 +49,7 @@
 	if(masquerade_infractions >= 3)
 		break_masquerade()
 	else
-		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become a criminal to the Vampire's Cause!"))
+		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become a criminal to the all other Vampires!"))
 
 /datum/antagonist/vampire/proc/RankUp()
 	if(!owner || !owner.current || IS_FAVORITE_VASSAL(owner.current))

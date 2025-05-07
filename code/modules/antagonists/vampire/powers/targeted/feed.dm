@@ -114,8 +114,9 @@
 	// How long should the pre-feed last
 	var/feed_time = vampiredatum_power.frenzied ? FEED_FRENZY_TIME : clamp(round(FEED_DEFAULT_TIME / (1.25 * (level_current || 1))), 1, FEED_DEFAULT_TIME)
 	owner.balloon_alert(owner, "feeding off [feed_target]...")
+
 	if(!do_after(owner, feed_time, feed_target, NONE, TRUE, hidden = TRUE))
-		owner.balloon_alert(owner, "feed stopped")
+		owner.balloon_alert(owner, "interrupted!")
 		deactivate_power()
 		return
 

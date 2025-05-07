@@ -94,7 +94,7 @@
 	ghost_desc = "This is a Vassal rack, which allows Vampires to thrall crewmembers into loyal minions."
 	vampire_desc = "This is the Vassal rack, which allows you to thrall crewmembers into loyal minions in your service. This costs blood to do.\n\
 		Simply click and hold on a victim, and then drag their sprite on the vassal rack. Right-click on the persuasion rack to unbuckle them.\n\
-		To convert into a Vassal, repeatedly click on the persuasion rack. The time required scales with the tool in your off hand.\n\
+		To convert into a Vassal, repeatedly click on the persuasion rack. The time required scales with the tool in your hand.\n\
 		Vassals can be turned into special ones by continuing to torture them once converted."
 	vassal_desc = "This is the vassal rack, which allows your master to thrall crewmembers into their minions.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
@@ -263,6 +263,11 @@
 
 		// If the victim is mindshielded or an antagonist, they choose to accept or refuse vassilization.
 		if(!wants_vassilization && (HAS_TRAIT(target, TRAIT_MINDSHIELD) || length(target.mind.antag_datums)))
+			if(istype(vampiredatum.my_clan?.clan_objective, /datum/objective/brujah_clan_objective) && (vampiredatum.my_clan?.clan_objective.target == target.mind))
+				balloon_alert(user, "ready for communion!")
+				wants_vassilization = TRUE
+				return
+
 			balloon_alert(user, "has external loyalties! more persuasion required!")
 			if(!ask_for_vassilization(user, target))
 				balloon_alert(user, "refused persuasion!")
@@ -323,14 +328,16 @@
 			You will not lose your current objectives, but they come second to the will of your new master!", \
 		title = "THE HORRIBLE PAIN! WHEN WILL IT END?!",
 		buttons = list("Accept", "Refuse"),
-		timeout = 10 SECONDS, \
+		timeout = 15 SECONDS, \
 		autofocus = TRUE
 	)
 	if(alert_response == "Accept")
 		wants_vassilization = TRUE
 	else
-		target.balloon_alert_to_viewers("stares defiantly", "refused vassalization!")
+		target.balloon_alert_to_viewers("refused vassalization!")
+
 	vassilization_offered = FALSE
+
 	return wants_vassilization
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

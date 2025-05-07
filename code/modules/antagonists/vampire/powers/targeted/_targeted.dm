@@ -45,6 +45,15 @@
 	update_buttons()
 	unset_click_ability(owner)
 
+/datum/action/cooldown/vampire/targeted/can_use()
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(owner.click_intercept)
+		owner.balloon_alert("already using a targeted power!")
+		return FALSE
+
 /// Check if target is VALID (wall, turf, or character?)
 /datum/action/cooldown/vampire/targeted/proc/check_valid_target(atom/target_atom)
 	// No targeting yourself
@@ -86,6 +95,7 @@
 	power_in_use = FALSE
 
 /datum/action/cooldown/vampire/targeted/proc/FireTargetedPower(atom/target_atom)
+	unset_click_ability(owner)
 	log_combat(owner, target_atom, "used [name] on")
 
 /// The power went off! We now pay the cost of the power.

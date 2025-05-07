@@ -211,10 +211,28 @@
 		to_chat(vampiredatum.owner.current, span_notice("This Vassal is unable to gain a special rank due to innate features."))
 		return FALSE
 
+	// Brujuah clan time
+	if(istype(clan_objective, /datum/objective/brujah_clan_objective) && (clan_objective.target == vassaldatum.owner))
+		var/datum/objective/brujah_clan_objective/brujah_objective = clan_objective
+
+		// Find Mind Implant & Destroy
+		for(var/obj/item/implant/implant as anything in vassaldatum.owner.current.implants)
+			if(istype(implant, /obj/item/implant/mindshield))
+				implant.Destroy()
+
+		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
+		brujah_objective.target_subverted = TRUE
+		to_chat(source.owner, span_notice("You have turned [vassaldatum.owner.current?.name] into a Discordant Vassal."))
+		playsound(get_turf(vassaldatum.owner.current), 'sound/effects/rocktap3.ogg', 75)
+		vassaldatum.owner.announce_objectives()
+		return TRUE
+
 	var/list/options = list()
 	var/list/radial_display = list()
 	for(var/datum/antagonist/vassal/vassaldatums as anything in subtypesof(/datum/antagonist/vassal))
 		if(vampiredatum.special_vassals[initial(vassaldatums.special_type)])
+			continue
+		if(vassaldatums.special_type == DISCORDANT_VASSAL && (!source.my_clan.clan_objective || vassaldatum.owner != source.my_clan.clan_objective.target))
 			continue
 		options[initial(vassaldatums.name)] = vassaldatums
 

@@ -1,3 +1,6 @@
+/// A global list of vampire antag datums that have broken the Masquerade
+GLOBAL_LIST_EMPTY(masquerade_breakers)
+
 #define REVELATION_MIN_COOLDOWN	20 SECONDS
 #define REVELATION_MAX_COOLDOWN	1 MINUTES
 
@@ -19,6 +22,11 @@
 		carbon_owner.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
 		carbon_owner.gain_trauma(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
 	owner_datum.owner.current.update_sight()
+
+	// Masquerade breakers
+	for(var/datum/antagonist/vampire/unmasked in GLOB.masquerade_breakers)
+		if(unmasked.owner.current && unmasked.owner.current.stat != DEAD)
+			on_vampire_broke_masquerade(unmasked)
 
 	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/ambience/antag/creepalert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(vampiredatum.owner.current, span_hypnophrase("Welcome to the Malkavian..."))

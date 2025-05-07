@@ -82,7 +82,7 @@
 /datum/action/cooldown/vampire/proc/upgrade_power()
 	level_current++
 	// Decrease cooldown time
-	if(power_flags & !BP_AM_STATIC_COOLDOWN)
+	if((power_flags & !BP_AM_STATIC_COOLDOWN) && (power_flags & !BP_AM_VERY_DYNAMIC_COOLDOWN))
 		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current - 1)))
 
 /datum/action/cooldown/vampire/proc/can_pay_cost()

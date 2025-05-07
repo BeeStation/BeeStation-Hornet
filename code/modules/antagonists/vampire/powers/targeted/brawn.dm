@@ -16,6 +16,12 @@
 	power_activates_immediately = TRUE
 	prefire_message = "Select a target."
 
+	/// Only changed by the '/brawn/brash' subtype; acts as a general purpose damage multipler.
+	var/damage_coefficient = 1.25
+	/// Boolean indicating whether or not this version of '/brawn' is in the '/brash' subtype and should
+	/// bypass typical ability level restrictions. (There is probably a better way to do this.)
+	var/brujah = FALSE
+
 /datum/action/cooldown/vampire/targeted/brawn/activate_power()
 	// Did we break out of our handcuffs?
 	if(break_restraints())
@@ -38,8 +44,6 @@
 	// Lockers
 	if(istype(user.loc, /obj/structure/closet))
 		var/obj/structure/closet/closet = user.loc
-		if(!istype(closet))
-			return FALSE
 		addtimer(CALLBACK(src, PROC_REF(break_closet), closet), 1)
 		closet.visible_message(
 			span_warning("[closet] tears apart as [user] bashes it open from within!"),
@@ -83,16 +87,19 @@
 	var/mob/pulled_mob = owner.pulledby
 	var/pull_power = pulled_mob.grab_state
 	playsound(get_turf(pulled_mob), 'sound/effects/woodhit.ogg', 75, 1, -1)
+
 	// Knock Down (if Living)
 	if(isliving(pulled_mob))
 		var/mob/living/hit_target = pulled_mob
 		hit_target.Knockdown(pull_power * 10 + 20)
+
 	// Knock Back (before Knockdown, which probably cancels pull)
 	var/send_dir = get_dir(owner, pulled_mob)
 	var/turf/turf_thrown_at = get_ranged_target_turf(pulled_mob, send_dir, pull_power)
 	owner.newtonian_move(send_dir) // Bounce back in 0 G
 	pulled_mob.throw_at(turf_thrown_at, pull_power, TRUE, owner, FALSE) // Throw distance based on grab state! Harder grabs punished more aggressively.
-	log_combat(owner, pulled_mob, "used Brawn power")
+
+	log_combat(owner, pulled_mob, "used [src.name] power")
 	owner.visible_message(
 		span_warning("[owner] tears free of [pulled_mob]'s grasp!"),
 		span_warning("You shrug off [pulled_mob]'s grasp!"))
@@ -107,28 +114,38 @@
 	if(isliving(target_atom))
 		var/mob/living/target = target_atom
 		var/mob/living/carbon/carbonuser = user
-		// Knockdown!
+
+		// Strength of the attack
+		var/hitStrength = carbonuser.dna.species.punchdamage * damage_coefficient + 2
 		var/powerlevel = min(5, 1 + level_current)
-		target.visible_message(
-			span_danger("[user] lands a vicious punch, sending [target] away!"), \
-			span_userdanger("[user] has landed a horrifying punch on you and sends you flying!"))
-		target.Knockdown(min(5, rand(10, 10 * powerlevel)))
+
+		if(rand(5 + powerlevel) >= 5)
+			target.visible_message(
+				span_danger("[user] lands a vicious punch, sending [target] away!"), \
+				span_userdanger("[user] has landed a horrifying punch on you, sending you flying!"),
+			)
+			target.Knockdown(min(5, rand(10, 10 * powerlevel)))
+
 		// Attack!
 		owner.balloon_alert(owner, "you punch [target]!")
 		playsound(get_turf(target), 'sound/weapons/punch4.ogg', 60, 1, -1)
+
 		user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(target.get_combat_bodyzone()))
-		target.apply_damage(carbonuser.dna.species.punchdamage * 2 + 2, BRUTE, affecting)
+		target.apply_damage(hitStrength, BRUTE, affecting)
 		// Knockback
+
 		var/send_dir = get_dir(owner, target)
 		var/turf/turf_thrown_at = get_ranged_target_turf(target, send_dir, powerlevel)
 		owner.newtonian_move(send_dir) // Bounce back in 0 G
 		target.throw_at(turf_thrown_at, powerlevel, TRUE, owner)
+
 		// Target Type: Cyborg (Also gets the effects above)
 		if(issilicon(target))
 			target.emp_act(EMP_HEAVY)
 	// Lockers
-	else if(istype(target_atom, /obj/structure/closet) && level_current >= 3)
+	else if(istype(target_atom, /obj/structure/closet) && (level_current >= 3 || brujah))
 		var/obj/structure/closet/target_closet = target_atom
 		user.balloon_alert(user, "you prepare to bash [target_closet] open...")
 		if(!do_after(user, 2.5 SECONDS, target_closet))
@@ -138,8 +155,12 @@
 		addtimer(CALLBACK(src, PROC_REF(break_closet), user, target_closet), 1)
 		playsound(get_turf(user), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
 	// Airlocks
-	else if(istype(target_atom, /obj/machinery/door) && level_current >= 4)
-		var/obj/machinery/door/target_airlock = target_atom
+	else if(istype(target_atom, /obj/machinery/door/airlock))
+		if((brujah ? level_current < 2 : level_current < 4))
+			user.balloon_alert(user, "not a high enough rank!")
+			return FALSE
+
+		var/obj/machinery/door/airlock/target_airlock = target_atom
 		playsound(get_turf(user), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -1)
 		owner.balloon_alert(owner, "you prepare to tear open [target_airlock]...")
 		if(!do_after(user, 2.5 SECONDS, target_airlock))
@@ -147,9 +168,23 @@
 			return FALSE
 		if(target_airlock.Adjacent(user))
 			target_airlock.visible_message(span_danger("[target_airlock] breaks open as [user] bashes it!"))
+
+			// Adjust cost and cooldown if Brujah
+			if(brujah)
+				if(target_airlock.locked)
+					bloodcost = 20
+					cooldown_time = 10 SECONDS
+				else
+					bloodcost = 10
+					cooldown_time = 6 SECONDS
+			else // If not Brujah then just make the vampire wait a second...
+				user.Stun(1 SECONDS)
+
 			user.Stun(10)
 			user.do_attack_animation(target_airlock, ATTACK_EFFECT_SMASH)
 			playsound(get_turf(target_airlock), 'sound/effects/bang.ogg', 30, 1, -1)
+			if(brujah && level_current >= 3 && target_airlock.locked)
+				target_airlock.unbolt()
 			target_airlock.open(2) // open(2) is like a crowbar or jaws of life.
 
 /datum/action/cooldown/vampire/targeted/brawn/check_valid_target(atom/target_atom)
@@ -157,9 +192,10 @@
 	if(!.)
 		return FALSE
 
-	// Target has to be either: alive, a door, or a closet
-	if(!isliving(target_atom) && !istype(target_atom, /obj/machinery/door) && !istype(target_atom, /obj/structure/closet))
-		return FALSE
-	// Can't be inside of a closet
-	if(istype(owner.loc, /obj/structure/closet))
-		return FALSE
+	if(isliving(target_atom))
+		return TRUE
+	if(istype(target_atom, /obj/machinery/door/airlock))
+		return TRUE
+	if(istype(target_atom, /obj/structure/closet))
+		return TRUE
+
