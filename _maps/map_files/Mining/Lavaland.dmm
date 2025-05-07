@@ -1229,6 +1229,16 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"hU" = (
+/obj/structure/table,
+/obj/item/plate,
+/obj/item/kitchen/fork,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "hV" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3580,16 +3590,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/laborcamp)
-"Aa" = (
-/obj/structure/table,
-/obj/item/plate,
-/obj/item/kitchen/fork,
-/obj/item/reagent_containers/cup/glass/mug/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "Ab" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb,
@@ -3629,17 +3629,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
-"Av" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 4;
-	height = 10;
-	id = "mining_away";
-	name = "lavaland mine";
-	width = 10
-	},
-/turf/open/floor/plating/lavaland,
-/area/lavaland/surface/outdoors)
 "AA" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -3939,6 +3928,17 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
+"Ct" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "mining_away";
+	name = "lavaland mine";
+	width = 10
+	},
+/turf/open/floor/plating/lavaland,
+/area/lavaland/surface/outdoors)
 "Cv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -33428,7 +33428,7 @@ zc
 Iq
 zc
 ZT
-Aa
+hU
 Pe
 ar
 pj
@@ -39082,7 +39082,7 @@ Xa
 hb
 SX
 PA
-Av
+Ct
 rf
 rf
 rf
