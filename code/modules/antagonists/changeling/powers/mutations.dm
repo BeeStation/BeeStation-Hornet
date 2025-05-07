@@ -500,7 +500,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
-	blocks_shove_knockdown = TRUE
+	clothing_flags = BLOCKS_SHOVE_KNOCKDOWN
 	slowdown = 0
 
 

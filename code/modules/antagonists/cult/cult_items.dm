@@ -296,7 +296,8 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/anyone
 	allow_any = TRUE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/Initialize(mapload)
+	. = ..()
 	// note that these charges don't regenerate
 	AddComponent(/datum/component/shielded, \
 		max_integrity = 100, \
@@ -387,7 +388,7 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "zealot's blindfold"
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)

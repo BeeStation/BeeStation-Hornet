@@ -6328,19 +6328,6 @@
 	},
 /turf/open/floor/grass,
 /area/hydroponics)
-"bnT" = (
-/obj/structure/flora/grass/jungle/b,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/mob/living/basic/cow{
-	desc = "Allegedly a bull.";
-	name = "Otis";
-	real_name = "Betsy"
-	},
-/turf/open/floor/grass,
-/area/hydroponics)
 "boa" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/grassybush,
@@ -19056,26 +19043,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
-"ekM" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/machinery/door/airlock/external{
-	name = "Mining Dock Airlock";
-	req_access_txt = "48"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/miningoffice)
 "ekW" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/light/small{
@@ -27998,6 +27965,18 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
+"hgE" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "hhd" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet{
@@ -31267,17 +31246,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"ijm" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "iju" = (
 /obj/machinery/mass_driver{
 	dir = 1;
@@ -55766,6 +55734,19 @@
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/quartermaster/warehouse)
+"qfe" = (
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/mob/living/basic/cow{
+	desc = "Allegedly a bull.";
+	name = "Otis";
+	real_name = "Betsy"
+	},
+/turf/open/floor/grass,
+/area/hydroponics)
 "qfj" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -77828,6 +77809,26 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron,
 /area/hydroponics)
+"xcG" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/door/airlock/external{
+	name = "Mining Dock Airlock";
+	req_access_txt = "48"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/miningoffice)
 "xcO" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -98399,7 +98400,7 @@ chS
 xDC
 amA
 wdS
-crP
+jrs
 jrs
 lxw
 amA
@@ -115899,7 +115900,7 @@ bUP
 qra
 tzW
 cIA
-bnT
+qfe
 rby
 bmM
 xqT
@@ -122318,7 +122319,7 @@ sHT
 tKM
 bhH
 bhH
-ijm
+hgE
 ios
 rOZ
 uOB
@@ -124370,7 +124371,7 @@ bkd
 bUG
 bin
 bhW
-ekM
+xcG
 bhW
 bkc
 bUG

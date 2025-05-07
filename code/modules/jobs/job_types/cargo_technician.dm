@@ -12,8 +12,19 @@
 
 	outfit = /datum/outfit/job/cargo_technician
 
-	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_GATEWAY)
+	base_access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_CARGO,
+		ACCESS_MAILSORTING,
+		ACCESS_MINERAL_STOREROOM
+	)
+	extra_access = list(
+		ACCESS_QM,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MECH_MINING,
+		ACCESS_GATEWAY
+	)
 
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
@@ -40,3 +51,7 @@
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	l_hand = /obj/item/export_scanner
 
+/datum/outfit/job/cargo_tech/mod
+	name = "Cargo Technician (MODsuit)"
+
+	back = /obj/item/mod/control/pre_equipped/loader

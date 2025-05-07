@@ -41,6 +41,8 @@
 	var/list/mats_per_unit
 	///Datum material type that this stack is made of
 	var/material_type
+	/// Does this stack require a unique girder in order to make a wall?
+	var/has_unique_girder = FALSE
 	///Stores table variant to be built from this stack
 	var/obj/structure/table/tableVariant
 	/// Amount of matter for RCD

@@ -49,7 +49,10 @@
 /// Checks if we can start a zfall and then performs the zfall
 /// This function is recursive via zFall_Move -> attempt_z_impact -> zFall
 /turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null, from_zfall = FALSE)
-	var/turf/target = get_step_multiz(src, DOWN)
+	var/direction = DOWN
+	if(A.has_gravity() == NEGATIVE_GRAVITY)
+		direction = UP
+	var/turf/target = get_step_multiz(src, direction)
 	if(!can_start_zFall(A, target, force, from_zfall))
 		return FALSE
 	if(from_zfall) // if this is a >1 level fall

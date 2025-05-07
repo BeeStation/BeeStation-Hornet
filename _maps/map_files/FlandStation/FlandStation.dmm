@@ -6583,6 +6583,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"bGV" = (
+/mob/living/basic/cow{
+	name = "Betsy";
+	real_name = "Betsy"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "bHe" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
@@ -10410,29 +10421,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/surgery)
-"cLG" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
-/obj/machinery/door/window/southright{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/sign/map/right{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
-/obj/item/book/manual/wiki/sopmedical,
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "cLH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -13381,6 +13369,14 @@
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/port)
+"dBt" = (
+/mob/living/basic/cow{
+	desc = "Allegedly a bull.";
+	name = "Otis";
+	real_name = "Betsy"
+	},
+/turf/open/floor/grass,
+/area/hydroponics)
 "dBF" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -13457,6 +13453,43 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port/fore)
+"dCR" = (
+/obj/structure/closet/crate/secure/weapon{
+	desc = "A secure clothing crate.";
+	name = "formal uniform crate";
+	req_access_txt = "3"
+	},
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/under/rank/security/warden/formal,
+/obj/item/clothing/suit/jacket/warden/tan,
+/obj/item/clothing/under/rank/security/head_of_security/formal,
+/obj/item/clothing/suit/jacket/hos/blue,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navywarden,
+/obj/item/clothing/head/hats/hos/beret/navyhos,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 10
+	},
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "dCU" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -21445,43 +21478,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/main)
-"fBG" = (
-/obj/structure/closet/crate/secure/weapon{
-	desc = "A secure clothing crate.";
-	name = "formal uniform crate";
-	req_access_txt = "3"
-	},
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/under/rank/security/warden/formal,
-/obj/item/clothing/suit/jacket/warden/tan,
-/obj/item/clothing/under/rank/security/head_of_security/formal,
-/obj/item/clothing/suit/jacket/hos/blue,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navywarden,
-/obj/item/clothing/head/hats/hos/beret/navyhos,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 10
-	},
-/obj/machinery/light,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "fBJ" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -26780,13 +26776,6 @@
 	},
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
-"gPN" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/effect/turf_decal/bot,
-/obj/item/pen,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "gPO" = (
 /turf/open/floor/wood,
 /area/hallway/primary/aft)
@@ -37512,6 +37501,11 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/storage/tools)
+"jFY" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "jGt" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
@@ -50122,30 +50116,6 @@
 	dir = 6
 	},
 /area/ai_monitored/storage/eva)
-"mNq" = (
-/obj/structure/table,
-/obj/machinery/door/window/southleft{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/sign/map/left{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-left-fland";
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "mNx" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Central Primary Hallway - Central Port";
@@ -51390,14 +51360,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/auxiliary)
-"nfm" = (
-/mob/living/basic/cow{
-	desc = "Allegedly a bull.";
-	name = "Otis";
-	real_name = "Betsy"
-	},
-/turf/open/floor/grass,
-/area/hydroponics)
 "nfn" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -66336,6 +66298,36 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/supply)
+"rcg" = (
+/obj/structure/table,
+/obj/machinery/door/window/southleft{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
+	},
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/syringes,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "rci" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -68180,6 +68172,23 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"rAu" = (
+/obj/machinery/door/window/southright{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
+	},
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "rAx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -69478,17 +69487,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/main)
-"rPn" = (
-/mob/living/basic/cow{
-	name = "Betsy";
-	real_name = "Betsy"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/grass,
-/area/hydroponics/garden)
 "rPy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -115605,7 +115603,7 @@ jJI
 wuM
 kKQ
 mDo
-rPn
+bGV
 lZw
 iuQ
 lPB
@@ -120227,7 +120225,7 @@ gmj
 gFf
 aEX
 arZ
-nfm
+dBt
 kqY
 jEh
 aAu
@@ -125943,7 +125941,7 @@ kuT
 vVR
 uaf
 wMZ
-gPN
+jFY
 aJR
 quh
 qpR
@@ -127453,7 +127451,7 @@ oSQ
 iHC
 poJ
 poJ
-fBG
+dCR
 wWu
 qQj
 qQj
@@ -128432,7 +128430,7 @@ lLM
 lLM
 boD
 ayc
-mNq
+rcg
 erx
 nZt
 grU
@@ -128689,7 +128687,7 @@ lLM
 vuQ
 vuQ
 ayc
-cLG
+rAu
 gfu
 vkY
 wwZ

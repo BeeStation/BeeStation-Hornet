@@ -63,9 +63,13 @@
 
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
+
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
 /// Checks if the given mob is either a heretic or a heretic monster.
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
+
+//Tells whether or not someone is a space ninja
+#define IS_SPACE_NINJA(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ninja))
 
 /// Define for the heretic faction applied to heretics and heretic mobs.
 
