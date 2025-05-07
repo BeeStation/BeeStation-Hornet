@@ -1,7 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ae" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
-/obj/machinery/status_display/ai/directional/west,
 /obj/effect/turf_decal/alphabet/letter_u/quarter{
 	dir = 4
 	},
@@ -26,7 +25,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/status_display/evac/directional/west,
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "aI" = (
@@ -242,6 +241,10 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"gn" = (
+/obj/machinery/status_display/evac,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
 "go" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -256,7 +259,6 @@
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/machinery/light/small/directional/north,
-/obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "gG" = (
@@ -1101,13 +1103,11 @@
 	dir = 8
 	},
 /obj/item/clothing/gloves/color/latex,
-/obj/machinery/status_display/evac/directional/west,
 /turf/open/floor/iron/tiled,
 /area/shuttle/escape)
 "Gr" = (
-/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/machinery/status_display/ai/directional/east,
-/turf/open/floor/mineral/plastitanium,
+/obj/machinery/status_display/ai,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "Gw" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
@@ -1118,7 +1118,6 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/west,
-/obj/machinery/newscaster/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Gx" = (
@@ -1178,7 +1177,6 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east,
-/obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Hs" = (
@@ -1276,6 +1274,10 @@
 	pixel_x = 32
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"Kn" = (
+/obj/machinery/status_display/evac,
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
 "KG" = (
 /obj/effect/turf_decal/edges/borderfloor/black{
@@ -1539,7 +1541,6 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 4
 	},
-/obj/machinery/status_display/evac/directional/west,
 /turf/open/floor/monofloor{
 	dir = 8
 	},
@@ -1693,7 +1694,7 @@ gK
 uK
 yO
 LV
-Gr
+qV
 XS
 BE
 qV
@@ -1705,11 +1706,11 @@ uK
 (6,1,1) = {"
 JB
 uK
+gn
 uK
 uK
 uK
-uK
-uK
+Gr
 pL
 uK
 uK
@@ -1744,7 +1745,7 @@ gK
 (9,1,1) = {"
 gK
 qN
-qN
+LG
 GQ
 qN
 qx
@@ -1772,7 +1773,7 @@ uK
 aE
 Gi
 FO
-uK
+gn
 gy
 qV
 zi
@@ -1824,7 +1825,7 @@ uK
 NX
 Rr
 OT
-uK
+gn
 gy
 qV
 zi
@@ -1942,7 +1943,7 @@ hD
 NO
 hD
 hD
-hD
+Kn
 hD
 hD
 hD
