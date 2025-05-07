@@ -4475,16 +4475,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/structure/rack,
-/obj/item/storage/crayons{
-	pixel_y = 6
-	},
-/obj/item/storage/crayons{
-	pixel_y = 2
-	},
-/obj/item/storage/crayons{
-	pixel_y = -2
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -4493,6 +4483,8 @@
 	dir = 5
 	},
 /obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/vending/sticker,
 /turf/open/floor/iron/white,
 /area/storage/art)
 "aVH" = (
@@ -14704,6 +14696,7 @@
 	name = "Escape Pod 1"
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/engineering/hallway)
 "cWw" = (
@@ -20406,11 +20399,11 @@
 	},
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 1;
-	pixel_x = -5
+	pixel_x = -7
 	},
 /obj/item/reagent_containers/cup/bottle/vial{
 	pixel_y = 13;
-	pixel_x = 14;
+	pixel_x = 15;
 	name = "vial of plasma";
 	list_reagents = list(/datum/reagent/toxin/plasma = 5)
 	},
@@ -20929,10 +20922,6 @@
 	},
 /area/hallway/primary/port)
 "esb" = (
-/obj/structure/rack,
-/obj/item/camera,
-/obj/item/camera_film,
-/obj/item/camera_film,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -20941,6 +20930,16 @@
 	dir = 10
 	},
 /obj/machinery/requests_console/auto_name/directional/south,
+/obj/structure/rack,
+/obj/item/storage/crayons{
+	pixel_y = 6
+	},
+/obj/item/storage/crayons{
+	pixel_y = 2
+	},
+/obj/item/storage/crayons{
+	pixel_y = -2
+	},
 /turf/open/floor/iron/white,
 /area/storage/art)
 "esk" = (
@@ -24492,15 +24491,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
-"fgD" = (
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/effect/turf_decal/siding/blue{
-	dir = 6
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/aft)
 "fgE" = (
 /obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/iron/dark/side{
@@ -35843,6 +35833,9 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
+"hvb" = (
+/turf/closed/wall/rust,
+/area/crew_quarters/toilet/restrooms)
 "hvB" = (
 /obj/structure/sign/departments/minsky/security/security{
 	pixel_x = 32
@@ -36996,6 +36989,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod One"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/science/xenobiology)
 "hGJ" = (
@@ -38008,6 +38002,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "hSj" = (
@@ -48741,6 +48736,7 @@
 "kev" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/vending_refill/sticker,
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/central)
 "keI" = (
@@ -52887,6 +52883,13 @@
 	dir = 4
 	},
 /obj/structure/wall_closet/science/directional/east,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science/prescription,
+/obj/item/discovery_scanner{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/folder/blue,
 /turf/open/floor/iron/white,
 /area/science/research)
 "kXT" = (
@@ -56548,6 +56551,7 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/item/clothing/glasses/hud/health,
 /obj/machinery/light/small/directional/east,
+/obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "lMg" = (
@@ -60675,6 +60679,15 @@
 "mGp" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
+"mGx" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/siding/blue{
+	dir = 6
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/aft)
 "mGI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash{
@@ -83625,7 +83638,10 @@
 	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/siding/yellow,
-/obj/machinery/light_switch/directional/south,
+/obj/structure/wall_closet/generic/directional/south,
+/obj/item/camera,
+/obj/item/camera_film,
+/obj/item/camera_film,
 /turf/open/floor/iron/white,
 /area/storage/art)
 "rrQ" = (
@@ -84437,6 +84453,22 @@
 /obj/item/stock_parts/subspace/crystal{
 	pixel_x = 13;
 	pixel_y = -10
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "gibbl1";
+	pixel_y = 27;
+	pixel_x = 18;
+	name = "blood splatter";
+	desc = "It's red."
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "floor1";
+	pixel_y = -27;
+	pixel_x = 29;
+	name = "blood splatter";
+	desc = "It's red."
 	},
 /turf/open/floor/plating/ashplanet/ash{
 	initial_gas_mix = "TEMP=2.7"
@@ -87742,7 +87774,6 @@
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /obj/machinery/vending/wardrobe/medi_wardrobe,
 /obj/machinery/light/directional/east,
-/obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "slf" = (
@@ -88061,6 +88092,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod 1"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/security/main)
 "soN" = (
@@ -97094,6 +97126,14 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/crayon{
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "floor1";
+	pixel_y = 28;
+	pixel_x = 32;
+	name = "blood splatter";
+	desc = "It's red."
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "uiU" = (
@@ -102905,6 +102945,10 @@
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/security/armory)
+"vqN" = (
+/obj/machinery/status_display/ai,
+/turf/closed/wall/r_wall,
+/area/medical/medbay/central)
 "vra" = (
 /obj/effect/landmark/secequipment,
 /obj/effect/turf_decal/bot,
@@ -113388,6 +113432,12 @@
 /obj/effect/turf_decal/siding/dark/corner,
 /turf/open/floor/noslip/dark,
 /area/security/nuke_storage)
+"xAz" = (
+/mob/living/simple_animal/cardinal{
+	dir = 4
+	},
+/turf/open/floor/prison/dark,
+/area/hydroponics)
 "xAW" = (
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/computer/station_alert{
@@ -115294,6 +115344,14 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/spawner/lootdrop/maintenance/four,
 /obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/crayon{
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "gibbl1";
+	pixel_y = 27;
+	pixel_x = 18;
+	name = "blood splatter";
+	desc = "It's red."
+	},
 /turf/open/floor/iron/tech,
 /area/maintenance/disposal)
 "xVw" = (
@@ -133521,7 +133579,7 @@ xHB
 lZe
 kBN
 pLc
-nzj
+hyT
 nzj
 nzj
 nzj
@@ -133778,7 +133836,7 @@ wLK
 gZm
 kMC
 pLc
-nzj
+hyT
 nzj
 nzj
 nzj
@@ -134035,7 +134093,7 @@ dYv
 iJd
 tSz
 pLc
-nzj
+hyT
 nzj
 nzj
 nzj
@@ -136864,7 +136922,7 @@ nWd
 auA
 xbR
 xbR
-xbR
+hvb
 xac
 iOH
 qxv
@@ -137123,7 +137181,7 @@ vGP
 rmT
 xbR
 rza
-qxv
+mWf
 kSa
 mQw
 mQw
@@ -137379,7 +137437,7 @@ xbR
 xbR
 xbR
 xbR
-qxv
+mWf
 qxv
 qxv
 qxv
@@ -150745,7 +150803,7 @@ gLv
 qnj
 tKu
 eXh
-sKa
+xAz
 nnE
 mNQ
 daw
@@ -167211,7 +167269,7 @@ hRR
 xVg
 mgM
 hRR
-fgD
+mGx
 mgM
 hRR
 dup
@@ -169025,7 +169083,7 @@ iGk
 oKs
 uLM
 oKs
-jUl
+vqN
 oNV
 oNV
 oNV
