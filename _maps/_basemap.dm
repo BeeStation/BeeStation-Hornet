@@ -28,7 +28,7 @@
 		#include "map_files\flandstation\flandstation.dmm"
 		#include "map_files\RadStation\RadStation.dmm"
 		#include "map_files\EchoStation\EchoStation.dmm"
-		#include "map_files\CardStation\CardStation.dmm"
+		#include "map_files\CardinalStation\CardinalStation.dmm"
 
 		#ifdef CIBUILDING
 			#include "templates.dm"
