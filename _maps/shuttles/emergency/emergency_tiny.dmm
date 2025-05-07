@@ -54,14 +54,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"dI" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/shuttle,
-/turf/open/floor/grass/no_border,
-/area/shuttle/escape)
 "ec" = (
 /obj/machinery/light{
 	dir = 8
@@ -70,6 +62,25 @@
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
+/area/shuttle/escape)
+"ex" = (
+/obj/machinery/door/airlock/security{
+	req_one_access_txt = "2;19"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron,
+/area/shuttle/escape)
+"fX" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock/command{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "gg" = (
 /obj/effect/turf_decal/trimline/dark/warning,
@@ -103,13 +114,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"in" = (
-/obj/machinery/door/airlock/security{
-	req_one_access_txt = "2;19"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron,
+"kF" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/window/shuttle,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "lm" = (
 /obj/effect/turf_decal/bot,
@@ -637,17 +648,6 @@
 /obj/structure/reagent_dispensers/peppertank/directional/north,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"TL" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/door/airlock/command{
-	name = "Cockpit";
-	req_access_txt = "19"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron,
-/area/shuttle/escape)
 "Up" = (
 /obj/effect/spawner/structure/window/shuttle,
 /obj/structure/grille,
@@ -705,7 +705,7 @@ yG
 yG
 Nt
 aj
-dI
+kF
 vi
 Vn
 xX
@@ -751,7 +751,7 @@ sT
 yf
 UW
 tn
-in
+ex
 JM
 gy
 gy
@@ -768,7 +768,7 @@ xX
 nL
 hG
 xD
-TL
+fX
 wR
 Sm
 qq
@@ -843,7 +843,7 @@ Up
 Up
 nL
 nL
-dI
+kF
 NC
 nL
 nL

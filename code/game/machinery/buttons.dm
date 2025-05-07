@@ -43,15 +43,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		device = new device_type(src)
 
 	src.check_access(null)
-
-	if(req_access.len || req_one_access.len)
-		board = new(src)
-		if(req_access.len)
-			board.accesses = req_access
-		else
-			board.one_access = 1
-			board.accesses = req_one_access
-
+	board = new(src)
+	board.accesses = req_access
 
 /obj/machinery/button/update_icon()
 	cut_overlays()
@@ -91,10 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 				to_chat(user, span_warning("\The [W] is stuck to you!"))
 				return
 			board = W
-			if(board.one_access)
-				req_one_access = board.accesses
-			else
-				req_access = board.accesses
+			req_access = board.accesses
 			to_chat(user, span_notice("You add [W] to the button."))
 
 		if(!device && !board && W.tool_behaviour == TOOL_WRENCH)
@@ -117,7 +107,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 /obj/machinery/button/on_emag(mob/user)
 	..()
 	req_access = list()
-	req_one_access = list()
 	playsound(src, "sparks", 100, 1)
 
 /obj/machinery/button/eminence_act(mob/living/simple_animal/eminence/eminence)
@@ -152,7 +141,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 			if(board)
 				board.forceMove(drop_location())
 				req_access = list()
-				req_one_access = list()
 				board = null
 			update_icon()
 			to_chat(user, span_notice("You remove electronics from the button frame."))
@@ -217,12 +205,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 /obj/machinery/button/door/incinerator_vent_atmos_main
 	name = "turbine vent control"
 	id = INCINERATOR_ATMOS_MAINVENT
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
 
 /obj/machinery/button/door/incinerator_vent_atmos_aux
 	name = "combustion chamber vent control"
 	id = INCINERATOR_ATMOS_AUXVENT
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
 
 /obj/machinery/button/door/incinerator_vent_syndicatelava_main
 	name = "turbine vent control"

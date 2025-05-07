@@ -332,11 +332,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 						var/obj/item/electronics/airlock/ae
 						if(!electronics)
 							ae = new/obj/item/electronics/airlock(drop_location())
-							if(req_one_access)
-								ae.one_access = 1
-								ae.accesses = req_one_access
-							else
-								ae.accesses = req_access
+							ae.accesses = req_access
 						else
 							ae = electronics
 							electronics = null
@@ -444,7 +440,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
 /obj/machinery/door/window/brigdoor/security/holding
 	name = "holding cell door"
-	req_one_access = list(ACCESS_SEC_DOORS, ACCESS_LAWYER, ACCESS_BRIGPHYS) //love for the lawyer and Brig Phys
+	req_access = list(ACCESS_SEC_DOORS, ACCESS_LAWYER, ACCESS_BRIGPHYS) //love for the lawyer and Brig Phys
 
 /obj/machinery/door/window/clockwork
 	name = "brass windoor"

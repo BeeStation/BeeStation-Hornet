@@ -1,0 +1,2 @@
+/obj/machinery/door {req_one_access=@ANY} : /obj/machinery/door{@OLD; req_one_access=@SKIP; req_access=@OLD:req_one_access}
+/obj/machinery/door {req_one_access_txt=@ANY} : /obj/machinery/door{@OLD; req_one_access_txt=@SKIP; req_access_txt=@OLD:req_one_access_txt}

@@ -28,7 +28,6 @@
 /obj/machinery/doorButtons/on_emag(mob/user)
 	..()
 	req_access = list()
-	req_one_access = list()
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, span_warning("You short out the access controller."))
 

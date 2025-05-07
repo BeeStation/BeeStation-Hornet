@@ -12,4 +12,4 @@
 	desc = "A one-way shuttle console, used to summon the shuttle to the labor camp."
 	recall_docking_port_id = "laborcamp_away"
 	circuit = /obj/item/circuitboard/computer/shuttle/labor_shuttle/one_way
-	req_access = list( )
+	req_access = list()
