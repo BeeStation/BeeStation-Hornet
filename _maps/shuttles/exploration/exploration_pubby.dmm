@@ -10,10 +10,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"cu" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/template_noop,
-/area/shuttle/exploration)
 "cH" = (
 /obj/machinery/computer/rdconsole{
 	dir = 1
@@ -23,10 +19,6 @@
 /area/shuttle/exploration)
 "da" = (
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/exploration)
-"fr" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/space/basic,
 /area/shuttle/exploration)
 "fF" = (
 /obj/effect/turf_decal/stripes/line{
@@ -73,7 +65,7 @@
 	pixel_y = 22;
 	pixel_x = 7
 	},
-/turf/open/space/basic,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "kp" = (
 /obj/structure/table,
@@ -88,6 +80,8 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/power/port_gen/pacman,
+/obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/wrench,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "mi" = (
@@ -117,10 +111,6 @@
 	dir = 6
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"pG" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "qa" = (
 /obj/effect/turf_decal/stripes/line{
@@ -437,7 +427,7 @@
 	pixel_y = 22;
 	pixel_x = -7
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "NT" = (
 /obj/structure/chair/fancy/shuttle,
@@ -518,6 +508,7 @@
 /obj/item/radio/headset/headset_exploration,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/item/wrench,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Rk" = (
@@ -561,7 +552,7 @@
 	pixel_y = 22;
 	pixel_x = 7
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "Vl" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -618,6 +609,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 
@@ -630,9 +622,9 @@ sz
 UB
 sz
 da
-fr
+oC
 da
-fr
+oC
 da
 da
 Nx
@@ -652,7 +644,7 @@ qX
 qa
 Qx
 ll
-fr
+oC
 KU
 Yi
 CU
@@ -661,7 +653,7 @@ hl
 "}
 (3,1,1) = {"
 RQ
-cu
+oC
 oC
 da
 Rp
@@ -680,7 +672,7 @@ Vl
 "}
 (4,1,1) = {"
 RQ
-cu
+oC
 zN
 ir
 oH
@@ -699,7 +691,7 @@ RQ
 "}
 (5,1,1) = {"
 RQ
-cu
+oC
 sE
 OE
 po
@@ -718,7 +710,7 @@ RQ
 "}
 (6,1,1) = {"
 RQ
-cu
+oC
 aR
 ir
 Dl
@@ -737,7 +729,7 @@ RQ
 "}
 (7,1,1) = {"
 RQ
-pG
+oC
 oC
 da
 mi
@@ -766,7 +758,7 @@ In
 BX
 IP
 HD
-fr
+oC
 qi
 Yi
 CU
@@ -782,7 +774,7 @@ GH
 XI
 GH
 da
-fr
+oC
 da
 ZX
 da
