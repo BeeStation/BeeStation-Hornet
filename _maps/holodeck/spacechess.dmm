@@ -37,17 +37,7 @@
 /area/template_noop)
 "g" = (
 /obj/structure/chess/blackrook,
-/obj/effect/turf_decal/board_number/eight{
-	dir = 4
-	},
 /turf/open/floor/holofloor/chess_black,
-/area/template_noop)
-"h" = (
-/obj/structure/chess/blackpawn,
-/obj/effect/turf_decal/board_number/seven{
-	dir = 4
-	},
-/turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "i" = (
 /obj/structure/chess/blackknight,
@@ -131,38 +121,16 @@
 /obj/effect/turf_decal/board_letter/g,
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
-"B" = (
-/obj/structure/chess/whitepawn,
-/obj/effect/turf_decal/board_number/two{
-	dir = 4
-	},
-/turf/open/floor/holofloor/chess_black,
-/area/template_noop)
 "C" = (
 /obj/structure/chess/blackking,
 /turf/open/floor/holofloor/chess_white,
 /area/template_noop)
-"D" = (
-/obj/effect/turf_decal/board_number/three{
-	dir = 4
-	},
-/turf/open/floor/holofloor/chess_white,
-/area/template_noop)
 "E" = (
 /obj/structure/chess/whiterook,
-/obj/effect/turf_decal/board_number/one{
-	dir = 4
-	},
 /turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "F" = (
 /obj/structure/chess/blackpawn,
-/turf/open/floor/holofloor/chess_white,
-/area/template_noop)
-"G" = (
-/obj/effect/turf_decal/board_number/five{
-	dir = 4
-	},
 /turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "H" = (
@@ -231,12 +199,6 @@
 /obj/effect/turf_decal/board_letter/d,
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
-"U" = (
-/obj/effect/turf_decal/board_number/four{
-	dir = 4
-	},
-/turf/open/floor/holofloor/chess_black,
-/area/template_noop)
 "V" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/board_letter/b,
@@ -253,12 +215,6 @@
 "Y" = (
 /obj/structure/chess/whitepawn,
 /turf/open/floor/holofloor/chess_white,
-/area/template_noop)
-"Z" = (
-/obj/effect/turf_decal/board_number/six{
-	dir = 4
-	},
-/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -360,12 +316,12 @@ p
 (9,1,1) = {"
 O
 g
-h
-Z
-G
-U
-D
-B
+F
+N
+q
+N
+q
+Q
 E
 p
 "}
