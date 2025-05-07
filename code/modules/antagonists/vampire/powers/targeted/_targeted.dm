@@ -51,7 +51,7 @@
 		return FALSE
 
 	if(owner.click_intercept)
-		owner.balloon_alert("already using a targeted power!")
+		owner.balloon_alert(owner, "already using a targeted power!")
 		return FALSE
 
 /// Check if target is VALID (wall, turf, or character?)
