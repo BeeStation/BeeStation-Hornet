@@ -56,7 +56,7 @@ map echostation
 	votable
 endmap
 
-map cardstation
+map cardinalstation
 	minplayers 25
 	votable
 endmap

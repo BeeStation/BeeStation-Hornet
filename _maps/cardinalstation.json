@@ -1,8 +1,8 @@
 {
 	"map_name": "Card Station",
-	"map_link": "cardstation",
-	"map_path": "map_files/CardStation",
-	"map_file": "CardStation.dmm",
+	"map_link": "cardinalstation",
+	"map_path": "map_files/CardinalStation",
+	"map_file": "CardinalStation.dmm",
 	"shuttles": {
 		"cargo": "cargo_card",
 		"ferry": "ferry_standard",

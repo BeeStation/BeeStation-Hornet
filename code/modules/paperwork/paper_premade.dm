@@ -148,9 +148,9 @@
 	and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \
 	We hope you enjoy your stay!"
 
-//////////// CardStation
+//////////// CardinalStation
 
-/obj/item/paper/fluff/stations/cardstation/medbay_blood
+/obj/item/paper/fluff/stations/cardinalstation/medbay_blood
 	name = "Medbay Storage Closet"
 	default_raw_text = "<i>Since I'm going to be on vacation leave for the next few cycles, \
 	I just wanted to let you know that other than the blood freezer in the surgery room, there's \
