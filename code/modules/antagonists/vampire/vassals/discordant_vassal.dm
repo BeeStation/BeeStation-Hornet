@@ -27,7 +27,7 @@
 	new_objective.owner = owner
 	objectives += new_objective
 
-/datum/antagonist/vassal/greet()
+/datum/antagonist/vassal/discordant/greet()
 	to_chat(owner, span_cultbigbold("You are now a Discordant Vassal!"))
 	to_chat(owner, span_cult("All claims to authority that you might've \
 		once had are now null and void. Liberate all of those who you once considered below you: \
