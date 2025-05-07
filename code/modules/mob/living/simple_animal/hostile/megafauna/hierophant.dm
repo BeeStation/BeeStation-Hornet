@@ -695,7 +695,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 				continue
 			to_chat(occupant, span_userdanger("Your [M.name] is struck by a [name]!"))
 			playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-			M.apply_damage(damage, 0, BURN, sound = 0)
+			M.deal_damage(damage, 0, BURN, DAMAGE_LASER, sound = 0)
 
 /obj/effect/temp_visual/hierophant/blast/vortex
 	damage = 25

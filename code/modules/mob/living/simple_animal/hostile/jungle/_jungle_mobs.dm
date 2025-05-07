@@ -2,7 +2,6 @@
 	vision_range = 5
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list(FACTION_JUNGLE)
-	weather_immunities = list(ACID)
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	minbodytemp = 0
@@ -16,7 +15,7 @@
 	mob_size = MOB_SIZE_LARGE
 	hardattacks = TRUE
 	discovery_points = 2000
-	armor = /datum/armor/jungle_mob
+	armor_type = /datum/armor/jungle_mob
 
 /// Fully immune to acid rain
 /datum/armor/jungle_mob
