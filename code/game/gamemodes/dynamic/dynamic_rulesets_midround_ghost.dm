@@ -86,28 +86,28 @@
 	if(!length(candidates))
 		return
 
-	message_admins("Polling [length(candidates)] players to apply for the [name] ruleset.")
-	log_game("DYNAMIC: Polling [length(candidates)] players to apply for the [name] ruleset.")
+	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
+	log_game("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
-	candidates = poll_ghost_candidates("Looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference)
+	candidates = poll_ghost_candidates("Looking for volunteers to become [initial(antag_datum.name)] for [src]", initial(antag_datum.banning_key), role_preference)
 
 	if(!length(candidates))
-		message_admins("The ruleset [name] received no applications.")
-		log_game("DYNAMIC: The ruleset [name] received no applications.")
+		message_admins("DYNAMIC: The ruleset [src] received no applications.")
+		log_game("DYNAMIC: The ruleset [src] received no applications.")
 		return
 
 	if(length(candidates) >= drafted_players_amount)
-		message_admins("[length(candidates)] players volunteered for the ruleset [name].")
-		log_game("DYNAMIC: [length(candidates)] players volunteered for [name].")
+		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
+		log_game("DYNAMIC: [length(candidates)] player\s volunteered for [src].")
 		return
 	else
-		message_admins("Not enough players volunteered for the ruleset [name] - [length(candidates)] out of [drafted_players_amount].")
-		log_game("DYNAMIC: FAIL: Not enough players volunteered for the ruleset [name] - [length(candidates)] out of [drafted_players_amount].")
+		message_admins("Not enough players volunteered for the ruleset [src] - [length(candidates)] out of [drafted_players_amount].")
+		log_game("DYNAMIC: FAIL: Not enough players volunteered for the ruleset [src] - [length(candidates)] out of [drafted_players_amount].")
 
 /*
 * Spawn the antag's body
 */
-/datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/carbon/human/new_body = makeBody(chosen_mob)
 	new_body.dna.remove_all_mutations()
 	return new_body
@@ -190,7 +190,7 @@
 	points_cost = 50
 	weight = 6
 
-/datum/dynamic_ruleset/midround/ghost/blob/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/blob/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/camera/blob/body = chosen_mob.become_overmind()
 	return body
 
@@ -208,7 +208,7 @@
 	points_cost = 50
 	weight = 4
 
-/datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/obj/vent = pick_n_take(spawn_locations)
 	var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 	new_xeno.key = chosen_mob.key
@@ -245,9 +245,12 @@
 	points_cost = 40
 	weight = 6
 
-/datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/chosen_mob)
-	var/mob/living/simple_animal/hostile/space_dragon/dragon_body = new (pick(spawn_locations))
-	chosen_mob.mind.transfer_to(dragon_body)
+/datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/dead/observer/chosen_mob)
+	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
+	player_mind.active = TRUE
+
+	var/mob/living/simple_animal/hostile/space_dragon/dragon_body = new(pick(spawn_locations))
+	player_mind.transfer_to(dragon_body)
 
 	playsound(dragon_body, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert")
@@ -268,8 +271,8 @@
 	points_cost = 40
 	weight = 6
 
-/datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/chosen_mob)
-	var/mob/living/simple_animal/hostile/space_dragon/ninja_body = create_space_ninja(pick(spawn_locations))
+/datum/dynamic_ruleset/midround/ghost/ninja/generate_ruleset_body(mob/dead/observer/chosen_mob)
+	var/mob/living/carbon/human/ninja_body = create_space_ninja(pick(spawn_locations))
 	chosen_mob.mind.transfer_to(ninja_body)
 
 	return ninja_body
@@ -293,7 +296,7 @@
 		if(potential_spawn.get_lumcount() < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			spawn_locations += potential_spawn
 
-/datum/dynamic_ruleset/midround/ghost/nightmare/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/nightmare/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/carbon/human/nightmare_body = new (pick(spawn_locations))
 	nightmare_body.set_species(/datum/species/shadow/nightmare)
 	chosen_mob.mind.transfer_to(nightmare_body)
@@ -378,7 +381,7 @@
 	if(!length(spawn_locations))
 		return ..()
 
-/datum/dynamic_ruleset/midround/ghost/revenant/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/revenant/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locations)
 	if(!spawnable_turf)
 		spawnable_turf = pick(spawn_locations)
@@ -395,8 +398,7 @@
 //////////////////////////////////////////////
 
 /// This is a weird one.
-/// This ruleset doesn't actually spawn pirates, instead it triggers the pirate threat.
-/// Hence the low points_cost
+/// This ruleset doesn't actually spawn pirates, instead it triggers the pirate threat, hence the low points cost
 
 /datum/dynamic_ruleset/midround/ghost/pirates
 	name = "Space Pirates"
@@ -440,7 +442,7 @@
 
 	var/datum/team/spiders/team
 
-/datum/dynamic_ruleset/midround/ghost/spiders/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/spiders/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/obj/vent = pick_n_take(spawn_locations)
 	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new(vent.loc)
 	chosen_mob.mind.transfer_to(broodmother_body)
@@ -494,7 +496,7 @@
 
 	var/announce_probability = 25
 
-/datum/dynamic_ruleset/midround/ghost/swarmer/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/swarmer/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/simple_animal/hostile/swarmer/swarmer_body = new(pick(spawn_locations))
 	chosen_mob.mind.transfer_to(swarmer_body)
 
@@ -522,7 +524,7 @@
 	points_cost = 30
 	weight = 4
 
-/datum/dynamic_ruleset/midround/ghost/morph/generate_ruleset_body(mob/chosen_mob)
+/datum/dynamic_ruleset/midround/ghost/morph/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/simple_animal/hostile/morph/morph_body = new(pick(spawn_locations))
 	chosen_mob.mind.transfer_to(morph_body)
 

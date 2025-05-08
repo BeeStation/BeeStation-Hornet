@@ -81,7 +81,7 @@
 #endif
 
 		// Already assigned antag?
-		if(candidate.mind.special_role)
+		if(candidate.mind?.special_role && !isobserver(candidate))
 			candidates -= candidate
 			continue
 

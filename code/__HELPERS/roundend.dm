@@ -376,7 +376,7 @@
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 
 		// Roundstart
-		parts += "[FOURSPACES]Executed roundstart rulesets:\n"
+		parts += "[FOURSPACES]Executed roundstart rulesets:"
 		var/list/roundstart_rule_counts = list()
 		for(var/datum/dynamic_ruleset/rule in mode.roundstart_executed_rulesets)
 			if(roundstart_rule_counts[rule])
@@ -387,7 +387,7 @@
 			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
 
 		// Midround
-		parts += "[FOURSPACES]Executed midround rulesets:\n"
+		parts += "[FOURSPACES]Executed midround rulesets:"
 		var/list/midround_rule_counts = list()
 		for(var/datum/dynamic_ruleset/rule in mode.midround_executed_rulesets)
 			if(midround_rule_counts[rule])
@@ -395,10 +395,10 @@
 			else
 				midround_rule_counts[rule] = 1
 		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			parts += "[FOURSPACES][FOURSPACES][rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
+			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
 
 		// Latejoin
-		parts += "[FOURSPACES]Executed latejoin rulesets:\n"
+		parts += "[FOURSPACES]Executed latejoin rulesets:"
 		var/list/latejoin_rule_counts = list()
 		for(var/datum/dynamic_ruleset/rule in mode.latejoin_executed_rulesets)
 			if(latejoin_rule_counts[rule])
@@ -406,7 +406,7 @@
 			else
 				latejoin_rule_counts[rule] = 1
 		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			parts += "[FOURSPACES][FOURSPACES]<b>[rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
+			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
 
 	return parts.Join("<br>")
 
@@ -827,7 +827,7 @@
 			else
 				roundstart_rule_counts[rule] = 1
 		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
-			discordmsg += "<b>[rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
+			discordmsg += "[rule.name]" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
 
 		// Midround
 		discordmsg += "Executed midround rulesets:\n"
@@ -838,7 +838,7 @@
 			else
 				midround_rule_counts[rule] = 1
 		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			discordmsg += "<b>[rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
+			discordmsg += "[rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
 
 		// Latejoin
 		discordmsg += "Executed latejoin rulesets:\n"
@@ -849,7 +849,7 @@
 			else
 				latejoin_rule_counts[rule] = 1
 		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			discordmsg += "<b>[rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
+			discordmsg += "[rule.name]" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
