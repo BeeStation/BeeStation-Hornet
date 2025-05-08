@@ -673,6 +673,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	desc = "A poster begging you to max your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
 	icon_state = "poster50"
 
+/obj/structure/sign/poster/official/xenoarchaeology
+	name = "Xenoarchaeology"
+	desc = "A poster with featuring several diagrams of artifacts.\
+	\n\
+	Artifacts can be labeled and sold through cargo to obtain research & discovery points.\n\
+	Poorly labeled artifacts will yield fewer rewards than accurately labeled ones."
+	icon_state = "poster52"
+
+/obj/structure/sign/poster/official/xenoarchaeology_pearl
+	name = "???"
+	desc = "A poster featuring an artifact you don't recognize.\
+	\n\
+	Legends say, artifacts can be made by striking objects with nuclear particles while submerged in tritium. They also \
+	say once stabilized, artifacts behave strangely when aligned to certain grids, related to \
+	the characteristics of their traits."
+	icon_state = "poster52"
+
 /obj/structure/sign/poster/contraband/syndicate
 	name = "Syndicate Emblem"
 	desc = "Almost anyone could recognize this as the logo of the Syndicate."
