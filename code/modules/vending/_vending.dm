@@ -667,7 +667,7 @@
 							qdel(O)
 							new /obj/effect/gibspawner/human/bodypartless(get_turf(C))
 
-				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
+				C.take_direct_damage(max(0, squish_damage - crit_rebate))
 				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
 				L.visible_message(span_danger("[L] is crushed by [src]!"), \

@@ -122,7 +122,7 @@
 		"[user] begins to saw through the bone in [target]'s [parse_zone(surgery.location)].")
 
 /datum/surgery_step/saw/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	target.apply_damage(50, BRUTE, "[surgery.location]")
+	target.take_direct_damage(50, BRUTE, zone = "[surgery.location]")
 	display_results(user, target, span_notice("You saw [target]'s [parse_zone(surgery.location)] open."),
 		"[user] saws [target]'s [parse_zone(surgery.location)] open!",
 		"[user] saws [target]'s [parse_zone(surgery.location)] open!")

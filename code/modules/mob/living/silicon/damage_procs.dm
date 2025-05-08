@@ -1,17 +1,13 @@
 
-/mob/living/silicon/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, damage_flag = NONE, sharpness = 0)
-	var/hit_percent = (100-blocked)/100
-	if((!damage || (!forced && hit_percent <= 0)))
-		return 0
-	var/damage_amount = forced ? damage : damage * hit_percent
-	switch(damagetype)
+/mob/living/silicon/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	switch(type)
 		if(BRUTE)
-			adjustBruteLoss(damage_amount, forced = forced)
+			adjustBruteLoss(amount, forced = TRUE)
 		if(BURN)
-			adjustFireLoss(damage_amount, forced = forced)
+			adjustFireLoss(amount, forced = TRUE)
 		if(OXY)
-			if(damage < 0 || forced) //we shouldn't be taking oxygen damage through this proc, but we'll let it heal.
-				adjustOxyLoss(damage_amount, forced = forced)
+			if(amount < 0)
+				adjustOxyLoss(amount, forced = TRUE)
 	return 1
 
 

@@ -64,7 +64,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 /obj/docking_port/has_gravity(turf/current_turf)
 	return TRUE
 
-/obj/docking_port/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
+/obj/docking_port/take_direct_damage(amount, type, flag, zone)
 	return
 
 /obj/docking_port/singularity_pull()

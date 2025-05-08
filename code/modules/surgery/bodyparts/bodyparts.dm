@@ -101,7 +101,7 @@
 	/// Amount of penetration that the skin will reduce an attack by
 	var/skin_penetration_resistance = 5
 	// The amount of damage that will be deleted when the damage reaches bones
-	var/bone_deflection = 15
+	var/bone_deflection = 5
 	/// The amount of health that bones have before the user takes bones injuries
 	var/bone_max_health = 40
 	var/bone_health = 40
@@ -696,7 +696,7 @@
 		message_admins("Injury gained: Broken skin")
 		check_effectiveness()
 	// Reduce penetration
-	penetration_power -= skin_penetration_resistance
+	penetration_power -= rand(0, skin_penetration_resistance)
 	// Deflection - Permanently reduces damage
 	damage -= bone_deflection
 	current_damage = damage
@@ -715,7 +715,7 @@
 		if (!(locate(/datum/injury/broken_bone) in injuries))
 			LAZYADD(injuries, new /datum/injury/broken_bone)
 	// Bone pentration
-	penetration_power -= bone_penetration_resistance
+	penetration_power -= rand(0, bone_penetration_resistance)
 	current_damage = damage
 	if (penetration_power < INJURY_PENETRATION_MINIMUM)
 		return

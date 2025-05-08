@@ -80,8 +80,8 @@
 	else
 		H.visible_message(span_danger("[H] falls [levels] level\s into [T], barely landing on [H.p_their()] feet, with a sickening crunch!"))
 		var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.5
-		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
-		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
+		H.deal_damage(amount_total * 0.45, 0, BRUTE, zone = BODY_ZONE_L_LEG)
+		H.deal_damage(amount_total * 0.45, 0, BRUTE, zone = BODY_ZONE_R_LEG)
 		H.adjustBruteLoss(amount_total * 0.1)
 		H.Stun(levels * 50)
 		// SPLAT!

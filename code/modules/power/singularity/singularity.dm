@@ -75,7 +75,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 		)
 	jedi.Stun(3 SECONDS)
 	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
-	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
+	jedi.take_direct_damage(30, BRUTE, zone = BODY_ZONE_HEAD)
 	if(QDELETED(jedi))
 		return // damage was too much
 	if(jedi.stat == DEAD)
@@ -91,7 +91,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	if(QDELETED(jedi))
 		return
 	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
-	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
+	jedi.take_direct_damage(30, BRUTE, zone = BODY_ZONE_HEAD)
 	if(QDELETED(jedi))
 		return // damage was too much
 	if(jedi.stat == DEAD)
@@ -108,7 +108,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	if(QDELETED(jedi))
 		return
 	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
-	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
+	jedi.take_direct_damage(30, BRUTE, zone = BODY_ZONE_HEAD)
 	if(QDELETED(jedi))
 		return // damage was too much
 	jedi.ghostize()

@@ -1079,7 +1079,7 @@
 		src.emote("gasp")
 	else
 		src.emote("scream")
-	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+	src.deal_damage(power, 0, BRUTE, zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
 
 /mob/living/carbon/human/monkeybrain

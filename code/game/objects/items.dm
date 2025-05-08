@@ -696,7 +696,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/blockhand = 0
 	var/attackforce = 0
 	var/attackflag = DAMAGE_STANDARD
-	var/sharpness = 0
 	if(owner.get_active_held_item() == src) //this feels so hacky...
 		if(owner.active_hand_index == 1)
 			blockhand = BODY_ZONE_L_ARM

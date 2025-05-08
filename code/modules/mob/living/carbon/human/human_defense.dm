@@ -1,3 +1,15 @@
+/mob/living/carbon/human/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	// depending on the species, it will run the corresponding apply_damage code there
+	if(stat != DEAD && (type == BRUTE || type == BURN) && amount > 10 && prob(10 + amount / 2))
+		INVOKE_ASYNC(src, PROC_REF(emote), "scream")
+	..()
+	dna.species.after_damage_taken(src, amount, type, flag, zone)
+
+/mob/living/carbon/human/revive(full_heal = 0, admin_revive = 0)
+	if(..())
+		if(dna && dna.species)
+			dna.species.spec_revival(src)
+
 /mob/living/carbon/human/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
 	var/armorval = 0
 	var/organnum = 0
@@ -6,15 +18,15 @@
 		if(isbodypart(bodyzone))
 			var/obj/item/bodypart/bp = bodyzone
 			if(bp)
-				return checkarmor(bodyzone, type)
+				return checkarmor(bodyzone, armour_flag)
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(bodyzone))
 		if(affecting)
-			return checkarmor(affecting, type)
+			return checkarmor(affecting, armour_flag)
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		armorval += checkarmor(BP, type)
+		armorval += checkarmor(BP, armour_flag)
 		organnum++
 	return (armorval/max(organnum, 1))
 
@@ -355,8 +367,8 @@
 				adjustEarDamage(15,60)
 			Knockdown(160 - (bomb_armor * 1.6))		//100 bomb armor will prevent knockdown altogether
 
-	apply_damage(brute_loss, BRUTE, blocked = (bomb_armor * 0.6))
-	apply_damage(burn_loss, BURN, blocked = (bomb_armor * 0.6))
+	deal_damage(brute_loss, 0, BRUTE, DAMAGE_BOMB)
+	deal_damage(burn_loss, 0, BURN, DAMAGE_BOMB)
 
 	//attempt to dismember bodyparts
 	if(severity >= EXPLODE_HEAVY || !bomb_armor)

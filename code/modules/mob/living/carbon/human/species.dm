@@ -1846,64 +1846,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)
 	return TRUE
 
-/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, damage_flag = NONE, sharpness = 0)
-	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
-	var/hit_percent = (100-(blocked+armor))/100
-	hit_percent = (hit_percent * (100-H.physiology.damage_resistance))/100
-	if(!damage || (!forced && hit_percent <= 0))
-		return 0
-
-	var/obj/item/bodypart/BP = null
-	if(isbodypart(def_zone))
-		BP = def_zone
-	else
-		if(!def_zone)
-			def_zone = check_zone(def_zone)
-		BP = H.get_bodypart(check_zone(def_zone))
-		if(!BP)
-			BP = H.bodyparts[1]
-
-	switch(damagetype)
-		if(BRUTE)
-			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * brutemod * H.physiology.brute_mod
-			if(BP)
-				if(BP.receive_damage(damage_amount, 0))
-					H.update_damage_overlays()
-				if (damage_flag)
-					BP.run_limb_injuries(damage_amount, damage_flag, sharpness)
-			else//no bodypart, we deal damage with a more general method.
-				H.adjustBruteLoss(damage_amount)
-		if(BURN)
-			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
-			if(BP)
-				if(BP.receive_damage(0, damage_amount))
-					H.update_damage_overlays()
-				if (damage_flag)
-					BP.run_limb_injuries(damage_amount, damage_flag, sharpness)
-			else
-				H.adjustFireLoss(damage_amount)
-		if(TOX)
-			var/damage_amount = forced ? damage : damage * hit_percent * toxmod * H.physiology.tox_mod
-			H.adjustToxLoss(damage_amount)
-		if(OXY)
-			var/damage_amount = forced ? damage : damage * oxymod * hit_percent * H.physiology.oxy_mod
-			H.adjustOxyLoss(damage_amount)
-		if(CLONE)
-			var/damage_amount = forced ? damage : damage * hit_percent * clonemod * H.physiology.clone_mod
-			H.adjustCloneLoss(damage_amount)
-		if(STAMINA)
-			var/damage_amount = forced ? damage : damage * hit_percent * staminamod * H.physiology.stamina_mod
-			if(BP)
-				if(BP.receive_damage(0, 0, damage_amount))
-					H.update_stamina(TRUE)
-			else
-				H.adjustStaminaLoss(damage_amount)
-		if(BRAIN)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.brain_mod
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage_amount)
-	return 1
+/datum/species/proc/after_damage_taken(mob/living/carbon/human/owner, amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	SEND_SIGNAL(owner, COMSIG_MOB_APPLY_DAMGE, amount, type, zone)
 
 /datum/species/proc/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	// called when hit by a projectile
@@ -2132,11 +2076,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(humi.coretemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
 		switch(humi.coretemperature)
 			if(201 to INFINITY)
-				humi.apply_damage(COLD_DAMAGE_LEVEL_1 * coldmod * humi.physiology.cold_mod, BURN)
+				humi.take_direct_damage(COLD_DAMAGE_LEVEL_1 * coldmod * humi.physiology.cold_mod, BURN)
 			if(120 to 200)
-				humi.apply_damage(COLD_DAMAGE_LEVEL_2 * coldmod * humi.physiology.cold_mod, BURN)
+				humi.take_direct_damage(COLD_DAMAGE_LEVEL_2 * coldmod * humi.physiology.cold_mod, BURN)
 			else
-				humi.apply_damage(COLD_DAMAGE_LEVEL_3 * coldmod * humi.physiology.cold_mod, BURN)
+				humi.take_direct_damage(COLD_DAMAGE_LEVEL_3 * coldmod * humi.physiology.cold_mod, BURN)
 
 /**
  * Used to apply burn wounds on random limbs
@@ -2180,7 +2124,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(humi.bodytemperature > BODYTEMP_HEAT_WOUND_LIMIT + 2800)
 		burn_damage = HEAT_DAMAGE_LEVEL_3
 
-	humi.apply_damage(burn_damage, BURN, bodypart)
+	humi.take_direct_damage(burn_damage, BURN, zone = bodypart.body_zone)
 
 /// Handle the air pressure of the environment
 /datum/species/proc/handle_environment_pressure(datum/gas_mixture/environment, mob/living/carbon/human/H)

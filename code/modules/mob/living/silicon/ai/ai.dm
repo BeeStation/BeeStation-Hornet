@@ -993,9 +993,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 								qdel(head)
 								new /obj/effect/gibspawner/human/bodypartless(get_turf(target))
 
-					carbon_target.apply_damage(damage, forced = TRUE)
+					carbon_target.take_direct_damage(damage)
 				else
-					living_target.apply_damage(damage, forced = TRUE)
+					living_target.take_direct_damage(damage)
 
 				living_target.Paralyze(paralyze_time)
 				living_target.emote("scream")

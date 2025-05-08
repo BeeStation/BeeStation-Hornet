@@ -15,7 +15,7 @@
 			dismembering_strike(M, affecting.body_zone)
 		if(stat != DEAD)
 			var/dmg = rand(1, 5)
-			apply_damage(dmg, BRUTE, affecting)
+			deal_damage(dmg, SHARP_III, BRUTE, affecting)
 
 /mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
@@ -25,7 +25,7 @@
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage(damage, BRUTE, affecting)
+			deal_damage(damage, SHARP_I, BRUTE, affecting)
 
 /mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M, list/modifiers)
 	if(..())	//To allow surgery to return properly.
@@ -44,7 +44,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, BRUTE, affecting)
+		deal_damage(damage, M.dna.species.attack_sharpness, BRUTE, affecting)
 		log_combat(M, src, "attacked", "harm")
 	else
 		help_shake_act(M)
@@ -73,7 +73,7 @@
 					affecting = get_bodypart(BODY_ZONE_CHEST)
 				if(!dismembering_strike(M, affecting.body_zone)) //Dismemberment successful
 					return 1
-				apply_damage(damage, BRUTE, affecting)
+				deal_damage(damage, SHARP_III, BRUTE, affecting)
 
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
@@ -111,7 +111,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, M.melee_damage_type, affecting)
+		deal_damage(damage, M.sharpness, M.melee_damage_type, affecting)
 
 /mob/living/carbon/monkey/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -126,7 +126,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, BRUTE, affecting)
+		deal_damage(damage, M.sharpness, BRUTE, affecting)
 
 /mob/living/carbon/monkey/acid_act(acidpwr, acid_volume, bodyzone_hit)
 	. = 1

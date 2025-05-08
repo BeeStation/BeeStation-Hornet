@@ -83,10 +83,9 @@
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
 	. = min(20, amount)
 
-/datum/species/zombie/infectious/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
-	. = ..()
-	if(.)
-		COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY)
+/datum/species/zombie/infectious/after_damage_taken(mob/living/carbon/human/owner, amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	..()
+	COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY)
 
 /datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
 	. = ..()

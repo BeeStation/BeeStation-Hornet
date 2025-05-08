@@ -105,7 +105,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/projected_forcefield)
 /obj/structure/projected_forcefield/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(loc, 'sound/weapons/egloves.ogg', 80, 1)
 
-/obj/structure/projected_forcefield/take_direct_damage(amount, type, flag, zone)
+/obj/structure/projected_forcefield/deal_damage(amount, penetration, type = BRUTE, flag = DAMAGE_STANDARD, dir = NONE, sound = TRUE, zone = null)
 	if(sound)
 		play_attack_sound(amount, type, flag)
+	. = ..()
+
+/obj/structure/projected_forcefield/take_direct_damage(amount, type, flag, zone)
 	generator.shield_integrity = max(generator.shield_integrity - amount, 0)

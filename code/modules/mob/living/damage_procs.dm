@@ -28,28 +28,6 @@
 		if(STAMINA)
 			return getStaminaLoss()
 
-
-/mob/living/proc/apply_damages(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = FALSE, stamina = 0, brain = 0)
-	if(blocked >= 100)
-		return 0
-	if(brute)
-		take_direct_damage(brute, BRUTE, DAMAGE_STANDARD, def_zone)
-	if(burn)
-		take_direct_damage(burn, BURN, DAMAGE_STANDARD, def_zone)
-	if(tox)
-		take_direct_damage(tox, TOX, DAMAGE_STANDARD, def_zone)
-	if(oxy)
-		take_direct_damage(oxy, OXY, DAMAGE_STANDARD, def_zone)
-	if(clone)
-		take_direct_damage(clone, CLONE, DAMAGE_STANDARD, def_zone)
-	if(stamina)
-		take_direct_damage(stamina, STAMINA, DAMAGE_STANDARD, def_zone)
-	if(brain)
-		take_direct_damage(brain, BRAIN, DAMAGE_STANDARD, def_zone)
-	return 1
-
-
-
 /mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE)
 	var/hit_percent = (100-blocked)/100
 	if(!effect || (hit_percent <= 0))

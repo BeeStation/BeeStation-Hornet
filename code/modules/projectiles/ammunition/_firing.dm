@@ -77,7 +77,7 @@
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			var/obj/item/bodypart/affecting = C.get_holding_bodypart_of_item(src)
-			C.apply_damage(rand(5, 10), BRUTE, affecting)
+			C.deal_damage(rand(5, 10), 0, BRUTE, zone = affecting.body_zone)
 	else
 		user.visible_message(span_danger("[user]'s [I] slips!"))
 		fire_casing(user, user)

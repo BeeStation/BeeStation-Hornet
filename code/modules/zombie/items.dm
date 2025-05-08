@@ -37,7 +37,6 @@
 	if(isliving(target))
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			var/flesh_wound = ran_zone(user.get_combat_bodyzone(target))
 			if(H.check_shields(src, 0))
 				return
 			if (!H.is_biologically_sealed() && prob(base_infection_chance - H.get_average_armor_flag(ARMOUR_PENETRATION)))
