@@ -307,21 +307,6 @@
 /obj/item/stack/sheet/iron,
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned/bar)
-"bk" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airalarm/all_access,
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/plating,
-/area/shuttle/abandoned/engine)
 "bl" = (
 /obj/machinery/light/small/built{
 	dir = 4
@@ -806,22 +791,6 @@
 /obj/item/gun/energy/laser/retro,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
-"cN" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/spider/stickyweb,
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
-	dir = 8
-	},
-/obj/machinery/airalarm/directional/west,
-/obj/effect/mapping_helpers/airalarm/all_access,
-/turf/open/floor/plating,
-/area/shuttle/abandoned/engine)
 "cO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -1273,17 +1242,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/white,
 /area/shuttle/abandoned/medbay)
-"dO" = (
-/obj/structure/table,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mapping_helpers/airalarm/all_access,
-/obj/machinery/airalarm/directional/south,
-/turf/open/floor/iron/white,
-/area/shuttle/abandoned/medbay)
 "dP" = (
 /obj/machinery/sleeper{
 	dir = 8
@@ -1372,6 +1330,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bridge)
+"go" = (
+/obj/structure/table,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/iron/white,
+/area/shuttle/abandoned/medbay)
 "hz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/firealarm{
@@ -1453,6 +1422,21 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/medbay)
+"jP" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/airalarm/directional/west,
+/turf/open/floor/plating,
+/area/shuttle/abandoned/engine)
 "kd" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -1534,6 +1518,22 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
+"lG" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/spider/stickyweb,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 8
+	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/turf/open/floor/plating,
+/area/shuttle/abandoned/engine)
 "lL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/remains/human{
@@ -1973,22 +1973,6 @@
 /obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/wood,
 /area/shuttle/abandoned/crew)
-"GA" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/effect/mapping_helpers/airalarm/all_access,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/south,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned/crew)
 "GD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2087,7 +2071,17 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
-"NM" = (
+"Qd" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/rack,
+/obj/item/defibrillator,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned/medbay)
+"SF" = (
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/secure_closet/freezer{
@@ -2106,16 +2100,6 @@
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
-"Qd" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/rack,
-/obj/item/defibrillator,
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned/medbay)
 "SY" = (
 /obj/effect/spawner/structure/window/shuttle,
 /obj/machinery/door/poddoor{
@@ -2123,6 +2107,22 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/medbay)
+"Tk" = (
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned/crew)
 "Ts" = (
 /obj/structure/table,
 /obj/item/folder/blue{
@@ -2337,7 +2337,7 @@ aa
 ai
 aA
 aN
-bk
+jP
 bz
 bQ
 bz
@@ -2345,7 +2345,7 @@ cd
 cl
 bz
 cC
-cN
+lG
 dc
 dA
 ai
@@ -2462,7 +2462,7 @@ cE
 vm
 dj
 dF
-dO
+go
 vm
 "}
 (11,1,1) = {"
@@ -2584,7 +2584,7 @@ ac
 ac
 ac
 aZ
-GA
+Tk
 ac
 aa
 aa
@@ -2680,7 +2680,7 @@ hz
 pr
 AK
 AK
-NM
+SF
 ae
 aa
 aa
