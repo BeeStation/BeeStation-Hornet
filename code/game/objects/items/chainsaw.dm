@@ -138,9 +138,8 @@
 	transforming.attack_verb_simple_on = list("saw", "shred", "rend", "gut", "eviscerate")
 
 /obj/item/chainsaw/energy/on_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
-	set_light(active)
 	. = ..()
+	set_light(active)
 
 /obj/item/chainsaw/energy/doom
 	name = "super energy chainsaw"
