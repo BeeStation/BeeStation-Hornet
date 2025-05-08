@@ -119,8 +119,6 @@
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb_continuous = list("saws", "shreds", "rends", "guts", "eviscerates")
-	attack_verb_simple = list("saw", "shred", "rend", "gut", "eviscerate")
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
 	armour_penetration = 50
@@ -132,19 +130,25 @@
 	active_force = 40
 	active_hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
+/obj/item/chainsaw/ComponentInitialize()
+	. = ..()
+	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
+
+	transforming.attack_verb_continuous_on = list("saws", "shreds", "rends", "guts", "eviscerates")
+	transofmring.attack_verb_simple_on = list("saw", "shred", "rend", "gut", "eviscerate")
+
 /obj/item/chainsaw/energy/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 	set_light(active)
 	. = ..()
 
-// DOOMGUY ENERGY CHAINSAW
 /obj/item/chainsaw/energy/doom
 	name = "super energy chainsaw"
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
 	block_level = 1
-	attack_weight = 3 //fear him
+	attack_weight = 3
 	armour_penetration = 75
 	light_range = 6
 	active_force = 60
