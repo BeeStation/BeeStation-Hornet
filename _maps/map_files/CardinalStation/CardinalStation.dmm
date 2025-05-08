@@ -10774,14 +10774,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
-"ciR" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "These are meant to be test sites for explosive and non explosive nades because chem deserves a gimmick. Also it gives chemists an excuse as to why they would me making grenades at work - BarteG";
-	name = "CardinalStation - Chem Test Lab"
-	},
-/turf/open/floor/plating,
-/area/medical/chemistry)
 "ciX" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 6
@@ -18531,6 +18523,16 @@
 	dir = 8
 	},
 /area/engine/atmos)
+"dNP" = (
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = -2;
+	pixel_x = 5
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 9
+	},
+/turf/open/floor/grass/no_border,
+/area/medical/virology)
 "dOi" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -24903,6 +24905,12 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engine_room)
+"flB" = (
+/mob/living/simple_animal/cardinal{
+	dir = 4
+	},
+/turf/open/floor/prison/dark,
+/area/hydroponics)
 "flI" = (
 /obj/structure/chair/fancy/sofa/corp{
 	dir = 1
@@ -34677,12 +34685,6 @@
 "hhb" = (
 /turf/closed/wall/r_wall,
 /area/tcommsat/server)
-"hhc" = (
-/mob/living/simple_animal/cardinal{
-	dir = 4
-	},
-/turf/open/floor/prison/dark,
-/area/hydroponics)
 "hhd" = (
 /obj/machinery/hydroponics/soil,
 /mob/living/simple_animal/chicken,
@@ -35810,7 +35812,9 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/item/storage/secure/briefcase,
-/obj/item/storage/wallet,
+/obj/item/storage/wallet{
+	pixel_y = -8
+	},
 /obj/effect/turf_decal/tile/techfloor/diagonal,
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
@@ -36484,10 +36488,6 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/ai_monitored/turret_protected/aisat_interior)
-"hCd" = (
-/obj/machinery/status_display/ai,
-/turf/closed/wall/r_wall,
-/area/medical/medbay/central)
 "hCk" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -44070,7 +44070,10 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "jcT" = (
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/siding/dark_green,
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "jdg" = (
@@ -44667,9 +44670,19 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine/atmos)
 "jkt" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 6
+	},
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
+"jkF" = (
+/obj/machinery/status_display/ai,
+/turf/closed/wall/r_wall,
+/area/medical/medbay/central)
 "jkI" = (
 /obj/structure/fluff/hedge/opaque,
 /turf/open/floor/iron/smooth_corner{
@@ -53728,8 +53741,12 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/disposal/incinerator)
 "lgj" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 6;
+	pixel_x = -3
+	},
 /mob/living/carbon/monkey,
+/obj/effect/turf_decal/siding/dark_green,
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "lgn" = (
@@ -56703,7 +56720,6 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/machinery/holopad,
 /turf/open/floor/vault/rock,
 /area/teleporter)
 "lNs" = (
@@ -60787,6 +60803,9 @@
 /area/hallway/primary/port)
 "mHp" = (
 /mob/living/carbon/monkey,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 5
+	},
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "mHr" = (
@@ -62939,10 +62958,13 @@
 "ndm" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/rglass{
-	amount = 50
+	amount = 50;
+	pixel_y = 4;
+	pixel_x = 4
 	},
 /obj/item/stack/sheet/rglass{
-	amount = 50
+	amount = 50;
+	pixel_y = 4
 	},
 /obj/item/wrench,
 /obj/item/crowbar,
@@ -63190,8 +63212,14 @@
 /area/hallway/secondary/entry)
 "ngc" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance{
+	pixel_x = 19;
+	pixel_y = 13
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	pixel_y = 8;
+	pixel_x = 4
+	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	alpha = 255
 	},
@@ -64337,7 +64365,7 @@
 	alpha = 255
 	},
 /obj/item/crowbar{
-	pixel_y = 4
+	pixel_y = 6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -66163,7 +66191,13 @@
 /turf/open/floor/stone,
 /area/crew_quarters/barbershop)
 "nJq" = (
-/obj/effect/overlay/palmtree_l,
+/obj/effect/overlay/palmtree_l{
+	pixel_y = 8;
+	pixel_x = 3
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 10
+	},
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "nJr" = (
@@ -67847,9 +67881,11 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/item/storage/box/deputy{
-	pixel_y = 4
+	pixel_y = 8
 	},
-/obj/item/storage/lockbox/dueling,
+/obj/item/storage/lockbox/dueling{
+	pixel_y = 3
+	},
 /obj/effect/turf_decal/tile/techfloor/diagonal,
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
@@ -67901,12 +67937,12 @@
 	},
 /obj/item/poster/random_official{
 	pixel_x = 1;
-	pixel_y = -2
+	pixel_y = 5
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell{
 	pixel_x = 6;
-	pixel_y = 8
+	pixel_y = 10
 	},
 /obj/machinery/recharger{
 	pixel_x = -6;
@@ -76975,7 +77011,13 @@
 /area/maintenance/department/chapel)
 "pXm" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/effect/overlay/palmtree_l,
+/obj/effect/overlay/palmtree_r{
+	pixel_y = -5;
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "pXA" = (
@@ -78770,7 +78812,6 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers{
-	pixel_x = -7;
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/dropper{
@@ -89743,7 +89784,12 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "sHO" = (
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = -4
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "sIj" = (
@@ -89812,6 +89858,10 @@
 	},
 /obj/structure/railing/corner{
 	dir = 8
+	},
+/obj/machinery/holopad{
+	pixel_y = 16;
+	pixel_x = 16
 	},
 /turf/open/floor/vault/rock,
 /area/teleporter)
@@ -95453,6 +95503,9 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
+"tRF" = (
+/turf/closed/wall/rust,
+/area/crew_quarters/toilet/restrooms)
 "tRG" = (
 /obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/tile/neutral,
@@ -100663,6 +100716,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
+"uTr" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "These are meant to be test sites for explosive and non explosive nades because chem deserves a gimmick. Also it gives chemists an excuse as to why they would me making grenades at work - BarteG";
+	name = "CardinalStation - Chem Test Lab"
+	},
+/turf/open/floor/plating,
+/area/medical/chemistry)
 "uTu" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
@@ -110538,11 +110599,13 @@
 	},
 /area/hallway/upper/primary/starboard)
 "wTo" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /mob/living/carbon/monkey,
 /obj/structure/sink/puddle,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/camera/directional/north,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "wTt" = (
@@ -116202,8 +116265,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "yeB" = (
-/turf/closed/wall/rust,
-/area/crew_quarters/toilet/restrooms)
+/mob/living/carbon/monkey,
+/obj/effect/turf_decal/siding/dark_green,
+/turf/open/floor/grass/no_border,
+/area/medical/virology)
 "yeN" = (
 /obj/machinery/button/door{
 	id = "psycho";
@@ -116737,6 +116802,10 @@
 /obj/structure/table,
 /obj/effect/turf_decal/siding/thinplating_new/terracotta{
 	dir = 1
+	},
+/obj/item/candle{
+	pixel_y = 6;
+	pixel_x = 1
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -136960,7 +137029,7 @@ nWd
 auA
 xbR
 xbR
-yeB
+tRF
 xac
 iOH
 qxv
@@ -150841,7 +150910,7 @@ gLv
 qnj
 tKu
 eXh
-hhc
+flB
 nnE
 mNQ
 daw
@@ -163464,7 +163533,7 @@ dQx
 xXo
 mTw
 tjU
-ciR
+uTr
 qGp
 jHJ
 mvM
@@ -164721,7 +164790,7 @@ nzj
 mtB
 ctW
 mtB
-jkt
+dNP
 nJq
 bNi
 rOa
@@ -165493,7 +165562,7 @@ hyT
 hyT
 ald
 pXm
-mHp
+yeB
 bNi
 pAG
 rWk
@@ -169121,7 +169190,7 @@ iGk
 oKs
 uLM
 oKs
-hCd
+jkF
 oNV
 oNV
 oNV
