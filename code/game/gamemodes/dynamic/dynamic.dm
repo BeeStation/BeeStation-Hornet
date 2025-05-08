@@ -75,9 +75,12 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	/*
 	 * Configurable variables
 	 * All of these can be changed in 'dynamic.json'
+	 * None of the variables above should be configured!
 	*/
 
-	/// Roundstart
+	/*
+	 * Roundstart
+	*/
 
 	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
 	/// These should always be integers. i.e: -20, 40
@@ -88,24 +91,50 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/roundstart_points_per_unready = DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY
 	var/roundstart_points_per_observer = DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER
 
-	/// Midround
+	/*
+	 * Midround
+	 *
+	 * How midround rolling works is as follows:
+	 *
+	 * All midround rulesets have a specific severity. Light, Medium, or Heavy
+	 * At the start of the round there is a 100% chance to choose a Light midround (Light Ruleset Chance)
+	 * As the round progresses the Light Ruleset Chance decreases and the Medium/Heavy Ruleset Chance increases.
+	 *
+	 * The amount that the Light Ruleset Chance decreases every minute
+	 * is given to the Medium Ruleset Chance and Heavy Ruleset Chance.
+	 *
+	 * The ratio determining what percentage of the
+	 * Light Ruleset Chance decrease rate is given to the Medium Ruleset Chance is 75%.
+	 * The Heavy Ruleset Chance will recieve the remainder, in this case, 25%
+	 *
+	 * The rest is pretty simple, the chosen midround ruleset is picked based off
+	 * the Light/Medium/Heavy Ruleset Chances and once chosen
+	 * we will save up until we have enough points to execute it.
+	*/
 
-	/// The chances for each type of midround ruleset to be picked
+	/// The chances for each type of midround ruleset to be picked at roundstart, by default this is 100%, 0%, 0%
 	var/midround_light_starting_chance = DYNAMIC_MIDROUND_LIGHT_STARTING_CHANCE
 	var/midround_medium_starting_chance = DYNAMIC_MIDROUND_MEDIUM_STARTING_CHANCE
 	var/midround_heavy_starting_chance = DYNAMIC_MIDROUND_HEAVY_STARTING_CHANCE
-	/// At this time the chance for a Light or Medium midround will reach 0%
+	/// At this time the Light/Medium Ruleset Chance will reach 0%
 	/// When configuring these in 'dynamic.json' be sure to have them set in deciseconds (minutes * 600)
 	var/midround_light_end_time = DYNAMIC_MIDROUND_LIGHT_END_TIME
 	var/midround_medium_end_time = DYNAMIC_MIDROUND_MEDIUM_END_TIME
-	/// The ratio of percentage points from the light ruleset decrease rate given to the medium ruleset chance
-	/// The heavy ratio is calculated by doing 1 - midround_medium_increase_ratio
-	/// These should always be on a range of 0 - 1. i.e: 0.20, 0.75, 1.0
+	/// The ratio of the Light Ruleset Chance decrease rate that is given to the Medium Ruleset Chance
+	/// The Heavy Ratio is the remainder of the Medium Increase Ratio
+	/// These should always be on a range of 0 - 1. i.e: 0.25, 0.75, 1.0
 	var/midround_medium_increase_ratio = DYNAMIC_MIDROUND_INCREASE_RATIO
-	/// The time at which midrounds can start
+	/// The time at which midrounds can start rolling
 	var/midround_grace_period = DYNAMIC_MIDROUND_GRACEPERIOD
+	/// The amount of midround points given per minute for every type of player
+	var/midround_points_per_living = DYNAMIC_MIDROUND_POINTS_PER_LIVING
+	var/midround_points_per_observer = DYNAMIC_MIDROUND_POINTS_PER_OBSERVER
+	var/midround_points_per_dead = DYNAMIC_MIDROUND_POINTS_PER_DEAD
+	var/midround_points_per_antag = DYNAMIC_MIDROUND_POINTS_PER_ANTAG
 
-	/// Latejoin
+	/*
+	 * Latejoin
+	*/
 
 	/// The max amount of latejoin rulesets that can be picked
 	var/latejoin_max_rulesets = DYNAMIC_LATEJOIN_MAX_RULESETS
@@ -175,6 +204,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			continue
 		if(!ruleset_type.weight)
 			continue
+		if(!ruleset_type.points_cost)
+			continue
 
 		rulesets += configure_ruleset(new ruleset_type(src))
 	return rulesets
@@ -239,11 +270,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	// Trim the rulesets
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_rules)
-		if(!ruleset.weight)
-			continue
-		if(!ruleset.points_cost)
-			continue
-
 		ruleset.set_drafted_players_amount()
 		ruleset.get_candidates()
 		ruleset.trim_candidates()
@@ -358,8 +384,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
 
 /*
-* Set the chosen midround ruleset based off a severity
-* Leave the 'severity' variable blank if you want to pick from any midround type
+* Update our midround points and chances
+* If we don't already have one, choose a midround ruleset to save up for
+* If we do, check if we have enough points to execute it
 */
 /datum/game_mode/dynamic/proc/try_midround_roll()
 	if(GLOB.dynamic_forced_extended)
@@ -367,10 +394,15 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
-	update_midround_points()
 	update_midround_chances()
 
+	if(world.time < midround_grace_period)
+		return
+
+	update_midround_points()
+
 	if(midround_chosen_ruleset)
+		// Try and execute our chosen ruleset
 		if(midround_points >= midround_chosen_ruleset.points_cost)
 			midround_chosen_ruleset.get_candidates()
 
@@ -378,33 +410,49 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
+				// Apply cost and log
 				midround_executed_rulesets += midround_chosen_ruleset
 				midround_points -= midround_chosen_ruleset.points_cost
 
 			midround_chosen_ruleset = null
-	else if(world.time >= midround_grace_period)
+	else
 		choose_midround_ruleset()
 
-
+/*
+* Generate midround points once per minute based off of each person's status
+* TODO: Give antagonists a variable for how much they should decrease midround points
+*
+* When valentines comes around everyone will technically be an antagonist. Which means, no midrounds during the valentines event
+*/
 /datum/game_mode/dynamic/proc/update_midround_points()
 	var/previous_midround_points = midround_points
 
-	midround_points += 10
+	var/living_amount = length(current_players[CURRENT_LIVING_PLAYERS])
+	var/observer_amount = length(current_players[CURRENT_OBSERVERS])
+	var/dead_amount = length(current_players[CURRENT_DEAD_PLAYERS])
+	var/antag_amount = length(current_players[CURRENT_LIVING_ANTAGS])
+
+	midround_points += living_amount * midround_points_per_living
+	midround_points += observer_amount * midround_points_per_observer
+	midround_points += dead_amount * midround_points_per_dead
+	midround_points += antag_amount * midround_points_per_antag
+
+	midround_points = max(midround_points, 0)
 
 	log_game("DYNAMIC: Updated midround points. [previous_midround_points] --> [midround_points]")
 
 /*
-* At roundstart the chance for a Light ruleset to spawn is 100%
-* As the round progresses, this chance will decrease and the chance to spawn a Medium and Heavy ruleset will increase.
-* After reaching 60 minutes the chance for a Light ruleset to spawn will reach 0%
-* Alongside this, the chance to roll a Medium ruleset will start to decrease and the chance to roll a Heavy ruleset will increase.
+* At roundstart the Light Ruleset Chance is 100%
+* As the round progresses, the Light Ruleset Chance and the Medium/Heavy Ruleset Chance will increase
+* After reaching 60 minutes, the Light Ruleset Chance will reach 0%
+* Additionally, the Medium Ruleset Chance will start to decrease and the Heavy Ruleset Chance will increase
 */
 /datum/game_mode/dynamic/proc/update_midround_chances()
 	// How much should we decrease per minute to reach 0% by the configured time?
 	var/light_decrease_rate = midround_light_starting_chance / (midround_light_end_time / (1 MINUTES))
 
 	// Decrease light chance
-	midround_light_chance = max(0, midround_light_chance - light_decrease_rate)
+	midround_light_chance = max(midround_light_chance - light_decrease_rate, 0)
 
 	if(world.time > midround_light_end_time)
 		// Light is 0%, lets start to lower Medium
@@ -420,14 +468,13 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_medium_chance += light_decrease_rate * medium_ratio
 		midround_heavy_chance += light_decrease_rate * heavy_ratio
 
-	// Ensure the total chance is 100%
+	// Do our best to ensure the total chance is 100%, it honestly probably never will be because of floating point imprecision
 	var/total_current_chance = midround_light_chance + midround_medium_chance + midround_heavy_chance
 	if(total_current_chance != 100)
 		var/adjustment_factor = 100 / total_current_chance
 		midround_light_chance *= adjustment_factor
 		midround_medium_chance *= adjustment_factor
 		midround_heavy_chance *= adjustment_factor
-
 
 	log_game("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
 
@@ -437,6 +484,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/proc/choose_midround_ruleset()
 	// Pick severity
 	var/severity = DYNAMIC_MIDROUND_LIGHT
+
 	var/random_value = rand(1, 100)
 	if(random_value <= midround_light_chance)
 		severity = DYNAMIC_MIDROUND_LIGHT
@@ -448,8 +496,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	// Get possible rulesets
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/midround/ruleset in midround_configured_rulesets)
-		if(!ruleset.weight)
-			continue
 		if(ruleset.severity != severity)
 			continue
 
@@ -472,7 +518,10 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
 
 /*
-* latejoin
+* Latejoin functionality.
+*
+* A maximum of 3 people can be chosen for a latejoin ruleset.
+* There is a 10% chance for someone to be picked
 */
 
 /datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/character)
@@ -483,22 +532,17 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 	// Already executed the max amount
-	if(length(latejoin_max_rulesets) > latejoin_max_rulesets)
+	if(length(latejoin_executed_rulesets) >= latejoin_max_rulesets)
 		return
 	// No possible rulesets
 	if(!length(latejoin_configured_rulesets))
 		return
 
 	if(prob(latejoin_ruleset_probability))
-		// No latejoin ruleset chosen, lets pick one
 		if(!latejoin_forced_ruleset)
+			// No latejoin ruleset chosen, lets pick one
 			var/list/possible_rulesets = list()
 			for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
-				if(!ruleset.weight)
-					continue
-				if(!ruleset.points_cost)
-					continue
-
 				ruleset.candidates = list(character)
 				ruleset.trim_candidates()
 
@@ -516,12 +560,15 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			latejoin_forced_ruleset.candidates = list(character)
 			latejoin_forced_ruleset.trim_candidates()
 
-			// Ruleset isn't allowed, our latejoin is probably a security officer.
+			// Forced Ruleset isn't allowed, our latejoin is probably a security officer.
 			if(!latejoin_forced_ruleset.allowed())
 				return
 
+		// Execute our latejoin ruleset
 		if(latejoin_forced_ruleset?.execute() == DYNAMIC_EXECUTE_SUCCESS)
 			message_admins("DYNAMIC: Executing latejoin: [latejoin_forced_ruleset]")
+			latejoin_executed_rulesets += latejoin_forced_ruleset
+			latejoin_forced_ruleset = null
 
 /*
 * Station intercept to alert the crew that its not a greenshift

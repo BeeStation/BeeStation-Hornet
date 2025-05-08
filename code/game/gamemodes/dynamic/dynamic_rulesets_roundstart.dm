@@ -9,8 +9,8 @@
 */
 
 /datum/dynamic_ruleset/roundstart
-	rule_category = DYNAMIC_ROUNDSTART
-	use_antag_reputation = TRUE
+	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
+	flags = SHOULD_USE_ANTAG_REP
 
 	/// The minimum number of points dynamic that had to initially generate for this to be drafted.
 	var/minimum_points_required = 0
@@ -88,7 +88,7 @@
 	weight = 4
 	points_cost = 13
 	restricted_roles = list(JOB_NAME_CYBORG)
-	flags = CANNOT_REPEAT
+	flags = SHOULD_USE_ANTAG_REP|CANNOT_REPEAT
 
 /datum/dynamic_ruleset/roundstart/malf/pre_execute()
 	return
@@ -117,7 +117,6 @@
 	weight = 2
 	points_cost = 15
 	flags = HIGH_IMPACT_RULESET
-	use_antag_reputation = FALSE
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
 	. = ..()
@@ -176,7 +175,7 @@
 	weight = 3
 	points_cost = 20
 	minimum_points_required = 24
-	flags = HIGH_IMPACT_RULESET
+	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
 
 	var/datum/team/cult/team
 
@@ -220,7 +219,7 @@
 	weight = 3
 	points_cost = 35
 	minimum_points_required = 24
-	flags = HIGH_IMPACT_RULESET
+	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
 
 	var/datum/team/clock_cult/main_cult
 
@@ -271,7 +270,7 @@
 	drafted_players_amount = 3
 	weight = 3
 	points_cost = 20
-	flags = HIGH_IMPACT_RULESET
+	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
@@ -362,7 +361,7 @@
 	weight = 3
 	points_cost = 20
 	minimum_points_required = 35
-	flags = HIGH_IMPACT_RULESET
+	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
 
 	var/datum/team/revolution/team
 	var/finished = FALSE

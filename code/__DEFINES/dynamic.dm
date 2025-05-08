@@ -1,4 +1,6 @@
-/// Roundstart
+/*
+* Roundstart
+*/
 
 /// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
 /// A random value will be chosen inbetween the lower and upper cap and then mulitplied to the calculated roundstart points
@@ -10,7 +12,9 @@
 #define DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY 0.5
 #define DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER 0
 
-/// Midround
+/*
+* Midround
+*/
 
 /// At this time the chance for a Light or Medium midround will reach 0%
 #define DYNAMIC_MIDROUND_LIGHT_END_TIME 60 MINUTES
@@ -25,23 +29,14 @@
 /// The time at which dynamic will start choosing midrounds
 #define DYNAMIC_MIDROUND_GRACEPERIOD 15 MINUTES
 
-/// Latejoin
+#define DYNAMIC_MIDROUND_POINTS_PER_LIVING 0.1
+#define DYNAMIC_MIDROUND_POINTS_PER_OBSERVER 0.0
+#define DYNAMIC_MIDROUND_POINTS_PER_DEAD -0.2
+#define DYNAMIC_MIDROUND_POINTS_PER_ANTAG -0.7
 
-/// The max amount of latejoin rulesets that can be picked
-#define DYNAMIC_LATEJOIN_MAX_RULESETS 3
-/// The probablity for a latejoin ruleset to be picked
-#define DYNAMIC_LATEJOIN_PROBABILITY 10
-
-/// Flags
-
-/// Only one ruleset with this flag will be picked
-#define HIGH_IMPACT_RULESET (1 << 0)
-/// This ruleset can only be picked once
-#define CANNOT_REPEAT (1 << 1)
-/// Dynamic will call rule_process each tick if this is set
-#define SHOULD_PROCESS_RULESET (1 << 2)
-
-/// Ruleset types
+/*
+* Midround Ruleset types
+*/
 
 /// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)
 #define DYNAMIC_MIDROUND_LIGHT "Light"
@@ -50,13 +45,39 @@
 /// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
 #define DYNAMIC_MIDROUND_HEAVY "Heavy"
 
-/// Ruleset types
+/*
+* Latejoin
+*/
 
-#define DYNAMIC_ROUNDSTART "Roundstart"
-#define DYNAMIC_MIDROUND "Midround"
-#define DYNAMIC_LATEJOIN "Latejoin"
+/// The max amount of latejoin rulesets that can be picked
+#define DYNAMIC_LATEJOIN_MAX_RULESETS 3
+/// The probablity for a latejoin ruleset to be picked
+#define DYNAMIC_LATEJOIN_PROBABILITY 10
 
-/// Ruleset.. stuff
+/*
+* Ruleset flags
+*/
+
+/// Only one ruleset with this flag will be picked
+#define HIGH_IMPACT_RULESET (1 << 0)
+/// This ruleset can only be picked once
+#define CANNOT_REPEAT (1 << 1)
+/// Dynamic will call rule_process each tick if this is set
+#define SHOULD_PROCESS_RULESET (1 << 2)
+/// Should the chosen candidate(s) be picked based off of their antagonist reputation
+#define SHOULD_USE_ANTAG_REP (1 << 2)
+
+/*
+* Ruleset categories
+*/
+
+#define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
+#define DYNAMIC_CATEGORY_MIDROUND "Midround"
+#define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
+
+/*
+* Ruleset return values
+*/
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1

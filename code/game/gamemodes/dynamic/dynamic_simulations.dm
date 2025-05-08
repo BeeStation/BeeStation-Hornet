@@ -1,7 +1,10 @@
 #ifdef TESTING
 /datum/dynamic_simulation
+	/// An internal dynamic gamemode
 	var/datum/game_mode/dynamic/dynamic
+	/// The config that the simulation runs
 	var/datum/dynamic_simulation_config/config
+	/// A list of fake roundstart candidates
 	var/list/mock_candidates = list()
 
 /datum/dynamic_simulation/proc/create_candidates(players)
@@ -42,7 +45,7 @@
 		"roundstart_points" = dynamic.roundstart_points,
 		"roundstart_rulesets" = roundstart_rulesets.Join(", "),
 		"antag_percent" = total_antags / config.roundstart_players,
-		)
+	)
 
 /datum/dynamic_simulation_config
 	/// How many players round start should there be?

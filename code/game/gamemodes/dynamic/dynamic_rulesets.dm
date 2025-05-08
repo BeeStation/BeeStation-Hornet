@@ -5,7 +5,7 @@
 
 	/// For admin logging and round end screen.
 	var/name = "Ruleset"
-	/// For admin logging and round end screen. (DYNAMIC_ROUNDSTART, DYNAMIC_MIDROUND, DYNAMIC_LATEJOIN)
+	/// For admin logging and round end screen. DYNAMIC_CATEGORY_ROUNDSTART, DYNAMIC_CATEGORY_MIDROUND, DYNAMIC_CATEGORY_LATEJOIN
 	var/rule_category
 	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.
 	var/weight = 5
@@ -23,8 +23,6 @@
 	var/list/restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	/// A list of rulesets that this ruleset is not compatible with. (A blood and clock cult can't both run)
 	var/list/blocking_rulesets = list()
-	/// Should the chosen player(s) be picked based off of their antagonist reputation
-	var/use_antag_reputation = FALSE
 	/// A flag that determines how the ruleset is handled. (HIGH_IMPACT_RULESET, CANNOT_REPEAT, SHOULD_PROCESS_RULESET)
 	var/flags = NONE
 
@@ -100,10 +98,10 @@
 
 /*
 * Picks a player from the list of candidates.
-* If 'use_antag_reputation' is set to TRUE, take antag_rep into account.
+* If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
 */
 /datum/dynamic_ruleset/proc/select_player()
-	var/mob/dead/new_player/selected_player = dynamic && use_antag_reputation ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/dead/new_player/selected_player = dynamic && CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
 
 	if(selected_player)
 		candidates -= selected_player
@@ -141,4 +139,4 @@
 	return
 
 /datum/dynamic_ruleset/latejoin
-	rule_category = DYNAMIC_LATEJOIN
+	rule_category = DYNAMIC_CATEGORY_LATEJOIN
