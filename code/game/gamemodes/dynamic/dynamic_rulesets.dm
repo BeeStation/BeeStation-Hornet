@@ -4,7 +4,7 @@
 	*/
 
 	/// For admin logging and round end screen.
-	var/name = "Ruleset"
+	var/name
 	/// For admin logging and round end screen. DYNAMIC_CATEGORY_ROUNDSTART, DYNAMIC_CATEGORY_MIDROUND, DYNAMIC_CATEGORY_LATEJOIN
 	var/rule_category
 	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.

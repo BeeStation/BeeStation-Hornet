@@ -1,3 +1,11 @@
+/*
+* A general rule of thumb:
+*
+* 30 points for antagonists that are mostly harmless and will mess with a crew a bit
+* 40 points for antagonists that will actively attack the crew
+* 50 points for antagonists that that may very well end the round
+*/
+
 /datum/dynamic_ruleset/midround/ghost
 	mob_type = /mob/dead/observer
 
@@ -122,7 +130,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/wizard
 	role_preference = /datum/role_preference/midround_ghost/wizard
-	points_cost = 30
+	points_cost = 50
 	weight = 2
 
 /datum/dynamic_ruleset/midround/ghost/wizard/get_spawn_locations()
@@ -148,7 +156,7 @@
 	antag_datum = /datum/antagonist/nukeop
 	role_preference = /datum/role_preference/midround_ghost/nuclear_operative
 	drafted_players_amount = 3
-	points_cost = 30
+	points_cost = 50
 	weight = 1
 
 	var/datum/team/nuclear/team
@@ -179,11 +187,11 @@
 	use_spawn_locations = FALSE
 	antag_datum = /datum/antagonist/blob
 	role_preference = /datum/antagonist/nukeop
-	points_cost = 20
+	points_cost = 50
 	weight = 6
 
 /datum/dynamic_ruleset/midround/ghost/blob/generate_ruleset_body(mob/chosen_mob)
-	var/body = chosen_mob.become_overmind()
+	var/mob/camera/blob/body = chosen_mob.become_overmind()
 	return body
 
 //////////////////////////////////////////////
@@ -197,7 +205,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/xeno
 	role_preference = /datum/role_preference/midround_ghost/xenomorph
-	points_cost = 20
+	points_cost = 50
 	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/chosen_mob)
@@ -234,7 +242,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
 	role_preference = /datum/role_preference/midround_ghost/space_dragon
-	points_cost = 20
+	points_cost = 40
 	weight = 6
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/chosen_mob)
@@ -257,7 +265,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/ninja
 	role_preference = /datum/role_preference/midround_ghost/ninja
-	points_cost = 20
+	points_cost = 40
 	weight = 6
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/chosen_mob)
@@ -277,7 +285,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/nightmare
 	role_preference = /datum/role_preference/midround_ghost/nightmare
-	points_cost = 20
+	points_cost = 30
 	weight = 6
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/get_spawn_locations()
@@ -307,7 +315,7 @@
 	antag_datum = /datum/antagonist/abductor/agent
 	role_preference = /datum/role_preference/midround_ghost/abductor
 	drafted_players_amount = 2
-	points_cost = 20
+	points_cost = 30
 	weight = 6
 
 	var/has_made_leader = FALSE
@@ -337,7 +345,7 @@
 	use_spawn_locations = FALSE
 	antag_datum = /datum/antagonist/abductor/scientist/solo
 	role_preference = /datum/role_preference/midround_ghost/abductor
-	points_cost = 20
+	points_cost = 30
 	weight = 6
 
 //////////////////////////////////////////////
@@ -351,10 +359,8 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/revenant
 	role_preference = /datum/role_preference/midround_ghost/revenant
-	points_cost = 20
+	points_cost = 30
 	weight = 6
-
-	var/dead_mobs_required = 15
 
 /datum/dynamic_ruleset/midround/ghost/revenant/get_spawn_locations()
 	// Corpses
@@ -362,6 +368,7 @@
 		var/turf/corpse_turf = get_turf(corpse)
 		if(corpse_turf && is_station_level(corpse_turf.z))
 			spawn_locations += corpse_turf
+
 	// Morgue trays and crematoriums
 	for(var/obj/structure/bodycontainer/corpse_container in GLOB.bodycontainers)
 		var/turf/container_turf = get_turf(corpse_container)
@@ -369,7 +376,7 @@
 			spawn_locations += container_turf
 	// Carp spawnpoints
 	if(!length(spawn_locations))
-		..()
+		return ..()
 
 /datum/dynamic_ruleset/midround/ghost/revenant/generate_ruleset_body(mob/chosen_mob)
 	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locations)
@@ -389,6 +396,7 @@
 
 /// This is a weird one.
 /// This ruleset doesn't actually spawn pirates, instead it triggers the pirate threat.
+/// Hence the low points_cost
 
 /datum/dynamic_ruleset/midround/ghost/pirates
 	name = "Space Pirates"
@@ -424,7 +432,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/xeno
 	role_preference = /datum/role_preference/midround_ghost/xenomorph
-	points_cost = 20
+	points_cost = 40
 	weight = 4
 
 	var/fed = 1
@@ -481,7 +489,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/swarmer
 	role_preference = /datum/role_preference/midround_ghost/swarmer
-	points_cost = 20
+	points_cost = 40
 	weight = 4
 
 	var/announce_probability = 25
@@ -511,7 +519,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/morph
 	role_preference = /datum/role_preference/midround_ghost/morph
-	points_cost = 20
+	points_cost = 30
 	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/morph/generate_ruleset_body(mob/chosen_mob)
@@ -537,7 +545,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/prisoner
 	role_preference = /datum/role_preference/midround_ghost/prisoner
-	points_cost = 20
+	points_cost = 30
 	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/prisoners/get_spawn_locations()
@@ -574,7 +582,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/fugitive
 	role_preference = /datum/role_preference/midround_ghost/fugitive
-	points_cost = 20
+	points_cost = 30
 	weight = 4
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/allowed()

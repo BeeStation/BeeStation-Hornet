@@ -44,7 +44,7 @@
 	antag_datum = /datum/antagonist/malf_ai
 	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
 	mob_type = /mob/living/silicon/ai
-	points_cost = 20
+	points_cost = 40
 	weight = 2
 
 //////////////////////////////////////////////
@@ -58,7 +58,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/traitor
 	role_preference = /datum/role_preference/midround_living/traitor
-	points_cost = 10
+	points_cost = 30
 
 //////////////////////////////////////////////
 //                                          //
@@ -71,7 +71,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround_living/obsessed
-	points_cost = 10
+	points_cost = 20
 
 /datum/dynamic_ruleset/midround/obsessed/execute()
 	. = ..()
