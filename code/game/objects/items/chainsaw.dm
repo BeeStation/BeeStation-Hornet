@@ -135,7 +135,7 @@
 	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
 
 	transforming.attack_verb_continuous_on = list("saws", "shreds", "rends", "guts", "eviscerates")
-	transofmring.attack_verb_simple_on = list("saw", "shred", "rend", "gut", "eviscerate")
+	transforming.attack_verb_simple_on = list("saw", "shred", "rend", "gut", "eviscerate")
 
 /obj/item/chainsaw/energy/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
