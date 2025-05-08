@@ -1,151 +1,138 @@
-import { useBackend } from '../backend';
-import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumber, ProgressBar } from '../components';
+import { useBackend, useSharedState } from '../backend';
+import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumber, ProgressBar, Flex, Divider, Table } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
-export const XenoartifactConsole = (props) => {
-  const { act, data } = useBackend();
-  const { tab_index, current_tab, tab_info, points, stability } = data;
-  const sellers = Object.values(data.seller);
+export const XenoartifactConsole = (props, context) => {
+  const { act, data } = useBackend(context);
+  const [tab, setTab] = useSharedState(context, 'tab', 'listings');
+  const { stability, money, purchase_radio, solved_radio, current_tab } = data;
+  const sellers = data.sellers || [];
   return (
-    <Window width={800} height={500}>
+    <Window width={888} height={500}>
       <Window.Content scrollable>
-        <Box>
-          <ProgressBar
-            ranges={{
-              good: [0.5, Infinity],
-              average: [0.25, 0.5],
-              bad: [-Infinity, 0.25],
-            }}
-            value={stability * 0.01}>
-            Thread stability
-          </ProgressBar>
-          <Section
-            title={`Research and Development`}
-            fluid
-            buttons={
-              <Box fontFamily="verdana" inline bold>
-                <AnimatedNumber value={points} format={(value) => formatMoney(value)} />
-                {' credits'}
-              </Box>
-            }>
-            <BlockQuote>{`${tab_info}`}</BlockQuote>
-          </Section>
-          <Tabs row>
-            {tab_index.map((tab_name) => (
-              <XenoartifactConsoleTabs tab_name={tab_name} key={tab_name} />
-            ))}
-          </Tabs>
-          {current_tab === 'Listings' &&
-            sellers.map((details) => (
-              <XenoartifactListingBuy
-                name={details.name}
-                dialogue={details.dialogue}
-                price={details.price}
-                key={details.name}
-                id={details.id}
+        <Section>
+          <Flex>
+            <Flex.Item>
+              <b>{`Research Budget: ${money} credits`}</b>
+            </Flex.Item>
+            <Flex.Item ml={'auto'}>
+              <Button
+                icon={'microphone'}
+                color={purchase_radio ? 'green' : 'red'}
+                tooltip={'Toggle Purchase Radio'}
+                onClick={() => act('toggle_purchase_audio')}
               />
-            ))}
-          {current_tab === 'Linking' && <XenoartifactLinking />}
-          {current_tab === 'Export' && <XenoartifactSell />}
-        </Box>
+              <Button
+                icon={'microphone'}
+                color={solved_radio ? 'green' : 'red'}
+                tooltip={'Toggle Solve Radio'}
+                onClick={() => act('toggle_solved_audio')}
+              />
+            </Flex.Item>
+          </Flex>
+        </Section>
+        <Divider />
+        <Tabs>
+          <Tabs.Tab onClick={() => setTab('listings')} selected={tab === 'listings'}>
+            <Icon name="shopping-cart" /> Listings
+          </Tabs.Tab>
+          <Tabs.Tab onClick={() => setTab('requests')} selected={tab === 'requests'}>
+            <Icon name="list" /> Requests
+          </Tabs.Tab>
+          <Tabs.Tab onClick={() => setTab('history')} selected={tab === 'history'}>
+            <Icon name="search" /> History
+          </Tabs.Tab>
+        </Tabs>
+        <Divider />
+        {tab === 'listings' && <XenoartifactConsoleSellerTab />}
+        {tab === 'requests' && <XenoartifactConsoleRequestsTab />}
+        {tab === 'history' && <XenoartifactConsoleHistoryTab />}
       </Window.Content>
     </Window>
   );
 };
 
-const XenoartifactConsoleTabs = (props) => {
-  const { act, data } = useBackend();
-  const { tab_index, current_tab } = data;
-  const { tab_name } = props;
+const XenoartifactConsoleSellerTab = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { stability, money, purchase_radio, solved_radio, current_tab } = data;
+  const sellers = data.sellers || [];
   return (
-    <Box>
-      <Tabs.Tab selected={current_tab === tab_name} onClick={() => act(`set_tab_${tab_name}`)}>
-        {`${tab_name}`}
-      </Tabs.Tab>
-    </Box>
-  );
-};
-
-export const XenoartifactListingBuy = (props) => {
-  const { act, data } = useBackend();
-  const { name, dialogue, price, id } = props;
-  return (
-    <Box p={0.5}>
-      <Section>
-        {`${name}:`}
-        <BlockQuote>{`${dialogue}`}</BlockQuote>
-        <Button icon="shopping-cart" onClick={() => act(id)}>
-          {`${price} credits`}
-        </Button>
-      </Section>
-    </Box>
-  );
-};
-
-export const XenoartifactListingSell = (props) => {
-  const { act, data } = useBackend();
-  const { name, dialogue } = props;
-  return (
-    <Box p={0.5}>
-      <Section>
-        {`${name}:`}
-        <BlockQuote>{`${dialogue}`}</BlockQuote>
-      </Section>
-    </Box>
-  );
-};
-
-export const XenoartifactLinking = (props) => {
-  const { act, data } = useBackend();
-  const { linked_machines } = data;
-  return (
-    <Box p={0.5}>
-      <Button onClick={() => act(`link_nearby`)}>
-        Link nearby machines. <Icon name="sync" />
-      </Button>
-      {linked_machines.map((machine) => (
-        <Section p={1} key={machine}>
-          {`${machine} connection established.`}
-        </Section>
+    <Flex wrap={'wrap'}>
+      {sellers.map((value) => (
+        <XenoartifactConsoleSellerEntry value={value} key={value} />
       ))}
-    </Box>
+    </Flex>
   );
 };
 
-export const XenoartifactSell = (props) => {
-  const { act, data } = useBackend();
-  const entries = Object.values(data.sold_artifacts);
-  const buyers = Object.values(data.buyer);
+const XenoartifactConsoleSellerEntry = (props, context) => {
+  const { act } = useBackend(context);
+  const { value } = props;
+  const stock = value['stock'] || [];
   return (
-    <Box p={0.5}>
-      <Section>
-        <Collapsible title="Portfolio">
-          {entries.map((item) => (
-            <Section key={item}>
-              <BlockQuote>
-                <Box>{`${item.main}`}</Box>
-                <Box>{`${item.gain}`}</Box>
-                {item.traits.map((trait) => (
-                  <Box key={trait} color={trait.color}>{`${trait.name}`}</Box>
-                ))}
-              </BlockQuote>
-            </Section>
-          ))}
-        </Collapsible>
-        <Button icon="shopping-cart" onClick={() => act(`sell`)} p={0.5}>
-          Export pad contents
-        </Button>
+    <Flex.Item ml={1} my={0.5}>
+      <Section title={`${value['name']}`} px={2} py={1} independant>
+        <BlockQuote>{`${value['dialogue']}`}</BlockQuote>
+        <Divider />
+        {stock.map((stock_list) => (
+          <Section
+            title={`${stock_list['name']}`}
+            mx={5}
+            independant
+            buttons={
+              <Button
+                icon={'shopping-cart'}
+                onClick={() => act(`stock_purchase`, { item_id: stock_list['id'], seller_id: value['id'] })}>
+                {`$${stock_list['cost']}`}
+              </Button>
+            }
+            key={stock_list}>
+            <BlockQuote>{`${stock_list['description']}`}</BlockQuote>
+            <Divider />
+          </Section>
+        ))}
       </Section>
-      {buyers.map((details) => (
-        <XenoartifactListingSell
-          key={details}
-          name={details.name}
-          dialogue={details.dialogue}
-          price={details.price}
-          id={details.id}
-        />
+    </Flex.Item>
+  );
+};
+
+const XenoartifactConsoleRequestsTab = (props, context) => {
+  const { act, data } = useBackend(context);
+  const requests = data.active_request || [];
+  return (
+    <Table>
+      {requests.map((request) => (
+        <Table.Row key={request.id} className="candystripe">
+          <Table.Cell collapsing color="label">
+            #{request.id}
+          </Table.Cell>
+          <Table.Cell>{request.object}</Table.Cell>
+          <Table.Cell>
+            <b>{request.orderer}</b>
+          </Table.Cell>
+          <Table.Cell width="25%">
+            <i>{request.reason}</i>
+          </Table.Cell>
+          <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+            {formatMoney(request.cost)} cr
+          </Table.Cell>
+        </Table.Row>
       ))}
-    </Box>
+    </Table>
+  );
+};
+
+const XenoartifactConsoleHistoryTab = (props, context) => {
+  const { act, data } = useBackend(context);
+  const history = data.history || [];
+  return (
+    <Flex wrap={'wrap'}>
+      {history.map((value) => (
+        <BlockQuote key={value} fontSize={1.2}>
+          {value}
+        </BlockQuote>
+      ))}
+    </Flex>
   );
 };

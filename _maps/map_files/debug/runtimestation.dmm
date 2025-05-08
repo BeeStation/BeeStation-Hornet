@@ -2164,15 +2164,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"nG" = (
-/obj/structure/closet/secure_closet/research_director{
-	locked = 0
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/bridge)
 "nM" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -2272,6 +2263,15 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"rN" = (
+/obj/structure/closet/secure_closet/research_director{
+	locked = 0
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/bridge)
 "rR" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/hidden/layer4,
@@ -7315,7 +7315,7 @@ ac
 bv
 bK
 YN
-nG
+rN
 bu
 mm
 gt
