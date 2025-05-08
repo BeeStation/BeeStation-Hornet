@@ -162,6 +162,27 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 
+/obj/item/food/fortunecookie/make_edible()
+	AddComponent(/datum/component/edible, \
+		initial_reagents = food_reagents, \
+		food_flags = food_flags, \
+		foodtypes = foodtypes, \
+		volume = max_volume, \
+		eat_time = eat_time, \
+		tastes = tastes, \
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption, \
+		microwaved_type = microwaved_type, \
+		junkiness = junkiness, \
+		on_consume = CALLBACK(src, PROC_REF(on_consume)), \
+	)
+
+/obj/item/food/fortunecookie/proc/on_consume(mob/user)
+	var/obj/item/paper/fortune = locate(/obj/item/paper) in src.contents
+	if(fortune)
+		if(user)
+			user.put_in_hands(fortune)
+
 /obj/item/food/cookie/sugar
 	name = "sugar cookie"
 	desc = "Just like your little sister used to make."
