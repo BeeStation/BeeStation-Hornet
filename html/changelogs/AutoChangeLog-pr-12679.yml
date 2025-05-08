@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: Custom Fortune Cookies now drop their paper again
