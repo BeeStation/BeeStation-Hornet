@@ -47,7 +47,7 @@
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 1 //Set to a default of 1, gets overridden in Initialize()
-	armor_type = /datum/armor/color_fyellow
+	armor_type = /datum/armor/civilian_padded
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
 

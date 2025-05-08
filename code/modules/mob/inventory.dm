@@ -357,7 +357,14 @@
 		if ((clothing.clothing_flags & THICKMATERIAL))
 			continue
 		zones_remaining &= ~clothing.body_parts_covered
-	
+	var/bad = 0
+	var/count = 0
+	for (var/i in 1 to 24)
+		if (zones & (1 << i))
+			count ++
+		if (zones_remaining & (1 << i))
+			bad ++
+	return 1 - (bad / count)
 
 //Outdated but still in use apparently. This should at least be a human proc.
 //Daily reminder to murder this - Remie.

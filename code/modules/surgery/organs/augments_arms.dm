@@ -87,7 +87,7 @@
 
 /obj/item/organ/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += span_info("[src] is assembled in the [zone == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.")
+	. += span_info("[src] is assembled in the [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.")
 
 /obj/item/organ/cyberimp/arm/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -98,7 +98,7 @@
 		slot = ORGAN_SLOT_LEFT_ARM_AUG
 	else
 		slot = ORGAN_SLOT_RIGHT_ARM_AUG
-	to_chat(user, span_notice("You modify [src] to be installed on the [zone == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."))
+	to_chat(user, span_notice("You modify [src] to be installed on the [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."))
 	update_icon()
 
 /obj/item/organ/cyberimp/arm/Insert(mob/living/carbon/user, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
@@ -170,8 +170,8 @@
 	if(!active_item || (active_item in src))
 		return
 
-	owner.visible_message(span_notice("[owner] retracts [active_item] back into [owner.p_their()] [zone == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
-		span_notice("[active_item] snaps back into your [zone == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
+	owner.visible_message(span_notice("[owner] retracts [active_item] back into [owner.p_their()] [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
+		span_notice("[active_item] snaps back into your [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
 		span_italics("You hear a short mechanical noise."))
 
 	owner.transferItemToLoc(active_item, src, TRUE)
@@ -210,8 +210,8 @@
 			for(var/i in failure_message)
 				to_chat(owner, i)
 			return
-	owner.visible_message(span_notice("[owner] extends [active_item] from [owner.p_their()] [zone == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
-		span_notice("You extend [active_item] from your [zone == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
+	owner.visible_message(span_notice("[owner] extends [active_item] from [owner.p_their()] [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
+		span_notice("You extend [active_item] from your [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."),
 		span_italics("You hear a short mechanical noise."))
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
 

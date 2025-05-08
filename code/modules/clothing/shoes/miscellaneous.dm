@@ -50,7 +50,7 @@
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	armor_type = /datum/armor/shoes_galoshes
+	armor_type = /datum/armor/civilian_padded
 	can_be_bloody = FALSE
 	custom_price = 100
 

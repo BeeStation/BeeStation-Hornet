@@ -52,7 +52,6 @@
 	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
 	var/high_pressure_multiplier = 1
-	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
 
 	/// How much clothing damage has been dealt to each of the limbs of the clothing, assuming it covers more than one limb
 	var/list/damage_by_parts
@@ -542,18 +541,6 @@ BLIND     // can't see anything
 		return
 	if(prob(0.2))
 		to_chat(L, span_warning("The damaged threads on your [src.name] chafe!"))
-
-/*
-/obj/item/clothing/get_armor_rating(d_type)
-	. = ..()
-	if(high_pressure_multiplier == 1)
-		return
-	var/turf/T = get_turf(usr)
-	if(!T || !(d_type in high_pressure_multiplier_types))
-		return
-	if(!lavaland_equipment_pressure_check(T))
-		. *= high_pressure_multiplier
-*/
 
 #undef SENSORS_OFF
 #undef SENSORS_BINARY

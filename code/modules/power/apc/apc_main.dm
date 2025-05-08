@@ -218,7 +218,7 @@
 	return (exposed_temperature > 2000)
 
 /obj/machinery/power/apc/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(min(exposed_temperature/100, 10), 0, BURN, DAMAGE_FIRE)
+	deal_damage(min(exposed_temperature/100, 10), 0, BURN, DAMAGE_FIRE)
 
 /obj/machinery/power/apc/handle_atom_del(atom/A)
 	if(A == cell)

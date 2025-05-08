@@ -181,7 +181,7 @@
 	name = "battered carp space suit"
 	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
 	slowdown = 1
-	armor_type = /datum/armor/spaceproof_old
+	armor_type = /datum/armor/civilian_light_armor
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
 

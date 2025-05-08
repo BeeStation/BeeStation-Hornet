@@ -790,7 +790,7 @@
 		if(istype(adjacent_object, /obj/structure/destructible/cult))
 			continue
 
-		adjacent_object.apply_damage(90, 0, BRUTE, sound = 0)
+		adjacent_object.deal_damage(90, 0, BRUTE, sound = 0)
 		new /obj/effect/temp_visual/cult/turf/floor(get_turf(adjacent_object))
 
 //still magic related, but a different path

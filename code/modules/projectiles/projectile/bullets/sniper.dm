@@ -14,7 +14,7 @@
 /obj/projectile/bullet/p50/on_hit(atom/target, blocked = 0)
 	if(isobj(target) && (blocked != 100) && breakthings)
 		var/obj/O = target
-		O.apply_damage(80, sharpness, BRUTE, sound = FALSE)
+		O.deal_damage(80, sharpness, BRUTE, damage_flag, sound = FALSE)
 	return ..()
 
 /obj/projectile/bullet/p50/penetrator

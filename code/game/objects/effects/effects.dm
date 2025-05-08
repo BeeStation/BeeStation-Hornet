@@ -19,7 +19,10 @@
 
 	return ..()
 
-/obj/effect/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
+/obj/effect/deal_damage(amount, penetration, type, flag, dir, sound, zone)
+	return
+
+/obj/effect/take_direct_damage(amount, type, flag, zone)
 	return
 
 /obj/effect/fire_act(exposed_temperature, exposed_volume)

@@ -75,12 +75,12 @@
 	return armor
 
 /mob/living/proc/get_average_armor_flag(armour_flag = ARMOUR_BLUNT)
-	return (get_bodyzone_armor_flag(BODY_ZONE_CHEST, armour_flag)
-		+ get_bodyzone_armor_flag(BODY_ZONE_HEAD, armour_flag)
-		+ get_bodyzone_armor_flag(BODY_ZONE_L_ARM, armour_flag)
-		+ get_bodyzone_armor_flag(BODY_ZONE_L_LEG, armour_flag)
-		+ get_bodyzone_armor_flag(BODY_ZONE_R_ARM, armour_flag)
-		+ get_bodyzone_armor_flag(BODY_ZONE_R_LEG, armour_flag)
+	return (get_bodyzone_armor_flag(BODY_ZONE_CHEST, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_HEAD, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_L_ARM, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_L_LEG, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_R_ARM, armour_flag) +\
+		get_bodyzone_armor_flag(BODY_ZONE_R_LEG, armour_flag)\
 		) / 6
 
 /// Get the armour value for a specific damage type, targetting a particular zone.

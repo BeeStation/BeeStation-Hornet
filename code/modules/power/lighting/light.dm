@@ -410,7 +410,7 @@
 		newlight.setDir(src.dir)
 		newlight.stage = cur_stage
 		if(!disassembled)
-			newlight.apply_damage(newlight.max_integrity * 0.5, 0, sound = FALSE)
+			newlight.deal_damage(newlight.max_integrity * 0.5, 0, sound = FALSE)
 			if(status != LIGHT_BROKEN)
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
@@ -431,14 +431,11 @@
 			if(prob(12))
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
-/obj/machinery/light/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(. && !QDELETED(src))
-		if(prob(damage_amount * 5))
+/obj/machinery/light/take_direct_damage(amount, type, flag, zone)
+	..()
+	if(!QDELETED(src))
+		if(prob(amount * 5))
 			break_light_tube()
-
-
-
 
 /obj/machinery/light/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

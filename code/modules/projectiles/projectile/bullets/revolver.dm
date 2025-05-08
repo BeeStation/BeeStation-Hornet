@@ -107,8 +107,8 @@
 	if(isliving(target))
 		var/mob/living/carbon/human/M = target
 		if(M.job == JOB_NAME_MIME)
-			var/defense = M.getarmor(CHEST, BULLET, armour_penetration)
-			M.apply_damage(5, BRUTE, CHEST, defense)
+			// It's piercing all your internal organs
+			M.deal_damage(5, SHARP_X, BRUTE, zone = CHEST)
 			M.visible_message(span_danger("A bullet wound appears in [M]'s chest!"), \
 							span_userdanger("You get hit with a .38 bullet from a finger gun! Those hurt!..."))
 		else

@@ -349,7 +349,7 @@
 	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_old"
-	armor_type = /datum/armor/costume_bronze
+	armor_type = /datum/armor/civilian_metal
 
 
 /obj/item/clothing/suit/costume/joker

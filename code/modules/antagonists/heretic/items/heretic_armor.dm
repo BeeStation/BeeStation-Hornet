@@ -65,8 +65,7 @@
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
 	flags_inv = NONE
-	// slightly worse than normal cult robes
-	armor_type = /datum/armor/cultrobes_void
+	armor_type = /datum/armor/security_runed_cloth
 	body_parts_covered = CHEST|GROIN|ARMS
 	qdel_hood = TRUE
 

@@ -445,7 +445,7 @@
 			new /obj/effect/hotspot(T)
 	for(var/obj/O in range(aoe_structure_range, epicenter))
 		if(!isitem(O))
-			O.apply_damage(aoe_structure_damage * get_damage_coeff(O), 0, BURN, DAMAGE_LASER, sound = FALSE)
+			O.deal_damage(aoe_structure_damage * get_damage_coeff(O), 0, BURN, DAMAGE_LASER, sound = FALSE)
 
 /obj/projectile/beam/beam_rifle/prehit_pierce(atom/A)
 	if(isclosedturf(A) && (wall_pierce < wall_pierce_amount))
@@ -460,7 +460,7 @@
 	if(isobj(A) && (structure_pierce < structure_pierce_amount))
 		++structure_pierce
 		var/obj/O = A
-		O.apply_damage((impact_structure_damage + aoe_structure_damage) * structure_bleed_coeff * get_damage_coeff(A), 0, BURN, DAMAGE_ENERGY, sound = FALSE)
+		O.deal_damage((impact_structure_damage + aoe_structure_damage) * structure_bleed_coeff * get_damage_coeff(A), 0, BURN, DAMAGE_ENERGY, sound = FALSE)
 		return PROJECTILE_PIERCE_PHASE			// ditto and this could be refactored to on_hit honestly
 	return ..()
 
@@ -474,7 +474,7 @@
 /obj/projectile/beam/beam_rifle/proc/handle_impact(atom/target)
 	if(isobj(target))
 		var/obj/O = target
-		O.apply_damage(impact_structure_damage * get_damage_coeff(target), 0, BURN, DAMAGE_LASER, sound = FALSE)
+		O.deal_damage(impact_structure_damage * get_damage_coeff(target), 0, BURN, DAMAGE_LASER, sound = FALSE)
 	if(isliving(target))
 		var/mob/living/L = target
 		L.adjustFireLoss(impact_direct_damage)

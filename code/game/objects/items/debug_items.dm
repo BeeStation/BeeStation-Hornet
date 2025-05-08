@@ -211,7 +211,7 @@
 	hardsuit_type = "syndielite"
 	w_class = WEIGHT_CLASS_TINY
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
-	armor_type = /datum/armor/hardsuit_debug
+	armor_type = /datum/armor/misc_adminsuit
 	gas_transfer_coefficient = 0
 	siemens_coefficient = 0
 	slowdown = -1
