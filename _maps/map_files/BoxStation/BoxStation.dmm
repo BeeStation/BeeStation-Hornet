@@ -28631,6 +28631,10 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"hYO" = (
+/obj/item/cardboard_cutout/adaptive/clown,
+/turf/open/floor/plating/rust,
+/area/maintenance/starboard/fore)
 "hYQ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
@@ -112999,7 +113003,7 @@ arA
 anf
 alP
 kVS
-gYi
+hYO
 oeG
 anf
 apE
