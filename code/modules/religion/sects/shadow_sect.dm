@@ -16,19 +16,19 @@
 		/datum/religion_rites/shadow_conversion,
 		/datum/religion_rites/grand_ritual_one
 		///datum/religion_rites/grand_ritual_two   // Grand rituals are added to this list by previous rituals
-		///datum/religion_rites/grand_ritual_three // So the are here in effect, just hidden for now
+		///datum/religion_rites/grand_ritual_three // So they are here in effect, just hidden for now
 	)
 
 
 	altar_icon_state = "convertaltar-dark"
-	var/light_reach = 1 // range of ligth for obelisks
+	var/light_reach = 1 // range of light for obelisks
 	var/light_power = 0 // power of light for obelisks (will be negative)
 	var/list/obelisks = list() // list of all obeliscs
 	var/obelisk_number = 0  // number of obeliscs
-	var/list/active_obelisks = list() // list of obeliscs anhord to the floor aka "active"
+	var/list/active_obelisks = list() // list of obeliscs anchored to the floor aka "active"
 	var/active_obelisk_number = 0 //number of such obeliscs
 	var/night_vision_active = FALSE // if night vision aura of obeliscs is active
-	var/grand_ritual_in_progress = FALSE // if there is grand ritual being preformed
+	var/grand_ritual_in_progress = FALSE // whether a grand ritual is being performed
 	var/grand_ritual_level = 0 // what is the level of the last performed ritual (max is 3)
 
 
@@ -66,7 +66,7 @@
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/affected_mobs = list()
-	var/list/healed_mobs = list() // This will be usfull for obelisk stage 2
+	var/list/healed_mobs = list() // This will be useful for obelisk stage 2
 
 
 /obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
@@ -186,7 +186,7 @@
 
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if(sect.grand_ritual_in_progress)
-			to_chat(user,span_warning("You can't move the obelisk during ritual!"))
+			to_chat(user,span_warning("You can't move the obelisk during a ritual!"))
 			return
 		if (!anchored)
 			var/list/current_objects = view_or_range(5, src, "range")
@@ -266,7 +266,7 @@
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(LAZYLEN(movable_reltool.buckled_mobs))
-		to_chat(user,span_warning("You're going to convert the one buckled on [movable_reltool]."))
+		to_chat(user,span_warning("You are about to convert the one buckled to [movable_reltool]."))
 	else
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
