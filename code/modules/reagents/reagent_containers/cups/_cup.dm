@@ -440,7 +440,7 @@
 	desc = "A showy form of cup typically intended for both use and display."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "coconutcup_empty"
-	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 100)
 	volume = 50
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
