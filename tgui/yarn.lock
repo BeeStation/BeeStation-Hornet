@@ -10666,7 +10666,7 @@ __metadata:
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: 10c0/337746daa2624fcb2c1226d02a00b0e6880aa5e4dc05f72ccce60a34a096da0a66fa3589b3d813eb41315229f10bc35b6114fb418d040e99ecb7eb9d752f1e32
+  checksum: 10c0/ef8061e81f40c39070748e8e263c8767d8fcc7c34e9ee85211b29fbc2aedb1ae7cda7d735c2cdbe9367060e9f85ec11c2694e370c121c6bcbb472a7bd0b19555
   languageName: node
   linkType: hard
 
