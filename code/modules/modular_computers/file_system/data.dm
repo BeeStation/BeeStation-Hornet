@@ -1,7 +1,7 @@
 /datum/computer_file/data
 	filetype = "DAT"
-	/// Amount of characters to count as "1 GQ"
-	var/block_size = 250
+	/// Amount of characters to count as "1 GQ". 16GQ (Amount of Data Disk) reaches 5000, the paper limit.
+	var/block_size = 315
 	/// Stored data in string format. Use set_stored_data instead of direct assignment.
 	var/stored_data = ""
 	/// Whether the user will be reminded that the file probably shouldn't be edited.
