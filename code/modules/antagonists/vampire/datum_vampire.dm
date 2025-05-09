@@ -521,7 +521,7 @@
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
 	if(IS_VASSAL(examiner) in vassals)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
+		examine_text += text
 	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)
 		text += span_cult("<EM>[return_full_name()]</EM>")
-
-	examine_text += text
+		examine_text += text

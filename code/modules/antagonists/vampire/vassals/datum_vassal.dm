@@ -152,7 +152,7 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(examiner)
 	if(src in vampiredatum?.vassals)
 		text += span_cult("<EM>This is your vassal!</EM>")
+		examine_text += text
 	else if(vampiredatum || IS_CURATOR(examiner) || IS_VASSAL(examiner))
 		text += span_cult("<EM>This is [master.return_full_name()]'s vassal</EM>")
-
-	examine_text += text
+		examine_text += text
