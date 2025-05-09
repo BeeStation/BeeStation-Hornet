@@ -64,6 +64,8 @@
   // Section overrides
   .Section {
     border-bottom: 1px solid colors.$primary;
+    display: flex;
+    flex-direction: column;
   }
   .Section__title {
     padding: 0.2em;
@@ -71,11 +73,26 @@
     box-shadow: 0px 0px 6px 0px colors.$primary;
     border-bottom: unset;
   }
-  .Section__content {
-    margin-top: 0.4em;
+  .Section__rest {
+    flex-grow: 1;
     border: 1px solid colors.$primary;
     border-bottom: none;
+  }
+  .Section__content {
+    margin-top: 0.4em;
     box-shadow: 0px 0px 4px -2px colors.$primary;
+    height: 100%;
+  }
+  // Progress bar
+  .ProgressBar {
+    min-height: 1.5em;
+  }
+  .ProgressBar__content {
+    margin-left: auto;
+    width: fit-content;
+    background-color: color.adjust(base.$color-bg, $alpha: -0.3);
+    box-shadow: 0px 0px 4px 4px color.adjust(base.$color-bg, $alpha: -0.3);
+    height: 1.25em;
   }
   // Title-bar overrides
   @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #181a21));

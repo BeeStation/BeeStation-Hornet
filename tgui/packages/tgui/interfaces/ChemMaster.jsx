@@ -39,7 +39,7 @@ const ChemMasterContent = (props) => {
         buttons={
           !!data.isBeakerLoaded && (
             <>
-              <Box inline color="label" mr={2}>
+              <Box inline mr={2}>
                 <AnimatedNumber value={beakerCurrentVolume} initial={0} />
                 {` / ${beakerMaxVolume} units`}
               </Box>
@@ -67,11 +67,11 @@ const ChemMasterContent = (props) => {
         title="Buffer"
         buttons={
           <>
-            <Box inline color="label" mr={2}>
+            <Box inline mr={2}>
               <AnimatedNumber value={machineCurrentVolume} initial={0} />
               {` / ${machineMaxVolume} units.`}
             </Box>
-            <Box inline color="label" mr={1}>
+            <Box inline mr={1}>
               Mode:
             </Box>
             <Button
@@ -97,7 +97,7 @@ const ChemMasterContent = (props) => {
         title="Packaging"
         buttons={
           <>
-            <Box inline color="label" mr={1}>
+            <Box inline mr={1}>
               Mode:
             </Box>
             <Button
@@ -150,7 +150,7 @@ const ChemMasterContent = (props) => {
           title="Pill Bottle"
           buttons={
             <>
-              <Box inline color="label" mr={2}>
+              <Box inline mr={2}>
                 {pillBottleCurrentAmount} / {pillBottleMaxAmount} pills
               </Box>
               <Button icon="eject" content="Eject" onClick={() => act('ejectPillBottle')} />
