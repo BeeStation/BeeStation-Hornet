@@ -14,7 +14,7 @@ export RUST_VERSION=1.70
 export RUST_G_VERSION=3.8.0
 
 #node version
-export NODE_VERSION_LTS=22.11.0
+export NODE_VERSION_LTS=22.15.0
 
 # SpacemanDMM git tag
 export SPACEMAN_DMM_VERSION=suite-1.9
