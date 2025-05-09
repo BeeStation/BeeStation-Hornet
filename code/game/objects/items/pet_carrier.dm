@@ -90,7 +90,7 @@
 	if(!open)
 		to_chat(user, span_warning("You need to open [src]'s door!"))
 		return
-	if(target.mob_size > max_occupant_weight)
+	if(target.mob_size > max_occupant_weight || !target.can_be_held)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			if(iscatperson(H))
