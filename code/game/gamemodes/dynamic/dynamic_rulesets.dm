@@ -34,8 +34,8 @@
 	var/datum/game_mode/dynamic/dynamic
 	/// List of possible people for this ruleset to draft. Assigned in 'dynamic.dm' 'pick_roundstart_rulesets()'
 	var/candidates = list()
-	/// List of minds to become antag
-	var/chosen_minds = list()
+	/// A list of people chosen for this ruleset, usually a list of minds but is a list of observers when a ghost ruleset
+	var/list/chosen_candidates = list()
 
 /datum/dynamic_ruleset/New(dynamic_mode)
 	SHOULD_NOT_OVERRIDE(TRUE)
@@ -57,19 +57,20 @@
 /*
 * Remove candidates that do not meet your requirements.
 * Usually this doesn't need to be changed unless you need some specific requirements from your candidates.
+* Or you're using a midround ghost ruleset :)
 */
 /datum/dynamic_ruleset/proc/trim_candidates()
 	for(var/mob/candidate in candidates)
 		var/client/client = GET_CLIENT(candidate)
 
 		// Connected?
-		if(!client || (!candidate.mind && !isobserver(candidate)))
+		if(!client || !candidate.mind)
 			candidates -= candidate
 			continue
 
 		// Antag banned?
 		// Antag disabled?
-		// Not enough hours?
+		// Enough hours?
 #if !defined(TESTING)
 		if(!client.should_include_for_role(
 			banning_key = antag_datum.banning_key,
@@ -81,7 +82,7 @@
 #endif
 
 		// Already assigned antag?
-		if(candidate.mind?.special_role && !isobserver(candidate))
+		if(candidate.mind.special_role)
 			candidates -= candidate
 			continue
 
@@ -101,6 +102,10 @@
 * If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
 */
 /datum/dynamic_ruleset/proc/select_player()
+	if(!length(candidates))
+		stack_trace("[src] called select_player without any candidates!")
+		return
+
 	var/mob/dead/new_player/selected_player = dynamic && CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
 
 	if(selected_player)
@@ -114,15 +119,19 @@
 	for(var/i = 1 to drafted_players_amount)
 		var/datum/mind/chosen_mind = select_player()
 
-		chosen_minds += chosen_mind
+		chosen_candidates += chosen_mind
 		chosen_mind.special_role = antag_datum.special_role
+
 	return TRUE
 
 /*
 * Give your chosen minds their antag datums.
 */
 /datum/dynamic_ruleset/proc/execute()
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	if(!length(chosen_candidates))
+		return DYNAMIC_EXECUTE_FAILURE
+
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.add_antag_datum(antag_datum)
 
 	return DYNAMIC_EXECUTE_SUCCESS

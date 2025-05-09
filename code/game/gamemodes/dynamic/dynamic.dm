@@ -351,7 +351,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 */
 /datum/game_mode/dynamic/post_setup(report)
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
-		if(execute_ruleset(ruleset))
+		if(execute_ruleset(ruleset) != DYNAMIC_EXECUTE_SUCCESS)
+			log_game("DYNAMIC: FAIL: [ruleset] could not be executed")
 			roundstart_executed_rulesets[ruleset] -= 1
 
 	init_midround()
@@ -419,8 +420,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	if(midround_chosen_ruleset)
 		// Try and execute our chosen ruleset
 		if(midround_points >= midround_chosen_ruleset.points_cost)
-			midround_chosen_ruleset.get_candidates()
-
 			var/result = execute_ruleset(midround_chosen_ruleset)
 			message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
@@ -609,14 +608,14 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	dat += "Roundstart point divergence: <b>[round((point_divergence - 1) * 100, 1)]%</b>"
 	dat += "Roundstart candidates: <b>[length(roundstart_candidates)]</b><br/>"
 
-	dat += "Midround grace period: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_graceperiod=1'><b>[DisplayTimeText(midround_grace_period)]</b></a>"
+	dat += "Midround grace period: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_graceperiod=1'><b>[midround_grace_period ? DisplayTimeText(midround_grace_period) : "0 seconds"]</b></a>"
 	dat += "Current midround points: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_points=1'><b>[midround_points]</b></a>"
 	dat += "Current midround percentages: Light: [round(midround_light_chance, 1)]%, Medium: [round(midround_medium_chance, 1)]%, Heavy: [round(midround_heavy_chance, 1)]%"
-	dat += "Chosen midround ruleset: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_ruleset=1'><b>[midround_chosen_ruleset ? midround_chosen_ruleset.name : "none"]</b></a><br/>"
+	dat += "Chosen midround ruleset: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_ruleset=1'><b>[midround_chosen_ruleset ? midround_chosen_ruleset.name : "None"]</b></a><br/>"
 
 	dat += "Latejoin probability: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_latejoin_prob=1'><b>[latejoin_ruleset_probability]%</b></a>"
 	dat += "Max latejoin rulesets: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_latejoin_max=1'><b>[latejoin_max_rulesets]</b></a>"
-	dat += "Forced latejoin ruleset: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_latejoin_ruleset=1'><b>[latejoin_forced_ruleset ? latejoin_forced_ruleset.name : "none"]</b></a><br/>"
+	dat += "Forced latejoin ruleset: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_latejoin_ruleset=1'><b>[latejoin_forced_ruleset ? latejoin_forced_ruleset.name : "None"]</b></a><br/>"
 
 	dat += "Executed roundstart rulesets:"
 	var/list/roundstart_rule_counts = list()
@@ -654,33 +653,33 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 /datum/game_mode/dynamic/Topic(href, href_list)
 	if(!check_rights(R_FUN))
-		message_admins("[key_name(usr)] has attempted to access the dynamic panel without authorization!")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] has attempted to access the dynamic panel without authorization!")
 		log_admin("[usr.key] tried to use the dynamic panel without authorization.")
 		return
 
 	if(href_list["forced_extended"])
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
 
-		message_admins("[key_name(usr)] toggled dynamic's Forced Extended to [GLOB.dynamic_forced_extended].")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] toggled dynamic's Forced Extended to [GLOB.dynamic_forced_extended].")
 		log_game("DYNAMIC: [usr.key] toggled dynamic's Forced Extended to [GLOB.dynamic_forced_extended].")
 	else if(href_list["set_midround_graceperiod"])
 		var/new_grace_period = tgui_input_number(usr, "What do you want to set dynamic's grace period to? (in minutes)", "Set Grace Period")
-		if(!new_grace_period)
+		if(isnull(new_grace_period))
 			return
 
 		midround_grace_period = new_grace_period * (1 MINUTES)
 
-		message_admins("[key_name(usr)] set dynamic's grace period to [midround_grace_period].")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's grace period to [midround_grace_period].")
 		log_game("DYNAMIC: [usr.key] set dynamic's grace period to [midround_grace_period].")
 
 	else if(href_list["set_midround_points"])
 		var/new_midround_points = tgui_input_number(usr, "What do you want to set dynamic's midround points to?", "Set Midround Points")
-		if(!new_midround_points)
+		if(isnull(new_midround_points))
 			return
 
 		midround_points = new_midround_points
 
-		message_admins("[key_name(usr)] set dynamic's midround points to [midround_points].")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's midround points to [midround_points].")
 		log_game("DYNAMIC: [usr.key] set dynamic's midround points to [midround_points].")
 	else if(href_list["set_midround_ruleset"])
 		var/added_rule = tgui_input_list(usr, "What midround ruleset do you want dynamic to save up for?", "Set Midround Ruleset", midround_configured_rulesets)
@@ -689,8 +688,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 		midround_chosen_ruleset = added_rule
 
-		message_admins("[key_name(usr)] set dynamic's midround ruleset to [midround_chosen_ruleset].")
-		log_game("DYNAMIC: [key_name(usr)] set dynamic's midround ruleset to [midround_chosen_ruleset].")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's midround ruleset to [midround_chosen_ruleset].")
+		log_game("DYNAMIC: [ADMIN_LOOKUPFLW(usr)] set dynamic's midround ruleset to [midround_chosen_ruleset].")
 	else if(href_list["set_latejoin_prob"])
 		var/new_latejoin_probability = tgui_input_number(usr, "What do you want to set the latejoin probability to?", "Set Latejoin Probability", max_value = 100)
 		if(!new_latejoin_probability)
@@ -698,16 +697,16 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 		latejoin_ruleset_probability = new_latejoin_probability
 
-		message_admins("[key_name(usr)] set dynamic's latejoin probability to [latejoin_ruleset_probability].")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's latejoin probability to [latejoin_ruleset_probability].")
 		log_game("DYNAMIC: [usr.key] set dynamic's latejoin probability to [latejoin_ruleset_probability].")
 	else if(href_list["set_latejoin_max"])
 		var/new_latejoin_max = tgui_input_number(usr, "What do you want to set the max amount of latejoin rulesets to?", "Set Latejoin Max Rulesets")
-		if(!new_latejoin_max)
+		if(isnull(new_latejoin_max))
 			return
 
 		latejoin_max_rulesets = new_latejoin_max
 
-		message_admins("[key_name(usr)] set dynamic's latejoin probability to [latejoin_max_rulesets].")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's latejoin probability to [latejoin_max_rulesets].")
 		log_game("DYNAMIC: [usr.key] set dynamic's latejoin probability to [latejoin_max_rulesets].")
 	else if(href_list["set_latejoin_ruleset"])
 		var/forced_ruleset = tgui_input_list(usr, "What latejoin ruleset do you want to force?", "Force Latejoin Ruleset", latejoin_configured_rulesets)
@@ -716,8 +715,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 		latejoin_forced_ruleset = forced_ruleset
 
-		message_admins("[key_name(usr)] forced dynamic's latejoin ruleset to [latejoin_forced_ruleset].")
-		log_game("DYNAMIC: [key_name(usr)] forced dynamic's latejoin ruleset to [latejoin_forced_ruleset].")
+		message_admins("[ADMIN_LOOKUPFLW(usr)] forced dynamic's latejoin ruleset to [latejoin_forced_ruleset].")
+		log_game("DYNAMIC: [ADMIN_LOOKUPFLW(usr)] forced dynamic's latejoin ruleset to [latejoin_forced_ruleset].")
 
 	// Refresh window
 	admin_panel()

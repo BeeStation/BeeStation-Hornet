@@ -12,8 +12,8 @@
 			candidates -= candidate
 
 /datum/dynamic_ruleset/latejoin/execute()
-	chosen_minds += select_player()
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	chosen_candidates += select_player()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.special_role = antag_datum.special_role
 	. = ..()
 
@@ -55,7 +55,7 @@
 
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		var/datum/antagonist/heretic/new_heretic = IS_HERETIC(chosen_mind.current)
 
 		// Heretics passively gain influence over time.

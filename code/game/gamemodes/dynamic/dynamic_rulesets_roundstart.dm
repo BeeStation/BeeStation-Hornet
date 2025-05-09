@@ -29,13 +29,13 @@
 
 /datum/dynamic_ruleset/roundstart/pre_execute()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		GLOB.pre_setup_antags += chosen_mind
 		chosen_mind.restricted_roles = restricted_roles
 
 /datum/dynamic_ruleset/roundstart/execute()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		GLOB.pre_setup_antags -= chosen_mind
 
 //////////////////////////////////////////////
@@ -129,7 +129,7 @@
 
 /datum/dynamic_ruleset/roundstart/wizard/execute()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
 
 //////////////////////////////////////////
@@ -156,7 +156,7 @@
 	team.forge_brother_objectives()
 	team.update_name()
 
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		team.add_member(chosen_mind)
 		GLOB.pre_setup_antags -= chosen_mind
 
@@ -180,11 +180,11 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10, 1)
+	drafted_players_amount = round(length(dynamic.roundstart_candidates) / 10, 1)
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	team = new
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		var/datum/antagonist/cult/cultist_datum = new antag_datum()
 
 		cultist_datum.cult_team = team
@@ -224,17 +224,17 @@
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10, 1)
+	drafted_players_amount = round(length(dynamic.roundstart_candidates) / 10, 1)
 
 /datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
 	LoadReebe()
 	generate_clockcult_scriptures()
 	. = ..()
 
-/datum/dynamic_ruleset/roundstart/clockcult/execute(forced = FALSE)
+/datum/dynamic_ruleset/roundstart/clockcult/execute()
 	main_cult = new
 
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick_n_take(GLOB.servant_spawns))
 
 		var/datum/antagonist/servant_of_ratvar/servant_datum = add_servant_of_ratvar(chosen_mind.current, team = main_cult)
@@ -276,11 +276,11 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 10, 1)
+	drafted_players_amount = round(length(dynamic.roundstart_candidates) / 10, 1)
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
 	var/has_made_leader = FALSE
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		if(!has_made_leader)
 			has_made_leader = TRUE
 			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
@@ -367,11 +367,11 @@
 	var/finished = FALSE
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = FLOOR(length(dynamic.roundstart_candidates) / 15, 1)
+	drafted_players_amount = round(length(dynamic.roundstart_candidates) / 15, 1)
 
 /datum/dynamic_ruleset/roundstart/revolution/execute()
 	team = new
-	for(var/datum/mind/chosen_mind in chosen_minds)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
 		var/datum/antagonist/rev/head/headrev_datum = new antag_datum()
 		headrev_datum.give_flash = TRUE
 		headrev_datum.give_hud = TRUE
