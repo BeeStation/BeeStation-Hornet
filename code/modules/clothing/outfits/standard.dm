@@ -18,7 +18,7 @@
 		/obj/item/storage/part_replacer/bluespace/tier4=1,\
 		/obj/item/debug/human_spawner=1,\
 		/obj/item/debug/omnitool=1,\
-		/obj/item/xenoartifact_labeler/debug=1,\
+		/obj/item/xenoarchaeology_labeler/debug=1,\
 		/obj/item/map_template_diver=1,\
 		/obj/item/debug/orb_of_power=1
 		)
