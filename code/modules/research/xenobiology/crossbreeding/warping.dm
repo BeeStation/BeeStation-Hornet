@@ -722,7 +722,6 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	desc = "Every material comes with weakness. Improvement is a matter of finding the least weak."
 
 /obj/effect/warped_rune/blackspace/attack_hand(mob/living/user)
-	. = ..()
 	to_chat(user, span_brass("[src] demands a weapon to enhance."))
 	return
 
