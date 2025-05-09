@@ -21,7 +21,7 @@
 	anchored = TRUE
 	density = TRUE
 	max_buckled_mobs = 1
-	buckle_lying = FALSE
+	buckle_lying = 0
 	buckle_prevents_pull = TRUE
 	layer = ABOVE_MOB_LAYER
 	move_resist = MOVE_FORCE_STRONG
@@ -175,7 +175,7 @@
 	else
 		return ..()
 
-/obj/structure/guillotine/buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+/obj/structure/guillotine/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if (!anchored)
 		to_chat(usr, span_warning("The [src] needs to be wrenched to the floor!"))
 		return FALSE

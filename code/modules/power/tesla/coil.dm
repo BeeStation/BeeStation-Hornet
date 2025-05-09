@@ -8,7 +8,7 @@
 
 	// Executing a traitor caught releasing tesla was never this fun!
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	buckle_requires_restraints = TRUE
 
 	circuit = /obj/item/circuitboard/machine/tesla_coil
@@ -103,10 +103,12 @@
 /obj/machinery/power/tesla_coil/proc/zap()
 	if((last_zap + zap_cooldown) > world.time || !powernet)
 		return FALSE
+	var/power = (surplus()/2)
+	if(!power)
+		return FALSE
 	last_zap = world.time
 	var/coeff = (20 - ((input_power_multiplier - 1) * 3))
 	coeff = max(coeff, 10)
-	var/power = (powernet.avail/2)
 	add_load(power)
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 10, power/(coeff/2), tesla_flags)
@@ -165,7 +167,7 @@
 	density = TRUE
 
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	buckle_requires_restraints = TRUE
 
 /obj/machinery/power/grounding_rod/default_unfasten_wrench(mob/user, obj/item/I, time = 20)

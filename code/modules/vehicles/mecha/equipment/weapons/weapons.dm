@@ -6,7 +6,7 @@
 	var/fire_sound
 	var/projectiles_per_shot = 1
 	var/variance = 0
-	var/randomspread = FALSE //use random spread for machineguns, instead of shotgun scatter
+	var/even_distribution = FALSE
 	var/projectile_delay = 0
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the weapon is fired.
 	var/kickback = TRUE //Will using this weapon in no grav push mecha back.
@@ -31,7 +31,7 @@
 			break
 		var/spread = 0
 		if(variance)
-			if(randomspread)
+			if(!even_distribution)
 				spread = round((rand() - 0.5) * variance)
 			else
 				spread = round((i / projectiles_per_shot - 0.5) * variance)
@@ -236,7 +236,7 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
-	return "[..()] \[[projectiles][projectiles_cache_max &&!projectile_energy_cost?"/[projectiles_cache]":""]\][!disabledreload &&(src.projectiles < initial(src.projectiles))?" - <a href='?src=[REF(src)];rearm=1'>Rearm</a>":null]"
+	return "[..()] \[[projectiles][projectiles_cache_max &&!projectile_energy_cost?"/[projectiles_cache]":""]\][!disabledreload &&(src.projectiles < initial(src.projectiles))?" - <a href='byond://?src=[REF(src)];rearm=1'>Rearm</a>":null]"
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/rearm()
@@ -316,6 +316,7 @@
 	projectiles_per_shot = 4
 	variance = 25
 	harmful = TRUE
+	even_distribution = TRUE
 	ammo_type = "scattershot"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
@@ -329,7 +330,6 @@
 	projectiles_cache_max = 1200
 	projectiles_per_shot = 3
 	variance = 6
-	randomspread = 1
 	projectile_delay = 2
 	harmful = TRUE
 	ammo_type = "lmg"

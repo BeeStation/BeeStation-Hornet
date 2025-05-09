@@ -7,6 +7,8 @@
 	var/allowed_slots = ~ITEM_SLOT_BACKPACK
 	///Chance to block
 	var/chance = 100
+	///Override, turning this on will disable this component
+	var/override = FALSE
 
 	var/datum/callback/reaction
 	var/datum/callback/expire
@@ -40,9 +42,13 @@
 
 	UnregisterSignal(user, COMSIG_MOB_RECEIVE_ARTIFACT)
 
-/datum/component/anti_artifact/proc/protect(datum/source, mob/user, self, list/protection_sources)
+/datum/component/anti_artifact/proc/protect(datum/source, mob/user, self, list/protection_sources, slot)
 	SIGNAL_HANDLER
 
+	//Slot logic
+	if(slot && !(slot & allowed_slots) || override)
+		return
+	//Generic protection logic
 	if((!self || blocks_self) && prob(chance))
 		protection_sources += parent
 		reaction?.Invoke(user)

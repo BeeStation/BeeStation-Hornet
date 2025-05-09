@@ -62,3 +62,5 @@ GLOBAL_LIST_INIT(z_defines, list(
 On ZMM_AUTOMANGLE:
 	It's separate from ZMM_MANGLE_PLANES so SSoverlays doesn't disable mangling on a manually flagged atom.
 */
+
+#define GET_TURF_DEPTH(turf) (!isnull((turf).z_depth) ? (turf).z_depth : (turf).calculate_zdepth())

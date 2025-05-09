@@ -40,7 +40,8 @@
 /////////////////////// ZMIMIC
 
 ///Enables Multi-Z lighting
-#define ZMIMIC_LIGHT_BLEED
+/// Doesn't work and causes artifacts when lights are deleted
+//#define ZMIMIC_LIGHT_BLEED
 
 /// If this is uncommented, will profile mapload atom initializations
 //#define PROFILE_MAPLOAD_INIT_ATOM
@@ -106,10 +107,10 @@
 #endif
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
-#define MAX_COMPILER_VERSION 515
+#define MAX_COMPILER_VERSION 516
 #define MAX_COMPILER_BUILD 1700
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (515.1700)! Stability is not guaranteed.
+#warn WARNING: Your BYOND version is over the recommended version (516.1700)! Stability is not guaranteed.
 #endif
 //Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
 #if DM_VERSION >= 514 && DM_BUILD >= 1556
@@ -144,9 +145,9 @@
 #endif
 
 
-//Someone else should probably update this once LINDA is fully merged. Probably Bacon or Crossed.
 #if defined(OPENDREAM) && !defined(CIBUILDING)
-#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+#warn You are building with OpenDream. Remember to build TGUI manually.
+#warn You can do this by running tgui-build.cmd from the bin directory.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)
 #warn Building with Dream Maker is no longer supported and will result in missing interface files.
 #warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.

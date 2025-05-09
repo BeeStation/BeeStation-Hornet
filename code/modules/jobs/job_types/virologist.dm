@@ -10,7 +10,6 @@
 	selection_color = "#d4ebf2"
 	exp_requirements = 180
 	exp_type = EXP_TYPE_MEDICAL
-	exp_type_department = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)

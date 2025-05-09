@@ -354,7 +354,7 @@
 	// The air you breathe out should match your body temperature
 	breath.temperature = H.bodytemperature
 
-/obj/item/organ/lungs/on_life()
+/obj/item/organ/lungs/on_life(delta_time, times_fired)
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))
 		if(owner.stat == CONSCIOUS)
@@ -392,11 +392,12 @@
 	safe_breath_min = 13
 	safe_breath_max = 100
 
-/obj/item/organ/lungs/cybernetic/emp_act()
+/obj/item/organ/lungs/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	owner.losebreath = 20
+	if(prob(30/severity))
+		owner.losebreath += 10
 
 
 /obj/item/organ/lungs/cybernetic/upgraded

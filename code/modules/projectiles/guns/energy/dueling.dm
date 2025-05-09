@@ -202,17 +202,17 @@
 		return FALSE
 	return TRUE
 
-/obj/item/gun/energy/dueling/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+/obj/item/gun/energy/dueling/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(duel.state == DUEL_READY)
 		duel.confirmations[src] = TRUE
 		to_chat(user,span_notice("You confirm your readiness."))
-		return
+		return FALSE
 	else if(!is_duelist(target)) //I kinda want to leave this out just to see someone shoot a bystander or missing.
 		to_chat(user,span_warning("[src] safety system prevents shooting anyone but your designated opponent."))
-		return
+		return FALSE
 	else
 		duel.fired[src] = TRUE
-		. = ..()
+		return ..()
 
 /obj/item/gun/energy/dueling/before_firing(target,user)
 	var/obj/item/ammo_casing/energy/duel/D = chambered
@@ -247,7 +247,7 @@
 	D.setting = setting
 	D.update_icon()
 
-/obj/item/ammo_casing/energy/duel/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, spread_multiplier = 1, atom/fired_from)
+/obj/item/ammo_casing/energy/duel/fire_casing(atom/target, mob/living/user, params, spread, quiet, zone_override, atom/fired_from)
 	. = ..()
 	var/obj/effect/temp_visual/dueling_chaff/C = new(get_turf(user))
 	C.setting = setting
@@ -306,12 +306,11 @@
 	w_class = WEIGHT_CLASS_LARGE
 	req_access = list(ACCESS_CAPTAIN)
 
-/obj/item/storage/lockbox/dueling/ComponentInitialize()
+/obj/item/storage/lockbox/dueling/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_SMALL
-	STR.max_items = 2
-	STR.set_holdable(list(/obj/item/gun/energy/dueling))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	atom_storage.max_slots = 2
+	atom_storage.set_holdable(list(/obj/item/gun/energy/dueling))
 
 /obj/item/storage/lockbox/dueling/PopulateContents()
 	. = ..()
