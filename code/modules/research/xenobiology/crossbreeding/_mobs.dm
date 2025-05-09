@@ -45,53 +45,55 @@ Slimecrossing Mobs
 	invocation_type = INVOCATION_NONE
 	spell_requirements = SPELL_REQUIRES_MIND
 
+//i think i hate this proc. abandon all hope ye who refactor here.
 /datum/action/spell/oozeling_evolve/on_cast(mob/living/user)
 	..()
 	var/mob/living/simple_animal/slime/evolver = owner
 	var/colour = evolver.colour
-	var/ooze_colour = "#ffffff"
-	to_chat(user, span_notice(colour))
+	var/ooze_colour = null
 	switch((colour))
 		if("orange")
-			ooze_colour = "#FFA500"
+			ooze_colour = "FFA500"
 		if("purple")
-			ooze_colour = "#B19CD9"
+			ooze_colour = "B19CD9"
 		if("blue")
-			ooze_colour = "#ADD8E6"
+			ooze_colour = "ADD8E6"
 		if ("metal")
-			ooze_colour = "#7E7E7E"
+			ooze_colour = "7E7E7E"
 		if("yellow")
-			ooze_colour = "#FFFF00"
+			ooze_colour = "FFFF00"
 		if("dark purple")
-			ooze_colour = "#551A8B"
+			ooze_colour = "551A8B"
 		if("dark blue")
-			ooze_colour = "#0000FF"
+			ooze_colour = "0000FF"
 		if("silver")
-			ooze_colour = "#D3D3D3"
+			ooze_colour = "D3D3D3"
 		if("bluespace")
-			ooze_colour = "#32CD32"
+			ooze_colour = "32CD32"
 		if("sepia")
-			ooze_colour = "#704214"
+			ooze_colour = "704214"
 		if("cerulean")
-			ooze_colour = "#2956B2"
+			ooze_colour = "2956B2"
 		if("pyrite")
-			ooze_colour = "#FAFAD2"
+			ooze_colour = "#AFAD2"
 		if("red")
-			ooze_colour = "#FF0000"
+			ooze_colour = "FF0000"
 		if("green")
-			ooze_colour = "#00FF00"
+			ooze_colour = "00FF00"
 		if("pink")
-			ooze_colour = "#FF69B4"
+			ooze_colour = "FF69B4"
 		if("gold")
-			ooze_colour = "#FFD700"
+			ooze_colour = "FFD700"
 		if("oil")
-			ooze_colour = "#505050"
+			ooze_colour = "505050"
 		if("black")
-			ooze_colour = "#000000"
+			ooze_colour = "000000"
 		if("light pink")
-			ooze_colour = "#FFB6C1"
+			ooze_colour = "FFB6C1"
 		if("adamantine")
-			ooze_colour = "#008b8b"
+			ooze_colour = "008b8b"
+		if("grey")
+			ooze_colour = "FFFFFF"
 	var/mob/living/carbon/human/species/oozeling/new_ooze = new(owner.loc)
 	new_ooze.dna.features["mcolor"] = ooze_colour
 	new_ooze.name = owner.name
@@ -99,6 +101,7 @@ Slimecrossing Mobs
 	new_ooze.underwear = "Nude"
 	new_ooze.undershirt = "Nude"
 	new_ooze.socks = "Nude"
+	new_ooze.updateappearance(mutcolor_update = 1)
 	if(owner.mind)
 		owner.mind.transfer_to(new_ooze)
 	qdel(evolver)
