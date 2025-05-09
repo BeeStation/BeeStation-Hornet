@@ -721,6 +721,11 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	icon_state = "rune_black"
 	desc = "Every material comes with weakness. Improvement is a matter of finding the least weak."
 
+/obj/effect/warped_rune/blackspace/attack_hand(mob/living/user)
+	. = ..()
+	to_chat(user, span_brass("[src] demands a weapon to enhance."))
+	return
+
 /obj/effect/warped_rune/blackspace/attackby(obj/item/I, mob/living/user, params)
 	if(HAS_TRAIT(I, TRAIT_STARGAZED))
 		to_chat(user, span_brass("[I] has already been enhanced!"))
