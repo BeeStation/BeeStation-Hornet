@@ -212,7 +212,9 @@
 		//Level up if possible.
 		if(!vampiredatum.my_clan)
 			vampiredatum.assign_clan_and_bane()
-			to_chat(user, span_notice("You must enter a Clan to rank up."))
+
+			if(!vampiredatum.my_clan)
+				to_chat(user, span_notice("You must enter a Clan to rank up."))
 		else
 			vampiredatum.spend_rank()
 		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the oppertunity to do so.

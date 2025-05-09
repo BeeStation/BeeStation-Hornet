@@ -99,7 +99,6 @@
 
 /datum/action/cooldown/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
 	. = ..()
-
 	var/mob/living/feed_target = target_atom
 	target_ref = WEAKREF(feed_target)
 
@@ -161,6 +160,7 @@
 	if(!target_ref)
 		power_activated_sucessfully()
 		return
+
 	var/mob/living/feed_target = target_ref.resolve()
 
 	if(!ContinueActive())
@@ -196,7 +196,8 @@
 		feed_strength_mult = 2
 	else if(!silent_feed)
 		feed_strength_mult = 1
-	blood_taken += vampiredatum_power.handle_feeding(feed_target, feed_strength_mult, level_current)
+
+	handle_feeding(feed_target, feed_strength_mult)
 
 	// Mood events
 	if(vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY && !feed_target.mind) // Snobby
@@ -229,25 +230,57 @@
 
 	// Play heartbeat sound effect to vampire (and maybe target)
 	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
+
 	if(!silent_feed)
 		feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 
 /datum/action/cooldown/vampire/targeted/feed/deactivate_power()
 	. = ..()
-
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
 	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
 
 	if(target_ref)
 		var/mob/living/feed_target = target_ref.resolve()
-		log_combat(owner, feed_target, "fed on blood", addition="(and took [blood_taken] blood)")
+		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
+
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
 	target_ref = null
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
+
+/datum/action/cooldown/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
+	var/feed_amount = 15 + (level_current * 2)
+	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
+
+	// Remove target's blood
+	target.blood_volume -= blood_to_take
+
+	// Shift body temperature (toward target's temp, by volume taken)
+	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)
+	owner.bodytemperature = ((vampiredatum_power.vampire_blood_volume * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.vampire_blood_volume + blood_to_take)
+
+	// Penalty for dead blood
+	if(target.stat == DEAD)
+		blood_to_take /= 3
+	// Penalty for non-human blood
+	if(!ishuman(target))
+		blood_to_take /= 2
+
+	// Give vampire the blood
+	vampiredatum_power.AddBloodVolume(blood_to_take)
+
+	// Transfer the target's reagents into the vampire's blood
+	if(target.reagents?.total_volume)
+		target.reagents.trans_to(owner, INGEST, 1) // Run transfer of 1 unit of reagent from them to me.
+
+	// Play heartbeat sound for flavor
+	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
+
+	vampiredatum_power.total_blood_drank += blood_to_take
+	blood_taken += blood_to_take
 
 #undef FEED_SILENT_NOTICE_RANGE
 #undef FEED_LOUD_NOTICE_RANGE

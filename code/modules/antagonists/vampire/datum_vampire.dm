@@ -8,6 +8,7 @@
 	hijack_speed = 0.5
 
 	/// How much blood we have, starting off at default blood levels.
+	/// We don't use our actual body's temperature because some species don't have blood and we don't want to exclude them
 	var/vampire_blood_volume = BLOOD_VOLUME_NORMAL
 	/// How much blood we can have at once, increases per level.
 	var/max_blood_volume = 600
@@ -31,6 +32,9 @@
 	var/broke_masquerade = FALSE
 	/// How many Masquerade Infractions do we have?
 	var/masquerade_infractions = 0
+
+	/// Whether the death handling code is active or not.
+	var/handling_death = FALSE
 
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
@@ -401,24 +405,29 @@
 /datum/antagonist/vampire/proc/assign_starting_stats()
 	var/mob/living/carbon/human/user = owner.current
 
-	//Traits: Species
+	// Species traits
 	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits += TRAIT_DRINKSBLOOD
 		user_species.punchdamage += 2
 		user.dna?.remove_all_mutations()
-	//Give Vampire Traits
+
+	// Give Vampire Traits
 	user.add_traits(vampire_traits, TRAIT_VAMPIRE)
-	//Clear Addictions
-	user.reagents.addiction_list = new()
+
+	// Clear Addictions
+	user.reagents.addiction_list = new/list()
 	owner.remove_quirk(/datum/quirk/junkie)
 	owner.remove_quirk(/datum/quirk/junkie/smoker)
-	//No Skittish "People" allowed
+
+	// No Skittish "People" allowed
 	if(HAS_TRAIT(user, TRAIT_SKITTISH))
 		REMOVE_TRAIT(user, TRAIT_SKITTISH, ROUNDSTART_TRAIT)
+
 	// Tongue & Language
 	user.grant_all_languages(FALSE, FALSE, TRUE)
 	user.grant_language(/datum/language/vampiric)
+
 	/// Clear Disabilities & Organs
 	heal_vampire_organs()
 
