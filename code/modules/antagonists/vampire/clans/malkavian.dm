@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(masquerade_breakers)
 	// Masquerade breakers
 	for(var/datum/antagonist/vampire/unmasked in GLOB.masquerade_breakers)
 		if(unmasked.owner.current && unmasked.owner.current.stat != DEAD)
-			on_vampire_broke_masquerade(unmasked)
+			on_vampire_broke_masquerade(vampiredatum.owner.current, unmasked)
 
 	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/ambience/antag/creepalert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(vampiredatum.owner.current, span_hypnophrase("Welcome to the Malkavian..."))
