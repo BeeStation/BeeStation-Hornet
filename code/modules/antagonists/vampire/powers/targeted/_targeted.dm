@@ -20,6 +20,9 @@
 	if(currently_active)
 		deactivate_power()
 		return FALSE
+	if(owner.click_intercept)
+		owner.balloon_alert(owner, "already using a targeted power!")
+		return FALSE
 	if(!can_pay_cost(owner) || !can_use())
 		return FALSE
 
@@ -48,10 +51,6 @@
 /datum/action/cooldown/vampire/targeted/can_use()
 	. = ..()
 	if(!.)
-		return FALSE
-
-	if(owner.click_intercept)
-		owner.balloon_alert(owner, "already using a targeted power!")
 		return FALSE
 
 /// Check if target is VALID (wall, turf, or character?)
