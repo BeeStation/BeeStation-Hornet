@@ -1,0 +1,110 @@
+/**
+ * Copyright (c) 2025 PowerfulBacon
+ * SPDX-License-Identifier: MIT
+ *
+ * The base theme for all Space Station 13 computer interfaces.
+ * Created modularly.
+ */
+
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../base.scss' with (
+  $color-fg: #dbd8ef,
+  $color-bg: #11121c
+);
+
+@use '../colors.scss' with (
+  $red: #ac0c0c,
+  $orange: #9c450b,
+  $yellow: #dece78,
+  $olive: #788a05,
+  $green: #4a9c13,
+  $teal: #03807a,
+  $blue: #0b4d80,
+  $violet: #340e86,
+  $purple: #5b0d76,
+  $pink: #9a125f,
+  $brown: #6b3511,
+  $grey: #535353,
+  $light-grey: #848484,
+  $primary: #c0a666,
+  $good: #4a9c13,
+  $average: #b16b11,
+  $bad: #ac0c0c,
+);
+
+.theme-computer {
+  // Base theme
+  font-family: monospace;
+  // Base overrides
+  @include meta.load-css('../atomic/color.scss');
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  // Button overrides
+  @include meta.load-css('../components/Button.scss', $with: ('color-default': colors.fg(base.$color-bg)));
+  // Section overrides
+  .Section {
+    border-bottom: 1px solid colors.$primary;
+  }
+  .Section__title {
+    padding: 0.2em;
+    background-color: colors.$primary;
+    box-shadow: 0px 0px 6px 0px colors.$primary;
+    border-bottom: unset;
+  }
+  .Section__content {
+    margin-top: 0.4em;
+    border: 1px solid colors.$primary;
+    border-bottom: none;
+    box-shadow: 0px 0px 4px -2px colors.$primary;
+  }
+  // Title-bar overrides
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #181a21));
+  // Window overrides
+  .Window::before {
+    content: '';
+    position: fixed;
+    top: 32px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 32px);
+    pointer-events: none;
+    z-index: 9999;
+    background-image: repeating-linear-gradient(
+      to right,
+      #ff0000 0px,
+      #ff0000 1px,
+      #00ff00 1px,
+      #00ff00 2px,
+      #0000ff 2px,
+      #0000ff 3px
+    );
+    background-size: 3px 100%;
+    opacity: 0.11;
+    mix-blend-mode: multiply;
+  }
+
+  .Window::after {
+    content: '';
+    position: fixed;
+    top: 32px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 32px);
+    pointer-events: none;
+    z-index: 9999;
+    background-image: repeating-linear-gradient(
+      to top,
+      #ff0000 0px,
+      #ff0000 2px,
+      #00ff00 2px,
+      #00ff00 4px,
+      #0000ff 4px,
+      #0000ff 6px
+    );
+    background-size: 100% 6px;
+    opacity: 0.02;
+    mix-blend-mode: multiply;
+  }
+}
