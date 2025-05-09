@@ -442,7 +442,7 @@
 	twohand_force = 0
 	attack_verb_continuous = list("attacks", "strikes", "hits")
 	attack_verb_simple = list("attack", "strike", "hit")
-	block_upgrade_walk = 0
+	block_upgrade_walk = FALSE
 	block_level = 0
 	item_flags = ISWEAPON
 
