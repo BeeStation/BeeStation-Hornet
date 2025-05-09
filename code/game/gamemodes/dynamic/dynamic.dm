@@ -99,8 +99,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	 * How midround rolling works is as follows:
 	 *
 	 * All midround rulesets have a specific severity. Light, Medium, or Heavy
-	 * At the start of the round there is a 100% chance to choose a Light midround (Light Ruleset Chance)
-	 * As the round progresses the Light Ruleset Chance decreases and the Medium/Heavy Ruleset Chance increases.
+	 * At the start of the round, there is a 100% chance to choose a Light midround (Light Ruleset Chance)
+	 * As the round progresses, the Light Ruleset Chance decreases and the Medium/Heavy Ruleset Chance increases.
 	 *
 	 * The amount that the Light Ruleset Chance decreases every minute
 	 * is given to the Medium Ruleset Chance and Heavy Ruleset Chance.
