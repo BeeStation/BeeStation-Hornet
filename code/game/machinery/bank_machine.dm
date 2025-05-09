@@ -34,6 +34,13 @@
 	. = ..()
 
 /obj/machinery/computer/bank_machine/attackby(obj/item/I, mob/user)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+		united_budget_money_insertion(I, user)
+		return ..()
+	money_insertion(I, user)
+	return ..()
+
+/obj/machinery/computer/bank_machine/proc/united_budget_money_insertion(obj/item/I, mob/user)
 	var/value
 	if(istype(I, /obj/item/stack/spacecash))
 		var/obj/item/stack/spacecash/C = I
@@ -43,20 +50,28 @@
 		value = H.credits
 	if(!value)
 		return
+	var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+	united_budget.adjust_money(value)
+	to_chat(user, span_notice("You deposit [value] into a station budget account.</span>"))
+	qdel(I)
 
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
-		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-		united_budget.adjust_money(value)
-		to_chat(user, span_notice("You deposit [value] into a station budget account.</span>"))
-		qdel(I)
-		return
-
+/obj/machinery/computer/bank_machine/proc/money_insertion(obj/item/I, mob/user)
 	var/list/budget_choice = list()
 	for(var/datum/bank_account/department/budget as anything in list_of_budgets)
 		budget_choice += budget.department_id
 	budget_choice += "All"
 	var/targeted_budget = tgui_input_list(user, "Into which budget would you like to deposit the money?", "Money deposit", budget_choice)
 	if(!targeted_budget)
+		return
+
+	var/value
+	if(istype(I, /obj/item/stack/spacecash))
+		var/obj/item/stack/spacecash/C = I
+		value = C.value * C.amount
+	else if(istype(I, /obj/item/holochip))
+		var/obj/item/holochip/H = I
+		value = H.credits
+	if(!value)
 		return
 
 	if(!(targeted_budget == "All"))
@@ -73,7 +88,6 @@
 			budget_department_id.adjust_money(rounded_money_amount)
 		to_chat(user, span_notice("You deposit [value] into all station budgets."))
 	qdel(I)
-	return ..()
 
 /obj/machinery/computer/bank_machine/ui_state(mob/user)
 	return GLOB.default_state
