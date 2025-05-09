@@ -107,7 +107,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	 *
 	 * The ratio determining what percentage of the
 	 * Light Ruleset Chance decrease rate is given to the Medium Ruleset Chance is 75%.
-	 * The Heavy Ruleset Chance will recieve the remainder, in this case, 25%
+	 * The Heavy Ruleset Chance will receive the remainder, in this case, 25%
 	 *
 	 * The rest is pretty simple, the chosen midround ruleset is picked based off
 	 * the Light/Medium/Heavy Ruleset Chances and once chosen
@@ -513,6 +513,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/midround/ruleset in midround_configured_rulesets)
 		if(ruleset.severity != severity)
+			continue
+
+		if(check_is_ruleset_blocked(ruleset, midround_executed_rulesets))
 			continue
 
 		ruleset.set_drafted_players_amount()

@@ -12,7 +12,7 @@
 	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
 	flags = SHOULD_USE_ANTAG_REP
 
-	/// The minimum number of points dynamic that had to initially generate for this to be drafted.
+	/// The minimum number of points that dynamic has to initially generate for this to be drafted
 	var/minimum_points_required = 0
 
 /datum/dynamic_ruleset/roundstart/get_candidates()
