@@ -3,13 +3,12 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	banning_key = ROLE_OBSESSED
-	special_role = ROLE_OBSESSED
 	required_living_playtime = 4
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	count_against_dynamic_roll_chance = FALSE
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
-	var/datum/brain_trauma/special/obsessed/trauma	
+	var/datum/brain_trauma/special/obsessed/trauma
 
 /datum/antagonist/obsessed/New(datum/brain_trauma/special/obsessed/_trauma)
 	. = ..()

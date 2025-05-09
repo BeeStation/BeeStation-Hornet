@@ -70,7 +70,6 @@
 /datum/antagonist/brainwashed
 	name = "Brainwashed Victim"
 	banning_key = ROLE_BRAINWASHED
-	special_role = ROLE_BRAINWASHED
 	roundend_category = "brainwashed victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"

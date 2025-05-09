@@ -4,7 +4,6 @@
 	roundend_category = "clown operatives"
 	antagpanel_category = "ClownOp"
 	nukeop_outfit = /datum/outfit/syndicate/clownop
-	special_role = ROLE_OPERATIVE
 
 /datum/antagonist/nukeop/leader/clownop
 	name = "Clown Operative Leader"

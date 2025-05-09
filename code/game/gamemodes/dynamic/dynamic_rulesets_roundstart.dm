@@ -98,7 +98,7 @@
 	for(var/mob/living/player in living_players)
 		if(isAI(player))
 			candidates -= player
-			player.mind.special_role = antag_datum.special_role
+			player.mind.special_role = antag_datum.banning_key
 			player.mind.add_antag_datum(antag_datum)
 			return DYNAMIC_EXECUTE_SUCCESS
 

@@ -4,7 +4,6 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	banning_key = ROLE_WIZARD
-	special_role = ROLE_WIZARD
 
 /datum/antagonist/magic_servant/proc/setup_master(mob/M)
 	var/datum/objective/O = new("Serve [M.real_name].")

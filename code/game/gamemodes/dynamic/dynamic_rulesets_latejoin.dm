@@ -14,7 +14,7 @@
 /datum/dynamic_ruleset/latejoin/execute()
 	chosen_candidates += select_player()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.special_role = antag_datum.special_role
+		chosen_mind.special_role = antag_datum.banning_key
 	. = ..()
 
 //////////////////////////////////////////////

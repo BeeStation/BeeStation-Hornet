@@ -53,7 +53,7 @@
 		var/datum/mind/chosen_mind = select_player()
 
 		chosen_candidates += chosen_mind
-		chosen_mind.special_role = antag_datum.special_role
+		chosen_mind.special_role = antag_datum.banning_key
 
 	. = ..()
 

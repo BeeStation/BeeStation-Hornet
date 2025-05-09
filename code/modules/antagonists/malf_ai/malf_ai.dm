@@ -6,7 +6,6 @@
 	roundend_category = "traitors"
 	antagpanel_category = "Malfunctioning AI"
 	banning_key = ROLE_MALF
-	special_role = ROLE_MALF
 	ui_name = "AntagInfoMalf"
 	required_living_playtime = 8
 	///the name of the antag flavor this traitor has.

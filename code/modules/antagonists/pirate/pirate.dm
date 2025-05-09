@@ -1,7 +1,6 @@
 /datum/antagonist/pirate
 	name = "Space Pirate"
 	banning_key = ROLE_SPACE_PIRATE
-	special_role = ROLE_SPACE_PIRATE
 	roundend_category = "space pirates"
 	antagpanel_category = "Pirate"
 	show_to_ghosts = TRUE

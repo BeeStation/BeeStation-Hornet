@@ -4,7 +4,6 @@
 	antagpanel_category = "Blob"
 	show_to_ghosts = TRUE
 	banning_key = ROLE_BLOB
-	special_role = ROLE_BLOB
 	ui_name = "AntagInfoBlob"
 	required_living_playtime = 4
 

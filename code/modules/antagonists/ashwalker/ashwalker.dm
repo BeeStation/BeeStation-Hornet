@@ -5,7 +5,6 @@
 /datum/antagonist/ashwalker
 	name = "Ash Walker"
 	banning_key = ROLE_ASHWALKER
-	special_role = ROLE_ASHWALKER
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE

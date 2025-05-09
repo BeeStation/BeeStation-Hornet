@@ -4,7 +4,6 @@
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	banning_key = ROLE_REVENANT
-	special_role = ROLE_REVENANT
 	// TODO: ui_name = "AntagInfoRevenant"
 	required_living_playtime = 4
 
