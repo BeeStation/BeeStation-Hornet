@@ -1,0 +1,3 @@
+/obj/item/clothing/under/rank/medical/doctor/blue : /obj/item/clothing/under/rank/medical/scrubs/blue{@OLD}
+/obj/item/clothing/under/rank/medical/doctor/green : /obj/item/clothing/under/rank/medical/scrubs/green{@OLD}
+/obj/item/clothing/under/rank/medical/doctor/purple : /obj/item/clothing/under/rank/medical/scrubs/purple{@OLD}
