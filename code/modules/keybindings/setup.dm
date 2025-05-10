@@ -58,6 +58,7 @@
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
 
 	update_special_keybinds()
+	winset(src, "tgui_say.browser", "focus=true")
 
 
 /**

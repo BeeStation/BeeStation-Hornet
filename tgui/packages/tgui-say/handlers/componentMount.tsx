@@ -22,6 +22,8 @@ export const handleComponentMount = function (this: Modal) {
       this.fields.innerRef.current?.focus();
     }, 1);
     windowOpen(CHANNELS[channel]);
+    const input = this.fields.innerRef.current;
+    input?.focus();
   });
   Byond.subscribeTo('close', () => {
     windowClose();
