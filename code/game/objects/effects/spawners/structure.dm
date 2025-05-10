@@ -11,6 +11,14 @@ again.
 
 /obj/effect/spawner/structure/Initialize(mapload)
 	. = ..()
+	// When spawner is created at a holodeck template
+	var/area/holodeck/holodeck_area = get_area(src)
+	if(istype(holodeck_area, /area/holodeck))
+		var/obj/machinery/computer/holodeck/holocomputer = holodeck_area.linked
+		for(var/spawn_type as anything in spawn_list)
+			holocomputer.from_spawner += new spawn_type(loc)
+		return
+	// standard init
 	for(var/spawn_type in spawn_list)
 		new spawn_type(loc)
 
