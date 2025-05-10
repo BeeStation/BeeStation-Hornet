@@ -23,7 +23,7 @@
 	STOP_PROCESSING(SSmachines, src)
 
 	if(active)
-		Deactivate()
+		deactivate()
 	. = ..()
 
 /obj/machinery/power/singularity_beacon/attack_silicon(mob/user)
@@ -35,9 +35,9 @@
 		return
 
 	if(active)
-		Deactivate(user)
+		deactivate(user)
 	else
-		Activate(user)
+		activate(user)
 
 /obj/machinery/power/singularity_beacon/attackby(obj/item/attacking_item, mob/user, params)
 	if(attacking_item.tool_behaviour != TOOL_WRENCH)
@@ -50,11 +50,13 @@
 
 		set_anchored(TRUE)
 
+		attacking_item.play_tool_sound(src)
 		balloon_alert(user, "anchored!")
 	else
 		set_anchored(FALSE)
 		disconnect_from_network()
 
+		attacking_item.play_tool_sound(src)
 		balloon_alert(user, "unanchored!")
 
 // We start processing on Init
@@ -75,10 +77,10 @@
 
 		COOLDOWN_START(src, notify_cooldown, cooldown)
 	else
-		Deactivate()
+		deactivate()
 		say("Insufficient power, shutting down")
 
-/obj/machinery/power/singularity_beacon/proc/Activate(mob/user)
+/obj/machinery/power/singularity_beacon/proc/activate(mob/user)
 	if(surplus() < power_draw)
 		balloon_alert(user, "not enough power!")
 		return
@@ -94,7 +96,7 @@
 	active = TRUE
 	balloon_alert(user, "enabled!")
 
-/obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user)
+/obj/machinery/power/singularity_beacon/proc/deactivate(mob/user)
 	// Unlink singularities that are targetting this beacon
 	for(var/datum/component/singularity/singulo in GLOB.singularities)
 		if(singulo.target == src)
