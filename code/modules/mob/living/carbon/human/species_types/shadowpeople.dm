@@ -414,7 +414,7 @@
 	var/shadow_conversion = 0 // Determines progress of transforming owner into shadow person
 	var/shadow_conversion_rate = 0 // Rate of said conversion
 	var/shadow_sect_dependency_granted = 0 // What level of shadow heart dependency the heart grants
-	var/datum/action/innate/shadow_coms/comms/coms = new // For granting shadow comms
+	var/datum/action/innate/shadow_comms/comms/C = new // For granting shadow comms
 
 /obj/item/organ/heart/shadow_ritual/first
 	name = "shadowed heart"
@@ -454,7 +454,7 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = shadow_sect_dependency_granted
-		comms.Grant(M)
+		C.Grant(M)
 	else
 		shadow_conversion = 0
 		to_chat(M, span_userdanger("You feel a chill spreading throughout your body."))
@@ -467,7 +467,7 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
 		M.alpha = 255
-		comms.Remove(M)
+		C.Remove(M)
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 			M.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 	if(shadow_conversion != 0)
