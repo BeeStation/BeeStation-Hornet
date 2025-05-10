@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 10
 	rarity = 50
-	base_value = 2.5
+	base_value = 5
 	desc = "The most noble gas of them all. High quantities of hyper-noblium actively prevents reactions from occurring."
 	primary_color = COLOR_TEAL
 
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	specific_heat = 80
 	name = "Stimulum"
 	rarity = 200
-	base_value = 3
+	base_value = 5
 	desc = "An experimental gas that makes you stun and sleep immune and slightly regenerates stamina, but also causes suffocation the longer you've been breathing it."
 	primary_color = "#ffc0cb"
 
