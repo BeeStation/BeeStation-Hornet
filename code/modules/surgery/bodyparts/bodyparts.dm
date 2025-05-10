@@ -397,6 +397,7 @@
 				SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE),
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
+		// Remove all injuries
 	if(owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -407,6 +408,7 @@
 
 		if(needs_update_disabled)
 			update_disabled()
+		// Apply all injuries
 
 	return old_owner
 
