@@ -132,7 +132,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/midround_points_per_living = DYNAMIC_MIDROUND_POINTS_PER_LIVING
 	var/midround_points_per_observer = DYNAMIC_MIDROUND_POINTS_PER_OBSERVER
 	var/midround_points_per_dead = DYNAMIC_MIDROUND_POINTS_PER_DEAD
-	var/midround_points_per_antag = DYNAMIC_MIDROUND_POINTS_PER_ANTAG
 
 	/*
 	 * Latejoin
@@ -434,9 +433,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 /*
 * Generate midround points once per minute based off of each person's status
-* TODO: Give antagonists a variable for how much they should decrease midround points
-*
-* When valentines comes around everyone will technically be an antagonist. Which means, no midrounds during the valentines event
 */
 /datum/game_mode/dynamic/proc/update_midround_points()
 	var/previous_midround_points = midround_points
@@ -444,12 +440,14 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/living_amount = length(current_players[CURRENT_LIVING_PLAYERS])
 	var/observer_amount = length(current_players[CURRENT_OBSERVERS])
 	var/dead_amount = length(current_players[CURRENT_DEAD_PLAYERS])
-	var/antag_amount = length(current_players[CURRENT_LIVING_ANTAGS])
 
 	midround_points += living_amount * midround_points_per_living
 	midround_points += observer_amount * midround_points_per_observer
 	midround_points += dead_amount * midround_points_per_dead
-	midround_points += antag_amount * midround_points_per_antag
+
+	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
+		for(var/datum/antagonist/antag_datum in antag.mind?.antag_datums)
+			midround_points += antag_datum.get_dynamic_midround_points()
 
 	midround_points = max(midround_points, 0)
 

@@ -36,6 +36,9 @@ GLOBAL_LIST(admin_antag_list)
 	/// Weakref to button to access antag interface
 	var/datum/weakref/info_button_ref
 
+/datum/antagonist/proc/get_dynamic_midround_points()
+	return 0
+
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
 		return
