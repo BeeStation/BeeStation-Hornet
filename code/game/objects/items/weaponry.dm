@@ -578,7 +578,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	bleed_force = BLEED_DEEP_WOUND
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
@@ -606,7 +606,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "An energy chainsaw that has replaced your arm."
 	force = 40
 	armour_penetration = 50
-	hitsound = 'sound/weapons/echainsawhit1.ogg'
+	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/energy/Destroy()
 	var/obj/item/bodypart/part
@@ -625,7 +625,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A super energy chainsaw that has replaced your arm."
 	force = 60
 	armour_penetration = 75
-	hitsound = 'sound/weapons/echainsawhit1.ogg'
+	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/super/Destroy()
 	var/obj/item/bodypart/part
