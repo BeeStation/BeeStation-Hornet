@@ -23,10 +23,6 @@
 	var/casedesc = "This basic model accepts both beakers and bottles. It heats contents by 10 K upon ignition." // Appears when examining empty casings.
 	var/obj/item/assembly/prox_sensor/landminemode = null
 
-/obj/item/grenade/chem_grenade/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
-
 /obj/item/grenade/chem_grenade/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
@@ -65,6 +61,11 @@
 		wires.interact(user)
 
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
+		if(!user.transferItemToLoc(I, src))
+			return
+		to_chat(user, span_notice("You add [I] to the [initial(name)] assembly."))
+		beakers += I
 	if(istype(I,/obj/item/assembly) && stage == GRENADE_WIRED)
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -82,11 +83,11 @@
 			else
 				to_chat(user, span_warning("You need to add at least one beaker before locking the [initial(name)] assembly!"))
 		else if(stage == GRENADE_READY)
-			det_time = det_time == 50 ? 30 : 50 //toggle between 30 and 50
+			det_time = det_time == 5 SECONDS ? 3 SECONDS : 5 SECONDS //toggle between 30 and 50
 			if(landminemode)
 				landminemode.time = det_time * 0.1	//overwrites the proxy sensor activation timer
 
-			to_chat(user, span_notice("You modify the time delay. It's set for [DisplayTimeText(det_time)]."))
+			to_chat(user, span_notice("You modify the time delay, it's now set for [DisplayTimeText(det_time)]. Actual detonation delay may vary by up to 40%."))
 		else
 			to_chat(user, span_warning("You need to add a wire!"))
 		return
@@ -112,7 +113,7 @@
 	else if(stage == GRENADE_EMPTY && istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
 		if (C.use(1))
-			det_time = 50 // In case the cable_coil was removed and readded.
+			det_time = 5 SECONDS // In case the cable_coil was removed and readded.
 			stage_change(GRENADE_WIRED)
 			to_chat(user, span_notice("You rig the [initial(name)] assembly."))
 		else
@@ -183,7 +184,8 @@
 			if(landminemode)
 				to_chat(user, span_warning("You prime [src], activating its proximity sensor."))
 			else
-				to_chat(user, span_warning("You prime [src]! [DisplayTimeText(det_time)]!"))
+				to_chat(user, span_warning("You prime [src]!"))
+	det_time *= (0.1 * (rand(6, 14))) //between 60% and 140% of set time
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, 1)
 	icon_state = initial(icon_state) + "_active"
 	if(landminemode)
@@ -193,8 +195,27 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/chem_grenade/prime(mob/living/lanced_by)
-	if(stage != GRENADE_READY)
+	if(stage != GRENADE_READY || dud_flags)
+		active = FALSE
+		update_icon()
 		return
+
+	for(var/obj/item/slime_extract/S in beakers)
+		if(S.Uses)
+			for(var/obj/item/reagent_containers/cup/G in beakers)
+				G.reagents.trans_to(S, G.reagents.total_volume)
+
+			//If there is still a core (sometimes it's used up)
+			//and there are reagents left, behave normally,
+			//otherwise drop it on the ground for timed reactions like gold.
+
+			if(S)
+				if(S.reagents?.total_volume)
+					for(var/obj/item/reagent_containers/cup/G in beakers)
+						S.reagents.trans_to(G, S.reagents.total_volume)
+				else
+					S.forceMove(get_turf(src))
+					no_splash = TRUE
 
 	. = ..()
 	if(!.)
@@ -233,7 +254,6 @@
 		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/cup/glass,
 	)
-	banned_containers = list()
 	affected_area = 5
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
 	threatscale = 1.1	// 10% more effective.
