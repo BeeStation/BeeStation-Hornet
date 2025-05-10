@@ -144,7 +144,7 @@
 		user.visible_message("[user] digs up [src].", span_notice("You [turfverb] [src]."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
-	else if(C.sharpness != BLUNT)
+	else if(C.sharpness != SHARP_NONE)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = "grass"

@@ -277,7 +277,7 @@
 		attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 		attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
-		sharpness = SHARP
+		sharpness = SHARP_II
 		tool_behaviour = TOOL_SCALPEL
 	else
 		force = initial(force)
@@ -287,7 +287,7 @@
 		attack_verb_continuous = list("stubs", "pokes")
 		attack_verb_simple = list("stub", "poke")
 		hitsound = 'sound/weapons/genhit.ogg'
-		sharpness = BLUNT
+		sharpness = initial(sharpness)
 		tool_behaviour = null
 
 /obj/item/handmirror

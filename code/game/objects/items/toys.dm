@@ -458,7 +458,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE //if it some how gets block level, katanas block projectiles for the meme
 	item_flags = ISWEAPON
-	sharpness = SHARP
+	sharpness = SHARP_II
 
 /*
  * Snap pops
@@ -1171,7 +1171,7 @@
 	card_throwforce = 12
 	card_throw_speed = 6
 	embedding = list("pain_mult" = 1, "embed_chance" = 80, "max_damage_mult" = 8, "fall_chance" = 0, "embed_chance_turf_mod" = 15, "armour_block" = 60) //less painful than throwing stars
-	card_sharpness = SHARP
+	card_sharpness = SHARP_VI
 	card_throw_range = 7
 	card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 	card_attack_verb_simple = list("attack", "slice", "dice", "slash", "cut")

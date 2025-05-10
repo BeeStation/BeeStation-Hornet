@@ -9,7 +9,7 @@ Slimecrossing Weapons
 	name = "slimy boneblade"
 	desc = "What remains of the bones in your arm. Incredibly sharp, and painful for both you and your opponents."
 	force = 20
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_V
 	force_string = "painful"
 
 /obj/item/melee/arm_blade/slime/attack(mob/living/L, mob/user)

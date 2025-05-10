@@ -1813,25 +1813,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!I.force)
 		return 0 //item force is zero
 
-	var/dismember_limb = FALSE
 	var/weapon_sharpness = I.is_sharp()
-
-	if(((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
-		dismember_limb = TRUE
-		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
-		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
-
-	else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && H.stat == DEAD))
-		//Delimbing cannot normally occur with blunt weapons
-		//You also aren't cutting someone's arm off with a scalpel unless they're already dead
-
-		if(limb_damage >= affecting.max_damage)
-			dismember_limb = TRUE
-			//You can only cut a limb off if it is already damaged enough to be fully disabled
-
-	if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || H.stat != CONSCIOUS) && affecting.dismember(I.damtype))
-		I.add_mob_blood(H)
-		playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
 	if(I.damtype == BRUTE && (I.force >= max(10, H.get_bodyzone_armor_flag(BODY_ZONE_HEAD, ARMOUR_BLUNT)) && hit_area == BODY_ZONE_HEAD))
 		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.

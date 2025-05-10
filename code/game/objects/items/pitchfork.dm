@@ -13,7 +13,7 @@
 	attack_verb_continuous = list("attacks", "impales", "pierces")
 	attack_verb_simple = list("attack", "impale", "pierce")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP
+	sharpness = SHARP_IV
 	max_integrity = 200
 	armor_type = /datum/armor/military_metal
 	resistance_flags = FIRE_PROOF

@@ -20,15 +20,12 @@
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = "swing_hit"
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_VII
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5
 	item_flags = ISWEAPON
-
-/obj/item/chainsaw/Initialize(mapload)
-	. = ..()
 
 /obj/item/chainsaw/ComponentInitialize()
 	. = ..()

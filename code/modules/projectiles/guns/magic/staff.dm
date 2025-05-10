@@ -107,7 +107,6 @@
 	force = 24
 	sharpness = SHARP_VI
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	sharpness = SHARP_DISMEMBER
 	max_charges = 4
 
 /obj/item/gun/magic/staff/spellblade/Initialize(mapload)

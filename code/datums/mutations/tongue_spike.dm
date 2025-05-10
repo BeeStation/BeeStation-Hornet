@@ -54,7 +54,7 @@
 		"embedded_ignore_throwspeed_threshold" = TRUE,
 	)
 	w_class = WEIGHT_CLASS_SMALL
-	sharpness = SHARP
+	sharpness = SHARP_VI
 	custom_materials = list(/datum/material/biomass = 500)
 	/// What mob "fired" our tongue
 	var/datum/weakref/fired_by_ref

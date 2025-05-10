@@ -216,7 +216,7 @@
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/tempered_glass
 	max_integrity = 40
-	sharpness = SHARP
+	sharpness = SHARP_II
 	var/icon_prefix
 	embedding = list("embed_chance" = 65)
 

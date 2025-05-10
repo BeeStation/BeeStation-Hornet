@@ -101,7 +101,6 @@
 	attack_verb_off = list("taps", "pokes")
 	throw_speed = 3
 	throw_range = 5
-	sharpness = SHARP_DISMEMBER_EASY
 	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 	sharpness = SHARP_VII
 	block_level = 1
@@ -133,7 +132,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	sword_color = null //stops icon from breaking when turned on.
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = SHARP_DISMEMBER_EASY
 	light_color = "#40ceff"
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 //faster as a saw
@@ -163,7 +161,6 @@
 	sword_color = null //stops icon from breaking when turned on.
 	hitcost = 75 //Costs more than a standard cyborg esword
 	w_class = WEIGHT_CLASS_NORMAL
-	sharpness = SHARP_DISMEMBER_EASY
 	light_color = "#40ceff"
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 //faster as a saw
@@ -260,7 +257,6 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY//So you can't hide it in your pocket or some such.
 	var/datum/effect_system/spark_spread/spark_system
-	sharpness = SHARP_DISMEMBER_EASY
 
 //Most of the other special functions are handled in their own files. aka special snowflake code so kewl
 /obj/item/melee/transforming/energy/blade/Initialize(mapload)

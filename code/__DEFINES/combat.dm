@@ -267,17 +267,6 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_NASTY				(1<<2) //if it parries a bare hand, will the attacker be hurt?
 #define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
 
-// Object/Item sharpness
-/// Item has no sharpness and will not penetrate armour
-#define BLUNT					0
-/// Has some sharpness, but isn't the most powerful and won't penetrate all the way to the bone
-/// Deals skin damage but cannot hurt the bone due to penetration falling off
-#define SHARP					20
-/// Item can dismember damaged limbs, or if the target has no armour at all
-#define SHARP_DISMEMBER			45
-/// Very penetrating item, dismembers easy even through armour
-#define SHARP_DISMEMBER_EASY	65
-
 /// Completely blunt weapon, will not penetrate anything
 #define SHARP_NONE 0
 /// Extremely weak, protected by basically any amount of armour but will deal

@@ -235,7 +235,6 @@
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = SHARP_DISMEMBER_EASY
 	//Fuck you, *crowbars your evil thing
 	tool_behaviour = TOOL_CROWBAR
 

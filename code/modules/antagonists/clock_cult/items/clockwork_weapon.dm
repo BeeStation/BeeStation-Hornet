@@ -19,7 +19,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = SHARP
+	sharpness = SHARP_VI
 	max_integrity = 200
 	var/clockwork_hint = ""
 	var/datum/action/spell/summon_spear/SS
@@ -102,7 +102,6 @@
 	worn_icon_state = "mining_hammer1"
 	throwforce = 25
 	sharpness = SHARP_I
-	sharpness = BLUNT
 	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks")
 	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."

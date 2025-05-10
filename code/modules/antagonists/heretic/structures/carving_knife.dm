@@ -6,7 +6,7 @@
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
-	sharpness = SHARP
+	sharpness = SHARP_V
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
 	throwforce = 20

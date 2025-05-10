@@ -94,7 +94,7 @@
 	throw_speed = 4
 	colour = "crimson"
 	custom_materials = list(/datum/material/gold = 750)
-	sharpness = SHARP
+	sharpness = SHARP_II
 	resistance_flags = FIRE_PROOF
 	unique_reskin_icon = list("Oak" = "pen-fountain-o",
 						"Gold" = "pen-fountain-g",
@@ -219,7 +219,7 @@
 /obj/item/pen/edagger
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = SHARP
+	sharpness = SHARP_V
 	var/on = FALSE
 
 /obj/item/pen/edagger/Initialize(mapload)
@@ -251,7 +251,7 @@
 		hitsound = 'sound/weapons/edagger.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
-		sharpness = SHARP_DISMEMBER
+		sharpness = SHARP_V
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, span_warning("[src] is now active."))
 	updateEmbedding()

@@ -336,7 +336,7 @@
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1
 	block_power = 30
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_V
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -458,7 +458,7 @@
 	block_power = 15
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_III
 	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
 	attack_verb_simple = list("chop", "slice", "cut", "reap")
 
@@ -579,7 +579,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | ISWEAPON
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_IV
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
@@ -604,7 +604,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	worn_icon_state = "render"
 	hitsound = 'sound/items/bikehorn.ogg'
-	sharpness = SHARP
+	sharpness = SHARP_III
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 
@@ -657,7 +657,7 @@
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 30
-	sharpness = SHARP
+	sharpness = SHARP_II
 	attack_verb_continuous = list("enlightens", "redpills")
 	attack_verb_simple = list("enlighten", "redpill")
 
@@ -672,7 +672,7 @@
 	slot_flags = null
 	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_III
 
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
@@ -714,7 +714,7 @@
 	force = 14
 	block_power = 40
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = BLUNT
+	sharpness = SHARP_NONE
 	hitsound = "swing_hit"
 	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
 	attack_verb_simple = list("smash", "slam", "whack", "thwack")
@@ -733,7 +733,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = SHARP
+	sharpness = SHARP_III
 	slot_flags = null
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
@@ -768,7 +768,7 @@
 	attack_verb_continuous = list("pokes", "impales", "pierces", "jabs")
 	attack_verb_simple = list("poke", "impale", "pierce", "jab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP
+	sharpness = SHARP_IV
 
 /obj/item/nullrod/egyptian
 	name = "egyptian staff"
@@ -828,7 +828,7 @@
 	throw_speed = 3
 	throw_range = 6
 	tool_behaviour = TOOL_KNIFE
-	sharpness = SHARP
+	sharpness = SHARP_III
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/nullrod/rainbow_knife/afterattack(atom/O, mob/user, proximity)
