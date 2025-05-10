@@ -405,16 +405,16 @@
 
 
 /datum/movespeed_modifier/shadow_sect
-	multiplicative_slowdown = -0.75
+	multiplicative_slowdown = -0.5
 
 
-/obj/item/organ/heart/shadow_ritual // This parent shoudl never apear itself
+/obj/item/organ/heart/shadow_ritual // This parent should never appear itself
 	visual = TRUE
 	decay_factor = 0
-	var/shadow_conversion = 0 // Determins progres of transforming owner into shadow person
+	var/shadow_conversion = 0 // Determines progress of transforming owner into shadow person
 	var/shadow_conversion_rate = 0 // Rate of said conversion
-	var/shadow_sect_dependency_granted = 0 // What level of shadow heart dependenct heart grants
-	var/datum/action/innate/shadow_coms/comm/coms = new // For granting shadow coms
+	var/shadow_sect_dependency_granted = 0 // What level of shadow heart dependency the heart grants
+	var/datum/action/innate/shadow_coms/comms/coms = new // For granting shadow comms
 
 /obj/item/organ/heart/shadow_ritual/first
 	name = "shadowed heart"
@@ -457,7 +457,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel a chill spreading throughout your body. That might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel a chill spreading throughout your body."))
 
 
 /obj/item/organ/heart/shadow_ritual/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -490,13 +490,13 @@
 		else
 			var/random_mesage = rand(0,90 - 60 * shadow_conversion_rate)
 			if(random_mesage == 0)
-				to_chat(owner, span_warning("You see dark spots all over your skin."))
+				to_chat(owner, span_warning("Dark spots appear all over your skin."))
 			if(random_mesage == 1)
-				to_chat(owner, span_warning("Those lights around you seem weirdly unpleasant."))
+				to_chat(owner, span_warning("Bright lights seem really unpleasant."))
 			if(random_mesage == 2)
-				to_chat(owner, span_warning("This cold feeling isn't going away."))
+				to_chat(owner, span_warning("The chill isn't going away."))
 			if(random_mesage == 4)
-				to_chat(owner, span_warning("That path of darkness over there seems like a great spot to rest."))
+				to_chat(owner, span_warning("You feel like you should rest in a dark place."))
 
 
 /obj/item/organ/heart/shadow_ritual/third/on_death(delta_time)
@@ -523,29 +523,29 @@
 #undef HEART_RESPAWN_THRESHOLD
 
 
-// Shadow coms, copied from cult
+// Shadow comms, copied from cult
 
-/datum/action/innate/shadow_coms
+/datum/action/innate/shadow_comms
 	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_default"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
-/datum/action/innate/shadow_coms/is_available()
+/datum/action/innate/shadow_comms/is_available()
 	if(!isshadow(owner))
 		return FALSE
-	var/mob/living/carbon/human/S = owner
-	var/datum/species/shadow/spiec = S.dna.species
-	if(spiec.shadow_sect_dependency == 0)
+	var/mob/living/carbon/human/O = owner
+	var/datum/species/shadow/S = O.dna.species
+	if(S.shadow_sect_dependency == 0)
 		return FALSE
 	return ..()
 
-/datum/action/innate/shadow_coms/comm
+/datum/action/innate/shadow_comms/comms
 	name = "Whisper"
 	desc = "Talk to other shadowpeople using shadows."
 	button_icon_state = "commune"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/shadow_coms/comm/on_activate()
+/datum/action/innate/shadow_comms/comms/on_activate()
 	var/input = tgui_input_text(usr, "Please choose a message to tell to the shadows.", "Voice of Shadows", "")
 	if(!input || !is_available())
 		return
@@ -554,7 +554,7 @@
 		return
 	shadow_commune(usr, input)
 
-/datum/action/innate/shadow_coms/comm/proc/shadow_commune(mob/living/user, message)
+/datum/action/innate/shadow_comms/comms/proc/shadow_commune(mob/living/user, message)
 	var/my_message
 	if(!message)
 		return

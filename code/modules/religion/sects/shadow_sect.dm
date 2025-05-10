@@ -23,11 +23,11 @@
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1 // range of light for obelisks
 	var/light_power = 0 // power of light for obelisks (will be negative)
-	var/list/obelisks = list() // list of all obeliscs
-	var/obelisk_number = 0  // number of obeliscs
-	var/list/active_obelisks = list() // list of obeliscs anchored to the floor aka "active"
-	var/active_obelisk_number = 0 //number of such obeliscs
-	var/night_vision_active = FALSE // if night vision aura of obeliscs is active
+	var/list/obelisks = list() // list of all obelisks
+	var/obelisk_number = 0  // number of obelisks
+	var/list/active_obelisks = list() // list of obelisks anchored to the floor aka "active"
+	var/active_obelisk_number = 0 //number of such obelisks
+	var/night_vision_active = FALSE // if night vision aura of obelisks is active
 	var/grand_ritual_in_progress = FALSE // whether a grand ritual is being performed
 	var/grand_ritual_level = 0 // what is the level of the last performed ritual (max is 3)
 
@@ -203,7 +203,7 @@
 			user.do_attack_animation(src)
 			toggling_buckling_after_ritual_3()
 		else
-			to_chat(user,span_warning("You feel like only nullrod could move this obelisk."))
+			to_chat(user,span_warning("You feel like only a nullrod could move this obelisk."))
 		return
 	return ..()
 
@@ -314,7 +314,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/cost = 100 * sect.obelisk_number + 100
 	if(sect.favor < cost)
-		to_chat(user, span_warning("Your obelisk are getting harder to summon, as more materialize. You need [cost] favor."))
+		to_chat(user, span_warning("Your obelisks are getting harder to summon as more materialize. You need [cost] favor."))
 		return FALSE
 	return ..()
 
@@ -394,9 +394,8 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1
 	icon_state = "shadow_obelisk_2"
-	max_integrity = 300
 	desc = "Grants favor while in the darkness. Blesses all tiles in its radius."
-	var/spread_delay = 30 SECONDS// how often will obelisc bless the tiles in radius
+	var/spread_delay = 30 SECONDS// how often will obelisk bless the tiles in radius
 	COOLDOWN_DECLARE(cooldown_holy_spread)
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/process(delta_time)
@@ -415,9 +414,8 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2 // some cursed incheritence, but its the easiest way to do it
 	icon_state = "shadow_obelisk_3"
-	max_integrity = 400
 	desc = "Grants favor from being shrouded in shadows. Blesses all tiles in its radius. Heals all shadowpeople in area."
-	var/heal_delay = 10 SECONDS // how often will obelisc heal the shadowpeople in radius
+	var/heal_delay = 10 SECONDS // how often will obelisk heal the shadowpeople in radius
 	COOLDOWN_DECLARE(cooldown_holy_heal)
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/process(delta_time)
@@ -460,7 +458,7 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3
 	icon_state = "shadow_obelisk_4"
-	max_integrity = 500
+	max_integrity = 30
 	desc = "Grants favor from being shrouded in shadows. Blesses all tiles in its radius. Heals all shadowpeople in area. People buckled to the obelisk will turn into shadow people, while shadow people can use them to teleport"
 	can_buckle = FALSE // it will be posible once anchored
 	var/converting = 0
@@ -519,9 +517,9 @@
 		return ..()
 
 	if(local_obelisk_list.len == 1)
-		user.visible_message(span_notice("[user.name] walked into obelisk."), span_notice("You walk into obelisk."))
+		user.visible_message(span_notice("[user.name] walks into obelisk."), span_notice("You walk into obelisk."))
 		do_teleport(user, local_obelisk_list[1], no_effects = TRUE)
-		user.visible_message(span_notice("[user.name] walked out of obelisk."), span_notice("To emerge on the other side."))
+		user.visible_message(span_notice("[user.name] walks out of obelisk."), span_notice("To emerge on the other side."))
 		return
 
 	in_use = TRUE
@@ -547,16 +545,16 @@
 	if(!chosen_input || !assoc_list[chosen_input])
 		return
 
-	user.visible_message(span_notice("[user.name] walked into the obelisk."), span_notice("You walk into the obelisk."))
+	user.visible_message(span_notice("[user.name] walks into the obelisk."), span_notice("You walk into the obelisk."))
 	do_teleport(user ,assoc_list[chosen_input], no_effects = TRUE)
-	user.visible_message(span_notice("[user.name] walked out of the obelisk."), span_notice("To emerge on the other side."))
+	user.visible_message(span_notice("[user.name] walks out of the obelisk."), span_notice("To emerge on the other side."))
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/transform_obelisk()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	var/datum/component/dark_favor/component_prievius = GetComponent(/datum/component/dark_favor)
+	var/datum/component/dark_favor/component_previous = GetComponent(/datum/component/dark_favor)
 	var/our_turf = get_turf(src)
-	var/user = component_prievius.return_creator()
+	var/datum/component/dark_favor/component_previous = GetComponent(/datum/component/dark_favor)
 	if(sect.grand_ritual_level == 1)
 		var/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/obelisk = new(our_turf)
 		sect.obelisks += obelisk
@@ -600,9 +598,8 @@
 	ritual_invocations = list(
 		"Shadows hear me...",
 		"... Come to your kin ...",
-		"... Help us spread darknes ...")
+		"... Help us spread darkness ...")
 	invoke_msg = "I summon you to our beacons!"
-	favor_cost = 1000
 
 /datum/religion_rites/grand_ritual_one/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
