@@ -112,7 +112,7 @@
 		if(colour == "green" && istype(get_turf(M), /turf/open/floor/grass))
 			special_mutation = TRUE
 			special_mutation_type = "dark green"
-			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass!"))
+			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
 		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
 
@@ -230,7 +230,7 @@
 			child_colour = "rainbow"
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
-				slime_mutation = mutation_table(pick(slime_colours - list("rainbow")))
+				slime_mutation = mutation_table(pick(slime_colours - list("rainbow", "dark green", "cobalt", "dark grey", "crimson")))
 			child_colour = slime_mutation[rand(1,4)]
 		if(special_mutation)
 			child_colour = special_mutation_type

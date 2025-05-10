@@ -81,6 +81,10 @@
 	var/coretype = /obj/item/slime_extract/grey
 	var/list/slime_mutation[4]
 
+	var/static/list/normal_slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
+	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
+	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
+	"cerulean", "sepia", "black", "pyrite")
 	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
 	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
 	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
@@ -145,7 +149,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		real_name = name
 
 /mob/living/simple_animal/slime/proc/random_colour()
-	set_colour(pick(slime_colours))
+	set_colour(pick(normal_slime_colours))
 
 /mob/living/simple_animal/slime/regenerate_icons()
 	cut_overlays()
@@ -516,7 +520,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
-	. = ..(mapload, pick(slime_colours), prob(50))
+	. = ..(mapload, pick(normal_slime_colours), prob(50))
 
 /mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
