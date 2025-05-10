@@ -1,0 +1,64 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/space)
+"b" = (
+/obj/machinery/button/door/directional/north{
+	name = "Shutter Control";
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/space)
+"w" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/space)
+"z" = (
+/obj/machinery/door/airlock/shuttle{
+	req_one_access_txt = "12"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/mineral/plastitanium,
+/area/space)
+"A" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/space)
+"N" = (
+/obj/effect/spawner/room/fivexthree,
+/turf/open/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+w
+a
+a
+N
+"}
+(2,1,1) = {"
+z
+a
+a
+a
+"}
+(3,1,1) = {"
+w
+b
+a
+a
+"}
+(4,1,1) = {"
+A
+a
+a
+a
+"}
+(5,1,1) = {"
+A
+a
+a
+a
+"}

@@ -1,0 +1,181 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/landmark/start/chemist,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"e" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"g" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/color/latex{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/dropper,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"j" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Chemistry";
+	req_one_access_txt = "33"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+"n" = (
+/obj/structure/table/reinforced,
+/obj/item/grenade/chem_grenade{
+	pixel_y = 3
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/obj/item/stack/cable_coil/white,
+/obj/item/screwdriver,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"q" = (
+/obj/item/book/manual/wiki/chemistry,
+/obj/item/storage/bag/chemistry,
+/obj/structure/closet/secure_closet/medical1,
+/obj/item/radio/intercom{
+	frequency = 1361;
+	freqlock = 1;
+	pixel_y = -28
+	},
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"v" = (
+/obj/machinery/chem_master,
+/obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/newscaster/directional/south,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"w" = (
+/obj/structure/sign/departments/minsky/medical/chemistry/chemical1,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+"x" = (
+/obj/machinery/button/door/directional/north{
+	name = "Shutter Control";
+	id = "explo_depart"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"y" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Exploration Shuttle Chemistry";
+	departmentType = 5;
+	pixel_x = -32
+	},
+/obj/machinery/chem_dispenser,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"C" = (
+/obj/machinery/chem_heater,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"F" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/cup/beaker/large/epinephrine{
+	pixel_x = -6
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"H" = (
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"K" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/pill_bottle{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"Q" = (
+/obj/machinery/smartfridge/chemistry,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"U" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"X" = (
+/obj/structure/sign/directions/medical,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+
+(1,1,1) = {"
+w
+y
+C
+v
+"}
+(2,1,1) = {"
+j
+H
+H
+q
+"}
+(3,1,1) = {"
+X
+x
+U
+Q
+"}
+(4,1,1) = {"
+F
+e
+H
+g
+"}
+(5,1,1) = {"
+K
+e
+a
+n
+"}
