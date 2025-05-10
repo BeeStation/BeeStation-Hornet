@@ -1,26 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
-/obj/item/cardboard_cutout/adaptive{
-	icon_state = "cutout_greytide";
-	name = "White Pawn"
-	},
-/turf/open/floor/holofloor/dark,
+/obj/structure/chess/checker/whiteman,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "d" = (
-/turf/open/floor/holofloor/dark,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 "J" = (
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
+/turf/open/floor/holofloor/chess_white,
 /area/template_noop)
 "M" = (
-/obj/item/cardboard_cutout/adaptive{
-	color = "#9999BB";
-	icon_state = "cutout_greytide";
-	name = "Black Pawn"
-	},
-/turf/open/floor/holofloor/dark,
+/obj/structure/chess/checker/blackman,
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
 
 (1,1,1) = {"

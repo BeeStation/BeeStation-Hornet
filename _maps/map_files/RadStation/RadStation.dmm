@@ -9372,7 +9372,7 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "cXb" = (
-/obj/item/cardboard_cutout/adaptive/chess/queen,
+/obj/item/cardboard_cutout/adaptive/clown,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "cXo" = (
@@ -10522,7 +10522,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/science/robotics)
 "drn" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+/obj/item/cardboard_cutout/adaptive/xeno,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
@@ -20226,7 +20226,7 @@
 /turf/open/space/basic,
 /area/solar/port/aft)
 "gvE" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+/obj/item/cardboard_cutout/adaptive/nukeop,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -62960,7 +62960,7 @@
 /area/engine/atmos)
 "uIB" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/cardboard_cutout/adaptive/chess/king,
+/obj/item/cardboard_cutout/adaptive/ian,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},

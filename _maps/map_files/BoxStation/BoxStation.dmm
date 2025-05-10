@@ -28632,7 +28632,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "hYO" = (
-/obj/item/cardboard_cutout/adaptive/chess/queen,
+/obj/item/cardboard_cutout/adaptive/clown,
 /turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
 "hYQ" = (
