@@ -27,13 +27,15 @@
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
-	if(surgery_target)
-		target = surgery_target
-		target.surgeries += src
-		if(surgery_location)
-			location = surgery_location
-		if(surgery_bodypart)
-			operated_bodypart = surgery_bodypart
+	if(!surgery_target)
+		return
+	target = surgery_target
+	target.surgeries += src
+	if(surgery_location)
+		location = surgery_location
+	if(!surgery_bodypart)
+		return
+	operated_bodypart = surgery_bodypart
 
 /datum/surgery/Destroy()
 	if(target)

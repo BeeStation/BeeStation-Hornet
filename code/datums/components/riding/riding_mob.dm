@@ -117,7 +117,7 @@
 /// If we're a cyborg or animal and we spin, we yeet whoever's on us off us
 /datum/component/riding/creature/proc/check_emote(mob/living/user, datum/emote/emote)
 	SIGNAL_HANDLER
-	if((!iscyborg(user) && !isanimal(user)) || !istype(emote, /datum/emote/spin))
+	if((!iscyborg(user) && !isanimal_or_basicmob(user)) || !istype(emote, /datum/emote/spin))
 		return
 
 	for(var/mob/yeet_mob in user.buckled_mobs)
@@ -127,7 +127,7 @@
 /datum/component/riding/creature/proc/setup_abilities(mob/living/rider)
 	if(!isliving(parent))
 		return
-		
+
 	var/mob/living/ridden_creature = parent
 
 	for(var/datum/action/action as anything in ridden_creature.actions)

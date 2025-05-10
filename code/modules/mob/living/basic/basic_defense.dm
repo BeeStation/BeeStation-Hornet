@@ -54,7 +54,7 @@
 	visible_message(span_danger("[user] punches [src]!"), \
 					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You punch [src]!"))
-	adjustBruteLoss(15)
+	apply_damage(15, damagetype = BRUTE)
 
 /mob/living/basic/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(..()) //successful monkey bite.
@@ -71,36 +71,31 @@
 
 
 /mob/living/basic/attack_alien(mob/living/carbon/alien/humanoid/user, list/modifiers)
-	if(..()) //if harm or disarm intent.
-		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			visible_message(span_danger("[user] [response_disarm_continuous] [name]!"), \
-							span_userdanger("[user] [response_disarm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_danger("You [response_disarm_simple] [name]!"))
-			log_combat(user, src, "disarmed", user)
-		else
-			var/damage = rand(15, 30)
-			visible_message(span_danger("[user] slashes at [src]!"), \
-							span_userdanger("You're slashed at by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_danger("You slash at [src]!"))
-			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
-			attack_threshold_check(damage)
-			log_combat(user, src, "attacked", user)
-		return 1
+	. = ..()
+	if(!.)
+		return
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+		visible_message(span_danger("[user] [response_disarm_continuous] [name]!"), \
+						span_userdanger("[user] [response_disarm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_danger("You [response_disarm_simple] [name]!"))
+		log_combat(user, src, "disarmed", user)
+		return
+	var/damage = rand(15, 30)
+	visible_message(span_danger("[user] slashes at [src]!"), \
+					span_userdanger("You're slashed at by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You slash at [src]!"))
+	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+	attack_threshold_check(damage)
+	log_combat(user, src, "attacked", user)
 
-/mob/living/basic/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
+/mob/living/basic/attack_larva(mob/living/carbon/alien/larva/attacking_larva, list/modifiers)
 	. = ..()
 	if(. && stat != DEAD) //successful larva bite
-		var/damage = rand(5, 10)
+		var/damage =attacking_larva.melee_damage
 		. = attack_threshold_check(damage)
 		if(.)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-
-/mob/living/basic/attack_basic_mob(mob/living/basic/user)
-	. = ..()
-	if(.)
-		// var/damage = rand(user.melee_damage_lower, user.melee_damage_upper) // We don't have melee_damage_lower and melee_damage_upper, kept to make this easier to understand and drop-in in the future
-		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
+			attacking_larva.amount_grown = min(attacking_larva.amount_grown + damage, attacking_larva.max_grown)
 
 /mob/living/basic/attack_animal(mob/living/simple_animal/user)
 	. = ..()
@@ -133,12 +128,12 @@
 		temp_damage = 0
 	else
 		temp_damage *= damage_coeff[damagetype]
-
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message(span_warning("[src] looks unharmed."))
+		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		if(actuallydamage)
+			apply_damage(damage, damagetype, blocked = getarmor(null, armorcheck))
 		return TRUE
 
 /mob/living/basic/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
@@ -147,17 +142,14 @@
 	return BULLET_ACT_HIT
 
 /mob/living/basic/ex_act(severity, target, origin)
-	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
-		return FALSE
-
-	..()
-	if(QDELETED(src))
+	. = ..()
+	if(!. || QDELETED(src))
 		return
 	var/bomb_armor = getarmor(null, BOMB)
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
-				adjustBruteLoss(500)
+				apply_damage(500, damagetype = BRUTE)
 			else
 				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
@@ -166,17 +158,16 @@
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			apply_damage(bloss, damagetype = BRUTE)
 
 		if (EXPLODE_LIGHT)
 			var/bloss = 30
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			apply_damage(bloss, damagetype = BRUTE)
 
-/mob/living/basic/blob_act(obj/structure/blob/B)
-	adjustBruteLoss(20)
-	return
+/mob/living/basic/blob_act(obj/structure/blob/attacking_blob)
+	apply_damage(20, damagetype = BRUTE)
 
 /mob/living/basic/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	if(!no_effect && !visual_effect_icon && melee_damage)
@@ -196,3 +187,18 @@
 		else
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
+
+/mob/living/basic/emp_act(severity)
+	. = ..()
+	if(mob_biotypes & MOB_ROBOTIC)
+		emp_reaction(severity)
+
+/mob/living/basic/proc/emp_reaction(severity)
+	switch(severity)
+		if(EMP_LIGHT)
+			visible_message(span_danger("[src] shakes violently, its parts coming loose!"))
+			apply_damage(maxHealth * 0.6)
+			Shake(5, 5, 1 SECONDS)
+		if(EMP_HEAVY)
+			visible_message(span_danger("[src] suddenly bursts apart!"))
+			apply_damage(maxHealth)

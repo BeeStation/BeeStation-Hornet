@@ -70,7 +70,7 @@
 	switch(mode)
 		if(0)
 			if(M.health >= 0)
-				if(isanimal(M))
+				if(isanimal_or_basicmob(M))
 					var/list/modifiers = params2list(params)
 					if (!user.combat_mode && !LAZYACCESS(modifiers, RIGHT_CLICK))
 						M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
