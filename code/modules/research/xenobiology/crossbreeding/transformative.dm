@@ -119,7 +119,12 @@ transformative extracts:
 /obj/item/slimecross/transformative/green
 	colour = "green"
 	effect_applied = SLIME_EFFECT_GREEN
-	effect_desc = "Slimes will eat corpses."
+	effect_desc = "Grants sentient slimes the ability to become oozelings at will, once."
+
+/obj/item/slimecross/transformative/green/do_effect(mob/living/simple_animal/slime/S)
+	..()
+	var/datum/action/spell/oozeling_evolve/transform = new(S)
+	transform.Grant(S)
 
 /obj/item/slimecross/transformative/pink
 	colour = "pink"
