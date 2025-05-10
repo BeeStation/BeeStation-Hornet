@@ -970,8 +970,11 @@
 		resist_grab()
 		return
 
+	if(last_special <= world.time)
+		resist_restraints() //trying to remove cuffs.
+
 	//unbuckling yourself
-	if(buckled && last_special <= world.time)
+	else if(buckled && last_special <= world.time)
 		resist_buckle()
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
@@ -982,8 +985,6 @@
 	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
-		else if(last_special <= world.time)
-			resist_restraints() //trying to remove cuffs.
 
 
 /mob/proc/resist_grab(moving_resist)
