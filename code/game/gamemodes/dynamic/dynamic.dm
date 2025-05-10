@@ -29,7 +29,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	/// Set at the beginning of the round. Used to purchase rules.
 	var/roundstart_points = 0
 	/// Only here for logging purposes
-	var/point_divergence = 1
+	var/roundstart_point_divergence = 1
 	/// List of all roundstart rulesets that have been executed
 	var/roundstart_executed_rulesets = list()
 	/// List of players ready on candidates used on roundstart rulesets.
@@ -264,10 +264,10 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			roundstart_points += roundstart_points_per_unready
 
 	// Kapu wrote this code for the randomized point divergence
-	point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
-	roundstart_points = round(roundstart_points * point_divergence, 1)
+	roundstart_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
+	roundstart_points = round(roundstart_points * roundstart_point_divergence, 1)
 
-	log_game("DYNAMIC: Starting with [roundstart_points] roundstart points and a divergence of [round((point_divergence - 1) * 100, 1)]%")
+	log_game("DYNAMIC: Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100, 1)]%")
 
 /*
 * Pick the roundstart rulesets to run based off of their configured variables (weight, cost, etc.)
@@ -608,7 +608,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	dat += "Forced extended: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];forced_extended=1'><b>[GLOB.dynamic_forced_extended ? "On" : "Off"]</b></a><br/>"
 
 	dat += "Roundstart points: <b>[roundstart_points]</b>"
-	dat += "Roundstart point divergence: <b>[round((point_divergence - 1) * 100, 1)]%</b>"
+	dat += "Roundstart point divergence: <b>[round((roundstart_point_divergence - 1) * 100, 1)]%</b>"
 	dat += "Roundstart candidates: <b>[length(roundstart_candidates)]</b><br/>"
 
 	dat += "Midround grace period: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_graceperiod=1'><b>[midround_grace_period ? DisplayTimeText(midround_grace_period) : "0 seconds"]</b></a>"

@@ -7,10 +7,11 @@
 	},
 	"Roundstart": {
 		"Traitor": {
-			"points_cost": 5,
+			"points_cost": 7,
 			"weight": 5,
 			"restricted_roles": [
-				"Cyborg"
+				"Cyborg",
+				"AI"
 			]
 		},
 		"Revolution": {
