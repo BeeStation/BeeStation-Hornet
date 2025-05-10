@@ -13,7 +13,7 @@
 		var/penetration_proportion = penetration <= 0 ? 0 : CLAMP01((penetration - penetration_rating) / penetration)
 		var/penetration_damage = amount * penetration_proportion
 		// Penetration multiplier
-		penetration_damage += max(0, (min(penetration, 30) - penetration_rating) / 30 * 2 * penetration_damage)
+		penetration_damage += max(0, (min(penetration, UNPROTECTED_ARMOUR_RATING) - penetration_rating) / UNPROTECTED_ARMOUR_RATING * (UNPROTECTED_SHARPNESS_DAMAGE_MULTIPLIER - 1) * penetration_damage)
 		// Unprotected damage
 		take_sharpness_damage(penetration_damage, type, flag, zone, penetration)
 		// Protected damage
@@ -22,12 +22,15 @@
 		var/absorbed_damage = blunt_damage * (1 - blunt_rating)
 		var/taken_damage = blunt_damage * blunt_rating
 		absorb_damage_amount(absorbed_damage, type)
+		// Blunt multiplier for low protection
+		// If we have low protection, then we take full damage from attacks +50% conciousness damage.
+		var/base_blunt_damage = blunt_damage + max(0, (min(penetration, UNPROTECTED_ARMOUR_RATING) - penetration_rating) / UNPROTECTED_ARMOUR_RATING * (UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER - 1) * blunt_damage)
 		// Blunt damage splits into 50% consciousness and 50% actual damage, if brute
 		// stamina and burn damage doesn't result in blunt force trauma
 		// TODO: Concussion if hit in the head
 		if (type == BRUTE)
-			take_direct_damage(taken_damage * 0.5, type, flag, zone)
-			take_direct_damage(taken_damage * 0.5, CONSCIOUSNESS, flag, zone)
+			take_direct_damage(base_blunt_damage * BLUNT_DAMAGE_APPLIED_MULTIPLIER, type, flag, zone)
+			take_direct_damage(taken_damage * BLUNT_DAMAGE_CONCIOUSNESS_MULTIPLIER, CONSCIOUSNESS, flag, zone)
 		else
 			take_direct_damage(taken_damage, type, flag, zone)
 		return

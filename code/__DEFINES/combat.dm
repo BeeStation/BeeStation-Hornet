@@ -108,6 +108,25 @@
 
 #define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
 
+//Combat numbers
+
+// The number that is considered to be protected from basic attacks
+#define UNPROTECTED_ARMOUR_RATING 30
+// The multiplier to sharpness damage applied to the body for when the user has no sharpness protection at all.
+#define UNPROTECTED_SHARPNESS_DAMAGE_MULTIPLIER 1.5
+// The multiplier to the sharpness limb damage value when the user has no sharpness protection.
+// This doesn't apply additional brute/burn damage, but will apply additional organ/injury damage.
+// Note that this applies on top of the damage modifier above, so 2 * 1.5 = 3
+#define UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER 2
+// The multiplier to blunt damage if we aren't protected.
+// Affected by BLUNT_DAMAGE_APPLIED_MULTIPLIER, so this restores
+// full damage to unprotected targets
+#define UNPROTECTED_BLUNT_DAMAGE_MULTIPLIER 2
+// How much conciousness damage we take from blunt damage
+#define BLUNT_DAMAGE_CONCIOUSNESS_MULTIPLIER 0.5
+// How much actual damage we take from blunt damage
+#define BLUNT_DAMAGE_APPLIED_MULTIPLIER 0.5
+
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions

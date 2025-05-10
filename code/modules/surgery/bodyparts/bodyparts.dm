@@ -106,7 +106,7 @@
 	var/bone_max_health = 40
 	var/bone_health = 40
 	/// The amount of penetration that the bones reduce an attack by
-	var/bone_penetration_resistance = 40
+	var/bone_penetration_resistance = 15
 	/// Injury status effects applied to this limb
 	var/list/injuries = null
 
@@ -673,14 +673,17 @@
 
 /obj/item/bodypart/proc/run_limb_injuries(damage, damage_flag, penetration_power)
 	var/current_damage = damage
-	if (!owner)
+	if (!owner || damage <= 0)
 		return
 	// Deal with armour, the penetration power gets flat reduced by the relevant armour stat
-	var/armour = owner.run_armor_check(body_zone, damage_flag, silent = TRUE)
+	var/armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_PENETRATION)
 	penetration_power -= armour
+	// Damage multiplier
+	damage += max(0, (min(penetration_power, 30) - armour) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * penetration_power)
 	// Deal with base damage
 	current_damage = damage
-	if (penetration_power < INJURY_PENETRATION_MINIMUM)
+	// Even without penetration, having high damage results in blunt damage falling down
+	if (penetration_power + damage < INJURY_PENETRATION_MINIMUM)
 		return
 	if (penetration_power < 0)
 		current_damage += penetration_power
@@ -689,7 +692,9 @@
 	var/proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	var/sharp_damage = current_damage * proportion
+	// Take sharp damage
 	skin_health -= sharp_damage
+	// Take burn damage
 	if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
 		skin_health -= blunt_damage
 	if (skin_health < 0)
@@ -700,11 +705,11 @@
 	// Deflection - Permanently reduces damage
 	damage -= bone_deflection
 	current_damage = damage
-	if (penetration_power < INJURY_PENETRATION_MINIMUM)
+	if (penetration_power + damage < INJURY_PENETRATION_MINIMUM)
 		return
 	if (penetration_power < 0)
 		current_damage += penetration_power
-	if (current_damage < 0)
+	if (current_damage <= 0)
 		return
 	// Bone health
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
@@ -717,10 +722,8 @@
 	// Bone pentration
 	penetration_power -= rand(0, bone_penetration_resistance)
 	current_damage = damage
-	if (penetration_power < INJURY_PENETRATION_MINIMUM)
-		return
 	if (penetration_power < 0)
-		current_damage += penetration_power
+		return
 	if (current_damage < 0)
 		return
 	// Organ damage
@@ -736,7 +739,7 @@
 		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
 	// If the penetration power is still high, then lose the limb
 	// The head cannot be delimbed if the most is alive since it causes instant death
-	if (((penetration_power > 0 && prob(50 + penetration_power)) || bone_health <= 0) && dismemberable && damage_flag == DAMAGE_STANDARD && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
+	if (((penetration_power > 0 && prob(penetration_power - bone_health)) || bone_health <= 0) && dismemberable && damage_flag == DAMAGE_STANDARD && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
 		dismember()
 
 /obj/item/bodypart/proc/check_effectiveness()

@@ -9,7 +9,7 @@
 #define BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING 2
 
 /// Amount of injury damage taken when the damage is blunt
-#define BLUNT_DAMAGE_RATIO 0.5
+#define BLUNT_DAMAGE_RATIO 1
 /// Point at which injury damage starts to turn blunt
 #define BLUNT_DAMAGE_START 30
 /// Point at which damage can no longer apply
