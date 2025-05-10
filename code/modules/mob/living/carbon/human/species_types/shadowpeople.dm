@@ -454,7 +454,7 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = shadow_sect_dependency_granted
-		coms.Grant(M)
+		comms.Grant(M)
 	else
 		shadow_conversion = 0
 		to_chat(M, span_userdanger("You feel a chill spreading throughout your body."))
@@ -467,7 +467,7 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
 		M.alpha = 255
-		coms.Remove(M)
+		comms.Remove(M)
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 			M.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 	if(shadow_conversion != 0)

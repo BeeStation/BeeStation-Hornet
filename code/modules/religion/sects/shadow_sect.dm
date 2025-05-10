@@ -552,8 +552,8 @@
 /obj/structure/destructible/religion/shadow_obelisk/proc/transform_obelisk()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/datum/component/dark_favor/component_previous = GetComponent(/datum/component/dark_favor)
+	var/user = component_previous.return_creator()
 	var/our_turf = get_turf(src)
-	var/datum/component/dark_favor/component_previous = GetComponent(/datum/component/dark_favor)
 	if(sect.grand_ritual_level == 1)
 		var/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/obelisk = new(our_turf)
 		sect.obelisks += obelisk
