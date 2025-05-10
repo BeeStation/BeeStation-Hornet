@@ -15,7 +15,7 @@
 #error Please consider downgrading to 514.1575 or lower.
 #endif
 
-#if (DM_VERSION == 515 && DM_BUILD == 1660)
+#if (DM_VERSION == 516 && DM_BUILD == 1660)
 #error This version of Byond includes a breaking bug to how vars are accessed which causes a large amount of errors during initialization and prevents var-edit from functioning.
 #error Please update your Byond version at https://secure.byond.com/download
 #endif
