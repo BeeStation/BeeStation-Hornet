@@ -1,0 +1,160 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+"m" = (
+/obj/machinery/mech_bay_recharge_port,
+/turf/open/floor/circuit,
+/area/template_noop)
+"n" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"s" = (
+/obj/machinery/recharge_station,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"t" = (
+/obj/machinery/door/airlock/shuttle{
+	req_one_access_txt = "29"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+"w" = (
+/obj/machinery/button/door/directional/north{
+	name = "Shutter Control";
+	id = "explo_depart"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/item/kirbyplants/photosynthetic,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"x" = (
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"B" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"F" = (
+/obj/structure/sign/departments/minsky/research/robotics,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+"H" = (
+/obj/structure/table,
+/obj/item/weldingtool{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/toy/plush/opa{
+	pixel_x = 7
+	},
+/obj/structure/sign/poster/official/state_laws{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"M" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/crowbar,
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/newscaster/directional/west,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"P" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"R" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/poster/official/ion_rifle{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"T" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	frequency = 1361;
+	freqlock = 1;
+	pixel_y = -28
+	},
+/turf/open/floor/iron/dark,
+/area/template_noop)
+"V" = (
+/turf/open/floor/mech_bay_recharge_floor,
+/area/template_noop)
+
+(1,1,1) = {"
+F
+R
+M
+H
+"}
+(2,1,1) = {"
+t
+x
+x
+T
+"}
+(3,1,1) = {"
+a
+w
+n
+m
+"}
+(4,1,1) = {"
+P
+B
+x
+V
+"}
+(5,1,1) = {"
+P
+B
+x
+s
+"}

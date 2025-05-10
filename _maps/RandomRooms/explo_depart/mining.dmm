@@ -1,0 +1,79 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"B" = (
+/obj/item/radio/intercom{
+	frequency = 1361;
+	freqlock = 1;
+	pixel_y = -28
+	},
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"D" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+"K" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"R" = (
+/obj/machinery/button/door/directional/north{
+	name = "Shutter Control";
+	id = "explo_depart"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"U" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/template_noop)
+"W" = (
+/obj/machinery/door/airlock/shuttle,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+
+(1,1,1) = {"
+D
+a
+a
+a
+"}
+(2,1,1) = {"
+W
+a
+a
+B
+"}
+(3,1,1) = {"
+D
+R
+P
+a
+"}
+(4,1,1) = {"
+K
+U
+a
+a
+"}
+(5,1,1) = {"
+K
+U
+a
+a
+"}

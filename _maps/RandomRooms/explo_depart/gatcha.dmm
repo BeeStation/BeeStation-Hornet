@@ -1,0 +1,149 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/space)
+"d" = (
+/obj/machinery/computer/slot_machine,
+/obj/machinery/newscaster/directional/south,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/sign/poster/contraband/smoke{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"g" = (
+/obj/machinery/button/door/directional/north{
+	name = "Shutter Control";
+	id = "explo_depart"
+	},
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/turf/open/floor/carpet/red,
+/area/space)
+"k" = (
+/obj/structure/chair/stool/bar/directional/west,
+/obj/item/radio/intercom{
+	frequency = 1361;
+	freqlock = 1;
+	pixel_y = -28
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"l" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/randomarcade{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/sign/poster/contraband/bountyhunters{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"m" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/space)
+"r" = (
+/obj/structure/sign/poster/contraband/borg_fancy_1,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/space)
+"s" = (
+/obj/structure/chair/fancy/sofa/old/right{
+	color = "#596479";
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"v" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck{
+	pixel_y = 4
+	},
+/obj/effect/spawner/lootdrop/gambling,
+/turf/open/floor/carpet/red,
+/area/space)
+"A" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Exploration Shuttle Gambling Den";
+	departmentType = 5;
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/space)
+"B" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#596479";
+	dir = 4
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"C" = (
+/obj/machinery/vending/sticker,
+/turf/open/floor/carpet/red,
+/area/space)
+"D" = (
+/obj/structure/chair/stool/bar/directional/west,
+/turf/open/floor/carpet/red,
+/area/space)
+"E" = (
+/turf/open/floor/carpet/red,
+/area/space)
+"I" = (
+/obj/machinery/door/airlock/shuttle,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium,
+/area/space)
+"J" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#596479";
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+"T" = (
+/obj/structure/chair/fancy/sofa/old/right{
+	color = "#596479";
+	dir = 4
+	},
+/turf/open/floor/carpet/red,
+/area/space)
+
+(1,1,1) = {"
+r
+A
+l
+d
+"}
+(2,1,1) = {"
+I
+E
+D
+k
+"}
+(3,1,1) = {"
+a
+g
+B
+T
+"}
+(4,1,1) = {"
+m
+E
+E
+v
+"}
+(5,1,1) = {"
+m
+C
+s
+J
+"}

@@ -1,0 +1,210 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"b" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"d" = (
+/obj/machinery/griddle,
+/obj/item/food/badrecipe{
+	pixel_y = 7
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/table,
+/obj/item/knife{
+	pixel_x = -7;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/beaker/large{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/obj/item/storage/box/ingredients/wildcard,
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/radio/intercom{
+	frequency = 1361;
+	freqlock = 1;
+	pixel_y = -28
+	},
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"k" = (
+/obj/machinery/processor,
+/obj/structure/sign/poster/official/cleanliness{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"p" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"r" = (
+/obj/machinery/button/door/directional/north{
+	name = "Shutter Control";
+	id = "explo_depart"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/effect/landmark/start/cook,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"u" = (
+/obj/structure/sign/warning/biohazard,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+"w" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/template_noop)
+"y" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_depart"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"z" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"A" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/item/food/chocolatebar,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"B" = (
+/obj/machinery/deepfryer,
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/newscaster/directional/south,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"F" = (
+/obj/machinery/door/airlock/shuttle{
+	req_one_access_txt = "28"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+"G" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"M" = (
+/obj/machinery/oven,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Exploration Shuttle Kitchen";
+	departmentType = 5;
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"N" = (
+/obj/structure/table,
+/obj/item/storage/bag/tray,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/item/reagent_containers/condiment/flour{
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/obj/item/kitchen/rollingpin,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+
+(1,1,1) = {"
+u
+M
+k
+B
+"}
+(2,1,1) = {"
+F
+p
+p
+g
+"}
+(3,1,1) = {"
+w
+r
+z
+N
+"}
+(4,1,1) = {"
+d
+b
+p
+a
+"}
+(5,1,1) = {"
+y
+b
+A
+G
+"}
