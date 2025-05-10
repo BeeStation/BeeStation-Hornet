@@ -173,11 +173,11 @@
 											span_notice("You finish shaving with [src]. Fast and clean!"))
 					shave(H, location)
 			else
-				user.visible_message(span_warning("[user] tries to shave [H]'s facial hair with [src]."), \
-										span_notice("You start shaving [H]'s facial hair..."))
+				H.visible_message(span_warning("[user] tries to shave [H]'s facial hair with [src]."), \
+										span_userdanger("[user] is trying to shave your facial hair!"))
 				if(do_after(user, 50, target = H))
-					user.visible_message(span_warning("[user] shaves off [H]'s facial hair with [src]."), \
-											span_notice("You shave [H]'s facial hair clean off."))
+					H.visible_message(span_warning("[user] shaves off [H]'s facial hair with [src]."), \
+											span_userdanger("[user] has shaved your facial hair clean off!"))
 					shave(H, location)
 
 	else if(location == BODY_ZONE_HEAD)
@@ -204,12 +204,12 @@
 					shave(H, location)
 			else
 				var/turf/H_loc = H.loc
-				user.visible_message(span_warning("[user] tries to shave [H]'s head with [src]!"), \
-										span_notice("You start shaving [H]'s head..."))
+				H.visible_message(span_warning("[user] tries to shave [H]'s head with [src]!"), \
+										span_userdanger("[user] is trying to shave your head with [src]!"))
 				if(do_after(user, 50, target = H))
 					if(H_loc == H.loc)
-						user.visible_message(span_warning("[user] shaves [H]'s head bald with [src]!"), \
-												span_notice("You shave [H]'s head bald."))
+						H.visible_message(span_warning("[user] shaves [H]'s head bald with [src]!"), \
+											span_userdanger("[user] has shaved your head bald with [src]!"))
 						shave(H, location)
 
 /obj/item/razor/proc/new_hairstyle(mob/living/carbon/human/H, mob/user, mirror)
@@ -218,13 +218,15 @@
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hair_styles_list
+	var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hair_styles_list, null)
 	if(!get_location_accessible(H, BODY_ZONE_HEAD))
 		to_chat(user, span_warning("The headgear is in the way!"))
 		return
-	user.visible_message(span_notice("[user] tries to change [H]'s hairstyle using [src]."), span_notice("You try to change [H]'s hairstyle using [src]."))
+	H.visible_message(span_notice("[user] tries to change [H]'s hairstyle using [src]."), \
+		span_userdanger("[user] is trying to change your hairstyle with [src]!"))
 	if(new_style && do_after(user, 60, target = H))
-		user.visible_message(span_notice("[user] successfully changes [H]'s hairstyle using [src]."), span_notice("You successfully change [H]'s hairstyle using [src]."))
+		H.visible_message(span_notice("[user] successfully changes [H]'s hairstyle using [src]."), \
+							span_userdanger("[user] changed your hairstyle with [src]!"))
 		H.hair_style = new_style
 		H.update_hair()
 
@@ -234,7 +236,7 @@
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hair_styles_list
+	var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.hair_styles_list, null)
 	if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
 		to_chat(user, span_warning("The mask is in the way!"))
 		return
@@ -308,3 +310,71 @@
 	to_chat(user, span_notice("You look into the mirror"))
 	sleep(150)
 	REMOVE_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
+
+/obj/item/advancedhairdye
+	name = "advanced hair dye"
+	desc = "Spray bottle loaded with an advanced all-purpose hair dye. This one allows any specific color to be dyed."
+	icon = 'icons/obj/chemical.dmi' //placeholder
+	icon_state = "hairdye"
+
+/obj/item/advancedhairdye/attack(mob/living/M, mob/living/user)
+	if(!ishuman(M))
+		return ..()
+	var/mob/living/carbon/human/H = M
+
+	if(!user.can_interact_with(H, TRUE))
+		to_chat(user, span_warning("[H] is too far away!"))
+		return
+	if(!user.can_interact_with(src, TRUE))
+		to_chat(user, span_warning("[src] is too far away!"))
+		return
+	if(!H.get_bodypart(BODY_ZONE_HEAD))
+		to_chat(user, span_warning("[H] doesn't have a head!"))
+		return
+
+
+	if(user.is_zone_selected(BODY_ZONE_HEAD))
+		if(!(HAIR in H.dna.species.species_traits))
+			to_chat(user, span_warning("There is no hair to dye!"))
+			return
+		if(!get_location_accessible(H, BODY_ZONE_HEAD))
+			to_chat(user, span_warning("The headgear is in the way!"))
+			return
+		if(H.hair_style == "Bald" || H.hair_style == "Balding Hair" || H.hair_style == "Skinhead")
+			to_chat(user, span_alert("There is not enough hair left to dye!"))
+
+		var/options = list("Hair", "Gradient", "Gradient Style")
+		var/choice = tgui_input_list(user, "What would you like to dye?", "Dyeing", options, null)
+		switch(choice)
+			if("Hair")
+				var/new_color = tgui_color_picker(user, "Select the new hair color", "Dyeing", null)
+				if(new_color && do_after(user, 6 SECONDS, target = H))
+					playsound(user, 'sound/effects/spray2.ogg', 50, 1)
+					H.hair_color = sanitize_hexcolor(new_color)
+					H.update_hair()
+			if("Gradient")
+				var/new_color = tgui_color_picker(user, "Select the new gradient color", "Dyeing", null)
+				if(new_color && do_after(user, 6 SECONDS, target = H))
+					playsound(user, 'sound/effects/spray2.ogg', 50, 1)
+					H.gradient_color = sanitize_hexcolor(new_color)
+					H.update_hair()
+			if("Gradient Style")
+				var/new_gradient_style = tgui_input_list(user, "Select the new gradient style", "Dyeing", GLOB.hair_gradients_list, null)
+				if(new_gradient_style && do_after(user, 6 SECONDS, target = H))
+					playsound(user, 'sound/effects/spray2.ogg', 50, 1)
+					H.gradient_style = new_gradient_style
+					H.update_hair()
+
+	if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
+		if(!(FACEHAIR in H.dna.species.species_traits) || H.facial_hair_style == "Shaved")
+			to_chat(user, span_warning("There is no facial hair to dye!"))
+			return
+		if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
+			to_chat(user, span_warning("The mask is in the way!"))
+			return
+
+		var/new_color = tgui_color_picker(user, "Select the new hair color", "Dyeing", null)
+		if(new_color && do_after(user, 6 SECONDS, target = H))
+			playsound(user, 'sound/effects/spray2.ogg', 50, 1)
+			H.facial_hair_color = sanitize_hexcolor(new_color)
+			H.update_hair()
