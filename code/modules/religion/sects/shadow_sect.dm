@@ -458,7 +458,6 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3
 	icon_state = "shadow_obelisk_4"
-	max_integrity = 30
 	desc = "Grants favor from being shrouded in shadows. Blesses all tiles in its radius. Heals all shadowpeople in area. People buckled to the obelisk will turn into shadow people, while shadow people can use them to teleport"
 	can_buckle = FALSE // it will be posible once anchored
 	var/converting = 0
