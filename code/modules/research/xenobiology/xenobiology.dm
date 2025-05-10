@@ -674,6 +674,36 @@
 			user.visible_message(span_warning("[user] spits out [O]!"), span_notice("You spit out [O]!"))
 			return 15 SECONDS
 
+//special mutation slimes
+
+/obj/item/slime_extract/darkgreen
+	name = "dark green slime extract"
+	icon_state = "dark green slime extract"
+	effectmod = "verdant"
+	color_slime = "dark green"
+	activate_reagents = list(/datum/reagent/water,/datum/reagent/medicine/earthsblood)
+
+/obj/item/slime_extract/cobalt
+	name = "cobalt slime extract"
+	icon_state = "cobalt slime extract"
+	effectmod = "hypercompressed"
+	color_slime = "cobalt"
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
+
+/obj/item/slime_extract/darkgrey
+	name = "dark grey slime extract"
+	icon_state = "dark grey slime extract"
+	effectmod = "multitudinous"
+	color_slime = "dark grey"
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
+
+/obj/item/slime_extract/crimson
+	name = "crimson slime extract"
+	icon_state = "crimson slime extract"
+	effectmod = "furious"
+	color_slime = "crimson"
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/blackpowder)
+
 ////Slime-derived potions///
 
 /obj/item/slimepotion
@@ -1110,6 +1140,32 @@
 	to_chat(target, span_notice("Your mind tingles as you are fed the potion. You can hear radio waves now!"))
 	var/obj/item/implant/radio/slime/imp = new(src)
 	imp.implant(target, user)
+	qdel(src)
+
+/obj/item/slimepotion/slime/lavasteroid
+	name = "lavaland steroid"
+	desc = "A chemical concoction that changes the makeup of certain fauna native to lavaland, bringing rare mutations to the surface."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "potred"
+
+/obj/item/slimepotion/slime/lavasteroid/attack(mob/living/target, mob/user)
+	var/new_monster = null
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/goliath/beast))
+		new_monster = new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(target.loc)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/basilisk/watcher))
+		if(prob(50))
+			new_monster = new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(target.loc)
+		else
+			new_monster = new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(target.loc)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/hivelord/legion))
+		new_monster = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(target.loc)
+	if(new_monster == null)
+		user.visible_message(span_danger("This creature won't respond to the potion."))
+		return
+	if(target.mind)
+		target.mind.transfer_to(new_monster)
+	user.visible_message(span_danger("[target] sheds its form, emerging from a pile of gibs with new and fresh limbs!"))
+	target.gib()
 	qdel(src)
 
 /obj/item/stack/tile/bluespace

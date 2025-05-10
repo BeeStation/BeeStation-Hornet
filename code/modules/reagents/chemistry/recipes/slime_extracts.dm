@@ -626,3 +626,105 @@
 /datum/chemical_reaction/slime/flight_potion/on_reaction(datum/reagents/holder)
 	new /obj/item/reagent_containers/cup/bottle/potion/flight(get_turf(holder.my_atom))
 	..()
+
+/datum/chemical_reaction/slime/slimeseed
+	name = "Seed Creation"
+	required_reagents = list(/datum/reagent/medicine/earthsblood = 1)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/darkgreen
+
+/datum/chemical_reaction/slime/slimeseed/on_reaction(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	playsound(T, 'sound/effects/phasein.ogg', 100, TRUE)
+	for(var/mob/living/carbon/C in viewers(T))
+		C.flash_act()
+	var/chosen = getbork()
+	new chosen(T)
+	..()
+
+/datum/chemical_reaction/slime/slimeseed/proc/getbork()
+	return get_random_seed()
+
+/datum/chemical_reaction/slime/slimefertilise
+	name = "Slime Fertiliser"
+	results = list(/datum/reagent/plantnutriment/slimenutriment = 1)
+	required_reagents = list(/datum/reagent/water = 1)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/darkgreen
+
+/datum/chemical_reaction/slime/slimepush
+	name = "Slime Repulsion"
+	results = list(/datum/reagent/sorium = 5)
+	required_reagents = list(/datum/reagent/toxin/plasma = 1)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/cobalt
+
+/datum/chemical_reaction/slime/slimepush/on_reaction(datum/reagents/holder)
+	holder.chem_temp += 500
+
+/datum/chemical_reaction/slime/slimepull
+	name = "Slime Attraction"
+	results = list(/datum/reagent/liquid_dark_matter = 5)
+	required_reagents = list(/datum/reagent/blood = 1)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/cobalt
+
+/datum/chemical_reaction/slime/slimepull/on_reaction(datum/reagents/holder)
+	holder.chem_temp += 500
+
+/datum/chemical_reaction/slime/slimesummonlegion
+	name = "Slime Legion"
+	required_reagents = list(/datum/reagent/blood = 1)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/darkgrey
+
+/datum/chemical_reaction/slime/slimesummonlegion/on_reaction(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message(span_danger("The slime extract begins to vibrate violently!"))
+	addtimer(CALLBACK(src, PROC_REF(slime_legion), holder), 5 SECONDS)
+
+/datum/chemical_reaction/slime/slimesummonlegion/proc/slime_legion(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	playsound(T, 'sound/effects/phasein.ogg', 100, TRUE)
+	T.visible_message(span_danger("Skulls and ashen bone burst fourth from the extract with a flash of light!"))
+	for(var/mob/living/carbon/C in viewers(T))
+		C.flash_act()
+	new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril(T)
+
+/datum/chemical_reaction/slime/lavasteroid
+	name = "Slime Lava Steroid"
+	required_reagents = list(/datum/reagent/toxin/plasma = 1)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/darkgrey
+
+/datum/chemical_reaction/slime/lavasteroid/on_reaction(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	new /obj/item/slimepotion/slime/lavasteroid(T)
+	..()
+
+/datum/chemical_reaction/slime/techshell
+	name = "Slime Techshell"
+	required_reagents = list(/datum/reagent/blackpowder = 5)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/crimson
+
+/datum/chemical_reaction/slime/techshell/on_reaction(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	var/list/techshells = list(
+		/obj/item/ammo_casing/shotgun/dragonsbreath,
+		/obj/item/ammo_casing/shotgun/pulseslug,
+		/obj/item/ammo_casing/shotgun/meteorslug,
+		/obj/item/ammo_casing/shotgun/frag12,
+		/obj/item/ammo_casing/shotgun/ion,
+		/obj/item/ammo_casing/shotgun/laserslug
+	)
+	var/chosen = pick(techshells)
+	new chosen(T)
+	..()
+
+/datum/chemical_reaction/slime/pyroxadone
+	name = "Pyroxadone Generation"
+	results = list(/datum/reagent/medicine/pyroxadone = 3)
+	required_reagents = list(/datum/reagent/toxin/plasma = 1)
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/crimson
