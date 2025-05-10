@@ -116,6 +116,7 @@
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "festivus_pole"
 	desc = "During last year's Feats of Strength the Research Director was able to suplex this passing immobile rod into a planter."
+	layer = ABOVE_MOB_LAYER // so it doesn't get obscured by objects, windows and mobs on the tile north of it
 	zmm_flags = ZMM_LOOKAHEAD
 
 /obj/structure/festivus/anchored
@@ -186,6 +187,20 @@
 
 /obj/structure/flora/bush/Initialize(mapload)
 	icon_state = "snowbush[rand(1, 6)]"
+	. = ..()
+
+//bushes but in a pot
+/obj/structure/flora/bigplant
+	name = "potted plant"
+	desc = "A large potted plant."
+	icon = 'icons/obj/flora/bigplant.dmi'
+	icon_state = "bigplant1"
+	anchored = FALSE
+	layer = ABOVE_MOB_LAYER
+	pixel_x = -17
+
+/obj/structure/flora/bigplant/Initialize(mapload)
+	icon_state = "bigplant[rand(1, 2)]"
 	. = ..()
 
 //newbushes
