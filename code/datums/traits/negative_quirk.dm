@@ -128,6 +128,35 @@
 	if(DT_PROB(0.05, delta_time))
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "depression", /datum/mood_event/depression)
 
+		/datum/quirk/dieting
+	name = "Dieting"
+	desc = "You are on a diet! Junk food and cakes are off the menu."
+	icon = "burger"
+	gain_text = span_notice("You are on a diet! You need to cut out the calories.")
+	lose_text = span_notice("You give up on your diet, just exercise!.")
+	medical_record_text = "Patient reports a low-calorie diet."
+
+/datum/quirk/dieting/add()
+	var/mob/living/carbon/human/H = quirk_target
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food &= ~(JUNKFOOD | SUGAR)
+	T?.disliked_food |= (JUNKFOOD | SUGAR)
+
+/datum/quirk/dieting/remove()
+	var/mob/living/carbon/human/H = quirk_target
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	if(H)
+		if(initial(T.liked_food) & JUNKFOOD)
+			T?.liked_food |= JUNKFOOD
+		if(!(initial(T.disliked_food) & JUNKFOOD))
+			T?.disliked_food &= ~JUNKFOOD
+
+		if(initial(T.liked_food) & SUGAR)
+			T?.liked_food |= SUGAR
+		if(!(initial(T.disliked_food) & SUGAR))
+			T?.disliked_food &= ~SUGAR
+
+
 /datum/quirk/family_heirloom
 	name = "Family Heirloom"
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
