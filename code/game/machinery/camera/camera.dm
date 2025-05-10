@@ -74,6 +74,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 	light_range = 10
 	start_active = TRUE
 
+/obj/machinery/camera/preset/theathre
+	name = "Stage Camera"
+	desc = "A camera used to watch the play on the scene."
+	network = list(CAMERA_NETWORK_THEATHRE)
+
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 /obj/machinery/camera/Initialize(mapload, obj/structure/camera_assembly/CA)

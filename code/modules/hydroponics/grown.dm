@@ -55,9 +55,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	else if(!seed)
 		stack_trace("Grown object created without a seed. WTF")
 		return INITIALIZE_HINT_QDEL
-
-	pixel_x = base_pixel_x + rand(-5, 5)
-	pixel_y = base_pixel_y + rand(-5, 5)
+	if(!pixel_y && !pixel_x)
+		pixel_x = base_pixel_x + rand(-5, 5)
+		pixel_y = base_pixel_y + rand(-5, 5)
 
 	make_dryable()
 

@@ -135,6 +135,7 @@
 	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
+	var/can_grow = TRUE
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
@@ -153,6 +154,8 @@
 	. =..()
 	if(!.)
 		return
+	if(!can_grow)
+		return
 	if(!stat && !ckey)
 		amount_grown += rand(0.5 * delta_time, 1 * delta_time)
 		if(amount_grown >= 100)
@@ -168,9 +171,13 @@
 		GLOB.total_chickens--
 	return ..()
 
-/mob/living/simple_animal/chick/holo/Life()
-	..()
-	amount_grown = 0
+/mob/living/simple_animal/chick/holo
+	can_grow = FALSE
+
+/mob/living/simple_animal/chick/dave
+	name = "Dave"
+	desc = "A tiny chick personally rescued from the station's kitchen by the captain, now it's the bridge mascot. Despite his previous high density broiler diet, he seemingly does not grow or age."
+	can_grow = FALSE
 
 /mob/living/simple_animal/chicken
 	name = "\improper chicken"

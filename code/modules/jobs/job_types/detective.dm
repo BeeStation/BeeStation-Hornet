@@ -38,7 +38,7 @@
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective
-	belt = /obj/item/storage/belt/fannypack/detective
+	belt = /obj/item/storage/belt/fannypack/worn/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective
@@ -65,7 +65,7 @@
 	if(visualsOnly)
 		return
 
-/obj/item/storage/belt/fannypack/detective/PopulateContents()
+/obj/item/storage/belt/fannypack/worn/detective/PopulateContents()
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/detective_scanner(src)
 	new /obj/item/toy/crayon/white(src)

@@ -155,6 +155,25 @@
 	bound_height = 64
 	appearance_flags = LONG_GLIDE
 
+/obj/structure/shuttle/engine/large/chopped
+	icon = 'icons/obj/engine_chopped.dmi'
+	icon_state = "top_left_smaller"
+	opacity = FALSE
+	bound_width = 32
+	bound_height = 32
+
+/obj/structure/shuttle/engine/large/chopped/top_left
+	icon_state = "top_left_smaller"
+
+/obj/structure/shuttle/engine/large/chopped/top_right
+	icon_state = "top_right_smaller"
+
+/obj/structure/shuttle/engine/large/chopped/bottom_left
+	icon_state = "bottom_left_smaller"
+
+/obj/structure/shuttle/engine/large/chopped/bottom_right
+	icon_state = "bottom_right_smaller"
+
 /obj/structure/shuttle/engine/huge
 	name = "engine"
 	opacity = TRUE
@@ -164,6 +183,40 @@
 	bound_width = 96
 	bound_height = 96
 	appearance_flags = LONG_GLIDE
+
+/obj/structure/shuttle/engine/huge/chopped
+	icon = 'icons/obj/engine_chopped.dmi'
+	icon_state = "top_left"
+	opacity = FALSE
+	bound_width = 32
+	bound_height = 32
+
+/obj/structure/shuttle/engine/huge/chopped/top_left
+	icon_state = "top_left"
+
+/obj/structure/shuttle/engine/huge/chopped/top_center
+	icon_state = "top_center"
+
+/obj/structure/shuttle/engine/huge/chopped/top_right
+	icon_state = "top_right"
+
+/obj/structure/shuttle/engine/huge/chopped/center_left
+	icon_state = "center_left"
+
+/obj/structure/shuttle/engine/huge/chopped/center_center
+	icon_state = "center_center"
+
+/obj/structure/shuttle/engine/huge/chopped/center_right
+	icon_state = "center_right"
+
+/obj/structure/shuttle/engine/huge/chopped/bottom_left
+	icon_state = "bottom_left"
+
+/obj/structure/shuttle/engine/huge/chopped/bottom_center
+	icon_state = "bottom_center"
+
+/obj/structure/shuttle/engine/huge/chopped/bottom_right
+	icon_state = "bottom_right"
 
 /obj/structure/shuttle/engine/hugeionengine
 	name = "Nanotrasen MkIII BPDT engine"
