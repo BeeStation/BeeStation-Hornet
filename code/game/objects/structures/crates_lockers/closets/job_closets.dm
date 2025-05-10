@@ -213,7 +213,6 @@
 		/obj/item/clothing/under/rank/medical/scrubs/blue = 1,
 		/obj/item/clothing/under/rank/medical/scrubs/green = 1,
 		/obj/item/clothing/under/rank/medical/scrubs/purple = 1,
-		/obj/item/clothing/under/rank/medical = 3,
 		/obj/item/clothing/suit/toggle/labcoat = 3,
 		/obj/item/clothing/suit/toggle/labcoat/paramedic = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
