@@ -370,7 +370,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/process()
 	for(var/datum/dynamic_ruleset/ruleset in rulesets_to_process)
 		if(ruleset.rule_process() == RULESET_STOP_PROCESSING)
-			rulesets_to_process -= rule
+			rulesets_to_process -= ruleset
 
 /*
 * Execute a ruleset and if it needs to process, add it to the list of rulesets to process
