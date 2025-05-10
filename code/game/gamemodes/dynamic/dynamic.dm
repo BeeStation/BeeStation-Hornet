@@ -318,8 +318,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
+
 		roundstart_executed_rulesets[ruleset] += 1
-		ruleset.pre_execute()
+		ruleset.choose_candidates()
 
 		log_game("DYNAMIC: Chose [ruleset] with [roundstart_points_left] points left")
 

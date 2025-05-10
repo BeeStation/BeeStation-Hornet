@@ -113,18 +113,6 @@
 	return selected_player.mind
 
 /*
-* Choose candidates
-*/
-/datum/dynamic_ruleset/proc/pre_execute()
-	for(var/i = 1 to drafted_players_amount)
-		var/datum/mind/chosen_mind = select_player()
-
-		chosen_candidates += chosen_mind
-		chosen_mind.special_role = antag_datum.banning_key
-
-	return TRUE
-
-/*
 * Give your chosen minds their antag datums.
 */
 /datum/dynamic_ruleset/proc/execute()

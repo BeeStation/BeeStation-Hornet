@@ -3,8 +3,10 @@
 *
 * trim_candidates() from pick_roundstart_rulesets() - pre_setup()
 * allowed() from pick_roundstart_rulesets() - pre_setup()
-* pre_execute() from pick_roundstart_rulesets() - pre_setup()
+* choose_candidates() from pick_roundstart_rulesets() - pre_setup()
+*
 * execute() from execute_ruleset() - post_setup()
+*
 * rule_process() from process() - Only if the ruleset has the flag 'SHOULD_PROCESS_RULESET'
 */
 
@@ -27,10 +29,17 @@
 		log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
 		return FALSE
 
-/datum/dynamic_ruleset/roundstart/pre_execute()
-	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
+/*
+* Choose candidates
+*/
+/datum/dynamic_ruleset/roundstart/proc/choose_candidates()
+	for(var/i = 1 to drafted_players_amount)
+		var/datum/mind/chosen_mind = select_player()
+
 		GLOB.pre_setup_antags += chosen_mind
+		chosen_candidates += chosen_mind
+
+		chosen_mind.special_role = antag_datum.banning_key
 		chosen_mind.restricted_roles = restricted_roles
 
 /datum/dynamic_ruleset/roundstart/execute()
@@ -90,7 +99,7 @@
 	restricted_roles = list(JOB_NAME_CYBORG)
 	flags = SHOULD_USE_ANTAG_REP|CANNOT_REPEAT
 
-/datum/dynamic_ruleset/roundstart/malf/pre_execute()
+/datum/dynamic_ruleset/roundstart/malf/choose_candidates()
 	return
 
 /datum/dynamic_ruleset/roundstart/malf/execute()
@@ -148,7 +157,7 @@
 
 	var/datum/team/brother_team/team
 
-/datum/dynamic_ruleset/roundstart/brothers/pre_execute()
+/datum/dynamic_ruleset/roundstart/brothers/choose_candidates()
 	. = ..()
 
 	team = new
@@ -226,7 +235,7 @@
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
 	drafted_players_amount = round(length(dynamic.roundstart_candidates) / 10, 1)
 
-/datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
+/datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
 	LoadReebe()
 	generate_clockcult_scriptures()
 	. = ..()
