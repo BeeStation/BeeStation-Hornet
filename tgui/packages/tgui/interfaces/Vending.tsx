@@ -165,8 +165,8 @@ const ProductDisplay = (props: {
       buttons={
         !!onstation &&
         user && (
-          <Box fontSize="16px" color="green">
-            {(user && user.cash) || 0} cr <Icon name="coins" color="gold" />
+          <Box fontSize="16px">
+            {(user && user.cash) || 0} cr <Icon name="coins" />
           </Box>
         )
       }>

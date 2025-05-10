@@ -167,11 +167,11 @@ const PageBuyingShuttle = (props) => {
                       <>
                         {shuttle.danger === 1 ? (
                           <Tooltip content="According to our analysis, this shuttle will not properly fulfill the duties of a typical escape shuttle.">
-                            <Icon mr={1} name="exclamation-triangle" color="yellow" />
+                            <Icon mr={1} name="exclamation-triangle" />
                           </Tooltip>
                         ) : shuttle.danger === 2 ? (
                           <Tooltip content="According to our analysis, this shuttle has a high risk potential, and may result in the death of large amounts of crew.">
-                            <Icon mr={1.25} name="exclamation" color="red" />
+                            <Icon mr={1.25} name="exclamation" />
                           </Tooltip>
                         ) : null}
                         <Button

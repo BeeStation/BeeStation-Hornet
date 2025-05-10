@@ -97,7 +97,13 @@ export const CargoCatalog = (props) => {
         !express && (
           <>
             <CargoCartButtons />
-            <Button.Checkbox ml={2} content="Buy Privately" checked={self_paid} onClick={() => act('toggleprivate')} />
+            <Button.Checkbox
+              ml={2}
+              color="default"
+              content="Buy Privately"
+              checked={self_paid}
+              onClick={() => act('toggleprivate')}
+            />
           </>
         )
       }>
@@ -167,7 +173,7 @@ const CargoRequests = (props) => {
   return (
     <Section
       title="Active Requests"
-      buttons={!requestonly && <Button icon="times" content="Clear" color="transparent" onClick={() => act('denyall')} />}>
+      buttons={!requestonly && <Button icon="times" content="Clear" onClick={() => act('denyall')} />}>
       {requests.length === 0 && <Box color="good">No Requests</Box>}
       {requests.length > 0 && (
         <Table>
@@ -234,7 +240,7 @@ const CargoCartButtons = (props) => {
         {cart.length === 1 && '1 item'}
         {cart.length >= 2 && cart.length + ' items'} {total > 0 && `(${formatMoney(total)} cr)`}
       </Box>
-      <Button icon="times" color="transparent" content="Clear" onClick={() => act('clear')} />
+      <Button icon="times" content="Clear" onClick={() => act('clear')} />
     </>
   );
 };
