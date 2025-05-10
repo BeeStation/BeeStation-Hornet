@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
+
 /*
 	generic artifact
 */
