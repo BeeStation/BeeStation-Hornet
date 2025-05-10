@@ -8,7 +8,7 @@
 	available_on_ntnet = FALSE
 	unsendable = TRUE
 	undeletable = TRUE
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_PDA
 	size = 5
 	tgui_id = "NtosCyborgSelfMonitor"
 	///A typed reference to the computer, specifying the borg tablet type

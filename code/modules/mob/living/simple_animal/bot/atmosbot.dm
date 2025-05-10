@@ -56,10 +56,9 @@
 		/datum/gas/carbon_dioxide = 1,
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/nitrous_oxide = 1,
-		/datum/gas/nitryl = 1,
+		/datum/gas/nitrium = 1,
 		/datum/gas/plasma = 1,
 		/datum/gas/pluoxium = 0,
-		/datum/gas/stimulum = 0,
 		/datum/gas/tritium = 1,
 		/datum/gas/water_vapor = 0,
 	)
