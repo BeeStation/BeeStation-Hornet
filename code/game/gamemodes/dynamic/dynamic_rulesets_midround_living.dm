@@ -67,8 +67,8 @@
 	name = "Value Drifted AI"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
-	antag_datum = /datum/antagonist/malf_ai
 	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
+	antag_datum = /datum/antagonist/malf_ai
 	points_cost = 40
 	weight = 2
 	mob_type = /mob/living/silicon/ai
@@ -82,8 +82,21 @@
 /datum/dynamic_ruleset/midround/sleeper_agent
 	name = "Syndicate Sleeper Agent"
 	severity = DYNAMIC_MIDROUND_LIGHT
-	antag_datum = /datum/antagonist/traitor
 	role_preference = /datum/role_preference/midround_living/traitor
+	antag_datum = /datum/antagonist/traitor
+	points_cost = 30
+
+//////////////////////////////////////////////
+//                                          //
+//             HERETIC (LIGHT)              //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/sleeper_agent
+	name = "Fanatic Revelation"
+	severity = DYNAMIC_MIDROUND_LIGHT
+	role_preference = /datum/role_preference/midround_living/heretic
+	antag_datum = /datum/antagonist/heretic
 	points_cost = 30
 
 //////////////////////////////////////////////
