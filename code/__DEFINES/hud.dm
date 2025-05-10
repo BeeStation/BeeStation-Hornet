@@ -158,7 +158,7 @@
 #define ui_ghost_teleport "SOUTH:6,CENTER+1"
 #define ui_ghost_spawners_menu "SOUTH:6,CENTER+2"
 #define ui_ghost_pai "SOUTH:6, CENTER+3"
-#define ui_ghost_language_menu "SOUTH:21, CENTER+3:14"
+#define ui_ghost_language_menu "SOUTH:21, CENTER+4"
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
@@ -190,9 +190,9 @@
 #define ui_acti "EAST-3:24,SOUTH:5"
 #define ui_zonesel "EAST-1:28,SOUTH:5"
 #define ui_acti_alt "EAST-1:28,SOUTH:5"	//alternative intent switcher for when the interface is hidden (F12)
-#define ui_crafting	"EAST-4:22,SOUTH:5"
-#define ui_building "EAST-4:22,SOUTH:21"
-#define ui_language_menu "EAST-4:6,SOUTH:21"
+#define ui_crafting	"EAST-4:38,SOUTH:5"
+#define ui_building "EAST-4:38,SOUTH:21"
+#define ui_language_menu "EAST-4:22,SOUTH:21"
 #define ui_navigate_menu "EAST-4:22,SOUTH:5"
 
 
