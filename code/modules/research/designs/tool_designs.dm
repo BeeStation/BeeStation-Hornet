@@ -72,6 +72,15 @@
 	category = list("Tool Designs")
 	departmental_flags =  DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/arcd_loaded
+	name = "Advanced Rapid Construction Device"
+	desc = "A tool that can construct and deconstruct walls, airlocks, floors, machine frames and furtniture on the fly up to 2 tiles of distance."
+	id = "arcd_loaded"
+	build_type = PROTOLATHE
+	materials = list(list(/datum/material/iron = 4500, /datum/material/silver = 2500, /datum/material/titanium = 3500))  // costs more than what it did in the autolathe, this one comes loaded.
+	build_path = /obj/item/construction/rcd/arcd/loaded
+	category = list("Tool Designs")
+	departmental_flags =  DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/rcd_upgrade/frames
 	name = "RCD frames designs upgrade"
