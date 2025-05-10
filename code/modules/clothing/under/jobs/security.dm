@@ -308,6 +308,8 @@
 	name = "prison jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "jumpsuit"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "prisonsuit"
 	item_state = "jumpsuit"
 	greyscale_colors = "#ff8300"
 	greyscale_config = /datum/greyscale_config/jumpsuit_prison

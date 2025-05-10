@@ -5,7 +5,7 @@
 	name = "ED209"
 	result = /mob/living/simple_animal/bot/ed209
 	time = 6 SECONDS
-	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	reqs = list(
 		/obj/item/robot_suit = 1,
 		/obj/item/clothing/head/helmet = 1,
@@ -24,7 +24,7 @@
 	name = "Secbot"
 	result = /mob/living/simple_animal/bot/secbot
 	time = 6 SECONDS
-	tools = list(TOOL_WELDER)
+	tool_behaviors = list(TOOL_WELDER)
 	reqs = list(
 		/obj/item/assembly/signaler = 1,
 		/obj/item/clothing/head/helmet/sec = 1,
