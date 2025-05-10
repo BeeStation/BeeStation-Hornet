@@ -148,7 +148,7 @@
 	if(R.emagged)
 		for(var/obj/item/I in emag_modules)
 			add_module(I, FALSE, FALSE)
-	if(is_servant_of_ratvar(R) && !R.ratvar)	//It just works :^)
+	if(IS_SERVANT_OF_RATVAR(R) && !R.ratvar)	//It just works :^)
 		R.SetRatvar(TRUE, FALSE)
 	if(R.ratvar)
 		for(var/obj/item/I in ratvar_modules)
@@ -253,9 +253,9 @@
 		/obj/item/instrument/piano_synth)
 	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/kindle,
-		/obj/item/clock_module/abstraction_crystal,
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/kindle,
+		/obj/item/borg/ratvar/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
 		/obj/item/stack/sheet/brass/cyborg,
 		/obj/item/clockwork/weapon/brass_spear)
@@ -289,10 +289,10 @@
 		/obj/item/borg/lollipop)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/hacked)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/sentinels_compromise,
-		/obj/item/clock_module/prosperity_prism,
-		/obj/item/clock_module/vanguard)
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/sentinels_compromise,
+		/obj/item/borg/ratvar/prosperity_prism,
+		/obj/item/borg/ratvar/vanguard)
 	cyborg_base_icon = "medical"
 	moduleselect_icon = "medical"
 	can_be_pushed = FALSE
@@ -346,11 +346,11 @@
 		/obj/item/holosign_creator/atmos)
 	emag_modules = list(/obj/item/borg/stun)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/ocular_warden,
-		/obj/item/clock_module/tinkerers_cache,
-		/obj/item/clock_module/stargazer,
-		/obj/item/clock_module/abstraction_crystal,
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/ocular_warden,
+		/obj/item/borg/ratvar/tinkerers_cache,
+		/obj/item/borg/ratvar/stargazer,
+		/obj/item/borg/ratvar/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
 		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
@@ -372,7 +372,7 @@
 		/obj/item/gun/energy/pulse/carbine/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
-	ratvar_modules = list(/obj/item/clock_module/abscond)
+	ratvar_modules = list(/obj/item/borg/ratvar/abscond)
 	cyborg_base_icon = "centcom"
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE
@@ -392,10 +392,10 @@
 		/obj/item/extinguisher/mini)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
+		/obj/item/borg/ratvar/abscond,
 		/obj/item/clockwork/weapon/brass_spear,
-		/obj/item/clock_module/ocular_warden,
-		/obj/item/clock_module/vanguard)
+		/obj/item/borg/ratvar/ocular_warden,
+		/obj/item/borg/ratvar/vanguard)
 	cyborg_base_icon = "sec"
 	moduleselect_icon = "security"
 	can_be_pushed = FALSE
@@ -433,10 +433,10 @@
 		/obj/item/borg/projectile_dampen)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/vanguard,
-		/obj/item/clock_module/kindle,
-		/obj/item/clock_module/sigil_submission)
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/vanguard,
+		/obj/item/borg/ratvar/kindle,
+		/obj/item/borg/ratvar/sigil_submission)
 	cyborg_base_icon = "peace"
 	moduleselect_icon = "standard"
 	can_be_pushed = FALSE
@@ -472,10 +472,10 @@
 		/obj/item/reagent_containers/spray/cyborg/lube,
 		/obj/item/reagent_containers/spray/cyborg/acid)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/sigil_submission,
-		/obj/item/clock_module/kindle,
-		/obj/item/clock_module/vanguard)
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/sigil_submission,
+		/obj/item/borg/ratvar/kindle,
+		/obj/item/borg/ratvar/vanguard)
 	cyborg_base_icon = "janitor"
 	moduleselect_icon = "janitor"
 	hat_offset = -5
@@ -514,8 +514,8 @@
 		/obj/item/reagent_containers/borghypo/clown/hacked,
 		/obj/item/reagent_containers/spray/waterflower/cyborg/hacked)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/vanguard,
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/vanguard,
 		/obj/item/clockwork/weapon/brass_battlehammer)	//honk
 	moduleselect_icon = "service"
 	cyborg_base_icon = "clown"
@@ -541,11 +541,11 @@
 		/obj/item/reagent_containers/borghypo/borgshaker)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/vanguard,
-		/obj/item/clock_module/sigil_submission,
-		/obj/item/clock_module/kindle,
-		/obj/item/clock_module/sentinels_compromise,
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/vanguard,
+		/obj/item/borg/ratvar/sigil_submission,
+		/obj/item/borg/ratvar/kindle,
+		/obj/item/borg/ratvar/sentinels_compromise,
 		/obj/item/clockwork/replica_fabricator)
 	moduleselect_icon = "service"
 	cyborg_base_icon = "service_m" // display as butlerborg for radial model selection
@@ -614,10 +614,10 @@
 		/obj/item/stack/marker_beacon)
 	emag_modules = list(/obj/item/borg/stun)
 	ratvar_modules = list(
-		/obj/item/clock_module/abscond,
-		/obj/item/clock_module/vanguard,
-		/obj/item/clock_module/ocular_warden,
-		/obj/item/clock_module/sentinels_compromise)
+		/obj/item/borg/ratvar/abscond,
+		/obj/item/borg/ratvar/vanguard,
+		/obj/item/borg/ratvar/ocular_warden,
+		/obj/item/borg/ratvar/sentinels_compromise)
 	cyborg_base_icon = "miner"
 	moduleselect_icon = "miner"
 	hat_offset = 0

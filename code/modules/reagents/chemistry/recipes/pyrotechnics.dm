@@ -94,7 +94,7 @@
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion/holyboom/proc/divine_explosion(size, turf/T)
 	for(var/mob/living/carbon/C in hearers(size,T))
-		if(iscultist(C))
+		if(IS_CULTIST(C))
 			to_chat(C, span_userdanger("The divine explosion sears you!"))
 			C.Paralyze(40)
 			C.adjust_fire_stacks(5)

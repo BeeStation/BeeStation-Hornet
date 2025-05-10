@@ -226,9 +226,11 @@
 
 /mob/living/simple_animal/hostile/construct/wraith/AttackingTarget() //refund jaunt cooldown when attacking living targets
 	var/prev_stat
-	if(isliving(target) && !iscultist(target))
-		var/mob/living/L = target
-		prev_stat = L.stat
+	if(isliving(target))
+		var/mob/living/living_target = target
+
+		if(!IS_CULTIST(living_target))
+			prev_stat = living_target.stat
 
 	. = ..()
 

@@ -8,7 +8,7 @@
 
 /obj/item/clockwork/trap_placer/attack_self(mob/user)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(src))
 		if(istype(T, type))
@@ -30,7 +30,7 @@
 
 /obj/item/wallframe/clocktrap/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		. += span_brass("It looks like it can be placed on a wall.")
 
 //Wall item (either spawned by a wallframe or directly)
@@ -90,7 +90,7 @@
 /datum/component/clockwork_trap/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		if(istype(I, /obj/item/clockwork/clockwork_slab))
 			var/obj/item/clockwork/clockwork_slab/slab = I
 			if(slab.buffer)

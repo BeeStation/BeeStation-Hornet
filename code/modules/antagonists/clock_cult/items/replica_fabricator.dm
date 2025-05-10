@@ -9,7 +9,7 @@
 
 /obj/item/clockwork/replica_fabricator/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		. += "Use on brass to convert it into power."
 		. += "Use on other materials to convert them into brass."
 		. += "Use on an empty floor to fabricate brass for 10W/sheet"
@@ -17,7 +17,7 @@
 
 /obj/item/clockwork/replica_fabricator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity_flag || !is_servant_of_ratvar(user))
+	if(!proximity_flag || !IS_SERVANT_OF_RATVAR(user))
 		return
 	if(istype(target, /obj/item/stack/sheet/brass/cyborg))	//nooooO!!!! you can't just suck up your cyborg brass!!! nooooo!!!!!!
 		return
