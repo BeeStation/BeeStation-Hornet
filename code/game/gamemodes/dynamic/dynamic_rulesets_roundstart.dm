@@ -1,13 +1,17 @@
 /*
 * Order of operations
 *
-* trim_candidates() from pick_roundstart_rulesets() - pre_setup()
-* allowed() from pick_roundstart_rulesets() - pre_setup()
-* choose_candidates() from pick_roundstart_rulesets() - pre_setup()
+* set_drafted_players_amount()
+* get_candidates()
+* trim_candidates()
+* allowed()
+* Here we are checking if the ruleset is valid and whether or not we can execute it
 *
-* execute() from execute_ruleset() - post_setup()
+* choose_candidates()
 *
-* rule_process() from process() - Only if the ruleset has the flag 'SHOULD_PROCESS_RULESET'
+* execute()
+*
+* rule_process() - Only if the ruleset has the flag 'SHOULD_PROCESS_RULESET'
 */
 
 /datum/dynamic_ruleset/roundstart

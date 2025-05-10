@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/list/midround_configured_rulesets
 
 	/// The chances for each type of midround ruleset to be picked
-	/// Set in pre_setup()
+	/// Set in init_midround()
 	var/midround_light_chance
 	var/midround_medium_chance
 	var/midround_heavy_chance
@@ -319,7 +319,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
 
-		roundstart_executed_rulesets[ruleset] += 1
+		roundstart_executed_rulesets[ruleset] += 1 // We do this here and not in post_setup() because there will be rulesets that this one will block
 		ruleset.choose_candidates()
 
 		log_game("DYNAMIC: Chose [ruleset] with [roundstart_points_left] points left")
@@ -368,12 +368,12 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * Some rulesets need to process each tick. Lets give them the opportunity to do so.
 */
 /datum/game_mode/dynamic/process()
-	for(var/datum/dynamic_ruleset/rule in rulesets_to_process)
-		if(rule.rule_process() == RULESET_STOP_PROCESSING)
+	for(var/datum/dynamic_ruleset/ruleset in rulesets_to_process)
+		if(ruleset.rule_process() == RULESET_STOP_PROCESSING)
 			rulesets_to_process -= rule
 
 /*
-* Execute a ruleset and if it needs to process, add it to the list
+* Execute a ruleset and if it needs to process, add it to the list of rulesets to process
 */
 /datum/game_mode/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	if(!ruleset)
@@ -417,20 +417,21 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	update_midround_points()
 
-	if(midround_chosen_ruleset)
-		// Try and execute our chosen ruleset
-		if(midround_points >= midround_chosen_ruleset.points_cost)
-			var/result = execute_ruleset(midround_chosen_ruleset)
-			message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-
-			if(result == DYNAMIC_EXECUTE_SUCCESS)
-				// Apply cost and log
-				midround_executed_rulesets += midround_chosen_ruleset
-				midround_points -= midround_chosen_ruleset.points_cost
-
-			midround_chosen_ruleset = null
-	else
+	if(!midround_chosen_ruleset)
 		choose_midround_ruleset()
+
+	// This is an if statement instead of else because choose_midround_ruleset() will probably pick a ruleset
+	// Try to execute our ruleset if we have enough points and actually have one.
+	if(midround_points >= midround_chosen_ruleset?.points_cost)
+		var/result = execute_ruleset(midround_chosen_ruleset)
+		message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+
+		// If we successfully execute the midround, apply the cost and log it
+		if(result == DYNAMIC_EXECUTE_SUCCESS)
+			midround_executed_rulesets += midround_chosen_ruleset
+			midround_points -= midround_chosen_ruleset.points_cost
+
+		midround_chosen_ruleset = null
 
 /*
 * Generate midround points once per minute based off of each person's status
