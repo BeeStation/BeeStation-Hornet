@@ -188,5 +188,5 @@
 		CHECK_TICK
 
 	var/message = "[name] finished in [(REALTIMEOFDAY - start_time)/10]s!"
-	to_chat(world, span_boldannounce("[message]"))
+	to_chat(world, span_boldannounce(message))
 	log_world(message)

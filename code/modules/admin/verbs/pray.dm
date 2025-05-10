@@ -41,7 +41,7 @@
 
 	var/msg_tmp = msg
 	GLOB.requests.pray(usr.client, msg, usr.job == JOB_NAME_CHAPLAIN)
-	msg = span_adminnotice("[icon2html(cross, GLOB.admins)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""]: </font>[ADMIN_FULLMONTY(src)] [ADMIN_SC(src)]:</b> [span_linkify("[msg]")]")
+	msg = span_adminnotice("[icon2html(cross, GLOB.admins)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""]: </font>[ADMIN_FULLMONTY(src)] [ADMIN_SC(src)]:</b> [span_linkify(msg)]")
 
 	for(var/client/C in GLOB.admins)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_prayer))

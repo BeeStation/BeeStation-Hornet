@@ -158,10 +158,10 @@
 			"A mighty warrior such as yourself can surely free us from the Legion...its chamber awaits in the northern walls...",
 			"You are mighty, warrior, but there is a cruel truth...only those who wield the crusher are worthy of the spoils...")]</b>"))
 		else
-			to_chat(C, span_warning("[pick("You hear a whisper, but cannot make it out.",
-			"You feel like you're being watched.",
-			"Your blood feels hotter than usual.",
-			"You hear a distant, brutal roar.")]"))
+			to_chat(C, span_warning(pick("You hear a whisper, but cannot make it out.",
+			  "You feel like you're being watched.",
+			  "Your blood feels hotter than usual.",
+			  "You hear a distant, brutal roar.")))
 
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
