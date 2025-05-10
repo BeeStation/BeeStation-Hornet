@@ -82,6 +82,7 @@
 "w" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/accessory/armband/science,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/template_noop)
 "B" = (
