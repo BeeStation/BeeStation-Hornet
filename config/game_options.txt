@@ -240,11 +240,6 @@ BROTHER_SCALING_COEFF 6
 CHANGELING_SCALING_COEFF 6
 ECULT_SCALING_COEFF 6
 
-## Variables calculate how number of open security officer positions will scale to population.
-## Used as (Officers = Population / Coeff)
-## Set to 0 to disable scaling and use default numbers instead.
-SECURITY_SCALING_COEFF 10
-
 ## The number of objectives traitors get.
 ## Not including escaping/hijacking.
 TRAITOR_OBJECTIVES_AMOUNT 2
@@ -333,17 +328,6 @@ GATEWAY_DELAY 18000
 
 
 ## ACCESS ###
-
-## If the number of players ready at round starts exceeds this threshold, JOBS_HAVE_MINIMAL_ACCESS will automatically be enabled. Otherwise, it will be disabled.
-## This is useful for accomodating both low and high population rounds on the same server.
-## Comment this out or set to 0 to disable this automatic toggle.
-MINIMAL_ACCESS_THRESHOLD 20
-
-## Comment this out this if you wish to use the setup where jobs have more access.
-## This is intended for servers with low populations - where there are not enough
-## players to fill all roles, so players need to do more than just one job.
-## This option is ignored if MINIMAL_ACCESS_THRESHOLD is used.
-#JOBS_HAVE_MINIMAL_ACCESS
 
 ## Uncomment to give assistants maint access.
 #ASSISTANTS_HAVE_MAINT_ACCESS

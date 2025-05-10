@@ -21,7 +21,6 @@
 	. = ..()
 	var/datum/job/J = SSjob.GetJob(chosen_job)
 	J.total_positions += 1
-	J.spawn_positions += 1
 
 /* subtype example:
 /datum/station_trait/special_jobs/barber

@@ -43,11 +43,6 @@
 	config_entry_value = 1
 	integer = FALSE
 
-/datum/config_entry/number/minimal_access_threshold	//If the number of players is larger than this threshold, minimal access will be turned on.
-	min_val = 0
-
-/datum/config_entry/flag/jobs_have_minimal_access	//determines whether jobs use minimal access or expanded access.
-
 /datum/config_entry/flag/assistants_have_maint_access
 
 /datum/config_entry/flag/security_has_maint_access
@@ -89,11 +84,6 @@
 
 /datum/config_entry/number/ecult_scaling_coeff	//how much does the amount of players get divided by to determine e_cult
 	config_entry_value = 6
-	integer = FALSE
-	min_val = 1
-
-/datum/config_entry/number/security_scaling_coeff	//how much does the amount of players get divided by to determine open security officer positions
-	config_entry_value = 8
 	integer = FALSE
 	min_val = 1
 

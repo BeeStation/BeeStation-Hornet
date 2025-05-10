@@ -6,8 +6,8 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
+	min_pop = MINPOP_JOB_LIMIT
 
 	outfit = /datum/outfit/job/clown
 
