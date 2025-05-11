@@ -5032,6 +5032,14 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
+"bbM" = (
+/obj/structure/table,
+/obj/item/chess_piece/white/pawn{
+	pixel_y = 4;
+	pixel_x = 2
+	},
+/turf/open/floor/wood,
+/area/security/prison)
 "bbN" = (
 /obj/machinery/suit_storage_unit/exploration,
 /turf/open/floor/iron/ridged/steel,
@@ -6805,6 +6813,7 @@
 /obj/effect/turf_decal/bot,
 /obj/item/gun/energy/laser,
 /obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
 "bsP" = (
@@ -10348,6 +10357,13 @@
 /obj/machinery/camera/directional/south,
 /turf/open/floor/wood,
 /area/medical/break_room)
+"ceG" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "37;12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/central/secondary)
 "ceJ" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -17641,6 +17657,13 @@
 /obj/structure/chair/office/light,
 /turf/open/floor/carpet/orange,
 /area/bridge)
+"dBV" = (
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This area actually used to be about 4 times the size, but i had to cut it down because the map's huge already - BarteG";
+	name = "CardinalStation - Garden Dome"
+	},
+/turf/closed/wall,
+/area/crew_quarters/dorms)
 "dBX" = (
 /obj/effect/turf_decal/trimline/yellow/warning,
 /obj/effect/turf_decal/trimline/yellow/warning{
@@ -21414,7 +21437,10 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "exb" = (
-/obj/machinery/hydroponics/soil,
+/obj/machinery/hydroponics/soil{
+	pixel_y = -4;
+	pixel_x = -2
+	},
 /obj/machinery/camera/directional/north,
 /obj/structure/wall_closet/hydro/directional/north,
 /turf/open/floor/grass,
@@ -23108,6 +23134,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/item/clothing/head/costume/foilhat{
+	pixel_y = 11;
+	pixel_x = -1
 	},
 /turf/open/floor/engine,
 /area/security/nuke_storage)
@@ -26092,6 +26122,10 @@
 	pixel_y = -16
 	},
 /obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/item/chess_piece/black/rook{
+	pixel_y = 41;
+	pixel_x = 2
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
 "fyU" = (
@@ -29868,7 +29902,9 @@
 	name = "Customs Desk";
 	req_access_txt = "19"
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell{
+	pixel_y = 5
+	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "gly" = (
@@ -32159,7 +32195,10 @@
 /area/crew_quarters/fitness/recreation)
 "gHw" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/beebox,
+/obj/structure/beebox{
+	pixel_x = 5;
+	pixel_y = -1
+	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "gHF" = (
@@ -32865,8 +32904,9 @@
 /area/hallway/primary/port)
 "gOB" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner{
-	dir = 4
+/obj/machinery/door/window/eastleft{
+	req_access_txt = "33";
+	name = "Chemistry Counter"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell,
@@ -34689,7 +34729,10 @@
 /turf/closed/wall/r_wall,
 /area/tcommsat/server)
 "hhd" = (
-/obj/machinery/hydroponics/soil,
+/obj/machinery/hydroponics/soil{
+	pixel_x = -5;
+	pixel_y = 3
+	},
 /mob/living/simple_animal/chicken,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -35607,6 +35650,10 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 9
 	},
+/obj/item/chess_piece/white/rook{
+	pixel_y = 12;
+	pixel_x = -8
+	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "hsj" = (
@@ -35819,6 +35866,7 @@
 	pixel_y = -8
 	},
 /obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
 "huJ" = (
@@ -36711,7 +36759,10 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "hEe" = (
-/obj/machinery/hydroponics/soil,
+/obj/machinery/hydroponics/soil{
+	pixel_y = 5;
+	pixel_x = -6
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -36890,6 +36941,10 @@
 "hFr" = (
 /obj/structure/table/glass/plasma,
 /obj/item/radio/intercom/directional/south,
+/obj/structure/chess_board{
+	pixel_y = 7;
+	pixel_x = 2
+	},
 /turf/open/floor/carpet/purple,
 /area/science/breakroom)
 "hFu" = (
@@ -52349,7 +52404,7 @@
 "kRK" = (
 /obj/structure/table/wood/poker,
 /obj/structure/chess_board{
-	pixel_y = 10;
+	pixel_y = 11;
 	pixel_x = 5
 	},
 /turf/open/floor/carpet/black,
@@ -52711,6 +52766,11 @@
 	dir = 1
 	},
 /area/crew_quarters/bar)
+"kWK" = (
+/obj/structure/table,
+/obj/item/chess_piece/black/knight,
+/turf/open/floor/carpet/cyan,
+/area/quartermaster/exploration_prep)
 "kWO" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "24"
@@ -58485,6 +58545,10 @@
 	dir = 8
 	},
 /obj/structure/bookcase/random/religion,
+/obj/item/chess_piece/black/bishop{
+	pixel_y = 18;
+	pixel_x = 6
+	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "mha" = (
@@ -62786,13 +62850,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
-"naZ" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_one_access_txt = "37;12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/central/secondary)
 "nbb" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -76403,7 +76460,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "pQe" = (
-/obj/structure/beebox,
+/obj/structure/beebox{
+	pixel_y = -2;
+	pixel_x = 2
+	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "pQh" = (
@@ -80582,6 +80642,7 @@
 	alpha = 230;
 	dir = 1
 	},
+/obj/item/chess_board,
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
 "qKo" = (
@@ -85176,6 +85237,8 @@
 	name = "Customs Desk";
 	req_access_txt = "19"
 	},
+/obj/item/folder/blue,
+/obj/item/pen,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "rHv" = (
@@ -91680,7 +91743,10 @@
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/kitchen)
 "tcx" = (
-/obj/machinery/hydroponics/soil,
+/obj/machinery/hydroponics/soil{
+	pixel_y = -5;
+	pixel_x = 5
+	},
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -98465,7 +98531,7 @@
 /area/quartermaster/qm_bedroom)
 "uuP" = (
 /obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "This area actually used to be about 4 times the size, but i had to cut it down because the map's huge already - BarteG";
+	desc = "This area actually used to be about 4 times the size but i had to cut it down because the map's huge already - BarteG";
 	name = "CardinalStation - Garden Dome"
 	},
 /turf/open/floor/grass,
@@ -100436,6 +100502,13 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
+"uPA" = (
+/obj/machinery/hydroponics/soil{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "uPM" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
@@ -100743,13 +100816,12 @@
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "uTr" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "These are meant to be test sites for explosive and non explosive nades because chem deserves a gimmick. Also it gives chemists an excuse as to why they would me making grenades at work - BarteG";
-	name = "CardinalStation - Chem Test Lab"
+/obj/structure/beebox{
+	pixel_y = 3;
+	pixel_x = 4
 	},
-/turf/open/floor/plating,
-/area/medical/chemistry)
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "uTu" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
@@ -103552,7 +103624,7 @@
 "vwE" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law{
-	pixel_y = 3;
+	pixel_y = 5;
 	pixel_x = 3
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -104251,7 +104323,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/filingcabinet/chestdrawer/wheeled,
-/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/techfloor/diagonal,
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
@@ -110291,9 +110362,15 @@
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
 /obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/clothing/glasses/sunglasses/advanced,
-/obj/item/clothing/ears/earmuffs,
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_y = 4
+	},
+/obj/item/clothing/ears/earmuffs{
+	pixel_y = 5
+	},
 /obj/machinery/light/directional/south,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -136261,7 +136338,7 @@ jLp
 wUa
 wUa
 ddM
-pQe
+uTr
 atW
 psb
 bEL
@@ -137551,7 +137628,7 @@ bXf
 vPU
 eFI
 waF
-vPU
+dBV
 lCu
 urj
 vPU
@@ -138058,7 +138135,7 @@ ntc
 exb
 xVO
 lbz
-rcN
+uPA
 krO
 mTX
 hEe
@@ -138145,7 +138222,7 @@ qxX
 sQF
 pcW
 xhY
-xNF
+kWK
 xNF
 vaV
 tAw
@@ -152261,7 +152338,7 @@ due
 due
 due
 due
-naZ
+ceG
 due
 due
 due
@@ -159662,7 +159739,7 @@ qfZ
 uep
 qep
 qQr
-qQr
+bbM
 mEr
 xNq
 jzw
@@ -163564,7 +163641,7 @@ dQx
 xXo
 mTw
 tjU
-uTr
+vMB
 qGp
 jHJ
 mvM
