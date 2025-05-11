@@ -169,6 +169,7 @@
 
 /obj/structure/chess_board/Destroy()
 	dump_contents()
+	chess_board_contents = null
 	return ..()
 
 /obj/structure/chess_board/dump_contents()
@@ -205,6 +206,16 @@
 		for(var/obj/item/I in contents)
 			I.forceMove(chess_board)
 	qdel(src)
+
+/obj/item/chess_board/Destroy()
+	dump_contents()
+	sorted_contents = null
+	return ..()
+
+/obj/item/chess_board/dump_contents()
+	var/atom/L = drop_location()
+	for(var/obj/item/I in src)
+		I.forceMove(L)
 
 //chess pieces
 
