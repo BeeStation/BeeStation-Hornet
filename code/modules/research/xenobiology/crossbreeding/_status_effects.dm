@@ -874,7 +874,7 @@
 	id = "stabilizedblack"
 	colour = "black"
 	var/messagedelivered = FALSE
-	var/heal_amount = 1
+	var/heal_amount = 2
 
 /datum/status_effect/stabilized/black/tick()
 	if(owner.pulling && isliving(owner.pulling) && owner.grab_state == GRAB_KILL)
