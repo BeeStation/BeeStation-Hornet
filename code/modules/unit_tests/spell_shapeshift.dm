@@ -90,7 +90,7 @@
 	dummy.mind_initialize() //Jank, but needed
 
 	var/mob/living/simple_animal/hostile/holoparasite/test_stand = allocate(/mob/living/simple_animal/hostile/holoparasite)
-	test_stand.set_summoner(dummy)
+	test_stand.set_summoner(dummy.mind)
 
 	// The stand's summoner is dummy.
 	TEST_ASSERT_EQUAL(test_stand.summoner, dummy, "Holoparasite failed to set the summoner to the correct mob.")
