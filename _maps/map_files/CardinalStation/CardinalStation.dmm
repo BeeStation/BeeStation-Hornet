@@ -26727,7 +26727,6 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/grass/no_border,
 /area/bridge/showroom/corporate)
@@ -49940,6 +49939,14 @@
 	},
 /turf/open/floor/iron/smooth_half,
 /area/security/prison)
+"kpj" = (
+/obj/structure/table/wood/poker,
+/obj/structure/chess_board{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/open/floor/carpet/black,
+/area/bridge/showroom/corporate)
 "kpq" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -57169,14 +57176,6 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/janitor)
-"lTn" = (
-/obj/structure/table/wood/poker,
-/obj/structure/chess_board{
-	pixel_y = 10;
-	pixel_x = 5
-	},
-/turf/open/floor/carpet/black,
-/area/bridge/showroom/corporate)
 "lTy" = (
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
@@ -135015,7 +135014,7 @@ diV
 iTV
 sCT
 cgR
-lTn
+kpj
 bak
 gIW
 diV
