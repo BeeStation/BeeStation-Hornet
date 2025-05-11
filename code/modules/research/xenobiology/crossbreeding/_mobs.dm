@@ -9,13 +9,14 @@ Slimecrossing Mobs
 	name = "Slime Transformation"
 	desc = "Transform from a human to a slime, or back again!"
 	button_icon_state = "transformslime"
-	cooldown_time = 0 SECONDS
 
+	cooldown_time = 0 SECONDS
+	spell_requirements = NONE
 	invocation_type = INVOCATION_NONE
 
 	convert_damage = TRUE
 	convert_damage_type = CLONE
-	possible_shapes = list(/mob/living/simple_animal/slime/transformed_slime)
+	shapeshift_type = /mob/living/simple_animal/slime/transformed_slime
 
 	/// If TRUE, we self-delete (remove ourselves) the next time we turn back into a human
 	var/remove_on_restore = FALSE
