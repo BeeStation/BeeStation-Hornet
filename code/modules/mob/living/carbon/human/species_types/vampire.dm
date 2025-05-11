@@ -193,7 +193,12 @@
 
 /datum/action/spell/shapeshift/bat
 	name = "Bat Form"
-	desc = "Take on the shape a space bat."
+	desc = "Take on the shape of a space bat."
 	invocation = "Squeak!"
 	cooldown_time = 5 SECONDS
-	possible_shapes = list(/mob/living/simple_animal/hostile/retaliate/bat/vampire)
+	invocation_type = INVOCATION_SHOUT
+	spell_requirements = NONE
+
+	possible_shapes = list(
+		/mob/living/simple_animal/hostile/retaliate/bat/vampire
+	)
