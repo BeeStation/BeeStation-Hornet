@@ -40007,6 +40007,14 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/execution/education)
+"ilP" = (
+/obj/structure/table/wood/poker,
+/obj/structure/chess_board{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/open/floor/carpet/black,
+/area/bridge/showroom/corporate)
 "ilV" = (
 /obj/structure/girder,
 /turf/open/floor/plating,
@@ -50903,14 +50911,6 @@
 /obj/machinery/vending/clothing,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
-"kBg" = (
-/obj/structure/table/wood/poker,
-/obj/structure/chess_board{
-	pixel_y = 10;
-	pixel_x = 5
-	},
-/turf/open/floor/carpet/black,
-/area/bridge/showroom/corporate)
 "kBl" = (
 /obj/structure/railing{
 	dir = 8
@@ -59504,8 +59504,7 @@
 "msk" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/mineral/ore_redemption{
-	input_dir = 2;
-	output_dir = 1
+	input_dir = 2
 	},
 /obj/machinery/status_display/supply{
 	pixel_y = 32
@@ -135015,7 +135014,7 @@ diV
 iTV
 sCT
 cgR
-kBg
+ilP
 bak
 gIW
 diV
