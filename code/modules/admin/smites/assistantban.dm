@@ -87,7 +87,7 @@
 	aggro_vision_range = 10
 	var/mob/living/smitetarget = null
 	emote_taunt = list("grins")
-	speak = list("Asshole!","Awww, what a shame!","HAH!","Weakling!","I'm gonna beat you into the ground!")
+	speak = list("Asshole!","Awww, what a shame!","HAH!","Weakling!","I'm gonna beat you into the ground!","Get robusted!")
 	speak_chance = 75
 	taunt_chance = 55
 
