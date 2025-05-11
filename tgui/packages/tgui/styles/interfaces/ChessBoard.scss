@@ -40,16 +40,10 @@
 .ChessBoard_Background {
   height: 100%;
   width: 100%;
-  background: conic-gradient(
-  #2f3336 90deg,
-  #fefff2 90deg 180deg,
-  #2f3336 180deg 270deg,
-  #fefff2 270deg
-  );
-  background-repeat: repeat ;
+  background: conic-gradient(#2f3336 90deg, #fefff2 90deg 180deg, #2f3336 180deg 270deg, #fefff2 270deg);
+  background-repeat: repeat;
   background-size: 120px 120px;
   background-position: top left;
-
 }
 
 .ChessBoard_Icon {
@@ -57,5 +51,3 @@
   position: relative;
   top: 10%;
 }
-
-

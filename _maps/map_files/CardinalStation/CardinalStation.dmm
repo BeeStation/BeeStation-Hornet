@@ -18143,10 +18143,10 @@
 /area/maintenance/starboard/central)
 "dIt" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "dIw" = (
@@ -21242,10 +21242,10 @@
 /area/quartermaster/storage)
 "euU" = (
 /obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/ausbushes/grassybush{
 	pixel_x = -1;
 	pixel_y = -10
@@ -23219,10 +23219,10 @@
 	pixel_y = -13
 	},
 /obj/machinery/light/small/directional/north,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "eRe" = (
@@ -26724,10 +26724,10 @@
 "fFO" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/tinted{
-	dir = 4
+	dir = 8
 	},
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/grass/no_border,
 /area/bridge/showroom/corporate)
@@ -28145,14 +28145,6 @@
 /obj/structure/dresser,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
-"fUY" = (
-/obj/structure/table/wood/poker,
-/obj/structure/chess_board{
-	pixel_y = 10;
-	pixel_x = 5
-	},
-/turf/open/floor/carpet/black,
-/area/bridge/showroom/corporate)
 "fVD" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -34321,10 +34313,10 @@
 "hdU" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes,
-/obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
@@ -34504,10 +34496,10 @@
 /area/hallway/primary/starboard)
 "hfh" = (
 /obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "hfk" = (
@@ -36230,10 +36222,10 @@
 /area/space/nearstation)
 "hyZ" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "hzf" = (
@@ -52178,10 +52170,10 @@
 "kOU" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "kOY" = (
@@ -52465,10 +52457,10 @@
 /area/janitor)
 "kTb" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/pointybush{
 	pixel_y = -15
 	},
@@ -57177,6 +57169,14 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/janitor)
+"lTn" = (
+/obj/structure/table/wood/poker,
+/obj/structure/chess_board{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/open/floor/carpet/black,
+/area/bridge/showroom/corporate)
 "lTy" = (
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
@@ -58769,10 +58769,10 @@
 "mkG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/machinery/light/small/directional/south,
+/obj/machinery/door/window/westleft,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "mkN" = (
@@ -64588,10 +64588,10 @@
 /area/maintenance/department/engine)
 "nuE" = (
 /obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/tinted{
-	dir = 4
+	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "corporate_privacy";
 	name = "Showroom Shutters"
@@ -68312,10 +68312,10 @@
 "ogD" = (
 /obj/machinery/light/small/directional/south,
 /obj/structure/flora/ausbushes/sparsegrass,
+/obj/machinery/door/window/eastright,
 /obj/structure/window/reinforced/tinted{
-	dir = 4
+	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "corporate_privacy";
 	name = "Showroom Shutters"
@@ -85288,10 +85288,10 @@
 "rJX" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/tinted{
-	dir = 4
+	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "corporate_privacy";
@@ -91210,10 +91210,10 @@
 "sWt" = (
 /obj/machinery/light/small/directional/south,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/tinted{
-	dir = 8
+	dir = 4
 	},
+/obj/machinery/door/window/westleft,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "sWz" = (
@@ -135015,7 +135015,7 @@ diV
 iTV
 sCT
 cgR
-fUY
+lTn
 bak
 gIW
 diV
