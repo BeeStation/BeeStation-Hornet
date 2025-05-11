@@ -92,12 +92,26 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/sleeper_agent
+/datum/dynamic_ruleset/midround/heretic
 	name = "Fanatic Revelation"
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround_living/heretic
 	antag_datum = /datum/antagonist/heretic
 	points_cost = 30
+
+/datum/dynamic_ruleset/midround/heretic/execute()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		var/datum/antagonist/heretic/new_heretic = IS_HERETIC(chosen_mind.current)
+
+		// Heretics passively gain influence over time.
+		// As a consequence, latejoin heretics start out at a massive
+		// disadvantage if the round's been going on for a while.
+		// Let's give them some influence points when they arrive.
+		new_heretic.knowledge_points += round((world.time - SSticker.round_start_time) / new_heretic.passive_gain_timer)
+		// BUT let's not give smugglers a million points on arrival.
+		// Limit it to four missed passive gain cycles (4 points).
+		new_heretic.knowledge_points = min(new_heretic.knowledge_points, 5)
 
 //////////////////////////////////////////////
 //                                          //
