@@ -42,7 +42,7 @@ Stabilized extracts:
 	if(!H.has_status_effect(effectpath))
 		var/datum/status_effect/stabilized/S = H.apply_status_effect(effectpath)
 		owner = H
-		S.linked_extract = src
+		S.link_extract(src)
 		STOP_PROCESSING(SSobj,src)
 
 
