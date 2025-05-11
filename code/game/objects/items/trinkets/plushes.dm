@@ -504,6 +504,7 @@
 	attack_verb_continuous = list("claws", "hisses", "tail slaps")
 	attack_verb_simple = list("claw", "hiss", "tail slap")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/toy/plush/lizard_plushie/Initialize(mapload)
 	. = ..()

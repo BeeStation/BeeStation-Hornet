@@ -63,7 +63,8 @@ GENE SCANNER
 	return ..()
 
 /obj/item/t_scanner/AltClick(mob/user)
-	toggle_mode(user)
+	if(user.canUseTopic(src, BE_CLOSE))
+		toggle_mode(user)
 
 /obj/item/t_scanner/attack_self(mob/user)
 	toggle_on()

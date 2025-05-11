@@ -79,3 +79,7 @@
 
 /obj/item/ammo_casing/magic/wipe
 	projectile_type = /obj/projectile/magic/wipe
+
+//debug item
+/obj/item/ammo_casing/magic/nuclear
+	projectile_type = /obj/projectile/energy/nuclear_particle
