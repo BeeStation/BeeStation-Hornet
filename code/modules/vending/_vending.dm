@@ -1338,7 +1338,7 @@
 
 	if(compartmentLoadAccessCheck(user))
 		if(istype(I, /obj/item/pen))
-			var/penchoice = tgui_input_list(user, "What do you want to edit on the [src]?", "", list("Name","Description","Slogan"))
+			var/penchoice = tgui_input_list(user, "What do you want to edit on \the [src]?", "", list("Name","Description","Slogan"))
 			switch(penchoice)
 				if("Name")
 					var/newname = tgui_input_text(user,"Set name","Name", name, MAX_NAME_LEN)

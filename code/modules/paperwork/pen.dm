@@ -156,25 +156,34 @@
 	. = ..()
 	//Changing Name/Description of items. Only works if they have the 'unique_rename' flag set
 	if(isobj(O) && proximity && (O.obj_flags & UNIQUE_RENAME))
-		var/penchoice = input(user, "What would you like to edit?", "Rename or change description?") as null|anything in list("Rename","Change description")
+		var/penchoice = tgui_input_list(user, "What would you like to edit?", "Rename or change description?", list("Rename","Change description"))
 		if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 			return
 		var/anythingchanged = FALSE
 		if(penchoice == "Rename")
-			var/input = stripped_input(user,"What do you want to name \the [O.name]?", ,"", MAX_NAME_LEN)
+			var/input = tgui_input_text(user,"What do you want to name \the [O.name]?", "", O.name, MAX_NAME_LEN)
 			var/oldname = O.name
 			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 				return
+			if(!input) // empty input so we return
+				to_chat(user, span_warning("You need to enter a name!"))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your message contains forbidden words."))
+				return
 			if(oldname == input)
-				to_chat(user, "You changed \the [O.name] to... well... \the [O.name].")
-			else
-				O.name = input
-				to_chat(user, "\The [oldname] has been successfully been renamed to \the [input].")
-				O.renamedByPlayer = TRUE
-				anythingchanged = TRUE
-		if(penchoice == "Change description")
-			var/input = stripped_input(user,"Describe \the [O.name] here", ,"", 100)
+				to_chat(user, "You changed \the [O.name] to... well... [O.name].")
+				return
+			O.name = input
+			to_chat(user, "\The [oldname] has been successfully been renamed to [input].")
+			O.renamedByPlayer = TRUE
+			anythingchanged = TRUE
+		if(penchoice == "Change description") // we'll allow empty descriptions
+			var/input = tgui_input_text(user, "Describe \the [O.name] here", "", O.desc) // max_lenght to the default MAX_MESSAGE_LEN, what's the worst that could happen?
 			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your message contains forbidden words."))
 				return
 			O.desc = input
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
