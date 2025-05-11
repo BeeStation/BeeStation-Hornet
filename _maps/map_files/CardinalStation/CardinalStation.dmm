@@ -144,6 +144,9 @@
 "abO" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/ore_box,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "abS" = (
@@ -12509,7 +12512,7 @@
 "cAf" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_one_access_txt = "37;12"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -17549,7 +17552,6 @@
 	pixel_y = -26;
 	id = "librc";
 	name = "Counter shutters";
-	req_access_txt = "37";
 	pixel_x = -6;
 	color = "#e3c840"
 	},
@@ -17570,7 +17572,6 @@
 	pixel_y = -36;
 	id = "libre";
 	name = "Entrance shutters";
-	req_access_txt = "37";
 	pixel_x = -6;
 	color = "#ed7168"
 	},
@@ -23967,7 +23968,7 @@
 /area/engine/storage_shared)
 "faO" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_one_access_txt = "37;12"
 	},
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
@@ -40007,14 +40008,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/execution/education)
-"ilP" = (
-/obj/structure/table/wood/poker,
-/obj/structure/chess_board{
-	pixel_y = 10;
-	pixel_x = 5
-	},
-/turf/open/floor/carpet/black,
-/area/bridge/showroom/corporate)
 "ilV" = (
 /obj/structure/girder,
 /turf/open/floor/plating,
@@ -52353,6 +52346,14 @@
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat_interior)
+"kRK" = (
+/obj/structure/table/wood/poker,
+/obj/structure/chess_board{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/open/floor/carpet/black,
+/area/bridge/showroom/corporate)
 "kRP" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -62785,6 +62786,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"naZ" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "37;12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/central/secondary)
 "nbb" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -135014,7 +135022,7 @@ diV
 iTV
 sCT
 cgR
-ilP
+kRK
 bak
 gIW
 diV
@@ -152253,7 +152261,7 @@ due
 due
 due
 due
-vHK
+naZ
 due
 due
 due
