@@ -15,7 +15,7 @@
 	var/mob/living/simple_animal/hostile/banassistant/H = new(spawn_turf)
 	H.smitetarget = target
 	H.status_flags = GODMODE
-	RegisterSignal(target, COMSIG_LIVING_DEATH, .proc/on_target_death)
+	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death))
 	assassin = H
 
 /datum/smite/assistantban/proc/find_valid_spawn(mob/target)
