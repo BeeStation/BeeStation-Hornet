@@ -6,6 +6,7 @@
 	label_name = "Bestialized"
 	label_desc = "Bestialized: The artifact contains transforming components. Triggering these components transforms the target into an animal."
 	//flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	flags = XENOA_MISC_TRAIT | XENOA_HIDE_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	weight = 15
 	conductivity = 12

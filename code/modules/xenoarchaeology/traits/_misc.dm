@@ -60,6 +60,8 @@
 	component_parent.trigger()
 	return TRUE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/artifact)
+
 /obj/structure/closet/artifact
 	name = "The Bishop" //Proper name
 

@@ -657,6 +657,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	obj_flags = CAN_BE_HIT
 	glass_amount = 2
 
+/obj/structure/window/reinforced/tinted/fulltile/nightclub
+	color = "#9b1d70"
+
 /obj/structure/window/reinforced/fulltile/ice
 	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi'
 	icon_state = "rice_window-0"
