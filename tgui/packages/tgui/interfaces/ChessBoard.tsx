@@ -40,6 +40,7 @@ const Cell = (props) => {
     <Flex.Item className="ChessBoard_FlexItem" width="60px" height="60px">
       <Box className="ChessBoard_Box" position="relative">
         <Box className="ChessBoard_Box">
+          <Box className="ChessBoard_outline" />
           {props.show && (
             <Box className="ChessBoard_Icon">
               <DmIcon
@@ -57,7 +58,6 @@ const Cell = (props) => {
               />
             </Box>
           )}
-          <Box className="ChessBoard_outline" />
           <Box className="ChessBoard_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
             {props.name}
           </Box>

@@ -49939,14 +49939,6 @@
 	},
 /turf/open/floor/iron/smooth_half,
 /area/security/prison)
-"kpj" = (
-/obj/structure/table/wood/poker,
-/obj/structure/chess_board{
-	pixel_y = 10;
-	pixel_x = 5
-	},
-/turf/open/floor/carpet/black,
-/area/bridge/showroom/corporate)
 "kpq" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -50911,6 +50903,14 @@
 /obj/machinery/vending/clothing,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
+"kBg" = (
+/obj/structure/table/wood/poker,
+/obj/structure/chess_board{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/open/floor/carpet/black,
+/area/bridge/showroom/corporate)
 "kBl" = (
 /obj/structure/railing{
 	dir = 8
@@ -72489,7 +72489,8 @@
 /area/hallway/primary/port)
 "paL" = (
 /obj/machinery/door/airlock/public/glass{
-	req_access_txt = "5"
+	req_access_txt = "5";
+	name = "Psychologist's Office"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/curtain/directional{
@@ -135014,7 +135015,7 @@ diV
 iTV
 sCT
 cgR
-kpj
+kBg
 bak
 gIW
 diV
