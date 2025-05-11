@@ -12,6 +12,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
+	convert_damage = FALSE // Functionally meaningless on Armsy, we track how many segments it had instead
 	possible_shapes = list(/mob/living/simple_animal/hostile/heretic_summon/armsy/prime)
 
 	/// The length of our new wormy when we shed.

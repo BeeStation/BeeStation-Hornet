@@ -19,6 +19,8 @@
 
 		qdel(shift)
 
+#define TRIGGER_RESET_COOLDOWN(spell) spell.reset_next_use_time(); spell.trigger()
+
 /**
  * Validates that shapeshift spells put the mob in another mob, as they should.
  */
@@ -26,7 +28,7 @@
 
 /datum/unit_test/shapeshift_spell/Run()
 
-	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
 	dummy.mind_initialize()
 
 	for(var/spell_type in subtypesof(/datum/action/spell/shapeshift))
@@ -58,8 +60,7 @@
 	if(forced_shape)
 		shift.shapeshift_type = forced_shape
 
-	UNLINT(shift.next_use_time = 0)
-	shift.trigger()
+	TRIGGER_RESET_COOLDOWN(shift)
 	var/mob/expected_shape = shift.shapeshift_type
 	if(!istype(dummy.loc, expected_shape))
 		return TEST_FAIL("Shapeshift spell: [shift.name] failed to transform the dummy into the shape [initial(expected_shape.name)]. \
@@ -69,8 +70,7 @@
 	if(!(shift in shape.actions))
 		return TEST_FAIL("Shapeshift spell: [shift.name] failed to grant the spell to the dummy's shape.")
 
-	UNLINT(shift.next_use_time = 0)
-	shift.trigger()
+	TRIGGER_RESET_COOLDOWN(shift)
 	if(istype(dummy.loc, shift.shapeshift_type))
 		return TEST_FAIL("Shapeshift spell: [shift.name] failed to transform the dummy back into a human.")
 
@@ -82,7 +82,7 @@
 
 /datum/unit_test/shapeshift_holoparasites/Run()
 
-	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
 
 	var/datum/action/spell/shapeshift/wizard/shift = new(dummy)
 	shift.shapeshift_type = shift.possible_shapes[1]
@@ -100,9 +100,49 @@
 	TEST_ASSERT_EQUAL(test_stand.summoner, dummy.loc, "Shapeshift spell failed to transfer the holoparasite to the dummy's shape.")
 
 	// Dummy casts shapeshfit back, the stand's summoner should become the dummy again.
-	UNLINT(shift.next_use_time = 0)
-	shift.trigger()
+	TRIGGER_RESET_COOLDOWN(shift)
 	TEST_ASSERT(!istype(dummy.loc, shift.shapeshift_type), "Shapeshift spell failed to transform the dummy back into human form.")
 	TEST_ASSERT_EQUAL(test_stand.summoner, dummy, "Shapeshift spell failed to transfer the holoparasite back to the dummy's human form.")
 
 	qdel(shift)
+
+#define EXPECTED_HEALTH_RATIO 0.5
+
+/// Validates that shapeshifting carries health or death between forms properly, if it is supposed to
+/datum/unit_test/shapeshift_health
+
+/datum/unit_test/shapeshift_health/Run()
+	for(var/spell_type in subtypesof(/datum/action/spell/shapeshift))
+		var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
+		var/datum/action/spell/shapeshift/shift_spell = new spell_type(dummy)
+		shift_spell.Grant(dummy)
+		shift_spell.shapeshift_type = shift_spell.possible_shapes[1]
+
+		if (shift_spell.convert_damage)
+			shift_spell.trigger()
+			TEST_ASSERT(istype(dummy.loc, shift_spell.shapeshift_type), "Failed to transform into [shift_spell.shapeshift_type]using [shift_spell.name].")
+			var/mob/living/shifted_mob = dummy.loc
+			shifted_mob.apply_damage(shifted_mob.maxHealth * EXPECTED_HEALTH_RATIO, BRUTE, forced = TRUE)
+			TRIGGER_RESET_COOLDOWN(shift_spell)
+			TEST_ASSERT(!istype(dummy.loc, shift_spell.shapeshift_type), "Failed to unfransform from [shift_spell.shapeshift_type] using [shift_spell.name].")
+			TEST_ASSERT_EQUAL(dummy.get_total_damage(), dummy.maxHealth * EXPECTED_HEALTH_RATIO, "Failed to transfer damage from [shift_spell.shapeshift_type] to original form using [shift_spell.name].")
+			TRIGGER_RESET_COOLDOWN(shift_spell)
+			TEST_ASSERT(istype(dummy.loc, shift_spell.shapeshift_type), "Failed to transform into [shift_spell.shapeshift_type] after taking damage using [shift_spell.name].")
+			shifted_mob = dummy.loc
+			TEST_ASSERT_EQUAL(shifted_mob.get_total_damage(), shifted_mob.maxHealth * EXPECTED_HEALTH_RATIO, "Failed to transfer damage from original form to [shift_spell.shapeshift_type] using [shift_spell.name].")
+			TRIGGER_RESET_COOLDOWN(shift_spell)
+
+		if (shift_spell.die_with_shapeshifted_form)
+			TRIGGER_RESET_COOLDOWN(shift_spell)
+			TEST_ASSERT(istype(dummy.loc, shift_spell.shapeshift_type), "Failed to transform into [shift_spell.shapeshift_type]")
+			var/mob/living/shifted_mob = dummy.loc
+			shifted_mob.health = 0 // Fucking megafauna
+			shifted_mob.death()
+			if (shift_spell.revert_on_death)
+				TEST_ASSERT(!istype(dummy.loc, shift_spell.shapeshift_type), "Failed to untransform after death using [shift_spell.name].")
+			TEST_ASSERT_EQUAL(dummy.stat, DEAD, "Failed to kill original mob when transformed mob died using [shift_spell.name].")
+
+		qdel(shift_spell)
+
+#undef EXPECTED_HEALTH_RATIO
+#undef TRIGGER_RESET_COOLDOWN
