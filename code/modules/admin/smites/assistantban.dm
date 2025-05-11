@@ -1,0 +1,183 @@
+/datum/smite/assistantban
+	name = "Ban Via Assistant"
+	var/mob/living/simple_animal/hostile/banassistant/assassin // Track the spawned assistant
+	var/client/admin
+	var/banckey
+
+/datum/smite/assistantban/effect(client/user, mob/living/target)
+	if(!target.client)
+		to_chat(user, span_warning("Target must be a player!"))
+		return
+	. = ..()
+	admin = user
+	banckey = target.client.ckey
+	// Find a spawn location just outside view
+	var/turf/spawn_turf = find_valid_spawn(target)
+	if(!spawn_turf)
+		to_chat(user, span_warning("Failed to find valid spawn location!"))
+		return
+
+	var/mob/living/simple_animal/hostile/banassistant/H = new(spawn_turf)
+	H.smitetarget = target
+	H.status_flags = GODMODE
+
+	// Track target death
+	RegisterSignal(target, COMSIG_LIVING_DEATH, .proc/on_target_death)
+	assassin = H
+
+
+/datum/smite/assistantban/proc/find_valid_spawn(mob/target)
+	if(!target || !isturf(target.loc))
+		return get_turf(target) // Fallback if invalid target
+	var/turf/center = get_turf(target)
+	var/list/turf/startlocs = list()
+	for(var/turf/open/T in view(getexpandedview(world.view, 2, 2),target))
+		startlocs += T
+	for(var/turf/open/T in view(world.view,target))
+		startlocs -= T
+	if(!startlocs.len)
+		return get_turf(target)
+
+	for(var/turf/T in shuffle(startlocs))
+	    // Skip if in direct view
+		if(T in view(world.view, target))
+			continue
+
+	    // Check if valid floor turf with path
+		if(isfloorturf(T) && !T.is_blocked_turf())
+			if(get_path_to(T, center, max_distance = 30))
+				return T
+
+	return get_turf(target) // Final fallback
+
+/datum/smite/assistantban/proc/on_target_death(mob/living/target)
+    UnregisterSignal(target, COMSIG_LIVING_DEATH)
+    if(!target.client)
+        if(!banckey)
+            to_chat(admin, span_warning("Something went wrong with the ban process, No Client or Ckey!"))
+            return
+
+    var/client/targ = target.client // Get target's client
+    var/admin_ckey = admin.ckey // Admin who used smite
+    var/duration = 0 // Permanent
+    var/reason = "Ban Evasion - Eliminated by the Ban Assistant, damn you're unrobust as hell."
+    var/roles_to_ban = list("Server") // Full server ban
+
+    // Get necessary client info
+    var/player_ckey = targ.ckey
+    var/player_ip = targ.address
+    var/player_cid = targ.computer_id
+
+    // Use proper admin proc
+    var/datum/admins/admin_holder = GLOB.admin_datums[admin_ckey]
+    if(!admin_holder)
+        to_chat(admin, span_warning("Something went wrong with the ban process, Admin Ckey For the ban!"))
+        return
+
+    admin_holder.create_ban(
+        player_ckey,
+        TRUE,  // IP check
+        player_ip,
+        TRUE,  // CID check
+        player_cid,
+        FALSE, // Use last connection
+        FALSE, // Applies to admins
+        duration,
+        "MINUTE",
+        "high", // Severity
+        reason,
+        TRUE,   // Global ban
+        roles_to_ban,
+        FALSE,
+        TRUE   // Force cryo
+    )
+
+    for(var/obj/item/W in target)
+        if(!target.dropItemToGround(W))
+            qdel(W)
+            target.regenerate_icons()
+
+//    instant_force_cryo(target)
+    force_cryo(target)
+    if(assassin)
+        assassin.visible_message(span_boldred("[assassin] dissolves into static!"))
+        QDEL_NULL(assassin)
+
+////////////////////////////////////////////.
+
+
+/mob/living/simple_animal/hostile/banassistant
+	name = "Unknown Assistant"
+	desc = "If you're being chased by this guy, you've done something wrong."
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "banassist"
+	icon_living = "banassist"
+	icon_dead = "banassist"
+	icon_gib = "banassist"
+	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	speak_chance = 0
+	turns_per_move = 1
+	speed = 0
+	move_to_delay = 2
+	stat_attack = DEAD
+	robust_searching = 1
+	maxHealth = 10000
+	health = 10000
+	melee_damage = 12
+	armour_penetration = 100
+	obj_damage = 0
+	environment_smash = 0
+	attack_verb_continuous = "robusts"
+	attack_verb_simple = "robust"
+	attack_sound = 'sound/weapons/smash.ogg'
+	combat_mode = TRUE
+	loot = null
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 0
+	minbodytemp = 0
+	status_flags = CANPUSH
+	del_on_death = TRUE
+	dodging = TRUE
+	rapid_melee = 2
+	hardattacks = TRUE
+	spacewalk = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
+	vision_range = 1
+	aggro_vision_range = 10
+	var/mob/living/smitetarget = null
+	emote_taunt = list("grins")
+	speak = list("Asshole!","Awww, what a shame!","HAH!","Weakling!","I'm gonna beat you into the ground!")
+	speak_chance = 75
+	taunt_chance = 55
+
+
+/mob/living/simple_animal/hostile/banassistant/ListTargets()
+    if(smitetarget && !QDELETED(smitetarget))
+        return list(smitetarget)
+    return list()
+
+/mob/living/simple_animal/hostile/banassistant/Found(atom/A)
+    if(A == smitetarget && !QDELETED(smitetarget))
+        if(get_dist(src, A) > 10)
+            do_teleport(src, get_turf(A))
+        return TRUE
+    return FALSE
+
+/mob/living/simple_animal/hostile/banassistant/CanAttack(mob/the_target)
+    if(the_target != smitetarget || QDELETED(smitetarget))
+        return FALSE
+    if(see_invisible < the_target.invisibility)
+        return FALSE
+    if(ismob(the_target) && (the_target.status_flags & GODMODE))
+        return FALSE
+    return TRUE
+
+/mob/living/simple_animal/hostile/banassistant/FindTarget(list/possible_targets, HasTargetsList)
+	if(!smitetarget || QDELETED(smitetarget))
+		LoseTarget()
+		return null
+	if(get_dist(src, smitetarget) > 10)
+		do_teleport(src, get_turf(smitetarget))
+	GiveTarget(smitetarget)
+	return smitetarget
+

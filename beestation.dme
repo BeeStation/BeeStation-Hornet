@@ -1928,6 +1928,7 @@
 #include "code\modules\admin\smites\animalize.dm"
 #include "code\modules\admin\smites\apply_brain_damage.dm"
 #include "code\modules\admin\smites\apply_damage.dm"
+#include "code\modules\admin\smites\assistantban.dm"
 #include "code\modules\admin\smites\become_object.dm"
 #include "code\modules\admin\smites\bsa.dm"
 #include "code\modules\admin\smites\cluwnify.dm"
