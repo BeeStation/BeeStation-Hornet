@@ -18903,7 +18903,6 @@
 /area/maintenance/starboard/central)
 "dTv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -18911,6 +18910,7 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
 	},
+/obj/machinery/jukebox,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
 "dTz" = (
@@ -25262,6 +25262,9 @@
 	},
 /obj/machinery/status_display/evac/directional/north,
 /obj/machinery/camera/directional/north,
+/obj/item/chess_piece/white/king{
+	pixel_x = 9
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/captain/private)
 "fow" = (
@@ -28142,6 +28145,14 @@
 /obj/structure/dresser,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
+"fUY" = (
+/obj/structure/table/wood/poker,
+/obj/structure/chess_board{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/open/floor/carpet/black,
+/area/bridge/showroom/corporate)
 "fVD" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -42187,7 +42198,7 @@
 	name = "Oxygen to Pure"
 	},
 /obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Nitrogen to Air mixing"
+	name = "Oxygen to Air mixing"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
@@ -46957,11 +46968,11 @@
 	dir = 8;
 	name = "Nitrogen to Pure"
 	},
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Oxygen to Air mixing"
-	},
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Nitrogen to Air mixing"
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
@@ -60566,12 +60577,7 @@
 "mEw" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/drinkingglass/filled/cola{
-	pixel_x = 8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = -5;
+/obj/structure/chess_board{
 	pixel_y = 5
 	},
 /turf/open/floor/iron,
@@ -61525,7 +61531,8 @@
 "mNR" = (
 /obj/structure/flora/tree/jungle{
 	pixel_y = -30;
-	pixel_x = -25
+	pixel_x = -25;
+	density = 0
 	},
 /obj/structure/statue/sandstone/venus{
 	pixel_y = -21;
@@ -93146,6 +93153,14 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/machinery/shower{
+	dir = 8;
+	name = "emergency shower";
+	pixel_x = -1;
+	pixel_y = -8
+	},
+/obj/effect/mapping_helpers/make_non_slip,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "tsl" = (
@@ -99744,6 +99759,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/item/chess_piece/black/queen{
+	pixel_y = -17;
+	pixel_x = -5
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
@@ -113475,6 +113494,10 @@
 /obj/effect/turf_decal/trimline/red/line,
 /obj/effect/turf_decal/trimline/neutral/line,
 /obj/machinery/requests_console/auto_name/directional/north,
+/obj/item/chess_piece/white/pawn{
+	pixel_y = 16;
+	pixel_x = -3
+	},
 /turf/open/floor/iron/dark/textured_half,
 /area/crew_quarters/theatre/backstage)
 "xAi" = (
@@ -114516,7 +114539,8 @@
 	},
 /obj/structure/flora/tree/jungle{
 	pixel_x = -39;
-	pixel_y = -18
+	pixel_y = -18;
+	density = 0
 	},
 /turf/open/floor/grass,
 /area/hallway/primary/central)
@@ -134991,7 +135015,7 @@ diV
 iTV
 sCT
 cgR
-cgR
+fUY
 bak
 gIW
 diV
