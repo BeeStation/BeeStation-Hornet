@@ -122,3 +122,126 @@
 	GiveTarget(smitetarget)
 	return smitetarget
 
+//////////// Syndicate variant - No godmode
+
+/datum/smite/assistantbansyndie
+	name = "Kill Via Syndicate"
+	var/mob/living/simple_animal/hostile/banassistant/syndicate/assassin // Track the spawned assistant
+
+/datum/smite/assistantbansyndie/effect(client/user, mob/living/target)
+	if(!target.client)
+		to_chat(user, span_warning("Target must be a player!"))
+		return
+	. = ..()
+	// Find a spawn location just outside view
+	var/turf/spawn_turf = find_valid_spawn(target)
+	if(!spawn_turf)
+		to_chat(user, span_warning("Failed to find valid spawn location!"))
+		return
+	var/mob/living/simple_animal/hostile/banassistant/syndicate/H = new(spawn_turf)
+	H.smitetarget = target
+	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death))
+	assassin = H
+
+/datum/smite/assistantbansyndie/proc/find_valid_spawn(mob/target)
+	if(!target || !isturf(target.loc))
+		return get_turf(target) // Fallback if invalid target
+	var/turf/center = get_turf(target)
+	var/list/turf/startlocs = list()
+	for(var/turf/open/T in view(getexpandedview(world.view, 2, 2),target))
+		startlocs += T
+	for(var/turf/open/T in view(world.view,target))
+		startlocs -= T
+	if(!startlocs.len)
+		return get_turf(target)
+	for(var/turf/T in shuffle(startlocs))
+		// Skip if in direct view
+		if(T in view(world.view, target))
+			continue
+		// Check if valid floor turf with path
+		if(isfloorturf(T) && !T.is_blocked_turf())
+			if(get_path_to(T, center, max_distance = 30))
+				return T
+	return get_turf(target) // Final fallback
+
+/datum/smite/assistantbansyndie/proc/on_target_death(mob/living/target)
+	if(assassin)
+		assassin.visible_message(span_boldred("[assassin] dissolves into static, his job done!"))
+		QDEL_NULL(assassin)
+
+/mob/living/simple_animal/hostile/banassistant/syndicate
+	icon_state = "syndicate_space"
+	icon_living = "syndicate_space"
+	icon_dead = "syndicate_space"
+	icon_gib = "syndicate_space"
+	name = "Unknown Syndicate Agent"
+	maxHealth = 150
+	health = 150
+	melee_damage = 15
+	armour_penetration = 50
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	speak = list("Give us the nuke disk!","Stop running!","HAH!","Weakling!","I'm gonna beat you into the ground!","You'll never stop us!")
+
+//////////// Security variant - No godmode
+
+/datum/smite/assistantbansec
+	name = "Kill Via Security"
+	var/mob/living/simple_animal/hostile/banassistant/security/assassin // Track the spawned assistant
+
+/datum/smite/assistantbansec/effect(client/user, mob/living/target)
+	if(!target.client)
+		to_chat(user, span_warning("Target must be a player!"))
+		return
+	. = ..()
+	// Find a spawn location just outside view
+	var/turf/spawn_turf = find_valid_spawn(target)
+	if(!spawn_turf)
+		to_chat(user, span_warning("Failed to find valid spawn location!"))
+		return
+	var/mob/living/simple_animal/hostile/banassistant/security/H = new(spawn_turf)
+	H.smitetarget = target
+	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death))
+	assassin = H
+
+/datum/smite/assistantbansec/proc/find_valid_spawn(mob/target)
+	if(!target || !isturf(target.loc))
+		return get_turf(target) // Fallback if invalid target
+	var/turf/center = get_turf(target)
+	var/list/turf/startlocs = list()
+	for(var/turf/open/T in view(getexpandedview(world.view, 2, 2),target))
+		startlocs += T
+	for(var/turf/open/T in view(world.view,target))
+		startlocs -= T
+	if(!startlocs.len)
+		return get_turf(target)
+	for(var/turf/T in shuffle(startlocs))
+		// Skip if in direct view
+		if(T in view(world.view, target))
+			continue
+		// Check if valid floor turf with path
+		if(isfloorturf(T) && !T.is_blocked_turf())
+			if(get_path_to(T, center, max_distance = 30))
+				return T
+	return get_turf(target) // Final fallback
+
+/datum/smite/assistantbansec/proc/on_target_death(mob/living/target)
+	if(assassin)
+		assassin.visible_message(span_boldred("[assassin] dissolves into static, his job done!"))
+		QDEL_NULL(assassin)
+
+/mob/living/simple_animal/hostile/banassistant/security
+	icon_state = "nanotrasen"
+	icon_living = "nanotrasen"
+	icon_dead = "nanotrasen"
+	icon_gib = "nanotrasen"
+	name = "Unknown Security Officer"
+	maxHealth = 100
+	health = 100
+	melee_damage = 10
+	armour_penetration = 25
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	speak = list("Stop right there, criminal scum!","Dead or alive you're coming with me.","You have the right to shut the fuck up.","Prepare for justice!","I am, the LAW!")
