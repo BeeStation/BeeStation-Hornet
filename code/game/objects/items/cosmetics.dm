@@ -352,6 +352,7 @@
 					playsound(user, 'sound/effects/spray2.ogg', 50, 1)
 					H.hair_color = sanitize_hexcolor(new_color)
 					H.update_hair()
+					H.update_mutant_bodyparts()
 			if("Gradient")
 				var/new_color = tgui_color_picker(user, "Select the new gradient color", "Dyeing", null)
 				if(new_color && do_after(user, 6 SECONDS, target = H))
