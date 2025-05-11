@@ -4,6 +4,8 @@
  * Allows the caster to transform to and from a different mob type.
  */
 /datum/action/spell/shapeshift
+	name = "Shapeshift Base"
+	button_icon_state = "shapeshift"
 	school = SCHOOL_TRANSMUTATION
 	cooldown_time = 10 SECONDS
 

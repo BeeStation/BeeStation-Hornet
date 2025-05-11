@@ -120,7 +120,7 @@
 
 		if (shift_spell.convert_damage)
 			shift_spell.trigger()
-			TEST_ASSERT(istype(dummy.loc, shift_spell.shapeshift_type), "Failed to transform into [shift_spell.shapeshift_type]using [shift_spell.name].")
+			TEST_ASSERT(istype(dummy.loc, shift_spell.shapeshift_type), "Failed to transform into [shift_spell.shapeshift_type] using [shift_spell.name].")
 			var/mob/living/shifted_mob = dummy.loc
 			shifted_mob.apply_damage(shifted_mob.maxHealth * EXPECTED_HEALTH_RATIO, BRUTE, forced = TRUE)
 			TRIGGER_RESET_COOLDOWN(shift_spell)
