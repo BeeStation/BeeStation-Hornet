@@ -30,7 +30,7 @@
 	return ..()
 
 /datum/status_effect/shapechange_mob/on_apply()
-	caster_mob.mind.transfer_to(owner)
+	caster_mob.mind?.transfer_to(owner)
 	caster_mob.forceMove(owner)
 	caster_mob.notransform = TRUE
 	caster_mob.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_SHAPECHANGE_EFFECT)
@@ -170,11 +170,13 @@
 		// so they can actually transform back to their original form
 		source_spell.Grant(owner)
 
-		if(source_spell.convert_damage)if(source_spell.convert_damage)
+		if(source_spell.convert_damage)
 			var/damage_to_apply = owner.maxHealth * (caster_mob.get_total_damage() / caster_mob.maxHealth)
 
 			owner.apply_damage(damage_to_apply, source_spell.convert_damage_type, forced = TRUE, spread_damage = TRUE)
-			owner.blood_volume = caster_mob.blood_volume
+			// Only transfer blood if both mobs are supposed to have a blood volume
+			if (initial(owner.blood_volume) > 0 && initial(caster_mob.blood_volume) > 0 && !HAS_TRAIT(owner, TRAIT_NO_BLOOD) && !HAS_TRAIT(caster_mob, TRAIT_NO_BLOOD))
+				owner.blood_volume = caster_mob.blood_volume
 
 	for(var/datum/action/bodybound_action as anything in caster_mob.actions)
 		if(bodybound_action.get_master() != caster_mob)
@@ -206,8 +208,9 @@
 	caster_mob.fully_heal(TRUE) // Remove all of our damage before setting our health to a proportion of the former transformed mob's health
 	var/damage_to_apply = caster_mob.maxHealth * (owner.get_total_damage() / owner.maxHealth)
 	caster_mob.apply_damage(damage_to_apply, source_spell.convert_damage_type, forced = TRUE, spread_damage = TRUE)
-
-	caster_mob.blood_volume = owner.blood_volume
+	// Only transfer blood if both mobs are supposed to have a blood volume
+	if (initial(owner.blood_volume) > 0 && initial(caster_mob.blood_volume) > 0 && !HAS_TRAIT(owner, TRAIT_NO_BLOOD) && !HAS_TRAIT(caster_mob, TRAIT_NO_BLOOD))
+		caster_mob.blood_volume = owner.blood_volume
 
 /datum/status_effect/shapechange_mob/from_spell/on_shape_death(datum/source, gibbed)
 	var/datum/action/spell/shapeshift/source_spell = source_weakref.resolve()
