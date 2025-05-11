@@ -87,6 +87,7 @@
 	var/datum/action/spell/shapeshift/wizard/shift = new(dummy)
 	shift.shapeshift_type = shift.possible_shapes[1]
 	shift.Grant(dummy)
+	dummy.mind_initialize() //Jank, but needed
 
 	var/mob/living/simple_animal/hostile/holoparasite/test_stand = allocate(/mob/living/simple_animal/hostile/holoparasite)
 	test_stand.set_summoner(dummy)
