@@ -1,6 +1,6 @@
 /datum/smite/assistantban
-    name = "Kill Via Assistant"
-    var/mob/living/simple_animal/hostile/banassistant/assassin // Track the spawned assistant
+	name = "Kill Via Assistant"
+	var/mob/living/simple_animal/hostile/banassistant/assassin // Track the spawned assistant
 
 /datum/smite/assistantban/effect(client/user, mob/living/target)
 	if(!target.client)
@@ -30,19 +30,19 @@
 	if(!startlocs.len)
 		return get_turf(target)
 	for(var/turf/T in shuffle(startlocs))
-	    // Skip if in direct view
+		// Skip if in direct view
 		if(T in view(world.view, target))
 			continue
-	    // Check if valid floor turf with path
+		// Check if valid floor turf with path
 		if(isfloorturf(T) && !T.is_blocked_turf())
 			if(get_path_to(T, center, max_distance = 30))
 				return T
 	return get_turf(target) // Final fallback
 
 /datum/smite/assistantban/proc/on_target_death(mob/living/target)
-    if(assassin)
-        assassin.visible_message(span_boldred("[assassin] dissolves into static, his job done!"))
-        QDEL_NULL(assassin)
+	if(assassin)
+		assassin.visible_message(span_boldred("[assassin] dissolves into static, his job done!"))
+		QDEL_NULL(assassin)
 
 ////////////////////////////////////////////.
 
@@ -93,25 +93,25 @@
 
 
 /mob/living/simple_animal/hostile/banassistant/ListTargets()
-    if(smitetarget && !QDELETED(smitetarget))
-        return list(smitetarget)
-    return list()
+	if(smitetarget && !QDELETED(smitetarget))
+		return list(smitetarget)
+	return list()
 
 /mob/living/simple_animal/hostile/banassistant/Found(atom/A)
-    if(A == smitetarget && !QDELETED(smitetarget))
-        if(get_dist(src, A) > 10)
-            do_teleport(src, get_turf(A))
-        return TRUE
-    return FALSE
+	if(A == smitetarget && !QDELETED(smitetarget))
+		if(get_dist(src, A) > 10)
+			do_teleport(src, get_turf(A))
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/hostile/banassistant/CanAttack(mob/the_target)
-    if(the_target != smitetarget || QDELETED(smitetarget))
-        return FALSE
-    if(see_invisible < the_target.invisibility)
-        return FALSE
-    if(ismob(the_target) && (the_target.status_flags & GODMODE))
-        return FALSE
-    return TRUE
+	if(the_target != smitetarget || QDELETED(smitetarget))
+		return FALSE
+	if(see_invisible < the_target.invisibility)
+		return FALSE
+	if(ismob(the_target) && (the_target.status_flags & GODMODE))
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/hostile/banassistant/FindTarget(list/possible_targets, HasTargetsList)
 	if(!smitetarget || QDELETED(smitetarget))
