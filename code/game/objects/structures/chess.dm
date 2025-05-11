@@ -7,6 +7,7 @@
 	icon = 'icons/obj/chess.dmi'
 	icon_state = "chess_board"
 	var/list/chess_board_contents
+	var/populated = FALSE
 
 /obj/structure/chess_board/Initialize(mapload)
 	. = ..()
@@ -64,7 +65,7 @@
 		if(inserting_piece)
 			inserting_piece = new inserting_piece()
 			chess_board_insert_item(inserting_piece, I)
-
+	populated = TRUE
 
 /obj/structure/chess_board/proc/chess_board_insert_item(obj/item/inserted_item, ui_index)
 	if(istype(inserted_item, /obj/item/chess_piece) || istype(inserted_item, /obj/item/toy/figure))
@@ -113,6 +114,7 @@
 			return FALSE
 		usr.visible_message("[usr] folds \the [src.name].", span_notice("You fold \the [src.name]."))
 		var/obj/item/chess_board/B = new ()
+		B.populated = populated
 		B.sorted_contents = chess_board_contents
 		for(var/obj/item/I in contents)
 			I.forceMove(B)
@@ -183,6 +185,7 @@
 	icon_state = "chess_board_folded"
 	w_class = WEIGHT_CLASS_LARGE
 	var/list/sorted_contents
+	var/populated = FALSE
 
 /obj/item/chess_board/pre_attack(atom/target, mob/user, proximity)
 	if(!istype(target, /obj/structure/table))
@@ -193,8 +196,9 @@
 		balloon_alert(user, "no room!")
 		return
 	var/obj/structure/chess_board/chess_board = new (target.loc)
+	chess_board.populated = populated
 	chess_board.pixel_y = 5
-	if(!contents.len)
+	if(!populated)
 		chess_board.pupulate_chess_board()
 	else
 		chess_board.chess_board_contents = sorted_contents
