@@ -62,7 +62,7 @@
 		if (most_restrictive_type)
 			cache = cache.cache_states[most_restrictive_type]
 		// Caching doesn't take place if we are holding an item
-		if (cache?.generated && !held_item)
+		if (cache?.generated && (!held_item || GLOB.screentip_contextless_items["[held_item.type]"]))
 			if (held_item?.tool_behaviour || client.show_extended_screentips)
 				if (ishuman(client.mob) && !held_item)
 					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message][cache.tool_message]")]</span>")]</span>"
@@ -149,7 +149,7 @@
 	// Populate the screentip cache to prevent unnecessary re-generation
 	// =====================================================
 	// If we asked to be cached, generate the cache
-	if (context.cache_enabled && !context.cache_force_disabled)
+	if (context.cache_enabled && !context.cache_force_disabled && (!context.held_item || GLOB.screentip_contextless_items["[held_item.type]"]))
 		// Try to find the parent cache item
 		cache = GLOB.screentips_cache["[type]"]
 		if (!cache)
