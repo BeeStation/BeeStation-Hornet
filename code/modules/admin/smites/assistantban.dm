@@ -237,6 +237,7 @@
 	icon_dead = "nanotrasen"
 	icon_gib = "nanotrasen"
 	name = "Unknown Security Officer"
+	speed = 1
 	maxHealth = 100
 	health = 100
 	melee_damage = 10
