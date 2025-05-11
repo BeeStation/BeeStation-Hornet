@@ -77,7 +77,7 @@
 /datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		if(rand(0,1) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
+		if(rand(0,3) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
 			var/light_amount = T.get_lumcount()
 			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
