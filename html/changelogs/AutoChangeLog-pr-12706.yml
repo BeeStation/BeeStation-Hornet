@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: TGUI say will now auto-focus when first loading
