@@ -184,6 +184,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 	if(!input) //no input so we return
 		to_chat(user, span_warning("No input found, please try again!"))
 		return
+	if(OOC_FILTER_CHECK(input)) //check for forbidden words (OOC filter)
+		to_chat(user, span_warning("Your input contains forbidden words, try again."))
+		return
 	var/list/tempnetwork = splittext(input, ",")
 	if(tempnetwork.len < 1)
 		to_chat(user, span_warning("No network found, please try again!"))
