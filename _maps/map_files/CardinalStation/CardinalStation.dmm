@@ -3330,6 +3330,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/port)
+"aLh" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "46;37"
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/theatre/backstage)
 "aLC" = (
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 8
@@ -41614,11 +41621,14 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners{
-	alpha = 200
-	},
 /obj/effect/landmark/start/brig_physician,
-/turf/open/floor/iron/white/textured,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/filled/mid_joiner{
+	dir = 1
+	},
+/turf/open/floor/iron/white/textured_large,
 /area/security/brig/medbay)
 "iDf" = (
 /obj/machinery/door/airlock/grunge{
@@ -42428,16 +42438,15 @@
 /area/storage/emergency/port)
 "iJO" = (
 /obj/structure/table/optable,
-/obj/effect/turf_decal/siding/white,
-/obj/effect/turf_decal/tile/red/opposingcorners{
-	alpha = 200
-	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -27;
 	use_power = 0
 	},
-/turf/open/floor/iron/white/textured,
+/obj/effect/turf_decal/trimline/red/filled/mid_joiner,
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/effect/turf_decal/siding/white,
+/turf/open/floor/iron/white/textured_large,
 /area/security/brig/medbay)
 "iJQ" = (
 /obj/structure/closet/masks,
@@ -43321,13 +43330,13 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners{
-	alpha = 200
-	},
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
 	},
-/turf/open/floor/iron/white/textured,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 10
+	},
+/turf/open/floor/iron/white/textured_large,
 /area/security/brig/medbay)
 "iSk" = (
 /obj/structure/cable/yellow{
@@ -48092,15 +48101,15 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners{
-	alpha = 200
-	},
 /obj/structure/wall_closet/brig_phys/directional/east,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/cup/bottle/formaldehyde,
 /obj/item/reagent_containers/cup/bottle/morphine,
 /obj/item/reagent_containers/cup/bottle/epinephrine,
-/turf/open/floor/iron/white/textured,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 6
+	},
+/turf/open/floor/iron/white/textured_large,
 /area/security/brig/medbay)
 "jWC" = (
 /obj/effect/turf_decal/siding/blue,
@@ -54078,9 +54087,6 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners{
-	alpha = 200
-	},
 /obj/machinery/light/small/directional/east,
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = -14
@@ -54091,7 +54097,10 @@
 /obj/item/clothing/mask/breath/medical{
 	pixel_y = -25
 	},
-/turf/open/floor/iron/white/textured,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 5
+	},
+/turf/open/floor/iron/white/textured_large,
 /area/security/brig/medbay)
 "liX" = (
 /obj/machinery/light/floor,
@@ -56531,13 +56540,6 @@
 /obj/machinery/status_display/evac/directional/west,
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
-"lKT" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/security/brig/medbay)
 "lKU" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 8
@@ -85517,11 +85519,11 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners{
-	alpha = 200
-	},
 /obj/machinery/light/small/directional/west,
-/turf/open/floor/iron/white/textured,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 9
+	},
+/turf/open/floor/iron/white/textured_large,
 /area/security/brig/medbay)
 "rLJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -100173,12 +100175,12 @@
 	},
 /area/medical/medbay/central)
 "uLV" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "46;37"
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/plating,
-/area/crew_quarters/theatre/backstage)
+/area/security/brig/medbay)
 "uMa" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -157474,7 +157476,7 @@ phN
 ufR
 gds
 aMc
-lKT
+uLV
 rPN
 ooY
 gDE
@@ -159082,7 +159084,7 @@ mtD
 jKy
 jKy
 jKy
-uLV
+aLh
 jKy
 jKy
 jyg
