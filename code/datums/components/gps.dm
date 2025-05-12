@@ -153,17 +153,17 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	switch(action)
 		if("rename")
 			var/atom/parentasatom = parent
-			var/a = tgui_input_text(usr, "Please enter desired tag.", parentasatom.name, gpstag, 20)
+			var/input = tgui_input_text(usr, "Please enter desired tag.", parentasatom.name, gpstag, 20)
 
-			if (!a) // no input so we return
+			if (!input) // no input so we return
 				to_chat(usr, span_warning("You need to enter something!"))
 				return
 
-			if(OOC_FILTER_CHECK(a)) // check for forbidden words (OOC only)
+			if(OOC_FILTER_CHECK(input)) // check for forbidden words (OOC only)
 				to_chat(usr, span_warning("Your message contains forbidden words."))
 				return
 
-			gpstag = a
+			gpstag = input
 			. = TRUE
 			parentasatom.name = "global positioning system ([gpstag])"
 

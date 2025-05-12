@@ -403,7 +403,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 		return
 
 	if (istype(O, /obj/item/pen))
-		var/penchoice = tgui_input_list(user, "What would you like to edit on \the [src]?", "Seed editing", list("Plant Name","Plant Description","Seed Description"))
+		var/penchoice = tgui_input_list(user, "What would you like to edit on [src]?", "Seed editing", list("Plant Name","Plant Description","Seed Description"))
 
 		if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 			return

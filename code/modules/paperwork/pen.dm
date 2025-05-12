@@ -161,8 +161,7 @@
 			return
 		var/anythingchanged = FALSE
 		if(penchoice == "Rename")
-			var/input = tgui_input_text(user,"What do you want to name \the [O.name]?", "", O.name, MAX_NAME_LEN)
-			var/oldname = O.name
+			var/input = tgui_input_text(user,"What do you want to name [O]?", "", O.name, MAX_NAME_LEN)
 			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 				return
 			if(!input) // empty input so we return
@@ -171,15 +170,15 @@
 			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
 				to_chat(user, span_warning("Your message contains forbidden words."))
 				return
-			if(oldname == input)
-				to_chat(user, "You changed \the [O.name] to... well... [O.name].")
+			if(O.name == input)
+				to_chat(user, "You changed [O] to... well... [O].")
 				return
+			to_chat(user, capitalize("[O] has been successfully been renamed to [input]."))
 			O.name = input
-			to_chat(user, "\The [oldname] has been successfully been renamed to [input].")
 			O.renamedByPlayer = TRUE
 			anythingchanged = TRUE
 		if(penchoice == "Change description") // we'll allow empty descriptions
-			var/input = tgui_input_text(user, "Describe \the [O.name] here", "", O.desc) // max_lenght to the default MAX_MESSAGE_LEN, what's the worst that could happen?
+			var/input = tgui_input_text(user, "Describe [O] here", "", O.desc) // max_lenght to the default MAX_MESSAGE_LEN, what's the worst that could happen?
 			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 				return
 			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
