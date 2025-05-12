@@ -321,11 +321,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return FALSE
 	//Create the new area
 	var/area/shuttle/custom/powered/newS
-	var/str = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
+	var/str = tgui_input_text(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
 	if(!str || !length(str))
-		return FALSE
-	if(length(str) > 50)
-		to_chat(user, span_warning("The provided ship name is too long, blares the [src]."))
 		return FALSE
 	if(OOC_FILTER_CHECK(str))
 		to_chat(user, span_warning("Nanotrasen prohibited words are in use in this shuttle name, blares the [src] in a slightly offended tone."))
@@ -392,7 +389,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(!port || !istype(port, /obj/docking_port/mobile))
 		return FALSE
 	var/static/list/choice = list("NORTH" = NORTH, "SOUTH" = SOUTH, "EAST" = EAST, "WEST" = WEST)
-	var/Pdir = input(user, "Shuttle Fly Direction:", "Blueprint Editing", "NORTH") as null|anything in list("NORTH", "SOUTH", "EAST", "WEST")
+	var/Pdir = tgui_input_list(user, "Shuttle Fly Direction:", "Blueprint Editing", list("NORTH", "SOUTH", "EAST", "WEST"), "NORTH")
 	if(Pdir)
 		port.preferred_direction = choice[Pdir]
 
