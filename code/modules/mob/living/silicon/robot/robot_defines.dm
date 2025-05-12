@@ -107,8 +107,6 @@
 	/// So they can initialize sparks whenever/N
 	var/datum/effect_system/spark_spread/spark_system
 
-	/// The last time this mob was flashed. Used for flash cooldowns
-	var/last_flashed = 0
 	/// VTEC speed boost.
 	var/speed = 0
 	/// Magboot-like effect.
