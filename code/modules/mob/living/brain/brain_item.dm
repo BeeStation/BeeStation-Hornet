@@ -19,6 +19,8 @@
 	low_threshold = 45
 	high_threshold = 120
 
+	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
+
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
@@ -43,6 +45,10 @@
 		forceMove(C)
 		C.update_hair()
 		return
+
+	if(ai_controller && !special)	//are we a monkey brain?
+		ai_controller.PossessPawn(C)	//Posession code was designed to handle everything
+		ai_controller = null
 
 	if(brainmob)
 		if(C.key)
@@ -69,6 +75,11 @@
 		var/datum/brain_trauma/BT = X
 		BT.on_lose(TRUE)
 		BT.owner = null
+
+	if(C.ai_controller && !special)	//special is called in humanisation/dehumanisation
+		C.ai_controller.set_ai_status(AI_STATUS_OFF)
+		src.ai_controller = C.ai_controller	//AI is stored in the brain but doesn't control it.
+		C.ai_controller.UnpossessPawn(FALSE)	//The body no longer has AI.
 
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
 		if(C.mind)
@@ -178,7 +189,7 @@
 /obj/item/organ/brain/pre_compost(user)
 	return FALSE
 
-/obj/item/organ/brain/on_life()
+/obj/item/organ/brain/on_life(delta_time, times_fired)
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, span_userdanger("The last spark of life in your brain fizzles out."))
 		owner.investigate_log("has been killed by brain damage.", INVESTIGATE_DEATHS)
@@ -255,13 +266,8 @@
 					H.revive(0)
 
 /obj/item/organ/brain/positron/emp_act(severity)
-	switch(severity)
-		if(1)
-			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
-			to_chat(owner, span_warning("Alert: Posibrain heavily damaged."))
-		if(2)
-			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
-			to_chat(owner, span_warning("Alert: Posibrain damaged."))
+	owner.apply_status_effect(/datum/status_effect/ipc/emp)
+	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 

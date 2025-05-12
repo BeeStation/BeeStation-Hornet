@@ -40,6 +40,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/ai_hud_on = FALSE //Is the AI Viewrange HUD currently enabled?
 	var/health_scan = FALSE //Are health scans currently enabled?
 	var/gas_scan = FALSE //Are gas scans currently enabled?
+	var/virus_scan = FALSE //Are virus extrapolator scans currently enabled?
+	var/genetics_scan = FALSE //Are genetic scans currently enabled?
+	var/nanite_scan = FALSE //Are nanite scans currently enabled?
 	var/list/datahuds = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED) //list of data HUDs shown to ghosts.
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
@@ -156,6 +159,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	ADD_TRAIT(src, TRAIT_SECURITY_HUD, ref(src))
 
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
+
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
 
@@ -233,7 +238,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		var/datum/sprite_accessory/S
 		if(facial_hair_style)
 			S = GLOB.facial_hair_styles_list[facial_hair_style]
-			if(S)
+			if(S?.icon_state)
 				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(facial_hair_color)
 					facial_hair_overlay.color = "#" + facial_hair_color
@@ -241,7 +246,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 				add_overlay(facial_hair_overlay)
 		if(hair_style)
 			S = GLOB.hair_styles_list[hair_style]
-			if(S)
+			if(S?.icon_state)
 				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(hair_color)
 					hair_overlay.color = "#" + hair_color
@@ -785,6 +790,42 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("Gas scan enabled."))
 		gas_scan = TRUE
 
+/mob/dead/observer/verb/toggle_virus_scan()
+	set name = "Toggle Virus Scan"
+	set desc = "Toggles whether you scan for viruses on click"
+	set category = "Ghost"
+
+	if(virus_scan)
+		to_chat(src, span_notice("Virus scan disabled."))
+		virus_scan = FALSE
+	else
+		to_chat(src, span_notice("Virus scan enabled."))
+		virus_scan = TRUE
+
+/mob/dead/observer/verb/toggle_genetics_scan()
+	set name = "Toggle Genetics Scan"
+	set desc = "Toggles whether you can scan the genetics of a living beings on click"
+	set category = "Ghost"
+
+	if(genetics_scan)
+		to_chat(src, span_notice("Genetics scan disabled."))
+		genetics_scan = FALSE
+	else
+		to_chat(src, span_notice("Genetics scan enabled."))
+		genetics_scan = TRUE
+
+/mob/dead/observer/verb/toggle_nanite_scan()
+	set name = "Toggle Nanite Scan"
+	set desc = "Toggles whether you can scan the nanties of a living beings on click"
+	set category = "Ghost"
+
+	if(nanite_scan)
+		to_chat(src, span_notice("Nanite scan disabled."))
+		nanite_scan = FALSE
+	else
+		to_chat(src, span_notice("Nanite scan enabled."))
+		nanite_scan = TRUE
+
 /mob/dead/observer/verb/restore_ghost_appearance()
 	set name = "Restore Ghost Character"
 	set desc = "Sets your deadchat name and ghost appearance to your \
@@ -859,6 +900,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
+/mob/dead/observer/verb/cancel_camera_ghosts()
+	set name = "Cancel Camera View"
+	set category = "Ghost"
+	reset_perspective(null)
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
+
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
 	set category = "Ghost"
@@ -878,6 +925,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && istype(mob_eye))
 		client.set_eye(mob_eye)
+		add_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 		if(mob_eye.hud_used)
 			client.screen = list()
 			LAZYINITLIST(mob_eye.observers)

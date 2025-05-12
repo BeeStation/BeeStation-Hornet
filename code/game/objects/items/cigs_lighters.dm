@@ -26,6 +26,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/smoketime = 10
 	w_class = WEIGHT_CLASS_TINY
 	heat = 1000
+	throw_verb = "flick"
 	grind_results = list(/datum/reagent/phosphorus = 2)
 	item_flags = ISWEAPON
 

@@ -14,7 +14,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
-	inert_mutation = CATCLAWS
+	inert_mutation = /datum/mutation/catclaws
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
@@ -56,54 +56,16 @@
 		if(prob(40))
 			M.adjust_disgust(20)
 		if(prob(5))
-			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
+			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","sputters!")]"))
 		if(prob(10))
-			var/sick_message = pick("You feel nauseous.", "You're nya't feeling so good.","You feel like your insides are melting.","You feel illsies.")
+			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
 			to_chat(M, span_notice("[sick_message]"))
 		if(prob(15))
-			var/obj/item/organ/guts = pick(M.internal_organs)
-			guts.applyOrganDamage(15)
+			if(locate(/obj/item/organ/stomach) in M.internal_organs)
+				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
+				cat_stomach.applyOrganDamage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
-
-/datum/species/human/felinid/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
-	//Check to make sure legs are working
-	var/obj/item/bodypart/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
-	var/obj/item/bodypart/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
-	if(!left_leg || !right_leg || left_leg.bodypart_disabled || right_leg.bodypart_disabled)
-		return ..()
-	if(levels == 1)
-		//Nailed it!
-		H.visible_message(span_notice("[H] lands elegantly on [H.p_their()] feet!"),
-			span_warning("You fall [levels] level\s into [T], perfecting the landing!"))
-		H.Stun(levels * 35)
-	else
-		H.visible_message(span_danger("[H] falls [levels] level\s into [T], barely landing on [H.p_their()] feet, with a sickening crunch!"))
-		var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.5
-		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
-		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
-		H.adjustBruteLoss(amount_total * 0.1)
-		H.Stun(levels * 50)
-		// SPLAT!
-		// 5: 25%, 4: 16%, 3: 9%
-		if(levels >= 3 && prob(min((levels ** 2), 50)))
-			H.gib()
-			return
-		// owie
-		// 5: 40%, 4: 30%, 3: 20%, 2: 10%
-		if(prob(min((levels - 1) * 10, 75)))
-			if(levels >= 3 && prob(25))
-				for(var/selected_part in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-					var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
-					if(bp)
-						bp.dismember()
-				return
-			var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-			var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
-			if(bp)
-				bp.dismember()
-				return
-
 
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)
@@ -184,7 +146,7 @@
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "angle-double-down",
 			SPECIES_PERK_NAME = "Always Land On Your Feet",
-			SPECIES_PERK_DESC = "Felinids always land on their feet, and take reduced damage from falling.",
+			SPECIES_PERK_DESC = "Felinids always land on their feet, and take reduced damage from falling. Just so long as you keep that tail attached to your body...",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

@@ -821,7 +821,7 @@
 		message += "- Toxicity level: [span_notice("[toxic] / 100")]"
 		message += "- Water level: [span_notice("[waterlevel] / [maxwater]")]"
 		message += "- Nutrition level: [span_notice("[nutrilevel] / [maxnutri]")]"
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+		to_chat(user, examine_block(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -834,7 +834,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		harvest_plant(user)
 		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
-			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
+			O.atom_storage?.attempt_insert(G, user, TRUE)
 
 	else if(default_unfasten_wrench(user, O))
 		return

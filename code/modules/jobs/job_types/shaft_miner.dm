@@ -9,6 +9,9 @@
 	total_positions = 3
 	spawn_positions = 3
 	selection_color = "#dcba97"
+	// Requires a little bit of game knowledge to play appropriately
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/miner
 
@@ -62,12 +65,13 @@
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,\
+		/obj/item/flashlight/seclite=1,
 		/obj/item/knife/combat/survival=1,
 		/obj/item/mining_voucher=1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		/obj/item/gun/energy/recharge/kinetic_accelerator=1,\
-		/obj/item/stack/marker_beacon/ten=1)
+		)
+
+	l_hand = /obj/item/gun/energy/recharge/kinetic_accelerator
 
 /datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

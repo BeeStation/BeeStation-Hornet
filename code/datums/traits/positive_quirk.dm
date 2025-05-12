@@ -18,6 +18,19 @@
 	lose_text = span_danger("You no longer feel like drinking would ease your pain.")
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
 
+/datum/quirk/drunkhealing/process(delta_time)
+	var/mob/living/carbon/carbon_holder = quirk_holder
+	switch(carbon_holder.drunkenness)
+		if (6 to 40)
+			carbon_holder.adjustBruteLoss(-0.1*delta_time, FALSE)
+			carbon_holder.adjustFireLoss(-0.05*delta_time, FALSE)
+		if (41 to 60)
+			carbon_holder.adjustBruteLoss(-0.4*delta_time, FALSE)
+			carbon_holder.adjustFireLoss(-0.2*delta_time, FALSE)
+		if (61 to INFINITY)
+			carbon_holder.adjustBruteLoss(-0.8*delta_time, FALSE)
+			carbon_holder.adjustFireLoss(-0.4*delta_time, FALSE)
+
 /datum/quirk/empath
 	name = "Empath"
 	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel."

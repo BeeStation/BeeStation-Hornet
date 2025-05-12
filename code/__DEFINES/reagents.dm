@@ -127,3 +127,37 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 //used by chem master
 #define CONDIMASTER_STYLE_AUTO "auto"
 #define CONDIMASTER_STYLE_FALLBACK "_"
+
+///reagent tags - used to look up reagents for specific effects. Feel free to add to but comment it
+/// This reagent does brute effects (BOTH damaging and healing)
+#define REACTION_TAG_BRUTE (1<<0)
+/// This reagent does burn effects (BOTH damaging and healing)
+#define REACTION_TAG_BURN (1<<1)
+/// This reagent does toxin effects (BOTH damaging and healing)
+#define REACTION_TAG_TOXIN (1<<2)
+/// This reagent does oxy effects (BOTH damaging and healing)
+#define REACTION_TAG_OXY (1<<3)
+/// This reagent does clone effects (BOTH damaging and healing)
+#define REACTION_TAG_CLONE (1<<4)
+/// This reagent primarily heals, or it's supposed to be used for healing (in the case of c2 - they are healing)
+#define REACTION_TAG_HEALING (1<<5)
+/// This reagent primarily damages
+#define REACTION_TAG_DAMAGING (1<<6)
+/// This reagent explodes as a part of it's intended effect (i.e. not overheated/impure)
+#define REACTION_TAG_EXPLOSIVE (1<<7)
+/// This reagent does things that are unique and special
+#define REACTION_TAG_OTHER (1<<8)
+/// This reagent affects organs
+#define REACTION_TAG_ORGAN (1<<9)
+/// This reaction creates a drink reagent
+#define REACTION_TAG_DRINK (1<<10)
+/// This reaction has something to do with food
+#define REACTION_TAG_FOOD (1<<11)
+/// This reaction is a slime reaction
+#define REACTION_TAG_SLIME (1<<12)
+/// This reaction is a drug reaction
+#define REACTION_TAG_DRUG (1<<13)
+/// This reaction is produces a product that affects reactions
+#define REACTION_TAG_CHEMICAL (1<<14)
+/// This reaction is produces a product that affects plants
+#define REACTION_TAG_PLANT (1<<15)

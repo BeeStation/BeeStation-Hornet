@@ -558,6 +558,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	. = F
 	F.set_mats_per_unit(mats_per_unit, 1) // Required for greyscale sheets and tiles.
 	F.copy_evidences(src)
+	loc.atom_storage?.refresh_views()
 	if(user)
 		if(!user.put_in_hands(F, merge_stacks = FALSE))
 			F.forceMove(user.drop_location())

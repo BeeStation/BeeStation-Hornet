@@ -5,7 +5,11 @@
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	item_state = "fedora"
 	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+
+/obj/item/clothing/head/fedora/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/small/fedora)
 
 /obj/item/clothing/head/fedora/suicide_act(mob/living/user)
 	if(user.gender == FEMALE)

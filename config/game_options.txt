@@ -81,11 +81,15 @@ HUMANS_NEED_SURNAMES
 ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced.
 ALERT_BLUE_UPTO The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted.
 ALERT_BLUE_DOWNTO The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.
-ALERT_RED_UPTO There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Additionally, access requirements on some doors have been lifted.
-ALERT_RED_DOWNTO The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
+ALERT_RED_UPTO There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.
+ALERT_RED_DOWNTO There is still an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
 ALERT_DELTA Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.
-
-
+ALERT_ENGINEERING The security alert level has been changed to yellow (Engineering). There is currently a critical engineering issue on the station. All crewmembers are instructed to obey all instructions given by the Chief Engineer for the duration of this alert.
+ALERT_MEDICAL The security alert level has been changed to yellow (Medical). There is an ongoing C-B-R-N threat to the station. Crewmembers are advised to don protective gear, and personal oxygen systems. All crew are instructed to obey all instructions given by the Chief Medical Officer for the duration of this alert.
+ALERT_GAMMA Central Command has ordered the Gamma security level on the station. This station is now under direct central command control. Central command personnel are to be listened to in favor of heads of staff.
+ALERT_BLACK Central Command has detected multiple syndicate infiltrator ships incoming. All crew are to prepare for hostile boarding. Any violations of orders from security personnel are punishable by death. This is not a drill, evacuate the station immediately.
+ALERT_LAMBDA Central Command has detected a large spike of dimensional energy, consistent with the summoning of \[REDACTED\] entities. Any violations of orders from Heads of Staff and security can be punished by death. All crew are recommended to evacuate if possible.
+ALERT_EPSILON Central Command has ordered the Epsilon security level on the station. Consider your contracts terminated.
 
 ## GAME MODES ###
 
@@ -105,7 +109,6 @@ PROBABILITY CULT 0
 PROBABILITY TRAITORCHAN 0
 PROBABILITY CHANGELING 0
 PROBABILITY ASSIMILATION 0
-PROBABILITY INCURSION 0
 PROBABILITY NUCLEAR 0
 PROBABILITY CLOCKCULT 0
 PROBABILITY SECRET_EXTENDED 0
@@ -136,7 +139,6 @@ REPEATED_MODE_ADJUST 45 30 10
 CONTINUOUS TRAITOR
 CONTINUOUS TRAITORBRO
 CONTINUOUS TRAITORCHAN
-CONTINUOUS INCURSION
 CONTINUOUS INTERNAL_AFFAIRS
 #CONTINUOUS NUCLEAR
 #CONTINUOUS REVOLUTION
@@ -163,7 +165,6 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
-MIDROUND_ANTAG INCURSION
 #MIDROUND_ANTAG TRAITORBRO
 MIDROUND_ANTAG TRAITORCHAN
 MIDROUND_ANTAG INTERNAL_AFFAIRS
@@ -215,9 +216,6 @@ MAX_POP DEVIL -1
 MIN_POP DEVIL_AGENTS 25
 MAX_POP DEVIL_AGENTS -1
 
-MIN_POP INCURSION 22
-MAX_POP INCURSION -1
-
 ## Setting at least one mode to be playable at 0/1 players is required.
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
@@ -267,16 +265,6 @@ PROTECT_HEADS_FROM_ANTAGONIST
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
-
-## Incursion Rules
-## The more incursion-traitors spawn, the most pop is required to spawn the next
-## Values of 6 and 2 will be 6 for 1 then (6) + (6 + 2) for 2
-## 6, 14, 24, 36, 50, 66, 84
-INCURSION_COST_BASE 6
-INCURSION_COST_INCREMENT 0.25
-INCURSION_COUNT_MAX 6
-INCURSION_COUNT_MIN 2
-INCURSION_OBJECTIVE_AMOUNT 4
 
 ## Comment this out to disable the antagonist reputation system. This system rewards players who participate in the game instead of greytiding by giving them slightly higher odds to
 ## roll antagonist in subsequent rounds until they get it.

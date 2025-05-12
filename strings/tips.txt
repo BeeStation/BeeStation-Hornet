@@ -282,3 +282,5 @@ You can put holy water in darts to make them more effective against cultists. Or
 Don't know what a word means? https://wiki.beestation13.com/view/Terminology
 You are able to block with most weapons! Being on any intent but harm and walking speed allows almost anything to block. More info: https://wiki.beestation13.com/view/Guide_to_Combat#Blocking
 Embedded items can be removed safely using a hemostat. If you don't have one on hand, try using a screwdriver or wirecutters; get creative!
+In a pinch, stripping yourself naked will give you a sizeable resistance to being tackled. What do you value more, your freedom or your dignity?
+Wearing riot armor makes you significantly more effective at performing tackle takedowns, but will use extra stamina with each leap! It will also significantly protect you from other tackles!

@@ -140,11 +140,11 @@
 	attack_sound = 'sound/weapons/slap.ogg'
 	attack_verb_continuous = "slaps"
 
-/mob/living/simple_animal/hostile/bear/butter/Life() //Heals butter bear really fast when he takes damage.
+/mob/living/simple_animal/hostile/bear/butter/Life(delta_time = SSMOBS_DT, times_fired) //Heals butter bear really fast when he takes damage.
 	if(stat)
 		return
 	if(health < maxHealth)
-		heal_overall_damage(10) //Fast life regen, makes it hard for you to get eaten to death.
+		heal_overall_damage(5 * delta_time) //Fast life regen, makes it hard for you to get eaten to death.
 
 /mob/living/simple_animal/hostile/bear/butter/attack_hand(mob/living/L) //Borrowed code from Cak, feeds people if they hit you. More nutriment but less vitamin to represent BUTTER.
 	..()

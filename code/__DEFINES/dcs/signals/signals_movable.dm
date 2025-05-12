@@ -16,9 +16,16 @@
 #define COMSIG_MOVABLE_CROSS "movable_cross"
 ///from base of atom/movable/Move(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSS_OVER "movable_cross_am"
+#define COMSIG_MOVABLE_UNCROSSED "movable_uncrossed" 			///from base of atom/movable/Uncrossed(): (/atom/movable)
 ///from base of atom/movable/Bump(): (/atom)
 #define COMSIG_MOVABLE_BUMP "movable_bump"
 #define COMSIG_MOVABLE_IMPACT "movable_impact"					//! from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
+
+///from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
+#define COMSIG_MOVABLE_PRE_IMPACT "movable_pre_impact"
+	#define COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH (1<<0)					///if true, flip if the impact will push what it hits
+	#define COMPONENT_MOVABLE_IMPACT_NEVERMIND (1<<1)					///return true if you destroyed whatever it was you're impacting and there won't be anything for hitby() to run on
+
 ///from base of mob/living/hitby(): (mob/living/target, hit_zone)
 #define COMSIG_MOVABLE_IMPACT_ZONE "item_impact_zone"
 ///from /atom/movable/proc/buckle_mob(): (mob/living/M, force, check_loc, buckle_mob_flags)
@@ -31,6 +38,7 @@
 ///from /obj/vehicle/proc/driver_move, caught by the riding component to check and execute the driver trying to drive the vehicle
 #define COMSIG_RIDDEN_DRIVER_MOVE "driver_move"
 	#define COMPONENT_DRIVER_BLOCK_MOVE (1<<0)
+
 #define COMSIG_MOVABLE_PULLED "movable_pulled"						//! signal sent out by an atom when it is being pulled by something else : (atom/puller)
 #define COMSIG_MOVABLE_NO_LONGER_PULLED "movable_no_longer_pulled"	//! signal sent out by an atom when it is no longer being pulled by something else : (atom/puller)
 ///from base of atom/movable/throw_at(): (list/args)
@@ -72,13 +80,6 @@
 #define COMSIG_MOVABLE_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
 	///prevents pressure movement
 	#define COMSIG_MOVABLE_BLOCKS_PRESSURE (1<<0)
-
-///from base of atom/movable/on_enter_storage(): (datum/component/storage/concrete/master_storage)
-#define COMSIG_STORAGE_ENTERED "storage_entered"
-///from base of atom/movable/on_exit_storage(): (datum/component/storage/concrete/master_storage)
-#define COMSIG_STORAGE_EXITED "storage_exited"
-
-
 
 // /datum/element/movetype_handler signals
 /// Called when the floating anim has to be temporarily stopped and restarted later: (timer)

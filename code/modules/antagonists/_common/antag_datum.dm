@@ -390,11 +390,11 @@ GLOBAL_LIST(admin_antag_list)
 	var/mob/living/carbon/C = mob_override
 	if(C && istype(C) && C.has_dna() && owner.assigned_role == JOB_NAME_CLOWN)
 		if(removing) // They're a clown becoming an antag, remove clumsy
-			C.dna.remove_mutation(CLOWNMUT)
+			C.dna.remove_mutation(/datum/mutation/clumsy)
 			if(!silent && message)
 				to_chat(C, span_boldnotice("[message]"))
 		else
-			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
+			C.dna.add_mutation(/datum/mutation/clumsy) // We're removing their antag status, add back clumsy
 
 //button for antags to review their descriptions/info
 /datum/action/antag_info

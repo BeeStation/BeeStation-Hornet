@@ -8,8 +8,10 @@
 	total_positions = 3
 	spawn_positions = 3
 	minimal_player_age = 3
-	exp_requirements = 900
-	exp_type = EXP_TYPE_CREW
+	// Requires 1 round as a scientist to unlock, which itself reuqires
+	// 2 hours as crew.
+	exp_requirements = 60
+	exp_type = EXP_TYPE_SCIENCE
 	selection_color = "#ffeeff"
 
 	outfit = /datum/outfit/job/exploration_crew
@@ -101,10 +103,10 @@
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/pinpointer/crew=1,
 		/obj/item/sensor_device=1,
-		/obj/item/rollerbed=1,
 		/obj/item/discovery_scanner=1
 	)
 
+	r_hand = /obj/item/rollerbed
 	l_hand = /obj/item/storage/firstaid/medical
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

@@ -26,7 +26,7 @@
 	speedmod = 1.2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
-	inert_mutation = DRONE
+	inert_mutation = /datum/mutation/drone
 	deathsound = "sound/emotes/diona/death.ogg"
 	species_bitflags = NOT_TRANSMORPHIC
 
@@ -59,7 +59,7 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)
 		H.take_overall_damage(1,0)
 	if(H.stat != CONSCIOUS)
-		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		H.remove_status_effect(/datum/status_effect/planthealing)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
 		split_ability.split(FALSE, H)
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
@@ -71,7 +71,7 @@
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(!isturf(H.loc)) //else, there's considered to be no light
-		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		H.remove_status_effect(/datum/status_effect/planthealing)
 		time_spent_in_light = 0  //No light? Reset the timer.
 		return
 	var/turf/T = H.loc
@@ -81,9 +81,9 @@
 		time_spent_in_light++  //If so, how long have we been somewhere with light?
 		if(time_spent_in_light > 5) //More than 5 seconds spent in the light
 			if(H.stat != CONSCIOUS)
-				H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+				H.remove_status_effect(/datum/status_effect/planthealing)
 				return
-			H.apply_status_effect(STATUS_EFFECT_PLANTHEALING)
+			H.apply_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
@@ -155,8 +155,8 @@
 	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
 	for(var/status_effect as anything in H.status_effects)
-		if(status_effect == STATUS_EFFECT_PLANTHEALING)
-			H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		if(status_effect == /datum/status_effect/planthealing)
+			H.remove_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.diona_names)]"

@@ -142,9 +142,9 @@
 #endif
 
 
-//Someone else should probably update this once LINDA is fully merged. Probably Bacon or Crossed.
 #if defined(OPENDREAM) && !defined(CIBUILDING)
-#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+#warn You are building with OpenDream. Remember to build TGUI manually.
+#warn You can do this by running tgui-build.cmd from the bin directory.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)
 #warn Building with Dream Maker is no longer supported and will result in missing interface files.
 #warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.

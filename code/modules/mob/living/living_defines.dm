@@ -173,3 +173,5 @@
 	/// What our current gravity state is. Used to avoid duplicate animates and such
 	var/gravity_state = null
 
+	//If we are currently leaning on something, and what that object is
+	var/atom/leaned_object

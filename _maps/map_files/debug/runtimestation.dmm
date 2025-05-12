@@ -2224,11 +2224,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/space/nearstation)
-"jU" = (
-/obj/structure/table,
-/obj/item/melee/transforming/energy/axe,
-/turf/open/floor/iron,
-/area/storage/primary)
 "kn" = (
 /obj/machinery/light{
 	dir = 1
@@ -2335,6 +2330,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/turf/open/floor/iron,
+/area/storage/primary)
+"ot" = (
+/obj/structure/table,
+/obj/item/melee/energy/axe,
 /turf/open/floor/iron,
 /area/storage/primary)
 "ou" = (
@@ -8068,7 +8068,7 @@ dJ
 dJ
 dJ
 dJ
-jU
+ot
 cS
 fQ
 fZ

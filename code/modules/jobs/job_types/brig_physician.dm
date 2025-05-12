@@ -10,8 +10,8 @@
 	spawn_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
-	exp_requirements = 120
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 60
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brig_physician
 
 	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT,  ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)

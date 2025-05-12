@@ -23,38 +23,57 @@
 	/// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
 	var/goodie_count = 1
 
+	// List of weird things and contraband that can come in the mail
 	var/static/list/generic_goodies = list(
-		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
-		/obj/item/reagent_containers/cup/soda_cans/pwr_game			= 10,
-		/obj/item/reagent_containers/cup/soda_cans/monkey_energy	= 10,
-		/obj/item/food/cheesiehonkers 			= 10,
-		/obj/item/food/candy						= 10,
-		/obj/item/food/chips						= 10,
-		/obj/item/stack/spacecash/c50 										= 10,
-		/obj/item/stack/spacecash/c100 										= 25,
-		/obj/item/stack/spacecash/c200 										= 15,
-		/obj/item/stack/spacecash/c500 										= 5,
-		/obj/item/stack/spacecash/c1000 									= 1
+		/obj/item/stack/spacecash/c500 = 2,
+		/obj/item/stack/spacecash/c1000 = 1,
+		/obj/item/clothing/suit/armor/vest = 1,
+		/obj/item/stack/sheet/telecrystal = 1,
+		/obj/item/knife = 3,
+		/obj/item/knife/ritual = 1,
+		/obj/item/clothing/neck/heretic_focus = 1,
+		/obj/item/clothing/suit/costume/vapeshirt = 1,
+		/obj/item/clothing/suit/costume/nerdshirt = 1,
+		/obj/item/clothing/under/syndicate/combat = 1,
+		/obj/item/gun/ballistic/automatic/pistol/service = 1,
+		/obj/item/gun/ballistic/automatic/pistol/m1911/no_mag = 1,
+		/obj/item/ammo_box/magazine/m45 = 1,
+		/obj/item/gun/energy/floragun = 1,
+		/obj/item/gun/energy/ionrifle = 1,
+		/obj/item/grenade/empgrenade = 1,
+		/obj/item/grenade/smokebomb = 1,
+		/obj/item/storage/belt = 1,
+		/obj/item/clothing/gloves/color/yellow = 1,
+		/obj/item/clothing/gloves/color/black = 1,
+		/obj/item/clothing/accessory/holster = 1,
+		/obj/item/clothing/head/cone = 1,
+		/obj/item/clothing/head/beanie/green = 1,
+		/obj/item/clothing/head/beanie/orange = 1,
+		/obj/item/clothing/head/beanie/red = 1,
+		/obj/item/clothing/head/beanie/purple = 1,
+		/obj/item/clothing/shoes/laceup = 1,
+		/obj/item/storage/belt/military/army = 1,
+		/obj/item/tank/jetpack/carbondioxide = 1,
+		/obj/item/tank/jetpack/suit = 1,
+		/obj/item/clothing/ears/headphones = 1,
+		/obj/item/camera = 1,
+		/obj/item/gps = 1,
+		/obj/item/soap = 1,
+		/obj/item/clothing/glasses/sunglasses/advanced = 1,
+		/obj/item/screwdriver = 1,
+		/obj/item/weldingtool = 1,
+		/obj/item/wrench = 1,
+		/obj/item/multitool = 1,
+		/obj/item/crowbar = 1,
+		/obj/item/wirecutters = 1,
+		/obj/item/gun/ballistic/automatic/pistol/service = 1,
+		/obj/item/ammo_box/magazine/recharge/service = 1,
+		/obj/item/powertool/hand_drill = 1,
+		/obj/item/powertool/jaws_of_life = 1,
+		/obj/item/weldingtool/experimental = 1,
+		/obj/item/scalpel/advanced = 1,
+		/obj/item/switchblade/plastitanium = 1
 	)
-
-	//if the goodie is dangerous for the station, in this list it goes
-	var/static/list/hazard_goodies = list(
-			/obj/item/gun/ballistic/rifle/boltaction,
-			/obj/item/construction/rcd/arcd,
-			/obj/item/reagent_containers/spray/waterflower/superlube,
-			/mob/living/simple_animal/hostile/retaliate/clown,
-			/obj/item/clothing/accessory/holster/detective,
-			/obj/item/reagent_containers/hypospray/medipen/pumpup,
-			/obj/item/firing_pin,
-			/obj/item/storage/lockbox/loyalty,
-			/obj/item/grenade/clusterbuster/cleaner,
-			/obj/item/book/granter/action/spell/mime,
-			/obj/item/gun/ballistic/rifle/boltaction/enchanted,
-			/obj/item/melee/classic_baton/police/telescopic,
-			/obj/item/reagent_containers/cup/bottle/random_virus/minor,
-			/obj/item/reagent_containers/cup/bottle/random_virus,
-			/obj/item/gun/ballistic/revolver/nagant
-		)
 
 	/// Overlays (pure fluff), Does the letter have the postmark overlay?
 	/// Does the letter have postmarks?
@@ -165,13 +184,14 @@
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
-	if(contents.len)
-		user.put_in_hands(contents[1])
+	for (var/obj/item/item in contents)
+		if (!user.put_in_hands(item))
+			item.forceMove(get_turf(user))
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
 // Accepts a mind to initialize goodies for a piece of mail.
-/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
+/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient, list/received_report)
 	switch(rand(1,5))
 		if(5)
 			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
@@ -183,8 +203,6 @@
 	var/mob/living/body = recipient.current
 	//Load the generic list of goodies
 	var/list/goodies = generic_goodies.Copy()
-	//Load the List of Dangerous goodies
-	var/list/danger_goodies = hazard_goodies
 
 	//Load the job the player have
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
@@ -198,65 +216,18 @@
 		if(!color)
 			color = COLOR_WHITE
 
-
 	for(var/i in 1 to goodie_count)
 		var/target_good = pick_weight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
-		if(target_atom.type in danger_goodies)
-			message_admins(span_adminnotice("<b><font color=orange>DANGEROUS ITEM RECEIVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.assigned_role]"))
+		received_report += "[key_name(body)] received [target_atom.name]"
 
-	return TRUE
-
-// Alternate setup, just complete garbage inside and anyone can open
-/obj/item/mail/proc/junk_mail()
-
-	var/obj/junk = /obj/item/paper/fluff/junkmail_generic
-	var/special_name = FALSE
-	add_overlay("[initial(icon_state)]-spam")
-
-	if(prob(25))
-		special_name = TRUE
-		junk = pick(list(/obj/item/paper/pamphlet/gateway,
-						/obj/item/paper/pamphlet/violent_video_games,
-						/obj/item/paper/fluff/junkmail_redpill,
-						/obj/item/paper/fluff/nice_argument
-						))
-
-	var/static/list/junk_names = list(
-		/obj/item/paper/pamphlet/gateway = "mail for [pick(GLOB.adjectives)] adventurers",
-		/obj/item/paper/pamphlet/violent_video_games = "mail for the truth about the arcade centcom doesn't want to hear",
-		/obj/item/paper/fluff/junkmail_redpill = "mail for those feeling [pick(GLOB.adjectives)] working at Nanotrasen",
-		/obj/item/paper/fluff/nice_argument = "mail with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
-	)
-
-	//better spam mail names instead of being "IMPORTANT MAIL", courtesy of Monkestation
-	color = "#[pick(random_short_color())]"
-	switch(rand(1,10))
-
-		if(1,2)
-			if (length(GLOB.alive_mob_list))
-				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
-		if(3,4)
-			if (length(GLOB.player_list))
-				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
-		if(5)
-			name = special_name ? junk_names[junk] : "DO NOT OPEN"
-		else
-			name = special_name ? junk_names[junk] : "[pick("important","critical","crucial","serious","vital")] [initial(name)]"
-
-	junk = new junk(src)
 	return TRUE
 
 /obj/item/mail/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
 	if(!hasmob)
 		disposal_holder.destinationTag = sort_tag
-
-// Subtype that's always junkmail
-/obj/item/mail/junkmail/Initialize(mapload)
-	. = ..()
-	junk_mail()
 
 /obj/structure/closet/crate/mail
 	name = "mail crate"
@@ -280,26 +251,20 @@
 
 		mail_recipients += human.mind
 
-	if(mail_count < 15)
-		for(var/i in 1 to rand(3,8))
-			var/obj/item/mail/new_mail
-			if(prob(FULL_CRATE_LETTER_ODDS))
-				new_mail = new /obj/item/mail(src)
-			else
-				new_mail = new /obj/item/mail/envelope(src)
-			new_mail.junk_mail()
+	var/list/received_report = list()
 
 	for(var/i in 1 to mail_count)
 		var/datum/mind/recipient = pick_n_take(mail_recipients)
+		if (!recipient)
+			break
 		var/obj/item/mail/new_mail
 		if(prob(FULL_CRATE_LETTER_ODDS))
 			new_mail = new /obj/item/mail(src)
 		else
 			new_mail = new /obj/item/mail/envelope(src)
-		if(recipient)
-			new_mail.initialize_for_recipient(recipient)
-		else
-			new_mail.junk_mail()
+		new_mail.initialize_for_recipient(recipient, received_report)
+
+	to_chat(GLOB.admins, "<span class='adminhelp_conclusion'><span class='bold big'>Mail Report</span><br>[span_adminnotice(jointext(received_report, "\n"))]</span>")
 
 	update_icon()
 
@@ -356,13 +321,3 @@
 //admin letter enabling players to brute force their way through the nuke code if they're so inclined.
 /obj/item/paper/fluff/junkmail_redpill/true
 	nuclear_option_odds = 100
-
-/obj/item/paper/fluff/junkmail_generic
-	name = "important document"
-	desc = "I wonder what's so important here..."
-	icon_state = "paper_spam"
-	color = "#FFCCFF"
-
-/obj/item/paper/fluff/junkmail_generic/Initialize(mapload)
-	default_raw_text = pick(GLOB.junkmail_messages)
-	return ..()

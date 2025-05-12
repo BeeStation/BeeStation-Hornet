@@ -3918,17 +3918,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
-"Ct" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 3;
-	height = 10;
-	id = "mining_away";
-	name = "lavaland mine";
-	width = 10
-	},
-/turf/open/floor/plating/lavaland,
-/area/lavaland/surface/outdoors)
 "Cv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -5181,6 +5170,17 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Lh" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "mining_away";
+	name = "lavaland mine";
+	width = 10
+	},
+/turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
 "Lk" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -39082,7 +39082,7 @@ Xa
 hb
 SX
 PA
-Ct
+Lh
 rf
 rf
 rf

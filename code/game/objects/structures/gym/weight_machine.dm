@@ -97,7 +97,7 @@
 			user.client.give_award(/datum/award/achievement/misc/weights, user)
 		if(ishuman(user))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-			user.apply_status_effect(STATUS_EFFECT_EXERCISED, 40)
+			user.apply_status_effect(/datum/status_effect/exercised, 40)
 	end_workout()
 
 /obj/structure/weightmachine/proc/end_workout()

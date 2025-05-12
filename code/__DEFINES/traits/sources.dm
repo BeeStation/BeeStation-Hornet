@@ -86,7 +86,6 @@
 #define NINJA_SUIT_TRAIT "ninja-suit"
 #define ANTI_DROP_IMPLANT_TRAIT "anti-drop-implant"
 #define HIVEMIND_TRAIT "hivemind-trait"
-#define VR_ZONE_TRAIT "vr_zone_trait"
 #define SLEEPING_CARP_TRAIT "sleeping_carp"
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"

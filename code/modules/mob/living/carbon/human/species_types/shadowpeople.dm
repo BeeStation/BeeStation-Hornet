@@ -1,4 +1,6 @@
-#define HEART_RESPAWN_THRESHOLD 40
+/// How many life ticks are required for the nightmare's heart to revive the nightmare.
+#define HEART_RESPAWN_THRESHOLD (80 SECONDS)
+/// A special flag value used to make a nightmare heart not grant a light eater. Appears to be unused.
 #define HEART_SPECIAL_SHADOWIFY 2
 
 /datum/species/shadow
@@ -23,15 +25,15 @@
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
 
-/datum/species/shadow/spec_life(mob/living/carbon/human/H)
+/datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
-			H.take_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+			H.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -47,7 +49,7 @@
 /datum/species/shadow/get_species_lore()
 	return list(
 		"Long ago, the Spinward Sector used to be inhabited by terrifying aliens aptly named \"Shadowlings\" \
-		after their control over darkness, and tendancy to kidnap victims into the dark maintenance shafts. \
+		after their control over darkness, and tendency to kidnap victims into the dark maintenance shafts. \
 		Around 2558, the long campaign Nanotrasen waged against the space terrors ended with the full extinction of the Shadowlings.",
 
 		"Victims of their kidnappings would become brainless thralls, and via surgery they could be freed from the Shadowling's control. \
@@ -56,7 +58,7 @@
 
 		"With Shadowlings long gone, their will is their own again. But their bodies have not reverted, burning in exposure to light. \
 		Nanotrasen has assured the victims that they are searching for a cure. No further information has been given, even years later. \
-		Most shadowpeople now assume Nanotrasen has long since shelfed the project.",
+		Most shadowpeople now assume Nanotrasen has long since shelved the project.",
 	)
 
 /datum/species/shadow/create_pref_unique_perks()
@@ -171,7 +173,7 @@
 	if(M != user)
 		return ..()
 	user.visible_message(span_warning("[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!"), \
-						span_danger("[src] feels unnaturally cold in your hands. You raise [src] your mouth and devour it!"))
+						span_danger("[src] feels unnaturally cold in your hands. You raise [src] to your mouth and devour it!"))
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
 
 
@@ -199,14 +201,14 @@
 /obj/item/organ/heart/nightmare/update_icon()
 	return //always beating visually
 
-/obj/item/organ/heart/nightmare/on_death()
+/obj/item/organ/heart/nightmare/on_death(delta_time, times_fired)
 	if(!owner)
 		return
 	var/turf/T = get_turf(owner)
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
-			respawn_progress++
+			respawn_progress += delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
 		owner.revive(full_heal = TRUE)
@@ -346,7 +348,7 @@
 	if(!isOn())
 		return
 	if(light_eater)
-		loc.visible_message(span_danger("The the integrated welding tool is snuffed out by [light_eater]!"))
+		loc.visible_message(span_danger("The integrated welding tool is snuffed out by [light_eater]!"))
 		disable()
 	..()
 

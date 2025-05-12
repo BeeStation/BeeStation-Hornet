@@ -133,6 +133,7 @@
 	equip_delay_other = 80
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/toggle_spacesuit)
+	pockets = FALSE
 	var/temperature_setting = BODYTEMP_NORMAL /// The default temperature setting
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high /// If this is a path, this gets created as an object in Initialize.
 	var/cell_cover_open = FALSE /// Status of the cell cover on the suit
@@ -169,9 +170,9 @@
 		human.update_spacesuit_hud_icon("0")
 
 // Space Suit temperature regulation and power usage
-/obj/item/clothing/suit/space/process()
-	var/mob/living/carbon/human/user = loc
-	if(!user || !ishuman(user) || user.wear_suit != src)
+/obj/item/clothing/suit/space/process(delta_time)
+	var/mob/living/carbon/human/user = src.loc
+	if(!user || !ishuman(user) || !(user.wear_suit == src))
 		return
 
 	// Do nothing if thermal regulators are off
@@ -193,7 +194,7 @@
 
 	// If we got here, it means thermals are on, the cell is in and the cell has
 	// just had enough charge subtracted from it to power the thermal regulator
-	user.adjust_bodytemperature(get_temp_change_amount((temperature_setting - user.bodytemperature), 0.16))
+	user.adjust_bodytemperature(get_temp_change_amount((temperature_setting - user.bodytemperature), 0.08 * delta_time))
 	update_hud_icon(user)
 
 // Clean up the cell on destroy

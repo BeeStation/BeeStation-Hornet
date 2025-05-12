@@ -138,6 +138,7 @@
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_SECURITY_LEVEL 79 // We need to load before events so that it has a security level to choose from.
 #define INIT_ORDER_ACHIEVEMENTS 	77
+#define INIT_ORDER_XENOARCHAEOLOGY	76
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
 #define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
@@ -163,6 +164,7 @@
 #define INIT_ORDER_DEFAULT			0
 #define INIT_ORDER_AIR				-1
 #define INIT_ORDER_PERSISTENCE		-2 //before assets because some assets take data from SSPersistence
+#define INIT_ORDER_PERSISTENT_PAINTINGS -3 // Assets relies on this
 #define INIT_ORDER_ASSETS			-4
 #define INIT_ORDER_ICON_SMOOTHING	-5
 #define INIT_ORDER_OVERLAY			-6

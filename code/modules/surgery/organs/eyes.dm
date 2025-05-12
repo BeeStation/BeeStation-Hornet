@@ -66,7 +66,7 @@
 	. = ..()
 	eye_color = initial(eye_color)
 
-/obj/item/organ/eyes/on_life()
+/obj/item/organ/eyes/on_life(delta_time, times_fired)
 	..()
 	var/mob/living/carbon/C = owner
 	//since we can repair fully damaged eyes, check if healing has occurred
@@ -142,10 +142,9 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	if(prob(10 * severity))
-		return
-	to_chat(owner, span_warning("Static obfuscates your vision!"))
-	owner.flash_act(visual = 1)
+	if(prob(30/severity))
+		to_chat(owner, span_warning("Static obfuscates your vision!"))
+		owner.flash_act(visual = 1)
 
 /obj/item/organ/eyes/robotic/xray
 	name = "\improper X-ray eyes"

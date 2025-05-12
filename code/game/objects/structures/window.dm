@@ -33,6 +33,8 @@
 	var/hitsound = 'sound/effects/glasshit.ogg'
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.4
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
 
 
 
@@ -84,6 +86,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+	if (flags_1 & ON_BORDER_1)
+		return
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/structure/window/ComponentInitialize()
 	. = ..()
@@ -637,6 +647,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	glass_amount = 2
+
+/obj/structure/window/reinforced/tinted/fulltile/nightclub
+	color = "#9b1d70"
 
 /obj/structure/window/reinforced/fulltile/ice
 	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi'

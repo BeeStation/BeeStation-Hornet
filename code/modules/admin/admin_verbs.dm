@@ -75,6 +75,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/openTicketManager,
 	/client/proc/battle_royale,
 	/client/proc/delete_book,
+	/datum/admins/proc/paintings_manager,
 	/client/proc/cmd_admin_send_pda_msg,
 	/client/proc/fax_panel, /*send a paper to fax*/
 	/datum/admins/proc/display_tags,

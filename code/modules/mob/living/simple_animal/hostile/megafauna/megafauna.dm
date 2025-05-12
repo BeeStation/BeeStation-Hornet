@@ -77,7 +77,7 @@
 	if(health > 0)
 		return
 	else
-		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+		var/datum/status_effect/crusher_damage/C = has_status_effect(/datum/status_effect/crusher_damage)
 		var/crusher_kill = FALSE
 		if(C && C.total_damage >= maxHealth * 0.6)
 			crusher_kill = TRUE

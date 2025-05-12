@@ -158,7 +158,7 @@
 	item_state = "[base_icon_state]_[rounded_vol]"
 
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
-	C.apply_status_effect(STATUS_EFFECT_SYRINGE, src, injectmult)
+	C.apply_status_effect(/datum/status_effect/syringe, src, injectmult)
 	forceMove(C)
 
 /obj/item/reagent_containers/syringe/used

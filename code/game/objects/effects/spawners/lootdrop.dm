@@ -312,7 +312,7 @@
 		/mob/living/simple_animal/hostile/retaliate/clown = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/longface = 1,
-		/mob/living/simple_animal/pet/gondola = 2,
+		/mob/living/basic/pet/gondola = 2,
 		/mob/living/simple_animal/hostile/macrophage/aggro/vector = 2,
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
@@ -436,8 +436,10 @@
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
 				/obj/item/circuitboard/machine/nanite_program_hub,
-				/obj/item/circuitboard/machine/xenoartifact_inbox,
-				/obj/item/circuitboard/computer/xenoartifact_console
+				/obj/item/circuitboard/computer/xenoarchaeology_console,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/scale,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/conductor,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security
@@ -577,7 +579,7 @@
 				/obj/item/dnainjector/lasereyesmut = 7,
 				/obj/item/gun/magic/wand/fireball/inert = 3,
 				/obj/item/pneumatic_cannon = 15,
-				/obj/item/melee/transforming/energy/sword = 7,
+				/obj/item/melee/energy/sword = 7,
 				/obj/item/book/granter/action/spell/knock = 15,
 				/obj/item/book/granter/action/spell/summonitem = 20,
 				/obj/item/book/granter/action/spell/forcewall = 17,
