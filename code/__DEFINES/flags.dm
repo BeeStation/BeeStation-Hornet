@@ -62,6 +62,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HAS_DISASSOCIATED_STORAGE_1 (1<<15)
 /// Is this object currently processing in the atmos object list?
 #define ATMOS_IS_PROCESSING_1 		(1<<16)
+/// Can players recolor this in-game via vendors (and maybe more if support is added)?
+#define IS_PLAYER_COLORABLE_1 (1<<16)
 
 //turf-only flags. These use flags_1 too.
 // These exist to cover /turf and /area at the same time

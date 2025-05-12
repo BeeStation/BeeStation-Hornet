@@ -1007,6 +1007,26 @@
 	desc = "You've been hit with an EMP! You're malfunctioning!"
 	icon_state = "hypnosis"
 
+/datum/status_effect/cyborg_malfunction
+	id = "cyborg_malfunction"
+	examine_text = span_warning("SUBJECTPRONOUN is flashing red error lights!")
+	duration = MALFUNCTION_DURATION
+	alert_type = /atom/movable/screen/alert/status_effect/generic_malfunction
+	status_type = STATUS_EFFECT_REFRESH
+
+/atom/movable/screen/alert/status_effect/generic_malfunction
+	name = "Malfunctioning Electronics"
+	desc = "Your sensors are overloaded! You're malfunctioning!"
+	icon_state = "hypnosis"
+
+/datum/status_effect/cyborg_malfunction/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/malfunction)
+
+/datum/status_effect/cyborg_malfunction/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/malfunction)
+
 /datum/status_effect/slimegrub
 	id = "grub_infection"
 	duration = 60 SECONDS //a redgrub infestation in a slime

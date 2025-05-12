@@ -5317,6 +5317,24 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/engine/atmos)
+"bJF" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/pen{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/machinery/camera/directional/south,
+/obj/effect/turf_decal/guideline/guideline_tri/purple{
+	dir = 8
+	},
+/obj/item/xenoarchaeology_labeler,
+/obj/item/xenoarchaeology_labeler,
+/turf/open/floor/iron,
+/area/science/explab)
 "bJV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -19075,6 +19093,15 @@
 /obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/iron,
 /area/medical/surgery)
+"geZ" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 8;
+	pixel_x = 15;
+	pixel_y = 16
+	},
+/obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
+/turf/open/floor/engine,
+/area/science/explab)
 "gfd" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -19227,22 +19254,6 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/tcommsat/computer)
-"ghh" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/pen{
-	pixel_x = 1;
-	pixel_y = 1
-	},
-/obj/machinery/camera/directional/south,
-/obj/effect/turf_decal/guideline/guideline_tri/purple{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/science/explab)
 "ghm" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -23562,6 +23573,19 @@
 /obj/structure/chair/fancy/corp,
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
+"hGC" = (
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
+	},
+/obj/machinery/computer/xenoarchaeology_console{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/science/explab)
 "hGK" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -24312,6 +24336,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
+"hVd" = (
+/obj/effect/turf_decal/caution,
+/obj/machinery/xenoarchaeology_machine/conductor,
+/turf/open/floor/engine,
+/area/science/explab)
 "hVf" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/mix_input{
 	dir = 8
@@ -24647,6 +24676,18 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"icU" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/analyzer,
+/turf/open/floor/iron,
+/area/science/explab)
 "ido" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -25259,6 +25300,41 @@
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
+"inK" = (
+/obj/structure/closet/crate/secure/weapon{
+	desc = "A secure clothing crate.";
+	name = "formal uniform crate";
+	req_access_txt = "3"
+	},
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/suit/jacket/officer/blue,
+/obj/item/clothing/under/rank/security/warden/formal,
+/obj/item/clothing/suit/jacket/warden/tan,
+/obj/item/clothing/under/rank/security/head_of_security/formal,
+/obj/item/clothing/suit/jacket/hos/blue,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navywarden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "inX" = (
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark/side{
@@ -31889,14 +31965,6 @@
 /obj/effect/landmark/start/cyborg,
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
-"kzq" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 8;
-	pixel_x = 15;
-	pixel_y = 16
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "kzB" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -33810,26 +33878,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main)
-"ljt" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 4;
-	pixel_y = 10
-	},
-/obj/item/analyzer,
-/obj/item/xenoartifact_labeler{
-	pixel_y = 4;
-	pixel_x = -5
-	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 3;
-	pixel_x = -8
-	},
-/turf/open/floor/iron,
-/area/science/explab)
 "ljI" = (
 /obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
@@ -34878,10 +34926,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
-"lBo" = (
-/obj/effect/turf_decal/caution,
-/turf/open/floor/engine,
-/area/science/explab)
 "lBr" = (
 /obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot{
@@ -40630,6 +40674,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
+"nuZ" = (
+/obj/effect/turf_decal/caution,
+/obj/machinery/xenoarchaeology_machine/scale,
+/turf/open/floor/engine,
+/area/science/explab)
 "nvc" = (
 /obj/machinery/computer/records/security{
 	dir = 8
@@ -46397,11 +46446,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"pnz" = (
-/obj/effect/landmark/xeno_spawn,
-/obj/effect/turf_decal/caution,
-/turf/open/floor/engine,
-/area/science/explab)
 "pom" = (
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
 	color = "#267878"
@@ -50811,19 +50855,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
-"qOz" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
-/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
-	dir = 5
-	},
-/turf/open/floor/iron,
-/area/science/explab)
 "qOH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/siding/wood,
@@ -51179,6 +51210,12 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"qVh" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/beacon,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/engine,
+/area/science/explab)
 "qVx" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -51633,42 +51670,6 @@
 	burnt = 1
 	},
 /area/hallway/secondary/service)
-"rcG" = (
-/obj/structure/closet/crate/secure/weapon{
-	desc = "A secure clothing crate.";
-	name = "formal uniform crate";
-	req_access_txt = "3"
-	},
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/suit/jacket/officer/blue,
-/obj/item/clothing/under/rank/security/warden/formal,
-/obj/item/clothing/suit/jacket/warden/tan,
-/obj/item/clothing/under/rank/security/head_of_security/formal,
-/obj/item/clothing/suit/jacket/hos/blue,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navywarden,
-/obj/item/clothing/head/beret/sec/navyhos,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "rcU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
@@ -58311,11 +58312,6 @@
 /obj/machinery/light/floor,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
-"tlS" = (
-/obj/effect/turf_decal/delivery,
-/obj/item/beacon,
-/turf/open/floor/engine,
-/area/science/explab)
 "tlT" = (
 /obj/machinery/computer/atmos_alert,
 /obj/effect/turf_decal/stripes/line,
@@ -65321,12 +65317,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"vzJ" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/xenoartifact_inbox,
-/obj/item/xenoartifact,
-/turf/open/floor/engine,
-/area/science/explab)
 "vAa" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 8
@@ -72527,6 +72517,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
+"xQz" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/xenoartifact,
+/turf/open/floor/engine,
+/area/science/explab)
 "xQT" = (
 /obj/structure/bookcase/random/fiction,
 /obj/machinery/airalarm/directional/north{
@@ -99516,13 +99511,13 @@ nYo
 lAQ
 uUA
 bqO
-ljt
+icU
 rhU
 mYK
 vJq
 nXn
 gTo
-kzq
+geZ
 uUA
 kTh
 lUQ
@@ -99778,8 +99773,8 @@ boq
 boq
 iZa
 qYR
-vzJ
-lBo
+xQz
+hVd
 xfs
 lKT
 lUQ
@@ -100032,11 +100027,11 @@ hip
 boq
 mCG
 boq
-qOz
+hGC
 vJq
 qYR
-tlS
-pnz
+qVh
+nuZ
 uUA
 wnT
 siC
@@ -100289,7 +100284,7 @@ uUA
 tkX
 iyT
 bQR
-ghh
+bJF
 uUA
 stI
 dtM
@@ -101493,7 +101488,7 @@ aZT
 wDS
 tRD
 lQp
-rcG
+inK
 fIN
 sXY
 gjw
