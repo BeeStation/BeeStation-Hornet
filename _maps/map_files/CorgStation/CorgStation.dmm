@@ -69568,9 +69568,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
-"wOJ" = (
-/turf/closed/wall/r_wall,
-/area/space)
 "wOK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution{
@@ -92065,7 +92062,7 @@ lQL
 mhq
 jZK
 wZe
-wOJ
+kxH
 aMT
 aMT
 aMT
@@ -92322,7 +92319,7 @@ ffF
 lIB
 fMP
 kxH
-wOJ
+kxH
 aMT
 aMT
 aMT
