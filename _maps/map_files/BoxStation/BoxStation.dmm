@@ -28051,7 +28051,6 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "hRk" = (
-/obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/tile/techfloorgrid{
 	dir = 6
 	},
@@ -29696,6 +29695,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/tech,
 /area/crew_quarters/fitness)
 "iwc" = (
