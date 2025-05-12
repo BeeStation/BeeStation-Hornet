@@ -333,8 +333,6 @@
 				to_chat(user, span_warning("The cover is locked and cannot be opened!"))
 			else
 				to_chat(user, span_notice("You open the cover."))
-				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
-					Paralyze(5 SECONDS)
 				opened = 1
 				update_icons()
 	else if(istype(attacking_item, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
@@ -533,7 +531,7 @@
 	if(stat != DEAD && !(IsUnconscious() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(last_flashed && last_flashed + FLASHED_COOLDOWN >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+		if(has_status_effect(/datum/status_effect/cyborg_malfunction)) //Blinky red error lights
 			eye_lights.icon_state = "[model.special_light_key ? "[model.special_light_key]":"[model.cyborg_base_icon]"]_fl"
 		else if(lamp_enabled || lamp_doom)
 			eye_lights.icon_state = "[model.special_light_key ? "[model.special_light_key]":"[model.cyborg_base_icon]"]_l"
