@@ -82537,9 +82537,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
 	},
-/obj/machinery/computer/warrant{
-	dir = 4
-	},
 /turf/open/floor/iron/chapel{
 	dir = 8
 	},

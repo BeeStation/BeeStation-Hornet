@@ -27196,15 +27196,15 @@
 "fla" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
-	name = "chemistry Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -46818,15 +46818,15 @@
 	pixel_x = -2;
 	pixel_y = 6
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
-	name = "chemistry Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -47149,10 +47149,6 @@
 /area/hallway/primary/central)
 "mFf" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
-	name = "chemistry Shutters"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -47161,6 +47157,10 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -56289,14 +56289,6 @@
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
-"pVa" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "chemistry Shutters"
-	},
-/turf/open/floor/plating,
-/area/medical/chemistry)
 "pVg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -57324,8 +57316,8 @@
 	pixel_y = -1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
+	id = "chemistry_shutters_2";
+	name = "chemistry Shutters"
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
@@ -61394,6 +61386,14 @@
 /mob/living/carbon/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
+"rOq" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters_2";
+	name = "chemistry Shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/chemistry)
 "rOy" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/sechailer,
@@ -106770,9 +106770,9 @@ cPY
 kKG
 uml
 wsV
-jMU
+rOq
 qmW
-jMU
+rOq
 wsV
 qcl
 rdQ
@@ -107022,9 +107022,9 @@ erx
 erx
 frP
 wsV
-pVa
+jMU
 wsV
-pVa
+jMU
 wsV
 wsV
 mAV
