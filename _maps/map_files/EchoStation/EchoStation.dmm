@@ -1314,10 +1314,6 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
 /turf/open/floor/iron/dark,
 /area/science/server)
-"aAz" = (
-/obj/structure/chair/stool/directional/west,
-/turf/open/floor/glass/reinforced,
-/area/hallway/primary/central)
 "aAV" = (
 /turf/closed/wall/r_wall,
 /area/science/explab)
@@ -43877,10 +43873,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
-"voe" = (
-/obj/structure/chair/stool/directional/east,
-/turf/open/floor/glass/reinforced,
-/area/hallway/primary/central)
 "vou" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/disposalpipe/segment,
@@ -129471,11 +129463,11 @@ sLu
 sLu
 mIh
 obz
-voe
-voe
-voe
-voe
-voe
+xlN
+xlN
+xlN
+xlN
+xlN
 bfl
 ett
 mIh
@@ -130499,11 +130491,11 @@ sLu
 sLu
 mIh
 obz
-aAz
-aAz
-aAz
-aAz
-aAz
+xlN
+xlN
+xlN
+xlN
+xlN
 kPy
 cRX
 mIh

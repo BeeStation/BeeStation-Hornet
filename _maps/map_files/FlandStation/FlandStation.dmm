@@ -16927,7 +16927,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "ezK" = (
@@ -29867,7 +29869,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "hGM" = (
@@ -35233,7 +35237,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "iWb" = (
@@ -37486,6 +37492,15 @@
 	burnt = 1
 	},
 /area/maintenance/port)
+"jDY" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "jEa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -40114,7 +40129,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "kjk" = (
@@ -43759,7 +43776,9 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "lcx" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 6
 	},
@@ -45052,7 +45071,9 @@
 	},
 /area/docking/arrival)
 "lru" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "lrw" = (
@@ -47773,8 +47794,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "meo" = (
@@ -54786,7 +54809,9 @@
 /area/library)
 "nZF" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "nZM" = (
@@ -72109,7 +72134,9 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sxX" = (
@@ -72117,7 +72144,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sxZ" = (
@@ -72182,7 +72211,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "szc" = (
@@ -80092,6 +80123,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
+/obj/machinery/computer/warrant,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "uzH" = (
@@ -80293,7 +80325,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "uBw" = (
@@ -80712,6 +80746,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/grid/steel,
 /area/hallway/primary/aft)
+"uGL" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "uGP" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 5
@@ -83647,8 +83687,10 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vqq" = (
-/obj/structure/chair/stool/directional/south,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "vqt" = (
@@ -118024,8 +118066,8 @@ ksN
 mse
 sxX
 mRd
-cXO
-kSv
+jDY
+uGL
 mRd
 fXw
 rkv

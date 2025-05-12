@@ -113,6 +113,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/computer/warrant,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "abn" = (
@@ -29229,10 +29230,10 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "hBz" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/computer/warrant{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "hBB" = (

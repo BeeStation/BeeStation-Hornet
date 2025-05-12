@@ -5072,10 +5072,10 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "bcn" = (
-/obj/machinery/vending/cigarette,
 /obj/machinery/light/small/directional/north{
 	pixel_x = 15
 	},
+/obj/structure/fluff/hedge/opaque,
 /turf/open/floor/iron/smooth,
 /area/hallway/primary/fore)
 "bcs" = (
@@ -6790,6 +6790,10 @@
 /obj/structure/alien/gelpod,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
+"bsK" = (
+/obj/machinery/vending/snack,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "bsO" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
@@ -22764,7 +22768,6 @@
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 7
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -50912,7 +50915,6 @@
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 7
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -82535,6 +82537,9 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
 	},
+/obj/machinery/computer/warrant{
+	dir = 4
+	},
 /turf/open/floor/iron/chapel{
 	dir = 8
 	},
@@ -84282,7 +84287,6 @@
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 7
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -96153,8 +96157,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "tXD" = (
-/obj/machinery/vending/snack,
 /obj/machinery/light/directional/south,
+/obj/machinery/computer/warrant{
+	dir = 1
+	},
 /turf/open/floor/iron/textured_large,
 /area/hallway/primary/fore)
 "tXS" = (
@@ -99440,6 +99446,10 @@
 /obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/security/prison)
+"uFE" = (
+/obj/machinery/vending/cigarette,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "uFT" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -151916,7 +151926,7 @@ fyS
 hSK
 vTl
 kdI
-dUa
+uFE
 kTJ
 qmM
 tiS
@@ -152430,7 +152440,7 @@ lTG
 fHW
 kdI
 kdI
-dUa
+bsK
 kTJ
 qmM
 uDu

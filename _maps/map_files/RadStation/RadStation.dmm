@@ -2987,6 +2987,9 @@
 /obj/structure/sign/poster/random,
 /turf/closed/wall,
 /area/construction/mining/aux_base)
+"aYC" = (
+/turf/open/floor/carpet/green,
+/area/security/courtroom)
 "aYS" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -16366,6 +16369,12 @@
 "flg" = (
 /turf/closed/wall/rust,
 /area/quartermaster/warehouse)
+"flt" = (
+/obj/structure/chair/stool/bar/directional/west{
+	dir = 4
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/cafeteria)
 "flC" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -19688,7 +19697,9 @@
 "gqO" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar/directional/south{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "gqX" = (
@@ -31326,7 +31337,9 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "kok" = (
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar/directional/south{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "kos" = (
@@ -32739,9 +32752,10 @@
 /turf/open/space/basic,
 /area/engine/engine_room)
 "kMP" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/bar/directional/south{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "kMQ" = (
@@ -35972,6 +35986,12 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
+"lRX" = (
+/obj/machinery/computer/warrant{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/courtroom)
 "lSa" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -37625,6 +37645,13 @@
 /obj/item/ammo_casing/spent,
 /turf/open/floor/iron,
 /area/maintenance/department/security)
+"msk" = (
+/obj/structure/chair/stool/bar/directional/south{
+	dir = 1
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/cafeteria)
 "msm" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -38562,7 +38589,7 @@
 	dir = 1
 	},
 /turf/open/space/basic,
-/area/solar/starboard/aft)
+/area/engine/atmos)
 "mGq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -56411,11 +56438,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
-"syI" = (
-/obj/structure/chair/stool/bar/directional/south,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/cafeteria)
 "syO" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/camera/directional/east{
@@ -72647,7 +72669,8 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/turf_decal/siding/wideplating/dark,
-/turf/open/floor/iron/cafeteria_red,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "xST" = (
 /turf/open/floor/carpet/green,
@@ -102545,7 +102568,7 @@ kxe
 drI
 tjM
 ruc
-dhn
+lRX
 gQP
 dlY
 lhn
@@ -102802,7 +102825,7 @@ fzp
 drI
 sLs
 jQC
-jQC
+aYC
 gQP
 vPj
 cDX
@@ -110509,7 +110532,7 @@ cTn
 oBj
 sBw
 eWK
-syI
+kMP
 bLt
 eyD
 dvY
@@ -111537,9 +111560,9 @@ gUi
 vBH
 pEo
 xSO
-rpK
-rpK
-rpK
+flt
+flt
+flt
 wlr
 oIp
 dIT
@@ -112568,7 +112591,7 @@ oNv
 jDu
 jKx
 qVc
-kok
+msk
 bOc
 dIT
 vgV

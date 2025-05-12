@@ -30997,7 +30997,6 @@
 /area/maintenance/aft)
 "gFs" = (
 /obj/machinery/holopad,
-/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "gFy" = (
@@ -52957,7 +52956,9 @@
 /area/maintenance/aft)
 "oHa" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "oHm" = (
@@ -65421,7 +65422,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "tkd" = (
-/obj/structure/chair/stool/bar/directional/south,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "tkf" = (
