@@ -3330,12 +3330,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/port)
-"aLh" = (
-/obj/effect/turf_decal/siding/red{
-	dir = 6
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/brig/medbay)
 "aLC" = (
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 8
@@ -5032,14 +5026,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
-"bbM" = (
-/obj/structure/table,
-/obj/item/chess_piece/white/pawn{
-	pixel_y = 4;
-	pixel_x = 2
-	},
-/turf/open/floor/wood,
-/area/security/prison)
 "bbN" = (
 /obj/machinery/suit_storage_unit/exploration,
 /turf/open/floor/iron/ridged/steel,
@@ -16428,7 +16414,9 @@
 	},
 /area/maintenance/disposal/incinerator)
 "dqg" = (
-/obj/effect/turf_decal/siding/red,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "dqh" = (
@@ -17657,13 +17645,6 @@
 /obj/structure/chair/office/light,
 /turf/open/floor/carpet/orange,
 /area/bridge)
-"dBV" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "This area actually used to be about 4 times the size, but i had to cut it down because the map's huge already - BarteG";
-	name = "CardinalStation - Garden Dome"
-	},
-/turf/closed/wall,
-/area/crew_quarters/dorms)
 "dBX" = (
 /obj/effect/turf_decal/trimline/yellow/warning,
 /obj/effect/turf_decal/trimline/yellow/warning{
@@ -20342,6 +20323,11 @@
 "ejD" = (
 /obj/effect/turf_decal/siding/red,
 /obj/machinery/light_switch/directional/south,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/box,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "ejF" = (
@@ -25596,6 +25582,9 @@
 /area/maintenance/disposal/incinerator)
 "fsJ" = (
 /obj/machinery/airalarm/directional/north,
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
 /turf/open/floor/iron/white/textured,
 /area/security/brig/medbay)
 "fsP" = (
@@ -27581,6 +27570,9 @@
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/effect/turf_decal/siding/red{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
@@ -30499,6 +30491,9 @@
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "gqc" = (
@@ -36342,6 +36337,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/lab)
+"hzX" = (
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This area actually used to be about 4 times the size, but i had to cut it down because the map's huge already - BarteG";
+	name = "CardinalStation - Garden Dome"
+	},
+/turf/closed/wall,
+/area/crew_quarters/dorms)
 "hAf" = (
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 8
@@ -39943,6 +39945,9 @@
 	pixel_y = 9;
 	pixel_x = -14
 	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "iks" = (
@@ -41249,8 +41254,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
+/obj/structure/disposalpipe/junction{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -41609,7 +41614,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	alpha = 200
+	},
 /obj/effect/landmark/start/brig_physician,
 /turf/open/floor/iron/white/textured,
 /area/security/brig/medbay)
@@ -42422,7 +42429,9 @@
 "iJO" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/siding/white,
-/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	alpha = 200
+	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -27;
@@ -43312,7 +43321,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	alpha = 200
+	},
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
 	},
@@ -48081,7 +48092,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	alpha = 200
+	},
 /obj/structure/wall_closet/brig_phys/directional/east,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/cup/bottle/formaldehyde,
@@ -52002,6 +52015,9 @@
 "kMN" = (
 /obj/structure/closet/l3closet/security,
 /obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "kMR" = (
@@ -54062,7 +54078,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	alpha = 200
+	},
 /obj/machinery/light/small/directional/east,
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = -14
@@ -55932,6 +55950,9 @@
 	dir = 8;
 	pixel_x = 28
 	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "lDF" = (
@@ -56511,17 +56532,12 @@
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
 "lKT" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/theatre/backstage)
+/turf/open/floor/plating,
+/area/security/brig/medbay)
 "lKU" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 8
@@ -57560,6 +57576,9 @@
 /obj/structure/bed/roller,
 /obj/item/bedsheet/medical,
 /obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "lXt" = (
@@ -59657,6 +59676,9 @@
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "msU" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
 /turf/open/floor/iron/white/textured,
 /area/security/brig/medbay)
 "mth" = (
@@ -66584,11 +66606,11 @@
 	},
 /area/science/xenobiology)
 "nNI" = (
-/obj/effect/turf_decal/siding/red{
-	dir = 4
-	},
 /obj/machinery/vending/medical,
 /obj/machinery/digital_clock/directional/north,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "nNT" = (
@@ -67259,11 +67281,13 @@
 /turf/open/floor/carpet/black,
 /area/construction)
 "nUR" = (
-/obj/effect/turf_decal/siding/red,
 /obj/structure/chair/office/light{
 	dir = 1
 	},
 /obj/effect/landmark/start/brig_physician,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "nUS" = (
@@ -73651,6 +73675,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "plM" = (
@@ -76461,8 +76488,8 @@
 /area/hallway/primary/fore)
 "pQe" = (
 /obj/structure/beebox{
-	pixel_y = -2;
-	pixel_x = 2
+	pixel_y = 3;
+	pixel_x = 4
 	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -84285,6 +84312,13 @@
 "rvw" = (
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"rvB" = (
+/obj/structure/beebox{
+	pixel_y = -2;
+	pixel_x = 2
+	},
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "rvH" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#354562";
@@ -85483,7 +85517,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	alpha = 200
+	},
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/white/textured,
 /area/security/brig/medbay)
@@ -85530,6 +85566,14 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/starboard/central)
+"rMt" = (
+/obj/structure/table,
+/obj/item/chess_piece/white/pawn{
+	pixel_y = 4;
+	pixel_x = 2
+	},
+/turf/open/floor/wood,
+/area/security/prison)
 "rMB" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -86056,6 +86100,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/effect/turf_decal/siding/red{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
@@ -96043,6 +96090,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "tVC" = (
@@ -100125,10 +100175,10 @@
 "uLV" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "46"
+	req_access_txt = "46;37"
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/cargo)
+/area/crew_quarters/theatre/backstage)
 "uMa" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -100502,13 +100552,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
-"uPA" = (
-/obj/machinery/hydroponics/soil{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/turf/open/floor/grass,
-/area/hydroponics/garden)
 "uPM" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
@@ -100608,6 +100651,9 @@
 /obj/machinery/digital_clock/directional/north,
 /obj/structure/closet/crate/wooden/toy,
 /obj/item/extendohand,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "uRc" = (
@@ -100816,9 +100862,9 @@
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "uTr" = (
-/obj/structure/beebox{
-	pixel_y = 3;
-	pixel_x = 4
+/obj/machinery/hydroponics/soil{
+	pixel_x = 4;
+	pixel_y = -4
 	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -103230,6 +103276,9 @@
 /obj/item/bedsheet/medical,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/requests_console/auto_name/directional/east,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "vrM" = (
@@ -104578,6 +104627,9 @@
 /area/maintenance/starboard/fore)
 "vFm" = (
 /obj/effect/turf_decal/siding/red,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "vFn" = (
@@ -109123,6 +109175,9 @@
 	pixel_y = -2;
 	pixel_x = 5
 	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "wBc" = (
@@ -110665,6 +110720,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/effect/turf_decal/siding/red/corner{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
@@ -136338,7 +136396,7 @@ jLp
 wUa
 wUa
 ddM
-uTr
+pQe
 atW
 psb
 bEL
@@ -137628,7 +137686,7 @@ bXf
 vPU
 eFI
 waF
-dBV
+hzX
 lCu
 urj
 vPU
@@ -138135,7 +138193,7 @@ ntc
 exb
 xVO
 lbz
-uPA
+uTr
 krO
 mTX
 hEe
@@ -138906,7 +138964,7 @@ aca
 nJo
 ktj
 hhd
-pQe
+rvB
 xVO
 fLp
 eKa
@@ -156969,7 +157027,7 @@ upT
 xAd
 wBA
 nSl
-uLV
+opn
 pLj
 iKL
 cbh
@@ -157416,7 +157474,7 @@ phN
 ufR
 gds
 aMc
-gds
+lKT
 rPN
 ooY
 gDE
@@ -158442,7 +158500,7 @@ ofJ
 oZQ
 phN
 nNI
-aLh
+dqg
 fQc
 kJp
 liT
@@ -158767,7 +158825,7 @@ dKV
 jKy
 uQL
 daJ
-lKT
+lvz
 eDn
 jKy
 uGV
@@ -159024,7 +159082,7 @@ mtD
 jKy
 jKy
 jKy
-jKy
+uLV
 jKy
 jKy
 jyg
@@ -159739,7 +159797,7 @@ qfZ
 uep
 qep
 qQr
-bbM
+rMt
 mEr
 xNq
 jzw
