@@ -4895,10 +4895,6 @@
 	},
 /turf/open/floor/wood,
 /area/maintenance/port)
-"bmB" = (
-/obj/item/paper/guides/jobs/engi/gravity_gen,
-/turf/open/space/basic,
-/area/space)
 "bmH" = (
 /obj/machinery/requests_console{
 	department = "Bar";
@@ -11351,10 +11347,6 @@
 /obj/structure/bedsheetbin,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
-"dBF" = (
-/obj/machinery/camera/directional/south,
-/turf/open/floor/circuit/green,
-/area/engine/gravity_generator)
 "dBG" = (
 /obj/machinery/light/small/broken{
 	dir = 1
@@ -62015,6 +62007,9 @@
 /obj/machinery/disposal/bin,
 /turf/open/floor/iron,
 /area/science/mixing)
+"upi" = (
+/turf/open/floor/engine,
+/area/engine/gravity_generator)
 "upt" = (
 /obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
 	pixel_y = 32
@@ -65235,7 +65230,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "vrV" = (
-/turf/open/floor/iron/dark,
+/obj/machinery/camera/directional/south,
+/turf/open/floor/engine,
 /area/engine/gravity_generator)
 "vsg" = (
 /obj/machinery/light{
@@ -84860,7 +84856,7 @@ ojH
 anT
 anT
 anT
-opr
+anT
 anT
 anT
 anT
@@ -90022,7 +90018,7 @@ ubm
 ojd
 vgb
 anT
-bmB
+aMT
 aMT
 aMT
 aMT
@@ -90273,10 +90269,10 @@ fNT
 vgb
 vgb
 lcm
-lcm
 ddE
 lcm
-lcm
+vgb
+vgb
 vgb
 anT
 aMT
@@ -90528,13 +90524,13 @@ fZV
 awq
 bJB
 vgb
-ksE
-ksE
-ksE
-ksE
-ksE
-ksE
+upi
+upi
+upi
+upi
 vgb
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -90786,12 +90782,12 @@ aLq
 aLq
 vgb
 ksE
+ksE
+ksE
 vrV
-vrV
-vrV
-vrV
-dBF
 vgb
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -91043,12 +91039,12 @@ jZK
 xBR
 vgb
 ksE
-vrV
 ksE
 xqt
-vrV
-ksE
+upi
 vgb
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -91300,12 +91296,12 @@ jZK
 bdf
 vgb
 ksE
-vrV
-vrV
-vrV
-vrV
 ksE
+ksE
+upi
 vgb
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -91556,13 +91552,13 @@ fEf
 jhd
 bXO
 vgb
-ksE
-ksE
-ksE
-ksE
-ksE
-ksE
+upi
+upi
+upi
+upi
 vgb
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -91818,8 +91814,8 @@ vgb
 vgb
 vgb
 vgb
-vgb
-vgb
+aMT
+aMT
 aMT
 aMT
 aMT
