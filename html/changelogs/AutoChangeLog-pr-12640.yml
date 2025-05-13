@@ -1,7 +1,0 @@
-author: wikimody
-delete-after: true
-changes:
-  - balance: Standard blood filtering now very slowly heals toxin damage if its above
-      100.
-  - balance: Higher levels of blood filtering now heal more toxin damage and purge
-      more chems per step, instead of just shortening steps

@@ -1,6 +1,0 @@
-author: mrmanlikesbt, KathrinBailey, SgtHunk
-delete-after: true
-changes:
-  - tweak: slightly adjusted the chess holodeck
-  - rscadd: chess icons use actual chess pieces instead of recolored cardboard cutouts
-      now
