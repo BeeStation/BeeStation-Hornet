@@ -117,7 +117,7 @@ const NewBountyMenu = (_) => {
             animated
             unit="cr"
             minValue={1}
-            maxValue={1000}
+            maxValue={99999}
             value={bountyValue}
             width="80px"
             step={1}

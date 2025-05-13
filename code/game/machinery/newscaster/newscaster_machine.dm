@@ -56,6 +56,8 @@
 	var/bounty_value = 1
 	///Text of the currently written bounty
 	var/bounty_text = ""
+	///Max active bounties
+	var/bounty_amount_limit = 5
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
@@ -907,10 +909,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: No bounty text.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
+	var/account_bounties = 0
 	for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
-		if(iterated_station_request.req_number == account.account_id)
-			say("ERROR: Account already has active bounty.")
+		if(account_bounties > bounty_amount_limit)
+			say("ERROR: Account has too many active bounties.")
 			return TRUE
+		if(iterated_station_request.req_number == account.account_id)
+			account_bounties++
 	var/datum/station_request/curr_request = new /datum/station_request(account.account_holder, bounty_value,bounty_text, account.account_id, account)
 	GLOB.request_list += list(curr_request)
 	for(var/obj/iterated_bounty_board as anything in GLOB.allbountyboards)
