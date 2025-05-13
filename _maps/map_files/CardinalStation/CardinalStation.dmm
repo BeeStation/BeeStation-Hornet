@@ -75297,7 +75297,7 @@
 	bulb_colour = "#9b1d70";
 	bulb_power = 0.4
 	},
-/obj/item/cardboard_cutout/adaptive/securityofficer{
+/obj/item/cardboard_cutout/adaptive/chess/bishop{
 	name = "Club Bouncer";
 	desc = "Better prepare your ID";
 	pixel_x = 7;
@@ -109674,9 +109674,6 @@
 /obj/item/kirbyplants/random{
 	pixel_y = 26;
 	pixel_x = 16
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
 	},
 /obj/machinery/light/small/directional/south,
 /obj/structure/fluff/paper/stack{
