@@ -4,7 +4,7 @@
 	name = "chess board"
 	desc = "It's a checkered board, made for playing chess."
 	anchored = TRUE
-	icon = 'icons/obj/chess.dmi'
+	icon = 'icons/obj/chess_board.dmi'
 	icon_state = "chess_board"
 	var/list/chess_board_contents
 	var/populated = FALSE
@@ -182,7 +182,7 @@
 /obj/item/chess_board
 	name = "folded chess board"
 	desc = "Foldable, for gaming on the go. Place on a table for optimal playing experience."
-	icon = 'icons/obj/chess.dmi'
+	icon = 'icons/obj/chess_board.dmi'
 	icon_state = "chess_board_folded"
 	w_class = WEIGHT_CLASS_LARGE
 	var/list/sorted_contents
@@ -222,7 +222,7 @@
 /obj/item/chess_piece
 	name = "chess piece"
 	desc = "how did you get your hands on this?"
-	icon = 'icons/obj/chess.dmi'
+	icon = 'icons/obj/chess_board.dmi'
 	icon_state = "pawn_white"
 	w_class = WEIGHT_CLASS_TINY
 	pickup_sound = 'sound/items/handling/screwdriver_pickup.ogg'

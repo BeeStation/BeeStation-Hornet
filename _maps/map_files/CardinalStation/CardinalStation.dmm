@@ -3968,7 +3968,7 @@
 /obj/machinery/computer/bounty{
 	dir = 8
 	},
-/obj/machinery/requests_console/auto_name/directional/east,
+/obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 5
 	},
@@ -5424,7 +5424,9 @@
 /turf/open/floor/noslip/standard,
 /area/crew_quarters/cryopods)
 "bfr" = (
-/obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/requests_console/auto_name/directional/west{
+	announcementConsole = 1
+	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "bfx" = (
@@ -6310,19 +6312,18 @@
 /turf/open/floor/plating/rust,
 /area/maintenance/department/chapel)
 "bnq" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+/obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/structure/window/reinforced/spawner{
+	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
+/obj/structure/railing{
+	dir = 5
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/obj/effect/mapping_helpers/make_non_slip,
+/obj/machinery/light_switch/directional/west,
+/turf/open/floor/iron/smooth,
 /area/engine/engineering)
 "bnw" = (
 /obj/structure/closet/secure_closet/captains,
@@ -14290,6 +14291,10 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
+"cRX" = (
+/obj/machinery/light_switch/directional/east,
+/turf/closed/wall/r_wall,
+/area/science/xenobiology)
 "cRZ" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/disposal/bin,
@@ -18462,7 +18467,9 @@
 /obj/machinery/computer/security/mining{
 	dir = 8
 	},
-/obj/machinery/newscaster/directional/east,
+/obj/machinery/requests_console/auto_name/directional/east{
+	announcementConsole = 1
+	},
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 6
 	},
@@ -18758,6 +18765,9 @@
 "dQs" = (
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 4
+	},
+/obj/machinery/requests_console/auto_name/directional/east{
+	announcementConsole = 1
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
@@ -27400,7 +27410,9 @@
 	req_access_txt = "30";
 	dir = 4
 	},
-/obj/machinery/requests_console/auto_name/directional/south,
+/obj/machinery/requests_console/auto_name/directional/south{
+	announcementConsole = 1
+	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "fMN" = (
@@ -30662,6 +30674,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/engineering)
 "gsj" = (
@@ -39085,6 +39098,9 @@
 /obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	pixel_x = 28
+	},
+/obj/machinery/requests_console/auto_name/directional/south{
+	announcementConsole = 1
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/chief)
@@ -51192,7 +51208,9 @@
 	color = "#354562";
 	dir = 1
 	},
-/obj/machinery/requests_console/auto_name/directional/south,
+/obj/machinery/requests_console/auto_name/directional/south{
+	announcementConsole = 1
+	},
 /turf/open/floor/carpet/royalblack,
 /area/security/courtroom)
 "kDt" = (
@@ -51822,7 +51840,7 @@
 	dir = 8
 	},
 /obj/structure/flora/bigplant,
-/obj/machinery/requests_console/auto_name/directional/east,
+/obj/machinery/newscaster/directional/east,
 /obj/machinery/light/dim/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
@@ -61563,7 +61581,9 @@
 	dir = 1
 	},
 /obj/machinery/camera/directional/south,
-/obj/machinery/requests_console/auto_name/directional/south,
+/obj/machinery/requests_console/auto_name/directional/south{
+	announcementConsole = 1
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -61585,7 +61605,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/machinery/newscaster/directional/south,
+/obj/machinery/requests_console/auto_name/directional/south{
+	announcementConsole = 1
+	},
 /obj/item/toy/nuke{
 	pixel_y = 16
 	},
@@ -65053,6 +65075,20 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
+"nxQ" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/effect/mapping_helpers/make_non_slip,
+/obj/machinery/light_switch/directional/east,
+/turf/open/floor/iron/smooth,
+/area/engine/engineering)
 "nxY" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -70790,7 +70826,9 @@
 	color = "#354562";
 	dir = 4
 	},
-/obj/machinery/requests_console/auto_name/directional/south,
+/obj/machinery/requests_console/auto_name/directional/south{
+	announcementConsole = 1
+	},
 /obj/effect/landmark/start/head_of_security,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -76296,7 +76334,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/machinery/requests_console/auto_name/directional/east,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -82399,6 +82436,10 @@
 	dir = 1
 	},
 /obj/machinery/light_switch/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/smooth,
 /area/engine/engineering)
 "rbx" = (
@@ -82485,6 +82526,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/smooth,
 /area/engine/engineering)
@@ -90729,10 +90773,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -141146,7 +141186,7 @@ spD
 spD
 spD
 spD
-spD
+cRX
 spD
 spD
 jDr
@@ -147577,7 +147617,7 @@ vbT
 oQM
 mSG
 qZW
-tNQ
+bnq
 dSc
 mzy
 eyY
@@ -148602,7 +148642,7 @@ xeS
 ici
 elC
 sQe
-bnq
+qMG
 nqB
 owJ
 owJ
@@ -151689,7 +151729,7 @@ xKq
 ewY
 gZh
 kRP
-rZQ
+nxQ
 hXv
 mzy
 eyY
