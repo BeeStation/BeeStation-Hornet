@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - refactor: slightly refactored chainsaw code
-  - tweak: all chainsaws have the same revving sound now
