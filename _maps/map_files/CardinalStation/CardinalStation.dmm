@@ -25203,6 +25203,12 @@
 /obj/item/cigbutt/cigarbutt{
 	pixel_y = 4
 	},
+/obj/item/paicard{
+	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
+	name = "Nanotrasen-brand personal AI device exhibit";
+	pixel_x = -13;
+	pixel_y = -10
+	},
 /turf/open/floor/carpet/black,
 /area/bridge/showroom/corporate)
 "foc" = (
@@ -26950,7 +26956,9 @@
 /area/maintenance/disposal/incinerator)
 "fHK" = (
 /obj/structure/table/wood/fancy/blue,
-/obj/item/storage/backpack/duffelbag/drone,
+/obj/item/storage/backpack/duffelbag/drone{
+	pixel_y = -7
+	},
 /obj/item/clothing/head/collectable/HoP{
 	name = "novelty HoP hat"
 	},
@@ -33141,7 +33149,7 @@
 /obj/structure/table/wood/fancy/blue,
 /obj/item/book/manual/wiki/security_space_law{
 	name = "space law";
-	pixel_y = -2
+	pixel_y = -5
 	},
 /obj/item/toy/gun,
 /obj/item/restraints/handcuffs,
@@ -70262,14 +70270,16 @@
 	id = "hopblast";
 	name = "HoP Blast Door"
 	},
-/obj/item/folder/blue,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell{
+	pixel_x = -7;
+	pixel_y = 7
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
 "oDs" = (
@@ -71538,7 +71548,7 @@
 /obj/machinery/door/window/eastright{
 	req_access_txt = "31"
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/cargo,
 /obj/machinery/door/window/westleft,
 /obj/item/folder/yellow{
 	pixel_x = -1;
@@ -75297,11 +75307,10 @@
 	bulb_colour = "#9b1d70";
 	bulb_power = 0.4
 	},
-/obj/item/cardboard_cutout/adaptive/chess/bishop{
-	name = "Club Bouncer";
-	desc = "Better prepare your ID";
-	pixel_x = 7;
-	pixel_y = -1
+/obj/item/cardboard_cutout/adaptive/securityofficer{
+	pixel_x = 6;
+	pixel_y = -1;
+	name = "Club Bouncer"
 	},
 /turf/open/floor/carpet/black,
 /area/construction)
@@ -76083,10 +76092,6 @@
 /obj/structure/table/wood/fancy/blue,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/crap,
-/obj/item/paicard{
-	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
-	name = "Nanotrasen-brand personal AI device exhibit"
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
