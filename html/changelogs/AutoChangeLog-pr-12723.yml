@@ -1,0 +1,4 @@
+author: Gilgax
+delete-after: true
+changes:
+  - bugfix: Powertools default tool work properly when spawned in

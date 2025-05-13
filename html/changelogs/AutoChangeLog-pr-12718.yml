@@ -1,0 +1,7 @@
+author: ro5490
+delete-after: true
+changes:
+  - rscadd: Unknown Assistant Smite
+  - rscadd: Unknown Syndicate Smite
+  - rscadd: Unknown Security Smite
+  - rscadd: Sprite for the assistant mob
