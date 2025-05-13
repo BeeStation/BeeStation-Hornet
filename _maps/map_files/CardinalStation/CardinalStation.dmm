@@ -2133,6 +2133,18 @@
 /obj/structure/rack,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
+"ayX" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_y = 6
+	},
+/obj/machinery/door/poddoor/shutters{
+	name = "Vacant Commissary Shutters";
+	id = "commissaryshutters"
+	},
+/turf/open/floor/plating,
+/area/vacant_room/commissary/commissary1)
 "azd" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -3990,7 +4002,7 @@
 /obj/machinery/door/window/westleft{
 	name = "Library Desk Door"
 	},
-/obj/structure/desk_bell{
+/obj/structure/desk_bell/wired/service{
 	pixel_y = 5
 	},
 /turf/open/floor/plating,
@@ -4039,8 +4051,9 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/structure/desk_bell{
-	pixel_x = -6
+/obj/structure/desk_bell/wired/engineering{
+	location = "Engineering Desk";
+	pixel_x = -7
 	},
 /turf/open/floor/plating,
 /area/engine/storage_shared)
@@ -7275,7 +7288,7 @@
 	name = "Medical Booth";
 	req_one_access_txt = "5"
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/medical,
 /turf/open/floor/plating,
 /area/medical/booth)
 "byM" = (
@@ -14597,7 +14610,9 @@
 	name = "Kitchen Counter Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/service{
+	pixel_y = 3
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "cUS" = (
@@ -20689,6 +20704,18 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
+"eox" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_y = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	name = "Vacant Commissary Shutters";
+	id = "commissaryshutters2"
+	},
+/turf/open/floor/plating,
+/area/vacant_room/commissary/commissary2)
 "eoV" = (
 /obj/effect/turf_decal/edges/borderfloor/corner1,
 /obj/structure/cable/yellow{
@@ -22216,7 +22243,9 @@
 "eGD" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/science{
+	location = "Science Lobby Desk"
+	},
 /obj/machinery/door/window/southleft{
 	name = "R&D Counter";
 	req_one_access_txt = "7;29"
@@ -22939,7 +22968,10 @@
 	id = "robotics_shutters";
 	name = "Robotics Shutters"
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/science{
+	pixel_y = -7;
+	location = "Robotics Desk"
+	},
 /obj/machinery/door/window/westright{
 	req_access_txt = "29"
 	},
@@ -28403,8 +28435,9 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/structure/desk_bell{
-	pixel_y = 5
+/obj/structure/desk_bell/wired/service{
+	pixel_y = 4;
+	location = "Hydroponics Desk"
 	},
 /turf/open/floor/plating,
 /area/hydroponics)
@@ -32932,7 +32965,7 @@
 	name = "Chemistry Counter"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/medical,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "chemistry_shutters";
 	name = "chemistry Shutters"
@@ -37504,6 +37537,7 @@
 	name = "Virology Desk";
 	req_one_access_txt = "39;45"
 	},
+/obj/structure/desk_bell/wired/medical,
 /turf/open/floor/noslip/dark,
 /area/medical/virology)
 "hKJ" = (
@@ -38991,7 +39025,9 @@
 	req_access_txt = "24"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/engineering{
+	location = "Atmospherics Desk"
+	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -49046,8 +49082,8 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/structure/desk_bell{
-	pixel_y = 12;
+/obj/structure/desk_bell/wired/service{
+	pixel_y = 10;
 	pixel_x = -5
 	},
 /turf/open/floor/iron/smooth_half{
@@ -68080,9 +68116,10 @@
 	pixel_y = 5
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
+/obj/structure/desk_bell/wired/security{
 	pixel_x = 6;
-	pixel_y = 10
+	pixel_y = 10;
+	job_title = "Warden"
 	},
 /obj/machinery/recharger{
 	pixel_x = -6;
@@ -70276,9 +70313,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/structure/desk_bell{
-	pixel_x = -7;
-	pixel_y = 7
+/obj/structure/desk_bell/wired/service{
+	pixel_y = 6;
+	pixel_x = -6;
+	job_title = "Head of Personnel"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
@@ -76813,7 +76851,7 @@
 	name = "Engineering Outpost"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/security,
 /turf/open/floor/plating,
 /area/security/checkpoint/engineering)
 "pTd" = (
@@ -81428,8 +81466,8 @@
 	name = "Kitchen Counter Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_y = 5
+/obj/structure/desk_bell/wired/service{
+	pixel_y = 3
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
@@ -87046,7 +87084,7 @@
 	name = "Genetics Desk";
 	req_access_txt = "5;9"
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/medical,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "Isolation Shutters"
@@ -89137,7 +89175,7 @@
 	req_access_txt = "63";
 	dir = 4
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/security,
 /turf/open/floor/plating,
 /area/medical/medbay/central)
 "syC" = (
@@ -93796,6 +93834,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"txj" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/obj/machinery/door/poddoor/shutters{
+	name = "Food Stall Shutters";
+	id = "foodcommissaryshutters"
+	},
+/turf/open/floor/plating,
+/area/vacant_room/commissary/commissaryFood)
 "txn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -94917,8 +94968,9 @@
 	pixel_x = -5
 	},
 /obj/item/pen/red,
-/obj/structure/desk_bell{
-	pixel_x = 10
+/obj/structure/desk_bell/wired/security{
+	pixel_x = 8;
+	location = "Security Front Desk"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "brigentrance";
@@ -112005,7 +112057,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/desk_bell,
+/obj/structure/desk_bell/wired/medical,
 /turf/open/floor/plating,
 /area/medical/medbay/lobby)
 "xgD" = (
@@ -144421,7 +144473,7 @@ egv
 tWR
 fJG
 hYC
-eWa
+eox
 fNT
 pxd
 dBG
@@ -147766,7 +147818,7 @@ usW
 usW
 eRe
 eRe
-eRe
+txj
 usW
 usW
 gYx
@@ -154994,7 +155046,7 @@ ogR
 xEr
 voQ
 bwe
-oUw
+ayX
 bKG
 ufc
 ive
