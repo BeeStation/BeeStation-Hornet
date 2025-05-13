@@ -284,7 +284,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/clown)
 			charged = TRUE
 			target.Paralyze(80)
 			target.adjustStaminaLoss(40)
-			step_away(target, bubblegum)
+			if(isturf(target.loc))
+				step_away(target, bubblegum)
 			shake_camera(target, 4, 3)
 			target.visible_message(span_warning("[target] jumps backwards, falling on the ground!"),span_userdanger("[bubblegum] slams into you!"))
 		next_action = 0.2
