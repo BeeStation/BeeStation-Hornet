@@ -20354,7 +20354,9 @@
 /area/engine/storage_shared)
 "ejD" = (
 /obj/effect/turf_decal/siding/red,
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch/directional/south{
+	pixel_x = -6
+	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -30554,6 +30556,7 @@
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
 	color = "#333333"
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/security/brig/medbay)
 "gqc" = (
@@ -39271,6 +39274,13 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/solars/port/aft)
+"icT" = (
+/obj/effect/turf_decal/siding/thinplating_new/terracotta,
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "icV" = (
 /obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/siding/wood{
@@ -57208,6 +57218,13 @@
 /obj/machinery/requests_console/auto_name/directional/south,
 /turf/open/floor/prison/dark,
 /area/ai_monitored/security/armory)
+"lRs" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted{
+	color = "#333333"
+	},
+/obj/machinery/holopad,
+/turf/open/floor/iron/techmaint,
+/area/security/brig/medbay)
 "lRA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -84930,6 +84947,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engineering)
+"rBE" = (
+/obj/effect/turf_decal/tile/steelgrid/diagonal,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "rBX" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
@@ -93566,6 +93593,12 @@
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/captain/private)
+"ttS" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "tum" = (
 /obj/effect/turf_decal/trimline/dark/line{
 	dir = 1
@@ -157838,7 +157871,7 @@ aOy
 nct
 nEi
 kTV
-kTV
+rBE
 aqT
 wYQ
 svb
@@ -158339,7 +158372,7 @@ ofJ
 oJl
 phN
 ikq
-dqg
+lRs
 tVA
 kmW
 iCX
@@ -160664,7 +160697,7 @@ qfZ
 uep
 pRD
 sZa
-nCK
+ttS
 gaJ
 hRS
 aex
@@ -160914,7 +160947,7 @@ jsd
 jsd
 jsd
 eIJ
-veA
+icT
 qfZ
 nfY
 qfZ
