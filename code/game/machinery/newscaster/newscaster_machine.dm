@@ -935,9 +935,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		return TRUE
 	if(account.account_holder == active_request.owner)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		say("ERROR: Account can not apply to its own bounty.")
 		return TRUE
 	if(account in active_request.applicants)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		say("ERROR: Account already applied to applicant.")
 		return TRUE
 	active_request.applicants += list(account)
 
