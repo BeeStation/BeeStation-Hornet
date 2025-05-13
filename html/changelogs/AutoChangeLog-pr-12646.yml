@@ -1,6 +1,0 @@
-author: Hardly, 00-Steven
-delete-after: true
-changes:
-  - rscadd: Added ability to dump paper bins into the computer printer
-  - rscadd: Added more balloon alerts for paper inserting interactions
-  - soundadd: Paper inserting sounds
