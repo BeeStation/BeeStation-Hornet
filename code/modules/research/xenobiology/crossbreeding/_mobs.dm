@@ -12,6 +12,7 @@ Slimecrossing Mobs
 	cooldown_time = 0 SECONDS
 
 	invocation_type = INVOCATION_NONE
+	spell_requirements = NONE
 
 	convert_damage = TRUE
 	convert_damage_type = CLONE
@@ -20,7 +21,7 @@ Slimecrossing Mobs
 	/// If TRUE, we self-delete (remove ourselves) the next time we turn back into a human
 	var/remove_on_restore = FALSE
 
-/datum/action/spell/shapeshift/slime_form/restore_form(mob/living/shape)
+/datum/action/spell/shapeshift/slime_form/do_unshapeshift(mob/living/caster)
 	. = ..()
 	if(!.)
 		return
@@ -47,7 +48,6 @@ Slimecrossing Mobs
 	nofur = TRUE
 	gold_core_spawnable = NO_SPAWN
 	speak_emote = list("blorbles", "bubbles", "borks")
-
 
 /mob/living/basic/pet/dog/corgi/puppy/slime/update_dog_speech(datum/ai_planning_subtree/random_speech/speech)
 	speech.emote_hear = string_list(list("bubbles!", "splorts.", "splops!"))
