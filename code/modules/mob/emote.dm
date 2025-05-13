@@ -88,3 +88,30 @@
 	key_third_person = "exhales"
 	message = "breathes out"
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+
+/datum/emote/jump
+	key = "jump"
+	key_third_person = "jumps"
+	message = "jumps"
+	cooldown = 0.8 SECONDS
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	// Allows ghosts to jump
+	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
+
+/datum/emote/jump/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	animate(user, 0.1 SECONDS, pixel_y = user.pixel_y + 4)
+	animate(time = 0.1 SECONDS, pixel_y = user.pixel_y - 4)
+	if(iscarbon(user))
+		var/mob/living/carbon/jumps_till_drops = user
+		jumps_till_drops.adjustStaminaLoss(10, forced = TRUE)
+
+/datum/emote/jump/get_sound(mob/user)
+	return 'sound/weapons/thudswoosh.ogg'
+
+// Avoids playing sounds if we're a ghost
+/datum/emote/jump/should_play_sound(mob/user, intentional)
+	if(isliving(user))
+		return ..()
+	return FALSE

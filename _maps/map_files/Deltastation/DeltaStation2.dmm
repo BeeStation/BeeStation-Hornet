@@ -64810,7 +64810,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
 	},
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
