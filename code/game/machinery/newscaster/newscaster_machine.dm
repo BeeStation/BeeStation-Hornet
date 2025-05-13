@@ -909,13 +909,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: No bounty text.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	var/account_bounties = 0
+	var/account_bounties = 1
 	for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
-		if(account_bounties > bounty_amount_limit)
+		if(account_bounties >= bounty_amount_limit)
 			say("ERROR: Account has too many active bounties.")
 			return TRUE
 		if(iterated_station_request.req_number == account.account_id)
 			account_bounties++
+
 	var/datum/station_request/curr_request = new /datum/station_request(account.account_holder, bounty_value,bounty_text, account.account_id, account)
 	GLOB.request_list += list(curr_request)
 	for(var/obj/iterated_bounty_board as anything in GLOB.allbountyboards)
