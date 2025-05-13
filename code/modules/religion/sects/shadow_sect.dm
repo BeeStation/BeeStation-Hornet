@@ -62,7 +62,7 @@
 	icon_state = "shadow_obelisk_1"
 	anchored = FALSE
 	break_message = span_warning("The Obelisk crumbles before you!")
-	max_integrity = 200
+	max_integrity = 20
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/affected_mobs = list()

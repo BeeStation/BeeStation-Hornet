@@ -31,11 +31,9 @@
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
-		var/sensitivity_damage = 1 + shadow_sect_dependency * 1.5
-		var/sensitivity_healing = 1 + shadow_sect_dependency * 0.5
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
-			H.take_overall_damage(sensitivity_damage * delta_time/2, sensitivity_damage * delta_time/2, 0, BODYTYPE_ORGANIC)
+			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
 			if(shadow_sect_dependency >= 2)
 				H.alpha = 255
 				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect) && shadow_sect_dependency == 3)
@@ -43,7 +41,7 @@
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 			if(shadow_sect_dependency >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
 				H.nutrition += 2 * delta_time
-			H.heal_overall_damage((sensitivity_healing * delta_time/2), (sensitivity_healing * delta_time/2), 0, BODYTYPE_ORGANIC)
+			H.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
 			if(shadow_sect_dependency >= 2)
 				H.alpha = 125
 				if(shadow_sect_dependency == 3)
@@ -77,7 +75,7 @@
 /datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		if(rand(0,3) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
+		if(rand(0,4) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
 			var/light_amount = T.get_lumcount()
 			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
@@ -405,7 +403,7 @@
 
 
 /datum/movespeed_modifier/shadow_sect
-	multiplicative_slowdown = -0.5
+	multiplicative_slowdown = -0.15
 
 
 /obj/item/organ/heart/shadow_ritual // This parent should never appear itself
