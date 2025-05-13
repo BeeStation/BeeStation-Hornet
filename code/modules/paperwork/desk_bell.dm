@@ -115,7 +115,7 @@
 	. = ..()
 	if(COOLDOWN_FINISHED(src, radio_cooldown))
 		COOLDOWN_START(src, radio_cooldown, 3 MINUTES)
-		msg = "[station_time_timestamp(format = "hh:mm")] - [job_title] requested to [location]."
+		msg = "[station_time_timestamp(format = "hh:mm")] - [job_title] requested to \"[location]\"."
 		internal_radio.talk_into(src, msg, radio_channel)
 	return
 
