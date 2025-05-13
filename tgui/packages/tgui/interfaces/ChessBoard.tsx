@@ -58,8 +58,10 @@ const Cell = (props) => {
               />
             </Box>
           )}
-          <Box className="ChessBoard_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
-            {props.name}
+          <Box className="ChessBoard_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })} >
+            <Box className="ChessBoard_Text" >
+              {props.name}
+            </Box>
           </Box>
         </Box>
       </Box>
