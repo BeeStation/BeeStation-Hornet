@@ -64,7 +64,7 @@
 			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
 		if(tox_loss <= limited_healing)
 			if(antispam_two)
-				to_chat(user, span_notice("You can't fix any more of toxin damage"))
+				to_chat(user, span_notice("You can't fix any more toxin damage"))
 				antispam_two = FALSE
 			if(!target.reagents.total_volume)
 				return FALSE
