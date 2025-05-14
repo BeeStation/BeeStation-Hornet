@@ -24,7 +24,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/shadow
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
-	var/shadow_sect_dependency = 0 // only important if shadow sect is at play, is a way to check what level of rituals it completed, used by shadow hearts
+	var/sect_rituals_completed = 0 // only important if shadow sect is at play, is a way to check what level of rituals it completed, used by shadow hearts
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
@@ -34,17 +34,17 @@
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
-			if(shadow_sect_dependency >= 2)
+			if(sect_rituals_completed >= 2)
 				H.alpha = 255
-				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect) && shadow_sect_dependency == 3)
+				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect) && sect_rituals_completed == 3)
 					H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			if(shadow_sect_dependency >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
+			if(sect_rituals_completed >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
 				H.nutrition += 2 * delta_time
 			H.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
-			if(shadow_sect_dependency >= 2)
+			if(sect_rituals_completed >= 2)
 				H.alpha = 125
-				if(shadow_sect_dependency == 3)
+				if(sect_rituals_completed == 3)
 					H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
 /datum/species/shadow/check_roundstart_eligible()
@@ -75,7 +75,7 @@
 /datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		if(rand(0,4) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
+		if(rand(0,4) == 0 && H.dna.species.id != "nightmare" && sect_rituals_completed >= 2)
 			var/light_amount = T.get_lumcount()
 			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
@@ -411,7 +411,7 @@
 	decay_factor = 0
 	var/shadow_conversion = 0 // Determines progress of transforming owner into shadow person
 	var/shadow_conversion_rate = 0 // Rate of said conversion
-	var/shadow_sect_dependency_granted = 0 // What level of shadow heart dependency the heart grants
+	var/sect_rituals_completed_granted = 0 // What level of shadow heart dependency the heart grants
 	var/datum/action/innate/shadow_comms/comms/C = new // For granting shadow comms
 
 /obj/item/organ/heart/shadow_ritual/first
@@ -420,7 +420,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_1"
 	shadow_conversion_rate = 0.25
-	shadow_sect_dependency_granted = 1
+	sect_rituals_completed_granted = 1
 
 /obj/item/organ/heart/shadow_ritual/second
 	name = "faded heart"
@@ -428,7 +428,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_2"
 	shadow_conversion_rate = 0.5
-	shadow_sect_dependency_granted = 2
+	sect_rituals_completed_granted = 2
 
 /obj/item/organ/heart/shadow_ritual/third
 	name = "pulsing darkness"
@@ -437,7 +437,7 @@
 	icon_state = "shadow_heart_3"
 	shadow_conversion_rate = 1
 	var/respawn_progress = 0
-	shadow_sect_dependency_granted = 3
+	sect_rituals_completed_granted = 3
 
 
 /obj/item/organ/heart/shadow_ritual/Stop()
@@ -451,7 +451,7 @@
 	if(isshadow(M))
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
-		spiec.shadow_sect_dependency = shadow_sect_dependency_granted
+		spiec.sect_rituals_completed = sect_rituals_completed_granted
 		C.Grant(M)
 	else
 		shadow_conversion = 0
@@ -463,7 +463,7 @@
 	if(isshadow(M))
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
-		spiec.shadow_sect_dependency = 0
+		spiec.sect_rituals_completed = 0
 		M.alpha = 255
 		C.Remove(M)
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
@@ -533,7 +533,7 @@
 		return FALSE
 	var/mob/living/carbon/human/O = owner
 	var/datum/species/shadow/S = O.dna.species
-	if(S.shadow_sect_dependency == 0)
+	if(S.sect_rituals_completed == 0)
 		return FALSE
 	return ..()
 
@@ -571,7 +571,7 @@
 		if(isshadow(M))
 			var/mob/living/carbon/human/S = M
 			var/datum/species/shadow/spiec = S.dna.species
-			if(spiec.shadow_sect_dependency != 0)
+			if(spiec.sect_rituals_completed != 0)
 				to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
