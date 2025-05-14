@@ -228,12 +228,12 @@
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
 			child_colour = "rainbow"
+		else if(special_mutation == TRUE)
+			child_colour = special_mutation_type
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
 				slime_mutation = mutation_table(pick(slime_colours - list("rainbow", "dark green", "cobalt", "dark grey", "crimson")))
 			child_colour = slime_mutation[rand(1,4)]
-		if(special_mutation)
-			child_colour = special_mutation_type
 		else
 			child_colour = colour
 	var/mob/living/simple_animal/slime/M = new(drop_loc, child_colour, new_adult)
