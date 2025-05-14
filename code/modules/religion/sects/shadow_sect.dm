@@ -26,7 +26,7 @@
 	var/list/obelisks = list() // list of all obelisks
 	var/obelisk_number = 0  // number of obelisks
 	var/list/active_obelisks = list() // list of obelisks anchored to the floor aka "active"
-	var/active_obelisk_number = 0 //number of such obelisks
+	var/active_obelisks_number = 0 //number of anchored obelisks
 	var/night_vision_active = FALSE // if night vision aura of obelisks is active
 	var/grand_ritual_in_progress = FALSE // whether a grand ritual is being performed
 	var/grand_ritual_level = 0 // what is the level of the last performed ritual (max is 3)
@@ -34,7 +34,7 @@
 
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
 
-//Shadow sect doesn't heal non shadows
+//Shadow sect doesn't heal non shadowpeople
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
 	if(isshadow(blessed))
 		var/mob/living/carbon/human/S = blessed
@@ -81,7 +81,7 @@
 	STOP_PROCESSING(SSobj, src)
 	if(anchored)
 		sect.active_obelisks -= src
-		sect.active_obelisk_number -= 1
+		sect.active_obelisks_number -= 1
 	for(var/X in affected_mobs)
 		on_mob_leave(X)
 	for(var/mob/living/X in healed_mobs)
@@ -156,12 +156,12 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(istype(I, /obj/item/nullrod))
 		if(sect.grand_ritual_in_progress)
-			to_chat(user,span_warning("You can't move an obelisk during a ritual!"))
+			to_chat(user,span_warning("You can't move an obelisk during a active ritual!"))
 			return
 		if(anchored)
 			src.unanchored_NV()
 			anchored = !anchored
-			sect.active_obelisk_number -= 1
+			sect.active_obelisks_number -= 1
 			sect.active_obelisks -= src
 			user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -176,7 +176,7 @@
 					return
 			anchored = !anchored
 			sect.active_obelisks += src
-			sect.active_obelisk_number += 1
+			sect.active_obelisks_number += 1
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 			user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -186,7 +186,7 @@
 
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if(sect.grand_ritual_in_progress)
-			to_chat(user,span_warning("You can't move the obelisk during a ritual!"))
+			to_chat(user,span_warning("You can't move the obelisk during a active ritual!"))
 			return
 		if (!anchored)
 			var/list/current_objects = view_or_range(5, src, "range")
@@ -196,7 +196,7 @@
 					return
 			anchored = !anchored
 			sect.active_obelisks += src
-			sect.active_obelisk_number += 1
+			sect.active_obelisks_number += 1
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 			user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -350,7 +350,7 @@
 	if((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level))
 		to_chat(user, span_warning("The shadows emanating from your idols are as strong as they could be."))
 		if(sect.grand_ritual_level != 3)
-			to_chat(user, span_warning("Performing a grand ritual would let more shadow move into this world."))
+			to_chat(user, span_warning("Performing a grand ritual would let more shadows move into this world."))
 		return FALSE
 	if(sect.favor < cost)
 		to_chat(user, span_warning("The shadows emanating from your idols need more favor to expand. You need [cost]"))
@@ -394,7 +394,7 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1
 	icon_state = "shadow_obelisk_2"
-	desc = "Grants favor while in the darkness. Blesses all tiles in its radius."
+	desc = "Grants favor while in the darkness."
 	var/spread_delay = 30 SECONDS// how often will obelisk bless the tiles in radius
 	COOLDOWN_DECLARE(cooldown_holy_spread)
 
@@ -412,10 +412,10 @@
 
 
 
-/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2 // some cursed incheritence, but its the easiest way to do it
+/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2 // some cursed incheritence, but this is the easiest way to do it
 	icon_state = "shadow_obelisk_3"
 	desc = "Grants favor from being shrouded in shadows. Blesses all tiles in its radius. Heals all shadowpeople in area."
-	var/heal_delay = 10 SECONDS // how often will obelisk heal the shadowpeople in radius
+	var/heal_delay = 10 SECONDS // How often the obelisk will heal shadow people in its radius
 	COOLDOWN_DECLARE(cooldown_holy_heal)
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/process(delta_time)
@@ -449,8 +449,7 @@
 				L.adjustFireLoss(-5, 0)
 				L.adjustCloneLoss(-5, 0)
 				L.updatehealth()
-				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 5.0
+
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/proc/clear_recently_healed(mob/living/L) // So the mob is eligible to be healed again
 	healed_mobs -= L
@@ -476,7 +475,7 @@
 	. = ..()
 	if(isshadow(M))
 		unbuckle_mob(M, TRUE)
-		visible_message(span_warning("[M.name] seems to fall through obelisk."))
+		visible_message(span_warning("[M.name] seems to fall through the obelisk."))
 		return
 
 	if(!ishuman(M))
@@ -484,7 +483,7 @@
 		visible_message(span_warning("Obelisk can't hold [M.name] in place."))
 		return
 
-	to_chat(M,span_userdanger("You feel the obelisk channel all its shadows through you. If you dont get off, you will be changed irrevocable way."))
+	to_chat(M,span_userdanger("You feel the obelisk channel shadows through you. You feel yourself changing!"))
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3/process(delta_time)
 	if(LAZYLEN(buckled_mobs) != 0)
@@ -492,7 +491,7 @@
 		if (converting >= 30)
 			converting = 0
 			for(var/mob/living/carbon/human/buckled in buckled_mobs)
-				buckled.visible_message(span_notice("[buckled.name] merged with shadows and dropped from obelisk."), span_userdanger("Shadows infuse your body changing you into one of them."))
+				buckled.visible_message(span_notice("[buckled.name] merged with shadows and  drops from the obelisk."), span_userdanger("Shadows infuse your body changing you into one of them."))
 				buckled.set_species(/datum/species/shadow)
 				unbuckle_mob(buckled, TRUE)
 	else
@@ -516,7 +515,7 @@
 		return ..()
 
 	if(local_obelisk_list.len == 1)
-		user.visible_message(span_notice("[user.name] walks into obelisk."), span_notice("You walk into obelisk."))
+		user.visible_message(span_notice("[user.name] walks into the obelisk."), span_notice("You walk into the obelisk."))
 		do_teleport(user, local_obelisk_list[1], no_effects = TRUE)
 		user.visible_message(span_notice("[user.name] walks out of obelisk."), span_notice("To emerge on the other side."))
 		return
@@ -538,7 +537,7 @@
 
 		assoc_list[name] = OB
 
-	var/chosen_input = input(user,"What destination do you want to choose",null) as null|anything in assoc_list
+	var/chosen_input = input(user,"Which obelisk you want to move to?",null) as null|anything in assoc_list
 	in_use = FALSE
 
 	if(!chosen_input || !assoc_list[chosen_input])
@@ -562,7 +561,7 @@
 		obelisk.anchored = anchored
 		if(anchored)
 			sect.active_obelisks += obelisk
-			sect.active_obelisk_number += 1
+			sect.active_obelisks_number += 1
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 		Destroy()
 	if(sect.grand_ritual_level == 2)
@@ -573,7 +572,7 @@
 		obelisk.anchored = anchored
 		if(anchored)
 			sect.active_obelisks += obelisk
-			sect.active_obelisk_number += 1
+			sect.active_obelisks_number += 1
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 		Destroy()
 	if(sect.grand_ritual_level == 3)
@@ -584,15 +583,15 @@
 		obelisk.anchored = anchored
 		if(anchored)
 			sect.active_obelisks += obelisk
-			sect.active_obelisk_number += 1
+			sect.active_obelisks_number += 1
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 		Destroy()
 
 // Grand rituals themselves
 
 /datum/religion_rites/grand_ritual_one
-	name = "Grand ritual: Beconing shadows"
-	desc = "Convince shadows to take interest in your cult. They will carry information between their kind and their mere presence will make the darkness holier."
+	name = "Grand ritual: Beckoning shadows"
+	desc = "Convince shadows to take interest in your sect. They will carry information between their kind."
 	ritual_length = 35 SECONDS
 	ritual_invocations = list(
 		"Shadows hear me...",
@@ -606,12 +605,12 @@
 		to_chat(user, span_warning("You already performed this ritual!."))
 		return FALSE
 	if(!isshadow(user))
-		to_chat(user, span_warning("How dare someone not of shadow kind, try to communicate with shadows!."))
+		to_chat(user, span_warning("How dare someone not of shadow kind try to communicate with shadows!"))
 		return FALSE
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
 		return FALSE
-	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
+	if(sect.active_obelisks_number < 5 * (sect.grand_ritual_level + 1))
 		to_chat(user, span_warning("You need to anchor the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks."))
 		return FALSE
 	if(!can_afford(user))
@@ -629,8 +628,8 @@
 
 /datum/religion_rites/grand_ritual_one/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
-		to_chat(user, span_warning("Your obelisk have been destroyed, destabilizing the ritual!. You need to gather your strength and try again."))
+	if(sect.active_obelisks_number < 5 * (sect.grand_ritual_level + 1))
+		to_chat(user, span_warning("Your obelisks have been destroyed, destabilizing the ritual! You need to gather your strength and try again."))
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
 	sect.grand_ritual_level = 1
@@ -638,7 +637,7 @@
 		obelisk.transform_obelisk()
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
-			M.heal_overall_damage(100, 100, 200)
+			M.heal_overall_damage(25, 25, 200)
 			var/datum/species/shadow/spiec = M.dna.species
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_one
@@ -670,7 +669,7 @@
 	ritual_invocations = list(
 		"Shadows hear me...",
 		"... Come to your kin ...",
-		"... Help us spread darknes ...",
+		"... Help us spread darkness ...",
 		"... Enter our obelisks ...",
 		"... Share your blessings ...",
 		"... Heal our wounds ...")
@@ -688,7 +687,7 @@
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
 		return FALSE
-	if(sect.active_obelisk_number < 7 * (sect.grand_ritual_level + 1))
+	if(sect.active_obelisks_number < 7 * (sect.grand_ritual_level + 1))
 		to_chat(user, span_warning("You need to anchor the shadows to this reality. You need [7 * (sect.grand_ritual_level + 1)] active obelisks."))
 		return FALSE
 	if(!can_afford(user))
@@ -706,8 +705,8 @@
 
 /datum/religion_rites/grand_ritual_two/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.active_obelisk_number < 7 * (sect.grand_ritual_level + 1))
-		to_chat(user, span_warning("Your obelisk have been destroyed, destabilizing the ritual!. You need to gather your strength and try again."))
+	if(sect.active_obelisks_number < 7 * (sect.grand_ritual_level + 1))
+		to_chat(user, span_warning("Your obelisks have been destroyed, destabilizing the ritual! You need to gather your strength and try again."))
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
 	sect.grand_ritual_level = 2
@@ -715,7 +714,7 @@
 		obelisk.transform_obelisk()
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
-			M.fully_heal()
+			M.heal_overall_damage(25, 25, 200)
 			var/datum/species/shadow/spiec = M.dna.species
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_two
@@ -749,7 +748,7 @@
 	ritual_invocations = list(
 		"Shadows hear me...",
 		"... Come to your kin ...",
-		"... Help us spread darknes ...",
+		"... Help us spread darkness ...",
 		"... Enter our obelisks ...",
 		"... Share your blessings ...",
 		"... Heal our wounds ...",
@@ -765,12 +764,12 @@
 		to_chat(user, span_warning("You already performed this ritual!."))
 		return FALSE
 	if(!isshadow(user))
-		to_chat(user, span_warning("How dare someone not of shadow kind, try to communicate with shadows!."))
+		to_chat(user, span_warning("How dare someone not of shadow kind, try to communicate with shadows!"))
 		return FALSE
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
 		return FALSE
-	if(sect.active_obelisk_number < 10 * (sect.grand_ritual_level + 1))
+	if(sect.active_obelisks_number < 10 * (sect.grand_ritual_level + 1))
 		to_chat(user, span_warning("You need to anchor the shadows to this reality. You need [10 * (sect.grand_ritual_level + 1)] active obelisks."))
 		return FALSE
 	if(!can_afford(user))
@@ -789,8 +788,8 @@
 
 /datum/religion_rites/grand_ritual_three/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.active_obelisk_number < 10 * (sect.grand_ritual_level + 1))
-		to_chat(user, span_warning("Your obelisk have been destroyed, destabilizing the ritual!. You need to gather your strength and try again."))
+	if(sect.active_obelisks_number < 10 * (sect.grand_ritual_level + 1))
+		to_chat(user, span_warning("Your obelisks have been destroyed, destabilizing the ritual! You need to gather your strength and try again."))
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
 	sect.grand_ritual_level = 3

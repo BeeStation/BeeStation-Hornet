@@ -24,7 +24,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/shadow
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
-	var/sect_rituals_completed = 0 // only important if shadow sect is at play, is a way to check what level of rituals it completed, used by shadow hearts
+	var/sect_rituals_completed = 0 // only important if shadow sect is at play, this is a way to check what level of rituals it completed. Used by shadow hearts
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
@@ -34,10 +34,9 @@
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
-			if(sect_rituals_completed >= 2)
-				H.alpha = 255
-				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect) && sect_rituals_completed == 3)
-					H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+			H.alpha = 255
+			if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+				H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 			if(sect_rituals_completed >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
 				H.nutrition += 2 * delta_time
@@ -75,7 +74,7 @@
 /datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		if(rand(0,4) == 0 && H.dna.species.id != "nightmare" && sect_rituals_completed >= 2)
+		if(prob(20) && H.dna.species.id != "nightmare" && sect_rituals_completed >= 2)
 			var/light_amount = T.get_lumcount()
 			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
@@ -410,16 +409,14 @@
 	visual = TRUE
 	decay_factor = 0
 	var/shadow_conversion = 0 // Determines progress of transforming owner into shadow person
-	var/shadow_conversion_rate = 0 // Rate of said conversion
 	var/sect_rituals_completed_granted = 0 // What level of shadow heart dependency the heart grants
 	var/datum/action/innate/shadow_comms/comms/C = new // For granting shadow comms
 
 /obj/item/organ/heart/shadow_ritual/first
 	name = "shadowed heart"
-	desc = "An object resembling a heart, completed shrouded by a thick layer of darkness."
+	desc = "An object resembling a heart, completely shrouded by a thick layer of darkness."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_1"
-	shadow_conversion_rate = 0.25
 	sect_rituals_completed_granted = 1
 
 /obj/item/organ/heart/shadow_ritual/second
@@ -427,21 +424,19 @@
 	desc = "A hard to distinguish heart-like organ covered by a shifting darkness."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_2"
-	shadow_conversion_rate = 0.5
 	sect_rituals_completed_granted = 2
 
 /obj/item/organ/heart/shadow_ritual/third
 	name = "pulsing darkness"
-	desc = "An indistinguishable object cloaked in an undispellable darkness. The only thing that can be made out is the darkness as it moves and pulses."
+	desc = "An indistinguishable object cloaked in an undispellable darkness. The only thing that can be made out is the darkness pulsing."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_3"
-	shadow_conversion_rate = 1
 	var/respawn_progress = 0
 	sect_rituals_completed_granted = 3
 
 
 /obj/item/organ/heart/shadow_ritual/Stop()
-	return 0
+	return FALSE
 
 /obj/item/organ/heart/shadow_ritual/update_icon()
 	return
@@ -461,9 +456,9 @@
 /obj/item/organ/heart/shadow_ritual/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(isshadow(M))
-		var/mob/living/carbon/human/S = M
-		var/datum/species/shadow/spiec = S.dna.species
-		spiec.sect_rituals_completed = 0
+		var/mob/living/carbon/human/O = M
+		var/datum/species/shadow/S = O.dna.species
+		S.sect_rituals_completed = 0
 		M.alpha = 255
 		C.Remove(M)
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
@@ -479,14 +474,14 @@
 /obj/item/organ/heart/shadow_ritual/on_life()
 	..()
 	if(!isshadow(owner))
-		shadow_conversion += shadow_conversion_rate
+		shadow_conversion += 1
 		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
 			shadow_conversion = 0
 			to_chat(owner, span_userdanger("You feel the shadows invade your skin, leaping from the center of your chest!"))
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow)
 		else
-			var/random_mesage = rand(0,90 - 60 * shadow_conversion_rate)
+			var/random_mesage = rand(0,90)
 			if(random_mesage == 0)
 				to_chat(owner, span_warning("Dark spots appear all over your skin."))
 			if(random_mesage == 1)
@@ -511,7 +506,7 @@
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow)
-			to_chat(owner, span_userdanger("You feel the shadows invade your skin, leaping into the center of your chest! You're alive!"))
+			to_chat(owner, span_userdanger("You feel the shadows invade your skin, leaping from the center of your chest! You're alive!"))
 			SEND_SOUND(owner, sound('sound/effects/ghost.ogg'))
 		owner.visible_message(span_warning("[owner] staggers to [owner.p_their()] feet!"))
 		playsound(owner, 'sound/hallucinations/far_noise.ogg', 50, 1)
