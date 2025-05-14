@@ -41126,6 +41126,10 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 8
 	},
+/obj/machinery/door/window/westright{
+	req_access_txt = "40";
+	pixel_x = -7
+	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
 "ixF" = (
@@ -58660,10 +58664,6 @@
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 8
-	},
-/obj/machinery/door/window/westright{
-	req_access_txt = "40";
-	dir = 4
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/cmo)
