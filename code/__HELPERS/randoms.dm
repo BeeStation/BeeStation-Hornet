@@ -61,7 +61,6 @@
 		/obj/item/seeds/flower,
 		/obj/item/seeds/sample,
 		/obj/item/seeds/sample/alienweed,
-		/obj/item/seeds/cherry/bomb,
-		/obj/item/seeds/gatfruit
+		/obj/item/seeds/cherry/bomb
 		)
 	return pick(subtypesof(/obj/item/seeds) - blocked)
