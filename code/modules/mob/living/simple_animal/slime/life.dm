@@ -31,6 +31,11 @@
 		return
 	handle_mood(delta_time, times_fired)
 	handle_speech(delta_time, times_fired)
+	if(colour == "red" && burn_damage_stored > 80 * delta_time)
+		special_mutation = TRUE
+		special_mutation_type = "crimson"
+		visible_message(span_danger("[src] shudders, their red core deepening into an abyssal crimson."))
+	burn_damage_stored = 0
 
 // Unlike most of the simple animals, slimes support UNCONSCIOUS. This is an ugly hack.
 /mob/living/simple_animal/slime/update_stat()
