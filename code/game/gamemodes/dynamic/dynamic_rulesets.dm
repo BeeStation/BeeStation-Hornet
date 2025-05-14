@@ -44,6 +44,7 @@
 
 /*
 * Some rulesets, like cult, set their drafted players to an ammount relative to the server population.
+* IMPORTANT: use ROUND_UP instead of round. We (usually) don't want drafted players to be 0
 */
 /datum/dynamic_ruleset/proc/set_drafted_players_amount()
 	return

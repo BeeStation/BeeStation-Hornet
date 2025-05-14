@@ -488,7 +488,7 @@
 	var/datum/team/spiders/team
 
 /datum/dynamic_ruleset/midround/ghost/spiders/set_drafted_players_amount()
-	drafted_players_amount = round(length(dynamic.roundstart_candidates) / 7, 1)
+	drafted_players_amount = ROUND_UP(length(dynamic.roundstart_candidates) / 7)
 
 /datum/dynamic_ruleset/midround/ghost/spiders/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
