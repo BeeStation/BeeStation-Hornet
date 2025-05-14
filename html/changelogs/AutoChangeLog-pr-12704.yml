@@ -1,0 +1,11 @@
+author: RDS88-beeman
+delete-after: true
+changes:
+  - rscadd: adds four new slimes to xenobiology, that can't be obtained via mutation
+      or blorble. also adds extract effects for these slimes. no luminescent stuff
+      yet, please have mercy.
+  - rscadd: adds four new sidequests a xenobiologist can go on to go get those slimes!
+      Build a grass pen for your green slimes! Take your gold slime on a pilgrimage
+      to see the grav gen! Feed your pink slime an exotic legion core! Shoot your
+      red slime with a truly ungodly amount of lasers! Reap the spoils! You'll know
+      when you've done it right.
