@@ -57,7 +57,7 @@
 // Shadow sect construction
 /obj/structure/destructible/religion/shadow_obelisk
 	name = "Shadow Obelisk"
-	desc = "Grants favor from being shrouded in shadows."
+	desc = "Idol to darkness, letting shadows enter the world."
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "shadow_obelisk_1"
 	anchored = FALSE
@@ -394,27 +394,9 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1
 	icon_state = "shadow_obelisk_2"
-	desc = "Grants favor while in the darkness."
-	var/spread_delay = 30 SECONDS// how often will obelisk bless the tiles in radius
-	COOLDOWN_DECLARE(cooldown_holy_spread)
-
-/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/process(delta_time)
-	. = ..()
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(!anchored)
-		return
-	if(COOLDOWN_FINISHED(src, cooldown_holy_spread))
-		COOLDOWN_START(src, cooldown_holy_spread, spread_delay)
-		for(var/turf/T in circlerangeturfs(src, sect.light_reach))
-			if(istype(T))
-				if(T.get_lumcount() <= 0)
-					T.Bless()
-
-
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2 // some cursed incheritence, but this is the easiest way to do it
 	icon_state = "shadow_obelisk_3"
-	desc = "Grants favor from being shrouded in shadows. Blesses all tiles in its radius. Heals all shadowpeople in area."
 	var/heal_delay = 10 SECONDS // How often the obelisk will heal shadow people in its radius
 	COOLDOWN_DECLARE(cooldown_holy_heal)
 
@@ -457,7 +439,6 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3
 	icon_state = "shadow_obelisk_4"
-	desc = "Grants favor from being shrouded in shadows. Blesses all tiles in its radius. Heals all shadowpeople in area. People buckled to the obelisk will turn into shadow people, while shadow people can use them to teleport"
 	can_buckle = FALSE // it will be posible once anchored
 	var/converting = 0
 	var/in_use = FALSE
@@ -498,7 +479,7 @@
 		converting = 0
 	. = ..()
 
-/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3/attack_hand(mob/user)
+/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/attack_hand(mob/user)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!isshadow(user) && !user.mind?.holy_role)
 		return
