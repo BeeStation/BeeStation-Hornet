@@ -394,6 +394,7 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1
 	icon_state = "shadow_obelisk_2"
+	var/in_use = FALSE
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2 // some cursed incheritence, but this is the easiest way to do it
 	icon_state = "shadow_obelisk_3"
@@ -441,7 +442,6 @@
 	icon_state = "shadow_obelisk_4"
 	can_buckle = FALSE // it will be posible once anchored
 	var/converting = 0
-	var/in_use = FALSE
 
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3/toggling_buckling_after_ritual_3()
