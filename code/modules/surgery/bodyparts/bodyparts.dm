@@ -720,7 +720,7 @@
 	if (bone_health <= 0)
 		check_effectiveness()
 		if (!(locate(/datum/injury/broken_bone) in injuries))
-			LAZYADD(injuries, new /datum/injury/broken_bone)
+			apply_injury(new /datum/injury/broken_bone)
 	// Bone pentration
 	penetration_power -= rand(0, bone_penetration_resistance)
 	current_damage = damage
@@ -743,6 +743,12 @@
 	// The head cannot be delimbed if the most is alive since it causes instant death
 	if (((penetration_power > 0 && prob(penetration_power - bone_health)) || bone_health <= 0) && dismemberable && damage_flag == DAMAGE_STANDARD && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
 		dismember()
+
+/obj/item/bodypart/proc/apply_injury(datum/injury/injury)
+	LAZYADD(injuries, injury)
+	injury.apply_to_part(src)
+	if (owner && ishuman(owner))
+		injury.apply_to_human(owner)
 
 /obj/item/bodypart/proc/check_effectiveness()
 	effectiveness = initial(effectiveness)
