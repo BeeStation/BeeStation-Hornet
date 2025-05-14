@@ -87,59 +87,63 @@
   .ProgressBar {
     min-height: 1.5em;
   }
-  .ProgressBar__content {
-    margin-left: auto;
-    width: fit-content;
-    background-color: color.adjust(base.$color-bg, $alpha: -0.3);
-    box-shadow: 0px 0px 4px 4px color.adjust(base.$color-bg, $alpha: -0.3);
-    height: 1.25em;
+  @supports (margin-left: auto) {
+    .ProgressBar__content {
+      margin-left: auto;
+      width: fit-content;
+      background-color: color.adjust(base.$color-bg, $alpha: -0.3);
+      box-shadow: 0px 0px 4px 4px color.adjust(base.$color-bg, $alpha: -0.3);
+      height: 1.25em;
+    }
   }
   // Title-bar overrides
   @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #181a21));
-  // Window overrides
-  .Window::before {
-    content: '';
-    position: fixed;
-    top: 32px;
-    left: 0;
-    width: 100vw;
-    height: calc(100vh - 32px);
-    pointer-events: none;
-    z-index: 9999;
-    background-image: repeating-linear-gradient(
-      to right,
-      #ff0000 0px,
-      #ff0000 1px,
-      #00ff00 1px,
-      #00ff00 2px,
-      #0000ff 2px,
-      #0000ff 3px
-    );
-    background-size: 3px 100%;
-    opacity: 0.11;
-    mix-blend-mode: multiply;
-  }
+  @supports (mix-blend-mode: multiply) {
+    // Window overrides
+    .Window::before {
+      content: '';
+      position: fixed;
+      top: 32px;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 32px);
+      pointer-events: none;
+      z-index: 9999;
+      background-image: repeating-linear-gradient(
+        to right,
+        #ff0000 0px,
+        #ff0000 1px,
+        #00ff00 1px,
+        #00ff00 2px,
+        #0000ff 2px,
+        #0000ff 3px
+      );
+      background-size: 3px 100%;
+      opacity: 0.11;
+      mix-blend-mode: multiply;
+    }
 
-  .Window::after {
-    content: '';
-    position: fixed;
-    top: 32px;
-    left: 0;
-    width: 100vw;
-    height: calc(100vh - 32px);
-    pointer-events: none;
-    z-index: 9999;
-    background-image: repeating-linear-gradient(
-      to top,
-      #ff0000 0px,
-      #ff0000 2px,
-      #00ff00 2px,
-      #00ff00 4px,
-      #0000ff 4px,
-      #0000ff 6px
-    );
-    background-size: 100% 6px;
-    opacity: 0.02;
-    mix-blend-mode: multiply;
+    .Window::after {
+      content: '';
+      position: fixed;
+      top: 32px;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 32px);
+      pointer-events: none;
+      z-index: 9999;
+      background-image: repeating-linear-gradient(
+        to top,
+        #ff0000 0px,
+        #ff0000 2px,
+        #00ff00 2px,
+        #00ff00 4px,
+        #0000ff 4px,
+        #0000ff 6px
+      );
+      background-size: 100% 6px;
+      opacity: 0.02;
+      mix-blend-mode: multiply;
+    }
   }
 }
