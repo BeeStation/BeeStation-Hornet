@@ -132,6 +132,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/midround_points_per_living = DYNAMIC_MIDROUND_POINTS_PER_LIVING
 	var/midround_points_per_observer = DYNAMIC_MIDROUND_POINTS_PER_OBSERVER
 	var/midround_points_per_dead = DYNAMIC_MIDROUND_POINTS_PER_DEAD
+	/// Every time we update midround points we add this value to the points and to itself
+	/// For example: Minute 1, +0.05. Minute 2, +0.1. Minute 3, +0.15...
+	var/midround_base_point_increase = 0.05
 
 	/*
 	 * Latejoin
@@ -452,6 +455,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			midround_points += antag_datum.get_dynamic_midround_points()
 
 	midround_points = max(midround_points, 0)
+
+	midround_points += midround_base_point_increase
+	midround_base_point_increase += initial(midround_base_point_increase)
 
 	message_admins("DYNAMIC: Updated midround points. From [previous_midround_points] to [midround_points]")
 	log_game("DYNAMIC: Updated midround points. From [previous_midround_points] to [midround_points]")
