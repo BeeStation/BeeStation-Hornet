@@ -160,12 +160,6 @@
 		if(M.client && ishuman(M))
 			rabid = 1
 
-		if(transformeffects & SLIME_EFFECT_GREEN)
-			visible_message(span_warning("[src] slurps up [M]!"))
-			adjust_nutrition(10)
-			layer = initial(layer)
-			qdel(M)
-
 		set_target(null)
 		special_process = FALSE
 		Feedstop()
