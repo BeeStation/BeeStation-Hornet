@@ -81,10 +81,18 @@
 	var/coretype = /obj/item/slime_extract/grey
 	var/list/slime_mutation[4]
 
-	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
+	var/static/list/normal_slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
 	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
 	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
 	"cerulean", "sepia", "black", "pyrite")
+	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
+	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
+	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
+	"cerulean", "sepia", "black", "pyrite", "dark green", "cobalt", "dark grey", "crimson")
+
+	var/special_mutation = FALSE
+	var/special_mutation_type = null
+	var/burn_damage_stored
 
 	///////////CORE-CROSSING CODE
 
@@ -141,7 +149,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		real_name = name
 
 /mob/living/simple_animal/slime/proc/random_colour()
-	set_colour(pick(slime_colours))
+	set_colour(pick(normal_slime_colours))
 
 /mob/living/simple_animal/slime/regenerate_icons()
 	cut_overlays()
@@ -188,6 +196,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(mod)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_tempmod, multiplicative_slowdown = mod)
 
+/mob/living/simple_animal/slime/refresh_gravity()
+	. = ..()
+	var/grav = has_gravity()
+	if(colour == "gold" && grav > STANDARD_GRAVITY)
+		special_mutation = TRUE
+		special_mutation_type = "cobalt"
+		visible_message(span_danger("[src] shudders under the intense gravity, flecks of blue swirling in their membrane."))
+
 /mob/living/simple_animal/slime/ObjBump(obj/O)
 	if(!client && powerlevel > 0)
 		var/probab = 10
@@ -233,12 +249,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced)
+		burn_damage_stored += abs(amount)
 		amount = -abs(amount)
 	return ..() //Heals them
 
 /mob/living/simple_animal/slime/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	attacked += 10
 	if((Proj.damage_type == BURN))
+		burn_damage_stored += abs(Proj.damage)
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
 		Proj.on_hit(src, 0, piercing_hit)
 	else
@@ -345,6 +363,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		to_chat(user, span_notice("You feed the slime the plasma. It chirps happily."))
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
+		return
+	if(istype(W, /obj/item/organ/regenerative_core) && !stat && colour == "pink")
+		to_chat(user, span_warning("The slime absorbs the regenerative core, pink darkening to an ominous grey"))
+		special_mutation = TRUE
+		special_mutation_type = "dark grey"
+		var/obj/item/organ/regenerative_core/R = W
+		qdel(R)
 		return
 	if(W.force > 0)
 		attacked += 10
@@ -495,12 +520,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
-	. = ..(mapload, pick(slime_colours), prob(50))
+	. = ..(mapload, pick(normal_slime_colours), prob(50))
 
-/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
 		blocked += 50
-	. = ..(damage, damagetype, def_zone, blocked, forced)
+	. = ..(damage, damagetype, def_zone, blocked, forced, spread_damage)
 
 /mob/living/simple_animal/slime/get_discovery_id()
 	return "[colour] slime"
