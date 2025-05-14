@@ -101,11 +101,27 @@
 
 /obj/structure/chess_board/attackby(obj/item/I, mob/living/user)
 	if(!user.combat_mode)
+		if(checkmate(I, user))
+			return
 		if(chess_board_insert_item(I))
 			to_chat(user, span_notice("you chuck \the [I.name] onto \the [src.name]"))
 		ui_update()
 		return
 	return ..()
+
+/obj/structure/chess_board/proc/checkmate(obj/item/grenade, mob/user) // the fabled grenade gambit
+	if(!istype(grenade, /obj/item/grenade))
+		return FALSE
+	SStgui.close_uis(src)
+	var/obj/item/grenade/nade = grenade
+	nade.forceMove(loc)
+	nade.pixel_y = 7
+	nade.anchored = TRUE
+	balloon_alert_to_viewers("Checkmate!")
+	if(!nade.active)
+		nade.preprime(user, 20)
+	return TRUE
+
 
 /obj/structure/chess_board/MouseDrop(over_object)
 	. = ..()
@@ -158,6 +174,8 @@
 
 			if(usr.get_active_held_item())
 				var/obj/item/I = usr.get_active_held_item()
+				if(checkmate(I, usr))
+					return TRUE
 				chess_board_insert_item(I, ui_index)
 
 			return TRUE
