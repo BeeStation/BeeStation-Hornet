@@ -1,0 +1,8 @@
+author: RDS88-beeman
+delete-after: true
+changes:
+  - tweak: tweaked the effects of warping black and transformative green to no longer
+      qdel corpses. they now enchant weapons and allow slimes to become oozelings
+      respectively.
+  - balance: the clock cult enchantment "conductive" no longer hardstuns, instead
+      causing tesla arcs on hit
