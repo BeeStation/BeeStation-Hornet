@@ -22825,7 +22825,6 @@
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 7
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -51067,7 +51066,6 @@
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 7
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -79060,6 +79058,11 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/warehouse)
+"qrO" = (
+/obj/structure/table,
+/obj/structure/chess_board/checkers,
+/turf/open/floor/wood,
+/area/security/prison)
 "qrP" = (
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -84502,7 +84505,6 @@
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 7
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -105823,11 +105825,6 @@
 	},
 /turf/open/floor/plating,
 /area/bridge)
-"vPT" = (
-/obj/structure/table,
-/obj/structure/chess_board/checkers,
-/turf/open/floor/wood,
-/area/security/prison)
 "vPU" = (
 /turf/closed/wall,
 /area/crew_quarters/dorms)
@@ -159938,7 +159935,7 @@ eKL
 qfZ
 uep
 qep
-vPT
+qrO
 rMt
 mEr
 xNq
