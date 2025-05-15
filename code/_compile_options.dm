@@ -1,4 +1,4 @@
-//#define TESTING				//By using the testing("message") proc you can create debug-feedback for people with this
+#define TESTING				//By using the testing("message") proc you can create debug-feedback for people with this
 								//uncommented, but not visible in the release version)
 
 //#define DATUMVAR_DEBUGGING_MODE	//Enables the ability to cache datum vars and retrieve later for debugging which vars changed.
@@ -89,13 +89,16 @@
 #endif				// 1 to use the default behaviour;
 					// 2 for preloading absolutely everything;
 
-//#define LOWMEMORYMODE
+#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
 	#warn WARNING: Compiling with LOWMEMORYMODE.
 	#ifdef FORCE_MAP
 	#warn WARNING: FORCE_MAP is already defined.
 	#else
 	#define FORCE_MAP "runtimestation"
+	#endif
+	#ifdef CIBUILDING
+	#error LOWMEMORYMODE is enabled, disable this!
 	#endif
 #endif
 
@@ -118,6 +121,10 @@
 //Additional code for the above flags.
 #ifdef TESTING
 #warn compiling in TESTING mode. testing() debug messages will be visible.
+
+#ifdef CIBUILDING
+#error TESTING is enabled, disable this!
+#endif
 #endif
 
 #ifdef CIBUILDING
