@@ -5,11 +5,7 @@
 /**
  * NAMEOF that actually works in static definitions because src::type requires src to be defined
  */
-#if DM_VERSION >= 515
 #define NAMEOF_STATIC(datum, X) (nameof(type::##X))
-#else
-#define NAMEOF_STATIC(datum, X) (#X || ##datum.##X)
-#endif
 
 #define VARSET_LIST_CALLBACK(target, var_name, var_value) CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(___callbackvarset), ##target, ##var_name, ##var_value)
 //dupe code because dm can't handle 3 level deep macros

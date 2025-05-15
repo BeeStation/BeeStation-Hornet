@@ -1,6 +1,6 @@
 /datum/surgery/blood_filter
 	name = "Filter Blood"
-	desc = "A surgical procedure that filters toxins from the patient's blood. Does not undo any toxin damage, however."
+	desc = "A surgical procedure that filters toxins from the patient's blood."
 	steps = list(/datum/surgery_step/incise,
 				/datum/surgery_step/retract_skin,
 				/datum/surgery_step/incise,
@@ -9,7 +9,6 @@
 
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_bodypart_type = TRUE
 	ignore_clothes = FALSE
 	replaced_by = /datum/surgery/blood_filter/upgraded
 	var/antispam = FALSE
@@ -27,9 +26,7 @@
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(HAS_TRAIT(target, TRAIT_HUSK)) //Can't filter husk
 		return FALSE
-	var/datum/surgery_step/filter_blood/filtering_step = filtering_step_type
-	var/heals_tox = filtering_step ? initial(filtering_step.tox_heal_factor) > 0 : FALSE
-	if((!heals_tox || target.getToxLoss() <= 0) && target.reagents?.total_volume == 0)
+	if(target.getToxLoss() <= 0 && target.reagents?.total_volume == 0)
 		return FALSE
 	return ..()
 
@@ -40,15 +37,18 @@
 	time = 2.5 SECONDS
 	success_sound = 'sound/machines/ping.ogg'
 	var/chem_purge_factor = 0.2
-	var/tox_heal_factor = 0
+	var/tox_heal_factor = 0.025
+	var/limited_healing = 100 // Cant heal toxin damage under this treshold
+	var/antispam_two = TRUE
+
 
 /datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery,/datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		if(!the_surgery.antispam)
 			display_results(user, target, span_notice("You begin filtering [target]'s blood..."),
-		span_notice("[user] uses [tool] to filtering your blood."),
-		span_notice("[user] uses [tool] on [target]'s chest."))
+			span_notice("[user] uses [tool] to filtering your blood."),
+			span_notice("[user] uses [tool] on [target]'s chest."))
 
 /datum/surgery_step/filter_blood/initiate(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
@@ -62,8 +62,14 @@
 		for(var/blood_chem in target.reagents.reagent_list)
 			var/datum/reagent/chem = blood_chem
 			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
-		if(tox_heal_factor > 0)
-			if(tox_loss <= 2)
+		if(tox_loss <= limited_healing)
+			if(antispam_two)
+				to_chat(user, span_notice("You can't fix any more toxin damage"))
+				antispam_two = FALSE
+			if(!target.reagents.total_volume)
+				return FALSE
+		else
+			if(tox_loss<=2)
 				target.setToxLoss(0)
 			else
 				target.adjustToxLoss(-(tox_loss * tox_heal_factor), forced=TRUE) //forced so this will actually heal oozelings too
@@ -102,6 +108,8 @@
 /datum/surgery_step/filter_blood/upgraded
 	time = 1.85 SECONDS
 	tox_heal_factor = 0.075
+	chem_purge_factor = 0.3
+	limited_healing = 0
 
 /datum/surgery/blood_filter/femto
 	name = "Filter Blood (Exp.)"
@@ -112,3 +120,5 @@
 
 /datum/surgery_step/filter_blood/upgraded/femto
 	time = 1 SECONDS
+	tox_heal_factor = 0.15
+	chem_purge_factor = 0.4
