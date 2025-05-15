@@ -134,7 +134,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/midround_points_per_dead = DYNAMIC_MIDROUND_POINTS_PER_DEAD
 	/// Every time we update midround points we add this value to the points and to itself
 	/// For example: Minute 1, +0.05. Minute 2, +0.1. Minute 3, +0.15...
-	var/midround_base_point_increase = 0.05
+	var/midround_linear_point_increase = DYNAMIC_MIDROUND_LINEAR_POINT_INCREASE
 
 	/*
 	 * Latejoin
@@ -380,7 +380,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 */
 /datum/game_mode/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	if(!ruleset)
-		return
+		return DYNAMIC_EXECUTE_FAILURE
 
 	if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
 		rulesets_to_process += ruleset
@@ -423,12 +423,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	if(!midround_chosen_ruleset)
 		choose_midround_ruleset()
 
-	if(!midround_chosen_ruleset)
-		return
-
-	// This is an if statement instead of else because choose_midround_ruleset() will probably pick a ruleset
+	// This is an if statement instead of an else if statement because choose_midround_ruleset() will probably pick a ruleset
 	// Try to execute our ruleset if we have enough points and actually have one.
-	if(midround_points >= midround_chosen_ruleset.points_cost)
+	if(midround_chosen_ruleset && midround_points >= midround_chosen_ruleset?.points_cost)
 		var/result = execute_ruleset(midround_chosen_ruleset)
 		message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
@@ -459,8 +456,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	midround_points = max(midround_points, 0)
 
-	midround_points += midround_base_point_increase
-	midround_base_point_increase += initial(midround_base_point_increase)
+	midround_points += midround_linear_point_increase
+	midround_linear_point_increase += initial(midround_linear_point_increase)
 
 	message_admins("DYNAMIC: Updated midround points. From [previous_midround_points] to [midround_points]")
 	log_game("DYNAMIC: Updated midround points. From [previous_midround_points] to [midround_points]")
