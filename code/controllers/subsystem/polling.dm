@@ -127,11 +127,15 @@ SUBSYSTEM_DEF(polling)
 		var/image/poll_image
 		if(ispath(alert_pic, /atom) || isatom(alert_pic))
 			poll_image = new /mutable_appearance(alert_pic)
+			poll_image.layer = FLOAT_LAYER
+			poll_image.plane = poll_alert_button.plane
 			poll_image.pixel_z = 0
 		else if(!isnull(alert_pic))
 			poll_image = alert_pic
 		else
 			poll_image = image('icons/effects/effects.dmi', icon_state = "static")
+			poll_image.layer = FLOAT_LAYER
+			poll_image.plane = poll_alert_button.plane
 
 		if(poll_image)
 			poll_alert_button.add_overlay(poll_image)
