@@ -124,20 +124,6 @@
 	message = "drools"
 	emote_type = EMOTE_VISIBLE
 
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps"
-	emote_type = EMOTE_VISIBLE
-	cooldown = 2 SECONDS
-
-/datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(!isliving(user))
-		return
-	var/mob/living/living = user
-	living.do_jump_animation()
-
 /datum/emote/living/faint
 	key = "faint"
 	key_third_person = "faints"
@@ -228,24 +214,6 @@
 	key_third_person = "grimaces"
 	message = "grimaces"
 	emote_type = EMOTE_VISIBLE
-
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps"
-	hands_use_check = TRUE
-	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
-
-/datum/emote/living/jump/run_emote(mob/living/user, params, type_override, intentional)
-	. = ..()
-	animate(user, pixel_y = user.pixel_y + 4, time = 0.1 SECONDS)
-	animate(pixel_y = user.pixel_y - 4, time = 0.1 SECONDS)
-	if(iscarbon(user))
-		var/mob/living/carbon/jumps_till_drops = user
-		jumps_till_drops.adjustStaminaLoss(10, forced = TRUE)
-
-/datum/emote/living/jump/get_sound(mob/living/user)
-	return 'sound/weapons/thudswoosh.ogg'
 
 /datum/emote/living/kiss
 	key = "kiss"
@@ -722,6 +690,7 @@
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/whistle
+	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime)
 	key="whistle"
 	key_third_person="whistle"
 	message = "whistles a few notes"

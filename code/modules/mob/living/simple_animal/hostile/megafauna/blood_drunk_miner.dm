@@ -47,7 +47,7 @@ Difficulty: Medium
 	achievement_type = /datum/award/achievement/boss/blood_miner_kill
 	crusher_achievement_type = /datum/award/achievement/boss/blood_miner_crusher
 	score_achievement_type = /datum/award/score/blood_miner_score
-	var/obj/item/melee/transforming/cleaving_saw/miner/miner_saw
+	var/obj/item/melee/cleaving_saw/miner/miner_saw
 	var/time_until_next_transform = 0
 	var/dashing = FALSE
 	var/dash_cooldown = 15
@@ -103,13 +103,13 @@ Difficulty: Medium
 		shoot_ka()
 	transform_weapon()
 
-/obj/item/melee/transforming/cleaving_saw/miner //nerfed saw because it is very murdery
+/obj/item/melee/cleaving_saw/miner //nerfed saw because it is very murdery
 	force = 6
-	force_on = 10
+	open_force = 10
 
-/obj/item/melee/transforming/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
 	target.add_stun_absorption("miner", 10, INFINITY)
-	..()
+	. = ..()
 	target.stun_absorption -= "miner"
 
 /obj/projectile/kinetic/miner
@@ -236,16 +236,12 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/transform_weapon()
 	if(time_until_next_transform <= world.time)
-		miner_saw.transform_cooldown = 0
-		miner_saw.transform_weapon(src, TRUE)
-		if(!miner_saw.active)
-			rapid_melee = 5 // 4 deci cooldown before changes, npcpool subsystem wait is 20, 20/4 = 5
-		else
-			rapid_melee = 3 // same thing but halved (slightly rounded up)
+		miner_saw.attack_self(src)
+		var/saw_open = HAS_TRAIT(miner_saw, TRAIT_TRANSFORM_ACTIVE)
+		rapid_melee = saw_open ? 3 : 5
 		transform_stop_attack = TRUE
-		icon_state = "miner[miner_saw.active ? "_transformed":""]"
-		icon_living = "miner[miner_saw.active ? "_transformed":""]"
-		time_until_next_transform = world.time + rand(50, 100)
+		icon_state = "miner[saw_open ? "_transformed":""]"
+		icon_living = "miner[saw_open ? "_transformed":""]"
 
 /obj/effect/temp_visual/dir_setting/miner_death
 	icon_state = "miner_death"

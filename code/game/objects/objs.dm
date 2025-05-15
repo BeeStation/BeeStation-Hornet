@@ -308,10 +308,13 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 /obj/examine(mob/user)
 	. = ..()
-	if(obj_flags & UNIQUE_RENAME)
-		. += span_notice("Use a pen on it to rename it or change its description.")
 	if(unique_reskin_icon && !current_skin)
 		. += span_notice("Alt-click it to reskin it.")
+
+/obj/examine_tags(mob/user)
+	. = ..()
+	if(obj_flags & UNIQUE_RENAME)
+		.["renameable"] = "Use a pen on it to rename it or change its description."
 
 /obj/AltClick(mob/user)
 	. = ..()

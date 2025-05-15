@@ -458,6 +458,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!blood)
 		adjust_nutrition(-lost_nutrition)
 		adjustToxLoss(-3)
+
 	for(var/i=0 to distance)
 		if(blood)
 			if(T)
@@ -471,9 +472,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(T)
 				T.add_vomit_floor(src, toxic, purge)//toxic barf looks different
 		T = get_step(T, dir)
-		if (T.is_blocked_turf())
+		if (T?.is_blocked_turf())
 			break
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)

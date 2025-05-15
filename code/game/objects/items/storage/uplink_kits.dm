@@ -61,7 +61,7 @@
 			new /obj/item/pen/edagger(src)
 
 		if("murder")
-			new /obj/item/melee/transforming/energy/sword/saber(src)
+			new /obj/item/melee/energy/sword/saber(src)
 			new /obj/item/clothing/glasses/thermal/syndi(src)
 			new /obj/item/card/emag(src)
 			new /obj/item/clothing/shoes/chameleon/noslip(src)
@@ -204,7 +204,7 @@
 			new /obj/item/dnainjector/geladikinesis(src)
 			new /obj/item/dnainjector/cryokinesis(src)
 			new /obj/item/gun/energy/temperature/pin(src)
-			new /obj/item/melee/transforming/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue
+			new /obj/item/melee/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue //wow you are such a smartie
 
 /obj/item/storage/box/syndie_kit/contract_kit
 	name = "Contract Kit"

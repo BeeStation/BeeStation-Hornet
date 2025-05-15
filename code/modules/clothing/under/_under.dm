@@ -240,7 +240,7 @@
 	set_sensors(usr)
 
 /obj/item/clothing/under/attack_hand(mob/user, list/modifiers)
-	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
+	if(attached_accessory && ispath(attached_accessory.atom_storage) && loc == user)
 		attached_accessory.attack_hand(user)
 		return
 	..()

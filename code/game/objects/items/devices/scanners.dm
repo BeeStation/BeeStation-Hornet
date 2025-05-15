@@ -63,7 +63,8 @@ GENE SCANNER
 	return ..()
 
 /obj/item/t_scanner/AltClick(mob/user)
-	toggle_mode(user)
+	if(user.canUseTopic(src, BE_CLOSE))
+		toggle_mode(user)
 
 /obj/item/t_scanner/attack_self(mob/user)
 	toggle_on()
@@ -499,7 +500,7 @@ GENE SCANNER
 
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
 	if(to_chat)
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+		to_chat(user, examine_block(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 	else
 		return(jointext(message, "\n"))
 
@@ -522,7 +523,7 @@ GENE SCANNER
 		else
 			message += "<span class='notice'>Subject is not addicted to any types of drug.</span>"
 	if(to_chat)
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+		to_chat(user, examine_block(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 	else
 		return(jointext(message, "\n"))
 
@@ -561,7 +562,7 @@ GENE SCANNER
 					message += "[symptom.name]"
 			else
 				message += span_info("<b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].")
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	to_chat(user, examine_block(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /proc/genescan(mob/living/carbon/C, mob/user, list/discovered)
 	. = TRUE
@@ -608,7 +609,7 @@ GENE SCANNER
 	inherent_muts.len > 0 ? (message += "[jointext(inherent_muts, "\n")]") : ""
 	active_injected_muts.len > 0 ? (message += "[span_infobold("Injected mutations:\n")][jointext(active_injected_muts, "\n")]") : ""
 
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	to_chat(user, examine_block(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Switch Verbosity"
@@ -808,7 +809,7 @@ GENE SCANNER
 			message += span_notice("Instability of the last fusion reaction: [instability].")
 
 	// we let the join apply newlines so we do need handholding
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	to_chat(user, examine_block(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 	return TRUE
 
 /obj/item/analyzer/ranged
@@ -926,7 +927,9 @@ GENE SCANNER
 		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
 			slimeeffect += "rainbow"
 		message += span_notice("[slimeeffect].")
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+	if(T.special_mutation == TRUE)
+		message += span_notice("\n This slime has achieved the critera for a special mutation! On split, it will become four [T.special_mutation_type] slimes")
+	to_chat(user, examine_block(jointext(message, "\n")))
 
 
 /obj/item/nanite_scanner

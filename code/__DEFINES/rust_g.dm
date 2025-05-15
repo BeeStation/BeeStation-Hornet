@@ -19,31 +19,30 @@
 /* This comment bypasses grep checks */ /var/__rust_g
 
 /proc/__detect_rust_g()
+	var/arch_suffix = null
+	#ifdef OPENDREAM
+	arch_suffix = "64"
+	#endif
 	if (world.system_type == UNIX)
-		if (fexists("./librust_g.so"))
+		if (fexists("./librust_g[arch_suffix].so"))
 			// No need for LD_LIBRARY_PATH badness.
-			return __rust_g = "./librust_g.so"
-		else if (fexists("./rust_g"))
+			return __rust_g = "./librust_g[arch_suffix].so"
+		else if (fexists("./rust_g[arch_suffix]"))
 			// Old dumb filename.
-			return __rust_g = "./rust_g"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
+			return __rust_g = "./rust_g[arch_suffix]"
+		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g[arch_suffix]"))
 			// Old dumb filename in `~/.byond/bin`.
-			return __rust_g = "rust_g"
+			return __rust_g = "rust_g[arch_suffix]"
 		else
 			// It's not in the current directory, so try others
-			return __rust_g = "librust_g.so"
+			return __rust_g = "librust_g[arch_suffix].so"
 	else
-		return __rust_g = "rust_g"
+		return __rust_g = "rust_g[arch_suffix]"
 
 #define RUST_G (__rust_g || __detect_rust_g())
 #endif
 
-// Handle 515 call() -> call_ext() changes
-#if DM_VERSION >= 515
 #define RUSTG_CALL call_ext
-#else
-#define RUSTG_CALL call
-#endif
 
 /// Gets the version of rust_g
 /proc/rustg_get_version() return RUSTG_CALL(RUST_G, "get_version")()
@@ -151,10 +150,19 @@
 #define rustg_git_revparse(rev) RUSTG_CALL(RUST_G, "rg_git_revparse")(rev)
 
 /**
- * Returns the date of the given revision in the format YYYY-MM-DD.
- * Returns null if the revision is invalid.
+ * Returns the date of the given revision using the provided format.
+ * Defaults to returning %F which is YYYY-MM-DD.
  */
-#define rustg_git_commit_date(rev) RUSTG_CALL(RUST_G, "rg_git_commit_date")(rev)
+/proc/rustg_git_commit_date(rev, format = "%F")
+	return RUSTG_CALL(RUST_G, "rg_git_commit_date")(rev, format)
+
+/**
+ * Returns the formatted datetime string of HEAD using the provided format.
+ * Defaults to returning %F which is YYYY-MM-DD.
+ * This is different to rustg_git_commit_date because it only needs the logs directory.
+ */
+/proc/rustg_git_commit_date_head(format = "%F")
+	return RUSTG_CALL(RUST_G, "rg_git_commit_date_head")(format)
 
 #define rustg_hash_string(algorithm, text) RUSTG_CALL(RUST_G, "hash_string")(algorithm, text)
 #define rustg_hash_file(algorithm, fname) RUSTG_CALL(RUST_G, "hash_file")(algorithm, "[fname]")
@@ -207,10 +215,10 @@
 ///     ...,
 /// )
 /// TRANSFORM_OBJECT format:
-/// list("type" = "BlendColor", "color" = "#ff0000", "blend_mode" = ICON_MULTIPLY)
-/// list("type" = "BlendIcon", "icon" = [SPRITE_OBJECT], "blend_mode" = ICON_OVERLAY)
-/// list("type" = "Scale", "width" = 32, "height" = 32)
-/// list("type" = "Crop", "x1" = 1, "y1" = 1, "x2" = 32, "y2" = 32) // (BYOND icons index from 1,1 to the upper bound, inclusive)
+/// list("type" = RUSTG_ICONFORGE_BLEND_COLOR, "color" = "#ff0000", "blend_mode" = ICON_MULTIPLY)
+/// list("type" = RUSTG_ICONFORGE_BLEND_ICON, "icon" = [SPRITE_OBJECT], "blend_mode" = ICON_OVERLAY)
+/// list("type" = RUSTG_ICONFORGE_SCALE, "width" = 32, "height" = 32)
+/// list("type" = RUSTG_ICONFORGE_CROP, "x1" = 1, "y1" = 1, "x2" = 32, "y2" = 32) // (BYOND icons index from 1,1 to the upper bound, inclusive)
 ///
 /// Returns a SpritesheetResult as JSON, containing fields:
 /// list(
@@ -224,7 +232,7 @@
 #define rustg_iconforge_generate(file_path, spritesheet_name, sprites, hash_icons) RUSTG_CALL(RUST_G, "iconforge_generate")(file_path, spritesheet_name, sprites, "[hash_icons]")
 /// Returns a job_id for use with rustg_iconforge_check()
 #define rustg_iconforge_generate_async(file_path, spritesheet_name, sprites, hash_icons) RUSTG_CALL(RUST_G, "iconforge_generate_async")(file_path, spritesheet_name, sprites, "[hash_icons]")
-/// Returns the status of a job_id
+/// Returns the status of an async job_id, or its result if it is completed. See RUSTG_JOB DEFINEs.
 #define rustg_iconforge_check(job_id) RUSTG_CALL(RUST_G, "iconforge_check")("[job_id]")
 /// Clears all cached DMIs and images, freeing up memory.
 /// This should be used after spritesheets are done being generated.
@@ -271,6 +279,20 @@
 /proc/rustg_log_close_all() return RUSTG_CALL(RUST_G, "log_close_all")()
 
 #define rustg_noise_get_at_coordinates(seed, x, y) RUSTG_CALL(RUST_G, "noise_get_at_coordinates")(seed, x, y)
+
+/**
+ * Generates a 2D poisson disk distribution ('blue noise'), which is relatively uniform.
+ *
+ * params:
+ * 	`seed`: str
+ * 	`width`: int, width of the noisemap (see world.maxx)
+ * 	`length`: int, height of the noisemap (see world.maxy)
+ * 	`radius`: int, distance between points on the noisemap
+ *
+ * returns:
+ * 	a width*length length string of 1s and 0s representing a 2D poisson sample collapsed into a 1D string
+ */
+#define rustg_noise_poisson_map(seed, width, length, radius) RUSTG_CALL(RUST_G, "noise_poisson_map")(seed, width, length, radius)
 
 /**
  * Register a list of nodes into a rust library. This list of nodes must have been serialized in a json.
@@ -351,6 +373,16 @@
  * Note: `count` was added in Redis version 6.2.0
  */
 #define rustg_redis_lpop(key, count) RUSTG_CALL(RUST_G, "redis_lpop")(key, count)
+
+/*
+ * Takes in a string and json_encode()"d lists to produce a sanitized string.
+ * This function operates on whitelists, there is currently no way to blacklist.
+ * Args:
+ * * text: the string to sanitize.
+ * * attribute_whitelist_json: a json_encode()'d list of HTML attributes to allow in the final string.
+ * * tag_whitelist_json: a json_encode()'d list of HTML tags to allow in the final string.
+ */
+#define rustg_sanitize_html(text, attribute_whitelist_json, tag_whitelist_json) RUSTG_CALL(RUST_G, "sanitize_html")(text, attribute_whitelist_json, tag_whitelist_json)
 
 #define rustg_sql_connect_pool(options) RUSTG_CALL(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) RUSTG_CALL(RUST_G, "sql_query_async")(handle, query, params)
