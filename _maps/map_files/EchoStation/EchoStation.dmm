@@ -7821,6 +7821,15 @@
 	pixel_x = -26;
 	pixel_y = -27
 	},
+/obj/machinery/button/door{
+	desc = "A remote control switch for the medbay foyer.";
+	id = "MedbayFoyer";
+	name = "Medbay Public Access Control";
+	normaldoorcontrol = 1;
+	pixel_x = -26;
+	pixel_y = -39;
+	specialfunctions = 32
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "dFz" = (
