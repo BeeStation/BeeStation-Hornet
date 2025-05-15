@@ -75159,7 +75159,7 @@
 	bulb_colour = "#9b1d70";
 	bulb_power = 0.4
 	},
-/obj/item/cardboard_cutout/adaptive/chess/bishop{
+/obj/item/cardboard_cutout/adaptive/securityofficer{
 	name = "Club Bouncer";
 	desc = "Better prepare your ID";
 	pixel_x = 7;
