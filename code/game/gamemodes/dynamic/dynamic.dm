@@ -423,8 +423,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	if(!midround_chosen_ruleset)
 		choose_midround_ruleset()
 
+	// Try to execute our ruleset
 	// This is an if statement instead of an else if statement because choose_midround_ruleset() will probably pick a ruleset
-	// Try to execute our ruleset if we have enough points and actually have one.
 	if(midround_chosen_ruleset && midround_points >= midround_chosen_ruleset?.points_cost)
 		var/result = execute_ruleset(midround_chosen_ruleset)
 		message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
