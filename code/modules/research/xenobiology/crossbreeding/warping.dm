@@ -728,13 +728,20 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 			return
 
 		to_chat(user, span_warning("The rune is trying to repair [host.name]'s soul!"))
-		var/list/candidates = poll_candidates_for_mob("Do you want to replace the soul of [host.name]?", ROLE_SENTIENCE, null, 5 SECONDS, host, POLL_IGNORE_SHADE)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+			question = "Do you want to replace the soul of [host.name]?",
+			check_jobban = ROLE_SENTIENCE,
+			poll_time = 10 SECONDS,
+			checked_target = host,
+			ignore_category = POLL_IGNORE_SHADE,
+			jump_target = host,
+			role_name_text = "blackspace rune",
+			alert_pic = host,
+		)
 
-		if(length(candidates) && !host.key) //check if anyone wanted to play as the dead person and check if no one's in control of the body one last time.
-			var/mob/dead/observer/ghost = pick(candidates)
-
+		if(candidate && !host.key) //check if anyone wanted to play as the dead person and check if no one's in control of the body one last time.
 			host.mind.memory = "" //resets the memory since it's a new soul inside.
-			host.key = ghost.key
+			host.key = candidate.key
 			var/mob/living/simple_animal/shade/S = host.change_mob_type(/mob/living/simple_animal/shade , rune_turf, "Shade", FALSE)
 			S.maxHealth = 1
 			S.health = 1

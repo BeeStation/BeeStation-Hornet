@@ -751,11 +751,19 @@
 	to_chat(user, span_notice("You offer [src] to [dumb_mob]..."))
 	being_used = TRUE
 
-	var/list/candidates = poll_candidates_for_mob("Do you want to play as [dumb_mob.name]?", ROLE_SENTIENCE, ROLE_SENTIENCE, 5 SECONDS, dumb_mob, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		dumb_mob.key = C.key
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = "Do you want to play as [dumb_mob.name]?",
+		check_jobban = ROLE_SENTIENCE,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_SENTIENCE_POTION,
+		jump_target = dumb_mob,
+		role_name_text = "sentience potion",
+		alert_pic = dumb_mob,
+	)
+	if(candidate)
+		dumb_mob.key = candidate.key
 		dumb_mob.mind.enslave_mind_to_creator(user)
+
 		SEND_SIGNAL(dumb_mob, COMSIG_SIMPLEMOB_SENTIENCEPOTION, user)
 		if(isanimal(dumb_mob))
 			var/mob/living/simple_animal/smart_animal = dumb_mob
