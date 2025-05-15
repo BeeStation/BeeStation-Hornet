@@ -27282,7 +27282,7 @@
 "fSs" = (
 /turf/closed/mineral,
 /area/chapel/asteroid/monastery{
-	clockwork_warp_fail = s"The consecration here prevents you from warping in."
+	clockwork_warp_fail = "The consecration here prevents you from warping in."
 	})
 "fTe" = (
 /obj/structure/cable/yellow{
