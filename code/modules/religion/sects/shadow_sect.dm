@@ -788,7 +788,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/mob/living/M in GLOB.mob_list)
 		if(isshadow(M))
-			to_chat(M, span_userdanger("YOU KNOW THAT YOU NEED TO RUN TO CLOSEST OBELISK IF YOU WANT TO LIVE."))
+			to_chat(M, span_userdanger("You feel pull towards the obelisks, you feel like it would be safer near them."))
 		to_chat(M, span_notice("Shadows seem to flicker in corner of your eye."))
 	sleep(50)
 	for(var/mob/living/M in GLOB.mob_list)
