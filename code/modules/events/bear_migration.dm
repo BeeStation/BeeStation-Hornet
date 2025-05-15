@@ -1,5 +1,5 @@
 /datum/round_event_control/bear_migration
-	name = "Carp Migration"
+	name = "Bear Migration"
 	typepath = /datum/round_event/bear_migration
 	weight = 15
 	min_players = 2
@@ -23,13 +23,13 @@
 	var/mob/living/simple_animal/hostile/bear/mammal
 	for(var/obj/effect/landmark/carpspawn/B in GLOB.landmarks_list)
 		if(prob(33))
-			mammal = new (C.loc)
+			mammal = new (B.loc)
 		else
-			fish = new /mob/living/simple_animal/hostile/bear/malnourished(C.loc)	//bears are much more dangerous than carps, so let's cut some slack.
+			mammal = new /mob/living/simple_animal/hostile/bear/malnourished(B.loc)	//bears are much more dangerous than carps, so let's cut some slack.
 
 	bearannounce(mammal)
 
-/datum/round_event/carp_migration/proc/bearannounce(atom/mammal)
+/datum/round_event/bear_migration/proc/bearannounce(atom/mammal)
 	if (!hasAnnounced)
 		announce_to_ghosts(mammal)
 		hasAnnounced = TRUE

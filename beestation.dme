@@ -2706,6 +2706,7 @@
 #include "code\modules\events\anomaly_vortex.dm"
 #include "code\modules\events\asteroid_impact.dm"
 #include "code\modules\events\aurora_caelus.dm"
+#include "code\modules\events\bear_migration.dm"
 #include "code\modules\events\beer_clog.dm"
 #include "code\modules\events\blob.dm"
 #include "code\modules\events\brain_trauma.dm"
