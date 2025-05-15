@@ -8,6 +8,12 @@
 	icon_state = "chess_board"
 	var/list/chess_board_contents
 	var/populated = FALSE
+	var/folded_type = /obj/item/chess_board
+
+/obj/structure/chess_board/checkers
+	name = "checkers board"
+	desc = "It's a checkered board, made for playing checkers, obviously."
+	folded_type = /obj/item/chess_board/checkers
 
 /obj/structure/chess_board/Initialize(mapload)
 	. = ..()
@@ -67,8 +73,25 @@
 			chess_board_insert_item(inserting_piece, I)
 	populated = TRUE
 
+/obj/structure/chess_board/checkers/pupulate_chess_board()
+	for(var/I in 1 to 64)
+		var/inserting_piece
+		switch(I)
+
+			if(1, 3, 5, 7, 10, 12, 14, 16, 17, 19, 21, 23)
+				inserting_piece = /obj/item/checkers_piece/black
+
+			if(42, 44, 46, 48, 49, 51, 53, 55, 58, 60, 62, 64)
+				inserting_piece = /obj/item/checkers_piece/white
+
+		if(inserting_piece)
+			inserting_piece = new inserting_piece()
+			chess_board_insert_item(inserting_piece, I)
+	populated = TRUE
+
+
 /obj/structure/chess_board/proc/chess_board_insert_item(obj/item/inserted_item, ui_index)
-	if(istype(inserted_item, /obj/item/chess_piece) || istype(inserted_item, /obj/item/toy/figure))
+	if(istype(inserted_item, /obj/item/chess_piece) || istype(inserted_item, /obj/item/checkers_piece) || istype(inserted_item, /obj/item/toy/figure))
 		if(contents.len >= 64)
 			return FALSE
 		if(!ui_index)
@@ -129,12 +152,12 @@
 		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
 			return FALSE
 		usr.visible_message("[usr] folds \the [src.name].", span_notice("You fold \the [src.name]."))
-		var/obj/item/chess_board/B = new ()
-		B.populated = populated
-		B.sorted_contents = chess_board_contents
+		var/obj/item/chess_board/board = new folded_type ()
+		board.populated = populated
+		board.sorted_contents = chess_board_contents
 		for(var/obj/item/I in contents)
-			I.forceMove(B)
-		usr.put_in_hands(B)
+			I.forceMove(board)
+		usr.put_in_hands(board)
 		qdel(src)
 
 /obj/structure/chess_board/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
@@ -205,6 +228,12 @@
 	w_class = WEIGHT_CLASS_LARGE
 	var/list/sorted_contents
 	var/populated = FALSE
+	var/unfolded_type = /obj/structure/chess_board
+
+/obj/item/chess_board/checkers
+	name = "folded checkers board"
+	desc = "Foldable, for gaming on the go. Place on a table for optimal playing experience."
+	unfolded_type = /obj/structure/chess_board/checkers
 
 /obj/item/chess_board/pre_attack(atom/target, mob/user, proximity)
 	if(!istype(target, /obj/structure/table))
@@ -214,15 +243,15 @@
 	if(locate(/obj/structure/chess_board) in get_turf(target))
 		balloon_alert(user, "no room!")
 		return
-	var/obj/structure/chess_board/chess_board = new (target.loc)
-	chess_board.populated = populated
-	chess_board.pixel_y = 5
+	var/obj/structure/chess_board/board = new unfolded_type (target.loc)
+	board.populated = populated
+	board.pixel_y = 5
 	if(!populated)
-		chess_board.pupulate_chess_board()
+		board.pupulate_chess_board()
 	else
-		chess_board.chess_board_contents = sorted_contents
+		board.chess_board_contents = sorted_contents
 		for(var/obj/item/I in contents)
-			I.forceMove(chess_board)
+			I.forceMove(board)
 	qdel(src)
 
 /obj/item/chess_board/Destroy()
@@ -305,3 +334,57 @@
 	name = "black king"
 	desc = "The 1% which you have to protect"
 	icon_state = "king_black"
+
+//checkers pieces
+
+/obj/item/checkers_piece
+	name = "checkers piece"
+	desc = "how did you get your hands on this?"
+	icon = 'icons/obj/chess_board.dmi'
+	icon_state = "checkers_white"
+	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/screwdriver_pickup.ogg'
+	drop_sound = 'sound/items/handling/standard_stamp.ogg'
+	var/king_type = null
+	var/piece_type = null
+
+/obj/item/checkers_piece/attackby(obj/item/I, mob/living/user)
+	if(I.type == type)
+		var/obj/item/checkers_piece/king = new king_type ()
+		qdel(I)
+		user.put_in_hands(king)
+		qdel(src)
+	return ..()
+
+/obj/item/checkers_piece/attack_self(mob/user)
+	if(piece_type)
+		forceMove(user.loc)
+		for(var/I in 1 to 2)
+			var/obj/item/checkers_piece/piece = new piece_type ()
+			user.put_in_hands(piece)
+		qdel(src)
+	return ..()
+
+/obj/item/checkers_piece/white
+	name = "white checkers piece"
+	desc = "A small, disc shaped, checkers piece. Waiting patiently to execute that 10 jump combo."
+	icon_state = "checkers_white"
+	king_type = /obj/item/checkers_piece/white/king
+
+/obj/item/checkers_piece/white/king
+	name = "white checkers king"
+	desc = "Two small, disc shaped checkers pieces, stacked on top of eachother. With their powers combined, they can now move backward."
+	icon_state = "checkers_king_white"
+	piece_type = /obj/item/checkers_piece/white
+
+/obj/item/checkers_piece/black
+	name = "black checkers piece"
+	desc = "A small, disc shaped, checkers piece. Waiting patiently to execute that 10 jump combo."
+	icon_state = "checkers_black"
+	king_type = /obj/item/checkers_piece/black/king
+
+/obj/item/checkers_piece/black/king
+	name = "black checkers king"
+	desc = "Two small, disc shaped checkers pieces, stacked on top of eachother. With their powers combined, they can now move backward."
+	icon_state = "checkers_king_black"
+	piece_type = /obj/item/checkers_piece/black

@@ -8,6 +8,7 @@
 		/obj/item/storage/crayons = 2,
 		/obj/item/toy/cards/deck = 5,
 		/obj/item/chess_board = 1,
+		/obj/item/chess_board/checkers = 1,
 		/obj/item/storage/pill_bottle/dice = 10,
 		/obj/item/storage/box/yatzy = 3,
 		/obj/item/toy/cards/deck/cas = 3,

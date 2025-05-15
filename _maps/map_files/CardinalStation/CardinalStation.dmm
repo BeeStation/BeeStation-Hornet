@@ -24604,15 +24604,14 @@
 /turf/open/floor/iron/smooth_half,
 /area/engine/engine_room)
 "fgJ" = (
-/obj/structure/sign/plaques/kiddie/library{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/brown{
 	dir = 8
 	},
+/obj/item/chess_board/checkers,
+/obj/structure/wall_closet/generic/directional/south,
 /turf/open/floor/wood/broken,
 /area/library/lounge)
 "fgL" = (
@@ -58852,8 +58851,10 @@
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "mjk" = (
-/obj/machinery/airalarm/directional/south,
 /obj/machinery/camera/directional/south,
+/obj/structure/sign/plaques/kiddie/library{
+	pixel_y = -32
+	},
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "mjl" = (
@@ -105822,6 +105823,11 @@
 	},
 /turf/open/floor/plating,
 /area/bridge)
+"vPT" = (
+/obj/structure/table,
+/obj/structure/chess_board/checkers,
+/turf/open/floor/wood,
+/area/security/prison)
 "vPU" = (
 /turf/closed/wall,
 /area/crew_quarters/dorms)
@@ -108501,6 +108507,7 @@
 "wrS" = (
 /obj/structure/displaycase/trophy,
 /obj/machinery/digital_clock/directional/east,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "wrU" = (
@@ -159931,7 +159938,7 @@ eKL
 qfZ
 uep
 qep
-qQr
+vPT
 rMt
 mEr
 xNq
