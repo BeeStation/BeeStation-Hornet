@@ -36694,7 +36694,7 @@
 "kAQ" = (
 /obj/machinery/light/small{
 	dir = 8;
-	light_color = "#d8b1b1"
+	light_color = "d8b1b1"
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/structure/destructible/cult/tome/library,
