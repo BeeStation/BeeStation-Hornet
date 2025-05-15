@@ -36701,8 +36701,8 @@
 /obj/item/clockwork/component/hierophant_ansible{
 	name = "Mask of the Dreamer";
 	desc = "An Artifact said to provide its wearer with unimaginable power, sadly you can't";
-	light_color = #DC143C;
-	light_range = 3;
+	light_color = 9a001f;
+	light_range = 5;
 	block_flags = 2;
 	block_level = 3;
 	block_power = 75;
