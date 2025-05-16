@@ -383,7 +383,7 @@
 				probability = 50
 		for(var/obj/item/bodypart/BP as() in bodyparts)
 			if(prob(probability) && !prob(bomb_armor) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
-				BP.brute_dam = BP.max_damage
+				BP.set_brute_dam(BP.max_damage)
 				BP.dismember()
 				max_limb_loss--
 				if(!max_limb_loss)

@@ -110,6 +110,9 @@
 	/// Injury status effects applied to this limb
 	var/list/injuries = null
 
+	/// If the bodypart is permanently destroyed
+	var/destroyed = FALSE
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -338,6 +341,10 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(!owner)
+		return
+
+	if (destroyed)
+		set_disabled(TRUE)
 		return
 
 	if(!can_be_disabled)
@@ -763,6 +770,11 @@
 
 /obj/item/bodypart/proc/clear_effectiveness_modifiers()
 	return
+
+/obj/item/bodypart/proc/check_destroyed()
+	if (bone_max_health <= 0 || skin_max_health <= 0)
+		destroyed = TRUE
+		update_disabled()
 
 /obj/item/bodypart/chest
 	name = BODY_ZONE_CHEST
