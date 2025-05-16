@@ -204,12 +204,9 @@ GENE SCANNER
 
 /obj/item/healthanalyzer/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
 	if (isliving(target))
-		if(scanmode == 0)
-			context.add_left_click_action("Scan Health")
-		else if(scanmode == 1)
-			context.add_left_click_action("Scan Chemicals")
-	context.add_attack_self_action("Switch Mode")
-	
+		context.add_left_click_action("Scan Health")
+		context.add_right_click_action("Scan Chemicals")
+
 /obj/item/healthanalyzer/attack_secondary(mob/living/victim, mob/living/user, params)
 	chemscan(user, victim)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
