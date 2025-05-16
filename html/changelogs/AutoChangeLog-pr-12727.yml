@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: We now provide Byond with a description of our agent when downloadnig from
+      the linux pipelines
