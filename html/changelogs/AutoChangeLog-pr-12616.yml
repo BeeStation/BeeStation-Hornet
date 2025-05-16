@@ -1,9 +1,0 @@
-author: wikimody
-delete-after: true
-changes:
-  - code_imp: New clothing trait, NOSLIP_ALL with works like its mob counterpart
-  - code_imp: Added NOSLIP_WALKING, NOSLIP_ALL_WALKING with provide respective slip
-      protection but only when walking
-  - balance: Syndicate noslips now use NOSLIP_ALL_WALKING together with NOSPLIP. In
-      practice it means they don't slip on ice and lube if you are walking.
-  - rscadd: Magboots get NOSLIP_ALL_WALKING  if they are active
