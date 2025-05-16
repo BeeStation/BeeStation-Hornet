@@ -153,6 +153,7 @@
 		/datum/gas/hypernoblium,
 		/datum/gas/tritium,
 		/datum/gas/pluoxium,
+		/datum/gas/water_vapor,
 	)
 
 	for(var/gasID in gases_to_check)
