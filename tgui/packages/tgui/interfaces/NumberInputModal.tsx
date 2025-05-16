@@ -4,7 +4,7 @@ import { isEscape, KEY } from 'common/keys';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 type NumberInputData = {
   init_value: number;
@@ -73,10 +73,9 @@ const InputArea = (props) => {
   const { min_value, max_value, init_value, round_value } = data;
   const { input, onClick, onChange } = props;
   const [inputValue, setInputValue] = useState(input);
-
   useEffect(() => {
-  onChange(inputValue);
-}, [inputValue]);
+    onChange(inputValue);
+  }, [inputValue]);
 
   return (
     <Stack fill>

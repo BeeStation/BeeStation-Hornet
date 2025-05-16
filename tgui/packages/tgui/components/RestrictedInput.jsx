@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { React, useState, useRef, useEffect } from 'react';
 import { classes } from 'common/react';
 import { clamp } from 'common/math';
 import { Box } from './Box';
@@ -129,9 +129,7 @@ export const RestrictedInput = (props) => {
   }, [autoSelect]);
 
   return (
-    <Box
-      className={classes(['Input', fluid && 'Input--fluid', monospace && 'Input--monospace', className])}
-      {...boxProps}>
+    <Box className={classes(['Input', fluid && 'Input--fluid', monospace && 'Input--monospace', className])} {...boxProps}>
       <div className="Input__baseline">.</div>
       <input
         className="Input__input"
