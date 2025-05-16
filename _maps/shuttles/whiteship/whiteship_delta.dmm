@@ -573,28 +573,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
-"cf" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/item/gun/energy/laser/retro,
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/giant_spider/netcaster{
-	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes, and looks abnormally thin and frail.";
-	environment_smash = 0;
-	health = 150;
-	maxHealth = 150;
-	melee_damage = 20;
-	name = "scrawny net caster"
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned/bridge)
 "cg" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -1122,21 +1100,6 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned/cargo)
-"du" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/giant_spider/nurse{
-	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes, and looks abnormally thin and frail.";
-	environment_smash = 0;
-	health = 30;
-	maxHealth = 30;
-	name = "scrawny giant spider"
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned/cargo)
 "dx" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1197,6 +1160,21 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/white/side,
 /area/shuttle/abandoned/medbay)
+"dE" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/giant_spider/nurse{
+	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 30;
+	maxHealth = 30;
+	name = "scrawny giant spider"
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned/cargo)
 "dF" = (
 /obj/structure/table/optable,
 /obj/item/storage/firstaid/regular,
@@ -1206,21 +1184,6 @@
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
-/area/shuttle/abandoned/medbay)
-"dG" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/mob/living/simple_animal/hostile/giant_spider/hunter{
-	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
-	environment_smash = 0;
-	health = 60;
-	maxHealth = 60;
-	melee_damage = 10;
-	name = "scrawny spider"
-	},
-/turf/open/floor/iron,
 /area/shuttle/abandoned/medbay)
 "dH" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1402,7 +1365,7 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
-"iK" = (
+"if" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -1938,6 +1901,28 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/medbay)
+"Ek" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/item/gun/energy/laser/retro,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/giant_spider/netcaster{
+	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 150;
+	maxHealth = 150;
+	melee_damage = 20;
+	name = "scrawny net caster"
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned/bridge)
 "EA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/box/white/corners{
@@ -2034,6 +2019,21 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
+"IO" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/mob/living/simple_animal/hostile/giant_spider/hunter{
+	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 60;
+	maxHealth = 60;
+	melee_damage = 10;
+	name = "scrawny spider"
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned/medbay)
 "IY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/box/white/corners{
@@ -2398,7 +2398,7 @@ Um
 bC
 bR
 bX
-cf
+Ek
 ob
 ct
 bC
@@ -2499,7 +2499,7 @@ kj
 TO
 cT
 dl
-dG
+IO
 dQ
 vm
 "}
@@ -2659,7 +2659,7 @@ cz
 ae
 Hs
 lL
-iK
+if
 xn
 ia
 ae
@@ -2669,7 +2669,7 @@ aa
 cy
 vw
 WI
-du
+dE
 WI
 GF
 cy

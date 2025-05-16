@@ -4,7 +4,7 @@
 	blacklisted_turf_types = list(/turf/open/lava) // Don't override lava rivers
 
 
-	weighted_feature_spawn_list = list(/obj/structure/geyser/random = 1, /obj/item/xenoartifact = 1)
+	weighted_feature_spawn_list = list(/obj/structure/geyser/random = 1, /obj/item/xenoartifact = 2)
 	weighted_mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3, \
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40, /obj/structure/spawner/lavaland = 2, \
 		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 3, \

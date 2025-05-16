@@ -586,17 +586,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
-"dX" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 4;
-	height = 10;
-	id = "mining_away";
-	name = "lavaland mine";
-	width = 10
-	},
-/turf/open/floor/plating/lavaland,
-/area/lavaland/surface/outdoors)
 "ea" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -3929,6 +3918,17 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
+"Ct" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "mining_away";
+	name = "lavaland mine";
+	width = 10
+	},
+/turf/open/floor/plating/lavaland,
+/area/lavaland/surface/outdoors)
 "Cv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4165,17 +4165,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/living_quarters)
-"EM" = (
-/obj/structure/chair/wood/wings,
-/mob/living/simple_animal/hostile/giant_spider{
-	desc = "No sane person would ever have one of these as a pet.";
-	maxHealth = 350;
-	name = "enlarged giant spider";
-	poison_type = /datum/reagent/growthserum;
-	resize = 2
-	},
-/turf/open/floor/carpet/royalblue,
-/area/mine/science)
 "EO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -5550,6 +5539,17 @@
 "Od" = (
 /obj/structure/closet/crate/critter,
 /turf/open/floor/iron/dark,
+/area/mine/science)
+"Oh" = (
+/obj/structure/chair/wood/wings,
+/mob/living/simple_animal/hostile/giant_spider{
+	desc = "No sane person would ever have one of these as a pet.";
+	maxHealth = 350;
+	name = "enlarged giant spider";
+	poison_type = /datum/reagent/growthserum;
+	resize = 2
+	},
+/turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "Oo" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -39082,7 +39082,7 @@ Xa
 hb
 SX
 PA
-dX
+Ct
 rf
 rf
 rf
@@ -51146,7 +51146,7 @@ mH
 KR
 mp
 Jt
-EM
+Oh
 hd
 UE
 MX
