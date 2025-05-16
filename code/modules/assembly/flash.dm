@@ -290,20 +290,11 @@
 	if(iscarbon(M))
 		flash_carbon(M, user, 5, 1)
 		return TRUE
-	else if(issilicon(M))
+	else if(iscyborg(M))
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
-		update_icon(flash=TRUE)
-		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
-		if(R.last_flashed + FLASHED_COOLDOWN < world.time)
-			R.last_flashed = world.time
-			R.Paralyze(5 SECONDS)
-			user.visible_message(span_disarm("[user] overloads [R]'s sensors with the flash!"), span_danger("You overload [R]'s sensors with the flash!"))
-		else
-			user.visible_message(span_disarm("[user] attempts to overload [R]'s sensors with the flash, but defense protocols mitigate the effect!"), span_danger("You attempt to overload [R]'s sensors with the flash, but their defense protocols mitigate the effect!"))
-		return TRUE
-
-	user.visible_message(span_disarm("[user] fails to blind [M] with the flash!"), span_warning("You fail to blind [M] with the flash!"))
+		R.flash_act(affect_silicon = TRUE)
+		user.visible_message(span_disarm("[user] overloads [R]'s sensors with the flash!"), span_danger("You overload [R]'s sensors with the flash!"))
 
 /obj/item/assembly/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(holder)

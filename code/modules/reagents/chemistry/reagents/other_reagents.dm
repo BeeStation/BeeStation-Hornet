@@ -132,37 +132,20 @@
 	color = "#ecca7f"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "dog treats"
-	var/mob/living/basic/pet/dog/corgi/new_corgi
+	var/mob/living/resulting_mob
 
-/datum/reagent/corgium/on_mob_metabolize(mob/living/L)
+/datum/reagent/corgium/on_mob_metabolize(mob/living/target)
 	. = ..()
-	var/obj/shapeshift_holder/H = locate() in L
-	if(H)
-		to_chat(L, span_warning("You're already corgified!"))
-		return
-	new_corgi = new(L.loc)
-	//hat check
-	var/mob/living/carbon/C = L
-	if(istype(C))
-		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(hat?.dog_fashion)
-			new_corgi.place_on_head(hat,null,FALSE)
-	H = new(new_corgi,src,L)
+	target.buckled?.unbuckle_mob(target, force = TRUE)
+	resulting_mob = target.do_shapeshift(shapeshift_type = /mob/living/basic/pet/dog/corgi)
 	//Restore after this time
-	addtimer(CALLBACK(src, PROC_REF(restore), L), 5 * (volume / metabolization_rate))
+	addtimer(CALLBACK(src, PROC_REF(restore), resulting_mob), 5 * (volume / metabolization_rate))
 
-/datum/reagent/corgium/proc/restore(mob/living/L)
-	//The mob was qdeleted by an explosion or something
-	if(QDELETED(L))
-		return
+/datum/reagent/corgium/proc/restore(mob/living/target)
+	target.do_unshapeshift()
 	//Remove all the corgium from the person
-	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
-	if(QDELETED(new_corgi))
-		return
-	var/obj/shapeshift_holder/H = locate() in new_corgi
-	if(!H)
-		return
-	H.restore()
+	target.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
+	holder.remove_reagent(/datum/reagent/corgium, INFINITY)
 
 /datum/reagent/water
 	name = "Water"
@@ -1569,8 +1552,12 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 8
 
-
-
+/datum/reagent/plantnutriment/slimenutriment
+	name = "Living Fertiliser"
+	description = "A viscous fluid that clings to living tissue and speeds up growth, in exchange for yield."
+	color = "#6ed8db"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	tox_prob = 17
 
 
 
