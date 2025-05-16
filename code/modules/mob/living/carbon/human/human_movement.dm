@@ -14,8 +14,6 @@
 		return FALSE
 	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/CS = shoes
-		if (CS.clothing_flags & NOSLIP_ALL)
-			return FALSE
 		if ((CS.clothing_flags & NOSLIP_ALL_WALKING) && src.m_intent == MOVE_INTENT_WALK)
 			return FALSE
 	if (lube & GALOSHES_DONT_HELP)
@@ -39,8 +37,6 @@
 	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
 		if((S.clothing_flags & NOSLIP))
-			return 0
-		if((S.clothing_flags & NOSLIP_ALL))
 			return 0
 		if((S.clothing_flags & NOSLIP_WALKING) && src.m_intent == MOVE_INTENT_WALK)
 			return 0
