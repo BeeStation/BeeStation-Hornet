@@ -1000,7 +1000,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		M.audible_message(span_italics("...wabbajack...wabbajack..."))
 		playsound(M.loc, 'sound/magic/staff_change.ogg', 50, 1, -1)
 
-		wabbajack(M)
+		M.wabbajack()
 
 	message_admins("Mass polymorph started by [who_did_it] is complete.")
 

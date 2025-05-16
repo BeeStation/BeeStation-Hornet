@@ -1,5 +1,0 @@
-author: Hardly, optimumtact
-delete-after: true
-changes:
-  - rscadd: Ghosts can now jump
-  - code_imp: Changed jumping animation to use TG's
