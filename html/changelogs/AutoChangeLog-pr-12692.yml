@@ -1,6 +1,0 @@
-author: rkz, jlsnow301, ZephyrTFA
-delete-after: true
-changes:
-  - code_imp: bumps yarn and node
-  - code_imp: node validates itself, redownloads if corrupted by windows, otherwise
-      the user cannot compile
