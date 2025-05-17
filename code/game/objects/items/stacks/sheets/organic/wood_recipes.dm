@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	new/datum/stack_recipe("winged wooden chair",					/obj/structure/chair/wood/wings, 3, one_per_turf = TRUE, on_floor = TRUE, time = 3 SECONDS), \
 	new/datum/stack_recipe("wooden barricade",						/obj/structure/barricade/wooden, 5, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
 	new/datum/stack_recipe("wooden door",							/obj/structure/mineral_door/wood, 10, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
-	new/datum/stack_recipe("coffin",								/obj/structure/closet/crate/coffin, 5, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+	new/datum/stack_recipe("coffin",								/obj/structure/closet/crate/coffin, 5, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
 	new/datum/stack_recipe("book case",								/obj/structure/bookcase, 4, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("drying rack",							/obj/machinery/smartfridge/drying_rack, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("dog bed",								/obj/structure/bed/dogbed, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1 SECONDS), \
