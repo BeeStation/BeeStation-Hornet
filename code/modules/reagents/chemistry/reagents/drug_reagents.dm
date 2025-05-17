@@ -581,6 +581,7 @@
 	///If we brought someone back from the dead
 	var/back_from_the_dead = FALSE
 	var/consequences  = FALSE // This can't be healthy?
+	var/time_from_consumption = 0 // For tracking consequences
 
 
 /datum/reagent/drug/nooartrium/on_mob_add(mob/living/affected_mob)
@@ -617,8 +618,11 @@
 
 /datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if (!consequences && times_fired > 210)
-		consequences = TRUE
+	if (!consequences)
+		if (time_from_consumption > 180 SECONDS)
+			consequences = TRUE
+		else
+			time_from_consumption += delta_time SECONDS
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (((affected_mob.getBruteLoss() + affected_mob.getFireLoss()) / 200) + 0.5)* delta_time/6)
@@ -639,6 +643,7 @@
 		affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
 	else if(consequences)
 		affected_mob.set_heartattack(TRUE)
+	time_from_consumption = 0 // Not sure if this is needed, not gonna risk it
 
 /datum/reagent/drug/nooartrium/overdose_start(mob/living/carbon/affected_mob)
 	. = ..()
