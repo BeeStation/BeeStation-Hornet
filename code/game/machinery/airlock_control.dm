@@ -55,6 +55,8 @@
 	else
 		icon_state = "airlock_sensor_off"
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/airlock_sensor, "Use")
+
 /obj/machinery/airlock_sensor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)

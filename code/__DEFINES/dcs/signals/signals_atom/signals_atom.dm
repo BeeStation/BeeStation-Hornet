@@ -164,6 +164,12 @@
 #define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
 #define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.
 
+/////////////////
+/// Screentip signals
+/////////////////
+
+/// proc/add_context(datum/source, datum/screentip_context/context, mob/user)
+#define COMSIG_ATOM_ADD_CONTEXT "add_screentip_context"
 //////////////////
 
 // From /atom/proc/set_density(new_value) for when an atom changes density

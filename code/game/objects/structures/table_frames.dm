@@ -21,6 +21,11 @@
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2
 
+/obj/structure/table_frame/add_context_self(datum/screentip_context/context, mob/user)
+	context.use_cache()
+	context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
+	context.add_left_click_item_action("Finish table", /obj/item/stack)
+
 /obj/structure/table_frame/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, span_notice("You start disassembling [src]..."))
 	I.play_tool_sound(src)

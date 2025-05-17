@@ -73,6 +73,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 28)
 	if(defib)
 		return defib.get_cell()
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/defibrillator_mount, "Use")
+
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/user)
 	if(!defib)
