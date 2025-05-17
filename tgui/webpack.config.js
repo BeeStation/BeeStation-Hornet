@@ -53,6 +53,20 @@ module.exports = (env = {}, argv) => {
           use: [
             {
               loader: require.resolve('swc-loader'),
+              options: {
+                jsc: {
+                  parser: {
+                    syntax: 'typescript',
+                    tsx: true,
+                    jsx: true,
+                  },
+                  transform: {
+                    react: {
+                      runtime: 'automatic',
+                    },
+                  },
+                },
+              },
             },
           ],
         },
@@ -128,7 +142,7 @@ module.exports = (env = {}, argv) => {
     const { EsbuildPlugin } = require('esbuild-loader');
     config.optimization.minimizer = [
       new EsbuildPlugin({
-        target: 'edge123',
+        target: 'ie11',
         css: true,
       }),
     ];

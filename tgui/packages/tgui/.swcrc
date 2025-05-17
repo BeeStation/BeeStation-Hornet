@@ -4,7 +4,8 @@
     "loose": true,
     "parser": {
       "syntax": "typescript",
-      "tsx": true
+      "tsx": true,
+      "jsx": true
     },
     "transform": {
       "react": {
