@@ -1,39 +1,86 @@
-/// This is the only ruleset that should be picked this round, used by admins and should not be on rulesets in code.
-#define ONLY_RULESET (1 << 0)
+/*
+* Roundstart
+*/
 
-/// Only one ruleset with this flag will be picked.
-#define HIGH_IMPACT_RULESET (1 << 1)
+/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
+/// A random value will be chosen inbetween the lower and upper cap and then mulitplied to the calculated roundstart points
+/// These should be floats. i.e: 0.20, 0.75, 1.0
+#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_LOWER 0.8
+#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_UPPER 1.4
+/// How many roundstart points should be granted per player based off their status (OBSERVING, READY, UNREADY)
+#define DYNAMIC_ROUNDSTART_POINTS_PER_READY 1
+#define DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY 0.5
+#define DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER 0
 
-/// This ruleset can only be picked once. Anything that does not have a scaling_cost MUST have this.
-#define LONE_RULESET (1 << 2)
+/*
+* Midround
+*/
 
-/// This ruleset can't execute alongside ANY other roundstart ruleset.
-#define NO_OTHER_ROUNDSTARTS_RULESET (1 << 3)
+/// At this time the chance for a Light or Medium midround will reach 0%
+#define DYNAMIC_MIDROUND_LIGHT_END_TIME 60 MINUTES
+#define DYNAMIC_MIDROUND_MEDIUM_END_TIME 90 MINUTES
+/// The starting chance for each of the ruleset types
+#define DYNAMIC_MIDROUND_LIGHT_STARTING_CHANCE 100
+#define DYNAMIC_MIDROUND_MEDIUM_STARTING_CHANCE 0
+#define DYNAMIC_MIDROUND_HEAVY_STARTING_CHANCE 0
+/// What ratio of the Light Percentage Chance Decrease should be given to the Medium Ruleset Percentage Chance
+/// DYNAMIC_HEAVY_INCREASE_RATIO is not defined because it is calculated by doing 1 - DYNAMIC_MIDROUND_INCREASE_RATIO
+#define DYNAMIC_MIDROUND_INCREASE_RATIO 0.75
+/// The time at which dynamic will start choosing midrounds
+#define DYNAMIC_MIDROUND_GRACEPERIOD 15 MINUTES
 
-/// This ruleset should only be rolled if the station is mostly intact, i.e the crew is not mostly dead and the station isn't full of holes.
-/// Only used for midround/latejoin rolling.
-#define INTACT_STATION_RULESET (1 << 4)
+#define DYNAMIC_MIDROUND_POINTS_PER_LIVING 0.1
+#define DYNAMIC_MIDROUND_POINTS_PER_OBSERVER 0.0
+#define DYNAMIC_MIDROUND_POINTS_PER_DEAD -0.2
 
-/// This ruleset will be logged in persistence, to reduce the chances of it repeatedly rolling several rounds in a row.
-#define PERSISTENT_RULESET (1 << 5)
+#define DYNAMIC_MIDROUND_LINEAR_POINT_INCREASE 0.05
 
-/// This is a "heavy" midround ruleset, and should be run later into the round
-#define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
+/*
+* Midround Ruleset types
+*/
 
-/// This is a "light" midround ruleset, and should be run early into the round
-#define MIDROUND_RULESET_STYLE_LIGHT "Light"
+/// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)
+#define DYNAMIC_MIDROUND_LIGHT "Light"
+/// For round disruptive antagonists (Abductors, Malf AI, Slaughter Demon, etc.)
+#define DYNAMIC_MIDROUND_MEDIUM "Medium"
+/// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
+#define DYNAMIC_MIDROUND_HEAVY "Heavy"
 
-/// No round event was hijacked this cycle
-#define HIJACKED_NOTHING "HIJACKED_NOTHING"
+/*
+* Latejoin
+*/
 
-/// This cycle, a round event was hijacked when the last midround event was too recent.
-#define HIJACKED_TOO_RECENT "HIJACKED_TOO_RECENT"
+/// The max amount of latejoin rulesets that can be picked
+#define DYNAMIC_LATEJOIN_MAX_RULESETS 3
+/// The probablity for a latejoin ruleset to be picked
+#define DYNAMIC_LATEJOIN_PROBABILITY 10
 
-/// Requirements when something needs a lot of threat to run, but still possible at low-pop
-#define REQUIREMENTS_VERY_HIGH_THREAT_NEEDED list(90,90,90,80,60,50,40,40,40,40)
+/*
+* Ruleset flags
+*/
 
+/// Only one ruleset with this flag will be picked
+#define HIGH_IMPACT_RULESET (1 << 0)
+/// This ruleset can only be picked once
+#define CANNOT_REPEAT (1 << 1)
+/// Dynamic will call rule_process each tick if this is set
+#define SHOULD_PROCESS_RULESET (1 << 2)
+/// Should the chosen candidate(s) be picked based off of their antagonist reputation
+#define SHOULD_USE_ANTAG_REP (1 << 2)
+
+/*
+* Ruleset categories
+*/
+
+#define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
+#define DYNAMIC_CATEGORY_MIDROUND "Midround"
+#define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
+
+/*
+* Ruleset return values
+*/
+
+#define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
 #define DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS 2
-#define DYNAMIC_EXECUTE_FAILURE 0
-
 #define RULESET_STOP_PROCESSING 1
