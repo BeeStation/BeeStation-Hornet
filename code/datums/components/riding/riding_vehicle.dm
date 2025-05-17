@@ -166,7 +166,7 @@
 	set_vehicle_dir_layer(WEST, OBJ_LAYER)
 
 /datum/component/riding/vehicle/scooter/skateboard/wheelys
-	vehicle_move_delay = 0
+	vehicle_move_delay = 1.5
 
 /datum/component/riding/vehicle/scooter/skateboard/wheelys/handle_specials()
 	. = ..()
@@ -291,3 +291,10 @@
 	emped = FALSE
 	var/atom/movable/AM = parent
 	AM.remove_emitter("smoke")
+
+/datum/component/riding/vehicle/lawnmower
+	vehicle_move_delay = 2
+
+/datum/component/riding/vehicle/lawnmower/handle_specials()
+	. = ..()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-5, 2), TEXT_WEST = list(5, 2)))
