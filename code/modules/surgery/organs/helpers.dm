@@ -22,7 +22,7 @@
   * Arguments:
   * * slot Slot to get the organ from
   */
-/mob/proc/getorganslot(slot)
+/mob/proc/get_organ_slot(slot)
 	return
 
 /mob/living/carbon/getorgan(typepath)
@@ -43,5 +43,5 @@
 			returnorg += O
 	return returnorg
 
-/mob/living/carbon/getorganslot(slot)
+/mob/living/carbon/get_organ_slot(slot)
 	return internal_organs_slot[slot]

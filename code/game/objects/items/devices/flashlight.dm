@@ -153,7 +153,7 @@
 	 * Handle eyes
 	 */
 
-	var/obj/item/organ/eyes/E = M.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = M.get_organ_slot(ORGAN_SLOT_EYES)
 
 	if((M.head && M.head.flags_cover & HEADCOVERSEYES) || (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) || (M.glasses && M.glasses.flags_cover & GLASSESCOVERSEYES))
 		results += span_notice("[M.p_their()] eyes are covered by [(M.head && M.head.flags_cover & HEADCOVERSEYES) ? "a helmet" : (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) ? "a mask": "some glasses"].")
@@ -531,7 +531,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	if(!fuel)
 		user.visible_message(span_suicide("[user] is trying to squirt [src]'s fluids into [user.p_their()] eyes... but it's empty!"))
 		return SHAME
-	var/obj/item/organ/eyes/eyes = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	if(!eyes)
 		user.visible_message(span_suicide("[user] is trying to squirt [src]'s fluids into [user.p_their()] eyes... but [user.p_they()] don't have any!"))
 		return SHAME
