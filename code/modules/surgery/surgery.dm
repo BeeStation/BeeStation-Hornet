@@ -69,17 +69,17 @@
 		. = FALSE
 
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		var/obj/item/surgical_processor/SP = locate() in R.module.modules
-		if(!isnull(SP))
-			if(replaced_by in SP.advanced_surgeries)
+		var/mob/living/silicon/robot/robot = user
+		var/obj/item/surgical_processor/surgical_processor = locate() in robot.model.modules
+		if(!isnull(surgical_processor))
+			if(replaced_by in surgical_processor.advanced_surgeries)
 				return FALSE
-			if(type in SP.advanced_surgeries)
+			if(type in surgical_processor.advanced_surgeries)
 				return TRUE
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT)
 		if(!isnull(IMP))
 			if(replaced_by in IMP.advanced_surgeries)
 				return FALSE
@@ -159,7 +159,7 @@
 
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
-		var/obj/item/surgical_processor/SP = locate() in R.module.modules
+		var/obj/item/surgical_processor/SP = locate() in R.model.modules
 		if(!isnull(SP))
 			if(type in SP.advanced_surgeries)
 				return TRUE
