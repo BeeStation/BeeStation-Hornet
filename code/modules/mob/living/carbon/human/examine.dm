@@ -343,7 +343,7 @@
 		. += span_warning("[t_He] [t_is] legcuffed with [legcuffed]!")
 
 	if (length(msg))
-		. += span_warning("[msg.Join("")]")
+		. += span_warning(msg.Join(""))
 
 	var/trait_exam = common_trait_examine()
 	if (!isnull(trait_exam))

@@ -366,7 +366,7 @@
 	name = "soothing sleeper"
 	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
 	icon_state = "sleeper_clockwork"
-	enter_message = span_boldinathneqsmall("You hear the gentle hum and click of machinery, and are lulled into a sense of peace.")
+	enter_message = span_inathneqsmall("You hear the gentle hum and click of machinery, and are lulled into a sense of peace.")
 	roundstart_vials = list()
 	roundstart_chems = list(
 		/datum/reagent/medicine/epinephrine = 200,

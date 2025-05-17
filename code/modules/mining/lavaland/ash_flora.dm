@@ -41,7 +41,7 @@
 				msg = harvest_message_low
 			else if(rand_harvested == harvest_amount_high)
 				msg = harvest_message_high
-			to_chat(user, span_notice("[msg]"))
+			to_chat(user, span_notice(msg))
 		for(var/i in 1 to rand_harvested)
 			new harvest(get_turf(src))
 

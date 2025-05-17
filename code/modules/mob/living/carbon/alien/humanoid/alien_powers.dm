@@ -23,7 +23,6 @@ Doesn't work on other aliens/AI.*/
 	var/mob/living/carbon/carbon_owner = owner
 	if(carbon_owner.getPlasma() < plasma_cost)
 		return FALSE
-
 	return TRUE
 
 /datum/action/alien/pre_activate(mob/user, atom/target)
