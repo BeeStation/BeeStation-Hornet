@@ -234,7 +234,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/override_notes = FALSE
 
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
-	var/icon_state_preview = null
+	//var/icon_state_preview = null
 
 	// If the item is able to be used as a seed in a hydroponics tray.
 	var/obj/item/seeds/fake_seed

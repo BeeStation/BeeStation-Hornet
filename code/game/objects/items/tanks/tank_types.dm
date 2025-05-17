@@ -1,11 +1,13 @@
 /* Types of tanks!
  * Contains:
- *		Oxygen
- *		Anesthetic
- *		Air
- *		Plasma
- *		Emergency Oxygen
+ * Oxygen
+ * Anesthetic
+ * Air
+ * Plasma
+ * Emergency Oxygen
  */
+/obj/item/tank/internals
+	icon_state = "oxygen"
 
 /// Allows carbon to toggle internals via AltClick of the equipped tank.
 /obj/item/tank/internals/AltClick(mob/user)
