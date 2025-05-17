@@ -255,10 +255,16 @@
 		return FALSE
 
 	if(initial(rune_to_scribe.req_keyword))
-		chosen_keyword = stripped_input(cultist, "Enter a keyword for the new rune.", "Words of Power")
-		if(!chosen_keyword)
+		chosen_keyword = tgui_input_text(cultist, "Enter a keyword for the new rune.", "Words of Power", "", MAX_NAME_LEN)
+		if(OOC_FILTER_CHECK(chosen_keyword))
 			drawing_a_rune = FALSE
 			start_scribe_rune(tool, cultist)
+			to_chat(cultist, span_warning("Your keyword contains forbidden words."))
+			return FALSE
+		if(!chosen_keyword) // no input, so we return back to the menu
+			drawing_a_rune = FALSE
+			start_scribe_rune(tool, cultist)
+			to_chat(cultist, span_warning("No keyword was entered, cancelling the rune scribbing."))
 			return FALSE
 
 	our_turf = get_turf(cultist) //we may have moved. adjust as needed...

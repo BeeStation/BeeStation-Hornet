@@ -130,11 +130,10 @@
 	if(.)
 		return
 
-	var/deg = input(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head") as null|num
-	if(deg && (deg > 0 && deg <= 360))
-		degrees = deg
-		to_chat(user, span_notice("You rotate the top of the pen to [degrees] degrees."))
-		SEND_SIGNAL(src, COMSIG_PEN_ROTATED, deg, user)
+	var/deg = tgui_input_number(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head", 0, 360, 0)
+	degrees = deg
+	to_chat(user, span_notice("You rotate the top of the pen to [degrees] degrees."))
+	SEND_SIGNAL(src, COMSIG_PEN_ROTATED, deg, user)
 
 /obj/item/pen/attack(mob/living/M, mob/user,stealth)
 	if(!istype(M))
