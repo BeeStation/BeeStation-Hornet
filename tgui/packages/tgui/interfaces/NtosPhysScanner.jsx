@@ -25,7 +25,10 @@ export const NtosPhysScanner = (props) => {
         </Section>
         {textHtml.__html.length ? (
           <Section title="Results">
-            <Box style={{ whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={textHtml} />
+            <Box
+              style={{ whiteSpace: 'pre-line' }}
+              dangerouslySetInnerHTML={textHtml}
+            />
           </Section>
         ) : null}
       </NtosWindow.Content>

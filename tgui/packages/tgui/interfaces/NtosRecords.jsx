@@ -13,7 +13,9 @@ export const NtosRecords = (props) => {
   return (
     <NtosWindow width={600} height={800}>
       <NtosWindow.Content scrollable>
-        <Section textAlign="center">NANOTRASEN PERSONNEL RECORDS (CLASSIFIED)</Section>
+        <Section textAlign="center">
+          NANOTRASEN PERSONNEL RECORDS (CLASSIFIED)
+        </Section>
         <Section>
           <Input
             placeholder={'Filter results...'}
@@ -41,10 +43,11 @@ export const NtosRecords = (props) => {
                       ' ' +
                       record.age +
                       ' ' +
-                      record.fingerprint
+                      record.fingerprint,
                   )
                 )
-              }>
+              }
+            >
               <Box bold>
                 <Icon name="user" mr={1} />
                 {record.name}
@@ -88,10 +91,11 @@ export const NtosRecords = (props) => {
                       ' ' +
                       record.mental_status +
                       ' ' +
-                      record.physical_status
+                      record.physical_status,
                   )
                 )
-              }>
+              }
+            >
               <Box bold>
                 <Icon name="user" mr={1} />
                 {record.name}

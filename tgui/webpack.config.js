@@ -50,6 +50,7 @@ module.exports = (env = {}, argv) => {
       rules: [
         {
           test: /\.(js(x)?|cjs|ts(x)?)$/,
+          exclude: /node_modules[\\/]core-js/,
           use: [
             {
               loader: require.resolve('babel-loader'),
