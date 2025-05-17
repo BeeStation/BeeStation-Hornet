@@ -1738,6 +1738,7 @@
 #include "code\game\objects\structures\chess_board.dm"
 #include "code\game\objects\structures\crateshelf.dm"
 #include "code\game\objects\structures\destructible_structures.dm"
+#include "code\game\objects\structures\detectiveboard.dm"
 #include "code\game\objects\structures\displaycase.dm"
 #include "code\game\objects\structures\divine.dm"
 #include "code\game\objects\structures\door_assembly.dm"
