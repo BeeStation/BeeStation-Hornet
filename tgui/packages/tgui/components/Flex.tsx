@@ -19,7 +19,11 @@ export type FlexProps = Partial<{
   BoxProps;
 
 export const computeFlexClassName = (props: FlexProps) => {
-  return classes(['Flex', props.inline && 'Flex--inline', computeBoxClassName(props)]);
+  return classes([
+    'Flex',
+    props.inline && 'Flex--inline',
+    computeBoxClassName(props),
+  ]);
 };
 
 export const computeFlexProps = (props: FlexProps) => {
@@ -39,7 +43,12 @@ export const computeFlexProps = (props: FlexProps) => {
 
 export const Flex = (props) => {
   const { className, ...rest } = props;
-  return <div className={classes([className, computeFlexClassName(rest)])} {...computeFlexProps(rest)} />;
+  return (
+    <div
+      className={classes([className, computeFlexClassName(rest)])}
+      {...computeFlexProps(rest)}
+    />
+  );
 };
 
 export type FlexItemProps = BoxProps &
@@ -57,7 +66,8 @@ export const computeFlexItemClassName = (props: FlexItemProps) => {
 };
 
 export const computeFlexItemProps = (props: FlexItemProps) => {
-  const { className, style, grow, order, shrink, basis, align, ...rest } = props;
+  const { className, style, grow, order, shrink, basis, align, ...rest } =
+    props;
 
   const computedBasis =
     basis ??

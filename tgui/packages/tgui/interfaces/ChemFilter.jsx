@@ -13,7 +13,11 @@ export const ChemFilterPane = (props) => {
       minHeight="240px"
       buttons={
         <>
-          <Input placeholder="Reagent" width="140px" onInput={(e, value) => onReagentInput(value)} />
+          <Input
+            placeholder="Reagent"
+            width="140px"
+            onInput={(e, value) => onReagentInput(value)}
+          />
           <Button
             ml={1}
             icon="plus"
@@ -25,7 +29,8 @@ export const ChemFilterPane = (props) => {
             }
           />
         </>
-      }>
+      }
+    >
       {list.map((filter) => (
         <Fragment key={filter}>
           <Button
@@ -55,7 +60,12 @@ export const ChemFilter = (props) => {
       <Window.Content scrollable>
         <Stack>
           <Stack.Item grow>
-            <ChemFilterPane title="Left" list={left} reagentName={leftName} onReagentInput={(value) => setLeftName(value)} />
+            <ChemFilterPane
+              title="Left"
+              list={left}
+              reagentName={leftName}
+              onReagentInput={(value) => setLeftName(value)}
+            />
           </Stack.Item>
           <Stack.Item grow>
             <ChemFilterPane

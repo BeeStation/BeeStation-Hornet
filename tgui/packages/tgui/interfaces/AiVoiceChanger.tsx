@@ -21,7 +21,10 @@ export const AiVoiceChanger = (props) => {
       <Section fill>
         <LabeledList>
           <LabeledList.Item label="Power">
-            <Button icon={on ? 'power-off' : 'times'} onClick={() => act('power')}>
+            <Button
+              icon={on ? 'power-off' : 'times'}
+              onClick={() => act('power')}
+            >
               {on ? 'On' : 'Off'}
             </Button>
           </LabeledList.Item>

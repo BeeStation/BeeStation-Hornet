@@ -72,7 +72,8 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_WARNING,
     name: 'Warnings',
     description: 'Urgent messages from the game and items',
-    selector: '.srt_warning, .warning:not(.pm), .critical, .userdanger, .italics',
+    selector:
+      '.srt_warning, .warning:not(.pm), .critical, .userdanger, .italics',
   },
   {
     type: MESSAGE_TYPE_DEADCHAT,
@@ -134,7 +135,8 @@ export const MESSAGE_TYPES = [
   {
     type: MESSAGE_TYPE_MENTORLOG,
     name: 'Mentor Log',
-    description: "MENTOR LOG: Spacestation13mentor has started replying to Spacestation13player's mentor help.",
+    description:
+      "MENTOR LOG: Spacestation13mentor has started replying to Spacestation13player's mentor help.",
     selector: '.mentorlog',
     admin: true,
   },

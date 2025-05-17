@@ -26,13 +26,23 @@ export const removeAllSkiplines = (toSanitize: string) => {
 
 export const TextInputModal = (_) => {
   const { act, data } = useBackend<TextInputData>();
-  const { large_buttons, max_length, message = '', multiline, placeholder, timeout, title } = data;
+  const {
+    large_buttons,
+    max_length,
+    message = '',
+    multiline,
+    placeholder,
+    timeout,
+    title,
+  } = data;
   const [input, setInput] = useLocalState<string>('input', placeholder || '');
   const onType = (value: string) => {
     if (value === input) {
       return;
     }
-    const sanitizedInput = multiline ? sanitizeMultiline(value) : removeAllSkiplines(value);
+    const sanitizedInput = multiline
+      ? sanitizeMultiline(value)
+      : removeAllSkiplines(value);
     setInput(sanitizedInput);
   };
 
@@ -49,13 +59,17 @@ export const TextInputModal = (_) => {
       {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(event) => {
-          if (event.key === KEY.Enter && (!visualMultiline || !event.shiftKey)) {
+          if (
+            event.key === KEY.Enter &&
+            (!visualMultiline || !event.shiftKey)
+          ) {
             act('submit', { entry: input });
           }
           if (isEscape(event.key)) {
             act('cancel');
           }
-        }}>
+        }}
+      >
         <Section fill>
           <Stack fill vertical>
             <Stack.Item>
@@ -65,7 +79,10 @@ export const TextInputModal = (_) => {
               <InputArea input={input} onType={onType} />
             </Stack.Item>
             <Stack.Item>
-              <InputButtons input={input} message={`${input.length}/${max_length}`} />
+              <InputButtons
+                input={input}
+                message={`${input.length}/${max_length}`}
+              />
             </Stack.Item>
           </Stack>
         </Section>

@@ -45,7 +45,7 @@ export class DraggableControl extends Component {
             this.setState({
               suppressingFlicker: false,
             }),
-          suppressFlicker
+          suppressFlicker,
         );
       }
     };
@@ -81,7 +81,8 @@ export class DraggableControl extends Component {
     };
 
     this.handleDragMove = (e) => {
-      const { minValue, maxValue, step, stepPixelSize, dragMatrix } = this.props;
+      const { minValue, maxValue, step, stepPixelSize, dragMatrix } =
+        this.props;
       this.setState((prevState) => {
         const state = { ...prevState };
         const offset = getScalarScreenOffset(e, dragMatrix) - state.origin;
@@ -89,9 +90,17 @@ export class DraggableControl extends Component {
           const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
           // Translate mouse movement to value
           // Give it some headroom (by increasing clamp range by 1 step)
-          state.internalValue = clamp(state.internalValue + (offset * step) / stepPixelSize, minValue - step, maxValue + step);
+          state.internalValue = clamp(
+            state.internalValue + (offset * step) / stepPixelSize,
+            minValue - step,
+            maxValue + step,
+          );
           // Clamp the final value
-          state.value = clamp(state.internalValue - (state.internalValue % step) + stepOffset, minValue, maxValue);
+          state.value = clamp(
+            state.internalValue - (state.internalValue % step) + stepOffset,
+            minValue,
+            maxValue,
+          );
           state.origin = getScalarScreenOffset(e, dragMatrix);
         } else if (Math.abs(offset) > 4) {
           state.dragging = true;
@@ -134,7 +143,12 @@ export class DraggableControl extends Component {
   }
 
   render() {
-    const { dragging, editing, value: intermediateValue, suppressingFlicker } = this.state;
+    const {
+      dragging,
+      editing,
+      value: intermediateValue,
+      suppressingFlicker,
+    } = this.state;
     const {
       animated,
       value,

@@ -14,7 +14,8 @@ export const NtosAirlockControl = (_) => {
               <LabeledList.Item
                 label={
                   <>
-                    <Icon name={airlock.open ? 'lock-open' : 'lock'} /> {` ${airlock.name} (${airlock.locx}, ${airlock.locy})`}
+                    <Icon name={airlock.open ? 'lock-open' : 'lock'} />{' '}
+                    {` ${airlock.name} (${airlock.locx}, ${airlock.locy})`}
                   </>
                 }
                 key={airlock.id}

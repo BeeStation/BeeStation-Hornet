@@ -1,5 +1,13 @@
 import { Component } from 'react';
-import { Box, Button, KeyListener, Stack, Tooltip, TrackOutsideClicks, Dimmer } from '../../components';
+import {
+  Box,
+  Button,
+  KeyListener,
+  Stack,
+  Tooltip,
+  TrackOutsideClicks,
+  Dimmer,
+} from '../../components';
 import { resolveAsset } from '../../assets';
 import { PreferencesMenuData } from './data';
 import { useBackend } from '../../backend';
@@ -10,10 +18,10 @@ import { fetchRetry } from '../../http';
 import { isEscape, KEY } from 'common/keys';
 
 const CATEGORY_SCALES = {
-  'AI': '100%',
-  'CLIENT': '100%',
-  'COMMUNICATION': '100%',
-  'ROBOT': '100%',
+  AI: '100%',
+  CLIENT: '100%',
+  COMMUNICATION: '100%',
+  ROBOT: '100%',
 };
 
 type Keybinding = {
@@ -39,7 +47,12 @@ type KeybindingsPageState = {
 };
 
 const isStandardKey = (event: KeyboardEvent): boolean => {
-  return event.key !== KEY.Alt && event.key !== KEY.Control && event.key !== KEY.Shift && !isEscape(event.key);
+  return (
+    event.key !== KEY.Alt &&
+    event.key !== KEY.Control &&
+    event.key !== KEY.Shift &&
+    !isEscape(event.key)
+  );
 };
 
 /**
@@ -48,17 +61,17 @@ const isStandardKey = (event: KeyboardEvent): boolean => {
 const NO_CAPS_KEYS = ['é', 'è', 'ç', 'à', 'ù'];
 
 const KEY_CODE_TO_BYOND: Record<string, string> = {
-  'DEL': 'Delete',
-  'DOWN': 'South',
-  'END': 'Southwest',
-  'HOME': 'Northwest',
-  'INSERT': 'Insert',
-  'LEFT': 'West',
-  'PAGEDOWN': 'Southeast',
-  'PAGEUP': 'Northeast',
-  'RIGHT': 'East',
-  'SPACEBAR': 'Space',
-  'UP': 'North',
+  DEL: 'Delete',
+  DOWN: 'South',
+  END: 'Southwest',
+  HOME: 'Northwest',
+  INSERT: 'Insert',
+  LEFT: 'West',
+  PAGEDOWN: 'Southeast',
+  PAGEUP: 'Northeast',
+  RIGHT: 'East',
+  SPACEBAR: 'Space',
+  UP: 'North',
 };
 
 /**
@@ -72,9 +85,11 @@ const sortKeybindings = sortBy(([_, keybinding]: [string, Keybinding]) => {
   return keybinding.name;
 });
 
-const sortKeybindingsByCategory = sortBy(([category, _]: [string, Record<string, Keybinding>]) => {
-  return category;
-});
+const sortKeybindingsByCategory = sortBy(
+  ([category, _]: [string, Record<string, Keybinding>]) => {
+    return category;
+  },
+);
 
 const formatKeyboardEvent = (event: KeyboardEvent): string => {
   let text = '';
@@ -112,8 +127,8 @@ const moveToBottom = (entries: [string, unknown][], findCategory: string) => {
       entries.findIndex(([category, _]) => {
         return category === findCategory;
       }),
-      1
-    )[0]
+      1,
+    )[0],
   );
 };
 
@@ -123,7 +138,10 @@ class KeybindingButton extends Component<{
   typingHotkey?: string;
 }> {
   shouldComponentUpdate(nextProps) {
-    return this.props.typingHotkey !== nextProps.typingHotkey || this.props.currentHotkey !== nextProps.currentHotkey;
+    return (
+      this.props.typingHotkey !== nextProps.typingHotkey ||
+      this.props.currentHotkey !== nextProps.currentHotkey
+    );
   }
 
   render() {
@@ -138,7 +156,8 @@ class KeybindingButton extends Component<{
           event.stopPropagation();
           onClick?.();
         }}
-        selected={typingHotkey !== undefined}>
+        selected={typingHotkey !== undefined}
+      >
         {typingHotkey || currentHotkey || 'Unbound'}
       </Button>
     );
@@ -165,7 +184,8 @@ const KeybindingName = (props: { keybinding: Keybinding }) => {
         as="span"
         style={{
           borderBottom: '2px dotted rgba(255, 255, 255, 0.8)',
-        }}>
+        }}
+      >
         {keybinding.name}
       </Box>
     </Tooltip>
@@ -185,7 +205,8 @@ const ResetToDefaultButton = (props: { keybindingId: string }) => {
         act('reset_keybinds_to_defaults', {
           keybind_name: props.keybindingId,
         });
-      }}>
+      }}
+    >
       Reset to Defaults
     </Button>
   );
@@ -244,7 +265,9 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
 
       if (selectedKeybindings[keybindName]) {
         if (value) {
-          selectedKeybindings[keybindName][Math.min(selectedKeybindings[keybindName].length, slot)] = value;
+          selectedKeybindings[keybindName][
+            Math.min(selectedKeybindings[keybindName].length, slot)
+          ] = value;
         } else {
           selectedKeybindings[keybindName].splice(slot, 1);
         }
@@ -255,8 +278,8 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       }
 
       act('set_keybindings', {
-        'keybind_name': keybindName,
-        'hotkeys': selectedKeybindings[keybindName],
+        keybind_name: keybindName,
+        hotkeys: selectedKeybindings[keybindName],
       });
 
       return {
@@ -356,7 +379,9 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   }
 
   async populateKeybindings() {
-    const keybindingsResponse = await fetchRetry(resolveAsset('keybindings.json'))
+    const keybindingsResponse = await fetchRetry(
+      resolveAsset('keybindings.json'),
+    )
       .then((response) => response.json())
       .catch((err) => {
         this.setState({
@@ -379,7 +404,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       selectedKeybindings: Object.fromEntries(
         Object.entries(data.keybindings).map(([keybind, hotkeys]) => {
           return [keybind, hotkeys.filter((value) => value !== 'Unbound')];
-        })
+        }),
       ),
     });
   }
@@ -394,16 +419,24 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.75)',
             fontWeight: 'bold',
-          }}>
+          }}
+        >
           Error: Unable to fetch keybinding data.
           <br />
-          Contact a maintainer or create an issue report by pressing Report Issue in the top right of the game window.
+          Contact a maintainer or create an issue report by pressing Report
+          Issue in the top right of the game window.
           <br />
           Reconnecting will also likely fix this issue.
           <br />
-          <Box textAlign="left" fontSize="12px" textColor="white" style={{ whiteSpace: 'pre-wrap' }}>
+          <Box
+            textAlign="left"
+            fontSize="12px"
+            textColor="white"
+            style={{ whiteSpace: 'pre-wrap' }}
+          >
             Error Details:{'\n'}
-            {typeof this.state.error === 'object' && Object.keys(this.state.error).includes('stack')
+            {typeof this.state.error === 'object' &&
+            Object.keys(this.state.error).includes('stack')
               ? this.state.error.stack
               : this.state.error.toString()}
           </Box>
@@ -418,69 +451,90 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       return <Box>Loading keybindings...</Box>;
     }
 
-    const keybindingEntries = sortKeybindingsByCategory(Object.entries(keybindings));
+    const keybindingEntries = sortKeybindingsByCategory(
+      Object.entries(keybindings),
+    );
 
     moveToBottom(keybindingEntries, 'EMOTE');
     moveToBottom(keybindingEntries, 'ADMIN');
 
     return (
       <>
-        <KeyListener onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp} />
+        <KeyListener
+          onKeyDown={this.handleKeyDown}
+          onKeyUp={this.handleKeyUp}
+        />
 
         <Stack vertical fill>
           <Stack.Item grow>
             <TabbedMenu
               categoryScales={CATEGORY_SCALES}
-              categoryEntries={keybindingEntries.map(([category, keybindings]) => {
-                return [
-                  category,
-                  <Stack key={category} vertical fill>
-                    {sortKeybindings(Object.entries(keybindings))
-                      .filter(([keybindingId, keybinding]) => {
-                        return (
-                          !keybinding.pref_key ||
-                          data.character_preferences.game_preferences[keybinding.pref_key] === keybinding.pref_value
-                        );
-                      })
-                      .map(([keybindingId, keybinding]) => {
-                        const keys = this.state.selectedKeybindings![keybindingId] || [];
+              categoryEntries={keybindingEntries.map(
+                ([category, keybindings]) => {
+                  return [
+                    category,
+                    <Stack key={category} vertical fill>
+                      {sortKeybindings(Object.entries(keybindings))
+                        .filter(([keybindingId, keybinding]) => {
+                          return (
+                            !keybinding.pref_key ||
+                            data.character_preferences.game_preferences[
+                              keybinding.pref_key
+                            ] === keybinding.pref_value
+                          );
+                        })
+                        .map(([keybindingId, keybinding]) => {
+                          const keys =
+                            this.state.selectedKeybindings![keybindingId] || [];
 
-                        const name = (
-                          <Stack.Item basis="25%">
-                            <KeybindingName keybinding={keybinding} />
-                          </Stack.Item>
-                        );
+                          const name = (
+                            <Stack.Item basis="25%">
+                              <KeybindingName keybinding={keybinding} />
+                            </Stack.Item>
+                          );
 
-                        return (
-                          <Stack.Item key={keybindingId}>
-                            <Stack fill>
-                              {name}
+                          return (
+                            <Stack.Item key={keybindingId}>
+                              <Stack fill>
+                                {name}
 
-                              {range(0, 3).map((key) => (
-                                <Stack.Item key={key} grow basis="10%">
-                                  <KeybindingButton
-                                    currentHotkey={keys[key]}
-                                    typingHotkey={this.getTypingHotkey(keybindingId, key)}
-                                    onClick={this.getKeybindingOnClick(keybindingId, key)}
+                                {range(0, 3).map((key) => (
+                                  <Stack.Item key={key} grow basis="10%">
+                                    <KeybindingButton
+                                      currentHotkey={keys[key]}
+                                      typingHotkey={this.getTypingHotkey(
+                                        keybindingId,
+                                        key,
+                                      )}
+                                      onClick={this.getKeybindingOnClick(
+                                        keybindingId,
+                                        key,
+                                      )}
+                                    />
+                                  </Stack.Item>
+                                ))}
+
+                                <Stack.Item shrink>
+                                  <ResetToDefaultButton
+                                    keybindingId={keybindingId}
                                   />
                                 </Stack.Item>
-                              ))}
-
-                              <Stack.Item shrink>
-                                <ResetToDefaultButton keybindingId={keybindingId} />
-                              </Stack.Item>
-                            </Stack>
-                          </Stack.Item>
-                        );
-                      })}
-                  </Stack>,
-                ];
-              })}
+                              </Stack>
+                            </Stack.Item>
+                          );
+                        })}
+                    </Stack>,
+                  ];
+                },
+              )}
             />
           </Stack.Item>
 
           <Stack.Item align="center">
-            <Button.Confirm content="Reset all keybindings" onClick={() => act('reset_all_keybinds')} />
+            <Button.Confirm
+              content="Reset all keybindings"
+              onClick={() => act('reset_all_keybinds')}
+            />
           </Stack.Item>
         </Stack>
       </>
