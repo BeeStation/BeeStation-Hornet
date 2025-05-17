@@ -50,14 +50,14 @@
 // - Tritium:
 /// The minimum temperature tritium combusts at.
 #define TRITIUM_MINIMUM_BURN_TEMPERATURE FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-#define TRITIUM_BURN_OXY_FACTOR				100
-#define TRITIUM_BURN_TRIT_FACTOR			10
+#define TRITIUM_BURN_OXY_FACTOR 100
+#define TRITIUM_OXYGEN_FULLBURN 10
 //The neutrons gotta go somewhere. Completely arbitrary number.
-#define TRITIUM_BURN_RADIOACTIVITY_FACTOR	50000
-//minimum 0.01 moles trit or 10 moles oxygen to start producing rads
-#define TRITIUM_MINIMUM_RADIATION_ENERGY	0.1
+#define TRITIUM_BURN_RADIOACTIVITY_FACTOR 50000
+/// The minimum number of moles of trit that must be burnt for a tritium fire reaction to produce a radiation pulse. (0.01 moles trit or 10 moles oxygen to start producing rads.)
+#define TRITIUM_RADIATION_MINIMUM_MOLES 0.1
 //This is calculated to help prevent singlecap bombs(Overpowered tritium/oxygen single tank bombs)
-#define MINIMUM_TRIT_OXYBURN_ENERGY 		2000000
+#define MINIMUM_TRIT_OXYBURN_ENERGY 2000000
 /// The amount of energy released by burning one mole of tritium.
 #define FIRE_TRITIUM_ENERGY_RELEASED 280000
 
@@ -100,29 +100,20 @@
 /// The amount of energy one mole of pluoxium forming from carbon dioxide, oxygen, and tritium releases.
 #define PLUOXIUM_FORMATION_ENERGY 250
 
-// NITRYL:
-/// The minimum temperature necessary for NITRYL to form from tritium, nitrogen, and BZ.
-#define NITRYL_FORMATION_MIN_TEMP 1500
-/// A scaling divisor for the rate of NITRYL formation relative to mix temperature.
-#define NITRYL_FORMATION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
-/// The amount of thermal energy consumed when a mole of NITRYL is formed from tritium, nitrogen, and BZ.
-#define NITRYL_FORMATION_ENERGY 100000
+// Nitrium:
+/// The minimum temperature necessary for nitrium to form from tritium, nitrogen, and BZ.
+#define NITRIUM_FORMATION_MIN_TEMP 1500
+/// A scaling divisor for the rate of nitrium formation relative to mix temperature.
+#define NITRIUM_FORMATION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
+/// The amount of thermal energy consumed when a mole of nitrium is formed from tritium, nitrogen, and BZ.
+#define NITRIUM_FORMATION_ENERGY 100000
 
-/// The maximum temperature NITRYL can decompose into nitrogen and hydrogen at.
-#define NITRYL_DECOMPOSITION_MAX_TEMP (T0C + 70) //Pretty warm, explicitly not fire temps. Time bombs are cool, but not that cool. If it makes you feel any better it's close.
-/// A scaling divisor for the rate of NITRYL decomposition relative to mix temperature.
-#define NITRYL_DECOMPOSITION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
-/// The amount of energy released when a mole of NITRYL decomposes into nitrogen and hydrogen.
-#define NITRYL_DECOMPOSITION_ENERGY 30000
-
-
-// Stimulum:
-#define STIMULUM_HEAT_SCALE 100000
-#define STIMULUM_FIRST_RISE 0.65
-#define STIMULUM_FIRST_DROP 0.065
-#define STIMULUM_SECOND_RISE 0.0009
-#define STIMULUM_ABSOLUTE_DROP 0.00000335
-#define STIMULUM_MINIMUM_TEMPERATURE 1500
+/// The maximum temperature nitrium can decompose into nitrogen and hydrogen at.
+#define NITRIUM_DECOMPOSITION_MAX_TEMP (T0C + 70) //Pretty warm, explicitly not fire temps. Time bombs are cool, but not that cool. If it makes you feel any better it's close.
+/// A scaling divisor for the rate of nitrium decomposition relative to mix temperature.
+#define NITRIUM_DECOMPOSITION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
+/// The amount of energy released when a mole of nitrium decomposes into nitrogen and hydrogen.
+#define NITRIUM_DECOMPOSITION_ENERGY 30000
 
 // H-Nob:
 /// The maximum temperature hyper-noblium can form from tritium and nitrogen at.

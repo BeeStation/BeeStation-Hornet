@@ -43,10 +43,10 @@
 	circuit = /obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
 	atmos_chambers = list(ATMOS_GAS_MONITOR_HYPERNOBLIUM = "Hypernoblium Supply")
 
-/obj/machinery/computer/atmos_control/nitryl_tank
-	name = "Nitryl Supply Control"
-	circuit = /obj/item/circuitboard/computer/atmos_control/nitryl_tank
-	atmos_chambers = list(ATMOS_GAS_MONITOR_NITRYL = "Nitryl Supply")
+/obj/machinery/computer/atmos_control/nitrium_tank
+	name = "Nitrium Supply Control"
+	circuit = /obj/item/circuitboard/computer/atmos_control/nitrium_tank
+	atmos_chambers = list(ATMOS_GAS_MONITOR_NITRIUM = "Nitrium Supply")
 
 /obj/machinery/computer/atmos_control/pluoxium_tank
 	name = "Pluoxium Supply Control"

@@ -71,7 +71,7 @@
 			if(total_permeability_moles >= minimum_coolant_level)
 				var/permeability_bonus = total_permeability_moles / 500
 				gas_absorption_effectiveness = gas_absorption_constant + permeability_bonus
-			var/total_degradation_moles = GET_MOLES(/datum/gas/nitryl, moderator_input) //Because it's quite hard to get.
+			var/total_degradation_moles = GET_MOLES(/datum/gas/nitrium, moderator_input) //Because it's quite hard to get.
 			if(total_degradation_moles >= minimum_coolant_level*0.5) //I'll be nice.
 				depletion_modifier += total_degradation_moles / 15 //Oops! All depletion. This causes your fuel rods to get SPICY.
 				playsound(src, pick('sound/machines/sm/accent/normal/1.ogg','sound/machines/sm/accent/normal/2.ogg','sound/machines/sm/accent/normal/3.ogg','sound/machines/sm/accent/normal/4.ogg','sound/machines/sm/accent/normal/5.ogg'), 100, TRUE)

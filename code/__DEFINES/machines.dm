@@ -88,10 +88,15 @@
 #define MIN_NTNET_LOGS 10
 
 //Program bitflags
-#define PROGRAM_ALL		(~0)
-#define PROGRAM_CONSOLE	(1<<0)
-#define PROGRAM_LAPTOP	(1<<1)
-#define PROGRAM_TABLET	(1<<2)
+///Runs on everything.
+#define PROGRAM_ALL ALL
+///Can run on Modular PC Consoles
+#define PROGRAM_CONSOLE (1<<0)
+///Can run on Laptops.
+#define PROGRAM_LAPTOP (1<<1)
+///Can run on PDAs.
+#define PROGRAM_PDA (1<<2)
+
 //Program states
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1

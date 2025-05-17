@@ -5,7 +5,7 @@
 	program_icon_state = "request"
 	extended_desc = "A request network that utilizes the Nanotrasen Ordering network to purchase supplies using a department budget account."
 	requires_ntnet = TRUE
-	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
+	usage_flags = PROGRAM_LAPTOP | PROGRAM_PDA
 	size = 20
 	tgui_id = "NtosCargo"
 	program_icon = "credit-card"

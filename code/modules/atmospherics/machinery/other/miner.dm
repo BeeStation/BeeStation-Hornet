@@ -189,15 +189,10 @@
 	overlay_color = "#00a6e7"
 	spawn_id = /datum/gas/hypernoblium
 
-/obj/machinery/atmospherics/miner/nitryl
-	name = "\improper Nitryl Gas Miner"
-	overlay_color = "#5e4000"
-	spawn_id = /datum/gas/nitryl
-
-/obj/machinery/atmospherics/miner/stimulum
-	name = "\improper Stimulum Gas Miner"
-	overlay_color = "#c9c9c9"
-	spawn_id = /datum/gas/stimulum
+/obj/machinery/atmospherics/miner/nitrium
+	name = "\improper Nitrium Gas Miner"
+	overlay_color = "#752b00"
+	spawn_id = /datum/gas/nitrium
 
 /obj/machinery/atmospherics/miner/pluoxium
 	name = "\improper Pluoxium Gas Miner"

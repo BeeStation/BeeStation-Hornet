@@ -23,7 +23,7 @@
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
-		/datum/gas/nitryl = 1
+		/datum/gas/nitrium = 1
 	)
 	///Choosen target gas
 	var/datum/gas/choosen_target

@@ -21,7 +21,7 @@ Water Vapour: More efficient permeability modifier
 Hyper Noblium: Extremely efficient permeability increase. (10x as efficient as bz)
 
 Depletion type:
-Nitryl: When you need weapons grade plutonium yesterday. Causes your fuel to deplete much, much faster. Not a huge amount of use outside of sabotage.
+Nitrium: When you need weapons grade plutonium yesterday. Causes your fuel to deplete much, much faster. Not a huge amount of use outside of sabotage.
 
 Sabotage:
 

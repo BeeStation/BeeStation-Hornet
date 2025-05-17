@@ -54,7 +54,7 @@
 	var/SA_sleep_min = 5
 	var/BZ_trip_balls_min = 0.1 //BZ gas
 	var/BZ_brain_damage_min = 1
-	var/gas_stimulation_min = 0.002 //Nitryl and Stimulum
+	var/gas_stimulation_min = 0.002 //nitrium and Freon
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -280,32 +280,23 @@
 			H.hallucination += 5
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
 
-	// Nitryl
-		var/nitryl_pp = PP(breath,/datum/gas/nitryl)
-		if (prob(nitryl_pp))
-			to_chat(H, span_alert("Your mouth feels like it's burning!"))
-		if (nitryl_pp >40)
-			H.emote("gasp")
-			H.adjustFireLoss(10)
-			if (prob(nitryl_pp/2))
-				to_chat(H, span_alert("Your throat closes up!"))
-				H.silent = max(H.silent, 3)
-		else
-			H.adjustFireLoss(nitryl_pp/4)
-		gas_breathed = PP(breath,/datum/gas/nitryl)
-		if (gas_breathed > gas_stimulation_min)
-			H.reagents.add_reagent(/datum/reagent/nitryl,1)
+	// Nitrium
+		var/nitrium_pp = PP(breath, /datum/gas/nitrium)
+		if (prob(nitrium_pp) && nitrium_pp > 15)
+			H.adjustOrganLoss(ORGAN_SLOT_LUNGS, nitrium_pp * 0.1)
+			to_chat(H, span_notice("You feel a burning sensation in your chest"))
+		gas_breathed = PP(breath, /datum/gas/nitrium)
+		if (nitrium_pp > 5)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_low_metabolization)
+			H.reagents.add_reagent(/datum/reagent/nitrium_low_metabolization, max(0, 2 - existing))
+		if (nitrium_pp > 10)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_high_metabolization)
+			H.reagents.add_reagent(/datum/reagent/nitrium_high_metabolization, max(0, 1 - existing))
 
-		REMOVE_MOLES(/datum/gas/nitryl, breath, gas_breathed)
-
-	// Stimulum
-		gas_breathed = PP(breath,/datum/gas/stimulum)
-		if (gas_breathed > gas_stimulation_min)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
-			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
-		REMOVE_MOLES(/datum/gas/stimulum, breath, gas_breathed)
+		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 
 		handle_breath_temperature(breath, H)
+
 	return TRUE
 
 /obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
