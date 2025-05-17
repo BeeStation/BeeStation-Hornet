@@ -63,7 +63,8 @@ GENE SCANNER
 	return ..()
 
 /obj/item/t_scanner/AltClick(mob/user)
-	toggle_mode(user)
+	if(user.canUseTopic(src, BE_CLOSE))
+		toggle_mode(user)
 
 /obj/item/t_scanner/attack_self(mob/user)
 	toggle_on()
@@ -926,6 +927,8 @@ GENE SCANNER
 		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
 			slimeeffect += "rainbow"
 		message += span_notice("[slimeeffect].")
+	if(T.special_mutation == TRUE)
+		message += span_notice("\n This slime has achieved the critera for a special mutation! On split, it will become four [T.special_mutation_type] slimes")
 	to_chat(user, examine_block(jointext(message, "\n")))
 
 

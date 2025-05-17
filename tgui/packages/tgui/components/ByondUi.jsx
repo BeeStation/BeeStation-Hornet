@@ -29,7 +29,6 @@ const createByondUiElement = (elementId) => {
       byondUiStack[index] = id;
       params['is-visible'] = 'true';
       Byond.winset(id, params);
-      Byond.sendMessage('byondui_update', { mounting: true, id: id });
     },
     unmount: () => {
       logger.log(`hiding '${id}'`);
@@ -37,7 +36,6 @@ const createByondUiElement = (elementId) => {
       Byond.winset(id, {
         'is-visible': 'false',
       });
-      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     },
   };
 };
@@ -53,7 +51,6 @@ export const cleanupByondUIs = () => {
       Byond.winset(id, {
         'parent': '',
       });
-      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     }
   }
 };
