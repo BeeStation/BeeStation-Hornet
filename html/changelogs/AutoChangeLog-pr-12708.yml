@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Bans 516.1660 local compilation due to breaking issues with var-edit
