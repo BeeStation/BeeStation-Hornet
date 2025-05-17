@@ -892,12 +892,12 @@
 		if(owner.getFireLoss() > 0)
 			healing_types += BURN
 		if(owner.getToxLoss() > 0)
-			owner.adjustToxLoss(-heal_amount, forced = TRUE)
+			healing_types += TOX
 		if(owner.getCloneLoss() > 0)
 			healing_types += CLONE
 
 		if(LAZYLEN(healing_types) != 0)
-			owner.apply_damage_type(-heal_amount, damagetype=pick(healing_types))
+			owner.apply_damage_type(-heal_amount, damagetype=pick(healing_types), forced = TRUE)
 		owner.adjust_nutrition(3)
 		M.adjustCloneLoss(heal_amount * 1.2) //This way, two people can't just convert each other's damage away.
 	else
