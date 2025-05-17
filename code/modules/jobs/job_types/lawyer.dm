@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#dddddd"
 	var/lawyers = 0 //Counts lawyer amount
 
