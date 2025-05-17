@@ -17,8 +17,8 @@
 		/obj/effect/spawner/lootdrop/glowstick/lit = 4,
 		/obj/effect/spawner/lootdrop/glowstick = 8,
 		/obj/effect/spawner/lootdrop/maintenance = 6,
-		/mob/living/simple_animal/hostile/poison/giant_spider/hunter = 2,
-		/mob/living/simple_animal/hostile/poison/giant_spider/nurse = 2,
+		/mob/living/simple_animal/hostile/giant_spider/hunter = 2,
+		/mob/living/simple_animal/hostile/giant_spider/nurse = 2,
 		null = 220,
 	)
 	for(var/trash in subtypesof(/obj/item/trash))
