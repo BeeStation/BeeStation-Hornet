@@ -1,7 +1,15 @@
 import { createSearch } from 'common/string';
 import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Input, NoticeBox, Section, Collapsible, Table } from '../components';
+import {
+  Box,
+  Button,
+  Input,
+  NoticeBox,
+  Section,
+  Collapsible,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 export const Stack = (props) => {
@@ -21,12 +29,14 @@ export const Stack = (props) => {
       .map((recipe) =>
         recipe.sub_recipes
           ? {
-            'title': recipe.title,
-            'sub_recipes': filterRecipes(recipe.sub_recipes, searchText),
-          }
-          : recipe
+              title: recipe.title,
+              sub_recipes: filterRecipes(recipe.sub_recipes, searchText),
+            }
+          : recipe,
       )
-      .filter((recipe) => (recipe.sub_recipes ? recipe.sub_recipes.length > 0 : testSearch(recipe)));
+      .filter((recipe) =>
+        recipe.sub_recipes ? recipe.sub_recipes.length > 0 : testSearch(recipe),
+      );
   };
 
   const doSearch = searchText.length > 0;
@@ -43,9 +53,15 @@ export const Stack = (props) => {
           buttons={
             <>
               Search
-              <Input autoFocus value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
+              <Input
+                autoFocus
+                value={searchText}
+                onInput={(e, value) => setSearchText(value)}
+                mx={1}
+              />
             </>
-          }>
+          }
+        >
           {(items.length === 0 && <NoticeBox>No recipes found.</NoticeBox>) || (
             <RecipeList recipes={items} do_sort={doSearch} expand={doSearch} />
           )}
@@ -61,7 +77,9 @@ const RecipeList = (props) => {
   const { recipes, do_sort, expand } = props;
 
   const display_recipes = do_sort
-    ? sortBy((recipe) => recipe.title.toLowerCase())(recipes.filter((recipe) => recipe.title !== undefined))
+    ? sortBy((recipe) => recipe.title.toLowerCase())(
+        recipes.filter((recipe) => recipe.title !== undefined),
+      )
     : recipes;
 
   return display_recipes.map((recipe, index) => {
@@ -69,9 +87,18 @@ const RecipeList = (props) => {
       return <hr key={`stack-spacer-${display_recipes.length}-${index}`} />;
     } else if (recipe.sub_recipes) {
       return (
-        <Collapsible color="label" title={recipe.title} key={recipe.title} open={expand}>
+        <Collapsible
+          color="label"
+          title={recipe.title}
+          key={recipe.title}
+          open={expand}
+        >
           <Box ml={1}>
-            <RecipeList recipes={recipe.sub_recipes} do_sort={do_sort} expand={expand} />
+            <RecipeList
+              recipes={recipe.sub_recipes}
+              do_sort={do_sort}
+              expand={expand}
+            />
           </Box>
         </Collapsible>
       );
@@ -94,7 +121,10 @@ const Multipliers = (props) => {
 
   const { recipe, maxMultiplier } = props;
 
-  const maxM = Math.min(maxMultiplier, Math.floor(recipe.max_res_amount / recipe.res_amount));
+  const maxM = Math.min(
+    maxMultiplier,
+    Math.floor(recipe.max_res_amount / recipe.res_amount),
+  );
 
   const multipliers = [5, 10, 25];
 
@@ -111,7 +141,7 @@ const Multipliers = (props) => {
               multiplier: multiplier,
             })
           }
-        />
+        />,
       );
     }
   }
@@ -126,7 +156,7 @@ const Multipliers = (props) => {
             multiplier: maxM,
           })
         }
-      />
+      />,
     );
   }
 

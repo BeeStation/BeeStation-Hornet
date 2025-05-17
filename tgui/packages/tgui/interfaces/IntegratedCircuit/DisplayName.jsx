@@ -1,6 +1,9 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Flex } from '../../components';
-import { FUNDAMENTAL_DATA_TYPES, DATATYPE_DISPLAY_HANDLERS } from './FundamentalTypes';
+import {
+  FUNDAMENTAL_DATA_TYPES,
+  DATATYPE_DISPLAY_HANDLERS,
+} from './FundamentalTypes';
 import { NULL_REF } from './constants';
 
 export const DisplayName = (props) => {
@@ -43,14 +46,19 @@ export const DisplayName = (props) => {
                     component_id: componentId,
                     port_id: portIndex,
                   })
-                }>
+                }
+              >
                 <Box color="white">{port.name}</Box>
               </Button>
             )) ||
             port.name}
         </Flex.Item>
         <Flex.Item>
-          <Box fontSize={0.75} opacity={0.25} textAlign={isOutput ? 'right' : 'left'}>
+          <Box
+            fontSize={0.75}
+            opacity={0.25}
+            textAlign={isOutput ? 'right' : 'left'}
+          >
             {displayType || 'unknown'}
           </Box>
         </Flex.Item>

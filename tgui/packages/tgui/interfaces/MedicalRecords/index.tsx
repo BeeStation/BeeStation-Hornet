@@ -12,7 +12,9 @@ export const MedicalRecords = (props) => {
   return (
     <Window title="Medical Records" width={750} height={550}>
       <Window.Content>
-        <Stack fill>{!authenticated ? <UnauthorizedView /> : <AuthView />}</Stack>
+        <Stack fill>
+          {!authenticated ? <UnauthorizedView /> : <AuthView />}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -62,7 +64,13 @@ const AuthView = (props) => {
           <Stack.Item>
             <NoticeBox align="right" info>
               Secure Your Workspace.
-              <Button align="right" icon="lock" color="good" ml={2} onClick={() => act('logout')}>
+              <Button
+                align="right"
+                icon="lock"
+                color="good"
+                ml={2}
+                onClick={() => act('logout')}
+              >
                 Log Out
               </Button>
             </NoticeBox>

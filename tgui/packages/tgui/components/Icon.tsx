@@ -48,9 +48,20 @@ export const Icon = (props: IconProps) => {
     // font awesome icon
     const faRegular = FA_OUTLINE_REGEX.test(name);
     const faName = name.replace(FA_OUTLINE_REGEX, '');
-    iconClass = (faRegular ? 'far ' : 'fas ') + 'fa-' + faName + (spin ? ' fa-spin' : '');
+    iconClass =
+      (faRegular ? 'far ' : 'fas ') + 'fa-' + faName + (spin ? ' fa-spin' : '');
   }
-  return <i className={classes(['Icon', iconClass, className, computeBoxClassName(rest)])} {...boxProps} />;
+  return (
+    <i
+      className={classes([
+        'Icon',
+        iconClass,
+        className,
+        computeBoxClassName(rest),
+      ])}
+      {...boxProps}
+    />
+  );
 };
 
 type IconStackUnique = {
@@ -63,7 +74,10 @@ export type IconStackProps = IconStackUnique & BoxProps;
 export const IconStack = (props: IconStackProps) => {
   const { className, children, ...rest } = props;
   return (
-    <span className={classes(['IconStack', className, computeBoxClassName(rest)])} {...computeBoxProps(rest)}>
+    <span
+      className={classes(['IconStack', className, computeBoxClassName(rest)])}
+      {...computeBoxProps(rest)}
+    >
       {children}
     </span>
   );

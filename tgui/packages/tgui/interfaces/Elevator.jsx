@@ -15,7 +15,10 @@ export const Elevator = (props) => {
                 <Box inline className="button-label" bold>
                   {level}
                 </Box>
-                <Button selected={`${level}` === `${current_z}` && in_transit} onClick={() => act(`${level}`)} />
+                <Button
+                  selected={`${level}` === `${current_z}` && in_transit}
+                  onClick={() => act(`${level}`)}
+                />
               </Box>
             </Flex.Item>
           ))}

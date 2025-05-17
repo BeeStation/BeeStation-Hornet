@@ -5,7 +5,17 @@
  */
 
 import { useLocalState } from '../backend';
-import { Box, DraggableControl, Icon, Input, Knob, LabeledList, NumberInput, Section, Slider } from '../components';
+import {
+  Box,
+  DraggableControl,
+  Icon,
+  Input,
+  Knob,
+  LabeledList,
+  NumberInput,
+  Section,
+  Slider,
+} from '../components';
 
 export const meta = {
   title: 'Input',
@@ -91,10 +101,16 @@ const Story = (props) => {
               dragMatrix={[0, -1]}
               step={1}
               stepPixelSize={5}
-              onDrag={(e, value) => setNumber(value)}>
+              onDrag={(e, value) => setNumber(value)}
+            >
               {(control) => (
                 <Box onMouseDown={control.handleDragStart}>
-                  <Icon size={4} color="yellow" name="times" rotation={control.displayValue * 4} />
+                  <Icon
+                    size={4}
+                    color="yellow"
+                    name="times"
+                    rotation={control.displayValue * 4}
+                  />
                   {control.inputElement}
                 </Box>
               )}
