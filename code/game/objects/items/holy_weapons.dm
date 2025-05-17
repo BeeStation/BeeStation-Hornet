@@ -518,12 +518,20 @@
 
 	possessed = TRUE
 
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_SPECTRAL_BLADE, null, 10 SECONDS, ignore_category = POLL_IGNORE_SPECTRAL_BLADE)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		question = "Do you want to play as the spirit of [user.real_name]'s blade?",
+		check_jobban = ROLE_SPECTRAL_BLADE,
+		poll_time = 10 SECONDS,
+		checked_target = user,
+		ignore_category = POLL_IGNORE_SPECTRAL_BLADE,
+		jump_target = user,
+		role_name_text = "blade spirit",
+		alert_pic = user,
+	)
 
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
+	if(candidate)
 		var/mob/living/simple_animal/shade/S = new(src)
-		S.ckey = C.ckey
+		S.ckey = candidate.ckey
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
