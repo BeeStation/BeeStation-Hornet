@@ -1586,3 +1586,8 @@ $border-width-px: $border-width * 1px;
     background-color: darken(map.get($alert-stripe-colors, $color-name), 5);
   }
 }
+
+.tooltip {
+  font-style: italic;
+  border-bottom: 1px dashed #fff;
+}

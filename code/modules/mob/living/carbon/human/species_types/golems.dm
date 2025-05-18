@@ -139,7 +139,7 @@
 	var/boom_warning = FALSE
 	var/datum/action/innate/ignite/ignite
 
-/datum/species/golem/plasma/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/plasma/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.bodytemperature > 750)
 		if(!boom_warning && H.on_fire)
 			to_chat(H, span_userdanger("You feel like you could blow up at any moment!"))
@@ -155,7 +155,7 @@
 			H.investigate_log("has been gibbed as [H.p_their()] body explodes.", INVESTIGATE_DEATHS)
 			H.gib()
 	if(H.fire_stacks < 2) //flammable
-		H.adjust_fire_stacks(1)
+		H.adjust_fire_stacks(0.5 * delta_time)
 	..()
 
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -340,12 +340,12 @@
 	species_r_leg = /obj/item/bodypart/r_leg/golem/alloy
 
 //Regenerates because self-repairing super-advanced alien tech
-/datum/species/golem/alloy/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/alloy/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.stat == DEAD)
 		return
 	H.heal_overall_damage(2,2, 0, BODYTYPE_ORGANIC)
-	H.adjustToxLoss(-2)
-	H.adjustOxyLoss(-2)
+	H.adjustToxLoss(-1 * delta_time)
+	H.adjustOxyLoss(-1 * delta_time)
 
 //Since this will usually be created from a collaboration between podpeople and free golems, wood golems are a mix between the two races
 /datum/species/golem/wood
@@ -374,28 +374,28 @@
 	special_name_chance = 100
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 
-/datum/species/golem/wood/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/wood/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(1,T.get_lumcount()) - 0.5
-		H.adjust_nutrition(light_amount * 10)
+		light_amount = min(1, T.get_lumcount()) - 0.5
+		H.adjust_nutrition(5 * light_amount * delta_time)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2) //if there's enough light, heal
-			H.heal_overall_damage(1,1,0, BODYTYPE_ORGANIC)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
+			H.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
+			H.adjustToxLoss(-0.5 * delta_time)
+			H.adjustOxyLoss(-0.5 * delta_time)
 
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(2,0)
 
-/datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
 
@@ -603,16 +603,19 @@
 	species_l_leg = /obj/item/bodypart/l_leg/golem/bananium
 	species_r_leg = /obj/item/bodypart/r_leg/golem/bananium
 
-	var/last_honk = 0
-	var/honkooldown = 0
-	var/last_banana = 0
-	var/banana_cooldown = 100
-	var/active = null
+	/// Cooldown for producing honks
+	COOLDOWN_DECLARE(honkooldown)
+	/// Cooldown for producing bananas
+	COOLDOWN_DECLARE(banana_cooldown)
+	/// Time between possible banana productions
+	var/banana_delay = 10 SECONDS
+	/// Same as the uranium golem. I'm pretty sure this is vestigial.
+	var/active = FALSE
 
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	last_banana = world.time
-	last_honk = world.time
+	COOLDOWN_START(src, honkooldown, 0)
+	COOLDOWN_START(src, banana_cooldown, banana_delay)
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
@@ -626,21 +629,21 @@
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
-	if(world.time > last_banana + banana_cooldown && M != H &&  M.combat_mode)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+	if(COOLDOWN_FINISHED(src, banana_cooldown) && M != H &&  M.combat_mode)
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_banana + banana_cooldown && user != H)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+	if((user != H) && COOLDOWN_FINISHED(src, banana_cooldown))
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_banana + banana_cooldown)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+	if(COOLDOWN_FINISHED(src, banana_cooldown))
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
@@ -651,16 +654,14 @@
 			return 0
 		else
 			new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-			last_banana = world.time
+			COOLDOWN_START(src, banana_cooldown, banana_delay)
 
-/datum/species/golem/bananium/spec_life(mob/living/carbon/human/H)
-	if(!active)
-		if(world.time > last_honk + honkooldown)
-			active = 1
-			playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, 1)
-			last_honk = world.time
-			honkooldown = rand(20, 80)
-			active = null
+/datum/species/golem/bananium/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	if(!active && COOLDOWN_FINISHED(src, honkooldown))
+		active = TRUE
+		playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, TRUE)
+		COOLDOWN_START(src, honkooldown, rand(2 SECONDS, 8 SECONDS))
+		active = FALSE
 	..()
 
 /datum/species/golem/bananium/spec_death(gibbed, mob/living/carbon/human/H)
@@ -727,16 +728,16 @@
 	QDEL_NULL(dominate)
 	return ..()
 
-/datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(istype(chem, /datum/reagent/water/holywater))
-		H.adjustFireLoss(4)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustFireLoss(4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 
 	if(chem.type == /datum/reagent/fuel/unholywater)
-		H.adjustBruteLoss(-4)
-		H.adjustFireLoss(-4)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustBruteLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustFireLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
 
@@ -1224,7 +1225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		bonechill.Remove(C)
 	..()
 
-/datum/species/golem/bone/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/golem/bone/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume >= 6)
 			H.reagents.remove_reagent(chem.type, chem.volume - 5)

@@ -100,11 +100,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return
 
 /// Called from [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/on_mob_life(mob/living/carbon/M)
+/datum/reagent/proc/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	current_cycle++
-	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
+	if(holder)
+		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency * delta_time) //By default it slowly disappears.
 	if(metabolite)
-		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE)
+		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE* delta_time)
 	return
 
 ///Called after a reagent is transfered
@@ -147,7 +148,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return
 
 /// Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
-/datum/reagent/proc/overdose_process(mob/living/M)
+/datum/reagent/proc/overdose_process(mob/living/M, delta_time, times_fired)
 	return
 
 /// Called when an overdose starts

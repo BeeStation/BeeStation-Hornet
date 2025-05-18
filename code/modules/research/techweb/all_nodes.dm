@@ -217,10 +217,12 @@
 		"comp_speech",
 		"comp_split",
 		"comp_string_contains",
+		"comp_switch_case",
 		"comp_tempsensor",
 		"comp_textcase",
 		"comp_tonumber",
 		"comp_tostring",
+		"comp_trim",
 		"comp_typecast",
 		"compact_remote_shell",
 		"component_printer",
@@ -474,7 +476,10 @@
 		"reactive_armour",
 		"xenoa_gloves",
 		"xenoa_list_console",
-		"xenoa_list_pad",
+		"xenoa_scale",
+		"xenoa_conductor",
+		"xenoa_calibrator",
+		"xenoa_tracker",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000

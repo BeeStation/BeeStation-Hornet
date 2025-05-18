@@ -1011,6 +1011,9 @@
 	if(return_blood_DNA())
 		. += "<span class='warning'>It's smeared with blood!</span>"
 
+/obj/machinery/examine_descriptor(mob/user)
+	return "machine"
+
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
 	if(circuit)

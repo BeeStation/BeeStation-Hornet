@@ -26,17 +26,17 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	if(istype(chem, /datum/reagent/consumable))
 		var/datum/reagent/consumable/nutri_check = chem
 		if(nutri_check.nutriment_factor > 0)
 			var/turf/pos = get_turf(H)
 			H.vomit(10, FALSE, FALSE, 2, TRUE)
-			H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+			H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 			playsound(pos, 'sound/effects/splat.ogg', 50, 1)
 			H.visible_message(span_danger("[H] vomits on the floor!"), \
 						span_userdanger("You throw up on the floor!"))

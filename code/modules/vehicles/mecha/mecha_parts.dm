@@ -8,7 +8,7 @@
 	icon_state = "blank"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags_1 = CONDUCT_1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 
 /obj/item/mecha_parts/proc/try_attach_part(mob/user, obj/vehicle/sealed/mecha/M) //For attaching parts to a finished mech
 	if(!user.transferItemToLoc(src, M))

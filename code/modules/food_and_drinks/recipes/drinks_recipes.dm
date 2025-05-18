@@ -244,7 +244,7 @@
 /datum/chemical_reaction/drink/bahama_mama
 	name = "Bahama Mama"
 	results = list(/datum/reagent/consumable/ethanol/bahama_mama = 5)
-	required_reagents = list(/datum/reagent/consumable/ethanol/creme_de_coconut = 1, /datum/reagent/consumable/ethanol/kahlua = 1, /datum/reagent/consumable/ethanol/rum = 2, /datum/reagent/consumable/pineapplejuice = 1)
+	required_reagents = list(/datum/reagent/consumable/coconutmilk= 1, /datum/reagent/consumable/ethanol/kahlua = 1, /datum/reagent/consumable/ethanol/rum = 2, /datum/reagent/consumable/pineapplejuice = 1)
 
 /datum/chemical_reaction/drink/painkiller
 	name = "Painkiller"
@@ -254,7 +254,7 @@
 /datum/chemical_reaction/drink/pina_colada
 	name = "Pina Colada"
 	results = list(/datum/reagent/consumable/ethanol/pina_colada = 5)
-	required_reagents = list(/datum/reagent/consumable/ethanol/creme_de_coconut = 1, /datum/reagent/consumable/pineapplejuice = 3, /datum/reagent/consumable/ethanol/rum = 1, /datum/reagent/consumable/limejuice = 1)
+	required_reagents = list(/datum/reagent/consumable/coconutmilk = 1, /datum/reagent/consumable/pineapplejuice = 3, /datum/reagent/consumable/ethanol/rum = 1, /datum/reagent/consumable/limejuice = 1)
 
 /datum/chemical_reaction/drink/singulo
 	name = "Singulo"

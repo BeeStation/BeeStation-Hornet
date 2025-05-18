@@ -491,9 +491,6 @@
 	. = 0
 	if(HAS_TRAIT(src, TRAIT_POOR_AIM)) //nice shootin' tex
 		. += 25
-	// Unwielded weapons
-	if(!weapon.is_wielded && weapon.requires_wielding)
-		. += weapon.spread_unwielded
 	// Nothing to hold onto, slight penalty for flying around in space
 	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
 	var/current_speed = cached_multiplicative_slowdown

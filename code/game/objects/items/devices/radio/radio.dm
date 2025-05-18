@@ -479,14 +479,12 @@
 	if (in_range(src, user) && !headset)
 		. += span_info("Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.")
 
-/obj/item/radio/attackby(obj/item/W, mob/user, params)
+/obj/item/radio/attackby(obj/item/attacking_item, mob/user, params)
 	add_fingerprint(user)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+
+	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
 		unscrewed = !unscrewed
-		if(unscrewed)
-			to_chat(user, span_notice("The radio can now be attached and modified!"))
-		else
-			to_chat(user, span_notice("The radio can no longer be modified or attached!"))
+		to_chat(user, span_notice(unscrewed ? "The radio can now be attached and modified!" : "The radio can no longer be modified or attached!"))
 	else
 		return ..()
 
@@ -545,18 +543,57 @@
 			if (do_after(actor, 1 SECONDS, loc))
 				set_on(!on)
 
-///////////////////////////////
-//////////Borg Radios//////////
-///////////////////////////////
-//Giving borgs their own radio to have some more room to work with -Sieve
+/*
+* Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
+*/
+
+/obj/item/radio/off
+	dog_fashion = /datum/dog_fashion/back
+
+/obj/item/radio/off/Initialize(mapload)
+	. = ..()
+	set_listening(FALSE)
+
+/*
+* Cyborg radios
+*/
 
 /obj/item/radio/borg
 	name = "cyborg radio"
 	subspace_switchable = TRUE
 	dog_fashion = null
+	canhear_range = 0 // Same as the headset range, you must be on the same tile to hear a borg's communications
 
-/obj/item/radio/borg/Initialize(mapload)
-	. = ..()
+/obj/item/radio/borg/attackby(obj/item/attacking_item, mob/user, params)
+	add_fingerprint(user)
+
+	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
+		if(keyslot)
+			for(var/channel in channels)
+				SSradio.remove_object(src, GLOB.radiochannels[channel])
+				secure_radio_connections[channel] = null
+
+			var/turf/turf = get_turf(user)
+			if(turf)
+				keyslot.forceMove(turf)
+				keyslot = null
+
+			recalculateChannels()
+			ui_update()
+			to_chat(user, span_notice("You pop out the encryption key in the radio."))
+		else
+			to_chat(user, span_warning("This radio doesn't have any encryption keys!"))
+	else if(istype(attacking_item, /obj/item/encryptionkey))
+		if(keyslot)
+			to_chat(user, span_warning("The radio can't hold another key!"))
+			return
+		else
+			if(!user.transferItemToLoc(attacking_item, src))
+				return
+			keyslot = attacking_item
+
+		recalculateChannels()
+		ui_update()
 
 /obj/item/radio/borg/syndicate
 	syndie = TRUE
@@ -565,48 +602,5 @@
 /obj/item/radio/borg/syndicate/Initialize(mapload)
 	. = ..()
 	set_frequency(FREQ_SYNDICATE)
-
-/obj/item/radio/borg/attackby(obj/item/W, mob/user, params)
-
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(keyslot)
-			for(var/ch_name in channels)
-				SSradio.remove_object(src, GLOB.radiochannels[ch_name])
-				secure_radio_connections[ch_name] = null
-
-
-			if(keyslot)
-				var/turf/T = get_turf(user)
-				if(T)
-					keyslot.forceMove(T)
-					keyslot = null
-
-			recalculateChannels()
-			ui_update()
-			to_chat(user, span_notice("You pop out the encryption key in the radio."))
-
-		else
-			to_chat(user, span_warning("This radio doesn't have any encryption keys!"))
-
-	else if(istype(W, /obj/item/encryptionkey/))
-		if(keyslot)
-			to_chat(user, span_warning("The radio can't hold another key!"))
-			return
-
-		if(!keyslot)
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot = W
-
-		recalculateChannels()
-		ui_update()
-
-
-/obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
-	dog_fashion = /datum/dog_fashion/back
-
-/obj/item/radio/off/Initialize(mapload)
-	. = ..()
-	set_listening(FALSE)
 
 #undef FREQ_LISTENING

@@ -85,7 +85,7 @@
 	uniform = /obj/item/clothing/under/color/random
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	back = /obj/item/storage/backpack
-	r_hand = /obj/item/gps
+	r_hand = /obj/item/gps/off
 
 /datum/outfit/vip_target/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
