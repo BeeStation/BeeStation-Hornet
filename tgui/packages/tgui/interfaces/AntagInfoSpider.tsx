@@ -1,7 +1,7 @@
+import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
-import { resolveAsset } from '../assets';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
 
 type Info = {

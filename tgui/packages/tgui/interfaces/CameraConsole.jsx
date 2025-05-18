@@ -2,8 +2,9 @@ import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Button, ByondUi, Input, Section, Flex } from '../components';
+import { Button, ByondUi, Flex, Input, Section } from '../components';
 import { Window } from '../layouts';
 
 /**

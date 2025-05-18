@@ -1,12 +1,5 @@
+import { Button, Dropdown, Input, NumberInput, Stack } from '../../components';
 import { BasicInput } from './BasicInput';
-import {
-  NumberInput,
-  Button,
-  Stack,
-  Input,
-  Dropdown,
-  Box,
-} from '../../components';
 
 export const FUNDAMENTAL_DATA_TYPES = {
   string: (props) => {

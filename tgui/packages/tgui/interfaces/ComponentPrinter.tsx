@@ -1,14 +1,15 @@
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Input, Section, Stack, Tabs } from '../components';
+import { Window } from '../layouts';
 import {
   Material,
+  MATERIAL_KEYS,
   MaterialAmount,
   MaterialFormatting,
   Materials,
-  MATERIAL_KEYS,
 } from './common/Materials';
-import { Window } from '../layouts';
-import { Box, Button, Input, Section, Stack, Tabs } from '../components';
 
 const CATEGORY_ALL = 'All';
 

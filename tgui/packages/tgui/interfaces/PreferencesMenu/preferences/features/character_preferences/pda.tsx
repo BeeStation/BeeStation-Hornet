@@ -1,10 +1,8 @@
 import {
   Feature,
-  FeatureChoiced,
-  FeatureChoicedServerData,
-  FeatureColorInput,
   FeatureButtonedDropdownInput,
-  FeatureValueProps,
+  FeatureChoiced,
+  FeatureColorInput,
 } from '../base';
 
 export const pda_theme: FeatureChoiced = {

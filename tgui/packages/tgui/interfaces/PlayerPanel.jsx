@@ -1,23 +1,23 @@
 /* eslint-disable react/prefer-stateless-function */
+import { Component } from 'react';
+
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
+  Button,
   ColorBox,
+  Flex,
   Input,
+  NumberInput,
   Section,
   Table,
-  Tooltip,
-  Button,
-  Flex,
-  ByondUi,
   Tabs,
-  NumberInput,
+  Tooltip,
 } from '../components';
+import { ButtonCheckbox } from '../components/Button';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
-import { ButtonCheckbox } from '../components/Button';
-import { Component } from 'react';
 
 /**
 --------------------

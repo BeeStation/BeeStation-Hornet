@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import { TextArea } from './TextArea';
 
 const DEFAULT_UPDATE_INTERVAL = 2000;

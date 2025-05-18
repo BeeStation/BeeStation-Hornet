@@ -1,14 +1,15 @@
+import { Modal } from '../types';
 import { handleArrowKeys } from './arrowKeys';
 import { handleBackspaceDelete } from './backspaceDelete';
+import { handleClick, handleRightClick } from './click';
 import { handleComponentMount } from './componentMount';
 import { handleComponentUpdate } from './componentUpdate';
-import { handleClick, handleRightClick } from './click';
 import { handleEnter } from './enter';
 import { handleEscape } from './escape';
 import { handleForce } from './force';
 import {
-  handleIncrementChannel,
   handleDecrementChannel,
+  handleIncrementChannel,
 } from './incrementChannel';
 import { handleInput } from './input';
 import { handleKeyDown } from './keyDown';
@@ -16,7 +17,6 @@ import { handleRadioPrefix } from './radioPrefix';
 import { handleReset } from './reset';
 import { handleSetSize } from './setSize';
 import { handleViewHistory } from './viewHistory';
-import { Modal } from '../types';
 
 /**
  * Maps all TGUI say events with their associated handlers.

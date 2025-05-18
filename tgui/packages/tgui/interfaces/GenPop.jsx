@@ -1,8 +1,9 @@
 // Adapted From NSV13
 
 import { clamp, toFixed } from 'common/math';
+
 import { useBackend, useSharedState } from '../backend';
-import { Button, Section, ProgressBar } from '../components';
+import { Button, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const GenPop = (props) => {

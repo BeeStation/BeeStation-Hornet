@@ -1,4 +1,5 @@
 import { sortBy } from 'common/collections';
+
 import {
   Feature,
   FeatureChoicedServerData,

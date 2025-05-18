@@ -13,7 +13,7 @@
  */
 
 import { clamp } from 'common/math';
-import { useRef, useMemo, useEffect, memo } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 
 // Saves incoming handler to the ref in order to avoid "useCallback hell"
 // prettier-ignore
@@ -123,8 +123,9 @@ const InteractiveBase = ({ onMove, onKey, style, ...rest }: Props) => {
       if (isTouch(nativeEvent)) {
         hasTouch.current = true;
         const changedTouches = nativeEvent.changedTouches || [];
-        if (changedTouches.length)
+        if (changedTouches.length) {
           touchId.current = changedTouches[0].identifier;
+        }
       }
 
       el.focus();

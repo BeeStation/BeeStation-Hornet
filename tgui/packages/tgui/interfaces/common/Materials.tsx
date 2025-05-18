@@ -3,7 +3,7 @@ import { classes } from 'common/react';
 import { CSSProperties } from 'react';
 
 import { useSharedState } from '../../backend';
-import { Box, Button, Flex,NumberInput } from '../../components';
+import { Box, Button, Flex, NumberInput } from '../../components';
 import { BoxProps } from '../../components/Box';
 import { formatMoney, formatSiUnit } from '../../format';
 

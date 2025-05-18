@@ -1,8 +1,9 @@
-import { useBackend } from '../../backend';
-import { Box, Stack, Button } from '../../components';
 import { Component } from 'react';
+
 import { shallowDiffers } from '../../../common/react';
-import { ABSOLUTE_Y_OFFSET, noop } from './constants';
+import { useBackend } from '../../backend';
+import { Box, Button, Stack } from '../../components';
+import { ABSOLUTE_Y_OFFSET } from './constants';
 import { Port } from './Port';
 
 export class ObjectComponent extends Component {
