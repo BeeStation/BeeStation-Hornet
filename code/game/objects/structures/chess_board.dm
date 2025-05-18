@@ -32,41 +32,41 @@
 	for(var/I in 1 to 64)
 		var/inserting_piece
 		switch(I)
-			if(1, 8) //white rooks
-				inserting_piece = /obj/item/chess_piece/white/rook
-
-			if(2, 7) //white knights
-				inserting_piece = /obj/item/chess_piece/white/knight
-
-			if(3, 6) //white bishops
-				inserting_piece = /obj/item/chess_piece/white/bishop
-
-			if(4) //white queen
-				inserting_piece = /obj/item/chess_piece/white/queen
-
-			if(5) //white king
-				inserting_piece = /obj/item/chess_piece/white/king
-
-			if(9 to 16) //white pawns
-				inserting_piece = /obj/item/chess_piece/white/pawn
-
-			if(57, 64) //black rooks
+			if(1, 8) //black rooks
 				inserting_piece = /obj/item/chess_piece/black/rook
 
-			if(58, 63) //black knights
+			if(2, 7) //black knights
 				inserting_piece = /obj/item/chess_piece/black/knight
 
-			if(59, 62) //black bishops
+			if(3, 6) //black bishops
 				inserting_piece = /obj/item/chess_piece/black/bishop
 
-			if(60) //black queen
+			if(4) //black queen
 				inserting_piece = /obj/item/chess_piece/black/queen
 
-			if(61) //black king
+			if(5) //black king
 				inserting_piece = /obj/item/chess_piece/black/king
 
-			if(49 to 56) //black pawns
+			if(9 to 16) //black pawns
 				inserting_piece = /obj/item/chess_piece/black/pawn
+
+			if(57, 64) //white rooks
+				inserting_piece = /obj/item/chess_piece/white/rook
+
+			if(58, 63) //white knights
+				inserting_piece = /obj/item/chess_piece/white/knight
+
+			if(59, 62) //white bishops
+				inserting_piece = /obj/item/chess_piece/white/bishop
+
+			if(60) //white queen
+				inserting_piece = /obj/item/chess_piece/white/queen
+
+			if(61) //white king
+				inserting_piece = /obj/item/chess_piece/white/king
+
+			if(49 to 56) //white pawns
+				inserting_piece = /obj/item/chess_piece/white/pawn
 
 		if(inserting_piece)
 			inserting_piece = new inserting_piece()
