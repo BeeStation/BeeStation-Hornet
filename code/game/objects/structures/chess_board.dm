@@ -79,10 +79,10 @@
 		switch(I)
 
 			if(1, 3, 5, 7, 10, 12, 14, 16, 17, 19, 21, 23)
-				inserting_piece = /obj/item/checkers_piece/black
+				inserting_piece = /obj/item/chess_piece/checkers/black
 
 			if(42, 44, 46, 48, 49, 51, 53, 55, 58, 60, 62, 64)
-				inserting_piece = /obj/item/checkers_piece/white
+				inserting_piece = /obj/item/chess_piece/checkers/white
 
 		if(inserting_piece)
 			inserting_piece = new inserting_piece()
@@ -91,7 +91,7 @@
 
 
 /obj/structure/chess_board/proc/chess_board_insert_item(obj/item/inserted_item, ui_index)
-	if(istype(inserted_item, /obj/item/chess_piece) || istype(inserted_item, /obj/item/checkers_piece) || istype(inserted_item, /obj/item/toy/figure))
+	if(istype(inserted_item, /obj/item/chess_piece) || istype(inserted_item, /obj/item/toy/figure))
 		if(contents.len >= 64)
 			return FALSE
 		if(!ui_index)
@@ -337,54 +337,50 @@
 
 //checkers pieces
 
-/obj/item/checkers_piece
+/obj/item/chess_piece/checkers
 	name = "checkers piece"
 	desc = "how did you get your hands on this?"
-	icon = 'icons/obj/chess_board.dmi'
 	icon_state = "checkers_white"
-	w_class = WEIGHT_CLASS_TINY
-	pickup_sound = 'sound/items/handling/screwdriver_pickup.ogg'
-	drop_sound = 'sound/items/handling/standard_stamp.ogg'
 	var/king_type = null
 	var/piece_type = null
 
-/obj/item/checkers_piece/attackby(obj/item/I, mob/living/user)
+/obj/item/chess_piece/checkers/attackby(obj/item/I, mob/living/user)
 	if(I.type == type)
-		var/obj/item/checkers_piece/king = new king_type ()
+		var/obj/item/chess_piece/checkers/king = new king_type ()
 		qdel(I)
 		user.put_in_hands(king)
 		qdel(src)
 	return ..()
 
-/obj/item/checkers_piece/attack_self(mob/user)
+/obj/item/chess_piece/checkers/attack_self(mob/user)
 	if(piece_type)
 		forceMove(user.loc)
 		for(var/I in 1 to 2)
-			var/obj/item/checkers_piece/piece = new piece_type ()
+			var/obj/item/chess_piece/checkers/piece = new piece_type ()
 			user.put_in_hands(piece)
 		qdel(src)
 	return ..()
 
-/obj/item/checkers_piece/white
+/obj/item/chess_piece/checkers/white
 	name = "white checkers piece"
 	desc = "A small, disc shaped, checkers piece. Waiting patiently to execute that 10 jump combo."
 	icon_state = "checkers_white"
-	king_type = /obj/item/checkers_piece/white/king
+	king_type = /obj/item/chess_piece/checkers/white/king
 
-/obj/item/checkers_piece/white/king
+/obj/item/chess_piece/checkers/white/king
 	name = "white checkers king"
 	desc = "Two small, disc shaped checkers pieces, stacked on top of eachother. With their powers combined, they can now move backward."
 	icon_state = "checkers_king_white"
-	piece_type = /obj/item/checkers_piece/white
+	piece_type = /obj/item/chess_piece/checkers/white
 
-/obj/item/checkers_piece/black
+/obj/item/chess_piece/checkers/black
 	name = "black checkers piece"
 	desc = "A small, disc shaped, checkers piece. Waiting patiently to execute that 10 jump combo."
 	icon_state = "checkers_black"
-	king_type = /obj/item/checkers_piece/black/king
+	king_type = /obj/item/chess_piece/checkers/black/king
 
-/obj/item/checkers_piece/black/king
+/obj/item/chess_piece/checkers/black/king
 	name = "black checkers king"
 	desc = "Two small, disc shaped checkers pieces, stacked on top of eachother. With their powers combined, they can now move backward."
 	icon_state = "checkers_king_black"
-	piece_type = /obj/item/checkers_piece/black
+	piece_type = /obj/item/chess_piece/checkers/black

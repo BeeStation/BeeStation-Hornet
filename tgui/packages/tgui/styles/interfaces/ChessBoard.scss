@@ -9,7 +9,7 @@
   opacity: 0;
   top: 0;
   left: 0;
-  border: 3px, outset, greenyellow;
+  border: 4px outset greenyellow;
 }
 
 .ChessBoard_Text {
@@ -18,23 +18,23 @@
   position: absolute;
   width: 200%;
   left: -50%;
-  bottom: 110%;
   font-family: monospace;
   text-align: center;
   text-transform: capitalize;
   font-size: 18px;
   text-shadow: -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 1px 1px 1px black;
   color: white;
+  z-index: 1;
 }
 
-.ChessBoard_outline {
+.ChessBoard_Outline {
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  border: 2px, outset, black;
-  opacity: 70%;
+  border: 3px outset black;
+  opacity: 0.7;
 }
 
 .ChessBoard_Slot:hover {
@@ -46,17 +46,11 @@
   width: 100%;
 }
 
-.ChessBoard_Background {
+.ChessBoard_Icon {
+  position: relative;
   height: 100%;
   width: 100%;
-  background: conic-gradient(#2f3336 90deg, #fefff2 90deg 180deg, #2f3336 180deg 270deg, #fefff2 270deg);
-  background-repeat: repeat;
-  background-size: 120px 120px;
-  background-position: top left;
-}
-
-.ChessBoard_Icon {
-  scale: (170%);
-  position: relative;
-  top: 10%;
+  pointer-events: none;
+  right: 35%;
+  bottom: 20%;
 }
