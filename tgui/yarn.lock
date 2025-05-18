@@ -10058,11 +10058,11 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     tgui: "workspace:*"
-    tgui-core: "npm:^1.7.4"
+    tgui-core: "npm:1.7.4"
   languageName: unknown
   linkType: soft
 
-"tgui-core@npm:^1.7.4":
+"tgui-core@npm:1.7.4":
   version: 1.7.4
   resolution: "tgui-core@npm:1.7.4"
   peerDependencies:
@@ -10094,7 +10094,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     tgui: "workspace:*"
-    tgui-core: "npm:^1.7.4"
+    tgui-core: "npm:1.7.4"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
   languageName: unknown
@@ -10122,7 +10122,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     tgui: "workspace:*"
-    tgui-core: "npm:^1.7.4"
+    tgui-core: "npm:1.7.4"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
   languageName: unknown
@@ -10191,7 +10191,7 @@ __metadata:
     marked: "npm:^4.2.12"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    tgui-core: "npm:^1.7.4"
+    tgui-core: "npm:1.7.4"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
   languageName: unknown
