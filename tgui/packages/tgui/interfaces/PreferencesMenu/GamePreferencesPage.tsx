@@ -41,7 +41,13 @@ type PreferenceChild = {
   children: ReactNode;
 };
 
-const binaryInsertPreference = binaryInsertWith<PreferenceChild>((child) => child.name);
+const binaryInsertPreference = (
+  collection: PreferenceChild[],
+  value: PreferenceChild,
+) => binaryInsertWith(collection, value, (child) => child.name);
+
+const sortByName = (array: [string, PreferenceChild[]][]) =>
+  sortBy(array, ([name]) => name);
 
 export const GamePreferencesPage = (props, context) => {
   const { act, data } = useBackend<PreferencesMenuData>();
@@ -120,7 +126,8 @@ export const GamePreferencesPage = (props, context) => {
     gamePreferences[category][subcategory] = binaryInsertPreference(curCategory[subcategory] || [], entry);
   }
 
-  const sortByName = sortBy(([name]) => name);
+  const sortByName = (array: [string, PreferenceChild[]][]) =>
+    sortBy(array, ([name]) => name);
 
   const sortByManual = (entries) => {
     let result: any[] = [];
@@ -170,7 +177,8 @@ export const GamePreferencesPage = (props, context) => {
     }
   );
 
-  const sortByNameTyped = sortBy<[string, Record<string, PreferenceChild[]>]>(([name]) => name);
+  const sortByNameTyped = (array: [string, Record<string, PreferenceChild[]>][]) =>
+    sortBy(array, ([name]) => name);
 
   const search = createSearch(searchText, (preference: PreferenceChild) => preference.name);
   const searchResult: null | [string, ReactNode][] =
