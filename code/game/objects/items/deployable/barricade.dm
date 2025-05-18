@@ -126,6 +126,7 @@
 	bar_material = WOOD
 	pickup_delay = 15 SECONDS
 	drop_amount = 5
+	layer = SHUTTER_LAYER
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))

@@ -116,6 +116,7 @@
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "festivus_pole"
 	desc = "During last year's Feats of Strength the Research Director was able to suplex this passing immobile rod into a planter."
+	layer = ABOVE_MOB_LAYER // so it doesn't get obscured by objects, windows and mobs on the tile north of it
 	zmm_flags = ZMM_LOOKAHEAD
 
 /obj/structure/festivus/anchored
@@ -186,6 +187,20 @@
 
 /obj/structure/flora/bush/Initialize(mapload)
 	icon_state = "snowbush[rand(1, 6)]"
+	. = ..()
+
+//bushes but in a pot
+/obj/structure/flora/bigplant
+	name = "potted plant"
+	desc = "A large potted plant."
+	icon = 'icons/obj/flora/bigplant.dmi'
+	icon_state = "bigplant1"
+	anchored = FALSE
+	layer = ABOVE_MOB_LAYER
+	pixel_x = -17
+
+/obj/structure/flora/bigplant/Initialize(mapload)
+	icon_state = "bigplant[rand(1, 2)]"
 	. = ..()
 
 //newbushes
@@ -306,6 +321,54 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 	. = ..()
 
+/obj/item/kirbyplants_mini_random
+	name = "small potted plant"
+	icon = 'icons/obj/flora/_flora.dmi'
+	icon_state = "random_mini_plant"
+	desc = "A little bit of nature contained in a pot."
+	layer = OBJ_LAYER
+	w_class = WEIGHT_CLASS_NORMAL
+	force = 10
+	attack_weight = 1
+	throwforce = 5
+	throw_speed = 2
+	throw_range = 4
+	item_flags = NO_PIXEL_RANDOM_DROP
+	var/list/static/mini_states
+
+/obj/item/kirbyplants_mini_random/Initialize(mapload)
+	. = ..()
+	icon = 'icons/obj/flora/mini.dmi'
+	if(!mini_states)
+		generate_states()
+	icon_state = pick(mini_states)
+	update_appearance()
+
+/obj/item/kirbyplants_mini_random/Initialize(mapload)
+	..()
+	create_storage(storage_type = /datum/storage/mini_plant)
+
+/obj/item/kirbyplants_mini_random/ComponentInitialize()
+	..()
+
+/datum/storage/mini_plant
+	max_specific_storage = WEIGHT_CLASS_SMALL
+	max_slots = 1
+	silent = TRUE
+	allow_big_nesting = TRUE
+
+/obj/item/kirbyplants_mini_random
+
+/obj/item/kirbyplants_mini_random/proc/generate_states()
+	mini_states = list()
+	for(var/i in 1 to 34)
+		var/number
+		if(i < 10)
+			number = "0[i]"
+		else
+			number = "[i]"
+		mini_states += "plant-[number]"
+
 /obj/item/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
@@ -349,14 +412,13 @@
 
 /obj/item/kirbyplants/random/proc/generate_states()
 	states = list()
-	for(var/i in 1 to 34)
+	for(var/i in 1 to 35)
 		var/number
 		if(i < 10)
 			number = "0[i]"
 		else
 			number = "[i]"
 		states += "plant-[number]"
-	states += "applebush"
 
 
 /obj/item/kirbyplants/dead

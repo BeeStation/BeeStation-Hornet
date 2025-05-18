@@ -244,13 +244,8 @@
 	filter_type = list(/datum/gas/hypernoblium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/no2
-	name = "nitryl filter"
-	filter_type = list(/datum/gas/nitryl)
-
-/obj/machinery/atmospherics/components/trinary/filter/atmos/stimulum
-	name = "stimulum filter"
-	filter_type = list(/datum/gas/stimulum)
-
+	name = "nitrium filter"
+	filter_type = list(/datum/gas/nitrium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/pluoxium
 	name = "pluoxium filter"
@@ -298,8 +293,8 @@
 	filter_type = list(/datum/gas/hypernoblium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/no2
-	name = "nitryl filter"
-	filter_type = list(/datum/gas/nitryl)
+	name = "nitrium filter"
+	filter_type = list(/datum/gas/nitrium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/pluoxium
 	name = "pluoxium filter"

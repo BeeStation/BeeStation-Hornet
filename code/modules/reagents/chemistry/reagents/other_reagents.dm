@@ -122,37 +122,20 @@
 	color = "#ecca7f"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "dog treats"
-	var/mob/living/basic/pet/dog/corgi/new_corgi
+	var/mob/living/resulting_mob
 
-/datum/reagent/corgium/on_mob_metabolize(mob/living/L)
+/datum/reagent/corgium/on_mob_metabolize(mob/living/target)
 	. = ..()
-	var/obj/shapeshift_holder/H = locate() in L
-	if(H)
-		to_chat(L, span_warning("You're already corgified!"))
-		return
-	new_corgi = new(L.loc)
-	//hat check
-	var/mob/living/carbon/C = L
-	if(istype(C))
-		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(hat?.dog_fashion)
-			new_corgi.place_on_head(hat,null,FALSE)
-	H = new(new_corgi,src,L)
+	target.buckled?.unbuckle_mob(target, force = TRUE)
+	resulting_mob = target.do_shapeshift(shapeshift_type = /mob/living/basic/pet/dog/corgi)
 	//Restore after this time
-	addtimer(CALLBACK(src, PROC_REF(restore), L), 5 * (volume / metabolization_rate))
+	addtimer(CALLBACK(src, PROC_REF(restore), resulting_mob), 5 * (volume / metabolization_rate))
 
-/datum/reagent/corgium/proc/restore(mob/living/L)
-	//The mob was qdeleted by an explosion or something
-	if(QDELETED(L))
-		return
+/datum/reagent/corgium/proc/restore(mob/living/target)
+	target.do_unshapeshift()
 	//Remove all the corgium from the person
-	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
-	if(QDELETED(new_corgi))
-		return
-	var/obj/shapeshift_holder/H = locate() in new_corgi
-	if(!H)
-		return
-	H.restore()
+	target.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
+	holder.remove_reagent(/datum/reagent/corgium, INFINITY)
 
 /datum/reagent/water
 	name = "Water"
@@ -1335,19 +1318,19 @@
 		M.confused = min(M.confused + 2, 5)
 	..()
 
-/datum/reagent/stimulum
-	name = "Stimulum"
-	description = "An unstable experimental gas that greatly increases the energy of those that inhale it, but also causes hypoxia."
+/datum/reagent/nitrium_high_metabolization
+	name = "Nitrosyl plasmide"
+	description = "A highly reactive byproduct that stops you from sleeping, while dealing increasing toxin damage over time."
 	reagent_state = GAS
-	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because nitrium are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "#E1A116"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
 	///stores whether or not the mob has been warned that they are having difficulty breathing.
 	var/warned = FALSE
 
-/datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
-	..()
+/datum/reagent/nitrium_high_metabolization/on_mob_metabolize(mob/living/L)
+	. = ..()
 	ADD_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
@@ -1355,40 +1338,40 @@
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	L.visible_message(span_warning("You feel like nothing can stop you!"))
 
-/datum/reagent/stimulum/on_mob_end_metabolize(mob/living/L)
+/datum/reagent/nitrium_high_metabolization/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	L.visible_message(span_warning("You can feel your brief high wearing off"))
-	..()
+	return ..()
 
-/datum/reagent/stimulum/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/nitrium_high_metabolization/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustStaminaLoss(-2 * REM * delta_time, 0)
 	if(M.losebreath <= 10)
 		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticeable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
 		M.visible_message(span_danger("You feel like you can't breathe!"))
 		warned = TRUE
-	..()
+	return ..()
 
-/datum/reagent/nitryl
-	name = "Nitryl"
+/datum/reagent/nitrium_low_metabolization
+	name = "Nitrium"
 	description = "A highly reactive gas that makes you feel faster."
 	reagent_state = GAS
-	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because nitrium are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "#90560B"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 
-/datum/reagent/nitryl/on_mob_metabolize(mob/living/L)
-	..()
-	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
+/datum/reagent/nitrium_low_metabolization/on_mob_metabolize(mob/living/L)
+	. = ..()
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
 
-/datum/reagent/nitryl/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
-	..()
+/datum/reagent/nitrium_low_metabolization/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
+	return ..()
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
@@ -1545,8 +1528,12 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 8
 
-
-
+/datum/reagent/plantnutriment/slimenutriment
+	name = "Living Fertiliser"
+	description = "A viscous fluid that clings to living tissue and speeds up growth, in exchange for yield."
+	color = "#6ed8db"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	tox_prob = 17
 
 
 
