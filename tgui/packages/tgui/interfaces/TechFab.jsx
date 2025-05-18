@@ -1,18 +1,19 @@
+import { capitalize, createSearch } from 'common/string';
+
 import { useBackend } from '../backend';
 import {
-  Stack,
-  Collapsible,
-  Tooltip,
-  Icon,
   Box,
   Button,
-  Input,
-  Section,
+  Collapsible,
   Flex,
+  Icon,
+  Input,
   NoticeBox,
+  Section,
+  Stack,
+  Tooltip,
 } from '../components';
 import { Window } from '../layouts';
-import { capitalize, createSearch } from 'common/string';
 
 // Handles protolathes, circuit fabricators, and techfabs
 

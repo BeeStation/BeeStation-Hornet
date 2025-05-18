@@ -1,6 +1,6 @@
+import type { ReactNode } from 'react';
 import { Box, Tooltip } from 'tgui/components';
 import { createRenderer } from 'tgui/renderer';
-import type { ReactNode } from 'react';
 
 const render = createRenderer();
 

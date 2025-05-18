@@ -1,15 +1,13 @@
 import { useBackend } from '../backend';
 import {
-  Button,
-  Section,
-  Box,
-  Flex,
-  Input,
   BlockQuote,
-  Icon,
-  Divider,
-  Dropdown,
+  Box,
+  Button,
   Collapsible,
+  Divider,
+  Flex,
+  Icon,
+  Section,
 } from '../components';
 import { Window } from '../layouts';
 

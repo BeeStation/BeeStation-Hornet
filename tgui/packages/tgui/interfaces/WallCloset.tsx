@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Flex, DmIcon, Icon } from '../components';
+import { Box, DmIcon, Flex, Icon } from '../components';
 import { Window } from '../layouts';
 
 type WallClosetData = {
