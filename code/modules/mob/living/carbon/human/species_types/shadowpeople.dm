@@ -42,7 +42,7 @@
 				H.nutrition += 2 * delta_time
 			H.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
 			if(sect_rituals_completed >= 2)
-				H.alpha = 125
+				H.alpha = min(H.alpha, 125)
 				if(sect_rituals_completed == 3)
 					H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
