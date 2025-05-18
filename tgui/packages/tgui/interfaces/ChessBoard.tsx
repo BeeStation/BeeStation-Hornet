@@ -35,8 +35,17 @@ const Cell = (props) => {
   return (
     <Flex.Item width="75px" height="75px">
       <Box height="100%" width="100%" position="relative">
-        <Box className="ChessBoard_Box"
-        backgroundColor={Math.trunc(props.index / 8) % 2 === 1 ? (props.index % 2 ? '#fefff2' : '#2f3336') : (props.index % 2 ? '#2f3336' : '#fefff2')}>
+        <Box
+          className="ChessBoard_Box"
+          backgroundColor={
+            Math.trunc(props.index / 8) % 2 === 1
+              ? props.index % 2
+                ? '#fefff2'
+                : '#2f3336'
+              : props.index % 2
+                ? '#2f3336'
+                : '#fefff2'
+          }>
           {props.show && (
             <Box className="ChessBoard_Icon">
               <DmIcon
@@ -56,11 +65,13 @@ const Cell = (props) => {
           )}
           <Box className="ChessBoard_Outline" />
           <Box className="ChessBoard_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
-            <Box className="ChessBoard_Text"
-            style={{
-              bottom: Math.trunc(props.index / 8) === 0 ? "auto" : "110%",
-              top: Math.trunc(props.index / 8) === 0 ? "110%" : "auto",
-            }}>{props.name}
+            <Box
+              className="ChessBoard_Text"
+              style={{
+                bottom: Math.trunc(props.index / 8) === 0 ? 'auto' : '110%',
+                top: Math.trunc(props.index / 8) === 0 ? '110%' : 'auto',
+              }}>
+              {props.name}
             </Box>
           </Box>
         </Box>
