@@ -1528,8 +1528,12 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 8
 
-
-
+/datum/reagent/plantnutriment/slimenutriment
+	name = "Living Fertiliser"
+	description = "A viscous fluid that clings to living tissue and speeds up growth, in exchange for yield."
+	color = "#6ed8db"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	tox_prob = 17
 
 
 
