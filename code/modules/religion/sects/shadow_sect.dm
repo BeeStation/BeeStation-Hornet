@@ -426,12 +426,7 @@
 				ADD_TRAIT(L, TRAIT_RECENTLY_HEALED, FROM_SHADOW_SECT)
 				healed_mobs += L
 				addtimer(CALLBACK(src, PROC_REF(clear_recently_healed), L), 10 SECONDS)
-				L.adjustBruteLoss(-5, 0)
-				L.adjustToxLoss(-10, 0)
-				L.adjustOxyLoss(-10, 0)
-				L.adjustFireLoss(-5, 0)
-				L.adjustCloneLoss(-5, 0)
-				L.updatehealth()
+				L.heal_overall_damage(10, 10, 50, FALSE, TRUE)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/proc/clear_recently_healed(mob/living/L) // So the mob is eligible to be healed again
