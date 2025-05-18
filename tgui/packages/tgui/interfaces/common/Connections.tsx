@@ -26,11 +26,7 @@ export type Connection = {
   ref?: string;
 };
 
-export const Connections = (props: {
-  connections: Connection[];
-  zLayer?: number;
-  lineWidth?: number;
-}) => {
+export const Connections = (props: { connections: Connection[]; zLayer?: number; lineWidth?: number }) => {
   const { connections, zLayer = -1, lineWidth = '2px' } = props;
 
   const isColorClass = (str) => {
@@ -79,9 +75,7 @@ export const Connections = (props: {
 
         return (
           <path
-            className={classes([
-              isColorClass(val.color) && `color-stroke-${val.color}`,
-            ])}
+            className={classes([isColorClass(val.color) && `color-stroke-${val.color}`])}
             key={index}
             d={path}
             fill="transparent"
