@@ -45,9 +45,8 @@
 /obj/machinery/processor/proc/select_recipe(X)
 	for (var/type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/recipe = new type()
-		if (!istype(X, recipe.input) || !istype(src, recipe.required_machine))
-			continue
-		return recipe
+		if (istype(src, recipe.required_machine) && istype(X, recipe.input) && !(is_type_in_list(X, recipe.excluded_inputs)))
+			return recipe
 
 /obj/machinery/processor/attackby(obj/item/O, mob/living/user, params)
 	if(processing)

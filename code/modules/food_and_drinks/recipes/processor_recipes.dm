@@ -1,5 +1,7 @@
 /datum/food_processor_process
 	var/input
+	/// Subtypes of input that should not be processed, because a unique recipe exists for them
+	var/excluded_inputs = list()
 	var/output
 	var/time = 40
 	/// The machine required to do this recipe
@@ -9,27 +11,33 @@
 
 /datum/food_processor_process/meat
 	input = /obj/item/food/meat/slab
+	excluded_inputs = list(/obj/item/food/meat/slab/human, /obj/item/food/meat/slab/corgi, /obj/item/food/meat/slab/xeno, /obj/item/food/meat/slab/bear, /obj/item/food/meat/slab/chicken)
 	output = /obj/item/food/raw_meatball
 	food_multiplier = 3
 
 /datum/food_processor_process/cutlet
 	input = /obj/item/food/meat/cutlet/plain
+	excluded_inputs = list(/obj/item/food/meat/cutlet/plain/human)
 	output = /obj/item/food/raw_meatball
 
 /datum/food_processor_process/meat/human
 	input = /obj/item/food/meat/slab/human
+	excluded_inputs = list()
 	output = /obj/item/food/raw_meatball/human
 
 /datum/food_processor_process/cutlet/human
 	input = /obj/item/food/meat/cutlet/plain/human
+	excluded_inputs = list()
 	output = /obj/item/food/raw_meatball/human
 
 /datum/food_processor_process/meat/corgi
 	input = /obj/item/food/meat/slab/corgi
+	excluded_inputs = list()
 	output = /obj/item/food/raw_meatball/corgi
 
 /datum/food_processor_process/meat/xeno
 	input = /obj/item/food/meat/slab/xeno
+	excluded_inputs = list()
 	output = /obj/item/food/raw_meatball/xeno
 
 /datum/food_processor_process/cutlet/xeno
@@ -38,6 +46,7 @@
 
 /datum/food_processor_process/meat/bear
 	input = /obj/item/food/meat/slab/bear
+	excluded_inputs = list()
 	output = /obj/item/food/raw_meatball/bear
 
 /datum/food_processor_process/cutlet/bear
@@ -46,6 +55,7 @@
 
 /datum/food_processor_process/meat/chicken
 	input = /obj/item/food/meat/slab/chicken
+	excluded_inputs = list()
 	output = /obj/item/food/raw_meatball/chicken
 	food_multiplier = 3
 
@@ -67,6 +77,7 @@
 
 /datum/food_processor_process/potato
 	input = /obj/item/food/grown/potato
+	excluded_inputs = list(/obj/item/food/grown/potato/wedges, /obj/item/food/grown/potato/sweet)
 	output = /obj/item/food/tatortot
 
 /datum/food_processor_process/carrot
