@@ -707,8 +707,11 @@
 	if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
 		skin_health -= blunt_damage
 	if (skin_health < 0)
-		message_admins("Injury gained: Broken skin")
-		check_effectiveness()
+		if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
+			apply_injury(/datum/injury/burns)
+		else
+			apply_injury(/datum/injury/laceration)
+	check_effectiveness()
 	// Reduce penetration
 	penetration_power -= rand(0, skin_penetration_resistance)
 	// Deflection - Permanently reduces damage
@@ -725,9 +728,8 @@
 	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	bone_health -= blunt_damage
 	if (bone_health <= 0)
-		check_effectiveness()
-		if (!(locate(/datum/injury/broken_bone) in injuries))
-			apply_injury(new /datum/injury/broken_bone)
+		apply_injury(/datum/injury/broken_bone)
+	check_effectiveness()
 	// Bone pentration
 	penetration_power -= rand(0, bone_penetration_resistance)
 	current_damage = damage
@@ -751,7 +753,11 @@
 	if (((penetration_power > 0 && prob(penetration_power - bone_health)) || bone_health <= 0) && dismemberable && damage_flag == DAMAGE_STANDARD && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
 		dismember()
 
-/obj/item/bodypart/proc/apply_injury(datum/injury/injury)
+/obj/item/bodypart/proc/apply_injury(injury_path)
+	for (var/datum/injury/injury in injuries)
+		if (injury.type == injury_path)
+			return
+	var/datum/injury/injury = new injury_path()
 	LAZYADD(injuries, injury)
 	injury.apply_to_part(src)
 	if (owner && ishuman(owner))
@@ -759,10 +765,9 @@
 
 /obj/item/bodypart/proc/check_effectiveness()
 	effectiveness = initial(effectiveness)
-	if (bone_health <= 0)
-		effectiveness -= 0.5 * initial(effectiveness)
-	if (skin_health <= 0)
-		effectiveness -= 0.25 * initial(effectiveness)
+	effectiveness -= 0.5 * initial(effectiveness) * (1 - (bone_health / bone_max_health))
+	effectiveness -= 0.25 * initial(effectiveness) * (1 - (skin_health / skin_max_health))
+	clear_effectiveness_modifiers()
 	update_effectiveness()
 
 /obj/item/bodypart/proc/update_effectiveness()
@@ -772,8 +777,12 @@
 	return
 
 /obj/item/bodypart/proc/check_destroyed()
+	if (destroyed)
+		return
 	if (bone_max_health <= 0 || skin_max_health <= 0)
 		destroyed = TRUE
+		if (owner)
+			to_chat(owner, span_userdanger("Your [name] falls limp and unresponsive!"))
 		update_disabled()
 
 /obj/item/bodypart/chest

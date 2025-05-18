@@ -1,0 +1,19 @@
+/datum/injury/third_degree_burn
+	skin_armour_modifier = 0.4
+	effectiveness_modifier = 0
+
+/datum/injury/third_degree_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
+	to_chat(target, span_userdanger("The burns on your [part.name] intensify."))
+
+/datum/injury/third_degree_burn/on_tick(mob/living/carbon/human/target, delta_time)
+	if (DT_PROB(10, delta_time) && !target.is_bleeding())
+		to_chat(target, span_warning("A red-fluid seeps out of the burns on your [bodypart.name]."))
+		target.add_bleeding(BLEED_CRITICAL)
+	// Gain organ damage over time
+	for (var/slot in bodypart.organ_slots)
+		var/obj/item/organ/organ = target.getorganslot(slot)
+		if (!organ)
+			continue
+		if (!prob(organ.organ_size))
+			continue
+		organ.applyOrganDamage(delta_time * ORGAN_DAMAGE_MULTIPLIER)

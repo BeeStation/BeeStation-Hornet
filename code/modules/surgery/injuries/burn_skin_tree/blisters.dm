@@ -1,0 +1,21 @@
+/datum/injury/blisters
+	skin_armour_modifier = 0.9
+	effectiveness_modifier = 0.7
+
+/datum/injury/blisters/on_damage_taken(total_damage, delta_damage)
+	// If the skin gets burnt in an unprotected way, get blisters
+	if (total_damage >= 10 && (delta_damage > 2 || prob(delta_damage * 5)))
+		transition_to(/datum/injury/second_degree_burns)
+
+/datum/injury/blisters/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
+	to_chat(target, span_userdanger("Your [part.name] blisters from the intense heat!"))
+
+/datum/injury/blisters/apply_to_part(obj/item/bodypart/part)
+	// If we lose the injury, stop the timer
+	addtimer(CALLBACK(src, PROC_REF(check_heal), part), rand(5 MINUTES, 15 MINUTES), TIMER_DELETE_ME)
+
+/datum/injury/blisters/proc/check_heal(obj/item/bodypart/part)
+	if (prob(30))
+		// Gain an infection
+	// Heal the blisters
+	transition_to(/datum/injury/repaired_skin_burn)
