@@ -486,7 +486,7 @@
 /obj/item/clothing/head/beret/medical/paramedic
 	name = "paramedic beret"
 	desc = "For finding corpses in style!"
-	greyscale_colors = "#16313D"
+	greyscale_colors = "#2C3A4E#FFFFFF"
 
 /obj/item/clothing/head/beret/medical/cmo
 	name = "chief medical officer beret"
