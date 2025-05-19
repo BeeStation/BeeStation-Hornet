@@ -36,6 +36,7 @@
 #define BOLTS	(1<<2)
 #define SHOCK	(1<<3)
 #define SAFE	(1<<4)
+#define EMERGENCY (1<<5)
 
 //used in design to specify which machine can build it
 #define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
@@ -270,6 +271,7 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_COURT "court"
 #define CAMERA_NETWORK_EVAC "evac"
 #define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
+#define CAMERA_NETWORK_THEATHRE "theathre"
 
 // Off-station networks
 #define CAMERA_NETWORK_BUNKER "bunker"
