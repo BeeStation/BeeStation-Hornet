@@ -26,51 +26,53 @@
 	// Did we break out of our handcuffs?
 	if(break_restraints())
 		power_activated_sucessfully()
-		return FALSE
+		return
 	// Did we knock a grabber down? We can only do this while not also breaking restraints if strong enough.
 	if(level_current >= 3 && escape_puller())
 		power_activated_sucessfully()
-		return FALSE
+		return
 	// Did neither, now we can PUNCH.
-	return ..()
+	. = ..()
 
 // Look at 'biodegrade.dm' for reference
 /datum/action/vampire/targeted/brawn/proc/break_restraints()
-	var/mob/living/carbon/human/user = owner
-	if(!user) // how
+	if(!ishuman(owner))
 		return FALSE
+
+	var/mob/living/carbon/human/human_owner = owner
+
 	var/used = FALSE
 
 	// Lockers
-	if(istype(user.loc, /obj/structure/closet))
-		var/obj/structure/closet/closet = user.loc
+	if(istype(human_owner.loc, /obj/structure/closet))
+		var/obj/structure/closet/closet = human_owner.loc
 		addtimer(CALLBACK(src, PROC_REF(break_closet), closet), 1)
 		closet.visible_message(
-			span_warning("[closet] tears apart as [user] bashes it open from within!"),
+			span_warning("[closet] tears apart as [human_owner] bashes it open from within!"),
 			span_warning("[closet] tears apart as you bash it open from within!"))
-		to_chat(user, span_warning("We bash [closet] wide open!"))
+		to_chat(human_owner, span_warning("We bash [closet] wide open!"))
 		used = TRUE
 
 	// Cuffs
-	if(user.handcuffed || user.legcuffed)
-		user.uncuff()
-		user.visible_message(
-			span_warning("[user] discards their restraints like it's nothing!"),
+	if(human_owner.handcuffed || human_owner.legcuffed)
+		human_owner.uncuff()
+		human_owner.visible_message(
+			span_warning("[human_owner] discards their restraints like it's nothing!"),
 			span_warning("We break through our restraints!"))
 		used = TRUE
 
 	// Straightjackets
-	if(user.wear_suit?.breakouttime)
-		var/obj/item/clothing/suit/straightjacket = user.get_item_by_slot(ITEM_SLOT_OCLOTHING)
-		if(straightjacket && user.wear_suit == straightjacket)
+	if(human_owner.wear_suit?.breakouttime)
+		var/obj/item/clothing/suit/straightjacket = human_owner.get_item_by_slot(ITEM_SLOT_OCLOTHING)
+		if(straightjacket && human_owner.wear_suit == straightjacket)
 			qdel(straightjacket)
-		user.visible_message(
-			span_warning("[user] rips straight through the [user.p_their()] [straightjacket]!"),
+		human_owner.visible_message(
+			span_warning("[human_owner] rips straight through the [human_owner.p_their()] [straightjacket]!"),
 			span_warning("We tear through our [straightjacket]!"))
 		used = TRUE
 
 	if(used)
-		playsound(get_turf(user), 'sound/effects/grillehit.ogg', 80, 1, -1)
+		playsound(get_turf(human_owner), 'sound/effects/grillehit.ogg', 80, 1, -1)
 	return used
 
 // This is its own proc because its done twice, to repeat code copypaste.
@@ -108,66 +110,66 @@
 
 /datum/action/vampire/targeted/brawn/FireTargetedPower(atom/target_atom)
 	. = ..()
-	var/mob/living/user = owner
+	var/mob/living/carbon/carbon_owner = owner
 
 	// Living Targets
 	if(isliving(target_atom))
-		var/mob/living/target = target_atom
-		var/mob/living/carbon/carbonuser = user
+		var/mob/living/living_target = target_atom
 
 		// Strength of the attack
-		var/hitStrength = carbonuser.dna.species.punchdamage * damage_coefficient + 2
+		var/hit_strength = carbon_owner.dna.species.punchdamage * damage_coefficient + 2
 		var/powerlevel = min(5, 1 + level_current)
 
 		if(rand(5 + powerlevel) >= 5)
-			target.visible_message(
-				span_danger("[user] lands a vicious punch, sending [target] away!"), \
-				span_userdanger("[user] has landed a horrifying punch on you, sending you flying!"),
+			living_target.visible_message(
+				span_danger("[carbon_owner] lands a vicious punch, sending [living_target] away!"), \
+				span_userdanger("[carbon_owner] has landed a horrifying punch on you, sending you flying!"),
 			)
-			target.Knockdown(min(5, rand(10, 10 * powerlevel)))
+			living_target.Knockdown(min(5, rand(10, 10 * powerlevel)))
 
 		// Attack!
-		owner.balloon_alert(owner, "you punch [target]!")
-		playsound(get_turf(target), 'sound/weapons/punch4.ogg', 60, 1, -1)
+		owner.balloon_alert(owner, "you punch [living_target]!")
+		playsound(get_turf(living_target), 'sound/weapons/punch4.ogg', 60, 1, -1)
 
-		user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+		carbon_owner.do_attack_animation(living_target, ATTACK_EFFECT_SMASH)
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(target.get_combat_bodyzone()))
-		target.apply_damage(hitStrength, BRUTE, affecting)
+		var/obj/item/bodypart/affecting = living_target.get_bodypart(ran_zone(living_target.get_combat_bodyzone()))
+		living_target.apply_damage(hit_strength, BRUTE, affecting)
+
 		// Knockback
-
-		var/send_dir = get_dir(owner, target)
-		var/turf/turf_thrown_at = get_ranged_target_turf(target, send_dir, powerlevel)
+		var/send_dir = get_dir(owner, living_target)
+		var/turf/turf_thrown_at = get_ranged_target_turf(living_target, send_dir, powerlevel)
 		owner.newtonian_move(send_dir) // Bounce back in 0 G
-		target.throw_at(turf_thrown_at, powerlevel, TRUE, owner)
+		living_target.throw_at(turf_thrown_at, powerlevel, TRUE, owner)
 
 		// Target Type: Cyborg (Also gets the effects above)
-		if(issilicon(target))
-			target.emp_act(EMP_HEAVY)
+		if(issilicon(living_target))
+			living_target.emp_act(EMP_HEAVY)
 	// Lockers
-	else if(istype(target_atom, /obj/structure/closet) && (level_current >= 3 || brujah))
+	else if(istype(target_atom, /obj/structure/closet))
 		var/obj/structure/closet/target_closet = target_atom
-		user.balloon_alert(user, "you prepare to bash [target_closet] open...")
-		if(!do_after(user, 2.5 SECONDS, target_closet))
-			user.balloon_alert(user, "interrupted!")
+
+		playsound(get_turf(carbon_owner), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -1)
+		carbon_owner.balloon_alert(carbon_owner, "you prepare to bash [target_closet] open...")
+		if(!do_after(carbon_owner, 2.5 SECONDS, target_closet))
+			carbon_owner.balloon_alert(carbon_owner, "interrupted!")
 			return FALSE
-		target_closet.visible_message(span_danger("[target_closet] breaks open as [user] bashes it!"))
-		addtimer(CALLBACK(src, PROC_REF(break_closet), user, target_closet), 1)
-		playsound(get_turf(user), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
+		target_closet.visible_message(span_danger("[target_closet] breaks open as [carbon_owner] bashes it!"))
+
+		INVOKE_ASYNC(src, PROC_REF(break_closet), target_closet)
+		playsound(get_turf(carbon_owner), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
 	// Airlocks
 	else if(istype(target_atom, /obj/machinery/door/airlock))
-		if((brujah ? level_current < 2 : level_current < 4))
-			user.balloon_alert(user, "not a high enough rank!")
+		var/obj/machinery/door/airlock/target_airlock = target_atom
+
+		playsound(get_turf(carbon_owner), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -1)
+		owner.balloon_alert(owner, "you prepare to tear open [target_airlock]...")
+		if(!do_after(carbon_owner, 2.5 SECONDS, target_airlock))
+			carbon_owner.balloon_alert(carbon_owner, "interrupted!")
 			return FALSE
 
-		var/obj/machinery/door/airlock/target_airlock = target_atom
-		playsound(get_turf(user), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -1)
-		owner.balloon_alert(owner, "you prepare to tear open [target_airlock]...")
-		if(!do_after(user, 2.5 SECONDS, target_airlock))
-			user.balloon_alert(user, "interrupted!")
-			return FALSE
-		if(target_airlock.Adjacent(user))
-			target_airlock.visible_message(span_danger("[target_airlock] breaks open as [user] bashes it!"))
+		if(target_airlock.Adjacent(carbon_owner))
+			target_airlock.visible_message(span_danger("[target_airlock] breaks open as [carbon_owner] bashes it!"))
 
 			// Adjust cost and cooldown if Brujah
 			if(brujah)
@@ -178,10 +180,10 @@
 					bloodcost = 10
 					cooldown_time = 6 SECONDS
 			else // If not Brujah then just make the vampire wait a second...
-				user.Stun(1 SECONDS)
+				carbon_owner.Stun(1 SECONDS)
 
-			user.Stun(10)
-			user.do_attack_animation(target_airlock, ATTACK_EFFECT_SMASH)
+			carbon_owner.Stun(10)
+			carbon_owner.do_attack_animation(target_airlock, ATTACK_EFFECT_SMASH)
 			playsound(get_turf(target_airlock), 'sound/effects/bang.ogg', 30, 1, -1)
 			if(brujah && level_current >= 3 && target_airlock.locked)
 				target_airlock.unbolt()
@@ -194,8 +196,21 @@
 
 	if(isliving(target_atom))
 		return TRUE
+
 	if(istype(target_atom, /obj/machinery/door/airlock))
-		return TRUE
-	if(istype(target_atom, /obj/structure/closet))
+		if(brujah ? level_current < 2 : level_current < 4)
+			owner.balloon_alert(owner, "level [brujah ? "2" : "4"] required!")
+			return FALSE
+
 		return TRUE
 
+	if(istype(target_atom, /obj/structure/closet))
+		if(!brujah && level_current < 3)
+			owner.balloon_alert(owner, "level 3 required!")
+			return FALSE
+
+		var/obj/structure/closet/target_closet = target_atom
+		if(target_closet.welded || target_closet.locked)
+			return TRUE
+
+	return FALSE
