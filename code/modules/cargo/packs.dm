@@ -208,6 +208,15 @@
 	crate_name = "internals crate"
 	crate_type = /obj/structure/closet/crate/internals
 
+/datum/supply_pack/emergency/lawnmower
+	name = "Lawnmower Crate"
+	desc = "Contains an unstable and slow lawnmower. Use with caution!"
+	cost = 10000
+	max_supply = 2
+	contains = list(/obj/vehicle/ridden/lawnmower)
+	crate_name = "lawnmower crate"
+	contraband = TRUE
+
 /datum/supply_pack/emergency/metalfoam
 	name = "Metal Foam Grenade Crate"
 	desc = "Seal up those pesky hull breaches with 7 Metal Foam Grenades."

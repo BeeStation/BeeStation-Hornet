@@ -1,0 +1,127 @@
+/obj/vehicle/ridden/lawnmower
+	name = "Doom. Co Ultra-Mega-Mower"
+	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace. The safety light is <b>on</b>."
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "lawnmower"
+	uses_integrity = 1
+	var/emagged = FALSE
+	var/emagged_by = null
+	var/list/drive_sounds = list('sound/effects/mowermove1.ogg', 'sound/effects/mowermove2.ogg')
+	var/list/gib_sounds = list('sound/effects/mowermovesquish.ogg')
+
+
+/obj/vehicle/ridden/lawnmower/Initialize()
+	. = ..()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
+
+/obj/vehicle/ridden/lawnmower/emagged
+	emagged = TRUE
+	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace. The safety light is off"
+
+/obj/vehicle/ridden/lawnmower/atom_destruction()
+	explosion(src, -1, 1, 2, 4, flame_range = 3)
+	. = ..()
+
+/obj/vehicle/ridden/lawnmower/on_emag(mob/user)
+	. = ..()
+	if(emagged)
+		to_chat(user, span_warning("The safety mechanisms on \the [src] are already disabled!"))
+		return
+	to_chat(user, span_warning("You disable the safety mechanisms on \the [src]."))
+	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace. The safety light is <b>off</b>."
+	emagged = TRUE
+	if(user)
+		emagged_by = key_name(user)
+
+/obj/vehicle/ridden/lawnmower/Bump(atom/A)
+	. = ..()
+	if(emagged)
+		if(isliving(A))
+			var/mob/living/M = A
+			M.adjustBruteLoss(25)
+			playsound(loc, 'sound/effects/bang.ogg', 50, 1)
+			var/atom/newLoc = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
+			M.throw_at(newLoc, 4, 1)
+
+/obj/vehicle/ridden/lawnmower/Move()
+	. = ..()
+	var/gibbed = FALSE
+	playsound(loc, pick(drive_sounds), 50, 1)
+	var/mob/living/carbon/H
+
+	if(has_buckled_mobs())
+		H = buckled_mobs[1]
+		H.investigate_log("[H] entered [src] as the driver")
+	else
+		return .
+
+	if(emagged)
+		for(var/mob/living/carbon/human/M in loc)
+			if(M == H)
+				continue
+			if(M.body_position == LYING_DOWN)
+				visible_message(span_danger("\the [src] grinds [M.name] into a fine paste!"))
+				M.gib()
+				M.log_message("has been gibbed by an emagged lawnmower that was driven by [(H.ckey || "nobody")] and emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
+				H.log_message("has gibbed [(M.ckey || "none-player")] using an emagged lawnmower that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
+				shake_camera(M, 20, 1)
+				gibbed = TRUE
+
+	if(gibbed)
+		shake_camera(H, 10, 1)
+		playsound(loc, pick(gib_sounds), 75, 1)
+
+	mow_lawn()
+
+/obj/vehicle/ridden/lawnmower/proc/mow_lawn()
+	//Nearly copypasted from goats
+	var/obj/structure/spacevine/spacevine = locate(/obj/structure/spacevine) in loc
+	if(spacevine)
+		qdel(spacevine)
+
+	var/obj/structure/glowshroom/glowshroom = locate(/obj/structure/glowshroom) in loc
+	if(glowshroom)
+		qdel(glowshroom)
+
+	var/obj/structure/alien/weeds/ayy_weeds = locate(/obj/structure/alien/weeds) in loc
+	if(ayy_weeds)
+		qdel(ayy_weeds)
+
+	var/obj/structure/flora/flora = locate(/obj/structure/flora) in loc
+	if(flora)
+		if(!istype(flora, /obj/structure/flora/rock))
+			qdel(flora)
+		else
+			take_damage(25)
+			visible_message(span_danger("\the [src] makes a awful grinding sound as it drives over [flora]!"))
+
+/obj/vehicle/ridden/lawnmower/nukie
+	name = "Syndicate Organism Shredder"
+	desc = "A modified lawnmower with a custom paint job. There are no safety mechanisms on this model, rip and tear."
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "syndi_lawnmower"
+	armor_type = /datum/armor/ridden_syndi_lawnmower
+	emagged = TRUE
+	drive_sounds = list('sound/effects/mower_treads.ogg')
+	gib_sounds = list('sound/effects/splat.ogg')
+
+/datum/armor/ridden_syndi_lawnmower
+	melee = 60
+	bullet = 70
+	laser = 70
+	bomb = 10
+	fire = 10
+	acid = 10
+
+/obj/vehicle/ridden/lawnmower/nukie/on_emag(mob/user)
+	. = ..()
+	to_chat(user, span_warning("There are no safety mechanisms on \the [src]!"))
+
+/obj/vehicle/ridden/lawnmower/nukie/Initialize()
+	. = ..()
+	RemoveElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower/nukie)
+
+/obj/vehicle/ridden/lawnmower/nukie/atom_destruction()
+	explosion(src, -1, 3, 5, 7, flame_range = 5)
+	. = ..()
