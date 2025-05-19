@@ -271,7 +271,7 @@
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
-		if(isshadow(user))
+		if(isblessedshadow(user))
 			to_chat(user,span_warning("You've already converted yourself. To convert others, they must be buckled to [movable_reltool]."))
 			return FALSE
 		to_chat(user,span_warning("You're going to convert yourself with this ritual."))
@@ -293,7 +293,7 @@
 				break
 	if(!rite_target)
 		return FALSE
-	rite_target.set_species(/datum/species/shadow)
+	rite_target.set_species(/datum/species/shadow/blessed)
 	rite_target.visible_message(span_notice("[rite_target] has been converted by the rite of [name]!"))
 	return TRUE
 
@@ -449,9 +449,15 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3/post_buckle_mob(mob/living/M)
 	. = ..()
-	if(isshadow(M))
+	if(isblessedshadow(M) || isnightmare(M))
 		unbuckle_mob(M, TRUE)
 		visible_message(span_warning("[M.name] seems to fall through the obelisk."))
+		return
+
+	if(isshadow(M))
+		M.set_species(/datum/species/shadow/blessed)
+		unbuckle_mob(M, TRUE)
+		visible_message(span_warning("[M.name] seems to fall through the obelisk, taking in some of its power."))
 		return
 
 	if(!ishuman(M))
@@ -467,8 +473,8 @@
 		if (converting >= 30)
 			converting = 0
 			for(var/mob/living/carbon/human/buckled in buckled_mobs)
-				buckled.visible_message(span_notice("[buckled.name] merged with shadows and  drops from the obelisk."), span_userdanger("Shadows infuse your body changing you into one of them."))
-				buckled.set_species(/datum/species/shadow)
+				buckled.visible_message(span_notice("[buckled.name] merged with shadows and drops from the obelisk."), span_userdanger("Shadows infuse your body changing you into one of them."))
+				buckled.set_species(/datum/species/shadow/blessed)
 				unbuckle_mob(buckled, TRUE)
 	else
 		converting = 0
@@ -580,8 +586,8 @@
 	if(sect.grand_ritual_level > 0)
 		to_chat(user, span_warning("You already performed this ritual!."))
 		return FALSE
-	if(!isshadow(user))
-		to_chat(user, span_warning("How dare someone not of shadow kind try to communicate with shadows!"))
+	if(!isblessedshadow(user))
+		to_chat(user, span_warning("How dare someone not of blessed shadow kind try to communicate with shadows!"))
 		return FALSE
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
@@ -614,8 +620,9 @@
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
 			M.heal_overall_damage(25, 25, 200)
-			var/datum/species/shadow/spiec = M.dna.species
-			spiec.change_hearts_ritual(M)
+			if(isblessedshadow(M))
+				var/datum/species/shadow/S = M.dna.species
+				S.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_one
 	sect.rites_list += /datum/religion_rites/grand_ritual_two
 	return ..()
@@ -657,8 +664,8 @@
 	if(sect.grand_ritual_level > 1)
 		to_chat(user, span_warning("You already performed this ritual!."))
 		return FALSE
-	if(!isshadow(user))
-		to_chat(user, span_warning("How dare someone not of shadow kind, try to communicate with shadows!."))
+	if(!isblessedshadow(user))
+		to_chat(user, span_warning("How dare someone not of blessed shadow kind try to communicate with shadows!"))
 		return FALSE
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
@@ -691,8 +698,9 @@
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
 			M.heal_overall_damage(25, 25, 200)
-			var/datum/species/shadow/spiec = M.dna.species
-			spiec.change_hearts_ritual(M)
+			if(isblessedshadow(M))
+				var/datum/species/shadow/S = M.dna.species
+				S.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_two
 	sect.rites_list += /datum/religion_rites/grand_ritual_three
 	return ..()
@@ -739,8 +747,8 @@
 	if(sect.grand_ritual_level > 2)
 		to_chat(user, span_warning("You already performed this ritual!."))
 		return FALSE
-	if(!isshadow(user))
-		to_chat(user, span_warning("How dare someone not of shadow kind, try to communicate with shadows!"))
+	if(!isblessedshadow(user))
+		to_chat(user, span_warning("How dare someone not of blessed shadow kind try to communicate with shadows!"))
 		return FALSE
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
@@ -774,8 +782,9 @@
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
 			M.revive(full_heal = TRUE)
-			var/datum/species/shadow/spiec = M.dna.species
-			spiec.change_hearts_ritual(M)
+			if(isblessedshadow(M))
+				var/datum/species/shadow/S = M.dna.species
+				S.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_three
 	return ..()
 
