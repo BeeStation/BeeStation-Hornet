@@ -567,6 +567,7 @@
 			sect.active_obelisks += obelisk
 			sect.active_obelisks_number += 1
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+		obelisk.toggling_buckling_after_ritual_3()
 		Destroy()
 
 // Grand rituals themselves
@@ -580,6 +581,7 @@
 		"... Come to your kin ...",
 		"... Help us spread darkness ...")
 	invoke_msg = "I summon you to our beacons!"
+	favor_cost = 2000
 
 /datum/religion_rites/grand_ritual_one/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
