@@ -10,7 +10,7 @@
 	var/list/gib_sounds = list('sound/effects/mowermovesquish.ogg')
 
 
-/obj/vehicle/ridden/lawnmower/Initialize()
+/obj/vehicle/ridden/lawnmower/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
 
@@ -117,7 +117,7 @@
 	. = ..()
 	to_chat(user, span_warning("There are no safety mechanisms on \the [src]!"))
 
-/obj/vehicle/ridden/lawnmower/nukie/Initialize()
+/obj/vehicle/ridden/lawnmower/nukie/Initialize(mapload)
 	. = ..()
 	RemoveElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower/nukie)
