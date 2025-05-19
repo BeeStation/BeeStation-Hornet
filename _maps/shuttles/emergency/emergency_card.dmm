@@ -1517,7 +1517,7 @@
 	},
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/table/reinforced,
-/obj/item/defibrillator,
+/obj/item/defibrillator/loaded,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/tiled,
 /area/shuttle/escape)
