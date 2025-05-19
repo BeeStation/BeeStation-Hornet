@@ -456,15 +456,11 @@
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	armor_type = /datum/armor/beret_sci
-	greyscale_colors = "#8D008F"
-	flags_1 = NONE
-
-/obj/item/clothing/head/beret/science/fancy
-	desc = "A science-themed beret for our hardworking scientists. This one comes with a fancy badge!"
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#8D008F#FFFFFF"
+	greyscale_colors = "#A04BD9#FFFFFF"
+	flags_1 = NONE
 
 /datum/armor/beret_sci
 	bomb = 5
@@ -476,8 +472,11 @@
 
 /obj/item/clothing/head/beret/medical
 	name = "medical beret"
-	desc = "A medical-flavored beret for the doctor in you!"
-	greyscale_colors = "#FFFFFF"
+	desc = "A white beret with a blue cross finely threaded into it. It has that sterile smell about it."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#E1E1E1#EDCC6A"
 	armor_type = /datum/armor/beret_med
 	flags_1 = NONE
 
@@ -491,8 +490,11 @@
 
 /obj/item/clothing/head/beret/medical/cmo
 	name = "chief medical officer beret"
-	desc = "A beret in a distinct surgical turquoise!"
-	greyscale_colors = "#5EB8B8"
+	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#73B1D7#FFFFFF"
 	armor_type = /datum/armor/beret_cmo
 
 /datum/armor/beret_cmo
@@ -505,7 +507,10 @@
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	armor_type = /datum/armor/beret_eng
-	greyscale_colors = "#FFBC30"
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#FFBC30#FFFFFF"
 	flags_1 = NONE
 
 /datum/armor/beret_eng
@@ -516,7 +521,10 @@
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficiency in piping. Or plumbing."
 	armor_type = /datum/armor/beret_atmos
-	greyscale_colors = "#FFDE15"
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#E56A0A#FFFFFF"
 	flags_1 = NONE
 
 /datum/armor/beret_atmos
@@ -529,7 +537,7 @@
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#E1E1E1#D0D000"
+	greyscale_colors = "#E1E1E1#EDCC6A"
 	armor_type = /datum/armor/beret_ce
 	flags_1 = NONE
 
@@ -541,7 +549,10 @@
 	name = "cargo beret"
 	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
 	armor_type = /datum/armor/beret_supply
-	greyscale_colors = "#ECCA30"
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#63400E#9AA10B"
 	flags_1 = NONE
 
 //Curator
