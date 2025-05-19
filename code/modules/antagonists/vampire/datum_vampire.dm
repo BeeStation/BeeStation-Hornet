@@ -54,8 +54,10 @@
 		DISCORDANT_VASSAL,
 	)
 
+	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
 	var/vampire_level_unspent = 0
+
 	/// Additional regeneration when the vampire has a lot of blood
 	var/additional_regen
 	/// How much damage the vampire heals each life tick. Increases per rank up
@@ -155,24 +157,27 @@
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
-	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(C.dna.species.species_bitflags & NOT_TRANSMORPHIC)
-		C.set_species(/datum/species/human)
-		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
-		for(var/datum/record/crew/E in GLOB.manifest.general)
-			if(E.name == C.real_name)
-				E.species = "\improper Human"
-				var/static/list/show_directions = list(SOUTH, WEST)
-				var/image = get_flat_existing_human_icon(C, show_directions)
-				var/datum/picture/pf = new
-				var/datum/picture/ps = new
-				pf.picture_name = "[C]"
-				ps.picture_name = "[C]"
-				pf.picture_desc = "This is [C]."
-				ps.picture_desc = "This is [C]."
-				pf.picture_image = icon(image, dir = SOUTH)
-				ps.picture_image = icon(image, dir = WEST)
-				E.gender = C.gender
+	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
+	if(carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+		carbon_owner.set_species(/datum/species/human)
+		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
+
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = "\improper Human"
+				record.gender = carbon_owner.gender
+
+				var/datum/picture/picture_south = new
+				var/datum/picture/picture_west = new
+
+				picture_south.picture_name = "[carbon_owner]"
+				picture_west.picture_name = "[carbon_owner]"
+				picture_south.picture_desc = "This is [carbon_owner]."
+				picture_west.picture_desc = "This is [carbon_owner]."
+
+				var/icon/image = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
+				picture_south.picture_image = icon(image, dir = SOUTH)
+				picture_west.picture_image = icon(image, dir = WEST)
 
 /**
  * Remove innate effects is everything given to the mob
@@ -241,24 +246,22 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
-	if(IS_FAVORITE_VASSAL(owner.current)) // Vassals shouldnt be getting the same benefits as Vampires.
-		vampire_level_unspent = 0
-		show_in_roundend = FALSE
-	else
-		// Start Sunlight if first Vampire
-		check_start_sunlight()
-		// Name and Titles
-		SelectFirstName()
-		SelectTitle(am_fledgling = TRUE)
-		SelectReputation(am_fledgling = TRUE)
-		// Objectives
-		forge_vampire_objectives()
+	// Start Sunlight if first Vampire
+	check_start_sunlight()
+
+	// Name and Titles
+	SelectFirstName()
+	SelectTitle(am_fledgling = TRUE)
+	SelectReputation(am_fledgling = TRUE)
+
+	// Objectives
+	forge_objectives()
 
 	. = ..()
 	// Assign Powers
+	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
-	check_blacklisted_species()
 
 /// Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/vampire/on_removal()
@@ -267,15 +270,8 @@
 	check_cancel_sunlight()
 	owner.special_role = null
 
-	if(iscarbon(owner.current))
-		var/mob/living/carbon/carbon_owner = owner.current
-		var/obj/item/organ/brain/not_vamp_brain = carbon_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
-		if(not_vamp_brain && (not_vamp_brain.decoy_override != initial(not_vamp_brain.decoy_override)))
-			not_vamp_brain.organ_flags |= ORGAN_VITAL
-			not_vamp_brain.decoy_override = FALSE
-
 	owner.current.remove_language(/datum/language/vampiric)
-	return ..()
+	. = ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
@@ -495,11 +491,12 @@
 /datum/antagonist/vampire/antag_listing_name()
 	return ..() + return_full_name()
 
-/datum/antagonist/vampire/proc/forge_vampire_objectives()
+/datum/antagonist/vampire/proc/forge_objectives()
 	// Claim a Lair Objective
 	var/datum/objective/vampire/lair/lair_objective = new
 	lair_objective.owner = owner
 	objectives += lair_objective
+
 	// Survive Objective
 	var/datum/objective/survive/survive_objective = new
 	survive_objective.owner = owner

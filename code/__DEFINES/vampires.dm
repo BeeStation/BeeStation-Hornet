@@ -1,11 +1,11 @@
-///Uncomment this to enable testing of Vampire features (such as vassalizing people with a mind instead of a client).
+/// Uncomment this to enable testing of Vampire features (such as vassalizing people with a mind instead of a client).
 //#define VAMPIRE_TESTING
 
 #ifdef VAMPIRE_TESTING
 #ifdef CIBUILDING
-#error VAMPIRE_TESTING is enabled, disable this!!!
+#error VAMPIRE_TESTING is enabled, disable this!
 #else
-#warn VAMPIRE_TESTING is enabled, you REALLY do not want this enabled outside of local testing!!
+#warn VAMPIRE_TESTING is enabled, you REALLY do not want this enabled outside of local testing!
 #endif
 #endif
 

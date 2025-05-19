@@ -3,7 +3,7 @@
 	desc = "Transform iron into fleshy mass, used for vampire structures"
 	button_icon_state = "power_bleed"
 	power_explanation = "Activate this power with iron in-hand to transform its vampiric counterpart. The material obtained from using this spell\
-		can be used to construct vampire structures all with unique function."
+		can be used to construct vampire structures."
 	power_flags = NONE
 	check_flags = NONE
 	purchase_flags = VAMPIRE_DEFAULT_POWER

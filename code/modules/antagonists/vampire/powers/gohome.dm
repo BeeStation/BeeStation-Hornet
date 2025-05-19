@@ -34,10 +34,9 @@
 		return FALSE
 
 	/// Have No Lair (NOTE: You only got this power if you had a lair, so this means it's destroyed)
-	if(!istype(vampiredatum_power) || !vampiredatum_power.coffin)
+	if(!vampiredatum_power?.coffin)
 		owner.balloon_alert(owner, "coffin was destroyed!")
 		return FALSE
-	return TRUE
 
 /datum/action/vampire/gohome/activate_power()
 	. = ..()
@@ -89,8 +88,8 @@
 			if(watcher.is_blind())
 				continue
 			if(!IS_VAMPIRE(watcher) && !IS_VASSAL(watcher))
-				for(var/obj/item/literally_everything in owner)
-					owner.dropItemToGround(literally_everything, TRUE)
+				for(var/obj/item/item in owner)
+					owner.dropItemToGround(item, TRUE)
 				break
 	user.uncuff()
 

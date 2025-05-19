@@ -16,7 +16,7 @@
 
 	/// A sort of tutorial text found in the Antagonist tab.
 	var/power_explanation = "Use this power to do... something"
-	///The owner's stored Vampire datum
+	/// The owner's vampire datum
 	var/datum/antagonist/vampire/vampiredatum_power
 
 	/// The effects on this Power (Toggled/Single Use/Static Cooldown)
@@ -42,21 +42,9 @@
 	. = ..()
 	update_desc()
 
-/datum/action/vampire/proc/update_desc()
-	desc = initial(desc)
-	if(bloodcost > 0)
-		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
-	if(constant_bloodcost > 0)
-		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_bloodcost] Blood.</i>"
-	if(power_flags & BP_AM_SINGLEUSE)
-		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
-
 /datum/action/vampire/Destroy()
 	vampiredatum_power = null
 	. = ..()
-
-/datum/action/vampire/is_available(feedback = FALSE)
-	return next_use_time <= world.time
 
 /datum/action/vampire/Grant(mob/user)
 	. = ..()
@@ -76,7 +64,20 @@
 	activate_power()
 	if(!(power_flags & BP_AM_TOGGLE) || !currently_active)
 		start_cooldown()
+
 	return TRUE
+
+/datum/action/vampire/is_available(feedback = FALSE)
+	return next_use_time <= world.time
+
+/datum/action/vampire/proc/update_desc()
+	desc = initial(desc)
+	if(bloodcost > 0)
+		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
+	if(constant_bloodcost > 0)
+		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_bloodcost] Blood.</i>"
+	if(power_flags & BP_AM_SINGLEUSE)
+		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
 
 ///Called when the Power is upgraded.
 /datum/action/vampire/proc/upgrade_power()
@@ -109,37 +110,37 @@
 
 ///Checks if the Power is available to use.
 /datum/action/vampire/proc/can_use()
-	var/mob/living/carbon/user = owner
-
-	if(!user)
+	if(!iscarbon(owner))
 		return FALSE
+	var/mob/living/carbon/carbon_owner = owner
+
 	// Torpor?
-	if((check_flags & BP_CANT_USE_IN_TORPOR) && HAS_TRAIT(user, TRAIT_TORPOR))
-		to_chat(user, span_warning("Not while you're in Torpor."))
+	if((check_flags & BP_CANT_USE_IN_TORPOR) && HAS_TRAIT(carbon_owner, TRAIT_TORPOR))
+		to_chat(carbon_owner, span_warning("Not while you're in Torpor."))
 		return FALSE
 	// Frenzy?
 	if((check_flags & BP_CANT_USE_IN_FRENZY) && vampiredatum_power?.frenzied)
-		to_chat(user, span_warning("You cannot use powers while in a Frenzy!"))
+		to_chat(carbon_owner, span_warning("You cannot use powers while in a Frenzy!"))
 		return FALSE
 	// Stake?
 	if((check_flags & BP_CANT_USE_WHILE_STAKED) && vampiredatum_power?.check_if_staked())
-		to_chat(user, span_warning("You have a stake in your chest! Your powers are useless."))
+		to_chat(carbon_owner, span_warning("You have a stake in your chest! Your powers are useless."))
 		return FALSE
 	// Conscious? -- We use our own (AB_CHECK_CONSCIOUS) here so we can control it more, like the error message.
-	if((check_flags & BP_CANT_USE_WHILE_UNCONSCIOUS) && user.stat != CONSCIOUS)
-		to_chat(user, span_warning("You can't do this while you are unconcious!"))
+	if((check_flags & BP_CANT_USE_WHILE_UNCONSCIOUS) && carbon_owner.stat != CONSCIOUS)
+		to_chat(carbon_owner, span_warning("You can't do this while you are unconcious!"))
 		return FALSE
 	// Incapacitated?
-	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && user.incapacitated(IGNORE_RESTRAINTS, IGNORE_GRAB))
-		to_chat(user, span_warning("Not while you're incapacitated!"))
+	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && carbon_owner.incapacitated(IGNORE_RESTRAINTS, IGNORE_GRAB))
+		to_chat(carbon_owner, span_warning("Not while you're incapacitated!"))
 		return FALSE
 	// Constant Cost (out of blood)
 	if(constant_bloodcost > 0 && vampiredatum_power?.vampire_blood_volume <= 0)
-		to_chat(user, span_warning("You don't have the blood to upkeep [src]."))
+		to_chat(carbon_owner, span_warning("You don't have the blood to upkeep [src]."))
 		return FALSE
 	// Sol check
-	if((check_flags & BP_CANT_USE_DURING_SOL) && user.has_status_effect(/datum/status_effect/vampire_sol))
-		to_chat(user, span_warning("You can't use [src] during Sol!"))
+	if((check_flags & BP_CANT_USE_DURING_SOL) && carbon_owner.has_status_effect(/datum/status_effect/vampire_sol))
+		to_chat(carbon_owner, span_warning("You can't use [src] during Sol!"))
 		return FALSE
 	return TRUE
 
@@ -154,6 +155,7 @@
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
 			living_owner.blood_volume -= bloodcost
 		return
+
 	// Vampires in a Frenzy don't have enough Blood to pay it, so just don't.
 	if(!vampiredatum_power.frenzied)
 		vampiredatum_power.vampire_blood_volume -= bloodcost
@@ -170,11 +172,13 @@
 /datum/action/vampire/proc/deactivate_power()
 	if(!currently_active) //Already inactive? Return
 		return
+
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 	if(power_flags & BP_AM_SINGLEUSE)
 		remove_after_use()
 		return
+
 	currently_active = FALSE
 	start_cooldown()
 	update_buttons()
@@ -189,9 +193,10 @@
 		if(vampiredatum_power)
 			vampiredatum_power.AddBloodVolume(-constant_bloodcost)
 		else
-			var/mob/living/living_user = owner
-			if(!HAS_TRAIT(living_user, TRAIT_NO_BLOOD))
-				living_user.blood_volume -= constant_bloodcost
+			var/mob/living/living_owner = owner
+			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
+				living_owner.blood_volume -= constant_bloodcost
+
 	return TRUE
 
 /// Checks to make sure this power can stay active

@@ -2323,6 +2323,8 @@
 #include "code\modules\antagonists\vampire\powers\gohome.dm"
 #include "code\modules\antagonists\vampire\powers\masquerade.dm"
 #include "code\modules\antagonists\vampire\powers\veil.dm"
+#include "code\modules\antagonists\vampire\powers\shapeshift\_shapeshift.dm"
+#include "code\modules\antagonists\vampire\powers\shapeshift\batform.dm"
 #include "code\modules\antagonists\vampire\powers\targeted\_targeted.dm"
 #include "code\modules\antagonists\vampire\powers\targeted\brash.dm"
 #include "code\modules\antagonists\vampire\powers\targeted\brawn.dm"
