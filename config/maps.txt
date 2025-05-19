@@ -56,6 +56,11 @@ map echostation
 	votable
 endmap
 
+map cardinalstation
+	minplayers 25
+	votable
+endmap
+
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation
