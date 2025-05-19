@@ -577,6 +577,7 @@
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
 	overdose_threshold = 25
+	color = "#280000"
 	self_consuming = TRUE //No pesky liver shenanigans
 	///If we brought someone back from the dead
 	var/back_from_the_dead = FALSE
