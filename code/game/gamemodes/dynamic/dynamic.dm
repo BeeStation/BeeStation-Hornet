@@ -85,13 +85,13 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	*/
 
 	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
-	/// These should always be integers. i.e: -20, 40
-	var/roundstart_divergence_percent_lower = DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_LOWER
-	var/roundstart_divergence_percent_upper = DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_UPPER
+	/// These should be decimals. i.e: 0.20, 0.75, 1.5
+	var/roundstart_divergence_percent_lower = 0.8
+	var/roundstart_divergence_percent_upper = 1.4
 	/// How many roundstart points should be granted per player based off ready status (OBSERVING, READY, UNREADY)
-	var/roundstart_points_per_ready = DYNAMIC_ROUNDSTART_POINTS_PER_READY
-	var/roundstart_points_per_unready = DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY
-	var/roundstart_points_per_observer = DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER
+	var/roundstart_points_per_ready = 1
+	var/roundstart_points_per_unready = 0.5
+	var/roundstart_points_per_observer = 0
 
 	/*
 	 * Midround
@@ -115,35 +115,35 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	*/
 
 	/// The chances for each type of midround ruleset to be picked at roundstart, by default this is 100%, 0%, 0%
-	var/midround_light_starting_chance = DYNAMIC_MIDROUND_LIGHT_STARTING_CHANCE
-	var/midround_medium_starting_chance = DYNAMIC_MIDROUND_MEDIUM_STARTING_CHANCE
-	var/midround_heavy_starting_chance = DYNAMIC_MIDROUND_HEAVY_STARTING_CHANCE
+	var/midround_light_starting_chance = 100
+	var/midround_medium_starting_chance = 0
+	var/midround_heavy_starting_chance = 0
 	/// At this time the Light/Medium Ruleset Chance will reach 0%
 	/// When configuring these in 'dynamic.json' be sure to have them set in deciseconds (minutes * 600)
-	var/midround_light_end_time = DYNAMIC_MIDROUND_LIGHT_END_TIME
-	var/midround_medium_end_time = DYNAMIC_MIDROUND_MEDIUM_END_TIME
+	var/midround_light_end_time = 60 MINUTES
+	var/midround_medium_end_time = 90 MINUTES
 	/// The ratio of the Light Ruleset Chance decrease rate that is given to the Medium Ruleset Chance
 	/// The Heavy Ratio is the remainder of the Medium Increase Ratio
 	/// These should always be on a range of 0 - 1. i.e: 0.25, 0.75, 1.0
-	var/midround_medium_increase_ratio = DYNAMIC_MIDROUND_INCREASE_RATIO
+	var/midround_medium_increase_ratio = 0.75
 	/// The time at which midrounds can start rolling
-	var/midround_grace_period = DYNAMIC_MIDROUND_GRACEPERIOD
+	var/midround_grace_period = 15 MINUTES
 	/// The amount of midround points given per minute for every type of player
-	var/midround_points_per_living = DYNAMIC_MIDROUND_POINTS_PER_LIVING
-	var/midround_points_per_observer = DYNAMIC_MIDROUND_POINTS_PER_OBSERVER
-	var/midround_points_per_dead = DYNAMIC_MIDROUND_POINTS_PER_DEAD
+	var/midround_points_per_living = 0.1
+	var/midround_points_per_observer = 0
+	var/midround_points_per_dead = -0.2
 	/// Every time we update midround points we add this value to the points and to itself
 	/// For example: Minute 1, +0.05. Minute 2, +0.1. Minute 3, +0.15...
-	var/midround_linear_point_increase = DYNAMIC_MIDROUND_LINEAR_POINT_INCREASE
+	var/midround_linear_point_increase = 0.05
 
 	/*
 	 * Latejoin
 	*/
 
 	/// The max amount of latejoin rulesets that can be picked
-	var/latejoin_max_rulesets = DYNAMIC_LATEJOIN_MAX_RULESETS
+	var/latejoin_max_rulesets = 3
 	/// The probability for a latejoin ruleset to be picked
-	var/latejoin_ruleset_probability = DYNAMIC_LATEJOIN_PROBABILITY
+	var/latejoin_ruleset_probability = 10
 
 
 // Yes, this is copy pasted from game_mode
