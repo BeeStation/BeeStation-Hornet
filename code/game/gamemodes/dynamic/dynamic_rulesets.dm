@@ -93,7 +93,7 @@
 */
 /datum/dynamic_ruleset/proc/allowed()
 	if(length(candidates) < drafted_players_amount)
-		log_game("DYNAMIC: FAIL: [name] is not allowed: The minimum candidate requirement (drafted players: [drafted_players_amount]) was not met! (candidates: [length(candidates)])")
+		log_dynamic("NOT ALLOWED: [name] The minimum candidate requirement (drafted players: [drafted_players_amount]) was not met! (candidates: [length(candidates)])")
 		return FALSE
 
 	return TRUE

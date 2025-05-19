@@ -46,7 +46,6 @@
 	trim_candidates()
 
 	if(!length(candidates))
-		stack_trace("[src] called execute without any candidates!")
 		return DYNAMIC_EXECUTE_FAILURE
 
 	for(var/i = 1 to drafted_players_amount)

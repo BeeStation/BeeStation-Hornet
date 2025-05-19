@@ -197,9 +197,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	set_roundstart_points()
 
 	if(length(roundstart_candidates))
-		log_game("DYNAMIC: Listing [length(configured_roundstart_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
+		log_dynamic("Listing [length(configured_roundstart_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
 	else
-		log_game("DYNAMIC: FAIL: no roundstart candidates.")
+		log_dynamic("FAIL: no roundstart candidates.")
 		return TRUE
 
 	// Pick rulesets to be executed from 'configured_roundstart_rulesets'
@@ -269,7 +269,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	roundstart_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
 	roundstart_points = round(roundstart_points * roundstart_point_divergence, 1)
 
-	log_game("DYNAMIC: Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100, 1)]%")
+	log_dynamic("Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100, 1)]%")
 
 /*
 * Pick the roundstart rulesets to run based off of their configured variables (weight, cost, etc.)
@@ -277,8 +277,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
 	// Extended was forced, don't pick any rulesets
 	if(GLOB.dynamic_forced_extended)
-		log_game("DYNAMIC: Starting a round of forced extended.")
-		return TRUE
+		log_dynamic("Starting a round of forced extended.")
+		return
 
 	// Trim the rulesets
 	var/list/possible_rulesets = list()
@@ -299,7 +299,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 		// Ran out of rulesets
 		if(isnull(ruleset))
-			log_game("DYNAMIC: No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
+			log_dynamic("No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
 			break
 
 		// Something changed and this ruleset is no longer allowed
@@ -325,7 +325,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		roundstart_executed_rulesets[ruleset] += 1 // We do this here and not in post_setup() because there will be rulesets that this one will block
 		ruleset.choose_candidates()
 
-		log_game("DYNAMIC: Chose [ruleset] with [roundstart_points_left] points left")
+		log_dynamic("Chose [ruleset] with [roundstart_points_left] points left")
 
 /*
 * Checks if a ruleset is allowed to run based off of the other ruleset flags.
@@ -336,7 +336,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		for(var/datum/dynamic_ruleset/blocked_ruleset in ruleset.blocking_rulesets)
 			for(var/datum/dynamic_ruleset/executed_ruleset in applied_rulesets)
 				if(blocked_ruleset.type == executed_ruleset.type)
-					log_game("DYNAMIC: FAIL: [ruleset] blocked by [blocked_ruleset]")
+					log_dynamic("NOT ALLOWED: [ruleset] blocked by [blocked_ruleset]")
 					return TRUE
 
 	for(var/datum/dynamic_ruleset/other_ruleset in applied_rulesets)
@@ -355,7 +355,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/post_setup(report)
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		if(execute_ruleset(ruleset) != DYNAMIC_EXECUTE_SUCCESS)
-			log_game("DYNAMIC: FAIL: [ruleset] could not be executed")
+			log_dynamic("FAIL: [ruleset] could not be executed")
 			roundstart_executed_rulesets[ruleset] -= 1
 
 	init_midround()
@@ -458,7 +458,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	midround_linear_point_increase += initial(midround_linear_point_increase)
 
 	message_admins("DYNAMIC: Updated midround points. From [previous_midround_points] to [midround_points]")
-	log_game("DYNAMIC: Updated midround points. From [previous_midround_points] to [midround_points]")
+	log_dynamic("Updated midround points. From [previous_midround_points] to [midround_points]")
 
 /*
 * At roundstart the Light Ruleset Chance is 100%
@@ -496,7 +496,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_heavy_chance *= adjustment_factor
 
 	message_admins("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
-	log_game("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
+	log_dynamic("Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
 
 /*
 * Choose the midround ruleset to save towards
@@ -533,12 +533,12 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	if(!length(possible_rulesets))
 		message_admins("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
-		log_game("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
+		log_dynamic("FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
 		return
 
 	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
-	log_game("DYNAMIC: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
+	log_dynamic("A new midround has been chosen to save up for: [midround_chosen_ruleset]")
 	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
 
 /*
@@ -668,7 +668,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
 
 		message_admins("[ADMIN_LOOKUPFLW(usr)] toggled dynamic's Forced Extended to [GLOB.dynamic_forced_extended].")
-		log_game("DYNAMIC: [usr.key] toggled dynamic's Forced Extended to [GLOB.dynamic_forced_extended].")
+		log_dynamic("[usr.key] toggled dynamic's Forced Extended to [GLOB.dynamic_forced_extended].")
 	else if(href_list["set_midround_graceperiod"])
 		var/new_grace_period = tgui_input_number(usr, "What do you want to set dynamic's grace period to? (in minutes)", "Set Grace Period")
 		if(isnull(new_grace_period))
@@ -677,7 +677,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_grace_period = new_grace_period * (1 MINUTES)
 
 		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's grace period to [midround_grace_period].")
-		log_game("DYNAMIC: [usr.key] set dynamic's grace period to [midround_grace_period].")
+		log_dynamic("[usr.key] set dynamic's grace period to [midround_grace_period].")
 
 	else if(href_list["set_midround_points"])
 		var/new_midround_points = tgui_input_number(usr, "What do you want to set dynamic's midround points to?", "Set Midround Points")
@@ -687,7 +687,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_points = new_midround_points
 
 		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's midround points to [midround_points].")
-		log_game("DYNAMIC: [usr.key] set dynamic's midround points to [midround_points].")
+		log_dynamic("[usr.key] set dynamic's midround points to [midround_points].")
 	else if(href_list["set_midround_ruleset"])
 		var/added_rule = tgui_input_list(usr, "What midround ruleset do you want dynamic to save up for?", "Set Midround Ruleset", midround_configured_rulesets)
 		if(!added_rule)
@@ -696,7 +696,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_chosen_ruleset = added_rule
 
 		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's midround ruleset to [midround_chosen_ruleset].")
-		log_game("DYNAMIC: [ADMIN_LOOKUPFLW(usr)] set dynamic's midround ruleset to [midround_chosen_ruleset].")
+		log_dynamic("[usr.key] set dynamic's midround ruleset to [midround_chosen_ruleset].")
 	else if(href_list["set_latejoin_prob"])
 		var/new_latejoin_probability = tgui_input_number(usr, "What do you want to set the latejoin probability to?", "Set Latejoin Probability", max_value = 100)
 		if(!new_latejoin_probability)
@@ -705,7 +705,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		latejoin_ruleset_probability = new_latejoin_probability
 
 		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's latejoin probability to [latejoin_ruleset_probability].")
-		log_game("DYNAMIC: [usr.key] set dynamic's latejoin probability to [latejoin_ruleset_probability].")
+		log_dynamic("[usr.key] set dynamic's latejoin probability to [latejoin_ruleset_probability].")
 	else if(href_list["set_latejoin_max"])
 		var/new_latejoin_max = tgui_input_number(usr, "What do you want to set the max amount of latejoin rulesets to?", "Set Latejoin Max Rulesets")
 		if(isnull(new_latejoin_max))
@@ -714,7 +714,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		latejoin_max_rulesets = new_latejoin_max
 
 		message_admins("[ADMIN_LOOKUPFLW(usr)] set dynamic's latejoin probability to [latejoin_max_rulesets].")
-		log_game("DYNAMIC: [usr.key] set dynamic's latejoin probability to [latejoin_max_rulesets].")
+		log_dynamic("[usr.key] set dynamic's latejoin probability to [latejoin_max_rulesets].")
 	else if(href_list["set_latejoin_ruleset"])
 		var/forced_ruleset = tgui_input_list(usr, "What latejoin ruleset do you want to force?", "Force Latejoin Ruleset", latejoin_configured_rulesets)
 		if(!forced_ruleset)
@@ -723,7 +723,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		latejoin_forced_ruleset = forced_ruleset
 
 		message_admins("[ADMIN_LOOKUPFLW(usr)] forced dynamic's latejoin ruleset to [latejoin_forced_ruleset].")
-		log_game("DYNAMIC: [ADMIN_LOOKUPFLW(usr)] forced dynamic's latejoin ruleset to [latejoin_forced_ruleset].")
+		log_dynamic("[usr.key] forced dynamic's latejoin ruleset to [latejoin_forced_ruleset].")
 
 	// Refresh window
 	admin_panel()

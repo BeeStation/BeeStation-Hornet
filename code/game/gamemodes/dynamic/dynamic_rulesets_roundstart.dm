@@ -30,7 +30,7 @@
 		return FALSE
 
 	if(dynamic.roundstart_points < minimum_points_required)
-		log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
+		log_dynamic("NOT ALLOWED: [src] did not meet the minimum point requirement (minimum: [minimum_points_required]) (points: [dynamic.roundstart_points])")
 		return FALSE
 
 /*
@@ -137,7 +137,7 @@
 		return FALSE
 
 	if(!length(GLOB.wizardstart))
-		log_game("DYNAMIC: FAIL: Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
+		log_dynamic("NOT ALLOWED: [src] ruleset couldn't find any spawn points.")
 		return FALSE
 
 /datum/dynamic_ruleset/roundstart/wizard/execute()

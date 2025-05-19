@@ -43,7 +43,7 @@
 	if(use_spawn_locations)
 		get_spawn_locations()
 		if(!length(spawn_locations))
-			log_game("DYNAMIC: FAIL: [name] could not trigger due to a lack of valid spawning locations.")
+			log_dynamic("NOT ALLOWED: [name] could not trigger due to a lack of valid spawning locations.")
 			return FALSE
 
 /datum/dynamic_ruleset/midround/ghost/select_player()
@@ -80,7 +80,7 @@
 	trim_candidates()
 
 	if(length(candidates) < drafted_players_amount)
-		log_game("DYNAMIC: FAIL: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
+		log_dynamic("NOT ALLOWED: No players were eligible for the ruleset [src] - the previous applicants were revived/left and could no longer take the role.")
 		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 	// Pick our candidates
@@ -115,21 +115,21 @@
 		return
 
 	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
-	log_game("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
+	log_dynamic("Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
 	candidates = poll_ghost_candidates("Looking for [src] volunteers", initial(antag_datum.banning_key), role_preference)
 
 	if(!length(candidates))
 		message_admins("DYNAMIC: The ruleset [src] received no applications.")
-		log_game("DYNAMIC: The ruleset [src] received no applications.")
+		log_dynamic("NOT ALLOWED: The ruleset [src] received no applications.")
 		return
 
 	if(length(candidates) >= drafted_players_amount)
 		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
-		log_game("DYNAMIC: [length(candidates)] player\s volunteered for [src].")
+		log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
 	else
 		message_admins("Not enough players volunteered for the ruleset [src] - [length(candidates)] out of [drafted_players_amount].")
-		log_game("DYNAMIC: FAIL: Not enough players volunteered for the ruleset [src] - [length(candidates)] out of [drafted_players_amount].")
+		log_dynamic("FAIL: Not enough players volunteered for the ruleset [src] - [length(candidates)] out of [drafted_players_amount].")
 
 /*
 * Spawn the antag's body
@@ -623,8 +623,8 @@
 	// Spawn prisoners
 	var/turf/landing_turf = pick(spawn_locations)
 	if(spawn_prisoners(landing_turf, candidates, list()) == NOT_ENOUGH_PLAYERS)
-		message_admins("Not enough players volunteered for the ruleset ([name]) - [length(candidates)] out of [drafted_players_amount].")
-		log_game("DYNAMIC: FAIL: Not enough players volunteered for the ruleset ([name]) - [length(candidates)] out of [drafted_players_amount].")
+		message_admins("DYNAMIC: Not enough players volunteered for the [src] rulset - [length(candidates)] out of [drafted_players_amount].")
+		log_dynamic("NOT ALLOWED: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
 		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 	return DYNAMIC_EXECUTE_SUCCESS
@@ -675,8 +675,8 @@
 	// Spawn prisoners
 	var/turf/landing_turf = pick(spawn_locations)
 	if(spawn_fugitives(landing_turf, candidates, list()) == NOT_ENOUGH_PLAYERS)
-		message_admins("Not enough players volunteered for the ruleset ([name]) - [length(candidates)] out of [drafted_players_amount].")
-		log_game("DYNAMIC: FAIL: Not enough players volunteered for the ruleset ([name]) - [length(candidates)] out of [drafted_players_amount].")
+		message_admins("DYNAMIC: Not enough players volunteered for the [src] rulset - [length(candidates)] out of [drafted_players_amount].")
+		log_dynamic("NOT ALLOWED: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
 		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 	return DYNAMIC_EXECUTE_SUCCESS
