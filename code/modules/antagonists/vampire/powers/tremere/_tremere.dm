@@ -5,7 +5,7 @@
  *	Tremere has quite a bit of unique things to it, so I thought it's own subtype would be nice
  */
 
-/datum/action/cooldown/vampire/targeted/tremere
+/datum/action/vampire/targeted/tremere
 	name = "Tremere Gift"
 	desc = "A Tremere exclusive gift."
 	background_icon_state = "tremere_power_off"

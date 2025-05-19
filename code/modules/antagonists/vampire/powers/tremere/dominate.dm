@@ -10,9 +10,9 @@
 
 // Copied from mesmerize.dm
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate
+/datum/action/vampire/targeted/tremere/dominate
 	name = "Level 1: Dominate"
-	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/dominate/two
+	upgraded_power = /datum/action/vampire/targeted/tremere/dominate/two
 	level_current = 1
 	desc = "Mesmerize any foe who stands still long enough."
 	button_icon_state = "power_dominate"
@@ -25,9 +25,9 @@
 	target_range = 6
 	prefire_message = "Select a target."
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/two
+/datum/action/vampire/targeted/tremere/dominate/two
 	name = "Level 2: Dominate"
-	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/dominate/three
+	upgraded_power = /datum/action/vampire/targeted/tremere/dominate/three
 	level_current = 2
 	desc = "Mesmerize and mute any foe who stands still long enough."
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
@@ -35,9 +35,9 @@
 	bloodcost = 20
 	cooldown_time = 40 SECONDS
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/three
+/datum/action/vampire/targeted/tremere/dominate/three
 	name = "Level 3: Dominate"
-	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/dominate/advanced
+	upgraded_power = /datum/action/vampire/targeted/tremere/dominate/advanced
 	level_current = 3
 	desc = "Mesmerize, mute and blind any foe who stands still long enough."
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
@@ -45,7 +45,7 @@
 	bloodcost = 30
 	cooldown_time = 35 SECONDS
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/tremere/dominate/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -59,9 +59,9 @@
 		owner.balloon_alert(owner, "[selected_target] is mindless.")
 		return FALSE
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/advanced
+/datum/action/vampire/targeted/tremere/dominate/advanced
 	name = "Level 4: Possession"
-	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/dominate/advanced/two
+	upgraded_power = /datum/action/vampire/targeted/tremere/dominate/advanced/two
 	level_current = 4
 	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
@@ -75,7 +75,7 @@
 	bloodcost = 80
 	cooldown_time = 3 MINUTES
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/advanced/two
+/datum/action/vampire/targeted/tremere/dominate/advanced/two
 	name = "Level 5: Possession"
 	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
 	level_current = 5
@@ -89,7 +89,7 @@
 	cooldown_time = 2 MINUTES
 
 // The advanced version
-/datum/action/cooldown/vampire/targeted/tremere/dominate/advanced/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/tremere/dominate/advanced/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -101,7 +101,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/tremere/dominate/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/target = target_atom
 	var/mob/living/user = owner
@@ -113,7 +113,7 @@
 		return
 	attempt_mesmerize(target, user)
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/proc/attempt_mesmerize(mob/living/target, mob/living/user)
+/datum/action/vampire/targeted/tremere/dominate/proc/attempt_mesmerize(mob/living/target, mob/living/user)
 	owner.balloon_alert(owner, "attempting to mesmerize.")
 	if(!do_after(user, 3 SECONDS, target, NONE, TRUE, hidden = TRUE))
 		return
@@ -142,14 +142,14 @@
 		mesmerized.emp_act(EMP_HEAVY)
 		owner.balloon_alert(owner, "temporarily shut [mesmerized] down.")
 
-/datum/action/cooldown/vampire/targeted/tremere/proc/end_mesmerize(mob/living/user, mob/living/target)
+/datum/action/vampire/targeted/tremere/proc/end_mesmerize(mob/living/user, mob/living/target)
 	target.notransform = FALSE
 	target.cure_blind(TRAIT_VAMPIRE)
 	REMOVE_TRAIT(target, TRAIT_MUTE, TRAIT_VAMPIRE)
 	if(istype(user) && target.stat == CONSCIOUS && (target in view(6, get_turf(user))))
 		owner.balloon_alert(owner, "[target] snapped out of their trance.")
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/proc/attempt_vassalize(mob/living/target, mob/living/user)
+/datum/action/vampire/targeted/tremere/dominate/proc/attempt_vassalize(mob/living/target, mob/living/user)
 	owner.balloon_alert(owner, "attempting to vassalize.")
 	if(!do_after(user, 6 SECONDS, target, NONE, TRUE))
 		return
@@ -181,7 +181,7 @@
 		living_time = 8 MINUTES
 	addtimer(CALLBACK(src, PROC_REF(end_possession), target), living_time)
 
-/datum/action/cooldown/vampire/targeted/tremere/proc/end_possession(mob/living/user)
+/datum/action/vampire/targeted/tremere/proc/end_possession(mob/living/user)
 	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_VAMPIRE)
 	REMOVE_TRAIT(user, TRAIT_DEAF, TRAIT_VAMPIRE)
 	user.mind.remove_antag_datum(/datum/antagonist/vassal)

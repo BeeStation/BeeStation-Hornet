@@ -1,4 +1,4 @@
-/datum/action/cooldown/vampire/veil
+/datum/action/vampire/veil
 	name = "Veil of Many Faces"
 	desc = "Disguise yourself in the illusion of another identity."
 	button_icon_state = "power_veil"
@@ -26,13 +26,13 @@
 	var/prev_eye_color
 	var/list/prev_features // For lizards and such
 
-/datum/action/cooldown/vampire/veil/activate_power()
+/datum/action/vampire/veil/activate_power()
 	. = ..()
 	cast_effect() // POOF
 	veil_user()
 	owner.balloon_alert(owner, "veil turned on.")
 
-/datum/action/cooldown/vampire/veil/proc/veil_user()
+/datum/action/vampire/veil/proc/veil_user()
 	var/mob/living/carbon/human/user = owner
 
 	// Store Prev Appearance
@@ -79,7 +79,7 @@
 
 	to_chat(owner, span_warning("You mystify the air around your person. Your identity is now altered."))
 
-/datum/action/cooldown/vampire/veil/deactivate_power()
+/datum/action/vampire/veil/deactivate_power()
 	. = ..()
 	if(!ishuman(owner))
 		return
@@ -117,7 +117,7 @@
 
 
 // CAST EFFECT // General effect (poof, splat, etc) when you cast. Doesn't happen automatically!
-/datum/action/cooldown/vampire/veil/proc/cast_effect()
+/datum/action/vampire/veil/proc/cast_effect()
 	// Effect
 	playsound(get_turf(owner), 'sound/magic/smoke.ogg', 20, 1)
 	var/datum/effect_system/steam_spread/vampire/puff = new /datum/effect_system/steam_spread/()

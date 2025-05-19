@@ -10,7 +10,7 @@
  *	- Normal body temp -- remove Cold Blooded (return on deactivate)
  */
 
-/datum/action/cooldown/vampire/masquerade
+/datum/action/vampire/masquerade
 	name = "Masquerade"
 	desc = "Feign the vital signs of a mortal, and escape both casual and medical notice as the monster you truly are."
 	button_icon_state = "power_human"
@@ -26,7 +26,7 @@
 	cooldown_time = 5 SECONDS
 	constant_bloodcost = 0.1
 
-/datum/action/cooldown/vampire/masquerade/activate_power()
+/datum/action/vampire/masquerade/activate_power()
 	. = ..()
 	var/mob/living/carbon/user = owner
 	owner.balloon_alert(owner, "masquerade turned on.")
@@ -45,7 +45,7 @@
 	var/obj/item/organ/eyes/eyes = user.getorgan(/obj/item/organ/eyes)
 	eyes?.flash_protect = initial(eyes.flash_protect)
 
-/datum/action/cooldown/vampire/masquerade/deactivate_power()
+/datum/action/vampire/masquerade/deactivate_power()
 	. = ..()
 	var/mob/living/carbon/user = owner
 	owner.balloon_alert(owner, "masquerade turned off.")

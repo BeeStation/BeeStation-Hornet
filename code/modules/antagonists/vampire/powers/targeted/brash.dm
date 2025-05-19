@@ -3,7 +3,7 @@
 /// Lots of code has been copied over from Brawn wherever inheritance might prove insufficient.
 /// Comments from copied code have been removed (they can still be found in their original location.)
 
-/datum/action/cooldown/vampire/targeted/brawn/brash
+/datum/action/vampire/targeted/brawn/brash
 	name = "Brash"
 	desc = "Break most structures apart with overwhelming force. Cooldown and cost vary depending on the object broken."
 	button_icon_state = "power_strength_brujah"
@@ -24,7 +24,7 @@
 
 /// Hit an atom, set bloodcost, set cooldown time, play a sound, and deconstruct the atom
 /// with this one convenient proc!
-/datum/action/cooldown/vampire/targeted/brawn/brash/proc/hit_with_style(atom/target_atom, sound, vol as num, var/cost as num, var/cooldown)
+/datum/action/vampire/targeted/brawn/brash/proc/hit_with_style(atom/target_atom, sound, vol as num, var/cost as num, var/cooldown)
 	if(!isobj(target_atom))
 		return
 
@@ -35,7 +35,7 @@
 	playsound(target_atom, sound, 75, TRUE)
 	target_obj.deconstruct(FALSE)
 
-/datum/action/cooldown/vampire/targeted/brawn/brash/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/brawn/brash/FireTargetedPower(atom/target_atom)
 	. = ..()
 	if(isliving(target_atom))
 		bloodcost = 25
@@ -86,7 +86,7 @@
 	rip_and_tear(owner, target_atom)
 
 /// Copied over from '/datum/element/wall_tearer/proc/rip_and_tear' with appropriate adjustment.
-/datum/action/cooldown/vampire/targeted/brawn/brash/proc/rip_and_tear(mob/living/tearer, atom/target)
+/datum/action/vampire/targeted/brawn/brash/proc/rip_and_tear(mob/living/tearer, atom/target)
 	var/tear_time = 0.75 SECONDS
 	var/reinforced_multiplier = 5
 	var/rip_time = (istype(target, /turf/closed/wall/r_wall) ? tear_time * reinforced_multiplier : tear_time)
@@ -114,7 +114,7 @@
 			tearer.balloon_alert(tearer, "interrupted!")
 
 /// TODO: check if switch statements work with istype()
-/datum/action/cooldown/vampire/targeted/brawn/brash/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/brawn/brash/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE

@@ -1,6 +1,6 @@
 #define LUNGE_TIME 3 SECONDS
 
-/datum/action/cooldown/vampire/targeted/lunge
+/datum/action/vampire/targeted/lunge
 	name = "Predatory Lunge"
 	desc = "Spring at your target to grapple them without warning, or tear the dead's heart out. Attacks from concealment or the rear may even knock them down if strong enough."
 	button_icon_state = "power_lunge"
@@ -17,13 +17,13 @@
 	cooldown_time = 10 SECONDS
 	power_activates_immediately = FALSE
 
-/datum/action/cooldown/vampire/targeted/lunge/upgrade_power()
+/datum/action/vampire/targeted/lunge/upgrade_power()
 	. = ..()
 	//range is lowered when you get stronger.
 	if(level_current > 3)
 		target_range = 6
 
-/datum/action/cooldown/vampire/targeted/lunge/can_use()
+/datum/action/vampire/targeted/lunge/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -40,7 +40,7 @@
 	return TRUE
 
 /// Check: Are we lunging at a person?
-/datum/action/cooldown/vampire/targeted/lunge/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/lunge/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -56,7 +56,7 @@
 	if(user.body_position == LYING_DOWN || HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
 
-/datum/action/cooldown/vampire/targeted/lunge/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/lunge/FireTargetedPower(atom/target_atom)
 	. = ..()
 	owner.face_atom(target_atom)
 	if(level_current > 3)
@@ -67,7 +67,7 @@
 	return TRUE
 
 ///Starts processing the power and prepares the lunge by spinning, calls lunge at the end of it.
-/datum/action/cooldown/vampire/targeted/lunge/proc/prepare_target_lunge(atom/target_atom)
+/datum/action/vampire/targeted/lunge/proc/prepare_target_lunge(atom/target_atom)
 	START_PROCESSING(SSprocessing, src)
 	owner.balloon_alert(owner, "lunge started!")
 
@@ -95,16 +95,16 @@
 	return TRUE
 
 ///When preparing to lunge ends, this clears it up.
-/datum/action/cooldown/vampire/targeted/lunge/proc/end_target_lunge(base_x, base_y)
+/datum/action/vampire/targeted/lunge/proc/end_target_lunge(base_x, base_y)
 	animate(owner, pixel_x = base_x, pixel_y = base_y, time = 1)
 	STOP_PROCESSING(SSprocessing, src)
 
-/datum/action/cooldown/vampire/targeted/lunge/process()
+/datum/action/vampire/targeted/lunge/process()
 	if(!power_in_use) //If running SSfasprocess (on cooldown)
 		return ..() //Manage our cooldown timers
 
 ///Actually lunges the target, then calls lunge end.
-/datum/action/cooldown/vampire/targeted/lunge/proc/do_lunge(atom/hit_atom)
+/datum/action/vampire/targeted/lunge/proc/do_lunge(atom/hit_atom)
 	var/turf/targeted_turf = get_turf(hit_atom)
 
 	var/safety = get_dist(owner, targeted_turf) * 3 + 1
@@ -117,7 +117,7 @@
 
 	lunge_end(hit_atom, targeted_turf)
 
-/datum/action/cooldown/vampire/targeted/lunge/proc/lunge_end(atom/hit_atom, turf/target_turf)
+/datum/action/vampire/targeted/lunge/proc/lunge_end(atom/hit_atom, turf/target_turf)
 	power_activated_sucessfully()
 	// Am I next to my target to start giving the effects?
 	if(!owner.Adjacent(hit_atom))

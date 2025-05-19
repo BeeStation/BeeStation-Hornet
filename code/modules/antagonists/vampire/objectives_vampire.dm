@@ -274,7 +274,7 @@
 // WIN CONDITIONS?
 /datum/objective/vampire/tremere_power/check_completion()
 	var/datum/antagonist/vampire/vampiredatum = owner.has_antag_datum(/datum/antagonist/vampire)
-	for(var/datum/action/cooldown/vampire/targeted/tremere/tremere_powers in vampiredatum.powers)
+	for(var/datum/action/vampire/targeted/tremere/tremere_powers in vampiredatum.powers)
 		if(tremere_powers.level_current >= 5)
 			return TRUE
 	return FALSE

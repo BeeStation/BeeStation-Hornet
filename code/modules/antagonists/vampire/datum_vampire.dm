@@ -42,7 +42,7 @@
 	var/frenzied = FALSE
 
 	/// Powers currently owned
-	var/list/datum/action/cooldown/vampire/powers = list()
+	var/list/datum/action/vampire/powers = list()
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
 	var/datum/martial_art/frenzygrab/frenzygrab = new
 
@@ -76,7 +76,7 @@
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
 	/// Static typecache of all vampire powers.
-	var/static/list/all_vampire_powers = typecacheof(/datum/action/cooldown/vampire, ignore_root_path = TRUE)
+	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
 	/// Antagonists that cannot be Vassalized no matter what
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/vampire,
@@ -279,7 +279,7 @@
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	for(var/datum/action/cooldown/vampire/all_powers as anything in powers)
+	for(var/datum/action/vampire/all_powers as anything in powers)
 		if(old_body)
 			all_powers.Remove(old_body)
 		all_powers.Grant(new_body)
@@ -338,7 +338,7 @@
 
 	data["clan"] += list(clan_data)
 
-	for(var/datum/action/cooldown/vampire/power as anything in powers)
+	for(var/datum/action/vampire/power as anything in powers)
 		var/list/power_data = list()
 
 		power_data["name"] = power.name
@@ -397,7 +397,7 @@
 	return report.Join("<br>")
 
 /datum/antagonist/vampire/proc/give_starting_powers()
-	for(var/datum/action/cooldown/vampire/all_powers as anything in all_vampire_powers)
+	for(var/datum/action/vampire/all_powers as anything in all_vampire_powers)
 		if(!(initial(all_powers.purchase_flags) & VAMPIRE_DEFAULT_POWER))
 			continue
 		BuyPower(new all_powers)
@@ -449,7 +449,7 @@
 	if(my_clan)
 		QDEL_NULL(my_clan)
 	// Powers
-	for(var/datum/action/cooldown/vampire/all_powers as anything in powers)
+	for(var/datum/action/vampire/all_powers as anything in powers)
 		RemovePower(all_powers)
 	/// Stats
 	if(ishuman(owner.current))

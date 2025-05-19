@@ -1,4 +1,4 @@
-/datum/action/cooldown/vampire/cloak
+/datum/action/vampire/cloak
 	name = "Cloak of Darkness"
 	desc = "Blend into the shadows and become invisible to the artificial eye."
 	button_icon_state = "power_cloak"
@@ -13,7 +13,7 @@
 	cooldown_time = 5 SECONDS
 
 /// Must have nobody around to see the cloak
-/datum/action/cooldown/vampire/cloak/can_use()
+/datum/action/vampire/cloak/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -29,21 +29,21 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/cloak/activate_power()
+/datum/action/vampire/cloak/activate_power()
 	. = ..()
 	var/mob/living/user = owner
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/cloak)
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
 
-/datum/action/cooldown/vampire/cloak/UsePower()
+/datum/action/vampire/cloak/UsePower()
 	. = ..()
 	if(!.)
 		return
 
 	animate(owner, alpha = max(25, owner.alpha - min(75, 10 + 5 * level_current)), time = 1.5 SECONDS)
 
-/datum/action/cooldown/vampire/cloak/ContinueActive()
+/datum/action/vampire/cloak/ContinueActive()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -53,7 +53,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/cloak/deactivate_power()
+/datum/action/vampire/cloak/deactivate_power()
 	var/mob/living/user = owner
 
 	animate(user, alpha = 255, time = 1 SECONDS)

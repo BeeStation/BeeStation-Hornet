@@ -7,7 +7,7 @@
  * 	Level 5: Doesn't need to be facing you anymore
  */
 
-/datum/action/cooldown/vampire/targeted/mesmerize
+/datum/action/vampire/targeted/mesmerize
 	name = "Mesmerize"
 	desc = "Dominate the mind of a mortal who can see your eyes."
 	button_icon_state = "power_mez"
@@ -29,7 +29,7 @@
 	///Our mesmerized target - Prevents several mesmerizes.
 	var/datum/weakref/target_ref
 
-/datum/action/cooldown/vampire/targeted/mesmerize/can_use()
+/datum/action/vampire/targeted/mesmerize/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -45,7 +45,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/targeted/mesmerize/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/mesmerize/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -82,7 +82,7 @@
 	target_ref = WEAKREF(current_target)
 	return TRUE
 
-/datum/action/cooldown/vampire/targeted/mesmerize/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/mesmerize/FireTargetedPower(atom/target_atom)
 	. = ..()
 
 	var/mob/living/user = owner
@@ -118,18 +118,18 @@
 		addtimer(CALLBACK(src, PROC_REF(end_mesmerize), user, mesmerized_target), power_time)
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 
-/datum/action/cooldown/vampire/targeted/mesmerize/deactivate_power()
+/datum/action/vampire/targeted/mesmerize/deactivate_power()
 	target_ref = null
 	. = ..()
 
-/datum/action/cooldown/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/user, mob/living/target)
+/datum/action/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/user, mob/living/target)
 	target.notransform = FALSE
 	REMOVE_TRAIT(target, TRAIT_MUTE, TRAIT_VAMPIRE)
 	// They Woke Up! (Notice if within view)
 	if(istype(user) && target.stat == CONSCIOUS && (target in view(6, get_turf(user))))
 		owner.balloon_alert(owner, "[target] snapped out of their trance.")
 
-/datum/action/cooldown/vampire/targeted/mesmerize/ContinueActive()
+/datum/action/vampire/targeted/mesmerize/ContinueActive()
 	. = ..()
 	if(!.)
 		return FALSE

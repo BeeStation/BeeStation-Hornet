@@ -1,4 +1,4 @@
-/datum/action/cooldown/vampire/targeted/trespass
+/datum/action/vampire/targeted/trespass
 	name = "Trespass"
 	desc = "Become mist and advance two tiles in one direction. Useful for skipping past doors and barricades."
 	button_icon_state = "power_tres"
@@ -14,7 +14,7 @@
 	//target_range = 2
 	var/turf/target_turf // We need to decide where we're going based on where we clicked. It's not actually the tile we clicked.
 
-/datum/action/cooldown/vampire/targeted/trespass/can_use()
+/datum/action/vampire/targeted/trespass/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -24,7 +24,7 @@
 	if(!get_turf(owner))
 		return FALSE
 
-/datum/action/cooldown/vampire/targeted/trespass/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/trespass/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -49,7 +49,7 @@
 
 	target_turf = starting_turf
 
-/datum/action/cooldown/vampire/targeted/trespass/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/trespass/FireTargetedPower(atom/target_atom)
 	. = ..()
 
 	// Find target turf, at or below Atom

@@ -4,13 +4,13 @@
 		to_chat(owner, vassal_warning_message)
 
 /// Used when your Master teaches you a new Power.
-/datum/antagonist/vassal/proc/BuyPower(datum/action/cooldown/vampire/power)
+/datum/antagonist/vassal/proc/BuyPower(datum/action/vampire/power)
 	powers += power
 	power.Grant(owner.current)
 	log_game("[key_name(owner.current)] purchased [power] as a vassal.")
 
 /datum/antagonist/vassal/proc/LevelUpPowers()
-	for(var/datum/action/cooldown/vampire/power in powers)
+	for(var/datum/action/vampire/power in powers)
 		power.level_current++
 
 /// Called when we are made into the Favorite Vassal

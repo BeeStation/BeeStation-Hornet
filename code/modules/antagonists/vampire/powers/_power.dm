@@ -1,4 +1,4 @@
-/datum/action/cooldown/vampire
+/datum/action/vampire
 	name = "Vampiric Gift"
 	desc = "A vampiric gift."
 	button_icon = 'icons/vampires/actions_vampire.dmi'
@@ -38,11 +38,11 @@
 	var/sol_multiplier = 1
 
 // Modify description to add cost.
-/datum/action/cooldown/vampire/New(Target)
+/datum/action/vampire/New(Target)
 	. = ..()
 	update_desc()
 
-/datum/action/cooldown/vampire/proc/update_desc()
+/datum/action/vampire/proc/update_desc()
 	desc = initial(desc)
 	if(bloodcost > 0)
 		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
@@ -51,14 +51,14 @@
 	if(power_flags & BP_AM_SINGLEUSE)
 		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
 
-/datum/action/cooldown/vampire/Destroy()
+/datum/action/vampire/Destroy()
 	vampiredatum_power = null
 	. = ..()
 
-/datum/action/cooldown/vampire/is_available(feedback = FALSE)
+/datum/action/vampire/is_available(feedback = FALSE)
 	return next_use_time <= world.time
 
-/datum/action/cooldown/vampire/Grant(mob/user)
+/datum/action/vampire/Grant(mob/user)
 	. = ..()
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
 	if(vampiredatum)
@@ -66,7 +66,7 @@
 		level_current = vampiredatum.vampire_level
 
 //This is when we CLICK on the ability Icon, not USING.
-/datum/action/cooldown/vampire/on_activate(mob/user, atom/target)
+/datum/action/vampire/on_activate(mob/user, atom/target)
 	if(currently_active)
 		deactivate_power()
 		return FALSE
@@ -79,13 +79,13 @@
 	return TRUE
 
 ///Called when the Power is upgraded.
-/datum/action/cooldown/vampire/proc/upgrade_power()
+/datum/action/vampire/proc/upgrade_power()
 	level_current++
 	// Decrease cooldown time
 	if((power_flags & !BP_AM_STATIC_COOLDOWN) && (power_flags & !BP_AM_VERY_DYNAMIC_COOLDOWN))
 		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current - 1)))
 
-/datum/action/cooldown/vampire/proc/can_pay_cost()
+/datum/action/vampire/proc/can_pay_cost()
 	if(!owner || !owner.mind)
 		return FALSE
 	// Cooldown?
@@ -108,7 +108,7 @@
 	return TRUE
 
 ///Checks if the Power is available to use.
-/datum/action/cooldown/vampire/proc/can_use()
+/datum/action/vampire/proc/can_use()
 	var/mob/living/carbon/user = owner
 
 	if(!user)
@@ -143,11 +143,11 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/update_buttons(force = FALSE)
+/datum/action/vampire/update_buttons(force = FALSE)
 	background_icon_state = currently_active ? background_icon_state_on : background_icon_state_off
 	. = ..()
 
-/datum/action/cooldown/vampire/proc/pay_cost()
+/datum/action/vampire/proc/pay_cost()
 	// Vassals get powers too!
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
@@ -159,7 +159,7 @@
 		vampiredatum_power.vampire_blood_volume -= bloodcost
 		vampiredatum_power.update_hud()
 
-/datum/action/cooldown/vampire/proc/activate_power()
+/datum/action/vampire/proc/activate_power()
 	currently_active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
 		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
@@ -167,7 +167,7 @@
 	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
 
-/datum/action/cooldown/vampire/proc/deactivate_power()
+/datum/action/vampire/proc/deactivate_power()
 	if(!currently_active) //Already inactive? Return
 		return
 	if(power_flags & BP_AM_TOGGLE)
@@ -180,7 +180,7 @@
 	update_buttons()
 
 /// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
-/datum/action/cooldown/vampire/proc/UsePower()
+/datum/action/vampire/proc/UsePower()
 	if(!ContinueActive()) // We can't afford the Power? Deactivate it.
 		deactivate_power()
 		return FALSE
@@ -195,7 +195,7 @@
 	return TRUE
 
 /// Checks to make sure this power can stay active
-/datum/action/cooldown/vampire/proc/ContinueActive()
+/datum/action/vampire/proc/ContinueActive()
 	if(!owner)
 		return FALSE
 	if(vampiredatum_power.vampire_blood_volume < constant_bloodcost)
@@ -204,6 +204,6 @@
 	return TRUE
 
 /// Used to unlearn Single-Use Powers
-/datum/action/cooldown/vampire/proc/remove_after_use()
+/datum/action/vampire/proc/remove_after_use()
 	vampiredatum_power?.powers -= src
 	Remove(owner)

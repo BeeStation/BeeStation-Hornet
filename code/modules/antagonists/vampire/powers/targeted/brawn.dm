@@ -1,4 +1,4 @@
-/datum/action/cooldown/vampire/targeted/brawn
+/datum/action/vampire/targeted/brawn
 	name = "Brawn"
 	desc = "Snap restraints, break lockers and doors, or deal terrible damage with your bare hands."
 	button_icon_state = "power_strength"
@@ -22,7 +22,7 @@
 	/// bypass typical ability level restrictions. (There is probably a better way to do this.)
 	var/brujah = FALSE
 
-/datum/action/cooldown/vampire/targeted/brawn/activate_power()
+/datum/action/vampire/targeted/brawn/activate_power()
 	// Did we break out of our handcuffs?
 	if(break_restraints())
 		power_activated_sucessfully()
@@ -35,7 +35,7 @@
 	return ..()
 
 // Look at 'biodegrade.dm' for reference
-/datum/action/cooldown/vampire/targeted/brawn/proc/break_restraints()
+/datum/action/vampire/targeted/brawn/proc/break_restraints()
 	var/mob/living/carbon/human/user = owner
 	if(!user) // how
 		return FALSE
@@ -74,13 +74,13 @@
 	return used
 
 // This is its own proc because its done twice, to repeat code copypaste.
-/datum/action/cooldown/vampire/targeted/brawn/proc/break_closet(obj/structure/closet/closet)
+/datum/action/vampire/targeted/brawn/proc/break_closet(obj/structure/closet/closet)
 	closet.welded = FALSE
 	closet.locked = FALSE
 	closet.broken = TRUE
 	closet.open()
 
-/datum/action/cooldown/vampire/targeted/brawn/proc/escape_puller()
+/datum/action/vampire/targeted/brawn/proc/escape_puller()
 	if(!owner.pulledby)
 		return FALSE
 
@@ -106,7 +106,7 @@
 	owner.pulledby = null // It's already done, but JUST IN CASE.
 	return TRUE
 
-/datum/action/cooldown/vampire/targeted/brawn/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/brawn/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/user = owner
 
@@ -187,7 +187,7 @@
 				target_airlock.unbolt()
 			target_airlock.open(2) // open(2) is like a crowbar or jaws of life.
 
-/datum/action/cooldown/vampire/targeted/brawn/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/brawn/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE

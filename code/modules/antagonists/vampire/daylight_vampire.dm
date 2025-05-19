@@ -20,14 +20,14 @@
 /// Called when Sol is near starting.
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)
 	SIGNAL_HANDLER
-	if(vampire_lair_area && !(locate(/datum/action/cooldown/vampire/gohome) in powers))
-		BuyPower(new /datum/action/cooldown/vampire/gohome)
+	if(vampire_lair_area && !(locate(/datum/action/vampire/gohome) in powers))
+		BuyPower(new /datum/action/vampire/gohome)
 
 /// Called when Sol first ends.
 /datum/antagonist/vampire/proc/on_sol_end(atom/source)
 	SIGNAL_HANDLER
 	check_end_torpor()
-	for(var/datum/action/cooldown/vampire/gohome/power in powers)
+	for(var/datum/action/vampire/gohome/power in powers)
 		RemovePower(power)
 
 /// Cycle through all vampires and check if they're inside a closet.
@@ -155,7 +155,7 @@
 	id = "vampire_sol"
 	tick_interval = -1
 	alert_type = /atom/movable/screen/alert/status_effect/vampire_sol
-	var/list/datum/action/cooldown/vampire/burdened_actions
+	var/list/datum/action/vampire/burdened_actions
 
 /datum/status_effect/vampire_sol/on_apply()
 	if(!SSsunlight.sunlight_active || istype(owner.loc, /obj/structure/closet/crate/coffin))
@@ -169,7 +169,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology?.damage_resistance -= 50
-	for(var/datum/action/cooldown/vampire/power in owner.actions)
+	for(var/datum/action/vampire/power in owner.actions)
 		if(power.sol_multiplier)
 			power.bloodcost *= power.sol_multiplier
 			power.constant_bloodcost *= power.sol_multiplier
@@ -189,7 +189,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology?.damage_resistance += 50
-	for(var/datum/action/cooldown/vampire/power in owner.actions)
+	for(var/datum/action/vampire/power in owner.actions)
 		if(LAZYACCESS(burdened_actions, power))
 			power.bloodcost /= power.sol_multiplier
 			power.constant_bloodcost /= power.sol_multiplier

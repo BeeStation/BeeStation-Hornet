@@ -1,6 +1,6 @@
 ///Called when a Vampire buys a power: (power)
-/datum/antagonist/vampire/proc/BuyPower(datum/action/cooldown/vampire/power)
-	for(var/datum/action/cooldown/vampire/current_powers as anything in powers)
+/datum/antagonist/vampire/proc/BuyPower(datum/action/vampire/power)
+	for(var/datum/action/vampire/current_powers as anything in powers)
 		if(current_powers.type == power.type)
 			return FALSE
 	powers += power
@@ -10,7 +10,7 @@
 	return TRUE
 
 ///Called when a Vampire loses a power: (power)
-/datum/antagonist/vampire/proc/RemovePower(datum/action/cooldown/vampire/power)
+/datum/antagonist/vampire/proc/RemovePower(datum/action/vampire/power)
 	if(power.currently_active)
 		power.deactivate_power()
 	powers -= power
@@ -68,7 +68,7 @@
 	vampire_level_unspent--
 
 /datum/antagonist/vampire/proc/remove_nondefault_powers(return_levels = FALSE)
-	for(var/datum/action/cooldown/vampire/power as anything in powers)
+	for(var/datum/action/vampire/power as anything in powers)
 		if(power.purchase_flags & VAMPIRE_DEFAULT_POWER)
 			continue
 		RemovePower(power)
@@ -76,14 +76,14 @@
 			vampire_level_unspent++
 
 /datum/antagonist/vampire/proc/LevelUpPowers()
-	for(var/datum/action/cooldown/vampire/power as anything in powers)
+	for(var/datum/action/vampire/power as anything in powers)
 		if(power.purchase_flags & TREMERE_CAN_BUY)
 			continue
 		power.upgrade_power()
 
 ///Disables all powers, accounting for torpor
 /datum/antagonist/vampire/proc/DisableAllPowers(forced = FALSE)
-	for(var/datum/action/cooldown/vampire/power as anything in powers)
+	for(var/datum/action/vampire/power as anything in powers)
 		if(forced || ((power.check_flags & BP_CANT_USE_IN_TORPOR) && HAS_TRAIT(owner.current, TRAIT_NODEATH)))
 			if(power.currently_active)
 				power.deactivate_power()

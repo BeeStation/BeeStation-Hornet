@@ -4,7 +4,7 @@
 #define FEED_FRENZY_TIME 2 SECONDS
 #define FEED_BLOOD_FROM_MICE 25
 
-/datum/action/cooldown/vampire/targeted/feed
+/datum/action/vampire/targeted/feed
 	name = "Feed"
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
@@ -30,7 +30,7 @@
 	///Are we feeding with passive grab or not?
 	var/silent_feed = TRUE
 
-/datum/action/cooldown/vampire/targeted/feed/can_use()
+/datum/action/vampire/targeted/feed/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -44,7 +44,7 @@
 		owner.balloon_alert(owner, "mouth covered!")
 		return FALSE
 
-/datum/action/cooldown/vampire/targeted/feed/ContinueActive()
+/datum/action/vampire/targeted/feed/ContinueActive()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -56,7 +56,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/targeted/feed/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/feed/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -97,7 +97,7 @@
 			owner.balloon_alert(owner, "suit too thick!")
 			return FALSE
 
-/datum/action/cooldown/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/feed_target = target_atom
 	target_ref = WEAKREF(feed_target)
@@ -154,7 +154,7 @@
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
 	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
 
-/datum/action/cooldown/vampire/targeted/feed/UsePower()
+/datum/action/vampire/targeted/feed/UsePower()
 	var/mob/living/user = owner
 
 	if(!target_ref)
@@ -234,7 +234,7 @@
 	if(!silent_feed)
 		feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 
-/datum/action/cooldown/vampire/targeted/feed/deactivate_power()
+/datum/action/vampire/targeted/feed/deactivate_power()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
 	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
@@ -251,7 +251,7 @@
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
 
-/datum/action/cooldown/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
+/datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/feed_amount = 15 + (level_current * 2)
 	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
 

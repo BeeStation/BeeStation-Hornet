@@ -1,4 +1,4 @@
-/datum/action/cooldown/vampire/conversion
+/datum/action/vampire/conversion
 	name = "Vampiric Conversion"
 	desc = "Transform iron into fleshy mass, used for vampire structures"
 	button_icon_state = "power_bleed"
@@ -10,7 +10,7 @@
 	bloodcost = 50
 	cooldown_time = 10 SECONDS
 
-/datum/action/cooldown/vampire/conversion/can_use()
+/datum/action/vampire/conversion/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -19,7 +19,7 @@
 	if(!istype(held_item, /obj/item/stack/sheet/iron))
 		return FALSE
 
-/datum/action/cooldown/vampire/conversion/activate_power()
+/datum/action/vampire/conversion/activate_power()
 	. = ..()
 	var/obj/item/held_item = owner.get_active_held_item()
 	if(istype(held_item, /obj/item/stack/sheet/iron))

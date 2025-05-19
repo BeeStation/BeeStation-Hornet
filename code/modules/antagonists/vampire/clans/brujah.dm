@@ -16,7 +16,7 @@
 	owner_datum.break_masquerade()
 	vampiredatum.remove_nondefault_powers(return_levels = TRUE)
 	// Copied over from 'clan_tremere.dm' with appropriate adjustment.
-	for(var/datum/action/cooldown/vampire/power as anything in vampiredatum.all_vampire_powers)
+	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if((initial(power.purchase_flags) & BRUJAH_DEFAULT_POWER))
 			vampiredatum.BuyPower(new power)
 

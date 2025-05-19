@@ -3,7 +3,7 @@
  * Level 3: Stun People Passed
  */
 
-/datum/action/cooldown/vampire/targeted/haste
+/datum/action/vampire/targeted/haste
 	name = "Immortal Haste"
 	desc = "Dash somewhere with supernatural speed. Those nearby may be knocked away or stunned."
 	button_icon_state = "power_speed"
@@ -22,7 +22,7 @@
 	///List of all people hit by our power, so we don't hit them again.
 	var/list/hit = list()
 
-/datum/action/cooldown/vampire/targeted/haste/can_use()
+/datum/action/vampire/targeted/haste/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -41,7 +41,7 @@
 	return TRUE
 
 /// Anything will do, if it's not me or my square
-/datum/action/cooldown/vampire/targeted/haste/check_valid_target(atom/target_atom)
+/datum/action/vampire/targeted/haste/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -51,7 +51,7 @@
 		return FALSE
 
 /// This is a non-async proc to make sure the power is "locked" until this finishes.
-/datum/action/cooldown/vampire/targeted/haste/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/haste/FireTargetedPower(atom/target_atom)
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	var/mob/living/user = owner
@@ -79,12 +79,12 @@
 		if(success) //don't sleep if we failed to move.
 			sleep(world.tick_lag)
 
-/datum/action/cooldown/vampire/targeted/haste/power_activated_sucessfully()
+/datum/action/vampire/targeted/haste/power_activated_sucessfully()
 	. = ..()
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	hit.Cut()
 
-/datum/action/cooldown/vampire/targeted/haste/proc/on_move()
+/datum/action/vampire/targeted/haste/proc/on_move()
 	for(var/mob/living/hit_living in dview(1, get_turf(owner)) - owner)
 		if(hit.Find(hit_living))
 			continue

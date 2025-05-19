@@ -134,7 +134,7 @@
 	// Purchase Power Prompt
 	var/list/options = list()
 	var/list/radial_display = list()
-	for(var/datum/action/cooldown/vampire/power as anything in vampiredatum.all_vampire_powers)
+	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if(initial(power.purchase_flags) & VAMPIRE_CAN_BUY && !(locate(power) in vampiredatum.powers))
 			options[initial(power.name)] = power
 
@@ -160,7 +160,7 @@
 		if(!power_response || QDELETED(src) || QDELETED(user))
 			return FALSE
 
-		var/datum/action/cooldown/vampire/purchased_power = options[power_response]
+		var/datum/action/vampire/purchased_power = options[power_response]
 		vampiredatum.BuyPower(new purchased_power)
 		user.balloon_alert(user, "learned [power_response]!")
 		to_chat(user, span_notice("You have learned how to use [power_response]!"))
@@ -263,4 +263,4 @@
  */
 /datum/vampire_clan/proc/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
 	SIGNAL_HANDLER
-	vassaldatum.BuyPower(new /datum/action/cooldown/vampire/targeted/brawn)
+	vassaldatum.BuyPower(new /datum/action/vampire/targeted/brawn)

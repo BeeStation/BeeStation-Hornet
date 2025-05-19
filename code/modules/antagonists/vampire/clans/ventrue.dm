@@ -24,7 +24,7 @@
 		return FALSE
 	// Purchase Power Prompt
 	var/list/options = list()
-	for(var/datum/action/cooldown/vampire/power as anything in vampiredatum.all_vampire_powers)
+	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if(initial(power.purchase_flags) & VASSAL_CAN_BUY && !(locate(power) in vassaldatum.powers))
 			options[initial(power.name)] = power
 
@@ -46,7 +46,7 @@
 			return
 
 		// Good to go - Buy Power!
-		var/datum/action/cooldown/vampire/purchased_power = options[choice]
+		var/datum/action/vampire/purchased_power = options[choice]
 		vassaldatum.BuyPower(new purchased_power)
 		vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "taught [choice]!")
 		to_chat(vampiredatum.owner.current, span_notice("You taught [target] how to use [choice]!"))

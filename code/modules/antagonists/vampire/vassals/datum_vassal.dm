@@ -57,8 +57,8 @@
 	owner.enslave_mind_to_creator(master.owner.current)
 	owner.current.log_message("has been vassalized by [master.owner.current]!", LOG_ATTACK, color="#960000")
 	/// Give Recuperate Power
-	BuyPower(new /datum/action/cooldown/vampire/recuperate)
-	BuyPower(new /datum/action/cooldown/vampire/distress)
+	BuyPower(new /datum/action/vampire/recuperate)
+	BuyPower(new /datum/action/vampire/distress)
 	/// Give Objectives
 	forge_objectives()
 	/// Give Vampire Language
@@ -79,7 +79,7 @@
 	for(var/all_status_traits in owner.current.status_traits)
 		REMOVE_TRAIT(owner.current, all_status_traits, TRAIT_VAMPIRE)
 
-	for(var/datum/action/cooldown/vampire/power as anything in powers)
+	for(var/datum/action/vampire/power as anything in powers)
 		powers -= power
 		power.Remove(owner.current)
 
@@ -88,7 +88,7 @@
 
 /datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	for(var/datum/action/cooldown/vampire/power as anything in powers)
+	for(var/datum/action/vampire/power as anything in powers)
 		power.Remove(old_body)
 		power.Grant(new_body)
 
