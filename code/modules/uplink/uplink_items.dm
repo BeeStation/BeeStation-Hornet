@@ -2558,7 +2558,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/support/nukielawnmower
 	name = "Syndicate Organism Shredder"
-	desc = "An armoured and modified lawn mower that can mow down any organic in its path. It is a fast and armoured to melee and ranged weaponry, but it's extremely vunerable to: emps, bombs, fire, and form of acid"
+	desc = "An armoured and modified lawn mower that can mow down any organic in its path. It is a fast and armoured to melee and ranged weaponry, but it's extremely vunerable to: bombs, fire, and form of acid"
 	item = /obj/vehicle/ridden/lawnmower/nukie
 	cost = 120
 	surplus = 0

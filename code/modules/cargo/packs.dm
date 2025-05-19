@@ -211,8 +211,8 @@
 /datum/supply_pack/emergency/lawnmower
 	name = "Lawnmower Crate"
 	desc = "Contains an unstable and slow lawnmower. Use with caution!"
-	cost = 10000
-	max_supply = 2
+	cost = 3000
+	max_supply = 3
 	contains = list(/obj/vehicle/ridden/lawnmower)
 	crate_name = "lawnmower crate"
 	contraband = TRUE
