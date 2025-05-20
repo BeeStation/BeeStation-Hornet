@@ -4,6 +4,7 @@
 	custom_price = 20 // For all sneakers
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
@@ -65,12 +66,14 @@
 	name = "ERROR shoes"
 	desc = "What are those?!"
 	icon_state = "denied"
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/sneakers/orange
 	name = "orange shoes"
 	greyscale_colors = "#eb7016#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_orange
 	greyscale_config_worn = /datum/greyscale_config/sneakers_orange_worn
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/sneakers/orange/attack_self(mob/user)
 	if (src.chained)

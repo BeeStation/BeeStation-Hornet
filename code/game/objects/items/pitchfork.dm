@@ -7,7 +7,7 @@
 	force = 7
 	throwforce = 15
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	attack_verb_continuous = list("attacks", "impales", "pierces")

@@ -102,7 +102,7 @@ This proc checks the surrounding of the core to ensure that the machine has been
 */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_part_connectivity()
 	. = TRUE
-	if(!anchored || panel_open)
+	if(!anchored)
 		return FALSE
 
 	for(var/obj/machinery/rbmk/object in orange(1,src))
@@ -153,11 +153,14 @@ Arguments:
 * -user: the player doing the action
 */
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate(mob/living/user)
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/user_activate(mob/living/user)
 	if(active)
 		to_chat(user, span_notice("You already activated the machine."))
 		return
 	to_chat(user, span_notice("You activate the machine."))
+	activate()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate()
 	active = TRUE
 	start_power = TRUE
 	update_appearance()
@@ -373,8 +376,7 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler(delta_time)
 	critical_threshold_proximity_archived = critical_threshold_proximity
-	if(rate_of_reaction <= 0 && temperature <= 0 && !has_fuel())
-		deactivate()
+
 	//First alert condition: Overheat
 	var/turf/core_turf = get_turf(src)
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
@@ -510,9 +512,8 @@ Arguments:
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
 	var/datum/gas_mixture/coolant_output = linked_output.airs[1]
-	coolant_input.temperature = ((temperature+273.15)*2)
-	moderator_input.temperature = ((temperature+273.15)*2)
-	coolant_output.temperature = ((temperature+273.15)*2)
+	moderator_input.temperature = temperature*2
+	coolant_output.temperature = temperature*2
 	reactor_turf.assume_air(coolant_input)
 	reactor_turf.assume_air(moderator_input)
 	reactor_turf.assume_air(coolant_output)
@@ -520,6 +521,11 @@ Arguments:
 	empulse(get_turf(src), 20, 30)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
+
+	// make a little bit of spicy mess, maximum of 4+25=29 tile radius, minimum of 4+4=8 tile radius, scaled on how far over temperature it is
+	var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/modules/power/rbmk/nuclear_sludge_spawner(get_turf(src))
+	nuclear_sludge_spawner.range = 4 + min(25,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // scales by an extra 4 tile radius per 100% over maximum
+	nuclear_sludge_spawner.fire()
 	Destroy()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/blowout()
@@ -542,9 +548,9 @@ Arguments:
 
 //Plutonium sludge
 
-#define PLUTONIUM_SLUDGE_RANGE 500
-#define PLUTONIUM_SLUDGE_RANGE_STRONG 1000
-#define PLUTONIUM_SLUDGE_RANGE_WEAK 300
+#define PLUTONIUM_SLUDGE_RANGE 50
+#define PLUTONIUM_SLUDGE_RANGE_STRONG 80
+#define PLUTONIUM_SLUDGE_RANGE_WEAK 20
 
 #define PLUTONIUM_SLUDGE_CHANCE 15
 

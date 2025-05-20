@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(economy)
 	var/list/dep_cards = list()
 	///The modifier multiplied to the value of bounties paid out.
 	///Multiplied as they go to all department accounts rather than just cargo.
-	var/bounty_modifier = 3
+	var/bounty_modifier = 9
 
 	/// Number of mail items generated.
 	var/mail_waiting
@@ -132,11 +132,16 @@ SUBSYSTEM_DEF(economy)
 /datum/bank_account/department/proc/is_nonstation_account() // It's better to read than if(D.nonstation_account)
 	return nonstation_account
 
-/datum/controller/subsystem/economy/proc/distribute_funds(amount)
+/// Returns the total amount of shares into which distributed funds are split
+/datum/controller/subsystem/economy/proc/distribution_sum()
 	var/distribution_sum = 0
 	for(var/datum/bank_account/department/D in budget_accounts)
 		distribution_sum += D.budget_ratio
-	var/single_part = round(amount / distribution_sum)
+	return distribution_sum
+
+/// Distributes funds to every budget according to its budget ratio
+/datum/controller/subsystem/economy/proc/distribute_funds(amount)
+	var/single_part = round(amount / distribution_sum())
 	for(var/datum/bank_account/department/D in budget_accounts)
 		D.adjust_money(single_part * D.budget_ratio)
 		if(D.nonstation_account)

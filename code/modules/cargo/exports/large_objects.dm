@@ -148,12 +148,13 @@
 	var/datum/gas_mixture/canister_mix = C.return_air()
 	var/canister_gas = canister_mix.gases
 	var/list/gases_to_check = list(
-								/datum/gas/bz,
-								/datum/gas/nitryl,
-								/datum/gas/hypernoblium,
-								/datum/gas/tritium,
-								/datum/gas/pluoxium,
-								)
+		/datum/gas/bz,
+		/datum/gas/nitrium,
+		/datum/gas/hypernoblium,
+		/datum/gas/tritium,
+		/datum/gas/pluoxium,
+		/datum/gas/water_vapor,
+	)
 
 	for(var/gasID in gases_to_check)
 		canister_mix.assert_gas(gasID)

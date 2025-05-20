@@ -16,6 +16,8 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 ///from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_ATOM_EXAMINE "atom_examine"
+///from base of atom/examine_tags(): (/mob, list/examine_tags)
+#define COMSIG_ATOM_EXAMINE_TAGS "atom_examine_tags"
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
 
