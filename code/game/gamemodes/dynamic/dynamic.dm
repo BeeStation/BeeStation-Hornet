@@ -534,8 +534,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
-	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
-	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
+	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. cost: [midround_chosen_ruleset.points_cost]")
+	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] cost: [midround_chosen_ruleset.points_cost]")
 
 /*
 * Latejoin functionality.
