@@ -61,6 +61,9 @@
 			if(!broken)
 				return  span_warning("It's falling apart!")
 
+/obj/structure/examine_descriptor(mob/user)
+	return "structure"
+
 /obj/structure/rust_heretic_act()
 	take_damage(500, BRUTE, MELEE, 1)
 	return TRUE

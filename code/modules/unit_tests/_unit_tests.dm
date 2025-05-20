@@ -15,6 +15,7 @@
 #include "area_contents.dm"
 #include "armor_verification.dm"
 #include "armour_checks.dm"
+#include "armour_readouts.dm"
 #include "asset_smart_cache.dm"
 #include "async.dm"
 #include "autowiki.dm"

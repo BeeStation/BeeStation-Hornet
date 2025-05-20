@@ -50,13 +50,13 @@
 #define ARMOR_ALL "all_damage_types"
 
 /// Armor values that are used for damage
-#define ARMOR_LIST_DAMAGE list(BIO, BLEED, BOMB, BULLET, ENERGY, LASER, MELEE, RAD)
+#define ARMOR_LIST_DAMAGE list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED)
 
 /// Armor values that are used for durability
 #define ARMOR_LIST_DURABILITY list(ACID, FIRE)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD, STAMINA)
+#define ARMOR_LIST_ALL list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED, ACID, FIRE)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)

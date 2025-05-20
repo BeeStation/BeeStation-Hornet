@@ -59,7 +59,7 @@
 	ui_interact(owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
-	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
+	to_chat(owner.current, examine_block(msg.Join("\n")))
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
@@ -269,8 +269,3 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
-
-/datum/antagonist/traitor/excommunicate
-	name = "Excommunicate Traitor"
-	banning_key = ROLE_EXCOMM
-	special_role = ROLE_EXCOMM

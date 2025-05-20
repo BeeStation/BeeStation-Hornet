@@ -63,7 +63,7 @@
 	make_processable()
 	make_leave_trash()
 	make_grillable()
-	make_decompose()
+	make_decompose(mapload)	//if it was placed by a mapper, there is a good reason why it isn't ants already
 	make_bakeable()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.

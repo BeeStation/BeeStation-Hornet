@@ -1101,3 +1101,26 @@
 		M.adjustFireLoss(-1.5 * REM * delta_time, 0)
 		M.adjustToxLoss(-1 * REM * delta_time, 0)
 	. = ..()
+
+//Coconut milk which is inside of the coconut when split open
+/datum/reagent/consumable/coconutmilk
+	name = "Coconut Milk"
+	description = "A smooth, creamy liquid with a faint tropical aroma. Looks refreshing!"
+	color = "#F0EDE5" //rgb(240, 237, 229)
+	chem_flags = NONE
+	taste_description = "a creamy tropical paradise"
+	glass_icon_state = "glass_white"
+	glass_name = "glass of coconut milk"
+	glass_desc = "A glass filled with rich, creamy coconut milk. It smells faintly of the tropics"
+
+//Coconut juice from juicing the coconut flesh when split
+/datum/reagent/consumable/coconutjuice
+	name = "Coconut Juice"
+	description = "A slightly translucent, sweet coconut juice with a light, tropical scent"
+	color = "#ddcec0" //rgb(221, 206, 192)
+	chem_flags = NONE
+	taste_description = "a beach holiday in a glass"
+	glass_icon_state = "glass_white"
+	glass_name = "glass of coconut juice"
+	glass_desc = "a glass of coconut juice"
+	

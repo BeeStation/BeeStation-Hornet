@@ -128,8 +128,8 @@
 	max_charges = 10 //10, 5, 5, 4
 
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
-	..() //because the user mob ceases to exists by the time wabbajack fully resolves
-	wabbajack(user)
+	. = ..() //because the user mob ceases to exists by the time wabbajack fully resolves
+	user.wabbajack()
 	charges--
 
 /////////////////////////////////////

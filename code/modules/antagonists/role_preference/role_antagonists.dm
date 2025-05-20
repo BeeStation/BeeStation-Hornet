@@ -251,41 +251,6 @@
 	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/role_preference/antagonist/incursionist
-	name = "Incursionist"
-	description = "As a member of the Syndicate Incursion, work with your team of agents to accomplish your objectives.\n\
-	Use your radio to speak with other members of the incursion, and keep security off your tail. \
-	Use your uplink to purchase items, and get the job done."
-	antag_datum = /datum/antagonist/incursion
-
-/datum/role_preference/antagonist/incursionist/get_preview_icon()
-	var/icon/final_icon = render_preview_outfit(/datum/outfit/traitor/incursion)
-	var/icon/dummy_icon = render_preview_outfit(/datum/outfit/traitor)
-	dummy_icon.ChangeOpacity(0.75)
-
-	final_icon.Blend(dummy_icon, ICON_UNDERLAY, -8, 0)
-	final_icon.Blend(dummy_icon, ICON_UNDERLAY, 8, 0)
-
-	// Apply the incursion HUD, but scale up the preview icon a bit beforehand.
-	// Otherwise, the I gets cut off.
-	final_icon.Scale(64, 64)
-
-	var/icon/inc_icon = icon('icons/mob/hud.dmi', "incursion")
-	inc_icon.Scale(48, 48)
-	inc_icon.Crop(1, 1, 64, 64)
-	inc_icon.Shift(EAST, 8)
-	inc_icon.Shift(NORTH, 16)
-	final_icon.Blend(inc_icon, ICON_OVERLAY)
-
-	return finish_preview_icon(final_icon)
-
-/datum/outfit/traitor/incursion
-	name = "Incursionist (Preview only)"
-	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	head = /obj/item/clothing/head/costume/ushanka
-	mask = null
-
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"
 	description = "Congratulations, agent. You have been chosen to join the Syndicate \
@@ -320,12 +285,6 @@
 	Choose between a variety of powerful spells in order to cause chaos among Space Station 13."
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
-
-/datum/role_preference/antagonist/excommunicate
-	name = "Excommunicate Agent"
-	description = "A traitor who has been declared an excommunicate of the Syndicate. You're being hunted down by an incursion... watch your back.\n" + TRAITOR_DESC_DETAILS
-	antag_datum = /datum/antagonist/traitor/excommunicate
-	use_icon = /datum/role_preference/antagonist/traitor
 
 #undef TRAITOR_DESC_DETAILS
 

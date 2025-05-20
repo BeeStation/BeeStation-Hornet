@@ -34,32 +34,33 @@
 	else
 		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound, frequency = frequency_to_use)
 
-/obj/item/gun/magic/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+/obj/item/gun/magic/can_trigger_gun(mob/living/user)
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
 			add_fingerprint(user)
 			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
-			return
+			return FALSE
 		else
 			no_den_usage = 0
 	if(!user.can_cast_magic(antimagic_flags))
 		add_fingerprint(user)
 		to_chat(user, span_warning("Something is interfering with [src]."))
-		return
-	. = ..()
+		return FALSE
+	return ..()
 
 /obj/item/gun/magic/can_shoot()
-	return charges
+	return charges && ..()
 
 /obj/item/gun/magic/recharge_newshot()
 	if (charges && chambered && !chambered.BB)
 		chambered.newshot()
 
-/obj/item/gun/magic/process_chamber()
-	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
-		charges--//... drain a charge
-		recharge_newshot()
+/obj/item/gun/magic/on_chamber_fired()
+	..()
+	// Drain the charge and recharge
+	charges--
+	recharge_newshot()
 
 /obj/item/gun/magic/Initialize(mapload)
 	. = ..()
