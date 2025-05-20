@@ -7,7 +7,7 @@
 	var/name
 	/// For admin logging and round end screen. DYNAMIC_CATEGORY_ROUNDSTART, DYNAMIC_CATEGORY_MIDROUND, DYNAMIC_CATEGORY_LATEJOIN
 	var/rule_category
-	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.
+	/// The probability of this ruleset being picked against other rulesets. Try and keep this in-between 0 - 10
 	var/weight = 5
 	/// How many points this ruleset costs to run. (How many players for one of this antagonist to spawn)
 	var/points_cost = 7

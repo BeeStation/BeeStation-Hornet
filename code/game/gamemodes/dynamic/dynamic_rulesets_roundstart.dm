@@ -141,6 +141,11 @@
 		log_dynamic("NOT ALLOWED: [src] ruleset couldn't find any spawn points.")
 		return FALSE
 
+/datum/dynamic_ruleset/roundstart/wizard/choose_candidates()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.assigned_role = antag_datum.banning_key
+
 /datum/dynamic_ruleset/roundstart/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
@@ -164,7 +169,6 @@
 
 /datum/dynamic_ruleset/roundstart/brothers/choose_candidates()
 	. = ..()
-
 	team = new
 	team.pick_meeting_area()
 	team.forge_brother_objectives()
@@ -243,6 +247,9 @@
 /datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
 	LoadReebe()
 	generate_clockcult_scriptures()
+
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.assigned_role = antag_datum.banning_key
 	. = ..()
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
@@ -292,6 +299,11 @@
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
 	drafted_players_amount = ROUND_UP(length(dynamic.roundstart_candidates) / 10)
+
+/datum/dynamic_ruleset/roundstart/nuclear/choose_candidates()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.assigned_role = antag_datum.banning_key
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
 	var/has_made_leader = FALSE
