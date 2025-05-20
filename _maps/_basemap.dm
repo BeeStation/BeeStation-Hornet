@@ -6,7 +6,7 @@
 // #define FORCE_MAP "boxstation"
 // #define FORCE_MAP "cardinalstation"
 // #define FORCE_MAP "metastation"
-#define FORCE_MAP "multimeta"
+#define FORCE_MAP "multimeta" //test
 // #define FORCE_MAP "deltastation"
 // #define FORCE_MAP "kilostation"
 // #define FORCE_MAP "flandstation"
