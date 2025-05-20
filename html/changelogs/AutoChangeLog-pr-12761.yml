@@ -1,0 +1,4 @@
+author: Hardly
+delete-after: true
+changes:
+  - bugfix: Ghosts no longer leak into the world of living by jumping
