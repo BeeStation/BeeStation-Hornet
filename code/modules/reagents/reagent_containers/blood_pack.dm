@@ -6,7 +6,7 @@
 	volume = 400
 	var/blood_type = null
 	var/unique_blood = null
-	var/labelled = 0
+	var/labelled = FALSE
 	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
 	fill_icon_thresholds = list(10, 40, 60, 80, 100, 120, 140, 160, 180, 200)
 
@@ -14,7 +14,7 @@
 	. = ..()
 	if(blood_type != null)
 		reagents.add_reagent(unique_blood ? unique_blood : /datum/reagent/blood, 400, list("viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
-		update_icon()
+		update_appearance()
 
 /obj/item/reagent_containers/blood/examine(mob/user)
 	. = ..()
@@ -29,18 +29,17 @@
 /// Handles updating the container when the reagents change.
 /obj/item/reagent_containers/blood/on_reagent_change(datum/reagents/holder, ...)
 	var/datum/reagent/blood/B = holder.has_reagent(/datum/reagent/blood)
-	if(B?.data && B.data["blood_type"])
+	if(B && B.data && B.data["blood_type"])
 		blood_type = B.data["blood_type"]
 	else
 		blood_type = null
-	update_pack_name()
 	return ..()
 
-/obj/item/reagent_containers/blood/proc/update_pack_name()
+/obj/item/reagent_containers/blood/update_name(updates)
+	. = ..()
 	if(labelled)
 		return
-
-	name = "blood_pack[blood_type ? " - [blood_type]" : ""]"
+	name = "blood_pack[blood_type ? " - [blood_type]" : null]"
 
 /obj/item/reagent_containers/blood/random
 	icon_state = "random_bloodpack"
@@ -97,10 +96,10 @@
 		if(user.get_active_held_item() != I)
 			return
 		if(t)
-			labelled = 1
+			labelled = TRUE
 			name = "blood pack - [t]"
 		else
-			labelled = 0
-			update_pack_name()
+			labelled = FALSE
+			update_name()
 	else
 		return ..()
