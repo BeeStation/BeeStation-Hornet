@@ -605,6 +605,7 @@
 	role_preference = /datum/role_preference/midround_ghost/prisoner
 	points_cost = 30
 	weight = 4
+	use_spawn_locations = FALSE
 
 /datum/dynamic_ruleset/midround/ghost/prisoners/get_spawn_locations()
 	for(var/obj/effect/landmark/prisonspawn/spawnpoint in GLOB.landmarks_list)
@@ -642,6 +643,7 @@
 	role_preference = /datum/role_preference/midround_ghost/fugitive
 	points_cost = 30
 	weight = 4
+	use_spawn_locations = FALSE
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/allowed()
 	. = ..()
