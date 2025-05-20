@@ -193,13 +193,11 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	// Apply 'dynamic.json' configurations into each roundstart ruleset
 	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
 
-	// Set our points according to pop and a bit of RNG
+	// Set our roundstart points
 	set_roundstart_points()
 
-	if(length(roundstart_candidates))
-		log_dynamic("Listing [length(configured_roundstart_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
-	else
-		log_dynamic("FAIL: no roundstart candidates.")
+	log_dynamic("ROUNDSTART: Listing [length(configured_roundstart_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
+	if(!length(roundstart_candidates))
 		return TRUE
 
 	// Pick rulesets to be executed from 'configured_roundstart_rulesets'
@@ -209,7 +207,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /*
 * Returns a list of all ruleset types (Roundstart, Midround, Latejoin) and configures their variables by calling configure_ruleset()
 */
-/datum/game_mode/dynamic/proc/init_rulesets(ruleset_subtype)
+/datum/game_mode/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype)
 	var/list/rulesets = list()
 
 	for(var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
@@ -243,18 +241,15 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
+
 	return ruleset
 
 /*
-* Ready players add 1
-* Unready players add 0.5
-* Observing players add 0
-* TODO: make these config values
-* Add some RNG at the end so we don't have super predictable rounds
+* Roundstart points are calculated per player's ready status
+* A randomized divergence is applied so we don't have super predictable rounds
 */
 /datum/game_mode/dynamic/proc/set_roundstart_points()
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/player = i
+	for(var/mob/dead/new_player/player in GLOB.new_player_list)
 		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
 			roundstart_points += roundstart_points_per_observer
 			continue
@@ -269,7 +264,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	roundstart_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
 	roundstart_points = round(roundstart_points * roundstart_point_divergence, 1)
 
-	log_dynamic("Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100, 1)]%")
+	log_dynamic("ROUNDSTART: Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100, 1)]%")
 
 /*
 * Pick the roundstart rulesets to run based off of their configured variables (weight, cost, etc.)
@@ -277,7 +272,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
 	// Extended was forced, don't pick any rulesets
 	if(GLOB.dynamic_forced_extended)
-		log_dynamic("Starting a round of forced extended.")
+		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
 		return
 
 	// Trim the rulesets
@@ -299,7 +294,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 		// Ran out of rulesets
 		if(isnull(ruleset))
-			log_dynamic("No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
+			log_dynamic("ROUNDSTART: No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
 			break
 
 		// Something changed and this ruleset is no longer allowed
@@ -325,7 +320,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		roundstart_executed_rulesets[ruleset] += 1 // We do this here and not in post_setup() because there will be rulesets that this one will block
 		ruleset.choose_candidates()
 
-		log_dynamic("Chose [ruleset] with [roundstart_points_left] points left")
+		log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
 
 /*
 * Checks if a ruleset is allowed to run based off of the other ruleset flags.
@@ -354,8 +349,10 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 */
 /datum/game_mode/dynamic/post_setup(report)
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
-		if(execute_ruleset(ruleset) != DYNAMIC_EXECUTE_SUCCESS)
-			log_dynamic("FAIL: [ruleset] could not be executed")
+		var/result = execute_ruleset(ruleset)
+
+		log_dynamic("ROUNDSTART: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		if(result != DYNAMIC_EXECUTE_SUCCESS)
 			roundstart_executed_rulesets[ruleset] -= 1
 
 	init_midround()
@@ -393,7 +390,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/proc/init_midround()
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
 	if(!length(midround_configured_rulesets))
-		stack_trace("DYNAMIC: midround_configured_rulesets is empty. It is impossible to roll midrounds")
+		stack_trace("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
 		return
 
 	midround_light_chance = midround_light_starting_chance
@@ -425,7 +422,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	else if(midround_points >= midround_chosen_ruleset.points_cost)
 		// Try to execute our ruleset
 		var/result = execute_ruleset(midround_chosen_ruleset)
-		message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		message_admins("DYNAMIC: MIDROUND: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		log_dynamic("MIDROUND: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
 		// If we successfully execute the midround, apply the cost and log it
 		if(result == DYNAMIC_EXECUTE_SUCCESS)
@@ -457,8 +455,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	midround_points += midround_linear_point_increase
 	midround_linear_point_increase += initial(midround_linear_point_increase)
 
-	message_admins("DYNAMIC: Updated midround points. From [previous_midround_points] to [midround_points]")
-	log_dynamic("Updated midround points. From [previous_midround_points] to [midround_points]")
+	log_dynamic("MIDROUND: Updated points. From [previous_midround_points] to [midround_points]")
 
 /*
 * At roundstart the Light Ruleset Chance is 100%
@@ -495,8 +492,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_medium_chance *= adjustment_factor
 		midround_heavy_chance *= adjustment_factor
 
-	message_admins("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
-	log_dynamic("Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
+	log_dynamic("MIDROUND: Updated chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
 
 /*
 * Choose the midround ruleset to save towards
@@ -533,12 +529,12 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	if(!length(possible_rulesets))
 		message_admins("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
-		log_dynamic("FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
+		log_dynamic("MIDROUND: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
 		return
 
 	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
-	log_dynamic("A new midround has been chosen to save up for: [midround_chosen_ruleset]")
+	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
 	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
 
 /*
@@ -589,8 +585,12 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 				return
 
 		// Execute our latejoin ruleset
-		if(execute_ruleset(latejoin_forced_ruleset) == DYNAMIC_EXECUTE_SUCCESS)
-			message_admins("DYNAMIC: Executing latejoin: [latejoin_forced_ruleset]")
+		var/result = execute_ruleset(latejoin_forced_ruleset)
+
+		message_admins("DYNAMIC: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		log_dynamic("LATEJOIN: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+
+		if(result == DYNAMIC_EXECUTE_SUCCESS)
 			latejoin_executed_rulesets += latejoin_forced_ruleset
 			latejoin_forced_ruleset = null
 
