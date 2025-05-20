@@ -4570,6 +4570,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"bza" = (
+/obj/item/crowbar/red,
+/obj/item/wrench,
+/turf/open/floor/iron/grimy,
+/area/maintenance/multimeta)
 "bze" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -18230,6 +18235,14 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hor)
+"fuQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/port_gen/pacman/super,
+/obj/item/stack/sheet/mineral/uranium/fifty,
+/turf/open/floor/iron/grimy,
+/area/maintenance/multimeta)
 "fuV" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -41228,6 +41241,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
+"mCq" = (
+/obj/item/crowbar/red,
+/turf/open/floor/iron/grimy,
+/area/maintenance/multimeta)
 "mDi" = (
 /turf/closed/wall/r_wall,
 /area/storage/tcom)
@@ -61139,6 +61156,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"szC" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/grimy,
+/area/maintenance/multimeta)
 "szF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -71126,6 +71155,11 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"vzI" = (
+/obj/structure/closet,
+/obj/item/crowbar/red,
+/turf/open/floor/iron/grimy,
+/area/maintenance/multimeta)
 "vzN" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -93970,7 +94004,7 @@ xvg
 kCC
 kCC
 kCC
-aRG
+vzI
 aRG
 aRG
 kCC
@@ -94786,7 +94820,7 @@ xvg
 xvg
 xvg
 xvg
-xvg
+mCq
 xvg
 xvg
 kCC
@@ -99683,7 +99717,7 @@ xvg
 xvg
 xvg
 xvg
-xvg
+mCq
 qGT
 aRG
 xvg
@@ -104333,7 +104367,7 @@ xvg
 xvg
 qGT
 xvg
-xvg
+mCq
 xvg
 xaK
 xvg
@@ -106856,7 +106890,7 @@ xvg
 xvg
 xvg
 xvg
-xvg
+mCq
 qGT
 xvg
 xvg
@@ -114115,7 +114149,7 @@ xvg
 qGT
 aRG
 xvg
-xvg
+bza
 sfO
 kCC
 aaa
@@ -114371,8 +114405,8 @@ xvg
 xaK
 qGT
 qGT
-qGT
-qGT
+xvg
+xvg
 sfO
 kCC
 aaa
@@ -114629,8 +114663,8 @@ xvg
 qGT
 aRG
 qGT
-xvg
-sfO
+fuQ
+szC
 kCC
 aaa
 aaa
@@ -115887,7 +115921,7 @@ xvg
 qGT
 xvg
 qGT
-xvg
+mCq
 qGT
 waH
 qGT
@@ -120185,7 +120219,7 @@ xvg
 xvg
 xvg
 xvg
-xvg
+mCq
 xvg
 xvg
 xvg
