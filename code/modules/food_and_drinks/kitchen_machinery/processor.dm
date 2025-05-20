@@ -43,10 +43,12 @@
 		qdel(what)
 
 /obj/machinery/processor/proc/select_recipe(X)
-	for (var/type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
-		var/datum/food_processor_process/recipe = new type()
-		if (istype(src, recipe.required_machine) && istype(X, recipe.input) && !(is_type_in_list(X, recipe.excluded_inputs)))
-			return recipe
+	var/most_specific_type = /atom
+	for (var/recipe_type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+		var/datum/food_processor_process/recipe = new recipe_type()
+		if (istype(src, recipe.required_machine) && istype(X, recipe.input) && ispath(recipe.input, most_specific_type))
+			most_specific_type = recipe.input
+			. = recipe
 
 /obj/machinery/processor/attackby(obj/item/O, mob/living/user, params)
 	if(processing)
