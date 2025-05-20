@@ -2377,11 +2377,11 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	to_chat(living_anthill, "<span class='notice'>You feel like the last of the ants are out of your system.</span>")
 	return ..()
 
-/datum/reagent/ants/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
+/datum/reagent/ants/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
-	if(!iscarbon(exposed_mob) || (method == INGEST||INJECT))
+	if(!iscarbon(exposed_mob))
 		return
-	if(method == PATCH||TOUCH||VAPOR)
+	if(methods & (PATCH|TOUCH|VAPOR))
 		amount_left = round(reac_volume,0.1)
 		exposed_mob.apply_status_effect(/datum/status_effect/ants, amount_left)
 
