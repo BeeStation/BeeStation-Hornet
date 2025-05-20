@@ -697,8 +697,11 @@
 
 /// Handle any reactions possible in this holder
 /datum/reagents/proc/handle_reactions()
+	if(QDELING(src))
+		CRASH("[my_atom] is trying to handle reactions while being flagged for deletion. It presently has [length(reagent_list)] number of reactants in it. If that is over 0 then something terrible happened.")
+
 	if(flags & NO_REACT)
-		return 0 //Yup, no reactions here. No siree.
+		return FALSE //Yup, no reactions here. No siree.
 
 	var/list/cached_reagents = reagent_list
 	var/list/cached_reactions = GLOB.chemical_reactions_list
