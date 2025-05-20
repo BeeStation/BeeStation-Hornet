@@ -93,6 +93,12 @@
 	minimize_when_attached = FALSE
 	attachment_slot = null
 
+/obj/item/clothing/accessory/maidapron/syndicate
+	name = "syndicate maid apron"
+	desc = "Practical? No. Tactical? Also no. Cute? Most definitely yes."
+	icon_state = "maidapronsyndie"
+	item_state = "maidapronsyndie"
+
 //////////
 //Medals//
 //////////

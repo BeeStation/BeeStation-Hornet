@@ -120,6 +120,13 @@
 	var/obj/item/clothing/accessory/maidapron/A = new (src)
 	attach_accessory(A)
 
+/obj/item/clothing/under/costume/maid/syndicate
+	name = "tactical maid outfit"
+	desc = "A 'tactical' turtleneck fashioned to the likeness of a maid outfit. Why the Syndicate has these, you'll never know."
+	icon_state = "syndiemaid"
+	item_state = "syndiemaid"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/costume/geisha
 	name = "geisha suit"
 	desc = "Cute space ninja senpai not included."

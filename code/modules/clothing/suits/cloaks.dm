@@ -18,6 +18,11 @@
 	user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
+/obj/item/clothing/neck/cloak/executiveoverseer
+	name = "CentCom Executive Overseer's cloak"
+	desc = "A flowing cloak worn by CentCom's executive overseers. These cloaks are worn by the absolute elite of Nanotrasen's bureaucracy. Encountering someone with such a cloak is both an extreme priviledge, and a bad omen."
+	icon_state = "centcom_executiveoverseer"
+
 /obj/item/clothing/neck/cloak/hos
 	name = "head of security's cloak"
 	desc = "Worn by Securistan, ruling the station with an iron fist."

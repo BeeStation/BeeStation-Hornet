@@ -43,6 +43,32 @@
 	acid = 50
 	stamina = 30
 
+/obj/item/clothing/head/beret/centcomstaff
+	name = "CentCom staff's beret"
+	desc = "A tactical beret to be used during the enacting of the most dangerous of pranks."
+	icon_state = "beret_centcom_staff"
+	icon = 'icons/obj/clothing/head/beret_unique.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret_unique.dmi'
+	greyscale_colors = null
+	flags_1 = NONE
+
+/obj/item/clothing/head/beret/overseer
+	name = "CentCom overseer's beret"
+	desc = "A sturdy beret worn by CentCom overseers."
+	icon_state = "beret_centcom_overseer"
+	icon = 'icons/obj/clothing/head/beret_unique.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret_unique.dmi'
+	greyscale_colors = null
+	flags_1 = NONE
+
+/obj/item/clothing/head/hats/executiveoverseer
+	name = "\improper CentCom Executive Overseer's cap"
+	icon_state = "centcom_executiveoverseer"
+	desc = "An imposing cap worn by those less charismatic twins of the famed commanders, the executive overseers. Inside the lining of the cap, lies two faint initials."
+	item_state = "that"
+	flags_inv = 0
+	strip_delay = (8 SECONDS)
+
 /obj/item/clothing/head/costume/canada
 	name = "striped red tophat"
 	desc = "It smells like fresh donut holes. / <i>Il sent comme des trous de beignets frais.</i>"

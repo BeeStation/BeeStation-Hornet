@@ -11,7 +11,25 @@
 /obj/item/clothing/under/rank/centcom/official
 	name = "\improper CentCom official's suit"
 	desc = "A suit worn by CentCom Officials, with a silver belt buckle to indicate their rank from a glance."
-	icon_state = "official"
+	icon_state = "staff"
+	item_state = "dg_suit"
+
+/obj/item/clothing/under/rank/centcom/executiveoverseer
+	name = "\improper CentCom Executive Overseer's suit"
+	desc = "An expensive looking suit worn by only by the highest rung of CentCom's premier bureaucrats, the executive overseers."
+	icon_state = "executive_overseer"
+	item_state = "dg_suit"
+
+/obj/item/clothing/under/rank/centcom/overseer
+	name = "\improper CentCom overseer's suit"
+	desc = "A suit worn by CentCom Overseers, with a golden belt buckle to indicate their rank from a glance."
+	icon_state = "overseer"
+	item_state = "dg_suit"
+
+/obj/item/clothing/under/rank/centcom/staff
+	name = "\improper CentCom staff's suit"
+	desc = "A suit worn by CentCom staff, comfortable, breathable office wear for only the finest paper-pushers."
+	icon_state = "staff"
 	item_state = "dg_suit"
 
 /obj/item/clothing/under/rank/centcom/intern

@@ -47,13 +47,19 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
 
-
 /datum/armor/gloves_combat
 	bio = 90
 	fire = 80
 	acid = 50
 	stamina = 20
 	bleed = 10
+
+/obj/item/clothing/gloves/combat/maid
+	name = "combat maid sleeves"
+	desc = "These 'tactical' gloves and sleeves are fireproof and electrically insulated. Warm to boot."
+	icon_state = "syndiemaid_hands"
+	worn_icon_state = "syndiemaid_hands"
+	item_state = "syndiemaid_hands"
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
