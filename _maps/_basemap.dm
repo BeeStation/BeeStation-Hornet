@@ -5,6 +5,7 @@
 // #define FORCE_MAP "corgstation"
 // #define FORCE_MAP "boxstation"
 // #define FORCE_MAP "metastation"
+#define FORCE_MAP "multimeta"
 // #define FORCE_MAP "deltastation"
 // #define FORCE_MAP "kilostation"
 // #define FORCE_MAP "flandstation"
