@@ -1,0 +1,9 @@
+author: BeeLover66
+delete-after: true
+changes:
+  - bugfix: coffins are not mistaken for normal crates when sold
+  - bugfix: coffins and ore boxes are now subject to demand elasticity, and don't
+      mention the Crates Recycling Program when sold
+  - tweak: The time to build a coffin is now 5 seconds
+  - balance: The selling prices of ore boxes, coffins and wooden crates have been
+      tweaked to give a reasonable profit when sold
