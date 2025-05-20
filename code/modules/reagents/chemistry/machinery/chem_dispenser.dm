@@ -229,9 +229,9 @@
 
 /obj/machinery/chem_dispenser/ui_static_data(mob/user)
 	var/list/data = list()
-	var/list/reactions
-	for(var/i in GLOB.chemical_reactions_list)
-		for(var/datum/chemical_reaction/reaction as anything in GLOB.chemical_reactions_list[i])
+	var/list/reactions = list()
+	for(var/i in GLOB.chemical_reactions_list_reactant_index)
+		for(var/datum/chemical_reaction/reaction as anything in GLOB.chemical_reactions_list_reactant_index[i])
 			var/list/required_reagents = list()
 			var/display_name = reaction::name
 			if (ispath(display_name, /datum/reagent))
@@ -243,6 +243,8 @@
 					"volume" = reaction.required_reagents[reagent],
 					"path" = reagent
 				))
+			//if (!required_reagents.len)
+			//	CRASH("Reactions list is empty on [src]!")
 			var/list/results = list()
 			for (var/datum/reagent/result_path as anything in reaction.results)
 				var/created_amount = reaction.results[result_path]
@@ -254,6 +256,8 @@
 					"addiction" = result_path::addiction_threshold,
 					"overdose" = result_path::overdose_threshold,
 				))
+			//if (!results.len)
+			//	CRASH("Reactions list is empty on [src]!")
 			reactions += list(list(
 				name = display_name,
 				results = results,
@@ -266,7 +270,11 @@
 				id = reaction.type,
 				hints = reaction.hints,
 				reaction_tags = reaction.reaction_tags
-			))
+				))
+
+	//if (!reactions.len)
+	//	CRASH("Reactions list is empty on [src]!")
+
 	data["reactions_list"] = reactions
 	data["default_filters"] = default_filters
 	return data

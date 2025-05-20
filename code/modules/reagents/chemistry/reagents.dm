@@ -24,14 +24,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/taste_description = "metaphorical salt"
 	///how this taste compares to others. Higher values means it is more noticable
 	var/taste_mult = 1
-	/// use for specialty drinks.
-	var/glass_name = "glass of ...what?"
-	/// desc applied to glasses with this reagent
-	var/glass_desc = "You can't really tell what this is."
-	/// Otherwise just sets the icon to a normal glass with the mixture of the reagents in the glass.
-	var/glass_icon_state = null
-	/// used for shot glasses, mostly for alcohol
-	var/shot_glass_icon_state = null
 	/// reagent holder this belongs to
 	var/datum/reagents/holder = null
 	/// LIQUID, SOLID, GAS
@@ -68,6 +60,17 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/reagent_weight = 1
 	///is it currently metabolizing
 	var/metabolizing = FALSE
+
+	///The default reagent container for the reagent, used for icon generation
+	var/obj/item/reagent_containers/default_container = /obj/item/reagent_containers/cup/bottle
+
+	// Used for restaurants.
+	///The amount a robot will pay for a glass of this (20 units but can be higher if you pour more, be frugal!)
+	var/glass_price
+	/// Icon for fallback item displayed in a tourist's thought bubble for if this reagent had no associated glass_style datum.
+	var/fallback_icon
+	/// Icon state for fallback item displayed in a tourist's thought bubble for if this reagent had no associated glass_style datum.
+	var/fallback_icon_state
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()

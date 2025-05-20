@@ -10340,22 +10340,6 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"aAg" = (
-/obj/structure/table,
-/obj/item/lighter,
-/obj/item/storage/fancy/cigarettes/cigpack_robust{
-	pixel_x = 6;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -7;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/trimline/dark_blue/line{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/textured,
-/area/centcom/evac)
 "aAh" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -11759,20 +11743,6 @@
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
 	dir = 4;
-	icon_state = "rightsecure";
-	name = "CentCom Customs";
-	req_access_txt = "109"
-	},
-/turf/open/floor/iron,
-/area/centcom/control)
-"aDu" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/britcup,
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	dir = 8;
 	icon_state = "rightsecure";
 	name = "CentCom Customs";
 	req_access_txt = "109"
@@ -13482,20 +13452,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/centcom/evac)
-"aHK" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/cup/glass/britcup,
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron,
-/area/tdome/tdomeobserve)
 "aHL" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
@@ -21110,10 +21066,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ctf)
-"aZT" = (
-/mob/living/basic/cow,
-/turf/open/floor/grass,
-/area/centcom/holding)
 "aZU" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -21434,6 +21386,10 @@
 /obj/structure/fluff/iced_abductor,
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
+"eal" = (
+/mob/living/basic/cow,
+/turf/open/floor/grass,
+/area/centcom/holding)
 "edM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/warning/securearea{
@@ -22769,6 +22725,22 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"rct" = (
+/obj/structure/table,
+/obj/item/lighter,
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -7;
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/trimline/dark_blue/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/centcom/evac)
 "rkh" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -22776,6 +22748,20 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"rzq" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	dir = 8;
+	icon_state = "rightsecure";
+	name = "CentCom Customs";
+	req_access_txt = "109"
+	},
+/turf/open/floor/iron,
+/area/centcom/control)
 "rDi" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt,
@@ -23074,6 +23060,20 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/rust,
 /area/syndicate_mothership/control)
+"uHH" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/effect/turf_decal/bot,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron,
+/area/tdome/tdomeobserve)
 "uPS" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -50011,7 +50011,7 @@ aNd
 aXk
 aXk
 aRh
-aZT
+eal
 aNd
 qdf
 aFh
@@ -57223,7 +57223,7 @@ aaa
 aaa
 aLC
 apk
-aAg
+rct
 aHQ
 aZy
 aZy
@@ -64674,7 +64674,7 @@ aNB
 aGc
 aQK
 aGy
-aHK
+uHH
 aHV
 aIc
 aEp
@@ -67487,7 +67487,7 @@ amQ
 aio
 aio
 aiu
-aDu
+rzq
 aDI
 aiu
 ain

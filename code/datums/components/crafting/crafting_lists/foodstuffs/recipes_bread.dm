@@ -9,7 +9,7 @@
 		/obj/item/food/meat/cutlet/plain = 3,
 		/obj/item/food/cheese/wedge = 3
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/xenomeatbread
 	name = "Xenomeat bread"
@@ -19,7 +19,7 @@
 		/obj/item/food/meat/cutlet/xeno = 3,
 		/obj/item/food/cheese/wedge = 3
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/spidermeatbread
 	name = "Spidermeat bread"
@@ -29,7 +29,7 @@
 		/obj/item/food/meat/cutlet/spider = 3,
 		/obj/item/food/cheese/wedge = 3
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/banananutbread
 	name = "Banana nut bread"
@@ -40,7 +40,7 @@
 		/obj/item/food/boiledegg = 3,
 		/obj/item/food/grown/banana = 1
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/tofubread
 	name = "Tofu bread"
@@ -50,7 +50,7 @@
 		/obj/item/food/tofu = 3,
 		/obj/item/food/cheese/wedge = 3
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/creamcheesebread
 	name = "Cream cheese bread"
@@ -60,7 +60,7 @@
 		/obj/item/food/bread/plain = 1,
 		/obj/item/food/cheese/wedge = 2
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/mimanabread
 	name = "Mimana bread"
@@ -71,7 +71,7 @@
 		/obj/item/food/tofu = 3,
 		/obj/item/food/grown/banana/mime = 1
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/garlicbread
 	name = "Garlic Bread"
@@ -82,7 +82,7 @@
 		/obj/item/food/breadslice/plain = 1,
 		/obj/item/food/butter = 1
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/butterbiscuit
 	name = "Butter Biscuit"
@@ -91,7 +91,7 @@
 		/obj/item/food/bun = 1,
 		/obj/item/food/butter = 1
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/butterdog
 	name = "Butterdog"
@@ -100,7 +100,7 @@
 		/obj/item/food/bun = 1,
 		/obj/item/food/butter = 3
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/baguette
 	name = "Baguette"
@@ -110,7 +110,7 @@
 		/datum/reagent/consumable/blackpepper = 1,
 		/obj/item/food/pastrybase = 2
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 ////////////////////////////////////////////////TOAST////////////////////////////////////////////////
 
@@ -121,7 +121,7 @@
 		/datum/reagent/toxin/slimejelly = 5,
 		/obj/item/food/breadslice/plain = 1
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/jelliedyoast
 	name = "Jellied toast"
@@ -130,7 +130,7 @@
 		/datum/reagent/consumable/cherryjelly = 5,
 		/obj/item/food/breadslice/plain = 1
 	)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/butteredtoast
 	name = "Buttered Toast"
@@ -139,7 +139,7 @@
 		/obj/item/food/breadslice/plain = 1,
 		/obj/item/food/butter = 1
 	)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 /datum/crafting_recipe/food/twobread
 	name = "Two bread"
@@ -148,7 +148,7 @@
 		/datum/reagent/consumable/ethanol/wine = 5,
 		/obj/item/food/breadslice/plain = 2
 	)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD
 
 ////////////////////////////////////////////////WEIRD////////////////////////////////////////////////
 
@@ -163,4 +163,4 @@
 		/datum/reagent/blood = 50,
 		/datum/reagent/medicine/strange_reagent = 5
 		)
-	subcategory = CAT_BREAD
+	category = CAT_BREAD

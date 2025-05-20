@@ -15,29 +15,44 @@
 	//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 	// It is filtered into multiple lists within a list.
 	// For example:
-	// chemical_reaction_list[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
+	// chemical_reactions_list_reactant_index[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
 
-	if(GLOB.chemical_reactions_list)
+	if(GLOB.chemical_reactions_list_reactant_index)
 		return
 
 	var/paths = subtypesof(/datum/chemical_reaction)
-	GLOB.chemical_reactions_list = list()
+	GLOB.chemical_reactions_list = list() //typepath to reaction list
+	GLOB.chemical_reactions_list_reactant_index = list() //reagents to reaction list
 
 	for(var/path in paths)
 		var/datum/chemical_reaction/D = new path()
 		var/list/reaction_ids = list()
+		var/list/reagents = list()
 
 		if(!D.required_reagents || !D.required_reagents.len) //Skip impossible reactions
 			continue
 
+		GLOB.chemical_reactions_list[path] = D
+
 		for(var/reaction in D.required_reagents)
 			reaction_ids += reaction
+			var/datum/reagent/reagent = find_reagent_object_from_type(reaction)
+			if(!istype(reagent))
+				stack_trace("Invalid reagent found in [D] required_reagents: [reaction]")
+				continue
+			reagents += list(list("name" = reagent.name, "id" = reagent.type))
+
+		for(var/product in D.results)
+			var/datum/reagent/reagent = find_reagent_object_from_type(product)
+			if(!istype(reagent))
+				stack_trace("Invalid reagent found in [D] results: [product]")
+				continue
 
 		// Create filters based on each reagent id in the required reagents list
 		for(var/id in reaction_ids)
-			if(!GLOB.chemical_reactions_list[id])
-				GLOB.chemical_reactions_list[id] = list()
-			GLOB.chemical_reactions_list[id] += D
+			if(!GLOB.chemical_reactions_list_reactant_index[id])
+				GLOB.chemical_reactions_list_reactant_index[id] = list()
+			GLOB.chemical_reactions_list_reactant_index[id] += D
 			break // Don't bother adding ourselves to other reagent ids, it is redundant
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -480,11 +495,17 @@
 
 /// Handle any reactions possible in this holder
 /datum/reagents/proc/handle_reactions()
+	if(QDELING(src))
+		CRASH("[my_atom] is trying to handle reactions while being flagged for deletion. It presently has [length(reagent_list)] number of reactants in it. If that is over 0 then something terrible happened.")
+
+	if(!length(reagent_list))
+		return FALSE
+
 	if(flags & NO_REACT)
 		return //Yup, no reactions here. No siree.
 
 	var/list/cached_reagents = reagent_list
-	var/list/cached_reactions = GLOB.chemical_reactions_list
+	var/list/cached_reactions = GLOB.chemical_reactions_list_reactant_index
 	var/datum/cached_my_atom = my_atom
 
 	var/reaction_occurred = 0
@@ -519,30 +540,23 @@
 						break
 					total_matching_catalysts++
 				if(cached_my_atom)
-					if(!C.required_container)
-						matching_container = 1
-
+					if(C.required_container_accepts_subtypes)
+						matching_container = !C.required_container || istype(cached_my_atom, C.required_container)
 					else
-						if(cached_my_atom.type == C.required_container)
-							matching_container = 1
-					if (isliving(cached_my_atom) && !C.mob_react) //Makes it so certain chemical reactions don't occur in mobs
+						matching_container = !C.required_container || cached_my_atom.type == C.required_container
+
+					if(isliving(cached_my_atom) && !C.mob_react) //Makes it so certain chemical reactions don't occur in mobs
 						matching_container = FALSE
-					if(!C.required_other)
-						matching_other = 1
 
-					else if(istype(cached_my_atom, /obj/item/slime_extract))
-						var/obj/item/slime_extract/M = cached_my_atom
+					matching_other = C.required_other ? C.pre_reaction_other_checks(src) : TRUE
 
-						if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
-							matching_other = 1
-
-					else if(C.check_other()) //if a recipe has required_other, call this proc to see if it meets requirements
-						matching_other = 1
+					if(C.check_other()) //if a recipe has required_other, call this proc to see if it meets requirements
+						matching_other = TRUE
 				else
 					if(!C.required_container)
-						matching_container = 1
+						matching_container = TRUE
 					if(!C.required_other)
-						matching_other = 1
+						matching_other = TRUE
 
 				if(required_temp == 0 || (is_cold_recipe && chem_temp <= required_temp) || (!is_cold_recipe && chem_temp >= required_temp))
 					meets_temp_requirement = 1
