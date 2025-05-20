@@ -307,8 +307,8 @@
 
 /turf/acid_act(acidpwr, acid_volume)
 	. = ..()
-	//if (resistance_flags & (INDESTRUCTIBLE | ACID_PROOF))
-	//	return FALSE
+	if (resistance_flags & (INDESTRUCTIBLE | ACID_PROOF))
+		return FALSE
 	if((acidpwr <= 0) || (acid_volume <= 0))
 		return FALSE
 
@@ -323,6 +323,7 @@
 
 /turf/proc/acid_melt()
 	turf_destruction(ACID, 0)
+	return
 
 //====================================
 // Fire
