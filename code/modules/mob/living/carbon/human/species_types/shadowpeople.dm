@@ -359,7 +359,7 @@
 #define SHADOW_CONVERSION_TRESHOLD 60 // Used for people changing into shadowpeople because of hearts
 
 /datum/species/shadow/blessed // Shadow person subsiecies with interacts with shadow sect
-	id = "bshadow"
+	id = "shadow_blessed"
 	var/sect_rituals_completed = 0 // only important if shadow sect is at play, this is a way to check what level of rituals it completed. Used by shadow hearts
 
 
