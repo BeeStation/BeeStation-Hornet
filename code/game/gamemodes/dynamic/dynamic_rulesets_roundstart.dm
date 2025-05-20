@@ -129,6 +129,7 @@
 	antag_datum = /datum/antagonist/wizard
 	weight = 2
 	points_cost = 15
+	minimum_points_required = 20
 	flags = HIGH_IMPACT_RULESET
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
@@ -283,6 +284,7 @@
 	drafted_players_amount = 3
 	weight = 3
 	points_cost = 20
+	minimum_points_required = 24
 	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
