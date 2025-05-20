@@ -362,6 +362,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	if(!length(latejoin_configured_rulesets))
 		stack_trace("DYNAMIC: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
 
+	// Event hijacking
+	RegisterSignal(SSdcs, COMSIG_GLOB_PRE_RANDOM_EVENT, PROC_REF(on_pre_random_event))
+
 	. = ..()
 
 /*
@@ -536,6 +539,17 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
 	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. cost: [midround_chosen_ruleset.points_cost]")
 	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] cost: [midround_chosen_ruleset.points_cost]")
+
+/datum/game_mode/dynamic/proc/on_pre_random_event(datum/source, datum/round_event_control/round_event_control)
+	SIGNAL_HANDLER
+
+	if (!round_event_control.dynamic_should_hijack)
+		return
+
+	log_dynamic("EVENT: Cancelling [round_event_control]")
+	SSevents.spawnEvent()
+	SSevents.reschedule()
+	return CANCEL_PRE_RANDOM_EVENT
 
 /*
 * Latejoin functionality.
