@@ -307,17 +307,10 @@
 
 /turf/acid_act(acidpwr, acid_volume)
 	. = ..()
-	if (resistance_flags & (INDESTRUCTIBLE | ACID_PROOF))
-		return FALSE
 	if((acidpwr <= 0) || (acid_volume <= 0))
 		return FALSE
 
 	AddComponent(/datum/component/acid, acidpwr, acid_volume, GLOB.acid_overlay)
-	for(var/atom/movable/movable_atom as anything in src)
-		if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(movable_atom, TRAIT_T_RAY_VISIBLE))
-			continue
-
-		movable_atom.acid_act(acidpwr, acid_volume)
 
 	return . || TRUE
 
