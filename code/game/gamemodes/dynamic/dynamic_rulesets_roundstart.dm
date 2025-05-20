@@ -10,7 +10,7 @@
 	role_preference = /datum/role_preference/antagonist/traitor
 	antag_datum = /datum/antagonist/traitor
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_roles = list(JOB_NAME_CYBORG)
+	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_AI)
 	required_candidates = 1
 	weight = 5
 	cost = 8	// Avoid raising traitor threat above this, as it is the default low cost ruleset.
@@ -21,8 +21,6 @@
 
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
-	if (population < CONFIG_GET(number/malf_ai_minimum_pop))
-		restricted_roles |= JOB_NAME_AI
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		if(candidates.len <= 0)
@@ -87,6 +85,32 @@
 
 //////////////////////////////////////////////
 //                                          //
+//         MALFUNCTIONING AI                //
+//                              		    //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/malf
+	name = "Malfunctioning AI"
+	role_preference = /datum/role_preference/antagonist/malfunctioning_ai
+	antag_datum = /datum/antagonist/malf_ai
+	required_candidates = 1
+	minimum_players = 24
+	weight = 4
+	cost = 13
+	flags = LONE_RULESET
+
+/datum/dynamic_ruleset/roundstart/malf/execute(forced = FALSE)
+	var/list/living_players = mode.current_players[CURRENT_LIVING_PLAYERS]
+	for(var/mob/living/player in living_players)
+		if(isAI(player))
+			candidates -= player
+			player.mind.special_role = ROLE_MALF
+			player.mind.add_antag_datum(antag_datum)
+			return DYNAMIC_EXECUTE_SUCCESS
+	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
+
+//////////////////////////////////////////////
+//                                          //
 //               CHANGELINGS                //
 //                                          //
 //////////////////////////////////////////////
@@ -139,9 +163,9 @@
 
 /datum/dynamic_ruleset/roundstart/heretics/pre_execute(population)
 	. = ..()
-	var/num_ecult = get_antag_cap(population) * (scaled_times + 1)
+	var/num_heretics = get_antag_cap(population) * (scaled_times + 1)
 
-	for (var/i = 1 to num_ecult)
+	for (var/i = 1 to num_heretics)
 		if(candidates.len <= 0)
 			break
 		var/mob/picked_candidate = antag_pick_n_take(candidates)
@@ -470,7 +494,6 @@
 			V.special_role = "Clown Operative"
 			GLOB.pre_setup_antags += V
 
-
 //////////////////////////////////////////////
 //                                          //
 //               METEOR                     //
@@ -576,57 +599,4 @@
 		SSticker.news_report = CULT_FAILURE
 		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
 
-//////////////////////////////////////////////
-//                                          //
-//                INCURSION                 //
-//                                          //
-//////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/incursion
-	name = "Incursion"
-	role_preference = /datum/role_preference/antagonist/incursionist
-	antag_datum = /datum/antagonist/incursion
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
-	required_candidates = 2
-	weight = 3
-	cost = 20
-	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET | PERSISTENT_RULESET
-	antag_cap = list("denominator" = 26, "offset" = 1)
-	minimum_players = 22
-	var/datum/team/incursion/incursion_team
-
-/datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
-	required_candidates = clamp(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
-	return ..()
-
-/datum/dynamic_ruleset/roundstart/incursion/pre_execute(population)
-	. = ..()
-	for(var/x = 1 to required_candidates)
-		if(!length(candidates))
-			break
-		var/mob/M = antag_pick_n_take(candidates)
-		assigned += M.mind
-		M.mind.special_role = ROLE_INCURSION
-		M.mind.restricted_roles = restricted_roles
-		GLOB.pre_setup_antags += M.mind
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
-	incursion_team = new
-	incursion_team.forge_team_objectives(restricted_roles)
-	for(var/datum/mind/M in assigned)
-		var/datum/antagonist/incursion/new_incursionist = new antag_datum()
-		new_incursionist.team = incursion_team
-		incursion_team.add_member(M)
-		M.add_antag_datum(new_incursionist)
-		GLOB.pre_setup_antags -= M
-	return DYNAMIC_EXECUTE_SUCCESS
-
-/datum/dynamic_ruleset/roundstart/incursion/round_result()
-	..()
-	if(incursion_team.check_incursion_victory())
-		SSticker.mode_result = "win - incursion win"
-	else
-		SSticker.mode_result = "loss - staff stopped the incursion"

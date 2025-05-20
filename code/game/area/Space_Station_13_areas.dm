@@ -709,6 +709,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
+/area/crew_quarters/barbershop
+	name = "Barbershop"
+	icon_state = "yellow"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
+
 /area/crew_quarters/fitness
 	name = "Fitness Room"
 	icon_state = "fitness"
@@ -965,7 +970,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Solars
 
 /area/solar
-	requires_power = FALSE
+	//requires_power = FALSE /* YOU WISH FOR INFINITE POWER YOU STINGY CHEAPO, TOO BAD */
+	always_unpowered = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	area_flags = UNIQUE_AREA | NO_GRAVITY
 	flags_1 = NONE
@@ -1013,8 +1019,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar/port/fore
 	name = "Port Bow Solar Array"
 	icon_state = "panelsFP"
-
-
 
 //Solar Maint
 
@@ -1181,6 +1185,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Auxillery Surgery"
 	icon_state = "surgery"
 
+/area/medical/booth
+	name = "Medical Booth"
+
 /area/medical/cryo
 	name = "Cryogenics"
 	icon_state = "cryo"
@@ -1267,7 +1274,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/processing
 	name = "Labor Shuttle Dock"
 	icon_state = "sec_prison"
-	camera_networks = list(CAMERA_NETWORK_PRISON)
+	camera_networks = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /area/security/processing/cremation
 	name = "Security Crematorium"
@@ -1728,6 +1735,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "eva"
 	ambience_index = AMBIENCE_DANGER
 	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
@@ -1829,3 +1837,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/relay
 	name = "Telecommunications Relay"
 	icon_state = "tcom_sat_cham"
+
+//Flavor area on Card Station
+
+/area/syndicate_sat
+	name = "Starboard Aft Bathroom" //syndies are spoofing sensor area reading
+	icon_state = "syndie-control"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED

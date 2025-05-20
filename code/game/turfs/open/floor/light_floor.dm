@@ -57,7 +57,7 @@
 	set_light(0)
 	return ..()
 
-/turf/open/floor/light/attack_hand(mob/user)
+/turf/open/floor/light/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

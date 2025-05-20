@@ -12,6 +12,8 @@
 	..()
 
 /datum/wires/robot/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/mob/living/silicon/robot/R = holder
 	if(R.wiresexposed)
 		return TRUE

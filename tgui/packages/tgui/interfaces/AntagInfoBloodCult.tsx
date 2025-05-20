@@ -17,7 +17,7 @@ const StructureAltar = (_props) => {
         as="img"
         src={resolveAsset('cult-altar.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -55,7 +55,7 @@ const StructureArchives = (_props) => {
         as="img"
         src={resolveAsset('cult-archives.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -94,7 +94,7 @@ const StructureForge = (_props) => {
         as="img"
         src={resolveAsset('cult-forge.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -133,7 +133,7 @@ const StructurePylon = (_props) => {
         as="img"
         src={resolveAsset('cult-pylon.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -229,7 +229,7 @@ const BloodMagicSection = (_props) => {
               as="img"
               src={resolveAsset('cult-carve.png')}
               width="32px"
-              style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
             />
             <Box inline textColor="red">
               Prepare Blood Magic
@@ -694,7 +694,7 @@ const PowersSection = (_props) => {
                 as="img"
                 src={resolveAsset('dagger.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
               />
               Your{' '}
               <Box inline textColor="red">
@@ -715,7 +715,7 @@ const PowersSection = (_props) => {
                 as="img"
                 src={resolveAsset('cult-comms.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
               />
               Use{' '}
               <Box inline textColor="red">

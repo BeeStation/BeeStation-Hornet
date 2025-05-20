@@ -4,9 +4,9 @@
  * @license MIT
  */
 
+import { isEscape, KEY } from 'common/keys';
 import { clamp } from 'common/math';
-import { pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 
 const DEFAULT_UPDATE_RATE = 400;
@@ -124,12 +124,11 @@ export class DraggableControl extends Component {
       } else if (this.inputRef) {
         const input = this.inputRef.current;
         input.value = internalValue;
-        // IE8: Dies when trying to focus a hidden element
-        // (Error: Object does not support this action)
-        try {
+
+        setTimeout(() => {
           input.focus();
           input.select();
-        } catch {}
+        }, 0);
       }
     };
   }
@@ -176,8 +175,8 @@ export class DraggableControl extends Component {
         style={{
           display: !editing ? 'none' : undefined,
           height: height,
-          'line-height': lineHeight,
-          'font-size': fontSize,
+          lineHeight: lineHeight,
+          fontsize: fontSize,
         }}
         onBlur={(e) => {
           if (!editing) {
@@ -208,7 +207,7 @@ export class DraggableControl extends Component {
           }
         }}
         onKeyDown={(e) => {
-          if (e.keyCode === 13) {
+          if (e.key === KEY.Enter) {
             let value;
             if (unclamped) {
               value = parseFloat(e.target.value);
@@ -234,7 +233,7 @@ export class DraggableControl extends Component {
             }
             return;
           }
-          if (e.keyCode === 27) {
+          if (isEscape(e.key)) {
             this.setState({
               editing: false,
             });
@@ -256,7 +255,6 @@ export class DraggableControl extends Component {
   }
 }
 
-DraggableControl.defaultHooks = pureComponentHooks;
 DraggableControl.defaultProps = {
   minValue: -Infinity,
   maxValue: +Infinity,

@@ -100,7 +100,7 @@
 	return make_plating()
 
 /turf/open/floor/wood/cold
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/wood/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -129,6 +129,7 @@
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 
 /turf/open/floor/grass/no_border
+	layer = TURF_LAYER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	smoothing_flags = NONE
@@ -267,6 +268,9 @@
 /turf/open/floor/grass/snow/safe
 	slowdown = 1.5
 	planetary_atmos = FALSE
+
+/turf/open/floor/grass/snow/safe/nocold
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 
 /turf/open/floor/grass/fakebasalt //Heart is not a real planeteer power
@@ -507,7 +511,6 @@
 	name = "concrete"
 	icon_state = "conc_smooth"
 	desc = "Cement Das Conk Creet Baybee."
-	footstep = FOOTSTEP_GENERIC_HEAVY
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY

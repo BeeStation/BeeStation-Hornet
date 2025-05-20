@@ -45,13 +45,6 @@
 	ghostize()
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
-	QDEL_LIST(mob_spell_list)
-	for(var/datum/action/A as() in actions)
-		if(istype(A.target, /obj/effect/proc_holder))
-			A.Remove(src) // Mind's spells' actions should only be removed
-		else
-			qdel(A) // Other actions can be safely deleted
-	actions.Cut()
 	return ..()
 
 /**
@@ -137,9 +130,9 @@
 
 	var/t =	span_notice("Coordinates: [x],[y] \n")
 	t +=	span_danger("Temperature: [environment.return_temperature()] \n")
-	for(var/id in environment.get_gases())
-		if(environment.get_moles(id))
-			t+=span_notice("[GLOB.gas_data.names[id]]: [environment.get_moles(id)] \n")
+	for(var/id in environment.gases)
+		if(environment.gases[id][MOLES])
+			t+=span_notice("[GLOB.meta_gas_info[id][META_GAS_NAME]]: [environment.gases[id][MOLES]] \n")
 
 	to_chat(usr, t)
 
@@ -236,7 +229,7 @@
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
@@ -342,7 +335,6 @@
 /mob/proc/get_slot_by_item(obj/item/looking_for)
 	if(looking_for in held_items)
 		return ITEM_SLOT_HANDS
-
 	return null
 
 ///Is the mob incapacitated
@@ -355,7 +347,7 @@
   * Mostly tries to put the item into the slot if possible, or call attack hand
   * on the item in the slot if the users active hand is empty
   */
-/mob/proc/attack_ui(slot)
+/mob/proc/attack_ui(slot, params)
 	if(world.time <= usr.next_move)
 		return FALSE
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -371,7 +363,8 @@
 		// Activate the item
 		var/obj/item/I = get_item_by_slot(slot)
 		if(istype(I))
-			I.attack_hand(src)
+			var/list/modifiers = params2list(params)
+			I.attack_hand(src, modifiers)
 
 	return FALSE
 
@@ -472,9 +465,8 @@
 				if(!put_in_hands(B))
 					return // box could not be placed in players hands.  I don't know what to do here...
 			//Now, B represents a container we can insert W into.
-			var/datum/component/storage/STR = B.GetComponent(/datum/component/storage)
-			if(STR.can_be_inserted(W, stop_messages=TRUE))
-				STR.handle_item_insertion(W,1)
+			if(B.atom_storage.can_insert(W))
+				B.atom_storage.attempt_insert(W)
 			return B
 
 /**
@@ -544,7 +536,7 @@
 	face_atom(A)
 	var/list/result = A.examine(src)
 
-	to_chat(src, EXAMINE_BLOCK(jointext(result, "\n")))
+	to_chat(src, examine_block(jointext(result, "\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
 /mob/proc/blind_examine_check(atom/examined_thing)
@@ -588,11 +580,10 @@
 
 	//now we touch the thing we're examining
 	/// our current intent, so we can go back to it after touching
-	var/previous_intent = a_intent
-	a_intent = INTENT_HELP
+	var/previous_combat_mode = combat_mode
+	set_combat_mode(FALSE)
 	examined_thing.attack_hand(src)
-	a_intent = previous_intent
-
+	set_combat_mode(previous_combat_mode)
 	return TRUE
 
 /**
@@ -821,24 +812,21 @@
 /mob/proc/is_muzzled()
 	return FALSE
 
-/**
-  * Convert a list of spells into a displyable list for the statpanel
-  *
-  * Shows charge and other important info
-  */
-/mob/proc/get_spell_stat_data(list/spells, current_tab)
-	var/list/stat_data = list()
-	for(var/obj/effect/proc_holder/spell/S in spells)
-		if(S.can_be_cast_by(src) && current_tab == S.panel)
-			client.stat_update_mode = STAT_MEDIUM_UPDATE
-			switch(S.charge_type)
-				if("recharge")
-					stat_data["[S.name]"] = GENERATE_STAT_TEXT("[S.charge_counter/10.0]/[S.charge_max/10]")
-				if("charges")
-					stat_data["[S.name]"] = GENERATE_STAT_TEXT("[S.charge_counter]/[S.charge_max]")
-				if("holdervar")
-					stat_data["[S.name]"] = GENERATE_STAT_TEXT("[S.holder_var_type] [S.holder_var_amount]")
-	return stat_data
+/datum/action/proc/get_stat_label()
+	var/label = ""
+	var/time_left = max(next_use_time - world.time, 0)
+	if (cooldown_time)
+		if(istype(src, /datum/action/spell))
+			var/datum/action/spell/spell = src
+			label = "Spell Level: [spell.spell_level]/[spell.spell_max_level], Spell Cooldown: [(spell.cooldown_time/10)] Seconds, Can be cast in [(time_left/10)]"
+		else
+			label = "Action Cooldown: [(cooldown_time/10)] Seconds,  Can be cast in [(time_left/10)]"
+	else
+		label = "Activate"
+	return label
+
+/datum/action/proc/update_stat_status(list/stat)
+	return null
 
 #define MOB_FACE_DIRECTION_DELAY 1
 
@@ -882,10 +870,6 @@
 	if(.)
 		client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
 
-///This might need a rename but it should replace the can this mob use things check
-/mob/proc/IsAdvancedToolUser()
-	return FALSE
-
 /mob/proc/swap_hand()
 	var/obj/item/held_item = get_active_held_item()
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
@@ -916,57 +900,106 @@
 		ghost.notify_cloning(message, sound, source, flashwindow)
 		return ghost
 
-///Add a spell to the mobs spell list
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
-	// HACK: Preferences menu creates one of every selectable species.
-	// Some species, like vampires, create spells when they're made.
-	// The "action" is created when those spells Initialize.
-	// Preferences menu can create these assets at *any* time, primarily before
-	// the atoms SS initializes.
-	// That means "action" won't exist.
-	if (isnull(S.action))
-		return
-	mob_spell_list += S
-	S.action.Grant(src)
+/**
+ * Checks to see if the mob can block magic
+ *
+ * args:
+ * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
+ * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
+**/
+/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+		return FALSE
 
-///Remove a spell from the mobs spell list
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)
-	if(!spell)
-		return
-	for(var/X in mob_spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		if(istype(S, spell))
-			mob_spell_list -= S
-			qdel(S)
+	// A list of all things which are providing anti-magic to us
+	var/list/antimagic_sources = list()
+	var/is_magic_blocked = FALSE
 
-///Return any anti magic atom on this mob that matches the magic type
-/mob/proc/anti_magic_check(magic = TRUE, holy = FALSE, major = TRUE, self = FALSE)
-	if(!magic && !holy)
-		return
-	var/list/protection_sources = list()
-	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, src, magic, holy, major, self, protection_sources) & COMPONENT_BLOCK_MAGIC)
-		if(protection_sources.len)
-			return pick(protection_sources)
-		else
-			return src
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_MAGIC_BLOCKED)
+		is_magic_blocked = TRUE
+	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
+		is_magic_blocked = TRUE
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_TRAIT(src, TRAIT_HOLY))
+		is_magic_blocked = TRUE
+
+	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
+		on_block_magic_effects(casted_magic_flags, antimagic_sources)
+
+	return is_magic_blocked
+
+/// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
+/mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	return
+
+/mob/proc/antimagic_trait_handler()
+	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+
+/mob/living/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	ADD_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(antimagic_trait_handler)), 6 SECONDS)
+	var/mutable_appearance/antimagic_effect
+	var/antimagic_color
+	var/atom/antimagic_source = length(antimagic_sources) ? pick(antimagic_sources) : src
+
+	if(magic_flags & MAGIC_RESISTANCE)
+		visible_message(
+			"<span class='warning'>[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!</span>",
+			"<span class='userdanger'>An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", MOB_SHIELD_LAYER)
+		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
+		playsound(src, 'sound/magic/magic_block.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
+		visible_message(
+			("<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>"),
+			("<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>"),
+		)
+		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
+		playsound(src, 'sound/magic/magic_block_holy.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_MIND)
+		visible_message(
+			("<span class='warning'>[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!</span>"),
+			("<span class='userdanger'>A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!</span>"),
+		)
+		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "telekinesishead", MOB_SHIELD_LAYER)
+		antimagic_color = LIGHT_COLOR_DARK_BLUE
+		playsound(src, 'sound/magic/magic_block_mind.ogg', 50, TRUE)
+
+	mob_light(range = 2, color = antimagic_color, duration = 5 SECONDS)
+	add_overlay(antimagic_effect)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), antimagic_effect), 5 SECONDS)
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
 
 ///Return any anti artifact atom on this mob
-/mob/proc/anti_artifact_check(self = FALSE)
+/mob/proc/anti_artifact_check(self = FALSE, slot)
 	var/list/protection_sources = list()
-	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources) & COMPONENT_BLOCK_ARTIFACT)
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources, slot) & COMPONENT_BLOCK_ARTIFACT)
 		if(protection_sources.len)
 			return pick(protection_sources)
 		else
 			return src
 
 /**
-  * Buckle a living mob to this mob
-  *
-  * You can buckle on mobs if you're next to them since most are dense
-  *
-  * Turns you to face the other mob too
-  */
-/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+ * Buckle a living mob to this mob. Also turns you to face the other mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ */
+/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(M.buckled && !force)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -1003,14 +1036,14 @@
 	if(IsAdminGhost(src))
 		return TRUE
 	var/datum/dna/mob_dna = has_dna()
-	if(mob_dna?.check_mutation(TK) && tkMaxRangeCheck(src, A))
+	if(mob_dna?.check_mutation(/datum/mutation/telekinesis) && tkMaxRangeCheck(src, A))
 		return TRUE
 	if(treat_mob_as_adjacent && src == A.loc)
 		return TRUE
 	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
+/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
 	return
 
 ///Can this mob use storage
@@ -1143,20 +1176,22 @@
 				bloom = client.prefs.read_preference(/datum/preference/numeric/bloom) * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
 			LA.alpha = lighting_alpha * (bloom / 255)
 
+
+
 ///Update the mouse pointer of the attached client in this mob
 /mob/proc/update_mouse_pointer()
-	if (!client)
+	if(!client)
 		return
-	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
-	if (ismecha(loc))
-		var/obj/vehicle/sealed/mecha/M = loc
-		if(M.mouse_pointer)
-			client.mouse_pointer_icon = M.mouse_pointer
-	else if (istype(loc, /obj/vehicle/sealed))
+	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+		client.mouse_pointer_icon = examine_cursor_icon
+	if(istype(loc, /obj/vehicle/sealed))
 		var/obj/vehicle/sealed/E = loc
 		if(E.mouse_pointer)
 			client.mouse_pointer_icon = E.mouse_pointer
-
+	if(client.mouse_override_icon)
+		client.mouse_pointer_icon = client.mouse_override_icon
 
 /// This mob can read
 /mob/proc/is_literate()
@@ -1196,10 +1231,6 @@
 		return FALSE
 
 	return TRUE
-
-///Can this mob hold items
-/mob/proc/can_hold_items()
-	return FALSE
 
 ///Get the id card on this mob
 /mob/proc/get_idcard(hand_first)
@@ -1318,16 +1349,5 @@
 	. = stat
 	stat = new_stat
 	update_action_buttons_icon(TRUE)
-
-/mob/proc/set_active_storage(new_active_storage)
-	if(active_storage)
-		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
-	active_storage = new_active_storage
-	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
-
-/mob/proc/active_storage_deleted(datum/source)
-	SIGNAL_HANDLER
-	set_active_storage(null)
 
 #undef MOB_FACE_DIRECTION_DELAY

@@ -10,10 +10,9 @@
 	var/title = "book"
 	item_flags = ISWEAPON
 
-/obj/item/storage/book/ComponentInitialize()
+/obj/item/storage/book/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 1
+	atom_storage.max_slots = 1
 
 /obj/item/storage/book/attack_self(mob/user)
 	to_chat(user, span_notice("The pages of [title] have been cut out!"))
@@ -38,7 +37,9 @@
 
 /obj/item/storage/book/bible/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/anti_magic, src, FALSE, TRUE, _allowed_slots = ITEM_SLOT_HANDS)
+	AddComponent(/datum/component/anti_magic, \
+	_source = src, \
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 
 /obj/item/storage/book/bible/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -55,7 +56,7 @@
 			if(icon_state == "honk1" || icon_state == "honk2")
 				var/mob/living/carbon/C = H
 				if(C.has_dna())
-					C.dna.add_mutation(CLOWNMUT)
+					C.dna.add_mutation(/datum/mutation/clumsy)
 				C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
 			src.update_icon()
 			return
@@ -114,7 +115,7 @@
 		if(choice == "Clown Bible" || choice == "Banana Bible")
 			var/mob/living/carbon/C = M
 			if(C.has_dna())
-				C.dna.add_mutation(CLOWNMUT)
+				C.dna.add_mutation(/datum/mutation/clumsy)
 			C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
 		to_chat(M, "[src] is now skinned as '[choice].'")
 		src.update_icon()
@@ -151,7 +152,7 @@
 
 /obj/item/storage/book/bible/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
 
-	if (!user.IsAdvancedToolUser())
+	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 
@@ -278,7 +279,7 @@
 		desc += span_warning("The name [ownername] is written in blood inside the cover.")
 
 /obj/item/storage/book/bible/syndicate/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
-	if (user.a_intent == INTENT_HELP)
+	if (!user.combat_mode)
 		return ..()
 	else
 		return ..(M,user,heal_mode = FALSE)

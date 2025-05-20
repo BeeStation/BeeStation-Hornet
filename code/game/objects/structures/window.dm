@@ -11,7 +11,7 @@
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/structure_window
-	CanAtmosPass = ATMOS_PASS_PROC
+	can_atmos_pass = ATMOS_PASS_PROC
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
 	pass_flags_self = PASSTRANSPARENT
@@ -28,9 +28,13 @@
 	var/mutable_appearance/crack_overlay
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
-	var/hitsound = 'sound/effects/Glasshit.ogg'
+	var/knocksound = 'sound/effects/glassknock.ogg'
+	var/bashsound = 'sound/effects/glassbash.ogg'
+	var/hitsound = 'sound/effects/glasshit.ogg'
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.4
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
 
 
 
@@ -65,7 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		state = WINDOW_SCREWED_TO_FRAME
 
 	ini_dir = dir
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 
 	if(fulltile)
 		setDir()
@@ -74,6 +78,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
+	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
+
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
@@ -81,10 +87,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+	if (flags_1 & ON_BORDER_1)
+		return
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
+
 /obj/structure/window/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
-
+	AddElement(/datum/element/atmos_sensitive)
 /obj/structure/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(the_rcd.mode == RCD_DECONSTRUCT)
 		return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
@@ -110,6 +123,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 /obj/structure/window/singularity_pull(S, current_size)
 	..()
+	if(anchored && current_size >= STAGE_TWO)
+		set_anchored(FALSE)
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
 
@@ -156,7 +171,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(span_notice("Something knocks on [src]."))
 	add_fingerprint(user)
-	playsound(src, 'sound/effects/Glassknock.ogg', 50, 1)
+	playsound(src, knocksound, 50, 1)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
@@ -164,17 +179,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		return 1
 	. = ..()
 
-/obj/structure/window/attack_hand(mob/user)
+/obj/structure/window/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 	if(!can_be_reached(user))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message(span_notice("[user] knocks on [src]."), \
-		span_notice("You knock on [src]."))
-	add_fingerprint(user)
-	playsound(src, 'sound/effects/Glassknock.ogg', 50, 1)
+
+	if(!user.combat_mode)
+		user.visible_message("<span class='notice'>[user] knocks on [src].</span>", \
+			"<span class='notice'>You knock on [src].</span>")
+		playsound(src, knocksound, 50, TRUE)
+	else
+		user.visible_message("<span class='warning'>[user] bashes [src]!</span>", \
+			"<span class='warning'>You bash [src]!</span>")
+		playsound(src, bashsound, 100, TRUE)
 
 /obj/structure/window/attack_paw(mob/user)
 	return attack_hand(user)
@@ -186,17 +206,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
-		return 1 //skip the afterattack
+		return TRUE //skip the afterattack
 
 	add_fingerprint(user)
 
-	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
+	if(I.tool_behaviour == TOOL_WELDER)
 		if(atom_integrity < max_integrity)
-			if(!I.tool_start_check(user, amount=0))
+			if(!I.tool_start_check(user, amount = 0))
 				return
 
 			to_chat(user, span_notice("You begin repairing [src]..."))
-			if(I.use_tool(src, user, 40, volume=50))
+			if(I.use_tool(src, user, 40, volume = 50))
 				atom_integrity = max_integrity
 				update_nearby_icons()
 				to_chat(user, span_notice("You repair [src]."))
@@ -245,9 +265,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 			return
 	return ..()
 
+/obj/structure/window/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 /obj/structure/window/set_anchored(anchorvalue)
 	..()
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, anchorvalue)
 	update_nearby_icons()
 
 /obj/structure/window/proc/check_state(checked_state)
@@ -309,37 +332,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if (fulltile)
 		. += new /obj/item/shard(location)
 
-/obj/structure/window/proc/can_be_rotated(mob/user,rotation_type)
-	if(!in_range(user, src))
-		return
-	if(anchored)
-		to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
-		return FALSE
-
-	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
-
-	if(!valid_window_location(loc, target_dir))
-		to_chat(user, span_warning("[src] cannot be rotated in that direction!"))
-		return FALSE
-	return TRUE
-
-/obj/structure/window/proc/after_rotation(mob/user,rotation_type)
-	ini_dir = dir
-	add_fingerprint(user)
+/obj/structure/window/proc/AfterRotation(mob/user, degrees)
+	air_update_turf(TRUE, FALSE)
 
 /obj/structure/window/Destroy()
-	set_density(FALSE)
-	air_update_turf(1)
+	var/turf/local_turf = get_turf(src)
 	update_nearby_icons()
-	return ..()
+	. = ..()
+	local_turf.air_update_turf(TRUE, FALSE)
 
 
 /obj/structure/window/Move()
 	var/turf/T = loc
 	. = ..()
-	move_update_air(T)
+	if(anchored)
+		move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/can_atmos_pass(turf/T, vertical = FALSE)
 	if(!anchored || !density)
 		return TRUE
 	return !(fulltile || dir == get_dir(loc, T))
@@ -368,16 +377,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
 		add_overlay(crack_overlay)
 
-/obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > T0C + heat_resistance
 
-	if(exposed_temperature > (T0C + heat_resistance))
-		take_damage(round(exposed_volume / 100), BURN, 0, 0)
-	..()
+/obj/structure/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(round(air.return_volume() / 100), BURN, 0, 0)
 
 /obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
 
-/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	if(!density)
 		return 1
 	if(fulltile || (dir == to_dir))
@@ -444,6 +453,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	rad_insulation = RAD_NO_INSULATION
 
+/obj/structure/window/plasma/ComponentInitialize()
+	. = ..()
+	RemoveElement(/datum/element/atmos_sensitive)
+
 
 /datum/armor/window_plasma
 	melee = 75
@@ -484,7 +497,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	max_integrity = 500
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/plasmarglass
-
 
 /datum/armor/plasma_reinforced
 	melee = 85
@@ -636,6 +648,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	flags_1 = PREVENT_CLICK_UNDER_1
 	glass_amount = 2
 
+/obj/structure/window/reinforced/tinted/fulltile/nightclub
+	color = "#9b1d70"
+
 /obj/structure/window/reinforced/fulltile/ice
 	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi'
 	icon_state = "rice_window-0"
@@ -732,9 +747,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_type = /obj/item/stack/sheet/paperframes
 	heat_resistance = 233
 	decon_speed = 10
-	CanAtmosPass = ATMOS_PASS_YES
+	can_atmos_pass = ATMOS_PASS_YES
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/none
+	knocksound = "pageturn"
+	bashsound = 'sound/weapons/slashmiss.ogg'
 	breaksound = 'sound/items/poster_ripped.ogg'
 	hitsound = 'sound/weapons/slashmiss.ogg'
 	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/windows/paperframes.dmi',icon_state = "torn", layer = ABOVE_OBJ_LAYER - 0.1)
@@ -754,20 +771,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	for (var/i in 1 to rand(1,4))
 		. += new /obj/item/paper/natural(location)
 
-/obj/structure/window/paperframe/attack_hand(mob/user)
+/obj/structure/window/paperframe/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 	add_fingerprint(user)
-	if(user.a_intent != INTENT_HARM)
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("[user] knocks on [src].")
-		playsound(src, "pageturn", 50, 1)
-	else
-		take_damage(4, BRUTE, MELEE, 0)
-		playsound(src, hitsound, 50, 1)
+	if(user.combat_mode)
+		take_damage(4,BRUTE,MELEE, 0)
 		if(!QDELETED(src))
-			user.visible_message(span_danger("[user] tears a hole in [src]."))
 			update_appearance()
 
 /obj/structure/window/paperframe/update_icon()
@@ -782,11 +793,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	QUEUE_SMOOTH(src)
 
 
-/obj/structure/window/paperframe/attackby(obj/item/W, mob/user)
+/obj/structure/window/paperframe/attackby(obj/item/W, mob/living/user)
 	if(W.is_hot())
 		fire_act(W.is_hot())
 		return
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 	if(istype(W, /obj/item/paper) && atom_integrity < max_integrity)
 		user.visible_message("[user] starts to patch the holes in \the [src].")

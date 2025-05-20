@@ -213,13 +213,8 @@
 	else
 		return null
 
-/mob/living/carbon/human/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED))
-		return FALSE
-	return TRUE//Humans can use guns and such
-
-/mob/living/carbon/human/reagent_check(datum/reagent/R)
-	return dna.species.handle_chemicals(R,src)
+/mob/living/carbon/human/reagent_check(datum/reagent/R, delta_time, times_fired)
+	return dna.species.handle_chemicals(R, src, delta_time, times_fired)
 	// if it returns 0, it will run the usual on_mob_life for that reagent. otherwise, it will stop after running handle_chemicals for the species.
 
 
@@ -237,17 +232,12 @@
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(src.dna.check_mutation(HULK))
-			to_chat(src, span_warning("Your meaty finger is much too large for the trigger guard!"))
+		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
+			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return FALSE
 		if(HAS_TRAIT(src, TRAIT_NOGUNS))
-			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
+			to_chat(src, "<span class='warning'>You can't bring yourself to use a ranged weapon!</span>")
 			return FALSE
-	if(mind)
-		if(mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-			to_chat(src, span_warning("Use of ranged weaponry would bring dishonor to the clan."))
-			return FALSE
-
 	return .
 
 /mob/living/carbon/human/proc/get_bank_account()

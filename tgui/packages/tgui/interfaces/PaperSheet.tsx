@@ -8,7 +8,7 @@ import { Box, Button, Flex, Section, TextArea } from '../components';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 import { marked } from 'marked';
-import { Component, createRef, RefObject } from 'inferno';
+import { Component, createRef, RefObject, UIEvent, UIEventHandler } from 'react';
 import { clamp } from 'common/math';
 
 const Z_INDEX_STAMP = 1;
@@ -96,7 +96,7 @@ enum InteractionType {
 
 type PreviewViewProps = {
   scrollableRef: RefObject<HTMLDivElement>;
-  handleOnScroll: (this: GlobalEventHandlers, ev: Event) => any;
+  handleOnScroll: UIEventHandler<HTMLDivElement>;
   textArea: string;
 };
 
@@ -245,11 +245,11 @@ class PaperSheetStamper extends Component<PaperSheetStamperProps> {
 export const Stamp = (props) => {
   const { activeStamp, sprite, x, y, rotation, opacity, yOffset = 0 } = props;
   const stamp_transform = {
-    'left': x + 'px',
-    'top': y + yOffset + 'px',
-    'transform': 'rotate(' + rotation + 'deg)',
-    'opacity': opacity || 1.0,
-    'z-index': activeStamp ? Z_INDEX_STAMP_PREVIEW : Z_INDEX_STAMP,
+    left: x + 'px',
+    top: y + yOffset + 'px',
+    transform: 'rotate(' + rotation + 'deg)',
+    opacity: opacity || 1.0,
+    zIndex: activeStamp ? Z_INDEX_STAMP_PREVIEW : Z_INDEX_STAMP,
   };
 
   return <div id="stamp" className={classes(['Paper__Stamp', sprite])} style={stamp_transform} />;
@@ -268,14 +268,14 @@ export class PrimaryView extends Component {
 
   // Event handler for the onscroll event. Also gets passed to the <Section>
   // holding the main preview. Updates lastDistanceFromBottom.
-  onScrollHandler: (this: GlobalEventHandlers, ev: Event) => any;
+  onScrollHandler: UIEventHandler<HTMLDivElement>;
 
   constructor(props) {
     super(props);
     this.scrollableRef = createRef();
     this.lastDistanceFromBottom = 0;
 
-    this.onScrollHandler = (ev: Event) => {
+    this.onScrollHandler = (ev: UIEvent) => {
       const scrollable = ev.currentTarget as HTMLDivElement;
       if (scrollable) {
         this.lastDistanceFromBottom = scrollable.scrollHeight - scrollable.scrollTop;
@@ -876,13 +876,13 @@ export class PreviewView extends Component<PreviewViewProps> {
     }
 
     const textHTML = {
-      __html: `<span class='paper-text'>${previewText}</span>`,
+      __html: `<span className='paper-text'>${previewText}</span>`,
     };
 
     const { scrollableRef, handleOnScroll } = this.props;
 
     return (
-      <Section fill fitted scrollable scrollableRef={scrollableRef} onScroll={handleOnScroll}>
+      <Section fill fitted scrollable ref={scrollableRef} onScroll={handleOnScroll}>
         <Box
           fillPositionedParent
           position="relative"

@@ -9,7 +9,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
 	"1408" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
 	"1428" = "bug causing right-click menus to show too many verbs that's been fixed in version 1429",
-
 	))
 
 #define LIMITER_SIZE	5
@@ -206,6 +205,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
 
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
+
 	// Instantiate tgui panel
 	tgui_panel = new(src, "browseroutput")
 
@@ -213,6 +215,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_asay = new(src, "tgui_asay")
 
 	initialize_commandbar_spy()
+
+	set_right_click_menu_mode(TRUE)
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
@@ -394,7 +398,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			msg += "Your version: [byond_version].[byond_build]<br>"
 			msg += "Required version to remove this message: [warn_version].[warn_build] or later<br>"
 			msg += "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.<br>"
-			src << browse(msg, "window=warning_popup")
+			src << browse(HTML_SKELETON(msg), "window=warning_popup")
 		else
 			to_chat(src, span_danger("<b>Your version of byond may be getting out of date:</b>"))
 			to_chat(src, CONFIG_GET(string/client_warn_message))
@@ -499,6 +503,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
 	mob.UpdateMobStat(TRUE)
 	fully_created = TRUE
+
+/client/proc/set_right_click_menu_mode(shift_only)
+	if(shift_only)
+		winset(src, "mapwindow.map", "right-click=true")
+		winset(src, "default.ShiftUp", "is-disabled=false")
+		winset(src, "default.Shift", "is-disabled=false")
+	else
+		winset(src, "mapwindow.map", "right-click=false")
+		winset(src, "default.Shift", "is-disabled=true")
+		winset(src, "default.ShiftUp", "is-disabled=true")
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
@@ -1114,7 +1128,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		dat += "<br>"
 		dat += "[uuid]"
 
-		src << browse(dat, "window=accountidentifier;size=600x320")
+		src << browse(HTML_SKELETON(dat), "window=accountidentifier;size=600x320")
 		onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()

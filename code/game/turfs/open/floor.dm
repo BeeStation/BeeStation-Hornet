@@ -16,8 +16,8 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
-	thermal_conductivity = 0.04
-	heat_capacity = 10000
+	thermal_conductivity = 0.02
+	heat_capacity = 20000
 	tiled_dirt = TRUE
 
 	overfloor_placed = TRUE
@@ -58,6 +58,13 @@
 
 /turf/open/floor/attack_paw(mob/user)
 	return attack_hand(user)
+
+/turf/open/floor/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user, modifiers)
 
 /turf/open/floor/after_damage(damage_amount, damage_type, damage_flag)
 	if (broken || burnt)

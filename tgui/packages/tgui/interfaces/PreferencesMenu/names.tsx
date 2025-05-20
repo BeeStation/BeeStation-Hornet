@@ -40,8 +40,8 @@ export const MultiNameInput = (props: {
         return (
           <Modal
             style={{
-              'margin': '0 auto',
-              'width': '40%',
+              margin: '0 auto',
+              width: '40%',
             }}>
             <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
               <Section
@@ -147,14 +147,14 @@ export const NameInput = (props: {
       }}
       width="100%"
       height="28px">
-      <Stack fill style={{ 'align-items': 'center' }} align="center">
+      <Stack fill style={{ alignItems: 'center' }} align="center">
         <Stack.Item width="20px">
           <Icon
             style={{
-              'color': 'rgba(255, 255, 255, 0.5)',
-              'font-size': '17px',
-              'margin-top': '5px',
-              'display': 'inline-block',
+              color: 'rgba(255, 255, 255, 0.5)',
+              fontSize: '17px',
+              marginTop: '5px',
+              display: 'inline-block',
             }}
             name="edit"
           />
@@ -165,7 +165,7 @@ export const NameInput = (props: {
           position="relative"
           textAlign="center"
           style={{
-            'border-bottom': '2px dotted rgba(255, 255, 255, 0.8)',
+            borderBottom: '2px dotted rgba(255, 255, 255, 0.8)',
           }}>
           {(editing && (
             <Input
@@ -213,9 +213,9 @@ export const NameInput = (props: {
                   <Icon
                     name="bars"
                     style={{
-                      'position': 'relative',
-                      'left': '2px',
-                      'min-width': '0px',
+                      position: 'relative',
+                      left: '2px',
+                      minWidth: '0px',
                     }}
                   />
                 </Button>

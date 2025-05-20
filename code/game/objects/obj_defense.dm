@@ -30,7 +30,7 @@
 		visible_message(span_danger("[src] is hit by \a [P][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		..(user, 1)
 		if(density)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
@@ -93,13 +93,13 @@
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
 
-/obj/attack_slime(mob/living/simple_animal/slime/M)
-	if(!M.is_adult)
+/obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
+	if(!user.is_adult)
 		return
 	var/damage = rand(15)
-	if(M.transformeffects & SLIME_EFFECT_RED)
+	if(user.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1
-	attack_generic(M, damage, MELEE, 1)
+	attack_generic(user, damage, MELEE, 1)
 
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src
@@ -175,6 +175,7 @@
 
 //what happens when the obj's integrity reaches zero.
 /obj/atom_destruction(damage_flag)
+	. = ..()
 	if(damage_flag == ACID)
 		acid_melt()
 	else if(damage_flag == FIRE)

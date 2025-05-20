@@ -162,12 +162,20 @@
 	else
 		return ..()
 
-/obj/machinery/chem_master/AltClick(mob/living/user)
+/obj/machinery/chem_master/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(!can_interact(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(!can_interact(user) || !user.canUseTopic(src, !issilicon(user), FALSE, NO_TK))
 		return
 	replace_beaker(user)
-	ui_update()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/chem_master/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
+
+/obj/machinery/chem_master/attack_ai_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /**
   * Handles process of moving input reagents containers in/from machine
@@ -235,9 +243,8 @@
 	data["autoCondiStyle"] = CONDIMASTER_STYLE_AUTO
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
-		var/datum/component/storage/STRB = bottle.GetComponent(/datum/component/storage)
 		data["pillBottleCurrentAmount"] = bottle.contents.len
-		data["pillBottleMaxAmount"] = STRB.max_items
+		data["pillBottleMaxAmount"] = bottle.atom_storage.max_slots
 
 	var/beaker_contents[0]
 	if(beaker)
@@ -413,10 +420,8 @@
 					var/target_loc = drop_location()
 					var/drop_threshold = INFINITY
 					if(bottle)
-						var/datum/component/storage/STRB = bottle.GetComponent(
-							/datum/component/storage)
-						if(STRB)
-							drop_threshold = STRB.max_items - bottle.contents.len
+						if(bottle.atom_storage)
+							drop_threshold = bottle.atom_storage.max_slots - bottle.contents.len
 							target_loc = bottle
 					for(var/i in 1 to amount)
 						if(i-1 < drop_threshold)

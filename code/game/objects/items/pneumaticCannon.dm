@@ -77,8 +77,8 @@
 		out += span_notice("[icon2html(tank, user)] It has \a [tank] mounted onto it.")
 	. += out.Join("\n")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
+/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/living/user, params)
+	if(user.combat_mode)
 		return ..()
 	if(istype(W, /obj/item/tank/internals))
 		if(!tank)
@@ -139,7 +139,7 @@
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/user, flag, params)
 	. = ..()
-	if(flag && user.a_intent == INTENT_HARM) //melee attack
+	if(flag && user.combat_mode)//melee attack
 		return
 	if(!istype(user))
 		return
@@ -157,7 +157,7 @@
 	if(!tank && checktank)
 		to_chat(user, span_warning("\The [src] can't fire without a source of gas."))
 		return
-	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
+	if(tank && !tank.remove_air(gasPerThrow * pressureSetting))
 		to_chat(user, span_warning("\The [src] lets out a weak hiss and doesn't react!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75) && clumsyCheck && iscarbon(user))
@@ -336,14 +336,13 @@
 	icon_state = "quiver"
 	item_state = "quiver"
 
-/obj/item/storage/backpack/magspear_quiver/ComponentInitialize()
+/obj/item/storage/backpack/magspear_quiver/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 30
-	STR.max_w_class = WEIGHT_CLASS_BULKY
-	STR.max_combined_w_class = STR.max_w_class*STR.max_items
-	STR.display_numerical_stacking = TRUE
-	STR.set_holdable(list(
+	atom_storage.max_slots = 30
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
+	atom_storage.max_total_storage = atom_storage.max_specific_storage * atom_storage.max_slots
+	atom_storage.numerical_stacking = TRUE
+	atom_storage.set_holdable(list(
 		/obj/item/throwing_star/magspear
 		))
 

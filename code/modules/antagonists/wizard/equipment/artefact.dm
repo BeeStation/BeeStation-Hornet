@@ -38,7 +38,7 @@
 	icon_state = "rift"
 	density = TRUE
 	anchored = TRUE
-	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
+	var/spawn_path = /mob/living/basic/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 	var/spawn_fast = 0
 
@@ -78,7 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/item/veilrender/vealrender
 	name = "veal render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast farm."
-	spawn_type = /mob/living/simple_animal/cow
+	spawn_type = /mob/living/basic/cow
 	spawn_amt = 20
 	activate_descriptor = "hunger"
 	rend_desc = "Reverberates with the sound of ten thousand moos."
@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		if(ismob(A))
 			to_chat(A, span_warning("There is no way out of this place..."))
 		return
-	var/atom/return_thing = pick(GLOB.destabliization_exits)
+	var/atom/return_thing = pick(GLOB.destabliization_exits) || pick(get_safe_random_station_turfs())
 	var/turf/T = get_turf(return_thing)
 	if(!T)
 		return
@@ -488,7 +488,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	while(breakout < 50)
 		var/turf/potential_T = find_safe_turf()
 		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
-			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD)
+			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC_SELF, teleport_mode = TELEPORT_ALLOW_WIZARD)
 			T = potential_T
 			break
 		breakout += 1

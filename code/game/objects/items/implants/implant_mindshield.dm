@@ -1,7 +1,7 @@
 /obj/item/implant/mindshield
 	name = "mindshield implant"
 	desc = "Protects against brainwashing."
-	activated = 0
+	actions_types = null
 
 /obj/item/implant/mindshield/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -32,7 +32,6 @@
 			removed(target, 1)
 			qdel(src)
 			return FALSE
-
 
 		var/datum/antagonist/rev/rev = target.mind.has_antag_datum(/datum/antagonist/rev)
 		if(rev)

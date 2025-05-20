@@ -103,7 +103,7 @@
 /obj/item/powersink/attack_silicon()
 	return TRUE
 
-/obj/item/powersink/attack_hand(mob/user)
+/obj/item/powersink/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -159,7 +159,7 @@
 	if(power_drained > max_power * 0.98)
 		if (!admins_warned)
 			admins_warned = TRUE
-			message_admins("Power sink at ([x],[y],[z] - <A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
+			message_admins("Power sink at ([x],[y],[z] - <A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
 		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
 
 	if(power_drained >= max_power)

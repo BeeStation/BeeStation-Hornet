@@ -308,17 +308,23 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/virusfood, 30)
 	icon_state = "water_stationairy"
 	desc = "A stationairy, plumbed, water tank."
 
+/obj/structure/reagent_dispensers/plumbed/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/plumbing/simple_supply)
+
 /obj/structure/reagent_dispensers/plumbed/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
 	return TRUE
 
-/obj/structure/reagent_dispensers/plumbed/ComponentInitialize()
-	AddComponent(/datum/component/plumbing/simple_supply)
+/obj/structure/reagent_dispensers/plumbed/storage/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/reagent_dispensers/plumbed/storage
 	name = "stationairy storage tank"
 	icon_state = "tank_stationairy"
 	reagent_id = null //start empty
 
-/obj/structure/reagent_dispensers/plumbed/storage/ComponentInitialize()
+/obj/structure/reagent_dispensers/plumbed/storage/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
 	AddComponent(/datum/component/plumbing/tank)

@@ -11,7 +11,7 @@
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 2
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
@@ -199,18 +199,6 @@
 		visible_message(span_warning("[src] twists and dissolves into a pile of green flesh!"), \
 						span_userdanger("Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--"))
 		restore()
-	barf_contents()
-	..()
-
-/mob/living/simple_animal/hostile/morph/proc/barf_contents()
-	for(var/atom/movable/AM in src)
-		RemoveContents(AM)
-		if(prob(90))
-			step(AM, pick(GLOB.alldirs))
-	morph_stomach.ui_update()
-
-/mob/living/simple_animal/hostile/morph/wabbajack_act(mob/living/new_mob)
-	barf_contents()
 	. = ..()
 
 /mob/living/simple_animal/hostile/morph/Aggro() // automated only

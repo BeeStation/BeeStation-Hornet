@@ -81,7 +81,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 	gibtypes = list(/obj/effect/decal/cleanable/blood/splatter, /obj/effect/decal/cleanable/blood/drip, /obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/gibspawner/generic/animal
-	gib_mob_type = /mob/living/simple_animal/pet
+	gib_mob_type = /mob/living/basic/pet
 
 
 

@@ -207,7 +207,7 @@
 	sleep(500)
 	priority_announce("Simulations on acausal dimensional event complete. Deploying solution package now. Deployment ETA: ONE MINUTE. ", "Central Command Higher Dimensional Affairs", SSstation.announcer.get_rand_alert_sound())
 	sleep(50)
-	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 	SSshuttle.registerHostileEnvironment(src)
 	sleep(600)
 	if(resolved == FALSE)

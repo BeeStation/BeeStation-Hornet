@@ -26,7 +26,7 @@
 	maxHealth = 350
 	health = 350
 	spacewalk = TRUE
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
 	attack_verb_continuous = "chomps"
@@ -74,7 +74,7 @@
 	/// Whether space dragon is swallowing a body currently
 	var/is_swallowing = FALSE
 	/// The cooldown ability to use wing gust
-	var/datum/action/cooldown/gust_attack/gust
+	var/datum/action/gust_attack/gust
 	/// The ability to make your sprite smaller
 	var/datum/action/small_sprite/space_dragon/small_sprite
 	/// The color of the space dragon.
@@ -111,9 +111,9 @@
 		//dragon_name()
 		color_selection()
 
-/mob/living/simple_animal/hostile/space_dragon/Life(seconds, times_fired)
+/mob/living/simple_animal/hostile/space_dragon/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
-	tiredness = max(tiredness - 1, 0)
+	tiredness = max(tiredness - (0.5 * delta_time), 0)
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
 	if(using_special)
@@ -168,17 +168,12 @@
 	fire_stream()
 
 /mob/living/simple_animal/hostile/space_dragon/death(gibbed)
-	empty_contents()
-	..()
+	. = ..()
 	update_dragon_overlay()
 
 /mob/living/simple_animal/hostile/space_dragon/revive(full_heal, admin_revive)
 	. = ..()
 	update_dragon_overlay()
-
-/mob/living/simple_animal/hostile/space_dragon/wabbajack_act(mob/living/new_mob)
-	empty_contents()
-	. = ..()
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
 	set waitfor = FALSE
@@ -350,18 +345,6 @@
 	return FALSE
 
 /**
-  * Disperses the contents of the mob on the surrounding tiles.
-  *
-  * Randomly places the contents of the mob onto surrounding tiles.
-  * Has a 10% chance to place on the same tile as the mob.
-  */
-/mob/living/simple_animal/hostile/space_dragon/proc/empty_contents()
-	for(var/atom/movable/AM in src)
-		AM.forceMove(loc)
-		if(prob(90))
-			step(AM, pick(GLOB.alldirs))
-
-/**
   * Resets Space Dragon's status after using wing gust.
   *
   * Resets Space Dragon's status after using wing gust.
@@ -459,7 +442,7 @@
 			var/link = FOLLOW_LINK(S, src)
 			to_chat(S, "[link] [rendered]")
 
-/datum/action/cooldown/gust_attack
+/datum/action/gust_attack
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
@@ -467,9 +450,10 @@
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 
-/datum/action/cooldown/gust_attack/Trigger()
-	if(!..() || !istype(owner, /mob/living/simple_animal/hostile/space_dragon))
-		return FALSE
+/datum/action/gust_attack/is_available()
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/space_dragon)
+
+/datum/action/gust_attack/on_activate(mob/user, atom/target)
 	var/mob/living/simple_animal/hostile/space_dragon/S = owner
 	if(S.using_special)
 		return FALSE
@@ -477,7 +461,7 @@
 	S.icon_state = "spacedragon_gust"
 	S.update_dragon_overlay()
 	S.useGust(TRUE)
-	StartCooldown()
+	start_cooldown()
 	return TRUE
 
 #undef DARKNESS_THRESHOLD

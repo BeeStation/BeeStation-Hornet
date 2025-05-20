@@ -26,6 +26,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/smoketime = 10
 	w_class = WEIGHT_CLASS_TINY
 	heat = 1000
+	throw_verb = "flick"
 	grind_results = list(/datum/reagent/phosphorus = 2)
 	item_flags = ISWEAPON
 
@@ -83,7 +84,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
 		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && user.a_intent == INTENT_HELP)
+	if(lit && cig && !user.combat_mode)
 		if(cig.lit)
 			to_chat(user, span_notice("[cig] is already lit."))
 		if(M == user)
@@ -196,7 +197,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		return
-	if(lit && user.a_intent == INTENT_HARM)
+	if(lit && user.combat_mode)
 		force = 4
 		var/target_zone = user.get_combat_bodyzone()
 		M.apply_damage(force, BURN, target_zone)
@@ -206,7 +207,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		new /obj/effect/decal/cleanable/ash(M.loc)
 		playsound(user, 'sound/surgery/cautery2.ogg', 25, 1)
 		return
-	if(lit && user.a_intent != INTENT_HARM)
+	if(lit && !user.combat_mode)
 		smoketime -= 120
 		if(prob(40))
 			src.extinguish()
@@ -345,7 +346,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		light(span_notice("[user] lights [src] with [M]'s burning body. What a cold-blooded badass."))
 		return
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && user.a_intent == INTENT_HELP)
+	if(lit && cig && !user.combat_mode)
 		if(cig.lit)
 			to_chat(user, span_notice("The [cig.name] is already lit."))
 		if(M == user)
@@ -741,7 +742,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
 		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && user.a_intent == INTENT_HELP)
+	if(lit && cig && !user.combat_mode)
 		if(cig.lit)
 			to_chat(user, span_notice("The [cig.name] is already lit."))
 		if(M == user)

@@ -30,7 +30,7 @@
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
-	log_combat(user, M, "electrified", src, "(INTENT: [uppertext(user.a_intent)])")
+	log_combat(user, M, "electrified", src, "(Combat mode: [user.combat_mode ? "On" : "Off"])")
 
 /obj/item/borg/cyborghug
 	name = "hugging module"
@@ -64,12 +64,17 @@
 		if(3)
 			to_chat(user, "ERROR: ARM ACTUATORS OVERLOADED.")
 
-/obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/robot/user)
+/obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/robot/user, params)
 	if(M == user)
 		return
 	switch(mode)
 		if(0)
 			if(M.health >= 0)
+				if(isanimal(M))
+					var/list/modifiers = params2list(params)
+					if (!user.combat_mode && !LAZYACCESS(modifiers, RIGHT_CLICK))
+						M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
+					return
 				if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE))
 					user.visible_message(span_notice("[user] playfully boops [M] on the head!"), \
 									span_notice("You playfully boop [M] on the head!"))
@@ -517,7 +522,7 @@
 		A.BB.nodamage = FALSE
 	A.BB.speed = 0.5
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-	A.fire_casing(target, user, params, 0, 0, null, 0, 1, src)
+	A.fire_casing(target, user, params, fired_from = src)
 	user.visible_message(span_warning("[user] blasts a flying lollipop at [target]!"))
 	check_amount()
 
@@ -533,7 +538,7 @@
 	A.BB.speed = 0.5
 	A.BB.color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	playsound(src.loc, 'sound/weapons/bulletflyby3.ogg', 50, 1)
-	A.fire_casing(target, user, params, 0, 0, null, 0, 1, src)
+	A.fire_casing(target, user, params, fired_from = src)
 	user.visible_message(span_warning("[user] shoots a high-velocity gumball at [target]!"))
 	check_amount()
 
@@ -980,7 +985,7 @@
 		playsound(src, 'sound/machines/click.ogg', 10, 1)
 		update_icon()
 		return
-	if(stored && !user.client?.keys_held["Alt"] && user.a_intent != "help")
+	if(stored && !user.client?.keys_held["Alt"] && user.combat_mode)
 		var/obj/item/reagent_containers/C = stored
 		C.SplashReagents(get_turf(user))
 		loc.visible_message(span_notice("[user] spills the contents of the [C] all over the floor."))

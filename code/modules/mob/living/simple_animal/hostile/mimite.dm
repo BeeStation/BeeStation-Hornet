@@ -10,7 +10,7 @@
 	icon_living = "mimite"
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	melee_damage = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -252,8 +252,8 @@
 	else if(entry_vent)
 		if(get_dist(src, entry_vent) <= 3)
 			var/list/vents = list()
-			var/datum/pipeline/entry_vent_parent = entry_vent.parents[1]
-			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
+			var/datum/pipenet/entry_vent_parent = entry_vent.parents[1]
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmos_machines)
 				vents.Add(temp_vent)
 			if(!vents.len)
 				entry_vent = null

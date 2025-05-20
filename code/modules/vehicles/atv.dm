@@ -5,7 +5,7 @@
 	icon_state = "atv"
 	max_integrity = 150
 	armor_type = /datum/armor/ridden_atv
-	key_type = /obj/item/key
+	key_type = /obj/item/key/atv
 	integrity_failure = 0.5
 	var/static/mutable_appearance/atvcover
 
@@ -20,14 +20,7 @@
 
 /obj/vehicle/ridden/atv/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 1.5
-	D.empable = TRUE
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
-	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/atv)
 
 /obj/vehicle/ridden/atv/post_buckle_mob(mob/living/M)
 	add_overlay(atvcover)
@@ -74,8 +67,8 @@
 				turret.pixel_y = base_pixel_y + 4
 				turret.layer = OBJ_LAYER
 
-/obj/vehicle/ridden/atv/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
+/obj/vehicle/ridden/atv/attackby(obj/item/W as obj, mob/living/user as mob, params)
+	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		if(atom_integrity < max_integrity)
 			if(W.use_tool(src, user, 0, volume=50, amount=1))
 				user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to \the [src]."))

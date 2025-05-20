@@ -13,8 +13,8 @@
 
 	allow_z_travel = TRUE
 
-	initial_temperature = TCMB
-	thermal_conductivity = 0
+	temperature = TCMB
+	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 
 	// Since we have a lighting layer that extends further than the turf, make this turf
@@ -25,9 +25,10 @@
 	var/destination_x
 	var/destination_y
 
-	var/static/datum/gas_mixture/immutable/space/space_gas
+	var/static/datum/gas_mixture/immutable/space/space_gas = new
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
+	run_later = TRUE
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
@@ -58,11 +59,11 @@
  * intentionally ommitted from this implementation.
  */
 /turf/open/space/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
 		space_gas = new
 	air = space_gas
-	update_air_ref(0)
 
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -71,6 +72,9 @@
 	var/area/A = loc
 	if(IS_DYNAMIC_LIGHTING(A))
 		overlays += GLOB.starlight_overlay
+
+	if(requires_activation)
+		SSair.add_to_active(src, TRUE)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -88,7 +92,7 @@
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
 
-/turf/open/space/TakeTemperature(temp)
+/turf/open/space/take_temperature(temp)
 
 /turf/open/space/RemoveLattice()
 	return
@@ -102,9 +106,6 @@
 
 //IT SHOULD RETURN NULL YOU MONKEY, WHY IN TARNATION WHAT THE FUCKING FUCK
 /turf/open/space/remove_air(amount)
-	return null
-
-/turf/open/space/remove_air_ratio(amount)
 	return null
 
 /turf/open/space/attack_paw(mob/user)
@@ -252,3 +253,6 @@
 
 /turf/open/space/check_gravity()
 	return FALSE
+
+/turf/open/space/rad_act(pulse_strength)
+	return

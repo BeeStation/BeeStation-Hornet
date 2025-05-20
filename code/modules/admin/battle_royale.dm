@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/gun/energy/disabler,
 		/obj/item/construction/rcd,
 		/obj/item/clothing/glasses/chameleon/flashproof,
-		/obj/item/book/granter/spell/knock,
+		/obj/item/book/granter/action/spell/knock,
 		/obj/item/clothing/glasses/sunglasses/advanced,
 		/obj/item/clothing/glasses/thermal/eyepatch,
 		/obj/item/clothing/glasses/thermal/syndi,
@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/clothing/head/helmet/sec,
 		/obj/item/clothing/under/syndicate,
-		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/gloves/tackler/combat,
 		/obj/item/deployablemine/stun,
 		/obj/item/switchblade,
 		/obj/item/club/tailclub,
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/ammo_box/magazine/smgm45,
 		/obj/item/ammo_box/magazine/pistolm9mm,
 		/obj/item/katana,
-		/obj/item/melee/transforming/energy/sword,
+		/obj/item/melee/energy/sword,
 		/obj/item/dualsaber,
 		/obj/item/fireaxe,
 		/obj/item/stack/sheet/telecrystal/five,
@@ -195,6 +195,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/death_wall
 	var/field_delay = 15
 	var/debug_mode = FALSE
+	var/datum/action/spell/aoe/knock/knock = new /datum/action/spell/aoe/knock
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)
@@ -338,7 +339,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
 		//Give them a spell
-		H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock)
+		knock.Grant(H)
 		H.key = key
 		//Give weapons key
 		var/obj/item/implant/weapons_auth/W = new
@@ -357,7 +358,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
-		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
+		knock.Remove(M)
 		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		to_chat(M, span_greenannounce("You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing."))

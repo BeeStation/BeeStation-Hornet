@@ -45,6 +45,8 @@
 		return
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
+	if(MOB_INORGANIC in owner.mob_biotypes)//does not process in inorganic things
+		return
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)
 	if(timer_id)
@@ -76,22 +78,19 @@
 	var/stand_up = (C.stat == DEAD) || (C.stat == UNCONSCIOUS)
 
 	//Fully heal the zombie's damage the first time they rise
-	C.setToxLoss(0, 0)
-	C.setOxyLoss(0, 0)
 	C.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
-	C.heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE)
-
-	C.revive()
+	if(C.heal_and_revive(0, span_danger("[C] suddenly convulses, as [C.p_they()][stand_up ? " stagger to [C.p_their()] feet and" : ""] gain a ravenous hunger in [C.p_their()] eyes!")))
+		return
 	C.grab_ghost()
 
-	C.visible_message(span_danger("[owner] suddenly convulses, as [owner.p_they()][stand_up ? " stagger to [owner.p_their()] feet and" : ""] gain a ravenous hunger in [owner.p_their()] eyes!"), span_alien("You HUNGER!"))
-	playsound(C.loc, 'sound/hallucinations/far_noise.ogg', 50, 1)
+	to_chat(C, span_alien("You HUNGER!"))
+	to_chat(C, span_alertalien("You are now a zombie! Do not seek to be cured, do not help any non-zombies in any way, do not harm your zombie brethren and spread the disease by killing others. You are a creature of hunger and violence."))
+	playsound(C, 'sound/hallucinations/far_noise.ogg', 50, 1)
 	if(C.handcuffed)
 		C.visible_message(span_danger("[owner] continues convulsing breaking free of [owner.p_their()] restraints!"))
 		C.uncuff()
 	C.do_jitter_animation(living_transformation_time)
 	C.Stun(living_transformation_time)
-	to_chat(C, span_alertalien("You are now a zombie! Do not seek to be cured, do not help any non-zombies in any way, do not harm your zombie brethren and spread the disease by killing others. You are a creature of hunger and violence."))
 
 /obj/item/organ/zombie_infection/nodamage
 	causes_damage = FALSE

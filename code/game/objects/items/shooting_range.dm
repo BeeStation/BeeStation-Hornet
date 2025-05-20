@@ -31,7 +31,7 @@
 		to_chat(user, span_notice("You slice off [src]'s uneven chunks of aluminium and scorch marks."))
 	return TRUE
 
-/obj/item/target/attack_hand(mob/user)
+/obj/item/target/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

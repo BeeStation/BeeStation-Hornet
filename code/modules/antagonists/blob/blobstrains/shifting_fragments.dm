@@ -9,7 +9,7 @@
 	complementary_color = "#3C6EC8"
 	reagent = /datum/reagent/blob/shifting_fragments
 
-/datum/blobstrain/reagent/shifting_fragments/expand_reaction(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/O)
+/datum/blobstrain/reagent/shifting_fragments/expand_reaction(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/overmind)
 	if(istype(B, /obj/structure/blob/normal) || (istype(B, /obj/structure/blob/shield) && prob(25)))
 		newB.forceMove(get_turf(B))
 		B.forceMove(T)

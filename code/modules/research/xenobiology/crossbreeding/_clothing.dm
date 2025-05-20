@@ -66,7 +66,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	light_color = newcolor
 	set_light(5)
 
-/obj/structure/light_prism/attack_hand(mob/user)
+/obj/structure/light_prism/attack_hand(mob/user, list/modifiers)
 	to_chat(user, span_notice("You dispel [src]."))
 	qdel(src)
 
@@ -75,9 +75,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	icon_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "prismcolor"
 
-/datum/action/item_action/change_prism_colour/Trigger()
-	if(!IsAvailable())
-		return
+/datum/action/item_action/change_prism_colour/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
 	var/new_color = tgui_color_picker(owner, "Choose the lens color:", "Color change",glasses.glasses_color)
 	if(!new_color)
@@ -89,9 +87,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	icon_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "lightprism"
 
-/datum/action/item_action/place_light_prism/Trigger()
-	if(!IsAvailable())
-		return
+/datum/action/item_action/place_light_prism/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
 	if(locate(/obj/structure/light_prism) in get_turf(owner))
 		to_chat(owner, span_warning("There isn't enough ambient energy to fabricate another light prism here."))
@@ -132,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	else
 		REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[REF(src)]")
 
-/obj/item/clothing/head/peaceflower/attack_hand(mob/user)
+/obj/item/clothing/head/peaceflower/attack_hand(mob/user, list/modifiers)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.head)

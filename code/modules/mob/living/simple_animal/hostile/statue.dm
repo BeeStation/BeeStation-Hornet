@@ -8,7 +8,7 @@
 	icon_living = "human_male"
 	icon_dead = "human_male"
 	gender = NEUTER
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 
 	response_help_continuous = "touches"
@@ -62,9 +62,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights)
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision)
+	var/datum/action/spell/aoe/flicker_lights/flicker = new(src)
+	flicker.Grant(src)
+	var/datum/action/spell/aoe/blindness/blind = new(src)
+	blind.Grant(src)
+	var/datum/action/spell/night_vision/night_vision = new(src)
+	night_vision.Grant(src)
 
 	// Set creator
 	if(creator)
@@ -83,7 +86,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 		return 0
 	return ..()
 
-/mob/living/simple_animal/hostile/statue/Life()
+/mob/living/simple_animal/hostile/statue/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(!client && target) // If we have a target and we're AI controlled
 		var/mob/watching = can_be_seen()
@@ -164,68 +167,55 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	. = ..()
 	return . - creator
 
+/mob/living/simple_animal/hostile/netherworld/statue/sentience_act()
+	faction -= "neutral"
+
 // Statue powers
 
 // Flicker lights
-/obj/effect/proc_holder/spell/aoe_turf/flicker_lights
+/datum/action/spell/aoe/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
-	charge_max = 300
-	clothes_req = 0
-	range = 14
+	cooldown_time = 30 SECONDS
+	spell_requirements = NONE
+	aoe_radius = 14
 
-/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/cast(list/targets,mob/user = usr)
-	for(var/turf/T in targets)
-		for(var/obj/machinery/light/L in T)
-			L.flicker()
-	return
+/datum/action/spell/aoe/flicker_lights/get_things_to_cast_on(atom/center)
+	var/list/things = list()
+	for(var/obj/machinery/light/nearby_light in range(aoe_radius, center))
+		if(!nearby_light.on)
+			continue
+
+		things += nearby_light
+
+	return things
+
+/datum/action/spell/aoe/flicker_lights/cast_on_thing_in_aoe(obj/machinery/light/victim, atom/caster)
+	victim.flicker()
 
 //Blind AOE
-/obj/effect/proc_holder/spell/aoe_turf/blindness
+/datum/action/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
-	message = span_notice("You glare your eyes.")
-	charge_max = 600
-	clothes_req = 0
-	range = 10
+	cooldown_time = 1 MINUTES
+	spell_requirements = NONE
+	aoe_radius = 14
 
-/obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets,mob/user = usr)
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
-			L.adjust_blindness(4)
-	return
+/datum/action/spell/aoe/blindness/on_cast(mob/user, atom/target)
+	user.visible_message(span_danger("[user] glares their eyes."))
+	return ..()
 
-//Toggle Night Vision
-/obj/effect/proc_holder/spell/targeted/night_vision
-	name = "Toggle Nightvision \[ON\]"
-	desc = "Toggle your nightvision mode."
+/datum/action/spell/aoe/blindness/get_things_to_cast_on(atom/center)
+	var/list/things = list()
+	for(var/mob/living/nearby_mob in range(aoe_radius, center))
+		if(nearby_mob == owner || nearby_mob == center)
+			continue
 
-	charge_max = 10
-	clothes_req = 0
+		things += nearby_mob
 
-	message = span_notice("You toggle your night vision!")
-	range = -1
-	include_user = 1
+	return things
 
-/obj/effect/proc_holder/spell/targeted/night_vision/cast(list/targets, mob/user = usr)
-	for(var/mob/living/target in targets)
-		switch(target.lighting_alpha)
-			if (LIGHTING_PLANE_ALPHA_VISIBLE)
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-				name = "Toggle Nightvision \[More]"
-			if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-				name = "Toggle Nightvision \[Full]"
-			if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-				name = "Toggle Nightvision \[OFF]"
-			else
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-				name = "Toggle Nightvision \[ON]"
-		target.update_sight()
-
-/mob/living/simple_animal/hostile/statue/sentience_act()
-	faction -= FACTION_NEUTRAL
+/datum/action/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+	victim.set_blindness(4)

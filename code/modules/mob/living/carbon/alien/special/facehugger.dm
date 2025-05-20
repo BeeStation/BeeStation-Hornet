@@ -28,6 +28,10 @@
 	var/strength = 5
 	var/attached = 0
 
+/obj/item/clothing/mask/facehugger/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -67,11 +71,8 @@
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
 	return O.attack_atom(src, user, params)
 
-/obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
-	return attack_hand(user)
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/clothing/mask/facehugger/attack_hand(mob/user)
+/obj/item/clothing/mask/facehugger/attack_hand(mob/user, list/modifiers)
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))
 		if(Leap(user))
 			return
@@ -95,9 +96,12 @@
 		. += span_boldannounce("It looks like the proboscis has been removed.")
 
 
-/obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		Die()
+/obj/item/clothing/mask/facehugger/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	Die()
+
+
+/obj/item/clothing/mask/facehugger/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > 300)
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	. = ..()
@@ -143,7 +147,7 @@
 		return FALSE
 	if(iscarbon(M))
 		// disallowed carbons
-		if(isalien(M) || isdevil(M))
+		if(isalien(M))
 			return FALSE
 		var/mob/living/carbon/target = M
 		// gotta have a head to be implanted (no changelings or sentient plants), gotta be able to have the xeno implanted

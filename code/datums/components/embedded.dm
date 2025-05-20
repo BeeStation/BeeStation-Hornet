@@ -237,13 +237,13 @@
 /datum/component/embedded/proc/tryPullOutOther(mob/living/carbon/victim, mob/user)
 	SIGNAL_HANDLER
 
-	if(!user.IsAdvancedToolUser())
+	if(!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 
 	if(ishuman(victim)) // check to see if the limb is actually exposed
 		var/mob/living/carbon/human/victim_human = victim
-		if(!victim_human.can_inject(user, TRUE, limb.body_zone, penetrate_thick = FALSE))
+		if(!victim_human.try_inject(user, limb.body_zone, INJECT_CHECK_IGNORE_SPECIES | INJECT_TRY_SHOW_ERROR_MESSAGE))
 			return TRUE
 
 	if(weapon.w_class <= WEIGHT_CLASS_SMALL)
@@ -253,10 +253,10 @@
 	INVOKE_ASYNC(src, PROC_REF(pluckOut), user, 1, 2, "pulling out")
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/component/embedded/proc/checkRemoval(mob/living/carbon/victim, obj/item/I, mob/user)
+/datum/component/embedded/proc/checkRemoval(mob/living/carbon/victim, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(!istype(victim) || user.is_zone_selected(limb.body_zone) || user.a_intent != INTENT_HELP)
+	if(!istype(victim) || user.is_zone_selected(limb.body_zone) || user.combat_mode)
 		return
 
 	var/damage_multiplier = 1
@@ -282,7 +282,7 @@
 
 	if(ishuman(victim)) // check to see if the limb is actually exposed
 		var/mob/living/carbon/human/victim_human = victim
-		if(!victim_human.can_inject(user, TRUE, limb.body_zone, penetrate_thick = FALSE))
+		if(!victim_human.try_inject(user, limb.body_zone, INJECT_CHECK_IGNORE_SPECIES | INJECT_TRY_SHOW_ERROR_MESSAGE))
 			return TRUE
 
 	INVOKE_ASYNC(src, PROC_REF(pluckOut), user, damage_multiplier, max(damage_multiplier, 0.2), remove_verb)

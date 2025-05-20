@@ -46,7 +46,7 @@
 	throwforce = 1
 	amount_per_transfer_from_this = 5
 	custom_materials = list(/datum/material/iron=100)
-	possible_transfer_amounts = list(5)
+	has_variable_transfer_amount = FALSE
 	volume = 5
 	flags_1 = CONDUCT_1
 	spillable = TRUE
@@ -202,6 +202,8 @@
 
 /obj/item/reagent_containers/cup/glass/waterbottle/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(cap_lost)
 		to_chat(user, span_warning("The cap seems to be missing! Where did it go?"))
 		return
@@ -243,7 +245,7 @@
 	return ..()
 
 /obj/item/reagent_containers/cup/glass/waterbottle/afterattack(obj/target, mob/living/user, proximity)
-	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && !user.a_intent == INTENT_HARM)))
+	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && !user.combat_mode)))
 		to_chat(user, span_warning("You must remove the cap before you can do that!"))
 		return
 

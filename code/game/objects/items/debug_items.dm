@@ -182,17 +182,7 @@
 	atmos_build_speed = 0.1
 	disposal_build_speed = 0.1
 	transit_build_speed = 0.1
-	plumbing_build_speed = 0.1
-	destroy_speed = 0.1
-	paint_speed = 0.1
-	ranged = TRUE
 	upgrade_flags = RPD_UPGRADE_UNWRENCH
-
-/obj/item/spellbook/debug
-	name = "\improper Robehator's spell book"
-	uses = 200
-	everything_robeless = TRUE
-	bypass_lock = TRUE
 
 //Debug suit
 /obj/item/clothing/head/helmet/space/hardsuit/debug
@@ -205,6 +195,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	geiger_counter = FALSE
 
 
 /datum/armor/hardsuit_debug
@@ -262,27 +253,25 @@
 	fire = 100
 	acid = 100
 
-/obj/item/storage/backpack/debug/ComponentInitialize()
+/obj/item/storage/backpack/debug/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.allow_big_nesting = TRUE
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_items = 1000
-	STR.max_combined_w_class = 1000
+	atom_storage.allow_big_nesting = TRUE
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_slots = 1000
+	atom_storage.max_total_storage = 1000
 
 /obj/item/storage/box/debugtools
 	name = "box of debug tools"
 	icon_state = "syndiebox"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/storage/box/debugtools/ComponentInitialize()
+/obj/item/storage/box/debugtools/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 1000
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_items = 1000
-	STR.allow_big_nesting = TRUE
+	atom_storage.max_total_storage = 1000
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_slots = 1000
+	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
@@ -303,7 +292,6 @@
 		/obj/item/disk/data/debug=1,
 		/obj/item/uplink/debug=1,
 		/obj/item/uplink/nuclear/debug=1,
-		/obj/item/spellbook/debug=1,
 		/obj/item/storage/box/beakers/bluespace=1,
 		/obj/item/storage/box/beakers/variety=1,
 		/obj/item/storage/box/material=1

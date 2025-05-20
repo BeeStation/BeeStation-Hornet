@@ -50,7 +50,7 @@
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/cyborg_user = user
-		if(cyborg_user.a_intent != INTENT_HARM)
+		if(!cyborg_user.combat_mode)
 			return
 
 	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
@@ -116,7 +116,7 @@
 /// Start the equipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
-	if(isclothing(source))
+	if(isclothing(source) && !HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
 		source.visible_message(
 			span_notice("[user] tries to put [equipping] on [source]."),
 			span_notice("[user] tries to put [equipping] on you."),
@@ -166,11 +166,12 @@
 	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
 		return FALSE
 
-	source.visible_message(
-		span_warning("[user] tries to remove [source]'s [item.name]."),
-		span_userdanger("[user] tries to remove your [item.name]."),
-		ignored_mobs = user,
-	)
+	if(!HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
+		source.visible_message(
+			span_warning("[user] tries to remove [source]'s [item.name]."),
+			span_userdanger("[user] tries to remove your [item.name]."),
+			ignored_mobs = user,
+		)
 
 	to_chat(user, span_danger("You try to remove [source]'s [item.name]..."))
 	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
@@ -283,7 +284,7 @@
 	if(!.)
 		return
 
-	return start_unequip_mob(get_item(source), source, user)
+	return start_unequip_mob(get_item(source), source, user, hidden = (HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET)))
 
 /datum/strippable_item/mob_item_slot/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)

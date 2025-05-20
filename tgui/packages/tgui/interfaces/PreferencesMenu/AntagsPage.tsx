@@ -129,10 +129,10 @@ const AntagSelection = (props: { antagonists: AntagonistData[]; name: string }) 
               <Stack align="center" vertical>
                 <Stack.Item
                   style={{
-                    'font-weight': 'bold',
-                    'margin-top': 'auto',
-                    'max-width': '100px',
-                    'text-align': 'center',
+                    fontWeight: 'bold',
+                    marginTop: 'auto',
+                    maxWidth: '100px',
+                    textAlign: 'center',
                   }}>
                   {antagonist.name}
                 </Stack.Item>

@@ -27,10 +27,6 @@
 	if(panel_open)
 		. += span_notice("Its panel is open.")
 
-/obj/machinery/power/generator/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
-
 /obj/machinery/power/generator/Destroy()
 	kill_circs()
 	SSair.stop_processing_machine(src)
@@ -80,8 +76,8 @@
 				var/heat = energy_transfer*(1-efficiency)
 				lastgen += energy_transfer*efficiency
 
-				hot_air.set_temperature(hot_air.return_temperature() - energy_transfer/hot_air_heat_capacity)
-				cold_air.set_temperature(cold_air.return_temperature() + heat/cold_air_heat_capacity)
+				hot_air.temperature = (hot_air.return_temperature() - energy_transfer/hot_air_heat_capacity)
+				cold_air.temperature = (cold_air.return_temperature() + heat/cold_air_heat_capacity)
 
 				//add_avail(lastgen) This is done in process now
 		// update icon overlays only if displayed level has changed
@@ -143,7 +139,7 @@
 	else
 		t += span_bad("Unable to locate any parts!")
 	if(include_link)
-		t += "<BR><A href='?src=[REF(src)];close=1'>Close</A>"
+		t += "<BR><A href='byond://?src=[REF(src)];close=1'>Close</A>"
 
 	return t
 
@@ -224,6 +220,9 @@
 /obj/machinery/power/generator/crowbar_act(mob/user, obj/item/I)
 	default_deconstruction_crowbar(I)
 	return TRUE
+
+/obj/machinery/power/generator/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/power/generator/on_deconstruction()
 	kill_circs()

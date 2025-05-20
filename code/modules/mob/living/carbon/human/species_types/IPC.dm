@@ -102,14 +102,14 @@
 	C.update_body()
 
 /datum/action/innate/change_screen
-	name = "Change Display"
+	name = "Change Display"	
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
 
-/datum/action/innate/change_screen/Activate()
-	var/screen_choice = input(usr, "Which screen do you want to use?", "Screen Change") as null | anything in GLOB.ipc_screens_list
-	var/color_choice = input(usr, "Which color do you want your screen to be?", "Color Change") as null | color
+/datum/action/innate/change_screen/on_activate()
+	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", GLOB.ipc_screens_list)
+	var/color_choice = tgui_color_picker(usr, "Which color do you want your screen to be?", "Color Change")
 	if(!screen_choice)
 		return
 	if(!color_choice)

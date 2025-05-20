@@ -1,9 +1,7 @@
-import { useBackend, useLocalState } from '../backend';
-import { Stack, Collapsible, Tooltip, Icon, Box, Button, LabeledList, Input, Section, Flex, Table, NoticeBox } from '../components';
+import { useBackend } from '../backend';
+import { Stack, Collapsible, Tooltip, Icon, Box, Button, Input, Section, Flex, NoticeBox } from '../components';
 import { Window } from '../layouts';
-import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
-import { sendLogEntry } from 'tgui-dev-server/link/client.cjs';
 
 // Handles protolathes, circuit fabricators, and techfabs
 

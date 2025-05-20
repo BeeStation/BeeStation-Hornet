@@ -293,44 +293,6 @@
 	firstname.Find(real_name)
 	return firstname.match
 
-
-/**
-  * change a mob's act-intent.
-  *
-  * Input the intent as a string such as "help" or use "right"/"left
-  */
-/mob/verb/a_intent_change(input as text)
-	set name = "a-intent"
-	set hidden = 1
-
-	if(!possible_a_intents || !possible_a_intents.len)
-		return
-
-	if(input in possible_a_intents)
-		a_intent = input
-	else
-		var/current_intent = possible_a_intents.Find(a_intent)
-
-		if(!current_intent)
-			// Failsafe. Just in case some badmin was playing with VV.
-			current_intent = 1
-
-		if(input == INTENT_HOTKEY_RIGHT)
-			current_intent += 1
-		if(input == INTENT_HOTKEY_LEFT)
-			current_intent -= 1
-
-		// Handle looping
-		if(current_intent < 1)
-			current_intent = possible_a_intents.len
-		if(current_intent > possible_a_intents.len)
-			current_intent = 1
-
-		a_intent = possible_a_intents[current_intent]
-
-	if(hud_used && hud_used.action_intent)
-		hud_used.action_intent.icon_state = "[a_intent]"
-
 ///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
 /mob/proc/is_blind()
 	SHOULD_BE_PURE(TRUE)
@@ -387,7 +349,7 @@
 	return FALSE
 
 
-/mob/proc/reagent_check(datum/reagent/R) // utilized in the species code
+/mob/proc/reagent_check(datum/reagent/R, delta_time, times_fired) // utilized in the species code
 	return TRUE
 
 
@@ -420,7 +382,7 @@
 				continue
 			var/orbit_link
 			if (source && action == NOTIFY_ORBIT)
-				orbit_link = " <a href='?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
+				orbit_link = " <a href='byond://?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
 			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""][orbit_link]"))
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound, volume = notify_volume))
@@ -609,6 +571,10 @@
 		return TRUE
 	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
 		return TRUE
+
+///Can this mob hold items
+/mob/proc/can_hold_items(obj/item/I)
+	return length(held_items)
 
 /**
  * Zone selection helpers.

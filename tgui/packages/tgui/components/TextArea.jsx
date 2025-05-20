@@ -6,10 +6,10 @@
  */
 
 import { classes } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Box } from './Box';
 import { toInputValue } from './Input';
-import { KEY_ENTER, KEY_ESCAPE, KEY_TAB } from 'common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 
 export class TextArea extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ export class TextArea extends Component {
     this.handleKeyDown = (e) => {
       const { editing } = this.state;
       const { onChange, onInput, onEnter, onKey } = this.props;
-      if (e.keyCode === KEY_ENTER) {
+      if (e.key === KEY.Enter) {
         this.setEditing(false);
         if (onChange) {
           onChange(e, e.target.value);
@@ -70,7 +70,7 @@ export class TextArea extends Component {
         }
         return;
       }
-      if (e.keyCode === KEY_ESCAPE) {
+      if (isEscape(e.key)) {
         if (this.props.onEscape) {
           this.props.onEscape(e);
         }
@@ -91,8 +91,7 @@ export class TextArea extends Component {
         onKey(e, e.target.value);
       }
       if (!dontUseTabForIndent) {
-        const keyCode = e.keyCode || e.which;
-        if (keyCode === KEY_TAB) {
+        if (e.key === KEY.Tab) {
           e.preventDefault();
           const { value, selectionStart, selectionEnd } = e.target;
           e.target.value = value.substring(0, selectionStart) + '\t' + value.substring(selectionEnd);

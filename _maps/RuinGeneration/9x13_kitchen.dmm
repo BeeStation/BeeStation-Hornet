@@ -79,7 +79,7 @@
 /area/ruin/unpowered)
 "F" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/unpowered)
 "G" = (
@@ -119,7 +119,7 @@
 "T" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/unpowered)
 "Z" = (

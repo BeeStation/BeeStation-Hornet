@@ -3,6 +3,7 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/set_summoner(datum/mind/new_summoner)
 	if(!istype(new_summoner))
+		stack_trace("Bad summoner type: [new_summoner] on [key_name(src)], expected mind")
 		return FALSE
 	var/datum/mind/old_summoner = summoner
 	// Unregister all signals from our old summoner.

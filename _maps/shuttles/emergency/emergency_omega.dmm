@@ -2,11 +2,6 @@
 "aa" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ab" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ac" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
@@ -550,7 +545,6 @@
 "Dr" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Eg" = (
@@ -763,7 +757,7 @@ aa
 ad
 ak
 al
-ab
+Dr
 az
 aD
 aJ
@@ -771,7 +765,7 @@ aJ
 aJ
 aD
 az
-ab
+Dr
 az
 bd
 bj
@@ -805,7 +799,7 @@ Dr
 ae
 al
 al
-ab
+Dr
 RT
 aF
 aK
@@ -826,7 +820,7 @@ aa
 af
 al
 ar
-ab
+Dr
 RT
 aG
 aL
@@ -834,7 +828,7 @@ aI
 aM
 aG
 eC
-ab
+Dr
 aY
 bg
 bm
@@ -844,9 +838,9 @@ bv
 "}
 (6,1,1) = {"
 ac
-ab
+Dr
 Rm
-ab
+Dr
 aw
 uy
 aH
@@ -857,7 +851,7 @@ aH
 Sv
 aU
 aZ
-ab
+Dr
 aZ
 aZ
 br
@@ -868,7 +862,7 @@ aa
 rd
 Bj
 qB
-ab
+Dr
 RT
 aI
 aM
@@ -876,7 +870,7 @@ aG
 aL
 aI
 eC
-ab
+Dr
 nP
 sO
 mG
@@ -910,7 +904,7 @@ Dr
 Sa
 Bj
 Pn
-ab
+Dr
 RT
 Tg
 Tg
@@ -939,7 +933,7 @@ aF
 aF
 aF
 aS
-ab
+Dr
 HX
 KO
 LO

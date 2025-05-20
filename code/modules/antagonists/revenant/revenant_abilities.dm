@@ -112,7 +112,7 @@
 				reveal(46)
 				stun(46)
 				target.visible_message(span_warning("[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray."))
-				if(target.anti_magic_check(FALSE, TRUE))
+				if(target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 					to_chat(src, span_revenminor("Something's wrong! [target] seems to be resisting the siphoning, leaving you vulnerable!"))
 					target.visible_message(span_warning("[target] slumps onto the ground."), \
 											   span_revenwarning("Violet lights, dancing in your vision, receding--"))
@@ -151,103 +151,316 @@
 // -------------------------------------------
 
 //Toggle night vision: lets the revenant toggle its night vision
-/obj/effect/proc_holder/spell/targeted/night_vision/revenant
-	charge_max = 0
-	panel = "Revenant Abilities"
-	message = span_revennotice("You toggle your night vision.")
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
-	action_icon_state = "r_nightvision"
-	action_background_icon_state = "bg_revenant"
-
-// Recall to Station: teleport & recall to the station
-/obj/effect/proc_holder/spell/self/rev_teleport
-	name = "Recall to Station"
-	desc = "Teleport to the station."
-	charge_max = 0
-	panel = "Revenant Abilities"
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
-	action_icon_state = "r_teleport"
-	action_background_icon_state = "bg_revenant"
-	clothes_req = FALSE
-
-/obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
-	if(!isrevenant(user))
-		to_chat(user, span_revenwarning("You are not revenant."))
-		return
-	if(is_station_level(user.z))
-		to_chat(user, span_revenwarning("Recalling yourself to the station is only available when you're not in the station."))
-		return
-	else
-		if(user.revealed)
-			to_chat(user, span_revenwarning("Recalling yourself to the station is only available when you're invisible."))
-			return
-
-		to_chat(user, span_revennotice("You start to concentrate recalling yourself to the station."))
-		if(do_after(user, 30) && !user.revealed)
-			if(QDELETED(src)) // it's bad when someone spams this...
-				return
-			var/turf/targetturf = get_random_station_turf()
-			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, bypass_area_restriction=TRUE))
-				to_chat(user,  span_revenwarning("You have failed to recall yourself to the station... You should try again."))
-			else
-				user.reveal(80)
-				user.stun(40)
+/datum/action/spell/night_vision/revenant
+	name = "Toggle Darkvision"
+	background_icon_state = "bg_revenant"
+	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon_state = "r_nightvision"
+	toggle_span = "revennotice"
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
-/obj/effect/proc_holder/spell/targeted/telepathy/revenant
+/datum/action/spell/telepathy/revenant
 	name = "Revenant Transmit"
-	panel = "Revenant Abilities"
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_revenant"
-	notice = "revennotice"
-	boldnotice = "revenboldnotice"
-	holy_check = TRUE
+	background_icon_state = "bg_revenant"
 
-/obj/effect/proc_holder/spell/targeted/telepathy/revenant/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
-	for(var/mob/living/M in targets)
-		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
-			to_chat(user, span_warning("It appears the target's mind is ironclad! No getting a message in there!"))
+	telepathy_span = "revennotice"
+	bold_telepathy_span = "revenboldnotice"
+
+	use_runechat_telepathy = TRUE
+
+/datum/action/spell/aoe/revenant
+	background_icon_state = "bg_revenant"
+	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon_state = "r_default"
+	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	spell_requirements = NONE
+
+	/// If it's locked, and needs to be unlocked before use
+	var/locked = TRUE
+	/// How much essence it costs to unlock
+	var/unlock_amount = 100
+	/// How much essence it costs to use
+	var/cast_amount = 50
+
+	/// How long it reveals the revenant
+	var/reveal_duration = 8 SECONDS
+	// How long it stuns the revenant
+	var/stun_duration = 2 SECONDS
+
+/datum/action/spell/aoe/revenant/New(master)
+	. = ..()
+	if(locked)
+		name = "[initial(name)] ([unlock_amount]SE)"
+	else
+		name = "[initial(name)] ([cast_amount]E)"
+
+/datum/action/spell/aoe/revenant/Grant(mob/grant_to)
+	if (!istype(grant_to, /mob/living/simple_animal/revenant))
+		CRASH("Attempted to grant a revenant spell to a non-revenant mob which si not allowed.")
+	. = ..()
+
+/datum/action/spell/aoe/revenant/can_cast_spell(feedback = TRUE)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!istype(owner, /mob/living/simple_animal/revenant))
+		stack_trace("[type] was owned by a non-revenant mob, please don't.")
+		return FALSE
+
+	var/mob/living/simple_animal/revenant/ghost = owner
+	if(ghost.inhibited)
+		return FALSE
+	if(locked && ghost.essence_excess <= unlock_amount)
+		return FALSE
+	if(ghost.essence <= cast_amount)
+		return FALSE
+
+	return TRUE
+
+/datum/action/spell/aoe/revenant/get_things_to_cast_on(atom/center)
+	var/list/things = list()
+	for(var/turf/nearby_turf in range(aoe_radius, center))
+		things += nearby_turf
+
+	return things
+
+/datum/action/spell/aoe/revenant/pre_cast(mob/living/simple_animal/revenant/cast_on, atom/target)
+	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return FALSE
+
+	if(locked)
+		if(!cast_on.unlock(unlock_amount))
+			to_chat(cast_on, span_revenwarning("You don't have enough essence to unlock [initial(name)]!"))
+			reset_spell_cooldown()
+			return . | SPELL_CANCEL_CAST
+
+		name = "[initial(name)] ([cast_amount]E)"
+		to_chat(cast_on, span_revennotice("You have unlocked [initial(name)]!"))
+		locked = FALSE
+		reset_spell_cooldown()
+		return . | SPELL_CANCEL_CAST
+
+	if(!cast_on.castcheck(-cast_amount))
+		reset_spell_cooldown()
+		return . | SPELL_CANCEL_CAST
+
+/datum/action/spell/aoe/revenant/post_cast(mob/living/simple_animal/revenant/user, atom/target)
+	. = ..()
+	if(reveal_duration > 0 SECONDS)
+		user.reveal(reveal_duration)
+	if(stun_duration > 0 SECONDS)
+		user.stun(stun_duration)
+
+//Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
+/datum/action/spell/aoe/revenant/overload
+	name = "Overload Lights"
+	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
+	button_icon_state = "overload_lights"
+	cooldown_time = 20 SECONDS
+
+	aoe_radius = 5
+	unlock_amount = 25
+	cast_amount = 40
+	stun_duration = 3 SECONDS
+
+	/// The range the shocks from the lights go
+	var/shock_range = 2
+	/// The damage the shcoskf rom the lgihts do
+	var/shock_damage = 15
+
+/datum/action/spell/aoe/revenant/overload/cast_on_thing_in_aoe(turf/victim, mob/living/simple_animal/revenant/caster)
+	for(var/obj/machinery/light/light in victim)
+		if(!light.on)
+			continue
+
+		light.visible_message(("<span class='boldwarning'>[light] suddenly flares brightly and begins to spark!</span>"))
+		var/datum/effect_system/spark_spread/light_sparks = new /datum/effect_system/spark_spread()
+		light_sparks.set_up(4, 0, light)
+		light_sparks.start()
+		new /obj/effect/temp_visual/revenant(get_turf(light))
+		addtimer(CALLBACK(src, PROC_REF(overload_shock), light, caster), 20)
+
+/datum/action/spell/aoe/revenant/overload/proc/overload_shock(obj/machinery/light/to_shock, mob/living/simple_animal/revenant/caster)
+	flick("[to_shock.base_state]2", to_shock)
+	for(var/mob/living/carbon/human/human_mob in view(shock_range, to_shock))
+		if(human_mob == caster)
+			continue
+		to_shock.Beam(human_mob, icon_state = "purple_lightning", time = 0.5 SECONDS)
+		if(!human_mob.can_block_magic(MAGIC_RESISTANCE_HOLY))
+			human_mob.electrocute_act(shock_damage, to_shock, flags = SHOCK_NOGLOVES)
+
+		do_sparks(4, FALSE, human_mob)
+		playsound(human_mob, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+
+//Defile: Corrupts nearby stuff, unblesses floor tiles.
+/datum/action/spell/aoe/revenant/defile
+	name = "Defile"
+	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
+	button_icon_state = "defile"
+	cooldown_time = 15 SECONDS
+
+	aoe_radius = 4
+	unlock_amount = 10
+	cast_amount = 30
+	reveal_duration = 4 SECONDS
+	stun_duration = 2 SECONDS
+
+/datum/action/spell/aoe/revenant/defile/cast_on_thing_in_aoe(turf/victim, mob/living/simple_animal/revenant/caster)
+	for(var/obj/effect/blessing/blessing in victim)
+		qdel(blessing)
+		new /obj/effect/temp_visual/revenant(victim)
+
+	if(!isplatingturf(victim) && !istype(victim, /turf/open/floor/engine/cult) && isfloorturf(victim) && prob(15))
+		var/turf/open/floor/floor = victim
+		if(floor.overfloor_placed && floor.floor_tile)
+			new floor.floor_tile(floor)
+		floor.broken = 0
+		floor.burnt = 0
+		floor.make_plating(TRUE)
+
+	if(victim.type == /turf/closed/wall && prob(15) && !HAS_TRAIT(victim, TRAIT_RUSTY))
+		new /obj/effect/temp_visual/revenant(victim)
+		victim.AddElement(/datum/element/rust)
+	if(victim.type == /turf/closed/wall/r_wall && prob(10) && !HAS_TRAIT(victim, TRAIT_RUSTY))
+		new /obj/effect/temp_visual/revenant(victim)
+		victim.AddElement(/datum/element/rust)
+	for(var/obj/effect/decal/cleanable/food/salt/salt in victim)
+		new /obj/effect/temp_visual/revenant(victim)
+		qdel(salt)
+	for(var/obj/structure/closet/closet in victim.contents)
+		closet.open()
+	for(var/obj/structure/bodycontainer/corpseholder in victim)
+		if(corpseholder.connected.loc == corpseholder)
+			corpseholder.open()
+	for(var/obj/machinery/dna_scannernew/dna in victim)
+		dna.open_machine()
+	for(var/obj/structure/window/window in victim)
+		window.take_damage(rand(30, 80))
+		if(window?.fulltile)
+			new /obj/effect/temp_visual/revenant/cracks(window.loc)
+	for(var/obj/machinery/light/light in victim)
+		light.flicker(20) //spooky
+
+//Malfunction: Makes bad stuff happen to robots and machines.
+/datum/action/spell/aoe/revenant/malfunction
+	name = "Malfunction"
+	desc = "Corrupts and damages nearby machines and mechanical objects."
+	button_icon_state = "malfunction"
+	cooldown_time = 20 SECONDS
+
+	aoe_radius = 4
+	cast_amount = 60
+	unlock_amount = 125
+
+// A note to future coders: do not replace this with an EMP because it will wreck malf AIs and everyone will hate you.
+/datum/action/spell/aoe/revenant/malfunction/cast_on_thing_in_aoe(turf/victim, mob/living/simple_animal/revenant/caster)
+	for(var/mob/living/simple_animal/bot/bot in victim)
+		if(!bot.emagged)
+			new /obj/effect/temp_visual/revenant(bot.loc)
+			bot.locked = FALSE
+			bot.open = TRUE
+			bot.use_emag(caster)
+
+	for(var/mob/living/carbon/human/human in victim)
+		if(human == caster)
+			continue
+		if(human.can_block_magic(MAGIC_RESISTANCE_HOLY))
+			continue
+		to_chat(human, span_revenwarning("You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
+		new /obj/effect/temp_visual/revenant(human.loc)
+		human.emp_act(EMP_HEAVY)
+
+	for(var/obj/thing in victim)
+		if(prob(20))
+			new /obj/effect/temp_visual/revenant(thing.loc)
+			thing.use_emag(caster)
+		else
+			thing.emp_act(EMP_HEAVY)
+
+	// Only works on cyborgs, not AI!
+	for(var/mob/living/silicon/robot/cyborg in victim)
+		new /obj/effect/temp_visual/revenant(cyborg.loc)
+		cyborg.spark_system.start()
+		cyborg.emp_act(EMP_HEAVY)
+
+//Blight: Infects nearby humans and in general messes living stuff up.
+/datum/action/spell/aoe/revenant/blight
+	name = "Blight"
+	desc = "Causes nearby living things to waste away."
+	button_icon_state = "blight"
+	cooldown_time = 20 SECONDS
+
+	aoe_radius = 3
+	cast_amount = 50
+	unlock_amount = 75
+
+/datum/action/spell/aoe/revenant/blight/cast_on_thing_in_aoe(turf/victim, mob/living/simple_animal/revenant/caster)
+	for(var/mob/living/mob in victim)
+		if(mob == caster)
+			continue
+		if(mob.can_block_magic(MAGIC_RESISTANCE_HOLY))
+			to_chat(caster, ("<span class='warning'>The spell had no effect on [mob]!</span>"))
+			continue
+		new /obj/effect/temp_visual/revenant(mob.loc)
+		if(iscarbon(mob))
+			if(ishuman(mob))
+				var/mob/living/carbon/human/H = mob
+				//H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
+				var/blightfound = FALSE
+				for(var/datum/disease/revblight/blight in H.diseases)
+					blightfound = TRUE
+					if(blight.stage < 5)
+						blight.stage++
+				if(!blightfound)
+					H.ForceContractDisease(new /datum/disease/revblight(), FALSE, TRUE)
+					to_chat(H, span_revenminor("You feel [pick("suddenly sick", "a surge of nausea", "like your skin is <i>wrong</i>")]."))
+			else
+				if(mob.reagents)
+					mob.reagents.add_reagent(/datum/reagent/toxin/plasma, 5)
+		else
+			mob.adjustToxLoss(5)
+	for(var/obj/structure/spacevine/vine in victim) //Fucking with botanists, the ability.
+		vine.add_atom_colour("#823abb", TEMPORARY_COLOUR_PRIORITY)
+		new /obj/effect/temp_visual/revenant(vine.loc)
+		QDEL_IN(vine, 10)
+	for(var/obj/structure/glowshroom/shroom in victim)
+		shroom.add_atom_colour("#823abb", TEMPORARY_COLOUR_PRIORITY)
+		new /obj/effect/temp_visual/revenant(shroom.loc)
+		QDEL_IN(shroom, 10)
+	for(var/obj/machinery/hydroponics/tray in victim)
+		new /obj/effect/temp_visual/revenant(tray.loc)
+		tray.pestlevel = (rand(8, 10))
+		tray.weedlevel = (rand(8, 10))
+
+/datum/action/spell/teleport/area_teleport/revenant
+	name = "Revenant Teleport"
+	desc = "Brings you to a location of your choosing on the station"
+	background_icon_state = "bg_revenant"
+	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon_state = "r_teleport"
+	post_teleport_sound = 'sound/magic/voidblink.ogg'
+	cooldown_time = 10 SECONDS
+	spell_requirements = NONE
+
+/datum/action/spell/teleport/area_teleport/revenant/on_cast(mob/user, atom/target)
+	if((isrevenant(user)))
+		var/mob/living/simple_animal/revenant/revenant = user
+
+		//If the revenant is currently recovering from casting an ability which stuns and forcibly reveals them
+		if(revenant.unreveal_time)
+			to_chat(user, span_warning("You can't pass through the incorporeal plane right now! You need to recover!"))
 			return
-		if(M.anti_magic_check(magic_check, holy_check)) //hear no evil
-			to_chat(user, "<span class='[boldnotice]'>Something is blocking your power into their mind!</span>")
-			return
+	..()
 
-
-		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
-		if(!msg)
-			charge_counter = charge_max
-			return
-		if(CHAT_FILTER_CHECK(msg))
-			to_chat(user, span_warning("Your message contains forbidden words."))
-			return
-		msg = user.treat_message_min(msg)
-		log_directed_talk(user, M, msg, LOG_SAY, "[name]")
-
-		to_chat(user, "<span class='[boldnotice]'>You transmit to [M]:</span> <span class='[notice]'>[msg]</span>")
-		to_chat(M, "<span class='[boldnotice]'>You hear something haunting...</span> <span class='[notice]'>[msg]</span>")
-		user.create_private_chat_message(message="...[msg]",
-									message_language = /datum/language/metalanguage,
-									hearers=list(user, M))
-		for(var/ded in GLOB.dead_mob_list)
-			if(!isobserver(ded))
-				continue
-			var/follow_rev = FOLLOW_LINK(ded, user)
-			var/follow_whispee = FOLLOW_LINK(ded, M)
-			to_chat(ded, "[follow_rev] <span class='[boldnotice]'>[user] [name]:</span> <span class='[notice]'>\"[msg]\" to</span> [follow_whispee] [span_name("[M]")]")
-
-
-/obj/effect/proc_holder/spell/self/revenant_phase_shift
+/datum/action/revenant_phase_shift
 	name = "Phase Shift"
 	desc = "Shift in and out of your corporeal form"
-	panel = "Revenant Abilities"
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
-	action_icon_state = "r_phase"
-	action_background_icon_state = "bg_revenant"
-	clothes_req = FALSE
-	charge_max = 0
+	background_icon_state = "bg_revenant"
+	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon_state = "r_phase"
 
-/obj/effect/proc_holder/spell/self/revenant_phase_shift/cast(mob/user = usr)
+/datum/action/revenant_phase_shift/on_activate(mob/user)
 	if(!isrevenant(user))
 		return FALSE
 	var/mob/living/simple_animal/revenant/revenant = user
@@ -270,265 +483,3 @@
 				return
 	revenant.phase_shift()
 	revenant.orbiting?.end_orbit(revenant)
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant
-	clothes_req = 0
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
-	action_background_icon_state = "bg_revenant"
-	panel = "Revenant Abilities (Locked)"
-	name = "Report this to a coder"
-	var/reveal = 80 //How long it reveals the revenant in deciseconds
-	var/stun = 20 //How long it stuns the revenant in deciseconds
-	var/locked = TRUE //revenant needs to pay essence to learn their ability
-	var/unlock_amount = 100 //How much essence it costs to unlock
-	var/cast_amount = 50 //How much essence it costs to use
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/Initialize(mapload)
-	. = ..()
-	update_button_info()
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/proc/update_button_info()
-	if(!locked)
-		action.name = "[initial(name)][cast_amount ? " ([cast_amount]E to cast)" : ""]"
-	else
-		action.name = "[initial(name)][unlock_amount ? " ([unlock_amount]SE to learn)" : ""]"
-	action.UpdateButtonIcon()
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr)
-	if(charge_counter < charge_max)
-		return FALSE
-	if(!isrevenant(user)) // If you're not a revenant, it works anyway.
-		return TRUE
-	if(user.inhibited)
-		return FALSE
-	if(locked)
-		if(user.essence_excess <= unlock_amount)
-			return FALSE
-	if(user.essence <= cast_amount)
-		return FALSE
-	return TRUE
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
-	// If you're not a revenant, it works anyway.
-	if(!isrevenant(user))
-		if(locked)
-			locked = FALSE
-			panel = "Revenant Abilities"
-			action.name = "[initial(name)]"
-		action.UpdateButtonIcon()
-		return TRUE
-
-	// actual revenant check
-	if(locked)
-		if (!user.unlock(unlock_amount))
-			charge_counter = charge_max
-			return FALSE
-		to_chat(user, span_revennotice("You have unlocked [initial(name)]!"))
-		panel = "Revenant Abilities"
-		locked = FALSE
-		charge_counter = charge_max
-		update_button_info()
-		return FALSE
-	if(!user.castcheck(-cast_amount))
-		charge_counter = charge_max
-		return FALSE
-	user.reveal(reveal)
-	user.stun(stun)
-	if(action)
-		action.UpdateButtonIcon()
-	return TRUE
-
-//Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload
-	name = "Overload Lights"
-	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
-	charge_max = 200
-	range = 5
-	stun = 30
-	unlock_amount = 25
-	cast_amount = 40
-	var/shock_range = 2
-	var/shock_damage = 15
-	action_icon_state = "overload_lights"
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
-	if(attempt_cast(user))
-		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, PROC_REF(overload), T, user)
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/overload(turf/T, mob/user)
-	for(var/obj/machinery/light/L in T)
-		if(!L.on)
-			return
-		L.visible_message(span_warning("<b>\The [L] suddenly flares brightly and begins to spark!"))
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(4, 0, L)
-		s.start()
-		new /obj/effect/temp_visual/revenant(get_turf(L))
-		addtimer(CALLBACK(src, PROC_REF(overload_shock), L, user), 20)
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/overload_shock(obj/machinery/light/L, mob/user)
-	if(!L.on) //wait, wait, don't shock me
-		return
-	flick("[L.base_state]2", L)
-	for(var/mob/living/carbon/human/M in hearers(shock_range, L))
-		if(M == user)
-			continue
-		L.Beam(M,icon_state="purple_lightning", time = 5)
-		if(!M.anti_magic_check(FALSE, TRUE))
-			M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
-		do_sparks(4, FALSE, M)
-		playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
-
-//Defile: Corrupts nearby stuff, unblesses floor tiles.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/defile
-	name = "Defile"
-	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
-	charge_max = 150
-	range = 4
-	stun = 20
-	reveal = 40
-	unlock_amount = 10
-	cast_amount = 30
-	action_icon_state = "defile"
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
-	if(attempt_cast(user))
-		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, PROC_REF(defile), T)
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/proc/defile(turf/T)
-	for(var/obj/effect/blessing/B in T)
-		qdel(B)
-		new /obj/effect/temp_visual/revenant(T)
-
-	if(!isplatingturf(T) && !istype(T, /turf/open/floor/engine/cult) && isfloorturf(T) && prob(15))
-		var/turf/open/floor/floor = T
-		if(floor.overfloor_placed && floor.floor_tile)
-			new floor.floor_tile(floor)
-		floor.broken = 0
-		floor.burnt = 0
-		floor.make_plating(1)
-	if(T.type == /turf/closed/wall && prob(15))
-		new /obj/effect/temp_visual/revenant(T)
-		T.AddElement(/datum/element/rust)
-	if(T.type == /turf/closed/wall/r_wall && prob(10))
-		new /obj/effect/temp_visual/revenant(T)
-		T.AddElement(/datum/element/rust)
-	for(var/obj/effect/decal/cleanable/food/salt/salt in T)
-		new /obj/effect/temp_visual/revenant(T)
-		qdel(salt)
-	for(var/obj/structure/closet/closet in T.contents)
-		closet.open()
-	for(var/obj/structure/bodycontainer/corpseholder in T)
-		if(corpseholder.connected.loc == corpseholder)
-			corpseholder.open()
-	for(var/obj/machinery/dna_scannernew/dna in T)
-		dna.open_machine()
-	for(var/obj/structure/window/window in T)
-		window.take_damage(rand(30,80))
-		if(window && window.fulltile)
-			new /obj/effect/temp_visual/revenant/cracks(window.loc)
-	for(var/obj/machinery/light/light in T)
-		light.flicker(20) //spooky
-
-//Malfunction: Makes bad stuff happen to robots and machines.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction
-	name = "Malfunction"
-	desc = "Corrupts and damages nearby machines and mechanical objects."
-	charge_max = 200
-	range = 4
-	cast_amount = 60
-	unlock_amount = 125
-	action_icon_state = "malfunction"
-
-//A note to future coders: do not replace this with an EMP because it will wreck malf AIs and everyone will hate you.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
-	if(attempt_cast(user))
-		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, PROC_REF(malfunction), T, user)
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/malfunction(turf/T, mob/user)
-	for(var/mob/living/simple_animal/bot/bot in T)
-		if(!bot.emagged)
-			new /obj/effect/temp_visual/revenant(bot.loc)
-			bot.locked = FALSE
-			bot.open = TRUE
-			bot.use_emag()
-	for(var/mob/living/carbon/human/human in T)
-		if(human == user)
-			continue
-		if(human.anti_magic_check(FALSE, TRUE))
-			continue
-		to_chat(human, span_revenwarning("You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
-		new /obj/effect/temp_visual/revenant(human.loc)
-		human.emp_act(EMP_HEAVY)
-	for(var/obj/thing in T)
-		if(istype(thing, /obj/machinery/power/apc) || istype(thing, /obj/machinery/power/smes)) //Doesn't work on SMES and APCs, to prevent kekkery
-			continue
-		if(prob(20))
-			if(prob(50))
-				new /obj/effect/temp_visual/revenant(thing.loc)
-			thing.use_emag(null)
-		else
-			if(!istype(thing, /obj/machinery/clonepod)) //I hate everything but mostly the fact there's no better way to do this without just not affecting it at all
-				thing.emp_act(EMP_HEAVY)
-	for(var/mob/living/silicon/robot/S in T) //Only works on cyborgs, not AI
-		playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-		new /obj/effect/temp_visual/revenant(S.loc)
-		S.spark_system.start()
-		S.emp_act(EMP_HEAVY)
-
-//Blight: Infects nearby humans and in general messes living stuff up.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/blight
-	name = "Blight"
-	desc = "Causes nearby living things to waste away."
-	charge_max = 200
-	range = 3
-	cast_amount = 50
-	unlock_amount = 75
-	action_icon_state = "blight"
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
-	if(attempt_cast(user))
-		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, PROC_REF(blight), T, user)
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/blight/proc/blight(turf/T, mob/user)
-	for(var/mob/living/mob in T)
-		if(mob == user)
-			continue
-		if(mob.anti_magic_check(FALSE, TRUE))
-			continue
-		new /obj/effect/temp_visual/revenant(mob.loc)
-		if(iscarbon(mob))
-			if(ishuman(mob))
-				var/mob/living/carbon/human/H = mob
-				if(H.dna?.species)
-					H.dna.species.handle_hair(H,"#1d2953") //will be reset when blight is cured
-				var/blightfound = FALSE
-				for(var/datum/disease/revblight/blight in H.diseases)
-					blightfound = TRUE
-					if(blight.stage < 5)
-						blight.stage++
-				if(!blightfound)
-					H.ForceContractDisease(new /datum/disease/revblight(), FALSE, TRUE)
-					to_chat(H, span_revenminor("You feel [pick("suddenly sick", "a surge of nausea", "like your skin is <i>wrong</i>")]."))
-			else
-				if(mob.reagents)
-					mob.reagents.add_reagent(/datum/reagent/toxin/plasma, 5)
-		else
-			mob.adjustToxLoss(5)
-	for(var/obj/structure/spacevine/vine in T) //Fucking with botanists, the ability.
-		vine.add_atom_colour("#823abb", TEMPORARY_COLOUR_PRIORITY)
-		new /obj/effect/temp_visual/revenant(vine.loc)
-		QDEL_IN(vine, 10)
-	for(var/obj/structure/glowshroom/shroom in T)
-		shroom.add_atom_colour("#823abb", TEMPORARY_COLOUR_PRIORITY)
-		new /obj/effect/temp_visual/revenant(shroom.loc)
-		QDEL_IN(shroom, 10)
-	for(var/obj/machinery/hydroponics/tray in T)
-		new /obj/effect/temp_visual/revenant(tray.loc)
-		tray.pestlevel = rand(8, 10)
-		tray.weedlevel = rand(8, 10)
-		tray.toxic = rand(45, 55)

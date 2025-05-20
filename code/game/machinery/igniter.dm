@@ -38,7 +38,7 @@
 	on = TRUE
 	icon_state = "igniter1"
 
-/obj/machinery/igniter/attack_hand(mob/user)
+/obj/machinery/igniter/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(. || panel_open)
 		return

@@ -1,5 +1,4 @@
 import { classes } from 'common/react';
-import { Fragment } from 'inferno';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, Flex, Icon, NoticeBox, Section, Tooltip } from '../components';
@@ -45,7 +44,7 @@ export const NtosRadarContentSmall = (props) => {
               <Icon
                 name={target.dist > 0 ? 'arrow-up' : 'crosshairs'}
                 style={{
-                  'transform': `rotate(${target.rotate_angle}deg)`,
+                  transform: `rotate(${target.rotate_angle}deg)`,
                 }}
               />
             ) : null}{' '}
@@ -130,10 +129,10 @@ export const NtosRadarContent = (props) => {
       </Flex.Item>
       <Flex.Item
         style={{
-          'background-image': 'url("' + resolveAsset('ntosradarbackground.png') + '")',
-          'background-position': 'center',
-          'background-repeat': 'no-repeat',
-          'top': '20px',
+          backgroundImage: 'url("' + resolveAsset('ntosradarbackground.png') + '")',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          top: '20px',
         }}
         position="relative"
         m={1.5}
@@ -146,7 +145,7 @@ export const NtosRadarContent = (props) => {
             </NoticeBox>
           )
           : (!!target.use_rotate && (
-            <Fragment>
+            <>
               <Box
                 as="img"
                 src={resolveAsset(target.arrowstyle)}
@@ -154,7 +153,7 @@ export const NtosRadarContent = (props) => {
                 top="20px"
                 left="243px"
                 style={{
-                  'transform': `rotate(${target.rotate_angle}deg)`,
+                  transform: `rotate(${target.rotate_angle}deg)`,
                 }}
               />
               {target.pointer_z ? (
@@ -167,7 +166,7 @@ export const NtosRadarContent = (props) => {
                   left={224 + 'px'}
                 />
               ) : null}
-            </Fragment>
+            </>
           )) || (
             <Icon
               name={target.pointer_z ? target.pointer_z : 'crosshairs'}

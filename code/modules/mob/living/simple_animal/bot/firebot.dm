@@ -33,7 +33,7 @@
 
 	var/speech_cooldown = 0
 	var/detected_cooldown = 0
-	var/foam_cooldown = 0
+	COOLDOWN_DECLARE(foam_cooldown)
 
 	var/extinguish_people = TRUE
 	var/extinguish_fires = TRUE
@@ -48,6 +48,12 @@
 	prev_access = access_card.access.Copy()
 
 	create_extinguisher()
+
+/mob/living/simple_animal/bot/firebot/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
+
 
 /mob/living/simple_animal/bot/firebot/bot_reset()
 	create_extinguisher()
@@ -262,11 +268,13 @@
 
 	return result
 
-/mob/living/simple_animal/bot/firebot/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && foam_cooldown + FOAM_INTERVAL < world.time)
+/mob/living/simple_animal/bot/firebot/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > T0C + 200 || exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+
+/mob/living/simple_animal/bot/firebot/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(COOLDOWN_FINISHED(src, foam_cooldown))
 		new /obj/effect/particle_effect/foam/firefighting(loc)
-		foam_cooldown = world.time
-	..()
+		COOLDOWN_START(src, foam_cooldown, FOAM_INTERVAL)
 
 /mob/living/simple_animal/bot/firebot/proc/spray_water(atom/target, mob/user)
 	if(stationary_mode)

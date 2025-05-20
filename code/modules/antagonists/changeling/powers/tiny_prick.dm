@@ -3,20 +3,14 @@
 /datum/action/changeling/sting//parent path, not meant for users afaik
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
+	toggleable = TRUE
 	var/stealthy = FALSE
 
-/datum/action/changeling/sting/Trigger()
-	var/mob/user = owner
-	if(!user || !user.mind)
-		return
-	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(!changeling)
-		return
-	if(!changeling.chosen_sting)
-		set_sting(user)
-	else
-		unset_sting(user)
-	return
+/datum/action/changeling/sting/on_activate(mob/user, atom/target)
+	set_sting(user)
+
+/datum/action/changeling/sting/on_deactivate(mob/user, atom/target)
+	unset_sting(user)
 
 /datum/action/changeling/sting/proc/set_sting(mob/user)
 	to_chat(user, span_notice("We prepare our sting. Alt+click or click the middle mouse button on a target to sting them."))
@@ -74,15 +68,14 @@
 	button_icon_state = "sting_transform"
 	chemical_cost = 20
 	dna_cost = 3
+	cooldown_time = TRANSFORM_STING_COOLDOWN
 	var/datum/changelingprofile/selected_dna = null
-	COOLDOWN_DECLARE(next_sting)
 
-/datum/action/changeling/sting/transformation/Trigger()
-	var/mob/user = usr
+/datum/action/changeling/sting/transformation/is_available()
+	return ..() && owner.mind.has_antag_datum(/datum/antagonist/changeling)
+
+/datum/action/changeling/sting/transformation/on_activate(mob/user, atom/target)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(changeling.chosen_sting)
-		unset_sting(user)
-		return
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
@@ -97,9 +90,6 @@
 	if((HAS_TRAIT(target, TRAIT_HUSK)) || !iscarbon(target) || (NOTRANSSTING in target.dna.species.species_traits))
 		to_chat(user, span_warning("Our sting appears ineffective against its DNA."))
 		return FALSE
-	if(!COOLDOWN_FINISHED(src, next_sting))
-		to_chat(user, span_warning("Our retrovirus is not ready yet!"))
-		return FALSE
 	return TRUE
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
@@ -113,10 +103,9 @@
 	if(istype(C))
 		if(ismonkey(C))
 			C = C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
-		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION)
-		C.apply_status_effect(STATUS_EFFECT_LING_TRANSFORMATION, new_dna, istype(previous_transformation) ? previous_transformation.original_dna : null)
-	COOLDOWN_START(src, next_sting, TRANSFORM_STING_COOLDOWN)
-
+		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(/datum/status_effect/ling_transformation)
+		C.apply_status_effect(/datum/status_effect/ling_transformation, new_dna, istype(previous_transformation) ? previous_transformation.original_dna : null)
+	start_cooldown()
 
 /datum/action/changeling/sting/false_armblade
 	name = "False Armblade Sting"

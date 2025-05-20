@@ -154,6 +154,8 @@ SUBSYSTEM_DEF(mapping)
 			var/area/old_area = T.loc
 			old_area.turfs_to_uncontain += T
 			T.flags_1 |= UNUSED_RESERVATION_TURF_1
+			// reservation turfs are not allowed to interact with atmos at all
+			T.blocks_air = TRUE
 			world_contents += T
 			world_turf_contents += T
 			packet.len--
@@ -574,6 +576,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		// already /turf/open/space/basic.
 		var/turf/T = t
 		T.flags_1 |= UNUSED_RESERVATION_TURF_1
+		T.blocks_air = TRUE
 	unused_turfs["[z]"] = block
 	reservation_ready["[z]"] = TRUE
 	clearing_reserved_turfs = FALSE

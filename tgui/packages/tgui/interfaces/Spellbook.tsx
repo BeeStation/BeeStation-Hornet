@@ -3,7 +3,7 @@ import { multiline } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Dimmer, Divider, Icon, Input, NoticeBox, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 
 enum SpellCategory {
   Offensive = 'Offensive',
@@ -23,7 +23,7 @@ type SpellEntry = {
   // Byond REF of the spell entry datum
   ref: byondRef;
   // Whether the spell requires wizard clothing to cast
-  clothes_req: BooleanLike;
+  requires_wizard_garb: BooleanLike;
   // Spell points required to buy the spell
   cost: number;
   // How many times the spell has been bought
@@ -49,7 +49,7 @@ type Data = {
 type TabType = {
   title: string;
   blurb?: string;
-  component?: () => InfernoNode;
+  component?: () => ReactNode;
   locked?: boolean;
   scrollable?: boolean;
 };
@@ -327,7 +327,9 @@ const Randomize = (props) => {
   return (
     <Stack fill vertical>
       {points < 10 && <PointLocked />}
-      <Stack.Item>Semi-Randomize will ensure you at least get some mobility and lethality.</Stack.Item>
+      <Stack.Item>
+        Semi-Randomize will ensure you at least get some mobility and lethality and additional 20% spell value.
+      </Stack.Item>
       <Stack.Item>
         <Button.Confirm
           confirmContent="Cowabunga it is?"
@@ -340,7 +342,9 @@ const Randomize = (props) => {
         />
         <Divider />
       </Stack.Item>
-      <Stack.Item>Full Random will give you anything. There&apos;s no going back, either!</Stack.Item>
+      <Stack.Item>
+        Full Random will give you anything at a whopping 50% spell value increase!. There&apos;s no going back, either!
+      </Stack.Item>
       <Stack.Item>
         <NoticeBox danger>
           <Button.Confirm
@@ -368,7 +372,7 @@ const SearchSpells = (props) => {
     const searchStatement = spellSearch.toLowerCase();
     if (searchStatement === 'robeless') {
       // Lets you just search for robeless spells, you're welcome mindswap-bros
-      return entries.filter((entry) => !entry.clothes_req);
+      return entries.filter((entry) => !entry.requires_wizard_garb);
     }
 
     return entries.filter(
@@ -445,9 +449,9 @@ const SpellTabDisplay = (props: { TabSpells: SpellEntry[] }) => {
                 <Button
                   mt={-0.8}
                   icon="tshirt"
-                  color={entry.clothes_req ? 'bad' : 'green'}
+                  color={entry.requires_wizard_garb ? 'bad' : 'green'}
                   tooltipPosition="bottom-start"
-                  tooltip={entry.clothes_req ? 'Requires wizard garb.' : 'Can be cast without wizard garb.'}
+                  tooltip={entry.requires_wizard_garb ? 'Requires wizard garb.' : 'Can be cast without wizard garb.'}
                 />
               )
             }>

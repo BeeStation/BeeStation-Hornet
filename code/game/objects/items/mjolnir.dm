@@ -9,7 +9,7 @@
 	force = 5
 	throwforce = 30
 	throw_range = 7
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
@@ -114,11 +114,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 
 //How did this even happen?
 /obj/structure/anchored_mjolnir/Destroy()
-	if (contained)
+	if(contained)
 		QDEL_NULL(contained)
 	return ..()
 
-/obj/structure/anchored_mjolnir/attack_hand(mob/user)
+/obj/structure/anchored_mjolnir/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if (iswizard(user))
 		var/hammer = contained

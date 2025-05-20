@@ -134,7 +134,7 @@ const CraftingList = (props) => {
             <Button
               icon="cog"
               content="Craft"
-              style={{ 'margin-top': '14px' }}
+              style={{ marginTop: '14px' }}
               disabled={!craftability[craftable.ref]}
               tooltip={craftable.tool_text && 'Tools needed: ' + craftable.tool_text}
               tooltipPosition="left"
@@ -155,7 +155,7 @@ const CraftingList = (props) => {
         key={craftable.name}
         title={
           <>
-            <span style={{ 'margin-right': '2px' }} className={classes(['crafting42x42', craftable.path])} />
+            <span style={{ marginRight: '2px' }} className={classes(['crafting42x42', craftable.path])} />
             {craftable.name}
           </>
         }
@@ -164,7 +164,7 @@ const CraftingList = (props) => {
           <Button
             icon="cog"
             content="Craft"
-            style={{ 'margin-top': '14px' }}
+            style={{ marginTop: '14px' }}
             disabled={!craftability[craftable.ref]}
             onClick={() =>
               act('make', {

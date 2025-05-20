@@ -31,14 +31,8 @@ export const LoadoutPage = (props) => {
 
         return (
           <Stack height="100%">
-            <Stack.Item style={{ 'max-height': '640px' }}>
-              <Flex
-                width="219px"
-                mb={1}
-                p={1}
-                fontSize="22px"
-                style={{ 'align-items': 'center' }}
-                className="section-background">
+            <Stack.Item style={{ maxHeight: '640px' }}>
+              <Flex width="219px" mb={1} p={1} fontSize="22px" style={{ alignItems: 'center' }} className="section-background">
                 <Flex.Item>
                   <Button icon="undo" tooltip="Rotate" tooltipPosition="top" onClick={() => act('rotate')} />
                 </Flex.Item>
@@ -89,18 +83,18 @@ export const LoadoutPage = (props) => {
                     width="100%"
                     height="100%"
                     className="section-background"
-                    style={{ padding: '0.66em 0.5em', 'overflow-y': 'scroll' }}>
+                    style={{ padding: '0.66em 0.5em', overflowY: 'scroll' }}>
                     <Table>
                       <Table.Row header>
                         <Table.Cell collapsing />
                         <Table.Cell>Name</Table.Cell>
-                        {showRoles || searchText.length ? <Table.Cell style={{ 'width': '15rem' }}>Roles</Table.Cell> : null}
+                        {showRoles || searchText.length ? <Table.Cell style={{ width: '15rem' }}>Roles</Table.Cell> : null}
                         {selectedCategory !== 'Donator' && (
                           <Table.Cell collapsing textAlign="center">
                             Cost
                           </Table.Cell>
                         )}
-                        <Table.Cell style={{ 'min-width': '7rem' }} collapsing />
+                        <Table.Cell style={{ minWidth: '7rem' }} collapsing />
                       </Table.Row>
                       {!searchText?.length && selectedCategoryObject
                         ? selectedCategoryObject.gear.map((gear) => (
@@ -154,18 +148,18 @@ const GearEntry = (props: { gear: LoadoutGear; metacurrency_name: string; select
             jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name ? '_skirt' : ''
           }`}
           style={{
-            'vertical-align': 'middle',
-            'horizontal-align': 'middle',
+            verticalAlign: 'middle',
+            horizontalAlign: 'middle',
           }}
         />
       </Table.Cell>
       <Table.Cell
         style={{
-          'max-width': '1px',
-          'white-space': 'nowrap',
-          'text-overflow': 'ellipsis',
-          'overflow': 'hidden',
-          'vertical-align': 'middle',
+          maxWidth: '1px',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+          verticalAlign: 'middle',
         }}>
         {gear.description || gear.skirt_description ? (
           <Tooltip
@@ -174,8 +168,8 @@ const GearEntry = (props: { gear: LoadoutGear; metacurrency_name: string; select
               inline
               style={
                 gear.description || gear.skirt_description
-                  ? { 'border-bottom': '1px dotted #909090', 'padding-bottom': '1px' }
-                  : null
+                  ? { borderBottom: '1px dotted #909090', paddingBottom: '1px' }
+                  : undefined
               }>
               {jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name ? gear.skirt_display_name : gear.display_name}
             </Box>
@@ -190,14 +184,14 @@ const GearEntry = (props: { gear: LoadoutGear; metacurrency_name: string; select
         <Table.Cell
           color="label"
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
           }}>
           {gear.allowed_roles && gear.allowed_roles.length > 0 ? (
             gear.allowed_roles.length === 1 ? (
               gear.allowed_roles[0]
             ) : (
               <Tooltip content={gear.allowed_roles.join(', ')}>
-                <Box inline style={{ 'border-bottom': '1px dotted #909090', 'padding-bottom': '1px' }}>
+                <Box inline style={{ borderBottom: '1px dotted #909090', paddingBottom: '1px' }}>
                   {gear.allowed_roles[0]}, {gear.allowed_roles[1][0]}...
                 </Box>
               </Tooltip>
@@ -210,7 +204,7 @@ const GearEntry = (props: { gear: LoadoutGear; metacurrency_name: string; select
           collapsing
           textAlign="center"
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
           }}>
           {gear.cost.toLocaleString()}
         </Table.Cell>
@@ -218,7 +212,7 @@ const GearEntry = (props: { gear: LoadoutGear; metacurrency_name: string; select
       <Table.Cell
         textAlign="center"
         style={{
-          'vertical-align': 'middle',
+          verticalAlign: 'middle',
         }}>
         <Button
           disabled={

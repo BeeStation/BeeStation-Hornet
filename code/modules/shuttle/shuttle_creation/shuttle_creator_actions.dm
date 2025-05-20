@@ -1,16 +1,17 @@
 //============ Actions ============
 /datum/action/innate/shuttle_creator
 	icon_icon = 'icons/hud/actions/actions_shuttle.dmi'
+	button_icon_state = null
 	var/mob/living/C
 	var/mob/camera/ai_eye/remote/shuttle_creation/remote_eye
 	var/obj/item/shuttle_creator/shuttle_creator
 
-/datum/action/innate/shuttle_creator/Activate()
-	if(!target)
+/datum/action/innate/shuttle_creator/on_activate()
+	if(!master)
 		return TRUE
 	C = owner
 	remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	shuttle_creator = internal_console.owner_rsd
 	if(shuttle_creator.update_origin())
 		to_chat(usr, span_warning("Warning, the shuttle has moved during designation. Please wait for the shuttle to dock and try again."))
@@ -23,7 +24,7 @@
 	name = "Designate Room"
 	button_icon_state = "designate_area"
 
-/datum/action/innate/shuttle_creator/designate_area/Activate()
+/datum/action/innate/shuttle_creator/designate_area/on_activate()
 	if(..())
 		return
 	shuttle_creator.add_saved_area(remote_eye)
@@ -33,7 +34,7 @@
 	name = "Designate Turf"
 	button_icon_state = "designate_turf"
 
-/datum/action/innate/shuttle_creator/designate_turf/Activate()
+/datum/action/innate/shuttle_creator/designate_turf/on_activate()
 	if(..())
 		return
 	var/turf/T = get_turf(remote_eye)
@@ -56,7 +57,7 @@
 	name = "Clear Turf"
 	button_icon_state = "clear_turf"
 
-/datum/action/innate/shuttle_creator/clear_turf/Activate()
+/datum/action/innate/shuttle_creator/clear_turf/on_activate()
 	if(..())
 		return
 	shuttle_creator.remove_single_turf(get_turf(remote_eye))
@@ -66,7 +67,7 @@
 	name = "Reset Buffer"
 	button_icon_state = "clear_area"
 
-/datum/action/innate/shuttle_creator/reset/Activate()
+/datum/action/innate/shuttle_creator/reset/on_activate()
 	if(..())
 		return
 	shuttle_creator.reset_saved_area()
@@ -76,7 +77,7 @@
 	name = "Select Docking Airlock"
 	button_icon_state = "select_airlock"
 
-/datum/action/innate/shuttle_creator/airlock/Activate()
+/datum/action/innate/shuttle_creator/airlock/on_activate()
 	if(..())
 		return
 	var/turf/T = get_turf(remote_eye)
@@ -98,14 +99,14 @@
 		if(shuttle_creator.shuttle_create_docking_port(A, C))
 			to_chat(C, span_notice("Shuttle created!"))
 	//Remove eye control
-	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	internal_console.remove_eye_control(owner)
 
 /datum/action/innate/shuttle_creator/modify
 	name = "Confirm Shuttle Modifications"
 	button_icon_state = "modify"
 
-/datum/action/innate/shuttle_creator/modify/Activate()
+/datum/action/innate/shuttle_creator/modify/on_activate()
 	if(..())
 		return
 	if(shuttle_creator.loggedTurfs.len > SHUTTLE_CREATOR_MAX_SIZE)
@@ -114,5 +115,5 @@
 	if(shuttle_creator.modify_shuttle_area(C))
 		to_chat(C, span_notice("Shuttle modifications have been finalized."))
 		//Remove eye control
-	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	internal_console.remove_eye_control(owner)

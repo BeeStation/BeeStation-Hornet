@@ -142,7 +142,7 @@ GLOBAL_LIST(labor_sheet_values)
 	..()
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && user.a_intent == INTENT_HELP)
+	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && !user.combat_mode)
 		var/obj/item/stack/sheet/inp = I
 		process_sheet(inp)
 		visible_message("[user.name] puts \the [I] into \the [src]")
@@ -157,7 +157,7 @@ GLOBAL_LIST(labor_sheet_values)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 
-/obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
+/obj/machinery/mineral/labor_points_checker/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

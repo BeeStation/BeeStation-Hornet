@@ -6,9 +6,9 @@
 
 import { EventEmitter } from 'common/events';
 import { classes } from 'common/react';
+import { createRoot } from 'react-dom/client';
 import { createLogger } from 'tgui/logging';
 import { COMBINE_MAX_MESSAGES, COMBINE_MAX_TIME_WINDOW, IMAGE_RETRY_DELAY, IMAGE_RETRY_LIMIT, IMAGE_RETRY_MESSAGE_AGE, MAX_PERSISTED_MESSAGES, MAX_VISIBLE_MESSAGES, MESSAGE_PRUNE_INTERVAL, MESSAGE_TYPES, MESSAGE_TYPE_INTERNAL, MESSAGE_TYPE_UNKNOWN } from './constants';
-import { render } from 'inferno';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
 import { Tooltip, RadarChart } from 'tgui/components';
@@ -197,11 +197,12 @@ class ChatRenderer {
     /** @type {HTMLElement} */
     this.scrollNode = null;
     this.scrollTracking = true;
+    this.lastScrollHeight = 0;
     this.handleScroll = (type) => {
       const node = this.scrollNode;
       const height = node.scrollHeight;
       const bottom = node.scrollTop + node.offsetHeight;
-      const scrollTracking = Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE;
+      const scrollTracking = Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE || this.lastScrollHeight === 0;
       if (scrollTracking !== this.scrollTracking) {
         this.scrollTracking = scrollTracking;
         this.events.emit('scrollTrackingChanged', scrollTracking);
@@ -233,7 +234,7 @@ class ChatRenderer {
     // Find scrollable parent
     this.scrollNode = findNearestScrollableParent(this.rootNode);
     this.scrollNode.addEventListener('scroll', this.handleScroll);
-    setImmediate(() => {
+    setTimeout(() => {
       this.scrollToBottom();
     });
     // Flush the queue
@@ -400,6 +401,9 @@ class ChatRenderer {
       }
       return;
     }
+    if (this.scrollNode) {
+      this.lastScrollHeight = this.scrollNode.scrollHeight;
+    }
     // Insert messages
     const fragment = document.createDocumentFragment();
     const countByType = {};
@@ -468,14 +472,16 @@ class ChatRenderer {
             childNode.removeChild(childNode.firstChild);
           }
           const Element = TGUI_CHAT_COMPONENTS[targetName];
+
+          const reactRoot = createRoot(childNode);
+
           /* eslint-disable react/no-danger */
-          render(
+          reactRoot.render(
             <Element {...outputProps}>
               <span dangerouslySetInnerHTML={oldHtml} />
             </Element>,
             childNode
           );
-          /* eslint-enable react/no-danger */
         }
 
         // Highlight text
@@ -509,13 +515,7 @@ class ChatRenderer {
       message.node = node;
       // Query all possible selectors to find out the message type
       if (!message.type) {
-        // IE8: Does not support querySelector on elements that
-        // are not yet in the document.
-        // prettier-ignore
-        const typeDef = !Byond.IS_LTE_IE8 && MESSAGE_TYPES
-          .find(typeDef => (
-            typeDef.selector && node.querySelector(typeDef.selector)
-          ));
+        const typeDef = MESSAGE_TYPES.find((typeDef) => typeDef.selector && node.querySelector(typeDef.selector));
         message.type = typeDef?.type || MESSAGE_TYPE_UNKNOWN;
       }
       updateMessageBadge(message);
@@ -538,7 +538,7 @@ class ChatRenderer {
         this.rootNode.appendChild(fragment);
       }
       if (this.scrollTracking) {
-        setImmediate(() => this.scrollToBottom());
+        setTimeout(() => this.scrollToBottom());
       }
     }
     // Notify listeners that we have processed the batch
@@ -630,10 +630,6 @@ class ChatRenderer {
   }
 
   saveToDisk() {
-    // Allow only on IE11
-    if (Byond.IS_LTE_IE10) {
-      return;
-    }
     // Compile currently loaded stylesheets as CSS text
     let cssText = '';
     const styleSheets = document.styleSheets;

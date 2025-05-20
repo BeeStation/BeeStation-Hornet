@@ -1,8 +1,7 @@
 import { useSelector } from 'tgui/backend';
-import { Button, Flex, Box, Section } from 'tgui/components';
-import { useSettings } from '../settings';
+import { Button, Flex, Box } from 'tgui/components';
 import { selectStatPanel } from './selectors';
-import { Divider, Table } from '../../tgui/components';
+import { Divider } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_BLANK } from './constants';
 import { capitalize } from 'common/string';
 
@@ -153,7 +152,7 @@ export const StatTextButton = (props) => {
               grow={1}
               ml={1.5}
               style={{
-                'white-space': 'normal',
+                whiteSpace: 'normal',
               }}>
               {text}
             </Flex.Item>
@@ -180,7 +179,7 @@ export const StatTextButton = (props) => {
             </Flex>
             <Box
               style={{
-                'white-space': 'normal',
+                whiteSpace: 'normal',
               }}>
               {text}
             </Box>
@@ -203,7 +202,7 @@ export const StatTextAtom = (props) => {
   storeAtomRef(null);
 
   return (
-    <Flex.Item mt={0.5} width={Byond.BYOND_MAJOR >= 515 ? '33%' : '50%'}>
+    <Flex.Item mt={0.5} width={'33%'}>
       <Button
         height="100%"
         pl={0}
@@ -255,15 +254,11 @@ export const StatTextAtom = (props) => {
         color="transparent">
         <div className="StatAtomElement">
           <Flex direction="row" wrap="wrap">
-            {Byond.BYOND_MAJOR >= 515 ? (
+            {
               <Flex.Item mr={1}>
                 <img width="32px" height="32px" src={atom_icon} />
               </Flex.Item>
-            ) : (
-              <Flex.Item basis={6} mr={2}>
-                <div className={StatTagToClassName(atom_tag)}>{atom_tag}</div>
-              </Flex.Item>
-            )}
+            }
             <Flex.Item grow={1} className="StatWordWrap">
               {capitalize(atom_name)}
             </Flex.Item>
@@ -297,116 +292,6 @@ export const StatTextVerb = (props) => {
         color="transparent"
         fluid
       />
-    </Box>
-  );
-};
-
-// =======================
-// Non-Flex Support
-// =======================
-
-export const HoboStatText = (props) => {
-  const stat = useSelector(selectStatPanel);
-  let statPanelData = stat.statInfomation;
-  if (!statPanelData) {
-    return <Box color="red">Passed stat panel data was null contant coderman (or coderwoman).</Box>;
-  }
-  let verbs = {};
-  if (stat.verbData !== null) {
-    verbs = stat.verbData[stat.selectedTab] || {};
-  }
-  return (
-    <div className="StatBorder">
-      <Section>
-        {statPanelData
-          ? Object.keys(statPanelData).map(
-            (key) =>
-              !!statPanelData[key] &&
-              ((statPanelData[key].type === STAT_TEXT && <HoboStatTextText title={key} text={statPanelData[key].text} />) ||
-                (statPanelData[key].type === STAT_BUTTON && (
-                  <HoboStatTextButton
-                    title={key}
-                    text={statPanelData[key].text}
-                    action_id={statPanelData[key].action}
-                    params={statPanelData[key].params}
-                  />
-                )) ||
-                (statPanelData[key].type === STAT_ATOM && (
-                  <HoboStatTextAtom atom_ref={key} atom_name={statPanelData[key].text} />
-                )) ||
-                (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                (statPanelData[key].type === STAT_BLANK && <br />) ||
-                null)
-          )
-          : 'No data'}
-        {Object.keys(verbs).map((verb) => (
-          <Box wrap="wrap" key={verb} align="left">
-            <StatTextVerb title={verb} action_id={verbs[verb].action} params={verbs[verb].params} />
-          </Box>
-        ))}
-      </Section>
-    </div>
-  );
-};
-
-export const HoboStatTextText = (props) => {
-  const { title, text } = props;
-  return (
-    <Box>
-      <b>{title}: </b>
-      {text}
-    </Box>
-  );
-};
-
-export const HoboStatTextButton = (props) => {
-  const { title, text, action_id, params = [] } = props;
-  return (
-    <Box>
-      <Button
-        onClick={() =>
-          Byond.sendMessage('stat/pressed', {
-            action_id: action_id,
-            params: params,
-          })
-        }
-        color="transparent">
-        <b>{title}: </b>
-        {text}
-      </Button>
-    </Box>
-  );
-};
-
-export const HoboStatTextAtom = (props) => {
-  const { atom_name, atom_icon, atom_ref } = props;
-  return (
-    <Box>
-      <Button
-        onClick={(e) =>
-          Byond.sendMessage('stat/pressed', {
-            action_id: 'atomClick',
-            params: {
-              ref: atom_ref,
-            },
-          })
-        }
-        color="transparent">
-        <Table>
-          <Table.Row>
-            <Table.Cell>
-              <img
-                src={`data:image/jpeg;base64,${atom_icon}`}
-                style={{
-                  'vertical-align': 'middle',
-                  'horizontal-align': 'middle',
-                }}
-              />
-            </Table.Cell>
-            <Table.Cell ml={1}>{atom_name}</Table.Cell>
-          </Table.Row>
-        </Table>
-      </Button>
     </Box>
   );
 };

@@ -39,7 +39,7 @@
 		dat += "<I>Your apprentice is training to cast spells without their robes. They know Knock and Mindswap.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_WILDMAGIC]'>Wild Magic</A><BR>"
 		dat += "<I>Your apprentice is training wild magic. You don't know which spells they got from the wild magic, but it's how the school of wild magic is.</I><BR><BR>"
-	user << browse(dat, "window=radio")
+	user << browse(HTML_SKELETON(dat), "window=radio")
 	onclose(user, "radio")
 	return
 
@@ -230,7 +230,7 @@
 
 	var/shatter_msg = span_notice("You shatter the bottle, no turning back now!")
 	var/veil_msg = span_warning("You sense a dark presence lurking just beyond the veil...")
-	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
+	var/mob/living/demon_type = /mob/living/simple_animal/hostile/imp/slaughter
 	var/antag_type = /datum/antagonist/slaughter
 
 
@@ -256,16 +256,14 @@
 
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, kind = "", datum/mind/user)
-	var/obj/effect/dummy/phased_mob/slaughter/holder = new /obj/effect/dummy/phased_mob/slaughter(T)
-	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
-	S.holder = holder
+	var/mob/living/simple_animal/hostile/imp/slaughter/S = new demon_type(T)
+	new /obj/effect/dummy/phased_mob(T, S)
 	S.key = C.key
 	S.mind.assigned_role = S.name
 	S.mind.special_role = S.name
 	S.mind.add_antag_datum(antag_type)
-	to_chat(S, S.playstyle_string)
-	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. \
-	Ctrl+Click a blood pool to manifest.</B>")
+	to_chat(S, ("<span class='bold'>You are currently not currently in the same plane of existence as the station. \
+		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc.</span>"))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -275,5 +273,5 @@
 	color = "#FF69B4" // HOT PINK
 
 	veil_msg = span_warning("You sense an adorable presence lurking just beyond the veil...")
-	demon_type = /mob/living/simple_animal/slaughter/laughter
+	demon_type = /mob/living/simple_animal/hostile/imp/slaughter/laughter
 	antag_type = /datum/antagonist/slaughter/laughter

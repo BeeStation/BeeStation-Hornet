@@ -52,8 +52,8 @@
 /obj/structure/barricade/proc/make_debris()
 	return
 
-/obj/structure/barricade/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM && bar_material == METAL)
+/obj/structure/barricade/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && bar_material == METAL)
 		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return
@@ -126,6 +126,7 @@
 	bar_material = WOOD
 	pickup_delay = 15 SECONDS
 	drop_amount = 5
+	layer = SHUTTER_LAYER
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))

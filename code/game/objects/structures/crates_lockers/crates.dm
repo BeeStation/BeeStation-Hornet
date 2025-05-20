@@ -100,7 +100,7 @@
 		new_animation_math_sublist[num_steps_1 + I] = cos(azimuth_angle) * sin(polar_angle) * radius_cr
 	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"] = new_animation_math_sublist
 
-/obj/structure/closet/crate/attack_hand(mob/user)
+/obj/structure/closet/crate/attack_hand(mob/user, list/modifiers)
 	if(istype(src.loc, /obj/structure/crate_shelf))
 		return FALSE // No opening crates in shelves!!
 	if(manifest)

@@ -38,6 +38,7 @@
 #define CATWALK_LAYER 2.51
 #define LOW_SIGIL_LAYER 2.52
 #define SIGIL_LAYER 2.54
+#define HIGH_PIPE_LAYER 2.55
 #define HIGH_SIGIL_LAYER 2.56
 
 #define BELOW_OPEN_DOOR_LAYER 2.6
@@ -172,6 +173,9 @@
 #define RUNECHAT_PLANE 650
 /// Plane for balloon text (text that fades up)
 #define BALLOON_CHAT_PLANE 651
+
+#define ATMOS_GROUP_PLANE 652
+#define ATMOS_GROUP_LAYER 652
 
 ///--------------- FULLSCREEN IMAGES ------------
 #define FLASH_LAYER 1

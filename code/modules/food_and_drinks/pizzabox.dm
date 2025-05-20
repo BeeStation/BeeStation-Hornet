@@ -39,6 +39,9 @@
 		pizza = new pizza
 	update_icon()
 
+/obj/item/pizzabox/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/pizzabox/Destroy()
 	unprocess()
@@ -117,7 +120,7 @@
 	update_icon()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/pizzabox/attack_hand(mob/user)
+/obj/item/pizzabox/attack_hand(mob/user, list/modifiers)
 	if(user.get_inactive_held_item() != src)
 		return ..()
 	if(open)

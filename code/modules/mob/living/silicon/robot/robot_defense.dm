@@ -1,5 +1,5 @@
-/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user)
-	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && user.a_intent == INTENT_HELP && !is_type_in_typecache(I, blacklisted_hats))
+/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user, params)
+	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && !user.combat_mode && !is_type_in_typecache(I, blacklisted_hats))
 		to_chat(user, span_notice("You begin to place [I] on [src]'s head..."))
 		to_chat(src, span_notice("[user] is placing [I] on your head..."))
 		if(do_after(user, 30, target = src))
@@ -10,8 +10,8 @@
 		spark_system.start()
 	return ..()
 
-/mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if (M.a_intent == INTENT_DISARM)
+/mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
+	if (LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(body_position == STANDING_UP)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			var/obj/item/I = get_active_held_item()
@@ -31,7 +31,7 @@
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime shock
 		flash_act()
 		if(M.powerlevel)
@@ -55,23 +55,18 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
-	if(opened && !wiresexposed && !issilicon(user))
-		if(cell)
-			cell.update_icon()
-			cell.add_fingerprint(user)
-			user.put_in_active_hand(cell)
-			to_chat(user, span_notice("You remove \the [cell]."))
-			cell = null
-			update_icons()
-			diag_hud_set_borgcell()
-
 	if(!opened)
-		if(..()) // hulk attack
-			spark_system.start()
-			spawn(0)
-				step_away(src,user,15)
-				sleep(3)
-				step_away(src,user,15)
+		return ..()
+	if(!wiresexposed && !issilicon(user))
+		if(!cell)
+			return
+		cell.update_icon()
+		cell.add_fingerprint(user)
+		user.put_in_active_hand(cell)
+		to_chat(user, span_notice("You remove \the [cell]."))
+		cell = null
+		update_icons()
+		diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
@@ -82,20 +77,49 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	switch(severity)
-		if(1)
-			Stun(160)
-		if(2)
-			Stun(60)
+	trigger_malfunction(TRUE)
+
+/mob/living/silicon/robot/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/static)
+	if(affect_silicon)
+		trigger_malfunction(FALSE)
+		return ..()
+
+///Sensors are overwhelmed by EMP/flash
+/mob/living/silicon/robot/proc/trigger_malfunction(major_malfunction = FALSE)
+
+	//Apply the basic slowdown status effect regardless of what caused the malfunction
+	apply_status_effect(/datum/status_effect/cyborg_malfunction)
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
+
+	//If the malfunction was caused by EMP instead of simply flash, there's a bit more to it
+	if(major_malfunction)
+
+		//Scramble equipped items
+		for(var/obj/O in held_items)
+			if(prob(60))
+				uneq_module(O)
+				activate_module(pick(module.modules))
+
+		//Randomizes locked state and compounds it with cover potentially swinging open for an overall 25% chance for cover to fly open
+		if(!opened)
+			locked = pick(TRUE, FALSE)
+			if(!locked)
+				opened = pick(TRUE, FALSE)
+
+	update_icons()
 
 /mob/living/silicon/robot/proc/should_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
 	if(target == user || user == src)
 		return TRUE // signal is inverted
-	if(!opened)//Cover is closed
-		return !locked
 	if(world.time < emag_cooldown)
 		return TRUE
+	if(has_status_effect(/datum/status_effect/cyborg_malfunction))
+		return FALSE //Malfunctions simplify the process for gameplay reasons
+	if(!opened)
+		if(!locked) //Tell the player what went wrong instead of just leaving them in the dark
+			to_chat(user, span_notice("You need to pry the cover open first!"))
+		return !locked
 	if(wiresexposed)
 		to_chat(user, span_warning("You must unexpose the wires first!"))
 		return TRUE
@@ -112,7 +136,7 @@
 		else
 			hacker.use_charge()
 
-	if(!opened && locked) //Cover is closed
+	if(!has_status_effect(/datum/status_effect/cyborg_malfunction) && !opened && locked) //Cover is locked closed, and the cyborg isn't already compromised
 		to_chat(user, span_notice("You emag the cover lock."))
 		locked = FALSE
 		if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
@@ -170,6 +194,7 @@
 
 /mob/living/silicon/robot/proc/after_emag_shell(mob/user)
 	ResetModule()
+	Stun(12 SECONDS, TRUE)
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)

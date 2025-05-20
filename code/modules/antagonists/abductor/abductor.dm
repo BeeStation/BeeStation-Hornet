@@ -5,6 +5,7 @@
 	banning_key = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
+	required_living_playtime = 4
 	var/datum/team/abductor_team/team
 	var/sub_role
 	var/outfit
@@ -48,8 +49,8 @@
 	return team
 
 /datum/antagonist/abductor/on_gain()
-	owner.special_role = "[name]"
-	owner.assigned_role = "[name]"
+	owner.special_role = ROLE_ABDUCTOR
+	owner.assigned_role = ROLE_ABDUCTOR
 	objectives += team.objectives
 	for(var/datum/objective/O in objectives)
 		log_objective(owner.current, O.explanation_text)

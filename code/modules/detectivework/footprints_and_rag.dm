@@ -12,7 +12,7 @@
 	item_flags = NOBLUDGEON
 	reagent_flags = OPENCONTAINER
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list()
+	has_variable_transfer_amount = FALSE
 	volume = 5
 	spillable = FALSE
 
@@ -20,7 +20,7 @@
 	user.visible_message(span_suicide("[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
-/obj/item/reagent_containers/cup/rag/afterattack(atom/A as obj|turf|area, mob/user,proximity)
+/obj/item/reagent_containers/cup/rag/afterattack(atom/A as obj|turf|area, mob/living/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -28,7 +28,7 @@
 		var/mob/living/carbon/C = A
 		var/reagentlist = pretty_string_from_reagent_list(reagents)
 		var/log_object = "containing [reagentlist]"
-		if(user.a_intent == INTENT_HARM && !C.is_mouth_covered())
+		if(user.combat_mode && !C.is_mouth_covered())
 			reagents.expose(C, INGEST)
 			reagents.trans_to(C, reagents.total_volume, transfered_by = user)
 			C.visible_message(span_danger("[user] has smothered \the [C] with \the [src]!"), span_userdanger("[user] has smothered you with \the [src]!"), span_italics("You hear some struggling and muffled cries of surprise."))

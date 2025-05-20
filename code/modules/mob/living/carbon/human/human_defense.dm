@@ -71,25 +71,12 @@
 		if(spec_return)
 			return spec_return
 
+	//MARTIAL ART STUFF
 	if(mind)
-		if(mind.martial_art && !incapacitated(FALSE, TRUE) && mind.martial_art.can_use(src) && mind.martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
-			if(prob(mind.martial_art.deflection_chance))
-				if((mobility_flags & MOBILITY_USE) && dna && !dna.check_mutation(HULK) && !P.martial_arts_no_deflect) //But only if they're otherwise able to use items, and hulks can't do it. Also damageless weapons are not deflected.
-					if(!isturf(loc)) //if we're inside something and still got hit
-						P.force_hit = TRUE //The thing we're in passed the bullet to us. Pass it back, and tell it to take the damage.
-						loc.bullet_act(P)
-						return BULLET_ACT_HIT
-					if(mind.martial_art.deflection_chance >= 100) //if they can NEVER be hit, lets clue sec in ;)
-						visible_message(span_danger("[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!"), span_userdanger("You deflect the projectile!"))
-					else
-						visible_message(span_danger("[src] deflects the projectile!"), span_userdanger("You deflect the projectile!"))
-					playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
-					if(!mind.martial_art.reroute_deflection)
-						return BULLET_ACT_BLOCK
-					else
-						P.firer = src
-						P.set_angle(rand(0, 360))//SHING
-						return BULLET_ACT_FORCE_PIERCE
+		if(mind.martial_art && mind.martial_art.can_use(src)) //Some martial arts users can deflect projectiles!
+			var/martial_art_result = mind.martial_art.on_projectile_hit(src, P, def_zone)
+			if(!(martial_art_result == BULLET_ACT_HIT))
+				return martial_art_result
 
 	if(!(P.original == src && P.firer == src)) //can't block or reflect when shooting yourself
 		if(P.reflectable & REFLECT_NORMAL)
@@ -104,14 +91,14 @@
 				if(P.starting)
 					var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
 					var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-					var/turf/curloc = get_turf(src)
+					var/turf/current_location = get_turf(src)
 
 					// redirect the projectile
 					P.original = locate(new_x, new_y, P.z)
-					P.starting = curloc
+					P.starting = current_location
 					P.firer = src
-					P.yo = new_y - curloc.y
-					P.xo = new_x - curloc.x
+					P.yo = new_y - current_location.y
+					P.xo = new_x - current_location.x
 					var/new_angle_s = P.Angle + rand(120,240)
 					while(new_angle_s > 180)	// Translate to regular projectile degrees
 						new_angle_s -= 360
@@ -149,12 +136,6 @@
 		return TRUE
 	if(belt?.hit_reaction(src, AM, attack_text, damage, attack_type))
 		return TRUE
-	return FALSE
-
-/mob/living/carbon/human/proc/check_block()
-	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(IGNORE_GRAB))
-			return TRUE
 	return FALSE
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
@@ -205,11 +186,11 @@
 	SSblackbox.record_feedback("tally", "zone_targeted", 1, target_area)
 
 	// the attacked_by code varies among species
-	return dna.species.spec_attacked_by(I, user, affecting, a_intent, src)
+	return dna.species.spec_attacked_by(I, user, affecting, src)
 
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		var/hulk_verb = pick("smash","pummel")
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
@@ -225,82 +206,91 @@
 		apply_damage(20, BRUTE, affecting, armor_block)
 		return 1
 
-/mob/living/carbon/human/attack_hand(mob/user)
+/mob/living/carbon/human/attack_hand(mob/user, modifiers)
 	if(..())	//to allow surgery to return properly.
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.dna.species.spec_attack_hand(H, src)
+		H.dna.species.spec_attack_hand(H, src, null, modifiers)
 
-/mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/M)
-	if(check_shields(M, 0, "the [M.name]", UNARMED_ATTACK))
-		visible_message(span_danger("[M] attempts to touch [src]!"), \
-						span_danger("[M] attempts to touch you!"), span_hear("You hear a swoosh!"), null, M)
-		to_chat(M, span_warning("You attempt to touch [src]!"))
+/mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
+	if(check_shields(user, 0, "the [user.name]", UNARMED_ATTACK))
+		visible_message(span_danger("[user] attempts to touch [src]!"), \
+						span_danger("[user] attempts to touch you!"), span_hear("You hear a swoosh!"), null, user)
+		to_chat(user, span_warning("You attempt to touch [src]!"))
 		return 0
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 	if(!affecting)
 		affecting = get_bodypart(BODY_ZONE_CHEST)
-	if(M.a_intent == INTENT_HELP)
+
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
+
+	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand, if no item, get stunned instead.
+		dna.species.disarm(user, src)
+		return TRUE
+
+	if(!user.combat_mode)
 		..() //shaking
-		return 0
+		return FALSE
 
-	if(M.a_intent == INTENT_DISARM) //the fact that this fucking works is hilarious to me
-		dna.species.disarm(M, src)
-		return 1
+	if(user.limb_destroyer)
+		dismembering_strike(user, affecting.body_zone)
 
-	if(M.limb_destroyer)
-		dismembering_strike(M, affecting.body_zone)
-
-	if(can_inject(M, 1, affecting))//Thick suits can stop monkey bites.
+	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
 			var/damage = rand(1, 3)
 			if(stat != DEAD)
 				apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
-		return 1
+		return TRUE
 
-/mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M, list/modifiers)
 	if(check_shields(M, 20, "the [M.name]", UNARMED_ATTACK))
-		visible_message(span_danger("[M] attempts to touch [src]!"), \
-						span_danger("[M] attempts to touch you!"), span_hear("You hear a swoosh!"), null, M)
-		to_chat(M, span_warning("You attempt to touch [src]!"))
-		return 0
+		visible_message("<span class='danger'>[M] attempts to touch [src]!</span>", \
+						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", null, M)
+		to_chat(M, "<span class='warning'>You attempt to touch [src]!</span>")
+		return FALSE
+	. = ..()
+	if(!.)
+		return
 
-	if(..())
-		if(M.a_intent == INTENT_HARM)
-			if (w_uniform)
-				w_uniform.add_fingerprint(M)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
-			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand, if no item, get stun instead.
+		var/obj/item/I = get_active_held_item()
+		if(I && dropItemToGround(I))
+			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
+			visible_message("<span class='danger'>[M] disarms [src]!</span>", \
+							"<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, M)
+			to_chat(M, "<span class='danger'>You disarm [src]!</span>")
+		else
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			Paralyze(100)
+			log_combat(M, src, "tackled")
+			visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
+							"<span class='userdanger'>[M] tackles you down!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", null, M)
+			to_chat(M, "<span class='danger'>You tackle [src] down!</span>")
+		return TRUE
 
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-			visible_message(span_danger("[M] slashes at [src]!"), \
-							span_userdanger("[M] slashes at you!"), span_hear("You hear a sickening sound of a slice!"), null, M)
-			to_chat(M, span_danger("You slash at [src]!"))
-			log_combat(M, src, "attacked", M)
-			if(!dismembering_strike(M, M.get_combat_bodyzone(src))) //Dismemberment successful
-				return 1
-			apply_damage(20, BRUTE, affecting, armor_block)
+	if(M.combat_mode)
+		if (w_uniform)
+			w_uniform.add_fingerprint(M)
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
+		if(!affecting)
+			affecting = get_bodypart(BODY_ZONE_CHEST)
+		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 
-		if(M.a_intent == INTENT_DISARM)
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-			Knockdown(20)
-			log_combat(M, src, "tackled", M)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
-			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-			apply_damage(30, STAMINA, affecting, armor_block)
-			visible_message(span_danger("[M] tackles [src] down!"), \
-					span_userdanger("[M] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, M)
-			to_chat(M, span_danger("You tackle [src] down!"))
+		playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+		visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
+						"<span class='userdanger'>[M] slashes at you!</span>", "<span class='hear'>You hear a sickening sound of a slice!</span>", null, M)
+		to_chat(M, "<span class='danger'>You slash at [src]!</span>")
+		log_combat(M, src, "attacked", M)
+		if(!dismembering_strike(M, M.get_combat_bodyzone(src))) //Dismemberment successful
+			return TRUE
+		apply_damage(20, BRUTE, affecting, armor_block)
 
 
-/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
-
+/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(..()) //successful larva bite.
 		var/damage = rand(1, 3)
 		if(check_shields(L, damage, "the [L.name]"))
@@ -313,7 +303,7 @@
 			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
 		var/damage = 20
 		if(M.is_adult)
@@ -336,7 +326,7 @@
 		apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
-	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)
 		return
 	..()
 	if (!severity || QDELETED(src))
@@ -458,14 +448,13 @@
 			if(!informed)
 				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
 				informed = TRUE
-			switch(severity)
-				if(EMP_HEAVY)
-					bodypart.receive_damage(0,10) //Burns, heavy.
-				if(EMP_LIGHT)
-					bodypart.receive_damage(0,5) //Burns, light.
-			bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
+			if(prob(30/severity)) //Random chance to disable and burn limbs
+				bodypart.receive_damage(burn = 5)
+				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
+			else
+				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
 			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
-				if(prob(20))
+				if(prob(5))
 					bodypart.dismember(BRUTE)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
@@ -628,11 +617,11 @@
 		return
 
 	if(src == M)
-		if(has_status_effect(STATUS_EFFECT_CHOKINGSTRAND))
+		if(has_status_effect(/datum/status_effect/strandling))
 			to_chat(src, span_notice("You attempt to remove the durathread strand from around your neck."))
 			if(do_after(src, 35, src, timed_action_flags = IGNORE_HELD_ITEM))
 				to_chat(src, span_notice("You succesfuly remove the durathread strand."))
-				remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+				remove_status_effect(/datum/status_effect/strandling)
 			return
 		check_self_for_injuries()
 
@@ -711,9 +700,9 @@
 
 		for(var/obj/item/I in LB.embedded_objects)
 			if(I.isEmbedHarmless())
-				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
+				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
 			else
-				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
 
 	for(var/t in missing)
 		to_chat(src, span_boldannounce("Your [parse_zone(t)] is missing!"))

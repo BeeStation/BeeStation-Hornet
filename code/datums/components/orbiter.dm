@@ -161,12 +161,12 @@
 	if(!newturf)
 		qdel(src)
 
-	var/atom/curloc = master.loc
+	var/atom/current_location = master.loc
 	for(var/atom/movable/movable_orbiter as anything in current_orbiters)
 		if(QDELETED(movable_orbiter) || movable_orbiter.loc == newturf)
 			continue
 		movable_orbiter.abstract_move(newturf)
-		if(CHECK_TICK && master.loc != curloc)
+		if(CHECK_TICK && master.loc != current_location)
 			// We moved again during the checktick, cancel current operation
 			break
 

@@ -7,7 +7,7 @@
 import { toFixed } from 'common/math';
 import { capitalize } from 'common/string';
 import { useLocalState, useDispatch, useSelector } from 'tgui/backend';
-import { Box, Button, Collapsible, ColorBox, Divider, Stack, Input, LabeledList, NumberInput, Section, Tabs, TextArea } from 'tgui/components';
+import { Box, Button, Collapsible, ColorBox, Divider, Input, LabeledList, NumberInput, Section, Stack, Tabs, TextArea } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
@@ -155,7 +155,7 @@ export const SettingsGeneral = (props) => {
             value={fontSize}
             unit="px"
             format={(value) => toFixed(value)}
-            onChange={(e, value) =>
+            onChange={(value) =>
               dispatch(
                 updateSettings({
                   fontSize: value,
@@ -173,7 +173,7 @@ export const SettingsGeneral = (props) => {
             maxValue={5}
             value={lineHeight}
             format={(value) => toFixed(value, 2)}
-            onDrag={(e, value) =>
+            onDrag={(value) =>
               dispatch(
                 updateSettings({
                   lineHeight: value,

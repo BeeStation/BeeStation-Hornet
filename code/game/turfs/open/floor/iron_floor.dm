@@ -388,6 +388,8 @@
 /turf/open/floor/iron/solarpanel/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/iron/solarpanel/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 
 /turf/open/floor/iron/freezer
 	icon_state = "freezerfloor"

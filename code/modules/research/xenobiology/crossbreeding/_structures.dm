@@ -149,8 +149,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!istype(T))
 		return
 	var/datum/gas_mixture/gas = T.return_air()
-	gas.set_temperature(T0C + 200)
-	T.air_update_turf()
+	gas.temperature = (T0C + 200)
+	T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/purple
 	colour = "purple"
@@ -189,9 +189,14 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/turf/open/T in view(2, src))
 		if(isspaceturf(T))
 			continue
-		var/datum/gas_mixture/gas = T.return_air()
-		gas.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
-		T.air_update_turf()
+
+		var/datum/gas_mixture/air = T.return_air()
+		var/moles_to_remove = air.total_moles()
+		T.remove_air(moles_to_remove)
+
+		var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
+		T.assume_air(base_mix)
+		T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/metal
 	colour = "metal"
@@ -236,8 +241,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/turf/open/open_turf = T
 	var/datum/gas_mixture/air = open_turf.return_air()
 
-	if(air.get_moles(GAS_PLASMA) > 15)
-		air.adjust_moles(GAS_PLASMA, -15)
+	if(GET_MOLES(/datum/gas/plasma, air) > 15)
+		REMOVE_MOLES(/datum/gas/plasma, air, 15)
 		new /obj/item/stack/sheet/mineral/plasma(open_turf)
 
 /obj/structure/slime_crystal/darkpurple/Destroy()
@@ -282,7 +287,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	GLOB.bluespace_slime_crystals -= src
 	return ..()
 
-/obj/structure/slime_crystal/bluespace/attack_hand(mob/user)
+/obj/structure/slime_crystal/bluespace/attack_hand(mob/user, list/modifiers)
 
 	if(in_use)
 		return
@@ -464,7 +469,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 		if(blood_amt == max_blood_amt)
 			return
 
-/obj/structure/slime_crystal/red/attack_hand(mob/user)
+/obj/structure/slime_crystal/red/attack_hand(mob/user, list/modifiers)
 	if(blood_amt < 100)
 		return ..()
 
@@ -497,7 +502,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	else
 		. += "It doesn't hold any mutations"
 
-/obj/structure/slime_crystal/green/attack_hand(mob/user)
+/obj/structure/slime_crystal/green/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!iscarbon(user) || !user.has_dna())
 		return
@@ -545,12 +550,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 /obj/structure/slime_crystal/gold
 	colour = "gold"
 
-/obj/structure/slime_crystal/gold/attack_hand(mob/user)
+/obj/structure/slime_crystal/gold/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_mob = user
-	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/pug,/mob/living/simple_animal/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
+	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/basic/pet/dog/corgi,/mob/living/basic/pet/dog/pug,/mob/living/basic/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
 	chosen_pet = new chosen_pet(get_turf(human_mob))
 	human_mob.forceMove(chosen_pet)
 	human_mob.mind.transfer_to(chosen_pet)
@@ -651,7 +656,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 			SC.master_crystal_destruction()
 	return ..()
 
-/obj/structure/slime_crystal/rainbow/attack_hand(mob/user)
+/obj/structure/slime_crystal/rainbow/attack_hand(mob/user, list/modifiers)
 	for(var/X in inserted_cores)
 		if(inserted_cores[X])
 			var/obj/structure/slime_crystal/SC = inserted_cores[X]

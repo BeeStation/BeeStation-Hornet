@@ -73,10 +73,6 @@
 	if(!istype(target_mob))
 		return
 
-	if(user.a_intent == INTENT_HARM)
-		//Early terminate, move to afterattack where we splash
-		return
-
 	if(target_mob != user)
 		target_mob.visible_message(span_danger("[user] attempts to feed [target_mob] something from [src]."), \
 				span_userdanger("[user] attempts to feed you something from [src]."))
@@ -139,13 +135,6 @@
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
-
-	else if(reagents.total_volume)
-		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
-								span_notice("You splash the contents of [src] onto [target]."))
-			reagents.expose(target, TOUCH)
-			reagents.clear_reagents()
 
 /obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
 	var/hotness = attacking_item.is_hot()
@@ -428,7 +417,7 @@
 			to_chat(user, span_danger("You can't grind this!"))
 			return
 
-	if(I.juice_typepath || I.grind_results)
+	if(I.grind_results || I.juice_typepath || I.is_grindable())
 		I.forceMove(src)
 		grinded = I
 		return
@@ -444,3 +433,24 @@
 		qdel(src)
 		return
 	return ..()
+
+//A cup made from coconuts harvested in botany
+/obj/item/reagent_containers/cup/coconutcup
+	name = "coconut cup"
+	desc = "A showy form of cup typically intended for both use and display."
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "coconutcup_empty"
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 100)
+	volume = 50
+	spillable = TRUE
+	resistance_flags = ACID_PROOF
+	obj_flags = UNIQUE_RENAME
+	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
+
+/obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
+	if (reagents && reagents.total_volume > 0)
+		icon_state = "coconutcup_full"
+	else
+		icon_state = "coconutcup_empty"
+

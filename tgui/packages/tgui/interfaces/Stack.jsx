@@ -1,5 +1,4 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Input, NoticeBox, Section, Collapsible, Table } from '../components';
@@ -42,10 +41,10 @@ export const Stack = (props) => {
         <Section
           title={'Amount: ' + amount}
           buttons={
-            <Fragment>
+            <>
               Search
               <Input autoFocus value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
-            </Fragment>
+            </>
           }>
           {(items.length === 0 && <NoticeBox>No recipes found.</NoticeBox>) || (
             <RecipeList recipes={items} do_sort={doSearch} expand={doSearch} />
@@ -65,9 +64,9 @@ const RecipeList = (props) => {
     ? sortBy((recipe) => recipe.title.toLowerCase())(recipes.filter((recipe) => recipe.title !== undefined))
     : recipes;
 
-  return display_recipes.map((recipe) => {
+  return display_recipes.map((recipe, index) => {
     if (recipe.spacer) {
-      return <hr key="spacer" />;
+      return <hr key={`stack-spacer-${display_recipes.length}-${index}`} />;
     } else if (recipe.sub_recipes) {
       return (
         <Collapsible color="label" title={recipe.title} key={recipe.title} open={expand}>

@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	str = replacetext(str, "%STNAME", "[GLOB.station_name]")  // retrieves the stations name
 	return str
 
-/obj/machinery/announcement_system/proc/announce(message_type, user, rank, list/channels)
+/obj/machinery/announcement_system/proc/announce(message_type, user, rank, list/channels, exploration_payout = 0)
 	if(!is_operational)
 		return
 
@@ -91,6 +91,8 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		message = CompileText("%PERSON, %RANK has been moved to cryo storage.", user, rank)
 	else if(message_type == "ARRIVALS_BROKEN")
 		message = "The arrivals shuttle has been damaged. Docking for repairs."
+	else if(message_type == "EXPLORATION_PAYOUT")
+		message = "Exploration objective completed. [exploration_payout / channels.len] credits have been distributed to the departmental budget."
 
 	if(channels.len == 0)
 		radio.talk_into(src, message, null)
@@ -99,7 +101,6 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 			radio.talk_into(src, message, channel)
 
 //config stuff
-
 
 /obj/machinery/announcement_system/ui_state(mob/user)
 	return GLOB.default_state

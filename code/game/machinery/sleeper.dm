@@ -102,7 +102,7 @@
 /obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
 	if ((istype(I, /obj/item/reagent_containers/cup) \
 		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
-		&& user.a_intent != INTENT_HARM)
+		&& !user.combat_mode)
 		if (length(inserted_vials) >= max_vials)
 			to_chat(user, span_warning("[src] cannot hold any more!"))
 			return
@@ -158,7 +158,7 @@
 
 
 /obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
-	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
 		return
 
 	close_machine(target)

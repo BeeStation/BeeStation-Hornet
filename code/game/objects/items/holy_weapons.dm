@@ -2,11 +2,11 @@
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) //makes the leader hoodie immune without giving the follower hoodies immunity
 
 /obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"
@@ -149,7 +149,7 @@
 	item_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 18
 	throw_speed = 3
 	throw_range = 4
@@ -159,9 +159,12 @@
 	obj_flags = UNIQUE_RENAME
 	var/chaplain_spawnable = TRUE
 
-/obj/item/nullrod/Initialize(mapload)
+
+/obj/item/nullrod/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, \
+	_source = INNATE_TRAIT, \
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 	AddComponent(/datum/component/effect_remover, \
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
@@ -288,7 +291,7 @@
 	damtype = BURN
 	attack_verb_continuous = list("punches", "cross counters", "pummels")
 	attack_verb_simple = list("punch", "cross counter", "pummel")
-	block_upgrade_walk = 0
+	block_upgrade_walk = FALSE
 
 /obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
@@ -361,7 +364,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1.5 //slower than a real saw
 
@@ -399,8 +402,8 @@
 	name = "light energy sword"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
 	icon = 'icons/obj/transforming_energy.dmi'
-	icon_state = "swordblue"
-	item_state = "swordblue"
+	icon_state = "e_sword_on_blue"
+	item_state = "e_sword_on_blue"
 	worn_icon_state = "swordblue"
 	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/weapons/blade1.ogg'
@@ -408,16 +411,16 @@
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy sword"
 	desc = "Woefully ineffective when used on steep terrain." //Anakin used his BLUE lightsaber in episode IV, FOOL
-	icon_state = "swordred"
-	item_state = "swordred"
+	icon_state = "e_sword_on_red"
+	item_state = "e_sword_on_red"
 	worn_icon_state = "swordred"
 
 /obj/item/nullrod/claymore/saber/pirate
 	name = "nautical energy sword"
-	icon_state = "cutlass1"
-	item_state = "cutlass1"
-	worn_icon_state = "swordred"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
+	icon_state = "e_cutlass_on"
+	item_state = "e_cutlass_on"
+	worn_icon_state = "swordred"
 
 /obj/item/nullrod/sord
 	name = "\improper UNREAL SORD"
@@ -551,7 +554,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5 //faster than normal saw
 
@@ -582,11 +585,11 @@
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	block_upgrade_walk = 0
+	block_upgrade_walk = FALSE
 
 
 /obj/item/nullrod/chainsaw/Initialize(mapload)
@@ -747,7 +750,7 @@
 /obj/item/nullrod/tribal_knife/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/butchering, 50, 100)
+	AddComponent(/datum/component/butchering, 50, 100, null, null, TRUE)
 
 /obj/item/nullrod/tribal_knife/Destroy()
 	STOP_PROCESSING(SSobj, src)

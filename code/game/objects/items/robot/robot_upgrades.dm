@@ -550,7 +550,7 @@
 /obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		if(R.shell)
+		if(locate(/obj/item/borg/upgrade/ai) in R.upgrades)
 			to_chat(user, span_warning("This unit is already an AI shell!"))
 			return FALSE
 		if(R.key) //You cannot replace a player unless the key is completely removed.
@@ -661,6 +661,8 @@
 		crew_monitor.Grant(R)
 		icon_state = "scanner"
 
+/datum/action/item_action/crew_monitor
+	name = "Interface With Crew Monitor"
 
 /obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()

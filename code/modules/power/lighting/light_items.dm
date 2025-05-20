@@ -67,14 +67,11 @@
 /obj/item/light/Initialize(mapload)
 	. = ..()
 	update()
+	AddComponent(/datum/component/caltrop, min_damage = force)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/item/light/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/caltrop, force)
 
 /obj/item/light/proc/on_entered(datum/source, atom/movable/L)
 	SIGNAL_HANDLER

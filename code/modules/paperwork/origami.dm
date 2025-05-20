@@ -110,8 +110,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/origami)
 	. = ..()
 	. += span_notice("Alt-click [src] to fold it into origami.")
 
-/obj/item/paper/AltClick(mob/living/carbon/user, obj/item/I)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+/obj/item/paper/AltClick(mob/living/user, obj/item/I)
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 
 	var/list/radial_list = list(

@@ -9,15 +9,9 @@
 	analyzerdesceffect = "Is fragile to all types of damage, but takes massive damage from brute. In addition, releases a small EMP when killed."
 	reagent = /datum/reagent/blob/electromagnetic_web
 
-/datum/blobstrain/reagent/electromagnetic_web/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
+/datum/blobstrain/reagent/electromagnetic_web/damage_reaction(obj/structure/blob/blob, damage, damage_type, damage_flag)
 	if(damage_type == BRUTE) //take full brute
-		switch(B.brute_resist)
-			if(0.5)
-				return damage * 2
-			if(0.25)
-				return damage * 4
-			if(0.1)
-				return damage * 10
+		return damage / blob.brute_resist
 	return damage * 1.25 //a laser will do 25 damage, which will kill any normal blob
 
 /datum/blobstrain/reagent/electromagnetic_web/death_reaction(obj/structure/blob/B, damage_flag)

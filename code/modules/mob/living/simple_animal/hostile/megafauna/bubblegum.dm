@@ -93,7 +93,7 @@ Difficulty: Hard
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Surround Target"
 	icon_icon = 'icons/turf/walls/wall.dmi'
-	button_icon_state = "wall"
+	button_icon_state = "wall-0"
 	chosen_message = span_colossus("You are now surrounding the target you click on with hallucinations.")
 	chosen_attack_num = 3
 
@@ -538,7 +538,7 @@ Difficulty: Hard
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum)) // hallucinations should not be stopping bubblegum or eachother
 		return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life(delta_time = SSMOBS_DT, times_fired)
 	return
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)

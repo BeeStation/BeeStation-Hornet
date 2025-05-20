@@ -66,7 +66,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	. = ..()
 	if(!istype(newloc, /turf/open/indestructible/sound/pool))
 		var/datum/component/swimming/S = Obj.GetComponent(/datum/component/swimming) //Handling admin TPs here.
-		S?.RemoveComponent()
+		S?.ClearFromParent()
 
 /turf/open/MouseDrop_T(atom/dropping, mob/user)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
@@ -75,7 +75,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming)
 	if(S)
 		if(do_after(user, 1 SECONDS, target = dropping))
-			S.RemoveComponent()
+			S.ClearFromParent()
 			visible_message(span_notice("[dropping] climbs out of the pool."))
 			AM.forceMove(src)
 	else
@@ -197,12 +197,12 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	new /obj/item/stack/rods/ten(get_turf(src))
 	..()
 
-/obj/structure/pool_ladder/attack_hand(mob/user)
+/obj/structure/pool_ladder/attack_hand(mob/user, list/modifiers)
 	var/datum/component/swimming/S = user.GetComponent(/datum/component/swimming)
 	if(S)
 		to_chat(user, span_notice("You start to climb out of the pool..."))
 		if(do_after(user, 1 SECONDS, target=src))
-			S.RemoveComponent()
+			S.ClearFromParent()
 			visible_message(span_notice("[user] climbs out of the pool."))
 			user.forceMove(get_turf(get_step(src, NORTH))) //Ladders shouldn't adjoin another pool section. Ever.
 	else

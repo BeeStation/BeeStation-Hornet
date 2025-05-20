@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	. = ..()
 	tracked_items = list()
 
-/obj/structure/destructible/clockwork/abstraction_crystal/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/abstraction_crystal/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
 		return

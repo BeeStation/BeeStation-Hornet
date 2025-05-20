@@ -22,7 +22,7 @@ const PlaytimeSection = (props) => {
               collapsing
               p={0.5}
               style={{
-                'vertical-align': 'middle',
+                verticalAlign: 'middle',
               }}>
               <Box align="right">{jobName + (removedJobs?.includes(jobName) ? ' (Removed)' : '')}</Box>
             </Table.Cell>

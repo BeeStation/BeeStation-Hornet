@@ -49,7 +49,7 @@
 	var/reactivearmor_cooldown_duration = 5 SECONDS
 	///The cooldown itself of the reactive armor for when it can activate again.
 	COOLDOWN_DECLARE(reactivearmor_cooldown)
-	pocket_storage_component_path = FALSE
+	pockets = FALSE
 
 
 /datum/armor/armor_reactive

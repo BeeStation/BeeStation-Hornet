@@ -5,6 +5,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	density = FALSE
 	stat = DEAD
+	shift_to_open_context_menu = FALSE
 
 	var/ready = 0
 	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.

@@ -94,7 +94,7 @@ export const CharacterPreferenceWindow = (props) => {
             icon="cog"
             tooltip="Open Game Preferences"
             tooltipPosition="bottom"
-            style={{ 'border-radius': '20px' }}
+            style={{ borderRadius: '20px' }}
             onClick={() => act('open_game_preferences')}
           />
           <SaveStatus />

@@ -86,7 +86,7 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = INDESTRUCTIBLE
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	armor_type = /datum/armor/structure_projected_forcefield
 	var/obj/item/forcefield_projector/generator
 

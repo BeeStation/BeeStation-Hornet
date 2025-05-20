@@ -154,6 +154,7 @@
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/present_qualities = list()
+
 	present_qualities |= contents["tool_behaviour"]
 	for(var/obj/item/I in a.contents)
 		if(istype(I, /obj/item/storage))

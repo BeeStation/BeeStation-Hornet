@@ -113,7 +113,7 @@
 	ranged = TRUE
 	obj_damage = 60
 	melee_damage = 25
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	del_on_death = TRUE
 	deathmessage = "collapses into bits of plant matter."
 	attacked_sound = 'sound/creatures/venus_trap_hurt.ogg'
@@ -143,7 +143,7 @@
 	remove_verb(/mob/living/verb/pulled) //No pulling people into the vines
 	. = ..()
 
-/mob/living/simple_animal/hostile/venus_human_trap/Life()
+/mob/living/simple_animal/hostile/venus_human_trap/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	pull_vines()
 	if(locate(/obj/structure/spacevine) in get_turf(src))//Heal if we are on vines

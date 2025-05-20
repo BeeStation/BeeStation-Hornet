@@ -132,7 +132,7 @@
 
 /obj/item/broken_bottle/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, _min_damage = force)
+	AddComponent(/datum/component/caltrop, min_damage = force)
 	AddComponent(/datum/component/butchering, 200, 55)
 
 /// Mimics the appearance and properties of the passed in bottle.

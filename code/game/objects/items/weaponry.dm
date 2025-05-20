@@ -29,13 +29,13 @@ oranges says: This is a meme relating to the english translation of the ss13 rus
 mrdoombringer sez: and remember kids, if you try and PR a fix for this item's grammar, you are admitting that you are, indeed, a newfriend.
 for further reading, please see: https://github.com/tgstation/tgstation/pull/30173 and https://translate.google.com/translate?sl=auto&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=%2F%2Flurkmore.to%2FSS13&edit-text=&act=url
 */
-/obj/item/banhammer/attack(mob/M, mob/user)
+/obj/item/banhammer/attack(mob/M, mob/living/user)
 	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = FALSE))
 		M.visible_message(span_danger("[user] are stroking the head of [M] with a bangammer"), span_userdanger("[user] are stroking the head with a bangammer"), "you hear a bangammer stroking a head");
 	else
 		M.visible_message(span_danger("[M] has been banned FOR NO REISIN by [user]"), span_userdanger("You have been banned FOR NO REISIN by [user]"), "you hear a banhammer banning someone")
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
-	if(user.a_intent != INTENT_HELP)
+	if(user.combat_mode)
 		return ..(M, user)
 
 /obj/item/sord
@@ -48,7 +48,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -86,7 +86,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_power = 40
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_DISMEMBER
@@ -278,7 +278,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_power = 20
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
@@ -491,7 +491,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -506,7 +506,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 3
 	throwforce = 5
 	throw_speed = 2
@@ -578,7 +578,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	bleed_force = BLEED_DEEP_WOUND
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
-	hitsound = 'sound/weapons/chainsawhit.ogg'
+	hitsound = 'sound/weapons/chainsaw_hit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
@@ -606,7 +606,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "An energy chainsaw that has replaced your arm."
 	force = 40
 	armour_penetration = 50
-	hitsound = 'sound/weapons/echainsawhit1.ogg'
+	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/energy/Destroy()
 	var/obj/item/bodypart/part
@@ -625,7 +625,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A super energy chainsaw that has replaced your arm."
 	force = 60
 	armour_penetration = 75
-	hitsound = 'sound/weapons/echainsawhit1.ogg'
+	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
 /obj/item/mounted_chainsaw/super/Destroy()
 	var/obj/item/bodypart/part
@@ -683,7 +683,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a strong weapon."
 	icon_state = "skateboard"
 	item_state = "skateboard"
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_LARGE
@@ -728,7 +728,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "baseball_bat"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_weight = 2
 	force = 13
 	throwforce = 6
@@ -880,7 +880,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	playsound(M, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
 	return
 
-/obj/item/slapper/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/slapper/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/structure/table))
 		return ..()
 
@@ -889,7 +889,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(!proximity_flag)
 		return
 
-	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
+	if(user.combat_mode && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
 		transform = transform.Scale(5) // BIG slap
 		if(HAS_TRAIT(user, TRAIT_HULK))
 			transform = transform.Scale(2)
@@ -931,12 +931,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "\improper ACME Extendo-Hand"
 	desc = "A novelty extendo-hand produced by the ACME corporation. Originally designed to knock out roadrunners."
 
-/obj/item/extendohand/attack(atom/M, mob/living/carbon/human/user)
+/obj/item/extendohand/attack(atom/M, mob/living/carbon/human/user, params)
 	var/dist = get_dist(M, user)
 	if(dist < reach)
 		to_chat(user, span_warning("[M] is too close to use [src] on."))
 		return
-	M.attack_hand(user)
+	var/list/modifiers = params2list(params)
+	M.attack_hand(user, modifiers)
 
 
 /obj/item/highfive
@@ -1035,7 +1036,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 20
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT

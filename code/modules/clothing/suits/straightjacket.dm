@@ -8,4 +8,4 @@
 	equip_delay_self = 50
 	strip_delay = 60
 	breakouttime = 3000
-	pocket_storage_component_path = FALSE
+	pockets = FALSE

@@ -112,7 +112,7 @@ const ItemList = (props) => {
         <span
           className={classes(['design32x32', item.id])}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
           }}
         />{' '}
         <b>{item.name}</b>
@@ -123,13 +123,14 @@ const ItemList = (props) => {
           width="35px"
           minValue={1}
           maxValue={10}
-          onChange={(e, value) => item.setAmount(value)}
+          step={1}
+          onChange={(value) => item.setAmount(value)}
         />
       </Table.Cell>
       <Table.Cell collapsing>
         <Button
           style={{
-            'text-align': 'right',
+            textAlign: 'right',
           }}
           fluid
           content={item.cost * item.amount + ' ' + 'BIO'}

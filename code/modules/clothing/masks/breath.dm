@@ -25,10 +25,6 @@
 /obj/item/clothing/mask/breath/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/breath/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		adjustmask(user)
-
 /obj/item/clothing/mask/breath/examine(mob/user)
 	. = ..()
 	. += span_notice("Alt-click [src] to adjust it.")

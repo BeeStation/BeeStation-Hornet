@@ -180,7 +180,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	for(var/obj/item/slime_extract/extract in rune_turf)
 		if(extract.color_slime == extracttype || !extracttype) //check if the extract is the first one or of the right color.
 			extracttype = extract.color_slime
-			qdel(extract) //vores the slime extract
+			qdel(extract) //destroy the slime extract
 			req_extracts--
 			if(req_extracts <= 0)
 				switch(extracttype)
@@ -410,8 +410,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(!GLOB.blue_storage)
 		GLOB.blue_storage = new
 	GLOB.blue_storage.loc = loc
-	var/datum/component/storage/STR = GLOB.blue_storage.GetComponent(/datum/component/storage)
-	STR.show_to(user)
+	GLOB.blue_storage.atom_storage.refresh_views()
 	playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
@@ -568,7 +567,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
-		randomize_human(AM)
+		randomize_human(AM, TRUE)
 		activated_on_step = TRUE
 	. = ..()
 
@@ -651,7 +650,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/storage/toolbox/mechanical/old,
 		/obj/item/storage/toolbox/emergency/old,
 		/obj/effect/spawner/lootdrop/three_course_meal,
-		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+		/mob/living/basic/pet/dog/corgi/puppy/void,
 		/obj/structure/closet/crate/necropolis/tendril,
 		/obj/item/card/emagfake,
 		/obj/item/flashlight/flashdark,
@@ -716,38 +715,40 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/slimecross/warping/black
 	colour = "black"
 	runepath = /obj/effect/warped_rune/blackspace
-	effect_desc = "Draw a rune that can transmute a corpse into a shade."
+	effect_desc = "Draw a rune that can transmute weapons with a starborne enchantment."
 
 /obj/effect/warped_rune/blackspace
 	icon_state = "rune_black"
-	desc = "Souls are like any other material, you just have to find the right place to manufacture them."
+	desc = "Every material comes with weakness. Improvement is a matter of finding the least weak."
 
-/obj/effect/warped_rune/blackspace/do_effect(mob/user)
-	for(var/mob/living/carbon/human/host in rune_turf)
-		if(host.key) //checks if the ghost and brain's there
-			to_chat(user, span_warning("This body can't be transmuted by the rune in this state!"))
+/obj/effect/warped_rune/blackspace/attack_hand(mob/living/user)
+	to_chat(user, span_brass("[src] demands a weapon to enhance."))
+	return
+
+/obj/effect/warped_rune/blackspace/attackby(obj/item/I, mob/living/user, params)
+	if(HAS_TRAIT(I, TRAIT_STARGAZED))
+		to_chat(user, span_brass("[I] has already been enhanced!"))
+		return
+	to_chat(user, span_brass("You begin placing [I] onto [src]."))
+	if(do_after(user, 60, target=I))
+		if(HAS_TRAIT(I, TRAIT_STARGAZED))
+			to_chat(user, span_brass("[I] has already been enhanced!"))
 			return
+		if(istype(I, /obj/item) && !istype(I, /obj/item/clothing) && I.force)
+			upgrade_weapon(I, user)
+			do_effect(user)
+			return
+		to_chat(user, span_brass("You cannot upgrade [I]."))
 
-		to_chat(user, span_warning("The rune is trying to repair [host.name]'s soul!"))
-		var/list/candidates = poll_candidates_for_mob("Do you want to replace the soul of [host.name]?", ROLE_SENTIENCE, null, 5 SECONDS, host, POLL_IGNORE_SHADE)
-
-		if(length(candidates) && !host.key) //check if anyone wanted to play as the dead person and check if no one's in control of the body one last time.
-			var/mob/dead/observer/ghost = pick(candidates)
-
-			host.mind.memory = "" //resets the memory since it's a new soul inside.
-			host.key = ghost.key
-			var/mob/living/simple_animal/shade/S = host.change_mob_type(/mob/living/simple_animal/shade , rune_turf, "Shade", FALSE)
-			S.maxHealth = 1
-			S.health = 1
-			S.faction = host.faction
-			S.copy_languages(host, LANGUAGE_MIND)
-			playsound(host, "sound/magic/castsummon.ogg", 50, TRUE)
-			qdel(host)
-			activated_on_step = TRUE
-			return ..()
-
-		to_chat(user, span_warning("The rune failed! Maybe you should try again later."))
-
+/obj/effect/warped_rune/blackspace/proc/upgrade_weapon(obj/item/I, mob/living/user)
+	//Prevent re-enchanting
+	ADD_TRAIT(I, TRAIT_STARGAZED, STARGAZER_TRAIT)
+	//Add a glowy colour
+	I.add_atom_colour(rgb(243, 227, 183), ADMIN_COLOUR_PRIORITY)
+	//Pick a random effect
+	var/static/list/possible_components = subtypesof(/datum/component/enchantment)
+	I.AddComponent(pick(possible_components))
+	to_chat(user, span_notice("[I] glows with a brilliant light!"))
 
 /obj/item/slimecross/warping/lightpink
 	colour = "light pink"

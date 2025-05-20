@@ -40,6 +40,45 @@
 			return s_store
 	return null
 
+/mob/living/carbon/human/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == belt)
+		return ITEM_SLOT_BELT
+
+	if(looking_for == wear_id)
+		return ITEM_SLOT_ID
+
+	if(looking_for == ears)
+		return ITEM_SLOT_EARS
+
+	if(looking_for == glasses)
+		return ITEM_SLOT_EYES
+
+	if(looking_for == gloves)
+		return ITEM_SLOT_GLOVES
+
+	if(looking_for == head)
+		return ITEM_SLOT_HEAD
+
+	if(looking_for == shoes)
+		return ITEM_SLOT_FEET
+
+	if(looking_for == wear_suit)
+		return ITEM_SLOT_OCLOTHING
+
+	if(looking_for == w_uniform)
+		return ITEM_SLOT_ICLOTHING
+
+	if(looking_for == r_store)
+		return ITEM_SLOT_RPOCKET
+
+	if(looking_for == l_store)
+		return ITEM_SLOT_LPOCKET
+
+	if(looking_for == s_store)
+		return ITEM_SLOT_SUITSTORE
+
+	return ..()
+
 /mob/living/carbon/human/proc/get_all_slots()
 	. = get_head_slots() | get_body_slots()
 
@@ -282,7 +321,6 @@
 		update_hair()
 	// Close internal air tank if mask was the only breathing apparatus.
 	if(invalid_internals())
-		update_internals_hud_icon(0)
 		cutoff_internals()
 	if(I.flags_inv & HIDEEYES)
 		update_inv_glasses()
@@ -326,3 +364,38 @@
 		qdel(slot)
 	for(var/obj/item/I in held_items)
 		qdel(I)
+
+/mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = "belt")
+	if(incapacitated())
+		return
+	var/obj/item/thing = get_active_held_item()
+	var/obj/item/equipped_item = get_item_by_slot(slot_type)
+	if(!equipped_item) // We also let you equip an item like this
+		if(!thing)
+			to_chat(src, span_warning("You have no [slot_item_name] to take something out of!"))
+			return
+		if(equip_to_slot_if_possible(thing, slot_type))
+			update_inv_hands()
+		return
+	var/datum/storage/storage = equipped_item.atom_storage
+	if(!storage)
+		if(!thing)
+			equipped_item.attack_hand(src)
+		else
+			to_chat(src, span_warning("You can't fit [thing] into your [equipped_item.name]!"))
+		return
+	if(!storage.supports_smart_equip)
+		return
+	if(thing) // put thing in storage item
+		if(!equipped_item.atom_storage?.attempt_insert(thing, src))
+			to_chat(src, span_warning("You can't fit [thing] into your [equipped_item.name]!"))
+		return
+	var/atom/real_location = storage.real_location?.resolve()
+	if(!real_location.contents.len) // nothing to take out
+		to_chat(src, span_warning("There's nothing in your [equipped_item.name] to take out!"))
+		return
+	var/obj/item/stored = real_location.contents[real_location.contents.len]
+	if(!stored || stored.on_found(src))
+		return
+	stored.attack_hand(src) // take out thing from item in storage slot
+	return

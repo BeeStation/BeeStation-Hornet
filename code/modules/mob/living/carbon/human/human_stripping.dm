@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 	var/result = start_unequip_mob(item, source, user, strip_delay = POCKET_STRIP_DELAY, hidden = TRUE)
 
-	if(!result)
+	if(!result && !HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
 		warn_owner(source)
 
 	return result
@@ -238,8 +238,6 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 	if (carbon_source.internal == item)
 		carbon_source.close_internals()
-	// This isn't meant to be FALSE, it correlates to the icon's name.
-		carbon_source.update_internals_hud_icon(0)
 	else if(!QDELETED(item))
 		if(!carbon_source.try_open_internals(item))
 			return

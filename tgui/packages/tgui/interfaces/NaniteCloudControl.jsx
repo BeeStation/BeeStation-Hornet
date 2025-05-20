@@ -303,9 +303,10 @@ export const NaniteCloudControl = (props) => {
                   value={new_backup_id}
                   minValue={1}
                   maxValue={100}
+                  step={1}
                   stepPixelSize={4}
                   width="39px"
-                  onChange={(e, value) =>
+                  onChange={(value) =>
                     act('update_new_backup_value', {
                       value: value,
                     })

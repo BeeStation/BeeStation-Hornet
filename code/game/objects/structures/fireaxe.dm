@@ -35,10 +35,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		QDEL_NULL(fireaxe)
 	return ..()
 
-/obj/structure/fireaxecabinet/attackby(obj/item/I, mob/user, params)
+/obj/structure/fireaxecabinet/attackby(obj/item/I, mob/living/user, params)
 	if(iscyborg(user) || I.tool_behaviour == TOOL_MULTITOOL)
 		toggle_lock(user)
-	else if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
+	else if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && !broken)
 		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=2))
 				return
@@ -118,7 +118,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		fireaxe = null
 	qdel(src)
 
-/obj/structure/fireaxecabinet/attack_hand(mob/user)
+/obj/structure/fireaxecabinet/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

@@ -90,11 +90,22 @@
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				. += span_notice("- [R.volume] units of [R.name].")
 
-/obj/machinery/reagentgrinder/AltClick(mob/user)
+/obj/machinery/reagentgrinder/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(operating || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
-	eject(user)
+	if(!can_interact(user) || !user.canUseTopic(src, !issilicon(user), FALSE, NO_TK))
+		return
+	if(operating)
+		return
+	replace_beaker(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/reagentgrinder/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
+
+/obj/machinery/reagentgrinder/attack_ai_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	. = ..()
@@ -161,10 +172,15 @@
 
 	//Fill machine with a bag!
 	if(istype(weapon, /obj/item/storage/bag))
+		if(!weapon.contents.len)
+			to_chat(user, span_notice("[weapon] is empty!"))
+			return TRUE
+
 		var/list/inserted = list()
-		if(SEND_SIGNAL(weapon, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src, limit - length(holdingitems), null, null, user, inserted))
+		if(weapon.atom_storage.remove_type(typecache_to_take, src, limit - length(holdingitems), TRUE, FALSE, user, inserted))
 			for(var/i in inserted)
 				holdingitems[i] = TRUE
+
 			if(!weapon.contents.len)
 				to_chat(user, span_notice("You empty [weapon] into [src]."))
 			else
@@ -172,14 +188,14 @@
 		return TRUE
 
 	if(!weapon.grind_results && !weapon.juice_typepath && !weapon.is_grindable())
-		if(user.a_intent == INTENT_HARM)
+		if(user.combat_mode)
 			return ..()
 		else
 			to_chat(user, span_warning("You cannot grind [weapon] into reagents!"))
 			return TRUE
 
 	if(user.transferItemToLoc(weapon, src))
-		to_chat(user, "<span class='notice'>You add [weapon] to [src].</span>")
+		to_chat(user, span_notice("You add [weapon] to [src]."))
 		holdingitems[weapon] = TRUE
 		return FALSE
 
@@ -233,10 +249,7 @@
 			examine(user)
 
 /obj/machinery/reagentgrinder/proc/eject(mob/user)
-	for(var/i in holdingitems)
-		var/obj/item/O = i
-		O.forceMove(drop_location())
-		holdingitems -= O
+	drop_all_items()
 	if(beaker)
 		replace_beaker(user)
 
@@ -327,5 +340,8 @@
 		//Recipe to make Mayonnaise
 		if (beaker.reagents.has_reagent(/datum/reagent/consumable/eggyolk))
 			beaker.reagents.convert_reagent(/datum/reagent/consumable/eggyolk, /datum/reagent/consumable/mayonnaise)
+		//Recipe to make whipped cream
+		if (beaker.reagents.has_reagent(/datum/reagent/consumable/cream))
+			beaker.reagents.convert_reagent(/datum/reagent/consumable/cream, /datum/reagent/consumable/whipped_cream)
 
 #undef MILK_TO_BUTTER_COEFF

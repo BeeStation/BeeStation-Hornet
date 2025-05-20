@@ -23,10 +23,16 @@
 	name = "Hazard Striped Canister"
 	json_config = 'code/datums/greyscale/json_configs/canister_hazard.json'
 
-/datum/greyscale_config/prototype_canister
-	name = "Prototype Canister"
-	icon_file = 'icons/obj/atmospherics/prototype_canister.dmi'
-	json_config = 'code/datums/greyscale/json_configs/canister_proto.json'
+// MISC ATMOSPHERICS
+/datum/greyscale_config/meter
+	name = "Meter"
+	icon_file = 'icons/obj/atmospherics/pipes/meter.dmi'
+	json_config = 'code/datums/greyscale/json_configs/meter.json'
+
+/datum/greyscale_config/thermomachine
+	name = "Thermomachine"
+	icon_file = 'icons/obj/atmospherics/components/thermomachine.dmi'
+	json_config = 'code/datums/greyscale/json_configs/thermomachine.json'
 
 /datum/greyscale_config/carp
 	name = "Space Carp"
@@ -200,6 +206,26 @@
 	name = "Plushie Space Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_spacelizard.json'
+
+/datum/greyscale_config/beret
+	name = "Beret"
+	icon_file = 'icons/obj/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret.json'
+
+/datum/greyscale_config/beret/worn
+	name = "Beret Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_worn.json'
+
+/datum/greyscale_config/beret_badge
+	name = "Beret With Badge"
+	icon_file = 'icons/obj/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_badge.json'
+
+/datum/greyscale_config/beret_badge/worn
+	name = "Beret With Badge Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_badge_worn.json'
 
 /datum/greyscale_config/bandana
 	name = "Bandana"

@@ -21,17 +21,17 @@
 	dashing_item = null
 	return ..()
 
-/datum/action/innate/dash/IsAvailable()
+/datum/action/innate/dash/is_available()
 	if(current_charges > 0)
 		return TRUE
 	else
 		return FALSE
 
-/datum/action/innate/dash/Activate()
+/datum/action/innate/dash/on_activate()
 	dashing_item.attack_self(owner) //Used to toggle dash behavior in the dashing item
 
 /datum/action/innate/dash/proc/Teleport(mob/user, atom/target)
-	if(!IsAvailable())
+	if(!is_available())
 		return
 	var/turf/T = get_turf(target)
 	if(user in viewers(user.client.view, T))

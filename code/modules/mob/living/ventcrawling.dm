@@ -47,12 +47,21 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 
 	if(vent_found)
-		var/datum/pipeline/vent_found_parent = vent_found.parents[1]
-		if(vent_found_parent && (vent_found_parent.members.len || vent_found_parent.other_atmosmch))
+		var/datum/pipenet/vent_found_parent = vent_found.parents[1]
+		if(vent_found_parent && (vent_found_parent.members.len || vent_found_parent.other_atmos_machines))
 			visible_message(span_notice("[src] begins climbing into the ventilation system.") ,span_notice("You begin climbing into the ventilation system."))
 
+			ADD_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+			ADD_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+			ADD_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 			if(!do_after(src, 25, target = vent_found))
+				REMOVE_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+				REMOVE_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+				REMOVE_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 				return
+			REMOVE_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 
 			if(!client)
 				return
@@ -86,9 +95,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		return
 	var/list/totalMembers = list()
 
-	for(var/datum/pipeline/P in starting_machine.returnPipenets())
+	for(var/datum/pipenet/P in starting_machine.return_pipenets())
 		totalMembers += P.members
-		totalMembers += P.other_atmosmch
+		totalMembers += P.other_atmos_machines
 
 	if(!totalMembers.len)
 		return

@@ -2,7 +2,7 @@
  * Uses DOMPurify to purify/sanitise HTML.
  */
 
-import DOMPurify from 'dompurify';
+import { sanitize } from 'dompurify';
 
 // Default values
 const defTag = [
@@ -69,7 +69,7 @@ export const sanitizeText = (input: string, advHtml = false, tags = defTag, forb
   if (advHtml) {
     tags = tags.concat(advTags);
   }
-  return DOMPurify.sanitize(input, {
+  return sanitize(input, {
     ALLOWED_TAGS: tags,
     FORBID_ATTR: forbidAttr,
   });

@@ -95,7 +95,7 @@
 			return
 
 /mob/camera/imaginary_friend/mrat/proc/PickName()
-	var/picked_name = sanitize_name(stripped_input(src, "Enter your mentor rat's name", "Rat Name", "Mentor Rat", MAX_NAME_LEN - 3 - length(key)))
+	var/picked_name = sanitize_name(tgui_input_text(src, "Enter your mentor rat's name", "Rat Name", "Mentor Rat", MAX_NAME_LEN - 3 - length(key)))
 	if(!picked_name || picked_name == "")
 		picked_name = "Mentor Rat"
 	log_game("[key_name(src)] has set \"[picked_name]\" as their mentor rat's name for [key_name(owner)]")
@@ -148,7 +148,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	background_icon_state = "bg_revenant"
 	button_icon_state = "ninja_phase"
 
-/datum/action/innate/mrat_costume/Activate()
+/datum/action/innate/mrat_costume/on_activate()
 	var/mob/camera/imaginary_friend/mrat/I = owner
 	if(!istype(I))
 		qdel(src)
@@ -161,11 +161,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	background_icon_state = "bg_revenant"
 	button_icon_state = "beam_up"
 
-/datum/action/innate/mrat_leave/Activate()
+/datum/action/innate/mrat_leave/on_activate()
 	var/mob/camera/imaginary_friend/friend = owner
 	if(!istype(friend))
 		qdel(src)
-	if(alert(friend, "Are you sure you want to leave?", "Leave:", "Yes", "No") != "Yes")
+	if(tgui_alert(friend, "Are you sure you want to leave?", "Leave:", list("Yes", "No")) != "Yes")
 		return
 	to_chat(friend, span_warning("You have ejected yourself from [friend.owner]."))
 	to_chat(friend.owner, span_warning("Your mentor has left."))
@@ -183,10 +183,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	. = ..()
 	friend = null
 
-/datum/action/innate/mrat_kick/Activate()
+/datum/action/innate/mrat_kick/on_activate()
 	if(!istype(friend))
 		qdel(src)
-	if(!istype(friend) || alert(friend, "Are you sure you want to remove your mentor?", "Remove:", "Yes", "No") != "Yes")
+	if(!istype(friend) || tgui_alert(friend.owner, "Are you sure you want to remove your mentor?", "Remove:", list("Yes", "No")) != "Yes")
 		return
 	to_chat(friend, span_warning("You have been removed from [friend.owner]."))
 	to_chat(friend.owner, span_warning("Your mentor has been removed."))

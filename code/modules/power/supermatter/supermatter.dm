@@ -23,6 +23,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	critical_machine = TRUE
 	interacts_with_air = TRUE
+	zmm_flags = ZMM_MANGLE_PLANES
 
 	var/gasefficency = 0.15
 
@@ -220,17 +221,20 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	data["SM_bad_moles_amount"] = MOLE_PENALTY_THRESHOLD / gasefficency
 	data["SM_moles"] = 0
 	var/list/gasdata = list()
+
 	if(air.total_moles())
 		data["SM_moles"] = air.total_moles()
-		for(var/gasid in air.get_gases())
+		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
-			"name"= GLOB.gas_data.names[gasid],
-			"amount" = round(100*air.get_moles(gasid)/air.total_moles(),0.01))))
+			"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
+			"amount" = round(100*air.gases[gasid][MOLES]/air.total_moles(),0.01))))
+
 	else
-		for(var/gasid in air.get_gases())
+		for(var/gasid in air.gases)
 			gasdata.Add(list(list(
-				"name"= GLOB.gas_data.names[gasid],
-				"amount" = 0)))
+				"name"= air.gases[gasid][GAS_META][META_GAS_NAME],
+				"amount" = 0,
+				"id" = air.gases[gasid][GAS_META])))
 	data["gases"] = gasdata
 	return data
 
@@ -453,19 +457,17 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		//This is more error prevention, according to all known laws of atmos, gas_mix.remove() should never make negative mol values.
 		//But this is tg
-		//Lets get the proportions of the gasses in the mix and then slowly move our comp to that value
-		//Can cause an overestimation of mol count, should stabalize things though.
-		//Prevents huge bursts of gas/heat when a large amount of something is introduced
+		//Lets get the proportions of the gasses in the mix for scaling stuff later
 		//They range between 0 and 1
-		plasmacomp += clamp(max(removed.get_moles(GAS_PLASMA)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
-		o2comp += clamp(max(removed.get_moles(GAS_O2)/combined_gas, 0) - o2comp, -1, gas_change_rate)
-		co2comp += clamp(max(removed.get_moles(GAS_CO2)/combined_gas, 0) - co2comp, -1, gas_change_rate)
-		pluoxiumcomp += clamp(max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
-		tritiumcomp += clamp(max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
-		bzcomp += clamp(max(removed.get_moles(GAS_BZ)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
+		plasmacomp += clamp(max(GET_MOLES(/datum/gas/plasma, removed)/combined_gas, 0) - plasmacomp, -1, gas_change_rate)
+		o2comp += clamp(max(GET_MOLES(/datum/gas/oxygen, removed)/combined_gas, 0) - o2comp, -1, gas_change_rate)
+		co2comp += clamp(max(GET_MOLES(/datum/gas/carbon_dioxide, removed)/combined_gas, 0) - co2comp, -1, gas_change_rate)
+		pluoxiumcomp += clamp(max(GET_MOLES(/datum/gas/pluoxium, removed)/combined_gas, 0) - pluoxiumcomp, -1, gas_change_rate)
+		tritiumcomp += clamp(max(GET_MOLES(/datum/gas/tritium, removed)/combined_gas, 0) - tritiumcomp, -1, gas_change_rate)
+		bzcomp += clamp(max(GET_MOLES(/datum/gas/bz, removed)/combined_gas, 0) - bzcomp, -1, gas_change_rate)
 
-		n2ocomp += clamp(max(removed.get_moles(GAS_NITROUS)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
-		n2comp += clamp(max(removed.get_moles(GAS_N2)/combined_gas, 0) - n2comp, -1, gas_change_rate)
+		n2ocomp += clamp(max(GET_MOLES(/datum/gas/nitrous_oxide, removed)/combined_gas, 0) - n2ocomp, -1, gas_change_rate)
+		n2comp += clamp(max(GET_MOLES(/datum/gas/nitrogen, removed)/combined_gas, 0) - n2comp, -1, gas_change_rate)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
@@ -473,6 +475,16 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		dynamic_heat_resistance = max((n2ocomp * N2O_HEAT_RESISTANCE) + (pluoxiumcomp * PLUOXIUM_HEAT_RESISTANCE), 1)
 
 		power_transmission_bonus = 1 + max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
+
+		//Let's say that the CO2 touches the SM surface and the radiation turns it into Pluoxium.
+		if(co2comp && o2comp)
+			var/carbon_dioxide_pp = env.return_pressure() * co2comp
+			var/consumed_carbon_dioxide = clamp(((carbon_dioxide_pp - CO2_CONSUMPTION_PP) / (carbon_dioxide_pp + CO2_PRESSURE_SCALING)), CO2_CONSUMPTION_RATIO_MIN, CO2_CONSUMPTION_RATIO_MAX)
+			consumed_carbon_dioxide = min(consumed_carbon_dioxide * co2comp * combined_gas, removed.gases[/datum/gas/carbon_dioxide][MOLES] * INVERSE(0.5), removed.gases[/datum/gas/oxygen][MOLES] * INVERSE(0.5))
+			if(consumed_carbon_dioxide)
+				REMOVE_MOLES(/datum/gas/carbon_dioxide, removed, consumed_carbon_dioxide * 0.5)
+				REMOVE_MOLES(/datum/gas/oxygen, removed, consumed_carbon_dioxide * 0.5)
+				ADD_MOLES(/datum/gas/pluoxium, removed, consumed_carbon_dioxide * 0.25)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
 		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 0.25)
@@ -501,7 +513,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		power = clamp((removed.return_temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0, SUPERMATTER_MAXIMUM_ENERGY) //Total laser power plus an overload
 
 		if(prob(50))
-			last_rads = power * max(0, power_transmission_bonus * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + (pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) + (bzcomp * BZ_RADIOACTIVITY_MODIFIER))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
+			last_rads = power * max(0, power_transmission_bonus * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + (pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) + (bzcomp * BZ_RADIOACTIVITY_MODIFIER)))
 			radiation_pulse(src, last_rads)
 		if(bzcomp >= 0.4 && prob(30 * bzcomp))
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
@@ -516,18 +528,20 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
-		removed.set_temperature(removed.return_temperature() + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER))
+		removed.temperature = (removed.return_temperature() + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER))
 
-		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
+		removed.temperature = (max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
-		removed.adjust_moles(GAS_PLASMA, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
+		ADD_MOLES(/datum/gas/plasma, removed, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
 
-		removed.adjust_moles(GAS_O2, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
+		ADD_MOLES(/datum/gas/oxygen, removed, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
+
+		removed.garbage_collect()
 
 		if(produces_gas)
 			env.merge(removed)
-			air_update_turf()
+			air_update_turf(FALSE, FALSE)
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
 		if(HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) || (l.mind && HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE)))
@@ -730,7 +744,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			Consume(dust_arm)
 			Consume(W)
 			return
-		if(cig.lit || user.a_intent != INTENT_HELP)
+		if(cig.lit || user.combat_mode)
 			user.visible_message(span_danger("A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea..."))
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(W)

@@ -21,7 +21,7 @@ Water Vapour: More efficient permeability modifier
 Hyper Noblium: Extremely efficient permeability increase. (10x as efficient as bz)
 
 Depletion type:
-Nitryl: When you need weapons grade plutonium yesterday. Causes your fuel to deplete much, much faster. Not a huge amount of use outside of sabotage.
+Nitrium: When you need weapons grade plutonium yesterday. Causes your fuel to deplete much, much faster. Not a huge amount of use outside of sabotage.
 
 Sabotage:
 
@@ -84,7 +84,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/pressure = 0 //Lose control of this -> Blowout
 	var/rate_of_reaction = 0 //Rate of reaction.
 	var/desired_reate_of_reaction = 0
-	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
+	var/control_rod_effectiveness = 0.5 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
 	var/power = 0 //0-100%. A function of the maximum heat you can achieve within operating temperature
 	var/power_modifier = 1 //Upgrade me with parts, science! Flat out increase to physical power output when loaded with plasma.
 	var/list/fuel_rods = list()
@@ -139,8 +139,6 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/next_flicker = 0
 	//For logging purposes
 	var/last_power_produced = 0
-	//Power modifier for producing power.
-	var/base_power_modifier = RBMK_POWER_FLAVOURISER
 	///Var used in the meltdown phase
 	var/final_countdown = FALSE
 
@@ -208,6 +206,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	soundloop = new(src,  FALSE)
 	alarmloop = new(src, FALSE)
 	check_part_connectivity()
+	set_init_directions()
+	connect_nodes()
 	update_appearance()
 	update_pipenets()
 
@@ -222,7 +222,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	if(linked_moderator)
 		QDEL_NULL(linked_moderator)
 	if(linked_interface)
-		QDEL_NULL(linked_interface)
+		linked_interface.reactor = null
+		linked_interface = null
 	grilled_item = null
 	QDEL_NULL(grill_loop)
 	QDEL_NULL(radio)

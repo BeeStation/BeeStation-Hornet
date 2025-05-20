@@ -111,7 +111,7 @@
 	if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
 		seconds_electrified -= delta_time
 
-/obj/machinery/fax/attack_hand(mob/user)
+/obj/machinery/fax/attack_hand(mob/user, list/modifiers)
 	if(seconds_electrified && !(machine_stat & NOPOWER))
 		if(shock(user, 100))
 			return
@@ -233,6 +233,8 @@
  * This list expands if you snip a particular wire.
  */
 /obj/machinery/fax/proc/is_allowed_type(obj/item/item)
+	if(item?.GetComponent(/datum/component/xenoartifact))
+		return FALSE
 	if(is_type_in_list(item, allowed_types))
 		return TRUE
 	if(!allow_exotic_faxes)

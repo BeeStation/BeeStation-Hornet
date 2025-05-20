@@ -4,10 +4,11 @@
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
-/datum/action/innate/slime/IsAvailable()
+/datum/action/innate/slime/is_available()
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
@@ -40,7 +41,7 @@
 	button_icon_state = "slimeeat"
 
 
-/datum/action/innate/slime/feed/Activate()
+/datum/action/innate/slime/feed/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Feed()
 
@@ -108,6 +109,10 @@
 		layer = M.layer+0.01 //appear above the target mob
 		M.visible_message(span_danger("[name] has latched onto [M]!"), \
 						span_userdanger("[name] has latched onto [M]!"))
+		if(colour == "green" && istype(get_turf(M), /turf/open/floor/grass))
+			special_mutation = TRUE
+			special_mutation_type = "dark green"
+			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
 		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
 
@@ -148,7 +153,7 @@
 	button_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
-/datum/action/innate/slime/evolve/Activate()
+/datum/action/innate/slime/evolve/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Evolve()
 	if(S.is_adult)
@@ -198,7 +203,7 @@
 				babies += M
 
 			var/mob/living/simple_animal/slime/new_slime = pick(babies)
-			new_slime.a_intent = INTENT_HARM
+			new_slime.set_combat_mode(TRUE)
 			if(src.mind)
 				src.mind.transfer_to(new_slime)
 			else
@@ -214,7 +219,7 @@
 	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 
-/datum/action/innate/slime/reproduce/Activate()
+/datum/action/innate/slime/reproduce/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
 
@@ -223,9 +228,11 @@
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
 			child_colour = "rainbow"
+		else if(special_mutation == TRUE)
+			child_colour = special_mutation_type
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
-				slime_mutation = mutation_table(pick(slime_colours - list("rainbow")))
+				slime_mutation = mutation_table(pick(slime_colours - list("rainbow", "dark green", "cobalt", "dark grey", "crimson")))
 			child_colour = slime_mutation[rand(1,4)]
 		else
 			child_colour = colour
@@ -233,6 +240,7 @@
 	M.transformeffects = transformeffects
 	M.set_nutrition(new_nutrition)
 	M.powerlevel = new_powerlevel
+	M.special_mutation = FALSE
 	if(transformeffects & SLIME_EFFECT_METAL)
 		M.maxHealth = round(M.maxHealth * 1.3)
 		M.health = M.maxHealth

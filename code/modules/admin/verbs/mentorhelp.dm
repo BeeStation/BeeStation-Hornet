@@ -31,14 +31,10 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	deltimer(mentorhelptimerid)
 	mentorhelptimerid = 0
 
-/// Used for methods where input via arg doesn't work
-/client/proc/get_mentorhelp()
-	var/msg = tgui_input_text(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents", multiline = TRUE, encode = FALSE) // we don't encode/sanitize here bc it's done for us later
-	mentorhelp(msg)
-
-/client/verb/mentorhelp(msg as message)
+/client/verb/mentorhelp()
 	set category = "Mentor"
 	set name = "Mentorhelp"
+	var/msg
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
@@ -51,7 +47,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	if(handle_spam_prevention(msg, MUTE_MHELP))
 		return
 
-	msg = trim(msg)
+	msg = trim(tgui_input_text(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents", multiline = TRUE, encode = FALSE))
 
 	if(!msg)
 		return
@@ -177,19 +173,19 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		return ""
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	. = " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reject'>REJT</A>)"
-	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=resolve'>RSLVE</A>)"
-	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=ahelp'>AHELP</A>)"
+	. = " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reject'>REJT</A>)"
+	. += " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=resolve'>RSLVE</A>)"
+	. += " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=ahelp'>AHELP</A>)"
 
 /datum/help_ticket/mentor/LinkedReplyName(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reply'>[initiator_key_name]</A>"
+	return "<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reply'>[initiator_key_name]</A>"
 
 /datum/help_ticket/mentor/TicketHref(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=[action]'>[msg]</A>"
+	return "<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=[action]'>[msg]</A>"
 
 /datum/help_ticket/mentor/blackbox_feedback(increment, data)
 	SSblackbox.record_feedback("tally", "mhelp_stats", increment, data)

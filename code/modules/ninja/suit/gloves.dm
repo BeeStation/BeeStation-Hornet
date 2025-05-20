@@ -50,7 +50,7 @@
 	fire = 100
 	acid = 100
 
-/obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity)
+/obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity,modifiers)
 	if(!candrain || draining)
 		return FALSE
 	if(!ishuman(loc))

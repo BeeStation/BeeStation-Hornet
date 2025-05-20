@@ -51,7 +51,7 @@
 
 //SURGERY STEP SUCCESSES
 
-/datum/surgery_step/replace_limb/success(mob/user, mob/living/carbon/target, obj/item/bodypart/tool, datum/surgery/surgery)
+/datum/surgery_step/replace_limb/success(mob/living/user, mob/living/carbon/target, obj/item/bodypart/tool, datum/surgery/surgery)
 	if(L)
 		if(istype(tool, /obj/item/organ_storage))
 			tool.icon_state = initial(tool.icon_state)
@@ -63,7 +63,7 @@
 		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(surgery.location)]."),
 			"[user] successfully augments [target]'s [parse_zone(surgery.location)] with [tool]!",
 			"[user] successfully augments [target]'s [parse_zone(surgery.location)]!")
-		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(surgery.location)] INTENT: [uppertext(user.a_intent)]")
+		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(surgery.location)] COMBAT MODE: [uppertext(user.combat_mode)]")
 	else
 		to_chat(user, span_warning("[target] has no organic [parse_zone(surgery.location)] there!"))
 	return TRUE

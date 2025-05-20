@@ -176,7 +176,7 @@ Difficulty: Very Hard
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.mind)
-			if(H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+			if(istype(H.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 				. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
@@ -492,7 +492,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isliving(speaker))
 		ActivationReaction(speaker, ACTIVATE_SPEECH)
 
-/obj/machinery/anomalous_crystal/attack_hand(mob/user)
+/obj/machinery/anomalous_crystal/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -678,7 +678,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(..() && !ready_to_deploy)
 		AddElement(/datum/element/point_of_interest)
 		ready_to_deploy = TRUE
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=[REF(src)];ghostjoin=1>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
+		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href='byond://?src=[REF(src)];ghostjoin=1'>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	. = ..()
@@ -841,8 +841,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
-		var/obj/effect/proc_holder/spell/targeted/exit_possession/P = new /obj/effect/proc_holder/spell/targeted/exit_possession
-		holder_animal.mind.AddSpell(P)
+		var/datum/action/exit_possession/P = new /datum/action/exit_possession
+		P.Grant(holder_animal)
 		holder_animal.remove_verb(/mob/living/verb/pulled)
 
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
@@ -852,8 +852,9 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		L.status_flags &= ~GODMODE
 		L.notransform = 0
 		if(holder_animal)
+			var/datum/action/exit_possession/P = new /datum/action/exit_possession
+			P.Remove(holder_animal)
 			holder_animal.mind.transfer_to(L)
-			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
 		if(kill || !isanimal(loc))
 			L.investigate_log("has died from [src].", INVESTIGATE_DEATHS)
 			L.death(FALSE)
@@ -865,32 +866,23 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/structure/closet/stasis/ex_act()
 	return
 
-/obj/effect/proc_holder/spell/targeted/exit_possession
+/datum/action/exit_possession
 	name = "Exit Possession"
-	desc = "Exits the body you are possessing."
-	charge_max = 60
-	clothes_req = 0
-	invocation_type = INVOCATION_NONE
-	max_targets = 1
-	range = -1
-	include_user = TRUE
-	selection_type = "view"
-	action_icon = 'icons/hud/actions/actions_spells.dmi'
-	action_icon_state = "exit_possession"
-	sound = null
+	desc = "Exits the body you are possessing. They will explode violently when this occurs."
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon_state = "exit_possession"
 
-/obj/effect/proc_holder/spell/targeted/exit_possession/cast(list/targets, mob/user = usr)
-	if(!isfloorturf(user.loc))
-		return
-	var/datum/mind/target_mind = user.mind
-	for(var/i in user)
-		if(istype(i, /obj/structure/closet/stasis))
-			var/obj/structure/closet/stasis/S = i
-			S.dump_contents(0)
-			qdel(S)
-			break
-	user.gib()
-	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
+/datum/action/exit_possession/is_available()
+	return ..() && isfloorturf(owner.loc)
+
+/datum/action/exit_possession/on_activate(mob/user, atom/target)
+	var/obj/structure/closet/stasis/stasis = locate() in owner
+	if(!stasis)
+		CRASH("[type] did not find a stasis closet thing in the owner.")
+
+	stasis.dump_contents(FALSE)
+	qdel(stasis)
+	qdel(src)
 
 
 #undef ACTIVATE_TOUCH

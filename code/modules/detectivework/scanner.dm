@@ -24,7 +24,7 @@
 /datum/action/item_action/displayDetectiveScanResults
 	name = "Display Forensic Scanner Results"
 
-/datum/action/item_action/displayDetectiveScanResults/Trigger()
+/datum/action/item_action/displayDetectiveScanResults/on_activate(mob/user, atom/target)
 	var/obj/item/detective_scanner/scanner = target
 	if(istype(scanner))
 		scanner.displayDetectiveScanResults(usr)
@@ -36,9 +36,6 @@
 		addtimer(CALLBACK(src, PROC_REF(PrintReport)), 100)
 	else
 		to_chat(user, span_notice("The scanner has no logs or is in use."))
-
-/obj/item/detective_scanner/attack(mob/living/M, mob/user)
-	return
 
 /obj/item/detective_scanner/proc/PrintReport()
 	// Create our paper
@@ -59,6 +56,10 @@
 	// Clear the logs
 	log = list()
 	scanning = 0
+
+/obj/item/detective_scanner/pre_attack_secondary(atom/A, mob/user, params)
+	scan(A, user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/detective_scanner/afterattack(atom/A, mob/user, params)
 	. = ..()

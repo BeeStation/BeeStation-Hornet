@@ -1,7 +1,6 @@
 // NSV13
 
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import { Section, ProgressBar, Slider } from '../components';
 import { Window } from '../layouts';
 

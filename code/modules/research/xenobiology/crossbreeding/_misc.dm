@@ -12,7 +12,6 @@ Slimecrossing Items
 	pictures_max = 1
 	can_customise = FALSE
 	default_picture_name = "A nostalgic picture"
-	var/used = FALSE
 
 /datum/saved_bodypart
 	var/obj/item/bodypart/old_part
@@ -57,16 +56,14 @@ Slimecrossing Items
 /obj/item/camera/rewind/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || !isturf(target.loc))
 		return
-	if(!used)//selfie time
-		if(user == target)
-			to_chat(user, span_notice("You take a selfie!"))
-		else
-			to_chat(user, span_notice("You take a photo with [target]!"))
-			to_chat(target, span_notice("[user] takes a photo with you!"))
-		to_chat(target, span_notice("You'll remember this moment forever!"))
+	if(user == target)
+		to_chat(user, span_notice("You take a selfie!"))
+	else
+		to_chat(user, span_notice("You take a photo with [target]!"))
+		to_chat(target, span_notice("[user] takes a photo with you!"))
+	to_chat(target, span_notice("You'll remember this moment forever!"))
 
-		used = TRUE
-		target.AddComponent(/datum/component/dejavu, 2)
+	target.AddComponent(/datum/component/dejavu, 2)
 	.=..()
 
 
@@ -129,9 +126,9 @@ Slimecrossing Items
 	desc = "A mass of solidified slime gel - completely impenetrable, but it's melting away!"
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "slimebarrier_thick"
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 	opacity = TRUE
-	timeleft = 100
+	initial_duration = 10 SECONDS
 
 //Rainbow barrier - Chilling Rainbow
 /obj/effect/forcefield/slimewall/rainbow

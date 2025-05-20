@@ -554,21 +554,27 @@
 		return
 	if (!forceClear && (launcherActivated || picking_dropoff_turf)) //If the launching param is true, we give the user new mouse icons.
 		if(launcherActivated)
-			owner_client.mouse_up_icon = 'icons/effects/supplypod_target.dmi' //Icon for when mouse is released
-			owner_client.mouse_down_icon = 'icons/effects/supplypod_down_target.dmi' //Icon for when mouse is pressed
+			owner_client.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_target.dmi' //Icon for when mouse is released
+			owner_client.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_down_target.dmi' //Icon for when mouse is pressed
 		else if(picking_dropoff_turf)
-			owner_client.mouse_up_icon = 'icons/effects/supplypod_pickturf.dmi' //Icon for when mouse is released
-			owner_client.mouse_down_icon = 'icons/effects/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
-		owner_client.mouse_pointer_icon = owner_client.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+			owner_client.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_pickturf.dmi' //Icon for when mouse is released
+			owner_client.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
+		owner_client.mouse_override_icon = owner_client.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+		owner_client.mouse_pointer_icon = owner_client.mouse_override_icon
 		owner_client.click_intercept = src //Create a click_intercept so we know where the user is clicking
 	else
 		var/mob/owner_client_mob = owner_client.mob
 		owner_client.mouse_up_icon = null
 		owner_client.mouse_down_icon = null
+		owner_client.mouse_override_icon = null
 		owner_client.click_intercept = null
 		owner_client_mob?.update_mouse_pointer() //set the moues icons to null, then call update_mouse_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
-/datum/centcom_podlauncher/proc/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+/datum/centcom_podlauncher/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+	_intercept_click_on(user, params, target)
+
+/datum/centcom_podlauncher/proc/_intercept_click_on(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+	set waitfor = FALSE
 	var/list/modifiers = params2list(params)
 
 	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)

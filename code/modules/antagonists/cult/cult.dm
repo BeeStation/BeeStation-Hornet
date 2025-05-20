@@ -96,7 +96,7 @@
 		//Our last attempt, we force the item into the backpack
 		if(istype(mob.back, /obj/item/storage/backpack))
 			var/obj/item/storage/backpack/B = mob.back
-			SEND_SIGNAL(B, COMSIG_TRY_STORAGE_INSERT, T, null, TRUE, TRUE)
+			B.atom_storage?.attempt_insert(B, T, null, TRUE, TRUE)
 			to_chat(mob, span_danger("You have a [item_name] in your backpack."))
 			return TRUE
 		else
@@ -105,7 +105,7 @@
 	else
 		to_chat(mob, span_danger("You have a [item_name] in your [where]."))
 		if(where == "backpack")
-			SEND_SIGNAL(mob.back, COMSIG_TRY_STORAGE_SHOW, mob)
+			mob.back.atom_storage?.show_contents(mob)
 		return TRUE
 
 /datum/antagonist/cult/apply_innate_effects(mob/living/mob_override)
@@ -236,7 +236,7 @@
 /datum/team/cult
 	name = "Bloodcult"
 
-	var/blood_target
+	var/atom/blood_target
 	var/image/blood_target_image
 	var/blood_target_reset_timer
 
@@ -245,6 +245,64 @@
 	var/reckoning_complete = FALSE
 	var/cult_risen = FALSE
 	var/cult_ascendent = FALSE
+
+/// Sets a blood target for the cult.
+/datum/team/cult/proc/set_blood_target(atom/new_target, mob/marker, duration = 90 SECONDS)
+	if(QDELETED(new_target))
+		CRASH("A null or invalid target was passed to set_blood_target.")
+
+	if(blood_target_reset_timer)
+		return FALSE
+
+	blood_target = new_target
+	RegisterSignal(blood_target, COMSIG_PARENT_QDELETING, PROC_REF(unset_blood_target_and_timer))
+	var/area/target_area = get_area(new_target)
+
+	blood_target_image = image('icons/effects/mouse_pointers/cult_target.dmi', new_target, "glow", ABOVE_MOB_LAYER)
+	blood_target_image.appearance_flags = RESET_COLOR
+	blood_target_image.pixel_x = -new_target.pixel_x
+	blood_target_image.pixel_y = -new_target.pixel_y
+
+	for(var/datum/mind/cultist as anything in members)
+		if(!cultist.current)
+			continue
+		if(cultist.current.stat == DEAD || !cultist.current.client)
+			continue
+
+		to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>[marker] has marked [blood_target] in the [target_area.name] as the cult's top priority, get there immediately!</span></span>")))
+		SEND_SOUND(cultist.current, sound(pick('sound/hallucinations/over_here2.ogg','sound/hallucinations/over_here3.ogg'), 0, 1, 75))
+		cultist.current.client.images += blood_target_image
+
+	blood_target_reset_timer = addtimer(CALLBACK(src, PROC_REF(unset_blood_target)), duration, TIMER_STOPPABLE)
+	return TRUE
+
+/// Unsets out blood target, clearing the images from all the cultists.
+/datum/team/cult/proc/unset_blood_target()
+	blood_target_reset_timer = null
+
+	for(var/datum/mind/cultist as anything in members)
+		if(!cultist.current)
+			continue
+		if(cultist.current.stat == DEAD || !cultist.current.client)
+			continue
+
+		if(QDELETED(blood_target))
+			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark's target is lost!</span></span>")))
+		else
+			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark has expired!</span></span>")))
+		cultist.current.client.images -= blood_target_image
+
+	UnregisterSignal(blood_target, COMSIG_PARENT_QDELETING)
+	blood_target = null
+
+	QDEL_NULL(blood_target_image)
+
+/// Unsets our blood target when they get deleted.
+/datum/team/cult/proc/unset_blood_target_and_timer(datum/source)
+	SIGNAL_HANDLER
+
+	deltimer(blood_target_reset_timer)
+	unset_blood_target()
 
 /datum/team/cult/proc/check_size()
 	if(cult_ascendent)

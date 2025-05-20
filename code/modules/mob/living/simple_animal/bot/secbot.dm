@@ -152,16 +152,16 @@
 	return
 
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/H)
-	if((H.a_intent == INTENT_HARM) || (H.a_intent == INTENT_DISARM))
+	if(H.combat_mode)
 		retaliate(H)
 		if(special_retaliate_after_attack(H))
 			return
 
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/living/user, params)
 	..()
-	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
+	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		return
 	if(W.tool_behaviour != TOOL_SCREWDRIVER && (W.force) && (!target) && (W.damtype != STAMINA) ) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
 		retaliate(user)
@@ -239,7 +239,7 @@
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	C.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
 	C.apply_effect(EFFECT_STUTTER, 50)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\

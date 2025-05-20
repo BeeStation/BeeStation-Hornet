@@ -8,15 +8,16 @@
 	var/list/T = list()
 
 	for (var/obj/machinery/camera/C in L)
-		var/list/tempnetwork = C.network&src.network
-		if (tempnetwork.len)
+		if(!(is_station_level(C.z) || is_mining_level(C.z)))
+			continue
+		if (L.len)
 			T["[C.c_tag][(C.can_use() ? null : " (Deactivated)")]"] = C
 
 	return T
 
 /mob/living/silicon/ai/proc/show_camera_list()
 	var/list/cameras = get_camera_list()
-	var/camera = input(src, "Choose which camera you want to view", "Cameras") as null|anything in cameras
+	var/camera = tgui_input_list(src, "Choose which camera you want to view", "Cameras", cameras)
 	switchCamera(cameras[camera])
 
 /datum/trackable

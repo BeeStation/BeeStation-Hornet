@@ -1,11 +1,8 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 import { useBackend, useLocalState } from '../backend';
-import { Icon, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Divider, Grid, ProgressBar, Collapsible } from '../components';
-import { formatMoney } from '../format';
+import { Icon, Box, Button, Section, Table, Divider, Grid, ProgressBar, Collapsible } from '../components';
 import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
-import { GridColumn } from '../components/Grid';
 
 export const convertPower = (power_in) => {
   const units = ['W', 'kW', 'MW', 'GW'];
@@ -60,7 +57,7 @@ export const ClockworkSlab = (props) => {
 
 export const ClockworkHelp = (props) => {
   return (
-    <Fragment>
+    <>
       <Collapsible title="Where To Start" color="average" open={1}>
         <Section>
           After a long and destructive war, Rat&#39;Var has been imprisoned inside a dimension of suffering.
@@ -197,7 +194,7 @@ export const ClockworkHelp = (props) => {
           <br />
         </Section>
       </Collapsible>
-    </Fragment>
+    </>
   );
 };
 

@@ -52,7 +52,7 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,

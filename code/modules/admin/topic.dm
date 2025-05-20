@@ -544,11 +544,11 @@
 			if("runtime")
 				M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob )
 			if("corgi")
-				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob )
+				M.change_mob_type( /mob/living/basic/pet/dog/corgi , null, null, delmob )
 			if("ian")
-				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi/Ian , null, null, delmob )
+				M.change_mob_type( /mob/living/basic/pet/dog/corgi/Ian , null, null, delmob )
 			if("pug")
-				M.change_mob_type( /mob/living/simple_animal/pet/dog/pug , null, null, delmob )
+				M.change_mob_type( /mob/living/basic/pet/dog/pug , null, null, delmob )
 			if("crab")
 				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob )
 			if("coffee")
@@ -1590,7 +1590,9 @@
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
 		dat += thing_to_check
 
-		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
+		var/datum/browser/browser = new(usr, "related_[C]", "[C.ckey] Related Accounts", 420, 300)
+		browser.set_content(dat.Join("<br>"))
+		browser.open()
 
 	else if(href_list["centcomlookup"])
 		if(!check_rights(R_ADMIN))
@@ -1959,11 +1961,11 @@
 
 	var/dat = {"<B>What mode do you wish to play?</B><HR>"}
 	for(var/mode in config.modes)
-		dat += {"<A href='?src=[REF(src)];[HrefToken()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
-	dat += {"<A href='?src=[REF(src)];[HrefToken()];c_mode2=secret'>Secret</A><br>"}
-	dat += {"<A href='?src=[REF(src)];[HrefToken()];c_mode2=random'>Random</A><br>"}
+		dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
+	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=secret'>Secret</A><br>"}
+	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];c_mode2=random'>Random</A><br>"}
 	dat += {"Now: [GLOB.master_mode]"}
-	usr << browse(dat, "window=c_mode")
+	usr << browse(HTML_SKELETON(dat), "window=c_mode")
 
 /datum/admins/proc/HandleFSecret()
 	if(!check_rights(R_ADMIN))
@@ -1975,7 +1977,7 @@
 		return tgui_alert(usr, "The game mode has to be secret!")
 	var/dat = {"<B>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</B><HR>"}
 	for(var/mode in config.modes)
-		dat += {"<A href='?src=[REF(src)];[HrefToken()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
-	dat += {"<A href='?src=[REF(src)];[HrefToken()];f_secret2=secret'>Random (default)</A><br>"}
+		dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
+	dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_secret2=secret'>Random (default)</A><br>"}
 	dat += {"Now: [GLOB.secret_force_mode]"}
-	usr << browse(dat, "window=f_secret")
+	usr << browse(HTML_SKELETON(dat), "window=f_secret")

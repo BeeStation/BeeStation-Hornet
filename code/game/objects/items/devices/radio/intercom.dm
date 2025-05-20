@@ -20,6 +20,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 	if(!current_area)
 		return
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
+	GLOB.intercoms_list += src
+
+/obj/item/radio/intercom/Destroy()
+	. = ..()
+	GLOB.intercoms_list -= src
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()
@@ -62,7 +67,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 /obj/item/radio/intercom/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/item/radio/intercom/attack_hand(mob/user)
+/obj/item/radio/intercom/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

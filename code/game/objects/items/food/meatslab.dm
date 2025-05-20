@@ -120,7 +120,7 @@
 		/datum/reagent/uranium = 3
 	)
 	tastes = list("maggots" = 1, "the inside of a reactor" = 1)
-	foodtypes = MEAT | RAW | GROSS | GORE
+	foodtypes = MEAT | RAW | GROSS | BUGS | GORE
 
 /obj/item/food/meat/slab/human/mutant/fly/make_dryable()
 	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
@@ -129,7 +129,7 @@
 	icon_state = "mothmeat"
 	desc = "Unpleasantly powdery and dry. Kind of pretty, though."
 	tastes = list("dust" = 1, "powder" = 1, "meat" = 2)
-	foodtypes = MEAT | RAW | GORE
+	foodtypes = MEAT | RAW | BUGS | GORE
 
 /obj/item/food/meat/slab/human/mutant/moth/make_dryable()
 	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
@@ -168,7 +168,7 @@
 	icon_state = "apidmeat"
 	desc = "Smells like flowers, hopefully doesn't taste like one."
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
-	foodtypes = MEAT | RAW | GORE
+	foodtypes = MEAT | RAW | BUGS | GORE
 
 /obj/item/food/meat/slab/human/mutant/apid/make_dryable()
 	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bees)

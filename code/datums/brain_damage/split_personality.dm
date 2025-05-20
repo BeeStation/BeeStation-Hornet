@@ -24,12 +24,14 @@
 
 /datum/brain_trauma/severe/split_personality/proc/make_backseats()
 	stranger_backseat = new(owner, src)
-	var/obj/effect/proc_holder/spell/targeted/personality_commune/stranger_spell = new(src)
-	stranger_backseat.AddSpell(stranger_spell)
+	var/datum/action/spell/personality_commune/stranger_spell = new(src)
+	//stranger_backseat.AddSpell(stranger_spell)
+	stranger_spell.Grant(stranger_backseat)
 
 	owner_backseat = new(owner, src)
-	var/obj/effect/proc_holder/spell/targeted/personality_commune/owner_spell = new(src)
-	owner_backseat.AddSpell(owner_spell)
+	var/datum/action/spell/personality_commune/owner_spell = new(src)
+	owner_spell.Grant(owner_backseat)
+	//owner_backseat.AddSpell(owner_spell)
 
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
@@ -42,12 +44,12 @@
 	else
 		qdel(src)
 
-/datum/brain_trauma/severe/split_personality/on_life()
+/datum/brain_trauma/severe/split_personality/on_life(delta_time, times_fired)
 	if(owner.stat == DEAD)
 		if(current_controller != OWNER)
 			switch_personalities(TRUE)
 		qdel(src)
-	else if(prob(3))
+	else if(DT_PROB(1.5, delta_time))
 		switch_personalities()
 	..()
 
@@ -143,7 +145,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 		trauma = _trauma
 	return ..()
 
-/mob/living/split_personality/Life()
+/mob/living/split_personality/Life(delta_time = SSMOBS_DT, times_fired)
 	if(QDELETED(body))
 		qdel(src) //in case trauma deletion doesn't already do it
 
@@ -215,7 +217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	else
 		qdel(src)
 
-/datum/brain_trauma/severe/split_personality/brainwashing/on_life()
+/datum/brain_trauma/severe/split_personality/brainwashing/on_life(delta_time, times_fired)
 	return //no random switching
 
 /datum/brain_trauma/severe/split_personality/brainwashing/handle_hearing(datum/source, list/hearing_args)

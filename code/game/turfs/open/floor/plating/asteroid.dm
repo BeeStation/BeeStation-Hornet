@@ -84,15 +84,7 @@
 		return ..()
 
 /turf/open/floor/plating/asteroid/planetary
-	var/static/datum/gas_mixture/immutable/planetary/GM
-
-/turf/open/floor/plating/asteroid/planetary/Initialize(mapload)
-	if(!GM)
-		GM = new
-	. = ..()
-	air = GM
-	update_air_ref(2)
-	return
+	planetary_atmos = TRUE
 
 /turf/open/floor/plating/lavaland_baseturf
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
@@ -136,21 +128,14 @@
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
 /turf/open/floor/plating/asteroid/basalt/iceland_surface
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/cold
 
 /turf/open/floor/plating/asteroid/basalt/planetary
 	resistance_flags = INDESTRUCTIBLE
-	var/static/datum/gas_mixture/immutable/planetary/GM
-
-/turf/open/floor/plating/asteroid/basalt/planetary/Initialize(mapload)
-	if(!GM)
-		GM = new
-	. = ..()
-	air = GM
-	update_air_ref(2)
-	return
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
 
 /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -166,7 +151,7 @@
 	icon_state = "fairygrass"
 	icon_plating = "fairygrass"
 	environment_type = "snow_cavern"
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL
@@ -176,7 +161,7 @@
 	baseturfs = /turf/open/floor/plating/asteroid/snow
 	icon_state = "snow"
 	icon_plating = "snow"
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 	environment_type = "snow"
 	flags_1 = NONE
 	planetary_atmos = TRUE
@@ -218,12 +203,13 @@
 /turf/open/floor/plating/asteroid/snow/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/plating/asteroid/snow/temperatre
-	initial_gas_mix = "o2=22;n2=82;TEMP=255.37"
+/turf/open/floor/plating/asteroid/snow/temperate
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE
 
 /turf/open/floor/plating/asteroid/snow/planetary
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE

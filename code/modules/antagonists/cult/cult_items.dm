@@ -37,7 +37,7 @@ Can be used to scrape blood runes away, removing any trace of them.
 Striking another cultist with it will purge all holy water from them and transform it into unholy water.
 Striking a noncultist, however, will tear their flesh."}
 
-	AddComponent(/datum/component/cult_ritual_item, span_cult("[examine_text]"))
+	AddComponent(/datum/component/cult_ritual_item, span_cult(examine_text))
 
 /obj/item/melee/cultblade
 	name = "eldritch longsword"
@@ -51,7 +51,7 @@ Striking a noncultist, however, will tear their flesh."}
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -69,7 +69,7 @@ Striking a noncultist, however, will tear their flesh."}
 							span_userdanger("Your arm throbs and your brain hurts!"))
 		user.adjustStaminaLoss(rand(force/2,force))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
-	if (target.anti_magic_check(magic = FALSE, holy = TRUE))
+	if (target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		force = 15
 	else
 		force = 22
@@ -101,7 +101,7 @@ Striking a noncultist, however, will tear their flesh."}
 	phasein = /obj/effect/temp_visual/dir_setting/cult/phase
 	phaseout = /obj/effect/temp_visual/dir_setting/cult/phase/out
 
-/datum/action/innate/dash/cult/IsAvailable()
+/datum/action/innate/dash/cult/is_available()
 	if(iscultist(owner) && current_charges)
 		return TRUE
 	else
@@ -120,7 +120,7 @@ Striking a noncultist, however, will tear their flesh."}
 		return
 	if(ismob(hit_atom))
 		var/mob/M = hit_atom
-		if(M.anti_magic_check(magic = FALSE, holy = TRUE))
+		if(M.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			M.visible_message("[src] passes right through [M]!")
 			return
 	. = ..()
@@ -174,6 +174,9 @@ Striking a noncultist, however, will tear their flesh."}
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 
+/obj/item/clothing/suit/hooded/cultrobes/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
 
 /datum/armor/hooded_cultrobes
@@ -573,7 +576,7 @@ Striking a noncultist, however, will tear their flesh."}
 	throwforce = 40
 	throw_speed = 2
 	armour_penetration = 30
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	sharpness = SHARP
@@ -609,7 +612,7 @@ Striking a noncultist, however, will tear their flesh."}
 			else
 				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
-			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
+			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				L.Knockdown(50)
 			break_spear(T)
 	else
@@ -651,10 +654,8 @@ Striking a noncultist, however, will tear their flesh."}
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()
 	spear = blood_spear
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
 
-/datum/action/innate/cult/spear/Activate()
+/datum/action/innate/cult/spear/on_activate()
 	if(owner == spear.loc || cooldown > world.time)
 		return
 	var/ST = get_turf(spear)
@@ -848,7 +849,7 @@ Striking a noncultist, however, will tear their flesh."}
 		if (attack_type == MELEE_ATTACK && ishuman(hitby.loc))
 			// Cannot block someone who has the bible on their side
 			var/mob/living/carbon/human/attacker = hitby.loc
-			if (attacker.anti_magic_check(magic = FALSE, holy = TRUE))
+			if (attacker.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				owner.visible_message(span_danger("[owner] fails to block the attack from [attacker]!"), span_userdanger("You fail to block the empowered attack!"))
 				return FALSE
 		. = ..()
@@ -888,7 +889,7 @@ Striking a noncultist, however, will tear their flesh."}
 			else
 				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
-			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
+			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

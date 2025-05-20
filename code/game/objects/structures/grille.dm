@@ -25,6 +25,10 @@
 		pipe_astar_cost = 1\
 	)
 
+/obj/structure/grille/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 
 /datum/armor/structure_grille
 	melee = 50
@@ -158,7 +162,7 @@
 	return 60
 
 /obj/structure/grille/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		if(!shock(user, 70))
 			..(user, 1)
 		return TRUE
@@ -186,10 +190,10 @@
 	if(!. && istype(mover, /obj/projectile))
 		return prob(30)
 
-/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	. = !density
-	if(istype(caller))
-		. = . || (caller.pass_flags & PASSGRILLE)
+	if(istype(passing_atom))
+		. = . || (passing_atom.pass_flags & PASSGRILLE)
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -335,11 +339,11 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(!broken)
-		if(exposed_temperature > T0C + 1500)
-			take_damage(1, BURN, 0, 0)
-	..()
+/obj/structure/grille/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > T0C + 1500 && !broken
+
+/obj/structure/grille/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(1, BURN, 0, 0)
 
 /obj/structure/grille/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isobj(AM))
@@ -354,7 +358,7 @@
 					C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
-/obj/structure/grille/get_dumping_location(datum/component/storage/source,mob/user)
+/obj/structure/grille/get_dumping_location(datum/storage/source, mob/user)
 	return null
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement

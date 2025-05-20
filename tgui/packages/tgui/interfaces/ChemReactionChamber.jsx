@@ -33,7 +33,7 @@ export const ChemReactionChamber = (props) => {
                   step={1}
                   stepPixelSize={3}
                   width="39px"
-                  onDrag={(e, value) => setReagentQuantity(value)}
+                  onDrag={(value) => setReagentQuantity(value)}
                 />
                 <Box inline mr={1} />
                 <Button

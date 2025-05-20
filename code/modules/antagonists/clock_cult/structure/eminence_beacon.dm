@@ -7,7 +7,7 @@
 	var/vote_active = FALSE
 	var/vote_timer
 
-/obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
 		return

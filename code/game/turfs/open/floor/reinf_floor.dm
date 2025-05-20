@@ -4,7 +4,7 @@
 	desc = "Extremely sturdy."
 	icon_state = "engine"
 	holodeck_compatible = TRUE
-	thermal_conductivity = 0.025
+	thermal_conductivity = 0.01
 	heat_capacity = INFINITY
 	floor_tile = /obj/item/stack/sheet/iron
 	footstep = FOOTSTEP_PLATING
@@ -70,7 +70,7 @@
 /turf/open/floor/engine/attack_paw(mob/user)
 	return attack_hand(user)
 
-/turf/open/floor/engine/attack_hand(mob/user)
+/turf/open/floor/engine/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -130,8 +130,7 @@
 	icon_state = "plating"
 	floor_tile = null
 	var/obj/effect/clockwork/overlay/floor/bloodcult/realappearance
-	CanAtmosPass = ATMOS_PASS_NO
-	CanAtmosPassVertical =	ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 
 
 /turf/open/floor/engine/cult/Initialize(mapload)

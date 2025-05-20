@@ -1,7 +1,7 @@
 import { NtosWindow } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 import { Section, Table, Button } from '../components';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 
 export const NtosLogViewer = (props) => {
   const { act, data } = useBackend();
@@ -20,9 +20,9 @@ export const NtosLogViewer = (props) => {
               </Table.Row>
               {files.map((file) => (
                 <Table.Row key={file.name} className="candystripe">
-                  <Table.Cell>{file.name}.log</Table.Cell>
+                  <Table.Cell>{file.name}</Table.Cell>
                   <Table.Cell>{!file.remote ? `${file.size}GQ` : 'Remote'}</Table.Cell>
-                  <Table.Cell collapsing style={{ 'text-align': 'right' }}>
+                  <Table.Cell collapsing style={{ textAlign: 'right' }}>
                     {!!file.remote && (
                       <Button
                         disabled={!file.online}
@@ -43,7 +43,7 @@ export const NtosLogViewer = (props) => {
             </Table>
           </Section>
         ) : (
-          <Log file={openFileResult} setOpenFile={setOpenFile} />
+          <Log file={openFileResult} setOpenFile={setOpenFile} act={act} />
         )}
       </NtosWindow.Content>
     </NtosWindow>
@@ -71,11 +71,24 @@ class Log extends Component {
   render() {
     return (
       <Section
-        title={this.props.file.name + '.log'}
+        title={this.props.file.name}
         fill
         scrollable
         className="LogSection"
-        buttons={<Button icon="arrow-left" content="Back" onClick={() => this.props.setOpenFile(null)} />}>
+        buttons={
+          <>
+            <Button
+              icon="edit"
+              content="Edit in Notepad"
+              onClick={() =>
+                this.props.act('EditInNotepad', {
+                  data: this.props.file.data,
+                })
+              }
+            />
+            <Button icon="arrow-left" content="Back" onClick={() => this.props.setOpenFile(null)} />
+          </>
+        }>
         {this.props.file.data}
         <div ref={this.messagesEndRef} />
       </Section>

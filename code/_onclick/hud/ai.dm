@@ -33,7 +33,7 @@
 	if(..())
 		return
 	var/mob/living/silicon/ai/AI = usr
-	var/target_name = input(AI, "Choose who you want to track", "Tracking") as null|anything in AI.trackable_mobs()
+	var/target_name = tgui_input_list(AI, "Choose who you want to track", "Tracking", AI.trackable_mobs())
 	AI.ai_camera_track(target_name)
 
 /atom/movable/screen/ai/camera_light
@@ -186,7 +186,7 @@
 		return
 	var/mob/living/silicon/ai/AI = usr
 	var/turf/T = get_turf(AI.eyeobj)
-	var/turf/target = upwards ? T.above() : T.below()
+	var/turf/target = upwards ? GET_TURF_ABOVE(T) : GET_TURF_BELOW(T)
 	if(isturf(target))
 		AI.eyeobj.forceMove(target)
 		AI.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)

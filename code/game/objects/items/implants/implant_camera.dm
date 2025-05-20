@@ -1,7 +1,7 @@
 /obj/item/implant/camera
 	name = "camera implant"
 	desc = "Watchful eye inside you."
-	activated = FALSE
+	actions_types = null
 	var/obj/machinery/camera/camera
 
 /obj/item/implant/camera/get_data()

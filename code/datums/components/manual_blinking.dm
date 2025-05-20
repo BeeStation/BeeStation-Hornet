@@ -15,10 +15,9 @@
 	name = "Blink"
 	icon_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "see"						//Feel free to replace
+	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/blink/Trigger()
-	if(owner.stat != CONSCIOUS)
-		return FALSE
+/datum/action/blink/on_activate(mob/user, atom/target)
 	owner.emote("blink")
 
 /datum/component/manual_blinking/Initialize()

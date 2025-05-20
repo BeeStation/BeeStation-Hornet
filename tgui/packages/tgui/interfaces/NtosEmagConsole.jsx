@@ -1,6 +1,6 @@
 import { NtosWindow } from '../layouts';
 import { Section, Box } from '../components';
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { useBackend } from '../backend';
 
 const logTextAlways = `

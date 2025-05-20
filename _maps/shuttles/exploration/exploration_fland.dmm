@@ -88,7 +88,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "ds" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -114,7 +114,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "dT" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
@@ -224,7 +224,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "hJ" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
@@ -423,7 +423,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sy" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -464,7 +464,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "uE" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
@@ -610,7 +610,7 @@
 /area/shuttle/exploration)
 "BT" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
@@ -745,7 +745,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
@@ -1039,7 +1039,7 @@
 /obj/item/radio/headset/headset_exploration,
 /obj/item/radio/headset/headset_exploration,
 /obj/item/gps/mining,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
@@ -1115,7 +1115,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,

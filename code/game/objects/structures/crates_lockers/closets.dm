@@ -75,6 +75,10 @@
 	if (mapload && !opened)
 		. = INITIALIZE_HINT_LATELOAD
 	populate_contents_immediate()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_MAGICALLY_UNLOCKED = PROC_REF(on_magic_unlock),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	update_icon()
 
 /obj/structure/closet/LateInitialize()
@@ -181,7 +185,7 @@
 	if(opened)
 		. += span_notice("The parts are <b>welded</b> together.")
 	else if(secure && !opened)
-		. += span_notice("Alt-click to [locked ? "unlock" : "lock"].")
+		. += "<span class='notice'>Right-click to [locked ? "unlock" : "lock"].</span>"
 	if(isliving(user))
 		var/mob/living/L = user
 		if(divable && HAS_TRAIT(L, TRAIT_SKITTISH))
@@ -230,6 +234,8 @@
 
 /obj/structure/closet/proc/take_contents()
 	var/atom/L = drop_location()
+	if(!L)
+		return
 	for(var/atom/movable/AM in L)
 		if(AM != src && insert(AM) == -1) // limit reached
 			break
@@ -337,7 +343,7 @@
 	else
 		return ..()
 
-/obj/structure/closet/proc/tool_interact(obj/item/W, mob/user)//returns TRUE if attackBy call shouldn't be continued (because tool was used/closet was of wrong type), FALSE if otherwise
+/obj/structure/closet/proc/tool_interact(obj/item/W, mob/living/user)//returns TRUE if attackBy call shouldn't be continued (because tool was used/closet was of wrong type), FALSE if otherwise
 	. = TRUE
 	if(opened)
 		if(W.tool_behaviour == cutting_tool)
@@ -359,6 +365,8 @@
 									span_notice("You cut \the [src] apart with \the [W]."))
 				deconstruct(TRUE)
 				return
+		if (user.combat_mode)
+			return FALSE
 		if(user.transferItemToLoc(W, drop_location())) // so we put in unlit welder too
 			return
 	else if(W.tool_behaviour == TOOL_WELDER && can_weld_shut)
@@ -375,15 +383,8 @@
 							span_notice("You [welded ? "weld" : "unwelded"] \the [src] with \the [W]."),
 							span_italics("You hear welding."))
 			update_icon()
-	else if(W.tool_behaviour == TOOL_WRENCH && anchorable)
-		if(isinspace() && !anchored)
-			return
-		set_anchored(!anchored)
-		W.play_tool_sound(src, 75)
-		user.visible_message(span_notice("[user] [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground."), \
-						span_notice("You [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground."), \
-						span_italics("You hear a ratchet."))
-	else if(user.a_intent != INTENT_HARM)
+
+	else if(!user.combat_mode)
 		var/item_is_id = W.GetID()
 		if(!item_is_id)
 			return FALSE
@@ -391,6 +392,18 @@
 			togglelock(user)
 	else
 		return FALSE
+
+/obj/structure/closet/wrench_act_secondary(mob/living/user, obj/item/tool)
+	if(!anchorable)
+		balloon_alert(user, "no anchor bolts!")
+		return TRUE
+	if(isinspace() && !anchored) // We want to prevent anchoring a locker in space, but we should still be able to unanchor it there
+		balloon_alert(user, "nothing to anchor to!")
+		return TRUE
+	set_anchored(!anchored)
+	tool.play_tool_sound(src, 75)
+	user.balloon_alert_to_viewers("[anchored ? "anchored" : "unanchored"]")
+	return TRUE
 
 /obj/structure/closet/proc/after_weld(weld_state)
 	return
@@ -464,6 +477,12 @@
 	if(user.Adjacent(src))
 		return attack_hand(user)
 
+/obj/structure/closet/attack_robot_secondary(mob/user, list/modifiers)
+	if(!user.Adjacent(src))
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	togglelock(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
 	if(attack_hand(user))
@@ -527,13 +546,15 @@
 	broken = TRUE //applies to secure lockers only
 	open()
 
-/obj/structure/closet/AltClick(mob/user)
+/obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
+	. = ..()
+
 	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(loc))
 		return
-	if(opened || !secure)
-		return
-	else
+
+	if(!opened && secure)
 		togglelock(user)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/closet/CtrlShiftClick(mob/living/user)
 	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))
@@ -653,3 +674,9 @@
 		var/custom_data = item.on_object_saved(depth++)
 		dat += "[custom_data ? ",\n[custom_data]" : ""]"
 	return dat
+
+/obj/structure/closet/proc/on_magic_unlock(datum/source, datum/action/spell/aoe/knock/spell, mob/living/caster)
+	SIGNAL_HANDLER
+
+	locked = FALSE
+	INVOKE_ASYNC(src, PROC_REF(open))

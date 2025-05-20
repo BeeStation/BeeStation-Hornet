@@ -66,11 +66,8 @@ const NewscasterChannelModal = ({ header, submit_content, override_bg }) => {
     },
   } = useBackend();
   const modalStyle = { border: '1px solid #2c4461' };
-  if (override_bg) {
-    modalStyle['background-color'] = `${override_bg} !important`;
-  }
   return (
-    <Modal textAlign="center" mr={1.5} pt={0} style={modalStyle} width="350px">
+    <Modal textAlign="center" mr={1.5} pt={0} style={modalStyle} backgroundColor={override_bg} width="350px">
       <h2>{header}</h2>
       <Stack vertical fill>
         <Stack.Item>
@@ -184,7 +181,7 @@ const NewscasterCommentCreation = (props) => {
     return null;
   }
   return (
-    <Modal textAlign="center" style={override_bg ? { 'background-color': `${override_bg} !important` } : null} mr={1.5}>
+    <Modal textAlign="center" backgroundColor={override_bg} mr={1.5}>
       <Stack vertical>
         <Stack.Item>
           <Box pb={1}>
@@ -231,11 +228,7 @@ const NewscasterWantedScreen = (props) => {
     return null;
   }
   return (
-    <Modal
-      textAlign="center"
-      style={override_bg ? { 'background-color': `${override_bg} !important` } : null}
-      mr={1.5}
-      width={25}>
+    <Modal textAlign="center" backgroundColor={override_bg} mr={1.5} width={25}>
       {!editing_wanted
         ? wanted
           .filter((wanted) => wanted.criminal)
@@ -392,7 +385,7 @@ const NewscasterChannelBox = (_) => {
               </BlockQuote>
             </Section>
           ) : (
-            <Box width="100%" height="100%" style={{ 'overflow-y': 'auto' }}>
+            <Box width="100%" height="100%" style={{ overflowY: 'auto' }}>
               <BlockQuote italic fontSize={1.2}>
                 {decodeHtmlEntities(channelDesc)}
               </BlockQuote>
@@ -542,7 +535,7 @@ const NewscasterChannelMessages = (_) => {
   const { messages = [], viewing_channel, security_mode, channelCensored, channelLocked, channelAuthor, user } = data;
   if (channelCensored) {
     return (
-      <Section style={{ 'margin-top': '0.5em' }} color="red">
+      <Section style={{ marginTop: '0.5em' }} color="red">
         <b>ATTENTION:</b> Comments cannot be read at this time.
         <br />
         Thank you for your understanding, and have a secure day.
@@ -552,13 +545,13 @@ const NewscasterChannelMessages = (_) => {
   const visibleMessages = messages.filter((message) => message.ID !== viewing_channel);
 
   return (
-    <Box style={{ 'margin-top': '0.5em' }}>
+    <Box style={{ marginTop: '0.5em' }}>
       {visibleMessages.map((message) => {
         return (
           <Section
             key={message.index}
             textColor="white"
-            style={{ 'margin-top': '0.5em' }}
+            style={{ marginTop: '0.5em' }}
             title={
               <i>
                 {message.censored_author ? (
@@ -622,7 +615,9 @@ const NewscasterChannelMessages = (_) => {
                   <b>D-Notice</b>.
                 </Section>
               ) : (
-                <Section dangerouslySetInnerHTML={processedText(message.body)} pl={1} />
+                <Section pl={1}>
+                  <Box dangerouslySetInnerHTML={processedText(message.body)} />
+                </Section>
               )}
               {message.photo !== null && !message.censored_message && (
                 <>
@@ -637,7 +632,9 @@ const NewscasterChannelMessages = (_) => {
                       <Box italic textColor="white">
                         By: {comment.auth} at {comment.time}
                       </Box>
-                      <Section dangerouslySetInnerHTML={processedText(comment.body)} ml={2.5} />
+                      <Section ml={2.5}>
+                        <Box dangerouslySetInnerHTML={processedText(comment.body)} />
+                      </Section>
                     </BlockQuote>
                   ))}
                 </Box>

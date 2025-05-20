@@ -24,6 +24,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	var/geiger_counter = TRUE
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
@@ -52,6 +53,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	// Move to nullspace first to prevent qdel loops
+	moveToNullspace()
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
@@ -113,11 +116,14 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
 	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
+	if(amount <= RAD_BACKGROUND_RADIATION || !geiger_counter)
 		return
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
+	if(!geiger_counter)
+		return
+
 	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
 
 	if(current_tick_amount)
@@ -160,7 +166,6 @@
 	)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
-	pocket_storage_component_path = null
 	var/hardsuit_type
 	/// Whether the helmet is on.
 	var/helmet_on = FALSE
@@ -564,7 +569,7 @@
 		Nanotrasen officials note that it is unique in every way and the design has not been copied in any way."
 	item_state = "exploration_hardsuit"
 	armor_type = /datum/armor/hardsuit_exploration
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/gun/ballistic/rifle/leveraction/exploration, /obj/item/gun/energy/laser/repeater/explorer)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
@@ -748,7 +753,7 @@
 	resistance_flags = ACID_PROOF
 	supports_variations = DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_syndi
-	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 	cell = /obj/item/stock_parts/cell/hyper
@@ -775,7 +780,7 @@
 	syndieHelmet.update_icon()
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.update_buttons()
 	//Update the icon_state first
 	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.hardsuit_type]"
 	update_icon()
@@ -900,6 +905,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor_type = /datum/armor/hardsuit_wizard
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	clothing_flags = CASTING_CLOTHES
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 
@@ -923,6 +929,7 @@
 	item_state = "wiz_hardsuit"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	clothing_flags = CASTING_CLOTHES
 	armor_type = /datum/armor/hardsuit_wizard
 	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
@@ -949,8 +956,15 @@
 /obj/item/clothing/suit/space/hardsuit/wizard/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, FALSE, INFINITY, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
 
+/obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user, slot)
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
 
 	//Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
@@ -1020,13 +1034,13 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
-	var/obj/machinery/doppler_array/integrated/bomb_radar
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner
 	)
 
+	var/obj/machinery/doppler_array/integrated/bomb_radar
 
 /datum/armor/hardsuit_rd
 	melee = 30
@@ -1065,12 +1079,10 @@
 	supports_variations = DIGITIGRADE_VARIATION
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
-	/obj/item/hand_tele, /obj/item/aicard)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector, /obj/item/hand_tele, /obj/item/aicard)
 	armor_type = /datum/armor/hardsuit_research_director
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
 	cell = /obj/item/stock_parts/cell/super
-
 
 /datum/armor/hardsuit_research_director
 	melee = 30
@@ -1218,12 +1230,14 @@
 
 /obj/item/clothing/suit/space/hardsuit/swat
 	name = "\improper MK.II SWAT Suit"
-	desc = "A MK.II SWAT suit with streamlined joints and armor made out of superior materials, insulated against intense heat. The most advanced tactical armor available."
+	desc = "A tactical suit first developed in a joint effort by the defunct IS-ERI and Nanotrasen in 2321 for military operations. \
+		It has a minor slowdown, but offers decent protection and helps the wearer resist shoving in close quarters."
 	icon_state = "swat2"
 	item_state = "swat2"
 	armor_type = /datum/armor/hardsuit_swat
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	blocks_shove_knockdown = TRUE
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT //this needed to be added a long fucking time ago
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
 
@@ -1310,6 +1324,8 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
+	if (!H.mind)
+		return FALSE
 	if(H.mind.assigned_role == JOB_NAME_CLOWN)
 		return TRUE
 	else
@@ -1386,7 +1402,6 @@
 	/// The icon for the shield
 	var/shield_icon = "shield-old"
 
-
 /datum/armor/hardsuit_shielded
 	melee = 30
 	bullet = 15
@@ -1404,9 +1419,6 @@
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
-
-/obj/item/clothing/suit/space/hardsuit/shielded/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = shield_integrity, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -1490,7 +1502,7 @@
 	item_state = "syndie_hardsuit"
 	hardsuit_type = "syndi"
 	armor_type = /datum/armor/shielded_syndi
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	slowdown = 0
 	actions_types = list(

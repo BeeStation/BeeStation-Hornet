@@ -33,7 +33,6 @@
 
 	var/list/ride_offset_x = list("north" = 0, "south" = 0, "east" = -6, "west" = 6)
 	var/list/ride_offset_y = list("north" = 4, "south" = 4, "east" = 3, "west" = 3)
-	var/ride_allow_incapacitated = TRUE
 	var/allow_riding = TRUE
 	var/canDispose = FALSE // Whether the borg can stuff itself into disposal
 
@@ -252,7 +251,7 @@
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug,
 		/obj/item/instrument/piano_synth)
-	emag_modules = list(/obj/item/melee/transforming/energy/sword/cyborg)
+	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/kindle,
@@ -298,6 +297,24 @@
 	moduleselect_icon = "medical"
 	can_be_pushed = FALSE
 	hat_offset = 3
+
+/obj/item/robot_module/medical/be_transformed_to(obj/item/robot_module/old_module)
+	var/mob/living/silicon/robot/cyborg = loc
+	var/list/medical_icons = list(
+		"Qualified Doctor" = image(icon = 'icons/mob/robots.dmi', icon_state = "qualified_doctor"),
+		"Machinified Doctor" = image(icon = 'icons/mob/robots.dmi', icon_state = "medical")
+	)
+	var/medical_robot_icon = show_radial_menu(cyborg, cyborg, medical_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
+	switch(medical_robot_icon)
+		if("Machinified Doctor")
+			cyborg_base_icon = "medical"
+			special_light_key = "medical"
+		if("Qualified Doctor")
+			cyborg_base_icon = "qualified_doctor"
+			special_light_key = "qualified_doctor"
+		else
+			return FALSE
+	return ..()
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
@@ -351,7 +368,7 @@
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/shield/riot/tele,
 		/obj/item/gun/energy/disabler/cyborg,
-		/obj/item/melee/transforming/energy/sword/cyborg,
+		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/carbine/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
@@ -639,7 +656,7 @@
 	name = "Syndicate Assault"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/melee/transforming/energy/sword/cyborg,
+		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/printer,
 		/obj/item/gun/ballistic/revolver/grenadelauncher/cyborg,
 		/obj/item/card/emag,
@@ -678,7 +695,7 @@
 		/obj/item/cautery,
 		/obj/item/surgicaldrill,
 		/obj/item/scalpel,
-		/obj/item/melee/transforming/energy/sword/cyborg/saw,
+		/obj/item/melee/energy/sword/cyborg/saw,
 		/obj/item/rollerbed/robo,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,

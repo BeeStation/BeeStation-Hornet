@@ -262,7 +262,6 @@
 	if(!wiring_gui_menu)
 		return
 
-	wiring_gui_menu.entry_animation = FALSE //stop the open anim from playing each time we update
 	var/list/choices = wiringGuiGenerateChoices(user)
 
 	wiring_gui_menu.change_choices(choices,FALSE)
@@ -346,3 +345,13 @@
 			icon_state = "rclg-1"
 			item_state = "rclg-1"
 	return ..()
+
+/datum/action/item_action/rcl_col
+	name = "Change Cable Color"
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "rcl_rainbow"
+
+/datum/action/item_action/rcl_gui
+	name = "Toggle Fast Wiring Gui"
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "rcl_gui"

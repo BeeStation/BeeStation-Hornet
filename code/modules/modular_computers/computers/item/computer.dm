@@ -93,8 +93,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/init_ringtone = "beep"
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
-	/// The action for enabling/disabling the flashlight
-	var/datum/action/item_action/toggle_computer_light/light_action
 	/// Stored pAI card
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
@@ -118,7 +116,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	idle_threads = list()
 	update_id_display()
 	if(has_light)
-		light_action = new(src)
+		add_item_action(/datum/action/item_action/toggle_computer_light)
 	update_icon()
 	add_messenger()
 
@@ -153,17 +151,16 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
 		remove_pai()
-	if(istype(light_action))
-		QDEL_NULL(light_action)
 	physical = null
 	remove_messenger()
 	return ..()
 
 /obj/item/modular_computer/ui_action_click(mob/user, actiontype)
-	if(istype(actiontype, light_action))
+	if(istype(actiontype, /datum/action/item_action/toggle_computer_light))
 		toggle_flashlight()
-	else
-		..()
+		return
+
+	return ..()
 
 /// From [/datum/newscaster/feed_network/proc/save_photo]
 /obj/item/modular_computer/proc/save_photo(icon/photo)
@@ -174,6 +171,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		clean.Insert(photo, "", SOUTH, 1, 0)
 		fcopy(clean, "[GLOB.log_directory]/photos/[photo_file].png")
 	return photo_file
+
+/obj/item/modular_computer/pre_attack_secondary(atom/A, mob/living/user, params)
+	if(active_program?.tap(A, user, params))
+		user.do_attack_animation(A) //Emulate this animation since we kill the attack in three lines
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1) //Likewise for the tap sound
+		addtimer(CALLBACK(src, PROC_REF(play_ping)), 0.5 SECONDS, TIMER_UNIQUE) //Slightly delayed ping to indicate success
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return ..()
 
 /**
  * Plays a ping sound.
@@ -397,14 +402,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * The message that the program wishes to display.
  */
 
-/obj/item/modular_computer/proc/alert_call(datum/computer_file/program/caller, alerttext, sound = 'sound/machines/twobeep_high.ogg')
-	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
+/obj/item/modular_computer/proc/alert_call(datum/computer_file/program/alerting_program, alerttext, sound = 'sound/machines/twobeep_high.ogg')
+	if(!alerting_program || !alerting_program.alert_able || alerting_program.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
 		return
 	playsound(src, sound, 50, TRUE)
-	visible_message(span_notice("The [src] displays a [caller.filedesc] notification: [alerttext]"))
+	visible_message(span_notice("The [src] displays a [alerting_program.filedesc] notification: [alerttext]"))
 	var/mob/living/holder = loc
 	if(istype(holder))
-		to_chat(holder, "[icon2html(src)] [span_notice("The [src] displays a [caller.filedesc] notification: [alerttext]")]")
+		to_chat(holder, "[icon2html(src)] [span_notice("The [src] displays a [alerting_program.filedesc] notification: [alerttext]")]")
 
 /obj/item/modular_computer/proc/ring(ringtone) // bring bring
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
@@ -575,8 +580,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	set_light_on(!light_on)
 	update_icon()
 	// Show the light_on overlay on top of the action button icon
-	if(light_action?.owner)
-		light_action.UpdateButtonIcon(force = TRUE)
+	update_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
 	return TRUE
 
 /**

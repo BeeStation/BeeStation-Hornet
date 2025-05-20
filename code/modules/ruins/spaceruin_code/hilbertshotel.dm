@@ -287,7 +287,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /turf/closed/indestructible/hoteldoor/attack_tk(mob/user)
 	return //need to be close.
 
-/turf/closed/indestructible/hoteldoor/attack_hand(mob/user)
+/turf/closed/indestructible/hoteldoor/attack_hand(mob/user, list/modifiers)
 	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_animal(mob/user)
@@ -299,10 +299,10 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /turf/closed/indestructible/hoteldoor/attack_hulk(mob/living/carbon/human/user, does_attack_animation)
 	promptExit(user)
 
-/turf/closed/indestructible/hoteldoor/attack_larva(mob/user)
+/turf/closed/indestructible/hoteldoor/attack_larva(mob/user, list/modifiers)
 	promptExit(user)
 
-/turf/closed/indestructible/hoteldoor/attack_slime(mob/user)
+/turf/closed/indestructible/hoteldoor/attack_slime(mob/user, list/modifiers)
 	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_robot(mob/user)
@@ -323,15 +323,14 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(get_dist(get_turf(src), get_turf(user)) >= 2)
 		user.unset_machine()
 		for(var/datum/action/peepholeCancel/PHC in user.actions)
-			PHC.Trigger()
+			PHC.trigger()
 
 /datum/action/peepholeCancel
 	name = "Cancel View"
 	desc = "Stop looking through the bluespace peephole."
 	button_icon_state = "cancel_peephole"
 
-/datum/action/peepholeCancel/Trigger()
-	. = ..()
+/datum/action/peepholeCancel/on_activate(mob/user, atom/target)
 	to_chat(owner, span_warning("You move away from the peephole."))
 	owner.reset_perspective()
 	owner.clear_fullscreen("remote_view", 0)

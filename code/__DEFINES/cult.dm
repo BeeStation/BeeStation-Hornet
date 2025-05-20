@@ -18,10 +18,6 @@
 #define BLOOD_BARRAGE_COST 300
 #define BLOOD_BEAM_COST 500
 #define IRON_TO_CONSTRUCT_SHELL_CONVERSION 50
-// screen locations
-#define DEFAULT_BLOODSPELLS "6:-29,4:-2"
-#define DEFAULT_BLOODTIP "14:6,14:27"
-#define DEFAULT_TOOLTIP "6:-29,5:-2"
 // misc
 #define SOULS_TO_REVIVE 3
 #define BLOODCULT_EYE "f00"

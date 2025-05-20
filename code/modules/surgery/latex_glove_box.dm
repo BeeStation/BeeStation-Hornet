@@ -36,7 +36,7 @@
 /obj/item/glove_box/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/item/glove_box/attack_hand(mob/user)
+/obj/item/glove_box/attack_hand(mob/user, list/modifiers)
 	if(isliving(user))
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_PICKUP))

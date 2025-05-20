@@ -9,7 +9,6 @@
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	item_flags = NONE
 	clumsy_check = FALSE
-	randomspread = FALSE
 
 	var/hugbox = TRUE
 	var/max_power = INFINITY
@@ -106,7 +105,8 @@
 	log_game("Blast wave fired from [AREACOORD(starting)] at [AREACOORD(targturf)] ([target.name]) by [key_name(user)] with power [heavy]/[medium]/[light].")
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.hugbox = hugbox
-	BW.preparePixelProjectile(target, get_turf(src), params, 0)
+	var/modifiers = params2list(params)
+	BW.preparePixelProjectile(target, get_turf(src), modifiers, 0)
 	BW.fire()
 
 /obj/projectile/blastwave

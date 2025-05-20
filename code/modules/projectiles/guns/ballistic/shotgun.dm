@@ -82,7 +82,7 @@
 	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/gun/ballistic/shotgun/automatic/combat/compact/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+/obj/item/gun/ballistic/shotgun/automatic/combat/compact/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	if(!is_wielded)
 		recoil = 6
 	else
@@ -139,7 +139,7 @@
 		to_chat(user, "You switch to tube A.")
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	rack()
 
@@ -248,12 +248,12 @@
 	var/reinforced = FALSE
 	var/barrel_stress = 0
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(chambered.BB && !reinforced)
 		var/obj/item/ammo_casing/shotgun/S = chambered
 		if(prob(10 + barrel_stress) && S.high_power)	//Base 10% chance of misfiring. Goes up with each shot of high_power ammo
 			backfire(user)
-			return 0
+			return FALSE
 
 		else if (S.high_power)
 			barrel_stress += 5
@@ -264,8 +264,8 @@
 
 		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
 			backfire(user)
-			return 0
-	..()
+			return FALSE
+	return ..()
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/proc/backfire(mob/living/user)
 	playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
@@ -334,51 +334,39 @@
 	slot_flags = ITEM_SLOT_BELT
 	recoil = SAWN_OFF_RECOIL
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook
+/obj/item/gun/ballistic/shotgun/hook
 	name = "hook modified sawn-off shotgun"
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
 	item_state = "shotgun"
+	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 	worn_icon_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
-	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	can_sawoff = FALSE
-	force = 10 //it has a hook on it
+	semi_auto = TRUE
+	flags_1 = CONDUCT_1
+	force = 18 //it has a hook on it
+	sharpness = SHARP //it does in fact, have a hook on it
 	attack_verb_continuous = list("slashes", "hooks", "stabs")
 	attack_verb_simple = list("slash", "hook", "stab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	//our hook gun!
 	var/obj/item/gun/magic/hook/bounty/hook
-	var/toggled = FALSE
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/Initialize(mapload)
+/obj/item/gun/ballistic/shotgun/hook/Initialize(mapload)
 	. = ..()
 	hook = new /obj/item/gun/magic/hook/bounty(src)
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/AltClick(mob/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
-	if(toggled)
-		to_chat(user,span_notice("You switch to the shotgun."))
-		fire_sound = initial(fire_sound)
-	else
-		to_chat(user,span_notice("You switch to the hook."))
-		fire_sound = 'sound/weapons/batonextend.ogg'
-	toggled = !toggled
-
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/examine(mob/user)
+/obj/item/gun/ballistic/shotgun/hook/examine(mob/user)
 	. = ..()
-	if(toggled)
-		. += span_notice("Alt-click to switch to the shotgun.")
-	else
-		. += span_notice("Alt-click to switch to the hook.")
+	. += "<span class='notice'>Right-click to shoot the hook.</span>"
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/afterattack(atom/target, mob/living/user, flag, params)
-	if(toggled)
-		hook.afterattack(target, user, flag, params)
-	else
-		return ..()
+/obj/item/gun/ballistic/shotgun/hook/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	hook.afterattack(target, user, proximity_flag, click_parameters)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 ///Lever action shotgun, formerly on thefactory.dm
 
@@ -403,7 +391,7 @@
 	. = ..()
 	. += span_info("You will instantly reload it after a shot if you have another hand free.")
 
-/obj/item/gun/ballistic/shotgun/lever_action/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+/obj/item/gun/ballistic/shotgun/lever_action/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
 	if(user.get_inactive_held_item())
 		return
@@ -413,7 +401,10 @@
 /obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
 	if (user)
 		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
-	process_chamber(!chambered, FALSE)
+	if (chambered)
+		eject_chamber()
+	else
+		chamber_round()
 	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 	update_icon()
 	if(user.get_inactive_held_item() && prob(50) && chambered)

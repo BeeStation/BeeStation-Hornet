@@ -5,34 +5,17 @@
 	var/list/spells = list()
 	var/channeling = FALSE
 
-/datum/action/innate/cult/blood_magic/Grant()
-	..()
-	button.screen_loc = DEFAULT_BLOODSPELLS
-	button.moved = DEFAULT_BLOODSPELLS
-	button.ordered = FALSE
-
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/IsAvailable()
+/datum/action/innate/cult/blood_magic/is_available()
 	if(!iscultist(owner))
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/blood_magic/proc/Positioning()
-	var/list/screen_loc_split = splittext(button.screen_loc,",")
-	var/list/screen_loc_X = splittext(screen_loc_split[1],":")
-	var/list/screen_loc_Y = splittext(screen_loc_split[2],":")
-	var/pix_X = text2num(screen_loc_X[2])
-	for(var/datum/action/innate/cult/blood_spell/B in spells)
-		if(B.button.locked)
-			var/order = pix_X+spells.Find(B)*31
-			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
-			B.button.moved = B.button.screen_loc
-
-/datum/action/innate/cult/blood_magic/Activate()
+/datum/action/innate/cult/blood_magic/on_activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
 	if(locate(/obj/effect/rune/empower) in range(1, owner))
@@ -44,10 +27,10 @@
 			to_chat(owner, span_cultitalic("You cannot store more than [MAX_BLOODCHARGE] spells. <b>Pick a spell to remove.</b>"))
 		else
 			to_chat(owner, span_cultitalic("<b><u>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spells without an empowering rune! Pick a spell to remove.</b></u>"))
-		var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
-		if(nullify_spell)
-			qdel(nullify_spell)
-		return
+		var/nullify_spell = tgui_input_list(owner, "Spell to remove", "Current Spells", spells)
+		if(isnull(nullify_spell))
+			return
+		qdel(nullify_spell)
 	var/entered_spell_name
 	var/datum/action/innate/cult/blood_spell/BS
 	var/list/possible_spells = list()
@@ -56,12 +39,14 @@
 		var/cult_name = initial(J.name)
 		possible_spells[cult_name] = J
 	possible_spells += "(REMOVE SPELL)"
-	entered_spell_name = input(owner, "Pick a blood spell to prepare...", "Spell Choices") as null|anything in possible_spells
-	if(entered_spell_name == "(REMOVE SPELL)")
-		var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
-		if(nullify_spell)
-			qdel(nullify_spell)
+	entered_spell_name = tgui_input_list(owner, "Blood spell to prepare", "Spell Choices", possible_spells)
+	if(isnull(entered_spell_name))
 		return
+	if(entered_spell_name == "(REMOVE SPELL)")
+		var/nullify_spell = tgui_input_list(owner, "Spell to remove", "Current Spells", spells)
+		if(isnull(nullify_spell))
+			return
+		qdel(nullify_spell)
 	BS = possible_spells[entered_spell_name]
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (spells.len >= limit))
 		return
@@ -79,7 +64,6 @@
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		new_spell.Grant(owner, src)
 		spells += new_spell
-		Positioning()
 		to_chat(owner, span_warning("Your wounds glow with power, you have prepared a [new_spell.name] invocation!"))
 	channeling = FALSE
 
@@ -94,6 +78,7 @@
 	var/base_desc //To allow for updating tooltips
 	var/invocation
 	var/health_cost = 0
+	var/positioned = FALSE
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
@@ -101,9 +86,7 @@
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
-	..()
-	button.locked = TRUE
-	button.ordered = FALSE
+	return ..()
 
 /datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
@@ -113,12 +96,12 @@
 		hand_magic = null
 	..()
 
-/datum/action/innate/cult/blood_spell/IsAvailable()
+/datum/action/innate/cult/blood_spell/is_available()
 	if(!iscultist(owner) || owner.incapacitated()  || !charges)
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/blood_spell/Activate()
+/datum/action/innate/cult/blood_spell/on_activate()
 	if(magic_path) //If this spell flows from the hand
 		if(!hand_magic)
 			hand_magic = new magic_path(owner, src)
@@ -158,7 +141,7 @@
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/blood_spell/emp/Activate()
+/datum/action/innate/cult/blood_spell/emp/on_activate()
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message(span_warning("[owner]'s hand flashes a bright blue!"), \
 						span_cultitalic("You speak the cursed words, emitting an EMP blast from your hand."))
@@ -195,7 +178,7 @@
 	/// The item given to the cultist when the spell is invoked. Typepath.
 	var/obj/item/summoned_type = /obj/item/melee/cultblade/dagger
 
-/datum/action/innate/cult/blood_spell/dagger/Activate()
+/datum/action/innate/cult/blood_spell/dagger/on_activate()
 	var/turf/owner_turf = get_turf(owner)
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message(span_warning("[owner]'s hand glows red for a moment."), \
@@ -215,68 +198,47 @@
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
-	var/obj/effect/proc_holder/horror/PH
 	charges = 4
 	check_flags = AB_CHECK_CONSCIOUS
+	requires_target = TRUE
+	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
+	disable_text = ("<span class='cult'>You dispel the magic...</span>")
 
-/datum/action/innate/cult/blood_spell/horror/New()
-	PH = new()
-	PH.attached_action = src
-	..()
-
-/datum/action/innate/cult/blood_spell/horror/Destroy()
-	var/obj/effect/proc_holder/horror/destroy = PH
-	. = ..()
-	if(destroy  && !QDELETED(destroy))
-		QDEL_NULL(destroy)
-
-/datum/action/innate/cult/blood_spell/horror/Activate()
-	PH.toggle(owner) //the important bit
-	return TRUE
-
-/obj/effect/proc_holder/horror
-	active = FALSE
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
-	var/datum/action/innate/cult/blood_spell/attached_action
-
-/obj/effect/proc_holder/horror/Destroy()
-	var/datum/action/innate/cult/blood_spell/AA = attached_action
-	. = ..()
-	if(AA && !QDELETED(AA))
-		QDEL_NULL(AA)
-
-/obj/effect/proc_holder/horror/proc/toggle(mob/user)
-	if(active)
-		remove_ranged_ability(span_cult("You dispel the magic..."))
-	else
-		add_ranged_ability(user, span_cult("You prepare to horrify a target..."))
-
-/obj/effect/proc_holder/horror/InterceptClickOn(mob/living/caller, params, atom/target)
-	if(..())
-		return
-	if(ranged_ability_user.incapacitated() || !iscultist(caller))
-		remove_ranged_ability()
-		return
-	var/turf/T = get_turf(ranged_ability_user)
-	if(!isturf(T))
+/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
+	var/turf/clicker_turf = get_turf(clicker)
+	if(!isturf(clicker_turf))
 		return FALSE
-	if(ranged_ability_user in viewers(7, get_turf(target)))
-		if(!ishuman(target) || iscultist(target))
-			return
-		var/mob/living/carbon/human/H = target
-		H.hallucination = max(H.hallucination, 120)
-		SEND_SOUND(ranged_ability_user, sound('sound/effects/ghost.ogg',0,1,50))
-		var/image/C = image('icons/effects/cult_effects.dmi',H,"bloodsparkles", ABOVE_MOB_LAYER)
-		add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", C, NONE)
-		addtimer(CALLBACK(H,TYPE_PROC_REF(/atom, remove_alt_appearance),"cult_apoc",TRUE), 2400, TIMER_OVERRIDE|TIMER_UNIQUE)
-		to_chat(ranged_ability_user,span_cult("<b>[H] has been cursed with living nightmares!</b>"))
-		attached_action.charges--
-		attached_action.desc = attached_action.base_desc
-		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
-		attached_action.UpdateButtonIcon()
-		if(attached_action.charges <= 0)
-			remove_ranged_ability(span_cult("You have exhausted the spell's power!"))
-			qdel(src)
+
+	if(!ishuman(clicked_on) || get_dist(clicker, clicked_on) > 7)
+		return FALSE
+
+	var/mob/living/carbon/human/human_clicked = clicked_on
+	if(IS_CULTIST(human_clicked))
+		return FALSE
+
+	return ..()
+
+/datum/action/innate/cult/blood_spell/horror/on_activate(mob/user, mob/living/target)
+	if (!istype(target))
+		return FALSE
+	target.hallucination = max(target.hallucination, 120)
+	SEND_SOUND(user, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
+
+	var/image/sparkle_image = image('icons/effects/cult_effects.dmi', target, "bloodsparkles", ABOVE_MOB_LAYER)
+	target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", sparkle_image, NONE)
+
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
+	to_chat(user, span_cultbold("[target] has been cursed with living nightmares!"))
+
+	charges--
+	desc = base_desc
+	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	update_buttons()
+	if(charges <= 0)
+		to_chat(user, span_cult("You have exhausted the spell's power!"))
+		qdel(src)
+
+	return TRUE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
@@ -287,7 +249,7 @@
 	var/revealing = FALSE //if it reveals or not
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/blood_spell/veiling/Activate()
+/datum/action/innate/cult/blood_spell/veiling/on_activate()
 	if(!revealing)
 		owner.visible_message(span_warning("Thin grey dust falls from [owner]'s hand!"), \
 			span_cultitalic("You invoke the veiling spell, hiding nearby runes."))
@@ -326,7 +288,7 @@
 		qdel(src)
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-	UpdateButtonIcon()
+	update_buttons()
 
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
@@ -378,7 +340,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			source.charges = uses
 			source.desc = source.base_desc
 			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-			source.UpdateButtonIcon()
+			source.update_buttons()
 	..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
@@ -407,7 +369,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	else if(source)
 		source.desc = source.base_desc
 		source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-		source.UpdateButtonIcon()
+		source.update_buttons()
 
 //Stun
 /obj/item/melee/blood_magic/stun
@@ -427,7 +389,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 							span_cultitalic("You attempt to stun [L] with the spell!"))
 		user.mob_light(range = 3, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
 
-		var/anti_magic_source = L.anti_magic_check(holy = TRUE)
+		var/anti_magic_source = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 		if(anti_magic_source)
 
 			L.mob_light(range = 2, color = LIGHT_COLOR_HOLY_MAGIC, duration = 10 SECONDS)

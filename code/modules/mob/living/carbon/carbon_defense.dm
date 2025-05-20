@@ -139,9 +139,9 @@
 		if(mangled_state == BODYPART_MANGLED_BOTH)
 			extra_wound_details = ", threatening to sever it entirely"
 		else if((mangled_state == BODYPART_MANGLED_FLESH && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] through to the bone"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] through to the bone"
 		else if((mangled_state == BODYPART_MANGLED_BONE && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] at the remaining tissue"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] at the remaining tissue"
 	*/
 
 	var/message_hit_area = ""
@@ -165,8 +165,11 @@
 /mob/living/carbon/attack_drone(mob/living/simple_animal/drone/user)
 	return //so we don't call the carbon's attack_hand().
 
+/mob/living/carbon/attack_drone_secondary(mob/living/simple_animal/drone/user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/mob/living/carbon/attack_hand(mob/living/carbon/human/user)
+/mob/living/carbon/attack_hand(mob/living/carbon/human/user, modifiers)
 
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
@@ -183,15 +186,16 @@
 
 	for(var/datum/surgery/S in surgeries)
 		if(body_position == LYING_DOWN || !S.lying_required)
-			if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
-				if(S.next_step(user, user.a_intent))
-					return 1
-	return 0
+			if(!user.combat_mode)
+				if(S.next_step(user, modifiers))
+					return TRUE
+
+	return FALSE
 
 
-/mob/living/carbon/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/carbon/attack_paw(mob/living/carbon/human/M, modifiers)
 
-	if(can_inject(M, TRUE))
+	if(try_inject(M, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 		for(var/thing in diseases)
 			var/datum/disease/D = thing
 			if((D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN) && prob(85))
@@ -202,9 +206,9 @@
 		if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 			ContactContractDisease(D)
 
-	if(M.a_intent == INTENT_HELP)
+	if(!M.combat_mode)
 		help_shake_act(M)
-		return 0
+		return FALSE
 
 	if(..() && can_inject(M, TRUE)) //successful monkey bite.
 		for(var/thing in M.diseases)
@@ -213,7 +217,7 @@
 		return 1
 
 
-/mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
 		if(M.powerlevel > 0)
 			M.powerlevel--
@@ -272,12 +276,6 @@
 		if(clothing.blocks_shove_knockdown)
 			return TRUE
 	return FALSE
-
-/mob/living/carbon/proc/clear_shove_slowdown()
-	remove_movespeed_modifier(/datum/movespeed_modifier/shove)
-	var/active_item = get_active_held_item()
-	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
-		visible_message(span_warning("[name] regains their grip on \the [active_item]!"), span_warning("You regain your grip on \the [active_item]."), null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if (stat == DEAD)
@@ -417,9 +415,9 @@
 				visible_message(span_notice("[src] examines [p_them()]self."), \
 					span_notice("You check yourself for shrapnel."))
 			if(I.isEmbedHarmless())
-				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
+				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
 			else
-				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
 
 	return embeds
 
@@ -596,3 +594,20 @@
 		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
 		var/hit_amount = (100 - armour_block) / 100
 		add_bleeding(M.melee_damage * 0.1 * hit_amount)
+
+/mob/living/carbon/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.check_block())
+		target.visible_message(span_warning("[target] blocks [user]'s grab!"), \
+						span_userdanger("You block [user]'s grab!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_warning("Your grab at [target] was blocked!"))
+		return FALSE
+	if(attacker_style?.grab_act(user,target) == MARTIAL_ATTACK_SUCCESS)
+		return TRUE
+	target.grabbedby(user)
+	return TRUE
+
+/mob/living/carbon/proc/check_block()
+	if(mind)
+		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(IGNORE_GRAB))
+			return TRUE
+	return FALSE

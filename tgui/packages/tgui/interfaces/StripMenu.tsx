@@ -318,7 +318,7 @@ export const StripMenu = (props) => {
         scrollable
         fitted
         // Remove the nanotrasen logo from the window
-        style={{ 'background-image': 'none' }}>
+        style={{ backgroundImage: 'none' }}>
         <Table mt={1} className="strip-menu-table" fontSize="1.1em">
           {contents}
         </Table>

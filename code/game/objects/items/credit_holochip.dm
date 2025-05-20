@@ -12,7 +12,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holochip)
 
 /obj/item/holochip/Initialize(mapload, amount)
 	. = ..()
-	credits = amount
+	if(!mapload && !credits)
+		credits = amount
 	update_icon()
 
 /obj/item/holochip/examine(mob/user)
@@ -84,10 +85,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holochip)
 		qdel(H)
 
 /obj/item/holochip/AltClick(mob/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
 		return
 	var/split_amount = round(input(user,"How many credits do you want to extract from the holochip?") as null|num)
-	if(split_amount == null || split_amount <= 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(split_amount == null || split_amount <= 0 || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
 		return
 	else
 		var/new_credits = spend(split_amount, TRUE)

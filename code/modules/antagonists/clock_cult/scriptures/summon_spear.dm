@@ -1,20 +1,19 @@
-/obj/effect/proc_holder/spell/targeted/summon_spear
+/datum/action/spell/summon_spear // not conjure since this is like the marvel movie
 	name = "Summon Weapon"
 	desc = "Summons your weapon from across time and space."
 
-	charge_max = 20
+	cooldown_time = 20 SECONDS
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/hud/actions/actions_clockcult.dmi'
-	action_icon_state = "ratvarian_spear"
-	action_background_icon_state = "bg_clock"
-	clothes_req = FALSE
-	range = -1
-	include_user = TRUE
+	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
+	button_icon_state = "ratvarian_spear"
+	background_icon_state = "bg_clock"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	var/obj/item/marked_item
 
-/obj/effect/proc_holder/spell/targeted/summon_spear/cast(list/targets, mob/user)
+/datum/action/spell/summon_spear/on_cast(mob/user, atom/target)
+	. = ..()
 	if(QDELETED(marked_item))
 		qdel(src)
 

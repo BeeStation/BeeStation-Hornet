@@ -660,7 +660,7 @@ const TechNode = (props) => {
                 (tech_tier + 1) +
                 ' technology nodes first.'
               }>
-              <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
+              <Icon style={{ marginLeft: '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
             </Tooltip>
           )}
           {destructive && (

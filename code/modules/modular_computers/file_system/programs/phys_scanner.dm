@@ -5,7 +5,7 @@
 	category = PROGRAM_CATEGORY_MISC
 	extended_desc = "This program allows the tablet to scan physical objects and display a data output."
 	size = 8
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_PDA
 	available_on_ntnet = FALSE
 	tgui_id = "NtosPhysScanner"
 	program_icon = "barcode"
@@ -79,7 +79,7 @@
 /datum/computer_file/program/phys_scanner/attack_atom(obj/target, mob/living/user)
 	switch(current_mode)
 		if(DISK_ATMOS)
-			var/scan_result = atmosanalyzer_scan(user, target, silent = TRUE, to_chat = FALSE)
+			var/scan_result = atmos_scan(user, target, FALSE)
 			if(scan_result)
 				user.visible_message("[user] analyzes [icon2html(target, viewers(user))] [target]'s gas contents.", span_notice("You analyze [icon2html(target, user)] [target]'s gas contents."))
 				last_record = scan_result

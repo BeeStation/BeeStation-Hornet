@@ -14,7 +14,15 @@ export const FUNDAMENTAL_DATA_TYPES = {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue={0}>
-        <NumberInput value={value} color={color} onChange={(e, val) => setValue(val)} unit={name} />
+        <NumberInput
+          value={value}
+          color={color}
+          minValue={-Infinity}
+          maxValue={Infinity}
+          step={1}
+          onChange={(val) => setValue(val)}
+          unit={name}
+        />
       </BasicInput>
     );
   },
@@ -37,6 +45,7 @@ export const FUNDAMENTAL_DATA_TYPES = {
         options={Array.isArray(extraData) ? extraData : Object.keys(extraData)}
         onSelected={setValue}
         displayText={value}
+        displayTextFirst
         noscroll
       />
     );

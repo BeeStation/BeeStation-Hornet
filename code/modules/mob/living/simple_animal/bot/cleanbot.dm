@@ -68,7 +68,7 @@
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
@@ -392,7 +392,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
-	if(user.a_intent == INTENT_HELP)
+	if(!user.combat_mode)
 		if(istype(I, /obj/item/knife) && !knife) //Is it a knife?
 			var/obj/item/knife/newknife = I
 			knife = newknife

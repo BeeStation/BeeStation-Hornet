@@ -14,7 +14,7 @@
 	explosion_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	heat_capacity = 62500 //a little over 5 cm thick , 62500 for 1 m by 2.5 m by 0.25 m iron wall. also indicates the temperature at wich the wall will melt (currently only able to melt with H/E pipes)
 
 	baseturfs = /turf/open/floor/plating
 
@@ -30,6 +30,8 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 	var/list/dent_decals
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
 
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
@@ -46,7 +48,12 @@
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		underlays += underlay_appearance
 
+/turf/closed/wall/MouseDrop_T(atom/dropping, mob/user, params)
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of walls & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
+
 /turf/closed/wall/atom_destruction(damage_flag)
+	. = ..()
 	dismantle_wall(TRUE, FALSE)
 
 /turf/closed/wall/Destroy()
@@ -108,7 +115,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	return attack_hand(user)
 
-/turf/closed/wall/attack_hand(mob/user)
+/turf/closed/wall/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -117,8 +124,8 @@
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 
-/turf/closed/wall/try_clean(obj/item/W, mob/user, turf/T)
-	if((user.a_intent != INTENT_HELP) || !LAZYLEN(dent_decals))
+/turf/closed/wall/try_clean(obj/item/W, mob/living/user, turf/T)
+	if((user.combat_mode) || !LAZYLEN(dent_decals))
 		return FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)
@@ -131,6 +138,7 @@
 				balloon_alert(user, "You fix some dents on the wall.")
 				cut_overlay(dent_decals)
 				dent_decals.Cut()
+			integrity = max_integrity
 			return TRUE
 
 	return FALSE

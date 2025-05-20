@@ -19,7 +19,7 @@
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	a_intent = INTENT_HARM //No swapping
+	combat_mode = TRUE //No swapping
 	buckle_lying = 0
 	buckle_prevents_pull = TRUE // No pulling loaded shit
 	mob_size = MOB_SIZE_LARGE
@@ -82,13 +82,7 @@
 	mulebot_count += 1
 	set_id(suffix || id || "#[mulebot_count]")
 	suffix = null
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 12), TEXT_SOUTH = list(0, 12), TEXT_EAST = list(0, 12), TEXT_WEST = list(0, 12)))
-	D.ride_check_rider_incapacitated = TRUE //so mobs fall off when the vehicle is shot.
-	D.set_vehicle_dir_layer(SOUTH, layer) //vehicles default to ABOVE_MOB_LAYER while moving, let's make sure that doesn't happen while a mob is riding us.
-	D.set_vehicle_dir_layer(NORTH, layer)
-	D.set_vehicle_dir_layer(EAST, layer)
-	D.set_vehicle_dir_layer(WEST, layer)
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/mulebot)
 	if(network_id)
 		AddComponent(/datum/component/ntnet_interface, network_id)
 
@@ -143,7 +137,7 @@
 	reached_target = FALSE
 	new_destination = null
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		. = ..()
 		if(open)
@@ -159,7 +153,7 @@
 		cell = I
 		visible_message(span_notice("[user] inserts \a [cell] into [src]."),
 						span_notice("You insert [cell] into [src]."))
-	else if(I.tool_behaviour == TOOL_CROWBAR && open && user.a_intent != INTENT_HARM)
+	else if(I.tool_behaviour == TOOL_CROWBAR && open && !user.combat_mode)
 		if(!cell)
 			to_chat(user, span_warning("[src] doesn't have a power cell!"))
 			return
@@ -172,7 +166,7 @@
 						span_notice("You pry [cell] out of [src]."))
 		cell = null
 	else if(is_wire_tool(I) && open)
-		if (user.a_intent == INTENT_HELP)
+		if (!user.combat_mode)
 			return interact(user)
 		else
 			return ..()
@@ -835,12 +829,6 @@
 
 /mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
 	return loc ? loc.remove_air(amount) : null
-
-/mob/living/simple_animal/bot/mulebot/remove_air_ratio(ratio)
-	if(loc)
-		return loc.remove_air_ratio(ratio)
-	else
-		return null
 
 /mob/living/simple_animal/bot/mulebot/resist()
 	..()

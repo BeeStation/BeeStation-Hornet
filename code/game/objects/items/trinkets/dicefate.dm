@@ -137,7 +137,7 @@
 			//Random One-use spellbook
 			T.visible_message(span_userdanger("A magical looking book drops to the floor!"))
 			do_smoke(0, drop_location())
-			new /obj/item/book/granter/spell/random(drop_location())
+			new /obj/item/book/granter/action/spell/random(drop_location())
 		if(16)
 			//Servant & Servant Summon
 			T.visible_message(span_userdanger("A Dice Servant appears in a cloud of smoke!"))
@@ -157,9 +157,9 @@
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key
 
-			var/obj/effect/proc_holder/spell/targeted/summonmob/S = new
+			var/datum/action/spell/summonmob/S = new
 			S.target_mob = H
-			user.mind.AddSpell(S)
+			S.Grant(user)
 
 		if(17)
 			//Tator Kit
@@ -192,26 +192,22 @@
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
 
-/obj/effect/proc_holder/spell/targeted/summonmob
+/datum/action/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
-	charge_max = 100
-	clothes_req = 0
+	cooldown_time = 30 SECONDS
 	invocation = "JE VES"
 	invocation_type = INVOCATION_WHISPER
-	range = -1
-	level_max = 0 //cannot be improved
-	cooldown_min = 100
-	include_user = 1
 
 	var/mob/living/target_mob
+	button_icon_state = "summons"
 
-	action_icon_state = "summons"
+/datum/action/spell/summonmob/on_cast(mob/user, atom/target)
+	. = ..()
 
-/obj/effect/proc_holder/spell/targeted/summonmob/cast(list/targets,mob/user = usr)
 	if(!target_mob)
 		return
-	var/turf/Start = get_turf(user)
+	var/turf/Start = get_turf(owner)
 	for(var/direction in GLOB.alldirs)
 		var/turf/T = get_step(Start,direction)
 		if(!T.density)

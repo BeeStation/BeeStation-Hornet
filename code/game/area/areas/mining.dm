@@ -68,11 +68,13 @@
 
 /area/mine/laborcamp
 	name = "Labor Camp"
+	camera_networks = list(CAMERA_NETWORK_LABOR)
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
 	ambience_index = AMBIENCE_DANGER
+	camera_networks = list(CAMERA_NETWORK_LABOR)
 
 //This is a placeholder for the lavaland sci area. Whoever is here after me, I have made you some additional areas to work with.
 //You are free to rename these and change their icons. My job is done here.

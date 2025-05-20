@@ -8,7 +8,7 @@
 	gender = NEUTER
 	mob_biotypes = list()
 	melee_damage = 5
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	attack_verb_continuous = "gores"
 	attack_verb_simple = "gore"
 	maxHealth = 100
@@ -22,7 +22,7 @@
 	deathmessage = "vanishes into thin air! It was a fake!"
 
 
-/mob/living/simple_animal/hostile/illusion/Life()
+/mob/living/simple_animal/hostile/illusion/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(world.time > life_span)
 		death()

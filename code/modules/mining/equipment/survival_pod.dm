@@ -28,6 +28,7 @@
 
 /obj/item/survivalcapsule/Destroy()
 	template = null // without this, capsules would be one use. per round.
+	air_update_turf(TRUE, FALSE)
 	. = ..()
 
 /obj/item/survivalcapsule/examine(mob/user)
@@ -231,7 +232,7 @@
 		qdel(src)
 	return TRUE
 
-/obj/item/gps/computer/attack_hand(mob/user)
+/obj/item/gps/computer/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -296,7 +297,7 @@
 	density = TRUE
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 5
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 
 /obj/structure/fans/deconstruct()
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -324,7 +325,7 @@
 
 /obj/structure/fans/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 
 //Inivisible, indestructible fans
 /obj/structure/fans/tiny/invisible
@@ -372,7 +373,6 @@
 						/obj/item/gun/magic/wand/fireball,
 						/obj/item/stack/sheet/telecrystal/twenty,
 						/obj/item/nuke_core,
-						/obj/item/phylactery,
 						/obj/item/banhammer)
 
 /obj/item/fakeartefact/Initialize(mapload)

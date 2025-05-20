@@ -71,7 +71,7 @@
 		amt += req_components[path]
 	return amt
 
-/obj/structure/frame/machine/attackby(obj/item/P, mob/user, params)
+/obj/structure/frame/machine/attackby(obj/item/P, mob/living/user, params)
 	switch(state)
 		if(1)
 			if(istype(P, /obj/item/circuitboard/machine))
@@ -207,7 +207,7 @@
 							new_machine.component_parts += new_part
 						new_machine.RefreshParts()
 
-						new_machine.on_construction()
+						new_machine.on_construction(user)
 					qdel(src)
 				return
 
@@ -236,7 +236,7 @@
 							req_components[path] -= used_amt
 						else
 							added_components[part] = path
-							if(SEND_SIGNAL(replacer, COMSIG_TRY_STORAGE_TAKE, part, src))
+							if(replacer.atom_storage.attempt_remove(part, src))
 								req_components[path]--
 
 				for(var/obj/item/part in added_components)
@@ -282,7 +282,7 @@
 						return 1
 				to_chat(user, span_warning("You cannot add that to the machine!"))
 				return 0
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 
 /obj/structure/frame/machine/deconstruct(disassembled = TRUE)

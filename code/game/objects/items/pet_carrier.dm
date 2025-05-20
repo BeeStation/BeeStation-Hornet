@@ -85,12 +85,12 @@
 	update_icon()
 
 /obj/item/pet_carrier/attack(mob/living/target, mob/living/user)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 	if(!open)
 		to_chat(user, span_warning("You need to open [src]'s door!"))
 		return
-	if(target.mob_size > max_occupant_weight)
+	if(target.mob_size > max_occupant_weight || !target.can_be_held)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			if(iscatperson(H))
@@ -161,7 +161,7 @@
 
 /obj/item/pet_carrier/MouseDrop(atom/over_atom)
 	. = ..()
-	if(isopenturf(over_atom) && usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)) && usr.Adjacent(over_atom) && open && occupants.len)
+	if(isopenturf(over_atom) && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(usr)) && usr.Adjacent(over_atom) && open && occupants.len)
 		usr.visible_message(span_notice("[usr] unloads [src]."), \
 		span_notice("You unload [src] onto [over_atom]."))
 		for(var/V in occupants)

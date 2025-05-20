@@ -5,7 +5,7 @@
 	chemical_cost = 15
 	dna_cost = 0
 	req_dna = 1
-	req_stat = DEAD
+	check_flags = NONE
 	ignores_fakedeath = TRUE
 	var/revive_ready = FALSE
 
@@ -18,7 +18,7 @@
 		name = "Reviving Stasis"
 		desc = "We fall into a stasis, allowing us to regenerate and trick our enemies."
 		button_icon_state = "fake_death"
-		UpdateButtonIcon()
+		update_buttons()
 		chemical_cost = 15
 		to_chat(user, span_notice("We have revived ourselves."))
 	else
@@ -43,7 +43,7 @@
 		name = "Revive"
 		desc = "We arise once more."
 		button_icon_state = "revive"
-		UpdateButtonIcon()
+		update_buttons()
 		chemical_cost = 0
 		revive_ready = TRUE
 

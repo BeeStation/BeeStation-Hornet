@@ -58,11 +58,6 @@
 	///stores the direction and orientation of the last projectile
 	var/last_projectile_params
 
-
-/obj/machinery/power/emitter/welded/Initialize(mapload)
-	welded = TRUE
-	. = ..()
-
 /obj/machinery/power/emitter/Initialize(mapload)
 	. = ..()
 	RefreshParts()
@@ -75,10 +70,12 @@
 	sparks = new
 	sparks.attach(src)
 	sparks.set_up(5, TRUE, src)
-
-/obj/machinery/power/emitter/ComponentInitialize()
-	. = ..()
+	AddComponent(/datum/component/simple_rotation)
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
+
+/obj/machinery/power/emitter/welded/Initialize(mapload)
+	welded = TRUE
+	. = ..()
 
 /obj/machinery/power/emitter/set_anchored(anchorvalue)
 	. = ..()
@@ -99,7 +96,7 @@
 	fire_delay = fire_shoot_delay
 	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
 		power_usage -= 50 * manipulator.rating
-	active_power_usage = power_usage
+	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
 
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
@@ -120,16 +117,6 @@
 	else
 		. += span_notice("Its status display reads: Emitting one beam every <b>[DisplayTimeText(fire_delay)]</b>.")
 		. += span_notice("Power consumption at <b>[display_power(active_power_usage)]</b>.")
-
-/obj/machinery/power/emitter/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/machinery/power/emitter/proc/can_be_rotated(mob/user, rotation_type)
-	if(!anchored)
-		return TRUE
-	to_chat(user, span_warning("It is fastened to the floor!"))
-	return FALSE
 
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
@@ -333,6 +320,9 @@
 			return
 	return ..()
 
+/obj/machinery/power/emitter/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 /obj/machinery/power/emitter/proc/integrate(obj/item/gun/energy/energy_gun, mob/user)
 	if(!istype(energy_gun, /obj/item/gun/energy))
 		return
@@ -439,8 +429,9 @@
 	name = "Switch to Manual Firing"
 	desc = "The emitter will only fire on your command and at your designated target"
 	button_icon_state = "mech_zoom_on"
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 
-/datum/action/innate/proto_emitter/firing/Activate()
+/datum/action/innate/proto_emitter/firing/on_activate()
 	if(proto_emitter.manual)
 		playsound(proto_emitter,'sound/mecha/mechmove01.ogg', 50, TRUE)
 		proto_emitter.manual = FALSE
@@ -450,7 +441,7 @@
 		for(var/obj/item/item in buckled_mob.held_items)
 			if(istype(item, /obj/item/turret_control))
 				qdel(item)
-		UpdateButtonIcon()
+		update_buttons()
 		return
 	playsound(proto_emitter,'sound/mecha/mechmove01.ogg', 50, TRUE)
 	name = "Switch to Automatic Firing"
@@ -467,7 +458,7 @@
 		else //Entries in the list should only ever be items or null, so if it's not an item, we can assume it's an empty hand
 			var/obj/item/turret_control/turret_control = new /obj/item/turret_control()
 			buckled_mob.put_in_hands(turret_control)
-	UpdateButtonIcon()
+	update_buttons()
 
 
 /obj/item/turret_control
@@ -534,12 +525,12 @@
 /obj/machinery/power/emitter/ctf
 	name = "Energy Cannon"
 	active = TRUE
-	active_power_usage = FALSE
-	idle_power_usage = FALSE
+	active_power_usage = 0
+	idle_power_usage = 0
 	locked = TRUE
 	req_access_txt = "100"
 	welded = TRUE
-	use_power = FALSE
+	use_power = NO_POWER_USE
 
 ///Weird emitter that doesn't use power, used as the source for the wabbajack
 /obj/machinery/power/emitter/energycannon

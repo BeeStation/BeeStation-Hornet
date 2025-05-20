@@ -30,9 +30,10 @@
 
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
 	AddComponent(/datum/component/personal_crafting)
-	AddComponent(/datum/component/bloodysoles/feet)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+	AddComponent(/datum/component/bloodysoles/feet)
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -43,7 +44,7 @@
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
 	create_dna(src)
-	randomize_human(src)
+	randomize_human(src, TRUE)
 	dna.initialize_dna()
 
 /mob/living/carbon/human/ComponentInitialize()
@@ -115,8 +116,9 @@
 	var/list/tab_data = ..()
 	var/obj/item/tank/target_tank = internal || external
 	if(target_tank)
+		var/datum/gas_mixture/target_tank_air = target_tank.return_air()
 		tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[target_tank.name]")
-		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank.air_contents.return_pressure()]")
+		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank_air.return_pressure()]")
 		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
 	if(istype(wear_suit, /obj/item/clothing/suit/space))
 		var/obj/item/clothing/suit/space/S = wear_suit
@@ -317,33 +319,23 @@
 			if(ishuman(human_or_ghost_user))
 				if(href_list["add_citation"])
 					var/max_fine = CONFIG_GET(number/maxfine)
-					var/citation_name = tgui_input_text(human_user, "Citation crime", "Security HUD", max_length = MAX_MESSAGE_LEN)
+					var/citation_name = sanitize_ic(tgui_input_text(human_user, "Citation crime", "Security HUD", max_length = MAX_MESSAGE_LEN))
 					var/fine = tgui_input_number(human_user, "Citation fine", "Security HUD", 50, max_fine, 5)
 					if(!fine || !target_record || !citation_name || !allowed_access || !isnum(fine) || fine > max_fine || fine <= 0 || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
-
-					var/datum/crime_record/citation/new_citation = new(name = citation_name, author = allowed_access, fine = fine)
-
-					target_record.citations += new_citation
-					new_citation.alert_owner(usr, src, target_record.name, "You have been fined [fine] credits for '[citation_name]'. Fines may be paid at security.")
-					investigate_log("New Citation: <strong>[citation_name]</strong> Fine: [fine] | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					target_record.add_crime(usr, citation_name, fine, null, src)
 					return
 
 				if(href_list["add_crime"])
-					var/crime_name = tgui_input_text(human_user, "Crime name", "Security HUD", max_length = MAX_MESSAGE_LEN)
+					var/crime_name = sanitize_ic(tgui_input_text(human_user, "Crime name", "Security HUD", max_length = MAX_MESSAGE_LEN))
 					if(!target_record || !crime_name || !allowed_access || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
-
-					var/datum/crime_record/new_crime = new(name = crime_name, author = allowed_access)
-
-					target_record.crimes += new_crime
-					investigate_log("New Crime: <strong>[crime_name]</strong> | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					target_record.add_crime(human_user, crime_name, 0, null, src)
 					to_chat(human_user, span_notice("Successfully added a crime."))
-
 					return
 
 				if(href_list["add_note"])
-					var/new_note = tgui_input_text(human_user, "Security note", "Security Records", max_length = MAX_MESSAGE_LEN, multiline = TRUE)
+					var/new_note = sanitize_ic(tgui_input_text(human_user, "Security note", "Security Records", max_length = MAX_MESSAGE_LEN, multiline = TRUE))
 					if(!target_record || !new_note || !allowed_access || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
 
@@ -356,49 +348,30 @@
 /mob/living/carbon/human/proc/canUseHUD()
 	return (mobility_flags & MOBILITY_USE)
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
-	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-		return FALSE
-	if(penetrate_thick)
-		return TRUE
+/mob/living/carbon/human/can_inject(mob/user, target_zone, injection_flags)
+	. = TRUE // Default to returning true.
+	if(user && !target_zone)
+		target_zone = user.get_combat_bodyzone()
+	// we may choose to ignore species trait pierce immunity in case we still want to check skellies for thick clothing without insta failing them (wounds)
+	if(injection_flags & INJECT_CHECK_IGNORE_SPECIES)
+		if(HAS_TRAIT_NOT_FROM(src, TRAIT_PIERCEIMMUNE, SPECIES_TRAIT))
+			. = FALSE
+	else if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
+		. = FALSE
+	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
+	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
+	if(!(injection_flags & INJECT_CHECK_PENETRATE_THICK))
+		for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
+			if(iter_clothing.clothing_flags & THICKMATERIAL)
+				. = FALSE
+				break
 
-	if(!target_zone)
-		if(user)
-			target_zone = user.get_combat_bodyzone(src, FALSE, BODYZONE_CONTEXT_INJECTION)
-		else
-			target_zone = BODY_ZONE_CHEST
-	// If targeting the head, see if the head item is thin enough.
-	// If targeting anything else, see if the wear suit is thin enough.
-	if(above_neck(target_zone))
-		if(!head || !isclothing(head))
-			return TRUE
-		var/obj/item/clothing/head/CH = head
-		if(CH.clothing_flags & THICKMATERIAL)
-			balloon_alert(user, "There is no exposed flesh on [p_their()] head.")
-			return FALSE
-		return TRUE
-	if(!wear_suit || !isclothing(wear_suit))
-		return TRUE
-	var/obj/item/clothing/suit/CS = wear_suit
-	if(CS.clothing_flags & THICKMATERIAL)
-		switch(target_zone)
-			if(BODY_ZONE_CHEST)
-				if(CS.body_parts_covered & CHEST)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] chest.")
-					return FALSE
-			if(BODY_ZONE_PRECISE_GROIN)
-				if(CS.body_parts_covered & GROIN)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] groin.")
-					return FALSE
-			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-				if(CS.body_parts_covered & ARMS)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] arms.")
-					return FALSE
-			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-				if(CS.body_parts_covered & LEGS)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] legs.")
-					return FALSE
-	return TRUE
+/mob/living/carbon/human/try_inject(mob/user, target_zone, injection_flags)
+	. = ..()
+	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE) && user)
+		var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
+
+		to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] [the_part.name].</span>")
 
 /mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgment_criteria & JUDGE_EMAGGED)
@@ -567,7 +540,7 @@
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HAS_TRAIT(src, TRAIT_FAST_CUFF_REMOVAL))
-		if(dna && dna.check_mutation(HULK))
+		if(dna && dna.check_mutation(/datum/mutation/hulk))
 			say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		if(..(I, cuff_break = FAST_CUFFBREAK))
 			dropItemToGround(I)
@@ -673,18 +646,7 @@
 	cut_overlay(MA)
 
 /mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
-	return ..() || (dna.check_mutation(TK) && tkMaxRangeCheck(src, A))
-
-/mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-	if(!(mobility_flags & MOBILITY_UI))
-		to_chat(src, span_warning("You can't do that right now!"))
-		return FALSE
-	if(!Adjacent(M) && (M.loc != src))
-		if((be_close == FALSE) || (!no_tk && (dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
-			return TRUE
-		to_chat(src, span_warning("You are too far away!"))
-		return FALSE
-	return TRUE
+	return ..() || (dna.check_mutation(/datum/mutation/telekinesis) && tkMaxRangeCheck(src, A))
 
 /mob/living/carbon/human/resist_restraints()
 	if(wear_suit && wear_suit.breakouttime)
@@ -789,9 +751,6 @@
 /mob/living/carbon/human/is_literate()
 	return TRUE
 
-/mob/living/carbon/human/can_hold_items()
-	return TRUE
-
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
 	if(blood && (NOBLOOD in dna.species.species_traits))
 		if(message)
@@ -871,11 +830,15 @@
 	if(href_list[VV_HK_SET_SPECIES])
 		if(!check_rights(R_SPAWN))
 			return
-		var/result = input(usr, "Please choose a new species","Species") as null|anything in GLOB.species_list
-		if(result)
-			var/newtype = GLOB.species_list[result]
-			admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src] to [result]")
-			set_species(newtype)
+		var/list/species_list = GLOB.species_list
+		var/result = tgui_input_list(usr, "Please choose a new species", "Species", sort_list(species_list))
+		if(isnull(result))
+			return
+		var/newtype = GLOB.species_list[result]
+		if(isnull(newtype))
+			return
+		admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src] to [result]")
+		set_species(newtype)
 	if(href_list[VV_HK_PURRBATION])
 		if(!check_rights(R_SPAWN))
 			return
@@ -906,27 +869,14 @@
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins(span_notice("[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name]."))
 
-
-/mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
-		return ..()
-
-	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
-	if(user == target)
-		if(can_piggyback(target))
-			piggyback(target)
-	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
-	else if(can_be_firemanned(target))
-		fireman_carry(target)
-
 /mob/living/carbon/human/MouseDrop(mob/over)
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) && get_turf(src) == get_turf(T) && (T.body_position == LYING_DOWN) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
+		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) && get_turf(src) == get_turf(T) && (T.body_position == LYING_DOWN) && src.combat_mode && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
-			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.body_position == STANDING_UP) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
+			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.body_position == STANDING_UP) || !src.combat_mode|| src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
 				src.is_busy = FALSE
 				return
 
@@ -1000,6 +950,19 @@
 		arm.attack_self(src)
 	return ..()
 
+/mob/living/carbon/human/mouse_buckle_handling(mob/living/target, mob/living/user)
+	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
+		return FALSE
+
+	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
+	if(user == target && can_piggyback(target))
+		piggyback(target)
+		return TRUE
+
+	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
+	else if(can_be_firemanned(target))
+		fireman_carry(target)
+		return TRUE
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
@@ -1035,62 +998,34 @@
 		target.visible_message(span_warning("[target] can't hang on to [src]!"))
 		return
 
-	buckle_mob(target, TRUE, TRUE, 90, 1, 0)
+	return buckle_mob(target, TRUE, TRUE, CARRIER_NEEDS_ARM)
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
-	if(can_piggyback(target))
-		visible_message(span_notice("[target] starts to climb onto [src]."))
-		if(do_after(target, 15, target = src))
-			if(can_piggyback(target))
-				if(target.incapacitated(FALSE, TRUE) || incapacitated(FALSE, TRUE))
-					target.visible_message(span_warning("[target] can't hang onto [src]!"))
-					return
-				buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
-		else
-			visible_message(span_warning("[target] fails to climb onto [src]!"))
-	else
+	if(!can_piggyback(target))
 		to_chat(target, span_warning("You can't piggyback ride [src] right now!"))
-
-
-/mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
-	if(!force)//humans are only meant to be ridden through piggybacking and special cases
 		return
+
+	visible_message(span_notice("[target] starts to climb onto [src]..."))
+	if(!do_after(target, 1.5 SECONDS, target = src) || !can_piggyback(target))
+		visible_message(span_warning("[target] fails to climb onto [src]!"))
+		return
+
+	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
+		target.visible_message(span_warning("[target] can't hang onto [src]!"))
+		return
+
+	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
+
+
+/mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(!is_type_in_typecache(target, can_ride_typecache))
 		target.visible_message(span_warning("[target] really can't seem to mount [src]."))
 		return
-	buckle_lying = lying_buckle
-	var/datum/component/riding/human/riding_datum = LoadComponent(/datum/component/riding/human)
-	if(target_hands_needed)
-		riding_datum.ride_check_rider_restrained = TRUE
-	if(buckled_mobs && ((target in buckled_mobs) || (buckled_mobs.len >= max_buckled_mobs)) || buckled)
+
+	if(!force)//humans are only meant to be ridden through piggybacking and special cases
 		return
-	var/equipped_hands_self
-	var/equipped_hands_target
-	if(hands_needed)
-		equipped_hands_self = riding_datum.equip_buckle_inhands(src, hands_needed, target)
-	if(target_hands_needed)
-		equipped_hands_target = riding_datum.equip_buckle_inhands(target, target_hands_needed)
 
-	if(hands_needed || target_hands_needed)
-		if(hands_needed && !equipped_hands_self)
-			src.visible_message(span_warning("[src] can't get a grip on [target] because their hands are full!"),
-				span_warning("You can't get a grip on [target] because your hands are full!"))
-			return
-		else if(target_hands_needed && !equipped_hands_target)
-			target.visible_message(span_warning("[target] can't get a grip on [src] because their hands are full!"),
-				span_warning("You can't get a grip on [src] because your hands are full!"))
-			return
-
-	stop_pulling()
-	riding_datum.handle_vehicle_layer()
-	. = ..(target, force, check_loc)
-
-	//Something went wrong with buckling, remove inhands and restore target's position!
-	if(!.)
-		riding_datum.unequip_buckle_inhands(src)
-		riding_datum.unequip_buckle_inhands(target)
-		riding_datum.restore_position(target)
-		to_chat(src, span_warning("You seem to be unable to carry [target]!"))
+	return ..()
 
 /mob/living/carbon/human/updatehealth()
 	. = ..()
@@ -1253,12 +1188,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/golem/clockwork/no_scrap
 	race = /datum/species/golem/clockwork/no_scrap
-
-/mob/living/carbon/human/species/golem/capitalist
-	race = /datum/species/golem/capitalist
-
-/mob/living/carbon/human/species/golem/soviet
-	race = /datum/species/golem/soviet
 
 /mob/living/carbon/human/species/ipc
 	race = /datum/species/ipc

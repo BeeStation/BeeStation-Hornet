@@ -85,6 +85,20 @@
 		else
 				return 0
 
+/mob/living/proc/set_combat_mode(new_mode, silent = TRUE)
+	if(combat_mode == new_mode)
+		return
+	. = combat_mode
+	combat_mode = new_mode
+	if(hud_used?.action_intent)
+		hud_used.action_intent.update_appearance()
+	if(silent || !(client?.prefs.read_preference(/datum/preference/toggle/sound_combatmode)))
+		return
+	if(combat_mode)
+		SEND_SOUND(src, sound('sound/misc/ui_togglecombat.ogg', volume = 25)) //Sound from interbay!
+	else
+		SEND_SOUND(src, sound('sound/misc/ui_toggleoffcombat.ogg', volume = 25)) //Slightly modified version of the above
+
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
@@ -120,7 +134,7 @@
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
-			if(!incapacitated(FALSE, TRUE)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+			if(!incapacitated(IGNORE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
 			return 1
@@ -132,6 +146,9 @@
 	adjust_fire_stacks(3)
 	IgniteMob()
 
+/**
+ * Called when this mob is grabbed by another mob.
+ */
 /mob/living/proc/grabbedby(mob/living/user, supress_message = FALSE)
 	. = TRUE
 	if(user == src || anchored || !isturf(user.loc))
@@ -151,67 +168,65 @@
 
 //proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/user, instant = FALSE)
-	if(user.grab_state < GRAB_KILL)
-		user.changeNext_move(CLICK_CD_GRABBING)
-		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(H.dna.species.grab_sound)
-				sound_to_play = H.dna.species.grab_sound
-		playsound(src.loc, sound_to_play, 50, TRUE, -1)
+	if(user.grab_state >= user.max_grab)
+		return
+	user.changeNext_move(CLICK_CD_GRABBING)
+	var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.dna.species.grab_sound)
+			sound_to_play = H.dna.species.grab_sound
+	playsound(src.loc, sound_to_play, 50, TRUE, -1)
 
-		if(user.grab_state) //only the first upgrade is instantaneous
-			var/old_grab_state = user.grab_state
-			var/grab_upgrade_time = instant ? 0 : 30
-			visible_message(span_danger("[user] starts to tighten [user.p_their()] grip on [src]!"), \
-							span_userdanger("[user] starts to tighten [user.p_their()] grip on you!"), span_hear("You hear aggressive shuffling!"), null, user)
-			to_chat(user, span_danger("You start to tighten your grip on [src]!"))
-			switch(user.grab_state)
-				if(GRAB_AGGRESSIVE)
-					log_combat(user, src, "attempted to neck grab", addition="neck grab")
-				if(GRAB_NECK)
-					log_combat(user, src, "attempted to strangle", addition="kill grab")
-			if(!do_after(user, grab_upgrade_time, src))
-				return FALSE
-			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
-				return FALSE
-			if(user.a_intent != INTENT_GRAB)
-				to_chat(user, span_notice("You must be on grab intent to upgrade your grab further!"))
-				return FALSE
-		user.setGrabState(user.grab_state + 1)
+	if(user.grab_state) //only the first upgrade is instantaneous
+		var/old_grab_state = user.grab_state
+		var/grab_upgrade_time = instant ? 0 : 30
+		visible_message("<span class='danger'>[user] starts to tighten [user.p_their()] grip on [src]!</span>", \
+						"<span class='userdanger'>[user] starts to tighten [user.p_their()] grip on you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+		to_chat(user, "<span class='danger'>You start to tighten your grip on [src]!</span>")
 		switch(user.grab_state)
 			if(GRAB_AGGRESSIVE)
-				var/add_log = ""
-				if(HAS_TRAIT(user, TRAIT_PACIFISM))
-					visible_message(span_danger("[user] firmly grips [src]!"),
-									span_danger("[user] firmly grips you!"), span_hear("You hear aggressive shuffling!"), null, user)
-					to_chat(user, span_danger("You firmly grip [src]!"))
-					add_log = " (pacifist)"
-				else
-					visible_message(span_danger("[user] grabs [src] aggressively!"), \
-									span_userdanger("[user] grabs you aggressively!"), span_hear("You hear aggressive shuffling!"), null, user)
-					to_chat(user, span_danger("You grab [src] aggressively!"))
-				stop_pulling()
-				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
+				log_combat(user, src, "attempted to neck grab", addition="neck grab")
 			if(GRAB_NECK)
-				log_combat(user, src, "grabbed", addition="neck grab")
-				visible_message(span_danger("[user] grabs [src] by the neck!"),\
-								span_userdanger("[user] grabs you by the neck!"), span_hear("You hear aggressive shuffling!"), null, user)
-				to_chat(user, span_danger("You grab [src] by the neck!"))
-				if(!buckled && !density)
-					Move(user.loc)
-			if(GRAB_KILL)
-				log_combat(user, src, "strangled", addition="kill grab")
-				visible_message(span_danger("[user] is strangling [src]!"), \
-								span_userdanger("[user] is strangling you!"), span_hear("You hear aggressive shuffling!"), null, user)
-				to_chat(user, span_danger("You're strangling [src]!"))
-				if(!buckled && !density)
-					Move(user.loc)
-		user.set_pull_offsets(src, grab_state)
-		return TRUE
+				log_combat(user, src, "attempted to strangle", addition="kill grab")
+		if(!do_after(user, grab_upgrade_time, src))
+			return FALSE
+		if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
+			return FALSE
+	user.setGrabState(user.grab_state + 1)
+	switch(user.grab_state)
+		if(GRAB_AGGRESSIVE)
+			var/add_log = ""
+			if(HAS_TRAIT(user, TRAIT_PACIFISM))
+				visible_message("<span class='danger'>[user] firmly grips [src]!</span>",
+								"<span class='danger'>[user] firmly grips you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+				to_chat(user, "<span class='danger'>You firmly grip [src]!</span>")
+				add_log = " (pacifist)"
+			else
+				visible_message("<span class='danger'>[user] grabs [src] aggressively!</span>", \
+								"<span class='userdanger'>[user] grabs you aggressively!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+				to_chat(user, "<span class='danger'>You grab [src] aggressively!</span>")
+			stop_pulling()
+			log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
+		if(GRAB_NECK)
+			log_combat(user, src, "grabbed", addition="neck grab")
+			visible_message("<span class='danger'>[user] grabs [src] by the neck!</span>",\
+							"<span class='userdanger'>[user] grabs you by the neck!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+			to_chat(user, "<span class='danger'>You grab [src] by the neck!</span>")
+			if(!buckled && !density)
+				Move(user.loc)
+		if(GRAB_KILL)
+			log_combat(user, src, "strangled", addition="kill grab")
+			visible_message("<span class='danger'>[user] is strangling [src]!</span>", \
+							"<span class='userdanger'>[user] is strangling you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
+			to_chat(user, "<span class='danger'>You're strangling [src]!</span>")
+			if(!buckled && !density)
+				Move(user.loc)
+	user.set_pull_offsets(src, grab_state)
+	return TRUE
 
 
-/mob/living/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(!SSticker.HasRoundStarted())
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
@@ -273,76 +288,80 @@
 	log_combat(M, src, "attacked")
 	return TRUE
 
+/mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
+	. = ..()
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
 
-/mob/living/attack_paw(mob/living/carbon/monkey/M)
-	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
+/mob/living/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
+
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if (user != src && iscarbon(src))
+			user.disarm(src)
+			return TRUE
+	if (!user.combat_mode)
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='notice'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if (M.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M, TRAIT_PACIFISM))
-			to_chat(M, span_notice("You don't want to hurt anyone!"))
-			return FALSE
+	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
+		to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+		return FALSE
+	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
+	log_combat(user, src, "attacked")
+	playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+	visible_message("<span class='danger'>[user.name] bites [src]!</span>", \
+						"<span class='userdanger'>[user.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, "<span class='danger'>You bite [src]!</span>")
 
-		if(M.is_muzzled() || M.is_mouth_covered(FALSE, TRUE))
-			to_chat(M, span_warning("You can't bite with your mouth covered!"))
-			return FALSE
-		M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-		log_combat(M, src, "attacked")
-		playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-		visible_message(span_danger("[M.name] bites [src]!"), \
-							span_userdanger("[M.name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, span_danger("You bite [src]!"))
-		return TRUE
-	return FALSE
+	return TRUE
 
-/mob/living/attack_larva(mob/living/carbon/alien/larva/L)
-	switch(L.a_intent)
-		if("help")
-			visible_message(span_notice("[L.name] rubs its head against [src]."), \
-							span_notice("[L.name] rubs its head against you."), null, null, L)
-			to_chat(L, span_notice("You rub your head against [src]."))
-			return FALSE
+/mob/living/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
+	if(L.combat_mode)
+		if(HAS_TRAIT(L, TRAIT_PACIFISM))
+			to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
+			return
 
+		L.do_attack_animation(src)
+		if(prob(90))
+			log_combat(L, src, "attacked")
+			visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
+							"<span class='userdanger'>[L.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, L)
+			to_chat(L, "<span class='danger'>You bite [src]!</span>")
+			playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
+			return TRUE
 		else
-			if(HAS_TRAIT(L, TRAIT_PACIFISM))
-				to_chat(L, span_notice("You don't want to hurt anyone!"))
-				return
-
-			L.do_attack_animation(src)
-			if(prob(90))
-				log_combat(L, src, "attacked")
-				visible_message(span_danger("[L.name] bites [src]!"), \
-								span_userdanger("[L.name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, L)
-				to_chat(L, span_danger("You bite [src]!"))
-				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
-				return TRUE
-			else
-				visible_message(span_danger("[L.name]'s bite misses [src]!"), \
-								span_danger("You avoid [L.name]'s bite!"), span_hear("You hear the sound of jaws snapping shut!"), COMBAT_MESSAGE_RANGE, L)
-				to_chat(L, span_warning("Your bite misses [src]!"))
+			visible_message("<span class='danger'>[L.name]'s bite misses [src]!</span>", \
+							"<span class='danger'>You avoid [L.name]'s bite!</span>", "<span class='hear'>You hear the sound of jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, L)
+			to_chat(L, "<span class='warning'>Your bite misses [src]!</span>")
+	else
+		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>", \
+						"<span class='notice'>[L.name] rubs its head against you.</span>", null, null, L)
+		to_chat(L, "<span class='notice'>You rub your head against [src].</span>")
+		return FALSE
 	return FALSE
 
-/mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M)
-	switch(M.a_intent)
-		if ("help")
-			visible_message(span_notice("[M] caresses [src] with its scythe-like arm."), \
-							span_notice("[M] caresses you with its scythe-like arm."), null, null, M)
-			to_chat(M, span_notice("You caress [src] with your scythe-like arm."))
+/mob/living/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M, modifiers)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+		return TRUE
+	if(M.combat_mode)
+		if(HAS_TRAIT(M, TRAIT_PACIFISM))
+			to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
 			return FALSE
-		if ("grab")
-			grabbedby(M)
-			return FALSE
-		if("harm")
-			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, span_notice("You don't want to hurt anyone!"))
-				return FALSE
-			M.do_attack_animation(src)
-			return TRUE
-		if("disarm")
-			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			return TRUE
+		M.do_attack_animation(src)
+		return TRUE
+	else
+		visible_message("<span class='notice'>[M] caresses [src] with its scythe-like arm.</span>", \
+						"<span class='notice'>[M] caresses you with its scythe-like arm.</span>", null, null, M)
+		to_chat(M, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
+		return FALSE
 
 /mob/living/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
@@ -472,9 +491,6 @@
 	. = 0
 	if(HAS_TRAIT(src, TRAIT_POOR_AIM)) //nice shootin' tex
 		. += 25
-	// Unwielded weapons
-	if(!weapon.is_wielded && weapon.requires_wielding)
-		. += weapon.spread_unwielded
 	// Nothing to hold onto, slight penalty for flying around in space
 	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
 	var/current_speed = cached_multiplicative_slowdown
@@ -485,7 +501,7 @@
 		var/datum/component/riding/riding_component = buckled.GetComponent(/datum/component/riding)
 		if (riding_component)
 			current_speed = riding_component.vehicle_move_delay
-			move_time = max(move_time, riding_component.last_vehicle_move)
+			move_time = move_time
 		// If we are buckled to a mob, use the speed of the mob we are buckled to instead
 		else if (istype(buckled, /mob))
 			var/mob/buckle_target = buckled

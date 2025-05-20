@@ -116,7 +116,7 @@
 					morph.throwatom = null
 				to_chat(morph, span_danger("You begin digesting [span_name("[living_target]")]"))
 				if(do_after(morph, living_target.maxHealth))
-					if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/simple_animal/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
+					if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 						var/list/turfs_to_throw = view(2, morph)
 						for(var/obj/item/item in living_target.contents)
 							living_target.dropItemToGround(item, TRUE)
@@ -185,13 +185,12 @@
 
 /datum/action/innate/morph_stomach/New(our_target)
 	. = ..()
-	button.name = name
 	if(istype(our_target, /datum/morph_stomach))
 		morph_stomach = our_target
 	else
 		CRASH("morph_stomach action created with non stomach")
 
-/datum/action/innate/morph_stomach/Activate()
+/datum/action/innate/morph_stomach/on_activate()
 	morph_stomach.ui_interact(owner)
 
 #undef MORPH_FOOD_HEALING_DECAY_TIME

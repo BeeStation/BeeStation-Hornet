@@ -61,7 +61,7 @@
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
 
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/energy/chrono_gun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(field)
 		field_disconnect(field)
 	..()
@@ -258,9 +258,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new
-	GM.set_moles(GAS_O2, MOLES_O2STANDARD)
-	GM.set_moles(GAS_N2, MOLES_N2STANDARD)
-	GM.set_temperature(T20C)
+	SET_MOLES(/datum/gas/oxygen, GM, MOLES_O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, GM, MOLES_N2STANDARD)
+	GM.temperature = T20C
 	return GM
 
 /obj/structure/chrono_field/singularity_act()

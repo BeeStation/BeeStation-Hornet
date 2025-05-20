@@ -22,19 +22,21 @@
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(target, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 	RegisterSignal(target, COMSIG_ATOM_BUMPED, PROC_REF(try_speedrun))
+	ADD_TRAIT(target, TRAIT_CLIMBABLE, ELEMENT_TRAIT(type))
 
 /datum/element/climbable/Detach(datum/target)
 	UnregisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_MOUSEDROPPED_ONTO, COMSIG_ATOM_BUMPED))
+	REMOVE_TRAIT(target, TRAIT_CLIMBABLE, ELEMENT_TRAIT(type))
 	return ..()
 
 /datum/element/climbable/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 	examine_texts += span_notice("If you wanted to, you could climb [source] by dragging yourself onto it.")
 
-/datum/element/climbable/proc/can_climb(atom/source, mob/user)
+/datum/element/climbable/proc/can_climb(atom/source, mob/living/user)
 	var/dir_step = get_dir(user, source.loc)
 	//To jump over a railing you have to be standing next to it, not far behind it.
-	if(source.flags_1 & ON_BORDER_1 && user.loc != source.loc && (dir_step & source.dir) == source.dir)
+	if(source.flags_1 & ON_BORDER_1 && user.loc != source.loc && (dir_step & source.dir) == source.dir || user.has_status_effect(/datum/status_effect/leaning))
 		return FALSE
 	return TRUE
 

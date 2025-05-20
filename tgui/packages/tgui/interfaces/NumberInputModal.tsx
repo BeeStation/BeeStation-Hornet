@@ -1,6 +1,6 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
-import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
@@ -41,11 +41,10 @@ export const NumberInputModal = (_) => {
       {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(event) => {
-          const keyCode = window.event ? event.which : event.keyCode;
-          if (keyCode === KEY_ENTER) {
+          if (event.key === KEY.Enter) {
             act('submit', { entry: input });
           }
-          if (keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             act('cancel');
           }
         }}>

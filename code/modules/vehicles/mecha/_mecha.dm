@@ -28,7 +28,6 @@
 	force = 5
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
-	emulate_door_bumps = TRUE
 	COOLDOWN_DECLARE(mecha_bump_smash)
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -206,10 +205,10 @@
 	radio.name = "[src] radio"
 
 	cabin_air = new
-	cabin_air.set_temperature(T20C)
-	cabin_air.set_volume(200)
-	cabin_air.set_moles(GAS_O2, O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
-	cabin_air.set_moles(GAS_N2, N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	cabin_air.temperature = T20C
+	cabin_air.volume = 200
+	SET_MOLES(/datum/gas/oxygen, cabin_air, O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	SET_MOLES(/datum/gas/nitrogen, cabin_air, N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
 
 	add_cell()
 	add_scanmod()
@@ -227,6 +226,10 @@
 	update_appearance()
 
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
+
+/obj/mecha/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
 /obj/vehicle/sealed/mecha/proc/Eject()
@@ -266,7 +269,6 @@
 
 /obj/vehicle/sealed/mecha/atom_destruction()
 	loc.assume_air(cabin_air)
-	air_update_turf(FALSE, FALSE)
 	Eject()
 	return ..()
 
@@ -406,15 +408,20 @@
 				if(int_tank_air.return_pressure() > internal_tank.maximum_pressure && !(internal_damage & MECHA_INT_TANK_BREACH))
 					set_internal_damage(MECHA_INT_TANK_BREACH)
 				if(int_tank_air && int_tank_air.return_volume() > 0) //heat the air_contents
-					int_tank_air.set_temperature(min(6000+T0C, int_tank_air.return_temperature()+rand(5,7.5)*delta_time))
+					int_tank_air.temperature = (min(6000+T0C, int_tank_air.return_temperature()+rand(10,15)))
 			if(cabin_air && cabin_air.return_volume()>0)
-				cabin_air.set_temperature(min(6000+T0C, cabin_air.return_temperature()+rand(5,7.5)*delta_time))
+				cabin_air.temperature = (min(6000+T0C, cabin_air.return_temperature()+rand(10,15)))
 				if(cabin_air.return_temperature() > max_temperature/2)
 					take_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
 
 		if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 			if(internal_tank)
-				assume_air_ratio(internal_tank.return_air(), DT_PROB_RATE(0.05, delta_time))
+				var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+				var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(DT_PROB_RATE(0.05, delta_time))
+				if(loc)
+					loc.assume_air(leaked_gas)
+				else
+					qdel(leaked_gas)
 
 		if(internal_damage & MECHA_INT_SHORT_CIRCUIT)
 			if(get_charge())
@@ -425,28 +432,7 @@
 	if(!(internal_damage & MECHA_INT_TEMP_CONTROL))
 		if(cabin_air && cabin_air.return_volume() > 0)
 			var/delta = cabin_air.return_temperature() - T20C
-			cabin_air.set_temperature(cabin_air.return_temperature() - clamp(round(delta / 8, 0.1), -5, 5) * delta_time)
-
-	if(internal_tank)
-		var/datum/gas_mixture/tank_air = internal_tank.return_air()
-
-		var/release_pressure = internal_tank_valve
-		var/cabin_pressure = cabin_air.return_pressure()
-		var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
-		var/transfer_moles = 0
-		if(pressure_delta > 0) //cabin pressure lower than release pressure
-			if(tank_air.return_temperature() > 0)
-				transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
-				tank_air.transfer_to(cabin_air,transfer_moles)
-		else if(pressure_delta < 0) //cabin pressure higher than release pressure
-			var/datum/gas_mixture/t_air = return_air()
-			pressure_delta = cabin_pressure - release_pressure
-			if(t_air)
-				pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
-			if(pressure_delta > 0) //if location pressure is lower than cabin pressure
-				transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
-				cabin_air.transfer_to(t_air, transfer_moles)
-
+			cabin_air.temperature = (cabin_air.return_temperature() - clamp(round(delta / 8, 0.1), -5, 5) * delta_time)
 
 	for(var/mob/living/occupant as anything in occupants)
 		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
@@ -533,22 +519,23 @@
 ////////////////////////////
 
 ///Called when a driver clicks somewhere. Handles everything like equipment, punches, etc.
-/obj/vehicle/sealed/mecha/proc/on_mouseclick(mob/user, atom/target, params)
+/obj/vehicle/sealed/mecha/proc/on_mouseclick(mob/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
+	if(modifiers[SHIFT_CLICK]) //Allows things to be examined.
+		return
 	if(!isturf(target) && !isturf(target.loc)) // Prevents inventory from being drilled
 		return
 	if(completely_disabled || is_currently_ejecting)
 		return
-	var/list/mouse_control = params2list(params)
-	if(isAI(user) == !mouse_control["middle"])//BASICALLY if a human uses MMB, or an AI doesn't, then do nothing.
+	if(isAI(user) == !LAZYACCESS(modifiers, MIDDLE_CLICK))//BASICALLY if a human uses MMB, or an AI doesn't, then do nothing.
 		return
 	if(phasing)
-		to_chat(occupants, "[icon2html(src, occupants)][span_warning("Unable to interact with objects while phasing.")]")
+		balloon_alert(user, "not while [phasing]!")
 		return
 	if(user.incapacitated())
 		return
 	if(construction_state)
-		to_chat(occupants, "[icon2html(src, occupants)][span_warning("Maintenance protocols in effect.")]")
+		balloon_alert(user, "end maintenance first!")
 		return
 	if(!get_charge())
 		return
@@ -565,13 +552,13 @@
 			if(HAS_TRAIT(livinguser, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(livinguser, span_warning("You don't want to harm other living beings!"))
 				return
-			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, modifiers)
 			return
 		if((selected.range & MECHA_MELEE) && Adjacent(target))
 			if(isliving(target) && selected.harmful && HAS_TRAIT(livinguser, TRAIT_PACIFISM))
 				to_chat(livinguser, span_warning("You don't want to harm other living beings!"))
 				return
-			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, modifiers)
 			return
 	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_MELEE_ATTACK) || !Adjacent(target))
 		return
@@ -624,6 +611,11 @@
 		step_silent = TRUE
 		return TRUE
 	return FALSE
+
+/obj/vehicle/sealed/mecha/relaymove(mob/living/user, direction)
+	if(canmove)
+		vehicle_move(direction)
+	return TRUE
 
 /obj/vehicle/sealed/mecha/vehicle_move(direction, forcerotate = FALSE)
 	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
@@ -700,14 +692,14 @@
 			return TRUE
 
 
-	//set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
+	set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
 	//Otherwise just walk normally
 	. = step(src,direction, dir)
 	if(phasing)
 		use_power(phasing_energy_drain)
 	if(strafe)
 		setDir(olddir)
-
+	after_move(direction)
 
 /obj/vehicle/sealed/mecha/Bump(atom/obstacle)
 	. = ..()
@@ -790,7 +782,7 @@
 			to_chat(user, "[B.get_mecha_info()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[REF(user)];ai_take_control=[REF(src)]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[REF(user)];ai_take_control=[REF(src)]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
 		return
 	examine(user)
 	if(length(return_drivers()) > 0)
@@ -804,7 +796,7 @@
 	if(!can_control_mech)
 		to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 		return
-	to_chat(user, "<a href='?src=[REF(user)];ai_take_control=[REF(src)]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
+	to_chat(user, "<a href='byond://?src=[REF(user)];ai_take_control=[REF(src)]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
 
 /obj/vehicle/sealed/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	. = ..()
@@ -853,7 +845,6 @@
 				to_chat(occupants, span_danger("You have been forcibly ejected!"))
 				for(var/ejectee in occupants)
 					mob_exit(ejectee, TRUE, TRUE) //IT IS MINE, NOW. SUCK IT, RD!
-				AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
 			AI = card.AI
@@ -1139,11 +1130,6 @@
 		return cabin_air.remove(amount)
 	return ..()
 
-/obj/vehicle/sealed/mecha/remove_air_ratio(ratio)
-	if(use_internal_tank)
-		return cabin_air.remove_ratio(ratio)
-	return ..()
-
 /obj/vehicle/sealed/mecha/return_air()
 	if(use_internal_tank)
 		return cabin_air
@@ -1163,9 +1149,6 @@
 	if(t_air)
 		return t_air.return_temperature()
 	return
-
-/obj/vehicle/sealed/mecha/portableConnectorReturnAir()
-	return internal_tank.return_air()
 
 ///////////////////////
 ////// Ammo stuff /////

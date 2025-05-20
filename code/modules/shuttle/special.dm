@@ -217,7 +217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 /obj/effect/forcefield/luxury_shuttle
 	name = "Luxury shuttle ticket booth"
 	desc = "A forceful money collector."
-	timeleft = 0
+	initial_duration = 0
 	var/threshold = 500
 	var/static/list/approved_passengers = list()
 	var/static/list/check_times = list()

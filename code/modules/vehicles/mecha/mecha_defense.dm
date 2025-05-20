@@ -176,10 +176,13 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = 1
 
-/obj/vehicle/sealed/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature>max_temperature)
-		log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
-		take_damage(5, BURN, 0, 1)
+/obj/vehicle/sealed/mecha/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature>max_temperature
+
+/obj/vehicle/sealed/mecha/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
+	take_damage(5, BURN, 0, 1)
+
 
 /obj/vehicle/sealed/mecha/attackby(obj/item/W, mob/user, params)
 
@@ -300,7 +303,7 @@
 
 /obj/vehicle/sealed/mecha/welder_act(mob/living/user, obj/item/W)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return
 	. = TRUE
 	if(internal_damage & MECHA_INT_TANK_BREACH)
@@ -328,12 +331,12 @@
 			target.reagents.add_reagent(/datum/reagent/toxin, force/2.5)
 
 
-/obj/vehicle/sealed/mecha/mech_melee_attack(obj/vehicle/sealed/mecha/M, mob/user)
+/obj/vehicle/sealed/mecha/mech_melee_attack(obj/vehicle/sealed/mecha/M, mob/living/user)
 	if(!has_charge(melee_energy_drain))
 		return NONE
 	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
-		log_combat(user, src, "attacked", M, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		log_combat(user, src, "attacked", M, "(COMBAT MODE: [uppertext(user.combat_mode)] (DAMTYPE: [uppertext(M.damtype)])")
 		. = ..()
 
 /obj/vehicle/sealed/mecha/proc/full_repair(charge_cell)

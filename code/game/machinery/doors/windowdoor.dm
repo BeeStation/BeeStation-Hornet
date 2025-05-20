@@ -14,7 +14,7 @@
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
 	pass_flags_self = PASSTRANSPARENT
-	CanAtmosPass = ATMOS_PASS_PROC
+	can_atmos_pass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
 	z_flags = NONE // reset zblock
@@ -68,6 +68,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
 /obj/machinery/door/window/ComponentInitialize()
 	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 	AddComponent(/datum/component/ntnet_interface)
 
 /obj/machinery/door/window/Destroy()
@@ -76,6 +77,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	if(atom_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	electronics = null
+	var/turf/floor = get_turf(src)
+	floor.air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/machinery/door/window/update_icon()
@@ -143,7 +146,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
 	return TRUE
 
-/obj/machinery/door/window/CanAtmosPass(turf/T)
+/obj/machinery/door/window/can_atmos_pass(turf/T, vertical = FALSE)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
@@ -189,7 +192,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	icon_state ="[base_state]open"
 	sleep(operationdelay)
 	set_density(FALSE)
-	air_update_turf(1)
+	air_update_turf(TRUE, FALSE)
 	update_freelook_sight()
 
 	if(operating == 1) //emag again
@@ -212,7 +215,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	icon_state = base_state
 
 	set_density(TRUE)
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 	update_freelook_sight()
 	sleep(operationdelay)
 
@@ -255,10 +258,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	C.name = name
 	qdel(src)
 
-/obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
-		take_damage(round(exposed_volume / 200), BURN, 0, 0)
-	..()
+/obj/machinery/door/window/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > T0C + (reinf ? 1600 : 800))
+
+/obj/machinery/door/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(round(exposed_temperature / 200), BURN, 0, 0)
 
 /obj/machinery/door/window/should_emag(mob/user)
 	// Don't allow emag if the door is currently open or moving

@@ -7,64 +7,30 @@
 // Items
 //
 
-/obj/item/holo
-	damtype = STAMINA
-
-/obj/item/holo/esword
+/obj/item/melee/energy/sword/holographic
 	name = "holographic energy sword"
 	desc = "May the force be with you. Sorta."
-	icon = 'icons/obj/transforming_energy.dmi'
-	icon_state = "sword0"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 3.0
+	damtype = STAMINA
 	throw_speed = 2
-	throw_range = 5
 	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	hitsound = "swing_hit"
-	armour_penetration = 50
-	var/active = 0
-	var/saber_color
+	bleed_force = 0
+	embedding = null
+	sword_color_icon = null
 
-/obj/item/holo/esword/green/Initialize(mapload)
+	active_throwforce = 0
+	active_sharpness = NONE
+	active_heat = 0
+
+/obj/item/melee/energy/sword/holographic/Initialize(mapload)
 	. = ..()
-	saber_color = "green"
+	if(!sword_color_icon)
+		sword_color_icon = pick("red", "blue", "green", "purple")
 
+/obj/item/melee/energy/sword/holographic/green
+	sword_color_icon = "green"
 
-/obj/item/holo/esword/red/Initialize(mapload)
-	. = ..()
-	saber_color = "red"
-
-/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
-		return ..()
-	return 0
-
-/obj/item/holo/esword/attack(target as mob, mob/user as mob)
-	..()
-
-/obj/item/holo/esword/Initialize(mapload)
-	. = ..()
-	saber_color = pick("red","blue","green","purple")
-
-/obj/item/holo/esword/attack_self(mob/living/user as mob)
-	active = !active
-	if (active)
-		force = 30
-		icon_state = "sword[saber_color]"
-		w_class = WEIGHT_CLASS_BULKY
-		hitsound = 'sound/weapons/blade1.ogg'
-		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
-		to_chat(user, span_warning("[src] is now active."))
-	else
-		force = 3
-		icon_state = "sword0"
-		w_class = WEIGHT_CLASS_SMALL
-		hitsound = "swing_hit"
-		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		to_chat(user, span_warning("[src] can now be concealed."))
-	return
+/obj/item/melee/energy/sword/holographic/red
+	sword_color_icon = "red"
 
 //BASKETBALL OBJECTS
 
@@ -109,11 +75,11 @@
 		if(user.transferItemToLoc(W, drop_location()))
 			visible_message(span_warning(" [user] dunks [W] into \the [src]!"))
 
-/obj/structure/holohoop/attack_hand(mob/user)
+/obj/structure/holohoop/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(user.grab_state < GRAB_AGGRESSIVE)
 			to_chat(user, span_warning("You need a better grip to do that!"))

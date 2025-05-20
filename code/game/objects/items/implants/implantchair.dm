@@ -140,14 +140,14 @@
 		to_chat(user, span_warning("[src]'s door won't budge!"))
 
 /obj/machinery/implantchair/MouseDrop_T(mob/target, mob/user)
-	if(user.stat || !Adjacent(user) || !user.Adjacent(target) || !isliving(target) || !user.IsAdvancedToolUser())
+	if(user.stat || !Adjacent(user) || !user.Adjacent(target) || !isliving(target) || !ISADVANCEDTOOLUSER(user))
 		return
 	if(isliving(user))
 		var/mob/living/L = user
 		if(L.body_position == LYING_DOWN)
 			return
 	close_machine(target)
-	
+
 
 /obj/machinery/implantchair/close_machine(mob/living/user)
 	if((isnull(user) || istype(user)) && state_open)

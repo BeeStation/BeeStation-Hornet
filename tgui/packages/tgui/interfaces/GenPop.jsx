@@ -1,9 +1,8 @@
 // Adapted From NSV13
 
 import { clamp, toFixed } from 'common/math';
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState, useSharedState } from '../backend';
-import { Button, Section, ProgressBar, Input } from '../components';
+import { useBackend, useSharedState } from '../backend';
+import { Button, Section, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
 export const GenPop = (props) => {
@@ -59,7 +58,7 @@ export const GenPop = (props) => {
         <Section
           title="Prisoner ID Printer:"
           buttons={
-            <Fragment>
+            <>
               <Button
                 icon="id-card-alt"
                 content={data.desired_name ? data.desired_name : 'Enter Prisoner Name'}
@@ -88,7 +87,7 @@ export const GenPop = (props) => {
                   resetLocalState();
                 }}
               />
-            </Fragment>
+            </>
           }>
           <Button icon="fast-backward" onClick={() => setTime(clamp(time - 1200, 0, 36000))} />
           <Button icon="backward" onClick={() => setTime(clamp(time - 600, 0, 36000))} />
@@ -183,12 +182,12 @@ export const GenPop = (props) => {
                 key={value}
                 title={value.name}
                 buttons={
-                  <Fragment>
+                  <>
                     <Button icon="backward" onClick={() => act('adjust_time', { adjust: -60, id: value.id })} />
                     <Button icon="forward" onClick={() => act('adjust_time', { adjust: 60, id: value.id })} />
                     <Button icon="check" content="Release" color="good" onClick={() => act('release', { id: value.id })} />
                     <Button icon="running" content="Escaped" color="bad" onClick={() => act('escaped', { id: value.id })} />
-                  </Fragment>
+                  </>
                 }>
                 Incarcerated for: {value.crime} <br />
                 <ProgressBar

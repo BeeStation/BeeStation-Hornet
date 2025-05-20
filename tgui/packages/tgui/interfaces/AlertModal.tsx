@@ -1,6 +1,6 @@
 import { Loader } from './common/Loader';
 import { useBackend, useLocalState } from '../backend';
-import { KEY_ENTER, KEY_ESCAPE, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_TAB } from '../../common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
@@ -40,19 +40,18 @@ export const AlertModal = (_) => {
       {!!timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(e) => {
-          const keyCode = window.event ? e.which : e.keyCode;
           /**
            * Simulate a click when pressing space or enter,
            * allow keyboard navigation, override tab behavior
            */
-          if (keyCode === KEY_SPACE || keyCode === KEY_ENTER) {
+          if (e.key === KEY.Space || e.key === KEY.Enter) {
             act('choose', { choice: buttons[selected] });
-          } else if (keyCode === KEY_ESCAPE) {
+          } else if (isEscape(e.key)) {
             act('cancel');
-          } else if (keyCode === KEY_LEFT) {
+          } else if (e.key === KEY.Left) {
             e.preventDefault();
             onKey(KEY_DECREMENT);
-          } else if (keyCode === KEY_TAB || keyCode === KEY_RIGHT) {
+          } else if (e.key === KEY.Tab || e.key === KEY.Right) {
             e.preventDefault();
             onKey(KEY_INCREMENT);
           }

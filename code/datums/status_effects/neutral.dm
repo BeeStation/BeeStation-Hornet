@@ -113,10 +113,8 @@
 		to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("Bounty claimed.")]")
 		playsound(owner, 'sound/weapons/shotgunshot.ogg', 75, 0)
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
-		for(var/obj/effect/proc_holder/spell/spell in rewarded.mind.spell_list)
-			spell.charge_counter = spell.charge_max
-			spell.recharging = FALSE
-			spell.update_icon()
+		for(var/datum/action/spell/spell in rewarded.actions)
+			spell.reset_spell_cooldown()
 		rewarded.adjustBruteLoss(-25)
 		rewarded.adjustFireLoss(-25)
 		rewarded.adjustToxLoss(-25, FALSE, TRUE)
@@ -177,7 +175,7 @@
 		for(var/mob/living/carbon/possible_taker in orange(1, owner))
 			if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
 				continue
-				
+
 			register_candidate(possible_taker)
 
 	if(!possible_takers) // no one around
@@ -233,3 +231,46 @@
 /datum/status_effect/offering/proc/dropped_item(obj/item/source)
 	SIGNAL_HANDLER
 	qdel(src)
+
+/*
+ * A status effect used for preventing caltrop message spam
+ *
+ * While a mob has this status effect, they won't receive any messages about
+ * stepping on caltrops. But they will be stunned and damaged regardless.
+ *
+ * The status effect itself has no effect, other than to disappear after
+ * a second.
+ */
+/datum/status_effect/caltropped
+	id = "caltropped"
+	duration = 1 SECONDS
+	tick_interval = INFINITY
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+
+/atom/movable/screen/alert/status_effect/leaning
+	name = "Leaning"
+	desc = "You're leaning on something!"
+	icon_state = "buckled"
+
+/atom/movable/screen/alert/status_effect/leaning/Click()
+	var/mob/living/L = usr
+	if(!istype(L) || L != owner)
+		return
+	L.changeNext_move(CLICK_CD_RESIST)
+	if(L.last_special <= world.time)
+		return L.stop_leaning()
+
+/datum/status_effect/leaning
+	id = "leaning"
+	duration = -1
+	tick_interval = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/leaning
+
+/datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)
+	. = ..()
+	if(!.)
+		return
+	new_owner.start_leaning(object, leaning_offset)

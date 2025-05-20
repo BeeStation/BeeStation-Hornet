@@ -140,7 +140,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/proc/can_invoke(var/mob/living/user=null)
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
-	if(user && (allow_ghosts || !user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST)))
+	if(user && (allow_ghosts || !user.has_status_effect(/datum/status_effect/cultghost)))
 		invokers += user
 	else if(user)
 		to_chat(user, span_warning("You do not possess a strong enough physical binding to activate this rune!"))
@@ -152,7 +152,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			if(iscultist(L))
 				if(L == user)
 					continue
-				if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST) && !allow_ghosts)
+				if(L.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
 					L.visible_message(span_warning("[L] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
 					continue
 				if(ishuman(L))
@@ -269,7 +269,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 			to_chat(M, span_danger("You need at least two invokers to convert [convertee]!"))
 		log_game("Offer rune failed - tried conversion with one invoker")
 		return 0
-	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE) || istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat)) //Not major because it can be spammed
+	if(convertee.can_block_magic(MAGIC_RESISTANCE_HOLY) || istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat)) //Not major because it can be spammed
 		for(var/M in invokers)
 			to_chat(M, span_warning("Something is shielding [convertee]'s mind!"))
 		log_game("Offer rune failed - convertee had anti-magic")
@@ -370,7 +370,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	. = ..()
 	var/mob/living/user = invokers[1] //the first invoker is always the user
 	for(var/datum/action/innate/cult/blood_magic/BM in user.actions)
-		BM.Activate()
+		BM.trigger()
 
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
@@ -671,7 +671,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "4"
 	color = RUNE_COLOR_DARKRED
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	var/datum/timedevent/density_timer
 	var/recharging = FALSE
 
@@ -690,9 +690,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 /obj/effect/rune/wall/Destroy()
 	GLOB.wall_runes -= src
 	return ..()
-
-/obj/effect/rune/wall/BlockThermalConductivity()
-	return density
 
 /obj/effect/rune/wall/invoke(var/list/invokers)
 	if(recharging)
@@ -714,7 +711,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	for(var/R in GLOB.wall_runes)
 		var/obj/effect/rune/wall/W = R
 		if(W.get_virtual_z_level() == get_virtual_z_level() && get_dist(src, W) <= 2 && !W.density && !W.recharging)
-			W.density = TRUE
+			W.set_density(TRUE)
 			W.update_state()
 			W.spread_density()
 	density_timer = addtimer(CALLBACK(src, PROC_REF(lose_density)), 3000, TIMER_STOPPABLE)
@@ -833,7 +830,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			var/atom/I = L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE)
+			var/atom/I = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 			if(I)
 				if(isitem(I))
 					to_chat(L, span_userdanger("[I] suddenly burns hotly before returning to normal!"))
@@ -861,7 +858,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			if(L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE))
+			if(L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				continue
 			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
 
@@ -888,7 +885,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		fail_invoke()
 		log_game("Manifest rune failed - user not standing on rune")
 		return list()
-	if(user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+	if(user.has_status_effect(/datum/status_effect/cultghost))
 		to_chat(user, span_cultitalic("Ghosts can't summon more ghosts!"))
 		fail_invoke()
 		log_game("Manifest rune failed - user is a ghost")
@@ -925,7 +922,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		new_human.real_name = ghost_to_spawn.real_name
 		new_human.alpha = 150 //Makes them translucent
 		new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
-		new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts
+		new_human.apply_status_effect(/datum/status_effect/cultghost) //ghosts can't summon more ghosts
 		new_human.see_invisible = SEE_INVISIBLE_SPIRIT
 		ghosts++
 		playsound(src, 'sound/magic/exit_blood.ogg', 50, 1)

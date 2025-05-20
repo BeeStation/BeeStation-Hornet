@@ -141,7 +141,7 @@
 
 /obj/structure/punji_sticks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, 20, 30, 100, CALTROP_BYPASS_SHOES)
+	AddComponent(/datum/component/caltrop, min_damage = 20, max_damage = 30, flags = CALTROP_BYPASS_SHOES)
 
 /////////BONFIRES//////////
 
@@ -188,7 +188,7 @@
 	)
 	AddComponent(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
+/obj/structure/bonfire/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle && !grill)
 		var/obj/item/stack/rods/R = W
 		var/choice = input(user, "What would you like to construct?", "Bonfire") as null|anything in list("Stake","Grill")
@@ -211,7 +211,7 @@
 	if(W.is_hot())
 		StartBurning()
 	if(grill)
-		if(user.a_intent != INTENT_HARM && !(W.item_flags & ABSTRACT))
+		if(!user.combat_mode && !(W.item_flags & ABSTRACT))
 			if(user.temporarilyRemoveItemFromInventory(W))
 				W.forceMove(get_turf(src))
 				var/list/modifiers = params2list(params)
@@ -225,7 +225,7 @@
 			return ..()
 
 
-/obj/structure/bonfire/attack_hand(mob/user)
+/obj/structure/bonfire/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -246,7 +246,7 @@
 	if(isopenturf(loc))
 		var/turf/open/O = loc
 		if(O.air)
-			if(O.air.get_moles(GAS_O2) > 13)
+			if(GET_MOLES(/datum/gas/oxygen, O.air) > 13)
 				return TRUE
 	return FALSE
 

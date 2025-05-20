@@ -65,7 +65,7 @@ const MissionSection = (_props) => {
                   as="img"
                   src={resolveAsset('nuke.png')}
                   width="64px"
-                  style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+                  style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
                 />
                 <b>Nuke Code</b>: {data.nuke_code}
               </Section>

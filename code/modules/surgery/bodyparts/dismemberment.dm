@@ -241,7 +241,7 @@
 	//Handle dental implants
 	for(var/datum/action/item_action/hands_free/activate_pill/AP in owner.actions)
 		AP.Remove(owner)
-		var/obj/pill = AP.target
+		var/obj/pill = UNLINT(AP.master)
 		if(pill)
 			pill.forceMove(src)
 

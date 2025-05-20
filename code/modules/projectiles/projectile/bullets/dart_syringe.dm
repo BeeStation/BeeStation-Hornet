@@ -1,8 +1,8 @@
 /obj/projectile/bullet/dart
 	name = "dart"
 	icon_state = "cbbolt"
-	damage = 6
-	bleed_force = BLEED_SURFACE
+	damage = 5
+	bleed_force = BLEED_SCRATCH
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 
@@ -66,7 +66,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100) // not completely blocked
-			if(M.can_inject(null, FALSE, def_zone) && !HAS_TRAIT(M, TRAIT_BEEFRIEND))
+			if(M.can_inject(target_zone = def_zone) && !HAS_TRAIT(M, TRAIT_BEEFRIEND))
 				var/mob/living/simple_animal/hostile/poison/bees/B = new(src.loc)
 				for(var/datum/reagent/R in reagents.reagent_list)
 					B.assign_reagent(GLOB.chemical_reagents_list[R.type])

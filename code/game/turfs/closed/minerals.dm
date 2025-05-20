@@ -15,7 +15,7 @@
 	opacity = TRUE
 	density = TRUE
 	layer = EDGED_TURF_LAYER
-	initial_temperature = 293.15
+	temperature = T20C
 	max_integrity = 200
 	var/environment_type = "asteroid"
 	var/turf/open/floor/plating/turf_type = /turf/open/floor/plating/asteroid/airless
@@ -62,7 +62,7 @@
 
 
 /turf/closed/mineral/attackby(obj/item/I, mob/user, params)
-	if (!user.IsAdvancedToolUser())
+	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
 		return
 
@@ -91,11 +91,33 @@
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 	var/flags = NONE
+	var/old_type = type
 	if(defer_change) // TODO: make the defer change var a var for any changeturf flag
 		flags = CHANGETURF_DEFER_CHANGE
-	ScrapeAway(null, flags)
-	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
-	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
+	var/turf/open/mined = ScrapeAway(null, flags)
+	addtimer(CALLBACK(src, PROC_REF(AfterChange), flags, old_type), 1, TIMER_UNIQUE)
+	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE) //beautiful destruction
+	mined.update_visuals()
+
+/turf/closed/mineral/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
+		gets_drilled(user)
+	..()
+
+/turf/closed/mineral/attack_alien(mob/living/carbon/alien/user, list/modifiers)
+	to_chat(user, "<span class='notice'>You start digging into the rock...</span>")
+	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
+	if(do_after(user, 4 SECONDS, target = src))
+		to_chat(user, "<span class='notice'>You tunnel into the rock.</span>")
+		gets_drilled(user)
+
+/turf/closed/mineral/attack_hulk(mob/living/carbon/human/H)
+	..()
+	if(do_after(H, 50, target = src))
+		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+		H.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
+		gets_drilled(H)
+	return TRUE
 
 /turf/closed/mineral/Bumped(atom/movable/AM)
 	..()
@@ -485,6 +507,11 @@
 	environment_type = "waste"
 	turf_type = /turf/open/floor/plating/ashplanet/rocky
 	defer_change = 1
+
+/turf/closed/mineral/ash_rock/station
+	baseturfs = /turf/open/floor/plating
+	turf_type = /turf/open/floor/plating
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 /turf/closed/mineral/snowmountain
 	name = "snowy mountainside"

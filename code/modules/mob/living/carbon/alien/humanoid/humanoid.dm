@@ -3,7 +3,6 @@
 	icon_state = "alien"
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
-	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	limb_destroyer = TRUE
 	hud_type = /datum/hud/alien
 	deathsound = 'sound/voice/hiss6.ogg'
@@ -19,8 +18,6 @@
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/leap_on_click = FALSE
 	COOLDOWN_DECLARE(pounce_cooldown)
-	var/sneaking = FALSE //For sneaky-sneaky mode and appropriate slowdown
-	var/drooling = FALSE //For Neurotoxic spit overlays
 
 GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	/datum/strippable_item/hand/left,
@@ -60,6 +57,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	return FALSE
 
 /mob/living/carbon/alien/humanoid/check_breath(datum/gas_mixture/breath)
-	if(breath && breath.total_moles() > 0 && !sneaking)
-		playsound(get_turf(src), pick('sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg'), 50, 0, -5)
+	if(breath?.total_moles() > 0 && !HAS_TRAIT(src, TRAIT_ALIEN_SNEAK))
+		playsound(get_turf(src), pick('sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg'), 50, FALSE, -5)
 	return ..()

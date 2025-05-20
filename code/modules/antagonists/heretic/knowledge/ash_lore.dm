@@ -50,11 +50,6 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_ASH
 
-/datum/heretic_knowledge/limited_amount/base_ash/on_research(mob/user)
-	. = ..()
-	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.heretic_path = route
-
 /datum/heretic_knowledge/ashen_grasp
 	name = "Grasp of Ash"
 	desc = "Your Mansus Grasp will burn the eyes of the victim, causing damage and blindness."
@@ -64,10 +59,10 @@
 	cost = 1
 	route = HERETIC_PATH_ASH
 
-/datum/heretic_knowledge/ashen_grasp/on_gain(mob/user)
+/datum/heretic_knowledge/ashen_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
-/datum/heretic_knowledge/ashen_grasp/on_lose(mob/user)
+/datum/heretic_knowledge/ashen_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
 
 /datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -93,7 +88,7 @@
 		/datum/heretic_knowledge/essence,
 		/datum/heretic_knowledge/medallion,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
+	spell_to_add = /datum/action/spell/jaunt/ethereal_jaunt/ash
 	cost = 1
 	route = HERETIC_PATH_ASH
 
@@ -114,11 +109,11 @@
 	cost = 2
 	route = HERETIC_PATH_ASH
 
-/datum/heretic_knowledge/ash_mark/on_gain(mob/user)
+/datum/heretic_knowledge/ash_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/ash_mark/on_lose(mob/user)
+/datum/heretic_knowledge/ash_mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /datum/heretic_knowledge/ash_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -136,8 +131,10 @@
 	mark.on_effect()
 
 	// Also refunds 75% of charge!
-	for(var/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/grasp in user.mind.spell_list)
-		grasp.charge_counter = min(round(grasp.charge_counter + grasp.charge_max * 0.75), grasp.charge_max)
+	var/datum/action/spell/touch/mansus_grasp/grasp = locate() in user.actions
+	if(grasp)
+		grasp.reduce_cooldown(grasp.cooldown_time * 0.75)
+		grasp.update_buttons()
 
 /datum/heretic_knowledge/knowledge_ritual/ash
 	next_knowledge = list(/datum/heretic_knowledge/mad_mask)
@@ -184,11 +181,11 @@
 	cost = 2
 	route = HERETIC_PATH_ASH
 
-/datum/heretic_knowledge/ash_blade_upgrade/on_gain(mob/user)
+/datum/heretic_knowledge/ash_blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/ash_blade_upgrade/on_lose(mob/user)
+/datum/heretic_knowledge/ash_blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
 
@@ -213,7 +210,7 @@
 		/datum/heretic_knowledge/summon/ashy,
 		/datum/heretic_knowledge/spell/cleave,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
+	spell_to_add = /datum/action/spell/aoe/fiery_rebirth
 	cost = 1
 	route = HERETIC_PATH_ASH
 
@@ -254,7 +251,14 @@
 
 /datum/heretic_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/fire_sworn)
+	priority_announce("[generate_heretic_text()] Fear the blaze, for the Ashlord, [user.real_name] has ascended! The flames shall consume all! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
+	var/datum/action/spell/fire_sworn/circle_spell = new(user.mind)
+	circle_spell.Grant(user)
+	var/datum/action/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
+	screen_wide_fire_spell.Grant(user)
 	for(var/trait in traits_to_apply)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/ash_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)

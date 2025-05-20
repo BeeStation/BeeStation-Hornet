@@ -2,7 +2,6 @@
 	name = "monkey"
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
-	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
 	gender = NEUTER
@@ -13,7 +12,8 @@
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	// Managed by the limb overlay system
+	blocks_emissive = FALSE
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
@@ -209,11 +209,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
 
-/mob/living/carbon/monkey/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED)) //Obtainable with Brain trauma
-		return FALSE
-	return TRUE //Something about an infinite amount of monkeys on typewriters writing Shakespeare...
-
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
 
@@ -274,7 +269,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	name = "Teratoma"
 	id = "teratoma"
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_RADIMMUNE,
+		TRAIT_BADDNA,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_NONECRODISEASE
+	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN

@@ -217,7 +217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 	SSmove_manager.stop_looping(thing, SSconveyors)
 
 // attack with item, place item on conveyor
-/obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/conveyor/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		user.visible_message(span_notice("[user] struggles to pry up \the [src] with \the [I]."), \
 		span_notice("You struggle to pry up \the [src] with \the [I]."))
@@ -246,7 +246,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 			update_move_direction()
 			to_chat(user, span_notice("You reverse [src]'s direction."))
 
-	else if(user.a_intent != INTENT_HARM)
+	else if(!user.combat_mode)
 		user.transferItemToLoc(I, drop_location())
 	else
 		return ..()
@@ -266,7 +266,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 	return COMPONENT_BUFFER_RECEIVED
 
 // attack with hand, move pulled object onto conveyor
-/obj/machinery/conveyor/attack_hand(mob/user)
+/obj/machinery/conveyor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

@@ -87,6 +87,10 @@
 		client.screen -= alert
 	qdel(alert)
 
+// Proc to check for an alert
+/mob/proc/has_alert(category)
+	return !isnull(alerts[category])
+
 /atom/movable/screen/alert
 	icon = 'icons/hud/screen_alert.dmi'
 	icon_state = "default"
@@ -150,6 +154,7 @@
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = "too_much_tox"
+
 //End gas alerts
 
 

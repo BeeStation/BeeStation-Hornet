@@ -15,14 +15,8 @@
 	var/list/turfs_that_boost_us
 	/// A list of all shields surrounding us while drawing certain runes (Nar'sie).
 	var/list/obj/structure/emergency_shield/sanguine/shields
-	/// An item action associated with our parent, to quick-draw runes.
-	var/datum/action/item_action/linked_action
 
-/datum/component/cult_ritual_item/Initialize(
-	examine_message,
-	action = /datum/action/item_action/cult_dagger,
-	turfs_that_boost_us = /turf/open/floor/engine/cult,
-	)
+/datum/component/cult_ritual_item/Initialize(examine_message, turfs_that_boost_us = /turf/open/floor/engine/cult)
 
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -34,13 +28,8 @@
 	else if(ispath(turfs_that_boost_us))
 		src.turfs_that_boost_us = list(turfs_that_boost_us)
 
-	if(ispath(action))
-		linked_action = new action(parent)
-
 /datum/component/cult_ritual_item/Destroy(force, silent)
 	cleanup_shields()
-	if(linked_action)
-		QDEL_NULL(linked_action)
 	return ..()
 
 /datum/component/cult_ritual_item/RegisterWithParent()
@@ -72,7 +61,6 @@
 
 	if(!IS_CULTIST(examiner))
 		return
-
 	examine_text += examine_message
 
 /*
@@ -84,10 +72,8 @@
 
 	if(!isliving(user))
 		return
-
 	if(!can_scribe_rune(source, user))
 		return
-
 	if(drawing_a_rune)
 		to_chat(user, span_warning("You are already drawing a rune."))
 		return
@@ -259,7 +245,7 @@
 		stack_trace("[type] - [cultist] attempted to scribe a rune, but the global rune list is empty!")
 		return FALSE
 
-	entered_rune_name = input(cultist, "Choose a rite to scribe.", "Sigils of Power") as null|anything in GLOB.rune_types
+	entered_rune_name = tgui_input_list(cultist, "Choose a rite to scribe.", "Sigils of Power", GLOB.rune_types)
 	if(!entered_rune_name || !can_scribe_rune(tool, cultist))
 		return FALSE
 

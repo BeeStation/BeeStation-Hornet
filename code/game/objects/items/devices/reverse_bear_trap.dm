@@ -45,7 +45,7 @@
 		to_chat(loc, span_userdanger("*ding*"))
 		addtimer(CALLBACK(src, PROC_REF(snap)), 2)
 
-/obj/item/reverse_bear_trap/attack_hand(mob/user)
+/obj/item/reverse_bear_trap/attack_hand(mob/user, list/modifiers)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(C.get_item_by_slot(ITEM_SLOT_HEAD) == src)

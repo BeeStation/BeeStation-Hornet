@@ -117,7 +117,7 @@
 /obj/machinery/grill/attack_silicon(mob/user)
 	return TRUE
 
-/obj/machinery/grill/attack_hand(mob/user)
+/obj/machinery/grill/attack_hand(mob/user, list/modifiers)
 	if(grilled_item)
 		to_chat(user, span_notice("You take out [grilled_item] from [src]."))
 		grilled_item.forceMove(drop_location())

@@ -4,6 +4,7 @@
 	roundend_category = "space pirates"
 	antagpanel_category = "Pirate"
 	show_to_ghosts = TRUE
+	required_living_playtime = 4
 	var/datum/team/pirate/crew
 
 /datum/antagonist/pirate/captain

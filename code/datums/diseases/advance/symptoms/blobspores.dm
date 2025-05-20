@@ -81,20 +81,21 @@
 		return
 	var/list/blob_options = list(/obj/structure/blob/normal)
 	if(factory_blob)
-		blob_options += /obj/structure/blob/factory/lone
+		blob_options += /obj/structure/blob/special/factory/lone
 	if(strong_blob)
 		blob_options += /obj/structure/blob/shield/
 	if(node_blob)
-		blob_options += /obj/structure/blob/node/lone
+		blob_options += /obj/structure/blob/special/node/lone
 	var/pick_blob = pick(blob_options)
 	if(ready_to_pop)
+		var/list/blob_color = list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
 		for(var/i in 1 to rand(1, 6))
-			var/mob/living/simple_animal/hostile/blob/blobspore/spore = new(M.loc)//Spores update their health on update_icon, we cant change their colour
+			var/mob/living/simple_animal/hostile/blob/blobspore/spore = new(M.loc)//Spores update their health on update_icon, we cant change their color
 			spore.spore_diseases.Cut()
 			spore.spore_diseases += A//instead, they contain the disease that was in this
 		if(prob(A.resistance))
 			var/atom/blobbernaut = new /mob/living/simple_animal/hostile/blob/blobbernaut/(M.loc)
-			blobbernaut.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY)
+			blobbernaut.add_atom_colour(pick(blob_color), FIXED_COLOUR_PRIORITY)
 		var/atom/blob_tile = new pick_blob(M.loc)
-		blob_tile.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY) //A random colour for the blob, as this blob isn't going to get a overmind colour
+		blob_tile.add_atom_colour(pick(blob_color), FIXED_COLOUR_PRIORITY) //A random color for the blob, as this blob isn't going to get a overmind color
 	M.visible_message(span_danger("A huge mass of blob and blob spores burst out of [M]!"))

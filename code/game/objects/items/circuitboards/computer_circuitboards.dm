@@ -82,53 +82,85 @@
 	build_path = /obj/machinery/computer/atmos_alert
 
 /obj/item/circuitboard/computer/atmos_control
-	name = "atmospheric monitor console (Computer Board)"
+	name = "Atmospheric Control (Computer Board)"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/atmos_control
 
-/obj/item/circuitboard/computer/atmos_control/tank
-	name = "tank control console (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank
+/obj/item/circuitboard/computer/atmos_control/nocontrol
+	name = "Atmospheric Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nocontrol
 
-/obj/item/circuitboard/computer/atmos_control/tank/oxygen_tank
-	name = "oxygen supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/oxygen_tank
+/obj/item/circuitboard/computer/atmos_control/noreconnect
+	name = "Atmospheric Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/noreconnect
 
-/obj/item/circuitboard/computer/atmos_control/tank/plasma_tank
-	name = "plasma supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/plasma_tank
+/obj/item/circuitboard/computer/atmos_control/fixed
+	name = "Atmospheric Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/fixed
 
-/obj/item/circuitboard/computer/atmos_control/tank/air_tank
-	name = "mixed air supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/air_tank
+/obj/item/circuitboard/computer/atmos_control/nocontrol/master
+	name = "Station Atmospheric Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nocontrol/master
 
-/obj/item/circuitboard/computer/atmos_control/tank/mix_tank
-	name = "gas mix supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/mix_tank
+/obj/item/circuitboard/computer/atmos_control/nocontrol/incinerator
+	name = "Incinerator Chamber Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nocontrol/incinerator
 
-/obj/item/circuitboard/computer/atmos_control/tank/nitrous_tank
-	name = "nitrous oxide supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/nitrous_tank
+/obj/item/circuitboard/computer/atmos_control/toxinsmix
+	name = "Toxins Chamber Monitor (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/toxinsmix
 
-/obj/item/circuitboard/computer/atmos_control/tank/nitrogen_tank
-	name = "nitrogen supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/nitrogen_tank
+/obj/item/circuitboard/computer/atmos_control/oxygen_tank
+	name = "Oxygen Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/oxygen_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/carbon_tank
-	name = "carbon dioxide supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/carbon_tank
+/obj/item/circuitboard/computer/atmos_control/plasma_tank
+	name = "Plasma Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/plasma_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/incinerator
-	name = "incinerator air control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/incinerator
+/obj/item/circuitboard/computer/atmos_control/air_tank
+	name = "Mixed Air Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/air_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/sm_waste
-	name = "supermatter waste control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/sm_waste
+/obj/item/circuitboard/computer/atmos_control/mix_tank
+	name = "Gas Mix Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/mix_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/toxins_waste
-	name = "toxins waste control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/toxins_waste_tank
+/obj/item/circuitboard/computer/atmos_control/nitrous_tank
+	name = "Nitrous Oxide Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nitrous_tank
+
+/obj/item/circuitboard/computer/atmos_control/nitrogen_tank
+	name = "Nitrogen Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nitrogen_tank
+
+/obj/item/circuitboard/computer/atmos_control/carbon_tank
+	name = "Carbon Dioxide Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/carbon_tank
+
+/obj/item/circuitboard/computer/atmos_control/bz_tank
+	name = "BZ Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/bz_tank
+
+/obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
+	name = "Hypernoblium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
+
+/obj/item/circuitboard/computer/atmos_control/nitrium_tank
+	name = "Nitrium Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/nitrium_tank
+
+/obj/item/circuitboard/computer/atmos_control/pluoxium_tank
+	name = "Pluoxium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/pluoxium_tank
+
+/obj/item/circuitboard/computer/atmos_control/tritium_tank
+	name = "Tritium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/tritium_tank
+
+/obj/item/circuitboard/computer/atmos_control/water_vapor
+	name = "Water Vapor Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/water_vapor
 
 /obj/item/circuitboard/computer/auxillary_base
 	name = "auxillary base management console (Computer Board)"

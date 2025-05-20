@@ -90,7 +90,7 @@
 /datum/ai_controller/dog/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		unfriend(user)
 	else
 		if(prob(AI_DOG_PET_FRIEND_PROB))
@@ -156,8 +156,8 @@
 		return
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
+	. = COMPONENT_CANCEL_CLICK_ALT
 	INVOKE_ASYNC(src, PROC_REF(command_radial), clicker)
-	return COMPONENT_INTERCEPT_ALT
 
 /// Show the command radial menu
 /datum/ai_controller/dog/proc/command_radial(mob/living/clicker)
@@ -273,3 +273,37 @@
 			if(living_pawn.buckled)
 				queue_behavior(/datum/ai_behavior/resist)//in case they are in bed or something
 			queue_behavior(/datum/ai_behavior/harass)
+
+
+/**
+ * Same thing but with make tiny corgis and use access cards.
+ */
+/datum/ai_controller/dog/corgi
+	blackboard = list(
+		BB_SIMPLE_CARRY_ITEM = null,
+		BB_FETCH_TARGET = null,
+		BB_FETCH_DELIVER_TO = null,
+		BB_DOG_FRIENDS = list(),
+		BB_FETCH_IGNORE_LIST = list(),
+		BB_DOG_ORDER_MODE = DOG_COMMAND_NONE,
+		BB_DOG_PLAYING_DEAD = FALSE,
+		BB_DOG_HARASS_TARGET = null,
+		BB_DOG_HARASS_FRUSTRATION = null,
+		BB_VISION_RANGE = AI_DOG_VISION_RANGE,
+
+		BB_BABIES_PARTNER_TYPES = list(/mob/living/basic/pet/dog),
+		BB_BABIES_CHILD_TYPES = list(/mob/living/basic/pet/dog/corgi/puppy = 95, /mob/living/basic/pet/dog/corgi/puppy/void = 5),
+	)
+
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/dog,
+		/datum/ai_planning_subtree/make_babies,
+		/datum/ai_planning_subtree/dog,
+	)
+
+/datum/ai_controller/dog/corgi/get_access()
+	var/mob/living/basic/pet/dog/corgi/corgi_pawn = pawn
+	if(!istype(corgi_pawn))
+		return
+
+	return corgi_pawn.access_card

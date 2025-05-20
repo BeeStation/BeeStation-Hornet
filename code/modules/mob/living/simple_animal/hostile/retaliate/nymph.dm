@@ -78,9 +78,8 @@
 	. = ..()
 	if(!is_drone)
 		update_progression()
-	get_stat_tab_status()
 	if(stat != CONSCIOUS)
-		remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		remove_status_effect(/datum/status_effect/planthealing)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(loc)) //else, there's considered to be no light
 		var/turf/T = loc
@@ -89,11 +88,11 @@
 			time_spent_in_light++  //If so, how long have we been somewhere with light?
 			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
 				if(stat != CONSCIOUS)
-					remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+					remove_status_effect(/datum/status_effect/planthealing)
 					return
-				apply_status_effect(STATUS_EFFECT_PLANTHEALING)
+				apply_status_effect(/datum/status_effect/planthealing)
 		else
-			remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+			remove_status_effect(/datum/status_effect/planthealing)
 			time_spent_in_light = 0  //No light? Reset the timer.
 
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
@@ -101,7 +100,7 @@
 	evolve_ability.Remove(src)
 	if(is_drone)
 		if(mind)
-			switch_ability.Trigger(drone_parent, TRUE) //If we have someone conscious in the drone, throw them out.
+			switch_ability.on_activate(src, null) //If we have someone conscious in the drone, throw them out.
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
@@ -263,25 +262,21 @@
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
-/datum/action/nymph/evolve/Trigger()
-	. = ..()
-	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
-	if(!isnymph(user))
+/datum/action/nymph/evolve/on_activate(mob/user, atom/target)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
+	if(!isnymph(nymph))
 		return
-	if(user.is_drone)
+	if(nymph.is_drone)
 		to_chat(user, span_danger("You can't grow up as a drone!"))
 		return
-	if(user.movement_type & VENTCRAWLING)
+	if(nymph.movement_type & VENTCRAWLING)
 		to_chat(user, span_danger("You cannot evolve while in a vent."))
 		return
-	if(user.stat != CONSCIOUS)
-		return
-	if(user.amount_grown >= user.max_grown)
-		if(user.incapacitated()) //something happened to us while we were choosing.
-			return
-		playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
-		user.evolve()
+	if(nymph.amount_grown >= nymph.max_grown)
+		playsound(nymph, 'sound/creatures/venus_trap_death.ogg', 25, 1)
+		nymph.evolve()
 	else
 		to_chat(user, span_danger("You are not ready to grow up by yourself."))
 		return FALSE
@@ -293,23 +288,25 @@
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
-/datum/action/nymph/SwitchFrom/Trigger(drone_parent, forced)
-	. = ..()
-	var/mob/living/simple_animal/hostile/retaliate/nymph/user = owner
-	var/mob/living/carbon/human/drone_diona = user.drone_parent
-	if(forced)
-		SwitchFrom(user, drone_parent)
-	if(!isnymph(user))
-		return
-	if(user.movement_type & VENTCRAWLING)
-		to_chat(user, span_danger("You cannot switch while in a vent."))
-		return
+/datum/action/nymph/SwitchFrom/pre_activate(mob/user, atom/target)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
+	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
+	if(!isnymph(nymph))
+		return FALSE
+	if(nymph.movement_type & VENTCRAWLING)
+		to_chat(nymph, span_danger("You cannot switch while in a vent."))
+		return FALSE
 	if(QDELETED(drone_diona)) // FUCK SOMETHING HAPPENED TO THE MAIN DIONA, ABORT ABORT ABORT
-		user.is_drone = FALSE //We're not a drone anymore!!!! Panic!
-		to_chat(user, span_danger("You feel like your gestalt is gone! Something must have gone wrong..."))
-		user.switch_ability.Remove(user)
-		return
-	SwitchFrom(user, drone_parent)
+		nymph.is_drone = FALSE //We're not a drone anymore!!!! Panic!
+		to_chat(nymph, span_danger("You feel like your gestalt is gone! Something must have gone wrong..."))
+		nymph.switch_ability.Remove(nymph)
+		return FALSE
+	. = ..()
+
+/datum/action/nymph/SwitchFrom/on_activate(mob/user, atom/target)
+	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
+	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
+	SwitchFrom(nymph, drone_diona)
 
 /datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/hostile/retaliate/nymph/user, mob/living/carbon/M)
 	var/datum/mind/C = user.mind

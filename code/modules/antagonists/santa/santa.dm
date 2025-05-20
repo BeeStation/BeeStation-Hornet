@@ -4,6 +4,7 @@
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	banning_key = UNBANNABLE_ANTAGONIST
+	required_living_playtime = 2
 
 /datum/antagonist/santa/on_gain()
 	. = ..()
@@ -23,7 +24,8 @@
 		H.equipOutfit(/datum/outfit/santa)
 		H.dna.update_dna_identity()
 
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport/santa)
+	var/datum/action/spell/teleport/area_teleport/wizard/santa/teleport = new(owner)
+	teleport.Grant(H)
 
 /datum/antagonist/santa/proc/give_objective()
 	if(!give_objectives)

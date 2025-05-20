@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/components/binary/temperature_pump
 	icon_state = "tpump_map-3"
 	name = "temperature pump"
-	desc = "A pump that moves heat from one pipeline to another. The input will get cooler, and the output will get hotter."
+	desc = "A pump that moves heat from one pipenet to another. The input will get cooler, and the output will get hotter."
 
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
@@ -49,16 +49,17 @@
 
 	if(coolant_temperature_delta > 0)
 		var/input_capacity = remove_input.heat_capacity()
-		var/output_capacity = air_output.heat_capacity()
+		var/output_capacity = remove_output.heat_capacity()
 
-		var/cooling_heat_amount = (heat_transfer_rate * 0.01) * coolant_temperature_delta * (input_capacity * output_capacity / (input_capacity + output_capacity))
-		remove_input.set_temperature(max(remove_input.return_temperature() - (cooling_heat_amount / input_capacity), TCMB))
-		remove_output.set_temperature(max(remove_output.return_temperature() + (cooling_heat_amount / output_capacity), TCMB))
+		var/cooling_heat_amount = (heat_transfer_rate * 0.01) * CALCULATE_CONDUCTION_ENERGY(coolant_temperature_delta, output_capacity, input_capacity)
+		remove_output.temperature = (max(remove_output.return_temperature() + (cooling_heat_amount / output_capacity), TCMB))
+		remove_input.temperature = max(remove_input.temperature - (cooling_heat_amount / input_capacity), TCMB)
+		update_parents()
+
 
 	air_input.merge(remove_input)
 	air_output.merge(remove_output)
 
-	update_parents()
 
 /obj/machinery/atmospherics/components/binary/temperature_pump/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

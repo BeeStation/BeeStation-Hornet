@@ -46,11 +46,11 @@
 	QDEL_NULL(E)
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/fugu/Life()
+/mob/living/simple_animal/hostile/asteroid/fugu/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!wumbo)
-		inflate_cooldown = max((inflate_cooldown - 1), 0)
+		inflate_cooldown = max((inflate_cooldown - (0.5 * delta_time)), 0)
 	if(target && AIStatus == AI_ON)
-		E.Activate()
+		E.trigger()
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
@@ -60,9 +60,10 @@
 
 /mob/living/simple_animal/hostile/asteroid/fugu/Aggro()
 	..()
-	E.Activate()
+	E.trigger()
 
 /datum/action/innate/fugu
+	button_icon_state = null
 	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/fugu/expand
@@ -70,7 +71,7 @@
 	desc = "Temporarily increases your size, and makes you significantly more dangerous and tough! Do not bully the fugu!"
 	button_icon_state = "expand"
 
-/datum/action/innate/fugu/expand/Activate()
+/datum/action/innate/fugu/expand/on_activate()
 	var/mob/living/simple_animal/hostile/asteroid/fugu/F = owner
 	if(F.wumbo)
 		to_chat(F, span_notice("YOU'RE ALREADY WUMBO!"))

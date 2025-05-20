@@ -68,6 +68,18 @@
 		M.swap_hand()
 	return 1
 
+/atom/movable/screen/navigate
+	name = "navigate"
+	icon = 'icons/hud/style/screen_midnight.dmi'
+	icon_state = "navigate"
+	screen_loc = ui_navigate_menu
+
+/atom/movable/screen/navigate/Click()
+	if(!isliving(usr))
+		return TRUE
+	var/mob/living/navigator = usr
+	navigator.navigate()
+
 /atom/movable/screen/craft
 	name = "crafting menu"
 	icon = 'icons/hud/style/screen_midnight.dmi'
@@ -116,7 +128,7 @@
 			return inv_item.Click(location, control, params)
 
 	//Putting into something (if its not in us)
-	if(usr.attack_ui(slot_id))
+	if(usr.attack_ui(slot_id, params))
 		usr.update_inv_hands()
 	return TRUE
 
@@ -233,19 +245,19 @@
 	icon_state = "backpack_close"
 
 	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/storage/master = null
+	var/datum/component/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
 	master = new_master
-	if (master && !istype(master))
-		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
+	//if (master && !istype(master))
+	//	CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
 /atom/movable/screen/close/Click()
-	var/datum/component/storage/S = master
-	S.hide_from(usr)
+	var/datum/storage/storage = master
+	storage.hide_contents(usr)
 	return TRUE
 
 /atom/movable/screen/drop
@@ -257,108 +269,57 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
 		usr.dropItemToGround(usr.get_active_held_item())
-		update_icon()
+		update_appearance()
 
 /atom/movable/screen/drop/disappearing/update_icon_state()
 	icon_state = usr.get_active_held_item() ? "act_drop" : null
 	return ..()
 
-/atom/movable/screen/act_intent
-	name = "intent"
-	icon_state = "help"
-	screen_loc = ui_acti
+/atom/movable/screen/combattoggle
+	name = "toggle combat mode"
+	icon = 'icons/hud/style/screen_midnight.dmi'
+	icon_state = "combat_off"
+	screen_loc = ui_combat_toggle
 
-/atom/movable/screen/act_intent/Click(location, control, params)
-	usr.a_intent_change(INTENT_HOTKEY_RIGHT)
+/atom/movable/screen/combattoggle/New(loc, ...)
+	. = ..()
+	update_appearance()
 
-/atom/movable/screen/act_intent/segmented/Click(location, control, params)
-	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/intent_style))
-		var/_x = text2num(params2list(params)["icon-x"])
-		var/_y = text2num(params2list(params)["icon-y"])
+/atom/movable/screen/combattoggle/Click()
+	if(isliving(usr))
+		var/mob/living/owner = usr
+		owner.set_combat_mode(!owner.combat_mode, FALSE)
+		update_appearance()
 
-		if(_x<=16 && _y<=16)
-			usr.a_intent_change(INTENT_HARM)
+/atom/movable/screen/combattoggle/update_icon_state()
+	var/mob/living/user = hud?.mymob
+	if(!istype(user) || !user.client)
+		return
+	icon_state = user.combat_mode ? "combat" : "combat_off" //Treats the combat_mode
+	return ..()
 
-		else if(_x<=16 && _y>=17)
-			usr.a_intent_change(INTENT_HELP)
+//Version of the combat toggle with the flashy overlay
+/atom/movable/screen/combattoggle/flashy
+	///Mut appearance for flashy border
+	var/mutable_appearance/flashy
 
-		else if(_x>=17 && _y<=16)
-			usr.a_intent_change(INTENT_GRAB)
+/atom/movable/screen/combattoggle/flashy/update_overlays()
+	. = ..()
+	var/mob/living/user = hud?.mymob
+	if(!istype(user) || !user.client)
+		return
 
-		else if(_x>=17 && _y>=17)
-			usr.a_intent_change(INTENT_DISARM)
-	else
-		return ..()
+	if(!user.combat_mode)
+		return
 
-/atom/movable/screen/act_intent/alien
-	icon = 'icons/hud/screen_alien.dmi'
-	screen_loc = ui_movi
+	if(!flashy)
+		flashy = mutable_appearance('icons/hud/screen_gen.dmi', "togglefull_flash")
+		flashy.color = "#C62727"
+	. += flashy
 
-/atom/movable/screen/act_intent/robot
+/atom/movable/screen/combattoggle/robot
 	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
-
-/atom/movable/screen/internals
-	name = "toggle internals"
-	icon_state = "internal0"
-	screen_loc = ui_internal
-
-/atom/movable/screen/internals/Click()
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/C = usr
-	if(C.incapacitated())
-		return
-
-	if(C.internal)
-		C.internal = null
-		to_chat(C, span_notice("You are no longer running on internals."))
-		icon_state = "internal0"
-		C.update_action_buttons_icon()
-		return
-	if(!C.getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-		var/obj/item/clothing/head/Helm = C.head
-		if(!istype(C.wear_mask, /obj/item/clothing/mask) && !(Helm?.clothing_flags & HEADINTERNALS))
-			to_chat(C, span_warning("You are not wearing an internals compatible mask or helmet!"))
-			return 1
-		else
-			var/obj/item/clothing/mask/M = C.wear_mask
-			if(M?.mask_adjusted) // if mask on face but pushed down
-				M.adjustmask(C) // adjust it back
-			if( !(M?.clothing_flags & MASKINTERNALS) && !(Helm?.clothing_flags & HEADINTERNALS))
-				to_chat(C, span_warning("You are not wearing an internals compatible mask or helmet!"))
-				return
-
-	var/obj/item/I = C.is_holding_item_of_type(/obj/item/tank)
-	if(I)
-		to_chat(C, span_notice("You are now running on internals from [I] in your [C.get_held_index_name(C.get_held_index_of_item(I))]."))
-		C.toggle_internals(I)
-	else if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(istype(H.s_store, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.s_store] on your [H.wear_suit.name]."))
-			C.toggle_internals(H.s_store)
-		else if(istype(H.belt, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.belt] on your belt."))
-			C.toggle_internals(H.belt)
-		else if(istype(H.l_store, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.l_store] in your left pocket."))
-			C.toggle_internals(H.l_store)
-		else if(istype(H.r_store, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.r_store] in your right pocket."))
-			C.toggle_internals(H.r_store)
-
-	//Separate so CO2 jetpacks are a little less cumbersome.
-	if(!C.internal && istype(C.back, /obj/item/tank))
-		to_chat(C, span_notice("You are now running on internals from [C.back] on your back."))
-		C.toggle_internals(C.back)
-
-	if(C.internal)
-		icon_state = "internal1"
-	else
-		to_chat(C, span_warning("You don't have an oxygen tank!"))
-		return
-	C.update_action_buttons_icon()
 
 /atom/movable/screen/spacesuit
 	name = "Space suit cell status"
@@ -442,7 +403,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	screen_loc = "7,7 to 10,8"
 	plane = HUD_PLANE
 	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/storage/master = null
+	var/datum/storage/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
@@ -450,10 +411,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	. = ..()
 	master = new_master
 	if (master && !istype(master))
-		CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
+		CRASH("Attempting to create a backpack close without referencing a storage datum.")
 
-/atom/movable/screen/storage/attackby(obj/item/W, mob/user, params)
-	master.attackby(src, W, user, params)
+/atom/movable/screen/storage/attackby(location, control, params)
+	var/datum/storage/storage_master = master
+	if(!istype(storage_master))
+		return FALSE
+
+	var/obj/item/inserted = usr.get_active_held_item()
+	if(inserted)
+		storage_master.attempt_insert(inserted, usr)
+
 	return TRUE
 
 /atom/movable/screen/throw_catch
@@ -628,7 +596,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/healths/minebot
 	icon = 'icons/hud/screen_cyborg.dmi'
-	screen_loc = ui_health
+	screen_loc = ui_borg_health
 
 /atom/movable/screen/healths/blob
 	name = "blob health"
@@ -643,8 +611,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/healths/blob/naut/core
 	name = "overmind health"
-	screen_loc = ui_health
 	icon_state = "corehealth"
+	screen_loc = ui_health
 
 /atom/movable/screen/healths/clock
 	icon = 'icons/hud/actions/action_generic.dmi'
@@ -661,25 +629,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	name = "essence"
 	icon = 'icons/hud/actions/action_generic.dmi'
 	icon_state = "bg_revenant"
-	screen_loc = ui_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/construct
-	icon = 'icons/hud/screen_construct.dmi'
-	icon_state = "artificer_health0"
-	screen_loc = ui_construct_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/slime
-	icon = 'icons/hud/screen_slime.dmi'
-	icon_state = "slime_health0"
-	screen_loc = ui_slime_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/lavaland_elite
-	icon = 'icons/hud/screen_elite.dmi'
-	icon_state = "elite_health0"
-	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healthdoll
@@ -690,6 +639,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if (iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.check_self_for_injuries()
+
+/atom/movable/screen/healthdoll/living
+	icon_state = "fullhealth0"
+	screen_loc = ui_living_healthdoll
+	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
 
 /atom/movable/screen/mood
 	name = "mood"
@@ -762,6 +716,37 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/combo
+	icon_state = ""
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	screen_loc = ui_combo
+	plane = ABOVE_HUD_PLANE
+	var/timerid
+
+/atom/movable/screen/combo/proc/clear_streak()
+	animate(src, alpha = 0, 2 SECONDS, SINE_EASING)
+	timerid = addtimer(CALLBACK(src, PROC_REF(reset_icons)), 2 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+
+/atom/movable/screen/combo/proc/reset_icons()
+	cut_overlays()
+	icon_state = ""
+
+/atom/movable/screen/combo/update_icon_state(streak = "", time = 2 SECONDS)
+	reset_icons()
+	if(timerid)
+		deltimer(timerid)
+	alpha = 255
+	if(!streak)
+		return ..()
+	timerid = addtimer(CALLBACK(src, PROC_REF(clear_streak)), time, TIMER_UNIQUE | TIMER_STOPPABLE)
+	icon_state = "combo"
+	for(var/i = 1; i <= length(streak); ++i)
+		var/intent_text = copytext(streak, i, i + 1)
+		var/image/intent_icon = image(icon,src,"combo_[intent_text]")
+		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		add_overlay(intent_icon)
+	return ..()
 
 /atom/movable/screen/stamina
 	name = "stamina"

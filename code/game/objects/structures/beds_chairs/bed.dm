@@ -47,12 +47,13 @@
 /obj/structure/bed/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/structure/bed/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
-		W.play_tool_sound(src)
-		deconstruct(TRUE)
-	else
-		return ..()
+/obj/structure/bed/wrench_act_secondary(mob/living/user, obj/item/weapon)
+	if(flags_1&NODECONSTRUCT_1)
+		return TRUE
+	..()
+	weapon.play_tool_sound(src)
+	deconstruct(disassembled = TRUE)
+	return TRUE
 
 /obj/structure/bed/proc/dir_changed(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER

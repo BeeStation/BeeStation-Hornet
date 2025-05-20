@@ -1,3 +1,6 @@
+/// Global assoc list. [ckey] = [spellbook entry type]
+GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
+
 /datum/antagonist/wizard
 	name = "Space Wizard"
 	roundend_category = "wizards/witches"
@@ -130,8 +133,11 @@
 				log_objective(owner, hijack_objective.explanation_text)
 
 /datum/antagonist/wizard/on_removal()
-	unregister()
-	owner.RemoveAllSpells() // TODO keep track which spells are wizard spells which innate stuff
+	// Currently removes all spells regardless of innate or not. Could be improved.
+	for(var/datum/action/spell/spell in owner.current.actions)
+		if(spell.owner == owner)
+			qdel(spell)
+			owner.current.actions -= spell
 	return ..()
 
 /datum/antagonist/wizard/proc/equip_wizard()
@@ -216,53 +222,56 @@
 	. = ..()
 	if(!owner)
 		return
-	var/mob/living/carbon/human/H = owner.current
-	if(!istype(H))
+	if(!ishuman(owner.current))
 		return
+	var/list/spells_to_grant = list()
+	var/list/items_to_grant = list()
 	switch(school)
 		if(APPRENTICE_DESTRUCTION)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-			owner.AddSpell(new /obj/effect/proc_holder/spell/aimed/fireball(null))
-			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.</b>")
-		if(APPRENTICE_BLUESPACE)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
-			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.</b>")
-		if(APPRENTICE_HEALING)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
-			H.put_in_hands(new /obj/item/gun/magic/staff/healing(H))
-			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.</b>")
-		if(APPRENTICE_ROBELESS)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/mind_transfer(null))
-			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.</b>")
-		if(APPRENTICE_WILDMAGIC)
-			var/static/list/spell_entry
-			if(!spell_entry)
-				spell_entry = list()
-				for(var/datum/spellbook_entry/each_entry as() in subtypesof(/datum/spellbook_entry)-typesof(/datum/spellbook_entry/item)-typesof(/datum/spellbook_entry/summon))
-					spell_entry += new each_entry
+			spells_to_grant = list(
+				/datum/action/spell/aoe/magic_missile,
+				/datum/action/spell/pointed/projectile/fireball,
+			)
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
+				Studying under [master.current.real_name], you have learned powerful, \
+				destructive spells. You are able to cast magic missile and fireball.</span>"))
 
-			var/spells_left = 2
-			while(spells_left)
-				var/failsafe = FALSE
-				var/datum/spellbook_entry/chosen_spell = pick(spell_entry)
-				if(chosen_spell.no_random)
-					continue
-				for(var/obj/effect/proc_holder/spell/my_spell in owner.spell_list)
-					if(chosen_spell.spell_type == my_spell.type) // You don't learn the same spell
-						failsafe = TRUE
-						break
-					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistence_typecache)) // You don't learn a spell that isn't compatible with another
-						failsafe = TRUE
-						break
-				if(failsafe)
-					continue
-				var/obj/effect/proc_holder/spell/new_spell = chosen_spell.spell_type
-				owner.AddSpell(new new_spell(null))
-				spells_left--
-			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned special spells that aren't available to standard apprentices.</b>")
+		if(APPRENTICE_BLUESPACE)
+			spells_to_grant = list(
+				/datum/action/spell/teleport/area_teleport/wizard,
+				/datum/action/spell/jaunt/ethereal_jaunt,
+			)
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
+				Studying under [master.current.real_name], you have learned reality-bending \
+				mobility spells. You are able to cast teleport and ethereal jaunt.</span>"))
+
+		if(APPRENTICE_HEALING)
+			spells_to_grant = list(
+				/datum/action/spell/charge,
+				/datum/action/spell/forcewall,
+			)
+			items_to_grant = list(
+				/obj/item/gun/magic/staff/healing,
+			)
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
+				Studying under [master.current.real_name], you have learned life-saving \
+				survival spells. You are able to cast charge and forcewall, and have a staff of healing.</span>"))
+		if(APPRENTICE_ROBELESS)
+			spells_to_grant = list(
+				/datum/action/spell/aoe/knock,
+				/datum/action/spell/pointed/mind_transfer,
+			)
+			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
+				Studying under [master.current.real_name], you have learned stealthy, \
+				robeless spells. You are able to cast knock and mindswap.</span>"))
+
+	for(var/spell_type in spells_to_grant)
+		var/datum/action/spell/new_spell = new spell_type(owner)
+		new_spell.Grant(owner.current)
+
+	for(var/item_type in items_to_grant)
+		var/obj/item/new_item = new item_type(owner.current)
+		owner.current.put_in_hands(new_item)
 
 /datum/antagonist/wizard/apprentice/create_objectives()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect
@@ -301,9 +310,12 @@
 		H.equip_to_slot_or_del(new master_mob.back.type, ITEM_SLOT_BACK)
 
 	//Operation: Fuck off and scare people
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/turf_teleport/blink(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
+	var/datum/action/spell/jaunt/ethereal_jaunt/jaunt = new(owner)
+	jaunt.Grant(H)
+	var/datum/action/spell/teleport/area_teleport/wizard/teleport = new(owner)
+	teleport.Grant(H)
+	var/datum/action/spell/teleport/radius_turf/blink/blink = new(owner)
+	blink.Grant(H)
 
 /datum/antagonist/wizard/proc/update_wiz_icons_added(mob/living/wiz,join = TRUE)
 	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
@@ -314,6 +326,34 @@
 	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
 	wizhud.leave_hud(wiz)
 	set_antag_hud(wiz, null)
+
+
+/datum/antagonist/wizard/academy
+	name = "Academy Teacher"
+	outfit_type = /datum/outfit/wizard
+	move_to_lair = FALSE
+
+/datum/antagonist/wizard/academy/equip_wizard()
+	. = ..()
+	if(!isliving(owner.current))
+		return
+	var/mob/living/living_current = owner.current
+
+	var/datum/action/spell/jaunt/ethereal_jaunt/jaunt = new(owner)
+	jaunt.Grant(living_current)
+	var/datum/action/spell/aoe/magic_missile/missile = new(owner)
+	missile.Grant(living_current)
+	var/datum/action/spell/pointed/projectile/fireball/fireball = new(owner)
+	fireball.Grant(living_current)
+
+	var/obj/item/implant/exile/exiled = new /obj/item/implant/exile(living_current)
+	exiled.implant(living_current)
+
+/datum/antagonist/wizard/academy/create_objectives()
+	var/datum/objective/new_objective = new("Protect Wizard Academy from the intruders")
+	new_objective.owner = owner
+	objectives += new_objective
+	log_objective(owner, new_objective.explanation_text)
 
 //Solo wizard report
 /datum/antagonist/wizard/roundend_report()
@@ -336,12 +376,18 @@
 	else
 		parts += span_redtext("The wizard has failed!")
 
-	if(owner.spell_list.len>0)
-		parts += "<B>[owner.name] used the following spells: </B>"
-		var/list/spell_names = list()
-		for(var/obj/effect/proc_holder/spell/S in owner.spell_list)
-			spell_names += S.name
-		parts += spell_names.Join(", ")
+	var/list/purchases = list()
+	for(var/list/log as anything in GLOB.wizard_spellbook_purchases_by_key[owner.key])
+		var/datum/spellbook_entry/bought = log[LOG_SPELL_TYPE]
+		var/amount = log[LOG_SPELL_AMOUNT]
+
+		purchases += "[amount > 1 ? "[amount]x ":""][initial(bought.name)]"
+
+	if(length(purchases))
+		parts += ("<span class='bold'>[owner.name] used the following spells:</span>")
+		parts += purchases.Join(", ")
+	else
+		parts += ("<span class='bold'>[owner.name] didn't buy any spells!</span>")
 
 	return parts.Join("<br>")
 

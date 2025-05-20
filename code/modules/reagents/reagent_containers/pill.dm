@@ -6,7 +6,7 @@
 	item_state = "pill_shape_capsule_purple_pink"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	possible_transfer_amounts = list()
+	has_variable_transfer_amount = FALSE
 	volume = 50
 	grind_results = list()
 	var/apply_type = INGEST
@@ -21,11 +21,6 @@
 		icon_state = pick(PILL_SHAPE_LIST)
 	if(reagents.total_volume && rename_with_volume)
 		name += " ([reagents.total_volume]u)"
-
-
-/obj/item/reagent_containers/pill/attack_self(mob/user)
-	return
-
 
 /obj/item/reagent_containers/pill/attack(mob/M, mob/user, def_zone)
 	perform_application(M, user, null)

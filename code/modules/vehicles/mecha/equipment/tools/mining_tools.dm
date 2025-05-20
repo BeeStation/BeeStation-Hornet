@@ -22,9 +22,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 50, 100)
+	AddComponent(/datum/component/butchering, 50, 100, null, null, TRUE)
 
-/obj/item/mecha_parts/mecha_equipment/drill/action(mob/source, atom/target, params)
+/obj/item/mecha_parts/mecha_equipment/drill/action(mob/source, atom/target, list/modifiers)
 	if(!action_checks(target))
 		return
 
@@ -116,10 +116,10 @@
 	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 	butchering.butchering_enabled = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
+/obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/living/user)
 	target.visible_message(span_danger("[chassis] is drilling [target] with [src]!"), \
 						span_userdanger("[chassis] is drilling you with [src]!"))
-	log_combat(user, target, "drilled", "[name]", "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	log_combat(user, target, "drilled", "[name]", "Combat mode: [user.combat_mode ? "On" : "Off"])(DAMTYPE: [uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= (target.maxHealth * 2))
 		log_combat(user, target, "gibbed", name)
 		if(LAZYLEN(target.butcher_results) || LAZYLEN(target.guaranteed_butcher_results))

@@ -120,7 +120,8 @@ export const NtosNetMonitor = (props) => {
                   minValue={minlogs}
                   maxValue={maxlogs}
                   width="39px"
-                  onChange={(e, value) =>
+                  step={1}
+                  onChange={(value) =>
                     act('updatemaxlogs', {
                       new_number: value,
                     })

@@ -779,7 +779,7 @@
 		originalDNA = new H.dna.type
 		originalname = H.real_name
 		H.dna.copy_dna(originalDNA)
-		randomize_human(H)
+		randomize_human(H, TRUE)
 	return ..()
 
 /datum/status_effect/stabilized/green/tick() //Only occasionally give examiners a warning.
@@ -896,7 +896,8 @@
 		if(owner.getCloneLoss() > 0)
 			healing_types += CLONE
 
-		owner.apply_damage_type(-heal_amount, damagetype=pick(healing_types))
+		if(LAZYLEN(healing_types) != 0)
+			owner.apply_damage_type(-heal_amount, damagetype=pick(healing_types), forced = TRUE)
 		owner.adjust_nutrition(3)
 		M.adjustCloneLoss(heal_amount * 1.2) //This way, two people can't just convert each other's damage away.
 	else
@@ -938,7 +939,7 @@
 	var/obj/item/slimecross/stabilized/gold/linked = linked_extract
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
-		familiar.a_intent = INTENT_HELP
+		familiar.set_combat_mode(FALSE)
 		ADD_TRAIT(familiar, TRAIT_PACIFISM, "stabilizedgold")
 		familiar.melee_damage = 0
 		familiar.remove_verb(/mob/living/simple_animal/parrot/proc/toggle_mode) // just in case

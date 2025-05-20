@@ -20,3 +20,4 @@
 	auto_name = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/auto_name, APC_PIXEL_OFFSET)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, APC_PIXEL_OFFSET)

@@ -182,7 +182,7 @@
 
 	living_pawn.face_atom(target)
 
-	living_pawn.a_intent = INTENT_HARM
+	living_pawn.set_combat_mode(TRUE)
 
 	if(isnull(controller.blackboard[BB_MONKEY_GUN_WORKED]))
 		controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE
@@ -192,12 +192,7 @@
 		if(weapon)
 			weapon.melee_attack_chain(living_pawn, target)
 		else
-			if(disarm)
-				living_pawn.a_intent = INTENT_DISARM
-				living_pawn.UnarmedAttack(target)
-				living_pawn.a_intent = INTENT_HARM
-			else
-				living_pawn.UnarmedAttack(target)
+			living_pawn.UnarmedAttack(target, null, disarm ? list("right" = TRUE) : null) //Fake a right click if we're disarmin
 		controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // We reset their memory of the gun being 'broken' if they accomplish some other attack
 	else if(weapon)
 		var/atom/real_target = target
@@ -215,8 +210,6 @@
 		else
 			living_pawn.throw_item(real_target)
 			controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // 'worked'
-
-	living_pawn.a_intent = INTENT_HELP
 
 	// no de-aggro
 	if(controller.blackboard[BB_MONKEY_AGGRESSIVE])

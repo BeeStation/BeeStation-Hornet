@@ -20,16 +20,16 @@
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	var/dat = ""
 	if(screen == 0)
-		dat += "<HR><A href='?src=[REF(src)];lock=1'>{Log In}</A>"
+		dat += "<HR><A href='byond://?src=[REF(src)];lock=1'>{Log In}</A>"
 	else if(screen == 1)
 		dat += "<H3>Prisoner ID Management</H3>"
 		if(contained_id)
-			dat += "<A href='?src=[REF(src)];id=eject'>[contained_id]</A><br>"
-			dat += "Collected Points: [contained_id.points]. <A href='?src=[REF(src)];id=reset'>Reset.</A><br>"
-			dat += "Card goal: [contained_id.goal].  <A href='?src=[REF(src)];id=setgoal'>Set</A> <A href='?src=[REF(src)];id=setpermanent'>Make [contained_id.permanent ? "temporary" : "permanent"].</A><br>"
+			dat += "<A href='byond://?src=[REF(src)];id=eject'>[contained_id]</A><br>"
+			dat += "Collected Points: [contained_id.points]. <A href='byond://?src=[REF(src)];id=reset'>Reset.</A><br>"
+			dat += "Card goal: [contained_id.goal].  <A href='byond://?src=[REF(src)];id=setgoal'>Set</A> <A href='byond://?src=[REF(src)];id=setpermanent'>Make [contained_id.permanent ? "temporary" : "permanent"].</A><br>"
 			dat += "Space Law recommends quotas of 100 points per minute they would normally serve in the brig.<BR>"
 		else
-			dat += "<A href='?src=[REF(src)];id=insert'>Insert Prisoner ID.</A><br>"
+			dat += "<A href='byond://?src=[REF(src)];id=insert'>Insert Prisoner ID.</A><br>"
 		dat += "<H3>Prisoner Implant Management</H3>"
 		dat += "<HR>Chemical Implants<BR>"
 		var/turf/Tr = null
@@ -41,9 +41,9 @@
 				continue
 			dat += "ID: [C.imp_in.name] | Remaining Units: [C.reagents.total_volume] <BR>"
 			dat += "| Inject: "
-			dat += "<A href='?src=[REF(src)];inject1=[REF(C)]'>(<font class='bad'>(1)</font>)</A>"
-			dat += "<A href='?src=[REF(src)];inject5=[REF(C)]'>(<font class='bad'>(5)</font>)</A>"
-			dat += "<A href='?src=[REF(src)];inject10=[REF(C)]'>(<font class='bad'>(10)</font>)</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];inject1=[REF(C)]'>(<font class='bad'>(1)</font>)</A>"
+			dat += "<A href='byond://?src=[REF(src)];inject5=[REF(C)]'>(<font class='bad'>(5)</font>)</A>"
+			dat += "<A href='byond://?src=[REF(src)];inject10=[REF(C)]'>(<font class='bad'>(10)</font>)</A><BR>"
 			dat += "********************************<BR>"
 		dat += "<HR>Tracking Implants<BR>"
 		for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
@@ -60,9 +60,9 @@
 				loc_display = mob_loc.loc
 
 			dat += "ID: [T.imp_in.name] | Location: [loc_display]<BR>"
-			dat += "<A href='?src=[REF(src)];warn=[REF(T)]'>(<font class='bad'><i>Message Holder</i></font>)</A> |<BR>"
+			dat += "<A href='byond://?src=[REF(src)];warn=[REF(T)]'>(<font class='bad'><i>Message Holder</i></font>)</A> |<BR>"
 			dat += "********************************<BR>"
-		dat += "<HR><A href='?src=[REF(src)];lock=1'>{Log Out}</A>"
+		dat += "<HR><A href='byond://?src=[REF(src)];lock=1'>{Log Out}</A>"
 	var/datum/browser/popup = new(user, "computer", "Prisoner Management Console", 400, 500)
 	popup.set_content(dat)
 	popup.open()

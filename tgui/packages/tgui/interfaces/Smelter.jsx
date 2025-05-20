@@ -42,7 +42,7 @@ export const Smelter = (props) => {
                 maxValue={100}
                 step={10}
                 stepPixelSize={1}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('set_smelt_amount', {
                     amount: value,
                   })

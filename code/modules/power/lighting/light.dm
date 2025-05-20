@@ -14,6 +14,7 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
+	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
@@ -54,7 +55,8 @@
 
 	///More stress stuff.
 	var/turning_on = FALSE
-	var/roundstart_smoothing = FALSE
+	///If TRUE, the light does not have an update delay, and makes no noise when it switches states
+	var/smooth_transition = FALSE
 
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)
@@ -89,7 +91,7 @@
 			brightness = A.lighting_brightness_tube
 
 	if(mapload || !SSticker.HasRoundStarted())
-		roundstart_smoothing = TRUE
+		smooth_transition = TRUE
 
 	if(nightshift_light_color == initial(nightshift_light_color))
 		nightshift_light_color = A.lighting_colour_night
@@ -126,6 +128,10 @@
 		nightshift_enabled = temp_apc?.nightshift_lights
 		if(nightshift_enabled)
 			update(FALSE, TRUE, TRUE)
+
+/obj/machinery/light/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -173,13 +179,37 @@
 		return
 	. += mutable_appearance(overlayicon, base_state)
 
+// Area sensitivity is traditionally tied directly to power use, as an optimization
+// But since we want it for fire reacting, we disregard that
+/obj/machinery/light/setup_area_power_relationship()
+	. = ..()
+	if(!.)
+		return
+	var/area/our_area = get_area(src)
+	RegisterSignal(our_area, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+
+/obj/machinery/light/on_enter_area(datum/source, area/area_to_register)
+	..()
+	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+	handle_fire(area_to_register, area_to_register.fire)
+
+/obj/machinery/light/on_exit_area(datum/source, area/area_to_unregister)
+	..()
+	UnregisterSignal(area_to_unregister, COMSIG_AREA_FIRE_CHANGED)
+
+/obj/machinery/light/proc/handle_fire(area/source, new_fire)
+	SIGNAL_HANDLER
+	//we want fire alarm lights to not be delayed or make light_on noises during fire
+	smooth_transition = TRUE
+	update()
+
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE, quiet = FALSE, instant = FALSE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
-	if(roundstart_smoothing)
-		roundstart_smoothing = FALSE
+	if(smooth_transition)
+		smooth_transition = FALSE
 		quiet = TRUE
 		instant = TRUE
 	emergency_mode = FALSE
@@ -544,7 +574,7 @@
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 			to_chat(user, span_notice("You remove the light [fitting]."))
-		else if(user.has_dna() && user.dna.check_mutation(TK))
+		else if(user.has_dna() && user.dna.check_mutation(/datum/mutation/telekinesis))
 			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
 			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
@@ -632,7 +662,10 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 673
+
+/obj/machinery/light/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 

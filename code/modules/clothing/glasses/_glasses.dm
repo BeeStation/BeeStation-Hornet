@@ -441,11 +441,11 @@
 
 /obj/item/clothing/glasses/blindfold/white/visual_equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
-		update_icon(user)
+		update_icon(user=user)
 		user.update_inv_glasses() //Color might have been changed by update_icon.
 	..()
 
-/obj/item/clothing/glasses/blindfold/white/update_icon(mob/living/carbon/human/user)
+/obj/item/clothing/glasses/blindfold/white/update_icon(updates=ALL, mob/living/carbon/human/user)
 	if(ishuman(user) && !colored_before)
 		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
 		colored_before = TRUE
@@ -498,6 +498,7 @@
 	chameleon_action.chameleon_name = "Glasses"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	add_item_action(chameleon_action)
 
 /obj/item/clothing/glasses/thermal/syndi/emp_act(severity)
 	. = ..()
@@ -562,10 +563,35 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	vision_correction = 1  // why should the eye of a god have bad vision?
+	//var/datum/action/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+	//scan_ability = new(src)
+
+/obj/item/clothing/glasses/godeye/Destroy()
+	//QDEL_NULL(scan_ability)
+	return ..()
+
+
+/obj/item/clothing/glasses/godeye/equipped(mob/living/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_EYES)
+		ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+		pain(user)
+		//scan_ability.Grant(user)
+
+/obj/item/clothing/glasses/godeye/dropped(mob/living/user)
+	. = ..()
+	// Behead someone, their "glasses" drop on the floor
+	// and thus, the god eye should no longer be sticky
+	REMOVE_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+	//scan_ability.Remove(user)
+
+/obj/item/clothing/glasses/godeye/proc/pain(mob/living/victim)
+	to_chat(victim, ("<span class='userdanger'>You experience blinding pain, as [src] burrows into your skull.</span>"))
+	victim.emote("scream")
+	victim.flash_act()
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
@@ -580,7 +606,46 @@
 			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		qdel(src)
 	..()
+/*
+/datum/action/scan Given that the eye did nuffin previously I am leaving this bit of code in in case someone wants to change that
+	name = "Scan"
+	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
+	background_icon_state = "bg_clock"
+	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon_state = "scan"
 
+	requires_target = TRUE
+	cooldown_time = 45 SECONDS
+	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
+
+/datum/action/scan/is_available()
+	return ..() && isliving(owner)
+
+/datum/action/scan/on_activate(atom/scanned)
+	start_cooldown(15 SECONDS)
+
+	if(owner.stat != CONSCIOUS)
+		return FALSE
+	if(!isliving(scanned) || scanned == owner)
+		owner.balloon_alert(owner, "invalid scanned!")
+		return FALSE
+
+	var/mob/living/living_owner = owner
+	var/mob/living/living_scanned = scanned
+	living_scanned.apply_status_effect(/datum/status_effect/stagger)
+	var/datum/status_effect/agent_pinpointer/scan_pinpointer = living_owner.apply_status_effect(/datum/status_effect/agent_pinpointer/scan)
+	living_scanned.Jitter(100 SECONDS)
+	to_chat(living_scanned, span_warning("You've been staggered!"))
+	living_scanned.add_filter("scan", 2, list("type" = "outline", "color" = COLOR_YELLOW, "size" = 1))
+	addtimer(CALLBACK(living_scanned, TYPE_PROC_REF(/atom, remove_filter), "scan"), 30 SECONDS)
+
+	owner.playsound_local(get_turf(owner), 'sound/magic/smoke.ogg', 50, TRUE)
+	owner.balloon_alert(owner, "[living_scanned] scanned")
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), owner, "scan recharged"), cooldown_time)
+
+	start_cooldown()
+	return TRUE
+*/
 /obj/item/clothing/glasses/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return

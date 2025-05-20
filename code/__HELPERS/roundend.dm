@@ -295,6 +295,7 @@
 	//Collects persistence features
 	if(mode.allow_persistence_save)
 		SSpersistence.CollectData()
+		SSpersistent_paintings.save_paintings()
 
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
@@ -351,7 +352,7 @@
 
 	if(GLOB.round_id)
 		var/statspage = CONFIG_GET(string/roundstatsurl)
-		var/info = statspage ? "<a href='?action=openLink&link=[rustg_url_encode(statspage)][GLOB.round_id]'>[GLOB.round_id]</a>" : GLOB.round_id
+		var/info = statspage ? "<a href='byond://?action=openLink&link=[rustg_url_encode(statspage)][GLOB.round_id]'>[GLOB.round_id]</a>" : GLOB.round_id
 		parts += "[GLOB.TAB]Round ID: <b>[info]</b>"
 	parts += "[GLOB.TAB]Shift Duration: <B>[DisplayTimeText(world.time - SSticker.round_start_time)]</B>"
 	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? span_redtext("Destroyed") : "[popcount["station_integrity"]]%"]</B>"
@@ -622,24 +623,24 @@
 	var/datum/action/report/R = new
 	C.player_details.player_actions += R
 	R.Grant(C.mob)
-	to_chat(C,"<a href='?src=[REF(R)];report=1'>Show roundend report again</a>")
+	to_chat(C,"<a href='byond://?src=[REF(R)];report=1'>Show roundend report again</a>")
 
 /datum/action/report
 	name = "Show roundend report"
 	button_icon_state = "round_end"
 
-/datum/action/report/Trigger()
+/datum/action/report/on_activate()
 	if(owner && GLOB.common_report && SSticker.current_state == GAME_STATE_FINISHED)
 		SSticker.show_roundend_report(owner.client, FALSE)
 
-/datum/action/report/IsAvailable()
+/datum/action/report/is_available()
 	return 1
 
 /datum/action/report/Topic(href,href_list)
 	if(usr != owner)
 		return
 	if(href_list["report"])
-		Trigger()
+		trigger()
 		return
 
 ///Returns a custom title for the roundend credit/report

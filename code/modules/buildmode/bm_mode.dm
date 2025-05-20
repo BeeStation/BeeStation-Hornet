@@ -73,6 +73,7 @@
 	cornerB = null
 
 /datum/buildmode_mode/proc/handle_click(client/c, params, object)
+	set waitfor = FALSE
 	var/list/modifiers = params2list(params)
 	if(use_corner_selection)
 		if(LAZYACCESS(modifiers, LEFT_CLICK))

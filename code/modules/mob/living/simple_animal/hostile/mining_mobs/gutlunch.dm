@@ -26,7 +26,7 @@
 	response_harm_simple = "squish"
 	friendly_verb_continuous = "pinches"
 	friendly_verb_simple = "pinch"
-	a_intent = INTENT_HELP
+	combat_mode = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = HARD_CRIT
@@ -110,7 +110,7 @@
 	resize = 0.45
 	update_transform()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	growth++
 	if(growth > 50) //originally used a timer for this, but it became more of a problem than it was worth.

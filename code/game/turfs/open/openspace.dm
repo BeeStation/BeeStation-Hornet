@@ -5,7 +5,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 	desc = "Watch your step!"
 	icon_state = "invisible"
 	baseturfs = /turf/open/openspace
-	CanAtmosPassVertical = ATMOS_PASS_YES
 	overfloor_placed = FALSE
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
@@ -41,7 +40,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
-	var/turf/B = below()
+	var/turf/B = GET_TURF_BELOW(src)
 	if(B)
 		return B.can_lay_cable()
 	return FALSE
@@ -157,7 +156,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 
 //Returns FALSE if gravity is force disabled. True if grav is possible
 /turf/open/openspace/check_gravity()
-	var/turf/T = below()
+	var/turf/T = GET_TURF_BELOW(src)
 	if(!T)
 		return TRUE
 	if(isspaceturf(T))
@@ -166,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 
 /turf/open/openspace/examine(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
-	return below.examine(user)
+	return below?.examine(user)
 
 /turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()

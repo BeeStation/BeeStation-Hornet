@@ -268,7 +268,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		firedoors |= oldArea.firedoors
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
-		FD.CalculateAffectingAreas()
+		FD.calculate_affecting_areas()
 
 	port.movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 	port.initiate_docking(stationary_port)
@@ -379,7 +379,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		firedoors |= oldArea.firedoors
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
-		FD.CalculateAffectingAreas()
+		FD.calculate_affecting_areas()
 
 	//Redraw highlights
 	reset_saved_area(FALSE)

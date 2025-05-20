@@ -58,7 +58,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "fZ" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /obj/structure/girder,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -137,7 +137,7 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "ly" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 6
 	},
 /obj/machinery/portable_atmospherics/scrubber,
@@ -185,7 +185,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "nu" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/oil{
@@ -226,7 +226,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "pn" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -546,7 +546,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "AX" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
@@ -648,10 +648,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "FR" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
-/obj/machinery/pipedispenser,
+/obj/machinery/pipe_dispenser,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "Hk" = (
@@ -711,7 +711,7 @@
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "Kh" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/item/storage/toolbox/electrical,
 /obj/item/storage/belt/utility/full/engi,
 /obj/item/multitool{
@@ -726,7 +726,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "KA" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -790,7 +790,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "MC" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
 /obj/structure/rack,
@@ -838,7 +838,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Pz" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /obj/structure/railing{
 	dir = 1
 	},

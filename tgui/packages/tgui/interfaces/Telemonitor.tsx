@@ -40,9 +40,9 @@ export const Telemonitor = (props) => {
           <Flex direction="column" align="center" fontSize="15px">
             <Flex.Item fontSize="20px">
               Searching for servers
-              <span class="loading-one">.</span>
-              <span class="loading-two">.</span>
-              <span class="loading-three">.</span>
+              <span className="loading-one">.</span>
+              <span className="loading-two">.</span>
+              <span className="loading-three">.</span>
             </Flex.Item>
           </Flex>
         ) : (

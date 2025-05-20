@@ -1,16 +1,6 @@
 
 /// Egg stuff crafting
 
-/datum/crafting_recipe/food/friedegg
-	name = "Fried egg"
-	result = /obj/item/food/friedegg
-	reqs = list(
-		/datum/reagent/consumable/sodiumchloride = 1,
-		/datum/reagent/consumable/blackpepper = 1,
-		/obj/item/food/egg = 1
-	)
-	subcategory = CAT_EGG
-
 /datum/crafting_recipe/food/omelette
 	name = "Omelette du fromage"
 	result = /obj/item/food/omelette

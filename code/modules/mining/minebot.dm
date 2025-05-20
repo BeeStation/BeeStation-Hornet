@@ -15,7 +15,7 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // So our equipment doesn't go poof
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list(FACTION_NEUTRAL)
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	hud_type = /datum/hud/minebot
 	// Atmos
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -62,6 +62,7 @@
 	. = ..()
 
 	AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, vary = TRUE)
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 
 	// Setup equipment
 	stored_pka = new(src)
@@ -141,7 +142,7 @@
 	. += span_notice("Field repairs can be performed with a welder.")
 	if(stored_pka && stored_pka.max_mod_capacity)
 		. += span_notice("\The [stored_pka] has <b>[stored_pka.get_remaining_mod_capacity()]%</b> mod capacity remaining.")
-		for(var/A as anything in stored_pka.get_modkits())
+		for(var/A as anything in stored_pka.modkits)
 			var/obj/item/borg/upgrade/modkit/M = A
 			. += span_notice("There is \a [M] installed, using <b>[M.cost]%</b> capacity.")
 	if(stored_cutter)
@@ -192,10 +193,10 @@
 	check_friendly_fire = FALSE
 
 /// Handles installing new tools/upgrades and interacting with the minebot
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/user, params)
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/living/user, params)
 	if(user == src)
 		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
-	if(user.a_intent != INTENT_HELP)
+	if(user.combat_mode)
 		return ..() // For smacking
 	if(istype(item, /obj/item/minebot_upgrade))
 		if(!do_after(user, 20, src))
@@ -286,7 +287,7 @@
 
 /// Handles humans toggling minebot modes
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/user)
-	if(user.a_intent != INTENT_HELP) // Smacking/grabbing
+	if(user.combat_mode) // Smacking/grabbing
 		return ..()
 	if(client) // No messing with the minebot while there's a player inside it.
 		to_chat(user, span_info("[src]'s equipment is currently slaved to its onboard AI. Best not to touch it."))
@@ -327,7 +328,7 @@
 	if(istype(mover, /obj/projectile/kinetic))
 		var/obj/projectile/kinetic/kinetic_proj = mover
 		if(kinetic_proj.kinetic_gun)
-			for(var/A as anything in kinetic_proj.kinetic_gun.get_modkits())
+			for(var/A as anything in kinetic_proj.kinetic_gun.modkits)
 				var/obj/item/borg/upgrade/modkit/modkit = A
 				if(istype(modkit, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE
@@ -488,14 +489,11 @@
 	for(var/obj/item/minebot_upgrade/upgrade as anything in installed_upgrades)
 		upgrade.unequip()
 
-/// Allows a minebot to use things like plasma cutters.
-/mob/living/simple_animal/hostile/mining_drone/IsAdvancedToolUser()
-	return TRUE // Allow
-
 /**********************Minebot Actions**********************/
 // Used when a player's in control of a minebot.
 
 /datum/action/innate/minedrone
+	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
@@ -506,7 +504,7 @@
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "trayson-"
 
-/datum/action/innate/minedrone/toggle_meson_vision/Activate()
+/datum/action/innate/minedrone/toggle_meson_vision/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	if(user.sight & SEE_TURFS)
 		user.sight &= ~SEE_TURFS
@@ -520,37 +518,37 @@
 		button_icon_state = "trayson-meson"
 	user.sync_lighting_plane_alpha()
 	to_chat(user, span_notice("You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"]."))
-	UpdateButtonIcon()
+	update_buttons()
 
 /// Toggles a minebot's inbuilt light.
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"
 	button_icon_state = "mech_lights_off"
 
-/datum/action/innate/minedrone/toggle_light/Activate()
+/datum/action/innate/minedrone/toggle_light/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.set_light_on(!user.light_on)
 	to_chat(user, span_notice("You toggle your light [user.light_on ? "on" : "off"]."))
 	button_icon_state = "mech_lights_[user.light_on ? "on" : "off"]"
-	UpdateButtonIcon()
+	update_buttons()
 
 /// Toggles the minebot's mode from combat to mining mode, effectively switching between the minebot's plasma cutter and PKA.
 /datum/action/innate/minedrone/toggle_mode
 	name = "Toggle Mode"
 	button_icon_state = "mech_zoom_off"
 
-/datum/action/innate/minedrone/toggle_mode/Activate()
+/datum/action/innate/minedrone/toggle_mode/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.toggle_mode()
 	button_icon_state = "mech_zoom_[user.mode == MODE_COMBAT ? "on" : "off"]"
-	UpdateButtonIcon()
+	update_buttons()
 
 /// Allows a minebot to manually dump its own ore.
 /datum/action/innate/minedrone/dump_ore
 	name = "Dump Ore"
 	button_icon_state = "mech_eject"
 
-/datum/action/innate/minedrone/dump_ore/Activate()
+/datum/action/innate/minedrone/dump_ore/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.drop_ore()
 
@@ -559,12 +557,12 @@
 	name = "Toggle Mining Scanner"
 	button_icon_state = "mech_cycle_equip_off"
 
-/datum/action/innate/minedrone/toggle_scanner/Activate()
+/datum/action/innate/minedrone/toggle_scanner/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.stored_scanner.toggle_on()
 	to_chat(user, span_notice("You toggle your mining scanner [user.stored_scanner.on ? "on" : "off"]."))
 	button_icon_state = "mech_cycle_equip_[user.stored_scanner.on ? "on" : "off"]"
-	UpdateButtonIcon()
+	update_buttons()
 
 /**********************Minebot Upgrades**********************/
 // Similar to PKA upgrades, except for minebots. Each upgrade can only be installed once and is stored in the minebot when installed.
@@ -579,7 +577,8 @@
 	var/mob/living/simple_animal/hostile/mining_drone/linked_bot
 
 /obj/item/minebot_upgrade/Destroy()
-	unequip()
+	if (linked_bot)
+		unequip()
 	return ..()
 
 /// Handles adding upgrades. This checks for any duplicate mods and links the mod to the minebot. Returns FALSE if the upgrade fails, otherwise returns TRUE

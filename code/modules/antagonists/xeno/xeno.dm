@@ -18,6 +18,7 @@
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
 	// TODO: ui_name = "AntagInfoXeno"
+	required_living_playtime = 4
 	var/datum/team/xeno/xeno_team
 
 /datum/antagonist/xeno/create_team(datum/team/xeno/new_team)
@@ -57,3 +58,12 @@
 	..()
 	if(!mind.has_antag_datum(/datum/antagonist/xeno))
 		mind.add_antag_datum(/datum/antagonist/xeno)
+
+/mob/living/carbon/alien/on_wabbajacked(mob/living/new_mob)
+	. = ..()
+	if(!mind)
+		return
+	if(isalien(new_mob))
+		return
+	mind.remove_antag_datum(/datum/antagonist/xeno)
+	mind.special_role = null

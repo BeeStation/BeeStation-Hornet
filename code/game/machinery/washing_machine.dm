@@ -136,17 +136,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
 	DYE_REGISTRY_BERET = list(
-		DYE_WHITE = /obj/item/clothing/head/beret/color,
 		DYE_RAINBOW = /obj/item/clothing/head/beret/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret/mime,
 		DYE_CLOWN = /obj/item/clothing/head/beret/clown,
-		DYE_QM = /obj/item/clothing/head/beret/supply,
+		DYE_QM = /obj/item/clothing/head/beret/cargo,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
-		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
+		DYE_CAPTAIN = /obj/item/clothing/head/caphat/beret,
 		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
-		DYE_RD = /obj/item/clothing/head/beret/sci,
-		DYE_CMO = /obj/item/clothing/head/beret/cmo,
+		DYE_RD = /obj/item/clothing/head/beret/science,
+		DYE_CMO = /obj/item/clothing/head/beret/medical/cmo,
 		DYE_SECURITY = /obj/item/clothing/head/beret/sec
 	),
 	DYE_REGISTRY_FANNYPACK = list(
@@ -218,24 +217,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
 	if(!busy)
-		. += span_notice("<b>Alt-click</b> it to start a wash cycle.")
+		. += "<span class='notice'><b>Right-click</b> with an empty hand to start a wash cycle.</span>"
 	if(bloody_mess)
 		. += span_notice("[src] is dirty!")
-
-/obj/machinery/washing_machine/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || busy)
-		return
-	if(state_open)
-		state_open = FALSE //close the door
-		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-		update_icon()
-
-	busy = TRUE
-	update_icon()
-	bloody_mess = FALSE
-	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 200)
-	soundloop.start()
-	START_PROCESSING(SSfastprocess, src)
 
 /obj/machinery/washing_machine/process(delta_time)
 	if(!busy)
@@ -326,6 +310,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
 	gib()
 
+/mob/living/basic/pet/machine_wash(obj/machinery/washing_machine/washer)
+	washer.bloody_mess = TRUE
+	gib()
+
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(WM.color_source)
@@ -397,7 +385,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(panel_open)
 		add_overlay("wm_panel")
 
-/obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
+/obj/machinery/washing_machine/attackby(obj/item/W, mob/living/user, params)
 	if(panel_open && !busy && default_unfasten_wrench(user, W))
 		return
 
@@ -405,7 +393,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		update_icon()
 		return
 
-	else if(user.a_intent != INTENT_HARM)
+	else if(!user.combat_mode)
 
 		if (!state_open)
 			to_chat(user, span_warning("Open the door first!"))
@@ -454,7 +442,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else
 		return ..()
 
-/obj/machinery/washing_machine/attack_hand(mob/user)
+/obj/machinery/washing_machine/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
@@ -462,14 +450,14 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		to_chat(user, span_warning("[src] is busy."))
 		return
 
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(L.buckled || L.has_buckled_mobs())
 			return
 		if(state_open)
-			if(istype(L, /mob/living/simple_animal/pet))
+			if(istype(L, /mob/living/simple_animal/pet) || istype(L, /mob/living/basic/pet))
 				L.forceMove(src)
-				update_icon()
+				update_appearance()
 		return
 
 	if(!state_open)
@@ -478,7 +466,35 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else
 		state_open = FALSE //close the door
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-		update_icon()
+		update_appearance()
+
+/obj/machinery/washing_machine/attack_hand_secondary(mob/user, modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(busy)
+		to_chat(user, "<span class='warning'>[src] is busy!</span>")
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(state_open)
+		to_chat(user, "<span class='warning'>Close the door first!</span>")
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(bloody_mess)
+		to_chat(user, "<span class='warning'>[src] must be cleaned up first!</span>")
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	//state_open = FALSE //close the door
+	busy = TRUE
+	update_appearance()
+	bloody_mess = FALSE
+	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 20 SECONDS)
+	soundloop.start()
+	START_PROCESSING(SSfastprocess, src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/washing_machine/attack_ai_secondary(mob/user, modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	if (!(flags_1 & NODECONSTRUCT_1))

@@ -61,6 +61,7 @@
 	var/skin_tone = ""
 	var/should_draw_greyscale = TRUE //Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
 	var/species_color = ""
+	/// Temporary colour caused by mutations on the mob, lost when the limb is dropped
 	var/mutation_color = ""
 	var/no_update = 0
 
@@ -173,7 +174,7 @@
 		I.forceMove(T)
 
 //Return TRUE to get whatever mob this is in to update health.
-/obj/item/bodypart/proc/on_life(stam_regen)
+/obj/item/bodypart/proc/on_life(delta_time, times_fired, stam_regen)
 	SHOULD_CALL_PARENT(TRUE)
 	//DO NOT update health here, it'll be done in the carbon's life.
 	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)
@@ -507,12 +508,13 @@
 		else
 			is_husked = FALSE
 
-	if(!dropping_limb && C.dna?.check_mutation(HULK)) //Please remove hulk from the game. I beg you.
-		mutation_color = "00aa00"
+	// Get temporary colour from our attached mob
+	if (!dropping_limb && C && IS_ORGANIC_LIMB(src))
+		mutation_color = GET_TRAIT_VALUE(C, TRAIT_OVERRIDE_SKIN_COLOUR)
 	else
 		mutation_color = null
 
-	if(mutation_color) //I hate mutations
+	if(mutation_color)
 		draw_color = mutation_color
 	else if(should_draw_greyscale)
 		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
@@ -545,7 +547,7 @@
 			species_color = null
 
 		draw_color = mutation_color
-		if(should_draw_greyscale) //Should the limb be colored?
+		if(!draw_color && should_draw_greyscale) //Should the limb be colored?
 			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
 		dmg_overlay_type = S.damage_overlay_type

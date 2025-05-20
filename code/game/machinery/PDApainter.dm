@@ -1,13 +1,14 @@
 /obj/machinery/pdapainter
-	name = "\improper color manipulator"
-	desc = "A machine able to color PDAs and IDs with ease. Insert an ID card or PDA and pick a color scheme."
+	name = "\improper Tablet & ID Painter"
+	desc = "A painting machine that can be used to paint PDAs and IDs with ease. To use, simply insert the item and choose the desired preset."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "coloriser"
 	max_integrity = 200
 	density = TRUE
-	anchored = TRUE
-	var/obj/item/modular_computer/tablet/pda/storedpda = null
-	var/obj/item/card/id/storedid = null
+	/// Current ID card inserted into the machine.
+	var/obj/item/card/id/stored_id_card = null
+	/// Current PDA inserted into the machine.
+	var/obj/item/modular_computer/tablet/pda/stored_pda = null
 	var/pda_icons = list(
 		"Misc: Neutral" = "pda",
 		"Misc: Assistant" = "pda-assistant",
@@ -52,7 +53,6 @@
 		"Security: Deputy" = "pda-deputy",
 		"Misc: Prisoner" = "pda-prisoner"
 	)
-	max_integrity = 200
 
 /obj/machinery/pdapainter/on_emag(mob/user)
 	..()
@@ -69,10 +69,10 @@
 		icon_state = "coloriser-broken"
 		return
 
-	if(storedpda)
+	if(stored_pda)
 		add_overlay("coloriser-pda-in")
 
-	if(storedid)
+	if(stored_id_card)
 		add_overlay("coloriser-id-in")
 
 	if(powered())
@@ -83,44 +83,44 @@
 	return
 
 /obj/machinery/pdapainter/Destroy()
-	QDEL_NULL(storedpda)
-	QDEL_NULL(storedid)
+	QDEL_NULL(stored_pda)
+	QDEL_NULL(stored_id_card)
 	return ..()
 
 /obj/machinery/pdapainter/on_deconstruction()
-	if(storedpda)
-		storedpda.forceMove(loc)
-		storedpda = null
-	if(storedid)
-		storedid.forceMove(loc)
-		storedid = null
+	if(stored_pda)
+		stored_pda.forceMove(loc)
+		stored_pda = null
+	if(stored_id_card)
+		stored_id_card.forceMove(loc)
+		stored_id_card = null
 
 /obj/machinery/pdapainter/contents_explosion(severity, target)
-	if(storedpda)
-		storedpda.ex_act(severity, target)
-	if(storedid)
-		storedid.ex_act(severity, target)
+	if(stored_pda)
+		stored_pda.ex_act(severity, target)
+	if(stored_id_card)
+		stored_id_card.ex_act(severity, target)
 
 /obj/machinery/pdapainter/handle_atom_del(atom/A)
-	if(A == storedpda)
-		storedpda = null
+	if(A == stored_pda)
+		stored_pda = null
 		update_icon()
-	if(A == storedid)
-		storedid = null
+	if(A == stored_id_card)
+		stored_id_card = null
 		update_icon()
 
-/obj/machinery/pdapainter/attackby(obj/item/O, mob/user, params)
+/obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, params)
 	if(default_unfasten_wrench(user, O))
 		power_change()
 		return
 
 	else if(istype(O, /obj/item/modular_computer/tablet/pda))
-		if(storedpda)
+		if(stored_pda)
 			to_chat(user, span_warning("There is already a PDA inside!"))
 			return
 		else if(!user.transferItemToLoc(O, src))
 			return
-		storedpda = O
+		stored_pda = O
 		O.add_fingerprint(user)
 		update_icon()
 
@@ -128,16 +128,16 @@
 		var/obj/item/card/id/new_id = O
 		if(!new_id.electric)
 			return
-		if(storedid)
+		if(stored_id_card)
 			to_chat(user, span_warning("There is already an ID card inside!"))
 			return
 		else if(!user.transferItemToLoc(O, src))
 			return
-		storedid = O
+		stored_id_card = O
 		O.add_fingerprint(user)
 		update_icon()
 
-	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
+	else if(O.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		if(machine_stat & BROKEN)
 			if(!O.tool_start_check(user, amount=0))
 				return
@@ -156,25 +156,35 @@
 	else
 		return ..()
 
+/obj/machinery/pdapainter/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(stored_pda)
+		eject_pda(user)
+	else
+		eject_id_card(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
 	atom_break()
 
-/obj/machinery/pdapainter/attack_hand(mob/user)
+/obj/machinery/pdapainter/attack_hand(mob/user, list/modifiers)
 	if(!..())
 		add_fingerprint(user)
-		if(storedpda || storedid)
-			if(storedpda)
+		if(stored_pda || stored_id_card)
+			if(stored_pda)
 				var/newpdaskin
 				newpdaskin = input(user, "Select a PDA skin!", "PDA Painting") as null|anything in pda_icons
 				if(!newpdaskin)
 					return
 				if(!in_range(src, user))
 					return
-				if(!storedpda)//is the pda still there?
+				if(!stored_pda)//is the pda still there?
 					return
-				storedpda.icon_state = pda_icons[newpdaskin]
-				ejectpda()
-			if(storedid)
+				stored_pda.icon_state = pda_icons[newpdaskin]
+				eject_pda()
+			if(stored_id_card)
 				var/newidskin
 				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in get_card_style_list(obj_flags & EMAGGED)
 				if(!newidskin)
@@ -183,42 +193,60 @@
 					return
 				if(!in_range(src, user))
 					return
-				if(!storedid)//is the ID still there?
+				if(!stored_id_card)//is the ID still there?
 					return
-				storedid.icon_state = get_cardstyle_by_jobname(newidskin)
-				storedid.hud_state = get_hud_by_jobname(newidskin)
+				stored_id_card.icon_state = get_cardstyle_by_jobname(newidskin)
+				stored_id_card.hud_state = get_hud_by_jobname(newidskin)
 
 				// QoL to correct the system behavior
-				GLOB.manifest.modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
+				GLOB.manifest.modify(stored_id_card.registered_name, stored_id_card.assignment, stored_id_card.hud_state) // update crew manifest
 				// There are the same code lines in `card.dm`
-				ejectid()
+				eject_id_card(user)
 		else
 			to_chat(user, span_notice("[src] is empty."))
 
 /obj/machinery/pdapainter/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(storedpda || storedid)
-		ejectid()
-		ejectpda()
+	if(stored_pda || stored_id_card)
+		eject_id_card(user)
+		eject_pda()
 		to_chat(usr, span_notice("You eject the contents."))
 	else
 		to_chat(usr, span_notice("[src] is empty."))
 
 
-/obj/machinery/pdapainter/proc/ejectpda()
-	if(storedpda)
-		storedpda.forceMove(drop_location())
-		storedpda = null
-		update_icon()
-	else
-		to_chat(usr, span_notice("[src] is empty."))
+/**
+ * Eject the stored PDA into the user's hands if possible, otherwise on the floor.
+ *
+ * Arguments:
+ * * user - The user to try and eject the PDA into the hands of.
+ */
+/obj/machinery/pdapainter/proc/eject_pda(mob/living/user)
+	if(stored_pda)
+		if(user && !issilicon(user) && in_range(src, user))
+			user.put_in_hands(stored_pda)
+		else
+			stored_pda.forceMove(drop_location())
 
-/obj/machinery/pdapainter/proc/ejectid()
-	if(storedid)
-		storedid.loc = get_turf(src.loc)
-		storedid = null
+		stored_pda = null
 		update_icon()
+
+/**
+ * Eject the stored ID card into the user's hands if possible, otherwise on the floor.
+ *
+ * Arguments:
+ * * user - The user to try and eject the ID card into the hands of.
+ */
+/obj/machinery/pdapainter/proc/eject_id_card(mob/living/user)
+	if(stored_id_card)
+		if(user && !issilicon(user) && in_range(src, user))
+			user.put_in_hands(stored_id_card)
+		else
+			stored_id_card.forceMove(drop_location())
+
+		stored_id_card = null
+		update_appearance(UPDATE_ICON)
 
 /proc/get_card_style_list(emagged)
 	var/static/valid_jobs = list(
