@@ -438,7 +438,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/proc/try_midround_roll()
 	if(GLOB.dynamic_forced_extended)
 		return
-	if(check_finished())
+	if(check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
 	update_midround_chances()
