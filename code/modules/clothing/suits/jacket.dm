@@ -142,12 +142,6 @@
 	icon_state = "lieutenant_jacket"
 	item_state = "lieutenant_jacket"
 
-/obj/item/clothing/suit/jacket/centcomstaff
-	name = "CentCom staff's dress jacket"
-	desc = "A dress jacket worn by CentCom staff. For when the office gets a bit chilly. Or the commander visits."
-	icon_state = "centcom_staff"
-	item_state = "armor"
-
 /obj/item/clothing/suit/jacket/overseer
 	name = "CentCom overseer's dress jacket"
 	desc = "A sharp, authoritative jacket, tailored for CentCom Overseers. With discreet gold accents to signal rank without a word spoken."

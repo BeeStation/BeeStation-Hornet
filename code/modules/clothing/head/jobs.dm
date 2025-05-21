@@ -643,14 +643,6 @@
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#46b946#f2c42e"
 
-/obj/item/clothing/head/beret/centcom_staff
-	name = "\improper CentCom staff's beret"
-	desc = "A sleek white beret with NT's insignia emblazoned on it. For only the most fashionable of centcom staff."
-	icon_state = "beret_badge"
-	greyscale_config = /datum/greyscale_config/beret_badge
-	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#FFFFFF#4F83FF"
-
 /obj/item/clothing/head/hats/executiveoverseer
 	name = "\improper CentCom Executive Overseer's cap"
 	icon_state = "centcom_executiveoverseer"
