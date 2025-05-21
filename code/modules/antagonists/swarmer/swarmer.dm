@@ -743,6 +743,9 @@
 	required_living_playtime = 4
 	var/datum/team/swarmer/swarm
 
+/datum/antagonist/swarmer/get_dynamic_midround_points()
+	return -0.1
+
 /datum/antagonist/swarmer/on_gain()
 	if(swarm)
 		objectives |= swarm.objectives

@@ -7,6 +7,9 @@
 	// TODO: ui_name = "AntagInfoRevenant"
 	required_living_playtime = 4
 
+/datum/antagonist/revenant/get_dynamic_midround_points()
+	return -0.3
+
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Revenant",

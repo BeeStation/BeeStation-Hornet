@@ -21,6 +21,9 @@
 	required_living_playtime = 4
 	var/datum/team/xeno/xeno_team
 
+/datum/antagonist/xeno/get_dynamic_midround_points()
+	return -0.2
+
 /datum/antagonist/xeno/create_team(datum/team/xeno/new_team)
 	if(!new_team)
 		for(var/datum/antagonist/xeno/X in GLOB.antagonists)

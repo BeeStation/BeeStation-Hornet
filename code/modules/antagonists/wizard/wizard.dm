@@ -19,6 +19,9 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
 	show_to_ghosts = TRUE
 
+/datum/antagonist/wizard/get_dynamic_midround_points()
+	return -1
+
 /datum/antagonist/wizard/on_gain()
 	register()
 	equip_wizard()
