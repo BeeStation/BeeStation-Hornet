@@ -21,6 +21,9 @@
 	/// The minimum number of points that dynamic has to initially generate for this to be drafted
 	var/minimum_points_required = 0
 
+	/// When a ruleset with the NO_OTHER_RULESETS flag is executed we have to undraft people, so we have to store their previously assigned role
+	var/list/previously_assigned_roles = list()
+
 /datum/dynamic_ruleset/roundstart/get_candidates()
 	candidates = dynamic.roundstart_candidates.Copy()
 
@@ -43,6 +46,7 @@
 		GLOB.pre_setup_antags += chosen_mind
 		chosen_candidates += chosen_mind
 
+		previously_assigned_roles[chosen_mind] = chosen_mind.assigned_role
 		chosen_mind.special_role = antag_datum.banning_key
 		chosen_mind.restricted_roles = restricted_roles
 
@@ -194,6 +198,9 @@
 	points_cost = 20
 	minimum_points_required = 24
 	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
+	blocking_rulesets = list(
+		/datum/dynamic_ruleset/roundstart/clockcult,
+	)
 
 	var/datum/team/cult/team
 
@@ -238,6 +245,9 @@
 	points_cost = 35
 	minimum_points_required = 24
 	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
+	blocking_rulesets = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+	)
 
 	var/datum/team/clock_cult/main_cult
 
@@ -292,7 +302,7 @@
 	weight = 3
 	points_cost = 20
 	minimum_points_required = 24
-	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
+	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
@@ -388,7 +398,7 @@
 	weight = 3
 	points_cost = 20
 	minimum_points_required = 35
-	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
+	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
 
 	var/datum/team/revolution/team
 	var/finished = FALSE

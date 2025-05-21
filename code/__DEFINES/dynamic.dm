@@ -17,7 +17,9 @@
 /// Dynamic will call rule_process each tick if this is set
 #define SHOULD_PROCESS_RULESET (1 << 2)
 /// Should the chosen candidate(s) be picked based off of their antagonist reputation
-#define SHOULD_USE_ANTAG_REP (1 << 2)
+#define SHOULD_USE_ANTAG_REP (1 << 3)
+/// If this flag is enabled no other rulesets can be executed
+#define NO_OTHER_RULESETS (1 << 4)
 
 
 #define DYNAMIC_EXECUTE_FAILURE 0

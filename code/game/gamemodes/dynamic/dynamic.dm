@@ -289,7 +289,11 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	// Pick rulesets
 	var/roundstart_points_left = roundstart_points
+	var/no_other_rulesets = FALSE
 	while(roundstart_points_left > 0)
+		if(no_other_rulesets)
+			break
+
 		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight_allow_zero(possible_rulesets)
 
 		// Ran out of rulesets
@@ -317,15 +321,34 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
 
-		roundstart_executed_rulesets[ruleset] += 1 // We do this here and not in post_setup() because there will be rulesets that this one will block
+		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
+			no_other_rulesets = TRUE
+
+		roundstart_executed_rulesets[ruleset] += 1
 		ruleset.choose_candidates()
 
 		log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
 
+	// Deal with the NO_OTHER_RULESETS flag
+	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
+		if(no_other_rulesets && !CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
+			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
+			roundstart_executed_rulesets[ruleset] -= 1
+
+			// Undraft our previously drafted players
+			for(var/datum/mind/chosen_mind in ruleset.chosen_candidates)
+				GLOB.pre_setup_antags -= chosen_mind
+
+				chosen_mind.assigned_role = ruleset.previously_assigned_roles[chosen_mind]
+				chosen_mind.special_role = null
+				chosen_mind.restricted_roles = list()
+
+			continue
+
 /*
 * Checks if a ruleset is allowed to run based off of the other ruleset flags.
 */
-/datum/game_mode/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, applied_rulesets)
+/datum/game_mode/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, list/datum/dynamic_ruleset/applied_rulesets)
 	// Check for blocked rulesets
 	if(length(ruleset.blocking_rulesets))
 		for(var/datum/dynamic_ruleset/blocked_ruleset in ruleset.blocking_rulesets)
@@ -339,9 +362,14 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		if(CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET) && CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			return TRUE
 
+		// Check for 'NO_OTHER_RULESETS'
+		if(CHECK_BITFIELD(other_ruleset.flags, NO_OTHER_RULESETS))
+			return TRUE
+
 		// Check for 'CANNOT_REPEAT'
 		if(other_ruleset.type == ruleset.type && CHECK_BITFIELD(other_ruleset.flags, CANNOT_REPEAT))
 			return TRUE
+
 	return FALSE
 
 /*
