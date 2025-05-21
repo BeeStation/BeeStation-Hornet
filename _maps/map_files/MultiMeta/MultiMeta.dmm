@@ -25607,7 +25607,7 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/main)
 "hJb" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/multimeta)
 "hJe" = (
@@ -34630,7 +34630,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "kyX" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/iron/checker,
 /area/maintenance/multimeta)
 "kza" = (
@@ -39574,7 +39574,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/multimeta)
 "lYI" = (
@@ -48514,7 +48514,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "oAS" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/iron/checker/other,
 /area/maintenance/multimeta)
 "oAV" = (
@@ -70352,7 +70352,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "vgB" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/iron/dark,
 /area/maintenance/multimeta)
 "vgL" = (
@@ -71458,7 +71458,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "vvj" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/multimeta)
@@ -73724,7 +73724,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "waH" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/multimeta)
 "waW" = (
@@ -77838,7 +77838,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "xnW" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/iron/dark/textured,
 /area/maintenance/multimeta)
 "xob" = (
@@ -79811,7 +79811,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/multimeta)
 "xSn" = (
