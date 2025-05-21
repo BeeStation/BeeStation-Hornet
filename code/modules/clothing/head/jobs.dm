@@ -635,22 +635,26 @@
 
 //CentCom
 
-/obj/item/clothing/head/beret/centcom_formal
-	name = "\improper CentCom Formal Beret"
-	desc = "Sometimes, a compromise between fashion and defense needs to be made. Thanks to Central Command's most recent nano-fabric durability enhancements, this time, it's not the case."
+/obj/item/clothing/head/beret/centcom_overseer
+	name = "\improper CentCom overseer's beret"
+	desc = "A sturdy beret worn by CentCom overseers. The golden NT insignia is sure to draw the eye when chatting around the office's water cooler."
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#46b946#f2c42e"
-	armor_type = /datum/armor/beret_centcom_formal
-	strip_delay = 10 SECONDS
 
-/datum/armor/beret_centcom_formal
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 90
+/obj/item/clothing/head/beret/centcom_staff
+	name = "\improper CentCom staff's beret"
+	desc = "A sleek white beret with NT's insignia emblazoned on it. For only the most fashionable of centcom staff."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#FFFFFF#4F83FF"
+
+/obj/item/clothing/head/hats/executiveoverseer
+	name = "\improper CentCom Executive Overseer's cap"
+	icon_state = "centcom_executiveoverseer"
+	desc = "An imposing cap worn by those less charismatic twins of the famed commanders, the executive overseers. Inside the lining of the cap, lies two faint initials."
+	item_state = "that"
+	flags_inv = 0
+	strip_delay = (8 SECONDS)
