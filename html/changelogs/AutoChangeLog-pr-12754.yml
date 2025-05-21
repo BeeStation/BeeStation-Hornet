@@ -1,6 +1,0 @@
-author: h42
-delete-after: true
-changes:
-  - rscdel: Removed science's fancy beret, since they're all fancy now.
-  - tweak: Recolored a handful of and added badges to the department berets
-  - tweak: Reverted the descriptions of the medical berets to fit the recolor
