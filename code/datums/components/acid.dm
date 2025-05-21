@@ -208,7 +208,17 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /datum/component/acid/proc/on_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += span_danger("[source.p_theyre(TRUE)] covered in a corrosive liquid!")
+	var/remaining_acid
+	if(acid_volume <= 0)
+		remaining_acid = "Theres no acid left! How are you seeing this message"
+	else if(acid_volume <= 10)
+		remaining_acid = "A small amount lingers"
+	else if(acid_volume <= 50)
+		remaining_acid = "A decent amount of it remains"
+	else if(acid_volume <= 100)
+		remaining_acid = "An extremely large amount coats the surface"
+
+	examine_list += span_danger("[source.p_theyre(TRUE)] covered in a corrosive liquid! [remaining_acid].")
 
 /// Makes it possible to clean acid off of objects.
 /datum/component/acid/proc/on_clean(atom/source, clean_types)
