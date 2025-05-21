@@ -523,7 +523,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_medium_chance *= adjustment_factor
 		midround_heavy_chance *= adjustment_factor
 
-	log_dynamic("MIDROUND: Updated chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
+	log_dynamic("MIDROUND: Updated chances: Light: [round(midround_light_chance, 1)]%, Medium: [round(midround_medium_chance, 1)]%, Heavy: [round(midround_heavy_chance, 1)]%")
 
 /*
 * Choose the midround ruleset to save towards
@@ -568,10 +568,13 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. cost: [midround_chosen_ruleset.points_cost]")
 	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] cost: [midround_chosen_ruleset.points_cost]")
 
+/*
+* Stop antagonist events from running
+*/
 /datum/game_mode/dynamic/proc/on_pre_random_event(datum/source, datum/round_event_control/round_event_control)
 	SIGNAL_HANDLER
 
-	if (!round_event_control.dynamic_should_hijack)
+	if(!round_event_control.dynamic_should_hijack)
 		return
 
 	log_dynamic("EVENT: Cancelling [round_event_control]")
@@ -585,7 +588,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * A maximum of 3 people can be chosen for a latejoin ruleset.
 * There is a 10% chance for someone to be picked
 */
-
 /datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/character)
 	// Extended
 	if(GLOB.dynamic_forced_extended)
