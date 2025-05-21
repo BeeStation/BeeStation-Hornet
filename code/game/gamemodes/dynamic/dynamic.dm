@@ -179,18 +179,21 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			current_players[CURRENT_OBSERVERS] |= observer_player
 
 	// Load the 'dynamic.json' configurations
-	if(CONFIG_GET(flag/dynamic_config_enabled))
-		var/json_file = file("config/dynamic.json")
-		if(fexists(json_file))
-			dynamic_configuration = json_decode(file2text(json_file))
-			if(dynamic_configuration["Dynamic"])
-				for(var/variable in dynamic_configuration["Dynamic"])
-					if(!vars[variable])
-						stack_trace("Invalid dynamic configuration variable [variable] in game mode variable changes.")
-						continue
-					vars[variable] = dynamic_configuration["Dynamic"][variable]
+	try
+		if(CONFIG_GET(flag/dynamic_config_enabled))
+			var/json_file = file("config/dynamic.json")
+			if(fexists(json_file))
+				dynamic_configuration = json_decode(file2text(json_file))
+				if(dynamic_configuration["Dynamic"])
+					for(var/variable in dynamic_configuration["Dynamic"])
+						if(!vars[variable])
+							stack_trace("Invalid dynamic configuration variable [variable] in game mode variable changes.")
+							continue
+						vars[variable] = dynamic_configuration["Dynamic"][variable]
+	catch(var/exception/error)
+		stack_trace("Error while loading dynamic config: [error]")
 
-	// Apply 'dynamic.json' configurations into each roundstart ruleset
+	// Apply 'dynamic.json' configurations to each roundstart ruleset
 	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
 
 	// Set our roundstart points
