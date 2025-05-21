@@ -166,8 +166,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	// We really should consider making turfs use atom_integrity, but for now this is just for acids.
 
 	//Strong walls will never get melted
-	//if(target_turf.get_explosive_block() >= 2)
-	//	return
+	if(target_turf.explosion_block >= 2)
+		return
 	//Reinforced floors never get melted
 	if(istype(target_turf, /turf/open/floor/engine))
 		return
