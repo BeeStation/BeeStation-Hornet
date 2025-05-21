@@ -134,7 +134,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/midround_points_per_dead = -0.2
 	/// Every time we update midround points we add this value to the points and to itself
 	/// For example: Minute 1, +0.05. Minute 2, +0.1. Minute 3, +0.15...
-	var/midround_linear_point_increase = 0.05
+	var/midround_linear_point_increase = 0.03
 
 	/*
 	 * Latejoin

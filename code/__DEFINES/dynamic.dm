@@ -21,7 +21,6 @@
 /// If this flag is enabled no other rulesets can be executed
 #define NO_OTHER_RULESETS (1 << 4)
 
-
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
 #define DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS 2
