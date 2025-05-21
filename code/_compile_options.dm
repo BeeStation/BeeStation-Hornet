@@ -82,7 +82,7 @@
 
 /// If this is uncommented, Autowiki will generate edits and shut down the server.
 /// Prefer the autowiki build target instead.
-#define AUTOWIKI
+// #define AUTOWIKI
 
 #ifndef PRELOAD_RSC	//set to:
 #define PRELOAD_RSC	0 // 0 to allow using external resources or on-demand behaviour;
