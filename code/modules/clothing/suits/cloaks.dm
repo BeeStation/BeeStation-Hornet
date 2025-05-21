@@ -20,7 +20,7 @@
 
 /obj/item/clothing/neck/cloak/executiveoverseer
 	name = "CentCom Executive Overseer's cloak"
-	desc = "A flowing cloak worn by CentCom's executive overseers. These cloaks are worn by the absolute elite of Nanotrasen's bureaucracy. Encountering someone with such a cloak is both an extreme priviledge, and a bad omen."
+	desc = "A flowing cloak worn by CentCom's executive overseers. These cloaks are worn by the absolute elite of Nanotrasen's bureaucracy. Encountering someone with such a cloak is both an extreme privilege, and a bad omen."
 	icon_state = "centcom_executiveoverseer"
 
 /obj/item/clothing/neck/cloak/hos
