@@ -42,7 +42,7 @@
 	desc = "Replication Protocol: the nanites build a factory matrix within the host, gradually increasing replication speed over time, \
 			granting a maximum of 0.5 additional nanite production after roughly 17 minutes. \
 			The factory decays if the protocol is not active, or if the nanites are disrupted by shocks or EMPs."
-	use_rate = 0.25
+	use_rate = 0.3
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_REPLICATION
 	var/factory_efficiency = 0
@@ -67,7 +67,7 @@
 
 /datum/nanite_program/protocol/factory/active_effect()
 	factory_efficiency = min(factory_efficiency + 1, max_efficiency)
-	nanites.adjust_nanites(amount = round(0.00075 * factory_efficiency, 0.01))
+	nanites.adjust_nanites(amount = round(0.0008 * factory_efficiency, 0.01))
 
 
 /datum/nanite_program/protocol/pyramid
