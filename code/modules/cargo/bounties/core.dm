@@ -8,40 +8,40 @@
 
 /datum/bounty/item/core/bleed
 	name = "blood anomaly core"
-	reward = 25000
+	reward = CARGO_CRATE_VALUE * 50
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/blood)
 
 /datum/bounty/item/core/bluespace
 	name = "bluespace anomaly core"
-	reward = 45000
+	reward = CARGO_CRATE_VALUE * 50
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/bluespace)
 
 /datum/bounty/item/core/delimber
 	name = "bioscrambler anomaly core"
-	reward = 30000
+	reward = CARGO_CRATE_VALUE * 40
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/bioscrambler)
 
 /datum/bounty/item/core/flux
 	name = "flux anomaly core"
-	reward = 20000
+	reward = CARGO_CRATE_VALUE * 40
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/flux)
 
 /datum/bounty/item/core/pyro
 	name = "pyroclastic anomaly core"
-	reward = 25000
+	reward = CARGO_CRATE_VALUE * 50
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/pyro)
 
 /datum/bounty/item/core/vortex
 	name = "vortex anomaly core"
-	reward = 50000
+	reward = CARGO_CRATE_VALUE * 40
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/vortex)
 
 /datum/bounty/item/core/gravity
 	name = "gravitational anomaly core"
-	reward = 20000
+	reward = CARGO_CRATE_VALUE * 40
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/grav)
 
 /datum/bounty/item/core/hallucination
 	name = "hallucination anomaly core"
-	reward = 15000
+	reward = CARGO_CRATE_VALUE * 30
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/hallucination)

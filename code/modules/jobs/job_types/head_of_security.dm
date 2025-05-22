@@ -30,6 +30,7 @@
 		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
+	bounty_types = CIV_JOB_SEC
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(

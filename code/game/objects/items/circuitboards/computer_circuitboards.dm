@@ -305,7 +305,7 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/swf
 
-//Not inhereting the hackability from shuttle subtypes
+//Not inheriting the hackability from shuttle subtypes
 /obj/item/circuitboard/computer/syndicate_shuttle
 	name = "syndicate shuttle console (Computer Board)"
 	icon_state = "generic"
@@ -470,6 +470,9 @@
 
 //Service
 
+/obj/item/circuitboard/computer/bountypad
+	name = "Bounty Pad"
+	build_path = /obj/machinery/computer/piratepad_control/civilian
 
 //Supply
 
@@ -477,11 +480,6 @@
 	name = "Nanotrasen objective console (Computer Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/objective
-
-/obj/item/circuitboard/computer/bounty
-	name = "Nanotrasen bounty console (Computer Board)"
-	icon_state = "supply"
-	build_path = /obj/machinery/computer/bounty
 
 /obj/item/circuitboard/computer/cargo
 	name = "supply console (Computer Board)"

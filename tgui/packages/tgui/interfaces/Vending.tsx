@@ -45,6 +45,7 @@ type UserData = {
   cash: number;
   job: string;
   department_bitflag: string;
+
 };
 
 type StockItem = {
@@ -196,7 +197,7 @@ const VendingRow = (props) => {
   const { custom, product, productStock } = props;
   const { access, department_bitflag, jobDiscount, onstation, user } = data;
   const free = !onstation || product.price === 0 || (!product.premium && department_bitflag === user?.department_bitflag);
-  const discount = !product.premium && department_bitflag === user?.department_bitflag;
+  const discount = department_bitflag === user?.department_bitflag;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
   const disabled =
