@@ -29,20 +29,20 @@
 			adjustStaminaLoss(damage_amount, forced = forced)
 	return 1
 
-/mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
+/mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE, forced = FALSE) //like apply damage except it always uses the damage procs
 	switch(damagetype)
 		if(BRUTE)
-			return adjustBruteLoss(damage)
+			return adjustBruteLoss(damage, forced = forced)
 		if(BURN)
-			return adjustFireLoss(damage)
+			return adjustFireLoss(damage, forced = forced)
 		if(TOX)
-			return adjustToxLoss(damage)
+			return adjustToxLoss(damage, forced = forced)
 		if(OXY)
-			return adjustOxyLoss(damage)
+			return adjustOxyLoss(damage, forced = forced)
 		if(CLONE)
-			return adjustCloneLoss(damage)
+			return adjustCloneLoss(damage, forced = forced)
 		if(STAMINA)
-			return adjustStaminaLoss(damage)
+			return adjustStaminaLoss(damage, forced = forced)
 
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)
