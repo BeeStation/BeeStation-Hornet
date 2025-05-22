@@ -603,10 +603,6 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"ahk" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/security/brig)
 "ahn" = (
 /turf/closed/wall,
 /area/maintenance/fore/secondary)
@@ -34904,10 +34900,7 @@
 /obj/item/reagent_containers/peppercloud_deployer,
 /obj/item/storage/fancy/cigarettes,
 /obj/item/assembly/flash/handheld,
-/obj/structure/reagent_dispensers/peppertank/directional/west{
-	pixel_x = 0;
-	pixel_y = -32
-	},
+/obj/structure/reagent_dispensers/peppertank/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "kvq" = (
@@ -93377,7 +93370,7 @@ afA
 aiX
 aiX
 aiX
-ahk
+aiX
 udk
 udk
 gXs
@@ -94406,9 +94399,9 @@ wTX
 miw
 lui
 aiX
-aaa
-aaa
-aaa
+gXs
+gXs
+gXs
 tnE
 tnE
 tnE

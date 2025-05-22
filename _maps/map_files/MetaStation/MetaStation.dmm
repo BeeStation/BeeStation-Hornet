@@ -41498,12 +41498,6 @@
 /obj/structure/closet{
 	name = "Evidence Closet 4"
 	},
-/obj/machinery/airalarm/directional/west{
-	pixel_x = 0;
-	air_conditioning = 0;
-	dir = 2;
-	pixel_y = -28
-	},
 /obj/machinery/light,
 /turf/open/floor/iron/smooth_edge,
 /area/security/brig)
