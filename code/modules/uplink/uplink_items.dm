@@ -2180,7 +2180,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity! \
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
-	cost = 24
+	cost = 25
 	restricted_roles = list(JOB_NAME_CLOWN)
 
 /datum/uplink_item/role_restricted/taeclowndo_shoes
@@ -2272,7 +2272,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	However, if left alone for long enough, He will fall back to slumber. \
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
-	cost = 26
+	cost = 25
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 	murderbone_type = TRUE
 	surplus = 0
@@ -2281,7 +2281,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Cult Construct Kit"
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
-	cost = 26
+	cost = 25
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/spanish_flu
