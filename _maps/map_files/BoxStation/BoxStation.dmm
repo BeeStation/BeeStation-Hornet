@@ -53468,7 +53468,7 @@
 	name = "Evidence Closet"
 	},
 /obj/machinery/camera/directional/north,
-/obj/structure/sign/poster/contraband{
+/obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark,
