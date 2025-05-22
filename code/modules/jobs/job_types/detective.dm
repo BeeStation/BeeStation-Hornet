@@ -21,7 +21,7 @@
 
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
-	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_CREW)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE

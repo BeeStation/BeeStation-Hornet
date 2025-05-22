@@ -10,19 +10,20 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
+	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
+	reagent_flags = TRANSPARENT
+	custom_price = PAYCHECK_CREW * 0.5
+	fill_icon_state = "syringe"
+	fill_icon_thresholds = list(1, 5, 10, 15)
 	/// needed for delayed drawing of blood
 	var/busy = FALSE
 	/// does it pierce through thick clothes when shot with syringe gun
 	var/proj_piercing = FALSE
 	/// standard flag (this var exists so we can inherit projectile penetration if parent is set to it)
 	var/proj_var = INJECT_TRY_SHOW_ERROR_MESSAGE
-	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
-	reagent_flags = TRANSPARENT
 	var/list/datum/disease/syringe_diseases = list()
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
-	fill_icon_state = "syringe"
-	fill_icon_thresholds = list(1, 5, 10, 15)
 
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return

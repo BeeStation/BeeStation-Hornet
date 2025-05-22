@@ -79,6 +79,7 @@
 	spawn_count = 6
 	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
+	custom_premium_price = PAYCHECK_COMMAND * 1.75
 
 /obj/item/storage/fancy/donut_box/Initialize(mapload)
 	. = ..()
@@ -169,6 +170,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	spawn_type = /obj/item/clothing/mask/cigarette/space_cigarette
 	spawn_count = 6
+	custom_price = PAYCHECK_CREW
 	contents_tag = "cigarette"
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
@@ -331,6 +333,7 @@
 	contents_tag = "rolling paper"
 	spawn_count = 10
 	spawn_type = /obj/item/rollingpaper
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/storage/fancy/rollingpapers/Initialize(mapload)
 	. = ..()

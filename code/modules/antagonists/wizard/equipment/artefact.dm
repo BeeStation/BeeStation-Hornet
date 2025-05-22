@@ -451,6 +451,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "One toot on this whistle will send you to a far away land!"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "whistle"
+	custom_price = PAYCHECK_COMMAND * 1.5
 	var/on_cooldown = 0 //0: usable, 1: in use, 2: on cooldown
 	var/mob/living/carbon/last_user
 

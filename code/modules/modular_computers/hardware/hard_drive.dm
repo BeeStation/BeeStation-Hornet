@@ -175,7 +175,7 @@
 	max_capacity = 64
 	icon_state = "ssd_mini"
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = 15
+	custom_price = PAYCHECK_CREW * 2
 
 // PDA Version of the SSD, contains all the programs that PDAs have by default, however with the variables of the SSD.
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()

@@ -27,6 +27,7 @@
 	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
 	armor_type = /datum/armor/restraints_handcuffs
+	custom_price = PAYCHECK_COMMAND * 0.35
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 
@@ -387,6 +388,7 @@
 	hitsound = 'sound/weapons/taserhit.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60
+	custom_price = PAYCHECK_COMMAND * 0.35
 
 /obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
 	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))

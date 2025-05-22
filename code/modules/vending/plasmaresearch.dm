@@ -11,6 +11,6 @@
 					/obj/item/assembly/prox_sensor = 6,
 					/obj/item/assembly/igniter = 6)
 	contraband = list(/obj/item/assembly/health = 3)
-	default_price = 200
-	extra_price = 250
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_CREW
 	dept_req_for_free = ACCOUNT_SCI_BITFLAG

@@ -25,7 +25,7 @@
 	worn_icon_state = "bluetie"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_NECK
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 /obj/item/clothing/neck/tie/examine(mob/user)
 	. = ..()
@@ -138,7 +138,7 @@
 	icon_state = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
-	custom_price = 10
+	custom_price = PAYCHECK_CREW
 
 /obj/item/clothing/neck/scarf/black
 	name = "black scarf"
@@ -202,17 +202,17 @@
 /obj/item/clothing/neck/stripedredscarf
 	name = "striped red scarf"
 	icon_state = "stripedredscarf"
-	custom_price = 10
+	custom_price = PAYCHECK_CREW * 0.2
 
 /obj/item/clothing/neck/stripedgreenscarf
 	name = "striped green scarf"
 	icon_state = "stripedgreenscarf"
-	custom_price = 10
+	custom_price = PAYCHECK_CREW * 0.2
 
 /obj/item/clothing/neck/stripedbluescarf
 	name = "striped blue scarf"
 	icon_state = "stripedbluescarf"
-	custom_price = 10
+	custom_price = PAYCHECK_CREW * 0.2
 
 /obj/item/clothing/neck/petcollar  // adding an OOC restriction to an IC action, like wearing a collar, is gay.
 	name = "pet collar"

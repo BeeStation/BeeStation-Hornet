@@ -15,20 +15,47 @@
 
 	outfit = /datum/outfit/job/security_officer
 
-	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS,
-					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/security_officer/get_access()
-					// NOTE: ACCESS_MAINT_TUNNELS will be given by check_config_for_sec_maint() config
-	extra_access = list(ACCESS_MORGUE, ACCESS_FORENSICS_LOCKERS, ACCESS_MAINT_TUNNELS)
+	base_access = list(
+		ACCESS_SECURITY,
+		ACCESS_SEC_DOORS,
+		ACCESS_SEC_RECORDS,
+		ACCESS_BRIG,
+		ACCESS_COURT,
+		ACCESS_WEAPONS,
+		ACCESS_MECH_SECURITY,
+		ACCESS_MINERAL_STOREROOM
+	) // See /datum/job/security_officer/get_access()
+	// NOTE: ACCESS_MAINT_TUNNELS will be given by check_config_for_sec_maint() config
+	extra_access = list(
+		ACCESS_MORGUE,
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MAINT_TUNNELS
+	)
 
 	/// These accesses will be given in after_spawn()
-	var/list/dept_access_supply = list(ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_AUX_BASE)
-	var/list/dept_access_medical = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING)
-	var/list/dept_access_science = list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_AUX_BASE)
+	var/list/dept_access_supply = list(
+		ACCESS_CARGO,
+		ACCESS_MAILSORTING,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_AUX_BASE
+	)
+	var/list/dept_access_medical = list(
+		ACCESS_MEDICAL,
+		ACCESS_MORGUE,
+		ACCESS_SURGERY,
+		ACCESS_CLONING
+	)
+	var/list/dept_access_science = list(
+		ACCESS_RESEARCH,
+		ACCESS_TOX,
+		ACCESS_AUX_BASE
+	)
 	var/list/dept_access_engineering = list(ACCESS_ENGINE, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
 
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
-	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_CREW)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER

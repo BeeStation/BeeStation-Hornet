@@ -17,7 +17,7 @@
 
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
-	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)
+	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_CREW)
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
 	bounty_types = CIV_JOB_RANDOM
 	rpg_title = "Merchantman"

@@ -387,6 +387,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=3000)
+	custom_price = PAYCHECK_CREW * 0.6
 
 /obj/item/storage/bag/tray/Initialize(mapload)
 	. = ..()

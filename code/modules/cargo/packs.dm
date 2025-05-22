@@ -1920,8 +1920,10 @@
 	desc = "Contains one NanoMed Plus refill and one wall-mounted NanoMed refill."
 	cost = CARGO_CRATE_VALUE * 2
 	max_supply = 6
-	contains = list(/obj/item/vending_refill/medical,
-					/obj/item/vending_refill/wallmed)
+	contains = list(
+		/obj/item/vending_refill/medical,
+		/obj/item/vending_refill/wallmed
+	)
 	crate_name = "medical vending crate"
 
 /datum/supply_pack/medical/virus

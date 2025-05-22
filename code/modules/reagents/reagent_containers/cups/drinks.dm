@@ -114,7 +114,7 @@
 /obj/item/reagent_containers/cup/glass/ice
 	name = "ice cup"
 	desc = "Careful, cold ice, do not chew."
-	custom_price = PAYCHECK_EASY * 0.6
+	custom_price = PAYCHECK_LOWER * 0.6
 	icon_state = "icecup"
 	list_reagents = list(/datum/reagent/consumable/ice = 30)
 	spillable = TRUE
@@ -147,8 +147,7 @@
 	list_reagents = list(/datum/reagent/consumable/hot_cocoa = 15, /datum/reagent/consumable/sugar = 5)
 	drink_type = SUGAR
 	resistance_flags = FREEZE_PROOF
-	custom_price = PAYCHECK_MEDIUM * 1.2
-
+	custom_price = PAYCHECK_CREW * 1.2
 
 /obj/item/reagent_containers/cup/glass/dry_ramen
 	name = "cup ramen"
@@ -157,7 +156,7 @@
 	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3)
 	drink_type = GRAIN
 	isGlass = FALSE
-	custom_price = PAYCHECK_MEDIUM * 0.9
+	custom_price = PAYCHECK_CREW * 0.9
 
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
@@ -177,7 +176,7 @@
 	var/cap_lost = FALSE
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
-	custom_price = PAYCHECK_EASY * 0.8
+	custom_price = PAYCHECK_LOWER * 0.8
 
 /obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	. = ..()

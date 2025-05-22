@@ -11,7 +11,7 @@
 	icon = 'icons/obj/drinks.dmi'
 	reagent_flags = NONE
 	spillable = FALSE
-	custom_price = PAYCHECK_MEDIUM * 0.9
+	custom_price = PAYCHECK_CREW * 0.9
 	obj_flags = CAN_BE_HIT
 	possible_transfer_amounts = list(5, 10, 15, 25, 30)
 	volume = 30

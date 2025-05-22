@@ -13,8 +13,8 @@
 						/obj/item/tank/internals/emergency_oxygen = 6,
 						/obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
-	default_price = 0
-	extra_price = 0
+	default_price = PAYCHECK_LOWER
+	extra_price = PAYCHECK_LOWER * 0.6
 	dept_req_for_free = NO_FREEBIES
 
 /obj/item/vending_refill/sustenance

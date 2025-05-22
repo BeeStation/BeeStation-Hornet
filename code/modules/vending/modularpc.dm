@@ -24,8 +24,8 @@
 					/obj/item/paicard = 2,
 					/obj/item/computer_hardware/radio_card = 1)
 	refill_canister = /obj/item/vending_refill/modularpc
-	default_price = 30
-	extra_price = 250
+	default_price = PAYCHECK_CREW
+	extra_price = PAYCHECK_COMMAND
 	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 /obj/item/vending_refill/modularpc

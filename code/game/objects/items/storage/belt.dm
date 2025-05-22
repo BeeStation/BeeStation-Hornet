@@ -6,6 +6,7 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	worn_icon_state = "utility"
+	custom_premium_price = PAYCHECK_CREW * 2
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -390,7 +391,7 @@
 	item_state = "securitywebbing"
 	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
-	custom_premium_price = 800
+	custom_premium_price = PAYCHECK_COMMAND * 3
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
@@ -784,7 +785,7 @@
 	item_state = null
 	worn_icon_state = "fannypack_leather"
 	dying_key = DYE_REGISTRY_FANNYPACK
-	custom_price = 15
+	custom_price = PAYCHECK_CREW * 2
 
 /obj/item/storage/belt/fannypack/Initialize(mapload)
 	. = ..()
@@ -801,7 +802,7 @@
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
 	name = "Worn belt"
 	desc = "A weathered belt that is used for storing various gadgets"
-	
+
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
 	icon_state = "fannypack_black"

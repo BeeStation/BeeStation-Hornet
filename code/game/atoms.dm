@@ -58,9 +58,9 @@
 
 	var/list/filter_data //For handling persistent filters
 
-	///Economy cost of item
+	///Price of an item in a vending machine, overriding the base vending machine price. Define in terms of paycheck defines as opposed to raw numbers.
 	var/custom_price
-	///Economy cost of item in premium vendor
+	///Price of an item in a vending machine, overriding the premium vending machine price. Define in terms of paycheck defines as opposed to raw numbers.
 	var/custom_premium_price
 
 	//List of datums orbiting this atom
