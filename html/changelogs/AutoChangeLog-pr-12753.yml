@@ -1,5 +1,0 @@
-author: BeeLover66
-delete-after: true
-changes:
-  - bugfix: processing special meat (human, corgi, xeno, bear, chicken) into meatballs
-      now outputs the correct meatball type
