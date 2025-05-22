@@ -106,30 +106,13 @@
 	nanites.adjust_nanites(amount = boost)
 
 
-/datum/nanite_program/protocol/hive
-	name = "Hive Protocol"
-	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume to 750."
-	use_rate = 0
-	rogue_types = list(/datum/nanite_program/necrotic)
-	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 250
-
-/datum/nanite_program/protocol/hive/enable_passive_effect()
-	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites + extra_volume)
-
-/datum/nanite_program/protocol/hive/disable_passive_effect()
-	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
-
-
 /datum/nanite_program/protocol/zip
 	name = "Zip Protocol"
-	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, increasing the maximum volume to 1000. However, the process slows down their replication rate slightly."
+	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, increasing the maximum volume to 750. However, the process slows down their replication rate slightly."
 	use_rate = 0.2
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 500
+	var/extra_volume = 250
 
 /datum/nanite_program/protocol/zip/enable_passive_effect()
 	. = ..()
