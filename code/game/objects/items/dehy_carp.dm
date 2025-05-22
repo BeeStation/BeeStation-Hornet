@@ -13,7 +13,7 @@
 /obj/item/toy/plush/carpplushie/dehy_carp/attack_self(mob/user)
 	add_fingerprint(user)	//Anyone can add their fingerprints to it with this
 	if(!owned)
-		to_chat(user, "<span class='notice'>You pet [src]. You swear it looks up at you.</span>")
+		to_chat(user, span_notice("You pet [src]. You swear it looks up at you."))
 		owner = user
 		owned = 1
 	else
@@ -24,7 +24,7 @@
 
 /obj/item/toy/plush/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"
-	visible_message("<span class='notice'>[src] swells up!</span>")
+	visible_message(span_notice("[src] swells up!"))
 
 	//Animation
 	icon = 'icons/mob/carp.dmi'
@@ -43,7 +43,7 @@
 				factions -= F
 		M.faction = factions
 	if (!owner || owner.faction != M.faction)
-		visible_message("<span class='warning'>You have a bad feeling about this.</span>") //welcome to the hostile carp enjoy your die
+		visible_message(span_warning("You have a bad feeling about this.")) //welcome to the hostile carp enjoy your die
 	else
-		visible_message("<span class='notice'>The newly grown [M.name] looks up at you with friendly eyes.</span>")
+		visible_message(span_notice("The newly grown [M.name] looks up at you with friendly eyes."))
 	qdel(src)

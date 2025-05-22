@@ -27,7 +27,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "iU" = (
@@ -41,11 +41,6 @@
 "lT" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
-/area/template_noop)
-"nt" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
 /area/template_noop)
 "oV" = (
 /obj/machinery/light/small{
@@ -343,7 +338,7 @@ ze
 Zp
 SJ
 qm
-nt
+Eg
 Pi
 Ch
 Ch

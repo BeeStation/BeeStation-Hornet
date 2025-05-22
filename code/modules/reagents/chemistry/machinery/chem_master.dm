@@ -140,34 +140,42 @@
 	if(istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
 		. = TRUE // no afterattack
 		if(panel_open)
-			to_chat(user, "<span class='warning'>You can't use the [src.name] while its panel is opened!</span>")
+			to_chat(user, span_warning("You can't use the [src.name] while its panel is opened!"))
 			return
 		var/obj/item/reagent_containers/B = I
 		. = TRUE // no afterattack
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
-		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
+		to_chat(user, span_notice("You add [B] to [src]."))
 		ui_update()
 		update_appearance()
 	else if(!condi && istype(I, /obj/item/storage/pill_bottle))
 		if(bottle)
-			to_chat(user, "<span class='warning'>A pill bottle is already loaded into [src]!</span>")
+			to_chat(user, span_warning("A pill bottle is already loaded into [src]!"))
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
 		bottle = I
-		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot.</span>")
+		to_chat(user, span_notice("You add [I] into the dispenser slot."))
 		ui_update()
 	else
 		return ..()
 
-/obj/machinery/chem_master/AltClick(mob/living/user)
+/obj/machinery/chem_master/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(!can_interact(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(!can_interact(user) || !user.canUseTopic(src, !issilicon(user), FALSE, NO_TK))
 		return
 	replace_beaker(user)
-	ui_update()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/chem_master/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
+
+/obj/machinery/chem_master/attack_ai_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /**
   * Handles process of moving input reagents containers in/from machine
@@ -235,9 +243,8 @@
 	data["autoCondiStyle"] = CONDIMASTER_STYLE_AUTO
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
-		var/datum/component/storage/STRB = bottle.GetComponent(/datum/component/storage)
 		data["pillBottleCurrentAmount"] = bottle.contents.len
-		data["pillBottleMaxAmount"] = STRB.max_items
+		data["pillBottleMaxAmount"] = bottle.atom_storage.max_slots
 
 	var/beaker_contents[0]
 	if(beaker)
@@ -273,7 +280,7 @@
 			if(!name)
 				return
 			if(CHAT_FILTER_CHECK(name))
-				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				to_chat(usr, span_warning("ERROR: Packaging name contains prohibited word(s)."))
 				return
 			saved_name = name
 			. = TRUE
@@ -383,7 +390,7 @@
 			// Get item name
 			var/name = params["name"]
 			if(CHAT_FILTER_CHECK(name))
-				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				to_chat(usr, span_warning("ERROR: Packaging name contains prohibited word(s)."))
 				return
 			if(name) // if we were passed a name from UI, html_encode it before adding to the world.
 				name = trim(html_encode(name), MAX_NAME_LEN)
@@ -413,10 +420,8 @@
 					var/target_loc = drop_location()
 					var/drop_threshold = INFINITY
 					if(bottle)
-						var/datum/component/storage/STRB = bottle.GetComponent(
-							/datum/component/storage)
-						if(STRB)
-							drop_threshold = STRB.max_items - bottle.contents.len
+						if(bottle.atom_storage)
+							drop_threshold = bottle.atom_storage.max_slots - bottle.contents.len
 							target_loc = bottle
 					for(var/i in 1 to amount)
 						if(i-1 < drop_threshold)

@@ -2,9 +2,17 @@
 	name = "crown"
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
-	armor = list(MELEE = 15,  BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 40)
+	armor_type = /datum/armor/costume_crown
 	resistance_flags = FIRE_PROOF
 	dynamic_hair_suffix = ""
+
+
+/datum/armor/costume_crown
+	melee = 15
+	energy = 15
+	fire = 100
+	acid = 50
+	stamina = 40
 
 /obj/item/clothing/head/costume/crown/fancy
 	name = "magnificent crown"

@@ -11,7 +11,7 @@
 
 	// Check before the progress bar so they don't wait for nothing
 	if(locate(/obj/structure/slime_crystal) in range(6,get_turf(user)))
-		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
+		to_chat(user,span_notice("You can't build crystals that close to each other!"))
 		return
 
 	var/user_turf = get_turf(user)
@@ -21,7 +21,7 @@
 
 	// check after in case someone placed a crystal in the meantime (im watching you aramix)
 	if(locate(/obj/structure/slime_crystal) in range(6,get_turf(user)))
-		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
+		to_chat(user,span_notice("You can't build crystals that close to each other!"))
 		return
 
 	new crystal_type(user_turf)

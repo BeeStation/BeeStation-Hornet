@@ -30,9 +30,9 @@
 /obj/effect/decal/cleanable/nuclear_waste/attackby(obj/item/tool, mob/user)
 	if(tool.tool_behaviour == TOOL_SHOVEL)
 		radiation_pulse(src, 500, 5) //MORE RADS //The careful clearing of sludge should not give off as much radiation as casually running through it.
-		to_chat(user, "<span class='notice'>You start to clear [src]...</span>")
+		to_chat(user, span_notice("You start to clear [src]..."))
 		if(tool.use_tool(src, user, 50, volume=100))
-			to_chat(user, "<span class='notice'>You clear [src]. </span>")
+			to_chat(user, span_notice("You clear [src]. "))
 			qdel(src)
 			return
 	. = ..()

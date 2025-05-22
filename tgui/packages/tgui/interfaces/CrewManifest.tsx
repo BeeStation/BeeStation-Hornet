@@ -41,10 +41,10 @@ type CrewManifestData = {
   user_theme?: string;
 };
 
-export const CrewManifest = (_props, context) => {
+export const CrewManifest = (_props) => {
   const {
     data: { command, order, manifest, user_theme },
-  } = useBackend<CrewManifestData>(context);
+  } = useBackend<CrewManifestData>();
 
   return (
     <Window title="Crew Manifest" width={450} height={500} theme={user_theme}>
@@ -63,13 +63,13 @@ export const CrewManifest = (_props, context) => {
                   return (
                     <Table.Row key={crewIndex} className="candystripe" height="16px">
                       <Table.Cell className={'CrewManifest__Cell'} bold={is_command} pl={0.5}>
-                        <Flex direction="row" style={{ 'align-items': 'center' }}>
+                        <Flex direction="row" style={{ alignItems: 'center' }}>
                           <Flex.Item>
                             <Box
                               inline
                               mr={0.5}
                               ml={-0.5}
-                              style={{ 'vertical-align': 'middle' }}
+                              style={{ verticalAlign: 'middle' }}
                               className={`job-icon16x16 job-icon-hud${crewMember.hud}`}
                             />
                           </Flex.Item>

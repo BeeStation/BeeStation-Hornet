@@ -21,7 +21,7 @@
 	if(LAZYLEN(candidates))
 		selected = pick(candidates)
 	if(!selected)
-		to_chat(invoker, "<span class='brass'><i>There are no ghosts willing to be a Clockwork Marauder!</i></span>")
+		to_chat(invoker, span_brass("<i>There are no ghosts willing to be a Clockwork Marauder!</i>"))
 		invoke_fail()
 		if(invokation_chant_timer)
 			deltimer(invokation_chant_timer)
@@ -39,6 +39,6 @@
 	if(!..())
 		return FALSE
 	if(LAZYLEN(GLOB.clockwork_marauders) >= 4)
-		to_chat(user, "<span class='brass'>The mechanical-soul infrastructure of Reebe is too weak to support more clockwork battle constructs!</span>")
+		to_chat(user, span_brass("The mechanical-soul infrastructure of Reebe is too weak to support more clockwork battle constructs!"))
 		return FALSE
 	return TRUE

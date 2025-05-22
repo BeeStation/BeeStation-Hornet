@@ -4,6 +4,7 @@
 	icon_state = "pincomp_arrow_far"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/doorway_marker
@@ -12,6 +13,7 @@
 	icon_state = "pincomp_arrow_medium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
 
 //Basic loot, utility and maybe some weapons
@@ -77,11 +79,11 @@
 		/obj/item/storage/toolbox/mechanical = 2,
 		/obj/item/paicard = 5,
 		/obj/item/nanite_remote = 3,
-		/obj/item/nanite_injector = 1,
 		/obj/item/nanite_scanner = 3,
 		/obj/item/disk/tech_disk = 5,
 		/obj/item/assembly/prox_sensor = 6,
 		/obj/item/bodypart/r_arm/robot = 4,
+		/obj/item/gun/energy/wormhole_projector = 1,
 		/obj/item/assembly/flash/handheld/weak = 2,
 		/obj/item/stock_parts/cell/high = 1,
 		/obj/item/stock_parts/manipulator/nano = 1,
@@ -104,7 +106,6 @@
 		/obj/item/flamethrower = 2,
 		/obj/item/tank/internals/plasma/full = 2,
 		/obj/item/gps/science = 3,
-		/obj/item/hand_tele = 1,
 		/obj/item/inducer/sci = 3,
 		/obj/item/megaphone = 1,
 		/obj/item/modular_computer/tablet/pda/roboticist = 3,
@@ -186,7 +187,7 @@
 	loot = list(
 		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
-		/obj/item/xenoartifact = 6,
+		/obj/item/xenoartifact/pre_labeled = 6,
 		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
 	)

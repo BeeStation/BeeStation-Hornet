@@ -70,7 +70,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 
 	if(isliving(loc))
 		var/mob/living/L = loc
-		to_chat(L, "<span class='warning'>[held_mob] wriggles free!</span>")
+		to_chat(L, span_warning("[held_mob] wriggles free!"))
 		L.dropItemToGround(src)
 
 	if(attached_wig)
@@ -79,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 	held_mob.forceMove(get_turf(held_mob))
 	held_mob.reset_perspective()
 	held_mob.setDir(SOUTH)
-	held_mob.visible_message("<span class='warning'>[held_mob] uncurls!</span>")
+	held_mob.visible_message(span_warning("[held_mob] uncurls!"))
 	held_mob = null
 
 	if(del_on_release)

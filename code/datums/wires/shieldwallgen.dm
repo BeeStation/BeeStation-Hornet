@@ -12,6 +12,8 @@
 	..()
 
 /datum/wires/shieldwallgen/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/power/shieldwallgen/generator = holder
 	if(generator.panel_open)
 		return TRUE

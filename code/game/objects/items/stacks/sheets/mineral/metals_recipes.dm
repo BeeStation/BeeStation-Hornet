@@ -54,13 +54,20 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new/datum/stack_recipe("wardrobe closet",						/obj/structure/closet/wardrobe/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("bomb closet",							/obj/structure/closet/bombcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		)),
+	new /datum/stack_recipe_list("wall closets",	 list( \
+		new/datum/stack_recipe("wall closet",								/obj/item/wallframe/wall_closet, 2, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("emergency wall closet",						/obj/item/wallframe/wall_closet/emergency, 2, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("fire-safety wall closet",							/obj/item/wallframe/wall_closet/fire, 2, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("tool wall closet",							/obj/item/wallframe/wall_closet/tool, 2, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("wall freezer",								/obj/item/wallframe/wall_closet/freezer, 2, time = 1.5 SECONDS), \
+		)),
 	null, \
 	new/datum/stack_recipe("canister",									/obj/machinery/portable_atmospherics/canister, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	null, \
 	new/datum/stack_recipe("floor tile",								/obj/item/stack/tile/iron, 1, 4, 20), \
 	new/datum/stack_recipe("iron rod",									/obj/item/stack/rods, 1, 2, 60), \
 	null, \
-	new/datum/stack_recipe("wall girders",								/obj/structure/girder, 2, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
+	new/datum/stack_recipe("wall girders (anchored)",								/obj/structure/girder, 2, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 	null, \
 	new/datum/stack_recipe("computer frame",							/obj/structure/frame/computer, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("modular console",							/obj/machinery/modular_computer/console/buildable/, 10, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
@@ -87,7 +94,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	)), \
 	null, \
 	new/datum/stack_recipe("firelock frame",							/obj/structure/firelock_frame, 3, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
-	new/datum/stack_recipe("directional firelock frame",				/obj/structure/firelock_frame/border, 3, one_per_turf = FALSE, on_floor = TRUE, time = 5 SECONDS), \
 	new/datum/stack_recipe("turret frame",								/obj/machinery/porta_turret_construct, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("meatspike frame",							/obj/structure/kitchenspike_frame, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("reflector frame",							/obj/structure/reflector, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
@@ -99,7 +105,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("apc frame",									/obj/item/wallframe/apc, 2), \
 	new/datum/stack_recipe("air alarm frame",							/obj/item/wallframe/airalarm, 2), \
-	new/datum/stack_recipe("airlock controller frame",					/obj/item/wallframe/advanced_airlock_controller, 2), \
 	new/datum/stack_recipe("fire alarm frame",							/obj/item/wallframe/firealarm, 2), \
 	new/datum/stack_recipe("extinguisher cabinet frame",				/obj/item/wallframe/extinguisher_cabinet, 2), \
 	new/datum/stack_recipe("light switch frame",						/obj/item/wallframe/light_switch, 1), \

@@ -289,7 +289,6 @@
 "ft" = (
 /obj/structure/grille,
 /obj/structure/window/shuttle/tinted,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ji" = (
@@ -404,11 +403,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"RB" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Uk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -434,9 +428,9 @@ AO
 ab
 JM
 ab
-RB
-RB
-RB
+as
+as
+as
 ab
 oh
 ab
@@ -668,19 +662,19 @@ aa
 aa
 aa
 ab
-RB
+as
 ab
-RB
-ab
-ab
-ab
-RB
-RB
-RB
+as
 ab
 ab
 ab
-RB
+as
+as
+as
+ab
+ab
+ab
+as
 ab
 ab
 ab

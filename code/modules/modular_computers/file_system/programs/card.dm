@@ -145,11 +145,11 @@
 					contents += "  [get_access_desc(A)]"
 
 			if(!printer.print_text(contents,"access report"))
-				to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
+				to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
 				return
 			else
 				playsound(computer, 'sound/machines/terminal_on.ogg', 50, FALSE)
-				computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
+				computer.visible_message(span_notice("\The [computer] prints out a paper."))
 			return TRUE
 		if("PRG_eject")
 			if(!card_slot2)
@@ -186,7 +186,7 @@
 			new_name = reject_bad_name(new_name, allow_numbers = TRUE)
 
 			if(!new_name)
-				to_chat(usr, "<span class='notice'>Software error: The ID card rejected the new name as it contains prohibited characters.</span>")
+				to_chat(usr, span_notice("Software error: The ID card rejected the new name as it contains prohibited characters."))
 				return
 			log_id("[key_name(usr)] changed [target_id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			target_id_card.registered_name = new_name
@@ -206,7 +206,7 @@
 				// However, we are going to assignments containing bad text overall.
 				custom_name = reject_bad_text(custom_name)
 				if(!custom_name)
-					to_chat(usr, "<span class='notice'>Software error: The ID card rejected the new custom assignment as it contains prohibited characters.</span>")
+					to_chat(usr, span_notice("Software error: The ID card rejected the new custom assignment as it contains prohibited characters."))
 				else
 					log_id("[key_name(usr)] assigned a custom assignment '[custom_name]' to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 					target_id_card.assignment = custom_name
@@ -218,7 +218,7 @@
 				if(!is_centcom) // station level
 					jobdatum = SSjob.GetJob(target)
 					if(!jobdatum)
-						to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
+						to_chat(usr, span_warning("No log exists for this job."))
 						stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
 						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 						return

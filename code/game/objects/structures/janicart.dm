@@ -26,13 +26,13 @@
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>[src] is out of water!</span>")
+		to_chat(user, span_warning("[src] is out of water!"))
 		return 0
 	else
 		var/obj/item/mop/M = mop
 		reagents.trans_to(mop, M.mopcap, transfered_by = user)
 		balloon_alert(user, "Wet the [mop]")
-		to_chat(user, "<span class='notice'>You wet [mop] in [src].</span>")
+		to_chat(user, span_notice("You wet [mop] in [src]."))
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return 1
 
@@ -41,7 +41,7 @@
 		return
 	updateUsrDialog()
 	balloon_alert(user, "Put [I] into [src]")
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	to_chat(user, span_notice("You put [I] into [src]."))
 	return
 
 /obj/structure/janitorialcart/AltClick(mob/user)
@@ -63,21 +63,21 @@
 			m.janicart_insert(user, src)
 		else
 			balloon_alert(user, "Already has \a [mymop]!")
-			to_chat(user, "<span class='notice'>There is already \a [mymop] in [src]!</span>")
+			to_chat(user, span_notice("There is already \a [mymop] in [src]!"))
 	else if(istype(I, /obj/item/pushbroom))
 		if(!mybroom)
 			var/obj/item/pushbroom/b=I
 			b.janicart_insert(user,src)
 		else
 			balloon_alert(user, "Already has \a [mybroom]!")
-			to_chat(user, "<span class='notice'>There is already \a [mybroom] in [src]!</span>")
+			to_chat(user, span_notice("There is already \a [mybroom] in [src]!"))
 	else if(istype(I, /obj/item/storage/bag/trash))
 		if(!mybag)
 			var/obj/item/storage/bag/trash/t=I
 			t.janicart_insert(user, src)
 		else
 			balloon_alert(user, "Already has \a [mybag]!")
-			to_chat(user, "<span class='notice'>There is already \a [mybag] in [src]!</span>")
+			to_chat(user, span_notice("There is already \a [mybag] in [src]!"))
 	else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 		if(!myspray)
 			put_in_cart(I, user)
@@ -85,14 +85,14 @@
 			update_icon()
 		else
 			balloon_alert(user, "Already has \a [myspray]!")
-			to_chat(user, "<span class='notice'>There is already \a [myspray] in [src]!</span>")
+			to_chat(user, span_notice("There is already \a [myspray] in [src]!"))
 	else if(istype(I, /obj/item/lightreplacer))
 		if(!myreplacer)
 			var/obj/item/lightreplacer/l=I
 			l.janicart_insert(user,src)
 		else
 			balloon_alert(user, "Already has \a [myreplacer]!")
-			to_chat(user, "<span class='notice'>There is already \a [myreplacer] in [src]!</span>")
+			to_chat(user, span_notice("There is already \a [myreplacer] in [src]!"))
 	else if(istype(I, /obj/item/clothing/suit/caution))
 		if(signs < max_signs)
 			put_in_cart(I, user)
@@ -100,16 +100,16 @@
 			update_icon()
 		else
 			balloon_alert(user, "The sign rack is full!")
-			to_chat(user, "<span class='notice'>The [src] can't hold any more signs!</span>")
+			to_chat(user, span_notice("The [src] can't hold any more signs!"))
 	else if(mybag)
 		mybag.attackby(I, user)
 	else if(I.tool_behaviour == TOOL_CROWBAR)
 		user.balloon_alert_to_viewers("Starts dumping [src]...", "Started dumping [src]...")
-		user.visible_message("[user] begins to dump the contents of [src].", "<span class='notice'>You begin to dump the contents of [src]...</span>")
+		user.visible_message("[user] begins to dump the contents of [src].", span_notice("You begin to dump the contents of [src]..."))
 		if(I.use_tool(src, user, 30))
 			balloon_alert(user, "Dumped [src]")
-			to_chat(usr, "<span class='notice'>You dump the contents of [src]'s bucket onto the floor.</span>")
-			reagents.reaction(src.loc)
+			to_chat(usr, span_notice("You dump the contents of [src]'s bucket onto the floor."))
+			reagents.expose(src.loc)
 			src.reagents.clear_reagents()
 	else
 		return ..()
@@ -117,7 +117,7 @@
 /obj/structure/janitorialcart/proc/check_menu(mob/living/user)
 	return istype(user) && !user.incapacitated()
 
-/obj/structure/janitorialcart/attack_hand(mob/user)
+/obj/structure/janitorialcart/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -151,35 +151,35 @@
 			if(!mybag)
 				return
 			balloon_alert(user, "Detached [mybag]")
-			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
+			to_chat(user, span_notice("You take [mybag] from [src]."))
 			user.put_in_hands(mybag)
 			mybag = null
 		if("Mop")
 			if(!mymop)
 				return
 			balloon_alert(user, "Removed [mymop]")
-			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+			to_chat(user, span_notice("You take [mymop] from [src]."))
 			user.put_in_hands(mymop)
 			mymop = null
 		if("Broom")
 			if(!mybroom)
 				return
 			balloon_alert(user, "Removed [mybroom]")
-			to_chat(user, "<span class='notice'>You take [mybroom] from [src].</span>")
+			to_chat(user, span_notice("You take [mybroom] from [src]."))
 			user.put_in_hands(mybroom)
 			mybroom = null
 		if("Spray bottle")
 			if(!myspray)
 				return
 			balloon_alert(user, "Removed [myspray]")
-			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
+			to_chat(user, span_notice("You take [myspray] from [src]."))
 			user.put_in_hands(myspray)
 			myspray = null
 		if("Light replacer")
 			if(!myreplacer)
 				return
 			balloon_alert(user, "Removed [myreplacer]")
-			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
+			to_chat(user, span_notice("You take [myreplacer] from [src]."))
 			user.put_in_hands(myreplacer)
 			myreplacer = null
 		if("Sign")
@@ -194,7 +194,7 @@
 				balloon_alert(user, "Removed [Sign]")
 				user.put_in_hands(Sign)
 				signs = 0
-			to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
+			to_chat(user, span_notice("You take \a [Sign] from [src]."))
 		else
 			return
 	update_icon()
@@ -219,7 +219,7 @@
 /obj/structure/janitorialcart/examine(mob/user)
 	. = ..()
 	if(length(contents))
-		. += ("<span class='notice'><b>\nIt is carrying:</b></span>")
+		. += (span_notice("<b>\nIt is carrying:</b>"))
 		for(var/thing in sort_names(contents.Copy()))
 			if(istype(thing, /obj/item/clothing/suit/caution))
 				continue //we'll do this after.
@@ -230,7 +230,7 @@
 				. += "\t[icon2html(object, user)] [signs] [object.name]\s"
 			else
 				. += "\t[icon2html(object, user)] \a [object]"
-		. += "<span class='notice'>\n<b>Left-click</b> to [contents.len > 1 ? "search [src]" : "remove [contents[1]]"].</span>"
+		. += span_notice("\n<b>Left-click</b> to [contents.len > 1 ? "search [src]" : "remove [contents[1]]"].")
 		if(mymop)
-			. += "<span class='notice'><b>Alt-click</b> to quickly remove [mymop].</span>"
+			. += span_notice("<b>Alt-click</b> to quickly remove [mymop].")
 

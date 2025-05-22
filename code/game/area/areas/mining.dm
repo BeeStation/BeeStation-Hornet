@@ -2,7 +2,7 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	lighting_colour_tube = "#ffe8d2"
 	lighting_colour_bulb = "#ffdcb7"
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
@@ -68,11 +68,13 @@
 
 /area/mine/laborcamp
 	name = "Labor Camp"
+	camera_networks = list(CAMERA_NETWORK_LABOR)
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
 	ambience_index = AMBIENCE_DANGER
+	camera_networks = list(CAMERA_NETWORK_LABOR)
 
 //This is a placeholder for the lavaland sci area. Whoever is here after me, I have made you some additional areas to work with.
 //You are free to rename these and change their icons. My job is done here.
@@ -88,7 +90,7 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LAVALAND
 	ambient_buzz = 'sound/ambience/magma.ogg'

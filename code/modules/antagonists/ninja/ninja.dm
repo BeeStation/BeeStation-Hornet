@@ -5,6 +5,7 @@
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
+	required_living_playtime = 4
 	var/helping_station = FALSE
 	var/give_equipment = TRUE
 

@@ -4,10 +4,11 @@
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
-/datum/action/innate/slime/IsAvailable()
+/datum/action/innate/slime/is_available()
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
@@ -40,7 +41,7 @@
 	button_icon_state = "slimeeat"
 
 
-/datum/action/innate/slime/feed/Activate()
+/datum/action/innate/slime/feed/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Feed()
 
@@ -60,46 +61,43 @@
 		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
 				return FALSE
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
-			"This subject does not have life energy", "This subject is empty", \
-			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			to_chat(src, span_warning(pick("This subject is incompatible", "This subject does not have life energy", "This subject is empty", "I am not satisified", "I can not feed from this subject", "I do not feel nourished", "This subject is not food")))
 			return FALSE
 
 	if(isslime(M))
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>I can't latch onto another slime...</i></span>")
+		to_chat(src, span_warning("<i>I can't latch onto another slime...</i>"))
 		return FALSE
 
 	if(isipc(M))
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>This subject does not have life energy...</i></span>")
+		to_chat(src, span_warning("<i>This subject does not have life energy...</i>"))
 		return FALSE
 
 	if(docile)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='notice'><i>I'm not hungry anymore...</i></span>")
+		to_chat(src, span_notice("<i>I'm not hungry anymore...</i>"))
 		return FALSE
 
 	if(stat)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>I must be conscious to do this...</i></span>")
+		to_chat(src, span_warning("<i>I must be conscious to do this...</i>"))
 		return FALSE
 
 	if(M.stat == DEAD)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>This subject does not have a strong enough life energy...</i></span>")
+		to_chat(src, span_warning("<i>This subject does not have a strong enough life energy...</i>"))
 		return FALSE
 
 	if(locate(/mob/living/simple_animal/slime) in M.buckled_mobs)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>Another slime is already feeding on this subject...</i></span>")
+		to_chat(src, span_warning("<i>Another slime is already feeding on this subject...</i>"))
 		return FALSE
 	if(transformeffects & SLIME_EFFECT_SILVER)
 		return FALSE
@@ -109,21 +107,21 @@
 	M.unbuckle_all_mobs(force=1) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
 	if(M.buckle_mob(src, force=TRUE))
 		layer = M.layer+0.01 //appear above the target mob
-		M.visible_message("<span class='danger'>[name] has latched onto [M]!</span>", \
-						"<span class='userdanger'>[name] has latched onto [M]!</span>")
+		M.visible_message(span_danger("[name] has latched onto [M]!"), \
+						span_userdanger("[name] has latched onto [M]!"))
+		if(colour == "green" && istype(get_turf(M), /turf/open/floor/grass))
+			special_mutation = TRUE
+			special_mutation_type = "dark green"
+			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
-		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
+		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
 
 /mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living=1)
 	if(buckled)
 		if(!living)
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
-			"This subject does not have life energy", "This subject is empty", \
-			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			to_chat(src, span_warning(pick("This subject is incompatible", "This subject does not have life energy", "This subject is empty", "I am not satisified", "I can not feed from this subject", "I do not feel nourished", "This subject is not food")))
 		if(!silent)
-			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
-							"<span class='notice'><i>I stopped feeding.</i></span>")
+			visible_message(span_warning("[src] has let go of [buckled]!"), span_notice("<i>I stopped feeding.</i>"))
 		layer = initial(layer)
 		buckled.unbuckle_mob(src,force=TRUE)
 
@@ -155,7 +153,7 @@
 	button_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
-/datum/action/innate/slime/evolve/Activate()
+/datum/action/innate/slime/evolve/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Evolve()
 	if(S.is_adult)
@@ -205,7 +203,7 @@
 				babies += M
 
 			var/mob/living/simple_animal/slime/new_slime = pick(babies)
-			new_slime.a_intent = INTENT_HARM
+			new_slime.set_combat_mode(TRUE)
 			if(src.mind)
 				src.mind.transfer_to(new_slime)
 			else
@@ -221,7 +219,7 @@
 	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 
-/datum/action/innate/slime/reproduce/Activate()
+/datum/action/innate/slime/reproduce/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
 
@@ -230,9 +228,11 @@
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
 			child_colour = "rainbow"
+		else if(special_mutation == TRUE)
+			child_colour = special_mutation_type
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
-				slime_mutation = mutation_table(pick(slime_colours - list("rainbow")))
+				slime_mutation = mutation_table(pick(slime_colours - list("rainbow", "dark green", "cobalt", "dark grey", "crimson")))
 			child_colour = slime_mutation[rand(1,4)]
 		else
 			child_colour = colour
@@ -240,11 +240,12 @@
 	M.transformeffects = transformeffects
 	M.set_nutrition(new_nutrition)
 	M.powerlevel = new_powerlevel
+	M.special_mutation = FALSE
 	if(transformeffects & SLIME_EFFECT_METAL)
 		M.maxHealth = round(M.maxHealth * 1.3)
 		M.health = M.maxHealth
 	if(transformeffects & SLIME_EFFECT_PINK)
-		M.grant_language(/datum/language/common, TRUE, TRUE)
+		M.grant_language(/datum/language/common)
 		var/datum/language_holder/LH = M.get_language_holder()
 		LH.selected_language = /datum/language/common
 	if(transformeffects & SLIME_EFFECT_BLUESPACE)
@@ -269,7 +270,7 @@
 	set name = "teleport"
 	set desc = "teleport to random location"
 	if(powerlevel <= 0)
-		to_chat(src, "<span class='warning'>No enough power.</span>")
+		to_chat(src, span_warning("No enough power."))
 	else
 		random_tp()
 

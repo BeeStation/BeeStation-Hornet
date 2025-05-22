@@ -18,6 +18,13 @@
 	. = ..()
 	SpinAnimation()
 
+/obj/projectile/bullet/honker/on_hit(mob/target, blocked, pierce_hit)
+	. = ..()
+	var/mob/M = target
+	if(istype(M))
+		if(M.can_block_magic())
+			return BULLET_ACT_BLOCK
+
 // Mime
 
 /obj/projectile/bullet/mime

@@ -21,6 +21,8 @@
 	var/fingerprint
 
 /datum/wires/explosive/chem_grenade/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/item/grenade/chem_grenade/G = holder
 	if(G.stage == GRENADE_WIRED)
 		return TRUE
@@ -56,16 +58,12 @@
 
 /datum/wires/explosive/c4
 	holder_type = /obj/item/grenade/plastic/c4
+	duds_number = 1
 	randomize = TRUE	//Same behaviour since no wire actually disarms it
-
-/datum/wires/explosive/c4/interactable(mob/user)
-	var/obj/item/grenade/plastic/c4/P = holder
-	if(P.open_panel)
-		return TRUE
 
 /datum/wires/explosive/c4/explode()
 	var/obj/item/grenade/plastic/c4/P = holder
-	P.prime()
+	P.prime() //omg The Thick of It
 
 
 /datum/wires/explosive/pizza
@@ -80,6 +78,8 @@
 	..()
 
 /datum/wires/explosive/pizza/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/item/pizzabox/P = holder
 	if(P.open && P.bomb)
 		return TRUE

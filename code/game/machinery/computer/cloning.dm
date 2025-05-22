@@ -158,7 +158,7 @@
 			if (!user.transferItemToLoc(used_item,src))
 				return
 			diskette = used_item
-			to_chat(user, "<span class='notice'>You insert [used_item].</span>")
+			to_chat(user, span_notice("You insert [used_item]."))
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
 		return ..()
@@ -255,7 +255,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			scantemp = "Failed loading: Data already exists!"
 			return FALSE
 	var/datum/record/cloning/cloning_record = new()
-	diskette.data.copy_to(cloning_record)
+	cloning_record.copy_to(diskette.data)
 
 	records += cloning_record
 	scantemp = "Loaded into internal storage successfully."

@@ -6,7 +6,8 @@
 	/// The icon to show in the preferences menu.
 	/// This references a tgui icon, so it can be FontAwesome or a tgfont (with a tg- prefix).
 	var/icon
-	var/value = 0
+	///Positive if the quirk is beneficial to gameplay, negative if the quirk is restrictive/harmful, 0 if the quirk has no substantial impact on gameplay
+	var/quirk_value = 0
 	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
 	var/list/restricted_species //specifies valid species, use /datum/species/
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
@@ -135,13 +136,13 @@
 	for(var/datum/quirk/candidate as anything in mind.quirks)
 		switch(category)
 			if(CAT_QUIRK_MAJOR_DISABILITY)
-				if(candidate.value >= -4)
+				if(candidate.quirk_value >= -4)
 					continue
 			if(CAT_QUIRK_MINOR_DISABILITY)
-				if(!ISINRANGE(candidate.value, -4, -1))
+				if(!ISINRANGE(candidate.quirk_value, -4, -1))
 					continue
 			if(CAT_QUIRK_NOTES)
-				if(candidate.value < 0)
+				if(candidate.quirk_value < 0)
 					continue
 		dat += medical ? candidate.medical_record_text : candidate.name
 
@@ -175,8 +176,8 @@ Use this as a guideline
 	///You'll need to use "HAS_TRAIT_FROM(src, X, sources)" checks around the code to check this; for instance, the Ageusia quirk is checked in taste code
 	///If you need help finding where to put it, the declaration finder on GitHub is the best way to locate it
 
-	gain_text = "<span class='danger'>Things far away from you start looking blurry.</span>"
-	lose_text = "<span class='notice'>You start seeing faraway things normally again.</span>"
+	gain_text = span_danger("Things far away from you start looking blurry.")
+	lose_text = span_notice("You start seeing faraway things normally again.")
 	medical_record_text = "Subject has permanent nearsightedness."
 	///These three are self-explanatory
 

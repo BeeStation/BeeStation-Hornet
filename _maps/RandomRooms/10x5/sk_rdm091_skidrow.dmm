@@ -8,7 +8,7 @@
 /obj/effect/decal/cleanable/shreds,
 /obj/item/toy/cards/singlecard,
 /obj/effect/spawner/lootdrop/maintenance/seven,
-/obj/item/reagent_containers/cup/waterbottle/relic,
+/obj/item/reagent_containers/cup/glass/waterbottle/relic,
 /obj/item/cigbutt,
 /turf/open/floor/plating,
 /area/template_noop)

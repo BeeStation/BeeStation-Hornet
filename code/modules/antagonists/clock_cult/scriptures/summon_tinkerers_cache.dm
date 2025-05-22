@@ -23,7 +23,7 @@
 	clockwork_desc = "A bronze store filled with parts and components. Can be used to forge powerful Ratvarian items."
 	default_icon_state = "tinkerers_cache"
 	anchored = TRUE
-	break_message = "<span class='warning'>The tinkerer's cache melts into a pile of brass.</span>"
+	break_message = span_warning("The tinkerer's cache melts into a pile of brass.")
 	var/cooldowntime = 0
 
 /obj/structure/destructible/clockwork/gear_base/tinkerers_cache/attack_hand(mob/living/user)
@@ -31,13 +31,13 @@
 	if(.)
 		return
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='warning'>You try to put your hand into [src], but almost burn yourself!</span>")
+		to_chat(user, span_warning("You try to put your hand into [src], but almost burn yourself!"))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")
+		to_chat(user, span_brass("You need to anchor [src] to the floor first."))
 		return
 	if(cooldowntime > world.time)
-		to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
+		to_chat(user, span_brass("[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)]."))
 		return
 	var/choice = alert(user,"You begin putting components together in the forge.",,"Robes of Divinity","Shrouding Cloak","Wraith Spectacles")
 	var/list/pickedtype = list()
@@ -52,5 +52,5 @@
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
-			to_chat(user, "<span class='brass'>You craft a [choice] to near perfection, [src] burning down.</span>")
+			to_chat(user, span_brass("You craft a [choice] to near perfection, [src] burning down."))
 

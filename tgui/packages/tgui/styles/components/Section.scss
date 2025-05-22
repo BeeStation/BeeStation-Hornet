@@ -77,19 +77,6 @@ $separator-color: colors.$primary !default;
   bottom: 0;
 }
 
-.Section--fill.Section--iefix {
-  display: table !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  & > .Section__rest {
-    display: table-row !important;
-    height: 100% !important;
-  }
-}
-
 .Section--scrollable {
   overflow-x: hidden;
   overflow-y: hidden;

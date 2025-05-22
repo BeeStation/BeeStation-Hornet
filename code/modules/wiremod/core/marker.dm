@@ -13,7 +13,7 @@
 
 /obj/item/multitool/circuit/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has [marked_atom? "a" : "no"] marked entity registered.</span>"
+	. += span_notice("It has [marked_atom? "a" : "no"] marked entity registered.")
 
 /obj/item/multitool/circuit/attack_self(mob/user, modifiers)
 	. = ..()
@@ -27,7 +27,9 @@
 	return TRUE
 
 /obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, params)
-	if(marked_atom || !user.Adjacent(target))
+	var/is_right_clicking = LAZYACCESS(params2list(params), RIGHT_CLICK)
+
+	if(marked_atom || !user.Adjacent(target) || is_right_clicking)
 		return ..()
 
 	say("Marked [target].")

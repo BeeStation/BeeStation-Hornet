@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/rust,
 /area/shuttle/escape)
@@ -543,7 +539,6 @@
 /area/shuttle/escape)
 "sP" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "wq" = (
@@ -706,9 +701,9 @@ ab
 ai
 an
 ad
-ac
+sP
 SF
-ac
+sP
 ad
 bN
 bd
@@ -837,7 +832,7 @@ ax
 ax
 bq
 ax
-ac
+sP
 bB
 bB
 bJ
@@ -885,7 +880,7 @@ bn
 bp
 aR
 ax
-ac
+sP
 bB
 bB
 bD

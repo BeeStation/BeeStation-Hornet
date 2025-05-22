@@ -536,11 +536,6 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"qO" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "sV" = (
 /obj/structure/toilet{
 	dir = 1
@@ -881,9 +876,9 @@ aa
 ac
 am
 ac
-qO
-qO
-qO
+VO
+VO
+VO
 ac
 am
 ac
@@ -936,7 +931,7 @@ ac
 ac
 "}
 (5,1,1) = {"
-qO
+VO
 aF
 ve
 bJ
@@ -948,7 +943,7 @@ ac
 bN
 RT
 bE
-qO
+VO
 "}
 (6,1,1) = {"
 xE
@@ -966,7 +961,7 @@ ac
 ac
 "}
 (7,1,1) = {"
-qO
+VO
 ar
 WD
 aq
@@ -978,7 +973,7 @@ ac
 Cf
 Ym
 sV
-qO
+VO
 "}
 (8,1,1) = {"
 ac
@@ -1026,8 +1021,8 @@ aa
 aa
 "}
 (11,1,1) = {"
-qO
-qO
+VO
+VO
 az
 aJ
 Vz
@@ -1056,8 +1051,8 @@ aa
 aa
 "}
 (13,1,1) = {"
-qO
-qO
+VO
+VO
 az
 aK
 Vz
@@ -1073,7 +1068,7 @@ aa
 (14,1,1) = {"
 aa
 aa
-qO
+VO
 aK
 Vz
 aZ
@@ -1081,14 +1076,14 @@ fh
 aK
 Vz
 aZ
-qO
+VO
 aa
 aa
 "}
 (15,1,1) = {"
 aa
 aa
-qO
+VO
 Lj
 Vz
 Vz
@@ -1096,14 +1091,14 @@ dD
 Vz
 Vz
 Ca
-qO
+VO
 aa
 aa
 "}
 (16,1,1) = {"
 aa
 aa
-qO
+VO
 aK
 Vz
 aZ
@@ -1111,13 +1106,13 @@ uc
 aK
 Vz
 aZ
-qO
+VO
 aa
 aa
 "}
 (17,1,1) = {"
-qO
-qO
+VO
+VO
 az
 bK
 Vz
@@ -1146,8 +1141,8 @@ aa
 aa
 "}
 (19,1,1) = {"
-qO
-qO
+VO
+VO
 az
 Dx
 Vz
@@ -1194,13 +1189,13 @@ aa
 ac
 ac
 ac
-qO
+VO
 JJ
-qO
+VO
 bi
-qO
+VO
 Zz
-qO
+VO
 ac
 ac
 ac
@@ -1233,7 +1228,7 @@ lL
 uM
 lL
 bG
-qO
+VO
 "}
 (25,1,1) = {"
 ac
@@ -1286,9 +1281,9 @@ aa
 aa
 ac
 ac
-qO
+VO
 ac
-qO
+VO
 ac
 ac
 aa

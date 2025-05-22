@@ -24,8 +24,8 @@
 #define ACID "acid"
 /// Involved in checking if a disease can infect or spread. Also involved in xeno neurotoxin.
 #define BIO "bio"
-/// Involves ionizing radiation.
-#define RAD	"rad"
+/// Bleed prevention
+#define BLEED "bleed"
 /// Involves a shockwave, usually from an explosion.
 #define BOMB "bomb"
 /// Involves a solid projectile.
@@ -40,13 +40,23 @@
 #define LASER "laser"
 /// Involves a melee attack or a thrown object.
 #define MELEE "melee"
-/// Bleed prevention
-#define BLEED "bleed"
-
+/// Involves ionizing radiation.
+#define RAD	"rad"
 /*
 /// Involved in checking the likelihood of applying a wound to a mob.
 #define WOUND "wound"
 */
+
+#define ARMOR_ALL "all_damage_types"
+
+/// Armor values that are used for damage
+#define ARMOR_LIST_DAMAGE list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED)
+
+/// Armor values that are used for durability
+#define ARMOR_LIST_DURABILITY list(ACID, FIRE)
+
+/// All armors, preferable in the order as seen above
+#define ARMOR_LIST_ALL list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED, ACID, FIRE)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -90,6 +100,7 @@
 #define CLICK_CD_THROW 4
 #define CLICK_CD_RANGE 4
 #define CLICK_CD_RAPID 2
+#define CLICK_CD_HYPER_RAPID 1
 #define CLICK_CD_CLICK_ABILITY 6
 #define CLICK_CD_BREAKOUT 100
 #define CLICK_CD_HANDCUFFED 10
@@ -108,7 +119,7 @@
 #define GRAB_KILL 3
 
 //Grab breakout odds
-#define BASE_GRAB_RESIST_CHANCE 30 //base chance for whether or not you can escape from a grab
+#define BASE_GRAB_RESIST_CHANCE 60 //base chance for whether or not you can escape from a grab
 
 //slowdown when in softcrit. Note that crawling slowdown will also apply at the same time!
 #define SOFTCRIT_ADD_SLOWDOWN 2
@@ -133,16 +144,6 @@
 #define ATTACK_EFFECT_MECHFIRE "mech_fire"
 #define ATTACK_EFFECT_MECHTOXIN "mech_toxin"
 #define ATTACK_EFFECT_BOOP "boop" //Honk
-
-//intent defines
-#define INTENT_HELP   "help"
-#define INTENT_GRAB   "grab"
-#define INTENT_DISARM "disarm"
-#define INTENT_HARM   "harm"
-//NOTE: INTENT_HOTKEY_* defines are not actual intents!
-//they are here to support hotkeys
-#define INTENT_HOTKEY_LEFT  "left"
-#define INTENT_HOTKEY_RIGHT "right"
 
 //the define for visible message range in combat
 #define COMBAT_MESSAGE_RANGE 3
@@ -233,9 +234,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
 
 // Object/Item sharpness
-#define IS_BLUNT			0
-#define IS_SHARP			1
-#define IS_SHARP_ACCURATE	2
+#define BLUNT					0	//Can only remove limbs if they're easy to remove
+#define SHARP					1	//Can only remove limbs if target is dead
+#define SHARP_DISMEMBER			2	//Can only remove limbs if the limb is already disabled
+#define SHARP_DISMEMBER_EASY	3	//Has a chance equal to weapon force to remove limb on every attack, in some cases taking them off in one swing
 
 //! ### His Grace.
 #define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.
@@ -277,12 +279,32 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
 
-//! ## `bullet_act()` return values
-#define BULLET_ACT_HIT				"HIT"		//! It's a successful hit, whatever that means in the context of the thing it's hitting.
-#define BULLET_ACT_BLOCK			"BLOCK"		//! It's a blocked hit, whatever that means in the context of the thing it's hitting.
-#define BULLET_ACT_FORCE_PIERCE		"PIERCE"	//! It pierces through the object regardless of the bullet being piercing by default.
+//bullet_act() return values
+#define BULLET_ACT_HIT "HIT" //It's a successful hit, whatever that means in the context of the thing it's hitting.
+#define BULLET_ACT_BLOCK "BLOCK" //It's a blocked hit, whatever that means in the context of the thing it's hitting.
+#define BULLET_ACT_FORCE_PIERCE "PIERCE" //It pierces through the object regardless of the bullet being piercing by default.
 
-#define NICE_SHOT_RICOCHET_BONUS	10			//if the shooter has the NICE_SHOT trait and they fire a ricocheting projectile, add this to the ricochet chance and auto aim angle
+#define NICE_SHOT_RICOCHET_BONUS 10 //if the shooter has the NICE_SHOT trait and they fire a ricocheting projectile, add this to the ricochet chance and auto aim angle
+
+/// Alternate attack defines. Return these at the end of procs like afterattack_secondary.
+/// Calls the normal attack proc. For example, if returned in afterattack_secondary, will call afterattack.
+/// Will continue the chain depending on the return value of the non-alternate proc, like with normal attacks.
+#define SECONDARY_ATTACK_CALL_NORMAL 1
+
+/// Cancels the attack chain entirely.
+#define SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN 2
+
+/// Proceed with the attack chain, but don't call the normal methods.
+#define SECONDARY_ATTACK_CONTINUE_CHAIN 3
+
+/// Martial arts attack requested but is not available, allow a check for a regular attack.
+#define MARTIAL_ATTACK_INVALID -1
+
+/// Martial arts attack happened but failed, do not allow a check for a regular attack.
+#define MARTIAL_ATTACK_FAIL FALSE
+
+/// Martial arts attack happened and succeeded, do not allow a check for a regular attack.
+#define MARTIAL_ATTACK_SUCCESS TRUE
 
 // Flags for energy shields
 /// Energy shields will block projectiles

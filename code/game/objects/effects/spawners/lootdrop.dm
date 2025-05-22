@@ -298,8 +298,8 @@
 /obj/effect/spawner/lootdrop/ten_percent_girlfriend_spawner
 	name = "10% chance girlfriend spawner"
 	loot = list(
-		/mob/living/simple_animal/pet/dog/corgi = 9,
-		/mob/living/simple_animal/pet/dog/corgi/Lisa = 1)
+		/mob/living/basic/pet/dog/corgi = 9,
+		/mob/living/basic/pet/dog/corgi/Lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
@@ -312,7 +312,7 @@
 		/mob/living/simple_animal/hostile/retaliate/clown = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/longface = 1,
-		/mob/living/simple_animal/pet/gondola = 2,
+		/mob/living/basic/pet/gondola = 2,
 		/mob/living/simple_animal/hostile/macrophage/aggro/vector = 2,
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
@@ -436,8 +436,10 @@
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
 				/obj/item/circuitboard/machine/nanite_program_hub,
-				/obj/item/circuitboard/machine/xenoartifact_inbox,
-				/obj/item/circuitboard/computer/xenoartifact_console
+				/obj/item/circuitboard/computer/xenoarchaeology_console,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/scale,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/conductor,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security
@@ -554,8 +556,8 @@
 	name = "dungeon lite"
 	loot = list(/obj/item/melee/classic_baton/police = 11,
 				/obj/item/melee/classic_baton/police/telescopic = 12,
-				/obj/item/book/granter/spell/smoke = 10,
-				/obj/item/book/granter/spell/blind = 10,
+				/obj/item/book/granter/action/spell/smoke = 10,
+				/obj/item/book/granter/action/spell/blind = 10,
 				/obj/item/storage/firstaid/regular = 45,
 				/obj/item/storage/firstaid/toxin = 35,
 				/obj/item/storage/firstaid/brute = 27,
@@ -577,10 +579,10 @@
 				/obj/item/dnainjector/lasereyesmut = 7,
 				/obj/item/gun/magic/wand/fireball/inert = 3,
 				/obj/item/pneumatic_cannon = 15,
-				/obj/item/melee/transforming/energy/sword = 7,
-				/obj/item/book/granter/spell/knock = 15,
-				/obj/item/book/granter/spell/summonitem = 20,
-				/obj/item/book/granter/spell/forcewall = 17,
+				/obj/item/melee/energy/sword = 7,
+				/obj/item/book/granter/action/spell/knock = 15,
+				/obj/item/book/granter/action/spell/summonitem = 20,
+				/obj/item/book/granter/action/spell/forcewall = 17,
 				/obj/item/storage/backpack/holding = 12,
 				/obj/item/grenade/spawnergrenade/manhacks = 6,
 				/obj/item/grenade/spawnergrenade/spesscarp = 7,
@@ -589,7 +591,7 @@
 				/obj/item/stack/sheet/mineral/uranium{amount = 15} = 10,
 				/obj/item/stack/sheet/mineral/plasma{amount = 15} = 10,
 				/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
-				/obj/item/book/granter/spell/barnyard = 4,
+				/obj/item/book/granter/action/spell/barnyard = 4,
 				/obj/item/pickaxe/drill/diamonddrill = 6,
 				/obj/item/borg/upgrade/vtec = 7,
 				/obj/item/borg/upgrade/disablercooler = 7)
@@ -607,9 +609,9 @@
 				/obj/item/gun/magic/wand/resurrection/inert = 15,
 				/obj/item/gun/magic/wand/resurrection = 10,
 				/obj/item/uplink/old = 2,
-				/obj/item/book/granter/spell/charge = 12,
+				/obj/item/book/granter/action/spell/charge = 12,
 				/obj/item/grenade/clusterbuster/spawner_manhacks = 15,
-				/obj/item/book/granter/spell/fireball = 10,
+				/obj/item/book/granter/action/spell/fireball = 10,
 				/obj/item/pickaxe/drill/jackhammer = 30,
 				/obj/item/borg/upgrade/syndicate = 13,
 				/obj/item/borg/upgrade/selfrepair = 17)

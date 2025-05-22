@@ -16,10 +16,9 @@ If you are completely new to frontend and prefer to **learn by doing**, start wi
 
 ### Guides
 
-This project uses **Inferno** - a very fast UI rendering engine with a similar API to React. Take your time to read these guides:
+This project uses React. Take your time to read the guide:
 
-- [React guide](https://reactjs.org/docs/hello-world.html)
-- [Inferno documentation](https://infernojs.org/docs/guides/components) - highlights differences with React.
+- [React guide](https://react.dev/learn)
 
 If you were already familiar with an older, Ractive-based tgui, and want to translate concepts between old and new tgui, read this [interface conversion guide](docs/converting-old-tgui-interfaces.md).
 
@@ -74,6 +73,7 @@ If you are using the tooling provided in this repo, everything is included! Feel
 - `tools/build/build tgui-clean` - Clean up tgui folder.
 
 > With Juke Build, you can run multiple targets together, e.g.:
+>
 > ```
 > tools/build/build tgui tgui-lint tgui-tsc tgui-test
 > ```
@@ -133,7 +133,27 @@ When developing with `tgui-dev-server`, you will have access to certain developm
 
 **Kitchen Sink**. Press `F12` to open the KitchenSink interface. This interface is a playground to test various tgui components.
 
-**Layout Debugger**. Press `F11` to toggle the *layout debugger*. It will show outlines of all tgui elements, which makes it easy to understand how everything comes together, and can reveal certain layout bugs which are not normally visible.
+**Layout Debugger.**
+Press `F11` to toggle the _layout debugger_. It will show outlines of
+all tgui elements, which makes it easy to understand how everything comes
+together, and can reveal certain layout bugs which are not normally visible.
+
+## Browser Developer Tools
+
+To debug TGUI interfaces with browser-style developer tools, there exists a utility
+that Microsoft bundles with Windows to debug any Internet Explorer/Trident-using interface,
+which BYOND uses.
+
+This provides invaluable tools such as a local console, a DOM viewer, an interactive debugger, and more.
+
+The 64-bit version that we use is located at `%windir%\SysWOW64\F12\IEChooser.exe`.
+There's also a 32-bit one in `system32\`.
+
+Simply launch the application after you've opened a TGUI window, and choose the .html name.
+This is likely to be something like `tgui-window-1`. There's a refresh button in the top right.
+
+Unfortunately, it seems this program doesn't have a new target chooser if your window is fully closed
+so you'll need to restart it if it disconnects from the window.
 
 ## Project Structure
 

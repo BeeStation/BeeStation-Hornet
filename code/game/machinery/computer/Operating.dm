@@ -170,18 +170,18 @@
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/operating)
 DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
 	if(!istype(buffer, /obj/machinery/stasis))
-		to_chat(user, "<span class='warning'>You cannot link \the [buffer] to \the [src].</span>")
+		to_chat(user, span_warning("You cannot link \the [buffer] to \the [src]."))
 		return NONE
 	var/obj/machinery/stasis/new_stasis_bed = buffer
 	if(get_dist(src, new_stasis_bed) > 3)
-		to_chat(user, "<span class='warning'>\The [src] is too far away from \the [new_stasis_bed] to link!</span>")
+		to_chat(user, span_warning("\The [src] is too far away from \the [new_stasis_bed] to link!"))
 		return NONE
 	balloon_alert(user, "linked to \the [new_stasis_bed]")
 	if(sbed)
 		sbed.op_computer = null
 	new_stasis_bed.op_computer = src
 	sbed = new_stasis_bed
-	to_chat(user, "<span class='notice'>You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))].</span>")
+	to_chat(user, span_notice("You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))]."))
 	return COMPONENT_BUFFER_RECEIVED
 
 #undef MENU_OPERATION

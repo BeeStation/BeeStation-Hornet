@@ -9,6 +9,7 @@
 	disease_amount = 0
 	volume = 10
 	amount_per_transfer_from_this = 0
+	has_variable_transfer_amount = FALSE
 	list_reagents = list(/datum/reagent/consumable/honey = 5)
 	grind_results = list()
 	var/honey_color = ""

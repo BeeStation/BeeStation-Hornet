@@ -51,10 +51,10 @@ Bonus
 	switch(A.stage)
 		if(2,3)
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
+				to_chat(M, span_warning("[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]"))
 		if(4,5)
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
+				to_chat(M, span_userdanger("[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]"))
 			Flesheat(M, A)
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
@@ -71,8 +71,8 @@ Bonus
 		var/list/geyserdirs = GLOB.alldirs.Copy()
 		var/turf/T = H.loc
 		playsound(T, 'sound/effects/splat.ogg', 50, 1)
-		H.visible_message("<span class='danger'>Blood bursts from [H]'s flesh!</span>", \
-	"<span class='userdanger'>Blood spews forth from your flesh! It hurts!</span>")
+		H.visible_message(span_danger("Blood bursts from [H]'s flesh!"), \
+	span_userdanger("Blood spews forth from your flesh! It hurts!"))
 		for(var/i in 0 to geysers)
 			var/geyserdir = pick_n_take(geyserdirs)
 			var/geyserdist = rand(1, max(1,bloodsplatters))
@@ -146,13 +146,13 @@ Bonus
 			if(MOB_UNDEAD in M.mob_biotypes)//i dont wanna do it like this but i gotta
 				return
 			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
-				to_chat(M, "<span class='warning'>[pick("You feel your body break apart.", "Your skin rubs off like dust.")]</span>")
+				to_chat(M, span_warning("[pick("You feel your body break apart.", "Your skin rubs off like dust.")]"))
 		if(4,5)
 			Flesh_death(M, A)
 			if(MOB_UNDEAD in M.mob_biotypes) //ditto
 				return
 			if(prob(base_message_chance / 2) && M.stat != DEAD) //reduce spam
-				to_chat(M, "<span class='userdanger'>[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]</span>")
+				to_chat(M, span_userdanger("[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]"))
 
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)

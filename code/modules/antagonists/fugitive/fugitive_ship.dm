@@ -24,7 +24,7 @@
 /obj/machinery/fugitive_capture/interact(mob/user)
 	. = ..()
 	if(locked)
-		to_chat(user, "<span class='warning'>[src] is locked!</span>")
+		to_chat(user, span_warning("[src] is locked!"))
 		return
 	toggle_open(user)
 
@@ -69,7 +69,7 @@
 	if(locked)
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
-			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
+			to_chat(user, span_warning("[src]'s door won't budge!"))
 		return
 	open_machine()
 
@@ -79,20 +79,20 @@
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	user.visible_message("<span class='notice'>You see [user] kicking against the door of [src]!</span>", \
-		"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
-		"<span class='italics'>You hear a metallic creaking from [src].</span>")
+	user.visible_message(span_notice("You see [user] kicking against the door of [src]!"), \
+		span_notice("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"), \
+		span_italics("You hear a metallic creaking from [src]."))
 	if(do_after(user, breakout_time, target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || state_open || !locked)
 			return
 		locked = FALSE
-		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
-			"<span class='notice'>You successfully break out of [src]!</span>")
+		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
+			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
 /obj/machinery/fugitive_capture/proc/toggle_open(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 	if(state_open)
 		close_machine()
@@ -162,7 +162,7 @@
 	if(isliving(usr))
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	switch(action)
 		if("scan")
@@ -170,13 +170,13 @@
 			return TRUE
 		if("toggle_open")
 			if(chamber.locked)
-				to_chat(usr, "<span class='alert'>The chamber must be unlocked first.</span>")
+				to_chat(usr, span_alert("The chamber must be unlocked first."))
 				return
 			chamber.toggle_open()
 			return TRUE
 		if("toggle_lock")
 			if(chamber.state_open)
-				to_chat(usr, "<span class='alert'>The chamber must be closed first.</span>")
+				to_chat(usr, span_alert("The chamber must be closed first."))
 				return
 			chamber.locked = !chamber.locked
 			return TRUE
@@ -209,7 +209,7 @@
 	chamber.set_occupant(null) // remove the reference
 	antag.is_captured = TRUE
 	antag.living_on_capture = prisoner.stat != DEAD
-	to_chat(prisoner, "<span class='big boldannounce'>You are thrown into a vast void of bluespace, and as you fall further into oblivion the comparatively small entrance to reality gets smaller and smaller until you cannot see it anymore. You have failed to avoid capture.</span>")
+	to_chat(prisoner, span_bigboldannounce("You are thrown into a vast void of bluespace, and as you fall further into oblivion the comparatively small entrance to reality gets smaller and smaller until you cannot see it anymore. You have failed to avoid capture."))
 	prisoner.ghostize(FALSE)
 	qdel(prisoner)
 	chamber.locked = FALSE

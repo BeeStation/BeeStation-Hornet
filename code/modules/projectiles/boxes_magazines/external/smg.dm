@@ -116,16 +116,16 @@
 	if(istype(A, /obj/item/stock_parts/matter_bin))
 		var/obj/item/stock_parts/B = A
 		if(B.rating <= installed_bin.rating)
-			to_chat(user, "<span class='warning'>\The [B] isn't better than the matter bin that's already installed!</span>")
+			to_chat(user, span_warning("\The [B] isn't better than the matter bin that's already installed!"))
 			return
-		to_chat(user, "<span class='notice'>You begin to rebuild \the [src] with the [B]</span>")
+		to_chat(user, span_notice("You begin to rebuild \the [src] with the [B]"))
 		if(do_after(user, 50, target = src))
 			installed_bin.forceMove(drop_location())
 			user.transferItemToLoc(B, src)
 			installed_bin = B
 			update_capacity()
-			to_chat(user, "<span class='notice'>\The [src] can now hold [max_ammo] bullets!</span>")
+			to_chat(user, span_notice("\The [src] can now hold [max_ammo] bullets!"))
 			if(B.rating > 4)
-				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='notice'><i>Where'd you find that matter bin anyway..?</i></span>"), 50)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, span_notice("<i>Where'd you find that matter bin anyway..?</i>")), 50)
 		return
 	..()

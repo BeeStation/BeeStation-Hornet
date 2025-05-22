@@ -1,4 +1,4 @@
-name: Mark issues as stale
+name: Mark issues and PRs as stale
 
 on:
   schedule:
@@ -8,11 +8,20 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/stale@v1
+    - uses: actions/stale@v9
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: "This issue has been inactive for long enough to be automatically marked as stale. If this was a bug report and hasn't been addressed yet, and is still a problem, please don't hesitate to notify a maintainer."
         stale-issue-label: 'Stale'
-        exempt-issue-label: 'Triaged'
-        days-before-stale: 30
-        days-before-close: 180
+        stale-pr-label: 'Stale'
+        exempt-issue-labels: 'Triaged'
+        exempt-pr-labels: 'Triaged'
+        days-before-issue-stale: 210
+        days-before-issue-close: 5
+        exempt-all-issue-milestones: true
+        stale-issue-message: "This issue has been inactive for long enough to be automatically marked as stale. If this was a bug report and hasn't been addressed yet, and is still a problem, please don't hesitate to notify a maintainer."
+        days-before-pr-stale: 7
+        days-before-pr-close: 5
+        stale-pr-message: "This PR has been marked as stale due to being in an unmergable state for 7 days. Please resolve any conflicts and add testing evidence, then contact a project maintainer to have the stale label removed."
+        any-of-pr-labels: 'Needs Testing Evidence,Merge Conflict'
+        remove-pr-stale-when-updated: true
+        labels-to-remove-when-unstale: 'Stale'

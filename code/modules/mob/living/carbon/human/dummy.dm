@@ -12,6 +12,11 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	. = ..()
 	remove_from_all_data_huds()
 
+
+// We don't want your dummy floating up and down in the preference menu.
+/mob/living/carbon/human/dummy/mob_negates_gravity()
+	return TRUE
+
 /mob/living/carbon/human/dummy/prepare_data_huds()
 	return
 
@@ -19,7 +24,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	in_use = FALSE
 	return ..()
 
-/mob/living/carbon/human/dummy/Life()
+/mob/living/carbon/human/dummy/Life(delta_time = SSMOBS_DT, times_fired)
 	return
 
 /mob/living/carbon/human/dummy/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)

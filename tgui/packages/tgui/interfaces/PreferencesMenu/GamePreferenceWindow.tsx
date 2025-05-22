@@ -8,16 +8,10 @@ import { GamePreferencesSelectedPage, PreferencesMenuData } from './data';
 import { exhaustiveCheck } from 'common/exhaustive';
 import { SaveStatus } from './SaveStatus';
 
-export const GamePreferenceWindow = (
-  props: {
-    startingPage?: GamePreferencesSelectedPage;
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+export const GamePreferenceWindow = (props: { startingPage?: GamePreferencesSelectedPage }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
 
   const [currentPage, setCurrentPage] = useLocalState(
-    context,
     'currentPage_game',
     props.startingPage ?? GamePreferencesSelectedPage.Settings
   );
@@ -47,7 +41,7 @@ export const GamePreferenceWindow = (
             icon="user"
             tooltip="Open Character Preferences"
             tooltipPosition="bottom"
-            style={{ 'border-radius': '20px' }}
+            style={{ borderRadius: '20px' }}
             onClick={() => act('open_character_preferences')}
           />
           <SaveStatus />

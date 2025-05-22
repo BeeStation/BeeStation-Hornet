@@ -96,7 +96,7 @@
 		if("id")
 			if(params["value"])
 				if(length(params["value"]) > 32)
-					to_chat(usr, "<span class='warning'>Error: Machine ID too long!</span>")
+					to_chat(usr, span_warning("Error: Machine ID too long!"))
 					playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 					return
 				else
@@ -106,7 +106,7 @@
 		if("network")
 			if(params["value"])
 				if(length(params["value"]) > 15)
-					to_chat(usr, "<span class='warning'>Error: Network name too long!</span>")
+					to_chat(usr, span_warning("Error: Network name too long!"))
 					playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 					return
 				else
@@ -125,7 +125,7 @@
 		if("freq")
 			var/newfreq = tempfreq			//* 10 was in original pr here but makes out of tempfreq something like 14590
 			if(newfreq == FREQ_SYNDICATE)
-				to_chat(usr, "<span class='warning'>Error: Interference preventing filtering frequency: \"[newfreq / 10] GHz\"</span>")
+				to_chat(usr, span_warning("Error: Interference preventing filtering frequency: \"[newfreq / 10] GHz\""))
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			else
 				if(!(newfreq in freq_listening) && newfreq < 10000)

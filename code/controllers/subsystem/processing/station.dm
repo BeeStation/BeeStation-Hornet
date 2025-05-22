@@ -21,7 +21,8 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list(), STATION_TRAIT_EXCLUSIVE = list())
 
 	//If doing unit tests we don't do none of that trait shit ya know?
-	#ifndef UNIT_TESTS
+	// Autowiki also wants consistent outputs, for example making sure the vending machine page always reports the normal products
+	#if !defined(UNIT_TESTS) && !defined(AUTOWIKI)
 	if(CONFIG_GET(flag/station_traits))
 		setup_traits()
 		prepare_report()

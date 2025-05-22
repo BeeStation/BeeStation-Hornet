@@ -36,12 +36,12 @@
 
 /obj/structure/crate_shelf/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are some <b>bolts</b> holding [src] together.</span>"
+	. += span_notice("There are some <b>bolts</b> holding [src] together.")
 	if(shelf_contents.Find(null)) // If there's an empty space in the shelf, let the examiner know.
-		. += "<span class='notice'>You could <b>drag</b> a crate into [src]."
+		. += span_notice("You could <b>drag</b> a crate into [src].")
 	if(contents.len) // If there are any crates in the shelf, let the examiner know.
-		. += "<span class='notice'>You could <b>drag</b> a crate out of [src]."
-		. += "<span class='notice'>[src] contains:</span>"
+		. += span_notice("You could <b>drag</b> a crate out of [src].")
+		. += span_notice("[src] contains:")
 		for(var/obj/structure/closet/crate/crate in shelf_contents)
 			. += "	[icon2html(crate, user)] [crate]"
 
@@ -54,13 +54,11 @@
 	return ..()
 
 /obj/structure/crate_shelf/relay_container_resist(mob/living/user, obj/structure/closet/crate)
-	to_chat(user, "<span class='notice'>You begin attempting to knock [crate] out of [src].</span>")
+	to_chat(user, span_notice("You begin attempting to knock [crate] out of [src]."))
 	if(do_after(user, 30 SECONDS, target = crate))
 		if(!user || user.stat != CONSCIOUS || user.loc != crate || crate.loc != src)
 			return // If the user is in a strange condition, return early.
-		visible_message("<span class='warning'>[crate] falls off of [src]!</span>",
-						"<span class='notice'>You manage to knock [crate] free of [src].</span>",
-						"<span class='notice>You hear a thud.</span>")
+		visible_message(span_warning("[crate] falls off of [src]!"), span_notice("You manage to knock [crate] free of [src]."), span_notice("You hear a thud."))
 		crate.forceMove(drop_location()) // Drop the crate onto the shelf,
 		step_rand(crate, 1) // Then try to push it somewhere.
 		crate.layer = initial(crate.layer) // Reset the crate back to having the default layer, otherwise we might get strange interactions.
@@ -72,24 +70,34 @@
 	vis_contents = contents // It really do be that shrimple.
 	return
 
-/obj/structure/crate_shelf/proc/load(obj/structure/closet/crate/crate, mob/user)
-	var/next_free = shelf_contents.Find(null) // Find the first empty slot in the shelf.
-	if(!next_free) // If we don't find an empty slot, return early.
+/obj/structure/crate_shelf/proc/try_load(obj/structure/closet/crate/crate, mob/user)
+	if(!get_free_slot())
 		balloon_alert(user, "shelf full!")
 		return FALSE
 	if(do_after(user, use_delay, target = crate))
-		if(shelf_contents[next_free] != null)
-			return FALSE // Something has been added to the shelf while we were waiting, abort!
-		if(crate.opened) // If the crate is open, try to close it.
-			if(!crate.close())
-				return FALSE // If we fail to close it, don't load it into the shelf.
-		shelf_contents[next_free] = crate // Insert a reference to the crate into the free slot.
-		crate.forceMove(src) // Insert the crate into the shelf.
-		crate.pixel_y = DEFAULT_SHELF_VERTICAL_OFFSET * (next_free - 1) // Adjust the vertical offset of the crate to look like it's on the shelf.
-		crate.layer = ABOVE_MOB_LAYER + 0.02 * (next_free - 1) // Adjust the layer of the crate to look like it's in the shelf.
-		handle_visuals()
-		return TRUE
+		load(crate)
+		return
 	return FALSE // If the do_after() is interrupted, return FALSE!
+
+/obj/structure/crate_shelf/proc/load(obj/structure/closet/crate/crate)
+	if(!get_free_slot())
+		return FALSE // Something has been added to the shelf while we were waiting, abort!
+	var/next_free = get_free_slot()
+	if(crate.opened) // If the crate is open, try to close it.
+		if(!crate.close())
+			return FALSE // If we fail to close it, don't load it into the shelf.
+	shelf_contents[next_free] = crate // Insert a reference to the crate into the free slot.
+	crate.forceMove(src) // Insert the crate into the shelf.
+	crate.pixel_y = DEFAULT_SHELF_VERTICAL_OFFSET * (next_free - 1) // Adjust the vertical offset of the crate to look like it's on the shelf.
+	crate.layer = ABOVE_MOB_LAYER + 0.02 * (next_free - 1) // Adjust the layer of the crate to look like it's in the shelf.
+	handle_visuals()
+	return TRUE
+
+/obj/structure/crate_shelf/proc/get_free_slot()
+	var/next_free = shelf_contents.Find(null) // Find the first empty slot in the shelf.
+	if(!next_free) // If we don't find an empty slot, return FALSE.
+		return FALSE
+	return next_free
 
 /obj/structure/crate_shelf/proc/unload(obj/structure/closet/crate/crate, mob/user, turf/unload_turf)
 	if(!unload_turf)
@@ -120,12 +128,12 @@
 			if(1 to 4) // Believe it or not, this does nothing.
 			if(5 to 6) // Open the crate!
 				if(crate.open()) // Break some open, cause a little chaos.
-					crate.visible_message("<span class='warning'>[crate]'s lid falls open!</span>")
+					crate.visible_message(span_warning("[crate]'s lid falls open!"))
 				else // If we somehow fail to open the crate, just break it instead!
-					crate.visible_message("<span class='warning'>[crate] falls apart!")
+					crate.visible_message(span_warning("[crate] falls apart!"))
 					crate.deconstruct()
 			if(7) // Break that crate!
-				crate.visible_message("<span class='warning'>[crate] falls apart!")
+				crate.visible_message(span_warning("[crate] falls apart!"))
 				crate.deconstruct()
 		shelf_contents[shelf_contents.Find(crate)] = null
 	if(!(flags_1&NODECONSTRUCT_1))

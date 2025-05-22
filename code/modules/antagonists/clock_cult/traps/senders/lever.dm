@@ -17,5 +17,5 @@
 
 /datum/component/clockwork_trap/lever/clicked(mob/user)
 	trigger_connected()
-	to_chat(user, "<span class='notice'>You activate the switch.</span>")
+	to_chat(user, span_notice("You activate the switch."))
 	playsound(user, 'sound/machines/click.ogg', 50)

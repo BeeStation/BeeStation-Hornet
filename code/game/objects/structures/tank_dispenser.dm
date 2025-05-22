@@ -2,7 +2,7 @@
 
 /obj/structure/tank_dispenser
 	name = "tank dispenser"
-	desc = "A simple yet bulky storage device for gas tanks. Holds up to 10 oxygen tanks and 10 plasma tanks."
+	desc = "A simple yet bulky storage device for gas tanks."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "dispenser"
 	density = TRUE
@@ -19,6 +19,7 @@
 
 /obj/structure/tank_dispenser/Initialize(mapload)
 	. = ..()
+	//AddElement(/datum/element/contextual_screentip_bare_hands, lmb_text = "Take Plasma Tank", rmb_text = "Take Oxygen Tank") //Uncomment this when we have screentips.
 	update_icon()
 
 /obj/structure/tank_dispenser/update_icon()
@@ -34,7 +35,28 @@
 		if(5 to TANK_DISPENSER_CAPACITY)
 			add_overlay("plasma-5")
 
-/obj/structure/tank_dispenser/attackby(obj/item/I, mob/user, params)
+
+
+/obj/structure/tank_dispenser/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if (!oxygentanks)
+		balloon_alert(user, "no oxygen tanks!")
+		return
+	dispense(/obj/item/tank/internals/oxygen, user)
+	oxygentanks--
+	update_appearance()
+
+/obj/structure/tank_dispenser/attack_hand_secondary(mob/living/user, list/modifiers)
+	. = ..()
+	if (!plasmatanks)
+		balloon_alert(user, "no plasma tanks!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	dispense(/obj/item/tank/internals/plasma, user)
+	plasmatanks--
+	update_appearance()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/structure/tank_dispenser/attackby(obj/item/I, mob/living/user, params)
 	var/full
 	if(istype(I, /obj/item/tank/internals/plasma))
 		if(plasmatanks < TANK_DISPENSER_CAPACITY)
@@ -49,13 +71,13 @@
 	else if(I.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, I, time = 20)
 		return
-	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='notice'>[I] does not fit into [src].</span>")
+	else if(!user.combat_mode)
+		balloon_alert(user, "can't insert!")
 		return
 	else
 		return ..()
 	if(full)
-		to_chat(user, "<span class='notice'>[src] can't hold any more of [I].</span>")
+		balloon_alert(user, "it is full!")
 		return
 
 	if(!user.transferItemToLoc(I, src))
@@ -64,46 +86,9 @@
 		else if(istype(I, /obj/item/tank/internals/oxygen))
 			oxygentanks--
 		return
-	to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+	balloon_alert(user, "tank inserted")
 	update_icon()
 	ui_update()
-
-
-/obj/structure/tank_dispenser/ui_state(mob/user)
-	return GLOB.physical_state
-
-/obj/structure/tank_dispenser/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "TankDispenser")
-		ui.open()
-
-/obj/structure/tank_dispenser/ui_data(mob/user)
-	var/list/data = list()
-	data["oxygen"] = oxygentanks
-	data["plasma"] = plasmatanks
-
-	return data
-
-/obj/structure/tank_dispenser/ui_act(action, params)
-	if(..())
-		return
-	switch(action)
-		if("plasma")
-			if (plasmatanks == 0)
-				return TRUE
-
-			dispense(/obj/item/tank/internals/plasma, usr)
-			plasmatanks--
-		if("oxygen")
-			if (oxygentanks == 0)
-				return TRUE
-
-			dispense(/obj/item/tank/internals/oxygen, usr)
-			oxygentanks--
-	ui_update()
-	update_icon()
-	return TRUE
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -113,10 +98,18 @@
 		new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
+/obj/structure/tank_dispenser/examine(mob/user)
+	. = ..()
+	if(plasmatanks && oxygentanks)
+		. += span_notice("It has <b>[plasmatanks]</b> plasma tank\s and <b>[oxygentanks]</b> oxygen tank\s left.")
+	else if(plasmatanks || oxygentanks)
+		. += span_notice("It has <b>[plasmatanks ? "[plasmatanks]</b> plasma" : "[oxygentanks]</b> oxygen"] tank\s left.")
+
 /obj/structure/tank_dispenser/proc/dispense(tank_type, mob/receiver)
 	var/existing_tank = locate(tank_type) in src
 	if (isnull(existing_tank))
 		existing_tank = new tank_type
 	receiver.put_in_hands(existing_tank)
+	balloon_alert(receiver, "tank received")
 
 #undef TANK_DISPENSER_CAPACITY

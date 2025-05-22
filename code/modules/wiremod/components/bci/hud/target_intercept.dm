@@ -50,7 +50,7 @@
 	if(owner.client && owner.client.click_intercept == src)
 		owner.client.click_intercept = null
 
-/obj/item/circuit_component/target_intercept/proc/InterceptClickOn(mob/user, params, atom/object)
+/obj/item/circuit_component/target_intercept/InterceptClickOn(mob/user, params, atom/object)
 	user.client.click_intercept = null
 	clicked_atom.set_output(object)
 	trigger_output.set_output(COMPONENT_SIGNAL)

@@ -38,8 +38,7 @@
 	H.hair_color = "000"
 	H.facial_hair_color = H.hair_color
 	H.update_body()
-	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
+
 	var/list/no_drops = list()
 	no_drops += H.get_item_by_slot(ITEM_SLOT_FEET)
 	no_drops += H.get_item_by_slot(ITEM_SLOT_ICLOTHING)
@@ -49,6 +48,8 @@
 	for(var/i in no_drops)
 		var/obj/item/I = i
 		ADD_TRAIT(I, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	var/datum/action/spell/aoe/knock/waldos_key = new /datum/action/spell/aoe/knock/
+	waldos_key.Grant(H)
 
 /datum/outfit/synthetic
 	name = "Factory Error Synth"

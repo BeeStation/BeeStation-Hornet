@@ -20,8 +20,8 @@
 
 /obj/item/ammo_box/magazine/internal/der38
 	name = "derringer internal chambering"
-	ammo_type = /obj/item/ammo_casing/c38/match
-	caliber = "38"
+	ammo_type = /obj/item/ammo_casing/a357
+	caliber = "357"
 	max_ammo = 2
 
 /obj/item/ammo_box/magazine/internal/der38/twelveshooter

@@ -54,23 +54,23 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "ap" = (
-/mob/living/simple_animal/pet/dog/pug,
+/mob/living/basic/pet/dog/pug,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "aq" = (
-/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
+/mob/living/basic/pet/dog/corgi/exoticcorgi,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "ar" = (
-/mob/living/simple_animal/pet/dog/corgi/seccie,
+/mob/living/basic/pet/dog/corgi/seccie,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "as" = (
-/mob/living/simple_animal/pet/dog/corgi/puppy,
+/mob/living/basic/pet/dog/corgi/puppy,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "at" = (
-/mob/living/simple_animal/pet/dog/bullterrier,
+/mob/living/basic/pet/dog/bullterrier,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "au" = (
@@ -82,7 +82,7 @@
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "aw" = (
-/mob/living/simple_animal/pet/dog/corgi/seccie,
+/mob/living/basic/pet/dog/corgi/seccie,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "ax" = (
@@ -90,11 +90,11 @@
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "ay" = (
-/mob/living/simple_animal/pet/dog/corgi/puppy,
+/mob/living/basic/pet/dog/corgi/puppy,
 /turf/open/floor/holofloor/beach/coast_t,
 /area/ruin/space/has_grav/powered)
 "az" = (
-/mob/living/simple_animal/pet/dog/corgi/chef,
+/mob/living/basic/pet/dog/corgi/chef,
 /turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aA" = (

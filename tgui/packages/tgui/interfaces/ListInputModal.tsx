@@ -2,9 +2,10 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Input, Section, Stack } from '../components';
 import { useBackend, useLocalState } from '../backend';
-import { decodeHtmlEntities } from '../../common/string';
-import { KEY_A, KEY_DOWN, KEY_ESCAPE, KEY_ENTER, KEY_UP, KEY_Z } from '../../common/keycodes';
+import { capitalizeFirst, decodeHtmlEntities } from 'common/string';
+import { KEY_A, KEY_Z } from 'common/keycodes';
 import { Window } from '../layouts';
+import { isEscape, KEY } from 'common/keys';
 
 type ListInputData = {
   init_value: string;
@@ -15,17 +16,17 @@ type ListInputData = {
   title: string;
 };
 
-export const ListInputModal = (_, context) => {
-  const { act, data } = useBackend<ListInputData>(context);
+export const ListInputModal = (_) => {
+  const { act, data } = useBackend<ListInputData>();
   const { items = [], message = '', init_value, large_buttons, timeout, title } = data;
-  const [selected, setSelected] = useLocalState<number>(context, 'selected', items.indexOf(init_value));
-  const [searchBarVisible, setSearchBarVisible] = useLocalState<boolean>(context, 'searchBarVisible', items.length > 9);
-  const [searchQuery, setSearchQuery] = useLocalState<string>(context, 'searchQuery', '');
+  const [selected, setSelected] = useLocalState<number>('selected', items.indexOf(init_value));
+  const [searchBarVisible, setSearchBarVisible] = useLocalState<boolean>('searchBarVisible', items.length > 9);
+  const [searchQuery, setSearchQuery] = useLocalState<string>('searchQuery', '');
   // User presses up or down on keyboard
   // Simulates clicking an item
-  const onArrowKey = (key: number) => {
+  const onArrowKey = (key: KEY) => {
     const len = filteredItems.length - 1;
-    if (key === KEY_DOWN) {
+    if (key === KEY.Down) {
       if (selected === null || selected === len) {
         setSelected(0);
         document!.getElementById('0')?.scrollIntoView();
@@ -33,7 +34,7 @@ export const ListInputModal = (_, context) => {
         setSelected(selected + 1);
         document!.getElementById((selected + 1).toString())?.scrollIntoView();
       }
-    } else if (key === KEY_UP) {
+    } else if (key === KEY.Up) {
       if (selected === null || selected === 0) {
         setSelected(len);
         document!.getElementById(len.toString())?.scrollIntoView();
@@ -95,11 +96,11 @@ export const ListInputModal = (_, context) => {
       <Window.Content
         onKeyDown={(event) => {
           const keyCode = window.event ? event.which : event.keyCode;
-          if (keyCode === KEY_DOWN || keyCode === KEY_UP) {
+          if (event.key === KEY.Down || event.key === KEY.Up) {
             event.preventDefault();
-            onArrowKey(keyCode);
+            onArrowKey(event.key);
           }
-          if (keyCode === KEY_ENTER) {
+          if (event.key === KEY.Enter) {
             event.preventDefault();
             act('submit', { entry: filteredItems[selected] });
           }
@@ -107,7 +108,7 @@ export const ListInputModal = (_, context) => {
             event.preventDefault();
             onLetterSearch(keyCode);
           }
-          if (keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             event.preventDefault();
             act('cancel');
           }
@@ -157,8 +158,8 @@ export const ListInputModal = (_, context) => {
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props, context) => {
-  const { act } = useBackend<ListInputData>(context);
+const ListDisplay = (props) => {
+  const { act } = useBackend<ListInputData>();
   const { filteredItems, onClick, onFocusSearch, searchBarVisible, selected } = props;
 
   return (
@@ -171,7 +172,7 @@ const ListDisplay = (props, context) => {
             id={index}
             key={index}
             onClick={() => onClick(index)}
-            onDblClick={(event) => {
+            onDoubleClick={(event) => {
               event.preventDefault();
               act('submit', { entry: filteredItems[selected] });
             }}
@@ -184,10 +185,10 @@ const ListDisplay = (props, context) => {
             }}
             selected={index === selected}
             style={{
-              'animation': 'none',
-              'transition': 'none',
+              animation: 'none',
+              transition: 'none',
             }}>
-            {item.replace(/^\w/, (c) => c.toUpperCase())}
+            {capitalizeFirst(item)}
           </Button>
         );
       })}
@@ -199,8 +200,8 @@ const ListDisplay = (props, context) => {
  * Renders a search bar input.
  * Closing the bar defaults input to an empty string.
  */
-const SearchBar = (props, context) => {
-  const { act } = useBackend<ListInputData>(context);
+const SearchBar = (props) => {
+  const { act } = useBackend<ListInputData>();
   const { filteredItems, onSearch, searchQuery, selected } = props;
 
   return (

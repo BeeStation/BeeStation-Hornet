@@ -17,8 +17,8 @@
 /datum/religion_sect/carp_sect/sect_bless(mob/living/L, mob/living/user)
 	if(!isliving(L))
 		return FALSE
-	L.faction |= "carp"
-	user.visible_message("<span class='notice'>[user] blessed [L] with the power of [GLOB.deity]! They are now protected from Space Carps, Although carps will still fight back if attacked.</span>")
+	L.faction |= FACTION_CARP
+	user.visible_message(span_notice("[user] blessed [L] with the power of [GLOB.deity]! They are now protected from Space Carps, Although carps will still fight back if attacked."))
 	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return TRUE
 
@@ -27,7 +27,7 @@
 	if(!istype(meat)) //how...
 		return
 	adjust_favor(20, L)
-	to_chat(L, "<span class='notice'>You offer [meat] to [GLOB.deity], pleasing them and gaining 20 favor in the process.</span>")
+	to_chat(L, span_notice("You offer [meat] to [GLOB.deity], pleasing them and gaining 20 favor in the process."))
 	qdel(N)
 	return TRUE
 
@@ -49,11 +49,11 @@
 /datum/religion_rites/summon_carp/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
-	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	user.visible_message(span_notice("A tear in reality appears above the altar!"))
 	var/list/candidates = poll_ghost_candidates("Do you wish to be summoned as a Holy Carp?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYCARP)
 	if(!length(candidates))
 		new /obj/effect/gibspawner/generic(altar_turf)
-		user.visible_message("<span class='warning'>The carp pool was not strong enough to bring forth a space carp.")
+		user.visible_message(span_warning("The carp pool was not strong enough to bring forth a space carp."))
 		GLOB.religious_sect?.adjust_favor(400, user)
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
@@ -71,9 +71,9 @@
 		to_chat(carp, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		GLOB.religious_sect?.on_conversion(carp)
 	if(is_special_character(user))
-		to_chat(carp, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+		to_chat(carp, span_userdanger("You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
 	else
-		to_chat(carp, "<span class='big notice'>You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble.</span>")
+		to_chat(carp, span_bignotice("You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble."))
 	playsound(altar_turf, 'sound/effects/slosh.ogg', 50, TRUE)
 	return ..()
 
@@ -94,7 +94,7 @@
 	var/turf/T = get_turf(religious_tool)
 	var/list/L = T.contents
 	if(!locate(/obj/item/clothing/suit) in L)
-		to_chat(user, "<span class='warning'>There is no suit clothing on the altar!</span>")
+		to_chat(user, span_warning("There is no suit clothing on the altar!"))
 		return FALSE
 	for(var/obj/item/clothing/suit/apparel in L)
 		chosen_clothing = apparel //the apparel has been chosen by our lord and savior
@@ -103,14 +103,14 @@
 
 /datum/religion_rites/summon_carpsuit/invoke_effect(mob/living/user, atom/religious_tool)
 	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
-		user.visible_message("<span class'notice'>The [chosen_clothing] transforms!</span>")
+		user.visible_message(span_notice("The [chosen_clothing] transforms!"))
 		chosen_clothing.atom_destruction()
 		chosen_clothing = null
 		new /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old(get_turf(religious_tool))
 		playsound(get_turf(religious_tool), 'sound/effects/slosh.ogg', 50, TRUE)
 		return ..()
 	chosen_clothing = null
-	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")
+	to_chat(user, span_warning("The clothing that was chosen for the rite is no longer on the altar!"))
 	return FALSE
 
 /datum/religion_rites/flood_area
