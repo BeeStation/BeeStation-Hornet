@@ -34850,6 +34850,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "kuC" = (
@@ -43982,9 +43985,6 @@
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "oha" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4
 	},
