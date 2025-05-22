@@ -75,6 +75,7 @@ SUBSYSTEM_DEF(economy)
 	station_target_buffer += STATION_TARGET_BUFFER
 	for(var/account in bank_accounts)
 		var/datum/bank_account/bank_account = account
+		bank_account.payday(1)
 		if(bank_account?.account_job)
 			var/full_paycheck = 0
 			for(var/key in bank_account.account_job.payment_per_department)
