@@ -2,7 +2,7 @@
 "aa" = (
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "af" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -11,7 +11,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "an" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -25,14 +25,14 @@
 	pixel_y = -32
 	},
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/template_noop)
 "aw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "aL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -44,7 +44,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "aQ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/cable{
@@ -59,19 +59,19 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "aY" = (
 /obj/structure/curtain/directional{
 	dir = 8
 	},
 /obj/effect/spawner/structure/window/ice,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "bd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "bj" = (
 /obj/item/grown/log/tree,
 /obj/item/grown/log/tree{
@@ -87,7 +87,7 @@
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "bt" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1;
@@ -100,11 +100,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "bA" = (
 /obj/structure/frame/machine,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "bE" = (
 /obj/machinery/computer/security/wooden_tv{
 	pixel_x = 2;
@@ -112,17 +112,17 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "bP" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "bU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing/corner,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "bZ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -131,18 +131,18 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "cc" = (
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "cd" = (
 /obj/item/sbeacondrop/exploration,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "ck" = (
 /obj/item/stack/sheet/snow/five{
 	pixel_x = -3
@@ -155,7 +155,7 @@
 	pixel_y = 7
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "cl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -163,7 +163,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "cq" = (
 /obj/structure/fence/corner{
 	dir = 9
@@ -171,7 +171,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "cr" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -185,7 +185,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "cE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
@@ -198,7 +198,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "cJ" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
@@ -207,7 +207,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "cP" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -216,13 +216,13 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "dl" = (
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "do" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -230,12 +230,12 @@
 /turf/open/floor/glass/reinforced{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "dt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/numbers,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "dA" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet 2";
@@ -245,18 +245,18 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/space)
+/area/template_noop)
 "dP" = (
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "dR" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
 	dir = 8
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "dW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -265,20 +265,20 @@
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "ea" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/iron/techmaint/planetary,
-/area/space)
+/area/template_noop)
 "ep" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "eI" = (
 /obj/structure/chair/fancy/plastic{
 	dir = 8
@@ -292,22 +292,22 @@
 	pixel_y = 11
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "eP" = (
 /obj/item/trash/waffles,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "eT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "eU" = (
 /obj/structure/fence/corner{
 	dir = 6
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "eV" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -318,7 +318,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/cold,
-/area/space)
+/area/template_noop)
 "fm" = (
 /obj/structure/urinal{
 	dir = 1;
@@ -334,23 +334,23 @@
 	pixel_y = -2
 	},
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/template_noop)
 "fs" = (
 /obj/structure/fence/corner{
 	dir = 5
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "ft" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "exploration"
 	},
 /turf/open/floor/mineral/titanium,
-/area/space)
+/area/template_noop)
 "fw" = (
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "fR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -366,7 +366,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "fU" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -376,7 +376,7 @@
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "gd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -391,10 +391,10 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "gf" = (
 /turf/closed/wall/mineral/wood,
-/area/space)
+/area/template_noop)
 "gh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -405,17 +405,17 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "gj" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/cut{
 	dir = 8
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "gm" = (
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "gn" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -423,11 +423,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "gq" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "gs" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -436,7 +436,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "gt" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -444,7 +444,7 @@
 /obj/structure/railing/corner,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "gL" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -456,7 +456,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "gO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -468,18 +468,18 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "gX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "gY" = (
 /obj/item/clothing/head/costume/snowman,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "hc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -492,7 +492,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
@@ -500,7 +500,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "he" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1;
@@ -511,14 +511,14 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hg" = (
 /obj/docking_port/stationary/random{
 	id = "pod_lavaland1";
 	name = "lavaland"
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "hk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral{
@@ -528,13 +528,13 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "ho" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -548,14 +548,14 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hs" = (
 /obj/structure/chair/fancy/plastic{
 	dir = 4
 	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "hu" = (
 /obj/effect/turf_decal/evac/evac_big{
 	dir = 4
@@ -566,10 +566,10 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hw" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/space)
+/area/template_noop)
 "hD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -579,7 +579,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
@@ -587,7 +587,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
@@ -596,29 +596,29 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hV" = (
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "hX" = (
 /obj/structure/sign/directions/evac{
 	dir = 4
 	},
 /turf/closed/wall/ice,
-/area/space)
+/area/template_noop)
 "ib" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "ie" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "ij" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -632,11 +632,11 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "it" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "iB" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
@@ -644,7 +644,7 @@
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "iD" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
@@ -654,7 +654,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -669,29 +669,29 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "iR" = (
 /obj/structure/fence/door/opened{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "iS" = (
 /obj/effect/landmark/start/assistant,
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "iT" = (
 /obj/structure/fence/cut/large,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "iV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "jd" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -700,7 +700,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/cold,
-/area/space)
+/area/template_noop)
 "jf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
@@ -712,13 +712,13 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "jz" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "jB" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 8
@@ -732,7 +732,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "jH" = (
 /obj/structure/curtain,
 /obj/machinery/shower{
@@ -741,18 +741,18 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/soap/nanotrasen,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "jL" = (
 /obj/structure/chair/fancy/plastic{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "jM" = (
 /turf/open/floor/iron/stairs{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "kc" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -765,11 +765,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "ki" = (
 /obj/item/clothing/head/beanie/waldo,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "kj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -777,12 +777,12 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "kq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "kr" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner{
 	dir = 8
@@ -791,7 +791,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "kC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -800,40 +800,40 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "kD" = (
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "kF" = (
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "kL" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "kQ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "kR" = (
 /obj/item/trash/semki,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "lf" = (
 /obj/structure/flora/rock/icy,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "li" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "lv" = (
 /obj/structure/rack,
 /obj/item/stack/cable_coil/white,
@@ -842,18 +842,18 @@
 	pixel_y = -3
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "lx" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "lA" = (
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "lI" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -861,7 +861,7 @@
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "lK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -877,7 +877,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "lN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -886,7 +886,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "lO" = (
 /obj/structure/fence{
 	dir = 8
@@ -895,17 +895,17 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "lS" = (
 /obj/structure/fence/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "mk" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "ml" = (
 /obj/structure/chair/fancy/plastic,
 /obj/item/cigbutt{
@@ -917,7 +917,7 @@
 	pixel_y = -4
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "mn" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing/corner,
@@ -932,13 +932,13 @@
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "mx" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/glass/reinforced,
-/area/space)
+/area/template_noop)
 "my" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -946,23 +946,23 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "mL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "mM" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "mR" = (
 /obj/machinery/shuttle/engine/plasma{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "mU" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -971,32 +971,32 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "nb" = (
 /obj/structure/chair/wood,
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "ni" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
 	dir = 8
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "nn" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/template_noop)
 "nE" = (
 /mob/living/simple_animal/pet/penguin/emperor,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "nF" = (
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
@@ -1007,7 +1007,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "nS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1022,53 +1022,53 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "of" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/box,
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "og" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "oB" = (
 /obj/machinery/light/small/broken/directional/west,
 /obj/structure/frame,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "oS" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "oV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "pc" = (
 /obj/structure/table/wood,
 /obj/item/wrench,
 /obj/item/circuitboard/machine/paystand,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "pi" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/openspace,
-/area/space)
+/area/template_noop)
 "pt" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "pz" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/blood/old,
@@ -1076,27 +1076,27 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "pA" = (
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "pK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "pQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/blood/gibs/bubblegum,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "pW" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "qk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -1111,39 +1111,39 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "qA" = (
 /obj/item/toy/snowball{
 	pixel_x = 4;
 	pixel_y = 5
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "qT" = (
 /obj/effect/landmark/observer_start,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "qW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate/solarpanel_small,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "qX" = (
 /obj/item/trash/boritos,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "qZ" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "ra" = (
 /obj/structure/table/wood,
 /obj/item/screwdriver,
 /obj/item/hatchet,
 /obj/item/paicard,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "rk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1154,7 +1154,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "rl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1165,12 +1165,12 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "rt" = (
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "rw" = (
 /obj/structure/urinal{
 	dir = 1;
@@ -1182,7 +1182,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/template_noop)
 "rF" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/cut/medium{
@@ -1191,7 +1191,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "rK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -1207,20 +1207,20 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "rO" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "rQ" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
 	dir = 1
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "sa" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -1229,7 +1229,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "sb" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1239,7 +1239,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "sc" = (
 /obj/structure/fence/corner{
 	dir = 1
@@ -1247,27 +1247,27 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "si" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "sj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "sm" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "sn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "so" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
@@ -1279,7 +1279,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "sD" = (
 /obj/machinery/computer/objective{
 	dir = 8
@@ -1290,43 +1290,43 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "sN" = (
 /obj/item/trash/popcorn,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "sQ" = (
 /obj/item/trash/canned/beans,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "sS" = (
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "sU" = (
 /obj/effect/turf_decal/evac/evac_massive_middle{
 	dir = 4
 	},
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "sV" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "tb" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "tg" = (
 /obj/structure/flora/tree/jungle,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "th" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -1337,7 +1337,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "tj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -1352,7 +1352,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "tl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1367,14 +1367,14 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "to" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/space)
+/area/template_noop)
 "tq" = (
 /obj/item/trash/canned,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "tu" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1382,7 +1382,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "tw" = (
 /obj/item/food/fishmeat,
 /obj/item/food/fishmeat{
@@ -1394,45 +1394,45 @@
 	pixel_x = 3
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "tx" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "tC" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall,
-/area/space)
+/area/template_noop)
 "tI" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "tX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "uh" = (
 /obj/item/plate,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "un" = (
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "uu" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/template_noop)
 "uM" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -1444,15 +1444,15 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "uV" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "vg" = (
 /obj/structure/girder,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "vm" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -1461,14 +1461,14 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "vs" = (
 /obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "vu" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -1476,7 +1476,7 @@
 /turf/open/floor/glass/reinforced{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "vy" = (
 /obj/structure/railing{
 	dir = 4
@@ -1490,7 +1490,7 @@
 	pixel_y = -5
 	},
 /turf/open/floor/glass/reinforced,
-/area/space)
+/area/template_noop)
 "vH" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/structure/cable{
@@ -1505,14 +1505,14 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "vM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/ammo_casing/spent,
 /obj/item/ammo_casing/spent,
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "vU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1522,14 +1522,14 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "wa" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/sign/warning/securearea,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "wk" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/item/reagent_containers/cup/bucket{
@@ -1550,7 +1550,7 @@
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet 1";
@@ -1558,7 +1558,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/space)
+/area/template_noop)
 "wq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1566,7 +1566,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "wH" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -1575,7 +1575,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "wI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -1589,17 +1589,17 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "wM" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "wN" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/space)
+/area/template_noop)
 "xa" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1609,15 +1609,15 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "xd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "xh" = (
 /obj/structure/fence/cut/medium,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "xo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/evac/evac_massive_left{
@@ -1628,16 +1628,16 @@
 	default_raw_text = "<p><span>DO NOT</span> LEAVE ECHO STATION AT NIGHT!</p><p>The <span>surface</span> is <span>NOT SAFE</span>.</p><p>They're in the trees. Watching... Waiting...</p><p>We tried— <br> They're <span>coming</span>.</p>"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "xp" = (
 /obj/effect/landmark/carpspawn,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "xr" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "xA" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 4
@@ -1646,14 +1646,14 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "xD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "xF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1663,7 +1663,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "xG" = (
 /obj/item/stack/rods{
 	pixel_x = 17;
@@ -1676,10 +1676,10 @@
 /obj/structure/chair/stool/directional/east,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "yb" = (
 /turf/closed/wall/ice,
-/area/space)
+/area/template_noop)
 "ye" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1694,21 +1694,21 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "yk" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/sign/warning/electricshock,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "yl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "yq" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/weather/snow/corner,
@@ -1716,11 +1716,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "yr" = (
 /obj/structure/sign/departments/restroom,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/space)
+/area/template_noop)
 "yv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1729,7 +1729,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "yB" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -1738,23 +1738,23 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "yC" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "yN" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "yT" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "yW" = (
 /obj/structure/sink/puddle,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "yX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/post{
@@ -1763,7 +1763,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "zh" = (
 /obj/structure/curtain/directional{
 	dir = 1
@@ -1771,19 +1771,19 @@
 /obj/effect/spawner/structure/window/ice,
 /obj/structure/barricade/wooden/crude/snow,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "zr" = (
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "zv" = (
 /obj/structure/fence/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "zD" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -1792,11 +1792,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "zX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Ae" = (
 /obj/structure/sink{
 	dir = 4;
@@ -1812,14 +1812,14 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32;
 	pixel_y = -1
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Ao" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -1828,21 +1828,21 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Ar" = (
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "Av" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/survival,
-/area/space)
+/area/template_noop)
 "AA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "AD" = (
 /obj/docking_port/stationary{
 	dwidth = 3;
@@ -1863,11 +1863,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "AU" = (
 /obj/machinery/light/small/broken/directional/east,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "AX" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "exploration"
@@ -1879,11 +1879,11 @@
 	pixel_y = 24
 	},
 /turf/open/floor/mineral/titanium,
-/area/space)
+/area/template_noop)
 "Ba" = (
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Bj" = (
 /obj/machinery/button/door{
 	id = "Toilet 2";
@@ -1901,18 +1901,18 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/space)
+/area/template_noop)
 "Bo" = (
 /obj/structure/railing,
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Bw" = (
 /obj/item/toy/plush/lizard_plushie{
 	name = "Swims-the-ocean"
 	},
 /turf/open/floor/plating/beach/deep_water/cold,
-/area/space)
+/area/template_noop)
 "By" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -1920,7 +1920,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "BA" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/cut{
@@ -1930,7 +1930,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "BF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1945,33 +1945,33 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "BG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/iron/techmaint/planetary,
-/area/space)
+/area/template_noop)
 "BL" = (
 /obj/structure/closet/crate/wooden{
 	anchored = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "BM" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "BN" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "BO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -1980,19 +1980,19 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "BS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "BU" = (
 /obj/structure/fence/cut/large{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "BY" = (
 /obj/item/reagent_containers/medspray/spraytan{
 	pixel_x = -21;
@@ -2000,21 +2000,21 @@
 	},
 /obj/item/trash/candy,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Cg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Ci" = (
 /obj/item/pool/rubber_ring,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "Cp" = (
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Cu" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2023,7 +2023,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "CF" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/bikehorn/rubberducky,
@@ -2032,7 +2032,7 @@
 	dir = 8
 	},
 /turf/open/floor/noslip/standard,
-/area/space)
+/area/template_noop)
 "CH" = (
 /obj/structure/statue/snow/snowman,
 /obj/item/clothing/neck/scarf/christmas{
@@ -2040,7 +2040,7 @@
 	pixel_x = -1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "CI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -2059,7 +2059,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "CO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
@@ -2073,7 +2073,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "CQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2086,7 +2086,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "CX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2099,11 +2099,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Dd" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/space)
+/area/template_noop)
 "Du" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
@@ -2112,7 +2112,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "DA" = (
 /obj/effect/decal/cleanable/crayon{
 	alpha = 30;
@@ -2121,7 +2121,7 @@
 	},
 /obj/item/storage/backpack/satchel/flat/treasure,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "DI" = (
 /obj/docking_port/stationary{
 	dheight = 1;
@@ -2133,21 +2133,21 @@
 	width = 23
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "DJ" = (
 /obj/item/toy/snowball{
 	pixel_y = -5
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "DR" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "DS" = (
 /obj/structure/flora/rock/icy,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Eg" = (
 /obj/structure/fence/corner{
 	dir = 6
@@ -2156,7 +2156,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Ek" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -2165,20 +2165,20 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "El" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "Es" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Eu" = (
 /obj/structure/fence/door{
 	req_one_access_txt = "32"
@@ -2186,13 +2186,13 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "EA" = (
 /obj/structure/fence/corner{
 	dir = 6
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "EB" = (
 /obj/structure/railing{
 	dir = 8
@@ -2206,7 +2206,7 @@
 	pixel_y = -5
 	},
 /turf/open/floor/glass/reinforced,
-/area/space)
+/area/template_noop)
 "EG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -2225,29 +2225,29 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "EJ" = (
 /obj/structure/fluff/iced_abductor,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "EK" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "EZ" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Fb" = (
 /obj/structure/fence/corner{
 	dir = 5
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Fl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2256,17 +2256,17 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Fn" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Fo" = (
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall/mineral/titanium/survival,
-/area/space)
+/area/template_noop)
 "Fw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2283,7 +2283,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "FC" = (
 /obj/structure/fence/corner{
 	dir = 5
@@ -2291,24 +2291,24 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "FD" = (
 /mob/living/simple_animal/pet/penguin/emperor,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "FH" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "FJ" = (
 /obj/structure/fence/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "FP" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
@@ -2317,14 +2317,14 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "FV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "FW" = (
 /obj/effect/decal/cleanable/robot_debris/old{
 	name = "Seamoth fragment";
@@ -2332,25 +2332,25 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "Gi" = (
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Gm" = (
 /turf/open/floor/glass/reinforced,
-/area/space)
+/area/template_noop)
 "GC" = (
 /mob/living/simple_animal/hostile/tree,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "GI" = (
 /obj/structure/statue/snow/snowlegion,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "GJ" = (
 /obj/machinery/camera/directional/west,
 /turf/open/openspace,
-/area/space)
+/area/template_noop)
 "GO" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -2360,13 +2360,13 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/cold,
-/area/space)
+/area/template_noop)
 "GP" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "GV" = (
 /obj/machinery/door/airlock/external/glass{
 	autoclose = 0.1
@@ -2374,7 +2374,7 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Hc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2389,7 +2389,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Hh" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2404,13 +2404,13 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Hn" = (
 /obj/item/clothing/shoes/sandal{
 	pixel_x = -18
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "Hr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2425,11 +2425,11 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "HA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/ice,
-/area/space)
+/area/template_noop)
 "HM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -2437,13 +2437,13 @@
 	dir = 8
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "HR" = (
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "HX" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -2452,7 +2452,7 @@
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Ic" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/cable/yellow{
@@ -2461,12 +2461,12 @@
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace,
-/area/space)
+/area/template_noop)
 "Ie" = (
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Ip" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2477,7 +2477,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Iv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/chair/plastic,
@@ -2487,7 +2487,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "IA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2502,33 +2502,33 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "IG" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "IP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "IZ" = (
 /obj/item/clothing/suit/costume/snowman,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Jd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "Jo" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /obj/structure/curtain/directional{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Jp" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
@@ -2536,7 +2536,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Jt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2545,24 +2545,24 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "JF" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
 	dir = 1
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "JK" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "JM" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "JO" = (
 /obj/docking_port/stationary{
 	dwidth = 1;
@@ -2575,7 +2575,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "JV" = (
 /obj/structure/ladder,
 /obj/effect/turf_decal/stripes/end{
@@ -2587,11 +2587,11 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Ke" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Kg" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -2602,74 +2602,74 @@
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "KW" = (
 /obj/structure/railing/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "KX" = (
 /obj/item/beacon{
 	pixel_y = 3
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Lb" = (
 /mob/living/simple_animal/hostile/bear/snow,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Lc" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Ld" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Ll" = (
 /obj/structure/fence/end{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Lo" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Lp" = (
 /obj/structure/railing/corner{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "Lq" = (
 /obj/structure/fence/cut/large,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Lu" = (
 /obj/structure/statue/snow/snowman,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "LC" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "LM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "LO" = (
 /obj/structure/frame/computer{
 	anchored = 1
@@ -2677,13 +2677,13 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "LQ" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "LY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2694,7 +2694,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Me" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/cable/yellow{
@@ -2706,7 +2706,7 @@
 	pixel_y = 42
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Mo" = (
 /obj/docking_port/stationary{
 	dwidth = 12;
@@ -2716,22 +2716,22 @@
 	width = 25
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Mt" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
-/area/space)
+/area/template_noop)
 "Mv" = (
 /obj/structure/statue/snow/snowman,
 /obj/item/clothing/head/beanie/christmas{
 	pixel_y = 13
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "MD" = (
 /obj/item/food/fishandchips,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "MF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2745,7 +2745,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "MJ" = (
 /obj/machinery/button/door{
 	id = "commissaryshutters3";
@@ -2756,7 +2756,7 @@
 /obj/item/stack/sheet/wood/ten,
 /obj/item/storage/bag/trash,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "MT" = (
 /obj/structure/closet/crate/science,
 /obj/effect/turf_decal/stripes/line{
@@ -2765,7 +2765,7 @@
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Nd" = (
 /obj/structure/railing{
 	dir = 4
@@ -2773,7 +2773,7 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Nk" = (
 /obj/item/storage/secure/safe{
 	pixel_x = 37;
@@ -2786,14 +2786,14 @@
 	pixel_y = 29
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "Nu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "Nx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2803,7 +2803,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "NC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2823,7 +2823,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "NO" = (
 /obj/item/barcodescanner{
 	name = "Scanner";
@@ -2831,14 +2831,14 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "NQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Of" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2853,11 +2853,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Og" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Ol" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2869,14 +2869,14 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Oy" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "OD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2884,7 +2884,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "OI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -2897,7 +2897,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "OR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2907,14 +2907,14 @@
 	},
 /obj/structure/sign/warning/explosives/alt,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Pq" = (
 /obj/structure/railing/corner{
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Pt" = (
 /obj/item/beacon{
 	pixel_y = 3
@@ -2924,7 +2924,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "PH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2939,20 +2939,20 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "PJ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "PK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "PL" = (
 /obj/structure/fence/corner{
 	dir = 8
@@ -2960,14 +2960,14 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "PO" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/item/hatchet,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "PQ" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -2976,12 +2976,12 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Qe" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/hatchet,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Qm" = (
 /obj/machinery/power/solar_control{
 	use_power = 0;
@@ -2994,7 +2994,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Qt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/map/echo{
@@ -3008,13 +3008,13 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Qv" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "QA" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -3026,20 +3026,20 @@
 	name = "bathroom"
 	},
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/template_noop)
 "QI" = (
 /turf/open/openspace,
-/area/space)
+/area/template_noop)
 "QJ" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/space)
+/area/template_noop)
 "QL" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "QV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -3047,29 +3047,29 @@
 	},
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "QZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/fence/cut,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "Ra" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/newscaster/directional/west,
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "Rh" = (
 /obj/item/toy/beach_ball,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Rq" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Rs" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -3080,7 +3080,7 @@
 /turf/open/floor/glass/reinforced{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Rt" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence{
@@ -3090,7 +3090,7 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Rv" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
@@ -3111,14 +3111,14 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "RE" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "RG" = (
 /obj/machinery/button/door{
 	id = "Toilet 1";
@@ -3134,22 +3134,22 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/space)
+/area/template_noop)
 "RO" = (
 /obj/item/kirbyplants{
 	pixel_x = -7
 	},
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "RZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Sd" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Sf" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3158,7 +3158,7 @@
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Sj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3176,18 +3176,18 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Sx" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "SL" = (
 /obj/structure/railing,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "SO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -3200,7 +3200,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "SZ" = (
 /obj/item/beacon{
 	pixel_y = 3
@@ -3219,7 +3219,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Td" = (
 /obj/item/radio/intercom{
 	dir = 1;
@@ -3230,7 +3230,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Tm" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/loading_area{
@@ -3239,20 +3239,20 @@
 /turf/open/floor/mineral/titanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Tn" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Tu" = (
 /obj/effect/turf_decal/evac/evac_massive_right{
 	dir = 4
 	},
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "TD" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -3266,7 +3266,7 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "TH" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 8
@@ -3275,7 +3275,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "TM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3287,7 +3287,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "TN" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -3295,7 +3295,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/cold,
-/area/space)
+/area/template_noop)
 "TP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -3306,11 +3306,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Ua" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Uy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -3322,14 +3322,14 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "UC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/marker_beacon,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "UD" = (
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
@@ -3352,7 +3352,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "UH" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -3360,7 +3360,7 @@
 /obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/randommaint/vip,
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "UN" = (
 /obj/item/flashlight/lantern{
 	pixel_x = -6;
@@ -3368,7 +3368,7 @@
 	},
 /obj/item/toy/plush/moth/error,
 /turf/closed/mineral/random/snowmountain/cavern,
-/area/space)
+/area/template_noop)
 "UO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -3380,22 +3380,22 @@
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "UV" = (
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "UX" = (
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "UY" = (
 /obj/item/shovel/spade{
 	pixel_x = 18;
 	pixel_y = -18
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Vg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -3404,7 +3404,7 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Vi" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -3414,36 +3414,36 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Vl" = (
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Vq" = (
 /turf/open/floor/carpet,
-/area/space)
+/area/template_noop)
 "Vv" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Vw" = (
 /obj/structure/fence/corner,
 /turf/open/floor/plating/dirt/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Vz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/ice,
-/area/space)
+/area/template_noop)
 "VA" = (
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "VI" = (
 /obj/machinery/telecomms/relay/preset/auto,
 /obj/machinery/door/window/northleft{
@@ -3457,7 +3457,7 @@
 	},
 /obj/structure/barricade/wooden/crude/snow,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "VS" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -3473,16 +3473,16 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "VX" = (
 /turf/closed/mineral/random/snowmountain/cavern,
-/area/space)
+/area/template_noop)
 "Ws" = (
 /obj/structure/fermenting_barrel{
 	anchored = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Wt" = (
 /obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_x = -13;
@@ -3490,14 +3490,14 @@
 	},
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Wx" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
 	dir = 9
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "WC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -3509,7 +3509,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "WF" = (
 /obj/structure/no_effect_signpost{
 	name = "Echo station";
@@ -3517,7 +3517,7 @@
 	pixel_y = 19
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "WJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -3526,31 +3526,31 @@
 	},
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "WP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "WU" = (
 /obj/structure/fence,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "WV" = (
 /obj/item/toy/snowball{
 	pixel_x = 4;
 	pixel_y = 3
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "WW" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Xe" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -3559,7 +3559,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Xq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3571,7 +3571,7 @@
 	},
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/iron,
-/area/space)
+/area/template_noop)
 "Xx" = (
 /obj/structure/table/wood,
 /obj/machinery/door/poddoor/shutters{
@@ -3579,31 +3579,31 @@
 	name = "Vacant Commissary Shutters #3"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "XB" = (
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "XK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/sandbags,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "XO" = (
 /obj/structure/reagent_dispensers/beerkeg{
 	pixel_x = 6;
 	pixel_y = -6
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "XT" = (
 /obj/item/food/candyheart{
 	pixel_x = -13;
 	pixel_y = -23
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
-/area/space)
+/area/template_noop)
 "XZ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -3618,31 +3618,31 @@
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Yb" = (
 /turf/open/floor/glass/reinforced{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Yc" = (
 /obj/structure/fence,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "Yd" = (
 /obj/structure/marker_beacon,
 /obj/item/ammo_casing/spent,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Yj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "Yn" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -3652,7 +3652,7 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Yq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3661,22 +3661,22 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Yr" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/glass/reinforced,
-/area/space)
+/area/template_noop)
 "Yt" = (
 /turf/open/floor/plating/beach/deep_water/cold,
-/area/space)
+/area/template_noop)
 "YA" = (
 /obj/structure/fence/cut/medium{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "YE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -3688,11 +3688,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "YG" = (
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/space)
+/area/template_noop)
 "YT" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -3703,13 +3703,13 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "YV" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/space)
+/area/template_noop)
 "YZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -3721,14 +3721,14 @@
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Zr" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/sign/warning/securearea,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "Zt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3744,11 +3744,11 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/frozengrass,
-/area/space)
+/area/template_noop)
 "ZK" = (
 /mob/living/simple_animal/chicken/turkey{
 	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
@@ -3763,7 +3763,7 @@
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 Yt

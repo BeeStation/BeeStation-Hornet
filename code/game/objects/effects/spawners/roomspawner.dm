@@ -161,23 +161,24 @@
 	room_height = 10
 
 /obj/effect/spawner/room/echo
-	name = "surface season replacer"
+	name = "surface event replacer"
 	icon_state = "random_room_alternative"
 	room_width = 132
 	room_height = 132
 
-	var/list/seasonal_maps = list(
-		//AUTUMN = "autumn_surface.dmm",
-		//SPRING = "spring_surface.dmm",
-		WINTER = "winter_surface.dmm"
+	// Define seasonal room IDs
+	var/list/seasonal_room_ids = list(
+		"WINTER" = list("winter_surface"),
+		"SPRING" = list("spring_surface"),
+		"AUTUMN" = list("autumn_surface")
+		//"SUMMER" by default
 	)
 
 /obj/effect/spawner/room/echo/Initialize(mapload)
-	. = ..()
-
 	var/season = get_current_season()
-	if (season in seasonal_maps) // Apply the seasonal map only if not summer
-		apply_seasonal_map(seasonal_maps[season])
+	if (season in seasonal_room_ids)
+		rooms = seasonal_room_ids[season]
+	return ..()  // Call parent to load the selected template
 
 /proc/get_current_season()
 	var/month = text2num(time2text(world.timeofday, "MM"))
@@ -188,9 +189,7 @@
 		return "SPRING"
 	if (month in list(SEPTEMBER, OCTOBER, NOVEMBER))
 		return "AUTUMN"
-	return
+	return "SUMMER"
 
-/obj/effect/spawner/room/echo/proc/apply_seasonal_map(map_file)
-	var/datum/map_template/map_loader = new /datum/map_template/new
-	map_loader.load(map_file, get_turf(src))
+
 
