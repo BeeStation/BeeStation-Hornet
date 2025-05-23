@@ -73,6 +73,24 @@
 			selected_biome = possible_biomes[heat_level][humidity_level]
 		else //Over 0.85; It's a clearing
 			selected_biome = /datum/biome/grassclearing
-		selected_biome = SSmapping.biomes[selected_biome] //Get the instance of this biome from SSmapping
+		selected_biome = SSmapping.biomes[selected_biome]
 		selected_biome.generate_turf(gen_turf)
-		CHECK_TICK
+		// Get seasonal flora/fauna
+		var/list/content = selected_biome.get_seasonal_content()
+		var/list/seasonal_flora = content["flora"]
+		var/list/seasonal_fauna = content["fauna"]
+
+		// Spawn flora
+		if(seasonal_flora && seasonal_flora.len)
+			for (var/obj_type in seasonal_flora)
+				if (prob(selected_biome.flora_density))
+					var/obj/structure/flora/F = new obj_type(gen_turf)
+					F.pixel_x = rand(-selected_biome.flora_x_offset, selected_biome.flora_x_offset)
+					F.pixel_y = rand(-selected_biome.flora_y_offset, selected_biome.flora_y_offset)
+
+		// Spawn fauna
+		if(seasonal_fauna && seasonal_fauna.len)
+			for (var/mob_type in seasonal_fauna)
+				if (prob(selected_biome.fauna_density))
+					new mob_type(gen_turf)
+

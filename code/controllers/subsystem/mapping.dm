@@ -60,7 +60,6 @@ SUBSYSTEM_DEF(mapping)
 	var/list/gravity_by_z_level = list()
 
 	//Echo surface level templates
-	#define ECHO_TEMPLATE_PATH(path) ispath(path, /datum/map_template/random_room/echo)
 	var/list/echo_surface_templates = list()
 
 /datum/controller/subsystem/mapping/PreInit()
@@ -476,7 +475,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/item in subtypesof(/datum/map_template/random_room))
 		var/datum/map_template/random_room/room_type = item
 		if(!(initial(room_type.mappath)))
-			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
+			log_world("Skipping [room_type] due to missing mappath.")
 			continue
 		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R

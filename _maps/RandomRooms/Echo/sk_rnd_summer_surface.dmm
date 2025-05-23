@@ -1,12 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/obj/structure/fence,
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
 "af" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "an" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -20,7 +16,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/iron/freezer,
-/area/hallway/primary/fore)
+/area/template_noop)
 "aw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -28,7 +24,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "aL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -38,7 +34,7 @@
 	},
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "aQ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/cable{
@@ -52,19 +48,19 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "aY" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /obj/structure/curtain/directional{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/fore)
+/area/template_noop)
 "bd" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "bj" = (
 /obj/item/grown/log/tree,
 /obj/item/grown/log/tree{
@@ -78,7 +74,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "bo" = (
 /obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/assistant,
@@ -86,7 +82,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 9
 	},
-/area/paradise/surface)
+/area/template_noop)
 "bt" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1;
@@ -98,11 +94,11 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "bA" = (
 /obj/structure/frame/machine,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "bE" = (
 /obj/machinery/computer/security/wooden_tv{
 	pixel_x = 2;
@@ -110,19 +106,19 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "bP" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "bU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing/corner,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "bZ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -130,15 +126,15 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "cc" = (
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "cd" = (
 /obj/item/sbeacondrop/exploration,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "ck" = (
 /obj/item/stack/sheet/mineral/sandstone{
 	pixel_x = 8
@@ -150,20 +146,20 @@
 	pixel_y = 6
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "cl" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "cq" = (
 /obj/structure/fence/corner{
 	dir = 9
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "cr" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -176,13 +172,13 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "cx" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "cE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
@@ -190,7 +186,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "cJ" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
@@ -198,7 +194,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "cP" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -207,19 +203,19 @@
 	dir = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "dl" = (
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "do" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "dt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/numbers,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "dA" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet 2";
@@ -229,12 +225,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "dP" = (
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 6
 	},
-/area/paradise/surface)
+/area/template_noop)
 "dR" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
@@ -243,20 +239,20 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "dW" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "dY" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "dZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -265,28 +261,28 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "ea" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "ec" = (
 /obj/structure/fence,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "ep" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "ew" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "eH" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -298,7 +294,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "eI" = (
 /obj/structure/chair/fancy/plastic{
 	dir = 8
@@ -312,13 +308,13 @@
 	pixel_y = 11
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "eP" = (
 /obj/item/trash/waffles,
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "eT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
@@ -328,13 +324,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
-"eU" = (
-/obj/structure/fence/corner{
-	dir = 6
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "eV" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -345,17 +335,17 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel,
-/area/paradise/surface)
+/area/template_noop)
 "eX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "fb" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "fm" = (
 /obj/structure/urinal{
 	dir = 1;
@@ -371,23 +361,20 @@
 	pixel_y = -2
 	},
 /turf/open/floor/iron/freezer,
-/area/hallway/primary/fore)
+/area/template_noop)
 "fs" = (
 /obj/structure/fence/corner{
 	dir = 5
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "ft" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "exploration"
 	},
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
-"fw" = (
-/turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface/sand)
+/area/template_noop)
 "fR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -399,7 +386,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "fU" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -409,7 +396,7 @@
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "gd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -420,10 +407,10 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "gf" = (
 /turf/closed/wall/mineral/wood,
-/area/paradise/surface)
+/area/template_noop)
 "gh" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/cable{
@@ -433,7 +420,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "gj" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/cut{
@@ -442,12 +429,12 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
-/area/paradise/surface)
+/area/template_noop)
 "gm" = (
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 4
 	},
-/area/paradise/surface)
+/area/template_noop)
 "gn" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -456,7 +443,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "gq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -466,14 +453,14 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "gs" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
 /obj/structure/frame,
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "gt" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -481,10 +468,7 @@
 /obj/structure/railing/corner,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
-"gI" = (
-/turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface/sand)
+/area/template_noop)
 "gL" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -494,7 +478,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "gO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -502,16 +486,13 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "gX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
-"gY" = (
-/turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "hc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -520,7 +501,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "hd" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -529,7 +510,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "he" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1;
@@ -539,14 +520,14 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "hg" = (
 /obj/docking_port/stationary/random{
 	id = "pod_lavaland1";
 	name = "lavaland"
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "hk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral{
@@ -555,12 +536,12 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "ho" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "hp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -570,7 +551,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "hs" = (
 /obj/structure/chair/fancy/plastic{
 	dir = 4
@@ -579,17 +560,17 @@
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 1
 	},
-/area/paradise/surface)
+/area/template_noop)
 "hu" = (
 /obj/effect/turf_decal/evac/evac_big{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "hw" = (
 /obj/structure/fence/cut/large,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "hD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -597,12 +578,12 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "hH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "hP" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -610,28 +591,28 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "hV" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "hX" = (
 /obj/structure/sign/directions/evac{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/survival,
-/area/hallway/primary/fore)
+/area/template_noop)
 "ib" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "ie" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "ij" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -643,25 +624,25 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "it" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 5
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "iB" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "iD" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
 	},
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -672,26 +653,18 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "iR" = (
 /obj/structure/fence/door/opened{
 	dir = 8
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "iS" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 8
 	},
-/area/paradise/surface/water)
-"iT" = (
-/obj/structure/fence/cut/large,
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
-"iV" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface/sand)
+/area/template_noop)
 "jd" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -700,7 +673,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel,
-/area/paradise/surface)
+/area/template_noop)
 "jf" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -711,11 +684,11 @@
 	dir = 9
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "jz" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "jB" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 8
@@ -726,7 +699,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "jH" = (
 /obj/structure/curtain,
 /obj/machinery/shower{
@@ -735,16 +708,16 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/soap/nanotrasen,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "jL" = (
 /obj/structure/chair/fancy/plastic{
 	dir = 8
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "jM" = (
 /turf/open/floor/iron/stairs,
-/area/paradise/surface)
+/area/template_noop)
 "jV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -757,7 +730,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "kc" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
@@ -768,13 +741,13 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "ki" = (
 /obj/item/clothing/head/beanie/waldo,
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 8
 	},
-/area/paradise/surface)
+/area/template_noop)
 "kj" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -782,52 +755,52 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "kq" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "kr" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "kv" = (
 /obj/structure/girder,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "kC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "kD" = (
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 10
 	},
-/area/paradise/surface)
+/area/template_noop)
 "kF" = (
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "kL" = (
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 5
 	},
-/area/paradise/surface)
+/area/template_noop)
 "kQ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "kR" = (
 /obj/item/trash/semki,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "la" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -836,16 +809,16 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "lf" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "li" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "lv" = (
 /obj/structure/rack,
 /obj/item/stack/cable_coil/white,
@@ -854,21 +827,21 @@
 	pixel_y = -3
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "lx" = (
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "lA" = (
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "lI" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "lK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -880,21 +853,21 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "lN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/fence/door,
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "lO" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "lQ" = (
 /mob/living/simple_animal/hostile/gorilla{
 	aggro_vision_range = 3;
@@ -902,23 +875,23 @@
 	vision_range = 5
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "lS" = (
 /obj/structure/fence/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "md" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/fence,
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "mk" = (
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "ml" = (
 /obj/structure/chair/fancy/plastic,
 /obj/item/cigbutt{
@@ -930,7 +903,7 @@
 	pixel_y = -4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "mn" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing/corner,
@@ -943,7 +916,7 @@
 	icon_state = "4-32"
 	},
 /turf/open/openspace/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "ms" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -956,7 +929,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "mw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -964,73 +937,65 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "mx" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/glass/reinforced,
-/area/hallway/primary/fore)
+/area/template_noop)
 "my" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
-"mB" = (
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "mL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
-"mM" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/paradise/surface/grass)
+/area/template_noop)
 "mR" = (
 /obj/machinery/shuttle/engine/plasma{
 	dir = 1
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "mU" = (
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 9
 	},
-/area/paradise/surface)
+/area/template_noop)
 "nb" = (
 /obj/structure/chair/wood,
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "ng" = (
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "ni" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
 	dir = 8
 	},
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "nn" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
-/area/hallway/primary/fore)
+/area/template_noop)
 "nE" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 6
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "nF" = (
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
@@ -1039,7 +1004,7 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "nS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1050,78 +1015,78 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "of" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/box,
 /turf/open/floor/plating,
-/area/paradise/surface)
+/area/template_noop)
 "og" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/plating/asteroid/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "oB" = (
 /obj/machinery/light/small/broken/directional/west,
 /obj/structure/frame,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "oS" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "oV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "pc" = (
 /obj/structure/table/wood,
 /obj/item/wrench,
 /obj/item/circuitboard/machine/paystand,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "pi" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/openspace/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "pt" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "pz" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "pA" = (
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "pK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "pQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "pT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "pW" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet,
-/area/paradise/surface)
+/area/template_noop)
 "qk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -1135,39 +1100,33 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
-"qA" = (
-/obj/structure/fence/cut/large{
-	dir = 8
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "qT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/observer_start,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "qW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate/solarpanel_small,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "qX" = (
 /obj/item/trash/boritos,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "qZ" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "ra" = (
 /obj/structure/table/wood,
 /obj/item/screwdriver,
 /obj/item/hatchet,
 /obj/item/paicard,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "rk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1176,7 +1135,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "rl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1185,14 +1144,14 @@
 	dir = 4
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "rt" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "rw" = (
 /obj/structure/urinal{
 	dir = 1;
@@ -1204,20 +1163,20 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
-/area/hallway/primary/fore)
+/area/template_noop)
 "rF" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/cut/medium{
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "rG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "rK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -1229,19 +1188,19 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "rO" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 10
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "rQ" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
 	dir = 1
 	},
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "rW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -1249,12 +1208,12 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "sa" = (
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
-/area/paradise/surface)
+/area/template_noop)
 "sb" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
@@ -1264,34 +1223,34 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "sc" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "si" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "sj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "sm" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "sn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "so" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
@@ -1301,7 +1260,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "su" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1310,7 +1269,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "sD" = (
 /obj/machinery/computer/objective{
 	dir = 8
@@ -1319,47 +1278,47 @@
 	dir = 5
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "sN" = (
 /obj/item/trash/popcorn,
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "sQ" = (
 /obj/item/trash/canned/beans,
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "sS" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "sU" = (
 /obj/effect/turf_decal/evac/evac_massive_middle{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "sV" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "tb" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "tg" = (
 /obj/structure/flora/tree/jungle,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "th" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -1368,7 +1327,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "tj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -1382,7 +1341,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "tl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1393,60 +1352,60 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "to" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/hallway/primary/fore)
+/area/template_noop)
 "tq" = (
 /obj/item/trash/canned,
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "tu" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "tw" = (
 /turf/open/floor/plating/beach/coastline_t,
-/area/paradise/surface)
+/area/template_noop)
 "tx" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "tC" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/survival,
-/area/hallway/primary/fore)
+/area/template_noop)
 "tI" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner,
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "tX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "uh" = (
 /obj/item/plate,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "un" = (
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "uu" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
-/area/hallway/primary/fore)
+/area/template_noop)
 "uH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1458,51 +1417,40 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "uM" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "uV" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
-"va" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
-"vg" = (
-/obj/structure/girder,
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "vm" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "vs" = (
 /obj/structure/chair/stool/directional/west,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
-"vu" = (
-/turf/open/floor/plating/beach/coastline_t,
-/area/paradise/surface/sand)
+/area/template_noop)
 "vy" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/structure/closet/emcloset,
 /turf/open/floor/glass/reinforced,
-/area/hallway/primary/fore)
+/area/template_noop)
 "vA" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "vH" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/cable{
@@ -1516,11 +1464,11 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "vM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "vU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1528,18 +1476,18 @@
 /obj/structure/fence/cut/large,
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "wa" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/sign/warning/securearea,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "wi" = (
 /obj/structure/railing,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "wk" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/item/reagent_containers/cup/bucket{
@@ -1555,13 +1503,13 @@
 /obj/item/seeds/carrot/parsnip,
 /obj/item/seeds/carrot/parsnip,
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "wl" = (
 /obj/structure/bonfire/prelit,
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
-/area/paradise/surface)
+/area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet 1";
@@ -1569,29 +1517,23 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "wo" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "wq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
-"ws" = (
-/obj/structure/fence/cut/medium{
-	dir = 8
-	},
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "ww" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "wH" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -1599,7 +1541,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "wI" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1610,17 +1552,17 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "wM" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "wN" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/paradise/surface)
+/area/template_noop)
 "xa" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1629,37 +1571,37 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "xd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "xh" = (
 /obj/structure/fence/cut/medium,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "xo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/evac/evac_massive_left{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "xp" = (
 /obj/effect/landmark/carpspawn,
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "xr" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "xA" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 4
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "xF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1668,13 +1610,10 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
-"xG" = (
-/turf/open/openspace/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "yb" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/hallway/primary/fore)
+/area/template_noop)
 "ye" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -1686,29 +1625,29 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "yk" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/sign/warning/electricshock,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "yl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "yq" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "yr" = (
 /obj/structure/sign/departments/restroom,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/hallway/primary/fore)
+/area/template_noop)
 "yv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1717,28 +1656,28 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "yB" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "yC" = (
 /turf/open/floor/plating/beach/coastline_b,
-/area/paradise/surface/water)
+/area/template_noop)
 "yN" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "yT" = (
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "yW" = (
 /obj/structure/sink/puddle,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "yX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/post{
@@ -1747,27 +1686,24 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
-/area/paradise/surface)
-"zg" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/paradise/surface/grass)
+/area/template_noop)
 "zh" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /obj/structure/curtain/directional{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/fore)
+/area/template_noop)
 "zr" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "zv" = (
 /obj/structure/fence/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "zD" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -1775,7 +1711,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "zX" = (
 /obj/item/storage/basket/easter{
 	pixel_y = 8;
@@ -1794,7 +1730,7 @@
 /obj/item/storage/basket/easter,
 /obj/item/storage/basket/easter,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Ae" = (
 /obj/structure/sink{
 	dir = 4;
@@ -1810,14 +1746,14 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32;
 	pixel_y = -1
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Ao" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -1825,23 +1761,23 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Ar" = (
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "Av" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "AA" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "AD" = (
 /obj/docking_port/stationary{
 	dwidth = 3;
@@ -1858,11 +1794,11 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "AU" = (
 /obj/machinery/light/small/broken/directional/east,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "AX" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "exploration"
@@ -1874,10 +1810,10 @@
 	pixel_y = 24
 	},
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "Ba" = (
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "Bj" = (
 /obj/structure/toilet{
 	pixel_x = -1;
@@ -1894,19 +1830,19 @@
 /obj/machinery/light/small,
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron/techmaint/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Bo" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/railing,
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Bw" = (
 /obj/item/toy/plush/lizard_plushie{
 	name = "Swims-the-ocean"
 	},
 /turf/open/floor/plating/beach/deep_water,
-/area/paradise/surface/water)
+/area/template_noop)
 "By" = (
 /obj/structure/chair/wood/normal{
 	dir = 1;
@@ -1914,7 +1850,7 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "BA" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/cut{
@@ -1922,7 +1858,7 @@
 	},
 /obj/structure/sign/warning/explosives/alt,
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "BF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1933,48 +1869,48 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "BG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
 /turf/open/floor/iron/techmaint/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "BL" = (
 /obj/structure/closet/crate/wooden{
 	anchored = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "BM" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
-/area/paradise/surface)
+/area/template_noop)
 "BN" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "BO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "BS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "BU" = (
 /obj/structure/fence/cut/large{
 	dir = 8
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "BY" = (
 /obj/item/reagent_containers/medspray/spraytan{
 	pixel_x = -21;
@@ -1982,19 +1918,16 @@
 	},
 /obj/item/trash/candy,
 /turf/open/floor/carpet,
-/area/paradise/surface)
+/area/template_noop)
 "Cg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "Ci" = (
 /obj/item/pool/rubber_ring,
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
-"Cp" = (
-/turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "Cu" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2002,7 +1935,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "CF" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/bikehorn/rubberducky,
@@ -2011,7 +1944,7 @@
 	dir = 8
 	},
 /turf/open/floor/noslip/standard,
-/area/hallway/primary/fore)
+/area/template_noop)
 "CH" = (
 /obj/structure/fence{
 	dir = 8
@@ -2019,7 +1952,7 @@
 /obj/structure/sign/warning/electricshock,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "CI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -2034,7 +1967,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "CO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
@@ -2044,7 +1977,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "CQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2053,7 +1986,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "CX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2062,17 +1995,17 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Dd" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/paradise/surface)
+/area/template_noop)
 "Du" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "DA" = (
 /obj/effect/decal/cleanable/crayon{
 	alpha = 30;
@@ -2081,7 +2014,7 @@
 	},
 /obj/item/storage/backpack/satchel/flat/treasure,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "DI" = (
 /obj/docking_port/stationary{
 	dheight = 1;
@@ -2093,26 +2026,26 @@
 	width = 23
 	},
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "DJ" = (
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 4
 	},
-/area/paradise/surface)
+/area/template_noop)
 "DR" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "DS" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Eg" = (
 /obj/structure/fence/corner{
 	dir = 6
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "Ek" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -2120,19 +2053,19 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "El" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Es" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Eu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2142,20 +2075,20 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "EA" = (
 /obj/structure/fence/corner{
 	dir = 6
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "EB" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/glass/reinforced,
-/area/hallway/primary/fore)
+/area/template_noop)
 "EG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -2172,41 +2105,38 @@
 	pixel_y = -1
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
-"EJ" = (
-/turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "EK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "EZ" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface/grass)
+/area/template_noop)
 "Fb" = (
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 1
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Fl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/fence,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Fn" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Fo" = (
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall/mineral/titanium/survival,
-/area/paradise/surface)
+/area/template_noop)
 "Fw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2219,23 +2149,23 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "FC" = (
 /obj/structure/fence/corner{
 	dir = 5
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "FD" = (
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner,
-/area/paradise/surface)
+/area/template_noop)
 "FH" = (
 /obj/structure/fence/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "FJ" = (
 /obj/structure/fence/corner{
 	dir = 4
@@ -2243,7 +2173,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 5
 	},
-/area/paradise/surface)
+/area/template_noop)
 "FP" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
@@ -2251,12 +2181,12 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "FU" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "FV" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2264,7 +2194,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "FW" = (
 /obj/effect/decal/cleanable/robot_debris/old{
 	name = "Seamoth fragment";
@@ -2272,28 +2202,17 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
-"Ge" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
-"Gg" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
-	dir = 8
-	},
-/area/paradise/surface/sand)
+/area/template_noop)
 "Gi" = (
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "Gm" = (
 /turf/open/floor/glass/reinforced,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Gu" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "GC" = (
 /mob/living/simple_animal/hostile/gorilla{
 	aggro_vision_range = 3;
@@ -2301,17 +2220,17 @@
 	vision_range = 5
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "GI" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "GJ" = (
 /obj/machinery/camera/directional/west,
 /turf/open/openspace/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "GO" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -2321,16 +2240,16 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel,
-/area/paradise/surface)
+/area/template_noop)
 "GP" = (
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "GV" = (
 /obj/machinery/door/airlock/external/glass{
 	autoclose = 0.1
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "Hc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2341,7 +2260,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Hh" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2354,13 +2273,13 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "Hn" = (
 /obj/item/clothing/shoes/sandal{
 	pixel_x = -18
 	},
 /turf/open/floor/plating/beach/coastline_t,
-/area/paradise/surface)
+/area/template_noop)
 "Hr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2374,11 +2293,11 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "HA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/hallway/primary/fore)
+/area/template_noop)
 "HE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -2386,7 +2305,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "HM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -2394,18 +2313,14 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "HR" = (
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface/grass)
-"HT" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "HX" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "Ic" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/cable/yellow{
@@ -2414,10 +2329,10 @@
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Ie" = (
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "Ip" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2426,7 +2341,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "Iv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/chair/plastic,
@@ -2434,23 +2349,17 @@
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "IA" = (
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 8
 	},
-/area/paradise/surface)
-"IG" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "IP" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 9
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "IZ" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -2459,30 +2368,30 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Jd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Jo" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /obj/structure/curtain/directional{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Jp" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Js" = (
 /obj/structure/fence/corner{
 	dir = 6
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "Jt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
@@ -2490,24 +2399,24 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "JF" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
 	dir = 1
 	},
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "JK" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "JM" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "JO" = (
 /obj/docking_port/stationary{
 	dwidth = 1;
@@ -2517,7 +2426,7 @@
 	width = 3
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "JV" = (
 /obj/structure/ladder,
 /obj/effect/turf_decal/stripes/end{
@@ -2527,89 +2436,85 @@
 	dir = 5
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Ke" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Kg" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "Ku" = (
 /obj/structure/desk_bell{
 	anchored = 1;
 	pixel_x = -16
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "KW" = (
 /obj/structure/railing/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "KX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/beacon{
 	pixel_y = 3
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Lb" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
 	dir = 8
 	},
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "Lc" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Ld" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Ll" = (
 /obj/structure/fence/end{
 	dir = 8
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Lo" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Lp" = (
 /obj/structure/railing/corner{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Lq" = (
 /obj/structure/fence/cut/large,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
-"Lt" = (
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface/sand)
+/area/template_noop)
 "Lu" = (
 /turf/open/floor/carpet,
-/area/paradise/surface)
+/area/template_noop)
 "LC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2620,25 +2525,25 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "LM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "LO" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/frame/computer{
 	anchored = 1
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "LQ" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "LY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2649,7 +2554,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Me" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/cable/yellow{
@@ -2661,7 +2566,7 @@
 	pixel_y = 42
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Mo" = (
 /obj/docking_port/stationary{
 	dwidth = 12;
@@ -2671,18 +2576,11 @@
 	width = 25
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "Mt" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
-"Mv" = (
-/turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
-"MD" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "MF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2695,7 +2593,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "MJ" = (
 /obj/machinery/button/door{
 	id = "commissaryshutters3";
@@ -2706,7 +2604,7 @@
 /obj/item/stack/sheet/wood/ten,
 /obj/item/storage/bag/trash,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "MM" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -2718,14 +2616,14 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "MT" = (
 /obj/structure/closet/crate/science,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface/grass)
+/area/template_noop)
 "Nd" = (
 /obj/structure/railing{
 	dir = 4
@@ -2733,7 +2631,7 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Nk" = (
 /obj/item/storage/secure/safe{
 	pixel_x = 37;
@@ -2746,7 +2644,7 @@
 	pixel_y = 29
 	},
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Nu" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2758,14 +2656,14 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "Nx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "NC" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -2782,7 +2680,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "NO" = (
 /obj/item/barcodescanner{
 	name = "Scanner";
@@ -2792,14 +2690,14 @@
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 8
 	},
-/area/paradise/surface)
+/area/template_noop)
 "NQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Of" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2810,11 +2708,11 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Og" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Ol" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -2823,7 +2721,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Oy" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -2831,14 +2729,14 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "OD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "OI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -2847,7 +2745,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "OR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2857,19 +2755,19 @@
 	},
 /obj/structure/sign/warning/explosives/alt,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Pc" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Pq" = (
 /obj/structure/railing/corner{
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Pt" = (
 /obj/item/beacon{
 	pixel_y = 3
@@ -2879,34 +2777,34 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "PH" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 4
 	},
-/area/paradise/surface/water)
+/area/template_noop)
 "PJ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "PK" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "PL" = (
 /obj/structure/fence/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "PO" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/item/hatchet,
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "PQ" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2915,12 +2813,12 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Qe" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/hatchet,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Qm" = (
 /obj/machinery/power/solar_control{
 	use_power = 0;
@@ -2934,7 +2832,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Qt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/map/echo{
@@ -2943,19 +2841,19 @@
 	pixel_y = 32
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Qu" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Qv" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "QA" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -2967,27 +2865,27 @@
 	name = "bathroom"
 	},
 /turf/open/floor/iron/freezer,
-/area/hallway/primary/fore)
+/area/template_noop)
 "QI" = (
 /turf/open/openspace/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "QJ" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "QL" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "QV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "QZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2996,26 +2894,26 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 4
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Ra" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Rh" = (
 /obj/item/toy/beach_ball,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "Rq" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Rs" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Rt" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence{
@@ -3023,7 +2921,7 @@
 	},
 /obj/structure/sign/warning/fire,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Rv" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
@@ -3041,7 +2939,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "RE" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/machinery/light{
@@ -3049,7 +2947,7 @@
 	},
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "RG" = (
 /obj/structure/toilet{
 	pixel_x = -1;
@@ -3064,30 +2962,30 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "RO" = (
 /obj/item/kirbyplants{
 	pixel_x = -7
 	},
 /turf/open/floor/wood,
-/area/paradise/surface)
+/area/template_noop)
 "RZ" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Sd" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface/grass)
+/area/template_noop)
 "Sf" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "Sj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3100,28 +2998,28 @@
 	pixel_y = 32
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Sk" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
+/area/template_noop)
 "Sq" = (
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "Sx" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "SL" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/railing,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "SO" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3131,7 +3029,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "SZ" = (
 /obj/item/beacon{
 	pixel_y = 3
@@ -3147,7 +3045,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Td" = (
 /obj/item/radio/intercom{
 	dir = 1;
@@ -3155,28 +3053,28 @@
 	pixel_y = -3
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "Tm" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/paradise/surface)
+/area/template_noop)
 "Tn" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Tu" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/evac/evac_massive_right{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "TD" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -3188,13 +3086,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/paradise/surface)
-"TH" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 8
-	},
-/turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "TM" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -3203,7 +3095,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "TN" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -3211,7 +3103,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel,
-/area/paradise/surface)
+/area/template_noop)
 "TP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -3220,11 +3112,11 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Ua" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Uy" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -3233,7 +3125,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "UA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3242,12 +3134,12 @@
 	dir = 4
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/paradise/surface)
+/area/template_noop)
 "UC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "UD" = (
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
@@ -3268,7 +3160,7 @@
 /obj/item/encryptionkey/headset_expteam,
 /obj/item/encryptionkey/headset_expteam,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "UE" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
@@ -3277,13 +3169,13 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "UH" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "UN" = (
 /obj/item/flashlight/lantern{
 	pixel_x = -6;
@@ -3291,81 +3183,81 @@
 	},
 /obj/item/toy/plush/moth/error,
 /turf/open/floor/plating/asteroid/basalt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "UO" = (
 /obj/structure/fence/corner{
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "UV" = (
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "UX" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "UY" = (
 /obj/item/shovel/spade{
 	pixel_x = 18;
 	pixel_y = -18
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "Vg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/structure/railing/corner,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Vi" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface)
+/area/template_noop)
 "Vl" = (
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "Vq" = (
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 8
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Vv" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Vw" = (
 /obj/structure/fence/corner,
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 4
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Vz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/hallway/primary/fore)
+/area/template_noop)
 "VA" = (
 /obj/structure/fence,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "VF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "VI" = (
 /obj/machinery/telecomms/relay/preset/auto,
 /obj/machinery/door/window/northleft{
@@ -3378,7 +3270,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/fore)
+/area/template_noop)
 "VS" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -3390,20 +3282,20 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "VX" = (
 /turf/closed/mineral/random/air,
-/area/paradise/surface)
+/area/template_noop)
 "Wn" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Ws" = (
 /obj/structure/fermenting_barrel{
 	anchored = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Wt" = (
 /obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_x = -13;
@@ -3411,14 +3303,14 @@
 	},
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "Wx" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
 	dir = 9
 	},
 /turf/open/floor/plating/beach/water,
-/area/paradise/surface/water)
+/area/template_noop)
 "WC" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -3427,7 +3319,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "WF" = (
 /obj/structure/no_effect_signpost{
 	name = "Echo station";
@@ -3435,7 +3327,7 @@
 	pixel_y = 19
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface/sand)
+/area/template_noop)
 "WJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -3444,28 +3336,28 @@
 	},
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "WP" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "WU" = (
 /obj/structure/fence,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "WV" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
-/area/paradise/surface/grass)
+/area/template_noop)
 "WW" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Xe" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -3473,7 +3365,7 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Xq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3485,7 +3377,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/iron,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Xx" = (
 /obj/structure/table/wood,
 /obj/machinery/door/poddoor/shutters{
@@ -3493,17 +3385,17 @@
 	name = "Vacant Commissary Shutters #3"
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/fore)
+/area/template_noop)
 "XB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/beach/sand,
-/area/paradise/surface)
+/area/template_noop)
 "XK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "XO" = (
 /obj/structure/reagent_dispensers/beerkeg{
 	pixel_x = 6;
@@ -3512,21 +3404,21 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 9
 	},
-/area/paradise/surface)
+/area/template_noop)
 "XT" = (
 /obj/effect/landmark/start/randommaint/vip,
 /obj/structure/chair/stool/directional/west,
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
-/area/paradise/surface)
+/area/template_noop)
 "XV" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/post{
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "XZ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -3536,26 +3428,23 @@
 	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
 	},
 /turf/open/floor/wood,
-/area/paradise/surface)
-"Yb" = (
-/turf/open/floor/glass/reinforced,
-/area/paradise/surface)
+/area/template_noop)
 "Yc" = (
 /obj/structure/fence,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Yd" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Yj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Yn" = (
 /obj/structure/fence{
 	dir = 8
@@ -3563,36 +3452,36 @@
 /obj/structure/sign/warning/securearea,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "Yq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Yr" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/glass/reinforced,
-/area/hallway/primary/fore)
+/area/template_noop)
 "Yt" = (
 /turf/open/floor/plating/beach/deep_water,
-/area/paradise/surface/water)
+/area/template_noop)
 "Yu" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "YA" = (
 /obj/structure/fence/cut/medium{
 	dir = 8
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "YE" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -3601,11 +3490,11 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "YG" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "YT" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -3615,13 +3504,13 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "YV" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/grass,
-/area/paradise/surface)
+/area/template_noop)
 "YZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -3631,14 +3520,14 @@
 	dir = 10
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Zr" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/sign/warning/securearea,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "Zt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3650,11 +3539,11 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/paradise/surface)
+/area/template_noop)
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/planetary,
-/area/paradise/surface)
+/area/template_noop)
 "ZK" = (
 /mob/living/simple_animal/chicken/turkey{
 	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
@@ -3667,7 +3556,7 @@
 	},
 /obj/structure/closet/crate/critter,
 /turf/open/floor/mineral/plastitanium,
-/area/paradise/surface/grass)
+/area/template_noop)
 
 (1,1,1) = {"
 Yt
@@ -7116,7 +7005,7 @@ VX
 VX
 VX
 VX
-EJ
+Gi
 Gi
 Gi
 Gi
@@ -7250,8 +7139,8 @@ VX
 VX
 VX
 Qe
-EJ
-EJ
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -7382,9 +7271,9 @@ VX
 VX
 VX
 VX
-EJ
-EJ
-EJ
+Gi
+Gi
+Gi
 sm
 VX
 VX
@@ -7442,7 +7331,7 @@ RO
 gf
 HX
 Du
-gY
+yT
 uV
 yT
 yT
@@ -7516,7 +7405,7 @@ VX
 VX
 VX
 VX
-EJ
+Gi
 Og
 lQ
 VX
@@ -7576,7 +7465,7 @@ Lu
 Ar
 jM
 Du
-gY
+yT
 yT
 yT
 yT
@@ -7844,7 +7733,7 @@ gf
 gf
 XZ
 Du
-gY
+yT
 yT
 uV
 yT
@@ -7973,7 +7862,7 @@ yT
 yT
 yT
 kr
-TH
+UH
 UH
 UH
 jB
@@ -8280,8 +8169,8 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -8413,11 +8302,11 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
-EJ
-EJ
-EJ
+Gi
+Gi
+Gi
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -8546,11 +8435,11 @@ yT
 yT
 Gi
 Gi
-EJ
-EJ
+Gi
+Gi
 Gi
 Rv
-EJ
+Gi
 Gi
 Zw
 Gi
@@ -8681,14 +8570,14 @@ yT
 Gi
 Gi
 Gi
-EJ
-EJ
+Gi
+Gi
 JV
-EJ
-EJ
 Gi
 Gi
-EJ
+Gi
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -8814,19 +8703,19 @@ yT
 yT
 Gi
 Gi
-EJ
+Gi
 Vv
-aa
-iT
-EJ
-EJ
-EJ
-EJ
-EJ
+ec
+hw
 Gi
 Gi
-aa
-aa
+Gi
+Gi
+Gi
+Gi
+Gi
+ec
+ec
 YV
 yT
 yT
@@ -8948,18 +8837,18 @@ yT
 yT
 Gi
 Gi
-EJ
-qA
+Gi
+BU
 Gi
 Gi
-EJ
-EJ
-zg
+Gi
+Gi
+wN
 AX
 ft
 Ie
-EJ
-EJ
+Gi
+Gi
 Gi
 Ll
 Gi
@@ -9084,20 +8973,20 @@ Gi
 Gi
 Gi
 ie
-EJ
-EJ
+Gi
+Gi
 Sq
 Mt
 oB
 Tm
-EJ
+Gi
 kv
-EJ
-EJ
+Gi
+Gi
 Gi
 jf
 kC
-EJ
+Gi
 Gi
 Gi
 Gi
@@ -9216,14 +9105,14 @@ yT
 Gi
 Gi
 Gi
-EJ
-EJ
+Gi
+Gi
 BM
 kv
 Zw
 wN
 zr
-EJ
+Gi
 PJ
 dW
 Gi
@@ -9231,8 +9120,8 @@ gs
 mR
 EG
 hH
-EJ
-EJ
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -9350,23 +9239,23 @@ Gi
 Gi
 Gi
 Gi
-EJ
+Gi
 Gi
 BM
 oV
 Vi
 Ah
-va
+Zw
 Zw
 Zw
 lI
-EJ
+Gi
 nF
-EJ
+Gi
 Nx
 cd
-EJ
-EJ
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -9484,23 +9373,23 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
+Gi
+Gi
 BM
 LO
 pz
 Zw
 Zw
 ZK
-EJ
+Gi
 MT
 iB
 Sq
-EJ
+Gi
 Iv
 dl
-EJ
-EJ
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -9617,24 +9506,24 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
-EJ
-mM
+Gi
+Gi
+Gi
+BM
 wN
-EJ
-EJ
+Gi
+Gi
 AU
 ho
 Sf
 Zw
 ho
 QJ
-EJ
+Gi
 sD
 UD
-EJ
-EJ
+Gi
+Gi
 Gi
 Gi
 yT
@@ -9751,23 +9640,23 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
-EJ
 Gi
-vg
+Gi
+Gi
+Gi
+kv
 wN
-EJ
+Gi
 Dd
 GV
 wN
 wN
-EJ
 Gi
-EJ
-ws
-EJ
-EJ
+Gi
+Gi
+YA
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -9884,23 +9773,23 @@ Gi
 Gi
 Gi
 Gi
-EJ
-Gi
-EJ
-eU
-aa
-EJ
 Gi
 Gi
-EJ
-EJ
-EJ
-EJ
-EJ
+Gi
+Js
+ec
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
 xh
-aa
-eU
-EJ
+ec
+Js
+Gi
 Gi
 Gi
 Gi
@@ -10018,21 +9907,21 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
 Gi
-EJ
-EJ
 Gi
-EJ
-EJ
 Gi
-EJ
-EJ
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -10040,9 +9929,9 @@ Gi
 Gi
 yT
 yT
-gY
 yT
-gY
+yT
+yT
 yT
 yT
 yT
@@ -10152,15 +10041,15 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
-EJ
 Gi
-EJ
-EJ
-EJ
-EJ
-EJ
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -10173,13 +10062,13 @@ Gi
 Gi
 yT
 do
-gY
+yT
 JK
 uV
-gY
-gY
-gY
-gY
+yT
+yT
+yT
+yT
 yT
 HR
 HR
@@ -10287,13 +10176,13 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
-EJ
-EJ
-EJ
 Gi
-EJ
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -10306,14 +10195,14 @@ Gi
 Gi
 Gi
 yT
-gY
+yT
 Ua
-gY
+yT
 Ua
 yT
 Ua
 xr
-gY
+yT
 yT
 yT
 yT
@@ -10423,10 +10312,10 @@ Gi
 Gi
 Gi
 Gi
-EJ
-EJ
-EJ
-EJ
+Gi
+Gi
+Gi
+Gi
 Gi
 Gi
 Gi
@@ -10439,16 +10328,16 @@ VX
 Gi
 Gi
 Gi
-gY
+yT
 JK
 mk
-gY
+yT
 fb
 JK
 Ua
-gY
+yT
 uV
-gY
+yT
 yT
 yT
 yT
@@ -10577,14 +10466,14 @@ yT
 mk
 DR
 vM
-gY
+yT
 do
 uV
 JK
 fb
 Ua
-gY
-gY
+yT
+yT
 yT
 yT
 yT
@@ -10713,13 +10602,13 @@ YG
 RZ
 vM
 YG
-mB
-gY
-gY
-gY
+WV
+yT
+yT
+yT
 JK
 Ua
-gY
+yT
 yT
 yT
 yT
@@ -10847,13 +10736,13 @@ vM
 vM
 LM
 DR
-gY
+yT
 Ua
-MD
+Ua
 do
-gY
-gY
-gY
+yT
+yT
+yT
 yT
 yT
 yT
@@ -10968,8 +10857,8 @@ VX
 VX
 VX
 yb
-xG
-xG
+QI
+QI
 GJ
 pi
 Xq
@@ -11080,16 +10969,16 @@ Gi
 Gi
 Gi
 Gi
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
 Gi
 Gi
 Gi
@@ -11102,10 +10991,10 @@ yb
 yb
 yb
 yb
-xG
-xG
-xG
-xG
+QI
+QI
+QI
+QI
 OD
 Jd
 ea
@@ -11616,14 +11505,14 @@ Gi
 Gi
 Gi
 Gi
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
-Yb
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
+Gm
 Gi
 Gi
 VX
@@ -11638,10 +11527,10 @@ wm
 yb
 dA
 yb
-xG
-xG
-xG
-xG
+QI
+QI
+QI
+QI
 OD
 eX
 ea
@@ -11657,7 +11546,7 @@ CQ
 gd
 gd
 YE
-Ge
+un
 yT
 yT
 yT
@@ -11772,10 +11661,10 @@ RG
 yb
 Bj
 yb
-xG
-xG
-xG
-xG
+QI
+QI
+QI
+QI
 BS
 bd
 BG
@@ -11785,11 +11674,11 @@ mk
 FU
 Sx
 HM
-IG
+cx
 fU
 wM
 cx
-IG
+cx
 cx
 KW
 yT
@@ -11923,9 +11812,9 @@ DR
 mk
 JK
 Ua
-gY
+yT
 do
-gY
+yT
 yT
 yT
 yT
@@ -12053,13 +11942,13 @@ XK
 DR
 wo
 mk
-gY
-MD
+yT
 Ua
-gY
+Ua
+yT
 JK
 uV
-gY
+yT
 yT
 yT
 Gi
@@ -12452,7 +12341,7 @@ to
 cE
 sj
 XK
-fw
+mk
 wa
 Wn
 ew
@@ -12461,7 +12350,7 @@ mk
 af
 mk
 af
-Cp
+HR
 Zr
 Gi
 Gi
@@ -12578,15 +12467,15 @@ eP
 kL
 hs
 Td
-Mv
+Ba
 vs
 vs
-Mv
+Ba
 og
 FV
 AA
 DR
-Lt
+YG
 UX
 GO
 qk
@@ -12595,7 +12484,7 @@ ib
 GO
 TD
 jd
-Cp
+HR
 ie
 Gi
 Gi
@@ -12712,10 +12601,10 @@ dR
 rO
 sa
 Lu
-Mv
-Mv
+Ba
+Ba
 uh
-Mv
+Ba
 mk
 pK
 sj
@@ -12730,7 +12619,7 @@ GO
 Hr
 TN
 mL
-qA
+BU
 Gi
 gm
 Fb
@@ -12847,13 +12736,13 @@ uM
 sa
 pW
 qX
-Mv
-Mv
-HT
+Ba
+Ba
+xd
 DR
 yv
 AA
-fw
+mk
 Tn
 Gu
 GO
@@ -12980,7 +12869,7 @@ GP
 uM
 kL
 Fb
-Mv
+Ba
 UY
 Ba
 LM
@@ -13116,7 +13005,7 @@ rO
 kL
 Fb
 ck
-Mv
+Ba
 DR
 vM
 yv
@@ -13131,7 +13020,7 @@ mk
 GO
 Nu
 TN
-Cp
+HR
 ie
 Gi
 GP
@@ -13265,7 +13154,7 @@ mk
 GO
 Nu
 TN
-Cp
+HR
 ie
 Gi
 GP
@@ -13383,8 +13272,8 @@ GP
 GP
 uM
 sa
-Mv
-Mv
+Ba
+Ba
 xd
 YG
 PQ
@@ -13667,7 +13556,7 @@ Jt
 hD
 ij
 Jp
-Cp
+HR
 ie
 Gi
 Gi
@@ -13801,7 +13690,7 @@ vM
 mk
 tu
 mk
-Cp
+HR
 ie
 Gi
 Gi
@@ -13920,7 +13809,7 @@ GP
 uM
 uM
 sa
-Mv
+Ba
 Ba
 xd
 hu
@@ -14026,7 +13915,7 @@ yT
 yT
 HR
 Ba
-gI
+HR
 tw
 yC
 GP
@@ -14055,9 +13944,9 @@ uM
 uM
 sa
 By
-Mv
+Ba
 mk
-iV
+vM
 vM
 lO
 bP
@@ -14069,7 +13958,7 @@ mk
 GO
 tj
 TN
-Cp
+HR
 YA
 Gi
 Gi
@@ -14189,7 +14078,7 @@ sN
 uM
 sa
 Ku
-Mv
+Ba
 Ba
 AA
 xd
@@ -14203,7 +14092,7 @@ vM
 eV
 MF
 TN
-Cp
+HR
 ie
 Gi
 Gi
@@ -14322,7 +14211,7 @@ GP
 uM
 uM
 sa
-Mv
+Ba
 kR
 ww
 sj
@@ -14337,7 +14226,7 @@ mk
 GO
 MF
 TN
-Cp
+HR
 ie
 Gi
 Gi
@@ -14456,7 +14345,7 @@ GP
 uM
 bo
 DJ
-Mv
+Ba
 mk
 Lc
 vM
@@ -14471,7 +14360,7 @@ mk
 GO
 MF
 TN
-Cp
+HR
 ie
 Gi
 Gi
@@ -14589,8 +14478,8 @@ GP
 GP
 uM
 wl
-Mv
-Mv
+Ba
+Ba
 xd
 ep
 vA
@@ -14723,7 +14612,7 @@ GP
 uM
 nE
 XT
-Mv
+Ba
 Ba
 sj
 vM
@@ -14857,7 +14746,7 @@ sQ
 nE
 mU
 DJ
-Mv
+Ba
 Cg
 Ba
 kQ
@@ -14991,7 +14880,7 @@ nE
 XO
 DJ
 pA
-Mv
+Ba
 mk
 vM
 WP
@@ -15215,7 +15104,7 @@ kL
 Fb
 Ba
 Ba
-vu
+tw
 yC
 GP
 GP
@@ -15259,7 +15148,7 @@ DJ
 yT
 yT
 yT
-Mv
+Ba
 mk
 Pc
 mk
@@ -15349,7 +15238,7 @@ rO
 sa
 Ba
 Ba
-vu
+tw
 yC
 GP
 GP
@@ -15483,7 +15372,7 @@ uM
 sa
 Ba
 Ba
-vu
+tw
 yC
 GP
 GP
@@ -16780,7 +16669,7 @@ Ba
 Ba
 Ba
 Ba
-Gg
+Vq
 IA
 kD
 it

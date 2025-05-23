@@ -14,6 +14,37 @@
 	var/flora_x_offset = 0
 	var/flora_y_offset = 0
 
+	//Blank seasonal lists. Override in children.
+	var/list/seasonal_flora = list(
+		"SUMMER" = list(),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
+	)
+	var/list/seasonal_fauna = list(
+		"SUMMER" = list(),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
+	)
+
+	proc/get_seasonal_content()
+		var/season = get_current_season()
+		var/list/flora = seasonal_flora[season] || list()
+		var/list/fauna = seasonal_fauna[season] || list()
+		return list("flora" = flora, "fauna" = fauna)
+
+/datum/biome/proc/get_current_season()
+	var/month = text2num(time2text(world.timeofday, "MM"))
+
+	if (month in list(DECEMBER, JANUARY, FEBRUARY))
+		return "WINTER"
+	//if (month in list(MARCH, APRIL, MAY))
+	//	return "SPRING"
+	//if (month in list(SEPTEMBER, OCTOBER, NOVEMBER))
+	//	return "AUTUMN"
+	return "SUMMER" // Default
+
 ///This proc handles the creation of a turf of a specific biome type
 /datum/biome/proc/generate_turf(var/turf/gen_turf)
 	gen_turf.ChangeTurf(turf_type, null, CHANGETURF_DEFER_CHANGE)
@@ -26,6 +57,7 @@
 		flora = new flora(gen_turf)
 		flora.pixel_x += rand(-flora_x_offset, flora_x_offset)
 		flora.pixel_y += rand(-flora_y_offset, flora_y_offset)
+
 
 //jungle
 /datum/biome/mudlands
@@ -92,14 +124,27 @@
 	flora_x_offset = 8
 	flora_y_offset = 8
 //	turf_type = /turf/open/floor/plating/dirt/grass
-	flora_types = list(
-		/obj/structure/flora/tree/palm,
-		/obj/structure/flora/ausbushes/fullgrass,
-		/obj/structure/flora/ausbushes/sparsegrass,
-		/obj/structure/flora/ausbushes/lavendergrass,
-		/obj/structure/flora/ausbushes/ywflowers,
-		/obj/structure/flora/rock/jungle,
-		/obj/structure/flora/rock/pile
+
+	seasonal_flora = list(
+		"SUMMER" = list(
+			/obj/structure/flora/tree/palm,
+			/obj/structure/flora/ausbushes/fullgrass,
+			/obj/structure/flora/ausbushes/sparsegrass,
+			/obj/structure/flora/ausbushes/lavendergrass,
+			/obj/structure/flora/ausbushes/ywflowers,
+			/obj/structure/flora/rock/jungle,
+			/obj/structure/flora/rock/pile
+		),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
+	)
+
+	seasonal_fauna = list(
+		"SUMMER" = list(),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
 	)
 
 /datum/biome/grasslush
@@ -108,61 +153,98 @@
 	flora_x_offset = 8
 	flora_y_offset = 8
 //	turf_type = /turf/open/floor/plating/dirt/planetary
-	flora_types = list(
-		/obj/structure/flora/tree/jungle/small,
-		/obj/structure/flora/tree/jungle,
-		/obj/structure/flora/junglebush/large,
-		/obj/structure/flora/grass/jungle/b,
-		/obj/structure/flora/ausbushes/fernybush,
-		/obj/structure/flora/ausbushes/palebush,
-		/obj/structure/flora/grass/jungle,
-		/obj/structure/flora/junglebush,
-		/obj/structure/flora/ausbushes/brflowers,
-		/obj/structure/flora/ausbushes/grassybush,
-		/obj/structure/flora/junglebush/b,
-		/obj/structure/flora/junglebush/c,
-		/obj/structure/flora/ausbushes/ppflowers,
-		/obj/structure/flora/rock,
-		/obj/structure/flora/rock/jungle,
-		/obj/structure/flora/rock/pile,
-		/obj/structure/flora/rock/pile/largejungle
+
+	seasonal_flora = list(
+		"SUMMER" = list(
+			/obj/structure/flora/tree/jungle/small,
+			/obj/structure/flora/tree/jungle,
+			/obj/structure/flora/junglebush/large,
+			/obj/structure/flora/grass/jungle/b,
+			/obj/structure/flora/ausbushes/fernybush,
+			/obj/structure/flora/ausbushes/palebush,
+			/obj/structure/flora/grass/jungle,
+			/obj/structure/flora/junglebush,
+			/obj/structure/flora/ausbushes/brflowers,
+			/obj/structure/flora/ausbushes/grassybush,
+			/obj/structure/flora/junglebush/b,
+			/obj/structure/flora/junglebush/c,
+			/obj/structure/flora/ausbushes/ppflowers,
+			/obj/structure/flora/rock,
+			/obj/structure/flora/rock/jungle,
+			/obj/structure/flora/rock/pile,
+			/obj/structure/flora/rock/pile/largejungle
+		),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
 	)
-	fauna_types = list(
-		/mob/living/simple_animal/crab,
-		/mob/living/simple_animal/butterfly,
-		/mob/living/simple_animal/chicken/rabbit/easter, //it's currently spring
-		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/sloth,
-		/mob/living/carbon/monkey
+
+	seasonal_fauna = list(
+		"SUMMER" = list(
+			/mob/living/simple_animal/crab,
+			/mob/living/simple_animal/butterfly,
+			/mob/living/simple_animal/parrot,
+			/mob/living/simple_animal/sloth,
+			/mob/living/carbon/monkey
+		),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
 	)
 
 /datum/biome/grassclearing
 	flora_density = 60
 	flora_x_offset = 8
 	flora_y_offset = 8
-//	turf_type = /turf/open/floor/plating/dirt/grass
-	flora_types = list(
-		/obj/structure/flora/grass/jungle/b,
-		/obj/structure/flora/ausbushes/fernybush,
-		/obj/structure/flora/ausbushes/palebush,
-		/obj/structure/flora/grass/jungle,
-		/obj/structure/flora/ausbushes/brflowers,
-		/obj/structure/flora/ausbushes/ppflowers,
-		/obj/structure/flora/rock,
-		/obj/structure/flora/rock/jungle,
-		/obj/structure/flora/rock/pile,
-		/obj/structure/flora/rock/pile/largejungle
+//	/turf/open/floor/plating/dirt/grass
+
+	seasonal_flora = list(
+		"SUMMER" = list(
+			/obj/structure/flora/grass/jungle/b,
+			/obj/structure/flora/ausbushes/fernybush,
+			/obj/structure/flora/ausbushes/palebush,
+			/obj/structure/flora/grass/jungle,
+			/obj/structure/flora/ausbushes/brflowers,
+			/obj/structure/flora/ausbushes/ppflowers,
+			/obj/structure/flora/rock,
+			/obj/structure/flora/rock/jungle,
+			/obj/structure/flora/rock/pile,
+			/obj/structure/flora/rock/pile/largejungle
+		),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
+	)
+
+	seasonal_fauna = list(
+		"SUMMER" = list(),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
 	)
 
 /datum/biome/sand
 	flora_density = 3
 	flora_x_offset = 8
 	flora_y_offset = 8
-//	turf_type = /turf/open/floor/plating/beach/sand
-	flora_types = list(
-		/obj/structure/flora/tree/palm,
-		/obj/structure/flora/ausbushes/sparsegrass,
-		/obj/structure/flora/ausbushes/lavendergrass,
-		/obj/structure/flora/ausbushes/ywflowers,
-		/obj/effect/overlay/coconut
+//	/turf/open/floor/plating/beach/sand
+
+	seasonal_flora = list(
+		"SUMMER" = list(
+			/obj/structure/flora/tree/palm,
+			/obj/structure/flora/ausbushes/sparsegrass,
+			/obj/structure/flora/ausbushes/lavendergrass,
+			/obj/structure/flora/ausbushes/ywflowers,
+			/obj/effect/overlay/coconut
+		),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
+	)
+
+	seasonal_fauna = list(
+		"SUMMER" = list(),
+		"WINTER" = list(),
+		"SPRING" = list(),
+		"AUTUMN" = list()
 	)
