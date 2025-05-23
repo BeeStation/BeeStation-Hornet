@@ -37,6 +37,7 @@
 					/obj/item/seeds/sunflower = 3,
 					/obj/item/seeds/sugarcane = 3,
 					/obj/item/seeds/tea = 3,
+					/obj/item/seeds/tetopear = 3,
 					/obj/item/seeds/tobacco = 3,
 					/obj/item/seeds/tomato = 3,
 					/obj/item/seeds/tower = 3,
