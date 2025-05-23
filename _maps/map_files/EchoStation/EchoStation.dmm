@@ -10665,7 +10665,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fww" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Atmospherics Monitoring";
 	req_access_txt = "24"

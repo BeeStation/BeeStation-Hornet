@@ -1660,10 +1660,6 @@
 	},
 /turf/open/floor/plating/grass,
 /area/paradise/surface/grass)
-"xD" = (
-/obj/effect/spawner/room/echo,
-/turf/open/floor/plating/beach/deep_water,
-/area/paradise/surface/water)
 "xF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -3805,7 +3801,7 @@ Yt
 Yt
 Yt
 Yt
-xD
+Yt
 "}
 (2,1,1) = {"
 Yt
