@@ -160,36 +160,58 @@
 	room_width = 5
 	room_height = 10
 
-/obj/effect/spawner/room/echo
-	name = "surface event replacer"
-	icon_state = "random_room_alternative"
-	room_width = 132
-	room_height = 132
+/obj/effect/spawner/surface/echo
+	name = "seasonal surface spawner"
+	icon = 'icons/effects/landmarks_static.dmi'
+	icon_state = "random_surface_alternative"
 
-	// Define seasonal room IDs
-	var/list/seasonal_room_ids = list(
-		"WINTER" = list("winter_surface"),
-		"SPRING" = list("spring_surface"),
-		"AUTUMN" = list("autumn_surface")
-		//"SUMMER" by default
+/obj/effect/spawner/surface/echo/Initialize(mapload)
+	log_world("Echo seasonal surface initializing...")
+
+	var/season = get_current_season()
+	log_world("Season detected: [season]")
+
+	var/list/echo_season = list(
+		"SUMMER" = "summer_surface",
+		"WINTER" = "winter_surface",
+		"SPRING" = "spring_surface",
+		"AUTUMN" = "autumn_surface"
 	)
 
-/obj/effect/spawner/room/echo/Initialize(mapload)
-	var/season = get_current_season()
-	if (season in seasonal_room_ids)
-		rooms = seasonal_room_ids[season]
-	return ..()  // Call parent to load the selected template
+	if (!(season in echo_season))
+		message_admins("Echo surface spawner error: Unknown season '[season]'")
+		return INITIALIZE_HINT_QDEL
+
+	var/target_room_id = echo_season[season]
+	var/datum/map_template/random_room/template = null
+
+	for (var/datum/map_template/random_room/T in SSmapping.echo_surface_templates)
+		if (T.room_id == target_room_id)
+			template = T
+			break
+
+	if (!template)
+		message_admins("Echo spawner: No surface map found for '[season]' ([target_room_id])")
+		return INITIALIZE_HINT_QDEL
+
+	log_world("Echo spawner: Loading surface [template.name] ([template.room_id])")
+
+	var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
+	generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
+
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/surface/echo/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
+	log_world("Echo spawner: Surface placement complete.")
+
 
 /proc/get_current_season()
 	var/month = text2num(time2text(world.timeofday, "MM"))
 
 	if (month in list(DECEMBER, JANUARY, FEBRUARY))
 		return "WINTER"
-	if (month in list(MARCH, APRIL, MAY))
-		return "SPRING"
-	if (month in list(SEPTEMBER, OCTOBER, NOVEMBER))
-		return "AUTUMN"
-	return "SUMMER"
-
-
-
+	//if (month in list(MARCH, APRIL, MAY))
+	//	return "SPRING"
+	//if (month in list(SEPTEMBER, OCTOBER, NOVEMBER))
+	//	return "AUTUMN"
+	return "SUMMER" //"SUMMER" by default

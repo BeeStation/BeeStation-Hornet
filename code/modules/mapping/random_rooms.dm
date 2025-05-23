@@ -1799,7 +1799,15 @@
 
 //Echo surface levels
 
-/datum/map_template/random_room/sk_rnd_winter_surface
+/datum/map_template/random_room/echo/sk_rnd_summer_surface
+	name = "Summer surface"
+	room_id = "summer_surface"
+	mappath = "_maps/RandomRooms/echo/sk_rnd_summer_surface.dmm"
+	centerspawner = FALSE
+	template_height = 132
+	template_width = 132
+
+/datum/map_template/random_room/echo/sk_rnd_winter_surface
 	name = "Winter surface"
 	room_id = "winter_surface"
 	mappath = "_maps/RandomRooms/echo/sk_rnd_winter_surface.dmm"
@@ -1807,7 +1815,7 @@
 	template_height = 132
 	template_width = 132
 
-/datum/map_template/random_room/sk_rnd_spring_surface
+/datum/map_template/random_room/echo/sk_rnd_spring_surface
 	name = "Spring surface"
 	room_id = "spring_surface"
 	mappath = "_maps/RandomRooms/echo/sk_rnd_spring_surface.dmm"
@@ -1815,7 +1823,7 @@
 	template_height = 132
 	template_width = 132
 
-/datum/map_template/random_room/sk_rnd_autumn_surface
+/datum/map_template/random_room/echo/sk_rnd_autumn_surface
 	name = "Autumn surface"
 	room_id = "autumn_surface"
 	mappath = "_maps/RandomRooms/echo/sk_rnd_autumn_surface.dmm"

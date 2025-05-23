@@ -59,6 +59,10 @@ SUBSYSTEM_DEF(mapping)
 	///List in the form: list(z level num = max generator gravity in that z level OR the gravity level trait)
 	var/list/gravity_by_z_level = list()
 
+	//Echo surface level templates
+	#define ECHO_TEMPLATE_PATH(path) ispath(path, /datum/map_template/random_room/echo)
+	var/list/echo_surface_templates = list()
+
 /datum/controller/subsystem/mapping/PreInit()
 	..()
 #ifdef FORCE_MAP
@@ -93,6 +97,7 @@ SUBSYSTEM_DEF(mapping)
 	require_area_resort()
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	preloadTemplates()
+	echo_surface_templates()
 
 #ifndef LOWMEMORYMODE
 	// Create space ruin levels
@@ -678,3 +683,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	max_gravity = max_gravity || level_trait(z_level_number, ZTRAIT_GRAVITY) || 0 //just to make sure no nulls
 	gravity_by_z_level[z_level_number] = max_gravity
 	return max_gravity
+
+// echo surface templates found in random_rooms.dm
+/datum/controller/subsystem/mapping/proc/echo_surface_templates()
+	for (var/path in typesof(/datum/map_template/random_room/echo))
+		if (ECHO_TEMPLATE_PATH(path))
+			var/datum/map_template/random_room/echo/template = new path()
+			echo_surface_templates += template
