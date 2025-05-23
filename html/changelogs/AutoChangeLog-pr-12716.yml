@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Reduces the speed increase caused by sepia extracts.
-  - balance: Stabilized sepia extract now provides slowdown as well as speed-up.
-  - balance: All stabilized extracts now provide their effects for 15 seconds after
-      they are dropped.
