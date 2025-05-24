@@ -97,6 +97,9 @@
 	#else
 	#define FORCE_MAP "runtimestation"
 	#endif
+	#ifdef CIBUILDING
+	#error LOWMEMORYMODE is enabled, disable this!
+	#endif
 #endif
 
 //TODO Remove the SDMM check when it supports 1568
@@ -118,6 +121,10 @@
 //Additional code for the above flags.
 #ifdef TESTING
 #warn compiling in TESTING mode. testing() debug messages will be visible.
+
+#ifdef CIBUILDING
+#error TESTING is enabled, disable this!
+#endif
 #endif
 
 #ifdef CIBUILDING

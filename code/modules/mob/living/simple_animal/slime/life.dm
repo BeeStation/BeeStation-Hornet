@@ -31,6 +31,11 @@
 		return
 	handle_mood(delta_time, times_fired)
 	handle_speech(delta_time, times_fired)
+	if(colour == "red" && burn_damage_stored > 80 * delta_time)
+		special_mutation = TRUE
+		special_mutation_type = "crimson"
+		visible_message(span_danger("[src] shudders, their red core deepening into an abyssal crimson."))
+	burn_damage_stored = 0
 
 // Unlike most of the simple animals, slimes support UNCONSCIOUS. This is an ugly hack.
 /mob/living/simple_animal/slime/update_stat()
@@ -154,12 +159,6 @@
 		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
 			rabid = 1
-
-		if(transformeffects & SLIME_EFFECT_GREEN)
-			visible_message(span_warning("[src] slurps up [M]!"))
-			adjust_nutrition(10)
-			layer = initial(layer)
-			qdel(M)
 
 		set_target(null)
 		special_process = FALSE

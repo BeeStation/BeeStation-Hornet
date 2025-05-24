@@ -94,8 +94,7 @@
 	key_third_person = "jumps"
 	message = "jumps"
 	cooldown = 0.8 SECONDS
-	hands_use_check = TRUE
-	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
 	// Allows ghosts to jump
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
