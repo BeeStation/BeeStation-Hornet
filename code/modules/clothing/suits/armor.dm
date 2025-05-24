@@ -495,3 +495,30 @@
 	. = ..()
 	AddComponent(/datum/component/toggle_icon)
 	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/suit/armor/elder_atmosian
+	name = "elder atmosian armor"
+	desc = "A superb armor made with the toughest and rarest materials available to man."
+	icon_state = "h2_armor"
+	item_state = null
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS //Can change color and add prefix
+	armor_type = /datum/armor/armor_elder_atmosian
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+
+/obj/item/clothing/suit/armor/elder_atmosian/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/fireaxe/metal_h2_axe,
+	)
+
+/datum/armor/armor_elder_atmosian
+	melee = 25
+	bullet = 20
+	laser = 30
+	energy = 30
+	bomb = 85
+	bio = 10
+	fire = 65
+	acid = 40

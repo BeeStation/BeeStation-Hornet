@@ -513,3 +513,23 @@
 	acid = 40
 	stamina = 25
 	bleed = 15
+
+/obj/item/clothing/head/helmet/elder_atmosian
+	name = "elder atmosian helmet"
+	desc = "A superb helmet made with the toughest and rarest materials available to man."
+	icon_state = "h2_helmet"
+	item_state = "h2_helmet"
+	armor_type = /datum/armor/helmet_elder_atmosian
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS //Can change color and add prefix
+	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE | HIDEHAIR | HIDESNOUT
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+/datum/armor/helmet_elder_atmosian
+	melee = 25
+	bullet = 20
+	laser = 30
+	energy = 30
+	bomb = 85
+	bio = 10
+	fire = 65
+	acid = 40

@@ -52,16 +52,21 @@
 	var/last_barrier_tick
 	//Gasses
 	var/list/gasses = list(
-		/datum/gas/bz = 1,
-		/datum/gas/carbon_dioxide = 1,
-		/datum/gas/hypernoblium = 1,
-		/datum/gas/nitrous_oxide = 1,
-		/datum/gas/nitryl = 1,
 		/datum/gas/plasma = 1,
-		/datum/gas/pluoxium = 0,
-		/datum/gas/stimulum = 0,
+		/datum/gas/carbon_dioxide = 1,
+		/datum/gas/nitrous_oxide = 1,
+		/datum/gas/bz = 1,
+		/datum/gas/nitrium = 0,
 		/datum/gas/tritium = 1,
+		/datum/gas/pluoxium = 0,
+		/datum/gas/hypernoblium = 1,
 		/datum/gas/water_vapor = 0,
+		/datum/gas/freon = 1,
+		/datum/gas/hydrogen = 1,
+		/datum/gas/healium = 0,
+		/datum/gas/proto_nitrate = 1,
+		/datum/gas/zauker = 1,
+		/datum/gas/halon = 1,
 	)
 	// Have we spoken our alert yet?
 	var/has_spoken = FALSE

@@ -2,11 +2,11 @@
  * Fireaxe
  */
 /obj/item/fireaxe  // DEM AXES MAN, marker -Agouri
+	name = "fire axe"
+	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
 	icon_state = "fireaxe0"
 	lefthand_file = 'icons/mob/inhands/weapons/axes_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
-	name = "fire axe"
-	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
 	attack_weight = 3
 	force = 5
 	throwforce = 15
@@ -27,9 +27,6 @@
 /datum/armor/item_fireaxe
 	fire = 100
 	acid = 30
-
-/obj/item/fireaxe/Initialize(mapload)
-	. = ..()
 
 /obj/item/fireaxe/ComponentInitialize()
 	. = ..()
@@ -72,3 +69,15 @@
 /obj/item/fireaxe/boneaxe/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=23, icon_wielded="[icon_prefix]1")
+
+/*
+ * Metal Hydrogen Axe
+ */
+/obj/item/fireaxe/metal_h2_axe  // Blatant imitation of the fireaxe, but made out of metallic hydrogen
+	name = "metallic hydrogen axe"
+	desc = "A large, menacing axe made of an unknown substance that the eldest atmosians call Metallic Hydrogen. Truly an otherworldly weapon."
+	icon_state = "metalh2_axe0"
+	base_icon_state = "metalh2_axe"
+	toolspeed = 1
+	tool_behaviour = TOOL_CROWBAR
+	usesound = 'sound/items/crowbar.ogg'

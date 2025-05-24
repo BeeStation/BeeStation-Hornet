@@ -163,7 +163,7 @@
 	result = /obj/structure/punching_bag
 	time = 6 SECONDS
 	reqs = list(
-	/obj/item/stack/sheet/cotton/cloth = 10,
+		/obj/item/stack/sheet/cotton/cloth = 10,
 	)
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_STRUCTURE

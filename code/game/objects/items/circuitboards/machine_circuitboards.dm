@@ -148,6 +148,29 @@
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/electrolyzer
+	name = "electrolyzer (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/electrolyzer
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stack/cable_coil = 3,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stack/sheet/mineral/gold = 1,
+		/obj/item/stack/sheet/mineral/silver = 1)
+
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/crystallizer
+	name = "crystallizer (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/components/binary/crystallizer
+	req_components = list(
+		/obj/item/stack/cable_coil = 10,
+		/obj/item/stack/sheet/glass = 10,
+		/obj/item/stack/sheet/plasteel = 5)
+
 #define PATH_POWERCOIL /obj/machinery/power/tesla_coil/power
 #define PATH_RPCOIL /obj/machinery/power/tesla_coil/research
 

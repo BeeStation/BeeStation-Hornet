@@ -12,7 +12,22 @@
 	///Multiplier with ONE_ATMOSPHERE, if the enviroment pressure is higher than that, the scrubber won't work
 	var/overpressure_m = 100
 	///List of gases that can be scrubbed
-	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, /datum/gas/hypernoblium, /datum/gas/water_vapor)
+	var/list/scrubbing = list(
+		/datum/gas/plasma,
+		/datum/gas/carbon_dioxide,
+		/datum/gas/nitrous_oxide,
+		/datum/gas/bz,
+		/datum/gas/nitrium,
+		/datum/gas/tritium,
+		/datum/gas/hypernoblium,
+		/datum/gas/water_vapor,
+		/datum/gas/freon,
+		/datum/gas/hydrogen,
+		/datum/gas/healium,
+		/datum/gas/proto_nitrate,
+		/datum/gas/zauker,
+		/datum/gas/halon,
+	)
 
 	volume = 2000
 

@@ -2101,6 +2101,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/clothing/shoes/magboots/crushing
 	restricted_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
+/datum/uplink_item/role_restricted/rebarxbowsyndie
+	name = "Syndicate Rebar Crossbow"
+	desc = "A much more professional version of the engineer's bootleg rebar crossbow. 3 shot mag, quicker loading, and better ammo. Owners manual included."
+	item = /obj/item/storage/box/syndie_kit/rebarxbowsyndie
+	cost = 10
+	restricted_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+
 /datum/uplink_item/role_restricted/gorillacubes
 	name = "Box of Gorilla Cubes"
 	desc = "A box with three Waffle Co. brand gorilla cubes. Eat big to get big. \

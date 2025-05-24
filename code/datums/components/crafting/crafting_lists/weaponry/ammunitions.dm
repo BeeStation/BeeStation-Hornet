@@ -266,3 +266,23 @@
 	)
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/rebarsyndie
+	name = "jagged iron rod"
+	result = /obj/item/ammo_casing/rebar/syndie
+	reqs = list(
+		/obj/item/stack/rods = 1,
+	)
+	tools = list(TOOL_WIRECUTTER)
+	time = 0.5 SECONDS
+	always_available = FALSE
+	category = CAT_AMMO
+
+/datum/crafting_recipe/healium_bolt
+	name = "healium crystal crossbow bolt"
+	result = /obj/item/ammo_casing/rebar/healium
+	reqs = list(
+		/obj/item/grenade/gas_crystal/healium_crystal = 1
+	)
+	time = 0.1 SECONDS
+	category = CAT_AMMO

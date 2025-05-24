@@ -136,7 +136,7 @@
 
 	if(breath)
 		breath.volume = BREATH_VOLUME
-	check_breath(breath)
+	check_breath(breath, delta_time)
 
 	if(breath)
 		loc.assume_air(breath)
@@ -245,7 +245,9 @@
 	//BZ (Facepunch port of their Agent B)
 	if(GET_MOLES(/datum/gas/bz, breath))
 		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
-		if(bz_partialpressure > 1)
+		if(bz_partialpressure > 10 && prob(33))
+			adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150, ORGAN_ORGANIC)
+		else if(bz_partialpressure > 1)
 			hallucination += 10
 		else if(bz_partialpressure > 0.01)
 			hallucination += 5
@@ -253,12 +255,27 @@
 	//TRITIUM
 	if(GET_MOLES(/datum/gas/tritium, breath))
 		var/tritium_partialpressure = (GET_MOLES(/datum/gas/tritium, breath)/breath.total_moles())*breath_pressure
-		radiation += tritium_partialpressure/10
+		radiation += tritium_partialpressure / 10
 
-	//NITRYL
-	if(GET_MOLES(/datum/gas/nitryl, breath))
-		var/nitryl_partialpressure = (GET_MOLES(/datum/gas/nitryl, breath)/breath.total_moles())*breath_pressure
-		adjustFireLoss(nitryl_partialpressure/4)
+	//NITRIUM
+	if(GET_MOLES(/datum/gas/nitrium, breath))
+		var/nitrium_partialpressure = (GET_MOLES(/datum/gas/nitrium, breath)/breath.total_moles())*breath_pressure
+		if(nitrium_partialpressure > 0.5)
+			adjustFireLoss(nitrium_partialpressure * 0.15)
+		if(nitrium_partialpressure > 5)
+			adjustToxLoss(nitrium_partialpressure * 0.05)
+
+	//HEALIUM
+	if(GET_MOLES(/datum/gas/healium, breath))
+		var/healium_partialpressure = (GET_MOLES(/datum/gas/healium, breath)/breath.total_moles())*breath_pressure
+		// Euphoria side-effect.
+		if(healium_partialpressure > 0.002)
+			if(prob(15))
+				to_chat(src, span_alert("Your head starts spinning and your lungs burn!"))
+				emote("gasp")
+		// Stun/Sleep side-effects.
+		if(healium_partialpressure > 3 && !IsSleeping() && prob(30))
+			Sleeping(rand(3 SECONDS, 5 SECONDS))
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

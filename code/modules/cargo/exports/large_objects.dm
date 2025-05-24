@@ -142,18 +142,26 @@
 	export_types = list(/obj/machinery/portable_atmospherics/canister)
 	k_elasticity = 0.00033
 
-/datum/export/large/gas_canister/get_cost(obj/O)
-	var/obj/machinery/portable_atmospherics/canister/C = O
+/datum/export/large/gas_canister/get_cost(obj/machinery/portable_atmospherics/canister/canister)
 	var/worth = cost
-	var/datum/gas_mixture/canister_mix = C.return_air()
+	var/datum/gas_mixture/canister_mix = canister.return_air()
 	var/canister_gas = canister_mix.gases
 	var/list/gases_to_check = list(
-								/datum/gas/bz,
-								/datum/gas/nitryl,
-								/datum/gas/hypernoblium,
-								/datum/gas/tritium,
-								/datum/gas/pluoxium,
-								)
+		/datum/gas/bz,
+		/datum/gas/nitrium,
+		/datum/gas/hypernoblium,
+		/datum/gas/miasma,
+		/datum/gas/tritium,
+		/datum/gas/pluoxium,
+		/datum/gas/freon,
+		/datum/gas/hydrogen,
+		/datum/gas/healium,
+		/datum/gas/proto_nitrate,
+		/datum/gas/zauker,
+		/datum/gas/helium,
+		/datum/gas/antinoblium,
+		/datum/gas/halon,
+	)
 
 	for(var/gasID in gases_to_check)
 		canister_mix.assert_gas(gasID)

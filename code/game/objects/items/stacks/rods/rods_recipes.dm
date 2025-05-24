@@ -6,7 +6,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new/datum/stack_recipe("linen bin", /obj/structure/bedsheetbin/empty, 2, one_per_turf = FALSE, time = 0.5 SECONDS), \
 	new/datum/stack_recipe("railing", /obj/structure/railing, 3, window_checks = TRUE, time = 1.8 SECONDS), \
 	new/datum/stack_recipe("catwalk floor tile", /obj/item/stack/tile/catwalk_tile, 1, 4, 20), \
-	))
+	new/datum/stack_recipe("sharpened iron rod", /obj/item/ammo_casing/rebar, 1, one_per_turf = FALSE, on_floor = FALSE, time = 0.2 SECONDS), \
+))
 
 /obj/item/stack/rods/cyborg
 	merge_type = /obj/item/stack/rods

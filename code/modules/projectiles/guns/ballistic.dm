@@ -64,6 +64,7 @@
 	var/rack_delay = 5
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
+	var/misfire_probability = 0 // The probabilty of this gun blowing up in your face when using it
 
 /obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
@@ -171,6 +172,12 @@
 		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
+
+/obj/item/gun/ballistic/can_trigger_gun(mob/living/user)
+	. = ..()
+	if(prob(misfire_probability) && blow_up(user))
+		to_chat(user, span_userdanger("[src] blows up in your face!"))
+		return FALSE
 
 /obj/item/gun/ballistic/on_chamber_fired()
 	if (casing_ejector)

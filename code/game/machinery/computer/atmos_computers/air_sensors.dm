@@ -30,17 +30,41 @@
 	name = "bz tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_BZ
 
+/obj/machinery/air_sensor/freon_tank
+	name = "freon tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_FREON
+
+/obj/machinery/air_sensor/halon_tank
+	name = "halon tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_HALON
+
+/obj/machinery/air_sensor/healium_tank
+	name = "healium tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_HEALIUM
+
+/obj/machinery/air_sensor/hydrogen_tank
+	name = "hydrogen tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_H2
+
 /obj/machinery/air_sensor/hypernoblium_tank
 	name = "hypernoblium tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
 
-/obj/machinery/air_sensor/nitryl_tank
-	name = "nitryl tank gas sensor"
-	chamber_id = ATMOS_GAS_MONITOR_NITRYL
+/obj/machinery/air_sensor/miasma_tank
+	name = "miasma tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_MIASMA
+
+/obj/machinery/air_sensor/nitrium_tank
+	name = "nitrium tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_NITRIUM
 
 /obj/machinery/air_sensor/pluoxium_tank
 	name = "pluoxium tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_PLUOXIUM
+
+/obj/machinery/air_sensor/proto_nitrate_tank
+	name = "proto-nitrate tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_PROTO_NITRATE
 
 /obj/machinery/air_sensor/tritium_tank
 	name = "tritium tank gas sensor"
@@ -49,6 +73,18 @@
 /obj/machinery/air_sensor/water_vapor_tank
 	name = "water vapor tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_H2O
+
+/obj/machinery/air_sensor/zauker_tank
+	name = "zauker tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_ZAUKER
+
+/obj/machinery/air_sensor/helium_tank
+	name = "helium tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_HELIUM
+
+/obj/machinery/air_sensor/antinoblium_tank
+	name = "antinoblium tank gas sensor"
+	chamber_id = ATMOS_GAS_MONITOR_ANTINOBLIUM
 
 /obj/machinery/air_sensor/incinerator_tank
 	name = "incinerator chamber gas sensor"

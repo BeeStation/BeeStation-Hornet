@@ -1,7 +1,7 @@
 
 /// Weapon Crafting
 
-/datum/crafting_recipe/IED
+/datum/crafting_recipe/improvisedbomb
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
 	time = 1.5 SECONDS
@@ -395,4 +395,32 @@
 	)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/rebarxbow
+	name = "Heated Rebar Crossbow"
+	result = /obj/item/gun/ballistic/rifle/rebarxbow
+	reqs = list(
+		/obj/item/stack/rods = 6,
+		/obj/item/stack/cable_coil = 12,
+		/obj/item/inducer =  1,
+	)
+	tools = list(TOOL_WELDER)
+	time = 5 SECONDS
+	category = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/rebarxbowforced
+	name = "Forced Rebar Crossbow"
+	result = /obj/item/gun/ballistic/rifle/rebarxbow/forced
+	reqs = list(
+		/obj/item/gun/ballistic/rifle/rebarxbow = 1,
+	)
+	blacklist = list(
+		/obj/item/gun/ballistic/rifle/rebarxbow/forced,
+		/obj/item/gun/ballistic/rifle/rebarxbow/syndie,
+	)
+	tools = list(TOOL_CROWBAR)
+	time = 1 SECONDS
+	category = CAT_WEAPON
 	dangerous_craft = TRUE

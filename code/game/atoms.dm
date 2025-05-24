@@ -2085,11 +2085,11 @@
 
 	return (!gravity_turf.force_no_gravity && !(turf_area.area_flags & NO_GRAVITY)) && (SSmapping.gravity_by_z_level[gravity_turf.z] || turf_area.default_gravity)
 
-/*
-* Called when something made out of plasma is exposed to high temperatures.
-* Intended for use only with plasma that is ignited outside of some form of containment
-* Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
-*/
+/**
+ * Called when something made out of plasma is exposed to high temperatures.
+ * Intended for use only with plasma that is ignited outside of some form of containment
+ * Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
+**/
 /atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()

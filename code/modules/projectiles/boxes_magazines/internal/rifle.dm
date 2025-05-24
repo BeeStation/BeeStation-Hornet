@@ -28,3 +28,20 @@
 	caliber = "a762"
 	max_ammo = 1
 	start_empty = TRUE
+
+/obj/item/ammo_box/magazine/internal/boltaction/rebarxbow
+	caliber = "sharpened rod"
+
+/obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/normal
+	name = "single round magazine"
+	max_ammo = 1
+	ammo_type = /obj/item/ammo_casing/rebar
+
+/obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/force
+	name = "two round magazine"
+	max_ammo = 2
+	ammo_type = /obj/item/ammo_casing/rebar
+
+/obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/syndie
+	max_ammo = 3
+	ammo_type = /obj/item/ammo_casing/rebar/syndie

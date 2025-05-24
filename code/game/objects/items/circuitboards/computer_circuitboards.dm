@@ -142,17 +142,41 @@
 	name = "BZ Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/bz_tank
 
+/obj/item/circuitboard/computer/atmos_control/freon_tank
+	name = "Freon Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/freon_tank
+
+/obj/item/circuitboard/computer/atmos_control/halon_tank
+	name = "Halon Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/halon_tank
+
+/obj/item/circuitboard/computer/atmos_control/healium_tank
+	name = "Healium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/healium_tank
+
+/obj/item/circuitboard/computer/atmos_control/hydrogen_tank
+	name = "Hydrogen Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/hydrogen_tank
+
 /obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
 	name = "Hypernoblium Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
-/obj/item/circuitboard/computer/atmos_control/nitryl_tank
-	name = "Nitryl Supply Control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/nitryl_tank
+/obj/item/circuitboard/computer/atmos_control/miasma_tank
+	name = "Miasma Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/miasma_tank
+
+/obj/item/circuitboard/computer/atmos_control/nitrium_tank
+	name = "Nitrium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/nitrium_tank
 
 /obj/item/circuitboard/computer/atmos_control/pluoxium_tank
 	name = "Pluoxium Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/pluoxium_tank
+
+/obj/item/circuitboard/computer/atmos_control/proto_nitrate_tank
+	name = "Proto-Nitrate Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/proto_nitrate_tank
 
 /obj/item/circuitboard/computer/atmos_control/tritium_tank
 	name = "Tritium Supply Control (Computer Board)"
@@ -161,6 +185,18 @@
 /obj/item/circuitboard/computer/atmos_control/water_vapor
 	name = "Water Vapor Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/water_vapor
+
+/obj/item/circuitboard/computer/atmos_control/zauker_tank
+	name = "Zauker Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/zauker_tank
+
+/obj/item/circuitboard/computer/atmos_control/helium_tank
+	name = "Helium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/helium_tank
+
+/obj/item/circuitboard/computer/atmos_control/antinoblium_tank
+	name = "Antinoblium Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/antinoblium_tank
 
 /obj/item/circuitboard/computer/auxillary_base
 	name = "auxillary base management console (Computer Board)"
