@@ -163,14 +163,11 @@
 /obj/effect/spawner/surface/echo
 	name = "seasonal surface spawner"
 	icon = 'icons/effects/landmarks_static.dmi'
-	icon_state = "random_surface_alternative"
+	icon_state = "random_room_alternative"
+	dir = NORTH
 
 /obj/effect/spawner/surface/echo/Initialize(mapload)
-	log_world("Echo seasonal surface initializing...")
-
 	var/season = get_current_season()
-	log_world("Season detected: [season]")
-
 	var/list/echo_season = list(
 		"SUMMER" = "summer_surface",
 		"WINTER" = "winter_surface",
@@ -194,7 +191,7 @@
 		message_admins("Echo spawner: No surface map found for '[season]' ([target_room_id])")
 		return INITIALIZE_HINT_QDEL
 
-	log_world("Echo spawner: Loading surface [template.name] ([template.room_id])")
+	message_admins("Echo spawner: Loading [template.name]. This may take a moment.")
 
 	var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
 	generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
@@ -202,7 +199,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/surface/echo/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
-	log_world("Echo spawner: Surface placement complete.")
+	message_admins("Echo spawner: Surface placement complete.")
 
 
 /proc/get_current_season()

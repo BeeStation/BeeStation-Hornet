@@ -28,11 +28,33 @@
 		"AUTUMN" = list()
 	)
 
-	proc/get_seasonal_content()
-		var/season = get_current_season()
-		var/list/flora = seasonal_flora[season] || list()
-		var/list/fauna = seasonal_fauna[season] || list()
-		return list("flora" = flora, "fauna" = fauna)
+/datum/biome/proc/get_seasonal_content()
+	var/season = get_current_season()
+
+	var/list/flora
+	var/list/fauna
+
+	switch(type)
+		if(/datum/biome/grassedge)
+			var/datum/biome/grassedge/B = src
+			flora = B.grassedge_seasonal_flora[season] || list()
+		if(/datum/biome/grasslush)
+			var/datum/biome/grasslush/B = src
+			flora = B.grasslush_seasonal_flora[season] || list()
+			fauna = B.grasslush_seasonal_fauna[season] || list()
+		if(/datum/biome/grassclearing)
+			var/datum/biome/grassclearing/B = src
+			flora = B.grassclearing_seasonal_flora[season] || list()
+		if(/datum/biome/sand)
+			var/datum/biome/sand/B = src
+			flora = B.sand_seasonal_flora[season] || list()
+			fauna = B.sand_seasonal_fauna[season] || list()
+
+	return list(
+		"flora" = flora,
+		"fauna" = fauna
+	)
+
 
 /datum/biome/proc/get_current_season()
 	var/month = text2num(time2text(world.timeofday, "MM"))
@@ -120,131 +142,172 @@
 
 //island
 /datum/biome/grassedge
-	flora_density = 40
-	flora_x_offset = 8
-	flora_y_offset = 8
+	flora_density = 90
+	flora_x_offset = 5
+	flora_y_offset = 5
 //	turf_type = /turf/open/floor/plating/dirt/grass
+	var/list/grassedge_seasonal_flora
 
-	seasonal_flora = list(
-		"SUMMER" = list(
-			/obj/structure/flora/tree/palm,
-			/obj/structure/flora/ausbushes/fullgrass,
-			/obj/structure/flora/ausbushes/sparsegrass,
-			/obj/structure/flora/ausbushes/lavendergrass,
-			/obj/structure/flora/ausbushes/ywflowers,
-			/obj/structure/flora/rock/jungle,
-			/obj/structure/flora/rock/pile
-		),
-		"WINTER" = list(),
-		"SPRING" = list(),
-		"AUTUMN" = list()
-	)
-
-	seasonal_fauna = list(
-		"SUMMER" = list(),
-		"WINTER" = list(),
-		"SPRING" = list(),
-		"AUTUMN" = list()
-	)
+	New()
+		. = ..()
+		grassedge_seasonal_flora = list(
+			"SUMMER" = list(
+				/obj/structure/flora/ausbushes/fullgrass,
+				/obj/structure/flora/ausbushes/sparsegrass,
+				/obj/structure/flora/ausbushes/lavendergrass,
+				/obj/structure/flora/ausbushes/ywflowers,
+				/obj/structure/flora/rock/jungle,
+				/obj/structure/flora/rock/pile
+			),
+			"WINTER" = list(
+				/obj/structure/flora/tree/dead,
+				/obj/structure/flora/grass/brown,
+				/obj/structure/flora/grass/green,
+				/obj/structure/flora/grass/both,
+				/obj/structure/flora/stump,
+				/obj/structure/flora/rock/pile/icy,
+				/obj/structure/flora/bush,
+				/obj/effect/decal/cleanable/generic
+			),
+			"SPRING" = list(),
+			"AUTUMN" = list()
+		)
 
 /datum/biome/grasslush
-	flora_density = 90
+	flora_density = 120
 	fauna_density = 5
-	flora_x_offset = 8
-	flora_y_offset = 8
+	flora_x_offset = 5
+	flora_y_offset = 5
 //	turf_type = /turf/open/floor/plating/dirt/planetary
+	var/list/grasslush_seasonal_flora
+	var/list/grasslush_seasonal_fauna
 
-	seasonal_flora = list(
-		"SUMMER" = list(
-			/obj/structure/flora/tree/jungle/small,
-			/obj/structure/flora/tree/jungle,
-			/obj/structure/flora/junglebush/large,
-			/obj/structure/flora/grass/jungle/b,
-			/obj/structure/flora/ausbushes/fernybush,
-			/obj/structure/flora/ausbushes/palebush,
-			/obj/structure/flora/grass/jungle,
-			/obj/structure/flora/junglebush,
-			/obj/structure/flora/ausbushes/brflowers,
-			/obj/structure/flora/ausbushes/grassybush,
-			/obj/structure/flora/junglebush/b,
-			/obj/structure/flora/junglebush/c,
-			/obj/structure/flora/ausbushes/ppflowers,
-			/obj/structure/flora/rock,
-			/obj/structure/flora/rock/jungle,
-			/obj/structure/flora/rock/pile,
-			/obj/structure/flora/rock/pile/largejungle
-		),
-		"WINTER" = list(),
-		"SPRING" = list(),
-		"AUTUMN" = list()
-	)
+	New()
+		. = ..()
+		grasslush_seasonal_flora = list(
+			"SUMMER" = list(
+				/obj/structure/flora/tree/jungle/small,
+				/obj/structure/flora/tree/jungle,
+				/obj/structure/flora/junglebush/large,
+				/obj/structure/flora/grass/jungle/b,
+				/obj/structure/flora/ausbushes/fernybush,
+				/obj/structure/flora/ausbushes/palebush,
+				/obj/structure/flora/grass/jungle,
+				/obj/structure/flora/junglebush,
+				/obj/structure/flora/ausbushes/brflowers,
+				/obj/structure/flora/ausbushes/grassybush,
+				/obj/structure/flora/junglebush/b,
+				/obj/structure/flora/junglebush/c,
+				/obj/structure/flora/ausbushes/ppflowers,
+				/obj/structure/flora/rock,
+				/obj/structure/flora/rock/jungle,
+				/obj/structure/flora/rock/pile,
+				/obj/structure/flora/rock/pile/largejungle
+			),
+			"WINTER" = list(
+				/obj/structure/flora/tree/pine,
+				/obj/structure/flora/tree/dead,
+				/obj/structure/flora/tree/pine/xmas,
+				/obj/structure/flora/grass/brown,
+				/obj/structure/flora/grass/green,
+				/obj/structure/flora/grass/both,
+				/obj/structure/flora/rock/pile/icy,
+				/obj/structure/flora/bush,
+				/obj/item/toy/snowball
+			),
+			"SPRING" = list(),
+			"AUTUMN" = list()
+		)
 
-	seasonal_fauna = list(
+	grasslush_seasonal_fauna = list(
 		"SUMMER" = list(
 			/mob/living/simple_animal/crab,
 			/mob/living/simple_animal/butterfly,
+			/mob/living/simple_animal/hostile/lizard,
 			/mob/living/simple_animal/parrot,
 			/mob/living/simple_animal/sloth,
 			/mob/living/carbon/monkey
 		),
-		"WINTER" = list(),
+		"WINTER" = list(
+			/mob/living/simple_animal/hostile/tree,
+			/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+		),
 		"SPRING" = list(),
 		"AUTUMN" = list()
 	)
 
 /datum/biome/grassclearing
-	flora_density = 60
-	flora_x_offset = 8
-	flora_y_offset = 8
-//	/turf/open/floor/plating/dirt/grass
+	flora_density = 80
+	flora_x_offset = 5
+	flora_y_offset = 5
+	var/list/grassclearing_seasonal_flora
 
-	seasonal_flora = list(
-		"SUMMER" = list(
-			/obj/structure/flora/grass/jungle/b,
-			/obj/structure/flora/ausbushes/fernybush,
-			/obj/structure/flora/ausbushes/palebush,
-			/obj/structure/flora/grass/jungle,
-			/obj/structure/flora/ausbushes/brflowers,
-			/obj/structure/flora/ausbushes/ppflowers,
-			/obj/structure/flora/rock,
-			/obj/structure/flora/rock/jungle,
-			/obj/structure/flora/rock/pile,
-			/obj/structure/flora/rock/pile/largejungle
-		),
-		"WINTER" = list(),
-		"SPRING" = list(),
-		"AUTUMN" = list()
-	)
-
-	seasonal_fauna = list(
-		"SUMMER" = list(),
-		"WINTER" = list(),
-		"SPRING" = list(),
-		"AUTUMN" = list()
-	)
+	New()
+		. = ..()
+		grassclearing_seasonal_flora = list(
+			"SUMMER" = list(
+				/obj/structure/flora/grass/jungle/b,
+				/obj/structure/flora/ausbushes/fernybush,
+				/obj/structure/flora/ausbushes/palebush,
+				/obj/structure/flora/grass/jungle,
+				/obj/structure/flora/ausbushes/brflowers,
+				/obj/structure/flora/ausbushes/ppflowers,
+				/obj/structure/flora/rock,
+				/obj/structure/flora/rock/jungle,
+				/obj/structure/flora/rock/pile,
+				/obj/structure/flora/rock/pile/largejungle
+			),
+			"WINTER" = list(
+				/obj/structure/flora/tree/pine,
+				/obj/structure/flora/tree/dead,
+				/obj/structure/flora/grass/brown,
+				/obj/structure/flora/grass/green,
+				/obj/structure/flora/grass/both,
+				/obj/structure/flora/rock/pile/icy,
+				/obj/structure/flora/bush,
+				/obj/item/toy/snowball
+			),
+			"SPRING" = list(),
+			"AUTUMN" = list()
+		)
 
 /datum/biome/sand
-	flora_density = 3
-	flora_x_offset = 8
-	flora_y_offset = 8
+	flora_density = 30
+	fauna_density = 5
+	flora_x_offset = 5
+	flora_y_offset = 5
 //	/turf/open/floor/plating/beach/sand
+	var/list/sand_seasonal_flora
+	var/list/sand_seasonal_fauna
 
-	seasonal_flora = list(
-		"SUMMER" = list(
-			/obj/structure/flora/tree/palm,
-			/obj/structure/flora/ausbushes/sparsegrass,
-			/obj/structure/flora/ausbushes/lavendergrass,
-			/obj/structure/flora/ausbushes/ywflowers,
-			/obj/effect/overlay/coconut
-		),
-		"WINTER" = list(),
-		"SPRING" = list(),
-		"AUTUMN" = list()
-	)
+	New()
+		. = ..()
+		sand_seasonal_flora = list(
+			"SUMMER" = list(
+				/obj/structure/flora/tree/palm,
+				/obj/structure/flora/ausbushes/fullgrass,
+				/obj/structure/flora/ausbushes/sparsegrass,
+				/obj/structure/flora/ausbushes/lavendergrass,
+				/obj/structure/flora/ausbushes/ywflowers,
+				/obj/effect/overlay/coconut
+			),
+			"WINTER" = list(
+				/obj/structure/flora/tree/palm,
+				/obj/structure/flora/rock/pile,
+				/obj/item/toy/snowball,
+				/obj/effect/overlay/coconut
+			),
+			"SPRING" = list(),
+			"AUTUMN" = list()
+		)
 
-	seasonal_fauna = list(
-		"SUMMER" = list(),
-		"WINTER" = list(),
-		"SPRING" = list(),
-		"AUTUMN" = list()
-	)
+		sand_seasonal_fauna = list(
+			"SUMMER" = list(
+				/mob/living/simple_animal/crab,
+				/mob/living/simple_animal/butterfly,
+				/mob/living/simple_animal/hostile/lizard
+			),
+			"WINTER" = list(),
+			"SPRING" = list(),
+			"AUTUMN" = list()
+		)
