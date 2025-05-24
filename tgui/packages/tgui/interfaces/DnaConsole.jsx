@@ -537,7 +537,7 @@ const MutationInfo = (props) => {
   const savedToDisk = diskMutations.find((x) => isSameMutation(x, mutation));
   const combinedMutations = filter(
     uniqBy([...diskMutations, ...mutationStorage], (mutation) => mutation.Name),
-    (x) => x.Name !== mutation.Name,
+    (x) => x.Name !== mutation.Name
   );
   return (
     <>

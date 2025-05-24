@@ -10,7 +10,7 @@ const sortJobs = (entries: [string, Job][], head?: string) =>
   sortBy(
     entries,
     ([key, _]) => (key === head ? -1 : 1),
-    ([key, _]) => key,
+    ([key, _]) => key
   );
 
 const PriorityButton = (props: { name: string; modifier?: string; enabled: boolean; onClick: () => void }) => {

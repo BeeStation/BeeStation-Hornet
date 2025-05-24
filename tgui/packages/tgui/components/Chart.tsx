@@ -45,10 +45,7 @@ const normalizeData = (data: Point[], scale: number[], rangeX?: Range, rangeY?: 
   }
 
   const normalized = map(data, (point) =>
-    map(
-      zip(point, min, max, scale),
-      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale,
-    ),
+    map(zip(point, min, max, scale), ([value, min, max, scale]) => ((value - min) / (max - min)) * scale)
   );
 
   return normalized;

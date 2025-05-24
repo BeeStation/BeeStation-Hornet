@@ -40,14 +40,11 @@ export const Fax = (props) => {
   const { data } = useBackend<FaxData>();
   const faxes = data.faxes
     ? sortBy(
-        data.syndicate_network
-          ? data.faxes.filter((filterFax: FaxInfo) => filterFax.visible)
-          : data.faxes.filter(
-              (filterFax: FaxInfo) =>
-                filterFax.visible && !filterFax.syndicate_network,
-            ),
-        (sortFax: FaxInfo) => sortFax.fax_name,
-      )
+      data.syndicate_network
+        ? data.faxes.filter((filterFax: FaxInfo) => filterFax.visible)
+        : data.faxes.filter((filterFax: FaxInfo) => filterFax.visible && !filterFax.syndicate_network),
+      (sortFax: FaxInfo) => sortFax.fax_name
+    )
     : [];
   return (
     <Window width={340} height={540}>

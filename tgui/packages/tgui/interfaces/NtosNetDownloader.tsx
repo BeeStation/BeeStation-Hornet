@@ -52,29 +52,24 @@ export const NtosNetDownloader = (props) => {
   const downloadpercentage = toFixed(scale(downloadcompletion, 0, downloadsize) * 100);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [searchItem, setSearchItem] = useState('');
-  const search = createSearch<ProgramData>(
-    searchItem,
-    (program) => program.filedesc,
-  );
+  const search = createSearch<ProgramData>(searchItem, (program) => program.filedesc);
   let items =
     searchItem.length > 0
       ? // If we have a query, search everything for it.
-        filter(programs, search)
+      filter(programs, search)
       : // Otherwise, show respective programs for the category.
-        filter(programs, (program) => program.category === selectedCategory);
+      filter(programs, (program) => program.category === selectedCategory);
   // This sorts all programs in the lists by name and compatibility
   items = sortBy(
     items,
     (program: ProgramData) => !program.compatible,
-    (program: ProgramData) => program.filedesc,
+    (program: ProgramData) => program.filedesc
   );
   if (!emagged) {
     // This filters the list to only contain verified programs
     items = filter(items, (program) => program.verifiedsource === 1);
   }
-  const disk_free_space = downloading
-    ? disk_size - Number(toFixed(disk_used + downloadcompletion))
-    : disk_size - disk_used;
+  const disk_free_space = downloading ? disk_size - Number(toFixed(disk_used + downloadcompletion)) : disk_size - disk_used;
 
   return (
     <NtosWindow width={600} height={600}>
@@ -132,15 +127,7 @@ export const NtosNetDownloader = (props) => {
 const Program = (props) => {
   const { program } = props;
   const { act, data } = useBackend<Data>();
-  const {
-    disk_size,
-    disk_used,
-    downloading,
-    downloadname,
-    downloadcompletion,
-    emagged,
-    id_inserted,
-  } = data;
+  const { disk_size, disk_used, downloading, downloadname, downloadcompletion, emagged, id_inserted } = data;
   const disk_free = disk_size - disk_used;
   return (
     <Section>

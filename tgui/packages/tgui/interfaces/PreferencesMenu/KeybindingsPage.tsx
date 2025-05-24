@@ -73,9 +73,7 @@ const sortKeybindings = (array: [string, Keybinding][]) =>
     return keybinding.name;
   });
 
-const sortKeybindingsByCategory = (
-  array: [string, Record<string, Keybinding>][],
-) => sortBy(array, ([category, _]) => category);
+const sortKeybindingsByCategory = (array: [string, Record<string, Keybinding>][]) => sortBy(array, ([category, _]) => category);
 
 const formatKeyboardEvent = (event: KeyboardEvent): string => {
   let text = '';

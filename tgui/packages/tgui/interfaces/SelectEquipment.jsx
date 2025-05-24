@@ -34,11 +34,11 @@ export const SelectEquipment = (props) => {
   const visibleOutfits = sortBy(
     filter(
       filter(outfits, (entry) => entry.category === tab),
-      searchFilter,
+      searchFilter
     ),
     (entry) => !entry.favorite,
     (entry) => !entry.priority,
-    (entry) => entry.name,
+    (entry) => entry.name
   );
 
   const getOutfitEntry = (current_outfit) => outfits.find((outfit) => getOutfitKey(outfit) === current_outfit);

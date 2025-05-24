@@ -201,12 +201,7 @@ const dragMoveHandler = (event: MouseEvent) => {
     return;
   }
   event.preventDefault();
-  setWindowPosition(
-    vecSubtract([event.screenX, event.screenY], dragPointOffset) as [
-      number,
-      number,
-    ],
-  );
+  setWindowPosition(vecSubtract([event.screenX, event.screenY], dragPointOffset) as [number, number]);
 };
 
 // Start resizing the window
@@ -242,10 +237,7 @@ const resizeMoveHandler = (event: MouseEvent) => {
   const currentOffset = vecSubtract([event.screenX, event.screenY], getWindowPosition());
   const delta = vecSubtract(currentOffset, dragPointOffset);
   // Extra 1x1 area is added to ensure the browser can see the cursor
-  size = vecAdd(initialSize, vecMultiply(resizeMatrix, delta), [1, 1]) as [
-    number,
-    number,
-  ];
+  size = vecAdd(initialSize, vecMultiply(resizeMatrix, delta), [1, 1]) as [number, number];
   // Sane window size values
   size[0] = Math.max(size[0], 150 * pixelRatio);
   size[1] = Math.max(size[1], 50 * pixelRatio);

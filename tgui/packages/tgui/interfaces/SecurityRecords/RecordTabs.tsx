@@ -15,9 +15,9 @@ export const SecurityRecordTabs = (props) => {
 
   const [search, setSearch] = useLocalState('search', '');
 
-   const sorted = sortBy(
+  const sorted = sortBy(
     filter(records, (record) => isRecordMatch(record, search)),
-    (record) => record.name,
+    (record) => record.name
   );
 
   return (

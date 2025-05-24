@@ -474,18 +474,13 @@ export const MainPage = (props: { openSpecies: () => void }) => {
 
           if (!randomBodyEnabled) {
             return {};
-              }
+          }
 
-  return Object.fromEntries(
-    map(
-      filter(Object.keys(preferences), (key) =>
-        serverData.random.randomizable.includes(key),
-      ),
-      (key) => [
-        key,
-        data.character_preferences.randomization[key] || RandomSetting.Disabled,
-                ],
-            ),
+          return Object.fromEntries(
+            map(
+              filter(Object.keys(preferences), (key) => serverData.random.randomizable.includes(key)),
+              (key) => [key, data.character_preferences.randomization[key] || RandomSetting.Disabled]
+            )
           );
         };
 

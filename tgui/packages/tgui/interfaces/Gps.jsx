@@ -15,16 +15,7 @@ export const Gps = (props) => {
       map(signals, (signal, index) => {
         // Calculate distance to the target. BYOND distance is capped to 127,
         // that's why we roll our own calculations here.
-        const dist =
-          signal.dist &&
-          Math.round(
-            vecLength(
-              vecSubtract(
-                coordsToVec(currentCoords),
-                coordsToVec(signal.coords),
-              ),
-            ),
-          );
+        const dist = signal.dist && Math.round(vecLength(vecSubtract(coordsToVec(currentCoords), coordsToVec(signal.coords))));
         return { ...signal, dist, index };
       }),
     (signals) =>
@@ -33,7 +24,7 @@ export const Gps = (props) => {
         // Signals with distance metric go first
         (signal) => signal.dist === undefined,
         // Sort alphabetically
-        (signal) => signal.entrytag,
+        (signal) => signal.entrytag
       ),
   ])(data.signals || []);
   return (

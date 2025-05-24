@@ -26,10 +26,7 @@ export const prevNextCamera = (cameras, activeCamera) => {
 export const selectCameras = (cameras, searchText = '') => {
   let queriedCameras = filter(cameras, (camera) => !!camera.name);
   if (searchText) {
-    const testSearch = createSearch(
-      searchText,
-      (camera) => camera.name,
-    );
+    const testSearch = createSearch(searchText, (camera) => camera.name);
     queriedCameras = filter(queriedCameras, testSearch);
   }
   queriedCameras = sort(queriedCameras);

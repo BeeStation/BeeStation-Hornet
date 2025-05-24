@@ -19,7 +19,7 @@ const sortShuttles = (shuttles) =>
   sortBy(
     shuttles,
     (shuttle) => !shuttle.illegal,
-    (shuttle) => shuttle.creditCost,
+    (shuttle) => shuttle.creditCost
   );
 
 const AlertButton = (props) => {

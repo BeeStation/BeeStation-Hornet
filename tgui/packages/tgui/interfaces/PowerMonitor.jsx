@@ -41,14 +41,13 @@ export const PowerMonitorContent = (props) => {
         id: area.name + i,
       })),
     sortByField === 'name' && ((areas) => sortBy(areas, (area) => area.name)),
-    sortByField === 'charge' &&
-      ((areas) => sortBy(areas, (area) => -area.charge)),
+    sortByField === 'charge' && ((areas) => sortBy(areas, (area) => -area.charge)),
     sortByField === 'draw' &&
       ((areas) =>
         sortBy(
           areas,
           (area) => -powerRank(area.load),
-          (area) => -parseFloat(area.load),
+          (area) => -parseFloat(area.load)
         )),
   ])(data.areas);
   return (

@@ -14,10 +14,7 @@
  *
  * @returns {any[]}
  */
-export const filter = <T>(
-  collection: T[],
-  iterateeFn: (input: T, index: number, collection: T[]) => boolean,
-): T[] => {
+export const filter = <T>(collection: T[], iterateeFn: (input: T, index: number, collection: T[]) => boolean): T[] => {
   if (collection === null || collection === undefined) {
     return collection;
   }
@@ -35,14 +32,11 @@ export const filter = <T>(
 };
 
 type MapFunction = {
-  <T, U>(
-    collection: T[],
-    iterateeFn: (value: T, index: number, collection: T[]) => U,
-  ): U[];
+  <T, U>(collection: T[], iterateeFn: (value: T, index: number, collection: T[]) => U): U[];
 
   <T, U, K extends string | number>(
     collection: Record<K, T>,
-    iterateeFn: (value: T, index: K, collection: Record<K, T>) => U,
+    iterateeFn: (value: T, index: K, collection: Record<K, T>) => U
   ): U[];
 };
 
@@ -103,10 +97,7 @@ const COMPARATOR = (objA, objB) => {
  *
  * Iteratees are called with one argument (value).
  */
-export const sortBy = <T>(
-  array: T[],
-  ...iterateeFns: ((input: T) => unknown)[]
-): T[] => {
+export const sortBy = <T>(array: T[], ...iterateeFns: ((input: T) => unknown)[]): T[] => {
   if (!Array.isArray(array)) {
     return array;
   }
@@ -145,25 +136,8 @@ export const range = (start: number, end: number): number[] =>
   new Array(end - start).fill(null).map((_, index) => index + start);
 
 type ReduceFunction = {
-  <T, U>(
-    array: T[],
-    reducerFn: (
-      accumulator: U,
-      currentValue: T,
-      currentIndex: number,
-      array: T[],
-    ) => U,
-    initialValue: U,
-  ): U;
-  <T>(
-    array: T[],
-    reducerFn: (
-      accumulator: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[],
-    ) => T,
-  ): T;
+  <T, U>(array: T[], reducerFn: (accumulator: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+  <T>(array: T[], reducerFn: (accumulator: T, currentValue: T, currentIndex: number, array: T[]) => T): T;
 };
 
 /**
@@ -197,35 +171,32 @@ export const reduce: ReduceFunction = (array, reducerFn, initialValue?) => {
  * is determined by the order they occur in the array. The iteratee is
  * invoked with one argument: value.
  */
-export const uniqBy = <T extends unknown>(
-  array: T[],
-  iterateeFn?: (value: T) => unknown,
-): T[] => {
+export const uniqBy = <T extends unknown>(array: T[], iterateeFn?: (value: T) => unknown): T[] => {
   const { length } = array;
   const result: T[] = [];
   const seen: unknown[] = iterateeFn ? [] : result;
   let index = -1;
-    outer: while (++index < length) {
-      let value: T | 0 = array[index];
-      const computed = iterateeFn ? iterateeFn(value) : value;
-      if (computed === computed) {
-        let seenIndex = seen.length;
-        while (seenIndex--) {
-          if (seen[seenIndex] === computed) {
-            continue outer;
-          }
+  outer: while (++index < length) {
+    let value: T | 0 = array[index];
+    const computed = iterateeFn ? iterateeFn(value) : value;
+    if (computed === computed) {
+      let seenIndex = seen.length;
+      while (seenIndex--) {
+        if (seen[seenIndex] === computed) {
+          continue outer;
         }
-        if (iterateeFn) {
-          seen.push(computed);
-        }
-        result.push(value);
-      } else if (!seen.includes(computed)) {
-        if (seen !== result) {
-          seen.push(computed);
-        }
-        result.push(value);
       }
+      if (iterateeFn) {
+        seen.push(computed);
+      }
+      result.push(value);
+    } else if (!seen.includes(computed)) {
+      if (seen !== result) {
+        seen.push(computed);
+      }
+      result.push(value);
     }
+  }
   return result;
 };
 
@@ -292,15 +263,10 @@ const binarySearch = <T, U = unknown>(getKey: (value: T) => U, collection: reado
   return compare > insertingKey ? middle : middle + 1;
 };
 
-export const binaryInsertWith = <T, U = unknown>(
-  collection: readonly T[],
-  value: T,
-  getKey: (value: T) => U,
-): T[] => {
+export const binaryInsertWith = <T, U = unknown>(collection: readonly T[], value: T, getKey: (value: T) => U): T[] => {
   const copy = [...collection];
   copy.splice(binarySearch(getKey, collection, value), 0, value);
   return copy;
 };
 
-const isObject = (obj: unknown): obj is object =>
-  typeof obj === 'object' && obj !== null;
+const isObject = (obj: unknown): obj is object => typeof obj === 'object' && obj !== null;

@@ -16,7 +16,7 @@ export const MedicalRecordTabs = (props) => {
 
   const sorted: MedicalRecord[] = sortBy(
     filter(records, (record) => isRecordMatch(record, search)),
-    (record) => record.name?.toLowerCase(),
+    (record) => record.name?.toLowerCase()
   );
 
   return (

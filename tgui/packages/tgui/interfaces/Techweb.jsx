@@ -235,11 +235,9 @@ const TechwebOverview = (props) => {
   let researchednodes = nodes;
   let futurenodes = nodes;
   displayedNodes = sortBy(
-      tabIndex < 2
-        ? nodes.filter((x) => x.tier === tabIndex)
-        : nodes.filter((x) => x.tier >= tabIndex),
-      (x) => node_cache[x.id].name,
-    );
+    tabIndex < 2 ? nodes.filter((x) => x.tier === tabIndex) : nodes.filter((x) => x.tier >= tabIndex),
+    (x) => node_cache[x.id].name
+  );
   researchednodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 1));
   futurenodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 2));
   if (searching) {
