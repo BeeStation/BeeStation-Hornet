@@ -11,7 +11,7 @@ import { Icon, Section, Stack } from './components';
 
 const requireInterface = require.context('./interfaces');
 
-export const routingError = (type: 'notFound' | 'missingExport', name: string) => () => {
+const routingError = (type: 'notFound' | 'missingExport', name: string) => () => {
   return (
     <Window>
       <Window.Content scrollable>
