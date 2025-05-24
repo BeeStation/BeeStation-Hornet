@@ -11,7 +11,10 @@ import {
 import { useState } from 'react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AtmosHandbookContent, atmosHandbookHooks } from './common/AtmosHandbook';
+import {
+  AtmosHandbookContent,
+  atmosHandbookHooks,
+} from './common/AtmosHandbook';
 import { Gasmix, GasmixParser } from './common/GasmixParser';
 
 type Chamber = {
@@ -32,7 +35,10 @@ export const AtmosControlConsole = (props) => {
   }>();
   const chambers = data.chambers || [];
   const [chamberId, setChamberId] = useState(chambers[0]?.id);
-  const selectedChamber = chambers.length === 1 ? chambers[0] : chambers.find((chamber) => chamber.id === chamberId);
+  const selectedChamber =
+    chambers.length === 1
+      ? chambers[0]
+      : chambers.find((chamber) => chamber.id === chamberId);
   const [setActiveGasId, setActiveReactionId] = atmosHandbookHooks();
   return (
     <Window width={550} height={350}>
@@ -65,7 +71,11 @@ export const AtmosControlConsole = (props) => {
           }
         >
           {!!selectedChamber && !!selectedChamber.gasmix ? (
-            <GasmixParser gasmix={selectedChamber.gasmix} gasesOnClick={setActiveGasId} reactionOnClick={setActiveReactionId} />
+            <GasmixParser
+              gasmix={selectedChamber.gasmix}
+              gasesOnClick={setActiveGasId}
+              reactionOnClick={setActiveReactionId}
+            />
           ) : (
             <Box italic> {'No Sensors Detected!'}</Box>
           )}

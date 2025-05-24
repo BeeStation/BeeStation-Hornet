@@ -1,7 +1,10 @@
 import { useBackend } from '../backend';
 import { GasmixParser } from './common/GasmixParser';
 import type { Gasmix } from './common/GasmixParser';
-import { AtmosHandbookContent, atmosHandbookHooks } from './common/AtmosHandbook';
+import {
+  AtmosHandbookContent,
+  atmosHandbookHooks,
+} from './common/AtmosHandbook';
 import { Window } from '../layouts';
 import { Section } from '../components';
 
@@ -17,7 +20,11 @@ export const GasAnalyzerContent = (props) => {
     <>
       {gasmixes.map((gasmix) => (
         <Section title={gasmix.name} key={gasmix.reference}>
-          <GasmixParser gasmix={gasmix} gasesOnClick={setActiveGasId} reactionOnClick={setActiveReactionId} />
+          <GasmixParser
+            gasmix={gasmix}
+            gasesOnClick={setActiveGasId}
+            reactionOnClick={setActiveReactionId}
+          />
         </Section>
       ))}
       <AtmosHandbookContent vertical />

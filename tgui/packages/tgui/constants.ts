@@ -185,10 +185,10 @@ const GASES = [
     color: 'bisque',
   },
   {
-    'id': 'no2',
-    'name': 'Nitrium',
-    'label': 'Nitrium',
-    'color': 'brown',
+    id: 'no2',
+    name: 'Nitrium',
+    label: 'Nitrium',
+    color: 'brown',
   },
   {
     id: 'tritium',
@@ -203,10 +203,10 @@ const GASES = [
     color: 'mediumpurple',
   },
   {
-    'id': 'pluox',
-    'name': 'Pluoxium',
-    'label': 'Pluoxium',
-    'color': 'mediumslateblue',
+    id: 'pluox',
+    name: 'Pluoxium',
+    label: 'Pluoxium',
+    color: 'mediumslateblue',
   },
   {
     id: 'miasma',
