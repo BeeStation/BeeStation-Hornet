@@ -1,9 +1,9 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$generic: hsl(254.1, 11.1%, 30.0%);
+$generic: hsl(254.1, 11.1%, 30%);
 $accent: hsl(235.1, 35.2%, 47.8%);
-$accent-2: hsl(44.9, 100.0%, 50.0%);
+$accent-2: hsl(44.9, 100%, 50%);
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
@@ -31,7 +31,7 @@ $accent-2: hsl(44.9, 100.0%, 50.0%);
   );
   @include meta.load-css('../components/Section.scss');
 
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': hsl(235.0, 100.0%, 74.1%)));
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': hsl(235, 100%, 74.1%)));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
@@ -40,7 +40,7 @@ $accent-2: hsl(44.9, 100.0%, 50.0%);
     '../layouts/TitleBar.scss',
     $with: (
       'background-color': color.scale($generic, $lightness: -50%),
-      'shadow-color': hsl(60.0, 100.0%, 50.0%)21,
+      'shadow-color': hsl(60, 100%, 50%) 21,
       'shadow-color-core': $accent-2,
       'shadow-core-height': 3px
     )

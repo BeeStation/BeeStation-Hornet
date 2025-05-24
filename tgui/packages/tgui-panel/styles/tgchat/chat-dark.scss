@@ -14,7 +14,7 @@ body {
   color: hsl(213.6, 37.9%, 74.1%);
 }
 body {
-  background: hsl(0.0, 0.0%, 9.0%);
+  background: hsl(0, 0%, 9%);
   font-family: Verdana, sans-serif;
   font-size: 9pt;
   color: hsl(213.6, 37.9%, 74.1%);
@@ -22,9 +22,9 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   word-wrap: break-word;
-  scrollbar-face-color: hsl(0.0, 0.0%, 10.2%);
-  scrollbar-track-color: hsl(0.0, 0.0%, 9.0%);
-  scrollbar-highlight-color: hsl(0.0, 0.0%, 9.0%);
+  scrollbar-face-color: hsl(0, 0%, 10.2%);
+  scrollbar-track-color: hsl(0, 0%, 9%);
+  scrollbar-highlight-color: hsl(0, 0%, 9%);
 }
 
 em {
@@ -68,10 +68,10 @@ a {
   color: hsl(201.7, 48.6%, 43.5%);
 }
 a.visited {
-  color: hsl(272.3, 100.0%, 45.1%);
+  color: hsl(272.3, 100%, 45.1%);
 }
 a:visited {
-  color: hsl(272.3, 100.0%, 45.1%);
+  color: hsl(272.3, 100%, 45.1%);
 }
 a.popt {
   text-decoration: none;
@@ -108,7 +108,7 @@ a.popt {
   bottom: 0;
   right: 0;
   padding: 8px;
-  background: hsl(0.0, 0.0%, 12.5%);
+  background: hsl(0, 0%, 12.5%);
   text-decoration: none;
   font-variant: small-caps;
   font-size: 1.1em;
@@ -116,7 +116,7 @@ a.popt {
   color: hsl(213.6, 37.9%, 74.1%);
 }
 #newMessages:hover {
-  background: hsl(0.0, 0.0%, 9.0%);
+  background: hsl(0, 0%, 9%);
 }
 #newMessages i {
   vertical-align: middle;
@@ -127,7 +127,7 @@ a.popt {
   top: 0;
   right: 135px;
   width: 45px;
-  background: hsl(0.0, 0.0%, 12.5%);
+  background: hsl(0, 0%, 12.5%);
   height: 30px;
   padding: 8px 0 2px 0;
 }
@@ -147,21 +147,21 @@ a.popt {
   right: 0;
 }
 #userBar .subCell {
-  background: hsl(0.0, 0.0%, 12.5%);
+  background: hsl(0, 0%, 12.5%);
   height: 30px;
   padding: 5px 0;
   display: block;
   color: hsl(213.6, 37.9%, 74.1%);
   text-decoration: none;
   line-height: 28px;
-  border-top: 1px solid hsl(0.0, 0.0%, 9.0%);
+  border-top: 1px solid hsl(0, 0%, 9%);
 }
 #userBar .subCell:hover {
-  background: hsl(0.0, 0.0%, 12.5%);
+  background: hsl(0, 0%, 12.5%);
 }
 #userBar .toggle {
   width: 45px;
-  background: hsl(0.0, 0.0%, 12.5%);
+  background: hsl(0, 0%, 12.5%);
   border-top: 0;
   float: right;
   text-align: center;
@@ -290,7 +290,7 @@ a.popt {
   margin-top: 5px;
 }
 .highlightPopup input.highlightColor {
-  background-color: hsl(60.0, 100.0%, 50.0%);
+  background-color: hsl(60, 100%, 50%);
 }
 .highlightPopup input.highlightTermSubmit {
   margin-top: 5px;
@@ -403,19 +403,19 @@ em {
 }
 
 .ooc {
-  color: hsl(47.9, 100.0%, 40.0%);
+  color: hsl(47.9, 100%, 40%);
   font-weight: bold;
 }
 .dooc {
-  color: hsl(292.8, 79.0%, 58.8%);
+  color: hsl(292.8, 79%, 58.8%);
   font-weight: bold;
 }
 .looc {
-  color: hsl(47.9, 100.0%, 68.0%);
+  color: hsl(47.9, 100%, 68%);
   font-weight: bold;
 }
 .adminobserverooc {
-  color: hsl(195.0, 100.0%, 40.0%);
+  color: hsl(195, 100%, 40%);
   font-weight: bold;
 }
 .adminooc {
@@ -424,28 +424,28 @@ em {
 }
 
 .adminsay {
-  color: hsl(16.2, 100.0%, 50.0%);
+  color: hsl(16.2, 100%, 50%);
 }
 .admin {
-  color: hsl(227.0, 63.5%, 60.2%);
+  color: hsl(227, 63.5%, 60.2%);
   font-weight: bold;
 }
 
 .mentor {
-  color: hsl(133.2, 63.8%, 39.0%);
+  color: hsl(133.2, 63.8%, 39%);
   font-weight: bold;
 }
 .mentornotice {
-  color: hsl(122.9, 87.7%, 68.0%);
+  color: hsl(122.9, 87.7%, 68%);
 }
 .mentorfrom {
   color: hsl(297.9, 64.4%, 57.1%);
 }
 .mentorto {
-  color: hsl(120.0, 64.4%, 57.1%);
+  color: hsl(120, 64.4%, 57.1%);
 }
 .mentorhelp {
-  color: hsl(256.1, 100.0%, 70.0%);
+  color: hsl(256.1, 100%, 70%);
 }
 .mentorsay {
   color: hsl(303.5, 74.8%, 54.9%);
@@ -455,7 +455,7 @@ em {
   color: white;
   text-align: center;
   background-color: black;
-  border: 2px solid hsl(256.1, 100.0%, 70.0%);
+  border: 2px solid hsl(256.1, 100%, 70%);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;
@@ -466,19 +466,19 @@ em {
 }
 
 .deadsay {
-  color: hsl(271.9, 100.0%, 87.8%);
+  color: hsl(271.9, 100%, 87.8%);
 }
 .binarysay {
-  color: hsl(114.0, 86.5%, 40.8%);
-  background-color: hsl(0.0, 0.0%, 0.0%);
+  color: hsl(114, 86.5%, 40.8%);
+  background-color: hsl(0, 0%, 0%);
   display: block;
 }
 .binarysay a {
-  color: hsl(120.0, 100.0%, 50.0%);
+  color: hsl(120, 100%, 50%);
 }
 .binarysay a:active,
 .binarysay a:visited {
-  color: hsl(120.0, 100.0%, 76.7%);
+  color: hsl(120, 100%, 76.7%);
 }
 .radio {
   color: hsl(132.8, 74.4%, 45.9%);
@@ -487,19 +487,19 @@ em {
   color: hsl(271.6, 91.7%, 76.5%);
 }
 .explradio {
-  color: hsl(167.4, 50.0%, 66.3%);
+  color: hsl(167.4, 50%, 66.3%);
 }
 .comradio {
-  color: hsl(53.0, 97.6%, 50.0%);
+  color: hsl(53, 97.6%, 50%);
 }
 .secradio {
-  color: hsl(0.0, 71.2%, 53.7%);
+  color: hsl(0, 71.2%, 53.7%);
 }
 .medradio {
-  color: hsl(195.0, 100.0%, 60.0%);
+  color: hsl(195, 100%, 60%);
 }
 .engradio {
-  color: hsl(17.0, 87.8%, 61.4%);
+  color: hsl(17, 87.8%, 61.4%);
 }
 .suppradio {
   color: hsl(33.7, 44.9%, 49.8%);
@@ -511,16 +511,16 @@ em {
   color: hsl(359.1, 31.8%, 42.5%);
 }
 .centcomradio {
-  color: hsl(197.0, 62.6%, 39.8%);
+  color: hsl(197, 62.6%, 39.8%);
 }
 .aiprivradio {
   color: hsl(332.2, 59.6%, 60.2%);
 }
 .redteamradio {
-  color: hsl(0.0, 100.0%, 63.3%);
+  color: hsl(0, 100%, 63.3%);
 }
 .blueteamradio {
-  color: hsl(240.0, 98.0%, 59.8%);
+  color: hsl(240, 98%, 59.8%);
 }
 .holocall {
   color: hsl(340.1, 66.2%, 46.5%);
@@ -531,15 +531,15 @@ em {
 }
 
 .alert {
-  color: hsl(0.0, 74.2%, 48.6%);
+  color: hsl(0, 74.2%, 48.6%);
 }
 
 .emote {
   color: hsl(214.1, 17.9%, 59.4%);
 }
 .selecteddna {
-  color: hsl(0.0, 0.0%, 100.0%);
-  background-color: hsl(180.0, 100.0%, 5.3%);
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(180, 100%, 5.3%);
 }
 
 .examine {
@@ -547,42 +547,42 @@ em {
 }
 
 .attack {
-  color: hsl(0.0, 77.8%, 49.4%);
+  color: hsl(0, 77.8%, 49.4%);
 }
 .disarm {
-  color: hsl(0.0, 65.9%, 42.5%);
+  color: hsl(0, 65.9%, 42.5%);
 }
 .passive {
-  color: hsl(0.0, 82.9%, 34.3%);
+  color: hsl(0, 82.9%, 34.3%);
 }
 
 .userdanger {
-  color: hsl(0.0, 73.6%, 44.5%);
+  color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
   font-size: 24px;
 }
 .danger {
-  color: hsl(0.0, 73.6%, 44.5%);
+  color: hsl(0, 73.6%, 44.5%);
 }
 .warning {
-  color: hsl(0.0, 73.6%, 44.5%);
+  color: hsl(0, 73.6%, 44.5%);
   font-style: italic;
 }
 .alertwarning {
-  color: hsl(0.0, 100.0%, 50.0%);
+  color: hsl(0, 100%, 50%);
   font-weight: bold;
 }
 .boldwarning {
-  color: hsl(0.0, 73.6%, 44.5%);
+  color: hsl(0, 73.6%, 44.5%);
   font-style: italic;
   font-weight: bold;
 }
 .announce {
-  color: hsl(0.0, 73.6%, 44.5%);
+  color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
 }
 .boldannounce {
-  color: hsl(0.0, 73.6%, 44.5%);
+  color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
 }
 .greenannounce {
@@ -590,28 +590,28 @@ em {
   font-weight: bold;
 }
 .rose {
-  color: hsl(0.0, 100.0%, 65.7%);
+  color: hsl(0, 100%, 65.7%);
 }
 .info {
-  color: hsl(227.0, 87.7%, 68.0%);
+  color: hsl(227, 87.7%, 68%);
 }
 .notice {
-  color: hsl(227.0, 87.7%, 68.0%);
+  color: hsl(227, 87.7%, 68%);
 }
 .boldnotice {
-  color: hsl(227.0, 87.7%, 68.0%);
+  color: hsl(227, 87.7%, 68%);
   font-weight: bold;
 }
 .usernotice {
-  color: hsl(227.0, 87.7%, 68.0%);
+  color: hsl(227, 87.7%, 68%);
   font-weight: bold;
   font-size: 24px;
 }
 .adminnotice {
-  color: hsl(227.0, 87.7%, 68.0%);
+  color: hsl(227, 87.7%, 68%);
 }
 .adminhelp {
-  color: hsl(0.0, 100.0%, 50.0%);
+  color: hsl(0, 100%, 50%);
   font-weight: bold;
 }
 .adminhelp_conclusion {
@@ -639,60 +639,60 @@ em {
   font-weight: bold;
 }
 .suicide {
-  color: hsl(0.0, 100.0%, 65.7%);
+  color: hsl(0, 100%, 65.7%);
   font-style: italic;
 }
 .green {
   color: hsl(132.8, 93.4%, 29.6%);
 }
 .red {
-  color: hsl(0.0, 100.0%, 50.0%);
+  color: hsl(0, 100%, 50%);
 }
 .blue {
-  color: hsl(224.1, 100.0%, 56.5%);
+  color: hsl(224.1, 100%, 56.5%);
 }
 .nicegreen {
   color: hsl(132.8, 93.4%, 29.6%);
 }
 .shadowling {
-  color: hsl(256.0, 6.8%, 57.1%);
+  color: hsl(256, 6.8%, 57.1%);
 }
 .cult {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
 }
 
 .cultitalic {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
   font-style: italic;
 }
 .cultbold {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
   font-style: italic;
   font-weight: bold;
 }
 .cultboldtalic {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 24px;
 }
 
 .cultlarge {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 24px;
 }
 .narsie {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 120px;
 }
 .narsiesmall {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 48px;
 }
 .narsiesmaller {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 24px;
 }
@@ -729,7 +729,7 @@ em {
   font-size: 24px;
 }
 .revenminor {
-  color: hsl(273.5, 52.7%, 48.0%);
+  color: hsl(273.5, 52.7%, 48%);
 }
 .revenwarning {
   color: hsl(275.9, 85.1%, 39.6%);
@@ -741,111 +741,111 @@ em {
   font-size: 24px;
 }
 .umbra {
-  color: hsl(272.3, 100.0%, 45.1%);
+  color: hsl(272.3, 100%, 45.1%);
 }
 .umbra_emphasis {
-  color: hsl(272.3, 100.0%, 45.1%);
+  color: hsl(272.3, 100%, 45.1%);
   font-weight: bold;
   font-style: italic;
 }
 .umbra_large {
-  color: hsl(272.3, 100.0%, 45.1%);
+  color: hsl(272.3, 100%, 45.1%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 
 .deconversion_message {
-  color: hsl(272.0, 100.0%, 63.9%);
+  color: hsl(272, 100%, 63.9%);
   font-size: 24px;
   font-style: italic;
 }
 
 .brass {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
 }
 .heavy_brass {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
   font-weight: bold;
   font-style: italic;
 }
 .large_brass {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
   font-size: 24px;
 }
 .leader_brass {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
   font-size: 16px;
 }
 .big_brass {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .ratvar {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
   font-size: 48px;
   font-weight: bold;
   font-style: italic;
   animation: ratvarcolor 5000ms infinite;
 }
 .ratvarsmall {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
   animation: ratvarcolor 5000ms infinite;
 }
 .alloy {
-  color: hsl(212.7, 7.7%, 28.0%);
+  color: hsl(212.7, 7.7%, 28%);
 }
 .heavy_alloy {
-  color: hsl(212.7, 7.7%, 28.0%);
+  color: hsl(212.7, 7.7%, 28%);
   font-weight: bold;
   font-style: italic;
 }
 .nezbere_large {
-  color: hsl(212.7, 7.7%, 28.0%);
+  color: hsl(212.7, 7.7%, 28%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .nezbere {
-  color: hsl(212.7, 7.7%, 28.0%);
+  color: hsl(212.7, 7.7%, 28%);
   font-weight: bold;
   font-style: italic;
 }
 .nezbere_small {
-  color: hsl(212.7, 7.7%, 28.0%);
+  color: hsl(212.7, 7.7%, 28%);
 }
 .sevtug_large {
-  color: hsl(300.0, 89.2%, 36.3%);
+  color: hsl(300, 89.2%, 36.3%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .sevtug {
-  color: hsl(300.0, 89.2%, 36.3%);
+  color: hsl(300, 89.2%, 36.3%);
   font-weight: bold;
   font-style: italic;
 }
 .sevtug_small {
-  color: hsl(300.0, 89.2%, 36.3%);
+  color: hsl(300, 89.2%, 36.3%);
 }
 .inathneq_large {
-  color: hsl(206.2, 76.5%, 50.0%);
+  color: hsl(206.2, 76.5%, 50%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .inathneq {
-  color: hsl(206.2, 76.5%, 50.0%);
+  color: hsl(206.2, 76.5%, 50%);
   font-weight: bold;
   font-style: italic;
 }
 .inathneq_small {
-  color: hsl(206.2, 76.5%, 50.0%);
+  color: hsl(206.2, 76.5%, 50%);
 }
 .nzcrentr_large {
   color: hsl(45.2, 80.2%, 47.5%);
@@ -862,70 +862,70 @@ em {
   color: hsl(45.2, 80.2%, 47.5%);
 }
 .neovgre_large {
-  color: hsl(345.8, 100.0%, 21.6%);
+  color: hsl(345.8, 100%, 21.6%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .neovgre {
-  color: hsl(345.8, 100.0%, 21.6%);
+  color: hsl(345.8, 100%, 21.6%);
   font-weight: bold;
   font-style: italic;
 }
 .neovgre_small {
-  color: hsl(345.8, 100.0%, 21.6%);
+  color: hsl(345.8, 100%, 21.6%);
 }
 
 @keyframes ratvarcolor {
   0% {
-    color: hsl(0.0, 0.0%, 5.1%);
+    color: hsl(0, 0%, 5.1%);
   }
   9% {
-    color: hsl(42.6, 100.0%, 37.3%);
+    color: hsl(42.6, 100%, 37.3%);
   }
   18% {
-    color: hsl(0.0, 0.0%, 5.1%);
+    color: hsl(0, 0%, 5.1%);
   }
   27% {
-    color: hsl(212.7, 7.7%, 28.0%);
+    color: hsl(212.7, 7.7%, 28%);
   }
   36% {
-    color: hsl(0.0, 0.0%, 5.1%);
+    color: hsl(0, 0%, 5.1%);
   }
   45% {
-    color: hsl(300.0, 89.2%, 36.3%);
+    color: hsl(300, 89.2%, 36.3%);
   }
   54% {
-    color: hsl(0.0, 0.0%, 5.1%);
+    color: hsl(0, 0%, 5.1%);
   }
   63% {
-    color: hsl(206.2, 76.5%, 50.0%);
+    color: hsl(206.2, 76.5%, 50%);
   }
   72% {
-    color: hsl(0.0, 0.0%, 5.1%);
+    color: hsl(0, 0%, 5.1%);
   }
   81% {
     color: hsl(45.2, 80.2%, 47.5%);
   }
   90% {
-    color: hsl(0.0, 0.0%, 5.1%);
+    color: hsl(0, 0%, 5.1%);
   }
   100% {
-    color: hsl(345.8, 100.0%, 21.6%);
+    color: hsl(345.8, 100%, 21.6%);
   }
 }
 
 .newscaster {
-  color: hsl(0.0, 44.0%, 55.9%);
+  color: hsl(0, 44%, 55.9%);
 }
 .ghostalert {
-  color: hsl(264.0, 100.0%, 50.0%);
+  color: hsl(264, 100%, 50%);
   font-style: italic;
   font-weight: bold;
 }
 
 .alien {
-  color: hsl(300.0, 17.7%, 44.3%);
+  color: hsl(300, 17.7%, 44.3%);
 }
 .noticealien {
   color: hsl(132.8, 93.4%, 29.6%);
@@ -944,22 +944,22 @@ em {
   font-weight: bold;
 }
 .alertsyndie {
-  color: hsl(0.0, 100.0%, 50.0%);
+  color: hsl(0, 100%, 50%);
   font-size: 24px;
   font-weight: bold;
 }
 
 .spider {
-  color: hsl(272.0, 100.0%, 50.0%);
+  color: hsl(272, 100%, 50%);
 }
 .spiderlarge {
-  color: hsl(272.0, 100.0%, 50.0%);
+  color: hsl(272, 100%, 50%);
   font-size: 24px;
   font-weight: bold;
 }
 
 .interface {
-  color: hsl(300.0, 78.6%, 25.7%);
+  color: hsl(300, 78.6%, 25.7%);
 }
 
 .sans {
@@ -973,7 +973,7 @@ em {
 }
 
 .tape_recorder {
-  color: hsl(0.0, 100.0%, 50.0%);
+  color: hsl(0, 100%, 50%);
   font-family: 'Courier New', cursive, sans-serif;
 }
 
@@ -1002,15 +1002,15 @@ em {
   font-size: 24px;
 }
 .infotext {
-  color: hsl(175.2, 87.0%, 57.8%);
+  color: hsl(175.2, 87%, 57.8%);
   font-size: 24px;
 }
 .redtext {
-  color: hsl(0.0, 73.6%, 44.5%);
+  color: hsl(0, 73.6%, 44.5%);
   font-size: 24px;
 }
 .clowntext {
-  color: hsl(326.0, 100.0%, 72.0%);
+  color: hsl(326, 100%, 72%);
   font-size: 24px;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-weight: bold;
@@ -1025,19 +1025,19 @@ em {
   font-style: italic;
 }
 .hypnophrase {
-  color: hsl(0.0, 0.0%, 12.5%);
+  color: hsl(0, 0%, 12.5%);
   font-weight: bold;
   animation: hypnocolor 1500ms infinite;
 }
 @keyframes hypnocolor {
   0% {
-    color: hsl(0.0, 0.0%, 12.5%);
+    color: hsl(0, 0%, 12.5%);
   }
   25% {
     color: hsl(265.8, 97.7%, 34.1%);
   }
   50% {
-    color: hsl(272.0, 86.3%, 60.0%);
+    color: hsl(272, 86.3%, 60%);
   }
   75% {
     color: hsl(266.2, 69.6%, 36.1%);
@@ -1048,19 +1048,19 @@ em {
 }
 
 .phobia {
-  color: hsl(0.0, 100.0%, 43.3%);
+  color: hsl(0, 100%, 43.3%);
   font-weight: bold;
   animation: phobia 750ms infinite;
 }
 @keyframes phobia {
   0% {
-    color: hsl(0.0, 90.8%, 66.1%);
+    color: hsl(0, 90.8%, 66.1%);
   }
   50% {
-    color: hsl(0.0, 100.0%, 43.3%);
+    color: hsl(0, 100%, 43.3%);
   }
   100% {
-    color: hsl(0.0, 90.8%, 66.1%);
+    color: hsl(0, 90.8%, 66.1%);
   }
 }
 
@@ -1070,7 +1070,7 @@ em {
 }
 
 .memo {
-  color: hsl(75.3, 100.0%, 26.1%);
+  color: hsl(75.3, 100%, 26.1%);
   text-align: center;
 }
 .memoedit {
@@ -1078,26 +1078,26 @@ em {
   font-size: 16px;
 }
 .abductor {
-  color: hsl(300.0, 96.0%, 38.8%);
+  color: hsl(300, 96%, 38.8%);
   font-style: italic;
 }
 .mind_control {
-  color: hsl(320.0, 71.7%, 55.7%);
+  color: hsl(320, 71.7%, 55.7%);
   font-size: 3;
   font-weight: bold;
   font-style: italic;
 }
 .slime {
-  color: hsl(180.9, 100.0%, 41.0%);
+  color: hsl(180.9, 100%, 41%);
 }
 .drone {
-  color: hsl(60.0, 0.8%, 51.4%);
+  color: hsl(60, 0.8%, 51.4%);
 }
 .monkey {
   color: hsl(17.8, 50.2%, 39.4%);
 }
 .swarmer {
-  color: hsl(219.2, 100.0%, 58.6%);
+  color: hsl(219.2, 100%, 58.6%);
 }
 .resonate {
   color: hsl(174.1, 55.4%, 36.1%);
@@ -1136,7 +1136,7 @@ em {
 }
 
 .examine_block {
-  background: hsl(220.0, 5.3%, 11.2%);
+  background: hsl(220, 5.3%, 11.2%);
   border: 1px solid hsl(213.6, 37.9%, 74.1%);
   margin: 0.5em;
   padding: 0.5em 0.75em;
@@ -1160,10 +1160,10 @@ em {
   color: hsl(110.4, 43.1%, 74.5%);
 }
 .assistant {
-  color: hsl(0.0, 0.0%, 80.0%);
+  color: hsl(0, 0%, 80%);
 }
 .headofpersonnel {
-  color: hsl(231.0, 92.2%, 64.7%);
+  color: hsl(231, 92.2%, 64.7%);
 }
 .bartender {
   color: hsl(122.1, 22.2%, 75.3%);
@@ -1172,7 +1172,7 @@ em {
   color: hsl(109.2, 57.4%, 69.6%);
 }
 .cook {
-  color: hsl(135.5, 91.8%, 81.0%);
+  color: hsl(135.5, 91.8%, 81%);
 }
 .chaplain {
   color: hsl(122.9, 21.9%, 62.4%);
@@ -1181,26 +1181,26 @@ em {
   color: hsl(135.7, 37.6%, 66.1%);
 }
 .janitor {
-  color: hsl(169.9, 54.6%, 68.0%);
+  color: hsl(169.9, 54.6%, 68%);
 }
 .lawyer {
-  color: hsl(0.0, 34.7%, 62.2%);
+  color: hsl(0, 34.7%, 62.2%);
 }
 .mime {
   color: hsl(122.4, 22.1%, 77.8%);
 }
 .clown {
-  color: hsl(319.4, 100.0%, 75.7%);
+  color: hsl(319.4, 100%, 75.7%);
 }
 .stagemagician {
   color: hsl(310.3, 38.9%, 53.1%);
 }
 .barber {
-  color: hsl(27.7, 26.5%, 52.0%);
+  color: hsl(27.7, 26.5%, 52%);
 }
 // Cargo
 .rawcargo {
-  color: hsl(38.5, 50.0%, 69.4%);
+  color: hsl(38.5, 50%, 69.4%);
 }
 .quartermaster {
   color: hsl(37.9, 51.1%, 55.1%);
@@ -1238,26 +1238,26 @@ em {
   color: hsl(167.2, 26.6%, 65.3%);
 }
 .virologist {
-  color: hsl(168.2, 48.0%, 56.3%);
+  color: hsl(168.2, 48%, 56.3%);
 }
 .chemist {
   color: hsl(193.4, 43.7%, 65.9%);
 }
 .geneticist {
-  color: hsl(184.0, 31.9%, 63.1%);
+  color: hsl(184, 31.9%, 63.1%);
 }
 .psychiatrist {
   color: hsl(193.8, 37.6%, 66.1%);
 }
 // R&D
 .rawscience {
-  color: hsl(288.0, 52.4%, 79.4%);
+  color: hsl(288, 52.4%, 79.4%);
 }
 .researchdirector {
   color: hsl(288.1, 36.8%, 48.4%);
 }
 .scientist {
-  color: hsl(300.0, 43.1%, 61.4%);
+  color: hsl(300, 43.1%, 61.4%);
 }
 .roboticist {
   color: hsl(288.5, 34.6%, 58.6%);
@@ -1267,25 +1267,25 @@ em {
 }
 // Security
 .rawsecurity {
-  color: hsl(0.0, 33.9%, 78.6%);
+  color: hsl(0, 33.9%, 78.6%);
 }
 .headofsecurity {
   color: hsl(351.1, 82.8%, 56.7%);
 }
 .warden {
-  color: hsl(356.0, 70.7%, 54.5%);
+  color: hsl(356, 70.7%, 54.5%);
 }
 .securityofficer {
-  color: hsl(0.0, 57.3%, 77.1%);
+  color: hsl(0, 57.3%, 77.1%);
 }
 .detective {
-  color: hsl(0.0, 34.9%, 66.3%);
+  color: hsl(0, 34.9%, 66.3%);
 }
 .brigphysician {
   color: hsl(332.4, 32.2%, 54.9%);
 }
 .deputy {
-  color: hsl(0.0, 43.3%, 88.2%);
+  color: hsl(0, 43.3%, 88.2%);
 }
 // CentCom
 .rawcentcom {
@@ -1296,22 +1296,22 @@ em {
 }
 // MISC - job
 .vip {
-  color: hsl(49.0, 69.0%, 65.9%);
+  color: hsl(49, 69%, 65.9%);
 }
 .king {
-  color: hsl(49.0, 69.0%, 65.9%);
+  color: hsl(49, 69%, 65.9%);
 }
 .prisoner {
   color: hsl(23.2, 57.5%, 59.4%);
 }
 .syndicate {
-  color: hsl(0.0, 24.8%, 51.0%);
+  color: hsl(0, 24.8%, 51%);
 }
 .notcentcom {
   color: hsl(240.6, 76.9%, 74.5%);
 }
 .unassigned {
-  color: hsl(30.0, 30.6%, 85.9%);
+  color: hsl(30, 30.6%, 85.9%);
 }
 .unknown {
   color: hsl(36.9, 11.7%, 78.2%);
@@ -1324,7 +1324,7 @@ em {
   color: hsl(49.2, 72.5%, 72.9%);
 }
 .fox {
-  color: hsl(28.6, 100.0%, 69.6%);
+  color: hsl(28.6, 100%, 69.6%);
 }
 .rainbow {
   animation: rainbowtext 1500ms infinite;
@@ -1333,42 +1333,42 @@ em {
   animation: heriotext 1500ms infinite;
 }
 .brassmobsay {
-  color: hsl(42.6, 100.0%, 37.3%);
+  color: hsl(42.6, 100%, 37.3%);
 }
 .syndmob {
   color: hsl(359.1, 31.8%, 42.5%);
 }
 .alienmobsay {
-  color: hsl(300.0, 17.7%, 44.3%);
+  color: hsl(300, 17.7%, 44.3%);
 }
 .cultmobsay {
-  color: hsl(2.0, 43.8%, 41.2%);
+  color: hsl(2, 43.8%, 41.2%);
 }
 .slimemobsay {
-  color: hsl(180.9, 100.0%, 41.0%);
+  color: hsl(180.9, 100%, 41%);
 }
 .carpspeak {
-  color: hsl(207.3, 100.0%, 63.3%);
+  color: hsl(207.3, 100%, 63.3%);
 }
 
 @keyframes rainbowtext {
   0% {
-    color: hsl(0.0, 100.0%, 50.0%);
+    color: hsl(0, 100%, 50%);
   }
   20% {
-    color: hsl(56.0, 100.0%, 50.0%);
+    color: hsl(56, 100%, 50%);
   }
   40% {
-    color: hsl(124.9, 100.0%, 50.0%);
+    color: hsl(124.9, 100%, 50%);
   }
   60% {
-    color: hsl(192.0, 100.0%, 50.0%);
+    color: hsl(192, 100%, 50%);
   }
   80% {
-    color: hsl(252.9, 100.0%, 50.0%);
+    color: hsl(252.9, 100%, 50%);
   }
   100% {
-    color: hsl(303.1, 100.0%, 50.0%);
+    color: hsl(303.1, 100%, 50%);
   }
 }
 
@@ -1385,19 +1385,19 @@ em {
 }
 
 .stat_antagonist {
-  color: hsl(0.0, 71.2%, 53.7%);
+  color: hsl(0, 71.2%, 53.7%);
 }
 .stat_antagonist_underline {
-  color: hsl(0.0, 71.2%, 53.7%);
+  color: hsl(0, 71.2%, 53.7%);
   text-decoration: underline;
 }
 
 .stat_infomation {
-  color: hsl(35.7, 76.0%, 59.2%);
+  color: hsl(35.7, 76%, 59.2%);
 }
 
 .stat_br {
-  color: hsl(135.0, 66.1%, 48.6%);
+  color: hsl(135, 66.1%, 48.6%);
 }
 
 .mood_neutral {
@@ -1405,63 +1405,63 @@ em {
 }
 
 $alert-stripe-colors: (
-  'default': hsl(198.6, 100.0%, 11.4%),
-  'green': hsl(120.0, 100.0%, 12.0%),
-  'blue': hsl(198.6, 100.0%, 11.4%),
-  'pink': hsl(326.2, 100.0%, 9.4%),
-  'yellow': hsl(51.0, 100.0%, 17.1%),
-  'orange': hsl(35.1, 100.0%, 17.5%),
-  'red': hsl(0.0, 100.0%, 12.9%),
-  'purple': hsl(295.0, 100.0%, 9.4%),
-  'grey': hsl(0.0, 0.0%, 14.5%),
+  'default': hsl(198.6, 100%, 11.4%),
+  'green': hsl(120, 100%, 12%),
+  'blue': hsl(198.6, 100%, 11.4%),
+  'pink': hsl(326.2, 100%, 9.4%),
+  'yellow': hsl(51, 100%, 17.1%),
+  'orange': hsl(35.1, 100%, 17.5%),
+  'red': hsl(0, 100%, 12.9%),
+  'purple': hsl(295, 100%, 9.4%),
+  'grey': hsl(0, 0%, 14.5%),
   'cyan': hsl(174.9, 80.1%, 31.6%),
-  'darkred': hsl(0.0, 100.0%, 59.6%),
-  'black': hsl(0.0, 0.0%, 34.1%),
+  'darkred': hsl(0, 100%, 59.6%),
+  'black': hsl(0, 0%, 34.1%),
 );
 
 $alert-stripe-alternate-colors: (
-  'default': hsl(198.3, 100.0%, 13.5%),
-  'green': hsl(120.0, 100.0%, 13.9%),
-  'blue': hsl(198.3, 100.0%, 13.5%),
-  'pink': hsl(325.3, 100.0%, 12.5%),
-  'yellow': hsl(50.6, 100.0%, 15.1%),
-  'orange': hsl(37.0, 100.0%, 21.0%),
-  'red': hsl(0.0, 100.0%, 16.1%),
-  'purple': hsl(295.1, 100.0%, 12.0%),
-  'grey': hsl(0.0, 0.0%, 16.1%),
+  'default': hsl(198.3, 100%, 13.5%),
+  'green': hsl(120, 100%, 13.9%),
+  'blue': hsl(198.3, 100%, 13.5%),
+  'pink': hsl(325.3, 100%, 12.5%),
+  'yellow': hsl(50.6, 100%, 15.1%),
+  'orange': hsl(37, 100%, 21%),
+  'red': hsl(0, 100%, 16.1%),
+  'purple': hsl(295.1, 100%, 12%),
+  'grey': hsl(0, 0%, 16.1%),
   'cyan': hsl(174.9, 87.2%, 42.7%),
-  'darkred': hsl(0.0, 59.5%, 53.5%),
-  'black': hsl(0.0, 0.0%, 47.5%),
+  'darkred': hsl(0, 59.5%, 53.5%),
+  'black': hsl(0, 0%, 47.5%),
 );
 
 $alert-major-header-colors: (
-  'default': hsl(192.4, 100.0%, 60.0%),
-  'green': hsl(150.1, 100.0%, 50.0%),
-  'blue': hsl(192.4, 100.0%, 60.0%),
-  'pink': hsl(336.1, 100.0%, 66.1%),
-  'yellow': hsl(38.7, 100.0%, 93.9%),
-  'orange': hsl(20.9, 92.0%, 95.1%),
-  'red': hsl(336.1, 100.0%, 66.1%),
-  'purple': hsl(266.5, 84.3%, 80.0%),
-  'grey': hsl(336.1, 100.0%, 66.1%),
-  'cyan': hsl(0.0, 0.0%, 16.1%),
-  'darkred': hsl(0.0, 100.0%, 16.3%),
-  'black': hsl(0.0, 0.0%, 86.7%),
+  'default': hsl(192.4, 100%, 60%),
+  'green': hsl(150.1, 100%, 50%),
+  'blue': hsl(192.4, 100%, 60%),
+  'pink': hsl(336.1, 100%, 66.1%),
+  'yellow': hsl(38.7, 100%, 93.9%),
+  'orange': hsl(20.9, 92%, 95.1%),
+  'red': hsl(336.1, 100%, 66.1%),
+  'purple': hsl(266.5, 84.3%, 80%),
+  'grey': hsl(336.1, 100%, 66.1%),
+  'cyan': hsl(0, 0%, 16.1%),
+  'darkred': hsl(0, 100%, 16.3%),
+  'black': hsl(0, 0%, 86.7%),
 );
 
 $alert-subheader-header-colors: (
-  'default': hsl(336.1, 100.0%, 66.1%),
-  'green': hsl(336.4, 100.0%, 76.1%),
-  'blue': hsl(336.1, 100.0%, 66.1%),
-  'pink': hsl(192.4, 100.0%, 60.0%),
-  'yellow': hsl(192.4, 100.0%, 60.0%),
-  'orange': hsl(192.4, 100.0%, 60.0%),
-  'red': hsl(192.4, 100.0%, 60.0%),
-  'purple': hsl(192.4, 100.0%, 60.0%),
-  'grey': hsl(192.4, 100.0%, 60.0%),
+  'default': hsl(336.1, 100%, 66.1%),
+  'green': hsl(336.4, 100%, 76.1%),
+  'blue': hsl(336.1, 100%, 66.1%),
+  'pink': hsl(192.4, 100%, 60%),
+  'yellow': hsl(192.4, 100%, 60%),
+  'orange': hsl(192.4, 100%, 60%),
+  'red': hsl(192.4, 100%, 60%),
+  'purple': hsl(192.4, 100%, 60%),
+  'grey': hsl(192.4, 100%, 60%),
   'cyan': hsl(206.9, 84.3%, 45.1%),
-  'darkred': hsl(0.0, 100.0%, 49.0%),
-  'black': hsl(0.0, 0.0%, 60.0%),
+  'darkred': hsl(0, 100%, 49%),
+  'black': hsl(0, 0%, 60%),
 );
 
 $border-width: 4;
@@ -1488,8 +1488,8 @@ $border-width-px: $border-width * 1px;
 }
 
 .major_announcement_text {
-  color: hsl(0.0, 0.0%, 91.8%);
-  background-color: hsl(0.0, 0.0%, 7.5%);
+  color: hsl(0, 0%, 91.8%);
+  background-color: hsl(0, 0%, 7.5%);
   font-weight: bold;
   font-size: 100%;
   text-align: left;
@@ -1510,8 +1510,8 @@ $border-width-px: $border-width * 1px;
 }
 
 .minor_announcement_text {
-  background-color: hsl(0.0, 0.0%, 12.5%);
-  color: hsl(0.0, 0.0%, 91.8%);
+  background-color: hsl(0, 0%, 12.5%);
+  color: hsl(0, 0%, 91.8%);
   padding: 0.5rem 0.5rem;
   text-align: left;
   font-size: 100%;
@@ -1524,18 +1524,18 @@ $border-width-px: $border-width * 1px;
 }
 
 .ooc_alert {
-  background: hsl(50.6, 100.0%, 15.1%);
-  border: 1px solid hsl(47.9, 100.0%, 40.0%);
+  background: hsl(50.6, 100%, 15.1%);
+  border: 1px solid hsl(47.9, 100%, 40%);
   margin: 0.5em;
   padding: 0.5em 0.5em 0.5em 0.2em;
-  color: hsl(0.0, 0.0%, 100.0%);
+  color: hsl(0, 0%, 100%);
   font-weight: bold;
   display: flex;
   flex-direction: column;
 }
 
 .ooc_announcement_text {
-  color: hsl(47.9, 100.0%, 40.0%);
+  color: hsl(47.9, 100%, 40%);
   padding: 0.5em 0 0 0.35em;
   display: flex;
   flex-direction: column;
@@ -1543,7 +1543,7 @@ $border-width-px: $border-width * 1px;
 
 @each $color-name, $color-value in $alert-stripe-colors {
   .chat_alert_#{$color-name} {
-    color: hsl(0.0, 0.0%, 100.0%);
+    color: hsl(0, 0%, 100%);
     padding: 0.5rem 0.5rem;
     box-shadow: none;
     font-weight: bold;

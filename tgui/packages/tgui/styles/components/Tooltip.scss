@@ -6,8 +6,8 @@
 @use '../base.scss';
 @use '../functions.scss' as *;
 
-$color: hsl(0.0, 0.0%, 100.0%) !default;
-$background-color: hsl(0.0, 0.0%, 0.0%) !default;
+$color: hsl(0, 0%, 100%) !default;
+$background-color: hsl(0, 0%, 0%) !default;
 $border-radius: base.$border-radius !default;
 
 .Tooltip {

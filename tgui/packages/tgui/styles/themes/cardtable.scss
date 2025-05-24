@@ -27,10 +27,10 @@
     '../components/Button.scss',
     $with: (
       'color-default': hsl(145.3, 73.6%, 25.3%),
-      'color-disabled': hsl(0.0, 0.0%, 21.2%),
-      'color-selected': hsl(0.0, 90.3%, 32.4%),
-      'color-caution': hsl(29.5, 91.0%, 39.0%),
-      'color-danger': hsl(61.1, 100.0%, 30.8%)
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
   @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #fff));
@@ -40,7 +40,7 @@
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(17.5, 75.0%, 12.5%)));
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(17.5, 75%, 12.5%)));
 
   .Button {
     border: base.em(2px) solid #fff;

@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$generic: hsl(252.0, 9.3%, 31.6%);
+$generic: hsl(252, 9.3%, 31.6%);
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
@@ -34,8 +34,8 @@ $generic: hsl(252.0, 9.3%, 31.6%);
     '../layouts/TitleBar.scss',
     $with: (
       'background-color': color.scale($generic, $lightness: -50%),
-      'shadow-color': hsl(60.0, 100.0%, 50.0%)21,
-      'shadow-color-core': hsl(44.9, 100.0%, 50.0%),
+      'shadow-color': hsl(60, 100%, 50%) 21,
+      'shadow-color-core': hsl(44.9, 100%, 50%),
       'shadow-core-height': 3px
     )
   );

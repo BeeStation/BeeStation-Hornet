@@ -26,10 +26,10 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': hsl(0.0, 0.0%, 21.2%),
-      'color-selected': hsl(227.0, 37.2%, 43.7%),
-      'color-caution': hsl(29.5, 91.0%, 39.0%),
-      'color-danger': hsl(61.1, 100.0%, 30.8%)
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(227, 37.2%, 43.7%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
   @include meta.load-css('../components/Input.scss', $with: ('border-color': hsl(225.7, 26.4%, 34.1%)));

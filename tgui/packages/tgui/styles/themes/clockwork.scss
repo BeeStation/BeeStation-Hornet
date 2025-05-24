@@ -26,14 +26,14 @@
       'color-default': colors.$primary,
       'color-disabled': hsl(45.7, 25.9%, 31.8%),
       'color-selected': hsl(50.7, 58.6%, 54.5%),
-      'color-caution': hsl(34.3, 100.0%, 62.9%),
-      'color-danger': hsl(60.0, 100.0%, 50.0%)
+      'color-caution': hsl(34.3, 100%, 62.9%),
+      'color-danger': hsl(60, 100%, 50%)
     )
   );
   @include meta.load-css('../components/Input.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': hsl(26.7, 100.0%, 8.8%)));
-  @include meta.load-css('../components/Section.scss', $with: ('separator-color': hsl(51.1, 49.7%, 68.0%)));
-  @include meta.load-css('../components/Divider.scss', $with: ('color': hsl(51.1, 49.7%, 68.0%)));
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': hsl(26.7, 100%, 8.8%)));
+  @include meta.load-css('../components/Section.scss', $with: ('separator-color': hsl(51.1, 49.7%, 68%)));
+  @include meta.load-css('../components/Divider.scss', $with: ('color': hsl(51.1, 49.7%, 68%)));
   @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
 
   //Layouts
@@ -41,11 +41,15 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': hsl(31.1, 74.3%, 21.4%), 'shadow-color': rgba(0, 0, 0, 0.1), 'text-color': hsl(50.7, 58.6%, 54.5%))
+    $with: (
+      'background-color': hsl(31.1, 74.3%, 21.4%),
+      'shadow-color': rgba(0, 0, 0, 0.1),
+      'text-color': hsl(50.7, 58.6%, 54.5%)
+    )
   );
 
   .Input {
-    color: hsl(43.7, 65.4%, 42.0%);
+    color: hsl(43.7, 65.4%, 42%);
     background-color: hsl(50.7, 58.6%, 54.5%);
   }
 

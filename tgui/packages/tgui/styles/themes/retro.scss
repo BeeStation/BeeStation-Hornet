@@ -22,7 +22,7 @@
 // It was made almost purely for the nuke ui, and requires a good amount of manual hacks to get it working as intended.
 .theme-retro {
   .color-label {
-    color: hsl(0.0, 0.0%, 20.8%) !important;
+    color: hsl(0, 0%, 20.8%) !important;
   }
   .Tab {
     color: rgba(0, 0, 0, 0.39) !important;
@@ -35,10 +35,10 @@
     '../components/Button.scss',
     $with: (
       'color-default': hsl(52.3, 40.3%, 84.9%),
-      'color-disabled': hsl(60.0, 6.7%, 29.4%),
-      'color-selected': hsl(0.0, 90.3%, 32.4%),
-      'color-caution': hsl(29.5, 91.0%, 39.0%),
-      'color-danger': hsl(61.1, 100.0%, 30.8%)
+      'color-disabled': hsl(60, 6.7%, 29.4%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
   @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
@@ -47,25 +47,25 @@
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(50.9, 23.1%, 28.0%)));
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(50.9, 23.1%, 28%)));
 
   .Button {
     font-family: monospace;
-    color: hsl(60.0, 7.3%, 8.0%);
+    color: hsl(60, 7.3%, 8%);
     border: base.em(2px) outset hsl(52.3, 40.3%, 84.9%);
-    outline: base.em(1px) solid hsl(60.0, 7.3%, 8.0%);
+    outline: base.em(1px) solid hsl(60, 7.3%, 8%);
     box-sizing: content-box;
   }
 
   .Button--disabled {
-    color: hsl(60.0, 2.5%, 76.7%);
+    color: hsl(60, 2.5%, 76.7%);
     font-family: monospace;
     border-style: inset;
     &:hover {
-      color: hsl(60.0, 2.5%, 76.7%);
+      color: hsl(60, 2.5%, 76.7%);
     }
     &:focus {
-      color: hsl(60.0, 2.5%, 76.7%);
+      color: hsl(60, 2.5%, 76.7%);
     }
   }
 

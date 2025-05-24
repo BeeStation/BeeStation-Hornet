@@ -7,8 +7,8 @@
 @use 'sass:meta';
 
 $neutral: hsl(225.7, 19.3%, 21.4%);
-$neutral-accent: hsl(0.0, 60.4%, 41.6%);
-$accent: hsl(263.0, 100.0%, 38.4%);
+$neutral-accent: hsl(0, 60.4%, 41.6%);
+$accent: hsl(263, 100%, 38.4%);
 
 @use '../colors.scss' with (
   $primary: $neutral-accent,

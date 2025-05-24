@@ -40,17 +40,17 @@
   @include meta.load-css(
     '~tgui/styles/components/Button.scss',
     $with: (
-      'color-default': hsl(0.0, 0.0%, 73.3%),
-      'color-disabled': hsl(0.0, 0.0%, 21.2%),
-      'color-selected': hsl(207.0, 93.7%, 37.3%),
-      'color-caution': hsl(29.5, 91.0%, 39.0%),
-      'color-danger': hsl(61.1, 100.0%, 30.8%),
+      'color-default': hsl(0, 0%, 73.3%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(207, 93.7%, 37.3%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%),
       'color-transparent-text': rgba(0, 0, 0, 0.8)
     )
   );
   @include meta.load-css(
     '~tgui/styles/components/Input.scss',
-    $with: ('border-color': colors.fg(colors.$label), 'background-color': hsl(0.0, 0.0%, 100.0%))
+    $with: ('border-color': colors.fg(colors.$label), 'background-color': hsl(0, 0%, 100%))
   );
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
@@ -59,7 +59,7 @@
   @include meta.load-css('~tgui/styles/components/ProgressBar.scss');
 
   // Components specific to tgui-panel
-  @include meta.load-css('../components/Chat.scss', $with: ('text-color': hsl(0.0, 0.0%, 0.0%)));
+  @include meta.load-css('../components/Chat.scss', $with: ('text-color': hsl(0, 0%, 0%)));
 
   // Layouts
   @include meta.load-css('~tgui/styles/layouts/Layout.scss', $with: ('scrollbar-color-multiplier': -1));
@@ -76,5 +76,5 @@
   @include meta.load-css('../chat-format/chat-light-theme.scss');
 
   //Stat styles
-  @include meta.load-css('../components/Stat.scss', $with: ('border-color': hsl(0.0, 0.0%, 0.0%)));
+  @include meta.load-css('../components/Stat.scss', $with: ('border-color': hsl(0, 0%, 0%)));
 }
