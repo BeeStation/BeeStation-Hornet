@@ -74,3 +74,8 @@
 	display_name = "cigar, premium Havanian"
 	path = /obj/item/clothing/mask/cigarette/cigar/havana
 	cost = 2400
+
+/datum/gear/misc/cigarettes/vape
+	display_name = "Vape"
+	path = /obj/item/clothing/mask/vape
+	cost = 5000
