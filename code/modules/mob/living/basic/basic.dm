@@ -127,7 +127,7 @@
 	. = ..()
 	///Automatic stamina re-gain
 	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
+		adjustStaminaLoss(-stamina_recovery * delta_time, updating_health = FALSE, forced = TRUE)
 
 /mob/living/basic/say_mod(input, list/message_mods = list())
 	if(length(speak_emote))
@@ -135,14 +135,18 @@
 	return ..()
 
 /mob/living/basic/death(gibbed)
-	if(!gibbed)
-		if(!(basic_mob_flags & DEL_ON_DEATH))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
-
+	. = ..()
 	if(basic_mob_flags & DEL_ON_DEATH)
 		qdel(src)
-		return
-	health = 0
+	else
+		health = 0
+		look_dead()
+
+/**
+ * Apply the appearance and properties this mob has when it dies
+ * This is called by the mob pretending to be dead too so don't put loot drops in here or something
+ */
+/mob/living/basic/proc/look_dead()
 	icon_state = icon_dead
 	if(basic_mob_flags & FLIP_ON_DEATH)
 		transform = transform.Turn(180)
@@ -153,6 +157,10 @@
 	. = ..()
 	if (!.)
 		return
+	look_alive()
+
+/// Apply the appearance and properties this mob has when it is alive
+/mob/living/basic/proc/look_alive()
 	icon_state = icon_living
 	if(basic_mob_flags & FLIP_ON_DEATH)
 		transform = transform.Turn(180)
@@ -178,6 +186,7 @@
 
 /mob/living/basic/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, speed))
+		datum_flags |= DF_VAR_EDITED
 		set_varspeed(vval)
 
 /mob/living/basic/proc/set_varspeed(var_value)
@@ -189,6 +198,18 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
+
+/mob/living/basic/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)
+
+/*
+/mob/living/basic/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Health:"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
+	tab_data["Combat Mode:"] = GENERATE_STAT_TEXT("[combat_mode ? "On" : "Off"]")
+*/
 
 /mob/living/basic/compare_sentience_type(compare_type)
 	return sentience_type == compare_type
