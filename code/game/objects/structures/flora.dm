@@ -321,54 +321,6 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 	. = ..()
 
-/obj/item/kirbyplants_mini_random
-	name = "small potted plant"
-	icon = 'icons/obj/flora/_flora.dmi'
-	icon_state = "random_mini_plant"
-	desc = "A little bit of nature contained in a pot."
-	layer = OBJ_LAYER
-	w_class = WEIGHT_CLASS_NORMAL
-	force = 10
-	attack_weight = 1
-	throwforce = 5
-	throw_speed = 2
-	throw_range = 4
-	item_flags = NO_PIXEL_RANDOM_DROP
-	var/list/static/mini_states
-
-/obj/item/kirbyplants_mini_random/Initialize(mapload)
-	. = ..()
-	icon = 'icons/obj/flora/mini.dmi'
-	if(!mini_states)
-		generate_states()
-	icon_state = pick(mini_states)
-	update_appearance()
-
-/obj/item/kirbyplants_mini_random/Initialize(mapload)
-	..()
-	create_storage(storage_type = /datum/storage/mini_plant)
-
-/obj/item/kirbyplants_mini_random/ComponentInitialize()
-	..()
-
-/datum/storage/mini_plant
-	max_specific_storage = WEIGHT_CLASS_SMALL
-	max_slots = 1
-	silent = TRUE
-	allow_big_nesting = TRUE
-
-/obj/item/kirbyplants_mini_random
-
-/obj/item/kirbyplants_mini_random/proc/generate_states()
-	mini_states = list()
-	for(var/i in 1 to 34)
-		var/number
-		if(i < 10)
-			number = "0[i]"
-		else
-			number = "[i]"
-		mini_states += "plant-[number]"
-
 /obj/item/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
@@ -419,7 +371,6 @@
 		else
 			number = "[i]"
 		states += "plant-[number]"
-
 
 /obj/item/kirbyplants/dead
 	name = "RD's potted plant"
