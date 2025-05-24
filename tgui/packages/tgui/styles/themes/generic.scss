@@ -1,9 +1,9 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$generic: #484455;
-$accent: #4f56a5;
-$border-color: #7b86ff;
+$generic: hsl(254.1, 11.1%, 30.0%);
+$accent: hsl(235.1, 35.2%, 47.8%);
+$border-color: hsl(235.0, 100.0%, 74.1%);
 
 @use '../colors.scss' with (
   $fg-map-keys: (),

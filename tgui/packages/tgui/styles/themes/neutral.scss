@@ -6,9 +6,9 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$neutral: #2c3141;
-$neutral-accent: #aa2a2a;
-$accent: #4b00c4;
+$neutral: hsl(225.7, 19.3%, 21.4%);
+$neutral-accent: hsl(0.0, 60.4%, 41.6%);
+$accent: hsl(263.0, 100.0%, 38.4%);
 
 @use '../colors.scss' with (
   $primary: $neutral-accent,

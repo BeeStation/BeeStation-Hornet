@@ -7,12 +7,12 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #ad2350,
+  $primary: hsl(340.4, 66.3%, 40.8%),
   $fg-map-keys: (),
   $bg-map-keys: (),
 );
 @use '../base.scss' with (
-  $color-bg: #2a314a,
+  $color-bg: hsl(226.9, 27.6%, 22.7%),
   $color-bg-grad-spread: 6%,
   $border-radius: 2px,
 );
@@ -26,23 +26,23 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': #363636,
-      'color-selected': #465899,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
+      'color-disabled': hsl(0.0, 0.0%, 21.2%),
+      'color-selected': hsl(227.0, 37.2%, 43.7%),
+      'color-caution': hsl(29.5, 91.0%, 39.0%),
+      'color-danger': hsl(61.1, 100.0%, 30.8%)
     )
   );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #404b6e));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #a82d55));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #404b6e));
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': hsl(225.7, 26.4%, 34.1%)));
+  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': hsl(340.5, 57.7%, 41.8%)));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': hsl(225.7, 26.4%, 34.1%)));
   @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #a82d55));
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': hsl(340.5, 57.7%, 41.8%)));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #9e1b46));
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(340.3, 70.8%, 36.3%)));
 
   .Layout__content {
     background-image: none;

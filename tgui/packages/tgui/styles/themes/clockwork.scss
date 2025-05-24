@@ -2,15 +2,15 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $good: #CFBA47,
-  $primary: #B18B25,
-  $average: #896B19,
-  $bad: #5F380E,
+  $good: hsl(50.7, 58.6%, 54.5%),
+  $primary: hsl(43.7, 65.4%, 42.0%),
+  $average: hsl(43.9, 69.1%, 31.8%),
+  $bad: hsl(31.1, 74.3%, 21.4%),
 );
 @use '../base.scss' with (
-  $color-bg: #5F380E,
-  $color-bg-start: #B18B25,
-  $color-bg-end: #5F380E,
+  $color-bg: hsl(31.1, 74.3%, 21.4%),
+  $color-bg-start: hsl(43.7, 65.4%, 42.0%),
+  $color-bg-end: hsl(31.1, 74.3%, 21.4%),
   $color-bg-grad-spread: 6%,
   $border-radius: 2px,
 );
@@ -24,16 +24,16 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': #665c3c,
-      'color-selected': #cfba47,
-      'color-caution': #ffae42,
-      'color-danger': #ffff00
+      'color-disabled': hsl(45.7, 25.9%, 31.8%),
+      'color-selected': hsl(50.7, 58.6%, 54.5%),
+      'color-caution': hsl(34.3, 100.0%, 62.9%),
+      'color-danger': hsl(60.0, 100.0%, 50.0%)
     )
   );
   @include meta.load-css('../components/Input.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #2d1400));
-  @include meta.load-css('../components/Section.scss', $with: ('separator-color': #d6ca85));
-  @include meta.load-css('../components/Divider.scss', $with: ('color': #d6ca85));
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': hsl(26.7, 100.0%, 8.8%)));
+  @include meta.load-css('../components/Section.scss', $with: ('separator-color': hsl(51.1, 49.7%, 68.0%)));
+  @include meta.load-css('../components/Divider.scss', $with: ('color': hsl(51.1, 49.7%, 68.0%)));
   @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
 
   //Layouts
@@ -41,12 +41,12 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': #5f380e, 'shadow-color': rgba(0, 0, 0, 0.1), 'text-color': #cfba47)
+    $with: ('background-color': hsl(31.1, 74.3%, 21.4%), 'shadow-color': rgba(0, 0, 0, 0.1), 'text-color': hsl(50.7, 58.6%, 54.5%))
   );
 
   .Input {
-    color: #b18b25;
-    background-color: #cfba47;
+    color: hsl(43.7, 65.4%, 42.0%);
+    background-color: hsl(50.7, 58.6%, 54.5%);
   }
 
   .Layout__content {

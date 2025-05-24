@@ -4,7 +4,7 @@
 @use '../functions.scss' as *;
 
 $color-default: color.adjust(base.$color-bg, $lightness: 10%) !default;
-$color-disabled: #0c0c0c !default;
+$color-disabled: hsl(0.0, 0.0%, 4.7%) !default;
 $color-selected: colors.bg(colors.$green) !default;
 
 .ColorSelectBox {

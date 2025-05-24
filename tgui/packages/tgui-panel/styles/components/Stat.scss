@@ -14,35 +14,35 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 }
 
 .StatBorder_observer {
-  border-left: math.div(1em, 6) solid #b866ff;
+  border-left: math.div(1em, 6) solid hsl(272.2, 100.0%, 70.0%);
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(#b866ff, 0.08) 0%, rgba(#b866ff, 0) 40%);
+  background-image: linear-gradient(to right, rgba(hsl(272.2, 100.0%, 70.0%), 0.08) 0%, rgba(hsl(272.2, 100.0%, 70.0%), 0) 40%);
 }
 
 .StatBorder_antagonist {
-  border-left: math.div(1em, 6) solid #dd3535;
+  border-left: math.div(1em, 6) solid hsl(0.0, 71.2%, 53.7%);
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(#dd3535, 0.08) 0%, rgba(#dd3535, 0) 40%);
+  background-image: linear-gradient(to right, rgba(hsl(0.0, 71.2%, 53.7%), 0.08) 0%, rgba(hsl(0.0, 71.2%, 53.7%), 0) 40%);
 }
 
 .StatBorder_infomation {
-  border-left: math.div(1em, 6) solid #e6a648;
+  border-left: math.div(1em, 6) solid hsl(35.7, 76.0%, 59.2%);
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(#e6a648, 0.08) 0%, rgba(#e6a648, 0) 40%);
+  background-image: linear-gradient(to right, rgba(hsl(35.7, 76.0%, 59.2%), 0.08) 0%, rgba(hsl(35.7, 76.0%, 59.2%), 0) 40%);
 }
 
 .StatBorder_br {
-  border-left: math.div(1em, 6) solid #2ace53;
+  border-left: math.div(1em, 6) solid hsl(135.0, 66.1%, 48.6%);
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(#2ace53, 0.08) 0%, rgba(#2ace53, 0) 40%);
+  background-image: linear-gradient(to right, rgba(hsl(135.0, 66.1%, 48.6%), 0.08) 0%, rgba(hsl(135.0, 66.1%, 48.6%), 0) 40%);
 }
 
 .StatBackground {
@@ -55,7 +55,7 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 }
 
 .StatTabBackground {
-  border-bottom: math.div(1em, 6) solid #666666;
+  border-bottom: math.div(1em, 6) solid hsl(0.0, 0.0%, 40.0%);
 }
 
 .StatAtomElement {
@@ -63,41 +63,41 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 }
 
 .StatAtomTag {
-  background-color: #ff94f1;
-  color: #2b2b2b;
+  background-color: hsl(307.9, 100.0%, 79.0%);
+  color: hsl(0.0, 0.0%, 16.9%);
   border-radius: 5px;
   text-align: center;
 
   &.Structure {
-    background-color: #b2aaf1;
+    background-color: hsl(246.8, 71.7%, 80.6%);
   }
 
   &.Turf {
-    background-color: #f1eaaa;
+    background-color: hsl(54.1, 71.7%, 80.6%);
   }
 
   &.Self {
-    background-color: #fafafa;
+    background-color: hsl(0.0, 0.0%, 98.0%);
   }
 
   &.Human {
-    background-color: #aff1aa;
+    background-color: hsl(115.8, 71.7%, 80.6%);
   }
 
   &.Mob {
-    background-color: #aaf1d3;
+    background-color: hsl(154.6, 71.7%, 80.6%);
   }
 
   &.Machinery {
-    background-color: #f5b59c;
+    background-color: hsl(16.9, 81.7%, 78.6%);
   }
 
   &.Item {
-    background-color: #f59cbb;
+    background-color: hsl(339.1, 81.7%, 78.6%);
   }
 
   &.Other {
-    background-color: #adadad;
+    background-color: hsl(0.0, 0.0%, 67.8%);
   }
 }
 

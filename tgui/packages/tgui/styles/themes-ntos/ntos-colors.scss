@@ -1,10 +1,10 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$ntos-color: #384e68 !default;
+$ntos-color: hsl(212.5, 30.0%, 31.4%) !default;
 $ntos-color-alt: $ntos-color !default;
-$ntos-fg: #ffffff !default;
-$ntos-primary: #4972a1 !default;
+$ntos-fg: hsl(0.0, 0.0%, 100.0%) !default;
+$ntos-primary: hsl(212.0, 37.6%, 45.9%) !default;
 $color-bg-grad-spread: 2% !default;
 
 @use '../colors.scss' with (

@@ -7,12 +7,12 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #397439,
+  $primary: hsl(120.0, 34.1%, 33.9%),
   $fg-map-keys: (),
   $bg-map-keys: (),
 );
 @use '../base.scss' with (
-  $color-bg: #550202,
+  $color-bg: hsl(0.0, 95.4%, 17.1%),
   $color-bg-grad-spread: 6%,
 );
 
@@ -25,23 +25,23 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
+      'color-disabled': hsl(0.0, 0.0%, 21.2%),
+      'color-selected': hsl(0.0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91.0%, 39.0%),
+      'color-danger': hsl(61.1, 100.0%, 30.8%)
     )
   );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #87ce87));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #910101));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #87ce87));
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': hsl(120.0, 42.0%, 66.9%)));
+  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': hsl(0.0, 98.6%, 28.6%)));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': hsl(120.0, 42.0%, 66.9%)));
   @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #4a0202));
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': hsl(0.0, 94.7%, 14.9%)));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #910101));
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(0.0, 98.6%, 28.6%)));
 
   .Layout__content {
     background-image: url('../../assets/bg-syndicate.svg');

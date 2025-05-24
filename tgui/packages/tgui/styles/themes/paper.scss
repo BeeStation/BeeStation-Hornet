@@ -7,7 +7,7 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #ffffff,
+  $primary: hsl(0.0, 0.0%, 100.0%),
   $bg-lightness: 25%,
   $fg-lightness: -10%,
   // Commenting out color maps will adjust all colors based on the lightness
@@ -16,8 +16,8 @@
   $bg-map-keys: (),
 );
 @use '../base.scss' with (
-  $color-fg: #000000,
-  $color-bg: #dfdfdf,
+  $color-fg: hsl(0.0, 0.0%, 0.0%),
+  $color-bg: hsl(0.0, 0.0%, 87.5%),
   $color-bg-grad-spread: 0%,
 );
 
@@ -35,11 +35,11 @@ $font-size: 24px;
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #e8e4c9,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00,
+      'color-default': hsl(52.3, 40.3%, 84.9%),
+      'color-disabled': hsl(0.0, 0.0%, 21.2%),
+      'color-selected': hsl(0.0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91.0%, 39.0%),
+      'color-danger': hsl(61.1, 100.0%, 30.8%),
       'color-transparent-text': rgba(0, 0, 0, 0.5)
     )
   );

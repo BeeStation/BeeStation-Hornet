@@ -7,12 +7,12 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #000000,
+  $primary: hsl(0.0, 0.0%, 0.0%),
   $fg-map-keys: (),
   $bg-map-keys: (),
 );
 @use '../base.scss' with (
-  $color-bg: #117039,
+  $color-bg: hsl(145.3, 73.6%, 25.3%),
   $color-bg-grad-spread: 0%,
   $border-radius: 0,
 );
@@ -26,11 +26,11 @@
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #117039,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
+      'color-default': hsl(145.3, 73.6%, 25.3%),
+      'color-disabled': hsl(0.0, 0.0%, 21.2%),
+      'color-selected': hsl(0.0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91.0%, 39.0%),
+      'color-danger': hsl(61.1, 100.0%, 30.8%)
     )
   );
   @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #fff));
@@ -40,7 +40,7 @@
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #381608));
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(17.5, 75.0%, 12.5%)));
 
   .Button {
     border: base.em(2px) solid #fff;

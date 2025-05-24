@@ -5,12 +5,12 @@
 $color-danger: colors.bg(colors.$red) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 
-$background-beige: #e8e4c9;
+$background-beige: hsl(52.3, 40.3%, 84.9%);
 
 .NuclearBomb__displayBox {
-  background-color: #002003;
+  background-color: hsl(125.6, 100.0%, 6.3%);
   border: 0.167em inset $background-beige;
-  color: #03e017;
+  color: hsl(125.4, 97.4%, 44.5%);
   font-size: 2em;
   font-family: monospace;
   padding: 0.25em;
@@ -33,9 +33,9 @@ $background-beige: #e8e4c9;
 }
 
 .NuclearBomb__Button--1 {
-  background-color: #d3cfb7 !important;
-  border-color: #d3cfb7 !important;
-  color: #a9a692 !important;
+  background-color: hsl(51.4, 24.1%, 77.3%) !important;
+  border-color: hsl(51.4, 24.1%, 77.3%) !important;
+  color: hsl(52.2, 11.8%, 61.8%) !important;
 }
 
 .NuclearBomb__Button--E {

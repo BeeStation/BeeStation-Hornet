@@ -8,7 +8,7 @@
   $primary: black
 );
 
-$disabled-color: #303030;
+$disabled-color: hsl(0.0, 0.0%, 18.8%);
 
 .theme-thinktronic-classic {
   @include meta.load-css('../components/Tabs.scss');
@@ -26,7 +26,7 @@ $disabled-color: #303030;
   a:visited,
   a:active,
   a:hover {
-    color: #000000;
+    color: hsl(0.0, 0.0%, 0.0%);
     text-decoration: none;
   }
   img {
@@ -135,7 +135,7 @@ $disabled-color: #303030;
   }
 
   .Window__dimmer {
-    background-color: #00000020;
+    background-color: hsl(0.0, 0.0%, 0.0%)20;
   }
 
   .color-label {

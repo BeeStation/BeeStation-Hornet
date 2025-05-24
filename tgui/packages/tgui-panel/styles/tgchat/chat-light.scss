@@ -11,7 +11,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-  color: #000000;
+  color: hsl(0.0, 0.0%, 0.0%);
 }
 body {
   background: #fff;
@@ -61,13 +61,13 @@ img.icon {
 }
 
 a {
-  color: #0000ff;
+  color: hsl(240.0, 100.0%, 50.0%);
 }
 a.visited {
-  color: #ff00ff;
+  color: hsl(300.0, 100.0%, 50.0%);
 }
 a:visited {
-  color: #ff00ff;
+  color: hsl(300.0, 100.0%, 50.0%);
 }
 a.popt {
   text-decoration: none;
@@ -150,7 +150,7 @@ a.popt {
   color: #333;
   text-decoration: none;
   line-height: 28px;
-  border-top: 1px solid #b4b4b4;
+  border-top: 1px solid hsl(0.0, 0.0%, 70.6%);
 }
 #userBar .subCell:hover {
   background: #ccc;
@@ -286,7 +286,7 @@ a.popt {
   margin-top: 5px;
 }
 .highlightPopup input.highlightColor {
-  background-color: #ffff00;
+  background-color: hsl(60.0, 100.0%, 50.0%);
 }
 .highlightPopup input.highlightTermSubmit {
   margin-top: 5px;
@@ -334,7 +334,7 @@ a.popt {
 
 /* MOTD */
 .motd {
-  color: #638500;
+  color: hsl(75.3, 100.0%, 26.1%);
   font-family: Verdana, sans-serif;
 }
 .motd h1,
@@ -343,7 +343,7 @@ a.popt {
 .motd h4,
 .motd h5,
 .motd h6 {
-  color: #638500;
+  color: hsl(75.3, 100.0%, 26.1%);
   text-decoration: underline;
 }
 .motd a,
@@ -351,7 +351,7 @@ a.popt {
 .motd a:visited,
 .motd a:active,
 .motd a:hover {
-  color: #638500;
+  color: hsl(75.3, 100.0%, 26.1%);
 }
 
 /* ADD HERE FOR BOLD */
@@ -385,12 +385,12 @@ h3,
 h4,
 h5,
 h6 {
-  color: #0000ff;
+  color: hsl(240.0, 100.0%, 50.0%);
   font-family: Georgia, Verdana, sans-serif;
 }
 h1.alert,
 h2.alert {
-  color: #000000;
+  color: hsl(0.0, 0.0%, 0.0%);
 }
 
 em {
@@ -399,59 +399,59 @@ em {
 }
 
 .ooc {
-  color: #002eb8;
+  color: hsl(225.0, 100.0%, 36.1%);
   font-weight: bold;
 }
 .dooc {
-  color: #830094;
+  color: hsl(293.1, 100.0%, 29.0%);
   font-weight: bold;
 }
 .looc {
-  color: #2e57d1;
+  color: hsl(224.9, 63.9%, 50.0%);
   font-weight: bold;
 }
 .adminobserverooc {
-  color: #0099cc;
+  color: hsl(195.0, 100.0%, 40.0%);
   font-weight: bold;
 }
 .adminooc {
-  color: #700038;
+  color: hsl(330.0, 100.0%, 22.0%);
   font-weight: bold;
 }
 
 .adminsay {
-  color: #5b6321;
+  color: hsl(67.3, 50.0%, 25.9%);
 }
 .admin {
-  color: #4473ff;
+  color: hsl(224.9, 100.0%, 63.3%);
   font-weight: bold;
 }
 
 .mentor {
-  color: #44ff54;
+  color: hsl(125.1, 100.0%, 63.3%);
   font-weight: bold;
 }
 .mentornotice {
-  color: #00ff00;
+  color: hsl(120.0, 100.0%, 50.0%);
 }
 .mentorfrom {
-  color: #7e1c82;
+  color: hsl(297.6, 64.6%, 31.0%);
 }
 .mentorto {
-  color: #1d861d;
+  color: hsl(120.0, 64.4%, 32.0%);
 }
 .mentorhelp {
-  color: #4400c2;
+  color: hsl(261.0, 100.0%, 38.0%);
 }
 .mentorsay {
-  color: #bd3ab6;
+  color: hsl(303.2, 53.0%, 48.4%);
 }
 .mentorhelp_conclusion {
   display: block;
   color: white;
   text-align: center;
   background-color: black;
-  border: 2px solid #4400c2;
+  border: 2px solid hsl(261.0, 100.0%, 38.0%);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;
@@ -462,64 +462,64 @@ em {
 }
 
 .deadsay {
-  color: #5c00e6;
+  color: hsl(264.0, 100.0%, 45.1%);
 }
 .binarysay {
-  color: #20c20e;
-  background-color: #000000;
+  color: hsl(114.0, 86.5%, 40.8%);
+  background-color: hsl(0.0, 0.0%, 0.0%);
   display: block;
 }
 .binarysay a {
-  color: #00ff00;
+  color: hsl(120.0, 100.0%, 50.0%);
 }
 .binarysay a:active,
 .binarysay a:visited {
-  color: #88ff88;
+  color: hsl(120.0, 100.0%, 76.7%);
 }
 .radio {
-  color: #008000;
+  color: hsl(120.0, 100.0%, 25.1%);
 }
 .sciradio {
-  color: #993399;
+  color: hsl(300.0, 50.0%, 40.0%);
 }
 .explradio {
-  color: #358d7a;
+  color: hsl(167.0, 45.4%, 38.0%);
 }
 .comradio {
-  color: #948f02;
+  color: hsl(57.9, 97.3%, 29.4%);
 }
 .secradio {
-  color: #a30000;
+  color: hsl(0.0, 100.0%, 32.0%);
 }
 .medradio {
-  color: #33ccff;
+  color: hsl(195.0, 100.0%, 60.0%);
 }
 .engradio {
-  color: #fb5613;
+  color: hsl(17.3, 96.7%, 52.9%);
 }
 .suppradio {
-  color: #a8732b;
+  color: hsl(34.6, 59.2%, 41.4%);
 }
 .servradio {
-  color: #4e7a1f;
+  color: hsl(89.0, 59.5%, 30.0%);
 }
 .syndradio {
-  color: #6d3f40;
+  color: hsl(358.7, 26.7%, 33.7%);
 }
 .centcomradio {
-  color: #686868;
+  color: hsl(0.0, 0.0%, 40.8%);
 }
 .aiprivradio {
-  color: #ff00ff;
+  color: hsl(300.0, 100.0%, 50.0%);
 }
 .redteamradio {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
 }
 .blueteamradio {
-  color: #0000ff;
+  color: hsl(240.0, 100.0%, 50.0%);
 }
 .holocall {
-  color: #cc0044;
+  color: hsl(340.0, 100.0%, 40.0%);
 }
 
 .yell {
@@ -527,19 +527,19 @@ em {
 }
 
 .alert {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
 }
 h1.alert,
 h2.alert {
-  color: #000000;
+  color: hsl(0.0, 0.0%, 0.0%);
 }
 
 .emote {
-  color: #474c52;
+  color: hsl(212.7, 7.2%, 30.0%);
 }
 .selecteddna {
-  color: #ffffff;
-  background-color: #001b1b;
+  color: hsl(0.0, 0.0%, 100.0%);
+  background-color: hsl(180.0, 100.0%, 5.3%);
 }
 
 .examine {
@@ -547,71 +547,71 @@ h2.alert {
 }
 
 .attack {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
 }
 .disarm {
-  color: #990000;
+  color: hsl(0.0, 100.0%, 30.0%);
 }
 .passive {
-  color: #660000;
+  color: hsl(0.0, 100.0%, 20.0%);
 }
 
 .userdanger {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-weight: bold;
   font-size: 24px;
 }
 .danger {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
 }
 .warning {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-style: italic;
 }
 .alertwarning {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-weight: bold;
 }
 .boldwarning {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-style: italic;
   font-weight: bold;
 }
 .announce {
-  color: #228b22;
+  color: hsl(120.0, 60.7%, 33.9%);
   font-weight: bold;
 }
 .boldannounce {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-weight: bold;
 }
 .greenannounce {
-  color: #00ff00;
+  color: hsl(120.0, 100.0%, 50.0%);
   font-weight: bold;
 }
 .rose {
-  color: #ff5050;
+  color: hsl(0.0, 100.0%, 65.7%);
 }
 .info {
-  color: #0000cc;
+  color: hsl(240.0, 100.0%, 40.0%);
 }
 .notice {
-  color: #000099;
+  color: hsl(240.0, 100.0%, 30.0%);
 }
 .boldnotice {
-  color: #000099;
+  color: hsl(240.0, 100.0%, 30.0%);
   font-weight: bold;
 }
 .usernotice {
-  color: #000099;
+  color: hsl(240.0, 100.0%, 30.0%);
   font-weight: bold;
   font-size: 24px;
 }
 .adminnotice {
-  color: #0000ff;
+  color: hsl(240.0, 100.0%, 50.0%);
 }
 .adminhelp {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-weight: bold;
 }
 .adminhelp_conclusion {
@@ -635,336 +635,336 @@ h2.alert {
   margin: 10px 20px;
 }
 .unconscious {
-  color: #0000ff;
+  color: hsl(240.0, 100.0%, 50.0%);
   font-weight: bold;
 }
 .suicide {
-  color: #ff5050;
+  color: hsl(0.0, 100.0%, 65.7%);
   font-style: italic;
 }
 .green {
-  color: #03ff39;
+  color: hsl(132.9, 100.0%, 50.6%);
 }
 .red {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
 }
 .blue {
-  color: #0000ff;
+  color: hsl(240.0, 100.0%, 50.0%);
 }
 .nicegreen {
-  color: #14a833;
+  color: hsl(132.6, 78.7%, 36.9%);
 }
 .shadowling {
-  color: #3b2769;
+  color: hsl(258.2, 45.8%, 28.2%);
 }
 .cult {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
 }
 
 .cultitalic {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
   font-style: italic;
 }
 .cultbold {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
   font-style: italic;
   font-weight: bold;
 }
 .cultboldtalic {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 24px;
 }
 
 .cultlarge {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 24px;
 }
 .narsie {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 120px;
 }
 .narsiesmall {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 48px;
 }
 .narsiesmaller {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
   font-weight: bold;
   font-size: 24px;
 }
 .colossus {
-  color: #7f282a;
+  color: hsl(358.6, 52.1%, 32.7%);
   font-size: 40px;
 }
 .hierophant {
-  color: #660099;
+  color: hsl(280.0, 100.0%, 30.0%);
   font-weight: bold;
   font-style: italic;
 }
 .hierophant_warning {
-  color: #660099;
+  color: hsl(280.0, 100.0%, 30.0%);
   font-style: italic;
 }
 .purple {
-  color: #5e2d79;
+  color: hsl(278.7, 45.8%, 32.5%);
 }
 .holoparasite {
-  color: #35333a;
+  color: hsl(257.1, 6.4%, 21.4%);
 }
 
 .revennotice {
-  color: #1d2953;
+  color: hsl(226.7, 48.2%, 22.0%);
 }
 .revenboldnotice {
-  color: #1d2953;
+  color: hsl(226.7, 48.2%, 22.0%);
   font-weight: bold;
 }
 .revenbignotice {
-  color: #1d2953;
+  color: hsl(226.7, 48.2%, 22.0%);
   font-weight: bold;
   font-size: 24px;
 }
 .revenminor {
-  color: #823abb;
+  color: hsl(273.5, 52.7%, 48.0%);
 }
 .revenwarning {
-  color: #760fbb;
+  color: hsl(275.9, 85.1%, 39.6%);
   font-style: italic;
 }
 .revendanger {
-  color: #760fbb;
+  color: hsl(275.9, 85.1%, 39.6%);
   font-weight: bold;
   font-size: 24px;
 }
 .umbra {
-  color: #5000a0;
+  color: hsl(270.0, 100.0%, 31.4%);
 }
 .umbra_emphasis {
-  color: #5000a0;
+  color: hsl(270.0, 100.0%, 31.4%);
   font-weight: bold;
   font-style: italic;
 }
 .umbra_large {
-  color: #5000a0;
+  color: hsl(270.0, 100.0%, 31.4%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 
 .deconversion_message {
-  color: #5000a0;
+  color: hsl(270.0, 100.0%, 31.4%);
   font-size: 24px;
   font-style: italic;
 }
 
 .brass {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
 }
 .heavy_brass {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
   font-weight: bold;
   font-style: italic;
 }
 .large_brass {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
   font-size: 24px;
 }
 .leader_brass {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
   font-size: 16px;
 }
 .big_brass {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .ratvar {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
   font-size: 48px;
   font-weight: bold;
   font-style: italic;
   animation: ratvarcolor 5000ms infinite;
 }
 .ratvarsmall {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
   animation: ratvarcolor 5000ms infinite;
 }
 .alloy {
-  color: #42474d;
+  color: hsl(212.7, 7.7%, 28.0%);
 }
 .heavy_alloy {
-  color: #42474d;
+  color: hsl(212.7, 7.7%, 28.0%);
   font-weight: bold;
   font-style: italic;
 }
 .nezbere_large {
-  color: #42474d;
+  color: hsl(212.7, 7.7%, 28.0%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .nezbere {
-  color: #42474d;
+  color: hsl(212.7, 7.7%, 28.0%);
   font-weight: bold;
   font-style: italic;
 }
 .nezbere_small {
-  color: #42474d;
+  color: hsl(212.7, 7.7%, 28.0%);
 }
 .sevtug_large {
-  color: #af0aaf;
+  color: hsl(300.0, 89.2%, 36.3%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .sevtug {
-  color: #af0aaf;
+  color: hsl(300.0, 89.2%, 36.3%);
   font-weight: bold;
   font-style: italic;
 }
 .sevtug_small {
-  color: #af0aaf;
+  color: hsl(300.0, 89.2%, 36.3%);
 }
 .inathneq_large {
-  color: #1e8ce1;
+  color: hsl(206.2, 76.5%, 50.0%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .inathneq {
-  color: #1e8ce1;
+  color: hsl(206.2, 76.5%, 50.0%);
   font-weight: bold;
   font-style: italic;
 }
 .inathneq_small {
-  color: #1e8ce1;
+  color: hsl(206.2, 76.5%, 50.0%);
 }
 .nzcrentr_large {
-  color: #daaa18;
+  color: hsl(45.2, 80.2%, 47.5%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .nzcrentr {
-  color: #daaa18;
+  color: hsl(45.2, 80.2%, 47.5%);
   font-weight: bold;
   font-style: italic;
 }
 .nzcrentr_small {
-  color: #daaa18;
+  color: hsl(45.2, 80.2%, 47.5%);
 }
 .neovgre_large {
-  color: #6e001a;
+  color: hsl(345.8, 100.0%, 21.6%);
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
 }
 .neovgre {
-  color: #6e001a;
+  color: hsl(345.8, 100.0%, 21.6%);
   font-weight: bold;
   font-style: italic;
 }
 .neovgre_small {
-  color: #6e001a;
+  color: hsl(345.8, 100.0%, 21.6%);
 }
 
 @keyframes ratvarcolor {
   0% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   9% {
-    color: #be8700;
+    color: hsl(42.6, 100.0%, 37.3%);
   }
   18% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   27% {
-    color: #42474d;
+    color: hsl(212.7, 7.7%, 28.0%);
   }
   36% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   45% {
-    color: #af0aaf;
+    color: hsl(300.0, 89.2%, 36.3%);
   }
   54% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   63% {
-    color: #1e8ce1;
+    color: hsl(206.2, 76.5%, 50.0%);
   }
   72% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   81% {
-    color: #daaa18;
+    color: hsl(45.2, 80.2%, 47.5%);
   }
   90% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   100% {
-    color: #6e001a;
+    color: hsl(345.8, 100.0%, 21.6%);
   }
 }
 
 .newscaster {
-  color: #800000;
+  color: hsl(0.0, 100.0%, 25.1%);
 }
 .ghostalert {
-  color: #5c00e6;
+  color: hsl(264.0, 100.0%, 45.1%);
   font-style: italic;
   font-weight: bold;
 }
 
 .alien {
-  color: #543354;
+  color: hsl(300.0, 24.4%, 26.5%);
 }
 .noticealien {
-  color: #00c000;
+  color: hsl(120.0, 100.0%, 37.6%);
 }
 .alertalien {
-  color: #00c000;
+  color: hsl(120.0, 100.0%, 37.6%);
   font-weight: bold;
 }
 .changeling {
-  color: #800080;
+  color: hsl(300.0, 100.0%, 25.1%);
   font-style: italic;
 }
 .assimilator {
-  color: #800080;
+  color: hsl(300.0, 100.0%, 25.1%);
   font-size: 16px;
   font-weight: bold;
 }
 .bigassimilator {
-  color: #800080;
+  color: hsl(300.0, 100.0%, 25.1%);
   font-size: 32px;
   font-weight: bold;
 }
 .alertsyndie {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-size: 24px;
   font-weight: bold;
 }
 
 .spider {
-  color: #4d004d;
+  color: hsl(300.0, 100.0%, 15.1%);
 }
 .spiderlarge {
-  color: #4d004d;
+  color: hsl(300.0, 100.0%, 15.1%);
   font-weight: bold;
   font-size: 24px;
 }
 
 .interface {
-  color: #330033;
+  color: hsl(300.0, 100.0%, 10.0%);
 }
 
 .sans {
@@ -978,7 +978,7 @@ h2.alert {
 }
 
 .tape_recorder {
-  color: #800000;
+  color: hsl(0.0, 100.0%, 25.1%);
   font-family: 'Courier New', cursive, sans-serif;
 }
 
@@ -1003,19 +1003,19 @@ h2.alert {
   font-size: 40px;
 }
 .greentext {
-  color: #00ff00;
+  color: hsl(120.0, 100.0%, 50.0%);
   font-size: 24px;
 }
 .infotext {
-  color: #36f1e2;
+  color: hsl(175.2, 87.0%, 57.8%);
   font-size: 24px;
 }
 .redtext {
-  color: #ff0000;
+  color: hsl(0.0, 100.0%, 50.0%);
   font-size: 24px;
 }
 .clowntext {
-  color: #ff69bf;
+  color: hsl(325.6, 100.0%, 70.6%);
   font-size: 24px;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-weight: bold;
@@ -1025,47 +1025,47 @@ h2.alert {
   font-style: italic;
 }
 .his_grace {
-  color: #15d512;
+  color: hsl(119.1, 84.4%, 45.3%);
   font-family: 'Courier New', cursive, sans-serif;
   font-style: italic;
 }
 .hypnophrase {
-  color: #0d0d0d;
+  color: hsl(0.0, 0.0%, 5.1%);
   font-weight: bold;
   animation: hypnocolor 1500ms infinite;
 }
 @keyframes hypnocolor {
   0% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   25% {
-    color: #410194;
+    color: hsl(266.1, 98.7%, 29.2%);
   }
   50% {
-    color: #7f17d8;
+    color: hsl(272.3, 80.8%, 46.9%);
   }
   75% {
-    color: #410194;
+    color: hsl(266.1, 98.7%, 29.2%);
   }
   100% {
-    color: #3bb5d3;
+    color: hsl(191.8, 63.3%, 52.9%);
   }
 }
 
 .phobia {
-  color: #dd0000;
+  color: hsl(0.0, 100.0%, 43.3%);
   font-weight: bold;
   animation: phobia 750ms infinite;
 }
 @keyframes phobia {
   0% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
   50% {
-    color: #dd0000;
+    color: hsl(0.0, 100.0%, 43.3%);
   }
   100% {
-    color: #0d0d0d;
+    color: hsl(0.0, 0.0%, 5.1%);
   }
 }
 
@@ -1075,7 +1075,7 @@ h2.alert {
 }
 
 .memo {
-  color: #638500;
+  color: hsl(75.3, 100.0%, 26.1%);
   text-align: center;
 }
 .memoedit {
@@ -1083,36 +1083,36 @@ h2.alert {
   font-size: 16px;
 }
 .abductor {
-  color: #800080;
+  color: hsl(300.0, 100.0%, 25.1%);
   font-style: italic;
 }
 .mind_control {
-  color: #a00d6f;
+  color: hsl(320.0, 85.0%, 33.9%);
   font-size: 3;
   font-weight: bold;
   font-style: italic;
 }
 .slime {
-  color: #00ced1;
+  color: hsl(180.9, 100.0%, 41.0%);
 }
 .drone {
-  color: #848482;
+  color: hsl(60.0, 0.8%, 51.4%);
 }
 .monkey {
-  color: #975032;
+  color: hsl(17.8, 50.2%, 39.4%);
 }
 .swarmer {
-  color: #2c75ff;
+  color: hsl(219.2, 100.0%, 58.6%);
 }
 .resonate {
-  color: #298f85;
+  color: hsl(174.1, 55.4%, 36.1%);
 }
 
 .monkeyhive {
-  color: #774704;
+  color: hsl(35.0, 93.5%, 24.1%);
 }
 .monkeylead {
-  color: #774704;
+  color: hsl(35.0, 93.5%, 24.1%);
   font-size: 2;
 }
 
@@ -1141,8 +1141,8 @@ h2.alert {
 }
 
 .examine_block {
-  background: #f2f7fa;
-  border: 1px solid #111a27;
+  background: hsl(202.5, 44.4%, 96.5%);
+  border: 1px solid hsl(215.5, 39.3%, 11.0%);
   margin: 0.5em;
   padding: 0.5em 0.75em;
 }
@@ -1152,184 +1152,184 @@ h2.alert {
 // ----------
 // command
 .rawcommand {
-  color: #7584ad;
+  color: hsl(223.9, 25.5%, 56.9%);
 }
 .captain {
-  color: #d8aa53;
+  color: hsl(39.2, 63.0%, 58.6%);
 }
 .actingcaptain {
-  color: #cfa962;
+  color: hsl(39.1, 53.2%, 59.8%);
 }
 // Service
 .rawservice {
-  color: #6ec959;
+  color: hsl(108.8, 50.9%, 56.9%);
 }
 .assistant {
-  color: #a1a1a1;
+  color: hsl(0.0, 0.0%, 63.1%);
 }
 .headofpersonnel {
-  color: #526bf8;
+  color: hsl(231.0, 92.2%, 64.7%);
 }
 .bartender {
-  color: #71a073;
+  color: hsl(122.6, 19.8%, 53.5%);
 }
 .botanist {
-  color: #7cb86f;
+  color: hsl(109.3, 34.0%, 57.8%);
 }
 .cook {
-  color: #54ce75;
+  color: hsl(136.2, 55.5%, 56.9%);
 }
 .chaplain {
-  color: #8ab48c;
+  color: hsl(122.9, 21.9%, 62.4%);
 }
 .curator {
-  color: #88c999;
+  color: hsl(135.7, 37.6%, 66.1%);
 }
 .janitor {
-  color: #2da792;
+  color: hsl(169.7, 57.5%, 41.6%);
 }
 .lawyer {
-  color: #c07d7d;
+  color: hsl(0.0, 34.7%, 62.2%);
 }
 .clown {
-  color: #ff83d7;
+  color: hsl(319.4, 100.0%, 75.7%);
 }
 .mime {
-  color: #6e9b6e;
+  color: hsl(120.0, 18.4%, 52.0%);
 }
 .stagemagician {
-  color: #b659a6;
+  color: hsl(310.3, 38.9%, 53.1%);
 }
 .barber {
-  color: #836f5f;
+  color: hsl(26.7, 15.9%, 44.3%);
 }
 // Cargo
 .rawcargo {
-  color: #d8b999;
+  color: hsl(30.5, 44.7%, 72.4%);
 }
 .quartermaster {
-  color: #c79c52;
+  color: hsl(37.9, 51.1%, 55.1%);
 }
 .cargotechnician {
-  color: #d3a372;
+  color: hsl(30.3, 52.4%, 63.7%);
 }
 .shaftminer {
-  color: #ce957e;
+  color: hsl(17.2, 44.9%, 65.1%);
 }
 // Engineering
 .rawengineering {
-  color: #daa32d;
+  color: hsl(40.9, 70.0%, 51.6%);
 }
 .chiefengineer {
-  color: #cfbb72;
+  color: hsl(47.1, 49.2%, 62.9%);
 }
 .stationengineer {
-  color: #be953d;
+  color: hsl(40.9, 51.4%, 49.2%);
 }
 .atmospherictechnician {
-  color: #d4a07d;
+  color: hsl(24.1, 50.3%, 66.1%);
 }
 // Medical
 .rawmedical {
-  color: #47b6d8;
+  color: hsl(194.1, 65.0%, 56.3%);
 }
 .chiefmedicalofficer {
-  color: #67b7f8;
+  color: hsl(206.9, 91.2%, 68.8%);
 }
 .medicaldoctor {
-  color: #6cb1c5;
+  color: hsl(193.5, 43.4%, 59.8%);
 }
 .paramedic {
-  color: #8fbeb4;
+  color: hsl(167.2, 26.6%, 65.3%);
 }
 .chemist {
-  color: #82bdce;
+  color: hsl(193.4, 43.7%, 65.9%);
 }
 .virologist {
-  color: #5ac5b0;
+  color: hsl(168.2, 48.0%, 56.3%);
 }
 .geneticist {
-  color: #83bbbf;
+  color: hsl(184.0, 31.9%, 63.1%);
 }
 .psychiatrist {
-  color: #5394a8;
+  color: hsl(194.1, 33.9%, 49.2%);
 }
 // R&D
 .rawscience {
-  color: #ce6fce;
+  color: hsl(300.0, 49.2%, 62.2%);
 }
 .researchdirector {
-  color: #974ea9;
+  color: hsl(288.1, 36.8%, 48.4%);
 }
 .scientist {
-  color: #c772c7;
+  color: hsl(300.0, 43.1%, 61.4%);
 }
 .roboticist {
-  color: #ac71ba;
+  color: hsl(288.5, 34.6%, 58.6%);
 }
 .explorationcrew {
-  color: #85d8b8;
+  color: hsl(156.9, 51.6%, 68.4%);
 }
 // Security
 .rawsecurity {
-  color: #c75c5c;
+  color: hsl(0.0, 48.9%, 57.1%);
 }
 .headofsecurity {
-  color: #be132d;
+  color: hsl(350.9, 81.8%, 41.0%);
 }
 .warden {
-  color: #dd3944;
+  color: hsl(356.0, 70.7%, 54.5%);
 }
 .securityofficer {
-  color: #c43a3a;
+  color: hsl(0.0, 54.3%, 49.8%);
 }
 .detective {
-  color: #b45c5c;
+  color: hsl(0.0, 37.0%, 53.3%);
 }
 .brigphysician {
-  color: #b16789;
+  color: hsl(332.4, 32.2%, 54.9%);
 }
 .deputy {
-  color: #cc7e7e;
+  color: hsl(0.0, 43.3%, 64.7%);
 }
 // CentCom
 .rawcentcom {
-  color: #55b835;
+  color: hsl(105.3, 55.3%, 46.5%);
 }
 .centcom {
-  color: #419b23;
+  color: hsl(105.0, 63.2%, 37.3%);
 }
 // MISC - job
 .vip {
-  color: #d3be62;
+  color: hsl(48.8, 56.2%, 60.6%);
 }
 .king {
-  color: #dbbc33;
+  color: hsl(48.9, 70.0%, 52.9%);
 }
 .prisoner {
-  color: #8b644b;
+  color: hsl(23.4, 29.9%, 42.0%);
 }
 .syndicate {
-  color: #6e4141;
+  color: hsl(0.0, 25.7%, 34.3%);
 }
 .notcentcom {
-  color: #6e6cc7;
+  color: hsl(241.3, 44.8%, 60.2%);
 }
 .unassigned {
-  color: #585858;
+  color: hsl(0.0, 0.0%, 34.5%);
 }
 .unknown {
-  color: #313131;
+  color: hsl(0.0, 0.0%, 19.2%);
 }
 // MISC - mob
 .blob {
-  color: #cfa356;
+  color: hsl(38.2, 55.8%, 57.5%);
 }
 .corgi {
-  color: #ecda88;
+  color: hsl(49.2, 72.5%, 72.9%);
 }
 .fox {
-  color: #ffae64;
+  color: hsl(28.6, 100.0%, 69.6%);
 }
 .rainbow {
   animation: rainbowtext 1500ms infinite;
@@ -1338,135 +1338,135 @@ h2.alert {
   animation: heriotext 1500ms infinite;
 }
 .brassmobsay {
-  color: #be8700;
+  color: hsl(42.6, 100.0%, 37.3%);
 }
 .syndmob {
-  color: #6d3f40;
+  color: hsl(358.7, 26.7%, 33.7%);
 }
 .alienmobsay {
-  color: #543354;
+  color: hsl(300.0, 24.4%, 26.5%);
 }
 .cultmobsay {
-  color: #973e3b;
+  color: hsl(2.0, 43.8%, 41.2%);
 }
 .slimemobsay {
-  color: #00ced1;
+  color: hsl(180.9, 100.0%, 41.0%);
 }
 .carpspeak {
-  color: #2e89d3;
+  color: hsl(206.9, 65.2%, 50.4%);
 }
 
 @keyframes rainbowtext {
   0% {
-    color: #ff0000;
+    color: hsl(0.0, 100.0%, 50.0%);
   }
   20% {
-    color: #ffee00;
+    color: hsl(56.0, 100.0%, 50.0%);
   }
   40% {
-    color: #00ff15;
+    color: hsl(124.9, 100.0%, 50.0%);
   }
   60% {
-    color: #00ccff;
+    color: hsl(192.0, 100.0%, 50.0%);
   }
   80% {
-    color: #3700ff;
+    color: hsl(252.9, 100.0%, 50.0%);
   }
   100% {
-    color: #ff00f2;
+    color: hsl(303.1, 100.0%, 50.0%);
   }
 }
 
 @keyframes heriotext {
   0% {
-    color: #b441ee;
+    color: hsl(279.9, 83.6%, 59.4%);
   }
   50% {
-    color: #c56bf1;
+    color: hsl(280.3, 82.7%, 68.2%);
   }
   100% {
-    color: #b441ee;
+    color: hsl(279.9, 83.6%, 59.4%);
   }
 }
 
 .stat_antagonist {
-  color: #a30000;
+  color: hsl(0.0, 100.0%, 32.0%);
 }
 .stat_antagonist_underline {
-  color: #a30000;
+  color: hsl(0.0, 100.0%, 32.0%);
   text-decoration: underline;
 }
 
 .stat_infomation {
-  color: #be8530;
+  color: hsl(35.9, 59.7%, 46.7%);
 }
 
 .stat_br {
-  color: #2ace53;
+  color: hsl(135.0, 66.1%, 48.6%);
 }
 
 .mood_neutral {
-  color: #34383d;
+  color: hsl(213.3, 8.0%, 22.2%);
 }
 
 $alert-stripe-colors: (
-  'default': #b3bfff,
-  'green': #adffad,
-  'blue': #b3bfff,
-  'pink': #ffb3df,
-  'yellow': #fff3b3,
-  'orange': #ffe2b3,
-  'red': #ffb3b3,
-  'purple': #fac2ff,
-  'grey': #e3e3e3,
-  'cyan': #b3fff3,
-  'darkred': #ff5757,
-  'black': #474747,
+  'default': hsl(230.5, 100.0%, 85.1%),
+  'green': hsl(120.0, 100.0%, 83.9%),
+  'blue': hsl(230.5, 100.0%, 85.1%),
+  'pink': hsl(325.3, 100.0%, 85.1%),
+  'yellow': hsl(50.5, 100.0%, 85.1%),
+  'orange': hsl(37.1, 100.0%, 85.1%),
+  'red': hsl(0.0, 100.0%, 85.1%),
+  'purple': hsl(295.1, 100.0%, 88.0%),
+  'grey': hsl(0.0, 0.0%, 89.0%),
+  'cyan': hsl(170.5, 100.0%, 85.1%),
+  'darkred': hsl(0.0, 100.0%, 67.1%),
+  'black': hsl(0.0, 0.0%, 27.8%),
 );
 
 $alert-stripe-alternate-colors: (
-  'default': #bdc8ff,
-  'green': #bdffbd,
-  'blue': #bdc8ff,
-  'pink': #ffc2e5,
-  'yellow': #fff5c2,
-  'orange': #ffe8c2,
-  'red': #ffc2c2,
-  'purple': #fbd1ff,
-  'grey': #ebebeb,
-  'cyan': #4cffe4,
-  'darkred': #ff3535,
-  'black': #2e2d2d,
+  'default': hsl(230.0, 100.0%, 87.1%),
+  'green': hsl(120.0, 100.0%, 87.1%),
+  'blue': hsl(230.0, 100.0%, 87.1%),
+  'pink': hsl(325.6, 100.0%, 88.0%),
+  'yellow': hsl(50.2, 100.0%, 88.0%),
+  'orange': hsl(37.4, 100.0%, 88.0%),
+  'red': hsl(0.0, 100.0%, 88.0%),
+  'purple': hsl(294.8, 100.0%, 91.0%),
+  'grey': hsl(0.0, 0.0%, 92.2%),
+  'cyan': hsl(170.9, 100.0%, 64.9%),
+  'darkred': hsl(0.0, 100.0%, 60.4%),
+  'black': hsl(0.0, 1.1%, 17.8%),
 );
 
 $alert-major-header-colors: (
-  'default': #003061,
-  'green': #005229,
-  'blue': #003061,
-  'pink': #800033,
-  'yellow': #754900,
-  'orange': #823208,
-  'red': #800029,
-  'purple': #450d8c,
-  'grey': #800033,
-  'cyan': #000000,
-  'darkred': #751b1b,
-  'black': #ec0000,
+  'default': hsl(210.3, 100.0%, 19.0%),
+  'green': hsl(150.0, 100.0%, 16.1%),
+  'blue': hsl(210.3, 100.0%, 19.0%),
+  'pink': hsl(336.1, 100.0%, 25.1%),
+  'yellow': hsl(37.4, 100.0%, 22.9%),
+  'orange': hsl(20.7, 88.4%, 27.1%),
+  'red': hsl(340.8, 100.0%, 25.1%),
+  'purple': hsl(266.5, 83.0%, 30.0%),
+  'grey': hsl(336.1, 100.0%, 25.1%),
+  'cyan': hsl(0.0, 0.0%, 0.0%),
+  'darkred': hsl(0.0, 62.5%, 28.2%),
+  'black': hsl(0.0, 100.0%, 46.3%),
 );
 
 $alert-subheader-header-colors: (
-  'default': #6b0020,
-  'green': #6b0020,
-  'blue': #6b0020,
-  'pink': #002c85,
-  'yellow': #002c85,
-  'orange': #002c85,
-  'red': #002c85,
-  'purple': #002c85,
-  'grey': #002c85,
-  'cyan': #acfff3,
-  'darkred': #ff7e7e,
-  'black': #ec0000,
+  'default': hsl(342.1, 100.0%, 21.0%),
+  'green': hsl(342.1, 100.0%, 21.0%),
+  'blue': hsl(342.1, 100.0%, 21.0%),
+  'pink': hsl(220.2, 100.0%, 26.1%),
+  'yellow': hsl(220.2, 100.0%, 26.1%),
+  'orange': hsl(220.2, 100.0%, 26.1%),
+  'red': hsl(220.2, 100.0%, 26.1%),
+  'purple': hsl(220.2, 100.0%, 26.1%),
+  'grey': hsl(220.2, 100.0%, 26.1%),
+  'cyan': hsl(171.3, 100.0%, 83.7%),
+  'darkred': hsl(0.0, 100.0%, 74.7%),
+  'black': hsl(0.0, 100.0%, 46.3%),
 );
 
 $border-width: 4;
@@ -1493,8 +1493,8 @@ $border-width-px: $border-width * 1px;
 }
 
 .major_announcement_text {
-  color: #131313;
-  background-color: #eaeaea;
+  color: hsl(0.0, 0.0%, 7.5%);
+  background-color: hsl(0.0, 0.0%, 91.8%);
   font-weight: bold;
   font-size: 100%;
   text-align: left;
@@ -1515,8 +1515,8 @@ $border-width-px: $border-width * 1px;
 }
 
 .minor_announcement_text {
-  background-color: #eaeaea;
-  color: #202020;
+  background-color: hsl(0.0, 0.0%, 91.8%);
+  color: hsl(0.0, 0.0%, 12.5%);
   padding: 0.5rem 0.5rem;
   text-align: left;
   font-size: 100%;
@@ -1529,18 +1529,18 @@ $border-width-px: $border-width * 1px;
 }
 
 .ooc_alert {
-  background: #bdc8ff;
-  border: 1px solid #002eb8;
+  background: hsl(230.0, 100.0%, 87.1%);
+  border: 1px solid hsl(225.0, 100.0%, 36.1%);
   margin: 0.5em;
   padding: 0.5em 0.5em 0.5em 0.2em;
-  color: #00283a;
+  color: hsl(198.6, 100.0%, 11.4%);
   font-weight: bold;
   display: flex;
   flex-direction: column;
 }
 
 .ooc_announcement_text {
-  color: #002eb8;
+  color: hsl(225.0, 100.0%, 36.1%);
   padding: 0.5em 0 0 0.35em;
   display: flex;
   flex-direction: column;
@@ -1548,7 +1548,7 @@ $border-width-px: $border-width * 1px;
 
 @each $color-name, $color-value in $alert-stripe-colors {
   .chat_alert_#{$color-name} {
-    color: #ffffff;
+    color: hsl(0.0, 0.0%, 100.0%);
     padding: 0.5rem 0.5rem;
     box-shadow: none;
     font-weight: bold;
