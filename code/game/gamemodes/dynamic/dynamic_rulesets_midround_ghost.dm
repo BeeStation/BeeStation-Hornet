@@ -179,6 +179,7 @@
 	points_cost = 50
 	weight = 1
 	use_spawn_locations = FALSE
+	flags = CANNOT_REPEAT
 
 	var/datum/team/nuclear/team
 	var/has_made_leader = FALSE
