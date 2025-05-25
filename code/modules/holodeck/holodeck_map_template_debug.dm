@@ -29,16 +29,6 @@
 // ------------------------------------------------
 //         List of real templates below:
 // ------------------------------------------------
-/datum/map_template/holodeck/debug/n2
-	name = "Holodeck - Engineering N2 SM"
-	template_id = "debug-engi-n2-sm"
-	mappath = "_maps/holodeck/debug/engi-sm-n2.dmm"
-
-/datum/map_template/holodeck/debug/co2
-	name = "Holodeck - Engineering CO2 SM"
-	template_id = "debug-engi-co2-sm"
-	mappath = "_maps/holodeck/debug/engi-sm-co2.dmm"
-
 /datum/map_template/holodeck/debug/tesla
 	name = "Holodeck - Engineering Tesla and Singularity"
 	template_id = "debug-engi-tesla"
