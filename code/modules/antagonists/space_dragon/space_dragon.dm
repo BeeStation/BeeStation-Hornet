@@ -22,8 +22,8 @@
 	/// What areas are we allowed to place rifts in?
 	var/list/chosen_rift_areas = list()
 
-/datum/antagonist/wizard/get_dynamic_midround_points()
-	return -1
+/datum/antagonist/space_dragon/get_dynamic_midround_points()
+	return -2.5
 
 /datum/antagonist/space_dragon/greet()
 	to_chat(owner, "<b>Endless time and space we have moved through. We do not remember from where we came, we do not know where we will go. All space belongs to us.\n\
