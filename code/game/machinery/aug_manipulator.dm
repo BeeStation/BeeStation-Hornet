@@ -93,6 +93,8 @@
 	else
 		return ..()
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/aug_manipulator, "Use")
+
 /obj/machinery/aug_manipulator/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)

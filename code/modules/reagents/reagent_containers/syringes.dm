@@ -24,6 +24,11 @@
 	fill_icon_state = "syringe"
 	fill_icon_thresholds = list(1, 5, 10, 15)
 
+/obj/item/reagent_containers/syringe/add_context_self(datum/screentip_context/context, mob/living/user)
+	context.use_cache()
+	context.add_left_click_action("Inject")
+	context.add_right_click_action("Draw")
+
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 

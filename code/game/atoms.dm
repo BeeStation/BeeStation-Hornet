@@ -170,6 +170,9 @@
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
 	var/list/eye_users
 
+	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
+	var/hovered_user_count = 0
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -345,6 +348,13 @@
 		QDEL_NULL(ai_controller)
 	if(light)
 		QDEL_NULL(light)
+
+	if (hovered_user_count)
+		SSscreentips.deleted_hovered_atoms ++
+		for (var/client/client in GLOB.clients)
+			if (client.hovered_atom == src)
+				client.hovered_atom = null
+		hovered_user_count = 0
 
 	return ..()
 

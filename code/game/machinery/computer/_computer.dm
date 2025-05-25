@@ -175,3 +175,9 @@
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)
+
+/obj/machinery/computer/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.use_cache()
+	context.add_attack_hand_action("Interact")
+	if(circuit && !(flags_1&NODECONSTRUCT_1))
+		context.add_left_click_tool_action("Deconstruct", TOOL_SCREWDRIVER)
