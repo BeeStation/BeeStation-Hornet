@@ -264,10 +264,9 @@
 /datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
 	LoadReebe()
 	generate_clockcult_scriptures()
-
+	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.assigned_role = antag_datum.banning_key
-	. = ..()
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
 	main_cult = new
