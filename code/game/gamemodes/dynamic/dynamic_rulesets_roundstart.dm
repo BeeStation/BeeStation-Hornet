@@ -134,7 +134,7 @@
 	weight = 2
 	points_cost = 15
 	minimum_points_required = 20
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
 	. = ..()
@@ -251,7 +251,7 @@
 	weight = 3
 	points_cost = 35
 	minimum_points_required = 24
-	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET
+	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
 	)
