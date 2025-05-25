@@ -10,7 +10,7 @@
 	var/give_equipment = TRUE
 
 /datum/antagonist/ninja/get_dynamic_midround_points()
-	return -0.3
+	return -2
 
 /datum/antagonist/ninja/New()
 	if(helping_station)
