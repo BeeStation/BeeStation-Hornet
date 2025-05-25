@@ -449,6 +449,7 @@
 	points_cost = 10
 	weight = 6
 	use_spawn_locations = FALSE
+	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/pirates/allowed()
 	if(!SSmapping.empty_space)
