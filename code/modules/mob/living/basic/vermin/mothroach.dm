@@ -38,7 +38,7 @@
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "squeaks happily!", emote_sound = 'sound/voice/moth/scream_moth.ogg')
-	add_verb(src, /mob/living/proc/toggle_resting)
+	//add_verb(src, /mob/living/proc/toggle_resting)
 
 /mob/living/basic/mothroach/update_resting()
 	. = ..()
