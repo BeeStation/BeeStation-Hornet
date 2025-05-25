@@ -108,11 +108,11 @@
 
 /datum/nanite_program/protocol/hive
 	name = "Hive Protocol"
-	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume to 750."
+	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume to 450."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 250
+	var/extra_volume = 150
 
 /datum/nanite_program/protocol/hive/enable_passive_effect()
 	. = ..()
@@ -125,11 +125,11 @@
 
 /datum/nanite_program/protocol/zip
 	name = "Zip Protocol"
-	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, increasing the maximum volume to 1000. However, the process slows down their replication rate slightly."
+	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, increasing the maximum volume to 550. However, the process slows down their replication rate slightly."
 	use_rate = 0.2
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 500
+	var/extra_volume = 250
 
 /datum/nanite_program/protocol/zip/enable_passive_effect()
 	. = ..()
@@ -140,14 +140,34 @@
 	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
 
 
+/datum/nanite_program/protocol/cellular_embedding
+	name = "Cellular Embedding Protocol"
+	desc = "Storage Protocol: the nanites embed themselves inside of cells, increasing the maximum volume to 700 while simultaneously preventing viral infections."
+	rogue_types = list(/datum/nanite_program/necrotic)
+	protocol_class = NANITE_PROTOCOL_STORAGE
+	var/extra_volume = 400
+
+/datum/nanite_program/protocol/zip/enable_passive_effect()
+	. = ..()
+	nanites.set_max_volume(amount = nanites.max_nanites + extra_volume)
+	ADD_TRAIT(host_mob, TRAIT_VIRUSIMMUNE, SOURCE_NANITE_CELLULAR)
+	for (var/datum/disease/disease in host_mob.diseases)
+		disease.cure(FALSE)
+
+/datum/nanite_program/protocol/zip/disable_passive_effect()
+	. = ..()
+	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
+	REMOVE_TRAIT(host_mob, TRAIT_VIRUSIMMUNE, SOURCE_NANITE_CELLULAR)
+
+
 /datum/nanite_program/protocol/free_range
 	name = "Free-range Protocol"
-	desc = "Storage Protocol: the nanites discard their default storage protocols in favour of a cheaper and more organic approach. Reduces maximum volume to 250, but increases the replication rate by 0.5."
+	desc = "Storage Protocol: the nanites discard their default storage protocols in favour of a cheaper and more organic approach. Reduces maximum volume to 200, but increases the replication rate by 0.5."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_STORAGE
 	var/boost = 0.5
-	var/extra_volume = -250
+	var/extra_volume = -100
 
 /datum/nanite_program/protocol/free_range/enable_passive_effect()
 	. = ..()
@@ -164,11 +184,11 @@
 /datum/nanite_program/protocol/unsafe_storage
 	name = "S.L.O. Protocol"
 	desc = "Storage Protocol: 'S.L.O.P.', or Storage Level Override Protocol, completely disables the safety measures normally present in nanites, \
-			allowing them to reach a whopping maximum volume level of 2000, but at the risk of causing damage to the host at nanite concentrations above the standard limit of 500."
+			allowing them to reach a whopping maximum volume level of 800, but at the risk of causing damage to the host at nanite concentrations above the standard limit of 300."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 1500
+	var/extra_volume = 500
 	var/next_warning = 0
 	var/min_warning_cooldown = 120
 	var/max_warning_cooldown = 350
@@ -211,22 +231,22 @@
 /datum/nanite_program/protocol/unsafe_storage/active_effect()
 	if(!iscarbon(host_mob))
 		if(prob(10))
-			host_mob.adjustBruteLoss(((max(nanites.nanite_volume - 450, 0) / 450) ** 2 ) * 0.5) // 0.5 -> 2 -> 4.5 -> 8 damage per successful tick
+			host_mob.adjustBruteLoss(((max(nanites.nanite_volume - 300, 0) / 300) ** 2 ) * 0.5) // 0.5 -> 2 -> 4.5 -> 8 damage per successful tick
 		return
 
 	var/mob/living/carbon/C = host_mob
 
-	if(nanites.nanite_volume < 500)
+	if(nanites.nanite_volume < 300)
 		return
 
 	var/current_stage = 0
-	if(nanites.nanite_volume > 500) //Liver is the main hub of nanite replication and the first to be threatened by excess volume
+	if(nanites.nanite_volume > 300) //Liver is the main hub of nanite replication and the first to be threatened by excess volume
 		if(prob(10))
 			var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
 			if(liver)
 				liver.applyOrganDamage(0.6)
 		current_stage++
-	if(nanites.nanite_volume > 750) //Extra volume spills out in other central organs
+	if(nanites.nanite_volume > 400) //Extra volume spills out in other central organs
 		if(prob(10))
 			var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
 			if(stomach)
@@ -236,7 +256,7 @@
 			if(lungs)
 				lungs.applyOrganDamage(0.75)
 		current_stage++
-	if(nanites.nanite_volume > 1000) //Extra volume spills out in more critical organs
+	if(nanites.nanite_volume > 500) //Extra volume spills out in more critical organs
 		if(prob(10))
 			var/obj/item/organ/heart/heart = C.getorganslot(ORGAN_SLOT_HEART)
 			if(heart)
@@ -246,7 +266,7 @@
 			if(brain)
 				brain.applyOrganDamage(0.75)
 		current_stage++
-	if(nanites.nanite_volume > 1250) //Excess nanites start invading smaller organs for more space, including sensory organs
+	if(nanites.nanite_volume > 600) //Excess nanites start invading smaller organs for more space, including sensory organs
 		if(prob(13))
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 			if(eyes)
@@ -256,11 +276,11 @@
 			if(ears)
 				ears.applyOrganDamage(0.75)
 		current_stage++
-	if(nanites.nanite_volume > 1500) //Nanites start spilling into the bloodstream, causing toxicity
+	if(nanites.nanite_volume > 650) //Nanites start spilling into the bloodstream, causing toxicity
 		if(prob(15))
 			C.adjustToxLoss(0.5, TRUE, forced = TRUE) //Not healthy for slimepeople either
 		current_stage++
-	if(nanites.nanite_volume > 1750) //Nanites have almost reached their physical limit, and the pressure itself starts causing tissue damage
+	if(nanites.nanite_volume > 680) //Nanites have almost reached their physical limit, and the pressure itself starts causing tissue damage
 		if(prob(15))
 			C.adjustBruteLoss(0.75, TRUE)
 		current_stage++

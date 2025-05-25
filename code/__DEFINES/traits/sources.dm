@@ -149,3 +149,4 @@
 #define SOURCE_NANITE_BLOOD "nanite_blood"
 #define SOURCE_NANITE_TOMB "nanite_tomb"
 #define SOURCE_NANITE_NERVOUS "nanite_nervous"
+#define SOURCE_NANITE_CELLULAR "nanite_cellular"

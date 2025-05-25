@@ -37,8 +37,8 @@
 	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts for 20 seconds."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
-	trigger_cooldown = 60 SECONDS
-	maximum_duration = 20 SECONDS
+	trigger_cooldown = 120 SECONDS
+	maximum_duration = 40 SECONDS
 	var/datum/armor/nanite_armor = /datum/armor/hardening_armor
 
 /datum/armor/hardening_armor
@@ -64,8 +64,8 @@
 	desc = "The nanites form a membrane above the host's skin, reducing the effect of laser and energy impacts."
 	use_rate = 0.50
 	rogue_types = list(/datum/nanite_program/skin_decay)
-	trigger_cooldown = 60 SECONDS
-	maximum_duration = 20 SECONDS
+	trigger_cooldown = 120 SECONDS
+	maximum_duration = 40 SECONDS
 	var/datum/armor/nanite_armor = /datum/armor/refractive_armor
 
 /datum/armor/refractive_armor
@@ -92,7 +92,7 @@
 	use_rate = 0.10
 	rogue_types = list(/datum/nanite_program/suffocating)
 	maximum_duration = 1 MINUTES
-	trigger_cooldown = 1 MINUTES
+	trigger_cooldown = 90 SECONDS
 
 /datum/nanite_program/coagulating/enable_passive_effect()
 	. = ..()
@@ -120,8 +120,8 @@
 	REMOVE_TRAIT(host_mob, TRAIT_SHOCKIMMUNE, "nanites")
 
 /datum/nanite_program/haste
-	name = "Amphetamine Injection"
-	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
+	name = "Combat Chemical Injection"
+	desc = "The nanites synthesize a combination of hormones and chemicals when triggered, making the host resistant to stuns and unable to feel pain."
 	can_trigger = TRUE
 	trigger_cost = 10
 	trigger_cooldown = 120 SECONDS
@@ -130,7 +130,7 @@
 /datum/nanite_program/haste/on_trigger()
 	to_chat(host_mob, span_notice("Your body feels lighter and your legs feel relaxed!"))
 	host_mob.set_resting(FALSE)
-	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)
+	host_mob.reagents.add_reagent(/datum/reagent/medicine/pumpup, 5)
 
 /datum/nanite_program/armblade
 	name = "Nanite Blade"

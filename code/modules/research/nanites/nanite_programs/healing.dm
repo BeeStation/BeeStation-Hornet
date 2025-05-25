@@ -2,15 +2,17 @@
 
 /datum/nanite_program/regenerative
 	name = "Accelerated Regeneration"
-	desc = "The nanites boost the host's natural regeneration, increasing their healing speed. Does not consume nanites if the host is unharmed."
+	desc = "The nanites boost the host's natural regeneration, healing up to 40 damage after 80 seconds but cannot heal the target out of critical condition. Does not consume nanites if the host is unharmed."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/necrotic)
-	// Heals a total of 20 damage
-	maximum_duration = 40 SECONDS
+	// Heals a total of 40 damage
+	maximum_duration = 80 SECONDS
 	trigger_cooldown = 120 SECONDS
 
 /datum/nanite_program/regenerative/check_conditions()
 	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
+		return FALSE
+	if(host_mob.stat != CONSCIOUS)
 		return FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
@@ -95,6 +97,27 @@
 		var/mob/living/carbon/C = host_mob
 		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, special_method = TRUE)
 
+/datum/nanite_program/cauterize
+	name = "Bleeding Cauterization"
+	desc = "The nanites create a flash of heat, cauterizing any wounds.."
+	rogue_types = list(/datum/nanite_program/suffocating)
+	trigger_cost = 40
+	trigger_cooldown = 90 SECONDS
+
+/datum/nanite_program/blood_restoring/check_conditions()
+	if(iscarbon(host_mob))
+		var/mob/living/carbon/C = host_mob
+		if(!C.is_bleeding())
+			return FALSE
+	else
+		return FALSE
+	return ..()
+
+/datum/nanite_program/blood_restoring/active_effect()
+	if(iscarbon(host_mob))
+		var/mob/living/carbon/C = host_mob
+		C.cauterise_wounds()
+
 /datum/nanite_program/blood_restoring
 	name = "Blood Regeneration"
 	desc = "The nanites stimulate and boost blood cell production in the host."
@@ -164,9 +187,9 @@
 
 /datum/nanite_program/defib
 	name = "Defibrillation"
-	desc = "The nanites shock the host's heart when triggered, bringing them back to life if the body can sustain it. This process is expensive and will completely expend the remaining nanites in the user's body."
+	desc = "The nanites sacrifice themselves to maintain the bodily functions of the host, bringing them out of critical condition and death at the cost of expending all available nanites."
 	can_trigger = TRUE
-	trigger_cost = 100
+	trigger_cost = 50
 	trigger_cooldown = 0
 	rogue_types = list(/datum/nanite_program/shocking)
 
@@ -182,7 +205,7 @@
 		return FALSE
 	if((world.time - C.timeofdeath) > 1800) //too late
 		return FALSE
-	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE) || !C.can_be_revived()) //too damaged
+	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE))
 		return FALSE
 	if(!C.getorgan(/obj/item/organ/heart)) //what are we even shocking
 		return FALSE
@@ -200,9 +223,20 @@
 	playsound(C, 'sound/machines/defib_zap.ogg', 50, FALSE)
 	if(check_revivable())
 		playsound(C, 'sound/machines/defib_success.ogg', 50, FALSE)
-		C.set_heartattack(FALSE)
-		C.revive(full_heal = FALSE, admin_revive = FALSE)
-		C.emote("gasp")
+		// Heal out of critical condition proportional to the amount of nanites consumed
+		C.adjustBruteLoss(nanites.nanite_volume / -3000)
+		C.adjustFireLoss(nanites.nanite_volume / -3000)
+		C.setOxyLoss(0)
+		// Set sleeping so you don't instantly get back up again
+		C.Sleeping(10 SECONDS)
+		C.Knockdown(25 SECONDS)
+		if (C.can_be_revived() || C.stat != DEAD)
+			C.balloon_alert_to_viewers("Jolts as [C.p_they()] comes back to life!")
+			C.set_heartattack(FALSE)
+			C.revive(full_heal = FALSE, admin_revive = FALSE)
+			C.emote("gasp")
+		else
+			C.balloon_alert_to_viewers("Jolts before falling limp.")
 		C.Jitter(100)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		log_game("[C] has been successfully defibrillated by nanites.")

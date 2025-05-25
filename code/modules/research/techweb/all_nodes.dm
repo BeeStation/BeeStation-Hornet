@@ -2351,16 +2351,29 @@
 	description = "Nanite programs that perform military-grade functions."
 	prereq_ids = list(
 		"nanite_harmonic",
-		"syndicate_basic",
 	)
 	design_ids = list(
 		"explosive_nanites",
 		"haste_nanites",
 		"meltdown_nanites",
-		"nanite_sting_nanites",
 		"pyro_nanites",
 		"viral_nanites",
 		"armblade_nanites",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
+	export_price = 12500
+
+/datum/techweb_node/nanite_infectious
+	id = "nanite_infectious"
+	tech_tier = 5
+	display_name = "Infectious Nanite Programming"
+	description = "Nanite programs that allow for nanites to spread amongst hosts."
+	prereq_ids = list(
+		"nanite_military",
+		"syndicate_basic",
+	)
+	design_ids = list(
+		"nanite_sting_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500
