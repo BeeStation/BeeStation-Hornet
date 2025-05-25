@@ -1486,7 +1486,6 @@
 #include "code\game\objects\items\miscellaneous.dm"
 #include "code\game\objects\items\mjolnir.dm"
 #include "code\game\objects\items\mop.dm"
-#include "code\game\objects\items\nitrium_crystals.dm"
 #include "code\game\objects\items\paint.dm"
 #include "code\game\objects\items\paiwire.dm"
 #include "code\game\objects\items\peppercloud.dm"

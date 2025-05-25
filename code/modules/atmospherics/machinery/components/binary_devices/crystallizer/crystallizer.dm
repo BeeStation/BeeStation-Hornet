@@ -17,17 +17,17 @@
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	vent_movement = NONE
 
-	///Internal Gas mix used for processing the gases that have been put in
+	/// Internal gas mix used for processing the gases that have been put in
 	var/datum/gas_mixture/internal
-	///Var that controls how much gas gets injected in moles per tick
+	/// How many mols of gas injected per tick
 	var/gas_input = 0
-	///Saves the progress during the processing of the items
+	/// Saves the progress during the processing of the items
 	var/progress_bar = 0
-	///Stores the amount of lost quality
+	/// Stores the amount of lost quality
 	var/quality_loss = 0
-	///Stores the recipe selected by the user in the GUI
+	/// Stores the recipe selected by the user in the tgui
 	var/datum/gas_recipe/selected_recipe = null
-	///Stores the total amount of moles needed for the current recipe
+	/// Stores the total amount of moles needed for the current recipe
 	var/total_recipe_moles = 0
 
 /datum/armor/binary_crystallizer
@@ -60,11 +60,11 @@
 	return CONTEXTUAL_SCREENTIP_SET
 */
 
-/obj/machinery/atmospherics/components/binary/crystallizer/attackby(obj/item/I, mob/user, list/modifiers)
+/obj/machinery/atmospherics/components/binary/crystallizer/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!on)
-		if(default_deconstruction_screwdriver(user, "[base_icon_state]-open", "[base_icon_state]-off", I))
+		if(default_deconstruction_screwdriver(user, "[base_icon_state]-open", "[base_icon_state]-off", attacking_item))
 			return
-	if(default_change_direction_wrench(user, I))
+	if(default_change_direction_wrench(user, attacking_item))
 		return
 	return ..()
 
@@ -73,14 +73,6 @@
 
 /obj/machinery/atmospherics/components/binary/crystallizer/update_overlays()
 	. = ..()
-	/*
-	var/mutable_appearance/pipe_appearance1 = mutable_appearance('icons/obj/pipes_n_cables/pipe_underlays.dmi', "intact_[dir]_[piping_layer]", layer = GAS_SCRUBBER_LAYER)
-	pipe_appearance1.color = COLOR_LIME
-	var/mutable_appearance/pipe_appearance2 = mutable_appearance('icons/obj/pipes_n_cables/pipe_underlays.dmi', "intact_[REVERSE_DIR(dir)]_[piping_layer]", layer = GAS_SCRUBBER_LAYER)
-	pipe_appearance2.color = COLOR_MOSTLY_PURE_RED
-	. += pipe_appearance1
-	. += pipe_appearance2
-	*/
 	var/image/pipe_appearance1 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", dir, COLOR_LIME, piping_layer)
 	pipe_appearance1.layer = GAS_SCRUBBER_LAYER
 	var/image/pipe_appearance2 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", REVERSE_DIR(dir), COLOR_MOSTLY_PURE_RED, piping_layer)
@@ -92,7 +84,7 @@
 	. = ..()
 	if(panel_open)
 		icon_state = "[base_icon_state]-open"
-	else if(on && is_operational)
+	else if(on && is_operational && selected_recipe)
 		icon_state = "[base_icon_state]-on"
 	else
 		icon_state = "[base_icon_state]-off"
@@ -124,7 +116,6 @@
 		if(internal.gases[gas_type] && internal.gases[gas_type][MOLES] >= selected_recipe.requirements[gas_type] * 2)
 			continue
 		internal.merge(contents.remove_specific(gas_type, contents.gases[gas_type][MOLES] * gas_input))
-		to_chat(world, "2")
 
 ///Checks if the gases required are all inside
 /obj/machinery/atmospherics/components/binary/crystallizer/proc/internal_check()
@@ -183,26 +174,21 @@
 		return
 
 	inject_gases()
-	to_chat(world, "a")
 
 	if(!internal.total_moles())
 		return
 
 	heat_conduction()
-	to_chat(world, "b")
 
 	if(internal_check())
 		if(check_temp_requirements())
 			heat_calculations()
 			progress_bar = min(progress_bar + (MIN_PROGRESS_AMOUNT * 5 / (round(log(10, total_recipe_moles * 0.1), 0.01))), 100)
-			to_chat(world, "c")
 		else
 			quality_loss = min(quality_loss + 0.5, 100)
 			progress_bar = max(progress_bar - 1, 0)
-			to_chat(world, "d")
 	if(progress_bar != 100)
 		update_parents()
-		to_chat(world, "e")
 		return
 	progress_bar = 0
 
@@ -227,7 +213,7 @@
 		if(55 to 64)
 			quality_control = "Average"
 		if(35 to 54)
-			quality_control = "Ok"
+			quality_control = "Acceptable"
 		if(15 to 34)
 			quality_control = "Poor"
 		if(5 to 14)
@@ -235,7 +221,7 @@
 		if(1 to 4)
 			quality_control = "Cracked"
 		if(0)
-			quality_control = "Oh God why"
+			quality_control = "Awful"
 
 	for(var/path in selected_recipe.products)
 		var/amount_produced = selected_recipe.products[path]
@@ -243,8 +229,8 @@
 			var/obj/creation = new path(get_step(src, SOUTH))
 			creation.name = "[quality_control] [creation.name]"
 			if(selected_recipe.dangerous)
-				investigate_log("[creation.name] has been created in the crystallizer.", INVESTIGATE_ENGINES)
-				message_admins("[creation.name] has been created in the crystallizer [ADMIN_JMP(src)].")
+				investigate_log("[creation] has been created in the crystallizer.", INVESTIGATE_ENGINES)
+				message_admins("[creation] has been created in the crystallizer [ADMIN_JMP(src)].")
 
 
 	quality_loss = 0
@@ -254,6 +240,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Crystallizer", name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/atmospherics/components/binary/crystallizer/ui_static_data()
