@@ -213,7 +213,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			M.Jitter(10)
 
 	if(DT_PROB(3.5, delta_time))
-		to_chat(M, span_notice("[pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
+		to_chat(M, span_notice(pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")))
 
 	if(DT_PROB(2.5, delta_time) && iscarbon(M))
 		var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
@@ -2216,7 +2216,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/turbo/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(2, delta_time))
-		to_chat(M, span_notice("[pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")]"))
+		to_chat(M, span_notice(pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")))
 	M.adjustStaminaLoss(-0.25 * M.drunkenness * REM * delta_time)
 	return ..()
 

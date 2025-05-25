@@ -496,7 +496,7 @@ GENE SCANNER
 		if(length(cyberimp_detect))
 			message += span_notice("Detected cybernetic modifications:")
 			for(var/name in cyberimp_detect)
-				message += span_notice("[name]")
+				message += span_notice(name)
 
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
 	if(to_chat)
@@ -519,7 +519,7 @@ GENE SCANNER
 		if(M.reagents.addiction_list.len)
 			message += span_boldannounce("Subject is addicted to the following reagents:")
 			for(var/datum/reagent/R in M.reagents.addiction_list)
-				message += span_alert("[R.name]")
+				message += span_alert(R.name)
 		else
 			message += "<span class='notice'>Subject is not addicted to any types of drug.</span>"
 	if(to_chat)
@@ -829,8 +829,9 @@ GENE SCANNER
 	if(!iscarbon(C) || !C.has_dna())
 		return
 	buffer = C.dna.mutation_index
-	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
+	to_chat(user, span_notice("Subject [C.name]'s DNA sequence has been saved to buffer."))
 	genescan(C, user, discovered)
+
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
 	if(!LAZYLEN(buffer) || !ready)
@@ -854,7 +855,7 @@ GENE SCANNER
 					display += "-"
 				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
 
-			to_chat(user, "[span_boldnotice("[display]")]<br>")
+			to_chat(user, "[span_boldnotice(display)]<br>")
 
 		ready = FALSE
 		icon_state = "[icon_state]_recharging"

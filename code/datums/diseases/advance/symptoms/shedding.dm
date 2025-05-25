@@ -37,7 +37,7 @@ BONUS
 	if(HAS_TRAIT(M, TRAIT_NOHAIRLOSS) || M.stat == DEAD)
 		return
 	if(prob(base_message_chance))
-		to_chat(M, span_warning("[pick("Your scalp itches.", "Your skin feels flaky.")]"))
+		to_chat(M, span_warning(pick("Your scalp itches.", "Your skin feels flaky.")))
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		switch(A.stage)

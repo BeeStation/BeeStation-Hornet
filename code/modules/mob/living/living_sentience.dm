@@ -46,7 +46,7 @@
 	log_game("[key_name(src)] took control of [name].")
 	remove_from_spawner_menu()
 	if(get_spawner_flavour_text())
-		to_chat(src, span_notice("[get_spawner_flavour_text()]"))
+		to_chat(src, span_notice(get_spawner_flavour_text()))
 	return TRUE
 
 /mob/living/proc/set_playable(ban_type = null, poll_ignore_key = null)

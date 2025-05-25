@@ -54,7 +54,7 @@
 				to_chat(M, span_notice("Your skin feels scaly."))
 		if(3, 4)
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, span_notice("[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]"))
+				to_chat(M, span_notice(pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")))
 		if(5)
 			if(tendrils)
 				tendril(A)
@@ -74,7 +74,7 @@
 				if(M.stat != DEAD)
 					to_chat(M, span_notice("The tendrils loosen their grip, protecting the necropolis within you."))
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, span_notice("[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]"))
+				to_chat(M, span_notice(pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")))
 	return
 
 /datum/symptom/necroseed/proc/tendril(datum/disease/advance/A)
