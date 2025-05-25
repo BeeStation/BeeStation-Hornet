@@ -1,6 +1,7 @@
 /datum/injury/blisters
 	skin_armour_modifier = 0.9
 	effectiveness_modifier = 0.7
+	surgeries_provided = list(/datum/surgery/skin_graft)
 
 /datum/injury/blisters/on_damage_taken(total_damage, delta_damage)
 	// If the skin gets burnt in an unprotected way, get blisters

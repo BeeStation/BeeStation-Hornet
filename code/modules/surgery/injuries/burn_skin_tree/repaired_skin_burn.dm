@@ -1,4 +1,5 @@
 /datum/injury/repaired_skin_burn
+	surgeries_provided = list(/datum/surgery/skin_graft)
 
 /datum/injury/repaired_skin_burn/on_damage_taken(total_damage, delta_damage)
 	// If the skin gets burnt in an unprotected way, get blisters

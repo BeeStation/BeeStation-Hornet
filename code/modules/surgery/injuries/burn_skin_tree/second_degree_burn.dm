@@ -1,6 +1,7 @@
 /datum/injury/second_degree_burns
 	skin_armour_modifier = 0.6
 	effectiveness_modifier = 0.6
+	surgeries_provided = list(/datum/surgery/skin_graft)
 
 /datum/injury/second_degree_burns/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
 	to_chat(target, span_userdanger("The burns on your [part.name] intensify."))

@@ -95,16 +95,10 @@
 
 	var/list/organ_slots = null
 
-	/// Amount of health the skin has before it starts to take skin injuries
-	var/skin_max_health = 30
-	var/skin_health = 30
 	/// Amount of penetration that the skin will reduce an attack by
 	var/skin_penetration_resistance = 5
 	// The amount of damage that will be deleted when the damage reaches bones
 	var/bone_deflection = 5
-	/// The amount of health that bones have before the user takes bones injuries
-	var/bone_max_health = 40
-	var/bone_health = 40
 	/// The amount of penetration that the bones reduce an attack by
 	var/bone_penetration_resistance = 15
 	/// Injury status effects applied to this limb
@@ -122,6 +116,11 @@
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
+	// Setup the injury trees
+	injuries = list(
+		// Burn injury tree
+		new /datum/injury/healthy_skin_burn
+	)
 
 /obj/item/bodypart/Destroy()
 	if(owner)
@@ -688,50 +687,43 @@
 	// Deal with base damage
 	current_damage = damage
 	// Even without penetration, having high damage results in blunt damage falling down
-	if (penetration_power + damage < INJURY_PENETRATION_MINIMUM)
-		return
 	if (penetration_power < 0)
 		current_damage += penetration_power
-	if (current_damage < 0)
+	if (current_damage < 0 || penetration_power + damage < INJURY_PENETRATION_MINIMUM)
 		return
 	var/proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	var/sharp_damage = current_damage * proportion
 	// Take sharp damage
-	skin_health -= sharp_damage
+	for (var/datum/injury/injury_graph as anything in injuries)
+		injury_graph.apply_damage(sharp_damage, damage_flag, TRUE)
 	// Take burn damage
 	if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
-		skin_health -= blunt_damage
-	if (skin_health < 0)
-		if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
-			apply_injury(/datum/injury/burns)
-		else
-			apply_injury(/datum/injury/laceration)
-	check_effectiveness()
+		for (var/datum/injury/injury_graph as anything in injuries)
+			injury_graph.apply_damage(blunt_damage, damage_flag, FALSE)
+	var/skin_rating = 1
+	var/bone_rating = 1
+	for (var/datum/injury/injury_graph as anything in injuries)
+		skin_rating *= injury_graph.skin_armour_modifier
+		bone_rating *= injury_graph.bone_armour_modifier
 	// Reduce penetration
-	penetration_power -= rand(0, skin_penetration_resistance)
+	penetration_power -= rand(0, skin_penetration_resistance * skin_rating)
 	// Deflection - Permanently reduces damage
-	damage -= bone_deflection
+	damage -= bone_deflection * bone_rating
 	current_damage = damage
-	if (penetration_power + damage < INJURY_PENETRATION_MINIMUM)
-		return
 	if (penetration_power < 0)
 		current_damage += penetration_power
-	if (current_damage <= 0)
+	if (current_damage <= 0 || penetration_power + damage < INJURY_PENETRATION_MINIMUM)
 		return
 	// Bone health
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
-	bone_health -= blunt_damage
-	if (bone_health <= 0)
-		apply_injury(/datum/injury/broken_bone)
-	check_effectiveness()
+	for (var/datum/injury/injury_graph as anything in injuries)
+		injury_graph.apply_damage(blunt_damage, damage_flag, false)
 	// Bone pentration
-	penetration_power -= rand(0, bone_penetration_resistance)
+	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
 	current_damage = damage
-	if (penetration_power < 0)
-		return
-	if (current_damage < 0)
+	if (penetration_power < 0 || current_damage < 0)
 		return
 	// Organ damage
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
@@ -761,8 +753,8 @@
 
 /obj/item/bodypart/proc/check_effectiveness()
 	effectiveness = initial(effectiveness)
-	effectiveness -= 0.5 * initial(effectiveness) * (1 - (bone_health / bone_max_health))
-	effectiveness -= 0.25 * initial(effectiveness) * (1 - (skin_health / skin_max_health))
+	for (var/datum/injury/injury in injuries)
+		effectiveness *= injury.effectiveness_modifier
 	clear_effectiveness_modifiers()
 	update_effectiveness()
 
