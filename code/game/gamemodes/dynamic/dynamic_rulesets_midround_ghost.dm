@@ -1,14 +1,12 @@
-/*
-* A general rule of thumb:
-*
-* 30 points for antagonists that are mostly harmless and will mess with a crew a bit
-* 40 points for antagonists that will actively attack the crew
-* 50 points for antagonists that that may very well end the round
-*/
+/**
+ * A general rule of thumb:
+ *
+ * 30 points for antagonists that are mostly harmless and will mess with a crew a bit
+ * 40 points for antagonists that will actively attack the crew
+ * 50 points for antagonists that that may very well end the round
+**/
 
 /datum/dynamic_ruleset/midround/ghost
-	mob_type = /mob/dead/observer
-
 	/// List of possible locations for this antag to spawn
 	var/list/spawn_locations = list()
 	/// Whether or not this ruleset should be blocked if there aren't any spawn locations
@@ -17,9 +15,6 @@
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
 	candidates = dynamic.current_players[CURRENT_DEAD_PLAYERS] | dynamic.current_players[CURRENT_OBSERVERS]
 
-/*
-* This doesn't inherent the base behavior because ghosts don't have minds and it leads to spaghetti code
-*/
 /datum/dynamic_ruleset/midround/ghost/trim_candidates()
 	for(var/mob/candidate in candidates)
 		if(!candidate.client)
@@ -86,62 +81,61 @@
 	// Pick our candidates
 	for(var/i = 1 to drafted_players_amount)
 		var/mob/dead/observer/chosen_candidate = select_player()
-
 		chosen_candidates += chosen_candidate
 
 	// Generate our candidates' bodies
 	for(var/mob/dead/observer/chosen_candidate in chosen_candidates)
 		var/mob/new_character = generate_ruleset_body(chosen_candidate)
-
 		finish_setup(new_character)
-		notify_ghosts("[chosen_candidate] has been picked for the ruleset [name]!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
+
+		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
-/*
-* Get a list of all possible spawn points
-*/
+/**
+ * Get a list of all possible spawn points
+**/
 /datum/dynamic_ruleset/midround/ghost/proc/get_spawn_locations()
 	for(var/obj/effect/landmark/carpspawn/spawnpoint in GLOB.landmarks_list)
 		if(isturf(spawnpoint.loc))
 			spawn_locations += spawnpoint.loc
 
-/*
-* Send a poll to ghosts to see if they wanna sign up for a ruleset
-*/
+/**
+ * Send a poll to ghosts to see if they wanna sign up for a ruleset
+**/
 /datum/dynamic_ruleset/midround/ghost/proc/send_applications()
 	// How?
 	if(!length(candidates))
 		return
 
 	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
-	log_dynamic("Polling [length(candidates)] player\s to apply for the [src] ruleset.")
+	log_dynamic("MIDROUND: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
-	candidates = poll_ghost_candidates("Looking for [src] volunteers", initial(antag_datum.banning_key), role_preference)
-
-	if(!length(candidates))
-		message_admins("DYNAMIC: The ruleset [src] received no applications.")
-		log_dynamic("NOT ALLOWED: The ruleset [src] received no applications.")
-		return
+	candidates = poll_candidates(
+		question = "Looking for [src] volunteers",
+		banning_key = initial(antag_datum.banning_key),
+		role_preference_key = role_preference,
+		group = candidates
+	)
 
 	if(length(candidates) >= drafted_players_amount)
 		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
 		log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
 	else
-		message_admins("Not enough players volunteered for the ruleset [src] - [length(candidates)] out of [drafted_players_amount].")
-		log_dynamic("FAIL: Not enough players volunteered for the ruleset [src] - [length(candidates)] out of [drafted_players_amount].")
+		message_admins("DYNAMIC: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
+		log_dynamic("MIDROUND: FAIL: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
 
-/*
-* Spawn the antag's body
-*/
+/**
+ * Spawn a body for the chosen candidate
+**/
 /datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/carbon/human/new_body = makeBody(chosen_mob)
 	new_body.dna.remove_all_mutations()
 	return new_body
 
-/*
-* Finalize the antag's body
-*/
+/**
+ * Finalize the candidate's body
+**/
 /datum/dynamic_ruleset/midround/ghost/proc/finish_setup(mob/new_character)
 	new_character.mind.add_antag_datum(antag_datum)
 	new_character.mind.special_role = antag_datum.banning_key
@@ -193,14 +187,14 @@
 	new_character.mind.special_role = ROLE_OPERATIVE
 	new_character.mind.assigned_role = ROLE_OPERATIVE
 
-	if(!has_made_leader)
-		has_made_leader = TRUE
+	if(has_made_leader)
+		return ..()
 
-		var/datum/antagonist/nukeop/leader/leader_datum = new
-		team = leader_datum.nuke_team
-		new_character.mind.add_antag_datum(leader_datum)
-	else
-		..()
+	has_made_leader = TRUE
+
+	var/datum/antagonist/nukeop/leader/leader_datum = new
+	team = leader_datum.nuke_team
+	new_character.mind.add_antag_datum(leader_datum)
 
 //////////////////////////////////////////////
 //                                          //
@@ -237,8 +231,11 @@
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/obj/vent = pick_n_take(spawn_locations)
+
 	var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
+	new_xeno.forceMove(vent)
 	new_xeno.key = chosen_mob.key
+
 	return new_xeno
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/get_spawn_locations()
@@ -361,13 +358,12 @@
 	new_character.mind.special_role = ROLE_ABDUCTOR
 	new_character.mind.assigned_role = ROLE_ABDUCTOR
 
-	if(!has_made_leader)
-		has_made_leader = TRUE
+	if(has_made_leader)
+		return ..()
 
-		team = new
-		new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team)
-	else
-		..()
+	has_made_leader = TRUE
+	team = new
+	new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team)
 
 //////////////////////////////////////////////
 //                                          //
@@ -496,6 +492,7 @@
 
 	var/obj/vent = pick(spawn_locations)
 	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new(vent.loc)
+	broodmother_body.forceMove(vent)
 	player_mind.transfer_to(broodmother_body)
 
 	if(feed)

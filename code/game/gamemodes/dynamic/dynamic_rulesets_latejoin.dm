@@ -1,8 +1,5 @@
-//////////////////////////////////////////////
-//                                          //
-//            LATEJOIN RULESETS             //
-//                                          //
-//////////////////////////////////////////////
+/datum/dynamic_ruleset/latejoin
+	rule_category = DYNAMIC_CATEGORY_LATEJOIN
 
 /datum/dynamic_ruleset/latejoin/trim_candidates()
 	. = ..()

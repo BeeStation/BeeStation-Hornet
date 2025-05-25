@@ -28,17 +28,6 @@
 			candidates -= candidate
 			continue
 
-/datum/dynamic_ruleset/midround/select_player()
-	if(!length(candidates))
-		stack_trace("[src] called select_player without any candidates!")
-		return
-
-	var/mob/selected_player = dynamic && CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
-
-	if(selected_player)
-		candidates -= selected_player
-	return selected_player.mind
-
 /datum/dynamic_ruleset/midround/execute()
 	// Get our candidates
 	set_drafted_players_amount()
@@ -46,14 +35,13 @@
 	trim_candidates()
 
 	if(!length(candidates))
-		return DYNAMIC_EXECUTE_FAILURE
+		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 	for(var/i = 1 to drafted_players_amount)
 		var/datum/mind/chosen_mind = select_player()
 
 		chosen_candidates += chosen_mind
 		chosen_mind.special_role = antag_datum.banning_key
-
 	. = ..()
 
 //////////////////////////////////////////////
