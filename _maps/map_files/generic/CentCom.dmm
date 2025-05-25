@@ -19285,7 +19285,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/beret/centcom_formal,
+/obj/item/clothing/head/beret/centcom_overseer,
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 1
 	},
