@@ -112,7 +112,7 @@
 		/mob/living/basic/pet/dog/pug, /mob/living/simple_animal/pet/fox)
 
 /obj/effect/holodeck_effect/mobspawner/bee
-	mobtype = /mob/living/simple_animal/hostile/poison/bees/toxin
+	mobtype = /mob/living/simple_animal/hostile/bee/toxin
 
 /obj/effect/holodeck_effect/mobspawner/monkey
 	mobtype = /mob/living/simple_animal/holodeck_monkey
