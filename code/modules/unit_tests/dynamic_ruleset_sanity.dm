@@ -25,7 +25,7 @@
 			TEST_FAIL("[ruleset] has no role preference!")
 
 	// Midround
-	for(var/datum/dynamic_ruleset/midround/ruleset as anything in subtypesof(/datum/dynamic_ruleset/midround) - /datum/dynamic_ruleset/midround/ghost)
+	for(var/datum/dynamic_ruleset/midround/ruleset as anything in subtypesof(/datum/dynamic_ruleset/midround) - /datum/dynamic_ruleset/midround/ghost - /datum/dynamic_ruleset/midround/living)
 
 		// Severity
 		var/severity = initial(ruleset.severity)
