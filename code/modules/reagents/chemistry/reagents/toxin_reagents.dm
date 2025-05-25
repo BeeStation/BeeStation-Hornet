@@ -40,11 +40,11 @@
 	if(!M.has_dna())
 		return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==VAPOR && prob(min(33, reac_volume))) || method==INGEST || method==PATCH || method==INJECT)
-		M.randmuti()
+		M.random_mutate_unique_identity()
 		if(prob(98))
-			M.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			M.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 		else
-			M.easy_randmut(POSITIVE)
+			M.easy_random_mutate(POSITIVE)
 		M.updateappearance()
 		M.domutcheck()
 	..()
