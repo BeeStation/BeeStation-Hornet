@@ -1,0 +1,7 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - tweak: Lowered the pray sound admins get when chaplains pray.
+  - soundadd: Added more sounds that play when players IC message admins through various
+      means.
+  - admin: Added the Requests Manager to the bottom of the ticket tab.
