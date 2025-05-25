@@ -540,6 +540,7 @@
 	role_preference = /datum/role_preference/midround_ghost/swarmer
 	points_cost = 40
 	weight = 4
+	flags = CANNOT_REPEAT
 
 	var/announce_probability = 25
 
