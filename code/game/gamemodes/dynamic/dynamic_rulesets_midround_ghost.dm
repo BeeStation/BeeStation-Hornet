@@ -228,6 +228,7 @@
 	role_preference = /datum/role_preference/midround_ghost/xenomorph
 	points_cost = 50
 	weight = 4
+	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/obj/vent = pick_n_take(spawn_locations)
