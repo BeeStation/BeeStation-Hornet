@@ -174,13 +174,20 @@
 /datum/dynamic_ruleset/roundstart/brothers/choose_candidates()
 	. = ..()
 	team = new
-	team.pick_meeting_area()
-	team.forge_brother_objectives()
-	team.update_name()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		team.add_member(chosen_mind)
 		GLOB.pre_setup_antags -= chosen_mind
+
+/datum/dynamic_ruleset/roundstart/brothers/execute()
+	team.pick_meeting_area()
+	team.forge_brother_objectives()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		GLOB.pre_setup_antags -= chosen_mind
+		chosen_mind.add_antag_datum(antag_datum, team)
+
+	team.update_name()
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
