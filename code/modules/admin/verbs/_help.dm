@@ -265,6 +265,11 @@
 		type = STAT_BUTTON,
 		action = "browsetickets",
 	)
+	tab_data["Requests"] = list(
+		text = "Open Requests Browser",
+		type = STAT_BUTTON,
+		action = "browserequests",
+	)
 	return tab_data
 
 //Reassociate still open ticket if one exists
