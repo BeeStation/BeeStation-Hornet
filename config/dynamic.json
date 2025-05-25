@@ -16,6 +16,9 @@
 		},
 		"Revolution": {
 			"points_cost": 100
+		},
+		"Clown Operatives": {
+			"points_cost": 500
 		}
 	},
 	"Midround": {

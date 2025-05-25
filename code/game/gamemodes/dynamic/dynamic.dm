@@ -117,12 +117,12 @@
 	/// The time at which midrounds can start rolling
 	var/midround_grace_period = 15 MINUTES
 	/// The amount of midround points given per minute for every type of player
-	var/midround_points_per_living = 0.1
+	var/midround_points_per_living = 0.2
 	var/midround_points_per_observer = 0
-	var/midround_points_per_dead = -0.2
+	var/midround_points_per_dead = -0.5
 	/// Every time we update midround points we add this value to the points and to itself
 	/// For example: Minute 1, +0.05. Minute 2, +0.1. Minute 3, +0.15...
-	var/midround_linear_point_increase = 0.03
+	var/midround_linear_point_increase = 0.01
 
 	/**
 	 * Latejoin
@@ -462,16 +462,15 @@
 /datum/game_mode/dynamic/proc/update_midround_points()
 	var/previous_midround_points = midround_points
 
-	midround_points += length(current_players[CURRENT_LIVING_PLAYERS]) * midround_points_per_living
-	midround_points += length(current_players[CURRENT_OBSERVERS]) * midround_points_per_observer
-	midround_points += length(current_players[CURRENT_DEAD_PLAYERS]) * midround_points_per_dead
-
+	var/midround_delta = 0
+	midround_delta += length(current_players[CURRENT_LIVING_PLAYERS]) * midround_points_per_living
+	midround_delta += length(current_players[CURRENT_OBSERVERS]) * midround_points_per_observer
+	midround_delta += length(current_players[CURRENT_DEAD_PLAYERS]) * midround_points_per_dead
 	for(var/mob/antag in current_players[CURRENT_LIVING_ANTAGS])
 		for(var/datum/antagonist/antag_datum in antag.mind?.antag_datums)
-			midround_points += antag_datum.get_dynamic_midround_points()
+			midround_delta += antag_datum.get_dynamic_midround_points()
 
-	midround_points = max(midround_points, 0)
-
+	midround_points += max(midround_delta, 0)
 	midround_points += midround_linear_point_increase
 	midround_linear_point_increase += initial(midround_linear_point_increase)
 
