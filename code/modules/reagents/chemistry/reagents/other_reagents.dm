@@ -1741,6 +1741,7 @@
 			H.hair_color = pick(potential_colors)
 			H.facial_hair_color = pick(potential_colors)
 			H.update_hair()
+			H.update_mutant_bodyparts()
 
 /datum/reagent/barbers_aid
 	name = "Barber's Aid"
