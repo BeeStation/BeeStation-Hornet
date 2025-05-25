@@ -8,7 +8,7 @@
 	show_to_ghosts = TRUE
 
 /datum/antagonist/slaughter/get_dynamic_midround_points()
-	return -0.4
+	return -4
 
 /datum/antagonist/slaughter/on_gain()
 	forge_objectives()
