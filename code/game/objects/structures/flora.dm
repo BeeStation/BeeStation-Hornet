@@ -7,7 +7,7 @@
 /obj/structure/flora/tree
 	name = "tree"
 	desc = "A large tree."
-	density = TRUE
+	density = FALSE
 	pixel_x = -16
 	layer = FLY_LAYER
 	var/log_amount = 10
@@ -31,6 +31,14 @@
 
 	else
 		return ..()
+
+/obj/structure/spider/stickyweb/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	if(isliving(AM))
+		var/mob/living/L = AM
+		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged
+			to_chat(L, span_danger("You squeeze past \the [src] slowly."))
+		L.Immobilize(1.5 SECONDS)
 
 /obj/structure/flora/stump
 	name = "stump"
