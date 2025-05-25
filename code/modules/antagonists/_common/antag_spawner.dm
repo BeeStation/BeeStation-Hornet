@@ -2,7 +2,11 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
+
+	/// Whether or not this contract has been used
 	var/used = FALSE
+	/// Whether or not we're currently polling ghosts, to prevent spam
+	var/currently_polling_ghosts = FALSE
 
 /obj/item/antag_spawner/proc/spawn_antag(client/C, turf/T, kind = "", datum/mind/user)
 	return
@@ -55,19 +59,31 @@
 	if(loc == H || (in_range(src, H) && isturf(loc)))
 		H.set_machine(src)
 		if(href_list["school"])
+			if(currently_polling_ghosts)
+				to_chat(H, "Already requesting support!")
+				return
 			if(used)
 				to_chat(H, "You already used this contract!")
 				return
-			var/list/candidates = poll_ghost_candidates("Do you want to play as a wizard's [href_list["school"]] apprentice?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 15 SECONDS, ignore_category = POLL_IGNORE_WIZARD_HELPER)
-			if(LAZYLEN(candidates))
+
+			currently_polling_ghosts = TRUE
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+				question = "Do you want to play as a wizard's [href_list["school"]] apprentice?",
+				role = /datum/role_preference/midround_ghost/wizard,
+				check_jobban = ROLE_WIZARD,
+				poll_time = 15 SECONDS,
+				ignore_category = POLL_IGNORE_WIZARD_HELPER,
+				jump_target = H,
+				role_name_text = "[href_list["school"]] apprentice",
+				alert_pic = H,
+			)
+			currently_polling_ghosts = FALSE
+
+			if(candidate)
 				if(QDELETED(src))
 					return
-				if(used)
-					to_chat(H, "You already used this contract!")
-					return
 				used = TRUE
-				var/mob/dead/observer/C = pick(candidates)
-				spawn_antag(C.client, get_turf(src), href_list["school"],H.mind)
+				spawn_antag(candidate.client, get_turf(src), href_list["school"], H.mind)
 			else
 				to_chat(H, "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.")
 
@@ -114,19 +130,25 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/antag_spawner/nuke_ops/attack_self(mob/user)
 	if(!(check_usability(user)))
 		return
 
 	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
-	var/list/nuke_candidates = poll_ghost_candidates("Do you want to play as a syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]?", ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative, 15 SECONDS)
-	if(LAZYLEN(nuke_candidates))
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/midround_ghost/nuclear_operative,
+		check_jobban = ROLE_OPERATIVE,
+		poll_time = 15 SECONDS,
+		jump_target = user,
+		role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]",
+		alert_pic = /mob/living/silicon/robot/modules/syndicate,
+	)
+	if(candidate)
 		if(QDELETED(src) || !check_usability(user))
 			return
 		used = TRUE
-		var/mob/dead/observer/G = pick(nuke_candidates)
-		spawn_antag(G.client, get_turf(src), "syndieborg", user.mind)
+
+		spawn_antag(candidate.client, get_turf(src), "syndieborg", user.mind)
 		do_sparks(4, TRUE, src)
 		qdel(src)
 	else
@@ -240,13 +262,20 @@
 		return
 	if(used)
 		return
-	var/list/candidates = poll_ghost_candidates("Do you want to play as a [initial(demon_type.name)]?", ROLE_SLAUGHTER_DEMON, null, 10 SECONDS, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		check_jobban = ROLE_SLAUGHTER_DEMON,
+		poll_time = 10 SECONDS,
+		jump_target = user,
+		role_name_text = initial(demon_type.name),
+		alert_pic = /mob/living/simple_animal/hostile/imp/slaughter,
+	)
+	if(candidate)
 		if(used || QDELETED(src))
 			return
 		used = TRUE
-		var/mob/dead/observer/C = pick(candidates)
-		spawn_antag(C.client, get_turf(src), initial(demon_type.name),user.mind)
+
+		spawn_antag(candidate.client, get_turf(src), initial(demon_type.name),user.mind)
 		to_chat(user, shatter_msg)
 		to_chat(user, veil_msg)
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
