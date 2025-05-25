@@ -256,7 +256,7 @@ GENE SCANNER
 		message += "\t[span_alert("Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.")]"
 		if(advanced)
 			message += "\t[span_info("Cellular Damage Level: [M.getCloneLoss()].")]"
-	if(!M.getorganslot(ORGAN_SLOT_BRAIN))
+	if(!M.get_organ_slot(ORGAN_SLOT_BRAIN))
 		message += "\t[span_alert("Subject lacks a brain.")]"
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -291,7 +291,7 @@ GENE SCANNER
 	if(advanced)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
-			var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
+			var/obj/item/organ/ears/ears = C.get_organ_slot(ORGAN_SLOT_EARS)
 			message += "\t[span_info("<b>==EAR STATUS==</b>")]"
 			if(istype(ears))
 				var/healthy = TRUE
@@ -310,7 +310,7 @@ GENE SCANNER
 						healthy = FALSE
 				if(healthy)
 					message += "\t[span_info("Healthy.")]"
-			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
+			var/obj/item/organ/eyes/eyes = C.get_organ_slot(ORGAN_SLOT_EYES)
 			message += "\t[span_info("<b>==EYE STATUS==</b>")]"
 			if(istype(eyes))
 				var/healthy = TRUE
@@ -482,7 +482,9 @@ GENE SCANNER
 				else
 					blood_type = blood_id
 			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
-			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
+			if(HAS_TRAIT(C, TRAIT_MASQUERADE))
+				message += span_info("Blood level: 100 %, 560 cl, type: [blood_info]")
+			else if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
 				message += span_alert("Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]")
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
 				message += span_alert("Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]")

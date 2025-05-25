@@ -160,6 +160,10 @@
 	return ..()
 
 /obj/item/clothing/neck/necklace/memento_mori/proc/memento(mob/living/carbon/human/user)
+	if(IS_VAMPIRE(user))
+		to_chat(user, span_warning("The Memento notices your undead soul, and refuses to react.."))
+		return
+
 	to_chat(user, span_warning("You feel your life being drained by the pendant..."))
 	if(do_after(user, 40, target = user))
 		to_chat(user, span_notice("Your lifeforce is now linked to the pendant! You feel like removing it would kill you, and yet you instinctively know that until then, you won't die."))
@@ -621,7 +625,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			return ..()
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 			if(H.getorgan(/obj/item/organ/wings))
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
 					wings.flight_level += 1 //upgrade the flight level

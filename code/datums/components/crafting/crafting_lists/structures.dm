@@ -120,6 +120,41 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
+/datum/crafting_recipe/blackcoffin
+	name = "Black Coffin"
+	result = /obj/structure/closet/crate/coffin/blackcoffin
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
+	reqs = list(
+		/obj/item/stack/sheet/cotton/cloth = 1,
+		/obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/sheet/iron = 1,
+	)
+	time = 15 SECONDS
+	category = CAT_STRUCTURE
+
+/datum/crafting_recipe/securecoffin
+	name = "Secure Coffin"
+	result = /obj/structure/closet/crate/coffin/securecoffin
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
+	reqs = list(
+		/obj/item/stack/rods = 1,
+		/obj/item/stack/sheet/plasteel = 5,
+		/obj/item/stack/sheet/iron = 5,
+	)
+	time = 15 SECONDS
+	category = CAT_STRUCTURE
+
+/datum/crafting_recipe/metalcoffin
+	name = "Metal Coffin"
+	result = /obj/structure/closet/crate/coffin/metalcoffin
+	tools = list(TOOL_WRENCH, TOOL_SCREWDRIVER)
+	reqs = list(
+		/obj/item/stack/sheet/iron = 6,
+		/obj/item/stack/rods = 2,
+	)
+	time = 10 SECONDS
+	category = CAT_STRUCTURE
+
 /datum/crafting_recipe/air_sensor
 	name = "Monitored Air Sensor"
 	result = /obj/item/air_sensor
@@ -132,6 +167,7 @@
 	tools = list(TOOL_SCREWDRIVER)
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
+
 /datum/crafting_recipe/weightmachine
 	name = "Chest press machine"
 	result = /obj/structure/weightmachine
@@ -168,4 +204,3 @@
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
-
