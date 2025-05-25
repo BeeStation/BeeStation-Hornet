@@ -110,10 +110,7 @@
 	if (!LO)
 		icon_state = "transparent"
 		return
-	if (below.shadower)
-		icon_state = below.shadower.icon_state
-	else
-		icon_state = "dark"
+	icon_state = "dark"
 	// Underlay lighting stuff, if it gets ported: appearance = LO.current_underlay
 	appearance = LO
 	layer = MIMICKED_LIGHTING_LAYER
