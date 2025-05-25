@@ -1,24 +1,25 @@
 import { BooleanLike } from 'common/react';
-import { Box, Button, NumberInput, Flex } from '../../components';
 import { classes } from 'common/react';
-import { formatMoney, formatSiUnit } from '../../format';
-import { useSharedState } from '../../backend';
-import { BoxProps } from '../../components/Box';
 import { CSSProperties } from 'react';
 
+import { useSharedState } from '../../backend';
+import { Box, Button, Flex, NumberInput } from '../../components';
+import { BoxProps } from '../../components/Box';
+import { formatMoney, formatSiUnit } from '../../format';
+
 export const MATERIAL_KEYS = {
-  'iron': 'sheet-metal_3',
-  'glass': 'sheet-glass_3',
-  'copper': 'sheet-copper_3',
-  'silver': 'sheet-silver_3',
-  'gold': 'sheet-gold_3',
-  'diamond': 'sheet-diamond',
-  'plasma': 'sheet-plasma_3',
-  'uranium': 'sheet-uranium',
-  'bananium': 'sheet-bananium',
-  'titanium': 'sheet-titanium_3',
+  iron: 'sheet-metal_3',
+  glass: 'sheet-glass_3',
+  copper: 'sheet-copper_3',
+  silver: 'sheet-silver_3',
+  gold: 'sheet-gold_3',
+  diamond: 'sheet-diamond',
+  plasma: 'sheet-plasma_3',
+  uranium: 'sheet-uranium',
+  bananium: 'sheet-bananium',
+  titanium: 'sheet-titanium_3',
   'bluespace crystal': 'polycrystal',
-  'plastic': 'sheet-plastic_3',
+  plastic: 'sheet-plastic_3',
 } as const;
 
 export type Material = {
@@ -36,12 +37,23 @@ interface MaterialIconProps extends BoxProps {
 export const MaterialIcon = (props: MaterialIconProps) => {
   const { material, ...rest } = props;
 
-  return <Box {...rest} className={classes(['sheetmaterials32x32', MATERIAL_KEYS[material]])} />;
+  return (
+    <Box
+      {...rest}
+      className={classes(['sheetmaterials32x32', MATERIAL_KEYS[material]])}
+    />
+  );
 };
 
-const EjectMaterial = (props: { material: Material; onEject: (amount: number) => void }) => {
+const EjectMaterial = (props: {
+  material: Material;
+  onEject: (amount: number) => void;
+}) => {
   const { name, removable, sheets } = props.material;
-  const [removeMaterials, setRemoveMaterials] = useSharedState('remove_mats_' + name, 1);
+  const [removeMaterials, setRemoveMaterials] = useSharedState(
+    'remove_mats_' + name,
+    1,
+  );
   if (removeMaterials > 1 && sheets < removeMaterials) {
     setRemoveMaterials(sheets || 1);
   }
@@ -71,12 +83,19 @@ const EjectMaterial = (props: { material: Material; onEject: (amount: number) =>
   );
 };
 
-export const Materials = (props: { materials: Material[]; onEject: (ref: string, amount: number) => void }) => {
+export const Materials = (props: {
+  materials: Material[];
+  onEject: (ref: string, amount: number) => void;
+}) => {
   return (
     <Flex wrap>
       {props.materials.map((material) => (
         <Flex.Item key={material.name} grow={1} shrink={1}>
-          <MaterialAmount name={material.name} amount={material.amount} formatting={MaterialFormatting.SIUnits} />
+          <MaterialAmount
+            name={material.name}
+            amount={material.amount}
+            formatting={MaterialFormatting.SIUnits}
+          />
           <Box mt={1} textAlign="center">
             <EjectMaterial
               material={material}

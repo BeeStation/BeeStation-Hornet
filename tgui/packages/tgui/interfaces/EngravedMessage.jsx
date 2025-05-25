@@ -1,4 +1,5 @@
 import { decodeHtmlEntities } from 'common/string';
+
 import { useBackend } from '../backend';
 import { Box, Button, Grid, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
@@ -74,10 +75,22 @@ export const EngravedMessage = (props) => {
         {!!admin_mode && (
           <Section
             title="Admin Panel"
-            buttons={<Button icon="times" content="Delete" color="bad" onClick={() => act('delete')} />}>
+            buttons={
+              <Button
+                icon="times"
+                content="Delete"
+                color="bad"
+                onClick={() => act('delete')}
+              />
+            }
+          >
             <LabeledList>
-              <LabeledList.Item label="Creator Ckey">{creator_key}</LabeledList.Item>
-              <LabeledList.Item label="Creator Character Name">{creator_name}</LabeledList.Item>
+              <LabeledList.Item label="Creator Ckey">
+                {creator_key}
+              </LabeledList.Item>
+              <LabeledList.Item label="Creator Character Name">
+                {creator_name}
+              </LabeledList.Item>
             </LabeledList>
           </Section>
         )}

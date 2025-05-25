@@ -6,6 +6,7 @@
 
 import { canRender, classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
+
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 
@@ -43,14 +44,24 @@ export const Tabs = (props: Props) => {
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
+      {...computeBoxProps(rest)}
+    >
       {children}
     </div>
   );
 };
 
 const Tab = (props: TabProps) => {
-  const { className, selected, color, icon, leftSlot, rightSlot, children, ...rest } = props;
+  const {
+    className,
+    selected,
+    color,
+    icon,
+    leftSlot,
+    rightSlot,
+    children,
+    ...rest
+  } = props;
 
   return (
     <div
@@ -62,7 +73,8 @@ const Tab = (props: TabProps) => {
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
+      {...computeBoxProps(rest)}
+    >
       {(canRender(leftSlot) && <div className="Tab__left">{leftSlot}</div>) ||
         (!!icon && (
           <div className="Tab__left">

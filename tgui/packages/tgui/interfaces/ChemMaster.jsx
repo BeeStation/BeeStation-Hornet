@@ -1,6 +1,17 @@
 import { classes } from 'common/react';
+
 import { useBackend, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, ColorBox, Input, LabeledList, NumberInput, Section, Table } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  ColorBox,
+  Input,
+  LabeledList,
+  NumberInput,
+  Section,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 export const ChemMaster = (props) => {
@@ -8,14 +19,17 @@ export const ChemMaster = (props) => {
   const { screen } = data;
   return (
     <Window width={465} height={620}>
-      <Window.Content scrollable>{(screen === 'analyze' && <AnalysisResults />) || <ChemMasterContent />}</Window.Content>
+      <Window.Content scrollable>
+        {(screen === 'analyze' && <AnalysisResults />) || <ChemMasterContent />}
+      </Window.Content>
     </Window>
   );
 };
 
 const ChemMasterContent = (props) => {
   const { act, data } = useBackend();
-  const { saved_volume, saved_name, saved_volume_state, saved_name_state } = data;
+  const { saved_volume, saved_name, saved_volume_state, saved_name_state } =
+    data;
   const {
     screen,
     beakerContents = [],
@@ -43,10 +57,15 @@ const ChemMasterContent = (props) => {
                 <AnimatedNumber value={beakerCurrentVolume} initial={0} />
                 {` / ${beakerMaxVolume} units`}
               </Box>
-              <Button icon="eject" content="Eject" onClick={() => act('eject')} />
+              <Button
+                icon="eject"
+                content="Eject"
+                onClick={() => act('eject')}
+              />
             </>
           )
-        }>
+        }
+      >
         {!isBeakerLoaded && (
           <Box color="label" mt="3px" mb="5px">
             No beaker loaded.
@@ -59,7 +78,11 @@ const ChemMasterContent = (props) => {
         )}
         <ChemicalBuffer>
           {beakerContents.map((chemical) => (
-            <ChemicalBufferEntry key={chemical.id} chemical={chemical} transferTo="buffer" />
+            <ChemicalBufferEntry
+              key={chemical.id}
+              chemical={chemical}
+              transferTo="buffer"
+            />
           ))}
         </ChemicalBuffer>
       </Section>
@@ -81,7 +104,8 @@ const ChemMasterContent = (props) => {
               onClick={() => act('toggleMode')}
             />
           </>
-        }>
+        }
+      >
         {bufferContents.length === 0 && (
           <Box color="label" mt="3px" mb="5px">
             Buffer is empty.
@@ -89,7 +113,11 @@ const ChemMasterContent = (props) => {
         )}
         <ChemicalBuffer>
           {bufferContents.map((chemical) => (
-            <ChemicalBufferEntry key={chemical.id} chemical={chemical} transferTo="beaker" />
+            <ChemicalBufferEntry
+              key={chemical.id}
+              chemical={chemical}
+              transferTo="beaker"
+            />
           ))}
         </ChemicalBuffer>
       </Section>
@@ -104,7 +132,12 @@ const ChemMasterContent = (props) => {
               icon={saved_volume_state === 'Exact' ? 'eye-dropper' : 'flask'}
               content={`${saved_volume_state}`}
               tooltip="Volume Distribution"
-              onClick={() => act('setSavedVolumeState', { volume_state: saved_volume_state === 'Exact' ? 'Auto' : 'Exact' })}
+              onClick={() =>
+                act('setSavedVolumeState', {
+                  volume_state:
+                    saved_volume_state === 'Exact' ? 'Auto' : 'Exact',
+                })
+              }
             />
             {saved_volume_state === 'Exact' && (
               <NumberInput
@@ -119,7 +152,8 @@ const ChemMasterContent = (props) => {
               />
             )}
           </>
-        }>
+        }
+      >
         <Box mb={2}>
           <Box inline color="label" mr={1}>
             Naming Mode:
@@ -127,7 +161,11 @@ const ChemMasterContent = (props) => {
           <Button
             icon={saved_name_state === 'Manual' ? 'pen' : 'print'}
             content={`${saved_name_state}`}
-            onClick={() => act('setSavedNameState', { name_state: saved_name_state === 'Manual' ? 'Auto' : 'Manual' })}
+            onClick={() =>
+              act('setSavedNameState', {
+                name_state: saved_name_state === 'Manual' ? 'Auto' : 'Manual',
+              })
+            }
           />
           {saved_name_state === 'Manual' && (
             <Input
@@ -153,7 +191,11 @@ const ChemMasterContent = (props) => {
               <Box inline color="label" mr={2}>
                 {pillBottleCurrentAmount} / {pillBottleMaxAmount} pills
               </Box>
-              <Button icon="eject" content="Eject" onClick={() => act('ejectPillBottle')} />
+              <Button
+                icon="eject"
+                content="Eject"
+                onClick={() => act('ejectPillBottle')}
+              />
             </>
           }
         />
@@ -240,7 +282,8 @@ const ChemicalBufferEntry = (props) => {
 };
 
 const PackagingControlsItem = (props) => {
-  const { label, amountUnit, amount, onChangeAmount, onCreate, sideNote } = props;
+  const { label, amountUnit, amount, onChangeAmount, onCreate, sideNote } =
+    props;
   return (
     <LabeledList.Item label={label}>
       <NumberInput
@@ -291,8 +334,15 @@ const PackagingControls = ({ volume, packagingName }) => {
               selected={each_style.id === chosen_pill_style}
               textAlign="center"
               color="transparent"
-              onClick={() => act('pillStyle', { id: each_style.id })}>
-              <Box mx={-1} className={classes(['medicine_containers22x22', each_style.pill_icon_name])} />
+              onClick={() => act('pillStyle', { id: each_style.id })}
+            >
+              <Box
+                mx={-1}
+                className={classes([
+                  'medicine_containers22x22',
+                  each_style.pill_icon_name,
+                ])}
+              />
             </Button>
           ))}
         </LabeledList.Item>
@@ -324,8 +374,15 @@ const PackagingControls = ({ volume, packagingName }) => {
               selected={each_style.id === chosen_patch_style}
               textAlign="center"
               color="transparent"
-              onClick={() => act('patchStyle', { id: each_style.id })}>
-              <Box mx={-1} className={classes(['medicine_containers22x22', each_style.patch_icon_name])} />
+              onClick={() => act('patchStyle', { id: each_style.id })}
+            >
+              <Box
+                mx={-1}
+                className={classes([
+                  'medicine_containers22x22',
+                  each_style.patch_icon_name,
+                ])}
+              />
             </Button>
           ))}
         </LabeledList.Item>
@@ -383,9 +440,14 @@ const PackagingControls = ({ volume, packagingName }) => {
       {!!condi && (
         <LabeledList.Item label="Bottle type">
           <Button.Checkbox
-            onClick={() => act('condiStyle', { id: autoCondiStyleChosen ? condiStyles[0].id : autoCondiStyle })}
+            onClick={() =>
+              act('condiStyle', {
+                id: autoCondiStyleChosen ? condiStyles[0].id : autoCondiStyle,
+              })
+            }
             checked={autoCondiStyleChosen}
-            disabled={!condiStyles.length}>
+            disabled={!condiStyles.length}
+          >
             Guess from contents
           </Button.Checkbox>
         </LabeledList.Item>
@@ -400,7 +462,8 @@ const PackagingControls = ({ volume, packagingName }) => {
               textAlign="center"
               color="transparent"
               title={style.title}
-              onClick={() => act('condiStyle', { id: style.id })}>
+              onClick={() => act('condiStyle', { id: style.id })}
+            >
               <Box mx={-1} className={style.className} />
             </Button>
           ))}
@@ -459,7 +522,8 @@ const AnalysisResults = (props) => {
             })
           }
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Name">{analyzeVars.name}</LabeledList.Item>
         <LabeledList.Item label="State">{analyzeVars.state}</LabeledList.Item>
@@ -467,10 +531,18 @@ const AnalysisResults = (props) => {
           <ColorBox color={analyzeVars.color} mr={1} />
           {analyzeVars.color}
         </LabeledList.Item>
-        <LabeledList.Item label="Description">{analyzeVars.description}</LabeledList.Item>
-        <LabeledList.Item label="Metabolization Rate">{analyzeVars.metaRate} u/minute</LabeledList.Item>
-        <LabeledList.Item label="Overdose Threshold">{analyzeVars.overD}</LabeledList.Item>
-        <LabeledList.Item label="Addiction Threshold">{analyzeVars.addicD}</LabeledList.Item>
+        <LabeledList.Item label="Description">
+          {analyzeVars.description}
+        </LabeledList.Item>
+        <LabeledList.Item label="Metabolization Rate">
+          {analyzeVars.metaRate} u/minute
+        </LabeledList.Item>
+        <LabeledList.Item label="Overdose Threshold">
+          {analyzeVars.overD}
+        </LabeledList.Item>
+        <LabeledList.Item label="Addiction Threshold">
+          {analyzeVars.addicD}
+        </LabeledList.Item>
       </LabeledList>
     </Section>
   );

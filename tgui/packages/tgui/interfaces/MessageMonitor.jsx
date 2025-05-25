@@ -1,10 +1,21 @@
 import { Component, createRef } from 'react';
+
 import { useBackend, useLocalState } from '../backend';
-import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
+import {
+  BlockQuote,
+  Box,
+  Button,
+  Dimmer,
+  Flex,
+  Icon,
+  Section,
+  Table,
+  Tabs,
+} from '../components';
 import { ButtonConfirm } from '../components/Button';
 import { Window } from '../layouts';
-import { MessageContent } from './NtosMessenger';
 import { sanitizeText } from '../sanitize';
+import { MessageContent } from './NtosMessenger';
 
 const processedText = (value) => {
   return {
@@ -47,7 +58,8 @@ export const MessageMonitorContent = (_) => {
             style={{
               color: 'red',
               whiteSpace: 'pre-wrap',
-            }}>
+            }}
+          >
             {`-------------------
 Crypto-Breaker 5000
 -------------------
@@ -93,22 +105,36 @@ Please Wait...`}
                 onClick={() => act('link')}
               />
             </>
-          }>
+          }
+        >
           {no_server ? 'NOT FOUND' : server_on ? 'OK' : 'OFFLINE'}
         </Section>
       </Flex.Item>
-      <Flex.Item mt={1} grow={!authenticated ? 1 : null} basis={!authenticated ? '78vh' : 'content'}>
+      <Flex.Item
+        mt={1}
+        grow={!authenticated ? 1 : null}
+        basis={!authenticated ? '78vh' : 'content'}
+      >
         <Section fill={!authenticated}>
           {!authenticated ? (
             <Dimmer
               style={{
                 backgroundColor: 'transparent',
-              }}>
+              }}
+            >
               <Flex direction="column" align="center" fontSize="15px">
-                <Flex.Item fontSize="20px">Awaiting Decryption Key...</Flex.Item>
+                <Flex.Item fontSize="20px">
+                  Awaiting Decryption Key...
+                </Flex.Item>
                 <Flex direction="column" align="stretch">
                   <Flex.Item mt={1}>
-                    <Button align="center" fluid content="Enter Key" color="good" onClick={() => act('login')} />
+                    <Button
+                      align="center"
+                      fluid
+                      content="Enter Key"
+                      color="good"
+                      onClick={() => act('login')}
+                    />
                   </Flex.Item>
                   {can_hack ? (
                     <Flex.Item mt={1}>
@@ -135,8 +161,16 @@ Please Wait...`}
                 </Table.Cell>
                 <Table.Cell />
                 <Table.Cell collapsing verticalAlign="middle">
-                  <Button icon="key" content="Reset Encryption Key" onClick={() => act('reset_key')} />
-                  <Button content="Log Out" color="bad" onClick={() => act('logout')} />
+                  <Button
+                    icon="key"
+                    content="Reset Encryption Key"
+                    onClick={() => act('reset_key')}
+                  />
+                  <Button
+                    content="Log Out"
+                    color="bad"
+                    onClick={() => act('logout')}
+                  />
                 </Table.Cell>
               </Table.Row>
             </Table>
@@ -150,10 +184,16 @@ Please Wait...`}
               <Table.Row>
                 <Table.Cell collapsing verticalAlign="middle">
                   <Tabs>
-                    <Tabs.Tab selected={selectedTab === 'pda'} onClick={() => setSelectedTab('pda')}>
+                    <Tabs.Tab
+                      selected={selectedTab === 'pda'}
+                      onClick={() => setSelectedTab('pda')}
+                    >
                       PDA Logs
                     </Tabs.Tab>
-                    <Tabs.Tab selected={selectedTab === 'request'} onClick={() => setSelectedTab('request')}>
+                    <Tabs.Tab
+                      selected={selectedTab === 'request'}
+                      onClick={() => setSelectedTab('request')}
+                    >
                       Request Logs
                     </Tabs.Tab>
                   </Tabs>
@@ -161,7 +201,11 @@ Please Wait...`}
                 <Table.Cell />
                 <Table.Cell collapsing verticalAlign="middle">
                   {selectedTab === 'pda' ? (
-                    <Button icon="envelope" content="Send Admin Message" onClick={() => act('admin_message')} />
+                    <Button
+                      icon="envelope"
+                      content="Send Admin Message"
+                      onClick={() => act('admin_message')}
+                    />
                   ) : null}
                   <ButtonConfirm
                     icon="times"
@@ -175,65 +219,83 @@ Please Wait...`}
           </Section>
           {selectedTab === 'pda'
             ? pda_messages.map((message) => (
-              <Section
-                key={message.ref}
-                title={`${message.sender} to ${message.recipient}`}
-                buttons={
-                  <ButtonConfirm
-                    icon="times"
-                    content="Delete"
-                    onClick={() => act('delete_log', { type: 'pda', ref: message.ref })}
+                <Section
+                  key={message.ref}
+                  title={`${message.sender} to ${message.recipient}`}
+                  buttons={
+                    <ButtonConfirm
+                      icon="times"
+                      content="Delete"
+                      onClick={() =>
+                        act('delete_log', { type: 'pda', ref: message.ref })
+                      }
+                    />
+                  }
+                  mb={2}
+                >
+                  <MessageContent
+                    contents={message.contents}
+                    photo={message.photo}
+                    photo_width={message.photo_width}
+                    photo_height={message.photo_height}
+                    emojis={message.emojis}
+                    emoji_names={emoji_names}
                   />
-                }
-                mb={2}>
-                <MessageContent
-                  contents={message.contents}
-                  photo={message.photo}
-                  photo_width={message.photo_width}
-                  photo_height={message.photo_height}
-                  emojis={message.emojis}
-                  emoji_names={emoji_names}
-                />
-              </Section>
-            ))
+                </Section>
+              ))
             : request_messages.map((request) => (
-              <Section
-                key={request.ref}
-                title={`${request.sending_department} to ${request.receiving_department}`}
-                buttons={
-                  <ButtonConfirm
-                    icon="times"
-                    content="Delete"
-                    onClick={() => act('delete_log', { type: 'request', ref: request.ref })}
-                  />
-                }>
-                <Box inline bold={request.priority !== 'Normal'} color={request.priority !== 'Normal' ? 'bad' : null}>
-                  {request.priority} Priority
-                </Box>
-                <br />
-                {request.stamp && request.stamp !== 'Unstamped' ? (
-                  <>
-                    <Box inline dangerouslySetInnerHTML={processedText(request.stamp)} />
-                    <br />
-                  </>
-                ) : null}
-                {request.id_auth && request.id_auth !== 'Unauthenticated' ? (
-                  <>
-                    <Box inline dangerouslySetInnerHTML={processedText(request.id_auth)} />
-                    <br />
-                  </>
-                ) : null}
-                <BlockQuote>{request.message}</BlockQuote>
-              </Section>
-            ))}
-          {(selectedTab === 'pda' && !pda_messages?.length) || (selectedTab === 'request' && !request_messages?.length) ? (
+                <Section
+                  key={request.ref}
+                  title={`${request.sending_department} to ${request.receiving_department}`}
+                  buttons={
+                    <ButtonConfirm
+                      icon="times"
+                      content="Delete"
+                      onClick={() =>
+                        act('delete_log', { type: 'request', ref: request.ref })
+                      }
+                    />
+                  }
+                >
+                  <Box
+                    inline
+                    bold={request.priority !== 'Normal'}
+                    color={request.priority !== 'Normal' ? 'bad' : null}
+                  >
+                    {request.priority} Priority
+                  </Box>
+                  <br />
+                  {request.stamp && request.stamp !== 'Unstamped' ? (
+                    <>
+                      <Box
+                        inline
+                        dangerouslySetInnerHTML={processedText(request.stamp)}
+                      />
+                      <br />
+                    </>
+                  ) : null}
+                  {request.id_auth && request.id_auth !== 'Unauthenticated' ? (
+                    <>
+                      <Box
+                        inline
+                        dangerouslySetInnerHTML={processedText(request.id_auth)}
+                      />
+                      <br />
+                    </>
+                  ) : null}
+                  <BlockQuote>{request.message}</BlockQuote>
+                </Section>
+              ))}
+          {(selectedTab === 'pda' && !pda_messages?.length) ||
+          (selectedTab === 'request' && !request_messages?.length) ? (
             <Section fill minHeight="380px" maxHeight="calc(100% - 50px)">
               <Dimmer
                 color="label"
                 fontSize={2}
                 style={{
                   backgroundColor: 'transparent',
-                }}>
+                }}
+              >
                 No Data
               </Dimmer>
             </Section>
@@ -306,7 +368,14 @@ class PasswordScroller extends Component {
 
   tick() {
     this.setState((oldState) => {
-      return { text: oldState.text + L1[this.index1] + L2[this.index2] + L3[this.index3] + '\n' };
+      return {
+        text:
+          oldState.text +
+          L1[this.index1] +
+          L2[this.index2] +
+          L3[this.index3] +
+          '\n',
+      };
     });
     if (this.index3 < L3.length - 1) {
       this.index3++;
@@ -349,7 +418,8 @@ class PasswordScroller extends Component {
           whiteSpace: 'pre-wrap',
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
-        }}>
+        }}
+      >
         {this.state.text}
         <div ref={this.endRef} />
       </Section>
