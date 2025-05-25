@@ -210,6 +210,7 @@
 	points_cost = 50
 	weight = 6
 	use_spawn_locations = FALSE
+	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/blob/generate_ruleset_body(mob/dead/observer/chosen_ghost)
 	var/mob/camera/blob/body = chosen_ghost.become_overmind()
