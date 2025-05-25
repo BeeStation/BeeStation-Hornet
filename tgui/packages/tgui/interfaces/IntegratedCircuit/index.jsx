@@ -5,7 +5,7 @@ import { Layout, Window } from '../../layouts';
 import { resolveAsset } from '../../assets';
 import { CircuitInfo } from './CircuitInfo';
 import { NULL_REF, ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
-import { Connections } from './Connections';
+import { Connections } from '../common/Connections';
 import { ObjectComponent } from './ObjectComponent';
 import { VariableMenu } from './VariableMenu';
 
