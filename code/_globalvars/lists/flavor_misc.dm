@@ -337,7 +337,8 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes/dromedaryco,
 	/obj/item/storage/fancy/cigarettes/cigars,
 	/obj/item/storage/fancy/cigarettes/cigars/cohiba,
-	/obj/item/storage/fancy/cigarettes/cigars/havana
+	/obj/item/storage/fancy/cigarettes/cigars/havana,
+	/obj/item/clothing/mask/vape
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(
