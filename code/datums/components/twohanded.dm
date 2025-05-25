@@ -160,11 +160,11 @@
 		return
 	var/atom/attached_atom = parent
 	if(attached_atom.loc != user)
-		to_chat(user, "<span class='warning'>You attempt to wield [parent] via the power of telekenisis, but it is too much for you to handle...</span>")
+		to_chat(user, span_warning("You attempt to wield [parent] via the power of telekenisis, but it is too much for you to handle..."))
 		return
 	if((swap_hands ? user.get_active_held_item() : user.get_inactive_held_item()) || ismonkey(user))
 		if(require_twohands)
-			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
+			to_chat(user, span_notice("[parent] is too cumbersome to carry in one hand!"))
 			user.dropItemToGround(parent, force=TRUE)
 		else
 			if(HAS_TRAIT(user, TRAIT_INFERIORFORM)) //monkeys
@@ -175,7 +175,7 @@
 	if(user.usable_hands < 2)
 		if(require_twohands)
 			user.dropItemToGround(parent, force=TRUE)
-		to_chat(user, "<span class='warning'>You don't have enough intact hands.</span>")
+		to_chat(user, span_warning("You don't have enough intact hands."))
 		return
 
 	// wield update status
@@ -188,7 +188,7 @@
 
 	wielder = user
 	wielded = TRUE
-
+	ADD_TRAIT(parent, TRAIT_WIELDED, REF(src))
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(unreference_wielder))
 
 	if(!auto_wield)
@@ -208,9 +208,9 @@
 	parent_item.update_icon()
 
 	if(iscyborg(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [parent].</span>")
+		to_chat(user, span_notice("You dedicate your module to [parent]."))
 	else
-		to_chat(user, "<span class='notice'>You grab [parent] with both hands.</span>")
+		to_chat(user, span_notice("You grab [parent] with both hands."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -247,6 +247,7 @@
 	if(!auto_wield)
 		UnregisterSignal(wielder, COMSIG_MOB_SWAP_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, wielder)
+	REMOVE_TRAIT(parent, TRAIT_WIELDED, REF(src))
 
 	// update item stats
 	var/obj/item/parent_item = parent
@@ -280,11 +281,11 @@
 	// Show message if requested
 	if(show_message)
 		if(iscyborg(wielder))
-			to_chat(wielder, "<span class='notice'>You free up your module.</span>")
+			to_chat(wielder, span_notice("You free up your module."))
 		else if(require_twohands)
-			to_chat(wielder, "<span class='notice'>You drop [parent].</span>")
+			to_chat(wielder, span_notice("You drop [parent]."))
 		else
-			to_chat(wielder, "<span class='notice'>You are now carrying [parent] with one hand.</span>")
+			to_chat(wielder, span_notice("You are now carrying [parent] with one hand."))
 
 	// Play sound if set
 	if(unwieldsound)

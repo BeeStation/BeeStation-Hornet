@@ -55,20 +55,20 @@
 	)
 	being_reset = FALSE
 	if(!length(candidates))
-		to_chat(summoner.current, "<span class='holoparasite bold'>[color_name] could not be reset, as there were no eligible candidate personalities willing to take over!</span>")
+		to_chat(summoner.current, span_holoparasitebold("[color_name] could not be reset, as there were no eligible candidate personalities willing to take over!"))
 		if(self)
-			to_chat(src, "<span class='holoparasite bold'>Personality reset <span class='danger'>failed</span>: no eligible candidate personalities.</span>")
+			to_chat(src, span_holoparasitebold("Personality reset [span_danger("failed")]: no eligible candidate personalities."))
 		return
 	var/mob/dead/observer/new_player = pick(candidates)
 	if(!new_player)
-		to_chat(summoner.current, "<span class='holoparasite bold'>[color_name] could not be reset due to an error!</span>")
+		to_chat(summoner.current, span_holoparasitebold("[color_name] could not be reset due to an error!"))
 		if(self)
-			to_chat(summoner.current, "<span class='holoparasite bold'>Personality reset <span class='danger'>failed</span>: unknown error!</span>")
+			to_chat(summoner.current, span_holoparasitebold("Personality reset [span_danger("failed")]: unknown error!"))
 		return
-	to_chat(src, "<span class='holoparasite bold big'>[self ? "A ghost took control of you, at your request." : "Your summoner reset you! Better luck next time!"]</span>")
+	to_chat(src, span_holoparasiteboldbig("[self ? "A ghost took control of you, at your request." : "Your summoner reset you! Better luck next time!"]"))
 	ghostize(can_reenter_corpse = FALSE)
 	key = new_player.key
-	to_chat(summoner.current, "<span class='holoparasite bold big'>Personality reset for [color_name] succeeded!</span>")
+	to_chat(summoner.current, span_holoparasiteboldbig("Personality reset for [color_name] succeeded!"))
 	SSblackbox.record_feedback("tally", "holoparasite_reset", 1, automatic ? "automatic" : (self ? "self" : (cooldown ? "summoner" : "summoner (free)")))
 	if(cooldown)
 		COOLDOWN_START(src, reset_cooldown, HOLOPARA_MANUAL_RESET_COOLDOWN)

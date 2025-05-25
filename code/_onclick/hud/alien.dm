@@ -53,11 +53,11 @@
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/act_intent/alien()
-	using.icon_state = mymob.a_intent
-	using.hud = src
-	static_inventory += using
-	action_intent = using
+	action_intent = new /atom/movable/screen/combattoggle/flashy()
+	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
+	static_inventory += action_intent
 
 	if(isalienhunter(mymob))
 		var/mob/living/carbon/alien/humanoid/hunter/H = mymob
@@ -67,6 +67,11 @@
 
 	using = new/atom/movable/screen/language_menu
 	using.screen_loc = ui_alien_language_menu
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/navigate
+	using.screen_loc = ui_alien_navigate_menu
 	using.hud = src
 	static_inventory += using
 

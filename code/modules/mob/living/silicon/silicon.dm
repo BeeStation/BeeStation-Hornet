@@ -9,11 +9,11 @@
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	bubble_icon = "machine"
 	weather_immunities = list("ash")
-	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
 	mob_biotypes = list(MOB_ROBOTIC)
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
+	examine_cursor_icon = null
 	speech_span = SPAN_ROBOT
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
@@ -59,7 +59,7 @@
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
 	GLOB.silicon_mobs += src
-	faction += "silicon"
+	faction += FACTION_SILICON
 	if(ispath(radio))
 		radio = new radio(src)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -68,6 +68,8 @@
 	diag_hud_set_health()
 	create_access_card(default_access_list)
 	default_access_list = null
+	ADD_TRAIT(src, TRAIT_MARTIAL_ARTS_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 
 /mob/living/silicon/Destroy()
 	QDEL_NULL(radio)
@@ -142,7 +144,7 @@
 		for(var/alarm_type in alarm_types_show)
 			msg += "[uppertext(alarm_type)]: [alarm_types_show[alarm_type]] alarms detected. - "
 
-		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href='byond://?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
 		to_chat(src, msg)
 
 	if(alarms_to_clear.len < 3)
@@ -155,7 +157,7 @@
 		for(var/alarm_type in alarm_types_clear)
 			msg += "[uppertext(alarm_type)]: [alarm_types_clear[alarm_type]] alarms cleared. - "
 
-		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href='byond://?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
 		to_chat(src, msg)
 
 	alarms_to_show = list()
@@ -165,13 +167,13 @@
 	for(var/key in alarm_types_clear)
 		alarm_types_clear[key] = 0
 
-/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
-	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+/mob/living/silicon/can_inject(mob/user, target_zone, injection_flags)
 	return FALSE
 
-/mob/living/silicon/IsAdvancedToolUser()
-	return TRUE
+/mob/living/silicon/try_inject(mob/user, target_zone, injection_flags)
+	. = ..()
+	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
+		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
@@ -359,7 +361,7 @@
 			number++
 	list += {"<br><br><A href='byond://?src=[REF(src)];laws=1'>State Laws</A>"}
 
-	usr << browse(list, "window=laws")
+	usr << browse(HTML_SKELETON(list), "window=laws")
 
 /mob/living/silicon/proc/ai_roster()
 	if(!client || !COOLDOWN_FINISHED(client, crew_manifest_delay))
@@ -388,7 +390,7 @@
 				radiomod = ":" + key
 				break
 
-	to_chat(src, "<span class='notice'>Automatic announcements [Autochan == "None" ? "will not use the radio." : "set to [Autochan]."]</span>")
+	to_chat(src, span_notice("Automatic announcements [Autochan == "None" ? "will not use the radio." : "set to [Autochan]."]"))
 
 /mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
 	return 0
@@ -447,7 +449,7 @@
 /mob/living/silicon/get_inactive_held_item()
 	return FALSE
 
-/mob/living/silicon/handle_high_gravity(gravity)
+/mob/living/silicon/handle_high_gravity(gravity, delta_time, times_fired)
 	return
 
 /mob/living/silicon/rust_heretic_act()

@@ -35,6 +35,7 @@
 	var/framestackamount = 2
 	var/deconstruction_ready = 1
 	var/last_bump = 0
+	var/can_climb = TRUE
 	custom_materials = list(/datum/material/iron = 2000)
 	max_integrity = 100
 	integrity_failure = 0.33
@@ -45,7 +46,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	. = ..()
 	if(_buildstack)
 		buildstack = _buildstack
-	AddElement(/datum/element/climbable)
+	if(can_climb)
+		AddElement(/datum/element/climbable)
 
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
@@ -55,7 +57,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || H.body_position == LYING_DOWN || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK || H.dna?.species.bodytype & BODYTYPE_DIGITIGRADE))
 		return
 	if(HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) || ((world.time >= last_bump + 100) && prob(5)))
-		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
+		to_chat(H, span_warning("You stub your toe on the [name]!"))
 		H.stub_toe(2)
 	last_bump = world.time //do the cooldown here so walking into a table only checks toestubs once
 
@@ -64,7 +66,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	. += deconstruction_hints(user)
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
+	return span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")
 
 /obj/structure/table/update_icon(updates=ALL)
 	. = ..()
@@ -90,17 +92,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		if(isliving(user.pulling))
 			var/mob/living/pushed_mob = user.pulling
 			if(pushed_mob.buckled)
-				to_chat(user, "<span class='warning'>[pushed_mob] is buckled to [pushed_mob.buckled]!</span>")
+				to_chat(user, span_warning("[pushed_mob] is buckled to [pushed_mob.buckled]!"))
 				return
-			if(user.a_intent == INTENT_GRAB)
-				if(user.grab_state < GRAB_AGGRESSIVE)
-					to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-					return
-				if(user.grab_state >= GRAB_NECK)
-					tableheadsmash(user, pushed_mob)
-				else
-					tablepush(user, pushed_mob)
-			if(user.a_intent == INTENT_HELP)
+			if(user.combat_mode)
+				switch(user.grab_state)
+					if(GRAB_PASSIVE)
+						to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+						return
+					if(GRAB_AGGRESSIVE)
+						tablepush(user, pushed_mob)
+					if(GRAB_NECK to GRAB_KILL)
+						tableheadsmash(user, pushed_mob)
+			else
 				pushed_mob.visible_message("<span class='notice'>[user] begins to place [pushed_mob] onto [src]...</span>", \
 									"<span class='userdanger'>[user] begins to place [pushed_mob] onto [src]...</span>")
 				if(do_after(user, 35, target = pushed_mob))
@@ -111,8 +114,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		else if(user.pulling.pass_flags & PASSTABLE)
 			user.Move_Pulled(src)
 			if (user.pulling.loc == loc)
-				user.visible_message("<span class='notice'>[user] places [user.pulling] onto [src].</span>",
-					"<span class='notice'>You place [user.pulling] onto [src].</span>")
+				user.visible_message(span_notice("[user] places [user.pulling] onto [src]."),
+					span_notice("You place [user.pulling] onto [src]."))
 				user.stop_pulling()
 	return ..()
 
@@ -128,22 +131,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
 
-/obj/structure/table/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/table/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	. = !density
-	if(istype(caller))
-		. = . || (caller.pass_flags & PASSTABLE)
+	if(istype(passing_atom))
+		. = . || (passing_atom.pass_flags & PASSTABLE)
 
 /obj/structure/table/proc/tableplace(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)
 	if(!isanimal(pushed_mob) || iscat(pushed_mob))
 		pushed_mob.set_resting(TRUE, TRUE)
-	pushed_mob.visible_message("<span class='notice'>[user] places [pushed_mob] onto [src].</span>", \
-								"<span class='notice'>[user] places [pushed_mob] onto [src].</span>")
+	pushed_mob.visible_message(span_notice("[user] places [pushed_mob] onto [src]."), \
+								span_notice("[user] places [pushed_mob] onto [src]."))
 	log_combat(user, pushed_mob, "places", null, "onto [src]", important = FALSE)
 
 /obj/structure/table/proc/tablepush(mob/living/user, mob/living/pushed_mob)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='danger'>Throwing [pushed_mob] onto the table might hurt them!</span>")
+		to_chat(user, span_danger("Throwing [pushed_mob] onto the table might hurt them!"))
 		return
 	var/added_passtable = FALSE
 	if(!(pushed_mob.pass_flags & PASSTABLE))
@@ -159,34 +162,34 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
 	playsound(pushed_mob, "sound/effects/tableslam.ogg", 90, TRUE)
-	pushed_mob.visible_message("<span class='danger'>[user] slams [pushed_mob] onto \the [src]!</span>", \
-								"<span class='userdanger'>[user] slams you onto \the [src]!</span>")
+	pushed_mob.visible_message(span_danger("[user] slams [pushed_mob] onto \the [src]!"), \
+								span_userdanger("[user] slams you onto \the [src]!"))
 	log_combat(user, pushed_mob, "tabled", null, "onto [src]", important = FALSE)
 	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
 
 /obj/structure/table/proc/tableheadsmash(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.Knockdown(30)
-	pushed_mob.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
+	pushed_mob?.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
 	pushed_mob.apply_damage(60, STAMINA)
 	take_damage(50)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
 	playsound(pushed_mob, "sound/effects/tableheadsmash.ogg", 90, TRUE)
-	pushed_mob.visible_message("<span class='danger'>[user] smashes [pushed_mob]'s head against \the [src]!</span>",
-								"<span class='userdanger'>[user] smashes your head against \the [src]</span>")
+	pushed_mob.visible_message(span_danger("[user] smashes [pushed_mob]'s head against \the [src]!"),
+								span_userdanger("[user] smashes your head against \the [src]"))
 	log_combat(user, pushed_mob, "head slammed", null, "against [src]")
 	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_headsmash)
 
-/obj/structure/table/attackby(obj/item/I, mob/user, params)
+/obj/structure/table/attackby(obj/item/I, mob/living/user, params)
 	var/list/modifiers = params2list(params)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready && user.a_intent != INTENT_HELP)
+	if(!(flags_1 & NODECONSTRUCT_1) && LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready)
 			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 			if(I.use_tool(src, user, 20, volume=50))
 				deconstruct(TRUE)
 			return
 
-		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready && user.a_intent != INTENT_HELP)
+		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready)
 			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -196,7 +199,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(istype(I, /obj/item/storage/bag/tray))
 		var/obj/item/storage/bag/tray/T = I
 		if(T.contents.len > 0) // If the tray isn't empty
-			SEND_SIGNAL(I, COMSIG_TRY_STORAGE_QUICK_EMPTY, drop_location())
+			I.atom_storage.remove_all(drop_location())
 			user.visible_message("[user] empties [I] on [src].")
 			return
 		// If the tray IS empty, continue on (tray will be placed on the table like other items)
@@ -206,30 +209,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		var/mob/living/carried_mob = riding_item.rider
 		if(carried_mob == user) //Piggyback user.
 			return
-		switch(user.a_intent)
-			if(INTENT_HARM)
+		if(user.combat_mode)
+			user.unbuckle_mob(carried_mob)
+			tableheadsmash(user, carried_mob)
+		else
+			var/tableplace_delay = 3.5 SECONDS
+			var/skills_space = ""
+			if(HAS_TRAIT(user, TRAIT_QUICKER_CARRY))
+				tableplace_delay = 2 SECONDS
+				skills_space = " expertly"
+			else if(HAS_TRAIT(user, TRAIT_QUICK_CARRY))
+				tableplace_delay = 2.75 SECONDS
+				skills_space = " quickly"
+			carried_mob.visible_message("<span class='notice'>[user] begins to[skills_space] place [carried_mob] onto [src]...</span>",
+				"<span class='userdanger'>[user] begins to[skills_space] place [carried_mob] onto [src]...</span>")
+			if(do_after(user, tableplace_delay, target = carried_mob))
 				user.unbuckle_mob(carried_mob)
-				tableheadsmash(user, carried_mob)
-			if(INTENT_HELP)
-				var/tableplace_delay = 3.5 SECONDS
-				var/skills_space = ""
-				if(HAS_TRAIT(user, TRAIT_QUICKER_CARRY))
-					tableplace_delay = 2 SECONDS
-					skills_space = " expertly"
-				else if(HAS_TRAIT(user, TRAIT_QUICK_CARRY))
-					tableplace_delay = 2.75 SECONDS
-					skills_space = " quickly"
-				carried_mob.visible_message("<span class='notice'>[user] begins to[skills_space] place [carried_mob] onto [src]...</span>",
-					"<span class='userdanger'>[user] begins to[skills_space] place [carried_mob] onto [src]...</span>")
-				if(do_after(user, tableplace_delay, target = carried_mob))
-					user.unbuckle_mob(carried_mob)
-					tableplace(user, carried_mob)
-			else
-				user.unbuckle_mob(carried_mob)
-				tablepush(user, carried_mob)
+				tableplace(user, carried_mob)
 		return TRUE
 
-	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT))
+	if(!user.combat_mode && !(I.item_flags & ABSTRACT))
 		if(user.transferItemToLoc(I, drop_location(), silent = FALSE))
 			//Center the icon where the user clicked.
 			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
@@ -237,7 +236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
-			return 1
+			return TRUE
 	else
 		return ..()
 
@@ -269,7 +268,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 /obj/structure/table/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+			to_chat(user, span_notice("You deconstruct the table."))
 			qdel(src)
 			return TRUE
 	return FALSE
@@ -326,8 +325,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		table_shatter(M)
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/victim)
-	visible_message("<span class='warning'>[src] breaks!</span>",
-		"<span class='danger'>You hear breaking glass.</span>")
+	visible_message(span_warning("[src] breaks!"),
+		span_danger("You hear breaking glass."))
 	playsound(loc, "shatter", 50, 1)
 	new frame(loc)
 	var/obj/item/shard/shard = new glass_shard_type(loc)
@@ -505,25 +504,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
-		return "<span class='notice'>The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.</span>"
+		return span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.")
 	else
-		return "<span class='notice'>The top cover is firmly <b>welded</b> on.</span>"
+		return span_notice("The top cover is firmly <b>welded</b> on.")
 
-/obj/structure/table/reinforced/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER)
-		if(!W.tool_start_check(user, amount=0))
-			return
-
-		if(deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start strengthening the reinforced table...</span>")
-			if (W.use_tool(src, user, 50, volume=50))
-				to_chat(user, "<span class='notice'>You strengthen the table.</span>")
-				deconstruction_ready = 0
-		else
-			to_chat(user, "<span class='notice'>You start weakening the reinforced table...</span>")
-			if (W.use_tool(src, user, 50, volume=50))
-				to_chat(user, "<span class='notice'>You weaken the table.</span>")
-				deconstruction_ready = 1
+/obj/structure/table/reinforced/attackby_secondary(obj/item/weapon, mob/user, params)
+	if(weapon.tool_behaviour == TOOL_WELDER)
+		if(weapon.tool_start_check(user, amount = 0))
+			if(deconstruction_ready)
+				to_chat(user, "<span class='notice'>You start strengthening the reinforced table...</span>")
+				if (weapon.use_tool(src, user, 50, volume = 50))
+					to_chat(user, "<span class='notice'>You strengthen the table.</span>")
+					deconstruction_ready = FALSE
+			else
+				to_chat(user, "<span class='notice'>You start weakening the reinforced table...</span>")
+				if (weapon.use_tool(src, user, 50, volume = 50))
+					to_chat(user, "<span class='notice'>You weaken the table.</span>")
+					deconstruction_ready = TRUE
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	else
 		. = ..()
 
@@ -585,22 +583,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
-	can_buckle = 1
-	buckle_lying = NO_BUCKLE_LYING
-	buckle_requires_restraints = 1
+	can_buckle = TRUE
+	buckle_lying = 90
+	can_climb = FALSE
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
 /obj/structure/table/optable/Initialize(mapload)
 	. = ..()
 	initial_link()
-
-/obj/structure/table/optable/ComponentInitialize()
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(table_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/table/optable/Destroy()
 	. = ..()
@@ -610,9 +601,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 /obj/structure/table/optable/examine(mob/user)
 	. = ..()
 	if(computer)
-		. += "<span class='notice'>[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, computer))].</span>"
+		. += span_notice("[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, computer))].")
 	else
-		. += "<span class='notice'>[src] is <b>NOT linked</b> to an operating computer.</span>"
+		. += span_notice("[src] is <b>NOT linked</b> to an operating computer.")
 
 /obj/structure/table/optable/proc/initial_link()
 	if(!QDELETED(computer))
@@ -628,23 +619,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 				computer = found_computer
 				break
 
-/obj/structure/table/optable/tablepush(mob/living/user, mob/living/pushed_mob)
-	pushed_mob.forceMove(loc)
-	if(!isanimal(pushed_mob) || iscat(pushed_mob))
-		pushed_mob.set_resting(TRUE, TRUE)
-	visible_message("<span class='notice'>[user] has laid [pushed_mob] on [src].</span>")
+/obj/structure/table/optable/post_buckle_mob(mob/living/M)
 	get_patient()
 
-/obj/structure/table/optable/proc/table_entered()
-	SIGNAL_HANDLER
+/obj/structure/table/optable/post_unbuckle_mob(mob/living/M)
 	get_patient()
 
 /obj/structure/table/optable/proc/get_patient()
-	var/mob/living/carbon/M = locate(/mob/living/carbon) in loc
-	if(M)
-		set_patient(M)
-	else
+	if (!has_buckled_mobs())
 		set_patient(null)
+		return FALSE
+	var/mob/living/carbon/M = buckled_mobs[1]
+	set_patient(M)
 
 /obj/structure/table/optable/proc/set_patient(new_patient)
 	if(patient)
@@ -661,7 +647,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	SIGNAL_HANDLER
 	if (!patient)
 		return
-	if (patient.resting)
+	if (patient.buckled)
 		ADD_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
 	else
 		REMOVE_TRAIT(patient, TRAIT_NO_BLEEDING, TABLE_TRAIT)
@@ -674,7 +660,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	get_patient()
 	if(!patient)
 		return FALSE
-	if (!patient.resting)
+	if (!patient.buckled)
 		return FALSE
 	if(ishuman(patient))
 		return TRUE
@@ -696,7 +682,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+	. += span_notice("It's held together by a couple of <b>bolts</b>.")
 
 /obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -715,12 +701,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 
-/obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1) && user.a_intent != INTENT_HELP)
+/obj/structure/rack/attackby(obj/item/W, mob/living/user, params)
+	var/list/modifiers = params2list(params)
+	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		W.play_tool_sound(src)
 		deconstruct(TRUE)
 		return
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 	if(user.transferItemToLoc(W, drop_location()))
 		return 1
@@ -736,7 +723,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='danger'>[user] kicks [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
+	user.visible_message(span_danger("[user] kicks [src]."), null, null, COMBAT_MESSAGE_RANGE)
 	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -789,13 +776,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, "<span class='notice'>You start assembling [src]...</span>")
+	to_chat(user, span_notice("You start assembling [src]..."))
 	if(do_after(user, 50, target = user))
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 		var/obj/structure/R = new construction_type(user.loc)
-		user.visible_message("<span class='notice'>[user] assembles \a [R].\
-			</span>", "<span class='notice'>You assemble \a [R].</span>")
+		user.visible_message(span_notice("[user] assembles \a [R]."), span_notice("You assemble \a [R]."))
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE

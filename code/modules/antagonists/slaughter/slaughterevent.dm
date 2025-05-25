@@ -32,15 +32,16 @@
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 
-	var/obj/effect/dummy/phased_mob/slaughter/holder = new /obj/effect/dummy/phased_mob/slaughter((pick(spawn_locs)))
-	var/mob/living/simple_animal/slaughter/S = new (holder)
-	S.holder = holder
+	var/turf/chosen = pick(spawn_locs)
+	var/mob/living/simple_animal/hostile/imp/slaughter/S = new(chosen)
+	new /obj/effect/dummy/phased_mob(chosen, S)
+
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Slaughter Demon"
 	player_mind.special_role = "Slaughter Demon"
 	player_mind.add_antag_datum(/datum/antagonist/slaughter)
-	to_chat(S, S.playstyle_string)
-	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. Blood Crawl near a blood pool to manifest.</B>")
+	to_chat(S, ("<span class='bold'>You are currently not currently in the same plane of existence as the station. \
+		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc.</span>"))
 	SEND_SOUND(S, 'sound/magic/demon_dies.ogg')
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a slaughter demon by an event.")
 	log_game("[key_name(S)] was spawned as a slaughter demon by an event.")

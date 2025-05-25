@@ -8,7 +8,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	belt_icon_state = "screwdriver"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | IS_PLAYER_COLORABLE_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -48,7 +48,7 @@
 	acid = 30
 
 /obj/item/screwdriver/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/screwdriver/Initialize(mapload)
@@ -65,7 +65,7 @@
 	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && !user.is_zone_selected(BODY_ZONE_HEAD, simplified_probability = 40))
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
+		to_chat(user, span_warning("You don't want to harm [M]!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		M = user

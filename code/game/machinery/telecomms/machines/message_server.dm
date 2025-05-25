@@ -35,19 +35,19 @@
 	if(stored)
 		user.put_in_hands(stored)
 		stored = null
-		to_chat(user, "<span class='notice'>You remove the blackbox from [src]. The tapes stop spinning.</span>")
+		to_chat(user, span_notice("You remove the blackbox from [src]. The tapes stop spinning."))
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>It seems that the blackbox is missing...</span>")
+		to_chat(user, span_warning("It seems that the blackbox is missing..."))
 
 /obj/machinery/blackbox_recorder/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
 	if(istype(I, /obj/item/blackbox))
 		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
-		user.visible_message("<span class='notice'>[user] clicks [I] into [src]!</span>", \
-		"<span class='notice'>You press the device into [src], and it clicks into place. The tapes begin spinning again.</span>")
+		user.visible_message(span_notice("[user] clicks [I] into [src]!"), \
+		span_notice("You press the device into [src], and it clicks into place. The tapes begin spinning again."))
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		stored = I
 		update_icon()
@@ -71,7 +71,7 @@
 	icon_state = "blackcube"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_LARGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 #define MESSAGE_SERVER_FUNCTIONING_MESSAGE "This is an automated message. The messaging system is functioning correctly."
@@ -108,7 +108,7 @@
 /obj/machinery/telecomms/message_server/examine(mob/user)
 	. = ..()
 	if(calibrating)
-		. += "<span class='warning'>It's still calibrating.</span>"
+		. += span_warning("It's still calibrating.")
 
 /obj/machinery/telecomms/message_server/proc/GenerateKey()
 	var/newKey
@@ -228,9 +228,9 @@
 	if(href_list["photo"])
 		var/mob/M = usr
 		M << browse_rsc(picture.picture_image, "pda_photo.png")
-		M << browse("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>PDA Photo</title></head>" \
+		M << browse("<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>PDA Photo</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
-		+ "<img src='pda_photo.png' width='480' style='-ms-interpolation-mode:nearest-neighbor' />" \
+		+ "<img src='pda_photo.png' width='480' style='-ms-interpolation-mode:nearest-neighbor;image-rendering:pixelated' />" \
 		+ "</body></html>", "window=photo_showing;size=480x608")
 		onclose(M, "pdaphoto")
 

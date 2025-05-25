@@ -21,5 +21,12 @@
 ///Called when a payment component changes value
 #define COMSIG_OBJ_ATTEMPT_CHARGE_CHANGE "obj_attempt_simple_charge_change"
 
+/// called once a mindshield is implanted: (mob/user)
+#define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
+
 ///from /obj/item/assembly/proc/pulsed(mob/pulser)
 #define COMSIG_ASSEMBLY_PULSED "assembly_pulsed"
+
+/// Called on a mob attempting to use a ladder to go in either direction.  (entrance_ladder, exit_ladder, going_up)
+#define COMSIG_LADDER_TRAVEL "ladder-travel"
+	#define LADDER_TRAVEL_BLOCK (1<<0)

@@ -1,7 +1,11 @@
 /datum/species/monkey
 	name = "Monkey"
 	id = SPECIES_MONKEY
-	skinned_type = /obj/item/stack/sheet/animalhide/
+	bodytype = BODYTYPE_ORGANIC | BODYTYPE_MONKEY
+	attack_verb = "bite"
+	mutant_organs = list(/obj/item/organ/tail/monkey)
+	mutant_bodyparts = list("tail_monkey" = "Monkey")
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
 	mutanttongue = /obj/item/organ/tongue/monkey
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -13,7 +17,7 @@
 		EYECOLOR
 	)
 	inherent_traits = list(
-		TRAIT_DISCOORDINATED,
+		TRAIT_DISCOORDINATED_TOOL_USER,
 		TRAIT_VENTCRAWLER_NUDE,
 		TRAIT_PRIMITIVE,
 		TRAIT_INFERIORFORM,
@@ -24,7 +28,6 @@
 	sexes = TRUE
 	species_language_holder = /datum/language_holder/monkey
 
-	mutant_organs = list(/obj/item/organ/tail/monkey)
 	species_l_arm = /obj/item/bodypart/l_arm/monkey
 	species_r_arm = /obj/item/bodypart/r_arm/monkey
 	species_head = /obj/item/bodypart/head/monkey
@@ -54,15 +57,15 @@
 		H.dna.features["tail_human"] = "Monkey"
 		handle_mutant_bodyparts(H)
 
-	H.dna.add_mutation(RACEMUT, MUT_NORMAL)
-	H.dna.activate_mutation(RACEMUT)
+	H.dna.add_mutation(/datum/mutation/human/race, MUT_NORMAL)
+	H.dna.activate_mutation(/datum/mutation/human/race)
 
 
 /datum/species/monkey/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	C.pass_flags = initial(C.pass_flags)
 	C.butcher_results = null
-	C.dna.remove_mutation(RACEMUT)
+	C.dna.remove_mutation(/datum/mutation/human/race)
 
 /datum/species/monkey/spec_unarmedattack(mob/living/carbon/human/user, atom/target)
 	. = ..()
@@ -70,7 +73,7 @@
 		if(!iscarbon(target))
 			return TRUE
 		var/mob/living/carbon/victim = target
-		if(user.a_intent != INTENT_HARM || user.is_muzzled())
+		if(user.is_muzzled())
 			return TRUE
 		var/obj/item/bodypart/affecting = null
 		if(ishuman(victim))
@@ -78,17 +81,17 @@
 			affecting = human_victim.get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		var/armor = victim.run_armor_check(affecting, MELEE)
 		if(prob(25))
-			victim.visible_message("<span class='danger'>[user]'s bite misses [victim]!</span>",
-				"<span class='danger'>You avoid [user]'s bite!</span>", "<span class='hear'>You hear jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, "<span class='danger'>Your bite misses [victim]!</span>")
+			victim.visible_message(span_danger("[user]'s bite misses [victim]!"),
+				span_danger("You avoid [user]'s bite!"), span_hear("You hear jaws snapping shut!"), COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, span_danger("Your bite misses [victim]!"))
 			return TRUE
 		///Monkeys are of a few mobs remaining in beecode that use randomized damage apply_damage(rand()) for some attacks.
 		///It was the perogative a few years ago to standardize most attack procs to the same consistent damage everytime, but we are not the same codebase as then.
 		///If someone wants to change this status quo by either reintroducing RNG attacks, or killing them entirely, that should be its own pr and include every remaining case.
 		victim.apply_damage(rand(1, 3), BRUTE, affecting, armor)
-		victim.visible_message("<span class='danger'>[name] bites [victim]!</span>",
-			"<span class='userdanger'>[name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, name)
-		to_chat(user, "<span class='danger'>You bite [victim]!</span>")
+		victim.visible_message(span_danger("[name] bites [victim]!"),
+			span_userdanger("[name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, name)
+		to_chat(user, span_danger("You bite [victim]!"))
 		if(armor >= 2)
 			return TRUE
 		for(var/d in user.diseases)

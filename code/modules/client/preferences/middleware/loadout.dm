@@ -47,7 +47,7 @@
 	if(!istype(TG))
 		return
 	if(((TG.id in preferences.purchased_gear) || (TG.id in preferences.equipped_gear)) && !TG.multi_purchase)
-		to_chat(user, "<span class='warning'>You already own \the [TG.display_name]!</span>")
+		to_chat(user, span_warning("You already own \the [TG.display_name]!"))
 		return TRUE
 	if(TG.sort_category == "Donator")
 		if(user.client && CONFIG_GET(flag/donator_items) && alert(user.client, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
@@ -62,7 +62,7 @@
 		preferences.mark_undatumized_dirty_player()
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!</span>")
+		to_chat(user, span_warning("You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!"))
 
 /datum/preference_middleware/loadout/proc/equip_gear(list/params, mob/user)
 	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
@@ -92,7 +92,7 @@
 				preferences.mark_undatumized_dirty_character()
 				return TRUE
 			else
-				to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
+				to_chat(user, span_warning("Can't equip [TG.display_name]. It conflicts with an already-equipped item."))
 		else
 			log_href_exploit(user, "Attempting to equip [TG.type] when they do not own it.")
 			return TRUE

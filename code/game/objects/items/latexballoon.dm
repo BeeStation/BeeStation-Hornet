@@ -17,7 +17,7 @@
 	icon_state = "latexballon_blow"
 	item_state = "latexballon"
 	user.update_inv_hands()
-	to_chat(user, "<span class='notice'>You blow up [src] with [tank].</span>")
+	to_chat(user, span_notice("You blow up [src] with [tank]."))
 	air_contents = tank.remove_air_volume(3)
 
 /obj/item/latexballon/proc/burst()
@@ -45,9 +45,12 @@
 		burst()
 	return ..()
 
-/obj/item/latexballon/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if(temperature > T0C+100)
-		burst()
+/obj/item/latexballon/should_atmos_process(datum/gas_mixture/air, temperature)
+	return temperature > T0C+100
+
+/obj/item/latexballon/atmos_expose(datum/gas_mixture/air, temperature)
+	burst()
+
 
 /obj/item/latexballon/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))

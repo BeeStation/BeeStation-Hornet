@@ -10,7 +10,7 @@
 	icon_state = "centcom"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	flags_1 = NONE
@@ -86,7 +86,7 @@
 	icon_state = "yellow"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	camera_networks = list(CAMERA_NETWORK_THUNDERDOME)
 
@@ -125,7 +125,7 @@
 	icon_state = "yellow"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_WIZARD
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	flags_1 = NONE
@@ -139,7 +139,7 @@
 	requires_power = FALSE
 	teleport_restriction = TELEPORT_ALLOW_ABDUCTORS
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	network_root_id = "ALIENS"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
@@ -149,7 +149,7 @@
 	name = "Syndicate Mothership"
 	icon_state = "syndie-ship"
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	flags_1 = NONE
@@ -175,7 +175,7 @@
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
 /area/ctf/control_room
@@ -212,7 +212,7 @@
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
 	ambience_index = AMBIENCE_REEBE

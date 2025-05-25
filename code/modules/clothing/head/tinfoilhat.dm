@@ -25,7 +25,7 @@
 		DISABLE_BITFIELD(paranoia.trauma_flags, TRAUMA_CLONEABLE)
 
 		user.gain_trauma(paranoia, TRAUMA_RESILIENCE_MAGIC)
-		to_chat(user, "<span class='warning'>As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. </span>")
+		to_chat(user, span_warning("As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. "))
 
 		psychic_overlay = mutable_appearance()
 		psychic_overlay.appearance = user.appearance
@@ -37,7 +37,7 @@
 	if(usr)
 		var/mob/living/carbon/C = usr
 		if(src == C.head)
-			to_chat(C, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
+			to_chat(C, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
 			return
 	return ..()
 
@@ -50,11 +50,11 @@
 		L.sec_hud_set_implants()
 	user.cut_overlay(psychic_overlay)
 
-/obj/item/clothing/head/costume/foilhat/attack_hand(mob/user)
+/obj/item/clothing/head/costume/foilhat/attack_hand(mob/user, list/modifiers)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.head)
-			to_chat(user, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
+			to_chat(user, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
 			return
 	return ..()
 
@@ -104,4 +104,4 @@
 
 	for(var/X in actions)
 		var/datum/action/A=X
-		A.UpdateButtonIcon()
+		A.update_buttons()

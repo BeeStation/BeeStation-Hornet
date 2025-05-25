@@ -497,8 +497,7 @@ Middleware can hijack actions by specifying `action_delegations`:
 	)
 
 /datum/preference_middleware/congratulations/proc/congratulate_me(list/params, mob/user)
-	to_chat(user, span_notice("Wow, you did a great job learning about middleware!"))
-
+	to_chat(user, ("<span class='notice'>Wow, you did a great job learning about middleware!</span>"))
 	return TRUE
 ```
 

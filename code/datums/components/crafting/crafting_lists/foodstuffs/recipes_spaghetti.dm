@@ -92,10 +92,10 @@
 	name = "Lasagna"
 	result = /obj/item/food/spaghetti/lasagna
 	reqs = list(
-		/obj/item/food/spaghetti = 1,
-		/obj/item/food/meatball = 1,
+		/obj/item/food/meat/cutlet = 2,
 		/obj/item/food/grown/tomato = 1,
-		/obj/item/food/cheese/wedge = 1
+		/obj/item/food/cheese/wedge = 2,
+		/obj/item/food/spaghetti/raw = 1
 	)
 	subcategory = CAT_SPAGHETTI
 

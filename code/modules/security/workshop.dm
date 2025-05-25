@@ -44,7 +44,7 @@
 
 /obj/machinery/computer/holodeck/prison/ui_act(action, params)
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	if(..())
 		return
@@ -97,7 +97,7 @@
 	for(var/atom/movable/atom_contents as anything in holo_atom) //make sure that things inside of a holoitem are moved outside before destroying it
 		atom_contents.forceMove(target_turf)
 	if(!silent)
-		visible_message("<span class='notice'>[holo_atom] fades away!</span>")
+		visible_message(span_notice("[holo_atom] fades away!"))
 
 	qdel(holo_atom)
 

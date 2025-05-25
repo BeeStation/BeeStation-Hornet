@@ -2,64 +2,6 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-// Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
-#define HULK		/datum/mutation/human/hulk
-#define XRAY		/datum/mutation/human/thermal/x_ray
-#define SPACEMUT	/datum/mutation/human/space_adaptation
-#define TK			/datum/mutation/human/telekinesis
-#define NERVOUS		/datum/mutation/human/nervousness
-#define EPILEPSY	/datum/mutation/human/epilepsy
-#define MUTATE		/datum/mutation/human/bad_dna
-#define COUGH		/datum/mutation/human/cough
-#define DWARFISM	/datum/mutation/human/dwarfism
-#define GIGANTISM	/datum/mutation/human/gigantism
-#define CLOWNMUT	/datum/mutation/human/clumsy
-#define TOURETTES	/datum/mutation/human/tourettes
-#define DEAFMUT		/datum/mutation/human/deaf
-#define BLINDMUT	/datum/mutation/human/blind
-#define RACEMUT		/datum/mutation/human/race
-#define BADSIGHT	/datum/mutation/human/nearsight
-#define LASEREYES	/datum/mutation/human/laser_eyes
-#define CHAMELEON	/datum/mutation/human/chameleon
-#define WACKY		/datum/mutation/human/wacky
-#define MUT_MUTE	/datum/mutation/human/mute
-#define SMILE		/datum/mutation/human/smile
-#define STONER		/datum/mutation/human/stoner
-#define UNINTELLIGIBLE		/datum/mutation/human/unintelligible
-#define SWEDISH		/datum/mutation/human/swedish
-#define CHAV		/datum/mutation/human/chav
-#define ELVIS		/datum/mutation/human/elvis
-#define RADIOACTIVE	/datum/mutation/human/radioactive
-#define GLOWY		/datum/mutation/human/glow
-#define ANTIGLOWY	/datum/mutation/human/glow/anti
-#define TELEPATHY	/datum/mutation/human/telepathy
-#define FIREBREATH	/datum/mutation/human/firebreath
-#define VOID		/datum/mutation/human/void
-#define STRONG /datum/mutation/human/strong
-#define FIRESWEAT	/datum/mutation/human/fire
-#define THERMAL		/datum/mutation/human/thermal
-#define ANTENNA		/datum/mutation/human/antenna
-#define PARANOIA	/datum/mutation/human/paranoia
-#define INSULATED	/datum/mutation/human/insulated
-#define SHOCKTOUCH	/datum/mutation/human/shock
-#define OLFACTION	/datum/mutation/human/olfaction
-#define ACIDFLESH	/datum/mutation/human/acidflesh
-#define BADBLINK	/datum/mutation/human/badblink
-#define SPASTIC		/datum/mutation/human/spastic
-#define EXTRASTUN	/datum/mutation/human/extrastun
-#define GELADIKINESIS /datum/mutation/human/geladikinesis
-#define CRYOKINESIS /datum/mutation/human/cryokinesis
-#define CLUWNEMUT   /datum/mutation/human/cluwne
-#define CURSEDCLUWNEMUT /datum/mutation/human/cluwne/cursed
-#define WAXSALIVA   /datum/mutation/human/wax_saliva
-#define STRONGWINGS /datum/mutation/human/strongwings
-#define CATCLAWS    /datum/mutation/human/catclaws
-#define OVERLOAD    /datum/mutation/human/overload
-#define ACIDOOZE    /datum/mutation/human/acidooze
-#define MEDIEVAL    /datum/mutation/human/medieval
-#define SPORES      /datum/mutation/human/spores
-#define DRONE       /datum/mutation/human/drone
-
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
 
@@ -167,9 +109,9 @@
 #define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
 
 //organ defines
-#define STANDARD_ORGAN_THRESHOLD 	100
-#define STANDARD_ORGAN_HEALING 		0.001
-#define STANDARD_ORGAN_DECAY		0.00074	//designed to fail organs when left to decay for ~45 minutes
+#define STANDARD_ORGAN_THRESHOLD 100
+#define STANDARD_ORGAN_HEALING 0.0005
+#define STANDARD_ORGAN_DECAY 0.00037 //designed to fail organs when left to decay for ~45 minutes
 
 // used for the can_chromosome var on mutations
 #define CHROMOSOME_NEVER 0

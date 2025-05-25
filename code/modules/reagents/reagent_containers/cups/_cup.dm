@@ -24,7 +24,7 @@
 	. = ..()
 	if(drink_type)
 		var/list/types = bitfield_to_list(drink_type, FOOD_FLAGS)
-		. += "<span class='notice'>It is [LOWER_TEXT(english_list(types))].</span>"
+		. += span_notice("It is [LOWER_TEXT(english_list(types))].")
 
 /obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/M)
 	if(last_check_time + 50 >= world.time)
@@ -43,19 +43,19 @@
 
 	if(HAS_TRAIT(H, TRAIT_AGEUSIA))
 		if(drink_type & T.toxic_food)
-			to_chat(H, "<span class='warning'>You don't feel so good...</span>")
+			to_chat(H, span_warning("You don't feel so good..."))
 			H.adjust_disgust(25 + 30 * fraction)
 	else
 		if(drink_type & T.toxic_food)
-			to_chat(H, "<span class='warning'>What the hell was that thing?!</span>")
+			to_chat(H, span_warning("What the hell was that thing?!"))
 			H.adjust_disgust(25 + 30 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
 		else if(drink_type & T.disliked_food)
-			to_chat(H, "<span class='notice'>That didn't taste very good...</span>")
+			to_chat(H, span_notice("That didn't taste very good..."))
 			H.adjust_disgust(11 + 15 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
 		else if(drink_type & T.liked_food)
-			to_chat(H, "<span class='notice'>I love this taste!</span>")
+			to_chat(H, span_notice("I love this taste!"))
 			H.adjust_disgust(-5 + -2.5 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
 
@@ -67,28 +67,24 @@
 		return
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 
 	if(!istype(target_mob))
 		return
 
-	if(user.a_intent == INTENT_HARM)
-		//Early terminate, move to afterattack where we splash
-		return
-
 	if(target_mob != user)
-		target_mob.visible_message("<span class='danger'>[user] attempts to feed [target_mob] something from [src].</span>", \
-				"<span class='userdanger'>[user] attempts to feed you something from [src].</span>")
+		target_mob.visible_message(span_danger("[user] attempts to feed [target_mob] something from [src]."), \
+				span_userdanger("[user] attempts to feed you something from [src]."))
 		if(!do_after(user, 3 SECONDS, target = target_mob))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The drink might be empty after the delay, such as by spam-feeding
-		target_mob.visible_message("<span class='danger'>[user] feeds [target_mob] something from [src].</span>", \
-				"<span class='userdanger'>[user] feeds you something from [src].</span>")
+		target_mob.visible_message(span_danger("[user] feeds [target_mob] something from [src]."), \
+				span_userdanger("[user] feeds you something from [src]."))
 		log_combat(user, target_mob, "fed", reagents.log_list())
 	else
-		to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+		to_chat(user, span_notice("You swallow a gulp of [src]."))
 
 	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target_mob, user)
 	var/fraction = min(gulp_size/reagents.total_volume, 1)
@@ -118,40 +114,33 @@
 
 	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty!</span>")
+			to_chat(user, span_warning("[src] is empty!"))
 			return
 
 		if(target.reagents.holder_full())
-			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			to_chat(user, span_warning("[target] is full."))
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
-		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
+		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
+			to_chat(user, span_warning("[target] is empty and can't be refilled!"))
 			return
 
 		if(reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
-
-	else if(reagents.total_volume)
-		if(user.a_intent == INTENT_HARM)
-			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
-								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
-			reagents.reaction(target, TOUCH)
-			reagents.clear_reagents()
+		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 
 /obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
 	var/hotness = attacking_item.is_hot()
 	if(hotness && reagents)
 		reagents.expose_temperature(hotness)
-		to_chat(user, "<span class='notice'>You heat [name] with [attacking_item]!</span>")
+		to_chat(user, span_notice("You heat [name] with [attacking_item]!"))
 		return
 
 	if(istype(attacking_item, /obj/item/food/egg)) //breaking eggs
@@ -159,9 +148,9 @@
 		if(!reagents)
 			return
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>[src] is full.</span>")
+			to_chat(user, span_notice("[src] is full."))
 		else
-			to_chat(user, "<span class='notice'>You break [attacking_egg] in [src].</span>")
+			to_chat(user, span_notice("You break [attacking_egg] in [src]."))
 			attacking_egg.reagents.trans_to(src, attacking_egg.reagents.total_volume, transfered_by = user)
 			qdel(attacking_egg)
 		return
@@ -328,14 +317,14 @@
 /obj/item/reagent_containers/cup/bucket/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/mop))
 		if(reagents.total_volume < 1)
-			to_chat(user, "<span class='warning'>[src] is out of water!</span>")
+			to_chat(user, span_warning("[src] is out of water!"))
 		else
 			reagents.trans_to(O, 5, transfered_by = user)
-			to_chat(user, "<span class='notice'>You wet [O] in [src].</span>")
+			to_chat(user, span_notice("You wet [O] in [src]."))
 			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return
 	else if(isprox(O))
-		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
+		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)
 		qdel(src)
 		user.put_in_hands(new /obj/item/bot_assembly/cleanbot)
@@ -347,8 +336,8 @@
 	. = ..()
 	if (slot == ITEM_SLOT_HEAD)
 		if(reagents.total_volume)
-			to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
-			reagents.reaction(user, TOUCH)
+			to_chat(user, span_userdanger("[src]'s contents spill all over you!"))
+			reagents.expose(user, TOUCH)
 			reagents.clear_reagents()
 		reagents.flags = NONE
 
@@ -397,16 +386,16 @@
 	if(istype(I,/obj/item/pestle))
 		if(grinded)
 			if(user.getStaminaLoss() > 50)
-				to_chat(user, "<span class='danger'>You are too tired to work!</span>")
+				to_chat(user, span_danger("You are too tired to work!"))
 				return
 			to_chat(user, "You start grinding...")
 			if((do_after(user, 25, target = src)) && grinded)
 				user.adjustStaminaLoss(40)
 				if(grinded.reagents) //food and pills
 					grinded.reagents.trans_to(src, grinded.reagents.total_volume, transfered_by = user)
-				if(grinded.juice_results) //prioritize juicing
+				if(grinded.juice_typepath) //prioritize juicing
 					grinded.on_juice()
-					reagents.add_reagent_list(grinded.juice_results)
+					reagents.add_reagent_list(grinded.juice_typepath)
 					to_chat(user, "You juice [grinded] into a fine liquid.")
 					QDEL_NULL(grinded)
 					return
@@ -417,22 +406,22 @@
 				return
 			return
 		else
-			to_chat(user, "<span class='danger'>There is nothing to grind!</span>")
+			to_chat(user, span_danger("There is nothing to grind!"))
 			return
 	if(grinded)
-		to_chat(user, "<span class='danger'>There is something inside already!</span>")
+		to_chat(user, span_danger("There is something inside already!"))
 		return
 	if(istype(I,/obj/item/reagent_containers))
 		var/obj/item/reagent_containers/p = I
 		if(p.prevent_grinding)
-			to_chat(user, "<span class='danger'>You can't grind this!</span>")
+			to_chat(user, span_danger("You can't grind this!"))
 			return
 
-	if(I.juice_results || I.grind_results)
+	if(I.grind_results || I.juice_typepath || I.is_grindable())
 		I.forceMove(src)
 		grinded = I
 		return
-	to_chat(user, "<span class='danger'>You can't grind this!</span>")
+	to_chat(user, span_danger("You can't grind this!"))
 
 /obj/item/reagent_containers/cup/saline
 	name = "saline canister"
@@ -444,3 +433,24 @@
 		qdel(src)
 		return
 	return ..()
+
+//A cup made from coconuts harvested in botany
+/obj/item/reagent_containers/cup/coconutcup
+	name = "coconut cup"
+	desc = "A showy form of cup typically intended for both use and display."
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "coconutcup_empty"
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 100)
+	volume = 50
+	spillable = TRUE
+	resistance_flags = ACID_PROOF
+	obj_flags = UNIQUE_RENAME
+	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
+
+/obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
+	if (reagents && reagents.total_volume > 0)
+		icon_state = "coconutcup_full"
+	else
+		icon_state = "coconutcup_empty"
+

@@ -94,7 +94,7 @@
 
 /datum/design/noreactsyringe
 	name = "Cryo Syringe"
-	desc = "An advanced syringe that stops reagents inside from reacting. It can hold up to 20 units."
+	desc = "An advanced syringe that freezes reagents close to absolute 0. It can hold up to 20 units."
 	id = "noreactsyringe"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 2000, /datum/material/gold = 1000)
@@ -268,7 +268,7 @@
 	name = "Searing Tool"
 	desc = "Used to mend tissue togheter."
 	id = "searingtool"
-	build_path = /obj/item/surgicaldrill/advanced
+	build_path = /obj/item/cautery/advanced
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 2000, /datum/material/plasma = 2000, /datum/material/uranium = 3000, /datum/material/titanium = 3000)
 	category = list("Tool Designs")

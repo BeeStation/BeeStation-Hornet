@@ -28,7 +28,7 @@ GLOBAL_LIST(valentine_mobs)
 		var/turf/T = get_turf(H)
 		if(H.mind.assigned_role && SSjob.GetJob(H.mind.assigned_role)) // only give valentines to people who are actually eligible
 			H.put_in_hands(new /obj/item/valentine(T))
-			to_chat(H, "<span class='clown'>A message appears in your hand, it looks like it has space to write somebody's name on it!</span>")
+			to_chat(H, span_clown("A message appears in your hand, it looks like it has space to write somebody's name on it!"))
 		// everyone else gets chocolates and a heart
 		var/b = locate(/obj/item/storage/backpack) in H.contents
 		if(!b)
@@ -93,14 +93,14 @@ GLOBAL_LIST(valentine_mobs)
 
 /obj/item/valentine/proc/write_valentine(mob/user)
 	if(!islist(GLOB.valentine_mobs))
-		to_chat(user, "<span class='warning'>You feel regret... It's too late now.</span>")
+		to_chat(user, span_warning("You feel regret... It's too late now."))
 		used = TRUE
 		return
 	if(used)
 		return
 	var/turf/user_turf = get_turf(user)
 	if(!SSmobs.clients_by_zlevel[user_turf.z])
-		to_chat(user, "<span class='warning'>You stop and look around for a moment. Where the hell are you?</span>")
+		to_chat(user, span_warning("You stop and look around for a moment. Where the hell are you?"))
 		return
 	//No going back now
 	var/list/clients_on_level = SSmobs.clients_by_zlevel[user_turf.z]
@@ -112,22 +112,22 @@ GLOBAL_LIST(valentine_mobs)
 			continue
 		mob_names["[H.real_name]"] = H
 	if(!LAZYLEN(mob_names))
-		to_chat(user, "<span class='warning'>There's no one for you to love...</span>")
+		to_chat(user, span_warning("There's no one for you to love..."))
 		return
 	//Pick names
 	var/picked_name = tgui_input_list(user, "Who are you sending it to?", "Valentines Card", mob_names)
 	var/mob/living/carbon/human/picked_human = mob_names[picked_name]
 	if(!istype(picked_human))
-		to_chat(user, "<span class='notice'>Nothing happens... I don't think it worked.</span>")
+		to_chat(user, span_notice("Nothing happens... I don't think it worked."))
 		return
 	if(!islist(GLOB.valentine_mobs))
-		to_chat(user, "<span class='warning'>You feel regret... It's too late now.</span>")
+		to_chat(user, span_warning("You feel regret... It's too late now."))
 		used = TRUE
 		return
 	if(used)
-		to_chat(user, "<span class='warning'>The card has already been used!</span>")
+		to_chat(user, span_warning("The card has already been used!"))
 		return
-	to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
+	to_chat(user, span_notice("The card vanishes out of your hand! Lets hope they got it..."))
 	// Assign our side of the date, if they picked us then create the objective
 	GLOB.valentine_mobs[user] = picked_human
 	if(GLOB.valentine_mobs[picked_human] == user)
@@ -144,16 +144,16 @@ GLOBAL_LIST(valentine_mobs)
 	new_card.desc = "A Valentine's card! It is addressed to [new_card.target]."
 	new_card.used = TRUE
 	picked_human.equip_to_appropriate_slot(new_card)
-	to_chat(picked_human, "<span class='clown'>A magical card suddenly appears!</span>")
+	to_chat(picked_human, span_clown("A magical card suddenly appears!"))
 	qdel(src)
 
 /obj/item/valentine/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[message]</BODY></HTML>", "window=[name]")
+		user << browse(HTML_SKELETON_TITLE(name, message), "window=[name]")
 		onclose(user, "[name]")
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += span_notice("It is too far away.")
 
 /obj/item/valentine/attack_self(mob/user)
 	if(!used)

@@ -71,7 +71,8 @@
 	else
 		. += "There is no power cell installed."
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Temperature range at <b>[settable_temperature_range]°C</b>.<br>Heating power at <b>[siunit(heating_power, "W", 1)]</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.</span>" //100%, 75%, 50%, 25%
+		. += span_notice("The status display reads: Temperature range at <b>[settable_temperature_range]°C</b>.<br>Heating power at <b>[siunit(heating_power, "W", 1)]</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.") //100%, 75%, 50%, 25%
+		. += "<span class='notice'><b>Right-click</b> to toggle [on ? "off" : "on"].</span>"
 
 /obj/machinery/portable_thermomachine/update_icon_state()
 	. = ..()
@@ -126,8 +127,8 @@
 	if(mode == HEATER_MODE_COOL)
 		delta_temperature *= -1
 	if(delta_temperature)
-		environment.set_temperature(environment.return_temperature() + delta_temperature)
-		air_update_turf()
+		environment.temperature = environment.return_temperature() + delta_temperature
+		air_update_turf(FALSE, FALSE)
 	cell.use(required_energy / efficiency)
 
 /obj/machinery/portable_thermomachine/RefreshParts()
@@ -166,7 +167,7 @@
 	add_fingerprint(user)
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
-		user.visible_message("<span class='notice'>\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the hatch on \the [src].</span>")
+		user.visible_message(span_notice("\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]."), span_notice("You [panel_open ? "open" : "close"] the hatch on \the [src]."))
 		update_appearance()
 		return TRUE
 
@@ -185,29 +186,16 @@
 		cell = I
 		component_parts.Add(I)
 		I.add_fingerprint(usr)
-		user.visible_message("<span class='notice'>\The [user] inserts a power cell into \the [src].</span>", "<span class ='notice'>You insert the power cell into \the [src].<span>")
+		user.visible_message(span_notice("\The [user] inserts a power cell into \the [src]."), span_notice("You insert the power cell into \the [src]."))
 		SStgui.update_uis(src)
 		return TRUE
 	return ..()
-
-/obj/machinery/portable_thermomachine/AltClick(mob/user)
-	if(!can_interact(user))
-		return
-	if(mode == HEATER_MODE_COOL)
-		target_temperature = (settable_temperature_median - settable_temperature_range) - T0C
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	else if(mode == HEATER_MODE_HEAT)
-		target_temperature = (settable_temperature_median + settable_temperature_range) - T0C
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	else
-		return
-	balloon_alert(user, "You set the target temperature to [target_temperature] C.")
 
 /obj/machinery/portable_thermomachine/proc/toggle_power()
 	on = !on
 	mode = HEATER_MODE_STANDBY
 	balloon_alert(usr, "[on ? "on" : "off"]")
-	usr.visible_message("<span class='notice'>[usr] switches [on ? "on" : "off"] \the [src].</span>", "<span class='notice'>You switch [on ? "on" : "off"] \the [src].</span>")
+	usr.visible_message(span_notice("[usr] switches [on ? "on" : "off"] \the [src]."), span_notice("You switch [on ? "on" : "off"] \the [src]."))
 	update_appearance()
 	if(on)
 		SSair.start_processing_machine(src)
@@ -216,6 +204,12 @@
 
 /obj/machinery/portable_thermomachine/ui_state(mob/user)
 	return GLOB.physical_state
+
+/obj/machinery/portable_thermomachine/attack_hand_secondary(mob/user, list/modifiers)
+	if(!can_interact(user))
+		return
+	toggle_power()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/portable_thermomachine/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

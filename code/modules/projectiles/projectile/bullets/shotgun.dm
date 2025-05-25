@@ -105,18 +105,6 @@
 	if(damage < 0 && stamina < 0)
 		qdel(src)
 
-/obj/projectile/bullet/pellet/shotgun_improvised
-	tile_dropoff = 0.3		//Come on it does 6 damage don't be like that.
-	damage = 5
-
-/obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
-	. = ..()
-	range = rand(3, 8)
-
-/obj/projectile/bullet/pellet/shotgun_improvised/on_range()
-	do_sparks(1, TRUE, src)
-	..()
-
 /obj/projectile/bullet/pellet/shotgun_glass
 	tile_dropoff = 0.5
 	damage = 6

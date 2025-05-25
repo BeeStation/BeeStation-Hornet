@@ -1,4 +1,5 @@
 /datum/component/grillable
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS // So you can change grill results with various cookstuffs
 	///Result atom type of grilling this object
 	var/atom/cook_result
 	///Amount of time required to cook the food
@@ -31,6 +32,19 @@
 	RegisterSignal(parent, COMSIG_ITEM_GRILL_PLACED, PROC_REF(on_grill_placed))
 	RegisterSignal(parent, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE,  PROC_REF(on_examine))
+
+// Inherit the new values passed to the component
+/datum/component/grillable/InheritComponent(datum/component/grillable/new_comp, original, cook_result, required_cook_time, positive_result, use_large_steam_sprite)
+	if(!original)
+		return
+	if(cook_result)
+		src.cook_result = cook_result
+	if(required_cook_time)
+		src.required_cook_time = required_cook_time
+	if(positive_result)
+		src.positive_result = positive_result
+	if(use_large_steam_sprite)
+		src.use_large_steam_sprite = use_large_steam_sprite
 
 /// Signal proc for [COMSIG_ITEM_GRILL_PLACED], item is placed on the grill.
 /datum/component/grillable/proc/on_grill_placed(datum/source, mob/griller)
@@ -85,18 +99,18 @@
 	if(!current_cook_time) //Not grilled yet
 		if(positive_result)
 			if(initial(cook_result.name) == PLURAL)
-				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>grilled</span>"] into some [initial(cook_result.name)].</span>"
+				examine_list += span_notice("[parent] can be [span_bold("grilled")] into some [initial(cook_result.name)].")
 			else
-				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>grilled</span>"] into \a [initial(cook_result.name)].</span>"
+				examine_list += span_notice("[parent] can be [span_bold("grilled")] into \a [initial(cook_result.name)].")
 		return
 
 	if(positive_result)
 		if(current_cook_time <= required_cook_time * 0.75)
-			examine_list += "<span class='notice'>[parent] probably needs to be cooked a bit longer!</span>"
+			examine_list += span_notice("[parent] probably needs to be cooked a bit longer!")
 		else if(current_cook_time <= required_cook_time)
-			examine_list += "<span class='notice'>[parent] seems to be almost finished cooking!</span>"
+			examine_list += span_notice("[parent] seems to be almost finished cooking!")
 	else
-		examine_list += "<span class='danger'>[parent] should probably not be put on the grill</span>"
+		examine_list += span_danger("[parent] should probably not be put on the grill")
 
 ///Ran when an object moves from the grill
 /datum/component/grillable/proc/OnMoved(atom/A, atom/OldLoc, Dir, Forced)

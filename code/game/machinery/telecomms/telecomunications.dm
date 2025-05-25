@@ -183,13 +183,14 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	switch(data.data["type"])
 		if(PACKET_TYPE_PING) // we respond to the ping with our status
 			var/list/send_data = list()
+			send_data["type"] = PACKET_TYPE_THERMALDATA
 			send_data["name"] = name
 			send_data["temperature"] = get_temperature()
 			send_data["overheat_temperature"] = get_overheat_temperature()
 			send_data["efficiency"] = get_efficiency()
 			send_data["overheated"] = (machine_stat & OVERHEATED)
 
-			ntnet_send(send_data, data.data["sender_id"])
+			ntnet_send(send_data, data.sender_id)
 
 /obj/machinery/telecomms/update_icon()
 	if(on)

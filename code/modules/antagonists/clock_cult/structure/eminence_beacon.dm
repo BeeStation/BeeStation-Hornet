@@ -7,7 +7,7 @@
 	var/vote_active = FALSE
 	var/vote_timer
 
-/obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
 		return
@@ -18,7 +18,7 @@
 		hierophant_message("[user] has cancelled the Eminence vote.")
 		return
 	if(used)
-		to_chat(user, "<span class='brass'>The Eminence has already been released.</span>")
+		to_chat(user, span_brass("The Eminence has already been released."))
 		return
 	var/option = alert(user,"Who shall control the Eminence?",,"Yourself","A ghost", "Cancel")
 	if(option != "A ghost")

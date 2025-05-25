@@ -5,7 +5,7 @@
 	var/spawn_delay = 0
 	var/max_mobs = 5
 	var/spawn_text = "emerges from"
-	var/list/faction = list("mining")
+	var/list/faction = list(FACTION_MINING)
 
 
 
@@ -50,4 +50,4 @@
 	spawned_mobs += L
 	L.nest = src
 	L.faction = src.faction
-	P.visible_message("<span class='danger'>[L] [spawn_text] [P].</span>")
+	P.visible_message(span_danger("[L] [spawn_text] [P]."))

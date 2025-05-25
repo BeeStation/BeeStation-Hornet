@@ -10,8 +10,8 @@
 	. = ..()
 	if(!microwaved_type) // This isn't cooked, why would you put uncooked spaghetti in your pocket?
 		var/list/display_message = list(
-			"<span class='notice'>Something wet falls out of their pocket and hits the ground. Is that... [name]?</span>",
-			"<span class='warning'>Oh shit! All your pocket [name] fell out!</span>")
+			span_notice("Something wet falls out of their pocket and hits the ground. Is that... [name]?"),
+			span_warning("Oh shit! All your pocket [name] fell out!"))
 		AddComponent(/datum/component/spill, display_message, 'sound/effects/splat.ogg')
 
 /obj/item/food/spaghetti/raw
@@ -21,6 +21,9 @@
 	tastes = list("pasta" = 1)
 	microwaved_type = /obj/item/food/spaghetti/boiledspaghetti
 	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/spaghetti/raw/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/spaghetti/boiledspaghetti, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
 
 /obj/item/food/spaghetti/boiledspaghetti
 	name = "boiled spaghetti"

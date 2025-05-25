@@ -101,10 +101,20 @@ CREATION_TEST_IGNORE_SELF(/obj)
 		AddComponent(/datum/component/ntnet_interface, network_id, id_tag)
 		/// Needs to run before as ComponentInitialize runs after this statement...why do we have ComponentInitialize again?
 
+// A list of all /obj by their id_tag
+GLOBAL_LIST_EMPTY(objects_by_id_tag)
+
+/obj/Initialize(mapload)
+	. = ..()
+
+	if (id_tag)
+		GLOB.objects_by_id_tag[id_tag] = src
+
 /obj/Destroy(force=FALSE)
 	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	SStgui.close_uis(src)
+	GLOB.objects_by_id_tag -= id_tag
 	. = ..()
 
 
@@ -114,39 +124,9 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	else
 		return null
 
-/obj/assume_air_moles(datum/gas_mixture/giver, moles)
-	if(loc)
-		return loc.assume_air_moles(giver, moles)
-	else
-		return null
-
-/obj/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	if(loc)
-		return loc.assume_air_ratio(giver, ratio)
-	else
-		return null
-
-/obj/transfer_air(datum/gas_mixture/taker, moles)
-	if(loc)
-		return loc.transfer_air(taker, moles)
-	else
-		return null
-
-/obj/transfer_air_ratio(datum/gas_mixture/taker, ratio)
-	if(loc)
-		return loc.transfer_air_ratio(taker, ratio)
-	else
-		return null
-
 /obj/remove_air(amount)
 	if(loc)
 		return loc.remove_air(amount)
-	else
-		return null
-
-/obj/remove_air_ratio(ratio)
-	if(loc)
-		return loc.remove_air_ratio(ratio)
 	else
 		return null
 
@@ -164,7 +144,8 @@ CREATION_TEST_IGNORE_SELF(/obj)
 
 	if(breath_request>0)
 		var/datum/gas_mixture/environment = return_air()
-		return remove_air_ratio(BREATH_VOLUME / environment.return_volume())
+		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
+		return remove_air(environment.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -188,7 +169,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 			var/mob/living/carbon/C = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
-					if(C.dna.check_mutation(TK))
+					if(C.dna.check_mutation(/datum/mutation/human/telekinesis))
 						is_in_use = TRUE
 						ui_interact(usr)
 		if (is_in_use)
@@ -251,7 +232,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src,S)
 
-/obj/get_dumping_location(datum/component/storage/source,mob/user)
+/obj/get_dumping_location(datum/storage/source, mob/user)
 	return get_turf(src)
 
 /**
@@ -263,10 +244,10 @@ CREATION_TEST_IGNORE_SELF(/obj)
  * Arguments:
  * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
  * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * caller- The movable we're checking pass flags for, if we're making any such checks
+ * * pathfinding_atom- The movable we're checking pass flags for, if we're making any such checks
  **/
-/obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
-	if(istype(caller) && (caller.pass_flags & pass_flags_self))
+/obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+	if(istype(passing_atom) && (passing_atom.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
 
@@ -311,7 +292,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 						to_chat(usr, "No objects of this type exist")
 						return
 					log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) ")
-					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) </span>")
+					message_admins(span_notice("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) "))
 				if("Type and subtypes")
 					var/i = 0
 					for(var/obj/Obj in world)
@@ -323,14 +304,17 @@ CREATION_TEST_IGNORE_SELF(/obj)
 						to_chat(usr, "No objects of this type exist")
 						return
 					log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
-					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) </span>")
+					message_admins(span_notice("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) "))
 
 /obj/examine(mob/user)
 	. = ..()
-	if(obj_flags & UNIQUE_RENAME)
-		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
 	if(unique_reskin_icon && !current_skin)
-		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+		. += span_notice("Alt-click it to reskin it.")
+
+/obj/examine_tags(mob/user)
+	. = ..()
+	if(obj_flags & UNIQUE_RENAME)
+		.["renameable"] = "Use a pen on it to rename it or change its description."
 
 /obj/AltClick(mob/user)
 	. = ..()
@@ -349,7 +333,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	return
 
 /obj/analyzer_act(mob/living/user, obj/item/I)
-	if(atmosanalyzer_scan(user, src))
+	if(atmos_scan(user=user, target=src, silent=FALSE))
 		return TRUE
 	return ..()
 
@@ -408,6 +392,15 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	if(resistance_flags & ON_FIRE)
 		. += GLOB.fire_overlay
 
+/// Handles exposing an object to reagents.
+/obj/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
+	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	for(var/reagent in reagents)
+		var/datum/reagent/R = reagent
+		. |= R.expose_obj(src, reagents[R])
+
 ///attempt to freeze this obj if possible. returns TRUE if it succeeded, FALSE otherwise.
 /obj/proc/freeze()
 	if(HAS_TRAIT(src, TRAIT_FROZEN))
@@ -430,7 +423,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 				hacker.use_charge()
 				on_emag(user)
 			else
-				to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+				to_chat(user, span_warning("[hacker] is out of charges and needs some time to restore them!"))
 				user.balloon_alert(user, "out of charges!")
 		else
 			SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)

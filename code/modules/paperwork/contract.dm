@@ -41,9 +41,11 @@
 		else
 			deconvert = prob (5)
 	if(deconvert)
-		M.visible_message("<span class='notice'>[user] reminds [M] that [M]'s soul was already purchased by Nanotrasen!</span>")
-		to_chat(M, "<span class='boldnotice'>You feel that your soul has returned to its rightful owner, Nanotrasen.</span>")
+		M.visible_message(span_notice("[user] reminds [M] that [M]'s soul was already purchased by Nanotrasen!"))
+		to_chat(M, span_boldnotice("You feel that your soul has returned to its rightful owner, Nanotrasen."))
 	else
-		M.visible_message("<span class='danger'>[user] beats [M] over the head with [src]!</span>", \
-			"<span class='userdanger'>[user] beats [M] over the head with [src]!</span>")
+		M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), \
+			span_userdanger("[user] beats [M] over the head with [src]!"))
 	return ..()
+
+

@@ -44,7 +44,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers/cup/chem_heirloom)
 		return
 	if(isliving(loc))
 		var/mob/living/M = loc
-		to_chat(M, "<span class='notice'>The [src] unlocks!</span>")
+		to_chat(M, span_notice("The [src] unlocks!"))
 	desc = "An opened bottle of [initial(rand_cont.name)]."
 	name = "bottle of [initial(rand_cont.name)]"
 	volume = CHEM_H_VOL

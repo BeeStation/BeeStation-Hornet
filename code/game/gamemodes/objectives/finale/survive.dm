@@ -8,11 +8,13 @@
 			return ..()
 	return TRUE
 
-/datum/objective/survive/exist //Like survive, but works for silicons and zombies and such.
-	name = "survive nonhuman"
+/datum/objective/survive/malf
+	name = "survive AI"
+	explanation_text = "Prevent your own deactivation"
 
-/datum/objective/survive/exist/check_completion()
-	for(var/datum/mind/M as() in get_owners())
-		if(!considered_alive(M, FALSE))
-			return ..()
-	return TRUE
+/datum/objective/survive/malf/check_completion()
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/mindobj in owners)
+		if(!iscyborg(mindobj) && !considered_alive(mindobj, FALSE)) //Shells (and normal borgs for that matter) are considered alive for Malf
+			return FALSE
+		return TRUE

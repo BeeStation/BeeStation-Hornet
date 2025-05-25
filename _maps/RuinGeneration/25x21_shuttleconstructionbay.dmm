@@ -224,7 +224,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "GG" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
@@ -299,7 +299,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "PL" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "Qz" = (
@@ -367,7 +367,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "XY" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,

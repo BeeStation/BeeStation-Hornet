@@ -153,16 +153,16 @@
 	return
 
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/H)
-	if((H.a_intent == INTENT_HARM) || (H.a_intent == INTENT_DISARM))
+	if(H.combat_mode)
 		retaliate(H)
 		if(special_retaliate_after_attack(H))
 			return
 
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/living/user, params)
 	..()
-	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
+	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		return
 	if(W.tool_behaviour != TOOL_SCREWDRIVER && (W.force) && (!target) && (W.damtype != STAMINA) ) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
 		retaliate(user)
@@ -173,9 +173,9 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
+			to_chat(user, span_danger("You short out [src]'s target assessment circuits."))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+		audible_message(span_danger("[src] buzzes oddly!"))
 		declare_arrests = FALSE
 		update_icon()
 
@@ -212,8 +212,8 @@
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	C.visible_message(span_danger("[src] is trying to put zipties on [C]!"),\
+						span_userdanger("[src] is trying to put zipties on you!"))
 	addtimer(CALLBACK(src, PROC_REF(attempt_handcuff), C), 60)
 
 /mob/living/simple_animal/bot/secbot/proc/attempt_handcuff(mob/living/carbon/C)
@@ -240,11 +240,11 @@
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	C.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
 	C.apply_effect(EFFECT_STUTTER, 50)
 	C.visible_message(
-		"<span class='danger'>[src] has stunned [C]!</span>",\
-		"<span class='userdanger'>[src] has stunned you!</span>"
+		span_danger("[src] has stunned [C]!"),\
+		span_userdanger("[src] has stunned you!")
 	)
 
 	log_combat(src, C, "stunned")
@@ -388,7 +388,7 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/secbot/explode()
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)

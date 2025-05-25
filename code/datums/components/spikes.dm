@@ -28,7 +28,7 @@
 		var/atom/movable/P = parent
 		var/def_check = C.getarmor(type = MELEE)
 		C.apply_damage(netdamage, BRUTE, blocked = def_check)
-		P.visible_message("<span class='warning'>[C.name] is pricked on [P.name]'s spikes.</span>")
+		P.visible_message(span_warning("[C.name] is pricked on [P.name]'s spikes."))
 		playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)
 		cooldown = (world.time + 8) //spike cooldown is equal to default unarmed attack speed
 
@@ -63,7 +63,7 @@
 			else
 				prick(H, 2)
 				H.Paralyze(40)
-				to_chat(H, "<span_class = 'userdanger'>Your feet are pierced by [P]'s spikes!</span>")
+				to_chat(H, span_userdanger("Your feet are pierced by [P]'s spikes!"))
 		else
 			prick(C)
 

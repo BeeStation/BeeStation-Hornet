@@ -22,7 +22,7 @@
 			. += "<p>According to the [src.name], you are now in an unclaimed territory.</p>"
 		if(AREA_SPECIAL)
 			. += "<p>This place is not noted on the [src.name].</p>"
-	. += "<p><a href='?src=[REF(src)];create_area=1'>Create or modify an existing area</a></p>"
+	. += "<p><a href='byond://?src=[REF(src)];create_area=1'>Create or modify an existing area</a></p>"
 
 
 /obj/item/areaeditor/Topic(href, href_list)
@@ -63,20 +63,20 @@
 		var/area/A = get_area(user)
 		if(get_area_type() == AREA_STATION)
 			. += "<p>According to \the [src], you are now in <b>\"[html_encode(A.name)]\"</b>.</p>"
-			. += "<p><a href='?src=[REF(src)];edit_area=1'>Change area name</a></p>"
-		. += "<p><a href='?src=[REF(src)];view_legend=1'>View wire colour legend</a></p>"
+			. += "<p><a href='byond://?src=[REF(src)];edit_area=1'>Change area name</a></p>"
+		. += "<p><a href='byond://?src=[REF(src)];view_legend=1'>View wire colour legend</a></p>"
 		if(!viewing)
-			. += "<p><a href='?src=[REF(src)];view_blueprints=1'>View structural data</a></p>"
+			. += "<p><a href='byond://?src=[REF(src)];view_blueprints=1'>View structural data</a></p>"
 		else
-			. += "<p><a href='?src=[REF(src)];refresh=1'>Refresh structural data</a></p>"
-			. += "<p><a href='?src=[REF(src)];hide_blueprints=1'>Hide structural data</a></p>"
+			. += "<p><a href='byond://?src=[REF(src)];refresh=1'>Refresh structural data</a></p>"
+			. += "<p><a href='byond://?src=[REF(src)];hide_blueprints=1'>Hide structural data</a></p>"
 	else
 		if(legend == TRUE)
-			. += "<a href='?src=[REF(src)];exit_legend=1'><< Back</a>"
+			. += "<a href='byond://?src=[REF(src)];exit_legend=1'><< Back</a>"
 			. += view_wire_devices(user);
 		else
 			//legend is a wireset
-			. += "<a href='?src=[REF(src)];view_legend=1'><< Back</a>"
+			. += "<a href='byond://?src=[REF(src)];view_legend=1'><< Back</a>"
 			. += view_wire_set(user, legend)
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
@@ -102,9 +102,9 @@
 	if(href_list["view_wireset"])
 		legend = href_list["view_wireset"];
 	if(href_list["view_blueprints"])
-		set_viewer(usr, "<span class='notice'>You flip the blueprints over to view the complex information diagram.</span>")
+		set_viewer(usr, span_notice("You flip the blueprints over to view the complex information diagram."))
 	if(href_list["hide_blueprints"])
-		clear_viewer(usr,"<span class='notice'>You flip the blueprints over to view the simple information diagram.</span>")
+		clear_viewer(usr,span_notice("You flip the blueprints over to view the simple information diagram."))
 	if(href_list["refresh"])
 		clear_viewer(usr)
 		set_viewer(usr)
@@ -163,7 +163,7 @@
 /obj/item/areaeditor/blueprints/proc/view_wire_devices(mob/user)
 	var/message = "<br>You examine the wire legend.<br>"
 	for(var/wireset in GLOB.wire_color_directory)
-		message += "<br><a href='?src=[REF(src)];view_wireset=[wireset]'>[GLOB.wire_name_directory[wireset]]</a>"
+		message += "<br><a href='byond://?src=[REF(src)];view_wireset=[wireset]'>[GLOB.wire_name_directory[wireset]]</a>"
 	message += "</p>"
 	return message
 
@@ -187,12 +187,12 @@
 	if(!str || !length(str) || str==prevname) //cancel
 		return
 	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>")
+		to_chat(usr, span_warning("The given name is too long.  The area's name is unchanged."))
 		return
 
 	rename_area(A, str)
 
-	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
+	to_chat(usr, span_notice("You rename the '[prevname]' to '[str]'."))
 	log_game("[key_name(usr)] has renamed [prevname] to [str]")
 	A.update_areasize()
 	interact()
@@ -213,27 +213,34 @@
 	var/prevname = "[A.name]"
 	set_area_machinery_title(A, new_name, prevname)
 	A.name = new_name
+	require_area_resort() //area renamed so resort the names
+
 	if(A.firedoors)
 		for(var/D in A.firedoors)
 			var/obj/machinery/door/firedoor/FD = D
-			FD.CalculateAffectingAreas()
+			FD.calculate_affecting_areas()
 	A.update_areasize()
 	return TRUE
 
 
-/proc/set_area_machinery_title(area/A, title, oldtitle)
+/proc/set_area_machinery_title(area/area, title, oldtitle)
 	if(!oldtitle) // or replacetext goes to infinite loop
 		return
-	for(var/obj/machinery/airalarm/M in A)
-		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/power/apc/M in A)
-		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/M in A)
-		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/atmospherics/components/unary/vent_pump/M in A)
-		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/door/M in A)
-		M.name = replacetext(M.name,oldtitle,title)
+
+	//stuff tied to the area to rename
+	var/list/to_rename = list(
+		/obj/machinery/airalarm,
+		/obj/machinery/atmospherics/components/unary/vent_scrubber,
+		/obj/machinery/atmospherics/components/unary/vent_pump,
+		/obj/machinery/door,
+		/obj/machinery/firealarm,
+		/obj/machinery/light_switch,
+		/obj/machinery/power/apc,
+	)
+
+	for(var/obj/machine as anything in area)
+		if(is_type_in_list(machine, to_rename))
+			machine.name = replacetext(machine.name, oldtitle, title)
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 #undef AREA_ERRNONE

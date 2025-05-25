@@ -37,7 +37,7 @@ Can be used to scrape blood runes away, removing any trace of them.
 Striking another cultist with it will purge all holy water from them and transform it into unholy water.
 Striking a noncultist, however, will tear their flesh."}
 
-	AddComponent(/datum/component/cult_ritual_item, "<span class='cult'>[examine_text]</span>")
+	AddComponent(/datum/component/cult_ritual_item, span_cult(examine_text))
 
 /obj/item/melee/cultblade
 	name = "eldritch longsword"
@@ -47,11 +47,11 @@ Striking a noncultist, however, will tear their flesh."}
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -65,11 +65,11 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
-		user.visible_message("<span class='warning'>[user] cringes as they strike [target]!</span>", \
-							"<span class='userdanger'>Your arm throbs and your brain hurts!</span>")
+		user.visible_message(span_warning("[user] cringes as they strike [target]!"), \
+							span_userdanger("Your arm throbs and your brain hurts!"))
 		user.adjustStaminaLoss(rand(force/2,force))
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
-	if (target.anti_magic_check(magic = FALSE, holy = TRUE))
+	if (target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		force = 15
 	else
 		force = 22
@@ -88,7 +88,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	..()
 	if(!iscultist(user))
-		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 
 /datum/action/innate/dash/cult
 	name = "Rend the Veil"
@@ -101,7 +101,7 @@ Striking a noncultist, however, will tear their flesh."}
 	phasein = /obj/effect/temp_visual/dir_setting/cult/phase
 	phaseout = /obj/effect/temp_visual/dir_setting/cult/phase/out
 
-/datum/action/innate/dash/cult/IsAvailable()
+/datum/action/innate/dash/cult/is_available()
 	if(iscultist(owner) && current_charges)
 		return TRUE
 	else
@@ -120,7 +120,7 @@ Striking a noncultist, however, will tear their flesh."}
 		return
 	if(ismob(hit_atom))
 		var/mob/M = hit_atom
-		if(M.anti_magic_check(magic = FALSE, holy = TRUE))
+		if(M.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			M.visible_message("[src] passes right through [M]!")
 			return
 	. = ..()
@@ -174,6 +174,9 @@ Striking a noncultist, however, will tear their flesh."}
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 
+/obj/item/clothing/suit/hooded/cultrobes/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
 
 /datum/armor/hooded_cultrobes
@@ -310,10 +313,10 @@ Striking a noncultist, however, will tear their flesh."}
 
 /// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, current_integrity)
-	wearer.visible_message("<span class='danger'>[wearer]'s robes neutralize [attack_text] in a burst of blood-red sparks!</span>")
+	wearer.visible_message(span_danger("[wearer]'s robes neutralize [attack_text] in a burst of blood-red sparks!"))
 	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
 	if(current_integrity == 0)
-		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
+		wearer.visible_message(span_danger("The runed shield around [wearer] suddenly disappears!"))
 
 /obj/item/clothing/head/hooded/cult_hoodie/cult_shield
 	name = "empowered cultist helmet"
@@ -338,8 +341,8 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
 	if(!iscultist(user) && !allow_any)
-		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
-		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
+		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
 		user.Dizzy(30)
 		user.Paralyze(100)
@@ -376,8 +379,8 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
 	..()
 	if(!iscultist(user))
-		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
-		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
+		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
 		user.Dizzy(30)
 		user.Paralyze(100)
@@ -393,7 +396,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
 	if(!iscultist(user))
-		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
+		to_chat(user, span_cultlarge("\"You want to be blind, do you?\""))
 		user.dropItemToGround(src, TRUE)
 		user.Dizzy(30)
 		user.Paralyze(100)
@@ -410,13 +413,13 @@ Striking a noncultist, however, will tear their flesh."}
 	if(!iscultist(user))
 		user.dropItemToGround(src, TRUE)
 		user.Paralyze(100)
-		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
+		to_chat(user, span_warning("A powerful force shoves you away from [src]!"))
 		return
 	if(curselimit > 1)
-		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
+		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
 		return
 	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
-		to_chat(user, "<span class='warning'>Nar'Sie is already on this plane, there is no delaying the end of all things.</span>")
+		to_chat(user, span_warning("Nar'Sie is already on this plane, there is no delaying the end of all things."))
 		return
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
@@ -435,7 +438,7 @@ Striking a noncultist, however, will tear their flesh."}
 		SSshuttle.emergency.setTimer(timer)
 		if(surplus > 0)
 			SSshuttle.block_recall(surplus)
-		to_chat(user, "<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
+		to_chat(user, span_danger("You shatter the orb! A dark essence spirals into the air, then disappears."))
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, 1)
 		qdel(src)
 		sleep(20)
@@ -463,9 +466,9 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
 	if(uses)
-		. += "<span class='cult'>It has [uses] use\s remaining.</span>"
+		. += span_cult("It has [uses] use\s remaining.")
 	else
-		. += "<span class='cult'>It seems drained.</span>"
+		. += span_cult("It seems drained.")
 
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
@@ -476,12 +479,12 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/cult_shift/attack_self(mob/user)
 	if(!uses || !iscarbon(user))
-		to_chat(user, "<span class='warning'>\The [src] is dull and unmoving in your hands.</span>")
+		to_chat(user, span_warning("\The [src] is dull and unmoving in your hands."))
 		return
 	if(!iscultist(user))
 		user.dropItemToGround(src, TRUE)
 		step(src, pick(GLOB.alldirs))
-		to_chat(user, "<span class='warning'>\The [src] flickers out of your hands, your connection to this dimension is too strong!</span>")
+		to_chat(user, span_warning("\The [src] flickers out of your hands, your connection to this dimension is too strong!"))
 		return
 
 	var/mob/living/carbon/C = user
@@ -504,7 +507,7 @@ Striking a noncultist, however, will tear their flesh."}
 			playsound(destination, "sparks", 50, 1)
 
 	else
-		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+		to_chat(C, span_danger("The veil cannot be torn here!"))
 
 /obj/item/flashlight/flare/culttorch
 	name = "void torch"
@@ -536,21 +539,21 @@ Striking a noncultist, however, will tear their flesh."}
 		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 			return
 		if(!cultist_to_receive)
-			to_chat(user, "<span class='cult italic'>You require a destination!</span>")
+			to_chat(user, span_cultitalic("You require a destination!"))
 			log_game("Void torch failed - no target")
 			return
 		if(cultist_to_receive.stat == DEAD)
-			to_chat(user, "<span class='cult italic'>[cultist_to_receive] has died!</span>")
+			to_chat(user, span_cultitalic("[cultist_to_receive] has died!"))
 			log_game("Void torch failed  - target died")
 			return
 		if(!iscultist(cultist_to_receive))
-			to_chat(user, "<span class='cult italic'>[cultist_to_receive] is not a follower of the Geometer!</span>")
+			to_chat(user, span_cultitalic("[cultist_to_receive] is not a follower of the Geometer!"))
 			log_game("Void torch failed - target was deconverted")
 			return
 		if(A in user.GetAllContents())
-			to_chat(user, "<span class='cult italic'>[A] must be on a surface in order to teleport it!</span>")
+			to_chat(user, span_cultitalic("[A] must be on a surface in order to teleport it!"))
 			return
-		to_chat(user, "<span class='cult italic'>You ignite [A] with \the [src], turning it to ash, but through the torch's flames you see that [A] has reached [cultist_to_receive]!")
+		to_chat(user, span_cultitalic("You ignite [A] with \the [src], turning it to ash, but through the torch's flames you see that [A] has reached [cultist_to_receive]!"))
 		cultist_to_receive.put_in_hands(A)
 		charges--
 		to_chat(user, "\The [src] now has [charges] charge\s.")
@@ -559,7 +562,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 	else
 		..()
-		to_chat(user, "<span class='warning'>\The [src] can only transport items!</span>")
+		to_chat(user, span_warning("\The [src] can only transport items!"))
 
 
 /obj/item/cult_spear
@@ -573,10 +576,10 @@ Striking a noncultist, however, will tear their flesh."}
 	throwforce = 40
 	throw_speed = 2
 	armour_penetration = 30
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/datum/action/innate/cult/spear/spear_act
@@ -605,11 +608,11 @@ Striking a noncultist, however, will tear their flesh."}
 		if(iscultist(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			if(L.put_in_active_hand(src))
-				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
+				L.visible_message(span_warning("[L] catches [src] out of the air!"))
 			else
-				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
+				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
-			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
+			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				L.Knockdown(50)
 			break_spear(T)
 	else
@@ -620,7 +623,7 @@ Striking a noncultist, however, will tear their flesh."}
 		if(!T)
 			T = get_turf(src)
 		if(T)
-			T.visible_message("<span class='warning'>[src] shatters and melts back into blood!</span>")
+			T.visible_message(span_warning("[src] shatters and melts back into blood!"))
 			new /obj/effect/temp_visual/cult/sparks(T)
 			new /obj/effect/decal/cleanable/blood/splatter(T)
 			playsound(T, 'sound/effects/glassbr3.ogg', 100)
@@ -631,12 +634,12 @@ Striking a noncultist, however, will tear their flesh."}
 		final_block_chance *= 2
 	if(prob(final_block_chance))
 		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"))
 			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, 1)
 			return TRUE
 		else
 			playsound(src, 'sound/weapons/parry.ogg', 100, 1)
-			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
 			return TRUE
 	return FALSE
 
@@ -651,22 +654,20 @@ Striking a noncultist, however, will tear their flesh."}
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()
 	spear = blood_spear
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
 
-/datum/action/innate/cult/spear/Activate()
+/datum/action/innate/cult/spear/on_activate()
 	if(owner == spear.loc || cooldown > world.time)
 		return
 	var/ST = get_turf(spear)
 	var/OT = get_turf(owner)
 	if(get_dist(OT, ST) > 10)
-		to_chat(owner,"<span class='cult'>The spear is too far away!</span>")
+		to_chat(owner,span_cult("The spear is too far away!"))
 	else
 		cooldown = world.time + 20
 		if(isliving(spear.loc))
 			var/mob/living/L = spear.loc
 			L.dropItemToGround(spear)
-			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
+			L.visible_message(span_warning("An unseen force pulls the blood spear from [L]'s hands!"))
 		spear.throw_at(owner, 10, 2, owner)
 
 
@@ -751,7 +752,7 @@ Striking a noncultist, however, will tear their flesh."}
 		var/obj/structure/emergency_shield/invoker/N = new(user.loc)
 		if(do_after(user, 90, target = user))
 			user.Paralyze(40)
-			to_chat(user, "<span class='cult italic'>You have exhausted the power of this spell!</span>")
+			to_chat(user, span_cultitalic("You have exhausted the power of this spell!"))
 		firing = FALSE
 		if(N)
 			qdel(N)
@@ -848,8 +849,8 @@ Striking a noncultist, however, will tear their flesh."}
 		if (attack_type == MELEE_ATTACK && ishuman(hitby.loc))
 			// Cannot block someone who has the bible on their side
 			var/mob/living/carbon/human/attacker = hitby.loc
-			if (attacker.anti_magic_check(magic = FALSE, holy = TRUE))
-				owner.visible_message("<span class='danger'>[owner] fails to block the attack from [attacker]!</span>", "<span class='userdanger'>You fail to block the empowered attack!</span>")
+			if (attacker.can_block_magic(MAGIC_RESISTANCE_HOLY))
+				owner.visible_message(span_danger("[owner] fails to block the attack from [attacker]!"), span_userdanger("You fail to block the empowered attack!"))
 				return FALSE
 		. = ..()
 		if(.)
@@ -857,7 +858,7 @@ Striking a noncultist, however, will tear their flesh."}
 				illusions--
 				if(prob(60))
 					var/mob/living/simple_animal/hostile/illusion/M = new(owner.loc)
-					M.faction = list("cult")
+					M.faction = list(FACTION_CULT)
 					M.Copy_Parent(owner, 70, 10, 5)
 					M.move_to_delay = owner.cached_multiplicative_slowdown
 				else
@@ -870,10 +871,10 @@ Striking a noncultist, however, will tear their flesh."}
 		if(prob(50))
 			var/mob/living/simple_animal/hostile/illusion/H = new(owner.loc)
 			H.Copy_Parent(owner, 100, 20, 5)
-			H.faction = list("cult")
+			H.faction = list(FACTION_CULT)
 			H.GiveTarget(owner)
 			H.move_to_delay = owner.cached_multiplicative_slowdown
-			to_chat(owner, "<span class='danger'><b>[src] betrays you!</b></span>")
+			to_chat(owner, span_danger("<b>[src] betrays you!</b>"))
 		return FALSE
 
 /obj/item/shield/mirror/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -884,11 +885,11 @@ Striking a noncultist, however, will tear their flesh."}
 		if(iscultist(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			if(L.put_in_active_hand(src))
-				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
+				L.visible_message(span_warning("[L] catches [src] out of the air!"))
 			else
-				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
+				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
-			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
+			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

@@ -23,14 +23,14 @@
 	var/apparent_species
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
-	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	. = list(span_info("This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!"))
 
 	if(obscure_examine)
-		return list("<span class='warning'>You're struggling to make out any details...")
+		return list(span_warning("You're struggling to make out any details..."))
 
 	//Psychic soul stuff
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
-		to_chat(user, "<span class='notice'>[src] has a <span class='[GLOB.soul_glimmer_cfc_list[mind.soul_glimmer]]'>[mind.soul_glimmer]</span> presence.")
+		to_chat(user, "[span_notice("[src] has a <span class='[GLOB.soul_glimmer_cfc_list[mind.soul_glimmer]]'>[mind.soul_glimmer]")] presence.")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
@@ -66,7 +66,7 @@
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
 	else if(FR && length(FR.blood_DNA))
 		if(num_hands)
-			. += "<span class='warning'>[t_He] [t_has] [num_hands > 1 ? "" : "a"] blood-stained hand[num_hands > 1 ? "s" : ""]!</span>"
+			. += span_warning("[t_He] [t_has] [num_hands > 1 ? "" : "a"] blood-stained hand[num_hands > 1 ? "s" : ""]!")
 
 	//belt
 	if(belt && !(belt.item_flags & EXAMINE_SKIP))
@@ -88,7 +88,7 @@
 		if(glasses && !(glasses.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-			. += "<span class='warning'><B>[t_His] eyes are glowing an unnatural red!</B></span>"
+			. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
 
 	//ears
 	if(ears && !(obscured & ITEM_SLOT_EARS) && !(ears.item_flags & EXAMINE_SKIP))
@@ -104,11 +104,11 @@
 	//Jitters
 	switch(jitteriness)
 		if(300 to INFINITY)
-			. += "<span class='warning'><B>[t_He] [t_is] convulsing violently!</B></span>"
+			. += span_warning("<B>[t_He] [t_is] convulsing violently!</B>")
 		if(200 to 300)
-			. += "<span class='warning'>[t_He] [t_is] extremely jittery.</span>"
+			. += span_warning("[t_He] [t_is] extremely jittery.")
 		if(100 to 200)
-			. += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>"
+			. += span_warning("[t_He] [t_is] twitching ever so slightly.")
 
 	var/appears_dead = FALSE
 	var/just_sleeping = FALSE
@@ -120,19 +120,19 @@
 
 		if(!just_sleeping)
 			if(suiciding)
-				. += "<span class='warning'>[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>"
+				. += span_warning("[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.")
 			if(ishellbound())
-				. += "<span class='warning'>[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.</span>"
+				. += span_warning("[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.")
 			. += ""
 			if(soul_departed())
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...</span>"
+				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...")
 			else if(!client && key)
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...</span>"
+				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...")
 			else
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life...</span>"
+				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
 
 	if(get_bodypart(BODY_ZONE_HEAD) && !getorgan(/obj/item/organ/brain))
-		. += "<span class='deadsay'>It appears that [t_his] brain is missing.</span>"
+		. += span_deadsay("It appears that [t_his] brain is missing.")
 
 	var/temp = getBruteLoss() //no need to calculate each of these twice
 
@@ -187,7 +187,7 @@
 
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.limb_id != (dna.species.examine_limb_id ? dna.species.examine_limb_id : dna.species.id))
-			msg += "<span class='info'>[t_He] [t_has] \an [BP.name].</span>\n"
+			msg += "[span_info("[t_He] [t_has] \an [BP.name].")]\n"
 
 	var/list/harm_descriptors = dna?.species.get_harm_descriptors()
 	var/brute_msg = harm_descriptors?["brute"]
@@ -201,11 +201,11 @@
 	if (is_bleeding())
 		switch (get_bleed_rate())
 			if (BLEED_DEEP_WOUND to INFINITY)
-				msg += "<span class='warning'>[src] is [bleed_msg] extremely quickly.</span>\n"
+				msg += "[span_warning("[src] is [bleed_msg] extremely quickly.")]\n"
 			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
-				msg += "<span class='warning'>[src] is [bleed_msg] at a significant rate.</span>\n"
+				msg += "[span_warning("[src] is [bleed_msg] at a significant rate.")]\n"
 			else
-				msg += "<span class='warning'>[src] has some minor [bleed_msg] which look like it will stop soon.</span>\n"
+				msg += "[span_warning("[src] has some minor [bleed_msg] which look like it will stop soon.")]\n"
 	else if (is_bandaged())
 		msg += "[src] is [bleed_msg], but it is covered.\n"
 
@@ -292,7 +292,7 @@
 
 	if(ismob(user))
 		if(HAS_TRAIT(user, TRAIT_EMPATH) && !appears_dead && (src != user))
-			if (a_intent != INTENT_HELP)
+			if (combat_mode)
 				msg += "[t_He] seem[p_s()] to be on guard.\n"
 			if (getOxyLoss() >= 10)
 				msg += "[t_He] seem[p_s()] winded.\n"
@@ -327,23 +327,23 @@
 				if(!dna.species.ai_controlled_species)
 					msg += "<span class='deadsay'>[ai_controller.get_human_examine_text()]</span>\n"
 			else if(!key)
-				msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
+				msg += "[span_deadsay("[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.")]\n"
 			else if(!client)
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
 
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += "<span class='warning'>[t_He] [t_is] restrained with cable!</span>"
+			. += span_warning("[t_He] [t_is] restrained with cable!")
 		else
-			. += "<span class='warning'>[t_He] [t_is] handcuffed with [handcuffed]!</span>"
+			. += span_warning("[t_He] [t_is] handcuffed with [handcuffed]!")
 
 	//legcuffed?
 	if(legcuffed)
-		. += "<span class='warning'>[t_He] [t_is] legcuffed with [legcuffed]!</span>"
+		. += span_warning("[t_He] [t_is] legcuffed with [legcuffed]!")
 
 	if (length(msg))
-		. += "<span class='warning'>[msg.Join("")]</span>"
+		. += span_warning("[msg.Join("")]")
 
 	var/trait_exam = common_trait_examine()
 	if (!isnull(trait_exam))
@@ -355,7 +355,7 @@
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
 		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
 		if(target_record)
-			. += "<span class='deptradio'>Rank:</span> [target_record.rank]"
+			. += "[span_deptradio("Rank:")] [target_record.rank]"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
 			var/list/cyberimp_detect = list()
 			for(var/obj/item/organ/cyberimp/CI in internal_organs)
@@ -365,13 +365,13 @@
 				. += "Detected cybernetic modifications: [english_list(cyberimp_detect)]"
 			if(target_record)
 				var/physical_status = target_record.physical_status
-				. += "Physical status: <a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[physical_status]\]</a>"
+				. += "Physical status: <a href='byond://?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[physical_status]\]</a>"
 				var/mental_status = target_record.mental_status
-				. += "Mental status: <a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[mental_status]\]</a>"
+				. += "Mental status: <a href='byond://?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[mental_status]\]</a>"
 			target_record = find_record(perpname, GLOB.manifest.general)
-			. += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
+			. += "<a href='byond://?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
-				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
+				. += span_info("Detected physiological traits:\n[traitstring]")
 
 		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 			if((user.stat == CONSCIOUS || isobserver(user)) && user != src)
@@ -385,17 +385,17 @@
 						security_note = target_record.security_note
 
 				if(ishuman(user))
-					. += "<span class='deptradio'>Criminal status:</span> <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
+					. += "[span_deptradio("Criminal status:")] <a href='byond://?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
 				else
-					. += "<span class='deptradio'>Criminal status:</span> [wanted_status]"
+					. += "[span_deptradio("Criminal status:")] [wanted_status]"
 				. += "<span class='deptradio'>Important Notes: [security_note]"
-				. += "<span class='deptradio'>Security record:</span> <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
+				. += "[span_deptradio("Security record:")] <a href='byond://?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
 				if(ishuman(user))
-					. += jointext(list("<a href='?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
-						"<a href='?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
-						"<a href='?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
+					. += jointext(list("<a href='byond://?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
+						"<a href='byond://?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
+						"<a href='byond://?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
 	else if(isobserver(user) && traitstring)
-		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
+		. += span_info("<b>Traits:</b> [traitstring]")
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()

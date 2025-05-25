@@ -170,7 +170,7 @@
 		name = initial(new_type.name)
 		build_path = initial(new_type.build_path)
 		I.play_tool_sound(src)
-		to_chat(user, "<span class='notice'>You change the circuitboard setting to \"[new_setting]\".</span>")
+		to_chat(user, span_notice("You change the circuitboard setting to \"[new_setting]\"."))
 	else
 		return ..()
 
@@ -380,7 +380,7 @@
 /obj/item/circuitboard/machine/thermomachine
 	name = "thermomachine (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/thermomachine/freezer
+	build_path = /obj/machinery/atmospherics/components/unary/thermomachine
 	var/pipe_layer = PIPING_LAYER_DEFAULT
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -392,11 +392,11 @@
 	. = ..()
 	if(istype(I))
 		pipe_layer = (pipe_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (pipe_layer + 1)
-		to_chat(user, "<span class='notice'>You change the circuitboard to layer [pipe_layer].</span>")
+		to_chat(user, span_notice("You change the circuitboard to layer [pipe_layer]."))
 
 /obj/item/circuitboard/machine/thermomachine/examine()
 	. = ..()
-	. += "<span class='notice'>It is set to layer [pipe_layer].</span>"
+	. += span_notice("It is set to layer [pipe_layer].")
 
 /obj/item/circuitboard/machine/suit_storage_unit
 	name = "Suit Storage Unit (Machine Board)"
@@ -519,13 +519,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		var/position = fridges_name_paths.Find(build_path, fridges_name_paths)
 		position = (position == fridges_name_paths.len) ? 1 : (position + 1)
 		build_path = fridges_name_paths[position]
-		to_chat(user, "<span class='notice'>You set the board to [fridges_name_paths[build_path]].</span>")
+		to_chat(user, span_notice("You set the board to [fridges_name_paths[build_path]]."))
 	else
 		return ..()
 
 /obj/item/circuitboard/machine/smartfridge/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.</span>"
+	. += span_info("[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.")
 
 
 /obj/item/circuitboard/machine/portable_thermomachine
@@ -749,7 +749,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 		build_path = new_path
 		name = "[new_name] 3000 (Machine Board)"
-		to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+		to_chat(user, span_notice("You change the circuit board setting to \"[new_name]\"."))
 	else
 		return ..()
 
@@ -782,7 +782,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/cryo_tube
 	name = "cryotube (Machine Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/atmospherics/components/unary/cryo_cell
+	build_path = /obj/machinery/cryo_cell
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stack/cable_coil = 1,
@@ -1120,18 +1120,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 /obj/item/circuitboard/machine/dish_drive/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>\n"+\
-	"<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
+	. += "[span_notice("Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.")]\n"+\
+	span_notice("Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.")
 
 /obj/item/circuitboard/machine/dish_drive/attack_self(mob/living/user)
 	suction = !suction
-	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
+	to_chat(user, span_notice("You [suction ? "enable" : "disable"] the board's suction function."))
 
 /obj/item/circuitboard/machine/dish_drive/AltClick(mob/living/user)
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	transmit = !transmit
-	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
+	to_chat(user, span_notice("You [transmit ? "enable" : "disable"] the board's automatic disposal transmission."))
 
 
 /obj/item/circuitboard/machine/gibber
@@ -1196,11 +1196,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		if(build_path == /obj/machinery/processor)
 			name = "Slime Processor (Machine Board)"
 			build_path = /obj/machinery/processor/slime
-			to_chat(user, "<span class='notice'>Name protocols successfully updated.</span>")
+			to_chat(user, span_notice("Name protocols successfully updated."))
 		else
 			name = "Food Processor (Machine Board)"
 			build_path = /obj/machinery/processor
-			to_chat(user, "<span class='notice'>Defaulting name protocols.</span>")
+			to_chat(user, span_notice("Defaulting name protocols."))
 	else
 		return ..()
 

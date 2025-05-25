@@ -93,13 +93,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	if(I.tool_behaviour == TOOL_WIRECUTTER)
 		I.play_tool_sound(src, 100)
 		if(ruined)
-			to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
+			to_chat(user, span_notice("You remove the remnants of the poster."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
+			to_chat(user, span_notice("You carefully remove the poster from the wall."))
 			roll_and_drop(user.loc)
 
-/obj/structure/sign/poster/attack_hand(mob/user)
+/obj/structure/sign/poster/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -124,7 +124,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 //separated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
 /turf/closed/wall/proc/place_poster(obj/item/poster/P, mob/user)
 	if(!P.poster_structure)
-		to_chat(user, "<span class='warning'>[P] has no poster... inside it? Inform a coder!</span>")
+		to_chat(user, span_warning("[P] has no poster... inside it? Inform a coder!"))
 		return
 
 	// Deny placing posters on currently-diagonal walls, although the wall may change in the future.
@@ -137,14 +137,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	var/stuff_on_wall = 0
 	for(var/obj/O in contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign/poster))
-			to_chat(user, "<span class='warning'>The wall is far too cluttered to place a poster!</span>")
+			to_chat(user, span_warning("The wall is far too cluttered to place a poster!"))
 			return
 		stuff_on_wall++
 		if(stuff_on_wall == 3)
-			to_chat(user, "<span class='warning'>The wall is far too cluttered to place a poster!</span>")
+			to_chat(user, span_warning("The wall is far too cluttered to place a poster!"))
 			return
 
-	to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>"	)
+	to_chat(user, span_notice("You start placing the poster on the wall...")	)
 
 	var/obj/structure/sign/poster/D = P.poster_structure
 
@@ -159,11 +159,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
-			to_chat(user, "<span class='notice'>You place the poster!</span>")
+			to_chat(user, span_notice("You place the poster!"))
 			return
 
 	if(D.loc == src) //Would do QDELETED, but it's also possible the poster gets taken down by dismantling the wall
-		to_chat(user, "<span class='notice'>The poster falls down!</span>")
+		to_chat(user, span_notice("The poster falls down!"))
 		D.roll_and_drop(temp_loc)
 
 // Various possible posters follow
@@ -672,5 +672,33 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	name = "Suit Sensors"
 	desc = "A poster begging you to max your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
 	icon_state = "poster50"
+
+/obj/structure/sign/poster/official/xenoarchaeology
+	name = "Xenoarchaeology"
+	desc = "A poster with featuring several diagrams of artifacts.\
+	\n\
+	Artifacts can be labeled and sold through cargo to obtain research & discovery points.\n\
+	Poorly labeled artifacts will yield fewer rewards than accurately labeled ones."
+	icon_state = "poster52"
+
+/obj/structure/sign/poster/official/xenoarchaeology_pearl
+	name = "???"
+	desc = "A poster featuring an artifact you don't recognize.\
+	\n\
+	Legends say, artifacts can be made by striking objects with nuclear particles while submerged in tritium. They also \
+	say once stabilized, artifacts behave strangely when aligned to certain grids, related to \
+	the characteristics of their traits."
+	icon_state = "poster52"
+
+/obj/structure/sign/poster/contraband/syndicate
+	name = "Syndicate Emblem"
+	desc = "Almost anyone could recognize this as the logo of the Syndicate."
+	icon_state = "poster51"
+
+/obj/structure/sign/poster/contraband/m90
+	// have fun seeing this poster in "spawn 'c20r'", admins...
+	name = "M-90"
+	desc = "A poster advertising the Scarborough Arms M-90"
+	icon_state = "poster53"
 
 #undef PLACE_SPEED

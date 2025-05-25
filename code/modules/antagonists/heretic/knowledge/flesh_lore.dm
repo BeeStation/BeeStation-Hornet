@@ -55,16 +55,14 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user)
+/datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.heretic_path = route
 
 	var/datum/objective/heretic_summon/summon_objective = new()
 	summon_objective.owner = our_heretic.owner
 	our_heretic.objectives += summon_objective
 
-	to_chat(user, "<span class='hierophant'>Undertaking the Path of Flesh, you are given another objective.</span>")
+	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
 	our_heretic.owner.announce_objectives()
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
@@ -77,10 +75,10 @@
 	cost = 1
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user)
+/datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
-/datum/heretic_knowledge/limited_amount/flesh_grasp/on_lose(mob/user)
+/datum/heretic_knowledge/limited_amount/flesh_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -92,19 +90,19 @@
 	// Skeletons can't become husks, and monkeys are monkeys.
 	if(!ishuman(target) || isskeleton(target) || ismonkey(target))
 		target.balloon_alert(source, "Invalid body")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 
 	var/mob/living/carbon/human/human_target = target
 	human_target.grab_ghost()
 	if(!human_target.mind || !human_target.client)
 		target.balloon_alert(source, "No soul")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 	if(HAS_TRAIT(human_target, TRAIT_HUSK))
 		target.balloon_alert(source, "Husked")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 	if(LAZYLEN(created_items) >= limit)
 		target.balloon_alert(source, "At ghoul limit")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 
 	LAZYADD(created_items, WEAKREF(human_target))
 	log_game("[key_name(source)] created a ghoul, controlled by [key_name(human_target)].")
@@ -227,11 +225,11 @@
 	cost = 2
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/flesh_mark/on_gain(mob/user)
+/datum/heretic_knowledge/flesh_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/flesh_mark/on_lose(mob/user)
+/datum/heretic_knowledge/flesh_mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /datum/heretic_knowledge/flesh_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -293,10 +291,10 @@
 	cost = 2
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/flesh_blade_upgrade/on_gain(mob/user)
+/datum/heretic_knowledge/flesh_blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/flesh_blade_upgrade/on_lose(mob/user)
+/datum/heretic_knowledge/flesh_blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
 
 /datum/heretic_knowledge/flesh_blade_upgrade/proc/on_eldritch_blade(mob/living/user, mob/living/target)
@@ -350,7 +348,10 @@
 
 /datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
+	priority_announce("[generate_heretic_text()] Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever-twisting hand! [generate_heretic_text()]", "[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
+
+	var/datum/action/spell/shapeshift/shed_human_form/worm_spell = new(user.mind)
+	worm_spell.Grant(user)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/datum/heretic_knowledge/limited_amount/flesh_grasp/grasp_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_grasp)
@@ -359,6 +360,10 @@
 	ritual_ghoul.limit *= 3
 	var/datum/heretic_knowledge/limited_amount/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/base_flesh)
 	blade_ritual.limit = 999
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/flesh_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 #undef GHOUL_MAX_HEALTH
 #undef MUTE_MAX_HEALTH

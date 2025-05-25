@@ -85,7 +85,7 @@
   * Honestly this is mostly just a rehash of [/obj/item/ammo_casing/proc/fire_casing()] for pellet counts > 1, except this lets us tamper with the pellets and hook onto them for tracking purposes.
   * The arguments really don't matter, this proc is triggered by COMSIG_PELLET_CLOUD_INIT which is only for this really, it's just a big mess of the state vars we need for doing the stuff over here.
   */
-/datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params, distro)
+/datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params)
 	SIGNAL_HANDLER
 
 	shooter = user
@@ -95,11 +95,11 @@
 
 	for(var/i in 1 to num_pellets)
 		shell.ready_proj(target, user, SUPPRESSED_VERY, zone_override, fired_from)
-		if(distro)
-			if(randomspread)
-				spread = round((rand() - 0.5) * distro)
-			else //Smart spread
-				spread = round((i / num_pellets - 0.5) * distro)
+		var/bullet_angle = spread
+		if(randomspread)
+			bullet_angle = round((rand() - 0.5) * spread)
+		else //Smart spread
+			bullet_angle = round((i / num_pellets - 0.5) * spread)
 
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
 		RegisterSignals(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), PROC_REF(pellet_range))
@@ -107,7 +107,7 @@
 		var/turf/current_loc = get_turf(user)
 		if(!istype(targloc) || !istype(current_loc))
 			return
-		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, targloc, shooter, params, spread)
+		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, targloc, shooter, params, bullet_angle)
 		if(i != num_pellets)
 			shell.newshot()
 
@@ -149,7 +149,7 @@
 	var/self_harm_radius_mult = 3
 
 	if(lanced_by && prob(60))
-		to_chat(lanced_by, "<span class='userdanger'>Your plan to whack someone with a grenade on a stick backfires on you, literally!</span>")
+		to_chat(lanced_by, span_userdanger("Your plan to whack someone with a grenade on a stick backfires on you, literally!"))
 		self_harm_radius_mult = 1 // we'll still give the guy who got hit some extra shredding, but not 3*radius
 		pellet_delta += radius
 		for(var/i in 1 to radius)
@@ -166,13 +166,13 @@
 	for(var/M in martyrs)
 		var/mob/living/martyr = M
 		if(radius > 4)
-			martyr.visible_message("<b><span class='danger'>[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing a load of the shrapnel!</span></b>", "<span class='userdanger'>You heroically cover \the [parent] with your body, absorbing a load of the shrapnel!</span>")
+			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing a load of the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, absorbing a load of the shrapnel!"))
 			magnitude_absorbed += round(radius * 0.5)
 		else if(radius >= 2)
-			martyr.visible_message("<b><span class='danger'>[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing some of the shrapnel!</span></b>", "<span class='userdanger'>You heroically cover \the [parent] with your body, absorbing some of the shrapnel!</span>")
+			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing some of the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, absorbing some of the shrapnel!"))
 			magnitude_absorbed += 2
 		else
-			martyr.visible_message("<b><span class='danger'>[martyr] heroically covers \the [parent] with [martyr.p_their()] body, snuffing out the shrapnel!</span></b>", "<span class='userdanger'>You heroically cover \the [parent] with your body, snuffing out the shrapnel!</span>")
+			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, snuffing out the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, snuffing out the shrapnel!"))
 			magnitude_absorbed = radius
 
 		var/pellets_absorbed = (radius ** 2) - ((radius - magnitude_absorbed - 1) ** 2)
@@ -273,11 +273,11 @@
 			limb_hit_text = " in the [hit_part.plaintext_zone]"
 
 		if(num_hits > 1)
-			target.visible_message("<span class='danger'>[target] is hit by [num_hits] [proj_name][plural_s(proj_name)][limb_hit_text][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by [num_hits] [proj_name]s[limb_hit_text]!</span>")
+			target.visible_message(span_danger("[target] is hit by [num_hits] [proj_name][plural_s(proj_name)][limb_hit_text][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE, target)
+			to_chat(target, span_userdanger("You're hit by [num_hits] [proj_name]s[limb_hit_text]!"))
 		else
-			target.visible_message("<span class='danger'>[target] is hit by a [proj_name][limb_hit_text][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by a [proj_name][limb_hit_text]!</span>")
+			target.visible_message(span_danger("[target] is hit by a [proj_name][limb_hit_text][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE, target)
+			to_chat(target, span_userdanger("You're hit by a [proj_name][limb_hit_text]!"))
 
 	UnregisterSignal(parent, COMSIG_PARENT_PREQDELETED)
 	if(queued_delete)

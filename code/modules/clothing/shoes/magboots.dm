@@ -1,5 +1,5 @@
 /obj/item/clothing/shoes/magboots
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle. Walking carefully lets the user gain better traction."
 	name = "magboots"
 	icon_state = "magboots0"
 	item_state = "magboots"
@@ -38,9 +38,11 @@
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/living/user)
 	if(magpulse)
+		clothing_flags &= ~NOSLIP_ALL_WALKING
 		clothing_flags &= ~NOSLIP
 		slowdown = SHOES_SLOWDOWN
 	else
+		clothing_flags |= NOSLIP_ALL_WALKING
 		clothing_flags |= NOSLIP
 		slowdown = slowdown_active
 	magpulse = !magpulse
@@ -110,7 +112,7 @@
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "<span class='notice'>You [magpulse ? "enable" : "disable"] the mag-pulse traction system.</span>")
+	to_chat(user, span_notice("You [magpulse ? "enable" : "disable"] the mag-pulse traction system."))
 	user.update_inv_shoes()
 	update_action_buttons()
 
@@ -126,7 +128,7 @@
 	for (var/mob/living/A in T)
 		if (A != user && A.body_position == LYING_DOWN)
 			A.adjustBruteLoss(rand(10,13))
-			to_chat(A,"<span class='userdanger'>[user]'s magboots press down on you, crushing you!</span>")
+			to_chat(A,span_userdanger("[user]'s magboots press down on you, crushing you!"))
 			INVOKE_ASYNC(A, TYPE_PROC_REF(/mob, emote), "scream")
 
 /obj/item/clothing/shoes/magboots/crushing/attack_self(mob/user)

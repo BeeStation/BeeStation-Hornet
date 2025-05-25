@@ -22,7 +22,7 @@
 	staminamod = 1.25
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
-	inert_mutation = WAXSALIVA
+	inert_mutation = /datum/mutation/human/wax_saliva
 	var/cold_cycle = 0
 
 	species_chest = /obj/item/bodypart/chest/apid
@@ -39,7 +39,7 @@
 	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
 		cold_cycle++
 		if(prob(5))
-			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")
+			to_chat(H, span_warning("The cold is making you feel tired..."))
 		switch(cold_cycle)
 			if(5 to 10)
 				H.drowsyness++

@@ -13,16 +13,13 @@ const binaryInsertName = binaryInsertWith<NameWithKey>(({ key }) => key);
 
 const sortNameWithKeyEntries = sortBy<[string, NameWithKey[]]>(([key]) => key);
 
-export const MultiNameInput = (
-  props: {
-    handleClose: () => void;
-    handleRandomizeName: (nameType: string) => void;
-    handleUpdateName: (nameType: string, value: string) => void;
-    names: Record<string, string>;
-  },
-  context
-) => {
-  const [currentlyEditingName, setCurrentlyEditingName] = useLocalState<string | null>(context, 'currentlyEditingName', null);
+export const MultiNameInput = (props: {
+  handleClose: () => void;
+  handleRandomizeName: (nameType: string) => void;
+  handleUpdateName: (nameType: string, value: string) => void;
+  names: Record<string, string>;
+}) => {
+  const [currentlyEditingName, setCurrentlyEditingName] = useLocalState<string | null>('currentlyEditingName', null);
 
   return (
     <ServerPreferencesFetcher
@@ -43,8 +40,8 @@ export const MultiNameInput = (
         return (
           <Modal
             style={{
-              'margin': '0 auto',
-              'width': '40%',
+              margin: '0 auto',
+              width: '40%',
             }}>
             <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
               <Section
@@ -129,15 +126,12 @@ export const MultiNameInput = (
   );
 };
 
-export const NameInput = (
-  props: {
-    handleUpdateName: (name: string) => void;
-    name: string;
-    openMultiNameInput: () => void;
-  },
-  context
-) => {
-  const [lastNameBeforeEdit, setLastNameBeforeEdit] = useLocalState<string | null>(context, 'lastNameBeforeEdit', null);
+export const NameInput = (props: {
+  handleUpdateName: (name: string) => void;
+  name: string;
+  openMultiNameInput: () => void;
+}) => {
+  const [lastNameBeforeEdit, setLastNameBeforeEdit] = useLocalState<string | null>('lastNameBeforeEdit', null);
   const editing = lastNameBeforeEdit === props.name;
 
   const updateName = (e, value) => {
@@ -153,14 +147,14 @@ export const NameInput = (
       }}
       width="100%"
       height="28px">
-      <Stack fill style={{ 'align-items': 'center' }} align="center">
+      <Stack fill style={{ alignItems: 'center' }} align="center">
         <Stack.Item width="20px">
           <Icon
             style={{
-              'color': 'rgba(255, 255, 255, 0.5)',
-              'font-size': '17px',
-              'margin-top': '5px',
-              'display': 'inline-block',
+              color: 'rgba(255, 255, 255, 0.5)',
+              fontSize: '17px',
+              marginTop: '5px',
+              display: 'inline-block',
             }}
             name="edit"
           />
@@ -171,7 +165,7 @@ export const NameInput = (
           position="relative"
           textAlign="center"
           style={{
-            'border-bottom': '2px dotted rgba(255, 255, 255, 0.8)',
+            borderBottom: '2px dotted rgba(255, 255, 255, 0.8)',
           }}>
           {(editing && (
             <Input
@@ -219,9 +213,9 @@ export const NameInput = (
                   <Icon
                     name="bars"
                     style={{
-                      'position': 'relative',
-                      'left': '2px',
-                      'min-width': '0px',
+                      position: 'relative',
+                      left: '2px',
+                      minWidth: '0px',
                     }}
                   />
                 </Button>

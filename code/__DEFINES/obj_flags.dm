@@ -34,6 +34,7 @@
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
 #define ISCARVABLE			    (1<<17) //! Examine will not read out this item
 #define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
+#define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -51,8 +52,14 @@
 #define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
+/// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
+#define CASTING_CLOTHES (1<<15)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
+/// noslip with only works if wearer is walking
+#define NOSLIP_WALKING (1<<19)
+/// noslip with includes the higher level sliping hazards, like ice or lube, witch only works if wearer is walking
+#define NOSLIP_ALL_WALKING (1<<20)
 
 /// Integrity defines for clothing (not flags but close enough)
 #define CLOTHING_PRISTINE 0 // We have no damage on the clothing

@@ -46,14 +46,14 @@
 		// There's a flashlight in us. Remove it first, or it'll be lost forever!
 		var/obj/item/flashlight/seclite/blocking_us = locate() in src
 		if(blocking_us)
-			to_chat(user, "<span class='warning'>[blocking_us] is in the way, remove it first!</span>")
+			to_chat(user, span_warning("[blocking_us] is in the way, remove it first!"))
 			return TRUE
 
 		if(!attached_signaler.secured)
-			to_chat(user, "<span class='warning'>Secure [attached_signaler] first!</span>")
+			to_chat(user, span_warning("Secure [attached_signaler] first!"))
 			return TRUE
 
-		to_chat(user, "<span class='notice'>You add [attached_signaler] to [src].</span>")
+		to_chat(user, span_notice("You add [attached_signaler] to [src]."))
 
 		qdel(attached_signaler)
 		var/obj/item/bot_assembly/secbot/secbot_frame = new(loc)
@@ -117,7 +117,7 @@
 	flags_inv ^= visor_flags_inv
 	flags_cover ^= visor_flags_cover
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
-	to_chat(user, "<span class='notice'>[up ? alt_toggle_message : toggle_message] \the [src].</span>")
+	to_chat(user, span_notice("[up ? alt_toggle_message : toggle_message] \the [src]."))
 
 	user.update_inv_head()
 	if(iscarbon(user))
@@ -129,7 +129,7 @@
 	//Fails if attached seclite, as it blocks the visor from opening
 	var/obj/item/flashlight/seclite/blocking_us = locate() in src
 	if(blocking_us)
-		to_chat(usr, "<span class='warning'>[blocking_us] is in the way, remove it first!</span>")
+		to_chat(usr, span_warning("[blocking_us] is in the way, remove it first!"))
 		return FALSE
 	return TRUE
 
@@ -449,8 +449,6 @@
 	icon_state = "rus_helmet"
 	item_state = "rus_helmet"
 	armor_type = /datum/armor/helmet_rus_helmet
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/helmet
-
 
 /datum/armor/helmet_rus_helmet
 	melee = 25
@@ -462,6 +460,11 @@
 	acid = 50
 	stamina = 20
 	bleed = 15
+
+/obj/item/clothing/head/helmet/rus_helmet/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/helmet)
 
 /obj/item/clothing/head/helmet/rus_ushanka
 	name = "battle ushanka"

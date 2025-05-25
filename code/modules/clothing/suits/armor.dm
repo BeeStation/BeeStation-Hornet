@@ -38,7 +38,7 @@
 	icon_state = "armoralt"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	dog_fashion = /datum/dog_fashion/back
+	dog_fashion = /datum/dog_fashion/back/armorvest
 
 /obj/item/clothing/suit/armor/vest/alt
 	desc = "An alternate style Type I-B armored vest that provides decent protection against most types of damage. They perform identically in the field."
@@ -71,27 +71,6 @@
 	fire = 50
 	acid = 50
 	stamina = 40
-
-/obj/item/clothing/suit/armor/vest/corporate
-	name = "corporate Jacket"
-	desc = "A Stylish Corporate Jacket which also provides Protection."
-	icon_state = "secjacket"
-	item_state = "secjacket"
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/vest_corporate
-	slowdown = 0.02
-
-
-/datum/armor/vest_corporate
-	melee = 25
-	bullet = 25
-	laser = 25
-	energy = 35
-	bomb = 20
-	fire = 45
-	acid = 45
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
@@ -430,6 +409,7 @@
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/vest_durathread
+	dog_fashion = null
 
 
 /datum/armor/vest_durathread
@@ -450,6 +430,7 @@
 	item_state = "rus_armor"
 	armor_type = /datum/armor/vest_russian
 	slowdown = 0.05
+	dog_fashion = null
 
 
 /datum/armor/vest_russian
@@ -472,6 +453,7 @@
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor_type = /datum/armor/vest_russian_coat
+	dog_fashion = null
 
 
 /datum/armor/vest_russian_coat

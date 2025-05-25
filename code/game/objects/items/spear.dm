@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	slot_flags = ITEM_SLOT_BACK
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	throwforce = 20
 	throw_speed = 4
 	embedding = list("armour_block" = 60, "max_damage_mult" = 0.5)
@@ -18,7 +18,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	armor_type = /datum/armor/item_spear
@@ -41,7 +41,7 @@
 	..()
 
 /obj/item/spear/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/spear/CheckParts(list/parts_list)
@@ -77,7 +77,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	set_explosive(G)
 
 /obj/item/spear/explosive/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.say("[war_cry]", forced="spear warcry")
 	explosive.forceMove(user)
 	explosive.prime()
@@ -111,7 +111,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	..()
 
 /obj/item/spear/explosive/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.say("[war_cry]", forced="spear warcry")
 	explosive.forceMove(user)
 	explosive.prime()
@@ -121,7 +121,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 
 /obj/item/spear/explosive/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to set your war cry.</span>"
+	. += span_notice("Alt-click to set your war cry.")
 
 /obj/item/spear/explosive/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
@@ -193,7 +193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	throwforce = 22
 	throw_speed = 4
 	embedding = list("armour_block" = 30, "max_damage_mult" = 0.5)
@@ -201,7 +201,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 
 /obj/item/spear/bamboospear/ComponentInitialize()

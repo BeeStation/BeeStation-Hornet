@@ -41,7 +41,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	if(!loc || !ghost_usable)
 		return
 	if(!uses)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
 	if(!SSticker.HasRoundStarted())
 		return
@@ -101,11 +101,11 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	if(ckey)
 		M.ckey = ckey
 		if(show_flavour)
-			var/output_message = "<span class='big bold'>[short_desc]</span>"
+			var/output_message = span_bigbold("[short_desc]")
 			if(flavour_text != "")
-				output_message += "\n<span class='bold'>[flavour_text]</span>"
+				output_message += "\n[span_bold("[flavour_text]")]"
 			if(important_info != "")
-				output_message += "\n<span class='userdanger'>[important_info]</span>"
+				output_message += "\n[span_userdanger("[important_info]")]"
 			to_chat(M, output_message)
 		var/datum/mind/MM = M.mind
 		var/datum/antagonist/A
@@ -290,7 +290,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type = 	/mob/living/basic/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
@@ -405,7 +405,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(STONER)
+	H.dna.add_mutation(/datum/mutation/human/stoner)
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -461,7 +461,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(STONER)
+	H.dna.add_mutation(/datum/mutation/human/stoner)
 
 /////////////////Officers+Nanotrasen Security//////////////////////
 
@@ -495,7 +495,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	head = /obj/item/clothing/head/hats/centhat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	shoes = /obj/item/clothing/shoes/combat/swat
 	r_pocket = /obj/item/lighter
 	id = /obj/item/card/id/job/head_of_security
@@ -512,7 +512,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security

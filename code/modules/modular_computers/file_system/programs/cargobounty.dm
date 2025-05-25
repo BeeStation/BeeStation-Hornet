@@ -66,7 +66,7 @@
 			return TRUE
 		if("Print")
 			if(!COOLDOWN_FINISHED(src, printer_ready))
-				to_chat(usr, "<span class='warning'>The printer is not ready to print yet!</span>")
+				to_chat(usr, span_warning("The printer is not ready to print yet!"))
 				return
 			var/obj/item/computer_hardware/printer/printer
 			if(computer)
@@ -74,10 +74,10 @@
 
 			if(printer)
 				if(!printer.print_type(/obj/item/paper/bounty_printout))
-					to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
+					to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
 					return
 				else
 					COOLDOWN_START(src, printer_ready, PRINTER_TIMEOUT)
-					computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
+					computer.visible_message(span_notice("\The [computer] prints out a paper."))
 
 #undef PRINTER_TIMEOUT

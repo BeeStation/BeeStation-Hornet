@@ -30,11 +30,6 @@
 /// probability for the monkey to aggro when attacked
 #define MONKEY_RETALIATE_PROB 85
 
-/// probability for the monkey to aggro when attacked with harm intent
-#define MONKEY_RETALIATE_HARM_PROB 			95
-/// probability for the monkey to aggro when attacked with disarm intent
-#define MONKEY_RETALIATE_DISARM_PROB 		20
-
 /// amount of aggro to add to an enemy when they attack user
 #define MONKEY_HATRED_AMOUNT 				4
 /// amount of aggro to add to an enemy when a monkey is recruited

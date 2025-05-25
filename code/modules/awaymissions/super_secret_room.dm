@@ -98,13 +98,13 @@
 /obj/structure/speaking_tile/attack_hulk(mob/user, does_attack_animation = 0)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_larva(mob/user)
+/obj/structure/speaking_tile/attack_larva(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_silicon(mob/user)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_slime(mob/user)
+/obj/structure/speaking_tile/attack_slime(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_animal(mob/user)
@@ -112,7 +112,7 @@
 
 /obj/structure/speaking_tile/proc/SpeakPeace(list/statements)
 	for(var/i in 1 to statements.len)
-		say("<span class='deadsay'>[statements[i]]</span>")
+		say(span_deadsay("[statements[i]]"))
 		if(i != statements.len)
 			sleep(30)
 

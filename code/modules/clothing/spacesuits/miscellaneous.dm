@@ -77,12 +77,15 @@ Contains:
 /obj/item/clothing/head/helmet/space/beret
 	name = "CentCom officer's beret"
 	desc = "An armored beret commonly used by special operations officers. Uses advanced force field technology to protect the head from space."
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	icon = 'icons/obj/clothing/head/beret.dmi'
-	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state = "beret_badge"
+	item_state = null
 	greyscale_colors = "#397F3F#FFCE5B"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
 	flags_inv = 0
 	armor_type = /datum/armor/space_beret
 	strip_delay = 130
@@ -205,7 +208,17 @@ Contains:
 	icon_state = "pirate"
 	item_state = "pirate"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/cup/glass/bottle/rum)
+	allowed = list(
+		/obj/item/gun,
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/melee/baton,
+		/obj/item/restraints/handcuffs,
+		/obj/item/tank/internals,
+		/obj/item/melee/energy/sword/pirate,
+		/obj/item/clothing/glasses/eyepatch,
+		/obj/item/reagent_containers/cup/glass/bottle/rum
+		)
 	slowdown = 0
 	armor_type = /datum/armor/space_pirate
 	strip_delay = 40
@@ -487,7 +500,7 @@ Contains:
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 
 //Lavaland suits
 
@@ -571,7 +584,7 @@ Contains:
 
 /obj/item/clothing/suit/space/fragile/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!torn && prob(50))
-		to_chat(owner, "<span class='warning'>\The [src] tears from the damage, breaking the air-tight seal!</span>")
+		to_chat(owner, span_warning("\The [src] tears from the damage, breaking the air-tight seal!"))
 		clothing_flags &= ~STOPSPRESSUREDAMAGE
 		name = "torn [src]"
 		desc = "A bulky suit meant to protect the user during emergency situations, at least until someone tore a hole in the suit."

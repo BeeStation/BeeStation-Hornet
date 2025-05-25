@@ -15,7 +15,6 @@
 	minimal_player_age = 10
 	exp_requirements = 600
 	exp_type = EXP_TYPE_COMMAND
-	exp_type_department = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/head_of_personnel
 
@@ -57,7 +56,9 @@
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hats/hopcap
-	backpack_contents = list(/obj/item/storage/box/ids=1,
-		/obj/item/melee/classic_baton/police/telescopic=1)
+	backpack_contents = list(
+		/obj/item/storage/box/ids=1,
+		/obj/item/melee/classic_baton/police/telescopic=1
+	)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)

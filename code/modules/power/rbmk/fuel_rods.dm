@@ -119,10 +119,10 @@
 // Basic checks for material rods
 /obj/item/fuel_rod/material/proc/check_material_input(mob/user)
 	if(depletion >= material_input_deadline)
-		to_chat(user, "<span class='warning'>The sample slots have sealed themselves shut, it's too late to add [material_name] now!</span>") // no cheesing in crystals at 100%
+		to_chat(user, span_warning("The sample slots have sealed themselves shut, it's too late to add [material_name] now!")) // no cheesing in crystals at 100%
 		return FALSE
 	if(expended)
-		to_chat(user, "<span class='warning'>\The [src]'s material slots have already been used.</span>")
+		to_chat(user, span_warning("\The [src]'s material slots have already been used."))
 		return FALSE
 	return TRUE
 
@@ -143,55 +143,57 @@
 			material.amount -= adding
 			initial_amount += adding
 			if(adding == 1)
-				to_chat(user, "<span class='notice'>You insert [adding] [material_name_singular] into \the [src].</span>")
+				to_chat(user, span_notice("You insert [adding] [material_name_singular] into \the [src]."))
 			else
-				to_chat(user, "<span class='notice'>You insert [adding] [material_name] into \the [src].</span>")
+				to_chat(user, span_notice("You insert [adding] [material_name] into \the [src]."))
 			material.is_zero_amount()
 		else
-			to_chat(user, "<span class='warning'>\The [src]'s material slots are full!</span>")
+			to_chat(user, span_warning("\The [src]'s material slots are full!"))
 			return
 	else
 		return ..()
 
 /obj/item/fuel_rod/material/attack_self(mob/user)
 	if(expended)
-		to_chat(user, "<span class='notice'>You have already removed [material_name] from \the [src].</span>")
+		to_chat(user, span_notice("You have already removed [material_name] from \the [src]."))
 		return
 
 	if(depleted_final)
+		if(!grown_amount)
+			return
 		new material_type(user.loc, grown_amount)
 		if(grown_amount == 1)
-			to_chat(user, "<span class='notice'>You harvest [grown_amount] [material_name_singular] from \the [src].</span>") // Unlikely
+			to_chat(user, span_notice("You harvest [grown_amount] [material_name_singular] from \the [src].")) // Unlikely
 		else
-			to_chat(user, "<span class='notice'>You harvest [grown_amount] [material_name] from \the [src].</span>")
+			to_chat(user, span_notice("You harvest [grown_amount] [material_name] from \the [src]."))
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
 		grown_amount = 0
 		expend()
 		return
 	if(depletion)
-		to_chat(user, "<span class='warning'>\The [src] has not fissiled enough to fully grow the sample. The progress bar shows it is [min(depletion/depletion_threshold*100,100)]% complete.</span>")
+		to_chat(user, span_warning("\The [src] has not fissiled enough to fully grow the sample. The progress bar shows it is [min(depletion/depletion_threshold*100,100)]% complete."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		return
 	if(initial_amount)
 		new material_type(user.loc, initial_amount)
 		if(initial_amount == 1)
-			to_chat(user, "<span class='notice'>You remove [initial_amount] [material_name_singular] from \the [src].</span>")
+			to_chat(user, span_notice("You remove [initial_amount] [material_name_singular] from \the [src]."))
 		else
-			to_chat(user, "<span class='notice'>You remove [initial_amount] [material_name] from \the [src].</span>")
+			to_chat(user, span_notice("You remove [initial_amount] [material_name] from \the [src]."))
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
 		initial_amount = 0
 
 /obj/item/fuel_rod/material/examine(mob/user)
 	. = ..()
 	if(expended)
-		. += "<span class='warning'>The material slots have been slagged by the extreme heat, you can't grow [material_name] in this rod again...</span>"
+		. += span_warning("The material slots have been slagged by the extreme heat, you can't grow [material_name] in this rod again...")
 		return
 	if(depleted_final)
-		. += "<span class='warning'>This fuel rod's [material_name] are now fully grown, and it currently bears [grown_amount] harvestable [material_name]\s.</span>"
+		. += span_warning("This fuel rod's [material_name] are now fully grown, and it currently bears [grown_amount] harvestable [material_name]\s.")
 		return
 	if(depletion)
-		. += "<span class='danger'>The sample is [min(depletion/depletion_threshold*100,100)]% fissiled.</span>"
-	. += "<span class='disarm'>[initial_amount]/[max_initial_amount] of the slots for [material_name] are full.</span>"
+		. += span_danger("The sample is [min(depletion/depletion_threshold*100,100)]% fissiled.")
+	. += span_disarm("[initial_amount]/[max_initial_amount] of the slots for [material_name] are full.")
 
 /obj/item/fuel_rod/material/telecrystal
 	name = "telecrystal fuel rod"

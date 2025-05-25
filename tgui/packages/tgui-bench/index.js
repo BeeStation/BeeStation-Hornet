@@ -29,7 +29,7 @@ const setup = async () => {
   const publicDir = path.resolve(__dirname, '../../public');
   const page = fs.readFileSync(path.join(publicDir, 'tgui.html'), 'utf-8').replace('<!-- tgui:assets -->\n', assets);
 
-  server.register(require('fastify-static'), {
+  server.register(require('@fastify/static'), {
     root: publicDir,
   });
 

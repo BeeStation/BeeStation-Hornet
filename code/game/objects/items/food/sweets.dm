@@ -46,6 +46,21 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 
+/obj/item/food/ant_candy
+	name = "ant candy"
+	desc = "A colony of ants suspended in hardened sugar. Those things are dead, right?"
+	icon_state = "ant_pop"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+		/datum/reagent/consumable/sugar = 5,
+		/datum/reagent/ants = 3,
+	)
+	tastes = list("candy" = 1, "insects" = 1)
+	foodtypes = JUNKFOOD | SUGAR | BUGS
+	food_flags = FOOD_FINGER_FOOD
+	w_class = WEIGHT_CLASS_TINY
+
 //Chocolates
 /obj/item/food/chocolatebar
 	name = "chocolate bar"
@@ -247,7 +262,7 @@
 		UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
 
 /obj/item/food/lollipop/long/proc/on_trip(mob/living/carbon/user)
-	visible_message("<span class='danger'>[user] is impaled by the [src]!</span>", "<span class='danger'>You are impaled by the [src]!</span>")
+	visible_message(span_danger("[user] is impaled by the [src]!"), span_danger("You are impaled by the [src]!"))
 	user.adjustBruteLoss(50)
 	user.adjustOxyLoss(50)
 
@@ -279,7 +294,7 @@
 		/datum/reagent/medicine/omnizine = 2,
 	) //lollipop, but vitamins = toxins
 	tastes = list("cobwebs" = 1, "sugar" = 2)
-	foodtypes = JUNKFOOD | SUGAR //| BUGS
+	foodtypes = JUNKFOOD | SUGAR | BUGS
 	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
 	crafting_complexity = FOOD_COMPLEXITY_1
@@ -295,6 +310,21 @@
 		/datum/reagent/medicine/omnizine = 5,
 	)
 	tastes = list("whimsical joy" = 1, "sugar" = 2)
+	foodtypes = JUNKFOOD | SUGAR
+	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/rock_candy
+	name = "Rock candy"
+	desc = "A bunch of sweet crystals on a stick. Good for your blood!\n Warning for California residents: This product may contain lead, which is known to the State of California to cause cancer, birth defects, or other reproductive harm."
+	icon_state = "rock_candy"
+	food_reagents = list(
+		/datum/reagent/iron = 10,
+		/datum/reagent/mercury/lead_acetate = 5, //One couldn't hurt, am I right?
+		/datum/reagent/consumable/sugar = 5,
+		/datum/reagent/medicine/omnizine = 2
+	)
+	tastes = list("dreams of California beaches" = 1, "adamantine" = 2)
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	crafting_complexity = FOOD_COMPLEXITY_1

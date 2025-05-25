@@ -1,4 +1,5 @@
 GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
+	/mob/living/basic/pet,
 	/mob/living/simple_animal/pet,
 	/mob/living/simple_animal/parrot,
 	/mob/living/simple_animal/hostile/lizard,
@@ -6,7 +7,7 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	/mob/living/simple_animal/mouse/brown/Tom,
 	/mob/living/simple_animal/hostile/retaliate/goat,
 	/mob/living/simple_animal/chicken,
-	/mob/living/simple_animal/cow,
+	/mob/living/basic/cow,
 	/mob/living/simple_animal/hostile/retaliate/bat,
 	/mob/living/simple_animal/hostile/carp/cayenne,
 	/mob/living/simple_animal/butterfly,
@@ -82,7 +83,7 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 
 		SA.key = SG.key
 
-		SA.grant_all_languages(TRUE, FALSE, FALSE)
+		SA.grant_all_languages(UNDERSTOOD_LANGUAGE, grant_omnitongue = FALSE, source = LANGUAGE_ATOM)
 
 		SA.sentience_act()
 
@@ -92,10 +93,8 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 
 		spawned_mobs += SA
 
-		to_chat(SA, "<span class='userdanger'>Hello world!</span>")
-		to_chat(SA, "<span class='warning'>Due to freak radiation and/or chemicals \
-			and/or lucky chance, you have gained human level intelligence \
-			and the ability to speak and understand human language!</span>")
+		to_chat(SA, span_userdanger("Hello world!"))
+		to_chat(SA, span_warning("Due to freak radiation and/or chemicals and/or lucky chance, you have gained human level intelligence and the ability to speak and understand human language!"))
 
 	return SUCCESSFUL_SPAWN
 

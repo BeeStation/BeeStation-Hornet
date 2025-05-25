@@ -30,6 +30,11 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_loss))
+
+
+
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
 		SIGNAL_REMOVETRAIT(TRAIT_CRITICAL_CONDITION),
@@ -41,6 +46,8 @@
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movement_type_flag_disabled))
 
+
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_UNDENSE), SIGNAL_REMOVETRAIT(TRAIT_UNDENSE)), PROC_REF(undense_changed))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORING_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_IGNORING_GRAVITY)), PROC_REF(on_ignore_gravity))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY)), PROC_REF(on_force_gravity))
@@ -97,6 +104,11 @@
 	SIGNAL_HANDLER
 	refresh_gravity()
 
+/// Called when [TRAIT_UNDENSE] is gained or lost
+/mob/living/proc/undense_changed(datum/source)
+	SIGNAL_HANDLER
+	update_density()
+
 ///Called when TRAIT_IMMOBILIZED is added to the mob.
 /mob/living/proc/on_immobilized_trait_gain(datum/source)
 	SIGNAL_HANDLER
@@ -132,7 +144,7 @@
 	mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	on_handsblocked_start()
 	if (active_storage)
-		active_storage.hide_from(src)
+		active_storage.hide_contents(src)
 	update_action_buttons_icon(TRUE)
 
 /// Called when [TRAIT_HANDS_BLOCKED] is removed from the mob.
@@ -196,6 +208,16 @@
 /mob/living/proc/on_restrained_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
+
+/// Called when [TRAIT_NIGHT_VISION] is added to the mob.
+/mob/living/proc/on_night_vision_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	update_sight()
+
+/// Called when [TRAIT_NIGHT_VISION] is removed from the mob.
+/mob/living/proc/on_night_vision_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	update_sight()
 
 
 /**

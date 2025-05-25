@@ -17,7 +17,7 @@
 
 	var/obj/item/bodypart/affecting = C.get_bodypart(BODY_ZONE_CHEST)
 	affecting.receive_damage(clamp(brute_dam/2 * affecting.body_damage_coeff, 15, 50), clamp(burn_dam/2 * affecting.body_damage_coeff, 0, 50)) //Damage the chest based on limb's existing damage
-	C.visible_message("<span class='danger'><B>[C]'s [src.name] has been violently dismembered!</B></span>")
+	C.visible_message(span_danger("<B>[C]'s [src.name] has been violently dismembered!</B>"))
 
 	if(C.stat <= SOFT_CRIT)//No more screaming while unconsious
 		if(IS_ORGANIC_LIMB(affecting))//Chest is a good indicator for if a carbon is robotic in nature or not.
@@ -241,7 +241,7 @@
 	//Handle dental implants
 	for(var/datum/action/item_action/hands_free/activate_pill/AP in owner.actions)
 		AP.Remove(owner)
-		var/obj/pill = AP.target
+		var/obj/pill = UNLINT(AP.master)
 		if(pill)
 			pill.forceMove(src)
 

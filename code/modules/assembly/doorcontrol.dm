@@ -11,13 +11,13 @@
 /obj/item/assembly/control/examine(mob/user)
 	. = ..()
 	if(id)
-		. += "<span class='notice'>Its channel ID is '[id]'.</span>"
+		. += span_notice("Its channel ID is '[id]'.")
 
 /obj/item/assembly/control/multitool_act(mob/living/user)
 	var/change_id = input("Set the shutters/blast door controller's ID. It must be a number between 1 and 100.", "ID", id) as num|null
 	if(change_id)
 		id = clamp(round(change_id, 1), 1, 100)
-		to_chat(user, "<span class='notice'>You change the ID to [id].</span>")
+		to_chat(user, span_notice("You change the ID to [id]."))
 
 /obj/item/assembly/control/activate()
 	var/openclose
@@ -43,6 +43,7 @@
 				4= bolts (BOLTS)
 				8= shock (SHOCK)
 				16= door safties (SAFE)
+				32= emergency mode (EMERGENCY)
 	*/
 
 /obj/item/assembly/control/airlock/activate()
@@ -70,6 +71,9 @@
 					D.set_electrified(MACHINE_NOT_ELECTRIFIED, usr)
 			if(specialfunctions & SAFE)
 				D.safe = !D.safe
+			if(specialfunctions & EMERGENCY)
+				D.emergency = !D.emergency
+				D.update_icon()
 
 	for(var/D in open_or_close)
 		INVOKE_ASYNC(D, doors_need_closing ? TYPE_PROC_REF(/obj/machinery/door/airlock, close) : TYPE_PROC_REF(/obj/machinery/door/airlock, open))

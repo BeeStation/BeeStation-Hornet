@@ -53,7 +53,7 @@
 		return
 
 	// Our hood gains the heretic_focus element.
-	. += "<span class='notice'>Allows you to cast heretic spells while the hood is up.</span>"
+	. += span_notice("Allows you to cast heretic spells while the hood is up.")
 
 // Void cloak. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
@@ -92,8 +92,8 @@
 	// slightly worse than normal cult robes
 	armor_type = /datum/armor/cultrobes_void
 	body_parts_covered = CHEST|GROIN|ARMS
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/void_cloak
 	qdel_hood = TRUE
+	pockets = FALSE
 
 
 /datum/armor/cultrobes_void
@@ -107,6 +107,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/void_cloak)
 	make_visible()
 
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
@@ -137,7 +138,7 @@
 
 	if(isliving(loc))
 		loc.balloon_alert(loc, "cloak hidden")
-		loc.visible_message("<span class='notice'>Light shifts around [loc], making the cloak around them invisible!</span>")
+		loc.visible_message(span_notice("Light shifts around [loc], making the cloak around them invisible!"))
 
 /// Makes our cloak "visible" again.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_visible()
@@ -147,4 +148,4 @@
 
 	if(isliving(loc))
 		loc.balloon_alert(loc, "cloak revealed")
-		loc.visible_message("<span class=notice>A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!</span>")
+		loc.visible_message(span_notice("A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!"))

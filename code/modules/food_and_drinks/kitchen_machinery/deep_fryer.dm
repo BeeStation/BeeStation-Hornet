@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	if(frying)
 		. += "You can make out \a [frying] in the oil."
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Frying at <b>[fry_speed*100]%</b> speed.<br>Using <b>[oil_use]</b> units of oil per second.</span>"
+		. += span_notice("The status display reads: Frying at <b>[fry_speed*100]%</b> speed.<br>Using <b>[oil_use]</b> units of oil per second.")
 
 /obj/machinery/deepfryer/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -93,23 +93,23 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	// Dissolving pills into the frier
 	if(istype(weapon, /obj/item/reagent_containers/pill))
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>There's nothing to dissolve [weapon] in!</span>")
+			to_chat(user, span_warning("There's nothing to dissolve [weapon] in!"))
 			return
-		user.visible_message("<span class='notice'>[user] drops [weapon] into [src].</span>", "<span class='notice'>You dissolve [weapon] in [src].</span>")
+		user.visible_message(span_notice("[user] drops [weapon] into [src]."), span_notice("You dissolve [weapon] in [src]."))
 		weapon.reagents.trans_to(src, weapon.reagents.total_volume, transfered_by = user)
 		qdel(weapon)
 		return
 	// Make sure we have cooking oil
 	if(!reagents.has_reagent(/datum/reagent/consumable/nutriment/fat/oil))
-		to_chat(user, "<span class='warning'>[src] has no cooking oil to fry with!</span>")
+		to_chat(user, span_warning("[src] has no cooking oil to fry with!"))
 		return
 	// Don't deep fry indestructible things, for sanity reasons
 	if(weapon.resistance_flags & INDESTRUCTIBLE)
-		to_chat(user, "<span class='warning'>You don't feel it would be wise to fry [weapon]...</span>")
+		to_chat(user, span_warning("You don't feel it would be wise to fry [weapon]..."))
 		return
 	// No fractal frying
 	if(HAS_TRAIT(weapon, TRAIT_FOOD_FRIED))
-		to_chat(user, "<span class='userdanger'>Your cooking skills are not up to the legendary Doublefry technique.</span>")
+		to_chat(user, span_userdanger("Your cooking skills are not up to the legendary Doublefry technique."))
 		return
 	// Handle pets
 	if(istype(weapon, /obj/item/clothing/head/mob_holder))
@@ -125,13 +125,13 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		// Check for stuff we certainly shouldn't fry
 		else if(is_type_in_typecache(weapon, deepfry_blacklisted_items) \
 			|| is_type_in_typecache(weapon, GLOB.oilfry_blacklisted_items) \
-			|| weapon.GetComponent(/datum/component/storage) \
+			|| weapon.atom_storage \
 			|| HAS_TRAIT(weapon, TRAIT_NODROP) \
 			|| (weapon.item_flags & (ABSTRACT|DROPDEL)))
 			return ..()
 		// Do the frying.
 		else if(!frying && user.transferItemToLoc(weapon, src))
-			to_chat(user, "<span class='notice'>You put [weapon] into [src].</span>")
+			to_chat(user, span_notice("You put [weapon] into [src]."))
 			log_game("[key_name(user)] deep fried [weapon.name] ([weapon.type]) at [AREACOORD(src)].")
 			user.log_message("deep fried [weapon.name] ([weapon.type]) at [AREACOORD(src)].", LOG_GAME)
 			start_fry(weapon, user)
@@ -153,10 +153,10 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	if(cook_time >= DEEPFRYER_COOKTIME && !frying_fried)
 		frying_fried = TRUE //frying... frying... fried
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
-		audible_message("<span class='notice'>[src] dings!</span>")
+		audible_message(span_notice("[src] dings!"))
 	else if (cook_time >= DEEPFRYER_BURNTIME && !frying_burnt)
 		frying_burnt = TRUE
-		visible_message("<span class='warning'>[src] emits an acrid smell!</span>")
+		visible_message(span_warning("[src] emits an acrid smell!"))
 
 	use_power(active_power_usage)
 
@@ -182,7 +182,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	icon_state = "fryer_off"
 
 /obj/machinery/deepfryer/proc/start_fry(obj/item/frying_item, mob/user)
-	to_chat(user, "<span class='notice'>You put [frying_item] into [src].</span>")
+	to_chat(user, span_notice("You put [frying_item] into [src]."))
 
 	frying = frying_item
 	// Give them reagents to put frying oil in
@@ -196,28 +196,28 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	fry_loop.start()
 
 /obj/machinery/deepfryer/proc/blow_up()
-	visible_message("<span class='userdanger'>[src] blows up from the entropic reaction!</span>")
+	visible_message(span_userdanger("[src] blows up from the entropic reaction!"))
 	explosion(src, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flame_range = 7)
 	deconstruct(FALSE)
 
 /obj/machinery/deepfryer/attack_silicon(mob/user)
 	return TRUE
 
-/obj/machinery/deepfryer/attack_hand(mob/user)
+/obj/machinery/deepfryer/attack_hand(mob/living/user)
 	if(frying)
-		to_chat(user, "<span class='notice'>You eject [frying] from [src].</span>")
+		to_chat(user, span_notice("You eject [frying] from [src]."))
 		frying.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
 			user.put_in_hands(frying)
 		return
 
-	else if(user.pulling && user.a_intent == "grab" && iscarbon(user.pulling) && reagents.total_volume)
+	else if(user.pulling && iscarbon(user.pulling) && reagents.total_volume)
 		if(user.grab_state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		var/mob/living/carbon/dunking_target = user.pulling
-		user.visible_message("<span class = 'danger'>[user] dunks [dunking_target]'s face in [src]!</span>")
-		reagents.reaction(dunking_target, TOUCH)
+		user.visible_message(span_danger("[user] dunks [dunking_target]'s face in [src]!"))
+		reagents.expose(dunking_target, TOUCH)
 		log_combat(user, dunking_target, "fryer slammed")
 		var/bio_multiplier = dunking_target.getarmor(BODY_ZONE_HEAD, BIO) * 0.01
 		dunking_target.apply_damage(min(30 * bio_multiplier, reagents.total_volume), BURN, BODY_ZONE_HEAD)

@@ -87,6 +87,10 @@
 		client.screen -= alert
 	qdel(alert)
 
+// Proc to check for an alert
+/mob/proc/has_alert(category)
+	return !isnull(alerts[category])
+
 /atom/movable/screen/alert
 	icon = 'icons/hud/screen_alert.dmi'
 	icon_state = "default"
@@ -150,6 +154,7 @@
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = "too_much_tox"
+
 //End gas alerts
 
 
@@ -230,7 +235,7 @@ or something covering your eyes."
 	var/mob/living/L = usr
 	if(L != owner)
 		return
-	to_chat(L, "<span class='mind_control'>[command]</span>")
+	to_chat(L, "[span_mindcontrol("[command]")]")
 
 /atom/movable/screen/alert/drunk
 	name = "Drunk"
@@ -284,23 +289,27 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(L.mobility_flags & MOBILITY_MOVE)
 		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
 
-/**
- * Handles assigning most of the variables for the alert that pops up when an item is offered
- *
- * Handles setting the name, description and icon of the alert and tracking the person giving
- * and the item being offered, also registers a signal that removes the alert from anyone who moves away from the giver
- * Arguments:
- * * taker - The person receiving the alert
- * * offerer - The person giving the alert and item
- * * receiving - The item being given by the giver
- */
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
 	var/mob/living/carbon/offerer
-	var/mob/living/carbon/taker
 	var/obj/item/receiving
 
+/atom/movable/screen/alert/give/Destroy()
+	offerer = null
+	receiving = null
+	return ..()
+
+/**
+ * Handles assigning most of the variables for the alert that pops up when an item is offered
+ *
+ * Handles setting the name, description and icon of the alert and tracking the person giving
+ * and the item being offered, also registers a signal that removes the alert from anyone who moves away from the offerer
+ * Arguments:
+ * * taker - The person receiving the alert
+ * * offerer - The person giving the alert and item
+ * * receiving - The item being given by the offerer
+ */
 /atom/movable/screen/alert/give/proc/setup(mob/living/carbon/taker, mob/living/carbon/offerer, obj/item/receiving)
 	name = "[offerer] is offering [receiving]"
 	desc = "[offerer] is offering [receiving]. Click this alert to take it."
@@ -309,8 +318,6 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	add_overlay(receiving)
 	src.receiving = receiving
 	src.offerer = offerer
-	src.taker = taker
-	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, PROC_REF(check_in_range))
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
@@ -320,19 +327,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /// An overrideable proc used simply to hand over the item when claimed, this is a proc so that high-fives can override them since nothing is actually transferred
 /atom/movable/screen/alert/give/proc/handle_transfer()
-	var/mob/living/carbon/taker = owner || src.taker
-	if(!taker)
-		qdel(src)
-		return
+	var/mob/living/carbon/taker = owner
 	taker.take(offerer, receiving)
-
-/// Simply checks if the other person is still in range
-/atom/movable/screen/alert/give/proc/check_in_range(atom/taker)
-	SIGNAL_HANDLER
-
-	if(!offerer.CanReach(taker))
-		balloon_alert(owner, "You moved out of range of [offerer]!")
-		owner.clear_alert("[offerer]")
 
 /// Gives the player the option to succumb while in critical condition
 /atom/movable/screen/alert/succumb
@@ -722,7 +718,7 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
+		to_chat(usr, span_boldnotice("[name] - [span_info(desc)]"))
 		return
 	if(usr != owner)
 		return

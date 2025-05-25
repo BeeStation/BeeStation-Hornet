@@ -21,7 +21,7 @@
 	attack_verb_continuous = "slams"
 	attack_verb_simple = "slam"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	faction = list("plants")
+	faction = list(FACTION_PLANTS)
 
 	mobchatspan = "headofsecurity"
 	discovery_points = 1000

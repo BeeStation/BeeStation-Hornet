@@ -38,6 +38,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	foodtypes = GRAIN | DAIRY | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	decomp_type = /obj/item/food/pizzaslice/moldy
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/pizzaslice/make_processable()
@@ -319,6 +320,26 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE
 	crafting_complexity = FOOD_COMPLEXITY_4
 
+// Moldly Pizza
+// NOT Used in cytobiology.
+/obj/item/food/pizzaslice/moldy
+	name = "moldy pizza slice"
+	desc = "This was once a perfectly good slice of pizza pie, but now it lies here, rancid and bursting with spores. \
+		What a bummer! But we should not dwell on the past, only look towards the future."
+	icon_state = "moldy_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/tomatojuice = 1,
+		/datum/reagent/toxin/amatoxin = 2,
+	)
+	tastes = list("stale crust" = 1, "rancid cheese" = 2, "mushroom" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY | GROSS
+	preserved_food = TRUE
+
+/obj/item/food/pizzaslice/moldy/bacteria
+	name = "bacteria rich moldy pizza slice"
+	desc = "Not only is this once delicious pizza encrusted with a layer of spore-spewing fungus, it also seems to shift and slide when unattended, teeming with new life."
+
 /obj/item/food/pizza/arnold
 	name = "\improper Arnold pizza"
 	desc = "Hello, you've reached Arnold's pizza shop. I'm not here now, I'm out killing pepperoni."
@@ -352,8 +373,8 @@
 	var/did_the_thing = (l_arm?.dismember() || r_arm?.dismember()) //not all limbs can be removed, so important to check that we did. the. thing.
 	if(!did_the_thing)
 		return
-	to_chat(user, "<span class='userdanger'>Maybe I'll give you a pizza, maybe I'll break off your arm.</span>") //makes the reference more obvious
-	user.visible_message("<span class='warning'>\The [src] breaks off [user]'s arm!</span>", "<span class='warning'>\The [src] breaks off your arm!</span>")
+	to_chat(user, span_userdanger("Maybe I'll give you a pizza, maybe I'll break off your arm.")) //makes the reference more obvious
+	user.visible_message(span_warning("\The [src] breaks off [user]'s arm!"), span_warning("\The [src] breaks off your arm!"))
 	playsound(user,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, TRUE, -1)
 
 /obj/item/food/proc/i_kill_you(obj/item/I, mob/user)
@@ -362,7 +383,7 @@
 		user.investigate_log("has been gibbed by putting pineapple on an arnold pizza.", INVESTIGATE_DEATHS)
 		user.gib() //if you want something crazy like pineapple, i'll kill you
 	else if(istype(I, /obj/item/food/grown/mushroom) && iscarbon(user))
-		to_chat(user, "<span class='userdanger'>So, if you want mushroom, shut up.</span>") //not as large as the pineapple text, because you could in theory spam it
+		to_chat(user, span_userdanger("So, if you want mushroom, shut up.")) //not as large as the pineapple text, because you could in theory spam it
 		var/mob/living/carbon/shutup = user
 		shutup.gain_trauma(/datum/brain_trauma/severe/mute)
 
@@ -390,3 +411,14 @@
 	i_kill_you(I, user)
 	. = ..()
 
+// Ant Pizza, now with more ants.
+/obj/item/food/pizzaslice/ants
+	name = "\improper Ant Party pizza slice"
+	desc = "The key to a perfect slice of pizza is not to overdo it with the ants."
+	icon_state = "antpizzaslice"
+	food_reagents = list(
+		/datum/reagent/ants = 5,
+		/datum/reagent/consumable/nutriment/protein = 2,
+	)
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "insects" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY | BUGS

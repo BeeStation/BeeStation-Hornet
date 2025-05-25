@@ -175,12 +175,12 @@
 
 	if(mob.pulledby == mob.pulling && mob.pulledby.grab_state == GRAB_PASSIVE) //Don't autoresist passive grabs if we're grabbing them too.
 		return FALSE
-	if(mob.incapacitated(IGNORE_RESTRAINTS))
+	if(HAS_TRAIT(mob, TRAIT_INCAPACITATED))
 		COOLDOWN_START(src, move_delay, 1 SECONDS)
 		return TRUE
 	else if(HAS_TRAIT(mob, TRAIT_RESTRAINED))
 		COOLDOWN_START(src, move_delay, 1 SECONDS)
-		to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+		to_chat(src, span_warning("You're restrained! You can't move!"))
 		return TRUE
 	else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
 		COOLDOWN_START(src, move_delay, 1 SECONDS)
@@ -215,7 +215,7 @@
 			if(T && !istype(T, /turf/closed/indestructible/cordon))
 				L.forceMove(T)
 			else
-				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
+				to_chat(L, span_warning("There's nowhere to go in that direction!"))
 		if(INCORPOREAL_MOVE_SHADOW)
 			if(prob(50))
 				var/locx
@@ -265,39 +265,39 @@
 			if(stepTurf)
 				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
 				if(salt)
-					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
+					to_chat(L, span_warning("[salt] bars your passage!"))
 					if(isrevenant(L))
 						var/mob/living/simple_animal/revenant/R = L
 						R.reveal(20)
 						R.stun(20)
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
-					to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
+					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())
-					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
+					to_chat(L, span_warning("Holy energies block your path!"))
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
+				to_chat(L, span_warning("There's nowhere to go in that direction!"))
 		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
 			if(stepTurf)
 				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
 				if(salt)
-					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
+					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					if(!is_reebe(loccheck.z))
-						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
+						to_chat(L, span_warning("Some strange aura is blocking the way."))
 						return
 				if(stepTurf.is_holy())
-					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
+					to_chat(L, span_warning("Holy energies block your path!"))
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
+				to_chat(L, span_warning("There's nowhere to go in that direction!"))
 	return TRUE
 
 /**
@@ -317,7 +317,7 @@
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180), instant = TRUE)) //You're pushing off something movable, so it moves
-				to_chat(src, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+				to_chat(src, span_info("You push off of [backup] to propel yourself."))
 		return TRUE
 	return FALSE
 
@@ -531,7 +531,7 @@
 	set category = "IC"
 
 	if(zMove(UP, TRUE))
-		to_chat(src, "<span class='notice'>You move upwards.</span>")
+		to_chat(src, span_notice("You move upwards."))
 
 ///Moves a mob down a z level
 /mob/verb/down()
@@ -539,7 +539,7 @@
 	set category = "IC"
 
 	if(zMove(DOWN, TRUE))
-		to_chat(src, "<span class='notice'>You move down.</span>")
+		to_chat(src, span_notice("You move down."))
 
 ///Move a mob between z levels, if it's valid to move z's on this turf
 /mob/proc/zMove(dir, feedback = FALSE, feedback_to = src)
@@ -549,12 +549,12 @@
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, span_warning("There's nowhere to go in that direction!"))
 		return FALSE
 	var/ventcrawling = movement_type & VENTCRAWLING
 	if(!canZMove(dir, source, target) && !ventcrawling)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, span_warning("You couldn't move there!"))
 		return FALSE
 	if(!ventcrawling) //let this be handled in atmosmachinery.dm
 		forceMove(target)

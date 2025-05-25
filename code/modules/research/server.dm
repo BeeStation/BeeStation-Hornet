@@ -67,7 +67,7 @@
 /obj/machinery/rnd/server/proc/mine()
 	use_power(active_power_usage, power_channel)
 	var/efficiency = get_efficiency()
-	if(!powered() || efficiency <= 0 && machine_stat)
+	if(!powered() || efficiency <= 0 || machine_stat)
 		return null
 	return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income * efficiency, 0))
 
@@ -140,7 +140,7 @@
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	switch(action)
 		if("enable_server")
@@ -159,4 +159,4 @@
 /obj/machinery/computer/rdservercontrol/on_emag(mob/user)
 	..()
 	playsound(src, "sparks", 75, 1)
-	to_chat(user, "<span class='notice'>You disable the security protocols.</span>")
+	to_chat(user, span_notice("You disable the security protocols."))

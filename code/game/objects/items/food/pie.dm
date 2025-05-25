@@ -66,7 +66,7 @@
 	var/turf/hit_turf = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/food/pie_smudge(hit_turf)
 	if(reagents?.total_volume)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.expose(hit_atom, TOUCH)
 	var/is_creamable = TRUE
 	if(isliving(hit_atom))
 		var/mob/living/living_target_getting_hit = hit_atom
@@ -76,7 +76,7 @@
 			is_creamable = !!(living_target_getting_hit.get_bodypart(BODY_ZONE_HEAD)) // maybe you need a head to get pied, yeah?
 		if(is_creamable)
 			living_target_getting_hit.adjust_blurriness(1)
-		living_target_getting_hit.visible_message("<span class='warning'>[living_target_getting_hit] is creamed by [src]!</span>", "<span class='userdanger'>You've been creamed by [src]!</span>")
+		living_target_getting_hit.visible_message(span_warning("[living_target_getting_hit] is creamed by [src]!"), span_userdanger("You've been creamed by [src]!"))
 		playsound(living_target_getting_hit, "desceration", 50, TRUE)
 	if(is_creamable && is_type_in_typecache(hit_atom, GLOB.creamable))
 		hit_atom.AddComponent(/datum/component/creamed, src)

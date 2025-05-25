@@ -41,7 +41,7 @@
 
 /obj/projectile/beam/laser/lesslethal
 	damage = 11
-	stamina = 18
+	stamina = 22
 	icon_state = "minilaser"
 
 /obj/projectile/beam/weak
@@ -219,5 +219,5 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
+		M.visible_message(span_danger("[M] explodes into a shower of gibs!"))
 		M.gib()

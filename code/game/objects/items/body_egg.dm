@@ -8,7 +8,7 @@
 
 /obj/item/organ/body_egg/on_find(mob/living/finder)
 	..()
-	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [zone]!</span>")
+	to_chat(finder, span_warning("You found an unknown alien organism in [owner]'s [zone]!"))
 
 /obj/item/organ/body_egg/New(loc)
 	if(iscarbon(loc))
@@ -31,17 +31,17 @@
 		INVOKE_ASYNC(src, PROC_REF(RemoveInfectionImages), owner)
 	..()
 
-/obj/item/organ/body_egg/on_death()
+/obj/item/organ/body_egg/on_death(delta_time, times_fired)
 	. = ..()
 	if(!owner)
 		return
-	egg_process()
+	egg_process(delta_time, times_fired)
 
-/obj/item/organ/body_egg/on_life()
+/obj/item/organ/body_egg/on_life(delta_time, times_fired)
 	. = ..()
-	egg_process()
+	egg_process(delta_time, times_fired)
 
-/obj/item/organ/body_egg/proc/egg_process()
+/obj/item/organ/body_egg/proc/egg_process(delta_time, times_fired)
 	return
 
 /obj/item/organ/body_egg/proc/RefreshInfectionImage()
