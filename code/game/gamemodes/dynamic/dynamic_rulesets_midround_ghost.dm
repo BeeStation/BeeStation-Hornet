@@ -295,6 +295,7 @@
 	role_preference = /datum/role_preference/midround_ghost/ninja
 	points_cost = 40
 	weight = 6
+	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/ninja/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
