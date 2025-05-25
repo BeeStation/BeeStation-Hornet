@@ -9,7 +9,7 @@
 	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/valentine/get_dynamic_midround_points()
-	return 0.1
+	return 0
 
 /datum/antagonist/valentine/proc/forge_objectives()
 	var/datum/objective/protect/protect_objective = new
