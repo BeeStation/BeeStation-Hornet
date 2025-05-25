@@ -2,17 +2,19 @@
 	rule_category = DYNAMIC_CATEGORY_MIDROUND
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
 
-	/// How dangerous/disruptive the ruleset is. (DYNAMIC_MIDROUND_LIGHT, DYNAMIC_MIDROUND_MEDIUM, DYNAMIC_MIDROUND_HEAVY)
+	/// How disruptive the ruleset is (DYNAMIC_MIDROUND_LIGHT, DYNAMIC_MIDROUND_MEDIUM, DYNAMIC_MIDROUND_HEAVY)
 	var/severity
+
+/datum/dynamic_ruleset/midround/living
 	/// Whether or not ghost roles are allowed to roll this ruleset (Ashwalkers, Golems, Drones, etc.)
 	var/allow_ghost_roles = FALSE
 	/// What mob type the ruleset is restricted to.
 	var/mob_type = /mob/living/carbon/human
 
-/datum/dynamic_ruleset/midround/get_candidates()
+/datum/dynamic_ruleset/midround/living/get_candidates()
 	candidates = dynamic.current_players[CURRENT_LIVING_PLAYERS]
 
-/datum/dynamic_ruleset/midround/trim_candidates()
+/datum/dynamic_ruleset/midround/living/trim_candidates()
 	. = ..()
 	for(var/mob/candidate in candidates)
 		// Correct mob type?
@@ -28,7 +30,7 @@
 			candidates -= candidate
 			continue
 
-/datum/dynamic_ruleset/midround/execute()
+/datum/dynamic_ruleset/midround/living/execute()
 	// Get our candidates
 	set_drafted_players_amount()
 	get_candidates()
@@ -50,7 +52,7 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/value_drifted
+/datum/dynamic_ruleset/midround/living/value_drifted
 	name = "Value Drifted AI"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
@@ -66,7 +68,7 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/sleeper_agent
+/datum/dynamic_ruleset/midround/living/sleeper_agent
 	name = "Syndicate Sleeper Agent"
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround_living/traitor
@@ -79,14 +81,14 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/heretic
+/datum/dynamic_ruleset/midround/living/heretic
 	name = "Fanatic Revelation"
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround_living/heretic
 	antag_datum = /datum/antagonist/heretic
 	points_cost = 30
 
-/datum/dynamic_ruleset/midround/heretic/execute()
+/datum/dynamic_ruleset/midround/living/heretic/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		var/datum/antagonist/heretic/new_heretic = IS_HERETIC(chosen_mind.current)
@@ -106,14 +108,14 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/obsessed
+/datum/dynamic_ruleset/midround/living/obsessed
 	name = "Obsessed"
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround_living/obsessed
 	points_cost = 20
 
-/datum/dynamic_ruleset/midround/obsessed/execute()
+/datum/dynamic_ruleset/midround/living/obsessed/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		if(ishuman(chosen_mind.current))
