@@ -76,6 +76,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/message_centcom(client/C, message)
 	request_for_client(C, REQUEST_CENTCOM, message)
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage2.ogg'))
 
 /**
  * Creates a request for a Syndicate message
@@ -86,7 +89,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/message_syndicate(client/C, message)
 	request_for_client(C, REQUEST_SYNDICATE, message)
-
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage2.ogg'))
 /**
  * Creates a request for the nuclear self destruct codes
  *
@@ -96,7 +101,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/nuke_request(client/C, message)
 	request_for_client(C, REQUEST_NUKE, message)
-
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage2.ogg'))
 /**
  * Creates a request for fax answer
  *
@@ -106,7 +113,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/fax_request(client/requester, message, additional_info)
 	request_for_client(requester, REQUEST_FAX, message, additional_info)
-
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage1.ogg'))
 /**
  * Creates a request and registers the request with all necessary internal tracking lists
  *
