@@ -294,8 +294,6 @@
 
 ///Proc to hook behavior associated to the change of the brute_dam variable's value.
 /obj/item/bodypart/proc/set_brute_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
 	if(brute_dam == new_value)
 		return
 	. = brute_dam
@@ -304,8 +302,6 @@
 
 ///Proc to hook behavior associated to the change of the burn_dam variable's value.
 /obj/item/bodypart/proc/set_burn_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
 	if(burn_dam == new_value)
 		return
 	. = burn_dam
