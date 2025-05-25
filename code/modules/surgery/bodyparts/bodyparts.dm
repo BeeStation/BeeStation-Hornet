@@ -680,8 +680,7 @@
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	limb_id = SPECIES_MONKEY
-	should_draw_greyscale = FALSE
-	is_dimorphic = FALSE
+	is_dimorphic = TRUE
 	animal_origin = MONKEY_BODYPART
 	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 

@@ -104,7 +104,7 @@
 		for(var/atom/thing as anything in nearby_atoms)
 			if(!ismovable(thing))
 				continue
-			if(istype(thing, /atom/movable/lighting_object)) // Ignore lighting objects
+			if(istype(thing, /atom/movable/lighting_object) || istype(thing, /atom/movable/height_displacement_holder)) // Ignore lighting objects
 				continue
 
 			// There are atoms around the rune still, and there shouldn't be.
