@@ -509,7 +509,7 @@
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = LONE_RULESET
 	var/meteordelay = 2000
-	var/nometeors = 0
+	var/nometeors = FALSE
 	var/rampupdelta = 5
 
 /datum/dynamic_ruleset/roundstart/meteor/rule_process()

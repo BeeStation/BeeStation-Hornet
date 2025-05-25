@@ -128,7 +128,7 @@ Slimecrossing Weapons
 		M.blood_volume -= 20
 	if(charges == 1)
 		recharge_newshot()
-	return 1
+	return TRUE
 
 /obj/item/ammo_casing/magic/bloodchill
 	projectile_type = /obj/projectile/magic/bloodchill

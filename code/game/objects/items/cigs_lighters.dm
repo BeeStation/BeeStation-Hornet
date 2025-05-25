@@ -548,11 +548,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(ismob(loc))
 			var/mob/living/M = loc
 			to_chat(M, span_notice("Your [name] goes out."))
-			lit = 0
+			lit = FALSE
 			icon_state = icon_off
 			item_state = icon_off
 			M.update_inv_wear_mask()
-			packeditem = 0
+			packeditem = FALSE
 			name = "empty [initial(name)]"
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -591,7 +591,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/turf/location = get_turf(user)
 	if(lit)
 		user.visible_message(span_notice("[user] puts out [src]."), span_notice("You put out [src]."))
-		lit = 0
+		lit = FALSE
 		icon_state = icon_off
 		item_state = icon_off
 		STOP_PROCESSING(SSobj, src)
@@ -599,7 +599,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!lit && smoketime > 0)
 		to_chat(user, span_notice("You empty [src] onto [location]."))
 		new /obj/effect/decal/cleanable/ash(location)
-		packeditem = 0
+		packeditem = FALSE
 		smoketime = 0
 		reagents.clear_reagents()
 		name = "empty [initial(name)]"
@@ -633,7 +633,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	light_power = 0.6
 	light_on = FALSE
 	item_flags = ISWEAPON
-	var/lit = 0
+	var/lit = FALSE
 	var/fancy = TRUE
 	var/overlay_state
 	var/overlay_list = list(
@@ -916,12 +916,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
 		if(screw && !(obj_flags & EMAGGED))//also kinky
 			if(!super)
 				cut_overlays()
-				super = 1
+				super = TRUE
 				to_chat(user, span_notice("You increase the voltage of [src]."))
 				add_overlay("vapeopen_med")
 			else
 				cut_overlays()
-				super = 0
+				super = FALSE
 				to_chat(user, span_notice("You decrease the voltage of [src]."))
 				add_overlay("vapeopen_low")
 

@@ -8,7 +8,7 @@
 	throw_range = 7
 	force = 4
 	custom_materials = list(/datum/material/iron=2000)
-	clumsy_check = 0
+	clumsy_check = FALSE
 	fire_sound = 'sound/items/syringeproj.ogg'
 	var/load_sound = 'sound/weapons/shotguninsert.ogg'
 	var/list/syringes = list()
@@ -44,7 +44,7 @@
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!syringes.len)
 		to_chat(user, span_warning("[src] is empty!"))
-		return 0
+		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S = syringes[syringes.len]
 

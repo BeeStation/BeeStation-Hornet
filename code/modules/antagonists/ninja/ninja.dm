@@ -37,9 +37,9 @@
 		if(M.current && M.current.stat != DEAD)
 			if(ishuman(M.current))
 				if(M.special_role)
-					possible_targets[M] = 0						//bad-guy
+					possible_targets[M] = FALSE						//bad-guy
 				else if(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-					possible_targets[M] = 1						//good-guy
+					possible_targets[M] = TRUE						//good-guy
 
 	var/list/possible_objectives = list(1,2,3,4)
 

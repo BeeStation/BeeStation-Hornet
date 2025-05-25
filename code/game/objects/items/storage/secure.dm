@@ -18,9 +18,9 @@
 	var/icon_opened = "secure0"
 	var/code = ""
 	var/l_code = null
-	var/l_set = 0
-	var/l_setshort = 0
-	var/l_hacking = 0
+	var/l_set = FALSE
+	var/l_setshort = FALSE
+	var/l_hacking = FALSE
 	var/open = FALSE
 	var/can_hack_open = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
@@ -89,10 +89,10 @@
 		return
 	if (href_list["type"])
 		if (href_list["type"] == "E")
-			if ((l_set == 0) && (length(code) == 5) && (!l_setshort) && (code != "ERROR"))
+			if (!l_set && (length(code) == 5) && (!l_setshort) && (code != "ERROR"))
 				l_code = code
-				l_set = 1
-			else if ((code == l_code) && (l_set == 1))
+				l_set = TRUE
+			else if ((code == l_code) && l_set)
 				atom_storage.locked = FALSE
 				cut_overlays()
 				add_overlay(icon_opened)

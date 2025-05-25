@@ -137,7 +137,7 @@
 		if((organ_flags & ORGAN_FAILING))
 			if(!silent)
 				to_chat(owner, span_warning("Your thrusters set seems to be broken!"))
-			return 0
+			return FALSE
 		on = TRUE
 		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
 			ion_trail.start()

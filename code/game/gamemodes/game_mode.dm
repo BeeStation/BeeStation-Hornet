@@ -93,7 +93,7 @@
 
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/create_special_antags()
 	var/list/living_crew = list()
@@ -181,7 +181,7 @@
 		for(var/datum/station_goal/G in station_goals)
 			G.prepare_report()
 	gamemode_ready = TRUE
-	return 1
+	return TRUE
 
 
 ///Handles late-join antag assignments
@@ -245,10 +245,10 @@
 
 	switch(SSshuttle.emergency.mode) //Rounds on the verge of ending don't get new antags, they just run out
 		if(SHUTTLE_STRANDED, SHUTTLE_ESCAPE)
-			return 1
+			return TRUE
 		if(SHUTTLE_CALL)
 			if(SSshuttle.emergency.timeLeft(1) < initial(SSshuttle.emergencyCallTime)*0.5)
-				return 1
+				return TRUE
 
 	var/matc = CONFIG_GET(number/midround_antag_time_check)
 	if(world.time >= (matc * 600))
@@ -336,35 +336,35 @@
 				continuous[config_tag] = TRUE
 				midround_antag[config_tag] = FALSE
 				SSshuttle.clearHostileEnvironment(src)
-				return 0
+				return FALSE
 
 
 		if(living_antag_player && living_antag_player.mind && isliving(living_antag_player) && living_antag_player.stat != DEAD && !isnewplayer(living_antag_player) &&!isbrain(living_antag_player) && (living_antag_player.mind.special_role || LAZYLEN(living_antag_player.mind.antag_datums)))
-			return 0 //A resource saver: once we find someone who has to die for all antags to be dead, we can just keep checking them, cycling over everyone only when we lose our mark.
+			return FALSE //A resource saver: once we find someone who has to die for all antags to be dead, we can just keep checking them, cycling over everyone only when we lose our mark.
 
 		for(var/mob/Player in GLOB.alive_mob_list)
 			if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) &&!isbrain(Player) && Player.client && (Player.mind.special_role || LAZYLEN(Player.mind.antag_datums))) //Someone's still antagging but is their antagonist datum important enough to skip mulligan?
 				for(var/datum/antagonist/antag_types in Player.mind.antag_datums)
 					if(antag_types.prevent_roundtype_conversion)
 						living_antag_player = Player //they were an important antag, they're our new mark
-						return 0
+						return FALSE
 
 		if(!are_special_antags_dead())
 			return FALSE
 
 		if(!continuous[config_tag] || force_ending)
-			return 1
+			return TRUE
 
 		else
 			round_converted = convert_roundtype()
 			if(!round_converted)
 				if(round_ends_with_antag_death)
-					return 1
+					return TRUE
 				else
 					midround_antag[config_tag] = 0
-					return 0
+					return FALSE
 
-	return 0
+	return FALSE
 
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.

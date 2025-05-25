@@ -55,20 +55,27 @@
 
 /datum/action/boss/on_activate(mob/user, atom/target)
 	if(!istype(boss, boss_type))
-		return 0
+		return
 	if(!boss.atb)
-		return 0
+		return
 	if(boss.atb.points < boss_cost)
-		return 0
+		return
 	if(!boss.client)
 		if(needs_target && !boss.target)
-			return 0
+			return
 	if(boss)
 		if(say_when_triggered)
 			boss.say(say_when_triggered, forced = "boss action")
 		if(!boss.atb.spend(boss_cost))
-			return 0
-	return TRUE
+			return
+
+//Example:
+/*
+/datum/action/boss/selfgib/Trigger()
+	if(..())
+		boss.gib()
+*/
+
 
 //Designed for boss mobs only
 /datum/boss_active_timed_battle

@@ -84,8 +84,8 @@
 
 /turf/open/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
-		broken = 0
-		burnt = 0
+		broken = FALSE
+		burnt = FALSE
 		if(user && !silent)
 			to_chat(user, span_notice("You remove the broken planks."))
 	else
@@ -327,8 +327,9 @@
 	update_icon()
 
 /turf/open/floor/carpet/update_icon()
-	if(!..())
-		return 0
+	. = ..()
+	if(!.)
+		return
 	if(!broken && !burnt)
 		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)

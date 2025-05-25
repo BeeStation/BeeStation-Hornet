@@ -611,16 +611,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	color = "#FFEBEB"
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
-/datum/reagent/flightpotion/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		var/mob/living/carbon/C = M
-		var/holycheck = ishumanbasic(C)
+/datum/reagent/flightpotion/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+	. = ..()
+	if(iscarbon(exposed_mob) && exposed_mob.stat != DEAD)
+		var/mob/living/carbon/exposed_carbon = exposed_mob
+		var/holycheck = ishumanbasic(exposed_carbon)
 		if(reac_volume < 5) // implying xenohumans are holy //as with all things,
-			if(method == INGEST && show_message)
-				to_chat(C, span_notice("<i>You feel nothing but a terrible aftertaste.</i>"))
-			return ..()
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
+			if((methods & INGEST) && show_message)
+				to_chat(exposed_carbon, span_notice("<i>You feel nothing but a terrible aftertaste.</i>"))
+			return
+		if(ishuman(exposed_carbon))
+			var/mob/living/carbon/human/H = exposed_carbon
 			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 			if(H.getorgan(/obj/item/organ/wings))
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
@@ -636,14 +637,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				else
 					var/obj/item/organ/wings/dragon/newwings = new()
 					newwings.Insert(H)
-				to_chat(C, span_userdanger("A terrible pain travels down your back as wings burst out!"))
-				playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
-				C.adjustBruteLoss(20)
-				C.emote("scream")
+				to_chat(exposed_carbon, span_userdanger("A terrible pain travels down your back as wings burst out!"))
+				playsound(exposed_carbon.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
+				exposed_carbon.adjustBruteLoss(20)
+				exposed_carbon.emote("scream")
 		if(holycheck)
-			to_chat(C, span_notice("You feel blessed!"))
-			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
-	..()
+			to_chat(exposed_carbon, span_notice("You feel blessed!"))
+			exposed_carbon.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
 
 
 /obj/item/jacobs_ladder

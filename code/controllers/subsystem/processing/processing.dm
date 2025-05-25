@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(processing)
 	cust["processing"] = length(processing)
 	.["custom"] = cust
 
-/datum/controller/subsystem/processing/fire(resumed = 0)
+/datum/controller/subsystem/processing/fire(resumed = FALSE)
 	if (!resumed)
 		currentrun = processing.Copy()
 
