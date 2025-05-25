@@ -89,6 +89,9 @@
 		if(L.incorporeal_move) // Mobs that can walk through walls cannot grasp items to strip
 			to_chat(user, span_warning("You can't interact with the physical plane while you are incorporeal!"))
 			return FALSE
+		if(isswarmer(L))
+			to_chat(user, span_warning("You are not able to grasp objects!"))
+			return FALSE
 		return TRUE
 	else
 		return FALSE // Mobs that are not living cannot strip
