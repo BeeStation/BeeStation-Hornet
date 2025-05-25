@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	show_to_ghosts = TRUE
 
 /datum/antagonist/wizard/get_dynamic_midround_points()
-	return -1
+	return -2.5
 
 /datum/antagonist/wizard/on_gain()
 	register()
