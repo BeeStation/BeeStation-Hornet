@@ -19,6 +19,8 @@
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
 	/// List of players ready on roundstart.
 	var/list/roundstart_candidates = list()
+	/// A list if roundstart rulesets configured from 'dynamic.json'
+	var/list/roundstart_configured_rulesets
 
 	/**
 	 * Midround variables
@@ -173,6 +175,7 @@
 				dynamic_configuration = json_decode(file2text(json_file))
 			catch(var/exception/error)
 				stack_trace("Error while loading dynamic config: [error]")
+				break
 
 			if(dynamic_configuration["Dynamic"])
 				for(var/variable in dynamic_configuration["Dynamic"])
@@ -185,13 +188,12 @@
 	// Setup roundstart
 	set_roundstart_points()
 
-	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
-	log_dynamic("ROUNDSTART: Listing [length(configured_roundstart_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
+	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
+	log_dynamic("ROUNDSTART: Listing [length(roundstart_configured_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
 	if(!length(roundstart_candidates))
 		return TRUE
 
-	// Pick rulesets to be executed from 'configured_roundstart_rulesets'
-	pick_roundstart_rulesets(configured_roundstart_rulesets)
+	pick_roundstart_rulesets(roundstart_configured_rulesets)
 	return TRUE
 
 /**

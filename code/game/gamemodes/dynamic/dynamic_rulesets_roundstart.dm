@@ -36,9 +36,9 @@
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum point requirement (minimum: [minimum_points_required]) (points: [dynamic.roundstart_points])")
 		return FALSE
 
-/*
-* Choose candidates
-*/
+/**
+ * Choose candidates
+ **/
 /datum/dynamic_ruleset/roundstart/proc/choose_candidates()
 	for(var/i = 1 to drafted_players_amount)
 		var/datum/mind/chosen_mind = select_player()
