@@ -1,5 +1,5 @@
 /proc/try_warp_servant(mob/living/servant, turf/target_location, bring_dragging = FALSE)
-	if(!is_servant_of_ratvar(servant))
+	if(!IS_SERVANT_OF_RATVAR(servant))
 		return FALSE
 	var/mob/living/M = servant
 	var/mob/living/P = M.pulling
