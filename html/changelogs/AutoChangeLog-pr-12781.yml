@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: fixes xenos unrestricted hand use
+  - bugfix: fixes morph/dragon contents dropping
