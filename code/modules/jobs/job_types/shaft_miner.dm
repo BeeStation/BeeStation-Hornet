@@ -7,8 +7,8 @@
 	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 3
 	selection_color = "#dcba97"
+	min_pop = 0
 	// Requires a little bit of game knowledge to play appropriately
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
