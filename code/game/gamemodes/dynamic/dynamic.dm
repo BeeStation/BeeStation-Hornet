@@ -175,9 +175,8 @@
 				dynamic_configuration = json_decode(file2text(json_file))
 			catch(var/exception/error)
 				stack_trace("Error while loading dynamic config: [error]")
-				break
 
-			if(dynamic_configuration["Dynamic"])
+			if(dynamic_configuration && dynamic_configuration["Dynamic"])
 				for(var/variable in dynamic_configuration["Dynamic"])
 					if(!vars[variable])
 						stack_trace("Invalid dynamic configuration variable [variable] in game mode variable changes.")
