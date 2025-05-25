@@ -8,7 +8,7 @@
 	required_living_playtime = 4
 
 /datum/antagonist/revenant/get_dynamic_midround_points()
-	return -0.3
+	return -0.6
 
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()
