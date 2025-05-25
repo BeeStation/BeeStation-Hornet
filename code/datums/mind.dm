@@ -300,7 +300,7 @@
 	remove_rev()
 	SSticker.mode.update_cult_icons_removed(src)
 
-/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = 20, datum/game_mode/gamemode)
+/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = 30, datum/game_mode/gamemode)
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
