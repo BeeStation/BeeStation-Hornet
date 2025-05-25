@@ -1,7 +1,8 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { isEscape, KEY } from 'common/keys';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
@@ -19,7 +20,7 @@ type NumberInputData = {
 export const NumberInputModal = (_) => {
   const { act, data } = useBackend<NumberInputData>();
   const { init_value, large_buttons, message = '', timeout, title } = data;
-  const [input, setInput] = useLocalState('input', init_value);
+  const [input, setInput] = useState(init_value);
   const onChange = (value: number) => {
     if (value === input) {
       return;

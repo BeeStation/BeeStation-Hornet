@@ -1,6 +1,6 @@
 @use './ntos-colors.scss' with (
-  $ntos-color: #191919,
-  $ntos-primary: #00ff00,
+  $ntos-color: hsl(0.0, 0.0%, 9.8%),
+  $ntos-primary: hsl(120.0, 100.0%, 50.0%),
   $color-bg-grad-spread: 0%
 );
 
