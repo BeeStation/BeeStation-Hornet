@@ -2,13 +2,13 @@
 #define ELECTROLYZER_MODE_WORKING "working"
 
 /obj/machinery/electrolyzer
+	name = "space electrolyzer"
+	desc = "Thanks to the fast and dynamic response of our electrolyzers, on-site hydrogen production is guaranteed. Warranty void if used by clowns"
 	anchored = FALSE
 	density = TRUE
 	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN
 	icon = 'icons/obj/atmospherics/machines.dmi'
 	icon_state = "electrolyzer-off"
-	name = "space electrolyzer"
-	desc = "Thanks to the fast and dynamic response of our electrolyzers, on-site hydrogen production is guaranteed. Warranty void if used by clowns"
 	max_integrity = 250
 	armor_type = /datum/armor/machinery_electrolyzer
 	circuit = /obj/item/circuitboard/machine/electrolyzer
@@ -43,27 +43,27 @@
 
 /obj/machinery/electrolyzer/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
-	context[SCREENTIP_CONTEXT_ALT_LMB] = "Turn [on ? "off" : "on"]"
+	context[SCREENTIP_CONTEXT_CTRL_LMB] = "Turn [on ? "off" : "on"]"
 	if(!held_item)
 		return CONTEXTUAL_SCREENTIP_SET
 	switch(held_item.tool_behaviour)
 		if(TOOL_SCREWDRIVER)
 			context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "Close" : "Open"] panel"
 		if(TOOL_WRENCH)
-			context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Unan" : "An"]chor"
+			context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Unanchor" : "Anchor"]"
 	return CONTEXTUAL_SCREENTIP_SET
 */
 
 /obj/machinery/electrolyzer/Destroy()
 	if(cell)
 		QDEL_NULL(cell)
-	return ..()
+	. = ..()
 
 /obj/machinery/electrolyzer/on_deconstruction(disassembled)
 	if(cell)
 		LAZYADD(component_parts, cell)
 		cell = null
-	return ..()
+	. = ..()
 
 /obj/machinery/electrolyzer/examine(mob/user)
 	. = ..()
@@ -81,7 +81,7 @@
 
 /obj/machinery/electrolyzer/update_icon_state()
 	icon_state = "electrolyzer-[on ? "[mode]" : "off"]"
-	return ..()
+	. = ..()
 
 /obj/machinery/electrolyzer/update_overlays()
 	. = ..()
@@ -89,7 +89,6 @@
 		. += "electrolyzer-open"
 
 /obj/machinery/electrolyzer/process_atmos()
-
 	if(!is_operational && on)
 		on = FALSE
 	if(!on)
@@ -116,12 +115,11 @@
 	if(mode == ELECTROLYZER_MODE_STANDBY)
 		return
 
-	var/datum/gas_mixture/env = our_turf.return_air() //get air from the turf
-
-	if(!env)
+	var/datum/gas_mixture/enviroment = our_turf.return_air() //get air from the turf
+	if(!enviroment)
 		return
 
-	call_reactions(env)
+	call_reactions(enviroment)
 
 	air_update_turf(FALSE, FALSE)
 
@@ -131,16 +129,16 @@
 	else
 		cell.use(power_to_use)
 
-/obj/machinery/electrolyzer/proc/call_reactions(datum/gas_mixture/env)
+/obj/machinery/electrolyzer/proc/call_reactions(datum/gas_mixture/enviroment)
 	for(var/reaction in GLOB.electrolyzer_reactions)
 		var/datum/electrolyzer_reaction/current_reaction = GLOB.electrolyzer_reactions[reaction]
 
-		if(!current_reaction.reaction_check(env))
+		if(!current_reaction.reaction_check(enviroment))
 			continue
 
-		current_reaction.react(loc, env, working_power)
+		current_reaction.react(loc, enviroment, working_power)
 
-	env.garbage_collect()
+	enviroment.garbage_collect()
 
 /obj/machinery/electrolyzer/RefreshParts()
 	. = ..()
@@ -160,9 +158,10 @@
 	panel_open = !panel_open
 	balloon_alert(user, "[panel_open ? "opened" : "closed"] panel")
 	update_appearance()
+	return TRUE
 
 /obj/machinery/electrolyzer/wrench_act(mob/living/user, obj/item/tool)
-	default_unfasten_wrench(user, tool)
+	return default_unfasten_wrench(user, tool)
 
 /obj/machinery/electrolyzer/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
@@ -211,6 +210,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Electrolyzer", name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/electrolyzer/ui_data()

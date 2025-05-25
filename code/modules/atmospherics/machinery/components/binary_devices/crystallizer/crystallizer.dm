@@ -73,11 +73,14 @@
 
 /obj/machinery/atmospherics/components/binary/crystallizer/update_overlays()
 	. = ..()
+	// Gas input
 	var/image/pipe_appearance1 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", dir, COLOR_LIME, piping_layer)
-	pipe_appearance1.layer = GAS_SCRUBBER_LAYER
-	var/image/pipe_appearance2 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", REVERSE_DIR(dir), COLOR_MOSTLY_PURE_RED, piping_layer)
-	pipe_appearance2.layer = GAS_SCRUBBER_LAYER
+	pipe_appearance1.layer = (dir == NORTH ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER)
 	. += pipe_appearance1
+
+	// Heat moderation
+	var/image/pipe_appearance2 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", REVERSE_DIR(dir), COLOR_MOSTLY_PURE_RED, piping_layer)
+	pipe_appearance2.layer = (REVERSE_DIR(dir) == NORTH ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER)
 	. += pipe_appearance2
 
 /obj/machinery/atmospherics/components/binary/crystallizer/update_icon_state()
