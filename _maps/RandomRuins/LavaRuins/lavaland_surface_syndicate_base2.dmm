@@ -276,7 +276,8 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "cy" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 5
+	dir = 5;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/brig)
@@ -319,7 +320,8 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "cU" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 9
+	dir = 9;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
@@ -394,7 +396,8 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "dB" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 6
+	dir = 6;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -414,7 +417,8 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "dN" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 10
+	dir = 10;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -1450,7 +1454,7 @@
 	name = "Base turret controls";
 	req_access = null;
 	req_access_txt = "150";
-	pixel_x = 30
+	shoot_cyborgs = 1
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
@@ -1607,13 +1611,15 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "oL" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 10
+	dir = 10;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "oM" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 10
+	dir = 10;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
@@ -2782,7 +2788,8 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Bt" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 6
+	dir = 6;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
@@ -2821,7 +2828,8 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "BI" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 9
+	dir = 9;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
@@ -3125,7 +3133,8 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "EY" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 5
+	dir = 5;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
@@ -3342,7 +3351,8 @@
 /area/ruin/unpowered/syndicate_lava_base/port)
 "GN" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 5
+	dir = 5;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
@@ -3478,7 +3488,8 @@
 /area/ruin/unpowered/syndicate_lava_base/bridge)
 "HW" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 10
+	dir = 10;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
@@ -4779,7 +4790,8 @@
 /area/ruin/unpowered/syndicate_lava_base/port)
 "UG" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 9
+	dir = 9;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
@@ -4794,7 +4806,8 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "UU" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 9
+	dir = 9;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
@@ -5190,7 +5203,8 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "YL" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 5
+	dir = 5;
+	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
