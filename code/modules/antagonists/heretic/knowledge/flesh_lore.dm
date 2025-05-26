@@ -176,7 +176,6 @@
 			check_jobban = ROLE_HERETIC,
 			poll_time = 10 SECONDS,
 			checked_target = soon_to_be_ghoul,
-			ignore_category = null,
 			jump_target = soon_to_be_ghoul,
 			role_name_text = "voiceless dead",
 			alert_pic = soon_to_be_ghoul,

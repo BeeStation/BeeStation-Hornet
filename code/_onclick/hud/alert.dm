@@ -650,7 +650,6 @@ so as to remain in compliance with the most up-to-date laws."
 	name = "Looking for candidates"
 	icon_state = "template"
 	timeout = 30 SECONDS
-	// TODO: ghost_screentips = TRUE
 	/// If true you need to call START_PROCESSING manually
 	var/show_time_left = FALSE
 	/// MA for maptext showing time left for poll
@@ -669,7 +668,6 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/poll_alert/Initialize(mapload)
 	. = ..()
 	signed_up_overlay = mutable_appearance('icons/hud/screen_gen.dmi', icon_state = "selector")
-	// TODO: register_context()
 
 /atom/movable/screen/alert/poll_alert/proc/set_role_overlay()
 	var/role_or_only_question = poll.role || "?"
@@ -690,25 +688,15 @@ so as to remain in compliance with the most up-to-date laws."
 	poll = null
 	. = ..()
 
-/* TODO:
-/atom/movable/screen/alert/poll_alert/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
-	var/left_click_text
-	if(poll)
-		if(owner in poll.signed_up)
-			left_click_text = "Leave"
-		else
-			left_click_text = "Enter"
-		context[SCREENTIP_CONTEXT_LMB] = "[left_click_text] Poll"
+/atom/movable/screen/alert/poll_alert/add_context_self(datum/screentip_context/context, mob/user)
+	if(poll && context.accept_mob_type(/mob))
+		context.add_left_click_action("[(owner in poll.signed_up) ? "Leave" : "Enter"] Poll")
+
 		if(poll.ignoring_category)
-			var/selected_never = FALSE
-			if(owner.ckey in GLOB.poll_ignore[poll.ignoring_category])
-				selected_never = TRUE
-			context[SCREENTIP_CONTEXT_ALT_LMB] = "[selected_never ? "Cancel " : ""]Never For This Round"
+			context.add_alt_click_action("[(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]) ? "Cancel " : ""]Never For This Round")
+
 		if(poll.jump_to_me && isobserver(owner))
-			context[SCREENTIP_CONTEXT_CTRL_LMB] = "Jump To"
-	return CONTEXTUAL_SCREENTIP_SET
-*/
+			context.add_ctrl_click_action("Jump To")
 
 /atom/movable/screen/alert/poll_alert/process()
 	if(show_time_left)
