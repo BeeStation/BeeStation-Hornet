@@ -84,6 +84,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	outdoors = TRUE
 	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 	camera_networks = list(CAMERA_NETWORK_STATION)
+	requires_power = FALSE
 
 /area/paradise/surface
 	name = "paradise surface"

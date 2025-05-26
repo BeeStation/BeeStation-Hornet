@@ -32,13 +32,26 @@
 	else
 		return ..()
 
-/obj/structure/spider/stickyweb/proc/on_entered(datum/source, atom/movable/AM)
+/obj/structure/flora/tree/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/flora/tree/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged
-			to_chat(L, span_danger("You squeeze past \the [src] slowly."))
-		L.Immobilize(1.5 SECONDS)
+	var/mob/living/L = isliving(AM) ? AM : null
+	if(!L || L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
+		return
+
+	L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+	to_chat(L, span_warning("You push your way through the thick foliage."))
+
+	spawn(1 SECONDS)
+		if(L)
+			L.remove_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
 
 /obj/structure/flora/stump
 	name = "stump"
