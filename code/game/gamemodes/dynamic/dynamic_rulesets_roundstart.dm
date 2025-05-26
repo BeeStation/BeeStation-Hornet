@@ -65,7 +65,7 @@
 	name = "Traitor"
 	role_preference = /datum/role_preference/antagonist/traitor
 	antag_datum = /datum/antagonist/traitor
-	weight = 5
+	weight = 10
 
 //////////////////////////////////////////////
 //                                          //
@@ -77,7 +77,7 @@
 	name = "Changeling"
 	role_preference = /datum/role_preference/antagonist/changeling
 	antag_datum = /datum/antagonist/changeling
-	weight = 4
+	weight = 8
 
 //////////////////////////////////////////////
 //                                          //
@@ -89,7 +89,7 @@
 	name = "Heretic"
 	role_preference = /datum/role_preference/antagonist/heretic
 	antag_datum = /datum/antagonist/heretic
-	weight = 4
+	weight = 8
 
 //////////////////////////////////////////////
 //                                          //
@@ -102,7 +102,7 @@
 	role_preference = /datum/role_preference/antagonist/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
 	minimum_points_required = 24
-	weight = 4
+	weight = 6
 	points_cost = 13
 	restricted_roles = list(JOB_NAME_CYBORG)
 	flags = SHOULD_USE_ANTAG_REP|CANNOT_REPEAT
@@ -131,7 +131,7 @@
 	name = "Wizard"
 	role_preference = /datum/role_preference/antagonist/wizard
 	antag_datum = /datum/antagonist/wizard
-	weight = 2
+	weight = 1
 	points_cost = 15
 	minimum_points_required = 20
 	flags = HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
@@ -166,7 +166,7 @@
 	role_preference = /datum/role_preference/antagonist/blood_brother
 	antag_datum = /datum/antagonist/brother
 	drafted_players_amount = 2
-	weight = 2
+	weight = 6
 	points_cost = 8
 
 	var/datum/team/brother_team/team
@@ -201,7 +201,7 @@
 	antag_datum = /datum/antagonist/cult
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 2
-	weight = 3
+	weight = 5
 	points_cost = 20
 	minimum_points_required = 24
 	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
@@ -248,7 +248,7 @@
 	antag_datum = /datum/antagonist/servant_of_ratvar
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 4
-	weight = 3
+	weight = 5
 	points_cost = 35
 	minimum_points_required = 24
 	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
@@ -401,7 +401,7 @@
 	antag_datum = /datum/antagonist/rev/head
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	drafted_players_amount = 3
-	weight = 3
+	weight = 4
 	points_cost = 20
 	minimum_points_required = 35
 	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
