@@ -27,8 +27,8 @@
 	sexes = TRUE
 	species_language_holder = /datum/language_holder/monkey
 
-	species_l_arm = /obj/item/bodypart/l_arm/monkey
-	species_r_arm = /obj/item/bodypart/r_arm/monkey
+	species_l_arm = /obj/item/bodypart/arm/left/monkey
+	species_r_arm = /obj/item/bodypart/arm/right/monkey
 	species_head = /obj/item/bodypart/head/monkey
 	species_l_leg = /obj/item/bodypart/l_leg/monkey
 	species_r_leg = /obj/item/bodypart/r_leg/monkey
@@ -206,8 +206,8 @@
 
 	species_chest = /obj/item/bodypart/chest/monkey/teratoma
 	species_head = /obj/item/bodypart/head/monkey/teratoma
-	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
-	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
+	species_l_arm = /obj/item/bodypart/arm/left/monkey/teratoma
+	species_r_arm = /obj/item/bodypart/arm/right/monkey/teratoma
 	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
 	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
 

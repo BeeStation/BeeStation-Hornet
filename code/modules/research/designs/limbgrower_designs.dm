@@ -7,7 +7,7 @@
 	id = "l_arm"
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
-	build_path = /obj/item/bodypart/l_arm
+	build_path = /obj/item/bodypart/arm/left
 	category = list("initial","human","lizard","fly","moth","plasmaman")
 
 /datum/design/rightarm
@@ -15,7 +15,7 @@
 	id = "r_arm"
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
-	build_path = /obj/item/bodypart/r_arm
+	build_path = /obj/item/bodypart/arm/right
 	category = list("initial","human","lizard","fly","moth","plasmaman")
 
 /datum/design/leftleg

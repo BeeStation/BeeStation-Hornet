@@ -19,8 +19,8 @@
 
 	species_chest = /obj/item/bodypart/chest/fly
 	species_head = /obj/item/bodypart/head/fly
-	species_l_arm = /obj/item/bodypart/l_arm/fly
-	species_r_arm = /obj/item/bodypart/r_arm/fly
+	species_l_arm = /obj/item/bodypart/arm/left/fly
+	species_r_arm = /obj/item/bodypart/arm/right/fly
 	species_l_leg = /obj/item/bodypart/l_leg/fly
 	species_r_leg = /obj/item/bodypart/r_leg/fly
 

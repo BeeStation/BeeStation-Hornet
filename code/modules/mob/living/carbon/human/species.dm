@@ -147,8 +147,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//K-Limbs. If a species doesn't have their own limb types. Do not override this, use the K-Limbs overrides at the top of the species datum.
 	var/obj/item/bodypart/species_chest = /obj/item/bodypart/chest
 	var/obj/item/bodypart/species_head = /obj/item/bodypart/head
-	var/obj/item/bodypart/species_l_arm = /obj/item/bodypart/l_arm
-	var/obj/item/bodypart/species_r_arm = /obj/item/bodypart/r_arm
+	var/obj/item/bodypart/species_l_arm = /obj/item/bodypart/arm/left
+	var/obj/item/bodypart/species_r_arm = /obj/item/bodypart/arm/right
 	var/obj/item/bodypart/species_r_leg = /obj/item/bodypart/r_leg
 	var/obj/item/bodypart/species_l_leg = /obj/item/bodypart/l_leg
 
@@ -407,12 +407,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_L_ARM)
-				var/obj/item/bodypart/l_arm/new_part = new new_species.species_l_arm()
+				var/obj/item/bodypart/arm/left/new_part = new new_species.species_l_arm()
 				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_R_ARM)
-				var/obj/item/bodypart/r_arm/new_part = new new_species.species_r_arm()
+				var/obj/item/bodypart/arm/right/new_part = new new_species.species_r_arm()
 				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
@@ -787,8 +787,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//organic body markings
 	if(HAS_MARKINGS in species_traits)
 		var/obj/item/bodypart/chest/chest = H.get_bodypart(BODY_ZONE_CHEST)
-		var/obj/item/bodypart/r_arm/right_arm = H.get_bodypart(BODY_ZONE_R_ARM)
-		var/obj/item/bodypart/l_arm/left_arm = H.get_bodypart(BODY_ZONE_L_ARM)
+		var/obj/item/bodypart/arm/right/right_arm = H.get_bodypart(BODY_ZONE_R_ARM)
+		var/obj/item/bodypart/arm/left/left_arm = H.get_bodypart(BODY_ZONE_L_ARM)
 		var/obj/item/bodypart/r_leg/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
 		var/obj/item/bodypart/l_leg/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[H.dna.features["moth_markings"]]

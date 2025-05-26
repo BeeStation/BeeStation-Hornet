@@ -23,8 +23,8 @@
 
 	species_chest = /obj/item/bodypart/chest/psyphoza
 	species_head = /obj/item/bodypart/head/psyphoza
-	species_l_arm = /obj/item/bodypart/l_arm/psyphoza
-	species_r_arm = /obj/item/bodypart/r_arm/psyphoza
+	species_l_arm = /obj/item/bodypart/arm/left/psyphoza
+	species_r_arm = /obj/item/bodypart/arm/right/psyphoza
 	species_l_leg = /obj/item/bodypart/l_leg/psyphoza
 	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
 

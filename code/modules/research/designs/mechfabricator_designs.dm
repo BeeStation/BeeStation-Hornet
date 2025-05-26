@@ -30,7 +30,7 @@
 	name = "Cyborg Left Arm"
 	id = "borg_l_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/l_arm/robot
+	build_path = /obj/item/bodypart/arm/left/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list("Cyborg")
@@ -39,7 +39,7 @@
 	name = "Cyborg Right Arm"
 	id = "borg_r_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/r_arm/robot
+	build_path = /obj/item/bodypart/arm/right/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list("Cyborg")

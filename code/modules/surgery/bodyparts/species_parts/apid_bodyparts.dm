@@ -12,14 +12,14 @@
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/l_arm/apid
+/obj/item/bodypart/arm/left/apid
 	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID
 	should_draw_greyscale = FALSE
 
 
-/obj/item/bodypart/r_arm/apid
+/obj/item/bodypart/arm/right/apid
 	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID

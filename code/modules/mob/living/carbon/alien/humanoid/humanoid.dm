@@ -10,8 +10,8 @@
 	bodyparts = list(
 		/obj/item/bodypart/chest/alien,
 		/obj/item/bodypart/head/alien,
-		/obj/item/bodypart/l_arm/alien,
-		/obj/item/bodypart/r_arm/alien,
+		/obj/item/bodypart/arm/left/alien,
+		/obj/item/bodypart/arm/right/alien,
 		/obj/item/bodypart/r_leg/alien,
 		/obj/item/bodypart/l_leg/alien,
 		)

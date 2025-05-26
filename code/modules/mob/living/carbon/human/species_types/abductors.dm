@@ -14,8 +14,8 @@
 
 	species_chest = /obj/item/bodypart/chest/abductor
 	species_head = /obj/item/bodypart/head/abductor
-	species_l_arm = /obj/item/bodypart/l_arm/abductor
-	species_r_arm = /obj/item/bodypart/r_arm/abductor
+	species_l_arm = /obj/item/bodypart/arm/left/abductor
+	species_r_arm = /obj/item/bodypart/arm/right/abductor
 	species_l_leg = /obj/item/bodypart/l_leg/abductor
 	species_r_leg = /obj/item/bodypart/r_leg/abductor
 

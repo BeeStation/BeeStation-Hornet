@@ -23,8 +23,8 @@
 
 	species_chest = /obj/item/bodypart/chest/oozeling
 	species_head = /obj/item/bodypart/head/oozeling
-	species_l_arm = /obj/item/bodypart/l_arm/oozeling
-	species_r_arm = /obj/item/bodypart/r_arm/oozeling
+	species_l_arm = /obj/item/bodypart/arm/left/oozeling
+	species_r_arm = /obj/item/bodypart/arm/right/oozeling
 	species_l_leg = /obj/item/bodypart/l_leg/oozeling
 	species_r_leg = /obj/item/bodypart/r_leg/oozeling
 

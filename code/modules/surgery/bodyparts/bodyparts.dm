@@ -708,7 +708,7 @@
 	max_damage = 50
 	animal_origin = LARVA_BODYPART
 
-/obj/item/bodypart/l_arm
+/obj/item/bodypart/arm/left
 	name = "left arm"
 	desc = "Did you know that the word 'sinister' stems originally from the \
 		Latin 'sinestra' (left hand), because the left hand was supposed to \
@@ -731,7 +731,7 @@
 	can_be_disabled = TRUE
 
 
-/obj/item/bodypart/l_arm/set_owner(new_owner)
+/obj/item/bodypart/arm/left/set_owner(new_owner)
 	. = ..()
 	if(. == FALSE)
 		return
@@ -753,7 +753,7 @@
 
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_ARM trait.
-/obj/item/bodypart/l_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
+/obj/item/bodypart/arm/left/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
@@ -761,14 +761,14 @@
 
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_L_ARM trait.
-/obj/item/bodypart/l_arm/proc/on_owner_paralysis_loss(mob/living/carbon/source)
+/obj/item/bodypart/arm/left/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_gain))
 
 
-/obj/item/bodypart/l_arm/set_disabled(new_disabled)
+/obj/item/bodypart/arm/left/set_disabled(new_disabled)
 	. = ..()
 	if(isnull(.) || !owner)
 		return
@@ -787,7 +787,7 @@
 		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
 
-/obj/item/bodypart/l_arm/monkey
+/obj/item/bodypart/arm/left/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_l_arm"
 	limb_id = SPECIES_MONKEY
@@ -796,11 +796,11 @@
 	px_x = -5
 	px_y = -3
 
-/obj/item/bodypart/l_arm/monkey/teratoma
+/obj/item/bodypart/arm/left/monkey/teratoma
 	icon_state = "teratoma_l_arm"
 	animal_origin = TERATOMA_BODYPART
 
-/obj/item/bodypart/l_arm/alien
+/obj/item/bodypart/arm/left/alien
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "alien_l_arm"
 	px_x = 0
@@ -810,13 +810,13 @@
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
 
-/obj/item/bodypart/l_arm/devil
+/obj/item/bodypart/arm/left/devil
 	dismemberable = FALSE
 	can_be_disabled = FALSE
 	max_damage = 5000
 	animal_origin = DEVIL_BODYPART
 
-/obj/item/bodypart/r_arm
+/obj/item/bodypart/arm/right
 	name = "right arm"
 	desc = "Over 87% of humans are right handed. That figure is much lower \
 		among humans missing their right arm."
@@ -837,7 +837,7 @@
 	can_be_disabled = TRUE
 
 
-/obj/item/bodypart/r_arm/set_owner(new_owner)
+/obj/item/bodypart/arm/right/set_owner(new_owner)
 	. = ..()
 	if(. == FALSE)
 		return
@@ -859,7 +859,7 @@
 
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_ARM trait.
-/obj/item/bodypart/r_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
+/obj/item/bodypart/arm/right/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
@@ -867,14 +867,14 @@
 
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_ARM trait.
-/obj/item/bodypart/r_arm/proc/on_owner_paralysis_loss(mob/living/carbon/source)
+/obj/item/bodypart/arm/right/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_gain))
 
 
-/obj/item/bodypart/r_arm/set_disabled(new_disabled)
+/obj/item/bodypart/arm/right/set_disabled(new_disabled)
 	. = ..()
 	if(isnull(.) || !owner)
 		return
@@ -893,7 +893,7 @@
 		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
 
-/obj/item/bodypart/r_arm/monkey
+/obj/item/bodypart/arm/right/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_r_arm"
 	limb_id = SPECIES_MONKEY
@@ -902,12 +902,12 @@
 	px_x = 5
 	px_y = -3
 
-/obj/item/bodypart/r_arm/monkey/teratoma
+/obj/item/bodypart/arm/right/monkey/teratoma
 	icon_state = "teratoma_r_arm"
 	limb_id = "teratoma"
 	animal_origin = TERATOMA_BODYPART
 
-/obj/item/bodypart/r_arm/alien
+/obj/item/bodypart/arm/right/alien
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "alien_r_arm"
 	px_x = 0
@@ -917,7 +917,7 @@
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
 
-/obj/item/bodypart/r_arm/devil
+/obj/item/bodypart/arm/right/devil
 	dismemberable = FALSE
 	can_be_disabled = FALSE
 	max_damage = 5000

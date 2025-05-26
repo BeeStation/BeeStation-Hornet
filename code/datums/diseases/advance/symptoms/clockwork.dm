@@ -183,7 +183,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_ARM)
-					var/obj/item/bodypart/l_arm/robot/clockwork/B = new()
+					var/obj/item/bodypart/arm/left/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
@@ -192,7 +192,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_ARM)
-					var/obj/item/bodypart/r_arm/robot/clockwork/B = new()
+					var/obj/item/bodypart/arm/right/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
@@ -362,14 +362,14 @@
 		H.dna.species.mutant_bodyparts -= "tail_human"
 		H.update_body()
 
-/obj/item/bodypart/l_arm/robot/clockwork
+/obj/item/bodypart/arm/left/robot/clockwork
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
-/obj/item/bodypart/r_arm/robot/clockwork
+/obj/item/bodypart/arm/right/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'

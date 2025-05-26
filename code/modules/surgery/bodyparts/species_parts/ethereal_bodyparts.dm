@@ -10,12 +10,12 @@
 	is_dimorphic = FALSE
 	uses_mutcolor = TRUE
 
-/obj/item/bodypart/l_arm/ethereal
+/obj/item/bodypart/arm/left/ethereal
 	icon = 'icons/mob/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	uses_mutcolor = TRUE
 
-/obj/item/bodypart/r_arm/ethereal
+/obj/item/bodypart/arm/right/ethereal
 	icon = 'icons/mob/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	uses_mutcolor = TRUE

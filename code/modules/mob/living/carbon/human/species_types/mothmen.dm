@@ -30,8 +30,8 @@
 
 	species_chest = /obj/item/bodypart/chest/moth
 	species_head = /obj/item/bodypart/head/moth
-	species_l_arm = /obj/item/bodypart/l_arm/moth
-	species_r_arm = /obj/item/bodypart/r_arm/moth
+	species_l_arm = /obj/item/bodypart/arm/left/moth
+	species_r_arm = /obj/item/bodypart/arm/right/moth
 	species_l_leg = /obj/item/bodypart/l_leg/moth
 	species_r_leg = /obj/item/bodypart/r_leg/moth
 

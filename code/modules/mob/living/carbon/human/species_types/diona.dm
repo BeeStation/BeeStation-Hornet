@@ -41,8 +41,8 @@
 
 	species_chest = /obj/item/bodypart/chest/diona
 	species_head = /obj/item/bodypart/head/diona
-	species_l_arm = /obj/item/bodypart/l_arm/diona
-	species_r_arm = /obj/item/bodypart/r_arm/diona
+	species_l_arm = /obj/item/bodypart/arm/left/diona
+	species_r_arm = /obj/item/bodypart/arm/right/diona
 	species_l_leg = /obj/item/bodypart/l_leg/diona
 	species_r_leg = /obj/item/bodypart/r_leg/diona
 

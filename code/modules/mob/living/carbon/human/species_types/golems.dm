@@ -34,8 +34,8 @@
 	// changes, only the Random Golem type can be chosen
 	species_chest = /obj/item/bodypart/chest/golem
 	species_head = /obj/item/bodypart/head/golem
-	species_l_arm = /obj/item/bodypart/l_arm/golem
-	species_r_arm = /obj/item/bodypart/r_arm/golem
+	species_l_arm = /obj/item/bodypart/arm/left/golem
+	species_r_arm = /obj/item/bodypart/arm/right/golem
 	species_l_leg = /obj/item/bodypart/l_leg/golem
 	species_r_leg = /obj/item/bodypart/r_leg/golem
 
@@ -334,8 +334,8 @@
 
 	species_chest = /obj/item/bodypart/chest/golem/alloy
 	species_head = /obj/item/bodypart/head/golem/alloy
-	species_l_arm = /obj/item/bodypart/l_arm/golem/alloy
-	species_r_arm = /obj/item/bodypart/r_arm/golem/alloy
+	species_l_arm = /obj/item/bodypart/arm/left/golem/alloy
+	species_r_arm = /obj/item/bodypart/arm/right/golem/alloy
 	species_l_leg = /obj/item/bodypart/l_leg/golem/alloy
 	species_r_leg = /obj/item/bodypart/r_leg/golem/alloy
 
@@ -598,8 +598,8 @@
 
 	species_chest = /obj/item/bodypart/chest/golem/bananium
 	species_head = /obj/item/bodypart/head/golem/bananium
-	species_l_arm = /obj/item/bodypart/l_arm/golem/bananium
-	species_r_arm = /obj/item/bodypart/r_arm/golem/bananium
+	species_l_arm = /obj/item/bodypart/arm/left/golem/bananium
+	species_r_arm = /obj/item/bodypart/arm/right/golem/bananium
 	species_l_leg = /obj/item/bodypart/l_leg/golem/bananium
 	species_r_leg = /obj/item/bodypart/r_leg/golem/bananium
 
@@ -692,8 +692,8 @@
 
 	species_chest = /obj/item/bodypart/chest/golem/cult
 	species_head = /obj/item/bodypart/head/golem/cult
-	species_l_arm = /obj/item/bodypart/l_arm/golem/cult
-	species_r_arm = /obj/item/bodypart/r_arm/golem/cult
+	species_l_arm = /obj/item/bodypart/arm/left/golem/cult
+	species_r_arm = /obj/item/bodypart/arm/right/golem/cult
 	species_l_leg = /obj/item/bodypart/l_leg/golem/cult
 	species_r_leg = /obj/item/bodypart/r_leg/golem/cult
 
@@ -762,8 +762,8 @@
 
 	species_chest = /obj/item/bodypart/chest/golem/clock
 	species_head = /obj/item/bodypart/head/golem/clock
-	species_l_arm = /obj/item/bodypart/l_arm/golem/clock
-	species_r_arm = /obj/item/bodypart/r_arm/golem/clock
+	species_l_arm = /obj/item/bodypart/arm/left/golem/clock
+	species_r_arm = /obj/item/bodypart/arm/right/golem/clock
 	species_l_leg = /obj/item/bodypart/l_leg/golem/clock
 	species_r_leg = /obj/item/bodypart/r_leg/golem/clock
 
@@ -826,8 +826,8 @@
 
 	species_chest = /obj/item/bodypart/chest/golem/cloth
 	species_head = /obj/item/bodypart/head/golem/cloth
-	species_l_arm = /obj/item/bodypart/l_arm/golem/cloth
-	species_r_arm = /obj/item/bodypart/r_arm/golem/cloth
+	species_l_arm = /obj/item/bodypart/arm/left/golem/cloth
+	species_r_arm = /obj/item/bodypart/arm/right/golem/cloth
 	species_l_leg = /obj/item/bodypart/l_leg/golem/cloth
 	species_r_leg = /obj/item/bodypart/r_leg/golem/cloth
 
@@ -1105,8 +1105,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
 	species_chest = /obj/item/bodypart/chest/golem/cardboard
 	species_head = /obj/item/bodypart/head/golem/cardboard
-	species_l_arm = /obj/item/bodypart/l_arm/golem/cardboard
-	species_r_arm = /obj/item/bodypart/r_arm/golem/cardboard
+	species_l_arm = /obj/item/bodypart/arm/left/golem/cardboard
+	species_r_arm = /obj/item/bodypart/arm/right/golem/cardboard
 	species_l_leg = /obj/item/bodypart/l_leg/golem/cardboard
 	species_r_leg = /obj/item/bodypart/r_leg/golem/cardboard
 
@@ -1177,8 +1177,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
 	species_chest = /obj/item/bodypart/chest/golem/durathread
 	species_head = /obj/item/bodypart/head/golem/durathread
-	species_l_arm = /obj/item/bodypart/l_arm/golem/durathread
-	species_r_arm = /obj/item/bodypart/r_arm/golem/durathread
+	species_l_arm = /obj/item/bodypart/arm/left/golem/durathread
+	species_r_arm = /obj/item/bodypart/arm/right/golem/durathread
 	species_l_leg = /obj/item/bodypart/l_leg/golem/durathread
 	species_r_leg = /obj/item/bodypart/r_leg/golem/durathread
 
@@ -1215,8 +1215,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
 	species_chest = /obj/item/bodypart/chest/golem/bone
 	species_head = /obj/item/bodypart/head/golem/bone
-	species_l_arm = /obj/item/bodypart/l_arm/golem/bone
-	species_r_arm = /obj/item/bodypart/r_arm/golem/bone
+	species_l_arm = /obj/item/bodypart/arm/left/golem/bone
+	species_r_arm = /obj/item/bodypart/arm/right/golem/bone
 	species_l_leg = /obj/item/bodypart/l_leg/golem/bone
 	species_r_leg = /obj/item/bodypart/r_leg/golem/bone
 
@@ -1309,8 +1309,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
 	species_chest = /obj/item/bodypart/chest/golem/snow
 	species_head = /obj/item/bodypart/head/golem/snow
-	species_l_arm = /obj/item/bodypart/l_arm/golem/snow
-	species_r_arm = /obj/item/bodypart/r_arm/golem/snow
+	species_l_arm = /obj/item/bodypart/arm/left/golem/snow
+	species_r_arm = /obj/item/bodypart/arm/right/golem/snow
 	species_l_leg = /obj/item/bodypart/l_leg/golem/snow
 	species_r_leg = /obj/item/bodypart/r_leg/golem/snow
 

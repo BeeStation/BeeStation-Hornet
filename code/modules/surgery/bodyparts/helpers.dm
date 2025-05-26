@@ -153,9 +153,9 @@
 	var/obj/item/bodypart/L
 	switch(zone)
 		if(BODY_ZONE_L_ARM)
-			L = new /obj/item/bodypart/l_arm/alien()
+			L = new /obj/item/bodypart/arm/left/alien()
 		if(BODY_ZONE_R_ARM)
-			L = new /obj/item/bodypart/r_arm/alien()
+			L = new /obj/item/bodypart/arm/right/alien()
 		if(BODY_ZONE_HEAD)
 			L = new /obj/item/bodypart/head/alien()
 		if(BODY_ZONE_L_LEG)

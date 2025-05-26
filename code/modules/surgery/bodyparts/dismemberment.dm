@@ -170,7 +170,7 @@
 	if(special)
 		..()
 
-/obj/item/bodypart/r_arm/drop_limb(special)
+/obj/item/bodypart/arm/right/drop_limb(special)
 	var/mob/living/carbon/C = owner
 	..()
 	if(C && !special)
@@ -188,7 +188,7 @@
 		C.update_inv_gloves() //to remove the bloody hands overlay
 
 
-/obj/item/bodypart/l_arm/drop_limb(special)
+/obj/item/bodypart/arm/left/drop_limb(special)
 	var/mob/living/carbon/C = owner
 	..()
 	if(C && !special)

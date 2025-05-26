@@ -50,8 +50,8 @@
 
 	species_chest = /obj/item/bodypart/chest/lizard
 	species_head = /obj/item/bodypart/head/lizard
-	species_l_arm = /obj/item/bodypart/l_arm/lizard
-	species_r_arm = /obj/item/bodypart/r_arm/lizard
+	species_l_arm = /obj/item/bodypart/arm/left/lizard
+	species_r_arm = /obj/item/bodypart/arm/right/lizard
 	species_l_leg = /obj/item/bodypart/l_leg/lizard
 	species_r_leg = /obj/item/bodypart/r_leg/lizard
 
