@@ -37,8 +37,8 @@
 	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts for 20 seconds."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
-	trigger_cooldown = 120 SECONDS
-	maximum_duration = 40 SECONDS
+	trigger_cooldown = 60 SECONDS
+	maximum_duration = 30 SECONDS
 	var/datum/armor/nanite_armor = /datum/armor/hardening_armor
 
 /datum/armor/hardening_armor
@@ -49,24 +49,14 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-<<<<<<< HEAD
 		H.physiology.physio_armor.add_other_armor(nanite_armor)
-=======
-		H.physiology.armor.melee += 20
-		H.physiology.armor.bullet += 35
->>>>>>> ad5c662e9e9 (Ties nanites directly to food)
 		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING, "111111", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-<<<<<<< HEAD
 		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
-=======
-		H.physiology.armor.melee -= 20
-		H.physiology.armor.bullet -= 35
->>>>>>> ad5c662e9e9 (Ties nanites directly to food)
 		REMOVE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING)
 
 /datum/nanite_program/refractive
@@ -74,8 +64,8 @@
 	desc = "The nanites form a membrane above the host's skin, reducing the effect of laser and energy impacts."
 	use_rate = 0.50
 	rogue_types = list(/datum/nanite_program/skin_decay)
-	trigger_cooldown = 120 SECONDS
-	maximum_duration = 40 SECONDS
+	trigger_cooldown = 60 SECONDS
+	maximum_duration = 30 SECONDS
 	var/datum/armor/nanite_armor = /datum/armor/refractive_armor
 
 /datum/armor/refractive_armor
