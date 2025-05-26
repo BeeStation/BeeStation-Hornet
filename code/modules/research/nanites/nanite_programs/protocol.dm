@@ -212,11 +212,16 @@
 	// entirely by the nanites themselves.
 	nanites.nutrition_rate += 0.1
 	nanites.max_production_ratio += 1000
+	nanites.cooldown_multiplier = 0
+	// Required to prevent exploitation where you enable it, activate an effect,
+	// then disable
+	nanites.set_volume(0)
 
 /datum/nanite_program/protocol/unsafe_storage/disable_passive_effect()
 	. = ..()
 	nanites.nutrition_rate -= 0.1
 	nanites.max_production_ratio -= 1000
+	nanites.cooldown_multiplier = 1
 
 /datum/nanite_program/protocol/unsafe_storage/active_effect()
 	if(!iscarbon(host_mob))
@@ -227,6 +232,14 @@
 		return
 
 	var/mob/living/carbon/C = host_mob
+
+	if (host_mob.nutrition < NUTRITION_LEVEL_STARVING)
+		var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
+		if(liver)
+			liver.applyOrganDamage(0.5)
+		C.adjustToxLoss(0.2, forced = TRUE)
+		volume_warning(1)
+		return
 
 	if(nanites.nanite_volume < NUTRITION_LEVEL_FULL)
 		return

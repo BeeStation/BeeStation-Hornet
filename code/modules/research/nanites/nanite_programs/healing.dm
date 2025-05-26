@@ -205,7 +205,7 @@
 		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, special_method = TRUE)
 
 /datum/nanite_program/defib
-	name = "Defibrillation"
+	name = "Resuscitation"
 	desc = "The nanites sacrifice themselves to maintain the bodily functions of the host, bringing them out of critical condition and death at the cost of expending all available nanites."
 	can_trigger = TRUE
 	trigger_cost = 50
@@ -243,8 +243,8 @@
 	if(check_revivable())
 		playsound(C, 'sound/machines/defib_success.ogg', 50, FALSE)
 		// Heal out of critical condition proportional to the amount of nanites consumed
-		C.adjustBruteLoss(nanites.nanite_volume / -3000)
-		C.adjustFireLoss(nanites.nanite_volume / -3000)
+		C.adjustBruteLoss(nanites.nanite_volume / -10)
+		C.adjustFireLoss(nanites.nanite_volume / -10)
 		C.setOxyLoss(0)
 		// Set sleeping so you don't instantly get back up again
 		C.Sleeping(10 SECONDS)
