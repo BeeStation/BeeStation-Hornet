@@ -104,20 +104,20 @@
 	 * we will save up until we have enough points to execute it.
 	**/
 
-	/// The chances for each type of midround ruleset to be picked at roundstart, by default this is 100%, 0%, 0%
+	/// The chances for each type of midround ruleset to be picked at roundstart
 	var/midround_light_starting_chance = 100
 	var/midround_medium_starting_chance = 0
 	var/midround_heavy_starting_chance = 0
 	/// At this time the Light/Medium Ruleset Chance will reach 0%
 	/// When configuring these in 'dynamic.json' be sure to have them set in deciseconds (minutes * 600)
-	var/midround_light_end_time = 60 MINUTES
-	var/midround_medium_end_time = 90 MINUTES
+	var/midround_light_end_time = 1 HOURS
+	var/midround_medium_end_time = 2.5 HOURS
 	/// The ratio of the Light Ruleset Chance decrease rate that is given to the Medium Ruleset Chance
 	/// The Heavy Ratio is the remainder of the Medium Increase Ratio
 	/// These should always be on a range of 0 - 1. i.e: 0.25, 0.75, 1.0
 	var/midround_medium_increase_ratio = 0.75
 	/// The time at which midrounds can start rolling
-	var/midround_grace_period = 15 MINUTES
+	var/midround_grace_period = 25 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	var/midround_points_per_living = 0.2
 	var/midround_points_per_observer = 0
@@ -133,7 +133,7 @@
 	/// The max amount of latejoin rulesets that can be picked
 	var/latejoin_max_rulesets = 3
 	/// The probability for a latejoin ruleset to be picked
-	var/latejoin_ruleset_probability = 10
+	var/latejoin_ruleset_probability = 20
 
 
 // Yes, this is copy pasted from game_mode
