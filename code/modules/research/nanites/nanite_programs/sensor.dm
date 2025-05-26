@@ -148,7 +148,7 @@
 	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(TRUE, "Above", "Below")
 
 /datum/nanite_program/sensor/nanite_volume/check_event()
-	var/nanite_percent = (nanites.nanite_volume - nanites.safety_threshold)/(nanites.max_nanites - nanites.safety_threshold)*100
+	var/nanite_percent = (nanites.nanite_volume - nanites.safety_threshold)/(host_mob.nutrition * nanites.max_production_ratio - nanites.safety_threshold)*100
 	var/datum/nanite_extra_setting/percent = extra_settings[NES_NANITE_PERCENT]
 	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
 	var/detected = FALSE

@@ -49,14 +49,24 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
+<<<<<<< HEAD
 		H.physiology.physio_armor.add_other_armor(nanite_armor)
+=======
+		H.physiology.armor.melee += 20
+		H.physiology.armor.bullet += 35
+>>>>>>> ad5c662e9e9 (Ties nanites directly to food)
 		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING, "111111", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
+<<<<<<< HEAD
 		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
+=======
+		H.physiology.armor.melee -= 20
+		H.physiology.armor.bullet -= 35
+>>>>>>> ad5c662e9e9 (Ties nanites directly to food)
 		REMOVE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING)
 
 /datum/nanite_program/refractive
@@ -121,7 +131,7 @@
 
 /datum/nanite_program/haste
 	name = "Combat Chemical Injection"
-	desc = "The nanites synthesize a combination of hormones and chemicals when triggered, making the host resistant to stuns and unable to feel pain."
+	desc = "The nanites synthesize a combination of hormones and chemicals when triggered, making the host resistant to stuns and reduces the impact of pain."
 	can_trigger = TRUE
 	trigger_cost = 10
 	trigger_cooldown = 120 SECONDS
@@ -136,8 +146,8 @@
 	name = "Nanite Blade"
 	desc = "The nanites form a sharp blade around the user's arm when activated."
 	use_rate = 1
-	maximum_duration = 30 SECONDS
-	trigger_cooldown = 30 SECONDS
+	maximum_duration = 60 SECONDS
+	trigger_cooldown = 15 SECONDS
 	rogue_types = list(/datum/nanite_program/necrotic, /datum/nanite_program/skin_decay)
 	var/obj/item/melee/arm_blade/nanite/blade
 

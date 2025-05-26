@@ -93,7 +93,7 @@
 	var/above = TRUE
 
 /datum/nanite_rule/nanites/check_rule()
-	var/nanite_percent = (program.nanites.nanite_volume - program.nanites.safety_threshold)/(program.nanites.max_nanites - program.nanites.safety_threshold)*100
+	var/nanite_percent = (program.nanites.nanite_volume - program.nanites.safety_threshold)/(NUTRITION_LEVEL_FULL - program.nanites.safety_threshold)*100
 	if(above)
 		if(nanite_percent >= threshold)
 			return TRUE

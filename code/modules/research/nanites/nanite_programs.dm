@@ -244,7 +244,9 @@
 	if(check_conditions() && consume_nanites(use_rate))
 		if(!passive_enabled)
 			enable_passive_effect()
-		active_effect()
+		// Non-trigger nanites stop ticking while EMP'd, but keep their passive effects.
+		if (COOLDOWN_FINISHED(nanites, emp_disabled))
+			active_effect()
 	else
 		if(passive_enabled)
 			disable_passive_effect()
@@ -255,6 +257,10 @@
 	// Nanites automatically disabled when time passes the disable timer
 	if (!isnull(disable_time) && world.time > disable_time)
 		return FALSE
+	// Trigger effects will automatically disable when EMP'd
+	if (can_trigger && !COOLDOWN_FINISHED(nanites, emp_disabled))
+		return FALSE
+	// Check for rule satisfaction
 	var/rule_amt = length(rules)
 	if(rule_amt)
 		var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
@@ -330,22 +336,19 @@
 	return nanites.consume_nanites(amount, force)
 
 /datum/nanite_program/proc/on_emp(severity)
+	// Pause all the timers
+	if (timer_restart_next < world.time)
+		timer_restart_next += 60 SECONDS / severity
+	if (timer_shutdown_next < world.time)
+		timer_shutdown_next += 60 SECONDS / severity
+	if (disable_time < world.time)
+		disable_time += 60 SECONDS / severity
+	if (timer_trigger_delay_next < world.time)
+		timer_trigger_delay_next += 60 SECONDS / severity
 	if(program_flags & NANITE_EMP_IMMUNE)
 		return
-	if(prob(80 / severity))
+	if(prob(30 / severity))
 		software_error()
-
-/datum/nanite_program/proc/on_shock(shock_damage)
-	if(!(program_flags & NANITE_SHOCK_IMMUNE))
-		if(prob(10))
-			software_error()
-		else if(prob(33))
-			qdel(src)
-
-/datum/nanite_program/proc/on_minor_shock()
-	if(!(program_flags & NANITE_SHOCK_IMMUNE))
-		if(prob(10))
-			software_error()
 
 /datum/nanite_program/proc/on_death()
 	return

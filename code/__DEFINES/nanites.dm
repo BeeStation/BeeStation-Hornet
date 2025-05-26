@@ -14,7 +14,7 @@
 
 ///Nanite Protocol types
 #define NANITE_PROTOCOL_REPLICATION "nanite_replication"
-#define NANITE_PROTOCOL_STORAGE "nanite_storage"
+#define NANITE_PROTOCOL_COOLDOWN "nanite_cooldown"
 
 ///Nanite extra settings types: used to help uis know what type an extra setting is
 #define NESTYPE_TEXT "text"
@@ -56,6 +56,7 @@
 #define NES_ACTIVATION_CODE "Sent Activation Code"
 #define NES_DEACTIVATION_CODE "Sent Deactivation Code"
 #define NES_PRESSURE "Pressure"
+#define NES_HEALING_MODE "Healing Mode"
 
 //Nanite Logic
 #define NL_AND "AND"
@@ -71,3 +72,7 @@
 
 /// How many nanites/sec to add to the regen rate once nanite harmonics are researched
 #define HARMONIC_REGEN_BOOST 0.1
+
+// Nanite healing modes
+#define NANITE_HEALING_EFFICIENT "Efficient"
+#define NANITE_HEALING_RAPID "Rapid"
