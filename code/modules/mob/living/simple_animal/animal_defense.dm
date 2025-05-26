@@ -37,18 +37,15 @@
 		updatehealth()
 		return TRUE
 
-/mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, span_notice("You don't want to hurt [src]!"))
-			return FALSE
-		..(user, 1)
-		playsound(loc, "punch", 25, 1, -1)
-		visible_message(span_danger("[user] punches [src]!"), \
-				span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, span_danger("You punch [src]!"))
-		adjustBruteLoss(15)
-		return TRUE
+/mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, "punch", 25, TRUE, -1)
+	visible_message(span_danger("[user] punches [src]!"), \
+					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You punch [src]!"))
+	adjustBruteLoss(15)
 
 /mob/living/simple_animal/attack_paw(mob/living/carbon/human/M)
 	if(..()) //successful monkey bite.

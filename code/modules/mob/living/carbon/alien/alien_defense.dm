@@ -13,14 +13,6 @@ As such, they can either help or harm other aliens. Help works like the human he
 In all, this is a lot like the monkey code. /N
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/user, list/modifiers)
-	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(user, "No attacking people at spawn, you jackass.")
-		return
-
-	var/martial_result = user.apply_martial_art(src, modifiers)
-	if (martial_result != MARTIAL_ATTACK_INVALID)
-		return martial_result
-
 	if(!user.combat_mode)
 		if(user == src && check_self_for_injuries())
 			return
@@ -42,18 +34,11 @@ In all, this is a lot like the monkey code. /N
 		log_combat(user, src, "attacked", user)
 		updatehealth()
 	else
-		to_chat(user, "<span class='warning'>[name] is too injured for that.</span>")
+		to_chat(user, span_warning("[name] is too injured for that."))
 
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	return attack_alien(L)
-
-/mob/living/carbon/alien/attack_paw(mob/living/carbon/human/M)
-	if(!..())
-		return
-	if(stat != DEAD)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
-		apply_damage(rand(3), BRUTE, affecting)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
@@ -66,22 +51,21 @@ In all, this is a lot like the monkey code. /N
 
 	if(user.combat_mode)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			if(HAS_TRAIT(user, TRAIT_PACIFISM))
-				to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
-				return
-			playsound(loc, "punch", 25, 1, -1)
-			visible_message("<span class='danger'>[user] punches [src]!</span>", \
-					"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-			apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
-			log_combat(user, src, "attacked", user)
 			user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			return TRUE
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		return TRUE
 	else
 		help_shake_act(user)
 
-/mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
+/mob/living/carbon/alien/attack_paw(mob/living/carbon/human/M, list/modifiers)
+	if(!..())
+		return
+	if(stat != DEAD)
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
+		apply_damage(rand(1, 3), BRUTE, affecting)
+
+/mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M, list/modifiers)
 	if(!..())
 		return
 	var/damage = M.melee_damage

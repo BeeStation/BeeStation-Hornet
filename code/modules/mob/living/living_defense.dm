@@ -295,16 +295,12 @@
 		return martial_result
 
 /mob/living/attack_paw(mob/living/carbon/human/user, list/modifiers)
-	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(user, "No attacking people at spawn, you jackass.")
-		return FALSE
-
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		if (user != src)
+		if (user != src && iscarbon(src))
 			user.disarm(src)
 			return TRUE
 	if (!user.combat_mode)
@@ -313,12 +309,14 @@
 		to_chat(user, span_warning("You don't want to hurt anyone!"))
 		return FALSE
 
+	if(!user.get_bodypart(BODY_ZONE_HEAD)) //Sanity check
+		return FALSE
 	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
 		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	log_combat(user, src, "attacked")
-	playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 	visible_message(span_danger("[user.name] bites [src]!"), \
 						span_userdanger("[user.name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You bite [src]!"))
@@ -366,6 +364,13 @@
 						"<span class='notice'>[M] caresses you with its scythe-like arm.</span>", null, null, M)
 		to_chat(M, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
 		return FALSE
+
+/mob/living/attack_hulk(mob/living/carbon/human/user)
+	..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+		return FALSE
+	return TRUE
 
 /mob/living/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))

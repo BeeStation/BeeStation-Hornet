@@ -19,20 +19,40 @@
 		TRAIT_NOLIMBDISABLE,
 		TRAIT_FAST_CUFF_REMOVAL
 	)
+	var/scream_delay = 50
+	var/last_scream = 0
 
 /datum/mutation/human/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
+	RegisterSignal(owner, COMSIG_LIVING_EARLY_UNARMED_ATTACK, .proc/on_attack_hand)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	ADD_VALUE_TRAIT(owner, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_HULK, "00aa00", SKIN_PRIORITY_HULK)
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	owner.update_body_parts()
 
-/datum/mutation/human/hulk/on_attack_hand(atom/target, proximity)
-	if(proximity) //no telekinetic hulk attack
-		return target.attack_hulk(owner)
+/datum/mutation/human/hulk/proc/on_attack_hand(mob/living/carbon/human/source, atom/target, proximity, modifiers)
+	SIGNAL_HANDLER
+
+	if(!source.combat_mode || !proximity || LAZYACCESS(modifiers, RIGHT_CLICK))
+		return NONE
+	if(!source.can_unarmed_attack())
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	if(!target.attack_hulk(owner))
+		return NONE
+
+	if(world.time > (last_scream + scream_delay))
+		last_scream = world.time
+		INVOKE_ASYNC(src, PROC_REF(scream_attack), source)
+	log_combat(source, target, "punched", "hulk powers")
+	source.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+	source.changeNext_move(CLICK_CD_MELEE)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/mutation/human/hulk/proc/scream_attack(mob/living/carbon/human/source)
+	source.say("WAAAAAAAAAAAAAAGH!", forced="hulk")
 
 /datum/mutation/human/hulk/on_life(delta_time, times_fired)
 	if(owner.health < 0)
@@ -44,6 +64,7 @@
 		return
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
+	UnregisterSignal(owner, COMSIG_LIVING_EARLY_UNARMED_ATTACK)
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	REMOVE_TRAIT(owner, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_HULK)

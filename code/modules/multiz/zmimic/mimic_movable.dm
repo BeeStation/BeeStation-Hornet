@@ -64,8 +64,8 @@
 /atom/movable/openspace/blob_act(obj/structure/blob/B)
 	return
 
-/atom/movable/openspace/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	return 0
+/atom/movable/openspace/attack_hulk(mob/living/carbon/human/user)
+	return
 
 /atom/movable/openspace/experience_pressure_difference()
 	return

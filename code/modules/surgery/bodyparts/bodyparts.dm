@@ -86,6 +86,9 @@
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
 
+	/// The noun to use when referring to this arm's appendage, e.g. "hand" or "paw"
+	var/appendage_noun = "hand"
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -795,6 +798,7 @@
 	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	px_x = -5
 	px_y = -3
+	appendage_noun = "paw"
 
 /obj/item/bodypart/arm/left/monkey/teratoma
 	icon_state = "teratoma_l_arm"
@@ -809,6 +813,7 @@
 	can_be_disabled = FALSE
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
+	appendage_noun = "scythe-like hand"
 
 /obj/item/bodypart/arm/left/devil
 	dismemberable = FALSE
@@ -901,6 +906,7 @@
 	animal_origin = MONKEY_BODYPART
 	px_x = 5
 	px_y = -3
+	appendage_noun = "paw"
 
 /obj/item/bodypart/arm/right/monkey/teratoma
 	icon_state = "teratoma_r_arm"
@@ -916,6 +922,7 @@
 	can_be_disabled = FALSE
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
+	appendage_noun = "scythe-like hand"
 
 /obj/item/bodypart/arm/right/devil
 	dismemberable = FALSE

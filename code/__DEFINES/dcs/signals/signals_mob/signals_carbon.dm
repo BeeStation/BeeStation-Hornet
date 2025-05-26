@@ -19,10 +19,31 @@
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
 ///Called when someone attempts to cuff a carbon
 #define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
+///Called when a carbon attempts to breath, before the breath has actually occurred
+#define COMSIG_CARBON_ATTEMPT_BREATHE "carbon_attempt_breathe"
+	// Prevents the breath
+	#define COMSIG_CARBON_BLOCK_BREATH (1 << 0)
+///Called when a carbon breathes, before the breath has actually occurred
+#define COMSIG_CARBON_PRE_BREATHE "carbon_pre_breathe"
 
 //! from base of mob/living/carbon/set_species(): (new_race)
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"
 
+
+///Called from /datum/species/proc/help : (mob/living/carbon/human/helper, datum/martial_art/helper_style)
+#define COMSIG_CARBON_PRE_HELP "carbon_pre_help"
+	/// Stops the rest of the help
+	#define COMPONENT_BLOCK_HELP_ACT (1<<0)
+
+///Called from /mob/living/carbon/help_shake_act, before any hugs have occurred. (mob/living/helper)
+#define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
+	/// Stops the rest of help act (hugging, etc) from occurring
+	#define COMPONENT_BLOCK_MISC_HELP (1<<0)
+
+///Called from /mob/living/carbon/help_shake_act on the person being helped, after any hugs have occurred. (mob/living/helper)
+//#define COMSIG_CARBON_HELP_ACT "carbon_help"
+///Called from /mob/living/carbon/help_shake_act on the helper, after any hugs have occurred. (mob/living/helped)
+//#define COMSIG_CARBON_HELPED "carbon_helped_someone"
 
 ///from base of /obj/item/bodypart/proc/try_attach_limb(): (new_limb, special)
 #define COMSIG_CARBON_ATTACH_LIMB "carbon_attach_limb"

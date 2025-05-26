@@ -335,7 +335,11 @@
 		to_chat(M, span_warning("You can't put [p_them()] out with just your bare hands!"))
 		return
 
-	if(M == src && check_self_for_injuries())
+	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, M) & COMPONENT_BLOCK_MISC_HELP)
+		return
+
+	if(M == src)
+		check_self_for_injuries()
 		return
 
 	if(body_position == LYING_DOWN)
@@ -388,6 +392,10 @@
 						span_notice("You shake [src]'s hand."))
 	else if(M.is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE))
 		to_chat(M, span_warning("ERP is not allowed on this server!"))
+
+	//SEND_SIGNAL(src, COMSIG_CARBON_HELP_ACT, M)
+	//SEND_SIGNAL(helper, COMSIG_CARBON_HELPED, src)
+
 	AdjustStun(-60)
 	AdjustKnockdown(-60)
 	AdjustUnconscious(-60)

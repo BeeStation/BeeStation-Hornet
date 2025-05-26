@@ -296,8 +296,11 @@
 	return
 
 
-/*
- * Translates into [atom/proc/attack_hand], etc.
+/**
+ * UnarmedAttack: The higest level of mob click chain discounting click itself.
+ *
+ * This handles, just "clicking on something" without an item. It translates
+ * into [atom/proc/attack_hand], [atom/proc/attack_animal] etc.
  *
  * Note: proximity_flag here is used to distinguish between normal usage (flag=1),
  * and usage when clicking on things telekinetically (flag=0).  This proc will
@@ -389,8 +392,7 @@
 	return ..()
 
 /mob/living/carbon/human/CtrlClick(mob/user)
-
-	if(!ishuman(user) || !user.CanReach(src) || user.incapacitated())
+	if(!iscarbon(user) || !user.CanReach(src) || user.incapacitated())
 		return ..()
 
 	if(world.time < user.next_move)

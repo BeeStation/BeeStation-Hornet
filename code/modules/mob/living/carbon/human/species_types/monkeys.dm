@@ -58,6 +58,7 @@
 
 	H.dna.add_mutation(/datum/mutation/human/race, MUT_NORMAL)
 	H.dna.activate_mutation(/datum/mutation/human/race)
+	H.AddElement(/datum/element/human_biter)
 
 
 /datum/species/monkey/on_species_loss(mob/living/carbon/C)
@@ -65,40 +66,7 @@
 	C.pass_flags = initial(C.pass_flags)
 	C.butcher_results = null
 	C.dna.remove_mutation(/datum/mutation/human/race)
-
-/datum/species/monkey/spec_unarmedattack(mob/living/carbon/human/user, atom/target)
-	. = ..()
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		if(!iscarbon(target))
-			return TRUE
-		var/mob/living/carbon/victim = target
-		if(user.is_muzzled())
-			return TRUE
-		var/obj/item/bodypart/affecting = null
-		if(ishuman(victim))
-			var/mob/living/carbon/human/human_victim = victim
-			affecting = human_victim.get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		var/armor = victim.run_armor_check(affecting, MELEE)
-		if(prob(25))
-			victim.visible_message(span_danger("[user]'s bite misses [victim]!"),
-				span_danger("You avoid [user]'s bite!"), span_hear("You hear jaws snapping shut!"), COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_danger("Your bite misses [victim]!"))
-			return TRUE
-		///Monkeys are of a few mobs remaining in beecode that use randomized damage apply_damage(rand()) for some attacks.
-		///It was the perogative a few years ago to standardize most attack procs to the same consistent damage everytime, but we are not the same codebase as then.
-		///If someone wants to change this status quo by either reintroducing RNG attacks, or killing them entirely, that should be its own pr and include every remaining case.
-		victim.apply_damage(rand(1, 3), BRUTE, affecting, armor)
-		victim.visible_message(span_danger("[name] bites [victim]!"),
-			span_userdanger("[name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, name)
-		to_chat(user, span_danger("You bite [victim]!"))
-		if(armor >= 2)
-			return TRUE
-		for(var/d in user.diseases)
-			var/datum/disease/bite_infection = d
-			victim.ForceContractDisease(bite_infection)
-		return TRUE
-	target.attack_paw(user)
-	return TRUE
+	C.RemoveElement(/datum/element/human_biter)
 
 /datum/species/monkey/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	. = ..()

@@ -1182,10 +1182,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	species_l_leg = /obj/item/bodypart/l_leg/golem/durathread
 	species_r_leg = /obj/item/bodypart/r_leg/golem/durathread
 
-/datum/species/golem/durathread/spec_unarmedattack(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	. = ..()
-	target.apply_status_effect(/datum/status_effect/strandling)
-
 /datum/species/golem/bone
 	name = "Bone Golem"
 	id = SPECIES_GOLEM_BONE

@@ -195,22 +195,23 @@
 	return dna.species.spec_attacked_by(I, user, affecting, src)
 
 
-/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		var/hulk_verb = pick("smash","pummel")
-		if(check_shields(user, 15, "the [hulk_verb]ing"))
-			return
-		..(user, 1)
-		playsound(loc, user.dna.species.attack_sound, 25, TRUE, -1)
-		visible_message(span_danger("[user] [hulk_verb]ed [src]!"), \
-					span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
-		to_chat(user, span_danger("You [hulk_verb] [src]!"))
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-		apply_damage(20, BRUTE, affecting, armor_block)
-		return 1
+/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	if(!.)
+		return
+	var/hulk_verb = pick("smash","pummel")
+	if(check_shields(user, 15, "the [hulk_verb]ing"))
+		return
+	..(user, 1)
+	playsound(loc, user.dna.species.attack_sound, 25, TRUE, -1)
+	visible_message(span_danger("[user] [hulk_verb]ed [src]!"), \
+				span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
+	to_chat(user, span_danger("You [hulk_verb] [src]!"))
+	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor_block = run_armor_check(affecting, MELEE,"","",10)
+	apply_damage(20, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/attack_hand(mob/user, modifiers)
 	if(..())	//to allow surgery to return properly.
@@ -646,27 +647,16 @@
 			. = rand(-1000, 1000)
 	..()
 
-/mob/living/carbon/human/help_shake_act(mob/living/carbon/M)
-	if(!istype(M))
+/mob/living/carbon/human/help_shake_act(mob/living/carbon/helper)
+	if(!istype(helper))
 		return
 
-	if(src == M)
-		if(has_status_effect(/datum/status_effect/strandling))
-			to_chat(src, span_notice("You attempt to remove the durathread strand from around your neck."))
-			if(do_after(src, 35, src, timed_action_flags = IGNORE_HELD_ITEM))
-				to_chat(src, span_notice("You succesfuly remove the durathread strand."))
-				remove_status_effect(/datum/status_effect/strandling)
-			return
-		check_self_for_injuries()
+	if(wear_suit)
+		wear_suit.add_fingerprint(helper)
+	else if(w_uniform)
+		w_uniform.add_fingerprint(helper)
 
-
-	else
-		if(wear_suit)
-			wear_suit.add_fingerprint(M)
-		else if(w_uniform)
-			w_uniform.add_fingerprint(M)
-
-		..()
+	return ..()
 
 /mob/living/carbon/human/check_self_for_injuries()
 	if(stat >= UNCONSCIOUS)

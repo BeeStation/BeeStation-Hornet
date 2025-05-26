@@ -119,25 +119,21 @@
 		return 1
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/grab_act(mob/living/A, mob/living/D, params)
-	if(A==D)
-		return 0 //prevents grabbing yourself
-	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		add_to_streak("G",D)
-		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
-			return TRUE
-		old_grab_state = A.grab_state
-		D.grabbedby(A, 1)
-		if(old_grab_state == GRAB_PASSIVE)
-			D.drop_all_held_items()
-			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
-			log_combat(A, D, "grabbed", name, addition="aggressively")
-			D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
-							"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
-			to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
+/datum/martial_art/the_sleeping_carp/grab_act(mob/living/attacker, mob/living/defender)
+	add_to_streak("G", defender)
+	if(check_streak(attacker, defender))
 		return TRUE
-	return FALSE
+	old_grab_state = attacker.grab_state
+	defender.grabbedby(attacker, TRUE)
+	if(old_grab_state == GRAB_PASSIVE)
+		defender.drop_all_held_items()
+		attacker.setGrabState(GRAB_AGGRESSIVE) //Instant agressive grab if on grab intent
+		defender.visible_message("<span class='warning'>[attacker] violently grabs [defender]!</span>", \
+						"<span class='userdanger'>You're violently grabbed by [attacker]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, attacker)
+		to_chat(attacker, "<span class='danger'>You violently grab [defender]!</span>")
+		return TRUE
+	log_combat(attacker, defender, "grabbed (Sleeping Carp)")
+	return ..()
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)

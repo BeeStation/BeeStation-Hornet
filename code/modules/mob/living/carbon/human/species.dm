@@ -1645,7 +1645,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style?.help_act(user, target) == MARTIAL_ATTACK_SUCCESS)
+	if(SEND_SIGNAL(target, COMSIG_CARBON_PRE_HELP, user, attacker_style) & COMPONENT_BLOCK_HELP_ACT)
 		return TRUE
 
 	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
@@ -1667,6 +1667,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	target.grabbedby(user)
 	return TRUE
 
+///This proc handles punching damage.
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) && !attacker_style?.pacifist_style)
 		to_chat(user, span_warning("You don't want to harm [target]!"))
@@ -1721,25 +1722,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
-		user.dna.species.spec_unarmedattack(user, target)
 
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+			target.apply_damage(damage*1.5, user.dna.species.attack_type, affecting, armor_block)
 			if((damage * 1.5) >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked", "punch")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block)
+			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			if(damage >= 9)
 				target.force_say()
 			log_combat(user, target, "punched", "punch")
-
-/datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target, modifiers)
-	return
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -3062,7 +3059,3 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/get_species_height_map()
 	return icon('icons/effects/64x64.dmi', "height_displacement")
-
-///Species override for unarmed attacks because the attack_hand proc was made by a mouth-breathing troglodyte on a tricycle. Also to whoever thought it would be a good idea to make it so the original spec_unarmedattack was not actually linked to unarmed attack needs to be checked by a doctor because they clearly have a vast empty space in their head.
-/datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target, modifiers)
-	return FALSE
