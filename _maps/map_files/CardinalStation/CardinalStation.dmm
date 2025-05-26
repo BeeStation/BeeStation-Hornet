@@ -10954,7 +10954,7 @@
 /turf/open/floor/engine,
 /area/science/mixing)
 "ckc" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
@@ -36784,7 +36784,7 @@
 /obj/effect/overlay/palmtree_l{
 	pixel_x = -4
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
@@ -53921,7 +53921,7 @@
 	pixel_y = 6;
 	pixel_x = -3
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green,
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
@@ -60982,7 +60982,7 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
 "mHp" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green{
 	dir = 5
 	},
@@ -64990,7 +64990,7 @@
 /turf/open/floor/plating,
 /area/teleporter)
 "nwX" = (
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
@@ -77905,7 +77905,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "qft" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
@@ -83363,7 +83363,7 @@
 /turf/open/floor/iron/dark/textured_half,
 /area/ai_monitored/security/armory)
 "rmi" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
@@ -110900,7 +110900,7 @@
 	},
 /area/hallway/upper/primary/starboard)
 "wTo" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/sink/puddle,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/camera/directional/north,
@@ -116571,7 +116571,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "yeB" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green,
 /turf/open/floor/grass/no_border,
 /area/medical/virology)

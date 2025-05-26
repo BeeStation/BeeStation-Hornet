@@ -7394,7 +7394,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "bbT" = (
@@ -23063,7 +23063,7 @@
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
 "dFf" = (
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "dFo" = (
@@ -58922,7 +58922,7 @@
 	pixel_y = 1;
 	req_access_txt = "9"
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -60865,7 +60865,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "rEJ" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced{
 	pixel_y = 1
 	},
@@ -61303,7 +61303,7 @@
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "rNQ" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "rOa" = (
@@ -66379,7 +66379,7 @@
 /obj/structure/window/reinforced{
 	pixel_y = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/genetics)
 "tAZ" = (

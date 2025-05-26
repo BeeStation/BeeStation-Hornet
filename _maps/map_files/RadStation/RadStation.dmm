@@ -8648,7 +8648,7 @@
 	name = "Monkey Pen";
 	req_access_txt = "9"
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
 "cLL" = (
@@ -31640,7 +31640,7 @@
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "ktc" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "ktu" = (
@@ -47418,7 +47418,7 @@
 /area/crew_quarters/kitchen)
 "pFF" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "pGg" = (
@@ -53416,7 +53416,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/old,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -64302,7 +64302,7 @@
 /area/maintenance/disposal)
 "vhE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "vhZ" = (
@@ -66953,7 +66953,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/vault,
 /area/medical/genetics)

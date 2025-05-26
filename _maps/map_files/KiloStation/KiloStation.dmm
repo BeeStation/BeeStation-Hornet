@@ -54884,7 +54884,7 @@
 	req_access_txt = "9";
 	dir = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "pPO" = (
@@ -55557,11 +55557,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/dark,
 /area/medical/virology)
 "qbM" = (
@@ -77169,8 +77169,8 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "wTN" = (
-/mob/living/carbon/monkey,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -79844,8 +79844,8 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
-/mob/living/carbon/monkey,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
 "xFd" = (
@@ -81614,7 +81614,7 @@
 	pixel_y = 24;
 	req_access_txt = "25"
 	},
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
