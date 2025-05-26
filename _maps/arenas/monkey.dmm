@@ -44,12 +44,12 @@
 /area/tdome/arena)
 "l" = (
 /obj/structure/flora/ausbushes/fernybush,
-/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/tdome/arena)
 "m" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/tdome/arena)
 
