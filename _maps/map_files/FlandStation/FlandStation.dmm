@@ -35443,10 +35443,10 @@
 "jab" = (
 /obj/structure/table/reinforced,
 /obj/item/bodypart/chest/robot,
-/obj/item/bodypart/r_arm/robot{
+/obj/item/bodypart/arm/right/robot{
 	pixel_x = 6
 	},
-/obj/item/bodypart/l_arm/robot{
+/obj/item/bodypart/arm/left/robot{
 	pixel_x = -6
 	},
 /obj/item/bodypart/r_leg/robot,
@@ -60323,10 +60323,10 @@
 "pyQ" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/item/bodypart/r_arm/robot{
+/obj/item/bodypart/arm/right/robot{
 	pixel_x = 3
 	},
-/obj/item/bodypart/l_arm/robot{
+/obj/item/bodypart/arm/left/robot{
 	pixel_x = -3
 	},
 /obj/item/stack/cable_coil/white,
@@ -70054,10 +70054,10 @@
 /obj/item/bodypart/head/robot{
 	pixel_y = 10
 	},
-/obj/item/bodypart/l_arm/robot{
+/obj/item/bodypart/arm/left/robot{
 	pixel_x = -5
 	},
-/obj/item/bodypart/r_arm/robot{
+/obj/item/bodypart/arm/right/robot{
 	pixel_x = 4
 	},
 /obj/item/bodypart/r_leg/robot{
