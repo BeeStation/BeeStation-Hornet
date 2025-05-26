@@ -398,23 +398,28 @@
 	key = "gnarl"
 	key_third_person = "gnarls"
 	message = "gnarls and shows its teeth..."
+	message_mime = "gnarls silently, baring its teeth..."
 
 /datum/emote/living/carbon/human/monkey/roll
 	key = "roll"
 	key_third_person = "rolls"
 	message = "rolls."
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/monkey/scratch
 	key = "scratch"
 	key_third_person = "scratches"
 	message = "scratches."
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/monkey/screech/roar
 	key = "roar"
 	key_third_person = "roars"
-	message = "roars."
+	message = "roars!"
+	message_mime = "acts out a roar."
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/monkey/tail
 	key = "tail"

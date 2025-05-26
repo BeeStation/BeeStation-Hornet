@@ -121,12 +121,6 @@
 	message_param = "snaps their fingers at %t thrice"
 	sound = 'sound/emotes/snap3.ogg'
 
-/datum/emote/living/carbon/screech/roar
-	key = "roar"
-	key_third_person = "roars"
-	message = "roars"
-	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
-
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"

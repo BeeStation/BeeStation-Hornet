@@ -247,6 +247,14 @@
 	C.dna.species.spec_death(FALSE, src)
 	QDEL_NULL(src)
 
+/obj/item/organ/brain/primitive
+	name = "primitive brain"
+	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
+	organ_traits = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		TRAIT_PRIMITIVE, // No literacy
+	)
+
 /obj/item/organ/brain/positron
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN

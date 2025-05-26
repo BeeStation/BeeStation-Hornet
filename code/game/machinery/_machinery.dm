@@ -263,10 +263,10 @@
 	var/mob/living/living_user = user
 	//Quick check for lesserbeings (monkeys, teratomas)
 	if(HAS_TRAIT(living_user, TRAIT_INFERIORFORM))
-		to_chat(living_user, "<span class='notice'>What is this thing?! Your fingers dance around the buttons.</span>")
+		to_chat(living_user, span_notice("What is this thing?! Your fingers dance around the buttons."))
 		//We fuck around on the keys for a bit, like any toddler would
 		if(do_after(living_user, 2 SECONDS, src))
-			to_chat(living_user, "<span class='warning'> Shiny! Not much use to me though!</span>")
+			to_chat(living_user, span_warning("Shiny! Not much use to me though!"))
 	else
 		. = ..()
 
