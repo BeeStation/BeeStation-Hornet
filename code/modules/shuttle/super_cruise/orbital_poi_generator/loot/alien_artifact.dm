@@ -403,7 +403,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
-		/datum/gas/nitryl = 1
+		/datum/gas/nitrium = 1
 	)
 	var/datum/gas/input
 	var/datum/gas/output
