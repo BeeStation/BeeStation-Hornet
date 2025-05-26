@@ -2357,7 +2357,6 @@
 		"haste_nanites",
 		"meltdown_nanites",
 		"pyro_nanites",
-		"viral_nanites",
 		"armblade_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
@@ -2374,6 +2373,7 @@
 	)
 	design_ids = list(
 		"nanite_sting_nanites",
+		"viral_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500
