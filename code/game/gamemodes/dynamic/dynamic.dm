@@ -325,7 +325,7 @@
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		if(no_other_rulesets && !CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
 			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
-			roundstart_executed_rulesets[ruleset] -= 1
+			roundstart_executed_rulesets[ruleset] = null
 
 			// Undraft our previously drafted players
 			for(var/datum/mind/chosen_mind in ruleset.chosen_candidates)
