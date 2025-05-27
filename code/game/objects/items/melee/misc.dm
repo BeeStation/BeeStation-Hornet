@@ -834,9 +834,9 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/food))
+	if (istype(target, /obj/item/food/meat) || istype(target, /obj/item/food/sausage))
 		var/obj/item/food/target_sausage = target
-		if( ( target_sausage.foodtypes & MEAT ) && !( target_sausage.foodtypes & RAW ) )
+		if ( !( target_sausage.foodtypes & RAW ) &&  !( target_sausage.foodtypes & FRIED ) ) // ONLY COOKED MEATS, NO RAW, NO FRIED.
 			if (!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 				to_chat(user, span_warning("You must extend [src] to attach anything to it!"))
 				return
@@ -848,7 +848,9 @@
 			else
 				to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
 		else
-			to_chat(user, span_warning("[target] can't be roasted using [src]!"))
+			to_chat(user, span_warning("[target] can't be roasted using [src]! Pre-cook the meat!"))
+	else
+		to_chat(user, span_warning("[target] can't be roasted using [src]!"))
 	update_appearance()
 
 /obj/item/melee/roastingstick/attack_hand(mob/user, list/modifiers)
