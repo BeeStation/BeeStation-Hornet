@@ -331,11 +331,8 @@
 			for(var/datum/mind/chosen_mind in ruleset.chosen_candidates)
 				GLOB.pre_setup_antags -= chosen_mind
 
-				chosen_mind.assigned_role = ruleset.previously_assigned_roles[chosen_mind]
 				chosen_mind.special_role = null
 				chosen_mind.restricted_roles = list()
-
-			continue
 
 /**
  * Checks if this ruleset is blocked by any other rulesets or ruleset flags.
