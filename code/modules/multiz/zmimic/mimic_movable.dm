@@ -106,8 +106,13 @@
 
 	return ..()
 
-/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/LO, area/A)
-	ASSERT(LO != null)
+/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/LO, area/A, turf/below)
+	if (!LO)
+		icon_state = "transparent"
+		luminosity = 1
+		return
+	icon_state = "dark"
+	luminosity = 0
 	// Underlay lighting stuff, if it gets ported: appearance = LO.current_underlay
 	appearance = LO
 	layer = MIMICKED_LIGHTING_LAYER

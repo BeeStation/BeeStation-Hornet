@@ -232,12 +232,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"adg" = (
-/obj/item/grown/bananapeel,
-/obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "adt" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -9147,14 +9141,6 @@
 /obj/item/storage/box/gloves,
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"bSU" = (
-/mob/living/carbon/human/species/monkey,
-/obj/machinery/flasher{
-	id = "monkeypen";
-	pixel_y = 23
-	},
-/turf/open/floor/iron/freezer,
-/area/medical/virology)
 "bTa" = (
 /obj/machinery/door/window/northleft{
 	dir = 4;
@@ -10526,10 +10512,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"bZT" = (
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/freezer,
-/area/medical/virology)
 "bZU" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -19606,12 +19588,23 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"evS" = (
-/obj/item/food/grown/banana,
-/obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
+"evU" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/storage/box/matches{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/bar/atrium)
 "ewc" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
@@ -22321,6 +22314,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"fyD" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/mob/living/carbon/human/species/monkey/punpun,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "fyT" = (
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
@@ -30889,6 +30892,12 @@
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/engine/engineering)
+"iSX" = (
+/obj/item/grown/bananapeel,
+/obj/structure/flora/ausbushes/fullgrass,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "iTi" = (
 /obj/machinery/suit_storage_unit/cmo,
 /obj/machinery/button/door{
@@ -32692,16 +32701,6 @@
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"jDj" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/mob/living/carbon/human/species/monkey/punpun,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "jDS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -37221,16 +37220,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"lqk" = (
-/mob/living/carbon/human/species/monkey,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/turf/open/floor/iron/freezer,
-/area/medical/virology)
 "lqq" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 28
@@ -39244,6 +39233,15 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
+"mqe" = (
+/obj/item/paper,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "mqh" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -41718,6 +41716,10 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/bar)
+"nuq" = (
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/freezer,
+/area/medical/virology)
 "nux" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
@@ -43562,15 +43564,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
-"odu" = (
-/obj/item/paper,
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "odz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -47373,6 +47366,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"pJo" = (
+/obj/item/food/grown/banana,
+/obj/structure/flora/ausbushes/fullgrass,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "pJv" = (
 /turf/open/floor/grass,
 /area/hallway/primary/central)
@@ -49934,19 +49933,6 @@
 /obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
-"qLY" = (
-/obj/structure/table,
-/obj/item/gps/mining/exploration,
-/obj/item/reagent_containers/cup/glass/bottle/beer{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 9;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/quartermaster/exploration_prep)
 "qMj" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Air Out";
@@ -50697,11 +50683,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"rcL" = (
-/obj/structure/flora/grass/jungle,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/plating/dirt/jungle,
-/area/medical/genetics)
 "rcN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -52897,6 +52878,19 @@
 	},
 /turf/open/floor/iron,
 /area/security/courtroom)
+"rPa" = (
+/obj/structure/table,
+/obj/item/gps/mining/exploration,
+/obj/item/reagent_containers/cup/glass/bottle/beer{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/quartermaster/exploration_prep)
 "rPf" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -55187,6 +55181,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/security/brig)
+"sMC" = (
+/mob/living/carbon/human/species/monkey,
+/obj/machinery/flasher{
+	id = "monkeypen";
+	pixel_y = 23
+	},
+/turf/open/floor/iron/freezer,
+/area/medical/virology)
 "sMQ" = (
 /obj/effect/decal/cleanable/oil,
 /obj/item/cigbutt,
@@ -57036,6 +57038,16 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"twv" = (
+/mob/living/carbon/human/species/monkey,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/turf/open/floor/iron/freezer,
+/area/medical/virology)
 "twA" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -59684,23 +59696,6 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
-"uwA" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/storage/box/matches{
-	pixel_x = -5;
-	pixel_y = 7
-	},
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/bar/atrium)
 "uwI" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -64712,6 +64707,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
+"wxn" = (
+/obj/structure/flora/grass/jungle,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/plating/dirt/jungle,
+/area/medical/genetics)
 "wxs" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -93198,7 +93198,7 @@ tNE
 fuY
 yfx
 obR
-odu
+mqe
 qzt
 ugl
 vKc
@@ -103517,7 +103517,7 @@ wWY
 wgP
 tgB
 lyC
-uwA
+evU
 hUm
 aYV
 bnT
@@ -105567,7 +105567,7 @@ aHJ
 idb
 jEK
 fLh
-jDj
+fyD
 unQ
 nez
 fkY
@@ -109191,8 +109191,8 @@ jLS
 hOd
 bye
 edA
-adg
-evS
+iSX
+pJo
 tVm
 cUp
 lnB
@@ -109449,7 +109449,7 @@ but
 bye
 mqa
 tlH
-rcL
+wxn
 uFr
 xQG
 wFy
@@ -109469,9 +109469,9 @@ xhK
 bOt
 lwA
 bNd
-bZT
+nuq
 ggx
-bZT
+nuq
 cnc
 chN
 dLc
@@ -109727,7 +109727,7 @@ bOt
 lwA
 bNd
 isE
-lqk
+twv
 jLx
 pps
 mZL
@@ -109983,7 +109983,7 @@ jVz
 bOt
 lwA
 bNd
-bSU
+sMC
 tnx
 iLi
 wEQ
@@ -110241,7 +110241,7 @@ bOt
 lwA
 bNd
 iLi
-bZT
+nuq
 iLi
 cbO
 kEX
@@ -117928,7 +117928,7 @@ dtC
 wPp
 eEA
 tYC
-qLY
+rPa
 hAR
 kch
 fGF

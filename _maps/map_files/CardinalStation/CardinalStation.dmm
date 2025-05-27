@@ -6024,6 +6024,15 @@
 /obj/machinery/fax/med,
 /turf/open/floor/noslip/white,
 /area/medical/medbay/central)
+"bkA" = (
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 6;
+	pixel_x = -3
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/siding/dark_green,
+/turf/open/floor/grass/no_border,
+/area/medical/virology)
 "bkN" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/poddoor/shutters/window{
@@ -10953,14 +10962,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/mixing)
-"ckc" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/siding/white{
-	dir = 10
-	},
-/obj/machinery/light/small/directional/west,
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "cke" = (
 /obj/machinery/meter,
 /obj/structure/cable{
@@ -16883,6 +16884,16 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/science/research)
+"dvE" = (
+/mob/living/carbon/human/species/monkey,
+/obj/structure/sink/puddle,
+/obj/machinery/light/small/directional/north,
+/obj/machinery/camera/directional/north,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
+/turf/open/floor/grass/no_border,
+/area/medical/virology)
 "dvN" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /obj/effect/turf_decal/siding/dark,
@@ -24118,6 +24129,14 @@
 	dir = 1
 	},
 /area/quartermaster/storage)
+"fbO" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/siding/white{
+	dir = 10
+	},
+/obj/machinery/light/small/directional/west,
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "fbT" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
@@ -36779,17 +36798,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/wood/big,
 /area/crew_quarters/kitchen)
-"hDo" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/effect/overlay/palmtree_l{
-	pixel_x = -4
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/siding/white{
-	dir = 1
-	},
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "hDp" = (
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 1
@@ -48086,6 +48094,13 @@
 /obj/item/stock_parts/cell/high/plus,
 /turf/open/floor/prison/dark,
 /area/storage/tech)
+"jVj" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/siding/white{
+	dir = 9
+	},
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "jVl" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -50737,6 +50752,11 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/security/brig)
+"kxg" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/siding/dark_green,
+/turf/open/floor/grass/no_border,
+/area/medical/virology)
 "kxh" = (
 /obj/item/beacon{
 	pixel_x = 16
@@ -53916,15 +53936,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/disposal/incinerator)
-"lgj" = (
-/obj/structure/flora/ausbushes/sparsegrass{
-	pixel_y = 6;
-	pixel_x = -3
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/siding/dark_green,
-/turf/open/floor/grass/no_border,
-/area/medical/virology)
 "lgn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -54434,6 +54445,17 @@
 	},
 /turf/open/floor/engine/light,
 /area/science/mixing)
+"lmZ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/turf/open/floor/wood/big,
+/area/vacant_room/commissary/commissaryRandom)
 "lnf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -60981,13 +61003,6 @@
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
-"mHp" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/siding/dark_green{
-	dir = 5
-	},
-/turf/open/floor/grass/no_border,
-/area/medical/virology)
 "mHr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
@@ -64989,19 +65004,6 @@
 	},
 /turf/open/floor/plating,
 /area/teleporter)
-"nwX" = (
-/mob/living/carbon/human/species/monkey/punpun,
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 5
-	},
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "nxb" = (
 /obj/effect/mapping_helpers/make_non_slip,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -68540,6 +68542,13 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet,
 /area/crew_quarters/dorms)
+"ogX" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/siding/white{
+	dir = 6
+	},
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "ohq" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 8
@@ -77093,17 +77102,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
-"pVH" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/turf/open/floor/wood/big,
-/area/vacant_room/commissary/commissaryRandom)
 "pVJ" = (
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -77904,13 +77902,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
-"qft" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/siding/white{
-	dir = 6
-	},
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "qfA" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/structure/cable/cyan{
@@ -79405,6 +79396,19 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"qwK" = (
+/mob/living/carbon/human/species/monkey/punpun,
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 5
+	},
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "qwN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
@@ -82548,6 +82552,17 @@
 	dir = 1
 	},
 /area/hallway/primary/port)
+"rbO" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/effect/overlay/palmtree_l{
+	pixel_x = -4
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "rbQ" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
@@ -83362,13 +83377,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/ai_monitored/security/armory)
-"rmi" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/siding/white{
-	dir = 9
-	},
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "rml" = (
 /obj/effect/turf_decal/guideline/guideline_in/purple{
 	dir = 1
@@ -95188,6 +95196,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
+"tKC" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 5
+	},
+/turf/open/floor/grass/no_border,
+/area/medical/virology)
 "tKE" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -110899,16 +110914,6 @@
 	dir = 8
 	},
 /area/hallway/upper/primary/starboard)
-"wTo" = (
-/mob/living/carbon/human/species/monkey,
-/obj/structure/sink/puddle,
-/obj/machinery/light/small/directional/north,
-/obj/machinery/camera/directional/north,
-/obj/effect/turf_decal/siding/dark_green{
-	dir = 1
-	},
-/turf/open/floor/grass/no_border,
-/area/medical/virology)
 "wTt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -116570,11 +116575,6 @@
 /obj/effect/spawner/room/tenxten,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"yeB" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/siding/dark_green,
-/turf/open/floor/grass/no_border,
-/area/medical/virology)
 "yeN" = (
 /obj/machinery/button/door{
 	id = "psycho";
@@ -146877,7 +146877,7 @@ lta
 dzm
 ajW
 lPh
-nwX
+qwK
 niS
 tHs
 niS
@@ -160239,7 +160239,7 @@ liO
 cbp
 kOq
 pDx
-pVH
+lmZ
 gKQ
 vpn
 eBc
@@ -161764,9 +161764,9 @@ xww
 dvn
 uXs
 jAn
-rmi
+jVj
 bhB
-ckc
+fbO
 jhA
 vaH
 wir
@@ -162278,7 +162278,7 @@ slK
 qOF
 xTj
 jAn
-hDo
+rbO
 vfc
 dMh
 aqR
@@ -162537,7 +162537,7 @@ rvn
 jAn
 rwY
 mHc
-qft
+ogX
 jhA
 eWF
 aOF
@@ -165354,7 +165354,7 @@ mtB
 axe
 mtB
 sHO
-lgj
+bkA
 bNi
 fTJ
 iqI
@@ -165610,7 +165610,7 @@ nzj
 giV
 uLJ
 pze
-wTo
+dvE
 jcT
 bNi
 nCL
@@ -165868,7 +165868,7 @@ hyT
 hyT
 ald
 pXm
-yeB
+kxg
 bNi
 pAG
 rWk
@@ -166124,7 +166124,7 @@ nzj
 nzj
 hyT
 pze
-mHp
+tKC
 jkt
 bNi
 uBs

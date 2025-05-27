@@ -6707,31 +6707,6 @@
 	burnt = 1
 	},
 /area/engine/engineering)
-"brB" = (
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/noticeboard{
-	dir = 4;
-	pixel_x = -27
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
-	pixel_x = -8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
-	pixel_x = -8;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar/atrium)
 "brD" = (
 /turf/closed/wall,
 /area/crew_quarters/toilet/restrooms)
@@ -32190,19 +32165,6 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/science/aft)
-"izu" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/soda_cans/pwr_game{
-	pixel_x = 6;
-	pixel_y = 7;
-	list_reagents = list(/datum/reagent/consumable/pwr_game = 5)
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/turf/open/floor/wood,
-/area/security/prison)
 "izz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -39284,6 +39246,33 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"kNm" = (
+/obj/structure/table,
+/obj/item/mmi,
+/obj/item/bodypart/chest/robot{
+	pixel_y = 4
+	},
+/obj/item/bodypart/r_leg/robot{
+	pixel_x = 6
+	},
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/l_leg/robot{
+	pixel_x = -6
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/head/robot,
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/storage/tech)
 "kNK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -39518,6 +39507,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/port)
+"kSj" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/soda_cans/pwr_game{
+	pixel_x = 6;
+	pixel_y = 7;
+	list_reagents = list(/datum/reagent/consumable/pwr_game = 5)
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/open/floor/wood,
+/area/security/prison)
 "kSk" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
@@ -39761,6 +39763,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
+"kXW" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/virology)
 "kYh" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/rack,
@@ -41459,6 +41472,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"lBg" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/obj/machinery/door/window/westleft{
+	name = "Monkey Pen";
+	pixel_y = 1;
+	req_access_txt = "9";
+	dir = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/virology)
 "lBs" = (
 /obj/structure/closet/bombcloset,
 /obj/machinery/airalarm/directional/north,
@@ -54874,19 +54900,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/shuttledock)
-"pPN" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/obj/machinery/door/window/westleft{
-	name = "Monkey Pen";
-	pixel_y = 1;
-	req_access_txt = "9";
-	dir = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/virology)
 "pPO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -55553,17 +55566,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
-"qbG" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/virology)
 "qbM" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -67058,6 +67060,27 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/security/prison)
+"tNi" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-17";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 40
+	},
+/obj/machinery/button/door{
+	id = "bar_1";
+	name = "Bar Shutters Toggle";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access_txt = "25"
+	},
+/mob/living/carbon/human/species/monkey/punpun,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "tNj" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -70788,6 +70811,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"uWD" = (
+/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/medical/virology)
 "uWJ" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Connector";
@@ -71323,33 +71354,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"vfX" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/bodypart/chest/robot{
-	pixel_y = 4
-	},
-/obj/item/bodypart/r_leg/robot{
-	pixel_x = 6
-	},
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/bodypart/l_leg/robot{
-	pixel_x = -6
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bodypart/head/robot,
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/storage/tech)
 "vfY" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/poster/official/no_erp{
@@ -73949,6 +73953,21 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"vUI" = (
+/obj/machinery/door/window/westleft{
+	name = "Monkey Pen";
+	pixel_y = 1;
+	req_access_txt = "9";
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/showroomfloor,
+/area/medical/genetics)
 "vUW" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -77168,14 +77187,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
-"wTN" = (
-/mob/living/carbon/human/species/monkey,
-/mob/living/carbon/human/species/monkey,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/medical/virology)
 "wTZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -79512,6 +79523,31 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
+"xyS" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -27
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/atrium)
 "xyY" = (
 /obj/item/radio/intercom{
 	pixel_y = 22
@@ -79833,21 +79869,6 @@
 /obj/item/storage/bag/trash,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"xEQ" = (
-/obj/machinery/door/window/westleft{
-	name = "Monkey Pen";
-	pixel_y = 1;
-	req_access_txt = "9";
-	dir = 1
-	},
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 8
-	},
-/mob/living/carbon/human/species/monkey,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/showroomfloor,
-/area/medical/genetics)
 "xFd" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -81597,27 +81618,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"yio" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-17";
-	pixel_x = 8;
-	pixel_y = 3
-	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 40
-	},
-/obj/machinery/button/door{
-	id = "bar_1";
-	name = "Bar Shutters Toggle";
-	pixel_x = 24;
-	pixel_y = 24;
-	req_access_txt = "25"
-	},
-/mob/living/carbon/human/species/monkey/punpun,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "yiy" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -101012,7 +101012,7 @@ aNG
 gzI
 gHb
 imK
-xEQ
+vUI
 aNG
 wDi
 fes
@@ -101056,7 +101056,7 @@ aav
 ijY
 epb
 ukl
-izu
+kSj
 orr
 iQT
 hBB
@@ -102581,7 +102581,7 @@ bAN
 qLW
 lvi
 ukd
-wTN
+uWD
 afe
 dzB
 bJi
@@ -102838,7 +102838,7 @@ vlT
 kvt
 cnx
 lbk
-pPN
+lBg
 atK
 twN
 bJi
@@ -103095,7 +103095,7 @@ vlT
 rJv
 eIV
 jXV
-qbG
+kXW
 afe
 xCs
 bJi
@@ -108477,7 +108477,7 @@ huO
 kLH
 btI
 rJe
-yio
+tNi
 ppl
 mgS
 omi
@@ -111085,7 +111085,7 @@ nJw
 hpP
 bYG
 bYG
-vfX
+kNm
 bDI
 hqq
 xus
@@ -115933,7 +115933,7 @@ bqK
 dQW
 lOa
 sQS
-brB
+xyS
 eTF
 gLC
 ajt

@@ -7389,14 +7389,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/closed/wall,
 /area/quartermaster/sorting)
-"bbQ" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron,
-/area/maintenance/aft)
 "bbT" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -23062,10 +23054,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
-"dFf" = (
-/mob/living/carbon/human/species/monkey/punpun,
-/turf/open/floor/wood/big,
-/area/crew_quarters/bar)
 "dFo" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
@@ -32976,6 +32964,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"htS" = (
+/mob/living/carbon/human/species/monkey/punpun,
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "huT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -37891,6 +37883,25 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"jib" = (
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "jiw" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
@@ -40549,6 +40560,13 @@
 "kiq" = (
 /turf/open/floor/iron/freezer,
 /area/security/prison)
+"kiw" = (
+/mob/living/carbon/human/species/monkey,
+/obj/structure/window/reinforced{
+	pixel_y = 1
+	},
+/turf/open/floor/iron/freezer,
+/area/medical/genetics)
 "kiA" = (
 /obj/structure/sign/warning/radiation/rad_area{
 	pixel_y = 32
@@ -40710,6 +40728,14 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"klK" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron,
+/area/maintenance/aft)
 "klT" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/item/kirbyplants/random,
@@ -47050,6 +47076,13 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"mDx" = (
+/obj/structure/window/reinforced{
+	pixel_y = 1
+	},
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/freezer,
+/area/medical/genetics)
 "mDC" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -53219,25 +53252,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
-"oJk" = (
-/obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "oJA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -58915,19 +58929,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science/xenobiology)
-"qRE" = (
-/obj/machinery/door/window/westleft{
-	dir = 2;
-	name = "Monkey Pen";
-	pixel_y = 1;
-	req_access_txt = "9"
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/medical/genetics)
 "qRL" = (
 /obj/effect/landmark/start/bartender,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -59987,6 +59988,19 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
+"rlE" = (
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Monkey Pen";
+	pixel_y = 1;
+	req_access_txt = "9"
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/freezer,
+/area/medical/genetics)
 "rlN" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60864,13 +60878,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"rEJ" = (
-/mob/living/carbon/human/species/monkey,
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/medical/genetics)
 "rEK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -61302,10 +61309,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/aft)
-"rNQ" = (
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "rOa" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Cryogenic Lounge"
@@ -66375,13 +66378,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
-"tAW" = (
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/freezer,
-/area/medical/genetics)
 "tAZ" = (
 /obj/machinery/firealarm{
 	pixel_y = 29
@@ -77393,6 +77389,10 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"xvm" = (
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "xvp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -97956,7 +97956,7 @@ xRh
 ecO
 lCt
 cDL
-rNQ
+xvm
 lzI
 mDQ
 vOg
@@ -98213,8 +98213,8 @@ iBM
 fnM
 cOQ
 cDL
-rNQ
-rNQ
+xvm
+xvm
 xRy
 sth
 dUR
@@ -98471,7 +98471,7 @@ crm
 bpW
 cDL
 dLv
-rNQ
+xvm
 yls
 roJ
 rwn
@@ -103879,7 +103879,7 @@ bnS
 avr
 hzz
 hik
-bbQ
+klK
 vaQ
 oBe
 cMI
@@ -104364,7 +104364,7 @@ bSS
 bSS
 nll
 lJT
-oJk
+jib
 bya
 otF
 vxg
@@ -106181,7 +106181,7 @@ eGp
 lQB
 hIc
 rdQ
-tAW
+mDx
 efl
 uVp
 igd
@@ -106438,7 +106438,7 @@ qxo
 lbd
 gzm
 rdQ
-qRE
+rlE
 oCH
 oOa
 vti
@@ -106695,7 +106695,7 @@ bYs
 xph
 rdQ
 rdQ
-rEJ
+kiw
 mYS
 ydT
 ctB
@@ -113851,7 +113851,7 @@ bmO
 bmO
 buN
 ltZ
-dFf
+htS
 wiR
 gFs
 wmZ
