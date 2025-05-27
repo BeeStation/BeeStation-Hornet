@@ -62,7 +62,7 @@ export const NtosWindow = (props) => {
             {!!PC_showbatteryicon && PC_batteryicon && (
               <Box inline mr={1}>
                 {PC_batteryicon && <img className="NtosHeader__icon" src={resolveAsset(PC_batteryicon)} />}
-                {PC_batterypercent && PC_batterypercent}
+                {PC_batterypercent}
               </Box>
             )}
             {PC_apclinkicon && (
