@@ -12639,7 +12639,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "ecK" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
@@ -20482,6 +20482,9 @@
 	burnt = 1
 	},
 /area/maintenance/department/medical)
+"gGj" = (
+/turf/closed/wall/r_wall,
+/area/ai_monitored/turret_protected/aisat/maint)
 "gGz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -29917,8 +29920,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
+/obj/machinery/power/apc/auto_name/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "jNP" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31142,8 +31149,11 @@
 	dir = 9
 	},
 /obj/machinery/status_display/ai/directional/west,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "kkv" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
@@ -32642,8 +32652,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/binary/pump/on/layer4,
+/obj/machinery/light/cold/no_nightlight/directional/east,
+/obj/machinery/camera/motion/directional/west,
 /turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "kOX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
@@ -41637,7 +41649,7 @@
 "nNP" = (
 /obj/structure/lattice,
 /turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "nNW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -43709,7 +43721,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured_half,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "ozu" = (
 /obj/machinery/door/airlock{
 	name = "Service Hall";
@@ -43873,14 +43885,14 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 1
-	},
 /obj/machinery/holopad{
 	pixel_y = -16
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "oDk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/modular_computer/console/preset/engineering,
@@ -54100,7 +54112,7 @@
 	req_access_txt = "65;13"
 	},
 /turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "rSL" = (
 /turf/closed/wall/r_wall,
 /area/storage/primary)
@@ -54497,8 +54509,12 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 10
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "rYS" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -56142,11 +56158,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "sCN" = (
 /obj/machinery/vending/wardrobe/gene_wardrobe,
 /obj/machinery/vending/wallmed{
@@ -70965,7 +70979,7 @@
 	},
 /obj/machinery/camera/motion/directional/north,
 /turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/hallway)
+/area/ai_monitored/turret_protected/aisat/maint)
 "xni" = (
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
@@ -104438,10 +104452,10 @@ oHr
 dED
 fyQ
 dzk
-bqF
-bqF
-bqF
-bqF
+gGj
+gGj
+gGj
+gGj
 gsA
 yeA
 yeA
@@ -104695,10 +104709,10 @@ oHr
 kjL
 dgd
 kaW
-bqF
+gGj
 kkq
 rYL
-bqF
+gGj
 gsA
 gsA
 gsA
@@ -104955,8 +104969,8 @@ pIN
 ozj
 oDb
 sCL
-bqF
-bqF
+gGj
+gGj
 nNP
 gsA
 yeA
@@ -105209,7 +105223,7 @@ uTv
 njZ
 hLT
 pLz
-bqF
+gGj
 xnd
 jNH
 ecD
