@@ -170,6 +170,9 @@
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
 	var/list/eye_users
 
+	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
+	var/hovered_user_count = 0
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -345,6 +348,13 @@
 		QDEL_NULL(ai_controller)
 	if(light)
 		QDEL_NULL(light)
+
+	if (hovered_user_count)
+		SSscreentips.deleted_hovered_atoms ++
+		for (var/client/client in GLOB.clients)
+			if (client.hovered_atom == src)
+				client.hovered_atom = null
+		hovered_user_count = 0
 
 	return ..()
 
@@ -708,44 +718,42 @@
 		. += "[p_They()] [p_are()] a [tag_string] [examine_descriptor(user)][length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""]."
 
 	if(reagents)
-		if(reagents.flags & TRANSPARENT)
-			. += "It contains:"
-			if(length(reagents.reagent_list))
-				//-------- Reagent checks ---------
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/datum/reagent/R in reagents.reagent_list)
-						. += "[R.volume] units of [R.name]"
-				else //Otherwise, just show the total volume
-					var/total_volume = 0
-					for(var/datum/reagent/R in reagents.reagent_list)
-						total_volume += R.volume
-					. += "[total_volume] units of various reagents"
-				//-------- Beer goggles ---------
-				if(user.can_see_boozepower())
-					var/total_boozepower = 0
-					var/list/taste_list = list()
+		var/user_sees_reagents = user.can_see_reagents()
+		var/reagent_sigreturn = SEND_SIGNAL(src, COMSIG_PARENT_REAGENT_EXAMINE, user, ., user_sees_reagents)
+		if(!(reagent_sigreturn & STOP_GENERIC_REAGENT_EXAMINE))
+			if(reagents.flags & TRANSPARENT)
+				if(reagents.total_volume > 0)
+					. += "It contains <b>[round(reagents.total_volume, 0.01)]</b> units of various reagents[user_sees_reagents ? ":" : "."]"
+					if(user_sees_reagents) //Show each individual reagent
+						for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
+							. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
 
-					// calculates the total booze power from all 'ethanol' reagents
-					for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
-						total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+					//-------- Beer goggles ---------
+					if(user.can_see_boozepower())
+						var/total_boozepower = 0
+						var/list/taste_list = list()
 
-					// gets taste results from all reagents
-					for(var/datum/reagent/R in reagents.reagent_list)
-						if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
-							taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
-						else
-							taste_list += "<br/>   - [R.taste_description] (from [R.name])"
-					if(reagents.total_volume)
-						. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
-						. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
-				//-------------------------------
-			else
-				. += "Nothing."
-		else if(reagents.flags & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += span_notice("It has [reagents.total_volume] unit\s left.")
-			else
-				. += span_danger("It's empty.")
+						// calculates the total booze power from all 'ethanol' reagents
+						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
+							total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+
+						// gets taste results from all reagents
+						for(var/datum/reagent/R in reagents.reagent_list)
+							if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
+								taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
+							else
+								taste_list += "<br/>   - [R.taste_description] (from [R.name])"
+						if(reagents.total_volume)
+							. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
+							. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
+					//-------------------------------
+				else
+					. += "It contains:<br>Nothing."
+			else if(reagents.flags & AMOUNT_VISIBLE)
+				if(reagents.total_volume)
+					. += span_notice("It has [reagents.total_volume] unit\s left.")
+				else
+					. += span_danger("It's empty.")
 
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
 		var/list/souls = return_souls()

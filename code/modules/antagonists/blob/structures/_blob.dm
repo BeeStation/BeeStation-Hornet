@@ -52,6 +52,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		air_update_turf(TRUE, TRUE)
 	ConsumeTile()
 
+/obj/structure/blob/add_context_self(datum/screentip_context/context, mob/user)
+	if (!isovermind(user))
+		return .
+
+	if(istype(src, /obj/structure/blob/normal))
+		context.add_ctrl_click_action("Create strong blob")
+
+	if(istype(src, /obj/structure/blob/shield) && !istype(src, /obj/structure/blob/shield/reflective))
+		context.add_ctrl_click_action("Create reflective blob")
+
+	if(point_return >= 0)
+		context.add_alt_click_action("Remove blob")
+
+
 /obj/structure/blob/proc/creation_action() //When it's created by the overmind, do this.
 	return
 
