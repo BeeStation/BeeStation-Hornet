@@ -44,8 +44,8 @@ Slimecrossing Weapons
 			attack_verb_simple = list("slash", "slice", "cut")
 		if(BURN)
 			hitsound = 'sound/weapons/sear.ogg'
-			attack_verb_continuous = list("burns", "sings", "heats")
-			attack_verb_simple = list("burn", "sing", "heat")
+			attack_verb_continuous = list("burns", "singes", "heats")
+			attack_verb_simple = list("burn", "singe", "heat")
 		if(TOX)
 			hitsound = 'sound/weapons/pierce.ogg'
 			attack_verb_continuous = list("poisons", "doses", "toxifies")
@@ -73,7 +73,7 @@ Slimecrossing Weapons
 	attack_weight = 2
 	block_power = 75
 	block_level = 3
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_PROJECTILE
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2

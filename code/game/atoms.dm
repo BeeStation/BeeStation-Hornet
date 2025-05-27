@@ -170,6 +170,9 @@
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
 	var/list/eye_users
 
+	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
+	var/hovered_user_count = 0
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -345,6 +348,13 @@
 		QDEL_NULL(ai_controller)
 	if(light)
 		QDEL_NULL(light)
+
+	if (hovered_user_count)
+		SSscreentips.deleted_hovered_atoms ++
+		for (var/client/client in GLOB.clients)
+			if (client.hovered_atom == src)
+				client.hovered_atom = null
+		hovered_user_count = 0
 
 	return ..()
 
@@ -697,49 +707,53 @@
 		var/diff = abs(user.z - z)
 		. += span_boldnotice("[p_theyre(TRUE)] [diff] level\s below you.")
 
-	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
-		for(var/i in custom_materials)
-			var/datum/material/M = i
-			. += "<u>It is made out of [M.name]</u>."
+	var/list/tags_list = examine_tags(user)
+	if (length(tags_list))
+		var/tag_string = list()
+		for (var/atom_tag in tags_list)
+			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
+		// Weird bit but ensures that if the final element has its own "and" we don't add another one
+		tag_string = english_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], " and ")) ? ", " : " and ")
+		var/post_descriptor = examine_post_descriptor(user)
+		. += "[p_They()] [p_are()] a [tag_string] [examine_descriptor(user)][length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""]."
+
 	if(reagents)
-		if(reagents.flags & TRANSPARENT)
-			. += "It contains:"
-			if(length(reagents.reagent_list))
-				//-------- Reagent checks ---------
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/datum/reagent/R in reagents.reagent_list)
-						. += "[R.volume] units of [R.name]"
-				else //Otherwise, just show the total volume
-					var/total_volume = 0
-					for(var/datum/reagent/R in reagents.reagent_list)
-						total_volume += R.volume
-					. += "[total_volume] units of various reagents"
-				//-------- Beer goggles ---------
-				if(user.can_see_boozepower())
-					var/total_boozepower = 0
-					var/list/taste_list = list()
+		var/user_sees_reagents = user.can_see_reagents()
+		var/reagent_sigreturn = SEND_SIGNAL(src, COMSIG_PARENT_REAGENT_EXAMINE, user, ., user_sees_reagents)
+		if(!(reagent_sigreturn & STOP_GENERIC_REAGENT_EXAMINE))
+			if(reagents.flags & TRANSPARENT)
+				if(reagents.total_volume > 0)
+					. += "It contains <b>[round(reagents.total_volume, 0.01)]</b> units of various reagents[user_sees_reagents ? ":" : "."]"
+					if(user_sees_reagents) //Show each individual reagent
+						for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
+							. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
 
-					// calculates the total booze power from all 'ethanol' reagents
-					for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
-						total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+					//-------- Beer goggles ---------
+					if(user.can_see_boozepower())
+						var/total_boozepower = 0
+						var/list/taste_list = list()
 
-					// gets taste results from all reagents
-					for(var/datum/reagent/R in reagents.reagent_list)
-						if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
-							taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
-						else
-							taste_list += "<br/>   - [R.taste_description] (from [R.name])"
-					if(reagents.total_volume)
-						. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
-						. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
-				//-------------------------------
-			else
-				. += "Nothing."
-		else if(reagents.flags & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += span_notice("It has [reagents.total_volume] unit\s left.")
-			else
-				. += span_danger("It's empty.")
+						// calculates the total booze power from all 'ethanol' reagents
+						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
+							total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+
+						// gets taste results from all reagents
+						for(var/datum/reagent/R in reagents.reagent_list)
+							if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
+								taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
+							else
+								taste_list += "<br/>   - [R.taste_description] (from [R.name])"
+						if(reagents.total_volume)
+							. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
+							. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
+					//-------------------------------
+				else
+					. += "It contains:<br>Nothing."
+			else if(reagents.flags & AMOUNT_VISIBLE)
+				if(reagents.total_volume)
+					. += span_notice("It has [reagents.total_volume] unit\s left.")
+				else
+					. += span_danger("It's empty.")
 
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
 		var/list/souls = return_souls()
@@ -757,6 +771,34 @@
 			to_chat(user, "\t[span_notice("<span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]")], [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/*
+ * A list of "tags" displayed after atom's description in examine.
+ * This should return an assoc list of tags -> tooltips for them. If item if null, then no tooltip is assigned.
+ * For example:
+ * list("small" = "This is a small size class item.", "fireproof" = "This item is impervious to fire.")
+ * will result in
+ * This is a small, fireproof item.
+ * where "item" is pulled from examine_descriptor() proc
+ */
+/atom/proc/examine_tags(mob/user)
+	. = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_TAGS, user, .)
+
+/// What this atom should be called in examine tags
+/atom/proc/examine_descriptor(mob/user)
+	return "object"
+
+/// Returns a list of strings to be displayed after the descriptor
+/atom/proc/examine_post_descriptor(mob/user)
+	. = list()
+	if(!custom_materials)
+		return
+	var/mats_list = list()
+	for(var/custom_material in custom_materials)
+		var/datum/material/current_material = SSmaterials.GetMaterialRef(custom_material)
+		mats_list += span_tooltip("It is made out of [current_material.name].", current_material.name)
+	. += "made of [english_list(mats_list)]"
 
 /**
  * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
@@ -851,6 +893,15 @@
 	SHOULD_CALL_PARENT(TRUE)
 	. = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
+
+/atom/proc/update_inhand_icon(mob/target = loc)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!istype(target))
+		return
+
+	target.update_inv_hands()
+
+	//SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_INHAND_ICON, target)
 
 /// Handles updates to greyscale value updates.
 /// The colors argument can be either a list or the full color string.

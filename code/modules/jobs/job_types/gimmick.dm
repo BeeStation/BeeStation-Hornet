@@ -8,7 +8,6 @@
 	spawn_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
-	exp_type_department = EXP_TYPE_GIMMICK
 
 	base_access = list(ACCESS_MAINT_TUNNELS)
 	extra_access = list()

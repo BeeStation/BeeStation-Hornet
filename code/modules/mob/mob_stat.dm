@@ -364,6 +364,10 @@
 			if (!client.holder)
 				return
 			GLOB.ahelp_tickets.BrowseTickets(src)
+		if("browserequests")
+			if (!client.holder)
+				return
+			GLOB.requests.ui_interact(usr)
 		if("browseinterviews")
 			if (!check_rights(R_ADMIN))
 				return

@@ -176,7 +176,6 @@
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
 	desc = "Excellent for securing things away from grubby hands."
-	force = 8
 	layer = ABOVE_WINDOW_LAYER
 	w_class = WEIGHT_CLASS_GIGANTIC
 	anchored = TRUE
@@ -242,7 +241,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 		/obj/item/card/id/))
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE
-	atom_storage.locked = FALSE
+	atom_storage.locked = TRUE
 	update_appearance()
 
 /obj/item/storage/secure/safe/caps_spare/PopulateContents()

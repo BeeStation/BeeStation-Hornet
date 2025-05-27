@@ -28,6 +28,7 @@ Make sure to add new items to this list if you document new components.
   - [`Grid`](#grid)
   - [`Grid.Column`](#gridcolumn)
   - [`Icon`](#icon)
+ - [`ImageButton`](#imagebutton)
   - [`Input`](#input)
   - [`Knob`](#knob)
   - [`LabeledControls`](#labeledcontrols)
@@ -524,6 +525,43 @@ Fractional numbers are supported.
 - `rotation: number` - Icon rotation, in degrees.
 - `spin: boolean` - Whether an icon should be spinning. Good for load
 indicators.
+
+### `ImageButton`
+
+A Robust button is specifically for sticking a picture in it.
+
+**Props:**
+
+- See inherited props: [Box](#box)
+- `asset: string[]` - Asset cache. Example: `asset={`assetname32x32, ${thing.key}`}`
+- `base64: string` - Classic way to put images. Example: `base64={thing.image}`
+- `buttons: any` - Special section for any component, or, content.
+  Quite a small area at the bottom of the image in non-fluid mode.
+  Has a style overrides, best to use [Button](#button) inside.
+- `buttonsAlt: boolean` - Enables alternative buttons layout.
+  With fluid, makes buttons like a humburger.
+  Without, moves it to top, and disables pointer-events.
+- `children: any` - Content under image.
+- `className: string` - Applies a CSS class to the element.
+- `color: string` - Color of the button, but without `transparent`; see [Button](#button)
+- `disabled: boolean` - Makes button disabled and dark red if true.
+  Also disables onClick & onRightClick.
+- `selected: boolean` - Makes button selected and green if true.
+- `dmFallback: any` - Optional. Adds a "stub" when loading DmIcon.
+- `dmIcon: string` - Parameter `icon` of component `DmIcon`.
+- `dmIconState: string` - Parameter `icon_state` of component `DmIcon`.
+  For proper work of `DmIcon` it is necessary that both parameters are filled in!
+- `fluid: boolean` - Changes the layout of the button, making it fill the entire horizontally available space.
+  Allows the use of `title`
+- `imageSize: number` - Parameter responsible for the size of the image, component and standard "stubs".
+  Measured in pixels. `imageSize={64}` = 64px.
+- `imageSrc: string` - Prop `src` of <img>. Example: `imageSrc={resolveAsset(thing.image)}`
+- `onClick: (e) => void` - Called when button is clicked with LMB.
+- `onRightClick: (e) => void` - Called when button is clicked with RMB.
+- `title: string` - Requires `fluid` for work. Bold text with divider betwen content.
+- `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
+over the button.
+- `tooltipPosition: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
 
 ### `Input`
 

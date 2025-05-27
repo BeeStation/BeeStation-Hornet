@@ -6,7 +6,7 @@
 	icon_state_unpowered = "tablet"
 	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
-	hardware_flag = PROGRAM_TABLET
+	hardware_flag = PROGRAM_PDA
 	max_hardware_size = 1
 	w_class = WEIGHT_CLASS_SMALL
 	max_bays = 3
@@ -65,13 +65,13 @@
 	if(!istype(target, /obj/item/paper))
 		return FALSE
 	var/obj/item/paper/paper = target
-	if (!paper.default_raw_text)
+	if (!LAZYLEN(paper.raw_text_inputs))
 		to_chat(user, span_warning("Unable to scan! Paper is blank."))
 	else
 		// clean up after ourselves
 		if(stored_paper)
 			qdel(stored_paper)
-		stored_paper = paper.copy(src)
+		stored_paper = paper.copy(/obj/item/paper, src)
 		to_chat(user, span_notice("Paper scanned. Saved to PDA's notekeeper."))
 		ui_update()
 	return TRUE
@@ -91,8 +91,6 @@
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
-	if(!try_scan_paper(attacking_item, user))
-		return
 
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))

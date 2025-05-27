@@ -15,7 +15,6 @@
 	minimal_player_age = 10
 	exp_requirements = 600
 	exp_type = EXP_TYPE_COMMAND
-	exp_type_department = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/head_of_personnel
 

@@ -106,9 +106,9 @@
 	var/obj/master
 
 /atom/movable/screen/alert/MouseEntered(location,control,params)
+	..()
 	if(!QDELETED(src))
 		openToolTip(usr,src,params,title = name,content = desc,theme = alerttooltipstyle)
-
 
 /atom/movable/screen/alert/MouseExited()
 	closeToolTip(usr)
@@ -154,6 +154,7 @@
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = "too_much_tox"
+
 //End gas alerts
 
 

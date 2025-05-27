@@ -14,11 +14,11 @@
 	box = /obj/item/storage/box/debugtools
 	back = /obj/item/storage/backpack/debug
 	backpack_contents = list(/obj/item/gun/magic/wand/resurrection/debug=1,\
-		/obj/item/melee/transforming/energy/axe=1,\
+		/obj/item/melee/energy/axe=1,\
 		/obj/item/storage/part_replacer/bluespace/tier4=1,\
 		/obj/item/debug/human_spawner=1,\
 		/obj/item/debug/omnitool=1,\
-		/obj/item/xenoartifact_labeler/debug=1,\
+		/obj/item/xenoarchaeology_labeler/debug=1,\
 		/obj/item/map_template_diver=1,\
 		/obj/item/debug/orb_of_power=1
 		)
@@ -170,7 +170,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber
+	l_pocket = /obj/item/melee/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/modular_computer/tablet/pda/heads

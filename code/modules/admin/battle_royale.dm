@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/ammo_box/magazine/smgm45,
 		/obj/item/ammo_box/magazine/pistolm9mm,
 		/obj/item/katana,
-		/obj/item/melee/transforming/energy/sword,
+		/obj/item/melee/energy/sword,
 		/obj/item/dualsaber,
 		/obj/item/fireaxe,
 		/obj/item/stack/sheet/telecrystal/five,

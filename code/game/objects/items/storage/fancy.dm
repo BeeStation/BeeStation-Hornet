@@ -184,6 +184,8 @@
 
 /obj/item/storage/fancy/cigarettes/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	var/obj/item/lighter = locate(/obj/item/lighter) in contents
 	if(lighter)
 		quick_remove_item(lighter, user)
@@ -327,6 +329,7 @@
 	icon_state = "cig_paper_pack"
 	base_icon_state = "cig_paper_pack"
 	contents_tag = "rolling paper"
+	spawn_count = 10
 	spawn_type = /obj/item/rollingpaper
 
 /obj/item/storage/fancy/rollingpapers/Initialize(mapload)

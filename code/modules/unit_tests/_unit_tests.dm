@@ -15,6 +15,7 @@
 #include "area_contents.dm"
 #include "armor_verification.dm"
 #include "armour_checks.dm"
+#include "armour_readouts.dm"
 #include "asset_smart_cache.dm"
 #include "async.dm"
 #include "autowiki.dm"
@@ -25,11 +26,11 @@
 #include "combat.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
-#include "crafting_tests.dm"
 /*
 #include "create_and_destroy.dm"
 */
 #include "dcs_get_id_from_elements.dm"
+#include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "emoting.dm"
 #include "enumerables.dm"
