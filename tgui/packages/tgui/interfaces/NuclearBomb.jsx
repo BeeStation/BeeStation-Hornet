@@ -1,4 +1,5 @@
 import { classes } from 'common/react';
+
 import { useBackend } from '../backend';
 import { Box, Button, Flex, Grid, Icon } from '../components';
 import { Window } from '../layouts';
@@ -30,7 +31,11 @@ const NukeKeypad = (props) => {
                 fontSize="40px"
                 lineHeight="50px"
                 width="40px"
-                className={classes(['NuclearBomb__Button', 'NuclearBomb__Button--keypad', 'NuclearBomb__Button--' + key])}
+                className={classes([
+                  'NuclearBomb__Button',
+                  'NuclearBomb__Button--keypad',
+                  'NuclearBomb__Button--' + key,
+                ])}
                 onClick={() => act('keypad', { digit: key })}
               />
             ))}

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Flex, DmIcon, Icon } from '../components';
+import { Box, DmIcon, Flex, Icon } from '../components';
 import { Window } from '../layouts';
 
 type WallClosetData = {
@@ -101,7 +101,10 @@ const Cell = (props) => {
               )}
             </Box>
           )}
-          <Box className="WallCloset_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
+          <Box
+            className="WallCloset_Slot"
+            onClick={() => act('ItemClick', { SlotKey: props.index + 1 })}
+          >
             {props.name}
           </Box>
         </Box>

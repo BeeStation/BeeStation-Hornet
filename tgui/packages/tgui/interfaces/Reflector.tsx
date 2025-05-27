@@ -1,5 +1,14 @@
 import { useBackend } from '../backend';
-import { Box, Button, Stack, Icon, LabeledControls, Section, NumberInput, Table } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledControls,
+  NumberInput,
+  Section,
+  Stack,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -67,7 +76,12 @@ export const Reflector = (props) => {
                   </Table.Row>
                   <Table.Row>
                     <Box px={0.75}>
-                      <Icon name="angle-double-up" size={1.66} rotation={rotation_angle} mb={1} />
+                      <Icon
+                        name="angle-double-up"
+                        size={1.66}
+                        rotation={rotation_angle}
+                        mb={1}
+                      />
                     </Box>
                   </Table.Row>
                   <Table.Row>
