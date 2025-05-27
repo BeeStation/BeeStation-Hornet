@@ -1,0 +1,30 @@
+author: rkz, MTandi, Ghilker, Rohesie, MrMelbert, antropod, FernandoJ8, vinylspiders,
+  GoldenAlpharex, TheSmallBlue, Fikou, SyncIt21, Vishenka0704, Xander3359
+delete-after: true
+changes:
+  - rscadd: Rewrote the crafting/cooking menu UI
+  - rscadd: Split crafting and cooking menus in two different menus
+  - rscadd: Crafting is no longer blocking the entire UI, only the "Make" buttons
+      are disabled
+  - rscadd: Added stack crafting recipes to the crafting menu
+  - rscadd: Added cooking recipes that were absent in the crafting menu before (tool
+      recipes, machine recipes, reactions)
+  - rscadd: Added option to search recipes by title
+  - rscadd: Added option to filter recipes by required materials/ingredients
+  - rscadd: Added food types to the cooking menu, highlighting diet of your species
+      (liked, disliked foods)
+  - rscadd: Added total nutrition value of the result to the cooking menu
+  - rscadd: Added option to filter cooking recipes by the food type of the resulting
+      food
+  - rscadd: Added "Can make" category that lists all currently craftable recipes throughout
+      all categories
+  - refactor: changed categories and reshuffled some items in them
+  - code_imp: Reagents now have default container to get an icon from the reagent
+      datum
+  - code_imp: Objects now have desc_controls var for OOC information about mouse controls
+      that are visible on examine, but not in the description
+  - bugfix: Fixed alignment on many food icons
+  - bugfix: Fixed missing icon for beef stroganoff
+  - code_imp: Adds radial support to stack crafting.
+  - rscadd: Cult buildings are now made via radial, instead of stack window.
+  - rscadd: Stack craftingnow uses balloon alerts.
