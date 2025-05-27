@@ -134,3 +134,12 @@
 	//this is 2558, unfortunately, lead batteries are still a thing, sorry!
 
 	update_icon()
+
+/obj/machinery/cell_charger/add_context_self(datum/screentip_context/context, mob/user)
+	if (charging)
+		context.add_attack_hand_action("Take Item")
+	if (!panel_open)
+		context.add_left_click_item_action("Charge Item", /obj/item/stock_parts/cell)
+	if (!charging)
+		context.add_generic_deconstruction_actions(src)
+		context.add_generic_unfasten_actions(src, TRUE)

@@ -364,15 +364,13 @@
 
 /obj/item/kirbyplants/random/proc/generate_states()
 	states = list()
-	for(var/i in 1 to 34)
+	for(var/i in 1 to 35)
 		var/number
 		if(i < 10)
 			number = "0[i]"
 		else
 			number = "[i]"
 		states += "plant-[number]"
-	states += "applebush"
-
 
 /obj/item/kirbyplants/dead
 	name = "RD's potted plant"

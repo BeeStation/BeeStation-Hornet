@@ -1,16 +1,19 @@
 // Flags for the obj_flags var on /obj
 
 
-#define EMAGGED					(1<<0)
-#define IN_USE					(1<<1)  //! If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-#define CAN_BE_HIT				(1<<2)  //! can this be bludgeoned by items?
-#define BEING_SHOCKED			(1<<3)  //! Whether this thing is currently (already) being shocked by a tesla
-#define DANGEROUS_POSSESSION	(1<<4)  //! Admin possession yes/no
-#define ON_BLUEPRINTS			(1<<5)  //! Are we visible on the station blueprints at roundstart?
-#define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
-#define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
-#define OBJ_EMPED				(1<<8)  //! Object is affected by EMP
-#define SCANNED					(1<<9)  //! Object has been scanned by the prison_scanner
+#define EMAGGED (1<<0)
+#define IN_USE (1<<1)  //! If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+#define CAN_BE_HIT (1<<2)  //! can this be bludgeoned by items?
+#define BEING_SHOCKED (1<<3)  //! Whether this thing is currently (already) being shocked by a tesla
+#define DANGEROUS_POSSESSION (1<<4)  //! Admin possession yes/no
+#define ON_BLUEPRINTS (1<<5)  //! Are we visible on the station blueprints at roundstart?
+#define UNIQUE_RENAME (1<<6)  //! can you customize the description/name of the thing?
+#define USES_TGUI (1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
+#define OBJ_EMPED (1<<8)  //! Object is affected by EMP
+#define SCANNED (1<<9)  //! Object has been scanned by the prison_scanner
+#define BLOCKS_CONSTRUCTION (1<<10) //! Does this object prevent things from being built on it?
+#define BLOCKS_CONSTRUCTION_DIR (1<<11) //! Does this object prevent same-direction things from being built on it?
+#define IGNORE_DENSITY (1<<12) //! Can we ignore density when building on this object? (for example, directional windows and grilles)
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -56,6 +59,10 @@
 #define CASTING_CLOTHES (1<<15)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
+/// noslip with only works if wearer is walking
+#define NOSLIP_WALKING (1<<19)
+/// noslip with includes the higher level sliping hazards, like ice or lube, witch only works if wearer is walking
+#define NOSLIP_ALL_WALKING (1<<20)
 
 /// Integrity defines for clothing (not flags but close enough)
 #define CLOTHING_PRISTINE 0 // We have no damage on the clothing

@@ -27,8 +27,8 @@
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
-	///The last time this mob was flashed. Used for flash cooldowns
-	var/last_flashed = 0
+	///The last time this mob was flashed or EMP'd, used to determine flashing red state and certain vulnerabilities
+
 
 
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
@@ -451,8 +451,6 @@
 				to_chat(user, span_warning("The cover is locked and cannot be opened!"))
 			else
 				to_chat(user, span_notice("You open the cover."))
-				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
-					Paralyze(5 SECONDS)
 				opened = 1
 				update_icons()
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
@@ -651,7 +649,7 @@
 	if(stat != DEAD && !(IsUnconscious() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(last_flashed && last_flashed + FLASHED_COOLDOWN >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+		if(has_status_effect(/datum/status_effect/cyborg_malfunction)) //Blinky red error lights
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
 		else if(lamp_enabled || lamp_doom)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
@@ -1307,7 +1305,7 @@
 	cell = /obj/item/stock_parts/cell/high
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
-	//Don't try buckling on INTENT_HARM so that silicons can search people's inventories without loading them
+	//Don't try buckling on combat_mode so that silicons can search people's inventories without loading them
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs) && ((user != src) || (!combat_mode)))
 		return user_buckle_mob(M, user, check_loc = FALSE)
 

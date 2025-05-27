@@ -3287,25 +3287,6 @@
 /obj/machinery/light,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
-"bqp" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/effect/turf_decal/tile/dark_blue/opposingcorners{
-	dir = 1
-	},
-/obj/machinery/computer/records/medical/laptop{
-	density = 0;
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	desc = "Kingston's personal cup.";
-	pixel_x = 16
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "bqq" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Access";
@@ -7807,22 +7788,6 @@
 	luminosity = 2
 	},
 /area/security/nuke_storage)
-"dFk" = (
-/obj/structure/chair/office/light,
-/obj/effect/turf_decal/tile/dark_blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "MedbayFoyer";
-	name = "Medbay Doors Control";
-	normaldoorcontrol = 1;
-	pixel_x = -26;
-	pixel_y = -27
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "dFz" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/reinforced{
@@ -8748,6 +8713,25 @@
 	},
 /turf/open/floor/iron,
 /area/science/research/abandoned)
+"edR" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/obj/item/restraints/handcuffs{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/iron,
+/area/security/brig)
 "eec" = (
 /obj/structure/railing,
 /turf/open/openspace,
@@ -9164,6 +9148,29 @@
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/asteroid/paradise/surface)
+"erS" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 14
+	},
+/obj/item/kitchen/rollingpin{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/knife/shiv/carrot{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "erT" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -15383,6 +15390,20 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/storage)
+"hjO" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/storage/box/matches{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/cafeteria)
 "hjU" = (
 /turf/open/openspace,
 /area/science/mixing)
@@ -15471,29 +15492,6 @@
 /obj/structure/sign/departments/minsky/research/research,
 /turf/closed/wall/r_wall,
 /area/science/lab)
-"hoc" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 14
-	},
-/obj/item/kitchen/rollingpin{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/knife/shiv/carrot{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/prison/dark,
-/area/security/prison)
 "hon" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15546,25 +15544,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/engineering)
-"hoH" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 5;
-	pixel_y = 8
-	},
-/obj/item/restraints/handcuffs{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/turf/open/floor/iron,
-/area/security/brig)
 "hoO" = (
 /obj/structure/dresser,
 /obj/machinery/light_switch{
@@ -24444,20 +24423,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/lab)
-"lPY" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/storage/box/matches{
-	pixel_x = -5;
-	pixel_y = 7
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/cafeteria)
 "lQi" = (
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
@@ -29183,6 +29148,25 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
+"olj" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/tile/dark_blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/computer/records/medical/laptop{
+	density = 0;
+	dir = 1;
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	desc = "Kingston's personal cup.";
+	pixel_x = 16
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/white,
+/area/medical/medbay/central)
 "olB" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags{
@@ -43657,6 +43641,31 @@
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
+/area/medical/medbay/central)
+"vkB" = (
+/obj/structure/chair/office/light,
+/obj/effect/turf_decal/tile/dark_blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/button/door{
+	desc = "A remote control switch for the medbay foyer.";
+	id = "MedbayFoyer";
+	name = "Medbay Doors Control";
+	normaldoorcontrol = 1;
+	pixel_x = -26;
+	pixel_y = -27
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch for the medbay foyer.";
+	id = "MedbayFoyer";
+	name = "Medbay Public Access Control";
+	normaldoorcontrol = 1;
+	pixel_x = -26;
+	pixel_y = -39;
+	specialfunctions = 32
+	},
+/turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "vkC" = (
 /obj/structure/cable/yellow{
@@ -126372,7 +126381,7 @@ axZ
 ubl
 xYT
 teS
-hoc
+erS
 lsE
 tPg
 aCN
@@ -127904,8 +127913,8 @@ bDD
 liG
 ttY
 uQc
-dFk
-bqp
+vkB
+olj
 tSb
 ncK
 uIU
@@ -129435,7 +129444,7 @@ tkv
 oFn
 fsb
 lnp
-lPY
+hjO
 tov
 iXB
 qJS
@@ -191400,7 +191409,7 @@ pub
 vsU
 aiK
 vqE
-hoH
+edR
 jXs
 fbe
 dNl

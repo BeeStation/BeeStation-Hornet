@@ -5,8 +5,7 @@
 /datum/xenoartifact_trait/major/animalize
 	label_name = "Bestialized"
 	label_desc = "Bestialized: The artifact contains transforming components. Triggering these components transforms the target into an animal."
-	//flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	flags = XENOA_MISC_TRAIT | XENOA_HIDE_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	weight = 15
 	conductivity = 12
@@ -16,18 +15,10 @@
 	var/mob/choosen_animal
 	///How long we keep them as animals
 	var/animal_time = 15 SECONDS
-	///holder for our super fucking cool spell datum because the fucking shapeshift datum wont work without it and this is easier than rewriting that :)))
-	var/datum/action/spell/shapeshift/spell_holder = new
 
 /datum/xenoartifact_trait/major/animalize/New(atom/_parent)
 	. = ..()
-	spell_holder.die_with_shapeshifted_form = FALSE
-	spell_holder.convert_damage = FALSE
 	choosen_animal = pick(possible_animals)
-
-/datum/xenoartifact_trait/major/animalize/Destroy(force, ...)
-	. = ..()
-	QDEL_NULL(spell_holder)
 
 /datum/xenoartifact_trait/major/animalize/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -36,7 +27,7 @@
 	for(var/mob/living/target in focus)
 		if(istype(target, choosen_animal) || IS_DEAD_OR_INCAP(target))
 			continue
-		transform(target)
+		target.do_shapeshift(shapeshift_type = choosen_animal)
 		var/atom/log_atom = component_parent.parent
 		log_game("[component_parent] in [log_atom] transformed [key_name_admin(target)] into [choosen_animal] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		//Add timer to undo this
@@ -49,35 +40,15 @@
 		return ..()
 	//Restore every swap holder
 	for(var/mob/living/target in focus)
-		var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
-		if(!istype(H))
-			continue
-		H?.restore(FALSE)
+		var/mob/living/form = target.loc
+		form?.do_unshapeshift()
 		target.Knockdown(2 SECONDS)
-		REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
 	return ..()
 
 /datum/xenoartifact_trait/major/animalize/get_dictionary_hint()
 	. = ..()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a dog"))
 
-//Transform a valid target into our choosen animal
-/datum/xenoartifact_trait/major/animalize/proc/transform(mob/living/target)
-	if(!istype(target))
-		return
-	//Check for a mob swap holder, and deny the transform if we find one
-	var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
-	if(H)
-		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-		return
-	ADD_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
-	//Setup the animal
-	var/mob/living/new_animal = new choosen_animal(target.loc)
-	new_animal.can_be_held = TRUE
-	//Swap holder
-	H = new(new_animal, spell_holder, target)
-	RegisterSignal(new_animal, COMSIG_MOB_DEATH, PROC_REF(un_trigger))
-	return new_animal
 
 /datum/xenoartifact_trait/major/animalize/vermin
 	label_name = "Bestialized Δ"
