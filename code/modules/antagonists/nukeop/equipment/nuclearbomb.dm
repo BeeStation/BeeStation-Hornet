@@ -521,7 +521,7 @@
 	else
 		off_station = NUKE_MISS_STATION
 
-	bomb_z_level = get_virtual_z_level() // store for really_actually_explode (src will be lost due to async callback), try virtual level first
+	bomb_z_level = get_virtual_z_level() // store for really_actually_explode (src loc gets lost in callback), try virtual level first
 	if (!bomb_z_level)
 		bomb_z_level = bomb_location.z
 
@@ -535,10 +535,11 @@
 	SSticker.roundend_check_paused = FALSE
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
-	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker, TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation), src))
+	Cinematic(get_cinematic_type(off_station),world)
 	if (!bomb_z_level)
 		bomb_z_level = 0 // just in case it hasn't been set by anything
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), bomb_z_level)
+	qdel(src)
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
 	if(off_station < 2)
