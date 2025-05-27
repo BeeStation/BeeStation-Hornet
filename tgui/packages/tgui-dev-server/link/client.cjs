@@ -73,9 +73,7 @@ const serializeObject = (obj) => {
     }
     refs.push(value);
     // Error object
-    const isError =
-      value instanceof Error ||
-      (value.code && value.message && value.message.includes('Error'));
+    const isError = value instanceof Error || (value.code && value.message && value.message.includes('Error'));
     if (isError) {
       return {
         __error__: true,
@@ -130,11 +128,7 @@ const sendLogEntry = (level, ns, ...args) => {
 };
 
 const setupHotReloading = () => {
-  if (
-    process.env.NODE_ENV === 'production' ||
-    !process.env.WEBPACK_HMR_ENABLED ||
-    !window.WebSocket
-  ) {
+  if (process.env.NODE_ENV === 'production' || !process.env.WEBPACK_HMR_ENABLED || !window.WebSocket) {
     return;
   }
   if (!module.hot) return;

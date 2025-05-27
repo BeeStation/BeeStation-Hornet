@@ -21,7 +21,7 @@ export const NumberInputModal = (_) => {
   const { act, data } = useBackend<NumberInputData>();
   const { init_value, large_buttons, message = '', timeout, title } = data;
   const [input, setInput] = useState(init_value);
-  
+
   const setValue = (value: number) => {
     if (value === input) {
       return;
