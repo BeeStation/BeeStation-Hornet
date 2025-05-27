@@ -118,12 +118,12 @@
 
 /datum/nanite_program/cauterize
 	name = "Bleeding Cauterization"
-	desc = "The nanites create a flash of heat, cauterizing any wounds.."
+	desc = "The nanites create a flash of heat, cauterizing any wounds."
 	rogue_types = list(/datum/nanite_program/suffocating)
 	trigger_cost = 40
 	trigger_cooldown = 90 SECONDS
 
-/datum/nanite_program/blood_restoring/check_conditions()
+/datum/nanite_program/cauterize/check_conditions()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
 		if(!C.is_bleeding())
@@ -132,7 +132,7 @@
 		return FALSE
 	return ..()
 
-/datum/nanite_program/blood_restoring/active_effect()
+/datum/nanite_program/cauterize/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
 		C.cauterise_wounds()

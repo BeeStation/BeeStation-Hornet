@@ -2223,6 +2223,8 @@
 		"shock_nanites",
 		"temperature_nanites",
 		"dermal_toggle_nanites",
+		"pressure_suit_nanites",
+		"crush_resistance_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 	export_price = 5000
@@ -2249,7 +2251,7 @@
 		"sensor_nutrition_nanites",
 		"sensor_blood_nanites",
 		"sensor_bleed_nanites",
-		"sensor_pressure_nanites"
+		"sensor_pressure_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 	export_price = 5000
@@ -2312,6 +2314,9 @@
 		"sensor_species_nanites",
 		"vampire_nanites",
 		"nanite_tomb",
+		"gas_nanites",
+		"night_vision_nanites",
+		"cauterize_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 3000)
 	export_price = 8000
@@ -2338,7 +2343,7 @@
 	prereq_ids = list("nanite_smart")
 	design_ids = list(
 		"free_range_nanites",
-		"hive_nanites",
+		"silo_nanites",
 		"unsafe_storage_nanites",
 		"zip_nanites",
 	)
@@ -2358,6 +2363,8 @@
 		"meltdown_nanites",
 		"pyro_nanites",
 		"armblade_nanites",
+		"doorjack_nanites",
+		"jammer_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500

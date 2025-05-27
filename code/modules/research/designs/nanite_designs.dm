@@ -154,6 +154,34 @@
 	program_type = /datum/nanite_program/vampire
 	category = list("Utility Nanites")
 
+/datum/design/nanites/gas
+	name = "Molecular Synthesis"
+	desc = "The nanites cause molecules in the body to react, producing a gas of a specified type."
+	id = "gas_nanites"
+	program_type = /datum/nanite_program/gas
+	category = list("Utility Nanites")
+
+/datum/design/nanites/doorjack
+	name = "Doorjack"
+	desc = "The nanites emit a short-range NTnet signal, hijacking the security protocol for nearby airlocks and opening them."
+	id = "doorjack_nanites"
+	program_type = /datum/nanite_program/doorjack
+	category = list("Utility Nanites")
+
+/datum/design/nanites/jammer
+	name = "Signal Jammer"
+	desc = "The nanites emit high-frequency signals which jam nearby radio communications."
+	id = "jammer_nanites"
+	program_type = /datum/nanite_program/jammer
+	category = list("Utility Nanites")
+
+/datum/design/nanites/night_vision
+	name = "Night Vision"
+	desc = "The nanites grant the user with night vision."
+	id = "night_vision_nanites"
+	program_type = /datum/nanite_program/night_vision
+	category = list("Utility Nanites")
+
 ////////////////////MEDICAL NANITES//////////////////////////////////////
 /datum/design/nanites/regenerative
 	name = "Accelerated Regeneration"
@@ -203,6 +231,13 @@
 	desc = "The nanites stimulate and boost blood cell production in the host."
 	id = "bloodheal_nanites"
 	program_type = /datum/nanite_program/blood_restoring
+	category = list("Medical Nanites")
+
+/datum/design/nanites/cauterize
+	name = "Bleeding Cauterization"
+	desc = "The nanites create a flash of heat, cauterizing any wounds."
+	id = "cauterize_nanites"
+	program_type = /datum/nanite_program/cauterize
 	category = list("Medical Nanites")
 
 /datum/design/nanites/defib
@@ -406,6 +441,20 @@
 	desc = "The nanites form a sharp blade around the user's arm when activated."
 	id = "armblade_nanites"
 	program_type = /datum/nanite_program/armblade
+	category = list("Weaponized Nanites")
+
+/datum/design/nanites/pressure_suit
+	name = "Pressure Suit"
+	desc = "The nanites form a rigid pressure barrier around the host, protecting them from low pressure environments."
+	id = "pressure_suit_nanites"
+	program_type = /datum/nanite_program/pressure_suit
+	category = list("Weaponized Nanites")
+
+/datum/design/nanites/crush_resistance
+	name = "Exo-skeleton"
+	desc = "The nanites form a tough exo-skeleton protecting the user from high pressure environments."
+	id = "crush_resistance_nanites"
+	program_type = /datum/nanite_program/crush_resistance
 	category = list("Weaponized Nanites")
 
 ////////////////////SUPPRESSION NANITES//////////////////////////////////////
@@ -618,11 +667,11 @@
 	program_type = /datum/nanite_program/protocol/offline
 	category = list("Protocols_Nanites")
 
-/datum/design/nanites/hive
-	name = "Hive Protocol"
-	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume in a host."
-	id = "hive_nanites"
-	program_type = /datum/nanite_program/protocol/hive
+/datum/design/nanites/silo
+	name = "Silo Protocol"
+	desc = "Replication Protocol: Produces an additional 5 nanites per second while the host has excess food in their body. Excess food is consumed even while nanites are at maximum capacity."
+	id = "silo_nanites"
+	program_type = /datum/nanite_program/protocol/silo
 	category = list("Protocols_Nanites")
 
 /datum/design/nanites/zip
