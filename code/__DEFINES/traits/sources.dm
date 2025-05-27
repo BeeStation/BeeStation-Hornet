@@ -143,6 +143,11 @@
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
 
+#define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+/// Sources for TRAIT_IGNORING_GRAVITY
+#define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
+#define FROM_SHADOW_SECT "shadow_sect"
+
 // Nanite sources
 #define SOURCE_NANITE_HARDENING "nanite_hardening"
 #define SOURCE_NANITE_REFRACTION "nanite_refraction"
@@ -150,3 +155,4 @@
 #define SOURCE_NANITE_TOMB "nanite_tomb"
 #define SOURCE_NANITE_NERVOUS "nanite_nervous"
 #define SOURCE_NANITE_CELLULAR "nanite_cellular"
+#define SOURCE_NANITE_PRESSURE "nanite_pressure"

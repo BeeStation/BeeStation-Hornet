@@ -15,12 +15,12 @@
 
 /datum/nanite_program/paralyzing
 	name = "Paralysis"
-	desc = "The nanites force muscle contraction, effectively paralyzing the host."
-	use_rate = 3
+	desc = "The nanites force paralze the host by exhausting their muscles."
+	use_rate = 5
 	rogue_types = list(/datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/paralyzing/active_effect()
-	host_mob.Stun(40)
+	host_mob.adjustStaminaLoss(10)
 
 /datum/nanite_program/paralyzing/enable_passive_effect()
 	. = ..()
@@ -99,7 +99,10 @@
 /datum/nanite_program/fake_death
 	name = "Death Simulation"
 	desc = "The nanites induce a death-like coma into the host, able to fool most medical scans."
-	use_rate = 3.5
+	use_rate = 6
+	// This one is just unfun if you are on the recieving end of it
+	maximum_duration = 10 SECONDS
+	trigger_cooldown = 60 SECONDS
 	rogue_types = list(/datum/nanite_program/nerve_decay, /datum/nanite_program/necrotic, /datum/nanite_program/brain_decay)
 
 /datum/nanite_program/fake_death/enable_passive_effect()

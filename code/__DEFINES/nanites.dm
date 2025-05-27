@@ -57,6 +57,7 @@
 #define NES_DEACTIVATION_CODE "Sent Deactivation Code"
 #define NES_PRESSURE "Pressure"
 #define NES_HEALING_MODE "Healing Mode"
+#define NES_GAS_RELEASED "Gas Produced"
 
 //Nanite Logic
 #define NL_AND "AND"

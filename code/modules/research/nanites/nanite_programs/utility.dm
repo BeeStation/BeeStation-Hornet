@@ -437,3 +437,19 @@
 
 /datum/nanite_program/vampire/active_effect()
 	host_mob.blood_volume = max(host_mob.blood_volume - 1.5, 0)
+
+/datum/nanite_program/gas
+	name = "Molecular Synthesis"
+	desc = "The nanites cause molecules in the body to react, producing a gas of a specified type."
+	use_rate = 2
+
+/datum/nanite_program/gas/register_extra_settings()
+	. = ..()
+	// Only gasses the body can produce, and plasma because its funny
+	extra_settings[NES_GAS_RELEASED] = new /datum/nanite_extra_setting/type("gas", list(
+		/datum/gas/oxygen::name,
+		/datum/gas/nitrogen::name,
+		/datum/gas/carbon_dioxide::name,
+		/datum/gas/plasma::name,
+		/datum/gas/water_vapor::name,
+	))
