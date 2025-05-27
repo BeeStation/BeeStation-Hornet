@@ -114,6 +114,7 @@
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, 1)
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
+	det_time *= (0.1 * (rand(6, 14))) //between 60% and 140% of set time
 	SEND_SIGNAL(src, COMSIG_GRENADE_ARMED, det_time, delayoverride)
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
