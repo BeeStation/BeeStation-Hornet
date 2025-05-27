@@ -56,10 +56,113 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">27 May 2025</h2>
+			<h3 class="author">rkz, MTandi, Ghilker, Rohesie, MrMelbert, antropod, FernandoJ8, vinylspiders, GoldenAlpharex, TheSmallBlue, Fikou, SyncIt21, Vishenka0704, Xander3359 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Rewrote the crafting/cooking menu UI</li>
+				<li class="rscadd">Split crafting and cooking menus in two different menus</li>
+				<li class="rscadd">Crafting is no longer blocking the entire UI, only the "Make" buttons are disabled</li>
+				<li class="rscadd">Added stack crafting recipes to the crafting menu</li>
+				<li class="rscadd">Added cooking recipes that were absent in the crafting menu before (tool recipes, machine recipes, reactions)</li>
+				<li class="rscadd">Added option to search recipes by title</li>
+				<li class="rscadd">Added option to filter recipes by required materials/ingredients</li>
+				<li class="rscadd">Added food types to the cooking menu, highlighting diet of your species (liked, disliked foods)</li>
+				<li class="rscadd">Added total nutrition value of the result to the cooking menu</li>
+				<li class="rscadd">Added option to filter cooking recipes by the food type of the resulting food</li>
+				<li class="rscadd">Added "Can make" category that lists all currently craftable recipes throughout all categories</li>
+				<li class="refactor">changed categories and reshuffled some items in them</li>
+				<li class="code_imp">Reagents now have default container to get an icon from the reagent datum</li>
+				<li class="code_imp">Objects now have desc_controls var for OOC information about mouse controls that are visible on examine, but not in the description</li>
+				<li class="bugfix">Fixed alignment on many food icons</li>
+				<li class="bugfix">Fixed missing icon for beef stroganoff</li>
+				<li class="code_imp">Adds radial support to stack crafting.</li>
+				<li class="rscadd">Cult buildings are now made via radial, instead of stack window.</li>
+				<li class="rscadd">Stack craftingnow uses balloon alerts.</li>
+			</ul>
+
+			<h2 class="date">26 May 2025</h2>
+			<h3 class="author"> updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Smokers can now start with vapes</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds contextual screentips</li>
+			</ul>
+
+			<h2 class="date">25 May 2025</h2>
+			<h3 class="author">Tsar-Salat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes xenos unrestricted hand use</li>
+				<li class="bugfix">fixes morph/dragon contents dropping</li>
+			</ul>
+			<h3 class="author">TsunamiAnt updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Lowered the pray sound admins get when chaplains pray.</li>
+				<li class="soundadd">Added more sounds that play when players IC message admins through various means.</li>
+				<li class="admin">Added the Requests Manager to the bottom of the ticket tab.</li>
+			</ul>
+
+			<h2 class="date">24 May 2025</h2>
+			<h3 class="author">RDS88-beeman updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">You can now properly singe people with fire based weapons, instead of singing them a tune.</li>
+			</ul>
+			<h3 class="author">mrmanlikesbt, Farquaar, ArcaneDefence updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">plasmamen can scream now</li>
+			</ul>
+
+			<h2 class="date">23 May 2025</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Reduces the speed increase caused by sepia extracts.</li>
+				<li class="balance">Stabilized sepia extract now provides slowdown as well as speed-up.</li>
+				<li class="balance">All stabilized extracts now provide their effects for 15 seconds after they are dropped.</li>
+			</ul>
+
+			<h2 class="date">22 May 2025</h2>
+			<h3 class="author">BeeLover66 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">processing special meat (human, corgi, xeno, bear, chicken) into meatballs now outputs the correct meatball type</li>
+			</ul>
+
+			<h2 class="date">21 May 2025</h2>
+			<h3 class="author">BeeLover66 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Nettles are now visible when ready to be harvested or dead</li>
+			</ul>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removed mini potted plants</li>
+				<li class="imageadd">Removes the April's Fools clown outfit</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">swarmers are no longer able to strip items from players</li>
+			</ul>
+			<h3 class="author">h42 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removed science's fancy beret, since they're all fancy now.</li>
+				<li class="tweak">Recolored a handful of and added badges to the department berets</li>
+				<li class="tweak">Reverted the descriptions of the medical berets to fit the recolor</li>
+			</ul>
+
 			<h2 class="date">20 May 2025</h2>
 			<h3 class="author">BarteG44 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">fixed chess boards for 515 clients</li>
+			</ul>
+			<h3 class="author">BeeLover66 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">coffins are not mistaken for normal crates when sold</li>
+				<li class="bugfix">coffins and ore boxes are now subject to demand elasticity, and don't mention the Crates Recycling Program when sold</li>
+				<li class="tweak">The time to build a coffin is now 5 seconds</li>
+				<li class="balance">The selling prices of ore boxes, coffins and wooden crates have been tweaked to give a reasonable profit when sold</li>
+			</ul>
+			<h3 class="author">Hardly updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Ghosts no longer leak into the world of living by jumping</li>
 			</ul>
 
 			<h2 class="date">19 May 2025</h2>
@@ -675,60 +778,6 @@
 			<h3 class="author">rkz updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="balance">wearing plasmaman helmets are now hazardous to oxygen breathers! Thankfully the helmets are smart enough to stop you from killing yourself!</li>
-			</ul>
-
-			<h2 class="date">25 March 2025</h2>
-			<h3 class="author">Fresh839 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removes the who-verb</li>
-			</ul>
-			<h3 class="author">Varo10, Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed the errors with potions - they are now possible to create at autolathes as intended, and also fixed some oversights with the liquid being displayed improperly.</li>
-			</ul>
-
-			<h2 class="date">24 March 2025</h2>
-			<h3 class="author">ClownMoff, Reds88 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added vials, small potions and potions,  glass bottles resprites that can be printed in the autolathe</li>
-				<li class="tweak">Bottles now break when thrown, as they are made out of glass</li>
-				<li class="imageadd">Resprited the xenobio potions</li>
-				<li class="imageadd">Resprited the potion of flight icons</li>
-			</ul>
-			<h3 class="author">Tsar-Salat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed void cloak storage</li>
-				<li class="bugfix">removed storage from several things that weren't supposed to have it</li>
-			</ul>
-			<h3 class="author">rkz, temporaloroboros, Rohesie, ATH1909, NotRanged updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">moves life() onto delta_time. There should not be a significant difference apparent to the player.</li>
-				<li class="refactor">refactors disease code</li>
-			</ul>
-
-			<h2 class="date">23 March 2025</h2>
-			<h3 class="author">St0rmC4st3r updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Rolling paper packs now have rolling paper again.</li>
-			</ul>
-
-			<h2 class="date">19 March 2025</h2>
-			<h3 class="author">Gilgax updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Paper doesn't move around during mapload</li>
-			</ul>
-			<h3 class="author">RDS88-beeman updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Threw a few new screens onto IPCs. You can now use about 20 percent of the greek alphabet, or mimic a specific anomalous computer.</li>
-			</ul>
-			<h3 class="author">Therealdoooc213 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">securitrons only do 60 stun damage now</li>
-				<li class="bugfix">replica pods are no longer mentioned in the botanists job description</li>
-			</ul>
-			<h3 class="author">wikimody updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Took away shield generators ability to stay alive through pure spite despite having negative health (and doubled their health to compensate)</li>
 			</ul>
 		</div>
 

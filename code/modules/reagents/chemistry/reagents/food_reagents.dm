@@ -53,7 +53,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(30, delta_time))
-		M.heal_bodypart_damage(brute = brute_heal, burn = burn_heal)
+		M.heal_bodypart_damage(brute = brute_heal, burn = burn_heal, updating_health = FALSE)
 		. = TRUE
 	..()
 
@@ -110,7 +110,7 @@
 	name = "Protein"
 	description = "A natural polyamide made up of amino acids. An essential constituent of mosts known forms of life."
 	brute_heal = 0.8 //Rewards the player for eating a balanced diet.
-	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as corn oil.
+	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as oil.
 
 /datum/reagent/consumable/nutriment/fat
 	name = "Fat"
@@ -179,6 +179,7 @@
 	taste_description = "oil"
 	nutriment_factor = 7 //Not very healthy on its own
 	metabolization_rate = 10 * REAGENTS_METABOLISM
+	default_container = /obj/item/reagent_containers/condiment/vegetable_oil
 	penetrates_skin = NONE
 
 /datum/reagent/consumable/nutriment/fat/oil/olive
@@ -187,6 +188,7 @@
 	taste_description = "olive oil"
 	color = "#DBCF5C"
 	nutriment_factor = 10
+	default_container = /obj/item/reagent_containers/condiment/olive_oil
 
 /datum/reagent/consumable/sugar
 	name = "Sugar"
@@ -199,6 +201,7 @@
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	overdose_threshold = 100 // Hyperglycaemic shock
 	taste_description = "sweetness"
+	default_container = /obj/item/reagent_containers/condiment/sugar
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, span_userdanger("You go into hyperglycaemic shock! Lay off the twinkies!"))
@@ -233,6 +236,7 @@
 	color = "#792300" // rgb: 121, 35, 0
 	chem_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "umami"
+	default_container = /obj/item/reagent_containers/condiment/soysauce
 
 /datum/reagent/consumable/ketchup
 	name = "Ketchup"
@@ -241,7 +245,7 @@
 	color = "#731008" // rgb: 115, 16, 8
 	chem_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "ketchup"
-
+	default_container = /obj/item/reagent_containers/condiment/ketchup
 
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
@@ -283,6 +287,7 @@
 	taste_description = "mint"
 	///40 joules per unit.
 	specific_heat = 40
+	default_container = /obj/item/reagent_containers/cup/bottle/frostoil
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/cooling = 0
@@ -333,6 +338,7 @@
 	color = "#B31008" // rgb: 179, 16, 8
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "scorching agony"
+	default_container = /obj/item/reagent_containers/cup/bottle/capsaicin
 	penetrates_skin = NONE
 
 /datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
@@ -368,6 +374,7 @@
 	color = "#FFFFFF" // rgb: 255,255,255
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
+	default_container = /obj/item/reagent_containers/condiment/saltshaker
 	penetrates_skin = NONE
 
 /datum/reagent/consumable/sodiumchloride/expose_turf(turf/exposed_turf, reac_volume) //Creates an umbra-blocking salt pile
@@ -375,7 +382,7 @@
 	if(!istype(exposed_turf) || (reac_volume < 1))
 		return
 
-	new/obj/effect/decal/cleanable/food/salt(exposed_turf)
+	new /obj/effect/decal/cleanable/food/salt(exposed_turf)
 
 /datum/reagent/consumable/blackpepper
 	name = "Black Pepper"
@@ -384,6 +391,7 @@
 	reagent_state = SOLID
 	// no color (ie, black)
 	taste_description = "pepper"
+	default_container = /obj/item/reagent_containers/condiment/peppermill
 
 /datum/reagent/consumable/cocoa
 	name = "Cocoa Powder"
@@ -474,6 +482,7 @@
 	color = "#365E30" // rgb: 54, 94, 48
 	chem_flags = NONE
 	taste_description = "sweetness"
+	default_container = /obj/item/reagent_containers/condiment/enzyme
 
 /datum/reagent/consumable/dry_ramen
 	name = "Dry Ramen"
@@ -482,6 +491,7 @@
 	color = "#302000" // rgb: 48, 32, 0
 	chem_flags = NONE
 	taste_description = "dry and cheap noodles"
+	default_container = /obj/item/reagent_containers/cup/glass/dry_ramen
 
 /datum/reagent/consumable/hot_ramen
 	name = "Hot Ramen"
@@ -490,6 +500,7 @@
 	color = "#302000" // rgb: 48, 32, 0
 	chem_flags = NONE
 	taste_description = "wet and cheap noodles"
+	default_container = /obj/item/reagent_containers/cup/glass/dry_ramen
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * delta_time, 0, M.get_body_temp_normal())
@@ -514,6 +525,7 @@
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	chem_flags = NONE
 	taste_description = "chalky wheat"
+	default_container = /obj/item/reagent_containers/condiment/flour
 
 /datum/reagent/consumable/flour/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -531,6 +543,7 @@
 	color = "#801E28" // rgb: 128, 30, 40
 	chem_flags = NONE
 	taste_description = "cherry"
+	default_container = /obj/item/reagent_containers/condiment/cherryjelly
 
 /datum/reagent/consumable/bluecherryjelly
 	name = "Blue Cherry Jelly"
@@ -547,6 +560,7 @@
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	chem_flags = NONE
 	taste_description = "rice"
+	default_container = /obj/item/reagent_containers/condiment/rice
 
 /datum/reagent/consumable/vanilla
 	name = "Vanilla Powder"
@@ -600,6 +614,7 @@
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
+	default_container = /obj/item/reagent_containers/condiment/honey
 	var/power = 0
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -633,6 +648,7 @@
 	color = "#DFDFDF"
 	chem_flags = NONE
 	taste_description = "mayonnaise"
+	default_container = /obj/item/reagent_containers/condiment/mayonnaise
 
 /datum/reagent/consumable/mold // yeah, ok, togopal, I guess you could call that a condiment
 	name = "Mold"
@@ -863,6 +879,7 @@
 	chem_flags = NONE
 	taste_mult = 2.5 //sugar's 1.5, capsacin's 1.5, so a good middle ground.
 	taste_description = "smokey sweetness"
+	default_container = /obj/item/reagent_containers/condiment/bbqsauce
 
 /datum/reagent/consumable/char
 	name = "Char"
@@ -915,3 +932,4 @@
 	nutriment_factor = 4
 	taste_description = "fluffy sweet cream"
 	chem_flags = NONE
+	//default_container = /obj/item/reagent_containers/condiment/creamer
