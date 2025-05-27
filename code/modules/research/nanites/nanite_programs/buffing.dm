@@ -182,11 +182,11 @@
 
 /datum/nanite_program/pressure_suit/enable_passive_effect()
 	. = ..()
-	ADD_TRAIT(host_mob, TRAIT_RESISTLOWPRESSURE, nanite_pressure)
+	ADD_TRAIT(host_mob, TRAIT_RESISTLOWPRESSURE, SOURCE_NANITE_PRESSURE)
 
 /datum/nanite_program/pressure_suit/disable_passive_effect()
 	. = ..()
-	REMOVE_TRAIT(host_mob, TRAIT_RESISTLOWPRESSURE, nanite_pressure)
+	REMOVE_TRAIT(host_mob, TRAIT_RESISTLOWPRESSURE, SOURCE_NANITE_PRESSURE)
 
 /datum/nanite_program/crush_resistance
 	name = "Exo-skeleton"
@@ -197,9 +197,9 @@
 
 /datum/nanite_program/pressure_suit/enable_passive_effect()
 	. = ..()
-	ADD_TRAIT(host_mob, TRAIT_RESISTHIGHPRESSURE, nanite_pressure)
+	ADD_TRAIT(host_mob, TRAIT_RESISTHIGHPRESSURE, SOURCE_NANITE_PRESSURE)
 
 /datum/nanite_program/pressure_suit/disable_passive_effect()
 	. = ..()
-	REMOVE_TRAIT(host_mob, TRAIT_RESISTHIGHPRESSURE, nanite_pressure)
+	REMOVE_TRAIT(host_mob, TRAIT_RESISTHIGHPRESSURE, SOURCE_NANITE_PRESSURE)
 

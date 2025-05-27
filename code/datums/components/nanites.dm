@@ -202,66 +202,7 @@
 /// Modifies the current nanite volume, then checks if the nanites are depleted or exceeding the maximum amount
 /datum/component/nanites/proc/adjust_nanites(datum/source, amount)
 	SIGNAL_HANDLER
-
-<<<<<<< HEAD
-	nanite_volume += amount
-	if(nanite_volume > max_nanites)
-		reject_excess_nanites()
-	if(nanite_volume <= 0) //oops we ran out
-		qdel(src)
-
-/**
- * Handles how nanites leave the host's body if they find out that they're currently exceeding the maximum supported amount
- *
- * IC explanation:
- * Normally nanites simply discard excess volume by slowing replication or 'sweating' it out in imperceptible amounts,
- * but if there is a large excess volume, likely due to a programming change that leaves them unable to support their current volume,
- * the nanites attempt to leave the host as fast as necessary to prevent nanite poisoning. This can range from minor oozing to nanites
- * rapidly bursting out from every possible pathway, causing temporary inconvenience to the host.
- */
-/datum/component/nanites/proc/reject_excess_nanites()
-	var/excess = nanite_volume - max_nanites
-	nanite_volume = max_nanites
-
-	switch(excess)
-		if(0 to NANITE_EXCESS_MINOR) //Minor excess amount, the extra nanites are quietly expelled without visible effects
-			return
-		if((NANITE_EXCESS_MINOR + 0.1) to NANITE_EXCESS_VOMIT) //Enough nanites getting rejected at once to be visible to the naked eye
-			host_mob.visible_message(span_warning("A grainy grey slurry starts oozing out of [host_mob]."), span_warning("A grainy grey slurry starts oozing out of your skin."), vision_distance = 4);
-		if((NANITE_EXCESS_VOMIT + 0.1) to NANITE_EXCESS_BURST) //Nanites getting rejected in massive amounts, but still enough to make a semi-orderly exit through vomit
-			if(iscarbon(host_mob))
-				var/mob/living/carbon/C = host_mob
-				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"));
-				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE)
-			else
-				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"));
-				if(isturf(host_mob.drop_location()))
-					var/turf/T = host_mob.drop_location()
-					T.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
-		if((NANITE_EXCESS_BURST + 0.1) to INFINITY) //Way too many nanites, they just leave through the closest exit before they harm/poison the host
-			host_mob.visible_message(span_warning("A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!"),
-								span_userdanger("A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!"));
-
-			host_mob.adjust_blindness(15) //nanites coming out of your eyes
-			host_mob.Paralyze(12 SECONDS)
-			if(iscarbon(host_mob))
-				var/mob/living/carbon/C = host_mob
-				var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-				if(ears)
-					ears.adjustEarDamage(0, 30) //nanites coming out of your ears
-				C.vomit(0, FALSE, TRUE, 2, FALSE, VOMIT_NANITE, FALSE) //nanites coming out of your mouth
-
-			//nanites everywhere
-			if(isturf(host_mob.drop_location()))
-				var/turf/T = host_mob.drop_location()
-				T.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
-				for(var/turf/adjacent_turf in oview(host_mob, 1))
-					if(adjacent_turf.density || !adjacent_turf.Adjacent(T))
-						continue
-					adjacent_turf.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
-=======
 	nanite_volume = min(nanite_volume + amount, host_mob.nutrition * max_production_ratio)
->>>>>>> ad5c662e9e9 (Ties nanites directly to food)
 
 /// Updates the nanite volume bar visible in diagnostic HUDs
 /datum/component/nanites/proc/set_nanite_bar(remove = FALSE)
@@ -406,31 +347,17 @@
 	if(!full_scan)
 		. = TRUE
 		if(!stealth)
-<<<<<<< HEAD
 			message += span_infobold("Nanites Detected")
-			message += span_info("Saturation: [nanite_volume]/[max_nanites]")
+			message += span_info("Saturation: [nanite_volume]/[NUTRITION_LEVEL_FULL]")
 	else
 		message += span_infobold("Nanites Detected")
 		message += span_info("================")
-		message += span_info("Saturation: [nanite_volume]/[max_nanites]")
+		message += span_info("Saturation: [nanite_volume]/[NUTRITION_LEVEL_FULL]")
 		message += span_info("Safety Threshold: [safety_threshold]")
 		message += span_info("Cloud ID: [cloud_id ? cloud_id : "None"]")
 		message += span_info("Cloud Sync: [cloud_active ? "Active" : "Disabled"]")
 		message += span_info("================")
 		message += span_info("Program List:")
-=======
-			message += "<span class='info bold'>Nanites Detected</span>"
-			message += "<span class='info'>Saturation: [nanite_volume]/[NUTRITION_LEVEL_FULL]</span>"
-	else
-		message += "<span class='info bold'>Nanites Detected</span>"
-		message += "<span class='info'>================</span>"
-		message += "<span class='info'>Saturation: [nanite_volume]/[NUTRITION_LEVEL_FULL]</span>"
-		message += "<span class='info'>Safety Threshold: [safety_threshold]</span>"
-		message += "<span class='info'>Cloud ID: [cloud_id ? cloud_id : "None"]</span>"
-		message += "<span class='info'>Cloud Sync: [cloud_active ? "Active" : "Disabled"]</span>"
-		message += "<span class='info'>================</span>"
-		message += "<span class='info'>Program List:</span>"
->>>>>>> ad5c662e9e9 (Ties nanites directly to food)
 		if(!diagnostics)
 			message += span_alert("Diagnostics Disabled")
 		else
