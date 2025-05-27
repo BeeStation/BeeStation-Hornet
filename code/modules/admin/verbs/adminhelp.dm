@@ -2,9 +2,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 /// Client Stuff
 
-/client
-	var/adminhelptimerid = 0	//a timer id for returning the ahelp verb
-	var/datum/help_ticket/current_adminhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
+/client/var/adminhelptimerid = 0	//a timer id for returning the ahelp verb
+/client/var/datum/help_ticket/current_adminhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
 
 /client/proc/openTicketManager()
 	set name = "Ticket Manager"
