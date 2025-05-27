@@ -36,7 +36,7 @@
 
 /obj/item/clothing/under/plasmaman/cmo
 	name = "chief medical officers envirosuit"
-	desc = "An envirosuit designed primarily of nitryl, for the medical savvy plasmamen."
+	desc = "An envirosuit designed primarily of nitrium, for the medical savvy plasmamen."
 	icon_state = "cmo_envirosuit"
 	item_state = null
 

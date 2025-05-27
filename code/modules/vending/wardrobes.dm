@@ -243,7 +243,6 @@
 					/obj/item/radio/headset/headset_sci = 3,
 					/obj/item/clothing/mask/gas = 3,
 					/obj/item/clothing/head/beret/science = 3,
-					/obj/item/clothing/head/beret/science/fancy = 3,
 					/obj/item/clothing/head/cowboy/science = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/science/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe

@@ -16,6 +16,11 @@
 #error But if 515.1643 IS the latest version of BYOND, i.e. you can't update, then you MUST visit www.byond.com/download/build and downgrade to 515.1642.
 #endif
 
+#if (DM_VERSION == 516 && DM_BUILD == 1660)
+#error This version of Byond includes a breaking bug to how vars are accessed which causes a large amount of errors during initialization and prevents var-edit from functioning.
+#error Please update your Byond version at https://secure.byond.com/download
+#endif
+
 /savefile/byond_version = MIN_COMPILER_VERSION
 
 /// Call by name proc reference, checks if the proc exists on this type or as a global proc
