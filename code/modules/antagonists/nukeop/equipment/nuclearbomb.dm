@@ -34,6 +34,7 @@
 	var/lights = ""
 	var/interior = ""
 	var/proper_bomb = TRUE //Please
+	var/bomb_z_level = null
 	var/obj/effect/countdown/nuclearbomb/countdown
 	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
@@ -520,6 +521,10 @@
 	else
 		off_station = NUKE_MISS_STATION
 
+	bomb_z_level = get_virtual_z_level() // store for really_actually_explode (src will be lost due to async callback), try virtual level first
+	if (!bomb_z_level)
+		bomb_z_level = bomb_location.z
+
 	if(off_station < 2)
 		SSshuttle.registerHostileEnvironment(src)
 		SSshuttle.lockdown = TRUE
@@ -531,7 +536,9 @@
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
 	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker, TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation), src))
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), get_virtual_z_level())
+	if (!bomb_z_level)
+		bomb_z_level = 0 // just in case it hasn't been set by anything
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), bomb_z_level)
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
 	if(off_station < 2)
@@ -611,7 +618,7 @@
 	if(!z)
 		return
 	for(var/mob/M in GLOB.mob_list)
-		if(M.stat != DEAD && M.get_virtual_z_level() == z)
+		if(M.stat != DEAD && M.get_virtual_z_level() == z && !istype(M.loc, /obj/structure/closet/secure_closet/freezer)) //protip: freezers protect you from nukes)
 			to_chat(M, span_userdanger("You are shredded to atoms!"))
 			M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
 			M.gib()
