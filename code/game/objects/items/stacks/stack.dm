@@ -1,15 +1,9 @@
 /* Stack type objects!
  * Contains:
- * 		Stacks
- * 		Recipe datum
- * 		Recipe list datum
+ * Stacks
+ * Recipe datum
+ * Recipe list datum
  */
-
-//stack recipe placement check types config
-/// checks if there is an object of the result type in any of the cardinal directions
-#define STACK_CHECK_CARDINALS "cardinals"
-/// checks if there is an object of the result type within one tile
-#define STACK_CHECK_ADJACENT "adjacent"
 
 /*
  * Stacks
@@ -19,32 +13,41 @@
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
-	///The name of the thing when it's singular
+	/// What's the name of just 1 of this stack. You have a stack of leather, but one piece of leather
 	var/singular_name
-	///The amount of thing in the stack
+	/// How much is in this stack?
 	var/amount = 1
-	///also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
+	/// How much is allowed in this stack?
+	// Also see stack recipes initialisation. "max_res_amount" must be equal to this max_amount
 	var/max_amount = 50
-	///It's TRUE if module is used by a cyborg, and uses its storage
+	/// If TRUE, this stack is a module used by a cyborg (doesn't run out like normal / etc)
 	var/is_cyborg = FALSE
-	///Holder var for the cyborg energy source
+	/// Related to above. If present, the energy we draw from when using stack items, for cyborgs
 	var/datum/robot_energy_storage/source
-	///How much energy from storage it costs
+	/// Related to above. How much energy it costs from storage to use stack items
 	var/cost = 1
-	///This path and its children should merge with this stack, defaults to src.type
-	var/merge_type
-	///The weight class the stack should have at amount > 2/3rds max_amount
+	/// This path and its children should merge with this stack, defaults to src.type
+	var/merge_type = null
+	/// The weight class the stack has at amount > 2/3rds max_amount
 	var/full_w_class = WEIGHT_CLASS_NORMAL
-	//Determines whether the item should update it's sprites based on amount.
+	/// Determines whether the item should update it's sprites based on amount.
 	var/novariants = TRUE
-	//list that tells you how much is in a single unit.
+	/// List that tells you how much is in a single unit.
 	var/list/mats_per_unit
-	///Datum material type that this stack is made of
+	/// Datum material type that this stack is made of
 	var/material_type
-	///Stores table variant to be built from this stack
-	var/obj/structure/table/tableVariant
-	/// Amount of matter for RCD
+	// NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM -
+	// these amounts will be multiplied by the stack size in on_grind()
+	/// Amount of matter given back to RCDs
 	var/matter_amount = 0
+	/// Does this stack require a unique girder in order to make a wall?
+	//var/has_unique_girder = FALSE
+	/// What typepath table we create from this stack
+	var/obj/structure/table/tableVariant
+	/// If TRUE, we'll use a radial instead when displaying recipes
+	var/use_radial = FALSE
+	/// If use_radial is TRUE, this is the radius of the radial
+	var/radial_radius = 52
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
@@ -71,12 +74,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
 				if(is_zero_amount(delete_if_zero = FALSE))
 					return INITIALIZE_HINT_QDEL
+
 	update_weight()
 	update_appearance()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_movable_entered_occupied_turf),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/item/stack/add_context_self(datum/screentip_context/context, mob/user)
+	context.use_cache()
+	context.add_left_click_action("Open stack crafting")
+	context.add_right_click_action("Split Stack")
+
 
 /** Sets the amount of materials per unit for this stack.
   *
@@ -190,7 +200,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		. += "There are [get_amount()] in the stack."
 	else
 		. += "There is [get_amount()] in the stack."
-	. += "<span class='notice'><b>Right-click</b> with an empty hand to take a custom amount.</span>"
+	. += span_notice("<b>Right-click</b> with an empty hand to take a custom amount.")
 
 /obj/item/stack/proc/get_amount()
 	if(is_cyborg)
@@ -207,19 +217,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 /obj/item/stack/proc/recursively_build_recipes(list/recipe_to_iterate)
 	var/list/L = list()
 	for(var/recipe in recipe_to_iterate)
-		if(isnull(recipe))
-			L += list(list(
-				"spacer" = TRUE
-			))
 		if(istype(recipe, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/R = recipe
-			L += list(list(
-				"title" = R.title,
-				"sub_recipes" = recursively_build_recipes(R.recipes),
-			))
+			L["[R.title]"] = recursively_build_recipes(R.recipes)
 		if(istype(recipe, /datum/stack_recipe))
 			var/datum/stack_recipe/R = recipe
-			L += list(build_recipe(R))
+			L["[R.title]"] = build_recipe(R)
 	return L
 
 /**
@@ -230,11 +233,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
   */
 /obj/item/stack/proc/build_recipe(datum/stack_recipe/R)
 	return list(
-		"title" = R.title,
 		"res_amount" = R.res_amount,
 		"max_res_amount" = R.max_res_amount,
 		"req_amount" = R.req_amount,
-		"ref" = "[REF(R)]",
+		"ref" = text_ref(R),
 	)
 
 /**
@@ -254,13 +256,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 				return TRUE
 	return FALSE
 
+/obj/item/stack/interact(mob/user)
+	if(use_radial)
+		show_construction_radial(user)
+	else
+		ui_interact(user)
+
 /obj/item/stack/ui_state(mob/user)
 	return GLOB.hands_state
 
 /obj/item/stack/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Stack", name)
+		ui = new(user, src, "StackCrafting", name)
 		ui.open()
 
 /obj/item/stack/ui_data(mob/user)
@@ -280,108 +288,195 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
 	switch(action)
 		if("make")
-			if(get_amount() < 1 && !is_cyborg)
-				qdel(src)
-				return
-			var/datum/stack_recipe/R = locate(params["ref"])
-			if(!is_valid_recipe(R, get_recipes())) //href exploit protection
-				return
+			var/datum/stack_recipe/recipe = locate(params["ref"])
 			var/multiplier = text2num(params["multiplier"])
-			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection
-				return
-			if(!building_checks(R, multiplier))
-				return
-			if(R.time)
-				usr.visible_message(span_notice("[usr] starts building \a [R.title]."), span_notice("You start building \a [R.title]..."))
-				if(!do_after(usr, R.time, target = usr))
-					return
-				if(!building_checks(R, multiplier))
-					return
 
-			var/obj/O
-			if(R.max_res_amount > 1) //Is it a stack?
-				O = new R.result_type(usr.drop_location(), R.res_amount * multiplier)
-			else if(ispath(R.result_type, /turf))
-				var/turf/T = usr.drop_location()
-				if(!isturf(T))
-					return
-				T.PlaceOnTop(R.result_type, flags = CHANGETURF_INHERIT_AIR)
-			else
-				O = new R.result_type(usr.drop_location())
-			if(O)
-				O.setDir(usr.dir)
-			use(R.req_amount * multiplier)
+			return make_item(usr, recipe, multiplier)
 
-			if(R.applies_mats && LAZYLEN(mats_per_unit))
-				if(isstack(O))
-					var/obj/item/stack/crafted_stack = O
-					crafted_stack.set_mats_per_unit(mats_per_unit, R.req_amount / R.res_amount)
-				else
-					O.set_custom_materials(mats_per_unit, R.req_amount / R.res_amount)
+/// The key / title for a radial option that shows the entire list of buildables (uses the old menu)
+#define FULL_LIST "view full list"
 
-			if(QDELETED(O))
-				return //It's a stack and has already been merged
+/// Shows a radial consisting of every radial recipe we have in our list.
+/obj/item/stack/proc/show_construction_radial(mob/builder)
+	var/list/options = list()
+	var/list/titles_to_recipes = list()
 
-			if(isitem(O))
-				usr.put_in_hands(O)
-			O.add_fingerprint(usr)
+	for(var/datum/stack_recipe/radial/recipe in get_recipes())
+		var/datum/radial_menu_choice/option = new()
+		option.image = image(
+			icon = initial(recipe.result_type.icon),
+			icon_state = initial(recipe.result_type.icon_state),
+		)
 
-			if(istype(O, /obj/item/storage))
-				for(var/obj/item/I in O)
-					qdel(I)
-			return TRUE
+		if(recipe.desc)
+			option.info = recipe.desc
 
-/obj/item/stack/proc/building_checks(datum/stack_recipe/recipe, multiplier)
-	if(get_amount() < recipe.req_amount*multiplier)
-		if(recipe.req_amount*multiplier>1)
-			to_chat(usr, span_warning("You haven't got enough [src] to build \the [recipe.req_amount*multiplier] [recipe.title]\s!"))
+		options[recipe.title] = option
+		titles_to_recipes[recipe.title] = recipe
+
+	// After everything's been added to the radial, add an option
+	// that lets the user see the whole list of buildables
+	options[FULL_LIST] = image(
+		icon = 'icons/hud/radials/radial_generic.dmi',
+		icon_state = "radial_full_list",
+	)
+
+	var/selection = show_radial_menu(
+		user = builder,
+		anchor = builder,
+		choices = options,
+		custom_check = CALLBACK(src, PROC_REF(radial_check), builder),
+		radius = radial_radius,
+		tooltips = TRUE,
+	)
+
+	if(!selection)
+		return
+	// Run normal UI interact if we wanna see the full list
+	if(selection == FULL_LIST)
+		ui_interact(builder)
+		return
+
+	// Otherwise go straight to building
+	var/datum/stack_recipe/picked_recipe = titles_to_recipes[selection]
+	if(!istype(picked_recipe))
+		return
+
+	make_item(builder, picked_recipe, 1)
+
+/// Used as a callback for radial building.
+/obj/item/stack/proc/radial_check(mob/builder)
+	if(QDELETED(builder) || QDELETED(src))
+		return FALSE
+	if(builder.incapacitated())
+		return FALSE
+	if(!builder.is_holding(src))
+		return FALSE
+	return TRUE
+
+#undef FULL_LIST
+
+/// Makes the item with the given recipe.
+/obj/item/stack/proc/make_item(mob/builder, datum/stack_recipe/recipe, multiplier)
+	if(get_amount() < 1 && !is_cyborg) //sanity check as this shouldn't happen
+		qdel(src)
+		return
+	if(!is_valid_recipe(recipe, get_recipes())) //href exploit protection
+		return
+	if(!multiplier || multiplier < 1) //href exploit protection
+		return
+	if(!building_checks(builder, recipe, multiplier))
+		return
+	if(recipe.time)
+		var/adjusted_time = 0
+		builder.balloon_alert(builder, "building...")
+		builder.visible_message(
+			span_notice("[builder] starts building \a [recipe.title]."),
+			span_notice("You start building \a [recipe.title]..."),
+		)
+		if(HAS_TRAIT(builder, recipe.trait_booster))
+			adjusted_time = (recipe.time * recipe.trait_modifier)
 		else
-			to_chat(usr, span_warning("You haven't got enough [src] to build \the [recipe.title]!"))
+			adjusted_time = recipe.time
+		if(!do_after(builder, adjusted_time, target = builder))
+			builder.balloon_alert(builder, "interrupted!")
+			return
+		if(!building_checks(builder, recipe, multiplier))
+			return
+
+	var/atom/created
+	if(recipe.max_res_amount > 1) // Is it a stack?
+		created = new recipe.result_type(builder.drop_location(), recipe.res_amount * multiplier)
+		builder.balloon_alert(builder, "built items")
+
+	else if(ispath(recipe.result_type, /turf))
+		var/turf/covered_turf = builder.drop_location()
+		if(!isturf(covered_turf))
+			return
+		covered_turf.PlaceOnTop(recipe.result_type, flags = CHANGETURF_INHERIT_AIR)
+		builder.balloon_alert(builder, "placed [ispath(recipe.result_type, /turf/open) ? "floor" : "wall"]")
+
+	else
+		created = new recipe.result_type(builder.drop_location())
+		builder.balloon_alert(builder, "built item")
+
+	if(created)
+		created.setDir(builder.dir)
+
+	// Use up the material
+	use(recipe.req_amount * multiplier)
+	builder.investigate_log("[key_name(builder)] crafted [recipe.title]", INVESTIGATE_CRAFTING)
+
+	// Apply mat datums
+	if((recipe.crafting_flags & CRAFT_APPLIES_MATS) && LAZYLEN(mats_per_unit))
+		if(isstack(created))
+			var/obj/item/stack/crafted_stack = created
+			crafted_stack.set_mats_per_unit(mats_per_unit, recipe.req_amount / recipe.res_amount)
+		else
+			created.set_custom_materials(mats_per_unit, recipe.req_amount / recipe.res_amount)
+
+	// We could be qdeleted - like if it's a stack and has already been merged
+	if(QDELETED(created))
+		return TRUE
+
+	// Add fingerprints first, otherwise created might already be deleted because of stack merging
+	created.add_fingerprint(builder)
+	if(isitem(created))
+		builder.put_in_hands(created)
+
+	//BubbleWrap - so newly formed boxes are empty
+	if(istype(created, /obj/item/storage))
+		for (var/obj/item/thing in created)
+			qdel(thing)
+	//BubbleWrap END
+
+	return TRUE
+
+/// Checks if we can build here, validly.
+/obj/item/stack/proc/building_checks(mob/builder, datum/stack_recipe/recipe, multiplier)
+	if (get_amount() < recipe.req_amount * multiplier)
+		builder.balloon_alert(builder, "not enough material!")
+		return FALSE
+	var/turf/dest_turf = get_turf(builder)
+
+	if((recipe.crafting_flags & CRAFT_ONE_PER_TURF) && (locate(recipe.result_type) in dest_turf))
+		builder.balloon_alert(builder, "already one here!")
 		return FALSE
 
-	var/turf/dest_turf = get_turf(usr)
-
-	// If we're making a window, we have some special snowflake window checks to do.
-	if(ispath(recipe.result_type, /obj/structure/window))
-		var/obj/structure/window/result_path = recipe.result_type
-		if(!valid_window_location(dest_turf, usr.dir, is_fulltile = initial(result_path.fulltile)))
-			to_chat(usr, span_warning("The [recipe.title] won't fit here!"))
+	if(recipe.crafting_flags & CRAFT_CHECK_DIRECTION)
+		if(!valid_build_direction(dest_turf, builder.dir, is_fulltile = (recipe.crafting_flags & CRAFT_IS_FULLTILE)))
+			builder.balloon_alert(builder, "won't fit here!")
 			return FALSE
 
-	if(recipe.one_per_turf && (locate(recipe.result_type) in dest_turf))
-		to_chat(usr, span_warning("There is another [recipe.title] here!"))
-		return FALSE
-
-	if(recipe.on_floor)
-		if(!isanyfloor(dest_turf))
-			to_chat(usr, span_warning("\The [recipe.title] must be constructed on the floor!"))
+	if(recipe.crafting_flags & CRAFT_ON_SOLID_GROUND)
+		if(isclosedturf(dest_turf))
+			builder.balloon_alert(builder, "cannot be made on a wall!")
 			return FALSE
 
+		if(is_type_in_typecache(dest_turf, GLOB.turfs_without_ground))
+			builder.balloon_alert(builder, "must be made on solid ground!")
+			return FALSE
+
+	if(recipe.crafting_flags & CRAFT_CHECK_DENSITY)
 		for(var/obj/object in dest_turf)
-			if(istype(object, /obj/structure/grille))
-				continue
-			if(istype(object, /obj/structure/table))
-				continue
-			if(istype(object, /obj/structure/window))
-				var/obj/structure/window/window_structure = object
-				if(!window_structure.fulltile)
-					continue
-			if(object.density)
-				to_chat(usr, span_warning("There is \a [object.name] here. You cant make \a [recipe.title] here!"))
+			if(object.density && !(object.obj_flags & IGNORE_DENSITY) || object.obj_flags & BLOCKS_CONSTRUCTION)
+				builder.balloon_alert(builder, "something is in the way!")
 				return FALSE
-	if(recipe.placement_checks)
-		switch(recipe.placement_checks)
-			if(STACK_CHECK_CARDINALS)
-				var/turf/step
-				for(var/direction in GLOB.cardinals)
-					step = get_step(dest_turf, direction)
-					if(locate(recipe.result_type) in step)
-						to_chat(usr, span_warning("\The [recipe.title] must not be built directly adjacent to another!"))
-						return FALSE
-			if(STACK_CHECK_ADJACENT)
-				if(locate(recipe.result_type) in range(1, dest_turf))
-					to_chat(usr, span_warning("\The [recipe.title] must be constructed at least one tile away from others of its type!"))
-					return FALSE
+
+	if(recipe.placement_checks & STACK_CHECK_CARDINALS)
+		var/turf/nearby_turf
+		for(var/direction in GLOB.cardinals)
+			nearby_turf = get_step(dest_turf, direction)
+			if(locate(recipe.result_type) in nearby_turf)
+				to_chat(builder, span_warning("\The [recipe.title] must not be built directly adjacent to another!"))
+				builder.balloon_alert(builder, "can't be adjacent to another!")
+				return FALSE
+
+	if(recipe.placement_checks & STACK_CHECK_ADJACENT)
+		if(locate(recipe.result_type) in range(1, dest_turf))
+			builder.balloon_alert(builder, "can't be near another!")
+			return FALSE
+
 	return TRUE
 
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return FALSE = borked; return TRUE = had enough
@@ -403,6 +498,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
 /obj/item/stack/tool_use_check(mob/living/user, amount)
 	if(get_amount() < amount)
+		// general balloon alert that says they don't have enough
+		user.balloon_alert(user, "not enough material!")
+		// then a more specific message about how much they need and what they need specifically
 		if(singular_name)
 			if(amount > 1)
 				to_chat(user, span_warning("You need at least [amount] [singular_name]\s to do this!"))
@@ -585,53 +683,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 /obj/item/stack/microwave_act(obj/machinery/microwave/M)
 	if(istype(M) && M.dirty < 100)
 		M.dirty += amount
-
-/*
- * Recipe datum
- */
-/datum/stack_recipe
-	///The name of the recipe
-	var/title = "ERROR"
-	///The thing we get from doing the recipe
-	var/result_type
-	///The amount of type of material we need
-	var/req_amount = 1
-	///The amount of thing we make
-	var/res_amount = 1
-	///The maximum amount of thing we can get from crafting
-	var/max_res_amount = 1
-	///The time it takes to make
-	var/time = 0
-	///Can we have only one instance of recipe result per turf?
-	var/one_per_turf = FALSE
-	///Can we make the result on non-solid turfs (space)
-	var/on_floor = FALSE
-	///Do we do placement checks while placing the recipe?
-	var/placement_checks = FALSE
-	var/applies_mats = FALSE
-
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE)
-	src.title = title
-	src.result_type = result_type
-	src.req_amount = req_amount
-	src.res_amount = res_amount
-	src.max_res_amount = max_res_amount
-	src.time = time
-	src.one_per_turf = one_per_turf
-	src.on_floor = on_floor
-	src.placement_checks = placement_checks
-	src.applies_mats = applies_mats
-
-/*
- * Recipe list datum
- */
-/datum/stack_recipe_list
-	var/title = "ERROR"
-	var/list/recipes
-
-/datum/stack_recipe_list/New(title, recipes)
-	src.title = title
-	src.recipes = recipes
 
 #undef STACK_CHECK_CARDINALS
 #undef STACK_CHECK_ADJACENT
