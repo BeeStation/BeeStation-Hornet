@@ -205,6 +205,10 @@
 									"You feel tired.",
 									"You feel something skittering under your skin.",)
 
+// This program will always stay active and is entirely controled by the user
+/datum/nanite_program/protocol/unsafe_storage/consume_nanites(amount, force)
+	return TRUE
+
 /datum/nanite_program/protocol/unsafe_storage/enable_passive_effect()
 	. = ..()
 	// Slight nutrition cost increase, since we want the owner to starve

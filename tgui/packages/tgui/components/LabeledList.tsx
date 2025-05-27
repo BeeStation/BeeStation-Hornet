@@ -118,7 +118,5 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
   );
 };
 
-LabeledListDivider.defaultHooks = pureComponentHooks;
-
 LabeledList.Item = LabeledListItem;
 LabeledList.Divider = LabeledListDivider;

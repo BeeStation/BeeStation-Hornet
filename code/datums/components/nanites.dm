@@ -13,7 +13,7 @@
 	/// The amount of nanites we produce relative to the mobs hunger level
 	var/max_production_ratio = 1
 	/// At what point will nanites be unable to trigger.
-	var/safety_threshold = NUTRITION_LEVEL_STARVING
+	var/safety_threshold = 50
 	/// 0 if not connected to the cloud, 1-100 to set a determined cloud backup to draw from
 	var/cloud_id = 0
 	/// if false, won't sync to the cloud
