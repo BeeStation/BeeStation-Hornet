@@ -11,7 +11,7 @@
 	available_on_ntnet = FALSE
 	tgui_id = "NtosNotepad"
 	program_icon = "book"
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_PDA
 	/// Cooldown var for printing paper sheets.
 	COOLDOWN_DECLARE(printer_ready)
 
