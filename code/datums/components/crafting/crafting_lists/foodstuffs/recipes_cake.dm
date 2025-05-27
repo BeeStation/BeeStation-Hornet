@@ -8,7 +8,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/carrot = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/cheesecake
 	name = "Cheese cake"
@@ -17,7 +17,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/cheese/wedge = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/applecake
 	name = "Apple cake"
@@ -26,7 +26,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/apple = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/orangecake
 	name = "Orange cake"
@@ -35,7 +35,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/citrus/orange = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/limecake
 	name = "Lime cake"
@@ -44,7 +44,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/citrus/lime = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/lemoncake
 	name = "Lemon cake"
@@ -53,7 +53,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/citrus/lemon = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/chocolatecake
 	name = "Chocolate cake"
@@ -62,7 +62,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/chocolatebar = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/birthdaycake
 	name = "Birthday cake"
@@ -73,7 +73,7 @@
 		/datum/reagent/consumable/sugar = 5,
 		/datum/reagent/consumable/caramel = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/energycake
 	name = "Energy cake"
@@ -83,7 +83,7 @@
 		/obj/item/melee/energy/sword = 1,
 	)
 	result = /obj/item/food/cake/birthday/energy
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/braincake
 	name = "Brain cake"
@@ -92,7 +92,7 @@
 		/obj/item/organ/brain = 1,
 		/obj/item/food/cake/plain = 1
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/slimecake
 	name = "Slime cake"
@@ -101,7 +101,7 @@
 		/obj/item/slime_extract = 1,
 		/obj/item/food/cake/plain = 1
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/pumpkinspicecake
 	name = "Pumpkin spice cake"
@@ -110,7 +110,7 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/pumpkin = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/holycake
 	name = "Angel food cake"
@@ -119,7 +119,7 @@
 		/datum/reagent/water/holywater = 15,
 		/obj/item/food/cake/plain = 1
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/poundcake
 	name = "Pound cake"
@@ -127,7 +127,7 @@
 	reqs = list(
 		/obj/item/food/cake/plain = 4
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/hardwarecake
 	name = "Hardware cake"
@@ -137,7 +137,7 @@
 		/obj/item/circuitboard = 2,
 		/datum/reagent/toxin/acid = 5 //ironic that circuitmaking no longer need acids, but a cake that's a circuit still do
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/berry_chocolate_cake
 	name = "strawberry chocolate cake"
@@ -147,7 +147,7 @@
 		/obj/item/food/chocolatebar = 2,
 		/obj/item/food/grown/berries = 5
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/pavlovacream
 	name = "Pavlova with cream"
@@ -158,7 +158,7 @@
 		/obj/item/food/grown/berries = 5
 	)
 	result = /obj/item/food/cake/pavlova
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /*
 /datum/crafting_recipe/food/pavlovakorta
@@ -170,7 +170,7 @@
 		/obj/item/food/grown/berries = 5
 	)
 	result = /obj/item/food/cake/pavlova/nuts
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 */
 
 /datum/crafting_recipe/food/berry_vanilla_cake
@@ -180,28 +180,28 @@
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/berries = 5
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/clowncake
 	name = "clown cake"
-	always_available = FALSE
 	result = /obj/item/food/cake/clown_cake
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/sundae = 2,
 		/obj/item/food/grown/banana = 5
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/food/vanillacake
 	name = "vanilla cake"
-	always_available = FALSE
 	result = /obj/item/food/cake/vanilla_cake
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/vanillapod = 2
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/food/trumpetcake
 	name = "Spaceman's Cake"
@@ -212,7 +212,7 @@
 		/datum/reagent/consumable/cream = 5,
 		/datum/reagent/consumable/berryjuice = 5
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
 
 /datum/crafting_recipe/food/cak
 	name = "Living cat/cake hybrid"
@@ -226,7 +226,7 @@
 		/datum/reagent/consumable/sprinkles = 5,
 		/datum/reagent/teslium = 1 //To shock the whole thing into life
 	)
-	subcategory = CAT_CAKE //Cat! Haha, get it? CAT? GET IT? We get it - Love Felines
+	category = CAT_CAKE //Cat! Haha, get it? CAT? GET IT? We get it - Love Felines
 
 /datum/crafting_recipe/food/popup_cake
 	name = "Towering pile of cakes"
@@ -237,4 +237,4 @@
 	/datum/reagent/consumable/cream = 5,
 	/obj/item/bikehorn/airhorn = 1
 	)
-	subcategory = CAT_CAKE
+	category = CAT_CAKE
