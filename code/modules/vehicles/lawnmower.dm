@@ -4,23 +4,33 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "lawnmower"
 	uses_integrity = 1
+	max_integrity = 200
 	var/emagged = FALSE
 	var/emagged_by = null
 	var/list/drive_sounds = list('sound/effects/mowermove1.ogg', 'sound/effects/mowermove2.ogg')
 	var/list/gib_sounds = list('sound/effects/mowermovesquish.ogg')
+	var/normal_variant = TRUE // This is just so the lawnmower doesn't explode twice on destruction and for initializing.
 
 
 /obj/vehicle/ridden/lawnmower/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
+	if(normal_variant)
+		. = ..()
+		AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
+	else
+		. = ..()
+		AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower/nukie)
 
 /obj/vehicle/ridden/lawnmower/emagged
 	emagged = TRUE
 	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace. The safety light is off"
 
 /obj/vehicle/ridden/lawnmower/atom_destruction()
-	explosion(src, -1, 1, 2, 4, flame_range = 3)
-	. = ..()
+	if(normal_variant)
+		explosion(src, -1, 1, 2, 4, flame_range = 3)
+		. = ..()
+	else
+		explosion(src, -1, 3, 5, 7, flame_range = 5)
+		. = ..()
 
 /obj/vehicle/ridden/lawnmower/on_emag(mob/user)
 	. = ..()
@@ -100,28 +110,9 @@
 	desc = "A modified lawnmower with a custom paint job. There are no safety mechanisms on this model, rip and tear."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "syndi_lawnmower"
-	armor_type = /datum/armor/ridden_syndi_lawnmower
+	max_integrity = 150
 	emagged = TRUE
 	drive_sounds = list('sound/effects/mower_treads.ogg')
 	gib_sounds = list('sound/effects/splat.ogg')
+	normal_variant = FALSE
 
-/datum/armor/ridden_syndi_lawnmower
-	melee = 60
-	bullet = 70
-	laser = 70
-	bomb = 10
-	fire = 10
-	acid = 10
-
-/obj/vehicle/ridden/lawnmower/nukie/on_emag(mob/user)
-	. = ..()
-	to_chat(user, span_warning("There are no safety mechanisms on \the [src]!"))
-
-/obj/vehicle/ridden/lawnmower/nukie/Initialize(mapload)
-	. = ..()
-	RemoveElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
-	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower/nukie)
-
-/obj/vehicle/ridden/lawnmower/nukie/atom_destruction()
-	explosion(src, -1, 3, 5, 7, flame_range = 5)
-	. = ..()

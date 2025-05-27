@@ -166,7 +166,7 @@
 	set_vehicle_dir_layer(WEST, OBJ_LAYER)
 
 /datum/component/riding/vehicle/scooter/skateboard/wheelys
-	vehicle_move_delay = 1.5
+	vehicle_move_delay = 0
 
 /datum/component/riding/vehicle/scooter/skateboard/wheelys/handle_specials()
 	. = ..()
@@ -295,7 +295,6 @@
 /datum/component/riding/vehicle/lawnmower
 	vehicle_move_delay = 2
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-	empable = TRUE
 
 /datum/component/riding/vehicle/lawnmower/handle_specials()
 	. = ..()
@@ -304,4 +303,3 @@
 /datum/component/riding/vehicle/lawnmower/nukie
 	vehicle_move_delay = 1
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-	empable = TRUE
