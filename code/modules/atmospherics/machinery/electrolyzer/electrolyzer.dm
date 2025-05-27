@@ -38,21 +38,11 @@
 		cell = new cell(src)
 	SSair.start_processing_machine(src)
 	update_appearance()
-/* TODO: SCREEN TIPS
-	register_context()
 
-/obj/machinery/electrolyzer/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
-	context[SCREENTIP_CONTEXT_CTRL_LMB] = "Turn [on ? "off" : "on"]"
-	if(!held_item)
-		return CONTEXTUAL_SCREENTIP_SET
-	switch(held_item.tool_behaviour)
-		if(TOOL_SCREWDRIVER)
-			context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "Close" : "Open"] panel"
-		if(TOOL_WRENCH)
-			context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Unanchor" : "Anchor"]"
-	return CONTEXTUAL_SCREENTIP_SET
-*/
+/obj/machinery/electrolyzer/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_alt_click_action("Turn [on ? "off" : "on"]")
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] panel", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action(anchored ? "Unanchor" : "Anchor", TOOL_WRENCH)
 
 /obj/machinery/electrolyzer/Destroy()
 	if(cell)

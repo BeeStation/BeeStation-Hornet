@@ -38,7 +38,6 @@
 /obj/machinery/atmospherics/components/binary/crystallizer/Initialize(mapload)
 	. = ..()
 	internal = new
-	// TODO: register_context()
 
 /obj/machinery/atmospherics/components/binary/crystallizer/on_deconstruction(disassembled)
 	var/turf/local_turf = get_turf(loc)
@@ -46,19 +45,12 @@
 		local_turf.assume_air(internal)
 	. = ..()
 
-/* TODO:
-/obj/machinery/atmospherics/components/binary/crystallizer/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
-	context[SCREENTIP_CONTEXT_CTRL_LMB] = "Turn [on ? "off" : "on"]"
-	if(!held_item)
-		return CONTEXTUAL_SCREENTIP_SET
-	switch(held_item.tool_behaviour)
-		if(TOOL_SCREWDRIVER)
-			context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "Close" : "Open"] panel"
-		if(TOOL_WRENCH)
-			context[SCREENTIP_CONTEXT_RMB] = "Rotate"
-	return CONTEXTUAL_SCREENTIP_SET
-*/
+/obj/machinery/atmospherics/components/binary/crystallizer/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] panel", TOOL_SCREWDRIVER)
+
+	if(panel_open)
+		context.add_left_click_tool_action("Rotate", TOOL_WRENCH)
 
 /obj/machinery/atmospherics/components/binary/crystallizer/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!on)
@@ -66,7 +58,7 @@
 			return
 	if(default_change_direction_wrench(user, attacking_item))
 		return
-	return ..()
+	. = ..()
 
 /obj/machinery/atmospherics/components/binary/crystallizer/crowbar_act(mob/living/user, obj/item/tool)
 	return crowbar_deconstruction_act(user, tool, internal.return_pressure())
@@ -75,19 +67,19 @@
 	. = ..()
 	// Gas input
 	var/image/pipe_appearance1 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", dir, COLOR_LIME, piping_layer)
-	pipe_appearance1.layer = (dir == NORTH ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER)
+	pipe_appearance1.layer = (dir == NORTH) ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER
 	. += pipe_appearance1
 
 	// Heat moderation
 	var/image/pipe_appearance2 = get_pipe_image('icons/obj/atmospherics/components/thermomachine.dmi', "pipe", REVERSE_DIR(dir), COLOR_MOSTLY_PURE_RED, piping_layer)
-	pipe_appearance2.layer = (REVERSE_DIR(dir) == NORTH ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER)
+	pipe_appearance2.layer = (REVERSE_DIR(dir) == NORTH) ? GAS_SCRUBBER_LAYER : WALL_OBJ_LAYER
 	. += pipe_appearance2
 
 /obj/machinery/atmospherics/components/binary/crystallizer/update_icon_state()
 	. = ..()
 	if(panel_open)
 		icon_state = "[base_icon_state]-open"
-	else if(on && is_operational && selected_recipe)
+	else if(on && is_operational)
 		icon_state = "[base_icon_state]-on"
 	else
 		icon_state = "[base_icon_state]-off"
