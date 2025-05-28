@@ -46,7 +46,7 @@ const binaryInsertPreference = (collection: PreferenceChild[], value: Preference
 
 const sortByName = (array: [string, PreferenceChild[]][]) => sortBy(array, ([name]) => name);
 
-export const GamePreferencesPage = (props, context) => {
+export const GamePreferencesPage = (props) => {
   const { act, data } = useBackend<PreferencesMenuData>();
   let [searchText, setSearchText] = useLocalState('game_prefs_searchText', '');
   const [advancedSettings, setAdvancedSettings] = useLocalState('game_prefs_advanced_settings', false);

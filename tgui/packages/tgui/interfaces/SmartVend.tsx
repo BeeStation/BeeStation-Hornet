@@ -25,9 +25,7 @@ export const SmartVend = (props) => {
           title="Storage"
           buttons={
             !!data.isdryer && (
-              <Button
-                icon={data.drying ? 'stop' : 'tint'}
-                onClick={() => act('Dry')}>
+              <Button icon={data.drying ? 'stop' : 'tint'} onClick={() => act('Dry')}>
                 {data.drying ? 'Stop drying' : 'Dry'}
               </Button>
             )
