@@ -380,9 +380,9 @@
 		/obj/item/stack/cable_coil = 12,
 		/obj/item/inducer =  1,
 	)
-	tools = list(TOOL_WELDER)
+	tool_behaviors = list(TOOL_WELDER)
 	time = 5 SECONDS
-	category = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/rebarxbowforced
@@ -395,7 +395,7 @@
 		/obj/item/gun/ballistic/rifle/rebarxbow/forced,
 		/obj/item/gun/ballistic/rifle/rebarxbow/syndie,
 	)
-	tools = list(TOOL_CROWBAR)
+	tool_behaviors = list(TOOL_CROWBAR)
 	time = 1 SECONDS
-	category = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE

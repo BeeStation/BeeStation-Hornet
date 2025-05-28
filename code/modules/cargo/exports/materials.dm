@@ -80,33 +80,30 @@
 	material_id = /datum/material/bluespace
 
 /datum/export/material/plastic
-	cost = 25
 	message = "cm3 of plastic"
 	material_id = /datum/material/plastic
 
 /datum/export/material/iron
-	cost = 5
-	message = "cm3 of metal"
+	message = "cm3 of iron"
 	material_id = /datum/material/iron
 	export_types = list(
 		/obj/item/stack/sheet/iron, /obj/item/stack/tile/iron,
 		/obj/item/stack/rods, /obj/item/stack/ore, /obj/item/coin)
 
 /datum/export/material/glass
-	cost = 5
 	message = "cm3 of glass"
 	material_id = /datum/material/glass
 	export_types = list(/obj/item/stack/sheet/glass, /obj/item/stack/ore,
 		/obj/item/shard)
 
 /datum/export/material/hot_ice
-	cost = CARGO_CRATE_VALUE * 0.8
+	cost = 160
 	message = "cm3 of Hot Ice"
 	material_id = /datum/material/hot_ice
 	export_types = /obj/item/stack/sheet/hot_ice
 
 /datum/export/material/metal_hydrogen
-	cost = CARGO_CRATE_VALUE * 1.05
+	cost = 210
 	message = "cm3 of metallic hydrogen"
 	material_id = /datum/material/metalhydrogen
 	export_types = /obj/item/stack/sheet/mineral/metal_hydrogen
