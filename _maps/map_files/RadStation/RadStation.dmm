@@ -1960,6 +1960,7 @@
 /obj/machinery/computer/upload/ai{
 	dir = 4
 	},
+/obj/machinery/camera/motion/directional/west,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai_upload)
 "aDI" = (
@@ -23573,7 +23574,6 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/machinery/camera/motion/directional/north,
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
@@ -73569,7 +73569,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "xXI" = (
-/obj/machinery/camera/motion/directional/south,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 6
 	},
