@@ -18,12 +18,35 @@ const selectRemappedStaticData = (data) => {
   const node_cache = {};
   for (let id of Object.keys(data.static_data.node_cache)) {
     const node = data.static_data.node_cache[id];
+    const prereq_ids = [];
+    const design_ids = [];
+    const unlock_ids = [];
+
+    // Convert map operations to traditional loops
+    if (node.prereq_ids) {
+      for (let i = 0; i < node.prereq_ids.length; i++) {
+        prereq_ids.push(remapId(node.prereq_ids[i]));
+      }
+    }
+
+    if (node.design_ids) {
+      for (let i = 0; i < node.design_ids.length; i++) {
+        design_ids.push(remapId(node.design_ids[i]));
+      }
+    }
+
+    if (node.unlock_ids) {
+      for (let i = 0; i < node.unlock_ids.length; i++) {
+        unlock_ids.push(remapId(node.unlock_ids[i]));
+      }
+    }
+
     node_cache[remapId(id)] = {
       ...node,
       id: remapId(id),
-      prereq_ids: map(node.prereq_ids || [], remapId),
-      design_ids: map(node.design_ids || [], remapId),
-      unlock_ids: map(node.unlock_ids || [], remapId),
+      prereq_ids: prereq_ids,
+      design_ids: design_ids,
+      unlock_ids: unlock_ids,
     };
   }
 
@@ -214,42 +237,65 @@ const TechwebRouter = (props) => {
 
 const TechwebOverview = (props) => {
   const { act, data } = useRemappedBackend();
-  const { nodes, node_cache, design_cache } = data;
+  const { nodes, node_cache, design_cache, points } = data;
+
+  // Add safety check for required data
+  if (!nodes || !node_cache || !design_cache) {
+    return null;
+  }
+
   const [tabIndex, setTabIndex] = useLocalState('overviewTabIndex', 1);
   const [searchText, setSearchText] = useLocalState('searchText');
 
+  const renderNodes = (nodeArray) => {
+    const elements = [];
+    for (let i = 0; i < nodeArray.length; i++) {
+      const each_node = nodeArray[i];
+      elements.push(<TechNode node={each_node} key={each_node.id} />);
+    }
+    return elements;
+  };
+
   const filterSearchNodes = (target_nodes) => {
-    const filtered_search_nodes = target_nodes.filter((x) => {
+    const filtered_search_nodes = [];
+    for (let i = 0; i < target_nodes.length; i++) {
+      const x = target_nodes[i];
       const n = node_cache[x.id];
-      return (
-        n.name.toLowerCase().includes(searchText) ||
-        n.description.toLowerCase().includes(searchText) ||
-        n.design_ids.some((e) => design_cache[e].name.toLowerCase().includes(searchText))
-      );
-    });
+      if (!n) continue;
+
+      if (
+        n.name?.toLowerCase().includes(searchText) ||
+        n.description?.toLowerCase().includes(searchText) ||
+        hasMatchingDesign(n.design_ids)
+      ) {
+        filtered_search_nodes.push(x);
+      }
+    }
     return filtered_search_nodes;
   };
+
+  const hasMatchingDesign = (design_ids) => {
+    if (!design_ids) return false;
+    for (let i = 0; i < design_ids.length; i++) {
+      const design = design_cache[design_ids[i]];
+      if (design?.name?.toLowerCase().includes(searchText)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const searching = searchText && searchText.trim().length > 1;
 
-  let displayedNodes = nodes;
-  let researchednodes = nodes;
-  let futurenodes = nodes;
-  displayedNodes = sortBy(
-    tabIndex < 2 ? nodes.filter((x) => x.tier === tabIndex) : nodes.filter((x) => x.tier >= tabIndex),
-    (x) => node_cache[x.id].name
-  );
-  researchednodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 1));
-  futurenodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 2));
+  let displayedNodes = nodes.filter((x) => x.tier === 0);
+  let researchednodes = nodes.filter((x) => x.tier === 1);
+  let futurenodes = nodes.filter((x) => x.tier === 2);
+
   if (searching) {
     displayedNodes = filterSearchNodes(displayedNodes);
     researchednodes = filterSearchNodes(researchednodes);
     futurenodes = filterSearchNodes(futurenodes);
   }
-
-  const switchTab = (tab) => {
-    setTabIndex(tab);
-    setSearchText(null);
-  };
 
   return (
     <Flex direction="column" height="100%">
@@ -268,42 +314,18 @@ const TechwebOverview = (props) => {
       </Flex.Item>
       <Flex.Item className={'Techweb__OverviewNodes'} height="100%">
         <Flex height="100%">
-          {!searching && ( // is not searching
+          {!searching && (
             <>
-              <Flex.Item mr={1}>
-                {displayedNodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
-                })}
-              </Flex.Item>
-              <Flex.Item mr={1}>
-                {researchednodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
-                })}
-              </Flex.Item>
-              <Flex.Item mr={1}>
-                {futurenodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
-                })}
-              </Flex.Item>
+              <Flex.Item mr={1}>{renderNodes(displayedNodes)}</Flex.Item>
+              <Flex.Item mr={1}>{renderNodes(researchednodes)}</Flex.Item>
+              <Flex.Item mr={1}>{renderNodes(futurenodes)}</Flex.Item>
             </>
           )}
-          {!!searching && ( // is searching
+          {!!searching && (
             <>
-              <Flex.Item mr={1}>
-                {displayedNodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
-                })}
-              </Flex.Item>
-              <Flex.Item mr={1}>
-                {researchednodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
-                })}
-              </Flex.Item>
-              <Flex.Item mr={1}>
-                {futurenodes.map((each_node) => {
-                  return <TechNode node={each_node} key={each_node.id} />;
-                })}
-              </Flex.Item>
+              <Flex.Item mr={1}>{renderNodes(displayedNodes)}</Flex.Item>
+              <Flex.Item mr={1}>{renderNodes(researchednodes)}</Flex.Item>
+              <Flex.Item mr={1}>{renderNodes(futurenodes)}</Flex.Item>
             </>
           )}
         </Flex>
@@ -317,7 +339,18 @@ const TechwebNodeDetail = (props) => {
   const { nodes } = data;
   const { selectedNode } = props;
 
-  const selectedNodeData = selectedNode && nodes.find((x) => x.id === selectedNode);
+  // Add safety check for selectedNode
+  if (!selectedNode || !nodes) {
+    return null;
+  }
+
+  const selectedNodeData = nodes.find((x) => x.id === selectedNode);
+
+  // Add safety check for selectedNodeData
+  if (!selectedNodeData) {
+    return null;
+  }
+
   return <TechNodeDetail node={selectedNodeData} />;
 };
 
@@ -619,6 +652,12 @@ const TechNode = (props) => {
   const { act, data } = useRemappedBackend();
   const { node_cache, design_cache, points, compact, researchable, tech_tier } = data;
   const { node, nodetails, nocontrols, destructive } = props;
+
+  // Add safety check for node and id
+  if (!node || !node.id || !node_cache[node.id]) {
+    return null;
+  }
+
   const { id, can_unlock, tier, costs } = node;
   const { name, description, design_ids, prereq_ids, node_tier } = node_cache[id];
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
