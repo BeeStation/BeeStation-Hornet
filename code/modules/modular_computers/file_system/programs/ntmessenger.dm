@@ -16,6 +16,8 @@
 	program_icon = "comment-alt"
 	alert_able = TRUE
 
+	/// Whether the user is invisible to the message list.
+	var/invisible = FALSE
 	/// The current ringtone (displayed in the chat when a message is received).
 	var/ringtone = "beep"
 	/// Whether or not the ringtone is currently on.
@@ -76,7 +78,7 @@
 		if(!drive)
 			continue
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
-			if(!P.saved_identification || !P.saved_job || P.messenger_invisible || app.monitor_hidden)
+			if(!P.saved_identification || !P.saved_job || app.invisible || app.monitor_hidden)
 				continue
 			dictionary += P
 

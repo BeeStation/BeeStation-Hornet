@@ -19,16 +19,28 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"aI" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "181"
-	},
+"az" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
+/area/shuttle/hunter)
+"aN" = (
+/obj/machinery/power/apc/auto_name/directional/north{
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
+	dir = 1
+	},
+/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "aS" = (
 /obj/structure/curtain/bounty,
@@ -81,6 +93,19 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
+"dH" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/airalarm/directional/north,
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
 "ei" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -99,14 +124,14 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
-"fp" = (
+"fD" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/structure/sign/poster/official/ian{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 4
 	},
 /turf/open/floor/iron/ridged/steel,
@@ -117,27 +142,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark,
-/area/shuttle/hunter)
-"gu" = (
-/obj/structure/lattice/catwalk/over,
-/obj/item/trash/semki,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating/rust,
-/area/shuttle/hunter)
-"gW" = (
-/obj/structure/tank_dispenser/oxygen,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "hn" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -152,25 +156,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/robot_debris,
 /turf/open/floor/iron/tech/grid,
-/area/shuttle/hunter)
-"hO" = (
-/obj/effect/turf_decal/edges/techfloor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"ie" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden,
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/shuttle/hunter)
 "iD" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -217,6 +202,17 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
+"jA" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/shuttle/hunter)
 "jC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -255,17 +251,15 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"lw" = (
-/obj/effect/turf_decal/tile/black/fourcorners/contrasted,
-/obj/effect/turf_decal/delivery/white,
-/obj/machinery/airalarm/directional/south{
-	req_access = null;
-	req_access_txt = "181"
+"ls" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 5
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter{
-	dir = 4
+/obj/item/trash/candy,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
+	dir = 8
 	},
-/turf/open/floor/iron/ridged/steel,
+/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "mn" = (
 /obj/structure/railing{
@@ -308,30 +302,8 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
-"ne" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/shuttle/hunter)
 "nn" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/shuttle/hunter)
-"nD" = (
-/obj/structure/lattice/catwalk/over,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating/rust,
 /area/shuttle/hunter)
 "nL" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -339,18 +311,28 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"od" = (
+"nY" = (
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/shuttle/hunter)
+"oH" = (
+/obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/north,
-/obj/machinery/light/small,
+/obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
+	pixel_y = 32
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "oX" = (
 /turf/open/floor/iron/stairs/left,
@@ -364,7 +346,15 @@
 /obj/effect/turf_decal/bot/left,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"pK" = (
+"pC" = (
+/obj/effect/turf_decal/edges/techfloor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
+"qj" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/arrows{
 	pixel_y = 15;
@@ -413,6 +403,15 @@
 /obj/structure/curtain/bounty,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech/grid,
+/area/shuttle/hunter)
+"qS" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "rb" = (
 /obj/effect/turf_decal/delivery,
@@ -487,13 +486,17 @@
 /obj/machinery/suit_storage_unit/bounty,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"vF" = (
-/obj/structure/lattice/catwalk/over,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 8
+"uM" = (
+/obj/effect/turf_decal/tile/black/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/airalarm/directional/south{
+	req_access = null;
+	req_access_txt = "181"
 	},
-/turf/open/floor/plating,
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
+	dir = 4
+	},
+/turf/open/floor/iron/ridged/steel,
 /area/shuttle/hunter)
 "vW" = (
 /obj/structure/chair/fancy/shuttle{
@@ -508,6 +511,31 @@
 	req_access = null
 	},
 /turf/open/floor/iron/tech,
+/area/shuttle/hunter)
+"wD" = (
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/grille/broken,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
+"xf" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 10
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/shuttle/hunter)
 "yl" = (
 /obj/machinery/power/port_gen/pacman,
@@ -540,41 +568,12 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
-"zm" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"zn" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/sign/poster/contraband/missing_gloves{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/shuttle/hunter)
 "zz" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron/grid/steel,
-/area/shuttle/hunter)
-"AT" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/shuttle/hunter)
 "BE" = (
 /obj/structure/fluff/empty_sleeper{
@@ -584,6 +583,29 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/delivery/white,
 /turf/open/floor/iron/ridged/steel,
+/area/shuttle/hunter)
+"BF" = (
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/structure/guncase{
+	req_access_txt = "181"
+	},
+/obj/item/gun/ballistic/shotgun/hook{
+	pixel_y = 6
+	},
+/obj/item/gun/energy/e_gun/mini,
+/obj/item/gun/energy/e_gun/mini,
+/obj/item/gun/energy/recharge/ebow/large{
+	pixel_y = -8;
+	pin = /obj/item/firing_pin
+	},
+/obj/structure/sign/poster/official/twelve_gauge{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "CZ" = (
 /obj/effect/turf_decal/edges/techfloor/corners{
@@ -602,32 +624,37 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"Fz" = (
-/obj/structure/table/reinforced{
-	color = "#c1b6a5"
+"De" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
-	},
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/crap{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/high/empty,
-/obj/item/trash/can{
-	pixel_x = -9
-	},
-/obj/item/stack/sheet/mineral/plasma/fifty{
-	pixel_y = -8;
-	pixel_x = 4
-	},
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 9
+	dir = 8
 	},
-/turf/open/floor/iron/tech,
+/turf/open/floor/plating/rust,
+/area/shuttle/hunter)
+"ES" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_y = 32
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"Fv" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
+	dir = 8
+	},
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "Gx" = (
 /obj/structure/railing{
@@ -655,6 +682,17 @@
 /turf/open/floor/plating/elevatorshaft{
 	color = "#808080"
 	},
+/area/shuttle/hunter)
+"GA" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	req_access_txt = "181"
+	},
+/obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "GG" = (
 /obj/effect/turf_decal/edges/techfloor,
@@ -685,29 +723,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
-"IF" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 5
-	},
-/obj/item/trash/candy,
-/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
+"IB" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"Jh" = (
-/obj/machinery/power/apc/auto_name/directional/north{
-	cell_type = /obj/item/stock_parts/cell/high/plus;
-	req_access = list(181)
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
-	dir = 1
-	},
-/turf/open/floor/iron/tech,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "JK" = (
 /obj/machinery/recharger,
@@ -748,19 +770,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"Lb" = (
-/obj/structure/lattice/catwalk/over,
-/obj/effect/decal/cleanable/glass,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 10
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/shuttle/hunter)
 "Lo" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/hunter)
@@ -781,20 +790,6 @@
 	pixel_x = -32
 	},
 /turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"Ly" = (
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/delivery/white,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/mob_spawn/human/fugitive_hunter{
-	dir = 8
-	},
-/turf/open/floor/iron/ridged/steel,
 /area/shuttle/hunter)
 "LE" = (
 /turf/open/floor/iron/stairs/right,
@@ -889,18 +884,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"Oi" = (
-/obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/grille/broken,
-/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
 "Pl" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -913,31 +896,35 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/hunter)
-"Rz" = (
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/structure/guncase{
-	req_access_txt = "181"
-	},
-/obj/item/gun/ballistic/shotgun/hook{
-	pixel_y = 6
-	},
-/obj/item/gun/energy/e_gun/mini,
-/obj/item/gun/energy/e_gun/mini,
-/obj/item/gun/energy/recharge/ebow/large{
-	pixel_y = -8;
-	pin = /obj/item/firing_pin
-	},
-/obj/structure/sign/poster/official/twelve_gauge{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/hunter)
 "RD" = (
 /turf/open/floor/iron/techmaint,
+/area/shuttle/hunter)
+"Sf" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/crap{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/stock_parts/cell/high/empty,
+/obj/item/trash/can{
+	pixel_x = -9
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty{
+	pixel_y = -8;
+	pixel_x = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 9
+	},
+/turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "Su" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -947,36 +934,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
-"TV" = (
-/obj/structure/table/reinforced{
-	color = "#c1b6a5"
-	},
-/obj/item/rack_parts{
-	pixel_x = 5;
-	pixel_y = 1
-	},
-/obj/item/rack_parts{
-	pixel_y = -2
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = -4
-	},
-/obj/item/clothing/mask/gas{
-	pixel_x = -4
-	},
+"TB" = (
+/obj/structure/lattice/catwalk/over,
+/obj/item/trash/semki,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
-"TW" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
-/turf/open/floor/plating,
+/turf/open/floor/plating/rust,
 /area/shuttle/hunter)
 "Uw" = (
 /obj/machinery/computer/crew{
@@ -1013,6 +977,42 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/light,
 /turf/open/floor/pod/dark,
+/area/shuttle/hunter)
+"Wa" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/rack_parts{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/obj/item/rack_parts{
+	pixel_y = -2
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -4
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
+"WT" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/structure/sign/poster/official/work_for_a_future{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
+	dir = 8
+	},
+/turf/open/floor/iron/ridged/steel,
 /area/shuttle/hunter)
 "XH" = (
 /obj/structure/railing/corner,
@@ -1143,13 +1143,13 @@ UI
 UI
 kj
 nn
-nD
+De
 nn
 Mq
 ZJ
 VH
 nn
-od
+dH
 nn
 kj
 UI
@@ -1158,60 +1158,60 @@ UI
 nn
 Pl
 nn
-vF
+IB
 nn
 rb
 ZJ
 ZQ
 nn
-zn
+ES
 nn
 Pl
 nn
 "}
 (6,1,1) = {"
 nn
-gW
+oH
 Lr
-vF
+IB
 nn
 nn
 MQ
 nn
 nn
-gu
+TB
 sZ
-Oi
+wD
 nn
 "}
 (7,1,1) = {"
 nn
-Jh
-hO
-ie
+aN
+pC
+jA
 Vx
 JK
 jC
 Vx
 yl
-pK
+qj
 Su
-TV
+Wa
 NG
 "}
 (8,1,1) = {"
 nn
 jw
 GG
-Lb
-aI
-zm
-AT
-aI
-ne
-TW
-IF
-Fz
+xf
+GA
+az
+nY
+GA
+Fv
+qS
+ls
+Sf
 nn
 "}
 (9,1,1) = {"
@@ -1253,8 +1253,8 @@ sc
 ri
 nn
 mn
-fp
-lw
+fD
+uM
 nn
 UI
 UI
@@ -1299,7 +1299,7 @@ ms
 nn
 Gx
 BE
-Ly
+WT
 nn
 UI
 UI
@@ -1339,7 +1339,7 @@ UI
 UI
 UI
 nn
-Rz
+BF
 Yj
 MR
 rY

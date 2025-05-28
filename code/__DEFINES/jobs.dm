@@ -16,6 +16,9 @@
 #define DEFAULT_DEITY "Space Jesus"
 #define DEFAULT_BIBLE "The Bible"
 
+#define FACTION_NONE "None"
+#define FACTION_STATION "Station"
+
 #define JOB_DISPLAY_ORDER_DEFAULT 0
 
 #define JOB_DISPLAY_ORDER_ASSISTANT 1

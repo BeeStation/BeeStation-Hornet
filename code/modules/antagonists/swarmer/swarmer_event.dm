@@ -17,7 +17,7 @@
 /datum/round_event/spawn_swarmer/start()
 	if(find_swarmer())
 		return FALSE // There already is active swarmers
-	new /obj/effect/mob_spawn/swarmer(pick(GLOB.xeno_spawn))
+	new /obj/effect/mob_spawn/ghost_role/swarmer(pick(GLOB.xeno_spawn))
 	if(prob(25)) //25% chance to announce it to the crew
 		announce_swarmer()
 

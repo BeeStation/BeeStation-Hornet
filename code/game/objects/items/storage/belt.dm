@@ -455,8 +455,8 @@
 		))
 
 
-/obj/item/storage/belt/mining/vendor
-	contents = newlist(/obj/item/survivalcapsule)
+/obj/item/storage/belt/mining/vendor/PopulateContents()
+	new /obj/item/survivalcapsule(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"

@@ -25,10 +25,6 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
-"e" = (
-/obj/effect/mob_spawn/human/corpse/zombie,
-/turf/open/floor/iron/tiled,
-/area/ruin/unpowered)
 "f" = (
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron,
@@ -148,6 +144,10 @@
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
+"F" = (
+/obj/effect/mob_spawn/corpse/human/zombie,
+/turf/open/floor/iron/tiled,
+/area/ruin/unpowered)
 "G" = (
 /obj/structure/table/glass,
 /turf/open/floor/wood,
@@ -194,23 +194,7 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
-"P" = (
-/obj/structure/chair/fancy/corp{
-	dir = 1
-	},
-/turf/open/floor/carpet/orange,
-/area/ruin/unpowered)
-"Q" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/ruin/unpowered)
-"R" = (
-/obj/structure/falsewall,
-/turf/open/floor/iron/tiled,
-/area/ruin/unpowered)
-"S" = (
+"O" = (
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape{
 	default_raw_text = "lol";
 	pixel_x = 3;
@@ -226,6 +210,22 @@
 	pixel_y = -1
 	},
 /turf/open/floor/wood,
+/area/ruin/unpowered)
+"P" = (
+/obj/structure/chair/fancy/corp{
+	dir = 1
+	},
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
+"Q" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"R" = (
+/obj/structure/falsewall,
+/turf/open/floor/iron/tiled,
 /area/ruin/unpowered)
 "T" = (
 /obj/effect/turf_decal/tile/purple{
@@ -318,7 +318,7 @@ m
 m
 s
 j
-S
+O
 h
 h
 h
@@ -397,7 +397,7 @@ h
 h
 R
 l
-e
+F
 j
 "}
 (10,1,1) = {"

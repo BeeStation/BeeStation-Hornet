@@ -139,7 +139,7 @@ SUBSYSTEM_DEF(traumas)
 
 		"robots"   = typecacheof(list(
 			/obj/machinery/computer/upload, /obj/item/aiModule/, /obj/machinery/recharge_station,
-			/obj/item/aicard, /obj/item/deactivated_swarmer, /obj/effect/mob_spawn/swarmer)),
+			/obj/item/aicard, /obj/item/deactivated_swarmer, /obj/effect/mob_spawn/ghost_role/swarmer)),
 
 		"doctors"   = typecacheof(list(
 			/obj/item/clothing/under/rank/medical, /obj/item/clothing/under/rank/medical/chemist,

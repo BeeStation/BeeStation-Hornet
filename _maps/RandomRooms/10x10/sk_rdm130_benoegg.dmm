@@ -23,7 +23,7 @@
 "f" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/mob_spawn/corpse/human/damaged,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (

@@ -1,16 +1,16 @@
-/obj/effect/mob_spawn/human/fugitive_hunter
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter
 	name = "Fugitive Hunter pod"
 	desc = "A small sleeper typically used to make long distance travel a bit more bearable."
 	mob_name = "a fugitive hunter"
+	prompt_name = "UNDEFINED HUNTER, FIX YOUR SHIT"
+	you_are_text = "UNDEFINED HUNTER, FIX YOUR SHIT"
+	flavour_text = "UNDEFINED HUNTER, FIX YOUR SHIT"
 	assignedrole = ROLE_FUGITIVE_HUNTER
-	roundstart = FALSE
-	death = FALSE
-	random = TRUE
-	show_flavour = FALSE
+	show_flavor = FALSE
 	density = TRUE
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
-	banType = ROLE_FUGITIVE_HUNTER
+	role_ban = ROLE_FUGITIVE_HUNTER
 	is_antagonist = TRUE
 	/// This is set by the shuttle template
 	var/datum/fugitive_type/hunter/backstory
@@ -18,12 +18,13 @@
 	/// If this pod can use the leader spawn
 	var/use_leader_spawn = FALSE
 
-/obj/effect/mob_spawn/human/fugitive_hunter/leader
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/leader
 	name = "Fugitive Hunter Leader pod"
 	mob_name = "a fugitive hunter leader"
 	use_leader_spawn = TRUE
 
-/obj/effect/mob_spawn/human/fugitive_hunter/special(mob/living/carbon/human/new_spawn)
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/special(mob/living/carbon/human/new_spawn)
+	. = ..()
 	var/leader = FALSE
 	if(backstory.has_leader && !leader_spawned && use_leader_spawn)
 		leader_spawned = TRUE
@@ -40,7 +41,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(new_spawn)] has been made into a Fugitive Hunter by an event.")
 	log_game("[key_name(new_spawn)] was spawned as a Fugitive Hunter by an event.")
 
-/obj/effect/mob_spawn/human/fugitive_hunter/Destroy()
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
 	S.setDir(dir)
 	return ..()
