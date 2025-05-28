@@ -458,7 +458,7 @@
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "mR" = (
-/mob/living/simple_animal/cow{
+/mob/living/basic/cow{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	desc = "Stolen from a cow genetics lab, she can survive in a vacuum safely, her milk is also delicious!";
 	name = "Ol Betsy";
