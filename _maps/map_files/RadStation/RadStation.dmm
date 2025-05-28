@@ -6249,11 +6249,6 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
-"bZE" = (
-/obj/machinery/camera/motion/directional/south,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/ai)
 "bZF" = (
 /obj/structure/table/glass,
 /obj/item/assembly/igniter{
@@ -8184,6 +8179,11 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"cCQ" = (
+/obj/machinery/camera/motion/directional/south,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "cCS" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 4
@@ -22988,11 +22988,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
-"hvN" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "hvQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -34704,6 +34699,11 @@
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
+"luX" = (
+/obj/machinery/camera/motion/directional/west,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "luY" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -40447,11 +40447,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/catwalk_floor/iron,
 /area/quartermaster/sorting)
-"noT" = (
-/obj/machinery/camera/motion/directional/east,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/ai)
 "npf" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark/smooth_corner,
@@ -44728,6 +44723,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
+"oLZ" = (
+/obj/machinery/camera/motion/directional/east,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "oMm" = (
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/line{
@@ -61983,11 +61983,6 @@
 	},
 /turf/open/floor/plating,
 /area/space/nearstation)
-"uhr" = (
-/obj/machinery/camera/motion/directional/west,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/ai)
 "uhy" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/disposal/bin,
@@ -103429,7 +103424,7 @@ gsA
 gsA
 gsA
 gsA
-noT
+oLZ
 gsA
 gsA
 gsA
@@ -104195,7 +104190,7 @@ gsA
 gsA
 gsA
 gsA
-noT
+oLZ
 gsA
 jPr
 mTC
@@ -104960,7 +104955,7 @@ yeA
 yeA
 gsA
 gsA
-noT
+oLZ
 uTv
 uTv
 uTv
@@ -105985,7 +105980,7 @@ yeA
 yeA
 ewB
 gsA
-bZE
+cCQ
 uTv
 uTv
 uTv
@@ -107527,7 +107522,7 @@ yeA
 yeA
 ewB
 gsA
-bZE
+cCQ
 uTv
 uTv
 uTv
@@ -108558,7 +108553,7 @@ yeA
 yeA
 gsA
 gsA
-uhr
+luX
 uTv
 uTv
 uTv
@@ -109335,7 +109330,7 @@ gsA
 gsA
 gsA
 gsA
-uhr
+luX
 gsA
 lUN
 iCM
@@ -109348,7 +109343,7 @@ xOi
 fxY
 pZo
 bqF
-hvN
+gsA
 gsA
 gsA
 gsA
