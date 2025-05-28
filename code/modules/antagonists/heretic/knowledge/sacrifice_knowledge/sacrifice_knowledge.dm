@@ -438,7 +438,7 @@
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
 
 	// Could use a little pick-me-up...
-	sac_target.reagents?.add_reagent(/datum/reagent/eldritchkiss, 12) //this used to kill toxinlovers, hence the snowflake reagent
+	sac_target.reagents?.add_reagent(/datum/reagent/medicine/eldritchkiss, 12) //this used to kill toxinlovers, hence the snowflake reagent
 
 /**
  * This proc is called from [proc/return_target] if the target dies in the shadow realm.

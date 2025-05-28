@@ -627,7 +627,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
 
 	// Could use a little pick-me-up...
-	sac_target.reagents?.add_reagent(/datum/reagent/eldritchkiss, 12) //this used to kill toxinlovers, hence the snowflake reagent
+	sac_target.reagents?.add_reagent(/datum/reagent/medicine/eldritchkiss, 12) //this used to kill toxinlovers, hence the snowflake reagent
 	terror_count += 1
 	if(terror_count == 2)
 		message_admins("Floor Cluwne was deleted due to reaching its max terror count")

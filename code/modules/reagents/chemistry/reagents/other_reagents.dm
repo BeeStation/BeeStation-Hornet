@@ -680,7 +680,7 @@
 	taste_description = "brai...nothing in particular"
 
 /datum/reagent/mutationtoxin/goofzombie
-	name = "Zombie Mutation Toxin"
+	name = "Zombie? Mutation Toxin"
 	description = "An undead toxin... kinda..."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN
@@ -2129,9 +2129,6 @@
 	chem_flags = NONE
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
-/datum/reagent/peaceborg
-	chem_flags = CHEMICAL_NOT_DEFINED
-
 /datum/reagent/peaceborg/confuse
 	name = "Dizzying Solution"
 	description = "Makes the target off balance and dizzy."
@@ -2343,7 +2340,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	description = "The Hand of the Mansus is at your neck."
 	metabolization_rate = 1 * REM
 
-/datum/reagent/eldritchkiss
+/datum/reagent/medicine/eldritchkiss
 	name = "Eldritch Kiss"
 	description = "The lingering touch of eldritch hands pulses through your veins."
 	chem_flags = CHEMICAL_NOT_SYNTH
