@@ -3,7 +3,7 @@
 /datum/unit_test/reagent_container_sanity
 
 /datum/unit_test/reagent_container_sanity/Run()
-	for(var/entry in subtypesof(/obj/item/reagent_containers))
+	for(var/entry in subtypesof(/obj/item/reagent_containers) - /obj/item/reagent_containers/spray/cyborg) //cyborg sprayers dont work like regular sprayers
 		var/obj/item/reagent_containers/container = allocate(entry)
 		var/initialized_volume = 0
 		if(!length(container.list_reagents))

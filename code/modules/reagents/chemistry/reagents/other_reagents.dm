@@ -680,7 +680,7 @@
 	taste_description = "brai...nothing in particular"
 
 /datum/reagent/mutationtoxin/goofzombie
-	name = "Zombie? Mutation Toxin"
+	name = "Dessicated Mutation Toxin"
 	description = "An undead toxin... kinda..."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN
