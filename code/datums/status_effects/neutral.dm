@@ -274,3 +274,8 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+
+/datum/status_effect/nanite
+	id = "nanite"
+	tick_interval = -1
+	status_type = STATUS_EFFECT_MULTIPLE

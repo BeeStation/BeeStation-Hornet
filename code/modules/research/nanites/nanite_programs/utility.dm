@@ -7,6 +7,7 @@
 	var/pulse_cooldown = 0
 
 /datum/nanite_program/viral/register_extra_settings()
+	..()
 	extra_settings[NES_PROGRAM_OVERWRITE] = new /datum/nanite_extra_setting/type("Add To", list("Overwrite", "Add To", "Ignore"))
 	extra_settings[NES_CLOUD_OVERWRITE] = new /datum/nanite_extra_setting/number(0, 0, 100)
 
@@ -65,6 +66,7 @@
 	rogue_types = list(/datum/nanite_program/toxic)
 
 /datum/nanite_program/self_scan/register_extra_settings()
+	..()
 	extra_settings[NES_SCAN_TYPE] = new /datum/nanite_extra_setting/type("Medical", list("Medical", "Chemical", "Nanite"))
 
 /datum/nanite_program/self_scan/on_trigger(comm_message)
@@ -114,6 +116,7 @@
 	rogue_types = list(/datum/nanite_program/toxic)
 
 /datum/nanite_program/relay/register_extra_settings()
+	..()
 	extra_settings[NES_RELAY_CHANNEL] = new /datum/nanite_extra_setting/number(1, 1, 9999)
 
 /datum/nanite_program/relay/enable_passive_effect()
@@ -322,10 +325,13 @@
 	var/datum/action/innate/nanite_button/button
 
 /datum/nanite_program/dermal_button/register_extra_settings()
+	..()
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(1, 1, 9999)
 	extra_settings[NES_BUTTON_NAME] = new /datum/nanite_extra_setting/text("Button")
 	extra_settings[NES_ICON] = new /datum/nanite_extra_setting/type("power", list("one", "two", "three", "four", "five", "plus", "minus", "power"))
 	extra_settings[NES_COLOR] = new /datum/nanite_extra_setting/type("green", list("green", "red", "yellow", "blue"))
+	extra_settings[NES_COOLDOWN_TIME] = new /datum/nanite_extra_setting/number(0, 0, 9999)
+	extra_settings[NES_COOLDOWN_ID] = new /datum/nanite_extra_setting/number(0, 0, 9999)
 
 /datum/nanite_program/dermal_button/enable_passive_effect()
 	. = ..()
@@ -350,6 +356,14 @@
 								span_notice("You press the nanite button on your forearm."), null, 2)
 		var/datum/nanite_extra_setting/sent_code = extra_settings[NES_SENT_CODE]
 		SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, sent_code.get_value(), "a [name] program")
+
+/datum/nanite_program/dermal_button/receive_nanite_signal(code, source)
+	. = ..()
+	var/datum/nanite_extra_setting/cooldown_id = extra_settings[NES_COOLDOWN_ID]
+	var/datum/nanite_extra_setting/cooldown_time = extra_settings[NES_COOLDOWN_TIME]
+	var/cooldown_duration = cooldown_time.get_value()
+	if (code == cooldown_id.get_value() && cooldown_duration > 0)
+		button.start_cooldown(cooldown_duration * 10)
 
 /datum/action/innate/nanite_button
 	name = "Button"
@@ -377,6 +391,7 @@
 	var/active = FALSE
 
 /datum/nanite_program/dermal_button/toggle/register_extra_settings()
+	..()
 	extra_settings[NES_ACTIVATION_CODE] = new /datum/nanite_extra_setting/number(1, 1, 9999)
 	extra_settings[NES_DEACTIVATION_CODE] = new /datum/nanite_extra_setting/number(1, 1, 9999)
 	extra_settings[NES_BUTTON_NAME] = new /datum/nanite_extra_setting/text("Toggle")
@@ -403,6 +418,7 @@
 	var/datum/radio_frequency/radio_connection
 
 /datum/nanite_program/signaler/register_extra_settings()
+	..()
 	extra_settings[NES_SIGNAL_FREQUENCY] = new /datum/nanite_extra_setting/number(FREQ_SIGNALER, MIN_FREQ, MAX_FREQ)
 	extra_settings[NES_SIGNAL_CODE] = new /datum/nanite_extra_setting/number(DEFAULT_SIGNALER_CODE, 1, 99)
 

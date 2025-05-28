@@ -58,6 +58,9 @@
 #define NES_PRESSURE "Pressure"
 #define NES_HEALING_MODE "Healing Mode"
 #define NES_GAS_RELEASED "Gas Produced"
+#define NES_COOLDOWN_TIME "Cooldown Duration"
+#define NES_COOLDOWN_ID "Cooldown Activation Code"
+#define NES_STATUS_EFFECT "Active HUD"
 
 //Nanite Logic
 #define NL_AND "AND"

@@ -76,6 +76,9 @@
 		"NAND" = NL_NAND,
 	)
 
+	/// The status effect shown to the user while active
+	var/datum/status_effect/status_effect
+
 /datum/nanite_program/New()
 	. = ..()
 	register_extra_settings()
@@ -128,11 +131,17 @@
 ///Register extra settings by overriding this.
 ///extra_settings[name] = new typepath() for each extra setting
 /datum/nanite_program/proc/register_extra_settings()
+	SHOULD_CALL_PARENT(TRUE)
 	var/list/logictypes = list()
 	for(var/name in logic)
 		logictypes += name
 	extra_settings[NES_RULE_LOGIC] = new /datum/nanite_extra_setting/type("AND", logictypes)
-	return
+	var/static/list/status_effect_icons
+	if (!status_effect_icons)
+		status_effect_icons = list("None")
+		for (var/icon_state in icon_states(/atom/movable/screen/alert/status_effect::icon))
+			status_effect_icons += icon_state
+	extra_settings[NES_STATUS_EFFECT] = new /datum/nanite_extra_setting/type(status_effect_icons[1], status_effect_icons)
 
 ///You can override this if you need to have special behavior after setting certain settings.
 /datum/nanite_program/proc/set_extra_setting(setting, value)
@@ -302,10 +311,20 @@
 //Procs once when the program activates
 /datum/nanite_program/proc/enable_passive_effect()
 	passive_enabled = TRUE
+	var/datum/nanite_extra_setting/type/status_setting = extra_settings[NES_STATUS_EFFECT]
+	if (status_setting.get_value() == status_setting.types[1])
+		return
+	status_effect = host_mob.apply_status_effect(/datum/status_effect/nanite)
+	status_effect.linked_alert.icon_state = status_setting.get_value()
+	if (maximum_duration)
+		status_effect.duration = maximum_duration
+		status_effect.show_duration = TRUE
 
 //Procs once when the program deactivates
 /datum/nanite_program/proc/disable_passive_effect()
 	passive_enabled = FALSE
+	if (status_effect)
+		QDEL_NULL(status_effect)
 
 //Checks conditions then fires the nanite trigger effect
 /datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
