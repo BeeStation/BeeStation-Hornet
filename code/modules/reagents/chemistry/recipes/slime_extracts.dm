@@ -664,7 +664,7 @@
 
 /datum/chemical_reaction/slime/techshell
 	name = "Slime Techshell"
-	required_reagents = list(/datum/reagent/blackpowder = 5)
+	required_reagents = list(/datum/reagent/gunpowder = 5)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/crimson
 

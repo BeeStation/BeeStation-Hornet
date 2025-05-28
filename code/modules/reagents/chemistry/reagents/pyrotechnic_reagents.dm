@@ -94,8 +94,8 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "compressed bitterness"
 
-/datum/reagent/blackpowder
-	name = "Black Powder"
+/datum/reagent/gunpowder
+	name = "Gunpowder"
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
 	color = "#000000"
@@ -103,22 +103,22 @@
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	taste_description = "salt"
 
-/datum/reagent/blackpowder/on_new(data)
+/datum/reagent/gunpowder/on_new(data)
 	. = ..()
 	if(holder?.my_atom)
 		RegisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT, PROC_REF(on_ex_act))
 
-/datum/reagent/blackpowder/Destroy()
+/datum/reagent/gunpowder/Destroy()
 	if(holder?.my_atom)
 		UnregisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT)
 	return ..()
 
-/datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/gunpowder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	..()
 	if(isplasmaman(M))
 		M.hallucination += 5 * REM * delta_time
 
-/datum/reagent/blackpowder/proc/on_ex_act(atom/source, severity, target)
+/datum/reagent/gunpowder/proc/on_ex_act(atom/source, severity, target)
 	SIGNAL_HANDLER
 	if(source.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)
 		return
