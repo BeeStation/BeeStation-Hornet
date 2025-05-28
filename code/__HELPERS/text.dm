@@ -1154,3 +1154,8 @@ GLOBAL_LIST_INIT(numerals, list("1","2","3","4","5","6","7","8","9","0"))
 	if(!.)
 		. = "not measurable. Ask the space god for what's wrong with this drink."
 		CRASH("not valid booze power value is detected: [booze_power]")
+
+/// Returns TRUE if the input_text ends with the ending
+/proc/endswith(input_text, ending)
+	var/input_length = LAZYLEN(ending)
+	return !!findtext(input_text, ending, -input_length)
