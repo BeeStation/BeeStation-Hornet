@@ -6249,6 +6249,11 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
+"bZE" = (
+/obj/machinery/camera/motion/directional/south,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "bZF" = (
 /obj/structure/table/glass,
 /obj/item/assembly/igniter{
@@ -8179,10 +8184,6 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
-"cCQ" = (
-/obj/machinery/camera/motion/directional/south,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/ai)
 "cCS" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 4
@@ -12665,6 +12666,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "ebK" = (
@@ -14235,6 +14237,7 @@
 /area/solar/starboard/fore)
 "eBq" = (
 /obj/machinery/camera/motion/directional/west,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/aisat_interior)
 "eBs" = (
@@ -17361,6 +17364,7 @@
 /area/quartermaster/office)
 "fBB" = (
 /obj/machinery/camera/motion/directional/north,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "fBK" = (
@@ -22984,6 +22988,11 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
+"hvN" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space/nearstation)
 "hvQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -34695,10 +34704,6 @@
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
-"luX" = (
-/obj/machinery/camera/motion/directional/west,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/ai)
 "luY" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -40245,6 +40250,7 @@
 /area/maintenance/department/security)
 "nlK" = (
 /obj/structure/transit_tube/crossing,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "nlM" = (
@@ -40443,6 +40449,7 @@
 /area/quartermaster/sorting)
 "noT" = (
 /obj/machinery/camera/motion/directional/east,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
 "npf" = (
@@ -43633,6 +43640,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "osJ" = (
@@ -51178,6 +51186,7 @@
 /area/maintenance/solars/port/aft)
 "qKq" = (
 /obj/structure/transit_tube,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "qKB" = (
@@ -57452,6 +57461,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "sQn" = (
@@ -57961,6 +57971,19 @@
 /obj/effect/landmark/carpspawn,
 /turf/open/space/basic,
 /area/solar/port/fore)
+"sZc" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "sZA" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -61960,6 +61983,11 @@
 	},
 /turf/open/floor/plating,
 /area/space/nearstation)
+"uhr" = (
+/obj/machinery/camera/motion/directional/west,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ai_monitored/turret_protected/ai)
 "uhy" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/disposal/bin,
@@ -71612,6 +71640,7 @@
 /area/medical/medbay/lobby)
 "xoO" = (
 /obj/machinery/camera/motion/directional/north,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "xoS" = (
@@ -72953,6 +72982,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "xMx" = (
@@ -103137,17 +103167,17 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
@@ -103394,17 +103424,17 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
 noT
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
@@ -103415,7 +103445,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 yeA
 gsA
 gsA
@@ -103646,13 +103676,13 @@ yeA
 yeA
 ewB
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 oHr
 nHt
 cdU
@@ -103661,18 +103691,18 @@ sYL
 vNn
 oHr
 fBB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 ewB
 ewB
 ewB
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 gsA
 ewB
 ewB
@@ -103902,14 +103932,14 @@ yeA
 yeA
 ewB
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 xni
 xDV
 eft
@@ -103917,11 +103947,11 @@ tAH
 tZr
 koH
 vNn
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
@@ -103929,7 +103959,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 gsA
 gsA
 gsA
@@ -104158,15 +104188,15 @@ yeA
 yeA
 ewB
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 noT
-dfX
+gsA
 jPr
 mTC
 qxz
@@ -104178,13 +104208,13 @@ lsz
 fxY
 pZo
 bqF
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 ewB
 ewB
 ewB
@@ -104414,12 +104444,12 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -104436,14 +104466,14 @@ rMI
 prp
 bqF
 xoO
-dfX
-dfX
+gsA
+gsA
 yeA
 yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 gsA
 gsA
 gsA
@@ -104671,10 +104701,10 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -104692,15 +104722,15 @@ fWf
 maB
 sOs
 bqF
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 qBJ
 fKE
@@ -104928,8 +104958,8 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
+gsA
+gsA
 noT
 uTv
 uTv
@@ -104952,12 +104982,12 @@ gGj
 gGj
 gGj
 gGj
-dfX
+gsA
 yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 qBJ
 fvx
 luu
@@ -105184,9 +105214,9 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -105209,12 +105239,12 @@ gGj
 kkq
 rYL
 gGj
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 wsM
 tVL
 gtc
@@ -105440,9 +105470,9 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -105468,7 +105498,7 @@ sCL
 gGj
 gGj
 gGj
-dfX
+gsA
 yeA
 osA
 sQe
@@ -105697,9 +105727,9 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -105725,7 +105755,7 @@ jNH
 ecD
 kOQ
 rSx
-ebI
+sZc
 ebI
 xLY
 pXK
@@ -105954,8 +105984,8 @@ yeA
 yeA
 yeA
 ewB
-dfX
-cCQ
+gsA
+bZE
 uTv
 uTv
 uTv
@@ -105982,7 +106012,7 @@ xOb
 xOb
 xOb
 xOb
-dfX
+gsA
 yeA
 yeA
 sFE
@@ -106211,8 +106241,8 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -106239,7 +106269,7 @@ ist
 jYa
 aDF
 hnO
-dfX
+gsA
 yeA
 yeA
 dYh
@@ -106469,7 +106499,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 uTv
 uTv
 lGR
@@ -106496,7 +106526,7 @@ bam
 rYS
 iHf
 gUB
-dfX
+gsA
 yeA
 yeA
 pPE
@@ -106726,7 +106756,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 uTv
 uTv
 wey
@@ -106983,7 +107013,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 uTv
 uTv
 jMO
@@ -107010,7 +107040,7 @@ pUM
 pUM
 xXI
 vjK
-dfX
+gsA
 yeA
 yeA
 hMC
@@ -107239,8 +107269,8 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -107267,7 +107297,7 @@ dHx
 sdx
 hYU
 rPM
-dfX
+gsA
 yeA
 yeA
 dYh
@@ -107496,8 +107526,8 @@ yeA
 yeA
 yeA
 ewB
-dfX
-cCQ
+gsA
+bZE
 uTv
 uTv
 uTv
@@ -107524,7 +107554,7 @@ xOb
 xOb
 xOb
 xOb
-dfX
+gsA
 yeA
 yeA
 fah
@@ -107753,9 +107783,9 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -107780,10 +107810,10 @@ fAu
 waq
 fZf
 vWm
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
 pXK
 pXK
 gws
@@ -108010,9 +108040,9 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -108037,11 +108067,11 @@ tZd
 cAK
 ppZ
 iss
-dfX
-dfX
+gsA
+gsA
 yeA
-dfX
-dfX
+gsA
+gsA
 hMC
 lCO
 ueS
@@ -108268,9 +108298,9 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -108526,9 +108556,9 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-luX
+gsA
+gsA
+uhr
 uTv
 uTv
 uTv
@@ -108555,7 +108585,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 bLG
 ieC
 swK
@@ -108783,10 +108813,10 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -108804,15 +108834,15 @@ toG
 maB
 gJP
 bqF
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 bLG
 fKE
@@ -109040,12 +109070,12 @@ yeA
 yeA
 yeA
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 uTv
 uTv
 uTv
@@ -109062,14 +109092,14 @@ icM
 qIJ
 bqF
 xoO
-dfX
-dfX
+gsA
+gsA
 yeA
 yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 gsA
 gsA
 gsA
@@ -109298,15 +109328,15 @@ yeA
 yeA
 ewB
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-luX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+uhr
+gsA
 lUN
 iCM
 iNO
@@ -109318,13 +109348,13 @@ xOi
 fxY
 pZo
 bqF
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+hvN
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 ewB
 ewB
 ewB
@@ -109556,14 +109586,14 @@ yeA
 yeA
 ewB
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 fLi
 jFz
 uoq
@@ -109571,11 +109601,11 @@ nsQ
 eAs
 iJw
 bEF
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
@@ -109583,7 +109613,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 gsA
 gsA
 gsA
@@ -109814,13 +109844,13 @@ yeA
 yeA
 ewB
 ewB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 nHC
 dTD
 bEF
@@ -109829,18 +109859,18 @@ dDA
 jUH
 nHC
 fBB
-dfX
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 ewB
 ewB
 ewB
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
 gsA
 ewB
 ewB
@@ -110076,17 +110106,17 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
 eBq
-dfX
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
@@ -110097,7 +110127,7 @@ yeA
 yeA
 yeA
 yeA
-dfX
+gsA
 yeA
 gsA
 gsA
@@ -110333,17 +110363,17 @@ yeA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
-dfX
-dfX
-dfX
-dfX
+gsA
+gsA
+gsA
+gsA
 yeA
 yeA
 yeA
