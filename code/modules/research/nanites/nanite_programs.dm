@@ -316,6 +316,8 @@
 		return
 	status_effect = host_mob.apply_status_effect(/datum/status_effect/nanite)
 	status_effect.linked_alert.icon_state = status_setting.get_value()
+	status_effect.linked_alert.name = name
+	status_effect.linked_alert.desc = desc
 	if (maximum_duration)
 		status_effect.duration = maximum_duration
 		status_effect.show_duration = TRUE

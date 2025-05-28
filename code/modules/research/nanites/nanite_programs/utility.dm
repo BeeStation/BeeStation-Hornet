@@ -476,11 +476,11 @@
 	var/datum/nanite_extra_setting/gas_produced_setting = extra_settings[NES_GAS_RELEASED]
 	var/gas_produced = gas_produced_setting.get_value()
 	for (var/datum/gas/gas as anything in list(
-		/datum/gas/oxygen::name,
-		/datum/gas/nitrogen::name,
-		/datum/gas/carbon_dioxide::name,
-		/datum/gas/plasma::name,
-		/datum/gas/water_vapor::name,
+		/datum/gas/oxygen,
+		/datum/gas/nitrogen,
+		/datum/gas/carbon_dioxide,
+		/datum/gas/plasma,
+		/datum/gas/water_vapor,
 	))
 		if (gas::name != gas_produced)
 			continue

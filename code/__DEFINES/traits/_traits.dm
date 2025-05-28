@@ -45,6 +45,7 @@
 		} else { \
 			_L[_trait] = list(source); \
 			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(_trait), _trait); \
+			SEND_SIGNAL(target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} \
 	} while (0)
 
@@ -63,6 +64,7 @@
 		var/list/target_heap = _L[_trait];\
 		if (target_heap != null) { \
 			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} else { \
 			target_heap = list(); \
 			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
@@ -94,6 +96,7 @@
 			_head.add_cum += _additive_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
 			_target_list += new /datum/trait/add(_source, _additive_amount);\
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
@@ -129,6 +132,7 @@
 			_head.mult_cum *= _multiplicative_amount;\
 			_head.value = _head.add_cum * _head.mult_cum;\
 			_target_list += new /datum/trait/multiply(_source, _multiplicative_amount);\
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 		} else { \
 			_target_list = list(); \
 			_L[_trait] = _target_list;\
@@ -209,10 +213,10 @@
 		if (_L && _L[_trait]) { \
 			var/list/_heap = _L[_trait];\
 			REMOVE_TRAIT_IF(_target, _trait, _heap, (!_S && (_T != ROUNDSTART_TRAIT)) || (_T in _S)); \
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 			if (!length(_heap)) { \
 				_L -= _trait; \
 				SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait), _trait); \
-				SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 			}; \
 			if (!length(_L)) { \
 				_target.status_traits = null; \
@@ -233,10 +237,10 @@
 		if (_L && _L[_trait]) { \
 			var/list/_heap = _L[_trait];\
 			REMOVE_TRAIT_IF(_target, _trait, _heap, !(_T in _S)); \
+			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 			if (!length(_heap)) { \
 				_L -= _trait; \
 				SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait), _trait); \
-				SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 			}; \
 			if (!length(_L)) { \
 				_target.status_traits = null; \
@@ -254,10 +258,10 @@
 			for (var/_trait_key as anything in _L) { \
 				var/list/_heap = _L[_trait_key];\
 				REMOVE_TRAIT_IF(_target, _trait_key, _heap, !(_T in _sources_list)); \
+				SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait_key), _trait_key); \
 				if (!length(_heap)) { \
 					_L -= _trait_key; \
 					SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait_key), _trait_key); \
-					SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait_key), _trait_key); \
 				}; \
 			};\
 			if (!length(_L)) { \
@@ -275,10 +279,10 @@
 			for (var/_trait_key as anything in _L) { \
 				var/list/_heap = _L[_trait_key];\
 				REMOVE_TRAIT_IF(_target, _trait_key, _heap, (_T in _sources_list)); \
+				SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait_key), _trait_key); \
 				if (!length(_heap)) { \
 					_L -= _trait_key; \
 					SEND_SIGNAL(_target, SIGNAL_REMOVETRAIT(_trait_key), _trait_key); \
-					SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait_key), _trait_key); \
 				}; \
 			};\
 			if (!length(_L)) { \

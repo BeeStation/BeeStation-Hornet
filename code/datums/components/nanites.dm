@@ -123,7 +123,7 @@
 		// Gain nanites
 		adjust_nanites(amount = nanites_gained)
 		// Consume hunger
-		host_mob.adjust_nutrition(-nanites_gained * nutrition_rate)
+		host_mob.adjust_nutrition(-nanites_gained * nutrition_rate * 0.1)
 		add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
@@ -362,7 +362,11 @@
 			message += span_alert("Diagnostics Disabled")
 		else
 			for(var/datum/nanite_program/program as anything in programs)
-				message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active") : span_red("Inactive")]")
+				if (program.next_trigger)
+					var/cooldown = "(Cooldown: [DisplayTimeText(program.next_trigger - world.time)])"
+					message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active [cooldown]") : span_red("Inactive [cooldown]")]")
+				else
+					message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active") : span_red("Inactive")]")
 				for(var/datum/nanite_rule/rule as anything in program.rules)
 					message += "<span class='[rule.check_rule() ? "green" : "red"]'>[GLOB.TAB][rule.display()]</span>"
 		. = TRUE
