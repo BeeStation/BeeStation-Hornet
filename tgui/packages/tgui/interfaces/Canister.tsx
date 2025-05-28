@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, AnimatedNumber, Section, Tooltip } from '../components';
+import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, RoundGauge, Section, Tooltip } from '../components';
 import { toFixed } from 'common/math';
 import { BooleanLike } from 'common/react';
 
@@ -72,18 +72,23 @@ export const Canister = (props) => {
                     onClick={() => act('shielding')}
                   />
                   <Button icon="pencil-alt" content="Relabel" onClick={() => act('relabel')} />
+                  <Button icon="palette" onClick={() => act('recolor')} />
                 </>
               }>
               <LabeledControls>
                 <LabeledControls.Item minWidth="66px" label="Pressure">
-                  <AnimatedNumber
+                  <RoundGauge
+                    size={1.75}
                     value={tankPressure}
-                    format={(value) => {
-                      if (value < 10000) {
-                        return toFixed(value) + ' kPa';
-                      }
-                      return formatSiUnit(value * 1000, 1, 'Pa');
+                    minValue={0}
+                    maxValue={pressureLimit}
+                    alertAfter={pressureLimit * 0.7}
+                    ranges={{
+                      good: [0, pressureLimit * 0.7],
+                      average: [pressureLimit * 0.7, pressureLimit * 0.85],
+                      bad: [pressureLimit * 0.85, pressureLimit],
                     }}
+                    format={formatPressure}
                   />
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Regulator">
@@ -180,7 +185,19 @@ export const Canister = (props) => {
                 <LabeledList>
                   <LabeledList.Item label="Label">{holdingTank.name}</LabeledList.Item>
                   <LabeledList.Item label="Pressure">
-                    <AnimatedNumber value={holdingTank.tankPressure} /> kPa
+                    <RoundGauge
+                      value={holdingTank.tankPressure}
+                      minValue={0}
+                      maxValue={holdingTankFragPressure * 1.15}
+                      alertAfter={holdingTankLeakPressure}
+                      ranges={{
+                        good: [0, holdingTankLeakPressure],
+                        average: [holdingTankLeakPressure, holdingTankFragPressure],
+                        bad: [holdingTankFragPressure, holdingTankFragPressure * 1.15],
+                      }}
+                      format={formatPressure}
+                      size={1.75}
+                    />
                   </LabeledList.Item>
                 </LabeledList>
               )}

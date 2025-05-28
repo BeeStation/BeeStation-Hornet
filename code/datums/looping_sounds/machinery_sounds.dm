@@ -17,7 +17,12 @@
 	falloff_distance = 5
 	vary = TRUE
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/datum/looping_sound/hypertorus
+	mid_sounds = list('sound/machines/hypertorus/loops/hypertorus_nominal.ogg')
+	mid_length = 6 SECONDS
+	volume = 55
+	extra_range = 15
+	vary = TRUE
 
 /datum/looping_sound/generator
 	start_sound = 'sound/machines/generator/generator_start.ogg'
@@ -26,6 +31,8 @@
 	mid_length = 4
 	end_sound = 'sound/machines/generator/generator_end.ogg'
 	volume = 40
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/oven
 	start_sound = 'sound/machines/oven/oven_loop_start.ogg' //my immersions

@@ -8,6 +8,7 @@
 #define INVESTIGATE_PEPPERSPRAY "pepperspray"
 #define INVESTIGATE_GRAVITY "gravity"
 #define INVESTIGATE_HALLUCINATIONS "hallucinations"
+#define INVESTIGATE_HYPERTORUS "hypertorus"
 #define INVESTIGATE_ITEMS "items"
 #define INVESTIGATE_NANITES "nanites"
 #define INVESTIGATE_PORTAL "portals"

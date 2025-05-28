@@ -20,7 +20,6 @@
 #define RBMK_TEMPERATURE_MULTIPLIER 2.0 // How much based on the rate of reaction do we heat up in kelvin (signifying the heat dissipation from fuel of the reactor)
 #define RBMK_POWER_TO_TEMPERATURE_MULTIPLIER 0.02 // how much does produced power increase our internal temperature
 
-#define WARNING_TIME_DELAY 60 //to prevent accent sounds from layering
 #define REACTOR_COUNTDOWN_TIME 30 SECONDS
 
 ///High pressure damage

@@ -1,9 +1,4 @@
-import {
-  Button,
-  LabeledList,
-  ProgressBar,
-  Section,
-} from '../components';
+import { Button, LabeledList, ProgressBar, Section } from '../components';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
@@ -28,12 +23,7 @@ export const Electrolyzer = (props) => {
           title="Power"
           buttons={
             <>
-              <Button
-                icon="eject"
-                content="Eject Cell"
-                disabled={!hasPowercell || !open}
-                onClick={() => act('eject')}
-              />
+              <Button icon="eject" content="Eject Cell" disabled={!hasPowercell || !open} onClick={() => act('eject')} />
               <Button
                 icon={on ? 'power-off' : 'times'}
                 content={on ? 'On' : 'Off'}

@@ -72,6 +72,13 @@
 	AddElement(/datum/element/volatile_gas_storage)
 	AddComponent(/datum/component/gas_leaker, leak_rate=0.01)
 
+/obj/machinery/portable_atmospherics/canister/proc/create_gas()
+	if(!gas_type)
+		return
+	air_contents.add_gas(gas_type)
+	air_contents.gases[gas_type][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	SSair.start_processing_machine(src)
+
 /obj/machinery/portable_atmospherics/canister/examine(user)
 	. = ..()
 	if(atom_integrity < max_integrity)
@@ -563,6 +570,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#c6c0b5"
 
+/obj/machinery/portable_atmospherics/canister/air/create_gas()
+	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
+	air_contents.gases[/datum/gas/oxygen][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.gases[/datum/gas/nitrogen][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	SSair.start_processing_machine(src)
+
 /obj/machinery/portable_atmospherics/canister/antinoblium
 	name = "Anti-Noblium canister"
 	gas_type = /datum/gas/antinoblium
@@ -595,7 +608,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	gas_type = /datum/gas/halon
 	filled = 1
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
-	greyscale_colors = "#9b5d7f#368bff"
+	greyscale_colors = "#e9ff5c#f4fce8"
 
 /obj/machinery/portable_atmospherics/canister/healium
 	name = "Healium canister"
@@ -628,8 +641,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Nitrogen canister"
 	gas_type = /datum/gas/nitrogen
-	greyscale_config = /datum/greyscale_config/canister/double_stripe
-	greyscale_colors = "#e9ff5c#f4fce8"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#d41010"
 
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide
 	name = "Nitrous Oxide canister"
@@ -643,7 +656,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#7b4732"
 
-/obj/machinery/portable_atmospherics/canister/nob
+/obj/machinery/portable_atmospherics/canister/hyper_noblium
 	name = "Hyper-Noblium canister"
 	gas_type = /datum/gas/hypernoblium
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
@@ -700,30 +713,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	temp_limit = 1e12
 	pressure_limit = 1e14
 
-/**
- * Called on Initialize(), fill the canister with the gas_type specified up to the filled level (half if 0.5, full if 1)
- * Used for canisters spawned in maps and by admins
- */
-/obj/machinery/portable_atmospherics/canister/proc/create_gas()
-	if(!gas_type)
-		return
-	air_contents.add_gas(gas_type)
-	air_contents.gases[gas_type][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	SSair.start_processing_machine(src)
-
-/obj/machinery/portable_atmospherics/canister/air/create_gas()
-	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	SSair.start_processing_machine(src)
-
 /obj/machinery/portable_atmospherics/canister/fusion_test/create_gas()
-	air_contents.add_gases(/datum/gas/carbon_dioxide, /datum/gas/tritium)
-	air_contents.gases[/datum/gas/carbon_dioxide][MOLES] = 300
-	air_contents.gases[/datum/gas/tritium][MOLES] = 300
-	air_contents.temperature = 10000
+	air_contents.add_gases(/datum/gas/hydrogen, /datum/gas/tritium)
+	air_contents.gases[/datum/gas/hydrogen][MOLES] = 10000
+	air_contents.gases[/datum/gas/tritium][MOLES] = 10000
 	SSair.start_processing_machine(src)
-
 
 #undef CAN_DEFAULT_RELEASE_PRESSURE
 #undef TEMPERATURE_RESISTANCE

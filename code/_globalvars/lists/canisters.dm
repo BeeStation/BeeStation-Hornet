@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		GAS_AIR = /obj/machinery/portable_atmospherics/canister/air,
 		GAS_WATER_VAPOR = /obj/machinery/portable_atmospherics/canister/water_vapor,
 		GAS_TRITIUM = /obj/machinery/portable_atmospherics/canister/tritium,
-		GAS_HYPER_NOBLIUM = /obj/machinery/portable_atmospherics/canister/nob,
+		GAS_HYPER_NOBLIUM = /obj/machinery/portable_atmospherics/canister/hyper_noblium,
 		GAS_PLUOXIUM = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 		GAS_MIASMA = /obj/machinery/portable_atmospherics/canister/miasma,
