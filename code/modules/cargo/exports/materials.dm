@@ -98,3 +98,15 @@
 	material_id = /datum/material/glass
 	export_types = list(/obj/item/stack/sheet/glass, /obj/item/stack/ore,
 		/obj/item/shard)
+
+/datum/export/material/hot_ice
+	cost = CARGO_CRATE_VALUE * 0.8
+	message = "cm3 of Hot Ice"
+	material_id = /datum/material/hot_ice
+	export_types = /obj/item/stack/sheet/hot_ice
+
+/datum/export/material/metal_hydrogen
+	cost = CARGO_CRATE_VALUE * 1.05
+	message = "cm3 of metallic hydrogen"
+	material_id = /datum/material/metalhydrogen
+	export_types = /obj/item/stack/sheet/mineral/metal_hydrogen
