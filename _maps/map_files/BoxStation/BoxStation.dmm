@@ -58695,6 +58695,14 @@
 	pixel_x = -8
 	},
 /obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/ash{
+	pixel_y = -1;
+	pixel_x = -9
+	},
+/obj/item/cigbutt{
+	pixel_y = -4;
+	pixel_x = -5
+	},
 /turf/open/floor/carpet,
 /area/security/brig)
 "tSH" = (
@@ -65788,6 +65796,17 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/storage/eva)
+"wLR" = (
+/obj/item/cigbutt{
+	pixel_y = 14;
+	pixel_x = 3
+	},
+/obj/item/cigbutt{
+	pixel_y = -18;
+	pixel_x = -14
+	},
+/turf/open/floor/carpet,
+/area/security/brig)
 "wMl" = (
 /obj/structure/sign/warning/securearea{
 	pixel_x = -32
@@ -97997,7 +98016,7 @@ aEU
 eqh
 adR
 lUX
-kJN
+wLR
 cSA
 aiy
 hOs

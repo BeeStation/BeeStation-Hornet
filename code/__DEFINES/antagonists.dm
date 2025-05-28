@@ -104,7 +104,7 @@
 #define LOG_SPELL_AMOUNT "amount"
 
 /// How many telecrystals a normal traitor starts with
-#define TELECRYSTALS_DEFAULT 30
+#define TELECRYSTALS_DEFAULT 20
 /// How many telecrystals mapper/admin only "precharged" uplink implant
 #define TELECRYSTALS_PRELOADED_IMPLANT 10
 /// The normal cost of an uplink implant; used for calcuating how many
