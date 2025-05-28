@@ -4802,10 +4802,6 @@
 "byb" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/hor)
-"byg" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat/foyer)
 "byu" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -6253,12 +6249,6 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
-"bZE" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/machinery/camera/motion/directional/south,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/ai)
 "bZF" = (
 /obj/structure/table/glass,
 /obj/item/assembly/igniter{
@@ -8190,7 +8180,6 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "cCQ" = (
-/obj/structure/lattice,
 /obj/machinery/camera/motion/directional/south,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
@@ -9506,10 +9495,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/visible/layer2,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
-"daO" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "daR" = (
 /obj/machinery/light/floor,
 /obj/effect/decal/cleanable/dirt,
@@ -12680,7 +12665,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "ebK" = (
@@ -14250,7 +14234,6 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "eBq" = (
-/obj/structure/lattice,
 /obj/machinery/camera/motion/directional/west,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -17377,7 +17360,6 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
 "fBB" = (
-/obj/structure/lattice,
 /obj/machinery/camera/motion/directional/north,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -17852,12 +17834,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
-"fJR" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "fKf" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
@@ -23008,11 +22984,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
-"hvN" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "hvQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -26598,10 +26569,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/supermatter)
-"iIQ" = (
-/obj/structure/lattice,
-/turf/open/floor/plating,
-/area/space/nearstation)
 "iIT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -28685,16 +28652,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/security/courtroom)
-"jqM" = (
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
-	name = "Antechamber Turret Control";
-	req_access = null;
-	req_access_txt = "65";
-	pixel_y = 32
-	},
-/turf/open/space/basic,
-/area/space)
 "jqO" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -34739,7 +34696,6 @@
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "luX" = (
-/obj/structure/lattice,
 /obj/machinery/camera/motion/directional/west,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
@@ -40289,7 +40245,6 @@
 /area/maintenance/department/security)
 "nlK" = (
 /obj/structure/transit_tube/crossing,
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "nlM" = (
@@ -40487,7 +40442,6 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/quartermaster/sorting)
 "noT" = (
-/obj/structure/lattice,
 /obj/machinery/camera/motion/directional/east,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
@@ -42017,10 +41971,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
-"nNP" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat/maint)
 "nNW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -43677,7 +43627,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
@@ -44771,11 +44720,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"oLZ" = (
-/obj/structure/lattice,
-/obj/machinery/camera/motion/directional/east,
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/ai)
 "oMm" = (
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/line{
@@ -51234,7 +51178,6 @@
 /area/maintenance/solars/port/aft)
 "qKq" = (
 /obj/structure/transit_tube,
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "qKB" = (
@@ -57503,7 +57446,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -58019,19 +57961,6 @@
 /obj/effect/landmark/carpspawn,
 /turf/open/space/basic,
 /area/solar/port/fore)
-"sZc" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "sZA" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -62031,11 +61960,6 @@
 	},
 /turf/open/floor/plating,
 /area/space/nearstation)
-"uhr" = (
-/obj/structure/lattice,
-/obj/machinery/camera/motion/directional/west,
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/ai)
 "uhy" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/disposal/bin,
@@ -67620,11 +67544,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
-"vZl" = (
-/obj/structure/lattice,
-/obj/machinery/camera/motion/directional/north,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/aisat/hallway)
 "vZn" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light_switch{
@@ -73028,7 +72947,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
@@ -103219,17 +103137,17 @@ yeA
 yeA
 yeA
 yeA
-jGx
-jGx
-jGx
-jGx
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
-jGx
-jGx
-jGx
-jGx
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
@@ -103476,17 +103394,17 @@ yeA
 yeA
 yeA
 yeA
-gsA
-hvN
-hvN
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
 noT
-gsA
-gsA
-hvN
-hvN
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
@@ -103497,7 +103415,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 yeA
 gsA
 gsA
@@ -103728,13 +103646,13 @@ yeA
 yeA
 ewB
 ewB
-jGx
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 oHr
 nHt
 cdU
@@ -103743,18 +103661,18 @@ sYL
 vNn
 oHr
 fBB
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-daO
-daO
-daO
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+ewB
+ewB
+ewB
+dfX
+dfX
+dfX
 gsA
 ewB
 ewB
@@ -103984,14 +103902,14 @@ yeA
 yeA
 ewB
 ewB
-jGx
-hvN
-gsA
-hvN
-hvN
-fJR
-iIQ
-iIQ
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 xni
 xDV
 eft
@@ -103999,11 +103917,11 @@ tAH
 tZr
 koH
 vNn
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
@@ -104011,7 +103929,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 gsA
 gsA
 gsA
@@ -104240,15 +104158,15 @@ yeA
 yeA
 ewB
 ewB
-jGx
-hvN
-gsA
-gsA
-gsA
-gsA
-iIQ
-oLZ
-iIQ
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+noT
+dfX
 jPr
 mTC
 qxz
@@ -104260,13 +104178,13 @@ lsz
 fxY
 pZo
 bqF
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 ewB
 ewB
 ewB
@@ -104496,12 +104414,12 @@ yeA
 yeA
 yeA
 ewB
-jGx
-gsA
-gsA
-hvN
-hvN
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -104518,14 +104436,14 @@ rMI
 prp
 bqF
 xoO
-gsA
-gsA
+dfX
+dfX
 yeA
 yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 gsA
 gsA
 gsA
@@ -104753,10 +104671,10 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -104776,13 +104694,13 @@ sOs
 bqF
 dfX
 dfX
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 gsA
 qBJ
 fKE
@@ -105010,8 +104928,8 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
+dfX
+dfX
 noT
 uTv
 uTv
@@ -105034,12 +104952,12 @@ gGj
 gGj
 gGj
 gGj
-gsA
+dfX
 yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 qBJ
 fvx
 luu
@@ -105266,9 +105184,9 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -105291,12 +105209,12 @@ gGj
 kkq
 rYL
 gGj
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 wsM
 tVL
 gtc
@@ -105522,9 +105440,9 @@ yeA
 yeA
 yeA
 ewB
-jGx
-gsA
-gsA
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -105549,8 +105467,8 @@ oDb
 sCL
 gGj
 gGj
-nNP
-gsA
+gGj
+dfX
 yeA
 osA
 sQe
@@ -105779,9 +105697,9 @@ yeA
 yeA
 yeA
 ewB
-jGx
-hvN
-gsA
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -105807,7 +105725,7 @@ jNH
 ecD
 kOQ
 rSx
-sZc
+ebI
 ebI
 xLY
 pXK
@@ -106036,8 +105954,8 @@ yeA
 yeA
 yeA
 ewB
-jGx
-bZE
+dfX
+cCQ
 uTv
 uTv
 uTv
@@ -106064,7 +105982,7 @@ xOb
 xOb
 xOb
 xOb
-gsA
+dfX
 yeA
 yeA
 sFE
@@ -106293,8 +106211,8 @@ yeA
 yeA
 yeA
 ewB
-jGx
-gsA
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -106321,7 +106239,7 @@ ist
 jYa
 aDF
 hnO
-gsA
+dfX
 yeA
 yeA
 dYh
@@ -106551,7 +106469,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 uTv
 uTv
 lGR
@@ -106578,7 +106496,7 @@ bam
 rYS
 iHf
 gUB
-gsA
+dfX
 yeA
 yeA
 pPE
@@ -106808,7 +106726,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 uTv
 uTv
 wey
@@ -107065,7 +106983,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 uTv
 uTv
 jMO
@@ -107092,7 +107010,7 @@ pUM
 pUM
 xXI
 vjK
-gsA
+dfX
 yeA
 yeA
 hMC
@@ -107321,8 +107239,8 @@ yeA
 yeA
 yeA
 ewB
-jGx
-gsA
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -107349,7 +107267,7 @@ dHx
 sdx
 hYU
 rPM
-gsA
+dfX
 yeA
 yeA
 dYh
@@ -107578,7 +107496,7 @@ yeA
 yeA
 yeA
 ewB
-jGx
+dfX
 cCQ
 uTv
 uTv
@@ -107606,7 +107524,7 @@ xOb
 xOb
 xOb
 xOb
-gsA
+dfX
 yeA
 yeA
 fah
@@ -107835,9 +107753,9 @@ yeA
 yeA
 yeA
 ewB
-jGx
-gsA
-gsA
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -107862,10 +107780,10 @@ fAu
 waq
 fZf
 vWm
-gsA
-jGx
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
 pXK
 pXK
 gws
@@ -108092,9 +108010,9 @@ yeA
 yeA
 yeA
 ewB
-jGx
-gsA
-gsA
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -108119,11 +108037,11 @@ tZd
 cAK
 ppZ
 iss
-gsA
-gsA
+dfX
+dfX
 yeA
-gsA
-gsA
+dfX
+dfX
 hMC
 lCO
 ueS
@@ -108350,9 +108268,9 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -108608,8 +108526,8 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
+dfX
+dfX
 luX
 uTv
 uTv
@@ -108632,12 +108550,12 @@ bCc
 lzu
 kWQ
 qKV
-byg
+bCc
 yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 bLG
 ieC
 swK
@@ -108865,10 +108783,10 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -108886,15 +108804,15 @@ toG
 maB
 gJP
 bqF
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 gsA
 bLG
 fKE
@@ -109122,12 +109040,12 @@ yeA
 yeA
 yeA
 ewB
-jGx
-hvN
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 uTv
 uTv
 uTv
@@ -109143,15 +109061,15 @@ oQD
 icM
 qIJ
 bqF
-vZl
-gsA
-gsA
+xoO
+dfX
+dfX
 yeA
 yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 gsA
 gsA
 gsA
@@ -109380,15 +109298,15 @@ yeA
 yeA
 ewB
 ewB
-jGx
-hvN
-gsA
-gsA
-gsA
-gsA
-iIQ
-uhr
-iIQ
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+luX
+dfX
 lUN
 iCM
 iNO
@@ -109400,13 +109318,13 @@ xOi
 fxY
 pZo
 bqF
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 ewB
 ewB
 ewB
@@ -109638,14 +109556,14 @@ yeA
 yeA
 ewB
 ewB
-jGx
-hvN
-hvN
-gsA
-gsA
-gsA
-iIQ
-iIQ
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 fLi
 jFz
 uoq
@@ -109653,11 +109571,11 @@ nsQ
 eAs
 iJw
 bEF
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
@@ -109665,7 +109583,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+dfX
 gsA
 gsA
 gsA
@@ -109896,13 +109814,13 @@ yeA
 yeA
 ewB
 ewB
-jGx
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
 nHC
 dTD
 bEF
@@ -109911,18 +109829,18 @@ dDA
 jUH
 nHC
 fBB
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-daO
-daO
-daO
-gsA
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
+dfX
+ewB
+ewB
+ewB
+dfX
+dfX
+dfX
 gsA
 ewB
 ewB
@@ -110158,18 +110076,17 @@ yeA
 yeA
 yeA
 yeA
-gsA
-hvN
-hvN
-gsA
-gsA
+dfX
+dfX
+dfX
+dfX
+dfX
 eBq
-gsA
-gsA
-hvN
-hvN
-gsA
-jqM
+dfX
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
@@ -110179,7 +110096,8 @@ yeA
 yeA
 yeA
 yeA
-gsA
+yeA
+dfX
 yeA
 gsA
 gsA
@@ -110415,17 +110333,17 @@ yeA
 yeA
 yeA
 yeA
-jGx
-jGx
-jGx
-jGx
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
-jGx
-jGx
-jGx
-jGx
+dfX
+dfX
+dfX
+dfX
 yeA
 yeA
 yeA
