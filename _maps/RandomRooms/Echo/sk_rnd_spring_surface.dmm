@@ -547,13 +547,6 @@
 	slowdown = 0
 	},
 /area/template_noop)
-"hg" = (
-/obj/docking_port/stationary/random{
-	id = "pod_lavaland1";
-	name = "lavaland"
-	},
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "hh" = (
 /obj/structure/fence/corner{
 	dir = 8
@@ -1779,14 +1772,6 @@
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "AD" = (
-/obj/docking_port/stationary{
-	dwidth = 3;
-	height = 10;
-	id = "arrivals_stationary";
-	name = "EchoStation arrivals";
-	roundstart_template = /datum/map_template/shuttle/arrival/tiny;
-	width = 7
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -2004,18 +1989,6 @@
 	},
 /obj/item/storage/backpack/satchel/flat/treasure,
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
-"DI" = (
-/obj/docking_port/stationary{
-	dheight = 1;
-	dir = 8;
-	dwidth = 12;
-	height = 17;
-	id = "syndicate_ne";
-	name = "northeast of station";
-	width = 23
-	},
-/turf/open/floor/plating/beach/water,
 /area/template_noop)
 "DR" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -2417,16 +2390,6 @@
 	},
 /turf/open/floor/plating/grass,
 /area/template_noop)
-"JO" = (
-/obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
-	name = "escape pod loader";
-	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
-	width = 3
-	},
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
 "JR" = (
 /obj/item/storage/basket/easter{
 	pixel_y = 8;
@@ -2591,16 +2554,6 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
-"Mo" = (
-/obj/docking_port/stationary{
-	dwidth = 12;
-	height = 69;
-	id = "whiteship_home";
-	name = "Auxiliary Dock";
-	width = 25
-	},
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "Mt" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
@@ -2676,23 +2629,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"NC" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 9;
-	height = 14;
-	id = "emergency_home";
-	name = "EchoStation emergency evac bay";
-	width = 21
-	},
-/turf/open/floor/sepia/planetary{
-	slowdown = 0
-	},
 /area/template_noop)
 "NO" = (
 /obj/item/barcodescanner{
@@ -5734,7 +5670,7 @@ gm
 gm
 gm
 gm
-DI
+gm
 gm
 gm
 dY
@@ -11028,7 +10964,7 @@ IM
 IM
 IM
 IM
-Mo
+IM
 IM
 IM
 IM
@@ -13506,11 +13442,11 @@ XB
 IM
 IM
 IM
-hg
+IM
 rO
 rO
 rO
-JO
+rO
 Yq
 mn
 XB
@@ -15415,7 +15351,7 @@ IM
 IM
 WC
 lj
-NC
+TM
 wI
 gq
 fR

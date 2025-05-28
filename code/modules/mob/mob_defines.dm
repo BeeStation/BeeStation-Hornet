@@ -233,3 +233,8 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/active_thinking_indicator
 	/// Should shift be used to open the context menu?
 	var/shift_to_open_context_menu = TRUE
+
+	var/tree_mask_active = FALSE
+	var/tree_blind_fade_timer = 0
+	var/tree_blind_fade_id
+	var/tree_was_blind = FALSE

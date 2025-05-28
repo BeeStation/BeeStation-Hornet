@@ -5,6 +5,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
+
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
@@ -1289,3 +1290,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Returns if the carbon is wearing shock proof gloves
 /mob/living/carbon/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
+
+// create tree mask
+/mob/living/carbon/proc/setup_tree_mask()
+	var/atom/movable/screen/fullscreen/tree_blind/mask_overlay = new()
+	client.screen += mask_overlay
+	tree_mask_active = TRUE

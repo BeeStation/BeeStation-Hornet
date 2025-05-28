@@ -2580,6 +2580,17 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"bej" = (
+/obj/docking_port/stationary{
+	dwidth = 3;
+	height = 10;
+	id = "arrivals_stationary";
+	name = "EchoStation arrivals";
+	roundstart_template = /datum/map_template/shuttle/arrival/tiny;
+	width = 7
+	},
+/turf/open/floor/plating,
+/area/paradise/surface)
 "bet" = (
 /obj/structure/sign/departments/custodian,
 /turf/closed/wall,
@@ -3207,6 +3218,13 @@
 	},
 /turf/open/openspace/planetary,
 /area/engineering/hallway)
+"buC" = (
+/obj/docking_port/stationary/random{
+	id = "pod_lavaland1";
+	name = "lavaland"
+	},
+/turf/open/floor/plating,
+/area/paradise/surface/grass)
 "buV" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "armory";
@@ -9134,6 +9152,12 @@
 	},
 /turf/open/floor/glass/reinforced/plasma,
 /area/maintenance/department/eva)
+"eIK" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "eIZ" = (
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	alpha = 180
@@ -11833,6 +11857,12 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
+"gcD" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "gdk" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot,
@@ -13105,6 +13135,16 @@
 "gGJ" = (
 /turf/closed/mineral/iron,
 /area/quartermaster/storage)
+"gGP" = (
+/obj/docking_port/stationary{
+	dwidth = 12;
+	height = 69;
+	id = "whiteship_home";
+	name = "Auxiliary Dock";
+	width = 25
+	},
+/turf/open/floor/plating,
+/area/paradise/surface/grass)
 "gHj" = (
 /obj/machinery/teleport/hub,
 /obj/effect/turf_decal/stripes/line{
@@ -24138,6 +24178,18 @@
 	},
 /turf/open/floor/iron/smooth_large,
 /area/engine/engineering)
+"mFm" = (
+/obj/docking_port/stationary{
+	dheight = 1;
+	dir = 8;
+	dwidth = 12;
+	height = 17;
+	id = "syndicate_ne";
+	name = "northeast of station";
+	width = 23
+	},
+/turf/open/floor/plating,
+/area/paradise/surface/water)
 "mFq" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -24237,6 +24289,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
+"mGe" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 9;
+	height = 14;
+	id = "emergency_home";
+	name = "EchoStation emergency evac bay";
+	width = 21
+	},
+/turf/open/floor/plating,
+/area/paradise/surface)
 "mGM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -34984,6 +35047,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
+"svo" = (
+/obj/docking_port/stationary{
+	dwidth = 1;
+	height = 4;
+	name = "escape pod loader";
+	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
+	width = 3
+	},
+/turf/open/floor/plating,
+/area/paradise/surface)
 "swj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -35094,6 +35167,9 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
+"syB" = (
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "sAa" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -40897,6 +40973,10 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
+"vux" = (
+/turf/open/floor/plating,
+/turf/open/openspace/planetary,
+/area/paradise/surface)
 "vvp" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced/prison,
@@ -246739,7 +246819,7 @@ esS
 esS
 esS
 esS
-esS
+mFm
 esS
 esS
 esS
@@ -253985,9 +254065,9 @@ gRE
 gRE
 gRE
 qWM
-qWM
-qWM
-qWM
+vux
+vux
+vux
 qWM
 gRE
 gRE
@@ -254242,9 +254322,9 @@ gRE
 gRE
 gRE
 qWM
-qWM
-qWM
-qWM
+vux
+vux
+vux
 qWM
 gRE
 gRE
@@ -254499,9 +254579,9 @@ gRE
 gRE
 gRE
 qWM
-qWM
-qWM
-qWM
+vux
+vux
+vux
 qWM
 gRE
 gRE
@@ -256278,14 +256358,14 @@ qWM
 qWM
 qWM
 qWM
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+nZM
+nZM
+nZM
+nZM
+nZM
+nZM
+nZM
 exF
 qWM
 qWM
@@ -256535,14 +256615,14 @@ qWM
 qWM
 qWM
 qWM
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+rvO
+rvO
+rvO
+rvO
+syB
+syB
+syB
 qWM
 qWM
 qWM
@@ -256792,14 +256872,14 @@ qWM
 exF
 exF
 exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+rvO
+rvO
+rvO
+rvO
+syB
+syB
+syB
 qWM
 qWM
 qWM
@@ -256830,7 +256910,7 @@ gRE
 gRE
 gRE
 gRE
-gRE
+gGP
 gRE
 gRE
 gRE
@@ -257049,14 +257129,14 @@ exF
 exF
 exF
 exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+eIK
+eIK
+eIK
+eIK
+syB
+syB
+nZM
 qWM
 qWM
 qWM
@@ -257306,14 +257386,14 @@ exF
 exF
 exF
 exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+syB
+syB
+syB
+syB
+syB
+syB
+nZM
 qWM
 qWM
 qWM
@@ -257325,7 +257405,7 @@ qWM
 qWM
 qWM
 qWM
-qWM
+bej
 gRE
 gRE
 gRE
@@ -257563,14 +257643,14 @@ exF
 exF
 exF
 exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+gcD
+gcD
+gcD
+gcD
+syB
+syB
+nZM
 qWM
 qWM
 qWM
@@ -257820,14 +257900,14 @@ exF
 exF
 exF
 exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+rvO
+rvO
+rvO
+rvO
+syB
+syB
+syB
 qWM
 qWM
 qWM
@@ -258077,14 +258157,14 @@ exF
 exF
 exF
 exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+rvO
+rvO
+rvO
+rvO
+syB
+syB
+syB
 qWM
 qWM
 qWM
@@ -258334,14 +258414,14 @@ exF
 exF
 exF
 exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
-exF
+nZM
+nZM
+nZM
+nZM
+nZM
+nZM
+nZM
+nZM
 qWM
 qWM
 qWM
@@ -260427,9 +260507,9 @@ esS
 qWM
 qWM
 qWM
-qWM
-qWM
-qWM
+vux
+vux
+vux
 qWM
 qWM
 qWM
@@ -260685,9 +260765,9 @@ qWM
 qWM
 qWM
 qWM
-qWM
-qWM
-qWM
+vux
+vux
+vux
 qWM
 qWM
 qWM
@@ -260942,9 +261022,9 @@ esS
 esS
 qWM
 qWM
-qWM
-qWM
-qWM
+vux
+vux
+vux
 qWM
 qWM
 qWM
@@ -261201,8 +261281,8 @@ esS
 qWM
 qWM
 qWM
-qWM
-qWM
+vux
+vux
 qWM
 qWM
 qWM
@@ -261645,13 +261725,13 @@ aMu
 gRE
 gRE
 gRE
-gRE
+buC
 qWM
 qWM
 qWM
+svo
 qWM
-qWM
-qWM
+vux
 aMu
 qWM
 esS
@@ -263193,7 +263273,7 @@ esS
 esS
 esS
 qWM
-qWM
+vux
 qWM
 qWM
 qWM
@@ -263450,7 +263530,7 @@ esS
 esS
 esS
 qWM
-qWM
+vux
 qWM
 qWM
 qWM
@@ -263707,7 +263787,7 @@ esS
 esS
 esS
 qWM
-qWM
+vux
 qWM
 qWM
 qWM
@@ -265276,7 +265356,7 @@ gRE
 gRE
 qWM
 qWM
-qWM
+mGe
 qWM
 qWM
 qWM

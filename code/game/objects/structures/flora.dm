@@ -9,7 +9,7 @@
 	desc = "A large tree."
 	density = FALSE
 	pixel_x = -16
-	layer = FLY_LAYER
+	plane = TREE_FADE_PLANE
 	var/log_amount = 10
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
@@ -37,21 +37,65 @@
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
+
 	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/connect_loc, list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered)))
+
+	layer = TREE_FADE_PLANE
+	src.plane = TREE_FADE_PLANE
+	render_target = TREE_RENDER_TARGET // Ensure trees render to the mask's render target
+	// Do not add alpha filter here; masking is handled by the plane master/mask atom
+
+/atom/movable/screen/fullscreen/tree_blind/Initialize(mapload)
+	. = ..()
+	icon_state = "debugoverlay"
+	icon = 'icons/hud/fullscreen/screen_full.dmi'
+	layer = BLIND_FEATURE_PLANE
+	plane = BLIND_FEATURE_PLANE
+	appearance_flags = PIXEL_SCALE | NO_CLIENT_COLOR
+	screen_loc = "CENTER"
+	render_target = "*tree_mask"
+	// Correct filter: mask the BLIND_FEATURE_PLANE with the tree render target
+	filters += filter(type = "alpha", render_source = TREE_RENDER_TARGET)
 
 
 /obj/structure/flora/tree/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-	var/mob/living/L = isliving(AM) ? AM : null
-	if(!L || L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
+	if (!isliving(AM))
 		return
 
-	L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
-	to_chat(L, span_warning("You push your way through the thick foliage."))
+	var/mob/living/L = AM
+
+	if (!L.tree_mask_active && L.client && istype(L, /mob/living/carbon) && !QDELETED(L))
+		message_admins("[src] applying tree mask")
+		L.setup_tree_mask()
+
+	// Movespeed logic
+	if (!L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
+		L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+		to_chat(L, span_warning("You push your way through the thick foliage."))
 
 	spawn(1 SECONDS)
-		if(L)
+		if (L)
 			L.remove_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+
+	//blindness
+	if ((HAS_TRAIT(L, TRAIT_BLIND) && L.tree_blind_fade_timer > 0) || HAS_TRAIT(L, TRAIT_BLIND))
+		ADD_TRAIT(L, TRAIT_BLIND, src)
+		L.tree_was_blind = TRUE
+		L.tree_blind_fade_timer = 4
+		L.update_stat() // Ensure overlays/HUD update for blindness
+	else
+		L.tree_was_blind = FALSE
+
+	// on_step tick — reduce timer if it's above 0
+	if (L.tree_blind_fade_timer > 0)
+		L.tree_blind_fade_timer = max(0, L.tree_blind_fade_timer - 1)
+
+	// If the timer hit 0 and player wasn't originally blind, remove the blind trait
+	if (L.tree_blind_fade_timer == 0 && !L.tree_was_blind)
+		REMOVE_TRAIT(L, TRAIT_BLIND, src)
+		L.update_stat() // Update overlays/HUD
 
 /obj/structure/flora/stump
 	name = "stump"

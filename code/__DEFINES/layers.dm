@@ -85,6 +85,9 @@
 #define TEXT_EFFECT_UI_LAYER 5.90 // text effects shouldn't be displayed behind.
 	// maybe it should be custom layer category like 'UI_LAYER 6'
 
+#define TREE_FADE_PLANE 6
+#define TREE_RENDER_TARGET "*tree_mask"
+
 ///1000 is an unimportant number, it's just to normalize copied layers
 #define RADIAL_LAYER 1000
 

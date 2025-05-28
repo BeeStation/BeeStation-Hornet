@@ -512,13 +512,6 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/template_noop)
-"hg" = (
-/obj/docking_port/stationary/random{
-	id = "pod_lavaland1";
-	name = "lavaland"
-	},
-/turf/open/floor/plating/asteroid/snow/planetary,
-/area/template_noop)
 "hk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral{
@@ -1844,14 +1837,6 @@
 	},
 /area/template_noop)
 "AD" = (
-/obj/docking_port/stationary{
-	dwidth = 3;
-	height = 10;
-	id = "arrivals_stationary";
-	name = "EchoStation arrivals";
-	roundstart_template = /datum/map_template/shuttle/arrival/tiny;
-	width = 7
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -2121,18 +2106,6 @@
 	},
 /obj/item/storage/backpack/satchel/flat/treasure,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/template_noop)
-"DI" = (
-/obj/docking_port/stationary{
-	dheight = 1;
-	dir = 8;
-	dwidth = 12;
-	height = 17;
-	id = "syndicate_ne";
-	name = "northeast of station";
-	width = 23
-	},
-/turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
 "DJ" = (
 /obj/item/toy/snowball{
@@ -2563,19 +2536,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
-"JO" = (
-/obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
-	name = "escape pod loader";
-	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
-	width = 3
-	},
-/obj/effect/turf_decal/weather/snow,
-/turf/open/floor/iron/techmaint/planetary{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
-/area/template_noop)
 "JV" = (
 /obj/structure/ladder,
 /obj/effect/turf_decal/stripes/end{
@@ -2707,16 +2667,6 @@
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
-"Mo" = (
-/obj/docking_port/stationary{
-	dwidth = 12;
-	height = 69;
-	id = "whiteship_home";
-	name = "Auxiliary Dock";
-	width = 25
-	},
-/turf/open/floor/plating/asteroid/snow/planetary,
-/area/template_noop)
 "Mt" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
@@ -2801,26 +2751,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/iron/techmaint/planetary{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
-/area/template_noop)
-"NC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 9;
-	height = 14;
-	id = "emergency_home";
-	name = "EchoStation emergency evac bay";
-	width = 21
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8
-	},
-/turf/open/floor/sepia/planetary{
-	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/template_noop)
@@ -5941,7 +5871,7 @@ gm
 gm
 gm
 gm
-DI
+gm
 gm
 gm
 gm
@@ -11235,7 +11165,7 @@ XB
 XB
 XB
 XB
-Mo
+XB
 XB
 XB
 XB
@@ -13713,11 +13643,11 @@ XB
 XB
 XB
 XB
-hg
+XB
 hV
 hV
 dl
-JO
+dl
 Yq
 mn
 XB
@@ -15622,7 +15552,7 @@ XB
 XB
 WC
 TM
-NC
+TM
 wI
 gq
 fR
