@@ -1,32 +1,49 @@
-import { map } from 'common/collections';
+import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
 import { Button, NoticeBox, Section, Table } from '../components';
 import { Window } from '../layouts';
 
+type Item = {
+  name: string;
+  amount: number;
+};
+
+type Data = {
+  contents: Item[];
+  name: string;
+  isdryer: BooleanLike;
+  drying: BooleanLike;
+};
+
 export const SmartVend = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
+  const { contents = [] } = data;
   return (
-    <Window width={440} height={550} {...(data.ui_theme && { theme: data.ui_theme })}>
+    <Window width={440} height={550}>
       <Window.Content scrollable>
         <Section
           title="Storage"
           buttons={
             !!data.isdryer && (
-              <Button icon={data.drying ? 'stop' : 'tint'} onClick={() => act('Dry')}>
+              <Button
+                icon={data.drying ? 'stop' : 'tint'}
+                onClick={() => act('Dry')}>
                 {data.drying ? 'Stop drying' : 'Dry'}
               </Button>
             )
           }>
-          {(data.contents.length === 0 && <NoticeBox>Unfortunately, this {data.name} is empty.</NoticeBox>) || (
+          {contents.length === 0 ? (
+            <NoticeBox>Unfortunately, this {data.name} is empty.</NoticeBox>
+          ) : (
             <Table>
               <Table.Row header>
                 <Table.Cell>Item</Table.Cell>
                 <Table.Cell collapsing />
                 <Table.Cell collapsing textAlign="center">
-                  {data.verb ? data.verb : 'Dispense'}
+                  {data.isdryer ? 'Take' : 'Dispense'}
                 </Table.Cell>
               </Table.Row>
-              {map((value, key) => (
+              {Object.values(contents).map((value, key) => (
                 <Table.Row key={key}>
                   <Table.Cell>{value.name}</Table.Cell>
                   <Table.Cell collapsing textAlign="right">
@@ -54,7 +71,7 @@ export const SmartVend = (props) => {
                     />
                   </Table.Cell>
                 </Table.Row>
-              ))(data.contents)}
+              ))}
             </Table>
           )}
         </Section>
