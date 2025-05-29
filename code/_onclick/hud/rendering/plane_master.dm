@@ -285,9 +285,9 @@
 	blend_mode = BLEND_OVERLAY
 	alpha = 0
 
-/atom/movable/screen/plane_master/tree_masked
-	name = "tree plane master"
-	plane = TREE_FADE_PLANE
-	render_target = TREE_RENDER_TARGET
+/atom/movable/screen/plane_master/tree_plane
+	name = "tree plane"
+	plane = TREE_PLANE
+//	render_target = TREE_MASK
 	appearance_flags = PLANE_MASTER
 	render_relay_plane = GAME_PLANE

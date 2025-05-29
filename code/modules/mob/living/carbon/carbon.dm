@@ -3,6 +3,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon
 	blood_volume = BLOOD_VOLUME_NORMAL
 
+	var/atom/movable/screen/plane_master/tree_plane/tree_mask
+	var/atom/movable/screen/fullscreen/tree_plane
+
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 
@@ -1293,6 +1296,13 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 // create tree mask
 /mob/living/carbon/proc/setup_tree_mask()
-	var/atom/movable/screen/fullscreen/tree_blind/mask_overlay = new()
-	client.screen += mask_overlay
-	tree_mask_active = TRUE
+	var/atom/movable/screen/fullscreen/tree_plane/mask = new
+	client.screen += mask
+	tree_plane_active = TRUE
+
+	icon = 'icons/hud/fullscreen/screen_full.dmi'
+	icon_state = "blackimageoverlay"
+	plane = TREE_PLANE
+	alpha = 255
+	appearance_flags = PIXEL_SCALE
+	screen_loc = "CENTER"
