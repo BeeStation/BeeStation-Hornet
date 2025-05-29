@@ -20902,6 +20902,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/mineral/plastitanium,
 /area/ai_monitored/nuke_storage)
+"cHJ" = (
+/obj/effect/landmark/carpspawn,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "cHK" = (
 /turf/open/indestructible/sound/pool/end,
 /area/syndicate_sat)
@@ -37564,7 +37568,7 @@
 /obj/item/clockwork/component/hierophant_ansible{
 	name = "Mask of the Dreamer";
 	desc = "An Artifact said to provide its wearer with unimaginable power, sadly you can't";
-	light_color = 9a001f;
+	light_color = #9a001f;
 	light_range = 5;
 	block_flags = 2;
 	block_level = 3;
@@ -112469,7 +112473,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+cFB
 aaa
 aaa
 aaa
@@ -114807,7 +114811,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+cFB
 aaa
 aaa
 oSY
@@ -117394,7 +117398,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+cFB
 aaa
 aaa
 aaa
@@ -119140,7 +119144,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+cFB
 aaa
 aaa
 kCs
@@ -121231,7 +121235,7 @@ xBp
 kCs
 kCs
 oSY
-oSY
+cHJ
 oSY
 kCs
 kCs
@@ -121248,7 +121252,7 @@ vbk
 kCs
 kCs
 aaa
-aaa
+cFB
 aaa
 aaa
 aaa
@@ -122236,7 +122240,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+cFB
 aaa
 aaa
 aaa
@@ -125091,8 +125095,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+cFB
+cFB
 aaa
 aaa
 aaa
