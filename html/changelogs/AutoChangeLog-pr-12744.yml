@@ -1,0 +1,4 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: autowiki support for artifact traits
