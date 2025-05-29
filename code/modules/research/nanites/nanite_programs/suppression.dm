@@ -120,6 +120,7 @@
 	var/comm_message = ""
 
 /datum/nanite_program/comm/register_extra_settings()
+	..()
 	extra_settings[NES_COMM_CODE] = new /datum/nanite_extra_setting/number(0, 0, 9999)
 
 /datum/nanite_program/comm/proc/receive_comm_signal(signal_comm_code, comm_message, comm_source)

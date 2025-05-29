@@ -14,6 +14,7 @@
 	var/is_discrete = TRUE
 
 /datum/nanite_program/sensor/register_extra_settings()
+	..()
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
 	if (!is_discrete)
 		extra_settings[NES_EVENT_CLEAR_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)

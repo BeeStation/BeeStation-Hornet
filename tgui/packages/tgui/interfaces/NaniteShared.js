@@ -103,7 +103,7 @@ const NaniteCodes = (props) => {
               width="47px"
               minValue={0}
               maxValue={9999}
-                step={1}
+              step={1}
               onChange={(value) =>
                 act('set_code', {
                   target_code: 'kill',
