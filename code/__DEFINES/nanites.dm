@@ -25,6 +25,7 @@
 ///Nanite Extra Settings - Note that these will also be the names displayed in the UI
 #define NES_SENT_CODE "Sent Code"
 #define NES_EVENT_CLEAR_CODE "Event Clear Code"
+#define NES_CODE_REPEAT "Repeat Code"
 #define NES_DELAY "Delay"
 #define NES_MODE "Mode"
 #define NES_COMM_CODE "Comm Code"

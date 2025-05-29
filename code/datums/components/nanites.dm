@@ -362,8 +362,8 @@
 			message += span_alert("Diagnostics Disabled")
 		else
 			for(var/datum/nanite_program/program as anything in programs)
-				if (program.next_trigger)
-					var/cooldown = "(Cooldown: [DisplayTimeText(program.next_trigger - world.time)])"
+				if (program.next_trigger > world.time)
+					var/cooldown = "(Cooldown: [DisplayTimeText((program.next_trigger - world.time) * cooldown_multiplier)])"
 					message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active [cooldown]") : span_red("Inactive [cooldown]")]")
 				else
 					message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active") : span_red("Inactive")]")

@@ -169,7 +169,7 @@
 
 /datum/nanite_program/protocol/unsafe_storage
 	name = "S.L.O. Protocol"
-	desc = "Cooldown Protocol: Overrides the standard storage mechanism for nanites, allowing them to operate without any cooldowns. However, the nanites\
+	desc = "Cooldown Protocol: Overrides the standard storage mechanism for nanites, allowing them to operate with significantly reduced cooldowns. However, the nanites\
 		will constantly replicate until either the body becomes oversaturated, or the host starves."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
@@ -216,7 +216,7 @@
 	// entirely by the nanites themselves.
 	nanites.nutrition_rate += 0.1
 	nanites.max_production_ratio += 1000
-	nanites.cooldown_multiplier = 0
+	nanites.cooldown_multiplier *= 0.2
 	// Required to prevent exploitation where you enable it, activate an effect,
 	// then disable
 	nanites.set_volume(0)
@@ -225,7 +225,7 @@
 	. = ..()
 	nanites.nutrition_rate -= 0.1
 	nanites.max_production_ratio -= 1000
-	nanites.cooldown_multiplier = 1
+	nanites.cooldown_multiplier *= 5
 
 /datum/nanite_program/protocol/unsafe_storage/active_effect()
 	if(!iscarbon(host_mob))

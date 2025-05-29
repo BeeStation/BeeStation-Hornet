@@ -14,7 +14,7 @@
 	///Amount of nanites required to trigger
 	var/trigger_cost = 0
 	///Deciseconds required between each trigger activation
-	var/trigger_cooldown = 50
+	var/trigger_cooldown = 0
 	/// Maximum duration that this program can be active for before turning off
 	/// If set to null, there will be no maximum duration
 	var/maximum_duration = null
@@ -138,9 +138,7 @@
 	extra_settings[NES_RULE_LOGIC] = new /datum/nanite_extra_setting/type("AND", logictypes)
 	var/static/list/status_effect_icons
 	if (!status_effect_icons)
-		status_effect_icons = list("None")
-		for (var/icon_state in icon_states(/atom/movable/screen/alert/status_effect::icon))
-			status_effect_icons += icon_state
+		status_effect_icons = list("None", "asleep", "blind", "drugged", "drunk", "embeddedobject", "gross", "paralysis", "stun", "regenerative_core", "weaken", "weightless", "in_love", "bloodchill", "dna_melt", "stasis", "mind_control", "dim_mend", "grub", "smoke", "succumb", "weights", "bleed", "bleed_heavy", "bleed_bandage" "bleed_held", "blooming", "self_tend", "food_icecream", "food_italian", "food_french", "shock_immune", "mute", "negative", "shapeshifted")
 	extra_settings[NES_STATUS_EFFECT] = new /datum/nanite_extra_setting/type(status_effect_icons[1], status_effect_icons)
 
 ///You can override this if you need to have special behavior after setting certain settings.

@@ -18,6 +18,7 @@
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
 	if (!is_discrete)
 		extra_settings[NES_EVENT_CLEAR_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+	extra_settings[NES_CODE_REPEAT] = new /datum/nanite_extra_setting/boolean(FALSE, "Yes", "No")
 
 /datum/nanite_program/sensor/proc/check_event()
 	return FALSE
@@ -29,12 +30,13 @@
 
 /datum/nanite_program/sensor/active_effect()
 	var/event = check_event()
+	var/datum/nanite_extra_setting/repeat_code = extra_settings[NES_CODE_REPEAT]
 	if (has_triggered && !event)
 		has_triggered = FALSE
 		if(activated && !is_discrete)
 			var/datum/nanite_extra_setting/ES = extra_settings[NES_EVENT_CLEAR_CODE]
 			SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, ES.value, "a [name] program")
-	else if (!has_triggered && event)
+	else if ((!has_triggered || repeat_code.get_value()) && event)
 		has_triggered = TRUE
 		send_code()
 
