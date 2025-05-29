@@ -9,7 +9,7 @@
 		/obj/item/food/fishmeat/carp = 1
 	)
 	result = /obj/item/food/cubancarp
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/fishandchips
 	name = "Fish and chips"
@@ -18,7 +18,7 @@
 		/obj/item/food/fishmeat/carp = 1
 	)
 	result = /obj/item/food/fishandchips
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/fishfingers
 	name = "Fish fingers"
@@ -28,7 +28,7 @@
 		/obj/item/food/fishmeat/carp = 1
 	)
 	result = /obj/item/food/fishfingers
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/sashimi
 	name = "Sashimi"
@@ -38,7 +38,7 @@
 		/obj/item/food/fishmeat/carp = 1
 	)
 	result = /obj/item/food/sashimi
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/vegetarian_sushi_roll
 	name ="Vegetarian sushi roll"
@@ -49,7 +49,7 @@
 		/obj/item/food/grown/cabbage = 1
 	)
 	result = /obj/item/food/sushi_roll/vegetarian
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/spicy_filet_sushi_roll
 	name ="Spicy filet sushi roll"
@@ -61,7 +61,7 @@
 		/obj/item/food/grown/onion = 1
 	)
 	result = /obj/item/food/sushi_roll/spicyfilet
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/futomaki_sushi_roll
 	name ="Futomaki sushi roll"
@@ -73,7 +73,7 @@
 		/obj/item/food/grown/cabbage = 1,
 	)
 	result = /obj/item/food/sushi_roll/futomaki
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/philadelphia_sushi_roll
 	name ="Philadelphia sushi roll"
@@ -85,7 +85,7 @@
 		/obj/item/food/grown/cabbage = 1,
 	)
 	result = /obj/item/food/sushi_roll/philadelphia
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD
 
 /datum/crafting_recipe/food/nigiri_sushi
 	name ="Nigiri sushi"
@@ -96,4 +96,4 @@
 		/datum/reagent/consumable/soysauce = 2
 	)
 	result = /obj/item/food/nigiri_sushi
-	subcategory = CAT_SEAFOOD
+	category = CAT_SEAFOOD

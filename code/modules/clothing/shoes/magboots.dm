@@ -1,5 +1,5 @@
 /obj/item/clothing/shoes/magboots
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle. Walking carefully lets the user gain better traction."
 	name = "magboots"
 	icon_state = "magboots0"
 	item_state = "magboots"
@@ -38,9 +38,11 @@
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/living/user)
 	if(magpulse)
+		clothing_flags &= ~NOSLIP_ALL_WALKING
 		clothing_flags &= ~NOSLIP
 		slowdown = SHOES_SLOWDOWN
 	else
+		clothing_flags |= NOSLIP_ALL_WALKING
 		clothing_flags |= NOSLIP
 		slowdown = slowdown_active
 	magpulse = !magpulse
