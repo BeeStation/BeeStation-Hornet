@@ -3,12 +3,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon
 	blood_volume = BLOOD_VOLUME_NORMAL
 
-	var/atom/movable/screen/plane_master/tree_plane/tree_mask
-	var/atom/movable/screen/fullscreen/tree_plane
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
-
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
@@ -1293,16 +1289,3 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Returns if the carbon is wearing shock proof gloves
 /mob/living/carbon/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
-
-// create tree mask
-/mob/living/carbon/proc/setup_tree_mask()
-	var/atom/movable/screen/fullscreen/tree_plane/mask = new
-	client.screen += mask
-	tree_plane_active = TRUE
-
-	icon = 'icons/hud/fullscreen/screen_full.dmi'
-	icon_state = "blackimageoverlay"
-	plane = TREE_PLANE
-	alpha = 255
-	appearance_flags = PIXEL_SCALE
-	screen_loc = "CENTER"

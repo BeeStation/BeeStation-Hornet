@@ -233,5 +233,3 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/active_thinking_indicator
 	/// Should shift be used to open the context menu?
 	var/shift_to_open_context_menu = TRUE
-
-	var/tree_plane_active = FALSE

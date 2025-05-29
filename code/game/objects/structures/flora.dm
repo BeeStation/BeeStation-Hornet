@@ -9,8 +9,29 @@
 	desc = "A large tree."
 	density = FALSE
 	pixel_x = -16
-	plane = TREE_PLANE
+	layer = FLY_LAYER
 	var/log_amount = 10
+
+/obj/structure/flora/tree/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/connect_loc, list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered)))
+
+/obj/structure/flora/tree/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/L = AM
+
+	// Movespeed logic
+	if (isliving(L) && !L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
+		L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+		to_chat(L, span_warning("You push your way through the thick foliage."))
+		spawn(1 SECONDS)
+			if (L)
+				L.remove_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
@@ -31,59 +52,6 @@
 
 	else
 		return ..()
-
-/obj/structure/flora/tree/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-
-	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/connect_loc, list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered)))
-
-	src.plane = TREE_PLANE
-
-/atom/movable/screen/fullscreen/tree_plane
-	plane = FULLSCREEN_PLANE
-	layer = TREE_PLANE
-	color = "#FF00FF"
-	alpha = 255
-	screen_loc = "CENTER"
-
-/obj/structure/flora/tree/proc/on_entered(datum/source, atom/movable/AM)
-	SIGNAL_HANDLER
-	var/mob/living/carbon/L = AM
-	// Only proceed if this is a carbon mob with a client and does not have a plane
-	if (isliving(AM) && AM:client && !AM:tree_plane_active)
-		L.setup_tree_mask()
-	// Movespeed logic
-	if (isliving(L) && !L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
-		L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
-		to_chat(L, span_warning("You push your way through the thick foliage."))
-		spawn(1 SECONDS)
-			if (L)
-				L.remove_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
-
-
-/*
-	//blindness
-	if ((HAS_TRAIT(L, TRAIT_BLIND) && L.tree_blind_fade_timer > 0) || HAS_TRAIT(L, TRAIT_BLIND))
-		ADD_TRAIT(L, TRAIT_BLIND, src)
-		L.tree_was_blind = TRUE
-		L.tree_blind_fade_timer = 4
-		L.update_stat() // Ensure overlays/HUD update for blindness
-	else
-		L.tree_was_blind = FALSE
-
-	// on_step tick — reduce timer if it's above 0
-	if (L.tree_blind_fade_timer > 0)
-		L.tree_blind_fade_timer = max(0, L.tree_blind_fade_timer - 1)
-
-	// If the timer hit 0 and player wasn't originally blind, remove the blind trait
-	if (L.tree_blind_fade_timer == 0 && !L.tree_was_blind)
-		REMOVE_TRAIT(L, TRAIT_BLIND, src)
-		L.update_stat() // Update overlays/HUD
-*/
 
 /obj/structure/flora/stump
 	name = "stump"
