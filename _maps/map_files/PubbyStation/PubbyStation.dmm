@@ -962,10 +962,6 @@
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/tank/internals/emergency_oxygen,
-/obj/machinery/camera/motion/directional/east{
-	c_tag = "MiniSat Foyer - Port Aft";
-	dir = 7
-	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "afM" = (
@@ -1597,6 +1593,9 @@
 	name = "Brig Infirmary"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "ajM" = (
@@ -2753,6 +2752,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/cryopods)
 "asC" = (
@@ -5481,11 +5481,10 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "aHY" = (
-/obj/machinery/camera/directional/west{
-	c_tag = "Arrivals - Monastery"
-	},
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
+/obj/structure/sign/warning/vacuum/external,
+/turf/closed/wall,
+/turf/open/floor/plating,
+/area/hallway/secondary/exit/departure_lounge)
 "aHZ" = (
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/blue{
@@ -8461,6 +8460,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Departures - Corridor";
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "aWK" = (
@@ -10499,11 +10502,9 @@
 /turf/open/floor/iron/ridged/steel,
 /area/science/robotics/mechbay)
 "bix" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Monastery - Outer Chamber - Starboard"
-	},
-/turf/open/floor/plating/asteroid,
-/area/chapel/asteroid/monastery)
+/turf/closed/wall,
+/turf/open/floor/plating,
+/area/hallway/secondary/exit/departure_lounge)
 "biy" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Xenobiology - Secure Containment - Inner"
@@ -15686,9 +15687,6 @@
 /obj/structure/table,
 /obj/item/paper/guides/jobs/engi/gravity_gen,
 /obj/item/pen/blue,
-/obj/machinery/power/terminal{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -15896,9 +15894,8 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUv" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "incinerator mix pump"
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -16200,7 +16197,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bWP" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
 	dir = 8
 	},
@@ -16771,8 +16767,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /obj/machinery/airlock_controller/incinerator_atmos{
-	pixel_x = 6;
-	pixel_y = 28
+	pixel_y = 27
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -19728,7 +19723,6 @@
 /obj/structure/table,
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/machinery/camera/directional/west{
 	c_tag = "Monastery Resturant"
 	},
@@ -19975,10 +19969,6 @@
 "cwn" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Monastery - Main Port";
-	network = list("monastery")
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/dock)
@@ -21806,11 +21796,9 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "dcE" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Monastery - Transit Tube"
-	},
-/turf/open/floor/iron/dark/smooth_half,
-/area/chapel/dock)
+/turf/closed/wall,
+/turf/open/floor/plating,
+/area/hallway/secondary/entry)
 "ddd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -22952,6 +22940,10 @@
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
@@ -27026,9 +27018,6 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "O2 To Airmix";
@@ -27039,6 +27028,9 @@
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -30589,8 +30581,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 6
 	},
+/obj/machinery/power/apc/auto_name/directional/west{
+	areastring = "/area/engine/supermatter"
+	},
+/obj/structure/cable,
 /turf/open/floor/engine,
-/area/engine/engineering)
+/area/engine/supermatter)
 "htc" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/sechailer,
@@ -31760,11 +31756,11 @@
 	id = "incineratorturbine"
 	},
 /obj/machinery/button/door/incinerator_vent_atmos_main{
-	pixel_x = 24;
+	pixel_x = 22;
 	pixel_y = 6
 	},
 /obj/machinery/button/door/incinerator_vent_atmos_aux{
-	pixel_x = 24;
+	pixel_x = 22;
 	pixel_y = -6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
@@ -32817,6 +32813,13 @@
 /obj/effect/turf_decal/trimline/yellow/warning,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
+"irO" = (
+/obj/machinery/camera/motion/directional/east{
+	c_tag = "MiniSat Foyer - Port Aft";
+	dir = 7
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAP)
 "irV" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/structure/cable/yellow{
@@ -34745,6 +34748,12 @@
 	dir = 4
 	},
 /obj/machinery/meter,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "jpm" = (
@@ -35907,6 +35916,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
+"jPp" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/sand,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/sepia,
+/area/chapel/asteroid/monastery)
 "jPt" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -39224,6 +39245,13 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
+"lkW" = (
+/obj/machinery/camera/directional/north{
+	c_tag = "Monastery - Outer Chamber - Starboard";
+	dir = 5
+	},
+/turf/open/floor/plating/asteroid,
+/area/chapel/asteroid/monastery)
 "lle" = (
 /obj/machinery/requests_console{
 	department = "Atmospherics";
@@ -39501,7 +39529,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "incinerator mix pump"
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ltn" = (
@@ -39628,6 +39658,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/camera/directional/west{
+	c_tag = "Arrivals - Monastery";
+	dir = 6
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "lwO" = (
@@ -40635,6 +40669,15 @@
 /obj/item/clothing/suit/hooded/wintercoat,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
+"lXi" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "lXx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -43156,6 +43199,10 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-4"
 	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Monastery - Transit Tube";
+	dir = 5
+	},
 /turf/open/floor/plating,
 /area/chapel/dock)
 "nlz" = (
@@ -44816,7 +44863,7 @@
 /area/crew_quarters/heads/chief)
 "nYn" = (
 /obj/structure/sign/warning/docking,
-/obj/effect/spawner/structure/window/reinforced,
+/turf/closed/wall,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "nYq" = (
@@ -46168,6 +46215,11 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/camera/directional/north{
+	c_tag = "Monastery - Main Port";
+	network = list("monastery");
+	dir = 5
+	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/dock)
 "oEa" = (
@@ -54248,6 +54300,17 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/mineral/plastitanium,
 /area/security/checkpoint/engineering)
+"ska" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
+/turf/open/floor/iron/white/textured_large,
+/area/medical/medbay/central)
 "skh" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/cable/yellow{
@@ -55357,10 +55420,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
-/obj/item/reagent_containers/cup/beaker/cryoxadone,
-/obj/item/reagent_containers/cup/beaker/cryoxadone,
-/obj/structure/table/glass,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1;
+	name = "Connector Port (Air Supply)"
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/medbay/central)
 "sMY" = (
@@ -58291,9 +58355,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Departures - Corridor"
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "ulK" = (
@@ -59612,6 +59673,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "uYy" = (
@@ -60416,14 +60480,12 @@
 "vve" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 4
+	dir = 5
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1;
-	name = "Connector Port (Air Supply)"
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/table/glass,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/medbay/central)
 "vvn" = (
@@ -60480,6 +60542,13 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"vwm" = (
+/obj/effect/landmark/event_spawn,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/asteroid,
+/area/chapel/asteroid/monastery)
 "vww" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/machinery/airalarm/directional/north,
@@ -61300,6 +61369,20 @@
 /area/hallway/primary/central)
 "vOW" = (
 /obj/machinery/telecomms/bus/preset_exploration,
+/obj/item/clockwork/component/hierophant_ansible{
+	name = "Mask of the Dreamer";
+	desc = "An Artifact said to provide its wearer with unimaginable power, sadly you can't";
+	light_color = "#9a001f";
+	light_range = 5;
+	block_flags = 2;
+	block_level = 3;
+	block_power = 75;
+	w_class = 13;
+	attack_weight = 2;
+	slowdown = 5;
+	throw_range = 2;
+	drag_slowdown = 5
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "vPt" = (
@@ -65597,6 +65680,16 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
+"xNK" = (
+/obj/item/flashlight/lantern{
+	icon_state = "lantern-on"
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating/asteroid,
+/area/chapel/asteroid/monastery)
 "xNU" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -82024,7 +82117,7 @@ bBW
 bNs
 bNs
 bOw
-pTM
+bOw
 bOw
 bOw
 bOw
@@ -82537,7 +82630,7 @@ bHM
 bHM
 bHM
 bNw
-bOw
+bQh
 bQd
 bOw
 bQd
@@ -82795,8 +82888,8 @@ bLn
 oDZ
 bNw
 bNw
-bQe
-wZu
+xNK
+vwm
 bOw
 bOw
 bQe
@@ -83053,7 +83146,7 @@ uKv
 dGY
 bEh
 kXQ
-kXQ
+jPp
 kXQ
 kXQ
 kXQ
@@ -84032,7 +84125,7 @@ aHz
 sex
 aHz
 lkz
-aHA
+aHz
 bRC
 aaa
 bRC
@@ -84040,7 +84133,7 @@ aHz
 lkz
 aHz
 aKt
-aHA
+bix
 aaa
 aaa
 aaa
@@ -84079,7 +84172,7 @@ fPS
 bNw
 bNw
 bNw
-bOw
+pTM
 bQd
 bOw
 bQd
@@ -84331,7 +84424,7 @@ aaa
 aaa
 aaa
 bGE
-dcE
+bLn
 xkM
 mvJ
 nly
@@ -84542,19 +84635,19 @@ aiu
 aiu
 aiu
 aHz
-xee
+aHY
 wjA
 nYn
 cFO
-xee
+aHY
 aHA
 aHA
 aHA
-xee
+aHY
 wjA
 nYn
 lQw
-xee
+aHY
 aYG
 aZx
 aZx
@@ -84594,7 +84687,7 @@ qie
 sGn
 bNw
 bOw
-bQh
+bOw
 bOw
 bOw
 bOw
@@ -85894,7 +85987,7 @@ bOw
 bOw
 bUC
 bOw
-bOw
+lkW
 cfm
 mci
 cfm
@@ -86406,7 +86499,7 @@ bRC
 aaa
 bNs
 bNs
-bix
+bOw
 bOw
 bOw
 bOw
@@ -86624,7 +86717,7 @@ aaa
 aaa
 aaa
 aZx
-aZx
+jOX
 aZx
 kLY
 bon
@@ -86884,7 +86977,7 @@ wmJ
 kJH
 wsf
 xra
-vdd
+bon
 aZx
 aaa
 aaa
@@ -87141,8 +87234,8 @@ jzz
 jOX
 jzz
 kLY
-bon
-aZx
+vdd
+dcE
 aZx
 bsl
 btL
@@ -87915,7 +88008,7 @@ kIH
 idb
 baK
 baK
-aHY
+baK
 kLY
 baK
 bwq
@@ -93313,7 +93406,7 @@ vgy
 gaA
 ajM
 tya
-vve
+ska
 aoT
 nHt
 bsA
@@ -97609,7 +97702,7 @@ acP
 acP
 aeY
 aft
-aee
+irO
 acP
 aaa
 pmj
@@ -98497,7 +98590,7 @@ ulY
 nQt
 ulY
 ulY
-agn
+lXi
 jpg
 hsO
 sfO
