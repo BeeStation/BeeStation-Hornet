@@ -89,7 +89,7 @@ ALERT_MEDICAL The security alert is now Yellow(Medical). A C-B-R-N threat is pre
 ALERT_GAMMA Central Command has ordered "GAMMA" security level on the station. The station is now under direct central command control. All Central command staff are to be obeyed at all costs.
 ALERT_BLACK Central Command has ordered "BLACK" security level on the station. All hands are to prepare for hostile boarding. Any violations of orders from security personnel are punishable by death. This is not a drill.
 ALERT_LAMBDA Central Command has ordered "LAMBDA" security level on the station. Any violations of orders from Heads of Staff and security can be punished by death. All hands are advised to evacuate if possible.
-ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. All employee contracts are now terminated. Your station is designated as a lost asset.
+ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. Your station is designated as a lost asset. Consider your contracts with Nanotrasen terminated.
 
 ## GAME MODES ###
 
