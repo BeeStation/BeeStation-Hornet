@@ -472,7 +472,8 @@
 	if (!istype(location))
 		return FALSE
 	var/datum/gas_mixture/air = location.return_air()
-	return extra_settings[NES_DIRECTION] ? (air.return_pressure() > extra_settings[NES_PRESSURE]) : (air.return_pressure() < extra_settings[NES_PRESSURE])
+	var/datum/nanite_extra_setting/setting = extra_settings[NES_DIRECTION]
+	return setting.get_value() ? (air.return_pressure() > extra_settings[NES_PRESSURE]) : (air.return_pressure() < extra_settings[NES_PRESSURE])
 
 /datum/nanite_program/sensor/pressure/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/pressure/rule = new(target)
