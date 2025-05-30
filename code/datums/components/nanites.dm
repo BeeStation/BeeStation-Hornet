@@ -129,7 +129,7 @@
 		if (host_mob.nutrition >= 100)
 			adjust_nanites(amount = nanites_gained)
 			// Consume hunger
-			host_mob.adjust_nutrition(-nanites_gained * nutrition_rate * 0.1)
+			host_mob.adjust_nutrition(-nanites_gained * nutrition_rate * 0.5)
 			add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
@@ -201,7 +201,6 @@
 /datum/component/nanites/proc/consume_nanites(amount, force = FALSE)
 	if(!force && safety_threshold && (nanite_volume - amount < safety_threshold))
 		return FALSE
-	host_mob.adjust_nutrition(-amount)
 	adjust_nanites(amount = -amount)
 	return (nanite_volume > 0)
 
