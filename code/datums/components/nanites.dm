@@ -20,6 +20,9 @@
 	var/cloud_active = TRUE
 	var/list/datum/nanite_program/programs = list()
 	var/max_programs = NANITE_PROGRAM_LIMIT
+	/// For tracking
+	var/current_delta_nanites = 0
+	var/last_delta_nanites = 0
 	COOLDOWN_DECLARE(next_sync)
 	COOLDOWN_DECLARE(emp_disabled)
 
@@ -116,6 +119,8 @@
 		adjust_nanites(amount = amount) //just add to the nanite volume
 
 /datum/component/nanites/process(delta_time)
+	current_delta_nanites = last_delta_nanites
+	last_delta_nanites = 0
 	if(!IS_IN_STASIS(host_mob))
 		var/nanites_gained = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time
 		// Cannot gain more nanites than we have nutrition
@@ -203,6 +208,7 @@
 /datum/component/nanites/proc/adjust_nanites(datum/source, amount)
 	SIGNAL_HANDLER
 	nanite_volume = min(nanite_volume + amount, host_mob.nutrition * max_production_ratio)
+	last_delta_nanites += amount
 
 /// Updates the nanite volume bar visible in diagnostic HUDs
 /datum/component/nanites/proc/set_nanite_bar(remove = FALSE)
@@ -348,12 +354,11 @@
 		. = TRUE
 		if(!stealth)
 			message += span_infobold("Nanites Detected")
-			message += span_info("Saturation: [nanite_volume]/[NUTRITION_LEVEL_FULL]")
+			message += span_info("Saturation: [nanite_volume]/[host_mob.nutrition]")
 	else
 		message += span_infobold("Nanites Detected")
 		message += span_info("================")
-		var/nanites_gained = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0))
-		message += span_info("Saturation: [nanite_volume]/[NUTRITION_LEVEL_FULL] ([nanites_gained >= 0 ? "+[nanites_gained]" : nanites_gained]/s)")
+		message += span_info("Saturation: [nanite_volume]/[host_mob.nutrition] ([current_delta_nanites >= 0 ? "+[current_delta_nanites]" : current_delta_nanites]/s)")
 		message += span_info("Safety Threshold: [safety_threshold]")
 		message += span_info("Cloud ID: [cloud_id ? cloud_id : "None"]")
 		message += span_info("Cloud Sync: [cloud_active ? "Active" : "Disabled"]")

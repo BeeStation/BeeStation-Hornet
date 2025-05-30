@@ -220,17 +220,17 @@
 	var/obj/item/organ/brain/BR = C.getorgan(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
 		return FALSE
-	if(C.get_ghost())
+	if(C.get_ghost() || C.ckey != null)
 		return FALSE
 	return TRUE
 
 /datum/nanite_program/defib/proc/zap()
 	var/mob/living/carbon/C = host_mob
-	playsound(C, 'sound/machines/defib_charge.ogg', 50, FALSE)
+	playsound(C, 'sound/machines/defib_charge.ogg', 100, FALSE)
 	sleep(30)
-	playsound(C, 'sound/machines/defib_zap.ogg', 50, FALSE)
+	playsound(C, 'sound/machines/defib_zap.ogg', 100, FALSE)
 	if(check_revivable())
-		playsound(C, 'sound/machines/defib_success.ogg', 50, FALSE)
+		playsound(C, 'sound/machines/defib_success.ogg', 100, FALSE)
 		// Heal out of critical condition proportional to the amount of nanites consumed
 		C.adjustBruteLoss(nanites.nanite_volume / -10)
 		C.adjustFireLoss(nanites.nanite_volume / -10)
@@ -250,7 +250,7 @@
 		log_game("[C] has been successfully defibrillated by nanites.")
 		nanites.set_volume(0)
 	else
-		playsound(C, 'sound/machines/defib_failed.ogg', 50, FALSE)
+		playsound(C, 'sound/machines/defib_failed.ogg', 100, FALSE)
 
 /datum/nanite_program/nanite_tomb
 	name = "Nanite Tomb"

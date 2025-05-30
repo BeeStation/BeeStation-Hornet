@@ -73,14 +73,12 @@
 /datum/nanite_program/protocol/pyramid/enable_passive_effect()
 	. = ..()
 	nanites.nutrition_rate += 0.2
+	nanites.regen_rate += boost
 
 /datum/nanite_program/protocol/pyramid/disable_passive_effect()
 	. = ..()
 	nanites.nutrition_rate -= 0.2
-
-/datum/nanite_program/protocol/pyramid/active_effect()
-	nanites.adjust_nanites(amount = boost)
-
+	nanites.regen_rate -= boost
 
 /datum/nanite_program/protocol/offline
 	name = "Eclipse Protocol"
@@ -95,8 +93,13 @@
 		return FALSE
 	return ..()
 
-/datum/nanite_program/protocol/offline/active_effect()
-	nanites.adjust_nanites(amount = boost)
+/datum/nanite_program/protocol/offline/enable_passive_effect()
+	. = ..()
+	nanites.regen_rate += boost
+
+/datum/nanite_program/protocol/offline/disable_passive_effect()
+	. = ..()
+	nanites.regen_rate -= boost
 
 
 /datum/nanite_program/protocol/silo
