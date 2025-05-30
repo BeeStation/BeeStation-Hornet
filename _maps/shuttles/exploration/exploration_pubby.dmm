@@ -193,6 +193,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ts" = (
+/obj/machinery/airalarm/directional/west,
 /obj/structure/chair/fancy/shuttle,
 /obj/machinery/button/door{
 	desc = "A remote control switch.";
@@ -201,12 +202,12 @@
 	pixel_y = 24;
 	pixel_w = -9
 	},
-/obj/machinery/airalarm/directional/west,
 /obj/machinery/button/door{
 	desc = "A remote control switch.";
 	id = "exploration2";
 	name = "Exploration Shuttle Shutters";
-	pixel_y = 24
+	pixel_y = 24;
+	pixel_x = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -442,7 +443,8 @@
 	desc = "A remote control switch.";
 	id = "exploration3";
 	name = "Exploration Shuttle Shutters";
-	pixel_y = 24
+	pixel_y = 24;
+	pixel_x = -8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
