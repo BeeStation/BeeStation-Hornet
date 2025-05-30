@@ -111,6 +111,7 @@
 	rogue_types = list(/datum/nanite_program/suffocating)
 	trigger_cost = 40
 	trigger_cooldown = 90 SECONDS
+	can_trigger = TRUE
 
 /datum/nanite_program/cauterize/check_conditions()
 	if(iscarbon(host_mob))
