@@ -33,9 +33,6 @@
 /obj/item/disk/nanite_program/emp
 	program_type = /datum/nanite_program/emp
 
-/obj/item/disk/nanite_program/spreading
-	program_type = /datum/nanite_program/spreading
-
 /obj/item/disk/nanite_program/regenerative
 	program_type = /datum/nanite_program/regenerative
 
