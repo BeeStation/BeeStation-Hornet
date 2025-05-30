@@ -91,11 +91,6 @@
 	program_type = /datum/nanite_program/emp
 	category = list("Utility Nanites")
 
-/datum/design/nanites/spreading
-	id = "spreading_nanites"
-	program_type = /datum/nanite_program/spreading
-	category = list("Utility Nanites")
-
 /datum/design/nanites/nanite_sting
 	id = "nanite_sting_nanites"
 	program_type = /datum/nanite_program/nanite_sting

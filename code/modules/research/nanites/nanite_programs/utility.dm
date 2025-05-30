@@ -243,37 +243,6 @@
 		if(current_item)
 			nanite_access |= current_item.GetAccess()
 
-/datum/nanite_program/spreading
-	name = "Infective Exo-Locomotion"
-	desc = "The nanites gain the ability to survive for brief periods outside of the human body, as well as the ability to start new colonies without an integration process; \
-			resulting in an extremely infective strain of nanites."
-	use_rate = 1.50
-	rogue_types = list(/datum/nanite_program/aggressive_replication, /datum/nanite_program/necrotic)
-	COOLDOWN_DECLARE(spread_cooldown)
-
-/datum/nanite_program/spreading/active_effect()
-	if(!COOLDOWN_FINISHED(src, spread_cooldown))
-		return
-	var/list/mob/living/target_hosts = list()
-	for(var/mob/living/target in ohearers(5, host_mob))
-		if(prob(15 * max(get_dist(host_mob, target) - 1, 0)))
-			continue
-		if(!(MOB_ORGANIC in target.mob_biotypes) && !(MOB_UNDEAD in target.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
-			continue
-		target_hosts += target
-	if(!target_hosts.len)
-		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
-		return
-	var/mob/living/infectee = pick(target_hosts)
-	if(prob(100 - (infectee.getarmor(null, BIO))))
-		COOLDOWN_START(src, spread_cooldown, 7.5 SECONDS)
-		//this will potentially take over existing nanites!
-		infectee.AddComponent(/datum/component/nanites, 10)
-		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
-		infectee.investigate_log("was infected by spreading nanites by [key_name(host_mob)] at [AREACOORD(infectee)].", INVESTIGATE_NANITES)
-	else
-		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
-
 /datum/nanite_program/nanite_sting
 	name = "Nanite Sting"
 	desc = "When triggered, projects a nearly invisible spike of nanites that attempts to infect a nearby non-host with a copy of the host's nanites cluster."
@@ -508,8 +477,7 @@
 
 /datum/nanite_program/doorjack/proc/hack_doors()
 	for (var/obj/machinery/door/airlock/airlock in range(host_mob, 1))
-		if (!airlock.open() && airlock.hasPower())
-			airlock.unbolt()
+		airlock.open()
 
 /datum/nanite_program/jammer
 	name = "Signal Jammer"
