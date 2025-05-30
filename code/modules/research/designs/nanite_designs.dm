@@ -142,6 +142,11 @@
 	program_type = /datum/nanite_program/regenerative
 	category = list("Medical Nanites")
 
+/datum/design/nanites/regenerative/rapid
+	id = "regenerative_nanites_rapid"
+	program_type = /datum/nanite_program/regenerative/rapid
+	category = list("Medical Nanites")
+
 /datum/design/nanites/temperature
 	id = "temperature_nanites"
 	program_type = /datum/nanite_program/temperature

@@ -1,32 +1,14 @@
 //Programs that heal the host in some way.
 
 /datum/nanite_program/regenerative
-	name = "Nanite Regeneration"
-	desc = "The nanites boost the host's natural regeneration, healing up to 40 brute and burn damage. Consumes 40 nanites over 80 seconds in efficient mode, consumes 120 nanites over 40 seconds in rapid mode."
+	name = "Efficient Regeneration"
+	desc = "The nanites boost the host's natural regeneration, healing up to 20 brute and burn damage for a relatively low cost."
 	use_rate = 1
 	rogue_types = list(/datum/nanite_program/necrotic)
-	// Heals a total of 40 damage
-	maximum_duration = 80 SECONDS
+	// Heals a total of 20 damage
+	maximum_duration = 40 SECONDS
 	trigger_cooldown = 60 SECONDS
 	var/regeneration_rate = 0.5
-
-/datum/nanite_program/regenerative/on_trigger(comm_message)
-	var/datum/nanite_extra_setting/healing_mode = extra_settings[NES_HEALING_MODE]
-	if (healing_mode.get_value() == NANITE_HEALING_RAPID)
-		regeneration_rate = 1
-		use_rate = 3
-		maximum_duration = 40 SECONDS
-	else
-		regeneration_rate = 0.5
-		use_rate = 1
-	..()
-
-/datum/nanite_program/regenerative/register_extra_settings()
-	. = ..()
-	extra_settings[NES_HEALING_MODE] = new /datum/nanite_extra_setting/type(NANITE_HEALING_EFFICIENT, list(
-		NANITE_HEALING_EFFICIENT,
-		NANITE_HEALING_RAPID
-	))
 
 /datum/nanite_program/regenerative/check_conditions()
 	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
@@ -52,6 +34,13 @@
 	else
 		host_mob.adjustBruteLoss(-regeneration_rate, TRUE)
 		host_mob.adjustFireLoss(-regeneration_rate, TRUE)
+
+/datum/nanite_program/regenerative/rapid
+	name = "Rapid Regeneration"
+	desc = "The nanites boost the host's natural regeneration, healing up to 40 brute and burn damage over a short timespan for a significant nanite cost."
+	maximum_duration = 40 SECONDS
+	regeneration_rate = 1
+	use_rate = 4
 
 /datum/nanite_program/temperature
 	name = "Temperature Adjustment"
