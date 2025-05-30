@@ -126,10 +126,11 @@
 		// Cannot gain more nanites than we have nutrition
 		nanites_gained = min(nanites_gained, (host_mob.nutrition * max_production_ratio) - nanite_volume)
 		// Gain nanites
-		adjust_nanites(amount = nanites_gained)
-		// Consume hunger
-		host_mob.adjust_nutrition(-nanites_gained * nutrition_rate * 0.1)
-		add_research()
+		if (host_mob.nutrition >= 100)
+			adjust_nanites(amount = nanites_gained)
+			// Consume hunger
+			host_mob.adjust_nutrition(-nanites_gained * nutrition_rate * 0.1)
+			add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
 		if(cloud_id && cloud_active && COOLDOWN_FINISHED(src, next_sync))

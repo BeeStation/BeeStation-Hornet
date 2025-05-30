@@ -136,10 +136,11 @@
 	for(var/name in logic)
 		logictypes += name
 	extra_settings[NES_RULE_LOGIC] = new /datum/nanite_extra_setting/type("AND", logictypes)
-	var/static/list/status_effect_icons
-	if (!status_effect_icons)
-		status_effect_icons = list("None", "asleep", "blind", "drugged", "drunk", "embeddedobject", "gross", "paralysis", "stun", "regenerative_core", "weaken", "weightless", "in_love", "bloodchill", "dna_melt", "stasis", "mind_control", "dim_mend", "grub", "smoke", "succumb", "weights", "bleed", "bleed_heavy", "bleed_bandage", "bleed_held", "blooming", "self_tend", "food_icecream", "food_italian", "food_french", "shock_immune", "mute", "negative", "shapeshifted")
-	extra_settings[NES_STATUS_EFFECT] = new /datum/nanite_extra_setting/type(status_effect_icons[1], status_effect_icons)
+	if (!can_trigger || !isnull(maximum_duration))
+		var/static/list/status_effect_icons
+		if (!status_effect_icons)
+			status_effect_icons = list("None", "asleep", "blind", "drugged", "drunk", "embeddedobject", "gross", "paralysis", "stun", "regenerative_core", "weaken", "weightless", "in_love", "bloodchill", "dna_melt", "stasis", "mind_control", "dim_mend", "grub", "smoke", "succumb", "weights", "bleed", "bleed_heavy", "bleed_bandage", "bleed_held", "blooming", "self_tend", "food_icecream", "food_italian", "food_french", "shock_immune", "mute", "negative", "shapeshifted")
+		extra_settings[NES_STATUS_EFFECT] = new /datum/nanite_extra_setting/type(status_effect_icons[1], status_effect_icons)
 
 ///You can override this if you need to have special behavior after setting certain settings.
 /datum/nanite_program/proc/set_extra_setting(setting, value)

@@ -211,7 +211,7 @@
 	var/mob/living/carbon/C = host_mob
 	if(C.suiciding || C.ishellbound() || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
 		return FALSE
-	if((world.time - C.timeofdeath) > 1800) //too late
+	if(C.stat == DEAD && (world.time - C.timeofdeath) > 1800) //too late
 		return FALSE
 	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE))
 		return FALSE
@@ -220,7 +220,7 @@
 	var/obj/item/organ/brain/BR = C.getorgan(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
 		return FALSE
-	if(C.get_ghost() || C.ckey != null)
+	if(!C.get_ghost() && C.key == null)
 		return FALSE
 	return TRUE
 
@@ -238,7 +238,11 @@
 		// Set sleeping so you don't instantly get back up again
 		C.Sleeping(10 SECONDS)
 		C.Knockdown(15 SECONDS)
-		if (C.can_be_revived() || C.stat != DEAD)
+		if (C.stat == CONSCIOUS)
+			C.balloon_alert_to_viewers("Jolts as [C.p_they()] fall to the ground!")
+			C.set_heartattack(FALSE)
+			C.emote("gasp")
+		else if (C.can_be_revived() || C.stat != DEAD)
 			C.balloon_alert_to_viewers("Jolts as [C.p_they()] comes back to life!")
 			C.set_heartattack(FALSE)
 			C.revive(full_heal = FALSE, admin_revive = FALSE)
