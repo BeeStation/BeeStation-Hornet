@@ -352,7 +352,7 @@
 	else
 		message += span_infobold("Nanites Detected")
 		message += span_info("================")
-		var/nanites_gained = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time
+		var/nanites_gained = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0))
 		message += span_info("Saturation: [nanite_volume]/[NUTRITION_LEVEL_FULL] ([nanites_gained >= 0 ? "+[nanites_gained]" : nanites_gained]/s)")
 		message += span_info("Safety Threshold: [safety_threshold]")
 		message += span_info("Cloud ID: [cloud_id ? cloud_id : "None"]")
