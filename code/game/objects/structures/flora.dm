@@ -29,9 +29,8 @@
 	if (isliving(L) && !L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
 		L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
 		to_chat(L, span_warning("You push your way through the thick foliage."))
-		spawn(1 SECONDS)
-			if (L)
-				L.remove_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+		addtimer(CALLBACK(L, /mob/proc/remove_movespeed_modifier, /datum/movespeed_modifier/tree_slowdown), 5) // 10 deciseconds = 1 second
+
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
