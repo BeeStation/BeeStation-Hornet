@@ -331,6 +331,9 @@
 	},
 /turf/open/floor/iron/solarpanel,
 /area/template_noop)
+"fg" = (
+/turf/template_noop,
+/area/template_noop)
 "fk" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
@@ -1068,7 +1071,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/openspace/planetary,
+/turf/template_noop,
 /area/template_noop)
 "pt" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -2176,7 +2179,7 @@
 /area/template_noop)
 "GJ" = (
 /obj/machinery/camera/directional/west,
-/turf/open/openspace/planetary,
+/turf/template_noop,
 /area/template_noop)
 "GO" = (
 /obj/machinery/power/solar{
@@ -10793,8 +10796,8 @@ VX
 VX
 VX
 iU
-QI
-QI
+fg
+fg
 GJ
 pi
 Xq
@@ -10927,10 +10930,10 @@ iU
 iU
 iU
 iU
-QI
-QI
-QI
-QI
+fg
+fg
+fg
+fg
 Nu
 Jd
 ea
@@ -11463,10 +11466,10 @@ wm
 iU
 dA
 iU
-QI
-QI
-QI
-QI
+fg
+fg
+fg
+fg
 Nu
 Cq
 ea
@@ -11597,10 +11600,10 @@ RG
 iU
 Bj
 iU
-QI
-QI
-QI
-QI
+fg
+fg
+fg
+fg
 BS
 bd
 BG

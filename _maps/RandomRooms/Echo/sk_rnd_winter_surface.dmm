@@ -12,6 +12,9 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/template_noop)
+"am" = (
+/turf/template_noop,
+/area/template_noop)
 "an" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -1056,7 +1059,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/openspace,
+/turf/template_noop,
 /area/template_noop)
 "pt" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -2322,7 +2325,7 @@
 /area/template_noop)
 "GJ" = (
 /obj/machinery/camera/directional/west,
-/turf/open/openspace,
+/turf/template_noop,
 /area/template_noop)
 "GO" = (
 /obj/machinery/power/solar{
@@ -10994,8 +10997,8 @@ VX
 VX
 VX
 hw
-QI
-QI
+am
+am
 GJ
 pi
 Xq
@@ -11128,10 +11131,10 @@ hw
 hw
 hw
 hw
-QI
-QI
-QI
-QI
+am
+am
+am
+am
 Nu
 Jd
 ea
@@ -11664,10 +11667,10 @@ wm
 hw
 dA
 hw
-QI
-QI
-QI
-QI
+am
+am
+am
+am
 OD
 Jd
 ea
@@ -11798,10 +11801,10 @@ RG
 hw
 Bj
 hw
-QI
-QI
-QI
-QI
+am
+am
+am
+am
 BS
 bd
 ea

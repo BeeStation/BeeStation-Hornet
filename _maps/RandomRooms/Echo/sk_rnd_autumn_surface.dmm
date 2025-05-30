@@ -993,7 +993,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/openspace/planetary,
+/turf/template_noop,
 /area/template_noop)
 "pl" = (
 /obj/effect/turf_decal/sand/plating,
@@ -2156,7 +2156,7 @@
 /area/template_noop)
 "GJ" = (
 /obj/machinery/camera/directional/west,
-/turf/open/openspace/planetary,
+/turf/template_noop,
 /area/template_noop)
 "GO" = (
 /obj/machinery/power/solar{
@@ -2962,6 +2962,9 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"Ta" = (
+/turf/template_noop,
 /area/template_noop)
 "Td" = (
 /obj/item/radio/intercom{
@@ -10793,8 +10796,8 @@ VX
 VX
 VX
 xu
-QI
-QI
+Ta
+Ta
 GJ
 pi
 Xq
@@ -10927,10 +10930,10 @@ xu
 xu
 xu
 xu
-QI
-QI
-QI
-QI
+Ta
+Ta
+Ta
+Ta
 Nu
 Jd
 ea
@@ -11463,10 +11466,10 @@ wm
 xu
 dA
 xu
-QI
-QI
-QI
-QI
+Ta
+Ta
+Ta
+Ta
 Nu
 Im
 ea
@@ -11597,10 +11600,10 @@ RG
 xu
 Bj
 xu
-QI
-QI
-QI
-QI
+Ta
+Ta
+Ta
+Ta
 BS
 bd
 BG

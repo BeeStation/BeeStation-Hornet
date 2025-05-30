@@ -647,6 +647,9 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"iO" = (
+/turf/template_noop,
+/area/template_noop)
 "iR" = (
 /obj/structure/fence/door/opened{
 	dir = 8
@@ -1044,7 +1047,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/openspace/planetary,
+/turf/template_noop,
 /area/template_noop)
 "pt" = (
 /obj/effect/turf_decal/sand/plating,
@@ -2202,7 +2205,7 @@
 /area/template_noop)
 "GJ" = (
 /obj/machinery/camera/directional/west,
-/turf/open/openspace/planetary,
+/turf/template_noop,
 /area/template_noop)
 "GO" = (
 /obj/machinery/power/solar{
@@ -10793,8 +10796,8 @@ VX
 VX
 VX
 yb
-QI
-QI
+iO
+iO
 GJ
 pi
 Xq
@@ -10927,10 +10930,10 @@ yb
 yb
 yb
 yb
-QI
-QI
-QI
-QI
+iO
+iO
+iO
+iO
 OD
 Jd
 ea
@@ -11463,10 +11466,10 @@ wm
 yb
 dA
 yb
-QI
-QI
-QI
-QI
+iO
+iO
+iO
+iO
 OD
 eX
 ea
@@ -11597,10 +11600,10 @@ RG
 yb
 Bj
 yb
-QI
-QI
-QI
-QI
+iO
+iO
+iO
+iO
 BS
 bd
 BG
