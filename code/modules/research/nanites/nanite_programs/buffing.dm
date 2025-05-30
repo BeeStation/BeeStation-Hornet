@@ -50,7 +50,7 @@
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.physio_armor.add_other_armor(nanite_armor)
-		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING, "111111", SKIN_PRIORITY_NANITES)
+		ADD_VALUE_TRAIT(H, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_NANITE_HARDENING, "8f8f8f", SKIN_PRIORITY_NANITES)
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
