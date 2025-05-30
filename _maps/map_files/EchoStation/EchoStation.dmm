@@ -4372,10 +4372,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
-"cbV" = (
-/turf/open/floor/plating,
-/turf/open/openspace/planetary,
-/area/paradise/surface)
 "ccc" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -254067,7 +254063,7 @@ gwi
 ocR
 ocR
 ocR
-cbV
+ocR
 ocR
 gwi
 gwi
@@ -254323,8 +254319,8 @@ gwi
 gwi
 ocR
 ocR
-cbV
-cbV
+ocR
+ocR
 ocR
 gwi
 gwi
@@ -254579,9 +254575,9 @@ gwi
 gwi
 gwi
 ocR
-cbV
-cbV
-cbV
+ocR
+ocR
+ocR
 ocR
 gwi
 gwi
@@ -260507,9 +260503,9 @@ fEX
 ocR
 ocR
 ocR
-cbV
-cbV
-cbV
+ocR
+ocR
+ocR
 ocR
 ocR
 ocR
@@ -260765,9 +260761,9 @@ ocR
 ocR
 ocR
 ocR
-cbV
-cbV
-cbV
+ocR
+ocR
+ocR
 ocR
 ocR
 ocR
@@ -261022,9 +261018,9 @@ fEX
 fEX
 ocR
 ocR
-cbV
-cbV
-cbV
+ocR
+ocR
+ocR
 ocR
 ocR
 ocR
@@ -261281,8 +261277,8 @@ fEX
 ocR
 ocR
 ocR
-cbV
-cbV
+ocR
+ocR
 ocR
 ocR
 ocR
@@ -261731,7 +261727,7 @@ ocR
 ocR
 pup
 ocR
-cbV
+ocR
 tNq
 ocR
 fEX
@@ -263273,7 +263269,7 @@ fEX
 fEX
 fEX
 ocR
-cbV
+ocR
 ocR
 ocR
 ocR
@@ -263530,7 +263526,7 @@ fEX
 fEX
 fEX
 ocR
-cbV
+ocR
 ocR
 ocR
 ocR
@@ -263787,7 +263783,7 @@ fEX
 fEX
 fEX
 ocR
-cbV
+ocR
 ocR
 ocR
 ocR
