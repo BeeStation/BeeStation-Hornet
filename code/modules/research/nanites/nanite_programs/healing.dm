@@ -237,7 +237,7 @@
 		C.setOxyLoss(0)
 		// Set sleeping so you don't instantly get back up again
 		C.Sleeping(10 SECONDS)
-		C.Knockdown(25 SECONDS)
+		C.Knockdown(15 SECONDS)
 		if (C.can_be_revived() || C.stat != DEAD)
 			C.balloon_alert_to_viewers("Jolts as [C.p_they()] comes back to life!")
 			C.set_heartattack(FALSE)
@@ -245,7 +245,7 @@
 			C.emote("gasp")
 		else
 			C.balloon_alert_to_viewers("Jolts before falling limp.")
-		C.Jitter(100)
+		C.Jitter(150)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		log_game("[C] has been successfully defibrillated by nanites.")
 		nanites.set_volume(0)
