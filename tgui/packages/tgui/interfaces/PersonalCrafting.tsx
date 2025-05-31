@@ -1,11 +1,12 @@
 import { BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
-import { useBackend, useLocalState } from '../backend';
 import { Divider, Button, Section, Tabs, Stack, Box, Input, Icon, Tooltip, NoticeBox } from '../components';
 import { Window } from '../layouts';
 import { Food } from './PreferencesMenu/data';
+import { useState } from 'react';
+
+import { useBackend } from '../backend';
 
 const TYPE_ICONS = {
   'Can Make': 'utensils',
@@ -160,46 +161,41 @@ const findIcon = (atom_id: number, data: Data): string => {
 export const PersonalCrafting = (props) => {
   const { act, data } = useBackend<Data>();
   const { mode, busy, display_compact, display_craftable_only, craftability, diet } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [pages, setPages] = useLocalState('pages', 1);
+  const [searchText, setSearchText] = useState('');
+  const [pages, setPages] = useState(1);
   const DEFAULT_CAT_CRAFTING = Object.keys(CATEGORY_ICONS_CRAFTING)[1];
   const DEFAULT_CAT_COOKING = Object.keys(CATEGORY_ICONS_COOKING)[1];
-  const [activeCategory, setCategory] = useLocalState<string>(
-    'category',
+  const [activeCategory, setCategory] = useState(
     Object.keys(craftability).length ? 'Can Make' : mode === MODE.cooking ? DEFAULT_CAT_COOKING : DEFAULT_CAT_CRAFTING
   );
-  const [activeType, setFoodType] = useLocalState(
-    'foodtype',
-    Object.keys(craftability).length ? 'Can Make' : data.foodtypes[0]
-  );
-  const material_occurences = flow([sortBy<Material>((material) => -material.occurences)])(data.material_occurences);
-  const [activeMaterial, setMaterial] = useLocalState('material', material_occurences[0].atom_id);
-  const [tabMode, setTabMode] = useLocalState('tabMode', 0);
+  const [activeType, setFoodType] = useState(Object.keys(craftability).length ? 'Can Make' : data.foodtypes[0]);
+  const material_occurences = sortBy(data.material_occurences, (material) => -material.occurences);
+  const [activeMaterial, setMaterial] = useState(material_occurences[0].atom_id);
+  const [tabMode, setTabMode] = useState(0);
   const searchName = createSearch(searchText, (item: Recipe) => item.name);
-  let recipes = flow([
-    filter<Recipe>(
-      (recipe) =>
-        // If craftable only is selected, then filter by craftability
-        (!display_craftable_only || Boolean(craftability[recipe.ref])) &&
-        // Ignore categories and types when searching
-        (searchText.length > 0 ||
-          // Is foodtype mode and the active type matches
-          (tabMode === TABS.foodtype &&
-            mode === MODE.cooking &&
-            ((activeType === 'Can Make' && Boolean(craftability[recipe.ref])) || recipe.foodtypes?.includes(activeType))) ||
-          // Is material mode and the active material or catalysts match
-          (tabMode === TABS.material && Object.keys(recipe.reqs).includes(activeMaterial)) ||
-          // Is category mode and the active categroy matches
-          (tabMode === TABS.category &&
-            ((activeCategory === 'Can Make' && Boolean(craftability[recipe.ref])) || recipe.category === activeCategory)))
-    ),
-    sortBy<Recipe>((recipe) => [
-      activeCategory === 'Can Make' ? 99 - Object.keys(recipe.reqs).length : Number(craftability[recipe.ref]),
-      recipe.name.toLowerCase(),
-    ]),
-  ])(data.recipes);
+  let recipes = filter(
+    data.recipes,
+    (recipe) =>
+      // If craftable only is selected, then filter by craftability
+      (!display_craftable_only || Boolean(craftability[recipe.ref])) &&
+      // Ignore categories and types when searching
+      (searchText.length > 0 ||
+        // Is foodtype mode and the active type matches
+        (tabMode === TABS.foodtype &&
+          mode === MODE.cooking &&
+          ((activeType === 'Can Make' && Boolean(craftability[recipe.ref])) || recipe.foodtypes?.includes(activeType))) ||
+        // Is material mode and the active material or catalysts match
+        (tabMode === TABS.material && Object.keys(recipe.reqs).includes(activeMaterial)) ||
+        // Is category mode and the active categroy matches
+        (tabMode === TABS.category &&
+          ((activeCategory === 'Can Make' && Boolean(craftability[recipe.ref])) || recipe.category === activeCategory)))
+  );
+  recipes = sortBy(recipes, (recipe) => [
+    activeCategory === 'Can Make' ? 99 - Object.keys(recipe.reqs).length : Number(craftability[recipe.ref]),
+    recipe.name.toLowerCase(),
+  ]);
   if (searchText.length > 0) {
-    recipes = recipes.filter(searchName);
+    recipes = filter(recipes, searchName);
   }
   const canMake = ['Can Make'];
   const categories = canMake.concat(data.categories.sort()).filter((i) => (i === 'Weaponry' ? true : i));
