@@ -2364,7 +2364,6 @@
 		"meltdown_nanites",
 		"pyro_nanites",
 		"armblade_nanites",
-		"doorjack_nanites",
 		"jammer_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
