@@ -309,7 +309,7 @@
 	SEND_SIGNAL(C, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 
 
-/obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special = FALSE, abort = FALSE, is_creating = FALSE)
+/obj/item/bodypart/head/attach_limb(mob/living/carbon/new_head_owner, special = FALSE, abort = FALSE, is_creating = FALSE)
 	var/old_real_name = src.real_name
 
 	. = ..()
@@ -326,8 +326,8 @@
 	if(eyes)
 		eyes = null
 
-	if(ishuman(C) && !is_creating) // don't overwrite if the mob being created
-		var/mob/living/carbon/human/H = C
+	if(ishuman(new_head_owner) && !is_creating) // don't overwrite if the mob being created
+		var/mob/living/carbon/human/H = new_head_owner
 		H.hair_color = hair_color
 		H.hair_style = hair_style
 		H.facial_hair_color = facial_hair_color
@@ -341,14 +341,14 @@
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/P in src)
 		for(var/datum/action/item_action/hands_free/activate_pill/AP in P.actions)
-			P.forceMove(C)
-			AP.Grant(C)
+			P.forceMove(new_head_owner)
+			AP.Grant(new_head_owner)
 			break
 
-	C.updatehealth()
-	C.update_body()
-	C.update_hair()
-	C.update_damage_overlays()
+	new_head_owner.updatehealth()
+	new_head_owner.update_body()
+	new_head_owner.update_hair()
+	new_head_owner.update_damage_overlays()
 
 /obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/C)
 	if(!C.dna.species)
