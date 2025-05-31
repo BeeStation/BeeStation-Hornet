@@ -1,7 +1,7 @@
-/datum/action/spell/summon_spear // not conjure since this is like the marvel movie
+// We don't use conjure because it has limitations
+/datum/action/spell/summon_weapon
 	name = "Summon Weapon"
 	desc = "Summons your weapon from across time and space."
-
 	cooldown_time = 20 SECONDS
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
@@ -10,14 +10,15 @@
 	background_icon_state = "bg_clock"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
+	/// The item to summon
 	var/obj/item/marked_item
 
-/datum/action/spell/summon_spear/on_cast(mob/user, atom/target)
+/datum/action/spell/summon_weapon/on_cast(mob/user, atom/target)
 	. = ..()
 	if(QDELETED(marked_item))
 		qdel(src)
 
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 
 	var/obj/item_to_retrieve = marked_item
