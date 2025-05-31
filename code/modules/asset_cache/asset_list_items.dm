@@ -378,7 +378,7 @@
 				continue
 			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
 				var/obj/item/bodypart/body_part = item
-				icon_file = initial(body_part.icon_static)
+				icon_file = initial(body_part.static_icon)
 			else
 				icon_file = initial(item.icon)
 

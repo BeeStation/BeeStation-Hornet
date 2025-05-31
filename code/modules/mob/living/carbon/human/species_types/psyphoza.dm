@@ -21,14 +21,12 @@
 	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
 
-	bodypart_overrides = list(
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/psyphoza,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/psyphoza,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/psyphoza,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/psyphoza,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/psyphoza,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/psyphoza
-	)
+	species_chest = /obj/item/bodypart/chest/psyphoza
+	species_head = /obj/item/bodypart/head/psyphoza
+	species_l_arm = /obj/item/bodypart/l_arm/psyphoza
+	species_r_arm = /obj/item/bodypart/r_arm/psyphoza
+	species_l_leg = /obj/item/bodypart/l_leg/psyphoza
+	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
 
 	//Fire bad!
 	burnmod = 1.25

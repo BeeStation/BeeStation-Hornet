@@ -31,7 +31,6 @@
 	if(isnull(batform))
 		batform = new
 		batform.Grant(C)
-	C.set_safe_hunger_level()
 
 /datum/species/vampire/on_species_loss(mob/living/carbon/C)
 	. = ..()

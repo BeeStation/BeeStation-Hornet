@@ -20,7 +20,6 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
-		TRAIT_GENELESS,
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_EASYDISMEMBER,
 		TRAIT_POWERHUNGRY,
@@ -41,6 +40,7 @@
 	mutant_bodyparts = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
+	damage_overlay_type = "synth"
 
 	burnmod = 2
 	heatmod = 1.5
@@ -58,14 +58,12 @@
 	special_step_sounds = list('sound/effects/servostep.ogg')
 	species_bitflags = NOT_TRANSMORPHIC
 
-	bodypart_overrides = list(
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/ipc,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ipc,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ipc,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ipc,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ipc,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/ipc
-	)
+	species_chest = /obj/item/bodypart/chest/ipc
+	species_head = /obj/item/bodypart/head/ipc
+	species_l_arm = /obj/item/bodypart/l_arm/ipc
+	species_r_arm = /obj/item/bodypart/r_arm/ipc
+	species_l_leg = /obj/item/bodypart/l_leg/ipc
+	species_r_leg = /obj/item/bodypart/r_leg/ipc
 
 	exotic_blood = /datum/reagent/oil
 	blood_color = "#000000"

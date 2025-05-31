@@ -46,54 +46,47 @@
 	limb_id = "abductor"
 	should_draw_greyscale = FALSE
 
+///JELLY
+/obj/item/bodypart/head/jelly
+	limb_id = "jelly"
+	is_dimorphic = TRUE
+
+/obj/item/bodypart/chest/jelly
+	limb_id = "jelly"
+	is_dimorphic = TRUE
+
+/obj/item/bodypart/l_arm/jelly
+	limb_id = "jelly"
+
+/obj/item/bodypart/r_arm/jelly
+	limb_id = "jelly"
+
+/obj/item/bodypart/l_leg/jelly
+	limb_id = "jelly"
+
+/obj/item/bodypart/r_leg/jelly
+	limb_id = "jelly"
 
 ///SLIME
 /obj/item/bodypart/head/slime
-	limb_id = SPECIES_SLIMEPERSON
+	limb_id = "slime"
 	is_dimorphic = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/chest/slime
-	limb_id = SPECIES_SLIMEPERSON
+	limb_id = "slime"
 	is_dimorphic = TRUE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/l_arm/slime
-	limb_id = SPECIES_SLIMEPERSON
-	dmg_overlay_type = null
+	limb_id = "slime"
 
 /obj/item/bodypart/r_arm/slime
-	limb_id = SPECIES_SLIMEPERSON
-	dmg_overlay_type = null
+	limb_id = "slime"
 
 /obj/item/bodypart/l_leg/slime
-	limb_id = SPECIES_SLIMEPERSON
-	dmg_overlay_type = null
+	limb_id = "slime"
 
 /obj/item/bodypart/r_leg/slime
-	limb_id = SPECIES_SLIMEPERSON
-	dmg_overlay_type = null
-
-///LUMINESCENT
-/obj/item/bodypart/head/luminescent
-	limb_id = SPECIES_LUMINESCENT
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/chest/luminescent
-	limb_id = SPECIES_LUMINESCENT
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/l_arm/luminescent
-	limb_id = SPECIES_LUMINESCENT
-
-/obj/item/bodypart/r_arm/luminescent
-	limb_id = SPECIES_LUMINESCENT
-
-/obj/item/bodypart/l_leg/luminescent
-	limb_id = SPECIES_LUMINESCENT
-
-/obj/item/bodypart/r_leg/luminescent
-	limb_id = SPECIES_LUMINESCENT
+	limb_id = "slime"
 
 ///ZAMBONI
 /obj/item/bodypart/head/zombie
@@ -185,36 +178,30 @@
 
 ///SKELETON
 /obj/item/bodypart/head/skeleton
-	limb_id = SPECIES_SKELETON
+	limb_id = "skeleton"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/chest/skeleton
-	limb_id = SPECIES_SKELETON
+	limb_id = "skeleton"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/l_arm/skeleton
-	limb_id = SPECIES_SKELETON
+	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/r_arm/skeleton
-	limb_id = SPECIES_SKELETON
+	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/l_leg/skeleton
-	limb_id = SPECIES_SKELETON
+	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/r_leg/skeleton
-	limb_id = SPECIES_SKELETON
+	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
-	dmg_overlay_type = null
 
 ///MUSHROOM
 /obj/item/bodypart/head/mushroom
@@ -239,30 +226,24 @@
 
 ///GOLEMS (i hate xenobio)
 /obj/item/bodypart/head/golem
-	limb_id = SPECIES_GOLEM
+	limb_id = "golem"
 	is_dimorphic = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/chest/golem
-	limb_id = SPECIES_GOLEM
+	limb_id = "golem"
 	is_dimorphic = FALSE
-	dmg_overlay_type = null
 
 /obj/item/bodypart/l_arm/golem
-	limb_id = SPECIES_GOLEM
-	dmg_overlay_type = null
+	limb_id = "golem"
 
 /obj/item/bodypart/r_arm/golem
-	limb_id = SPECIES_GOLEM
-	dmg_overlay_type = null
+	limb_id = "golem"
 
 /obj/item/bodypart/l_leg/golem
-	limb_id = SPECIES_GOLEM
-	dmg_overlay_type = null
+	limb_id = "golem"
 
 /obj/item/bodypart/r_leg/golem
-	limb_id = SPECIES_GOLEM
-	dmg_overlay_type = null
+	limb_id = "golem"
 
 ///
 /obj/item/bodypart/head/golem/alloy

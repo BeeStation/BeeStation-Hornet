@@ -129,6 +129,3 @@
 
 //Size / height stuff
 #define SPECIES_HEIGHTS(x, y, z) list("Short" = x, "Normal" = y, "Tall" = z)
-
-//Defines for Golem Species IDs
-#define SPECIES_GOLEM "golem"

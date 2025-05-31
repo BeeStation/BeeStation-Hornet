@@ -1,5 +1,5 @@
 /obj/item/bodypart/head/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
+	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth" //Overriden in /species/ipc/replace_body()
 	is_dimorphic = FALSE
@@ -14,7 +14,7 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/chest/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
+	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	is_dimorphic = FALSE
@@ -30,7 +30,7 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/l_arm/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
+	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -45,7 +45,7 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/r_arm/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
+	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -60,7 +60,7 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/l_leg/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
+	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -75,7 +75,7 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/r_leg/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
+	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE

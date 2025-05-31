@@ -1,3 +1,4 @@
+
 /datum/species/ethereal
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
@@ -11,33 +12,28 @@
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
 	attack_type = BURN //burn bish
-	species_traits = list(
-		DYNCOLORS, 
-		AGENDER, 
-		HAIR
-	)
+	damage_overlay_type = "" //We are too cool for regular damage overlays
+	species_traits = list(DYNCOLORS, AGENDER, HAIR)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
 	inherent_traits = list(TRAIT_POWERHUNGRY)
 	sexes = FALSE //no fetish content allowed
+	hair_color = "fixedmutcolor"
+	hair_alpha = 140
+	swimming_component = /datum/component/swimming/ethereal
+
+	species_chest = /obj/item/bodypart/chest/ethereal
+	species_head = /obj/item/bodypart/head/ethereal
+	species_l_arm = /obj/item/bodypart/l_arm/ethereal
+	species_r_arm = /obj/item/bodypart/r_arm/ethereal
+	species_l_leg = /obj/item/bodypart/l_leg/ethereal
+	species_r_leg = /obj/item/bodypart/r_leg/ethereal
+
 	// Body temperature for ethereals is much higher then humans as they like hotter environments
 	bodytemp_normal = (BODYTEMP_NORMAL + 50)
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
 	// Cold temperatures hurt faster as it is harder to move with out the heat energy
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
-	hair_color = "fixedmutcolor"
-	hair_alpha = 140
-	swimming_component = /datum/component/swimming/ethereal
-	inert_mutation = /datum/mutation/overload
-
-	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ethereal,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ethereal,
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/ethereal,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ethereal,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_arm/ethereal,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
-	)
 
 	var/current_color
 	//var/default_color
@@ -51,11 +47,11 @@
 	var/emageffect = FALSE
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
+	inert_mutation = /datum/mutation/overload
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
 /datum/species/ethereal/Destroy(force)
-	if(ethereal_light)
-		QDEL_NULL(ethereal_light)
+	QDEL_NULL(ethereal_light)
 	return ..()
 
 /datum/species/ethereal/on_species_gain(mob/living/carbon/new_ethereal, datum/species/old_species, pref_load)
@@ -72,7 +68,6 @@
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	ethereal_light = ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	spec_updatehealth(ethereal)
-	new_ethereal.set_safe_hunger_level()
 
 	//The following code is literally only to make admin-spawned ethereals not be black.
 	new_ethereal.dna.features["mcolor"] = new_ethereal.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced

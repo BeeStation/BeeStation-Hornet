@@ -119,37 +119,77 @@
 //Helper for quickly creating a new limb - used by augment code in species.dm spec_attacked_by
 //
 // FUCK YOU AUGMENT CODE - With love, Kapu
-/mob/living/carbon/proc/newBodyPart(zone)
-	var/path = dna.species.bodypart_overrides[zone]
-	var/obj/item/bodypart/new_bodypart = new path()
-	return new_bodypart
-
-/mob/living/carbon/alien/larva/newBodyPart(zone)
-	var/obj/item/bodypart/new_bodypart
-	switch(zone)
-		if(BODY_ZONE_HEAD)
-			new_bodypart = new /obj/item/bodypart/head/larva()
-		if(BODY_ZONE_CHEST)
-			new_bodypart = new /obj/item/bodypart/chest/larva()
-	. = new_bodypart
-
-/mob/living/carbon/alien/adult/newBodyPart(zone)
-	var/obj/item/bodypart/new_bodypart
+/mob/living/carbon/proc/newBodyPart(zone, robotic, fixed_icon)
+	var/obj/item/bodypart/L
 	switch(zone)
 		if(BODY_ZONE_L_ARM)
-			new_bodypart = new /obj/item/bodypart/l_arm/alien()
+			L = new dna.species.species_l_arm()
 		if(BODY_ZONE_R_ARM)
-			new_bodypart = new /obj/item/bodypart/r_arm/alien()
+			L = new dna.species.species_r_arm()
 		if(BODY_ZONE_HEAD)
-			new_bodypart = new /obj/item/bodypart/head/alien()
+			L = new dna.species.species_head()
 		if(BODY_ZONE_L_LEG)
-			new_bodypart = new /obj/item/bodypart/l_leg/alien()
+			L = new dna.species.species_l_leg()
 		if(BODY_ZONE_R_LEG)
-			new_bodypart = new /obj/item/bodypart/r_leg/alien()
+			L = new dna.species.species_r_leg()
 		if(BODY_ZONE_CHEST)
-			new_bodypart = new /obj/item/bodypart/chest/alien()
-	if(new_bodypart)
-		new_bodypart.update_limb(src)
+			L = new dna.species.species_chest()
+	. = L
+
+/mob/living/carbon/monkey/newBodyPart(zone, robotic, fixed_icon)
+	var/obj/item/bodypart/L
+	switch(zone)
+		if(BODY_ZONE_L_ARM)
+			L = new /obj/item/bodypart/l_arm/monkey()
+		if(BODY_ZONE_R_ARM)
+			L = new /obj/item/bodypart/r_arm/monkey()
+		if(BODY_ZONE_HEAD)
+			L = new /obj/item/bodypart/head/monkey()
+		if(BODY_ZONE_L_LEG)
+			L = new /obj/item/bodypart/l_leg/monkey()
+		if(BODY_ZONE_R_LEG)
+			L = new /obj/item/bodypart/r_leg/monkey()
+		if(BODY_ZONE_CHEST)
+			L = new /obj/item/bodypart/chest/monkey()
+	if(L)
+		L.update_limb(fixed_icon, src)
+		if(robotic)
+			L.change_bodypart_status(BODYTYPE_ROBOTIC)
+	. = L
+
+/mob/living/carbon/alien/larva/newBodyPart(zone, robotic, fixed_icon)
+	var/obj/item/bodypart/L
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			L = new /obj/item/bodypart/head/larva()
+		if(BODY_ZONE_CHEST)
+			L = new /obj/item/bodypart/chest/larva()
+	if(L)
+		L.update_limb(fixed_icon, src)
+		if(robotic)
+			L.change_bodypart_status(BODYTYPE_ROBOTIC)
+	. = L
+
+/mob/living/carbon/alien/humanoid/newBodyPart(zone, robotic, fixed_icon)
+	var/obj/item/bodypart/L
+	switch(zone)
+		if(BODY_ZONE_L_ARM)
+			L = new /obj/item/bodypart/l_arm/alien()
+		if(BODY_ZONE_R_ARM)
+			L = new /obj/item/bodypart/r_arm/alien()
+		if(BODY_ZONE_HEAD)
+			L = new /obj/item/bodypart/head/alien()
+		if(BODY_ZONE_L_LEG)
+			L = new /obj/item/bodypart/l_leg/alien()
+		if(BODY_ZONE_R_LEG)
+			L = new /obj/item/bodypart/r_leg/alien()
+		if(BODY_ZONE_CHEST)
+			L = new /obj/item/bodypart/chest/alien()
+	if(L)
+		L.update_limb(fixed_icon, src)
+		if(robotic)
+			L.change_bodypart_status(BODYTYPE_ROBOTIC)
+	. = L
 
 
 /proc/skintone2hex(skin_tone, include_tag = TRUE)
