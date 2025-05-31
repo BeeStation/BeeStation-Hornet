@@ -305,6 +305,8 @@
 	name = "Luminescent"
 	plural_form = null
 	id = SPECIES_LUMINESCENT
+	examine_limb_id = SPECIES_OOZELING
+
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	var/obj/effect/dummy/lighting_obj/moblight/glow
 	var/obj/item/slime_extract/current_extract
@@ -312,8 +314,6 @@
 	var/datum/action/innate/use_extract/extract_minor
 	var/datum/action/innate/use_extract/major/extract_major
 	var/extract_cooldown = 0
-
-	examine_limb_id = SPECIES_OOZELING
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/oozeling/luminescent/Destroy(force)
@@ -335,12 +335,6 @@
 	extract_major = new(src)
 	extract_major.Grant(new_jellyperson)
 
-/datum/species/oozeling/luminescent/proc/update_slime_actions()
-	integrate_extract.update_name()
-	integrate_extract.update_buttons()
-	extract_minor.update_buttons()
-	extract_major.update_buttons()
-
 /datum/species/oozeling/luminescent/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	if(current_extract)
@@ -350,6 +344,12 @@
 	QDEL_NULL(integrate_extract)
 	QDEL_NULL(extract_major)
 	QDEL_NULL(extract_minor)
+
+/datum/species/oozeling/luminescent/proc/update_slime_actions()
+	integrate_extract.update_name()
+	integrate_extract.update_buttons()
+	extract_minor.update_buttons()
+	extract_major.update_buttons()
 
 /// Updates the glow of our internal glow object
 /datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/human/glowie, intensity)
@@ -366,8 +366,9 @@
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/integrate_extract/proc/update_name()
-	var/datum/species/oozeling/luminescent/species = owner
-	if(!species?.current_extract)
+	var/mob/living/carbon/human/H = owner
+	var/datum/species/oozeling/luminescent/species = H.dna.species
+	if(!species || !species.current_extract)
 		name = "Integrate Extract"
 		desc = "Eat a slime extract to use its properties."
 	else
@@ -377,8 +378,9 @@
 /datum/action/innate/integrate_extract/update_buttons(status_only, force)
 	if(!owner)
 		return
-	var/datum/species/oozeling/luminescent/species = owner
-	if(!species?.current_extract)
+	var/mob/living/carbon/human/H = owner
+	var/datum/species/oozeling/luminescent/species = H.dna.species
+	if(!species || !species.current_extract)
 		button_icon_state = "slimeconsume"
 	else
 		button_icon_state = "slimeeject"
@@ -386,13 +388,14 @@
 
 /datum/action/innate/integrate_extract/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
-	var/datum/species/oozeling/luminescent/species = owner
+	var/mob/living/carbon/human/H = owner
+	var/datum/species/oozeling/luminescent/species = H.dna.species
 	if(species?.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
 /datum/action/innate/integrate_extract/on_activate()
 	var/mob/living/carbon/human/H = owner
-	var/datum/species/oozeling/luminescent/species = owner
+	var/datum/species/oozeling/luminescent/species = H.dna.species
 	if(!is_species(H, /datum/species/oozeling/luminescent) || !species)
 		return
 	CHECK_DNA_AND_SPECIES(H)
@@ -431,24 +434,33 @@
 
 /datum/action/innate/use_extract/is_available()
 	if(..())
-		var/datum/species/oozeling/luminescent/species = owner
+		var/mob/living/carbon/human/H = owner
+		var/datum/species/oozeling/luminescent/species = H.dna?.species
 		if(species && species.current_extract && (world.time > species.extract_cooldown))
 			return TRUE
 		return FALSE
 
 /datum/action/innate/use_extract/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
-	var/mob/living/carbon/human/H = owner
-	var/datum/species/oozeling/luminescent/species = H.dna.species
-	if(species && species.current_extract)
+
+	if(!ishuman(owner))
+		return
+
+	var/mob/living/carbon/human/gazer = owner
+	var/datum/species/oozeling/luminescent/species = gazer?.dna?.species
+
+	if(!istype(species, /datum/species/oozeling/luminescent))
+		return
+	
+	if(species.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
 /datum/action/innate/use_extract/on_activate()
 	var/mob/living/carbon/human/H = owner
-	CHECK_DNA_AND_SPECIES(H)
 	var/datum/species/oozeling/luminescent/species = H.dna.species
-	if(!is_species(H, /datum/species/oozeling/luminescent) || !species)
+	if(!isluminescent(H) || !species)
 		return
+	CHECK_DNA_AND_SPECIES(H)
 
 	if(species.current_extract)
 		species.extract_cooldown = world.time + 10 SECONDS
@@ -471,7 +483,7 @@
 GLOBAL_LIST_EMPTY(slime_links_by_mind)
 
 /datum/species/oozeling/stargazer
-	name = "Stargazer"
+	name = "\improper Stargazer"
 	plural_form = null
 	id = SPECIES_STARGAZER
 	examine_limb_id = SPECIES_OOZELING
