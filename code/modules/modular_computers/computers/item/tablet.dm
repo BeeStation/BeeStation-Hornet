@@ -6,7 +6,7 @@
 	icon_state_unpowered = "tablet"
 	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
-	hardware_flag = PROGRAM_TABLET
+	hardware_flag = PROGRAM_PDA
 	max_hardware_size = 1
 	w_class = WEIGHT_CLASS_SMALL
 	max_bays = 3
