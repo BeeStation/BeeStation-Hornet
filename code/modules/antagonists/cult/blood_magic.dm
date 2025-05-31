@@ -654,7 +654,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
+			if(HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				to_chat(user,span_warning("Blood rites do not work on species with no blood!"))
 				return
 			if(iscultist(H))

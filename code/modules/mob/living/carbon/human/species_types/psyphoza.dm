@@ -436,7 +436,8 @@
 /datum/action/change_psychic_auto/New(Target)
 	. = ..()
 	psychic_action = Target
-	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	//Bad, but not my job to fix your runtimes
+	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy), override = TRUE)
 
 /datum/action/change_psychic_auto/Destroy()
 	psychic_action = null

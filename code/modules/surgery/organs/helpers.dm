@@ -4,7 +4,7 @@
   * Arguments:
   * * typepath The typepath of the organ to get
   */
-/mob/proc/getorgan(typepath)
+/mob/proc/get_organ_by_type(typepath)
 	return
 /**
   * Get organ objects by zone
@@ -14,34 +14,30 @@
   * Arguments:
   * * zone [a BODY_ZONE_X define](https://github.com/tgstation/tgstation/blob/master/code/__DEFINES/combat.dm#L187-L200)
   */
-/mob/proc/getorganszone(zone)
+/mob/proc/get_organs_for_zone(zone)
 	return
+
 /**
   * Get an organ relating to a specific slot
   *
   * Arguments:
   * * slot Slot to get the organ from
   */
-/mob/proc/getorganslot(slot)
+/mob/proc/get_organ_slot(slot)
 	return
 
-/mob/living/carbon/getorgan(typepath)
+/mob/living/carbon/get_organ_by_type(typepath)
 	return (locate(typepath) in internal_organs)
 
-/mob/living/carbon/getorganszone(zone, subzones = 0)
-	var/list/returnorg = list()
-	if(subzones)
-		// Include subzones - groin for chest, eyes and mouth for head
-		if(zone == BODY_ZONE_HEAD)
-			returnorg = getorganszone(BODY_ZONE_PRECISE_EYES) + getorganszone(BODY_ZONE_PRECISE_MOUTH)
-		if(zone == BODY_ZONE_CHEST)
-			returnorg = getorganszone(BODY_ZONE_PRECISE_GROIN)
+/mob/living/carbon/get_organs_for_zone(zone, include_children = FALSE)
+	var/valid_organs = list()
 
-	for(var/X in internal_organs)
-		var/obj/item/organ/O = X
-		if(zone == O.zone)
-			returnorg += O
-	return returnorg
+	for(var/obj/item/organ/organ as anything in internal_organs/* + external_organs*/)
+		if(zone == organ.zone)
+			valid_organs += organ
+		else if(include_children && zone == deprecise_zone(organ.zone))
+			valid_organs += organ
+	return valid_organs
 
-/mob/living/carbon/getorganslot(slot)
+/mob/living/carbon/get_organ_slot(slot)
 	return internal_organs_slot[slot]

@@ -132,7 +132,7 @@
 			else
 				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
 
-	if(get_bodypart(BODY_ZONE_HEAD) && !getorgan(/obj/item/organ/brain))
+	if(get_bodypart(BODY_ZONE_HEAD) && !get_organ_by_type(/obj/item/organ/brain))
 		. += span_deadsay("It appears that [t_his] brain is missing.")
 
 	var/temp = getBruteLoss() //no need to calculate each of these twice
@@ -323,7 +323,7 @@
 			if(CONSCIOUS)
 				if(HAS_TRAIT(src, TRAIT_DUMB))
 					msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
-		if(getorgan(/obj/item/organ/brain))
+		if(get_organ_by_type(/obj/item/organ/brain))
 			if(ai_controller?.ai_status == AI_STATUS_ON)
 				msg += "[span_deadsay("[t_He] do[t_es]n't appear to be [t_him]self.")]\n"
 			if(!key)
@@ -415,4 +415,4 @@
 	return !key && !get_ghost(FALSE, TRUE)
 
 /mob/living/soul_departed()
-	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)
+	return get_organ_by_type(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)

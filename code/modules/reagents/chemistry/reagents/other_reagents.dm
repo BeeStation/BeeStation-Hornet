@@ -1971,7 +1971,7 @@
 
 /datum/reagent/romerol/expose_mob(mob/living/carbon/human/H, method=TOUCH, reac_volume)
 	// Silently add the zombie infection organ to be activated upon death
-	if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
+	if(!H.get_organ_slot(ORGAN_SLOT_ZOMBIE))
 		var/obj/item/organ/zombie_infection/nodamage/ZI = new()
 		ZI.Insert(H)
 	..()

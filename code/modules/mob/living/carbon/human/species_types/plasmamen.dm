@@ -5,13 +5,23 @@
 	bodyflag = FLAG_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
-	species_traits = list(NOBLOOD,NOTRANSSTING,ENVIROSUIT)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_RADIMMUNE,TRAIT_NOHUNGER,TRAIT_ALWAYS_CLEAN)
+	species_traits = list(
+		NOTRANSSTING,
+		ENVIROSUIT
+	)
+	inherent_traits = list(
+		TRAIT_RESISTCOLD,
+		TRAIT_RADIMMUNE,
+		TRAIT_NOHUNGER,
+		TRAIT_NOBLOOD,
+	)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman
 	mutantstomach = /obj/item/organ/stomach/plasmaman
+	mutantappendix = null
+	mutantheart = null
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5

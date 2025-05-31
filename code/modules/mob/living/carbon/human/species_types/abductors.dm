@@ -2,14 +2,21 @@
 	name = "\improper Abductor"
 	id = SPECIES_ABDUCTOR
 	sexes = FALSE
-	species_traits = list(NOBLOOD,NOEYESPRITES,NOMOUTH)
+	species_traits = list(
+		NOEYESPRITES,
+		NOMOUTH
+	)
 	inherent_traits = list(
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_NOHUNGER,
-		TRAIT_NOBREATH
+		TRAIT_NOBREATH,
+		TRAIT_NOBLOOD,
 	)
 	mutanttongue = /obj/item/organ/tongue/abductor
+	mutantstomach = null
+	mutantheart = null
+	mutantlungs = null
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	species_chest = /obj/item/bodypart/chest/abductor

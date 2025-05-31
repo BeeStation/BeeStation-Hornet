@@ -44,8 +44,8 @@
 			H.vomit(damage)
 			to_chat(H, span_warning("Your stomach reels in pain as you're incapable of holding down all that food!"))
 
-/obj/item/organ/stomach/get_availability(datum/species/S)
-	return !(NOSTOMACH in S.species_traits)
+/obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantstomach
 
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.disgust)
@@ -106,7 +106,7 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
@@ -140,6 +140,8 @@
 	set_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
 
 /obj/item/organ/stomach/battery/proc/update_nutrition()
+	if(!owner)
+		return
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
 
@@ -174,7 +176,7 @@
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
 
-/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	return ..()
 

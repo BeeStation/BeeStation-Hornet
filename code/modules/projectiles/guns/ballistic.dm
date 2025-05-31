@@ -513,7 +513,7 @@
 #define BRAINS_BLOWN_THROW_SPEED 1
 
 /obj/item/gun/ballistic/suicide_act(mob/living/user)
-	var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = user.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if (B && chambered && chambered.BB && can_trigger_gun(user) && !chambered.BB.nodamage)
 		user.visible_message(span_suicide("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		sleep(25)

@@ -342,25 +342,19 @@
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 
-/obj/item/organ/tail/clockwork/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		if(!(H.dna.species.mutant_bodyparts["tail_human"]))
-			H.dna.features["tail_human"] = tail_type
-			H.dna.species.mutant_bodyparts["tail_human"] = tail_type
-		H.update_body()
+/obj/item/organ/tail/clockwork/on_insert(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		if(!(tail_owner.dna.species.mutant_bodyparts["tail_human"]))
+			tail_owner.dna.features["tail_human"] = tail_type
+			tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
+		tail_owner.update_body()
 
-/obj/item/organ/tail/clockwork/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		H.dna.species.mutant_bodyparts -= "tail_human"
-		H.update_body()
+/obj/item/organ/tail/clockwork/on_remove(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		tail_owner.dna.species.mutant_bodyparts -= "tail_human"
+		tail_owner.update_body()
 
 /obj/item/bodypart/l_arm/robot/clockwork
 	name = "clockwork left arm"

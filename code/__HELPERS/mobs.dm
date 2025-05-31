@@ -576,6 +576,26 @@ GLOBAL_LIST_EMPTY(species_list)
 		else
 			return zone
 
+///Takes a zone and returns it's "parent" zone, if it has one.
+/proc/deprecise_zone(precise_zone)
+	switch(precise_zone)
+		if(BODY_ZONE_PRECISE_GROIN)
+			return BODY_ZONE_CHEST
+		if(BODY_ZONE_PRECISE_EYES)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return BODY_ZONE_R_ARM
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return BODY_ZONE_L_ARM
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return BODY_ZONE_L_LEG
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return BODY_ZONE_R_LEG
+		else
+			return precise_zone
+
 ///Returns the direction that the initiator and the target are facing
 /proc/check_target_facings(mob/living/initator, mob/living/target)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.

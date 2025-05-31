@@ -16,7 +16,7 @@
 /datum/surgery/advanced/lobotomy/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!B)
 		return FALSE
 	return TRUE
@@ -64,7 +64,7 @@
 	return TRUE
 
 /datum/surgery_step/lobotomize/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(B)
 		display_results(user, target, span_warning("You remove the wrong part, causing more damage!"),
 			"[user] successfully lobotomizes [target]!",

@@ -61,8 +61,8 @@
 #undef HAS_NO_TOXIN
 #undef HAS_PAINFUL_TOXIN
 
-/obj/item/organ/liver/get_availability(datum/species/S)
-	return !(TRAIT_NOMETABOLISM in S.species_traits)
+/obj/item/organ/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantliver
 
 /obj/item/organ/liver/fly
 	name = "insectoid liver"

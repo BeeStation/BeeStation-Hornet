@@ -53,17 +53,15 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS		1
-#define HAIR			2
-#define FACEHAIR		3
-#define EYECOLOR		4
-#define LIPS			5
-#define NOBLOOD			6
-#define NOTRANSSTING	7
-#define NOZOMBIE		8
-#define NO_UNDERWEAR	9
+#define MUTCOLORS 1
+#define HAIR 2
+#define FACEHAIR 3
+#define EYECOLOR 4
+#define LIPS 5
+#define NOTRANSSTING 6
+#define NOZOMBIE 8
+#define NO_UNDERWEAR 9
 #define NOLIVER			10
-#define NOSTOMACH		11
 #define NO_DNA_COPY     12
 #define NOFLASH			13
 #define DYNCOLORS		14 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.

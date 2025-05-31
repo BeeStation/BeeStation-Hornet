@@ -1,13 +1,36 @@
 /datum/species/android
 	name = "Android"
 	id = "android"
-	species_traits = list(NOTRANSSTING,NOREAGENTS,NO_DNA_COPY,NOBLOOD,NOFLASH)
-	inherent_traits = list(TRAIT_NOMETABOLISM,TRAIT_TOXIMMUNE,TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,\
-	TRAIT_RESISTLOWPRESSURE,TRAIT_RADIMMUNE,TRAIT_NOFIRE,TRAIT_PIERCEIMMUNE,TRAIT_NOHUNGER,TRAIT_LIMBATTACHMENT,TRAIT_NOCLONELOSS)
+	species_traits = list(
+		NOTRANSSTING,
+		NOREAGENTS,
+		NO_DNA_COPY,
+		NOFLASH
+	)
+	inherent_traits = list(
+		TRAIT_NOMETABOLISM,
+		TRAIT_TOXIMMUNE,
+		TRAIT_RESISTHEAT,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RADIMMUNE,
+		TRAIT_NOFIRE,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NOHUNGER,
+		TRAIT_LIMBATTACHMENT,
+		TRAIT_NOCLONELOSS,
+		TRAIT_NOBLOOD,
+	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
 	damage_overlay_type = "synth"
 	mutanttongue = /obj/item/organ/tongue/robot
+	mutantstomach = null
+	mutantheart = null
+	mutantliver = null
+	mutantlungs = null
 	species_language_holder = /datum/language_holder/synthetic
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
