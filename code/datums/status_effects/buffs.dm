@@ -152,7 +152,7 @@
 
 /datum/status_effect/cult_master/tick()
 	if(owner.stat != DEAD && !alive)
-		alive = TRUEds
+		alive = TRUE
 		return
 	if(owner.stat == DEAD && alive)
 		alive = FALSE

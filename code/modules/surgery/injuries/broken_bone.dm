@@ -1,13 +1,6 @@
 /datum/injury/broken_bone
 	alert_type = /atom/movable/screen/alert/status_effect/broken_bone
-
-/datum/injury/broken_bone/apply_to_part(obj/item/bodypart/part)
-	part.bone_max_health -= initial(part.bone_max_health) * 0.5
-	part.check_destroyed()
-
-/datum/injury/broken_bone/remove_from_part(obj/item/bodypart/part)
-	part.bone_max_health += initial(part.bone_max_health) * 0.5
-	part.check_destroyed()
+	bone_armour_modifier = 0.5
 
 /atom/movable/screen/alert/status_effect/broken_bone
 	name = "Broken Bone"

@@ -38,12 +38,13 @@
 	return
 
 /datum/injury/proc/apply_damage(delta_damage, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	current_damage += delta_damage
-	on_damage_taken(current_damage, delta_damage, damage_flag, is_sharp)
+	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_flag, is_sharp))
+		current_damage += delta_damage
 
 /// Called when damage is taken
+/// Return false if the damage is not relevant and should be ignored, true otherwise.
 /datum/injury/proc/on_damage_taken(total_damage, delta_damage, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	return
+	return FALSE
 
 /// Called when the limb processes, target may be null
 /datum/injury/proc/on_tick(mob/living/carbon/human/target, delta_time)

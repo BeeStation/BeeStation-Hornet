@@ -719,7 +719,7 @@
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	for (var/datum/injury/injury_graph as anything in injuries)
-		injury_graph.apply_damage(blunt_damage, damage_flag, false)
+		injury_graph.apply_damage(blunt_damage, damage_flag, FALSE)
 	// Bone pentration
 	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
 	current_damage = damage
@@ -736,10 +736,6 @@
 		if (!prob(organ.organ_size))
 			continue
 		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
-	// If the penetration power is still high, then lose the limb
-	// The head cannot be delimbed if the most is alive since it causes instant death
-	if (((penetration_power > 0 && prob(penetration_power - bone_health)) || bone_health <= 0) && dismemberable && damage_flag == DAMAGE_STANDARD && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
-		dismember()
 
 /obj/item/bodypart/proc/apply_injury(injury_path)
 	for (var/datum/injury/injury in injuries)
@@ -767,7 +763,9 @@
 /obj/item/bodypart/proc/check_destroyed()
 	if (destroyed)
 		return
-	if (bone_max_health <= 0 || skin_max_health <= 0)
+	for (var/datum/injury/injury_graph as anything in injuries)
+		if (injury_graph.skin_armour_modifier && injury_graph.bone_armour_modifier)
+			continue
 		destroyed = TRUE
 		if (owner)
 			to_chat(owner, span_userdanger("Your [name] falls limp and unresponsive!"))
