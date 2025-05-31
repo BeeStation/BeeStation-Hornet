@@ -8,7 +8,7 @@ GLOBAL_VAR_INIT(curse_of_madness_triggered, FALSE)
 
 	GLOB.curse_of_madness_triggered = message // So latejoiners are also afflicted.
 
-	deadchat_broadcast(span_deadsay("A [span_name("Curse of Madness")] has stricken the station, shattering their minds with the awful secret: \"[span_bighypnophrase("[message]")]\""))
+	deadchat_broadcast(span_deadsay("A [span_name("Curse of Madness")] has stricken the station, shattering their minds with the awful secret: \"[span_bighypnophrase(message)]\""))
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.stat == DEAD)
@@ -26,7 +26,7 @@ GLOBAL_VAR_INIT(curse_of_madness_triggered, FALSE)
 
 /proc/give_madness(mob/living/carbon/human/H, message)
 	H.playsound_local(H,'sound/magic/curse.ogg',40,1)
-	to_chat(H, span_reallybighypnophrase("[message]"))
+	to_chat(H, span_reallybighypnophrase(message))
 	to_chat(H, span_warning("Your mind shatters!"))
 	switch(rand(1,10))
 		if(1 to 3)

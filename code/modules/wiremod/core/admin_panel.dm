@@ -50,7 +50,7 @@
 			if (length(errors))
 				to_chat(usr, span_warning("Somehow, duplicating the circuit failed:"))
 				for (var/error in errors)
-					to_chat(usr, span_warning("[error]"))
+					to_chat(usr, span_warning(error))
 		if ("follow_circuit")
 			var/datum/admins/D = GLOB.admin_datums[usr.client?.ckey]
 			D.admin_follow(circuit)
