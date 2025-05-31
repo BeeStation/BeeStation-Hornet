@@ -1226,6 +1226,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 /mob/living/carbon/human/species/shadow/nightmare
 	race = /datum/species/shadow/nightmare
 
+/mob/living/carbon/human/species/shadow/blessed
+	race = /datum/species/shadow/blessed
+
 /mob/living/carbon/human/species/skeleton
 	race = /datum/species/skeleton
 
