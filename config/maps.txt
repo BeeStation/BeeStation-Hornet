@@ -21,6 +21,11 @@ map corgstation
 	votable
 endmap
 
+map pubbystation
+	maxplayers 50
+	votable
+endmap
+
 map boxstation
 	maxplayers 60
 	votable
