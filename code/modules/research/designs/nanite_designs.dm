@@ -116,11 +116,6 @@
 	program_type = /datum/nanite_program/gas
 	category = list("Utility Nanites")
 
-/datum/design/nanites/doorjack
-	id = "doorjack_nanites"
-	program_type = /datum/nanite_program/doorjack
-	category = list("Utility Nanites")
-
 /datum/design/nanites/jammer
 	id = "jammer_nanites"
 	program_type = /datum/nanite_program/jammer
