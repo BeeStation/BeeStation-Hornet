@@ -126,11 +126,6 @@
 	program_type = /datum/nanite_program/jammer
 	category = list("Utility Nanites")
 
-/datum/design/nanites/night_vision
-	id = "night_vision_nanites"
-	program_type = /datum/nanite_program/night_vision
-	category = list("Utility Nanites")
-
 ////////////////////MEDICAL NANITES//////////////////////////////////////
 /datum/design/nanites/regenerative
 	id = "regenerative_nanites"
@@ -217,6 +212,11 @@
 /datum/design/nanites/adrenaline
 	id = "adrenaline_nanites"
 	program_type = /datum/nanite_program/adrenaline
+	category = list("Augmentation Nanites")
+
+/datum/design/nanites/night_vision
+	id = "night_vision_nanites"
+	program_type = /datum/nanite_program/night_vision
 	category = list("Augmentation Nanites")
 
 ////////////////////DEFECTIVE NANITES//////////////////////////////////////

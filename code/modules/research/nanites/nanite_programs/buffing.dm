@@ -203,3 +203,18 @@
 	. = ..()
 	REMOVE_TRAIT(host_mob, TRAIT_RESISTHIGHPRESSURE, SOURCE_NANITE_PRESSURE)
 
+/datum/nanite_program/night_vision
+	name = "Night Vision"
+	desc = "The nanites grant the user with night vision."
+	use_rate = 0.5
+	maximum_duration = 40 SECONDS
+	trigger_cooldown = 20 SECONDS
+
+/datum/nanite_program/night_vision/enable_passive_effect()
+	. = ..()
+	ADD_TRAIT(host_mob, TRAIT_NIGHT_VISION, SOURCE_NANITE_NIGHT_VISION)
+
+/datum/nanite_program/night_vision/disable_passive_effect()
+	. = ..()
+	REMOVE_TRAIT(host_mob, TRAIT_NIGHT_VISION, SOURCE_NANITE_NIGHT_VISION)
+
