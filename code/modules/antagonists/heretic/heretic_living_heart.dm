@@ -150,6 +150,11 @@
 	if(.)
 		playsound(owner, 'sound/effects/singlebeat.ogg', vol = 50, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
+	// Let them know how to sacrifice people if they're able to be sac'd
+	if(tracked_mob.stat == DEAD)
+		to_chat(owner, span_hierophant("[tracked_mob] is dead. Bring them to a transmutation rune \
+			and invoke \"[sac_knowledge.name]\" to sacrifice them!"))
+
 	start_cooldown()
 
 /datum/action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
