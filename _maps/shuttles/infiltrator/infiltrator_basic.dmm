@@ -820,7 +820,8 @@
 	name = "infiltrator turret controls";
 	pixel_y = -30;
 	req_access = null;
-	req_access_txt = "150"
+	req_access_txt = "150";
+	shoot_cyborgs = 1
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8

@@ -1450,7 +1450,7 @@
 	name = "Base turret controls";
 	req_access = null;
 	req_access_txt = "150";
-	pixel_x = 30
+	shoot_cyborgs = 1
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bridge)

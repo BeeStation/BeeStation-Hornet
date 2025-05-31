@@ -718,6 +718,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	base_icon_state = "syndie"
 	faction = list(FACTION_SYNDICATE)
 	desc = "A ballistic machine gun auto-turret."
+	target_cyborgs = TRUE
 
 /obj/machinery/porta_turret/syndicate/ComponentInitialize()
 	. = ..()
