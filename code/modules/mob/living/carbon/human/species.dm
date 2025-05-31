@@ -262,6 +262,34 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/copy_properties_from(datum/species/old_species)
 	return
 
+/**
+ * Gets the default mutant organ for the species based on the provided slot.
+ */
+/datum/species/proc/get_mutant_organ_type_for_slot(slot)
+	switch(slot)
+		if(ORGAN_SLOT_BRAIN)
+			return mutantbrain
+		if(ORGAN_SLOT_HEART)
+			return mutantheart
+		if(ORGAN_SLOT_LUNGS)
+			return mutantlungs
+		if(ORGAN_SLOT_APPENDIX)
+			return mutantappendix
+		if(ORGAN_SLOT_EYES)
+			return mutanteyes
+		if(ORGAN_SLOT_EARS)
+			return mutantears
+		if(ORGAN_SLOT_TONGUE)
+			return mutanttongue
+		if(ORGAN_SLOT_LIVER)
+			return mutantliver
+		if(ORGAN_SLOT_STOMACH)
+			return mutantstomach
+		if(ORGAN_SLOT_WINGS)
+			return mutantwings
+		else
+			CRASH("Invalid organ slot [slot]")
+
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
 /datum/species/proc/qualifies_for_rank(rank, list/features)
 	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
@@ -275,27 +303,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
   * takes all organ slots, removes organs a species should not have, adds organs a species should have.
   * can use replace_current to refresh all organs, creating an entirely new set.
   * Arguments:
-  * C - carbon, the owner of the species datum AKA whoever we're regenerating organs in
+  * organ_holder - carbon, the owner of the species datum AKA whoever we're regenerating organs in
   * old_species - datum, used when regenerate organs is called in a switching species to remove old mutant organs.
   * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
   * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
  * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
  */
-/datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
-	//what should be put in if there is no mutantorgan (brains handled seperately)
-	var/list/slot_mutantorgans = list(
-		ORGAN_SLOT_BRAIN = mutantbrain,
-		ORGAN_SLOT_HEART = mutantheart,
-		ORGAN_SLOT_LUNGS = mutantlungs,
-		ORGAN_SLOT_APPENDIX = mutantappendix,
-		ORGAN_SLOT_EYES = mutanteyes,
-		ORGAN_SLOT_EARS = mutantears,
-		ORGAN_SLOT_TONGUE = mutanttongue,
-		ORGAN_SLOT_LIVER = mutantliver,
-		ORGAN_SLOT_STOMACH = mutantstomach,
-		ORGAN_SLOT_WINGS = mutantwings
-	)
-
+/datum/species/proc/regenerate_organs(mob/living/carbon/organ_holder, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
+	//what should be put in if there is no mutantorgan (brains handled separately)
 	var/list/slot_organs = list(
 		ORGAN_SLOT_BRAIN,
 		ORGAN_SLOT_HEART,
@@ -313,8 +328,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(isnull(mutantwings))
 		slot_organs -= ORGAN_SLOT_WINGS
 
-	for(var/slot in slot_organs)
-
+	for(var/slot in assoc_to_keys(slot_mutantorgans))
 		var/obj/item/organ/oldorgan = C.getorganslot(slot) //used in removing
 		var/obj/item/organ/neworgan = slot_mutantorgans[slot] //used in adding
 
@@ -325,7 +339,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		neworgan = SSwardrobe.provide_type(neworgan)
 		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
-		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
+		/*
+		 * There is an existing organ in this slot, what should we do with it? Probably remove it!
+		 *
+		 * We will removit if and only if:
+		 * - We should not have the organ OR replace_current is passed to force old organs to regenerate
+		 * - The replaced organ is not in an excluded zone
+		 * - The replaced organ is not unremovable or synthetic (an implant)
+		 */
+		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE|ORGAN_SYNTHETIC)))
 			if(slot == ORGAN_SLOT_BRAIN)
 				var/obj/item/organ/brain/brain = oldorgan
 				if(!brain.decoy_override)//"Just keep it if it's fake" - confucius, probably

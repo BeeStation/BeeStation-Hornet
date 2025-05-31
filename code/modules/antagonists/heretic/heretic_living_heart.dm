@@ -4,53 +4,39 @@
  * Applied to a heart to turn it into a heretic's 'living heart'.
  * The living heart is what they use to track people they need to sacrifice.
  *
- * This component handles adding the associated action, as well as updating the heart's icon.
- *
- * Must be attached to an organ located within a heretic.
- * If removed from the body of a heretic, it will self-delete and become a normal heart again.
+ * This component handles the action associated with it -
+ * if the organ is removed, the action should be deleted
  */
 /datum/component/living_heart
 	/// The action we create and give to our heart.
-	var/datum/action/item_action/organ_action/track_target/action
-	/// The icon of the heart before we made it a living heart.
-	var/old_icon
-	/// The icon_state of the heart before we made it a living heart.
-	var/old_icon_state
+	var/datum/action/track_target/action
 
 /datum/component/living_heart/Initialize()
 	if(!isorgan(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	var/obj/item/organ/organ_parent = parent
-	if(organ_parent.status != ORGAN_ORGANIC || (organ_parent.organ_flags & ORGAN_SYNTHETIC))
-		return COMPONENT_INCOMPATIBLE
-
-	if(!IS_HERETIC(organ_parent.owner))
-		return COMPONENT_INCOMPATIBLE
+	action = new(src)
 
 	action = new(organ_parent)
 	action.Grant(organ_parent.owner)
 
-	ADD_TRAIT(parent, TRAIT_LIVING_HEART, REF(src))
-	RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removed))
-
-	old_icon = organ_parent.icon
-	old_icon_state = organ_parent.icon_state
-
-	organ_parent.icon = 'icons/obj/heretic.dmi'
-	organ_parent.icon_state = "living_heart"
-	action.update_buttons()
-
 /datum/component/living_heart/Destroy(force, silent)
 	QDEL_NULL(action)
-	REMOVE_TRAIT(parent, TRAIT_LIVING_HEART, REF(src))
-	UnregisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN)
-
-	var/obj/item/organ/organ_parent = parent
-	organ_parent.icon = old_icon
-	organ_parent.icon_state = old_icon_state
-
 	return ..()
+
+/datum/component/living_heart/RegisterWithParent()
+	ADD_TRAIT(parent, TRAIT_LIVING_HEART, REF(src))
+	RegisterSignal(parent, COMSIG_ORGAN_REMOVED, .proc/on_organ_removed)
+	RegisterSignal(parent, COMSIG_ORGAN_BEING_REPLACED, .proc/on_organ_replaced)
+
+/datum/component/living_heart/UnregisterFromParent()
+	REMOVE_TRAIT(parent, TRAIT_LIVING_HEART, REF(src))
+	UnregisterSignal(parent, list(COMSIG_ORGAN_REMOVED, COMSIG_ORGAN_BEING_REPLACED))
+
+/datum/component/living_heart/PostTransfer()
+	if(!isorgan(parent))
+		return COMPONENT_INCOMPATIBLE
 
 /**
  * Signal proc for [COMSIG_CARBON_LOSE_ORGAN].
@@ -63,39 +49,65 @@
 	to_chat(old_owner, span_userdanger("As your living [source.name] leaves your body, you feel less connected to the Mansus!"))
 	qdel(src)
 
+/**
+ * Signal proc for [COMSIG_ORGAN_BEING_REPLACED].
+ *
+ * If the organ is replaced, before it's done transfer the component over
+ */
+/datum/component/living_heart/proc/on_organ_replaced(obj/item/organ/source, obj/item/organ/replacement)
+	SIGNAL_HANDLER
+
+	if(replacement.status != ORGAN_ORGANIC || (replacement.organ_flags & ORGAN_SYNTHETIC))
+		qdel(src)
+		return
+
+	replacement.TakeComponent(src)
+
 /*
  * The action associated with the living heart.
  * Allows a heretic to track sacrifice targets.
  */
-/datum/action/item_action/organ_action/track_target
+/datum/action/track_target
 	name = "Living Heartbeat"
 	desc = "Track a Sacrifice Target"
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_ecult"
+	icon_icon = 'icons/obj/eldritch.dmi'
+	button_icon_state = "living_heart"
+	cooldown_time = 4 SECONDS
+
+	/// Tracks whether we were right clicked or left clicked in our last trigger
+	var/right_clicked = FALSE
+	/// The real name of the last mob we tracked
+	var/last_tracked_name
 	/// Whether the target radial is currently opened.
 	var/radial_open = FALSE
-	cooldown_time = 8 SECONDS
 
-/datum/action/item_action/organ_action/track_target/Grant(mob/granted)
+/datum/action/track_target/Grant(mob/granted)
 	if(!IS_HERETIC(granted))
 		return
 	return ..()
 
-/datum/action/item_action/organ_action/track_target/is_available()
+/datum/action/track_target/is_available()
 	. = ..()
 	if(!.)
 		return
 	if(!IS_HERETIC(owner))
 		return FALSE
-	if(!HAS_TRAIT(master, TRAIT_LIVING_HEART))
-		return FALSE
 	if(radial_open)
 		return FALSE
 
-/datum/action/item_action/organ_action/track_target/on_activate(mob/user, atom/target)
+	return TRUE
+
+/datum/action/track_target/trigger(trigger_flags)
+	right_clicked = !!(trigger_flags & TRIGGER_SECONDARY_ACTION)
+	return ..()
+
+/datum/action/track_target/on_activate(mob/user, atom/target)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		owner.balloon_alert(owner, "No targets, visit a rune")
+		StartCooldown(1 SECONDS)
 		return TRUE
 
 	var/list/targets_to_choose = list()
@@ -128,10 +140,9 @@
 	. = track_sacrifice_target(tracked_mob)
 
 	if(.)
-		start_cooldown()
 		playsound(owner, 'sound/effects/singlebeat.ogg', vol = 50, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
-/datum/action/item_action/organ_action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
+/datum/action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
 	var/turf/owner_turf = get_turf(owner)
 	var/turf/tracked_turf = get_turf(tracked)
 	var/balloon_message = "Your target is "
@@ -149,7 +160,7 @@
 	owner.balloon_alert(owner, balloon_message)
 	return TRUE
 
-/datum/action/item_action/organ_action/track_target/proc/distance_hint(turf/source, turf/target)
+/datum/action/track_target/proc/distance_hint(turf/source, turf/target)
 	var/dist = get_dist(source, target)
 	var/dir = get_dir(source, target)
 	switch(dist)
@@ -163,11 +174,9 @@
 			return "very far away"
 
 /// Callback for the radial to ensure it's closed when not allowed.
-/datum/action/item_action/organ_action/track_target/proc/check_menu()
+/datum/action/track_target/proc/check_menu()
 	if(QDELETED(src))
 		return FALSE
 	if(!IS_HERETIC(owner))
-		return FALSE
-	if(!HAS_TRAIT(master, TRAIT_LIVING_HEART))
 		return FALSE
 	return TRUE

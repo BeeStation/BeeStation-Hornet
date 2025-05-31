@@ -249,6 +249,17 @@
 			else
 				return brain_message
 
+/obj/item/organ/brain/before_organ_replacement(obj/item/organ/replacement)
+	. = ..()
+	var/obj/item/organ/brain/replacement_brain = replacement
+	if(!istype(replacement_brain))
+		return
+
+	// Transfer over traumas as well
+	for(var/datum/brain_trauma/trauma as anything in traumas)
+		remove_trauma_from_traumas(trauma)
+		replacement_brain.add_trauma_to_traumas(trauma)
+
 /obj/item/organ/brain/alien
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
@@ -377,8 +388,7 @@
 		stack_trace("brain_gain_trauma tried to add qdeleted trauma.")
 		return
 
-	traumas += actual_trauma
-	actual_trauma.brain = src
+	add_trauma_to_traumas(actual_trauma)
 	if(owner)
 		actual_trauma.owner = owner
 		actual_trauma.on_gain()
@@ -386,6 +396,18 @@
 		actual_trauma.resilience = resilience
 	. = actual_trauma
 	SSblackbox.record_feedback("tally", "traumas", 1, actual_trauma.type)
+
+/// Adds the passed trauma instance to our list of traumas and links it to our brain.
+/// DOES NOT handle setting up the trauma, that's done by [proc/brain_gain_trauma]!
+/obj/item/organ/brain/proc/add_trauma_to_traumas(datum/brain_trauma/trauma)
+	trauma.brain = src
+	traumas += trauma
+
+/// Removes the passed trauma instance to our list of traumas and links it to our brain
+/// DOES NOT handle removing the trauma's effects, that's done by [/datum/brain_trauma/Destroy()]!
+/obj/item/organ/brain/proc/remove_trauma_from_traumas(datum/brain_trauma/trauma)
+	trauma.brain = null
+	traumas -= trauma
 
 //Add a random trauma of a certain subtype
 /obj/item/organ/brain/proc/gain_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience)

@@ -331,6 +331,8 @@
 
 
 /mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+	if(QDELETED(src))
+		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
 	if(mrace && has_dna())
 		var/datum/species/new_race
 		if(ispath(mrace))
@@ -340,9 +342,11 @@
 		else
 			return
 		deathsound = new_race.deathsound
+
 		dna.species.on_species_loss(src, new_race, pref_load)
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
+		
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 		if(icon_update)
