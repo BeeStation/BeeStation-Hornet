@@ -41,7 +41,8 @@
 
 	name = initial(name)
 
-	if(brain_owner.mind && brain_owner.mind.has_antag_datum(/datum/antagonist/changeling) && !no_id_transfer)	//congrats, you're trapped in a body you don't control
+	// Special check for if you're trapped in a body you can't control because it's owned by a ling.
+	if(brain_owner?.mind?.has_antag_datum(/datum/antagonist/changeling) && !no_id_transfer)	//congrats, you're trapped in a body you don't control
 		if(brainmob && !(brain_owner.stat == DEAD || (HAS_TRAIT(brain_owner, TRAIT_DEATHCOMA))))
 			to_chat(brainmob, span_danger("You can't feel your body! You're still just a brain!"))
 		forceMove(brain_owner)
@@ -52,6 +53,7 @@
 		ai_controller.PossessPawn(brain_owner) //Posession code was designed to handle everything
 		ai_controller = null
 
+	// Not a ling? Now you get to assume direct control.
 	if(brainmob)
 		if(brain_owner.key)
 			brain_owner.ghostize()
@@ -64,7 +66,6 @@
 		brain_owner.set_suicide(brainmob.suiciding)
 
 		QDEL_NULL(brainmob)
-
 	else
 		brain_owner.set_suicide(suicided)
 
@@ -85,6 +86,20 @@
 
 	//Update the body's icon so it doesnt appear debrained anymore
 	brain_owner.update_hair()
+
+/obj/item/organ/brain/on_insert(mob/living/carbon/organ_owner, special)
+	// Are we inserting into a new mob from a head?
+	// If yes, we want to quickly steal the brainmob from the head before we do anything else.
+	// This is usually stuff like reattaching dismembered/amputated heads.
+	if(istype(loc, /obj/item/bodypart/head))
+		var/obj/item/bodypart/head/brain_holder = loc
+		if(brain_holder.brainmob)
+			brainmob = brain_holder.brainmob
+			brain_holder.brainmob = null
+			brainmob.container = null
+			brainmob.forceMove(src)
+
+	return ..()
 
 /obj/item/organ/brain/Remove(mob/living/carbon/brain_owner, special = 0, no_id_transfer = FALSE, pref_load = FALSE)
 	
@@ -109,7 +124,7 @@
 	brain_owner.update_hair()
 	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
-/obj/item/organ/brain/setOrganDamage(d)
+/obj/item/organ/brain/set_organ_damage(d)
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
@@ -131,7 +146,7 @@
 		C.dna.copy_dna(brainmob.stored_dna)
 		if(HAS_TRAIT(L, TRAIT_BADDNA))
 			LAZYSET(brainmob.status_traits, TRAIT_BADDNA, L.status_traits[TRAIT_BADDNA])
-		var/obj/item/organ/zombie_infection/ZI = L.getorganslot(ORGAN_SLOT_ZOMBIE)
+		var/obj/item/organ/zombie_infection/ZI = L.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
 
@@ -154,7 +169,7 @@
 			return
 
 		user.visible_message("[user] pours the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.", span_notice("You pour the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink."))
-		setOrganDamage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "setorgandamage", we clear the failing variable if that was up
+		set_organ_damage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "setorgandamage", we clear the failing variable if that was up
 		O.reagents.clear_reagents()
 		return
 
@@ -162,7 +177,7 @@
 		O.attack(brainmob, user) //Oh noooeeeee
 
 	if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
-		setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
+		set_organ_damage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
 
 /obj/item/organ/brain/examine(mob/user)
 	. = ..()

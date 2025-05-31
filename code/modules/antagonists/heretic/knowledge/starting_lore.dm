@@ -55,12 +55,12 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/living_heart/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	if(our_heart)
 		our_heart.AddComponent(/datum/component/living_heart)
 
 /datum/heretic_knowledge/living_heart/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	if(our_heart)
 		qdel(our_heart.GetComponent(/datum/component/living_heart))
 
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	return TRUE
 
 /datum/heretic_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/obj/item/organ/our_living_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/our_living_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	// Obviously you need a heart in your chest to do a ritual on your... heart
 	if(!our_living_heart)
 		loc.balloon_alert(user, "ritual failed, you have no [ORGAN_SLOT_HEART]!") // "you have no heart!"
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 
 	// Our heart is robotic or synthetic - we need to replace it, and we fortunately should have one by here
 	if(!is_valid_heart(our_heart))

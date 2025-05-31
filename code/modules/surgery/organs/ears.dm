@@ -71,14 +71,14 @@
 /mob/proc/restoreEars()
 
 /mob/living/carbon/restoreEars()
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.restoreEars()
 
 /mob/proc/adjustEarDamage()
 
 /mob/living/carbon/adjustEarDamage(ddmg, ddeaf)
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
 		if(ears.deaf)
@@ -87,7 +87,7 @@
 /mob/proc/minimumDeafTicks()
 
 /mob/living/carbon/minimumDeafTicks(value)
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.minimumDeafTicks(value)
 

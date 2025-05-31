@@ -72,7 +72,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!iscarbon(receiver) || owner == receiver)
 		return FALSE
 
-	var/obj/item/organ/replaced = receiver.getorganslot(slot)
+	var/obj/item/organ/replaced = receiver.get_organ_slot(slot)
 	if(replaced)
 		replaced.Remove(receiver, special = TRUE, pref_load = pref_load)
 		if(drop_if_replaced)
@@ -269,7 +269,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		to_chat(owner, mess)
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
-/obj/item/organ/proc/setOrganDamage(var/d)	//use mostly for admin heals
+/obj/item/organ/proc/set_organ_damage(var/d)	//use mostly for admin heals
 	applyOrganDamage(d - damage)
 
 /** check_damage_thresholds
@@ -311,35 +311,35 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 
 	else
-		var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
+		var/obj/item/organ/lungs/L = get_organ_slot(ORGAN_SLOT_LUNGS)
 		if(!L)
 			L = new()
 			L.Insert(src)
-		L.setOrganDamage(0)
+		L.set_organ_damage(0)
 
-		var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
 		if(!H)
 			H = new()
 			H.Insert(src)
-		H.setOrganDamage(0)
+		H.set_organ_damage(0)
 
-		var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
+		var/obj/item/organ/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
 		if(!T)
 			T = new()
 			T.Insert(src)
-		T.setOrganDamage(0)
+		T.set_organ_damage(0)
 
-		var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 		if(!eyes)
 			eyes = new()
 			eyes.Insert(src)
-		eyes.setOrganDamage(0)
+		eyes.set_organ_damage(0)
 
-		var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+		var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 		if(!ears)
 			ears = new()
 			ears.Insert(src)
-		ears.setOrganDamage(0)
+		ears.set_organ_damage(0)
 
 /** get_availability
   * returns whether the species should innately have this organ.
@@ -361,4 +361,4 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	// If we're being replace with an identical type we should take organ damage
 	if(replacement.type == type)
-		replacement.setOrganDamage(damage)
+		replacement.set_organ_damage(damage)

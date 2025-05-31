@@ -57,7 +57,7 @@
 		return
 	if(owner.stat != DEAD && !converts_living)
 		return
-	if(!owner.getorgan(/obj/item/organ/brain))
+	if(!owner.get_organ_by_type(/obj/item/organ/brain))
 		return
 	if(!iszombie(owner))
 		to_chat(owner, span_cultlarge("You can feel your heart stopping, but something isn't right... \

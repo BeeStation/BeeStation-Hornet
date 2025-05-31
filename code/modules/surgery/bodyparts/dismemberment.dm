@@ -310,19 +310,15 @@
 
 
 /obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special = FALSE, abort = FALSE, is_creating = FALSE)
-	. = ..()
-	if(!.)
-		return .
-	//Transfer some head appearance vars over
-	if(brain)
-		if(brainmob)
-			brainmob.container = null //Reset brainmob head var.
-			brainmob.forceMove(brain) //Throw mob into brain.
-			brain.brainmob = brainmob //Set the brain to use the brainmob
-			brainmob = null //Set head brainmob var to null
-		brain.Insert(C) //Now insert the brain proper
-		brain = null //No more brain in the head
+	var/old_real_name = src.real_name
 
+	. = ..()
+
+	if(!.)
+		return
+
+	if(brain)
+		brain = null
 	if(tongue)
 		tongue = null
 	if(ears)
@@ -338,10 +334,9 @@
 		H.facial_hair_style = facial_hair_style
 		H.lip_style = lip_style
 		H.lip_color = lip_color
-	if(real_name)
-		C.real_name = real_name
-	real_name = ""
-	name = initial(name)
+	if(old_real_name)
+		new_head_owner.real_name = old_real_name
+	real_name = new_head_owner.real_name
 
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/P in src)

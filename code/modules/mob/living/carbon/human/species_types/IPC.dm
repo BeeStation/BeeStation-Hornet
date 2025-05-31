@@ -80,11 +80,11 @@
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/appendix/A = C.getorganslot("appendix") //See below.
+	var/obj/item/organ/appendix/A = C.get_organ_slot("appendix") //See below.
 	if(A)
 		A.Remove(C)
 		QDEL_NULL(A)
-	var/obj/item/organ/lungs/L = C.getorganslot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
+	var/obj/item/organ/lungs/L = C.get_organ_slot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
 	if(L)
 		L.Remove(C)
 		QDEL_NULL(L)
@@ -151,7 +151,7 @@
 		return ..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/battery/battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(!battery)
 		to_chat(H, span_warning("You try to siphon energy from \the [target], but your power cell is gone!"))
 		return
@@ -171,7 +171,7 @@
 
 	if(isethereal(target))
 		var/mob/living/carbon/human/target_ethereal = target
-		var/obj/item/organ/stomach/battery/target_battery = target_ethereal.getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/target_battery = target_ethereal.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(target_ethereal.nutrition > 0 && target_battery)
 			powerdraw_loop(target_battery, H, FALSE)
 			return
@@ -180,7 +180,7 @@
 			return
 /obj/item/apc_powercord/proc/powerdraw_loop(atom/target, mob/living/carbon/human/H, apc_target)
 	H.visible_message(span_notice("[H] inserts a power connector into [target]."), span_notice("You begin to draw power from the [target]."))
-	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/battery/battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(apc_target)
 		var/obj/machinery/power/apc/A = target
 		if(!istype(A))

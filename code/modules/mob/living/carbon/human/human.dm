@@ -498,7 +498,7 @@
 			to_chat(src, span_warning("Remove [p_their()] mask first!"))
 			return FALSE
 
-		if (!getorganslot(ORGAN_SLOT_LUNGS))
+		if (!get_organ_slot(ORGAN_SLOT_LUNGS))
 			to_chat(src, span_warning("You have no lungs to breathe with, so you cannot perform CPR!"))
 			return FALSE
 
@@ -522,7 +522,7 @@
 
 		if (HAS_TRAIT(target, TRAIT_NOBREATH))
 			to_chat(target, span_unconscious("You feel a breath of fresh air... which is a sensation you don't recognise..."))
-		else if (!target.getorganslot(ORGAN_SLOT_LUNGS))
+		else if (!target.get_organ_slot(ORGAN_SLOT_LUNGS))
 			to_chat(target, span_unconscious("You feel a breath of fresh air... but you don't feel any better..."))
 		else
 			target.adjustOxyLoss(-min(target.getOxyLoss(), 7))
@@ -1047,7 +1047,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(battery))
 			battery.adjust_charge_scaled(change)
 		return FALSE
@@ -1057,7 +1057,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(battery))
 			battery.set_charge_scaled(change)
 		return FALSE

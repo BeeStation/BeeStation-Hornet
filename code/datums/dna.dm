@@ -346,7 +346,7 @@
 		dna.species.on_species_loss(src, new_race, pref_load)
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
-		
+
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 		if(icon_update)
@@ -439,7 +439,7 @@
 		if(part.no_update)
 			continue
 		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
-	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
+	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color

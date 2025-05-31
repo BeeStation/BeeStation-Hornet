@@ -72,7 +72,7 @@
 	desc = "Track a Sacrifice Target"
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/obj/eldritch.dmi'
+	icon_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "living_heart"
 	cooldown_time = 4 SECONDS
 
@@ -99,9 +99,11 @@
 
 	return TRUE
 
+/*
 /datum/action/track_target/trigger(trigger_flags)
 	right_clicked = !!(trigger_flags & TRIGGER_SECONDARY_ACTION)
 	return ..()
+*/
 
 /datum/action/track_target/on_activate(mob/user, atom/target)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
