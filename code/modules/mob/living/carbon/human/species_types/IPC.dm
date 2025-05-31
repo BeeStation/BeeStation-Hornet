@@ -11,7 +11,8 @@
 		NOZOMBIE,
 		MUTCOLORS,
 		REVIVESBYHEALING,
-		NOHUSK,NOMOUTH, 
+		NOHUSK,
+		NOMOUTH, 
 		MUTCOLORS
 	)
 	inherent_traits = list(
@@ -33,6 +34,7 @@
 	mutantstomach = /obj/item/organ/stomach/battery/ipc
 	mutantears = /obj/item/organ/ears/robot
 	mutantheart = /obj/item/organ/heart/cybernetic/ipc
+	mutantlungs = null
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
 	mutant_bodyparts = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
