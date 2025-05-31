@@ -31,19 +31,29 @@
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
 	var/resist = L.getarmor(null, RAD)
-	if(prob(40))
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			if(H.dna && !HAS_TRAIT(H, TRAIT_RADIMMUNE) && !isdiona(L))
-				if(prob(max(0,100-resist)))
-					H.randmuti()
-					if(prob(50))
-						if(prob(90))
-							H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
-						else
-							H.easy_randmut(POSITIVE)
-						H.domutcheck()
-		L.rad_act(20)
+	if(!prob(40))
+		return
+
+	if(!ishuman(L))
+		return
+
+	var/mob/living/carbon/human/H = L
+	if(!H.can_mutate() || H.status_flags & GODMODE || isdiona(H))
+		return
+
+	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
+		return
+
+	if(prob(max(0,100-resist)))
+		H.randmuti()
+		if(prob(50))
+			if(prob(90))
+				H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			else
+				H.easy_randmut(POSITIVE)
+			H.domutcheck()
+
+	L.rad_act(20)
 
 /datum/weather/rad_storm/end()
 	if(..())

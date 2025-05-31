@@ -51,6 +51,7 @@
 #include "janky_actions.dm"
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
+#include "limbsanity.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"

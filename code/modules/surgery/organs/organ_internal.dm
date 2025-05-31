@@ -102,7 +102,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	for(var/trait in organ_traits)
 		ADD_TRAIT(organ_owner, trait, REF(src))
-		message_admins("[key_name(organ_owner)] has gained organ [src] ([slot]) and trait [trait] added.")
+		//message_admins("[key_name(organ_owner)] has gained organ [src] ([slot]) and trait [trait] added.")
 
 	for(var/datum/action/action as anything in actions)
 		action.Grant(organ_owner)
@@ -143,7 +143,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	for(var/trait in organ_traits)
 		REMOVE_TRAIT(organ_owner, trait, REF(src))
-		message_admins("[key_name(organ_owner)] has lost organ [src] ([slot]) and trait [trait] removed.")
+		//message_admins("[key_name(organ_owner)] has lost organ [src] ([slot]) and trait [trait] removed.")
 
 	for(var/datum/action/action as anything in actions)
 		action.Remove(organ_owner)

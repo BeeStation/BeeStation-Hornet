@@ -802,7 +802,7 @@ GENE SCANNER
 
 /obj/item/sequence_scanner/attack(mob/living/M, mob/living/user)
 	add_fingerprint(user)
-	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
+	if(!HAS_TRAIT(M, TRAIT_GENELESS) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message(span_notice("[user] analyzes [M]'s genetic sequence."), \
 							span_notice("You analyze [M]'s genetic sequence."))
 		gene_scan(M, user)

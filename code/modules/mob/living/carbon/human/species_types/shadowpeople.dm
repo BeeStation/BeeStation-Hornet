@@ -5,7 +5,7 @@
 
 /datum/species/shadow
 	// Humans cursed to stay in the darkness, lest their life forces drain. They regain health in shadow and die in light.
-	name = "\improper Shadow"
+	name = "Shadow"
 	plural_form = "Shadowpeople"
 	id = SPECIES_SHADOWPERSON
 	sexes = 0
@@ -22,18 +22,21 @@
 	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
+	
 	mutanteyes = /obj/item/organ/eyes/night_vision
 	mutantheart = null
 	mutantlungs = null
 
 	species_language_holder = /datum/language_holder/shadowpeople
 
-	species_chest = /obj/item/bodypart/chest/shadow
-	species_head = /obj/item/bodypart/head/shadow
-	species_l_arm = /obj/item/bodypart/l_arm/shadow
-	species_r_arm = /obj/item/bodypart/r_arm/shadow
-	species_l_leg = /obj/item/bodypart/l_leg/shadow
-	species_r_leg = /obj/item/bodypart/r_leg/shadow
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/shadow,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/shadow,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/shadow,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/shadow,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/shadow,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/shadow,
+	)
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
@@ -138,6 +141,7 @@
 	to_chat(C, "[info_text]")
 
 	C.fully_replace_character_name(null, pick(GLOB.nightmare_names))
+	C.set_safe_hunger_level()
 
 /datum/species/shadow/nightmare/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc

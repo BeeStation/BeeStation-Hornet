@@ -60,6 +60,8 @@
 			human.update_body()
 			head.update_icon_dropped()
 
+	human.set_safe_hunger_level()
+
 /datum/species/dullahan/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
 

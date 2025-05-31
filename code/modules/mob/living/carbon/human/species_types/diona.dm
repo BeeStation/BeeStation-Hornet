@@ -5,8 +5,24 @@
 	sexes = 0
 	bodyflag = FLAG_DIONA
 	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
-	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NORADDAMAGE)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		AGENDER,
+		NOHUSK,
+		NO_DNA_COPY,
+		NO_UNDERWEAR,
+		NOSOCKS,
+		NOTRANSSTING,
+		NOEYESPRITES
+	)
+	inherent_traits = list(
+		TRAIT_BEEFRIEND, 
+		TRAIT_NONECRODISEASE, 
+		TRAIT_RESISTLOWPRESSURE, 
+		TRAIT_RESISTCOLD, 
+		TRAIT_NORADDAMAGE
+	)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
@@ -40,12 +56,14 @@
 	mutantheart = /obj/item/organ/heart/diona //Dungeon's sprite
 	mutantappendix = null
 
-	species_chest = /obj/item/bodypart/chest/diona
-	species_head = /obj/item/bodypart/head/diona
-	species_l_arm = /obj/item/bodypart/l_arm/diona
-	species_r_arm = /obj/item/bodypart/r_arm/diona
-	species_l_leg = /obj/item/bodypart/l_leg/diona
-	species_r_leg = /obj/item/bodypart/r_leg/diona
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/diona,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/diona,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/diona,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/diona,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/diona,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/diona,
+	)
 
 	var/datum/action/diona/split/split_ability //All dionae start with this, this is for splitting apart completely.
 	var/datum/action/diona/partition/partition_ability //All dionae start with this as well, this is for splitting off a nymph from food.

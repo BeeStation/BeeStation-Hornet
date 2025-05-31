@@ -104,8 +104,6 @@
 
 /obj/item/bodypart/head/drop_organs(mob/user, violent_removal)
 	var/turf/T = get_turf(src)
-	if(IS_ORGANIC_LIMB(src))
-		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
 	for(var/obj/item/I in src)
 		if(I == brain)
 			if(user)
@@ -125,81 +123,75 @@
 			if(istype(I, /obj/item/reagent_containers/pill))
 				for(var/datum/action/item_action/hands_free/activate_pill/AP in I.actions)
 					qdel(AP)
+
+			else if(isorgan(I))
+				var/obj/item/organ/organ = I
+				if(organ.organ_flags & ORGAN_UNREMOVABLE)
+					continue
 			I.forceMove(T)
 	eyes = null
 	ears = null
 	tongue = null
 
-/obj/item/bodypart/head/update_limb(dropping_limb, mob/living/carbon/source, is_creating)
-	var/mob/living/carbon/C
-	if(source)
-		C = source
-	else
-		C = owner
+	return ..()
 
-	real_name = C.real_name
-	if(HAS_TRAIT(C, TRAIT_HUSK))
+/obj/item/bodypart/head/update_limb(dropping_limb, is_creating)
+	. = ..()
+
+	real_name = owner.real_name
+	if(HAS_TRAIT(owner, TRAIT_HUSK))
 		real_name = "Unknown"
 		hair_style = "Bald"
 		facial_hair_style = "Shaved"
 		lip_style = null
+	if(ishuman(owner)) //No MONKEYS!!!
+		update_hair_and_lips()
 
-	else if(!animal_origin && ishuman(C))
-		var/mob/living/carbon/human/H = C
-		var/datum/species/S = H.dna.species
+/obj/item/bodypart/head/proc/update_hair_and_lips()
+	var/mob/living/carbon/human/H = owner
+	var/datum/species/S = H.dna.species
 
-		//Facial hair
-		if(H.facial_hair_style && (FACEHAIR in S.species_traits))
-			facial_hair_style = H.facial_hair_style
-			if(S.hair_color)
-				if(S.hair_color == "mutcolor")
-					facial_hair_color = H.dna.features["mcolor"]
-				else if(S.hair_color == "fixedmutcolor")
-					facial_hair_color = "#[S.fixed_mut_color]"
-				else
-					facial_hair_color = S.hair_color
+	//Facial hair
+	if(H.facial_hair_style && (FACEHAIR in S.species_traits))
+		facial_hair_style = H.facial_hair_style
+		if(S.hair_color)
+			if(S.hair_color == "mutcolor")
+				facial_hair_color = H.dna.features["mcolor"]
+			else if(S.hair_color == "fixedmutcolor")
+				facial_hair_color = "#[S.fixed_mut_color]"
 			else
-				facial_hair_color = H.facial_hair_color
-			hair_alpha = S.hair_alpha
+				facial_hair_color = S.hair_color
 		else
-			facial_hair_style = "Shaved"
-			facial_hair_color = "000"
-			hair_alpha = 255
-		//Hair
-		if(H.hair_style && (HAIR in S.species_traits))
-			hair_style = H.hair_style
-			if(S.hair_color)
-				if(S.hair_color == "mutcolor")
-					hair_color = H.dna.features["mcolor"]
-				else if(S.hair_color == "fixedmutcolor")
-					hair_color = "#[S.fixed_mut_color]"
-				else
-					hair_color = S.hair_color
+			facial_hair_color = H.facial_hair_color
+		hair_alpha = S.hair_alpha
+	else
+		facial_hair_style = "Shaved"
+		facial_hair_color = "000"
+		hair_alpha = 255
+	//Hair
+	if(H.hair_style && (HAIR in S.species_traits))
+		hair_style = H.hair_style
+		if(S.hair_color)
+			if(S.hair_color == "mutcolor")
+				hair_color = H.dna.features["mcolor"]
+			else if(S.hair_color == "fixedmutcolor")
+				hair_color = "#[S.fixed_mut_color]"
 			else
-				hair_color = H.hair_color
-			hair_alpha = S.hair_alpha
+				hair_color = S.hair_color
 		else
-			hair_style = "Bald"
-			hair_color = "000"
-			hair_alpha = initial(hair_alpha)
-		// lipstick
-		if(H.lip_style && (LIPS in S.species_traits))
-			lip_style = H.lip_style
-			lip_color = H.lip_color
-		else
-			lip_style = null
-			lip_color = "white"
-	..()
-
-/obj/item/bodypart/head/update_icon_dropped()
-	var/list/standing = get_limb_icon(TRUE)
-	if(!standing.len)
-		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
-		return
-	for(var/image/I in standing)
-		I.pixel_x = px_x
-		I.pixel_y = px_y
-	add_overlay(standing)
+			hair_color = H.hair_color
+		hair_alpha = S.hair_alpha
+	else
+		hair_style = "Bald"
+		hair_color = "000"
+		hair_alpha = initial(hair_alpha)
+	// lipstick
+	if(H.lip_style && (LIPS in S.species_traits))
+		lip_style = H.lip_style
+		lip_color = H.lip_color
+	else
+		lip_style = null
+		lip_color = "white"
 
 /obj/item/bodypart/head/get_limb_icon(dropped)
 	cut_overlays()
@@ -219,10 +211,10 @@
 			//Applies the debrained overlay if there is no brain
 			if(!brain)
 				var/image/debrain_overlay = image(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), dir = SOUTH)
-				if(animal_origin == ALIEN_BODYPART)
+				if(bodytype & BODYTYPE_ALIEN)
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_alien"
-				else if(animal_origin == LARVA_BODYPART)
+				else if(bodytype & BODYTYPE_LARVA_PLACEHOLDER)
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_larva"
 				else if(!(TRAIT_NOBLOOD in species_flags_list))
@@ -266,34 +258,39 @@
 
 /obj/item/bodypart/head/monkey
 	icon = 'icons/mob/animal_parts.dmi'
+	icon_static = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_head"
 	limb_id = SPECIES_MONKEY
-	animal_origin = MONKEY_BODYPART
+	should_draw_greyscale = FALSE
+	dmg_overlay_type = SPECIES_MONKEY
+	is_dimorphic = FALSE
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
 	limb_id = "teratoma"
-	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/animal_parts.dmi'
+	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
 	icon_state = "alien_head"
+	limb_id = BODYPART_ID_ALIEN
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 	px_x = 0
 	px_y = 0
 	dismemberable = 0
 	max_damage = 500
-	animal_origin = ALIEN_BODYPART
-
-/obj/item/bodypart/head/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
 
 /obj/item/bodypart/head/larva
 	icon = 'icons/mob/animal_parts.dmi'
+	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
 	icon_state = "larva_head"
+	limb_id = BODYPART_ID_LARVA
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 	px_x = 0
 	px_y = 0
 	dismemberable = 0
 	max_damage = 50
-	animal_origin = LARVA_BODYPART
+	bodytype = BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_ORGANIC
