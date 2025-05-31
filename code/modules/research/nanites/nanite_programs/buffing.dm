@@ -35,7 +35,7 @@
 /datum/nanite_program/hardening
 	name = "Dermal Hardening"
 	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts for 20 seconds."
-	use_rate = 0.5
+	use_rate = 1
 	rogue_types = list(/datum/nanite_program/skin_decay)
 	trigger_cooldown = 40 SECONDS
 	maximum_duration = 30 SECONDS
@@ -62,7 +62,7 @@
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
 	desc = "The nanites form a membrane above the host's skin, reducing the effect of laser and energy impacts."
-	use_rate = 0.50
+	use_rate = 1
 	rogue_types = list(/datum/nanite_program/skin_decay)
 	trigger_cooldown = 40 SECONDS
 	maximum_duration = 30 SECONDS
@@ -89,7 +89,7 @@
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"
 	desc = "The nanites induce rapid coagulation when the host is wounded, dramatically reducing bleeding rate."
-	use_rate = 0.10
+	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/suffocating)
 	maximum_duration = 60 SECONDS
 	trigger_cooldown = 90 SECONDS
@@ -105,7 +105,7 @@
 /datum/nanite_program/conductive
 	name = "Electric Conduction"
 	desc = "The nanites act as a grounding rod for electric shocks, protecting the host. Shocks can still damage the nanites themselves."
-	use_rate = 0.20
+	use_rate = 0.
 	program_flags = NANITE_SHOCK_IMMUNE
 	rogue_types = list(/datum/nanite_program/nerve_decay)
 	maximum_duration = 45 SECONDS
@@ -135,8 +135,8 @@
 /datum/nanite_program/armblade
 	name = "Nanite Blade"
 	desc = "The nanites form a sharp blade around the user's arm when activated."
-	use_rate = 1
-	maximum_duration = 50 SECONDS
+	use_rate = 2
+	maximum_duration = 30 SECONDS
 	trigger_cooldown = 30 SECONDS
 	rogue_types = list(/datum/nanite_program/necrotic, /datum/nanite_program/skin_decay)
 	var/obj/item/melee/arm_blade/nanite/blade
@@ -178,7 +178,7 @@
 	desc = "The nanites form a rigid pressure barrier around the host, protecting them from low pressure environments."
 	maximum_duration = 30 SECONDS
 	trigger_cooldown = 20 SECONDS
-	use_rate = 1.5
+	use_rate = 1
 
 /datum/nanite_program/pressure_suit/enable_passive_effect()
 	. = ..()
@@ -193,7 +193,7 @@
 	desc = "The nanites form a tough exo-skeleton protecting the user from high pressure environments."
 	maximum_duration = 30 SECONDS
 	trigger_cooldown = 20 SECONDS
-	use_rate = 1.5
+	use_rate = 1
 
 /datum/nanite_program/pressure_suit/enable_passive_effect()
 	. = ..()
