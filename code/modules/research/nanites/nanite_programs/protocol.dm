@@ -64,7 +64,7 @@
 
 /datum/nanite_program/protocol/pyramid
 	name = "Pyramid Protocol"
-	desc = "Replication Protocol: Produces an additional 2 nanites per second, but nanite production requires twice the amount of food."
+	desc = "Replication Protocol: Produces an additional 2 nanites per second, but nanite production require significantly more food to maintain."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_REPLICATION
@@ -72,12 +72,12 @@
 
 /datum/nanite_program/protocol/pyramid/enable_passive_effect()
 	. = ..()
-	nanites.nutrition_rate += 0.2
+	nanites.nutrition_rate += 0.6
 	nanites.regen_rate += boost
 
 /datum/nanite_program/protocol/pyramid/disable_passive_effect()
 	. = ..()
-	nanites.nutrition_rate -= 0.2
+	nanites.nutrition_rate -= 0.6
 	nanites.regen_rate -= boost
 
 /datum/nanite_program/protocol/offline
