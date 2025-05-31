@@ -445,9 +445,7 @@ const StorageMutations = (props) => {
               }
             />
           ))}
-          {
-            mutations.length === 0 && <Box color="label">Nothing to show.</Box>
-          }
+          {mutations.length === 0 && <Box color="label">Nothing to show.</Box>}
         </Section>
       </Flex.Item>
       <Flex.Item>
@@ -487,9 +485,7 @@ const StorageChromosomes = (props) => {
               }
             />
           ))}
-          {
-            uniqueChromos.length === 0 && <Box color="label">Nothing to show.</Box>
-          }
+          {uniqueChromos.length === 0 && <Box color="label">Nothing to show.</Box>}
         </Section>
       </Flex.Item>
       <Flex.Item>
