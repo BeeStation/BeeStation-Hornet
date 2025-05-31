@@ -421,7 +421,6 @@
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
 /obj/machinery/proc/close_machine(atom/movable/target = null)
-	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
 	set_density(TRUE)
 	if(!target)
@@ -441,6 +440,7 @@
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
 		set_occupant(target)
 		target.forceMove(src)
+	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	updateUsrDialog()
 	update_icon()
 	ui_update()
