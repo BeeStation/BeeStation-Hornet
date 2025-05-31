@@ -12,3 +12,9 @@
 	change_job_access(JOB_NAME_HEAD_OF_SECURITY, ACCESS_CREMATORIUM)
 	change_job_access(JOB_NAME_WARDEN, ACCESS_CREMATORIUM)
 	change_job_access(JOB_NAME_SECURITY_OFFICER, ACCESS_CREMATORIUM) // sample code
+
+/datum/map_adjustment/echo_station/on_mapping_init()
+	exclude_tagger_destination("Virology")
+	exclude_tagger_destination("Library")
+	exclude_tagger_destination("Chapel")
+	exclude_tagger_destination("Xenobiology")
