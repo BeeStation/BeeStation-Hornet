@@ -124,7 +124,7 @@
 
 /datum/crafting_recipe/honeycomb
 	name = "Honeycomb"
-	result = /obj/item/reagent_containers/cup/glass/honeycomb
+	result = /obj/item/food/honeycomb
 	always_available = FALSE
 	time = 3 SECONDS
 	reqs = list(/datum/reagent/consumable/sugar = 50)
