@@ -4262,17 +4262,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/mine/eva)
-"Ff" = (
-/obj/structure/chair/wood/wings,
-/mob/living/simple_animal/hostile/poison/giant_spider{
-	desc = "No sane person would ever have one of these as a pet.";
-	maxHealth = 350;
-	name = "enlarged giant spider";
-	poison_type = /datum/reagent/growthserum;
-	resize = 2
-	},
-/turf/open/floor/carpet/royalblue,
-/area/mine/science)
 "Fl" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -5560,6 +5549,17 @@
 "Od" = (
 /obj/structure/closet/crate/critter,
 /turf/open/floor/iron/dark,
+/area/mine/science)
+"Oh" = (
+/obj/structure/chair/wood/wings,
+/mob/living/simple_animal/hostile/giant_spider{
+	desc = "No sane person would ever have one of these as a pet.";
+	maxHealth = 350;
+	name = "enlarged giant spider";
+	poison_type = /datum/reagent/growthserum;
+	resize = 2
+	},
+/turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "Oo" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -51146,7 +51146,7 @@ mH
 KR
 mp
 Jt
-Ff
+Oh
 hd
 UE
 MX
