@@ -138,18 +138,19 @@
 		radial_open = FALSE
 
 	// If our last tracked name is still null, skip the trigger
-	if(isnull(tracked))
+	if(isnull(last_tracked_name))
 		return FALSE
 
-	var/mob/living/carbon/tracked_mob = tracked_targets[tracked]
+	var/mob/living/carbon/tracked_mob = tracked_targets[last_tracked_name]
 	if(QDELETED(tracked_mob))
+		last_tracked_name = null
 		return FALSE
 	. = track_sacrifice_target(tracked_mob)
 
 	if(.)
 		playsound(owner, 'sound/effects/singlebeat.ogg', vol = 50, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
-	StartCooldown()
+	start_cooldown()
 
 /datum/action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
 	var/turf/owner_turf = get_turf(owner)
