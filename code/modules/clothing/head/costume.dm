@@ -58,6 +58,12 @@
 	desc = "Just like from one of those chinese cartoons!"
 	icon_state = "maid_headband"
 
+/obj/item/clothing/head/costume/maidheadband/syndicate
+	name = "tactical maid headband"
+	desc = "Tacticute."
+	icon_state = "syndiemaid_headband"
+	item_state = "syndiemaid_headband"
+
 /obj/item/clothing/head/costume/chicken
 	name = "chicken suit head"
 	desc = "Bkaw!"
