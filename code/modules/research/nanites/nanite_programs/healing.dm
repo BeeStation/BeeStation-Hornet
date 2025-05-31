@@ -3,12 +3,12 @@
 /datum/nanite_program/regenerative
 	name = "Efficient Regeneration"
 	desc = "The nanites boost the host's natural regeneration, healing up to 20 brute and burn damage for a relatively low cost."
-	use_rate = 1
+	use_rate = 2
 	rogue_types = list(/datum/nanite_program/necrotic)
 	// Heals a total of 20 damage
-	maximum_duration = 40 SECONDS
+	maximum_duration = 100 SECONDS
 	trigger_cooldown = 60 SECONDS
-	var/regeneration_rate = 0.5
+	var/regeneration_rate = 0.2
 
 /datum/nanite_program/regenerative/check_conditions()
 	if(!host_mob.getBruteLoss() && !host_mob.getFireLoss())
@@ -38,8 +38,8 @@
 /datum/nanite_program/regenerative/rapid
 	name = "Rapid Regeneration"
 	desc = "The nanites boost the host's natural regeneration, healing up to 40 brute and burn damage over a short timespan for a significant nanite cost."
-	maximum_duration = 40 SECONDS
-	regeneration_rate = 1
+	maximum_duration = 80 SECONDS
+	regeneration_rate = 0.5
 	use_rate = 4
 
 /datum/nanite_program/temperature
