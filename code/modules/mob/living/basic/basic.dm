@@ -85,6 +85,20 @@
 	///Sentience type, for slime potions. SHOULD BE AN ELEMENT BUT I DONT CARE ABOUT IT FOR NOW
 	var/sentience_type = SENTIENCE_ORGANIC
 
+	///Leaving something at 0 means it's off - has no maximum.
+	var/list/habitable_atmos = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	///This damage is taken when atmos doesn't fit all the requirements above. Set to 0 to avoid adding the atmos_requirements element.
+	var/unsuitable_atmos_damage = 1
+
+	///Minimal body temperature without receiving damage
+	var/minimum_survivable_temperature = 250
+	///Maximal body temperature without receiving damage
+	var/maximum_survivable_temperature = 350
+	///This damage is taken when the body temp is too cold. Set both this and unsuitable_heat_damage to 0 to avoid adding the basic_body_temp_sensitive element.
+	var/unsuitable_cold_damage = 1
+	///This damage is taken when the body temp is too hot. Set both this and unsuitable_cold_damage to 0 to avoid adding the basic_body_temp_sensitive element.
+	var/unsuitable_heat_damage = 1
+
 
 
 /mob/living/basic/Initialize(mapload)
@@ -103,6 +117,14 @@
 
 	if(speak_emote)
 		speak_emote = string_list(speak_emote)
+
+	if(unsuitable_atmos_damage != 0)
+		//String assoc list returns a cached list, so this is like a static list to pass into the element below.
+		habitable_atmos = string_assoc_list(habitable_atmos)
+		AddElement(/datum/element/atmos_requirements, habitable_atmos, unsuitable_atmos_damage)
+
+	if(unsuitable_cold_damage != 0 && unsuitable_heat_damage != 0)
+		AddElement(/datum/element/basic_body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
 
 /mob/living/basic/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
@@ -154,6 +176,10 @@
 	var/result = target.attack_basic_mob(src)
 	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
 	return result
+
+/mob/living/basic/vv_edit_var(vname, vval)
+	if(vname == NAMEOF(src, speed))
+		set_varspeed(vval)
 
 /mob/living/basic/proc/set_varspeed(var_value)
 	speed = var_value

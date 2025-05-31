@@ -8,7 +8,7 @@
 		/datum/reagent/consumable/caramel = 5,
 		/obj/item/food/grown/apple = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/spiderlollipop
 	name = "Spider Lollipop"
@@ -18,7 +18,7 @@
 		/datum/reagent/water = 5,
 		/obj/item/food/spiderling = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/chococoin
 	name = "Choco coin"
@@ -27,7 +27,7 @@
 		/obj/item/coin = 1,
 		/obj/item/food/chocolatebar = 1,
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/fudgedice
 	name = "Fudge dice"
@@ -36,7 +36,7 @@
 		/obj/item/dice = 1,
 		/obj/item/food/chocolatebar = 1,
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/chocoorange
 	name = "Choco orange"
@@ -45,7 +45,7 @@
 		/obj/item/food/grown/citrus/orange = 1,
 		/obj/item/food/chocolatebar = 1,
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/loaded_baked_potato
 	name = "Loaded baked potato"
@@ -56,7 +56,7 @@
 		/obj/item/food/meat/bacon = 1,
 		/obj/item/food/grown/cabbage = 1,
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/cheesyfries
 	name = "Cheesy fries"
@@ -65,7 +65,7 @@
 		/obj/item/food/fries = 1,
 		/obj/item/food/cheese/wedge = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/beans
 	name = "Beans"
@@ -74,7 +74,7 @@
 	reqs = list(/datum/reagent/consumable/ketchup = 5,
 		/obj/item/food/grown/soybeans = 2
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/eggplantparm
 	name ="Eggplant parmigiana"
@@ -83,7 +83,7 @@
 		/obj/item/food/cheese/wedge = 2,
 		/obj/item/food/grown/eggplant = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/melonkeg
 	name ="Melon keg"
@@ -94,7 +94,7 @@
 		/obj/item/reagent_containers/cup/glass/bottle/vodka = 1
 	)
 	parts = list(/obj/item/reagent_containers/cup/glass/bottle/vodka = 1)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/honeybar
 	name = "Honey nut bar"
@@ -103,7 +103,7 @@
 		/obj/item/food/grown/oat = 1,
 		/datum/reagent/consumable/honey = 5
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/powercrepe
 	name = "Powercrepe"
@@ -116,7 +116,7 @@
 		/obj/item/stock_parts/cell/super =1,
 		/obj/item/melee/sabre = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/branrequests
 	name = "Bran Requests Cereal"
@@ -125,7 +125,7 @@
 		/obj/item/food/grown/wheat = 1,
 		/obj/item/food/no_raisin = 1,
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/ricepudding
 	name = "Rice pudding"
@@ -136,7 +136,7 @@
 		/datum/reagent/consumable/sugar = 5,
 		/obj/item/food/boiledrice = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/butterbear //ITS ALIVEEEEEE!
 	name = "Living bear/butter hybrid"
@@ -149,7 +149,7 @@
 		/datum/reagent/blood = 50,
 		/datum/reagent/teslium = 1 //To shock the whole thing into life
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/crab_rangoon
 	name = "Crab Rangoon"
@@ -160,7 +160,7 @@
 		/obj/item/food/cheese/wedge = 1,
 		/obj/item/food/meat/rawcrab = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/ant_candy
 	name = "Ant Candy"
@@ -170,7 +170,7 @@
 		/datum/reagent/ants = 10
 	)
 	result = /obj/item/food/ant_candy
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/pingles
 	name = "Pingles"
@@ -181,7 +181,7 @@
 		/obj/item/food/onion_slice = 1,
 		/datum/reagent/consumable/cream = 10
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/swirl_lollipop
 	name = "swirl lollipop"
@@ -191,7 +191,7 @@
 		/datum/reagent/consumable/caramel = 5,
 		/datum/reagent/drug/happiness = 5,
 		)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 ///Easter foods crafting
 
@@ -202,7 +202,7 @@
 		/obj/item/food/bread/plain = 1,
 		/datum/reagent/consumable/sugar = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/briochecake
 	name = "Brioche cake"
@@ -211,7 +211,7 @@
 		/obj/item/food/cake/plain = 1,
 		/datum/reagent/consumable/sugar = 2
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/scotchegg
 	name = "Scotch egg"
@@ -222,7 +222,7 @@
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/meatball = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/mammi
 	name = "Mammi"
@@ -232,7 +232,7 @@
 		/obj/item/food/chocolatebar = 1,
 		/datum/reagent/consumable/milk = 5
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/chocolatebunny
 	name = "Chocolate bunny"
@@ -241,7 +241,7 @@
 		/datum/reagent/consumable/sugar = 2,
 		/obj/item/food/chocolatebar = 1
 	)
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/onigiri
 	name = "Onigiri"
@@ -250,4 +250,4 @@
 		/obj/item/food/seaweed_sheet = 1,
 	)
 	result = /obj/item/food/onigiri
-	subcategory = CAT_MISCFOOD
+	category = CAT_MISCFOOD

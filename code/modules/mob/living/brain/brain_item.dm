@@ -19,6 +19,8 @@
 	low_threshold = 45
 	high_threshold = 120
 
+	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
+
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
@@ -231,6 +233,7 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
+	organ_traits = null
 
 /obj/item/organ/brain/diona
 	name = "diona nymph"

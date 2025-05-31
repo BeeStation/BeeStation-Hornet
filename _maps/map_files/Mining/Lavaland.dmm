@@ -1229,6 +1229,16 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"hU" = (
+/obj/structure/table,
+/obj/item/plate,
+/obj/item/kitchen/fork,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "hV" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3921,7 +3931,7 @@
 "Ct" = (
 /obj/docking_port/stationary{
 	dir = 2;
-	dwidth = 3;
+	dwidth = 4;
 	height = 10;
 	id = "mining_away";
 	name = "lavaland mine";
@@ -5901,16 +5911,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/living_quarters)
-"QH" = (
-/obj/structure/table,
-/obj/item/plate,
-/obj/item/kitchen/fork,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "QI" = (
 /obj/structure/table/reinforced,
 /obj/item/flashbulb/recharging/revolution{
@@ -33428,7 +33428,7 @@ zc
 Iq
 zc
 ZT
-QH
+hU
 Pe
 ar
 pj

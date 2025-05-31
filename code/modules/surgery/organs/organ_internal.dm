@@ -33,6 +33,8 @@
 
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
+	/// Traits that are given to the holder of the organ.
+	var/list/organ_traits = list()
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -73,9 +75,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
 	moveToNullspace()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Grant(M)
+	for(var/trait in organ_traits)
+		ADD_TRAIT(M, trait, REF(src))
+	for(var/datum/action/action as anything in actions)
+		action.Grant(M)
 	STOP_PROCESSING(SSobj, src)
 
 //Special is for instant replacement like autosurgeons
@@ -89,15 +92,30 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 			if(organ_owner.stat != DEAD)
 				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 			organ_owner.death()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Remove(organ_owner)
+	for(var/trait in organ_traits)
+		REMOVE_TRAIT(organ_owner, trait, REF(src))
+
+	for(var/datum/action/action as anything in actions)
+		action.Remove(organ_owner)
 
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	START_PROCESSING(SSobj, src)
 
+/// Add a trait to an organ that it will give its owner.
+/obj/item/organ/proc/add_organ_trait(trait)
+	LAZYADD(organ_traits, trait)
+	if(isnull(owner))
+		return
+	ADD_TRAIT(owner, trait, REF(src))
+
+/// Removes a trait from an organ, and by extension, its owner.
+/obj/item/organ/proc/remove_organ_trait(trait)
+	LAZYREMOVE(organ_traits, trait)
+	if(isnull(owner))
+		return
+	REMOVE_TRAIT(owner, trait, REF(src))
 
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return

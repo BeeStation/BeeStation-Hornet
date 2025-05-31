@@ -39,7 +39,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/mechanical_repair)
-	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 	GLOB.human_list += src
 
 /mob/living/carbon/human/proc/setup_human_dna()
@@ -831,11 +830,15 @@
 	if(href_list[VV_HK_SET_SPECIES])
 		if(!check_rights(R_SPAWN))
 			return
-		var/result = input(usr, "Please choose a new species","Species") as null|anything in GLOB.species_list
-		if(result)
-			var/newtype = GLOB.species_list[result]
-			admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src] to [result]")
-			set_species(newtype)
+		var/list/species_list = GLOB.species_list
+		var/result = tgui_input_list(usr, "Please choose a new species", "Species", sort_list(species_list))
+		if(isnull(result))
+			return
+		var/newtype = GLOB.species_list[result]
+		if(isnull(newtype))
+			return
+		admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src] to [result]")
+		set_species(newtype)
 	if(href_list[VV_HK_PURRBATION])
 		if(!check_rights(R_SPAWN))
 			return

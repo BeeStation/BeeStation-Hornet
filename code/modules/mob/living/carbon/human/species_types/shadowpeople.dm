@@ -49,7 +49,7 @@
 /datum/species/shadow/get_species_lore()
 	return list(
 		"Long ago, the Spinward Sector used to be inhabited by terrifying aliens aptly named \"Shadowlings\" \
-		after their control over darkness, and tendancy to kidnap victims into the dark maintenance shafts. \
+		after their control over darkness, and tendency to kidnap victims into the dark maintenance shafts. \
 		Around 2558, the long campaign Nanotrasen waged against the space terrors ended with the full extinction of the Shadowlings.",
 
 		"Victims of their kidnappings would become brainless thralls, and via surgery they could be freed from the Shadowling's control. \
@@ -58,7 +58,7 @@
 
 		"With Shadowlings long gone, their will is their own again. But their bodies have not reverted, burning in exposure to light. \
 		Nanotrasen has assured the victims that they are searching for a cure. No further information has been given, even years later. \
-		Most shadowpeople now assume Nanotrasen has long since shelfed the project.",
+		Most shadowpeople now assume Nanotrasen has long since shelved the project.",
 	)
 
 /datum/species/shadow/create_pref_unique_perks()
@@ -173,7 +173,7 @@
 	if(M != user)
 		return ..()
 	user.visible_message(span_warning("[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!"), \
-						span_danger("[src] feels unnaturally cold in your hands. You raise [src] your mouth and devour it!"))
+						span_danger("[src] feels unnaturally cold in your hands. You raise [src] to your mouth and devour it!"))
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
 
 
@@ -348,7 +348,7 @@
 	if(!isOn())
 		return
 	if(light_eater)
-		loc.visible_message(span_danger("The the integrated welding tool is snuffed out by [light_eater]!"))
+		loc.visible_message(span_danger("The integrated welding tool is snuffed out by [light_eater]!"))
 		disable()
 	..()
 

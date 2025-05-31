@@ -434,27 +434,6 @@
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))
 
-/datum/asset/spritesheet_batched/crafting
-	name = "crafting"
-
-/datum/asset/spritesheet_batched/crafting/create_spritesheets()
-	var/chached_list = list()
-	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
-		if(!R.name)
-			continue
-		var/atom/A = R.result
-		if(!ispath(A, /atom))
-			stack_trace("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
-			continue
-		if(chached_list[A]) // this prevents an icon to be inserted again
-			continue
-		chached_list[A] = TRUE
-
-		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
-		var/datum/universal_icon/entry = get_display_icon_for(A)
-		entry.scale(42, 42)
-		insert_icon(imgid, entry)
-
 // basically admin debugging tool assets
 /datum/asset/spritesheet_batched/tools
 	name = "tools"
@@ -640,3 +619,105 @@
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
 			insert_icon("language-[icon_state]", uni_icon(icon, icon_state))
+
+/// Maps icon names to ref values
+/datum/asset/json/icon_ref_map
+	name = "icon_ref_map"
+	early = TRUE
+
+/datum/asset/json/icon_ref_map/generate()
+	var/list/data = list() //"icons/obj/drinks.dmi" => "[0xc000020]"
+
+	//var/start = "0xc000000"
+	var/value = 0
+
+	while(TRUE)
+		value += 1
+		var/ref = "\[0xc[num2text(value,6,16)]\]"
+		var/mystery_meat = locate(ref)
+
+		if(isicon(mystery_meat))
+			if(!isfile(mystery_meat)) // Ignore the runtime icons for now
+				continue
+			var/path = get_icon_dmi_path(mystery_meat) //Try to get the icon path
+			if(path)
+				data[path] = ref
+		else if(mystery_meat)
+			continue //Some other non-icon resource, ogg/json/whatever
+		else //Out of resources end this, could also try to end this earlier as soon as runtime generated icons appear but eh
+			break
+
+	return data
+///Representative icons for the contents of each crafting recipe
+/datum/asset/spritesheet_batched/crafting
+	name = "crafting"
+
+/datum/asset/spritesheet_batched/crafting/create_spritesheets()
+	var/id = 1
+	for(var/atom in GLOB.crafting_recipes_atoms)
+		add_atom_icon(atom, id++)
+	add_tool_icons()
+
+/datum/asset/spritesheet_batched/crafting/cooking
+	name = "cooking"
+
+/datum/asset/spritesheet_batched/crafting/cooking/create_spritesheets()
+	var/id = 1
+	for(var/atom in GLOB.cooking_recipes_atoms)
+		add_atom_icon(atom, id++)
+
+/**
+ * Adds the ingredient icon to the spritesheet with given ID
+ *
+ * ingredient_typepath can be an obj typepath OR a reagent typepath
+ *
+ * If it a reagent, it will use the default container's icon state,
+ * OR if it has a glass style associated, it will use that
+ */
+/datum/asset/spritesheet_batched/crafting/proc/add_atom_icon(ingredient_typepath, id)
+	var/icon_file
+	var/icon_state
+	var/obj/preview_item = ingredient_typepath
+	if(ispath(ingredient_typepath, /datum/reagent))
+		var/datum/reagent/reagent = ingredient_typepath
+		preview_item = initial(reagent.default_container)
+		var/datum/glass_style/style = GLOB.glass_style_singletons[preview_item]?[reagent]
+		if(istype(style))
+			icon_file = style.icon
+			icon_state = style.icon_state
+
+	icon_file ||= initial(preview_item.icon_preview) || initial(preview_item.icon)
+	icon_state ||= initial(preview_item.icon_state_preview) || initial(preview_item.icon_state)
+
+	//if(PERFORM_ALL_TESTS(focus_only/bad_cooking_crafting_icons))
+	//	if(!icon_exists(icon_file, icon_state, scream = TRUE))
+	//		return
+
+	insert_icon("a[id]", uni_icon(icon_file, icon_state, SOUTH))
+
+///Adds tool icons to the spritesheet
+/datum/asset/spritesheet_batched/crafting/proc/add_tool_icons()
+	var/list/tool_icons = list(
+		TOOL_CROWBAR = uni_icon('icons/obj/tools.dmi', "crowbar"),
+		TOOL_MULTITOOL = uni_icon('icons/obj/device.dmi', "multitool"),
+		TOOL_SCREWDRIVER = uni_icon('icons/obj/tools.dmi', "screwdriver_map"),
+		TOOL_WIRECUTTER = uni_icon('icons/obj/tools.dmi', "cutters_map"),
+		TOOL_WRENCH = uni_icon('icons/obj/tools.dmi', "wrench"),
+		TOOL_WELDER = uni_icon('icons/obj/tools.dmi', "welder"),
+		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
+		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
+		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "spade"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
+		TOOL_KNIFE = uni_icon('icons/obj/service/kitchen.dmi', "knife"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
+		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
+		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
+	)
+
+	for(var/tool in tool_icons)
+		insert_icon(replacetext(tool, " ", ""), tool_icons[tool])

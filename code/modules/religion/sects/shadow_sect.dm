@@ -12,7 +12,7 @@
 	rites_list = list(
 		/datum/religion_rites/shadow_obelisk,
 		/datum/religion_rites/expand_shadows,
-		/datum/religion_rites/nigth_vision_aura,
+		/datum/religion_rites/night_vision_aura,
 		/datum/religion_rites/shadow_conversion
 	)
 
@@ -113,7 +113,7 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_leave(mob/living/affected_mob)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	var/is_in_range_obelisc = FALSE
+	var/is_in_range_obelisk = FALSE
 	if(!sect.night_vision_active)
 		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
@@ -121,9 +121,9 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		if (D.anchored)
 			if(get_dist(D, affected_mob) <= sect.light_reach)
-				is_in_range_obelisc = TRUE
+				is_in_range_obelisk = TRUE
 				break
-	if(!is_in_range_obelisc)
+	if(!is_in_range_obelisk)
 		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
@@ -149,7 +149,7 @@
 			var/list/current_objects = view_or_range(5, src, "range")
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eachother!</span>")
+					to_chat(user,"<span class='warning'>You can't place obelisks so close to each other!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -162,7 +162,7 @@
 			var/list/current_objects = view_or_range(5, src, "range")
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eachother!</span>")
+					to_chat(user,"<span class='warning'>You can't place obelisks so close to each other!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -170,7 +170,7 @@
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 		else
-			to_chat(user,"<span class='warning'>You feel like only nullrod coudl move this obelisc.</span>")
+			to_chat(user,"<span class='warning'>You feel like only a nullrod could move this obelisk.</span>")
 		return
 	return ..()
 
@@ -269,7 +269,7 @@
 	ritual_invocations = list(
 		"Let the shadows combine...",
 		"... Solidify and grow ...",
-		"... Make an idol to eminate shadows ...")
+		"... Make an idol to emanate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 100
 
@@ -278,7 +278,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/cost = 100 * sect.obelisk_number + 100
 	if(sect.favor < cost)
-		to_chat(user, "<span class='warning'>Your obelisc are getting harder to summon, as more matterialise. You need [cost] favor.</span>")
+		to_chat(user, "<span class='warning'>Your obelisks are getting harder to summon as more materialize. You need [cost] favor.</span>")
 		return FALSE
 	return ..()
 
@@ -314,7 +314,7 @@
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
 		return FALSE
 	if((sect.light_power <= -11) || (sect.light_reach >= 15))
-		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
+		to_chat(user, "<span class='warning'>The shadows emanating from your idols are as strong as they could be.</span>")
 		return FALSE
 	return ..()
 
@@ -334,18 +334,18 @@
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 
 
-/datum/religion_rites/nigth_vision_aura
-	name = "Provide nigth vision"
-	desc = "Grands obelisc aura of night vision, with lets people see in darknes. Any aditional casting will turn it on or off."
+/datum/religion_rites/night_vision_aura
+	name = "Provide night vision"
+	desc = "Grants obelisks an aura of night vision which lets people see in darkness. Any additional casting will turn it on or off."
 	ritual_length = 30 SECONDS
 	ritual_invocations = list(
 		"Spread out...",
 		"... Seep into them ...",
 		"... Infuse their sight ...")
-	invoke_msg = "Shadows, reach your tendrils from my altar, and grand thy sight to people."
+	invoke_msg = "Shadows, reach your tendrils from my altar, and grant thy sight to people."
 	favor_cost = 1000
 
-/datum/religion_rites/nigth_vision_aura/invoke_effect(mob/living/user, atom/religious_tool)
+/datum/religion_rites/night_vision_aura/invoke_effect(mob/living/user, atom/religious_tool)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.night_vision_active = !sect.night_vision_active

@@ -191,6 +191,20 @@
 
 	return INITIALIZE_HINT_LATELOAD
 
+/obj/machinery/add_context_self(datum/screentip_context/context, mob/user)
+	if (machine_stat & BROKEN)
+		return
+
+	//Tools
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
+	if (panel_open && circuit)
+		context.add_left_click_tool_action("Hack Wires", TOOL_MULTITOOL)
+		context.add_left_click_tool_action("Cut Wires", TOOL_WIRECUTTER)
+
+	var/can_unfasten = can_be_unfasten_wrench()
+	if(can_unfasten||!anchored)
+		context.add_left_click_tool_action("[anchored ? "Unwrench from floor" : "Wrench to floor"]", TOOL_WRENCH)
+
 /obj/machinery/LateInitialize()
 	. = ..()
 	power_change()
@@ -996,6 +1010,9 @@
 		. += display_parts(user, TRUE)
 	if(return_blood_DNA())
 		. += "<span class='warning'>It's smeared with blood!</span>"
+
+/obj/machinery/examine_descriptor(mob/user)
+	return "machine"
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()

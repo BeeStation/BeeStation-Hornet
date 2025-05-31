@@ -174,7 +174,7 @@
 		else //they're okay!
 			results += span_notice("[M.p_their(TRUE)] pupils narrow.")
 
-	to_chat(user, EXAMINE_BLOCK(jointext(results, "\n")))
+	to_chat(user, examine_block(jointext(results, "\n")))
 
 /obj/item/flashlight/pen
 	name = "penlight"

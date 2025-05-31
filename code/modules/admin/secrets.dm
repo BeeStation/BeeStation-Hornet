@@ -342,14 +342,18 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("allspecies")
 			if(!check_rights(R_FUN))
 				return
-			var/result = input(usr, "Please choose a new species","Species") as null|anything in GLOB.species_list
-			if(result)
-				SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Species Change", "[result]"))
-				log_admin("[key_name(usr)] turned all humans into [result]", 1)
-				message_admins("\blue [key_name_admin(usr)] turned all humans into [result]")
-				var/newtype = GLOB.species_list[result]
-				for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-					H.set_species(newtype)
+			var/result = tgui_input_list(usr, "Please choose a new species", "Species", GLOB.species_list)
+			if(isnull(result))
+				return
+			if(isnull(GLOB.species_list[result]))
+				return
+
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Species Change", "[result]"))
+			log_admin("[key_name(usr)] turned all humans into [result]", 1)
+			message_admins("\blue [key_name_admin(usr)] turned all humans into [result]")
+			var/newtype = GLOB.species_list[result]
+			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
+				H.set_species(newtype)
 
 		if("tripleAI")
 			if(!check_rights(R_FUN))

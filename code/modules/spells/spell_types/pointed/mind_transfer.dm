@@ -19,6 +19,10 @@
 
 	/// If TRUE, we cannot mindswap into mobs with minds if they do not currently have a key / player.
 	var/target_requires_key = TRUE
+	/// If TRUE, we cannot mindswap into people without a mind.
+	/// You may be wondering "What's the point of mindswap if the target has no mind"?
+	/// Primarily for debugging - targets hit with this set to FALSE will init a mind, then do the swap.
+	var/target_requires_mind = TRUE
 	/// For how long is the caster stunned for after the spell
 	var/unconscious_amount_caster = 40 SECONDS
 	/// For how long is the victim stunned for after the spell
@@ -66,7 +70,7 @@
 	if(living_target.stat == DEAD)
 		to_chat(owner, "<span class='warning'>You don't particularly want to be dead!</span>")
 		return FALSE
-	if(!living_target.mind)
+	if(!living_target.mind && target_requires_mind)
 		to_chat(owner, "<span class='warning'>[living_target.p_theyve(TRUE)] doesn't appear to have a mind to swap into!</span>")
 		return FALSE
 	if(!living_target.key && target_requires_key)
@@ -87,6 +91,11 @@
 		var/mob/living/simple_animal/hostile/holoparasite/stand = cast_on
 		if(stand.summoner)
 			to_swap = stand.summoner
+
+	// Gives the target a mind if we don't require one and they don't have one
+	if(!to_swap.mind && !target_requires_mind)
+		to_swap.mind_initialize()
+
 	var/datum/mind/mind_to_swap = to_swap.mind
 	if(to_swap.can_block_magic(antimagic_flags) \
 		|| mind_to_swap.has_antag_datum(/datum/antagonist/wizard) \

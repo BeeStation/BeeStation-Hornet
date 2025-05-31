@@ -25,7 +25,7 @@
 	if(!holds_charge)
 		empty()
 
-/obj/item/gun/energy/recharge/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+/obj/item/gun/energy/recharge/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	. = ..()
 	attempt_reload()
 
@@ -41,8 +41,8 @@
 		// calls dropped().
 		addtimer(CALLBACK(src, PROC_REF(empty_if_not_held)), 0.1 SECONDS)
 
-/obj/item/gun/energy/recharge/process_chamber()
-	. = ..()
+/obj/item/gun/energy/recharge/on_chamber_fired()
+	..()
 	attempt_reload()
 
 /obj/item/gun/energy/recharge/proc/empty_if_not_held()
