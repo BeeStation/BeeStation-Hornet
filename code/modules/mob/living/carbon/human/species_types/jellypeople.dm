@@ -592,7 +592,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	to_chat(living_target, span_warning("You feel a foreign presence within your mind..."))
 	currently_linking = TRUE
 
-	if(!do_after(owner, 6 SECONDS, target = living_target, extra_checks = CALLBACK(src, .proc/while_link_callback, living_target)))
+	if(!do_after(owner, 6 SECONDS, target = living_target, extra_checks = CALLBACK(src, PROC_REF(while_link_callback), living_target)))
 		to_chat(owner, span_warning("You can't seem to link [living_target]'s mind."))
 		to_chat(living_target, span_warning("The foreign presence leaves your mind."))
 		currently_linking = FALSE
