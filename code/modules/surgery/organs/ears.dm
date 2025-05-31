@@ -101,15 +101,15 @@
 	bang_protect = -2
 
 /obj/item/organ/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
-	..()
-	if(istype(ear_owner))
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
 		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
 		ear_owner.update_body()
 
 /obj/item/organ/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
-	..()
-	if(istype(ear_owner))
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
 		ear_owner.dna.features["ears"] = "None"
 		ear_owner.dna.species.mutant_bodyparts -= "ears"

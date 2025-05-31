@@ -140,13 +140,13 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/heart/gland/slime/slime/on_insert(mob/living/carbon/gland_owner, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/gland/slime/slime/on_insert(mob/living/carbon/gland_owner)
+	. = ..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/heart/gland/slime/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
+	. = ..()
 	owner.faction -= FACTION_SLIME
 	owner.remove_language(/datum/language/slime, source = LANGUAGE_GLAND)
 

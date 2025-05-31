@@ -278,13 +278,13 @@
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
 
-/obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, drop_if_replaced = 0)
-	..()
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
+/obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
+	. = ..()
+	if(ishuman(brain_owner))
+		var/mob/living/carbon/human/H = brain_owner
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0 && !H.ishellbound())
+				if(H.health > 0)
 					H.revive(0)
 
 /obj/item/organ/brain/positron/emp_act(severity)
