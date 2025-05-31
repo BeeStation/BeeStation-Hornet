@@ -8,7 +8,6 @@
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	species_traits = list(
-		NOBLOOD,
 		NOZOMBIE,
 		NOTRANSSTING
 	)
@@ -27,8 +26,13 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
-		TRAIT_NOSTASIS
+		TRAIT_NOSTASIS,
+		TRAIT_NOBLOOD,
 	)
+	mutantstomach = null
+	mutantheart = null
+	mutantliver = null
+	mutantlungs = null
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	bodytemp_normal = T0C // They have no natural body heat, the environment regulates body temp

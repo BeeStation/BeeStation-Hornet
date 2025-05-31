@@ -107,7 +107,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		owner.balloon_alert(owner, "No targets, visit a rune")
-		StartCooldown(1 SECONDS)
+		start_cooldown(1 SECONDS)
 		return TRUE
 
 	var/list/targets_to_choose = list()

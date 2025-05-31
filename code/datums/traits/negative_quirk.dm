@@ -30,7 +30,7 @@
 
 /datum/quirk/blooddeficiency/on_process(delta_time)
 	var/mob/living/carbon/human/H = quirk_target
-	if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //can't lose blood if your species doesn't have any
+	if(HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //can't lose blood if your species doesn't have any
 		return
 	if(H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
 		H.blood_volume -= 0.275 * delta_time

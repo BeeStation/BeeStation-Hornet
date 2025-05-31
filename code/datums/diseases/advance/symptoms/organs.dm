@@ -170,7 +170,7 @@
 					O.Insert(M)
 					M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 99, 99) //don't make it fail, or the host will start taking massive damage
 					return
-				if(!M.getorgan(/obj/item/organ/stomach) && !(NOSTOMACH in S.species_traits))
+				if(!M.getorgan(/obj/item/organ/stomach))
 					var/obj/item/organ/stomach/O
 					if(S.mutantstomach)
 						O = new S.mutantstomach()
@@ -188,7 +188,7 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 200)
 					return
-				if(!M.getorgan(/obj/item/organ/heart) && !(NOBLOOD in S.species_traits))
+				if(!M.getorgan(/obj/item/organ/heart) && !HAS_TRAIT(S, TRAIT_NOBLOOD))
 					var/obj/item/organ/heart/O = new()
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)

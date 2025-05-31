@@ -10,11 +10,22 @@
 	id = SPECIES_SHADOWPERSON
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
-	species_traits = list(NOBLOOD,NOEYESPRITES,NOFLASH)
-	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH)
+	species_traits = list(
+		NOEYESPRITES,
+		NOFLASH
+	)
+	inherent_traits = list(
+		TRAIT_NOBREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NOBLOOD,
+	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	mutanteyes = /obj/item/organ/eyes/night_vision
+	mutantheart = null
+	mutantlungs = null
+
 	species_language_holder = /datum/language_holder/shadowpeople
 
 	species_chest = /obj/item/bodypart/chest/shadow
@@ -94,7 +105,13 @@
 	id = "nightmare"
 	burnmod = 1.5
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NO_DNA_COPY,NOTRANSSTING,NOEYESPRITES,NOFLASH)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NO_DNA_COPY,
+		NOTRANSSTING,
+		NOEYESPRITES,
+		NOFLASH
+	)
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
@@ -105,7 +122,8 @@
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NOHUNGER
+		TRAIT_NOHUNGER,
+		TRAIT_NOBLOOD,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare

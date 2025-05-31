@@ -347,9 +347,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
   * regenerate organs works with generic organs, so we need to get whether it can accept certain organs just by what this returns.
   * This is set to return true or false, depending on if a species has a specific organless trait. stomach for example checks if the species has NOSTOMACH and return based on that.
   * Arguments:
-  * S - species, needed to return whether the species has an organ specific trait
-  */
-/obj/item/organ/proc/get_availability(datum/species/S)
+  * owner_species - species, needed to return the mutant slot as true or false. stomach set to null means it shouldn't have one.
+  * owner_mob - for more specific checks, like nightmares.
+ */
+/obj/item/organ/proc/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return TRUE
 
 /// Called before organs are replaced in regenerate_organs with new ones

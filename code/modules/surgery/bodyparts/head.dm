@@ -225,7 +225,7 @@
 				else if(animal_origin == LARVA_BODYPART)
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_larva"
-				else if(!(NOBLOOD in species_flags_list))
+				else if(!(TRAIT_NOBLOOD in species_flags_list))
 					debrain_overlay.icon = 'icons/mob/human_face.dmi'
 					debrain_overlay.icon_state = "debrained"
 				. += debrain_overlay

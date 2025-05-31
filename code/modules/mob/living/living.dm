@@ -909,7 +909,7 @@
 							TH.color = spec_color
 
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
-	if((NOBLOOD in dna.species.species_traits) || !is_bleeding())
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
 	spec_color = dna.species.blood_color
 	..()

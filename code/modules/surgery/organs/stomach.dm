@@ -44,8 +44,8 @@
 			H.vomit(damage)
 			to_chat(H, span_warning("Your stomach reels in pain as you're incapable of holding down all that food!"))
 
-/obj/item/organ/stomach/get_availability(datum/species/S)
-	return !(NOSTOMACH in S.species_traits)
+/obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantstomach
 
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.disgust)
