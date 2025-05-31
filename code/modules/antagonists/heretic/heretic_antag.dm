@@ -58,6 +58,12 @@
 		HERETIC_PATH_VOID = "blue",
 	)
 
+/datum/antagonist/heretic/get_dynamic_midround_points()
+	if(ascended)
+		return -1
+
+	return ..()
+
 /datum/antagonist/heretic/Destroy()
 	. = ..()
 	LAZYCLEARLIST(sac_targets)
