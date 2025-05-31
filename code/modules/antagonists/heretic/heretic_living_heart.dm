@@ -69,7 +69,7 @@
  */
 /datum/action/track_target
 	name = "Living Heartbeat"
-	desc = "Track a Sacrifice Target"
+	desc = "LMB: Chose one of your sacrifice targets to track. RMB: Repeats last target you chose to track."
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_ecult"
 	icon_icon = 'icons/obj/heretic.dmi'
@@ -107,6 +107,7 @@
 
 /datum/action/track_target/on_activate(mob/user, atom/target)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
+	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		owner.balloon_alert(owner, "No targets, visit a rune")
 		start_cooldown(1 SECONDS)
@@ -121,17 +122,21 @@
 		tracked_targets[target_mind.name] = target_mind.current
 		targets_to_choose[target_mind.name] = heretic_datum.sac_targets[target_ref]
 
-	radial_open = TRUE
-	var/tracked = show_radial_menu(
-		owner,
-		owner,
-		targets_to_choose,
-		custom_check = CALLBACK(src, PROC_REF(check_menu)),
-		radius = 40,
-		require_near = TRUE,
-		tooltips = TRUE,
-	)
-	radial_open = FALSE
+	// If we don't have a last tracked name, open a radial to set one.
+	// If we DO have a last tracked name, we skip the radial if they right click the action.
+	if(isnull(last_tracked_name) || !right_clicked)
+		radial_open = TRUE
+		last_tracked_name = show_radial_menu(
+			owner,
+			owner,
+			targets_to_choose,
+			custom_check = CALLBACK(src, PROC_REF(check_menu)),
+			radius = 40,
+			require_near = TRUE,
+			tooltips = TRUE,
+		)
+		radial_open = FALSE
+
 	// If our last tracked name is still null, skip the trigger
 	if(isnull(tracked))
 		return FALSE
@@ -143,6 +148,8 @@
 
 	if(.)
 		playsound(owner, 'sound/effects/singlebeat.ogg', vol = 50, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
+
+	StartCooldown()
 
 /datum/action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
 	var/turf/owner_turf = get_turf(owner)
