@@ -98,3 +98,4 @@
 /obj/vehicle/ridden/janicart/upgraded/keyless
 	floorbuffer = TRUE
 	key_type = null
+
