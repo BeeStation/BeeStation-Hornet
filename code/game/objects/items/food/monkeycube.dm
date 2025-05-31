@@ -11,7 +11,7 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 	var/faction
-	var/spawned_mob = /mob/living/carbon/monkey
+	var/spawned_mob = /mob/living/carbon/human/species/monkey
 	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/monkeycube/proc/Expand()

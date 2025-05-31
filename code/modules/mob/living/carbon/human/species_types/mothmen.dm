@@ -25,13 +25,13 @@
 	mutanttongue = /obj/item/organ/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	inert_mutation = /datum/mutation/strongwings
+	inert_mutation = /datum/mutation/human/strongwings
 	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	species_chest = /obj/item/bodypart/chest/moth
 	species_head = /obj/item/bodypart/head/moth
-	species_l_arm = /obj/item/bodypart/l_arm/moth
-	species_r_arm = /obj/item/bodypart/r_arm/moth
+	species_l_arm = /obj/item/bodypart/arm/left/moth
+	species_r_arm = /obj/item/bodypart/arm/right/moth
 	species_l_leg = /obj/item/bodypart/l_leg/moth
 	species_r_leg = /obj/item/bodypart/r_leg/moth
 
@@ -141,7 +141,7 @@
 			var/obj/item/organ/wings/moth/W = H.getorgan(/obj/item/organ/wings/moth)
 			if(W)
 				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
-				if(locate(/datum/mutation/strongwings) in H.dna.mutations)
+				if(locate(/datum/mutation/human/strongwings) in H.dna.mutations)
 					W.flight_level = WINGS_FLYING
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)

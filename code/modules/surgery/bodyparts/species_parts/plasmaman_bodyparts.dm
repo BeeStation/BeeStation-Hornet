@@ -10,12 +10,12 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/l_arm/plasmaman
+/obj/item/bodypart/arm/left/plasmaman
 	static_icon = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/r_arm/plasmaman
+/obj/item/bodypart/arm/right/plasmaman
 	static_icon = 'icons/mob/species/plasmaman/bodyparts.dmi'
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE

@@ -73,7 +73,8 @@
 			return TRUE
 
 		var/mob/living/living_pass = passing_atom
-		if(!living_pass.ventcrawler && living_pass.mob_size != MOB_SIZE_TINY)
+		var/ventcrawler = HAS_TRAIT(living_pass, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(living_pass, TRAIT_VENTCRAWLER_NUDE)
+		if(!ventcrawler && living_pass.mob_size != MOB_SIZE_TINY)
 			return FALSE
 
 	if(passing_atom?.pulling)
@@ -106,7 +107,8 @@
 		if(istype(living_mover.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
 			return TRUE
 
-		if(living_mover.body_position == STANDING_UP && living_mover.mob_size != MOB_SIZE_TINY && !living_mover.ventcrawler)	//If your not laying down, or a ventcrawler or a small creature, no pass.
+		var/ventcrawler = HAS_TRAIT(living_mover, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(living_mover, TRAIT_VENTCRAWLER_NUDE)
+		if(living_mover.body_position == STANDING_UP && !ventcrawler && living_mover.mob_size != MOB_SIZE_TINY) //If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)

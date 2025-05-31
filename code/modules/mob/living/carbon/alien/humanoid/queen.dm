@@ -2,7 +2,6 @@
 	//Common stuffs for Praetorian and Queen
 	icon = 'icons/mob/alienqueen.dmi'
 	status_flags = 0
-	ventcrawler = VENTCRAWLER_NONE //pull over that ass too fat
 	unique_name = 0
 	pixel_x = -16
 	base_pixel_x = -16
@@ -14,6 +13,11 @@
 
 	var/alt_inhands_file = 'icons/mob/alienqueen.dmi'
 	var/game_end_timer
+
+/mob/living/carbon/alien/humanoid/royal/Initialize(mapload)
+	. = ..()
+	// as a wise man once wrote: "pull over that ass too fat"
+	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/carbon/alien/humanoid/royal/can_inject(mob/user, target_zone, injection_flags)
 	return FALSE

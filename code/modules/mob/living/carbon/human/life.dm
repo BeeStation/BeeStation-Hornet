@@ -28,6 +28,11 @@
 		return FALSE
 
 	if(!IS_IN_STASIS(src))
+		if(.) //not dead
+
+			for(var/datum/mutation/human/HM in dna.mutations) // Handle active genes
+				HM.on_life(delta_time, times_fired)
+
 		if(stat != DEAD)
 			if(undergoing_cardiac_arrest())
 				//heart attack stuff
@@ -36,7 +41,7 @@
 				if(we_breath)
 					adjustOxyLoss(4 * delta_time)
 					Unconscious(80)
-				
+
 				// Tissues die without blood circulation, machines burn without coolant circulation
 				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
 					adjustFireLoss(0.5 * delta_time)

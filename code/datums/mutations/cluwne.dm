@@ -1,4 +1,4 @@
-/datum/mutation/cluwne
+/datum/mutation/human/cluwne
 	name = "Cluwne"
 	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
@@ -6,11 +6,11 @@
 	mutadone_proof = TRUE
 	var/list/datum/weakref/clothing_weakrefs = list()
 
-/datum/mutation/cluwne/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/cluwne/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	owner.dna.add_mutation(/datum/mutation/clumsy)
-	owner.dna.add_mutation(/datum/mutation/epilepsy)
+	owner.dna.add_mutation(/datum/mutation/human/clumsy)
+	owner.dna.add_mutation(/datum/mutation/human/epilepsy)
 	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 
 	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', vol = 50, vary = TRUE)
@@ -21,7 +21,7 @@
 	equip_cursed_clothing(/obj/item/clothing/gloves/color/white, ITEM_SLOT_GLOVES)
 	owner.regenerate_icons()
 
-/datum/mutation/cluwne/on_life()
+/datum/mutation/human/cluwne/on_life()
 	if(prob(15) && owner.IsUnconscious())
 		owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 		switch(rand(1, 6))
@@ -34,12 +34,12 @@
 				owner.Knockdown(20)
 				owner.Jitter(500)
 
-/datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/cluwne/on_losing(mob/living/carbon/owner)
 	owner.emote("scream")
 	owner.visible_message(span_warning("[span_name("[owner]")] faints as [owner.p_their()] cursed cluwne clothing melts away!"))
 	owner.Unconscious(rand(45 SECONDS, 70 SECONDS))
-	owner.dna.remove_mutation(/datum/mutation/clumsy)
-	owner.dna.remove_mutation(/datum/mutation/epilepsy)
+	owner.dna.remove_mutation(/datum/mutation/human/clumsy)
+	owner.dna.remove_mutation(/datum/mutation/human/epilepsy)
 	for(var/datum/weakref/clothing_weakref in clothing_weakrefs)
 		var/obj/item/clothing/clothing = clothing_weakref.resolve()
 		if(QDELETED(clothing))
@@ -48,7 +48,7 @@
 			qdel(clothing)
 	clothing_weakrefs.Cut()
 
-/datum/mutation/cluwne/proc/equip_cursed_clothing(type, slot)
+/datum/mutation/human/cluwne/proc/equip_cursed_clothing(type, slot)
 	var/obj/item/clothing/original_clothing = owner.get_item_by_slot(slot)
 	if(istype(original_clothing, type))
 		return
@@ -59,7 +59,7 @@
 		clothing_weakrefs += WEAKREF(cursed_clothing)
 
 /mob/living/carbon/proc/cluwneify(cursed = FALSE)
-	dna.add_mutation(cursed ? /datum/mutation/cluwne/cursed : /datum/mutation/cluwne)
+	dna.add_mutation(cursed ? /datum/mutation/human/cluwne/cursed : /datum/mutation/human/cluwne)
 	emote("scream")
 	regenerate_icons()
 	visible_message(span_danger("[span_name("[src]'s")] body glows green, the glow dissipating only to leave behind a cluwne formerly known as [span_name("[src]")]!"), \
@@ -67,5 +67,5 @@
 	flash_act(override_blindness_check = TRUE)
 	client?.give_award(/datum/award/achievement/misc/cluwne, src)
 
-/datum/mutation/cluwne/cursed
+/datum/mutation/human/cluwne/cursed
 	scrambled = TRUE

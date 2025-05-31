@@ -405,7 +405,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(/datum/mutation/stoner)
+	H.dna.add_mutation(/datum/mutation/human/stoner)
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -461,7 +461,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(/datum/mutation/stoner)
+	H.dna.add_mutation(/datum/mutation/human/stoner)
 
 /////////////////Officers+Nanotrasen Security//////////////////////
 

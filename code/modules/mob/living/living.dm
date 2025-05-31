@@ -1209,7 +1209,7 @@
 			to_chat(src, "<span class='warning'>You are too far away!</span>")
 			return FALSE
 		var/datum/dna/D = has_dna()
-		if(!D || !D.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, M))
+		if(!D || !D.check_mutation(/datum/mutation/human/telekinesis) || !tkMaxRangeCheck(src, M))
 			to_chat(src, "<span class='warning'>You are too far away!</span>")
 			return FALSE
 	if(need_hands && !can_hold_items(isitem(M) ? M : null)) //almost redundant if it weren't for mobs,
@@ -1221,8 +1221,11 @@
 	return TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, "<span class='warning'>You are unable to fire this!</span>")
+		return FALSE
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !ISADVANCEDTOOLUSER(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(src, "<span class='warning'>You try to fire [G], but can't use the trigger!</span>")
 		return FALSE
 	return TRUE
 
@@ -1298,7 +1301,7 @@
 
 	switch(what_to_randomize)
 		if(WABBAJACK_MONKEY)
-			new_mob = new /mob/living/carbon/monkey(loc)
+			new_mob = new /mob/living/carbon/human/species/monkey(loc)
 
 		if(WABBAJACK_ROBOT)
 			var/static/list/robot_options = list(

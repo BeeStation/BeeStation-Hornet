@@ -1,4 +1,4 @@
-/datum/mutation/acidooze
+/datum/mutation/human/acidooze
 	name = "Acidic Hands"
 	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
 	quality = POSITIVE

@@ -153,7 +153,7 @@
 	take_damage(I.force, I.damtype, MELEE, 1)
 
 /turf/attackby(obj/item/W, mob/user, params)
-	if (!ISADVANCEDTOOLUSER(user))
+	if (!ISADVANCEDTOOLUSER(user) && !ismonkey(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 

@@ -1,5 +1,5 @@
 //Psyphoza species mutation
-/datum/mutation/spores
+/datum/mutation/human/spores
 	name = "Agaricale Pores" //Pores, not spores
 	desc = "An ancient mutation that gives psyphoza the ability to produce spores."
 	quality = POSITIVE

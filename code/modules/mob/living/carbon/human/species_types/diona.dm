@@ -26,7 +26,7 @@
 	speedmod = 1.2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
-	inert_mutation = /datum/mutation/drone
+	inert_mutation = /datum/mutation/human/drone
 	deathsound = "sound/emotes/diona/death.ogg"
 	species_bitflags = NOT_TRANSMORPHIC
 
@@ -41,8 +41,8 @@
 
 	species_chest = /obj/item/bodypart/chest/diona
 	species_head = /obj/item/bodypart/head/diona
-	species_l_arm = /obj/item/bodypart/l_arm/diona
-	species_r_arm = /obj/item/bodypart/r_arm/diona
+	species_l_arm = /obj/item/bodypart/arm/left/diona
+	species_r_arm = /obj/item/bodypart/arm/right/diona
 	species_l_leg = /obj/item/bodypart/l_leg/diona
 	species_r_leg = /obj/item/bodypart/r_leg/diona
 

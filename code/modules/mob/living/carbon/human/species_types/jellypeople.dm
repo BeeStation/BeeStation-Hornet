@@ -17,8 +17,8 @@
 
 	species_chest = /obj/item/bodypart/chest/slime
 	species_head = /obj/item/bodypart/head/slime
-	species_l_arm = /obj/item/bodypart/l_arm/slime
-	species_r_arm = /obj/item/bodypart/r_arm/slime
+	species_l_arm = /obj/item/bodypart/arm/left/slime
+	species_r_arm = /obj/item/bodypart/arm/right/slime
 	species_l_leg = /obj/item/bodypart/l_leg/slime
 	species_r_leg = /obj/item/bodypart/r_leg/slime
 

@@ -1,9 +1,8 @@
-/datum/mutation/overload
+/datum/mutation/human/overload
 	name = "Overload"
 	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
 	quality = POSITIVE
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
 	instability = 30
 	power_path = /datum/action/spell/overload
 	species_allowed = list(SPECIES_ETHEREAL)
@@ -28,7 +27,7 @@
 		if(C.flash_act(1))
 			C.Paralyze(10 + (5*max_distance))
 
-/datum/mutation/overload/modify()
+/datum/mutation/human/overload/modify()
 	if(power_path)
 		var/datum/action/spell/overload/S = power_path
 		S.max_distance = 4 * GET_MUTATION_POWER(src)

@@ -162,15 +162,15 @@
 	if(attached_atom.loc != user)
 		to_chat(user, span_warning("You attempt to wield [parent] via the power of telekenisis, but it is too much for you to handle..."))
 		return
-	if(ismonkey(user))
-		to_chat(user, span_warning("It's too heavy for you to wield fully."))
-		return
-	if(swap_hands ? user.get_active_held_item() : user.get_inactive_held_item())
+	if((swap_hands ? user.get_active_held_item() : user.get_inactive_held_item()) || ismonkey(user))
 		if(require_twohands)
 			to_chat(user, span_notice("[parent] is too cumbersome to carry in one hand!"))
 			user.dropItemToGround(parent, force=TRUE)
 		else
-			to_chat(user, span_warning("You need your other hand to be empty!"))
+			if(HAS_TRAIT(user, TRAIT_INFERIORFORM)) //monkeys
+				to_chat(user, "<span class='warning'>You don't have the upper body strength to hold this in two hands!</span>")
+			else
+				to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return
 	if(user.usable_hands < 2)
 		if(require_twohands)

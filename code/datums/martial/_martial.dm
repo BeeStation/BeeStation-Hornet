@@ -41,9 +41,9 @@
 /datum/martial_art/proc/can_use(mob/living/L)
 	return TRUE
 
-/datum/martial_art/proc/add_to_streak(element, mob/living/D)
-	if(D != current_target)
-		reset_streak(D)
+/datum/martial_art/proc/add_to_streak(element, mob/living/defender)
+	if(defender != current_target)
+		reset_streak(defender)
 	streak = streak+element
 	if(length(streak) > max_streak_length)
 		streak = copytext(streak, 1 + length(streak[1]))

@@ -28,7 +28,7 @@
 		to_chat(user, span_warning("Our current form has insufficient genetic material to create a Teratoma."))
 		return FALSE
 	var/terratoma_count = 0
-	for (var/mob/living/carbon/monkey/tumor/teratoma in GLOB.mob_living_list)
+	for (var/mob/living/carbon/human/species/monkey/tumor/teratoma in GLOB.mob_living_list)
 		if (teratoma.creator_key != user.key || teratoma.stat == DEAD)
 			continue
 		terratoma_count ++
@@ -50,14 +50,14 @@
 	if (!user.key)
 		return FALSE
 	terratoma_count = 0
-	for (var/mob/living/carbon/monkey/tumor/teratoma in GLOB.mob_living_list)
+	for (var/mob/living/carbon/human/species/monkey/tumor/teratoma in GLOB.mob_living_list)
 		if (teratoma.creator_key != user.key || teratoma.stat == DEAD)
 			continue
 		terratoma_count ++
 	if (terratoma_count >= MAX_TERATOMA)
 		to_chat(user, span_warning("You don't have enough energy to birth a teratoma..."))
 		return FALSE
-	var/mob/living/carbon/monkey/tumor/T = new /mob/living/carbon/monkey/tumor(A)
+	var/mob/living/carbon/human/species/monkey/tumor/T = new /mob/living/carbon/human/species/monkey/tumor(A)
 	// Copies the DNA, so that you can find who caused it while causing some chaos
 	T.dna.copy_dna(user.dna)
 	T.creator_key = user.key

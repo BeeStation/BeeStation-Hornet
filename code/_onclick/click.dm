@@ -298,8 +298,11 @@
 	return
 
 
-/*
- * Translates into [atom/proc/attack_hand], etc.
+/**
+ * UnarmedAttack: The higest level of mob click chain discounting click itself.
+ *
+ * This handles, just "clicking on something" without an item. It translates
+ * into [atom/proc/attack_hand], [atom/proc/attack_animal] etc.
  *
  * Note: proximity_flag here is used to distinguish between normal usage (flag=1),
  * and usage when clicking on things telekinetically (flag=0).  This proc will
@@ -371,6 +374,7 @@
 
 /atom/proc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
+	SEND_SIGNAL(user, COMSIG_MOB_CTRL_CLICKED, src)
 	var/mob/living/ML = user
 	if(istype(ML))
 		ML.pulled(src)
@@ -389,25 +393,17 @@
 
 	return ..()
 
-/mob/living/carbon/CtrlClick(mob/user)
-
+/mob/living/carbon/human/CtrlClick(mob/user)
 	if(!iscarbon(user) || !user.CanReach(src) || user.incapacitated())
 		return ..()
 
 	if(world.time < user.next_move)
 		return FALSE
 
-	if(ishuman(src) && ishuman(user))
-		var/mob/living/carbon/human_user = user
-		if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
-			human_user.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
-
-	else
-		var/mob/living/carbon/carbon_user = user
-		if(carbon_user.grab(carbon_user, src, carbon_user.mind.martial_art))
-			carbon_user.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
+	var/mob/living/carbon/human/human_user = user
+	if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
+		human_user.changeNext_move(CLICK_CD_MELEE)
+		return TRUE
 
 	return ..()
 

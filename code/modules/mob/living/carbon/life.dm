@@ -34,10 +34,6 @@
 				var/datum/brain_trauma/BT = T
 				BT.on_life(delta_time, times_fired)
 
-		if(stat != DEAD && has_dna())
-			for(var/datum/mutation/HM as() in dna.mutations)
-				HM.on_life(delta_time, times_fired)
-
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else
@@ -89,8 +85,10 @@
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(delta_time, times_fired)
 	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
-	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
+	if(SEND_SIGNAL(src, COMSIG_CARBON_ATTEMPT_BREATHE) & COMSIG_CARBON_BLOCK_BREATH)
 		return
+
+	SEND_SIGNAL(src, COMSIG_CARBON_PRE_BREATHE)
 
 	var/datum/gas_mixture/environment
 	if(loc)
@@ -99,7 +97,7 @@
 	var/datum/gas_mixture/breath
 
 	if(!getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !lungs || lungs.organ_flags & ORGAN_FAILING)
+		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby?.grab_state >= GRAB_KILL) || (lungs?.organ_flags & ORGAN_FAILING))
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
 		else if(health <= crit_threshold)
@@ -353,7 +351,7 @@
 						dna.previous.Remove("blood_type")
 					dna.temporary_mutations.Remove(mut)
 					continue
-		for(var/datum/mutation/HM as() in dna.mutations)
+		for(var/datum/mutation/human/HM as() in dna.mutations)
 			if(HM?.timed)
 				dna.remove_mutation(HM.type)
 

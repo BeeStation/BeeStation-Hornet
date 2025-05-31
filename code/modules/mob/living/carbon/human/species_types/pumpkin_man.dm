@@ -24,8 +24,8 @@
 
 	species_chest = /obj/item/bodypart/chest/pumpkin_man
 	species_head = /obj/item/bodypart/head/pumpkin_man
-	species_l_arm = /obj/item/bodypart/l_arm/pumpkin_man
-	species_r_arm = /obj/item/bodypart/r_arm/pumpkin_man
+	species_l_arm = /obj/item/bodypart/arm/left/pumpkin_man
+	species_r_arm = /obj/item/bodypart/arm/right/pumpkin_man
 	species_l_leg = /obj/item/bodypart/l_leg/pumpkin_man
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
 

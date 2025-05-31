@@ -21,7 +21,6 @@
 	emote_hear = list("chirps.")
 	emote_see = list("pecks at the ground.","flaps its wings.")
 	speak_chance = 2
-	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	mob_size = MOB_SIZE_SMALL
 	can_be_held = TRUE
@@ -29,4 +28,8 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	butcher_results = list(/obj/item/food/meat/slab = 1)
+
+/mob/living/simple_animal/cardinal/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 

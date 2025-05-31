@@ -438,7 +438,7 @@ GENE SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
-		var/mutant = H.dna.check_mutation(/datum/mutation/hulk) \
+		var/mutant = H.dna.check_mutation(/datum/mutation/human/hulk) \
 			|| S.mutantlungs != initial(S.mutantlungs) \
 			|| S.mutantbrain != initial(S.mutantbrain) \
 			|| S.mutantheart != initial(S.mutantheart) \
@@ -581,9 +581,9 @@ GENE SCANNER
 	var/list/inherent_muts = list()
 	var/list/mut_index = C.dna.mutation_index.Copy()
 
-	for(var/datum/mutation/each in C.dna.mutations)
+	for(var/datum/mutation/human/each in C.dna.mutations)
 		//get name and alias if discovered (or no discovered list was provided) or just alias if not
-		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each.type) //have to do this as instances of mutation do not have alias but global ones do....
+		var/datum/mutation/human/each_mutation = GET_INITIALIZED_MUTATION(each.type) //have to do this as instances of mutation do not have alias but global ones do....
 		var/each_mut_details = "ERROR"
 		if(!discovered || (each_mutation.type in discovered))
 			each_mut_details = span_info("[each_mutation.name] ([each_mutation.alias])")
@@ -599,7 +599,7 @@ GENE SCANNER
 			active_injected_muts += each_mut_details
 
 	for(var/each in mut_index)
-		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each)
+		var/datum/mutation/human/each_mutation = GET_INITIALIZED_MUTATION(each)
 		var/each_mut_details = "ERROR"
 		if(each_mutation)
 			//repeating this code twice is nasty, but nested procs (if even possible??) or more global procs then needed is... less so
@@ -870,7 +870,7 @@ GENE SCANNER
 	ready = TRUE
 
 /obj/item/sequence_scanner/proc/get_display_name(mutation, active_detail=FALSE)
-	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
+	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])

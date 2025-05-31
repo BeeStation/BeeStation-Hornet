@@ -18,12 +18,12 @@
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/current_body_size = BODY_SIZE_NORMAL
 	//Holder for the displacement appearance, related to species height
-	var/icon/height_displacement
+	var/atom/movable/height_displacement_holder/height_displacement_holder
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
-	height_displacement = icon('icons/effects/64x64.dmi', "height_displacement")
+	update_height_holder()
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
@@ -32,7 +32,7 @@
 			cholder.dna = null
 	holder?.remove_filter("species_height_displacement")
 	holder = null
-	QDEL_NULL(height_displacement)
+	QDEL_NULL(height_displacement_holder)
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -55,8 +55,8 @@
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
-		for(var/datum/mutation/M as() in mutations)
-			if(!istype(M, /datum/mutation/race))
+		for(var/datum/mutation/human/M as() in mutations)
+			if(!istype(M, /datum/mutation/human/race))
 				destination.dna.add_mutation(M, M.class)
 	if(transfer_species)
 		destination.set_species(species.type, icon_update=0)
@@ -70,7 +70,7 @@
 	new_dna.features = features.Copy()
 	new_dna.species = new species.type
 	new_dna.real_name = real_name
-	new_dna.update_body_size() //Must come after features.Copy()
+	new_dna.update_body_size(TRUE) //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
 /datum/dna/proc/compare_dna(datum/dna/other)
@@ -85,8 +85,8 @@
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
 /datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
 	var/mutation_type = mutation
-	if(istype(mutation, /datum/mutation))
-		var/datum/mutation/HM = mutation
+	if(istype(mutation, /datum/mutation/human))
+		var/datum/mutation/human/HM = mutation
 		mutation_type = HM.type
 	if(get_mutation(mutation_type))
 		return
@@ -105,7 +105,7 @@
 /datum/dna/proc/remove_mutation_group(list/group, list/classes = list(MUT_NORMAL, MUT_EXTRA, MUT_OTHER), mutadone = FALSE)
 	if(!group)
 		return
-	for(var/datum/mutation/HM as() in group)
+	for(var/datum/mutation/human/HM as() in group)
 		if((HM.class in classes) && !(HM.mutadone_proof && mutadone))
 			force_lose(HM)
 
@@ -151,14 +151,10 @@
 	mutation_index.Cut()
 	default_mutation_genes.Cut()
 	shuffle_inplace(mutations_temp)
-	if(ismonkey(holder))
-		mutations |= new /datum/mutation/race(MUT_NORMAL)
-		mutation_index[/datum/mutation/race] = GET_SEQUENCE(/datum/mutation/race)
-	else
-		mutation_index[/datum/mutation/race] = create_sequence(/datum/mutation/race, FALSE)
-	default_mutation_genes[/datum/mutation/race] = mutation_index[/datum/mutation/race]
+	mutation_index[/datum/mutation/human/race] = create_sequence(/datum/mutation/human/race, FALSE)
+	default_mutation_genes[/datum/mutation/human/race] = mutation_index[/datum/mutation/human/race]
 	for(var/i in 2 to DNA_MUTATION_BLOCKS)
-		var/datum/mutation/M = mutations_temp[i]
+		var/datum/mutation/human/M = mutations_temp[i]
 		mutation_index[M.type] = create_sequence(M.type, FALSE, M.difficulty)
 		default_mutation_genes[M.type] = mutation_index[M.type]
 	shuffle_inplace(mutation_index)
@@ -174,7 +170,7 @@
 //Used to create a chipped gene sequence
 /proc/create_sequence(mutation, active, difficulty)
 	if(!difficulty)
-		var/datum/mutation/A = GET_INITIALIZED_MUTATION(mutation) //leaves the possibility to change difficulty mid-round
+		var/datum/mutation/human/A = GET_INITIALIZED_MUTATION(mutation) //leaves the possibility to change difficulty mid-round
 		if(!A)
 			return
 		difficulty = A.difficulty
@@ -228,7 +224,7 @@
 			setblock(uni_identity, blocknumber, construct_block(GLOB.hair_gradients_list.Find(H.gradient_style), GLOB.hair_gradients_list.len))
 
 //Please use add_mutation or activate_mutation instead
-/datum/dna/proc/force_give(datum/mutation/HM)
+/datum/dna/proc/force_give(datum/mutation/human/HM)
 	if(holder && HM)
 		if(HM.class == MUT_NORMAL)
 			set_se(TRUE, HM)
@@ -238,10 +234,11 @@
 		update_instability()
 
 //Use remove_mutation instead
-/datum/dna/proc/force_lose(datum/mutation/HM)
+/datum/dna/proc/force_lose(datum/mutation/human/HM)
 	if(holder && (HM in mutations))
 		set_se(FALSE, HM)
 		. = HM.on_losing(holder)
+		qdel()
 		update_instability(FALSE)
 		return
 
@@ -253,7 +250,7 @@
 
 /datum/dna/proc/update_instability(alert=TRUE)
 	stability = 100
-	for(var/datum/mutation/M as() in mutations)
+	for(var/datum/mutation/human/M as() in mutations)
 		if(M.class == MUT_EXTRA)
 			stability -= M.instability * GET_MUTATION_STABILIZER(M)
 	if(holder)
@@ -302,22 +299,20 @@
 	return
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
-/datum/dna/proc/update_body_size(force)
+/datum/dna/proc/update_body_size(force, height)
+	update_height_holder()
 	var/list/heights = species?.get_species_height()
 	if((!holder || !features["body_size"] || !length(heights)) && !force)
 		return
-
-	var/desired_size = heights[features["body_size"]]
-
+	var/desired_size = height || heights[features["body_size"]]
 	if(desired_size == current_body_size && !force)
 		return
-
 	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
 	holder.remove_filter("height_cutoff_fix")
-	holder.add_filter("height_cutoff_fix", 1, layering_filter(icon = height_displacement, color = "#ffffff00"))
+	holder.add_filter("height_cutoff_fix", 1, layering_filter(render_source = height_displacement_holder.render_target, color = "#ffffff00"))
 	//Build / setup displacement filter
 	holder.remove_filter("species_height_displacement")
-	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, y = 8, size = desired_size))
+	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(render_source = height_displacement_holder.render_target, y = 8, size = desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
@@ -328,7 +323,6 @@
 			stored_dna.species = new mrace()
 		else
 			stored_dna.species = mrace //not calling any species update procs since we're a brain, not a monkey/human
-
 
 /mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	if(mrace && has_dna())
@@ -397,7 +391,7 @@
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations))
-		for(var/datum/mutation/HM as() in mutations)
+		for(var/datum/mutation/human/HM as() in mutations)
 			if(HM.allow_transfer || force_transfer_mutations)
 				dna.force_give(new HM.type(HM.class, copymut=HM)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
 
@@ -456,13 +450,12 @@
 		return
 
 	for(var/mutation in dna.mutation_index)
-		if(ismob(dna.check_block(mutation)))
-			return //we got monkeyized/humanized, this mob will be deleted, no need to continue.
+		dna.check_block(mutation)
 
 	update_mutations_overlay()
 
 /datum/dna/proc/check_block(mutation)
-	var/datum/mutation/HM = get_mutation(mutation)
+	var/datum/mutation/human/HM = get_mutation(mutation)
 	if(check_block_string(mutation))
 		if(!HM)
 			. = add_mutation(mutation, MUT_NORMAL)
@@ -471,7 +464,7 @@
 
 //Return the active mutation of a type if there is one
 /datum/dna/proc/get_mutation(A)
-	for(var/datum/mutation/HM in mutations)
+	for(var/datum/mutation/human/HM in mutations)
 		if(HM.type == A)
 			return HM
 
@@ -483,7 +476,7 @@
 /datum/dna/proc/is_gene_active(mutation)
 	return (mutation_index[mutation] == GET_SEQUENCE(mutation))
 
-/datum/dna/proc/set_se(on=TRUE, datum/mutation/HM)
+/datum/dna/proc/set_se(on=TRUE, datum/mutation/human/HM)
 	if(!HM || !(HM.type in mutation_index) || (LAZYLEN(mutation_index) < DNA_MUTATION_BLOCKS))
 		return
 	. = TRUE
@@ -498,8 +491,8 @@
 	if(!mutation)
 		return FALSE
 	var/mutation_type = mutation
-	if(istype(mutation, /datum/mutation))
-		var/datum/mutation/M = mutation
+	if(istype(mutation, /datum/mutation/human))
+		var/datum/mutation/human/M = mutation
 		mutation_type = M.type
 	if(!mutation_in_sequence(mutation_type)) //cant activate what we dont have, use add_mutation
 		return FALSE
@@ -527,8 +520,8 @@
 /datum/dna/proc/mutation_in_sequence(mutation)
 	if(!mutation)
 		return
-	if(istype(mutation, /datum/mutation))
-		var/datum/mutation/HM = mutation
+	if(istype(mutation, /datum/mutation/human))
+		var/datum/mutation/human/HM = mutation
 		if(HM.type in mutation_index)
 			return TRUE
 	else if(mutation in mutation_index)
@@ -552,16 +545,16 @@
 	if(quality & MINOR_NEGATIVE)
 		mutations += GLOB.not_good_mutations
 	var/list/possible = list()
-	for(var/datum/mutation/A as() in mutations)
+	for(var/datum/mutation/human/A as() in mutations)
 		if((!sequence || dna.mutation_in_sequence(A.type)) && !dna.get_mutation(A.type))
 			possible += A.type
 	if(exclude_monkey)
-		possible.Remove(/datum/mutation/race)
+		possible.Remove(/datum/mutation/human/race)
 	if(LAZYLEN(possible))
 		var/mutation = pick(possible)
 		. = dna.activate_mutation(mutation)
 		if(scrambled)
-			var/datum/mutation/HM = dna.get_mutation(mutation)
+			var/datum/mutation/human/HM = dna.get_mutation(mutation)
 			if(HM)
 				HM.scrambled = TRUE
 		return TRUE
@@ -710,3 +703,19 @@
 		qdel(eyes)
 		visible_message(span_notice("[src] looks up and their eyes melt away!"), span_userdanger("I understand now."))
 		addtimer(CALLBACK(src, PROC_REF(adjustOrganLoss), ORGAN_SLOT_BRAIN, 200), 20)
+
+/datum/dna/proc/update_height_holder()
+	if(!height_displacement_holder)
+		height_displacement_holder = new()
+		height_displacement_holder.AddComponent(/datum/component/anchor, holder)
+	//Update the icon, just in-case we changed species or whatever, also becuase of species delay in general //TODO: make sure this isn't expensive with changing clothes - Racc
+	height_displacement_holder.appearance = species?.get_species_height_map() || icon('icons/effects/64x64.dmi', "height_displacement")
+	//ALL our important visual stuff gets reset when we update appearance, so we have to set it back
+	height_displacement_holder.vis_flags = VIS_UNDERLAY | VIS_INHERIT_DIR
+	height_displacement_holder.appearance_flags = TILE_BOUND | PIXEL_SCALE | RESET_TRANSFORM | RESET_COLOR
+	height_displacement_holder.plane = PLANE_SPACE
+	height_displacement_holder.layer = 0
+	height_displacement_holder.render_target = "*[REF(height_displacement_holder)]"
+
+//Throw any extras you want in here when we eventually do more custom stuff
+/atom/movable/height_displacement_holder

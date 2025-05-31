@@ -10,12 +10,12 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/l_arm/psyphoza
+/obj/item/bodypart/arm/left/psyphoza
 	static_icon = 'icons/mob/species/psyphoza/bodyparts.dmi'
 	limb_id = SPECIES_PSYPHOZA
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/r_arm/psyphoza
+/obj/item/bodypart/arm/right/psyphoza
 	static_icon = 'icons/mob/species/psyphoza/bodyparts.dmi'
 	limb_id = SPECIES_PSYPHOZA
 	should_draw_greyscale = FALSE

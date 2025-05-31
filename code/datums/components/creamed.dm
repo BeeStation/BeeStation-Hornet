@@ -1,6 +1,5 @@
 GLOBAL_LIST_INIT(creamable, typecacheof(list(
 	/mob/living/carbon/human,
-	/mob/living/carbon/monkey,
 	/mob/living/basic/pet/dog/corgi,
 	/mob/living/silicon/ai)))
 
@@ -22,13 +21,13 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 
 	if(ishuman(parent))
 		var/mob/living/carbon/human/H = parent
-		if(islizard(H))
+		if(islizard(H)) //if(H.dna.species.bodytype & BODYTYPE_SNOUTED)
 			creamface.icon_state = "creampie_lizard"
+		else if(H.dna.species.bodytype & BODYTYPE_MONKEY)
+			creamface.icon_state = "creampie_monkey"
 		else
 			creamface.icon_state = "creampie_human"
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "creampie", /datum/mood_event/creampie)
-	else if(ismonkey(parent))
-		creamface.icon_state = "creampie_monkey"
 	else if(iscorgi(parent))
 		creamface.icon_state = "creampie_corgi"
 	else if(isAI(parent))

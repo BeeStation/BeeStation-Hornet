@@ -1,8 +1,7 @@
-/datum/mutation/tongue_spike
+/datum/mutation/human/tongue_spike
 	name = "Tongue Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as a deadly weapon."
 	quality = POSITIVE
-	text_gain_indication = ("<span class='notice'>Your feel like you can throw your voice.</span>")
 	instability = 15
 	power_path = /datum/action/spell/tongue_spike
 
@@ -81,11 +80,10 @@
 
 	qdel(src)
 
-/datum/mutation/tongue_spike/chem
+/datum/mutation/human/tongue_spike/chem
 	name = "Chem Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as biomass, allowing a long range transfer of chemicals."
 	quality = POSITIVE
-	text_gain_indication = ("<span class='notice'>Your feel like you can really connect with people by throwing your voice.</span>")
 	instability = 15
 	locked = TRUE
 	power_path = /datum/action/spell/tongue_spike/chem

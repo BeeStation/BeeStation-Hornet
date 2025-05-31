@@ -1,9 +1,8 @@
 //spider webs
-/datum/mutation/webbing
+/datum/mutation/human/webbing
 	name = "Webbing Production"
 	desc = "Allows the user to lay webbing, and travel through it."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>Your skin feels webby.</span>"
 	instability = 15
 	power_path = /datum/action/spell/lay_genetic_web
 

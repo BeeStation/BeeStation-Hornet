@@ -37,8 +37,8 @@
 
 	species_chest = /obj/item/bodypart/chest/zombie
 	species_head = /obj/item/bodypart/head/zombie
-	species_l_arm = /obj/item/bodypart/l_arm/zombie
-	species_r_arm = /obj/item/bodypart/r_arm/zombie
+	species_l_arm = /obj/item/bodypart/arm/left/zombie
+	species_r_arm = /obj/item/bodypart/arm/right/zombie
 	species_l_leg = /obj/item/bodypart/l_leg/zombie
 	species_r_leg = /obj/item/bodypart/r_leg/zombie
 
@@ -146,8 +146,8 @@
 
 	species_chest = /obj/item/bodypart/chest/zombie
 	species_head = /obj/item/bodypart/head/zombie
-	species_l_arm = /obj/item/bodypart/l_arm/zombie
-	species_r_arm = /obj/item/bodypart/r_arm/zombie
+	species_l_arm = /obj/item/bodypart/arm/left/zombie
+	species_r_arm = /obj/item/bodypart/arm/right/zombie
 	species_l_leg = /obj/item/bodypart/l_leg/zombie
 	species_r_leg = /obj/item/bodypart/r_leg/zombie
 

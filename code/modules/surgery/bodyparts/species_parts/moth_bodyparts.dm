@@ -9,11 +9,11 @@
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/l_arm/moth
+/obj/item/bodypart/arm/left/moth
 	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE
-/obj/item/bodypart/r_arm/moth
+/obj/item/bodypart/arm/right/moth
 	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE
