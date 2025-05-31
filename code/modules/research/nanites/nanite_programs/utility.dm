@@ -463,22 +463,6 @@
 		tile.assume_air(created_air)
 		return
 
-/datum/nanite_program/doorjack
-	name = "Doorjack"
-	desc = "The nanites emit a short-range NTnet signal, hijacking the security protocol for nearby airlocks and opening them."
-	trigger_cost = 40
-	trigger_cooldown = 25 SECONDS
-	can_trigger = TRUE
-
-/datum/nanite_program/doorjack/on_trigger(comm_message)
-	. = ..()
-	playsound(host_mob, 'sound/machines/ding.ogg', 80)
-	addtimer(CALLBACK(src, PROC_REF(hack_doors)), 2 SECONDS)
-
-/datum/nanite_program/doorjack/proc/hack_doors()
-	for (var/obj/machinery/door/airlock/airlock in range(host_mob, 1))
-		airlock.open()
-
 /datum/nanite_program/jammer
 	name = "Signal Jammer"
 	desc = "The nanites emit high-frequency signals which jam nearby radio communications."
