@@ -6,7 +6,6 @@
 	supervisors = "the research director"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 3
 	minimal_player_age = 3
 	// Requires 1 round as a scientist to unlock, which itself reuqires
 	// 2 hours as crew.

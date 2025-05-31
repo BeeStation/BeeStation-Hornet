@@ -20,6 +20,9 @@
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
 
+	/// Can we latejoin as this role?
+	var/latejoin_allowed = TRUE
+
 	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
 	var/lock_flags = NONE
 
@@ -37,9 +40,6 @@
 
 	///How many players can be this job
 	var/total_positions = 0
-
-	///How many players can spawn in as this job
-	var/spawn_positions = 0
 
 	///How many players have this job
 	var/current_positions = 0
@@ -120,6 +120,21 @@
 	 */
 	var/list/minimal_lightup_areas = list()
 
+	/// The minimum population required at roundstart for this job to appear
+	var/min_pop = LOWPOP_JOB_LIMIT
+	/// The maximum population required at roundstart for this job to appear
+	var/max_pop = INFINITY
+
+	/// If set, then roles job positions are infinite but the most popular job cannot exceed the
+	/// amount of people in the least popular job.
+	var/dynamic_spawn_group = null
+	/// The maximum allowed variance to other job roles in this group.
+	/// Should be the same as everything else in the dynamic spawn group
+	var/dynamic_spawn_variance_limit = 2
+
+	/// The HOP can manually add or decrease the amount of players
+	/// that can apply for a job, which adjusts the delta value.
+	var/total_position_delta = 0
 
 /datum/job/New()
 	. = ..()
@@ -132,6 +147,36 @@
 		lock_flags |= JOB_LOCK_REASON_MAP
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
+
+/datum/job/proc/get_spawn_position_count()
+	var/player_count = SSjob.initial_players_to_assign
+	// SSjob has not been allocated yet
+	if (!player_count)
+		player_count = length(GLOB.clients)
+	// Out of range
+	if (player_count < min_pop)
+		return 0
+	if (player_count > max_pop)
+		return 0
+	// Unlimited
+	if (total_positions == -1)
+		return -1
+	// Does not have a spawn group
+	if (!dynamic_spawn_group)
+		return max(total_positions + total_position_delta, 0)
+	// Calculate spawn group size
+	var/spawn_group_minimum = INFINITY
+	for (var/datum/job/other in SSjob.occupations)
+		// Find everything in the same group, doesn't matter if its us
+		if (other.dynamic_spawn_group != dynamic_spawn_group)
+			continue
+		// Find the least filled job in the group
+		// If the HOP removes a position from another job, then that removed position.
+		// If the HOP adds a position to a job group, then it has to be filled before the spawn
+		// group bumps.
+		spawn_group_minimum = min(spawn_group_minimum, other.current_positions - other.total_position_delta)
+	// The amount of positions we have is the least filled job + our allowed variance
+	return max(spawn_group_minimum + dynamic_spawn_variance_limit + total_position_delta, 0)
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -290,11 +335,11 @@
 		return base_access.Copy()
 
 	. = base_access.Copy()
-	if(!CONFIG_GET(flag/jobs_have_minimal_access))
-		. |= extra_access
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
 		. |= ACCESS_MAINT_TUNNELS
+	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT && SSjob.is_job_empty(JOB_NAME_COOK))
+		. |= ACCESS_KITCHEN
 
 /datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
