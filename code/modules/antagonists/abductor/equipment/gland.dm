@@ -147,6 +147,8 @@
 
 /obj/item/organ/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
 	. = ..()
+	if(!owner) // Add null check
+		return
 	owner.faction -= FACTION_SLIME
 	owner.remove_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
