@@ -19,7 +19,7 @@
 		Refresh(H)
 
 /obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
-	..()
+	. = ..()
 	if(istype(H))
 		Refresh(H)
 

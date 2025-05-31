@@ -106,7 +106,7 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
@@ -174,7 +174,7 @@
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
 
-/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	return ..()
 

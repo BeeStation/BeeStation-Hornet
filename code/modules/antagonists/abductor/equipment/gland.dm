@@ -77,21 +77,24 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	active = 0
+/obj/item/organ/heart/gland/Remove(mob/living/carbon/gland_owner, special = FALSE, pref_load = FALSE)
+	. = ..()
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.remove_from_hud(owner)
+	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
-	..()
 
-/obj/item/organ/heart/gland/Insert(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
+	. = ..()
+	if(!.)
+		return
+
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(owner)
+	hud.add_to_hud(gland_owner)
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)
@@ -137,7 +140,7 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/heart/gland/slime/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/gland/slime/slime/on_insert(mob/living/carbon/gland_owner, special = 0, pref_load = FALSE)
 	..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
@@ -304,13 +307,13 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/heart/gland/electric/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
+/obj/item/organ/heart/gland/electric/on_insert(mob/living/carbon/gland_owner)
+	. = ..()
+	ADD_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/heart/gland/electric/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
-	..()
+/obj/item/organ/heart/gland/electric/on_remove(mob/living/carbon/gland_owner)
+	. = ..()
+	REMOVE_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
 /obj/item/organ/heart/gland/electric/activate()
 	owner.visible_message(span_danger("[owner]'s skin starts emitting electric arcs!"),\

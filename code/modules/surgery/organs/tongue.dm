@@ -13,7 +13,7 @@
 	 * Relates to a mob's ability to speak a language - a mob must be able to speak the language
 	 * and have a tongue able to speak the language (or omnitongue) in order to actually speak said language
 	 *
-	 * To modify this list for subtypes, see [/obj/item/organ/internal/tongue/proc/get_possible_languages]. Do not modify directly.
+	 * To modify this list for subtypes, see [/obj/item/organ/tongue/proc/get_possible_languages]. Do not modify directly.
 	 */
 	VAR_PRIVATE/list/languages_possible
 	var/say_mod = "says"
@@ -74,11 +74,13 @@
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-/obj/item/organ/tongue/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/tongue/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
+	. = ..()
+	if(!.)
+		return
 	if(modifies_speech)
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
-	return ..()
 
 /obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))

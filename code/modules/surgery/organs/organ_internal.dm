@@ -34,7 +34,9 @@
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
 	/// Traits that are given to the holder of the organ.
-	var/list/organ_traits = list()
+	var/list/organ_traits
+	/// Status Effects that are given to the holder of the organ.
+	var/list/organ_effects
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -56,33 +58,65 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(organ_flags & ORGAN_SYNTHETIC)
 		juice_typepath = null
 
-/obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	if(!iscarbon(M) || owner == M)
-		return
+/*
+ * Insert the organ into the select mob.
+ *
+ * receiver - the mob who will get our organ
+ * special - "quick swapping" an organ out - when TRUE, the mob will be unaffected by not having that organ for the moment
+ * drop_if_replaced - if there's an organ in the slot already, whether we drop it afterwards
+ * pref_load - some lazy shit used only for passing an arg into another proc
+ */
+/obj/item/organ/proc/Insert(mob/living/carbon/receiver, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	
+	if(!iscarbon(receiver) || owner == receiver)
+		return FALSE
 
-	var/obj/item/organ/replaced = M.getorganslot(slot)
+	var/obj/item/organ/replaced = receiver.getorganslot(slot)
 	if(replaced)
-		replaced.Remove(M, special = 1, pref_load = pref_load)
+		replaced.Remove(receiver, special = TRUE, pref_load = pref_load)
 		if(drop_if_replaced)
-			replaced.forceMove(get_turf(M))
+			replaced.forceMove(get_turf(receiver))
 		else
 			qdel(replaced)
 
-	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, M)
-	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src)
+	receiver.internal_organs |= src
+	receiver.internal_organs_slot[slot] = src
+	owner = receiver
 
-	owner = M
-	M.internal_organs |= src
-	M.internal_organs_slot[slot] = src
-	moveToNullspace()
-	for(var/trait in organ_traits)
-		ADD_TRAIT(M, trait, REF(src))
-	for(var/datum/action/action as anything in actions)
-		action.Grant(M)
+
+	// Apply unique side-effects. Return value does not matter.
+	on_insert(receiver, special)
+
 	STOP_PROCESSING(SSobj, src)
+
+	return TRUE
+
+/// Called after the organ is inserted into a mob.
+/// Adds Traits, Actions, and Status Effects on the mob in which the organ is impanted.
+/// Override this proc to create unique side-effects for inserting your organ. Must be called by overrides.
+/obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special)
+	SHOULD_CALL_PARENT(TRUE)
+
+	moveToNullspace()
+
+	for(var/trait in organ_traits)
+		ADD_TRAIT(organ_owner, trait, REF(src))
+
+	for(var/datum/action/action as anything in actions)
+		action.Grant(organ_owner)
+
+	for(var/datum/status_effect/effect as anything in organ_effects)
+		organ_owner.apply_status_effect(effect, type)
+
+	//RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_owner_examine))
+	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
+	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	
 	owner = null
 	if(organ_owner)
 		organ_owner.internal_organs -= src
@@ -92,16 +126,32 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 			if(organ_owner.stat != DEAD)
 				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 			organ_owner.death()
+
+	// Apply or reset unique side-effects. Return value does not matter.
+	on_remove(organ_owner, special)
+
+	START_PROCESSING(SSobj, src)
+
+	return TRUE
+
+/// Called after the organ is removed from a mob.
+/// Removes Traits, Actions, and Status Effects on the mob in which the organ was impanted.
+/// Override this proc to create unique side-effects for removing your organ. Must be called by overrides.
+/obj/item/organ/proc/on_remove(mob/living/carbon/organ_owner, special)
+	SHOULD_CALL_PARENT(TRUE)
+
 	for(var/trait in organ_traits)
 		REMOVE_TRAIT(organ_owner, trait, REF(src))
+		message_admins("[key_name(organ_owner)] has lost organ [src] ([slot]) and trait [trait] removed.")
 
 	for(var/datum/action/action as anything in actions)
 		action.Remove(organ_owner)
 
-	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
-	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	for(var/datum/status_effect/effect as anything in organ_effects)
+		organ_owner.remove_status_effect(effect, type)
 
-	START_PROCESSING(SSobj, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
+	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
 
 /// Add a trait to an organ that it will give its owner.
 /obj/item/organ/proc/add_organ_trait(trait)
@@ -116,6 +166,20 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(isnull(owner))
 		return
 	REMOVE_TRAIT(owner, trait, REF(src))
+
+/// Add a Status Effect to an organ that it will give its owner.
+/obj/item/organ/proc/add_organ_status(status)
+	LAZYADD(organ_effects, status)
+	if(isnull(owner))
+		return
+	owner.apply_status_effect(status, type)
+
+/// Removes a Status Effect from an organ, and by extension, its owner.
+/obj/item/organ/proc/remove_organ_status(status)
+	LAZYREMOVE(organ_effects, status)
+	if(isnull(owner))
+		return
+	owner.remove_status_effect(status, type)
 
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return

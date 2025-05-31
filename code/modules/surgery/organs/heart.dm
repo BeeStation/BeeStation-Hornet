@@ -140,10 +140,9 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/heart/cursed/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	if(owner)
-		to_chat(owner, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
+/obj/item/organ/heart/cursed/on_insert(mob/living/carbon/accursed)
+	. = ..()
+	to_chat(accursed, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
 /obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
