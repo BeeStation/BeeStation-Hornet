@@ -140,6 +140,8 @@
 	set_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
 
 /obj/item/organ/stomach/battery/proc/update_nutrition()
+	if(!owner)
+		return
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
 
