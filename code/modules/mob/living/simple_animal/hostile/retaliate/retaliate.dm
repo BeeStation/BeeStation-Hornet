@@ -35,7 +35,6 @@
 			if(LAZYLEN(M.occupants))
 				add_enemy(M)
 				add_enemy(M.occupants)
-	return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()

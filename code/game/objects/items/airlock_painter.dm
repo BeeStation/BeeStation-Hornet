@@ -72,7 +72,7 @@
 	if(can_use(user))
 		ink.charges--
 		update_icon()
-		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
+		playsound(src.loc, 'sound/effects/spray2.ogg', 50, TRUE)
 		return TRUE
 	else
 		return FALSE

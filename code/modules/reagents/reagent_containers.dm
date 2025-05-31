@@ -56,18 +56,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		label_name = name
 	add_initial_reagents()
 
-/obj/item/reagent_containers/examine()
+/obj/item/reagent_containers/create_reagents(max_vol, flags)
 	. = ..()
-	if(has_variable_transfer_amount)
-		if(possible_transfer_amounts.len > 1)
-			. += "<span class='notice'>Left-click or right-click in-hand to increase or decrease its transfer amount.</span>"
-		else if(possible_transfer_amounts.len)
-			. += "<span class='notice'>Left-click or right-click in-hand to view its transfer amount.</span>"
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_change))
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, PROC_REF(on_reagents_del))
 
-/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
-	if (!user.combat_mode)
-		return
+/obj/item/reagent_containers/Destroy()
 	return ..()
+
+/obj/item/reagent_containers/proc/on_reagents_del(datum/reagents/reagents)
+	SIGNAL_HANDLER
+	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT, COMSIG_PARENT_QDELETING))
+	return NONE
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
@@ -222,8 +222,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 /obj/item/reagent_containers/fire_act(temperature, volume)
 	reagents.expose_temperature(temperature)
 
-/obj/item/reagent_containers/on_reagent_change(changetype)
+/// Updates the icon of the container when the reagents change. Eats signal args
+/obj/item/reagent_containers/proc/on_reagent_change(datum/reagents/holder, ...)
+	SIGNAL_HANDLER
 	update_appearance()
+	return NONE
 
 /obj/item/reagent_containers/update_overlays()
 	. = ..()

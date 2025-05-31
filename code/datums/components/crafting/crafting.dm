@@ -321,9 +321,8 @@
 						else
 							surroundings -= RC
 							amt -= RG.volume
-							RC.reagents.remove_reagent(path_key, RG.volume)
 						RC.on_reagent_change()
-						//SEND_SIGNAL(RC.reagents, COMSIG_REAGENTS_CRAFTING_PING) // - [] TODO: Make this entire thing less spaghetti
+						SEND_SIGNAL(RC.reagents, COMSIG_REAGENTS_CRAFTING_PING) // - [] TODO: Make this entire thing less spaghetti
 					else
 						surroundings -= RC
 					RC.reagents.conditional_update(RC)

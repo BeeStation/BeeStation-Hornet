@@ -5,7 +5,7 @@
 	duration = 10
 
 /obj/effect/temp_visual/cult/sparks
-	randomdir = 1
+	randomdir = TRUE
 	name = "blood sparks"
 	icon_state = "bloodsparkles"
 

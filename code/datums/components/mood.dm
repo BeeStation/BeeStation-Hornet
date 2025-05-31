@@ -268,7 +268,7 @@
 		else
 			if(the_event.timeout)
 				the_event.timer = addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_STOPPABLE|TIMER_UNIQUE|TIMER_OVERRIDE)
-			return 0 //Don't have to update the event.
+			return //Don't have to update the event.
 	the_event = new type(src, param)
 
 	mood_events[category] = the_event
@@ -285,7 +285,7 @@
 		category = REF(category)
 	var/datum/mood_event/event = mood_events[category]
 	if(!event)
-		return 0
+		return
 
 	mood_events -= category
 	qdel(event)

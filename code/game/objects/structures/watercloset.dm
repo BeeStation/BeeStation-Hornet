@@ -339,10 +339,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 			return 1
 		busy = FALSE
 		O.wash(CLEAN_WASH)
-		O.acid_level = 0
-		create_reagents(5)
-		reagents.add_reagent(dispensedreagent, 5)
-		reagents.expose(O, TOUCH)
+		reagents.expose(O, TOUCH, 5 / max(reagents.total_volume, 5))
 		user.visible_message(span_notice("[user] washes [O] using [src]."), \
 							span_notice("You wash [O] using [src]."))
 		return 1

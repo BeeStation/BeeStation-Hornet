@@ -25,7 +25,7 @@
 	if(!screen_on && !issilicon(user))
 		if(ui)
 			ui.close()
-		return FALSE
+		return
 
 	// We are still here, that means there is no program loaded. Load the BIOS/ROM/OS/whatever you want to call it.
 	// This screen simply lists available programs and user may select them.

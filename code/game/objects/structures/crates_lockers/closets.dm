@@ -527,8 +527,8 @@
 /obj/structure/closet/Exit(atom/movable/leaving, direction)
 	open()
 	if(leaving.loc == src)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/structure/closet/container_resist(mob/living/user)
 	if(opened)

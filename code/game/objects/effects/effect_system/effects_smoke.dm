@@ -12,7 +12,7 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	animate_movement = 0
+	animate_movement = FALSE
 	var/amount = 4
 	var/lifetime = 5
 	var/opaque = 1 //whether the smoke can block the view when in enough amountz
@@ -57,10 +57,10 @@
 	lifetime--
 	if(lifetime < 1)
 		kill_smoke()
-		return 0
+		return FALSE
 	for(var/mob/living/L in get_turf(src))
 		smoke_mob(L)
-	return 1
+	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/mob_entered(datum/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -71,16 +71,16 @@
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
-		return 0
+		return FALSE
 	if(lifetime<1)
-		return 0
+		return FALSE
 	if(C.internal != null || C.has_smoke_protection())
-		return 0
+		return FALSE
 	if(C.smoke_delay)
-		return 0
+		return FALSE
 	C.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
-	return 1
+	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
 	if(C)
@@ -143,11 +143,12 @@
 	lifetime = 8
 
 /obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
-	if(..())
+	. = ..()
+	if(.)
 		M.drop_all_held_items()
 		M.adjustOxyLoss(1)
 		M.emote("cough")
-		return 1
+		return TRUE
 
 
 /datum/effect_system/smoke_spread/bad
@@ -160,7 +161,7 @@
 /obj/effect/particle_effect/smoke/freezing
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
-	opaque = 0
+	opaque = FALSE
 
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing
@@ -236,7 +237,8 @@
 
 
 /obj/effect/particle_effect/smoke/chem/process()
-	if(..())
+	. = ..()
+	if(.)
 		var/turf/T = get_turf(src)
 		var/fraction = 1/initial(lifetime)
 		for(var/atom/movable/AM in T)
@@ -245,23 +247,23 @@
 			reagents.expose(AM, TOUCH, fraction)
 
 		reagents.expose(T, TOUCH, fraction)
-		return 1
+		return TRUE
 
 /obj/effect/particle_effect/smoke/chem/smoke_mob(mob/living/carbon/M)
 	if(lifetime<1)
-		return 0
+		return FALSE
 	if(!istype(M))
-		return 0
+		return FALSE
 	var/mob/living/carbon/C = M
 	if(C.internal != null || C.has_smoke_protection())
-		return 0
+		return FALSE
 	var/fraction = 1/initial(lifetime)
 	reagents.copy_to(C, fraction*reagents.total_volume)
 	reagents.expose(M, INGEST, fraction)
 	if(isapid(C))
 		C.SetSleeping(50) // Bees sleep when smoked
 	M.log_message("breathed in some smoke with reagents [english_list(reagents.reagent_list)]", LOG_ATTACK, null, FALSE) // Do not log globally b/c spam
-	return 1
+	return TRUE
 
 
 

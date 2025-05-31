@@ -20,24 +20,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
 	var/bleed_force = 0
 
-	/*
-	VAR_PRIVATE/atom_integrity //defaults to max_integrity
-	/// The maximum integrity the object can have.
-	var/max_integrity = 500
-	/// The object will break once atom_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
-	var/integrity_failure = 0
-	/// Damage under this value will be completely ignored
-	var/damage_deflection = 0
-	/// Maximum damage that can be taken in a single hit
-	var/max_hit_damage = null
-
-	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
-	var/resistance_flags = NONE
-	*/
-
-	/// How much acid is on that obj
-	var/acid_level = 0
-
 	/// Have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset. Will replace the object with the type you specify during persistence.
 	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
@@ -396,16 +378,16 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 /obj/update_overlays()
 	. = ..()
-	if(acid_level)
-		. += GLOB.acid_overlay
 	if(resistance_flags & ON_FIRE)
 		. += GLOB.fire_overlay
 
 /// Handles exposing an object to reagents.
-/obj/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
-	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+/obj/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
+	. = ..()
+	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
+	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_OBJ, src, reagents, methods, volume_modifier, show_message)
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_obj(src, reagents[R])

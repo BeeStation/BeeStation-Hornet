@@ -54,7 +54,7 @@
 		I.forceMove(crab)
 	crab.origin = M
 	if(crab.origin)
-		crab.origin.active = 1
+		crab.origin.active = TRUE
 		crab.origin.transfer_to(crab)
 		user.investigate_log("has been gibbed by using their Last Resort headcrab ability.", INVESTIGATE_DEATHS)
 		user.gib()

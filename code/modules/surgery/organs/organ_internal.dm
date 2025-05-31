@@ -56,13 +56,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(organ_flags & ORGAN_SYNTHETIC)
 		juice_typepath = null
 
-/obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/proc/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	if(!iscarbon(M) || owner == M)
 		return
 
 	var/obj/item/organ/replaced = M.getorganslot(slot)
 	if(replaced)
-		replaced.Remove(M, special = 1, pref_load = pref_load)
+		replaced.Remove(M, special = TRUE, pref_load = pref_load)
 		if(drop_if_replaced)
 			replaced.forceMove(get_turf(M))
 		else

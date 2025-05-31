@@ -372,7 +372,7 @@
 
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_bodypart_damage(acidpwr * min(1, acid_volume * 0.1))
-	return 1
+	return TRUE
 
 ///As the name suggests, this should be called to apply electric shocks.
 /mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
@@ -458,7 +458,7 @@
 
 //called when the mob receives a loud bang
 /mob/living/proc/soundbang_act()
-	return 0
+	return FALSE
 
 //to damage the clothes worn by a mob
 /mob/living/proc/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
@@ -636,14 +636,15 @@
   * If the method is INGEST the mob tastes the reagents.
   * If the method is VAPOR it incorporates permiability protection.
   */
-/mob/living/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE, obj/item/bodypart/affecting)
-	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+/mob/living/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE, obj/item/bodypart/affecting)
+	. = ..()
+	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
-	if(method == INGEST)
+	if(methods & INGEST)
 		taste(source)
 
-	var/touch_protection = (method == VAPOR) ? getarmor(null, BIO) * 0.01 : 0
-	for(var/reagent in reagents)
-		var/datum/reagent/R = reagent
-		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)
+	var/touch_protection = (methods & VAPOR) ? getarmor(null, BIO) * 0.01 : 0
+	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_MOB, src, reagents, methods, volume_modifier, show_message, touch_protection, affecting)
+	for(var/datum/reagent/reagent as anything in reagents)
+		. |= reagent.expose_mob(src, methods, reagents[reagent], show_message, touch_protection, affecting)

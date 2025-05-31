@@ -75,20 +75,20 @@
 		if("neck_chop")
 			streak = ""
 			neck_chop(A,D)
-			return 1
+			return TRUE
 		if("leg_sweep")
 			streak = ""
 			leg_sweep(A,D)
-			return 1
+			return TRUE
 		if("quick_choke")//is actually lung punch
 			streak = ""
 			quick_choke(A,D)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/martial_art/krav_maga/proc/leg_sweep(mob/living/A, mob/living/D)
 	if(D.stat || D.IsParalyzed())
-		return 0
+		return FALSE
 	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 	D.visible_message(span_warning("[A] leg sweeps [D]!"), \
@@ -151,11 +151,11 @@
 					span_userdanger("You're [picked_hit_type]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 	to_chat(A, span_danger("You [picked_hit_type] [D]!"))
 	log_combat(A, D, "[picked_hit_type] with [name]", name)
-	return 1
+	return TRUE
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/A, mob/living/D)
 	if(check_streak(A,D))
-		return 1
+		return TRUE
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 	if(D.body_position == STANDING_UP)
@@ -177,7 +177,7 @@
 	if(prob(D.getStaminaLoss()))
 		D.visible_message(span_warning("[D] sputters and recoils in pain!"), span_userdanger("You recoil in pain as you are jabbed in a nerve!"))
 		D.drop_all_held_items()
-	return 1
+	return TRUE
 
 //Krav Maga Gloves
 

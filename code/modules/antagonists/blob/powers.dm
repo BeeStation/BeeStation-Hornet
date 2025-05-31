@@ -3,9 +3,9 @@
 /mob/camera/blob/proc/can_buy(cost = 15)
 	if(blob_points < cost)
 		to_chat(src, span_warning("You cannot afford this, you need at least [cost] resources!"))
-		return 0
+		return FALSE
 	add_points(-cost)
-	return 1
+	return TRUE
 
 /mob/camera/blob/proc/place_blob_core(placement_override, pop_override = FALSE)
 	if(placed && placement_override != -1)
@@ -56,7 +56,7 @@
 		blob_core = core
 		core.update_icon()
 	update_health_hud()
-	placed = TRUE
+	placed = 1
 	announcement_time = world.time + OVERMIND_ANNOUNCEMENT_MAX_TIME
 	return TRUE
 
