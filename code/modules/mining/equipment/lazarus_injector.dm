@@ -53,11 +53,18 @@
 						else
 							H.attack_same = 0 //Will only attack non-passive mobs
 							if(prob(10)) //chance of sentience without loyalty
-								var/list/candidates = poll_candidates_for_mob("Do you want to play as [H] being revived by [src]?", ROLE_SENTIENCE, null, 15 SECONDS, H)
-								if(length(candidates))
-									var/mob/dead/observer/C = pick(candidates)
-									H.key = C.key
+								var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+									question = "Do you want to play as \a [H] being revived by [src]?",
+									check_jobban = ROLE_SENTIENCE,
+									poll_time = 15 SECONDS,
+									jump_target = H,
+									role_name_text = "lazarus revived mob",
+									alert_pic = H,
+								)
+								if(candidate)
+									H.key = candidate.key
 									H.sentience_act()
+
 									to_chat(H, span_userdanger("In a striking moment of clarity you have gained greater intellect. You feel no strong sense of loyalty to anyone or anything, you simply feel... free"))
 
 				user.visible_message(span_notice("[user] injects [M] with [src], reviving it."))
