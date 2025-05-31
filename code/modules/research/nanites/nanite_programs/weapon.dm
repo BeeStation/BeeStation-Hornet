@@ -88,14 +88,12 @@
 
 /datum/nanite_program/explosive/proc/boom()
 	var/nanite_amount = nanites.nanite_volume
-	var/max_nanites = nanites.max_nanites
-	var/dev_range = FLOOR(nanite_amount/(max_nanites * 0.4), 1) - 1
-	var/heavy_range = FLOOR(nanite_amount/(max_nanites * 0.2), 1) - 1
-	var/light_range = FLOOR(nanite_amount/(max_nanites * 0.1), 1) - 1
+	var/max_nanites = NUTRITION_LEVEL_FULL
+	var/dev_range = 0
+	var/heavy_range = FLOOR(nanite_amount/(max_nanites), 1) - 1
+	var/light_range = FLOOR(nanite_amount/(max_nanites * 0.2), 1) - 1
 	explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
-
-//TODO make it defuse if triggered again
 
 /datum/nanite_program/heart_stop
 	name = "Heart-Stopper"

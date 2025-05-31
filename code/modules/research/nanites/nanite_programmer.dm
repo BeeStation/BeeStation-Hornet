@@ -69,6 +69,7 @@
 		data["can_trigger"] = program.can_trigger
 		data["trigger_cost"] = program.trigger_cost
 		data["trigger_cooldown"] = program.trigger_cooldown / 10
+		data["maximum_duration"] = program.maximum_duration / 10
 
 		data["activated"] = program.activated
 		data["activation_code"] = program.activation_code
@@ -77,7 +78,6 @@
 		data["trigger_code"] = program.trigger_code
 		data["timer_restart"] = program.timer_restart / 10
 		data["timer_shutdown"] = program.timer_shutdown / 10
-		data["timer_trigger"] = program.timer_trigger / 10
 		data["timer_trigger_delay"] = program.timer_trigger_delay / 10
 
 		var/list/extra_settings = program.get_extra_settings_frontend()
@@ -95,6 +95,8 @@
 			eject(usr)
 			. = TRUE
 		if("toggle_active")
+			if (program.can_trigger)
+				return FALSE
 			playsound(src, "terminal_type", 25, FALSE)
 			program.activated = !program.activated //we don't use the activation procs since we aren't in a mob
 			. = TRUE
@@ -131,14 +133,6 @@
 				timer = clamp(round(timer, 1), 0, 3600)
 				timer *= 10 //convert to deciseconds
 				program.timer_shutdown = timer
-			. = TRUE
-		if("set_trigger_timer")
-			var/timer = text2num(params["delay"])
-			if(!isnull(timer))
-				playsound(src, "terminal_type", 25, FALSE)
-				timer = clamp(round(timer, 1), 0, 3600)
-				timer *= 10 //convert to deciseconds
-				program.timer_trigger = timer
 			. = TRUE
 		if("set_timer_trigger_delay")
 			var/timer = text2num(params["delay"])

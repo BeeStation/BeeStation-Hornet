@@ -57,14 +57,6 @@
 	..()
 	factory_efficiency = max(0, factory_efficiency - 300)
 
-/datum/nanite_program/protocol/factory/on_shock(shock_damage)
-	..()
-	factory_efficiency = max(0, factory_efficiency - 200)
-
-/datum/nanite_program/protocol/factory/on_minor_shock()
-	..()
-	factory_efficiency = max(0, factory_efficiency - 100)
-
 /datum/nanite_program/protocol/factory/active_effect()
 	factory_efficiency = min(factory_efficiency + 1, max_efficiency)
 	nanites.adjust_nanites(amount = round(0.002 * factory_efficiency, 0.1))
@@ -72,26 +64,25 @@
 
 /datum/nanite_program/protocol/pyramid
 	name = "Pyramid Protocol"
-	desc = "Replication Protocol: the nanites implement an alternate cooperative replication protocol that is active as long as the nanite saturation level is above 80%, \
-			resulting in an additional volume production of 1.2 per second."
+	desc = "Replication Protocol: Produces an additional 2 nanites per second, but nanite production require significantly more food to maintain."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_REPLICATION
-	var/boost = 1.2
+	var/boost = 2
 
-/datum/nanite_program/protocol/pyramid/check_conditions()
-	if((nanites.nanite_volume / nanites.max_nanites) < 0.8)
-		return FALSE
+/datum/nanite_program/protocol/pyramid/enable_passive_effect()
+	. = ..()
+	nanites.nutrition_rate += 0.6
+	nanites.regen_rate += boost
 
-	return ..()
-
-/datum/nanite_program/protocol/pyramid/active_effect()
-	nanites.adjust_nanites(amount = boost)
-
+/datum/nanite_program/protocol/pyramid/disable_passive_effect()
+	. = ..()
+	nanites.nutrition_rate -= 0.6
+	nanites.regen_rate -= boost
 
 /datum/nanite_program/protocol/offline
 	name = "Eclipse Protocol"
-	desc = "Replication Protocol: while the host is asleep or otherwise unconcious, the nanites exploit the reduced interference to replicate more quickly."
+	desc = "Replication Protocol: Produces an additional 3 nanites per second while the host is sleeping or unconcious."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_REPLICATION
@@ -102,73 +93,90 @@
 		return FALSE
 	return ..()
 
-/datum/nanite_program/protocol/offline/active_effect()
-	nanites.adjust_nanites(amount = boost)
+/datum/nanite_program/protocol/offline/enable_passive_effect()
+	. = ..()
+	nanites.regen_rate += boost
+
+/datum/nanite_program/protocol/offline/disable_passive_effect()
+	. = ..()
+	nanites.regen_rate -= boost
 
 
-/datum/nanite_program/protocol/hive
-	name = "Hive Protocol"
-	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume to 750."
+/datum/nanite_program/protocol/silo
+	name = "Silo Protocol"
+	desc = "Replication Protocol: Produces an additional 5 nanites per second while the host has excess food in their body. Excess food is consumed even while nanites are at maximum capacity."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
-	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 250
+	protocol_class = NANITE_PROTOCOL_REPLICATION
+	var/boost = 5
 
-/datum/nanite_program/protocol/hive/enable_passive_effect()
-	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites + extra_volume)
-
-/datum/nanite_program/protocol/hive/disable_passive_effect()
-	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
+/datum/nanite_program/protocol/silo/active_effect()
+	if (host_mob.nutrition < NUTRITION_LEVEL_FULL)
+		return
+	host_mob.adjust_nutrition(-1)
+	nanites.adjust_nanites(amount = boost)
 
 
 /datum/nanite_program/protocol/zip
 	name = "Zip Protocol"
-	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, increasing the maximum volume to 1000. However, the process slows down their replication rate slightly."
-	use_rate = 0.2
+	desc = "Cooldown Protocol: the nanites work faster, halving cooldowns at the cost of consuming some nanites and increasing the amount of food required to maintain the nanites when active."
+	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/necrotic)
-	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 500
+	protocol_class = NANITE_PROTOCOL_COOLDOWN
 
 /datum/nanite_program/protocol/zip/enable_passive_effect()
 	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites + extra_volume)
+	nanites.cooldown_multiplier *= 0.5
 
 /datum/nanite_program/protocol/zip/disable_passive_effect()
 	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
+	nanites.cooldown_multiplier *= 2
+
+
+/datum/nanite_program/protocol/cellular_embedding
+	name = "Cellular Embedding Protocol"
+	desc = "Storage Protocol: the nanites embed themselves inside of cells, reducing cooldowns by 30% whilst simultaneously preventing viral infections."
+	rogue_types = list(/datum/nanite_program/necrotic)
+	protocol_class = NANITE_PROTOCOL_COOLDOWN
+
+/datum/nanite_program/protocol/cellular_embedding/enable_passive_effect()
+	. = ..()
+	nanites.cooldown_multiplier -= 0.3
+	ADD_TRAIT(host_mob, TRAIT_VIRUSIMMUNE, SOURCE_NANITE_CELLULAR)
+	for (var/datum/disease/disease in host_mob.diseases)
+		disease.cure(FALSE)
+
+/datum/nanite_program/protocol/cellular_embedding/disable_passive_effect()
+	. = ..()
+	nanites.cooldown_multiplier += 0.3
+	REMOVE_TRAIT(host_mob, TRAIT_VIRUSIMMUNE, SOURCE_NANITE_CELLULAR)
 
 
 /datum/nanite_program/protocol/free_range
 	name = "Free-range Protocol"
-	desc = "Storage Protocol: the nanites discard their default storage protocols in favour of a cheaper and more organic approach. Reduces maximum volume to 250, but increases the replication rate by 0.5."
+	desc = "Cooldown Protocol: the nanites achieve complete harmony with the body, requiring no food to maintain (as long as another protocol doesn't consume food) but doubling the length of all cooldowns."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
-	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/boost = 0.5
-	var/extra_volume = -250
+	protocol_class = NANITE_PROTOCOL_COOLDOWN
 
 /datum/nanite_program/protocol/free_range/enable_passive_effect()
 	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites + extra_volume)
+	nanites.cooldown_multiplier *= 2
+	nanites.nutrition_rate -= 0.2
 
 /datum/nanite_program/protocol/free_range/disable_passive_effect()
 	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
-
-/datum/nanite_program/protocol/free_range/active_effect()
-	nanites.adjust_nanites(amount = boost)
+	nanites.cooldown_multiplier /= 2
+	nanites.nutrition_rate += 0.2
 
 
 /datum/nanite_program/protocol/unsafe_storage
 	name = "S.L.O. Protocol"
-	desc = "Storage Protocol: 'S.L.O.P.', or Storage Level Override Protocol, completely disables the safety measures normally present in nanites, \
-			allowing them to reach a whopping maximum volume level of 2000, but at the risk of causing damage to the host at nanite concentrations above the standard limit of 500."
+	desc = "Cooldown Protocol: Overrides the standard storage mechanism for nanites, allowing them to operate with significantly reduced cooldowns. However, the nanites\
+		will constantly replicate until either the body becomes oversaturated, or the host starves."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
-	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 1500
+	protocol_class = NANITE_PROTOCOL_COOLDOWN
 	var/next_warning = 0
 	var/min_warning_cooldown = 120
 	var/max_warning_cooldown = 350
@@ -200,33 +208,57 @@
 									"You feel tired.",
 									"You feel something skittering under your skin.",)
 
+// This program will always stay active and is entirely controled by the user
+/datum/nanite_program/protocol/unsafe_storage/consume_nanites(amount, force)
+	return TRUE
+
 /datum/nanite_program/protocol/unsafe_storage/enable_passive_effect()
 	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites + extra_volume)
+	// Slight nutrition cost increase, since we want the owner to starve
+	// more frequently as the cost of too many nanites can be managed
+	// entirely by the nanites themselves.
+	nanites.nutrition_rate += 0.1
+	nanites.max_production_ratio += 1000
+	nanites.cooldown_multiplier *= 0.2
+	// Required to prevent exploitation where you enable it, activate an effect,
+	// then disable
+	nanites.set_volume(0)
 
 /datum/nanite_program/protocol/unsafe_storage/disable_passive_effect()
 	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
+	nanites.nutrition_rate -= 0.1
+	nanites.max_production_ratio -= 1000
+	nanites.cooldown_multiplier *= 5
 
 /datum/nanite_program/protocol/unsafe_storage/active_effect()
 	if(!iscarbon(host_mob))
+		if(nanites.nanite_volume < NUTRITION_LEVEL_FULL)
+			return
 		if(prob(10))
-			host_mob.adjustBruteLoss(((max(nanites.nanite_volume - 450, 0) / 450) ** 2 ) * 0.5) // 0.5 -> 2 -> 4.5 -> 8 damage per successful tick
+			host_mob.adjustBruteLoss(((max(nanites.nanite_volume - NUTRITION_LEVEL_FULL, 0) / 100) ** 2 ) * 0.5) // 0.5 -> 2 -> 4.5 -> 8 damage per successful tick
 		return
 
 	var/mob/living/carbon/C = host_mob
 
-	if(nanites.nanite_volume < 500)
+	if (host_mob.nutrition < NUTRITION_LEVEL_STARVING)
+		var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
+		if(liver)
+			liver.applyOrganDamage(0.5)
+		C.adjustToxLoss(0.2, forced = TRUE)
+		volume_warning(1)
+		return
+
+	if(nanites.nanite_volume < NUTRITION_LEVEL_FULL)
 		return
 
 	var/current_stage = 0
-	if(nanites.nanite_volume > 500) //Liver is the main hub of nanite replication and the first to be threatened by excess volume
+	if(nanites.nanite_volume > NUTRITION_LEVEL_FULL) //Liver is the main hub of nanite replication and the first to be threatened by excess volume
 		if(prob(10))
 			var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
 			if(liver)
 				liver.applyOrganDamage(0.6)
 		current_stage++
-	if(nanites.nanite_volume > 750) //Extra volume spills out in other central organs
+	if(nanites.nanite_volume > NUTRITION_LEVEL_FULL + 50) //Extra volume spills out in other central organs
 		if(prob(10))
 			var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
 			if(stomach)
@@ -236,7 +268,7 @@
 			if(lungs)
 				lungs.applyOrganDamage(0.75)
 		current_stage++
-	if(nanites.nanite_volume > 1000) //Extra volume spills out in more critical organs
+	if(nanites.nanite_volume > NUTRITION_LEVEL_FULL + 100) //Extra volume spills out in more critical organs
 		if(prob(10))
 			var/obj/item/organ/heart/heart = C.getorganslot(ORGAN_SLOT_HEART)
 			if(heart)
@@ -246,7 +278,7 @@
 			if(brain)
 				brain.applyOrganDamage(0.75)
 		current_stage++
-	if(nanites.nanite_volume > 1250) //Excess nanites start invading smaller organs for more space, including sensory organs
+	if(nanites.nanite_volume > NUTRITION_LEVEL_FULL + 200) //Excess nanites start invading smaller organs for more space, including sensory organs
 		if(prob(13))
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 			if(eyes)
@@ -256,11 +288,11 @@
 			if(ears)
 				ears.applyOrganDamage(0.75)
 		current_stage++
-	if(nanites.nanite_volume > 1500) //Nanites start spilling into the bloodstream, causing toxicity
+	if(nanites.nanite_volume > NUTRITION_LEVEL_FULL + 250) //Nanites start spilling into the bloodstream, causing toxicity
 		if(prob(15))
 			C.adjustToxLoss(0.5, TRUE, forced = TRUE) //Not healthy for slimepeople either
 		current_stage++
-	if(nanites.nanite_volume > 1750) //Nanites have almost reached their physical limit, and the pressure itself starts causing tissue damage
+	if(nanites.nanite_volume > NUTRITION_LEVEL_FULL + 300) //Nanites have almost reached their physical limit, and the pressure itself starts causing tissue damage
 		if(prob(15))
 			C.adjustBruteLoss(0.75, TRUE)
 		current_stage++

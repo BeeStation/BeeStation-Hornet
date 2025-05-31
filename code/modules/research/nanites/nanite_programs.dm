@@ -5,14 +5,24 @@
 	var/datum/component/nanites/nanites
 	var/mob/living/host_mob
 
-	var/use_rate = 0 			//Amount of nanites used while active
-	var/unique = TRUE			//If there can be more than one copy in the same nanites
-	var/can_trigger = FALSE		//If the nanites have a trigger function (used for the programming UI)
-	var/trigger_cost = 0		//Amount of nanites required to trigger
-	var/trigger_cooldown = 50	//Deciseconds required between each trigger activation
-	var/next_trigger = 0		//World time required for the next trigger activation
-	var/activate_cooldown = 0	//Deciseconds required between each activation
-	COOLDOWN_DECLARE(next_activate)
+	///Amount of nanites used while active
+	var/use_rate = 0
+	///If there can be more than one copy in the same nanites
+	var/unique = TRUE
+	///If the nanites have a trigger function (used for the programming UI)
+	var/can_trigger = FALSE
+	///Amount of nanites required to trigger
+	var/trigger_cost = 0
+	///Deciseconds required between each trigger activation
+	var/trigger_cooldown = 0
+	/// Maximum duration that this program can be active for before turning off
+	/// If set to null, there will be no maximum duration
+	var/maximum_duration = null
+
+	///World time required for the next trigger activation
+	var/next_trigger = 0
+	/// Time that the nanite program will be automatically disabled
+	var/disable_time = null
 
 	var/program_flags = NONE
 	var/passive_enabled = FALSE //If the nanites have an on/off-style effect, it's tracked by this var
@@ -31,15 +41,16 @@
 	//The following vars are customizable
 	var/activated = TRUE 			//If FALSE, the program won't process, disables passive effects, can't trigger and doesn't consume nanites
 
-	var/timer_restart = 0 			//When deactivated, the program will wait X deciseconds before self-reactivating. Also works if the program begins deactivated.
+	/// When deactivated, the program will wait X deciseconds before self-reactivating. Also works if the program begins deactivated.
+	/// If the nanites are a trigger nanite, then it will trigger instead of activating.
+	var/timer_restart = 0
 	var/timer_shutdown = 0 			//When activated, the program will wait X deciseconds before self-deactivating. Also works if the program begins activated.
-	var/timer_trigger = 0			//[Trigger only] While active, the program will attempt to trigger once every x deciseconds.
 	var/timer_trigger_delay = 0				//[Trigger only] While active, the program will delay trigger signals by X deciseconds.
 
 	//Indicates the next world.time tick where these timers will act
+	/// When should the program re-activate itself automatically.
 	var/timer_restart_next = 0
 	var/timer_shutdown_next = 0
-	var/timer_trigger_next = 0
 	var/timer_trigger_delay_next = 0
 
 	//Signal codes, these handle remote input to the nanites. If set to 0 they'll ignore signals.
@@ -65,9 +76,17 @@
 		"NAND" = NL_NAND,
 	)
 
+	/// The status effect shown to the user while active
+	var/datum/status_effect/status_effect
+
 /datum/nanite_program/New()
 	. = ..()
 	register_extra_settings()
+	// Anything with a maximum duration must be an active ability
+	if (maximum_duration)
+		can_trigger = TRUE
+	if (can_trigger)
+		activated = FALSE
 
 /datum/nanite_program/Destroy()
 	extra_settings = null
@@ -95,7 +114,6 @@
 		target.activated = activated
 	target.timer_restart = timer_restart
 	target.timer_shutdown = timer_shutdown
-	target.timer_trigger = timer_trigger
 	target.timer_trigger_delay = timer_trigger_delay
 	target.activation_code = activation_code
 	target.deactivation_code = deactivation_code
@@ -113,11 +131,16 @@
 ///Register extra settings by overriding this.
 ///extra_settings[name] = new typepath() for each extra setting
 /datum/nanite_program/proc/register_extra_settings()
+	SHOULD_CALL_PARENT(TRUE)
 	var/list/logictypes = list()
 	for(var/name in logic)
 		logictypes += name
 	extra_settings[NES_RULE_LOGIC] = new /datum/nanite_extra_setting/type("AND", logictypes)
-	return
+	if (!can_trigger || !isnull(maximum_duration))
+		var/static/list/status_effect_icons
+		if (!status_effect_icons)
+			status_effect_icons = list("None", "asleep", "blind", "drugged", "drunk", "embeddedobject", "gross", "paralysis", "stun", "regenerative_core", "weaken", "weightless", "in_love", "bloodchill", "dna_melt", "stasis", "mind_control", "dim_mend", "grub", "smoke", "succumb", "weights", "bleed", "bleed_heavy", "bleed_bandage", "bleed_held", "blooming", "self_tend", "food_icecream", "food_italian", "food_french", "shock_immune", "mute", "negative", "shapeshifted")
+		extra_settings[NES_STATUS_EFFECT] = new /datum/nanite_extra_setting/type(status_effect_icons[1], status_effect_icons)
 
 ///You can override this if you need to have special behavior after setting certain settings.
 /datum/nanite_program/proc/set_extra_setting(setting, value)
@@ -160,6 +183,9 @@
 
 /datum/nanite_program/proc/on_mob_add()
 	host_mob = nanites.host_mob
+	// Triggered nanite programs can only be triggered and not activated/de-activated
+	if (can_trigger)
+		return
 	if(activated) //apply activation effects depending on initial status; starts the restart and shutdown timers
 		activate()
 	else
@@ -169,20 +195,20 @@
 	return
 
 /datum/nanite_program/proc/toggle()
+	// Triggered nanite programs can only be triggered and not activated/de-activated
+	if (can_trigger)
+		return
 	if(!activated)
 		activate()
 	else
 		deactivate()
 
 /datum/nanite_program/proc/activate()
-	if(!COOLDOWN_FINISHED(src, next_activate))
-		deactivate()
-		return
 	activated = TRUE
 	if(timer_shutdown)
 		timer_shutdown_next = world.time + timer_shutdown
-	if(activate_cooldown)
-		COOLDOWN_START(src, next_activate, activate_cooldown)
+	if (!isnull(maximum_duration))
+		disable_time = world.time + maximum_duration
 
 /datum/nanite_program/proc/deactivate()
 	if(passive_enabled)
@@ -190,25 +216,35 @@
 	activated = FALSE
 	if(timer_restart)
 		timer_restart_next = world.time + timer_restart
+	if (!isnull(disable_time))
+		disable_time = null
 
+/// Processes every second
 /datum/nanite_program/proc/on_process()
-	if(!activated)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!can_trigger && !activated)
 		if(timer_restart_next && world.time > timer_restart_next)
 			activate()
 			timer_restart_next = 0
 		return
 
-	if(timer_shutdown_next && world.time > timer_shutdown_next)
+	if (can_trigger && !activated)
+		if(timer_restart_next && world.time > timer_restart_next)
+			trigger()
+			timer_restart_next = 0
+		return
+
+	if(!can_trigger && timer_shutdown_next && world.time > timer_shutdown_next)
 		deactivate()
 		timer_shutdown_next = 0
 		return
 
-	if(timer_trigger && world.time > timer_trigger_next)
-		trigger()
-		timer_trigger_next = world.time + timer_trigger
+	// Disable time forces deactivation
+	if (!isnull(disable_time) && world.time > disable_time)
+		deactivate()
 		return
 
-	if(timer_trigger_delay_next && world.time > timer_trigger_delay_next)
+	if(can_trigger && timer_trigger_delay_next && world.time > timer_trigger_delay_next)
 		trigger(delayed = TRUE)
 		timer_trigger_delay_next = 0
 		return
@@ -216,7 +252,9 @@
 	if(check_conditions() && consume_nanites(use_rate))
 		if(!passive_enabled)
 			enable_passive_effect()
-		active_effect()
+		// Non-trigger nanites stop ticking while EMP'd, but keep their passive effects.
+		if (COOLDOWN_FINISHED(nanites, emp_disabled))
+			active_effect()
 	else
 		if(passive_enabled)
 			disable_passive_effect()
@@ -224,6 +262,13 @@
 //If false, disables active and passive effects, but doesn't consume nanites
 //Can be used to avoid consuming nanites for nothing
 /datum/nanite_program/proc/check_conditions()
+	// Nanites automatically disabled when time passes the disable timer
+	if (!isnull(disable_time) && world.time > disable_time)
+		return FALSE
+	// Trigger effects will automatically disable when EMP'd
+	if (can_trigger && !COOLDOWN_FINISHED(nanites, emp_disabled))
+		return FALSE
+	// Check for rule satisfaction
 	var/rule_amt = length(rules)
 	if(rule_amt)
 		var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
@@ -265,56 +310,72 @@
 //Procs once when the program activates
 /datum/nanite_program/proc/enable_passive_effect()
 	passive_enabled = TRUE
+	var/datum/nanite_extra_setting/type/status_setting = extra_settings[NES_STATUS_EFFECT]
+	if (status_setting.get_value() == status_setting.types[1])
+		return
+	status_effect = host_mob.apply_status_effect(/datum/status_effect/nanite)
+	status_effect.linked_alert.icon_state = status_setting.get_value()
+	status_effect.linked_alert.name = name
+	status_effect.linked_alert.desc = desc
+	if (maximum_duration)
+		status_effect.duration = maximum_duration
+		status_effect.show_duration = TRUE
 
 //Procs once when the program deactivates
 /datum/nanite_program/proc/disable_passive_effect()
 	passive_enabled = FALSE
+	if (status_effect)
+		QDEL_NULL(status_effect)
 
 //Checks conditions then fires the nanite trigger effect
 /datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
-	if(!can_trigger || !activated || world.time < next_trigger)
+	if(!can_trigger || world.time < next_trigger)
+		// If we fail to trigger, then requeue to trigger again
+		if (!timer_restart_next && timer_restart)
+			timer_restart_next = world.time + timer_restart
 		return
 	if(timer_trigger_delay && !delayed)
 		timer_trigger_delay_next = world.time + timer_trigger_delay
 		return
+	// If we don't have a maximum duration, queue up the trigger restart
+	if (!maximum_duration && timer_restart)
+		timer_restart_next = world.time + timer_restart
 	if(!check_conditions())
 		return
 	if(!consume_nanites(trigger_cost))
 		return
-	next_trigger = world.time + trigger_cooldown
+	next_trigger = world.time + trigger_cooldown + maximum_duration
 	on_trigger(comm_message)
 
 //Nanite trigger effect, requires can_trigger to be used
 /datum/nanite_program/proc/on_trigger(comm_message)
-	return
+	if (maximum_duration)
+		activate()
 
 /datum/nanite_program/proc/consume_nanites(amount, force = FALSE)
 	return nanites.consume_nanites(amount, force)
 
 /datum/nanite_program/proc/on_emp(severity)
+	// Pause all the timers
+	if (timer_restart_next < world.time)
+		timer_restart_next += 60 SECONDS / severity
+	if (timer_shutdown_next < world.time)
+		timer_shutdown_next += 60 SECONDS / severity
+	if (disable_time < world.time)
+		disable_time += 60 SECONDS / severity
+	if (timer_trigger_delay_next < world.time)
+		timer_trigger_delay_next += 60 SECONDS / severity
 	if(program_flags & NANITE_EMP_IMMUNE)
 		return
-	if(prob(80 / severity))
+	if(prob(30 / severity))
 		software_error()
-
-/datum/nanite_program/proc/on_shock(shock_damage)
-	if(!(program_flags & NANITE_SHOCK_IMMUNE))
-		if(prob(10))
-			software_error()
-		else if(prob(33))
-			qdel(src)
-
-/datum/nanite_program/proc/on_minor_shock()
-	if(!(program_flags & NANITE_SHOCK_IMMUNE))
-		if(prob(10))
-			software_error()
 
 /datum/nanite_program/proc/on_death()
 	return
 
 /datum/nanite_program/proc/software_error(type)
 	if(!type)
-		type = rand(1,5)
+		type = rand(1,4)
 	switch(type)
 		if(1)
 			qdel(src) //kill switch
@@ -325,21 +386,21 @@
 			kill_code = 0
 			trigger_code = 0
 		if(3)
-			toggle() //enable/disable
-		if(4)
 			if(can_trigger)
 				trigger()
-		if(5) //Program is scrambled and does something different
+			else
+				toggle()
+		if(4) //Program is scrambled and does something different
 			var/rogue_type = pick(rogue_types)
 			var/datum/nanite_program/rogue = new rogue_type
 			nanites.add_program(null, rogue, src)
 			qdel(src)
 
 /datum/nanite_program/proc/receive_nanite_signal(code, source)
-	if(activation_code && code == activation_code && !activated)
+	if(activation_code && code == activation_code && !activated && !can_trigger)
 		activate()
 		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
-	else if(deactivation_code && code == deactivation_code && activated)
+	else if(deactivation_code && code == deactivation_code && activated && !can_trigger)
 		deactivate()
 		host_mob.investigate_log("'s [name] nanite program was deactivated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
 	if(can_trigger && trigger_code && code == trigger_code)

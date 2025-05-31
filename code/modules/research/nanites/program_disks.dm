@@ -33,14 +33,8 @@
 /obj/item/disk/nanite_program/emp
 	program_type = /datum/nanite_program/emp
 
-/obj/item/disk/nanite_program/spreading
-	program_type = /datum/nanite_program/spreading
-
 /obj/item/disk/nanite_program/regenerative
 	program_type = /datum/nanite_program/regenerative
-
-/obj/item/disk/nanite_program/regenerative_advanced
-	program_type = /datum/nanite_program/regenerative_advanced
 
 /obj/item/disk/nanite_program/temperature
 	program_type = /datum/nanite_program/temperature
@@ -59,9 +53,6 @@
 
 /obj/item/disk/nanite_program/blood_restoring
 	program_type = /datum/nanite_program/blood_restoring
-
-/obj/item/disk/nanite_program/repairing
-	program_type = /datum/nanite_program/repairing
 
 /obj/item/disk/nanite_program/nervous
 	program_type = /datum/nanite_program/nervous

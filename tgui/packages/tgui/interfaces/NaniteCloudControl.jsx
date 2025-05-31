@@ -1,6 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Collapsible, Dropdown, Grid, LabeledList, NoticeBox, NumberInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { NaniteInfoGrid, NaniteSettings } from './NaniteShared';
 
 export const NaniteDiskBox = (props) => {
   const { data } = useBackend();
@@ -28,6 +29,7 @@ export const NaniteInfoBox = (props) => {
     can_trigger,
     trigger_cost,
     trigger_cooldown,
+    maximum_duration,
     activation_code,
     deactivation_code,
     kill_code,
@@ -41,77 +43,10 @@ export const NaniteInfoBox = (props) => {
   const extra_settings = program.extra_settings || [];
 
   return (
-    <Section
-      title={name}
-      level={2}
-      buttons={
-        <Box inline bold color={activated ? 'good' : 'bad'}>
-          {activated ? 'Activated' : 'Deactivated'}
-        </Box>
-      }>
-      <Grid>
-        <Grid.Column mr={1}>{desc}</Grid.Column>
-        <Grid.Column size={0.5}>
-          <LabeledList>
-            <LabeledList.Item label="Use Rate">{use_rate}</LabeledList.Item>
-            {!!can_trigger && (
-              <>
-                <LabeledList.Item label="Trigger Cost">{trigger_cost}</LabeledList.Item>
-                <LabeledList.Item label="Trigger Cooldown">{trigger_cooldown}</LabeledList.Item>
-              </>
-            )}
-          </LabeledList>
-        </Grid.Column>
-      </Grid>
-      <Grid>
-        <Grid.Column>
-          <Section title="Codes" level={3} mr={1}>
-            <LabeledList>
-              <LabeledList.Item label="Activation">{activation_code}</LabeledList.Item>
-              <LabeledList.Item label="Deactivation">{deactivation_code}</LabeledList.Item>
-              <LabeledList.Item label="Kill">{kill_code}</LabeledList.Item>
-              {!!can_trigger && <LabeledList.Item label="Trigger">{trigger_code}</LabeledList.Item>}
-            </LabeledList>
-          </Section>
-        </Grid.Column>
-        <Grid.Column>
-          <Section title="Delays" level={3} mr={1}>
-            <LabeledList>
-              <LabeledList.Item label="Restart">{timer_restart} s</LabeledList.Item>
-              <LabeledList.Item label="Shutdown">{timer_shutdown} s</LabeledList.Item>
-              {!!can_trigger && (
-                <>
-                  <LabeledList.Item label="Trigger">{timer_trigger} s</LabeledList.Item>
-                  <LabeledList.Item label="Trigger Delay">{timer_trigger_delay} s</LabeledList.Item>
-                </>
-              )}
-            </LabeledList>
-          </Section>
-        </Grid.Column>
-      </Grid>
-      <Section title="Extra Settings" level={3}>
-        <LabeledList>
-          {extra_settings.map((setting) => {
-            const naniteTypesDisplayMap = {
-              number: (
-                <>
-                  {setting.value}
-                  {setting.unit}
-                </>
-              ),
-              text: setting.value,
-              type: setting.value,
-              boolean: setting.value ? setting.true_text : setting.false_text,
-            };
-            return (
-              <LabeledList.Item key={setting.name} label={setting.name}>
-                {naniteTypesDisplayMap[setting.type]}
-              </LabeledList.Item>
-            );
-          })}
-        </LabeledList>
-      </Section>
-    </Section>
+    <>
+      <NaniteInfoGrid program={program} read_only />
+      <NaniteSettings program={program} read_only />
+    </>
   );
 };
 
