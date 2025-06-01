@@ -8,10 +8,10 @@
 	map_file_name = "PubbyStation.dmm"
 
 /datum/map_adjustment/pubby_station/job_change()
-	change_job_access(JOB_NAME_EXPLORATION_CREW, ACCESS_MAINT_TUNNELS)
-	change_job_access(JOB_NAME_HEAD_OF_SECURITY, ACCESS_CREMATORIUM)
+	change_job_access(JOB_NAME_EXPLORATIONCREW, ACCESS_MAINT_TUNNELS)
+	change_job_access(JOB_NAME_HEADOFSECURITY, ACCESS_CREMATORIUM)
 	change_job_access(JOB_NAME_WARDEN, ACCESS_CREMATORIUM)
-	change_job_access(JOB_NAME_SECURITY_OFFICER, ACCESS_CREMATORIUM)
+	change_job_access(JOB_NAME_SECURITYOFFICER, ACCESS_CREMATORIUM)
 
 /datum/map_adjustment/pubby_station/on_mapping_init()
 	exclude_tagger_destination("Virology")
