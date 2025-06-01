@@ -38,6 +38,7 @@
 	update_icon()
 	if(duration > 0 || initial(tick_interval) > 0) //don't process if we don't care
 		START_PROCESSING(SSfastprocess, src)
+	SEND_SIGNAL(new_owner, SIGNAL_ADD_STATUS_EFFECT(type))
 	return TRUE
 
 /datum/status_effect/Destroy()
@@ -47,6 +48,7 @@
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
+		SEND_SIGNAL(owner, SIGNAL_REMOVE_STATUS_EFFECT(type))
 		owner = null
 	return ..()
 
@@ -71,6 +73,7 @@
 /datum/status_effect/proc/be_replaced() //Called instead of on_remove when a status effect is replaced by itself or when a status effect with on_remove_on_mob_delete = FALSE has its mob deleted
 	owner.clear_alert(id)
 	LAZYREMOVE(owner.status_effects, src)
+	SEND_SIGNAL(owner, SIGNAL_REMOVE_STATUS_EFFECT(type))
 	owner = null
 	qdel(src)
 
