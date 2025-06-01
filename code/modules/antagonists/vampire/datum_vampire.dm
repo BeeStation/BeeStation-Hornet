@@ -297,15 +297,22 @@
 /datum/antagonist/vampire/greet()
 	. = ..()
 	var/fullname = return_full_name()
-	to_chat(owner, span_userdanger("You are [fullname], a Vampire!"))
-	owner.announce_objectives()
+	var/list/msg = list()
+
+	msg += span_userdanger("You are [fullname], a Vampire!")
+	msg += span_warning("Open the Vampire Information panel for information about your Powers, Clan, and more.")
 	if(vampire_level_unspent >= 1)
-		to_chat(owner, span_announce("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank."))
+		msg += span_warning("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.")
+
+	to_chat(owner, examine_block(msg.Join("\n")))
+
+	owner.announce_objectives()
+
 	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
-	to_chat(owner.current, span_userdanger("<FONT size = 3>With a snap, your curse has ended. You are no longer a Vampire. You live once more!</FONT>"))
+	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
 	// Refill with Blood so they don't instantly die.
 	if(!HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
 		owner.current.blood_volume = max(owner.current.blood_volume, BLOOD_VOLUME_NORMAL)
