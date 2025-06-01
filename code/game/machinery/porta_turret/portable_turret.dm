@@ -455,7 +455,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 					if((FACTION_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
 						continue
 
-				targets += sillycone
+				if(sillycone.stat || in_faction(sillycone))
+					continue
+
+				if(target_cyborgs && sillycone.stat != DEAD && iscyborg(sillycone))
+					targets += sillycone
+					continue
+
 			else if(iscarbon(A))
 				var/mob/living/carbon/C = A
 				//If not emagged, only target carbons that can use items
