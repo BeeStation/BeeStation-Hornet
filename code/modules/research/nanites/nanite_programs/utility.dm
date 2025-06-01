@@ -286,7 +286,7 @@
 	for(var/mob/living/L in oview(1, host_mob))
 		if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
 			continue
-		if(SEND_SIGNAL(L, COMSIG_HAS_NANITES) || !L.Adjacent(host_mob))
+		if(!L.Adjacent(host_mob))
 			continue
 		target_hosts += L
 	if(!target_hosts.len)
