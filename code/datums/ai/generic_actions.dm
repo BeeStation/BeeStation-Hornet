@@ -55,7 +55,7 @@
 				continue
 			bodypart_to_break.receive_damage(brute = 15)
 			// Breaking your bone if you have no armour
-			bodypart_to_break.run_limb_injuries(60, DAMAGE_STANDARD, 0)
+			bodypart_to_break.run_limb_injuries(60, BRUTE, DAMAGE_STANDARD, 0)
 	else
 		batman.adjustBruteLoss(150)
 

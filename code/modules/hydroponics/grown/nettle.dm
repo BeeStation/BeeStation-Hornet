@@ -65,7 +65,7 @@
 	if(affecting)
 		if(affecting.receive_damage(0, force))
 			C.update_damage_overlays()
-		affecting.run_limb_injuries(force, DAMAGE_FIRE, sharpness)
+		affecting.run_limb_injuries(force, damtype, DAMAGE_FIRE, sharpness)
 	to_chat(C, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 

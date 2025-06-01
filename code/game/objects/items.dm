@@ -524,7 +524,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			to_chat(user, span_warning("You burn your hand on [src]!"))
 			var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-				affecting.run_limb_injuries(5, DAMAGE_FIRE, 0)
+				affecting.run_limb_injuries(5, BURN, DAMAGE_FIRE, 0)
 				C.update_damage_overlays()
 			return
 
@@ -535,7 +535,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				to_chat(user, span_warning("The acid on [src] burns your hand!"))
 				var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-					affecting.run_limb_injuries(5, DAMAGE_FIRE, 0)
+					affecting.run_limb_injuries(5, BURN, DAMAGE_FIRE, 0)
 					C.update_damage_overlays()
 
 	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))		//See if we're supposed to auto pickup.

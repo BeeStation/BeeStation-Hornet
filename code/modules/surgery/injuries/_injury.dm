@@ -37,13 +37,16 @@
 /datum/injury/proc/remove_from_human(mob/living/carbon/human/target)
 	return
 
-/datum/injury/proc/apply_damage(delta_damage, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_flag, is_sharp))
+/datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
+	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
+		message_admins("Injury tree [type] took [delta_damage] damage.")
 		current_damage += delta_damage
+	else
+		message_admins("Injury tree [type] ignored [delta_damage] damage.")
 
 /// Called when damage is taken
 /// Return false if the damage is not relevant and should be ignored, true otherwise.
-/datum/injury/proc/on_damage_taken(total_damage, delta_damage, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
+/datum/injury/proc/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	return FALSE
 
 /// Called when the limb processes, target may be null
@@ -52,3 +55,6 @@
 /// Transition to a new type of injury state.
 /datum/injury/proc/transition_to(new_type)
 	SHOULD_NOT_OVERRIDE(TRUE)
+	message_admins("[type] converted to [new_type]")
+	bodypart.remove_injury_tree(src)
+	bodypart.apply_injury_tree(new_type)

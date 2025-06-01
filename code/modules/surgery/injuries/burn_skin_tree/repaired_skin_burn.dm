@@ -1,8 +1,8 @@
 /datum/injury/repaired_skin_burn
 	surgeries_provided = list(/datum/surgery/skin_graft)
 
-/datum/injury/repaired_skin_burn/on_damage_taken(total_damage, delta_damage, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	if (damage_flag != DAMAGE_FIRE && damage_flag != DAMAGE_ACID && damage_flag != DAMAGE_BOMB && damage_flag != DAMAGE_LASER && damage_flag != DAMAGE_SHOCK && damage_flag != DAMAGE_ENERGY)
+/datum/injury/repaired_skin_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
+	if (damage_type != BURN)
 		return FALSE
 	// If the skin gets burnt in an unprotected way, get blisters
 	if (total_damage >= 20 || prob(delta_damage))

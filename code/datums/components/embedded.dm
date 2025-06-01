@@ -148,7 +148,7 @@
 			to_chat(victim, span_userdanger("[weapon] embedded in your [limb.name] stings a little!"))
 		else
 			limb.receive_damage(brute=damage_to_deal, stamina=(pain_stam_pct * damage) + damage_as_stam)
-			limb.run_limb_injuries(damage_to_deal, DAMAGE_STANDARD, weapon.sharpness)
+			limb.run_limb_injuries(damage_to_deal, weapon.damtype, DAMAGE_STANDARD, weapon.sharpness)
 			to_chat(victim, span_userdanger("[weapon] embedded in your [limb.name] hurts!"))
 
 	var/fallchance_current =  DT_PROB_RATE(fall_chance / 100, delta_time) * 100
@@ -171,7 +171,7 @@
 	if(harmful && prob(chance))
 		var/damage = weapon.w_class * jostle_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
-		limb.run_limb_injuries(damage, DAMAGE_STANDARD, weapon.sharpness)
+		limb.run_limb_injuries(damage, weapon.damtype, DAMAGE_STANDARD, weapon.sharpness)
 		to_chat(victim, span_userdanger("[weapon] embedded in your [limb.name] jostles and stings!"))
 
 
@@ -182,7 +182,7 @@
 	if(harmful)
 		var/damage = weapon.w_class * remove_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
-		limb.run_limb_injuries(damage, DAMAGE_STANDARD, weapon.sharpness)
+		limb.run_limb_injuries(damage, weapon.damtype, DAMAGE_STANDARD, weapon.sharpness)
 
 	victim.visible_message(span_danger("[weapon] falls [harmful ? "out" : "off"] of [victim.name]'s [limb.name]!"), span_userdanger("[weapon] falls [harmful ? "out" : "off"] of your [limb.name]!"))
 	safeRemove()
@@ -211,7 +211,7 @@
 	if(harmful)
 		var/damage = weapon.w_class * remove_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage) //It hurts to rip it out, get surgery you dingus.
-		limb.run_limb_injuries(damage, DAMAGE_STANDARD, weapon.sharpness)
+		limb.run_limb_injuries(damage, weapon.damtype, DAMAGE_STANDARD, weapon.sharpness)
 		victim.emote("scream")
 
 	victim.visible_message(span_notice("[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!"), span_notice("You successfully remove [weapon] from your [limb.name]."))
@@ -327,7 +327,7 @@
 	if(harmful && damage_multiplier)
 		var/damage = weapon.w_class * remove_pain_mult * damage_multiplier
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
-		limb.run_limb_injuries(damage, DAMAGE_STANDARD, weapon.sharpness)
+		limb.run_limb_injuries(damage, weapon.damtype, DAMAGE_STANDARD, weapon.sharpness)
 		victim.emote("scream")
 
 	//Remove it

@@ -1781,7 +1781,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.deal_damage(I.force, I.sharpness, I.damtype, DAMAGE_STANDARD, get_dir(user, H), TRUE, def_zone)
 
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 
 	if (I.sharpness)
 		if(IS_ORGANIC_LIMB(affecting))
@@ -1812,8 +1811,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(!I.force)
 		return 0 //item force is zero
-
-	var/weapon_sharpness = I.is_sharp()
 
 	if(I.damtype == BRUTE && (I.force >= max(10, H.get_bodyzone_armor_flag(BODY_ZONE_HEAD, ARMOUR_BLUNT)) && hit_area == BODY_ZONE_HEAD))
 		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.

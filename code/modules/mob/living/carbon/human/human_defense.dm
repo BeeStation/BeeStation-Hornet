@@ -440,7 +440,7 @@
 			if(prob(30/severity)) //Random chance to disable and burn limbs
 				bodypart.receive_damage(burn = 5)
 				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-				bodypart.run_limb_injuries(10, DAMAGE_FIRE, 0)
+				bodypart.run_limb_injuries(10, BURN, DAMAGE_FIRE, 0)
 			else
 				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
 			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
@@ -562,12 +562,12 @@
 	//DAMAGE//
 	for(var/obj/item/bodypart/affecting in damaged)
 		affecting.receive_damage(acidity, 2*acidity)
-		affecting.run_limb_injuries(2*acidity, DAMAGE_ACID, 0)
+		affecting.run_limb_injuries(2*acidity, BURN, DAMAGE_ACID, 0)
 
 		if(affecting.name == BODY_ZONE_HEAD)
 			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
 				affecting.receive_damage(acidity, 2*acidity)
-				affecting.run_limb_injuries(2*acidity, DAMAGE_ACID, 0)
+				affecting.run_limb_injuries(2*acidity, BURN, DAMAGE_ACID, 0)
 				emote("scream")
 				facial_hair_style = "Shaved"
 				hair_style = "Bald"
@@ -690,11 +690,11 @@
 				isdisabled += " and "
 		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>")
 
-		if (LB.skin_health < LB.skin_max_health && LB.bone_health < LB.bone_max_health)
+		if (LB.get_skin_multiplier() < 1 && LB.get_bone_multiplier() < 1)
 			to_chat(src, "\t <span class='warning'>The bones inside your [LB.name] ache and the skin appears damaged.</span>")
-		else if (LB.skin_health < LB.skin_max_health)
+		else if (LB.get_skin_multiplier() < 1)
 			to_chat(src, "\t <span class='warning'>The skin on your [LB.name] looks slightly damaged.</span>")
-		else if (LB.bone_health < LB.bone_max_health)
+		else if (LB.get_bone_multiplier() < 1)
 			to_chat(src, "\t <span class='warning'>Your [LB.name] aches and the bone is likely damage.</span>")
 
 		for(var/obj/item/I in LB.embedded_objects)

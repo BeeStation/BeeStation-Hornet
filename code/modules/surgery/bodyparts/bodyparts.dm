@@ -116,11 +116,13 @@
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
-	// Setup the injury trees
-	injuries = list(
-		// Burn injury tree
-		new /datum/injury/healthy_skin_burn
-	)
+	setup_injury_trees()
+
+/// Not all bodyparts have the same injury trees
+/// Allow them to be overriden
+/obj/item/bodypart/proc/setup_injury_trees()
+	// Apply the burn tree
+	apply_injury_tree(/datum/injury/healthy_skin_burn)
 
 /obj/item/bodypart/Destroy()
 	if(owner)
@@ -675,7 +677,7 @@
 	drop_organs()
 	qdel(src)
 
-/obj/item/bodypart/proc/run_limb_injuries(damage, damage_flag, penetration_power)
+/obj/item/bodypart/proc/run_limb_injuries(damage, damage_type, damage_flag, penetration_power)
 	var/current_damage = damage
 	if (!owner || damage <= 0)
 		return
@@ -683,7 +685,7 @@
 	var/armour = owner.get_bodyzone_armor_flag(body_zone, ARMOUR_PENETRATION)
 	penetration_power -= armour
 	// Damage multiplier
-	damage += max(0, (min(penetration_power, 30) - armour) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * penetration_power)
+	damage += max(0, clamp(penetration_power, 0, 30) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * penetration_power)
 	// Deal with base damage
 	current_damage = damage
 	// Even without penetration, having high damage results in blunt damage falling down
@@ -696,11 +698,11 @@
 	var/sharp_damage = current_damage * proportion
 	// Take sharp damage
 	for (var/datum/injury/injury_graph as anything in injuries)
-		injury_graph.apply_damage(sharp_damage, damage_flag, TRUE)
+		injury_graph.apply_damage(sharp_damage, damage_type, damage_flag, TRUE)
 	// Take burn damage
 	if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
 		for (var/datum/injury/injury_graph as anything in injuries)
-			injury_graph.apply_damage(blunt_damage, damage_flag, FALSE)
+			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
 	var/skin_rating = 1
 	var/bone_rating = 1
 	for (var/datum/injury/injury_graph as anything in injuries)
@@ -719,7 +721,7 @@
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	for (var/datum/injury/injury_graph as anything in injuries)
-		injury_graph.apply_damage(blunt_damage, damage_flag, FALSE)
+		injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
 	// Bone pentration
 	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
 	current_damage = damage
@@ -737,15 +739,41 @@
 			continue
 		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
 
-/obj/item/bodypart/proc/apply_injury(injury_path)
+/// Internal, do not move to transition injuries to another type
+/// since this completely removes the entire damage tree and the
+/// ability to be injured by that type of damage.
+/obj/item/bodypart/proc/remove_injury_tree(datum/injury/injury)
+	injuries -= injury
+	injury.remove_from_part(src)
+	if (owner && ishuman(owner))
+		injury.remove_from_human(owner)
+
+/// Add a new injury to the set of injury trees on this bodypart
+/// Do not use this to set an injury, as the previous injury tree
+/// node has to be removed first, simply adding a new injury due
+/// to damage will result in multiple trees of that damage type.
+/obj/item/bodypart/proc/apply_injury_tree(injury_path)
 	for (var/datum/injury/injury in injuries)
 		if (injury.type == injury_path)
 			return
 	var/datum/injury/injury = new injury_path()
 	LAZYADD(injuries, injury)
+	injury.bodypart = src
 	injury.apply_to_part(src)
 	if (owner && ishuman(owner))
 		injury.apply_to_human(owner)
+
+/obj/item/bodypart/proc/get_skin_multiplier()
+	var/rate = 1
+	for (var/datum/injury/injury in injuries)
+		rate *= injury.skin_armour_modifier
+	return rate
+
+/obj/item/bodypart/proc/get_bone_multiplier()
+	var/rate = 1
+	for (var/datum/injury/injury in injuries)
+		rate *= injury.bone_armour_modifier
+	return rate
 
 /obj/item/bodypart/proc/check_effectiveness()
 	effectiveness = initial(effectiveness)

@@ -98,11 +98,11 @@
 					if(mecha_attacker.force > 35) // durand and other heavy mechas
 						Knockdown(20)
 					update |= temp.receive_damage(dmg, 0)
-					temp.run_limb_injuries(dmg, DAMAGE_STANDARD, 0)
+					temp.run_limb_injuries(dmg, mecha_attacker.damtype, DAMAGE_STANDARD, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if(BURN)
 					update |= temp.receive_damage(0, dmg)
-					temp.run_limb_injuries(dmg, DAMAGE_FIRE, 0)
+					temp.run_limb_injuries(dmg, mecha_attacker.damtype, DAMAGE_FIRE, 0)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if(TOX)
 					mecha_attacker.mech_toxin_damage(src)

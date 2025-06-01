@@ -3,8 +3,8 @@
 	effectiveness_modifier = 0.7
 	surgeries_provided = list(/datum/surgery/skin_graft)
 
-/datum/injury/blisters/on_damage_taken(total_damage, delta_damage, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	if (damage_flag != DAMAGE_FIRE && damage_flag != DAMAGE_ACID && damage_flag != DAMAGE_BOMB && damage_flag != DAMAGE_LASER && damage_flag != DAMAGE_SHOCK && damage_flag != DAMAGE_ENERGY)
+/datum/injury/blisters/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
+	if (damage_type != BURN)
 		return FALSE
 	// If the skin gets burnt in an unprotected way, get blisters
 	if (total_damage >= 10 && (delta_damage > 2 || prob(delta_damage * 5)))

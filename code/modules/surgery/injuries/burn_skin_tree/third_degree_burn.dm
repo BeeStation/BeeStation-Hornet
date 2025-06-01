@@ -19,8 +19,8 @@
 			continue
 		organ.applyOrganDamage(delta_time * ORGAN_DAMAGE_MULTIPLIER)
 
-/datum/injury/third_degree_burn/on_damage_taken(total_damage, delta_damage, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
-	if (damage_flag != DAMAGE_FIRE && damage_flag != DAMAGE_ACID && damage_flag != DAMAGE_BOMB && damage_flag != DAMAGE_LASER && damage_flag != DAMAGE_SHOCK && damage_flag != DAMAGE_ENERGY)
+/datum/injury/third_degree_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
+	if (damage_type != BURN)
 		return FALSE
 	if (total_damage >= 10 || delta_damage >= 5)
 		transition_to(/datum/injury/limb_destroyed)
