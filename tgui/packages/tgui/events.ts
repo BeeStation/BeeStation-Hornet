@@ -105,7 +105,7 @@ const focusNearestTrackedParent = (node: HTMLElement | null) => {
   }
 };
 
-window.addEventListener('mousemove', (e: FocusEvent) => {
+window.addEventListener('mousemove', (e) => {
   const node = e.target as HTMLElement;
   if (node !== lastVisitedNode) {
     lastVisitedNode = node;
