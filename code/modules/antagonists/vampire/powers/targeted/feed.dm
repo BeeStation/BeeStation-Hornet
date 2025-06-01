@@ -8,12 +8,13 @@
 	name = "Feed"
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
-	power_explanation = "Activate Feed while next to someone and you will begin to feed blood off of them.\n\
+	power_explanation = "Activate Feed and select a target to start draining their blood.\n\
 		The time needed before you start feeding decreases the higher level you are.\n\
-		Feeding off of someone while you have them aggressively grabbed will put them to sleep and make you feed faster.\n\
-		NOTE: This is very obvious and the radius of people noticing you feed is much larger!\n\
-		You are given a Masquerade Infraction if you feed too close to a mortal.\n\
-		Mice can be fed off if you are in desperate need of blood."
+		If you are not aggressively grabbing someone they will forget that they were ever fed off.\n\
+		Feeding off of someone while you have them aggressively grabbed will put them to sleep and make you feed faster. \
+		This is very obvious and the radius in which you can be detected is much larger!\n\
+		Mice can be fed off if you are in desperate need of blood.\n\
+		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding."
 	power_flags = BP_AM_TOGGLE|BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_STAKED|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER
@@ -97,6 +98,8 @@
 			owner.balloon_alert(owner, "suit too thick!")
 			return FALSE
 
+	silent_feed = TRUE
+
 /datum/action/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/feed_target = target_atom
@@ -119,20 +122,20 @@
 		deactivate_power()
 		return
 
-	// Agressively grabbing a target will make them fall asleep and alert nearby people
+	// Aggressively grabbing a target will make them fall asleep and alert nearby people
 	if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE)
 		feed_target.Unconscious((5 + level_current) SECONDS)
 		owner.visible_message(
 			span_warning("[owner] closes [owner.p_their()] mouth around [feed_target]'s neck!"),
-			span_warning("You sink your fangs into [feed_target]'s neck."))
+			span_warning("You sink your fangs into [feed_target]'s neck.")
+		)
 		silent_feed = FALSE
 	else
-		var/dazed_message = feed_target.stat != DEAD ? "<i>[feed_target.p_they(TRUE)] looks dazed, and will not remember this.</i>" : ""
 		owner.visible_message(
-			span_notice("[owner] puts [feed_target]'s wrist up to [owner.p_their()] mouth."), \
-			span_notice("You slip your fangs into [feed_target]'s wrist. [dazed_message]"), \
-			vision_distance = FEED_SILENT_NOTICE_RANGE, ignored_mobs = feed_target)
-		to_chat(feed_target, span_deconversionmessage("You don't remember how you got here..."))
+			span_notice("[owner] puts [feed_target]'s wrist up to [owner.p_their()] mouth."),
+			span_notice("You slip your fangs into [feed_target]'s wrist."),
+			vision_distance = FEED_SILENT_NOTICE_RANGE, ignored_mobs = feed_target
+		)
 
 	// Check if we were seen while feeding
 	for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE) - feed_target)
@@ -243,6 +246,10 @@
 		var/mob/living/feed_target = target_ref.resolve()
 		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
+
+		if(feed_target.stat != DEAD && silent_feed)
+			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] looks dazed, and will not remember this.</i>"))
+			to_chat(feed_target, span_deconversionmessage("You don't remember how you got here..."))
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)

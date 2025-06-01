@@ -49,7 +49,8 @@
 		addtimer(CALLBACK(src, PROC_REF(break_closet), closet), 1)
 		closet.visible_message(
 			span_warning("[closet] tears apart as [human_owner] bashes it open from within!"),
-			span_warning("[closet] tears apart as you bash it open from within!"))
+			span_warning("[closet] tears apart as you bash it open from within!")
+		)
 		to_chat(human_owner, span_warning("We bash [closet] wide open!"))
 		used = TRUE
 
@@ -58,7 +59,8 @@
 		human_owner.uncuff()
 		human_owner.visible_message(
 			span_warning("[human_owner] discards their restraints like it's nothing!"),
-			span_warning("We break through our restraints!"))
+			span_warning("We break through our restraints!")
+		)
 		used = TRUE
 
 	// Straightjackets
@@ -68,7 +70,8 @@
 			qdel(straightjacket)
 		human_owner.visible_message(
 			span_warning("[human_owner] rips straight through the [human_owner.p_their()] [straightjacket]!"),
-			span_warning("We tear through our [straightjacket]!"))
+			span_warning("We tear through our [straightjacket]!")
+		)
 		used = TRUE
 
 	if(used)
@@ -104,7 +107,8 @@
 	log_combat(owner, pulled_mob, "used [src.name] power")
 	owner.visible_message(
 		span_warning("[owner] tears free of [pulled_mob]'s grasp!"),
-		span_warning("You shrug off [pulled_mob]'s grasp!"))
+		span_warning("You shrug off [pulled_mob]'s grasp!")
+	)
 	owner.pulledby = null // It's already done, but JUST IN CASE.
 	return TRUE
 

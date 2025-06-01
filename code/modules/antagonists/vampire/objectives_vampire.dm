@@ -136,13 +136,13 @@
 		return TRUE
 	return FALSE
 
-	/**
-	 * # IMPORTANT NOTE!!
-	 *
-	 * Look for Job Values on mobs! This is assigned at the start, but COULD be changed via the HoP
-	 * ALSO - Search through all jobs (look for prefs earlier that look for all jobs, and search through all jobs to see if their head matches the head listed, or it IS the head)
-	 * ALSO - registered_account in _vending.dm for banks, and assigning new ones.
-	 */
+/**
+* # IMPORTANT NOTE!!
+*
+* Look for Job Values on mobs! This is assigned at the start, but COULD be changed via the HoP
+* ALSO - Search through all jobs (look for prefs earlier that look for all jobs, and search through all jobs to see if their head matches the head listed, or it IS the head)
+* ALSO - registered_account in _vending.dm for banks, and assigning new ones.
+*/
 
 //////////////////////////////////////////////////////////////////////////////////////
 

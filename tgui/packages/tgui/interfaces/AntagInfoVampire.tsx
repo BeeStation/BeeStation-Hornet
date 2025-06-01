@@ -5,6 +5,7 @@ import { Box, DmIcon, Icon, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
+import { sanitizeText } from 'tgui/sanitize';
 
 type VampireInformation = {
   clan: ClanInfo[];
@@ -514,7 +515,12 @@ const PowerSection = (_props) => {
                       </>
                     )}
                   </Box>
-                  <Box style={{ whiteSpace: 'pre-wrap', lineHeight: '1' }}>{power.explanation.replace(/\n/g, '\n\n')}</Box>
+                  <Box
+                    style={{ whiteSpace: 'pre-wrap', lineHeight: '1' }}
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizeText(power.explanation.replace(/\n/g, '\n\n')),
+                    }}
+                  />
                 </Box>
               )
           )}

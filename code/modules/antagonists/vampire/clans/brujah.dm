@@ -8,7 +8,7 @@
 	join_icon_state = "brujah"
 	join_description = "Gain an enhanced version of the brawn ability that lets you destroy most structures (including walls!) \
 		Rebel against all authority and attempt to subvert it, but in turn \n\
-		<b>IMPORTANT:</b> you break the Masquerade immediately on joining!"
+		<b>IMPORTANT:</b> you break the Masquerade immediately upon joining!"
 
 /datum/vampire_clan/brujah/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
