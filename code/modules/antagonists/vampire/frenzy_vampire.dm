@@ -54,6 +54,7 @@
 	return ..()
 
 /datum/status_effect/frenzy/on_apply()
+// This is called when the status effect is applied to the Vampire.. = ..()
 	var/mob/living/carbon/human/user = owner
 	vampiredatum = IS_VAMPIRE(user)
 
@@ -76,9 +77,9 @@
 	user.Jitter(60 SECONDS)
 	user.uncuff()
 	vampiredatum.frenzied = TRUE
-	. = ..()
 
 /datum/status_effect/frenzy/on_remove()
+	. = ..()
 	var/mob/living/carbon/human/user = owner
 	owner.balloon_alert(owner, "you come back to your senses.")
 
@@ -94,7 +95,6 @@
 
 	SEND_SIGNAL(vampiredatum, VAMPIRE_EXITS_FRENZY)
 	vampiredatum.frenzied = FALSE
-	. = ..()
 
 /datum/status_effect/frenzy/tick()
 	var/mob/living/carbon/human/user = owner
