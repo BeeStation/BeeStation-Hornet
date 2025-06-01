@@ -83,7 +83,7 @@
 	owner.balloon_alert(owner, "you come back to your senses.")
 
 	// Traits
-	owner.add_traits(frenzy_traits, TRAIT_VAMPIRE)
+	owner.remove_traits(frenzy_traits, TRAIT_VAMPIRE)
 	if(was_tooluser)
 		REMOVE_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
 		was_tooluser = FALSE
@@ -94,7 +94,7 @@
 
 	SEND_SIGNAL(vampiredatum, VAMPIRE_EXITS_FRENZY)
 	vampiredatum.frenzied = FALSE
-	return ..()
+	. = ..()
 
 /datum/status_effect/frenzy/tick()
 	var/mob/living/carbon/human/user = owner
