@@ -2059,7 +2059,10 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 	SIGNAL_HANDLER
 	if(new_stat <= SOFT_CRIT)
 		return
+
+	//set_combat_mode will already run set_combat_indicator, but we need to ensure involuntary is passed :)
 	set_combat_indicator(FALSE, involuntary = TRUE)
+	set_combat_mode(FALSE)
 
 /**
  * Called whenever a mob's CI status changes for any reason.
