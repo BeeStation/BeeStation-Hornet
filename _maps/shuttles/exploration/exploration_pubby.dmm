@@ -2,6 +2,7 @@
 "aR" = (
 /obj/machinery/computer/objective,
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "cg" = (
@@ -15,6 +16,7 @@
 	dir = 1
 	},
 /obj/structure/railing,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "da" = (
@@ -31,6 +33,7 @@
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = 32
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "hl" = (
@@ -166,6 +169,7 @@
 	name = "Exploration Console"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sT" = (
@@ -260,6 +264,7 @@
 "zN" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ax" = (
@@ -296,6 +301,7 @@
 "CU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /obj/structure/closet/emcloset,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Dl" = (
@@ -359,6 +365,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "IP" = (
@@ -382,6 +389,7 @@
 /obj/machinery/camera/preset{
 	dir = 4
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "IS" = (
@@ -529,7 +537,7 @@
 /area/shuttle/exploration)
 "RQ" = (
 /turf/template_noop,
-/area/template_noop)
+/area/space)
 "SA" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/secure/weapon,
