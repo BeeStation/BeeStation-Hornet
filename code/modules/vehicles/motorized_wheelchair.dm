@@ -50,7 +50,7 @@
 		return FALSE
 	return ..()
 
-/obj/vehicle/ridden/wheelchair/motorized/Moved()
+/obj/vehicle/ridden/wheelchair/motorized/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	power_cell.use(power_usage / max(power_efficiency, 1))
 	if(!low_power_alerted && power_cell.charge <= (power_cell.maxcharge / 4))

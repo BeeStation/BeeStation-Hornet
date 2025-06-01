@@ -153,7 +153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple)
 	. = ..()
 	Show()
 
-/obj/effect/hallucination/simple/Moved(atom/OldLoc, Dir)
+/obj/effect/hallucination/simple/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!loc)
 		return

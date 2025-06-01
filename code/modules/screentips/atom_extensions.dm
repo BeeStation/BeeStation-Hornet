@@ -36,10 +36,23 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/mob/user = client?.mob
+
 	if (!client.show_screentips)
 		return
-	if (isnewplayer(client.mob))
+
+	if(isnull(user))
 		return
+
+	if(isnewplayer(user))
+		return
+
+	// Face directions on combat mode
+	if(user.face_mouse)
+		user.face_atom(src)
+
 	// =====================================================
 	// Initialise data
 	// =====================================================

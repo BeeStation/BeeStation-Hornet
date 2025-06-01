@@ -29,3 +29,9 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "intent_style"
 	preference_type = PREFERENCE_PLAYER
+
+/datum/preference/toggle/face_cursor_combat_mode
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "face_cursor_combat_mode"
+	preference_type = PREFERENCE_PLAYER
+	default_value = TRUE

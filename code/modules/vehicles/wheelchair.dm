@@ -37,7 +37,7 @@
 		unbuckle_mob(H)
 	return ..()
 
-/obj/vehicle/ridden/wheelchair/Moved()
+/obj/vehicle/ridden/wheelchair/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	cut_overlays()
 	playsound(src, 'sound/effects/roll.ogg', 75, 1)

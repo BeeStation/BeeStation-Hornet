@@ -2046,12 +2046,20 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 	combat_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	return combat_indicator
 
-/mob/living/proc/combat_indicator_unconscious_signal()
+/**
+ * Called whenever a mob's stat changes.
+ * Checks if the mob's stat is greater than SOFT_CRIT, and if it is, it will disable CI.
+ *
+ * Arguments:
+ * * source -- The mob in question that toggled CI status.
+ * * new_stat -- The new stat of the mob.
+ */
+
+/mob/living/proc/ci_on_stat_change(mob/source, new_stat)
 	SIGNAL_HANDLER
-	if(stat < UNCONSCIOUS) // sanity check because something is calling this signal improperly -- it may be due to adjustconciousness()
-		stack_trace("Improper COMSIG_LIVING_STATUS_UNCONSCIOUS sent; mob is not unconscious")
+	if(new_stat <= SOFT_CRIT)
 		return
-	set_combat_indicator(FALSE)
+	set_combat_indicator(FALSE, involuntary = TRUE)
 
 /**
  * Called whenever a mob's CI status changes for any reason.
@@ -2060,52 +2068,76 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
  *
  * Arguments:
  * * state -- Boolean. Inherited from the procs that call this, basically it's what that proc wants CI to change to - true or false, on or off.
+ * * involuntary -- Boolean. If true, the mob is dead or unconscious, and the log will reflect that.
  */
 
-/mob/living/proc/set_combat_indicator(state)
+/mob/living/proc/set_combat_indicator(state, involuntary = FALSE)
 	if(!CONFIG_GET(flag/combat_indicator))
 		return
 
-	if(stat == DEAD)
-		combat_indicator = FALSE
-
 	if(combat_indicator == state) // If the mob is dead (should not happen) or if the combat_indicator is the same as state (also shouldnt happen) kill the proc.
 		return
+
+	if(stat == DEAD)
+		disable_combat_indicator(involuntary)
 
 	combat_indicator = state
 
 	SEND_SIGNAL(src, COMSIG_MOB_CI_TOGGLED)
 
 	if(combat_indicator)
-		if(COOLDOWN_FINISHED(src, nextcombatpopup))
-			COOLDOWN_START(src, nextcombatpopup, combat_notice_cooldown)
-			playsound(src, 'sound/machines/chime.ogg', vol = 5, vary = FALSE, extrarange = -6, falloff_exponent = 4, frequency = null, channel = 0, pressure_affected = FALSE, ignore_walls = FALSE, falloff_distance = 1)
-			flick_emote_popup_on_mob("combat", 0.75 SECONDS)
-			var/ciweapon
-			if(get_active_held_item())
-				ciweapon = get_active_held_item()
-				if(istype(ciweapon, /obj/item/gun))
-					visible_message(span_boldwarning("[src] raises \the [ciweapon] with their finger on the trigger, ready for combat!"))
-				else
-					visible_message(span_boldwarning("[src] readies \the [ciweapon] with a tightened grip and offensive stance, ready for combat!"))
-			else
-				if(issilicon(src))
-					visible_message(span_boldwarning("<b>[src] shifts its armour plating into a defensive stance, ready for combat!"))
-				if(ishuman(src))
-					visible_message(span_boldwarning("[src] raises [p_their()] fists in an offensive stance, ready for combat!"))
-				if(isalien(src))
-					visible_message(span_boldwarning("[src] hisses in a terrifying stance, claws raised and ready for combat!"))
-				else
-					visible_message(span_boldwarning("[src] gets ready for combat!"))
-		combat_indicator = TRUE
-		apply_status_effect(/datum/status_effect/grouped/surrender, src)
-		log_message("<font color='red'>has turned ON the combat indicator!</font>", LOG_ATTACK)
-		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, PROC_REF(combat_indicator_unconscious_signal)) //From now on, whenever this mob falls unconcious, the referenced proc will fire.
+		enable_combat_indicator()
 	else
-		combat_indicator = FALSE
-		remove_status_effect(/datum/status_effect/grouped/surrender, src)
-		log_message("<font color='blue'>has turned OFF the combat indicator!</font>", LOG_ATTACK)
-		UnregisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS) //combat_indicator_unconscious_signal will no longer be fired if this mob is unconcious.
+		disable_combat_indicator()
+
+/**
+ * Called whenever a mob enables CI.
+ *
+ * Plays a sound, sents a message to chat, updates their overlay, and sets the mob's CI status to true.
+ */
+
+/mob/living/proc/enable_combat_indicator()
+	if(COOLDOWN_FINISHED(src, nextcombatpopup))
+		COOLDOWN_START(src, nextcombatpopup, combat_notice_cooldown)
+		playsound(src, 'sound/machines/chime.ogg', vol = 5, vary = FALSE, extrarange = -6, falloff_exponent = 4, frequency = null, channel = 0, pressure_affected = FALSE, ignore_walls = FALSE, falloff_distance = 1)
+		flick_emote_popup_on_mob("combat", 2)
+		var/ciweapon
+		if(get_active_held_item())
+			ciweapon = get_active_held_item()
+			if(istype(ciweapon, /obj/item/gun))
+				visible_message(span_boldwarning("[src] raises \the [ciweapon] with their finger on the trigger!"))
+			else
+				visible_message(span_boldwarning("[src] readies \the [ciweapon] with a tightened grip!"))
+		else
+			if(issilicon(src))
+				visible_message(span_boldwarning("<b>[src] shifts its armour plating into a defensive stance!"))
+			if(ishuman(src))
+				visible_message(span_boldwarning("[src] raises [p_their()] fists!"))
+			if(isalien(src))
+				visible_message(span_boldwarning("[src] hisses in a terrifying stance!"))
+			else
+				visible_message(span_boldwarning("[src] gets ready for combat!"))
+	combat_indicator = TRUE
+	apply_status_effect(/datum/status_effect/grouped/surrender, src)
+	log_message("<font color='red'>[src] has turned ON the combat indicator!</font>", LOG_ATTACK)
+	RegisterSignal(src, COMSIG_MOB_STATCHANGE , PROC_REF(ci_on_stat_change))
+	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+
+/**
+ * Called whenever a mob disables CI. Or when they die or fall unconscious.
+ *
+ * Arguments:
+ * * involuntary -- Boolean. If true, the mob is dead or unconscious, and the log will reflect that.
+ */
+
+/mob/living/proc/disable_combat_indicator(involuntary = FALSE)
+	combat_indicator = FALSE
+	remove_status_effect(/datum/status_effect/grouped/surrender, src)
+	if(involuntary)
+		log_message("<font color='cyan'>[src] has fallen unconsious or has died, and lost their combat indicator!</font>", LOG_ATTACK)
+	else
+		log_message("<font color='cyan'>[src] has turned OFF the combat indicator!</font>", LOG_ATTACK)
+	UnregisterSignal(src, COMSIG_MOB_STATCHANGE)
 	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
 
 /**

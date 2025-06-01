@@ -326,7 +326,7 @@
 	buildstackamount = 1
 	item_chair = null
 
-/obj/structure/chair/fancy/brass/bronze/Moved()
+/obj/structure/chair/fancy/brass/bronze/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
@@ -347,7 +347,7 @@
 	setDir(direction)
 	return FALSE
 
-/obj/structure/chair/office/Moved()
+/obj/structure/chair/office/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/effects/roll.ogg', 100, 1)

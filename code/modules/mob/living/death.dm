@@ -81,7 +81,6 @@
 	stop_pulling()
 
 	cut_overlay(GLOB.combat_indicator_overlay)
-	set_combat_indicator(FALSE)
 
 	. = ..()
 
