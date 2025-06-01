@@ -450,17 +450,21 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 				if(ispAI(A))
 					continue
 
+				if(!target_cyborgs && iscyborg(sillycone))
+					continue
+
+				if(in_faction(sillycone))
+					continue
+
+				if(sillycone.stat == DEAD)
+					continue
+
 				if(iscyborg(sillycone))
 					var/mob/living/silicon/robot/sillyconerobot = A
 					if((FACTION_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
 						continue
 
-				if(sillycone.stat || in_faction(sillycone))
-					continue
-
-				if(target_cyborgs && sillycone.stat != DEAD && iscyborg(sillycone))
-					targets += sillycone
-					continue
+				targets += sillycone
 
 			else if(iscarbon(A))
 				var/mob/living/carbon/C = A
