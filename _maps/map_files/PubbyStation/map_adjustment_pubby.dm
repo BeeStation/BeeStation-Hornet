@@ -5,7 +5,7 @@
 */
 
 /datum/map_adjustment/pubby_station
-	map_file_name = "Pubbystation.dmm"
+	map_file_name = "PubbyStation.dmm"
 
 /datum/map_adjustment/pubby_station/job_change()
 	change_job_access(JOB_NAME_EXPLORATION_CREW, ACCESS_MAINT_TUNNELS)
