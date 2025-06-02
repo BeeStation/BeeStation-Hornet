@@ -1137,7 +1137,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	check_records = FALSE
 	criminals = FALSE
 	auth_weapons = TRUE
-	stun_all = TRUE
+	stun_all = FALSE
 	check_anomalies = FALSE
 	var/team_color
 
