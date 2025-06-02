@@ -297,16 +297,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return 1
 
 
-/** regenerate_organs
-  * Corrects organs in a carbon, removing ones it doesn't need and adding ones it does
-  *
-  * takes all organ slots, removes organs a species should not have, adds organs a species should have.
-  * can use replace_current to refresh all organs, creating an entirely new set.
-  * Arguments:
-  * organ_holder - carbon, the owner of the species datum AKA whoever we're regenerating organs in
-  * old_species - datum, used when regenerate organs is called in a switching species to remove old mutant organs.
-  * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
-  * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
+/**
+ * Corrects organs in a carbon, removing ones it doesn't need and adding ones it does.
+ *
+ * Takes all organ slots, removes organs a species should not have, adds organs a species should have.
+ * can use replace_current to refresh all organs, creating an entirely new set.
+ *
+ * Arguments:
+ * * organ_holder - carbon, the owner of the species datum AKA whoever we're regenerating organs in
+ * * old_species - datum, used when regenerate organs is called in a switching species to remove old mutant organs.
+ * * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
+ * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
  * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
  */
 /datum/species/proc/regenerate_organs(mob/living/carbon/organ_holder, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
@@ -338,9 +339,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				qdel(existing_organ)
 			continue
 
-		if(!isnull(old_species) && !isnull(existing_organ))
-			if(existing_organ.type != old_species.get_mutant_organ_type_for_slot(slot))
-				continue // we don't want to remove organs that are not the default for this species
+		// we don't want to remove organs that are not the default for this species
+		if(!isnull(existing_organ))
+			if(!isnull(old_species) && existing_organ.type != old_species.get_mutant_organ_type_for_slot(slot))
+				continue
+			else if(!replace_current && existing_organ.type != get_mutant_organ_type_for_slot(slot))
+				continue
 
 		// at this point we already know new_organ is not null
 		if(existing_organ?.type == new_organ)
@@ -577,7 +581,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			C.faction -= i
-			
+
 	C.remove_movespeed_modifier(/datum/movespeed_modifier/species)
 
 	// Removes all languages previously associated with [LANGUAGE_SPECIES], gaining our new species will add new ones back
