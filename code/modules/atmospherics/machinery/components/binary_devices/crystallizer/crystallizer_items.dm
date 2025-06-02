@@ -108,8 +108,8 @@
 	desc = "A crystal made from the Healium gas, it's cold to the touch."
 	icon_state = "healium_crystal"
 
-	/// Moles of healium spawned
-	var/mole_spawn = 100
+	/// The range of the grenade air refilling
+	var/fix_range = 7
 
 /obj/item/grenade/gas_crystal/healium_crystal/prime(mob/living/lanced_by)
 	. = ..()
@@ -118,8 +118,12 @@
 
 	update_mob()
 	playsound(src, 'sound/effects/spray2.ogg', 100, TRUE)
-	var/turf/turf = get_turf(src)
-	turf.atmos_spawn_air("[GAS_HEALIUM]=[mole_spawn];[TURF_TEMPERATURE(273)]")
+	var/list/turf_list = RANGE_TURFS(fix_range, src)
+	var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
+	for(var/turf/open/turf_fix in turf_list)
+		if(turf_fix.blocks_air)
+			continue
+		turf_fix.copy_air(base_mix.copy())
 	qdel(src)
 
 /obj/item/grenade/gas_crystal/proto_nitrate_crystal
