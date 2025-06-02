@@ -1,7 +1,0 @@
-author: wikimody
-delete-after: true
-changes:
-  - rscadd: Add a new chemical Nooartrium. It lets you ignore death and death related
-      effects at massive cost to your heart
-  - code_imp: No-crit traits disable the crit screen effects. No longer are you blinded
-      when you aren't ment to be
