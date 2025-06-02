@@ -164,6 +164,7 @@
 "eo" = (
 /mob/living/simple_animal/hostile/mimic,
 /obj/machinery/light/blacklight/directional/north,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "eq" = (
@@ -199,6 +200,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "fT" = (
@@ -423,6 +425,7 @@
 "ob" = (
 /obj/machinery/portable_thermomachine,
 /obj/machinery/light/blacklight/directional/south,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "oU" = (
@@ -651,6 +654,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "wU" = (
@@ -730,6 +734,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 10
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "zU" = (
@@ -737,7 +742,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "Ac" = (
-/turf/open/space/basic,
+/turf/template_noop,
 /area/template_noop)
 "Bk" = (
 /mob/living/simple_animal/hostile/psycho/fast,
@@ -1073,6 +1078,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "Np" = (
@@ -1158,6 +1164,7 @@
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma/ten,
 /obj/item/stack/sheet/mineral/plasma/ten,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "PR" = (
@@ -1322,6 +1329,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/rtg/advanced,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "Vd" = (
