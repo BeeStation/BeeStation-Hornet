@@ -2103,7 +2103,7 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 	if(COOLDOWN_FINISHED(src, nextcombatpopup))
 		COOLDOWN_START(src, nextcombatpopup, combat_notice_cooldown)
 		playsound(src, 'sound/machines/chime.ogg', vol = 5, vary = FALSE, extrarange = -6, falloff_exponent = 4, frequency = null, channel = 0, pressure_affected = FALSE, ignore_walls = FALSE, falloff_distance = 1)
-		flick_emote_popup_on_mob("combat", 2)
+		flick_emote_popup_on_mob("combat", 1 SECONDS)
 		var/ciweapon
 		if(get_active_held_item())
 			ciweapon = get_active_held_item()
