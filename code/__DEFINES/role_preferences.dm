@@ -16,6 +16,7 @@
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
 #define ROLE_TRAITOR			"Traitor"
+#define ROLE_SCAMP				"Scamp"
 #define ROLE_OPERATIVE			"Nuclear Operative"
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
@@ -56,6 +57,7 @@
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_TRAITOR,
+	ROLE_SCAMP,
 	ROLE_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
