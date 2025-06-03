@@ -68,7 +68,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
  */
 /obj/item/organ/proc/Insert(mob/living/carbon/receiver, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
-	
+
 	if(!iscarbon(receiver) || owner == receiver)
 		return FALSE
 
@@ -102,7 +102,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	for(var/trait in organ_traits)
 		ADD_TRAIT(organ_owner, trait, REF(src))
-		message_admins("[key_name(organ_owner)] has gained organ [src] ([slot]) and trait [trait] added.")
+		//message_admins("[key_name(organ_owner)] has gained organ [src] ([slot]) and trait [trait] added.")
 
 	for(var/datum/action/action as anything in actions)
 		action.Grant(organ_owner)
@@ -117,7 +117,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
-	
+
 	owner = null
 	if(organ_owner)
 		organ_owner.internal_organs -= src
@@ -143,7 +143,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	for(var/trait in organ_traits)
 		REMOVE_TRAIT(organ_owner, trait, REF(src))
-		message_admins("[key_name(organ_owner)] has lost organ [src] ([slot]) and trait [trait] removed.")
+		//message_admins("[key_name(organ_owner)] has lost organ [src] ([slot]) and trait [trait] removed.")
 
 	for(var/datum/action/action as anything in actions)
 		action.Remove(organ_owner)
