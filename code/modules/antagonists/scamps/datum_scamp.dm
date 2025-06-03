@@ -42,20 +42,12 @@
 
 	to_chat(owner.current, examine_block(msg.Join("\n")))
 
-/datum/antagonist/scamp/proc/update_scamp_icons_added(datum/mind/scamp_mind)
-	var/datum/atom_hud/antag/scamphud = GLOB.huds[ANTAG_HUD_SCAMP]
-	scamphud.join_hud(owner.current)
-	set_antag_hud(owner.current, "scamp")
-
-/datum/antagonist/scamp/proc/update_scamp_icons_removed(datum/mind/scamp_mind)
-	var/datum/atom_hud/antag/scamphud = GLOB.huds[ANTAG_HUD_SCAMP]
-	scamphud.leave_hud(owner.current)
-	set_antag_hud(owner.current, null)
-
 /datum/antagonist/scamp/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_scamp_icons_added(M)
+	. = ..()
+	var/mob/datum_owner = mob_override || owner.current
+	add_antag_hud(ANTAG_HUD_TRAITOR, "traitor", datum_owner)
 
 /datum/antagonist/scamp/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_scamp_icons_removed(M)
+	. = ..()
+	var/mob/datum_owner = mob_override || owner.current
+	remove_antag_hud(ANTAG_HUD_TRAITOR, datum_owner)
