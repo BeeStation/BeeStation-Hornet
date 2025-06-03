@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - balance: syndicate turrets shoot cyborgs by default now
