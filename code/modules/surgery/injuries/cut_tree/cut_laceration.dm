@@ -1,4 +1,6 @@
 /datum/injury/cut_laceration
+	effectiveness_modifier = 0.8
+	skin_armour_modifier = 0.6
 
 /datum/injury/cut_laceration/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()
