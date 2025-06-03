@@ -9,7 +9,7 @@
 
 //Flandstation Dedicated Random Room
 
-	/datum/map_template/random_room/sk_rdm_fln_01
+/datum/map_template/random_room/sk_rdm_fln_01
 	name = "Scooter Rental Park"
 	room_id = "sk_rdm_fln_01_scooterpark"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_01_scooterpark.dmm"

@@ -477,7 +477,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/item in subtypesof(/datum/map_template/random_room))
 		var/datum/map_template/random_room/room_type = item
 		if(!(initial(room_type.mappath)))
-			log_world("Skipping [room_type] due to missing mappath.")
+			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
 			continue
 		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R

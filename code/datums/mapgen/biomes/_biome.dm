@@ -103,7 +103,6 @@
 		flora.pixel_x += rand(-flora_x_offset, flora_x_offset)
 		flora.pixel_y += rand(-flora_y_offset, flora_y_offset)
 
-
 //jungle
 /datum/biome/mudlands
 	turf_type = /turf/open/floor/plating/dirt/jungle/dark

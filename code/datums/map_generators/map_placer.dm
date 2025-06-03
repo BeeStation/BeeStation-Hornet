@@ -284,7 +284,7 @@
 
 	run_stage++
 
-	// Check if we are still in range
+	//Check if we are still in range
 	if (run_stage > cached_model_keys.len)
 		// Out of range, cache building is completed
 		set_stage(GENERATE_STAGE_BUILD_COORDINATES_START)
