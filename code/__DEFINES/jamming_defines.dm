@@ -1,6 +1,7 @@
 
 //Radio jammer levels
 //They will jam any signals that have the same or lower protection value
+#define RADIO_JAMMER_NANITE_LEVEL 1
 #define RADIO_JAMMER_ABDUCTOR_LEVEL 1	//Power of the abductor radio jammer
 #define RADIO_JAMMER_TRAITOR_LEVEL 3	//Power of the traitor radio jammer
 

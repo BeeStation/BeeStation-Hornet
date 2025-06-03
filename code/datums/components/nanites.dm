@@ -2,15 +2,29 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
 	var/mob/living/host_mob
-	var/nanite_volume = 100		//amount of nanites in the system, used as fuel for nanite programs
-	var/max_nanites = 500		//maximum amount of nanites in the system
-	var/regen_rate = 0.5		//nanites generated per second
-	var/safety_threshold = 50	//how low nanites will get before they stop processing/triggering
-	var/cloud_id = 0 			//0 if not connected to the cloud, 1-100 to set a determined cloud backup to draw from
-	var/cloud_active = TRUE		//if false, won't sync to the cloud
+	/// The amount of nanites in the system
+	var/nanite_volume = 0
+	/// How many nanites we generate per second, up to the nutrition rate
+	var/regen_rate = 1
+	/// Multiplier to cooldowns
+	var/cooldown_multiplier = 1
+	/// How much nanite consumption applies to nutrition (at 20%, 5 nanites consumed = 1 nutrition consumed)
+	var/nutrition_rate = 0.2
+	/// The amount of nanites we produce relative to the mobs hunger level
+	var/max_production_ratio = 1
+	/// At what point will nanites be unable to trigger.
+	var/safety_threshold = 50
+	/// 0 if not connected to the cloud, 1-100 to set a determined cloud backup to draw from
+	var/cloud_id = 0
+	/// if false, won't sync to the cloud
+	var/cloud_active = TRUE
 	var/list/datum/nanite_program/programs = list()
 	var/max_programs = NANITE_PROGRAM_LIMIT
+	/// For tracking
+	var/current_delta_nanites = 0
+	var/last_delta_nanites = 0
 	COOLDOWN_DECLARE(next_sync)
+	COOLDOWN_DECLARE(emp_disabled)
 
 	var/list/datum/nanite_program/protocol/protocols = list() /// Separate list of protocol programs, to avoid looping through the whole programs list when cheking for conflicts
 	var/start_time = 0 ///Timestamp to when the nanites were first inserted in the host
@@ -47,7 +61,6 @@
 	RegisterSignal(parent, COMSIG_NANITE_GET_PROGRAMS, PROC_REF(get_programs))
 	RegisterSignal(parent, COMSIG_NANITE_SET_VOLUME, PROC_REF(set_volume))
 	RegisterSignal(parent, COMSIG_NANITE_ADJUST_VOLUME, PROC_REF(adjust_nanites))
-	RegisterSignal(parent, COMSIG_NANITE_SET_MAX_VOLUME, PROC_REF(set_max_volume))
 	RegisterSignal(parent, COMSIG_NANITE_SET_CLOUD, PROC_REF(set_cloud))
 	RegisterSignal(parent, COMSIG_NANITE_SET_CLOUD_SYNC, PROC_REF(set_cloud_sync))
 	RegisterSignal(parent, COMSIG_NANITE_SET_SAFETY, PROC_REF(set_safety))
@@ -61,7 +74,6 @@
 		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
 		RegisterSignal(parent, COMSIG_MOB_TRIED_ACCESS, PROC_REF(check_access))
 		RegisterSignal(parent, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_shock))
-		RegisterSignal(parent, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(on_minor_shock))
 		RegisterSignal(parent, COMSIG_SPECIES_GAIN, PROC_REF(check_viable_biotype))
 		RegisterSignal(parent, COMSIG_NANITE_SIGNAL, PROC_REF(receive_signal))
 		RegisterSignal(parent, COMSIG_NANITE_COMM_SIGNAL, PROC_REF(receive_comm_signal))
@@ -74,7 +86,6 @@
 								COMSIG_NANITE_GET_PROGRAMS,
 								COMSIG_NANITE_SET_VOLUME,
 								COMSIG_NANITE_ADJUST_VOLUME,
-								COMSIG_NANITE_SET_MAX_VOLUME,
 								COMSIG_NANITE_SET_CLOUD,
 								COMSIG_NANITE_SET_CLOUD_SYNC,
 								COMSIG_NANITE_SET_SAFETY,
@@ -108,9 +119,18 @@
 		adjust_nanites(amount = amount) //just add to the nanite volume
 
 /datum/component/nanites/process(delta_time)
+	current_delta_nanites = last_delta_nanites
+	last_delta_nanites = 0
 	if(!IS_IN_STASIS(host_mob))
-		adjust_nanites(amount = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
-		add_research()
+		var/nanites_gained = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time
+		// Cannot gain more nanites than we have nutrition
+		nanites_gained = min(nanites_gained, (host_mob.nutrition * max_production_ratio) - nanite_volume)
+		// Gain nanites
+		if (host_mob.nutrition >= 100)
+			adjust_nanites(amount = nanites_gained)
+			// Consume hunger
+			host_mob.adjust_nutrition(-nanites_gained * nutrition_rate * 0.5)
+			add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
 		if(cloud_id && cloud_active && COOLDOWN_FINISHED(src, next_sync))
@@ -187,62 +207,8 @@
 /// Modifies the current nanite volume, then checks if the nanites are depleted or exceeding the maximum amount
 /datum/component/nanites/proc/adjust_nanites(datum/source, amount)
 	SIGNAL_HANDLER
-
-	nanite_volume += amount
-	if(nanite_volume > max_nanites)
-		reject_excess_nanites()
-	if(nanite_volume <= 0) //oops we ran out
-		qdel(src)
-
-/**
- * Handles how nanites leave the host's body if they find out that they're currently exceeding the maximum supported amount
- *
- * IC explanation:
- * Normally nanites simply discard excess volume by slowing replication or 'sweating' it out in imperceptible amounts,
- * but if there is a large excess volume, likely due to a programming change that leaves them unable to support their current volume,
- * the nanites attempt to leave the host as fast as necessary to prevent nanite poisoning. This can range from minor oozing to nanites
- * rapidly bursting out from every possible pathway, causing temporary inconvenience to the host.
- */
-/datum/component/nanites/proc/reject_excess_nanites()
-	var/excess = nanite_volume - max_nanites
-	nanite_volume = max_nanites
-
-	switch(excess)
-		if(0 to NANITE_EXCESS_MINOR) //Minor excess amount, the extra nanites are quietly expelled without visible effects
-			return
-		if((NANITE_EXCESS_MINOR + 0.1) to NANITE_EXCESS_VOMIT) //Enough nanites getting rejected at once to be visible to the naked eye
-			host_mob.visible_message(span_warning("A grainy grey slurry starts oozing out of [host_mob]."), span_warning("A grainy grey slurry starts oozing out of your skin."), vision_distance = 4);
-		if((NANITE_EXCESS_VOMIT + 0.1) to NANITE_EXCESS_BURST) //Nanites getting rejected in massive amounts, but still enough to make a semi-orderly exit through vomit
-			if(iscarbon(host_mob))
-				var/mob/living/carbon/C = host_mob
-				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"));
-				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE)
-			else
-				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"));
-				if(isturf(host_mob.drop_location()))
-					var/turf/T = host_mob.drop_location()
-					T.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
-		if((NANITE_EXCESS_BURST + 0.1) to INFINITY) //Way too many nanites, they just leave through the closest exit before they harm/poison the host
-			host_mob.visible_message(span_warning("A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!"),
-								span_userdanger("A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!"));
-
-			host_mob.adjust_blindness(15) //nanites coming out of your eyes
-			host_mob.Paralyze(12 SECONDS)
-			if(iscarbon(host_mob))
-				var/mob/living/carbon/C = host_mob
-				var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-				if(ears)
-					ears.adjustEarDamage(0, 30) //nanites coming out of your ears
-				C.vomit(0, FALSE, TRUE, 2, FALSE, VOMIT_NANITE, FALSE) //nanites coming out of your mouth
-
-			//nanites everywhere
-			if(isturf(host_mob.drop_location()))
-				var/turf/T = host_mob.drop_location()
-				T.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
-				for(var/turf/adjacent_turf in oview(host_mob, 1))
-					if(adjacent_turf.density || !adjacent_turf.Adjacent(T))
-						continue
-					adjacent_turf.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
+	nanite_volume = min(nanite_volume + amount, host_mob.nutrition * max_production_ratio)
+	last_delta_nanites += amount
 
 /// Updates the nanite volume bar visible in diagnostic HUDs
 /datum/component/nanites/proc/set_nanite_bar(remove = FALSE)
@@ -252,17 +218,18 @@
 	holder.icon_state = null
 	if(remove || stealth)
 		return //bye icon
-	var/nanite_percent = (nanite_volume / max_nanites) * 100
+	var/nanite_percent = (nanite_volume / NUTRITION_LEVEL_FULL) * 100
 	nanite_percent = clamp(CEILING(nanite_percent, 10), 10, 100)
 	holder.icon_state = "nanites[nanite_percent]"
 
 /datum/component/nanites/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER
 
-	nanite_volume *= (rand(60, 90) * 0.01)		//Lose 10-40% of nanites
-	adjust_nanites(amount = -(rand(5, 50)))		//Lose 5-50 flat nanite volume
-	if(prob(40/severity))
-		cloud_id = 0
+	// Lose some nanites
+	adjust_nanites(amount = -(rand(50, 200)))
+	// Freeze the nanites for this amount of time
+	COOLDOWN_START(src, emp_disabled, 60 SECONDS / severity)
+	// Run EMP effects
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
 		NP.on_emp(severity)
@@ -274,18 +241,8 @@
 	if(illusion || shock_damage < 1)
 		return
 
-	if(!HAS_TRAIT_NOT_FROM(host_mob, TRAIT_SHOCKIMMUNE, "nanites"))//Another shock protection must protect nanites too, but nanites protect only host
-		nanite_volume *= (rand(45, 80) * 0.01)		//Lose 20-55% of nanites
-		adjust_nanites(amount = -(rand(5, 50)))			//Lose 5-50 flat nanite volume
-		for(var/datum/nanite_program/program as anything in programs)
-			program.on_shock(shock_damage)
-
-/datum/component/nanites/proc/on_minor_shock(datum/source)
-	SIGNAL_HANDLER
-
-	adjust_nanites(amount = -(rand(5, 15)))			//Lose 5-15 flat nanite volume
-	for(var/datum/nanite_program/program as anything in programs)
-		program.on_minor_shock()
+	if(!HAS_TRAIT_NOT_FROM(host_mob, TRAIT_SHOCKIMMUNE, "nanites"))
+		adjust_nanites(amount = -(rand(50, 200)))			// Lose 50 - 200 nanites
 
 /datum/component/nanites/proc/check_stealth(datum/source)
 	SIGNAL_HANDLER
@@ -329,12 +286,7 @@
 /datum/component/nanites/proc/set_volume(datum/source, amount)
 	SIGNAL_HANDLER
 
-	nanite_volume = clamp(amount, 0, max_nanites)
-
-/datum/component/nanites/proc/set_max_volume(datum/source, amount)
-	SIGNAL_HANDLER
-
-	max_nanites = max(1, amount)
+	nanite_volume = clamp(amount, 0, host_mob.nutrition * max_production_ratio)
 
 /datum/component/nanites/proc/set_cloud(datum/source, amount)
 	SIGNAL_HANDLER
@@ -355,7 +307,7 @@
 /datum/component/nanites/proc/set_safety(datum/source, amount)
 	SIGNAL_HANDLER
 
-	safety_threshold = clamp(amount, 0, max_nanites)
+	safety_threshold = clamp(amount, 0, NUTRITION_LEVEL_FULL)
 
 /datum/component/nanites/proc/set_regen(datum/source, amount)
 	SIGNAL_HANDLER
@@ -369,7 +321,7 @@
 
 /datum/component/nanites/proc/get_data(list/nanite_data)
 	nanite_data["nanite_volume"] = nanite_volume
-	nanite_data["max_nanites"] = max_nanites
+	nanite_data["max_nanites"] = NUTRITION_LEVEL_FULL
 	nanite_data["cloud_id"] = cloud_id
 	nanite_data["regen_rate"] = regen_rate
 	nanite_data["safety_threshold"] = safety_threshold
@@ -402,11 +354,11 @@
 		. = TRUE
 		if(!stealth)
 			message += span_infobold("Nanites Detected")
-			message += span_info("Saturation: [nanite_volume]/[max_nanites]")
+			message += span_info("Saturation: [nanite_volume]/[host_mob.nutrition]")
 	else
 		message += span_infobold("Nanites Detected")
 		message += span_info("================")
-		message += span_info("Saturation: [nanite_volume]/[max_nanites]")
+		message += span_info("Saturation: [nanite_volume]/[host_mob.nutrition] ([current_delta_nanites >= 0 ? "+[current_delta_nanites]" : current_delta_nanites]/s)")
 		message += span_info("Safety Threshold: [safety_threshold]")
 		message += span_info("Cloud ID: [cloud_id ? cloud_id : "None"]")
 		message += span_info("Cloud Sync: [cloud_active ? "Active" : "Disabled"]")
@@ -416,7 +368,11 @@
 			message += span_alert("Diagnostics Disabled")
 		else
 			for(var/datum/nanite_program/program as anything in programs)
-				message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active") : span_red("Inactive")]")
+				if (program.next_trigger > world.time)
+					var/cooldown = "(Cooldown: [DisplayTimeText((program.next_trigger - world.time) * cooldown_multiplier)])"
+					message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active [cooldown]") : span_red("Inactive [cooldown]")]")
+				else
+					message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active") : span_red("Inactive")]")
 				for(var/datum/nanite_rule/rule as anything in program.rules)
 					message += "<span class='[rule.check_rule() ? "green" : "red"]'>[GLOB.TAB][rule.display()]</span>"
 		. = TRUE
@@ -446,11 +402,11 @@
 			mob_program["can_trigger"] = program.can_trigger
 			mob_program["trigger_cost"] = program.trigger_cost
 			mob_program["trigger_cooldown"] = program.trigger_cooldown / 10
+			mob_program["maximum_duration"] = program.maximum_duration / 10
 
 		if(scan_level >= 3)
 			mob_program["timer_restart"] = program.timer_restart / 10
 			mob_program["timer_shutdown"] = program.timer_shutdown / 10
-			mob_program["timer_trigger"] = program.timer_trigger / 10
 			mob_program["timer_trigger_delay"] = program.timer_trigger_delay / 10
 			var/list/extra_settings = program.get_extra_settings_frontend()
 			mob_program["extra_settings"] = extra_settings

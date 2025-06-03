@@ -77,7 +77,7 @@
 		tick()
 		tick_interval = world.time + initial(tick_interval)
 		needs_update = TRUE
-	if (needs_update)
+	if (needs_update && owner)
 		update_icon()
 	if(duration != -1 && duration < world.time)
 		qdel(src)
