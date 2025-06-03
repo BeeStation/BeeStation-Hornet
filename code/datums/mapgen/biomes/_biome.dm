@@ -80,13 +80,15 @@
 /datum/biome/proc/get_current_season()
 	var/month = text2num(time2text(world.timeofday, "MM"))
 
-	if (month in list(DECEMBER, JANUARY, FEBRUARY))
-		return "WINTER"
-	//if (month in list(MARCH, APRIL, MAY))
-	//	return "SPRING"
-	//if (month in list(SEPTEMBER, OCTOBER, NOVEMBER))
-	//	return "AUTUMN"
-	return "SUMMER" // Default
+	switch(month)
+		if (DECEMBER, JANUARY, FEBRUARY)
+			return "WINTER"
+		// if (MARCH, APRIL, MAY)
+		//     return "SPRING"
+		// if (SEPTEMBER, OCTOBER, NOVEMBER)
+		//     return "AUTUMN"
+		else
+			return "SUMMER" // Default
 
 ///This proc handles the creation of a turf of a specific biome type
 /datum/biome/proc/generate_turf(var/turf/gen_turf)

@@ -91,12 +91,14 @@ SUBSYSTEM_DEF(mapping)
 		map_adjustment.on_mapping_init()
 		log_world("Applied '[map_adjustment.map_file_name]' map adjustment: on_mapping_init()")
 
+	if(config.map_file == "EchoStation.dmm")
+		echo_surface_templates() //Echo seasonal surface stuff
+
 	initialize_biomes()
 	loadWorld()
 	require_area_resort()
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	preloadTemplates()
-	echo_surface_templates()
 
 #ifndef LOWMEMORYMODE
 	// Create space ruin levels
