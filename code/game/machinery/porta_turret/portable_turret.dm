@@ -450,17 +450,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 				if(ispAI(A))
 					continue
 
-				if(target_cyborgs && sillycone.stat != DEAD && iscyborg(sillycone))
-					targets += sillycone
-					continue
-
-				if(sillycone.stat || in_faction(sillycone))
+				if(sillycone.stat == DEAD || in_faction(sillycone))
 					continue
 
 				if(iscyborg(sillycone))
 					var/mob/living/silicon/robot/sillyconerobot = A
 					if((FACTION_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
 						continue
+
+				if(target_cyborgs && iscyborg(sillycone))
+					targets += sillycone
+					continue
 
 			else if(iscarbon(A))
 				var/mob/living/carbon/C = A
@@ -718,6 +718,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	base_icon_state = "syndie"
 	faction = list(FACTION_SYNDICATE)
 	desc = "A ballistic machine gun auto-turret."
+	target_cyborgs = TRUE
 
 /obj/machinery/porta_turret/syndicate/ComponentInitialize()
 	. = ..()
