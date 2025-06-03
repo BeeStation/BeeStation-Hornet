@@ -475,13 +475,23 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
-		var/datum/map_template/random_room/room_type = item
-		if(!(initial(room_type.mappath)))
-			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
+		var/datum/map_template/random_room/R = new item()
+		if(!R.mappath || R.mappath == null)
+			world.log << "Skipping template type: [item] (no mappath)"
+			qdel(R)
 			continue
-		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R
 		map_templates[R.room_id] = R
+
+/datum/map_template/random_room
+	var/room_id //The SSmapping random_room_template list is ordered by this var
+	var/spawned //Whether this template (on the random_room template list) has been spawned
+	var/centerspawner = TRUE
+	var/template_height = 0
+	var/template_width = 0
+	var/weight = 10 //weight a room has to appear
+	var/stock = 1 //how many times this room can appear in a round
+	mappath = null
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename
