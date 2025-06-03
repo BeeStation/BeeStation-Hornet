@@ -11,6 +11,13 @@
 /mob/living/carbon/alien/is_shove_knockdown_blocked()
 	return TRUE
 
+/mob/living/carbon/alien/disarm_aftereffect(mob/living/carbon/target)
+	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(src.get_combat_bodyzone(target)))
+	if(!affecting)
+		affecting = target.get_bodypart(BODY_ZONE_CHEST)
+	var/armor_block = target.run_armor_check(affecting, MELEE,"","",10)
+	target.apply_damage(30, STAMINA, affecting, armor_block)
+
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
 In all, this is a lot like the monkey code. /N
