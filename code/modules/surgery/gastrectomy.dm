@@ -13,7 +13,7 @@
 		/datum/surgery_step/close
 		)
 
-/datum/surgery/gastrectomy/can_start(mob/user, mob/living/carbon/target, target_zone)
+/datum/surgery/gastrectomy/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/stomach/L = target.getorganslot(ORGAN_SLOT_STOMACH)
 	if(L?.damage > 50 && !(L.organ_flags & ORGAN_FAILING))
 		return TRUE
@@ -26,7 +26,7 @@
 		/obj/item/shard = 35)
 	time = 52
 
-/datum/surgery_step/gastrectomy/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/gastrectomy/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to cut out a damaged piece of [target]'s stomach..."),
 		span_notice("[user] begins to make an incision in [target]."),
 		span_notice("[user] begins to make an incision in [target]."))

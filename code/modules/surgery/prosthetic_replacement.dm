@@ -1,19 +1,25 @@
 /datum/surgery/prosthetic_replacement
 	name = "prosthetic replacement"
-	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/add_prosthetic)
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/clamp_bleeders,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/add_prosthetic
+	)
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
 	requires_bodypart = FALSE //need a missing limb
 	requires_bodypart_type = 0
 	self_operable = TRUE
 
-/datum/surgery/prosthetic_replacement/can_start(mob/user, mob/living/carbon/target, target_zone)
+/datum/surgery/prosthetic_replacement/can_start(mob/user, mob/living/carbon/target)
 	if(!iscarbon(target))
-		return 0
+		return FALSE
 	var/mob/living/carbon/C = target
 	if(!isoozeling(target))
-		if(!C.get_bodypart(target_zone)) //can only start if limb is missing
-			return 1
+		if(!C.get_bodypart(user.get_combat_bodyzone(src))) //can only start if limb is missing
+			return TRUE
+	return FALSE
 
 
 /datum/surgery_step/add_prosthetic
@@ -22,7 +28,7 @@
 	time = 32
 	var/organ_rejection_dam = 0
 
-/datum/surgery_step/add_prosthetic/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/add_prosthetic/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/organ_storage))
 		if(!tool.contents.len)
 			to_chat(user, span_notice("There is nothing inside [tool]!"))
@@ -68,7 +74,7 @@
 		to_chat(user, span_warning("[tool] must be installed onto an arm."))
 		return -1
 
-/datum/surgery_step/add_prosthetic/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/add_prosthetic/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/organ_storage))
 		tool.icon_state = initial(tool.icon_state)
 		tool.desc = initial(tool.desc)

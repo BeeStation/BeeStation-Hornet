@@ -81,7 +81,7 @@
 	..()
 	implements = implements + implements_extract
 
-/datum/surgery_step/manipulate_organs/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/manipulate_organs/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	I = null
 	if(istype(tool, /obj/item/organ_storage))
 		if(!tool.contents.len)

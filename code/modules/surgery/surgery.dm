@@ -43,7 +43,7 @@
 	return ..()
 
 
-/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target, target_zone) //FALSE to not show in list
+/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE
@@ -145,7 +145,7 @@
 	name = "advanced surgery"
 	requires_tech = TRUE
 
-/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target, target_zone)
+/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target)
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions

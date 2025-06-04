@@ -9,7 +9,7 @@
 	implements = list(/obj/item/reagent_containers/pill = 100)
 	time = 16
 
-/datum/surgery_step/insert_pill/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/insert_pill/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to wedge [tool] in [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to wedge \the [tool] in [target]'s [parse_zone(surgery.location)].",
 			"[user] begins to wedge something in [target]'s [parse_zone(surgery.location)].")

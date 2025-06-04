@@ -11,7 +11,7 @@
 	var/obj/item/bodypart/L = null // L because "limb"
 
 
-/datum/surgery_step/replace_limb/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/replace_limb/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/organ_storage) && istype(tool.contents[1], /obj/item/bodypart))
 		tool = tool.contents[1]
 	var/obj/item/bodypart/aug = tool
@@ -46,7 +46,7 @@
 
 
 
-/datum/surgery/augmentation/can_start(mob/user, mob/living/carbon/target, target_zone)
+/datum/surgery/augmentation/can_start(mob/user, mob/living/carbon/target)
 	return ..() && !isoozeling(target)
 
 //SURGERY STEP SUCCESSES

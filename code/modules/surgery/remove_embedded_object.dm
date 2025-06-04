@@ -12,7 +12,7 @@
 	var/obj/item/bodypart/L = null
 
 
-/datum/surgery_step/remove_object/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/remove_object/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.operated_bodypart
 	if(L)
 		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(surgery.location)].", span_notice("You look for objects embedded in [target]'s [parse_zone(surgery.location)]..."))
@@ -23,7 +23,7 @@
 		user.visible_message("[user] looks for [target]'s [parse_zone(surgery.location)].", span_notice("You look for [target]'s [parse_zone(surgery.location)]..."))
 
 
-/datum/surgery_step/remove_object/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/remove_object/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(L)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target

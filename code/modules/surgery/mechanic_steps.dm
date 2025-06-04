@@ -10,7 +10,7 @@
 	preop_sound = 'sound/items/screwdriver.ogg'
 	success_sound = 'sound/items/screwdriver2.ogg'
 
-/datum/surgery_step/mechanic_open/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/mechanic_open/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to unscrew the shell of [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to unscrew the shell of [target]'s [parse_zone(surgery.location)].",
 			"[user] begins to unscrew the shell of [target]'s [parse_zone(surgery.location)].")
@@ -35,7 +35,7 @@
 	preop_sound = 'sound/items/screwdriver.ogg'
 	success_sound = 'sound/items/screwdriver2.ogg'
 
-/datum/surgery_step/mechanic_close/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/mechanic_close/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to screw the shell of [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to screw the shell of [target]'s [parse_zone(surgery.location)].",
 			"[user] begins to screw the shell of [target]'s [parse_zone(surgery.location)].")
@@ -62,7 +62,7 @@
 	preop_sound = 'sound/surgery/tape_flip.ogg'
 	success_sound = 'sound/surgery/taperecorder_close.ogg'
 
-/datum/surgery_step/prepare_electronics/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/prepare_electronics/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to prepare electronics in [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to prepare electronics in [target]'s [parse_zone(surgery.location)].",
 			"[user] begins to prepare electronics in [target]'s [parse_zone(surgery.location)].")
@@ -76,7 +76,7 @@
 	time = 24
 	preop_sound = 'sound/items/ratchet.ogg'
 
-/datum/surgery_step/mechanic_unwrench/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/mechanic_unwrench/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to unwrench some bolts in [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to unwrench some bolts in [target]'s [parse_zone(surgery.location)].",
 			"[user] begins to unwrench some bolts in [target]'s [parse_zone(surgery.location)].")
@@ -90,7 +90,7 @@
 	time = 24
 	preop_sound = 'sound/items/ratchet.ogg'
 
-/datum/surgery_step/mechanic_wrench/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/mechanic_wrench/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to wrench some bolts in [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to wrench some bolts in [target]'s [parse_zone(surgery.location)].",
 			"[user] begins to wrench some bolts in [target]'s [parse_zone(surgery.location)].")
@@ -103,7 +103,7 @@
 	preop_sound = 'sound/items/ratchet.ogg'
 	preop_sound = 'sound/machines/doorclick.ogg'
 
-/datum/surgery_step/open_hatch/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/open_hatch/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to open the hatch holders in [target]'s [parse_zone(surgery.location)]..."),
 		"[user] begins to open the hatch holders in [target]'s [parse_zone(surgery.location)].",
 		"[user] begins to open the hatch holders in [target]'s [parse_zone(surgery.location)].")

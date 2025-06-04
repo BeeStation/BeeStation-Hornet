@@ -12,7 +12,7 @@
 	var/obj/item/implant/I = null
 	success_sound = 'sound/surgery/hemostat1.ogg'
 
-/datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/O in target.implants)
 		I = O
 		break
@@ -29,7 +29,7 @@
 		//Doesn't matter if they finish or not, defaults to this if there are no implants
 		log_combat(user, target, "implant checked")
 
-/datum/surgery_step/extract_implant/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_implant/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(I)
 		display_results(user, target, span_notice("You successfully remove [I] from [target]'s [surgery.location]."),
 			"[user] successfully removes [I] from [target]'s [surgery.location]!",
