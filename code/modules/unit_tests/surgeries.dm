@@ -61,6 +61,9 @@
 	var/mob/living/carbon/human/patient_one = allocate(/mob/living/carbon/human/consistent)
 
 	var/obj/item/scalpel/scalpel = allocate(/obj/item/scalpel)
+	user.put_in_hands(scalpel)
+
+	patient_zero.set_lying_down()
 
 	var/datum/surgery_step/incise/surgery_step = new
 	var/datum/surgery/organ_manipulation/surgery_for_zero = new
