@@ -16,9 +16,8 @@
 	if(!iscarbon(target))
 		return FALSE
 	var/mob/living/carbon/C = target
-	if(!isoozeling(target))
-		if(!C.get_bodypart(user.get_combat_bodyzone(src))) //can only start if limb is missing
-			return TRUE
+	if(!C.get_bodypart(user.get_combat_bodyzone(src))) //can only start if limb is missing
+		return TRUE
 	return FALSE
 
 

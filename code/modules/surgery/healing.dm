@@ -1,12 +1,14 @@
 /datum/surgery/healing
-	steps = list(/datum/surgery_step/incise,
-				/datum/surgery_step/retract_skin,
-				/datum/surgery_step/incise,
-				/datum/surgery_step/clamp_bleeders,
-				/datum/surgery_step/heal,
-				/datum/surgery_step/close)
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/incise,
+		/datum/surgery_step/clamp_bleeders,
+		/datum/surgery_step/heal,
+		/datum/surgery_step/close
+	)
 
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	target_mobtypes = list(/mob/living/carbon)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_bodypart_type = FALSE
 	replaced_by = /datum/surgery
@@ -127,6 +129,7 @@
 
 	var/estimated_remaining_steps = target.getBruteLoss() / brute_healed
 	var/progress_text
+
 	if(locate(/obj/item/healthanalyzer) in user.held_items)
 		progress_text = ". Remaining brute: <font color='#ff3333'>[target.getBruteLoss()]</font>"
 	else

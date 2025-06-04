@@ -55,7 +55,7 @@
 			return TRUE
 	//Grants the user innate access to all surgeries
 
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
+	if(HAS_TRAIT(user?.mind, TRAIT_ABDUCTOR_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else if(!abductor_surgery_blacklist)

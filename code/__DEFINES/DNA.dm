@@ -75,6 +75,8 @@
 #define NOMOUTH			20
 #define NOSOCKS       21 // You cannot wear socks.
 #define ENVIROSUIT		22 //! spawns with an envirosuit
+//No augments
+#define NOAUGMENTS 23
 
 /// Used for determining which wounds are applicable to this species.
 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)

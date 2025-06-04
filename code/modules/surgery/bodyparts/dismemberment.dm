@@ -315,6 +315,7 @@
 
 
 /obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE, abort = FALSE)
+	var/real_name = src.real_name
 
 	. = ..()
 	if(!.)
@@ -336,6 +337,10 @@
 	if(eyes)
 		eyes = null
 
+	if(real_name)
+		new_head_owner.real_name = real_name
+	real_name = ""
+
 	if(!special && ishuman(new_head_owner))
 		var/mob/living/carbon/human/H = new_head_owner
 		H.hair_color = hair_color
@@ -344,10 +349,6 @@
 		H.facial_hair_style = facial_hair_style
 		H.lip_style = lip_style
 		H.lip_color = lip_color
-	if(real_name)
-		new_head_owner.real_name = real_name
-	real_name = ""
-	name = initial(name)
 
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/P in src)
