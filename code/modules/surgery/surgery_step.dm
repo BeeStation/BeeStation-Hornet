@@ -152,9 +152,10 @@
 
 /datum/surgery_step/proc/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = TRUE)
 	//SEND_SIGNAL(user, COMSIG_MOB_SURGERY_STEP_SUCCESS, src, target, target_zone, tool, surgery, default_display_results)
-	display_results(user, target, span_notice("You succeed."),
-		span_notice("[user] succeeds."),
-		span_notice("[user] finishes."))
+	if(default_display_results)
+		display_results(user, target, span_notice("You succeed."),
+			span_notice("[user] succeeds."),
+			span_notice("[user] finishes."))
 	return TRUE
 
 /datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
