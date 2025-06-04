@@ -3,7 +3,7 @@
 	var/desc = "surgery description"
 	var/status = 1
 	var/list/steps = list()											//Steps in a surgery
-	var/step_in_progress = FALSE									//Actively performing a Surgery
+	var/step_in_progress = FALSE //Actively performing a Surgery
 	var/can_cancel = TRUE											//Can cancel this surgery after step 1 with cautery
 	var/list/target_mobtypes = list(/mob/living/carbon/human)		//Acceptable Species
 	var/location = BODY_ZONE_CHEST									//Surgery location
@@ -149,7 +149,7 @@
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
+	if(HAS_TRAIT(user, TRAIT_SURGEON) || (!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
 		return TRUE
 
 	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
@@ -174,9 +174,9 @@
 	var/turf/T = get_turf(target)
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
 	if(!table || !table.computer)
-		return FALSE
+		return .
 	if(table.computer.machine_stat & (NOPOWER|BROKEN))
-		return FALSE
+		return .
 	if(type in table.computer.advanced_surgeries)
 		return TRUE
 

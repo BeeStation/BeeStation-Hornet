@@ -82,17 +82,17 @@
 
 	return max(propability + sleepbonus - selfpenalty, 0.1)
 
-/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+/datum/surgery_step/proc/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1
 	var/fail_prob = 0//100 - fail_prob = success_prob
 	var/advance = FALSE
 
-	if(preop(user, target, tool, surgery) == -1)
+	if(preop(user, target, target_zone, tool, surgery) == -1)
 		surgery.step_in_progress = FALSE
 		return FALSE
 
-	play_preop_sound(user, target, tool, surgery) // Here because most steps overwrite preop
+	play_preop_sound(user, target, target_zone, tool, surgery) // Here because most steps overwrite preop
 
 	if(tool)
 		speed_mod = tool.toolspeed
@@ -100,9 +100,10 @@
 	var/implement_speed_mod = 1
 	if(implement_type)//this means it isn't a require hand or any item step.
 		implement_speed_mod = implements[implement_type] / 100.0
-	speed_mod /= (get_speed_modifier(user, target) * (1 + surgery.speed_modifier) * implement_speed_mod)
 
+	speed_mod /= (get_speed_modifier(user, target) * (1 + surgery.speed_modifier) * implement_speed_mod)
 	var/modded_time = time * speed_mod
+
 	fail_prob = min(max(0, modded_time - (time * 2)), 99)//if modded_time > time * 2, then fail_prob = modded_time - time*2. starts at 0, caps at 99
 	modded_time = min(modded_time, time * 2)//also if that, then cap modded_time at time*2
 
@@ -113,11 +114,11 @@
 
 		if((prob(100 - fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
 
-			if(success(user, target, tool, surgery))
-				play_success_sound(user, target, tool, surgery)
+			if(success(user, target, target_zone, tool, surgery))
+				play_success_sound(user, target, target_zone, tool, surgery)
 				advance = TRUE
-		else if(failure(user, target, tool, surgery, fail_prob))
-			play_failure_sound(user, target, tool, surgery)
+		else if(failure(user, target, target_zone, tool, surgery, fail_prob))
+			play_failure_sound(user, target, target_zone, tool, surgery)
 			advance = TRUE
 
 		if(advance && !repeatable)
@@ -128,12 +129,12 @@
 	surgery.step_in_progress = FALSE
 	return advance
 
-/datum/surgery_step/proc/preop(mob/user, mob/living/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/preop(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to perform surgery on [target]..."),
 		span_notice("[user] begins to perform surgery on [target]."),
 		span_notice("[user] begins to perform surgery on [target]."))
 
-/datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!preop_sound)
 		return
 	var/sound_file_use
@@ -146,18 +147,19 @@
 		sound_file_use = preop_sound
 	playsound(get_turf(target), sound_file_use, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
 
-/datum/surgery_step/proc/success(mob/user, mob/living/target, obj/item/tool, datum/surgery/surgery, default_display_results = TRUE)
+/datum/surgery_step/proc/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = TRUE)
+	//SEND_SIGNAL(user, COMSIG_MOB_SURGERY_STEP_SUCCESS, src, target, target_zone, tool, surgery, default_display_results)
 	display_results(user, target, span_notice("You succeed."),
 		span_notice("[user] succeeds."),
 		span_notice("[user] finishes."))
 	return TRUE
 
-/datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!success_sound)
 		return
 	playsound(get_turf(target), success_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
 
-/datum/surgery_step/proc/failure(mob/user, mob/living/target, obj/item/tool, datum/surgery/surgery, fail_prob = 0)
+/datum/surgery_step/proc/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, fail_prob = 0)
 	var/screwedmessage = ""
 	switch(fail_prob)
 		if(0 to 24)
@@ -172,7 +174,7 @@
 		span_notice("[user] finishes."), TRUE) //By default the patient will notice if the wrong thing has been cut
 	return FALSE
 
-/datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!failure_sound)
 		return
 	playsound(get_turf(target), failure_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
