@@ -376,11 +376,12 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, noheal, excluded_zones)
 
 /mob/living/carbon/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
+	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, excluded_zones)
 	var/list/zone_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	if(length(excluded_zones))
 		zone_list -= excluded_zones
 	for(var/limb_zone in zone_list)
-		. += regenerate_limb(limb_zone, noheal)
+		regenerate_limb(limb_zone)
 
 /mob/living/proc/regenerate_limb(limb_zone, noheal)
 	return
@@ -395,5 +396,6 @@
 			qdel(limb)
 			return FALSE
 		limb.update_limb(is_creating = TRUE)
+
 		update_body_parts()
 		return TRUE

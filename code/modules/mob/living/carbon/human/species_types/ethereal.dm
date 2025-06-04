@@ -22,18 +22,21 @@
 	hair_alpha = 140
 	swimming_component = /datum/component/swimming/ethereal
 
-	species_chest = /obj/item/bodypart/chest/ethereal
-	species_head = /obj/item/bodypart/head/ethereal
-	species_l_arm = /obj/item/bodypart/l_arm/ethereal
-	species_r_arm = /obj/item/bodypart/r_arm/ethereal
-	species_l_leg = /obj/item/bodypart/l_leg/ethereal
-	species_r_leg = /obj/item/bodypart/r_leg/ethereal
-
 	// Body temperature for ethereals is much higher then humans as they like hotter environments
 	bodytemp_normal = (BODYTEMP_NORMAL + 50)
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
 	// Cold temperatures hurt faster as it is harder to move with out the heat energy
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
+	inert_mutation = /datum/mutation/overload
+
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ethereal,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ethereal,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/ethereal,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ethereal,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/ethereal,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
+	)
 
 	var/current_color
 	//var/default_color
@@ -47,7 +50,6 @@
 	var/emageffect = FALSE
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
-	inert_mutation = /datum/mutation/overload
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
 /datum/species/ethereal/Destroy(force)

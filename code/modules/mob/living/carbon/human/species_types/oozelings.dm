@@ -21,12 +21,14 @@
 	swimming_component = /datum/component/swimming/dissolve
 	inert_mutation = /datum/mutation/acidooze
 
-	species_chest = /obj/item/bodypart/chest/oozeling
-	species_head = /obj/item/bodypart/head/oozeling
-	species_l_arm = /obj/item/bodypart/l_arm/oozeling
-	species_r_arm = /obj/item/bodypart/r_arm/oozeling
-	species_l_leg = /obj/item/bodypart/l_leg/oozeling
-	species_r_leg = /obj/item/bodypart/r_leg/oozeling
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/oozeling,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/oozeling,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/oozeling,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/oozeling,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/oozeling,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/oozeling
+	)
 
 /datum/species/oozeling/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.oozeling_first_names)]"

@@ -1,7 +1,7 @@
 /datum/species/lizard
 	// Reptilian humanoids with scaled skin and tails.
 	name = "\improper Lizardperson"
-	plural_form = "Lizardpeople"
+	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
 	default_color = "00FF00"
@@ -30,12 +30,14 @@
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT + 20) // This puts lizards 10 above lavaland max heat for ash lizards.
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 10)
 
-	species_chest = /obj/item/bodypart/chest/lizard
-	species_head = /obj/item/bodypart/head/lizard
-	species_l_arm = /obj/item/bodypart/l_arm/lizard
-	species_r_arm = /obj/item/bodypart/r_arm/lizard
-	species_l_leg = /obj/item/bodypart/l_leg/lizard
-	species_r_leg = /obj/item/bodypart/r_leg/lizard
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/lizard,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/lizard,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/lizard,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/lizard,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/lizard,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/lizard,
+	)
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
 /datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)

@@ -20,12 +20,14 @@
 	mutanttongue = /obj/item/organ/tongue/snail
 	exotic_blood = /datum/reagent/lube
 
-	species_chest = /obj/item/bodypart/chest/snail
-	species_head = /obj/item/bodypart/head/snail
-	species_l_arm = /obj/item/bodypart/l_arm/snail
-	species_r_arm = /obj/item/bodypart/r_arm/snail
-	species_l_leg = /obj/item/bodypart/l_leg/snail
-	species_r_leg = /obj/item/bodypart/r_leg/snail
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/snail,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/snail,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/snail,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/snail,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/snail,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/snail
+	)
 
 /datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
