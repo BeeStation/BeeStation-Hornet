@@ -1781,14 +1781,12 @@
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
 "atW" = (
-/obj/effect/turf_decal/siding/dirt/corner{
-	dir = 8
-	},
 /obj/structure/flora/ausbushes/ywflowers{
 	pixel_x = 8;
 	pixel_y = 4
 	},
 /mob/living/simple_animal/chicken,
+/obj/effect/turf_decal/siding/dirt,
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
 "atX" = (
@@ -12462,14 +12460,6 @@
 "cxr" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/cargo)
-"cxB" = (
-/obj/effect/turf_decal/siding/dirt/corner,
-/obj/machinery/hydroponics/soil{
-	pixel_x = -22;
-	pixel_y = 14
-	},
-/turf/open/floor/grass/no_border,
-/area/hydroponics/garden)
 "cxC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -13034,6 +13024,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/storage/art)
+"cDX" = (
+/obj/effect/turf_decal/siding/dirt/corner,
+/obj/effect/turf_decal/siding/dirt/corner{
+	dir = 8
+	},
+/turf/open/floor/grass/no_border,
+/area/hydroponics/garden)
 "cDZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -24061,9 +24058,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet 5"
 	},
-/obj/effect/turf_decal/delivery/white{
-	color = "#88fa88"
-	},
+/obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
@@ -24972,9 +24967,7 @@
 /area/science/research)
 "fia" = (
 /obj/structure/closet/secure_closet/evidence,
-/obj/effect/turf_decal/delivery/white{
-	color = "#88fa88"
-	},
+/obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
@@ -33419,9 +33412,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet 5"
 	},
-/obj/effect/turf_decal/delivery/white{
-	color = "#88fa88"
-	},
+/obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark,
 /obj/item/grenade/clusterbuster/soap,
 /turf/open/floor/iron/dark,
@@ -42634,6 +42625,14 @@
 	},
 /turf/open/floor/prison,
 /area/ai_monitored/storage/eva)
+"iJr" = (
+/obj/effect/turf_decal/siding/dirt/corner,
+/obj/machinery/hydroponics/soil{
+	pixel_x = -22;
+	pixel_y = 14
+	},
+/turf/open/floor/grass/no_border,
+/area/hydroponics/garden)
 "iJt" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -46477,9 +46476,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet 5"
 	},
-/obj/effect/turf_decal/delivery/white{
-	color = "#88fa88"
-	},
+/obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
@@ -48800,7 +48797,6 @@
 /turf/open/floor/plating,
 /area/security/main)
 "kaE" = (
-/obj/machinery/hydroponics/constructable,
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/camera/directional/east,
 /obj/machinery/airalarm/directional/east,
@@ -73608,9 +73604,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet 5"
 	},
-/obj/effect/turf_decal/delivery/white{
-	color = "#88fa88"
-	},
+/obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -86142,6 +86136,9 @@
 	},
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 4
+	},
+/obj/effect/turf_decal/caution/red{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
@@ -114591,9 +114588,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet 5"
 	},
-/obj/effect/turf_decal/delivery/white{
-	color = "#88fa88"
-	},
+/obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
@@ -138481,7 +138476,7 @@ jLp
 hKq
 qwJ
 nJo
-cRx
+cDX
 bpb
 cnI
 vPU
@@ -140276,7 +140271,7 @@ xhd
 shs
 hrg
 ojB
-cxB
+iJr
 iik
 dgs
 dLP
