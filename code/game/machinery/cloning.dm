@@ -372,7 +372,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 					O.Insert(mob_occupant)
 				else if(isbodypart(I))
 					var/obj/item/bodypart/BP = I
-					BP.attach_limb(mob_occupant)
+					BP.try_attach_limb(mob_occupant)
 
 			use_power(5000 * speed_coeff) //This might need tweaking.
 
@@ -390,7 +390,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 					O.Insert(mob_occupant)
 				else if(isbodypart(i))
 					var/obj/item/bodypart/BP = i
-					BP.attach_limb(mob_occupant)
+					BP.try_attach_limb(mob_occupant)
 
 			go_out()
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")

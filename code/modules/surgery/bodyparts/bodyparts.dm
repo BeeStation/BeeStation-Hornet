@@ -132,7 +132,7 @@
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
 			if(!H.get_bodypart(body_zone) && !animal_origin)
 				user.temporarilyRemoveItemFromInventory(src, TRUE)
-				if(!attach_limb(C))
+				if(!try_attach_limb(C))
 					to_chat(user, span_warning("[H]'s body rejects [src]!"))
 					forceMove(H.loc)
 				if(H == user)
@@ -660,6 +660,9 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
 	is_dimorphic = TRUE
+	///The bodytype(s) allowed to attach to this chest.
+	var/acceptable_bodytype = BODYTYPE_HUMANOID
+
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
@@ -682,6 +685,8 @@
 	icon_state = "default_monkey_chest"
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
+	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
+	acceptable_bodytype = BODYTYPE_MONKEY
 
 /obj/item/bodypart/chest/monkey/teratoma
 	icon_state = "teratoma_chest"
@@ -791,6 +796,7 @@
 	icon_state = "default_monkey_l_arm"
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
+	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	px_x = -5
 	px_y = -3
 
@@ -895,6 +901,7 @@
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_r_arm"
 	limb_id = SPECIES_MONKEY
+	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	animal_origin = MONKEY_BODYPART
 	px_x = 5
 	px_y = -3
@@ -993,6 +1000,7 @@
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_l_leg"
 	limb_id = SPECIES_MONKEY
+	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
 
@@ -1092,6 +1100,7 @@
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_r_leg"
 	limb_id = SPECIES_MONKEY
+	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
 

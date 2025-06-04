@@ -41,12 +41,17 @@
 		if(IS_ORGANIC_LIMB(BP))
 			organ_rejection_dam = 10
 			if(ishuman(target))
-				if(BP.animal_origin)
+				var/mob/living/carbon/human/human_target = target
+				var/obj/item/bodypart/chest/target_chest = human_target.get_bodypart(BODY_ZONE_CHEST)
+				if(!(BP.bodytype & target_chest.acceptable_bodytype))
 					to_chat(user, span_warning("[BP] doesn't match the patient's morphology."))
 					return -1
-				var/mob/living/carbon/human/H = target
-				if(H.dna.species.id != BP.limb_id)
+				if(human_target.dna.species.id != BP.limb_id)
 					organ_rejection_dam = 30
+
+			if(!BP.can_attach_limb(target))
+				target.balloon_alert(user, "that doesn't go on the [parse_zone(surgery.location)]!")
+				return -1
 
 		if(surgery.location == BP.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
 			display_results(user, target, span_notice("You begin to replace [target]'s [parse_zone(surgery.location)] with [tool]..."),
@@ -71,7 +76,7 @@
 		tool = tool.contents[1]
 	if(istype(tool, /obj/item/bodypart) && user.temporarilyRemoveItemFromInventory(tool))
 		var/obj/item/bodypart/L = tool
-		L.attach_limb(target)
+		L.try_attach_limb(target)
 		if(organ_rejection_dam)
 			target.adjustToxLoss(organ_rejection_dam)
 		display_results(user, target, span_notice("You succeed in replacing [target]'s [parse_zone(surgery.location)]."),
@@ -82,7 +87,7 @@
 	else
 		var/obj/item/bodypart/L = target.newBodyPart(surgery.location, FALSE, FALSE)
 		L.is_pseudopart = TRUE
-		L.attach_limb(target)
+		L.try_attach_limb(target)
 		user.visible_message("[user] finishes attaching [tool]!", span_notice("You attach [tool]."))
 		display_results(user, target, span_notice("You attach [tool]."),
 			"[user] finishes attaching [tool]!",

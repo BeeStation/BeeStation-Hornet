@@ -82,6 +82,7 @@
 #include "stat_mc.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
+#include "surgeries.dm"
 #include "surgery_linking.dm"
 #include "techweb_sanity.dm"
 #include "teleporters.dm"
