@@ -117,9 +117,12 @@
 			if(success(user, target, target_zone, tool, surgery))
 				play_success_sound(user, target, target_zone, tool, surgery)
 				advance = TRUE
-		else if(failure(user, target, target_zone, tool, surgery, fail_prob))
-			play_failure_sound(user, target, target_zone, tool, surgery)
-			advance = TRUE
+		else
+			if(failure(user, target, target_zone, tool, surgery, fail_prob))
+				play_failure_sound(user, target, target_zone, tool, surgery)
+				advance = TRUE
+			if(chem_check(target))
+				return .(user, target, target_zone, tool, surgery, try_to_fail)
 
 		if(advance && !repeatable)
 			surgery.status++
