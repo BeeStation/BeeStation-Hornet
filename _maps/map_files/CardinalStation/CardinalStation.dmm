@@ -12462,6 +12462,14 @@
 "cxr" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/cargo)
+"cxB" = (
+/obj/effect/turf_decal/siding/dirt/corner,
+/obj/machinery/hydroponics/soil{
+	pixel_x = -22;
+	pixel_y = 14
+	},
+/turf/open/floor/grass/no_border,
+/area/hydroponics/garden)
 "cxC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -21660,6 +21668,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
@@ -30154,6 +30165,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "glv" = (
@@ -31672,6 +31686,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/hydroponics/garden)
@@ -37365,6 +37382,7 @@
 /obj/machinery/light/small/directional/east,
 /obj/machinery/vending/hydronutrients,
 /obj/machinery/power/apc/auto_name/directional/east,
+/obj/structure/cable/yellow,
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "hGY" = (
@@ -49532,6 +49550,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
@@ -62782,6 +62803,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
@@ -62866,7 +62890,6 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/east,
 /obj/machinery/camera/directional/east,
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
@@ -64726,7 +64749,7 @@
 	},
 /obj/structure/flora/junglebush/large{
 	pixel_y = -13;
-	pixel_x = 0
+	pixel_x = -1
 	},
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
@@ -69135,6 +69158,10 @@
 /obj/item/shovel/spade{
 	pixel_y = -2;
 	pixel_x = -3
+	},
+/obj/machinery/hydroponics/soil{
+	pixel_x = -21;
+	pixel_y = 17
 	},
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
@@ -105388,6 +105415,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
 "vEb" = (
@@ -116237,14 +116267,6 @@
 "xRf" = (
 /obj/machinery/hydroponics/soil{
 	pixel_x = 10
-	},
-/obj/machinery/hydroponics/soil{
-	pixel_x = 11;
-	pixel_y = -17
-	},
-/obj/machinery/hydroponics/soil{
-	pixel_x = 11;
-	pixel_y = 17
 	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -140254,7 +140276,7 @@ xhd
 shs
 hrg
 ojB
-cRx
+cxB
 iik
 dgs
 dLP
