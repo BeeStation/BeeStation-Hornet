@@ -9,9 +9,9 @@
 	success_sound = 'sound/surgery/scalpel2.ogg'
 
 /datum/surgery_step/incise/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to make an incision in [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to make an incision in [target]'s [parse_zone(surgery.location)].",
-		"[user] begins to make an incision in [target]'s [parse_zone(surgery.location)].")
+	display_results(user, target, span_notice("You begin to make an incision in [target]'s [parse_zone(target_zone)]..."),
+		"[user] begins to make an incision in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to make an incision in [target]'s [parse_zone(target_zone)].")
 
 /datum/surgery_step/incise/tool_check(mob/user, obj/item/tool)
 	if(implement_type == /obj/item && !tool.is_sharp())
@@ -19,22 +19,22 @@
 
 	return TRUE
 
-/datum/surgery_step/incise/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/incise/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if ishuman(target)
 		var/mob/living/carbon/human/H = target
 		if (!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)))
-			display_results(user, target, span_notice("Blood pools around the incision in [H]'s [parse_zone(surgery.location)]."),
-				"Blood pools around the incision in [H]'s [parse_zone(surgery.location)].",
+			display_results(user, target, span_notice("Blood pools around the incision in [H]'s [parse_zone(target_zone)]."),
+				"Blood pools around the incision in [H]'s [parse_zone(target_zone)].",
 				"")
 			H.add_bleeding(BLEED_CUT)
-	return TRUE
+	return ..()
 
 /datum/surgery_step/incise/nobleed //silly friendly!
 
 /datum/surgery_step/incise/nobleed/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to <i>carefully</i> make an incision in [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to <i>carefully</i> make an incision in [target]'s [parse_zone(surgery.location)].",
-		"[user] begins to <i>carefully</i> make an incision in [target]'s [parse_zone(surgery.location)].")
+	display_results(user, target, span_notice("You begin to <i>carefully</i> make an incision in [target]'s [parse_zone(target_zone)]..."),
+		"[user] begins to <i>carefully</i> make an incision in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to <i>carefully</i> make an incision in [target]'s [parse_zone(target_zone)].")
 
 /datum/surgery_step/incise/nobleed/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return TRUE
@@ -47,9 +47,9 @@
 	preop_sound = 'sound/surgery/hemostat1.ogg'
 
 /datum/surgery_step/clamp_bleeders/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to clamp bleeders in [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to clamp bleeders in [target]'s [parse_zone(surgery.location)].",
-		"[user] begins to clamp bleeders in [target]'s [parse_zone(surgery.location)].")
+	display_results(user, target, span_notice("You begin to clamp bleeders in [target]'s [parse_zone(target_zone)]..."),
+		"[user] begins to clamp bleeders in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to clamp bleeders in [target]'s [parse_zone(target_zone)].")
 
 /datum/surgery_step/clamp_bleeders/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(locate(/datum/surgery_step/saw) in surgery.steps)
@@ -66,9 +66,9 @@
 	success_sound = 'sound/surgery/retractor2.ogg'
 
 /datum/surgery_step/retract_skin/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to retract the skin in [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to retract the skin in [target]'s [parse_zone(surgery.location)].",
-		"[user] begins to retract the skin in [target]'s [parse_zone(surgery.location)].")
+	display_results(user, target, span_notice("You begin to retract the skin in [target]'s [parse_zone(target_zone)]..."),
+		"[user] begins to retract the skin in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to retract the skin in [target]'s [parse_zone(target_zone)].")
 
 
 
@@ -82,9 +82,9 @@
 	success_sound = 'sound/surgery/cautery2.ogg'
 
 /datum/surgery_step/close/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to mend the incision in [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to mend the incision in [target]'s [parse_zone(surgery.location)].",
-		"[user] begins to mend the incision in [target]'s [parse_zone(surgery.location)].")
+	display_results(user, target, span_notice("You begin to mend the incision in [target]'s [parse_zone(target_zone)]..."),
+		"[user] begins to mend the incision in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to mend the incision in [target]'s [parse_zone(target_zone)].")
 
 /datum/surgery_step/close/tool_check(mob/user, obj/item/tool)
 	if(implement_type == TOOL_WELDER || implement_type == /obj/item)
@@ -117,16 +117,16 @@
 	success_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/saw/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to saw through the bone in [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to saw through the bone in [target]'s [parse_zone(surgery.location)].",
-		"[user] begins to saw through the bone in [target]'s [parse_zone(surgery.location)].")
+	display_results(user, target, span_notice("You begin to saw through the bone in [target]'s [parse_zone(target_zone)]..."),
+		"[user] begins to saw through the bone in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to saw through the bone in [target]'s [parse_zone(target_zone)].")
 
-/datum/surgery_step/saw/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	target.apply_damage(50, BRUTE, "[surgery.location]")
-	display_results(user, target, span_notice("You saw [target]'s [parse_zone(surgery.location)] open."),
-		"[user] saws [target]'s [parse_zone(surgery.location)] open!",
-		"[user] saws [target]'s [parse_zone(surgery.location)] open!")
-	return 1
+/datum/surgery_step/saw/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+	target.apply_damage(50, BRUTE, "[target_zone]")
+	display_results(user, target, span_notice("You saw [target]'s [parse_zone(target_zone)] open."),
+		"[user] saws [target]'s [parse_zone(target_zone)] open!",
+		"[user] saws [target]'s [parse_zone(target_zone)] open!")
+	return ..()
 
 //drill bone
 /datum/surgery_step/drill
@@ -142,12 +142,13 @@
 	return TRUE
 
 /datum/surgery_step/drill/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to drill into the bone in [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to drill into the bone in [target]'s [parse_zone(surgery.location)].",
-		"[user] begins to drill into the bone in [target]'s [parse_zone(surgery.location)].")
+	display_results(user, target, span_notice("You begin to drill into the bone in [target]'s [parse_zone(target_zone)]..."),
+		span_notice("[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)]."),
+		span_notice("[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)]."))
 
-/datum/surgery_step/drill/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You drill into [target]'s [parse_zone(surgery.location)]."),
-		"[user] drills into [target]'s [parse_zone(surgery.location)]!",
-		"[user] drills into [target]'s [parse_zone(surgery.location)]!")
-	return 1
+
+/datum/surgery_step/drill/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+	display_results(user, target, span_notice("You drill into [target]'s [parse_zone(target_zone)]."),
+		span_notice("[user] drills into [target]'s [parse_zone(target_zone)]!"),
+		span_notice("[user] drills into [target]'s [parse_zone(target_zone)]!"))
+	return ..()

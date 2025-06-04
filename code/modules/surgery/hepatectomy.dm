@@ -30,13 +30,13 @@
 		span_notice("[user] begins to make an incision in [target]."),
 		span_notice("[user] begins to make an incision in [target]."))
 
-/datum/surgery_step/hepatectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/hepatectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/mob/living/carbon/human/H = target
 	H.setOrganLoss(ORGAN_SLOT_LIVER, 10) //not bad, not great
 	display_results(user, target, span_notice("You successfully remove the damaged part of [target]'s liver."),
 		span_notice("[user] successfully removes the damaged part of [target]'s liver."),
 		span_notice("[user] successfully removes the damaged part of [target]'s liver."))
-	return TRUE
+	return ..()
 
 /datum/surgery_step/hepatectomy/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery)
 	var/mob/living/carbon/human/H = target

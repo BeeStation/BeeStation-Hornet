@@ -34,7 +34,7 @@
 		span_notice("[user] begins to perform surgery on [target]'s brain."),
 	)
 
-/datum/surgery_step/imprint_cortex/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/imprint_cortex/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	display_results(
 		user,
 		target,

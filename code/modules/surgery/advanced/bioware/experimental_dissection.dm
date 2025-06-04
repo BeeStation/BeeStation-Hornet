@@ -46,7 +46,7 @@
 				return 3000
 			return 2000
 
-/datum/surgery_step/dissection/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/dissection/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	user.visible_message("[user] dissects [target]!", span_notice("You dissect [target], and add your discoveries to the research database!"))
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DISCOVERY = check_value(target)))
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)

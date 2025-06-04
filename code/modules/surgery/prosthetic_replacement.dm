@@ -56,25 +56,26 @@
 					organ_rejection_dam = 30
 
 			if(!BP.can_attach_limb(target))
-				target.balloon_alert(user, "that doesn't go on the [parse_zone(surgery.location)]!")
+				target.balloon_alert(user, "that doesn't go on the [parse_zone(target_zone)]!")
 				return -1
 
-		if(surgery.location == BP.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
-			display_results(user, target, span_notice("You begin to replace [target]'s [parse_zone(surgery.location)] with [tool]..."),
-				"[user] begins to replace [target]'s [parse_zone(surgery.location)] with [tool].",
-				"[user] begins to replace [target]'s [parse_zone(surgery.location)].")
+		if(target_zone == BP.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
+			display_results(user, target, span_notice("You begin to replace [target]'s [parse_zone(target_zone)] with [tool]..."),
+				"[user] begins to replace [target]'s [parse_zone(target_zone)] with [tool].",
+				"[user] begins to replace [target]'s [parse_zone(target_zone)].")
 		else
-			to_chat(user, span_warning("[tool] isn't the right type for [parse_zone(surgery.location)]."))
+			to_chat(user, span_warning("[tool] isn't the right type for [parse_zone(target_zone)]."))
 			return -1
-	else if(surgery.location == BODY_ZONE_L_ARM || surgery.location == BODY_ZONE_R_ARM)
+	else if(target_zone == BODY_ZONE_L_ARM || target_zone == BODY_ZONE_R_ARM)
 		display_results(user, target, span_notice("You begin to attach [tool] onto [target]..."),
-			"[user] begins to attach [tool] onto [target]'s [parse_zone(surgery.location)].",
-			"[user] begins to attach something onto [target]'s [parse_zone(surgery.location)].")
+			"[user] begins to attach [tool] onto [target]'s [parse_zone(target_zone)].",
+			"[user] begins to attach something onto [target]'s [parse_zone(target_zone)].")
 	else
 		to_chat(user, span_warning("[tool] must be installed onto an arm."))
 		return -1
 
-/datum/surgery_step/add_prosthetic/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/add_prosthetic/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+	. = ..()
 	if(istype(tool, /obj/item/organ_storage))
 		tool.icon_state = initial(tool.icon_state)
 		tool.desc = initial(tool.desc)
@@ -85,37 +86,38 @@
 		L.try_attach_limb(target)
 		if(organ_rejection_dam)
 			target.adjustToxLoss(organ_rejection_dam)
-		display_results(user, target, span_notice("You succeed in replacing [target]'s [parse_zone(surgery.location)]."),
-			"[user] successfully replaces [target]'s [parse_zone(surgery.location)] with [tool]!",
-			"[user] successfully replaces [target]'s [parse_zone(surgery.location)]!")
+		display_results(user, target, span_notice("You succeed in replacing [target]'s [parse_zone(target_zone)]."),
+			span_notice("[user] successfully replaces [target]'s [parse_zone(target_zone)] with [tool]!"),
+			span_notice("[user] successfully replaces [target]'s [parse_zone(target_zone)]!"))
 		target.cauterise_wounds()
-		return 1
+		return
 	else
-		var/obj/item/bodypart/L = target.newBodyPart(surgery.location, FALSE, FALSE)
+		var/obj/item/bodypart/L = target.newBodyPart(target_zone, FALSE, FALSE)
 		L.is_pseudopart = TRUE
 		L.try_attach_limb(target)
-		user.visible_message("[user] finishes attaching [tool]!", span_notice("You attach [tool]."))
+		user.visible_message(span_notice("[user] finishes attaching [tool]!"), span_notice("You attach [tool]."))
 		display_results(user, target, span_notice("You attach [tool]."),
-			"[user] finishes attaching [tool]!",
-			"[user] finishes the attachment procedure!")
+			span_notice("[user] finishes attaching [tool]!"),
+			span_notice("[user] finishes the attachment procedure!"))
 		qdel(tool)
 		if(istype(tool, /obj/item/chainsaw/energy/doom))
 			var/obj/item/mounted_chainsaw/super/new_arm = new(target)
-			surgery.location == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
+			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
-			return 1
+			return
 		else if(istype(tool, /obj/item/chainsaw/energy))
 			var/obj/item/mounted_chainsaw/energy/new_arm = new(target)
-			surgery.location == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
+			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
-			return 1
+			return
 		else if(istype(tool, /obj/item/chainsaw))
 			var/obj/item/mounted_chainsaw/normal/new_arm = new(target)
-			surgery.location == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
+			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
-			return 1
+			return
 		else if(istype(tool, /obj/item/melee/synthetic_arm_blade))
 			var/obj/item/melee/arm_blade/new_arm = new(target,TRUE,TRUE)
-			surgery.location == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
+			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
-			return 1
+			return
+	return ..()

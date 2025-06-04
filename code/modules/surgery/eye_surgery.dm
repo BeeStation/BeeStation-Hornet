@@ -23,7 +23,7 @@
 		"[user] begins to fix [target]'s eyes.",
 		"[user] begins to perform surgery on [target]'s eyes.")
 
-/datum/surgery_step/fix_eyes/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/fix_eyes/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/obj/item/organ/eyes/E = target.getorganslot(ORGAN_SLOT_EYES)
 	user.visible_message("[user] successfully fixes [target]'s eyes!", span_notice("You succeed in fixing [target]'s eyes."))
 	display_results(user, target, span_notice("You succeed in fixing [target]'s eyes."),
@@ -34,7 +34,7 @@
 	target.cure_nearsighted(list(EYE_DAMAGE))
 	target.blur_eyes(35)	//this will fix itself slowly.
 	E.setOrganDamage(0)
-	return TRUE
+	return ..()
 
 /datum/surgery_step/fix_eyes/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target.getorgan(/obj/item/organ/brain))

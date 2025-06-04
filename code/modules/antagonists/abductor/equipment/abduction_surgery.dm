@@ -31,7 +31,7 @@
 
 /datum/surgery_step/extract_organ/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(IC)
-		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", span_notice("You pull [IC] out of [target]'s [surgery.location]."))
+		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", span_notice("You pull [IC] out of [target]'s [target_zone]."))
 		user.put_in_hands(IC)
 		IC.Remove(target)
 		return 1

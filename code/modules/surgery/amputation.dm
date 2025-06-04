@@ -16,17 +16,17 @@
 	success_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/sever_limb/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to sever [target]'s [parse_zone(surgery.location)]..."),
-		"[user] begins to sever [target]'s [parse_zone(surgery.location)]!",
-		"[user] begins to sever [target]'s [parse_zone(surgery.location)]!")
+	display_results(user, target, span_notice("You begin to sever [target]'s [parse_zone(target_zone)]..."),
+		"[user] begins to sever [target]'s [parse_zone(target_zone)]!",
+		"[user] begins to sever [target]'s [parse_zone(target_zone)]!")
 
-/datum/surgery_step/sever_limb/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/sever_limb/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/mob/living/carbon/human/L = target
-	display_results(user, target, span_notice("You sever [L]'s [parse_zone(surgery.location)]."),
-		"[user] severs [L]'s [parse_zone(surgery.location)]!",
-		"[user] severs [L]'s [parse_zone(surgery.location)]!")
+	display_results(user, target, span_notice("You sever [L]'s [parse_zone(target_zone)]."),
+		"[user] severs [L]'s [parse_zone(target_zone)]!",
+		"[user] severs [L]'s [parse_zone(target_zone)]!")
 	if(surgery.operated_bodypart)
 		var/obj/item/bodypart/target_limb = surgery.operated_bodypart
 		target_limb.drop_limb()
 	target.cauterise_wounds()
-	return 1
+	return ..()

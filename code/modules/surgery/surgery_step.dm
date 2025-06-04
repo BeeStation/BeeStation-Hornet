@@ -12,7 +12,7 @@
 	var/success_sound //Sound played if the step succeeded
 	var/failure_sound //Sound played if the step fails
 
-/datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+/datum/surgery_step/proc/try_op(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	var/success = FALSE
 	if(accept_hand)
 		if(!tool)
@@ -40,10 +40,10 @@
 					break
 
 	if(success)
-		if(get_location_accessible(target, surgery.location) || surgery.ignore_clothes)
+		if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
 			return initiate(user, target, tool, surgery, try_to_fail)
 		else
-			to_chat(user, span_warning("You need to expose [target]'s [parse_zone(surgery.location)] to perform surgery on it!"))
+			to_chat(user, span_warning("You need to expose [target]'s [parse_zone(target_zone)] to perform surgery on it!"))
 			return TRUE	//returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)

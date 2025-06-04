@@ -56,7 +56,7 @@
 			if(!..())
 				break
 
-/datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/tox_loss = target.getToxLoss()
 	if(target.reagents.total_volume || (tox_heal_factor > 0 && tox_loss > 0))
 		for(var/blood_chem in target.reagents.reagent_list)
