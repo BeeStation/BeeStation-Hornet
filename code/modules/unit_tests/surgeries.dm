@@ -29,6 +29,7 @@
 
 /datum/unit_test/head_transplant/Run()
 	var/mob/living/carbon/human/user = allocate(/mob/living/carbon/human/consistent)
+
 	var/mob/living/carbon/human/alice = allocate(/mob/living/carbon/human/consistent)
 	var/mob/living/carbon/human/bob = allocate(/mob/living/carbon/human/consistent)
 
@@ -64,7 +65,7 @@
 	var/datum/surgery_step/incise/surgery_step = new
 	var/datum/surgery/organ_manipulation/surgery_for_zero = new
 
-	INVOKE_ASYNC(surgery_step, /datum/surgery_step/proc/initiate, user, patient_zero, BODY_ZONE_CHEST, scalpel, surgery_for_zero)
+	INVOKE_ASYNC(surgery_step, TYPE_PROC_REF(/datum/surgery_step, initiate), user, patient_zero, BODY_ZONE_CHEST, scalpel, surgery_for_zero)
 	TEST_ASSERT(surgery_for_zero.step_in_progress, "Surgery on patient zero was not initiated")
 
 	var/datum/surgery/organ_manipulation/surgery_for_one = new
@@ -74,7 +75,7 @@
 	TEST_ASSERT(!surgery_for_one.step_in_progress, "Surgery for patient one is somehow in progress, despite not initiating")
 
 	user.apply_status_effect(/datum/status_effect/hippocratic_oath)
-	INVOKE_ASYNC(surgery_step, /datum/surgery_step/proc/initiate, user, patient_one, BODY_ZONE_CHEST, scalpel, surgery_for_one)
+	INVOKE_ASYNC(surgery_step, TYPE_PROC_REF(/datum/surgery_step, initiate), user, patient_one, BODY_ZONE_CHEST, scalpel, surgery_for_one)
 	TEST_ASSERT(surgery_for_one.step_in_progress, "Surgery on patient one was not initiated, despite having rod of asclepius")
 
 /// Ensures that the tend wounds surgery can be started
