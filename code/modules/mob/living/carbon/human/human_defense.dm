@@ -257,8 +257,8 @@
 		return
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand, if no item, get stun instead.
-		var/obj/item/I = get_active_held_item()
-		if(I && dropItemToGround(I))
+		var/obj/item/held_item = get_active_held_item()
+		if(held_item && dropItemToGround(held_item))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] disarms [src]!"), \
 							span_userdanger("[user] disarms you!"), span_hear("You hear aggressive shuffling!"), null, user)
@@ -292,7 +292,7 @@
 		return //successful larva bite.
 	var/damage = rand(1, 3)
 	if(check_shields(L, damage, "the [L.name]"))
-		return 0
+		return FALSE
 	if(stat != DEAD)
 		L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
