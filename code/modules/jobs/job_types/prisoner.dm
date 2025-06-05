@@ -10,7 +10,7 @@
 	supervisors = "Security / The warden"
 	selection_color = "#dddddd"
 	minimal_player_age = 10
-	exp_requirements = 1200
+	exp_requirements = 360
 	exp_type = EXP_TYPE_SECURITY
 
 	departments = DEPT_BITFLAG_UNASSIGNED
@@ -29,7 +29,6 @@
 	)
 
 /datum/job/prisoner/announce(mob/living/carbon/human/H)
-
 	var/deets = "<font size = 2><b>#Prisoner Transfer Documentation</font></b> \
 					<hr> \
 					<code> \
@@ -37,13 +36,11 @@
 					Transfer to: [station_name()] <br> \
 					Case: [H.real_name] <br> \
 					Inmate ID: NTP #CC-0[rand(111,999)] <br> \
-					Security Class: CAPITAL - LOW SEC <br> \
-					AUTH BADGE: <b>Execution allowed</b><br> \
+					Charge Class: CAPITAL <br> \
+					Security level: LOW <br> \
 					<hr> \
 					<b>#NOTES:</b> <br> \
-					-As this prisoner is of capital class or higher, while parole is not forbidden, it is highly advised against.<br> \
-					-<b>Keep prisoner in confinement at all times</b>, shall confinement no longer be viable, prefer judicial execution. <br> \
-					-While confinement is required, the prisoner may partake in 'activities' outside the brig if supervised and outfitted with an electropack. <hr> </code>\
+					-While confinement is required, the prisoner may partake in 'activities' outside the brig if supervised and outfitted with an electropack or tracking implant. <hr> </code>\
 					<font color='grey'><i>This message has been automatically generated. <br> \
 					NT Capital-Class prisoner program includes sign-up for the following activities: <br> \
 					- Medical trial subject; <br> \
