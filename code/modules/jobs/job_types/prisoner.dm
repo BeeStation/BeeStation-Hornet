@@ -25,7 +25,7 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/chapel
+		/area/security/prison
 	)
 
 /datum/job/prisoner/announce(mob/living/carbon/human/H)
@@ -61,11 +61,7 @@
 	jobtype = /datum/job/prisoner
 	id = /obj/item/card/id/job/prisoner
 	belt = /obj/item/modular_computer/tablet/pda/prisoner
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
 	uniform = /obj/item/clothing/under/rank/prisoner/lowsec
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	can_be_admin_equipped = TRUE
-
-
-/datum/outfit/job/prisoner/post_equip(mob/living/carbon/human/H)
-	var/obj/item/restraints/handcuffs/cuffs = new /obj/item/restraints/handcuffs
-	cuffs.apply_cuffs(H)
