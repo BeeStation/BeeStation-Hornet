@@ -240,7 +240,7 @@
 			"supply" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
 			"silicon" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON),
 			"civilian" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN),
-			"gimmick" = list(JOB_NAME_CLOWN,JOB_NAME_MIME,JOB_NAME_GIMMICK,JOB_NAME_ASSISTANT), //Hardcoded since it's not a real category but handy for rolebans
+			"gimmick" = list(JOB_NAME_CLOWN,JOB_NAME_MIME,JOB_NAME_ASSISTANT,JOB_NAME_STAGEMAGICIAN,JOB_NAME_VIP,JOB_NAME_PSYCHIATRIST), //Hardcoded since it's not a real category but handy for rolebans
 			"antagonist_positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 			"forced_antagonist_positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
 			"ghost_roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,
@@ -1290,7 +1290,7 @@
 				break_counter++
 			output += "</div></div>"
 		var/list/long_job_lists = list(
-			"Civilian" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN) | JOB_NAME_GIMMICK,
+			"Civilian" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN),
 			"Antagonist Positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 			"Forced Antagonist Positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
 			"Ghost Roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,
