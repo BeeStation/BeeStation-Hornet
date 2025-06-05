@@ -13,6 +13,18 @@
 		/obj/item/crowbar/large = 2,
 	)
 
+//PRISONER
+/datum/job/prisoner
+	mail_goodies = list(
+		/obj/item/food/donkpocket/random = 10,
+		/obj/item/clothing/mask/gas/old = 10,
+		/obj/item/clothing/gloves/color/fyellow = 5,
+		/obj/item/clothing/gloves/color/yellow = 8,
+		/obj/item/choice_beacon/radial/music = 5,
+		/obj/item/toy/crayon/spraycan = 3,
+		/obj/item/crowbar/large = 2,
+	)
+
 //ATMOSPHERIC TECHNICIAN
 /datum/job/atmospheric_technician
 	mail_goodies = list(
