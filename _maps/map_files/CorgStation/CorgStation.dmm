@@ -13042,6 +13042,7 @@
 	},
 /obj/machinery/airalarm/directional/east,
 /obj/item/bedsheet/random,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "ebS" = (
@@ -35430,6 +35431,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 22
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "lyO" = (
@@ -46339,6 +46341,7 @@
 /obj/item/bedsheet/random,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "paW" = (
@@ -50414,6 +50417,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "qwB" = (

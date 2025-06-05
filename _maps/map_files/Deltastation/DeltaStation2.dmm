@@ -43547,6 +43547,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "hTQ" = (
@@ -51814,6 +51815,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/prisonspawn,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "kFO" = (
@@ -71349,6 +71351,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/prisonspawn,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "qUV" = (
@@ -71851,6 +71854,7 @@
 /obj/structure/bed{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "rdG" = (

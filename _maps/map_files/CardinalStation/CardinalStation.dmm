@@ -6156,6 +6156,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison,
 /area/security/prison)
 "blj" = (
@@ -22798,6 +22799,7 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison,
 /area/security/prison)
 "eKL" = (
@@ -29739,6 +29741,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/food/salt,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison,
 /area/security/prison)
 "giT" = (
@@ -34443,6 +34446,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison,
 /area/security/prison)
 "hek" = (
@@ -62799,6 +62803,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison,
 /area/security/prison)
 "nbn" = (

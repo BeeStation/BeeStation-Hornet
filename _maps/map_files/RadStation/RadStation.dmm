@@ -5994,6 +5994,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/east,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/wood,
 /area/security/prison)
 "bUn" = (
@@ -28263,6 +28264,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/wood,
 /area/security/prison)
 "jjo" = (
@@ -32732,6 +32734,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/wood,
 /area/security/prison)
 "kOe" = (
@@ -55023,6 +55026,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/wood,
 /area/security/prison)
 "skt" = (

@@ -18529,6 +18529,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bedsheet/brown,
 /obj/structure/bed,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "eRg" = (
@@ -50307,6 +50308,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bedsheet/brown,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "mPj" = (
@@ -67677,6 +67679,7 @@
 /obj/item/bedsheet/dorms,
 /obj/structure/bed,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "ruz" = (
@@ -78103,6 +78106,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bedsheet/brown,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "uaJ" = (

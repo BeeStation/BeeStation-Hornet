@@ -49627,6 +49627,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "qFF" = (
@@ -54966,6 +54967,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "sIK" = (

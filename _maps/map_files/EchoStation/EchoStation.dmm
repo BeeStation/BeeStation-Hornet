@@ -4037,6 +4037,7 @@
 	dir = 4;
 	pixel_y = 2
 	},
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison/shielded)
 "bJi" = (
@@ -21524,6 +21525,7 @@
 	},
 /obj/item/bedsheet/ian,
 /obj/machinery/newscaster/directional/east,
+/obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison/shielded)
 "krj" = (
