@@ -16,13 +16,13 @@
 //PRISONER
 /datum/job/prisoner
 	mail_goodies = list(
-		/obj/item/food/donkpocket/random = 10,
-		/obj/item/clothing/mask/gas/old = 10,
-		/obj/item/clothing/gloves/color/fyellow = 5,
-		/obj/item/clothing/gloves/color/yellow = 8,
-		/obj/item/choice_beacon/radial/music = 5,
-		/obj/item/toy/crayon/spraycan = 3,
-		/obj/item/crowbar/large = 2,
+		/obj/item/stack/spacecash/c20 = 10,
+		/obj/item/stack/spacecash/c50 = 10,
+		/obj/item/food/syndicake = 8,
+		/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka = 5,
+		/obj/item/food/cake/birthday = 5,
+		/obj/item/choice_beacon/radial/music = 3,
+		/obj/item/toy/cards/deck/syndicate = 2,
 	)
 
 //ATMOSPHERIC TECHNICIAN
