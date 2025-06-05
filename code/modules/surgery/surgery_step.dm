@@ -83,9 +83,6 @@
 	return max(propability + sleepbonus - selfpenalty, 0.1)
 
 /datum/surgery_step/proc/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
-	// Only followers of Asclepius have the ability to use Healing Touch and perform miracle feats of surgery.
-	// Prevents people from performing multiple simultaneous surgeries unless they're holding a Rod of Asclepius.
-
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1
 	var/fail_prob = 0//100 - fail_prob = success_prob
@@ -114,7 +111,7 @@
 	if(iscyborg(user))//any immunities to surgery slowdown should go in this check.
 		modded_time = time
 
-	if(do_after(user, modded_time, target = target, interaction_key = user.has_status_effect(/datum/status_effect/hippocratic_oath) ? target : DOAFTER_SOURCE_SURGERY)) //If we have the hippocratic oath, we can perform one surgery on each target, otherwise we can only do one surgery in total.
+	if(do_after(user, modded_time, target = target))
 
 		if((prob(100 - fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
 
