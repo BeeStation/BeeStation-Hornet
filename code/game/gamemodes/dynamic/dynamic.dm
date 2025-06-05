@@ -580,38 +580,35 @@
 	if(forced_extended || check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
-	if(length(latejoin_executed_rulesets) >= latejoin_max_rulesets)
-		return
 	if(!length(latejoin_configured_rulesets))
+		return
+
+	if(length(latejoin_executed_rulesets) >= latejoin_max_rulesets)
 		return
 
 	if(!prob(latejoin_ruleset_probability))
 		return
 
+	// No latejoin ruleset chosen, lets pick one
 	if(!latejoin_forced_ruleset)
-		// No latejoin ruleset chosen, lets pick one
 		var/list/possible_rulesets = list()
 		for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
-			ruleset.candidates = list(character)
-			ruleset.trim_candidates()
-
-			if(!ruleset.allowed())
-				continue
-
 			possible_rulesets[ruleset] = ruleset.weight
 
-		// No allowed rulesets, our latejoin is probably a security officer.
 		if(!length(possible_rulesets))
 			return
 
 		latejoin_forced_ruleset = pick_weight_allow_zero(possible_rulesets)
-	else
-		latejoin_forced_ruleset.candidates = list(character)
-		latejoin_forced_ruleset.trim_candidates()
 
-		// Forced Ruleset isn't allowed, our latejoin is probably a security officer.
-		if(!latejoin_forced_ruleset.allowed())
-			return
+	if(!latejoin_forced_ruleset)
+		return
+
+	// Check if the ruleset is allowed
+	latejoin_forced_ruleset.candidates = list(character)
+	latejoin_forced_ruleset.trim_candidates()
+
+	if(!latejoin_forced_ruleset.allowed())
+		return
 
 	// Execute our latejoin ruleset
 	var/result = execute_ruleset(latejoin_forced_ruleset)
@@ -739,7 +736,7 @@
 		log_dynamic("[usr.key] set dynamic's midround ruleset to [midround_chosen_ruleset].")
 	else if(href_list["set_latejoin_prob"])
 		var/new_latejoin_probability = tgui_input_number(usr, "What do you want to set the latejoin probability to?", "Set Latejoin Probability", max_value = 100)
-		if(!new_latejoin_probability)
+		if(isnull(new_latejoin_probability))
 			return
 
 		latejoin_ruleset_probability = new_latejoin_probability
