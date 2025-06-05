@@ -37816,13 +37816,6 @@
 /obj/item/aiModule/core/full/hippocratic,
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
-"hKC" = (
-/obj/structure/plasticflaps/opaque,
-/obj/machinery/door/poddoor/preopen{
-	id = "bridged"
-	},
-/turf/open/floor/plating,
-/area/teleporter)
 "hKF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -52531,8 +52524,7 @@
 /area/ai_monitored/storage/eva)
 "kOh" = (
 /obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=8";
-	dir = 8;
+	codes_txt = "delivery;dir=1";
 	freq = 1400;
 	location = "Robotics";
 	name = "navigation beacon (Robotics)"
@@ -60469,10 +60461,6 @@
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/iron/dark/textured,
 /area/quartermaster/storage)
-"mxj" = (
-/obj/structure/plasticflaps/opaque,
-/turf/open/floor/plating,
-/area/storage/primary)
 "mxp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -61988,6 +61976,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
+"mMm" = (
+/obj/structure/plasticflaps/opaque,
+/turf/open/floor/plating,
+/area/storage/primary)
 "mMr" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/plating/asteroid,
@@ -71947,8 +71939,7 @@
 	color = "#66cc55"
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=4";
-	dir = 4;
+	codes_txt = "delivery;dir=1";
 	freq = 1400;
 	location = "Hydroponics";
 	name = "navigation beacon (Hydroponics)"
@@ -81310,6 +81301,24 @@
 /obj/structure/chair/fancy/bench/pew/left,
 /turf/open/floor/wood,
 /area/security/courtroom)
+"qIu" = (
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/effect/turf_decal/trimline/red/line,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=1";
+	freq = 1400;
+	location = "Security"
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/open/floor/iron,
+/area/hallway/upper/primary/starboard)
 "qIz" = (
 /obj/effect/turf_decal/siding/wideplating_new/light/corner,
 /obj/structure/cable/yellow{
@@ -110643,25 +110652,6 @@
 	},
 /turf/open/floor/plating,
 /area/teleporter)
-"wGf" = (
-/obj/effect/turf_decal/trimline/red/filled/line,
-/obj/effect/turf_decal/trimline/red/line,
-/obj/effect/turf_decal/tile/dark/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=8";
-	dir = 8;
-	freq = 1400;
-	location = "Security"
-	},
-/obj/effect/turf_decal/box/red,
-/obj/effect/turf_decal/caution/stand_clear/red,
-/turf/open/floor/iron,
-/area/hallway/upper/primary/starboard)
 "wGg" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -115438,6 +115428,13 @@
 "xHv" = (
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
+"xHw" = (
+/obj/structure/plasticflaps/opaque,
+/obj/machinery/door/poddoor/preopen{
+	id = "bridged"
+	},
+/turf/open/floor/plating,
+/area/teleporter)
 "xHy" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 6
@@ -138410,7 +138407,7 @@ oHl
 vTi
 aKf
 ego
-hKC
+xHw
 wsG
 wsG
 wsG
@@ -146356,7 +146353,7 @@ oYm
 hri
 hri
 hri
-mxj
+mMm
 hri
 hri
 hri
@@ -155059,7 +155056,7 @@ pkg
 tJq
 adR
 xyU
-wGf
+qIu
 hcw
 bhJ
 rRI
