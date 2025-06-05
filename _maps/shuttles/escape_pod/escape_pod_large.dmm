@@ -6,6 +6,9 @@
 /obj/item/storage/pod{
 	pixel_x = -24
 	},
+/obj/item/toy/batong,
+/obj/item/organ/ears/cat,
+/obj/effect/mapping_helpers/foodpreserver,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "r" = (
@@ -46,7 +49,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -64,7 +67,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
