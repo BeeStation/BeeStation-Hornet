@@ -4,8 +4,8 @@
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	show_in_prefs = TRUE
 	faction = "Station"
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 3
+	spawn_positions = 3
 	head_announce = list(null)
 	supervisors = "Security / The warden"
 	selection_color = "#dddddd"
