@@ -18,9 +18,13 @@
 /datum/surgery_step/reshape_face/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if(HAS_TRAIT_FROM(target, TRAIT_DISFIGURED, TRAIT_GENERIC))
 		REMOVE_TRAIT(target, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		display_results(user, target, span_notice("You successfully restore [target]'s appearance."),
-			"[user] successfully restores [target]'s appearance!",
-			"[user] finishes the operation on [target]'s face.")
+		display_results(
+			user,
+			target,
+			span_notice("You successfully restore [target]'s appearance."),
+			span_notice("[user] successfully restores [target]'s appearance!"),
+			span_notice("[user] finishes the operation on [target]'s face."),
+		)
 	else
 		var/list/names = list()
 		if(!isabductor(user))
@@ -30,15 +34,19 @@
 			for(var/_i in 1 to 9)
 				names += "Subject [target.gender == MALE ? "i" : "o"]-[pick("a", "b", "c", "d", "e")]-[rand(10000, 99999)]"
 			names += target.dna.species.random_name(target.gender, TRUE) //give one normal name in case they want to do regular plastic surgery
-		var/chosen_name = input(user, "Choose a new name to assign.", "Plastic Surgery") as null|anything in names
-		if(!chosen_name)
+		var/chosen_name = tgui_input_list(user, "New name to assign", "Plastic Surgery", names)
+		if(isnull(chosen_name))
 			return
 		var/oldname = target.real_name
 		target.real_name = chosen_name
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
-		display_results(user, target, span_notice("You alter [oldname]'s appearance completely, [target.p_they()] is now [newname]."),
-			"[user] alters [oldname]'s appearance completely, [target.p_they()] is now [newname]!",
-			"[user] finishes the operation on [target]'s face.")
+		display_results(
+			user,
+			target,
+			span_notice("You alter [oldname]'s appearance completely, [target.p_they()] is now [newname]."),
+			span_notice("[user] alters [oldname]'s appearance completely, [target.p_they()] is now [newname]!"),
+			span_notice("[user] finishes the operation on [target]'s face."),
+		)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_ID()

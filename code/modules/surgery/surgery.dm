@@ -94,6 +94,10 @@
 
 /datum/surgery/proc/next_step(mob/living/user, modifiers)
 	failed_step = FALSE
+	if(location != user.get_combat_bodyzone())
+		return FALSE
+	if(user.combat_mode)
+		return FALSE
 	if(step_in_progress)
 		return TRUE
 
@@ -101,12 +105,13 @@
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		try_to_fail = TRUE
 
-	var/datum/surgery_step/S = get_surgery_step()
-	if(S)
-		if(S.try_op(user, target, user.get_active_held_item(), src, try_to_fail))
-			return TRUE
-		if(iscyborg(user) && !user.combat_mode) //to save asimov borgs a LOT of heartache
-			return TRUE
+	var/datum/surgery_step/step = get_surgery_step()
+	if(isnull(step))
+		failed_step = TRUE
+		return FALSE
+	var/obj/item/tool = user.get_active_held_item()
+	if(step.try_op(user, target, user.get_combat_bodyzone(), tool, src, try_to_fail))
+		return TRUE
 	failed_step = TRUE
 	return FALSE
 
