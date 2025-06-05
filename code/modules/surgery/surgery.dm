@@ -54,7 +54,7 @@
 		return !replaced_by
 	else if(user.mind)
 		if((!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_SURGEON)) || (HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON) && !abductor_surgery_blacklist))
-			!replaced_by
+			return !replaced_by
 
 
 	if(!requires_tech && !replaced_by)
