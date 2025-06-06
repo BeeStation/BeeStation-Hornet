@@ -19,12 +19,12 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve
-	inert_mutation = /datum/mutation/acidooze
+	inert_mutation = /datum/mutation/human/acidooze
 
 	species_chest = /obj/item/bodypart/chest/oozeling
 	species_head = /obj/item/bodypart/head/oozeling
-	species_l_arm = /obj/item/bodypart/l_arm/oozeling
-	species_r_arm = /obj/item/bodypart/r_arm/oozeling
+	species_l_arm = /obj/item/bodypart/arm/left/oozeling
+	species_r_arm = /obj/item/bodypart/arm/right/oozeling
 	species_l_leg = /obj/item/bodypart/l_leg/oozeling
 	species_r_leg = /obj/item/bodypart/r_leg/oozeling
 

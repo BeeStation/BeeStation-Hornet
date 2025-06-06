@@ -130,6 +130,13 @@
 
 	return user.dna.species.get_scream_sound(user)
 
+/datum/emote/living/carbon/human/scream/screech //If a human tries to screech it'll just scream.
+	key = "screech"
+	key_third_person = "screeches"
+	message = "screeches."
+	emote_type = EMOTE_AUDIBLE
+	vary = FALSE
+
 /datum/emote/living/carbon/human/pale
 	key = "pale"
 	message = "goes pale for a second"
@@ -376,3 +383,50 @@
 	vary = TRUE
 	sound = 'sound/emotes/diona/cricket.ogg'
 	sound_volume = 30
+
+
+
+///Snowflake emotes only for le epic chimp
+/datum/emote/living/carbon/human/monkey
+
+/datum/emote/living/carbon/human/monkey/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(ismonkey(user))
+		return ..()
+	return FALSE
+
+/datum/emote/living/carbon/human/monkey/gnarl
+	key = "gnarl"
+	key_third_person = "gnarls"
+	message = "gnarls and shows its teeth..."
+	message_mime = "gnarls silently, baring its teeth..."
+
+/datum/emote/living/carbon/human/monkey/roll
+	key = "roll"
+	key_third_person = "rolls"
+	message = "rolls."
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/carbon/human/monkey/scratch
+	key = "scratch"
+	key_third_person = "scratches"
+	message = "scratches."
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/carbon/human/monkey/screech/roar
+	key = "roar"
+	key_third_person = "roars"
+	message = "roars!"
+	message_mime = "acts out a roar."
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+
+/datum/emote/living/carbon/human/monkey/tail
+	key = "tail"
+	message = "waves their tail."
+
+/datum/emote/living/carbon/human/monkeysign
+	key = "sign"
+	key_third_person = "signs"
+	message_param = "signs the number %t."
+	hands_use_check = TRUE

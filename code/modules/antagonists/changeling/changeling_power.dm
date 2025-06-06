@@ -55,7 +55,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/proc/can_sting(mob/living/user, mob/target)
 	if (!is_available(user))
 		return FALSE
-	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
+	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return FALSE
 	if(req_human && !ishuman(user))
 		to_chat(user, span_warning("We cannot do that in this form!"))
@@ -75,7 +75,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/proc/can_be_used_by(mob/user)
 	if(!user || QDELETED(user))
 		return 0
-	if(!ishuman(user) && !ismonkey(user))
+	if(!ishuman(user))
 		return FALSE
 	if(req_human && !ishuman(user))
 		return FALSE

@@ -25,7 +25,6 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
@@ -33,6 +32,10 @@
 	var/max_co2 = 0 //to be removed once metastation map no longer use those for Sgt Araneus
 	var/min_oxy = 0
 	var/max_tox = 0
+
+/mob/living/simple_animal/hostile/retaliate/bat/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 
 	//Space bats need no air to fly in.

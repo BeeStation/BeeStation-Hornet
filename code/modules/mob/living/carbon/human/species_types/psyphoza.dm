@@ -10,7 +10,7 @@
 	species_language_holder = /datum/language_holder/psyphoza
 	exotic_blood = /datum/reagent/drug/mushroomhallucinogen
 	allow_numbers_in_name = TRUE
-	inert_mutation = /datum/mutation/spores
+	inert_mutation = /datum/mutation/human/spores
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
@@ -23,8 +23,8 @@
 
 	species_chest = /obj/item/bodypart/chest/psyphoza
 	species_head = /obj/item/bodypart/head/psyphoza
-	species_l_arm = /obj/item/bodypart/l_arm/psyphoza
-	species_r_arm = /obj/item/bodypart/r_arm/psyphoza
+	species_l_arm = /obj/item/bodypart/arm/left/psyphoza
+	species_r_arm = /obj/item/bodypart/arm/right/psyphoza
 	species_l_leg = /obj/item/bodypart/l_leg/psyphoza
 	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
 

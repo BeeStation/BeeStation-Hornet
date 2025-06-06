@@ -264,14 +264,14 @@
 /area/attacked_by(obj/item/attacking_item, mob/living/user)
 	CRASH("areas are NOT supposed to have attacked_by() called on them!")
 
-/mob/living/attacked_by(obj/item/I, mob/living/user)
-	send_item_attack_message(I, user)
-	if(!I.force)
+/mob/living/attacked_by(obj/item/attacking_item, mob/living/user)
+	send_item_attack_message(attacking_item, user)
+	if(!attacking_item.force)
 		return FALSE
-	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
-	apply_damage(I.force, I.damtype, blocked = armour_block)
-	if(I.damtype == BRUTE && prob(33))
-		I.add_mob_blood(src)
+	var/armour_block = run_armor_check(null, MELEE, armour_penetration = attacking_item.armour_penetration)
+	apply_damage(attacking_item.force, attacking_item.damtype, blocked = armour_block)
+	if(attacking_item.damtype == BRUTE && prob(33))
+		attacking_item.add_mob_blood(src)
 		var/turf/location = get_turf(src)
 		add_splatter_floor(location)
 		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood

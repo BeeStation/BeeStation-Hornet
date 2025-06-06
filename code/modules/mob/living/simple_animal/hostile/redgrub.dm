@@ -21,7 +21,6 @@
 	response_harm_continuous = "squishes"
 	response_harm_simple = "squish"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list(FACTION_HOSTILE)
 	attack_sound = 'sound/effects/blobattack.ogg'
 	pass_flags = PASSTABLE | PASSMOB
@@ -51,6 +50,7 @@
 
 /mob/living/simple_animal/hostile/redgrub/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	grub_diseases += new /datum/disease/advance/random(rand(3, 6), 9, rand(3, 4), guaranteed_symptoms = list(/datum/symptom/parasite))
 	food = rand(15, 50)
 

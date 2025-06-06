@@ -1,4 +1,4 @@
-/datum/mutation/antenna
+/datum/mutation/human/antenna
 	name = "Antenna"
 	desc = "The affected person sprouts an antenna. This is known to allow them to access common radio channels passively."
 	quality = POSITIVE
@@ -7,26 +7,26 @@
 	layer_used = BODY_LAYER
 	var/datum/weakref/radio_weakref
 
-/datum/mutation/antenna/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/antenna/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	var/obj/item/implant/radio/antenna/linked_radio = new(owner)
 	linked_radio.implant(owner, null, TRUE, TRUE)
 	radio_weakref = WEAKREF(linked_radio)
 
-/datum/mutation/antenna/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/antenna/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	var/obj/item/implant/radio/antenna/linked_radio = radio_weakref.resolve()
 	if(linked_radio)
 		QDEL_NULL(linked_radio)
 
-/datum/mutation/antenna/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
+/datum/mutation/human/antenna/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
 	..()
 	if(!(type in visual_indicators))
 		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "antenna"))
 
-/datum/mutation/antenna/get_visual_indicator()
+/datum/mutation/human/antenna/get_visual_indicator()
 	return visual_indicators[type][1]
 
 /obj/item/implant/radio/antenna
@@ -40,12 +40,10 @@
 	radio.name = "internal antenna"
 
 
-/datum/mutation/mindreader
+/datum/mutation/human/mindreader
 	name = "Mind Reader"
 	desc = "The affected person can look into the recent memories of others."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>You hear distant voices at the corners of your mind.</span>"
-	text_lose_indication = "<span class='notice'>The distant voices fade.</span>"
 	power_path = /datum/action/spell/pointed/mindread
 	instability = 40
 	difficulty = 8

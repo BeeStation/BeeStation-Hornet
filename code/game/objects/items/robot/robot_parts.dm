@@ -8,8 +8,8 @@
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon = 'icons/mob/augmentation/augments.dmi'
 	icon_state = "robo_suit"
-	var/obj/item/bodypart/l_arm/robot/l_arm = null
-	var/obj/item/bodypart/r_arm/robot/r_arm = null
+	var/obj/item/bodypart/arm/left/robot/l_arm = null
+	var/obj/item/bodypart/arm/right/robot/r_arm = null
 	var/obj/item/bodypart/l_leg/robot/l_leg = null
 	var/obj/item/bodypart/r_leg/robot/r_leg = null
 	var/obj/item/bodypart/chest/robot/chest = null
@@ -173,7 +173,7 @@
 		r_leg = W
 		update_icon()
 
-	else if(istype(W, /obj/item/bodypart/l_arm/robot))
+	else if(istype(W, /obj/item/bodypart/arm/left/robot))
 		if(l_arm)
 			return
 		if(!user.transferItemToLoc(W, src))
@@ -183,7 +183,7 @@
 		l_arm = W
 		update_icon()
 
-	else if(istype(W, /obj/item/bodypart/r_arm/robot))
+	else if(istype(W, /obj/item/bodypart/arm/right/robot))
 		if(r_arm)
 			return
 		if(!user.transferItemToLoc(W, src))

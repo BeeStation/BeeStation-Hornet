@@ -1,4 +1,4 @@
-/datum/mutation/olfaction
+/datum/mutation/human/olfaction
 	name = "Transcendent Olfaction"
 	desc = "Your sense of smell is comparable to that of a canine."
 	quality = POSITIVE

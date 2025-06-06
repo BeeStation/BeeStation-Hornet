@@ -212,39 +212,6 @@
 	desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
 	icon_state = "stasis"
 
-//GOLEM GANG
-
-//OTHER DEBUFFS
-/datum/status_effect/strandling //get it, strand as in durathread strand + strangling = strandling hahahahahahahahahahhahahaha i want to die
-	id = "strandling"
-	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = /atom/movable/screen/alert/status_effect/strandling
-
-/datum/status_effect/strandling/on_apply()
-	ADD_TRAIT(owner, TRAIT_MAGIC_CHOKE, "dumbmoron")
-	return ..()
-
-/datum/status_effect/strandling/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_MAGIC_CHOKE, "dumbmoron")
-	return ..()
-
-/atom/movable/screen/alert/status_effect/strandling
-	name = "Choking strand"
-	desc = "A magical strand of Durathread is wrapped around your neck, preventing you from breathing! Click this icon to remove the strand."
-	icon_state = "his_grace"
-	alerttooltipstyle = "hisgrace"
-
-/atom/movable/screen/alert/status_effect/strandling/Click(location, control, params)
-	. = ..()
-	if(usr != owner)
-		return
-	to_chat(owner, span_notice("You attempt to remove the durathread strand from around your neck."))
-	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
-		if(isliving(owner))
-			var/mob/living/L = owner
-			to_chat(owner, span_notice("You successfuly remove the durathread strand."))
-			L.remove_status_effect(/datum/status_effect/strandling)
-
 /datum/status_effect/syringe
 	id = "syringe"
 	status_type = STATUS_EFFECT_MULTIPLE
@@ -1398,3 +1365,21 @@
 	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
 	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
+
+/datum/status_effect/discoordinated
+	id = "discoordinated"
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/discoordinated
+
+/atom/movable/screen/alert/status_effect/discoordinated
+	name = "Discoordinated"
+	desc = "You can't seem to properly use anything..."
+	icon_state = "convulsing"
+
+/datum/status_effect/discoordinated/on_apply()
+	ADD_TRAIT(owner, TRAIT_DISCOORDINATED_TOOL_USER, "[type]")
+	return ..()
+
+/datum/status_effect/discoordinated/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_DISCOORDINATED_TOOL_USER, "[type]")
+	return ..()

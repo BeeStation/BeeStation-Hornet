@@ -614,8 +614,8 @@
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || check_access(H.wear_id))
 			return 1
-	else if(ismonkey(M))
-		var/mob/living/carbon/monkey/george = M
+	else if(isalien(M))
+		var/mob/living/carbon/george = M
 		//they can only hold things :(
 		if(isitem(george.get_active_held_item()))
 			return check_access(george.get_active_held_item())
@@ -839,8 +839,8 @@
 		new /obj/item/bodypart/r_leg/robot(T)
 		new /obj/item/stack/cable_coil(T, 1)
 		new /obj/item/bodypart/chest/robot(T)
-		new /obj/item/bodypart/l_arm/robot(T)
-		new /obj/item/bodypart/r_arm/robot(T)
+		new /obj/item/bodypart/arm/left/robot(T)
+		new /obj/item/bodypart/arm/right/robot(T)
 		new /obj/item/bodypart/head/robot(T)
 		var/b
 		for(b=0, b!=2, b++)

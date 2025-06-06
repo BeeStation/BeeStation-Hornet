@@ -2017,6 +2017,11 @@
 	locked = TRUE
 	color_src = null
 
+/datum/sprite_accessory/tails/human/monkey
+	name = "Monkey"
+	icon_state = "monkey"
+	color_src = FALSE
+
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 

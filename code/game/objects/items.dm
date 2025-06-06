@@ -223,9 +223,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///A reagent the nutriments are converted into when the item is juiced.
 	var/datum/reagent/consumable/juice_typepath
 
-	///Icon for monkey
-	var/icon/monkey_icon
-
 	var/canMouseDown = FALSE
 
 	/// Used in obj/item/examine to give additional notes on what the weapon does, separate from the predetermined output variables
@@ -631,14 +628,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 0
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 	else
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 	if(!blockhand)
 		return 0
 	if(blockhand?.bodypart_disabled)
@@ -804,8 +801,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		give_item_action(action, user, slot)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
-	if(ismonkey(user)) //Only generate icons if we have to
-		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 	if(!initial)
 		if(equip_sound && slot_flags)
@@ -1074,7 +1069,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /obj/item/attack_hulk(mob/living/carbon/human/user)
-	return 0
+	return FALSE
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
 	if (obj_flags & CAN_BE_HIT)
@@ -1539,13 +1534,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// Whether or not this item can be put into a storage item through attackby
 /obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
 	return TRUE
-
-/**
- * * Overridden to generate icons for monkey clothing
- */
-/obj/item/proc/compile_monkey_icon()
-	return
-
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
 /obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	CRASH("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")

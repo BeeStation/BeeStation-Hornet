@@ -24,8 +24,8 @@
 
 	species_chest = /obj/item/bodypart/chest/ethereal
 	species_head = /obj/item/bodypart/head/ethereal
-	species_l_arm = /obj/item/bodypart/l_arm/ethereal
-	species_r_arm = /obj/item/bodypart/r_arm/ethereal
+	species_l_arm = /obj/item/bodypart/arm/left/ethereal
+	species_r_arm = /obj/item/bodypart/arm/right/ethereal
 	species_l_leg = /obj/item/bodypart/l_leg/ethereal
 	species_r_leg = /obj/item/bodypart/r_leg/ethereal
 
@@ -47,7 +47,7 @@
 	var/emageffect = FALSE
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
-	inert_mutation = /datum/mutation/overload
+	inert_mutation = /datum/mutation/human/overload
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
 /datum/species/ethereal/Destroy(force)

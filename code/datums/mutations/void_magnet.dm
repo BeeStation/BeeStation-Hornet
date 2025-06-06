@@ -1,14 +1,13 @@
-/datum/mutation/void
+/datum/mutation/human/void
 	name = "Void Magnet"
 	desc = "A rare genome that attracts odd forces not usually observed."
 	quality = MINOR_NEGATIVE //upsides and downsides
-	text_gain_indication = "<span class='notice'>You feel a heavy, dull force just beyond the walls watching you.</span>"
 	instability = 30
 	power_path = /datum/action/spell/void
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/mutation/void/on_life(delta_time, times_fired)
+/datum/mutation/human/void/on_life(delta_time, times_fired)
 	// Move this onto the spell itself at some point?
 	var/datum/action/spell/void/curse = locate(power_path) in owner
 	if(!curse)

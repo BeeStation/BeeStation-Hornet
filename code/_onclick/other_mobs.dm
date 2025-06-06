@@ -9,48 +9,66 @@
 	else if (secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
 		CRASH("resolve_right_click_attack (probably attack_hand_secondary) did not return a SECONDARY_ATTACK_* define.")
 
-/*
-	Humans:
-	Adds an exception for gloves, to allow special glove types like the ninja ones.
+/**
+ * Checks if this mob is in a valid state to punch someone.
+ */
+/mob/living/proc/can_unarmed_attack()
+	return !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED)
 
-	Otherwise pretty standard.
-*/
-/mob/living/carbon/human/UnarmedAttack(atom/A, proximity, modifiers)
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		if(src == A)
-			check_self_for_injuries()
-		return
+/mob/living/carbon/can_unarmed_attack()
+	. = ..()
+	if(!.)
+		return FALSE
+
 	if(!has_active_hand()) //can't attack without a hand.
 		var/obj/item/bodypart/check_arm = get_active_hand()
 		if(check_arm?.bodypart_disabled)
 			to_chat(src, span_warning("Your [check_arm.name] is in no condition to be used."))
-			return
+			return FALSE
 
 		to_chat(src, span_notice("You look at your arm and sigh."))
-		return
+		return FALSE
 
-	// Special glove functions:
-	// If the gloves do anything, have them return 1 to stop
-	// normal attack_hand() here.
-	var/obj/item/clothing/gloves/G = gloves // not typecast specifically enough in defines
-	if(proximity && istype(G) && G.Touch(A,1))
-		return
+	return TRUE
 
-	var/override = 0
+/mob/living/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	// The sole reason for this signal needing to exist is making FotNS incompatible with Hulk.
+	// Note that it is send before [proc/can_unarmed_attack] is called, keep this in mind.
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_EARLY_UNARMED_ATTACK, attack_target, modifiers)
+	if(sigreturn & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(sigreturn & COMPONENT_SKIP_ATTACK)
+		return FALSE
 
-	for(var/datum/mutation/HM as() in dna.mutations)
-		override += HM.on_attack_hand(A, proximity)
+	if(!can_unarmed_attack(attack_target))
+		return FALSE
 
-	if(override)
-		return
+	sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, attack_target, proximity_flag, modifiers)
+	if(sigreturn & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(sigreturn & COMPONENT_SKIP_ATTACK)
+		return FALSE
 
-	if(SEND_SIGNAL(src, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, A, proximity, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
-		return
+	if(!right_click_attack_chain(attack_target, modifiers))
+		resolve_unarmed_attack(attack_target, modifiers)
+	return TRUE
 
-	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A, proximity, modifiers)
+/mob/living/carbon/human/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	// Humans can always check themself regardless of having their hands blocked or w/e
+	if(src == attack_target)
+		check_self_for_injuries()
+		return TRUE
 
-	if(!right_click_attack_chain(A, modifiers) && !dna?.species?.spec_unarmedattack(src, A, modifiers)) //Because species like monkeys dont use attack hand
-		A.attack_hand(src, modifiers)
+	return ..()
+
+/mob/living/carbon/resolve_unarmed_attack(atom/attack_target, list/modifiers)
+	return attack_target.attack_paw(src, modifiers)
+
+/mob/living/carbon/human/resolve_unarmed_attack(atom/attack_target, list/modifiers)
+	if(!ISADVANCEDTOOLUSER(src))
+		return ..()
+
+	return attack_target.attack_hand(src, modifiers)
 
 /mob/living/carbon/human/resolve_right_click_attack(atom/target, list/modifiers)
 	return target.attack_hand_secondary(src, modifiers)
@@ -125,7 +143,7 @@
 	. = ..()
 	if(!dna)
 		return
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/human/HM as() in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
 /mob/living/carbon/human/RangedAttack(atom/A, modifiers)
@@ -140,20 +158,6 @@
 	if(isturf(A) && get_dist(src,A) <= 1)
 		Move_Pulled(A)
 		return TRUE
-
-/*
-	Animals & All Unspecified
-*/
-// If the UnarmedAttack chain is blocked
-#define LIVING_UNARMED_ATTACK_BLOCKED(target_atom) (HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) \
-	|| SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target_atom, proximity_flag, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
-
-/mob/living/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
-	if(LIVING_UNARMED_ATTACK_BLOCKED(attack_target))
-		return FALSE
-	if(!right_click_attack_chain(attack_target, modifiers))
-		resolve_unarmed_attack(attack_target, modifiers)
-	return TRUE
 
 /**
  * Called when the unarmed attack hasn't been stopped by the LIVING_UNARMED_ATTACK_BLOCKED macro or the right_click_attack_chain proc.
@@ -187,38 +191,6 @@
 /atom/proc/attack_basic_mob(mob/user, list/modifiers)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_BASIC_MOB, user)
 	return
-
-/*
-	Monkeys
-*/
-/mob/living/carbon/monkey/UnarmedAttack(atom/A, proximity)
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		if(!combat_mode || is_muzzled())
-			return
-		if(!iscarbon(A))
-			return
-		var/mob/living/carbon/victim = A
-		var/obj/item/bodypart/affecting = null
-		if(ishuman(victim))
-			var/mob/living/carbon/human/human_victim = victim
-			affecting = human_victim.get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		var/armor = victim.run_armor_check(affecting, MELEE)
-		if(prob(25))
-			victim.visible_message(span_danger("[src]'s bite misses [victim]!"),
-				span_danger("You avoid [src]'s bite!"), span_hear("You hear jaws snapping shut!"), COMBAT_MESSAGE_RANGE, src)
-			to_chat(src, span_danger("Your bite misses [victim]!"))
-			return
-		victim.apply_damage(rand(1, 3), BRUTE, affecting, armor)
-		victim.visible_message(span_danger("[name] bites [victim]!"),
-			span_userdanger("[name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, name)
-		to_chat(name, span_danger("You bite [victim]!"))
-		if(armor >= 2)
-			return
-		for(var/d in diseases)
-			var/datum/disease/bite_infection = d
-			victim.ForceContractDisease(bite_infection)
-		return
-	A.attack_paw(src)
 
 ///Attacked by monkey. It doesn't need its own *_secondary proc as it just uses attack_hand_secondary instead.
 /atom/proc/attack_paw(mob/user, list/modifiers)
@@ -351,8 +323,6 @@
 		return ..()
 	else
 		AttackingTarget(attack_target)
-
-#undef LIVING_UNARMED_ATTACK_BLOCKED
 
 /*
 	New Players:

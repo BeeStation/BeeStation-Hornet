@@ -4,8 +4,28 @@
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
 	sexes = FALSE
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH, MUTCOLORS)
-	inherent_traits = list(TRAIT_BLOOD_COOLANT,TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
+	species_traits = list(
+		NOTRANSSTING,
+		NOEYESPRITES,
+		NO_DNA_COPY,
+		NOZOMBIE,
+		MUTCOLORS,
+		REVIVESBYHEALING,
+		NOHUSK,
+		NOMOUTH,
+		MUTCOLORS
+	)
+	inherent_traits = list(
+		TRAIT_BLOOD_COOLANT,
+		TRAIT_RESISTCOLD,
+		TRAIT_NOBREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_LIMBATTACHMENT,
+		TRAIT_EASYDISMEMBER,
+		TRAIT_POWERHUNGRY,
+		TRAIT_XENO_IMMUNE,
+		TRAIT_TOXIMMUNE
+	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -38,8 +58,8 @@
 
 	species_chest = /obj/item/bodypart/chest/ipc
 	species_head = /obj/item/bodypart/head/ipc
-	species_l_arm = /obj/item/bodypart/l_arm/ipc
-	species_r_arm = /obj/item/bodypart/r_arm/ipc
+	species_l_arm = /obj/item/bodypart/arm/left/ipc
+	species_r_arm = /obj/item/bodypart/arm/right/ipc
 	species_l_leg = /obj/item/bodypart/l_leg/ipc
 	species_r_leg = /obj/item/bodypart/r_leg/ipc
 
@@ -102,7 +122,7 @@
 	C.update_body()
 
 /datum/action/innate/change_screen
-	name = "Change Display"	
+	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"

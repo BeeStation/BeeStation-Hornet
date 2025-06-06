@@ -203,7 +203,7 @@
 				if(isstargazer(carbon_responder))
 					return TRUE
 				// As can anyone with the telepathy mutation.
-				if(carbon_responder.dna.check_mutation(/datum/mutation/telepathy))
+				if(carbon_responder.dna.check_mutation(/datum/mutation/human/telepathy))
 					return TRUE
 		return FALSE
 

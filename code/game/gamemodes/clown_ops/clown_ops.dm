@@ -51,7 +51,7 @@
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(/datum/mutation/clumsy)
+	H.dna.add_mutation(/datum/mutation/human/clumsy)
 
 /datum/outfit/syndicate/clownop/leader
 	name = "Clown Operative Leader - Basic"

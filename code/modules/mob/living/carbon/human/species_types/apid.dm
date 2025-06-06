@@ -22,13 +22,13 @@
 	staminamod = 1.25
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
-	inert_mutation = /datum/mutation/wax_saliva
+	inert_mutation = /datum/mutation/human/wax_saliva
 	var/cold_cycle = 0
 
 	species_chest = /obj/item/bodypart/chest/apid
 	species_head = /obj/item/bodypart/head/apid
-	species_l_arm = /obj/item/bodypart/l_arm/apid
-	species_r_arm = /obj/item/bodypart/r_arm/apid
+	species_l_arm = /obj/item/bodypart/arm/left/apid
+	species_r_arm = /obj/item/bodypart/arm/right/apid
 	species_l_leg = /obj/item/bodypart/l_leg/apid
 	species_r_leg = /obj/item/bodypart/r_leg/apid
 

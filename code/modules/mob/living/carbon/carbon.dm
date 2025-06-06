@@ -999,9 +999,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				if(BODY_ZONE_CHEST)
 					limbtypes = typesof(/obj/item/bodypart/chest)
 				if(BODY_ZONE_R_ARM)
-					limbtypes = typesof(/obj/item/bodypart/r_arm)
+					limbtypes = typesof(/obj/item/bodypart/arm/right)
 				if(BODY_ZONE_L_ARM)
-					limbtypes = typesof(/obj/item/bodypart/l_arm)
+					limbtypes = typesof(/obj/item/bodypart/arm/left)
 				if(BODY_ZONE_HEAD)
 					limbtypes = typesof(/obj/item/bodypart/head)
 				if(BODY_ZONE_L_LEG)
@@ -1094,7 +1094,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(HAS_TRAIT(src, TRAIT_RADIMMUNE) || HAS_TRAIT(src, TRAIT_BADDNA))
 			to_chat(usr, "Mob cannot mutate")
 			return
-		var/list/mutations = subtypesof(/datum/mutation)
+		var/list/mutations = subtypesof(/datum/mutation/human)
 		var/result = input(usr, "Choose the mutation to give", "Mutate") as null|anything in mutations
 		if(!usr)
 			return
@@ -1103,7 +1103,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(QDELETED(src))
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
-		var/datum/mutation/MT = result
+		var/datum/mutation/human/MT = result
 		if(dna.mutation_in_sequence(MT))
 			dna.activate_mutation(MT)
 			log_admin("[key_name(usr)] has activated the mutation [initial(MT.name)] in [key_name(src)]")
@@ -1128,7 +1128,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return
 		if(!result)
 			return
-		var/datum/mutation/MT = result
+		var/datum/mutation/human/MT = result
 		dna.remove_mutation(MT.type)
 		log_admin("[key_name(usr)] has removed [MT.name] from [key_name(src)]")
 		message_admins(span_notice("[key_name_admin(usr)] has removed [MT.name] from [key_name_admin(src)]."))

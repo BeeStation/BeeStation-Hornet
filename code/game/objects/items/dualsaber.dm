@@ -73,7 +73,7 @@
 	SIGNAL_HANDLER
 
 	if(user && user.has_dna())
-		if(user.dna.check_mutation(/datum/mutation/hulk))
+		if(user.dna.check_mutation(/datum/mutation/human/hulk))
 			to_chat(user, span_warning("You lack the grace to wield this!"))
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
 	sharpness = SHARP_DISMEMBER_EASY
@@ -126,7 +126,7 @@
 /obj/item/dualsaber/attack(mob/target, mob/living/carbon/user)
 	var/wielded = ISWIELDED(src)
 	if(user.has_dna())
-		if(user.dna.check_mutation(/datum/mutation/hulk))
+		if(user.dna.check_mutation(/datum/mutation/human/hulk))
 			to_chat(user, span_warning("You grip the blade too hard and accidentally drop it!"))
 			if(wielded)
 				user.dropItemToGround(src, force=TRUE)
@@ -152,11 +152,6 @@
 	if(ISWIELDED(src))
 		return ..()
 	return 0
-
-/obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
-	if(ISWIELDED(src))
-		to_chat(user, span_warning("You can't pick up such dangerous item with your meaty hands without losing fingers, better not to!"))
-		return 1
 
 /obj/item/dualsaber/process()
 	if(ISWIELDED(src))

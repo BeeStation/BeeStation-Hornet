@@ -19,7 +19,6 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-	ventcrawler = VENTCRAWLER_ALWAYS
 
 	verb_say = "flutters"
 	verb_ask = "flutters inquisitively"
@@ -38,6 +37,7 @@
 
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	AddElement(/datum/element/pet_bonus, "squeaks happily!", emote_sound = 'sound/voice/moth/scream_moth.ogg')
 
 /mob/living/basic/mothroach/update_resting()

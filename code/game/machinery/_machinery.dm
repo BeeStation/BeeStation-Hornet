@@ -273,6 +273,17 @@
 		return
 	unset_static_power()
 	UnregisterSignal(area_to_unregister, COMSIG_AREA_POWER_CHANGE)
+/obj/machinery/computer/can_interact(mob/user)
+	var/mob/living/living_user = user
+	//Quick check for lesserbeings (monkeys, teratomas)
+	if(HAS_TRAIT(living_user, TRAIT_INFERIORFORM))
+		to_chat(living_user, span_notice("What is this thing?! Your fingers dance around the buttons."))
+		//We fuck around on the keys for a bit, like any toddler would
+		if(do_after(living_user, 2 SECONDS, src))
+			to_chat(living_user, span_warning("Shiny! Not much use to me though!"))
+	else
+		. = ..()
+
 
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
@@ -603,7 +614,7 @@
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
 			var/mob/living/carbon/C = L
-			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/telekinesis)))
+			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/human/telekinesis)))
 				return FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated
@@ -677,14 +688,28 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-/obj/machinery/attack_paw(mob/living/user)
+/obj/machinery/attack_paw(mob/living/user, list/modifiers)
 	if(!user.combat_mode)
 		return attack_hand(user)
-	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		var/damage = take_damage(4, BRUTE, MELEE, 1)
-		user.visible_message(span_danger("[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]"), null, null, COMBAT_MESSAGE_RANGE)
+
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+	var/damage = take_damage(damage_amount = 4, damage_type = BRUTE, damage_flag = MELEE, sound_effect = TRUE, attack_dir = get_dir(user, src))
+
+	var/hit_with_what_noun = "paws"
+	var/obj/item/bodypart/arm/arm = user.get_active_hand()
+	if(!isnull(arm))
+		hit_with_what_noun = arm.appendage_noun // hit with "their hand"
+		if(user.usable_hands > 1)
+			hit_with_what_noun += plural_s(hit_with_what_noun) // hit with "their hands"
+
+	user.visible_message(
+		span_danger("[user] smashes [src] with [user.p_their()] [hit_with_what_noun][damage ? "." : ", without leaving a mark!"]"),
+		span_danger("You smash [src] with your [hit_with_what_noun][damage ? "." : ", without leaving a mark!"]"),
+		span_hear("You hear a [damage ? "smash" : "thud"]."),
+		COMBAT_MESSAGE_RANGE,
+	)
+	return TRUE
 
 /obj/machinery/attack_robot(mob/user)
 	if(isAI(user))
@@ -694,15 +719,17 @@
 		return
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
-	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
-		if(buckled_mobs.len > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
-			if(user_unbuckle_mob(unbuckled,user))
-				return TRUE
-		else
-			if(user_unbuckle_mob(buckled_mobs[1],user))
-				return TRUE
-	return _try_interact(user)
+
+	if(!Adjacent(user) || !can_buckle || !has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
+		return _try_interact(user)
+
+	if(buckled_mobs.len <= 1)
+		if(user_unbuckle_mob(buckled_mobs[1],user))
+			return TRUE
+
+	var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
+	if(user_unbuckle_mob(unbuckled,user))
+		return TRUE
 
 /obj/machinery/attack_ai(mob/user)
 	if(iscyborg(user))

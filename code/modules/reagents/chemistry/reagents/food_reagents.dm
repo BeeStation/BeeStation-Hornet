@@ -333,7 +333,7 @@
 	default_container = /obj/item/reagent_containers/cup/bottle/capsaicin
 
 /datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!ishuman(M) && !ismonkey(M))
+	if(!ishuman(M))
 		return
 
 	var/mob/living/carbon/victim = M

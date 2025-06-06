@@ -115,7 +115,7 @@
 		if(2)
 			if(scooldown < world.time)
 				if(M.health >= 0)
-					if(ishuman(M)||ismonkey(M))
+					if(ishuman(M))
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
 						user.visible_message(span_userdanger("[user] electrocutes [M] with [user.p_their()] touch!"), \
 							span_danger("You electrocute [M] with your touch!"))

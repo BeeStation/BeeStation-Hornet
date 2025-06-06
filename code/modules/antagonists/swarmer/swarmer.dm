@@ -107,6 +107,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	remove_verb(/mob/living/verb/pulled)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)

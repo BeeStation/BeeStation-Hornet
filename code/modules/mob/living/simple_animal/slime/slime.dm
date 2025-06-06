@@ -4,7 +4,6 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE | PASSGRILLE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	gender = NEUTER
 	var/is_adult = 0
 	var/docile = 0
@@ -106,6 +105,7 @@
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	GLOB.total_slimes++
 	var/datum/action/innate/slime/feed/F = new
 	F.Grant(src)
@@ -308,7 +308,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		attacked += 10
 
 
-/mob/living/simple_animal/slime/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/simple_animal/slime/attack_paw(mob/living/carbon/human/M)
 	if(..()) //successful monkey bite.
 		attacked += 10
 
@@ -316,10 +316,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(..()) //successful larva bite.
 		attacked += 10
 
-/mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		discipline_slime(user)
-		return ..()
+/mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	if(!.)
+		return
+	discipline_slime(user)
 
 /mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M, modifiers)
 	if(buckled)

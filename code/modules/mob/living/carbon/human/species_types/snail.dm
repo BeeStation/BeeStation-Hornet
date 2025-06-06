@@ -22,8 +22,8 @@
 
 	species_chest = /obj/item/bodypart/chest/snail
 	species_head = /obj/item/bodypart/head/snail
-	species_l_arm = /obj/item/bodypart/l_arm/snail
-	species_r_arm = /obj/item/bodypart/r_arm/snail
+	species_l_arm = /obj/item/bodypart/arm/left/snail
+	species_r_arm = /obj/item/bodypart/arm/right/snail
 	species_l_leg = /obj/item/bodypart/l_leg/snail
 	species_r_leg = /obj/item/bodypart/r_leg/snail
 

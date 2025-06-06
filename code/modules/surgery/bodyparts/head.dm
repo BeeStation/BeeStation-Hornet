@@ -269,6 +269,7 @@
 	icon_state = "default_monkey_head"
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
+	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"

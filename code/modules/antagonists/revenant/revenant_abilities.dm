@@ -79,12 +79,18 @@
 	essence_drained += rand(15, 20)
 	to_chat(src, span_revennotice("You search for the soul of [target]."))
 	if(do_after(src, rand(10, 20), target, timed_action_flags = IGNORE_HELD_ITEM)) //did they get deleted in that second?
+		//We suck upon a player
 		if(target.ckey)
 			to_chat(src, span_revennotice("[target.p_their(TRUE)] soul burns with intelligence."))
 			essence_drained += rand(20, 30)
-		if(target.stat != DEAD)
+		//We suck upon a LIVING HUMAN player
+		if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_WEAK_SOUL))
 			to_chat(src, span_revennotice("[target.p_their(TRUE)] soul blazes with life!"))
 			essence_drained += rand(40, 50)
+		//We suck upon a nonplayer thats a monkey
+		if(HAS_TRAIT(target, TRAIT_WEAK_SOUL) && !target.ckey)
+			to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is weak and underdeveloped. They won't be worth very much.</span>")
+			essence_drained = 5
 		else
 			to_chat(src, span_revennotice("[target.p_their(TRUE)] soul is weak and faltering."))
 		if(do_after(src, rand(15, 20), target, timed_action_flags = IGNORE_HELD_ITEM)) //did they get deleted NOW?
@@ -121,7 +127,7 @@
 				var/datum/beam/B = Beam(target,icon_state="drain_life")
 				if(do_after(src, 46, target, timed_action_flags = IGNORE_HELD_ITEM)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
 					change_essence_amount(essence_drained, FALSE, target)
-					if(essence_drained <= 90 && target.stat != DEAD)
+					if(essence_drained <= 90 && target.stat != DEAD && !HAS_TRAIT(target, TRAIT_WEAK_SOUL))
 						essence_regen_cap += 5
 						to_chat(src, span_revenboldnotice("The absorption of [target]'s living soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap]."))
 					if(essence_drained > 90)
