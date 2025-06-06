@@ -17297,6 +17297,12 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 6
 	},
+/obj/machinery/cryopod{
+	dir = 8
+	},
+/obj/machinery/computer/cryopod{
+	pixel_x = 32
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "dxW" = (
