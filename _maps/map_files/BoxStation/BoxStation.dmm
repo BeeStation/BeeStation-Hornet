@@ -37186,9 +37186,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "liF" = (
-/obj/structure/urinal/directional/west{
-	pixel_x = 32
-	},
+/obj/machinery/washing_machine,
 /turf/open/floor/iron/ridged,
 /area/security/prison)
 "liI" = (
