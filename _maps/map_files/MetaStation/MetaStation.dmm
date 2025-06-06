@@ -22617,6 +22617,9 @@
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/open/floor/iron/white/textured_corner{
 	dir = 8
 	},
@@ -45981,6 +45984,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/suit_sensors{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/white/textured_edge{
 	dir = 1
 	},
@@ -52029,6 +52035,23 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"opH" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron/dark/textured,
+/area/security/main)
 "opX" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Fore Primary Hallway"
@@ -107382,7 +107405,7 @@ vxG
 jjz
 due
 qJU
-jjz
+opH
 uRw
 bIR
 xrx
@@ -107639,7 +107662,7 @@ atT
 aqa
 aqa
 pOf
-atT
+atX
 atX
 loN
 fMd

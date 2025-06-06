@@ -15978,7 +15978,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/effect/spawner/randomarcade,
 /turf/open/floor/wood/broken,
 /area/security/brig)
 "cVR" = (
@@ -28102,6 +28101,9 @@
 	pixel_y = -18;
 	pixel_x = -14
 	},
+/obj/effect/decal/cleanable/molten_object{
+	pixel_y = 15
+	},
 /turf/open/floor/carpet,
 /area/security/brig)
 "hOL" = (
@@ -38379,6 +38381,9 @@
 "lNS" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
+	},
+/obj/effect/spawner/randomarcade{
+	dir = 1
 	},
 /turf/open/floor/wood/broken,
 /area/security/brig)
