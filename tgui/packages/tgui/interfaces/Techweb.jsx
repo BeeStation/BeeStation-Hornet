@@ -1,5 +1,6 @@
 import { filter, map, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
+import { useState } from 'react';
+
 import { useBackend, useLocalState } from '../backend';
 import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
 import { Window, NtosWindow } from '../layouts';
@@ -124,7 +125,7 @@ export const TechwebContent = (props) => {
   const { act, data } = useRemappedBackend();
   const { points, points_last_tick, web_org, sec_protocols, t_disk, d_disk, locked, linkedanalyzer, compact, tech_tier } = data;
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
-  const [lastPoints, setLastPoints] = useLocalState('lastPoints', {});
+  const [lastPoints, setLastPoints] = useState({});
 
   return (
     <Flex direction="column" className="Techweb__Viewport" height="100%">
@@ -215,7 +216,7 @@ const TechwebRouter = (props) => {
 const TechwebOverview = (props) => {
   const { act, data } = useRemappedBackend();
   const { nodes, node_cache, design_cache } = data;
-  const [tabIndex, setTabIndex] = useLocalState('overviewTabIndex', 1);
+  const [tabIndex, setTabIndex] = useState(1);
   const [searchText, setSearchText] = useLocalState('searchText');
 
   const filterSearchNodes = (target_nodes) => {
@@ -463,11 +464,10 @@ const TechwebDesignDisk = (props) => {
   const [showModal, setShowModal] = useLocalState('showDesignModal', -1);
 
   const designIdByIdx = Object.keys(researched_designs);
-  const designOptions = flow([
-    filter((x) => x.toLowerCase() !== 'error'),
-    map((id, idx) => `${design_cache[id].name} [${idx}]`),
-    sortBy((x) => x),
-  ])(designIdByIdx);
+  let designOptions =
+    filter(designIdByIdx, (x) => x.toLowerCase() !== 'error');
+    designOptions = map(designOptions, (id, idx) => `${design_cache[id].name} [${idx}]`);
+    designOptions = sortBy(designOptions, (x) => x);
 
   return (
     <>
@@ -558,7 +558,7 @@ const TechNodeDetail = (props) => {
   const { node } = props;
   const { id } = node;
   const { prereq_ids, unlock_ids } = node_cache[id];
-  const [tabIndex, setTabIndex] = useLocalState('nodeDetailTabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
 
   const prereqNodes = nodes.filter((x) => prereq_ids.includes(x.id));
@@ -622,7 +622,7 @@ const TechNode = (props) => {
   const { id, can_unlock, tier, costs } = node;
   const { name, description, design_ids, prereq_ids, node_tier } = node_cache[id];
   const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
-  const [tabIndex, setTabIndex] = useLocalState('nodeDetailTabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Section className="Techweb__NodeContainer" title={name} width={25}>
