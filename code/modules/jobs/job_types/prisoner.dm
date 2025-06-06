@@ -1,6 +1,6 @@
 /datum/job/prisoner
 	title = JOB_NAME_PRISONER
-	description = "As a prisoner your job is to stay in prison. Work your ass off in the gulag, beat up the newbie, become top dog. Or just play cards or chess. That'd be nicer."
+	description = "As a prisoner your job is to be imprisoned. Play cards or chess, cook some food or grow some plants. Run away when security ain't looking."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	show_in_prefs = TRUE
 	faction = "Station"
@@ -9,9 +9,6 @@
 	head_announce = list(null)
 	supervisors = "Security / The warden"
 	selection_color = "#dddddd"
-	minimal_player_age = 10
-	exp_requirements = 360
-	exp_type = EXP_TYPE_SECURITY
 
 	departments = DEPT_BITFLAG_UNASSIGNED
 
