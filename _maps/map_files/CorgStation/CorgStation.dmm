@@ -11453,11 +11453,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
-"dDi" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/prison,
-/area/security/prison)
 "dDl" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -28969,9 +28964,10 @@
 /turf/open/floor/plating,
 /area/security/detectives_office)
 "jpE" = (
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
+/obj/effect/turf_decal/siding/wideplating_new,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/prison,
+/area/security/prison)
 "jpY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -53470,12 +53466,10 @@
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/captain)
 "ryM" = (
-/obj/effect/turf_decal/tile/red,
-/obj/machinery/computer/holodeck/prison{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/security/brig)
+/obj/effect/turf_decal/siding/wideplating_new,
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/prison,
+/area/security/prison)
 "ryR" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp{
@@ -114050,7 +114044,7 @@ eVb
 kiW
 uSd
 bFn
-ryM
+uSd
 uSd
 uKT
 wXv
@@ -115083,7 +115077,7 @@ hds
 hds
 mEt
 aDg
-skk
+ryM
 uKT
 oeF
 vnF
@@ -115333,7 +115327,7 @@ mFx
 fOv
 xoJ
 fOv
-jpE
+hds
 hds
 hds
 hds
@@ -115854,7 +115848,7 @@ hds
 hds
 efI
 fes
-dDi
+jpE
 uKT
 oeF
 vnF
