@@ -66,7 +66,7 @@
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/affected_mobs = list()
-	var/list/healed_mobs = list() // This will be useful for obelisk stage 2
+
 
 
 /obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
@@ -84,8 +84,6 @@
 		sect.active_obelisks_number -= 1
 	for(var/X in affected_mobs)
 		on_mob_leave(X)
-	for(var/mob/living/X in healed_mobs)
-		REMOVE_TRAIT(X, TRAIT_RECENTLY_HEALED, FROM_SHADOW_SECT)
 	return ..()
 
 
@@ -398,40 +396,26 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2 // some cursed incheritence, but this is the easiest way to do it
 	icon_state = "shadow_obelisk_3"
-	var/heal_delay = 10 SECONDS // How often the obelisk will heal shadow people in its radius
-	COOLDOWN_DECLARE(cooldown_holy_heal)
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/process(delta_time)
-	. = ..()
-	if(!anchored)
-		return
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.grand_ritual_in_progress)
-		return
-	if(COOLDOWN_FINISHED(src, cooldown_holy_heal))
-		COOLDOWN_START(src, cooldown_holy_heal, heal_delay)
-		new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
-		for(var/mob/living/L in range(sect.light_reach, src))
-			if(L.health == L.maxHealth)
-				continue
-			if(!isshadow(L) && !L.mind?.holy_role)
-				continue
-			if(HAS_TRAIT_FROM(L, TRAIT_RECENTLY_HEALED, FROM_SHADOW_SECT))
-				continue
-			var/turf/T = L.loc
-			if(istype(T))
-				var/light_amount = T.get_lumcount()
-				if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
-					continue
-				ADD_TRAIT(L, TRAIT_RECENTLY_HEALED, FROM_SHADOW_SECT)
-				healed_mobs += L
-				addtimer(CALLBACK(src, PROC_REF(clear_recently_healed), L), 10 SECONDS)
-				L.heal_overall_damage(10, 10, 50, FALSE, TRUE)
+    . = ..()
+    if(!anchored)
+        return
+    var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+    if(sect.grand_ritual_in_progress)
+        return
+    for(var/mob/living/L in range(6, src))
+        if(L.health == L.maxHealth)
+            continue
+        if(!isshadow(L))
+            continue
+        var/turf/T = L.loc
+        if(istype(T))
+            var/light_amount = T.get_lumcount()
+            if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
+                continue
+            L.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 5 * delta_time, FALSE, TRUE)
 
-
-/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/proc/clear_recently_healed(mob/living/L) // So the mob is eligible to be healed again
-	healed_mobs -= L
-	REMOVE_TRAIT(L, TRAIT_RECENTLY_HEALED, FROM_SHADOW_SECT)
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3
 	icon_state = "shadow_obelisk_4"

@@ -403,7 +403,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
 
-// This is a trait for marking someone recently healed by a specific source; it has no effect by itself
-#define TRAIT_RECENTLY_HEALED "recently_healed"
 
 // END TRAIT DEFINES
