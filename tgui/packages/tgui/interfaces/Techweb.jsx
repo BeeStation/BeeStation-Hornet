@@ -237,16 +237,14 @@ const TechwebOverview = (props) => {
   const searching = searchText && searchText.trim().length > 1;
 
   displayedNodes = nodes
-    .filter((x) => tabIndex < 2 ? x.tier === tabIndex : x.tier >= tabIndex)
+    .filter((x) => (tabIndex < 2 ? x.tier === tabIndex : x.tier >= tabIndex))
     .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
 
   researchednodes = nodes
     .filter((x) => x.tier === 1)
     .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
 
-  futurenodes = nodes
-    .filter((x) => x.tier === 2)
-    .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
+  futurenodes = nodes.filter((x) => x.tier === 2).sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
   if (searching) {
     displayedNodes = filterSearchNodes(displayedNodes);
     researchednodes = filterSearchNodes(researchednodes);
