@@ -7,7 +7,6 @@
 
 	mapped_start_area = /area/holodeck/prison
 	program_type = /datum/map_template/holodeck/prison //load workshop programs
-	req_access = list(ACCESS_SECURITY)
 	var/startup
 	var/offline = FALSE
 
