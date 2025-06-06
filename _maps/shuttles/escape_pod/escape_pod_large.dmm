@@ -7,8 +7,7 @@
 	pixel_x = -24
 	},
 /obj/item/toy/batong,
-/obj/item/organ/ears/cat,
-/obj/effect/mapping_helpers/foodpreserver,
+/obj/item/clothing/head/costume/kitty,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "r" = (
