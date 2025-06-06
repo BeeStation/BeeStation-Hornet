@@ -147,20 +147,23 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	data["signals"] = signals
 	return data
 
-/datum/component/gps/item/ui_act(action, params)
-	if(..())
+/datum/component/gps/item/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
+
 	switch(action)
 		if("rename")
 			var/atom/parentasatom = parent
-			var/a = stripped_input(usr, "Please enter desired tag.", parentasatom.name, gpstag, 20)
-
+			var/a = tgui_input_text(usr, "Enter the desired tag", "GPS Tag", gpstag, max_length = 20)
+			if (QDELETED(ui) || ui.status != UI_INTERACTIVE)
+				return
 			if (!a)
 				return
 
 			gpstag = a
 			. = TRUE
-			parentasatom.name = "global positioning system ([gpstag])"
+			parentasatom.name = "[initial(parentasatom.name)] ([gpstag])"
 
 		if("power")
 			toggletracking(usr)
