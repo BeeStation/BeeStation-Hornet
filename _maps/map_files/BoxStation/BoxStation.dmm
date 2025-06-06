@@ -24375,12 +24375,11 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/public/glass{
-	name = "Visitation";
-	id_tag = "visitationlock"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Visitation"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -30279,9 +30278,6 @@
 	},
 /area/engine/atmos)
 "iyk" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Visitation"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -30291,6 +30287,9 @@
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Visitation"
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
@@ -57033,7 +57032,9 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/camera/directional/west,
 /obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole/bookmanagement,
+/obj/machinery/computer/libraryconsole/bookmanagement{
+	pixel_y = 8
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "tkF" = (
@@ -63253,6 +63254,12 @@
 /obj/structure/table,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "visitationlock"
+	},
+/obj/structure/railing/sec{
+	dir = 4
+	},
+/obj/structure/railing/sec{
+	dir = 8
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
