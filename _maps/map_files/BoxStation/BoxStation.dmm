@@ -13406,9 +13406,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/south{
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
@@ -13420,6 +13417,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/highcap/ten_k{
+	pixel_y = -32;
+	auto_name = 1
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
@@ -42994,7 +42995,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/computer/security/telescreen/entertainment/directional/north,
+/obj/machinery/computer/security/telescreen/entertainment/directional/north{
+	pixel_x = -16
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "nMf" = (
@@ -61974,8 +61977,6 @@
 /obj/machinery/button/door{
 	id = "visitationlock";
 	name = "Visitation Lock";
-	normaldoorcontrol = 1;
-	specialfunctions = 4;
 	req_one_access_txt = "2";
 	pixel_y = 32
 	},
@@ -63256,14 +63257,14 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/structure/table,
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "visitationlock"
-	},
 /obj/structure/railing/sec{
 	dir = 4
 	},
 /obj/structure/railing/sec{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "visitationlock"
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -67484,6 +67485,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
+"xpQ" = (
+/obj/machinery/power/apc/highcap/ten_k{
+	pixel_y = -32
+	},
+/turf/closed/wall/r_wall,
+/area/security/warden)
 "xqa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -96005,7 +96012,7 @@ biF
 tnE
 jcc
 hUF
-agn
+xpQ
 agn
 nFI
 blk
