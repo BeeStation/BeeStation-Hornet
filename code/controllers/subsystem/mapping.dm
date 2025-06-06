@@ -491,7 +491,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	var/template_width = 0
 	var/weight = 10 //weight a room has to appear
 	var/stock = 1 //how many times this room can appear in a round
-	mappath = null
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename

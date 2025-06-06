@@ -115,11 +115,8 @@
 /obj/item/clothing/head/collectable/paper,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
-"A" = (
-/turf/open/floor/plating/beach/coastline_t,
-/area/tdome/arena)
 "B" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/water{
 	dir = 8
 	},
 /area/tdome/arena)
@@ -132,27 +129,9 @@
 /obj/item/toy/beach_ball,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
-"F" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner,
-/area/tdome/arena)
 "G" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 5
-	},
-/area/tdome/arena)
-"H" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 10
-	},
-/area/tdome/arena)
-"I" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 6
-	},
-/area/tdome/arena)
-"J" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 9
+/turf/open/floor/plating/beach/water{
+	
 	},
 /area/tdome/arena)
 "K" = (
@@ -184,7 +163,7 @@ a
 k
 d
 d
-A
+N
 G
 K
 M
@@ -195,7 +174,7 @@ l
 d
 d
 B
-H
+G
 L
 N
 "}
@@ -205,7 +184,7 @@ d
 r
 d
 d
-A
+N
 L
 N
 "}
@@ -215,7 +194,7 @@ d
 s
 d
 d
-A
+N
 L
 N
 "}
@@ -225,7 +204,7 @@ d
 d
 d
 D
-A
+N
 L
 N
 "}
@@ -235,7 +214,7 @@ m
 d
 d
 E
-A
+N
 L
 N
 "}
@@ -245,7 +224,7 @@ n
 t
 v
 d
-A
+N
 L
 N
 "}
@@ -255,7 +234,7 @@ o
 t
 w
 d
-A
+N
 L
 N
 "}
@@ -265,7 +244,7 @@ p
 t
 x
 d
-A
+N
 L
 N
 "}
@@ -275,7 +254,7 @@ m
 d
 d
 d
-A
+N
 L
 N
 "}
@@ -285,7 +264,7 @@ d
 d
 d
 d
-A
+N
 L
 N
 "}
@@ -295,7 +274,7 @@ d
 d
 y
 d
-A
+N
 L
 N
 "}
@@ -305,7 +284,7 @@ d
 u
 d
 d
-A
+N
 L
 N
 "}
@@ -314,8 +293,8 @@ i
 q
 d
 d
-F
-I
+N
+G
 L
 N
 "}
@@ -324,8 +303,8 @@ j
 k
 d
 d
-A
-J
+N
+G
 K
 M
 "}
