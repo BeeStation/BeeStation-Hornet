@@ -1,4 +1,4 @@
-import { filter, map, sortBy } from 'common/collections';
+import { filter, map } from 'common/collections';
 import { useState } from 'react';
 
 import { useBackend, useLocalState } from '../backend';
@@ -219,6 +219,10 @@ const TechwebOverview = (props) => {
   const [tabIndex, setTabIndex] = useState(1);
   const [searchText, setSearchText] = useLocalState('searchText');
 
+  let displayedNodes = [];
+  let researchednodes = [];
+  let futurenodes = [];
+
   const filterSearchNodes = (target_nodes) => {
     const filtered_search_nodes = target_nodes.filter((x) => {
       const n = node_cache[x.id];
@@ -232,15 +236,17 @@ const TechwebOverview = (props) => {
   };
   const searching = searchText && searchText.trim().length > 1;
 
-  let displayedNodes = nodes;
-  let researchednodes = nodes;
-  let futurenodes = nodes;
-  displayedNodes = sortBy(
-    tabIndex < 2 ? nodes.filter((x) => x.tier === tabIndex) : nodes.filter((x) => x.tier >= tabIndex),
-    (x) => node_cache[x.id].name
-  );
-  researchednodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 1));
-  futurenodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 2));
+  displayedNodes = nodes
+    .filter((x) => tabIndex < 2 ? x.tier === tabIndex : x.tier >= tabIndex)
+    .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
+
+  researchednodes = nodes
+    .filter((x) => x.tier === 1)
+    .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
+
+  futurenodes = nodes
+    .filter((x) => x.tier === 2)
+    .sort((a, b) => node_cache[a.id].name.localeCompare(node_cache[b.id].name));
   if (searching) {
     displayedNodes = filterSearchNodes(displayedNodes);
     researchednodes = filterSearchNodes(researchednodes);
@@ -464,10 +470,9 @@ const TechwebDesignDisk = (props) => {
   const [showModal, setShowModal] = useLocalState('showDesignModal', -1);
 
   const designIdByIdx = Object.keys(researched_designs);
-  let designOptions =
-    filter(designIdByIdx, (x) => x.toLowerCase() !== 'error');
-    designOptions = map(designOptions, (id, idx) => `${design_cache[id].name} [${idx}]`);
-    designOptions = sortBy(designOptions, (x) => x);
+  let designOptions = filter(designIdByIdx, (x) => x.toLowerCase() !== 'error');
+  designOptions = map(designOptions, (id, idx) => `${design_cache[id].name} [${idx}]`);
+  designOptions = sortBy(designOptions, (x) => x);
 
   return (
     <>

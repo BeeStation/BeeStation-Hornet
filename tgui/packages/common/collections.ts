@@ -11,8 +11,6 @@
  *
  * If collection is 'null' or 'undefined', it will be returned "as is"
  * without emitting any errors (which can be useful in some cases).
- *
- * @returns {any[]}
  */
 export const filter = <T>(collection: T[], iterateeFn: (input: T, index: number, collection: T[]) => boolean): T[] => {
   if (collection === null || collection === undefined) {
@@ -128,9 +126,8 @@ export const sortBy = <T>(array: T[], ...iterateeFns: ((input: T) => unknown)[])
 export const sort = <T>(array: T[]): T[] => sortBy(array);
 
 /**
- *
- * returns a range of numbers from start to end, exclusively.
- * for example, range(0, 5) will return [0, 1, 2, 3, 4].
+ * Returns a range of numbers from start to end, exclusively.
+ * For example, range(0, 5) will return [0, 1, 2, 3, 4].
  */
 export const range = (start: number, end: number): number[] =>
   new Array(end - start).fill(null).map((_, index) => index + start);
@@ -176,27 +173,29 @@ export const uniqBy = <T extends unknown>(array: T[], iterateeFn?: (value: T) =>
   const result: T[] = [];
   const seen: unknown[] = iterateeFn ? [] : result;
   let index = -1;
-  outer: while (++index < length) {
-    let value: T | 0 = array[index];
-    const computed = iterateeFn ? iterateeFn(value) : value;
-    if (computed === computed) {
-      let seenIndex = seen.length;
-      while (seenIndex--) {
-        if (seen[seenIndex] === computed) {
-          continue outer;
+  // prettier-ignore
+  outer:
+    while (++index < length) {
+      let value: T | 0 = array[index];
+      const computed = iterateeFn ? iterateeFn(value) : value;
+      if (computed === computed) {
+        let seenIndex = seen.length;
+        while (seenIndex--) {
+          if (seen[seenIndex] === computed) {
+            continue outer;
+          }
         }
+        if (iterateeFn) {
+          seen.push(computed);
+        }
+        result.push(value);
+      } else if (!seen.includes(computed)) {
+        if (seen !== result) {
+          seen.push(computed);
+        }
+        result.push(value);
       }
-      if (iterateeFn) {
-        seen.push(computed);
-      }
-      result.push(value);
-    } else if (!seen.includes(computed)) {
-      if (seen !== result) {
-        seen.push(computed);
-      }
-      result.push(value);
     }
-  }
   return result;
 };
 
@@ -210,8 +209,6 @@ type Zip<T extends unknown[][]> = {
  * Creates an array of grouped elements, the first of which contains
  * the first elements of the given arrays, the second of which contains
  * the second elements of the given arrays, and so on.
- *
- * @returns {any[]}
  */
 export const zip = <T extends unknown[][]>(...arrays: T): Zip<T> => {
   if (arrays.length === 0) {
@@ -269,4 +266,47 @@ export const binaryInsertWith = <T, U = unknown>(collection: readonly T[], value
   return copy;
 };
 
+/**
+ * This method takes a collection of items and a number, returning a collection
+ * of collections, where the maximum amount of items in each is that second arg
+ */
+export const paginate = <T>(collection: T[], maxPerPage: number): T[][] => {
+  const pages: T[][] = [];
+  let page: T[] = [];
+  let itemsToAdd = maxPerPage;
+
+  for (const item of collection) {
+    page.push(item);
+    itemsToAdd--;
+    if (!itemsToAdd) {
+      itemsToAdd = maxPerPage;
+      pages.push(page);
+      page = [];
+    }
+  }
+  if (page.length) {
+    pages.push(page);
+  }
+  return pages;
+};
+
 const isObject = (obj: unknown): obj is object => typeof obj === 'object' && obj !== null;
+
+// Does a deep merge of two objects. DO NOT FEED CIRCULAR OBJECTS!!
+export const deepMerge = (...objects: any[]): any => {
+  const target = {};
+  for (const object of objects) {
+    for (const key of Object.keys(object)) {
+      const targetValue = target[key];
+      const objectValue = object[key];
+      if (Array.isArray(targetValue) && Array.isArray(objectValue)) {
+        target[key] = [...targetValue, ...objectValue];
+      } else if (isObject(targetValue) && isObject(objectValue)) {
+        target[key] = deepMerge(targetValue, objectValue);
+      } else {
+        target[key] = objectValue;
+      }
+    }
+  }
+  return target;
+};
