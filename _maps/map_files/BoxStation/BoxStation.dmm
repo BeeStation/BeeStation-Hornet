@@ -67485,12 +67485,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"xpQ" = (
-/obj/machinery/power/apc/highcap/ten_k{
-	pixel_y = -32
-	},
-/turf/closed/wall/r_wall,
-/area/security/warden)
 "xqa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -96012,7 +96006,7 @@ biF
 tnE
 jcc
 hUF
-xpQ
+agn
 agn
 nFI
 blk

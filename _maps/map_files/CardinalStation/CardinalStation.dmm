@@ -36150,7 +36150,6 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/storage/tech)
 "hxY" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigentrance";
@@ -48658,7 +48657,7 @@
 /area/maintenance/department/medical)
 "kcK" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/hallway/upper/primary/starboard)
 "kcN" = (
 /obj/structure/disposalpipe/segment{

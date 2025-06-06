@@ -7367,11 +7367,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"cdn" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/prison,
-/area/security/prison)
 "cdu" = (
 /obj/machinery/holopad{
 	pixel_y = 16
@@ -11458,6 +11453,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
+"dDi" = (
+/obj/effect/turf_decal/siding/wideplating_new,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/prison,
+/area/security/prison)
 "dDl" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -52080,10 +52080,7 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen/entertainment/directional/north{
-	pixel_y = 0;
-	pixel_x = -32
-	},
+/obj/machinery/computer/security/telescreen/entertainment/directional/west,
 /turf/open/floor/prison,
 /area/security/prison)
 "raK" = (
@@ -115857,7 +115854,7 @@ hds
 hds
 efI
 fes
-cdn
+dDi
 uKT
 oeF
 vnF
