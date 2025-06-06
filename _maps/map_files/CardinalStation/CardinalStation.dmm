@@ -2760,9 +2760,9 @@
 /area/engine/atmos)
 "aFc" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/machinery/ai_slipper{
-	uses = 10;
-	pixel_y = 3
+/obj/machinery/porta_turret/ai{
+	dir = 4;
+	installation = /obj/item/gun/energy/e_gun
 	},
 /turf/open/floor/concrete/slab,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -4675,10 +4675,7 @@
 /area/lawoffice)
 "aXC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
 	name = "Core Modules";
@@ -6295,6 +6292,7 @@
 /obj/machinery/computer/upload/ai{
 	dir = 1
 	},
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "bmP" = (
@@ -12868,7 +12866,6 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/south,
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plating/rust,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -23564,6 +23561,10 @@
 	icon_state = "2-4"
 	},
 /obj/effect/landmark/navigate_destination,
+/obj/item/radio/intercom/directional/west{
+	pixel_y = 15;
+	pixel_x = -30
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/transit_tube)
 "eRR" = (
@@ -23950,6 +23951,7 @@
 /area/space/nearstation)
 "eWB" = (
 /obj/effect/turf_decal/siding/dark,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/concrete/slab,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "eWF" = (
@@ -32331,8 +32333,7 @@
 	dir = 1
 	},
 /obj/machinery/computer/security/telescreen/vault{
-	pixel_y = 28;
-	name = "stage monitor"
+	pixel_y = 28
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -33931,15 +33932,12 @@
 /obj/effect/turf_decal/siding/blue/corner{
 	dir = 1
 	},
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
-	},
 /obj/machinery/airalarm/directional/south,
 /obj/machinery/firealarm{
 	pixel_x = -28;
 	dir = 4
 	},
+/obj/machinery/ai_slipper,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "gUA" = (
@@ -35116,10 +35114,6 @@
 /obj/machinery/holopad{
 	pixel_y = -16
 	},
-/obj/structure/sign/logo{
-	icon_state = "nanotrasen_sign4";
-	pixel_y = 32
-	},
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
@@ -35131,6 +35125,10 @@
 	},
 /obj/structure/cable/cyan{
 	icon_state = "2-4"
+	},
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign5";
+	pixel_y = 32
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/hallway)
@@ -35918,6 +35916,16 @@
 	},
 /turf/open/floor/engine/light,
 /area/science/mixing/chamber)
+"hqv" = (
+/obj/structure/grille,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/sign/logo{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "hqC" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating/rust,
@@ -39555,6 +39563,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 5
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
 "icK" = (
@@ -55082,7 +55091,9 @@
 /area/science/robotics/lab)
 "lpn" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard,
+/obj/item/clipboard{
+	pixel_y = 1
+	},
 /obj/item/folder/blue,
 /obj/item/pen,
 /obj/structure/window/reinforced/spawner/west,
@@ -55605,12 +55616,12 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/logo{
-	icon_state = "nanotrasen_sign2";
-	pixel_y = 32
-	},
 /obj/structure/cable/cyan{
 	icon_state = "2-4"
+	},
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign3";
+	pixel_y = 32
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/hallway)
@@ -58543,6 +58554,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-8"
 	},
+/obj/machinery/holopad,
 /turf/open/floor/concrete/slab,
 /area/ai_monitored/turret_protected/ai_upload)
 "mcg" = (
@@ -69785,6 +69797,13 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
+"oou" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4;
+	installation = /obj/item/gun/energy/e_gun
+	},
+/turf/open/space/basic,
+/area/space)
 "oow" = (
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 1
@@ -72144,6 +72163,9 @@
 /obj/effect/turf_decal/caution,
 /obj/machinery/light/small/directional/west,
 /obj/machinery/status_display/ai/directional/west,
+/obj/item/radio/intercom/directional/west{
+	pixel_y = 18
+	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat_interior)
 "oOh" = (
@@ -72168,6 +72190,14 @@
 /obj/item/poster/random_official{
 	pixel_x = -13;
 	pixel_y = 11
+	},
+/obj/item/paper_bin{
+	pixel_y = -9;
+	pixel_x = 13
+	},
+/obj/item/pen/fountain{
+	pixel_y = 1;
+	pixel_x = 11
 	},
 /turf/open/floor/carpet/black,
 /area/bridge/showroom/corporate)
@@ -74386,6 +74416,7 @@
 /obj/machinery/camera/motion/directional/west{
 	dir = 10
 	},
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "pkY" = (
@@ -79482,6 +79513,7 @@
 	pixel_y = 2
 	},
 /obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign2";
 	pixel_y = 32
 	},
 /turf/open/floor/iron/tech,
@@ -82824,6 +82856,11 @@
 /obj/item/aiModule/reset,
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 1;
+	name = "Core Modules";
+	req_access_txt = "20"
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -90693,6 +90730,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "sFR" = (
@@ -97425,10 +97463,6 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/structure/sign/logo{
-	icon_state = "nanotrasen_sign5";
-	pixel_y = 32
-	},
 /obj/machinery/camera/motion/directional/north,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
@@ -97439,6 +97473,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "tZk" = (
@@ -100936,14 +100971,11 @@
 /obj/effect/turf_decal/siding/blue/corner{
 	dir = 4
 	},
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
-	},
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/cyan{
 	icon_state = "0-8"
 	},
+/obj/machinery/ai_slipper,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "uIP" = (
@@ -101449,6 +101481,9 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 28
+	},
+/obj/machinery/computer/security/telescreen/minisat{
+	pixel_y = 33
 	},
 /turf/open/floor/carpet/cyan,
 /area/bridge)
@@ -109663,12 +109698,12 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/structure/sign/logo{
-	icon_state = "nanotrasen_sign3";
-	pixel_y = 32
-	},
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
+	},
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign4";
+	pixel_y = 32
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/hallway)
@@ -129819,7 +129854,7 @@ abu
 gRR
 gRR
 lKY
-qzL
+hqv
 qzL
 nqR
 nqR
@@ -133938,7 +133973,7 @@ nzj
 nzj
 nzj
 nzj
-nzj
+oou
 nzj
 nzj
 nzj
