@@ -58,7 +58,6 @@
 	jobtype = /datum/job/prisoner
 	id = /obj/item/card/id/job/prisoner
 	belt = /obj/item/modular_computer/tablet/pda/prisoner
-	suit = /obj/item/clothing/suit/jacket/straight_jacket
 	uniform = /obj/item/clothing/under/rank/prisoner/lowsec
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	can_be_admin_equipped = TRUE
