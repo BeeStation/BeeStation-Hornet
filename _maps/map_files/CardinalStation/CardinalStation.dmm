@@ -19060,6 +19060,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
+"dSk" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4;
+	installation = /obj/item/gun/energy/e_gun
+	},
+/turf/open/space/basic,
+/area/space)
 "dSm" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -35916,16 +35923,6 @@
 	},
 /turf/open/floor/engine/light,
 /area/science/mixing/chamber)
-"hqv" = (
-/obj/structure/grille,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/sign/logo{
-	pixel_y = 32
-	},
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/hallway)
 "hqC" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating/rust,
@@ -69797,13 +69794,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
-"oou" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
-	},
-/turf/open/space/basic,
-/area/space)
 "oow" = (
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 1
@@ -85000,6 +84990,9 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/science/xenobiology)
 "rth" = (
+/obj/item/radio/intercom/directional/east{
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/blue,
 /area/bridge)
 "rtp" = (
@@ -110887,6 +110880,16 @@
 	dir = 4
 	},
 /area/science/xenobiology)
+"wHf" = (
+/obj/structure/grille,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/sign/logo{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "wHl" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -129854,7 +129857,7 @@ abu
 gRR
 gRR
 lKY
-hqv
+wHf
 qzL
 nqR
 nqR
@@ -133973,7 +133976,7 @@ nzj
 nzj
 nzj
 nzj
-oou
+dSk
 nzj
 nzj
 nzj
