@@ -16886,12 +16886,12 @@
 	name = "Prison Blast Door"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "visitationlock"
-	},
 /obj/structure/railing/sec,
 /obj/structure/railing/sec{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "visitationlock"
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -26009,8 +26009,6 @@
 /obj/machinery/button/door{
 	id = "visitationlock";
 	name = "Visitation Lock";
-	normaldoorcontrol = 1;
-	specialfunctions = 4;
 	req_one_access_txt = "2";
 	pixel_y = 32
 	},
