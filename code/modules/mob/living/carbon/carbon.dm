@@ -311,7 +311,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		while(do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
 			cuff_breakout_attempts++
 			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime || (prob(cuff_breakout_attempts/4)))
-				message_admins("[ADMIN_LOOKUPFLW(src)] broke out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / 5 SECONDS] potential break out attempts")
+				log_combat(src, src, "slipped out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / 5 SECONDS] attempts", important = FALSE)
 				. = clear_cuffs(cuffs, cuff_break)
 				break
 			else if(prob(4))
