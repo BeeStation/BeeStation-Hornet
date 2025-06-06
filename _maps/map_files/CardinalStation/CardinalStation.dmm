@@ -2934,16 +2934,6 @@
 	},
 /turf/open/floor/iron/yellowsiding,
 /area/storage/tools)
-"aHg" = (
-/obj/structure/grille,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/sign/logo{
-	pixel_y = 32
-	},
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/hallway)
 "aHj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -5628,11 +5618,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
-"bgQ" = (
-/obj/structure/lattice,
-/obj/machinery/flasher/directional/north,
-/turf/open/space/basic,
-/area/space/nearstation)
 "bgR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -9017,7 +9002,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/motion/directional/east,
 /turf/open/floor/plating/airless,
 /area/ai_monitored/turret_protected/aisat_interior)
 "bRC" = (
@@ -13182,7 +13167,7 @@
 	},
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/motion/directional/north,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -16002,7 +15987,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west,
+/obj/machinery/camera/motion/directional/west,
 /turf/open/floor/plating/airless,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "dij" = (
@@ -19721,7 +19706,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/motion/directional/east,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 28
@@ -20927,6 +20912,10 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
+"enV" = (
+/obj/machinery/flasher/directional/west,
+/turf/open/space/basic,
+/area/space)
 "eog" = (
 /obj/structure/cable/pink{
 	icon_state = "1-8"
@@ -23684,7 +23673,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "eTt" = (
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/motion/directional/east,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -33331,6 +33320,11 @@
 	},
 /turf/open/floor/plating,
 /area/medical/apothecary)
+"gOE" = (
+/obj/structure/lattice,
+/obj/machinery/flasher/directional/north,
+/turf/open/space/basic,
+/area/space/nearstation)
 "gOH" = (
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/structure/chair/foldable,
@@ -41994,6 +41988,16 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/science/robotics/mechbay)
+"iCG" = (
+/obj/structure/grille,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/sign/logo{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "iCH" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -43336,7 +43340,7 @@
 	dir = 8
 	},
 /obj/machinery/light/directional/west,
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/motion/directional/east,
 /obj/machinery/light_switch/directional/west{
 	pixel_y = 14
 	},
@@ -47031,6 +47035,11 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/hallway/primary/aft)
+"jHV" = (
+/obj/structure/lattice,
+/obj/machinery/camera/motion/directional/west,
+/turf/open/space/basic,
+/area/space/nearstation)
 "jIe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -56087,7 +56096,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/motion/directional/east,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -74411,9 +74420,7 @@
 /obj/machinery/computer/upload/borg{
 	dir = 1
 	},
-/obj/machinery/camera/motion/directional/west{
-	dir = 10
-	},
+/obj/machinery/camera/motion/directional/south,
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -75054,7 +75061,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/machinery/camera/directional/west,
+/obj/machinery/camera/motion/directional/west,
 /obj/machinery/flasher/directional/west,
 /turf/open/floor/plating/airless,
 /area/ai_monitored/turret_protected/ai)
@@ -78004,7 +78011,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/motion/directional/east,
 /obj/machinery/flasher/directional/east,
 /turf/open/floor/plating/airless,
 /area/ai_monitored/turret_protected/ai)
@@ -79397,13 +79404,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"qng" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
-	},
-/turf/open/space/basic,
-/area/space)
 "qnj" = (
 /mob/living/simple_animal/cardinal{
 	dir = 4
@@ -83024,7 +83024,7 @@
 /area/engine/atmos)
 "qYF" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/camera/directional/west,
+/obj/machinery/camera/motion/directional/west,
 /obj/structure/cable/green{
 	icon_state = "1-4"
 	},
@@ -84498,6 +84498,11 @@
 	dir = 1
 	},
 /area/security/main)
+"roA" = (
+/obj/structure/lattice,
+/obj/machinery/camera/motion/directional/east,
+/turf/open/space/basic,
+/area/space/nearstation)
 "roJ" = (
 /obj/effect/turf_decal/siding/purple/corner{
 	dir = 8
@@ -91625,7 +91630,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/directional/east,
+/obj/machinery/camera/motion/directional/east,
 /obj/machinery/turretid{
 	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
 	name = "AI Antechamber Turret Control";
@@ -92045,6 +92050,13 @@
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
+"sTB" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4;
+	installation = /obj/item/gun/energy/e_gun
+	},
+/turf/open/space/basic,
+/area/space)
 "sTE" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 8
@@ -93218,6 +93230,10 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
+"tfM" = (
+/obj/machinery/flasher/directional/east,
+/turf/open/space/basic,
+/area/space)
 "tfQ" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/camera/directional/south,
@@ -93658,10 +93674,6 @@
 	},
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/cryopods)
-"tlD" = (
-/obj/machinery/flasher/directional/east,
-/turf/open/space/basic,
-/area/space)
 "tmi" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 4
@@ -95095,10 +95107,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/storage/emergency/port)
-"tzU" = (
-/obj/machinery/flasher/directional/west,
-/turf/open/space/basic,
-/area/space)
 "tAe" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -108516,7 +108524,7 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 8
 	},
-/obj/machinery/camera/directional/west,
+/obj/machinery/camera/motion/directional/west,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -114549,7 +114557,7 @@
 	dir = 4
 	},
 /obj/machinery/light/directional/east,
-/obj/machinery/camera/directional/west,
+/obj/machinery/camera/motion/directional/west,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "xwo" = (
@@ -129619,7 +129627,7 @@ nqR
 hyT
 hyT
 hyT
-tlD
+tfM
 nzj
 nzj
 nzj
@@ -129870,7 +129878,7 @@ abu
 gRR
 gRR
 lKY
-aHg
+iCG
 qzL
 nqR
 nqR
@@ -130135,7 +130143,7 @@ jdF
 uCT
 nqR
 tiv
-soF
+roA
 nzj
 nzj
 nzj
@@ -130622,7 +130630,7 @@ mwp
 mwp
 mwp
 hyT
-giV
+jHV
 hyT
 oFE
 vuj
@@ -130650,7 +130658,7 @@ wXX
 jWC
 pkM
 nqR
-bgQ
+gOE
 nzj
 nzj
 nzj
@@ -131164,7 +131172,7 @@ msE
 qfA
 bmI
 nqR
-bgQ
+gOE
 nzj
 nzj
 nzj
@@ -131677,7 +131685,7 @@ diK
 vIy
 nqR
 tiv
-giV
+jHV
 nzj
 nzj
 nzj
@@ -132189,7 +132197,7 @@ nqR
 hyT
 hyT
 hyT
-tzU
+enV
 nzj
 nzj
 nzj
@@ -133989,7 +133997,7 @@ nzj
 nzj
 nzj
 nzj
-qng
+sTB
 nzj
 nzj
 nzj
