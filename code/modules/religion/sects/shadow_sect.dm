@@ -398,23 +398,23 @@
 	icon_state = "shadow_obelisk_3"
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/process(delta_time)
-    . = ..()
-    if(!anchored)
-        return
-    var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-    if(sect.grand_ritual_in_progress)
-        return
-    for(var/mob/living/L in range(6, src))
-        if(L.health == L.maxHealth)
-            continue
-        if(!isshadow(L))
-            continue
-        var/turf/T = L.loc
-        if(istype(T))
-            var/light_amount = T.get_lumcount()
-            if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
-                continue
-            L.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 5 * delta_time, FALSE, TRUE)
+	. = ..()
+	if(!anchored)
+		return
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.grand_ritual_in_progress)
+		return
+	for(var/mob/living/L in range(6, src))
+		if(L.health == L.maxHealth)
+			continue
+		if(!isshadow(L))
+			continue
+		var/turf/T = L.loc
+		if(istype(T))
+			var/light_amount = T.get_lumcount()
+			if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
+				continue
+			L.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 5 * delta_time, FALSE, TRUE)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/after_rit_3
