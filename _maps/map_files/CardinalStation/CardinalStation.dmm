@@ -2934,6 +2934,16 @@
 	},
 /turf/open/floor/iron/yellowsiding,
 /area/storage/tools)
+"aHg" = (
+/obj/structure/grille,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/sign/logo{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "aHj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -5618,6 +5628,11 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
+"bgQ" = (
+/obj/structure/lattice,
+/obj/machinery/flasher/directional/north,
+/turf/open/space/basic,
+/area/space/nearstation)
 "bgR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -19060,13 +19075,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
-"dSk" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
-	},
-/turf/open/space/basic,
-/area/space)
 "dSm" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -79389,6 +79397,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"qng" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4;
+	installation = /obj/item/gun/energy/e_gun
+	},
+/turf/open/space/basic,
+/area/space)
 "qnj" = (
 /mob/living/simple_animal/cardinal{
 	dir = 4
@@ -93643,6 +93658,10 @@
 	},
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/cryopods)
+"tlD" = (
+/obj/machinery/flasher/directional/east,
+/turf/open/space/basic,
+/area/space)
 "tmi" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 4
@@ -95076,6 +95095,10 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/storage/emergency/port)
+"tzU" = (
+/obj/machinery/flasher/directional/west,
+/turf/open/space/basic,
+/area/space)
 "tAe" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -110880,16 +110903,6 @@
 	dir = 4
 	},
 /area/science/xenobiology)
-"wHf" = (
-/obj/structure/grille,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/sign/logo{
-	pixel_y = 32
-	},
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/hallway)
 "wHl" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -129606,7 +129619,7 @@ nqR
 hyT
 hyT
 hyT
-nzj
+tlD
 nzj
 nzj
 nzj
@@ -129857,7 +129870,7 @@ abu
 gRR
 gRR
 lKY
-wHf
+aHg
 qzL
 nqR
 nqR
@@ -130637,7 +130650,7 @@ wXX
 jWC
 pkM
 nqR
-hyT
+bgQ
 nzj
 nzj
 nzj
@@ -131151,7 +131164,7 @@ msE
 qfA
 bmI
 nqR
-hyT
+bgQ
 nzj
 nzj
 nzj
@@ -132176,7 +132189,7 @@ nqR
 hyT
 hyT
 hyT
-nzj
+tzU
 nzj
 nzj
 nzj
@@ -133976,7 +133989,7 @@ nzj
 nzj
 nzj
 nzj
-dSk
+qng
 nzj
 nzj
 nzj
