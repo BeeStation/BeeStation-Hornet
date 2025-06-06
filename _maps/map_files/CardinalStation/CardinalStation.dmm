@@ -15131,10 +15131,13 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 6
 	},
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/terracotta/corner{
 	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/computer/libraryconsole/bookmanagement{
+	pixel_y = 8
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -38054,6 +38057,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/machinery/vending/snack/green,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "hRT" = (
@@ -43222,6 +43226,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/vending/games,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "iRg" = (
@@ -89616,6 +89621,7 @@
 	},
 /obj/machinery/camera/directional/south,
 /obj/machinery/digital_clock/directional/south,
+/obj/machinery/vending/sticker,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "sEW" = (
@@ -99515,11 +99521,10 @@
 "uEl" = (
 /obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/bowl,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/processor,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "uEJ" = (
@@ -101712,13 +101717,13 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
 	},
-/obj/structure/chair/stool/directional/east,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/thinplating_new/terracotta/corner{
 	dir = 4
 	},
+/obj/structure/bookcase/random/reference,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "vbD" = (
@@ -104966,6 +104971,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/machinery/vending/cola/black,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "vHK" = (
@@ -113067,9 +113073,8 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 6
 	},
-/obj/structure/table/reinforced,
-/obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/machinery/vending/dinnerware,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "xsa" = (
@@ -117106,14 +117111,10 @@
 /area/security/detectives_office)
 "ylg" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/structure/table,
 /obj/effect/turf_decal/siding/thinplating_new/terracotta{
 	dir = 1
 	},
-/obj/item/candle{
-	pixel_y = 6;
-	pixel_x = 1
-	},
+/obj/structure/bookcase/random/reference,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "ylh" = (
