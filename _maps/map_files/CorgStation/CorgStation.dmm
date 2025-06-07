@@ -28965,6 +28965,7 @@
 /area/security/detectives_office)
 "jpE" = (
 /obj/effect/turf_decal/siding/wideplating_new,
+/obj/item/kirbyplants/random,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/prison,
 /area/security/prison)
@@ -36598,6 +36599,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"lSl" = (
+/obj/effect/turf_decal/siding/wideplating_new,
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/prison,
+/area/security/prison)
 "lSt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -53467,7 +53473,8 @@
 /area/crew_quarters/heads/captain)
 "ryM" = (
 /obj/effect/turf_decal/siding/wideplating_new,
-/obj/machinery/airalarm/directional/south,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/kirbyplants/random,
 /turf/open/floor/prison,
 /area/security/prison)
 "ryR" = (
@@ -58838,6 +58845,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/prison,
 /area/security/prison)
 "tps" = (
@@ -115077,7 +115085,7 @@ hds
 hds
 mEt
 aDg
-ryM
+lSl
 uKT
 oeF
 vnF
@@ -115591,7 +115599,7 @@ hds
 hds
 mEt
 fes
-skk
+jpE
 uKT
 oeF
 vnF
@@ -115848,7 +115856,7 @@ hds
 hds
 efI
 fes
-jpE
+ryM
 uKT
 oeF
 vnF

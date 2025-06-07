@@ -35513,6 +35513,7 @@
 /obj/item/canvas/twentythree_twentythree,
 /obj/item/paint_palette,
 /obj/item/paint_palette,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "kCj" = (
@@ -36591,6 +36592,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/wall_closet/generic/directional/east,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "kVR" = (
@@ -49422,6 +49425,9 @@
 	dir = 4
 	},
 /obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "qtu" = (
@@ -51435,6 +51441,7 @@
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 6
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "rfQ" = (
@@ -54224,6 +54231,7 @@
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "siW" = (
@@ -59298,6 +59306,7 @@
 /area/vacant_room/office)
 "tYI" = (
 /obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood,
 /area/security/prison)
 "tYJ" = (
@@ -69090,6 +69099,7 @@
 	},
 /obj/effect/turf_decal/siding/wideplating_new,
 /obj/item/kirbyplants/random,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "xYv" = (

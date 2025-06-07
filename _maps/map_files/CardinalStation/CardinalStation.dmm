@@ -28575,6 +28575,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "fYh" = (
@@ -33600,6 +33601,7 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "gUi" = (
@@ -36155,6 +36157,7 @@
 	id = "brigentrance";
 	name = "Brig Blast Door"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/prison)
 "hyb" = (
@@ -62953,6 +62956,10 @@
 /obj/effect/turf_decal/tile/steelgrid,
 /obj/machinery/light/small/directional/west,
 /obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "ncF" = (
@@ -67989,6 +67996,8 @@
 /obj/structure/fluff/fans{
 	pixel_x = 24
 	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/tech/grid,
 /area/security/prison/shielded)
 "obP" = (
@@ -82812,6 +82821,8 @@
 /obj/item/canvas/nineteen_nineteen,
 /obj/item/canvas/nineteen_nineteen,
 /obj/item/storage/crayons,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "rgz" = (
@@ -86103,6 +86114,7 @@
 	pixel_x = 9;
 	pixel_y = 5
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/grass,
 /area/security/prison)
 "rRZ" = (
@@ -88892,6 +88904,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
@@ -102606,6 +102619,8 @@
 	dir = 9
 	},
 /obj/structure/wall_closet/generic/directional/north,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "vjr" = (
@@ -109107,6 +109122,8 @@
 	dir = 9
 	},
 /obj/structure/wall_closet/generic/directional/north,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "wyv" = (
