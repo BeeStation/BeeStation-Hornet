@@ -30841,10 +30841,10 @@
 /obj/structure/chair/fancy/sofa/old/left{
 	dir = 8
 	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/window/reinforced/spawner{
 	dir = 4
 	},
+/obj/effect/landmark/start/vip,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/bar)
 "jWA" = (
@@ -45509,7 +45509,7 @@
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
-/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/vip,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/bar)
 "oKm" = (
@@ -51042,6 +51042,7 @@
 	},
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/landmark/start/randommaint/backalley_doc,
 /turf/open/floor/carpet,
 /area/hallway/primary/fore)
 "qHw" = (
@@ -56239,6 +56240,7 @@
 	department = "Theatre";
 	pixel_y = 32
 	},
+/obj/effect/landmark/start/magician,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "svM" = (
@@ -70376,6 +70378,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"xgl" = (
+/obj/effect/landmark/start/psychiatrist,
+/turf/open/floor/glass/reinforced,
+/area/medical/medbay/central)
 "xgs" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -113558,7 +113564,7 @@ wAu
 kpA
 adu
 ofY
-ofY
+xgl
 ofY
 pgq
 vFZ

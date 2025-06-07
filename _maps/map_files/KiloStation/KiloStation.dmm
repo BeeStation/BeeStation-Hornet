@@ -25552,6 +25552,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/gateway)
+"goT" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/landmark/start/psychiatrist,
+/turf/open/floor/iron/showroomfloor,
+/area/medical/medbay/central)
 "goX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/warning/xeno_mining{
@@ -29055,6 +29065,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/effect/landmark/start/magician,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/theatre)
 "huW" = (
@@ -31551,6 +31562,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/landmark/start/vip,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "ikX" = (
@@ -46721,6 +46733,16 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"nkf" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 8
+	},
+/obj/effect/landmark/start/vip,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "nkA" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/effect/turf_decal/tile/dark/opposingcorners,
@@ -81875,10 +81897,10 @@
 	pixel_x = 24;
 	pixel_y = -8
 	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/toilet{
 	dir = 1
 	},
+/obj/effect/landmark/start/randommaint/backalley_doc,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 
@@ -101542,7 +101564,7 @@ rBJ
 gZJ
 kja
 rNs
-kja
+goT
 mHC
 iTq
 leb
@@ -107707,7 +107729,7 @@ xXr
 btE
 wjk
 vXj
-ojO
+nkf
 ojO
 vXj
 fqQ

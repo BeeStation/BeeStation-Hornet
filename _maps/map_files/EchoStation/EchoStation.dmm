@@ -4932,7 +4932,7 @@
 	dir = 8
 	},
 /obj/structure/chair/stool/directional/west,
-/obj/effect/landmark/start/randommaint/vip,
+/obj/effect/landmark/start/vip,
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/asteroid/paradise/surface/water)
 "cid" = (
@@ -5694,7 +5694,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/psychiatrist,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -10432,6 +10432,7 @@
 	dir = 9
 	},
 /obj/machinery/digital_clock/directional/north,
+/obj/effect/landmark/start/vip,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "eUW" = (
@@ -38307,7 +38308,7 @@
 	pixel_y = 31
 	},
 /obj/structure/chair/stool/bar/directional/west,
-/obj/effect/landmark/start/randommaint/magician,
+/obj/effect/landmark/start/magician,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -39183,6 +39184,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/effect/landmark/start/vip,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "tkw" = (
@@ -42167,6 +42169,7 @@
 /obj/structure/chair/wood/normal{
 	dir = 1
 	},
+/obj/effect/landmark/start/magician,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
 "uFy" = (
@@ -45089,6 +45092,7 @@
 	pixel_x = -1;
 	pixel_y = 6
 	},
+/obj/effect/landmark/start/randommaint/backalley_doc,
 /turf/open/floor/iron/techmaint/planetary,
 /area/hallway/primary/fore)
 "vXg" = (

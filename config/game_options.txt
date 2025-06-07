@@ -691,5 +691,5 @@ SPECIAL_SYMPTOM_THRESHOLDS
 ##At this amount of symptoms, Synaptizine will no longer remove symptoms from a virus. Set this to 6 or higher to prevent removing symptoms at all. Set this to 1 to allow synaptizine to work to its full effect
 VIRUS_THINNING_CAP 4
 
-
-
+##Allows the Barber job to be picked
+#ALLOW_BARBER

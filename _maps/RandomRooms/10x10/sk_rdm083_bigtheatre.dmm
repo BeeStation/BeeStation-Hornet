@@ -15,10 +15,6 @@
 "f" = (
 /turf/closed/wall,
 /area/template_noop)
-"g" = (
-/obj/effect/landmark/start/randommaint/magician,
-/turf/open/floor/wood,
-/area/template_noop)
 "h" = (
 /obj/machinery/light{
 	dir = 8
@@ -160,7 +156,7 @@ r
 d
 a
 e
-g
+e
 e
 f
 e

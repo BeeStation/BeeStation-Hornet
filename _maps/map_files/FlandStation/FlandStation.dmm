@@ -17301,7 +17301,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -31
 	},
-/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/psychiatrist,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "eDw" = (
@@ -37084,6 +37084,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"jzO" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/stool/directional/west,
+/obj/effect/landmark/start/vip,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "jzQ" = (
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/stripes/line,
@@ -53946,6 +53954,7 @@
 	color = "#742925";
 	dir = 1
 	},
+/obj/effect/landmark/start/randommaint/backalley_doc,
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
 "nNh" = (
@@ -65819,6 +65828,10 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
+"qSp" = (
+/obj/effect/landmark/start/magician,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "qSu" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -80228,6 +80241,7 @@
 	dir = 4
 	},
 /obj/structure/chair/stool/directional/west,
+/obj/effect/landmark/start/vip,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "uBw" = (
@@ -91093,6 +91107,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/effect/landmark/start/magician,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -117002,7 +117017,7 @@ lru
 vAS
 xqJ
 wsI
-wsI
+qSp
 wsI
 pJi
 qvN
@@ -117507,7 +117522,7 @@ gPw
 sdf
 syY
 mRd
-cXO
+jzO
 kSv
 mRd
 fXw

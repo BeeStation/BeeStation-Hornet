@@ -3,10 +3,6 @@
 /obj/structure/dresser,
 /turf/open/floor/carpet/black,
 /area/template_noop)
-"c" = (
-/obj/effect/landmark/start/randommaint/magician,
-/turf/open/floor/carpet/black,
-/area/template_noop)
 "g" = (
 /turf/open/floor/carpet/black,
 /area/template_noop)
@@ -75,7 +71,7 @@ a
 "}
 (2,1,1) = {"
 F
-c
+g
 o
 "}
 (3,1,1) = {"

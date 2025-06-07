@@ -47865,6 +47865,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/landmark/start/magician,
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
 "jrt" = (
@@ -52469,6 +52470,17 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
+"kSu" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair/stool/bar/directional/south{
+	dir = 1
+	},
+/obj/effect/landmark/start/vip,
+/turf/open/floor/iron,
+/area/crew_quarters/bar/atrium)
 "kSW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -59886,6 +59898,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"nkN" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/start/vip,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/atrium)
 "nkS" = (
 /obj/machinery/light,
 /obj/item/kirbyplants/random,
@@ -68632,6 +68652,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"qeK" = (
+/obj/structure/urinal{
+	pixel_y = 28
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/landmark/start/randommaint/backalley_doc,
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "qeM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -73852,7 +73880,7 @@
 /area/maintenance/department/medical/morgue)
 "rIy" = (
 /obj/machinery/holopad,
-/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/psychiatrist,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -80061,6 +80089,10 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard)
+"tCz" = (
+/obj/effect/landmark/start/magician,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/bar/atrium)
 "tCA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
@@ -130498,7 +130530,7 @@ uzG
 aOE
 aQn
 hNE
-aOF
+tCz
 aOF
 sBi
 aYC
@@ -131267,7 +131299,7 @@ aDL
 aDL
 jAF
 ejA
-wgK
+nkN
 wgK
 wgK
 dCt
@@ -132034,7 +132066,7 @@ aEW
 nov
 aHB
 icn
-iKU
+kSu
 rOT
 xkf
 snE
@@ -141342,7 +141374,7 @@ cvM
 qHd
 aTr
 cAm
-cBO
+qeK
 oyy
 cFj
 cAm

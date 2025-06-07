@@ -473,3 +473,5 @@
 
 /datum/config_entry/number/virus_thinning_cap
 	config_entry_value = 4
+
+/datum/config_entry/flag/allow_barber

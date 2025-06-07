@@ -25592,6 +25592,7 @@
 /obj/structure/chair/fancy/sofa/corp/right{
 	dir = 8
 	},
+/obj/effect/landmark/start/vip,
 /turf/open/floor/carpet/black,
 /area/crew_quarters/bar/atrium)
 "gMk" = (
@@ -27745,6 +27746,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/effect/landmark/start/vip,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/locker)
 "hJD" = (
@@ -29168,7 +29170,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/psychiatrist,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -30803,6 +30805,11 @@
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/white,
 /area/medical/genetics/cloning)
+"iQN" = (
+/obj/structure/chair/stool/directional/west,
+/obj/effect/landmark/start/randommaint/backalley_doc,
+/turf/open/floor/iron,
+/area/crew_quarters/locker)
 "iQT" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -68223,6 +68230,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
+"xXh" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/landmark/start/magician,
+/turf/open/floor/carpet,
+/area/crew_quarters/theatre)
 "xXr" = (
 /obj/item/cigbutt,
 /obj/structure/sign/warning/vacuum/external{
@@ -86552,7 +86566,7 @@ aPA
 aQP
 aQN
 uVJ
-vAb
+iQN
 jtE
 aXQ
 aXQ
@@ -103508,7 +103522,7 @@ rmU
 sCA
 oLg
 yag
-qBj
+xXh
 sHa
 wzL
 xrZ

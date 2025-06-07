@@ -252,7 +252,6 @@
 /obj/structure/window/reinforced/tinted/frosted{
 	dir = 4
 	},
-/obj/effect/landmark/start/randommaint/magician,
 /obj/structure/chair/stool/bar,
 /obj/machinery/light/small{
 	dir = 1

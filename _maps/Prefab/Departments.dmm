@@ -646,10 +646,6 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 4;
-	pixel_x = -5
-	},
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
 	},
@@ -663,12 +659,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/science/research)
-"oI" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/mixing)
 "oO" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/janitorialcart,
@@ -688,7 +678,7 @@
 "ph" = (
 /obj/effect/landmark/start/mime,
 /obj/effect/landmark/start/clown,
-/obj/effect/landmark/start/randommaint/magician,
+/obj/effect/landmark/start/magician,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
 "pp" = (
@@ -1305,7 +1295,7 @@
 /area/space)
 "EF" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/psychiatrist,
 /obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
@@ -1661,13 +1651,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/space)
-"MZ" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/science/research)
 "Nb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -2397,7 +2380,7 @@ tM
 CE
 zT
 nt
-MZ
+aJ
 Hb
 ac
 Wx
@@ -2458,7 +2441,7 @@ KM
 kX
 zU
 lt
-oI
+lt
 LH
 nv
 ba

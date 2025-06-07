@@ -210,6 +210,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"
 
+/obj/effect/landmark/start/magician
+	name = "Stage Magician"
+
+/obj/effect/landmark/start/psychiatrist
+	name = "Psychiatrist"
+
+/obj/effect/landmark/start/vip
+	name = "VIP"
+
 /obj/effect/landmark/start/randommaint
 	name = "maintjobstart"
 	icon_state = "x3"
@@ -225,18 +234,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
 	job = "Barber"
-
-/obj/effect/landmark/start/randommaint/magician
-	name = "Stage Magician"
-	job = "Stage Magician"
-
-/obj/effect/landmark/start/randommaint/psychiatrist
-	name = "Psychiatrist"
-	job = "Psychiatrist"
-
-/obj/effect/landmark/start/randommaint/vip
-	name = "VIP"
-	job = "VIP"
 
 /obj/effect/landmark/start/randommaint/experiment
 	name = "Experiment"

@@ -304,8 +304,8 @@
 		/obj/item/megaphone = 3,
 	)
 
-//MAGICIAN GIMMICK
-/datum/job/gimmick/stage_magician
+//MAGICIAN
+/datum/job/stage_magician
 	mail_goodies = list(
 		//AND FOR MY NEXT TRICK... Bunny
 		/obj/item/clothing/head/mob_holder/rabbit = 40,
@@ -336,8 +336,8 @@
 		/obj/item/book/granter/action/spell/mime
 	)
 
-//PSYCHOLOGIST / PSYCHIATRIST GIMMICK
-/datum/job/gimmick/psychiatrist
+//PSYCHOLOGIST
+/datum/job/psychiatrist
 	mail_goodies =  list(
 		/obj/item/storage/pill_bottle/mannitol = 30,
 		/obj/item/storage/pill_bottle/happy = 5,
@@ -443,8 +443,8 @@
 
 	)
 
-//VIP / VIP GIMMICK
-/datum/job/gimmick/vip
+//VIP
+/datum/job/vip
 	mail_goodies = list(
 		//WOW THE NEW BEATS BY DR.MOFF?
 		/obj/item/clothing/ears/headphones = 10,

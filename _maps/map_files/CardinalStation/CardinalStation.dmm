@@ -17498,7 +17498,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -17508,6 +17507,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/start/vip,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "dzr" = (
@@ -21279,7 +21279,7 @@
 /turf/open/floor/wood/big,
 /area/lawoffice)
 "eti" = (
-/obj/effect/landmark/start/randommaint/magician,
+/obj/effect/landmark/start/magician,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -60015,6 +60015,12 @@
 /obj/effect/turf_decal/trimline/purple/filled/corner,
 /turf/open/floor/iron/dark/smooth_corner,
 /area/science/xenobiology)
+"myr" = (
+/obj/structure/chair/fancy/corp,
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/landmark/start/vip,
+/turf/open/floor/carpet/blue,
+/area/bridge/showroom/corporate)
 "mys" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue{
@@ -62268,7 +62274,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/landmark/start/randommaint/magician,
+/obj/effect/landmark/start/magician,
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	color = "#742925"
@@ -71192,13 +71198,13 @@
 /turf/open/floor/wood/big,
 /area/library/lounge)
 "oML" = (
-/obj/effect/landmark/start/randommaint/vip,
 /obj/structure/chair/fancy/corp{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
+/obj/effect/landmark/start/clown,
 /turf/open/floor/carpet/blue,
 /area/bridge/showroom/corporate)
 "oMX" = (
@@ -73138,7 +73144,7 @@
 	dir = 1
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/landmark/start/randommaint/magician,
+/obj/effect/landmark/start/magician,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "pga" = (
@@ -76946,7 +76952,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -76957,6 +76962,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/effect/landmark/start/vip,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "pWJ" = (
@@ -78520,7 +78526,7 @@
 /obj/machinery/light/small/directional/north,
 /obj/structure/chair/fancy/sofa/corp/right,
 /obj/item/radio/intercom/directional/north,
-/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/psychiatrist,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "qov" = (
@@ -110363,7 +110369,7 @@
 /area/quartermaster/miningdock)
 "wMW" = (
 /obj/effect/turf_decal/siding/yellow,
-/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/psychiatrist,
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
 	dir = 1
@@ -136323,7 +136329,7 @@ jxg
 cko
 diV
 lXZ
-iyL
+myr
 pZy
 asv
 wsK

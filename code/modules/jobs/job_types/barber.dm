@@ -26,6 +26,10 @@
 	)
 	minimal_lightup_areas = list(/area/medical/morgue)
 
+// Barber will be off until we either get a better system for cutting hair, or we make the need to get getto surgery more prevlant.
+/datum/job/barber/config_check()
+	return CONFIG_GET(flag/allow_barber)
+
 /datum/outfit/job/barber
 	name = JOB_NAME_BARBER
 	jobtype = /datum/job/barber
