@@ -3,8 +3,19 @@
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
 	default_color = "00FF90"
-	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
-	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOHAIRLOSS,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		HAIR,
+		FACEHAIR
+	)
+	inherent_traits = list(
+		TRAIT_TOXINLOVER,
+		TRAIT_NOHAIRLOSS,
+		TRAIT_NOFIRE,
+		TRAIT_ALWAYS_CLEAN,
+		TRAIT_EASYDISMEMBER
+	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime

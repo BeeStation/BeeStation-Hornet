@@ -10,11 +10,22 @@
 	id = SPECIES_SHADOWPERSON
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
-	species_traits = list(NOBLOOD,NOEYESPRITES,NOFLASH)
-	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH)
+	species_traits = list(
+		NOEYESPRITES,
+		NOFLASH
+	)
+	inherent_traits = list(
+		TRAIT_NOBREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NOBLOOD,
+	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	mutanteyes = /obj/item/organ/eyes/night_vision
+	mutantheart = null
+	mutantlungs = null
+
 	species_language_holder = /datum/language_holder/shadowpeople
 
 	species_chest = /obj/item/bodypart/chest/shadow
@@ -94,7 +105,13 @@
 	id = "nightmare"
 	burnmod = 1.5
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NO_DNA_COPY,NOTRANSSTING,NOEYESPRITES,NOFLASH)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NO_DNA_COPY,
+		NOTRANSSTING,
+		NOEYESPRITES,
+		NOFLASH
+	)
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
@@ -105,7 +122,8 @@
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NOHUNGER
+		TRAIT_NOHUNGER,
+		TRAIT_NOBLOOD,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -140,22 +158,21 @@
 	name = "tumorous mass"
 	desc = "A fleshy growth that was dug out of the skull of a Nightmare."
 	icon_state = "brain-x-d"
-	var/datum/action/spell/jaunt/shadow_walk/shadowwalk
+	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
 
-/obj/item/organ/brain/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/brain/nightmare/on_insert(mob/living/carbon/brain_owner)
 	..()
-	if(M.dna.species.id != "nightmare")
-		M.set_species(/datum/species/shadow/nightmare)
-		visible_message(span_warning("[M] thrashes as [src] takes root in [M.p_their()] body!"))
-	shadowwalk = new /datum/action/spell/jaunt/shadow_walk
-	shadowwalk.Grant(M)
+	if(brain_owner.dna.species.id != SPECIES_NIGHTMARE)
+		brain_owner.set_species(/datum/species/shadow/nightmare)
+		visible_message(span_warning("[brain_owner] thrashes as [src] takes root in [brain_owner.p_their()] body!"))
+	
+	our_jaunt = new(brain_owner)
+	our_jaunt.Grant(brain_owner)
 
 
-/obj/item/organ/brain/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	if(shadowwalk)
-		shadowwalk.Remove(M)
-	..()
-
+/obj/item/organ/brain/nightmare/on_remove(mob/living/carbon/brain_owner)
+	QDEL_NULL(our_jaunt)
+	return ..()
 
 /obj/item/organ/heart/nightmare
 	name = "heart of darkness"
@@ -182,18 +199,18 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	Insert(user)
 
-/obj/item/organ/heart/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/nightmare/on_insert(mob/living/carbon/heart_owner, special)
+	. = ..()
 	if(special != HEART_SPECIAL_SHADOWIFY)
 		blade = new/obj/item/light_eater
-		M.put_in_hands(blade)
+		heart_owner.put_in_hands(blade)
 
-/obj/item/organ/heart/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/nightmare/on_remove(mob/living/carbon/heart_owner, special)
+	. = ..()
 	respawn_progress = 0
 	if(blade && special != HEART_SPECIAL_SHADOWIFY)
-		M.visible_message(span_warning("\The [blade] disintegrates!"))
+		heart_owner.visible_message(span_warning("\The [blade] disintegrates!"))
 		QDEL_NULL(blade)
-	..()
 
 /obj/item/organ/heart/nightmare/Stop()
 	return 0

@@ -54,7 +54,7 @@
 		return
 
 	var/mob/living/carbon/human/moffin_observer = user
-	var/obj/item/organ/tongue/tongue = moffin_observer.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = moffin_observer.get_organ_slot(ORGAN_SLOT_TONGUE)
 
 	if(!tongue) ///no tongue means no taste
 		return

@@ -95,7 +95,7 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		if(surgery.location != I.zone || target.getorganslot(I.slot))
+		if(surgery.location != I.zone || target.get_organ_slot(I.slot))
 			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(surgery.location)]!"))
 			return -1
 		if(istype(I, /obj/item/organ/brain/positron))
@@ -119,7 +119,7 @@
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
-		var/list/organs = target.getorganszone(surgery.location)
+		var/list/organs = target.get_organs_for_zone(surgery.location)
 		if(!organs.len)
 			to_chat(user, span_notice("There are no removable organs in [target]'s [parse_zone(surgery.location)]!"))
 			return -1

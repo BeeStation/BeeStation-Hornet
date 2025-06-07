@@ -20,7 +20,7 @@
 								span_italics("You hear organic matter ripping and tearing!"))
 			C.emote("scream")
 			C.regenerate_limbs(1)
-		if(!user.getorganslot(ORGAN_SLOT_BRAIN))
+		if(!user.get_organ_slot(ORGAN_SLOT_BRAIN))
 			var/obj/item/organ/brain/B
 			if(C.has_dna() && C.dna.species.mutantbrain)
 				B = new C.dna.species.mutantbrain()

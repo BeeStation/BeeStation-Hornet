@@ -20,7 +20,7 @@
 	if(!istype(current))
 		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to at least be a carbon!")
 		return
-	if(!current.getorgan(/obj/item/organ/brain)) // If only I had a brain
+	if(!current.get_organ_by_type(/obj/item/organ/brain)) // If only I had a brain
 		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to HAVE A BRAIN.")
 		return
 	var/datum/mind/forced_target

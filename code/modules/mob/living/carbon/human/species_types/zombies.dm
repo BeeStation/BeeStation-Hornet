@@ -8,7 +8,6 @@
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	species_traits = list(
-		NOBLOOD,
 		NOZOMBIE,
 		NOTRANSSTING
 	)
@@ -27,8 +26,13 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
-		TRAIT_NOSTASIS
+		TRAIT_NOSTASIS,
+		TRAIT_NOBLOOD,
 	)
+	mutantstomach = null
+	mutantheart = null
+	mutantliver = null
+	mutantlungs = null
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	bodytemp_normal = T0C // They have no natural body heat, the environment regulates body temp
@@ -109,7 +113,7 @@
 /datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()
 	var/obj/item/organ/zombie_infection/infection
-	infection = C.getorganslot(ORGAN_SLOT_ZOMBIE)
+	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(infection)
 		qdel(infection)
 
@@ -120,7 +124,7 @@
 	//  Infection organ needs to be handled separately from mutant_organs
 	//  because it persists through species transitions
 	var/obj/item/organ/zombie_infection/infection
-	infection = C.getorganslot(ORGAN_SLOT_ZOMBIE)
+	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(!infection)
 		infection = new()
 		infection.Insert(C)

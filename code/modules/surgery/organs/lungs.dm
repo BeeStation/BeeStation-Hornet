@@ -86,7 +86,9 @@
 	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
 	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
 	var/new_owner = QDELETED(owner) || owner != M
-	..()
+	. = ..()
+	if(!.)
+		return .
 	if(new_owner)
 		RegisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
 
@@ -129,7 +131,7 @@
 	LAZYREMOVE(thrown_alerts, alert_category)
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-//TODO: add lung damage = less oxygen gains
+	//TODO: add lung damage = less oxygen gains
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
 	if(H.status_flags & GODMODE)
 		return
@@ -355,8 +357,8 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/get_availability(datum/species/S)
-	return !(TRAIT_NOBREATH in S.species_traits)
+/obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantlungs
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"

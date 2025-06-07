@@ -652,7 +652,7 @@
 	candidates = living_players
 	for(var/mob/living/carbon/human/candidate in candidates)
 		if( \
-			!candidate.getorgan(/obj/item/organ/brain) \
+			!candidate.get_organ_by_type(/obj/item/organ/brain) \
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
 			|| !SSjob.GetJob(candidate.mind.assigned_role) \

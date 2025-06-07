@@ -38,6 +38,8 @@
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
+	if(!.)
+		return
 	if(ishuman(eye_owner))
 		var/mob/living/carbon/human/human_owner = eye_owner
 		old_eye_color = human_owner.eye_color
@@ -181,22 +183,22 @@
 /obj/item/organ/eyes/robotic/flashlight/emp_act(severity)
 	return
 
-/obj/item/organ/eyes/robotic/flashlight/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, pref_load = FALSE)
-	..()
+/obj/item/organ/eyes/robotic/flashlight/on_insert(mob/living/carbon/victim)
+	. = ..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
 	eye.on = TRUE
-	eye.forceMove(M)
-	eye.update_brightness(M)
-	M.become_blind("flashlight_eyes")
+	eye.forceMove(victim)
+	eye.update_brightness(victim)
+	victim.become_blind("flashlight_eyes")
 
 
-/obj/item/organ/eyes/robotic/flashlight/Remove(var/mob/living/carbon/M, var/special = 0, pref_load = FALSE)
+/obj/item/organ/eyes/robotic/flashlight/on_remove(mob/living/carbon/victim)
+	. = ..()
 	eye.on = FALSE
-	eye.update_brightness(M)
+	eye.update_brightness(victim)
 	eye.forceMove(src)
-	M.cure_blind("flashlight_eyes")
-	..()
+	victim.cure_blind("flashlight_eyes")
 
 // Welding shield implant
 /obj/item/organ/eyes/robotic/shield

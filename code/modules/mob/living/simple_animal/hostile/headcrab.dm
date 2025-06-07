@@ -53,7 +53,9 @@
 /obj/item/organ/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
+	/// The mind of the original changeling that gave forth to the headslug mob.
 	var/datum/mind/origin
+	/// Tracks how long the egg has been growing.
 	var/time = 0
 
 /obj/item/organ/body_egg/changeling_egg/egg_process(delta_time, times_fired)
