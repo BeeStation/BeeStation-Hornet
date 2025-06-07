@@ -64,21 +64,29 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 	for(var/turf/viewed_turf in view(get_turf(mob)))
 		in_view[viewed_turf] = TRUE
 	for(var/client/client in GLOB.clients)
-		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc) || (client in GLOB.admins))
+		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			continue
+
 		if(in_view[get_turf(client.mob)])
 			targets |= client
-			to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
 
-	for(var/client/client in GLOB.admins)
-		if(!client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
+		// This bit of code is used for LOOC runechat appearing.
+		var/list/mob/client_mobs = list()
+		for(var/client/target_client as anything in targets)
+			if(target_client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
+				client_mobs |= target_client.mob
+		create_chat_message(src.mob, /datum/language/metalanguage, client_mobs, "\[LOOC: [raw_msg]\]", spans = list("looc"))
+
+		// And this bit is for the chat messages to appear. Admins get special treatment.
+		if(client in GLOB.admins)
+			var/prefix
+			if(in_view[get_turf(client.mob)])
+				prefix = "[(client in targets) ? "" : "(R)"]LOOC (NEARBY)"
+			else
+				prefix = "[(client in targets) ? "" : "(R)"]LOOC"
+			to_chat(client, span_looc("[span_prefix("[prefix]:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
 			continue
-		var/prefix
-		if(in_view[get_turf(client.mob)])
-			prefix = "[(client in targets) ? "" : "(R)"]LOOC (NEARBY)"
-		else
-			prefix = "[(client in targets) ? "" : "(R)"]LOOC"
-		to_chat(client, span_looc("[span_prefix("[prefix]:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
+		to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
 
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_ooc))
