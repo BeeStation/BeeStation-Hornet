@@ -17835,7 +17835,6 @@
 /obj/structure/sign/poster/official/obey{
 	pixel_x = -32
 	},
-/obj/structure/closet/emcloset,
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "dIE" = (
@@ -45121,7 +45120,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/structure/closet/emcloset,
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "oFB" = (
@@ -55290,6 +55288,10 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/wall_closet/emergency/directional/west,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/oxygen,
 /turf/open/floor/prison,
 /area/security/prison)
 "sEj" = (
@@ -55541,6 +55543,10 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/wall_closet/emergency/directional/east,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/oxygen,
 /turf/open/floor/prison,
 /area/security/prison)
 "sIK" = (
@@ -61483,7 +61489,6 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engineering)
 "uXB" = (
-/obj/structure/closet/emcloset,
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "uXF" = (
