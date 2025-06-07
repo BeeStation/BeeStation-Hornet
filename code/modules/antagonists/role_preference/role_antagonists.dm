@@ -42,6 +42,20 @@
 	H.hair_color = "431"
 	H.update_hair()
 
+/datum/role_preference/antagonist/scamp
+	name = "Scamp"
+	description = "The freedom of an antag, without any of the responsibilities!\n\
+	Roleplay as a mugger, thief, or other troublemaker, or cause trouble around the station some other way!"
+	antag_datum = /datum/antagonist/scamp
+	preview_outfit = /datum/outfit/traitor
+
+/datum/role_preference/midround_living/scamp
+	name = "Midround Scamp"
+	description = "The freedom of an antag, without any of the responsibilities!\n\
+	Roleplay as a mugger, thief, or other troublemaker, or cause trouble around the station some other way!"
+	antag_datum = /datum/antagonist/scamp
+	use_icon = /datum/role_preference/antagonist/traitor
+
 /datum/role_preference/antagonist/changeling
 	name = "Changeling"
 	description = "A highly intelligent alien predator that is capable of altering their \
