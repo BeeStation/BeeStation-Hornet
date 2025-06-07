@@ -46,27 +46,6 @@
 	limb_id = "abductor"
 	should_draw_greyscale = FALSE
 
-///JELLY
-/obj/item/bodypart/head/jelly
-	limb_id = "jelly"
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/chest/jelly
-	limb_id = "jelly"
-	is_dimorphic = TRUE
-
-/obj/item/bodypart/l_arm/jelly
-	limb_id = "jelly"
-
-/obj/item/bodypart/r_arm/jelly
-	limb_id = "jelly"
-
-/obj/item/bodypart/l_leg/jelly
-	limb_id = "jelly"
-
-/obj/item/bodypart/r_leg/jelly
-	limb_id = "jelly"
-
 ///SLIME
 /obj/item/bodypart/head/slime
 	limb_id = "slime"
@@ -87,6 +66,27 @@
 
 /obj/item/bodypart/r_leg/slime
 	limb_id = "slime"
+
+///LUMINESCENT
+/obj/item/bodypart/head/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	is_dimorphic = TRUE
+
+/obj/item/bodypart/chest/luminescent
+	limb_id = SPECIES_LUMINESCENT
+	is_dimorphic = TRUE
+
+/obj/item/bodypart/l_arm/luminescent
+	limb_id = SPECIES_LUMINESCENT
+
+/obj/item/bodypart/r_arm/luminescent
+	limb_id = SPECIES_LUMINESCENT
+
+/obj/item/bodypart/l_leg/luminescent
+	limb_id = SPECIES_LUMINESCENT
+
+/obj/item/bodypart/r_leg/luminescent
+	limb_id = SPECIES_LUMINESCENT
 
 ///ZAMBONI
 /obj/item/bodypart/head/zombie
@@ -465,6 +465,7 @@
 /obj/item/bodypart/head/golem/snow
 	limb_id = "sn_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/snow
 	limb_id = "sn_golem"

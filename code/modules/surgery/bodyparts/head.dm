@@ -268,6 +268,7 @@
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_head"
 	limb_id = SPECIES_MONKEY
+	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	animal_origin = MONKEY_BODYPART
 
 /obj/item/bodypart/head/monkey/teratoma

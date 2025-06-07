@@ -36,12 +36,14 @@
 	special_step_sounds = list('sound/effects/servostep.ogg')
 	species_bitflags = NOT_TRANSMORPHIC
 
-	species_chest = /obj/item/bodypart/chest/ipc
-	species_head = /obj/item/bodypart/head/ipc
-	species_l_arm = /obj/item/bodypart/l_arm/ipc
-	species_r_arm = /obj/item/bodypart/r_arm/ipc
-	species_l_leg = /obj/item/bodypart/l_leg/ipc
-	species_r_leg = /obj/item/bodypart/r_leg/ipc
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/ipc,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ipc,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ipc,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ipc,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ipc,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/ipc
+	)
 
 	exotic_blood = /datum/reagent/oil
 	blood_color = "#000000"
@@ -102,7 +104,7 @@
 	C.update_body()
 
 /datum/action/innate/change_screen
-	name = "Change Display"	
+	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
