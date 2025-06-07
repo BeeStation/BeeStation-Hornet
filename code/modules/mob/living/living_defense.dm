@@ -346,21 +346,21 @@
 		return FALSE
 	return FALSE
 
-/mob/living/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M, modifiers)
+/mob/living/attack_alien(mob/living/carbon/alien/humanoid/user, modifiers)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, user, modifiers)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+		user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		return TRUE
-	if(M.combat_mode)
-		if(HAS_TRAIT(M, TRAIT_PACIFISM))
-			to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+	if(user.combat_mode)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, span_warning("You don't want to hurt anyone!"))
 			return FALSE
-		M.do_attack_animation(src)
+		user.do_attack_animation(src)
 		return TRUE
 	else
-		visible_message("<span class='notice'>[M] caresses [src] with its scythe-like arm.</span>", \
-						"<span class='notice'>[M] caresses you with its scythe-like arm.</span>", null, null, M)
-		to_chat(M, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
+		visible_message(span_notice("[user] caresses [src] with its scythe-like arm."), \
+						span_notice("[user] caresses you with its scythe-like arm."), null, null, user)
+		to_chat(user, span_notice("You caress [src] with your scythe-like arm."))
 		return FALSE
 
 /mob/living/ex_act(severity, target, origin)
