@@ -82,24 +82,6 @@
 	else
 		say("Workshop shutdown underway! Standby for reboot...")
 
-/obj/machinery/computer/holodeck/prison/nerf(nerf_this, is_loading) //We want items to behave as normal and to do damage
-	return
-
-/obj/machinery/computer/holodeck/prison/derez(atom/movable/holo_atom, silent = TRUE, forced = FALSE)
-	spawned -= holo_atom
-	if(!holo_atom)
-		return
-	if(!(get_turf(holo_atom) in linked)) //Don't derez items that have been hidden or taken away by prisoners
-		return
-	UnregisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED)
-	var/turf/target_turf = get_turf(holo_atom)
-	for(var/atom/movable/atom_contents as anything in holo_atom) //make sure that things inside of a holoitem are moved outside before destroying it
-		atom_contents.forceMove(target_turf)
-	if(!silent)
-		visible_message(span_notice("[holo_atom] fades away!"))
-
-	qdel(holo_atom)
-
 /obj/machinery/computer/holodeck/prison/load_program()
 	. = ..()
 	offline = FALSE
