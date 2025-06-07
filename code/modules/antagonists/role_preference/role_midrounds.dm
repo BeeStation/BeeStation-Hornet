@@ -186,7 +186,7 @@
 	description = "You are a Prisoner, sent to the station brig by Nanotrasen. \
 	You have a chance to escape, but be careful, the security officers are on high alert."
 	antag_datum = /datum/antagonist/prisoner
-	preview_outfit = /datum/outfit/prisoner
+	preview_outfit = /datum/outfit/escapedprisoner
 
 /datum/role_preference/midround_ghost/fugitive
 	name = "Fugitive"
