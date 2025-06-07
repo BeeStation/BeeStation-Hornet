@@ -371,20 +371,49 @@
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
 				parts += "[GLOB.TAB]<i>Nobody died this shift!</i>"
+
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
-		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
-		parts += "[FOURSPACES]Threat left: [mode.mid_round_budget]"
-		if(mode.roundend_threat_log.len)
-			parts += "[FOURSPACES]Threat edits:"
-			for(var/entry as anything in mode.roundend_threat_log)
-				parts += "[FOURSPACES][FOURSPACES][entry]<BR>"
-		parts += "[FOURSPACES]Executed rules:"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			if (rule.lategame_spawned)
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -0 threat (Lategame, threat cost ignored)"
+
+		// Roundstart
+		var/list/roundstart_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.roundstart_executed_rulesets)
+			if(roundstart_rule_counts[rule])
+				roundstart_rule_counts[rule]++
 			else
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
+				roundstart_rule_counts[rule] = 1
+
+		if(length(roundstart_rule_counts))
+			parts += "[FOURSPACES]Executed roundstart rulesets:"
+			for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
+				parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
+
+		// Midround
+		var/list/midround_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.midround_executed_rulesets)
+			if(midround_rule_counts[rule])
+				midround_rule_counts[rule]++
+			else
+				midround_rule_counts[rule] = 1
+
+		if(length(midround_rule_counts))
+			parts += "[FOURSPACES]Executed midround rulesets:"
+			for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
+				parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
+
+		// Latejoin
+		var/list/latejoin_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.latejoin_executed_rulesets)
+			if(latejoin_rule_counts[rule])
+				latejoin_rule_counts[rule]++
+			else
+				latejoin_rule_counts[rule] = 1
+
+		if(length(latejoin_rule_counts))
+			parts += "[FOURSPACES]Executed latejoin rulesets:"
+			for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
+				parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
+
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -794,14 +823,46 @@
 	discordmsg += "Gamemode: [SSticker.mode.name]\n"
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
-		discordmsg += "Threat level: [mode.threat_level]\n"
-		discordmsg += "Threat left: [mode.mid_round_budget]\n"
-		discordmsg += "Executed rules:\n"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			if (rule.lategame_spawned)
-				discordmsg += "[rule.ruletype] - [rule.name]: -0 threat (Lategame, threat cost ignored)\n"
+
+		// Roundstart
+		var/list/roundstart_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.roundstart_executed_rulesets)
+			if(roundstart_rule_counts[rule])
+				roundstart_rule_counts[rule]++
 			else
-				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
+				roundstart_rule_counts[rule] = 1
+
+		if(length(roundstart_rule_counts))
+			discordmsg += "Executed roundstart rulesets:\n"
+			for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
+				discordmsg += " - [rule.name]" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
+
+		// Midround
+		var/list/midround_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.midround_executed_rulesets)
+			if(midround_rule_counts[rule])
+				midround_rule_counts[rule]++
+			else
+				midround_rule_counts[rule] = 1
+
+		if(length(midround_rule_counts))
+			discordmsg += "Executed midround rulesets:\n"
+			for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
+				discordmsg += " - [rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
+
+		// Latejoin
+		var/list/latejoin_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.latejoin_executed_rulesets)
+			if(latejoin_rule_counts[rule])
+				latejoin_rule_counts[rule]++
+			else
+				latejoin_rule_counts[rule] = 1
+
+		if(length(latejoin_rule_counts))
+			discordmsg += "Executed latejoin rulesets:\n"
+			for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
+				discordmsg += " - [rule.name]" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
+
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
