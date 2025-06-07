@@ -24893,6 +24893,9 @@
 	},
 /obj/item/chess_board/checkers,
 /obj/structure/wall_closet/generic/directional/south,
+/obj/machinery/light_switch/directional/south{
+	pixel_x = 13
+	},
 /turf/open/floor/wood/broken,
 /area/library/lounge)
 "fgL" = (
@@ -44738,6 +44741,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/radio/intercom/directional/west{
+	pixel_y = -28
+	},
 /turf/open/floor/wood,
 /area/library/lounge)
 "jfL" = (
@@ -51885,14 +51891,14 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "kFN" = (
-/obj/item/radio/intercom/directional/north{
-	pixel_x = -4;
-	pixel_y = 28
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/structure/reagent_dispensers/water_cooler{
+	pixel_y = 16;
+	pixel_x = -5;
+	density = 0
+	},
 /turf/open/floor/wood,
 /area/library/lounge)
 "kGm" = (
@@ -67857,6 +67863,10 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "libre";
 	name = "Library Entrance Shutters"
+	},
+/obj/machinery/light_switch/directional/north{
+	pixel_x = 9;
+	pixel_y = 27
 	},
 /turf/open/floor/iron/stairs/right{
 	dir = 8
@@ -85198,9 +85208,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
-	},
-/obj/machinery/light_switch/directional/west{
-	pixel_x = -23
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
