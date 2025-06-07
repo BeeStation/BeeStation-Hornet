@@ -75,7 +75,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "abu" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -644,7 +644,7 @@
 	},
 /obj/item/broken_bottle,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
-/area/construction)
+/area/maintenance/club)
 "agT" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -1976,7 +1976,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "avt" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 1;
@@ -4270,7 +4270,7 @@
 	bulb_power = 0.4
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "aTg" = (
 /obj/effect/turf_decal/siding/thinplating_new/terracotta/corner{
 	dir = 8
@@ -7012,7 +7012,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "bup" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/landmark/start/atmospheric_technician,
@@ -7542,7 +7542,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "bAX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -7858,7 +7858,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "bFk" = (
 /obj/effect/turf_decal/stripes/white,
 /obj/effect/turf_decal/stripes/white/line,
@@ -9685,7 +9685,7 @@
 "bXl" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "bXr" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 4
@@ -10107,7 +10107,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "caU" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -10211,7 +10211,7 @@
 	},
 /obj/item/clothing/under/dress/blacktango,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "cbI" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/camera/directional/east,
@@ -10518,7 +10518,7 @@
 	},
 /obj/structure/wall_closet/generic/directional/west,
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "ceL" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "South Hallway"
@@ -10834,7 +10834,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/iron/dark/textured_half,
-/area/construction)
+/area/maintenance/club)
 "chU" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -11416,7 +11416,7 @@
 	},
 /obj/item/broken_bottle,
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "coe" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -11504,7 +11504,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "coZ" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Shuttle Dock";
@@ -12131,7 +12131,7 @@
 /area/space/nearstation)
 "cuD" = (
 /turf/closed/wall,
-/area/construction)
+/area/maintenance/club)
 "cuE" = (
 /obj/structure/table/wood/fancy/red,
 /obj/effect/turf_decal/siding/wood{
@@ -12282,7 +12282,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "cvN" = (
 /obj/machinery/button/door{
 	id = "hopblast";
@@ -12770,6 +12770,7 @@
 /area/maintenance/department/medical/morgue)
 "cAX" = (
 /obj/item/kirbyplants/random,
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "cBd" = (
@@ -13007,7 +13008,7 @@
 	color = "#9b1d70"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "cDQ" = (
 /obj/structure/lattice,
 /obj/structure/fence/corner{
@@ -13308,7 +13309,7 @@
 "cHz" = (
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "cHA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/cyan,
@@ -13657,7 +13658,7 @@
 	cover_color = "#9b1d70"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "cLi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -14914,7 +14915,7 @@
 	pixel_x = 8
 	},
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "cWG" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/effect/turf_decal/tile/white{
@@ -17393,7 +17394,7 @@
 "dyh" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "dyj" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -18257,7 +18258,7 @@
 	bulb_power = 0.4
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "dHf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -18618,7 +18619,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "dMh" = (
 /obj/structure/flora/ausbushes/sunnybush{
 	pixel_y = 8;
@@ -19195,7 +19196,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "dTJ" = (
 /obj/machinery/aug_manipulator,
 /obj/effect/decal/cleanable/robot_debris{
@@ -22396,7 +22397,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "eEE" = (
 /obj/machinery/door/airlock/external{
 	name = "Mining Dock Airlock"
@@ -22568,7 +22569,7 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/construction)
+/area/maintenance/club)
 "eHO" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
@@ -23121,7 +23122,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "eMz" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -25273,7 +25274,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "flM" = (
 /obj/effect/turf_decal/siding/dark/corner,
 /turf/open/floor/iron/smooth,
@@ -25831,7 +25832,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "fqQ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -26310,7 +26311,7 @@
 	pixel_y = 16
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "fwF" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -26976,7 +26977,7 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "fDS" = (
 /obj/effect/landmark/start/cyborg,
 /obj/effect/turf_decal/siding/dark_blue,
@@ -27014,7 +27015,7 @@
 	bulb_power = 0.4
 	},
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "fEU" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
@@ -30639,7 +30640,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "gnX" = (
 /obj/machinery/holopad{
 	pixel_x = 16
@@ -31730,7 +31731,7 @@
 	bulb_power = 0.4
 	},
 /turf/open/floor/light/colour_cycle/dancefloor_a,
-/area/construction)
+/area/maintenance/club)
 "gxG" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
@@ -32021,7 +32022,7 @@
 	bulb_power = 0.4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "gAy" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
@@ -32483,7 +32484,7 @@
 	color = "#9b1d70"
 	},
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "gFv" = (
 /obj/structure/easel,
 /obj/item/canvas/twentythree_twentythree,
@@ -32916,7 +32917,7 @@
 "gKE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "gKQ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -33906,7 +33907,7 @@
 "gTC" = (
 /obj/machinery/digital_clock/directional/south,
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "gTD" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light/floor{
@@ -34781,7 +34782,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "hdU" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes,
@@ -35271,7 +35272,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "hii" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -35472,7 +35473,7 @@
 	pixel_x = 6
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "hla" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -36175,7 +36176,6 @@
 /turf/open/floor/iron/techmaint,
 /area/science/mixing)
 "hth" = (
-/obj/machinery/newscaster/directional/east,
 /obj/machinery/rnd/production/protolathe/department/engineering,
 /turf/open/floor/iron/tech,
 /area/engine/storage_shared)
@@ -36969,7 +36969,7 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "hCm" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -37655,7 +37655,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "hId" = (
 /obj/structure/foamedmetal{
 	name = "trash clump"
@@ -41302,7 +41302,7 @@
 	paint_colour = "#919191"
 	},
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "ivF" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -42183,7 +42183,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "iDV" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
@@ -43248,7 +43248,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "iNE" = (
 /obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
@@ -43419,7 +43419,7 @@
 "iOL" = (
 /obj/effect/turf_decal/siding/purple,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "iOO" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -45820,7 +45820,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "jtb" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -45839,7 +45839,7 @@
 "jtr" = (
 /obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "jtw" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -46754,7 +46754,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "jDO" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -47112,7 +47112,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "jIL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -47443,7 +47443,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "jMm" = (
 /obj/structure/railing/corner,
 /obj/structure/disposalpipe/segment{
@@ -47638,7 +47638,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "jNF" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -50579,7 +50579,7 @@
 "kpU" = (
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "kpX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -51176,7 +51176,7 @@
 "kxm" = (
 /obj/effect/decal/cleanable/food/flour,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
-/area/construction)
+/area/maintenance/club)
 "kxq" = (
 /turf/closed/wall/r_wall,
 /area/medical/surgery)
@@ -51729,7 +51729,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "kEg" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -51915,7 +51915,7 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "kGR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52036,7 +52036,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "kIn" = (
 /obj/machinery/computer/camera_advanced/xenobio{
 	dir = 1
@@ -52084,7 +52084,7 @@
 	dir = 5
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "kIP" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -52396,7 +52396,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "kLX" = (
 /obj/effect/turf_decal/siding/white/corner,
 /turf/open/floor/iron,
@@ -52755,7 +52755,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "kPE" = (
 /obj/structure/closet/wardrobe/black,
 /obj/structure/window/reinforced/spawner,
@@ -52988,7 +52988,7 @@
 	anchored = 1
 	},
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "kSz" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 1
@@ -53022,7 +53022,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "kTa" = (
 /obj/vehicle/ridden/janicart,
 /turf/open/floor/iron/ameridiner,
@@ -54446,7 +54446,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "lhu" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/grass,
@@ -56645,7 +56645,7 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
-/area/construction)
+/area/maintenance/club)
 "lFE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -57752,7 +57752,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "lRF" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -58473,7 +58473,7 @@
 	},
 /obj/item/reagent_containers/cup/glass/bottle/hooch,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "maP" = (
 /turf/closed/wall/r_wall,
 /area/medical/medbay/lobby)
@@ -59580,7 +59580,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "mlF" = (
 /obj/machinery/computer/security/mining{
 	dir = 8
@@ -61642,7 +61642,7 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "mIG" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 8
@@ -62034,7 +62034,7 @@
 	bulb_power = 0.4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "mLU" = (
 /obj/structure/closet/emcloset,
 /obj/structure/railing,
@@ -62668,7 +62668,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "mRJ" = (
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
@@ -63752,7 +63752,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/light/colour_cycle/dancefloor_a,
-/area/construction)
+/area/maintenance/club)
 "neI" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/decal/cleanable/cobweb,
@@ -65606,7 +65606,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "nxp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -67136,7 +67136,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/wall_closet/generic/directional/west,
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "nLX" = (
 /obj/effect/turf_decal/trimline/green/filled/corner{
 	dir = 8
@@ -67477,7 +67477,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark/textured_half,
-/area/construction)
+/area/maintenance/club)
 "nPV" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67966,7 +67966,7 @@
 /obj/effect/decal/cleanable/food/flour,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "nUR" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -68611,7 +68611,7 @@
 /area/medical/morgue)
 "obh" = (
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "obl" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/directional/east,
@@ -70280,7 +70280,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "otC" = (
 /obj/structure/railing{
 	dir = 8
@@ -70481,7 +70481,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "oww" = (
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
@@ -71089,7 +71089,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "oEF" = (
 /obj/structure/rack,
 /obj/item/bodybag{
@@ -71465,7 +71465,7 @@
 "oIi" = (
 /obj/structure/chair/fancy/sofa/corp,
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "oIt" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -73592,7 +73592,7 @@
 	dir = 5
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "pci" = (
 /obj/machinery/door/window/southleft,
 /obj/structure/sign/poster/official/random{
@@ -74350,7 +74350,7 @@
 	name = "CardinalStation - Abandoned Club"
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "pjc" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/grid/steel,
@@ -76108,7 +76108,7 @@
 	name = "Club Bouncer"
 	},
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "pBy" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/syndicate_sat)
@@ -76181,7 +76181,7 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/construction)
+/area/maintenance/club)
 "pCT" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/transit_tube/station/reverse/flipped{
@@ -77029,7 +77029,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "pLj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -77142,7 +77142,7 @@
 "pMp" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "pMs" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 4
@@ -77317,7 +77317,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "pPm" = (
 /obj/structure/chair{
 	dir = 4
@@ -77520,7 +77520,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "pSk" = (
 /obj/structure/table/glass/plasma,
 /obj/effect/turf_decal/siding/dark{
@@ -77534,7 +77534,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "pSp" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -79576,7 +79576,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "qoW" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -80453,7 +80453,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "qyW" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -80491,7 +80491,7 @@
 	bulb_power = 0.4
 	},
 /turf/open/floor/light/colour_cycle/dancefloor_a,
-/area/construction)
+/area/maintenance/club)
 "qzh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -80997,7 +80997,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/iron/dark/textured_half,
-/area/construction)
+/area/maintenance/club)
 "qEP" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -81156,7 +81156,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "qGl" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -81301,7 +81301,7 @@
 	pixel_y = 7
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "qHJ" = (
 /obj/machinery/disposal/bin,
 /obj/machinery/airalarm/directional/west,
@@ -82181,7 +82181,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "qPs" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
@@ -83126,7 +83126,7 @@
 /area/hallway/primary/fore)
 "qZz" = (
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "qZD" = (
 /obj/effect/turf_decal/trimline/dark/filled/line{
 	dir = 8
@@ -84439,7 +84439,7 @@
 "rob" = (
 /obj/item/broken_bottle,
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "roe" = (
 /obj/machinery/telecomms/processor/preset_two,
 /obj/effect/turf_decal/bot_white,
@@ -84538,7 +84538,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "roV" = (
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
@@ -85596,7 +85596,7 @@
 /area/hallway/primary/port)
 "ryN" = (
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "ryU" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/white,
@@ -86041,7 +86041,7 @@
 "rDU" = (
 /mob/living/basic/cockroach,
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "rEe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -87440,7 +87440,7 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "rUk" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 9
@@ -91218,7 +91218,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "sKz" = (
 /obj/effect/turf_decal/trimline/green/filled/corner{
 	dir = 1
@@ -93796,7 +93796,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "tnb" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "EVA Storage";
@@ -94034,7 +94034,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "tpg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -94425,7 +94425,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/carpet/black,
-/area/construction)
+/area/maintenance/club)
 "tsQ" = (
 /obj/machinery/field/generator,
 /obj/effect/turf_decal/bot/left,
@@ -95688,7 +95688,7 @@
 "tGg" = (
 /mob/living/basic/cockroach,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
-/area/construction)
+/area/maintenance/club)
 "tGi" = (
 /obj/effect/turf_decal/edges/borderfloor/black,
 /obj/effect/turf_decal/guideline/guideline_in/purple,
@@ -95703,7 +95703,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "tGk" = (
 /turf/closed/wall/mineral,
 /area/quartermaster/office)
@@ -98622,7 +98622,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/corner1,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "ujn" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -98967,7 +98967,7 @@
 	pixel_x = 8
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "unb" = (
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -100877,7 +100877,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "uGV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -102320,7 +102320,7 @@
 	cover_color = "#9b1d70"
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "uVY" = (
 /obj/machinery/light/small/directional/west,
 /obj/structure/closet/emcloset,
@@ -103760,7 +103760,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "vke" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 1
@@ -104668,7 +104668,7 @@
 	color = "#9b1d70"
 	},
 /turf/open/floor/carpet/purple,
-/area/construction)
+/area/maintenance/club)
 "vtH" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -105286,7 +105286,7 @@
 	},
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "vAj" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -105833,7 +105833,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "vEP" = (
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -105903,7 +105903,7 @@
 /area/engine/atmos)
 "vFC" = (
 /turf/closed/wall/rust,
-/area/construction)
+/area/maintenance/club)
 "vFD" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -106061,7 +106061,7 @@
 "vHs" = (
 /obj/effect/decal/cleanable/food/flour,
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "vHy" = (
 /obj/machinery/door/poddoor/shutters{
 	name = "Vacant Commissary Shutters";
@@ -106614,7 +106614,7 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/iron/dark/textured_half,
-/area/construction)
+/area/maintenance/club)
 "vMG" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -107913,7 +107913,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "wal" = (
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
@@ -108377,7 +108377,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/club)
 "weF" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
@@ -109280,7 +109280,7 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "woK" = (
 /obj/structure/fluff/fans{
 	pixel_x = 24
@@ -110687,7 +110687,7 @@
 /obj/effect/turf_decal/siding/purple,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "wDR" = (
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/bot_white,
@@ -112390,7 +112390,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "wXb" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -113049,7 +113049,7 @@
 /obj/structure/table/glass/plasma,
 /obj/effect/turf_decal/guideline/guideline_in/purple,
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "xet" = (
 /obj/machinery/power/smes{
 	charge = 1e+006
@@ -116330,7 +116330,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/mineral/plastitanium,
-/area/construction)
+/area/maintenance/club)
 "xOy" = (
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 1
@@ -117859,7 +117859,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
-/area/construction)
+/area/maintenance/club)
 "yfo" = (
 /obj/machinery/computer/records/medical{
 	dir = 4
