@@ -1,8 +1,0 @@
-author: BarteG44
-delete-after: true
-changes:
-  - rscadd: Added new siding decals
-  - tweak: Reworked Card Station's botany
-  - tweak: Reworked Card Station's public garden
-  - bugfix: fixed a few missing items on Cardinal Station
-  - bugfix: fixed chasms getting created when tiles in the garden get destroyed
