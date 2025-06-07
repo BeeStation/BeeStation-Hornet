@@ -94,17 +94,18 @@
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
-	data["network"] = network
 	data["activeCamera"] = null
 	if(active_camera)
 		data["activeCamera"] = list(
 			name = active_camera.c_tag,
+			ref = REF(active_camera),
 			status = active_camera.status,
 		)
 	return data
 
 /obj/machinery/computer/security/ui_static_data()
 	var/list/data = list()
+	data["network"] = network
 	data["mapRef"] = map_name
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
@@ -112,6 +113,7 @@
 		var/obj/machinery/camera/C = cameras[i]
 		data["cameras"] += list(list(
 			name = C.c_tag,
+			ref = REF(C),
 		))
 	return data
 
@@ -121,14 +123,12 @@
 		return
 
 	if(action == "switch_camera")
-		var/c_tag = params["name"]
-		var/list/cameras = get_available_cameras()
-		var/obj/machinery/camera/C = cameras[c_tag]
-		active_camera = C
+		var/obj/machinery/camera/selected_camera = locate(params["camera"]) in GLOB.cameranet.cameras
+		active_camera = selected_camera
 		ui_update()
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
-		if(!C)
+		if(isnull(active_camera))
 			return TRUE
 
 		update_active_camera_screen()
