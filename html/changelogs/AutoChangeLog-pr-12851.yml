@@ -1,0 +1,11 @@
+author: Nakalon
+delete-after: true
+changes:
+  - rscadd: Added a Box for Detective equipment and put it inside the Detective locker
+  - tweak: Detective lockers will now all have the same items available regardless
+      of the station its in
+  - tweak: Removed Detective equipment added directly trough mapping, favoring coding
+      additions instead
+  - tweak: Removed clutter inside the Detective locker including clothing already
+      available in the Det vendor
+  - bugfix: There is no longer an ERROR item in the Detective locker.
