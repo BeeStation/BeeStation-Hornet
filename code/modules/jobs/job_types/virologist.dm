@@ -6,7 +6,6 @@
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
 	exp_requirements = 180
 	exp_type = EXP_TYPE_MEDICAL
