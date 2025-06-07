@@ -204,6 +204,13 @@
 /obj/structure/closet/secure_closet/captains,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain)
+"eb" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/computer/xenoartifact_console{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/science/research)
 "ee" = (
 /obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/grid/steel,
@@ -646,6 +653,10 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
+/obj/item/xenoartifact_labeler{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
 	},
@@ -888,6 +899,12 @@
 /obj/machinery/processor,
 /turf/open/floor/iron/freezer,
 /area/ai_monitored/turret_protected/ai)
+"uq" = (
+/obj/machinery/computer/xenoartifact_console{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/science/mixing)
 "uy" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Core";
@@ -2380,7 +2397,7 @@ tM
 CE
 zT
 nt
-aJ
+eb
 Hb
 ac
 Wx
@@ -2441,7 +2458,7 @@ KM
 kX
 zU
 lt
-lt
+uq
 LH
 nv
 ba
