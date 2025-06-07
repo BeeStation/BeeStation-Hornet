@@ -14,14 +14,18 @@
 	role_name = "slaughter demon"
 
 /datum/round_event/ghost_role/slaughter/spawn_role()
-	var/list/candidates = get_candidates(ROLE_SLAUGHTER_DEMON, null)
-	if(!candidates.len)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/midround_ghost/slaughter_demon,
+		check_jobban = ROLE_SLAUGHTER_DEMON,
+		poll_time = 30 SECONDS,
+		role_name_text = "slaughter demon",
+		alert_pic = /mob/living/simple_animal/hostile/imp/slaughter,
+	)
+	if(!candidate)
 		return NOT_ENOUGH_PLAYERS
 
-	var/mob/dead/selected = pick_n_take(candidates)
-
-	var/datum/mind/player_mind = new /datum/mind(selected.key)
-	player_mind.active = 1
+	var/datum/mind/player_mind = new /datum/mind(candidate.key)
+	player_mind.active = TRUE
 
 	var/list/spawn_locs = list()
 	for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)

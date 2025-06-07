@@ -34,11 +34,15 @@
 				vents += temp_vent // Makes sure the vent network's big enough
 
 	if(!length(vents))
-		message_admins("An event attempted to spawn spiders but no suitable vents were found. Aborting.")
 		return MAP_ERROR
 
-	var/list/candidates = get_candidates(ROLE_SPIDER, /datum/role_preference/midround_ghost/spider, POLL_IGNORE_SPIDER)
-
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		role = /datum/role_preference/midround_ghost/spider,
+		check_jobban = ROLE_SPIDER,
+		poll_time = 30 SECONDS,
+		role_name_text = "spider broodmother",
+		alert_pic = /mob/living/simple_animal/hostile/poison/giant_spider/broodmother,
+	)
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 
