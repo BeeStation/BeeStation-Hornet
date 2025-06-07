@@ -262,13 +262,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/copy_properties_from(datum/species/old_species)
 	return
 
-//Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
-/datum/species/proc/qualifies_for_rank(rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-		return 0
-	return 1
-
-
 /** regenerate_organs
   * Corrects organs in a carbon, removing ones it doesn't need and adding ones it does
   *
@@ -1550,7 +1543,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
-	return 0
+	return FALSE
 
 /**
  * Species based handling for irradiation
@@ -1778,11 +1771,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Allows you to put in item-specific reactions based on species
 	if(user != H)
 		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
-			return 0
+			return FALSE
 	if(H.check_block())
 		H.visible_message(span_warning("[H] blocks [I]!"), \
 						span_userdanger("You block [I]!"))
-		return 0
+		return FALSE
 
 	var/hit_area
 	if(!affecting) //Something went wrong. Maybe the limb is missing?

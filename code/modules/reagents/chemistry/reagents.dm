@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /// A single reagent
 /datum/reagent
 	/// datums don't have names by default
-	var/name = "Reagent"
+	var/name = ""
 	/// nor do they have descriptions
 	var/description = ""
 	///J/(K*mol)
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	///pretend this is moles
 	var/volume = 0
 	/// color it looks in containers etc
-	var/color = "#000000" // rgb: 0, 0, 0
+	var/color = COLOR_BLACK // rgb: 0, 0, 0
 	/// intensity of color provided, dyes or things that should work like a dye will more strongly affect the final color of a reagent
 	var/color_intensity = 1
 	// default = I am not sure this shit + CHEMICAL_NOT_SYNTH
@@ -53,13 +53,15 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	// What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
 	var/process_flags = ORGANIC
 	/// You fucked up and this is now triggering its overdose effects, purge that shit quick.
-	var/overdosed = 0
+	var/overdosed = FALSE
 	///if false stops metab in liverless mobs
 	var/self_consuming = FALSE
 	///affects how far it travels when sprayed
 	var/reagent_weight = 1
 	///is it currently metabolizing
 	var/metabolizing = FALSE
+	///The set of exposure methods this penetrates skin with.
+	var/penetrates_skin = VAPOR
 
 	///The default reagent container for the reagent, used for icon generation
 	var/obj/item/reagent_containers/default_container = /obj/item/reagent_containers/cup/bottle
@@ -78,29 +80,33 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /// Applies this reagent to an [/atom]
 /datum/reagent/proc/expose_atom(atom/exposed_atom, reac_volume)
-	SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = 0
+	. |= SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_ATOM, exposed_atom, reac_volume)
+	. |= SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
 
 /// Applies this reagent to a [/mob/living]
-/datum/reagent/proc/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
-	if(!istype(M))
-		return FALSE
-	if(method == VAPOR) //smoke, foam, spray
-		if(M.reagents)
-			var/modifier = clamp((1 - touch_protection), 0, 1)
-			var/amount = round(reac_volume*modifier, 0.1)
-			if(amount >= 0.5)
-				M.reagents.add_reagent(type, amount)
-	return TRUE
+/datum/reagent/proc/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection = 0, obj/item/bodypart/affecting)
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_MOB, exposed_mob, methods, reac_volume, show_message, touch_protection, affecting)
+	if((methods & penetrates_skin) && exposed_mob.reagents) //smoke, foam, spray
+		var/amount = round(reac_volume*clamp((1 - touch_protection), 0, 1), 0.1)
+		if(amount >= 0.5)
+			exposed_mob.reagents.add_reagent(type, amount)
 
 /// Applies this reagent to an [/obj]
-/datum/reagent/proc/expose_obj(obj/O, volume)
-	return
+/datum/reagent/proc/expose_obj(obj/exposed_obj, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
 
+	return SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_OBJ, exposed_obj, reac_volume)
 
 /// Applies this reagent to a [/turf]
-/datum/reagent/proc/expose_turf(turf/T, volume)
-	return
+/datum/reagent/proc/expose_turf(turf/exposed_turf, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
+
+	return SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_TURF, exposed_turf, reac_volume)
 
 /// Called from [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -112,7 +118,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return
 
 ///Called after a reagent is transfered
-/datum/reagent/proc/on_transfer(atom/A, method=TOUCH, trans_volume)
+/datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume)
 	return
 
 

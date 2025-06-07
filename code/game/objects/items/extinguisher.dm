@@ -106,7 +106,7 @@
 		if(reagents.total_volume == reagents.maximum_volume)
 			to_chat(user, span_warning("\The [src] is already full!"))
 			safety = safety_save
-			return 1
+			return TRUE
 		var/obj/structure/reagent_dispensers/W = target //will it work?
 		var/transferred = W.reagents.trans_to(src, max_water, transfered_by = user)
 		if(transferred > 0)
@@ -117,9 +117,9 @@
 		else
 			to_chat(user, span_warning("\The [W] is empty!"))
 		safety = safety_save
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
 	. = ..()

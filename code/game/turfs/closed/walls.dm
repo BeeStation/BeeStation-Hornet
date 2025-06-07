@@ -210,11 +210,6 @@
 /turf/closed/wall/get_dumping_location(obj/item/storage/source, mob/user)
 	return null
 
-/turf/closed/wall/acid_act(acidpwr, acid_volume)
-	if(explosion_block >= 2)
-		acidpwr = min(acidpwr, 50) //we reduce the power so strong walls never get melted.
-	. = ..()
-
 /turf/closed/wall/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(the_rcd.mode == RCD_DECONSTRUCT)
 		return list("mode" = RCD_DECONSTRUCT, "delay" = 40, "cost" = 26)

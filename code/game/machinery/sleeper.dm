@@ -331,7 +331,7 @@
 			stored_vial.reagents.copy_to(occupant, 10)
 		if(user)
 			playsound(src, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE, 2)
-			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagents()] into", addition = "via [src]", important = FALSE)
+			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagent_names()] into", addition = "via [src]", important = FALSE)
 		use_power(100)
 		return TRUE
 

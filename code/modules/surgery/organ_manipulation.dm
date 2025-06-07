@@ -170,4 +170,4 @@
 			display_results(user, target, span_notice("You can't extract anything from [target]'s [parse_zone(surgery.location)]!"),
 				"[user] can't seem to extract anything from [target]'s [parse_zone(surgery.location)]!",
 				"[user] can't seem to extract anything from [target]'s [parse_zone(surgery.location)]!")
-	return 0
+	return FALSE

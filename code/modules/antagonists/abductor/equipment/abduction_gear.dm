@@ -90,7 +90,7 @@
 /obj/item/clothing/suit/armor/abductor/vest/proc/ActivateStealth()
 	if(disguise == null)
 		return
-	stealth_active = 1
+	stealth_active = TRUE
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
@@ -112,7 +112,7 @@
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
 		return
-	stealth_active = 0
+	stealth_active = FALSE
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)

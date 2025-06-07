@@ -24,9 +24,9 @@
 			H.adjust_nutrition(nutriment_factor * REM * delta_time)
 	holder.remove_reagent(type, metabolization_rate * delta_time)
 
-/datum/reagent/consumable/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
+/datum/reagent/consumable/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
-	if((method != INGEST) || quality && !HAS_TRAIT(exposed_mob, TRAIT_AGEUSIA))
+	if(!(methods & INGEST) || !quality || HAS_TRAIT(exposed_mob, TRAIT_AGEUSIA))
 		return
 	switch(quality)
 		if (DRINK_BAD)
@@ -120,9 +120,11 @@
 	brute_heal = 0
 	burn_heal = 1
 	nutriment_factor = 18 // Twice as nutritious compared to protein and carbohydrates
+	penetrates_skin = NONE
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
 
 /datum/reagent/consumable/nutriment/fat/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
 	if(!holder || (holder.chem_temp <= fry_temperature))
 		return
 	if(!isitem(exposed_obj) || HAS_TRAIT(exposed_obj, TRAIT_FOOD_FRIED))
@@ -141,12 +143,13 @@
 	exposed_obj.AddElement(/datum/element/fried_item, volume)
 	exposed_obj.reagents.add_reagent(src.type, reac_volume)
 
-/datum/reagent/consumable/nutriment/fat/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if(!(method == VAPOR || method == TOUCH) || isnull(holder) || (holder.chem_temp < fry_temperature))
+/datum/reagent/consumable/nutriment/fat/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	. = ..()
+	if(!(methods & (VAPOR|TOUCH)) || isnull(holder) || (holder.chem_temp < fry_temperature))
 		return
 
 	var/burn_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
-	if(method & TOUCH)
+	if(methods & TOUCH)
 		burn_damage *= max(1 - touch_protection, 0)
 	var/FryLoss = round(min(38, burn_damage * reac_volume))
 	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
@@ -161,6 +164,7 @@
 		exposed_mob.adjustFireLoss(FryLoss)
 
 /datum/reagent/consumable/nutriment/fat/expose_turf(turf/open/exposed_turf, reac_volume)
+	. = ..()
 	if(!istype(exposed_turf) || isgroundlessturf(exposed_turf) || (reac_volume < 5))
 		return
 	exposed_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume * 1.5 SECONDS)
@@ -176,6 +180,7 @@
 	nutriment_factor = 7 //Not very healthy on its own
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	default_container = /obj/item/reagent_containers/condiment/vegetable_oil
+	penetrates_skin = NONE
 
 /datum/reagent/consumable/nutriment/fat/oil/olive
 	name = "Olive Oil"
@@ -312,17 +317,20 @@
 	M.adjust_bodytemperature(cooling * TEMPERATURE_DAMAGE_COEFFICIENT * REM * delta_time, 50)
 	..()
 
-/datum/reagent/consumable/frostoil/expose_turf(turf/T, reac_volume)
-	if(reac_volume >= 5)
-		for(var/mob/living/simple_animal/slime/slime_animal in T)
-			slime_animal.adjustToxLoss(rand(15,30))
-	if(reac_volume >= 1) // Make Freezy Foam and anti-fire grenades!
-		if(isopenturf(T))
-			var/turf/open/exposed_open_turf = T
-			exposed_open_turf.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
-			var/temperature = exposed_open_turf.air.temperature
-			var/heat_capacity = exposed_open_turf.air.heat_capacity()
-			exposed_open_turf.air.temperature = max(exposed_open_turf.air.temperature - ((temperature - TCMB) * (heat_capacity * reac_volume * specific_heat) / (heat_capacity + reac_volume * specific_heat)) / heat_capacity, TCMB) // Exchanges environment temperature with reagent. Reagent is at 2.7K with a heat capacity of 40J per unit.
+/datum/reagent/consumable/frostoil/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(reac_volume < 1)
+		return
+	if(isopenturf(exposed_turf))
+		var/turf/open/exposed_open_turf = exposed_turf
+		exposed_open_turf.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
+		var/temperature = exposed_open_turf.air.temperature
+		var/heat_capacity = exposed_open_turf.air.heat_capacity()
+		exposed_open_turf.air.temperature = max(exposed_open_turf.air.temperature - ((temperature - TCMB) * (heat_capacity * reac_volume * specific_heat) / (heat_capacity + reac_volume * specific_heat)) / heat_capacity, TCMB) // Exchanges environment temperature with reagent. Reagent is at 2.7K with a heat capacity of 40J per unit.
+	if(reac_volume < 5)
+		return
+	for(var/mob/living/simple_animal/slime/exposed_slime in exposed_turf)
+		exposed_slime.adjustToxLoss(rand(15,30))
 
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
@@ -331,13 +339,15 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "scorching agony"
 	default_container = /obj/item/reagent_containers/cup/bottle/capsaicin
+	penetrates_skin = NONE
 
-/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!ishuman(M) && !ismonkey(M))
+/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!ishuman(exposed_mob) && !ismonkey(exposed_mob))
 		return
 
-	var/mob/living/carbon/victim = M
-	if(method == TOUCH || method == VAPOR)
+	var/mob/living/carbon/victim = exposed_mob
+	if(methods & (TOUCH|VAPOR))
 		//check for protection
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
@@ -347,7 +357,7 @@
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
-			victim.confused = max(M.confused, 5) // 10 seconds
+			victim.confused = max(exposed_mob.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()
@@ -365,10 +375,13 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 	default_container = /obj/item/reagent_containers/condiment/saltshaker
+	penetrates_skin = NONE
 
 /datum/reagent/consumable/sodiumchloride/expose_turf(turf/exposed_turf, reac_volume) //Creates an umbra-blocking salt pile
+	. = ..()
 	if(!istype(exposed_turf) || (reac_volume < 1))
 		return
+
 	new /obj/effect/decal/cleanable/food/salt(exposed_turf)
 
 /datum/reagent/consumable/blackpepper
@@ -514,12 +527,15 @@
 	taste_description = "chalky wheat"
 	default_container = /obj/item/reagent_containers/condiment/flour
 
-/datum/reagent/consumable/flour/expose_turf(turf/T, reac_volume)
-	if(!isspaceturf(T))
-		var/obj/effect/decal/cleanable/food/flour/reagentdecal = new(T)
-		reagentdecal = locate() in T //Might have merged with flour already there.
-		if(reagentdecal)
-			reagentdecal.reagents.add_reagent(/datum/reagent/consumable/flour, reac_volume)
+/datum/reagent/consumable/flour/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(isspaceturf(exposed_turf))
+		return
+
+	var/obj/effect/decal/cleanable/food/flour/reagentdecal = new(exposed_turf)
+	reagentdecal = locate() in exposed_turf //Might have merged with flour already there.
+	if(reagentdecal)
+		reagentdecal.reagents.add_reagent(/datum/reagent/consumable/flour, reac_volume)
 
 /datum/reagent/consumable/cherryjelly
 	name = "Cherry Jelly"
@@ -611,13 +627,15 @@
 		M.adjustToxLoss(-1, 0)
 	..()
 
-/datum/reagent/consumable/honey/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
-		var/mob/living/carbon/C = M
-		for(var/s in C.surgeries)
-			var/datum/surgery/S = s
-			S.speed_modifier = max(0.6, S.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
-	..()
+/datum/reagent/consumable/honey/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!iscarbon(exposed_mob) || !(methods & (TOUCH|VAPOR|PATCH)))
+		return
+
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	for(var/s in exposed_carbon.surgeries)
+		var/datum/surgery/surgery = s
+		surgery.speed_modifier = max(0.6, surgery.speed_modifier)
 
 /datum/reagent/consumable/honey/special
 	name = "Royal Honey"
@@ -653,27 +671,18 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!istype(M))
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, methods = INGEST, reac_volume)
+	. = ..()
+	if(!ishuman(exposed_mob))
 		return
-	var/unprotected = FALSE
-	switch(method)
-		if(INGEST)
-			unprotected = TRUE
-		if(INJECT)
-			unprotected = FALSE
-		else	//Touch or vapor
-			if(!M.is_mouth_covered() && !M.is_eyes_covered())
-				unprotected = TRUE
-	if(unprotected)
-		if(!M.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(M, span_notice("Your eye sockets feel wet."))
-		else
-			if(!M.eye_blurry)
-				to_chat(M, span_warning("Tears well up in your eyes!"))
-			M.adjust_blindness(2)
-			M.blur_eyes(5)
-	..()
+
+	var/mob/living/carbon/victim = exposed_mob
+	if(methods & (TOUCH | VAPOR))
+		var/tear_proof = victim.is_eyes_covered()
+		if (!tear_proof)
+			to_chat(exposed_mob, span_warning("Your eyes sting!"))
+			victim.emote("cry")
+			victim.blur_eyes(6 SECONDS)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	..()
@@ -760,8 +769,9 @@
 	//Lazy list of mobs affected by the luminosity of this reagent.
 	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/expose_mob(mob/living/M)
-	add_reagent_light(M)
+/datum/reagent/consumable/tinlux/expose_mob(mob/living/exposed_mob)
+	. = ..()
+	add_reagent_light(exposed_mob)
 
 /datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
 	remove_reagent_light(M)

@@ -54,7 +54,7 @@
 		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine),
 		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine),
 		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid),
-		list(/datum/reagent/medicine/haloperidol, /datum/reagent/pax, /datum/reagent/blackpowder, /datum/reagent/medicine/diphenhydramine),
+		list(/datum/reagent/medicine/haloperidol, /datum/reagent/pax, /datum/reagent/gunpowder, /datum/reagent/medicine/diphenhydramine),
 		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine),
 		list(/datum/reagent/drug/krokodil, /datum/reagent/hair_dye, /datum/reagent/medicine/modafinil)
 		)
@@ -210,8 +210,8 @@
 /datum/disease/advance/proc/HasSymptom(datum/symptom/S)
 	for(var/datum/symptom/symp in symptoms)
 		if(symp.type == S.type)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 // Will generate new unique symptoms, use this if there are none. Returns a list of symptoms that were generated.
 /datum/disease/advance/proc/GenerateSymptoms(level_min, level_max, amount_get = 0)

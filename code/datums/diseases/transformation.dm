@@ -104,7 +104,7 @@
 	agent = "R2D2 Nanomachines"
 	desc = "An acute nanomachine infection which converts its host into a cyborg."
 	danger = DISEASE_BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = NONE
 	stage1	= list()
 	stage2	= list("Your joints feel stiff.", span_danger("Beep...boop.."))
 	stage3	= list(span_danger("Your joints feel very stiff."), "Your skin feels loose.", span_danger("You can feel something move...inside."))
@@ -141,7 +141,7 @@
 	agent = "Rip-LEY Alien Microbes" //I would have said nostramos, personally, guy from September 2013 -rkz
 	desc = "This disease changes the victim into a xenomorph."
 	danger = DISEASE_BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = NONE
 	stage1	= list()
 	stage2	= list("Your throat feels scratchy.", span_danger("Kill..."))
 	stage3	= list(span_danger("Your throat feels very scratchy."), "Your skin feels tight.", span_danger("You can feel something move...inside."))
@@ -173,7 +173,7 @@
 	agent = "Advanced Mutation Toxin"
 	desc = "This highly concentrated extract converts anything into more of itself."
 	danger = DISEASE_BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = NONE
 	stage1	= list("You don't feel very well.")
 	stage2	= list("Your skin feels a little slimy.")
 	stage3	= list(span_danger("Your appendages are melting away."), span_danger("Your limbs begin to lose their shape."))
@@ -209,7 +209,7 @@
 	agent = "Fell Doge Majicks"
 	desc = "This disease transforms the victim into a corgi."
 	danger = DISEASE_BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = NONE
 	stage1	= list("BARK.")
 	stage2	= list("You feel the need to wear silly hats.")
 	stage3	= list(span_danger("Must... eat... chocolate...."), span_danger("YAP"))
@@ -237,7 +237,7 @@
 	desc = "A 'gift' from somewhere terrible."
 	stage_prob = 10
 	danger = DISEASE_BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = NONE
 	stage1	= list("Your stomach rumbles.")
 	stage2	= list("Your skin feels saggy.")
 	stage3	= list(span_danger("Your appendages are melting away."), span_danger("Your limbs begin to lose their shape."))
@@ -255,7 +255,7 @@
 	agent = "Tranquility"
 	desc = "Consuming the flesh of a Gondola comes at a terrible price."
 	danger = DISEASE_BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = NONE
 	stage1	= list("You seem a little lighter in your step.")
 	stage2	= list("You catch yourself smiling for no reason.")
 	stage3	= list(span_danger("A cruel sense of calm overcomes you."), span_danger("You can't feel your arms!"), span_danger("You let go of the urge to hurt clowns."))

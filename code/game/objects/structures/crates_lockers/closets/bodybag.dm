@@ -19,7 +19,7 @@
 	door_anim_time = 0 // no animation
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
-	var/tagged = 0 // so closet code knows to put the tag overlay back
+	var/tagged = FALSE // so closet code knows to put the tag overlay back
 
 /obj/structure/closet/body_bag/Destroy()
 	// If we have a stored bag, and it's in nullspace (not in someone's hand), delete it.
@@ -39,7 +39,7 @@
 			return
 		if(t)
 			name = "body bag - [t]"
-			tagged = 1
+			tagged = TRUE
 			update_icon()
 		else
 			name = "body bag"
@@ -47,7 +47,7 @@
 	else if(I.tool_behaviour == TOOL_WIRECUTTER)
 		to_chat(user, span_notice("You cut the tag off [src]."))
 		name = "body bag"
-		tagged = 0
+		tagged = FALSE
 		update_icon()
 
 /obj/structure/closet/body_bag/update_icon()

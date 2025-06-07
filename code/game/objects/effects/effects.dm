@@ -5,7 +5,7 @@
 	icon = 'icons/effects/effects.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
-	obj_flags = 0
+	obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE
 	var/forensic_protected = FALSE
 
@@ -26,7 +26,7 @@
 	return
 
 /obj/effect/acid_act()
-	return
+	return FALSE
 
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
@@ -42,7 +42,9 @@
 
 /obj/effect/singularity_act()
 	qdel(src)
-	return 0
+
+///The abstract effect ignores even more effects and is often typechecked for atoms that should truly not be fucked with.
+/obj/effect/abstract
 
 /obj/effect/abstract/singularity_pull()
 	return

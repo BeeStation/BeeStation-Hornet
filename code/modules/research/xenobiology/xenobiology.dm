@@ -702,7 +702,7 @@
 	icon_state = "crimson slime extract"
 	effectmod = "furious"
 	color_slime = "crimson"
-	activate_reagents = list(/datum/reagent/blood,/datum/reagent/blackpowder)
+	activate_reagents = list(/datum/reagent/blood,/datum/reagent/gunpowder)
 
 ////Slime-derived potions///
 

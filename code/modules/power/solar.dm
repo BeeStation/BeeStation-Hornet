@@ -10,10 +10,11 @@
 	max_integrity = 150
 	integrity_failure = 0.33
 
-	var/id = 0
 	max_integrity = 150
 	integrity_failure = 0.33
-	var/obscured = 0
+	var/id = 0
+	var/obscured = FALSE
+	///[0-1] measure of obscuration -- multipllier against power generation
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir
 	var/ndir = SOUTH // target dir

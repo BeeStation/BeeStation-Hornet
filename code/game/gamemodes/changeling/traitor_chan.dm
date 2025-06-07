@@ -20,12 +20,13 @@
 	to_chat(world, "<B>There are alien creatures on the station along with some syndicate operatives out for their own gain! Do not let the changelings or the traitors succeed!</B>")
 
 /datum/game_mode/traitor/changeling/can_start()
-	if(!..())
-		return 0
+	. = ..()
+	if(!.)
+		return
 	possible_changelings = get_players_for_role(/datum/antagonist/changeling, /datum/role_preference/antagonist/changeling)
 	if(possible_changelings.len < required_enemies)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/game_mode/traitor/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

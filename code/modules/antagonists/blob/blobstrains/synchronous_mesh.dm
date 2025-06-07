@@ -1,9 +1,9 @@
 //does brute damage, bonus damage for each nearby blob, and spreads damage out
 /datum/blobstrain/reagent/synchronous_mesh
 	name = "Synchronous Mesh"
-	description = "will do massively increased brute damage for each blob near the target."
+	description = "will do low brute damage, but each blob nearby attacks the target as well with stacking damage."
 	effectdesc = "will also spread damage between each blob near the attacked blob."
-	analyzerdescdamage = "Does brute damage, increasing for each blob near the target."
+	analyzerdescdamage = "Does low brute damage, increasing for each blob near the target."
 	analyzerdesceffect = "When attacked, spreads damage between all blobs near the attacked blob."
 	color = "#65ADA2"
 	complementary_color = "#AD6570"
@@ -30,11 +30,12 @@
 	color = "#65ADA2"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/synchronous_mesh/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
-	reac_volume = ..()
-	M.apply_damage(0.2*reac_volume, BRUTE)
-	if(M && reac_volume)
-		for(var/obj/structure/blob/B in range(1, M)) //if the target is completely surrounded, this is 2.4*reac_volume bonus damage, total of 2.6*reac_volume
-			if(M)
-				B.blob_attack_animation(M) //show them they're getting a bad time
-				M.apply_damage(0.3*reac_volume, BRUTE)
+/datum/reagent/blob/synchronous_mesh/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
+	exposed_mob.apply_damage(0.2*reac_volume, BRUTE)
+	if(exposed_mob && reac_volume)
+		for(var/obj/structure/blob/nearby_blob in range(1, exposed_mob)) //if the target is completely surrounded, this is 2.4*reac_volume bonus damage, total of 2.6*reac_volume
+			if(exposed_mob)
+				nearby_blob.blob_attack_animation(exposed_mob) //show them they're getting a bad time
+				exposed_mob.apply_damage(0.3*reac_volume, BRUTE)

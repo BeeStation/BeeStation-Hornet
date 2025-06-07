@@ -24,12 +24,14 @@ SUBSYSTEM_DEF(ticker)
 
 	var/list/datum/mind/minds = list()		//The characters in the game. Used for objective tracking.
 
-	var/delay_end = 0						//if set true, the round will not restart on it's own
+	var/delay_end = FALSE						//if set true, the round will not restart on it's own
 	var/admin_delay_notice = ""				//a message to display to anyone who tries to restart the world after a delay
 	var/ready_for_reboot = FALSE			//all roundend preparation done with, all that's left is reboot
 
-	var/triai = 0							//Global holder for Triumvirate
-	var/tipped = 0							//Did we broadcast the tip of the day yet?
+	///Boolean to see if the game needs to set up a triumvirate ai (see tripAI.dm)
+	var/triai = FALSE
+
+	var/tipped = FALSE							//Did we broadcast the tip of the day yet?
 	var/selected_tip						// What will be the tip of the day?
 
 	var/timeLeft						//pregame timer

@@ -306,28 +306,17 @@
 //====================================
 
 /turf/acid_act(acidpwr, acid_volume)
-	if (resistance_flags & (INDESTRUCTIBLE | ACID_PROOF))
-		return
-	. = 1
-	var/acid_type = /obj/effect/acid
-	if(acidpwr >= 200) //alien acid power
-		acid_type = /obj/effect/acid/alien
-	var/has_acid_effect = FALSE
-	for(var/obj/O in src)
-		if(istype(O, acid_type))
-			var/obj/effect/acid/A = O
-			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
-			has_acid_effect = 1
-			continue
-		if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
-			continue
+	. = ..()
+	if((acidpwr <= 0) || (acid_volume <= 0))
+		return FALSE
 
-		O.acid_act(acidpwr, acid_volume)
-	if(!has_acid_effect)
-		new acid_type(src, acidpwr, acid_volume)
+	AddComponent(/datum/component/acid, acidpwr, acid_volume, GLOB.acid_overlay)
+
+	return . || TRUE
 
 /turf/proc/acid_melt()
 	turf_destruction(ACID, 0)
+	return
 
 //====================================
 // Fire
@@ -362,10 +351,12 @@
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /// Handles exposing a turf to reagents.
-/turf/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
-	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+/turf/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
+	. = ..()
+	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
+	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_TURF, src, reagents, methods, volume_modifier, show_message)
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_turf(src, reagents[R])

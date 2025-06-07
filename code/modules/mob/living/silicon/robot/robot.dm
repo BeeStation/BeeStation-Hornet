@@ -56,10 +56,10 @@
 	var/mob/living/silicon/ai/connected_ai = null
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high ///If this is a path, this gets created as an object in Initialize.
 
-	var/opened = 0
+	var/opened = FALSE
 	var/emagged = FALSE
 	var/emag_cooldown = 0
-	var/wiresexposed = 0
+	var/wiresexposed = FALSE
 
 	var/ident = 0
 	var/locked = TRUE
@@ -78,7 +78,7 @@
 	var/datum/effect_system/spark_spread/spark_system // So they can initialize sparks whenever/N
 
 	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
-	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/scrambledcodes = FALSE // Used to determine if a borg shows up on the robotics console.  Setting to TRUE hides them.
 	var/lockcharge //Boolean of whether the borg is locked down or not
 
 	var/toner = 0
@@ -608,36 +608,36 @@
 /mob/living/silicon/robot/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
 	if(check_access(null))
-		return 1
+		return TRUE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || check_access(H.wear_id))
-			return 1
+			return TRUE
 	else if(ismonkey(M))
 		var/mob/living/carbon/monkey/george = M
 		//they can only hold things :(
 		if(isitem(george.get_active_held_item()))
 			return check_access(george.get_active_held_item())
-	return 0
+	return FALSE
 
 /mob/living/silicon/robot/proc/check_access(obj/item/card/id/I)
 	if(!istype(req_access, /list)) //something's very wrong
-		return 1
+		return TRUE
 
 	var/list/L = req_access
 	if(!L.len) //no requirements
-		return 1
+		return TRUE
 
 	if(!istype(I, /obj/item/card/id) && isitem(I))
 		I = I.GetID()
 
 	if(!I || !length(I.access)) //not ID or no access
-		return 0
+		return FALSE
 	for(var/req in req_access)
 		if(!(req in I.access))
-			return 0 //doesn't have this access
-	return 1
+			return FALSE
+	return TRUE
 
 /mob/living/silicon/robot/regenerate_icons()
 	return update_icons()
@@ -818,7 +818,7 @@
 		robot_suit.r_leg = null
 		new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
 		robot_suit.chest.forceMove(T)
-		robot_suit.chest.wired = 0
+		robot_suit.chest.wired = FALSE
 		robot_suit.chest = null
 		robot_suit.l_arm.forceMove(T)
 		robot_suit.l_arm = null
@@ -1329,7 +1329,7 @@
 		if(istype(riding_datum))
 			riding_datum.unequip_buckle_inhands(user)
 			riding_datum.restore_position(user)
-	. = ..(user)
+	return ..()
 
 /mob/living/silicon/robot/proc/TryConnectToAI()
 	connected_ai = select_active_ai_with_fewest_borgs()
@@ -1337,7 +1337,6 @@
 		connected_ai.connected_robots += src
 		lawsync()
 		lawupdate = TRUE
-		wires.ui_update()
 		return TRUE
 	picturesync()
 	wires.ui_update()

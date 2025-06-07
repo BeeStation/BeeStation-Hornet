@@ -33,8 +33,8 @@
 	strip_delay = 120
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor_type = /datum/armor/gloves_space_ninja
-	var/draining = 0
-	var/candrain = 0
+	var/draining = FALSE
+	var/candrain = FALSE
 	var/mindrain = 200
 	var/maxdrain = 400
 

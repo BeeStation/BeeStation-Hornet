@@ -112,22 +112,22 @@
 	holder.my_atom.plasma_ignition(created_volume/30, reagent_reaction = TRUE)
 	holder.clear_reagents()
 
-/datum/chemical_reaction/blackpowder
-	name = "Black Powder"
-	results = list(/datum/reagent/blackpowder = 3)
+/datum/chemical_reaction/gunpowder
+	name = "Gunpowder"
+	results = list(/datum/reagent/gunpowder = 3)
 	required_reagents = list(/datum/reagent/saltpetre = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/sulfur = 1)
 	reaction_tags = REACTION_TAG_EXPLOSIVE
 
-/datum/chemical_reaction/blackpowder/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/gunpowder/on_reaction(datum/reagents/holder, created_volume)
 	reaction_alert_admins(holder)
 
-/datum/chemical_reaction/reagent_explosion/blackpowder_explosion
-	name = "Black Powder explosion"
-	required_reagents = list(/datum/reagent/blackpowder = 1)
+/datum/chemical_reaction/reagent_explosion/gunpowder_explosion
+	name = "Gunpowder Kaboom"
+	required_reagents = list(/datum/reagent/gunpowder = 1)
 	required_temp = 474
 	strengthdiv = 6
 	modifier = 1
-	mix_message = span_boldnotice("Sparks start flying around the black powder!")
+	mix_message = span_boldnotice("Sparks start flying around the gunpowder!")
 
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	addtimer(CALLBACK(src, PROC_REF(explode), holder, created_volume, modifier, strengthdiv), rand(5,10) SECONDS)
@@ -612,7 +612,7 @@
 /datum/chemical_reaction/teslium
 	name = "Teslium"
 	results = list(/datum/reagent/teslium = 3)
-	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/silver = 1, /datum/reagent/blackpowder = 1)
+	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/silver = 1, /datum/reagent/gunpowder = 1)
 	mix_message = span_danger("A jet of sparks flies from the mixture as it merges into a flickering slurry.")
 	required_temp = 400
 	reaction_tags = REACTION_TAG_EXPLOSIVE

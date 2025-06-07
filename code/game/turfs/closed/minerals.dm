@@ -574,8 +574,8 @@
 
 		countdown(notify_admins)
 
-/turf/closed/mineral/gibtonite/proc/countdown(notify_admins = 0)
-	set waitfor = 0
+/turf/closed/mineral/gibtonite/proc/countdown(notify_admins = FALSE)
+	set waitfor = FALSE
 	while(istype(src, /turf/closed/mineral/gibtonite) && stage == GIBTONITE_ACTIVE && det_time > 0 && mineralAmt >= 1)
 		det_time--
 		sleep(5)
@@ -598,7 +598,7 @@
 			det_time = 0
 		visible_message(span_notice("The chain reaction was stopped! The gibtonite had [det_time] reactions left till the explosion!"))
 
-/turf/closed/mineral/gibtonite/gets_drilled(mob/user, triggered_by_explosion = 0)
+/turf/closed/mineral/gibtonite/gets_drilled(mob/user, triggered_by_explosion = FALSE)
 	if(stage == GIBTONITE_UNSTRUCK && mineralAmt >= 1) //Gibtonite deposit is activated
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg',50,1)
 		explosive_reaction(user, triggered_by_explosion)
@@ -607,7 +607,7 @@
 		var/turf/bombturf = get_turf(src)
 		mineralAmt = 0
 		stage = GIBTONITE_DETONATE
-		explosion(bombturf,1,2,5, adminlog = 0)
+		explosion(bombturf,1,2,5, adminlog = FALSE)
 		turf_destruction()
 
 	if(stage == GIBTONITE_STABLE) //Gibtonite deposit is now benign and extractable. Depending on how close you were to it blowing up before defusing, you get better quality ore.

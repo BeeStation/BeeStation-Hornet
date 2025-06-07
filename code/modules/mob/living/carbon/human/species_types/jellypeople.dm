@@ -84,11 +84,13 @@
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/split_body/is_available()
-	if(..())
-		var/mob/living/carbon/human/H = owner
-		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
-			return 1
-		return 0
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/carbon/human/H = owner
+	if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
+		return TRUE
+	return FALSE
 
 /datum/action/innate/split_body/on_activate()
 	var/mob/living/carbon/human/H = owner

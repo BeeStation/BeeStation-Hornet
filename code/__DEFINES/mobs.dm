@@ -398,6 +398,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define REM REAGENTS_EFFECT_MULTIPLIER //! Shorthand for the above define for ease of use in equations and the like
 
 // Roundstart trait system
 

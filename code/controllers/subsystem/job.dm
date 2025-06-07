@@ -117,7 +117,7 @@ SUBSYSTEM_DEF(job)
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
 		to_chat(world, span_boldannounce("Error setting up jobs, no job datums found."))
-		return 0
+		return FALSE
 
 	for(var/datum/job/each_job as anything in all_jobs)
 		each_job = new each_job()
@@ -130,7 +130,7 @@ SUBSYSTEM_DEF(job)
 		SSmapping.map_adjustment.job_change()
 		log_world("Applied '[SSmapping.map_adjustment.map_file_name]' map adjustment: job_change()")
 
-	return 1
+	return TRUE
 
 
 /datum/controller/subsystem/job/proc/GetJob(rank)
@@ -282,8 +282,8 @@ SUBSYSTEM_DEF(job)
 				continue
 			var/mob/dead/new_player/candidate = pick(candidates)
 			if(AssignRole(candidate, command_position))
-				return 1
-	return 0
+				return TRUE
+	return FALSE
 
 
 //This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
@@ -302,10 +302,10 @@ SUBSYSTEM_DEF(job)
 		AssignRole(candidate, command_position)
 
 /datum/controller/subsystem/job/proc/FillAIPosition()
-	var/ai_selected = 0
+	var/ai_selected = FALSE
 	var/datum/job/job = GetJob("AI")
 	if(!job)
-		return 0
+		return FALSE
 	for(var/i = job.total_positions, i > 0, i--)
 		for(var/level in level_order)
 			var/list/candidates = list()
@@ -316,8 +316,8 @@ SUBSYSTEM_DEF(job)
 					ai_selected++
 					break
 	if(ai_selected)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /** Proc DivideOccupations

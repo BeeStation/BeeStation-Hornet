@@ -244,14 +244,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	else if(current_size < (--temp_allowed_size))
 		expand(temp_allowed_size)
 	else
-		return 0
+		return FALSE
 
 
 /obj/anomaly/singularity/proc/check_energy()
 	if(energy <= 0)
 		investigate_log("collapsed.", INVESTIGATE_ENGINES)
 		qdel(src)
-		return 0
+		return FALSE
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
 		if(1 to 199)
 			allowed_size = STAGE_ONE
@@ -268,7 +268,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 				allowed_size = STAGE_FIVE
 	if(current_size != allowed_size)
 		expand()
-	return 1
+	return TRUE
 
 /obj/anomaly/singularity/proc/consume(atom/thing)
 	if(thing == src)
@@ -290,11 +290,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 			if(step(src, i))			//Move in each direction.
 				if(check_cardinals_range(steps, FALSE))		//New location passes, return true.
 					return TRUE
-	. = !.
+	return !.
 
 /obj/anomaly/singularity/proc/check_turfs_in(direction = 0, step = 0)
 	if(!direction)
-		return 0
+		return FALSE
 	var/steps = 0
 	if(!step)
 		switch(current_size)
@@ -315,7 +315,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	for(var/i = 1 to steps)
 		T = get_step(T,direction)
 	if(!isturf(T))
-		return 0
+		return FALSE
 	turfs.Add(T)
 	var/dir2 = 0
 	var/dir3 = 0
@@ -330,26 +330,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	for(var/j = 1 to steps-1)
 		T2 = get_step(T2,dir2)
 		if(!isturf(T2))
-			return 0
+			return FALSE
 		turfs.Add(T2)
 	for(var/k = 1 to steps-1)
 		T = get_step(T,dir3)
 		if(!isturf(T))
-			return 0
+			return FALSE
 		turfs.Add(T)
 	for(var/turf/T3 in turfs)
 		if(isnull(T3))
 			continue
 		if(!can_move(T3))
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 
 /obj/anomaly/singularity/proc/can_move(turf/T)
 	if(!T)
-		return 0
+		return FALSE
 	if((locate(/obj/machinery/field/containment) in T)||(locate(/obj/machinery/shieldwall) in T))
-		return 0
+		return FALSE
 	else if(locate(/obj/machinery/field/generator) in T)
 		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
 		if(G?.active)
@@ -370,11 +370,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 			mezzer()
 		if(3,4) //Sets all nearby mobs on fire
 			if(current_size < STAGE_SIX)
-				return 0
+				return FALSE
 			combust_mobs()
 		else
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 
 /obj/anomaly/singularity/proc/combust_mobs()

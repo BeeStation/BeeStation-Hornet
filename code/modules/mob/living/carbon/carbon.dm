@@ -878,7 +878,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/can_be_revived()
 	. = ..()
 	if(!getorgan(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
-		return 0
+		return FALSE
 
 /mob/living/carbon/harvest(mob/living/user)
 	if(QDELETED(src))
@@ -896,7 +896,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/ExtinguishMob()
 	for(var/X in get_equipped_items())
 		var/obj/item/I = X
-		I.acid_level = 0 //washes off the acid on our clothes
+		I.wash(CLEAN_TYPE_ACID) //washes off the acid on our clothes
 		I.extinguish() //extinguishes our clothes
 	..()
 
@@ -1290,3 +1290,31 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Returns if the carbon is wearing shock proof gloves
 /mob/living/carbon/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
+
+/**
+ * This proc is used to determine whether or not the mob can handle touching an acid affected object.
+ */
+/mob/living/carbon/proc/can_touch_acid(atom/acided_atom, acid_power, acid_volume)
+	// So people can take their own clothes off
+	if((acided_atom == src) || (acided_atom.loc == src))
+		return TRUE
+	if((acid_power * acid_volume) < ACID_LEVEL_HANDBURN)
+		return TRUE
+	if(gloves?.resistance_flags & (UNACIDABLE | ACID_PROOF))
+		return TRUE
+	return FALSE
+
+/*
+/**
+ * This proc is used to determine whether or not the mob can handle touching a burning object.
+ */
+/mob/living/carbon/proc/can_touch_burning(atom/burning_atom, acid_power, acid_volume)
+	// So people can take their own clothes off
+	if((burning_atom == src) || (burning_atom.loc == src))
+		return TRUE
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT) || HAS_TRAIT(src, TRAIT_RESISTHEATHANDS))
+		return TRUE
+	if(gloves?.max_heat_protection_temperature >= BURNING_ITEM_MINIMUM_TEMPERATURE)
+		return TRUE
+	return FALSE
+*/
