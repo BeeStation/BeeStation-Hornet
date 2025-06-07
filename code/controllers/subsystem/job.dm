@@ -42,8 +42,7 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_CHIEFENGINEER,
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_DEPUTY,
-		JOB_NAME_GIMMICK)
+		JOB_NAME_DEPUTY,)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
 	var/assigned_captain = FALSE
@@ -648,6 +647,7 @@ SUBSYSTEM_DEF(job)
 			J.spawn_positions = text2num(jobs.group[2])
 		else
 			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of title [J.title] in jobs.txt")
+
 
 /datum/controller/subsystem/job/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
