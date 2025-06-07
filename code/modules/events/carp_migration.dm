@@ -5,6 +5,7 @@
 	min_players = 2
 	earliest_start = 10 MINUTES
 	max_occurrences = 6
+	map_blacklist = list("Echo Station")
 
 /datum/round_event_control/carp_migration/New()
 	. = ..()
@@ -41,3 +42,4 @@
 	if (!hasAnnounced)
 		announce_to_ghosts(fish) //Only anounce the first fish
 		hasAnnounced = TRUE
+

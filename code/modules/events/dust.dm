@@ -5,6 +5,7 @@
 	max_occurrences = 1000
 	earliest_start = 0 MINUTES
 	alert_observers = FALSE
+	map_blacklist = list("Echo Station")
 
 /datum/round_event/space_dust
 	startWhen		= 1
