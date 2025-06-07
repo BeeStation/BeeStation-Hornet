@@ -39,10 +39,10 @@
 					-While confinement is required, the prisoner may partake in 'activities' outside the brig if supervised and outfitted with an electropack or tracking implant. <hr> </code>\
 					<font color='grey'><i>This message has been automatically generated. <br> \
 					NT Capital-Class prisoner program includes sign-up for the following activities: <br> \
-					- Medical trial subject; <br> \
-					- Research trial subject; <br> \
-					- Hazardous environment workforce; <br> \
 					- Free labor initiative; <br> \
+					- Hazardous environment workforce; <br> \
+					- Research trial subject; <br> \
+					- Medical trial subject; <br> \
 					- And (8) others.<br> \
 					</i></font>"
 

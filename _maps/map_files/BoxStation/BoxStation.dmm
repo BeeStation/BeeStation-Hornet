@@ -17835,6 +17835,9 @@
 /obj/structure/sign/poster/official/obey{
 	pixel_x = -32
 	},
+/obj/structure/chair/fancy/bench{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "dIE" = (
@@ -19464,6 +19467,9 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "erq" = (
@@ -44285,6 +44291,9 @@
 "okO" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "okQ" = (
@@ -45118,6 +45127,9 @@
 /area/security/courtroom)
 "oFA" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/structure/chair/fancy/bench/left{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -61489,6 +61501,9 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engineering)
 "uXB" = (
+/obj/structure/chair/fancy/bench/right{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "uXF" = (
@@ -61874,6 +61889,9 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "vfz" = (
@@ -69507,6 +69525,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "yha" = (
