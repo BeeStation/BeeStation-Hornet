@@ -6,7 +6,6 @@
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	head_announce = list(null)
 	supervisors = "Security / The warden"
 	selection_color = "#dddddd"
 
