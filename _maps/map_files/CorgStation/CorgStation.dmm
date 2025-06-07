@@ -48097,7 +48097,7 @@
 /obj/effect/spawner/lootdrop/aimodule_harmless,
 /obj/effect/spawner/lootdrop/aimodule_harmless,
 /obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/item/aiModule/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai_upload)
 "pIy" = (
@@ -58919,9 +58919,9 @@
 	icon_state = "2-4"
 	},
 /obj/structure/table/reinforced,
-/obj/item/aiModule/core/full/asimov,
-/obj/item/aiModule/reset/purge,
-/obj/item/aiModule/reset,
+/obj/item/ai_module/core/full/asimov,
+/obj/item/ai_module/reset/purge,
+/obj/item/ai_module/reset,
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai_upload)
 "tqG" = (
