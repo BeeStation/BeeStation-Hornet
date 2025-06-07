@@ -23155,6 +23155,13 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"fRq" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#742925"
+	},
+/obj/structure/detectiveboard/directional/north,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "fRr" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -28631,6 +28638,10 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"hYO" = (
+/obj/item/cardboard_cutout/adaptive/clown,
+/turf/open/floor/plating/rust,
+/area/maintenance/starboard/fore)
 "hYQ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
@@ -30085,23 +30096,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"iBH" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/mug/britcup{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/storage/box/matches{
-	pixel_x = -5;
-	pixel_y = 7
-	},
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/bar/atrium)
 "iBK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -31007,10 +31001,6 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard/fore)
-"iVk" = (
-/obj/item/cardboard_cutout/adaptive/clown,
-/turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
 "iVN" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -33402,19 +33392,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
-"jRN" = (
-/obj/structure/table,
-/obj/item/gps/mining/exploration,
-/obj/item/reagent_containers/cup/glass/bottle/beer{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/cup/glass/mug/britcup{
-	pixel_x = 9;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/quartermaster/exploration_prep)
 "jSj" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = 32
@@ -39012,18 +38989,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"mkw" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/structure/noticeboard{
-	pixel_y = 26
-	},
-/obj/structure/chair/fancy/sofa/old/left{
-	color = "#742925"
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "mkD" = (
 /obj/structure/railing{
 	dir = 1
@@ -46692,6 +46657,15 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"pxd" = (
+/obj/item/paper,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "pxn" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
@@ -52629,6 +52603,19 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"rKc" = (
+/obj/structure/table,
+/obj/item/gps/mining/exploration,
+/obj/item/reagent_containers/cup/glass/bottle/beer{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/quartermaster/exploration_prep)
 "rKk" = (
 /obj/machinery/status_display/evac{
 	pixel_x = -32
@@ -58147,6 +58134,23 @@
 /obj/machinery/air_sensor/engine_chamber,
 /turf/open/floor/engine,
 /area/engine/supermatter)
+"tOD" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/storage/box/matches{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/bar/atrium)
 "tOI" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/grid,
@@ -65651,15 +65655,6 @@
 /obj/effect/spawner/randomvend/cola,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
-"wTU" = (
-/obj/item/paper,
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/mug/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "wUe" = (
 /obj/machinery/computer/station_alert{
 	dir = 4
@@ -93187,7 +93182,7 @@ tNE
 fuY
 yfx
 obR
-wTU
+pxd
 qzt
 ugl
 vKc
@@ -100383,7 +100378,7 @@ aiX
 aiX
 aiX
 aiX
-mkw
+fRq
 nRu
 fPz
 gzH
@@ -103506,7 +103501,7 @@ wWY
 wgP
 tgB
 lyC
-iBH
+tOD
 hUm
 aYV
 bnT
@@ -112992,7 +112987,7 @@ arA
 anf
 alP
 kVS
-iVk
+hYO
 oeG
 anf
 apE
@@ -117917,7 +117912,7 @@ dtC
 wPp
 eEA
 tYC
-jRN
+rKc
 hAR
 kch
 fGF
