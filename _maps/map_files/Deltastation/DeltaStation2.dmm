@@ -60993,10 +60993,6 @@
 /area/crew_quarters/locker)
 "nAF" = (
 /obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
-	name = "HoS Privacy Blast Door"
-	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
@@ -91859,10 +91855,6 @@
 /area/maintenance/starboard/fore)
 "xnZ" = (
 /obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "hosprivacy";
-	name = "HoS Privacy Blast Door"
-	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
