@@ -45,8 +45,18 @@
 					- Free labor initiative; <br> \
 					- And (8) others.<br> \
 					</i></font>"
+
+	//Fax first
+
+	for(var/obj/machinery/fax/sec/availableSecFaxes in GLOB.fax_machines)
+		var/obj/item/paper/message = new /obj/item/paper
+		message.name = "Prisoner transfer Documentation"
+		message.add_raw_text(deets)
+		availableSecFaxes.receive(message, "NT Penal Division", important = TRUE)
+
+	// Announcement after
 	print_command_report(deets, title = "Prisoner transfer Documentation", announce = FALSE)
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "A prisoner has been transferred to your station. Check any communications console for a detailed printout."))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(priority_announce), "A prisoner has been transferred to your station. Check any communications console or security fax machine for a detailed printout.", "NT Penal Transfer", 'sound/misc/notice2.ogg'))
 	. = ..()
 
 /datum/outfit/job/prisoner
