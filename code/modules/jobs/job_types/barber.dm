@@ -1,3 +1,7 @@
+/*
+The barber is currently disabled via config. When or if you decide to turn them back on to be picked as normal crew then please note that they are able to spawn in maintenance if the barbershop room spawns.
+Also please remove them from /obj/effect/landmark/start/randommaint/barber and just make them /obj/effect/landmark/start/barber, since the /randommaint/ adds extra slots ontop of the total and spawn _positions.
+*/
 /datum/job/barber
 
 	title = JOB_NAME_BARBER

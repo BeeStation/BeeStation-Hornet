@@ -5,14 +5,14 @@
 	department_for_prefs = DEPT_NAME_CIVILIAN
 	supervisors = "Capital"
 	faction = "Station"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/vip
 
-	base_access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
-	extra_access = list()
+	base_access = list() //Assistants with shitloads of money, what could go wrong?
+	extra_access = list(ACCESS_MAINT_TUNNELS) //they can bribe the hop if they want access on normalpop
 
 	departments = DEPT_BITFLAG_VIP
 	bank_account_department = ACCOUNT_VIP_BITFLAG

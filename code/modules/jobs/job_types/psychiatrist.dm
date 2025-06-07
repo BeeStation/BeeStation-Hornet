@@ -12,8 +12,8 @@
 
 	outfit = /datum/outfit/job/psychiatrist
 
-	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
-	extra_access = list()
+	base_access = list(ACCESS_MEDICAL)
+	extra_access = list(ACCESS_MORGUE,ACCESS_SURGERY,ACCESS_CLONING)
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
