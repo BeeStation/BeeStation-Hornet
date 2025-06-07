@@ -278,7 +278,7 @@
 			/obj/item/food/grown,
 			/obj/item/seeds,
 			/obj/item/grown,
-			/obj/item/reagent_containers/cup/glass/honeycomb,
+			/obj/item/food/honeycomb,
 			/obj/item/disk/plantgene,
 			/obj/item/food/seaweed_sheet
 		)
