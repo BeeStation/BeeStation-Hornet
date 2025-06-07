@@ -96,7 +96,10 @@
 		current_type = "insert"
 		I = tool
 		if(surgery.location != I.zone || target.getorganslot(I.slot))
-			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(surgery.location)]!"))
+			if(istype(I, /obj/item/organ/brain/positron) && target.getorganslot(I.slot))
+				to_chat(user, span_notice("This body already has a brain!"))
+			else
+				to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(surgery.location)]!"))
 			return -1
 		if(istype(I, /obj/item/organ/brain/positron))
 			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
@@ -105,7 +108,7 @@
 			if(IS_ORGANIC_LIMB(affected))
 				to_chat(user, span_notice("You can't put [I] into a meat enclosure!"))
 				return -1
-			if(!isipc(target))
+			if(!IS_ROBOTIC_LIMB(affected))
 				to_chat(user, span_notice("[target] does not have the proper connectors to interface with [I]."))
 				return -1
 		var/obj/item/organ/meatslab = tool
