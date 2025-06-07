@@ -71,7 +71,7 @@
 		<b>Air source: </b>[internal_tank?"[use_internal_tank?"Internal Airtank":"Environment"]":"Environment"]<br>
 		<b>Air tank pressure: </b>[internal_tank?"[tank_pressure]kPa":"N/A"]<br>
 		<b>Air tank temperature: </b>[internal_tank?"[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C":"N/A"]<br>
-		<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? span_danger("[cabin_pressure]"): cabin_pressure]kPa":"N/A"]<br>
+		<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? span_danger(cabin_pressure): cabin_pressure]kPa":"N/A"]<br>
 		<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C":"N/A"]<br>"}
 	. += "[get_actions(user)]<br>"
 

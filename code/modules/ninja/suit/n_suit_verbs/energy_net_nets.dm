@@ -74,7 +74,7 @@ It is possible to destroy the net by the occupant or someone else.
 	visible_message("[affecting] suddenly vanishes!")
 	affecting.forceMove(pick(GLOB.holdingfacility)) //Throw mob in to the holding facility.
 	to_chat(affecting, span_danger("You appear in a strange place!"))
-	to_chat(affecting, span_hypnotext("You have been captured by a ninja! The portal that brought you here will collapse in 5 minutes and return you to the station."))
+	to_chat(affecting, span_hypnophrase("You have been captured by a ninja! The portal that brought you here will collapse in 5 minutes and return you to the station."))
 
 	if(!QDELETED(master))//As long as they still exist.
 		to_chat(master, span_notice("<b>SUCCESS</b>: transport procedure of [affecting] complete."))

@@ -958,8 +958,7 @@
 	M.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
 	M.confused = M.dizziness //add a tertiary effect here if this is isn't an effective poison.
 	if(current_cycle >= 12 && DT_PROB(4, delta_time))
-		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
-		to_chat(M, span_notice("[tox_message]"))
+		to_chat(M, span_notice(pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")))
 	. = TRUE
 	..()
 

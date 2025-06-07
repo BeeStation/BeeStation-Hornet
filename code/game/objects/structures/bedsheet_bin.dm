@@ -57,7 +57,7 @@
 		if(flags_1 & NODECONSTRUCT_1)
 			return
 		if(amount)
-			to_chat(user, span_warn("The [src] must be empty first!"))
+			to_chat(user, span_warning("The [src] must be empty first!"))
 			return
 		if(I.use_tool(src, user, 5, volume=50))
 			to_chat(user, span_notice("You disassemble the [src]"))

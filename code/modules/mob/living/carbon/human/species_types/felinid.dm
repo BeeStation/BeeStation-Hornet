@@ -59,7 +59,7 @@
 			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","sputters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
-			to_chat(M, span_notice("[sick_message]"))
+			to_chat(M, span_notice(sick_message))
 		if(prob(15))
 			if(locate(/obj/item/organ/stomach) in M.internal_organs)
 				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
