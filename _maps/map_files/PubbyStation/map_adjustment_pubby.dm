@@ -18,3 +18,4 @@
 	exclude_tagger_destination("Library")
 	exclude_tagger_destination("Chapel")
 	exclude_tagger_destination("Xenobiology")
+	exclude_tagger_destination("Testing Range")
