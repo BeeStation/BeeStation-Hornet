@@ -86,6 +86,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
 
 	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
+	SSsecurity_level.set_level(SEC_LEVEL_BLACK)
 
 /proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/async_map_generator/async_map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
