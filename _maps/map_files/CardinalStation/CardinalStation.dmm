@@ -1587,10 +1587,15 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "ara" = (
 /obj/effect/turf_decal/trimline/purple/filled/line,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/trimline/purple/filled/line,
+/obj/effect/turf_decal/caution/white{
+	color = "#2694f6";
+	dir = 1
+	},
+/obj/structure/wall_closet/emergency/directional/south,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
 /turf/open/floor/iron/white,
 /area/science/research)
 "arb" = (
@@ -17070,6 +17075,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
 	},
+/obj/effect/turf_decal/box,
 /turf/open/floor/iron/white/textured,
 /area/science/research)
 "dvN" = (
@@ -18566,6 +18572,7 @@
 	dir = 5
 	},
 /obj/machinery/smartfridge/organ,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/ameridiner,
 /area/science/robotics/lab)
 "dLg" = (
@@ -22826,6 +22833,10 @@
 /obj/machinery/firealarm{
 	pixel_y = 28
 	},
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/structure/wall_closet/tool/directional/west{
+	name = "plasma closet"
+	},
 /turf/open/floor/noslip/dark,
 /area/engine/gravity_generator)
 "eKj" = (
@@ -23721,6 +23732,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/item/paper/guides/jobs/engi/gravity_gen,
 /turf/open/floor/iron/textured,
 /area/engine/gravity_generator)
 "eTO" = (
@@ -24249,6 +24261,10 @@
 /obj/effect/turf_decal/trimline/yellow/line{
 	dir = 8;
 	alpha = 200
+	},
+/obj/machinery/holopad{
+	pixel_y = 16;
+	pixel_x = -16
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
@@ -32505,6 +32521,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/holopad,
 /turf/open/floor/iron/white/smooth_large,
 /area/science/research)
 "gFL" = (
@@ -53869,10 +53886,6 @@
 	name = "Secure Creature Pen";
 	req_access_txt = "47"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenosecure";
-	name = "Secure Pen Shutters"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -64341,6 +64354,7 @@
 	icon_state = "gib7";
 	pixel_x = -12
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
 	},
@@ -71679,7 +71693,6 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/machinery/holopad,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "oKl" = (
@@ -72844,7 +72857,6 @@
 	color = "#179c85"
 	},
 /obj/effect/landmark/start/research_director,
-/obj/machinery/holopad,
 /turf/open/floor/iron,
 /area/science/mixing)
 "oVi" = (
@@ -75741,6 +75753,7 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/vault/rock,
 /area/crew_quarters/heads/hor)
 "pxa" = (
@@ -80798,6 +80811,7 @@
 	color = "#3a3b3b";
 	alpha = 255
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron/dark/textured_edge,
 /area/science/robotics/mechbay)
 "qCH" = (
@@ -83229,6 +83243,7 @@
 	pixel_y = 6;
 	pixel_x = -10
 	},
+/obj/item/aicard,
 /obj/item/assembly/flash/handheld{
 	pixel_x = -3;
 	pixel_y = 6
@@ -87570,7 +87585,7 @@
 	color = "#c2bfa3"
 	},
 /obj/effect/spawner/lootdrop/techstorage/command,
-/obj/machinery/camera/directional/south,
+/obj/machinery/camera/motion/directional/south,
 /obj/structure/sign/nanotrasen{
 	pixel_y = -32
 	},
@@ -91325,6 +91340,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/circuit,
 /area/storage/tech)
 "sLp" = (
@@ -92051,12 +92067,12 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "sTB" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/holopad{
+	pixel_x = 16
 	},
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/iron/dark,
+/area/science/xenobiology)
 "sTE" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 8
@@ -93439,6 +93455,11 @@
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/techstorage/rnd,
 /obj/machinery/airalarm/directional/north,
+/obj/effect/spawner/lootdrop/techstorage/medical,
+/obj/item/paicard{
+	pixel_y = 4;
+	pixel_x = 17
+	},
 /turf/open/floor/circuit,
 /area/storage/tech)
 "thp" = (
@@ -98274,6 +98295,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "xenosecure";
+	name = "Secure Pen Shutters"
+	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "ugh" = (
@@ -98515,6 +98540,7 @@
 	},
 /obj/machinery/camera/directional/south,
 /obj/machinery/requests_console/auto_name/directional/east,
+/obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/security/checkpoint/science/research)
 "uio" = (
@@ -99936,6 +99962,10 @@
 /obj/effect/turf_decal/trimline/yellow/line{
 	dir = 8;
 	alpha = 200
+	},
+/obj/machinery/holopad{
+	pixel_y = 16;
+	pixel_x = -16
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
@@ -102993,6 +103023,9 @@
 	},
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
@@ -110989,6 +111022,12 @@
 	departmentType = 5;
 	name = "Telecomms RC";
 	pixel_x = 30
+	},
+/obj/item/radio/intercom{
+	dir = 8;
+	freerange = 1;
+	name = "Station Intercom (Telecomms)";
+	pixel_y = 26
 	},
 /turf/open/floor/iron/tech/grid,
 /area/tcommsat/computer)
@@ -133997,7 +134036,7 @@ nzj
 nzj
 nzj
 nzj
-sTB
+nzj
 nzj
 nzj
 nzj
@@ -146329,7 +146368,7 @@ kMu
 sfx
 lxJ
 dds
-lxJ
+sTB
 mCI
 rsy
 vIA
