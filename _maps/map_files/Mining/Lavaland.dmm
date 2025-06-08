@@ -265,8 +265,6 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bp" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/brown/half,
 /turf/open/floor/iron,
 /area/mine/atmospost)
@@ -484,10 +482,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plating/broken,
 /area/mine/atmospostengine)
 "cl" = (
@@ -515,6 +513,9 @@
 "cs" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
@@ -756,7 +757,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "External Wing Access"
+	name = "External Wing Access";
+	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
@@ -850,9 +852,6 @@
 /turf/open/floor/iron,
 /area/mine/gateway)
 "ey" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
@@ -1221,9 +1220,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1815,11 +1811,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer2{
+	dir = 6
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -2277,7 +2273,7 @@
 /turf/closed/indestructible/riveted/boss/see_through,
 /area/lavaland/surface/outdoors)
 "mJ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "mK" = (
@@ -2307,6 +2303,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/siding/thinplating/corner{
+	dir = 4
 	},
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating,
@@ -2816,9 +2815,10 @@
 /turf/open/floor/iron/techmaint,
 /area/mine/living_quarters)
 "pL" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 10
+	},
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "pN" = (
@@ -3135,9 +3135,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer2{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 4
 	},
@@ -3151,7 +3148,8 @@
 /area/lavaland/surface/outdoors)
 "rV" = (
 /obj/machinery/door/airlock/atmos{
-	name = "Atmospherics Access"
+	name = "Atmospherics Access";
+	req_one_access_txt = "10;24"
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/firedoor,
@@ -3274,6 +3272,9 @@
 /area/lavaland/surface/outdoors)
 "sA" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "sB" = (
@@ -3358,7 +3359,10 @@
 /obj/structure/sign/poster/official/no_erp{
 	pixel_y = 33
 	},
-/turf/open/floor/plating/broken,
+/obj/effect/turf_decal/tile/brown/half{
+	dir = 4
+	},
+/turf/open/floor/iron,
 /area/mine/atmospost)
 "ta" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -3384,7 +3388,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/atmos/glass{
-	name = "Atmospheric Engine"
+	name = "Atmospheric Engine";
+	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
@@ -3977,8 +3982,12 @@
 /area/mine/laborcamp)
 "wC" = (
 /obj/structure/spider/stickyweb,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "wH" = (
@@ -4030,10 +4039,8 @@
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "xe" = (
-/obj/structure/spider/stickyweb,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/brown/half,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "xg" = (
@@ -4282,9 +4289,9 @@
 /area/mine/atmospostengine)
 "yz" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "yB" = (
@@ -5833,6 +5840,7 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
+/obj/structure/spider/stickyweb,
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "GY" = (
@@ -5848,8 +5856,8 @@
 /area/lavaland/surface/outdoors)
 "GZ" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "Hb" = (
@@ -6650,17 +6658,9 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Li" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/spider/stickyweb,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
-/area/mine/atmospost)
-"Lj" = (
-/obj/effect/decal/cleanable/ash,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
 /area/mine/atmospost)
 "Lk" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -6905,11 +6905,8 @@
 /turf/open/floor/plating,
 /area/mine/atmospost)
 "Nc" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/broken,
+/obj/structure/closet/crate/large,
+/turf/open/floor/plating,
 /area/mine/atmospost)
 "Ne" = (
 /obj/structure/table,
@@ -6964,10 +6961,14 @@
 /turf/open/floor/iron,
 /area/mine/atmosposthallway)
 "Ns" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/brown/half{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/turf/open/floor/plating/broken,
+/turf/open/floor/iron,
 /area/mine/atmospost)
 "Nu" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
@@ -7082,9 +7083,11 @@
 /turf/open/floor/iron,
 /area/mine/laborcamp/security)
 "NV" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/plating/broken,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/structure/spider/stickyweb,
+/turf/open/floor/iron,
 /area/mine/atmospost)
 "NW" = (
 /obj/structure/window/reinforced/spawner/east,
@@ -7212,12 +7215,6 @@
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
-"OA" = (
-/obj/machinery/light/broken/directional/south,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/spider/stickyweb,
-/turf/open/floor/iron,
-/area/mine/atmospost)
 "OE" = (
 /obj/machinery/computer/security/telescreen/toxins{
 	dir = 8;
@@ -7461,10 +7458,9 @@
 /area/lavaland/surface/outdoors)
 "PX" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
 	},
-/obj/structure/closet/crate/large,
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "Qa" = (
@@ -7689,20 +7685,8 @@
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
 "Rv" = (
-/obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/hostile/poison/giant_spider{
-	melee_damage = 8;
-	health = 40;
-	web_speed = 500;
-	maxHealth = 40;
-	webbing = 500;
-	wrap = 500;
-	poison_per_bite = 2;
-	cocoon_target = 500;
-	spider_team = 101
-	},
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "Rw" = (
@@ -7956,13 +7940,17 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Td" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 9
+/mob/living/simple_animal/hostile/poison/giant_spider{
+	melee_damage = 8;
+	health = 40;
+	web_speed = 500;
+	maxHealth = 40;
+	webbing = 500;
+	wrap = 500;
+	poison_per_bite = 2;
+	cocoon_target = 500;
+	spider_team = 101
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "Te" = (
@@ -8123,8 +8111,6 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "TW" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/brown/half,
 /turf/open/floor/iron,
@@ -8679,11 +8665,9 @@
 /turf/open/floor/iron/techmaint/planetary,
 /area/mine/atmospostengine)
 "WO" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
+/obj/machinery/light/broken/directional/south,
+/obj/structure/spider/stickyweb,
+/turf/open/floor/iron,
 /area/mine/atmospost)
 "WS" = (
 /obj/structure/stone_tile/block,
@@ -8933,14 +8917,12 @@
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "Yc" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/siding/thinplating/corner{
 	dir = 1
 	},
-/turf/open/floor/iron,
-/area/mine/atmospost)
+/turf/open/floor/plating,
+/area/mine/atmospostengine)
 "Yd" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -51879,9 +51861,9 @@ Zd
 Zd
 Zd
 rN
-Em
-Em
-VK
+yB
+Zd
+Zd
 Zd
 Zd
 Zd
@@ -52136,9 +52118,9 @@ Zd
 Zd
 Zd
 jO
-yB
-Zd
-Zd
+Em
+Em
+VK
 Zd
 Zd
 Zd
@@ -52425,7 +52407,7 @@ LN
 Az
 uj
 av
-Gj
+NV
 Pw
 Gx
 EI
@@ -52678,8 +52660,8 @@ QI
 YU
 xA
 ho
+Td
 NY
-Ns
 Gj
 FG
 wl
@@ -52936,12 +52918,12 @@ tc
 sY
 Rv
 mJ
-WO
+Fw
 TW
 bp
 xe
 Li
-NV
+NY
 pL
 PX
 FA
@@ -53191,6 +53173,7 @@ WI
 TI
 lI
 Qh
+HP
 Og
 jL
 FJ
@@ -53198,14 +53181,13 @@ aV
 bv
 FW
 ky
-Fw
-GC
-wl
+Nc
+sA
 HN
 qQ
 kB
 sT
-hw
+Yc
 PL
 pi
 Gv
@@ -53445,9 +53427,10 @@ cw
 BX
 kN
 am
-ho
-Yc
-OA
+Ns
+Qh
+Az
+WO
 tc
 tc
 Og
@@ -53457,7 +53440,6 @@ sK
 Oe
 yp
 Ey
-Lj
 Tg
 uJ
 ch
@@ -53703,8 +53685,9 @@ bW
 rV
 nZ
 wC
-Td
-HP
+ey
+FG
+Gj
 tc
 dP
 dP
@@ -53714,7 +53697,6 @@ tc
 yQ
 yp
 lP
-sA
 BF
 uJ
 kB
@@ -53959,9 +53941,10 @@ Wa
 RA
 jI
 uT
-sA
-Nc
+GC
+ey
 NY
+FG
 CE
 FN
 av
@@ -53971,7 +53954,6 @@ QX
 Gj
 NY
 lP
-FG
 sv
 RV
 yD
@@ -55222,9 +55204,9 @@ Zd
 Zd
 Zd
 Zd
-gI
-Zd
-Zd
+MB
+Uw
+Pp
 Zd
 Zd
 Zd
@@ -55479,9 +55461,9 @@ Zd
 Zd
 Zd
 Zd
-MB
-Uw
-Pp
+gI
+Zd
+Zd
 Zd
 Zd
 Zd
