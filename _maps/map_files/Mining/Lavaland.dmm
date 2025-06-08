@@ -1842,7 +1842,7 @@
 "jU" = (
 /obj/machinery/button/door/directional/east{
 	name = "Emergency Nitrogen Tank Vent ";
-	id = NitrogenTank;
+	id = "NitrogenTank";
 	color = "#ff0000"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1980,7 +1980,7 @@
 /area/mine/production)
 "kP" = (
 /obj/machinery/door/poddoor{
-	id = OutpostAir
+	id = "OutpostAir"
 	},
 /turf/open/floor/engine/vacuum,
 /area/mine/atmospost)
@@ -4411,7 +4411,7 @@
 /area/mine/laborcamp)
 "zq" = (
 /obj/machinery/door/poddoor{
-	id = OxygenTank
+	id = "OxygenTank"
 	},
 /turf/open/floor/engine/vacuum,
 /area/mine/atmospost)
@@ -6742,7 +6742,8 @@
 /obj/structure/table,
 /obj/machinery/fax{
 	visible_to_network = 0;
-	name = "Outpost Atmospherics Fax Machine"
+	name = "Outpost Atmospherics Fax Machine";
+	fax_name = "Outpost Atmospherics"
 	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
@@ -7337,7 +7338,7 @@
 	dir = 9
 	},
 /obj/machinery/button/door/directional/east{
-	id = OutpostAir;
+	id = "OutpostAir";
 	name = "Emergency Air Tank Vent";
 	color = "#ff0000"
 	},
@@ -7776,7 +7777,7 @@
 /area/mine/laborcamp)
 "RP" = (
 /obj/machinery/door/poddoor{
-	id = NitrogenTank
+	id = "NitrogenTank"
 	},
 /turf/open/floor/engine/vacuum,
 /area/mine/atmospost)
@@ -7824,7 +7825,7 @@
 /area/mine/laborcamp)
 "Sd" = (
 /obj/machinery/button/door/directional/east{
-	id = OxygenTank;
+	id = "OxygenTank";
 	name = "Emergency Oxygen Tank Vent";
 	color = "#ff0000"
 	},
@@ -9109,7 +9110,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer4,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/layer4{
+	dir = 8
+	},
 /turf/open/floor/iron/tech,
 /area/mine/atmosfarmpost)
 "Zd" = (
