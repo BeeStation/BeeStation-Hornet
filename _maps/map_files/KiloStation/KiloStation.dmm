@@ -13023,7 +13023,6 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/obj/item/holosign_creator/security,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "cGd" = (

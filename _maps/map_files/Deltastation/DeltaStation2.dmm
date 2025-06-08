@@ -54838,18 +54838,9 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
 "lHS" = (
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
 /obj/structure/closet/secure_closet/detective,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/light/small,
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
 "lHU" = (
