@@ -10,6 +10,11 @@
 /// from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
 ///from base of atom/examine_more(): (/mob)
+///from base of atom/examine(): (/mob, list/examine_text, can_see_inside)
+#define COMSIG_PARENT_REAGENT_EXAMINE "atom_reagent_examine"
+	/// Stop the generic reagent examine text
+	#define STOP_GENERIC_REAGENT_EXAMINE (1<<0)
+///from base of atom/examine_more(): (/mob)
 #define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
 	//Positions for overrides list
 	#define EXAMINE_POSITION_ARTICLE (1<<0)
@@ -164,6 +169,12 @@
 #define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
 #define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.
 
+/////////////////
+/// Screentip signals
+/////////////////
+
+/// proc/add_context(datum/source, datum/screentip_context/context, mob/user)
+#define COMSIG_ATOM_ADD_CONTEXT "add_screentip_context"
 //////////////////
 
 // From /atom/proc/set_density(new_value) for when an atom changes density

@@ -6597,15 +6597,6 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/engine/atmos)
-"cey" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/paper,
-/turf/open/floor/wood,
-/area/security/prison)
 "ceS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -9371,10 +9362,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
-"cXb" = (
-/obj/item/cardboard_cutout/adaptive/chess/queen,
-/turf/open/floor/plating/airless,
-/area/science/test_area)
 "cXo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -10521,11 +10508,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/science/robotics)
-"drn" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/science/test_area)
 "dro" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line,
@@ -13966,6 +13948,11 @@
 /obj/machinery/telecomms/bus/preset_one,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"eva" = (
+/obj/item/cardboard_cutout/adaptive/xeno,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/science/test_area)
 "evp" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -19534,6 +19521,17 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"glx" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/item/cardboard_cutout/adaptive/ian,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/camera/preset/toxins{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/science/test_area)
 "glH" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/structure/cable{
@@ -20225,13 +20223,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/solar/port/aft)
-"gvE" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/science/test_area)
 "gvG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -25713,11 +25704,41 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"iuA" = (
+/obj/structure/table,
+/obj/item/toy/cards/deck{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/obj/item/book/manual/wiki/sopsecurity{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
 "iuC" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
+"iuE" = (
+/obj/item/cardboard_cutout/adaptive/nukeop,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/science/test_area)
 "iuO" = (
 /obj/structure/closet/l3closet/virology,
 /obj/effect/turf_decal/bot,
@@ -34787,25 +34808,6 @@
 /obj/structure/chair,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"lyW" = (
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_x = 4;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 2
-	},
-/obj/item/clothing/glasses/sunglasses/advanced{
-	pixel_x = -3;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "lzh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -42945,29 +42947,6 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
 /area/hallway/secondary/exit/departure_lounge)
-"oks" = (
-/obj/structure/table,
-/obj/item/toy/cards/deck{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -8;
-	pixel_y = 10
-	},
-/obj/item/book/manual/wiki/sopsecurity{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/security/main)
 "okN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -49195,6 +49174,20 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
+"qhn" = (
+/obj/structure/table/wood,
+/obj/item/toy/cards/deck{
+	pixel_x = 1;
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/cafeteria)
 "qia" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -53552,25 +53545,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
-"rIN" = (
-/obj/structure/table/wood{
-	name = "Coffee warmer"
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 3;
-	pixel_y = 12
-	},
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = -1
-	},
-/obj/machinery/light,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
-/area/bridge/meeting_room)
 "rIQ" = (
 /obj/machinery/light{
 	dir = 1
@@ -56635,20 +56609,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/catwalk_floor,
 /area/engine/atmospherics_engine)
-"sLF" = (
-/obj/structure/table/wood,
-/obj/item/toy/cards/deck{
-	pixel_x = 1;
-	pixel_y = 13
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/cafeteria)
 "sLM" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -60142,24 +60102,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
-"tNs" = (
-/obj/structure/table/reinforced,
-/obj/item/paper/fluff/jobs/medical/hippocratic{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 2;
-	pixel_y = 9
-	},
-/obj/item/toy/plush/renault{
-	pixel_x = 8
-	},
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
-/turf/open/floor/iron/white,
-/area/medical/office)
 "tNG" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
@@ -62123,6 +62065,25 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
+"uux" = (
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/gun/energy/disabler{
+	pixel_x = 2
+	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = -3;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "uuG" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/structure/table/reinforced,
@@ -62701,6 +62662,15 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
+"uEj" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/obj/item/paper,
+/turf/open/floor/wood,
+/area/security/prison)
 "uEn" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 5
@@ -62958,17 +62928,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"uIB" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/cardboard_cutout/adaptive/chess/king,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/camera/preset/toxins{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/science/test_area)
 "uIX" = (
 /obj/item/radio/intercom{
 	dir = 1;
@@ -67621,6 +67580,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"wqo" = (
+/obj/item/cardboard_cutout/adaptive/clown,
+/turf/open/floor/plating/airless,
+/area/science/test_area)
 "wqs" = (
 /obj/structure/sign/warning/nosmoking/circle,
 /turf/closed/wall,
@@ -71218,6 +71181,25 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/cryopods)
+"xsq" = (
+/obj/structure/table/wood{
+	name = "Coffee warmer"
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 3;
+	pixel_y = 12
+	},
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/iron/dark,
+/area/bridge/meeting_room)
 "xss" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/light{
@@ -71898,6 +71880,24 @@
 "xCe" = (
 /turf/closed/wall,
 /area/maintenance/department/medical)
+"xCs" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/fluff/jobs/medical/hippocratic{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 2;
+	pixel_y = 9
+	},
+/obj/item/toy/plush/renault{
+	pixel_x = 8
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/turf/open/floor/iron/white,
+/area/medical/office)
 "xCv" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -83596,7 +83596,7 @@ gsA
 nif
 nif
 ilM
-uIB
+glx
 uzf
 nif
 nif
@@ -84108,11 +84108,11 @@ gsA
 gsA
 gsA
 uuS
-gvE
+iuE
 rpM
 beo
 gvW
-drn
+eva
 uuS
 gsA
 gsA
@@ -84367,7 +84367,7 @@ gsA
 nif
 mYY
 uSq
-cXb
+wqo
 wnI
 rxy
 nif
@@ -100466,7 +100466,7 @@ hzk
 bpo
 qKg
 rVu
-oks
+iuA
 vwL
 bNr
 dTx
@@ -102522,7 +102522,7 @@ jtQ
 euO
 xeu
 xNd
-lyW
+uux
 bDs
 pVy
 xeu
@@ -104320,7 +104320,7 @@ cHl
 dIe
 pNF
 xtP
-cey
+uEj
 dyS
 ldH
 wNH
@@ -107393,7 +107393,7 @@ wtU
 nmq
 usv
 tQd
-rIN
+xsq
 wul
 pLM
 dGR
@@ -108239,7 +108239,7 @@ oIs
 fxR
 jlQ
 mbT
-tNs
+xCs
 lvJ
 kDQ
 xwH
@@ -110781,7 +110781,7 @@ vge
 kok
 bLt
 oJe
-sLF
+qhn
 uEz
 ykz
 lFE

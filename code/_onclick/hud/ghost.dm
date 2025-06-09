@@ -2,6 +2,7 @@
 	icon = 'icons/hud/screen_ghost.dmi'
 
 /atom/movable/screen/ghost/MouseEntered()
+	..()
 	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/observe

@@ -251,16 +251,6 @@
 				if(50 to INFINITY)
 					damage_examine += "<B>[t_He] [t_has] severe [burn_msg]!</B>"
 
-		current_damage = getCloneLoss()
-		if(current_damage)
-			switch (current_damage)
-				if(1 to 25)
-					damage_examine += "[t_He] [t_has] minor cellular damage."
-				if(25 to 50)
-					damage_examine += "[t_He] [t_has] <b>moderate</b> cellular damage!"
-				if(50 to INFINITY)
-					damage_examine += "<B>[t_He] [t_has] severe cellular damage!</B>"
-
 	// Fire stacks
 	if(fire_stacks > 0)
 		damage_examine += "[capitalize(t_He)] [t_is] covered in something flammable."

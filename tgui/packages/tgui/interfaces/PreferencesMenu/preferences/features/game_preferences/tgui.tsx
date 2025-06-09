@@ -16,6 +16,14 @@ export const tgui_lock: FeatureToggle = {
   component: CheckboxInput,
 };
 
+export const screentips: FeatureToggle = {
+  name: 'Enable Screentips',
+  category: 'UI',
+  subcategory: 'HUD',
+  description: 'Enables screentips which give contextual hints about certain items.',
+  component: CheckboxInput,
+};
+
 export const tgui_say_show_prefix: FeatureToggle = {
   name: 'Keep Radio Prefix',
   category: 'UI',

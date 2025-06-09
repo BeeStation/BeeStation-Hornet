@@ -94,6 +94,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iszombie(A) (is_species(A, /datum/species/zombie))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
 #define isshadow(A) (is_species(A, /datum/species/shadow))
+#define isblessedshadow(A) (is_species(A, /datum/species/shadow/blessed))
+#define isnightmare(A) (is_species(A, /datum/species/shadow/nightmare))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 #define ishumanbasic(A) (is_species(A, /datum/species/human) && !is_species(A, /datum/species/human/krokodil_addict))
 #define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
@@ -296,3 +298,6 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
 
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
+
+/// Helper for checking of someone's shapeshifted currently.
+#define is_shifted(mob) mob.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)

@@ -28631,10 +28631,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"hYO" = (
-/obj/item/cardboard_cutout/adaptive/chess/queen,
-/turf/open/floor/plating/rust,
-/area/maintenance/starboard/fore)
 "hYQ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
@@ -30089,6 +30085,23 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"iBH" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/storage/box/matches{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/bar/atrium)
 "iBK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -30994,6 +31007,10 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
+/area/maintenance/starboard/fore)
+"iVk" = (
+/obj/item/cardboard_cutout/adaptive/clown,
+/turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
 "iVN" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -33385,6 +33402,19 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
+"jRN" = (
+/obj/structure/table,
+/obj/item/gps/mining/exploration,
+/obj/item/reagent_containers/cup/glass/bottle/beer{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/quartermaster/exploration_prep)
 "jSj" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = 32
@@ -43562,15 +43592,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
-"odu" = (
-/obj/item/paper,
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "odz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -49934,19 +49955,6 @@
 /obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
-"qLY" = (
-/obj/structure/table,
-/obj/item/gps/mining/exploration,
-/obj/item/reagent_containers/cup/glass/bottle/beer{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 9;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/quartermaster/exploration_prep)
 "qMj" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Air Out";
@@ -51260,17 +51268,6 @@
 /area/engine/atmos)
 "rli" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
-/obj/item/assembly/flash/handheld,
-/obj/item/restraints/handcuffs,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
@@ -59684,23 +59681,6 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
-"uwA" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/storage/box/matches{
-	pixel_x = -5;
-	pixel_y = 7
-	},
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/bar/atrium)
 "uwI" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -65671,6 +65651,15 @@
 /obj/effect/spawner/randomvend/cola,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"wTU" = (
+/obj/item/paper,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "wUe" = (
 /obj/machinery/computer/station_alert{
 	dir = 4
@@ -93198,7 +93187,7 @@ tNE
 fuY
 yfx
 obR
-odu
+wTU
 qzt
 ugl
 vKc
@@ -103517,7 +103506,7 @@ wWY
 wgP
 tgB
 lyC
-uwA
+iBH
 hUm
 aYV
 bnT
@@ -113003,7 +112992,7 @@ arA
 anf
 alP
 kVS
-hYO
+iVk
 oeG
 anf
 apE
@@ -117928,7 +117917,7 @@ dtC
 wPp
 eEA
 tYC
-qLY
+jRN
 hAR
 kch
 fGF
