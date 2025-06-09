@@ -110,7 +110,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		log_admin_private("[usr] sent a request to interact with the secrets panel without sufficient rights.")
 		return
 	var/datum/round_event/E
-	var/ok = 0
+	var/ok = FALSE
 	switch(action)
 		if("admin_log")
 			var/dat
@@ -335,9 +335,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Monkeyize All Humans"))
 			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				spawn(0)
-					H.monkeyize()
-			ok = 1
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon, monkeyize))
+			ok = TRUE
 
 		if("allspecies")
 			if(!check_rights(R_FUN))
@@ -858,7 +857,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			to_chat(world, "<B>A secret has been activated by [usr.key]!</B>")
 
 /proc/portalAnnounce(announcement, playlightning)
-	set waitfor = 0
+	set waitfor = FALSE
 	if (playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)

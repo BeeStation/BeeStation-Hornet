@@ -1,7 +1,6 @@
 
 
 /mob/living/carbon/alien/larva/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
 	if (notransform)
 		return
 	if(!..() || IS_IN_STASIS(src) || (amount_grown >= max_grown))

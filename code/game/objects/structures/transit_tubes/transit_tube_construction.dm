@@ -9,7 +9,7 @@
 	density = FALSE
 	layer = LOW_ITEM_LAYER //same as the built tube
 	anchored = FALSE
-	var/flipped = 0
+	var/flipped = FALSE
 	var/build_type = /obj/structure/transit_tube
 	var/flipped_build_type
 	var/base_icon
@@ -64,7 +64,7 @@
 
 /obj/structure/c_transit_tube/station/flipped
 	icon_state = "closed_station1"
-	flipped = 1
+	flipped = TRUE
 	build_type = /obj/structure/transit_tube/station/flipped
 	flipped_build_type = /obj/structure/transit_tube/station
 
@@ -79,7 +79,7 @@
 
 /obj/structure/c_transit_tube/station/reverse/flipped
 	icon_state = "closed_terminus1"
-	flipped = 1
+	flipped = TRUE
 	build_type = /obj/structure/transit_tube/station/reverse/flipped
 	flipped_build_type = /obj/structure/transit_tube/station/reverse
 
@@ -108,7 +108,7 @@
 	icon_state = "curved1"
 	build_type = /obj/structure/transit_tube/curved/flipped
 	flipped_build_type = /obj/structure/transit_tube/curved
-	flipped = 1
+	flipped = TRUE
 
 
 /obj/structure/c_transit_tube/junction
@@ -120,7 +120,7 @@
 
 /obj/structure/c_transit_tube/junction/flipped
 	icon_state = "junction1"
-	flipped = 1
+	flipped = TRUE
 	build_type = /obj/structure/transit_tube/junction/flipped
 	flipped_build_type = /obj/structure/transit_tube/junction
 

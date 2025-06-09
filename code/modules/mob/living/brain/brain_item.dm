@@ -233,6 +233,7 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
+	// Dont inherit adv_tool_user
 	organ_traits = null
 
 /obj/item/organ/brain/diona

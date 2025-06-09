@@ -1,11 +1,10 @@
 /obj/item/reagent_containers/cup/glass/drinkingglass
 	name = "drinking glass"
 	desc = "Your standard drinking glass."
-	custom_price = 5
 	icon_state = "glass_empty"
 	base_icon_state = "glass_empty"
 	amount_per_transfer_from_this = 10
-	fill_icon_thresholds = list(1)
+	fill_icon_thresholds = list(0)
 	fill_icon_state = "drinking_glass"
 	volume = 50
 	custom_materials = list(/datum/material/glass=500)
@@ -15,6 +14,7 @@
 	obj_flags = UNIQUE_RENAME
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound = 'sound/items/handling/drinkglass_pickup.ogg'
+	custom_price = PAYCHECK_MINIMAL
 
 	/// The type to compare to glass_style.required_container type, or null to use class type.
 	/// This allows subtypes to utilize parent styles.
@@ -29,7 +29,7 @@
 		base_container_type = base_container_type, \
 	)
 
-/obj/item/reagent_containers/cup/glass/drinkingglass/on_reagent_change(changetype)
+/obj/item/reagent_containers/cup/glass/drinkingglass/on_reagent_change(datum/reagents/holder, ...)
 	. = ..()
 	if(!length(reagents.reagent_list))
 		renamedByPlayer = FALSE //so new drinks can rename the glass
@@ -55,7 +55,6 @@
 	name = "shot glass"
 	desc = "A shot glass - the universal symbol for bad decisions."
 	icon = 'icons/obj/drinks/shot_glasses.dmi'
-	custom_price = 5
 	icon_state = "shotglass"
 	base_icon_state = "shotglass"
 	gulp_size = 15
@@ -64,6 +63,7 @@
 	fill_icon_state = "shot_glass"
 	volume = 15
 	custom_materials = list(/datum/material/glass=100)
+	custom_price = PAYCHECK_MINIMAL
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass/update_name(updates)
 	if(renamedByPlayer)

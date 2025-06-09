@@ -90,7 +90,8 @@
 	slot = "hivenode"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/alien/whisper)
-	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
+	///Indicates if the queen died recently, aliens are heavily weakened while this is active.
+	var/recent_queen_death = FALSE
 
 /obj/item/organ/alien/hivenode/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	M.faction |= FACTION_ALIEN

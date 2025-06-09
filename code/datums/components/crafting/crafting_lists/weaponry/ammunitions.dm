@@ -130,7 +130,7 @@
 		/obj/item/grenade/chem_grenade = 1,
 		/obj/item/stack/sheet/iron = 1,
 		/obj/item/stack/cable_coil = 1,
-		/datum/reagent/blackpowder = 10
+		/datum/reagent/gunpowder = 10
 	)
 	category = CAT_WEAPON_AMMO
 	dangerous_craft = TRUE
@@ -189,7 +189,7 @@
 		/obj/item/grenade/chem_grenade = 1,
 		/obj/item/stack/sheet/iron = 1,
 		/obj/item/stack/cable_coil = 2,
-		/datum/reagent/blackpowder = 10
+		/datum/reagent/gunpowder = 10
 	)
 	category = CAT_WEAPON_AMMO
 	dangerous_craft = TRUE

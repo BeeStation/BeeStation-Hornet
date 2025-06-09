@@ -173,8 +173,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 /mob/living/simple_animal/hostile/proc/CheckObject(obj/O)
 	if(isitem(O) || isstructure(O) || ismachinery(O))
 		if(!is_type_in_list(O, GLOB.protected_objects))
-			return 1
-	return 0
+			return TRUE
+		return FALSE
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0)
 	if(CheckObject(O) || destroy_original)

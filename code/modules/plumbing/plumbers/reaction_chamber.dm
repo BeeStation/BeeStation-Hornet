@@ -22,10 +22,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/reaction_chamber)
 	AddComponent(/datum/component/plumbing/reaction_chamber, bolt)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
-/obj/machinery/plumbing/reaction_chamber/on_reagent_change()
-	if(reagents.total_volume == 0 && emptying) //we were emptying, but now we aren't
+/obj/machinery/plumbing/reaction_chamber/create_reagents(max_vol, flags)
+	. = ..()
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED), PROC_REF(on_reagent_change))
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, PROC_REF(on_reagents_del))
+
+/// Handles properly detaching signal hooks.
+/obj/machinery/plumbing/reaction_chamber/proc/on_reagents_del(datum/reagents/reagents)
+	SIGNAL_HANDLER
+	UnregisterSignal(reagents, list(COMSIG_REAGENTS_REM_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_CLEAR_REAGENTS, COMSIG_REAGENTS_REACTED, COMSIG_PARENT_QDELETING))
+	return NONE
+
+
+/// Handles stopping the emptying process when the chamber empties.
+/obj/machinery/plumbing/reaction_chamber/proc/on_reagent_change(datum/reagents/holder, ...)
+	SIGNAL_HANDLER
+	if(holder.total_volume == 0 && emptying) //we were emptying, but now we aren't
 		emptying = FALSE
-		reagents.flags |= NO_REACT
+		holder.flags |= NO_REACT
+	return NONE
 
 /obj/machinery/plumbing/reaction_chamber/power_change()
 	. = ..()

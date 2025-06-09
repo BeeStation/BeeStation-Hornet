@@ -164,15 +164,15 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && (obj_flags & EMAGGED))
 		if(scanning)
 			to_chat(user, span_warning("Turn off [src] before you perform this action!"))
-			return 0
+			return FALSE
 		user.visible_message(span_notice("[user] unscrews [src]'s maintenance panel and begins fiddling with its innards..."), span_notice("You begin resetting [src]..."))
 		if(!I.use_tool(src, user, 40, volume=50))
-			return 0
+			return FALSE
 		user.visible_message(span_notice("[user] refastens [src]'s maintenance panel!"), span_notice("You reset [src] to its factory settings!"))
 		obj_flags &= ~EMAGGED
 		radiation_count = 0
 		update_icon()
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -181,7 +181,7 @@
 		return ..()
 	if(!scanning)
 		to_chat(usr, span_warning("[src] must be on to reset its radiation level!"))
-		return 0
+		return
 	radiation_count = 0
 	to_chat(usr, span_notice("You flush [src]'s radiation counts, resetting it to normal."))
 	update_icon()

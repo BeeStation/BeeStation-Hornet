@@ -39,8 +39,13 @@
 	if(slot == user.getBackSlot())
 		return 1
 
-/obj/item/watertank/on_reagent_change(changetype)
+/obj/item/watertank/create_reagents(max_vol, flags)
 	. = ..()
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_localchange), TRUE)
+
+/// Handles reagents
+/obj/item/watertank/proc/on_reagent_localchange(datum/reagents/reagents)
+	SIGNAL_HANDLER
 	update_icon()
 	if(noz)
 		noz.update_icon()
@@ -175,7 +180,7 @@
 	can_toggle_range = FALSE
 	volume = 500
 	item_flags = NOBLUDGEON | ABSTRACT | ISWEAPON  // don't put in storage
-	slot_flags = 0
+	slot_flags = NONE
 
 	var/obj/item/watertank/tank
 
@@ -406,8 +411,13 @@
 	update_nozzle_stats()
 	update_icon()
 
-/obj/item/extinguisher/mini/nozzle/on_reagent_change(changetype)
+/obj/item/extinguisher/mini/nozzle/create_reagents(max_vol, flags)
 	. = ..()
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_localchange), TRUE)
+
+/// Handles reagents
+/obj/item/extinguisher/mini/nozzle/proc/on_reagent_localchange(datum/reagents/reagents)
+	SIGNAL_HANDLER
 	update_icon()
 	if(tank)
 		tank.update_icon()

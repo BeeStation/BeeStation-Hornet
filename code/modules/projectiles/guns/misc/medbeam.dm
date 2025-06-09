@@ -12,7 +12,7 @@
 	var/last_check = 0
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
 	var/max_range = 8
-	var/active = 0
+	var/active = FALSE
 	var/datum/beam/current_beam = null
 	var/mounted = 0 //Denotes if this is a handheld or mounted version
 
@@ -42,7 +42,7 @@
 	if(active)
 		qdel(current_beam)
 		current_beam = null
-		active = 0
+		active = FALSE
 		on_beam_release(current_target)
 	current_target = null
 
@@ -99,7 +99,7 @@
 	if(mounted)
 		user_turf = get_turf(user)
 	else if(!istype(user_turf))
-		return 0
+		return FALSE
 	var/obj/dummy = new(user_turf)
 	dummy.pass_flags |= PASSTABLE|PASSTRANSPARENT|PASSGRILLE //Grille/Glass so it can be used through common windows
 	var/turf/previous_step = user_turf
@@ -152,7 +152,7 @@
 
 //////////////////////////////Mech Version///////////////////////////////
 /obj/item/gun/medbeam/mech
-	mounted = 1
+	mounted = TRUE
 
 /obj/item/gun/medbeam/mech/Initialize(mapload)
 	. = ..()

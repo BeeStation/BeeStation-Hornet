@@ -26,6 +26,7 @@
 #include "combat.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
+#include "container_sanity.dm"
 /*
 #include "create_and_destroy.dm"
 */
@@ -66,9 +67,11 @@
 #include "rcd.dm"
 #include "reagent_container_defaults.dm"
 #include "reagent_grinder.dm"
-#include "reagent_id_duplicates.dm"
 #include "reagent_id_typos.dm"
+#include "reagent_mob_expose.dm"
+#include "reagent_names.dm"
 #include "reagent_recipe_collisions.dm"
+#include "reagent_transfer.dm"
 #include "security_levels.dm"
 #include "serving_tray.dm"
 #include "shuttle_width_height_correctness.dm"

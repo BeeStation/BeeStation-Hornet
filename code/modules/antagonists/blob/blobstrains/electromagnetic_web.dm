@@ -24,9 +24,10 @@
 	color = "#83ECEC"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/electromagnetic_web/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
-	reac_volume = ..()
+/datum/reagent/blob/electromagnetic_web/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
 	if(prob(reac_volume*2))
-		M.emp_act(EMP_LIGHT)
-	if(M)
-		M.apply_damage(reac_volume, BURN)
+		exposed_mob.emp_act(EMP_LIGHT)
+	if(exposed_mob)
+		exposed_mob.apply_damage(reac_volume, BURN)
