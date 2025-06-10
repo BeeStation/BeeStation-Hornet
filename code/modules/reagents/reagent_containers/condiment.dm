@@ -341,6 +341,22 @@
 	icon_state = "coldsauce"
 	list_reagents = list(/datum/reagent/consumable/frostoil = 50)
 
+/// New Tasty
+
+/obj/item/reagent_containers/condiment/vanilla
+	name = "vanilla drops"
+	desc = "A bottle of Vanilla."
+	volume = 20
+	list_reagents = list(/datum/reagent/consumable/vanilla = 20)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/cream
+	name = "cream bottle"
+	desc = "A bottle of Cream."
+	volume = 25
+	list_reagents = list(/datum/reagent/consumable/cream = 25)
+	fill_icon_thresholds = null
+
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
 /obj/item/reagent_containers/condiment/pack

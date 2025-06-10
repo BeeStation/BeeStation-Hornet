@@ -2306,13 +2306,13 @@
 	crate_type = /obj/structure/closet/crate
 
 /datum/supply_pack/service/vending/dinnerware
-	name = "Dinnerware Supply Crate"
-	desc = "More knives for the chef."
+	name = "Kitchen Supply Crate"
+	desc = "More knives and ingredients for the chef."
 	cost = 800
 	max_supply = 6
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/vending_refill/dinnerware)
-	crate_name = "dinnerware supply crate"
+	crate_name = "kitchen supply crate"
 
 /datum/supply_pack/service/vending/games
 	name = "Games Supply Crate"
