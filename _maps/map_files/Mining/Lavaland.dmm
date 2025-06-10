@@ -76,7 +76,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "ar" = (
@@ -792,7 +792,7 @@
 	},
 /obj/item/crowbar,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "eq" = (
@@ -883,7 +883,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "eD" = (
@@ -907,7 +907,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "eN" = (
@@ -1844,7 +1844,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "jU" = (
@@ -1961,7 +1961,7 @@
 "kG" = (
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "kL" = (
@@ -2736,7 +2736,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "pr" = (
@@ -3192,7 +3192,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "sd" = (
@@ -3650,7 +3650,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "uF" = (
@@ -3783,7 +3783,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "vv" = (
@@ -3812,7 +3812,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "vG" = (
@@ -4193,7 +4193,7 @@
 /obj/machinery/suit_storage_unit,
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "xO" = (
@@ -4703,7 +4703,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "AY" = (
@@ -5322,7 +5322,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "Eg" = (
@@ -6437,7 +6437,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "JP" = (
@@ -6604,7 +6604,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
 "KK" = (
@@ -7957,7 +7957,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /turf/open/floor/iron/techmaint{
-	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=340"
+	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
 "Ta" = (
