@@ -39,13 +39,12 @@ Stabilized extracts:
 		if(initial(S.colour) == colour)
 			effectpath = S
 			break
-	if(!H.has_status_effect(effectpath))
+	var/datum/status_effect/stabilized/current_effect = H.has_status_effect(effectpath)
+	if(!current_effect || current_effect.duration != -1)
 		var/datum/status_effect/stabilized/S = H.apply_status_effect(effectpath)
 		owner = H
-		S.linked_extract = src
+		S.link_extract(src)
 		STOP_PROCESSING(SSobj,src)
-
-
 
 //Colors and subtypes:
 /obj/item/slimecross/stabilized/grey

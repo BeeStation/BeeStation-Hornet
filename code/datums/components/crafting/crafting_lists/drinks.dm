@@ -117,16 +117,16 @@
 
 /datum/crafting_recipe/smallcarton
 	name = "Small Carton"
-	result = /obj/item/reagent_containers/cup/glass/sillycup/smallcarton
+	result = /obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton
 	time = 1 SECONDS
 	reqs = list(/obj/item/stack/sheet/cardboard = 1)
-	category = CAT_DRINK
+	category = CAT_CONTAINERS
 
 /datum/crafting_recipe/honeycomb
 	name = "Honeycomb"
 	result = /obj/item/reagent_containers/cup/glass/honeycomb
-	always_available = FALSE
 	time = 3 SECONDS
 	reqs = list(/datum/reagent/consumable/sugar = 50)
 	category = CAT_DRINK
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 

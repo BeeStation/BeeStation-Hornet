@@ -7,6 +7,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	. = ..()
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
+
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
@@ -44,7 +45,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		H = hud_used.hand_slots["[held_index]"]
 		if(H)
 			H.update_icon()
-
+	refresh_self_screentips()
 
 /mob/living/carbon/activate_hand(selhand) //l/r OR 1-held_items.len
 	if(!selhand)
@@ -627,7 +628,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!client)
 		return
 
-	if(health <= crit_threshold)
+	if(health <= crit_threshold && !HAS_TRAIT(src,TRAIT_NOSOFTCRIT))
 		var/severity = 0
 		switch(health)
 			if(-20 to -10)
@@ -650,7 +651,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				severity = 9
 			if(-INFINITY to -95)
 				severity = 10
-		if(stat != HARD_CRIT)
+		if(stat != HARD_CRIT && !HAS_TRAIT(src,TRAIT_NOHARDCRIT))
 			var/visionseverity = 4
 			switch(health)
 				if(-8 to -4)
