@@ -67,6 +67,7 @@
 
 /obj/item/organ/heart/on_life(delta_time, times_fired)
 	..()
+
 	if(owner.client && beating)
 		failed = FALSE
 		var/sound/slowbeat = sound('sound/health/slowbeat.ogg', repeat = TRUE)
@@ -126,6 +127,7 @@
 		return ..()
 
 /obj/item/organ/heart/cursed/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner

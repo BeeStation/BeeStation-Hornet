@@ -16154,20 +16154,12 @@
 /area/quartermaster/storage)
 "hDU" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/storage/box/evidence{
-	pixel_y = 5
-	},
-/obj/item/flashlight/seclite,
-/obj/item/restraints/handcuffs,
-/obj/item/taperecorder,
 /obj/machinery/requests_console{
 	department = "Detective's office";
 	name = "Detective RC";
 	pixel_y = 30
 	},
-/obj/item/camera/detective,
 /obj/machinery/camera/directional/north,
-/obj/item/holosign_creator/security,
 /obj/machinery/computer/security/telescreen/station{
 	dir = 8;
 	pixel_x = 32

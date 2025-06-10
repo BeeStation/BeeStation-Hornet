@@ -29,6 +29,7 @@
 		H.add_hud_to(eye_owner)
 	if(HUD_trait)
 		ADD_TRAIT(eye_owner, HUD_trait, ORGAN_TRAIT)
+	return ..()
 
 /obj/item/organ/cyberimp/eyes/hud/Remove(mob/living/carbon/eye_owner, special = FALSE, pref_load = FALSE)
 	. = ..()

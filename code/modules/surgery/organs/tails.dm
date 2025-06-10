@@ -7,7 +7,7 @@
 	icon_state = "severedtail"
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_TAIL
-	var/tail_type = "None"
+	var/tail_type
 
 /obj/item/organ/tail/proc/is_wagging(mob/living/carbon/human/H)
 	return FALSE
@@ -28,16 +28,12 @@
 /obj/item/organ/tail/cat/on_insert(mob/living/carbon/human/tail_owner)
 	. = ..()
 	if(istype(tail_owner) && tail_owner.dna)
-		var/default_part = tail_owner.dna.species.mutant_bodyparts["tail_human"]
-		if(!default_part || default_part == "None")
-			tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
-			tail_owner.dna.features["tail_human"] = tail_type
-			tail_owner.update_body()
+		tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
+		tail_owner.update_body()
 
 /obj/item/organ/tail/cat/on_remove(mob/living/carbon/human/tail_owner)
 	. = ..()
 	if(istype(tail_owner) && tail_owner.dna)
-		tail_owner.dna.features["tail_human"] = "None"
 		tail_owner.dna.species.mutant_bodyparts -= "tail_human"
 		color = tail_owner.hair_color
 		tail_owner.update_body()
@@ -65,46 +61,27 @@
 	name = "lizard tail"
 	desc = "A severed lizard tail. Somewhere, no doubt, a lizard hater is very pleased with themselves."
 	color = "#116611"
-	tail_type = "Smooth"
-	var/spines = "None"
+	var/spines
 
 /obj/item/organ/tail/lizard/on_insert(mob/living/carbon/human/tail_owner)
 	. = ..()
 	if(istype(tail_owner) && tail_owner.dna)
 		// Checks here are necessary so it wouldn't overwrite the tail of a lizard it spawned in
-		var/default_part = tail_owner.dna.species.mutant_bodyparts["tail_lizard"]
-		if(!default_part || default_part == "None")
-			tail_owner.dna.features["tail_lizard"] = tail_owner.dna.species.mutant_bodyparts["tail_lizard"] = tail_type
+		if(!tail_type && tail_owner.dna.features["tail_lizard"])
+			tail_type = tail_owner.dna.features["tail_lizard"]
+		else
+			tail_owner.dna.features["tail_lizard"] = tail_type || "Smooth"
+			tail_owner.dna.update_uf_block(DNA_LIZARD_TAIL_BLOCK)
+		tail_owner.dna.species.mutant_bodyparts["tail_lizard"] = tail_type
 
-		default_part = tail_owner.dna.species.mutant_bodyparts["spines"]
-		if(!default_part || default_part == "None")
-			tail_owner.dna.features["spines"] = tail_owner.dna.species.mutant_bodyparts["spines"] = spines
+		if(!spines && tail_owner.dna.features["spines"])
+			spines = tail_owner.dna.features["spines"]
+		else
+			tail_owner.dna.features["spines"] = spines || "None"
+			tail_owner.dna.update_uf_block(DNA_SPINES_BLOCK)
+		tail_owner.dna.species.mutant_bodyparts["spines"] = spines
+
 		tail_owner.update_body()
-
-/datum/species/lizard/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	var/real_tail_type = C.dna.features["tail_lizard"]
-	var/real_spines = C.dna.features["spines"]
-
-	. = ..()
-
-	// Special handler for loading preferences. If we're doing it from a preference load, we'll want
-	// to make sure we give the appropriate lizard tail AFTER we call the parent proc, as the parent
-	// proc will overwrite the lizard tail. Species code at its finest.
-	if(pref_load)
-		C.dna.features["tail_lizard"] = real_tail_type
-		C.dna.features["spines"] = real_spines
-
-		var/obj/item/organ/tail/lizard/new_tail = new /obj/item/organ/tail/lizard()
-
-		new_tail.tail_type = C.dna.features["tail_lizard"]
-		C.dna.species.mutant_bodyparts["tail_lizard"] = new_tail.tail_type
-
-		new_tail.spines = C.dna.features["spines"]
-		C.dna.species.mutant_bodyparts["spines"] = new_tail.spines
-
-		// organ.Insert will qdel any existing organs in the same slot, so
-		// we don't need to manage that.
-		new_tail.Insert(C, TRUE, FALSE)
 
 /obj/item/organ/tail/lizard/on_remove(mob/living/carbon/human/tail_owner)
 	. = ..()
@@ -115,16 +92,6 @@
 		tail_type = tail_owner.dna.features["tail_lizard"]
 		spines = tail_owner.dna.features["spines"]
 		tail_owner.update_body()
-
-/obj/item/organ/tail/lizard/before_organ_replacement(obj/item/organ/replacement)
-	. = ..()
-	var/obj/item/organ/tail/lizard/new_tail = replacement
-
-	if(!istype(new_tail))
-		return
-
-	new_tail.tail_type = tail_type
-	new_tail.spines = spines
 
 /obj/item/organ/tail/lizard/is_wagging(mob/living/carbon/human/H)
 	if(!H?.dna?.species)

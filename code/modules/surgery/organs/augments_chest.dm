@@ -16,6 +16,7 @@
 	slot = ORGAN_SLOT_STOMACH_AID
 
 /obj/item/organ/cyberimp/chest/nutriment/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(synthesizing)
 		return
 
@@ -59,6 +60,7 @@
 	COOLDOWN_DECLARE(reviver_cooldown)
 
 /obj/item/organ/cyberimp/chest/reviver/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(reviving)
 		switch(owner.stat)
 			if(UNCONSCIOUS, HARD_CRIT)

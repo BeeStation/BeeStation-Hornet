@@ -132,7 +132,7 @@
 	desc = "A pair of moth wings. They look robust enough to fly in an atmosphere"
 	flight_level = WINGS_FLYING
 
-/obj/item/organ/wings/moth/on_life()
+/obj/item/organ/wings/moth/on_life(delta_time, times_fired)
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner

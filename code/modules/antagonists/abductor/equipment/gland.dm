@@ -98,20 +98,21 @@
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
 	if(COOLDOWN_FINISHED(src, activation_cooldown))
 		activate()
 		uses--
 		COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/heart/gland/proc/activate()
 	return

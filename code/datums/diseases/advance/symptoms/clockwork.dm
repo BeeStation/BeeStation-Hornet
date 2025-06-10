@@ -301,7 +301,7 @@
 		if(2)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
 
-/obj/item/organ/brain/clockwork/on_life()
+/obj/item/organ/brain/clockwork/on_life(delta_time, times_fired)
 	. = ..()
 	if(prob(5) && !robust)
 		SEND_SOUND(owner, pick_weight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))

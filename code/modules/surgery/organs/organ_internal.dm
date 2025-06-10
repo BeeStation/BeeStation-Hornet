@@ -194,6 +194,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	applyOrganDamage(decay_factor * maxHealth * delta_time)
 
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
+	SHOULD_CALL_PARENT(TRUE) //PASS YOUR ARGS FUCKER
+
 	if(organ_flags & ORGAN_FAILING)
 		return
 	///Damage decrements by a percent of its maxhealth

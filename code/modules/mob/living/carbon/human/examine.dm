@@ -228,16 +228,6 @@
 			else
 				msg += "<B>[t_He] [t_has] severe [burn_msg]!</B>\n"
 
-		temp = getCloneLoss()
-		if(temp)
-			if(temp < 25)
-				msg += "[t_He] [t_has] minor cellular damage.\n"
-			else if(temp < 50)
-				msg += "[t_He] [t_has] <b>moderate</b> cellular damage!\n"
-			else
-				msg += "<b>[t_He] [t_has] severe cellular damage!</b>\n"
-
-
 	if(fire_stacks > 0)
 		msg += "[t_He] [t_is] covered in something flammable.\n"
 	if(fire_stacks < 0)

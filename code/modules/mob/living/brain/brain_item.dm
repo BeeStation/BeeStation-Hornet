@@ -102,7 +102,7 @@
 	return ..()
 
 /obj/item/organ/brain/Remove(mob/living/carbon/brain_owner, special = 0, no_id_transfer = FALSE, pref_load = FALSE)
-	
+
 	. = ..()
 
 	for(var/X in traumas)
@@ -225,6 +225,7 @@
 	return FALSE
 
 /obj/item/organ/brain/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, span_userdanger("The last spark of life in your brain fizzles out."))
 		owner.investigate_log("has been killed by brain damage.", INVESTIGATE_DEATHS)
