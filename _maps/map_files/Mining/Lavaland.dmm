@@ -5912,10 +5912,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/item/stack/tile/catwalk_tile/iron{
+	pixel_x = 9;
+	pixel_y = -6
 	},
-/obj/item/stack/tile/catwalk_tile/iron,
+/obj/item/stack/rods,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
 "Hg" = (
@@ -7189,17 +7190,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/atmosfarmpost)
-"Oo" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/item/stack/cable_coil/cut/yellow,
-/obj/item/stack/rods,
-/turf/open/floor/catwalk_floor/iron,
-/area/mine/atmosposthallway)
 "Oq" = (
 /obj/machinery/door/airlock{
 	id_tag = "miningdorm1";
@@ -7625,9 +7615,7 @@
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "QL" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/item/stack/cable_coil/cut/yellow,
 /turf/open/floor/plating,
 /area/mine/atmosposthallway)
 "QV" = (
@@ -49366,7 +49354,7 @@ Zd
 Zd
 Zd
 WV
-Oo
+ef
 WV
 Zd
 RR
