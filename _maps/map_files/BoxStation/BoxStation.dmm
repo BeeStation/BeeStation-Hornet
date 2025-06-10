@@ -628,6 +628,12 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"ahk" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "packageSort2"
+	},
+/turf/open/floor/iron/tech,
+/area/quartermaster/sorting)
 "ahn" = (
 /turf/closed/wall,
 /area/maintenance/fore/secondary)
@@ -6264,7 +6270,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/plating,
 /area/maintenance/port)
 "brm" = (
 /obj/structure/cable/yellow{
@@ -15895,8 +15901,8 @@
 /obj/structure/disposalpipe/sorting/unsorted/flip{
 	dir = 1
 	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/sorting)
+/turf/open/floor/plating,
+/area/maintenance/port)
 "cXE" = (
 /turf/closed/wall,
 /area/medical/break_room)
@@ -21965,7 +21971,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/vacant_room/commissary)
@@ -22784,7 +22790,7 @@
 /obj/item/clothing/shoes/sneakers/rainbow,
 /obj/item/clothing/under/color/rainbow,
 /obj/structure/table,
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/plating,
 /area/maintenance/port)
 "fJP" = (
 /turf/closed/wall,
@@ -25659,8 +25665,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/plasticflaps,
-/turf/open/floor/iron/techmaint,
+/turf/closed/wall,
 /area/vacant_room/commissary)
 "gPp" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -27560,7 +27565,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/iron/techmaint,
+/turf/closed/wall,
 /area/quartermaster/sorting)
 "hHA" = (
 /obj/structure/table,
@@ -30120,11 +30125,16 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/service)
 "iCq" = (
-/obj/structure/disposalpipe/segment{
-	dir = 6
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/tile/brown/opposingcorners{
+	dir = 1
 	},
-/turf/open/floor/iron/techmaint,
-/area/maintenance/port)
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/vacant_room/commissary)
 "iCE" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
@@ -31130,8 +31140,8 @@
 /obj/structure/disposalpipe/sorting/wrap{
 	dir = 1
 	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/sorting)
+/turf/open/floor/plating,
+/area/maintenance/port)
 "iZC" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -31623,7 +31633,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
-/area/quartermaster/sorting)
+/area/maintenance/port)
 "jiW" = (
 /obj/structure/chair,
 /turf/open/floor/plating/rust,
@@ -49280,9 +49290,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "qui" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "packageSort2"
-	},
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron/tech,
 /area/quartermaster/sorting)
@@ -52468,18 +52475,14 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /obj/machinery/button/door{
 	id = "commissarydoor";
 	name = "Commissary Door Lock";
 	normaldoorcontrol = 1;
-	pixel_x = -26;
-	pixel_y = -8;
+	pixel_y = -28;
 	specialfunctions = 4
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/vacant_room/commissary)
 "rFW" = (
@@ -54259,10 +54262,6 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/item/kirbyplants/random,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /turf/open/floor/iron,
 /area/vacant_room/commissary)
 "svw" = (
@@ -59327,7 +59326,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/iron/techmaint,
+/turf/closed/wall,
 /area/quartermaster/sorting)
 "unQ" = (
 /obj/structure/table/reinforced,
@@ -64766,7 +64765,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/plating,
 /area/maintenance/port)
 "wuP" = (
 /obj/machinery/airalarm/directional/west{
@@ -90868,7 +90867,7 @@ gjl
 gjl
 gjl
 gjl
-aZE
+gjl
 lUL
 dDq
 aHI
@@ -91125,7 +91124,7 @@ qor
 wuJ
 brh
 fJF
-aZE
+aPz
 wAX
 alJ
 wEK
@@ -91379,7 +91378,7 @@ aSg
 mAc
 wDt
 aPz
-iCq
+aTu
 cXA
 iZA
 jiH
@@ -91892,7 +91891,7 @@ aYi
 oEl
 jAJ
 fuO
-tav
+iCq
 tav
 bfj
 djW
@@ -92409,7 +92408,7 @@ kDq
 bhB
 tav
 aZH
-wAi
+ahk
 oEA
 nPW
 peC
