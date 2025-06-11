@@ -961,7 +961,7 @@
 		new randomFigure(src)
 
 /obj/item/storage/box/ingredients //This box is for the randomely chosen version the chef spawns with, it shouldn't actually exist.
-	name = "ingredients box"
+	name = "ingredient box"
 	illustration = "fruit"
 	var/theme_name
 	var/list/possible_themes = list("wildcard", "fiesta", "italian", "vegetarian", "american", "fruity", "sweets", "delights", "grains", "carnivore", "exotic")
@@ -970,10 +970,10 @@
 	. = ..()
 	if(!theme_name)
 		theme_name = pick(possible_themes)
+		PopulateContents()
 	name = "[name] ([theme_name])"
 	desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
 	item_state = "syringe_kit"
-	PopulateContents()
 
 /obj/item/storage/box/ingredients/PopulateContents()
 	switch(theme_name)
@@ -1062,7 +1062,7 @@
 				new /obj/item/food/fishmeat/carp(src)
 				new /obj/item/food/grown/soybeans(src)
 				new /obj/item/food/grown/cabbage(src)
-		else
+		else if(theme_name != null)
 			new /obj/item/kitchen/fork(src)
 
 /obj/item/storage/box/ingredients/wildcard
