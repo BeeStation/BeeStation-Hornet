@@ -42011,7 +42011,7 @@
 "lHX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
+	name = "Security Office";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -64639,7 +64639,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
+	name = "Security Office";
 	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/iron/dark,
