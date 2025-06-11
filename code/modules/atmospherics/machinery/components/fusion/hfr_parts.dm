@@ -3,11 +3,10 @@
  * The file also contain the guicode of the machine
  */
 /obj/machinery/atmospherics/components/unary/hypertorus
-	icon = 'icons/obj/atmospherics/hypertorus.dmi'
-	icon_state = "core_off"
-
 	name = "thermomachine"
 	desc = "Heats or cools gas in connected pipes."
+	icon = 'icons/obj/atmospherics/hypertorus.dmi'
+	icon_state = "core_off"
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
