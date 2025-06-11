@@ -27,6 +27,15 @@
 	var/precision = FALSE //By default, turfs picked from a spray are random, set to 1 to make it always have at least one water effect per row
 	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
 
+/obj/item/extinguisher/Initialize(mapload)
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/ghettojetpack)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."

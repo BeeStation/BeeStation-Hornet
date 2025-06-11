@@ -101,6 +101,18 @@
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
 	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+	pickup_sound = null
+	drop_sound = null
+
+/obj/item/restraints/handcuffs/cable/Initialize(mapload, new_color)
+	. = ..()
+
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/bola, /datum/crafting_recipe/gonbola)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 /obj/item/restraints/handcuffs/cable/red
 	color = "#ff0000"
@@ -142,37 +154,6 @@
 	name = "fake handcuffs"
 	desc = "Fake handcuffs meant for gag purposes."
 	breakouttime = 1 SECONDS
-
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
-	..()
-	if(istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = I
-		if (R.use(1))
-			var/obj/item/wirerod/W = new /obj/item/wirerod
-			remove_item_from_storage(user)
-			user.put_in_hands(W)
-			to_chat(user, span_notice("You wrap [src] around the top of [I]."))
-			qdel(src)
-		else
-			to_chat(user, span_warning("You need one rod to make a wired rod!"))
-			return
-	else if(istype(I, /obj/item/stack/sheet/iron))
-		var/obj/item/stack/sheet/iron/M = I
-		if(M.get_amount() < 6)
-			to_chat(user, span_warning("You need at least six iron sheets to make good enough weights!"))
-			return
-		to_chat(user, span_notice("You begin to apply [I] to [src]..."))
-		if(do_after(user, 35, target = src))
-			if(M.get_amount() < 6 || !M)
-				return
-			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
-			M.use(6)
-			user.put_in_hands(S)
-			to_chat(user, span_notice("You make some weights out of [I] and tie them to [src]."))
-			remove_item_from_storage(user)
-			qdel(src)
-	else
-		return ..()
 
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"

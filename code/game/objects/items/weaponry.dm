@@ -298,50 +298,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
 	return BRUTELOSS
 
-/obj/item/wirerod
-	name = "wired rod"
-	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
-	icon_state = "wiredrod"
-	item_state = "rods"
-	flags_1 = CONDUCT_1
-	force = 9
-	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
-	item_flags = ISWEAPON
-	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=75)
-	attack_verb_continuous = list("hits", "bludgeons", "whacks", "bonks")
-	attack_verb_simple = list("hit", "bludgeon", "whack", "bonk")
-
-/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/shard))
-		var/obj/item/spear/S = new /obj/item/spear
-
-		remove_item_from_storage(user)
-		if (!user.transferItemToLoc(I, S))
-			return
-		S.CheckParts(list(I))
-		qdel(src)
-
-		user.put_in_hands(S)
-		log_crafting(user, S, TRUE)
-		to_chat(user, span_notice("You fasten the glass shard to the top of the rod with the cable."))
-
-	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
-
-		remove_item_from_storage(user)
-
-		to_chat(user, span_notice("You fasten [I] to the top of the rod with the cable."))
-
-		qdel(I)
-		qdel(src)
-
-		user.put_in_hands(P)
-		log_crafting(user, P, TRUE)
-	else
-		return ..()
-
-
 /obj/item/throwing_star
 	name = "throwing star"
 	desc = "An ancient weapon still used to this day, due to its ease of lodging itself into its victim's body parts."

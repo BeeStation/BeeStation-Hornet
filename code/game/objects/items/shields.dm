@@ -103,6 +103,15 @@
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
 
+/obj/item/shield/riot/Initialize(mapload)
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/strobeshield)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/melee) && W.sharpness == BLUNT)
 		if(cooldown < world.time - 25)

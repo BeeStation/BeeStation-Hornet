@@ -1,7 +1,7 @@
 
 /// Weapon Crafting
 
-/datum/crafting_recipe/IED
+/datum/crafting_recipe/improv_explosive
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
 	time = 1.5 SECONDS
@@ -185,7 +185,7 @@
 	reqs = list(
 		/obj/item/pipe = 5,
 		/obj/item/stack/sheet/plastic = 15,
-		/obj/item/weaponcrafting/silkstring = 4
+		/obj/item/stack/sheet/silk = 2
 	)
 	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
@@ -197,7 +197,7 @@
 	reqs = list(
 		/obj/item/stack/sheet/wood = 8,
 		/obj/item/stack/sheet/iron = 2,
-		/obj/item/weaponcrafting/silkstring = 4
+		/obj/item/stack/sheet/silk = 2
 	)
 	category = CAT_WEAPON_RANGED
 

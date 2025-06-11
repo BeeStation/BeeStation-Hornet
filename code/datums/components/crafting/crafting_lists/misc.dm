@@ -152,15 +152,23 @@
 	)
 	category = CAT_MISC
 
-/datum/crafting_recipe/extendohand
-	name = "Extendo-Hand"
-	result = /obj/item/extendohand
-	time = 1 SECONDS
+/datum/crafting_recipe/extendohand_r
+	name = "Extendo-Hand (Right Arm)"
 	reqs = list(
 		/obj/item/bodypart/r_arm/robot = 1,
-		/obj/item/clothing/gloves/boxing = 1
+		/obj/item/clothing/gloves/boxing = 1,
 	)
-	category = CAT_MISC
+	result = /obj/item/extendohand
+	category = CAT_EQUIPMENT
+
+/datum/crafting_recipe/extendohand_l
+	name = "Extendo-Hand (Left Arm)"
+	reqs = list(
+		/obj/item/bodypart/l_arm/robot = 1,
+		/obj/item/clothing/gloves/boxing = 1,
+	)
+	result = /obj/item/extendohand
+	category = CAT_EQUIPMENT
 
 /datum/crafting_recipe/mothplush
 	name = "Moth Plushie"

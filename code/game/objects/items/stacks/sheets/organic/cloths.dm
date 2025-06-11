@@ -77,6 +77,15 @@ Various Cloths
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
+/obj/item/stack/sheet/cotton/cloth/durathread/Initialize(mapload)
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/durathread_helmet, /datum/crafting_recipe/durathread_vest)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
 /obj/item/stack/sheet/cotton/cloth/durathread/get_recipes()
 	return GLOB.durathread_recipes
 
@@ -93,6 +102,3 @@ Various Cloths
 	icon = 'icons/obj/stacks/organic.dmi'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-
-/obj/item/stack/sheet/silk/get_recipes()
-	return GLOB.silk_recipes

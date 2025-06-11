@@ -38,6 +38,21 @@
 	grind_results = list(/datum/reagent/carbon = 10)
 	merge_type = /obj/item/stack/sheet/bone
 
+/obj/item/stack/sheet/bone/Initialize(mapload, new_amount, merge, list/mat_override, mat_amt)
+	. = ..()
+
+	// As bone and sinew have just a little too many recipes for this, we'll just split them up.
+	// Sinew slapcrafting will mostly-sinew recipes, and bones will have mostly-bones recipes.
+	var/static/list/slapcraft_recipe_list = list(\
+		/datum/crafting_recipe/bonedagger, /datum/crafting_recipe/bonespear, /datum/crafting_recipe/boneaxe,\
+		/datum/crafting_recipe/bonearmor, /datum/crafting_recipe/skullhelm, /datum/crafting_recipe/bracers
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
 /* Sinew */
 
 /obj/item/stack/sheet/sinew
@@ -49,6 +64,19 @@
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/sinew
 
+/obj/item/stack/sheet/sinew/Initialize(mapload, new_amount, merge, list/mat_override, mat_amt)
+	. = ..()
+
+	// As bone and sinew have just a little too many recipes for this, we'll just split them up.
+	// Sinew slapcrafting will mostly-sinew recipes, and bones will have mostly-bones recipes.
+	var/static/list/slapcraft_recipe_list = list(\
+		/datum/crafting_recipe/goliathcloak, /datum/crafting_recipe/drakecloak,\
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/cable/sinew, 1, crafting_flags = NONE, category = CAT_EQUIPMENT), \

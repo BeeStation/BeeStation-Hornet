@@ -25,6 +25,12 @@
 	///Directly relates to the 'knockdown' duration. Lowered by armor (i.e. helmets)
 	var/bottle_knockdown_duration = BOTTLE_KNOCKDOWN_DEFAULT_DURATION
 
+/obj/item/reagent_containers/cup/glass/bottle/Initialize(mapload, vol)
+	. = ..()
+	AddElement(/datum/element/slapcrafting,\
+		slapcraft_recipes = list(/datum/crafting_recipe/molotov)\
+	)
+
 /obj/item/reagent_containers/cup/glass/bottle/small
 	name = "small glass bottle"
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to its contents."
