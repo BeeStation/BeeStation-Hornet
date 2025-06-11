@@ -527,7 +527,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		temp = "Cloning cycle already in progress."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else
-		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
+		pod.growclone(mob_occupant.real_name, dna.unique_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
@@ -585,7 +585,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
 		return
 
-	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type, dna.unique_enzymes, md5(dna.uni_identity), mob_occupant.gender, mob_occupant.mind.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.uni_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
+	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type, dna.unique_enzymes, md5(dna.unique_identity), mob_occupant.gender, mob_occupant.mind.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.unique_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
 
 	if(dna.species)
 		// We store the instance rather than the path, because some
