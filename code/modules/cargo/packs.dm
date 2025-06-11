@@ -2308,7 +2308,7 @@
 /datum/supply_pack/service/vending/dinnerware
 	name = "Kitchen Supply Crate"
 	desc = "More knives and ingredients for the chef."
-	cost = 800
+	cost = 500
 	max_supply = 6
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/vending_refill/dinnerware)

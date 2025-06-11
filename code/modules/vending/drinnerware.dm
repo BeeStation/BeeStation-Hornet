@@ -49,6 +49,8 @@
 				/obj/item/reagent_containers/condiment/cherryjelly = 2,
 				/obj/item/reagent_containers/condiment/honey = 2,
 				/obj/item/reagent_containers/cup/bottle/caramel = 2,
+				/obj/item/reagent_containers/condiment/vanilla = 2,
+				/obj/item/reagent_containers/condiment/cream = 2,
 				/obj/item/reagent_containers/condiment/pack/ketchup = 5,
 				/obj/item/reagent_containers/condiment/pack/hotsauce = 5,
 				/obj/item/reagent_containers/condiment/pack/astrotame = 5,
@@ -66,7 +68,7 @@
 		/obj/item/storage/box/ingredients = 3
 	)
 	refill_canister = /obj/item/vending_refill/dinnerware
-	default_price = 25
+	default_price = 20
 	extra_price = 200
 	dept_req_for_free = NO_FREEBIES
 	seller_department = ACCOUNT_SRV_BITFLAG
