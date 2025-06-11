@@ -5768,6 +5768,16 @@
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"biT" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Office";
+	req_one_access_txt = "1;4"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/dark,
+/area/security/main)
 "bjj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -103640,7 +103650,7 @@ hAb
 ewj
 eUR
 rZH
-sVK
+biT
 keS
 cRG
 gee
