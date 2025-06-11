@@ -973,6 +973,7 @@
 	name = "[name] ([theme_name])"
 	desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
 	item_state = "syringe_kit"
+	PopulateContents()
 
 /obj/item/storage/box/ingredients/PopulateContents()
 	switch(theme_name)
