@@ -64637,12 +64637,11 @@
 /area/hallway/primary/central)
 "sVK" = (
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
 	name = "Gear Room";
 	req_one_access_txt = "1;4"
 	},
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "sWe" = (
@@ -103898,7 +103897,7 @@ vFv
 msV
 mMb
 nQf
-lHX
+sVK
 czT
 dtZ
 dWU
