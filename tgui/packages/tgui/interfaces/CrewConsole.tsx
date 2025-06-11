@@ -127,13 +127,13 @@ type CrewConsoleData = {
   link_allowed: BooleanLike;
 };
 
-const CrewTable = (props, context) => {
-  const { data } = useBackend<CrewConsoleData>(context);
+const CrewTable = (props) => {
+  const { data } = useBackend<CrewConsoleData>();
   const { sensors } = data;
 
-  const [sortAsc, setSortAsc] = useLocalState<boolean>(context, 'sortAsc', true);
-  const [searchQuery, setSearchQuery] = useLocalState<string>(context, 'searchQuery', '');
-  const [sortBy, setSortBy] = useLocalState<string>(context, 'sortBy', SORT_OPTIONS[0]);
+  const [sortAsc, setSortAsc] = useLocalState<boolean>('sortAsc', true);
+  const [searchQuery, setSearchQuery] = useLocalState<string>('searchQuery', '');
+  const [sortBy, setSortBy] = useLocalState<string>('sortBy', SORT_OPTIONS[0]);
 
   const cycleSortBy = () => {
     let idx = SORT_OPTIONS.indexOf(sortBy) + 1;
@@ -197,8 +197,8 @@ type CrewTableEntryProps = {
   sensor_data: CrewSensor;
 };
 
-const CrewTableEntry = (props: CrewTableEntryProps, context) => {
-  const { act, data } = useBackend<CrewConsoleData>(context);
+const CrewTableEntry = (props: CrewTableEntryProps) => {
+  const { act, data } = useBackend<CrewConsoleData>();
   const { link_allowed } = data;
   const { sensor_data } = props;
   const { name, assignment, ijob, life_status, oxydam, toxdam, burndam, brutedam, area, can_track } = sensor_data;

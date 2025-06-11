@@ -3,7 +3,7 @@
 */
 
 GLOBAL_LIST_INIT(default_turf_damage, list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5", "damaged6", "damaged7"))
-GLOBAL_LIST_INIT(default_turf_burn, list("damaged1", "damaged2", "damaged3", "damaged4"))
+GLOBAL_LIST_INIT(default_burn_turf, list("damaged1", "damaged2", "damaged3", "damaged4"))
 GLOBAL_LIST_INIT(wood_turf_damage, list("damaged_wood1", "damaged_wood2"))
 GLOBAL_LIST_INIT(wood_big_turf_damage, list("damaged_woodbig1", "damaged_woodbig2"))
 
@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(turf_texture_hallway, list(/datum/turf_texture/hallway))
 GLOBAL_LIST_INIT(turf_texture_maint, list(/datum/turf_texture/maint, /datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
 
 GLOBAL_LIST_INIT(turf_texture_iron, list(/datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
+GLOBAL_LIST_INIT(turf_texture_iron_nonsegmented, list(/datum/turf_texture/hallway_nonsegmented))
 GLOBAL_LIST_INIT(turf_texture_plating, list(/datum/turf_texture/maint))
 
 /*

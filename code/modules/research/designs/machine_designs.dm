@@ -105,12 +105,14 @@
 	build_path = /obj/item/circuitboard/machine/thermomachine
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+	research_icon = 'icons/obj/atmospherics/components/thermomachine.dmi'
+	research_icon_state = "thermo_base"
 
-/datum/design/board/space_heater
-	name = "Machine Design (Space Heater Board)"
-	desc = "The circuit board for a space heater."
-	id = "space_heater"
-	build_path = /obj/item/circuitboard/machine/space_heater
+/datum/design/board/portable_thermomachine
+	name = "Machine Design (Portable Thermomachine Board)"
+	desc = "The circuit board for a portable thermomachine."
+	id = "portable_thermomachine"
+	build_path = /obj/item/circuitboard/machine/portable_thermomachine
 	category = list ("Engineering Machinery")
 	departmental_flags = ALL
 
@@ -571,6 +573,14 @@
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/board/oven
+	name = "Machine Design (Oven)"
+	desc = "The circuit board for a Oven."
+	id = "oven"
+	build_path = /obj/item/circuitboard/machine/oven
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/board/donksofttoyvendor
 	name = "Machine Design (Donksoft Toy Vendor Board)"
 	desc = "The circuit board for a Donksoft Toy Vendor."
@@ -668,19 +678,11 @@
 	category = list("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/xeno_listing_console
+/datum/design/board/xenoa_listing_console
 	name = "Computer Design (Research and Development Listing Console)"
 	desc = "The circuit board for a research listing console."
 	id = "xenoa_list_console"
-	build_path = /obj/item/circuitboard/computer/xenoartifact_console
-	category = list ("Research Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
-/datum/design/board/xenia_listing_inbox
-	name = "Machine Design (Bluespace Straythread Pad)"
-	desc = "The circuit board for a bluespace straythread pad."
-	id = "xenoa_list_pad"
-	build_path = /obj/item/circuitboard/machine/xenoartifact_inbox
+	build_path = /obj/item/circuitboard/computer/xenoarchaeology_console
 	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -724,6 +726,30 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 	category = list("Misc. Machinery")
 
+/datum/design/board/xenoa_scale
+	name = "Machine Design (Industrial Scale)"
+	desc = "The circuit board for an industrial scale."
+	id = "xenoa_scale"
+	build_path = /obj/item/circuitboard/machine/xenoarchaeology_machine/scale
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/xenoa_conductor
+	name = "Machine Design (Conducting Plate)"
+	desc = "The circuit board for a conducting plate."
+	id = "xenoa_conductor"
+	build_path = /obj/item/circuitboard/machine/xenoarchaeology_machine/conductor
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/xenoa_calibrator
+	name = "Machine Design (Anomalous Material Calibrator)"
+	desc = "The circuit board for an anomalous material calibrator."
+	id = "xenoa_calibrator"
+	build_path = /obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/board/sheetifier
 	name = "Sheetifier"
 	desc = "This machine turns weird things into sheets."
@@ -731,3 +757,33 @@
 	build_path = /obj/item/circuitboard/machine/sheetifier
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/board/shieldwallgen
+	name = "Machine Design (Shield Wall Generator)"
+	desc = "A shield generator commonly used in xenobiology research."
+	id = "shieldwallgen"
+	build_path = /obj/item/circuitboard/machine/shieldwallgen
+	category = list("Misc. Machinery")
+
+/datum/design/board/shieldwallgen/atmos
+	name = "Machine Design (Holofield Generator)"
+	desc = "A specialized shield generator used to block airflow."
+	id = "shieldwallgen_atmos"
+	build_path = /obj/item/circuitboard/machine/shieldwallgen/atmos
+	category = list("Misc. Machinery")
+
+/datum/design/board/photobooth
+	name = "Photobooth Board"
+	desc = "The circuit board for a photobooth."
+	id = "photobooth"
+	build_path = /obj/item/circuitboard/machine/photobooth
+	category = list("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/board/security_photobooth
+	name = "Security Photobooth Board"
+	desc = "The circuit board for a security photobooth."
+	id = "security_photobooth"
+	build_path = /obj/item/circuitboard/machine/photobooth/security
+	category = list("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

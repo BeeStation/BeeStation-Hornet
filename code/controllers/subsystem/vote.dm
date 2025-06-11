@@ -56,40 +56,41 @@ SUBSYSTEM_DEF(vote)
 			if (!C || C.is_afk())
 				non_voters -= non_voter_ckey
 		if(non_voters.len > 0)
-			if(mode == "restart")
-				choices["Continue Playing"] += non_voters.len
-				if(choices["Continue Playing"] >= greatest_votes)
-					greatest_votes = choices["Continue Playing"]
-			else if(mode == "gamemode")
-				if(GLOB.master_mode in choices)
-					choices[GLOB.master_mode] += non_voters.len
-					if(choices[GLOB.master_mode] >= greatest_votes)
-						greatest_votes = choices[GLOB.master_mode]
-			else if(mode == "map")
-				for (var/non_voter_ckey in non_voters)
-					var/client/C = non_voters[non_voter_ckey]
-					var/preferred_map = C.prefs.read_player_preference(/datum/preference/choiced/preferred_map)
-					if(preferred_map && preferred_map != "Default")
-						choices[preferred_map] += 1
-						greatest_votes = max(greatest_votes, choices[preferred_map])
-					else if(global.config.defaultmap)
-						var/default_map = global.config.defaultmap.map_name
-						choices[default_map] += 1
-						greatest_votes = max(greatest_votes, choices[default_map])
-			else if(mode == "transfer")
-				var/factor = 1 // factor defines how non-voters are weighted towards calling the shuttle
-				switch(world.time / (1 MINUTES))
-					if(0 to 60)
-						factor = 0.5
-					if(61 to 120)
-						factor = 0.8
-					if(121 to 240)
-						factor = 1
-					if(241 to 300)
-						factor = 1.2
-					else
-						factor = 1.4
-				choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
+			switch(mode)
+				if("restart")
+					choices["Continue Playing"] += non_voters.len
+					if(choices["Continue Playing"] >= greatest_votes)
+						greatest_votes = choices["Continue Playing"]
+				if("gamemode")
+					if(GLOB.master_mode in choices)
+						choices[GLOB.master_mode] += non_voters.len
+						if(choices[GLOB.master_mode] >= greatest_votes)
+							greatest_votes = choices[GLOB.master_mode]
+				if("map")
+					for (var/non_voter_ckey in non_voters)
+						var/client/C = non_voters[non_voter_ckey]
+						var/preferred_map = C.prefs.read_player_preference(/datum/preference/choiced/preferred_map)
+						if(preferred_map && preferred_map != "Default")
+							choices[preferred_map] += 1
+							greatest_votes = max(greatest_votes, choices[preferred_map])
+						else if(global.config.defaultmap)
+							var/default_map = global.config.defaultmap.map_name
+							choices[default_map] += 1
+							greatest_votes = max(greatest_votes, choices[default_map])
+				if("transfer")
+					var/factor = 1 // factor defines how non-voters are weighted towards calling the shuttle
+					switch(world.time / (1 MINUTES))
+						if(0 to 60)
+							factor = 0.5
+						if(61 to 120)
+							factor = 0.8
+						if(121 to 240)
+							factor = 1
+						if(241 to 300)
+							factor = 1.2
+						else
+							factor = 1.4
+					choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
 	. = list()
 	if(mode == "map")
 		. += pick_weight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes.
@@ -153,13 +154,6 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				SSmapping.changemap(global.config.maplist[.])
 				SSmapping.map_voted = TRUE
-			if("transfer")
-				if(. == "Initiate Crew Transfer")
-					SSshuttle.requestEvac(null, "Crew Transfer Requested.")
-					SSshuttle.emergencyNoRecall = TRUE //Prevent Recall.
-					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
-					if(C)
-						C.post_status("shuttle")
 	if(restart)
 		var/active_admins = FALSE
 		for(var/client/C in GLOB.admins+GLOB.deadmins)
@@ -169,7 +163,7 @@ SUBSYSTEM_DEF(vote)
 		if(!active_admins)
 			SSticker.Reboot("Restart vote successful.", "restart vote")
 		else
-			to_chat(world, "<span style='boldannounce'>Notice:Restart vote will not restart the server automatically because there are active admins on.</span>")
+			to_chat(world, span_boldannounce("Notice:Restart vote will not restart the server automatically because there are active admins on."))
 			message_admins("A restart vote has passed, but there are active admins on with +server, so it has been canceled. If you wish, you may restart the server.")
 
 	return .
@@ -194,13 +188,13 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
 	//Server is still intializing.
 	if(!MC_RUNNING(init_stage))
-		to_chat(usr, "<span class='warning>Cannot start vote, server is not done initializing.</span>")
+		to_chat(usr, span_warning("Cannot start vote, server is not done initializing."))
 		return FALSE
 	if(!mode)
 		if(started_time)
 			var/next_allowed_time = (started_time + CONFIG_GET(number/vote_delay))
 			if(mode)
-				to_chat(usr, "<span class='warning'>There is already a vote in progress! please wait for it to finish.</span>")
+				to_chat(usr, span_warning("There is already a vote in progress! please wait for it to finish."))
 				return 0
 
 			var/lower_admin = FALSE
@@ -209,7 +203,7 @@ SUBSYSTEM_DEF(vote)
 				lower_admin = TRUE
 
 			if(next_allowed_time > world.time && !lower_admin)
-				to_chat(usr, "<span class='warning'>A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!</span>")
+				to_chat(usr, span_warning("A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!"))
 				return 0
 
 		reset()
@@ -229,8 +223,6 @@ SUBSYSTEM_DEF(vote)
 					shuffle_inplace(maps)
 				for(var/valid_map in maps)
 					choices.Add(valid_map)
-			if("transfer")
-				choices.Add("Initiate Crew Transfer", "Continue Playing")
 			if("custom")
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)
@@ -366,13 +358,13 @@ SUBSYSTEM_DEF(vote)
 	name = "Vote!"
 	button_icon_state = "vote"
 
-/datum/action/vote/Trigger()
+/datum/action/vote/on_activate()
 	if(owner)
 		owner.vote()
 		remove_from_client()
 		Remove(owner)
 
-/datum/action/vote/IsAvailable()
+/datum/action/vote/is_available()
 	return 1
 
 /datum/action/vote/proc/remove_from_client()

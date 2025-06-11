@@ -8,7 +8,15 @@
 	icon = 'icons/turf/shuttle.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	max_integrity = 500
-	armor = list(MELEE = 100,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0) //default + ignores melee
+	armor_type = /datum/armor/structure_shuttle
+
+
+/datum/armor/structure_shuttle
+	melee = 100
+	bullet = 10
+	laser = 10
+	fire = 50
+	acid = 70
 
 /obj/structure/shuttle/engine
 	name = "engine"
@@ -16,6 +24,7 @@
 	density = TRUE
 	anchored = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	var/engine_power = 1
 	var/state = ENGINE_WELDED //welding shmelding
 
@@ -28,7 +37,7 @@
 /obj/structure/shuttle/engine/can_be_unfasten_wrench(mob/user, silent)
 	if(state == ENGINE_WELDED)
 		if(!silent)
-			to_chat(user, "<span class='warning'>[src] is welded to the floor!</span>")
+			to_chat(user, span_warning("[src] is welded to the floor!"))
 		return FAILED_UNFASTEN
 	return ..()
 
@@ -47,18 +56,18 @@
 /obj/structure/shuttle/engine/welder_act(mob/living/user, obj/item/I)
 	switch(state)
 		if(ENGINE_UNWRENCHED)
-			to_chat(user, "<span class='warning'>The [src.name] needs to be wrenched to the floor!</span>")
+			to_chat(user, span_warning("The [src.name] needs to be wrenched to the floor!"))
 		if(ENGINE_WRENCHED)
 			if(!I.tool_start_check(user, amount=0))
 				return TRUE
 
 			user.visible_message("[user.name] starts to weld the [name] to the floor.", \
-				"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
-				"<span class='italics'>You hear welding.</span>")
+				span_notice("You start to weld \the [src] to the floor..."), \
+				span_italics("You hear welding."))
 
 			if(I.use_tool(src, user, ENGINE_WELDTIME, volume=50))
 				state = ENGINE_WELDED
-				to_chat(user, "<span class='notice'>You weld \the [src] to the floor.</span>")
+				to_chat(user, span_notice("You weld \the [src] to the floor."))
 				alter_engine_power(engine_power)
 
 		if(ENGINE_WELDED)
@@ -66,12 +75,12 @@
 				return TRUE
 
 			user.visible_message("[user.name] starts to cut the [name] free from the floor.", \
-				"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
-				"<span class='italics'>You hear welding.</span>")
+				span_notice("You start to cut \the [src] free from the floor..."), \
+				span_italics("You hear welding."))
 
 			if(I.use_tool(src, user, ENGINE_WELDTIME, volume=50))
 				state = ENGINE_WRENCHED
-				to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
+				to_chat(user, span_notice("You cut \the [src] free from the floor."))
 				alter_engine_power(-engine_power)
 	return TRUE
 
@@ -144,7 +153,26 @@
 	desc = "A very large bluespace engine used to propel very large ships."
 	bound_width = 64
 	bound_height = 64
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
+
+/obj/structure/shuttle/engine/large/chopped
+	icon = 'icons/obj/engine_chopped.dmi'
+	icon_state = "top_left_smaller"
+	opacity = FALSE
+	bound_width = 32
+	bound_height = 32
+
+/obj/structure/shuttle/engine/large/chopped/top_left
+	icon_state = "top_left_smaller"
+
+/obj/structure/shuttle/engine/large/chopped/top_right
+	icon_state = "top_right_smaller"
+
+/obj/structure/shuttle/engine/large/chopped/bottom_left
+	icon_state = "bottom_left_smaller"
+
+/obj/structure/shuttle/engine/large/chopped/bottom_right
+	icon_state = "bottom_right_smaller"
 
 /obj/structure/shuttle/engine/huge
 	name = "engine"
@@ -154,7 +182,41 @@
 	desc = "An extremely large bluespace engine used to propel extremely large ships."
 	bound_width = 96
 	bound_height = 96
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
+
+/obj/structure/shuttle/engine/huge/chopped
+	icon = 'icons/obj/engine_chopped.dmi'
+	icon_state = "top_left"
+	opacity = FALSE
+	bound_width = 32
+	bound_height = 32
+
+/obj/structure/shuttle/engine/huge/chopped/top_left
+	icon_state = "top_left"
+
+/obj/structure/shuttle/engine/huge/chopped/top_center
+	icon_state = "top_center"
+
+/obj/structure/shuttle/engine/huge/chopped/top_right
+	icon_state = "top_right"
+
+/obj/structure/shuttle/engine/huge/chopped/center_left
+	icon_state = "center_left"
+
+/obj/structure/shuttle/engine/huge/chopped/center_center
+	icon_state = "center_center"
+
+/obj/structure/shuttle/engine/huge/chopped/center_right
+	icon_state = "center_right"
+
+/obj/structure/shuttle/engine/huge/chopped/bottom_left
+	icon_state = "bottom_left"
+
+/obj/structure/shuttle/engine/huge/chopped/bottom_center
+	icon_state = "bottom_center"
+
+/obj/structure/shuttle/engine/huge/chopped/bottom_right
+	icon_state = "bottom_right"
 
 /obj/structure/shuttle/engine/hugeionengine
 	name = "Nanotrasen MkIII BPDT engine"

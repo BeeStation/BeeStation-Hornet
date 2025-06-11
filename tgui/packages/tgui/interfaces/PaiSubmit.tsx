@@ -28,9 +28,9 @@ const PAI_RULES = `You are expected to role play to some degree.
 Keep in mind: Not entering information may lead to you not being
 selected. Press submit to alert pAI cards of your candidacy.`;
 
-export const PaiSubmit = (_, context) => {
-  const { data } = useBackend<Data>(context);
-  const [input, setInput] = useLocalState<CandidateData>(context, 'input', {
+export const PaiSubmit = (_) => {
+  const { data } = useBackend<Data>();
+  const [input, setInput] = useLocalState<CandidateData>('input', {
     name: data.name || '',
     description: data.description || '',
     comments: data.comments || '',
@@ -106,8 +106,8 @@ const InputDisplay = (props) => {
 };
 
 /** Gives the user a submit button */
-const ButtonsDisplay = (props, context) => {
-  const { act } = useBackend<CandidateData>(context);
+const ButtonsDisplay = (props) => {
+  const { act } = useBackend<CandidateData>();
   const { input, setInput, data } = props;
   return (
     <Section fill>

@@ -54,15 +54,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		S.forceMove(src)
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
-		obj_integrity = max_integrity
+		atom_integrity = max_integrity
 	update_icon()
 
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-	user.visible_message("[user] begins to take the glass off [src].", "<span class='notice'>You begin to take the glass off [src]...</span>")
+	user.visible_message("[user] begins to take the glass off [src].", span_notice("You begin to take the glass off [src]..."))
 	if(I.use_tool(src, user, 50))
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-		user.visible_message("[user] takes the glass off [src].", "<span class='notice'>You take the glass off [src].</span>")
+		user.visible_message("[user] takes the glass off [src].", span_notice("You take the glass off [src]."))
 		deconstruct(TRUE)
 	return TRUE
 
@@ -77,7 +77,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 			playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
 
-/obj/machinery/power/solar/obj_break(damage_flag)
+/obj/machinery/power/solar/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
@@ -203,32 +203,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 /obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && isturf(loc))
 		if(isinspace())
-			to_chat(user, "<span class='warning'>You can't secure [src] here.</span>")
+			to_chat(user, span_warning("You can't secure [src] here."))
 			return
 		set_anchored(!anchored)
 		if(anchored)
-			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
+			user.visible_message("[user] wrenches the solar assembly into place.", span_notice("You wrench the solar assembly into place."))
 			W.play_tool_sound(src, 75)
 		else
-			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
+			user.visible_message("[user] unwrenches the solar assembly from its place.", span_notice("You unwrench the solar assembly from its place."))
 			W.play_tool_sound(src, 75)
 		return 1
 
 	if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>You need to secure the assembly before you can add glass.</span>")
+			to_chat(user, span_warning("You need to secure the assembly before you can add glass."))
 			return
 		var/obj/item/stack/sheet/S = W
 		if(S.use(2))
 			glass_type = W.type
 			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-			user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
+			user.visible_message("[user] places the glass on the solar assembly.", span_notice("You place the glass on the solar assembly."))
 			if(tracker)
 				new /obj/machinery/power/tracker(get_turf(src), src)
 			else
 				new /obj/machinery/power/solar(get_turf(src), src)
 		else
-			to_chat(user, "<span class='warning'>You need two sheets of glass to put them into a solar panel!</span>")
+			to_chat(user, span_warning("You need two sheets of glass to put them into a solar panel!"))
 			return
 		return 1
 
@@ -238,13 +238,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 				return
 			tracker = 1
 			qdel(W)
-			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
+			user.visible_message("[user] inserts the electronics into the solar assembly.", span_notice("You insert the electronics into the solar assembly."))
 			return 1
 	else
 		if(W.tool_behaviour == TOOL_CROWBAR)
 			new /obj/item/electronics/tracker(src.loc)
 			tracker = 0
-			user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
+			user.visible_message("[user] takes out the electronics from the solar assembly.", span_notice("You take out the electronics from the solar assembly."))
 			return 1
 	return ..()
 
@@ -417,11 +417,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 			set_panels(currentdir)
 			. = TRUE
 
-/obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/solar_control/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(I.use_tool(src, user, 20, volume=50))
 			if (src.machine_stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+				to_chat(user, span_notice("The broken glass falls out."))
 				var/obj/structure/frame/computer/A = new /obj/structure/frame/computer( src.loc )
 				new /obj/item/shard( src.loc )
 				var/obj/item/circuitboard/computer/solar_control/M = new /obj/item/circuitboard/computer/solar_control( A )
@@ -433,7 +433,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 				A.set_anchored(TRUE)
 				qdel(src)
 			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+				to_chat(user, span_notice("You disconnect the monitor."))
 				var/obj/structure/frame/computer/A = new /obj/structure/frame/computer( src.loc )
 				var/obj/item/circuitboard/computer/solar_control/M = new /obj/item/circuitboard/computer/solar_control( A )
 				for (var/obj/C in src)
@@ -443,7 +443,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 				A.icon_state = "4"
 				A.set_anchored(TRUE)
 				qdel(src)
-	else if(user.a_intent != INTENT_HARM && !(I.item_flags & NOBLUDGEON))
+	else if(!user.combat_mode && !(I.item_flags & NOBLUDGEON))
 		attack_hand(user)
 	else
 		return ..()
@@ -458,7 +458,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/machinery/power/solar_control/obj_break(damage_flag)
+/obj/machinery/power/solar_control/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)

@@ -51,10 +51,10 @@
 		return
 
 	if(on_cooldown)
-		to_chat(user, "<span class='warning'>[src] was shaken recently, it needs time to settle.</span>")
+		to_chat(user, span_warning("[src] was shaken recently, it needs time to settle."))
 		return
 
-	user.visible_message("<span class='notice'>[user] starts shaking [src].</span>", "<span class='notice'>You start shaking [src].</span>", "<span class='italics'>You hear shaking and sloshing.</span>")
+	user.visible_message(span_notice("[user] starts shaking [src]."), span_notice("You start shaking [src]."), span_italics("You hear shaking and sloshing."))
 
 	shaking = TRUE
 
@@ -113,7 +113,7 @@
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/item/toy/eightball/haunted/attack_ghost(mob/user)
 	if(!shaking)
-		to_chat(user, "<span class='warning'>[src] is not currently being shaken.</span>")
+		to_chat(user, span_warning("[src] is not currently being shaken."))
 		return
 	interact(user)
 	return ..()
@@ -127,7 +127,7 @@
 	// and inform them of the message, (hopefully a yes/no question)
 	votes = list()	//need to reset the votes everytime someone shakes it
 	selected_message = last_message
-	notify_ghosts("[user] is shaking [src], hoping to get an answer to \"[selected_message]\"", source=src, enter_link="<a href=?src=[REF(src)];interact=1>(Click to help)</a>", action=NOTIFY_ATTACK, header = "Magic eightball")
+	notify_ghosts("[user] is shaking [src], hoping to get an answer to \"[selected_message]\"", source=src, enter_link="<a href='byond://?src=[REF(src)];interact=1'>(Click to help)</a>", action=NOTIFY_ATTACK, header = "Magic eightball")
 
 /obj/item/toy/eightball/haunted/Topic(href, href_list)
 	if(href_list["interact"])

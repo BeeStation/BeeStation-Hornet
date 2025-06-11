@@ -2,6 +2,7 @@
 
 //General
 #define COMSIG_KB_ACTIVATED (1<<0)
+#define COMSIG_KB_EMOTE "keybinding_emote_down"
 
 //Admin
 #define COMSIG_KB_ADMIN_ASAY_DOWN "keybinding_admin_asay_down"
@@ -39,13 +40,12 @@
 
 //Living
 #define COMSIG_KB_LIVING_RESIST_DOWN "keybinding_living_resist_down"
-#define COMSIG_KB_LIVING_REST_DOWN "keybinding_living_rest_down"
 #define COMSIG_KB_LIVING_LOOKUP_DOWN "keybinding_living_lookup_down"
 #define COMSIG_KB_LIVING_LOOKDOWN_DOWN "keybinding_living_lookdown_down"
-#define COMSIG_KB_LIVING_SELECTHELPINTENT_DOWN "keybinding_living_selecthelpintent_down"
-#define COMSIG_KB_LIVING_SELECTDISARMINTENT_DOWN "keybinding_living_selectdisarmintent_down"
-#define COMSIG_KB_LIVING_SELECTGRABINTENT_DOWN "keybinding_living_selectgrabintent_down"
-#define COMSIG_KB_LIVING_SELECTHARMINTENT_DOWN "keybinding_living_selectharmintent_down"
+#define COMSIG_KB_LIVING_REST_DOWN "keybinding_living_rest_down"
+#define COMSIG_KB_LIVING_TOGGLE_COMBAT_DOWN "keybinding_living_toggle_combat_down"
+#define COMSIG_KB_LIVING_ENABLE_COMBAT_DOWN "keybinding_living_enable_combat_down"
+#define COMSIG_KB_LIVING_DISABLE_COMBAT_DOWN "keybinding_living_disable_combat_down"
 
 //Mob
 #define COMSIG_KB_MOB_MOVENORTH_DOWN "keybinding_mob_movenorth_down"
@@ -70,6 +70,7 @@
 #define COMSIG_KB_MOB_TARGETCYCLEUP_DOWN "keybinding_mob_targetcycleup_down"
 #define COMSIG_KB_MOB_TARGETCYCLEDOWN_DOWN "keybinding_mob_targetcycledown_down"
 #define COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN "keybinding_mob_preventmovement_down"
+#define COMSIG_KB_MOB_EXTENDEDSCREENTIPS_DOWN "keybinding_mob_extendedscreentips_down"
 #define COMSIG_KB_MOB_MOVEUP_DOWN "keybinding_mob_moveup_down"
 #define COMSIG_KB_MOB_MOVEDOWN_DOWN "keybinding_mob_movedown_down"
 

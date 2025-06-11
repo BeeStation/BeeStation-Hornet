@@ -13,6 +13,7 @@
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/under/color/jumpskirt
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -222,15 +223,37 @@
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/color_durathread
 	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+
+/datum/armor/color_durathread
+	melee = 10
+	bullet = 15
+	laser = 10
+	fire = 40
+	acid = 10
+	bomb = 5
+	energy = 20
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/under/color/jumpskirt/durathread
 	name = "durathread jumpskirt"
 	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/jumpskirt_durathread
 	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+
+/datum/armor/jumpskirt_durathread
+	melee = 10
+	bullet = 15
+	laser = 10
+	fire = 40
+	acid = 10
+	bomb = 5
+	energy = 20
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"
@@ -242,6 +265,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	can_adjust = FALSE
+	flags_1 = NONE
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"
@@ -253,6 +277,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	can_adjust = FALSE
+	flags_1 = NONE
 
 /obj/item/clothing/under/color/rainbow/denied
 	name = "ERROR jumpsuit"

@@ -14,9 +14,7 @@ SUBSYSTEM_DEF(persistence)
 	var/list/antag_rep_change = list()
 	var/list/picture_logging_information = list()
 	var/list/obj/structure/sign/picture_frame/photo_frames
-	var/list/obj/structure/sign/painting/painting_frames = list()
 	var/list/obj/item/storage/photo_album/photo_albums
-	var/list/paintings = list()
 
 /datum/controller/subsystem/persistence/Initialize()
 	LoadPoly()
@@ -27,7 +25,7 @@ SUBSYSTEM_DEF(persistence)
 	LoadPhotoPersistence()
 	if(CONFIG_GET(flag/use_antag_rep))
 		LoadAntagReputation()
-	LoadPaintings()
+	load_custom_outfits()
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/persistence/proc/LoadPoly()
@@ -161,7 +159,7 @@ SUBSYSTEM_DEF(persistence)
 	SavePhotoPersistence()						//THIS IS PERSISTENCE, NOT THE LOGGING PORTION.
 	if(CONFIG_GET(flag/use_antag_rep))
 		CollectAntagReputation()
-	SavePaintings()
+	save_custom_outfits()
 
 /datum/controller/subsystem/persistence/proc/GetPhotoAlbums()
 	var/album_path = file("data/photo_albums.json")
@@ -315,20 +313,35 @@ SUBSYSTEM_DEF(persistence)
 	fdel(FILE_ANTAG_REP)
 	rustg_file_append(json_encode(antag_rep), FILE_ANTAG_REP)
 
-/datum/controller/subsystem/persistence/proc/LoadPaintings()
-	var/json_file = file("data/paintings.json")
-	if(fexists(json_file))
-		paintings = json_decode(file2text(json_file))
+/datum/controller/subsystem/persistence/proc/load_custom_outfits()
+	var/file = file("data/custom_outfits.json")
+	if(!fexists(file))
+		return
+	var/outfits_json = file2text(file)
+	var/list/outfits = json_decode(outfits_json)
+	if(!islist(outfits))
+		return
 
-	for(var/obj/structure/sign/painting/P in painting_frames)
-		P.load_persistent()
+	for(var/outfit_data in outfits)
+		if(!islist(outfit_data))
+			continue
 
-/datum/controller/subsystem/persistence/proc/SavePaintings()
-	for(var/obj/structure/sign/painting/P in painting_frames)
-		P.save_persistent()
+		var/outfittype = text2path(outfit_data["outfit_type"])
+		if(!ispath(outfittype, /datum/outfit))
+			continue
+		var/datum/outfit/outfit = new outfittype
+		if(!outfit.load_from(outfit_data))
+			continue
+		GLOB.custom_outfits += outfit
 
-	var/json_file = file("data/paintings.json")
-	fdel(json_file)
-	WRITE_FILE(json_file, json_encode(paintings))
+/datum/controller/subsystem/persistence/proc/save_custom_outfits()
+	var/file = file("data/custom_outfits.json")
+	fdel(file)
+
+	var/list/data = list()
+	for(var/datum/outfit/outfit in GLOB.custom_outfits)
+		data += list(outfit.get_json_data())
+
+	WRITE_FILE(file, json_encode(data))
 
 #undef FILE_ANTAG_REP

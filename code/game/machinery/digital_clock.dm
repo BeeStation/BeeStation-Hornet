@@ -23,49 +23,49 @@
 
 /obj/machinery/digital_clock/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return
-	to_chat(user, "<span class='notice'>You start unsecuring [name]...</span>")
+	to_chat(user, span_notice("You start unsecuring [name]..."))
 	tool.play_tool_sound(src)
 	if(tool.use_tool(src, user, 6 SECONDS))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
-		to_chat(user, "<span class='notice'>You unsecure [name].</span>")
+		to_chat(user, span_notice("You unsecure [name]."))
 		deconstruct()
 	return ..()
 
 /obj/machinery/digital_clock/welder_act(mob/living/user, obj/item/tool)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return
-	if(obj_integrity >= max_integrity)
+	if(atom_integrity >= max_integrity)
 		balloon_alert(user, "it doesn't need repairs!")
 		return TRUE
-	to_chat(user, "<span class='notice'>You start to repair [name]...</span>")
+	to_chat(user, span_notice("You start to repair [name]..."))
 	if(!tool.use_tool(src, user, 4 SECONDS, amount = 0, volume=50))
 		return TRUE
-	to_chat(user, "<span class='notice'>You finish to repair [name]...</span>")
-	obj_integrity = max_integrity
+	to_chat(user, span_notice("You finish to repair [name]..."))
+	atom_integrity = max_integrity
 	set_machine_stat(machine_stat & ~BROKEN)
 	update_appearance()
 	return TRUE
 
 /obj/machinery/digital_clock/multitool_act(mob/living/user, obj/item/tool)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return
 	if(!(obj_flags & EMAGGED))
 		return
-	to_chat(user, "<span class='notice'>You start resetting [name]...</span>")
+	to_chat(user, span_notice("You start resetting [name]..."))
 	tool.play_tool_sound(src)
 	if(tool.use_tool(src, user, 6 SECONDS))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
-		to_chat(user, "<span class='notice'>You finish to reset [name]...</span>")
+		to_chat(user, span_notice("You finish to reset [name]..."))
 		obj_flags &= ~EMAGGED
 		return TRUE
 
 /obj/machinery/digital_clock/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You short the clock's timer!</span>")
+	to_chat(user, span_notice("You short the clock's timer!"))
 	playsound(src, "sparks", 100, vary = TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	do_sparks(3, cardinal_only = FALSE, source = src)
 	obj_flags |= EMAGGED
@@ -117,9 +117,9 @@
 	var/live_time = station_time_timestamp(format = "hh:mm")
 
 	if(obj_flags & EMAGGED)
-		. += "<span class='warning'>The time doesn't seem quite right!</span>"
+		. += span_warning("The time doesn't seem quite right!")
 	else
-		. += "<span class='notice'>The current station time is [live_time].</span>"
+		. += span_notice("The current station time is [live_time].")
 
 /obj/machinery/digital_clock/proc/update_time()
 	if(obj_flags & EMAGGED)

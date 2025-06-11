@@ -57,11 +57,11 @@ const MaterialCost = (props: { materials: Design['materials'] }) => {
   );
 };
 
-export const ComponentPrinter = (props, context) => {
-  const { act, data } = useBackend<ComponentPrinterData>(context);
+export const ComponentPrinter = (props) => {
+  const { act, data } = useBackend<ComponentPrinterData>();
 
-  const [currentCategory, setCurrentCategory] = useLocalState(context, 'category', CATEGORY_ALL);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [currentCategory, setCurrentCategory] = useLocalState('category', CATEGORY_ALL);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   return (
     <Window width={900} height={700}>

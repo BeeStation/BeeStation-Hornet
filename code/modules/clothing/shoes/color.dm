@@ -4,6 +4,7 @@
 	custom_price = 20 // For all sneakers
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
@@ -44,7 +45,13 @@
 /obj/item/clothing/shoes/sneakers/white
 	name = "white shoes"
 	greyscale_colors = "#ffffff#ffffff"
-	permeability_coefficient = 0.01
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "shoes_cloth"
+	armor_type = /datum/armor/sneakers_white
+
+
+/datum/armor/sneakers_white
+	bio = 95
 
 /obj/item/clothing/shoes/sneakers/rainbow
 	name = "rainbow shoes"
@@ -61,12 +68,16 @@
 	name = "ERROR shoes"
 	desc = "What are those?!"
 	icon_state = "denied"
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/sneakers/orange
 	name = "orange shoes"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "prisonshoes"
 	greyscale_colors = "#eb7016#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_orange
 	greyscale_config_worn = /datum/greyscale_config/sneakers_orange_worn
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/sneakers/orange/attack_self(mob/user)
 	if (src.chained)
@@ -90,7 +101,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/hummie = user
 		if(hummie.shoes == src && chained)
-			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
+			to_chat(hummie, span_warning("You start taking off your [src]!"))
 			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
 	return ..()
@@ -100,7 +111,7 @@
 	if(ishuman(m))
 		var/mob/living/carbon/human/hummie = m
 		if(hummie.shoes == src && chained)
-			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
+			to_chat(hummie, span_warning("You start taking off your [src]!"))
 			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
 	return ..()
@@ -118,8 +129,14 @@
 	greyscale_config_worn = null
 	strip_delay = 5
 	equip_delay_other = 50
-	permeability_coefficient = 0.9
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
+	armor_type = /datum/armor/sneakers_marisa
+
+
+/datum/armor/sneakers_marisa
+	bio = 50
+	fire = 70
+	acid = 30
 
 /obj/item/clothing/shoes/sneakers/cyborg
 	name = "cyborg boots"

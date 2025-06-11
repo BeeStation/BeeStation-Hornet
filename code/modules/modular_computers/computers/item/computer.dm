@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	integrity_failure = 0.5
 	max_integrity = 100
-	armor = list(MELEE = 0,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_modular_computer
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -93,12 +93,17 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/init_ringtone = "beep"
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
-	/// The action for enabling/disabling the flashlight
-	var/datum/action/item_action/toggle_computer_light/light_action
 	/// Stored pAI card
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
+
+
+/datum/armor/item_modular_computer
+	bullet = 20
+	laser = 20
+	energy = 100
+	rad = 100
 
 /obj/item/modular_computer/Initialize(mapload)
 	allowed_themes = GLOB.ntos_device_themes_default
@@ -111,7 +116,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	idle_threads = list()
 	update_id_display()
 	if(has_light)
-		light_action = new(src)
+		add_item_action(/datum/action/item_action/toggle_computer_light)
 	update_icon()
 	add_messenger()
 
@@ -146,17 +151,16 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
 		remove_pai()
-	if(istype(light_action))
-		QDEL_NULL(light_action)
 	physical = null
 	remove_messenger()
 	return ..()
 
 /obj/item/modular_computer/ui_action_click(mob/user, actiontype)
-	if(istype(actiontype, light_action))
+	if(istype(actiontype, /datum/action/item_action/toggle_computer_light))
 		toggle_flashlight()
-	else
-		..()
+		return
+
+	return ..()
 
 /// From [/datum/newscaster/feed_network/proc/save_photo]
 /obj/item/modular_computer/proc/save_photo(icon/photo)
@@ -167,6 +171,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		clean.Insert(photo, "", SOUTH, 1, 0)
 		fcopy(clean, "[GLOB.log_directory]/photos/[photo_file].png")
 	return photo_file
+
+/obj/item/modular_computer/pre_attack_secondary(atom/A, mob/living/user, params)
+	if(active_program?.tap(A, user, params))
+		user.do_attack_animation(A) //Emulate this animation since we kill the attack in three lines
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1) //Likewise for the tap sound
+		addtimer(CALLBACK(src, PROC_REF(play_ping)), 0.5 SECONDS, TIMER_UNIQUE) //Slightly delayed ping to indicate success
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return ..()
 
 /**
  * Plays a ping sound.
@@ -251,7 +263,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 /obj/item/modular_computer/should_emag(mob/user)
 	if(!enabled)
-		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
+		to_chat(user, span_warning("You'd need to turn the [src] on first."))
 		return FALSE
 	return TRUE
 
@@ -265,7 +277,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(app.run_emag())
 			newemag = TRUE
 	if(newemag)
-		to_chat(user, "<span class='notice'>You swipe \the [src]. A console window momentarily fills the screen, with white text rapidly scrolling past.</span>")
+		to_chat(user, span_notice("You swipe \the [src]. A console window momentarily fills the screen, with white text rapidly scrolling past."))
 		kill_program(forced = TRUE, update = FALSE)
 
 		var/datum/computer_file/program/emag_console/emag_console = new(src)
@@ -275,15 +287,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		ui_interact(user)
 		update_icon()
 		return TRUE
-	to_chat(user, "<span class='notice'>You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it.</span>")
+	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
 
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
-	if(obj_integrity <= integrity_failure * max_integrity)
-		. += "<span class='danger'>It is heavily damaged!</span>"
-	else if(obj_integrity < max_integrity)
-		. += "<span class='warning'>It is damaged.</span>"
+	if(atom_integrity <= integrity_failure * max_integrity)
+		. += span_danger("It is heavily damaged!")
+	else if(atom_integrity < max_integrity)
+		. += span_warning("It is damaged.")
 
 	. += get_modular_computer_parts_examine(user)
 
@@ -302,7 +314,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(can_store_pai && stored_pai_card)
 		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
 
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		add_overlay(mutable_appearance(init_icon, "bsod"))
 		add_overlay(mutable_appearance(init_icon, "broken"))
 
@@ -312,11 +324,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			ui_interact(user)
 		return TRUE
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		if(issynth)
-			to_chat(user, "<span class='warning'>You send an activation signal to \the [src], but it responds with an error code. It must be damaged.</span>")
+			to_chat(user, span_warning("You send an activation signal to \the [src], but it responds with an error code. It must be damaged."))
 		else
-			to_chat(user, "<span class='warning'>You press the power button, but the computer fails to boot up, displaying variety of errors before shutting down again.</span>")
+			to_chat(user, span_warning("You press the power button, but the computer fails to boot up, displaying variety of errors before shutting down again."))
 		return FALSE
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
@@ -326,9 +338,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	if(all_components[MC_CPU] && use_power()) // use_power() checks if the PC is powered
 		if(issynth)
-			to_chat(user, "<span class='notice'>You send an activation signal to \the [src], turning it on.</span>")
+			to_chat(user, span_notice("You send an activation signal to \the [src], turning it on."))
 		else
-			to_chat(user, "<span class='notice'>You press the power button and start up \the [src].</span>")
+			to_chat(user, span_notice("You press the power button and start up \the [src]."))
 		enabled = 1
 		update_icon()
 		if(open_ui)
@@ -336,9 +348,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return TRUE
 	else // Unpowered
 		if(issynth)
-			to_chat(user, "<span class='warning'>You send an activation signal to \the [src] but it does not respond.</span>")
+			to_chat(user, span_warning("You send an activation signal to \the [src] but it does not respond."))
 		else
-			to_chat(user, "<span class='warning'>You press the power button but \the [src] does not respond.</span>")
+			to_chat(user, span_warning("You press the power button but \the [src] does not respond."))
 	return FALSE
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
@@ -347,7 +359,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		last_power_usage = 0
 		return 0
 
-	if(obj_integrity <= integrity_failure * max_integrity)
+	if(atom_integrity <= integrity_failure * max_integrity)
 		shutdown_computer()
 		return 0
 
@@ -390,14 +402,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * The message that the program wishes to display.
  */
 
-/obj/item/modular_computer/proc/alert_call(datum/computer_file/program/caller, alerttext, sound = 'sound/machines/twobeep_high.ogg')
-	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
+/obj/item/modular_computer/proc/alert_call(datum/computer_file/program/alerting_program, alerttext, sound = 'sound/machines/twobeep_high.ogg')
+	if(!alerting_program || !alerting_program.alert_able || alerting_program.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
 		return
 	playsound(src, sound, 50, TRUE)
-	visible_message("<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+	visible_message(span_notice("The [src] displays a [alerting_program.filedesc] notification: [alerttext]"))
 	var/mob/living/holder = loc
 	if(istype(holder))
-		to_chat(holder, "[icon2html(src)] <span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+		to_chat(holder, "[icon2html(src)] [span_notice("The [src] displays a [alerting_program.filedesc] notification: [alerttext]")]")
 
 /obj/item/modular_computer/proc/ring(ringtone) // bring bring
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
@@ -491,7 +503,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		CRASH("tried to open program that does not belong to this computer")
 
 	if(!program || !istype(program)) // Program not found or it's not executable program.
-		to_chat(user, "<span class='danger'>\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning.</span>")
+		to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 		return FALSE
 
 	if(!program.is_supported_by_hardware(hardware_flag, 1, user))
@@ -510,11 +522,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return TRUE
 	var/obj/item/computer_hardware/processor_unit/PU = all_components[MC_CPU]
 	if(idle_threads.len > PU.max_idle_programs)
-		to_chat(user, "<span class='danger'>\The [src] displays a \"Maximal CPU load reached. Unable to run another program.\" error.</span>")
+		to_chat(user, span_danger("\The [src] displays a \"Maximal CPU load reached. Unable to run another program.\" error."))
 		return FALSE
 
 	if(program.requires_ntnet && !get_ntnet_status(program.requires_ntnet_feature)) // The program requires NTNet connection, but we are not connected to NTNet.
-		to_chat(user, "<span class='danger'>\The [src]'s screen shows \"Unable to connect to NTNet. Please retry. If problem persists contact your system administrator.\" warning.</span>")
+		to_chat(user, span_danger("\The [src]'s screen shows \"Unable to connect to NTNet. Please retry. If problem persists contact your system administrator.\" warning."))
 		return FALSE
 
 	if(!program.on_start(user))
@@ -552,7 +564,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		P.kill_program(forced = TRUE)
 		idle_threads.Remove(P)
 	if(loud)
-		physical.visible_message("<span class='notice'>\The [src] shuts down.</span>")
+		physical.visible_message(span_notice("\The [src] shuts down."))
 	enabled = 0
 	update_icon()
 
@@ -568,8 +580,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	set_light_on(!light_on)
 	update_icon()
 	// Show the light_on overlay on top of the action button icon
-	if(light_action?.owner)
-		light_action.UpdateButtonIcon(force = TRUE)
+	update_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
 	return TRUE
 
 /**
@@ -629,7 +640,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			for(var/datum/computer_file/program/messenger/messenger in hdd.stored_files)
 				saved_image = pic.picture
 				messenger.ProcessPhoto()
-				to_chat(user, "<span class='notice'>You scan \the [pic] into \the [src]'s messenger.</span>")
+				to_chat(user, span_notice("You scan \the [pic] into \the [src]'s messenger."))
 				ui_update()
 			return
 
@@ -648,7 +659,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		// If the pAI moves out of the PDA, remove the reference.
 		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
 		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
-		to_chat(user, "<span class='notice'>You slot \the [attacking_item] into [src].</span>")
+		to_chat(user, span_notice("You slot \the [attacking_item] into [src]."))
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		update_icon()
 
@@ -672,17 +683,17 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return
 
 	if(attacking_item.tool_behaviour == TOOL_WELDER)
-		if(obj_integrity == max_integrity)
-			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
+		if(atom_integrity == max_integrity)
+			to_chat(user, span_warning("\The [src] does not require repairs."))
 			return
 
 		if(!attacking_item.tool_start_check(user, amount=1))
 			return
 
-		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
+		to_chat(user, span_notice("You begin repairing damage to \the [src]..."))
 		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
-			obj_integrity = max_integrity
-			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
+			atom_integrity = max_integrity
+			to_chat(user, span_notice("You repair \the [src]."))
 			update_icon()
 		return
 
@@ -697,7 +708,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /// Handle when the pAI moves to exit the PDA
 /obj/item/modular_computer/proc/stored_pai_moved()
 	if(istype(stored_pai_card) && stored_pai_card.loc != src)
-		visible_message("<span class='notice'>[stored_pai_card] ejects itself from [src]!</span>")
+		visible_message(span_notice("[stored_pai_card] ejects itself from [src]!"))
 		remove_pai()
 
 /// Set the internal pAI card to null - this is NOT "Ejecting" it.

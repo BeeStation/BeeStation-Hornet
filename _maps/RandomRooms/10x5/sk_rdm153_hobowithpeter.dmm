@@ -61,11 +61,11 @@
 /area/template_noop)
 "v" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
+/obj/item/reagent_containers/cup/soda_cans/space_up,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -126,7 +126,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "I" = (
-/obj/item/trash/can/food/peaches/maint,
+/obj/item/trash/canned/peaches/maint,
 /turf/open/floor/plating,
 /area/template_noop)
 "J" = (
@@ -164,7 +164,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /turf/open/floor/carpet,
 /area/template_noop)
 "Q" = (

@@ -1,4 +1,4 @@
-import { RefObject } from 'inferno';
+import { RefObject } from 'react';
 
 export type Modal = {
   events: Events;

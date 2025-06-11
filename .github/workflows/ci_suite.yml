@@ -69,6 +69,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: 9.x
       - name: Install OpenDream
         uses: robinraju/release-downloader@v1.9
         with:
@@ -106,7 +110,7 @@ jobs:
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
       - name: Run OpenDream
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: ./DMCompiler_linux-x64/DMCompiler beestation.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
+        run: ./DMCompiler_linux-x64/DMCompiler beestation.dme --suppress-unimplemented --define=CIBUILDING --version=515.1642 | bash tools/ci/annotate_od.sh
       - name: Run Map Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: |
@@ -277,6 +281,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('tgui/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+      - name: Restore BYOND cache
+        uses: actions/cache@v4
+        with:
+          path: C:\\byond
+          key: ${{ runner.os }}-byond-${{ hashFiles('dependencies.sh') }}
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:

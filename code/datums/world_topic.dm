@@ -131,7 +131,7 @@
 			response = "Rate Limited - PR Spam blocked"
 			return
 
-	var/final_composed = "<span class='announce'>PR: [input["announce"]]</span>"
+	var/final_composed = span_announce("PR: [input["announce"]]")
 	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 	statuscode = 200
@@ -143,7 +143,7 @@
 
 /datum/world_topic/ahelp_relay/Run(list/input)
 	. = ..()
-	relay_msg_admins("<span class='adminnotice'><b><font color=red>HELP:</font> <font color=orange>[input["source"]]:</font> [input["message_sender"]]: [input["message"]]</b></span>")
+	relay_msg_admins(span_adminnotice("<b><font color=red>HELP:</font> <font color=orange>[input["source"]]:</font> [input["message_sender"]]: [input["message"]]</b>"))
 	statuscode = 200
 	response = "Ahelp relayed"
 
@@ -325,7 +325,7 @@
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(!("discord-[unm]" in C.prefs.ignoring))
-				to_chat(C, "<span class='dooc'><b><span class='prefix'>OOC: </span> <EM>[unm]:</EM> <span class='message linkify'>[msg]</span></b></span>")
+				to_chat(C, span_dooc("<b>[span_prefix("OOC: ")] <EM>[unm]:</EM> [span_messagelinkify("[msg]")]</b>"))
 	statuscode = 200
 	response = "Message forwarded to OOC"
 

@@ -18,13 +18,13 @@
 		return FALSE
 
 	// Checks bluespace anchors
-	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE)
+	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_GATEWAY)
 		var/cur_zlevel = cur_turf.get_virtual_z_level()
 		var/dest_zlevel = dest_turf.get_virtual_z_level()
 		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
 			var/anchor_zlevel = anchor.get_virtual_z_level()
 			// Not in range of our current turf or destination turf
-			if((cur_zlevel != anchor_zlevel && get_dist(cur_turf, anchor) > anchor.range) && (dest_zlevel != anchor_zlevel && get_dist(dest_turf, anchor) > anchor.range))
+			if((cur_zlevel != anchor_zlevel || get_dist(cur_turf, anchor) > anchor.range) && (dest_zlevel != anchor_zlevel || get_dist(dest_turf, anchor) > anchor.range))
 				continue
 
 			// Try to activate the anchor, this also does the effect
@@ -37,9 +37,11 @@
 	// Checks antimagic
 	if(ismob(teleatom))
 		var/mob/tele_mob = teleatom
-		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.anti_magic_check(magic = FALSE, holy = TRUE, self = TRUE))
+		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.can_block_magic())
 			return FALSE
-		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.anti_magic_check(magic = TRUE, holy = FALSE, self = TRUE))
+		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.can_block_magic())
+			return FALSE
+		if (channel == TELEPORT_CHANNEL_MAGIC_SELF && !tele_mob.can_cast_magic())
 			return FALSE
 
 	// Check for NO_TELEPORT restrictions
@@ -109,7 +111,7 @@
 				precision = max(rand(1,100)*bagholding.len,100)
 				if(isliving(teleatom))
 					var/mob/living/MM = teleatom
-					to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
+					to_chat(MM, span_warning("The bluespace interface on your bag of holding interferes with the teleport!"))
 
 	// if effects are not specified and not explicitly disabled, sparks
 	if ((!effectin || !effectout) && !no_effects)
@@ -134,7 +136,7 @@
 
 	// If we leave behind a wake, then create that here.
 	// Only leave a wake if we are going to a location that we can actually teleport to.
-	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC))
+	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC || channel == TELEPORT_CHANNEL_MAGIC_SELF))
 		var/area/cur_area = curturf.loc
 		var/area/dest_area = destturf.loc
 		if(cur_area.teleport_restriction == TELEPORT_ALLOW_ALL && dest_area.teleport_restriction == TELEPORT_ALLOW_ALL && teleport_mode == TELEPORT_ALLOW_ALL)
@@ -255,7 +257,7 @@
 	if(!L)
 		return
 
-	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
+	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC_SELF, no_effects = TRUE))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
 
 /obj/effect/temp_visual/teleportation_wake
@@ -310,3 +312,104 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	transform = matrix() * 0
 	animate(src, time = 10 SECONDS, transform = matrix(), alpha = 255)
 	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)
+
+// mob-level gateway teleport checks
+/mob/living/carbon/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	// Checking for exile implants
+	if(!isnull(implants))
+		for(var/obj/item/implant/exile/baddie in implants)
+			visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("The portal has detected your [baddie] and not letting you through!"))
+			return COMPONENT_BLOCK_TELEPORT
+
+	// Ashwalker check
+	if(is_species(src, /datum/species/lizard/ashwalker))
+		visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("You can seem to go through the portal!"))
+		return COMPONENT_BLOCK_TELEPORT
+
+/mob/living/simple_animal/hostile/megafauna/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("You can't seem to pass through the portal!"))
+	return COMPONENT_BLOCK_TELEPORT
+
+/mob/living/simple_animal/hostile/asteroid/elite/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("You can't seem to pass through the portal!"))
+	return COMPONENT_BLOCK_TELEPORT
+
+/mob/living/simple_animal/hostile/swarmer/intercept_teleport(channel, turf/origin, turf/destination)
+	. = ..()
+
+	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
+		return
+
+	visible_message(span_warning("[src] stops just before entering the portal."), span_warning("Going back the way you came would not be productive. Aborting."))
+	return COMPONENT_BLOCK_TELEPORT
+
+/**
+ * attempts to take AM through all turfs in a straight line between ``current_turf`` and ``target_turf``,
+ * applying ``on_turf_cross`` for each turf and ``obj_damage`` to each structure encountered
+ *
+ * player-facing warnings and EMP/BoH effects should be handled externally from this proc
+ *
+ * required arguments:
+ * * ``AM`` - movable atom to be dashed
+ * * ``current_turf`` - source turf for the dash, not necessarily ``AM``'s
+ * * ``target_turf`` - destination turf for the dash
+ * optional parameters:
+ * * ``obj_damage`` - damage applied to structures in its path (not mobs)
+ * * ``phase`` - whether to go through structures or be impeded by them until they're broken
+ * * ``teleport_channel`` - allows overriding of teleport channel used
+ * * ``on_turf_cross`` - optional callback proc to call on each of the crossed turfs;
+ * takes ``turf/T`` and returns ``TRUE`` if dash should continue, otherwise ``FALSE`` when it should be interrupted -
+ * this however does not cause the dash to return a null value;
+ * if the proc you wrap in a callback has multiple parameters, ``turf/T`` should be last, and will be passed from here
+ *
+ * returns: ``turf/landing_turf``, which represents where the dash ended, or ``null`` if the jaunt's teleport check failed
+ */
+/proc/do_dash(atom/movable/AM, turf/current_turf, turf/target_turf, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
+	// current loc
+	if(!istype(current_turf) || is_away_level(current_turf.z) || is_centcom_level(current_turf.z))
+		return
+
+	// getline path
+	var/turf/landing_turf = current_turf
+	var/list/path = getline(current_turf, target_turf)
+	path -= current_turf
+	// iterate
+	for (var/turf/checked_turf in path)
+		// Step forward
+
+		// Check if we can move here
+		if(!check_teleport(AM, checked_turf, channel = teleport_channel))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if AM is not located on a turf
+			break // stop moving forward
+		// If it contains objects, try to break it
+		if (obj_damage > 0) // should skip this if not needed
+			for (var/obj/object in checked_turf.contents)
+				if (object.density)
+					object.take_damage(obj_damage)
+		// check if we should stop due to obstacles
+		if (!phase && checked_turf.is_blocked_turf(TRUE))
+			break // stop moving forward
+		// call on_turf_cross(checked_turf)
+		if (on_turf_cross) // optional callback should be optional
+			if (!on_turf_cross.Invoke(checked_turf))
+				break // stop moving forward
+
+		// increment our landing turf
+		landing_turf = checked_turf
+
+	do_teleport(AM, landing_turf, channel = teleport_channel)
+	return landing_turf

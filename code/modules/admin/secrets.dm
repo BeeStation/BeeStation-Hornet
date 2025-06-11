@@ -113,23 +113,27 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	var/ok = 0
 	switch(action)
 		if("admin_log")
-			var/dat = "<B>Admin Log<HR></B>"
+			var/dat
 			for(var/l in GLOB.admin_log)
 				dat += "<li>[l]</li>"
 			if(!GLOB.admin_log.len)
 				dat += "No one has done anything this round!"
-			usr << browse(dat, "window=admin_log")
+			var/datum/browser/browser = new(usr, "admin_log", "Admin Logs", 600, 500)
+			browser.set_content(dat)
+			browser.open()
 
 		if("mentor_log") // hippie start -- access mentor log
 			admin_datum.MentorLogSecret() // hippie end
 
 		if("show_admins")
-			var/dat = "<B>Current admins:</B><HR>"
+			var/dat
 			if(GLOB.admin_datums)
 				for(var/ckey in GLOB.admin_datums)
 					var/datum/admins/D = GLOB.admin_datums[ckey]
 					dat += "[ckey] - [D.rank.name]<br>"
-				usr << browse(dat, "window=showadmins;size=600x500")
+				var/datum/browser/browser = new(usr, "showadmins", "Current admins", 600, 500)
+				browser.set_content(dat)
+				browser.open()
 
 		if("tdomereset")
 			if(!check_rights(R_ADMIN))
@@ -139,14 +143,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 
 			log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs]."))
 
 			var/area/thunderdome = GLOB.areas_by_type[/area/tdome/arena]
 			if(delete_mobs == "Yes")
 				for(var/mob/living/mob in thunderdome)
 					qdel(mob) //Clear mobs
 			for(var/obj/obj in thunderdome)
-				if(!istype(obj, /obj/machinery/camera) && !istype(obj, /obj/effect/abstract/proximity_checker) && !istype(obj, /obj/effect/landmark/arena))
+				if(!istype(obj, /obj/machinery/camera) && !istype(obj, /obj/effect/landmark/arena))
 					qdel(obj) //Clear objects
 
 			var/area/template = GLOB.areas_by_type[/area/tdome/arena_source]
@@ -175,7 +179,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			set_station_name(new_name)
 			log_admin("[key_name(usr)] renamed the station to \"[new_name]\".")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] renamed the station to: [new_name].</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] renamed the station to: [new_name]."))
 			priority_announce("[command_name()] has renamed the station to \"[new_name]\".", sound = SSstation.announcer.get_rand_alert_sound())
 		if("night_shift_set")
 			if(!check_rights(R_ADMIN))
@@ -221,7 +225,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/new_name = new_station_name()
 			set_station_name(new_name)
 			log_admin("[key_name(usr)] reset the station name.")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the station name.</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] reset the station name."))
 			priority_announce("[command_name()] has renamed the station to \"[new_name]\".", sound = SSstation.announcer.get_rand_alert_sound())
 
 		if("list_bombers")
@@ -230,7 +234,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/dat = "<B>Bombing List</B><HR>"
 			for(var/l in GLOB.bombers)
 				dat += "[l]<BR>"
-			usr << browse(dat, "window=bombers")
+			usr << browse(HTML_SKELETON(dat), "window=bombers")
 
 		if("list_signalers")
 			if(!check_rights(R_ADMIN))
@@ -238,7 +242,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/dat = "<B>Showing last [length(GLOB.lastsignalers)] signalers.</B><HR>"
 			for(var/sig in GLOB.lastsignalers)
 				dat += "[sig]<BR>"
-			usr << browse(dat, "window=lastsignalers;size=800x500")
+			usr << browse(HTML_SKELETON(dat), "window=lastsignalers;size=800x500")
 
 		if("list_lawchanges")
 			if(!check_rights(R_ADMIN))
@@ -246,7 +250,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/dat = "<B>Showing last [length(GLOB.lawchanges)] law changes.</B><HR>"
 			for(var/sig in GLOB.lawchanges)
 				dat += "[sig]<BR>"
-			usr << browse(dat, "window=lawchanges;size=800x500")
+			usr << browse(HTML_SKELETON(dat), "window=lawchanges;size=800x500")
 
 		if("moveminingshuttle")
 			if(!check_rights(R_ADMIN))
@@ -283,7 +287,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				message_admins("[key_name_admin(usr)] [new_perma ? "stopped" : "started"] the arrivals shuttle")
 				log_admin("[key_name(usr)] [new_perma ? "stopped" : "started"] the arrivals shuttle")
 			else
-				to_chat(usr, "<span class='admin'>There is no arrivals shuttle</span>")
+				to_chat(usr, span_admin("There is no arrivals shuttle"))
 		if("showailaws")
 			if(!check_rights(R_ADMIN))
 				return
@@ -301,10 +305,10 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			var/dat = "<B>Showing Crew Manifest.</B><HR>"
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-			for(var/datum/data/record/t in GLOB.data_core.general)
-				dat += "<tr><td>[t.fields["name"]]</td><td>[t.fields["rank"]]</td></tr>"
+			for(var/datum/record/crew/t in GLOB.manifest.general)
+				dat += "<tr><td>[t.name]</td><td>[t.rank]</td></tr>"
 			dat += "</table>"
-			usr << browse(dat, "window=manifest;size=440x410")
+			usr << browse(HTML_SKELETON(dat), "window=manifest;size=440x410")
 		if("DNA")
 			if(!check_rights(R_ADMIN))
 				return
@@ -314,7 +318,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if(H.ckey)
 					dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.dna.blood_type]</td></tr>"
 			dat += "</table>"
-			usr << browse(dat, "window=DNA;size=440x410")
+			usr << browse(HTML_SKELETON(dat), "window=DNA;size=440x410")
 		if("fingerprints")
 			if(!check_rights(R_ADMIN))
 				return
@@ -322,9 +326,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
 			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 				if(H.ckey)
-					dat += "<tr><td>[H]</td><td>[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)]</td></tr>"
+					dat += "<tr><td>[H]</td><td>[rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)]</td></tr>"
 			dat += "</table>"
-			usr << browse(dat, "window=fingerprints;size=440x410")
+			usr << browse(HTML_SKELETON(dat), "window=fingerprints;size=440x410")
 
 		if("monkey")
 			if(!check_rights(R_FUN))
@@ -338,14 +342,18 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("allspecies")
 			if(!check_rights(R_FUN))
 				return
-			var/result = input(usr, "Please choose a new species","Species") as null|anything in GLOB.species_list
-			if(result)
-				SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Species Change", "[result]"))
-				log_admin("[key_name(usr)] turned all humans into [result]", 1)
-				message_admins("\blue [key_name_admin(usr)] turned all humans into [result]")
-				var/newtype = GLOB.species_list[result]
-				for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-					H.set_species(newtype)
+			var/result = tgui_input_list(usr, "Please choose a new species", "Species", GLOB.species_list)
+			if(isnull(result))
+				return
+			if(isnull(GLOB.species_list[result]))
+				return
+
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Species Change", "[result]"))
+			log_admin("[key_name(usr)] turned all humans into [result]", 1)
+			message_admins("\blue [key_name_admin(usr)] turned all humans into [result]")
+			var/newtype = GLOB.species_list[result]
+			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
+				H.set_species(newtype)
 
 		if("tripleAI")
 			if(!check_rights(R_FUN))
@@ -358,7 +366,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Power All APCs"))
 			log_admin("[key_name(usr)] made all areas powered", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] made all areas powered</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] made all areas powered"))
 			power_restore()
 
 		if("unpower")
@@ -366,7 +374,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Depower All APCs"))
 			log_admin("[key_name(usr)] made all areas unpowered", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] made all areas unpowered</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] made all areas unpowered"))
 			power_failure()
 
 		if("quickpower")
@@ -374,7 +382,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Power All SMESs"))
 			log_admin("[key_name(usr)] made all SMESs powered", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] made all SMESs powered</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] made all SMESs powered"))
 			power_restore_quick()
 
 		if("traitor_all")
@@ -438,12 +446,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				A.objectives += new_objective
 				log_objective(A, new_objective.explanation_text, usr)
 				var/obj_count = 1
-				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives.</span>")
+				to_chat(T.owner, span_alertsyndie("Your contractors have updated your objectives."))
 				for(var/objective in A.objectives)
 					var/datum/objective/O = objective
 					to_chat(T.owner, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 					obj_count++
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used mass antag secret. Objective is: [objective_explanation]</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] used mass antag secret. Objective is: [objective_explanation]"))
 			log_admin("[key_name(usr)] used mass antag secret. Objective is: [objective_explanation]")
 
 		if("changebombcap")
@@ -455,7 +463,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if (!CONFIG_SET(number/bombcap, newBombCap))
 				return
 
-			message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]</span>")
+			message_admins(span_boldannounce("[key_name_admin(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]"))
 			log_admin("[key_name(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]")
 
 		if("blackout")
@@ -537,7 +545,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Braindamage"))
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
-				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
+				to_chat(H, span_boldannounce("You suddenly feel stupid."))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
 			message_admins("[key_name_admin(usr)] gave everybody intellectual disability")
 
@@ -547,7 +555,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Australian"))
 			var/s = sound('sound/misc/downunder.ogg')
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
-				to_chat(H, "<span class='boldannounce'>You suddenly feel crikey.</span>")
+				to_chat(H, span_boldannounce("You suddenly feel crikey."))
 				var/matrix/M = H.transform
 				H.transform = M.Scale(1,-1) //flip em upside down
 				SEND_SOUND(H, s)

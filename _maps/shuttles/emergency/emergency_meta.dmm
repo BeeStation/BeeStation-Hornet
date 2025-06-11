@@ -2,10 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -88,7 +84,7 @@
 	dir = 8;
 	pixel_x = 32
 	},
-/turf/open/floor/iron,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "au" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -275,7 +271,9 @@
 	name = "Emergency Recovery Airlock"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "bh" = (
 /obj/structure/chair/fancy/shuttle{
@@ -436,17 +434,17 @@
 /area/shuttle/escape)
 "bJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/epinephrine{
+/obj/item/reagent_containers/cup/bottle/epinephrine{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal{
+/obj/item/reagent_containers/cup/bottle/charcoal{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
+/obj/item/reagent_containers/cup/bottle/epinephrine{
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal{
+/obj/item/reagent_containers/cup/bottle/charcoal{
 	pixel_x = 6;
 	pixel_y = 8
 	},
@@ -541,13 +539,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bQ" = (
-/obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 10
-	},
 /turf/open/floor/catwalk_floor/iron,
 /area/shuttle/escape)
 "bR" = (
@@ -660,7 +652,7 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "ca" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/shuttle/escape)
@@ -758,13 +750,6 @@
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"fr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 9
-	},
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "fx" = (
 /obj/machinery/light{
 	dir = 8
@@ -773,14 +758,6 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/status_display/ai/directional/west,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"fH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
 /area/shuttle/escape)
 "gU" = (
 /obj/machinery/door/airlock/command/glass{
@@ -798,7 +775,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/orange/hidden,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "ig" = (
@@ -979,17 +955,9 @@
 /obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"yL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/orange/hidden,
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "AF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 10
-	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "AG" = (
@@ -1021,27 +989,13 @@
 	dir = 8
 	},
 /area/shuttle/escape)
-"BN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
-	dir = 8
-	},
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "Ce" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"CQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump,
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "DK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /obj/machinery/newscaster/directional/west,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Eg" = (
@@ -1086,7 +1040,6 @@
 /area/shuttle/escape)
 "Li" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Ls" = (
@@ -1270,13 +1223,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
-"Yo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 5
-	},
-/turf/open/floor/catwalk_floor/iron,
-/area/shuttle/escape)
 "Yp" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
@@ -1375,8 +1321,8 @@ aF
 aL
 aO
 ad
-fH
-be
+RM
+RM
 RM
 bd
 DK
@@ -1394,9 +1340,9 @@ AT
 ad
 AF
 hJ
-BN
-CQ
-Yo
+bQ
+bQ
+bQ
 bf
 "}
 (6,1,1) = {"
@@ -1412,8 +1358,8 @@ ad
 Ns
 Ce
 bQ
-yL
-fr
+bQ
+bQ
 bf
 "}
 (7,1,1) = {"
@@ -1618,7 +1564,7 @@ wu
 bl
 bl
 Eg
-ac
+Li
 "}
 (19,1,1) = {"
 ad
@@ -1635,7 +1581,7 @@ wu
 bl
 bl
 bM
-ac
+Li
 "}
 (20,1,1) = {"
 Vh
@@ -1648,7 +1594,7 @@ ar
 uw
 ba
 ad
-ac
+Li
 Sy
 Sy
 ba
@@ -1693,7 +1639,7 @@ ad
 LY
 LY
 LY
-cO
+LY
 LY
 LY
 LY

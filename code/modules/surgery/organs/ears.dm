@@ -4,15 +4,16 @@
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EARS
+	visual = FALSE
 	gender = PLURAL
 
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = STANDARD_ORGAN_DECAY
 
-	low_threshold_passed = "<span class='info'>Your ears begin to resonate with an internal ring sometimes.</span>"
-	now_failing = "<span class='warning'>You are unable to hear at all!</span>"
-	now_fixed = "<span class='info'>Noise slowly begins filling your ears once more.</span>"
-	low_threshold_cleared = "<span class='info'>The ringing in your ears has died down.</span>"
+	low_threshold_passed = span_info("Your ears begin to resonate with an internal ring sometimes.")
+	now_failing = span_warning("You are unable to hear at all!")
+	now_fixed = span_info("Noise slowly begins filling your ears once more.")
+	low_threshold_cleared = span_info("The ringing in your ears has died down.")
 
 	// `deaf` measures "ticks" of deafness. While > 0, the person is unable
 	// to hear anything.
@@ -27,7 +28,7 @@
 	// Multiplier for both long term and short term ear damage
 	var/damage_multiplier = 1
 
-/obj/item/organ/ears/on_life()
+/obj/item/organ/ears/on_life(delta_time, times_fired)
 	if(!iscarbon(owner))
 		return
 	..()
@@ -38,11 +39,11 @@
 	if(HAS_TRAIT(C, TRAIT_DEAF))
 		deaf = max(deaf, 1)
 	else if(!(organ_flags & ORGAN_FAILING)) // if this organ is failing, do not clear deaf stacks.
-		deaf = max(deaf - 1, 0)
-		if(prob(damage / 20) && (damage > low_threshold))
+		deaf = max(deaf - (0.5 * delta_time), 0)
+		if((damage > low_threshold) && DT_PROB(damage / 60, delta_time))
 			adjustEarDamage(0, 4)
 			SEND_SOUND(C, sound('sound/weapons/flash_ring.ogg'))
-			to_chat(C, "<span class='warning'>The ringing in your ears grows louder, blocking out any external noises for a moment.</span>")
+			to_chat(C, span_warning("The ringing in your ears grows louder, blocking out any external noises for a moment."))
 	else if((organ_flags & ORGAN_FAILING) && (deaf == 0))
 		deaf = 1	//stop being not deaf you deaf idiot
 
@@ -96,6 +97,7 @@
 	icon = 'icons/obj/clothing/head/costume.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "kitty"
+	visual = TRUE
 	bang_protect = -2
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
@@ -127,13 +129,13 @@
 /obj/item/organ/ears/penguin/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	if(istype(H))
-		to_chat(H, "<span class='notice'>You suddenly feel like you've lost your balance.</span>")
+		to_chat(H, span_notice("You suddenly feel like you've lost your balance."))
 		waddle = H.AddComponent(/datum/component/waddling)
 
 /obj/item/organ/ears/penguin/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
 	. = ..()
 	if(istype(H))
-		to_chat(H, "<span class='notice'>Your sense of balance comes back to you.</span>")
+		to_chat(H, span_notice("Your sense of balance comes back to you."))
 		QDEL_NULL(waddle)
 
 /obj/item/organ/ears/bronze
@@ -153,19 +155,12 @@
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/ears/robot/emp_act(severity)
-	switch(severity)
-		if(1)
-			owner.Jitter(30)
-			owner.Dizzy(30)
-			owner.Knockdown(200)
-			to_chat(owner, "<span class='warning'>Alert: Audio sensors malfunctioning</span>")
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
-		if(2)
-			owner.Jitter(15)
-			owner.Dizzy(15)
-			owner.Knockdown(100)
-			to_chat(owner, "<span class='warning'>Alert: Audio sensors malfunctioning</span>")
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+	. = ..()
+	if(prob(30/severity))
+		owner.Jitter(30/severity)
+		owner.Dizzy(30/severity)
+		to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
+
 
 /obj/item/organ/ears/diona
 	name = "trichomes"

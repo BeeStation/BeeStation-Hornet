@@ -6,6 +6,7 @@
 #define PIPE_UNARY				4 //! 4 directions: N, S, E, W
 #define PIPE_ONEDIR				5 //! 1 direction: N/S/E/W
 #define PIPE_UNARY_FLIPPABLE	6 //! 8 directions: N/S/E/W/N-flipped/S-flipped/E-flipped/W-flipped
+#define PIPE_ONEDIR_FLIPPABLE	7 //2 direction: N/S/E/W, N-flipped/S-flipped/E-flipped/W-flipped
 
 //Disposal pipe relative connection directions
 #define DISP_DIR_BASE	0
@@ -74,6 +75,13 @@
 
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
+
+/// Safe proc to remove a destination for /datum/map_adjustment.
+/proc/exclude_tagger_destination(name_to_remove)
+	GLOB.disabled_tagger_locations += name_to_remove
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+	GLOB.tagger_destination_areas -= name_to_remove // unit test only
+#endif
 
 GLOBAL_LIST_INIT(disabled_tagger_locations, list())
 

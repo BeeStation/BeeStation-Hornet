@@ -109,7 +109,7 @@
 	. += ..()
 	var/datum/component/material_container/materials = get_material_container()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.</span>"
+		. += span_notice("The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.")
 
 /obj/machinery/modular_fabricator/ui_state()
 	return GLOB.default_state
@@ -159,6 +159,7 @@
 			//Add
 			categories_associative[cat] += list(list(
 				"name" = D.name,
+				"desc" = D.desc,
 				"design_id" = D.id,
 				"material_cost" = material_cost,
 			))
@@ -447,7 +448,7 @@
 			item_queue -= requested_design_id
 			removed = TRUE
 		//Requeue if necessary
-		if(queue_repeating || queue_data["repdeating"])
+		if(queue_repeating || queue_data["repeating"])
 			stored_item_amount ++
 			if(removed)
 				add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["build_mat"])

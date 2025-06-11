@@ -41,6 +41,18 @@
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 
+/area/ruin/unpowered/syndicate_lava_base/brig
+	name = "Syndicate Lavaland Brig"
+
+/area/ruin/unpowered/syndicate_lava_base/bridge
+	name = "Syndicate Lavaland Bridge"
+
+/area/ruin/unpowered/syndicate_lava_base/starboard
+	name = "Syndicate Lavaland Starboard Primary Hallway"
+
+/area/ruin/unpowered/syndicate_lava_base/port
+	name = "Syndicate Lavaland Port Primary Hallway"
+
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
 
@@ -64,6 +76,9 @@
 
 /area/ruin/unpowered/syndicate_lava_base/virology
 	name = "Syndicate Lavaland Virology"
+
+/area/ruin/unpowered/syndicate_lava_base/science
+	name = "Syndicate Lavaland Science"
 
 /area/ruin/unpowered/syndicate_lava_base/testlab
 	name = "Syndicate Lavaland Experimentation Lab"

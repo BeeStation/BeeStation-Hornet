@@ -25,7 +25,8 @@
 
 /obj/item/circuit_component/controller
 	display_name = "Controller"
-	desc = "Used to receive inputs from the controller shell. Use the shell in hand to trigger the first signal. Alt-click for the second signal. CTRL-click for the thrid signal."
+	desc = "Used to receive inputs from the controller shell. Use the shell in hand to trigger the first signal."
+	desc_controls = "Alt-click for the alternate signal. Right click for the extra signal."
 
 	/// The three separate buttons that are called in attack_hand on the shell.
 	var/datum/port/output/signal
@@ -44,12 +45,12 @@
 /obj/item/circuit_component/controller/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, PROC_REF(send_trigger))
 	RegisterSignal(shell, COMSIG_CLICK_ALT, PROC_REF(send_alternate_signal))
-	RegisterSignal(shell, COMSIG_CLICK_CTRL, PROC_REF(send_ctrl_signal))
+	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF_SECONDARY, PROC_REF(send_right_signal))
 
 /obj/item/circuit_component/controller/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
 		COMSIG_ITEM_ATTACK_SELF,
-		COMSIG_CLICK_ALT,
+		COMSIG_ITEM_ATTACK_SELF_SECONDARY,
 		COMSIG_CLICK_CTRL,
 	))
 
@@ -76,12 +77,11 @@
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	entity.set_output(user)
 	alt.set_output(COMPONENT_SIGNAL)
-	return COMPONENT_INTERCEPT_ALT
 
 /**
- * Called when the shell item is ctrl-clicked in active hand
+ * Called when the shell item is right-clicked in active hand
  */
-/obj/item/circuit_component/controller/proc/send_ctrl_signal(atom/source, mob/user)
+/obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return

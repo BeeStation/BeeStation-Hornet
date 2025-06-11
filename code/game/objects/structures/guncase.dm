@@ -34,26 +34,26 @@
 	else
 		add_overlay("[icon_state]_door")
 
-/obj/structure/guncase/attackby(obj/item/I, mob/user, params)
+/obj/structure/guncase/attackby(obj/item/I, mob/living/user, params)
 	if(iscyborg(user) || isalien(user))
 		return
 	if(istype(I, gun_category) && open)
 		if(LAZYLEN(contents) < capacity)
 			if(!user.transferItemToLoc(I, src))
 				return
-			to_chat(user, "<span class='notice'>You place [I] in [src].</span>")
+			to_chat(user, span_notice("You place [I] in [src]."))
 			update_appearance()
 		else
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 		return
 
-	else if(user.a_intent != INTENT_HARM)
+	else if(!user.combat_mode)
 		open = !open
 		update_appearance()
 	else
 		return ..()
 
-/obj/structure/guncase/attack_hand(mob/user)
+/obj/structure/guncase/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -72,7 +72,7 @@
 	if(LAZYLEN(contents))
 		for(var/i in 1 to contents.len)
 			var/obj/item/I = contents[i]
-			dat += "<tr><A href='?src=[REF(src)];retrieve=[REF(I)]'>[I.name]</A><br>"
+			dat += "<tr><A href='byond://?src=[REF(src)];retrieve=[REF(I)]'>[I.name]</A><br>"
 	dat += "</table></div>"
 
 	var/datum/browser/popup = new(user, "gunlocker", "<div align='center'>[name]</div>", 350, 300)

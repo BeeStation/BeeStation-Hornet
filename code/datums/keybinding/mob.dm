@@ -103,10 +103,10 @@
 	return TRUE
 
 /datum/keybinding/mob/move_up
-	keys = list("F")
+	keys = list()
 	name = "move up"
 	full_name = "Move Up"
-	description = "Try moving upwards."
+	description = "Attempts to move upwards."
 	keybind_signal = COMSIG_KB_MOB_MOVEUP_DOWN
 
 /datum/keybinding/mob/move_up/down(client/user)
@@ -122,16 +122,16 @@
 			return
 		var/turf/new_turf = get_step_multiz(original, UP)
 		if(!istype(new_turf))
-			to_chat(user.mob, "<span class='warning'>There is nothing above you!</span>")
+			to_chat(user.mob, span_warning("There is nothing above you!"))
 			return
 		user.mob.Move(new_turf, UP)
 	return TRUE
 
 /datum/keybinding/mob/move_down
-	keys = list("C")
+	keys = list()
 	name = "move down"
 	full_name = "Move Down"
-	description = "Try moving downwards."
+	description = "Attempts to move downards."
 	keybind_signal = COMSIG_KB_MOB_MOVEDOWN_DOWN
 
 /datum/keybinding/mob/move_down/down(client/user)
@@ -147,7 +147,59 @@
 			return
 		var/turf/new_turf = get_step_multiz(original, DOWN)
 		if(!istype(new_turf))
-			to_chat(user.mob, "<span class='warning'>There is nothing below you!</span>")
+			to_chat(user.mob, span_warning("There is nothing below you!"))
+			return
+		user.mob.Move(new_turf, DOWN)
+	return TRUE
+
+/datum/keybinding/mob/move_look_up
+	keys = list("CtrlF", "Northeast") // Northeast: Page-up
+	name = "move or look up"
+	full_name = "Move/Look Up"
+	description = "Move upwards if you are capable, otherwise looks up instead."
+	keybind_signal = COMSIG_KB_MOB_MOVEUP_DOWN
+
+/datum/keybinding/mob/move_look_up/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		if (!L.zMove(UP, FALSE))
+			L.look_up()
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, UP)
+		if(!istype(new_turf))
+			to_chat(user.mob, span_warning("There is nothing above you!"))
+			return
+		user.mob.Move(new_turf, UP)
+	return TRUE
+
+/datum/keybinding/mob/move_look_down
+	keys = list("CtrlC", "Southeast") // Southeast: Page-down
+	name = "move or look down"
+	full_name = "Move/Look Down"
+	description = "Move downwards if you are capable, otherwise looks down instead."
+	keybind_signal = COMSIG_KB_MOB_MOVEDOWN_DOWN
+
+/datum/keybinding/mob/move_look_down/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		if (!L.zMove(DOWN, FALSE))
+			L.look_down()
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, DOWN)
+		if(!istype(new_turf))
+			to_chat(user.mob, span_warning("There is nothing below you!"))
 			return
 		user.mob.Move(new_turf, DOWN)
 	return TRUE
@@ -166,41 +218,9 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	if (!M.pulling)
-		to_chat(user, "<span class='notice'>You are not pulling anything.</span>")
+		to_chat(user, span_notice("You are not pulling anything."))
 	else
 		M.stop_pulling()
-	return TRUE
-
-/datum/keybinding/mob/cycle_intent_right
-	keys = list("Northwest") // this is BYOND for "HOME"
-	name = "cycle_intent_right"
-	full_name = "Cycle Intent Right"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_CYCLEINTENTRIGHT_DOWN
-
-/datum/keybinding/mob/cycle_intent_right/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.a_intent_change(INTENT_HOTKEY_RIGHT)
-	return TRUE
-
-/datum/keybinding/mob/cycle_intent_left
-	keys = list("Insert")
-	name = "cycle_intent_left"
-	full_name = "Cycle Intent Left"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_CYCLEINTENTLEFT_DOWN
-
-/datum/keybinding/mob/cycle_intent_left/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.a_intent_change(INTENT_HOTKEY_LEFT)
 	return TRUE
 
 /datum/keybinding/mob/swap_hands
@@ -245,11 +265,12 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.mob) return
+	if(!user.mob)
+		return
 	var/mob/M = user.mob
 	var/obj/item/I = M.get_active_held_item()
 	if(!I)
-		to_chat(user, "<span class='warning'>You have nothing to drop in your hand!</span>")
+		to_chat(user, span_warning("You have nothing to drop in your hand!"))
 	else
 		user.mob.dropItemToGround(I)
 	return TRUE
@@ -309,6 +330,27 @@
 	if(.)
 		return
 	user.movement_locked = FALSE
+
+/datum/keybinding/mob/show_extended_screentips
+	keys = list("Shift")
+	name = "show_extended_screentips"
+	full_name = "Show Extended Screentips"
+	description = "While held, screentip information about construction and deconstruction will be shown on the screen."
+	keybind_signal = COMSIG_KB_MOB_EXTENDEDSCREENTIPS_DOWN
+
+/datum/keybinding/mob/show_extended_screentips/down(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = TRUE
+	user.mob.refresh_self_screentips()
+
+/datum/keybinding/mob/show_extended_screentips/up(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = FALSE
+	user.mob.refresh_self_screentips()
 
 /**
  * ===========================

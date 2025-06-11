@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ae" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
@@ -115,7 +111,7 @@
 "at" = (
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/carpet/royalblue,
@@ -265,7 +261,6 @@
 "bC" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bE" = (
@@ -441,7 +436,7 @@
 "hS" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/storage/fancy/cigarettes/cigars/havana,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
@@ -726,7 +721,7 @@
 	},
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/lizardwine,
+/obj/item/reagent_containers/cup/glass/bottle/lizardwine,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/escape)
@@ -801,7 +796,6 @@
 /area/shuttle/escape)
 "Zp" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Zq" = (
@@ -921,9 +915,9 @@ ag
 an
 as
 ab
-ac
+Zp
 Rk
-ac
+Zp
 ae
 kS
 gl

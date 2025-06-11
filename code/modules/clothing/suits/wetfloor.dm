@@ -14,6 +14,9 @@
 	body_parts_covered = CHEST|GROIN
 	attack_verb_continuous = list("warns", "cautions", "smashes")
 	attack_verb_simple = list("warn", "caution", "smash")
-	armor = list(MELEE = 5,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
-	pocket_storage_component_path = null
+	armor_type = /datum/armor/suit_caution
+	pockets = FALSE
 	salvage_material = null //The iron cost to build this in a lathe is so small its not really viable to make this salvageable
+
+/datum/armor/suit_caution
+	melee = 5

@@ -61,8 +61,8 @@
 	ntnet_send(data, network_id)
 
 /obj/machinery/computer/telecomms/monitor/proc/ntnet_receive(datum/source, datum/netdata/data)
-	if(islist(data.receiver_id))
-		return // if its broadcasting we don't want that packet, its probably our ping
+	if(data.data["type"] != PACKET_TYPE_THERMALDATA)
+		return // we only want thermal data
 	servers[data.sender_id] = data.data
 	servers[data.sender_id]["last_update"] = world.time
 	servers[data.sender_id]["sender_id"] = data.sender_id

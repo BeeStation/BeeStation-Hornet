@@ -10,8 +10,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const IntroSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { mothership } = data;
   return (
     <Stack>
@@ -21,11 +21,11 @@ const IntroSection = (_props, context) => {
           as="img"
           src={resolveAsset('ayylmao.png')}
           width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+          style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
         />
       </Stack.Item>
       <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '-2%' }}>
+        <h1 style={{ position: 'relative', top: '25%', left: '-2%' }}>
           You are the{' '}
           <Box inline textColor="purple">
             Abductor
@@ -44,7 +44,7 @@ const IntroSection = (_props, context) => {
   );
 };
 
-const BasicLoreSection = (_props, _context) => {
+const BasicLoreSection = (_props) => {
   return (
     <Section>
       <BlockQuote>
@@ -66,7 +66,7 @@ const BasicLoreSection = (_props, _context) => {
   );
 };
 
-const EquipmentSection = (_props, _context) => {
+const EquipmentSection = (_props) => {
   return (
     <Section title="Equipment">
       <Stack vertical>
@@ -78,7 +78,7 @@ const EquipmentSection = (_props, _context) => {
                 as="img"
                 src={resolveAsset('abaton.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
               />
               Your{' '}
               <Box inline textColor="purple">
@@ -119,7 +119,7 @@ const EquipmentSection = (_props, _context) => {
                 as="img"
                 src={resolveAsset('atool.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
               />
               You have{' '}
               <Box inline textColor="purple">
@@ -147,7 +147,7 @@ const EquipmentSection = (_props, _context) => {
               as="img"
               src={resolveAsset('apistol.png')}
               width="32px"
-              style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
             />
             Your{' '}
             <Box inline textColor="purple">
@@ -176,8 +176,8 @@ const EquipmentSection = (_props, _context) => {
   );
 };
 
-export const AntagInfoAbductorAgent = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoAbductorAgent = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={620} height={650} theme="abductor">

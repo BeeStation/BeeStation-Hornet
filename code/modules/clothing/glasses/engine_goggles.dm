@@ -22,6 +22,7 @@
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
 	var/mode = MODE_NONE
 	var/range = 1
+	var/list/connection_images = list()
 
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
@@ -36,6 +37,8 @@
 	mode = modes[mode]
 	to_chat(user, "<span class='[voluntary ? "notice":"warning"]'>[voluntary ? "You turn the goggles":"The goggles turn"] [mode ? "to [mode] mode":"off"][voluntary ? ".":"!"]</span>")
 
+	if(length(connection_images))
+		connection_images.Cut()
 	switch(mode)
 		if(MODE_MESON)
 			vision_flags = SEE_TURFS
@@ -134,6 +137,11 @@
 	range = 2
 
 	modes = list(MODE_NONE = MODE_TRAY, MODE_TRAY = MODE_NONE)
+
+/obj/item/clothing/glasses/meson/engine/tray/dropped(mob/user)
+	. = ..()
+	if(connection_images.len)
+		connection_images.Cut()
 
 /obj/item/clothing/glasses/meson/engine/shuttle
 	name = "shuttle region scanner"

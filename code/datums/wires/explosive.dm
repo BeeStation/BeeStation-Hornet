@@ -21,6 +21,8 @@
 	var/fingerprint
 
 /datum/wires/explosive/chem_grenade/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/item/grenade/chem_grenade/G = holder
 	if(G.stage == GRENADE_WIRED)
 		return TRUE
@@ -31,9 +33,10 @@
 		var/obj/item/assembly/timer/T = S
 		G.det_time = T.saved_time*10
 	else if(istype(S,/obj/item/assembly/prox_sensor))
-		var/obj/item/grenade/chem_grenade/G = holder
-		G.landminemode = S
-		S.proximity_monitor.wire = TRUE
+		var/obj/item/assembly/prox_sensor/sensor = S
+		var/obj/item/grenade/chem_grenade/grenade = holder
+		grenade.landminemode = sensor
+		sensor.proximity_monitor.set_ignore_if_not_on_turf(FALSE)
 	fingerprint = S.fingerprintslast
 	return ..()
 
@@ -49,27 +52,18 @@
 	grenade.prime()
 
 /datum/wires/explosive/chem_grenade/detach_assembly(color)
-	var/obj/item/assembly/S = get_attached(color)
-	if(S && istype(S))
-		assemblies -= color
-		S.connected = null
-		S.forceMove(holder.drop_location())
-		var/obj/item/grenade/chem_grenade/G = holder
-		G.landminemode = null
-		return S
+	var/obj/item/grenade/chem_grenade/grenade = holder
+	grenade.landminemode = null
+	. = ..()
 
 /datum/wires/explosive/c4
 	holder_type = /obj/item/grenade/plastic/c4
+	duds_number = 1
 	randomize = TRUE	//Same behaviour since no wire actually disarms it
-
-/datum/wires/explosive/c4/interactable(mob/user)
-	var/obj/item/grenade/plastic/c4/P = holder
-	if(P.open_panel)
-		return TRUE
 
 /datum/wires/explosive/c4/explode()
 	var/obj/item/grenade/plastic/c4/P = holder
-	P.prime()
+	P.prime() //omg The Thick of It
 
 
 /datum/wires/explosive/pizza
@@ -84,6 +78,8 @@
 	..()
 
 /datum/wires/explosive/pizza/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/item/pizzabox/P = holder
 	if(P.open && P.bomb)
 		return TRUE

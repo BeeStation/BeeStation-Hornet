@@ -198,6 +198,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 		SSmove_manager.stop_looping(convayable, SSconveyors)
 
 /obj/machinery/conveyor/proc/start_conveying(atom/movable/moving)
+	if(QDELETED(moving))
+		return
 	var/datum/move_loop/move/moving_loop = SSmove_manager.processing_on(moving, SSconveyors)
 	if(moving_loop)
 		moving_loop.direction = movedir
@@ -215,10 +217,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 	SSmove_manager.stop_looping(thing, SSconveyors)
 
 // attack with item, place item on conveyor
-/obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/conveyor/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR)
-		user.visible_message("<span class='notice'>[user] struggles to pry up \the [src] with \the [I].</span>", \
-		"<span class='notice'>You struggle to pry up \the [src] with \the [I].</span>")
+		user.visible_message(span_notice("[user] struggles to pry up \the [src] with \the [I]."), \
+		span_notice("You struggle to pry up \the [src] with \the [I]."))
 		if(I.use_tool(src, user, 40, volume=40))
 			set_operating(FALSE)
 			if(!(machine_stat & BROKEN))
@@ -228,7 +230,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 				if(C)
 					transfer_fingerprints_to(C)
 
-			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
+			to_chat(user, span_notice("You remove the conveyor belt."))
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
@@ -236,15 +238,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 			I.play_tool_sound(src)
 			setDir(turn(dir,-45))
 			update_move_direction()
-			to_chat(user, "<span class='notice'>You rotate [src].</span>")
+			to_chat(user, span_notice("You rotate [src]."))
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!(machine_stat & BROKEN))
 			verted = verted * -1
 			update_move_direction()
-			to_chat(user, "<span class='notice'>You reverse [src]'s direction.</span>")
+			to_chat(user, span_notice("You reverse [src]'s direction."))
 
-	else if(user.a_intent != INTENT_HARM)
+	else if(!user.combat_mode)
 		user.transferItemToLoc(I, drop_location())
 	else
 		return ..()
@@ -260,11 +262,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 	id = cswitch.id
 	LAZYADD(GLOB.conveyors_by_id[id], src)
-	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
+	to_chat(user, span_notice("You link [src] to [cswitch]."))
 	return COMPONENT_BUFFER_RECEIVED
 
 // attack with hand, move pulled object onto conveyor
-/obj/machinery/conveyor/attack_hand(mob/user)
+/obj/machinery/conveyor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -273,7 +275,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 // make the conveyor broken
 // also propagate inoperability to any connected conveyor with the same ID
 /obj/machinery/conveyor/proc/broken()
-	set_machine_stat(machine_stat | BROKEN)
+	atom_break()
 	update()
 
 	var/obj/machinery/conveyor/C = locate() in get_step(src, dir)
@@ -376,20 +378,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 		CHECK_TICK
 
 /// Updates the switch's `position` and `last_pos` variable. Useful so that the switch can properly cycle between the forwards, backwards and neutral positions.
-/obj/machinery/conveyor_switch/proc/update_position()
-	if(position == 0)
-		if(oneway)   //is it a oneway switch
-			position = oneway
-		else
-			if(last_pos < 0)
-				position = 1
-				last_pos = 0
-			else
-				position = -1
-				last_pos = 0
-	else
+/// If set direction == false, this behaves like the normal switch. If it is set to true
+/// attempt to set the switch to the indicated direction.
+/obj/machinery/conveyor_switch/proc/update_position(set_direction = FALSE, direction = 0)
+	if(set_direction)
 		last_pos = position
-		position = 0
+		position = 0 //Default to stopped.
+		if(direction > 0)
+			position = 1 //Positive values moves the switch to forward
+		if(direction < 0)
+			position = -1 //Negative values moves the switch to reverse.
+
+		//Run sanity check on the switch for one way direction.
+		if(oneway)
+			if(SIGN(position) != SIGN(oneway)) //If our signs don't match...
+				position = 0 // Set position to zero to stop the conveyor since we can't go that way.
+	else
+		if(position == 0)
+			if(oneway)   //is it a oneway switch
+				position = oneway
+			else
+				if(last_pos < 0)
+					position = 1
+					last_pos = 0
+				else
+					position = -1
+					last_pos = 0
+		else
+			last_pos = position
+			position = 0
 
 /// Called when a user clicks on this switch with an open hand.
 /obj/machinery/conveyor_switch/interact(mob/user)
@@ -405,7 +422,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 	var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
 	C.id = id
 	transfer_fingerprints_to(C)
-	to_chat(user, "<span class='notice'>You detach the conveyor switch.</span>")
+	to_chat(user, span_notice("You detach the conveyor switch."))
 	qdel(src)
 	return TRUE
 
@@ -413,7 +430,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You store [src] in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You store [src] in [buffer_parent]'s buffer."))
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
@@ -429,7 +446,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 		if(1)
 			oneway = -1
 			newdirtext = "reverse one-way"
-	to_chat(user, "<span class='notice'>You set the conveyor switch to [newdirtext] mode.</span>")
+	to_chat(user, span_notice("You set the conveyor switch to [newdirtext] mode."))
 	return TRUE
 
 /obj/machinery/conveyor_switch/oneway
@@ -457,7 +474,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 /obj/item/conveyor_switch_construct/attack_self(mob/user)
 	for(var/obj/item/stack/conveyor/C in view())
 		C.id = id
-	to_chat(user, "<span class='notice'>You have linked all nearby conveyor belt assemblies to this switch.</span>")
+	to_chat(user, span_notice("You have linked all nearby conveyor belt assemblies to this switch."))
 
 /obj/item/conveyor_switch_construct/afterattack(atom/A, mob/user, proximity)
 	. = ..()
@@ -469,7 +486,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 			found = 1
 			break
 	if(!found)
-		to_chat(user, "[icon2html(src, user)]<span class=notice>The conveyor switch did not detect any linked conveyor belts in range.</span>")
+		to_chat(user, "[icon2html(src, user)][span_notice("The conveyor switch did not detect any linked conveyor belts in range.")]")
 		return
 	var/obj/machinery/conveyor_switch/NC = new/obj/machinery/conveyor_switch(A, id)
 	transfer_fingerprints_to(NC)
@@ -500,7 +517,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 		return
 	var/cdir = get_dir(A, user)
 	if(A == user.loc)
-		to_chat(user, "<span class='warning'>You cannot place a conveyor belt under yourself!</span>")
+		to_chat(user, span_warning("You cannot place a conveyor belt under yourself!"))
 		return
 	var/obj/machinery/conveyor/C = new/obj/machinery/conveyor(A, cdir, id)
 	transfer_fingerprints_to(C)
@@ -509,7 +526,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 /obj/item/stack/conveyor/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/conveyor_switch_construct))
-		to_chat(user, "<span class='notice'>You link the switch to the conveyor belt assembly.</span>")
+		to_chat(user, span_notice("You link the switch to the conveyor belt assembly."))
 		var/obj/item/conveyor_switch_construct/C = I
 		id = C.id
 
@@ -526,13 +543,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 /obj/item/circuit_component/conveyor_switch
 	display_name = "Conveyor Switch"
 	desc = "Allows to control connected conveyor belts."
-	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	//This input works the same way as clicking on a switch.
+	var/datum/port/input/toggle_trigger
+	//Direction of the belt to set.
+	var/datum/port/input/set_direction
+	//This input sets the direction of the belt
+	var/datum/port/input/set_direction_trigger
 
 	var/datum/port/output/direction
+	var/datum/port/output/triggered
+
 	var/obj/machinery/conveyor_switch/attached_switch
 
+
 /obj/item/circuit_component/conveyor_switch/populate_ports()
+	toggle_trigger = add_input_port("Toggle Switch", PORT_TYPE_SIGNAL)
+	set_direction = add_input_port("Conveyor Direction", PORT_TYPE_NUMBER)
+	set_direction_trigger = add_input_port("Set Direction", PORT_TYPE_SIGNAL)
+
 	direction = add_output_port("Conveyor Direction", PORT_TYPE_NUMBER)
+	triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/conveyor_switch/get_ui_notices()
 	. = ..()
@@ -551,17 +582,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 	if(!attached_switch)
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(update_conveyors), port)
-
-/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(datum/port/input/port)
-	if(!attached_switch)
+	if(COMPONENT_TRIGGERED_BY(port, toggle_trigger))
+		INVOKE_ASYNC(src, PROC_REF(update_conveyors))
 		return
 
-	attached_switch.update_position()
+	if(COMPONENT_TRIGGERED_BY(port, set_direction_trigger))
+		INVOKE_ASYNC(src, PROC_REF(update_conveyors), TRUE, set_direction.value)
+		return
+
+/// If set direction == false, this behaves like the normal switch. If it is set to true
+/// attempt to set the switch to the indicated direction.
+/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(set_direction = FALSE, direction_in = 0)
+	if(!attached_switch)
+		return
+	attached_switch.update_position(set_direction, direction_in)
 	attached_switch.update_icon()
 	attached_switch.update_icon_state()
 	attached_switch.update_linked_conveyors()
 	attached_switch.update_linked_switches()
 	direction.set_output(attached_switch.position)
+	triggered.set_output(COMPONENT_SIGNAL)
 
 #undef MAX_CONVEYOR_ITEMS_MOVE

@@ -33,8 +33,7 @@ $bg-map: colors.$bg-map !default;
     transition: color 100ms, background-color 100ms;
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: if($luminance > 0.6, darken($color, 15%), lighten($color, 30%));
     color: $text-color;
   }
