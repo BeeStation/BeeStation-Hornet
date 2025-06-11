@@ -1063,8 +1063,6 @@
 				new /obj/item/food/fishmeat/carp(src)
 				new /obj/item/food/grown/soybeans(src)
 				new /obj/item/food/grown/cabbage(src)
-		else if(theme_name != null)
-			new /obj/item/kitchen/fork(src)
 
 /obj/item/storage/box/ingredients/wildcard
 	theme_name = "wildcard"
