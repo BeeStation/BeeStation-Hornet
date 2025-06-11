@@ -15197,12 +15197,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
-"dYD" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/turf/open/space/basic,
-/area/space)
 "dYE" = (
 /turf/closed/mineral/random/low_chance,
 /area/asteroid/nearstation)
@@ -51807,11 +51801,11 @@
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
 "njt" = (
-/obj/machinery/power/tesla_coil,
 /obj/machinery/camera/directional/south{
 	c_tag = "Engineering - Secure Storage";
 	name = "engineering camera"
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "njL" = (
@@ -52628,7 +52622,6 @@
 /turf/open/floor/iron/sepia,
 /area/construction/mining/aux_base)
 "nwa" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 1
@@ -52636,6 +52629,7 @@
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "nwg" = (
@@ -69318,7 +69312,6 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port)
 "rOa" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
@@ -69326,6 +69319,7 @@
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "rOe" = (
@@ -78576,7 +78570,6 @@
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "uhu" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -78592,6 +78585,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "uhJ" = (
@@ -82708,7 +82702,6 @@
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "vhm" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -82722,6 +82715,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 1
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vhn" = (
@@ -83535,7 +83529,6 @@
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "vqc" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 1
@@ -83546,6 +83539,7 @@
 /obj/machinery/camera/directional/west{
 	c_tag = "Supermatter Chamber"
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "vqq" = (
@@ -87422,7 +87416,7 @@
 /turf/open/floor/vault,
 /area/engine/engine_room)
 "whE" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "whQ" = (
@@ -145976,7 +145970,7 @@ nnx
 nnx
 nnx
 nnx
-dYD
+nnx
 nnx
 nnx
 nnx

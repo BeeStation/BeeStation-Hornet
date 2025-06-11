@@ -155,6 +155,11 @@
 /// Sent when the amount of materials in silo connected to remote_materials changes. Does not apply when remote_materials is not connected to a silo.
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
+/// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
+/// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_UNFREEZE "atom_timestop_unfreeze"
+
 /////////////////
 
 /// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.

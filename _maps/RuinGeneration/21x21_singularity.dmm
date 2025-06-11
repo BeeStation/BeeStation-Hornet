@@ -29,10 +29,6 @@
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
 /area/template_noop)
-"p" = (
-/obj/machinery/power/rad_collector,
-/turf/open/floor/iron,
-/area/ruin)
 "q" = (
 /obj/structure/sign/warning/radiation{
 	pixel_y = -32
@@ -168,7 +164,7 @@ c
 c
 c
 c
-p
+c
 c
 c
 c
@@ -194,9 +190,9 @@ c
 c
 c
 c
-p
 c
-p
+c
+c
 c
 c
 c
@@ -467,8 +463,8 @@ c
 c
 c
 c
-p
-p
+c
+c
 c
 c
 c

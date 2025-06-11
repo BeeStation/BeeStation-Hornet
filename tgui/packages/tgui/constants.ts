@@ -305,18 +305,10 @@ export const getGasColor = (gasId: string) => {
   return gas?.color;
 };
 
-/*
-From https://github.com/tgstation/tgstation/pull/69240
-
-PLEASE enable the tests in constants.test.ts if you port this
-
 // Returns gas object based on gasId
 export const getGasFromId = (gasId: string): Gas | undefined => {
   const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find(
-    (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
-  );
+  const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
   return gas;
 };
 
@@ -324,4 +316,3 @@ export const getGasFromId = (gasId: string): Gas | undefined => {
 export const getGasFromPath = (gasPath: string): Gas | undefined => {
   return GASES.find((gas) => gas.path === gasPath);
 };
-*/

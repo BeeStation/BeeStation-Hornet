@@ -72,6 +72,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Are we immune to specifically tesla / SM shocks?
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 #define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
+/// Is this atom being actively shocked? Used to prevent repeated shocks.
+#define TRAIT_BEING_SHOCKED "shocked"
 /// Can weave webs into cloth
 #define TRAIT_WEB_WEAVER "web_weaver"
 #define TRAIT_STABLEHEART		"stable_heart"
@@ -224,6 +226,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // You're immune to the hallucination effect of the supermatter, either
 // through force of will, or equipment.
 #define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+// You can stare into the abyss, and it turns pink.
+// Being close enough to the supermatter makes it heal at higher temperatures and emit less heat.
+#define TRAIT_SUPERMATTER_SOOTHER "supermatter_soother"
 
 //non-mob traits
 /// Used for limb-based paralysis, where replacing the limb will fix it.

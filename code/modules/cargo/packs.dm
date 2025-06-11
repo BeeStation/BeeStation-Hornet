@@ -1324,8 +1324,10 @@
 	desc = "Typically the only thing standing between the station and a messy death. Powered by emitters. Contains two field generators."
 	cost = 1200
 	max_supply = 5
-	contains = list(/obj/machinery/field/generator,
-					/obj/machinery/field/generator)
+	contains = list(
+		/obj/machinery/field/generator,
+		/obj/machinery/field/generator,
+	)
 	crate_name = "field generator crate"
 
 /datum/supply_pack/engine/grounding_rods
@@ -1333,40 +1335,34 @@
 	desc = "Four grounding rods guaranteed to keep any uppity tesla's lightning under control."
 	cost = 700
 	max_supply = 5
-	contains = list(/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod)
+	contains = list(
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+	)
 	crate_name = "grounding rod crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
-/datum/supply_pack/engine/PA
+/datum/supply_pack/engine/particle_accelerator
 	name = "Particle Accelerator Crate"
 	desc = "A supermassive black hole or hyper-powered teslaball are the perfect way to spice up any party! This \"My First Apocalypse\" kit contains everything you need to build your own Particle Accelerator! Ages 10 and up."
 	cost = 2700
 	max_supply = 3
 	access = ACCESS_CE
 	access_budget = ACCESS_CE
-	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
-					/obj/machinery/particle_accelerator/control_box,
-					/obj/structure/particle_accelerator/particle_emitter/center,
-					/obj/structure/particle_accelerator/particle_emitter/left,
-					/obj/structure/particle_accelerator/particle_emitter/right,
-					/obj/structure/particle_accelerator/power_box,
-					/obj/structure/particle_accelerator/end_cap)
+	contains = list(
+		/obj/structure/particle_accelerator/fuel_chamber,
+		/obj/machinery/particle_accelerator/control_box,
+		/obj/structure/particle_accelerator/particle_emitter/center,
+		/obj/structure/particle_accelerator/particle_emitter/left,
+		/obj/structure/particle_accelerator/particle_emitter/right,
+		/obj/structure/particle_accelerator/power_box,
+		/obj/structure/particle_accelerator/end_cap
+	)
 	crate_name = "particle accelerator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE
-
-/datum/supply_pack/engine/collector
-	name = "Radiation Collector Crate"
-	desc = "Contains three radiation collectors. Useful for collecting energy off nearby Supermatter Crystals, Singularities or Teslas!"
-	cost = 2200
-	max_supply = 4
-	contains = list(/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector)
-	crate_name = "collector crate"
 
 /datum/supply_pack/engine/nuclear_reactor
 	name = "RBMK Nuclear Reactor Engine Crate"
@@ -1375,17 +1371,19 @@
 	max_supply = 1
 	access = ACCESS_CE
 	access_budget = ACCESS_CE
-	contains = list(/obj/item/RBMK_box/core,
-					/obj/item/RBMK_box/body/coolant_input,
-					/obj/item/RBMK_box/body/moderator_input,
-					/obj/item/RBMK_box/body/waste_output,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/circuitboard/computer/control_rods,
-					/obj/item/book/manual/wiki/rbmk)
+	contains = list(
+		/obj/item/RBMK_box/core,
+		/obj/item/RBMK_box/body/coolant_input,
+		/obj/item/RBMK_box/body/moderator_input,
+		/obj/item/RBMK_box/body/waste_output,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/circuitboard/computer/control_rods,
+		/obj/item/book/manual/wiki/rbmk
+	)
 	crate_name = "nuclear engine crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE
@@ -1451,10 +1449,12 @@
 	desc = "Whether it's high-voltage executions, creating research points, or just plain old power generation: This pack of four Tesla coils can do it all!"
 	cost = 1200
 	max_supply = 3
-	contains = list(/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil)
+	contains = list(
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+	)
 	crate_name = "tesla coil crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 

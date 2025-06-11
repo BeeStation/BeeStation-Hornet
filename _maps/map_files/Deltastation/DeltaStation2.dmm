@@ -3554,7 +3554,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "axx" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 6
 	},
@@ -3564,6 +3563,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axy" = (
@@ -3582,7 +3582,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "axB" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
 	},
@@ -3592,6 +3591,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axD" = (
@@ -3846,35 +3846,9 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
-"ayJ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/turf/open/floor/circuit/green,
-/area/engine/supermatter)
 "ayK" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
-/area/engine/supermatter)
-"ayL" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "ayM" = (
 /obj/structure/cable{
@@ -4116,7 +4090,6 @@
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "azT" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 8
 	},
@@ -4126,10 +4099,10 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "azU" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
@@ -4139,6 +4112,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "azV" = (
@@ -16533,7 +16507,6 @@
 /turf/open/space,
 /area/space/nearstation)
 "cje" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -16724,14 +16697,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
-"cky" = (
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/power/tesla_coil,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ckz" = (
@@ -17989,16 +17954,6 @@
 /obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron,
 /area/science/storage)
-"crI" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/power/tesla_coil,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "crJ" = (
 /obj/item/wrench,
 /turf/open/floor/plating/airless,
@@ -18394,8 +18349,8 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "ctB" = (
-/obj/machinery/power/tesla_coil,
 /obj/effect/turf_decal/bot,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "ctC" = (
@@ -18613,13 +18568,13 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cvb" = (
-/obj/machinery/power/tesla_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/south{
 	c_tag = "Engineering - Secure Storage";
 	name = "engineering camera"
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cvc" = (
@@ -19437,14 +19392,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"czq" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/tesla_coil,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "czr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -19777,7 +19724,6 @@
 /turf/open/space,
 /area/space/nearstation)
 "cAK" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -115123,7 +115069,7 @@ clR
 cnB
 clR
 clR
-crI
+cnB
 clR
 clR
 cnB
@@ -116403,7 +116349,7 @@ cbP
 cdC
 aad
 cjb
-cky
+ckx
 aaa
 aad
 abj
@@ -116413,7 +116359,7 @@ ctn
 abj
 aad
 aaa
-czq
+czp
 cAI
 aad
 cdC
@@ -120203,7 +120149,7 @@ atQ
 auZ
 awg
 axx
-ayJ
+azT
 azT
 aAU
 aCl
@@ -121231,7 +121177,7 @@ atU
 avd
 awg
 axB
-ayL
+azU
 azU
 aAY
 aCl

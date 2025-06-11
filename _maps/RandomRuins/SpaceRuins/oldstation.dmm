@@ -2483,7 +2483,7 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "hK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/grounding_rod,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "hL" = (
@@ -3275,7 +3275,7 @@
 /area/ruin/space/has_grav/ancientstation/proto)
 "kl" = (
 /obj/structure/table/reinforced,
-/obj/machinery/the_singularitygen,
+/obj/machinery/the_singularitygen/tesla,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
 "km" = (
@@ -3864,6 +3864,11 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
 /turf/open/floor/iron,
+/area/ruin/space/has_grav/ancientstation/deltacorridor)
+"qa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "qB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8659,8 +8664,8 @@ eZ
 eZ
 dh
 dh
-dh
-dh
+qa
+qa
 td
 tT
 bD
@@ -8705,9 +8710,9 @@ bD
 eZ
 fz
 fz
-dh
-hK
-hK
+qa
+qa
+qa
 Ku
 Ll
 Sf

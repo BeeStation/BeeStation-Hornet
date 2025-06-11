@@ -24,7 +24,7 @@
 	var/list/tempOutputdata = list()
 	var/list/reactors
 	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor // Currently selected RBMK Reactor.
-
+/*
 /datum/computer_file/program/nuclear_monitor/Destroy()
 	clear_signals()
 	reactor = null
@@ -130,23 +130,4 @@
 		return
 	if(computer.active_program == src)
 		computer.alert_call(src, "Nuclear reactor meltdown in progress!")
-
-// Nuclear reactor UI for ghosts only. Inherited attack_ghost will call this.
-/obj/machinery/atmospherics/components/unary/rbmk/core/ui_interact(mob/user, datum/tgui/ui)
-	if(!isobserver(user))
-		return FALSE
-	. = ..()
-	ui = SStgui.try_update_ui(user, src, ui)
-	if (!ui)
-		ui = new(user, src, "NtosGhostRbmkStats")
-		ui.set_autoupdate(TRUE)
-		ui.open()
-
-/obj/machinery/atmospherics/components/unary/rbmk/core/ui_data()
-	var/list/data = list()
-	data["integrity"] = get_integrity_percent()
-	data["coolantInput"] = last_coolant_temperature
-	data["coolantOutput"] = last_output_temperature
-	data["power"] = power
-	data["kpa"] = pressure
-	return data
+*/

@@ -14873,7 +14873,6 @@
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "cYb" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
@@ -14886,6 +14885,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -23407,7 +23407,6 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "fFV" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
@@ -23420,6 +23419,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -23984,7 +23984,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "fNY" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
@@ -23997,6 +23996,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -39616,7 +39616,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/port)
 "kSk" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
@@ -39629,6 +39628,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},

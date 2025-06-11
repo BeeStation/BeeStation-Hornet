@@ -490,7 +490,7 @@
 	/// The range of the zap itself when it electrocutes someone
 	var/zap_range = 15
 	/// The flags of the zap itself when it electrocutes someone
-	var/zap_flags = TESLA_MOB_DAMAGE | TESLA_MOB_STUN | TESLA_OBJ_DAMAGE
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_MOB_STUN | ZAP_OBJ_DAMAGE
 	/// A reference to the chain beam between the caster and the projectile
 	var/datum/beam/chain
 
@@ -510,7 +510,7 @@
 /obj/projectile/magic/aoe/lightning/no_zap
 	zap_power = 10000
 	zap_range = 4
-	zap_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
+	zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 
 /obj/projectile/magic/fireball
 	name = "bolt of fireball"

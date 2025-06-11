@@ -34,8 +34,7 @@ describe('gas helper functions', () => {
 
     expect(gasColor).toBeUndefined();
   });
-  /*
-  https://github.com/tgstation/tgstation/pull/69240
+
   it('should return the gas object if found', () => {
     const gasId = 'antinoblium';
     const gas = getGasFromId(gasId);
@@ -68,5 +67,4 @@ describe('gas helper functions', () => {
       color: 'maroon',
     });
   });
-  */
 });

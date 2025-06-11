@@ -240,7 +240,7 @@
 	emp_message = span_warning("The tesla capacitors beep ominously for a moment.")
 	var/tesla_power = 25000
 	var/tesla_range = 20
-	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
+	var/tesla_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 
 /obj/item/clothing/suit/armor/reactive/tesla/dropped(mob/user)
 	..()

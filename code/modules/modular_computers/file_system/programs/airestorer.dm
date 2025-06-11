@@ -117,6 +117,6 @@
 
 	return data
 
-/datum/computer_file/program/aidiag/kill_program(forced)
+/datum/computer_file/program/aidiag/kill_program(forced = FALSE)
 	restoring = FALSE
 	return ..(forced)

@@ -66,7 +66,7 @@
 /datum/computer_file/program/proc/generate_network_log(text)
 	if(computer)
 		return computer.add_log(text)
-	return 0
+	return TRUE
 
 /**
  *Runs when the device is used to attack an atom in non-combat mode.
@@ -87,17 +87,17 @@
 	if(!(hardware_flag & usage_flags))
 		if(loud && computer && user)
 			to_chat(user, span_danger("\The [computer] flashes an \"Hardware Error - Incompatible software\" warning."))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/computer_file/program/proc/get_signal(specific_action = 0)
 	if(computer)
 		return computer.get_ntnet_status(specific_action)
-	return 0
+	return FALSE
 
 // Called by Process() on device that runs us, once every tick.
 /datum/computer_file/program/proc/process_tick(delta_time)
-	return 1
+	return TRUE
 
 /**
   *Check if the user can run program. Only humans and silicons can operate computer. Automatically called in on_start()
@@ -194,7 +194,7 @@
 	program_state = PROGRAM_STATE_KILLED
 	if(network_destination)
 		generate_network_log("Connection to [network_destination] closed.")
-	return 1
+	return TRUE
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
 /// Set use_attack = TRUE to receive proccalls from the parent computer.

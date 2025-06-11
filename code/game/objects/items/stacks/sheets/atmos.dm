@@ -8,9 +8,8 @@ GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
 
 /obj/item/stack/sheet/mineral/metal_hydrogen
 	name = "metal hydrogen"
-	icon_state = "sheet-metalhydrogen"
-	item_state = null
 	singular_name = "metal hydrogen sheet"
+	icon_state = "sheet-metalhydrogen"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	point_value = 75
@@ -53,7 +52,6 @@ GLOBAL_LIST_INIT(zaukerite_recipes, list(
 	name = "hot ice"
 	singular_name = "hot ice piece"
 	icon_state = "hot-ice"
-	item_state = null
 	mats_per_unit = list(/datum/material/hot_ice = MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/toxin/hot_ice = 25)
 	material_type = /datum/material/hot_ice

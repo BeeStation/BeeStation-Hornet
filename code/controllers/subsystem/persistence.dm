@@ -1,5 +1,9 @@
 #define FILE_ANTAG_REP "data/AntagReputation.json"
 
+/// Location where we save the information about how many rounds it has been since the engine blew up
+#define DELAMINATION_COUNT_FILEPATH "data/rounds_since_delamination.txt"
+#define DELAMINATION_HIGHSCORE_FILEPATH "data/delamination_highscore.txt"
+
 SUBSYSTEM_DEF(persistence)
 	name = "Persistence"
 	init_order = INIT_ORDER_PERSISTENCE
@@ -15,6 +19,11 @@ SUBSYSTEM_DEF(persistence)
 	var/list/picture_logging_information = list()
 	var/list/obj/structure/sign/picture_frame/photo_frames
 	var/list/obj/item/storage/photo_album/photo_albums
+
+	var/rounds_since_engine_exploded = 0
+	var/delam_highscore = 0
+	var/tram_hits_this_round = 0
+	var/tram_hits_last_round = 0
 
 /datum/controller/subsystem/persistence/Initialize()
 	LoadPoly()
@@ -299,6 +308,20 @@ SUBSYSTEM_DEF(persistence)
 		"data" = saved_dynamic_rulesets
 	)), "data/RecentDynamicRules.json")
 
+/datum/controller/subsystem/persistence/proc/load_delamination_counter()
+	if(!fexists(DELAMINATION_COUNT_FILEPATH))
+		return
+	rounds_since_engine_exploded = text2num(file2text(DELAMINATION_COUNT_FILEPATH))
+	if(fexists(DELAMINATION_HIGHSCORE_FILEPATH))
+		delam_highscore = text2num(file2text(DELAMINATION_HIGHSCORE_FILEPATH))
+	for(var/obj/machinery/incident_display/sign in GLOB.map_incident_displays)
+		sign.update_delam_count(rounds_since_engine_exploded, delam_highscore)
+
+/datum/controller/subsystem/persistence/proc/save_delamination_counter()
+	rustg_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_COUNT_FILEPATH)
+	if((rounds_since_engine_exploded + 1) > delam_highscore)
+		rustg_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_HIGHSCORE_FILEPATH)
+
 /datum/controller/subsystem/persistence/proc/CollectAntagReputation()
 	var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
 
@@ -345,3 +368,6 @@ SUBSYSTEM_DEF(persistence)
 	WRITE_FILE(file, json_encode(data))
 
 #undef FILE_ANTAG_REP
+
+#undef DELAMINATION_COUNT_FILEPATH
+#undef DELAMINATION_HIGHSCORE_FILEPATH
