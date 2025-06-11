@@ -978,8 +978,7 @@
 /obj/item/storage/box/ingredients/PopulateContents()
 	switch(theme_name)
 		if("wildcard")
-			for(var/i in 1 to 7)
-			var/randomFood = pick(
+			var/list/randomfood = list(
 				/obj/item/food/grown/chili,
 				/obj/item/food/grown/tomato,
 				/obj/item/food/grown/carrot,
@@ -994,7 +993,9 @@
 				/obj/item/food/grown/corn,
 				/obj/item/food/grown/mushroom/plumphelmet,
 				/obj/item/food/grown/mushroom/chanterelle)
-			new randomFood(src)
+			for(var/i in 1 to 7)
+				var/food = pick(randomfood)
+				new food(src)
 		if("fiesta")
 			new /obj/item/food/tortilla(src)
 			for(var/i in 1 to 2)
