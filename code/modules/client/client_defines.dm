@@ -63,38 +63,50 @@
 		////////////////////////////////////
 		//things that require the database//
 		////////////////////////////////////
-
-	/// Used to determine how old the account is - in days.
+	///Used to determine how old the account is - in days.
 	var/player_age = -1
-	/// Date that this account was first seen in the server
+	///Date that this account was first seen in the server
 	var/player_join_date = null
-	var/related_accounts_ip = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
-	var/related_accounts_cid = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
-	/// Date of byond account creation in ISO 8601 format
+	///So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
+	var/related_accounts_ip = "Requires database"
+	///So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
+	var/related_accounts_cid = "Requires database"
+	///Date of byond account creation in ISO 8601 format
 	var/account_join_date = null
-	/// Age of byond account in days
+	///Age of byond account in days
 	var/account_age = -1
 
 	preload_rsc = PRELOAD_RSC
 
 	var/atom/movable/screen/click_catcher/void
 
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	///used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
+
 	var/ip_intel = "Disabled"
 
 	/// Datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
 
+	///Last ping of the client
 	var/lastping = 0
+	///Average ping of the client
 	var/avgping = 0
-	/// world.time they connected
+	///world.time they connected
 	var/connection_time
-	/// world.realtime they connected
+	///world.realtime they connected
 	var/connection_realtime
-	/// world.timeofday they connected
+	///world.timeofday they connected
 	var/connection_timeofday
 
 	var/inprefs = FALSE
+	///Used for limiting the rate of topic sends by the client to avoid abuse
 	var/list/topiclimiter
+	///Used for limiting the rate of clicks sends by the client to avoid abuse
 	var/list/clicklimiter
 
 	/// These persist between logins/logouts during the same round.
@@ -141,13 +153,19 @@
 	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
 	var/datum/weakref/middle_drag_atom_ref
 
-	///used to make a special mouse cursor, this one for mouse up icon
-	var/mouse_up_icon = null
-	///used to make a special mouse cursor, this one for mouse up icon
-	var/mouse_down_icon = null
-	///used to override the mouse cursor so it doesnt get reset
-	var/mouse_override_icon = null
+	///A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
+	var/list/recent_examines
 
+	var/list/parallax_layers
+	var/list/parallax_layers_cached
+	var/turf/previous_turf
+	/// Direction our current area wants to move parallax
+	var/parallax_movedir = 0
+	/// How many parallax layers to show our client
+	var/parallax_layers_max = 4
+	/// Timers for the area directional animation
+	var/parallax_animate_timer
+	var/frozen_parallax
 
 	/// Whether or not we want to show screentips
 	var/show_screentips = TRUE

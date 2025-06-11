@@ -1,12 +1,3 @@
-
-/client/var/list/parallax_layers
-/client/var/list/parallax_layers_cached
-/client/var/turf/previous_turf
-/client/var/parallax_movedir = 0
-/client/var/parallax_layers_max = 4
-/client/var/parallax_animate_timer
-/client/var/frozen_parallax
-
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client

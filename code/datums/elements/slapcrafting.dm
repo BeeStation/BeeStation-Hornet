@@ -34,7 +34,7 @@
 
 /datum/element/slapcrafting/Detach(datum/source, ...)
 	. = ..()
-	UnregisterSignal(source, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EXAMINE, COMSIG_ATOM_EXAMINE_MORE))
+	UnregisterSignal(source, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EXAMINE_TAGS, COMSIG_ATOM_EXAMINE_MORE))
 
 /datum/element/slapcrafting/proc/attempt_slapcraft(obj/item/parent_item, obj/item/slapper, mob/user)
 
