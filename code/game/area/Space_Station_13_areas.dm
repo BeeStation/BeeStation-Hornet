@@ -266,10 +266,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "maint_engi"
 
 /area/maintenance/department/science/xenobiology
-	name = "Xenobiology Maintenance"
+	name = "Abandoned Club"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
 
+//Maintenance - Cardstation's club
+
+/area/maintenance/club
+	name = "Xenobiology Maintenance"
+	icon_state = "yellow"
 
 //Maintenance - Generic
 
@@ -708,6 +713,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Lounge"
 	icon_state = "yellow"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/crew_quarters/barbershop
+	name = "Barbershop"
+	icon_state = "yellow"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/crew_quarters/fitness
 	name = "Fitness Room"
@@ -1179,6 +1189,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/surgery/aux
 	name = "Auxillery Surgery"
 	icon_state = "surgery"
+
+/area/medical/booth
+	name = "Medical Booth"
 
 /area/medical/cryo
 	name = "Cryogenics"
@@ -1829,3 +1842,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/relay
 	name = "Telecommunications Relay"
 	icon_state = "tcom_sat_cham"
+
+//Flavor area on Card Station
+
+/area/syndicate_sat
+	name = "Starboard Aft Bathroom" //syndies are spoofing sensor area reading
+	icon_state = "syndie-control"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED

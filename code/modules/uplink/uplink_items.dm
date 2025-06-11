@@ -2258,6 +2258,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 6
 	restricted_roles = list(JOB_NAME_CURATOR)
 
+/datum/uplink_item/role_restricted/rewind_camera
+	name = "Sepia-toned Camera"
+	desc = "A camera that rewinds subjects to the time that their photograph was taken after a while. It won't revive them, but wounds will close and limbs will re-attach. Can be refilled with any old film."
+	item = /obj/item/camera/rewind
+	cost = 7
+	restricted_roles = list(JOB_NAME_CURATOR, JOB_NAME_CHAPLAIN)
+
 /datum/uplink_item/role_restricted/his_grace
 	name = "His Grace"
 	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \

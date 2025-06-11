@@ -57,30 +57,33 @@
 	icon_state = "medidrobe"
 	product_ads = "Make those blood stains look fashionable!!"
 	vend_reply = "Thank you for using the MediDrobe!"
-	products = list(/obj/item/clothing/accessory/pocketprotector = 4,
-					/obj/item/storage/backpack/duffelbag/med = 4,
-					/obj/item/storage/backpack/medic = 4,
-					/obj/item/storage/backpack/satchel/med = 4,
-					/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
-					/obj/item/clothing/under/rank/medical/paramedic = 4,
-					/obj/item/clothing/under/rank/medical/paramedic/skirt = 4,
-					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
-					/obj/item/clothing/head/costume/nursehat = 4,
-					/obj/item/clothing/head/beret/med = 4,
-					/obj/item/clothing/mask/bandana/striped/medical = 4,
-					/obj/item/clothing/under/rank/medical/doctor/blue = 4,
-					/obj/item/clothing/under/rank/medical/doctor/green = 4,
-					/obj/item/clothing/under/rank/medical/doctor/purple = 4,
-					/obj/item/clothing/under/rank/medical/doctor = 4,
-					/obj/item/clothing/under/rank/medical/doctor/skirt= 4,
-					/obj/item/clothing/under/plasmaman/medical = 4,
-					/obj/item/clothing/head/helmet/space/plasmaman/medical = 4,
-					/obj/item/clothing/suit/toggle/labcoat = 4,
-					/obj/item/clothing/suit/toggle/labcoat/paramedic = 4,
-					/obj/item/clothing/shoes/sneakers/white = 4,
-					/obj/item/clothing/head/soft/paramedic = 4,
-					/obj/item/clothing/suit/apron/surgical = 4,
-					/obj/item/clothing/mask/surgical = 4)
+	products = list(
+		/obj/item/clothing/accessory/pocketprotector = 4,
+		/obj/item/storage/backpack/duffelbag/med = 4,
+		/obj/item/storage/backpack/medic = 4,
+		/obj/item/storage/backpack/satchel/med = 4,
+		/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
+		/obj/item/clothing/under/rank/medical/paramedic = 4,
+		/obj/item/clothing/under/rank/medical/paramedic/skirt = 4,
+		/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
+		/obj/item/clothing/head/costume/nursehat = 4,
+		/obj/item/clothing/head/beret/medical = 4,
+		/obj/item/clothing/mask/bandana/striped/medical = 4,
+		/obj/item/clothing/under/rank/medical/doctor/blue = 4,
+		/obj/item/clothing/under/rank/medical/doctor/green = 4,
+		/obj/item/clothing/under/rank/medical/doctor/purple = 4,
+		/obj/item/clothing/under/rank/medical/doctor = 4,
+		/obj/item/clothing/under/rank/medical/doctor/skirt= 4,
+		/obj/item/clothing/under/plasmaman/medical = 4,
+		/obj/item/clothing/head/helmet/space/plasmaman/medical = 4,
+		/obj/item/clothing/suit/toggle/labcoat = 4,
+		/obj/item/clothing/suit/toggle/labcoat/paramedic = 4,
+		/obj/item/clothing/shoes/sneakers/white = 4,
+		/obj/item/clothing/head/beret/medical/paramedic = 4,
+		/obj/item/clothing/head/soft/paramedic = 4,
+		/obj/item/clothing/suit/apron/surgical = 4,
+		/obj/item/clothing/mask/surgical = 4
+	)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
@@ -106,7 +109,7 @@
 					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
-					/obj/item/clothing/head/beret/eng = 3,
+					/obj/item/clothing/head/beret/engi = 3,
 					/obj/item/clothing/mask/bandana/striped/engineering = 3,
 					/obj/item/clothing/head/utility/hardhat = 3,
 					/obj/item/clothing/head/utility/hardhat/welding = 3,
@@ -161,7 +164,7 @@
 		/obj/item/clothing/gloves/fingerless = 3,
 		/obj/item/clothing/mask/bandana/striped/cargo = 3,
 		/obj/item/clothing/head/soft/cargo = 3,
-		/obj/item/clothing/head/beret/supply = 3,
+		/obj/item/clothing/head/beret/cargo = 3,
 		/obj/item/radio/headset/headset_cargo = 3
 		)
 
@@ -202,7 +205,7 @@
 					/obj/item/clothing/gloves/fingerless = 2,
 					/obj/item/clothing/head/soft/black = 2,
 					/obj/item/clothing/mask/bandana/skull/black = 2,
-					/obj/item/clothing/head/beret/sci = 2)
+					/obj/item/clothing/head/beret/science = 2)
 
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2,
 					/obj/item/organ/tongue/robot = 2,
@@ -237,7 +240,7 @@
 					/obj/item/clothing/shoes/sneakers/white = 3,
 					/obj/item/radio/headset/headset_sci = 3,
 					/obj/item/clothing/mask/gas = 3,
-					/obj/item/clothing/head/beret/sci = 3,
+					/obj/item/clothing/head/beret/science = 3,
 					/obj/item/clothing/head/cowboy/science = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/science/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
@@ -502,7 +505,7 @@
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/bag/chemistry = 2,
-					/obj/item/clothing/head/beret/med = 2)
+					/obj/item/clothing/head/beret/medical = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chem_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 /obj/item/vending_refill/wardrobe/chem_wardrobe

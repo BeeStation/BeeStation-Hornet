@@ -40,11 +40,11 @@
 	if(!M.has_dna())
 		return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==VAPOR && prob(min(33, reac_volume))) || method==INGEST || method==PATCH || method==INJECT)
-		M.randmuti()
+		M.random_mutate_unique_identity()
 		if(prob(98))
-			M.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			M.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 		else
-			M.easy_randmut(POSITIVE)
+			M.easy_random_mutate(POSITIVE)
 		M.updateappearance()
 		M.domutcheck()
 	..()
@@ -303,9 +303,18 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "piss water"
-	glass_icon_state = "beerglass"
-	glass_name = "glass of beer"
-	glass_desc = "A freezing pint of beer."
+
+/datum/glass_style/drinking_glass/fakebeer
+	required_drink_type = /datum/reagent/toxin/fakebeer
+
+/datum/glass_style/drinking_glass/fakebeer/New()
+	. = ..()
+	// Copy styles from the beer drinking glass datum
+	var/datum/glass_style/copy_from = /datum/glass_style/drinking_glass/beer
+	name = initial(copy_from.name)
+	desc = initial(copy_from.desc)
+	icon = initial(copy_from.icon)
+	icon_state = initial(copy_from.icon_state)
 
 /datum/reagent/toxin/fakebeer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	switch(current_cycle)

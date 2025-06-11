@@ -1,6 +1,7 @@
 /obj/item/melee/baton
 	name = "stun baton"
-	desc = "A stun baton for incapacitating people with. Left click to stun, right click to baton shove."
+	desc = "A stun baton for incapacitating people with."
+	desc_controls = "Left click to stun, right click to baton shove."
 
 	icon_state = "stunbaton"
 	item_state = "baton"
