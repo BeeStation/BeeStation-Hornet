@@ -92,7 +92,7 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = /datum/dog_fashion/head/clown
 	var/list/mask_designs = list()
-	salvage_material = /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter
+	salvage_material = /obj/item/reagent_containers/cup/soda_cans/canned_laughter
 	salvage_amount = 1
 	secondary_salvage_material = /obj/item/reagent_containers/spray/waterflower/superlube //Have fun clown mains
 	secondary_salvage_amount = 1
@@ -150,7 +150,7 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
 	var/list/mask_designs = list()
-	salvage_material = /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing
+	salvage_material = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing
 	salvage_amount = 1
 	secondary_salvage_material = /obj/item/toy/crayon/spraycan/mimecan
 

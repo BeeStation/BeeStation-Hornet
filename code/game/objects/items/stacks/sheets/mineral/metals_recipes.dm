@@ -2,14 +2,15 @@
 //Expect scissors to be moved away from here to a more interesting and balanced place
 
 GLOBAL_LIST_INIT(metal_recipes, list ( \
-	new/datum/stack_recipe("stool",										/obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-	new/datum/stack_recipe("bar stool",									/obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-	new/datum/stack_recipe("scavenger scissors",						/obj/item/wirecutters/scissors/scavenger, 5, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-
+	new/datum/stack_recipe("scavenger scissors",						/obj/item/wirecutters/scissors/scavenger, 5, time = 1.5 SECONDS), \
 	null, \
 	new/datum/stack_recipe_list("office chairs", list( \
 		new/datum/stack_recipe("dark office chair", /obj/structure/chair/office, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
 		new/datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
+		)), \
+	new/datum/stack_recipe_list("stools", list( \
+		new/datum/stack_recipe("stool",	, /obj/structure/chair/stool, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
+		new/datum/stack_recipe("bar stool",	 /obj/structure/chair/stool/bar, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
 		)), \
 	new/datum/stack_recipe_list("beds", list( \
 		new/datum/stack_recipe("single bed", /obj/structure/bed, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 2 SECONDS, category = CAT_FURNITURE), \

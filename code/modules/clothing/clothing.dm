@@ -163,19 +163,6 @@
 	playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE) //this sounds more like scissors
 	qdel(src)
 
-/obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
-	if(HAS_BLOOD_DNA(src) && salvage_material == /obj/item/stack/sheet/cotton/cloth)
-		new /obj/item/stack/sheet/cotton/cloth/bloody(user.drop_location(), salvage_amount)
-	else
-		new salvage_material(user.drop_location(), salvage_amount)
-	if(secondary_salvage_material != null)
-		new secondary_salvage_material(user.drop_location(), secondary_salvage_amount)
-	user.visible_message("[user] salvages some usable materials from [src].", \
-		"<span class='notice'>You salvage some usable materials from [src].</span>", \
-		"<span class='hear'>You hear salvaging.</span>")
-	playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE) //this sounds more like scissors
-	qdel(src)
-
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
 	if(istype(W, repairable_by))
 		switch(damaged_clothes)

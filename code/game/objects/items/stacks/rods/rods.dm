@@ -133,7 +133,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	singular_name = "plasteel scrap"
 	icon_state = "plasteel_scraps"
 	item_state = "plasteel_scraps"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	mats_per_unit = list(/datum/material/alloy/plasteel=100)
 	merge_type = /obj/item/stack/rods/scrap/plasteel
@@ -164,7 +163,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	item_state = "glass_scraps"
 	flags_1 = NONE
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 100,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100, STAMINA = 0, BLEED = 0)
 	mats_per_unit = list(/datum/material/glass=100)
 	merge_type = /obj/item/stack/rods/scrap/glass
 	attack_verb_continuous = list("stabs", "slashes", "slices", "cuts")
