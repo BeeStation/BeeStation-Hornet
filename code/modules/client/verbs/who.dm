@@ -12,17 +12,26 @@
 
 /client/proc/staff_who(via)
 	var/list/lines = list()
-	var/payload_string = generate_staffwho_string()
+
 	var/header
+	var/payload_string = generate_adminwho_string()
 	var/header2
+	var/payload_string2 = generate_mentor_string()
 
 	if(payload_string == NO_ADMINS_ONLINE_MESSAGE)
 		header = "No Admins Currently Online"
 	else
 		header = "Current Admins:"
 
+	if(!payload_string2)
+		header2 = "No Mentors Currently Online"
+	else
+		header2 = "Current Mentors:"
+
 	lines += span_bold(header)
 	lines += payload_string
+	lines += span_bold(header2)
+	lines += payload_string2
 
 	if(world.time - src.staff_check_rate > 1 MINUTES)
 		message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff[via ? " (via [via])" : ""].")
@@ -32,7 +41,7 @@
 	to_chat(src, finalized_string)
 
 /// Proc that generates the applicable string to dispatch to the client for adminwho.
-/client/proc/generate_staffwho_string()
+/client/proc/generate_adminwho_string()
 	var/list/list_of_admins = get_list_of_admins()
 	if(isnull(list_of_admins))
 		return NO_ADMINS_ONLINE_MESSAGE
@@ -43,6 +52,15 @@
 		message_strings += NO_ADMINS_ONLINE_MESSAGE
 	else
 		message_strings += get_sensitive_adminwho_information(list_of_admins)
+
+	return jointext(message_strings, "\n")
+
+/// Proc that generates the applicable string to dispatch to the client for adminwho.
+/client/proc/generate_mentor_string()
+	var/list/list_of_mentors = get_list_of_mentors()
+
+	var/list/message_strings = list()
+	message_strings += get_mentor_information(list_of_mentors)
 
 	return jointext(message_strings, "\n")
 
@@ -71,8 +89,6 @@
 		return null
 
 	return returnable_list
-
-/proc/get_mentor_information()
 
 /*
 /// Proc that will return the applicable display name, linkified or not, based on the input client reference.
@@ -127,6 +143,36 @@
 			admin_strings += "(AFK)"
 
 		returnable_list += jointext(admin_strings, " ")
+
+	return returnable_list
+
+/proc/get_mentor_information(list/checkable_mentors)
+	var/returnable_list = list()
+
+	for(var/client/mentor in checkable_mentors)
+		var/list/mentor_strings = list()
+
+		var/rank = "\improper [mentor.holder.rank]"
+		mentor_strings += "• [mentor] is \a [rank]"
+
+		if(isobserver(mentor.mob))
+			mentor_strings += "- Observing"
+		else if(isnewplayer(mentor.mob))
+			if(SSticker.current_state <= GAME_STATE_PREGAME)
+				var/mob/dead/new_player/lobbied_mentor = mentor.mob
+				if(lobbied_mentor.ready == PLAYER_READY_TO_PLAY)
+					mentor_strings += "- Lobby (Readied)"
+				else
+					mentor_strings += "- Lobby (Not Readied)"
+			else
+				mentor_strings += "- Lobby"
+		else
+			mentor_strings += "- Playing"
+
+		if(mentor.is_afk())
+			mentor_strings += "(AFK)"
+
+		returnable_list += jointext(mentor_strings, " ")
 
 	return returnable_list
 
