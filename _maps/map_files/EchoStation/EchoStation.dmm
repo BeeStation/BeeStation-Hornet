@@ -3542,11 +3542,6 @@
 /obj/structure/railing/corner,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
-"bxZ" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron,
-/area/ai_monitored/turret_protected/aisat/maint)
 "byk" = (
 /obj/structure/closet/secure_closet/lethalshots,
 /obj/effect/turf_decal/bot,
@@ -11240,6 +11235,13 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/science/xenobiology)
+"fjI" = (
+/obj/structure/lattice/catwalk/over,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/maint)
 "fkk" = (
 /obj/item/trash/semki,
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -16509,6 +16511,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
+"hLJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/maint)
 "hMe" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/iron,
@@ -32757,16 +32764,6 @@
 "pVY" = (
 /turf/closed/wall,
 /area/engine/engineering)
-"pWj" = (
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/maint)
 "pWq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -38112,11 +38109,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
-"sHA" = (
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/maint)
 "sHD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -192955,7 +192947,7 @@ gVA
 gVA
 rFF
 cDM
-bxZ
+bag
 rFF
 gVA
 gVA
@@ -193468,8 +193460,8 @@ bEB
 rFF
 rFF
 rFF
-sYE
-bXz
+dvV
+hLJ
 rFF
 bXz
 bXz
@@ -193723,18 +193715,18 @@ bCu
 rFF
 ltd
 jLI
-jLI
-jLI
-pWj
-sHA
-lsv
+fjI
+rFF
+sYE
+bXz
+rFF
 xWe
 xWe
 xWe
-xWe
-xWe
-xWe
-xWe
+nnt
+nnt
+nnt
+nnt
 xWe
 ctU
 ipu
@@ -193987,11 +193979,11 @@ lnr
 lsv
 fdh
 fdh
-fdh
-fdh
-fdh
-fdh
-fdh
+xWe
+xWe
+xWe
+xWe
+xWe
 xWe
 gim
 gim
