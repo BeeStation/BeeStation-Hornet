@@ -16,22 +16,36 @@
 	var/header
 	var/payload_string = generate_adminwho_string()
 	var/header2
-	var/payload_string2 = generate_mentor_string()
+	var/payload_string2 = generate_maintainer_string()
+	var/header3
+	var/payload_string3 = generate_mentor_string()
 
 	if(payload_string == NO_ADMINS_ONLINE_MESSAGE)
 		header = "No Admins Currently Online"
 	else
 		header = "Current Admins:"
 
-	if(!payload_string2)
-		header2 = "No Mentors Currently Online"
-	else
-		header2 = "Current Mentors:"
+	// notifying the absence of non-admins has no point
+	if(payload_string2)
+		header2 = "Current Maintainers:"
+
+	if(payload_string3)
+		header3 = "Current Mentors:"
 
 	lines += span_bold(header)
 	lines += payload_string
-	lines += span_bold(header2)
-	lines += payload_string2
+
+	var/disclaimer = "<b>Non-admin staff are unable to handle adminhelp tickets.<b>"
+	if(header2||header3)
+		lines += disclaimer
+
+	if(header2)
+		lines += span_bold(header2)
+		lines += payload_string2
+
+	if(header3)
+		lines += span_bold(header3)
+		lines += payload_string3
 
 	if(world.time - src.staff_check_rate > 1 MINUTES)
 		message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff[via ? " (via [via])" : ""].")
@@ -56,6 +70,14 @@
 	return jointext(message_strings, "\n")
 
 /// Proc that generates the applicable string to dispatch to the client for adminwho.
+/client/proc/generate_maintainer_string()
+	var/list/list_of_maintainers = get_list_of_maintainers()
+
+	var/list/message_strings = list()
+	message_strings += get_maintainer_information(list_of_maintainers)
+
+	return jointext(message_strings, "\n")
+
 /client/proc/generate_mentor_string()
 	var/list/list_of_mentors = get_list_of_mentors()
 
@@ -70,7 +92,24 @@
 	var/returnable_list = list()
 
 	for(var/client/admin in GLOB.admins)
-		returnable_list += admin
+		//All admins have R_ADMIN rights
+		if(check_rights_for(admin, R_ADMIN))
+			returnable_list += admin
+
+	if(length(returnable_list) == 0)
+		return null
+
+	return returnable_list
+
+/// Proc that returns a list of cliented maintainers. Remember that this list can contain nulls!
+/// Also, will return null if we don't have any maintainers.
+/proc/get_list_of_maintainers()
+	var/returnable_list = list()
+
+	for(var/client/maintainer in GLOB.admins)
+		//Maintainers are admins, just without R_ADMIN rights
+		if(!check_rights_for(maintainer, R_ADMIN))
+			returnable_list += maintainer
 
 	if(length(returnable_list) == 0)
 		return null
@@ -120,7 +159,7 @@
 		var/list/admin_strings = list()
 
 		var/rank = "\improper [admin.holder.rank]"
-		admin_strings += "• [admin] is \a [rank]"
+		admin_strings += "• [admin] is \a <span class='[rank]'>[rank]</span>"
 
 		if(admin.holder.fakekey)
 			admin_strings += "<i>(as [admin.holder.fakekey])</i>"
@@ -146,6 +185,21 @@
 
 	return returnable_list
 
+
+/proc/get_maintainer_information(list/checkable_maints)
+	var/returnable_list = list()
+
+	for(var/client/maint in checkable_maints)
+		if(maint.is_afk() || !isnull(maint.holder.fakekey))
+			continue //Don't show afk or fakekeyed maints to adminwho
+
+		var/rank = "\improper [maint.holder.rank]"
+
+		if(!check_rights_for(maint, R_ADMIN))
+			returnable_list += "• [maint] is \a <span class='maintainer'>[rank]</span>"
+
+	return returnable_list
+
 /proc/get_mentor_information(list/checkable_mentors)
 	var/returnable_list = list()
 
@@ -153,7 +207,7 @@
 		var/list/mentor_strings = list()
 
 		var/rank = "\improper [mentor.holder.rank]"
-		mentor_strings += "• [mentor] is \a [rank]"
+		mentor_strings += "• [mentor] is \a <span class='mentor'>[rank]</span>"
 
 		if(isobserver(mentor.mob))
 			mentor_strings += "- Observing"
