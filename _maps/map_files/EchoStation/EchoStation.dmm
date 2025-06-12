@@ -4968,7 +4968,6 @@
 /area/storage/primary)
 "ciS" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "ciU" = (
@@ -9980,10 +9979,6 @@
 /area/engine/atmos)
 "eLk" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
-	dir = 8;
-	pixel_y = 0
-	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
@@ -35470,7 +35465,6 @@
 /area/security/nuke_storage)
 "roj" = (
 /obj/effect/turf_decal/trimline/dark_red/filled/warning,
-/obj/machinery,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -44112,7 +44106,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/machinery/firealarm/directional/north{
-	pixel_y = 0;
+	pixel_y = -3;
 	pixel_x = -27;
 	dir = 8
 	},
@@ -44195,7 +44189,6 @@
 	req_access_txt = "65"
 	},
 /obj/effect/turf_decal/trimline/dark_red/filled/warning,
-/obj/machinery,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
