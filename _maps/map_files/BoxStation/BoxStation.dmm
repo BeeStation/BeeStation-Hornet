@@ -14359,19 +14359,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/supermatter)
-"cEv" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "cEw" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
@@ -14382,19 +14369,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/open/floor/engine,
-/area/engine/supermatter)
-"cEy" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cEz" = (
@@ -14511,32 +14485,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"cFe" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
-"cFh" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "cFj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -17012,6 +16960,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
+"duq" = (
+/obj/structure/closet/secure_closet/detective,
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "dus" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -34024,6 +33979,19 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"kez" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "keR" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
@@ -34788,6 +34756,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
+"kuB" = (
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "kuC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -38735,6 +38716,19 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"mej" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "met" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -51251,24 +51245,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"rli" = (
-/obj/structure/closet/secure_closet/detective,
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
-/obj/item/assembly/flash/handheld,
-/obj/item/restraints/handcuffs,
-/obj/machinery/status_display/evac{
-	pixel_y = -32
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "rlp" = (
 /obj/structure/sign/warning/securearea{
 	pixel_x = 32
@@ -67180,6 +67156,19 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
+"xzN" = (
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "xzU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -97399,9 +97388,9 @@ cqf
 cqD
 cMD
 crs
-cEv
-cEv
-cFe
+mej
+mej
+xzN
 cMD
 cFM
 czE
@@ -98427,9 +98416,9 @@ hqm
 cMD
 cAP
 crv
-cEy
-cEy
-cFh
+kez
+kez
+kuB
 cMD
 cFM
 czE
@@ -99870,7 +99859,7 @@ hVN
 msO
 vYB
 nWL
-rli
+duq
 wQj
 anA
 iRe

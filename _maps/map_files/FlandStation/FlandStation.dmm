@@ -3657,6 +3657,23 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"aRc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "aRe" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -16848,6 +16865,17 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"exk" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/cable,
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "exq" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -32699,24 +32727,6 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
-"irV" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/closet/secure_closet/detective,
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
-/obj/item/holosign_creator/security,
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "irW" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
@@ -34647,6 +34657,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"iPu" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/cable,
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "iPv" = (
 /turf/open/floor/plating{
 	broken = 1
@@ -42255,6 +42276,14 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/science/research)
+"kNy" = (
+/obj/machinery/camera/directional/south{
+	c_tag = "Engineering - Secure Storage";
+	name = "engineering camera"
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron/dark,
+/area/engine/engine_room)
 "kNG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -51800,14 +51829,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
-"njt" = (
-/obj/machinery/camera/directional/south{
-	c_tag = "Engineering - Secure Storage";
-	name = "engineering camera"
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "njL" = (
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/bot,
@@ -52279,6 +52300,10 @@
 /obj/machinery/power/shieldwallgen,
 /turf/open/floor/engine,
 /area/maintenance/department/engine)
+"nrG" = (
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron/dark,
+/area/engine/engine_room)
 "nrL" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
@@ -52621,17 +52646,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/construction/mining/aux_base)
-"nwa" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line,
-/obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "nwg" = (
 /obj/item/radio/intercom{
 	pixel_y = 24
@@ -54431,6 +54445,14 @@
 "nVS" = (
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
+"nWa" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/detective,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "nWo" = (
 /obj/machinery/telecomms/server/presets/exploration,
 /obj/effect/turf_decal/stripes/end{
@@ -61981,6 +62003,20 @@
 	},
 /turf/open/floor/iron/ridged,
 /area/crew_quarters/toilet/auxiliary)
+"pWR" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/cable,
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/camera/directional/west{
+	c_tag = "Supermatter Chamber"
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "pWT" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
@@ -69311,17 +69347,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port)
-"rOa" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/red/line,
-/obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "rOe" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/closeup,
@@ -78569,25 +78594,6 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
-"uhu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 1
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "uhJ" = (
 /obj/machinery/biogenerator,
 /obj/structure/cable/yellow{
@@ -82701,23 +82707,6 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
-"vhm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 1
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "vhn" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rd,
@@ -83528,20 +83517,6 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
-"vqc" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line,
-/obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
-/obj/machinery/camera/directional/west{
-	c_tag = "Supermatter Chamber"
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "vqq" = (
 /obj/structure/chair/stool/directional/south,
 /obj/effect/landmark/start/assistant,
@@ -84421,6 +84396,25 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"vwL" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "vwP" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
@@ -87414,10 +87408,6 @@
 "whv" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/vault,
-/area/engine/engine_room)
-"whE" = (
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "whQ" = (
 /obj/structure/cable{
@@ -128570,7 +128560,7 @@ iSJ
 xgk
 iOM
 njq
-irV
+nWa
 hhg
 iSJ
 ery
@@ -145808,8 +145798,8 @@ kXP
 vro
 mFf
 wBq
-whE
-njt
+nrG
+kNy
 wWM
 hNB
 kvw
@@ -146823,11 +146813,11 @@ xvC
 iro
 uxj
 vMJ
-vqc
+pWR
 qmU
 wNG
 aUg
-vhm
+aRc
 edg
 uxj
 ekl
@@ -147080,11 +147070,11 @@ xvC
 iro
 uxj
 vMJ
-nwa
+iPu
 txe
 apy
 mDD
-vhm
+aRc
 edg
 uxj
 rJD
@@ -147337,11 +147327,11 @@ lMA
 hXT
 uxj
 xht
-rOa
+exk
 bfG
 cKc
 cvq
-uhu
+vwL
 jlC
 uxj
 ekA

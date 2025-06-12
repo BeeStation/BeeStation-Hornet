@@ -3553,19 +3553,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"axx" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/circuit/green,
-/area/engine/supermatter)
 "axy" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
@@ -3580,19 +3567,6 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
-"axB" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axD" = (
 /obj/structure/cable{
@@ -4088,32 +4062,6 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/open/floor/plating,
-/area/engine/supermatter)
-"azT" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/circuit/green,
-/area/engine/supermatter)
-"azU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "azV" = (
 /obj/machinery/light/small{
@@ -16506,15 +16454,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cje" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "cjf" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engpa";
@@ -18348,11 +18287,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engineering)
-"ctB" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "ctC" = (
 /obj/machinery/power/emitter,
 /obj/effect/decal/cleanable/dirt,
@@ -18565,16 +18499,6 @@
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/engine/engineering)
-"cvb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera/directional/south{
-	c_tag = "Engineering - Secure Storage";
-	name = "engineering camera"
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cvc" = (
@@ -19723,16 +19647,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cAK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "cAL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -40713,6 +40627,19 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"hbu" = (
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green,
+/area/engine/supermatter)
 "hby" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -52176,6 +52103,11 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/warehouse)
+"kNc" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "kNg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -54746,21 +54678,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
-"lHS" = (
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
-/obj/structure/closet/secure_closet/detective,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/light/small,
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
-/turf/open/floor/iron/dark,
-/area/security/detectives_office)
 "lHU" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -57300,6 +57217,16 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
+"myh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/engine/engineering)
 "myl" = (
 /obj/machinery/light{
 	dir = 1
@@ -57920,6 +57847,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"mHE" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green,
+/area/engine/supermatter)
 "mHM" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -61704,6 +61644,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/science/research)
+"nMD" = (
+/obj/structure/closet/secure_closet/detective,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/light/small,
+/turf/open/floor/iron/dark,
+/area/security/detectives_office)
 "nMG" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/carpet/blue,
@@ -65272,6 +65218,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"oXg" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green,
+/area/engine/supermatter)
 "oXw" = (
 /obj/machinery/atmospherics/components/trinary/filter{
 	dir = 8
@@ -67809,6 +67768,15 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"pPA" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/engine/engineering)
 "pPS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -74691,6 +74659,19 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
+"rVv" = (
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green,
+/area/engine/supermatter)
 "rVK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -75480,6 +75461,16 @@
 "sif" = (
 /turf/open/floor/iron/white,
 /area/science/shuttledock)
+"siC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera/directional/south{
+	c_tag = "Engineering - Secure Storage";
+	name = "engineering camera"
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "siD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -118404,9 +118395,9 @@ cbU
 gZT
 cfC
 chu
-cje
-cje
-cje
+pPA
+pPA
+pPA
 hcT
 cpa
 cqr
@@ -118414,9 +118405,9 @@ cqr
 ctp
 cuQ
 hcT
-cje
-cje
-cAK
+pPA
+pPA
+myh
 cCr
 cfC
 eLp
@@ -120148,9 +120139,9 @@ gVb
 atQ
 auZ
 awg
-axx
-azT
-azT
+rVv
+oXg
+oXg
 aAU
 aCl
 awg
@@ -121176,9 +121167,9 @@ mXY
 atU
 avd
 awg
-axB
-azU
-azU
+hbu
+mHE
+mHE
 aAY
 aCl
 awg
@@ -122009,8 +122000,8 @@ car
 cpk
 cqE
 vXR
-ctB
-cvb
+kNc
+siC
 cwo
 cxL
 bEs
@@ -139220,7 +139211,7 @@ bHr
 nGr
 kJx
 jDr
-lHS
+nMD
 bMW
 fHN
 wyY

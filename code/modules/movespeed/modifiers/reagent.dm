@@ -44,3 +44,4 @@
 
 /datum/movespeed_modifier/reagent/nuka_cola
 	multiplicative_slowdown = -0.25
+
