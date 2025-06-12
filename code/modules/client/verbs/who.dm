@@ -1,3 +1,5 @@
+#define NO_ADMINS_ONLINE_MESSAGE "Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game, sending an adminhelp might still be noticed and responded to."
+
 /client/verb/staffwho()
 	set category = "Admin"
 	set name = "Staffwho"
@@ -9,76 +11,97 @@
 	staff_who("Mentorwho")
 
 /client/proc/staff_who(via)
-	var/msg
+	var/list/lines = list()
+	//Assoc list
+	var/list/staff_info = list(
+		"admin" = list(
+			"header" = "Current Admins:",
+			"empty_header" = "No Admins Currently Online",
+			"data" = generate_staff_list("admin")
+		),
+		"maintainer" = list(
+			"header" = "Current Maintainers:",
+			"data" = generate_staff_list("maintainer")
+		),
+		"mentor" = list(
+			"header" = "Current Mentors:",
+			"data" = generate_staff_list("mentor")
+		)
+	)
 
-	// when you are admin
-	if(holder)
-		msg = "<b>Current Admins:</b>\n"
-		for(var/client/C in GLOB.admins)
-			var/rank = "\improper [C.holder.rank]"
-			msg += "\t[C] is \a [rank]"
+	var/admin_data = staff_info["admin"]["data"]
+	lines += span_bold(admin_data ? staff_info["admin"]["header"] : staff_info["admin"]["empty_header"])
+	lines += admin_data || NO_ADMINS_ONLINE_MESSAGE
 
+	// Add disclaimer if other staff exists
+	if(staff_info["maintainer"]["data"] || staff_info["mentor"]["data"])
+		lines += "<b>Non-admin staff are unable to handle adminhelp tickets.</b>"
+
+	for(var/staff_type in list("maintainer", "mentor"))
+		var/list/staff_data = staff_info[staff_type]
+		if(staff_data["data"])
+			lines += span_bold(staff_data["header"])
+			lines += staff_data["data"]
+
+	if(world.time - src.staff_check_rate > 1 MINUTES)
+		message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff[via ? " (via [via])" : ""].")
+		log_admin("[key_name(src)] has checked online staff[via ? " (via [via])" : ""].")
+		src.staff_check_rate = world.time
+
+	to_chat(src, examine_block(jointext(lines, "\n")))
+
+/client/proc/generate_staff_list(staff_type)
+	var/list/staff_list
+	switch(staff_type)
+		if("admin")
+			staff_list = get_staff_list(GLOB.admins, R_ADMIN, TRUE)
+		if("maintainer")
+			staff_list = get_staff_list(GLOB.admins, R_ADMIN, FALSE)
+		if("mentor")
+			staff_list = get_staff_list(GLOB.mentors)
+
+	return length(staff_list) ? format_staff_list(staff_list, holder != null) : null
+
+/proc/get_staff_list(list/global_list, rights = null, has_rights = null)
+	var/list/staff = list()
+	for(var/client/C in global_list)
+		if(!isnull(rights) && !isnull(has_rights))
+			if(has_rights != check_rights_for(C, rights))
+				continue
+		staff += C
+	return length(staff) ? staff : null
+
+/proc/format_staff_list(list/staff_list, show_sensitive = FALSE)
+	var/list/formatted = list()
+	for(var/client/C in staff_list)
+		if(!show_sensitive && (C.is_afk() || !isnull(C.holder.fakekey)))
+			continue
+
+		var/list/info = list()
+		var/rank = "\improper [C.holder.rank]"
+		info += "• [C] is \a <span class='[rank]'>[rank]</span>"
+
+		if(show_sensitive)
 			if(C.holder.fakekey)
-				msg += " <i>(as [C.holder.fakekey])</i>"
+				info += "<i>(as [C.holder.fakekey])</i>"
 
 			if(isobserver(C.mob))
-				msg += " - Observing"
+				info += "- Observing"
 			else if(isnewplayer(C.mob))
-				msg += " - Lobby"
+				info += get_lobby_status(C)
 			else
-				msg += " - Playing"
+				info += "- Playing"
 
 			if(C.is_afk())
-				msg += " (AFK)"
-			msg += "\n"
-		msg += "<b>Current Mentors:</b>\n"
-		for(var/client/C in GLOB.mentors)
-			msg += "\t[C] is a Mentor"
+				info += "(AFK)"
 
-			if(isobserver(C.mob))
-				msg += " - Observing"
-			else if(isnewplayer(C.mob))
-				msg += " - Lobby"
-			else
-				msg += " - Playing"
+		formatted += jointext(info, " ")
+	return jointext(formatted, "\n")
 
-			if(C.is_afk())
-				msg += " (AFK)"
-			msg += "\n"
+/proc/get_lobby_status(client/C)
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
+		var/mob/dead/new_player/player = C.mob
+		return "- Lobby [(player.ready == PLAYER_READY_TO_PLAY) ? "(Readied)" : "(Not Readied)"]"
+	return "- Lobby"
 
-	// for standard players
-	else
-		var/list/admin_list = list()
-		var/list/non_admin_list = list()
-		for(var/client/C in GLOB.admins)
-			if(C.is_afk())
-				continue //Don't show afk admins to adminwho
-			if(!C.holder.fakekey)
-				if(check_rights_for(C, R_ADMIN)) // ahelp needs R_ADMIN. If they have R_ADMIN, they'll be listed in admin list.
-					var/rank = "\improper [C.holder.rank]"
-					admin_list += "\t[C] is \a [rank]\n"
-				else // admins without R_ADMIN perm should be sorted in different area, so that people won't believe coders will handle ahelp
-					var/rank = "\improper [C.holder.rank]"
-					non_admin_list += "\t[C] is \a [rank]\n"
-
-		msg = "<b>Current Admins:</b>\n"
-		for(var/each in admin_list)
-			msg += each
-		if(length(non_admin_list)) // notifying the absence of non-admins has no point
-			msg += "<b>Current Maintainers:</b>\n"
-			msg += "\t[span_info("Non-admin staff are unable to handle adminhelp tickets.")]\n"
-			for(var/each in non_admin_list)
-				msg += each
-		msg += "<b>Current Mentors:</b>\n"
-		for(var/client/C in GLOB.mentors)
-			if(C.is_afk())
-				continue //Don't show afk admins to adminwho
-			msg += "\t[C] is a Mentor\n"
-
-		msg += span_info("Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.")
-		if(world.time - src.staff_check_rate > 1 MINUTES)
-			message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff[via ? " (via [via])" : ""].")
-			log_admin("[key_name(src)] has checked online staff[via ? " (via [via])" : ""].")
-			src.staff_check_rate = world.time
-	to_chat(src, msg)
-
+#undef NO_ADMINS_ONLINE_MESSAGE

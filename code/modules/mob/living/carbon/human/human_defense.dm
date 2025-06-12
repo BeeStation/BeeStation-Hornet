@@ -637,9 +637,12 @@
 /mob/living/carbon/human/check_self_for_injuries()
 	if(stat >= UNCONSCIOUS)
 		return
+	var/list/combined_msg = list()
 
-	visible_message("[src] examines [p_them()]self.", \
-		span_notice("You check yourself for injuries."))
+	visible_message(span_notice("[src] examines [p_them()]self."))
+
+	combined_msg += span_notice("<b>You check yourself for injuries.</b>")
+
 	var/list/harm_descriptors = dna?.species.get_harm_descriptors()
 	harm_descriptors ||= list("bleed" = "bleeding")
 	var/bleed_msg = harm_descriptors["bleed"]
@@ -696,56 +699,57 @@
 				isdisabled += " but otherwise "
 			else
 				isdisabled += " and "
-		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>")
+		combined_msg += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>"
 
 		for(var/obj/item/I in LB.embedded_objects)
 			if(I.isEmbedHarmless())
-				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
+				combined_msg += "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>"
 			else
-				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+				combined_msg += "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		to_chat(src, span_boldannounce("Your [parse_zone(t)] is missing!"))
+		combined_msg += span_boldannounce("Your [parse_zone(t)] is missing!")
 
 	if(is_bleeding())
-		to_chat(src, span_danger("You are [bleed_msg]!"))
+		combined_msg += span_danger("You are [bleed_msg]!")
 	else if (is_bandaged())
-		to_chat(src, span_danger("Your [bleed_msg] is bandaged!"))
+		combined_msg += span_danger("Your [bleed_msg] is bandaged!")
+
 	if(getStaminaLoss())
 		if(getStaminaLoss() > 30)
-			to_chat(src, span_info("You're completely exhausted."))
+			combined_msg += span_info("You're completely exhausted.")
 		else
-			to_chat(src, span_info("You feel fatigued."))
+			combined_msg += span_info("You feel fatigued.")
 	if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
 		if(toxloss)
 			if(toxloss > 10)
-				to_chat(src, span_danger("You feel sick."))
+				combined_msg += span_danger("You feel sick.")
 			else if(toxloss > 20)
-				to_chat(src, span_danger("You feel nauseated."))
+				combined_msg += span_danger("You feel nauseated.")
 			else if(toxloss > 40)
-				to_chat(src, span_danger("You feel very unwell!"))
+				combined_msg += span_danger("You feel very unwell!")
 		if(oxyloss)
 			if(oxyloss > 10)
-				to_chat(src, span_danger("You feel lightheaded."))
+				combined_msg += span_danger("You feel lightheaded.")
 			else if(oxyloss > 20)
-				to_chat(src, span_danger("Your thinking is clouded and distant."))
+				combined_msg += span_danger("Your thinking is clouded and distant.")
 			else if(oxyloss > 30)
-				to_chat(src, span_danger("You're choking!"))
+				combined_msg += span_danger("You're choking!")
 
 	if(!HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
-				to_chat(src, span_info("You're completely stuffed!"))
+				combined_msg += span_info("You're completely stuffed!")
 			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				to_chat(src, span_info("You're well fed!"))
+				combined_msg += span_info("You're well fed!")
 			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				to_chat(src, span_info("You're not hungry."))
+				combined_msg += span_info("You're not hungry.")
 			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				to_chat(src, span_info("You could use a bite to eat."))
+				combined_msg += span_info("You could use a bite to eat.")
 			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				to_chat(src, span_info("You feel quite hungry."))
+				combined_msg += span_info("You feel quite hungry.")
 			if(0 to NUTRITION_LEVEL_STARVING)
-				to_chat(src, span_danger("You're starving!"))
+				combined_msg += span_danger("You're starving!")
 
 	//Compiles then shows the list of damaged organs and broken organs
 	var/list/broken = list()
@@ -776,7 +780,7 @@
 		//Put the items in that list into a string of text
 		for(var/B in broken)
 			broken_message += B
-		to_chat(src, span_warning(" Your [broken_message] [broken_plural ? "are" : "is"] non-functional!"))
+		combined_msg += span_warning(" Your [broken_message] [broken_plural ? "are" : "is"] non-functional!")
 	if(damaged.len)
 		if(damaged.len > 1)
 			damaged.Insert(damaged.len, "and ")
@@ -787,10 +791,12 @@
 				damaged_plural = TRUE
 		for(var/D in damaged)
 			damaged_message += D
-		to_chat(src, span_info("Your [damaged_message] [damaged_plural ? "are" : "is"] hurt."))
+		combined_msg += span_info("Your [damaged_message] [damaged_plural ? "are" : "is"] hurt.")
 
 	if(length(mind?.quirks))
-		to_chat(src, span_notice("You have these quirks: [get_quirk_string()]."))
+		combined_msg += span_notice("You have these quirks: [get_quirk_string()].")
+
+	to_chat(src, examine_block(combined_msg.Join("\n")))
 
 /mob/living/carbon/human/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
 	if(damage_type != BRUTE && damage_type != BURN)
