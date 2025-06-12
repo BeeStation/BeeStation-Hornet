@@ -23,6 +23,9 @@
 	update_pipenets()
 	update_appearance()
 
+	if(COOLDOWN_FINISHED(src, next_stat_interval))
+		update_logged_data()
+
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/atmos_process(delta_time)
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]

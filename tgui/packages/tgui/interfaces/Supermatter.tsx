@@ -88,6 +88,7 @@ const SupermatterEntry = (props: SupermatterEntryProps) => {
     </>
   );
 };
+
 export const SupermatterContent = (props: SupermatterProps) => {
   const {
     sectionButton,
