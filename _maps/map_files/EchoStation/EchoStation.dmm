@@ -35578,8 +35578,7 @@
 "rrG" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
-	dir = 6;
-	pixel_y = 0
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
