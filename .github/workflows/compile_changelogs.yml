@@ -24,7 +24,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r tools/changelog/requirements.txt
-          sudo apt-get install dos2unix
 
       - name: Compile CL
         run: python tools/changelog/ss13_genchangelog.py html/changelog.html html/changelogs
