@@ -132,13 +132,13 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
-/obj/item/organ/internal/heart/demon/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/demon/Insert(mob/living/carbon/M, special = 0)
 	..()
 	// Gives a non-eat-people crawl to the new owner
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = new(M)
 	crawl.Grant(M)
 
-/obj/item/organ/internal/heart/demon/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/demon/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = locate() in M.actions
 	qdel(crawl)
