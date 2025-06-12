@@ -167,14 +167,7 @@
 		if(isobserver(admin.mob))
 			admin_strings += "- Observing"
 		else if(isnewplayer(admin.mob))
-			if(SSticker.current_state <= GAME_STATE_PREGAME)
-				var/mob/dead/new_player/lobbied_admin = admin.mob
-				if(lobbied_admin.ready == PLAYER_READY_TO_PLAY)
-					admin_strings += "- Lobby (Readied)"
-				else
-					admin_strings += "- Lobby (Not Readied)"
-			else
-				admin_strings += "- Lobby"
+			admin_strings += get_lobby_status(admin)
 		else
 			admin_strings += "- Playing"
 
@@ -212,14 +205,7 @@
 		if(isobserver(mentor.mob))
 			mentor_strings += "- Observing"
 		else if(isnewplayer(mentor.mob))
-			if(SSticker.current_state <= GAME_STATE_PREGAME)
-				var/mob/dead/new_player/lobbied_mentor = mentor.mob
-				if(lobbied_mentor.ready == PLAYER_READY_TO_PLAY)
-					mentor_strings += "- Lobby (Readied)"
-				else
-					mentor_strings += "- Lobby (Not Readied)"
-			else
-				mentor_strings += "- Lobby"
+			mentor_strings += get_lobby_status(mentor)
 		else
 			mentor_strings += "- Playing"
 
@@ -229,5 +215,11 @@
 		returnable_list += jointext(mentor_strings, " ")
 
 	return returnable_list
+
+/proc/get_lobby_status(client/C)
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
+		var/mob/dead/new_player/player = C.mob
+		return "- Lobby [(player.ready == PLAYER_READY_TO_PLAY) ? "(Readied)" : "(Not Readied)"]"
+	return "- Lobby"
 
 #undef NO_ADMINS_ONLINE_MESSAGE
