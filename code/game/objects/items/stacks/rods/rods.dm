@@ -112,7 +112,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	welding_result = /obj/item/stack/sheet/mineral/silver
 
 /obj/item/stack/rods/scrap/silver/get_recipes()
-	return
+	return list()
 
 /obj/item/stack/rods/scrap/gold
 	name = "gold scraps"
@@ -125,7 +125,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	welding_result = /obj/item/stack/sheet/mineral/gold
 
 /obj/item/stack/rods/scrap/gold/get_recipes()
-	return
+	return list()
 
 /obj/item/stack/rods/scrap/plasteel
 	name = "plasteel scraps"
@@ -139,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	welding_result = /obj/item/stack/sheet/plasteel
 
 /obj/item/stack/rods/scrap/plasteel/get_recipes()
-	return
+	return list()
 
 /obj/item/stack/rods/scrap/bronze
 	name = "bronze scraps"
@@ -153,7 +153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	welding_result = /obj/item/stack/sheet/bronze
 
 /obj/item/stack/rods/scrap/bronze/get_recipes()
-	return
+	return list()
 
 /obj/item/stack/rods/scrap/glass
 	name = "glass scraps"
@@ -185,7 +185,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	welding_result = /obj/item/stack/sheet/mineral/uranium
 
 /obj/item/stack/rods/scrap/uranium/get_recipes()
-	return
+	return list()
 
 /obj/item/stack/rods/scrap/plasma
 	name = "plasma scraps"
@@ -214,7 +214,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	welding_result = /obj/item/stack/sheet/plastic
 
 /obj/item/stack/rods/scrap/silver/get_recipes()
-	return
+	return list()
 
 //Yes hello, Joon here, I know paper is tecnically not a mineral but I wanted a way to make crafting with paper easier since paper doesn't stack
 //salvaging the paper scraps requires you to have a wirecutter anyways so might as well be able to craft while avoiding the crafting menu
