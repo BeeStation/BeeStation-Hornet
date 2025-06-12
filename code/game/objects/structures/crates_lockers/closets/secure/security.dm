@@ -280,19 +280,13 @@
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
+	new /obj/item/storage/box/rxglasses/spyglasskit(src)
 	new /obj/item/storage/box/evidence(src)
-	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
-	new /obj/item/pinpointer/crew(src)
-	new /obj/item/binoculars(src)
-	new /obj/item/clothing/neck/tie/red(src)
-	new	/obj/item/clothing/neck/tie/black(src)
-	new /obj/item/clothing/neck/tie/detective(src)
-	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+	new /obj/item/storage/box/locker/security/detective(src)
+	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/clothing/glasses/hud/security(src)
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"
