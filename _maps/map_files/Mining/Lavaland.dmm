@@ -753,7 +753,6 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
 "eg" = (
-/obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -762,6 +761,9 @@
 /obj/machinery/door/airlock/external/glass{
 	name = "External Wing Access";
 	req_one_access_txt = "10;24"
+	},
+/obj/structure/barricade/wooden{
+	max_integrity = 50
 	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
@@ -1686,7 +1688,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 30
+	},
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
 "jj" = (
@@ -2143,7 +2147,9 @@
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
 "lP" = (
-/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden{
+	max_integrity = 50
+	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "lR" = (
@@ -2887,7 +2893,6 @@
 /area/mine/living_quarters)
 "qa" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -2896,6 +2901,9 @@
 	},
 /obj/machinery/door/airlock/external/glass{
 	name = "External Wing Access"
+	},
+/obj/structure/barricade/wooden{
+	max_integrity = 50
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/atmosposthallway)
@@ -3167,7 +3175,9 @@
 	name = "Atmospherics Access";
 	req_one_access_txt = "10;24"
 	},
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 30
+	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /obj/structure/cable/yellow{
@@ -3397,7 +3407,9 @@
 /turf/closed/wall,
 /area/mine/atmospost)
 "te" = (
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 30
+	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -3861,7 +3873,9 @@
 "vT" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor/closed,
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 30
+	},
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
 "vU" = (
@@ -4278,7 +4292,9 @@
 /area/mine/atmospost)
 "yp" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden{
+	max_integrity = 50
+	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "ys" = (
@@ -4547,7 +4563,9 @@
 "Aa" = (
 /obj/machinery/door/firedoor/closed,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 30
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -5684,7 +5702,9 @@
 "FX" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 30
+	},
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
 "FZ" = (
@@ -8150,7 +8170,9 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Ub" = (
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 30
+	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
