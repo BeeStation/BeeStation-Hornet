@@ -8,20 +8,24 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	new/datum/stack_recipe("catwalk floor tile", /obj/item/stack/tile/catwalk_tile, 1, 4, 20, category = CAT_TILES),
 ))
 
-GLOBAL_LIST_INIT(metal_scrap_recipes, list ( \
-	new/datum/stack_recipe("iron rod", /obj/item/stack/rods, 5, time = 0.5 SECONDS)))
+GLOBAL_LIST_INIT(metal_scrap_recipes, list (
+	new/datum/stack_recipe("iron rod", /obj/item/stack/rods, 5, time = 0.5 SECONDS)
+))
 
-GLOBAL_LIST_INIT(glass_scrap_recipes, list ( \
-	new/datum/stack_recipe("glass shard", /obj/item/shard, 10, time = 1 SECONDS)))
+GLOBAL_LIST_INIT(glass_scrap_recipes, list (
+	new/datum/stack_recipe("glass shard", /obj/item/shard, 10, time = 1 SECONDS)
+))
 
-GLOBAL_LIST_INIT(plasma_scrap_recipes, list ( \
-	new/datum/stack_recipe("plasma sheet", /obj/item/stack/sheet/mineral/plasma, 10, time = 1 SECONDS)))
+GLOBAL_LIST_INIT(plasma_scrap_recipes, list (
+	new/datum/stack_recipe("plasma sheet", /obj/item/stack/sheet/mineral/plasma, 10, time = 1 SECONDS)
+))
 
-GLOBAL_LIST_INIT(paper_scrap_recipes, list ( \
-	new/datum/stack_recipe("paper sheet", /obj/item/paper, 5, time = 0.5 SECONDS), \
-	new/datum/stack_recipe("paper slip", /obj/item/card/id/paper, 25, time = 0.5 SECONDS), \
-	new/datum/stack_recipe("paper cup", /obj/item/reagent_containers/cup/glass/sillycup, 5, time = 0.5 SECONDS), \
-	new/datum/stack_recipe("paper sack", /obj/item/storage/box/papersack, 25, time = 1 SECONDS)))
+GLOBAL_LIST_INIT(paper_scrap_recipes, list (
+	new/datum/stack_recipe("paper sheet", /obj/item/paper, 5, time = 0.5 SECONDS),
+	new/datum/stack_recipe("paper slip", /obj/item/card/id/paper, 25, time = 0.5 SECONDS),
+	new/datum/stack_recipe("paper cup", /obj/item/reagent_containers/cup/glass/sillycup, 5, time = 0.5 SECONDS),
+	new/datum/stack_recipe("paper sack", /obj/item/storage/box/papersack, 25, time = 1 SECONDS),
+))
 
 /obj/item/stack/rods/cyborg
 	merge_type = /obj/item/stack/rods
