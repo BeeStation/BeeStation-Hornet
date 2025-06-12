@@ -12,209 +12,91 @@
 
 /client/proc/staff_who(via)
 	var/list/lines = list()
+	//Assoc list
+	var/list/staff_info = list(
+		"admin" = list(
+			"header" = "Current Admins:",
+			"empty_header" = "No Admins Currently Online",
+			"data" = generate_staff_list("admin")
+		),
+		"maintainer" = list(
+			"header" = "Current Maintainers:",
+			"data" = generate_staff_list("maintainer")
+		),
+		"mentor" = list(
+			"header" = "Current Mentors:",
+			"data" = generate_staff_list("mentor")
+		)
+	)
 
-	var/header
-	var/payload_string = generate_adminwho_string()
-	var/header2
-	var/payload_string2 = generate_maintainer_string()
-	var/header3
-	var/payload_string3 = generate_mentor_string()
+	var/admin_data = staff_info["admin"]["data"]
+	lines += span_bold(admin_data ? staff_info["admin"]["header"] : staff_info["admin"]["empty_header"])
+	lines += admin_data || NO_ADMINS_ONLINE_MESSAGE
 
-	if(payload_string == NO_ADMINS_ONLINE_MESSAGE)
-		header = "No Admins Currently Online"
-	else
-		header = "Current Admins:"
+	// Add disclaimer if other staff exists
+	if(staff_info["maintainer"]["data"] || staff_info["mentor"]["data"])
+		lines += "<b>Non-admin staff are unable to handle adminhelp tickets.</b>"
 
-	// notifying the absence of non-admins has no point
-	if(payload_string2)
-		header2 = "Current Maintainers:"
-
-	if(payload_string3)
-		header3 = "Current Mentors:"
-
-	lines += span_bold(header)
-	lines += payload_string
-
-	var/disclaimer = "<b>Non-admin staff are unable to handle adminhelp tickets.<b>"
-	if(header2||header3)
-		lines += disclaimer
-
-	if(header2)
-		lines += span_bold(header2)
-		lines += payload_string2
-
-	if(header3)
-		lines += span_bold(header3)
-		lines += payload_string3
+	for(var/staff_type in list("maintainer", "mentor"))
+		var/list/staff_data = staff_info[staff_type]
+		if(staff_data["data"])
+			lines += span_bold(staff_data["header"])
+			lines += staff_data["data"]
 
 	if(world.time - src.staff_check_rate > 1 MINUTES)
 		message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff[via ? " (via [via])" : ""].")
 		log_admin("[key_name(src)] has checked online staff[via ? " (via [via])" : ""].")
 		src.staff_check_rate = world.time
-	var/finalized_string = examine_block(jointext(lines, "\n"))
-	to_chat(src, finalized_string)
 
-/// Proc that generates the applicable string to dispatch to the client for adminwho.
-/client/proc/generate_adminwho_string()
-	var/list/list_of_admins = get_list_of_admins()
-	if(isnull(list_of_admins))
-		return NO_ADMINS_ONLINE_MESSAGE
+	to_chat(src, examine_block(jointext(lines, "\n")))
 
-	var/list/message_strings = list()
-	if(isnull(holder))
-		message_strings += get_general_adminwho_information(list_of_admins)
-		message_strings += NO_ADMINS_ONLINE_MESSAGE
-	else
-		message_strings += get_sensitive_adminwho_information(list_of_admins)
+/client/proc/generate_staff_list(staff_type)
+	var/list/staff_list
+	switch(staff_type)
+		if("admin")
+			staff_list = get_staff_list(GLOB.admins, R_ADMIN, TRUE)
+		if("maintainer")
+			staff_list = get_staff_list(GLOB.admins, R_ADMIN, FALSE)
+		if("mentor")
+			staff_list = get_staff_list(GLOB.mentors)
 
-	return jointext(message_strings, "\n")
+	return length(staff_list) ? format_staff_list(staff_list, holder != null) : null
 
-/// Proc that generates the applicable string to dispatch to the client for adminwho.
-/client/proc/generate_maintainer_string()
-	var/list/list_of_maintainers = get_list_of_maintainers()
+/proc/get_staff_list(list/global_list, rights = null, has_rights = null)
+	var/list/staff = list()
+	for(var/client/C in global_list)
+		if(!isnull(rights) && !isnull(has_rights))
+			if(has_rights != check_rights_for(C, rights))
+				continue
+		staff += C
+	return length(staff) ? staff : null
 
-	var/list/message_strings = list()
-	message_strings += get_maintainer_information(list_of_maintainers)
+/proc/format_staff_list(list/staff_list, show_sensitive = FALSE)
+	var/list/formatted = list()
+	for(var/client/C in staff_list)
+		if(!show_sensitive && (C.is_afk() || !isnull(C.holder.fakekey)))
+			continue
 
-	return jointext(message_strings, "\n")
+		var/list/info = list()
+		var/rank = "\improper [C.holder.rank]"
+		info += "• [C] is \a <span class='[rank]'>[rank]</span>"
 
-/client/proc/generate_mentor_string()
-	var/list/list_of_mentors = get_list_of_mentors()
+		if(show_sensitive)
+			if(C.holder.fakekey)
+				info += "<i>(as [C.holder.fakekey])</i>"
 
-	var/list/message_strings = list()
-	message_strings += get_mentor_information(list_of_mentors)
+			if(isobserver(C.mob))
+				info += "- Observing"
+			else if(isnewplayer(C.mob))
+				info += get_lobby_status(C)
+			else
+				info += "- Playing"
 
-	return jointext(message_strings, "\n")
+			if(C.is_afk())
+				info += "(AFK)"
 
-/// Proc that returns a list of cliented admins. Remember that this list can contain nulls!
-/// Also, will return null if we don't have any admins.
-/proc/get_list_of_admins()
-	var/returnable_list = list()
-
-	for(var/client/admin in GLOB.admins)
-		//All admins have R_ADMIN rights
-		if(check_rights_for(admin, R_ADMIN))
-			returnable_list += admin
-
-	if(length(returnable_list) == 0)
-		return null
-
-	return returnable_list
-
-/// Proc that returns a list of cliented maintainers. Remember that this list can contain nulls!
-/// Also, will return null if we don't have any maintainers.
-/proc/get_list_of_maintainers()
-	var/returnable_list = list()
-
-	for(var/client/maintainer in GLOB.admins)
-		//Maintainers are admins, just without R_ADMIN rights
-		if(!check_rights_for(maintainer, R_ADMIN))
-			returnable_list += maintainer
-
-	if(length(returnable_list) == 0)
-		return null
-
-	return returnable_list
-
-/// Proc that returns a list of cliented mentors. Remember that this list can contain nulls!
-/// Also, will return null if we don't have any mentors.
-/proc/get_list_of_mentors()
-	var/returnable_list = list()
-
-	for(var/client/mentor in GLOB.mentors)
-		returnable_list += mentor
-
-	if(length(returnable_list) == 0)
-		return null
-
-	return returnable_list
-
-/*
-/// Proc that will return the applicable display name, linkified or not, based on the input client reference.
-/proc/get_linked_admin_name(client/admin)
-	var/feedback_link = admin.holder.feedback_link()
-	return isnull(feedback_link) ? admin : "<a href=[feedback_link]>[admin]</a>"
-*/
-
-/// Proc that gathers adminwho information for a general player, which will only give information if an admin isn't AFK, and handles potential fakekeying.
-/// Will return a list of strings.
-/proc/get_general_adminwho_information(list/checkable_admins)
-	var/returnable_list = list()
-
-	for(var/client/admin in checkable_admins)
-		if(admin.is_afk() || !isnull(admin.holder.fakekey))
-			continue //Don't show afk or fakekeyed admins to adminwho
-
-		var/rank = "\improper [admin.holder.rank]"
-		returnable_list += "• [admin] is \a [rank]"
-
-	return returnable_list
-
-/// Proc that gathers adminwho information for admins, which will contain information on if the admin is AFK, readied to join, etc. Only arg is a list of clients to use.
-/// Will return a list of strings.
-/proc/get_sensitive_adminwho_information(list/checkable_admins)
-	var/returnable_list = list()
-
-	for(var/client/admin in checkable_admins)
-		var/list/admin_strings = list()
-
-		var/rank = "\improper [admin.holder.rank]"
-		admin_strings += "• [admin] is \a <span class='[rank]'>[rank]</span>"
-
-		if(admin.holder.fakekey)
-			admin_strings += "<i>(as [admin.holder.fakekey])</i>"
-
-		if(isobserver(admin.mob))
-			admin_strings += "- Observing"
-		else if(isnewplayer(admin.mob))
-			admin_strings += get_lobby_status(admin)
-		else
-			admin_strings += "- Playing"
-
-		if(admin.is_afk())
-			admin_strings += "(AFK)"
-
-		returnable_list += jointext(admin_strings, " ")
-
-	return returnable_list
-
-
-/proc/get_maintainer_information(list/checkable_maints)
-	var/returnable_list = list()
-
-	for(var/client/maint in checkable_maints)
-		if(maint.is_afk() || !isnull(maint.holder.fakekey))
-			continue //Don't show afk or fakekeyed maints to adminwho
-
-		var/rank = "\improper [maint.holder.rank]"
-
-		if(!check_rights_for(maint, R_ADMIN))
-			returnable_list += "• [maint] is \a <span class='maintainer'>[rank]</span>"
-
-	return returnable_list
-
-/proc/get_mentor_information(list/checkable_mentors)
-	var/returnable_list = list()
-
-	for(var/client/mentor in checkable_mentors)
-		var/list/mentor_strings = list()
-
-		var/rank = "\improper [mentor.holder.rank]"
-		mentor_strings += "• [mentor] is \a <span class='mentor'>[rank]</span>"
-
-		if(isobserver(mentor.mob))
-			mentor_strings += "- Observing"
-		else if(isnewplayer(mentor.mob))
-			mentor_strings += get_lobby_status(mentor)
-		else
-			mentor_strings += "- Playing"
-
-		if(mentor.is_afk())
-			mentor_strings += "(AFK)"
-
-		returnable_list += jointext(mentor_strings, " ")
-
-	return returnable_list
+		formatted += jointext(info, " ")
+	return jointext(formatted, "\n")
 
 /proc/get_lobby_status(client/C)
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
