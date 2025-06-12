@@ -4882,7 +4882,7 @@
 "cfX" = (
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall,
-/area/hallway/primary/central)
+/area/crew_quarters/heads/chief)
 "cgc" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/donkpockets{
@@ -4937,7 +4937,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/grass/no_border,
-/area/hallway/primary/central)
+/area/crew_quarters/heads/chief)
 "chC" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -14639,10 +14639,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 9
 	},
 /turf/open/floor/iron/dark,
-/area/hallway/primary/fore)
+/area/hallway/primary/fore,
+/area/crew_quarters/heads/chief)
 "gRw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile/icy,
@@ -20291,7 +20292,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/grass/no_border,
-/area/hallway/primary/central)
+/area/crew_quarters/heads/chief)
 "jOo" = (
 /obj/effect/turf_decal/tile/neutral/half{
 	dir = 8
@@ -22718,7 +22719,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/grass/no_border,
-/area/hallway/primary/central)
+/area/crew_quarters/heads/chief)
 "kVv" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -30150,7 +30151,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 5
 	},
 /obj/item/radio/intercom{
 	dir = 1;
@@ -130515,7 +130516,7 @@ xmX
 vYB
 bIF
 rBo
-jMv
+flo
 flo
 flo
 cvA
