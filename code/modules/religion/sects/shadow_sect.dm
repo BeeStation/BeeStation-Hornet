@@ -93,7 +93,7 @@
 		if (length(affected_mobs) != 0)
 			affected_mobs -= affected_mobs
 		return
-	var/list/current_mobs = view_or_range(sect.light_reach, src, "range")
+	var/list/current_mobs = view(sect.light_reach, src)
 	for(var/mob/living/mob_in_range in current_mobs)
 		if(!(mob_in_range in affected_mobs))
 			on_mob_enter(mob_in_range)
@@ -167,7 +167,7 @@
 			toggling_buckling_after_ritual_3()
 			return
 		else
-			var/list/current_objects = view_or_range(5, src, "range")
+			var/list/current_objects = range(5, src)
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
 					to_chat(user,span_warning("You can't place obelisks so close to each other!"))
@@ -187,7 +187,7 @@
 			to_chat(user,span_warning("You can't move the obelisk during a active ritual!"))
 			return
 		if (!anchored)
-			var/list/current_objects = view_or_range(5, src, "range")
+			var/list/current_objects = range(5, src)
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
 					to_chat(user,span_warning("You can't place obelisks so close to each other!"))
@@ -325,7 +325,7 @@
 	sect.obelisks += obelisk
 	sect.obelisk_number = sect.obelisk_number + 1
 	obelisk.AddComponent(/datum/component/dark_favor, user)
-	obelisk.transform_obelisk()
+	obelisk.upgrade_obelisk()
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
 
@@ -513,8 +513,7 @@
 	do_teleport(user ,assoc_list[chosen_input], no_effects = TRUE)
 	user.visible_message(span_notice("[user.name] walks out of the obelisk."), span_notice("To emerge on the other side."))
 
-
-/obj/structure/destructible/religion/shadow_obelisk/proc/transform_obelisk()
+/obj/structure/destructible/religion/shadow_obelisk/proc/upgrade_obelisk()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/datum/component/dark_favor/component_previous = GetComponent(/datum/component/dark_favor)
 	var/user = component_previous.return_creator()
@@ -602,7 +601,7 @@
 		return FALSE
 	sect.grand_ritual_level = 1
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
-		obelisk.transform_obelisk()
+		obelisk.upgrade_obelisk()
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
 			M.heal_overall_damage(25, 25, 200)
@@ -680,7 +679,7 @@
 		return FALSE
 	sect.grand_ritual_level = 2
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
-		obelisk.transform_obelisk()
+		obelisk.upgrade_obelisk()
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
 			M.heal_overall_damage(25, 25, 200)
@@ -764,7 +763,7 @@
 		return FALSE
 	sect.grand_ritual_level = 3
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
-		obelisk.transform_obelisk()
+		obelisk.upgrade_obelisk()
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
 			M.revive(full_heal = TRUE)
