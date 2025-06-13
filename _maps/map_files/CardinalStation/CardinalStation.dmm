@@ -27807,39 +27807,6 @@
 /area/hallway/upper/primary/port)
 "fQK" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/machinery/door/window/brigdoor{
-	dir = 1;
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/item/ai_module/supplied/freeform{
-	pixel_y = -3;
-	pixel_x = -8
-	},
-/obj/item/ai_module/supplied/freeform{
-	pixel_y = -3;
-	pixel_x = 8
-	},
-/obj/item/ai_module/supplied/freeform{
-	pixel_y = 5;
-	pixel_x = 8
-	},
-/obj/item/ai_module/supplied/freeform{
-	pixel_y = 5;
-	pixel_x = -8
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/structure/table/reinforced,
 /obj/structure/window/reinforced/spawner,
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
@@ -49224,22 +49191,6 @@
 /turf/open/floor/engine/light,
 /area/science/mixing)
 "kgq" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = -2
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = 2
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = 6
-	},
-/obj/item/ai_module/core/full/asimov,
-/obj/item/ai_module/reset/purge,
-/obj/item/ai_module/reset,
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/aimodule_harmless{
 	pixel_y = -2
