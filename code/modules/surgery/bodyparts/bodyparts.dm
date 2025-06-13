@@ -596,32 +596,33 @@
 
 	var/image/limb = image(layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 	var/image/aux
-	. += limb
 
 	if(is_husked)
 		limb.icon = husk_icon
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
 		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 		icon_exists(limb.icon, limb.icon_state, scream = TRUE) //Prints a stack trace on the first failure of a given iconstate.
+		. += limb
 		if(aux_zone) //Hand shit
 			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 			. += aux
 			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
-		return
+		return .
 
 	////This is the MEAT of limb icon code
 	limb.icon = icon_greyscale
-	if(!should_draw_greyscale || !icon)
+	if(!should_draw_greyscale || !icon_greyscale)
 		limb.icon = icon_static
-	else
-		limb.icon = icon
 
-	///The icon_state overlay for the limb
-	limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"
+	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
+		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
+	else
+		limb.icon_state = "[limb_id]_[body_zone]"
 	. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 
-	if(!icon_exists(limb.icon, limb.icon_state))
-		stack_trace("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
+	icon_exists(limb.icon, limb.icon_state, TRUE) //Prints a stack trace on the first failure of a given iconstate.
+
+	. += limb
 
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
@@ -638,8 +639,10 @@
 			aux.color = "#[draw_color]"
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	drop_organs()
-	qdel(src)
+	return ..()
 
 ///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)
