@@ -17,8 +17,10 @@ GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
 	material_type = /datum/material/metalhydrogen
 	merge_type = /obj/item/stack/sheet/mineral/metal_hydrogen
 
-/obj/item/stack/sheet/mineral/bananium/get_recipes()
+/obj/item/stack/sheet/mineral/metal_hydrogen/get_recipes()
 	return GLOB.metalhydrogen_recipes
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/metal_hydrogen)
 
 GLOBAL_LIST_INIT(zaukerite_recipes, list(
 	new /datum/stack_recipe("zaukerite shard", /obj/item/ammo_casing/rebar/zaukerite, req_amount = 1, res_amount = 1, category = CAT_WEAPON_AMMO),
@@ -38,6 +40,8 @@ GLOBAL_LIST_INIT(zaukerite_recipes, list(
 /obj/item/stack/sheet/mineral/zaukerite/get_recipes()
 	return GLOB.zaukerite_recipes
 
+STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/zaukerite)
+
 /obj/item/stack/ammonia_crystals
 	name = "ammonia crystals"
 	singular_name = "ammonia crystal"
@@ -47,6 +51,8 @@ GLOBAL_LIST_INIT(zaukerite_recipes, list(
 	max_amount = 25
 	grind_results = list(/datum/reagent/ammonia = 10)
 	merge_type = /obj/item/stack/ammonia_crystals
+
+STACKSIZE_MACRO(/obj/item/stack/ammonia_crystals)
 
 /obj/item/stack/sheet/hot_ice
 	name = "hot ice"
@@ -60,3 +66,5 @@ GLOBAL_LIST_INIT(zaukerite_recipes, list(
 /obj/item/stack/sheet/hot_ice/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS //dont you kids know that stuff is toxic?
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/hot_ice)

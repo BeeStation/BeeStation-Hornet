@@ -7,8 +7,6 @@
 	shrapnel_type = /obj/item/ammo_casing/rebar
 
 /obj/projectile/bullet/rebar/syndie
-	name = "rebar"
-	icon_state = "rebar"
 	damage = 45
 	dismemberment = 2 //It's a budget sniper rifle.
 	armour_penetration = 20 //A bit better versus armor. Gets past anti laser armor or a vest, but doesnt wound proc on sec armor.
@@ -53,8 +51,9 @@
 
 /obj/projectile/bullet/rebar/healium/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(!iscarbon(target))
+	if(!isliving(target))
 		return BULLET_ACT_HIT
+
 	var/mob/living/breather = target
 	breather.SetSleeping(3 SECONDS)
 	breather.adjustFireLoss(-30)

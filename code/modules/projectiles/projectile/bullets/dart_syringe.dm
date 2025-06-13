@@ -34,8 +34,10 @@
 					return BULLET_ACT_HIT
 			else
 				blocked = 100
-				target.visible_message(span_danger("\The [src] was deflected!"), \
-									   span_userdanger("You were protected against \the [src]!"))
+				target.visible_message(
+					span_danger("\The [src] was deflected!"),
+					span_userdanger("You were protected against \the [src]!"),
+				)
 
 	..(target, blocked)
 	if(syringe)

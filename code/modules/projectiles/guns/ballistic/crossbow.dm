@@ -2,7 +2,7 @@
 	name = "heated rebar crossbow"
 	desc = "A handcrafted crossbow. \
 		   Aside from conventional sharpened iron rods, it can also fire specialty ammo made from the atmos crystalizer - zaukerite, metallic hydrogen, and healium rods all work. \
-		   Very slow to reload - you can craft the crossbow with a crowbar to loosen the crossbar, but risk a misfire, or worse..."
+		   Very slow to reload - you can craft the crossbow with a crowbar to loosen the crossbar, but risk a misfire."
 	icon_state = "rebarxbow"
 	item_state = "rebarxbow"
 	worn_icon_state = "rebarxbow"
@@ -17,8 +17,8 @@
 	magazine_wording = "rod"
 	cartridge_wording = "rod"
 	weapon_weight = WEAPON_HEAVY
-	caliber = "sharpened rod"
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/normal
+	caliber = "sharpened_rod"
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/rebarxbow
 	fire_sound = 'sound/weapons/xbow_lock.ogg'
 	can_sawoff = FALSE
 	tac_reloads = FALSE
@@ -27,6 +27,11 @@
 	var/draw_time = 3 SECONDS
 
 	SET_BASE_PIXEL(0, 0)
+
+/obj/item/gun/ballistic/rifle/rebarxbow/eject_chamber()
+	if(chambered)
+		QDEL_NULL(chambered)
+		return
 
 /obj/item/gun/ballistic/rifle/rebarxbow/rack(mob/user)
 	if(bolt_locked)
@@ -53,9 +58,9 @@
 	rack()
 
 /obj/item/gun/ballistic/rifle/rebarxbow/can_shoot()
-	if (bolt_locked)
+	if(bolt_locked)
 		return FALSE
-	return ..()
+	. = ..()
 
 /obj/item/gun/ballistic/rifle/rebarxbow/shoot_with_empty_chamber(mob/living/user)
 	if(chambered || !magazine || !length(magazine.contents))
@@ -76,8 +81,8 @@
 /obj/item/gun/ballistic/rifle/rebarxbow/forced
 	name = "stressed rebar crossbow"
 	desc = "Some idiot decided that they would risk shooting themselves in the face if it meant they could have a draw this crossbow a bit faster. Hopefully, it was worth it."
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/force
-	draw_time = 1.5
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/two
+	draw_time = 1.5 SECONDS
 	misfire_probability = 25
 
 /obj/item/gun/ballistic/rifle/rebarxbow/syndie
@@ -88,7 +93,7 @@
 	item_state = "rebarxbowsyndie"
 	worn_icon_state = "rebarxbowsyndie"
 	w_class = WEIGHT_CLASS_NORMAL
-	draw_time = 1
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/syndie
+	draw_time = 1 SECONDS
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/rebarxbow/three
 	zoomable = TRUE
 	zoom_amt = 2

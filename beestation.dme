@@ -3793,6 +3793,7 @@
 #include "code\modules\projectiles\boxes_magazines\internal\_cylinder.dm"
 #include "code\modules\projectiles\boxes_magazines\internal\_internal.dm"
 #include "code\modules\projectiles\boxes_magazines\internal\bow.dm"
+#include "code\modules\projectiles\boxes_magazines\internal\crossbow.dm"
 #include "code\modules\projectiles\boxes_magazines\internal\grenade.dm"
 #include "code\modules\projectiles\boxes_magazines\internal\revolver.dm"
 #include "code\modules\projectiles\boxes_magazines\internal\rifle.dm"
