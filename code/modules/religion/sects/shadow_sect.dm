@@ -1,7 +1,7 @@
 /datum/religion_sect/shadow_sect
 	starter = FALSE
 	name = "Shadow"
-	desc = "A sect dedicated to plunging everything into darkness. Security may not take kindly to putting all of the station's lights out."
+	desc = "A sect dedicated to plunging everything into darkness. The rest of the station may not take kindly to putting all of the lights out."
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
