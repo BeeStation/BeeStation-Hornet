@@ -4291,12 +4291,12 @@
 /area/maintenance/disposal/incinerator)
 "aXR" = (
 /obj/structure/table/reinforced,
-/obj/item/ai_module/supplied/protect_station{
+/obj/item/aiModule/supplied/protectStation{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/ai_module/zeroth/onehuman,
-/obj/item/ai_module/reset/purge{
+/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/reset/purge{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -40182,12 +40182,12 @@
 /area/science/shuttle)
 "koi" = (
 /obj/structure/table/reinforced,
-/obj/item/ai_module/core/freeformcore{
+/obj/item/aiModule/core/freeformcore{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/ai_module/core/full/custom,
-/obj/item/ai_module/core/full/asimov{
+/obj/item/aiModule/core/full/custom,
+/obj/item/aiModule/core/full/asimov{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -45373,7 +45373,7 @@
 /area/quartermaster/warehouse)
 "lxp" = (
 /obj/structure/table/reinforced,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /obj/machinery/door/window/brigdoor{
 	name = "Core Modules";
 	req_access_txt = "20"
@@ -50189,7 +50189,7 @@
 	},
 /obj/structure/rack,
 /obj/item/aicard,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /obj/item/wirecutters,
 /obj/item/screwdriver{
 	pixel_y = 16
@@ -53464,7 +53464,7 @@
 	lootcount = 3;
 	lootdoubles = 0
 	},
-/obj/item/ai_module/supplied/freeform,
+/obj/item/aiModule/supplied/freeform,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -58627,7 +58627,7 @@
 	lootcount = 2;
 	lootdoubles = 0
 	},
-/obj/item/ai_module/supplied/oxygen{
+/obj/item/aiModule/supplied/oxygen{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -94066,7 +94066,7 @@
 	lootcount = 3;
 	lootdoubles = 0
 	},
-/obj/item/ai_module/supplied/quarantine,
+/obj/item/aiModule/supplied/quarantine,
 /obj/structure/window/reinforced{
 	dir = 8
 	},

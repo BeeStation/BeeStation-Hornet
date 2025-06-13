@@ -4556,12 +4556,12 @@
 	name = "Core Modules";
 	req_access_txt = "20"
 	},
-/obj/item/ai_module/core/freeformcore{
+/obj/item/aiModule/core/freeformcore{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/ai_module/core/full/custom,
-/obj/item/ai_module/core/full/asimov{
+/obj/item/aiModule/core/full/custom,
+/obj/item/aiModule/core/full/asimov{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -15600,7 +15600,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/table,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -18777,7 +18777,7 @@
 	lootcount = 2;
 	lootdoubles = 0
 	},
-/obj/item/ai_module/supplied/oxygen{
+/obj/item/aiModule/supplied/oxygen{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -36356,7 +36356,7 @@
 "jOd" = (
 /obj/structure/table,
 /obj/item/aicard,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /obj/item/assembly/flash/handheld,
 /obj/item/assembly/flash/handheld,
 /obj/machinery/airalarm/directional/east,
@@ -52769,7 +52769,7 @@
 /area/hallway/primary/starboard)
 "pht" = (
 /obj/structure/table,
-/obj/item/ai_module/supplied/quarantine,
+/obj/item/aiModule/supplied/quarantine,
 /obj/machinery/flasher{
 	id = "AI";
 	name = "Meatbag Pacifier";
@@ -54074,12 +54074,12 @@
 	name = "Core Modules";
 	req_access_txt = "20"
 	},
-/obj/item/ai_module/supplied/protect_station{
+/obj/item/aiModule/supplied/protectStation{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/ai_module/zeroth/onehuman,
-/obj/item/ai_module/reset/purge{
+/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/reset/purge{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -76948,7 +76948,7 @@
 /area/maintenance/starboard)
 "wRx" = (
 /obj/structure/table,
-/obj/item/ai_module/supplied/freeform,
+/obj/item/aiModule/supplied/freeform,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
