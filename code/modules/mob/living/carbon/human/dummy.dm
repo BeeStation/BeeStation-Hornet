@@ -42,7 +42,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 
 	var/datum/species/current_species = dna.species
 	for(var/organ_path in current_species.mutant_organs)
-		var/obj/item/organ/current_organ = getorgan(organ_path)
+		var/obj/item/organ/current_organ = get_organ_by_type(organ_path)
 		if(current_organ)
 			current_organ.Remove(src, special = TRUE) //Please don't somehow kill our dummy
 			SSwardrobe.stash_object(current_organ)

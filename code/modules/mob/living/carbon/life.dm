@@ -336,7 +336,7 @@
 			if(dna.temporary_mutations[mut] < world.time)
 				if(mut == UI_CHANGED)
 					if(dna.previous["UI"])
-						dna.uni_identity = merge_text(dna.uni_identity,dna.previous["UI"])
+						dna.unique_identity = merge_text(dna.unique_identity,dna.previous["UI"])
 						updateappearance(mutations_overlay_update=1)
 						dna.previous.Remove("UI")
 					dna.temporary_mutations.Remove(mut)
@@ -352,6 +352,13 @@
 					if(dna.previous["blood_type"])
 						dna.blood_type = dna.previous["blood_type"]
 						dna.previous.Remove("blood_type")
+					dna.temporary_mutations.Remove(mut)
+					continue
+				if(mut == UF_CHANGED)
+					if(dna.previous["UF"])
+						dna.unique_features = dna.previous["UF"]
+						updateappearance(mutations_overlay_update=1)
+						dna.previous.Remove("UF")
 					dna.temporary_mutations.Remove(mut)
 					continue
 		for(var/datum/mutation/HM as() in dna.mutations)
@@ -713,7 +720,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /mob/living/carbon/proc/needs_heart()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
-	if(dna && dna.species && (NOBLOOD in dna.species.species_traits)) //not all carbons have species!
+	if(dna && dna.species && HAS_TRAIT(src, TRAIT_NOBLOOD)) //not all carbons have species!
 		return FALSE
 	return TRUE
 

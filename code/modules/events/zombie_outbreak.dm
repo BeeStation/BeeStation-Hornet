@@ -19,7 +19,7 @@
 			continue
 		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)))
 			continue
-		if(!H.getorgan(/obj/item/organ/brain))
+		if(!H.get_organ_by_type(/obj/item/organ/brain))
 			continue
 		if(!(MOB_ORGANIC in H.mob_biotypes))
 			continue

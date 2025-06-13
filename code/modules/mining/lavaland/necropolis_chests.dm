@@ -626,7 +626,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-			if(H.getorgan(/obj/item/organ/wings))
+			if(H.get_organ_by_type(/obj/item/organ/wings))
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
 					wings.flight_level += 1 //upgrade the flight level
 					wings.Refresh(H) //they need to insert to get the flight emote

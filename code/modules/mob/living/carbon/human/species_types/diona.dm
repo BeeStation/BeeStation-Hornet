@@ -38,6 +38,7 @@
 	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
 	mutantears = /obj/item/organ/ears/diona //SS14 sprite
 	mutantheart = /obj/item/organ/heart/diona //Dungeon's sprite
+	mutantappendix = null
 
 	species_chest = /obj/item/bodypart/chest/diona
 	species_head = /obj/item/bodypart/head/diona

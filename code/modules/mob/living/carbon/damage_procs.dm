@@ -135,7 +135,7 @@
 /mob/living/carbon/setOrganLoss(slot, amount)
 	var/obj/item/organ/O = get_organ_slot(slot)
 	if(O && !(status_flags & GODMODE))
-		O.setOrganDamage(amount)
+		O.set_organ_damage(amount)
 
 /** getOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART)

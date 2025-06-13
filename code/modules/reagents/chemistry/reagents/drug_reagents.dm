@@ -525,7 +525,7 @@
 	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
-	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/B = M.get_organ_by_type(/obj/item/organ/brain)
 	var/gained_trauma = FALSE
 	if(!gained_trauma)
 		B.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)

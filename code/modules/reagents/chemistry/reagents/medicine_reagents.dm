@@ -85,7 +85,7 @@
 
 	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 	for(var/obj/item/organ/organ as anything in M.internal_organs)
-		organ.setOrganDamage(0)
+		organ.set_organ_damage(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(D.danger == DISEASE_BENEFICIAL || D.danger == DISEASE_POSITIVE)

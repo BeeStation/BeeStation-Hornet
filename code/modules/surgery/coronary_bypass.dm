@@ -30,7 +30,7 @@
 /datum/surgery_step/incise_heart/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if (!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)))
+		if (!HAS_TRAIT(H, TRAIT_NOBLOOD))
 			display_results(user, target, span_notice("Blood pools around the incision in [H]'s heart."),
 				"Blood pools around the incision in [H]'s heart.",
 				"")
