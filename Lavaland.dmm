@@ -6111,11 +6111,9 @@
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
 "Hm" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors{
-	pixel_x = 0;
-	pixel_y = 0
-	})
+/obj/structure/sign/warning/fire,
+/turf/closed/wall,
+/area/mine/atmospostengine)
 "Ho" = (
 /obj/structure/necropolis_gate/legion_gate,
 /obj/structure/necropolis_arch,
@@ -7978,8 +7976,7 @@
 "RT" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
 	dir = 8;
-	name = "Oxygen Tank";
-	assigned_area = Lavaland Wastes/area/lavaland/surface/outdoors 
+	name = "Oxygen Tank"
 	},
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -8603,9 +8600,11 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "VC" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall,
-/area/mine/atmospostengine)
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors{
+	pixel_x = 0;
+	pixel_y = 0
+	})
 "VH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -54184,7 +54183,7 @@ uJ
 uJ
 uJ
 uJ
-VC
+Hm
 cW
 RR
 RR
@@ -56234,7 +56233,7 @@ Oc
 Dy
 NA
 Zd
-Hm
+VC
 Zd
 Zd
 Zd
