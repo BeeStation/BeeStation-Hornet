@@ -42,6 +42,7 @@
 	head = /obj/item/clothing/head/utility/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian
 	backpack_contents = list(/obj/item/sharpener = 1)
+	shoes = /obj/item/clothing/shoes/laceup
 
 /datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

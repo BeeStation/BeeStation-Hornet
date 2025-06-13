@@ -6,7 +6,7 @@
 
 //Chef
 /obj/item/clothing/head/utility/chefhat
-	name = "chef's hat"
+	name = "Chef hat"
 	item_state = "chefhat"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
@@ -24,6 +24,16 @@
 	user.say("BOOORK!", forced = "chef hat suicide")
 	playsound(user, 'sound/machines/ding.ogg', 50, 1)
 	return(FIRELOSS)
+
+/obj/item/clothing/head/utility/chefhat/black
+	name = "Black chef hat"
+	icon_state = "chef_black"
+	desc = "The commander in chef's head wear."
+
+/obj/item/clothing/head/utility/chefhat/sushi
+	name = "Hachimaki"
+	icon_state = "chef_sushi"
+	desc = "The sushi master's head wear."
 
 //Captain
 /obj/item/clothing/head/hats/caphat
