@@ -74,7 +74,7 @@
 			to_chat(user, span_warning("The altar must be secured to the floor if you wish to perform the rite!"))
 			return FALSE
 
-	if(active_obelisks_number < 5 * (grand_ritual_level + 1))
+	if(active_obelisks_number < 5 + (grand_ritual_level * 10))
 		if(pre_ritual_check)
 			to_chat(user, span_warning("You need to anchor the shadows to this reality. You need [5 * (grand_ritual_level + 1)] active obelisks."))
 		else
