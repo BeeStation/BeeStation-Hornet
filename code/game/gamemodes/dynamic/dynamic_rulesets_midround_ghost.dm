@@ -20,7 +20,10 @@
 		if(!candidate.client)
 			candidates -= candidate
 			continue
-#if !defined(TESTING)
+
+		// Antag banned?
+		// Antag disabled?
+		// Enough hours?
 		if(!candidate.client.should_include_for_role(
 			banning_key = antag_datum.banning_key,
 			role_preference_key = role_preference,
@@ -28,7 +31,7 @@
 		))
 			candidates -= candidate
 			continue
-#endif
+
 
 /datum/dynamic_ruleset/midround/ghost/allowed()
 	. = ..()

@@ -21,10 +21,12 @@
 		if(!istype(candidate, mob_type))
 			candidates -= candidate
 			continue
+
 		// Compatible job?
 		if(candidate.mind?.assigned_role in restricted_roles)
 			candidates -= candidate
 			continue
+
 		// Ghost role?
 		if(!allow_ghost_roles && (candidate.mind?.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
 			candidates -= candidate
@@ -115,9 +117,49 @@
 	role_preference = /datum/role_preference/midround_living/obsessed
 	points_cost = 20
 
+/datum/dynamic_ruleset/midround/living/obsessed/trim_candidates()
+	for(var/mob/candidate in candidates)
+		var/client/client = GET_CLIENT(candidate)
+
+		// Connected?
+		if(!client || !candidate.mind)
+			candidates -= candidate
+			continue
+
+		// Antag banned?
+		// Antag disabled?
+		// Enough hours?
+		if(!client.should_include_for_role(
+			banning_key = antag_datum.banning_key,
+			role_preference_key = role_preference,
+			req_hours = antag_datum.required_living_playtime
+		))
+			candidates -= candidate
+			continue
+
+		// Correct mob type?
+		if(!istype(candidate, mob_type))
+			candidates -= candidate
+			continue
+
+		// Compatible job?
+		if(candidate.mind?.assigned_role in restricted_roles)
+			candidates -= candidate
+			continue
+
+		// Ghost role?
+		if(!allow_ghost_roles && (candidate.mind?.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
+			candidates -= candidate
+			continue
+
+		// Already assigned antag?
+		if(candidate.mind.has_antag_datum(/datum/antagonist/obsessed))
+			candidates -= candidate
+			continue
+
+
 /datum/dynamic_ruleset/midround/living/obsessed/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		if(ishuman(chosen_mind.current))
-			var/mob/living/carbon/human/human_target = chosen_mind.current
-			human_target.gain_trauma(/datum/brain_trauma/special/obsessed)
+		var/mob/living/carbon/human/human_target = chosen_mind.current
+		human_target.gain_trauma(/datum/brain_trauma/special/obsessed)

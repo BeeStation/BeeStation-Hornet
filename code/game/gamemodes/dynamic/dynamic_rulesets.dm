@@ -71,7 +71,6 @@
 		// Antag banned?
 		// Antag disabled?
 		// Enough hours?
-#if !defined(TESTING)
 		if(!client.should_include_for_role(
 			banning_key = antag_datum.banning_key,
 			role_preference_key = role_preference,
@@ -79,7 +78,6 @@
 		))
 			candidates -= candidate
 			continue
-#endif
 
 		// Already assigned antag?
 		if(candidate.mind.special_role)
