@@ -116,7 +116,7 @@
 	if(iscarbon(A))
 		var/mob/living/carbon/human_target = A
 		if(HAS_TRAIT(human_target, TRAIT_POWERHUNGRY))
-			battery = human_target.getorganslot(ORGAN_SLOT_STOMACH)
+			battery = human_target.get_organ_slot(ORGAN_SLOT_STOMACH)
 			if(!istype(battery))
 				return
 

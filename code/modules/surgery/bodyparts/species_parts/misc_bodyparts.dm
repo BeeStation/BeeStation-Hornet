@@ -465,6 +465,7 @@
 /obj/item/bodypart/head/golem/snow
 	limb_id = "sn_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/snow
 	limb_id = "sn_golem"
@@ -503,7 +504,8 @@
 
 /obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
 	. = ..()
-	owner.cut_overlay(carved_overlay)
+	if(owner)
+		owner.cut_overlay(carved_overlay)
 	. += carved_overlay
 
 /obj/item/bodypart/chest/pumpkin_man

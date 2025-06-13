@@ -11,6 +11,7 @@
 #define SPECIES_IPC "ipc"
 #define SPECIES_LIZARD "lizard"
 #define SPECIES_ASHWALKER "ashlizard"
+#define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_MONKEY "monkey"
 #define SPECIES_MOTH "moth"
 #define SPECIES_OOZELING "oozeling"
