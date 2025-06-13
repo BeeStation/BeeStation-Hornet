@@ -22,7 +22,7 @@
 
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1 // range of light for obelisks
-	var/light_power = -2 // power of light for obelisks (will be negative)
+	var/light_power = -1 // power of light for obelisks
 	var/list/obelisks = list() // list of all obelisks
 	var/obelisk_number = 0  // number of obelisks
 	var/list/active_obelisks = list() // list of obelisks anchored to the floor aka "active"
@@ -155,7 +155,7 @@
 
 	if(flickering > 0)
 		flickering -= delta_time
-		set_light(round(sect.light_reach / rand(2, 5)), sect.light_power, DARKNESS_INVERSE_COLOR)
+		set_light(round(sect.light_reach / rand(1, 3)), sect.light_power, DARKNESS_INVERSE_COLOR)
 	else
 		set_light(round(sect.light_reach), sect.light_power, DARKNESS_INVERSE_COLOR)
 
@@ -289,7 +289,7 @@
 	var/turf/T = P.loc
 	if(!istype(T))
 		return
-	var/favor_gained = max(1, sect.grand_ritual_level) * delta_time
+	var/favor_gained = max(0.5, sect.grand_ritual_level) * delta_time
 	sect.adjust_favor(favor_gained)
 
 /datum/component/dark_favor/proc/return_creator()
@@ -398,7 +398,7 @@
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if((sect.light_reach > 4 * (1 + sect.grand_ritual_level)))
+	if((sect.light_reach > 4 * (1 + sect.grand_ritual_level)) || sect.grand_ritual_level == 3)
 		to_chat(user, span_warning("The shadows emanating from your idols are as strong as they could be."))
 		if(sect.grand_ritual_level != 3)
 			to_chat(user, span_warning("Performing a grand ritual would let more shadows move into this world."))
@@ -611,7 +611,7 @@
 
 /datum/religion_rites/grand_ritual_one
 	name = "Grand ritual: Beckoning shadows"
-	desc = "Convince shadows to take interest in your sect. They will carry information between their kind."
+	desc = "Convince shadows to take interest in your sect. Travel freely between obelisks with assistance of the shadows."
 	ritual_length = 35 SECONDS
 	ritual_invocations = list(
 		"Shadows hear me...",
@@ -645,7 +645,7 @@
 
 /datum/religion_rites/grand_ritual_two
 	name = "Grand ritual: Infusing shadows"
-	desc = "Start giving shadows a form in physical world. This will let them heal the wounds of their kin and protect them from sight or harm."
+	desc = "Start giving shadows a form in physical world. This will let them better heal the wounds of their kin and protect them from sight or harm."
 	ritual_length = 70 SECONDS
 	ritual_invocations = list(
 		"Shadows hear me...",
@@ -681,7 +681,7 @@
 
 /datum/religion_rites/grand_ritual_three
 	name = "Grand ritual: Welcoming shadows"
-	desc = "Final grand ritual. Let shadows come into this world fully, letting their tender care resurrect any kin, help them move and let others join their glorious family. BE WARNED gathering all shadows for this rite will let the light spread much further than normal."
+	desc = "Final grand ritual. Let shadows come into this world fully, letting their tender care allow kin to resurrect, help them move and let others join their glorious family."
 	ritual_length = 105 SECONDS
 	ritual_invocations = list(
 		"Shadows hear me...",
