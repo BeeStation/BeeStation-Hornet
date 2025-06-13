@@ -1,7 +1,7 @@
 /datum/religion_sect/shadow_sect
 	starter = FALSE
 	name = "Shadow"
-	desc = "A sect dedicated to the darkness. The manifested obelisks will generate favor from being in darkness."
+	desc = "A sect dedicated to the darkness. The manifested obelisks will generate favor from being in darkness. Spreading obelisks in open areas may draw the attention of station security."
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
@@ -30,6 +30,7 @@
 	var/night_vision_active = FALSE // if night vision aura of obelisks is active
 	var/grand_ritual_in_progress = FALSE // whether a grand ritual is being performed
 	var/grand_ritual_level = 0 // what is the level of the last performed ritual (max is 3)
+	var/sect_shadow_level = 0
 
 
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
@@ -344,8 +345,8 @@
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	var/cost = 200 * sect.light_power * -1 + 200
-	if((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level))
+	var/cost = 200 * sect.sect_shadow_level + 200
+	if(sect.sect_shadow_level > 4 * (sect.grand_ritual_level + 1))
 		to_chat(user, span_warning("The shadows emanating from your idols are as strong as they could be."))
 		if(sect.grand_ritual_level != 3)
 			to_chat(user, span_warning("Performing a grand ritual would let more shadows move into this world."))
@@ -361,13 +362,14 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!sect)
 		return
-	var/cost = 200 * sect.light_power
+	var/cost = 200 * sect.sect_shadow_level * -1
 	sect.adjust_favor(cost, user)
-	sect.light_reach += 1.5
+	sect.light_reach += 1
 	sect.light_power -= 1
+	sect.sect_shadow_level += 1
 	religious_tool.set_light(sect.light_reach/4, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
-		if (D.anchored)
+		if(D.anchored)
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 
 
@@ -575,7 +577,7 @@
 	if(!isblessedshadow(user))
 		to_chat(user, span_warning("How dare someone not of blessed shadow kind try to communicate with shadows!"))
 		return FALSE
-	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
+	if(!(sect.sect_shadow_level > 4 * (sect.grand_ritual_level + 1)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
 		return FALSE
 	if(sect.active_obelisks_number < 5 * (sect.grand_ritual_level + 1))
@@ -653,7 +655,7 @@
 	if(!isblessedshadow(user))
 		to_chat(user, span_warning("How dare someone not of blessed shadow kind try to communicate with shadows!"))
 		return FALSE
-	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
+	if(!(sect.sect_shadow_level > 4 * (sect.grand_ritual_level + 1)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
 		return FALSE
 	if(sect.active_obelisks_number < 7 * (sect.grand_ritual_level + 1))
@@ -713,7 +715,7 @@
 
 /datum/religion_rites/grand_ritual_three
 	name = "Grand ritual: Welcoming shadows"
-	desc = "Final grand ritual. Let shadows come into this world fully, letting their tender care resurrect any kin, help them move and let others join their glorious family. BE WARNED gathering all shadows for this rite will let the light spread much further than normal."
+	desc = "Final grand ritual. Let shadows come into this world fully, letting their tender care resurrect any kin, help them move and let others join their glorious family."
 	ritual_length = 105 SECONDS
 	ritual_invocations = list(
 		"Shadows hear me...",
@@ -736,7 +738,7 @@
 	if(!isblessedshadow(user))
 		to_chat(user, span_warning("How dare someone not of blessed shadow kind try to communicate with shadows!"))
 		return FALSE
-	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
+	if(!(sect.sect_shadow_level > 4 * (sect.grand_ritual_level + 1)))
 		to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
 		return FALSE
 	if(sect.active_obelisks_number < 10 * (sect.grand_ritual_level + 1))
@@ -791,12 +793,6 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		if(obelisk.anchored)
 			obelisk.set_light(4, -30, DARKNESS_INVERSE_COLOR)
-	for(var/turf/T in GLOB.station_turfs)
-		if(T.light_range == 0)
-			T.light_power = 1
-			T.light_range = 3
-			T.set_light_color("#f4f942")
-			T.update_light()
 	sleep(900)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		if(obelisk.anchored)
@@ -814,11 +810,6 @@
 			else
 				to_chat(M, span_noticebold("Shadows returned looking a litle defeated."))
 	sect.grand_ritual_in_progress = FALSE
-	for(var/turf/T in GLOB.station_turfs)
-		if(T.light_range == 3 && T.light_power == 1 && T.light_color == "#f4f942")
-			T.light_power = 1
-			T.light_range = 0
-			T.set_light_color(null)
-			T.update_light()
+
 
 #undef DARKNESS_INVERSE_COLOR
