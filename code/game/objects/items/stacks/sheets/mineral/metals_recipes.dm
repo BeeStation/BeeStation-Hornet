@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new/datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
 		)), \
 	new/datum/stack_recipe_list("stools", list( \
-		new/datum/stack_recipe("stool",	, /obj/structure/chair/stool, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
+		new/datum/stack_recipe("stool", /obj/structure/chair/stool, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
 		new/datum/stack_recipe("bar stool",	 /obj/structure/chair/stool/bar, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
 		)), \
 	new/datum/stack_recipe_list("beds", list( \
