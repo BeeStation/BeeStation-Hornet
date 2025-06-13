@@ -35334,7 +35334,7 @@
 	pixel_x = -32
 	},
 /obj/item/aicard,
-/obj/item/aiModule/reset,
+/obj/item/ai_module/reset,
 /obj/item/paicard{
 	pixel_x = 4
 	},
@@ -56754,9 +56754,9 @@
 /area/medical/storage)
 "sOs" = (
 /obj/structure/table/reinforced,
-/obj/item/aiModule/reset,
-/obj/item/aiModule/reset/purge,
-/obj/item/aiModule/core/full/asimov,
+/obj/item/ai_module/reset,
+/obj/item/ai_module/reset/purge,
+/obj/item/ai_module/core/full/asimov,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -63879,10 +63879,10 @@
 /area/ai_monitored/security/armory)
 "uYL" = (
 /obj/structure/table/reinforced,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
-/obj/item/aiModule/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
+/obj/item/ai_module/supplied/freeform,
 /obj/structure/window/reinforced/spawner/west{
 	dir = 4
 	},
