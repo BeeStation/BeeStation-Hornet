@@ -51,9 +51,9 @@
 	ADD_TRAIT(carbon_owner, TRAIT_MASQUERADE, TRAIT_VAMPIRE)
 
 	// Handle organs
-	var/obj/item/organ/heart/vampheart = carbon_owner.getorgan(/obj/item/organ/heart)
+	var/obj/item/organ/heart/vampheart = carbon_owner.get_organ_by_type(/obj/item/organ/heart)
 	vampheart?.Restart()
-	var/obj/item/organ/eyes/eyes = carbon_owner.getorgan(/obj/item/organ/eyes)
+	var/obj/item/organ/eyes/eyes = carbon_owner.get_organ_by_type(/obj/item/organ/eyes)
 	eyes?.flash_protect = initial(eyes.flash_protect)
 
 	to_chat(carbon_owner, span_notice("Your heart beats falsely within your lifeless chest. You may yet pass for a mortal."))

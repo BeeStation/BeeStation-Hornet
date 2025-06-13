@@ -177,8 +177,8 @@
 
 	// Get rid of icky organs. From 'panacea.dm'
 	var/list/bad_organs = list(
-		carbon_user.getorgan(/obj/item/organ/body_egg),
-		carbon_user.getorgan(/obj/item/organ/zombie_infection)
+		carbon_user.get_organ_by_type(/obj/item/organ/body_egg),
+		carbon_user.get_organ_by_type(/obj/item/organ/zombie_infection)
 	)
 
 	for(var/obj/item/organ/bad_organ in bad_organs)
