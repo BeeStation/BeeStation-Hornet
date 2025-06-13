@@ -9,22 +9,22 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 ))
 
 GLOBAL_LIST_INIT(metal_scrap_recipes, list (
-	new/datum/stack_recipe("iron rod", /obj/item/stack/rods, 5, time = 0.5 SECONDS, category = CAT_MISC)
+	new/datum/stack_recipe("iron rod", /obj/item/stack/rods, 5, 1, 1, crafting_flags = NONE, time = 0.5 SECONDS, category = CAT_MISC)
 ))
 
 GLOBAL_LIST_INIT(glass_scrap_recipes, list (
-	new/datum/stack_recipe("glass shard", /obj/item/shard, 10, time = 1 SECONDS, category = CAT_MISC)
+	new/datum/stack_recipe("glass shard", /obj/item/shard, 10, 1, 1, crafting_flags = NONE, time = 1 SECONDS, category = CAT_MISC)
 ))
 
 GLOBAL_LIST_INIT(plasma_scrap_recipes, list (
-	new/datum/stack_recipe("plasma sheet", /obj/item/stack/sheet/mineral/plasma, 10, time = 1 SECONDS, category = CAT_MISC)
+	new/datum/stack_recipe("plasma sheet", /obj/item/stack/sheet/mineral/plasma, 10, 1, 1, crafting_flags = NONE, time = 1 SECONDS, category = CAT_MISC)
 ))
 
 GLOBAL_LIST_INIT(paper_scrap_recipes, list (
-	new/datum/stack_recipe("paper sheet", /obj/item/paper, 5, time = 0.5 SECONDS, category = CAT_MISC),
-	new/datum/stack_recipe("paper slip", /obj/item/card/id/paper, 25, time = 0.5 SECONDS, category = CAT_MISC),
-	new/datum/stack_recipe("paper cup", /obj/item/reagent_containers/cup/glass/sillycup, 5, time = 0.5 SECONDS, category = CAT_MISC),
-	new/datum/stack_recipe("paper sack", /obj/item/storage/box/papersack, 25, time = 1 SECONDS, category = CAT_MISC),
+	new/datum/stack_recipe("paper sheet", /obj/item/paper, 5, 1, 1, crafting_flags = NONE, time = 0.5 SECONDS, category = CAT_MISC),
+	new/datum/stack_recipe("paper slip", /obj/item/card/id/paper, 25, 1, 1, crafting_flags = NONE, time = 0.5 SECONDS, category = CAT_MISC),
+	new/datum/stack_recipe("paper cup", /obj/item/reagent_containers/cup/glass/sillycup, 5, 1, 1, crafting_flags = NONE, time = 0.5 SECONDS, category = CAT_MISC),
+	new/datum/stack_recipe("paper sack", /obj/item/storage/box/papersack, 25, 1, 1, crafting_flags = NONE, time = 1 SECONDS, category = CAT_MISC),
 ))
 
 /obj/item/stack/rods/cyborg
