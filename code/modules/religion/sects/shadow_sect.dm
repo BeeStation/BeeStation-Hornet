@@ -22,7 +22,7 @@
 
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1 // range of light for obelisks
-	var/light_power = 0 // power of light for obelisks (will be negative)
+	var/light_power = -2 // power of light for obelisks (will be negative)
 	var/list/obelisks = list() // list of all obelisks
 	var/obelisk_number = 0  // number of obelisks
 	var/list/active_obelisks = list() // list of obelisks anchored to the floor aka "active"
@@ -66,7 +66,7 @@
 			to_chat(user, span_warning("How dare someone not of blessed shadow kind try to communicate with shadows!"))
 			return FALSE
 
-		if(!((light_power <= -6 - 5 * grand_ritual_level) || (light_reach >= 8 + 7.5 * grand_ritual_level)))
+		if(!(light_reach > 4 * (1 + grand_ritual_level)))
 			to_chat(user, span_warning("You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits."))
 			return FALSE
 
@@ -88,6 +88,7 @@
 
 	///level up!
 	grand_ritual_level++
+	light_power--
 
 	//Obelisk code
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in obelisks)
@@ -154,7 +155,7 @@
 
 	if(flickering > 0)
 		flickering -= delta_time
-		set_light(round(sect.light_reach / rand(2, 4)), sect.light_power / rand (2, 4), DARKNESS_INVERSE_COLOR)
+		set_light(round(sect.light_reach / rand(2, 5)), sect.light_power, DARKNESS_INVERSE_COLOR)
 	else
 		set_light(round(sect.light_reach), sect.light_power, DARKNESS_INVERSE_COLOR)
 
@@ -208,12 +209,12 @@
 			to_chat(user,span_warning("You can't move an obelisk during a active ritual!"))
 			return
 		if(anchored)
-			src.unanchored_NV()
+			unanchored_NV()
 			anchored = !anchored
 			sect.active_obelisks_number -= 1
 			sect.active_obelisks -= src
 			user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
-			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 			toggling_buckling_after_ritual_3()
 			return
@@ -226,9 +227,9 @@
 			anchored = !anchored
 			sect.active_obelisks += src
 			sect.active_obelisks_number += 1
-			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+			set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 			user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
-			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 			toggling_buckling_after_ritual_3()
 			return
@@ -246,9 +247,9 @@
 			anchored = !anchored
 			sect.active_obelisks += src
 			sect.active_obelisks_number += 1
-			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+			set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 			user.visible_message(span_notice("[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I]."), span_notice("You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I]."))
-			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 			toggling_buckling_after_ritual_3()
 		else
@@ -288,9 +289,8 @@
 	var/turf/T = P.loc
 	if(!istype(T))
 		return
-	var/light_amount = T.get_lumcount()
-	var/favor_gained = max((1 - light_amount) * (sect.grand_ritual_level + 1), 0) * delta_time
-	sect.adjust_favor(favor_gained, creator)
+	var/favor_gained = max(1, grand_ritual_level) * delta_time
+	sect.adjust_favor(favor_gained)
 
 /datum/component/dark_favor/proc/return_creator()
 	return creator
@@ -349,7 +349,7 @@
 
 /datum/religion_rites/shadow_obelisk
 	name = "Obelisk Manifestation"
-	desc = "Creates an obelisk that generates favor when in a dark area."
+	desc = "Creates an obelisk that generates shadows and additional favor."
 	ritual_length = 15 SECONDS
 	ritual_invocations = list(
 		"Let the shadows combine...",
@@ -361,23 +361,23 @@
 
 /datum/religion_rites/shadow_obelisk/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	var/cost = 100 * sect.obelisk_number + 100
-	if(sect.favor < cost)
-		to_chat(user, span_warning("Your obelisks are getting harder to summon as more materialize. You need [cost] favor."))
-		return FALSE
+	//In case an obelisk is destroyed, set this again so we don't charge too much favor
+	favor_cost = (100 * sect.obelisk_number) + 100
 	return ..()
 
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
-	var/cost = 100 * sect.obelisk_number * -1
-	sect.adjust_favor(cost, user)
 	sect.obelisks += obelisk
 	sect.obelisk_number = sect.obelisk_number + 1
 	obelisk.AddComponent(/datum/component/dark_favor, user)
 	obelisk.upgrade_obelisk()
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
+
+	sect.adjust_favor(favor_cost)
+	//set the cost so it updates the next time the interface is opened
+	favor_cost = (100 * sect.obelisk_number) + 100
 	return ..()
 
 
@@ -390,19 +390,15 @@
 		"... Kill the light ...",
 		"... Encompass it all in darkness ...")
 	invoke_msg = "Shadows, reach your tendrils from my altar, and extend thy domain."
-	favor_cost = 200
+	favor_cost = 100
 
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	var/cost = 200 * sect.light_power * -1 + 200
-	if((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level))
+	if((sect.light_reach > 4 * (1 + sect.grand_ritual_level)))
 		to_chat(user, span_warning("The shadows emanating from your idols are as strong as they could be."))
 		if(sect.grand_ritual_level != 3)
 			to_chat(user, span_warning("Performing a grand ritual would let more shadows move into this world."))
-		return FALSE
-	if(sect.favor < cost)
-		to_chat(user, span_warning("The shadows emanating from your idols need more favor to expand. You need [cost]"))
 		return FALSE
 	return ..()
 
@@ -411,14 +407,15 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!sect)
 		return
-	var/cost = 200 * sect.light_power
-	sect.adjust_favor(cost, user)
-	sect.light_reach += 1.5
-	sect.light_power -= 1
-	religious_tool.set_light(sect.light_reach/4, sect.light_power, DARKNESS_INVERSE_COLOR)
+
+	sect.light_reach += 1
+	religious_tool.set_light(ceil(sect.light_reach/4), sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		if (D.anchored)
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+
+	sect.adjust_favor(favor_cost)
+	favor_cost = sect.light_reach * 100
 
 /datum/religion_rites/night_vision_aura
 	name = "Provide night vision"
@@ -435,6 +432,7 @@
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.night_vision_active = !sect.night_vision_active
+	sect.adjust_favor(favor_cost)
 
 
 // Grand ritual section
@@ -453,7 +451,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(sect.grand_ritual_in_progress)
 		return
-	for(var/mob/living/L in range(6, src))
+	for(var/mob/living/L in view(6, src))
 		if(L.health == L.maxHealth)
 			continue
 		if(!isshadow(L))
@@ -567,6 +565,7 @@
 	var/datum/component/dark_favor/component_previous = GetComponent(/datum/component/dark_favor)
 	var/user = component_previous.return_creator()
 	var/our_turf = get_turf(src)
+
 	if(sect.grand_ritual_level == 1)
 		var/obj/structure/destructible/religion/shadow_obelisk/after_rit_1/obelisk = new(our_turf)
 		sect.obelisks += obelisk
