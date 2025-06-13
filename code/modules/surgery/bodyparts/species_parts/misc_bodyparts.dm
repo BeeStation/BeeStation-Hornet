@@ -504,7 +504,8 @@
 
 /obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
 	. = ..()
-	owner.cut_overlay(carved_overlay)
+	if(owner)
+		owner.cut_overlay(carved_overlay)
 	. += carved_overlay
 
 /obj/item/bodypart/chest/pumpkin_man

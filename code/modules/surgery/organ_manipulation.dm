@@ -97,7 +97,7 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		if(target_zone != I.zone || target.getorganslot(I.slot))
+		if(target_zone != I.zone || target.get_organ_slot(I.slot))
 			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(target_zone)]!"))
 			return -1
 		if(istype(I, /obj/item/organ/brain/positron))
@@ -123,7 +123,7 @@
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
-		var/list/organs = target.getorganszone(target_zone)
+		var/list/organs = target.get_organs_for_zone(target_zone)
 		if (target_zone == BODY_ZONE_PRECISE_EYES)
 			target_zone = check_zone(target_zone)
 		if(!organs.len)

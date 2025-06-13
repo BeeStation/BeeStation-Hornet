@@ -26,7 +26,7 @@
 		to_chat(user, span_warning("You can't become a headslug right now!"))
 		return FALSE
 	var/datum/mind/M = user.mind
-	var/list/organs = user.getorganszone(BODY_ZONE_HEAD, 1)
+	var/list/organs = user.get_organs_for_zone(BODY_ZONE_HEAD, TRUE)
 	..()
 
 	for(var/obj/item/organ/I in organs)
@@ -35,7 +35,7 @@
 	for(var/mob/living/A in view(2,user))
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
-			var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
+			var/obj/item/organ/eyes/eyes = H.get_organ_slot(ORGAN_SLOT_EYES)
 			to_chat(H, span_userdanger("You are blinded by a shower of blood!"))
 			H.Stun(20)
 			H.blur_eyes(20)

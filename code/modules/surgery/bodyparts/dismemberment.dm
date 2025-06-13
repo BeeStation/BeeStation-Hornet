@@ -330,6 +330,13 @@
 		brain.Insert(new_head_owner) //Now insert the brain proper
 		brain = null //No more brain in the head
 
+	. = ..()
+
+	if(!.)
+		return
+
+	if(brain)
+		brain = null
 	if(tongue)
 		tongue = null
 	if(ears)
