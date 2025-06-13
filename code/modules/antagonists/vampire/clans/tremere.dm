@@ -71,8 +71,7 @@
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
 /datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
-	var/datum/action/spell/shapeshift/bat/batform = new
-	batform.Grant(vassaldatum.owner.current)
+	vassaldatum.BuyPower(new /datum/action/vampire/shapeshift/batform)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	..()

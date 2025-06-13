@@ -77,6 +77,9 @@
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
+	/// Tracker so that vassals know where their master is
+	var/obj/effect/abstract/vampire_tracker_holder/tracker
+
 	/// Static typecache of all vampire powers.
 	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
 	/// Antagonists that cannot be Vassalized no matter what
@@ -136,6 +139,7 @@
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
 	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+	RegisterSignal(current_mob, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	handle_clown_mutation(current_mob, "Your clownish nature has been subdued by your thirst for blood.")
 
 	create_vampire_team()
@@ -149,46 +153,27 @@
 	else
 		RegisterSignal(current_mob, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
 
+	setup_tracker(current_mob)
+
 #ifdef VAMPIRE_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
 	new /obj/structure/vampire/vassalrack(user_loc)
 #endif
 
-// Taken directly from changeling.dm
-/datum/antagonist/vampire/proc/check_blacklisted_species()
-	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
-	if(carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC)
-		carbon_owner.set_species(/datum/species/human)
-		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
-
-		for(var/datum/record/crew/record in GLOB.manifest.general)
-			if(record.name == carbon_owner.real_name)
-				record.species = "\improper Human"
-				record.gender = carbon_owner.gender
-
-				var/datum/picture/picture_south = new
-				var/datum/picture/picture_west = new
-
-				picture_south.picture_name = "[carbon_owner]"
-				picture_west.picture_name = "[carbon_owner]"
-				picture_south.picture_desc = "This is [carbon_owner]."
-				picture_west.picture_desc = "This is [carbon_owner]."
-
-				var/icon/image = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
-				picture_south.picture_image = icon(image, dir = SOUTH)
-				picture_west.picture_image = icon(image, dir = WEST)
-
 /**
  * Remove innate effects is everything given to the mob
  * When a body is tranferred, this is called on the old mob.
  * while on_removal is called ONCE per ANTAG, this is called ONCE per BODY.
- */
+**/
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	UnregisterSignal(current_mob, list(COMSIG_LIVING_LIFE, COMSIG_PARENT_EXAMINE, COMSIG_LIVING_DEATH))
+	UnregisterSignal(current_mob, list(COMSIG_LIVING_LIFE, COMSIG_PARENT_EXAMINE, COMSIG_LIVING_DEATH, COMSIG_MOVABLE_MOVED))
+
 	handle_clown_mutation(current_mob, removing = FALSE)
+
+	cleanup_tracker()
 
 	if(current_mob.hud_used)
 		var/datum/hud/hud_used = current_mob.hud_used
@@ -238,7 +223,6 @@
 	else
 		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
 
-///Called when you get the antag datum, called only ONCE per antagonist.
 /datum/antagonist/vampire/on_gain()
 	RegisterSignal(SSsunlight, COMSIG_SOL_RANKUP_VAMPIRES, PROC_REF(sol_rank_up))
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_START, PROC_REF(sol_near_start))
@@ -246,10 +230,10 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
-	// Start Sunlight if first Vampire
+	// Start Sol if we're the first vampire
 	check_start_sunlight()
 
-	// Name and Titles
+	// Set name and title
 	SelectFirstName()
 	SelectTitle(am_fledgling = TRUE)
 	SelectReputation(am_fledgling = TRUE)
@@ -257,11 +241,11 @@
 	// Objectives
 	forge_objectives()
 
-	. = ..()
 	// Assign Powers
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
+	. = ..()
 
 /// Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/vampire/on_removal()
@@ -269,28 +253,35 @@
 	clear_powers_and_stats()
 	check_cancel_sunlight()
 	owner.special_role = null
-
-	owner.current.remove_language(/datum/language/vampiric)
 	. = ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	for(var/datum/action/vampire/all_powers as anything in powers)
+
+	// Transfer powers
+	for(var/datum/action/vampire/all_powers in powers)
 		if(old_body)
 			all_powers.Remove(old_body)
 		all_powers.Grant(new_body)
 
-	var/mob/living/carbon/human/old_body_human = old_body
-	if(ishuman(old_body_human))
-		old_body_human.dna.species.punchdamage -= 2
+	// Update punch damage
+	var/mob/living/carbon/human/human_new_body = new_body
+	var/mob/living/carbon/human/human_old_body = old_body
 
-	var/mob/living/carbon/human/user = owner.current
-	if(ishuman(owner.current))
-		var/datum/species/user_species = user.dna.species
-		user_species.species_traits += TRAIT_DRINKSBLOOD
-		user_species.punchdamage += 2
+	if(ishuman(human_new_body) && ishuman(human_old_body))
+		var/datum/species/new_species = human_new_body.dna.species
+		var/datum/species/old_species = human_old_body.dna.species
 
-	//Give Vampire Traits
+		new_species.species_traits += TRAIT_DRINKSBLOOD
+		old_species.species_traits -= TRAIT_DRINKSBLOOD
+
+		new_species.punchdamage = old_species.punchdamage
+		old_species.punchdamage = initial(old_species.punchdamage)
+	else if(ishuman(human_new_body))
+		var/datum/species/new_species = human_new_body.dna.species
+		new_species.punchdamage += 2
+
+	// Vampire Traits
 	old_body?.remove_traits(vampire_traits, TRAIT_VAMPIRE)
 	new_body.add_traits(vampire_traits, TRAIT_VAMPIRE)
 
@@ -299,10 +290,10 @@
 	var/fullname = return_full_name()
 	var/list/msg = list()
 
-	msg += span_userdanger("You are [fullname], a Vampire!")
-	msg += span_warning("Open the Vampire Information panel for information about your Powers, Clan, and more.")
+	msg += span_cultlarge("You are [fullname], a Vampire!")
+	msg += span_cult("Open the Vampire Information panel for information about your Powers, Clan, and more.")
 	if(vampire_level_unspent >= 1)
-		msg += span_warning("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.")
+		msg += span_cult("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.")
 
 	to_chat(owner, examine_block(msg.Join("\n")))
 
@@ -320,12 +311,12 @@
 // Called when using admin tools to give antag status
 /datum/antagonist/vampire/admin_add(datum/mind/new_owner, mob/admin)
 	var/levels = input("How many unspent Ranks would you like [new_owner] to have?","Vampire Rank", vampire_level_unspent) as null | num
-	var/msg = " made [key_name_admin(new_owner)] into \a [name]"
+	var/msg = "made [key_name_admin(new_owner)] into \a [name]"
 	if(levels > 0)
 		vampire_level_unspent = levels
 		msg += " with [levels] extra unspent Ranks."
-	message_admins("[key_name_admin(usr)][msg]")
-	log_admin("[key_name(usr)][msg]")
+	message_admins("[key_name_admin(usr)] [msg]")
+	log_admin("[key_name(usr)] [msg]")
 	new_owner.add_antag_datum(src)
 
 /datum/antagonist/vampire/ui_static_data(mob/user)
@@ -428,7 +419,7 @@
 		REMOVE_TRAIT(user, TRAIT_SKITTISH, ROUNDSTART_TRAIT)
 
 	// Tongue & Language
-	user.grant_all_languages(FALSE, FALSE, TRUE)
+	user.grant_all_languages(ALL, TRUE, LANGUAGE_VAMPIRE)
 	user.grant_language(/datum/language/vampiric)
 
 	/// Clear Disabilities & Organs
@@ -451,23 +442,30 @@
 	// Remove clan first
 	if(my_clan)
 		QDEL_NULL(my_clan)
+
 	// Powers
 	for(var/datum/action/vampire/all_powers as anything in powers)
 		RemovePower(all_powers)
+
 	/// Stats
 	if(ishuman(owner.current))
-		//var/mob/living/carbon/human/user = owner.current
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits -= TRAIT_DRINKSBLOOD
+
 	// Remove all vampire traits
 	user.remove_traits(vampire_traits, TRAIT_VAMPIRE)
+
 	// Update Health
-	owner.current.setMaxHealth(initial(owner.current.maxHealth))
+	user.setMaxHealth(initial(user.maxHealth))
+
 	// Language
-	owner.current.remove_language(/datum/language/vampiric)
+	user.remove_all_languages(LANGUAGE_VAMPIRE, TRUE)
+	user.remove_language(/datum/language/vampiric)
+
 	// Heart
-	var/obj/item/organ/heart/newheart = owner.current.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/newheart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	newheart?.beating = initial(newheart.beating)
+
 	// Eyes
 	var/obj/item/organ/eyes/user_eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	user_eyes?.flash_protect = initial(user_eyes.flash_protect)
@@ -528,6 +526,30 @@
 			gourmand_objective.name = "Optional Objective"
 			objectives += gourmand_objective
 
+// Taken directly from changeling.dm
+/datum/antagonist/vampire/proc/check_blacklisted_species()
+	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
+	if(carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+		carbon_owner.set_species(/datum/species/human)
+		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
+
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = "\improper Human"
+				record.gender = carbon_owner.gender
+
+				var/datum/picture/picture_south = new
+				var/datum/picture/picture_west = new
+
+				picture_south.picture_name = "[carbon_owner]"
+				picture_west.picture_name = "[carbon_owner]"
+				picture_south.picture_desc = "This is [carbon_owner]."
+				picture_west.picture_desc = "This is [carbon_owner]."
+
+				var/icon/image = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
+				picture_south.picture_image = icon(image, dir = SOUTH)
+				picture_west.picture_image = icon(image, dir = WEST)
+
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
@@ -538,3 +560,12 @@
 	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)
 		text += span_cult("<EM>[return_full_name()]</EM>")
 		examine_text += text
+
+/datum/antagonist/vampire/proc/on_moved(datum/source)
+	SIGNAL_HANDLER
+
+	var/mob/living/current = owner?.current
+	if(QDELETED(current))
+		return
+
+	tracker?.tracking_beacon?.update_position()

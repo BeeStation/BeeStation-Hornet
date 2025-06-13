@@ -2319,6 +2319,7 @@
 #include "code\modules\antagonists\vampire\moodlets_vampire.dm"
 #include "code\modules\antagonists\vampire\names_vampire.dm"
 #include "code\modules\antagonists\vampire\objectives_vampire.dm"
+#include "code\modules\antagonists\vampire\tracking_vampire.dm"
 #include "code\modules\antagonists\vampire\clans\_clan.dm"
 #include "code\modules\antagonists\vampire\clans\assignclan.dm"
 #include "code\modules\antagonists\vampire\clans\brujah.dm"

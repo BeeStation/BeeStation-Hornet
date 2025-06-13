@@ -26,16 +26,20 @@
 	if(!my_clan)
 		user.balloon_alert(user, "enter a clan first.")
 		return FALSE
+
 	if(is_blacklisted_antag(conversion_target) || !ishuman(conversion_target) || !conversion_target.mind || conversion_target.mind?.unconvertable)
 		user.balloon_alert(user, "can't be vassalized!")
 		return FALSE
+
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(conversion_target)
 	if(vassaldatum && !vassaldatum?.master.broke_masquerade)
 		user.balloon_alert(user, "someone else's vassal!")
 		return FALSE
+
 	if(conversion_target.stat > UNCONSCIOUS)
 		user.balloon_alert(user, "must be awake!")
 		return FALSE
+
 	var/mob/living/master = conversion_target.mind.enslaved_to
 	if(master && master != owner.current)
 		user.balloon_alert(user, "enslaved to someone else!")
@@ -49,7 +53,7 @@
 
 	SelectTitle(am_fledgling = FALSE)
 
-	//Set the master, then give the datum.
+	// Set the master, then give the datum.
 	var/datum/antagonist/vassal/vassaldatum = new(conversion_target.mind)
 	vassaldatum.master = src
 	conversion_target.mind.add_antag_datum(vassaldatum)
