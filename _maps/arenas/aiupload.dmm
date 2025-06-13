@@ -104,7 +104,9 @@
 /area/space)
 "R" = (
 /obj/structure/table/reinforced,
+/obj/item/ai_module/ion,
 /obj/item/ai_module/core/full/damaged,
+/obj/item/ai_module/core/full/overthrow,
 /obj/item/ai_module/core/full/peacekeeper,
 /obj/structure/window/reinforced{
 	dir = 1
