@@ -106,6 +106,10 @@
 		on_mob_leave(M)
 		affected_mobs -= M
 
+	if(flickering && prob(50))
+		set_light(round(sect.light_reach / rand(2, 4)), sect.light_power / rand (2, 4), DARKNESS_INVERSE_COLOR)
+	else
+		obelisk.set_light(round(sect.light_reach), sect.light_power, DARKNESS_INVERSE_COLOR)
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_enter(mob/living/affected_mob)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -365,11 +369,9 @@
 	sect.adjust_favor(cost, user)
 	sect.light_reach += 1.5
 	sect.light_power -= 1
-	religious_tool.set_light(sect.light_reach/4, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		if (D.anchored)
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-
 
 /datum/religion_rites/night_vision_aura
 	name = "Provide night vision"
