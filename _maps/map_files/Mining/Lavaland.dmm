@@ -3245,6 +3245,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospost)
+"rX" = (
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors{
+	pixel_x = 0;
+	pixel_y = 0
+	})
 "rY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -3398,10 +3404,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
-"sI" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall,
-/area/mine/atmospostengine)
 "sK" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -6117,8 +6119,7 @@
 "Hm" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
 	dir = 8;
-	name = "Nitrogen Tank";
-	assigned_area = Nowhere
+	name = "Nitrogen Tank"
 	},
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -7986,8 +7987,7 @@
 "RT" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
 	dir = 8;
-	name = "Oxygen Tank";
-	assigned_area = Nowhere
+	name = "Oxygen Tank"
 	},
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -8471,6 +8471,10 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"UP" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall,
+/area/mine/atmospostengine)
 "UR" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/donkpockets,
@@ -8613,8 +8617,7 @@
 "VC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
 	dir = 8;
-	name = "Air Tank";
-	assigned_area = Nowhere
+	name = "Air Tank"
 	},
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -54198,7 +54201,7 @@ uJ
 uJ
 uJ
 uJ
-sI
+UP
 cW
 RR
 RR
@@ -56248,7 +56251,7 @@ Oc
 Dy
 NA
 Zd
-Zd
+rX
 Zd
 Zd
 Zd
