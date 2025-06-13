@@ -4695,48 +4695,8 @@
 "aMB" = (
 /turf/open/floor/iron,
 /area/storage/primary)
-"aMG" = (
-/obj/structure/table,
-/obj/item/ai_module/core/full/asimov,
-/obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/item/ai_module/core/freeformcore,
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/effect/spawner/lootdrop/aimodule_neutral,
-/obj/item/ai_module/core/full/custom,
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = 24
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "aMH" = (
 /turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
-"aMI" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	dir = 8;
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = 24
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/item/ai_module/supplied/oxygen,
-/obj/item/ai_module/supplied/protect_station,
-/obj/item/ai_module/zeroth/onehuman,
-/obj/item/ai_module/reset/purge,
-/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "aMJ" = (
 /obj/item/radio/intercom{
@@ -5319,27 +5279,11 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
-"aPt" = (
-/obj/structure/table,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/item/ai_module/supplied/quarantine,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "aPu" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
-"aPx" = (
-/obj/structure/table,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/item/ai_module/supplied/freeform,
-/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "aPy" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -5567,21 +5511,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron,
 /area/storage/primary)
-"aQz" = (
-/obj/structure/table,
-/obj/item/ai_module/reset,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/status_display/ai{
-	pixel_x = -32
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = -24
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "aQD" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -6761,12 +6690,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
-/turf/open/floor/iron/dark,
-/area/storage/tech)
-"aYn" = (
-/obj/structure/table,
-/obj/item/aicard,
-/obj/item/ai_module/reset,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "aYo" = (
@@ -11836,6 +11759,25 @@
 	},
 /turf/open/floor/engine,
 /area/maintenance/department/science/xenobiology)
+"bFp" = (
+/obj/structure/table,
+/obj/machinery/door/window{
+	dir = 8;
+	name = "High-Risk Modules";
+	req_access_txt = "20"
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_y = 24
+	},
+/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/item/ai_module/supplied/oxygen,
+/obj/item/ai_module/supplied/protect_station,
+/obj/item/ai_module/zeroth/onehuman,
+/obj/item/ai_module/reset/purge,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "bFw" = (
 /obj/structure/chair/wood/wings{
 	dir = 1
@@ -16215,6 +16157,21 @@
 "cia" = (
 /turf/closed/wall,
 /area/medical/surgery)
+"cig" = (
+/obj/structure/table,
+/obj/item/ai_module/reset,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/status_display/ai{
+	pixel_x = -32
+	},
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_y = -24
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "cii" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/chair/stool{
@@ -20508,6 +20465,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"daF" = (
+/obj/structure/table,
+/obj/item/aicard,
+/obj/item/ai_module/reset,
+/turf/open/floor/iron/dark,
+/area/storage/tech)
 "daO" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
@@ -20668,6 +20631,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"ddu" = (
+/obj/structure/table,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/item/ai_module/supplied/quarantine,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "ddv" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -33643,6 +33614,27 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"hGX" = (
+/obj/structure/table,
+/obj/item/ai_module/core/full/asimov,
+/obj/effect/spawner/lootdrop/aimodule_harmless,
+/obj/item/ai_module/core/freeformcore,
+/obj/machinery/door/window{
+	base_state = "right";
+	dir = 4;
+	icon_state = "right";
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/obj/structure/window/reinforced,
+/obj/effect/spawner/lootdrop/aimodule_neutral,
+/obj/item/ai_module/core/full/custom,
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_y = 24
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "hHi" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Medbay Maintenance";
@@ -46407,6 +46399,25 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/main)
+"msT" = (
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "msY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -53217,25 +53228,6 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 1
 	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
-"oJk" = (
-/obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "oJA" = (
@@ -61225,6 +61217,14 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
+"rLb" = (
+/obj/structure/table,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/item/ai_module/supplied/freeform,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "rLS" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -104364,7 +104364,7 @@ bSS
 bSS
 nll
 lJT
-oJk
+msT
 bya
 otF
 vxg
@@ -104576,10 +104576,10 @@ aHx
 aaa
 aJS
 aJS
-aMG
+hGX
 aOa
-aPt
-aQz
+ddu
+cig
 aJS
 aaa
 aUv
@@ -106118,9 +106118,9 @@ aHx
 aaa
 aJS
 aJS
-aMI
+bFp
 aOe
-aPx
+rLb
 aQD
 aJS
 aaa
@@ -118462,7 +118462,7 @@ pBX
 thN
 qkS
 aWv
-aYn
+daF
 aZB
 bbr
 bcD

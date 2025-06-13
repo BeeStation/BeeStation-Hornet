@@ -361,7 +361,7 @@
 	if(!nommer.ckey)
 		return
 
-	var/obj/item/organ/tongue/T = nommer.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = nommer.get_organ_slot(ORGAN_SLOT_TONGUE)
 
 	//list our ckey and assign it a favourite pizza
 	if(!pizza_preferences[nommer.ckey])

@@ -1084,7 +1084,7 @@
 	cell = /obj/item/stock_parts/cell/high
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
-	//Don't try buckling on INTENT_HARM so that silicons can search people's inventories without loading them
+	//Don't try buckling on combat_mode so that silicons can search people's inventories without loading them
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs) && ((user != src) || (!combat_mode)))
 		return user_buckle_mob(M, user, check_loc = FALSE)
 

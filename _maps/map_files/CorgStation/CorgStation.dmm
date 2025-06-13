@@ -1526,23 +1526,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
-"awT" = (
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/requests_console{
-	pixel_x = 32
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 4;
-	pixel_y = -1
-	},
-/turf/open/floor/iron/dark,
-/area/tcommsat/computer)
 "awU" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/porta_turret/ai{
@@ -15392,6 +15375,26 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
+"fbq" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 2;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/turf/open/floor/iron,
+/area/bridge)
 "fbB" = (
 /obj/effect/turf_decal/trimline/white/line,
 /obj/effect/turf_decal/siding/wood,
@@ -27513,6 +27516,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
+"jaw" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/table/reinforced,
+/obj/item/ai_module/core/full/asimov,
+/obj/item/ai_module/reset/purge,
+/obj/item/ai_module/reset,
+/turf/open/floor/circuit/green,
+/area/ai_monitored/turret_protected/ai_upload)
 "jaR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -38148,6 +38164,23 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"mGt" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/requests_console{
+	pixel_x = 32
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/turf/open/floor/iron/dark,
+/area/tcommsat/computer)
 "mGu" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/reagent_containers/syringe/used,
@@ -41569,6 +41602,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
+"nQy" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/aimodule_harmless,
+/obj/effect/spawner/lootdrop/aimodule_harmless,
+/obj/effect/spawner/lootdrop/aimodule_harmless,
+/obj/item/ai_module/supplied/freeform,
+/turf/open/floor/circuit/green,
+/area/ai_monitored/turret_protected/ai_upload)
 "nQz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -43110,6 +43154,21 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"onN" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "medical_shutters";
+	name = "medical Shutters"
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "onR" = (
 /obj/machinery/camera/directional/north,
 /obj/machinery/requests_console{
@@ -47405,17 +47464,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/storage)
-"pIv" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/item/ai_module/supplied/freeform,
-/turf/open/floor/circuit/green,
-/area/ai_monitored/turret_protected/ai_upload)
 "pJf" = (
 /mob/living/simple_animal/pet/hamster/vector,
 /obj/structure/bed/dogbed/vector,
@@ -54273,26 +54321,6 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
-"sac" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 2;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 5;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/turf/open/floor/iron,
-/area/bridge)
 "saG" = (
 /obj/machinery/door/airlock{
 	name = "Toilet Unit"
@@ -58458,19 +58486,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/science)
-"tqE" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/table/reinforced,
-/obj/item/ai_module/core/full/asimov,
-/obj/item/ai_module/reset/purge,
-/obj/item/ai_module/reset,
-/turf/open/floor/circuit/green,
-/area/ai_monitored/turret_protected/ai_upload)
 "tqP" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -65857,21 +65872,6 @@
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
-"vIa" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "medical_shutters";
-	name = "medical Shutters"
-	},
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/cup/glass/britcup{
-	pixel_x = 9;
-	pixel_y = -3
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "vIb" = (
 /obj/machinery/turretid{
 	control_area = "/area/ai_monitored/turret_protected/ai";
@@ -94241,7 +94241,7 @@ gOn
 dIY
 nYd
 fER
-awT
+mGt
 nmi
 tJs
 oDp
@@ -107586,7 +107586,7 @@ fmG
 aMT
 anT
 alZ
-sac
+fbq
 auP
 msF
 tIm
@@ -109620,8 +109620,8 @@ aMT
 sIx
 sIx
 mLv
-tqE
-pIv
+jaw
+nQy
 gyG
 sIx
 sIx
@@ -112527,7 +112527,7 @@ iDL
 wBt
 hFG
 wAu
-vIa
+onN
 iXk
 jeN
 bTY

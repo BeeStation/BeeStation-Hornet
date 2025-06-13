@@ -108,11 +108,11 @@
 	if(gentle)
 		rider.visible_message(span_warning("[rider] is thrown clear of [movable_parent]!"), \
 		span_warning("You're thrown clear of [movable_parent]!"))
-		rider.throw_at(target, 8, 3, movable_parent, gentle = TRUE)
+		rider.throw_at(target, 8, 3, movable_parent)
 	else
 		rider.visible_message(span_warning("[rider] is thrown violently from [movable_parent]!"), \
 		span_warning("You're thrown violently from [movable_parent]!"))
-		rider.throw_at(target, 14, 5, movable_parent, gentle = FALSE)
+		rider.throw_at(target, 14, 5, movable_parent)
 
 /// If we're a cyborg or animal and we spin, we yeet whoever's on us off us
 /datum/component/riding/creature/proc/check_emote(mob/living/user, datum/emote/emote)

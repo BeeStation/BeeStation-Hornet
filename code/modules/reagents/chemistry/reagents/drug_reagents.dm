@@ -525,7 +525,7 @@
 	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
-	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/B = M.get_organ_by_type(/obj/item/organ/brain)
 	var/gained_trauma = FALSE
 	if(!gained_trauma)
 		B.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)
@@ -569,3 +569,99 @@
 		M.Jitter(4)
 		M.Dizzy(4)
 	..()
+
+
+/// Can bring a corpse back to life temporarily (if heart is intact)
+/// Also prevents dying
+/datum/reagent/drug/nooartrium
+	name = "Nooartrium"
+	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
+	overdose_threshold = 25
+	color = "#280000"
+	self_consuming = TRUE //No pesky liver shenanigans
+	///If we brought someone back from the dead
+	var/back_from_the_dead = FALSE
+	var/consequences  = FALSE // This can't be healthy?
+	var/time_from_consumption = 0 // For tracking consequences
+
+
+/datum/reagent/drug/nooartrium/on_mob_add(mob/living/affected_mob)
+	if(affected_mob.suiciding)
+		return
+	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	if(!heart || heart.organ_flags & ORGAN_FAILING)
+		return
+	ADD_TRAIT(affected_mob, TRAIT_NOCRITDAMAGE, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NODEATH, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NOHARDCRIT, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NOSOFTCRIT, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_STABLEHEART, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_STUNRESISTANCE, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses don't get tired
+	ADD_TRAIT(affected_mob, TRAIT_IGNOREDAMAGESLOWDOWN, FROM_NOOARTRIUM)
+	if(affected_mob.stat == DEAD)
+		back_from_the_dead = TRUE
+	affected_mob.set_stat(CONSCIOUS) // This doesn't touch knocked out
+	affected_mob.updatehealth()
+	affected_mob.update_sight()
+	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, STAT_TRAIT)
+	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT) // Normally updated using set_health() - we don't want to adjust health, and NOHARDCRIT blocks it being re-added, but not removed
+	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT) // Prevents knockout by oxyloss
+	affected_mob.set_resting(FALSE) // Please get up. No one wants a death throes juggernaut lying on the floor
+	affected_mob.SetAllImmobility(0)
+	if(!back_from_the_dead)
+		to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength!"))
+		return
+	affected_mob.grab_ghost(force = FALSE) //Shoves them back into their freshly reanimated corpse.
+	affected_mob.emote("gasp")
+	to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength, forcing your battered body to move!"))
+
+
+/datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if (!consequences)
+		if (time_from_consumption > 180 SECONDS)
+			consequences = TRUE
+		else
+			time_from_consumption += delta_time SECONDS
+	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
+	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (((affected_mob.getBruteLoss() + affected_mob.getFireLoss()) / 200) + 0.5)* delta_time/6)
+	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	if(!heart || heart.organ_flags & ORGAN_FAILING)
+		on_mob_delete(affected_mob)
+	else
+		heart.maxHealth -= 0.25 * delta_time/3
+
+
+/datum/reagent/drug/nooartrium/on_mob_delete(mob/living/carbon/affected_mob)
+	. = ..()
+	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	remove_buffs(affected_mob)
+	if(affected_mob.health < -300 || !heart || heart.organ_flags & ORGAN_FAILING)
+		affected_mob.add_splatter_floor(get_turf(affected_mob))
+		qdel(heart)
+		affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
+	else if(consequences)
+		affected_mob.set_heartattack(TRUE)
+	time_from_consumption = 0 // Not sure if this is needed, not gonna risk it
+
+/datum/reagent/drug/nooartrium/overdose_start(mob/living/carbon/affected_mob)
+	. = ..()
+	to_chat(affected_mob, span_userdanger("You feel your heart tearing itself apart as it tries to beat stronger!"))
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
+	affected_mob.SetParalyzed(6 SECONDS)
+	consequences = TRUE
+
+
+/datum/reagent/drug/nooartrium/proc/remove_buffs(mob/living/carbon/affected_mob)
+	to_chat(affected_mob, span_userdanger("You feel your heart grow calm."))
+	REMOVE_TRAIT(affected_mob, TRAIT_NOCRITDAMAGE, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NODEATH, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NOHARDCRIT, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NOSOFTCRIT, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_STABLEHEART, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_STUNRESISTANCE, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_IGNOREDAMAGESLOWDOWN, FROM_NOOARTRIUM)
+	affected_mob.update_sight()
