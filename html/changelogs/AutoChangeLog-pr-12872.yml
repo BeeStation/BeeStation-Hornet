@@ -1,0 +1,4 @@
+author: VmpOS2NHSkhkejA9
+delete-after: true
+changes:
+  - bugfix: fixed lights from bioluminescent plants being massively offset
