@@ -72,7 +72,7 @@
 		return
 	user.visible_message(span_notice("[user] begins to reactivate [src]."), span_notice("You begin to reactivate [src]..."))
 	if(do_after(user, 30, target = src))
-		revive(full_heal = 1)
+		revive(HEAL_ALL)
 		user.visible_message(span_notice("[user] reactivates [src]!"), span_notice("You reactivate [src]."))
 		alert_drones(DRONE_NET_CONNECT)
 		if(G)

@@ -5,6 +5,8 @@
 // /mob/living/carbon/human signals
 #define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"	//! Hit by successful disarm attack (mob/living/carbon/human/attacker,zone_targeted)
 #define COMSIG_HUMAN_ATTACKED "carbon_attacked"					//hit by something that checks shields.
+//from /mob/living/carbon/human/proc/set_coretemperature(): (oldvalue, newvalue)
+#define COMSIG_HUMAN_CORETEMP_CHANGE "human_coretemp_change"
 
 ///From mob/living/carbon/human/suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"

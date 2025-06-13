@@ -549,7 +549,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	// We query the admin who sent the adminheal if they are sure
 	if(tgui_alert(usr, "A full adminheal was called on [src], approve or deny?", "Aheal Query", buttons = list("Approve", "Deny")) != "Approve")
 		return
-	M.revive(full_heal = TRUE, admin_revive = TRUE)
+	M.revive(ADMIN_HEAL_ALL)
 
 	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
 	var/msg = span_danger("Admin [key_name_admin(usr)] healed / revived [ADMIN_LOOKUPFLW(M)]!")

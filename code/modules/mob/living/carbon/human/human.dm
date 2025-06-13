@@ -731,22 +731,19 @@
 			else
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
-/mob/living/carbon/human/fully_heal(admin_revive = FALSE)
-	dna?.species.spec_fully_heal(src)
-	if(admin_revive)
-		regenerate_limbs()
-		regenerate_organs()
+/mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
+	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
+		for(var/datum/mutation/human/existing_mutation in dna.mutations)
+			if(existing_mutation.quality != POSITIVE)
+				dna.remove_mutation(existing_mutation.name)
+
+	if(heal_flags & HEAL_TEMP)
+		set_coretemperature(get_body_temp_normal(apply_change = FALSE))
+		heat_exposure_stacks = 0
 		if(ismoth(src))
 			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
-	remove_all_embedded_objects()
-	set_heartattack(FALSE)
-	drunkenness = 0
-	for(var/datum/mutation/HM as() in dna.mutations)
-		if(HM.quality != POSITIVE)
-			dna.remove_mutation(HM.name)
-	coretemperature = get_body_temp_normal(apply_change=FALSE)
-	heat_exposure_stacks = 0
-	..()
+
+	return ..()
 
 /mob/living/carbon/human/is_literate()
 	return TRUE

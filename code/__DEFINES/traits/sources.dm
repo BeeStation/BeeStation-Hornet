@@ -47,16 +47,21 @@
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
-#define TRAIT_RUSTY "rust_trait"
+
 #define ACTION_TRAIT "action_trait"
 #define TURF_TRAIT "turf"
+
+///generic atom traits
+/// Trait from [/datum/element/rust]. Its rusty and should be applying a special overlay to denote this.
+#define TRAIT_RUSTY "rust_trait"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
-#define HIGHLANDER "highlander"
+/// Trait associated with highlander
+#define HIGHLANDER_TRAIT "highlander"
 #define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"

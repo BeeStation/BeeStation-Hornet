@@ -1010,7 +1010,7 @@
 		// We query the admin who sent the adminheal if they are sure
 		if(tgui_alert(usr, "A full adminheal was called on [src], approve or deny?", "Aheal Query", buttons = list("Approve", "Deny")) != "Approve")
 			return
-		L.revive(full_heal = 1, admin_revive = 1)
+		L.revive(ADMIN_HEAL_ALL)
 		message_admins(span_danger("Admin [key_name_admin(src.owner)] healed / revived [key_name_admin(L)]!"))
 		log_admin("[key_name(src.owner)] healed / Revived [key_name(L)].")
 

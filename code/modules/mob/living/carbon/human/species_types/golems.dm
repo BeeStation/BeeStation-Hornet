@@ -940,7 +940,7 @@
 	icon_state = "pile_bandages"
 	resistance_flags = FLAMMABLE
 
-	var/revive_time = 900
+	var/revive_time = 90 SECONDS
 	var/mob/living/carbon/human/cloth_golem
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
@@ -985,8 +985,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
 	invisibility = INVISIBILITY_MAXIMUM //disappear before the animation
 	new /obj/effect/temp_visual/mummy_animation(get_turf(src))
-	if(cloth_golem.revive(full_heal = TRUE, admin_revive = TRUE))
-		cloth_golem.grab_ghost() //won't pull if it's a suicide
+	cloth_golem.revive(ADMIN_HEAL_ALL)
 	sleep(20)
 	cloth_golem.forceMove(get_turf(src))
 	cloth_golem.visible_message(span_danger("[src] rises and reforms into [cloth_golem]!"),span_userdanger("You reform into yourself!"))

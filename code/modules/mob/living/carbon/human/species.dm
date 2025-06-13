@@ -1667,9 +1667,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_updatehealth(mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/spec_fully_heal(mob/living/carbon/human/H)
-	return
-
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style?.help_act(user, target) == MARTIAL_ATTACK_SUCCESS)
 		return TRUE
@@ -2345,10 +2342,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/ExtinguishMob(mob/living/carbon/human/H)
 	return
-
-/datum/species/proc/spec_revival(mob/living/carbon/human/H)
-	return
-
 
 ////////////
 //  Stun  //

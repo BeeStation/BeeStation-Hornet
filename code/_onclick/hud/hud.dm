@@ -27,9 +27,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 	/// Should the mob be able to see in the darkness immediately surrounding their mob?
 
-	var/atom/movable/screen/ling/chems/lingchemdisplay
-	var/atom/movable/screen/ling/sting/lingstingdisplay
-
 	var/atom/movable/screen/blobpwrdisplay
 
 	var/atom/movable/screen/alien_plasma_display
@@ -128,8 +125,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	healths = null
 	stamina = null
 	healthdoll = null
-	lingchemdisplay = null
-	lingstingdisplay = null
 	blobpwrdisplay = null
 	alien_plasma_display = null
 	alien_queen_finder = null
