@@ -5,11 +5,25 @@
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
 	default_color = "00FF00"
-	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
-	inherent_traits = list(TRAIT_TACKLING_TAILED_DEFENDER)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		LIPS
+	)
+	inherent_traits = list(
+		TRAIT_TACKLING_TAILED_DEFENDER
+	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
-	mutant_bodyparts = list("tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None",
-						"frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "body_size" = "Normal")
+	mutant_bodyparts = list(
+		"tail_lizard" = "Smooth",
+		"snout" = "Round",
+		"horns" = "None",
+		"frills" = "None",
+		"spines" = "None",
+		"body_markings" = "None",
+		"legs" = "Normal Legs",
+		"body_size" = "Normal"
+	)
 	mutanttongue = /obj/item/organ/tongue/lizard
 	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5
@@ -64,7 +78,12 @@
 	. = ..()
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)
-	return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg', 'sound/voice/lizard/lizard_scream_4.ogg')
+	return pick(
+		'sound/voice/lizard/lizard_scream_1.ogg',
+		'sound/voice/lizard/lizard_scream_2.ogg',
+		'sound/voice/lizard/lizard_scream_3.ogg',
+		'sound/voice/lizard/lizard_scream_4.ogg',
+		)
 
 /datum/species/lizard/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)
@@ -96,10 +115,18 @@
 */
 /datum/species/lizard/ashwalker
 	name = "Ash Walker"
-	id = SPECIES_ASHWALKER
+	id = SPECIES_LIZARD_ASH
 	examine_limb_id = SPECIES_LIZARD
-	species_traits = list(MUTCOLORS,EYECOLOR,LIPS, NO_UNDERWEAR)
-	inherent_traits = list(TRAIT_CHUNKYFINGERS)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		LIPS,
+		NO_UNDERWEAR
+	)
+	inherent_traits = list(
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_VIRUSIMMUNE
+		)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED

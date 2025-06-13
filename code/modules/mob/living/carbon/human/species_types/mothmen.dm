@@ -7,14 +7,25 @@
 
 /datum/species/moth
 	name = "\improper Mothman"
-	plural_form = "Mothpeople"
+	plural_form = "Mothmen"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
 	default_color = "00FF00"
-	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
-	inherent_traits = list(TRAIT_TACKLING_WINGED_ATTACKER)
+	species_traits = list(
+		LIPS,
+		NOEYESPRITES,
+		HAS_MARKINGS
+	)
+	inherent_traits = list(
+		TRAIT_TACKLING_WINGED_ATTACKER
+	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list(
+		"moth_wings" = "Plain",
+		"moth_antennae" = "Plain",
+		"moth_markings" = "None",
+		"body_size" = "Normal"
+	)
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'

@@ -1,8 +1,9 @@
 /datum/species/golem
 	// Animated beings of stone. They have increased defenses, and do not need to breathe. They're also slow as fuuuck.
-	name = "\improper Golem"
-	id = SPECIES_GOLEM_IRON
+	name = "Golem"
+	id = SPECIES_GOLEM
 	species_traits = list(
+		NO_DNA_COPY,
 		MUTCOLORS,
 		NO_UNDERWEAR,
 		NOTRANSSTING
@@ -16,6 +17,7 @@
 		TRAIT_NOFIRE,
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
+		NO_DNA_COPY,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NONECRODISEASE,
@@ -34,7 +36,6 @@
 	nojumpsuit = 1
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	sexes = FALSE
-	damage_overlay_type = ""
 	meat = /obj/item/food/meat/slab/human/mutant/golem
 	species_language_holder = /datum/language_holder/golem
 	// To prevent golem subtypes from overwhelming the odds when random species
@@ -48,7 +49,7 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
 	)
 
-	fixed_mut_color = "aaa"
+	fixed_mut_color = "#aaaaaa"
 	swimming_component = /datum/component/swimming/golem
 	var/info_text = "As an " + span_danger("Iron Golem") + ", you don't have any special traits."
 	var/random_eligible = TRUE //If false, the golem subtype can't be made through golem mutation toxin
@@ -65,7 +66,7 @@
 	// cultural contamination
 	if(prob(human_surname_chance))
 		golem_surname = pick(GLOB.last_names)
-	else if(special_names && special_names.len && prob(special_name_chance))
+	else if(special_names?.len && prob(special_name_chance))
 		golem_surname = pick(special_names)
 
 	var/golem_name = "[prefix] [golem_surname]"
@@ -113,6 +114,7 @@
 	info_text = "As an " + span_danger("Adamantine Golem") + ", you possess special vocal cords allowing you to \"resonate\" messages to all golems. Your unique mineral makeup makes you immune to most types of magic."
 	prefix = "Adamantine"
 	special_names = null
+	examine_limb_id = SPECIES_GOLEM
 
 /datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -138,6 +140,7 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
+		TRAIT_GENELESS,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER
 	) //no RESISTHEAT, NOFIRE
@@ -145,6 +148,7 @@
 	heatmod = 0 //fine until they blow up
 	prefix = "Plasma"
 	special_names = list("Flood","Fire","Bar","Man")
+	examine_limb_id = SPECIES_GOLEM
 	var/boom_warning = FALSE
 	var/datum/action/innate/ignite/ignite
 
@@ -204,6 +208,7 @@
 	info_text = "As a " + span_danger("Diamond Golem") + ", you are more resistant than the average golem."
 	prefix = "Diamond"
 	special_names = list("Back","Grill")
+	examine_limb_id = SPECIES_GOLEM
 
 //Faster but softer and less armoured
 /datum/species/golem/gold
@@ -216,6 +221,7 @@
 	info_text = "As a " + span_danger("Gold Golem") + ", you are faster but less resistant than the average golem."
 	prefix = "Golden"
 	special_names = list("Boy")
+	examine_limb_id = SPECIES_GOLEM
 
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
@@ -226,6 +232,7 @@
 	info_text = "As a " + span_danger("Silver Golem") + ", your attacks have a higher chance of stunning. Being made of silver, your body is immune to most types of magic."
 	prefix = "Silver"
 	special_names = list("Surfer", "Chariot", "Lining")
+	examine_limb_id = SPECIES_GOLEM
 
 /datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -768,7 +775,6 @@
 	sexes = FALSE
 	speedmod = 0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
-	damage_overlay_type = "synth"
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
 	inherent_factions = list(FACTION_RATVAR)

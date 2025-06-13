@@ -5,7 +5,7 @@
 
 /datum/species/shadow
 	// Humans cursed to stay in the darkness, lest their life forces drain. They regain health in shadow and die in light.
-	name = "\improper Shadow"
+	name = "Shadow"
 	plural_form = "Shadowpeople"
 	id = SPECIES_SHADOWPERSON
 	sexes = 0
@@ -140,6 +140,7 @@
 	to_chat(C, "[info_text]")
 
 	C.fully_replace_character_name(null, pick(GLOB.nightmare_names))
+	C.set_safe_hunger_level()
 
 /datum/species/shadow/nightmare/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc

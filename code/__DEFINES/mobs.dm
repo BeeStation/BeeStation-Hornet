@@ -93,6 +93,12 @@
 #define BODYTYPE_DIGITIGRADE (1<<4)
 ///The limb fits the monkey mold.
 #define BODYTYPE_MONKEY (1<<5)
+///The limb is snouted.
+//#define BODYTYPE_SNOUTED (1<<6)
+///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<7)
+///The limb is from a xenomorph.
+#define BODYTYPE_ALIEN (1<<8)
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'

@@ -573,7 +573,7 @@ GENE SCANNER
 	. = TRUE
 	if(!iscarbon(C) || !C.has_dna())
 		return FALSE
-	if(HAS_TRAIT(C, TRAIT_RADIMMUNE) || HAS_TRAIT(C, TRAIT_BADDNA))
+	if(HAS_TRAIT(C, TRAIT_GENELESS) || HAS_TRAIT(C, TRAIT_BADDNA))
 		return FALSE
 	var/list/message = list()
 	var/list/active_inherent_muts = list()

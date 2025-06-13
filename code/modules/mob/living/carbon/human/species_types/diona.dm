@@ -2,12 +2,28 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
-	sexes = 0
+	sexes = 0 //no sex for bug/plant people!
 	bodyflag = FLAG_DIONA
 	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
-	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NORADDAMAGE)
-	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		AGENDER,
+		NOHUSK,
+		NO_DNA_COPY,
+		NO_UNDERWEAR,
+		NOSOCKS,
+		NOTRANSSTING,
+		NOEYESPRITES
+	)
+	inherent_traits = list(
+		TRAIT_BEEFRIEND,
+		TRAIT_NONECRODISEASE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESISTCOLD,
+		TRAIT_NORADDAMAGE
+	)
+	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
@@ -139,10 +155,6 @@
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	var/obj/item/organ/appendix/appendix = H.get_organ_slot("appendix") //No appendixes for plant people
-	if(appendix)
-		appendix.Remove(H)
-		QDEL_NULL(appendix)
 	split_ability = new
 	split_ability.Grant(H)
 	partition_ability = new

@@ -7,7 +7,13 @@
 		/datum/surgery_step/add_prosthetic
 	)
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
-	possible_locs = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
+	possible_locs = list(
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_HEAD
+	)
 	requires_bodypart = FALSE //need a missing limb
 	requires_bodypart_type = 0
 	self_operable = TRUE
@@ -23,7 +29,12 @@
 
 /datum/surgery_step/add_prosthetic
 	name = "add prosthetic"
-	implements = list(/obj/item/bodypart = 100, /obj/item/organ_storage = 100, /obj/item/chainsaw = 100, /obj/item/melee/synthetic_arm_blade = 100)
+	implements = list(
+		/obj/item/bodypart = 100,
+		/obj/item/organ_storage = 100,
+		/obj/item/chainsaw = 100,
+		/obj/item/melee/synthetic_arm_blade = 100
+	)
 	time = 32
 	var/organ_rejection_dam = 0
 
@@ -32,43 +43,47 @@
 		if(!tool.contents.len)
 			to_chat(user, span_notice("There is nothing inside [tool]!"))
 			return -1
-		var/obj/item/I = tool.contents[1]
-		if(!isbodypart(I))
-			to_chat(user, span_notice("[I] cannot be attached!"))
+		var/obj/item/organ_storage_contents = tool.contents[1]
+		if(!isbodypart(organ_storage_contents))
+			to_chat(user, span_warning("[organ_storage_contents] cannot be attached!"))
 			return -1
-		tool = I
-	if(istype(tool, /obj/item/bodypart))
-		var/obj/item/bodypart/BP = tool
-		if(ismonkey(target))// monkey patient only accept organic monkey limbs
-			if(!IS_ORGANIC_LIMB(BP) || BP.animal_origin != MONKEY_BODYPART)
-				to_chat(user, span_warning("[BP] doesn't match the patient's morphology."))
-				return -1
-		if(IS_ORGANIC_LIMB(BP))
+		tool = organ_storage_contents
+	if(isbodypart(tool))
+		var/obj/item/bodypart/bodypart_to_attach = tool
+		if(IS_ORGANIC_LIMB(bodypart_to_attach))
 			organ_rejection_dam = 10
 			if(ishuman(target))
 				var/mob/living/carbon/human/human_target = target
 				var/obj/item/bodypart/chest/target_chest = human_target.get_bodypart(BODY_ZONE_CHEST)
-				if(!(BP.bodytype & target_chest.acceptable_bodytype))
-					to_chat(user, span_warning("[BP] doesn't match the patient's morphology."))
+				if(!(bodypart_to_attach.bodytype & target_chest.acceptable_bodytype))
+					to_chat(user, span_warning("[bodypart_to_attach] doesn't match the patient's morphology."))
 					return -1
-				if(human_target.dna.species.id != BP.limb_id)
+				if(human_target.dna.species.id != bodypart_to_attach.limb_id)
 					organ_rejection_dam = 30
 
-			if(!BP.can_attach_limb(target))
+			if(!bodypart_to_attach.can_attach_limb(target))
 				target.balloon_alert(user, "that doesn't go on the [parse_zone(target_zone)]!")
 				return -1
 
-		if(target_zone == BP.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
-			display_results(user, target, span_notice("You begin to replace [target]'s [parse_zone(target_zone)] with [tool]..."),
-				"[user] begins to replace [target]'s [parse_zone(target_zone)] with [tool].",
-				"[user] begins to replace [target]'s [parse_zone(target_zone)].")
+		if(target_zone == bodypart_to_attach.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
+			display_results(
+				user,
+				target,
+				span_notice("You begin to replace [target]'s [parse_zone(target_zone)] with [tool]..."),
+				span_notice("[user] begins to replace [target]'s [parse_zone(target_zone)] with [tool]."),
+				span_notice("[user] begins to replace [target]'s [parse_zone(target_zone)]."),
+			)
 		else
 			to_chat(user, span_warning("[tool] isn't the right type for [parse_zone(target_zone)]."))
 			return -1
 	else if(target_zone == BODY_ZONE_L_ARM || target_zone == BODY_ZONE_R_ARM)
-		display_results(user, target, span_notice("You begin to attach [tool] onto [target]..."),
-			"[user] begins to attach [tool] onto [target]'s [parse_zone(target_zone)].",
-			"[user] begins to attach something onto [target]'s [parse_zone(target_zone)].")
+		display_results(
+			user,
+			target,
+			span_notice("You begin to attach [tool] onto [target]..."),
+			span_notice("[user] begins to attach [tool] onto [target]'s [parse_zone(target_zone)]."),
+			span_notice("[user] begins to attach something onto [target]'s [parse_zone(target_zone)]."),
+		)
 	else
 		to_chat(user, span_warning("[tool] must be installed onto an arm."))
 		return -1
@@ -85,9 +100,13 @@
 		L.try_attach_limb(target)
 		if(organ_rejection_dam)
 			target.adjustToxLoss(organ_rejection_dam)
-		display_results(user, target, span_notice("You succeed in replacing [target]'s [parse_zone(target_zone)]."),
+		display_results(
+			user,
+			target,
+			span_notice("You succeed in replacing [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully replaces [target]'s [parse_zone(target_zone)] with [tool]!"),
-			span_notice("[user] successfully replaces [target]'s [parse_zone(target_zone)]!"))
+			span_notice("[user] successfully replaces [target]'s [parse_zone(target_zone)]!"),
+		)
 		target.cauterise_wounds()
 		return
 	else
@@ -95,9 +114,13 @@
 		L.is_pseudopart = TRUE
 		L.try_attach_limb(target)
 		user.visible_message(span_notice("[user] finishes attaching [tool]!"), span_notice("You attach [tool]."))
-		display_results(user, target, span_notice("You attach [tool]."),
+		display_results(
+			user,
+			target,
+			span_notice("You attach [tool]."),
 			span_notice("[user] finishes attaching [tool]!"),
-			span_notice("[user] finishes the attachment procedure!"))
+			span_notice("[user] finishes the attachment procedure!"),
+		)
 		qdel(tool)
 		if(istype(tool, /obj/item/chainsaw/energy/doom))
 			var/obj/item/mounted_chainsaw/super/new_arm = new(target)

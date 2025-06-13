@@ -5,7 +5,9 @@
 	id = SPECIES_SKELETON
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
-	species_traits = list(NOHUSK)
+	species_traits = list(
+		NOHUSK,
+	)
 	inherent_traits = list(
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
@@ -14,6 +16,7 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RADIMMUNE,
+		TRAIT_GENELESS,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NOHUNGER,
 		TRAIT_EASYDISMEMBER,
@@ -29,7 +32,6 @@
 	mutantheart = null
 	mutantliver = null
 	mutantlungs = null
-	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
 	//They can technically be in an ERT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	species_language_holder = /datum/language_holder/skeleton
@@ -42,6 +44,10 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/skeleton,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/skeleton,
 	)
+
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.set_safe_hunger_level()
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])

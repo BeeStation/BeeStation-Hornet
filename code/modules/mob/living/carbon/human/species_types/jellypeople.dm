@@ -322,7 +322,8 @@
 	var/datum/action/innate/integrate_extract/integrate_extract
 	var/datum/action/innate/use_extract/extract_minor
 	var/datum/action/innate/use_extract/major/extract_major
-	var/extract_cooldown = 0
+	/// The cooldown of us using extracts
+	COOLDOWN_DECLARE(extract_cooldown)
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/oozeling/luminescent/Destroy(force)
@@ -445,7 +446,7 @@
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		var/datum/species/oozeling/luminescent/species = H.dna?.species
-		if(species && species.current_extract && (world.time > species.extract_cooldown))
+		if(istype(species) && species.current_extract && (COOLDOWN_FINISHED(species, extract_cooldown)))
 			return TRUE
 		return FALSE
 
@@ -460,7 +461,7 @@
 
 	if(!istype(species, /datum/species/oozeling/luminescent))
 		return
-	
+
 	if(species.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
@@ -472,9 +473,9 @@
 	CHECK_DNA_AND_SPECIES(H)
 
 	if(species.current_extract)
-		species.extract_cooldown = world.time + 10 SECONDS
-		var/cooldown = species.current_extract.activate(H, species, activation_type)
-		species.extract_cooldown = world.time + cooldown
+		COOLDOWN_START(species, extract_cooldown, 10 SECONDS)
+		var/after_use_cooldown = species.current_extract.activate(H, species, activation_type)
+		COOLDOWN_START(species, extract_cooldown, after_use_cooldown)
 
 /datum/action/innate/use_extract/major
 	name = "Extract Major Activation"

@@ -9,6 +9,13 @@
 		if(L.body_zone == zone)
 			return L
 
+///Replaces a single limb and deletes the old one if there was one
+/mob/living/carbon/proc/del_and_replace_bodypart(obj/item/bodypart/new_limb, special)
+	var/obj/item/bodypart/old_limb = get_bodypart(new_limb.body_zone)
+	if(old_limb)
+		qdel(old_limb)
+	new_limb.try_attach_limb(src, special = special)
+
 /mob/living/carbon/has_hand_for_held_index(i)
 	if(!i)
 		return FALSE
@@ -41,7 +48,7 @@
 	return FALSE
 
 /mob/living/carbon/alien/larva/has_left_hand()
-	return 1
+	return TRUE
 
 
 /mob/proc/has_right_hand(check_disabled = TRUE)

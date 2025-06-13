@@ -3,7 +3,7 @@
 	if(dismemberable)
 		return TRUE
 
-//Dismember a limb
+///Remove target limb from it's owner, with side effects.
 /obj/item/bodypart/proc/dismember(dam_type = BRUTE)
 	if(!owner)
 		return FALSE
@@ -168,11 +168,12 @@
 
 /obj/item/bodypart/chest/drop_limb(special)
 	if(special)
-		..()
+		return ..()
 
 /obj/item/bodypart/r_arm/drop_limb(special)
+	. = ..()
+
 	var/mob/living/carbon/C = owner
-	..()
 	if(C && !special)
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
@@ -189,8 +190,9 @@
 
 
 /obj/item/bodypart/l_arm/drop_limb(special)
+	. = ..()
+
 	var/mob/living/carbon/C = owner
-	..()
 	if(C && !special)
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
@@ -215,7 +217,7 @@
 			owner.update_inv_legcuffed()
 		if(owner.shoes)
 			owner.dropItemToGround(owner.shoes, TRUE)
-	..()
+	return ..()
 
 /obj/item/bodypart/l_leg/drop_limb(special) //copypasta
 	if(owner && !special)
@@ -226,7 +228,7 @@
 			owner.update_inv_legcuffed()
 		if(owner.shoes)
 			owner.dropItemToGround(owner.shoes, TRUE)
-	..()
+	return ..()
 
 /obj/item/bodypart/head/drop_limb(special)
 	if(!special)
@@ -246,19 +248,19 @@
 			pill.forceMove(src)
 
 	name = owner ? "[owner.real_name]'s head" : "unknown [limb_id] head"
-	..()
+	return ..()
 
 ///Try to attach this bodypart to a mob, while replacing one if it exists, does nothing if it fails.
-/obj/item/bodypart/proc/replace_limb(mob/living/carbon/limb_owner, special, is_creating = FALSE)
+/obj/item/bodypart/proc/replace_limb(mob/living/carbon/limb_owner, special)
 	if(!istype(limb_owner))
 		return
 	var/obj/item/bodypart/old_limb = limb_owner.get_bodypart(body_zone)
 	if(old_limb)
 		old_limb.drop_limb(TRUE)
 
-	. = try_attach_limb(limb_owner, special, is_creating)
+	. = try_attach_limb(limb_owner, special)
 	if(!.) //If it failed to replace, re-attach their old limb as if nothing happened.
-		old_limb.try_attach_limb(limb_owner, TRUE, is_creating)
+		old_limb.try_attach_limb(limb_owner, TRUE)
 
 ///Checks if you can attach a limb, returns TRUE if you can.
 /obj/item/bodypart/proc/can_attach_limb(mob/living/carbon/new_limb_owner, special, is_creating = FALSE)
@@ -271,7 +273,7 @@
 	return TRUE
 
 ///Attach src to target mob if able, returns FALSE if it fails to.
-/obj/item/bodypart/proc/try_attach_limb(mob/living/carbon/new_limb_owner, special, is_creating = FALSE)
+/obj/item/bodypart/proc/try_attach_limb(mob/living/carbon/new_limb_owner, special)
 	if(!can_attach_limb(new_limb_owner, special))
 		return FALSE
 
@@ -302,14 +304,15 @@
 	for(var/obj/item/organ/limb_organ in contents)
 		limb_organ.Insert(new_limb_owner)
 
-	if(is_creating)
-		update_limb(is_creating = TRUE)
 	update_bodypart_damage_state()
+	if(can_be_disabled)
+		update_disabled()
 
 	synchronize_bodytypes(new_limb_owner)
 	new_limb_owner.updatehealth()
 	new_limb_owner.update_body()
 	new_limb_owner.update_hair()
+	new_limb_owner.update_damage_overlays()
 	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 	return TRUE
 
@@ -330,13 +333,6 @@
 		brain.Insert(new_head_owner) //Now insert the brain proper
 		brain = null //No more brain in the head
 
-	. = ..()
-
-	if(!.)
-		return
-
-	if(brain)
-		brain = null
 	if(tongue)
 		tongue = null
 	if(ears)
@@ -369,15 +365,18 @@
 	new_head_owner.update_hair()
 	new_head_owner.update_damage_overlays()
 
-/obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/C)
-	if(!C.dna.species)
+///Makes sure that the owner's bodytype flags match the flags of all of it's parts.
+/obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/carbon_owner)
+	if(!carbon_owner?.dna?.species) //carbon_owner and dna can somehow be null during garbage collection, at which point we don't care anyway.
 		return
 	//This codeblock makes sure that the owner's bodytype flags match the flags of all of it's parts.
 	var/all_limb_flags
-	for(var/obj/item/bodypart/BP as() in C.bodyparts)
-		all_limb_flags =  all_limb_flags | BP.bodytype
+	for(var/obj/item/bodypart/limb as anything in carbon_owner.bodyparts)
+		//for(var/obj/item/organ/external/ext_organ as anything in limb.external_organs)
+		//	all_limb_flags = all_limb_flags | ext_organ.external_bodytypes
+		all_limb_flags = all_limb_flags | limb.bodytype
 
-	C.dna.species.bodytype = all_limb_flags
+	carbon_owner.dna.species.bodytype = all_limb_flags
 
 /mob/living/carbon/proc/regenerate_limbs(list/excluded_zones = list())
 	SEND_SIGNAL(src, COMSIG_CARBON_REGENERATE_LIMBS, excluded_zones)
