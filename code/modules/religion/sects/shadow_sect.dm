@@ -415,7 +415,7 @@
 		return
 
 	sect.light_reach += 1
-	religious_tool.set_light(ceil(sect.light_reach/4), sect.light_power, DARKNESS_INVERSE_COLOR)
+	religious_tool.set_light(ceil(sect.light_reach/3), sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		if (D.anchored)
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
