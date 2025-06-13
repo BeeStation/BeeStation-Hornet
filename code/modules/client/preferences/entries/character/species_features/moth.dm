@@ -37,14 +37,14 @@
 	var/datum/universal_icon/moth_body = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	var/list/body_parts = list(
-		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST,
-		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM,
+		/obj/item/bodypart/head/moth,
+		/obj/item/bodypart/chest/moth,
+		/obj/item/bodypart/l_arm/moth,
+		/obj/item/bodypart/r_arm/moth,
 	)
 
-	for (var/body_part in body_parts)
-		var/gender = body_part == "chest" ? "_m" : ""
+	for (var/obj/item/bodypart/body_part in body_parts)
+		var/gender = (initial(body_part.is_dimorphic)) ? "_m" : ""
 		moth_body.blend_icon(uni_icon('icons/mob/species/moth/bodyparts.dmi', "moth_[body_part][gender]", dir = SOUTH), ICON_OVERLAY)
 
 	for (var/markings_name in GLOB.moth_markings_roundstart_list)

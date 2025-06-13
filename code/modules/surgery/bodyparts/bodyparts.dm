@@ -602,6 +602,7 @@
 		limb.icon = husk_icon
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
 		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
+		icon_exists(limb.icon, limb.icon_state, scream = TRUE) //Prints a stack trace on the first failure of a given iconstate.
 		if(aux_zone) //Hand shit
 			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 			. += aux
@@ -609,6 +610,7 @@
 		return
 
 	////This is the MEAT of limb icon code
+	limb.icon = icon_greyscale
 	if(!should_draw_greyscale || !icon)
 		limb.icon = icon_static
 	else
