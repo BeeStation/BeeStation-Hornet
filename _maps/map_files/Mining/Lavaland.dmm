@@ -3398,6 +3398,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
+"sI" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall,
+/area/mine/atmospostengine)
 "sK" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -6113,7 +6117,8 @@
 "Hm" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
 	dir = 8;
-	name = "Nitrogen Tank"
+	name = "Nitrogen Tank";
+	assigned_area = Nowhere
 	},
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -6233,6 +6238,7 @@
 /area/mine/atmospost)
 "HP" = (
 /obj/structure/closet/crate/large,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "HR" = (
@@ -7806,7 +7812,8 @@
 	desc = "A little robot that just seems happy to keep you alive, it looks of an older model";
 	radio_channel = null;
 	radio_key = null;
-	locked = 0
+	locked = 0;
+	auto_patrol = 0
 	},
 /obj/effect/mapping_helpers/airalarm/unlocked,
 /turf/open/floor/iron/tech,
@@ -7979,7 +7986,8 @@
 "RT" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
 	dir = 8;
-	name = "Oxygen Tank"
+	name = "Oxygen Tank";
+	assigned_area = Nowhere
 	},
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -8605,7 +8613,8 @@
 "VC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
 	dir = 8;
-	name = "Air Tank"
+	name = "Air Tank";
+	assigned_area = Nowhere
 	},
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -54189,7 +54198,7 @@ uJ
 uJ
 uJ
 uJ
-uJ
+sI
 cW
 RR
 RR
@@ -54938,7 +54947,7 @@ oV
 vP
 Gk
 jt
-dP
+eA
 eA
 FV
 UF
