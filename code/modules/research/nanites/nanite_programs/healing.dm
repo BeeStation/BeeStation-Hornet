@@ -234,9 +234,9 @@
 		return FALSE
 	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE) || !C.can_be_revived()) //too damaged
 		return FALSE
-	if(!C.getorgan(/obj/item/organ/heart)) //what are we even shocking
+	if(!C.get_organ_by_type(/obj/item/organ/heart)) //what are we even shocking
 		return FALSE
-	var/obj/item/organ/brain/BR = C.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/BR = C.get_organ_by_type(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
 		return FALSE
 	if(C.get_ghost())
