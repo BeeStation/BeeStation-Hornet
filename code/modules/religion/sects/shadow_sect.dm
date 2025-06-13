@@ -289,7 +289,7 @@
 	var/turf/T = P.loc
 	if(!istype(T))
 		return
-	var/favor_gained = max(1, grand_ritual_level) * delta_time
+	var/favor_gained = max(1, sect.grand_ritual_level) * delta_time
 	sect.adjust_favor(favor_gained)
 
 /datum/component/dark_favor/proc/return_creator()
@@ -349,7 +349,7 @@
 
 /datum/religion_rites/shadow_obelisk
 	name = "Obelisk Manifestation"
-	desc = "Creates an obelisk that generates shadows and additional favor."
+	desc = "Creates an obelisk that generates shadows and additional favor. The cost of this ritual increases with each obelisk."
 	ritual_length = 15 SECONDS
 	ritual_invocations = list(
 		"Let the shadows combine...",
@@ -363,6 +363,9 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	//In case an obelisk is destroyed, set this again so we don't charge too much favor
 	favor_cost = (100 * sect.obelisk_number) + 100
+	if(favor_cost > sect.favor)
+		to_chat(user, span_warning("You need at least [favor_cost] to perform this ritual now."))
+		return FALSE
 	return ..()
 
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
@@ -376,14 +379,14 @@
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 
 	sect.adjust_favor(favor_cost)
-	//set the cost so it updates the next time the interface is opened
+	//set the cost so it updates the next time the interface is opened (if someone can make it do this that would be great)
 	favor_cost = (100 * sect.obelisk_number) + 100
 	return ..()
 
 
 /datum/religion_rites/expand_shadows
 	name = "Shadow Expansion"
-	desc = "Grow the reach of shadows extending from the altar, and any obelisks."
+	desc = "Grow the reach of shadows extending from the altar, and any obelisks. The cost of this ritual increases with each use."
 	ritual_length = 20 SECONDS
 	ritual_invocations = list(
 		"Spread out...",
@@ -399,6 +402,9 @@
 		to_chat(user, span_warning("The shadows emanating from your idols are as strong as they could be."))
 		if(sect.grand_ritual_level != 3)
 			to_chat(user, span_warning("Performing a grand ritual would let more shadows move into this world."))
+		return FALSE
+	if(favor_cost > sect.favor)
+		to_chat(user, span_warning("You need at least [favor_cost] to perform this ritual now."))
 		return FALSE
 	return ..()
 
