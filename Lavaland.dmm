@@ -3245,6 +3245,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospost)
+"rX" = (
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors{
+	pixel_x = 0;
+	pixel_y = 0
+	})
 "rY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -6111,9 +6117,14 @@
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
 "Hm" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall,
-/area/mine/atmospostengine)
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
+	dir = 8;
+	name = "Nitrogen Tank"
+	},
+/turf/open/floor/engine/vacuum{
+	initial_gas_mix = "TEMP=300"
+	},
+/area/mine/atmospost)
 "Ho" = (
 /obj/structure/necropolis_gate/legion_gate,
 /obj/structure/necropolis_arch,
@@ -8460,6 +8471,10 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"UP" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall,
+/area/mine/atmospostengine)
 "UR" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/donkpockets,
@@ -8600,11 +8615,14 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "VC" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors{
-	pixel_x = 0;
-	pixel_y = 0
-	})
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2{
+	dir = 8;
+	name = "Air Tank"
+	},
+/turf/open/floor/engine/vacuum{
+	initial_gas_mix = "TEMP=300"
+	},
+/area/mine/atmospost)
 "VH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -54183,7 +54201,7 @@ uJ
 uJ
 uJ
 uJ
-Hm
+UP
 cW
 RR
 RR
@@ -55968,12 +55986,12 @@ NA
 Zd
 NA
 vd
-RT
+Hm
 NA
 Zd
 NA
 fa
-RT
+VC
 NA
 Zd
 Zd
@@ -56233,7 +56251,7 @@ Oc
 Dy
 NA
 Zd
-VC
+rX
 Zd
 Zd
 Zd
