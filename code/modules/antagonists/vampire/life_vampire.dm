@@ -158,8 +158,8 @@
 	carbon_user.regenerate_organs()
 
 	// Heal organs
-	for(var/obj/item/organ/organ as anything in carbon_user.internal_organs)
-		organ.setOrganDamage(0)
+	for(var/obj/item/organ/organ in carbon_user.internal_organs)
+		organ.set_organ_damage(0)
 
 	// Heart
 	if(!HAS_TRAIT(carbon_user, TRAIT_MASQUERADE))
