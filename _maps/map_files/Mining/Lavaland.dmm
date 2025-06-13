@@ -3245,12 +3245,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospost)
-"rX" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors{
-	pixel_x = 0;
-	pixel_y = 0
-	})
 "rY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -8349,10 +8343,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
-"Um" = (
-/obj/structure/foamedmetal,
-/turf/open/floor/plating,
-/area/mine/atmospostengine)
 "Un" = (
 /obj/item/stack/rods,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -53687,7 +53677,7 @@ kL
 AY
 Gv
 by
-Um
+uJ
 Zd
 qA
 sj
@@ -56251,7 +56241,7 @@ Oc
 Dy
 NA
 Zd
-rX
+Zd
 Zd
 Zd
 Zd
