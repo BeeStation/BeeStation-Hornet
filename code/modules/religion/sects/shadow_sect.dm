@@ -393,7 +393,7 @@
 		"... Kill the light ...",
 		"... Encompass it all in darkness ...")
 	invoke_msg = "Shadows, reach your tendrils from my altar, and extend thy domain."
-	favor_cost = 100
+	favor_cost = 200
 
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
@@ -421,7 +421,7 @@
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 
 	sect.adjust_favor(favor_cost)
-	favor_cost = sect.light_reach * 100
+	favor_cost = sect.light_reach * 200
 
 /datum/religion_rites/night_vision_aura
 	name = "Provide night vision"
