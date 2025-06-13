@@ -489,28 +489,19 @@
 
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
 //set is_creating to true if you want to change the appearance of the limb outside of mutation changes or forced changes.
-/obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source, is_creating = FALSE)
-	var/mob/living/carbon/C
-	if(source)
-		C = source
-		if(!original_owner)
-			original_owner = WEAKREF(source)
-	else if(original_owner && !IS_WEAKREF_OF(owner, original_owner)) //Foreign limb
-		no_update = TRUE
-	else
-		C = owner
-		no_update = FALSE
+/obj/item/bodypart/proc/update_limb(dropping_limb = FALSE, is_creating = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 
 	if(IS_ORGANIC_LIMB(src))
-		if(C && HAS_TRAIT(C, TRAIT_HUSK))
+		if(HAS_TRAIT(owner, TRAIT_HUSK))
 			dmg_overlay_type = "" //no damage overlay shown when husked
 			is_husked = TRUE
 		else
 			is_husked = FALSE
 
 	// Get temporary colour from our attached mob
-	if (!dropping_limb && C && IS_ORGANIC_LIMB(src))
-		mutation_color = GET_TRAIT_VALUE(C, TRAIT_OVERRIDE_SKIN_COLOUR)
+	if (!dropping_limb && owner && IS_ORGANIC_LIMB(src))
+		mutation_color = GET_TRAIT_VALUE(owner, TRAIT_OVERRIDE_SKIN_COLOUR)
 	else
 		mutation_color = null
 
@@ -524,11 +515,11 @@
 	if(no_update)
 		return
 
-	if(!is_creating)
+	if(!is_creating || !owner)
 		return
 
-	if(!animal_origin && ishuman(C))
-		var/mob/living/carbon/human/H = C
+	if(!animal_origin && ishuman(owner))
+		var/mob/living/carbon/human/H = owner
 
 		var/datum/species/S = H.dna.species
 		species_flags_list = H.dna.species.species_traits //Literally only exists for a single use of NOBLOOD, but, no reason to remove it i guess...?
@@ -563,6 +554,8 @@
 
 //to update the bodypart's icon when not attached to a mob
 /obj/item/bodypart/proc/update_icon_dropped()
+	SHOULD_CALL_PARENT(TRUE)
+
 	cut_overlays()
 	var/list/standing = get_limb_icon(1)
 	if(!standing.len)
@@ -575,6 +568,9 @@
 
 
 /obj/item/bodypart/proc/get_limb_icon(dropped)
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
+
 	icon_state = "" //to erase the default sprite, we're building the visual aspects of the bodypart through overlays alone.
 
 	. = list()

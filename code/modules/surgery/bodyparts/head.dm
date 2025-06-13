@@ -130,22 +130,18 @@
 	ears = null
 	tongue = null
 
-/obj/item/bodypart/head/update_limb(dropping_limb, mob/living/carbon/source, is_creating)
-	var/mob/living/carbon/C
-	if(source)
-		C = source
-	else
-		C = owner
+/obj/item/bodypart/head/update_limb(dropping_limb, is_creating)
+	. = ..()
 
-	real_name = C.real_name
-	if(HAS_TRAIT(C, TRAIT_HUSK))
+	real_name = owner.real_name
+	if(HAS_TRAIT(owner, TRAIT_HUSK))
 		real_name = "Unknown"
 		hair_style = "Bald"
 		facial_hair_style = "Shaved"
 		lip_style = null
 
-	else if(!animal_origin && ishuman(C))
-		var/mob/living/carbon/human/H = C
+	else if(!animal_origin && ishuman(owner))
+		var/mob/living/carbon/human/H = owner
 		var/datum/species/S = H.dna.species
 
 		//Facial hair
@@ -189,21 +185,11 @@
 		else
 			lip_style = null
 			lip_color = "white"
-	..()
-
-/obj/item/bodypart/head/update_icon_dropped()
-	var/list/standing = get_limb_icon(TRUE)
-	if(!standing.len)
-		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
-		return
-	for(var/image/I in standing)
-		I.pixel_x = px_x
-		I.pixel_y = px_y
-	add_overlay(standing)
 
 /obj/item/bodypart/head/get_limb_icon(dropped)
 	cut_overlays()
 	. = ..()
+
 	if(dropped) //certain overlays only appear when the limb is being detached from its owner.
 
 		if(IS_ORGANIC_LIMB(src)) //having a robotic head hides certain features.
