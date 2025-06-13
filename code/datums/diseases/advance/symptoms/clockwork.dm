@@ -63,115 +63,162 @@
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/H)
 	if(replaceorgans)
 		for(var/obj/item/organ/O in H.internal_organs)
-			if(O.status == ORGAN_ROBOTIC) // Skip already robotic organs
+			if(O.status == ORGAN_ROBOTIC) //they are either part robotic or we already converted them!
 				continue
-			var/obj/item/organ/new_organ = create_new_organ(O.slot, H)
-			if(new_organ)
-				new_organ.Insert(H, TRUE, FALSE)
-				return TRUE
-
+			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
+				if(ORGAN_SLOT_BRAIN)
+					O.name = "enigmatic gearbox"
+					O.desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
+					O.icon_state = "brain-clock"
+					O.status = ORGAN_ROBOTIC
+					O.organ_flags = ORGAN_SYNTHETIC
+					return TRUE
+				if(ORGAN_SLOT_STOMACH)
+					if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
+						var/obj/item/organ/stomach/battery/clockwork/organ = new()
+						if(robustbits)
+							organ.max_charge = 15000
+						organ.Insert(H, TRUE, FALSE)
+					else
+						var/obj/item/organ/stomach/clockwork/organ = new()
+						organ.Insert(H, TRUE, FALSE)
+					if(prob(40) && H.stat != DEAD)
+						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_EARS)
+					var/obj/item/organ/ears/robot/clockwork/organ = new()
+					if(robustbits)
+						organ.damage_multiplier = 0.5
+					organ.Insert(H, TRUE, FALSE)
+					if(H.stat != DEAD)
+						to_chat(H, span_warning("Your ears pop."))
+					return TRUE
+				if(ORGAN_SLOT_EYES)
+					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
+					if(robustbits)
+						organ.flash_protect = 1
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40) && H.stat != DEAD)
+						to_chat(H, span_userdanger("You feel a stabbing pain in your eyeballs!"))
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_LUNGS)
+					var/obj/item/organ/lungs/clockwork/organ = new()
+					if(robustbits)
+						organ.gas_max = list(
+							/datum/gas/plasma = 15,
+							/datum/gas/carbon_dioxide = 15,
+						)
+						organ.SA_para_min = 15
+						organ.SA_sleep_min = 15
+						organ.BZ_trip_balls_min = 15
+						organ.gas_stimulation_min = 15
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40) && H.stat != DEAD)
+						to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_HEART)
+					var/obj/item/organ/heart/clockwork/organ = new()
+					organ.Insert(H, TRUE, FALSE)
+					if(H.stat != DEAD)
+						to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_LIVER)
+					var/obj/item/organ/liver/clockwork/organ = new()
+					if(robustbits)
+						organ.toxTolerance = 7
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40) && H.stat <= DEAD)
+						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_TONGUE)
+					if(robustbits)
+						var/obj/item/organ/tongue/robot/clockwork/better/organ = new()
+						organ.Insert(H, TRUE, FALSE)
+						return TRUE
+					else
+						var/obj/item/organ/tongue/robot/clockwork/organ = new()
+						organ.Insert(H, TRUE, FALSE)
+						return TRUE
+				if(ORGAN_SLOT_TAIL)
+					var/obj/item/organ/tail/clockwork/organ = new()
+					organ.Insert(H, TRUE, FALSE)
+					return TRUE
+				if(ORGAN_SLOT_WINGS)
+					var/obj/item/organ/wings/cybernetic/clockwork/organ = new()
+					if(robustbits)
+						organ.flight_level = WINGS_FLYING
+					organ.Insert(H, TRUE, FALSE)
+					if(H.stat <= DEAD)
+						to_chat(H, span_warning("Your wings feel stiff."))
+					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(!IS_ORGANIC_LIMB(O))
-				if(robustbits && (O.brute_reduction < 3 || O.burn_reduction < 2))
+				if(robustbits && O.brute_reduction < 3 || O.burn_reduction < 2)
 					O.burn_reduction = max(2, O.burn_reduction)
 					O.brute_reduction = max(3, O.brute_reduction)
 				continue
-			var/obj/item/bodypart/new_bodypart = create_new_bodypart(O.body_zone)
-			if(new_bodypart)
-				if(robustbits)
-					new_bodypart.brute_reduction = 3
-					new_bodypart.burn_reduction = 2
-				H.del_and_replace_bodypart(new_bodypart, TRUE)
-				H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
-				qdel(O)
-				return TRUE
+			switch(O.body_zone)
+				if(BODY_ZONE_HEAD)
+					var/obj/item/bodypart/head/robot/clockwork/B = new()
+					if(robustbits)
+						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
+						B.burn_reduction = 2
+					B.replace_limb(H, TRUE)
+					H.visible_message(span_notice("[H]'s head shifts, and becomes metal before your very eyes"), span_userdanger("Your head feels numb, and cold."))
+					qdel(O)
+					return TRUE
+				if(BODY_ZONE_CHEST)
+					var/obj/item/bodypart/chest/robot/clockwork/B = new()
+					if(robustbits)
+						B.brute_reduction = 3
+						B.burn_reduction = 2
+					B.replace_limb(H, TRUE)
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
+					qdel(O)
+					return TRUE
+				if(BODY_ZONE_L_ARM)
+					var/obj/item/bodypart/l_arm/robot/clockwork/B = new()
+					if(robustbits)
+						B.brute_reduction = 3
+						B.burn_reduction = 2
+					B.replace_limb(H, TRUE)
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
+					qdel(O)
+					return TRUE
+				if(BODY_ZONE_R_ARM)
+					var/obj/item/bodypart/r_arm/robot/clockwork/B = new()
+					if(robustbits)
+						B.brute_reduction = 3
+						B.burn_reduction = 2
+					B.replace_limb(H, TRUE)
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
+					qdel(O)
+					return TRUE
+				if(BODY_ZONE_L_LEG)
+					var/obj/item/bodypart/l_leg/robot/clockwork/B = new()
+					if(robustbits)
+						B.brute_reduction = 3
+						B.burn_reduction = 2
+					B.replace_limb(H, TRUE)
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
+					qdel(O)
+					return TRUE
+				if(BODY_ZONE_R_LEG)
+					var/obj/item/bodypart/r_leg/robot/clockwork/B = new()
+					if(robustbits)
+						B.brute_reduction = 3
+						B.burn_reduction = 2
+					B.replace_limb(H, TRUE)
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
+					qdel(O)
+					return TRUE
 	return FALSE
-
-/datum/symptom/robotic_adaptation/proc/create_new_organ(slot, mob/living/carbon/human/H)
-	var/obj/item/organ/new_organ
-	switch(slot)
-		if(ORGAN_SLOT_BRAIN)
-			new_organ = new /obj/item/organ/brain/clockwork()
-			new_organ.name = "enigmatic gearbox"
-			new_organ.desc = "An engineer would call this inconceivable wonder of gears and metal a 'black box'"
-			new_organ.icon_state = "brain-clock"
-			new_organ.status = ORGAN_ROBOTIC
-			new_organ.organ_flags = ORGAN_SYNTHETIC
-		if(ORGAN_SLOT_STOMACH)
-			new_organ = HAS_TRAIT(H, TRAIT_POWERHUNGRY) ? new /obj/item/organ/stomach/battery/clockwork() : new /obj/item/organ/stomach/clockwork()
-			if(robustbits && HAS_TRAIT(H, TRAIT_POWERHUNGRY))
-				new_organ.max_charge = 15000
-			if(prob(40) && H.stat != DEAD)
-				to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
-				H.emote("scream")
-		if(ORGAN_SLOT_EARS)
-			new_organ = new /obj/item/organ/ears/robot/clockwork()
-			if(robustbits)
-				new_organ.damage_multiplier = 0.5
-			if(H.stat != DEAD)
-				to_chat(H, span_warning("Your ears pop."))
-		if(ORGAN_SLOT_EYES)
-			new_organ = new /obj/item/organ/eyes/robotic/clockwork()
-			if(robustbits)
-				new_organ.flash_protect = 1
-			if(prob(40) && H.stat != DEAD)
-				to_chat(H, span_userdanger("You feel a stabbing pain in your eyeballs!"))
-				H.emote("scream")
-		if(ORGAN_SLOT_LUNGS)
-			new_organ = new /obj/item/organ/lungs/clockwork()
-			if(robustbits)
-				new_organ.gas_max = list(
-					/datum/gas/plasma = 15,
-					/datum/gas/carbon_dioxide = 15,
-				)
-				new_organ.SA_para_min = 15
-				new_organ.SA_sleep_min = 15
-				new_organ.BZ_trip_balls_min = 15
-				new_organ.gas_stimulation_min = 15
-			if(prob(40) && H.stat != DEAD)
-				to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
-				H.emote("scream")
-		if(ORGAN_SLOT_HEART)
-			new_organ = new /obj/item/organ/heart/clockwork()
-			if(H.stat != DEAD)
-				to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
-				H.emote("scream")
-		if(ORGAN_SLOT_LIVER)
-			new_organ = new /obj/item/organ/liver/clockwork()
-			if(robustbits)
-				new_organ.toxTolerance = 7
-			if(prob(40) && H.stat <= DEAD)
-				to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
-				H.emote("scream")
-		if(ORGAN_SLOT_TONGUE)
-			new_organ = robustbits ? new /obj/item/organ/tongue/robot/clockwork/better() : new /obj/item/organ/tongue/robot/clockwork()
-		if(ORGAN_SLOT_TAIL)
-			new_organ = new /obj/item/organ/tail/clockwork()
-		if(ORGAN_SLOT_WINGS)
-			new_organ = new /obj/item/organ/wings/cybernetic/clockwork()
-			if(robustbits)
-				new_organ.flight_level = WINGS_FLYING
-			if(H.stat <= DEAD)
-				to_chat(H, span_warning("Your wings feel stiff."))
-	return new_organ
-
-/datum/symptom/robotic_adaptation/proc/create_new_bodypart(body_zone)
-	var/obj/item/bodypart/new_bodypart
-	switch(body_zone)
-		if(BODY_ZONE_HEAD)
-			new_bodypart = new /obj/item/bodypart/head/robot/clockwork()
-		if(BODY_ZONE_CHEST)
-			new_bodypart = new /obj/item/bodypart/chest/robot/clockwork()
-		if(BODY_ZONE_L_ARM)
-			new_bodypart = new /obj/item/bodypart/l_arm/robot/clockwork()
-		if(BODY_ZONE_R_ARM)
-			new_bodypart = new /obj/item/bodypart/r_arm/robot/clockwork()
-		if(BODY_ZONE_L_LEG)
-			new_bodypart = new /obj/item/bodypart/l_leg/robot/clockwork()
-		if(BODY_ZONE_R_LEG)
-			new_bodypart = new /obj/item/bodypart/r_leg/robot/clockwork()
-	return new_bodypart
 
 /datum/symptom/robotic_adaptation/End(datum/disease/advance/A)
 	if(!..())
