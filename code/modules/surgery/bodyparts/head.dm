@@ -1,7 +1,7 @@
 /obj/item/bodypart/head
 	name = BODY_ZONE_HEAD
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
-	icon = 'icons/mob/human_parts_greyscale.dmi'
+	icon = 'icons/mob/species/human/bodyparts_greyscale.dmi'
 	//icon_state = "default_human_head"
 	icon_state_preview = "human_head_m"
 	max_damage = 200
@@ -220,7 +220,7 @@
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_larva"
 				else if(!(TRAIT_NOBLOOD in species_flags_list))
-					debrain_overlay.icon = 'icons/mob/human_face.dmi'
+					debrain_overlay.icon = 'icons/mob/species/human/human_face.dmi'
 					debrain_overlay.icon_state = "debrained"
 				. += debrain_overlay
 			else
@@ -233,12 +233,12 @@
 
 			// lipstick
 			if(lip_style)
-				var/image/lips_overlay = image('icons/mob/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
+				var/image/lips_overlay = image('icons/mob/species/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
 				lips_overlay.color = lip_color
 				. += lips_overlay
 
 			// eyes
-			var/image/eyes_overlay = image('icons/mob/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
+			var/image/eyes_overlay = image('icons/mob/species/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
 			. += eyes_overlay
 			if(eyes)
 				eyes_overlay.icon_state = eyes.eye_icon_state

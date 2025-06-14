@@ -5,17 +5,16 @@
 	force = 3
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/mob/human_parts_greyscale.dmi'
+	icon = 'icons/mob/species/human/bodyparts.dmi'
 	icon_state = ""
 	/// The icon for Organic limbs using greyscale
 	VAR_PROTECTED/icon_greyscale = DEFAULT_BODYPART_ICON_ORGANIC
 	///The icon for non-greyscale limbs
-	var/icon_static = 'icons/mob/human_parts.dmi'
+	var/icon_static = 'icons/mob/species/human/bodyparts.dmi'
 	///The icon for husked limbs
-	var/husk_icon = 'icons/mob/human_parts.dmi'
+	VAR_PROTECTED/icon_husk = 'icons/mob/species/human/bodyparts.dmi'
 	///The type of husk for building an iconstate
 	var/husk_type = "humanoid"
-	icon_state = ""
 	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
 	/// The mob that "owns" this limb
 	/// DO NOT MODIFY DIRECTLY. Use set_owner()
@@ -598,7 +597,7 @@
 	var/image/aux
 
 	if(is_husked)
-		limb.icon = husk_icon
+		limb.icon = icon_husk
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
 		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 		icon_exists(limb.icon, limb.icon_state, scream = TRUE) //Prints a stack trace on the first failure of a given iconstate.
