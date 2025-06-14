@@ -76,9 +76,19 @@
 #define MOB_SPIRIT		"spirit"
 
 //Organ defines for carbon mobs
-#define ORGAN_ORGANIC   1
-#define ORGAN_ROBOTIC   2
+#define ORGAN_ORGANIC 1
+#define ORGAN_ROBOTIC 2
 
+#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
+#define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
+
+#define MONKEY_BODYPART "monkey"
+#define TERATOMA_BODYPART "teratoma"
+#define ALIEN_BODYPART "alien"
+#define LARVA_BODYPART "larva"
+
+//Bodypart change blocking flags
+#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
 //Bodytype defines for how things can be worn, surgery, and other misc things.
 ///The limb is organic.
@@ -99,18 +109,6 @@
 #define BODYTYPE_LARVA_PLACEHOLDER (1<<7)
 ///The limb is from a xenomorph.
 #define BODYTYPE_ALIEN (1<<8)
-
-#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
-#define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
-
-#define MONKEY_BODYPART "monkey"
-#define TERATOMA_BODYPART "teratoma"
-#define ALIEN_BODYPART "alien"
-#define LARVA_BODYPART "larva"
-#define DEVIL_BODYPART "devil"
-
-//Bodypart change blocking flags
-#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
