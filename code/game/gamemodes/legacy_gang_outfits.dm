@@ -141,7 +141,8 @@
 
 /datum/outfit/rigatonifamily
 	name = "Rigatoni family"
-	uniform = /obj/item/clothing/under/rank/civilian/chef
+	uniform = /obj/item/clothing/under/rank/civilian/servicedefault
+
 	suit = /obj/item/clothing/suit/apron/chef
 	head = /obj/item/clothing/head/utility/chefhat
 

@@ -39,7 +39,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	belt = /obj/item/modular_computer/tablet/pda/bartender
 	ears = /obj/item/radio/headset/headset_srv
-	uniform = /obj/item/clothing/under/rank/civilian/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/servicedefault
 	suit = /obj/item/clothing/suit/armor/vest
 	l_hand = /obj/item/storage/box/beanbag
 	shoes = /obj/item/clothing/shoes/laceup

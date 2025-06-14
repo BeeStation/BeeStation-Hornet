@@ -4,23 +4,6 @@
 	icon = 'icons/obj/clothing/under/civilian.dmi'
 	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
 
-/obj/item/clothing/under/rank/civilian/bartender
-	desc = "It looks like it could use some more flair."
-	name = "bartender's uniform"
-	icon_state = "barman"
-	item_state = "bar_suit"
-	alt_covers_chest = TRUE
-
-/obj/item/clothing/under/rank/civilian/bartender/skirt
-	name = "bartender's skirt"
-	desc = "It looks like it could use some more flair."
-	icon_state = "barman_skirt"
-	item_state = "bar_suit"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
-	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/bartender/purple
 	desc = "It looks like it has lots of flair!"
@@ -48,15 +31,15 @@
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
-/obj/item/clothing/under/rank/civilian/chef
-	name = "cook's suit"
-	desc = "A suit which is given only to the most <b>hardcore</b> cooks in space."
+/obj/item/clothing/under/rank/civilian/servicedefault
+	name = "Service suit"
+	desc = "A suit which is given only to the most <b>hardcore</b> service members in space."
 	icon_state = "chef"
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/civilian/chef/skirt
-	name = "cook's skirt"
-	desc = "A skirt which is given only to the most <b>hardcore</b> cooks in space."
+/obj/item/clothing/under/rank/civilian/servicedefault/skirt
+	name = "Service skirt"
+	desc = "A skirt which is given only to the most <b>hardcore</b> service members space."
 	icon_state = "chef_skirt"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
