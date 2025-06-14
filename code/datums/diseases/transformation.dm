@@ -87,11 +87,17 @@
 	affected_mob.ghostize(TRUE,SENTIENCE_FORCE)
 	to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [affected_mob.name]?", bantype, null, 7.5 SECONDS, affected_mob, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
-		affected_mob.key = C.key
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		check_jobban = bantype,
+		poll_time = 10 SECONDS,
+		jump_target = affected_mob,
+		checked_target = affected_mob,
+		role_name_text = affected_mob.name,
+		alert_pic = affected_mob,
+	)
+	if(candidate)
+		affected_mob.key = candidate.key
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
 	else
 		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
 
