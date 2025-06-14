@@ -690,7 +690,7 @@
 				var/datum/species/shadow/S = M.dna.species
 				S.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_two
-	sect.rites_list += /datum/religion_rites/grand_ritual_three
+	//sect.rites_list += /datum/religion_rites/grand_ritual_three
 	return ..()
 
 /datum/religion_rites/grand_ritual_two/proc/handle_obelisks()
@@ -713,6 +713,7 @@
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	sect.grand_ritual_in_progress = FALSE
 
+/*
 /datum/religion_rites/grand_ritual_three
 	name = "Grand ritual: Welcoming shadows"
 	desc = "Final grand ritual. Let shadows come into this world fully, letting their tender care resurrect any kin, help them move and let others join their glorious family."
