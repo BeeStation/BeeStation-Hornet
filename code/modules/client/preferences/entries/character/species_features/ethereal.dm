@@ -8,8 +8,8 @@
 /datum/preference/choiced/ethereal_color/init_possible_values()
 	var/list/values = list()
 
-	var/datum/universal_icon/ethereal_base = uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_head_m")
-	ethereal_base.blend_icon(uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_chest_m"), ICON_OVERLAY)
+	var/datum/universal_icon/ethereal_base = uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_head")
+	ethereal_base.blend_icon(uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_chest"), ICON_OVERLAY)
 	ethereal_base.blend_icon(uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_l_arm"), ICON_OVERLAY)
 	ethereal_base.blend_icon(uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_r_arm"), ICON_OVERLAY)
 
