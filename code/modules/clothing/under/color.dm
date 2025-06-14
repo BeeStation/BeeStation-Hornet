@@ -224,7 +224,7 @@
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
 	armor_type = /datum/armor/color_durathread
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/color_durathread
 	melee = 10
@@ -242,7 +242,7 @@
 	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
 	armor_type = /datum/armor/jumpskirt_durathread
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/jumpskirt_durathread
 	melee = 10

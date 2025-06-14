@@ -12,6 +12,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	custom_price = 10
 	undyeable = TRUE
+	salvage_amount = 1
 
 /obj/item/clothing/gloves/botanic_leather
 	name = "botanist's leather gloves"
@@ -25,7 +26,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_botanic_leather
-
+	salvage_material = /obj/item/stack/sheet/leather
 
 /datum/armor/gloves_botanic_leather
 	bio = 50
@@ -46,7 +47,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/gloves_combat
 	bio = 90
@@ -70,7 +71,8 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_bracer
-
+	salvage_material = /obj/item/stack/sheet/bone
+	secondary_salvage_material = /obj/item/stack/sheet/sinew
 
 /datum/armor/gloves_bracer
 	melee = 15
@@ -159,6 +161,10 @@
 	transfer_prints = FALSE
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 4
+	secondary_salvage_material = /obj/item/stack/rods/scrap/silver
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/gloves/artifact_pinchers/ComponentInitialize()
 	. = ..()

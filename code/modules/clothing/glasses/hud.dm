@@ -5,6 +5,7 @@
 	var/hud_trait = null //Used for topic calls. Just because you have a HUD display doesn't mean you should be able to interact with stuff. If something uses multiple traits, make it a list.
 	var/hud_type = null	//If something uses multiple huds, make it a list.
 	var/atom/movable/screen/plane_master/data_hud/glitching_hud
+	secondary_salvage_amount = 1
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -135,6 +136,9 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	salvage_material = /obj/item/stack/rods/scrap/uranium
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/health
 
 /obj/item/clothing/glasses/hud/health/sunglasses
 	name = "medical HUDSunglasses"
@@ -145,6 +149,7 @@
 	flash_protect = 1
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/blue
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/health
 
 /obj/item/clothing/glasses/hud/health/prescription
 	name = "prescription medical HUDglasses"
@@ -152,11 +157,13 @@
 	icon_state = "prescmedhud"
 	emissive_state = "prehud_emissive"
 	vision_correction = 1
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/health
 
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	name = "degraded medical HUDSunglasses"
 	desc = "Sunglasses with a medical HUD. They do not provide flash protection."
 	flash_protect = 0
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/health
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
@@ -176,6 +183,9 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	salvage_material = /obj/item/stack/rods/scrap/uranium
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/diagnostic
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 	name = "diagnostic sunglasses"
@@ -185,11 +195,13 @@
 	item_state = "glasses"
 	flash_protect = 1
 	tint = 1
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/diagnostic
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded
 	name = "degraded diagnostic sunglasses"
 	desc = "Sunglasses with a diagnostic HUD. They do not provide flash protection."
 	flash_protect = 0
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/diagnostic
 
 /obj/item/clothing/glasses/hud/diagnostic/prescription
 	name = "prescription diagnostic HUDglasses"
@@ -197,6 +209,7 @@
 	icon_state = "prescdiaghud"
 	emissive_state = "prehud_emissive"
 	vision_correction = 1
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/diagnostic
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -251,6 +264,9 @@
 	desc = "A heads-up display that connects directly to the optical nerve of the user, replacing the need for that useless eyeball."
 	icon_state = "hudpatch"
 	emissive_state = "hudpatch_emissive"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
+	salvage_amount = 1
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "security HUDSunglasses"
@@ -261,11 +277,13 @@
 	flash_protect = 1
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/darkred
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
 
 /obj/item/clothing/glasses/hud/security/sunglasses/degraded
 	name = "degraded security HUDSunglasses"
 	desc = "Sunglasses with a security HUD. They do not provide flash protection."
 	flash_protect = 0
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
 
 /obj/item/clothing/glasses/hud/security/night
 	name = "night vision security HUD"
@@ -275,6 +293,9 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	salvage_material = /obj/item/stack/rods/scrap/uranium
+	salvage_amount = 1
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
 
 /obj/item/clothing/glasses/hud/security/prescription
 	name = "prescription security HUDglasses"
@@ -282,6 +303,7 @@
 	icon_state = "prescsechud"
 	emissive_state = "prehud_emissive"
 	vision_correction = 1
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "\improper HUD gar glasses"
@@ -296,6 +318,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/security
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars
 	name = "giga HUD gar glasses"
@@ -318,6 +341,7 @@
 	icon_state = "sunhudtoggle"
 	emissive_state = "sechud_emissive"
 	actions_types = list(/datum/action/item_action/switch_hud)
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/toggle
 
 /obj/item/clothing/glasses/hud/toggle/attack_self(mob/user)
 	if(!ishuman(user))
@@ -353,6 +377,7 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/red
+	secondary_salvage_material = /obj/item/clothing/glasses/hud/toggle
 
 /obj/item/clothing/glasses/hud/toggle/thermal/attack_self(mob/user)
 	..()

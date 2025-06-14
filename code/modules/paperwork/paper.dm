@@ -375,6 +375,14 @@
 	if(burn_paper_product_attackby_check(attacking_item, user))
 		SStgui.close_uis(src)
 		return
+	if((attacking_item.tool_behaviour == TOOL_WIRECUTTER || attacking_item.is_sharp())) //doing it like this because people will expect it to work as gauze and bedsheets do
+		new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
+		playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+		user.visible_message("[user] cuts [src] into tiny pieces.", \
+				"<span class='notice'>You cut [src] into tiny pieces.</span>", \
+				"<span class='hear'>You hear cutting.</span>")
+		qdel(src)
+		return TRUE
 
 	// Enable picking paper up by clicking on it with the clipboard or folder
 	if(istype(attacking_item, /obj/item/clipboard) || istype(attacking_item, /obj/item/folder) || istype(attacking_item, /obj/item/paper_bin))

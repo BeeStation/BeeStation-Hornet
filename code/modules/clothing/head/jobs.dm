@@ -36,6 +36,7 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	dying_key = DYE_REGISTRY_CAP
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 //Captain: This is no longer space-worthy
 
@@ -73,6 +74,7 @@
 	armor_type = /datum/armor/hats_hopcap
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 //Chaplain
 
@@ -111,7 +113,7 @@
 	item_state = "det_hat"
 	var/candy_cooldown = 0
 	dog_fashion = /datum/dog_fashion/head/detective
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/fedora_det_hat
 	melee = 25
@@ -206,7 +208,7 @@
 	strip_delay = 80
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/hats_hos
 	melee = 40
@@ -250,6 +252,7 @@
 	armor_type = /datum/armor/hats_warden
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /obj/item/clothing/head/hats/warden/red
 	name = "warden's hat"
@@ -350,6 +353,7 @@
 	greyscale_colors = "#3f3c40#ACACAC"
 	armor_type = /datum/armor/beret_corpwarden
 	flags_1 = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/beret_corpwarden
 	melee = 40
@@ -373,6 +377,7 @@
 	strip_delay = 60
 	dog_fashion = null
 	flags_1 = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/beret_sec
 	melee = 35
@@ -394,6 +399,7 @@
 	greyscale_colors = "#3f3c40#FF0000"
 	armor_type = /datum/armor/beret_corpsec
 	flags_1 = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/beret_corpsec
 	melee = 40
@@ -409,6 +415,18 @@
 /obj/item/clothing/head/beret/spacepol
 	name = "spacepol officer beret"
 	desc = "A special black beret for the mundane life of a SpacePol officer."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#3f3c40#FF0000"
+	armor_type = /datum/armor/beret_spacepol
+	flags_1 = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+
+/obj/item/clothing/head/beret/sec/navyhos
+	name = "head of security's beret"
+	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
+	icon_state = "hosberet"
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
@@ -575,6 +593,7 @@
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#39393f#BBBBBB"
 	armor_type = /datum/armor/beret_sergeant
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/beret_sergeant
 	melee = 40
@@ -604,7 +623,6 @@
 	stamina = 40
 	bleed = 20
 
-
 //Miscellaneous
 
 /obj/item/clothing/head/beret/black
@@ -623,6 +641,7 @@
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#C5D4F3#ECF1F8"
 	armor_type = /datum/armor/beret_durathread
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/beret_durathread
 	melee = 15
@@ -643,7 +662,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
 
-
 //CentCom
 
 /obj/item/clothing/head/beret/centcom_formal
@@ -655,6 +673,7 @@
 	greyscale_colors = "#46b946#f2c42e"
 	armor_type = /datum/armor/beret_centcom_formal
 	strip_delay = 10 SECONDS
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/beret_centcom_formal
 	melee = 80
