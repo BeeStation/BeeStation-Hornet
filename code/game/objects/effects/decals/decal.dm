@@ -37,6 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/turf_decal)
 	icon = 'icons/turf/decals.dmi'
 	icon_state = "warningline"
 	layer = TURF_DECAL_LAYER
+	plane = FLOOR_PLANE
 	anchored = TRUE
 
 // This is with the intent of optimizing mapload

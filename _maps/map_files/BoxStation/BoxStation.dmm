@@ -1224,7 +1224,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/nuke_storage)
 "aqw" = (
@@ -3682,7 +3681,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "aSK" = (
@@ -8348,6 +8346,10 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Bridge";
+	name = "Bridge navigate verb destination"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bOa" = (
@@ -15528,6 +15530,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Custodial Closet";
+	name = "Custodial Closet navigate verb destination"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "cOT" = (
@@ -16134,6 +16140,13 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
+"daf" = (
+/obj/effect/landmark/navigate_destination{
+	name = "Robotics navigate verb destination";
+	navigation_id = "Robotics"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "dao" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -24646,6 +24659,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination{
+	name = "Law Office navigate verb destination";
+	navigation_id = "Law Office"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "gtt" = (
@@ -26160,6 +26177,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/effect/landmark/navigate_destination{
+	name = "Science navigate verb destination";
+	navigation_id = "Science"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
@@ -31208,9 +31229,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/white/corner,
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 8
 	},
@@ -34655,6 +34674,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/effect/landmark/navigate_destination{
+	name = "Engineering navigate verb destination";
+	navigation_id = "Engineering"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ksS" = (
@@ -47224,6 +47247,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination{
+	name = "Security navigate verb destination";
+	navigation_id = "Security"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "pGz" = (
@@ -48212,7 +48239,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/goonplaque,
 /area/security/brig)
 "pZJ" = (
@@ -53332,7 +53358,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/engine,
 /area/gateway)
 "rZb" = (
@@ -56487,12 +56512,15 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "tlc" = (
-/obj/effect/turf_decal/tile/dark_green/half/contrasted{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
 	},
 /obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/hydroponics)
+/turf/open/floor/carpet,
+/area/library)
 "tlH" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass/no_border,
@@ -57041,6 +57069,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/effect/landmark/navigate_destination{
+	name = "Detective's Office navigate verb destination";
+	navigation_id = "Detective's Office"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -58797,6 +58829,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination{
+	name = "Gateway navigate verb destination";
+	navigation_id = "Gateway"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "udc" = (
@@ -59425,6 +59461,10 @@
 	},
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 8
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Technical Storage";
+	name = "Technical Storage navigate verb destination"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
@@ -60259,6 +60299,10 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
+"uJE" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron,
+/area/storage/primary)
 "uJV" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -62871,6 +62915,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/landmark/navigate_destination{
+	name = "Vault navigate verb destination";
+	navigation_id = "Vault"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "vLp" = (
@@ -63555,6 +63603,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/patients_rooms)
+"wac" = (
+/obj/effect/landmark/navigate_destination{
+	name = "Hydroponics navigate verb destination";
+	navigation_id = "Hydroponics"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "wai" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/camera/directional/south,
@@ -64125,6 +64180,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/effect/landmark/navigate_destination{
+	name = "Service Hallway navigate verb destination";
+	navigation_id = "Service Hallway"
 	},
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/service)
@@ -66191,7 +66250,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
 "xeS" = (
@@ -66980,6 +67038,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/navigate_destination{
+	name = "Gravity Generator navigate verb destination";
+	navigation_id = "Gravity Generator"
+	},
 /turf/open/floor/iron,
 /area/engine/engineering)
 "xvr" = (
@@ -67635,6 +67697,19 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"xJD" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_blue/filled/warning{
+	dir = 8
+	},
+/obj/effect/landmark/navigate_destination{
+	name = "EVA Storage navigate verb destination";
+	navigation_id = "EVA Storage"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "xJI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
@@ -87055,7 +87130,7 @@ flJ
 aBQ
 qAx
 gWs
-aDo
+uJE
 aDo
 aIW
 aBQ
@@ -97591,7 +97666,7 @@ uWW
 iPY
 iPY
 gqR
-iPY
+xJD
 xbS
 kSK
 aJr
@@ -109171,9 +109246,9 @@ dEq
 rYh
 xVh
 keh
-tlc
+buE
 ckl
-aYV
+wac
 aYV
 beE
 xJf
@@ -112259,7 +112334,7 @@ bas
 aFu
 aYV
 xoN
-aYV
+daf
 xpu
 jOR
 cHL
@@ -112510,7 +112585,7 @@ aYW
 aYW
 aYW
 aYW
-hCC
+tlc
 aYW
 eQP
 aFu
