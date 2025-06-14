@@ -375,7 +375,7 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='byond://?_src_=vars;[HrefToken()];[href_reference_string]'>Refresh</a>
+							<a id='refresh_link' href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];[href_reference_string]'>Refresh</a>
 							<form>
 								<select name="file" size="1"
 									onchange="handle_dropdown(this)"
