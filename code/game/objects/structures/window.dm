@@ -43,6 +43,10 @@
 	fire = 80
 	acid = 100
 
+/obj/structure/window/corner
+	icon_state = "window_corner"
+	density = FALSE
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	if(reinf)
@@ -135,6 +139,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	. = ..()
 	if(.)
 		return
+
+	if(density)
+		return TRUE
 
 	if(fulltile)
 		return FALSE
@@ -445,6 +452,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/reinforced/unanchored
 	anchored = FALSE
 
+/obj/structure/window/reinforced/corner
+	icon_state = "rwindow_corner"
+	density = FALSE
+
 /obj/structure/window/plasma
 	name = "plasma window"
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
@@ -490,6 +501,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/plasma/unanchored
 	anchored = FALSE
 
+/obj/structure/window/plasma/corner
+	icon_state = "plasmawindow_corner"
+	density = FALSE
+
 /obj/structure/window/plasma/reinforced
 	name = "reinforced plasma window"
 	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
@@ -521,6 +536,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/plasma/reinforced/unanchored
 	anchored = FALSE
 
+/obj/structure/window/plasma/reinforced/corner
+	icon_state = "plasmarwindow_corner"
+	density = FALSE
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow" //what what, hon hon
@@ -528,6 +547,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "twindow"
+
+/obj/structure/window/reinforced/tinted/corner
+	icon_state = "twindow_corner"
+	density = FALSE
 
 /obj/structure/window/depleteduranium
 	name = "depleted uranium window"
@@ -561,6 +584,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 /obj/structure/window/depleteduranium/unanchored
 	anchored = FALSE
+
+/obj/structure/window/depleteduranium/unanchored/corner
+	icon_state = "duwindow_corner"
+	density = FALSE
 
 /* Full Tile Windows (more atom_integrity) */
 
