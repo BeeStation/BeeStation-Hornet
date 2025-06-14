@@ -6,11 +6,11 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 2
 	selection_color = "#bbe291"
 	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
+	min_pop = MINPOP_JOB_LIMIT
 
 	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)

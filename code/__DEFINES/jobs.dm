@@ -1,3 +1,11 @@
+
+// At what point do we start enabling more specific jobs in the service
+// department?
+#define MINPOP_JOB_LIMIT 5
+// What do we consider a lowpop roundstart population for the sake
+// of enabling heads of staff
+#define LOWPOP_JOB_LIMIT 12
+
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
 #define JOB_UNAVAILABLE_BANNED 2
@@ -11,6 +19,8 @@
 #define JOB_LOCK_REASON_MAP (1<<1)
 #define JOB_LOCK_REASON_CONFIG (1<<2)
 
+// Job spawn groups
+#define JOB_SPAWN_GROUP_DEPARTMENT "department"
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
