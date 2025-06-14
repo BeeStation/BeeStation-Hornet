@@ -125,7 +125,7 @@
 	return ..()
 
 /datum/status_effect/wish_granters_gift/on_remove()
-	owner.revive(ADMIN_HEAL_ALL)
+	owner.revive(full_heal = TRUE, admin_revive = TRUE)
 	owner.visible_message(span_warning("[owner] appears to wake from the dead, having healed all wounds!"), span_notice("You have regenerated."))
 
 /atom/movable/screen/alert/status_effect/wish_granters_gift
@@ -326,19 +326,13 @@
 	duration = 32 SECONDS
 	var/ticks_passed = 0
 
-/datum/status_effect/fleshmend/on_apply()
-	. = ..()
-
-	RegisterSignal(owner, COMSIG_LIVING_IGNITED, PROC_REF(on_ignited))
-	RegisterSignal(owner, COMSIG_LIVING_EXTINGUISHED, PROC_REF(on_extinguished))
-
-/datum/status_effect/fleshmend/on_remove()
-	UnregisterSignal(owner, list(COMSIG_LIVING_IGNITED, COMSIG_LIVING_EXTINGUISHED))
-
 /datum/status_effect/fleshmend/tick()
 	ticks_passed ++
 	if(owner.on_fire)
+		linked_alert.icon_state = "fleshmend_fire"
 		return
+	else
+		linked_alert.icon_state = "fleshmend"
 	if(ticks_passed < 2)
 		return
 	else if(ticks_passed == 2)
@@ -351,16 +345,6 @@
 	owner.adjustOxyLoss(-5, FALSE, TRUE)
 	//Heals 0.5 cloneloss per second for a total of 15
 	owner.adjustCloneLoss(-0.5, TRUE, TRUE)
-
-/datum/status_effect/fleshmend/proc/on_ignited(datum/source)
-	SIGNAL_HANDLER
-
-	linked_alert?.icon_state = "fleshmend_fire"
-
-/datum/status_effect/fleshmend/proc/on_extinguished(datum/source)
-	SIGNAL_HANDLER
-
-	linked_alert?.icon_state = "fleshmend"
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"

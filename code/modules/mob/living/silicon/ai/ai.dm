@@ -901,13 +901,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	else
 		clear_fullscreen("remote_view", 0)
 
-/mob/living/silicon/ai/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+/mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
 	. = ..()
-	if(!.) //successfully ressuscitated from death
-		return
-
-	set_core_display_icon(display_icon_override)
-	set_eyeobj_visible(TRUE)
+	if(.) //successfully ressuscitated from death
+		set_core_display_icon(display_icon_override)
+		set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/tilt(turf/target, damage, chance_to_crit, paralyze_time, damage_type = BRUTE, rotation = 90)
 	if(!target.is_blocked_turf(TRUE, src, list(src)))

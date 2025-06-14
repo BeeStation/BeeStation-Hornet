@@ -9,14 +9,11 @@
 
 /datum/antagonist/highlander/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = owner.current || mob_override
-	ADD_TRAIT(L, TRAIT_NOGUNS, HIGHLANDER_TRAIT)
-	REMOVE_TRAIT(L, TRAIT_PACIFISM, ROUNDSTART_TRAIT)
+	ADD_TRAIT(L, TRAIT_NOGUNS, "highlander")
 
 /datum/antagonist/highlander/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = owner.current || mob_override
-	REMOVE_TRAIT(L, TRAIT_NOGUNS, HIGHLANDER_TRAIT)
-	if(L.has_quirk(/datum/quirk/nonviolent))
-		ADD_TRAIT(L, TRAIT_PACIFISM, ROUNDSTART_TRAIT)
+	REMOVE_TRAIT(L, TRAIT_NOGUNS, "highlander")
 
 /datum/antagonist/highlander/proc/forge_objectives()
 	var/datum/objective/steal/steal_objective = new
@@ -46,11 +43,10 @@
 	if(!istype(H))
 		return
 
-	for(var/obj/item/I in H)
-		if(!H.dropItemToGround(I))
-			qdel(I)
-	H.regenerate_icons()
-	H.revive(ADMIN_HEAL_ALL)
+	for(var/obj/item/I in H.get_equipped_items(TRUE))
+		qdel(I)
+	for(var/obj/item/I in H.held_items)
+		qdel(I)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/kilt/highlander(H), ITEM_SLOT_ICLOTHING)
 	H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_EARS)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/beret/highlander(H), ITEM_SLOT_HEAD)
@@ -64,7 +60,7 @@
 	W.access |= get_all_centcom_access()
 	W.assignment = "Highlander"
 	W.registered_name = H.real_name
-	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER_TRAIT)
+	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER)
 	W.update_label(H.real_name)
 	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 

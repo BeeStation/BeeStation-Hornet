@@ -35,7 +35,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/on_activate(mob/user, atom/target)
 	try_to_sting(user)
 
-/datum/action/changeling/proc/try_to_sting(mob/living/user, mob/living/target)
+/datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
 	if(!can_sting(user, target))
 		return
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
@@ -43,19 +43,22 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		sting_feedback(user, target)
 		c.chem_charges -= chemical_cost
 
-/datum/action/changeling/proc/sting_action(mob/living/user, mob/living/target)
+/datum/action/changeling/proc/sting_action(mob/user, mob/target)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 0
 
-/datum/action/changeling/proc/sting_feedback(mob/living/user, mob/living/target)
+/datum/action/changeling/proc/sting_feedback(mob/user, mob/target)
 	return 0
 
 //Fairly important to remember to return 1 on success >.<
 
-/datum/action/changeling/proc/can_sting(mob/living/user, mob/living/target)
+/datum/action/changeling/proc/can_sting(mob/living/user, mob/target)
 	if (!is_available(user))
 		return FALSE
-	if(!can_be_used_by(user))
+	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
+		return FALSE
+	if(req_human && !ishuman(user))
+		to_chat(user, span_warning("We cannot do that in this form!"))
 		return FALSE
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(c.chem_charges < chemical_cost)
@@ -69,12 +72,11 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		return FALSE
 	return TRUE
 
-/datum/action/changeling/proc/can_be_used_by(mob/living/user)
-	if(QDELETED(user))
-		return FALSE
+/datum/action/changeling/proc/can_be_used_by(mob/user)
+	if(!user || QDELETED(user))
+		return 0
 	if(!ishuman(user) && !ismonkey(user))
 		return FALSE
 	if(req_human && !ishuman(user))
-		to_chat(user, span_warning("This ability requires you be in human form!"))
 		return FALSE
 	return TRUE

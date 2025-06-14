@@ -90,6 +90,3 @@
 /// Called before a mob fires a gun (mob/source, obj/item/gun, atom/target, aimed)
 #define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
 	#define GUN_HIT_SELF (1 << 0)
-
-///from end of fully_heal(): (heal_flags)
-#define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"

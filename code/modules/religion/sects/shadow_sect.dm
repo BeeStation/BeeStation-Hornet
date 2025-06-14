@@ -767,7 +767,7 @@
 		obelisk.transform_obelisk()
 	for(var/mob/living/carbon/human/M in GLOB.mob_list)
 		if(isshadow(M))
-			M.revive(HEAL_ALL)
+			M.revive(full_heal = TRUE)
 			if(isblessedshadow(M))
 				var/datum/species/shadow/S = M.dna.species
 				S.change_hearts_ritual(M)

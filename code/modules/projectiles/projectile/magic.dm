@@ -51,7 +51,8 @@
 		var/mob/living/carbon/C = target
 		C.regenerate_limbs()
 		C.regenerate_organs()
-	if(target.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE)) // This heals suicides
+	if(target.revive(full_heal = 1))
+		target.grab_ghost(force = TRUE) // even suicides
 		to_chat(target, span_notice("You rise with a start, you're alive!!!"))
 	else if(target.stat != DEAD)
 		to_chat(target, span_notice("You feel great!"))

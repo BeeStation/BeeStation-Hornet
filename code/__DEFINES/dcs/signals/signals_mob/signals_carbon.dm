@@ -51,6 +51,3 @@
 	#define VISIBLE_NAME_FORCED 3
 ///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN and it's being overriden: (identity)
 #define COMSIG_HUMAN_GET_FORCED_NAME "human_get_forced_name"
-
-///from base of /mob/living/carbon/regenerate_limbs(): (excluded_limbs)
-#define COMSIG_CARBON_REGENERATE_LIMBS "living_regen_limbs"

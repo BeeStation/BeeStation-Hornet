@@ -94,7 +94,7 @@
 	max_charges = 10 //10, 5, 5, 4
 
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
-	user.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE) // This heals suicides
+	user.revive(full_heal = 1)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.regenerate_limbs()

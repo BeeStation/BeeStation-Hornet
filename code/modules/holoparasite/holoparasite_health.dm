@@ -39,7 +39,7 @@
 			holder.icon_state = "hudhealthy"
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_STATUS, holder)
 
-/mob/living/simple_animal/hostile/holoparasite/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/revive(full_heal, admin_revive)
 	. = ..()
 	if(.)
 		SSblackbox.record_feedback("amount", "holoparasites_revived", 1)

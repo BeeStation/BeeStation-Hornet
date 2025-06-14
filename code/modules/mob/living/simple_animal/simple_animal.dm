@@ -475,7 +475,7 @@
 	return
 
 
-/mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+/mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
 	. = ..()
 	if(!.)
 		return

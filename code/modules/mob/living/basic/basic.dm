@@ -154,7 +154,8 @@
 		set_density(FALSE)
 		..()
 
-/mob/living/basic/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+// copied from simplemobs
+/mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
 	. = ..()
 	if(!.)
 		return

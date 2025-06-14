@@ -320,9 +320,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		L.set_organ_damage(0)
 
 		var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
-		if(H)
-			set_heartattack(FALSE)
-		else
+		if(!H)
 			H = new()
 			H.Insert(src)
 		H.set_organ_damage(0)
