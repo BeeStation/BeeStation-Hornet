@@ -677,8 +677,28 @@
 
 	sect.sect_level_up()
 	sect.rites_list -= /datum/religion_rites/grand_ritual_two
-	sect.rites_list += /datum/religion_rites/grand_ritual_three
+	//sect.rites_list += /datum/religion_rites/grand_ritual_three
 	return ..()
+
+/datum/religion_rites/grand_ritual_two/proc/handle_obelisks()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	for(var/mob/living/M in GLOB.mob_list)
+		if(isshadow(M))
+			to_chat(M, span_userdanger("You feel pull towards the obelisks, you feel like it would be safer near them."))
+		to_chat(M, span_notice("Shadows seem to flicker in corner of your eye."))
+	sleep(50)
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_warning("You are sure now that shadows are moving"))
+	sleep(50)
+	sect.grand_ritual_in_progress = TRUE
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(4, -15, DARKNESS_INVERSE_COLOR)
+	sleep(600)
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	sect.grand_ritual_in_progress = FALSE
 
 /datum/religion_rites/grand_ritual_three
 	name = "Grand ritual: Welcoming shadows"
@@ -716,5 +736,52 @@
 	sect.sect_level_up()
 	sect.rites_list -= /datum/religion_rites/grand_ritual_three
 	return ..()
+
+/datum/religion_rites/grand_ritual_three/proc/handle_obelisks()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	for(var/mob/living/M in GLOB.mob_list)
+		if(isshadow(M))
+			to_chat(M, span_userdanger("You feel pull towards the obelisks, you feel like it would be safer near them."))
+		to_chat(M, span_notice("Shadows seem to flicker in corner of your eye."))
+	sleep(50)
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_warning("You are sure now that shadows are moving"))
+	sleep(50)
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_warningbold("Shadows are all flowing towards some point, leaving only light behind!"))
+	sleep(50)
+	sect.grand_ritual_in_progress = TRUE
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(4, -30, DARKNESS_INVERSE_COLOR)
+	for(var/turf/T in GLOB.station_turfs)
+		if(T.light_range == 0)
+			T.light_power = 1
+			T.light_range = 3
+			T.set_light_color("#f4f942")
+			T.update_light()
+	sleep(900)
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	if(sect.grand_ritual_level == 3)
+		for(var/mob/living/M in GLOB.mob_list)
+			if(isshadow(M))
+				to_chat(M, span_noticebold("Ritual was finished. Rejoice for shadows walk among us."))
+			else
+				to_chat(M, span_noticebold("Shadows seem to go back to normal, but their darkness is so much deeper then before."))
+	else
+		for(var/mob/living/M in GLOB.mob_list)
+			if(isshadow(M))
+				to_chat(M, span_dangerbold("Ritual failed, shadows are barred from entering this realm still."))
+			else
+				to_chat(M, span_noticebold("Shadows returned looking a litle defeated."))
+	sect.grand_ritual_in_progress = FALSE
+	for(var/turf/T in GLOB.station_turfs)
+		if(T.light_range == 3 && T.light_power == 1 && T.light_color == "#f4f942")
+			T.light_power = 1
+			T.light_range = 0
+			T.set_light_color(null)
+			T.update_light()
 
 #undef DARKNESS_INVERSE_COLOR
