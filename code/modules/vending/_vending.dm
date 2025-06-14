@@ -74,7 +74,6 @@
 	var/tilted = FALSE
 	var/tiltable = TRUE
 	var/squish_damage = 75
-	var/forcecrit = 0
 	var/num_shards = 7
 	var/list/pinned_mobs = list()
 	COOLDOWN_DECLARE(purchase_message_cooldown)
@@ -580,9 +579,9 @@
 					freebie(user, 2)
 				if(16 to 25)
 					freebie(user, 1)
-				if(26 to 40)
+				if(26 to 45)
 					tilt(user)
-				if(41 to 50)
+				if(46 to 50)
 					tilt(user, crit=TRUE)
 				if(51 to 100)
 					pass()
@@ -617,10 +616,7 @@
 
 	var/crit_case
 	if(crit)
-		crit_case = rand(1,5)
-
-	if(forcecrit)
-		crit_case = forcecrit
+		crit_case = rand(1,100)
 
 	if(in_range(fatty, src))
 		for(var/mob/living/L in get_turf(fatty))
@@ -629,12 +625,27 @@
 			if(istype(C))
 				var/crit_rebate = 0 // lessen the normal damage we deal for some of the crits
 
-				if(crit_case != 5) // the head asplode case has its own description
-					C.visible_message(span_danger("[C] is crushed by [src]!"), \
-						span_userdanger("You are crushed by [src]!"))
+				switch(crit_case) // only carbons can have the fun crits. Arranged by how PERMANENT the effects are.
 
-				switch(crit_case) // only carbons can have the fun crits
-					if(1) // shatter their legs and bleed 'em
+					if(1 to 30) // 30% Chance. pin them beneath the machine until someone untilts it
+						forceMove(get_turf(C))
+						buckle_mob(C, force=TRUE)
+						C.visible_message(span_danger("[C] is pinned underneath [src]!"), \
+							span_userdanger("You are pinned down by [src]!"))
+
+					if(31 to 60) // 30% Chance glass candy
+						crit_rebate = 50
+						for(var/i in 1 to num_shards)
+							var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
+							shard.embedding = list(embed_chance = 10000, ignore_throwspeed_threshold = TRUE, impact_pain_mult=1, pain_chance=5)
+							shard.updateEmbedding()
+							C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
+							shard.embedding = list()
+							shard.updateEmbedding()
+							C.visible_message(span_danger("[C] is crushed by [src]!"), \
+								span_userdanger("You are crushed by [src]!"))
+
+					if(61 to 80) // 20% Chance shatter their legs and bleed 'em
 						crit_rebate = 60
 						C.bleed(150)
 						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
@@ -646,25 +657,8 @@
 						if(l || r)
 							C.visible_message(span_danger("[C]'s legs shatter with a sickening crunch!"), \
 								span_userdanger("Your legs shatter with a sickening crunch!"))
-					if(2) // pin them beneath the machine until someone untilts it
-						forceMove(get_turf(C))
-						buckle_mob(C, force=TRUE)
-						C.visible_message(span_danger("[C] is pinned underneath [src]!"), \
-							span_userdanger("You are pinned down by [src]!"))
-					if(3) // glass candy
-						crit_rebate = 50
-						for(var/i in 1 to num_shards)
-							var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
-							shard.embedding = list(embed_chance = 10000, ignore_throwspeed_threshold = TRUE, impact_pain_mult=1, pain_chance=5)
-							shard.updateEmbedding()
-							C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-							shard.embedding = list()
-							shard.updateEmbedding()
-					if(4) // paralyze this binch
-						// the new paraplegic gets like 4 lines of losing their legs so skip them
-						visible_message(span_danger("[C]'s spinal cord is obliterated with a sickening crunch!"))
-						C.gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
-					if(5) // skull squish!
+
+					if(81 to 95) // 15% Chance skull squish!
 						var/obj/item/bodypart/head/O = C.get_bodypart(BODY_ZONE_HEAD)
 						if(O)
 							C.visible_message(span_danger("[O] explodes in a shower of gore beneath [src]!"), \
@@ -673,6 +667,13 @@
 							O.drop_organs()
 							qdel(O)
 							new /obj/effect/gibspawner/human/bodypartless(get_turf(C))
+
+					if(96 to 100) // 5% Chance paralyze this binch
+						// the new paraplegic gets like 4 lines of losing their legs so skip them
+						visible_message(span_danger("[C]'s spinal cord is obliterated with a sickening crunch!"))
+						C.gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
+						C.visible_message(span_danger("[C] is crushed by [src]!"), \
+							span_userdanger("You are crushed by [src]!"))
 
 				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
 				C.AddElement(/datum/element/squish, 80 SECONDS)
