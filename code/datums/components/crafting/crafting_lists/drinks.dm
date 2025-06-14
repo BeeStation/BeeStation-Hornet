@@ -124,9 +124,8 @@
 
 /datum/crafting_recipe/honeycomb
 	name = "Honeycomb"
-	result = /obj/item/reagent_containers/cup/glass/honeycomb
+	result = /obj/item/food/honeycomb
 	time = 3 SECONDS
 	reqs = list(/datum/reagent/consumable/sugar = 50)
 	category = CAT_DRINK
 	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
-
