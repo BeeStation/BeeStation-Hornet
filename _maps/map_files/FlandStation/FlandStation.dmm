@@ -32710,16 +32710,6 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/detective,
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
-/obj/item/holosign_creator/security,
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/wood,
 /area/security/detectives_office)

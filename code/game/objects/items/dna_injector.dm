@@ -42,8 +42,11 @@
 				M.name = M.real_name
 				M.dna.blood_type = fields["blood_type"]
 			if(fields["UI"])	//UI+UE
-				M.dna.uni_identity = merge_text(M.dna.uni_identity, fields["UI"])
-				M.updateappearance(mutations_overlay_update=1)
+				M.dna.unique_identity = merge_text(M.dna.unique_identity, fields["UI"])
+			if(fields["UF"])
+				M.dna.unique_features = merge_text(M.dna.unique_features, fields["UF"])
+			if(fields["UF"] || fields["UI"])
+				M.updateappearance(mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 		log_attack("[log_msg] [loc_name(user)]")
 		return TRUE
 	return FALSE
@@ -509,7 +512,7 @@
 		to_chat(user, span_notice("You can't modify [M]'s DNA while [M.p_theyre()] dead."))
 		return FALSE
 
-	if(M.has_dna() && !(HAS_TRAIT(M, TRAIT_BADDNA)))
+	if(M.has_dna() && !(HAS_TRAIT(M, TRAIT_RADIMMUNE)) && !(HAS_TRAIT(M, TRAIT_BADDNA)))
 		M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
 		var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 		var/endtime = world.time+duration
@@ -542,12 +545,18 @@
 				M.name = M.real_name
 				M.dna.blood_type = fields["blood_type"]
 				M.dna.temporary_mutations[UE_CHANGED] = endtime
-			if(fields["UI"])	//UI+UE
+			if(fields["UI"])
 				if(!M.dna.previous["UI"])
-					M.dna.previous["UI"] = M.dna.uni_identity
-				M.dna.uni_identity = merge_text(M.dna.uni_identity, fields["UI"])
-				M.updateappearance(mutations_overlay_update=1)
+					M.dna.previous["UI"] = M.dna.unique_identity
+				M.dna.unique_identity = merge_text(M.dna.unique_identity, fields["UI"])
 				M.dna.temporary_mutations[UI_CHANGED] = endtime
+			if(fields["UF"])
+				if(!M.dna.previous["UF"])
+					M.dna.previous["UF"] = M.dna.unique_features
+				M.dna.unique_features = merge_text(M.dna.unique_features, fields["UF"])
+				M.dna.temporary_mutations[UF_CHANGED] = endtime
+			if(fields["UF"] || fields["UI"])
+				M.updateappearance(mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 		log_attack("[log_msg] [loc_name(user)]")
 		return TRUE
 	else
