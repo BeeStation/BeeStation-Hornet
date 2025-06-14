@@ -72,6 +72,4 @@ DEFINE_HREF_COMMAND(sample_command)
 			to_chat(src, span_danger("this switch cannot activate sample_command'"))
 		if("hrefcmd=sample_command") // identical to the above
 			to_chat(src, span_danger("this switch cannot activate sample_command'"))
-
 #endif
-#undef DEFINE_HREF_COMMAND
