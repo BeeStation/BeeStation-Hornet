@@ -86,7 +86,7 @@
 		body += "<a href='byond://?_src_=holder;[HrefToken()];initmind=[REF(M)]'>Init Mind</a> "
 	if (iscyborg(M))
 		body += "<a href='byond://?_src_=holder;[HrefToken()];borgpanel=[REF(M)]'>BP</a> "
-	body += "<a href='byond://?[/hrefcmd/print::admin_pm];msg_target=[M.ckey]'>PM</a> "
+	body += "<a href='byond://?[/datum/hrefcmd/print::admin_pm];msg_target=[M.ckey]'>PM</a> "
 	body += "<a href='byond://?_src_=holder;[HrefToken()];subtlemessage=[REF(M)]'>SM</a> "
 	if (ishuman(M) && M.mind)
 		body += "<a href='byond://?_src_=holder;[HrefToken()];HeadsetMessage=[REF(M)]'>HM</a> "

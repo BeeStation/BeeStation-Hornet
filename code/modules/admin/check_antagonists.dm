@@ -28,7 +28,7 @@
 	if(!owner)
 		return
 	var/list/parts = list()
-	parts += "<a href='byond://?[/hrefcmd/print::admin_pm];msg_target=[ckey(owner.key)]'>PM</a>"
+	parts += "<a href='byond://?[/datum/hrefcmd/print::admin_pm];msg_target=[ckey(owner.key)]'>PM</a>"
 	if(owner.current) //There's body to follow
 		parts += "<a href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(owner.current)]'>FLW</a>"
 	else
