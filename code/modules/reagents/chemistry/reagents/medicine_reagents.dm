@@ -53,13 +53,13 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 	taste_description = "badmins"
 	/// Flags to fullheal every metabolism tick
-	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS)
+	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS|HEAL_ALL_REAGENTS)  // Adding HEAL_ALL_REAGENTS to excluded flags
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.heal_bodypart_damage(5 * REM * delta_time, 5 * REM * delta_time, updating_health = FALSE)
 	M.adjustToxLoss(-5 * REM * delta_time, FALSE, TRUE)
 	// Heal everything! That we want to. But really don't heal reagents. Otherwise we'll lose ... us.
-	M.fully_heal(full_heal_flags & ~HEAL_ALL_REAGENTS)
+	M.fully_heal(full_heal_flags)
 	return ..()
 
 /datum/reagent/medicine/adminordrazine/quantum_heal
