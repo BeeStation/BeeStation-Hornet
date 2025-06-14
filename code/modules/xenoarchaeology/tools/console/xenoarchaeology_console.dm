@@ -214,8 +214,8 @@
 				bonus -= 1
 				attempted_bonus = TRUE
 	//Calculate success rate
-	var/success_rate = score / (max(max_score, 1))
-	var/bonus_rate = max(1, 2*(bonus/max(max_score, 1)))
+	var/success_rate = clamp(score / max(max_score, 1), 0, 1)
+	var/bonus_rate = clamp(2 * (bonus / max(max_bonus, 1)), 1, INFINITY)
 	//Rewards
 		//Research Points
 	var/rnd_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_material.rnd_rate)*success_rate) * bonus_rate, 1)
