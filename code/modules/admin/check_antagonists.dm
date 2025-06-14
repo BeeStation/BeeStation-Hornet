@@ -7,7 +7,7 @@
 	if(owner.current)
 		return "<a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[REF(owner.current)]'>[owner.current.real_name]</a> "
 	else
-		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(owner)]'>[owner.name]</a> "
+		return "<a href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];Vars=[REF(owner)]'>[owner.name]</a> "
 
 //Whatever interesting things happened to the antag admins should know about
 //Include additional information about antag in this part

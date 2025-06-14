@@ -8,22 +8,27 @@ DEFINE_HREF_COMMAND(mentor_msg)
 DEFINE_HREF_COMMAND(commandbar_typing)
 DEFINE_HREF_COMMAND(openLink)
 
+DEFINE_HREF_COMMAND(var_edit)
+
 #undef DEFINE_HREF_COMMAND
 
 
 
 
 
-// -------------------------------------------------------
+// --------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------
 #ifdef SAMPLE_CODE // for sample code
 #define DEFINE_HREF_COMMAND(_thing) // for sample code
 // Things are written here, but this code won't be compiled.
+// --------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------
+
 
 
 	// -------------------------------------------------------
 	// ----------  How /datum/hrefcmd workds?  ---------------
 	// -------------------------------------------------------
-
 
 /* --------------------------------------------------
 		#1. How to define a href command

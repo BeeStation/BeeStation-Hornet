@@ -129,6 +129,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				handle_commandbar_typing(href_list)
 			if(/datum/hrefcmd::openLink)
 				src << link(href_list["link"])
+			if(/datum/hrefcmd::var_edit)
+				view_var_Topic(href, href_list, hsrc)
 			else
 				to_chat(src, span_danger("Your href seems to be broken. Please report this to a coder or an admin. (Href data: [json_encode(href_list)])"))
 		return
@@ -142,8 +144,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = mentor_datum
 		if("usr")
 			hsrc = mob
-		if("vars")
-			return view_var_Topic(href,href_list,hsrc)
 
 	if (hsrc)
 		var/datum/real_src = hsrc

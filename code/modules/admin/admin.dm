@@ -79,7 +79,7 @@
 
 
 	body += "<br>"
-	body += "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(M)]'>VV</a> "
+	body += "<a href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];Vars=[REF(M)]'>VV</a> "
 	if(M.mind)
 		body += "<a href='byond://?_src_=holder;[HrefToken()];traitor=[REF(M)]'>TP</a> "
 	else
