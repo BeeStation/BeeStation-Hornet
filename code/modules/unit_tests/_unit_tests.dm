@@ -78,6 +78,7 @@
 #include "siunit.dm"
 #include "spawn_humans.dm"
 #include "species_change_organs.dm"
+#include "species_unique_id.dm"
 #include "species_whitelists.dm"
 #include "spell_invocations.dm"
 #include "spell_mindswap.dm"

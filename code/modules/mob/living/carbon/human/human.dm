@@ -1105,9 +1105,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 /mob/living/carbon/human/species/golem
 	race = /datum/species/golem
 
-/mob/living/carbon/human/species/golem/random
-	race = /datum/species/golem/random
-
 /mob/living/carbon/human/species/golem/adamantine
 	race = /datum/species/golem/adamantine
 
