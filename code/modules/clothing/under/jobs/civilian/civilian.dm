@@ -34,13 +34,13 @@
 /obj/item/clothing/under/rank/civilian/servicedefault
 	name = "Service suit"
 	desc = "A suit which is given only to the most <b>hardcore</b> service members in space."
-	icon_state = "chef"
+	icon_state = "service_under"
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/rank/civilian/servicedefault/skirt
 	name = "Service skirt"
 	desc = "A skirt which is given only to the most <b>hardcore</b> service members space."
-	icon_state = "chef_skirt"
+	icon_state = "service_under_skirt"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
