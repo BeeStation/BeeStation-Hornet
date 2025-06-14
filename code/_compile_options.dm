@@ -93,7 +93,7 @@
 //#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
 	#warn WARNING: Compiling with LOWMEMORYMODE.
-	#ifndef
+	#ifndef HREF_DEBUG
 	#define HREF_DEBUG
 	#endif
 	#ifdef FORCE_MAP
