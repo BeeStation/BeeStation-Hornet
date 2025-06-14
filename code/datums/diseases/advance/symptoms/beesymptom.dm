@@ -74,14 +74,14 @@
 				M.visible_message(span_danger("[M] coughs up a bee!"), \
 									span_userdanger("You cough up a bee!"))
 				if(toxic_bees)
-					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
+					new /mob/living/simple_animal/hostile/bee/toxin(M.loc)
 				else if(honey)
-					var/mob/living/simple_animal/hostile/poison/bees/newbee = new /mob/living/simple_animal/hostile/poison/bees(M.loc) //Heh, newbee
+					var/mob/living/simple_animal/hostile/bee/newbee = new /mob/living/simple_animal/hostile/bee(M.loc) //Heh, newbee
 					newbee.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/consumable/honey])
-					var/mob/living/simple_animal/hostile/poison/bees/newbee2 = new /mob/living/simple_animal/hostile/poison/bees(M.loc)
+					var/mob/living/simple_animal/hostile/bee/newbee2 = new /mob/living/simple_animal/hostile/bee(M.loc)
 					newbee2.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/medicine/insulin])
 				else
-					new /mob/living/simple_animal/hostile/poison/bees(M.loc)
+					new /mob/living/simple_animal/hostile/bee(M.loc)
 
 /datum/symptom/beesease/End(datum/disease/advance/A)
 	if(!..())
