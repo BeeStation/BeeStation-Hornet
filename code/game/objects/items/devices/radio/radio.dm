@@ -98,6 +98,13 @@
 
 	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
+	// No subtypes
+	if(type != /obj/item/radio)
+		return
+	AddElement(/datum/element/slapcrafting,\
+		slapcraft_recipes = list(/datum/crafting_recipe/improv_explosive)\
+	)
+
 /obj/item/radio/Destroy()
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
@@ -505,12 +512,6 @@
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
-
-/obj/item/radio/Destroy()
-	remove_radio_all(src) //Just to be sure
-	QDEL_NULL(wires)
-	QDEL_NULL(keyslot)
-	return ..()
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again

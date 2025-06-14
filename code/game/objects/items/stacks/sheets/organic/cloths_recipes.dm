@@ -57,10 +57,4 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/cotton/cloth/durathread)
 
-/* Silk */
-
-GLOBAL_LIST_INIT(silk_recipes, list ( \
-	new/datum/stack_recipe("silk string", /obj/item/weaponcrafting/silkstring, 2, time = 4 SECONDS), \
-))
-
 STACKSIZE_MACRO(/obj/item/stack/sheet/silk)

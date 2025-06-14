@@ -36,6 +36,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	update_icon()
 	AddElement(/datum/element/openspace_item_click_handler)
 
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/spear, /datum/crafting_recipe/stunprod, /datum/crafting_recipe/teleprod)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
 /obj/item/stack/rods/add_context_self(datum/screentip_context/context, mob/user)
 	context.use_cache()
 	context.add_left_click_tool_action("Weld into sheet", TOOL_WELDER)
