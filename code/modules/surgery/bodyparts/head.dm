@@ -3,7 +3,6 @@
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
 	icon = 'icons/mob/species/human/bodyparts.dmi'
 	icon_state = "default_human_head"
-	icon_state_preview = "human_head_m"
 	max_damage = 200
 	body_zone = BODY_ZONE_HEAD
 	body_part = HEAD
@@ -30,7 +29,7 @@
 	var/real_name = "" //Replacement name
 	//Hair colour and style
 	var/hair_color = "000"
-	
+
 	var/hair_style = "Bald"
 	var/hair_alpha = 255
 	//Facial hair colour and style
