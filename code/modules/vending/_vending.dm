@@ -645,7 +645,7 @@
 							C.visible_message(span_danger("[C] is crushed by [src]!"), \
 								span_userdanger("You are crushed by [src]!"))
 
-					if(61 to 80) // 20% Chance shatter their legs and bleed 'em
+					if(61 to 85) // 25% Chance shatter their legs and bleed 'em
 						crit_rebate = 60
 						C.bleed(150)
 						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
@@ -658,7 +658,7 @@
 							C.visible_message(span_danger("[C]'s legs shatter with a sickening crunch!"), \
 								span_userdanger("Your legs shatter with a sickening crunch!"))
 
-					if(81 to 95) // 15% Chance skull squish!
+					if(86 to 95) // 10% Chance skull squish!
 						var/obj/item/bodypart/head/O = C.get_bodypart(BODY_ZONE_HEAD)
 						if(O)
 							C.visible_message(span_danger("[O] explodes in a shower of gore beneath [src]!"), \
