@@ -33,6 +33,7 @@
 	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist
+	head = /obj/item/clothing/head/hats/botanist
 	belt = /obj/item/modular_computer/tablet/pda/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics

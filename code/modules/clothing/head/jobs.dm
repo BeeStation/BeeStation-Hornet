@@ -35,6 +35,12 @@
 	icon_state = "chef_sushi"
 	desc = "The sushi master's head wear."
 
+//Botanist
+/obj/item/clothing/head/hats/botanist
+	name = "Botanist hat"
+	desc = "For sunlight protection... in space."
+	icon_state = "hydroponics"
+
 //Captain
 /obj/item/clothing/head/hats/caphat
 	name = "captain's hat"

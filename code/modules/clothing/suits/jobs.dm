@@ -4,9 +4,9 @@
 
 //Botanist
 /obj/item/clothing/suit/apron
-	name = "apron"
-	desc = "A basic blue apron."
-	icon_state = "apron"
+	name = "Botany apron"
+	desc = "A green apron for botanist."
+	icon_state = "botanyoverall"
 	icon = 'icons/obj/clothing/suits/utility.dmi'
 	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
 	item_state = null
@@ -24,6 +24,11 @@
 		/obj/item/hatchet,
 		/obj/item/storage/bag/plants
 	)
+
+/obj/item/clothing/suit/apron/skirt
+	name = "Botany skirt-apron"
+	desc = "A green skirt-apron for botanist."
+	icon_state = "botanyoverall_skirt"
 
 /obj/item/clothing/suit/apron/Initialize(mapload)
 	. = ..()
