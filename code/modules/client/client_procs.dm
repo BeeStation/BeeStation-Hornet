@@ -36,6 +36,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	*/
 
 /client/Topic(href, href_list, hsrc, hsrc_command)
+	//-------------------------
+	// #1. Failproofs
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
 
@@ -45,13 +47,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 #endif
 
-	// asset_cache
+	// asset caching - Check browse_queue_flush() proc
 	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
 		asset_cache_job = asset_cache_confirm_arrival(href_list["asset_cache_confirm_arrival"])
 		if (!asset_cache_job)
 			return
 
+	//-------------------------
+	// 2. Spam-proofs
 	var/mtl = CONFIG_GET(number/minute_topic_limit)
 	if (!holder && mtl)
 		var/minute = round(world.time, 600)
@@ -84,10 +88,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, span_danger("Your previous action was ignored because you've done too many in a second"))
 			return
 
+	//-------------------------
+	// #3. Logging
 	//Logs all hrefs, except chat pings
 	if(!(href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
+
+	//-------------------------
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
 		to_chat(src, span_danger("An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)"))
@@ -97,26 +105,34 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		asset_cache_preload_data(href_list["asset_cache_preload_data"])
 		return
 
-	// Tgui Topic middleware
+	//-------------------------
+	// #4. TGUI Topic middleware
 	if(tgui_Topic(href_list))
 		return
 
-	if(href_list["reload_tguipanel"])
-		nuke_chat()
+	//-------------------------
+	// #5. /hrefcmd system
+	// For /hrefcmd type, check "href_commands.dm"
+	var/href_command = href_list["hrefcmd"]
+	switch(href_command)
+		if(/hrefcmd::reload_tguipanel) // Attempts to fix TGUI panel
+			nuke_chat()
+			return
+		if(/hrefcmd::admin_pm) // Admin PM
+			cmd_admin_pm(href_list["msg_target"],null)
+			return
+		if(/hrefcmd::mentor_msg) // Mentor PM
+			cmd_mentor_pm(href_list["msg_target"], null)
+			return
+		if(/hrefcmd::commandbar_typing)
+			handle_commandbar_typing(href_list)
+			return
+		if(/hrefcmd::openLink)
+			src << link(href_list["link"])
+			return
 
-	// Admin PM
-	if(href_list["priv_msg"])
-		cmd_admin_pm(href_list["priv_msg"],null)
-		return
-
-	// Mentor PM
-	if(href_list["mentor_msg"])
-		cmd_mentor_pm(href_list["mentor_msg"], null)
-		return TRUE
-
-	if(href_list["commandbar_typing"])
-		handle_commandbar_typing(href_list)
-
+	//-------------------------
+	// #6. Old href command system -- should be refactored
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder
@@ -127,9 +143,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if("vars")
 			return view_var_Topic(href,href_list,hsrc)
 
-	switch(href_list["action"])
-		if("openLink")
-			src << link(href_list["link"])
 	if (hsrc)
 		var/datum/real_src = hsrc
 		if(QDELETED(real_src))

@@ -39,7 +39,7 @@
 				if (argument_length > 0 && argument[0] == "\"")
 					argument_length -= 1;
 
-				window.location = "byond://?commandbar_typing=1&verb="+encodeURIComponent(verb)+"&argument_length="+argument_length;
+				window.location = "byond://?hrefcmd=commandbar_typing&verb="+encodeURIComponent(verb)+"&argument_length="+argument_length;
 			}
 			setTimeout(getoutput, 2000);
 		</script>

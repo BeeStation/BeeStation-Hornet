@@ -103,6 +103,7 @@
 #include "code\__DEFINES\gravity.dm"
 #include "code\__DEFINES\helpers.dm"
 #include "code\__DEFINES\holoparasite.dm"
+#include "code\__DEFINES\href_commands.dm"
 #include "code\__DEFINES\html_assistant.dm"
 #include "code\__DEFINES\hud.dm"
 #include "code\__DEFINES\icon_smoothing.dm"
