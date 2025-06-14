@@ -61,7 +61,7 @@
 
 		if (markings_name != FEATURE_NONE)
 			for (var/obj/item/bodypart/body_part in body_parts)
-				var/part_name = lowertext(replacetext(initial(body_part.body_zone), "BODY_ZONE_", ""))
+				var/part_name = LOWER_TEXT(replacetext(initial(body_part.body_zone), "BODY_ZONE_", ""))
 				var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "[markings.icon_state]_[part_name]", dir = SOUTH)
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
