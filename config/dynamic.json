@@ -1,32 +1,27 @@
 {
-	"Dynamic": {},
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 0.8,
+		"roundstart_divergence_percent_upper": 1.4,
+		"roundstart_points_per_ready": 1,
+		"roundstart_points_per_unready": 0.5
+	},
 	"Roundstart": {
-		"Traitors": {
-			"cost": 8,
-			"scaling_cost": 9,
-			"weight": 5,
-			"required_candidates": 1,
-			"requirements": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
-			"antag_cap": {
-				"denominator": 38
-			},
-			"protected_roles": [
-				"Security Officer",
-				"Warden",
-				"Detective",
-				"Head of Security",
-				"Captain"
-			],
-			"restricted_roles": ["Cyborg"]
+		"Traitor": {
+			"points_cost": 7,
+			"weight": 10,
+			"restricted_roles": [
+				"Cyborg",
+				"AI"
+			]
 		},
 		"Revolution": {
-			"cost": 110
+			"points_cost": 100
+		},
+		"Clown Operatives": {
+			"points_cost": 500
 		}
 	},
-	"Midround": {},
-	"Latejoin": {
-		"Provocateur": {
-			"cost": 110
-		}
+	"Midround": {
+
 	}
 }

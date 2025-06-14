@@ -56,6 +56,8 @@
 
 /datum/config_entry/flag/log_game	// log game events
 
+/datum/config_entry/flag/log_dynamic	// log what dynamic is doing
+
 /datum/config_entry/flag/log_objective	// log antag objectives
 
 /datum/config_entry/flag/log_mecha	// log mech data
