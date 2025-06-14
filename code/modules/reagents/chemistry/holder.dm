@@ -893,14 +893,8 @@
 		stack_trace("invalid reagent passed to remove reagent [reagent]")
 		return FALSE
 
-	if(isnull(amount))
-		amount = 0
-		CRASH("null amount passed to reagent code")
-
-	if(!isnum_safe(amount))
-		return FALSE
-
-	if(amount < 0)
+	if(amount < 0 || !IS_FINITE(amount))
+		stack_trace("invalid number passed to remove_reagent [amount]")
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
