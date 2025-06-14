@@ -627,4 +627,3 @@
 /datum/antagonist/changeling/xenobio/antag_listing_name()
 	return ..() + "(Xenobio)"
 
-#undef FORMAT_CHEM_CHARGES_TEXT
