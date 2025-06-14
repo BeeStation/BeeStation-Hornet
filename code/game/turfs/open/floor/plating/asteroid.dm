@@ -84,6 +84,7 @@
 		return ..()
 
 /turf/open/floor/plating/asteroid/planetary
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 
 /turf/open/floor/plating/lavaland_baseturf

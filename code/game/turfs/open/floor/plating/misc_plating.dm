@@ -125,18 +125,15 @@
 	tiled_dirt = FALSE
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 	resistance_flags = INDESTRUCTIBLE
-	var/static/datum/gas_mixture/immutable/planetary/GM
+	planetary_atmos = TRUE
+	init_air = FALSE //grass should act almost like space tiles as has the entire plannets atmos to cycle with
+	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
+	heat_capacity = 700000
 
-/turf/open/floor/plating/grass/Initialize(mapload)
-	if(!GM)
-		GM = new
-	. = ..()
-	air = GM
-	return
 
 /turf/open/floor/plating/beach
 	name = "beach"
-	icon = 'icons/misc/beach.dmi'
+	icon = 'icons/misc/beach/beach.dmi'
 	flags_1 = NONE
 	planetary_atmos = TRUE
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
@@ -155,14 +152,15 @@
 	gender = PLURAL
 	name = "sand"
 	desc = "Surf's up."
-	icon_state = "sand"
+	icon_state = "Water_0"
 	baseturfs = /turf/open/floor/plating/beach/sand
 
 /turf/open/floor/plating/beach/water
 	gender = PLURAL
 	name = "water"
 	desc = "Ocean waves: Salty breeze, briny depths, endless blue expanse."
-	icon_state = "water"
+	icon = 'icons/misc/Beach/beach.dmi'
+	icon_state = "Water_255"
 	baseturfs = /turf/open/floor/plating/beach/water
 	slowdown = 3
 	bullet_sizzle = TRUE
@@ -171,6 +169,9 @@
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
+
+	smoothing_flags = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_FLOOR_BEACH
 
 // pool.dm copy paste
 
@@ -286,34 +287,6 @@
 	icon_state = "water_deep"
 	name = "deep water"
 	density = 1 //no swimming
-
-/turf/open/floor/plating/beach/coastline_t
-	name = "coastline"
-	desc = "Tide's high tonight. Charge your batons."
-	icon_state = "sandwater_t"
-	baseturfs = /turf/open/floor/plating/beach/coastline_t
-
-/turf/open/floor/plating/beach/coastline_b
-	name = "coastline"
-	icon_state = "sandwater_b"
-	desc = "Tide's high tonight. Charge your batons."
-	baseturfs = /turf/open/floor/plating/beach/coastline_b
-
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner
-	icon_state = "sandwater_inner"
-	baseturfs = /turf/open/floor/plating/beach/coastline_t/sandwater_inner
-
-/turf/open/floor/plating/beach/deep_water/cold
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-
-/turf/open/floor/plating/beach/coastline_t/cold
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-
-/turf/open/floor/plating/beach/coastline_b/cold
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner/cold
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 
 /turf/open/floor/plating/ironsand
 	gender = PLURAL
