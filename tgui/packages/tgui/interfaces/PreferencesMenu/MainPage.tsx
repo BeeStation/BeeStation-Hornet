@@ -9,7 +9,7 @@ import { MultiNameInput, NameInput } from './names';
 import { Gender, GENDERS } from './preferences/gender';
 import features from './preferences/features';
 import { FeatureChoicedServerData, FeatureValueInput } from './preferences/features/base';
-import { filterMap, sortBy } from 'common/collections';
+import { filter, map, sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';
 
@@ -393,10 +393,11 @@ const createSetRandomization = (act: typeof sendAct, preference: string) => (new
   });
 };
 
-const sortPreferences = sortBy<[string, unknown]>(([featureId, _]) => {
-  const feature = features[featureId];
-  return feature?.name;
-});
+const sortPreferences = (array: [string, unknown][]) =>
+  sortBy(array, ([featureId, _]) => {
+    const feature = features[featureId];
+    return feature?.name;
+  });
 
 const PreferenceList = (props: {
   act: typeof sendAct;
@@ -471,18 +472,15 @@ export const MainPage = (props: { openSpecies: () => void }) => {
             return {};
           }
 
+          if (!randomBodyEnabled) {
+            return {};
+          }
+
           return Object.fromEntries(
-            filterMap(Object.keys(preferences), (preferenceKey) => {
-              if (serverData.random.randomizable.indexOf(preferenceKey) === -1) {
-                return undefined;
-              }
-
-              if (!randomBodyEnabled) {
-                return undefined;
-              }
-
-              return [preferenceKey, data.character_preferences.randomization[preferenceKey] || RandomSetting.Disabled];
-            })
+            map(
+              filter(Object.keys(preferences), (key) => serverData.random.randomizable.includes(key)),
+              (key) => [key, data.character_preferences.randomization[key] || RandomSetting.Disabled]
+            )
           );
         };
 

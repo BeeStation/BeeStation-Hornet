@@ -1,5 +1,4 @@
 import { filter, map, sortBy, uniq } from 'common/collections';
-import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, Input, Section, Stack, Tabs } from '../components';
@@ -19,10 +18,10 @@ export const SelectEquipment = (props) => {
 
   const isFavorited = (entry) => favorites?.includes(entry.path);
 
-  const outfits = map((entry) => ({
+  const outfits = map([...data.outfits, ...data.custom_outfits], (entry) => ({
     ...entry,
     favorite: isFavorited(entry),
-  }))([...data.outfits, ...data.custom_outfits]);
+  }));
 
   // even if no custom outfits were sent, we still want to make sure there's
   // at least a 'Custom' tab so the button to create a new one pops up
@@ -32,15 +31,15 @@ export const SelectEquipment = (props) => {
   const [searchText, setSearchText] = useLocalState('searchText', '');
   const searchFilter = createSearch(searchText, (entry) => entry.name + entry.path);
 
-  const visibleOutfits = flow([
-    filter((entry) => entry.category === tab),
-    filter(searchFilter),
-    sortBy(
-      (entry) => !entry.favorite,
-      (entry) => !entry.priority,
-      (entry) => entry.name
+  const visibleOutfits = sortBy(
+    filter(
+      filter(outfits, (entry) => entry.category === tab),
+      searchFilter
     ),
-  ])(outfits);
+    (entry) => !entry.favorite,
+    (entry) => !entry.priority,
+    (entry) => entry.name
+  );
 
   const getOutfitEntry = (current_outfit) => outfits.find((outfit) => getOutfitKey(outfit) === current_outfit);
 
