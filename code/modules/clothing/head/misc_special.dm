@@ -40,12 +40,12 @@
 /obj/item/clothing/head/wig
 	name = "wig"
 	desc = "A bunch of hair without a head attached."
-	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
+	icon = 'icons/mob/species/human/human_face.dmi'	  // default icon for all hairs
 	icon_state = "hair_vlong"
 	item_state = "pwig"
 	flags_inv = HIDEHAIR	//Instead of being handled as a clothing item, it overrides the hair values in /datum/species/proc/handle_hair
 	slot_flags = ITEM_SLOT_HEAD
-	worn_icon = 'icons/mob/human_face.dmi'
+	worn_icon = 'icons/mob/species/human/human_face.dmi'
 	worn_icon_state = "bald"
 	var/hair_style = "Very Long Hair"
 	var/hair_color = "#000"

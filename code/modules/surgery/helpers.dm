@@ -50,8 +50,10 @@
 	if(!available_surgeries.len)
 		return
 
-	var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in sort_list(available_surgeries)
-	if(P && user && user.Adjacent(M) && (I in user))
+	var/P = tgui_input_list(user, "Begin which procedure?", "Surgery", sort_list(available_surgeries))
+	if(isnull(P))
+		return
+	if(user && user.Adjacent(M) && (I in user))
 		var/datum/surgery/S = available_surgeries[P]
 
 		for(var/datum/surgery/other in M.surgeries)

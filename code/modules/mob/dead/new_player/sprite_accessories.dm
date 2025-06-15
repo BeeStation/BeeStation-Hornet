@@ -71,7 +71,7 @@
 // Hair Definitions //
 //////////////////////
 /datum/sprite_accessory/hair
-	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
+	icon = 'icons/mob/species/human/human_face.dmi'	  // default icon for all hairs
 
 	// please make sure they're sorted alphabetically and, where needed, categorized
 	// try to capitalize the names please~
@@ -1103,7 +1103,7 @@
 /////////////////////////////
 
 /datum/sprite_accessory/facial_hair
-	icon = 'icons/mob/human_face.dmi'
+	icon = 'icons/mob/species/human/human_face.dmi'
 	// By default, only characters generated as male can get facial hair
 	use_default_gender = MALE
 
@@ -2243,19 +2243,15 @@
 	icon_state = "round"
 
 /datum/sprite_accessory/moth_wings
-	icon = 'icons/mob/moth_wings.dmi'
-	color_src = null
-
-/datum/sprite_accessory/moth_markings
-	icon = 'icons/mob/moth_markings.dmi'
+	icon = 'icons/mob/species/moth/moth_wings.dmi'
 	color_src = null
 
 /datum/sprite_accessory/moth_antennae
-	icon = 'icons/mob/moth_antennae.dmi'
+	icon = 'icons/mob/species/moth/moth_antennae.dmi'
 	color_src = null
 
 /datum/sprite_accessory/moth_wingsopen
-	icon = 'icons/mob/moth_wingsopen.dmi'
+	icon = 'icons/mob/species/moth/moth_wingsopen.dmi'
 	color_src = null
 	dimension_x = 76
 	center = TRUE
@@ -2448,7 +2444,7 @@
 	locked = TRUE
 
 /datum/sprite_accessory/moth_antennae //Finally splitting the sprite
-	icon = 'icons/mob/moth_antennae.dmi'
+	icon = 'icons/mob/species/moth/moth_antennae.dmi'
 	color_src = null
 
 /datum/sprite_accessory/moth_antennae/plain
@@ -2546,7 +2542,7 @@
 	icon_state = "strawberry"
 
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
-	icon = 'icons/mob/moth_markings.dmi'
+	icon = 'icons/mob/species/moth/moth_markings.dmi'
 	color_src = null
 
 /datum/sprite_accessory/moth_markings/none
