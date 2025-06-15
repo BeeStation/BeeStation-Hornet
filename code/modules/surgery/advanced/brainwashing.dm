@@ -12,7 +12,8 @@
 	/datum/surgery_step/saw,
 	/datum/surgery_step/clamp_bleeders,
 	/datum/surgery_step/brainwash,
-	/datum/surgery_step/close)
+	/datum/surgery_step/close
+	)
 
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_HEAD)
@@ -27,8 +28,13 @@
 	return TRUE
 
 /datum/surgery_step/brainwash
-	name = "brainwash"
-	implements = list(TOOL_HEMOSTAT = 85, TOOL_WIRECUTTER = 50, /obj/item/stack/package_wrap = 35, /obj/item/stack/cable_coil = 15)
+	name = "brainwash (hemostat)"
+	implements = list(
+		TOOL_HEMOSTAT = 85,
+		TOOL_WIRECUTTER = 50,
+		/obj/item/stack/package_wrap = 35,
+		/obj/item/stack/cable_coil = 15
+	)
 	time = 200
 	preop_sound = 'sound/surgery/hemostat1.ogg'
 	success_sound = 'sound/surgery/hemostat1.ogg'
@@ -54,9 +60,13 @@
 	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		to_chat(user, span_warning("You hear a faint buzzing from a device inside [target]'s brain, and the brainwashing is erased."))
 		return FALSE
-	display_results(user, target, span_notice("You succeed in brainwashing [target]."),
-		"[user] successfully fixes [target]'s brain!",
-		"[user] completes the surgery on [target]'s brain.")
+	display_results(
+		user,
+		target,
+		span_notice("You succeed in brainwashing [target]."),
+		span_notice("[user] successfully fixes [target]'s brain!"),
+		span_notice("[user] completes the surgery on [target]'s brain."),
+	)
 	to_chat(target, span_userdanger("A new compulsion fills your mind... you feel forced to obey it!"))
 	brainwash(target, objective, "brainwashing surgery from [user.mind ? user.mind.name : user.real_name]")
 	message_admins("[ADMIN_LOOKUPFLW(user)] surgically brainwashed [ADMIN_LOOKUPFLW(target)] with the objective '[objective]'.")
@@ -65,9 +75,13 @@
 
 /datum/surgery_step/brainwash/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target.get_organ_slot(ORGAN_SLOT_BRAIN))
-		display_results(user, target, span_warning("You screw up, bruising the brain tissue!"),
+		display_results(
+			user,
+			target,
+			span_warning("You screw up, bruising the brain tissue!"),
 			span_warning("[user] screws up, causing brain damage!"),
-			"[user] completes the surgery on [target]'s brain.")
+			span_notice("[user] completes the surgery on [target]'s brain."),
+		)
 		target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 40)
 	else
 		user.visible_message(span_warning("[user] suddenly notices that the brain [user.p_they()] [user.p_were()] working on is not there anymore."), span_warning("You suddenly notice that the brain you were working on is not there anymore."))

@@ -6,9 +6,12 @@
 
 /datum/surgery_step/replace_limb
 	name = "replace limb"
-	implements = list(/obj/item/bodypart = 100, /obj/item/organ_storage = 100)
+	implements = list(
+		/obj/item/bodypart = 100,
+		/obj/item/organ_storage = 100
+	)
 	time = 32
-	var/obj/item/bodypart/L = null // L because "limb"
+	var/obj/item/bodypart/L
 
 
 /datum/surgery_step/replace_limb/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -25,7 +28,6 @@
 		to_chat(user, span_warning("[tool] isn't the right type for [parse_zone(target_zone)]."))
 		return -1
 	L = surgery.operated_bodypart
-
 	if(!L)
 		user.visible_message("[user] looks for [target]'s [parse_zone(target_zone)].", span_notice("You look for [target]'s [parse_zone(target_zone)]..."))
 		return
@@ -34,15 +36,24 @@
 		to_chat(user, span_warning("You can't augment a limb with paralysis!"))
 		return -1
 	else
-		display_results(user, target, span_notice("You begin to augment [target]'s [parse_zone(target_zone)]..."),
-			"[user] begins to augment [target]'s [parse_zone(target_zone)] with [aug].",
-			"[user] begins to augment [target]'s [parse_zone(target_zone)].")
+		display_results(
+			user,
+			target,
+			span_notice("You begin to augment [target]'s [parse_zone(user.zone_selected)]..."),
+			span_notice("[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug]."),
+			span_notice("[user] begins to augment [target]'s [parse_zone(user.zone_selected)]."),
+		)
 
 //ACTUAL SURGERIES
 
 /datum/surgery/augmentation
 	name = "Augmentation"
-	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin, /datum/surgery_step/replace_limb)
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/clamp_bleeders,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/replace_limb
+	)
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	requires_real_bodypart = TRUE

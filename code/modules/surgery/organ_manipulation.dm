@@ -10,7 +10,6 @@
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/incise,
 		/datum/surgery_step/manipulate_organs,
-		//there should be bone fixing
 		/datum/surgery_step/close
 		)
 

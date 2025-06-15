@@ -1,5 +1,5 @@
 /datum/surgery/prosthetic_replacement
-	name = "prosthetic replacement"
+	name = "Prosthetic replacement"
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/clamp_bleeders,
