@@ -7,7 +7,7 @@
 	if(owner.current)
 		return "<a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[REF(owner.current)]'>[owner.current.real_name]</a> "
 	else
-		return "<a href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];Vars=[REF(owner)]'>[owner.name]</a> "
+		return "<a href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];[/datum/hrefcmd/param::var_edit::Vars]=[REF(owner)]'>[owner.name]</a> "
 
 //Whatever interesting things happened to the antag admins should know about
 //Include additional information about antag in this part
@@ -28,7 +28,7 @@
 	if(!owner)
 		return
 	var/list/parts = list()
-	parts += "<a href='byond://?[/datum/hrefcmd/print::admin_pm];msg_target=[ckey(owner.key)]'>PM</a>"
+	parts += "<a href='byond://?[/datum/hrefcmd/print::admin_pm];[/datum/hrefcmd/param::admin_pm::msg_target]=[ckey(owner.key)]'>PM</a>"
 	if(owner.current) //There's body to follow
 		parts += "<a href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(owner.current)]'>FLW</a>"
 	else

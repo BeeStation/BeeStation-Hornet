@@ -275,7 +275,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE, hrefcmd = /datum/hrefcmd/print::admin_pm+";msg_target")
+/proc/key_name(whom, include_link = null, include_name = TRUE, hrefcmd = /datum/hrefcmd/print::admin_pm+";"+/datum/hrefcmd/param::admin_pm::msg_target)
 	var/mob/M
 	var/client/C
 	var/key

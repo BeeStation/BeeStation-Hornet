@@ -1,14 +1,29 @@
 // This is not technically a macro, but for the purpose of this, these are here
-#define DEFINE_HREF_COMMAND(_thing) /datum/hrefcmd/var/_thing = #_thing;/datum/hrefcmd/print/_thing = "hrefcmd="+#_thing;
+#define DEFINE_HREF_COMMAND(_command) \
+/datum/hrefcmd/##_command; \
+/datum/hrefcmd/var/datum/hrefcmd/##_command/##_command = #_command; \
+/datum/hrefcmd/print/##_command = "hrefcmd="+#_command;
+#define DEFINE_HREF_PARAM(_command, _param_name) \
+/datum/hrefcmd/param/##_command = /datum/hrefcmd/##_command; \
+/datum/hrefcmd/##_command/var/##_param_name = #_param_name;
+
 
 // list of actual href commands
 DEFINE_HREF_COMMAND(reload_tguipanel)
+
 DEFINE_HREF_COMMAND(admin_pm)
+DEFINE_HREF_PARAM(admin_pm, msg_target)
+
 DEFINE_HREF_COMMAND(mentor_msg)
+DEFINE_HREF_PARAM(mentor_msg, msg_target)
+
 DEFINE_HREF_COMMAND(commandbar_typing)
+
 DEFINE_HREF_COMMAND(openLink)
+DEFINE_HREF_PARAM(openLink, link)
 
 DEFINE_HREF_COMMAND(var_edit)
+DEFINE_HREF_PARAM(var_edit, Vars)
 
 #undef DEFINE_HREF_COMMAND
 
