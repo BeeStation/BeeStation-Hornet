@@ -275,7 +275,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE, hrefcmd = /datum/hrefcmd/print::admin_pm+";msg_target")
+/proc/key_name(whom, include_link = null, include_name = TRUE)
 	var/mob/M
 	var/client/C
 	var/key
@@ -332,11 +332,11 @@
 	if(key)
 		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='byond://?[hrefcmd]=[C.findStealthKey()]'>"
+				. += "<a href='byond://?[HREF_COMMAND(admin_pm)][HREF_PARAM(admin_pm, msg_target, C.findStealthKey())]'>"
 			. += "Administrator"
 		else
 			if(include_link)
-				. += "<a href='byond://?[hrefcmd]=[ckey]'>"
+				. += "<a href='byond://?[HREF_COMMAND(admin_pm)][HREF_PARAM(admin_pm, msg_target, ckey)]'>"
 			. += key
 		if(!C)
 			. += "\[DC\]"

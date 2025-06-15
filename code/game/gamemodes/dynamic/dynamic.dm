@@ -221,7 +221,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /datum/game_mode/dynamic/admin_panel()
 	var/list/dat = list()
-	dat += "Dynamic Mode <a href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];Vars=[FAST_REF(src)]'>VV</a> <a href='byond://?src=[FAST_REF(src)];[HrefToken()]'>Refresh</a><BR>"
+	dat += "Dynamic Mode <a href='byond://?[HREF_COMMAND(var_edit)][HrefToken()][HREF_PARAM(var_edit, Vars, FAST_REF(src))]'>VV</a> <a href='byond://?src=[FAST_REF(src)];[HrefToken()]'>Refresh</a><BR>"
 	dat += "Threat Level: <b>[threat_level]</b><br/>"
 	dat += "Budgets (Roundstart/Midrounds): <b>[initial_round_start_budget]/[threat_level - initial_round_start_budget]</b><br/>"
 

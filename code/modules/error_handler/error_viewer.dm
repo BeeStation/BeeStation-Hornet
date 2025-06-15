@@ -194,11 +194,11 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	var/html = build_header(back_to, linear)
 	html += "[name]<div class='runtime'>[desc]</div>"
 	if (usr_ref)
-		html += "<br><b>usr</b>: <a href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];Vars=[usr_ref]'>VV</a>"
+		html += "<br><b>usr</b>: <a href='byond://?[HREF_COMMAND(var_edit)][HrefToken()][HREF_PARAM(var_edit, Vars, usr_ref)]'>VV</a>"
 		html += " <a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[usr_ref]'>PP</a>"
 		html += " <a href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[usr_ref]'>Follow</a>"
 		if (istype(usr_loc))
-			html += "<br><b>usr.loc</b>: <a href='byond://?[/datum/hrefcmd/print::var_edit];[HrefToken()];Vars=[REF(usr_loc)]'>VV</a>"
+			html += "<br><b>usr.loc</b>: <a href='byond://?[HREF_COMMAND(var_edit)][HrefToken()][HREF_PARAM(var_edit, Vars, REF(usr_loc))]'>VV</a>"
 			html += " <a href='byond://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[usr_loc.x];Y=[usr_loc.y];Z=[usr_loc.z]'>JMP</a>"
 
 	browse_to(user, html)

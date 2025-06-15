@@ -119,17 +119,17 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		to_chat(src, span_danger("Href data: [json_encode(href_list)]"))
 #endif
 		switch(href_command)
-			if(/datum/hrefcmd::reload_tguipanel) // Attempts to fix TGUI panel
+			if(HREF_SWITCH(reload_tguipanel)) // Attempts to fix TGUI panel
 				nuke_chat()
-			if(/datum/hrefcmd::admin_pm) // Admin PM
+			if(HREF_SWITCH(admin_pm)) // Admin PM
 				cmd_admin_pm(href_list["msg_target"],null)
-			if(/datum/hrefcmd::mentor_msg) // Mentor PM
+			if(HREF_SWITCH(mentor_msg)) // Mentor PM
 				cmd_mentor_pm(href_list["msg_target"], null)
-			if(/datum/hrefcmd::commandbar_typing)
+			if(HREF_SWITCH(commandbar_typing))
 				handle_commandbar_typing(href_list)
-			if(/datum/hrefcmd::openLink)
+			if(HREF_SWITCH(openLink))
 				src << link(href_list["link"])
-			if(/datum/hrefcmd::var_edit)
+			if(HREF_SWITCH(var_edit))
 				view_var_Topic(href, href_list, hsrc)
 			else
 				to_chat(src, span_danger("Your href seems to be broken. Please report this to a coder or an admin. (Href data: [json_encode(href_list)])"))
