@@ -79,7 +79,7 @@
 
 
 	body += "<br>"
-	body += "<a href='byond://?[HREF_COMMAND(var_edit)][HrefToken()][HREF_PARAM(var_edit, Vars, REF(M))]'>VV</a> "
+	body += "<a href='byond://?[HREF_COMMAND(var_edit)][HrefToken()];[HREF_PARAM(var_edit, Vars, REF(M))]'>VV</a> "
 	if(M.mind)
 		body += "<a href='byond://?_src_=holder;[HrefToken()];traitor=[REF(M)]'>TP</a> "
 	else
