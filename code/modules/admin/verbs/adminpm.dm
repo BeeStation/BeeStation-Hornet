@@ -325,7 +325,7 @@
 	msg = emoji_parse(msg)
 
 	to_chat(C, "<font color='red' size='4'><b>-- Administrator private message --</b></font>", type = MESSAGE_TYPE_ADMINPM)
-	to_chat(C, span_adminsay("Admin PM from-<b><a href='byond://?[/datum/hrefcmd/print::admin_pm];[/datum/hrefcmd/param::admin_pm::msg_target]=[stealthkey]'>[adminname]</A></b>: [msg]"), allow_linkify = TRUE, type = MESSAGE_TYPE_ADMINPM)
+	to_chat(C, span_adminsay("Admin PM from-<b><a href='byond://?[HREF_COMMAND(admin_pm)][HREF_PARAM(admin_pm, msg_target, stealthkey)]'>[adminname]</A></b>: [msg]"), allow_linkify = TRUE, type = MESSAGE_TYPE_ADMINPM)
 	to_chat(C, span_adminsay("<i>Click on the administrator's name to reply.</i>"), type = MESSAGE_TYPE_ADMINPM)
 
 	admin_ticket_log(C, msg, adminname, null, "cyan", isSenderAdmin = TRUE, safeSenderLogged = TRUE)

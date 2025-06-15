@@ -125,7 +125,7 @@
 
 	if(key)
 		if(include_link)
-			. += "<a href='byond://?_src_=mentor;[/datum/hrefcmd/print::mentor_msg];[/datum/hrefcmd/param::mentor_msg::msg_target]=[ckey];'>"
+			. += "<a href='byond://?_src_=mentor;[HREF_COMMAND(mentor_msg)][HREF_PARAM(mentor_msg, msg_target, ckey)]'>"
 		if(C && C.holder && C.holder.fakekey)
 			. += "Administrator"
 		else

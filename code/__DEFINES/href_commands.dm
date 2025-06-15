@@ -7,6 +7,9 @@
 /datum/hrefcmd/param/##_command = /datum/hrefcmd/##_command; \
 /datum/hrefcmd/##_command/var/##_param_name = #_param_name;
 
+#define HREF_COMMAND(_command) (/datum/hrefcmd/print::##_command+";")
+#define HREF_PARAM(_command, _param_name, _param_val) (/datum/hrefcmd/param::##_command::##_param_name+"="+(istext(_param_val) ? _param_val : #_param_val)+";")
+#define HREF_SWITCH(_command) (/datum/hrefcmd::##_command)
 
 // list of actual href commands
 DEFINE_HREF_COMMAND(reload_tguipanel)

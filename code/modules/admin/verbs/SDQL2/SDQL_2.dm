@@ -701,7 +701,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 
 /datum/SDQL2_query/proc/SDQL_print(object, list/text_list, print_nulls = TRUE)
 	if(is_proper_datum(object))
-		text_list += "<A HREF='BYOND://?[/datum/hrefcmd/print::var_edit];[HrefToken(TRUE)];[/datum/hrefcmd/param::var_edit::Vars]=[REF(object)]'>[REF(object)]</A> : [object]"
+		text_list += "<A HREF='BYOND://?[HREF_COMMAND(var_edit)][HrefToken(TRUE)][HREF_PARAM(var_edit, Vars, REF(object))]'>[REF(object)]</A> : [object]"
 		if(istype(object, /atom))
 			var/atom/A = object
 			var/turf/T = A.loc
