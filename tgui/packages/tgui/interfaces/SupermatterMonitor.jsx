@@ -1,5 +1,4 @@
 import { sortBy } from 'common/collections';
-import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
 import { Button, LabeledList, ProgressBar, Section, Stack, Table } from '../components';
@@ -34,7 +33,7 @@ export const SupermatterMonitorContent = (props) => {
   if (!active) {
     return <SupermatterList />;
   }
-  const gases = flow([(gases) => gases.filter((gas) => gas.amount >= 0.01), sortBy((gas) => -gas.amount)])(data.gases || []);
+  const gases = (data.gases || []).filter((gas) => gas.amount >= 0.01).sort((a, b) => b.amount - a.amount);
   const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.amount));
   return (
     <Stack>

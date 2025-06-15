@@ -8,7 +8,7 @@ type DepartmentCrew = { [department: string]: ManifestEntry[] };
 type JobOrdering = { [job: string]: number };
 
 const sortSpecific = (entries: ManifestEntry[], chain: JobOrdering) =>
-  sortBy<ManifestEntry>((entry) => chain[entry.hud] ?? Object.keys(chain).length + 1)(entries);
+  sortBy(entries, (entry) => chain[entry.hud] ?? Object.keys(chain).length + 1);
 
 type ManifestEntry = {
   /** The name of this crew member. */

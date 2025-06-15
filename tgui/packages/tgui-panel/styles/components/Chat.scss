@@ -8,7 +8,7 @@
 @use '~tgui/styles/base.scss';
 @use '~tgui/styles/colors.scss';
 
-$text-color: #abc6ec !default;
+$text-color: hsl(215.1, 63.1%, 79.8%) !default;
 $color-bg-section: base.$color-bg-section !default;
 
 .Chat {
