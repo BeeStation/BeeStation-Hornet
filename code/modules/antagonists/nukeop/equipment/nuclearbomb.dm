@@ -618,11 +618,15 @@
 /proc/KillEveryoneOnZLevel(z)
 	if(!z)
 		return
+	// check whether we're exploding on the station, if so we should include multi-z station levels
+	var/isOnStation = is_station_level(z)
 	for(var/mob/M in GLOB.mob_list)
-		if(M.stat != DEAD && M.get_virtual_z_level() == z && !istype(M.loc, /obj/structure/closet/secure_closet/freezer)) //protip: freezers protect you from nukes)
-			to_chat(M, span_userdanger("You are shredded to atoms!"))
-			M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
-			M.gib()
+		var/mobZlevel = M.get_virtual_z_level()
+		if ((mobZlevel == z) || (isOnStation && is_station_level(mobZlevel)))
+			if(M.stat != DEAD && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+				to_chat(M, span_userdanger("You are shredded to atoms!"))
+				M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
+				M.gib()
 
 /*
 This is here to make the tiles around the station mininuke change when it's armed.
