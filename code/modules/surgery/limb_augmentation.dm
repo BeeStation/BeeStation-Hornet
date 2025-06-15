@@ -39,9 +39,9 @@
 		display_results(
 			user,
 			target,
-			span_notice("You begin to augment [target]'s [parse_zone(user.zone_selected)]..."),
-			span_notice("[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug]."),
-			span_notice("[user] begins to augment [target]'s [parse_zone(user.zone_selected)]."),
+			span_notice("You begin to augment [target]'s [parse_zone(target_zone)]..."),
+			span_notice("[user] begins to augment [target]'s [parse_zone(target_zone)] with [aug]."),
+			span_notice("[user] begins to augment [target]'s [parse_zone(target_zone)]."),
 		)
 
 //ACTUAL SURGERIES
