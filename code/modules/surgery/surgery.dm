@@ -94,7 +94,7 @@
 
 /datum/surgery/proc/next_step(mob/living/user, modifiers)
 	failed_step = FALSE
-	if(location != user.get_combat_bodyzone())
+	if(location != user.get_combat_bodyzone(target, precise = TRUE))
 		return FALSE
 	if(user.combat_mode)
 		return FALSE
@@ -111,6 +111,9 @@
 		return FALSE
 	var/obj/item/tool = user.get_active_held_item()
 	if(step.try_op(user, target, user.get_combat_bodyzone(), tool, src, try_to_fail))
+		return TRUE
+	if(tool && tool.item_flags & SURGICAL_TOOL)
+		to_chat(user, span_warning("This step requires a different tool!"))
 		return TRUE
 	failed_step = TRUE
 	return FALSE
@@ -136,15 +139,16 @@
 		return null
 
 	var/obj/structure/table/optable/operating_table = locate(/obj/structure/table/optable, patient_turf)
-	var/obj/machinery/computer/operating/operating_computer = operating_table?.computer
+	if(operating_table?.computer)
+		if(!(operating_table.computer.machine_stat & (NOPOWER|BROKEN)))
+			return operating_table.computer
 
-	if (isnull(operating_computer))
-		return null
+	var/obj/machinery/stasis/stasis_table = locate(/obj/structure/table/optable, patient_turf)
+	if(stasis_table?.op_computer)
+		if(!(stasis_table.op_computer.machine_stat & (NOPOWER|BROKEN)))
+			return stasis_table.op_computer
 
-	if(operating_computer.machine_stat & (NOPOWER|BROKEN))
-		return null
-
-	return operating_computer
+	return null
 
 /datum/surgery/advanced
 	name = "advanced surgery"
@@ -171,18 +175,16 @@
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT)
 		if(!isnull(IMP))
 			if(type in IMP.advanced_surgeries)
 				return TRUE
 
 	var/turf/T = get_turf(target)
-	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
-	if(!table || !table.computer)
+	var/obj/machinery/computer/operating/computer = locate_operating_computer(T)
+	if(!computer || (computer.machine_stat & (NOPOWER|BROKEN)))
 		return .
-	if(table.computer.machine_stat & (NOPOWER|BROKEN))
-		return .
-	if(type in table.computer.advanced_surgeries)
+	if(type in computer.advanced_surgeries)
 		return TRUE
 
 /obj/item/disk/surgery

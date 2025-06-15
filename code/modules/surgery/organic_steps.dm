@@ -75,16 +75,24 @@
 //close incision
 /datum/surgery_step/close
 	name = "mend incision"
-	implements = list(TOOL_CAUTERY = 100, /obj/item/gun/energy/laser = 90, TOOL_WELDER = 70,
-		/obj/item = 30) // 30% success with any hot item.
+	implements = list(
+		TOOL_CAUTERY = 100,
+		/obj/item/gun/energy/laser = 90,
+		TOOL_WELDER = 70,
+		/obj/item = 30
+	) // 30% success with any hot item.
 	time = 24
 	preop_sound = 'sound/surgery/cautery1.ogg'
 	success_sound = 'sound/surgery/cautery2.ogg'
 
 /datum/surgery_step/close/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to mend the incision in [target]'s [parse_zone(target_zone)]..."),
-		"[user] begins to mend the incision in [target]'s [parse_zone(target_zone)].",
-		"[user] begins to mend the incision in [target]'s [parse_zone(target_zone)].")
+	display_results(
+		user,
+		target,
+		span_notice("You begin to mend the incision in [target]'s [parse_zone(target_zone)]..."),
+		span_notice("[user] begins to mend the incision in [target]'s [parse_zone(target_zone)]."),
+		span_notice("[user] begins to mend the incision in [target]'s [parse_zone(target_zone)]."),
+	)
 
 /datum/surgery_step/close/tool_check(mob/user, obj/item/tool)
 	if(implement_type == TOOL_WELDER || implement_type == /obj/item)

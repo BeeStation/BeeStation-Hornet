@@ -64,11 +64,13 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		mode() // Activate held item
 
 /mob/living/carbon/attackby(obj/item/I, mob/living/user, params)
-	for(var/datum/surgery/S in surgeries)
-		if(body_position == LYING_DOWN || !S.lying_required)
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(body_position == LYING_DOWN || !operations.lying_required)
 			var/list/modifiers = params2list(params)
-			if((S.self_operable || user != src) && !user.combat_mode)
-				if(S.next_step(user, modifiers))
+			if((operations.self_operable || user != src))
+				if(operations.next_step(user, modifiers))
 					return TRUE
 	return ..()
 
