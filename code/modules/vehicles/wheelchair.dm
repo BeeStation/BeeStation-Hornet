@@ -69,6 +69,14 @@
 /obj/vehicle/ridden/wheelchair/AltClick(mob/user)
 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
+/atom/movable/attack_hand(mob/living/user, list/modifiers)
+	if(LAZYLEN(buckled_mobs) && !(user in buckled_mobs)) //if there's mobs buckled that are not the user...
+		to_chat(user, span_notice("You start trying to unbuckle [buckled_mobs[1]]..."))
+		if(!do_after(user, 2 SECONDS, src)) //....and we don't fail the do_after...
+			to_chat(user, span_warning("You fail to unbuckle [buckled_mobs[1]]!"))
+			return
+	. = ..() //...then unbuckle any occupants
+
 /obj/vehicle/ridden/wheelchair/proc/handle_rotation(direction)
 	if(has_buckled_mobs())
 		handle_rotation_overlayed()

@@ -12,6 +12,7 @@
 							/obj/item/stock_parts/capacitor)
 	var/obj/item/stock_parts/cell/power_cell
 	var/low_power_alerted = FALSE
+	var/safeties = TRUE
 
 /obj/vehicle/ridden/wheelchair/motorized/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/motorized)
@@ -26,6 +27,8 @@
 		speed += M.rating
 	for(var/obj/item/stock_parts/capacitor/C in contents)
 		power_efficiency = C.rating
+	if(safeties)
+		speed = min(speed, floor(delay_multiplier)) //going above the delay multiplier causes impacts to stun and fling riders
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()
 	return power_cell
@@ -48,15 +51,12 @@
 		canmove = FALSE
 		addtimer(VARSET_CALLBACK(src, canmove, TRUE), 2 SECONDS)
 		return FALSE
-	return ..()
-
-/obj/vehicle/ridden/wheelchair/motorized/Moved()
-	. = ..()
 	power_cell.use(power_usage / max(power_efficiency, 1))
 	if(!low_power_alerted && power_cell.charge <= (power_cell.maxcharge / 4))
 		playsound(src, 'sound/machines/twobeep.ogg', 30, 1)
 		say("Warning: Power low!")
 		low_power_alerted = TRUE
+	return ..()
 
 /obj/vehicle/ridden/wheelchair/motorized/post_buckle_mob(mob/living/user)
 	. = ..()
@@ -83,6 +83,13 @@
 		return
 	if(!panel_open)
 		return ..()
+
+	if(I.tool_behaviour == TOOL_MULTITOOL)
+		I.play_tool_sound(src)
+		safeties = !safeties
+		user.visible_message(span_notice("[user] [safeties ? "resets" : "overrides"] the speed limiters on [src]."), span_notice("You [panel_open ? "override" : "reset"] the speed limiters on [src]."))
+		refresh_parts()
+		return
 
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(power_cell)
@@ -126,13 +133,17 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/examine(mob/user)
 	. = ..()
-	if(panel_open)
-		. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
-	if(!power_cell || (!in_range(user, src) && !isobserver(user)))
+	. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
+	if((!in_range(user, src) && !isobserver(user)))
 		return
-	. += "Speed: [speed]"
-	. += "Energy efficiency: [power_efficiency]"
-	. += "Power: [power_cell.charge] out of [power_cell.maxcharge]"
+	if(power_cell)
+		. += "Speed: [speed]/[safeties ? floor(delay_multiplier) : span_warning("@!ERROR#%")]"
+		. += "Energy efficiency: [power_efficiency]"
+		. += "Power: [power_cell.charge] out of [power_cell.maxcharge]"
+	if(panel_open)
+		. += span_notice("The hatch is open, you could [safeties ? "override" : "reset"] the speed limit with a [span_bold("multitool")], [power_cell ? "remove the" : "insert a"] [span_bold("power cell")] or close it with a [span_bold("screwdriver")].")
+		return
+	. += span_notice("The hatch is closed. You could open it with a [span_bold("screwdriver")]")
 
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/movable/M)
 	. = ..()
