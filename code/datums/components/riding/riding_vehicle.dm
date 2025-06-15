@@ -270,7 +270,9 @@
 /datum/component/riding/vehicle/wheelchair/motorized/handle_ride(mob/user, direction)
 	. = ..()
 	var/obj/vehicle/ridden/wheelchair/motorized/our_chair = parent
-	if(istype(our_chair) && our_chair.power_cell)
+	if(!istype(our_chair))
+		return
+	if(our_chair.power_cell)
 		our_chair.power_cell.use(our_chair.power_usage)
 	if(!our_chair.low_power_alerted && our_chair.power_cell.charge <= (our_chair.power_cell.maxcharge / 4))
 		playsound(src, 'sound/machines/twobeep.ogg', 30, 1)
