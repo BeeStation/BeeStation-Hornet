@@ -263,15 +263,20 @@
 
 /datum/component/riding/vehicle/wheelchair/motorized/driver_move(obj/vehicle/vehicle_parent, mob/living/user, direction)
 	var/delay_multiplier = 6.7 // magic number from wheelchair code
-
-	vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * delay_multiplier) / parent.speed
+	var/obj/vehicle/ridden/wheelchair/motorized/our_chair = parent
+	vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * delay_multiplier) / our_chair.speed
 	return ..()
 
 /datum/component/riding/vehicle/wheelchair/motorized/handle_ride(mob/user, direction)
 	. = ..()
 	var/obj/vehicle/ridden/wheelchair/motorized/our_chair = parent
 	if(istype(our_chair) && our_chair.power_cell)
-		our_chair.power_cell.use(our_chair.power_usage / max(our_chair.power_efficiency, 1) * 0.05)
+		our_chair.power_cell.use(our_chair.power_usage)
+	if(!our_chair.low_power_alerted && our_chair.power_cell.charge <= (our_chair.power_cell.maxcharge / 4))
+		playsound(src, 'sound/machines/twobeep.ogg', 30, 1)
+		our_chair.say("Warning: Power low!")
+		our_chair.low_power_alerted = TRUE
+
 
 /datum/component/riding/vehicle/proc/on_emp_act(datum/source, severity)
 	SIGNAL_HANDLER
