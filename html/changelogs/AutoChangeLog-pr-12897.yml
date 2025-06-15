@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - tweak: fake radiation storms now set the station status displays to the radiation
-      symbol
