@@ -713,15 +713,18 @@ so as to remain in compliance with the most up-to-date laws."
 	if(isnull(poll))
 		return
 
+	var/clicky = FALSE
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, ALT_CLICK) && poll.ignoring_category)
+		clicky = TRUE
 		set_never_round()
-		return
 	if(LAZYACCESS(modifiers, CTRL_CLICK) && poll.jump_to_me)
+		clicky = TRUE
 		jump_to_jump_target()
-		return
 
-	handle_sign_up()
+	if(!clicky)
+		handle_sign_up()
+	refresh_screentips()
 
 /atom/movable/screen/alert/poll_alert/proc/handle_sign_up()
 	if(owner in poll.signed_up)
