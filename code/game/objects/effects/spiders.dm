@@ -49,7 +49,7 @@
 
 /obj/structure/spider/stickyweb/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-	if(isliving(AM) && !istype(AM, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(isliving(AM) && !istype(AM, /mob/living/simple_animal/hostile/giant_spider))
 		var/mob/living/L = AM
 		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged by a spider
 			to_chat(L, span_danger("You get stuck in \the [src] for a moment."))
@@ -83,17 +83,17 @@
 	var/ghost_ready = FALSE
 	var/grow_time = 60 // Grow time (in seconds because delta-time)
 	// The types of spiders the egg sac can produce by default.
-	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
-								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,)
+	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/giant_spider/guard,
+								/mob/living/simple_animal/hostile/giant_spider/hunter,
+								/mob/living/simple_animal/hostile/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/giant_spider/netcaster,)
 	// The types of spiders the egg sac produces when we proc an enriched spawn
-	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
-								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,
-								/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
-								/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
+	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/giant_spider/guard,
+								/mob/living/simple_animal/hostile/giant_spider/hunter,
+								/mob/living/simple_animal/hostile/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/giant_spider/netcaster,
+								/mob/living/simple_animal/hostile/giant_spider/hunter/viper,
+								/mob/living/simple_animal/hostile/giant_spider/broodmother)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
@@ -183,7 +183,7 @@
 	spawns_remaining--
 	// Setup our spooder
 	var/spider_to_spawn = spider_list[chosen_spider]
-	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
+	var/mob/living/simple_animal/hostile/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
 	new_spider.faction = faction.Copy()
 	new_spider.key = user.key
 	var/datum/antagonist/spider/spider_antag = new_spider.mind.has_antag_datum(/datum/antagonist/spider)
@@ -195,7 +195,7 @@
 	return TRUE
 
 /obj/structure/spider/eggcluster/proc/make_AI_spider()
-	var/mob/living/simple_animal/hostile/poison/giant_spider/random_spider
+	var/mob/living/simple_animal/hostile/giant_spider/random_spider
 	if(using_enriched_spawn)
 		random_spider = pick(potential_enriched_spawns)
 		using_enriched_spawn = FALSE
@@ -235,16 +235,16 @@
 	AddComponent(/datum/component/swarming)
 
 /obj/structure/spider/spiderling/hunter
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+	grow_as = /mob/living/simple_animal/hostile/giant_spider/hunter
 
 /obj/structure/spider/spiderling/nurse
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
+	grow_as = /mob/living/simple_animal/hostile/giant_spider/nurse
 
 /obj/structure/spider/spiderling/broodmother
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
+	grow_as = /mob/living/simple_animal/hostile/giant_spider/broodmother
 
 /obj/structure/spider/spiderling/viper
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
+	grow_as = /mob/living/simple_animal/hostile/giant_spider/hunter/viper
 
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
@@ -314,10 +314,10 @@
 		if(amount_grown >= 100)
 			if(!grow_as)
 				if(prob(3))
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
+					grow_as = pick(/mob/living/simple_animal/hostile/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/giant_spider/broodmother)
 				else
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
-			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
+					grow_as = pick(/mob/living/simple_animal/hostile/giant_spider, /mob/living/simple_animal/hostile/giant_spider/hunter, /mob/living/simple_animal/hostile/giant_spider/nurse)
+			var/mob/living/simple_animal/hostile/giant_spider/S = new grow_as(src.loc)
 			S.faction = faction.Copy()
 			qdel(src)
 
