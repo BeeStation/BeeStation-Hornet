@@ -144,6 +144,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	// Only 'normal' pipes
 	if(type != /obj/item/pipe/quaternary)
 		return ..()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/ghettojetpack, /datum/crafting_recipe/piperifle, /datum/crafting_recipe/pipesmg, /datum/crafting_recipe/improvised_pneumatic_cannon)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 	return ..()
 

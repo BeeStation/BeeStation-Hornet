@@ -158,6 +158,15 @@
 	desc = "Sunglasses with a medical HUD. They do not provide flash protection."
 	flash_protect = 0
 
+/obj/item/clothing/glasses/hud/health/sunglasses/Initialize(mapload)
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/hudsunmedremoval)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
@@ -197,6 +206,15 @@
 	icon_state = "prescdiaghud"
 	emissive_state = "prehud_emissive"
 	vision_correction = 1
+
+/obj/item/clothing/glasses/hud/diagnostic/sunglasses/Initialize(mapload)
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/hudsundiagremoval)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -266,6 +284,15 @@
 	name = "degraded security HUDSunglasses"
 	desc = "Sunglasses with a security HUD. They do not provide flash protection."
 	flash_protect = 0
+
+/obj/item/clothing/glasses/hud/security/sunglasses/Initialize(mapload)
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/hudsunsecremoval)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 /obj/item/clothing/glasses/hud/security/night
 	name = "night vision security HUD"

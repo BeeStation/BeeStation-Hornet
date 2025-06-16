@@ -294,10 +294,22 @@
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
 
-/obj/item/clothing/glasses/sunglasses/advanced/
+/obj/item/clothing/glasses/sunglasses/advanced
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = 1
+
+/obj/item/clothing/glasses/sunglasses/advanced/Initialize(mapload)
+	. = ..()
+	add_glasses_slapcraft_component()
+
+/obj/item/clothing/glasses/sunglasses/advanced/proc/add_glasses_slapcraft_component()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/hudsunsec, /datum/crafting_recipe/hudsunmed, /datum/crafting_recipe/hudsundiag, /datum/crafting_recipe/scienceglasses)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
@@ -317,6 +329,20 @@
 			return
 		else
 			REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+
+/obj/item/clothing/glasses/sunglasses/advanced/chemical
+	name = "science glasses"
+	icon_state = "sunhudsci"
+	desc = "A pair of tacky purple sunglasses that allow the wearer to recognize various chemical compounds with only a glance."
+	clothing_flags = SCAN_REAGENTS
+
+/obj/item/clothing/glasses/sunglasses/advanced/chemical/add_glasses_slapcraft_component()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/scienceglassesremoval)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"

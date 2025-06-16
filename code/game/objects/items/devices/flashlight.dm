@@ -17,6 +17,7 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	var/toggle_context = TRUE
 	/// The sound the light makes when it's turned on
 	var/sound_on = 'sound/items/flashlight_on.ogg'
 	/// The sound the light makes when it's turned off
@@ -29,6 +30,23 @@
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
 	update_brightness()
+
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/flashlight_eyes)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
+/obj/item/flashlight/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	// single use lights can be toggled on once
+	if(isnull(context.held_item) && (toggle_context || !light_on))
+		context.add_left_click_action("Toggle light")
+		return
+
+	if(istype(context.held_item, /obj/item/flashlight) && (toggle_context || !light_on))
+		context.add_left_click_action("Toggle light")
+		return
 
 /obj/item/flashlight/proc/update_brightness(mob/user)
 	if(on)
@@ -286,6 +304,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	grind_results = list(/datum/reagent/sulfur = 15)
 	sound_on = 'sound/items/matchstick_lit.ogg'
 	sound_off = null
+	toggle_context = FALSE
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
@@ -459,6 +478,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	base_icon_state = "glowstick"
 	item_state = "glowstick"
 	grind_results = list(/datum/reagent/phenol = 15, /datum/reagent/hydrogen = 10, /datum/reagent/oxygen = 5) //Meth-in-a-stick
+	toggle_context = FALSE
 	var/burn_pickup = FALSE	//If true, fuel will only decrease after being picked up or used in hand (Useful for mapping)
 	var/fuel = 0 // How many seconds of fuel we have left
 
