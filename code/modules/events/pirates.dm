@@ -71,7 +71,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/list/candidates = poll_ghost_candidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE, /datum/role_preference/midround_ghost/space_pirate, 15 SECONDS)
+	var/list/candidates = SSpolling.poll_ghost_candidates(
+		role = /datum/role_preference/midround_ghost/space_pirate,
+		check_jobban = ROLE_SPACE_PIRATE,
+		poll_time = 15 SECONDS,
+		role_name_text = "pirate crew",
+		alert_pic = /obj/item/stack/sheet/mineral/gold,
+	)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new

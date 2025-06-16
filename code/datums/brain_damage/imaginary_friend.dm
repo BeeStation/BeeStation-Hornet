@@ -51,10 +51,17 @@
 	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner]'s imaginary friend?", ROLE_IMAGINARY_FRIEND, null, 7.5 SECONDS, friend)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		friend.key = C.key
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		check_jobban = ROLE_IMAGINARY_FRIEND,
+		poll_time = 10 SECONDS,
+		checked_target = owner,
+		jump_target = owner,
+		role_name_text = "[owner]'s imaginary friend",
+		alert_pic = owner,
+	)
+	if(candidate)
+		friend.key = candidate.key
 		friend_initialized = TRUE
 	else
 		qdel(src)

@@ -181,11 +181,16 @@
 	if (.)
 		to_chat(user, span_notice("The uplink vibrates quietly, connecting to nearby agents..."))
 
-		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_CONTRACTOR_SUPPORT_UNIT, null, 10 SECONDS)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT,
+			poll_time = 10 SECONDS,
+			jump_target = user,
+			role_name_text = "contractor support unit for [user.real_name]",
+			alert_pic = user,
+		)
 
-		if(LAZYLEN(candidates))
-			var/mob/dead/observer/C = pick(candidates)
-			spawn_contractor_partner(user, C.key)
+		if(candidate)
+			spawn_contractor_partner(user, candidate.key)
 		else
 			to_chat(user, span_notice("No available agents at this time, please try again later."))
 
