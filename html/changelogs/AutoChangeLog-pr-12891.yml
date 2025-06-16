@@ -1,0 +1,6 @@
+author: VmpOS2NHSkhkejA9
+delete-after: true
+changes:
+  - balance: echostation is now more resilient against fires; the holodeck is now
+      surrounded by firelocks, more departmental front desks have firelocks and a
+      few areas are now broken up by windows and firelocks.
