@@ -102,6 +102,11 @@
 	integer = FALSE
 	min_val = 1
 
+/datum/config_entry/number/vampire_scaling_coeff	//how much does the amount of players get divided by to determine vampires
+	config_entry_value = 6
+	integer = FALSE
+	min_val = 1
+
 /datum/config_entry/number/traitor_objectives_amount
 	config_entry_value = 2
 	min_val = 0
