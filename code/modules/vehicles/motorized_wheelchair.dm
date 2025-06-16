@@ -4,6 +4,7 @@
 	max_integrity = 150
 	move_resist = MOVE_FORCE_DEFAULT
 	var/speed = 1
+	var/manip_rating_sum = 0
 	var/power_usage = 25
 	var/panel_open = FALSE
 	var/list/required_parts = list(/obj/item/stock_parts/manipulator,
@@ -34,13 +35,13 @@
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/proc/refresh_parts()
-	speed = 1 // Should never be under 1
+	manip_rating_sum = 0 // Should never be under 1
 	for(var/obj/item/stock_parts/manipulator/M in contents)
-		speed += M.rating
+		manip_rating_sum += M.rating
 	for(var/obj/item/stock_parts/capacitor/C in contents)
 		power_usage = LERP(20, 10, (C.rating - 1) / 3) // 20 with worst parts, 10 with best parts
-	if(safeties)
-		speed = min(speed, floor(delay_multiplier)) //going above the delay multiplier causes impacts to stun and fling riders
+
+	speed = max(0.6 + (0.1 * (8 - manip_rating_sum)**2), safeties ? 1 : 0.8) //t1 : 4.2 t2: 2.2 t3: 1 t4: 0.6 (clamped to 0.8). lower is better.
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()
 	return power_cell
@@ -149,7 +150,7 @@
 	if((!in_range(user, src) && !isobserver(user)))
 		return
 	if(power_cell)
-		. += "Speed: [speed]/[safeties ? floor(delay_multiplier) : span_warning("@!ERROR#%")]"
+		. += "Speed: [round((1 / speed) * 100)]%/[safeties ? "100%" : span_warning("@!ERROR#%")]"
 		. += "Energy Consumption: [power_usage]"
 		. += "Power: [power_cell.charge] out of [power_cell.maxcharge]"
 	if(panel_open)
@@ -160,7 +161,7 @@
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/movable/M)
 	. = ..()
 	// If the speed is higher than delay_multiplier throw the person on the wheelchair away
-	if(M.density && speed > delay_multiplier && has_buckled_mobs())
+	if(M.density && speed < 1 && has_buckled_mobs())
 		var/mob/living/H = buckled_mobs[1]
 		var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
 		unbuckle_mob(H)

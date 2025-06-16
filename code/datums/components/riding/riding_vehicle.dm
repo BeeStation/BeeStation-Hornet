@@ -262,9 +262,8 @@
 	empable = TRUE
 
 /datum/component/riding/vehicle/wheelchair/motorized/driver_move(obj/vehicle/vehicle_parent, mob/living/user, direction)
-	var/delay_multiplier = 6.7 // magic number from wheelchair code
 	var/obj/vehicle/ridden/wheelchair/motorized/our_chair = parent
-	vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * delay_multiplier) / our_chair.speed
+	vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * our_chair.speed)
 	return ..()
 
 /datum/component/riding/vehicle/wheelchair/motorized/handle_ride(mob/user, direction)
