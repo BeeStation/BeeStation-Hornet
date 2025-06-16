@@ -658,7 +658,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(!istype(thing, /obj/item))
-		return
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(collection_mode == COLLECT_ONE)
 		attempt_insert(thing, user)
