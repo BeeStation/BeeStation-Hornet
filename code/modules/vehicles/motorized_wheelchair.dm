@@ -3,9 +3,11 @@
 	desc = "A chair with big wheels. It seems to have a motor in it."
 	max_integrity = 150
 	move_resist = MOVE_FORCE_DEFAULT
-	var/speed = 1
+	var/speed = 1 //vehicle_move_delay multiplier. this is set in refresh_parts(), the value set here has no impact.
+	var/speed_limit_safe = 1
+	var/speed_limit_unsafe = 0.89
 	var/manip_rating_sum = 0
-	var/power_usage = 25
+	var/power_usage = 25 // power draw per tile moved, same as speed, the value here is not used.
 	var/panel_open = FALSE
 	var/list/required_parts = list(/obj/item/stock_parts/manipulator,
 							/obj/item/stock_parts/manipulator,
@@ -41,7 +43,7 @@
 	for(var/obj/item/stock_parts/capacitor/C in contents)
 		power_usage = LERP(20, 10, (C.rating - 1) / 3) // 20 with worst parts, 10 with best parts
 
-	speed = max(0.6 + (0.1 * (8 - manip_rating_sum)**2), safeties ? 1 : 0.8) //t1 : 4.2 t2: 2.2 t3: 1 t4: 0.6 (clamped to 0.8). lower is better.
+	speed = max(0.8 + (0.2 * ((8 - manip_rating_sum) / 2) ** 2), safeties ? speed_limit_safe : speed_limit_unsafe) //t1 : 2.6 t2: 1.6 t3: 1 t4: 0.6 (clamped to unsafe speed limit at best). lower is better.
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()
 	return power_cell
@@ -161,7 +163,7 @@
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/movable/M)
 	. = ..()
 	// If the speed is higher than delay_multiplier throw the person on the wheelchair away
-	if(M.density && speed < 1 && has_buckled_mobs())
+	if(M.density && speed < speed_limit_safe && has_buckled_mobs())
 		var/mob/living/H = buckled_mobs[1]
 		var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
 		unbuckle_mob(H)
