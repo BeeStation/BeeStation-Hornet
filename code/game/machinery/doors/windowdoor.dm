@@ -491,7 +491,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return TRUE //yup that's power all right
 
 /obj/machinery/door/window/clockwork/allowed(mob/M)
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return TRUE
 	return FALSE
 
