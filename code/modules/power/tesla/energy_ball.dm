@@ -259,27 +259,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 			continue
 		else if(priority <= 2)
 			continue
-		else if(priority >= 3 && isliving(A))
-			var/mob/living/L = A
+		else if(priority >= 3 && istype(A, /obj/structure/blob))
+			var/obj/o = A
 			var/dist = get_dist(source, A)
-			if(dist <= zap_range && (dist < closest_dist || !(priority == 3)) && L.stat != DEAD && !(L.flags_1 & TESLA_IGNORE_1))
+			if(dist <= zap_range && (dist < closest_dist || !(priority == 3)) && !(o.obj_flags & BEING_SHOCKED))
 				closest_atom = A
 				closest_dist = dist
 				priority = 3
 			continue
 		else if(priority <= 3)
 			continue
-		else if(priority >= 4 && istype(A, /obj/machinery))
-			var/obj/o = A
+		else if(priority >= 4 && isliving(A))
+			var/mob/living/L = A
 			var/dist = get_dist(source, A)
-			if(dist <= zap_range && (dist < closest_dist || !(priority == 4)) && !(o.obj_flags & BEING_SHOCKED))
+			if(dist <= zap_range && (dist < closest_dist || !(priority == 4)) && L.stat != DEAD && !(L.flags_1 & TESLA_IGNORE_1))
 				closest_atom = A
 				closest_dist = dist
 				priority = 4
 			continue
 		else if(priority <= 4)
 			continue
-		else if(priority >= 5 && istype(A, /obj/structure/blob))
+		else if(priority >= 5 && istype(A, /obj/machinery))
 			var/obj/o = A
 			var/dist = get_dist(source, A)
 			if(dist <= zap_range && (dist < closest_dist || !(priority == 5)) && !(o.obj_flags & BEING_SHOCKED))
@@ -308,7 +308,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 			. = zapdir
 
 	//per type stuff:
-		if(priority == 3)
+		if(priority == 4)
 			var/mob/living/m = closest_atom
 			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
 			m.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((tesla_flags & TESLA_MOB_STUN) ? NONE : SHOCK_NOSTUN))
@@ -321,6 +321,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 		else
 			var/obj/o = closest_atom
 			o.tesla_act(power, tesla_flags, shocked_targets)
+
 #undef TESLA_MAX_BALLS
 
 #undef TESLA_DEFAULT_POWER
