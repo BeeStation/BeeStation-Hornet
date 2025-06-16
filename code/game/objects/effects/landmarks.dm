@@ -219,7 +219,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	..()
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
-	J.spawn_positions += 1
 	SSjob.job_manager_blacklisted -= J.title
 
 /obj/effect/landmark/start/randommaint/backalley_doc

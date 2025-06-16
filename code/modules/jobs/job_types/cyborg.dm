@@ -5,8 +5,8 @@
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
-	total_positions = 0
-	spawn_positions = 1
+	total_positions = 1
+	latejoin_allowed = FALSE
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
