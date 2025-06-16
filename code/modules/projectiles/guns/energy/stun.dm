@@ -51,6 +51,7 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
+	cell_type = "/obj/item/stock_parts/cell/disabler"
 
 /obj/item/gun/energy/disabler/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
