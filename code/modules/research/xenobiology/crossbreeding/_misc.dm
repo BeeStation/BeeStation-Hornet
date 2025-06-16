@@ -178,16 +178,14 @@ Slimecrossing Items
 	if(length(contents))
 		to_chat(user, span_warning("The device already has something inside."))
 		return
-	if(!isanimal(M))
+	if(!isanimal_or_basicmob(M))
 		to_chat(user, span_warning("The capture device only works on simple creatures."))
 		return
 	if(M.mind)
 		INVOKE_ASYNC(src, PROC_REF(offer_entry), M, user)
+	else if(!(FACTION_NEUTRAL in M.faction))
+		to_chat(user, span_warning("This creature is too aggressive to capture."))
 		return
-	else
-		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))
-			to_chat(user, span_warning("This creature is too aggressive to capture."))
-			return
 	to_chat(user, span_notice("You store [M] in the capture device."))
 	store(M)
 
