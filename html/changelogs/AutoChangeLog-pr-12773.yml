@@ -1,0 +1,5 @@
+author: ''
+delete-after: true
+changes:
+  - tweak: Moved the evidence storage on Box and Meta away from the core of brig,
+      allowing for a bit easier access to them.
