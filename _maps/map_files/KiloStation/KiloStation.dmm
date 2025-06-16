@@ -40449,6 +40449,14 @@
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
+"lgX" = (
+/obj/structure/bed{
+	dir = 8
+	},
+/obj/item/bedsheet/brown,
+/obj/effect/landmark/start/prisoner,
+/turf/open/floor/prison,
+/area/security/prison)
 "lhi" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "1;4"
@@ -103881,7 +103889,7 @@ elv
 aav
 aXZ
 trb
-wVg
+lgX
 dRS
 tZO
 kTb
@@ -104652,7 +104660,7 @@ jlF
 fxT
 wVg
 xoR
-wVg
+lgX
 dRS
 wUK
 gjq
