@@ -62,6 +62,15 @@
 	/// A lazily initiated "food" version of the clothing for moths
 	var/obj/item/food/clothing/moth_snack
 
+	/// What should we get when we cut this piece of clothing
+	var/salvage_material = /obj/item/stack/sheet/cotton/cloth
+	/// For complex items, what other material type do we get when salvaging?
+	var/secondary_salvage_material = null
+	/// The amount of materials we should get upon salvage
+	var/salvage_amount = 3
+	/// The amount of secondary materials we should get upon salvage
+	var/secondary_salvage_amount = 1
+
 /obj/item/clothing/Initialize(mapload)
 	if(clothing_flags & VOICEBOX_TOGGLABLE)
 		actions_types += /datum/action/item_action/toggle_voice_box
@@ -141,28 +150,46 @@
 		moth_snack.clothing = WEAKREF(src)
 	moth_snack.attack(target, user, params)
 
-/obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, repairable_by))
-		return ..()
+/obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
+	if(HAS_BLOOD_DNA(src) && salvage_material == /obj/item/stack/sheet/cotton/cloth)
+		new /obj/item/stack/sheet/cotton/cloth/bloody(user.drop_location(), salvage_amount)
+	else
+		new salvage_material(user.drop_location(), salvage_amount)
+	if(secondary_salvage_material != null)
+		new secondary_salvage_material(user.drop_location(), secondary_salvage_amount)
+	user.visible_message("[user] salvages some usable materials from [src].", \
+		"<span class='notice'>You salvage some usable materials from [src].</span>", \
+		"<span class='hear'>You hear salvaging.</span>")
+	playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE) //this sounds more like scissors
+	qdel(src)
 
-	switch(damaged_clothes)
-		if(CLOTHING_PRISTINE)
-			return..()
-		if(CLOTHING_DAMAGED)
-			var/obj/item/stack/cloth_repair = W
-			cloth_repair.use(1)
-			repair(user, params)
-			return TRUE
-		if(CLOTHING_SHREDDED)
-			var/obj/item/stack/cloth_repair = W
-			if(cloth_repair.amount < 3)
-				to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
+/obj/item/clothing/attackby(obj/item/W, mob/user, params)
+	if(istype(W, repairable_by))
+		switch(damaged_clothes)
+			if(CLOTHING_PRISTINE)
+				return..()
+			if(CLOTHING_DAMAGED)
+				var/obj/item/stack/cloth_repair = W
+				cloth_repair.use(1)
+				repair(user, params)
 				return TRUE
-			to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
-			if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
+			if(CLOTHING_SHREDDED)
+				var/obj/item/stack/cloth_repair = W
+				if(cloth_repair.amount < 3)
+					to_chat(user, "<span class='warning'>You require 3 [cloth_repair.name] to repair [src].</span>")
+					return TRUE
+				to_chat(user, "<span class='notice'>You begin fixing the damage to [src] with [cloth_repair]...</span>")
+				if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
+					return TRUE
+				repair(user, params)
 				return TRUE
-			repair(user, params)
+	if((istype(W, /obj/item/wirecutters/scissors)) && salvage_material != null)
+		if(!isturf(loc) && user.get_inactive_held_item() != src)
+			to_chat(user, "<span class='warning'>You need to be holding [src] or set it down somewhere to salvage it!</span>")
 			return TRUE
+		if(do_after(user, 1.5 / W.toolspeed SECONDS))
+			salvage(src, user, params)
+		return TRUE
 
 	return ..()
 

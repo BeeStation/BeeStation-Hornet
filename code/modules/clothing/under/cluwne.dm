@@ -8,6 +8,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = DROPDEL
 	can_adjust = 0
+	salvage_material = null
 
 /obj/item/clothing/under/cluwne/Initialize(mapload)
 	.=..()

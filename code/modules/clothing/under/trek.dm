@@ -20,6 +20,7 @@
 	item_state = "r_suit"
 	armor_type = /datum/armor/trek_engsec
 	strip_delay = 50
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/trek_engsec

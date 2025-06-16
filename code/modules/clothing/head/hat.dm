@@ -11,6 +11,7 @@
 	armor_type = /datum/armor/hats_centhat
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/hats_centhat
@@ -31,6 +32,7 @@
 	flags_inv = 0
 	armor_type = /datum/armor/hats_centcom_cap
 	strip_delay = (8 SECONDS)
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/hats_centcom_cap
@@ -67,6 +69,7 @@
 	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
 	armor_type = /datum/armor/costume_plague
 	flags_inv = HIDEHAIR
+	secondary_salvage_material = /obj/item/stack/sheet/leather
 
 
 /datum/armor/costume_plague
@@ -91,6 +94,7 @@
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"

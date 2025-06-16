@@ -16,7 +16,7 @@
 	attack_verb_simple = list("warn", "caution", "smash")
 	armor_type = /datum/armor/suit_caution
 	pockets = FALSE
-
+	salvage_material = null //The iron cost to build this in a lathe is so small its not really viable to make this salvageable
 
 /datum/armor/suit_caution
 	melee = 5

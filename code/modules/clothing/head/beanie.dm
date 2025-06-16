@@ -90,7 +90,7 @@
 	desc = "A beanie made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beaniedurathread"
 	armor_type = /datum/armor/beanie_durathread
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/beanie_durathread
 	melee = 15

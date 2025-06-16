@@ -101,6 +101,7 @@
 	soft_color = "sec"
 	armor_type = /datum/armor/soft_sec
 	strip_delay = 60
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/soft_sec
@@ -118,6 +119,7 @@
 	name = "security medic cap"
 	icon_state = "secmedsoft"
 	soft_color = "secmed"
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/head/soft/paramedic
 	name = "paramedic cap"
