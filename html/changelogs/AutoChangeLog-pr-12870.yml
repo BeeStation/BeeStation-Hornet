@@ -1,0 +1,12 @@
+author: Isaac, Cursedkiller
+delete-after: true
+changes:
+  - rscdel: Removes the old Science Outpost
+  - rscadd: A new Engineering related Wing
+  - rscadd: A new structure near the old Science Outpost, related to mainly farming
+      lavaland gasses
+  - bugfix: Lavaland Toxins Test Site Camera facing the wrong way
+  - bugfix: Mining Base Injector not working due to it not being connected to the
+      main area
+  - tweak: Lavaland Atmos, providing 0.25 moles of plasma
+  - tweak: Ashwalkers Lungs so they dont die from the small quantities of plasma
