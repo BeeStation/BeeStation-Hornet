@@ -483,11 +483,11 @@
 					//If user does not have the corresponding hand anymore, give them one and return the rod to their hand
 					if(((hand % 2) == 0))
 						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_R_ARM, FALSE, FALSE)
-						L.attach_limb(itemUser)
+						L.try_attach_limb(itemUser)
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					else
 						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_L_ARM, FALSE, FALSE)
-						L.attach_limb(itemUser)
+						L.try_attach_limb(itemUser)
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 				else
