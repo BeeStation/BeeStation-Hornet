@@ -618,11 +618,8 @@
 /proc/KillEveryoneOnZLevel(z)
 	if(!z)
 		return
-	// check whether we're exploding on the station, if so we should include multi-z station levels
-	var/isOnStation = is_station_level(z)
 	for(var/mob/M in GLOB.mob_list)
-		var/mobZlevel = M.get_virtual_z_level()
-		if ((mobZlevel == z) || (isOnStation && is_station_level(mobZlevel)))
+		if (compare_z(M.get_virtual_z_level(), z)) // check whether we're exploding on the station, if so we should include multi-z station levels
 			if(M.stat != DEAD && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 				to_chat(M, span_userdanger("You are shredded to atoms!"))
 				M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
