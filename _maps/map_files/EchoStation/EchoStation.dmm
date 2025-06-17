@@ -8363,6 +8363,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "epj" = (
@@ -20857,6 +20858,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tech)
+"kPT" = (
+/obj/effect/turf_decal/siding/dark,
+/obj/structure/railing,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/iron/dark,
+/area/hallway/primary/central)
 "kQw" = (
 /turf/closed/wall,
 /area/maintenance/department/medical/morgue)
@@ -45389,9 +45399,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/machinery/ai_slipper{
-	uses = 10
-	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "xTA" = (
@@ -126295,7 +126303,7 @@ xlN
 cJo
 xlN
 xlN
-xVw
+kPT
 hey
 ajH
 hey

@@ -152,26 +152,23 @@
 	gender = PLURAL
 	name = "sand"
 	desc = "Surf's up."
-	icon_state = "Water_0"
+	icon_state = "Water-0"
 	baseturfs = /turf/open/floor/plating/beach/sand
 
 /turf/open/floor/plating/beach/water
-	gender = PLURAL
 	name = "water"
 	desc = "Ocean waves: Salty breeze, briny depths, endless blue expanse."
 	icon = 'icons/misc/Beach/beach.dmi'
-	icon_state = "Water_255"
+	icon_state = "Water-255"
+	base_icon_state = "Water"
 	baseturfs = /turf/open/floor/plating/beach/water
 	slowdown = 3
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = 'sound/effects/splash.ogg'
 	footstep = FOOTSTEP_WATER
-	barefootstep = FOOTSTEP_WATER
-	clawfootstep = FOOTSTEP_WATER
-	heavyfootstep = FOOTSTEP_WATER
-
-	smoothing_flags = SMOOTH_BITMASK
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	canSmoothWith = SMOOTH_GROUP_FLOOR_BEACH
+	smoothing_groups = list(SMOOTH_GROUP_FLOOR_BEACH)
 
 // pool.dm copy paste
 
