@@ -31,6 +31,10 @@
 	for(var/mob/living/carbon/target in range(range, owner))
 		if(!ignore_owner && target == owner)
 			continue
+
+		if(HAS_TRAIT(target, TRAIT_GENELESS))
+			continue
+
 		if(target.run_armor_check(attack_flag = BIO, absorb_text = "Your armor protects you from [owner]!") >= 100)
 			continue //We are protected
 

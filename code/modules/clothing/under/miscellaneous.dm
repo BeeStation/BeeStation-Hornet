@@ -55,7 +55,6 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100

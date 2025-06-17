@@ -51,7 +51,7 @@
  *
  * Uses the ultra-fast [Bresenham Line-Drawing Algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm).
  */
-/proc/getline(atom/starting_atom, atom/ending_atom)
+/proc/get_line(atom/starting_atom, atom/ending_atom)
 	var/current_x_step = starting_atom.x//start at x and y, then add 1 or -1 to these to get every turf from starting_atom to ending_atom
 	var/current_y_step = starting_atom.y
 	var/starting_z = starting_atom.z
@@ -91,10 +91,6 @@
 			current_y_step += y_distance_sign
 			line += locate(current_x_step, current_y_step, starting_z)
 	return line
-
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
 
 /**
  * Formats a number into a list representing the si unit.
@@ -161,6 +157,10 @@
  */
 /proc/energy_to_power(joules, datum/controller/subsystem/scheduler = SSmachines)
 	return joules * (1 SECONDS) / scheduler.wait
+
+//chances are 1:value. anyprob(1) will always return true
+/proc/anyprob(value)
+	return (rand(1,value)==value)
 
 ///counts the number of bits in Byond's 16-bit width field, in constant time and memory!
 /proc/bit_count(bit_field)

@@ -69,8 +69,9 @@
 			if(istype(carbon))
 				user.visible_message(span_notice("[user] analyzes [carbon]'s radiation levels."), span_notice("You analyze [carbon]'s radiation levels."))
 				last_record = "Analyzing Results for [carbon]:\n"
-				if(carbon.radiation)
-					last_record += "Radiation Level: [carbon.radiation]%"
+
+				if(HAS_TRAIT(carbon, TRAIT_IRRADIATED))
+					last_record += "Subject is irradiated. Supply antiradiation or antitoxin."
 				else
 					last_record += "No radiation detected."
 				return FALSE

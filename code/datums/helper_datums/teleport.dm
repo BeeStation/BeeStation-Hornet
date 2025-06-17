@@ -384,9 +384,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	if(!istype(current_turf) || is_away_level(current_turf.z) || is_centcom_level(current_turf.z))
 		return
 
-	// getline path
+	// get_line path
 	var/turf/landing_turf = current_turf
-	var/list/path = getline(current_turf, target_turf)
+	var/list/path = get_line(current_turf, target_turf)
 	path -= current_turf
 	// iterate
 	for (var/turf/checked_turf in path)

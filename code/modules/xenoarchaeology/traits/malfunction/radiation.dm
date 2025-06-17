@@ -6,7 +6,7 @@
 	label_name = "R.P.E."
 	alt_label_name = "Rapid Particle Emmision"
 	label_desc = "Rapid Particle Emmision: A strange malfunction that causes the Artifact to irradiate itself and its targets."
-	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 	///Max amount of radiation we can deal
 	var/max_rad = 25
@@ -15,9 +15,16 @@
 	. = ..()
 	if(!.)
 		return
+
 	var/atom/atom_parent = component_parent.parent
-	atom_parent.rad_act(max_rad*(component_parent.trait_strength/100))
+	radiation_pulse(
+		source = atom_parent,
+		max_range = 4,
+		chance = component_parent.trait_strength,
+	)
+
 	for(var/atom/target in focus)
-		target.rad_act(max_rad*(component_parent.trait_strength/100))
+		radiation_pulse(target, 1, chance = component_parent.trait_strength)
+
 	dump_targets()
 	clear_focus()

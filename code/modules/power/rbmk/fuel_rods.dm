@@ -8,7 +8,6 @@
 	var/depletion = 0 //Each fuel rod will deplete in around 30 minutes.
 	var/fuel_power = 0.10
 
-	var/rad_strength = 500
 	var/half_life = 2000 // how many depletion ticks are needed to half the fuel_power (1 tick = 1 second)
 	var/time_created = 0
 	var/og_fuel_power = 0.20 //the original fuel power value
@@ -24,7 +23,7 @@
 	. = ..()
 	time_created = world.time
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
-	AddComponent(/datum/component/radioactive, rad_strength, src) // This should be temporary for it won't make rads go lower than 350
+	AddElement(/datum/element/radioactive)
 	if(process)
 		START_PROCESSING(SSobj, src)
 
@@ -75,7 +74,6 @@
 	name = "plutonium-239 fuel rod"
 	desc = "A highly energetic titanium sheathed rod containing a sizeable measure of weapons grade plutonium, it's highly efficient as nuclear fuel, but will cause the reaction to get out of control if not properly utilised."
 	icon_state = "inferior"
-	rad_strength = 1500
 	process = TRUE
 	depletion_threshold = 300
 	depletion_conversion_type = "depleted"
@@ -88,7 +86,6 @@
 	name = "depleted fuel rod"
 	desc = "A highly radioactive fuel rod which has expended most of it's useful energy."
 	icon_state = "normal"
-	rad_strength = 6000 // smelly
 	depletion_conversion_type = null // we don't want it to turn into anything
 	process = TRUE
 
@@ -201,7 +198,6 @@
 	icon_state = "inferior"
 	fuel_power = 0.30 // twice as powerful as a normal rod
 	depletion_speed_modifier = 3 // headstart, otherwise it takes two hours
-	rad_strength = 1500
 	max_initial_amount = 8
 	multiplier = 3
 	material_type = /obj/item/stack/sheet/telecrystal
@@ -216,7 +212,6 @@
 	name = "exhausted [name]"
 	desc = "A highly energetic, disguised titanium sheathed rod containing a number of slots filled with greatly expanded telecrystals which can be removed by hand. It's extremely efficient as nuclear fuel, but will cause the reaction to get out of control if not properly utilised."
 	icon_state = "tc_used"
-	AddComponent(/datum/component/radioactive, 3000, src)
 
 /obj/item/fuel_rod/material/bananium
 	name = "bananium fuel rod"
@@ -224,7 +219,6 @@
 	icon_state = "bananium"
 	fuel_power = 0.15
 	depletion_speed_modifier = 3
-	rad_strength = 350
 	max_initial_amount = 10
 	multiplier = 3
 	material_type = /obj/item/stack/sheet/mineral/bananium
@@ -244,7 +238,6 @@
 	name = "exhausted [name]"
 	desc = "A hilarious heavy-duty fuel rod which fissiles a bit slower than it cowardly counterparts. Its greatly grimacing grwoth stage is now over, and bananium outgrowth hums as if it's blatantly honking bike horns."
 	icon_state = "bananium_used"
-	AddComponent(/datum/component/radioactive, 1250, src)
 
 /obj/item/sealant
 	name = "Flexi-seal"

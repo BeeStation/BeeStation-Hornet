@@ -208,6 +208,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
 
+	AddElement(/datum/element/point_of_interest)
 	AddElement(/datum/element/bsa_blocker)
 	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, PROC_REF(force_delam))
 	RegisterSignal(src, COMSIG_ATOM_TIMESTOP_FREEZE, PROC_REF(time_frozen))

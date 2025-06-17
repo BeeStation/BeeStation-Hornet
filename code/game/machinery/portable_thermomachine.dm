@@ -43,7 +43,6 @@
 	var/display_panel = TRUE
 
 /datum/armor/machinery_portable_thermomachine
-	rad = 100
 	fire = 80
 	acid = 10
 

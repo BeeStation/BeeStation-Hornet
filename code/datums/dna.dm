@@ -505,6 +505,16 @@
 /mob/living/carbon/has_dna()
 	return dna
 
+/// Returns TRUE if the mob is allowed to mutate via its DNA, or FALSE if otherwise.
+/// Only an organic carbon with valid DNA may mutate; not robots, AIs, aliens, Ians, or other mobs.
+/mob/proc/can_mutate()
+	return FALSE
+
+/mob/living/carbon/can_mutate()
+	if(!(mob_biotypes & MOB_ORGANIC))
+		return FALSE
+	if(has_dna() && !HAS_TRAIT(src, TRAIT_GENELESS) && !HAS_TRAIT(src, TRAIT_BADDNA))
+		return TRUE
 
 /mob/living/carbon/human/proc/hardset_dna(ui, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/mutations, force_transfer_mutations, list/default_mutation_genes)
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)

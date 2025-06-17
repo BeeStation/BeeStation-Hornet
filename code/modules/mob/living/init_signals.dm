@@ -219,7 +219,6 @@
 	SIGNAL_HANDLER
 	update_sight()
 
-
 /**
   * Called when traits that alter succumbing are added/removed.
   *
@@ -228,9 +227,9 @@
 /mob/living/proc/update_succumb_action()
 	SIGNAL_HANDLER
 	if (CAN_SUCCUMB(src))
-		throw_alert("succumb", /atom/movable/screen/alert/succumb)
+		throw_alert(ALERT_SUCCUMB, /atom/movable/screen/alert/succumb)
 	else
-		clear_alert("succumb")
+		clear_alert(ALERT_SUCCUMB)
 
 ///From [element/movetype_handler/on_movement_type_trait_gain()]
 /mob/living/proc/on_movement_type_flag_enabled(datum/source, trait, flag, old_movement_type)

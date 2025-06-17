@@ -102,7 +102,7 @@
 		embedded_objects -= I
 		I.forceMove(src)
 	if(!C.has_embedded_objects())
-		C.clear_alert("embeddedobject")
+		C.clear_alert(ALERT_EMBEDDED_OBJECT)
 		SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 	if(!special)

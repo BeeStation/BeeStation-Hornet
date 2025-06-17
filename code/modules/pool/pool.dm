@@ -52,7 +52,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 
 /turf/open/indestructible/sound/pool/Entered(atom/movable/AM)
 	. = ..()
-	AM.wash(CLEAN_TYPE_WEAK)
+	AM.wash(CLEAN_RAD | CLEAN_WASH)
 	if(isliving(AM))
 		var/datum/component/swimming/S = AM.GetComponent(/datum/component/swimming) //You can't get in the pool unless you're swimming.
 		if(!S)

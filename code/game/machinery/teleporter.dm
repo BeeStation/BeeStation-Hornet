@@ -82,12 +82,11 @@
 			if(!calibrated && prob(40 - ((accuracy) * 10))) //oh dear a problem
 				if(ishuman(M))//don't remove people from the round randomly you jerks
 					var/mob/living/carbon/human/human = M
-					if(human.dna && !isflyperson(human) && !HAS_TRAIT(M, TRAIT_RADIMMUNE))
+					if(!HAS_TRAIT(human, TRAIT_GENELESS) && human.dna && !isflyperson(human))
 						log_game("[M] ([key_name(M)]) was turned into a fly person")
 						to_chat(M, span_italics("You hear a buzzing in your ears."))
 						human.set_species(/datum/species/fly)
 
-					human.apply_effect((rand(160 - accuracy * 40, 240 - accuracy * 60)), EFFECT_IRRADIATE, 0)
 			calibrated = 0
 	return
 

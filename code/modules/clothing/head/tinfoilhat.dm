@@ -12,7 +12,6 @@
 
 /datum/armor/costume_foilhat
 	laser = -5
-	rad = -5
 	stamina = 50
 
 /obj/item/clothing/head/costume/foilhat/equipped(mob/living/carbon/human/user, slot)

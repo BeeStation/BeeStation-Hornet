@@ -155,7 +155,7 @@
 	proximity_monitor = new(src, 0)
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
-	for(var/turf/T in getline(src,meteor))
+	for(var/turf/T in get_line(src,meteor))
 		if(!isspaceturf(T))
 			return FALSE
 	return TRUE

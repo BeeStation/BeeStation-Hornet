@@ -21,7 +21,6 @@
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = TRUE
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
 	)
@@ -37,7 +36,6 @@
 	laser = 70
 	energy = 100
 	bomb = 10
-	rad = 100
 
 /obj/structure/grille/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	. = ..()

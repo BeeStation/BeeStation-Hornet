@@ -118,42 +118,52 @@
 /atom/movable/screen/alert/not_enough_oxy
 	name = "Choking (No O2)"
 	desc = "You're not getting enough oxygen. Find some good air before you pass out! The box in your backpack has an oxygen tank and breath mask in it."
-	icon_state = "not_enough_oxy"
+	icon_state = ALERT_NOT_ENOUGH_OXYGEN
 
 /atom/movable/screen/alert/too_much_oxy
 	name = "Choking (O2)"
 	desc = "There's too much oxygen in the air, and you're breathing it in! Find some good air before you pass out!"
-	icon_state = "too_much_oxy"
+	icon_state = ALERT_TOO_MUCH_OXYGEN
 
 /atom/movable/screen/alert/not_enough_nitro
 	name = "Choking (No N2)"
 	desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
-	icon_state = "not_enough_nitro"
+	icon_state = ALERT_NOT_ENOUGH_NITRO
 
 /atom/movable/screen/alert/too_much_nitro
 	name = "Choking (N2)"
 	desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
-	icon_state = "too_much_nitro"
+	icon_state = ALERT_TOO_MUCH_NITRO
 
 /atom/movable/screen/alert/not_enough_co2
 	name = "Choking (No CO2)"
 	desc = "You're not getting enough carbon dioxide. Find some good air before you pass out!"
-	icon_state = "not_enough_co2"
+	icon_state = ALERT_NOT_ENOUGH_CO2
 
 /atom/movable/screen/alert/too_much_co2
 	name = "Choking (CO2)"
 	desc = "There's too much carbon dioxide in the air, and you're breathing it in! Find some good air before you pass out!"
-	icon_state = "too_much_co2"
+	icon_state = ALERT_TOO_MUCH_CO2
 
-/atom/movable/screen/alert/not_enough_tox
+/atom/movable/screen/alert/not_enough_plas
 	name = "Choking (No Plasma)"
 	desc = "You're not getting enough plasma. Find some good air before you pass out!"
-	icon_state = "not_enough_tox"
+	icon_state = ALERT_NOT_ENOUGH_PLASMA
 
-/atom/movable/screen/alert/too_much_tox
+/atom/movable/screen/alert/too_much_plas
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
-	icon_state = "too_much_tox"
+	icon_state = ALERT_TOO_MUCH_PLASMA
+
+/atom/movable/screen/alert/not_enough_n2o
+	name = "Choking (No N2O)"
+	desc = "You're not getting enough N2O. Find some good air before you pass out!"
+	icon_state = ALERT_NOT_ENOUGH_N2O
+
+/atom/movable/screen/alert/too_much_n2o
+	name = "Choking (N2O)"
+	desc = "There's sleeping gas in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and breath mask in it."
+	icon_state = ALERT_TOO_MUCH_N2O
 
 //End gas alerts
 
@@ -235,7 +245,7 @@ or something covering your eyes."
 	var/mob/living/L = usr
 	if(L != owner)
 		return
-	to_chat(L, "[span_mindcontrol("[command]")]")
+	to_chat(L, span_mindcontrol(command))
 
 /atom/movable/screen/alert/drunk
 	name = "Drunk"
@@ -246,7 +256,7 @@ or something covering your eyes."
 	name = "Embedded Object"
 	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
 If you're feeling frisky, examine yourself and click the underlined item to pull the object out."
-	icon_state = "embeddedobject"
+	icon_state = ALERT_EMBEDDED_OBJECT
 
 /atom/movable/screen/alert/embeddedobject/Click()
 	if(isliving(usr) && usr == owner)
@@ -334,7 +344,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 /atom/movable/screen/alert/succumb
 	name = "Succumb"
 	desc = "Shuffle off this mortal coil."
-	icon_state = "succumb"
+	icon_state = ALERT_SUCCUMB
 
 /atom/movable/screen/alert/succumb/Click()
 	if (isobserver(usr))
@@ -649,7 +659,7 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/restrained/buckled
 	name = "Buckled"
 	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
-	icon_state = "buckled"
+	icon_state = ALERT_BUCKLED
 
 /atom/movable/screen/alert/restrained/handcuffed
 	name = "Handcuffed"

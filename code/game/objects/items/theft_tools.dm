@@ -34,7 +34,7 @@
 	if(cooldown < world.time - 60)
 		cooldown = world.time
 		flick(pulseicon, src)
-		radiation_pulse(src, 400, 2)
+		radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION)
 
 /obj/item/nuke_core/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -147,7 +147,7 @@
 		return
 	else
 		to_chat(user, span_notice("As it touches \the [src], both \the [src] and \the [W] burst into dust!"))
-		radiation_pulse(user, 100)
+		radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
 		qdel(W)
 		qdel(src)
@@ -160,7 +160,7 @@
 	user.visible_message(span_danger("[victim] reaches out and tries to pick up [src]. [victim.p_their()] body starts to glow and bursts into flames before flashing into dust!"),\
 			span_userdanger("You reach for [src] with your hands. That was dumb."),\
 			span_italics("Everything suddenly goes silent."))
-	radiation_pulse(user, 500, 2)
+	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(get_turf(user), 'sound/effects/supermatter.ogg', 50, 1)
 	victim.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 	victim.dust()
@@ -264,7 +264,7 @@
 			span_italics("Everything suddenly goes silent."))
 		user.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		user.dust()
-	radiation_pulse(src, 500, 2)
+	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
 	QDEL_NULL(sliver)
 	update_icon()

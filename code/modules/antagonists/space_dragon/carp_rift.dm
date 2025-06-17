@@ -91,7 +91,6 @@
 /datum/armor/structure_carp_rift
 	energy = 100
 	bomb = 50
-	rad = 100
 	fire = 100
 	acid = 100
 

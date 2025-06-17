@@ -655,6 +655,7 @@
 	boozepwr = 55
 	quality = DRINK_NICE
 	taste_description = "oranges"
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
 /datum/glass_style/drinking_glass/screwdrivercocktail
 	name = "Screwdriver"

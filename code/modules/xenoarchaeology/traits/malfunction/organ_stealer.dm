@@ -9,7 +9,7 @@
 	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 	///What organ slot do we yank from
-	var/targetorganslot = ORGAN_SLOT_APPENDIX
+	var/target_organ_slot = ORGAN_SLOT_APPENDIX
 
 /datum/xenoartifact_trait/malfunction/organ_stealer/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -31,7 +31,7 @@
 	label_name = "I.O.E Δ"
 	alt_label_name = "Immediate Organ Extraction Δ"
 	label_desc = "Immediate Organ Extraction Δ: A strange malfunction causes the Artifact to extract the target's tongue."
-	targetorganslot = ORGAN_SLOT_TONGUE
+	target_organ_slot = ORGAN_SLOT_TONGUE
 	conductivity = 14
 
 /datum/xenoartifact_trait/malfunction/organ_stealer/tongue/get_dictionary_hint()

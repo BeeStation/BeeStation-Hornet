@@ -98,7 +98,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/projected_forcefield)
 	laser = 50
 	energy = 50
 	bomb = 25
-	rad = 100
 	fire = 100
 	acid = 100
 

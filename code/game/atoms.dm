@@ -66,8 +66,6 @@
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
 
-	/// Will move to flags_1 when i can be arsed to (2019, has not done so)
-	var/rad_flags = NONE
 	/// Radiation insulation types
 	var/rad_insulation = RAD_NO_INSULATION
 
@@ -1100,14 +1098,6 @@
 		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
-  * Respond to a radioactive wave hitting this atom
-  *
-  * Default behaviour is to send COMSIG_ATOM_RAD_ACT and return
-  */
-/atom/proc/rad_act(strength)
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, strength)
-
-/**
   * Respond to narsie eating our atom
   *
   * Default behaviour is to send COMSIG_ATOM_NARSIE_ACT and return
@@ -1396,7 +1386,6 @@
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
-	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
@@ -1449,11 +1438,6 @@
 
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
-
-	if(href_list[VV_HK_RADIATE] && check_rights(R_FUN))
-		var/strength = input(usr, "Choose the radiation strength.", "Choose the strength.") as num|null
-		if(!isnull(strength))
-			AddComponent(/datum/component/radioactive, strength, src)
 
 	if(href_list[VV_HK_ARMOR_MOD])
 		var/list/pickerlist = list()

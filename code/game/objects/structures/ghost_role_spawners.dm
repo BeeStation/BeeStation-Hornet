@@ -103,7 +103,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 
-/obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
+/obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
 		name += " ([initial(species.prefix)])"
 		mob_species = species

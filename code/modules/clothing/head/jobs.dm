@@ -499,7 +499,6 @@
 
 /datum/armor/beret_cmo
 	bio = 30
-	rad = 10
 	acid = 20
 
 //Engineering
@@ -514,7 +513,6 @@
 	flags_1 = NONE
 
 /datum/armor/beret_eng
-	rad = 10
 	fire = 10
 
 /obj/item/clothing/head/beret/atmos
@@ -528,7 +526,6 @@
 	flags_1 = NONE
 
 /datum/armor/beret_atmos
-	rad = 10
 	fire = 10
 
 /obj/item/clothing/head/beret/ce
@@ -542,7 +539,6 @@
 	flags_1 = NONE
 
 /datum/armor/beret_ce
-	rad = 20
 	fire = 30
 
 /obj/item/clothing/head/beret/cargo
@@ -564,7 +560,6 @@
 //Medical
 
 /datum/armor/beret_supply
-	rad = 10
 	fire = 10
 
 /obj/item/clothing/head/beret/sergeant
@@ -583,7 +578,6 @@
 	energy = 10
 	bomb = 10
 	bio = 5
-	rad = 5
 	fire = 5
 	acid = 30
 	stamina = 30
@@ -598,7 +592,6 @@
 	energy = 30
 	bomb = 15
 	bio = 10
-	rad = 10
 	fire = 10
 	acid = 60
 	stamina = 40

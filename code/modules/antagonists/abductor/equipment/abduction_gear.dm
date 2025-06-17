@@ -36,7 +36,6 @@
 	laser = 50
 	energy = 50
 	bomb = 50
-	rad = 15
 	bio = 50
 	fire = 90
 	acid = 90
@@ -49,7 +48,6 @@
 	laser = 15
 	energy = 25
 	bomb = 15
-	rad = 50
 	bio = 15
 	fire = 70
 	acid = 70

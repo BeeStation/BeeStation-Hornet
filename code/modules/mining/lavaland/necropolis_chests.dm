@@ -609,7 +609,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
-	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/flightpotion/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -694,7 +694,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	energy = 20
 	bomb = 35
 	bio = 35
-	rad = 35
 	stamina = 20
 	bleed = 20
 

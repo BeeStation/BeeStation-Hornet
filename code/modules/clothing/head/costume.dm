@@ -185,7 +185,6 @@
 	energy = 20
 	bomb = 30
 	bio = 100
-	rad = 75
 	fire = 60
 	acid = 75
 	stamina = 40
@@ -202,7 +201,6 @@
 
 /datum/armor/spaceproof_old
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10

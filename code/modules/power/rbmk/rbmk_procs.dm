@@ -498,7 +498,7 @@ Arguments:
 	SSair.atmos_machinery -= src //Annd we're now just a useless brick.
 	update_icon()
 	STOP_PROCESSING(SSmachines, src)
-	AddComponent(/datum/component/radioactive, 15000 , src)
+	AddElement(/datum/element/radioactive, chance = 50, threshold = RAD_EXTREME_INSULATION)
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
 	for(var/mob/player_mob in GLOB.player_list)
@@ -585,7 +585,6 @@ Arguments:
 	if(epicenter)
 		for(var/obj/effect/decal/cleanable/nuclear_waste/waste in floor) //Replace nuclear waste with the stronger version
 			qdel(waste)
-		new /obj/effect/decal/cleanable/nuclear_waste/epicenter (floor)
 		return TRUE
 
 	if(!prob(PLUTONIUM_SLUDGE_CHANCE)) //Scatter the sludge, don't smear it everywhere

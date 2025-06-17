@@ -6,7 +6,7 @@
 	bodyflag = FLAG_DIONA
 	default_color = "59CE00"
 	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
-	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NORADDAMAGE)
+	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
@@ -90,16 +90,6 @@
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.trigger() //Bring them home.
-
-/datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
-	. = FALSE
-	var/radiation = H.radiation
-	//Dionae heal and eat radiation for a living.
-	H.adjust_nutrition(clamp(radiation, 0, 7))
-	if(radiation > 50)
-		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-		H.adjustToxLoss(-2)
-		H.adjustOxyLoss(-1)
 
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)

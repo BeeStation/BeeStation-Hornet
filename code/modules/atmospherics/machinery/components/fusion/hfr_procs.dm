@@ -458,7 +458,6 @@
 	var/emp_light_size = 0
 	var/emp_heavy_size = 0
 	var/rad_pulse_size = 0
-	var/rad_pulse_strength = 0
 	var/gas_spread = 0
 	var/gas_pockets = 0
 	var/critical = selected_fuel.meltdown_flags & HYPERTORUS_FLAG_CRITICAL_MELTDOWN
@@ -483,8 +482,7 @@
 			emp_light_size = power_level * 3
 			emp_heavy_size = power_level * 1
 		if(rad_pulse)
-			rad_pulse_size = (1 / (power_level + 1))
-			rad_pulse_strength = power_level * 3000
+			rad_pulse_size = 2 * power_level + 8
 		gas_pockets = 5
 		gas_spread = power_level * 2
 
@@ -493,8 +491,7 @@
 			emp_light_size = power_level * 5
 			emp_heavy_size = power_level * 3
 		if(rad_pulse)
-			rad_pulse_size = (1 / (power_level + 3))
-			rad_pulse_strength = power_level * 5000
+			rad_pulse_size = power_level + 24
 		gas_pockets = 7
 		gas_spread = power_level * 4
 
@@ -503,8 +500,7 @@
 			emp_light_size = power_level * 7
 			emp_heavy_size = power_level * 5
 		if(rad_pulse)
-			rad_pulse_size = (1 / (power_level + 5))
-			rad_pulse_strength = power_level * 7000
+			rad_pulse_size = power_level + 34
 		gas_pockets = 10
 		gas_spread = power_level * 6
 
@@ -513,9 +509,7 @@
 			emp_light_size = power_level * 9
 			emp_heavy_size = power_level * 7
 		if(rad_pulse)
-			rad_pulse_size = (1 / (power_level + 7))
-			rad_pulse_strength = power_level * 9000
-
+			rad_pulse_size = power_level + 44
 		gas_pockets = 15
 		gas_spread = power_level * 8
 
@@ -557,9 +551,8 @@
 	if(rad_pulse)
 		radiation_pulse(
 			source = loc,
-			intensity = rad_pulse_strength,
-			range_modifier = rad_pulse_size,
-			log = TRUE
+			max_range = rad_pulse_size,
+			threshold = 0.05,
 		)
 
 	if(em_pulse)
@@ -662,6 +655,7 @@
  * Induce hallucinations in nearby humans.
  *
  * force will make hallucinations ignore meson protection.
+ * TODO: hallucinations
  **/
 /obj/machinery/atmospherics/components/unary/hypertorus/core/proc/induce_hallucination(strength, delta_time, force = FALSE)
 	for(var/mob/living/carbon/human/human in view(src, HALLUCINATION_HFR(heat_output)))
@@ -670,9 +664,3 @@
 		var/distance_root = sqrt(1 / max(1, get_dist(human, src)))
 		human.hallucination += strength * distance_root * delta_time
 		human.hallucination = clamp(human.hallucination, 0, 200)
-
-/**
- * Emit radiation
- **/
-/obj/machinery/atmospherics/components/unary/hypertorus/core/proc/emit_rads(radiation)
-	radiation_pulse(loc, clamp(radiation / 1e5, 0, FUSION_RAD_MAX))

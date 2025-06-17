@@ -14,8 +14,8 @@
 			continue
 		if(victim.z == 0)
 			continue
-		// TODO: radiation
-		//SSradiation.irradiate(victim)
+
+		SSradiation.irradiate(victim)
 
 	return TRUE
 

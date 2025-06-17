@@ -1,78 +1,66 @@
 /*
 These defines are the balancing points of various parts of the radiation system.
 Changes here can have widespread effects: make sure you test well.
-Ask ninjanomnom if they're around
+Ask Mothblocks if they're around
 */
 
-#define RAD_BACKGROUND_RADIATION 9 					// How much radiation is harmless to a mob
-
-// apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
-#define RAD_MOB_COEFFICIENT 0.20					// Radiation applied is multiplied by this
-#define RAD_MOB_SKIN_PROTECTION ((1/RAD_MOB_COEFFICIENT)+RAD_BACKGROUND_RADIATION)
-
-#define RAD_LOSS_PER_SECOND 0.25
-/// Toxin damage per second coefficient
-#define RAD_TOX_COEFFICIENT 0.04
-#define RAD_OVERDOSE_REDUCTION 0.000001 // Coefficient to the reduction in applied rads once the thing, usualy mob, has too much radiation
-										// WARNING: This number is highly sensitive to change, graph is first for best results
-#define RAD_BURN_THRESHOLD 1000 // Applied radiation must be over this to burn
-
-/// How much stored radiation in a mob with no ill effects
-#define RAD_MOB_SAFE 500
-
 /// How much stored radiation to check for hair loss
-#define RAD_MOB_HAIRLOSS 800
+#define RAD_MOB_HAIRLOSS (1 MINUTES)
 /// Chance of you hair starting to fall out every second when over threshold
 #define RAD_MOB_HAIRLOSS_PROB 7.5
 
 /// How much stored radiation to check for mutation
-#define RAD_MOB_MUTATE 1250
+#define RAD_MOB_MUTATE (2 MINUTES)
 /// Chance of randomly mutating every second when over threshold
 #define RAD_MOB_MUTATE_PROB 0.5
 
-/// The amount of radiation to check for vomitting
-#define RAD_MOB_VOMIT 2000
+/// The time since irradiated before checking for vomitting
+#define RAD_MOB_VOMIT (2 MINUTES)
 /// Chance per second of vomitting
 #define RAD_MOB_VOMIT_PROB 0.5
 
 /// How much stored radiation to check for stunning
-#define RAD_MOB_KNOCKDOWN 2000
+#define RAD_MOB_KNOCKDOWN (2 MINUTES)
 /// Chance of knockdown per second when over threshold
 #define RAD_MOB_KNOCKDOWN_PROB 0.5
 /// Amount of knockdown when it occurs
 #define RAD_MOB_KNOCKDOWN_AMOUNT 3
 
 #define RAD_NO_INSULATION 1.0 // For things that shouldn't become irradiated for whatever reason
-#define RAD_VERY_LIGHT_INSULATION 0.9				// What girders have
+#define RAD_VERY_LIGHT_INSULATION 0.9 // What girders have
 #define RAD_LIGHT_INSULATION 0.8
-#define RAD_MEDIUM_INSULATION  0.7					// What common walls have
-#define RAD_HEAVY_INSULATION 0.6					// What reinforced walls have
-#define RAD_EXTREME_INSULATION 0.5					// What rad collectors have
-#define RAD_FULL_INSULATION 0						// What depleted uranium windows have
+#define RAD_MEDIUM_INSULATION 0.7 // What common walls have
+#define RAD_HEAVY_INSULATION 0.6 // What reinforced walls have
+#define RAD_EXTREME_INSULATION 0.5 // What rad collectors have
+#define RAD_FULL_INSULATION 0 // Completely stops radiation from coming through
 
-// WARNING: The defines below could have disastrous consequences if tweaked incorrectly. See: The great SM purge of Oct.6.2017
-// contamination_chance = 		[doesn't matter, will always contaminate]
-// contamination_strength = 	strength * RAD_CONTAMINATION_STR_COEFFICIENT
-// contamination_threshold =	1 / (RAD_CONTAMINATION_BUDGET_SIZE * RAD_CONTAMINATION_STR_COEFFICIENT)
-#define RAD_CONTAMINATION_BUDGET_SIZE 0.2			// Mob and non-mob budgets each gets a share from the radiation as large as this;
-													// So this means 10% of the rads is "absorbed" by non-mobs (if there is a non-mob),
-													// and another 10% of the rads is "absorbed" by mobs (if there is a mob)
-#define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread
+/// The default chance something can be irradiated
+#define DEFAULT_RADIATION_CHANCE 10
 
-#define RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER 2	// Radiation components have additional penalty at distance coefficient
-														// This is to reduce radiation by contaminated objects, mostly
+/// The default chance for uranium structures to irradiate
+#define URANIUM_IRRADIATION_CHANCE DEFAULT_RADIATION_CHANCE
 
-#define RAD_HALF_LIFE 90							// The half-life of contaminated objects
+/// The minimum exposure time before uranium structures can irradiate
+#define URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME (3 SECONDS)
+/// The minimum exposure time before the radioactive nebula can irradiate
+#define NEBULA_RADIATION_MINIMUM_EXPOSURE_TIME (6 SECONDS)
 
-#define RAD_WAVE_MINIMUM 10							// Radiation waves with less than this amount of power stop spreading
-													// WARNING: Reducing can make rads subsytem more expensive
-#define RAD_COMPONENT_MINIMUM 1						// To ensure slow contamination
-													// WARNING: Reducing can make rads subsytem more expensive
-#define RAD_CONTAMINATION_STR_COEFFICIENT (1 / RAD_HALF_LIFE / 8 * RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER ** 2)
-													// Higher means higher strength scaling contamination strength
-													// This number represents perservation of radiation
-													// Set to control the most typical situation: clutters around typical radiation sources
-													// This define is long and ugly because of the amount of math involved
-													// and to free this define from mathematical errors of future define number tweakers
-#define RAD_GEIGER_RC 4								// RC-constant for the LP filter for geiger counters. See #define LPFILTER for more info.
-#define RAD_GEIGER_GRACE_PERIOD 4					// How many seconds after we last detect a radiation pulse until we stop blipping
+/// Return values of [proc/get_perceived_radiation_danger]
+// If you change these, update /datum/looping_sound/geiger as well.
+#define PERCEIVED_RADIATION_DANGER_LOW 1
+#define PERCEIVED_RADIATION_DANGER_MEDIUM 2
+#define PERCEIVED_RADIATION_DANGER_HIGH 3
+#define PERCEIVED_RADIATION_DANGER_EXTREME 4
+
+/// The time before geiger counters reset back to normal without any radiation pulses
+#define TIME_WITHOUT_RADIATION_BEFORE_RESET (5 SECONDS)
+
+// Radiation exposure params
+
+// For the radioactive nebula outside
+/// Base chance the nebula has of applying irradiation
+#define RADIATION_EXPOSURE_NEBULA_BASE_CHANCE 20
+/// The chance we add to the base chance every time we fail to irradiate
+#define RADIATION_EXPOSURE_NEBULA_CHANCE_INCREMENT 10
+/// Time it takes for the next irradiation check
+#define RADIATION_EXPOSURE_NEBULA_CHECK_INTERVAL 5 SECONDS

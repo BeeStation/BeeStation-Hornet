@@ -110,3 +110,7 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+
+/// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
+/// Consumers are allowed to mutate the scan_results list to add extra information
+#define COMSIG_LIVING_HEALTHSCAN "living_healthscan"

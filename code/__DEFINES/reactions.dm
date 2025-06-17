@@ -16,6 +16,9 @@
 #define OXYGEN_BURN_RATE_BASE 1.4
 #define PLASMA_MINIMUM_OXYGEN_NEEDED 2
 
+/// Maximum range a radiation pulse is allowed to be from a gas reaction.
+#define GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE 20
+
 // Water Vapor:
 /// The temperature required for water vapor to condense.
 #define WATER_VAPOR_CONDENSATION_POINT (T20C + 10)
@@ -77,8 +80,12 @@
 #define FIRE_TRITIUM_BURN_RATE_DELTA FIRE_HYDROGEN_BURN_RATE_DELTA
 /// The minimum number of moles of trit that must be burnt for a tritium fire reaction to produce a radiation pulse. (0.01 moles trit or 10 moles oxygen to start producing rads.)
 #define TRITIUM_RADIATION_MINIMUM_MOLES 0.1
-/// The neutrons gotta go somewhere. Completely arbitrary number.
-#define TRITIUM_BURN_RADIOACTIVITY_FACTOR 50000
+/// The minimum released energy necessary for tritium to release radiation during combustion. (at a mix volume of [CELL_VOLUME]).
+#define TRITIUM_RADIATION_RELEASE_THRESHOLD (FIRE_TRITIUM_ENERGY_RELEASED)
+/// A scaling factor for the range of radiation pulses produced by tritium fires.
+#define TRITIUM_RADIATION_RANGE_DIVISOR 0.5
+/// The threshold of the tritium combustion's radiation. Lower values means it will be able to penetrate through more structures.
+#define TRITIUM_RADIATION_THRESHOLD 0.3
 
 // - Freon:
 /// The maximum temperature freon can combust at.
@@ -236,8 +243,10 @@
 #define PN_TRITIUM_CONVERSION_ENERGY 10000
 /// The minimum released energy necessary for proto-nitrate to release radiation when converting tritium. (With a reaction vessel volume of [CELL_VOLUME])
 #define PN_TRITIUM_CONVERSION_RAD_RELEASE_THRESHOLD 10000
-/// The neutrons gotta go somewhere. Completely arbitrary number.
-#define PN_TRITIUM_RADIOACTIVITY_FACTOR 20000
+/// A scaling factor for the range of the radiation pulses generated when proto-nitrate converts tritium to hydrogen.
+#define PN_TRITIUM_RAD_RANGE_DIVISOR 0.5
+/// The threshold of the radiation pulse released when proto-nitrate converts tritium into hydrogen. Lower values means it will be able to penetrate through more structures.
+#define PN_TRITIUM_RAD_THRESHOLD 0.3
 
 /// The minimum temperature proto-nitrate can break BZ down at.
 #define PN_BZASE_MIN_TEMP 260
@@ -247,14 +256,13 @@
 #define PN_BZASE_ENERGY 60000
 /// The minimum released energy necessary for proto-nitrate to release rads when breaking down BZ (at a mix volume of [CELL_VOLUME]).
 #define PN_BZASE_RAD_RELEASE_THRESHOLD 60000
+/// A scaling factor for the range of the radiation pulses generated when proto-nitrate breaks down BZ.
+#define PN_BZASE_RAD_RANGE_DIVISOR 1.5
+/// The threshold of the radiation pulse released when proto-nitrate breaks down BZ. Lower values means it will be able to penetrate through more structures.
+#define PN_BZASE_RAD_THRESHOLD 0.3
 /// A scaling factor for the nuclear particle production generated when proto-nitrate breaks down BZ.
 #define PN_BZASE_NUCLEAR_PARTICLE_DIVISOR 5
 /// The maximum amount of nuclear particles that can be produced from proto-nitrate breaking down BZ.
 #define PN_BZASE_NUCLEAR_PARTICLE_MAXIMUM 6
 /// How much radiation in consumed amount does a nuclear particle take from radiation when proto-nitrate breaks down BZ.
 #define PN_BZASE_NUCLEAR_PARTICLE_RADIATION_ENERGY_CONVERSION 2.5
-
-// Electrolysis:
-// Electrolysis arguments:
-/// Supermatter power argument.
-#define ELECTROLYSIS_ARGUMENT_SUPERMATTER_POWER "electrolyzer_supermatter_power"

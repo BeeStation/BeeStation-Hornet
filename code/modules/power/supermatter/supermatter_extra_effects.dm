@@ -47,13 +47,12 @@
 	// Calculating chance is done entirely on integrity, so that actively delaminating SMs feel more dangerous
 	var/chance = (CHANCE_EQUATION_SLOPE * (1 - integrity)) + RADIATION_CHANCE_AT_FULL_INTEGRITY
 
-	// TODO: radiation
-	//radiation_pulse(
-	//	src,
-	//	max_range = 8,
-	//	threshold = threshold,
-	//	chance = chance * 100,
-	//)
+	radiation_pulse(
+		src,
+		max_range = 8,
+		threshold = threshold,
+		chance = chance * 100,
+	)
 
 /obj/machinery/power/supermatter_crystal/proc/processing_sound()
 	if(internal_energy)

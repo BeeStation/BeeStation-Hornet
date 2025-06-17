@@ -571,14 +571,14 @@ There are several things that need to be remembered:
 
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
-	clear_alert("legcuffed")
+	clear_alert(ALERT_LEGCUFFED)
 	if(legcuffed)
 		var/path = dna?.species.get_custom_icons("generic")
 		if(!path)
 			path = 'icons/mob/mob.dmi'
 		overlays_standing[LEGCUFF_LAYER] = mutable_appearance(path, "legcuff1", CALCULATE_MOB_OVERLAY_LAYER(LEGCUFF_LAYER))
 		apply_overlay(LEGCUFF_LAYER)
-		throw_alert("legcuffed", /atom/movable/screen/alert/restrained/legcuffed, new_master = src.legcuffed)
+		throw_alert(ALERT_LEGCUFFED, /atom/movable/screen/alert/restrained/legcuffed, new_master = src.legcuffed)
 
 /mob/living/carbon/human/update_inv_hands()
 	remove_overlay(HANDS_LAYER)

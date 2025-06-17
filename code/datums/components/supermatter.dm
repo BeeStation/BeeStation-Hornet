@@ -136,7 +136,7 @@
 			)
 			return
 
-		var/obj/item/organ/tongue/licking_tongue = user.getorganslot(ORGAN_SLOT_TONGUE)
+		var/obj/item/organ/tongue/licking_tongue = user.get_organ_slot(ORGAN_SLOT_TONGUE)
 		if(licking_tongue)
 			dust_mob(source, user,
 				span_danger("As [user] hesitantly leans in and licks [atom_source] everything goes silent before [user.p_their()] body starts to glow and burst into flames before flashing to ash!"),
@@ -186,8 +186,7 @@
 			playsound(atom_source, 'sound/effects/supermatter.ogg', 150, TRUE)
 			consume(atom_source, item)
 
-			// TODO: radiation
-			//radiation_pulse(atom_source, max_range = 3, threshold = 0.1, chance = 50)
+			radiation_pulse(atom_source, max_range = 3, threshold = 0.1, chance = 50)
 			return
 		else
 			cig.light()
@@ -198,8 +197,7 @@
 
 			playsound(atom_source, 'sound/effects/supermatter.ogg', 50, TRUE)
 
-			// TODO: radiation
-			//radiation_pulse(atom_source, max_range = 1, threshold = 0, chance = 100)
+			radiation_pulse(atom_source, max_range = 1, threshold = 0, chance = 100)
 			return
 
 	if(user.dropItemToGround(item))
@@ -210,8 +208,7 @@
 		consume(atom_source, item)
 		playsound(get_turf(atom_source), 'sound/effects/supermatter.ogg', 50, TRUE)
 
-		// TODO: radiation
-		//radiation_pulse(atom_source, max_range = 3, threshold = 0.1, chance = 50)
+		radiation_pulse(atom_source, max_range = 3, threshold = 0.1, chance = 50)
 		return
 
 	if(atom_source.Adjacent(user)) //if the item is stuck to the person, kill the person too instead of eating just the item.
@@ -372,19 +369,20 @@
 		else
 			matter_increase += min(0.5 * consumed_object.max_integrity, 1000)
 
-	//Some poor sod got eaten, go ahead and irradiate people nearby.
-	// TODO: radiation
-	//radiation_pulse(atom_source, max_range = radiation_range, threshold = 1.2 / max(object_size, 1), chance = 10 * object_size)
-	for(var/mob/living/near_mob in range(10))
+	// Some poor sod got eaten, go ahead and irradiate people nearby.
+
+	radiation_pulse(atom_source, max_range = radiation_range, threshold = 1.2 / max(object_size, 1), chance = 10 * object_size)
+	for(var/mob/living/near_mob in range(radiation_range))
 		atom_source.investigate_log("has irradiated [key_name(near_mob)] after consuming [consumed_object].", INVESTIGATE_ENGINES)
 		if(HAS_TRAIT(near_mob, TRAIT_RADIMMUNE) || issilicon(near_mob))
 			continue
-		// TODO: radiation
-		//if(ishuman(near_mob) && SSradiation.wearing_rad_protected_clothing(near_mob))
-		//	continue
+		if(ishuman(near_mob) && SSradiation.wearing_rad_protected_clothing(near_mob))
+			continue
 		if(near_mob in view())
-			near_mob.show_message(span_danger("As \the [atom_source] slowly stops resonating, you find your skin covered in new radiation burns."), MSG_VISUAL,
-				span_danger("The unearthly ringing subsides and you find your skin covered in new radiation burns."), MSG_AUDIBLE)
+			near_mob.show_message(
+				span_danger("As \the [atom_source] slowly stops resonating, you find your skin covered in new radiation burns."), MSG_VISUAL,
+				span_danger("The unearthly ringing subsides and you find your skin covered in new radiation burns."), MSG_AUDIBLE
+			)
 		else
 			near_mob.show_message(span_hear("An unearthly ringing fills your ears, and you find your skin covered in new radiation burns."), MSG_AUDIBLE)
 	consume_returns(matter_increase, damage_increase)

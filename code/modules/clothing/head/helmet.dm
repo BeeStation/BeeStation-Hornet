@@ -223,7 +223,6 @@
 	energy = 40
 	bomb = 50
 	bio = 90
-	rad = 20
 	fire = 50
 	acid = 50
 	stamina = 50
@@ -262,7 +261,6 @@
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 90
 	acid = 90
 
@@ -455,7 +453,6 @@
 	bullet = 30
 	energy = 15
 	bomb = 10
-	rad = 20
 	fire = 20
 	acid = 50
 	stamina = 20
@@ -484,7 +481,6 @@
 	energy = 10
 	bomb = 20
 	bio = 50
-	rad = 20
 	fire = -10
 	acid = 50
 	stamina = 20
@@ -509,7 +505,6 @@
 	energy = 10
 	bomb = 30
 	bio = 30
-	rad = 20
 	acid = 40
 	stamina = 25
 	bleed = 15
