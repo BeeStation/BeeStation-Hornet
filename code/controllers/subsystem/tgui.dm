@@ -29,6 +29,7 @@ SUBSYSTEM_DEF(tgui)
 	var/polyfill = file2text('tgui/public/tgui-polyfill.min.js')
 	polyfill = "<script>\n[polyfill]\n</script>"
 	basehtml = replacetextEx(basehtml, "<!-- tgui:inline-polyfill -->", polyfill)
+	basehtml = replacetextEx(basehtml, "<!-- tgui:nt-copyright -->", "Nanotrasen (c) 2525-[GLOB.year_integer+YEAR_OFFSET]")
 
 /datum/controller/subsystem/tgui/Shutdown()
 	close_all_uis()
@@ -94,7 +95,7 @@ SUBSYSTEM_DEF(tgui)
 			break
 	if(!window_found)
 		if(issilicon(user)) // Tell gamer cyborgs and AIs that they've got too many windows open so they don't think it's broken
-			to_chat(user, "<span class='warning'>Warning: Processor limit reached. Close some windows before opening more.</span>")
+			to_chat(user, span_warning("Warning: Processor limit reached. Close some windows before opening more."))
 		log_tgui(user, "Error: Pool exhausted")
 		return null
 	return window

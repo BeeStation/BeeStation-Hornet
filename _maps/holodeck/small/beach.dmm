@@ -1,0 +1,117 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/holofloor/beach/water,
+/area/template_noop)
+"k" = (
+/turf/open/floor/holofloor/beach/coast_b,
+/area/template_noop)
+"t" = (
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"v" = (
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/shovel/spade,
+/turf/open/floor/holofloor/beach/coast_t,
+/area/template_noop)
+"A" = (
+/obj/item/toy/beach_ball,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"H" = (
+/obj/effect/holodeck_effect/mobspawner/monkey,
+/turf/open/floor/holofloor/beach,
+/area/template_noop)
+"I" = (
+/obj/effect/overlay/palmtree_r,
+/obj/effect/overlay/coconut,
+/turf/open/floor/holofloor/beach,
+/area/template_noop)
+"J" = (
+/turf/open/floor/holofloor/beach/coast_t,
+/area/template_noop)
+"Q" = (
+/mob/living/simple_animal/crab{
+	name = "Jon"
+	},
+/turf/open/floor/holofloor/beach/coast_t,
+/area/template_noop)
+"R" = (
+/turf/open/floor/holofloor/beach,
+/area/template_noop)
+"T" = (
+/obj/item/clothing/under/color/rainbow,
+/obj/item/clothing/glasses/sunglasses,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"W" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/holofloor/beach,
+/area/template_noop)
+"X" = (
+/obj/effect/overlay/palmtree_r,
+/turf/open/floor/holofloor/beach,
+/area/template_noop)
+
+(1,1,1) = {"
+W
+R
+R
+R
+J
+k
+a
+"}
+(2,1,1) = {"
+R
+R
+W
+X
+Q
+k
+a
+"}
+(3,1,1) = {"
+I
+R
+T
+t
+J
+k
+a
+"}
+(4,1,1) = {"
+R
+R
+R
+R
+J
+k
+a
+"}
+(5,1,1) = {"
+W
+H
+A
+t
+v
+k
+a
+"}
+(6,1,1) = {"
+R
+R
+X
+H
+J
+k
+a
+"}
+(7,1,1) = {"
+R
+W
+R
+R
+J
+k
+a
+"}

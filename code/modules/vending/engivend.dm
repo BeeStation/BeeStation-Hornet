@@ -3,7 +3,6 @@
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
-	light_color = LIGHT_COLOR_YELLOW
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
 					/obj/item/clothing/glasses/welding = 3,
@@ -14,7 +13,6 @@
 					/obj/item/electronics/airlock = 10,
 					/obj/item/electronics/apc = 10,
 					/obj/item/electronics/airalarm = 10,
-					/obj/item/electronics/advanced_airlock_controller = 10,
 					/obj/item/electronics/firealarm = 10,
 					/obj/item/electronics/firelock = 10,
 					/obj/item/storage/bag/construction = 3)
@@ -25,6 +23,7 @@
 	default_price = 20
 	extra_price = 50
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
+	light_mask = "engivend-light-mask"
 
 /obj/item/vending_refill/engivend
 	machine_name = "Engi-Vend"

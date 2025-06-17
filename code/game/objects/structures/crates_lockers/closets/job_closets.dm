@@ -8,14 +8,14 @@
 /obj/structure/closet/gmcloset/PopulateContents()
 	..()
 	var/static/items_inside = list(
-		/obj/item/clothing/head/that = 2,
+		/obj/item/clothing/head/hats/tophat = 2,
 		/obj/item/radio/headset/headset_srv = 2,
 		/obj/item/clothing/under/suit/sl = 2,
 		/obj/item/clothing/under/rank/civilian/bartender = 2,
 		/obj/item/clothing/accessory/waistcoat = 2,
 		/obj/item/clothing/head/soft/black = 2,
 		/obj/item/clothing/shoes/sneakers/black = 2,
-		/obj/item/reagent_containers/glass/rag = 2,
+		/obj/item/reagent_containers/cup/rag = 2,
 		/obj/item/storage/box/beanbag = 1,
 		/obj/item/clothing/suit/armor/vest/alt = 1,
 		/obj/item/circuitboard/machine/dish_drive = 1,
@@ -41,8 +41,8 @@
 		/obj/item/circuitboard/machine/dish_drive = 1,
 		/obj/item/clothing/suit/toggle/chef = 1,
 		/obj/item/clothing/under/rank/civilian/chef = 1,
-		/obj/item/clothing/head/chefhat = 1,
-		/obj/item/reagent_containers/glass/rag = 1)
+		/obj/item/clothing/head/utility/chefhat = 1,
+		/obj/item/reagent_containers/cup/rag = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/structure/closet/jcloset
@@ -102,7 +102,7 @@
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/suit/chaplainsuit/nun(src)
-	new /obj/item/clothing/head/nun_hood(src)
+	new /obj/item/clothing/head/chaplain/nun_hood(src)
 	new /obj/item/clothing/suit/hooded/chaplainsuit/monkfrock(src)
 	new /obj/item/clothing/suit/chaplainsuit/holidaypriest(src)
 	new /obj/item/storage/backpack/cultpack(src)
@@ -194,8 +194,8 @@
 		/obj/item/clothing/under/rank/engineering/engineer/skirt,
 		/obj/item/clothing/suit/hazardvest,
 		/obj/item/clothing/shoes/workboots,
-		/obj/item/clothing/head/hardhat,
-		/obj/item/clothing/head/beret/eng
+		/obj/item/clothing/head/utility/hardhat,
+		/obj/item/clothing/head/beret/engi
 	)
 
 /obj/structure/closet/wardrobe/white/medical
@@ -209,16 +209,15 @@
 		/obj/item/storage/backpack/satchel/med = 1,
 		/obj/item/clothing/suit/hooded/wintercoat/medical = 1,
 		/obj/item/clothing/under/rank/medical/doctor/nurse = 1,
-		/obj/item/clothing/head/nursehat = 1,
+		/obj/item/clothing/head/costume/nursehat = 1,
 		/obj/item/clothing/under/rank/medical/doctor/blue = 1,
 		/obj/item/clothing/under/rank/medical/doctor/green = 1,
 		/obj/item/clothing/under/rank/medical/doctor/purple = 1,
-		/obj/item/clothing/under/rank/medical = 3,
 		/obj/item/clothing/suit/toggle/labcoat = 3,
 		/obj/item/clothing/suit/toggle/labcoat/paramedic = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/clothing/head/soft/paramedic = 3,
-		/obj/item/clothing/head/beret/med = 3)
+		/obj/item/clothing/head/beret/medical = 3)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -234,12 +233,12 @@
 		/obj/item/clothing/shoes/sneakers/black = 2,
 		/obj/item/clothing/gloves/fingerless = 2,
 		/obj/item/clothing/head/soft/black = 2,
-		/obj/item/clothing/head/beret/sci = 2)
+		/obj/item/clothing/head/beret/science = 2)
 	generate_items_inside(items_inside,src)
 	if(prob(40))
-		new /obj/item/clothing/mask/bandana/skull(src)
+		new /obj/item/clothing/mask/bandana/skull/black(src)
 	if(prob(40))
-		new /obj/item/clothing/mask/bandana/skull(src)
+		new /obj/item/clothing/mask/bandana/skull/black(src)
 	return
 
 
@@ -286,7 +285,7 @@
 		/obj/item/clothing/mask/surgical = 2,
 		/obj/item/storage/backpack/virology = 2,
 		/obj/item/storage/backpack/satchel/vir = 2,
-		/obj/item/clothing/head/beret/med = 2)
+		/obj/item/clothing/head/beret/medical = 2)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -305,7 +304,7 @@
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/radio/headset/headset_sci = 2,
 		/obj/item/clothing/mask/gas = 3,
-		/obj/item/clothing/head/beret/sci = 3)
+		/obj/item/clothing/head/beret/science = 3)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -321,7 +320,7 @@
 		/obj/item/clothing/suit/apron = 2,
 		/obj/item/clothing/suit/apron/overalls = 2,
 		/obj/item/clothing/under/rank/civilian/hydroponics = 3,
-		/obj/item/clothing/mask/bandana = 3)
+		/obj/item/clothing/mask/bandana/striped/botany = 3)
 	generate_items_inside(items_inside,src)
 
 /obj/structure/closet/wardrobe/curator
@@ -330,7 +329,7 @@
 
 /obj/structure/closet/wardrobe/curator/PopulateContents()
 	new /obj/item/clothing/head/fedora/curator(src)
-	new /obj/item/clothing/suit/curator(src)
+	new /obj/item/clothing/suit/jacket/curator(src)
 	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)

@@ -4,7 +4,7 @@
 	product_ads = "Crack capitalist skulls!;Beat some heads in!;Don't forget - harm is good!;Your weapons are right here.;Handcuffs!;Freeze, scumbag!;Don't tase me bro!;Tase them, bro."
 	icon_state = "sec"
 	icon_deny = "sec-deny"
-	light_color = LIGHT_COLOR_BLUE
+	light_mask = "sec-light-mask"
 	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,
 					/obj/item/restraints/handcuffs/cable/zipties = 10,
@@ -15,7 +15,9 @@
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/holosign_creator/security = 3,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/club = 5)
+					/obj/item/club = 5,
+					/obj/item/melee/tonfa = 5,
+					/obj/item/clothing/gloves/tackler = 5)
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
@@ -39,4 +41,5 @@
 		F.update_brightness()
 
 /obj/item/vending_refill/security
+	machine_name = "SecTech"
 	icon_state = "refill_sec"

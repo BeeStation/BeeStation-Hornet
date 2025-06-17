@@ -52,14 +52,23 @@
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	cost = 5
 	allow_duplicates = FALSE
+	always_place = TRUE
 
-/datum/map_template/ruin/lavaland/syndicate_base
+/datum/map_template/ruin/lavaland/syndicate
+	cost = 5
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/syndicate/base
 	name = "Syndicate Lava Base"
 	id = "lava-base"
 	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
 	suffix = "lavaland_surface_syndicate_base1.dmm"
-	cost = 5
-	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/syndicate/shuttle
+	name = "Syndicate Lava Shuttle"
+	id = "syndicate-shuttle"
+	description = "A covert Syndicate recon shuttle scouting the planet, it is closely guarded by an elite team of syndicate agents."
+	suffix = "lavaland_surface_syndicate_base2.dmm"
 
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"

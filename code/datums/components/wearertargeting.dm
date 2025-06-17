@@ -16,7 +16,10 @@
 	SIGNAL_HANDLER
 
 	if((slot in valid_slots) && istype(equipper, mobtype))
-		RegisterSignal(equipper, signals, proctype, TRUE)
+		if(islist(signals))
+			RegisterSignals(equipper, signals, proctype, TRUE)
+		else if(!isnull(signals))
+			RegisterSignal(equipper, signals, proctype, TRUE)
 	else
 		UnregisterSignal(equipper, signals)
 

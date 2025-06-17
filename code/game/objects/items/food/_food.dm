@@ -1,3 +1,9 @@
+// A few defines for use in calculating our plant's bite size.
+/// When calculating bite size, potency is multiplied by this number.
+#define BITE_SIZE_POTENCY_MULTIPLIER 0.05
+/// When calculating bite size, max_volume is multiplied by this number.
+#define BITE_SIZE_VOLUME_MULTIPLIER 0.01
+
 ///Abstract class to allow us to easily create all the generic "normal" food without too much copy pasta of adding more components
 /obj/item/food
 	name = "food"
@@ -28,8 +34,24 @@
 	var/microwaved_type
 	///Type of atom thats spawned after eating this item
 	var/trash_type
+	///How much junkiness this food has? God I should remove junkiness soon
+	var/junkiness
+	///Food that's immune to decomposition.
+	var/preserved_food = FALSE
+	///Does our food normally attract ants?
+	var/ant_attracting = FALSE
+	///What our food decomposes into.
+	var/decomp_type = /obj/item/food/badrecipe/moldy
+	///Food that needs to be picked up in order to decompose.
+	var/decomp_req_handle = FALSE
+	///Used to set custom decomposition times for food. Set to 0 to have it automatically set via the food's flags.
+	var/decomposition_time = 0
+	///How exquisite the meal is. Applicable to crafted food, increasing its quality. Spans from 0 to 5.
+	var/crafting_complexity = 0
+	///Buff given when a hand-crafted version of this item is consumed. Randomized according to crafting_complexity if not assigned.
+	var/datum/status_effect/food/crafted_food_buff = null
 
-/obj/item/food/Initialize()
+/obj/item/food/Initialize(mapload)
 	. = ..()
 	if(food_reagents)
 		food_reagents = string_assoc_list(food_reagents)
@@ -40,6 +62,9 @@
 	make_edible()
 	make_processable()
 	make_leave_trash()
+	make_grillable()
+	make_decompose(mapload)	//if it was placed by a mapper, there is a good reason why it isn't ants already
+	make_bakeable()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
 /obj/item/food/proc/make_edible()
@@ -53,15 +78,42 @@
 		eatverbs = eatverbs,\
 		bite_consumption = bite_consumption,\
 		microwaved_type = microwaved_type,\
-	)
+		junkiness = junkiness)
 
 
 ///This proc handles processable elements, overwrite this if you want to add behavior such as slicing, forking, spooning, whatever, to turn the item into something else
 /obj/item/food/proc/make_processable()
 	return
 
+///This proc handles grillable components, overwrite if you want different grill results etc.
+/obj/item/food/proc/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/badrecipe, rand(20 SECONDS, 30 SECONDS), FALSE)
+	return
+
+///This proc handles bakeable components, overwrite if you want different bake results etc.
+/obj/item/food/proc/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/badrecipe, rand(25 SECONDS, 40 SECONDS), FALSE)
+
 ///This proc handles trash components, overwrite this if you want the object to spawn trash
 /obj/item/food/proc/make_leave_trash()
 	if(trash_type)
 		AddElement(/datum/element/food_trash, trash_type)
 	return
+
+///This proc makes things decompose. Set preserved_food to TRUE to make it never decompose.
+///Set decomp_req_handle to TRUE to only make it decompose when someone picks it up.
+/obj/item/food/proc/make_decompose(mapload)
+	if(!preserved_food)
+		AddComponent(/datum/component/decomposition, mapload, decomp_req_handle, decomp_flags = foodtypes, decomp_result = decomp_type, ant_attracting = ant_attracting, custom_time = decomposition_time)
+
+/obj/item/food/burn()
+	if(QDELETED(src))
+		return
+	if(prob(25))
+		microwave_act(src)
+	else
+		var/turf/T = get_turf(src)
+		new /obj/item/food/badrecipe(T)
+		if(resistance_flags & ON_FIRE)
+			SSfire_burning.processing -= src
+		qdel(src)

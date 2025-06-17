@@ -15,19 +15,19 @@
 /area/template_noop)
 "d" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/template_noop)
 "f" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
@@ -46,7 +46,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "i" = (
@@ -57,7 +57,7 @@
 "j" = (
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "k" = (
@@ -71,7 +71,7 @@
 "T" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 

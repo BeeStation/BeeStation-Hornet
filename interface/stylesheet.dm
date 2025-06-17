@@ -2,7 +2,7 @@
 /// !!!!!!!!!!HEY LISTEN!!!!!!!!!!!!!!!!!!!!!!!!
 /// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-// If you modify this file you ALSO need to modify code/modules/goonchat/browserAssets/browserOutput.css
+// If you modify this file you ALSO need to modify tgui/packages/tgui-panel/styles/tgchat/chat-light.scss and chat-dark.scss
 // BUT you have to use PX font sizes with are on a x8 scale of these font sizes
 // Sample font-size: DM: 8 CSS: 64px
 
@@ -84,35 +84,35 @@ h1.alert, h2.alert		{color: #000000;}
 .adminnotice			{color: #0000ff;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
 .adminhelp_conclusion {
-  display: block;
-  color: white;
-  text-align: center;
-  background-color: black;
-  border: 2px solid red;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px 20px;
+	display: block;
+	color: white;
+	text-align: center;
+	background-color: black;
+	border: 2px solid red;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 20px;
 }
 .death_message {
-  display: block;
-  color: white;
-  text-align: center;
-  background-color: black;
-  border: 2px solid rgb(240, 62, 225);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px 20px;
+	display: block;
+	color: white;
+	text-align: center;
+	background-color: black;
+	border: 2px solid rgb(240, 62, 225);
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 20px;
 }
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
 .nicegreen					{color: #14a833;}
 .shadowling				{color: #3b2769;}
-.cult					{color: #960000;}
-.cultlarge				{color: #960000; font-weight: bold; font-size: 3;}
-.narsie					{color: #960000; font-weight: bold; font-size: 15;}
-.narsiesmall			{color: #960000; font-weight: bold; font-size: 6;}
-.narsiesmaller			{color: #960000; font-weight: bold; font-size: 3;}
+.cult					{color: #973e3b;}
+.cultlarge				{color: #973e3b; font-weight: bold; font-size: 3;}
+.narsie					{color: #973e3b; font-weight: bold; font-size: 15;}
+.narsiesmall			{color: #973e3b; font-weight: bold; font-size: 6;}
+.narsiesmaller			{color: #973e3b; font-weight: bold; font-size: 3;}
 .colossus				{color: #7F282A; font-size: 5;}
 .hierophant				{color: #660099; font-weight: bold; font-style: italic;}
 .hierophant_warning		{color: #660099; font-style: italic;}
@@ -204,9 +204,9 @@ h1.alert, h2.alert		{color: #000000;}
 .his_grace				{color: #15D512;	font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .hypnophrase			{color: #3bb5d3;	font-weight: bold; animation: hypnocolor 1500ms infinite;}
 @keyframes hypnocolor {
-    0% { color: #0d0d0d; }
-    25% { color: #410194; }
-    50% { color: #7f17d8; }
+	0% { color: #0d0d0d; }
+	25% { color: #410194; }
+	50% { color: #7f17d8; }
 	75% { color: #410194; }
 	100% { color: #3bb5d3; }
 }
@@ -232,4 +232,5 @@ h1.alert, h2.alert		{color: #000000;}
 
 .monkeyhive				{color: #774704;}
 .monkeylead				{color: #774704;	font-size: 2;}
+.tape_recorder			{color: #ff0000;	font-family: 'Courier New', cursive, sans-serif;}
 </style>"}

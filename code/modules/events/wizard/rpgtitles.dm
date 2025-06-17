@@ -43,7 +43,7 @@ GLOBAL_DATUM(rpgtitle_controller, /datum/rpgtitle_controller)
 	new_crewmember.maptext_x = -24
 	new_crewmember.maptext_y = 32
 
-    //list of lists involving strings related to a biotype flag, their position in the list equal to the position they were defined as bitflags.
+	//list of lists involving strings related to a biotype flag, their position in the list equal to the position they were defined as bitflags.
 	//the first list entry is an adjective, the second is a noun. if null, we don't want to describe this biotype, and so even if the mob
 	//has that biotype, the null is skipped
 	var/list/biotype_titles = list(

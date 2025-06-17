@@ -1,0 +1,269 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"an" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"aR" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"cA" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/storage/fancy/candle_box{
+	pixel_x = -3;
+	pixel_y = 17
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"qj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"zj" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"zo" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"Cg" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"Dn" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"EW" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"Gy" = (
+/obj/structure/table/wood/fancy,
+/obj/item/clothing/suit/chaplainsuit/bishoprobe,
+/obj/item/clothing/head/helmet/chaplain/witchunter_hat,
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"Hy" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"HH" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"Ix" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"Kx" = (
+/obj/structure/table/wood/fancy,
+/obj/item/storage/book/bible{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/toy/figure/chaplain{
+	pixel_x = -16;
+	pixel_y = 1
+	},
+/obj/item/toy/figure/hos{
+	pixel_x = 18
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"Mo" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"OV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"Ps" = (
+/obj/structure/table/wood,
+/obj/item/folder/red{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/folder/blue{
+	pixel_x = 4;
+	pixel_y = 9
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/obj/item/hand_labeler,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"Qz" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"QI" = (
+/turf/open/floor/holofloor,
+/area/template_noop)
+"SH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"UU" = (
+/obj/structure/table/wood/fancy,
+/obj/item/clothing/suit/chaplainsuit/nun,
+/obj/item/clothing/head/chaplain/nun_hood,
+/obj/item/clothing/suit/chaplainsuit/holidaypriest,
+/obj/item/clothing/suit/judgerobe,
+/obj/item/clothing/head/costume/powdered_wig,
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"VJ" = (
+/obj/item/gavelblock,
+/obj/item/gavelhammer,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+
+(1,1,1) = {"
+Hy
+Ps
+QI
+QI
+HH
+HH
+an
+"}
+(2,1,1) = {"
+QI
+QI
+QI
+QI
+HH
+HH
+SH
+"}
+(3,1,1) = {"
+UU
+Ix
+Mo
+QI
+HH
+HH
+EW
+"}
+(4,1,1) = {"
+Kx
+zo
+VJ
+Qz
+Qz
+OV
+zj
+"}
+(5,1,1) = {"
+Gy
+Dn
+Cg
+QI
+HH
+HH
+EW
+"}
+(6,1,1) = {"
+QI
+QI
+QI
+QI
+HH
+HH
+qj
+"}
+(7,1,1) = {"
+aR
+cA
+QI
+QI
+HH
+HH
+an
+"}

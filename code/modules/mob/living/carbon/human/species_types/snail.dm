@@ -27,11 +27,11 @@
 	species_l_leg = /obj/item/bodypart/l_leg/snail
 	species_r_leg = /obj/item/bodypart/r_leg/snail
 
-/datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
-		H.adjustFireLoss(2)
+		H.adjustFireLoss(2 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
 		playsound(H, 'sound/weapons/sear.ogg', 30, 1)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
 
@@ -60,9 +60,16 @@
 	item_state = "snailshell"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/backpack_snail
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+
+/datum/armor/backpack_snail
+	melee = 20
+	bullet = 10
+	laser = 10
+	energy = 10
 
 /obj/item/storage/backpack/snail/Initialize(mapload)
 	. = ..()

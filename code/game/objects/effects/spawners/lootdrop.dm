@@ -89,9 +89,8 @@
 			/obj/item/trash/cheesie = 1,
 			/obj/item/trash/candy = 1,
 			/obj/item/trash/chips = 1,
-			/obj/item/reagent_containers/food/snacks/deadmouse = 1,
+			/obj/item/food/deadmouse = 1,
 			/obj/item/trash/pistachios = 1,
-			/obj/item/trash/plate = 1,
 			/obj/item/trash/popcorn = 1,
 			/obj/item/trash/raisins = 1,
 			/obj/item/trash/sosjerky = 1,
@@ -102,22 +101,22 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/soup/beet,
-			/obj/item/reagent_containers/food/snacks/soup/sweetpotato,
-			/obj/item/reagent_containers/food/snacks/soup/stew,
-			/obj/item/reagent_containers/food/snacks/soup/hotchili,
-			/obj/item/reagent_containers/food/snacks/soup/nettle,
-			/obj/item/reagent_containers/food/snacks/soup/meatball)
+			/obj/item/food/soup/beet,
+			/obj/item/food/soup/sweetpotato,
+			/obj/item/food/soup/stew,
+			/obj/item/food/soup/hotchili,
+			/obj/item/food/soup/nettle,
+			/obj/item/food/soup/meatball)
 	var/salads = list(
-			/obj/item/reagent_containers/food/snacks/salad/herbsalad,
-			/obj/item/reagent_containers/food/snacks/salad/validsalad,
-			/obj/item/reagent_containers/food/snacks/salad/fruit,
-			/obj/item/reagent_containers/food/snacks/salad/jungle,
-			/obj/item/reagent_containers/food/snacks/salad/aesirsalad)
+			/obj/item/food/salad/herbsalad,
+			/obj/item/food/salad/validsalad,
+			/obj/item/food/salad/fruit,
+			/obj/item/food/salad/jungle,
+			/obj/item/food/salad/aesirsalad)
 	var/mains = list(
-			/obj/item/reagent_containers/food/snacks/bearsteak,
+			/obj/item/food/bearsteak,
 			/obj/item/food/enchiladas,
-			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
+			/obj/item/food/stewedsoymeat,
 			/obj/item/food/burger/bigbite,
 			/obj/item/food/burger/superbite,
 			/obj/item/food/burger/fivealarm)
@@ -282,7 +281,7 @@
 		/obj/item/clothing/mask/gas/clown_hat = 4,
 		/obj/item/clothing/shoes/clown_shoes = 3,
 		/obj/item/bikehorn = 5,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 3)
+		/obj/item/food/pie/cream = 3)
 
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"
@@ -299,8 +298,8 @@
 /obj/effect/spawner/lootdrop/ten_percent_girlfriend_spawner
 	name = "10% chance girlfriend spawner"
 	loot = list(
-		/mob/living/simple_animal/pet/dog/corgi = 9,
-		/mob/living/simple_animal/pet/dog/corgi/Lisa = 1)
+		/mob/living/basic/pet/dog/corgi = 9,
+		/mob/living/basic/pet/dog/corgi/Lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
@@ -313,7 +312,7 @@
 		/mob/living/simple_animal/hostile/retaliate/clown = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/longface = 1,
-		/mob/living/simple_animal/pet/gondola = 2,
+		/mob/living/basic/pet/gondola = 2,
 		/mob/living/simple_animal/hostile/macrophage/aggro/vector = 2,
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
@@ -335,25 +334,25 @@
 	name = "beret or rabbit ears spawner"
 	loot = list(
 		/obj/item/clothing/head/beret = 1,
-		/obj/item/clothing/head/rabbitears = 1)
+		/obj/item/clothing/head/costume/rabbitears = 1)
 
 /obj/effect/spawner/lootdrop/minor/bowler_or_that
 	name = "bowler or top hat spawner"
 	loot = list(
-		/obj/item/clothing/head/bowler = 1,
-		/obj/item/clothing/head/that = 1)
+		/obj/item/clothing/head/hats/bowler = 1,
+		/obj/item/clothing/head/hats/tophat = 1)
 
 /obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears
 	name = "kitty ears or rabbit ears spawner"
 	loot = list(
-		/obj/item/clothing/head/kitty = 1,
-		/obj/item/clothing/head/rabbitears = 1)
+		/obj/item/clothing/head/costume/kitty = 1,
+		/obj/item/clothing/head/costume/rabbitears = 1)
 
 /obj/effect/spawner/lootdrop/minor/pirate_or_bandana
 	name = "pirate hat or bandana spawner"
 	loot = list(
-		/obj/item/clothing/head/pirate = 1,
-		/obj/item/clothing/head/bandana = 1)
+		/obj/item/clothing/head/costume/pirate = 1,
+		/obj/item/clothing/head/costume/pirate/bandana = 1)
 
 /obj/effect/spawner/lootdrop/minor/twentyfive_percent_cyborg_mask
 	name = "25% cyborg mask spawner"
@@ -437,14 +436,16 @@
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
 				/obj/item/circuitboard/machine/nanite_program_hub,
-				/obj/item/circuitboard/machine/xenoartifact_inbox,
-				/obj/item/circuitboard/computer/xenoartifact_console
+				/obj/item/circuitboard/computer/xenoarchaeology_console,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/scale,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/conductor,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security
 	name = "security circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/secure_data,
+				/obj/item/circuitboard/computer/records/security,
 				/obj/item/circuitboard/computer/security,
 				/obj/item/circuitboard/computer/prisoner
 				)
@@ -478,7 +479,7 @@
 				/obj/item/circuitboard/machine/clonepod,
 				/obj/item/circuitboard/machine/chem_dispenser,
 				/obj/item/circuitboard/computer/scan_consolenew,
-				/obj/item/circuitboard/computer/med_data,
+				/obj/item/circuitboard/computer/records/medical,
 				/obj/item/circuitboard/machine/smoke_machine,
 				/obj/item/circuitboard/machine/chem_master,
 				/obj/item/circuitboard/machine/clonescanner,
@@ -543,3 +544,74 @@
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
 
+///Former Snowdin loot tables
+
+/obj/effect/spawner/lootdrop/snowdin
+	name = "why are you using this dummy"
+	lootdoubles = 0
+	lootcount = 1
+	loot = list(/obj/item/bikehorn = 100)
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite
+	name = "dungeon lite"
+	loot = list(/obj/item/melee/classic_baton/police = 11,
+				/obj/item/melee/classic_baton/police/telescopic = 12,
+				/obj/item/book/granter/action/spell/smoke = 10,
+				/obj/item/book/granter/action/spell/blind = 10,
+				/obj/item/storage/firstaid/regular = 45,
+				/obj/item/storage/firstaid/toxin = 35,
+				/obj/item/storage/firstaid/brute = 27,
+				/obj/item/storage/firstaid/fire = 27,
+				/obj/item/storage/toolbox/syndicate = 12,
+				/obj/item/grenade/plastic/c4 = 7,
+				/obj/item/grenade/clusterbuster/smoke = 15,
+				/obj/item/clothing/under/chameleon = 13,
+				/obj/item/clothing/shoes/chameleon/noslip = 10,
+				/obj/item/borg/upgrade/ddrill = 3,
+				/obj/item/borg/upgrade/soh = 3)
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonmid
+	name = "dungeon mid"
+	loot = list(/obj/item/defibrillator/compact = 6,
+				/obj/item/storage/firstaid/tactical = 35,
+				/obj/item/shield/energy = 6,
+				/obj/item/shield/riot/tele = 12,
+				/obj/item/dnainjector/lasereyesmut = 7,
+				/obj/item/gun/magic/wand/fireball/inert = 3,
+				/obj/item/pneumatic_cannon = 15,
+				/obj/item/melee/energy/sword = 7,
+				/obj/item/book/granter/action/spell/knock = 15,
+				/obj/item/book/granter/action/spell/summonitem = 20,
+				/obj/item/book/granter/action/spell/forcewall = 17,
+				/obj/item/storage/backpack/holding = 12,
+				/obj/item/grenade/spawnergrenade/manhacks = 6,
+				/obj/item/grenade/spawnergrenade/spesscarp = 7,
+				/obj/item/grenade/clusterbuster/inferno = 3,
+				/obj/item/stack/sheet/mineral/diamond{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/uranium{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/plasma{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
+				/obj/item/book/granter/action/spell/barnyard = 4,
+				/obj/item/pickaxe/drill/diamonddrill = 6,
+				/obj/item/borg/upgrade/vtec = 7,
+				/obj/item/borg/upgrade/disablercooler = 7)
+
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonheavy
+	name = "dungeon heavy"
+	loot = list(/obj/item/singularityhammer = 25,
+				/obj/item/mjolnir = 10,
+				/obj/item/fireaxe = 25,
+				/obj/item/organ/brain/alien = 17,
+				/obj/item/dualsaber = 15,
+				/obj/item/organ/heart/demon = 7,
+				/obj/item/gun/ballistic/automatic/c20r/unrestricted = 16,
+				/obj/item/gun/magic/wand/resurrection/inert = 15,
+				/obj/item/gun/magic/wand/resurrection = 10,
+				/obj/item/uplink/old = 2,
+				/obj/item/book/granter/action/spell/charge = 12,
+				/obj/item/grenade/clusterbuster/spawner_manhacks = 15,
+				/obj/item/book/granter/action/spell/fireball = 10,
+				/obj/item/pickaxe/drill/jackhammer = 30,
+				/obj/item/borg/upgrade/syndicate = 13,
+				/obj/item/borg/upgrade/selfrepair = 17)

@@ -55,18 +55,18 @@
 
 			if(!turf_mob.can_inject())
 				continue
-			if(!(turf_mob.mobility_flags & MOBILITY_STAND) && !travelled_max_distance)
+			if(turf_mob.body_position != STANDING_UP && !travelled_max_distance)
 				continue
 
 			lifetime--
 		else if(travelled_max_distance)
 			lifetime--
-		reagents?.reaction(turf_atom, VAPOR)
+		reagents?.expose(turf_atom, VAPOR)
 		if(user)
 			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
 
 	if(lifetime >= 0 && (!stream || travelled_max_distance))
-		reagents?.reaction(our_turf, VAPOR)
+		reagents?.expose(our_turf, VAPOR)
 		lifetime--
 		if(user)
 			log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")
@@ -75,5 +75,5 @@
 	name = "lattice"
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
-	icon_state = "lattice"
-	density = TRUE
+	icon_state = "lattice-255"
+	density = FALSE

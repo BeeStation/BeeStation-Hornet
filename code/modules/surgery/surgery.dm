@@ -43,7 +43,7 @@
 	return ..()
 
 
-/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target) //FALSE to not show in list
+/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target, target_zone) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE
@@ -55,7 +55,7 @@
 			return TRUE
 	//Grants the user innate access to all surgeries
 
-	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
+	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else if(!abductor_surgery_blacklist)
@@ -79,7 +79,7 @@
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
 		if(!isnull(IMP))
 			if(replaced_by in IMP.advanced_surgeries)
 				return FALSE
@@ -108,20 +108,20 @@
 			return TRUE
 
 
-/datum/surgery/proc/next_step(mob/user, intent)
+/datum/surgery/proc/next_step(mob/living/user, modifiers)
 	failed_step = FALSE
 	if(step_in_progress)
 		return TRUE
 
 	var/try_to_fail = FALSE
-	if(intent == INTENT_DISARM)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		try_to_fail = TRUE
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
-		if(S.try_op(user, target, user.zone_selected, user.get_active_held_item(), src, try_to_fail))
+		if(S.try_op(user, target, user.get_active_held_item(), src, try_to_fail))
 			return TRUE
-		if(iscyborg(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
+		if(iscyborg(user) && !user.combat_mode) //to save asimov borgs a LOT of heartache
 			return TRUE
 	failed_step = TRUE
 	return FALSE
@@ -145,14 +145,14 @@
 	name = "advanced surgery"
 	requires_tech = TRUE
 
-/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions
 	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
 		return TRUE
 
-	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
+	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
 		if(!abductor_surgery_blacklist)
 			return TRUE
 	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
@@ -166,7 +166,7 @@
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
 		if(!isnull(IMP))
 			if(type in IMP.advanced_surgeries)
 				return TRUE
@@ -184,14 +184,14 @@
 	name = "Surgery Procedure Disk"
 	desc = "A disk that contains advanced surgery procedures, must be loaded into an Operating Console."
 	icon_state = "datadisk1"
-	materials = list(/datum/material/iron=300, /datum/material/glass=100)
+	custom_materials = list(/datum/material/iron=300, /datum/material/glass=100)
 	var/list/surgeries
 
 /obj/item/disk/surgery/debug
 	name = "Debug Surgery Disk"
 	desc = "A disk that contains all existing surgery procedures."
 	icon_state = "datadisk1"
-	materials = list(/datum/material/iron=300, /datum/material/glass=100)
+	custom_materials = list(/datum/material/iron=300, /datum/material/glass=100)
 
 /obj/item/disk/surgery/debug/Initialize(mapload)
 	. = ..()

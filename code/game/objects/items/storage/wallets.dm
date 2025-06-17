@@ -1,6 +1,7 @@
 /obj/item/storage/wallet
 	name = "wallet"
 	desc = "It can hold a few small and personal things."
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "wallet"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
@@ -9,11 +10,10 @@
 	var/obj/item/card/id/front_id = null
 	var/list/combined_access
 
-/obj/item/storage/wallet/ComponentInitialize()
+/obj/item/storage/wallet/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 4
-	STR.can_hold = typecacheof(list(
+	atom_storage.max_slots = 4
+	atom_storage.set_holdable(list(
 		/obj/item/stack/spacecash,
 		/obj/item/holochip,
 		/obj/item/card,
@@ -35,7 +35,8 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/screwdriver,
-		/obj/item/stamp))
+		/obj/item/stamp,
+		/obj/item/clothing/accessory/badge/officer))
 
 /obj/item/storage/wallet/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -43,7 +44,7 @@
 
 /obj/item/storage/wallet/proc/refreshID()
 	LAZYCLEARLIST(combined_access)
-	
+
 	if(!(front_id in src))
 		front_id = null
 	for(var/obj/item/card/id/I in contents)
@@ -97,6 +98,7 @@
 
 /obj/item/storage/wallet/random
 	icon_state = "random_wallet"
+	worn_icon_state = "wallet"
 
 /obj/item/storage/wallet/random/PopulateContents()
 	new /obj/item/holochip(src, rand(5,30))

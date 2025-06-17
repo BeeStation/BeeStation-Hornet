@@ -1,0 +1,231 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/five{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"e" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/d,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"f" = (
+/obj/structure/chess/blackqueen,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"j" = (
+/obj/structure/chess/whitebishop,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"l" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/c,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"m" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"p" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"q" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"s" = (
+/obj/structure/chess/blackknight,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"t" = (
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"u" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/e,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"v" = (
+/obj/structure/chess/blackbishop,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"w" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/a,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"z" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/two{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"B" = (
+/obj/structure/chess/whiterook,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"C" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/three{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"E" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"F" = (
+/obj/structure/chess/whitepawn,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"I" = (
+/obj/structure/chess/blackking,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"J" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/board_letter/b,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"L" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"N" = (
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"P" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/four{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"Q" = (
+/obj/structure/chess/blackrook,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"S" = (
+/obj/structure/chess/whiteking,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"T" = (
+/obj/structure/chess/whiteknight,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"U" = (
+/obj/structure/chess/whitepawn,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"V" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/board_number/one{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"W" = (
+/obj/structure/chess/blackpawn,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"X" = (
+/obj/structure/chess/blackpawn,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"Y" = (
+/obj/structure/chess/whitequeen,
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"Z" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+
+(1,1,1) = {"
+Z
+b
+P
+C
+z
+V
+m
+"}
+(2,1,1) = {"
+w
+Q
+X
+N
+F
+B
+q
+"}
+(3,1,1) = {"
+J
+s
+W
+t
+U
+T
+q
+"}
+(4,1,1) = {"
+l
+v
+X
+N
+F
+j
+q
+"}
+(5,1,1) = {"
+e
+f
+W
+t
+U
+Y
+q
+"}
+(6,1,1) = {"
+u
+I
+X
+N
+F
+S
+q
+"}
+(7,1,1) = {"
+L
+E
+E
+E
+E
+E
+p
+"}

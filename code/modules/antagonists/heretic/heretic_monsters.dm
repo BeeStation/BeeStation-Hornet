@@ -14,14 +14,14 @@
 
 /datum/antagonist/heretic_monster/on_gain()
 	. = ..()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/heretic/heretic_gain.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 
 /datum/antagonist/heretic_monster/on_removal()
 	if(!silent)
 		if(master?.current)
-			to_chat(master.current, "<span class='warning'>The essence of [owner], your servant, fades from your mind.</span>")
+			to_chat(master.current, span_warning("The essence of [owner], your servant, fades from your mind."))
 		if(owner.current)
-			to_chat(owner.current, "<span class='deconversion_message'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
+			to_chat(owner.current, "[span_deconversionmessage("Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!")]")
 			owner.current.visible_message("[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!", ignored_mobs = owner.current)
 
 	master = null
@@ -32,6 +32,9 @@
  */
 /datum/antagonist/heretic_monster/proc/set_owner(datum/mind/master)
 	src.master = master
+	var/datum/antagonist/heretic/master_heretic = master.has_antag_datum(/datum/antagonist/heretic)
+	if(master_heretic)
+		LAZYOR(master_heretic.monsters_summoned, WEAKREF(owner))
 
 	var/datum/objective/master_obj = new()
 	master_obj.owner = owner
@@ -40,8 +43,8 @@
 
 	objectives += master_obj
 	owner.announce_objectives()
-	to_chat(owner, "<span class='boldnotice'>You are a horrible creation brought to this plane through the Gates of the Mansus.</span>")
-	to_chat(owner, "<span class='notice'>Your master is [master.name]. Assist them to all ends.</span>")
+	to_chat(owner, span_boldnotice("You are a horrible creation brought to this plane through the Gates of the Mansus."))
+	to_chat(owner, span_notice("Your master is [master.name]. Assist them to all ends."))
 
 /datum/antagonist/heretic_monster/apply_innate_effects(mob/living/mob_override)
 	. = ..()

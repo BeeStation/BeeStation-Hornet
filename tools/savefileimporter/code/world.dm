@@ -15,8 +15,8 @@
 	sleep(100)
 
 	// Remove old entries
-	var/datum/DBQuery/q1 = NewDBQuery("DELETE FROM SS13_preferences", list())
-	var/datum/DBQuery/q2 = NewDBQuery("DELETE FROM SS13_characters", list())
+	var/datum/db_query/q1 = new_db_query("DELETE FROM SS13_preferences", list())
+	var/datum/db_query/q2 = new_db_query("DELETE FROM SS13_characters", list())
 	q1.Execute()
 	q2.Execute()
 

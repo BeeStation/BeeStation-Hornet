@@ -193,9 +193,9 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/pixel_y_offset = checked_atom.pixel_y + atom_matrix.get_y_shift()
 
 	//Irregular objects
-	var/icon/checked_atom_icon = icon(checked_atom.icon, checked_atom.icon_state)
-	var/checked_atom_icon_height = checked_atom_icon.Height()
-	var/checked_atom_icon_width = checked_atom_icon.Width()
+	var/list/icon_dimensions = get_icon_dimensions(checked_atom.icon)
+	var/checked_atom_icon_height = icon_dimensions["width"]
+	var/checked_atom_icon_width = icon_dimensions["height"]
 	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
 		pixel_x_offset += ((checked_atom_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 		pixel_y_offset += ((checked_atom_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
@@ -359,34 +359,61 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return picked_turfs
 
 /**
- * Checks whether the target turf is in a valid state to accept a directional window
- * or other directional pseudo-dense object such as railings.
+ * Checks whether the target turf is in a valid state to accept a directional construction
+ * such as windows or railings.
  *
- * Returns FALSE if the target turf cannot accept a directional window or railing.
+ * Returns FALSE if the target turf cannot accept a directional construction.
  * Returns TRUE otherwise.
  *
  * Arguments:
- * * dest_turf - The destination turf to check for existing windows and railings
+ * * dest_turf - The destination turf to check for existing directional constructions
  * * test_dir - The prospective dir of some atom you'd like to put on this turf.
  * * is_fulltile - Whether the thing you're attempting to move to this turf takes up the entire tile or whether it supports multiple movable atoms on its tile.
  */
-/proc/valid_window_location(turf/dest_turf, test_dir, is_fulltile = FALSE)
+/proc/valid_build_direction(turf/dest_turf, test_dir, is_fulltile = FALSE)
 	if(!dest_turf)
 		return FALSE
 	for(var/obj/turf_content in dest_turf)
-		if(istype(turf_content, /obj/machinery/door/window))
-			if((turf_content.dir == test_dir) || is_fulltile)
+		if(turf_content.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			if(is_fulltile)  // for making it so fulltile things can't be built over directional things--a special case
 				return FALSE
-		if(istype(turf_content, /obj/structure/windoor_assembly))
-			var/obj/structure/windoor_assembly/windoor_assembly = turf_content
-			if(windoor_assembly.dir == test_dir || is_fulltile)
-				return FALSE
-		if(istype(turf_content, /obj/structure/window))
-			var/obj/structure/window/window_structure = turf_content
-			if(window_structure.dir == test_dir || window_structure.fulltile || is_fulltile)
-				return FALSE
-		if(istype(turf_content, /obj/structure/railing))
-			var/obj/structure/railing/rail = turf_content
-			if(rail.dir == test_dir || is_fulltile)
+			if(turf_content.dir == test_dir)
 				return FALSE
 	return TRUE
+
+/proc/is_turf_safe(turf/open/floor/floor)
+	// It's probably not safe if it's not a floor.
+	if(!istype(floor))
+		return FALSE
+	var/datum/gas_mixture/air = floor.air
+	// Certainly unsafe if it completely lacks air.
+	if(QDELETED(air))
+		return FALSE
+	// Can most things breathe?
+	for(var/id in air.gases)
+		if(id in GLOB.hardcoded_gases)
+			continue
+		return FALSE
+	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || GET_MOLES(/datum/gas/plasma, air) || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
+		return FALSE
+	var/temperature = air.temperature
+	if(temperature <= 270 || temperature >= 360)
+		return FALSE
+	var/pressure = air.return_pressure()
+	if(pressure <= 20 || pressure >= 550)
+		return FALSE
+	return TRUE
+
+/// returns a turf that isn't holy from the list
+/proc/get_non_holy_tile_from_list(list/turf_list)
+	if(!length(turf_list))
+		CRASH("No turf list has been given")
+	var/list/copied_turf_list = turf_list.Copy()
+	var/turf/found_tile
+	do
+		found_tile = get_turf(pick_n_take(copied_turf_list)) // uses 'pick_an_take()' proc, so an item will be drawn from the list for each iteration. also, uses 'get_turf()` just in case.
+	while(found_tile && found_tile.is_holy() && length(copied_turf_list))
+
+	if(found_tile.is_holy()) // we found no valid tile at all
+		return
+	return found_tile

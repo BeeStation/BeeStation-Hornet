@@ -3,7 +3,7 @@
 	messages = list(
 		HOLOPARA_MESSAGE_USE = "You start to power on the injector...",
 		HOLOPARA_MESSAGE_USED = "The injector has already been used.",
-		HOLOPARA_MESSAGE_FAILED = "... <span class='red'>ERROR</span>. FAILED TO PROJECT WILLPOWER CRYSTALS ONTO HOST. <b>PLEASE TRY AGAIN LATER.</b>",
+		HOLOPARA_MESSAGE_FAILED = span_redtext("ERROR") + ". FAILED TO PROJECT WILLPOWER CRYSTALS ONTO HOST. <b>PLEASE TRY AGAIN LATER.</b>",
 		HOLOPARA_MESSAGE_SUCCESS = "Willpower crystal projection successful. <b>%NAME% is now online</b>!",
 		HOLOPARA_MESSAGE_LING_FAILED = "The crystals violently reverberate at you. They want <b>nothing</b> to do with a creature like you."
 	)
@@ -21,4 +21,5 @@
 	accent_overlay.plane = ABOVE_LIGHTING_PLANE
 	. += accent_overlay
 
-	. += emissive_appearance(initial(holoparasite.icon), "tech:accent:emissive")
+	. += emissive_blocker(initial(holoparasite.icon), initial(holoparasite.icon_state), holoparasite.layer)
+	. += emissive_appearance(initial(holoparasite.icon), "tech:accent:emissive", holoparasite.layer)

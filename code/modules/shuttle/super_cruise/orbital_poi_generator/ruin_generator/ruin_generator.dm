@@ -2,9 +2,6 @@
 //refactor this and make it not so absolutely abysmal to read.
 //This comment has been here since 09/09/2022 and yet still nobody has done this.
 
-#define OPEN_CONNECTION 1
-#define ROOM_CONNECTION 16
-
 /*
  * Generates a random space ruin.
  * Dimensions of maps need to be 4n+1 by 4n+1
@@ -20,10 +17,10 @@
  * can go past the border. No attachment points can be generated past the border.
  */
 /proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
-	var/datum/map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
+	var/datum/async_map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
 	ruin.generate()
 
-/datum/map_generator/space_ruin
+/datum/async_map_generator/space_ruin
 	/// The X position to start generating the ruin at
 	var/center_x
 	/// The Y position to start generating the ruin at
@@ -69,7 +66,7 @@
 
 	var/stage = 0
 
-/datum/map_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
+/datum/async_map_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 	. = ..()
 	src.center_x = center_x
 	src.center_y = center_y
@@ -121,12 +118,12 @@
 	structure_damage_prob = generator_settings.structure_damage_prob
 	floor_break_prob = generator_settings.floor_break_prob
 
-/datum/map_generator/space_ruin/complete()
+/datum/async_map_generator/space_ruin/complete()
 	..()
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = FALSE
 
-/datum/map_generator/space_ruin/execute_run()
+/datum/async_map_generator/space_ruin/execute_run()
 	..()
 	switch (stage)
 		if (0)
@@ -147,9 +144,9 @@
 			CRASH("Ruin generator in invalid state: [stage]")
 	return FALSE
 
-/datum/map_generator/space_ruin/proc/ruin_placer_run()
+/datum/async_map_generator/space_ruin/proc/ruin_placer_run()
 	// Lets pause for a bit to let the map generator catch up
-	if (length(SSmap_generator.executing_generators) > 15)
+	if (length(SSasync_map_generator.executing_generators) > 15)
 		return FALSE
 	sanity --
 	if(sanity < 0)
@@ -333,7 +330,7 @@
 
 	return !length(hallway_connections) && !length(room_connections)
 
-/datum/map_generator/space_ruin/proc/post_generation()
+/datum/async_map_generator/space_ruin/proc/post_generation()
 	//Lets place doors
 	for(var/door_pos in placed_room_entrances)
 		var/splitextdoor = splittext(door_pos, "_")
@@ -351,22 +348,12 @@
 				valid = FALSE
 		if(valid)
 			new /obj/machinery/door/airlock/hatch(T)
-			switch(placed_room_entrances[door_pos])
-				if(SOUTH, NORTH)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(NORTH)
-					b2.setDir(SOUTH)
-				if(EAST, WEST)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(EAST)
-					b2.setDir(WEST)
+			new /obj/machinery/door/firedoor(T)
 
 	//Repopulate areas
 	require_area_resort()
 
-/datum/map_generator/space_ruin/proc/put_shit_everywhere()
+/datum/async_map_generator/space_ruin/proc/put_shit_everywhere()
 	//Place trash
 	var/place = blocked_turfs[shit_index]
 	//Increment shit index
@@ -384,7 +371,7 @@
 			if(S)
 				S.take_damage(rand(0, S.max_integrity * 1.5))
 		return
-	if(prob(floor_break_prob) && istype(T, /turf/open/floor/plasteel))
+	if(prob(floor_break_prob) && istype(T, /turf/open/floor/iron))
 		T = T.ScrapeAway()
 	//Spawn floortrash.
 	var/new_floortrash = pick_weight(floortrash)
@@ -413,7 +400,7 @@
 							A.pixel_x = -32
 			break
 
-/datum/map_generator/space_ruin/proc/finalize()
+/datum/async_map_generator/space_ruin/proc/finalize()
 
 	//Generate objective stuff
 	if(linked_objective)

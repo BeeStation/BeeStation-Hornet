@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(networks)
 	// At round start, fix the network_id's so the station root is on them
 	initialized = TRUE
 	// Now when the objects Initialize they will join the right network
-	return ..()
+	return SS_INIT_SUCCESS
 
 /*
  * Process incoming queued packet and return NAK/ACK signals
@@ -140,10 +140,11 @@ SUBSYSTEM_DEF(networks)
 		/// Check if we are a list.  If so process the list
 		if(islist(current.receiver_id)) // are we a broadcast list
 			var/list/receivers = current.receiver_id
-			var/receiver_id = receivers[receivers.len] // pop it
-			receivers.len--
-			_process_packet(receiver_id, current)
-			if(receivers.len == 0) // pop it if done
+			if (length(receivers))
+				var/receiver_id = receivers[receivers.len] // pop it
+				receivers.len--
+				_process_packet(receiver_id, current)
+			if(!length(receivers)) // pop it if done
 				count_broadcasts_packets++
 				POP_PACKET(current)
 		else // else set up a broadcast or send a single targete

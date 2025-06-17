@@ -12,7 +12,7 @@
 
 /// Gets the user's antag token count from the DB. Blocking.
 /client/proc/get_antag_token_count_db()
-	var/datum/DBQuery/query_get_antag_tokens = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_antag_tokens = SSdbcore.NewQuery(
 		"SELECT antag_tokens FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -30,7 +30,7 @@
 /client/proc/set_antag_token_count(token_count)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(antag_token_count_cached == null)
-		to_chat(usr, "<span class='warning'>Error adjusting antag tokens!</span>")
+		to_chat(usr, span_warning("Error adjusting antag tokens!"))
 		CRASH("Antag token amount adjusted before value initialized")
 	antag_token_count_cached = token_count
 	INVOKE_ASYNC(src, PROC_REF(db_set_antag_token_count), token_count)
@@ -40,13 +40,13 @@
 /client/proc/inc_antag_token_count(token_count)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(antag_token_count_cached == null)
-		to_chat(usr, "<span class='warning'>Error adjusting antag tokens!</span>")
+		to_chat(usr, span_warning("Error adjusting antag tokens!"))
 		CRASH("Antag token amount adjusted before value initialized")
 	antag_token_count_cached += token_count
 	INVOKE_ASYNC(src, PROC_REF(db_inc_antag_token_count), token_count)
 
 /client/proc/db_inc_antag_token_count(token_count)
-	var/datum/DBQuery/query_inc_antag_tokens = SSdbcore.NewQuery(
+	var/datum/db_query/query_inc_antag_tokens = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET antag_tokens = antag_tokens + :token_count WHERE ckey = :ckey",
 		list("token_count" = token_count, "ckey" = ckey)
 	)
@@ -56,7 +56,7 @@
 	qdel(query_inc_antag_tokens)
 
 /client/proc/db_set_antag_token_count(token_count)
-	var/datum/DBQuery/query_set_antag_tokens = SSdbcore.NewQuery(
+	var/datum/db_query/query_set_antag_tokens = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET antag_tokens = :token_count WHERE ckey = :ckey",
 		list("token_count" = token_count, "ckey" = ckey)
 	)

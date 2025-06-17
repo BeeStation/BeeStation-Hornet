@@ -58,7 +58,7 @@
 /datum/component/deployable/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(try_deploy), user, user.loc)
-	return COMPONENT_NO_INTERACT
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/deployable/proc/on_afterattack(datum/source, atom/movable/target, mob/user, proximity_flag, params)
 	SIGNAL_HANDLER
@@ -66,16 +66,16 @@
 		return
 	if (!consumed && reload_type && istype(target, reload_type))
 		if (loaded)
-			to_chat(user, "<span class='warning'>You already have \a target docked!</span>")
+			to_chat(user, span_warning("You already have a target docked!"))
 			return
 		if(target.has_buckled_mobs())
 			if(target.buckled_mobs.len > 1)
 				target.unbuckle_all_mobs()
-				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [target].</span>")
+				user.visible_message(span_notice("[user] unbuckles all creatures from [target]."))
 			else
 				target.user_unbuckle_mob(target.buckled_mobs[1], user)
 		else
-			user.visible_message("[user] collects [target].", "<span class='notice'>You collect [target].</span>")
+			user.visible_message("[user] collects [target].", span_notice("You collect [target]."))
 			loaded = TRUE
 			item_parent.update_icon()
 			qdel(target)
@@ -103,13 +103,13 @@
 			if(!dense_location)
 				deploy(null, location)
 				return DEPLOYMENT_SUCCESS
-	item_parent.visible_message("<span class='warning'>[item_parent] fails to deploy!</span>")
+	item_parent.visible_message(span_warning("[item_parent] fails to deploy!"))
 
 ///Checks to see if object can deploy, either in a passed location or within its own location if none was passed and deploys if it can be.
 /datum/component/deployable/proc/try_deploy(mob/user, atom/location)
 	if(!consumed && !loaded)
 		if (user)
-			to_chat(user, "<span class='warning'>[item_parent] has nothing to deploy!</span>")
+			to_chat(user, span_warning("[item_parent] has nothing to deploy!"))
 		return
 	if(!location) //if no location was passed we use the current location.
 		location = item_parent.loc
@@ -129,10 +129,10 @@
 				return
 	if(user)
 		if(ignores_mob_density)
-			to_chat(user, "<span class='warning'>[item_parent] can only be deployed in an open area!</span>")
+			to_chat(user, span_warning("[item_parent] can only be deployed in an open area!"))
 		else
-			to_chat(user, "<span class='warning'>[item_parent] can only be deployed in an open area! Click an open area where has no dense object.</span>")
-	item_parent.visible_message("<span class='warning'>[item_parent] fails to deploy!</span>")
+			to_chat(user, span_warning("[item_parent] can only be deployed in an open area! Click an open area where has no dense object."))
+	item_parent.visible_message(span_warning("[item_parent] fails to deploy!"))
 
 ///Delays deployment for things which take time to set up
 /datum/component/deployable/proc/deploy_after(mob/user, atom/location)
@@ -140,7 +140,7 @@
 		deploy(user, location)
 		return
 
-	user?.visible_message("<span class='notice'>[user] begins to deploy [item_parent]...</span>")
+	user?.visible_message(span_notice("[user] begins to deploy [item_parent]..."))
 	if(do_after(user, time_to_deploy, item_parent))
 		deploy(user, location)
 

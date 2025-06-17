@@ -1,7 +1,6 @@
 /datum/objective/mutiny
 	name = "mutiny"
 	var/target_role_type=FALSE
-	martyr_compatible = 1
 
 /datum/objective/mutiny/find_target_by_role(role, role_type=FALSE,invert=FALSE)
 	if(!invert)
@@ -28,6 +27,6 @@
 		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
 		if(R)
 			R.objectives -= src
-			to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+			to_chat(M.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 			M.announce_objectives()
 	qdel(src)

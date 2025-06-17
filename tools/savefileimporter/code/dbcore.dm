@@ -17,8 +17,8 @@
 
 
 
-/proc/NewDBQuery(sql_query, arguments)
-	return new /datum/DBQuery(GLOB.dbconnection, sql_query, arguments)
+/proc/new_db_query(sql_query, arguments)
+	return new /datum/db_query(GLOB.dbconnection, sql_query, arguments)
 
 /proc/establish_db_connection()
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
@@ -39,7 +39,7 @@
 		GLOB.dbconnection = null
 		log_info("establish_db_connection() failed | [result["data"]]")
 
-/datum/DBQuery
+/datum/db_query
 	// Inputs
 	var/connection
 	var/sql
@@ -59,7 +59,7 @@
 
 	var/list/item  //list of data values populated by NextRow()
 
-/datum/DBQuery/New(connection, sql, arguments)
+/datum/db_query/New(connection, sql, arguments)
 	Activity("Created")
 	item = list()
 
@@ -67,11 +67,11 @@
 	src.sql = sql
 	src.arguments = arguments
 
-/datum/DBQuery/proc/Activity(activity)
+/datum/db_query/proc/Activity(activity)
 	last_activity = activity
 	last_activity_time = world.time
 
-/datum/DBQuery/proc/Execute()
+/datum/db_query/proc/Execute()
 	Activity("Execute")
 	if(in_progress)
 		CRASH("Attempted to start a new query while waiting on the old one")
@@ -90,7 +90,7 @@
 		log_info("Query used: [sql]")
 		log_info("Arguments: [list2params(arguments)]")
 
-/datum/DBQuery/proc/run_query()
+/datum/db_query/proc/run_query()
 	var/job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
 
 	var/result = json_decode(job_result_str)
@@ -107,7 +107,7 @@
 			last_error = "offline"
 			return FALSE
 
-/datum/DBQuery/proc/NextRow(async = TRUE)
+/datum/db_query/proc/NextRow(async = TRUE)
 	Activity("NextRow")
 
 	if (rows && next_row_to_take <= rows.len)
@@ -117,9 +117,9 @@
 	else
 		return FALSE
 
-/datum/DBQuery/proc/ErrorMsg()
+/datum/db_query/proc/ErrorMsg()
 	return last_error
 
-/datum/DBQuery/proc/Close()
+/datum/db_query/proc/Close()
 	rows = null
 	item = null

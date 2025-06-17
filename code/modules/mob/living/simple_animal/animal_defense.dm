@@ -1,55 +1,52 @@
+/mob/living/simple_animal/attack_hand(mob/living/carbon/human/M, modifiers)
+	// so that martial arts don't double dip
+	if (..())
+		return TRUE
 
-
-/mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
-	..()
-	switch(M.a_intent)
-		if("help")
-			if (health > 0)
-				visible_message("<span class='notice'>[M] [response_help] [src].</span>", \
-					"<span class='notice'>[M] [response_help] you.</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-		if("grab")
-			grabbedby(M)
-
-		if("disarm")
-			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			var/shove_dir = get_dir(M, src)
-			if(!Move(get_step(src, shove_dir), shove_dir))
-				log_combat(M, src, "shoved", "failing to move it")
-				M.visible_message("<span class='danger'>[M.name] shoves [src]!</span>",
-					"<span class='danger'>You shove [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
-				to_chat(src, "<span class='userdanger'>You're shoved by [M.name]!</span>")
-				return TRUE
-			log_combat(M, src, "shoved", "pushing it")
-			M.visible_message("<span class='danger'>[M.name] shoves [src], pushing [p_them()]!</span>",
-				"<span class='danger'>You shove [src], pushing [p_them()]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
-			to_chat(src, "<span class='userdanger'>You're pushed by [name]!</span>")
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+		playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		var/shove_dir = get_dir(M, src)
+		if(!Move(get_step(src, shove_dir), shove_dir))
+			log_combat(M, src, "shoved", "combat mode", "failing to move it")
+			M.visible_message("<span class='danger'>[M.name] shoves [src]!</span>",
+				"<span class='danger'>You shove [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
+			to_chat(src, "<span class='userdanger'>You're shoved by [M.name]!</span>")
 			return TRUE
 
-		if("harm")
-			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
-				return
-			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>",\
-				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
-			playsound(loc, attacked_sound, 25, 1, -1)
-			attack_threshold_check(M.dna.species.punchdamage)
-			log_combat(M, src, "attacked")
-			updatehealth()
-			return TRUE
+	if(!M.combat_mode)
+		if (stat == DEAD)
+			return
+		visible_message("<span class='notice'>[M] [response_help_continuous] [src].</span>", \
+						"<span class='notice'>[M] [response_help_continuous] you.</span>", null, null, M)
+		to_chat(M, "<span class='notice'>You [response_help_simple] [src].</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+
+	else
+		if(HAS_TRAIT(M, TRAIT_PACIFISM))
+			to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
+			return
+		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+		visible_message("<span class='danger'>[M] [response_harm_continuous] [src]!</span>",\
+						"<span class='userdanger'>[M] [response_harm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='danger'>You [response_harm_simple] [src]!</span>")
+		playsound(loc, attacked_sound, 25, TRUE, -1)
+		attack_threshold_check(M.dna.species.punchdamage)
+		log_combat(M, src, "attacked")
+		updatehealth()
+		return TRUE
 
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
+			to_chat(user, span_notice("You don't want to hurt [src]!"))
 			return FALSE
 		..(user, 1)
 		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] punches [src]!</span>", \
-			"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
+		visible_message(span_danger("[user] punches [src]!"), \
+				span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_danger("You punch [src]!"))
 		adjustBruteLoss(15)
 		return TRUE
 
@@ -59,30 +56,33 @@
 			var/damage = rand(1, 3)
 			attack_threshold_check(damage)
 			return 1
-	if (M.a_intent == INTENT_HELP)
+	if (!M.combat_mode)
 		if (health > 0)
-			visible_message("<span class='notice'>[M.name] [response_help] [src].</span>", \
-				"<span class='notice'>[M.name] [response_help] you.</span>")
+			visible_message(span_notice("[M.name] [response_help_continuous] [src]."), \
+							span_notice("[M.name] [response_help_continuous] you."), null, COMBAT_MESSAGE_RANGE, M)
+			to_chat(M, span_notice("You [response_help_simple] [src]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 
-/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
 	if(..()) //if harm or disarm intent.
-		if(M.a_intent == INTENT_DISARM)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", \
-					"<span class='userdanger'>[M] [response_disarm] you!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(M, src, "disarmed")
+			visible_message(span_danger("[M] [response_disarm_continuous] [name]!"), \
+							span_userdanger("[M] [response_disarm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, M)
+			to_chat(M, span_danger("You [response_disarm_simple] [name]!"))
+			log_combat(M, src, "disarmed", "disarm")
 		else
 			var/damage = rand(15, 30)
-			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
-					"<span class='userdanger'>[M] slashes at you!</span>", null, COMBAT_MESSAGE_RANGE)
+			visible_message(span_danger("[M] slashes at [src]!"), \
+							span_userdanger("You're slashed at by [M]!"), null, COMBAT_MESSAGE_RANGE, M)
+			to_chat(M, span_danger("You slash at [src]!"))
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			attack_threshold_check(damage)
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", "harm")
 		return 1
 
-/mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	. = ..()
 	if(. && stat != DEAD) //successful larva bite
 		var/damage = rand(5, 10)
@@ -101,7 +101,7 @@
 		var/damage = M.melee_damage
 		return attack_threshold_check(damage, M.melee_damage_type)
 
-/mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
 		var/damage = 20
 		if(M.is_adult)
@@ -111,8 +111,13 @@
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
-	if(M.a_intent == INTENT_HARM) //No kicking dogs even as a rogue drone. Use a weapon.
+	if(M.combat_mode) //No kicking dogs even as a rogue drone. Use a weapon.
 		return
+	return ..()
+
+/mob/living/simple_animal/attack_drone_secondary(mob/living/simple_animal/drone/M)
+	if(M.combat_mode)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE)
@@ -123,7 +128,7 @@
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))

@@ -39,7 +39,6 @@
 #define EXP_TYPE_SECURITY		"Security"
 #define EXP_TYPE_SILICON		"Silicon"
 #define EXP_TYPE_SERVICE		"Service"
-#define EXP_TYPE_GIMMICK		"Gimmick"
 #define EXP_TYPE_ANTAG			"Antag"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_GHOST			"Ghost"
@@ -140,6 +139,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_TAG_KEYBINDS			"key_bindings"
 #define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
 #define PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL "be_special"
+#define PREFERENCE_TAG_FAVORITE_OUTFITS "favorite_outfits"
 #define PREFERENCE_TAG_PAI_NAME			"pai_name"
 #define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
 #define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
@@ -151,6 +151,7 @@ GLOBAL_LIST_INIT(undatumized_preference_tags_player, list(
 	PREFERENCE_TAG_KEYBINDS,
 	PREFERENCE_TAG_PURCHASED_GEAR,
 	PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL,
+	PREFERENCE_TAG_FAVORITE_OUTFITS,
 	PREFERENCE_TAG_PAI_NAME,
 	PREFERENCE_TAG_PAI_DESCRIPTION,
 	PREFERENCE_TAG_PAI_COMMENT,
@@ -178,6 +179,9 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 #define PREFERENCE_SHEET_LARGE "preferences_l"
 #define PREFERENCE_SHEET_HUGE "preferences_h"
 
+#define PREFERENCE_BODYZONE_SIMPLIFIED "Simplified Targeting"	// Use the simplified system
+#define PREFERENCE_BODYZONE_INTENT "Precise Targeting"	// Use the bodyzone intent system
+
 /// Stop loading immediately, inform the user. Do not save the data.
 #define PREFERENCE_LOAD_ERROR 0
 /// There is no data to load, they are a guest and will never have this data.
@@ -186,3 +190,58 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 #define PREFERENCE_LOAD_NO_DATA 2
 /// Normal behavior - success!
 #define PREFERENCE_LOAD_SUCCESS 3
+
+// Priorities must be in order!
+/// The default priority level
+#define PREFERENCE_PRIORITY_DEFAULT 1
+
+/// The priority at which species runs, needed for external organs to apply properly.
+#define PREFERENCE_PRIORITY_SPECIES 2
+
+/// The priority at which gender is determined, needed for proper randomization.
+#define PREFERENCE_PRIORITY_GENDER 3
+
+/// The priority at which body model is decided, applied after gender so we can
+/// make sure they're non-binary.
+#define PREFERENCE_PRIORITY_BODY_MODEL 4
+
+/// The priority at which eye color is applied, needed so IPCs get the right screen color.
+#define PREFERENCE_PRIORITY_EYE_COLOR 4
+
+/// The priority at which names are decided, needed for proper randomization.
+#define PREFERENCE_PRIORITY_NAMES 4
+
+/// The priority at which hair color is applied, needed so IPCs get the right antenna color.
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_HAIR_COLOR 4
+
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_HAIR_STYLE 4
+
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_FACIAL_HAIR 4
+
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_SOCKS 4
+
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_UNDERSHIRT 4
+
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_UNDERWEAR 4
+
+/// Dependant on hair colour to create an informed value
+#define PREFERENCE_PRIORITY_FACIAL_COLOR 5
+
+/// Dependant on hair colour and gender to create an informed value
+#define PREFERENCE_PRIORITY_GRADIENT_COLOR 5
+
+/// The maximum preference priority, keep this updated, but don't use it for `priority`.
+#define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_GRADIENT_COLOR
+
+/// For choiced preferences, this key will be used to set display names in constant data.
+#define CHOICED_PREFERENCE_DISPLAY_NAMES "display_names"
+
+/// For main feature preferences, this key refers to a feature considered supplemental.
+/// For instance, hair color being supplemental to hair.
+#define SUPPLEMENTAL_FEATURE_KEY "supplemental_feature"

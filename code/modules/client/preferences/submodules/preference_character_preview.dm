@@ -46,10 +46,12 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	/// The preferences this refers to
 	var/datum/preferences/preferences
 
-	var/list/plane_masters = list()
+	var/datum/remote_view/remote_view
 
 	/// List of clients with this registered to it.
 	var/list/viewing_clients = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_view)
 
 /atom/movable/screen/map_view/character_preview_view/Initialize(mapload, datum/preferences/preferences)
 	. = ..()
@@ -64,27 +66,17 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 /atom/movable/screen/map_view/character_preview_view/Destroy()
 	QDEL_NULL(body)
 
-	for (var/plane_master in plane_masters)
-		qdel(plane_master)
-
 	for(var/client/C as anything in viewing_clients)
-		C?.clear_map(assigned_map)
+		remote_view.leave(C)
+
+	QDEL_NULL(remote_view)
 
 	preferences?.character_preview_view = null
 
 	viewing_clients = null
-	plane_masters = null
 	preferences = null
 
 	return ..()
-
-/// I know this looks stupid but it fixes a really important bug. https://www.byond.com/forum/post/2873835
-/// Also the mouse opacity blocks this from being visible ever
-/atom/movable/screen/map_view/character_preview_view/proc/rename_byond_bug_moment()
-	#if MIN_COMPILER_VERSION > 514
-		#warn Remove 514 BYOND bug workaround in preferences character preview
-	#endif
-	name = name == "character_preview" ? "character_preview_1" : "character_preview"
 
 /// Updates the currently displayed body
 /atom/movable/screen/map_view/character_preview_view/proc/update_body()
@@ -93,8 +85,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	else
 		body.wipe_state()
 	body.appearance = preferences.render_new_preview_appearance(body)
-	// Force map view to update as well
-	name = name == "character_preview" ? "character_preview_1" : "character_preview"
 
 /atom/movable/screen/map_view/character_preview_view/proc/create_body()
 	vis_contents.Cut()
@@ -111,23 +101,18 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 /atom/movable/screen/map_view/character_preview_view/proc/register_to_client(client/client)
 	if(client in viewing_clients)
 		return
-	if(!length(plane_masters))
-		for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-			var/atom/movable/screen/plane_master/instance = new plane()
-			instance.assigned_map = assigned_map
-			if(instance.blend_mode_override)
-				instance.blend_mode = instance.blend_mode_override
-			instance.del_on_map_removal = FALSE
-			instance.screen_loc = "[assigned_map]:CENTER"
-			plane_masters += instance
+	if(!remote_view)
+		remote_view = new(assigned_map)
+		var/atom/lighting_plane = remote_view.get_plane(/atom/movable/screen/plane_master/lighting)
+		lighting_plane?.alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 	viewing_clients += client
 	client.register_map_obj(src)
-	for(var/plane_master in plane_masters)
-		client.register_map_obj(plane_master)
+	remote_view.join(client)
 
 /// Unregisters the relevant map objects to a client
 /atom/movable/screen/map_view/character_preview_view/proc/unregister_from_client(client/client)
 	if(!istype(client) || !(client in viewing_clients))
 		return
-	client.clear_map(assigned_map)
+	remote_view.leave(client)
 	viewing_clients -= client
+	QDEL_NULL(remote_view)

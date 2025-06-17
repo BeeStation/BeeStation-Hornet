@@ -11,21 +11,3 @@
 .Flex--inline {
   display: inline-flex;
 }
-
-.Flex--iefix {
-  display: block;
-}
-
-.Flex--iefix.Flex--inline {
-  display: inline-block;
-}
-
-.Flex__item--iefix {
-  display: inline-block;
-}
-
-.Flex--iefix--column {
-  & > .Flex__item--iefix {
-    display: block;
-  }
-}

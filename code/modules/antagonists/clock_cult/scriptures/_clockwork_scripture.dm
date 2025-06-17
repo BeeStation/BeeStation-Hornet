@@ -1,3 +1,8 @@
+
+#define KINDLE 0
+#define MANACLES 1
+#define COMPROMISE 2
+
 /datum/clockcult/scripture
 	var/name = ""
 	var/desc = ""
@@ -76,7 +81,7 @@
 		message_admins("No invoker for [name]")
 		return FALSE
 	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
-		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
+		to_chat(invoker, span_brass("You fail to invoke [name]."))
 		return FALSE
 	var/invokers
 	for(var/mob/living/M in viewers(invoker))
@@ -85,13 +90,13 @@
 		if(is_servant_of_ratvar(M))
 			invokers++
 	if(invokers < invokers_required)
-		to_chat(invoker, "<span class='brass'>You need [invokers_required] servants to channel [name]!</span>")
+		to_chat(invoker, span_brass("You need [invokers_required] servants to channel [name]!"))
 		return FALSE
 	return TRUE
 
 /datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
 	if(M.get_active_held_item() != slab && !iscyborg(M))
-		to_chat(M, "<span class='brass'>You need to have the [slab.name] in your active hand to recite scriptures.</span>")
+		to_chat(M, span_brass("You need to have the [slab.name] in your active hand to recite scriptures."))
 		return
 	slab.invoking_scripture = src
 	invoker = M
@@ -106,7 +111,7 @@
 	recital()
 	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, PROC_REF(check_special_requirements), M)))
 		invoke()
-		to_chat(M, "<span class='brass'>You invoke [name].</span>")
+		to_chat(M, span_brass("You invoke [name]."))
 		if(end_on_invokation)
 			end_invoke()
 	else
@@ -131,7 +136,7 @@
 	if(!..())
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
-		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
+		to_chat(invoker, span_brass("You cannot invoke that here, the tile is occupied by [structure]."))
 		return FALSE
 	return TRUE
 
@@ -156,34 +161,30 @@
 	var/uses = 1
 	var/after_use_text = ""
 	end_on_invokation = FALSE
-
-	var/obj/effect/proc_holder/slab/PH
+	var/timeout_time = 0
+	var/allow_mobility = TRUE //if moving and swapping hands is allowed during the while
 
 	var/uses_left
 	var/time_left = 0
 	var/loop_timer_id
+	var/empowerment
 
-/datum/clockcult/scripture/slab/New()
-	PH = new
-	PH.parent_scripture = src
-	..()
 
 /datum/clockcult/scripture/slab/Destroy()
 	if(progress)
 		QDEL_NULL(progress)
-	if(!QDELETED(PH))
-		PH.remove_ranged_ability()
-		QDEL_NULL(PH)
 	return ..()
 
+
 /datum/clockcult/scripture/slab/invoke()
-	progress = new(invoker, use_time)
+	progress = new(invoker, use_time, invoking_slab)
 	uses_left = uses
 	time_left = use_time
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = src
-	PH.add_ranged_ability(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
+	invoking_slab.empowerment = empowerment
+	to_chat(invoker, span_brass("You prepare [name]. <b>Click on a target to use.</b>"))
 	count_down()
 	invoke_success()
 
@@ -198,51 +199,46 @@
 	else
 		end_invokation()
 
-/datum/clockcult/scripture/slab/proc/click_on(atom/A)
-	if(!invoker.can_interact_with(A))
-		return
-	if(apply_effects(A))
-		uses_left --
-		if(uses_left <= 0)
-			if(after_use_text)
-				clockwork_say(invoker, text2ratvar(after_use_text), TRUE)
-			end_invokation()
-
 /datum/clockcult/scripture/slab/proc/end_invokation()
 	//Remove the timer if there is one currently active
 	if(loop_timer_id)
 		deltimer(loop_timer_id)
 		loop_timer_id = null
-	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
-	qdel(progress)
-	PH.remove_ranged_ability()
+	to_chat(invoker, span_brass("You are no longer invoking <b>[name]</b>"))
+	progress.end_progress()
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = null
+	empowerment = null
 	end_invoke()
 
-/datum/clockcult/scripture/slab/proc/apply_effects(atom/A)
-	return TRUE
 
-/obj/effect/proc_holder/slab
-	var/datum/clockcult/scripture/slab/parent_scripture
-
-/obj/effect/proc_holder/slab/InterceptClickOn(mob/living/caller, params, atom/A)
-	parent_scripture?.click_on(A)
+/datum/clockcult/scripture/slab/proc/on_slab_attack(atom/target, mob/user)
+	switch(empowerment)
+		if(KINDLE)
+			kindle(user, target)
+			end_invokation()
+		if(MANACLES)
+			hateful_manacles(user, target)
+			end_invokation()
+		if(COMPROMISE)
+			sentinels_compromise(user, target)
+			end_invokation()
+	return
 
 //==================================//
 // !       Quick bind spell       ! //
 //==================================//
 
 /datum/action/innate/clockcult
-	icon_icon = 'icons/mob/actions/actions_clockcult.dmi'
+	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_clock"
 	buttontooltipstyle = "brass"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/clockcult/quick_bind
 	name = "Quick Bind"
-	button_icon_state = "telerune"
 	desc = "A quick bound spell."
 	var/obj/item/clockwork/clockwork_slab/activation_slab
 	var/datum/clockcult/scripture/scripture
@@ -259,26 +255,19 @@
 	if(scripture.power_cost)
 		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
 	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE
 
-/datum/action/innate/clockcult/quick_bind/Remove(mob/M)
-	if(activation_slab.invoking_scripture == scripture)
-		activation_slab.invoking_scripture = null
-	..(M)
-
-/datum/action/innate/clockcult/quick_bind/IsAvailable()
+/datum/action/innate/clockcult/quick_bind/is_available()
 	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockcult/quick_bind/Activate()
+/datum/action/innate/clockcult/quick_bind/on_activate()
 	if(!activation_slab)
 		return
 	if(!activation_slab.invoking_scripture)
 		scripture.begin_invoke(owner, activation_slab)
 	else
-		to_chat(owner, "<span class='brass'>You fail to invoke [name].</span>")
+		to_chat(owner, span_brass("You fail to invoke [name]."))
 
 //==================================//
 // !     Hierophant Transmit      ! //
@@ -288,7 +277,7 @@
 	button_icon_state = "hierophant"
 	desc = "Transmit a message to your allies through the Hierophant."
 
-/datum/action/innate/clockcult/transmit/IsAvailable()
+/datum/action/innate/clockcult/transmit/is_available()
 	if(!is_servant_of_ratvar(owner))
 		Remove(owner)
 		return FALSE
@@ -296,10 +285,8 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockcult/transmit/Activate()
+/datum/action/innate/clockcult/transmit/on_activate()
 	hierophant_message(tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE), owner, "<span class='brass'>")
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)
 	..(M)
-	button.locked = TRUE
-	button.ordered = TRUE

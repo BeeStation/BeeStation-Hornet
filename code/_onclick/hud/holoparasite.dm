@@ -32,7 +32,7 @@
 /datum/hud/holoparasite/persistent_inventory_update(mob/viewer)
 	if(!owner)
 		return
-	var/datum/holoparasite_ability/major/dextrous/dexterity = owner.stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = owner.stats.weapon
 	if(!dexterity || !istype(dexterity))
 		return
 	if(hud_shown)
@@ -117,7 +117,9 @@
 	var/static/list/mutable_appearance/timer_fraction_overlays
 	COOLDOWN_DECLARE(timer)
 
-/atom/movable/screen/holoparasite/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
+
+/atom/movable/screen/holoparasite/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
 	. = ..()
 	if(!istype(_owner))
 		CRASH("Tried to create a holoparasite HUD element without a parent holoparasite!")
@@ -136,7 +138,7 @@
 		LAZYADD(accent_overlays, overlay)
 	RegisterSignal(owner, COMSIG_HOLOPARA_SET_ACCENT_COLOR, PROC_REF(on_set_accent_color))
 	RegisterSignal(owner, COMSIG_MOB_LOGIN, PROC_REF(on_login))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_POST_MANIFEST, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED), PROC_REF(_update_appearance))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_POST_MANIFEST, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED), PROC_REF(_update_appearance))
 
 /atom/movable/screen/holoparasite/Destroy()
 	stop_timer()
@@ -150,13 +152,17 @@
 	return ..()
 
 /atom/movable/screen/holoparasite/MouseEntered(location, control, params)
-	if(!QDELETED(src))
+	..()
+	if(QDELETED(src))
+		return
+	if(usr == owner)
 		last_params = params
-		openToolTip(usr, src, params, title = name, content = tooltip_content(), theme = "parasite")
+	openToolTip(usr, src, params, title = name, content = tooltip_content(), theme = "parasite")
 
 /atom/movable/screen/holoparasite/MouseExited()
 	closeToolTip(usr)
-	last_params = null
+	if(usr == owner)
+		last_params = null
 
 /atom/movable/screen/holoparasite/update_icon(updates)
 	cut_overlays()
@@ -185,6 +191,10 @@
 	cut_overlays()
 	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR(COOLDOWN_TIMELEFT(src, timer) * 0.1, 1)]s</span></center>"
 	update_icon()
+
+/atom/movable/screen/holoparasite/Click()
+	if(usr == owner)
+		use()
 
 /**
  * Return TRUE if the HUD button should be transparent, like if it's on cooldown or something.
@@ -275,6 +285,9 @@
 /atom/movable/screen/holoparasite/proc/accent_overlays()
 	return accent_overlays
 
+/atom/movable/screen/holoparasite/proc/use()
+	return
+
 /**
  * The timer overlay to apply to the HUD.
  */
@@ -290,7 +303,7 @@
 	desc = "View information about yourself and your summoner."
 	icon_state = "info"
 
-/atom/movable/screen/holoparasite/info/Click(location, control, params)
+/atom/movable/screen/holoparasite/info/use()
 	var/datum/antagonist/holoparasite/holopara_antag = owner.mind?.has_antag_datum(/datum/antagonist/holoparasite)
 	holopara_antag?.ui_interact(owner)
 
@@ -314,7 +327,7 @@
 	icon_state = owner.is_manifested() ? recall_icon : initial(icon_state)
 	return ..()
 
-/atom/movable/screen/holoparasite/manifest_recall/Click()
+/atom/movable/screen/holoparasite/manifest_recall/use()
 	if(owner.is_manifested())
 		owner.recall()
 	else
@@ -328,7 +341,7 @@
 	desc = "Communicate telepathically with your summoner. Nobody except yourself, your summoner, and any other holoparasites linked to your summoner can hear this communication.\nYou can also use :p / .p in order to communicate."
 	icon_state = "communicate"
 
-/atom/movable/screen/holoparasite/communicate/Click()
+/atom/movable/screen/holoparasite/communicate/use()
 	owner.communicate()
 
 /atom/movable/screen/holoparasite/toggle_light
@@ -347,7 +360,7 @@
 	desc = activated() ? off_desc : initial(desc)
 	return ..()
 
-/atom/movable/screen/holoparasite/toggle_light/Click()
+/atom/movable/screen/holoparasite/toggle_light/use()
 	owner.toggle_light()
 	update_appearance()
 
@@ -359,7 +372,7 @@
 	name = "Set Battlecry"
 	desc = "Set (or disable) your battlecry - the phrase you shout out whenever you hit something."
 
-/atom/movable/screen/holoparasite/set_battlecry/Click()
+/atom/movable/screen/holoparasite/set_battlecry/use()
 	owner.set_battlecry_v()
 	reopen_tooltip()
 

@@ -4,30 +4,28 @@
 
 	if(!LAZYLEN(allowed_food)) //it's static so we only ever do this once
 		var/list/blocked = list(
-		/obj/item/food/spaghetti,
-		/obj/item/food/bread,
-		/obj/item/food/breadslice,
-		/obj/item/food/cake,
-		/obj/item/food/cakeslice,
-		/obj/item/reagent_containers/food/snacks/store,
-		/obj/item/reagent_containers/food/snacks/pie,
-		/obj/item/reagent_containers/food/snacks/kebab,
-		/obj/item/food/pizza,
-		/obj/item/food/pizzaslice,
-		/obj/item/reagent_containers/food/snacks/salad,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/meat/slab,
-		/obj/item/reagent_containers/food/snacks/soup,
-		/obj/item/reagent_containers/food/snacks/grown,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/food/deepfryholder,
-		/obj/item/reagent_containers/food/snacks/clothing,
-		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
-		/obj/item/food/bread,
-		/obj/item/reagent_containers/food/snacks/grown/nettle,
-		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
+			/obj/item/food/bread,
+			/obj/item/food/breadslice,
+			/obj/item/food/cake,
+			/obj/item/food/cakeslice,
+			/obj/item/food/clothing,
+			/obj/item/food/grown,
+			/obj/item/food/grown/ash_flora,
+			/obj/item/food/grown/mushroom,
+			/obj/item/food/grown/nettle,
+			/obj/item/food/grown/shell,
+			/obj/item/food/grown/shell/gatfruit,
+			/obj/item/food/kebab,
+			/obj/item/food/meat,
+			/obj/item/food/meat/slab,
+			/obj/item/food/meat/slab/human/mutant,
+			/obj/item/food/pie,
+			/obj/item/food/pieslice,
+			/obj/item/food/pizza,
+			/obj/item/food/pizzaslice,
+			/obj/item/food/salad,
+			/obj/item/food/soup,
 		)
-		blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
 		var/list/unfiltered_allowed_food = subtypesof(/obj/item/food) - blocked
 		for(var/obj/item/food/food as anything in unfiltered_allowed_food)
@@ -39,10 +37,11 @@
 
 ///Gets a random drink excluding the blocked type
 /proc/get_random_drink()
-	var/list/blocked = list(/obj/item/reagent_containers/food/drinks/soda_cans,
-		/obj/item/reagent_containers/food/drinks/bottle
+	var/list/blocked = list(
+		/obj/item/reagent_containers/cup/soda_cans,
+		/obj/item/reagent_containers/cup/glass/bottle
 		)
-	return pick(subtypesof(/obj/item/reagent_containers/food/drinks) - blocked)
+	return pick(subtypesof(/obj/item/reagent_containers/cup/glass) - blocked)
 
 /// Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ion_num()
@@ -54,3 +53,14 @@
 	while(length(str) < 5)
 		str = "0" + str
 	. = str
+
+/proc/get_random_seed()
+	var/list/blocked = list(
+		/obj/item/seeds/banana/bombanana,
+		/obj/item/seeds/lavaland,
+		/obj/item/seeds/flower,
+		/obj/item/seeds/sample,
+		/obj/item/seeds/sample/alienweed,
+		/obj/item/seeds/cherry/bomb
+		)
+	return pick(subtypesof(/obj/item/seeds) - blocked)

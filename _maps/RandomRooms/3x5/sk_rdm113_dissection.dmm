@@ -3,11 +3,11 @@
 /obj/structure/closet/l3closet,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
 /obj/machinery/shower{
@@ -21,7 +21,7 @@
 	dir = 8
 	},
 /obj/machinery/iv_drip,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "e" = (
 /obj/structure/sink{
@@ -29,13 +29,13 @@
 	pixel_x = 11
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "f" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "g" = (
 /obj/effect/turf_decal/stripes/line{
@@ -43,14 +43,14 @@
 	},
 /obj/effect/trap/nexus/trickyspawner/catbutcher,
 /obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "h" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "i" = (
 /obj/structure/table/optable,
@@ -59,11 +59,11 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "j" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "k" = (
 /obj/structure/table/glass,
@@ -74,7 +74,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "l" = (
 /obj/effect/decal/cleanable/dirt,
@@ -82,10 +82,10 @@
 	icon_state = "0";
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "m" = (
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "n" = (
 /obj/structure/closet/crate/freezer,
@@ -95,7 +95,7 @@
 /obj/item/organ/eyes/moth,
 /obj/item/organ/eyes/robotic,
 /obj/effect/spawner/lootdrop/teratoma/major,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 
 (1,1,1) = {"

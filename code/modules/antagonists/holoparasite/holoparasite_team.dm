@@ -21,7 +21,7 @@
 	record_to_blackbox() // bleh I don't like doing this here, but there's no other place to do it without adding new signals, and I've added WAY too many signals already...
 	return {"
 		<div class='panel [considered_alive(holder.owner) ? "green" : "red"]border'>
-			<span class='header'>[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:</span>
+			[span_header("[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:")]
 			<br>
 			[print_all_holoparas()]
 		</div>
@@ -80,7 +80,7 @@
 		info["escaped"] = holder.owner.force_escaped || summoner_turf.onCentCom() || summoner_turf.onSyndieBase()
 		if(summoner.stat != DEAD)
 			info["stat"] = "alive"
-			info["crit"] = summoner.InCritical()
+			info["crit"] = HAS_TRAIT(summoner, TRAIT_CRITICAL_CONDITION)
 	SSblackbox.record_feedback("associative", "holoparasite_user_roundend_stat", 1, info)
 	SSblackbox.record_feedback("tally", "holoparasites_per_summoner", 1, length(members))
 
@@ -99,7 +99,7 @@
 			</div>
 			<div class="section-rest">
 				<div class="section-content">
-					[html_encode(replacetext(body, "$theme", lowertext(holoparasite.theme.name)))]
+					[html_encode(replacetext(body, "$theme", LOWER_TEXT(holoparasite.theme.name)))]
 				</div>
 			</span>
 		</div>

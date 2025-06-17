@@ -53,6 +53,12 @@
 		var/obj/item/circuit_component/component_path = build_path
 		desc = initial(component_path.desc)
 
+/datum/design/component/abs
+	name = "Absolute Component"
+	id = "comp_abs"
+	build_path = /obj/item/circuit_component/abs
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
 /datum/design/component/arbitrary_input_amount/arithmetic
 	name = "Arithmetic Component"
 	id = "comp_arithmetic"
@@ -95,6 +101,14 @@
 	build_path = /obj/item/circuit_component/iterator
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
+
+/datum/design/component/switch_case
+	name = "Switch Case"
+	id = "comp_switch_case"
+	build_path = /obj/item/circuit_component/switch_case
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
+
 /datum/design/component/delay
 	name = "Delay Component"
 	id = "comp_delay"
@@ -130,6 +144,12 @@
 	id = "comp_length"
 	build_path = /obj/item/circuit_component/length
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS, WIREMOD_STRING_COMPONENTS)
+
+/datum/design/component/trim
+	name = "String Trim Component"
+	id = "comp_trim"
+	build_path = /obj/item/circuit_component/trim
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS)
 
 /datum/design/component/light
 	name = "Light Component"
@@ -419,7 +439,7 @@
 	name = "Compact Remote Shell"
 	desc = "A handheld shell with one big button."
 	id = "compact_remote_shell"
-	build_path = /obj/item/compact_remote
+	build_path = /obj/item/shell/compact_remote
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 5000)
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
@@ -428,7 +448,7 @@
 	name = "Controller Shell"
 	desc = "A handheld shell with several buttons."
 	id = "controller_shell"
-	build_path = /obj/item/controller
+	build_path = /obj/item/shell/controller
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 7000)
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
@@ -437,7 +457,7 @@
 	name = "Scanner Shell"
 	desc = "A handheld scanner shell that can scan entities."
 	id = "scanner_shell"
-	build_path = /obj/item/wiremod_scanner
+	build_path = /obj/item/shell/wiremod_scanner
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 4000, /datum/material/iron = 5000)
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)

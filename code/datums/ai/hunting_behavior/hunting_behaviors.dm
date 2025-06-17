@@ -100,7 +100,7 @@
 
 	if(QDELETED(hunted))
 		//Target is gone for some reason. forget about this task!
-		controller[hunting_target_key] = null
+		controller.blackboard[hunting_target_key] = null
 		finish_action(controller, FALSE, hunting_target_key)
 		return
 

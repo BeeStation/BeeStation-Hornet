@@ -10,6 +10,9 @@
 	e_cost = 71
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/lasergun/repeater
+	e_cost = 50
+
 /obj/item/ammo_casing/energy/lasergun/captain
 	e_cost = 100 // Older technology is less efficient
 
@@ -54,8 +57,16 @@
 	select_name = "bluetag"
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/laser/bluetag/update_overlays()
+	. = ..()
+	return
+
 /obj/item/ammo_casing/energy/laser/bluetag/hitscan
 	projectile_type = /obj/projectile/beam/lasertag/bluetag/hitscan
+
+/obj/item/ammo_casing/energy/laser/bluetag/update_overlays()
+	. = ..()
+	return
 
 /obj/item/ammo_casing/energy/laser/redtag
 	projectile_type = /obj/projectile/beam/lasertag/redtag

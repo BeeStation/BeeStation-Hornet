@@ -12,9 +12,11 @@ GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages 
 	name = "subspace broadcaster"
 	icon_state = "broadcaster"
 	desc = "A dish-shaped machine used to broadcast processed subspace signals."
+	telecomms_type = /obj/machinery/telecomms/broadcaster
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 25
+	idle_power_usage = 5
+	active_power_usage = 20
 	circuit = /obj/item/circuitboard/machine/telecomms/broadcaster
 
 /obj/machinery/telecomms/broadcaster/receive_information(datum/signal/subspace/signal, obj/machinery/telecomms/machine_from)
@@ -45,6 +47,7 @@ GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages 
 		sleep(signal.data["slow"]) // simulate the network lag if necessary
 
 	signal.broadcast()
+	use_power(active_power_usage)
 
 	if(!GLOB.message_delay)
 		GLOB.message_delay = 1

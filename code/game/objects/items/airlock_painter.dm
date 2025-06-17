@@ -6,14 +6,15 @@
 
 /obj/item/airlock_painter
 	name = "airlock painter"
-	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob. Alt-Click to remove the ink cartridge."
+	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint_sprayer"
 	item_state = "paint_sprayer"
-
+	worn_icon_state = "painter"
 	w_class = WEIGHT_CLASS_SMALL
 
-	materials = list(/datum/material/iron=50, /datum/material/glass=50)
+	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
@@ -81,19 +82,19 @@
 //because you're expecting user input.
 /obj/item/airlock_painter/proc/can_use(mob/user)
 	if(!ink)
-		to_chat(user, "<span class='notice'>There is no toner cartridge installed in [src]!</span>")
+		to_chat(user, span_notice("There is no toner cartridge installed in [src]!"))
 		return FALSE
 	else if(ink.charges < 1)
-		to_chat(user, "<span class='notice'>[src] is out of ink!</span>")
+		to_chat(user, span_notice("[src] is out of ink!"))
 		return FALSE
 	else
 		return TRUE
 
 /obj/item/airlock_painter/suicide_act(mob/living/user)
-	var/obj/item/organ/lungs/L = user.getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs/L = user.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(can_use(user) && L)
-		user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 		use(user)
 
 		// Once you've inhaled the toner, you throw up your lungs
@@ -115,31 +116,31 @@
 		// make some colorful reagent, and apply it to the lungs
 		L.create_reagents(10)
 		L.reagents.add_reagent(/datum/reagent/colorful_reagent, 10)
-		L.reagents.reaction(L, TOUCH, 1)
+		L.reagents.expose(L, TOUCH, 1)
 
 		// TODO maybe add some colorful vomit?
 
-		user.visible_message("<span class='suicide'>[user] vomits out [user.p_their()] [L]!</span>")
+		user.visible_message(span_suicide("[user] vomits out [user.p_their()] [L]!"))
 		playsound(user.loc, 'sound/effects/splat.ogg', 50, 1)
 
 		L.forceMove(T)
 
 		return (TOXLOSS|OXYLOSS)
 	else if(can_use(user) && !L)
-		user.visible_message("<span class='suicide'>[user] is spraying toner on [user.p_them()]self from [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message(span_suicide("[user] is spraying toner on [user.p_them()]self from [src]! It looks like [user.p_theyre()] trying to commit suicide."))
 		user.reagents.add_reagent(/datum/reagent/colorful_reagent, 1)
-		user.reagents.reaction(user, TOUCH, 1)
+		user.reagents.expose(user, TOUCH, 1)
 		return TOXLOSS
 
 	else
-		user.visible_message("<span class='suicide'>[user] is trying to inhale toner from [src]! It might be a suicide attempt if [src] had any toner.</span>")
+		user.visible_message(span_suicide("[user] is trying to inhale toner from [src]! It might be a suicide attempt if [src] had any toner."))
 		return SHAME
 
 
 /obj/item/airlock_painter/examine(mob/user)
 	. = ..()
 	if(!ink)
-		. += "<span class='notice'>The ink compartment hangs open.</span>"
+		. += span_notice("The ink compartment hangs open.")
 		return
 	var/ink_level = "high"
 	switch(ink.charges/ink.max_charges)
@@ -154,17 +155,17 @@
 	if(ink.charges <= 0)
 		ink_level = "empty"
 
-	. += "<span class='notice'>Its ink levels look [ink_level].</span>"
+	. += span_notice("Its ink levels look [ink_level].")
 
 
 /obj/item/airlock_painter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toner))
 		if(ink)
-			to_chat(user, "<span class='notice'>[src] already contains \a [ink].</span>")
+			to_chat(user, span_notice("[src] already contains \a [ink]."))
 			return
 		if(!user.transferItemToLoc(W, src))
 			return
-		to_chat(user, "<span class='notice'>You install [W] into [src].</span>")
+		to_chat(user, span_notice("You install [W] into [src]."))
 		ink = W
 		update_icon()
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
@@ -179,13 +180,14 @@
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		ink.forceMove(user.drop_location())
 		user.put_in_hands(ink)
-		to_chat(user, "<span class='notice'>You remove [ink] from [src].</span>")
+		to_chat(user, span_notice("You remove [ink] from [src]."))
 		ink = null
 		update_icon()
 
 /obj/item/airlock_painter/decal
 	name = "decal painter"
-	desc = "An airlock painter, reprogramed to use a different style of paint in order to apply decals for floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed. Alt-Click to remove the ink cartridge."
+	desc = "An airlock painter, reprogramed to use a different style of paint in order to apply decals for floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "decal_sprayer"
 	item_state = "decal_sprayer"
@@ -200,7 +202,7 @@
 	/// The full icon state of the decal being printed.
 	var/stored_decal_total = "warningline"
 	/// The type path of the spritesheet being used for the frontend.
-	var/spritesheet_type = /datum/asset/spritesheet/decals // spritesheet containing previews
+	var/spritesheet_type = /datum/asset/spritesheet_batched/decals // spritesheet containing previews
 	/// Does this printer implementation support custom colors?
 	var/supports_custom_color = FALSE
 	/// Current custom color
@@ -246,7 +248,7 @@
 /obj/item/airlock_painter/decal/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
-		to_chat(user, "<span class='notice'>You need to get closer!</span>")
+		to_chat(user, span_notice("You need to get closer!"))
 		return
 
 	if(isfloorturf(target) && use_paint(user))
@@ -293,7 +295,7 @@
 
 /obj/item/airlock_painter/decal/ui_static_data(mob/user)
 	. = ..()
-	var/datum/asset/spritesheet/icon_assets = get_asset_datum(spritesheet_type)
+	var/datum/asset/spritesheet_batched/icon_assets = get_asset_datum(spritesheet_type)
 
 	.["icon_prefix"] = "[icon_assets.name]32x32"
 	.["supports_custom_color"] = supports_custom_color
@@ -350,27 +352,14 @@
 	update_decal_path()
 	. = TRUE
 
-/datum/asset/spritesheet/decals
+/datum/asset/spritesheet_batched/decals
 	name = "floor_decals"
-	cross_round_cachable = TRUE
+	ignore_dir_errors = TRUE
 
-	/// The floor icon used for blend_preview_floor()
 	var/preview_floor_icon = 'icons/turf/floors.dmi'
-	/// The floor icon state used for blend_preview_floor()
 	var/preview_floor_state = "floor"
 	/// The associated decal painter type to grab decals, colors, etc from.
 	var/painter_type = /obj/item/airlock_painter/decal
-
-/**
- * Underlay an example floor for preview purposes, and return the new icon.
- *
- * Arguments:
- * * decal - the decal to place over the example floor tile
- */
-/datum/asset/spritesheet/decals/proc/blend_preview_floor(icon/decal)
-	var/icon/final = icon(preview_floor_icon, preview_floor_state)
-	final.Blend(decal, ICON_OVERLAY)
-	return final
 
 /**
  * Insert a specific state into the spritesheet.
@@ -380,14 +369,15 @@
  * * dir - the given direction.
  * * color - the given color.
  */
-/datum/asset/spritesheet/decals/proc/insert_state(decal, dir, color)
+/datum/asset/spritesheet_batched/decals/proc/insert_state(decal, dir, color)
 	// Special case due to icon_state names
 	var/icon_state_color = color == "yellow" ? "" : color
 
-	var/icon/final = blend_preview_floor(icon('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir))
-	Insert("[decal]_[dir]_[color]", final)
+	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
+	floor.blend_icon(uni_icon('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir), ICON_OVERLAY)
+	insert_icon("[decal]_[dir]_[color]", floor)
 
-/datum/asset/spritesheet/decals/create_spritesheets()
+/datum/asset/spritesheet_batched/decals/create_spritesheets()
 	// Must actually create because initial(type) doesn't work for /lists for some reason.
 	var/obj/item/airlock_painter/decal/painter = new painter_type()
 
@@ -407,12 +397,13 @@
 
 /obj/item/airlock_painter/decal/tile
 	name = "tile sprayer"
-	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed. Alt-Click to change design."
+	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon_state = "tile_sprayer"
 	stored_dir = 2
 	stored_color = "#D4D4D432"
 	stored_decal = "tile_corner"
-	spritesheet_type = /datum/asset/spritesheet/decals/tiles
+	spritesheet_type = /datum/asset/spritesheet_batched/decals/tiles
 	supports_custom_color = TRUE
 	color_list = list(
 		list("Neutral", "#D4D4D432"),
@@ -467,11 +458,12 @@
 
 	target.AddElement(/datum/element/decal, 'icons/turf/decals.dmi', source_decal, source_dir, FALSE, decal_color, null, null, decal_alpha)
 
-/datum/asset/spritesheet/decals/tiles
+/datum/asset/spritesheet_batched/decals/tiles
 	name = "floor_tile_decals"
+	ignore_dir_errors = TRUE
 	painter_type = /obj/item/airlock_painter/decal/tile
 
-/datum/asset/spritesheet/decals/tiles/insert_state(decal, dir, color)
+/datum/asset/spritesheet_batched/decals/tiles/insert_state(decal, dir, color)
 	// Account for 8-sided decals.
 	var/source_decal = decal
 	var/source_dir = dir
@@ -487,12 +479,17 @@
 		render_color = tile_type.rgba_regex.group[1]
 		render_alpha = text2num(tile_type.rgba_regex.group[2], 16)
 
-	var/icon/colored_icon = icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
-	colored_icon.ChangeOpacity(render_alpha * 0.008)
+	var/datum/universal_icon/colored_icon = uni_icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
+	colored_icon.blend_color("#ffffff" + num2hex(clamp(render_alpha, 0, 255), 2), ICON_MULTIPLY)
 	if(color == "custom")
-		colored_icon.Blend("#0e0f0f", ICON_MULTIPLY)
+		colored_icon.blend_color("#0e0f0f", ICON_MULTIPLY)
 	else
-		colored_icon.Blend(render_color, ICON_MULTIPLY)
+		colored_icon.blend_color(render_color, ICON_MULTIPLY)
 
-	colored_icon = blend_preview_floor(colored_icon)
-	Insert("[decal]_[dir]_[replacetext(color, "#", "")]", colored_icon)
+	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
+	floor.blend_icon(colored_icon, ICON_OVERLAY)
+	insert_icon("[decal]_[dir]_[replacetext(color, "#", "")]", floor)
+
+#undef PAINTER_MOST
+#undef PAINTER_MID
+#undef PAINTER_LOW

@@ -1,22 +1,36 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ax" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/exploration)
 "aA" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"aL" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/generic{
+	pixel_x = 11
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "aO" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"aR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "aS" = (
 /obj/structure/bed,
@@ -32,35 +46,56 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/exploration)
-"ck" = (
-/obj/structure/table/reinforced,
-/obj/structure/sign/poster/contraband/power{
-	pixel_x = 32
+"bD" = (
+/obj/structure/railing/corner{
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/trash/can/food/beans{
-	pixel_x = 6;
-	pixel_y = 3
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
-	pixel_x = -8;
-	pixel_y = 2
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"bO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 4;
-	light_color = "#d8b1b1"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/power/shieldwallgen/atmos{
+	dir = 1;
+	id = 6;
+	anchored = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/exploration)
+"cN" = (
+/obj/structure/janitorialcart{
+	dir = 8
+	},
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/turf_decal/box,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "ds" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "du" = (
 /obj/effect/turf_decal/siding/wideplating_new{
@@ -79,7 +114,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "dT" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
@@ -88,7 +123,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
+"em" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "eA" = (
 /obj/structure/table,
@@ -102,18 +144,25 @@
 	},
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
-"eJ" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "eM" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"fb" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "fo" = (
 /obj/structure/table/reinforced,
@@ -148,7 +197,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "gz" = (
 /obj/structure/sign/nanotrasen,
@@ -158,16 +207,30 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
+"hw" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_x = -24
+	},
+/obj/machinery/button/shieldwallgen/directional/west{
+	pixel_y = 8;
+	id = 6
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "hJ" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "hQ" = (
 /obj/effect/turf_decal/bot,
@@ -232,7 +295,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "kV" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -264,22 +327,48 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"nq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
 "nG" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
-"oA" = (
-/obj/effect/turf_decal/box,
-/obj/effect/decal/cleanable/generic{
-	pixel_x = 11
+"nV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/airlock/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"oV" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/mug/britcup{
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/trash/chips{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/turf/open/floor/carpet,
 /area/shuttle/exploration)
 "pl" = (
-/obj/machinery/camera{
-	dir = 10
-	},
+/obj/machinery/camera,
 /turf/template_noop,
-/area/template_noop)
+/area/shuttle/exploration)
 "py" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims{
@@ -334,10 +423,16 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sy" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
+"ts" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "tF" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -366,15 +461,27 @@
 "uw" = (
 /obj/machinery/computer/cargo/request,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "uE" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
+"uZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "vp" = (
 /obj/structure/tank_dispenser/oxygen,
@@ -397,7 +504,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "wo" = (
 /obj/structure/table/reinforced,
@@ -424,32 +531,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/exploration)
-"xe" = (
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/turf/open/floor/plasteel/tech/grid,
-/area/shuttle/exploration)
-"xC" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "yx" = (
 /obj/structure/chair/office{
@@ -458,7 +540,7 @@
 	},
 /obj/effect/decal/cleanable/oil/streak,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "yV" = (
 /obj/structure/lattice/catwalk/over,
@@ -478,47 +560,15 @@
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "zG" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Ai" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plasteel/tech/grid,
-/area/shuttle/exploration)
-"BP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/exploration)
-"BR" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"BT" = (
+"Ab" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
-"Cf" = (
-/obj/effect/turf_decal/box,
+/obj/machinery/light/small,
 /obj/structure/closet/crate/critter,
 /mob/living/simple_animal/chicken/turkey{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
@@ -530,10 +580,40 @@
 	minbodytemp = 2.7;
 	name = "Tom"
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
+"Ai" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
 	},
-/turf/open/floor/plasteel/grid/steel,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/exploration)
+"BP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
+"BR" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"BT" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
+	dir = 1
+	},
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Cj" = (
 /turf/open/floor/carpet,
@@ -550,7 +630,7 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "CZ" = (
 /obj/structure/chair/stool/bar,
@@ -558,11 +638,40 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Dc" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/cards/deck/unum{
+	pixel_x = 9;
+	pixel_y = 1
+	},
+/obj/item/trash/pistachios,
+/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty{
+	pixel_x = -8
+	},
+/obj/machinery/light,
+/turf/open/floor/carpet,
+/area/shuttle/exploration)
 "Df" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Dj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/power/apc/auto_name/directional/north{
+	cell_type = /obj/item/stock_parts/cell/high
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "DG" = (
 /obj/machinery/door/airlock/external/glass,
@@ -577,53 +686,50 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Fm" = (
-/obj/structure/railing/corner{
+"FB" = (
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Gb" = (
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"Gc" = (
-/obj/structure/fans/tiny,
+"Gh" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
+"GG" = (
+/obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
-"Gt" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/exploration)
-"GJ" = (
+"Hi" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grid/steel,
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "HU" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
-"It" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Iv" = (
 /obj/machinery/firealarm{
@@ -639,26 +745,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
-"JF" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/airlock/shuttle,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"JR" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/rag{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/shaker{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Kh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -685,21 +774,9 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Lx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_x = -24
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/exploration)
 "LM" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Mk" = (
 /obj/structure/chair/stool/bar,
@@ -713,7 +790,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Nt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -734,13 +811,13 @@
 	dir = 4
 	},
 /obj/machinery/door/window,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Oa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Og" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -777,24 +854,46 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"PA" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
+"Qu" = (
+/obj/structure/table/reinforced,
+/obj/structure/sign/poster/contraband/power{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/trash/canned/beans{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/bottle/beer{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	light_color = "#d8b1b1"
+	},
+/turf/open/floor/iron/techmaint,
+/area/shuttle/exploration)
 "Qv" = (
 /obj/machinery/shuttle/engine/plasma{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/shuttle/exploration)
-"QL" = (
-/obj/structure/janitorialcart{
-	dir = 8
-	},
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/grid/steel,
 /area/shuttle/exploration)
 "QV" = (
 /obj/machinery/computer/arcade/orion_trail{
@@ -812,12 +911,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
 "Rt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "RB" = (
 /obj/structure/bed/dogbed,
@@ -828,13 +927,8 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
-/area/shuttle/exploration)
-"RG" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/light/small,
-/turf/open/floor/plasteel/grid/steel,
 /area/shuttle/exploration)
 "Sf" = (
 /obj/effect/turf_decal/box,
@@ -846,7 +940,7 @@
 /obj/item/soap/nanotrasen,
 /obj/item/storage/bag/trash,
 /obj/item/reagent_containers/spray/cleaner,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Sw" = (
 /obj/machinery/door/airlock/shuttle,
@@ -864,50 +958,61 @@
 "SO" = (
 /turf/open/floor/wood,
 /area/shuttle/exploration)
+"ST" = (
+/obj/machinery/door/airlock/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Tf" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"TJ" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/stairs,
-/area/shuttle/exploration)
-"UN" = (
+"TD" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/britcup{
-	pixel_x = 9;
-	pixel_y = -3
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/trash/chips{
-	pixel_x = -3;
+/obj/item/reagent_containers/cup/rag{
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/beer/light{
+/obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = 4;
-	pixel_y = 7
+	pixel_y = 1
 	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Uh" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Vq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/power/shieldwallgen/atmos{
+	id = 6;
+	anchored = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "VZ" = (
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Wv" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/cards/deck/unum{
-	pixel_x = 9;
-	pixel_y = 1
-	},
-/obj/item/trash/pistachios,
-/obj/item/reagent_containers/food/drinks/beer/almost_empty{
-	pixel_x = -8
-	},
-/obj/machinery/light,
-/turf/open/floor/carpet,
 /area/shuttle/exploration)
 "WU" = (
 /turf/closed/wall/r_wall/syndicate/nodiagonal,
@@ -934,7 +1039,7 @@
 /obj/item/radio/headset/headset_exploration,
 /obj/item/radio/headset/headset_exploration,
 /obj/item/gps/mining,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
@@ -944,7 +1049,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Xo" = (
 /obj/structure/table/reinforced,
@@ -962,7 +1067,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "XD" = (
 /obj/structure/table,
@@ -971,6 +1076,13 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"XF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "XP" = (
 /obj/structure/chair/fancy/shuttle{
@@ -997,13 +1109,13 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/glass,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "Zq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1017,27 +1129,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
-"ZU" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
-"ZY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/north{
-	cell_type = /obj/item/stock_parts/cell/high
-	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 
 (1,1,1) = {"
@@ -1047,10 +1139,10 @@ pJ
 pl
 us
 nG
-xe
-Gc
-nG
-Om
+Vq
+uZ
+aR
+bO
 nG
 nG
 nG
@@ -1071,11 +1163,11 @@ pJ
 pJ
 nG
 uw
-xC
-Gt
-Lx
-oA
-Cf
+fb
+PA
+Gh
+aL
+hw
 nG
 QV
 Cj
@@ -1096,15 +1188,15 @@ nG
 nG
 vA
 zC
-GJ
+XF
 LM
-QL
-RG
+cN
+Ab
 nG
 hQ
 Cj
-UN
-Wv
+oV
+Dc
 nG
 Zq
 ds
@@ -1120,7 +1212,7 @@ py
 nG
 xd
 BP
-ax
+Hi
 Oa
 Nj
 Sf
@@ -1144,7 +1236,7 @@ qX
 nG
 nG
 zG
-zG
+ST
 nG
 nG
 nG
@@ -1154,7 +1246,7 @@ du
 du
 fW
 nG
-ZY
+Dj
 Rt
 Xm
 Og
@@ -1168,17 +1260,17 @@ rb
 aA
 rj
 VZ
-VZ
-Fm
-TJ
-It
-eJ
-Tf
-Tf
-Tf
-Tf
-JF
-ZU
+ts
+Uh
+GG
+bD
+FB
+em
+em
+em
+em
+nV
+nq
 HU
 hJ
 Og
@@ -1223,7 +1315,7 @@ Sw
 nG
 Tf
 wo
-JR
+TD
 dL
 nG
 Xo
@@ -1275,7 +1367,7 @@ XD
 iy
 nG
 Cx
-ck
+Qu
 gM
 WU
 pJ

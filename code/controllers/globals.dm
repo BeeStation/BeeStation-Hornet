@@ -43,6 +43,12 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 		return FALSE
 	return ..()
 
+/datum/controller/global_vars/vv_get_var(var_name)
+	switch(var_name)
+		if (NAMEOF(src, vars))
+			return debug_variable(var_name, list(), 0, src)
+	return debug_variable(var_name, vars[var_name], 0, src, display_flags = VV_ALWAYS_CONTRACT_LIST)
+
 /datum/controller/global_vars/can_vv_get(var_name)
 	if(var_name == "gvars_datum_protected_varlist" || var_name == "gvars_datum_in_built_vars")
 		return FALSE

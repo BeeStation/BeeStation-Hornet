@@ -2,13 +2,10 @@
 	name = "shotgun magazine (12g buckshot slugs)"
 	desc = "A drum magazine."
 	icon_state = "m12gb"
+	multiple_sprites = 2
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 	caliber = "shotgun"
 	max_ammo = 8
-
-/obj/item/ammo_box/magazine/m12g/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(FALSE)/8, 1)*8]"
 
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"

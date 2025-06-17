@@ -12,6 +12,13 @@
 	caliber = "357"
 	projectile_type = /obj/projectile/bullet/a357/match
 
+/obj/item/ammo_casing/a357/improv
+	name = "improv .357 bullet casing"
+	desc = "An improvised .357 bullet casing."
+	projectile_type = /obj/projectile/bullet/a357
+	variance = 8
+	gun_damage = 50
+
 // 7.62x38mmR (Nagant Revolver)
 
 /obj/item/ammo_casing/n762
@@ -71,11 +78,13 @@
 	. = ..()
 	create_reagents(reagent_amount, OPENCONTAINER)
 
-/obj/item/ammo_casing/c38/emp
-	name = ".38 'BLK_OUT' bullet casing"
-	desc = "A specialized .38 bullet casing that releases a small electromagnetic burst on impact."
-	icon_state = "sS-casing"
-	projectile_type = /obj/projectile/bullet/c38/emp
+/obj/item/ammo_casing/c38/improv
+	name = "improv .38 bullet casing"
+	desc = "An improvised .38 bullet casing."
+	caliber = "38"
+	projectile_type = /obj/projectile/bullet/c38
+	variance = 5
+	gun_damage = 50
 
 /obj/item/ammo_casing/caseless/mime
 	name = "invisible .38 bullet casing"

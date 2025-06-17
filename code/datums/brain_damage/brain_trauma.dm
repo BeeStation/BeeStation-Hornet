@@ -9,8 +9,8 @@
 	var/scan_desc = "generic brain trauma" //description when detected by a health scanner
 	var/mob/living/carbon/owner //the poor bastard
 	var/obj/item/organ/brain/brain //the poor bastard's brain
-	var/gain_text = "<span class='notice'>You feel traumatized.</span>"
-	var/lose_text = "<span class='notice'>You no longer feel traumatized.</span>"
+	var/gain_text = span_notice("You feel traumatized.")
+	var/lose_text = span_notice("You no longer feel traumatized.")
 	var/can_gain = TRUE
 	/// How hard is this trauma to cure?
 	var/resilience = TRAUMA_RESILIENCE_BASIC
@@ -18,12 +18,11 @@
 	var/trauma_flags = TRAUMA_DEFAULT_FLAGS
 
 /datum/brain_trauma/Destroy()
-	if(brain?.traumas)
-		brain.traumas -= src
+	// Handles our references with our brain
+	brain?.remove_trauma_from_traumas(src)
 	if(owner)
 		on_lose()
-	brain = null
-	owner = null
+		owner = null
 	return ..()
 
 /datum/brain_trauma/proc/on_clone()
@@ -31,7 +30,7 @@
 		return new type
 
 //Called on life ticks
-/datum/brain_trauma/proc/on_life()
+/datum/brain_trauma/proc/on_life(delta_time, times_fired)
 	return
 
 //Called on death

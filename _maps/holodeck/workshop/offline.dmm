@@ -1,0 +1,58 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"U" = (
+/obj/structure/holosign/barrier,
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+a
+U
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+U
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+U
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+a
+"}

@@ -2,50 +2,54 @@
 "b" = (
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
+"c" = (
+/obj/machinery/door/window/southleft{
+	name = "Gulag";
+	req_one_access_txt = "63;42;38"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
 "e" = (
 /obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
-/area/shuttle/labor)
-"h" = (
-/obj/machinery/mineral/stacking_machine/laborstacker{
-	input_dir = 2;
-	output_dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/pod/light,
 /area/shuttle/labor)
 "i" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
 "m" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "p" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/computer/shuttle_flight/labor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "u" = (
+/obj/structure/window/reinforced,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/airlock/survival_pod/glass{
-	req_access_txt = "2"
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_x = -32
 	},
-/turf/open/floor/pod/light,
+/obj/machinery/light/small/directional/west,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "w" = (
-/obj/structure/ore_box,
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
+/obj/effect/turf_decal/stripes/full,
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "x" = (
@@ -73,6 +77,10 @@
 /obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"C" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "D" = (
 /obj/effect/turf_decal/stripes/line{
@@ -172,23 +180,23 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
@@ -207,10 +215,14 @@
 	pixel_x = 26;
 	req_access_txt = "1"
 	},
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/gps/security,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "N" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "O" = (
@@ -225,17 +237,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
-"P" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/pod/dark,
-/area/shuttle/labor)
 "R" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -244,6 +245,9 @@
 	machinedir = 4;
 	pixel_x = -30;
 	pixel_y = -4
+	},
+/obj/machinery/computer/shuttle_flight/labor{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -291,7 +295,7 @@ V
 R
 b
 u
-b
+x
 x
 X
 I
@@ -301,8 +305,8 @@ e
 (3,1,1) = {"
 V
 p
-P
-Z
+b
+c
 N
 N
 N
@@ -313,9 +317,9 @@ e
 (4,1,1) = {"
 V
 K
-E
-h
+C
 w
+y
 O
 y
 E

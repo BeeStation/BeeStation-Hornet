@@ -44,8 +44,7 @@
 /area/template_noop)
 "g" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
+	dir = 1
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
@@ -156,9 +155,7 @@
 /area/template_noop)
 "y" = (
 /obj/structure/table/wood/bar,
-/obj/item/flashlight/lamp/green{
-	layer = 3.3
-	},
+/obj/item/flashlight/lamp/green,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"

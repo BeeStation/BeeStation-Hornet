@@ -43,7 +43,7 @@
 	//handle DNA and other attributes
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.set_species(/datum/species/monkey)
-	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
+	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
 	O.updateappearance(icon_update=0)
 
 	//store original species
@@ -55,7 +55,7 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	O.a_intent = INTENT_HARM
+	O.set_combat_mode(TRUE)
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -147,7 +147,7 @@
 			loc.vars[A] = O
 
 	O.update_sight()
-	transfer_observers_to(O)
+	transfer_observers_to(O, TRUE)
 
 	. = O
 
@@ -201,11 +201,11 @@
 
 	if(tr_flags & TR_KEEPSE)
 		O.dna.mutation_index = dna.mutation_index
-		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
+		O.dna.set_se(1, GET_INITIALIZED_MUTATION(/datum/mutation/race))
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	O.a_intent = INTENT_HARM
+	O.set_combat_mode(TRUE)
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -290,7 +290,7 @@
 		if(loc.vars[A] == src)
 			loc.vars[A] = O
 
-	transfer_observers_to(O)
+	transfer_observers_to(O, TRUE)
 
 	. = O
 
@@ -338,7 +338,7 @@
 		O.equip_to_appropriate_slot(C)
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
-	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
+	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
 	//Reset offsets to match human settings, in-case they have been changed
 	O.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	O.updateappearance(mutcolor_update=1)
@@ -450,13 +450,13 @@
 		else
 			O.set_species(/datum/species/human)
 
-	O.a_intent = INTENT_HELP
+	O.set_combat_mode(FALSE)
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
 
 	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
-	transfer_observers_to(O)
+	transfer_observers_to(O, TRUE)
 
 	. = O
 
@@ -471,6 +471,8 @@
 	if(notransform)
 		return TRUE
 	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_GENERIC)
 	Paralyze(1, ignore_canstun = TRUE)
 
 	if(delete_items)
@@ -541,17 +543,17 @@
 		R.mmi.transfer_identity(src)
 
 	R.notify_ai(NEW_BORG)
-	
+
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
 		INVOKE_ASYNC(R, TYPE_PROC_REF(/mob/living/silicon/robot, replace_banned_cyborg))
 	qdel(src)
 
 /mob/living/silicon/robot/proc/replace_banned_cyborg()
-	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
+	to_chat(src, span_userdanger("You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!"))
 	ghostize(FALSE)
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/chosen_candidate = pick(candidates)
 		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
@@ -574,7 +576,7 @@
 		if("Drone")
 			new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
 
-	new_xeno.a_intent = INTENT_HARM
+	new_xeno.set_combat_mode(TRUE)
 	new_xeno.key = key
 
 	to_chat(new_xeno, "<B>You are now an alien.</B>")
@@ -597,14 +599,14 @@
 		new_slime = pick(babies)
 	else
 		new_slime = new /mob/living/simple_animal/slime(loc)
-	new_slime.a_intent = INTENT_HARM
+	new_slime.set_combat_mode(TRUE)
 	new_slime.key = key
 
 	to_chat(new_slime, "<B>You are now a slime. Skreee!</B>")
 	. = new_slime
 	qdel(src)
 
-/mob/proc/become_overmind(starting_points = 60)
+/mob/proc/become_overmind(starting_points = OVERMIND_STARTING_POINTS)
 	var/mob/camera/blob/B = new /mob/camera/blob(get_turf(src), starting_points)
 	B.key = key
 	. = B
@@ -615,8 +617,8 @@
 	if(pre_transform())
 		return
 
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
-	new_corgi.a_intent = INTENT_HARM
+	var/mob/living/basic/pet/dog/corgi/new_corgi = new /mob/living/basic/pet/dog/corgi (loc)
+	new_corgi.set_combat_mode(TRUE)
 	new_corgi.key = key
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
@@ -627,7 +629,7 @@
 	if(pre_transform())
 		return
 	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
-	new_gorilla.a_intent = INTENT_HARM
+	new_gorilla.set_combat_mode(TRUE)
 	if(mind)
 		mind.transfer_to(new_gorilla)
 	else
@@ -640,7 +642,7 @@
 	if(pre_transform())
 		return
 	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
-	new_gorilla.a_intent = INTENT_HARM
+	new_gorilla.set_combat_mode(TRUE)
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(new_gorilla)
 	if(mind)
@@ -658,16 +660,16 @@
 	if(isnull(mobpath))
 		return
 	if(!mobpath)
-		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
+		to_chat(usr, span_danger("Sorry but this mob type is currently unavailable."))
 		return
 
 	if(pre_transform())
 		return
 
-	var/mob/new_mob = new mobpath(src.loc)
+	var/mob/living/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = INTENT_HARM
+	new_mob.set_combat_mode(TRUE)
 
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	. = new_mob
@@ -680,14 +682,14 @@
 	if(isnull(mobpath))
 		return
 	if(!mobpath)
-		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
+		to_chat(usr, span_danger("Sorry but this mob type is currently unavailable."))
 		return
 
-	var/mob/new_mob = new mobpath(src.loc)
+	var/mob/living/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = INTENT_HARM
-	to_chat(new_mob, "<span class='boldnotice'>You feel more... animalistic!</span>")
+	new_mob.set_combat_mode(TRUE)
+	to_chat(new_mob, span_boldnotice("You feel more... animalistic!"))
 
 	. = new_mob
 	qdel(src)

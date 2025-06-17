@@ -45,8 +45,8 @@ export const AntagInfoBrainwashed = () => {
   );
 };
 
-const ObjectivePrintout = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const ObjectivePrintout = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Stack fill vertical>
@@ -62,7 +62,7 @@ const ObjectivePrintout = (_props, context) => {
                 <span
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeText(objective.explanation), // brainwashing objectives are sanitized anyways
+                    __html: sanitizeText(objective.explanation, false), // brainwashing objectives are sanitized anyways
                   }}
                 />
               </Stack.Item>

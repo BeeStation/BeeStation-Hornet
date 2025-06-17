@@ -4,7 +4,7 @@
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_broken")
+	use_broken_literal = TRUE
 	var/on = TRUE
 	var/state = 0//0 = fine, 1 = flickering, 2 = breaking, 3 = broken
 	var/list/coloredlights = list("g", "r", "y", "b", "p", "w", "s","o","g")
@@ -13,12 +13,14 @@
 	tiled_dirt = FALSE
 	max_integrity = 250
 
+/turf/open/floor/light/broken_states()
+	return list("light_broken")
 
 /turf/open/floor/light/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
+	. += span_notice("There's a <b>small crack</b> on the edge of it.")
 	if(broken)
-		. += "<span class='notice'>It seems to be completely broken.</span>"
+		. += span_notice("It seems to be completely broken.")
 
 /turf/open/floor/light/Initialize(mapload)
 	. = ..()
@@ -55,7 +57,7 @@
 	set_light(0)
 	return ..()
 
-/turf/open/floor/light/attack_hand(mob/user)
+/turf/open/floor/light/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -73,7 +75,7 @@
 		on = FALSE
 	update_icon()
 
-/turf/open/floor/light/attack_ai(mob/user)
+/turf/open/floor/light/attack_silicon(mob/user)
 	return attack_hand(user)
 
 /turf/open/floor/light/attackby(obj/item/C, mob/user, params)
@@ -84,9 +86,9 @@
 			qdel(C)
 			state = 0 //fixing it by bashing it with a light bulb, fun eh?
 			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
+			to_chat(user, span_notice("You replace the light bulb."))
 		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
+			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
 
 
 //Cycles through all of the colours

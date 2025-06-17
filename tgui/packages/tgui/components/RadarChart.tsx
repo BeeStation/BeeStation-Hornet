@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { hexToRgba } from 'common/color';
 
 const toDegrees = function (rad: number): number {

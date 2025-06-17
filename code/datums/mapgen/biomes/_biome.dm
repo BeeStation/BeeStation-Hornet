@@ -10,6 +10,9 @@
 	var/list/flora_types = list(/obj/structure/flora/grass/jungle)
 	///list of type paths of mobs that can be spawned when the turf spawns fauna
 	var/list/fauna_types = list()
+	///X and Y maximum pixel offsets posative and negative of flora
+	var/flora_x_offset = 0
+	var/flora_y_offset = 0
 
 ///This proc handles the creation of a turf of a specific biome type
 /datum/biome/proc/generate_turf(var/turf/gen_turf)
@@ -20,7 +23,9 @@
 
 	if(length(flora_types) && prob(flora_density))
 		var/obj/structure/flora = pick(flora_types)
-		new flora(gen_turf)
+		flora = new flora(gen_turf)
+		flora.pixel_x += rand(-flora_x_offset, flora_x_offset)
+		flora.pixel_y += rand(-flora_y_offset, flora_y_offset)
 
 //jungle
 /datum/biome/mudlands
@@ -29,12 +34,12 @@
 	flora_density = 3
 
 /datum/biome/plains
-	turf_type = /turf/open/floor/plating/grass/jungle
+	turf_type = /turf/open/floor/grass/jungle
 	flora_types = list(/obj/structure/flora/grass/jungle,/obj/structure/flora/grass/jungle/b, /obj/structure/flora/tree/jungle, /obj/structure/flora/rock/jungle, /obj/structure/flora/junglebush, /obj/structure/flora/junglebush/b, /obj/structure/flora/junglebush/c, /obj/structure/flora/junglebush/large, /obj/structure/flora/rock/pile/largejungle)
 	flora_density = 15
 
 /datum/biome/jungle
-	turf_type = /turf/open/floor/plating/grass/jungle
+	turf_type = /turf/open/floor/grass/jungle
 	flora_types = list(/obj/structure/flora/grass/jungle,/obj/structure/flora/grass/jungle/b, /obj/structure/flora/tree/jungle, /obj/structure/flora/rock/jungle, /obj/structure/flora/junglebush, /obj/structure/flora/junglebush/b, /obj/structure/flora/junglebush/c, /obj/structure/flora/junglebush/large, /obj/structure/flora/rock/pile/largejungle)
 	flora_density = 40
 
@@ -45,7 +50,7 @@
 	turf_type = /turf/open/floor/plating/dirt/jungle/wasteland
 
 /datum/biome/water
-	turf_type = /turf/open/water/jungle
+	turf_type = /turf/open/water/air
 
 /datum/biome/mountain
 	turf_type = /turf/closed/mineral/random/jungle
@@ -80,3 +85,73 @@
 
 /datum/biome/frostmountain
 	turf_type = /turf/closed/mineral/snowmountain/cavern
+
+//island
+/datum/biome/grassedge
+	flora_density = 40
+	flora_x_offset = 8
+	flora_y_offset = 8
+//	turf_type = /turf/open/floor/plating/asteroid/snow
+	flora_types = list(
+		/obj/structure/flora/tree/dead,
+		/obj/structure/flora/grass/brown,
+		/obj/structure/flora/grass/green,
+		/obj/structure/flora/grass/both,
+		/obj/structure/flora/stump,
+		/obj/structure/flora/rock/pile/icy,
+		/obj/structure/flora/bush,
+		/obj/effect/decal/cleanable/generic
+	)
+
+/datum/biome/grasslush
+	flora_density = 50
+	fauna_density = 1
+	flora_x_offset = 8
+	flora_y_offset = 8
+//	turf_type = /turf/open/floor/plating/asteroid/snow/ice
+	flora_types = list(
+		/obj/structure/flora/tree/pine,
+		/obj/structure/flora/tree/dead,
+		/obj/structure/flora/tree/pine/xmas,
+		/obj/structure/flora/grass/brown,
+		/obj/structure/flora/grass/green,
+		/obj/structure/flora/grass/both,
+		/obj/structure/flora/rock/pile/icy,
+		/obj/structure/flora/bush,
+		/obj/item/toy/snowball
+	)
+	fauna_types = list(
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/hostile/tree,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+	)
+
+/datum/biome/grassclearing
+	flora_density = 30
+	flora_x_offset = 8
+	flora_y_offset = 8
+//	turf_type = /turf/open/floor/plating/asteroid/snow
+	flora_types = list(
+		/obj/structure/flora/tree/pine,
+		/obj/structure/flora/tree/dead,
+		/obj/structure/flora/grass/brown,
+		/obj/structure/flora/grass/green,
+		/obj/structure/flora/grass/both,
+		/obj/structure/flora/rock/pile/icy,
+		/obj/structure/flora/bush,
+		/obj/item/toy/snowball
+	)
+
+/datum/biome/sand
+	flora_density = 20
+	flora_x_offset = 8
+	flora_y_offset = 8
+//	turf_type = /turf/open/floor/plating/asteroid/snow/ice
+	flora_types = list(
+		/obj/structure/flora/tree/palm,
+		/obj/structure/flora/rock/pile/icy,
+		/obj/structure/flora/bush,
+		/obj/effect/overlay/coconut,
+		/obj/structure/flora/rock/pile,
+		/obj/item/toy/snowball
+	)

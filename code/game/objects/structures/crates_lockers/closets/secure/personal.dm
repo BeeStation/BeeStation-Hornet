@@ -4,6 +4,14 @@
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
 	var/registered_name = null
 
+/obj/structure/closet/secure_closet/personal/empty
+	desc = "It's a secure locker for personnel. The first card swiped gains control."
+	name = "personal closet"
+	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
+
+/obj/structure/closet/secure_closet/personal/empty/PopulateContents()
+	return
+
 /obj/structure/closet/secure_closet/personal/PopulateContents()
 	..()
 	if(prob(50))
@@ -40,7 +48,7 @@
 	var/obj/item/card/id/I = W.GetID()
 	if(istype(I))
 		if(broken)
-			to_chat(user, "<span class='danger'>It appears to be broken.</span>")
+			to_chat(user, span_danger("It appears to be broken."))
 			return
 		if(!I || !I.registered_name)
 			return
@@ -53,6 +61,6 @@
 				registered_name = I.registered_name
 				desc = "Owned by [I.registered_name]."
 		else
-			to_chat(user, "<span class='danger'>Access Denied.</span>")
+			to_chat(user, span_danger("Access Denied."))
 	else
 		return ..()

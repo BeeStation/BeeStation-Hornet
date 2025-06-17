@@ -85,7 +85,7 @@
 	uniform = /obj/item/clothing/under/color/random
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	back = /obj/item/storage/backpack
-	r_hand = /obj/item/gps
+	r_hand = /obj/item/gps/off
 
 /datum/outfit/vip_target/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -105,7 +105,8 @@
 /datum/outfit/vip_target/centcom_official_vip
 	name = "Centcom (VIP Target)"
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
+	suit = /obj/item/clothing/suit/armor/bulletproof
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset/headset_cent/empty
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced

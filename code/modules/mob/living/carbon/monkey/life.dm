@@ -1,16 +1,14 @@
-/mob/living/carbon/monkey
-
 /mob/living/carbon/monkey/handle_mutations_and_radiation()
 	if(radiation)
 		if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
 			if(!IsParalyzed())
 				emote("collapse")
 			Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
-			to_chat(src, "<span class='danger'>You feel weak.</span>")
+			to_chat(src, span_danger("You feel weak."))
 		if(radiation > RAD_MOB_MUTATE)
 			if(prob(2))
-				to_chat(src, "<span class='danger'>You mutate!</span>")
-				easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+				to_chat(src, span_danger("You mutate!"))
+				easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 				emote("gasp")
 				domutcheck()
 
@@ -32,7 +30,7 @@
 	return ..()
 
 /mob/living/carbon/monkey/handle_breath_temperature(datum/gas_mixture/breath)
-	if(abs(BODYTEMP_NORMAL - breath.return_temperature()) > 50)
+	if(abs(get_body_temp_normal() - breath.return_temperature()) > 50)
 		switch(breath.return_temperature())
 			if(-INFINITY to 120)
 				adjustFireLoss(3)
@@ -47,24 +45,15 @@
 			if(1000 to INFINITY)
 				adjustFireLoss(8)
 
+	. = ..() // interact with body heat after dealing with the hot air
+
 /mob/living/carbon/monkey/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
-		return
-
-	var/loc_temp = get_temperature(environment)
-
-	if(stat != DEAD)
-		adjust_bodytemperature(natural_bodytemperature_stabilization())
-
-	if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
-		if(loc_temp < bodytemperature && (!head?.min_cold_protection_temperature || head.min_cold_protection_temperature > loc_temp))
-			adjust_bodytemperature(max((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR, BODYTEMP_COOLING_MAX))
-		else if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < loc_temp)
-			adjust_bodytemperature(min((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX))
-
+	// Run base mob body temperature proc before taking damage
+	// this balances body temp to the enviroment and natural stabilization
+	. = ..()
 
 	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTHEAT))
-		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
+		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
 		switch(bodytemperature)
 			if(360 to 400)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
@@ -80,8 +69,8 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 
 	else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTCOLD))
-		if(!istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
-			add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
+		if(!istype(loc, /obj/machinery/cryo_cell))
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 			switch(bodytemperature)
 				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
 					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
@@ -96,7 +85,7 @@
 			clear_alert("temp")
 
 	else
-		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
+		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
 		clear_alert("temp")
 
 	//Account for massive pressure differences

@@ -6,7 +6,9 @@
 
 
 ///Monkey checks
-#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
+///macro for whether it's appropriate to resist right now, used by resist subtree
+#define SHOULD_RESIST(source) (source.on_fire || source.buckled || HAS_TRAIT(source, TRAIT_RESTRAINED) || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
+///macro for whether the pawn can act, used generally to prevent some horrifying ai disasters
 #define IS_DEAD_OR_INCAP(source) (source.incapacitated() || source.stat)
 
 ///For JPS pathing, the maximum length of a path we'll try to generate. Should be modularized depending on what we're doing later on
@@ -23,6 +25,12 @@
 #define AI_BEHAVIOR_REQUIRE_MOVEMENT (1<<0)
 ///Does this task let you perform the action while you move closer? (Things like moving and shooting)
 #define AI_BEHAVIOR_MOVE_AND_PERFORM (1<<1)
+///Does finishing this task not null the current movement target?
+#define AI_BEHAVIOR_KEEP_MOVE_TARGET_ON_FINISH (1<<2)
+///Does finishing this task make the AI stop moving towards the target?
+#define AI_BEHAVIOR_KEEP_MOVING_TOWARDS_TARGET_ON_FINISH (1<<3)
+///Does this behavior NOT block planning?
+#define AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION (1<<4)
 
 ///AI flags
 #define STOP_MOVING_WHEN_PULLED (1<<0)
@@ -138,6 +146,7 @@
 #define BB_DOG_ORDER_MODE "BB_DOG_ORDER_MODE"
 #define BB_DOG_PLAYING_DEAD "BB_DOG_PLAYING_DEAD"
 #define BB_DOG_HARASS_TARGET "BB_DOG_HARASS_TARGET"
+#define BB_DOG_IS_SLOW "BB_DOG_IS_SLOW"
 
 /// Basically, what is our vision/hearing range for picking up on things to fetch/
 #define AI_DOG_VISION_RANGE	10
@@ -185,3 +194,70 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETTING_DATUM "targetting_datum"
+
+///Baby-making blackboard
+///Types of animal we can make babies with.
+#define BB_BABIES_PARTNER_TYPES "BB_babies_partner"
+///Types of animal that we make as a baby.
+#define BB_BABIES_CHILD_TYPES "BB_babies_child"
+///Current partner target
+#define BB_BABIES_TARGET "BB_babies_target"
+
+///List of mobs who have damaged us
+#define BB_BASIC_MOB_RETALIATE_LIST "BB_basic_mob_shitlist"
+
+// AI laws
+#define LAW_VALENTINES "valentines"
+#define LAW_ZEROTH "zeroth"
+#define LAW_INHERENT "inherent"
+#define LAW_SUPPLIED "supplied"
+#define LAW_ION "ion"
+#define LAW_HACKED "hacked"
+
+GLOBAL_LIST_INIT(all_radial_directions, list(
+	"NORTH" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH),
+	"NORTHEAST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTHEAST),
+	"EAST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = EAST),
+	"SOUTHEAST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTHEAST),
+	"SOUTH" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH),
+	"SOUTHWEST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTHWEST),
+	"WEST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = WEST),
+	"NORTHWEST" = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTHWEST)
+))
+
+///Tipped blackboards
+///Bool that means a basic mob will start reacting to being tipped in its planning
+#define BB_BASIC_MOB_TIP_REACTING "BB_basic_tip_reacting"
+///the motherfucker who tipped us
+#define BB_BASIC_MOB_TIPPER "BB_basic_tip_tipper"
+
+///list of foods this mob likes
+#define BB_BASIC_FOODS "BB_basic_foods"
+
+//cat AI keys
+/// key that holds the target we will battle over our turf
+#define BB_TRESSPASSER_TARGET "tresspasser_target"
+/// key that holds angry meows
+#define BB_HOSTILE_MEOWS "hostile_meows"
+/// key that holds the mouse target
+#define BB_MOUSE_TARGET "mouse_target"
+/// key that holds our dinner target
+#define BB_CAT_FOOD_TARGET "cat_food_target"
+/// key that holds the food we must deliver
+#define BB_FOOD_TO_DELIVER "food_to_deliver"
+/// key that holds things we can hunt
+#define BB_HUNTABLE_PREY "huntable_prey"
+/// key that holds target kitten to feed
+#define BB_KITTEN_TO_FEED "kitten_to_feed"
+/// key that holds our hungry meows
+#define BB_HUNGRY_MEOW "hungry_meows"
+/// key that holds maximum distance food is to us so we can pursue it
+#define BB_MAX_DISTANCE_TO_FOOD "max_distance_to_food"
+/// key that holds the stove we must turn off
+#define BB_STOVE_TARGET "stove_target"
+/// key that holds the donut we will decorate
+#define BB_DONUT_TARGET "donut_target"
+/// key that holds our home...
+#define BB_CAT_HOME "cat_home"
+/// key that holds the human we will beg
+#define BB_HUMAN_BEG_TARGET "human_beg_target"

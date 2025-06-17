@@ -35,7 +35,7 @@
 /area/template_noop)
 "i" = (
 /obj/machinery/washing_machine,
-/obj/item/clothing/head/santa,
+/obj/item/clothing/head/costume/santa,
 /turf/open/floor/plating,
 /area/template_noop)
 

@@ -5,7 +5,7 @@
 	jobs = JOB_NAME_CAPTAIN
 
 /datum/objective/crew/caphat/check_completion()
-	return ..() || owner?.current?.check_contents_for(/obj/item/clothing/head/caphat)
+	return ..() || owner?.current?.check_contents_for(/obj/item/clothing/head/hats/caphat)
 
 /datum/objective/crew/datfukkendisk //Ported from old Hippie
 	explanation_text = "Defend the nuclear authentication disk at all costs, and be the one to personally deliver it to CentCom."
@@ -30,7 +30,7 @@
 		return TRUE
 	if(!owner?.current)
 		return FALSE
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/goodboy in GLOB.mob_list)
+	for(var/mob/living/basic/pet/dog/corgi/Ian/goodboy in GLOB.mob_list)
 		if(goodboy.stat != DEAD && SSshuttle.emergency.shuttle_areas[get_area(goodboy)])
 			return TRUE
 	return FALSE

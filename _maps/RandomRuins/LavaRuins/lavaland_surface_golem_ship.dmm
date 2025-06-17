@@ -95,7 +95,6 @@
 "aq" = (
 /obj/structure/table/reinforced,
 /obj/item/bedsheet/rd/royal_cape{
-	layer = 3;
 	pixel_x = 5;
 	pixel_y = 9
 	},
@@ -297,10 +296,10 @@
 /area/ruin/powered/golem_ship)
 "aW" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/bandana,
-/obj/item/clothing/head/bandana,
-/obj/item/clothing/head/bandana,
-/obj/item/clothing/head/crown,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/item/clothing/head/costume/crown,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "aX" = (

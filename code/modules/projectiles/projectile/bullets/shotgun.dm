@@ -1,12 +1,14 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 60
-	armour_penetration = -20
+	damage = 41
+	armour_penetration = 0
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
-	damage = 5
-	stamina = 55
+	damage = 10
+	stamina = 50
+	armour_penetration = -20
+	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -61,16 +63,33 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
+	bleed_force = BLEED_SCRATCH
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 9
+	damage = 8
 	tile_dropoff = 0.5
+	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
-	damage = 3
-	stamina = 9
+	damage = 2
+	stamina = 7
+	tile_dropoff = 0.5
+	tile_dropoff_s = 0
+	ricochets_max = 2
+	ricochet_chance = 80
+	ricochet_incidence_leeway = 60
+	ricochet_decay_chance = 0.75
+	armour_penetration = -20
+	bleed_force = BLEED_TINY
+
+/obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
+	if(damage <= 0 && tile_dropoff_s == 0)
+		damage = 0
+		tile_dropoff = 0
+		tile_dropoff_s = 0.5
+	..()
 
 /obj/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
@@ -86,22 +105,24 @@
 	if(damage < 0 && stamina < 0)
 		qdel(src)
 
-/obj/projectile/bullet/pellet/shotgun_improvised
-	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
+/obj/projectile/bullet/pellet/shotgun_glass
+	tile_dropoff = 0.5
 	damage = 6
+	range = 8
+	ricochets_max = 0
+	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
 
-/obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
+/obj/projectile/bullet/pellet/shotgun_glass/Initialize(mapload)
 	. = ..()
-	range = rand(1, 8)
 
-/obj/projectile/bullet/pellet/shotgun_improvised/on_range()
-	do_sparks(1, TRUE, src)
-	..()
+	if(prob(20)) //Each 'pellet' has a 20 percent chance to not shrapnel/attempt embedding
+		shrapnel_type = null
 
 // Mech Scattershot
 
 /obj/projectile/bullet/scattershot
 	damage = 18
+	bleed_force = BLEED_SURFACE
 
 //Breaching Ammo
 
@@ -110,10 +131,11 @@
 	desc = "A breaching round designed to destroy airlocks and windows with only a few shots, but is ineffective against other targets."
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	damage = 10 //does shit damage to everything except doors and windows
+	bleed_force = BLEED_SURFACE
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
-	if(istype(target, /obj/structure/window) || istype(target, /obj/structure/grille) || istype(target, /obj/machinery/door) || istype(target, /obj/structure/door_assembly))
+	if(isstructure(target) || ismachinery(target))
 		damage = 500 //one shot to break a window or grille, or 3 shots to breach an airlock door
 	if (isturf(target))
-		damage = 300
+		damage = 700
 	..()

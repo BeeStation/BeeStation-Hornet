@@ -28,10 +28,10 @@
 /obj/item/target/welder_act(mob/living/user, obj/item/I)
 	if(I.use_tool(src, user, 0, volume=40))
 		removeOverlays()
-		to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")
+		to_chat(user, span_notice("You slice off [src]'s uneven chunks of aluminium and scorch marks."))
 	return TRUE
 
-/obj/item/target/attack_hand(mob/user)
+/obj/item/target/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -75,7 +75,7 @@
 	if(C.GetPixel(p_x, p_y) && P.original == src && overlays.len <= 35) // if the located pixel isn't blank (null)
 		hp -= P.damage
 		if(hp <= 0)
-			visible_message("<span class='danger'>[src] breaks into tiny pieces and collapses!</span>")
+			visible_message(span_danger("[src] breaks into tiny pieces and collapses!"))
 			qdel(src)
 		var/image/bullet_hole = image('icons/effects/effects.dmi', "scorch", OBJ_LAYER + 0.5)
 		bullet_hole.pixel_x = p_x - 1 //offset correction

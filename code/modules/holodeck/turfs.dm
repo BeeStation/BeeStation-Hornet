@@ -52,6 +52,7 @@
 /turf/open/floor/holofloor/grass
 	gender = PLURAL
 	name = "lush grass"
+	icon = 'icons/turf/floors/grass.dmi'
 	icon_state = "grass"
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
@@ -121,7 +122,7 @@
 	luminosity = 2
 
 /turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
-    return FALSE
+	return FALSE
 
 /turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
@@ -156,6 +157,8 @@
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"
 	tiled_dirt = FALSE
+	variant_probability = 80
+	variant_states = 4
 
 /turf/open/floor/holofloor/snow
 	gender = PLURAL
@@ -188,3 +191,31 @@
 	name = "white floor"
 	desc = "A tile in a pure white color."
 	icon_state = "pure_white"
+
+/turf/open/floor/holofloor/eighties
+	name = "retro floor"
+	desc = "This one takes you back."
+	icon_state = "eighties"
+
+/turf/open/floor/holofloor/monotile/dark
+	name = "dark holotile"
+	desc = "A really big dark steel holotile."
+	icon_state = "monotile_dark"
+
+/turf/open/floor/holofloor/monotile/steel
+	name = "steel holotile"
+	desc = "A really big steel holotile."
+	icon_state = "steel_monotile"
+
+/turf/open/floor/holofloor/monotile/light
+	name = "light holotile"
+	desc = "A really big light steel holotile."
+	icon_state = "grey_full"
+
+/turf/open/floor/holofloor/chess_white
+	icon_state = "white_full"
+	color = "#eeeed2"
+
+/turf/open/floor/holofloor/chess_black
+	icon_state = "white_full"
+	color = "#93b570"

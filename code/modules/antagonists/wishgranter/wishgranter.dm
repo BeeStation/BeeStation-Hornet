@@ -27,7 +27,7 @@
 	var/mob/living/carbon/C = owner.current
 	if(!C.has_dna())
 		return
-	C.dna.add_mutation(HULK)
-	C.dna.add_mutation(XRAY)
-	C.dna.add_mutation(SPACEMUT)
-	C.dna.add_mutation(TK)
+	C.dna.add_mutation(/datum/mutation/hulk)
+	C.dna.add_mutation(/datum/mutation/thermal/x_ray)
+	C.dna.add_mutation(/datum/mutation/space_adaptation)
+	C.dna.add_mutation(/datum/mutation/telekinesis)

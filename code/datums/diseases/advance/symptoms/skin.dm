@@ -58,7 +58,7 @@ BONUS
 					H.dna.features["mcolor"] = "EEE" //pure white.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='notice'>[H] looks a bit pale.</span>", "<span class='notice'>Your skin suddenly appears lighter.</span>")
+				H.visible_message(span_notice("[H] looks a bit pale."), span_notice("Your skin suddenly appears lighter."))
 
 /datum/symptom/vitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -130,7 +130,7 @@ BONUS
 					H.dna.features["mcolor"] = "000" //pure black.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='notice'>[H] looks a bit dark.</span>", "<span class='notice'>Your skin suddenly appears darker.</span>")
+				H.visible_message(span_notice("[H] looks a bit dark."), span_notice("Your skin suddenly appears darker."))
 
 /datum/symptom/revitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -186,153 +186,8 @@ BONUS
 				M.reagents.add_reagent(color, 5)
 		else
 			if (prob(50)) // spam
-				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")
+				M.visible_message(span_notice("[M] looks rather vibrant."), span_notice("The colors, man, the colors."))
 
-/************************************
-Dermagraphic Ovulogenesis
-
-	Extremely Noticeable
-	Increases resistance slightly.
-	Not Fast, Not Slow
-	Transmittable.
-	High Level
-
-BONUS
-	Provides Brute Healing when Egg Sacs/Eggs are eaten, simultaneously infecting anyone who eats them
-
-***********************************/
-/datum/symptom/skineggs //Thought Exolocomotive Xenomitosis was a weird symptom? Well, this is about 10x weirder.
-	name = "Dermagraphic Ovulogenesis"
-	desc = "The virus causes the host to grow egg-like nodules on their skin, which periodically fall off and contain the disease and some healing chemicals."
-	stealth = -3 //You are basically growing these weird Egg shits on your skin, this is not stealthy in the slightest
-	resistance = 1
-	stage_speed = 0
-	transmission = 2 //The symptom is in it of itself meant to spread
-	level = 8
-	severity = -1
-	base_message_chance = 50
-	symptom_delay_min = 60
-	symptom_delay_max = 105
-	prefixes = list("Ovi ")
-	bodies = list("Oviposition", "Nodule")
-	suffixes = list(" Mitosis")
-	var/big_heal
-	var/all_disease
-	var/eggsplosion
-	var/sneaky
-	threshold_desc = "<b>Transmission 12:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
-					  <b>Transmission 16:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
-					  <b>Resistance 10:</b> Eggs and Egg Sacs contain more healing chems.<br>\
-					  <b>Stealth 6:</b> Eggs and Egg Sacs become nearly transparent, making them more difficult to see.<br>\
-					  <b>Stage Speed 10:</b> Egg Sacs fall off the host more frequently."
-
-/datum/symptom/skineggs/severityset(datum/disease/advance/A)
-	. = ..()
-	if(A.resistance >= 10)
-		severity -= 1
-	if(A.transmission >= 12)
-		severity += 1
-		if(A.transmission >= 16)
-			severity += 1
-	if(A.stealth >= 6)
-		severity += 1
-
-/datum/symptom/skineggs/Start(datum/disease/advance/A)
-	if(!..())
-		return
-	if(A.resistance >= 10)
-		big_heal = TRUE
-	if(A.transmission >= 12)
-		all_disease = TRUE
-		if(A.transmission >= 16)
-			eggsplosion = TRUE //Haha get it?
-	if(A.stealth >= 6)
-		sneaky = TRUE
-	if(A.stage_rate >= 10)
-		symptom_delay_min -= 10
-		symptom_delay_max -= 20
-
-
-/datum/symptom/skineggs/Activate(datum/disease/advance/A)
-	if(!..())
-		return
-	var/mob/living/M = A.affected_mob
-	var/list/diseases = list(A)
-	switch(A.stage)
-		if(5)
-			if(all_disease)
-				for(var/datum/disease/D in M.diseases)
-					if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
-						continue
-					if(D == A)
-						continue
-					diseases += D
-			new /obj/item/reagent_containers/food/snacks/eggsac(M.loc, diseases, eggsplosion, sneaky, big_heal)
-
-#define EGGSPLODE_DELAY 100 SECONDS
-/obj/item/reagent_containers/food/snacks/eggsac
-	name = "Fleshy Egg Sac"
-	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
-	customfoodfilling = FALSE //Not Used For Filling
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "eggsac"
-	bitesize = 4
-	var/list/diseases = list()
-	var/sneaky_egg
-	var/big_heal
-
-//Constructor
-/obj/item/reagent_containers/food/snacks/eggsac/New(loc, var/list/disease, var/eggsplodes, var/sneaky, var/large_heal)
-	..()
-	for(var/datum/disease/D in disease)
-		diseases += D
-	if(large_heal)
-		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
-		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
-		big_heal = TRUE
-	else
-		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
-		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
-	if(sneaky)
-		icon_state = "eggsac-sneaky"
-		sneaky_egg = sneaky
-	if(eggsplodes)
-		addtimer(CALLBACK(src, PROC_REF(eggsplode)), EGGSPLODE_DELAY)
-	if(LAZYLEN(diseases))
-		AddComponent(/datum/component/infective, diseases)
-
-#undef EGGSPLODE_DELAY
-
-/obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
-	for(var/i = 1, i <= rand(4,8), i++)
-		var/list/directions = GLOB.alldirs
-		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(src.loc, diseases, sneaky_egg, big_heal)
-		var/turf/thrown_at = get_ranged_target_turf(I, pick(directions), rand(2, 4))
-		I.throw_at(thrown_at, rand(2,4), 4)
-
-/obj/item/reagent_containers/food/snacks/fleshegg
-	name = "Fleshy Egg"
-	desc = "An Egg which appears to be made out of someone's flesh!"
-	customfoodfilling = FALSE //Not Used For Filling
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "fleshegg"
-	bitesize = 1
-	var/list/diseases = list()
-
-/obj/item/reagent_containers/food/snacks/fleshegg/New(loc, var/list/disease, var/sneaky, var/large_heal)
-	..()
-	for(var/datum/disease/D in disease)
-		diseases += D
-	if(large_heal)
-		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
-		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
-	else
-		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
-		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
-	if(sneaky)
-		icon_state = "fleshegg-sneaky"
-	if(LAZYLEN(diseases))
-		AddComponent(/datum/component/infective, diseases)
 
 /*
 //////////////////////////////////////
@@ -343,8 +198,8 @@ Spiked Skin
 	No transmission bonus
 
 Thresholds
-  transmission 6 Can give minor armour
-  resistance 6 Does more damage
+	transmission 6 Can give minor armour
+	resistance 6 Does more damage
 
 //////////////////////////////////////
 */
@@ -365,7 +220,7 @@ Thresholds
 	var/armor = 0
 	var/done = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Spikes deal more damage.<br>\
-					  <b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
+						<b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
 	. = ..()
@@ -386,30 +241,31 @@ Thresholds
 	var/mob/living/carbon/H = A.affected_mob
 	switch(A.stage)
 		if(1)
-			if(prob(base_message_chance))
-				to_chat(H, "<span class='warning'>You feel goosebumps pop up on your skin.</span>")
+			if(prob(base_message_chance) && H.stat != DEAD)
+				to_chat(H, span_warning("You feel goosebumps pop up on your skin."))
 		if(2)
-			if(prob(base_message_chance))
-				to_chat(H, "<span class='warning'>Small spines spread to cover your entire body.</span>")
+			if(prob(base_message_chance) && H.stat != DEAD)
+				to_chat(H, span_warning("Small spines spread to cover your entire body."))
 		if(3)
-			if(prob(base_message_chance))
-				to_chat(H, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
+			if(prob(base_message_chance) && H.stat != DEAD)
+				to_chat(H, span_warning(" Your spines pierce your jumpsuit."))
 		if(4, 5)
 			if(!done)
 				H.AddComponent(/datum/component/spikes, 5*power, armor, A.GetDiseaseID()) //removal is handled by the component
-				to_chat(H, "<span class='warning'> Your spines harden, growing sharp and lethal.</span>")
+				if(H.stat != DEAD)
+					to_chat(H, span_warning(" Your spines harden, growing sharp and lethal."))
 				done = TRUE
 			if(H.pulling && iscarbon(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 				var/mob/living/carbon/C = H.pulling
 				var/def_check = C.getarmor(type = MELEE)
 				C.apply_damage(1*power, BRUTE, blocked = def_check)
-				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+				C.visible_message(span_warning("[C.name] is pricked on [H.name]'s spikes."))
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
 					var/def_check = C.getarmor(type = MELEE)
 					C.apply_damage(3*power, BRUTE, blocked = def_check)
-					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+					C.visible_message(span_warning("[C.name] is pricked on [H.name]'s spikes."))
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 
 
@@ -457,26 +313,28 @@ Thresholds
 			M.adjustBruteLoss(buboes / 2)
 			M.adjustToxLoss(buboes)
 			pustules = min(pustules + buboes, 10)
-			to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
+			if(M.stat != DEAD)
+				to_chat(M, span_warning("painful sores open on your skin!"))
 		if(4, 5)
 			var/buboes = (rand(3, 6) * power)
 			M.adjustBruteLoss(buboes / 2)
 			M.adjustToxLoss(buboes)
 			pustules = min(pustules + buboes, 20)
-			to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
-			if((prob(pustules * 5) || pustules >= 20) && shoot)
+			if(M.stat != DEAD)
+				to_chat(M, span_warning("painful sores open on your skin!"))
+			if((prob(pustules * 5) || pustules >= 20) && (shoot || CONFIG_GET(flag/unconditional_virus_spreading) || A.event))
 				var/popped = rand(1, pustules)
 				var/pusdir = pick(GLOB.alldirs)
 				var/T = get_step(get_turf(M), pusdir)
 				var/obj/item/ammo_casing/caseless/pimple/pustule = new(get_turf(M))
 				for(var/datum/disease/advance/D in M.diseases) //spreads all diseases in the host, but only if they have fluid spread or higher
-					if(A.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS)
+					if(A.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS || CONFIG_GET(flag/unconditional_virus_spreading) || A.event)
 						pustule.diseases += D
 				pustule.pellets = popped
 				pustule.variance = rand(50, 200)
-				pustule.fire_casing(T, M, (get_turf(M)))
+				pustule.fire_casing(T, M, fired_from = M)
 				pustules -= popped
-				M.visible_message("<span class='warning'>[popped] pustules on [M]'s body burst open!</span>")
+				M.visible_message(span_warning("[popped] pustules on [M]'s body burst open!"))
 
 
 /datum/symptom/pustule/proc/pop_pustules(datum/source, AM, attack_text, damage)
@@ -493,7 +351,7 @@ Thresholds
 				pustule.diseases += A
 		pustule.pellets = popped
 		pustule.fire_casing(AM, C, fired_from = T)
-		C.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
+		C.visible_message(span_warning("[attack_text] bursts [popped] pustules on [source]'s body!"))
 		pustules -= popped
 
 

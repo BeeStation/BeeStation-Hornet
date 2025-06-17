@@ -13,14 +13,14 @@
 	possible_locs = list(BODY_ZONE_HEAD)
 	requires_bodypart_type = 0
 
-/datum/surgery/advanced/revival/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/revival/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	if(target.stat != DEAD)
 		return FALSE
 	if(target.suiciding || target.ishellbound() || HAS_TRAIT(target, TRAIT_HUSK))
 		return FALSE
-	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!B)
 		return FALSE
 	return TRUE
@@ -38,29 +38,29 @@
 	if(istype(tool, /obj/item/shockpaddles))
 		var/obj/item/shockpaddles/S = tool
 		if((S.req_defib && !S.defib.powered) || !ISWIELDED(S) || S.cooldown || S.busy)
-			to_chat(user, "<span class='warning'>You need to wield both paddles, and [S.defib] must be powered!</span>")
+			to_chat(user, span_warning("You need to wield both paddles, and [S.defib] must be powered!"))
 			return FALSE
 	if(istype(tool, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = tool
 		if(!B.turned_on)
-			to_chat(user, "<span class='warning'>[B] needs to be active!</span>")
+			to_chat(user, span_warning("[B] needs to be active!"))
 			return FALSE
 	if(istype(tool, /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = tool
 		if(E.chambered && istype(E.chambered, /obj/item/ammo_casing/energy/electrode))
 			return TRUE
 		else
-			to_chat(user, "<span class='warning'>You need an electrode for this!</span>")
+			to_chat(user, span_warning("You need an electrode for this!"))
 			return FALSE
 
-/datum/surgery_step/revive/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You prepare to give [target]'s brain the spark of life with [tool].</span>",
+/datum/surgery_step/revive/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, span_notice("You prepare to give [target]'s brain the spark of life with [tool]."),
 		"[user] prepares to shock [target]'s brain with [tool].",
 		"[user] prepares to shock [target]'s brain with [tool].")
 	target.notify_ghost_cloning("Someone is trying to zap your brain!", source = target)
 
-/datum/surgery_step/revive/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You successfully shock [target]'s brain with [tool]...</span>",
+/datum/surgery_step/revive/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, span_notice("You successfully shock [target]'s brain with [tool]..."),
 		"[user] send a powerful shock to [target]'s brain with [tool]...",
 		"[user] send a powerful shock to [target]'s brain with [tool]...")
 	playsound(get_turf(target), 'sound/magic/lightningbolt.ogg', 50, 1)
@@ -76,8 +76,8 @@
 		target.visible_message("...[target.p_they()] convulses, then lies still.")
 		return FALSE
 
-/datum/surgery_step/revive/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You shock [target]'s brain with [tool], but [target.p_they()] doesn't react.</span>",
+/datum/surgery_step/revive/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, span_notice("You shock [target]'s brain with [tool], but [target.p_they()] doesn't react."),
 		"[user] send a powerful shock to [target]'s brain with [tool], but [target.p_they()] doesn't react.",
 		"[user] send a powerful shock to [target]'s brain with [tool], but [target.p_they()] doesn't react.")
 	playsound(get_turf(target), 'sound/magic/lightningbolt.ogg', 50, 1)

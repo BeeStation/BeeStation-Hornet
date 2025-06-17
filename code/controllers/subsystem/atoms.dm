@@ -1,8 +1,3 @@
-#define BAD_INIT_QDEL_BEFORE 1
-#define BAD_INIT_DIDNT_INIT 2
-#define BAD_INIT_SLEPT 4
-#define BAD_INIT_NO_HINT 8
-
 #define SUBSYSTEM_INIT_SOURCE "subsystem init"
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
@@ -30,29 +25,21 @@ SUBSYSTEM_DEF(atoms)
 
 	initialized = INITIALIZATION_INSSATOMS
 
-/datum/controller/subsystem/atoms/Initialize(timeofday)
+/datum/controller/subsystem/atoms/Initialize()
 	//Wait until map loading is completed
-	if (length(SSmap_generator.executing_generators) > 0)
-		to_chat(world, "<span class='boldannounce'>Waiting for [length(SSmap_generator.executing_generators)] map generators...</bold>")
+	if (length(SSasync_map_generator.executing_generators) > 0)
+		to_chat(world, span_boldannounce("Waiting for [length(SSasync_map_generator.executing_generators)] map generators..."))
 		do
-			SSmap_generator.fire()
+			SSasync_map_generator.fire()
 			sleep(0.5)
-		while (length(SSmap_generator.executing_generators) > 0)
-		to_chat(world, "<span class='boldannounce'>Map generators completed, initializing atoms.</bold>")
+		while (length(SSasync_map_generator.executing_generators) > 0)
+		to_chat(world, span_boldannounce("Map generators completed, initializing atoms.</bold>"))
 
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
-	return ..()
-
-#ifdef PROFILE_MAPLOAD_INIT_ATOM
-#define PROFILE_INIT_ATOM_BEGIN(...) var/__profile_stat_time = TICK_USAGE
-#define PROFILE_INIT_ATOM_END(atom) mapload_init_times[##atom.type] += TICK_USAGE_TO_MS(__profile_stat_time)
-#else
-#define PROFILE_INIT_ATOM_BEGIN(...)
-#define PROFILE_INIT_ATOM_END(...)
-#endif
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, list/atoms_to_return)
 	if(initialized == INITIALIZATION_INSSATOMS)
@@ -90,8 +77,9 @@ SUBSYSTEM_DEF(atoms)
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
 	var/list/lines = list()
 	lines += "Atom Path,Initialisation Time (ms)"
-	for (var/atom_type in mapload_init_times)
-		var/time = mapload_init_times[atom_type]
+	for (var/data in mapload_init_times)
+		var/atom_type = data[1]
+		var/time = data[2]
 		lines += "[atom_type],[time]"
 	rustg_file_write(jointext(lines, "\n"), "[GLOB.log_directory]/init_times.csv")
 #endif
@@ -166,7 +154,7 @@ SUBSYSTEM_DEF(atoms)
 				A.LateInitialize()
 		if(INITIALIZE_HINT_QDEL)
 			qdel(A)
-			qdeleted = TRUE
+			return TRUE //Don't need to check anything else since we know it's deleted already
 		else
 			BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
 
@@ -270,3 +258,4 @@ SUBSYSTEM_DEF(atoms)
 		rustg_file_append(initlog, "[GLOB.log_directory]/initialize.log")
 
 #undef SUBSYSTEM_INIT_SOURCE
+

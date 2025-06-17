@@ -11,13 +11,14 @@
 	throw_speed = 1
 	item_flags = NOBLUDGEON
 	force = 3
-	attack_verb = list("blown up", "exploded", "detonated")
-	materials = list(/datum/material/iron=50, /datum/material/glass=30)
+	attack_verb_continuous = list("explodes", "detonates")
+	attack_verb_simple = list("explode", "detonate")
+	custom_materials = list(/datum/material/iron=50, /datum/material/glass=30)
 
 /obj/item/doorCharge/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			visible_message("<span class='warning'>[src] detonates!</span>")
+			visible_message(span_warning("[src] detonates!"))
 			explosion(src.loc,0,2,1,flame_range = 4)
 			qdel(src)
 		if(EXPLODE_HEAVY)
@@ -36,7 +37,7 @@
 
 /obj/item/doorCharge/examine(mob/user)
 	. = ..()
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/traitor, /datum/antagonist/traitor/internal_affairs, /datum/antagonist/incursion, /datum/antagonist/nukeop))
+	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/traitor, /datum/antagonist/traitor/internal_affairs, /datum/antagonist/nukeop))
 		. += "A small explosive device that can be used to sabotage airlocks to cause an explosion upon opening. To apply, remove the airlock's maintenance panel and place it within."
 	else
 		. += "A small, suspicious object that feels lukewarm when held."

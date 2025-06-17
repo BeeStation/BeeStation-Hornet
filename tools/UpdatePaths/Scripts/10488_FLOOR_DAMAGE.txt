@@ -1,0 +1,4 @@
+/turf/open/floor/@SUBTYPES{icon_state = "panelscorched"} : /turf/open/floor/@SUBTYPES{@OLD; burnt = 1; icon_state = @SKIP}
+/turf/open/floor/@SUBTYPES{icon_state = "platingdmg3"} : /turf/open/floor/@SUBTYPES{@OLD; broken = 1; icon_state = @SKIP}
+/turf/open/floor/@SUBTYPES{icon_state = "platingdmg2"} : /turf/open/floor/@SUBTYPES{@OLD; broken = 1; icon_state = @SKIP}
+/turf/open/floor/@SUBTYPES{icon_state = "platingdmg1"} : /turf/open/floor/@SUBTYPES{@OLD; broken = 1; icon_state = @SKIP}

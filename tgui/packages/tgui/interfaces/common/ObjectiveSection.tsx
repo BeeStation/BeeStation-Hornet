@@ -13,7 +13,7 @@ type Props = {
   objectives: Objective[];
 };
 
-export const ObjectivesSection = (props: Props, _context) => {
+export const ObjectivesSection = (props: Props) => {
   const { objectives } = props;
   return (
     <Section fill title="Objectives" scrollable>
@@ -27,7 +27,7 @@ export const ObjectivesSection = (props: Props, _context) => {
                 <span
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeText(objective.explanation),
+                    __html: sanitizeText(objective.explanation, false),
                   }}
                 />
               </Stack.Item>

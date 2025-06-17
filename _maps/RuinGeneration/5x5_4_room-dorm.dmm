@@ -22,7 +22,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "H" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "J" = (

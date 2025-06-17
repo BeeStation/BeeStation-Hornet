@@ -7,7 +7,7 @@
 	var/vote_active = FALSE
 	var/vote_timer
 
-/obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
 		return
@@ -18,7 +18,7 @@
 		hierophant_message("[user] has cancelled the Eminence vote.")
 		return
 	if(used)
-		to_chat(user, "<span class='brass'>The Eminence has already been released.</span>")
+		to_chat(user, span_brass("The Eminence has already been released."))
 		return
 	var/option = alert(user,"Who shall control the Eminence?",,"Yourself","A ghost", "Cancel")
 	if(option != "A ghost")
@@ -35,7 +35,7 @@
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS)
+		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS)
 		if(LAZYLEN(candidates))
 			eminence = pick(candidates)
 	else

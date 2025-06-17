@@ -14,4 +14,5 @@ export const outline_color: Feature<string> = {
   subcategory: 'HUD',
   description: 'The color of that hovered items will outline with.',
   component: FeatureColorInput,
+  important: true,
 };

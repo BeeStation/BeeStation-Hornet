@@ -30,7 +30,7 @@ Bonus
 	bodies = list("Cold")
 	var/infective = FALSE
 	threshold_desc = "<b>Stealth 4:</b> The symptom remains hidden until active.<br>\
-					  <b>Transmission 12:</b> The host may spread the disease through sneezing."
+						<b>Transmission 12:</b> The host may spread the disease through sneezing."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
 	if(!..())
@@ -44,11 +44,13 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1, 2, 3)
 			if(!suppress_warning)
 				M.emote("sniff")
 		else
 			M.emote("sneeze")
-			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
+			if((infective || CONFIG_GET(flag/unconditional_virus_spreading) || A.event) && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 				addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 4), 20)

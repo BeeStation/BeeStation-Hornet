@@ -39,10 +39,11 @@
 	SSticker.OnRoundend(roundend_callback)
 
 /obj/item/greentext/equipped(mob/living/user as mob)
-	to_chat(user, "<font color='green'>So long as you leave this place with greentext in hand you know you will be happy...</font>")
-	var/list/other_objectives = user.mind.get_all_antag_objectives()
-	if(user.mind && other_objectives.len > 0)
-		to_chat(user, "<span class='warning'>... so long as you still perform your other objectives that is!</span>")
+	if (user.mind)
+		to_chat(user, "<font color='green'>So long as you leave this place with greentext in hand you know you will be happy...</font>")
+		var/list/other_objectives = user.mind.get_all_antag_objectives()
+		if(user.mind && other_objectives.len > 0)
+			to_chat(user, span_warning("... so long as you still perform your other objectives that is!"))
 	new_holder = user
 	if(!last_holder)
 		last_holder = user
@@ -55,7 +56,7 @@
 /obj/item/greentext/dropped(mob/living/user as mob)
 	..()
 	if(user in color_altered_mobs)
-		to_chat(user, "<span class='warning'>A sudden wave of failure washes over you...</span>")
+		to_chat(user, span_warning("A sudden wave of failure washes over you..."))
 		user.add_atom_colour("#FF0000", ADMIN_COLOUR_PRIORITY) //ya blew it
 	last_holder 	= null
 	new_holder 		= null
@@ -75,7 +76,7 @@
 
 /obj/item/greentext/process()
 	if(last_holder && last_holder != new_holder) //Somehow it was swiped without ever getting dropped
-		to_chat(last_holder, "<span class='warning'>A sudden wave of failure washes over you...</span>")
+		to_chat(last_holder, span_warning("A sudden wave of failure washes over you..."))
 		last_holder.add_atom_colour("#FF0000", ADMIN_COLOUR_PRIORITY)
 		last_holder = new_holder //long live the king
 

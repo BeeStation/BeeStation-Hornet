@@ -7,17 +7,9 @@
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
-"bY" = (
-/obj/structure/closet,
-/obj/item/reagent_containers/food/snacks/popcorn,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/monotile/steel,
-/area/template_noop)
 "ce" = (
 /obj/effect/decal/cleanable/glass,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "dn" = (
 /obj/machinery/shower{
@@ -43,7 +35,7 @@
 /area/template_noop)
 "fb" = (
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "fy" = (
 /obj/machinery/shower,
@@ -69,11 +61,20 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
+"kk" = (
+/obj/item/trash/cheesie,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/template_noop)
 "kn" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "lo" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -95,7 +96,7 @@
 /area/template_noop)
 "mQ" = (
 /obj/item/toy/beach_ball,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "nv" = (
 /obj/effect/decal/cleanable/glass,
@@ -111,7 +112,7 @@
 /area/template_noop)
 "os" = (
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "oZ" = (
 /obj/machinery/light/small{
@@ -124,11 +125,11 @@
 	icon_state = "floor5"
 	},
 /obj/structure/curtain,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "qP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
 	pixel_x = 4;
 	pixel_y = 7
 	},
@@ -140,22 +141,28 @@
 "rx" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"sw" = (
+"sh" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	broken = 1
 	},
 /area/template_noop)
 "sZ" = (
 /obj/structure/curtain,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "th" = (
 /obj/structure/chair/stool,
 /turf/open/floor/plating,
 /area/template_noop)
+"uF" = (
+/obj/item/trash/popcorn,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/template_noop)
 "xe" = (
 /obj/effect/landmark/blobstart,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "xL" = (
 /turf/closed/wall,
@@ -165,16 +172,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"zY" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/open/floor/iron,
 /area/template_noop)
 "AU" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
 	pixel_x = -4;
 	pixel_y = 5
 	},
@@ -187,11 +189,13 @@
 /obj/machinery/shower,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
-"Ee" = (
-/obj/item/trash/popcorn,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
+"BL" = (
+/obj/structure/closet,
+/obj/item/food/popcorn,
+/obj/machinery/light{
+	dir = 1
 	},
+/turf/open/floor/monotile/steel,
 /area/template_noop)
 "GN" = (
 /obj/structure/closet,
@@ -204,9 +208,20 @@
 /obj/item/stack/spacecash/c20,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
+"HU" = (
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/template_noop)
 "HZ" = (
 /obj/item/chair/stool,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
+/area/template_noop)
+"Ig" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/template_noop)
 "Jb" = (
 /obj/structure/table,
@@ -217,11 +232,11 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "JJ" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Mj" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "NQ" = (
 /obj/machinery/light/small{
@@ -240,12 +255,12 @@
 /area/template_noop)
 "Pg" = (
 /obj/structure/chair/stool,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Qx" = (
 /obj/structure/closet,
 /obj/structure/window/reinforced/tinted/frosted,
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
+/obj/item/reagent_containers/cup/glass/bottle/tequila{
 	pixel_x = -6;
 	pixel_y = 4
 	},
@@ -260,21 +275,6 @@
 /obj/structure/window/reinforced/tinted/frosted,
 /obj/item/storage/box,
 /turf/open/floor/monotile/steel,
-/area/template_noop)
-"TI" = (
-/obj/item/trash/cheesie,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/template_noop)
-"Uy" = (
-/obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
 /area/template_noop)
 "UJ" = (
 /obj/structure/closet,
@@ -306,7 +306,7 @@
 /area/template_noop)
 "Xz" = (
 /obj/item/cigbutt/roach,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Yy" = (
 /obj/structure/table,
@@ -319,7 +319,7 @@
 /area/template_noop)
 "YW" = (
 /obj/item/stack/spacecash/c20,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Zs" = (
 /obj/structure/closet/firecloset/full,
@@ -332,7 +332,7 @@ JJ
 yL
 ce
 re
-Uy
+Ig
 JJ
 JJ
 JJ
@@ -351,7 +351,7 @@ Mj
 VX
 "}
 (3,1,1) = {"
-bY
+BL
 JJ
 Pg
 JJ
@@ -378,12 +378,12 @@ xL
 re
 rx
 HZ
-Ee
+uF
 GN
 AU
 JJ
 JJ
-sw
+HU
 oZ
 "}
 (6,1,1) = {"
@@ -401,10 +401,10 @@ re
 (7,1,1) = {"
 mb
 rx
-TI
+kk
 JJ
 JJ
-zY
+sh
 HZ
 rx
 th
@@ -418,7 +418,7 @@ kn
 YL
 xe
 JJ
-zY
+sh
 JJ
 UQ
 "}

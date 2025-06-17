@@ -1,0 +1,169 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"f" = (
+/obj/structure/flora/ausbushes/genericbush,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"g" = (
+/obj/effect/holodeck_effect/mobspawner/pet,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"j" = (
+/obj/item/shovel/spade{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"k" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"l" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"o" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/effect/holodeck_effect/mobspawner/pet,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"q" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/holodeck_effect/mobspawner/pet,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"r" = (
+/obj/item/plate,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"v" = (
+/obj/structure/flora/ausbushes/palebush,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"w" = (
+/obj/effect/holodeck_effect/mobspawner/pet,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"x" = (
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"y" = (
+/obj/structure/flora/ausbushes/pointybush,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"C" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"D" = (
+/obj/structure/flora/ausbushes/reedbush,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"E" = (
+/obj/effect/holodeck_effect/mobspawner/pet,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"G" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"H" = (
+/obj/effect/holodeck_effect/mobspawner/pet,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"I" = (
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"M" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"O" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/reagent_containers/cup/bucket,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"R" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"U" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/cultivator,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"W" = (
+/obj/structure/flora/ausbushes/palebush,
+/obj/effect/holodeck_effect/mobspawner/pet,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+
+(1,1,1) = {"
+I
+I
+I
+I
+f
+f
+a
+"}
+(2,1,1) = {"
+I
+I
+k
+f
+g
+H
+I
+"}
+(3,1,1) = {"
+I
+o
+M
+g
+I
+U
+I
+"}
+(4,1,1) = {"
+y
+w
+x
+E
+D
+q
+f
+"}
+(5,1,1) = {"
+I
+I
+r
+j
+C
+O
+I
+"}
+(6,1,1) = {"
+I
+M
+g
+v
+g
+l
+W
+"}
+(7,1,1) = {"
+f
+C
+R
+f
+I
+G
+I
+"}

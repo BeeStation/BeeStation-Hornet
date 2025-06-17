@@ -1,0 +1,11 @@
+/obj/item/reagent_containers/food/snacks/sandwich : /obj/item/food/sandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/grilledcheese : /obj/item/food/grilled_cheese_sandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/toastedsandwich : /obj/item/food/toastedsandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/jellysandwich : /obj/item/food/jellysandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/jellysandwich/@SUBTYPES : /obj/item/food/jellysandwich/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/notasandwich : /obj/item/food/notasandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/hotdog : /obj/item/food/hotdog{@OLD}
+/obj/item/reagent_containers/food/snacks/butteredtoast : /obj/item/food/butteredtoast{@OLD}
+/obj/item/reagent_containers/food/snacks/jelliedtoast : /obj/item/food/jelliedtoast{@OLD}
+/obj/item/reagent_containers/food/snacks/jelliedtoast/@SUBTYPES : /obj/item/food/jelliedtoast/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/twobread : /obj/item/food/twobread{@OLD}

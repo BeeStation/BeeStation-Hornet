@@ -1,3 +1,6 @@
+/obj/item/assembly/flash/bomb
+	bulb = /obj/item/flashbulb/bomb
+
 /obj/item/flashbulb/bomb
 	name = "suspicious flashbulb"
 	desc = "A powerful flashbulb that looks slightly off, with strange wires running out the back."

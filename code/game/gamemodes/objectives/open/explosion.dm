@@ -65,8 +65,8 @@
 
 /datum/objective/open/explosion/get_completion_message()
 	if(!success)
-		return "[explanation_text] <span class='redtext'>Fail!</span>"
-	return "[explanation_text] <span class='infotext'>Largest Bomb: ([devistation], [heavy], [light])</span>"
+		return "[explanation_text] [span_redtext("Fail!")]"
+	return "[explanation_text] [span_infotext("Largest Bomb: ([devistation], [heavy], [light])")]"
 
 /datum/objective/open/explosion/get_target()
 	return selected_area

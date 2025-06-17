@@ -285,7 +285,7 @@
 
 /obj/effect/turf_decal/siding/wood
 	icon_state = "siding_wood_line"
-	color = "#55391A"
+	color = "#b16a4c"
 
 /obj/effect/turf_decal/siding/wood/corner
 	icon_state = "siding_wood_corner"
@@ -464,8 +464,151 @@
 /obj/effect/turf_decal/numbers/two_nine
 	icon_state = "number_2-9"
 
-/obj/effect/turf_decal/techfloor
+/obj/effect/turf_decal/siding/asteroid
+	icon_state = "siding_asteroid_line"
+
+/obj/effect/turf_decal/siding/asteroid/corner
+	icon_state = "siding_asteroid_corner"
+
+/obj/effect/turf_decal/siding/asteroid/end
+	icon_state = "siding_asteroid_end"
+
+/obj/effect/turf_decal/siding/dirt
+	icon_state = "siding_dirt_line"
+
+/obj/effect/turf_decal/siding/dirt/corner
+	icon_state = "siding_dirt_corner"
+
+/obj/effect/turf_decal/siding/dirt/end
+	icon_state = "siding_dirt_end"
+///Borderfloors
+
+//Plain
+/obj/effect/turf_decal/edges/borderfloor
+	icon_state = "borderfloor"
+
+/obj/effect/turf_decal/edges/borderfloor/corner1
+	icon_state = "borderfloorcorner"
+
+/obj/effect/turf_decal/edges/borderfloor/corner2
+	icon_state = "borderfloorcorner2"
+
+/obj/effect/turf_decal/edges/borderfloor/full
+	icon_state = "borderfloorfull"
+
+/obj/effect/turf_decal/edges/borderfloor/cee
+	icon_state = "borderfloorcee"
+
+//Black
+/obj/effect/turf_decal/edges/borderfloor/black
+	icon_state = "borderfloor_black"
+
+/obj/effect/turf_decal/edges/borderfloor/black/corner1
+	icon_state = "borderfloorcorner_black"
+
+/obj/effect/turf_decal/edges/borderfloor/black/corner2
+	icon_state = "borderfloorcorner2_black"
+
+/obj/effect/turf_decal/edges/borderfloor/black/full
+	icon_state = "borderfloorfull_black"
+
+/obj/effect/turf_decal/edges/borderfloor/black/cee
+	icon_state = "borderfloorcee_black"
+
+//White
+/obj/effect/turf_decal/edges/borderfloor/white
+	icon_state = "borderfloor_white"
+
+/obj/effect/turf_decal/edges/borderfloor/white/corner1
+	icon_state = "borderfloorcorner_white"
+
+/obj/effect/turf_decal/edges/borderfloor/white/corner2
+	icon_state = "borderfloorcorner2_white"
+
+/obj/effect/turf_decal/edges/borderfloor/white/full
+	icon_state = "borderfloorfull_white"
+
+/obj/effect/turf_decal/edges/borderfloor/white/cee
+	icon_state = "borderfloorcee_white"
+
+/obj/effect/turf_decal/edges/borderfloor/edge
+	icon_state = "edge"
+
+//Techfloors
+
+/obj/effect/turf_decal/edges/techfloor
 	icon_state = "techfloor_edges"
 
-/obj/effect/turf_decal/techfloor/corners
+/obj/effect/turf_decal/edges/techfloor/corners
 	icon_state = "techfloor_corners"
+
+/obj/effect/turf_decal/edges/techfloor_orange
+	icon_state = "techfloororange_edges"
+
+/obj/effect/turf_decal/edges/techfloor_orange/corners
+	icon_state = "techfloororange_corners"
+
+/obj/effect/turf_decal/evac
+	icon_state = "evac"
+
+/obj/effect/turf_decal/evac/evac_big
+	icon_state = "evac_big"
+
+/obj/effect/turf_decal/evac/evac_massive_left
+	icon_state = "evac_massive_left"
+
+/obj/effect/turf_decal/evac/evac_massive_middle
+	icon_state = "evac_massive_middle"
+
+/obj/effect/turf_decal/evac/evac_massive_right
+	icon_state = "evac_massive_right"
+
+/// ALPHANUMERIC DECALS (SO FAR ONLY FOR CHESS ALGEBRAIC NOTATION) ///
+
+/obj/effect/turf_decal/board_number/one
+	icon_state = "board_1"
+
+/obj/effect/turf_decal/board_number/two
+	icon_state = "board_2"
+
+/obj/effect/turf_decal/board_number/three
+	icon_state = "board_3"
+
+/obj/effect/turf_decal/board_number/four
+	icon_state = "board_4"
+
+/obj/effect/turf_decal/board_number/five
+	icon_state = "board_5"
+
+/obj/effect/turf_decal/board_number/six
+	icon_state = "board_6"
+
+/obj/effect/turf_decal/board_number/seven
+	icon_state = "board_7"
+
+/obj/effect/turf_decal/board_number/eight
+	icon_state = "board_8"
+
+/obj/effect/turf_decal/board_letter/a
+	icon_state = "board_a"
+
+/obj/effect/turf_decal/board_letter/b
+	icon_state = "board_b"
+
+/obj/effect/turf_decal/board_letter/c
+	icon_state = "board_c"
+
+/obj/effect/turf_decal/board_letter/d
+	icon_state = "board_d"
+
+/obj/effect/turf_decal/board_letter/e
+	icon_state = "board_e"
+
+/obj/effect/turf_decal/board_letter/f
+	icon_state = "board_f"
+
+/obj/effect/turf_decal/board_letter/g
+	icon_state = "board_g"
+
+/obj/effect/turf_decal/board_letter/h
+	icon_state = "board_h"

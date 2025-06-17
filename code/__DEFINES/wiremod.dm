@@ -195,15 +195,6 @@
 #define COMP_SOUND_WARN "Warn"
 #define COMP_SOUND_SLOWCLAP "Slow Clap"
 
-// Security Arrest Console
-#define COMP_STATE_ARREST "*Arrest*"
-#define COMP_STATE_PRISONER "Incarcerated"
-#define COMP_STATE_PAROL "Paroled"
-#define COMP_STATE_DISCHARGED "Discharged"
-#define COMP_STATE_NONE "None"
-
-#define COMP_SECURITY_ARREST_AMOUNT_TO_FLAG 10
-
 #define WIREMOD_CIRCUITRY "Circuitry"
 #define WIREMOD_CORE "Core"
 #define WIREMOD_SHELLS "Shells"

@@ -28,38 +28,34 @@ GLOBAL_PROTECT(exp_to_update)
 		return (job_requirement - my_exp)
 
 /datum/job/proc/get_exp_req_amount()
-	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))
+	if(title in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI)))
 		var/uerhh = CONFIG_GET(number/use_exp_restrictions_heads_hours)
 		if(uerhh)
 			return uerhh * 60
 	return exp_requirements
 
 /datum/job/proc/get_exp_req_type()
-	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))
-		if(CONFIG_GET(flag/use_exp_restrictions_heads_department) && exp_type_department)
-			return exp_type_department
 	return exp_type
 
 /proc/job_is_xp_locked(jobtitle)
-	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (jobtitle in (GLOB.command_positions | list(JOB_NAME_AI))))
+	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (jobtitle in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI))))
 		return FALSE
-	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(jobtitle in (GLOB.command_positions | list(JOB_NAME_AI))))
+	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(jobtitle in (SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) | list(JOB_NAME_AI))))
 		return FALSE
 	return TRUE
 
 /client/proc/calc_exp_type(exptype)
 	var/list/explist = prefs.exp.Copy()
 	var/amount = 0
-	var/list/typelist = GLOB.exp_jobsmap[exptype]
-	if(!typelist)
-		return -1
-	for(var/job in typelist["titles"])
-		if(job in explist)
-			amount += explist[job]
+	var/list/valid_jobs = GLOB.exp_jobsmap[exptype]
+	if(valid_jobs)
+		for(var/job in valid_jobs)
+			if(job in explist)
+				amount += explist[job]
 	// Removed job support
-	typelist = GLOB.exp_removed_jobsmap[exptype]
-	if(typelist)
-		for(var/job in typelist["titles"])
+	var/list/removed_jobs = GLOB.exp_removed_jobsmap[exptype]
+	if(removed_jobs)
+		for(var/job in removed_jobs)
 			if(job in explist)
 				amount += explist[job]
 	return amount
@@ -98,7 +94,7 @@ GLOBAL_PROTECT(exp_to_update)
 		return -1
 	if(!SSdbcore.Connect())
 		return -1
-	var/datum/DBQuery/exp_read = SSdbcore.NewQuery(
+	var/datum/db_query/exp_read = SSdbcore.NewQuery(
 		"SELECT job, minutes FROM [format_table_name("role_time")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -136,7 +132,7 @@ GLOBAL_PROTECT(exp_to_update)
 	else
 		prefs.db_flags |= newflag
 
-	var/datum/DBQuery/flag_update = SSdbcore.NewQuery(
+	var/datum/db_query/flag_update = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET flags=:flags WHERE ckey=:ckey",
 		list("flags" = "[prefs.db_flags]", "ckey" = ckey)
 	)
@@ -164,41 +160,41 @@ GLOBAL_PROTECT(exp_to_update)
 			process_ten_minute_living()
 
 			if(announce_changes)
-				to_chat(src,"<span class='notice'>You got: [minutes] Living EXP!</span>")
+				to_chat(src,span_notice("You got: [minutes] Living EXP!"))
 			if(mob.mind.assigned_role)
 				for(var/job in SSjob.name_occupations)
 					if(mob.mind.assigned_role == job)
 						rolefound = TRUE
 						play_records[job] += minutes
 						if(announce_changes)
-							to_chat(src,"<span class='notice'>You got: [minutes] [job] EXP!</span>")
+							to_chat(src,span_notice("You got: [minutes] [job] EXP!"))
 				if(!rolefound)
 					for(var/role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
 						if(mob.mind.assigned_role == role)
 							rolefound = TRUE
 							play_records[role] += minutes
 							if(announce_changes)
-								to_chat(mob,"<span class='notice'>You got: [minutes] [role] EXP!</span>")
+								to_chat(mob,span_notice("You got: [minutes] [role] EXP!"))
 				if(mob.mind.special_role && !(mob.mind.datum_flags & DF_VAR_EDITED))
 					var/trackedrole = mob.mind.special_role
 					play_records[trackedrole] += minutes
 					if(announce_changes)
-						to_chat(src,"<span class='notice'>You got: [minutes] [trackedrole] EXP!</span>")
+						to_chat(src,span_notice("You got: [minutes] [trackedrole] EXP!"))
 			if(!rolefound)
 				play_records["Unknown"] += minutes
 		else
 			if(holder && !holder.deadmined)
 				play_records[EXP_TYPE_ADMIN] += minutes
 				if(announce_changes)
-					to_chat(src,"<span class='notice'>You got: [minutes] Admin EXP!</span>")
+					to_chat(src,span_notice("You got: [minutes] Admin EXP!"))
 			else
 				play_records[EXP_TYPE_GHOST] += minutes
 				if(announce_changes)
-					to_chat(src,"<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+					to_chat(src,span_notice("You got: [minutes] Ghost EXP!"))
 	else if(isobserver(mob))
 		play_records[EXP_TYPE_GHOST] += minutes
 		if(announce_changes)
-			to_chat(src,"<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+			to_chat(src,span_notice("You got: [minutes] Ghost EXP!"))
 	else if(minutes)	//Let "refresh" checks go through
 		return
 
@@ -222,7 +218,7 @@ GLOBAL_PROTECT(exp_to_update)
 	if(!SSdbcore.Connect())
 		return FALSE
 
-	var/datum/DBQuery/flags_read = SSdbcore.NewQuery(
+	var/datum/db_query/flags_read = SSdbcore.NewQuery(
 		"SELECT flags FROM [format_table_name("player")] WHERE ckey=:ckey",
 		list("ckey" = ckey)
 	)

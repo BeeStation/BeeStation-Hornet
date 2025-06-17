@@ -9,6 +9,7 @@
 	item_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
+	material_flags = MATERIAL_EFFECTS
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 	novariants = TRUE // Ore stacks handle their icon updates themselves to keep the illusion that there's more going
@@ -59,6 +60,8 @@
 		else
 			new refined_type(drop_location(),amountrefined)
 			qdel(src)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/ore)
 
 /obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()

@@ -26,6 +26,13 @@ again.
 		pipe_astar_cost = 1\
 	)
 
+/obj/effect/spawner/structure/window/Initialize(mapload)
+	. = ..()
+
+	if (is_station_level(z))
+		var/turf/current_turf = get_turf(src)
+		current_turf.rcd_memory = RCD_MEMORY_WINDOWGRILLE
+
 /obj/effect/spawner/structure/window/hollow
 	name = "hollow window spawner"
 	icon_state = "hwindow_spawner_full"
@@ -80,15 +87,9 @@ again.
 			spawn_list = list(/obj/structure/grille, /obj/structure/window/spawner/north, /obj/structure/window/spawner/west)
 	. = ..()
 
-//shutter
-/obj/effect/spawner/structure/window/shutter
-	name = "shutter window spawner"
-	icon_state = "shwindow_spawner"
-	spawn_list = list(/obj/machinery/door/firedoor/window, /obj/structure/grille, /obj/structure/window/fulltile)
-
 //reinforced
 
-/obj/effect/spawner/structure/window/reinforced
+/obj/effect/spawner/structure/window/reinforced //brig windows here
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/fulltile)
@@ -96,11 +97,10 @@ again.
 		pipe_astar_cost = 2\
 	)
 
-//reinforced shutter
-/obj/effect/spawner/structure/window/reinforced/shutter
-	name = "reinforced shutter window spawner"
-	icon_state = "shrwindow_spawner"
-	spawn_list = list(/obj/machinery/door/firedoor/window, /obj/structure/grille, /obj/structure/window/reinforced/fulltile)
+//Alarm grilles for prison wing
+/obj/effect/spawner/structure/window/reinforced/prison
+	name = "prison window spawner"
+	spawn_list = list(/obj/structure/grille/prison, /obj/structure/window/reinforced/fulltile)
 
 /obj/effect/spawner/structure/window/hollow/reinforced
 	name = "hollow reinforced window spawner"
@@ -163,11 +163,13 @@ again.
 	icon_state = "twindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/tinted/fulltile)
 
-//tinted reinforced shutter
-/obj/effect/spawner/structure/window/reinforced/tinted/shutter
-	name = "tinted reinforced shutter window spawner"
-	icon_state = "shtwindow_spawner"
-	spawn_list = list(/obj/machinery/door/firedoor/window, /obj/structure/grille, /obj/structure/window/reinforced/tinted/fulltile)
+//tinted nightclub
+
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub
+	name = "tinted nightclub reinforced window spawner"
+	icon_state = "twindow_spawner"
+	color ="#9b1d70"
+	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/tinted/fulltile/nightclub)
 
 //shuttle window
 
@@ -377,13 +379,6 @@ again.
 			spawn_list = list(/obj/structure/grille, /obj/structure/window/plasma/reinforced/spawner/north, /obj/structure/window/plasma/reinforced/spawner/west)
 	. = ..()
 
-//reinforced plasma shutter
-
-/obj/effect/spawner/structure/window/plasma/reinforced/shutter
-	name = "reinforced plasma shutter window spawner"
-	icon_state = "shprwindow_spawner"
-	spawn_list = list(/obj/machinery/door/firedoor/window, /obj/structure/grille, /obj/structure/window/plasma/reinforced/fulltile)
-
 //Depleted Uranium Windows
 
 /obj/effect/spawner/structure/window/depleteduranium
@@ -444,3 +439,9 @@ again.
 		if(NORTHWEST)
 			spawn_list = list(/obj/structure/grille, /obj/structure/window/depleteduranium/spawner/north, /obj/structure/window/depleteduranium/spawner/west)
 	. = ..()
+
+/obj/effect/spawner/structure/shipping_container
+	name = "shipping container spawner"
+	icon = 'icons/obj/containers.dmi'
+	icon_state = "random_container"
+	spawn_list = list(/obj/structure/shipping_container/conarex = 3,/obj/structure/shipping_container/deforest = 3,/obj/structure/shipping_container/kahraman = 3,/obj/structure/shipping_container/kahraman/alt = 3,/obj/structure/shipping_container/kosmologistika = 3,/obj/structure/shipping_container/interdyne = 3,/obj/structure/shipping_container/nakamura = 3,/obj/structure/shipping_container/nanotrasen = 3,/obj/structure/shipping_container/nthi = 3,/obj/structure/shipping_container/vitezstvi = 3,/obj/structure/shipping_container/cybersun = 2,/obj/structure/shipping_container/donk_co = 2,/obj/structure/shipping_container/gorlex = 1,/obj/structure/shipping_container/gorlex/red = 1)

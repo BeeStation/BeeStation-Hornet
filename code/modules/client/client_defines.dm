@@ -8,6 +8,9 @@
 		//ADMIN THINGS//
 		////////////////
 
+	/// If this client has been fully initialized or not
+	var/fully_created = FALSE
+
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
@@ -20,6 +23,8 @@
 
 	/// Used to cache this client's bans to save on DB queries
 	var/ban_cache = null
+	///If we are currently building this client's ban cache, this var stores the timeofday we started at
+	var/ban_cache_start = 0
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message	= ""
 	/// How many messages sent in the last 10 seconds
@@ -41,10 +46,12 @@
 	/// The last world.time that the client's mob turned
 	var/last_turn = 0
 
-	/// The next world.time this client is allowed to move
+	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
 	var/move_delay = 0
-
-	var/area			= null
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
+	///Current area of the controlled mob
+	var/area = null
 
 	var/buzz_playing = null
 		////////////
@@ -72,12 +79,6 @@
 
 	var/atom/movable/screen/click_catcher/void
 
-	//These two vars are used to make a special mouse cursor, with a unique icon for clicking
-	/// Mouse icon while not clicking
-	var/mouse_up_icon = null
-	/// Mouse icon while clicking
-	var/mouse_down_icon = null
-
 	var/ip_intel = "Disabled"
 
 	/// Datum that controls the displaying and hiding of tooltips
@@ -104,7 +105,7 @@
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
 
-	var/datum/viewData/view_size
+	var/datum/view_data/view_size
 
 	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
 	var/list/sent_assets = list()
@@ -125,3 +126,30 @@
 
 	/// Whether or not this client has standard hotkeys enabled
 	var/hotkeys = TRUE
+
+	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
+	var/datum/weakref/eye_weakref
+
+///Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	var/list/atom/selected_target[2]
+	///Used in MouseDrag to preserve the original mouse click parameters
+	var/mouseParams = ""
+	///Used in MouseDrag to preserve the last mouse-entered location. Weakref
+	var/datum/weakref/mouse_location_ref = null
+	///Used in MouseDrag to preserve the last mouse-entered object. Weakref
+	var/datum/weakref/mouse_object_ref
+	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
+	var/datum/weakref/middle_drag_atom_ref
+
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	///used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
+
+
+	/// Whether or not we want to show screentips
+	var/show_screentips = TRUE
+	/// Should extended screentips be shown?
+	var/show_extended_screentips = FALSE

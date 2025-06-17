@@ -1,11 +1,11 @@
 //Space Ruin Parents
 
 /area/ruin/space
-	has_gravity = FALSE
+	default_gravity = ZERO_GRAVITY
 	area_flags = UNIQUE_AREA
 
 /area/ruin/space/has_grav
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/has_grav/powered
 	requires_power = FALSE
@@ -172,6 +172,7 @@
 /area/ruin/space/has_grav/deepstorage
 	name = "Deep Storage"
 	icon_state = "storage"
+	camera_networks = list(CAMERA_NETWORK_BUNKER)
 
 /area/ruin/space/has_grav/deepstorage/airlock
 	name = "Deep Storage Airlock"
@@ -227,12 +228,12 @@
 /area/ruin/space/has_grav/ancientstation/space
 	name = "Exposed To Space"
 	icon_state = "teleporter"
-	has_gravity = FALSE
+	default_gravity = ZERO_GRAVITY
 
 /area/ruin/space/has_grav/ancientstation/atmo
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
-	has_gravity = FALSE
+	default_gravity = ZERO_GRAVITY
 	ambience_index = AMBIENCE_ENGI
 
 /area/ruin/space/has_grav/ancientstation/betanorth
@@ -358,12 +359,12 @@
 /area/ruin/space/djstation
 	name = "Ruskie DJ Station"
 	icon_state = "DJ"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/djstation/solars
 	name = "DJ Station Solars"
 	icon_state = "DJ"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 
 
 //ABANDONED TELEPORTER

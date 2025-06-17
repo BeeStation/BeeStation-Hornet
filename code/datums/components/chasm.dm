@@ -69,7 +69,7 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
-	if(is_type_in_typecache(AM, forbidden_types) || AM.throwing || (AM.movement_type & FLOATING))
+	if(is_type_in_typecache(AM, forbidden_types) || AM.throwing || (AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return FALSE
 	//Flies right over the chasm
 	if(ismob(AM))
@@ -78,14 +78,12 @@
 			var/mob/buckled_to = M.buckled
 			if((!ismob(M.buckled) || (buckled_to.buckled != M)) && !droppable(M.buckled))
 				return FALSE
-		if(M.is_flying())
-			return FALSE
 		if(ishuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(istype(H.belt, /obj/item/wormhole_jaunter))
 				var/obj/item/wormhole_jaunter/J = H.belt
 				//To freak out any bystanders
-				H.visible_message("<span class='boldwarning'>[H] falls into [parent]!</span>")
+				H.visible_message(span_boldwarning("[H] falls into [parent]!"))
 				J.chasm_react(H)
 				return FALSE
 	return TRUE
@@ -101,8 +99,8 @@
 
 	if(T)
 		// send to the turf below
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [parent]!</span>", "<span class='userdanger'>[fall_message]</span>")
-		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
+		AM.visible_message(span_boldwarning("[AM] falls into [parent]!"), span_userdanger("[fall_message]"))
+		T.visible_message(span_boldwarning("[AM] falls from above!"))
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
@@ -112,23 +110,29 @@
 
 	else
 		// send to oblivion
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [parent]!</span>", "<span class='userdanger'>[oblivion_message]</span>")
+		AM.visible_message(span_boldwarning("[AM] falls into [parent]!"), span_userdanger("[oblivion_message]"))
 		if (isliving(AM))
 			var/mob/living/L = AM
 			L.notransform = TRUE
-			L.Paralyze(20 SECONDS)
+			L.Paralyze(2 SECONDS)
+
+		if(ismecha(AM))
+			var/obj/vehicle/sealed/mecha/mech = AM
+			mech.canmove = FALSE
 
 		var/oldtransform = AM.transform
 		var/oldcolor = AM.color
 		var/oldalpha = AM.alpha
-		animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
+		animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 15)
 		for(var/i in 1 to 5)
 			//Make sure the item is still there after our sleep
 			if(!AM || QDELETED(AM))
 				return
 			AM.pixel_y--
-			sleep(2)
-
+			sleep(3)
+			if(i == 2 && ismecha(AM))
+				var/obj/vehicle/sealed/mecha/mech = AM
+				mech.Eject() //ABORT ABORT
 		//Make sure the item is still there after our sleep
 		if(!AM || QDELETED(AM))
 			return
@@ -141,7 +145,7 @@
 		qdel(AM)
 		if(AM && !QDELETED(AM))	//It's indestructible
 			var/atom/parent = src.parent
-			parent.visible_message("<span class='boldwarning'>[parent] spits out [AM]!</span>")
+			parent.visible_message(span_boldwarning("[parent] spits out [AM]!"))
 			AM.alpha = oldalpha
 			AM.color = oldcolor
 			AM.transform = oldtransform

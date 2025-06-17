@@ -1,22 +1,22 @@
 /* How it works:
- The shuttle arrives at CentCom dock and calls sell(), which recursively loops through all the shuttle contents that are unanchored.
+The shuttle arrives at CentCom dock and calls sell(), which recursively loops through all the shuttle contents that are unanchored.
 
- Each object in the loop is checked for applies_to() of various export datums, except the invalid ones.
+Each object in the loop is checked for applies_to() of various export datums, except the invalid ones.
 */
 
 /* The rule in figuring out item export cost:
- Export cost of goods in the shipping crate must be always equal or lower than:
-  packcage cost - crate cost - manifest cost
- Crate cost is 500cr for a regular plasteel crate and 100cr for a large wooden one. Manifest cost is always 200cr.
- This is to avoid easy cargo points dupes.
+Export cost of goods in the shipping crate must be always equal or lower than:
+	packcage cost - crate cost - manifest cost
+Crate cost is 500cr for a regular plasteel crate and 100cr for a large wooden one. Manifest cost is always 200cr.
+This is to avoid easy cargo points dupes.
 
 Credit dupes that require a lot of manual work shouldn't be removed, unless they yield too much profit for too little work.
- For example, if some player buys iron and glass sheets and uses them to make and sell reinforced glass:
+For example, if some player buys iron and glass sheets and uses them to make and sell reinforced glass:
 
- 100 glass + 50 iron -> 100 reinforced glass
- (1500cr -> 1600cr)
+100 glass + 50 iron -> 100 reinforced glass
+(1500cr -> 1600cr)
 
- then the player gets the profit from selling his own wasted time.
+then the player gets the profit from selling his own wasted time.
 */
 
 // Simple holder datum to pass export results around
@@ -33,6 +33,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	var/list/contents = AM.GetAllContents()
 
 	var/datum/export_report/report = external_report
+
 	if(!report) //If we don't have any longer transaction going on
 		report = new
 
@@ -40,6 +41,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	for(var/i in reverse_range(contents))
 		var/atom/movable/thing = i
 		var/sold = FALSE
+
 		for(var/datum/export/E in GLOB.exports_list)
 			if(!E)
 				continue
@@ -47,6 +49,9 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
+
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
+
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
@@ -75,6 +80,9 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
+
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
+
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
@@ -146,11 +154,18 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 		return FALSE
 	return TRUE
 
-// Called only once, when the object is actually sold by the datum.
-// Adds item's cost and amount to the current export cycle.
-// get_cost, get_amount and applies_to do not neccesary mean a successful sale.
+/**
+  * Calculates the exact export value of the object, while factoring in all the relivant variables.
+  *
+  * Called only once, when the object is actually sold by the datum.
+  * Adds item's cost and amount to the current export cycle.
+  * get_cost, get_amount and applies_to do not neccesary mean a successful sale.
+  *
+  */
 /datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+	///This is the value of the object, as derived from export datums.
 	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
+	///Quantity of the object in question.
 	var/amount = get_amount(O)
 
 	if(amount <=0 || the_cost <=0)

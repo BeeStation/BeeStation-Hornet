@@ -12,15 +12,15 @@
 	for (var/stripe_name in GLOB.apid_stripes_list)
 		var/datum/sprite_accessory/stripe = GLOB.apid_stripes_list[stripe_name]
 
-		var/icon/icon_with_stripes = icon('icons/mob/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
+		var/datum/universal_icon/icon_with_stripes = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
 		if (stripe.icon_state != "none")
-			var/icon/stripes_icon = icon(stripe.icon, "m_apid_stripes_[stripe.icon_state]_ADJ", dir = SOUTH)
-			stripes_icon.Blend(COLOR_YELLOW, ICON_MULTIPLY)
-			icon_with_stripes.Blend(stripes_icon, ICON_OVERLAY)
+			var/datum/universal_icon/stripes_icon = uni_icon(stripe.icon, "m_apid_stripes_[stripe.icon_state]_ADJ", dir = SOUTH)
+			stripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
+			icon_with_stripes.blend_icon(stripes_icon, ICON_OVERLAY)
 
-		icon_with_stripes.Crop(10, 8, 22, 23)
-		icon_with_stripes.Scale(26, 32)
-		icon_with_stripes.Crop(-2, 1, 29, 32)
+		icon_with_stripes.crop(10, 8, 22, 23)
+		icon_with_stripes.scale(26, 32)
+		icon_with_stripes.crop(-2, 1, 29, 32)
 
 		values[stripe.name] = icon_with_stripes
 
@@ -43,13 +43,13 @@
 	for (var/antenna_name in GLOB.apid_antenna_list)
 		var/datum/sprite_accessory/antenna = GLOB.apid_antenna_list[antenna_name]
 
-		var/icon/icon_with_antennae = icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
+		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 		if (antenna.icon_state != "none")
-			var/icon/antenna_icon = icon(antenna.icon, "m_apid_antenna_[antenna.icon_state]_ADJ", dir = SOUTH)
-			antenna_icon.Blend(COLOR_YELLOW, ICON_MULTIPLY)
-			icon_with_antennae.Blend(antenna_icon, ICON_OVERLAY)
-		icon_with_antennae.Scale(64, 64)
-		icon_with_antennae.Crop(15, 64, 15 + 31, 64 - 31)
+			var/datum/universal_icon/antenna_icon = uni_icon(antenna.icon, "m_apid_antenna_[antenna.icon_state]_ADJ", dir = SOUTH)
+			antenna_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
+			icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
+		icon_with_antennae.scale(64, 64)
+		icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[antenna.name] = icon_with_antennae
 
@@ -72,13 +72,13 @@
 	for (var/headstripe_name in GLOB.apid_headstripes_list)
 		var/datum/sprite_accessory/headstripe = GLOB.apid_headstripes_list[headstripe_name]
 
-		var/icon/icon_with_headstripes = icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
+		var/datum/universal_icon/icon_with_headstripes = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 		if (headstripe.icon_state != "none")
-			var/icon/headstripes_icon = icon(headstripe.icon, "m_apid_headstripes_[headstripe.icon_state]_ADJ", dir = SOUTH)
-			headstripes_icon.Blend(COLOR_YELLOW, ICON_MULTIPLY)
-			icon_with_headstripes.Blend(headstripes_icon, ICON_OVERLAY)
-		icon_with_headstripes.Scale(64, 64)
-		icon_with_headstripes.Crop(15, 64, 15 + 31, 64 - 31)
+			var/datum/universal_icon/headstripes_icon = uni_icon(headstripe.icon, "m_apid_headstripes_[headstripe.icon_state]_ADJ", dir = SOUTH)
+			headstripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
+			icon_with_headstripes.blend_icon(headstripes_icon, ICON_OVERLAY)
+		icon_with_headstripes.scale(64, 64)
+		icon_with_headstripes.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[headstripe.name] = icon_with_headstripes
 

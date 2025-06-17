@@ -11,7 +11,7 @@
 	var/obj/item/fetch_thing = controller.blackboard[BB_FETCH_TARGET]
 
 	//either we can't pick it up, or we'd rather eat it, so stop trying.
-	if(fetch_thing.anchored || !isturf(fetch_thing.loc) || istype(fetch_thing, /obj/item/reagent_containers/food) || !living_pawn.CanReach(fetch_thing))
+	if(fetch_thing.anchored || !isturf(fetch_thing.loc) || istype(fetch_thing, /obj/item/food) || !living_pawn.CanReach(fetch_thing))
 		finish_action(controller, FALSE)
 		return
 
@@ -49,7 +49,7 @@
 /datum/ai_behavior/simple_equip/proc/pickup_item(datum/ai_controller/controller, obj/item/target)
 	var/atom/pawn = controller.pawn
 	drop_item(controller)
-	pawn.visible_message("<span class='notice'>[pawn] picks up [target] in [pawn.p_their()] mouth.</span>")
+	pawn.visible_message(span_notice("[pawn] picks up [target] in [pawn.p_their()] mouth."))
 	target.forceMove(pawn)
 	controller.blackboard[BB_SIMPLE_CARRY_ITEM] = target
 	return TRUE
@@ -60,7 +60,7 @@
 		return
 
 	var/atom/pawn = controller.pawn
-	pawn.visible_message("<span class='notice'>[pawn] drops [carried_item].</span>")
+	pawn.visible_message(span_notice("[pawn] drops [carried_item]."))
 	carried_item.forceMove(get_turf(pawn))
 	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
 	return TRUE
@@ -93,9 +93,9 @@
 		return
 
 	if(ismob(return_target))
-		controller.pawn.visible_message("<span class='notice'>[controller.pawn] delivers [carried_item] at [return_target]'s feet.</span>")
+		controller.pawn.visible_message(span_notice("[controller.pawn] delivers [carried_item] at [return_target]'s feet."))
 	else // not sure how to best phrase this
-		controller.pawn.visible_message("<span class='notice'>[controller.pawn] delivers [carried_item] to [return_target].</span>")
+		controller.pawn.visible_message(span_notice("[controller.pawn] delivers [carried_item] to [return_target]."))
 
 	carried_item.forceMove(get_turf(return_target))
 	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
@@ -108,7 +108,7 @@
 /datum/ai_behavior/eat_snack/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 	var/obj/item/snack = controller.current_movement_target
-	if(!istype(snack) || !istype(snack, /obj/item/reagent_containers/food) || !(isturf(snack.loc) || ishuman(snack.loc)))
+	if(!istype(snack) || !istype(snack, /obj/item/food) || !(isturf(snack.loc) || ishuman(snack.loc)))
 		finish_action(controller, FALSE)
 
 	var/mob/living/living_pawn = controller.pawn
@@ -151,7 +151,7 @@
 	if(!istype(simple_pawn) || simple_pawn.stat) // imagine actually dying while playing dead. hell, imagine being the kid waiting for your pup to get back up :(
 		return
 	controller.blackboard[BB_DOG_PLAYING_DEAD] = FALSE
-	simple_pawn.visible_message("<span class='notice'>[simple_pawn] springs to [simple_pawn.p_their()] feet, panting excitedly!</span>")
+	simple_pawn.visible_message(span_notice("[simple_pawn] springs to [simple_pawn.p_their()] feet, panting excitedly!"))
 	simple_pawn.icon_state = simple_pawn.icon_living
 	if(simple_pawn.flip_on_death)
 		simple_pawn.transform = simple_pawn.transform.Turn(180)
@@ -175,7 +175,7 @@
 		return
 
 	if(controller.blackboard[BB_DOG_FRIENDS][harass_ref])
-		living_pawn.visible_message("<span class='danger'>[living_pawn] looks sideways at [harass_target] for a moment, then shakes [living_pawn.p_their()] head and ceases aggression.</span>")
+		living_pawn.visible_message(span_danger("[living_pawn] looks sideways at [harass_target] for a moment, then shakes [living_pawn.p_their()] head and ceases aggression."))
 		finish_action(controller, FALSE)
 		return
 

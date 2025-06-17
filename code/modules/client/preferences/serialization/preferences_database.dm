@@ -54,13 +54,13 @@
 	if(load_result == PREFERENCE_LOAD_ERROR || load_result == null)
 		log_preferences("[parent_ckey]: ERROR - player_data failed to load datumized player preferences.")
 		if(istype(parent))
-			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized preferences. Please inform the server operator or a maintainer of this error.</span>")
+			to_chat(parent, span_boldannounce("Failed to load your datumized preferences. Please inform the server operator or a maintainer of this error."))
 		return PREFERENCE_LOAD_ERROR
 	if(load_result == PREFERENCE_LOAD_IGNORE)
 		log_preferences("[parent_ckey]: WARN - player_data load ignored.")
 		return PREFERENCE_LOAD_IGNORE
 	log_preferences("[parent_ckey]: Undatumized player preferences loading.")
-	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
+	var/datum/db_query/read_player_data = SSdbcore.NewQuery(
 		"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey",
 		list("ckey" = parent_ckey)
 	)
@@ -88,6 +88,14 @@
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	READPREF_JSONDEC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
+
+	READPREF_JSONDEC(favorite_outfits, PREFERENCE_TAG_FAVORITE_OUTFITS)
+	var/list/parsed_favs = list()
+	for(var/typetext in favorite_outfits)
+		var/datum/outfit/path = text2path(typetext)
+		if(ispath(path)) //whatever typepath fails this check probably doesn't exist anymore
+			parsed_favs += path
+	favorite_outfits = unique_list(parsed_favs)
 
 	// Custom hotkeys
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
@@ -158,7 +166,7 @@
 	if(write_result == PREFERENCE_LOAD_ERROR || write_result == null)
 		log_preferences("[parent_ckey]: ERROR - player_data failed to save datumized player preferences.")
 		if(istype(parent))
-			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized preferences. Please inform the server operator or a maintainer of this error.</span>")
+			to_chat(parent, span_boldannounce("Failed to save your datumized preferences. Please inform the server operator or a maintainer of this error."))
 		return FALSE
 	if(write_result == PREFERENCE_LOAD_IGNORE)
 		log_preferences("[parent_ckey]: WARN - player_data save ignored.")
@@ -168,7 +176,7 @@
 		return TRUE
 	log_preferences("[parent_ckey]: Undatumized player preferences saving.")
 	dirty_undatumized_preferences_player = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
-	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
+	var/list/datum/db_query/write_queries = list() // do not rename this you muppet
 
 	PREP_WRITEPREF_STR(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
 	PREP_WRITEPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
@@ -181,6 +189,7 @@
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 	PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	PREP_WRITEPREF_JSONENC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
+	PREP_WRITEPREF_JSONENC(favorite_outfits, PREFERENCE_TAG_FAVORITE_OUTFITS)
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
@@ -226,7 +235,7 @@
 	if(read_result == PREFERENCE_LOAD_ERROR || read_result == null)
 		log_preferences("[parent_ckey]: ERROR - character_data failed to load datumized character preferences.")
 		if(istype(parent))
-			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
+			to_chat(parent, span_boldannounce("Failed to load your datumized character preferences. Please inform the server operator or a maintainer of this error."))
 		return PREFERENCE_LOAD_ERROR
 	if(read_result == PREFERENCE_LOAD_IGNORE)
 		log_preferences("[parent_ckey]: WARN - character_data load ignored.")
@@ -243,7 +252,7 @@
 		CHARACTER_PREFERENCE_ROLE_PREFERENCES,
 	)
 
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
 		list("ckey" = parent_ckey, "slot" = slot)
 	)
@@ -336,7 +345,7 @@
 	if(write_result == PREFERENCE_LOAD_ERROR || write_result == null)
 		log_preferences("[parent_ckey]: ERROR - character_data failed to save datumized character preferences.")
 		if(istype(parent))
-			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
+			to_chat(parent, span_boldannounce("Failed to save your datumized character preferences. Please inform the server operator or a maintainer of this error."))
 		return FALSE
 	if(write_result == PREFERENCE_LOAD_IGNORE)
 		log_preferences("[parent_ckey]: WARN - character_data save ignored.")
@@ -360,12 +369,12 @@
 
 	new_data["ckey"] = parent_ckey
 	new_data["slot"] = character_data.slot_number
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names)]) VALUES (:ckey, :slot, [db_column_list(column_names, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names)]", new_data
 	)
 	var/success = Q.warn_execute()
 	if(!success && istype(parent))
-		to_chat(parent, "<span class='boldannounce'>Failed to save your undatumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
+		to_chat(parent, span_boldannounce("Failed to save your undatumized character preferences. Please inform the server operator or a maintainer of this error."))
 	qdel(Q)
 	fail_state = success
 	log_preferences("[parent_ckey]: Undatumized character preferences save status: [success ? "GOOD" : "ERROR"].")

@@ -22,44 +22,36 @@
 		var/damage = rand(1, 3)
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			apply_damage(damage, BRUTE, affecting)
 
-/mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M)
+/mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M, list/modifiers)
 	if(..())	//To allow surgery to return properly.
 		return
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(stat < UNCONSCIOUS)
+			M.disarm(src)
+			return
+	if(M.combat_mode)
+		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+		visible_message("<span class='danger'>[M] punches [name]!</span>", \
+				"<span class='userdanger'>[M] punches you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='danger'>You punch [name]!</span>")
+		playsound(loc, "punch", 25, 1, -1)
+		var/damage = M.dna.species.punchdamage
+		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
+		if(!affecting)
+			affecting = get_bodypart(BODY_ZONE_CHEST)
+		apply_damage(damage, BRUTE, affecting)
+		log_combat(M, src, "attacked", "harm")
+	else
+		help_shake_act(M)
 
-	switch(M.a_intent)
-		if("help")
-			help_shake_act(M)
-		if("grab")
-			grabbedby(M)
-		if("harm")
-			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message("<span class='danger'>[M] punches [name]!</span>", \
-					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-			playsound(loc, "punch", 25, 1, -1)
-			var/damage = M.dna.species.punchdamage
-			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.zone_selected))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage(damage, BRUTE, affecting)
-			log_combat(M, src, "attacked")
-		if("disarm")
-			if(stat < UNCONSCIOUS)
-				M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-				Knockdown(40)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				log_combat(M, src, "pushed")
-				visible_message("<span class='danger'>[M] pushes [src] down!</span>", \
-					"<span class='userdanger'>[M] pushes you down!</span>")
-				dropItemToGround(get_active_held_item())
-
-/mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
 	if(..()) //if harm or disarm intent.
-		if (M.a_intent == INTENT_HARM)
+		if (M.combat_mode)
 			if ((prob(95) && health > 0))
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
@@ -67,14 +59,16 @@
 					damage = rand(20, 40)
 					if(AmountUnconscious() < 300)
 						Unconscious(rand(200, 300))
-					visible_message("<span class='danger'>[M] wounds [name]!</span>", \
-							"<span class='userdanger'>[M] wounds you!</span>", null, COMBAT_MESSAGE_RANGE)
+					visible_message(span_danger("[M] wounds [name]!"), \
+									span_userdanger("[M] wounds you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, M)
+					to_chat(M, span_danger("You wound [name]!"))
 				else
-					visible_message("<span class='danger'>[M] slashes [name]!</span>", \
-							"<span class='userdanger'>[M] slashes you!</span>", null, COMBAT_MESSAGE_RANGE)
+					visible_message(span_danger("[M] slashes [name]!"), \
+									span_userdanger("[M] slashes you!"), span_hear("You hear a sickening sound of a slice!"), COMBAT_MESSAGE_RANGE, M)
+					to_chat(M, span_danger("You slash [name]!"))
 
-				var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-				log_combat(M, src, "attacked")
+				var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
+				log_combat(M, src, "attacked", M)
 				if(!affecting)
 					affecting = get_bodypart(BODY_ZONE_CHEST)
 				if(!dismembering_strike(M, affecting.body_zone)) //Dismemberment successful
@@ -83,24 +77,27 @@
 
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M]'s lunge misses [name]!</span>", \
-						"<span class='userdanger'>[M]'s lunge misses you!</span>", null, COMBAT_MESSAGE_RANGE)
+				visible_message(span_danger("[M]'s lunge misses [name]!"), \
+								span_danger("You avoid [M]'s lunge!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, M)
+				to_chat(M, span_warning("Your lunge misses [name]!"))
 
-		if (M.a_intent == INTENT_DISARM)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			var/obj/item/I = null
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			if(prob(95))
 				Paralyze(20)
-				visible_message("<span class='danger'>[M] tackles [name] down!</span>", \
-						"<span class='userdanger'>[M] tackles you down!</span>", null, COMBAT_MESSAGE_RANGE)
+				visible_message(span_danger("[M] tackles [name] down!"), \
+								span_userdanger("[M] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), COMBAT_MESSAGE_RANGE, M)
+				to_chat(M, span_danger("You tackle [name] down!"))
 			else
 				I = get_active_held_item()
 				if(dropItemToGround(I))
-					visible_message("<span class='danger'>[M] disarms [name]!</span>", \
-						"<span class='userdanger'>[M] disarms you!</span>", null, COMBAT_MESSAGE_RANGE)
+					visible_message(span_danger("[M] disarms [name]!"), \
+									span_userdanger("[M] disarms you!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, M)
+					to_chat(M, span_danger("You disarm [name]!"))
 				else
 					I = null
-			log_combat(M, src, "disarmed", "[I ? " removing \the [I]" : ""]")
+			log_combat(M, src, "disarmed", null, "[I ? " removing \the [I]" : ""]", important = FALSE)
 			updatehealth()
 
 
@@ -138,13 +135,13 @@
 			if(!(wear_mask.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				wear_mask.acid_act(acidpwr, acid_volume)
 			else
-				to_chat(src, "<span class='warning'>Your mask protects you from the acid.</span>")
+				to_chat(src, span_warning("Your mask protects you from the acid."))
 			return
 		if(head)
 			if(!(head.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				head.acid_act(acidpwr, acid_volume)
 			else
-				to_chat(src, "<span class='warning'>Your hat protects you from the acid.</span>")
+				to_chat(src, span_warning("Your hat protects you from the acid."))
 			return
 	take_bodypart_damage(acidpwr * min(0.6, acid_volume*0.1))
 

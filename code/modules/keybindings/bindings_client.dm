@@ -27,6 +27,11 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// AZERTY support
 	"&" = 1, "É" = 1, "\"" = 1, "(" = 1, "È" = 1, "_" = 1, "Ç" = 1, "À" = 1, ")" = 1, "*" = 1, "$" = 1, "!" = 1, ":" = 1, "²" = 1, "Ù" = 1,
 	"é" = 1, "è" = 1, "ç" = 1, "à" = 1, "ù" = 1,
+	// Scrolling support
+	"ScrollUp" = 1, "ScrollDown" = 1,
+	// CTRLKeys and ShiftKeys support to declutter logs
+	"CtrlW" = 1, "CtrlA" = 1, "CtrlS" = 1, "CtrlD" = 1, "CtrlNorth" = 1, "CtrlWest" = 1, "CtrlSouth" = 1, "CtrlEast" = 1,
+	"ShiftW" = 1, "ShiftA" = 1, "ShiftS" = 1, "ShiftD" = 1, "ShiftNorth" = 1, "ShiftWest" = 1, "ShiftSouth" = 1, "ShiftEast" = 1,
 ))
 
 /proc/input_sanity_check(client/C, key)
@@ -89,6 +94,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	holder?.key_down(_key, src)  //full_key is not necessary here, _key is enough
 	mob.focus?.key_down(_key, src) //same as above
+	mob.update_mouse_pointer()
 
 /client/verb/keyUp(_key as text)
 	set instant = TRUE
@@ -120,3 +126,4 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	holder?.key_up(_key, src)
 	mob.focus?.key_up(_key, src)
+	mob.update_mouse_pointer()

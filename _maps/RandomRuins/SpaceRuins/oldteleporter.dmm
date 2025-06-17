@@ -13,34 +13,29 @@
 /turf/closed/wall/r_wall,
 /area/ruin/space/oldteleporter)
 "e" = (
-/turf/open/floor/plasteel/airless,
-/area/ruin/space/oldteleporter)
-"f" = (
-/turf/open/floor/plasteel/airless{
-	icon_state = "damaged2"
-	},
+/turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "g" = (
 /obj/structure/light_construct/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/airless{
-	icon_state = "damaged3"
+/turf/open/floor/iron/airless{
+	broken = 1
 	},
 /area/ruin/space/oldteleporter)
 "h" = (
 /obj/machinery/computer/teleporter{
 	dir = 1
 	},
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "i" = (
 /obj/machinery/teleport/station,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "j" = (
 /obj/machinery/teleport/hub,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "k" = (
 /obj/structure/light_construct/small{
@@ -54,11 +49,11 @@
 	charge = 100;
 	maxcharge = 15000
 	},
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/space/oldteleporter)
 "m" = (
-/turf/open/floor/plasteel/airless{
-	icon_state = "damaged4"
+/turf/open/floor/iron/airless{
+	broken = 1
 	},
 /area/ruin/space/oldteleporter)
 "n" = (
@@ -66,7 +61,14 @@
 	name = "Worn-out APC";
 	pixel_y = -24
 	},
-/turf/open/floor/plasteel/airless,
+/obj/structure/cable,
+/turf/open/floor/iron/airless,
+/area/ruin/space/oldteleporter)
+"I" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating/airless,
 /area/ruin/space/oldteleporter)
 
 (1,1,1) = {"
@@ -177,7 +179,7 @@ d
 c
 e
 h
-c
+I
 n
 d
 "}
@@ -202,7 +204,7 @@ a
 b
 c
 d
-f
+m
 e
 j
 e
@@ -233,7 +235,7 @@ d
 c
 e
 k
-f
+m
 d
 c
 "}

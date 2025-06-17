@@ -16,8 +16,7 @@ Special ranks:
 //Global list of badges
 GLOBAL_LIST_EMPTY(badge_data)
 
-/client
-	var/list/cached_badges = null
+/client/var/list/cached_badges = null
 
 //Loads the badge ranks
 /proc/load_badge_ranks()
@@ -77,7 +76,7 @@ GLOBAL_LIST_EMPTY(badge_data)
 		return ""
 
 	for(var/badge in badges)
-		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
+		var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
 		var/tag = sheet.icon_tag("badge-badge_[badge]")
 		if(tag)
 			if(first_badge)

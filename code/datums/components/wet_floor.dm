@@ -66,6 +66,7 @@
 		T.cut_overlay(current_overlay)
 		T.add_overlay(intended)
 		current_overlay = intended
+		T.clean_turf_texture()
 
 /datum/component/wet_floor/proc/AfterSlip(mob/living/L)
 	if(highest_strength == TURF_WET_LUBE)
@@ -114,7 +115,7 @@
 	var/turf/open/T = parent
 	var/diff = world.time - last_process
 	var/decrease = 0
-	var/t = T.GetTemperature()
+	var/t = T.get_temperature()
 	switch(t)
 		if(-INFINITY to T0C)
 			add_wet(TURF_WET_ICE, max_time_left())			//Water freezes into ice!

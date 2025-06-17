@@ -1,185 +1,144 @@
-/datum/crafting_recipe/food
-	var/real_parts
-	category = CAT_FOOD
-
-/datum/crafting_recipe/food/New()
-	real_parts = parts.Copy()
-	parts |= reqs
 
 //////////////////////////////////////////FOOD MIXTURES////////////////////////////////////
 
-/datum/chemical_reaction/tofu
+/datum/chemical_reaction/food
+	name = "Abstract Food Reaction"
+	reaction_tags = REACTION_TAG_FOOD
+	required_other = TRUE
+
+	/// Typepath of food that is created on reaction
+	var/atom/resulting_food_path
+
+/datum/chemical_reaction/food/on_reaction(datum/reagents/holder, created_volume)
+	if(resulting_food_path)
+		var/atom/location = holder.my_atom.drop_location()
+		for(var/i in 1 to created_volume)
+			new resulting_food_path(location)
+
+/datum/chemical_reaction/food/tofu
 	name = "Tofu"
-	id = "tofu"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 10)
 	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
 	mob_react = FALSE
+	resulting_food_path = /obj/item/food/tofu
 
-/datum/chemical_reaction/tofu/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/tofu(location)
-	return
+/datum/chemical_reaction/food/chocolatepudding
+	results = list(/datum/reagent/consumable/chocolatepudding = 20)
+	required_reagents = list(/datum/reagent/consumable/cream  = 5, /datum/reagent/consumable/cocoa = 5, /datum/reagent/consumable/eggyolk = 2)
 
-/datum/chemical_reaction/chocolate_bar
+/datum/chemical_reaction/food/vanillapudding
+	results = list(/datum/reagent/consumable/vanillapudding = 20)
+	required_reagents = list(/datum/reagent/consumable/vanilla = 5, /datum/reagent/consumable/cream = 5, /datum/reagent/consumable/eggyolk = 2)
+
+/datum/chemical_reaction/food/chocolate_bar
 	name = "Chocolate Bar"
-	id = "chocolate_bar"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/sugar = 2)
+	resulting_food_path = /obj/item/food/chocolatebar
 
-/datum/chemical_reaction/chocolate_bar/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
-	return
-
-
-/datum/chemical_reaction/chocolate_bar2
+/datum/chemical_reaction/food/chocolate_bar2
 	name = "Chocolate Bar"
-	id = "chocolate_bar"
 	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/sugar = 2)
 	mob_react = FALSE
+	resulting_food_path = /obj/item/food/chocolatebar
 
-/datum/chemical_reaction/chocolate_bar2/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
-	return
+/datum/chemical_reaction/food/chocolate_bar3
+	required_reagents = list(/datum/reagent/consumable/milk = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/sugar = 2)
+	resulting_food_path = /obj/item/food/chocolatebar
 
-/datum/chemical_reaction/hot_cocoa
-	name = "Hot Cocoa"
-	id = /datum/reagent/consumable/cocoa/hot_cocoa
-	results = list(/datum/reagent/consumable/cocoa/hot_cocoa = 5)
-	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/cocoa = 1)
-
-/datum/chemical_reaction/coffee
-	name = "Coffee"
-	id = /datum/reagent/consumable/coffee
-	results = list(/datum/reagent/consumable/coffee = 5)
-	required_reagents = list(/datum/reagent/toxin/coffeepowder = 1, /datum/reagent/water = 5)
-
-/datum/chemical_reaction/tea
-	name = "Tea"
-	id = /datum/reagent/consumable/tea
-	results = list(/datum/reagent/consumable/tea = 5)
-	required_reagents = list(/datum/reagent/toxin/teapowder = 1, /datum/reagent/water = 5)
-
-/datum/chemical_reaction/soysauce
+/datum/chemical_reaction/food/soysauce
 	name = "Soy Sauce"
-	id = /datum/reagent/consumable/soysauce
 	results = list(/datum/reagent/consumable/soysauce = 5)
 	required_reagents = list(/datum/reagent/consumable/soymilk = 4, /datum/reagent/toxin/acid = 1)
 
-/datum/chemical_reaction/corn_syrup
+/datum/chemical_reaction/food/corn_syrup
 	name = /datum/reagent/consumable/corn_syrup
-	id = /datum/reagent/consumable/corn_syrup
 	results = list(/datum/reagent/consumable/corn_syrup = 5)
 	required_reagents = list(/datum/reagent/consumable/corn_starch = 1, /datum/reagent/toxin/acid = 1)
 	required_temp = 374
 
-/datum/chemical_reaction/caramel
+/datum/chemical_reaction/food/caramel
 	name = "Caramel"
-	id = /datum/reagent/consumable/caramel
 	results = list(/datum/reagent/consumable/caramel = 1)
 	required_reagents = list(/datum/reagent/consumable/sugar = 1)
 	required_temp = 413.15
 	mob_react = FALSE
 
-/datum/chemical_reaction/caramel_burned
+/datum/chemical_reaction/food/caramel_burned
 	name = "Caramel burned"
-	id = "caramel_burned"
 	results = list(/datum/reagent/carbon = 1)
 	required_reagents = list(/datum/reagent/consumable/caramel = 1)
 	required_temp = 483.15
 	mob_react = FALSE
 
-/datum/chemical_reaction/cheesewheel
+/datum/chemical_reaction/food/cheesewheel
 	name = "Cheesewheel"
-	id = "cheesewheel"
 	required_reagents = list(/datum/reagent/consumable/milk = 40)
 	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
+	resulting_food_path = /obj/item/food/cheese/wheel
 
-/datum/chemical_reaction/cheesewheel/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/store/cheesewheel(location)
-
-/datum/chemical_reaction/synthmeat
+/datum/chemical_reaction/food/synthmeat
 	name = "synthmeat"
-	id = "synthmeat"
 	required_reagents = list(/datum/reagent/blood = 5, /datum/reagent/medicine/cryoxadone = 1)
 	mob_react = FALSE
+	resulting_food_path = /obj/item/food/meat/slab/synthmeat
 
-/datum/chemical_reaction/synthmeat/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/synthmeat(location)
-
-/datum/chemical_reaction/hot_ramen
+/datum/chemical_reaction/food/hot_ramen
 	name = "Hot Ramen"
-	id = /datum/reagent/consumable/hot_ramen
 	results = list(/datum/reagent/consumable/hot_ramen = 3)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/consumable/dry_ramen = 3)
 
-/datum/chemical_reaction/hell_ramen
+/datum/chemical_reaction/food/hell_ramen
 	name = "Hell Ramen"
-	id = /datum/reagent/consumable/hell_ramen
 	results = list(/datum/reagent/consumable/hell_ramen = 6)
 	required_reagents = list(/datum/reagent/consumable/capsaicin = 1, /datum/reagent/consumable/hot_ramen = 6)
 
-/datum/chemical_reaction/imitationcarpmeat
+/datum/chemical_reaction/food/imitationcarpmeat
 	name = "Imitation Carpmeat"
-	id = "imitationcarpmeat"
 	required_reagents = list(/datum/reagent/toxin/carpotoxin = 5)
-	required_container = /obj/item/reagent_containers/food/snacks/tofu
+	required_container = /obj/item/food/tofu
 	mix_message = "The mixture becomes similar to carp meat."
+	resulting_food_path = /obj/item/food/fishmeat/carp/imitation
 
-/datum/chemical_reaction/imitationcarpmeat/on_reaction(datum/reagents/holder)
-	var/location = get_turf(holder.my_atom)
-	new /obj/item/reagent_containers/food/snacks/carpmeat/imitation(location)
-	if(holder && holder.my_atom)
-		qdel(holder.my_atom)
-
-/datum/chemical_reaction/dough
+/datum/chemical_reaction/food/dough
 	name = "Dough"
-	id = "dough"
 	required_reagents = list(/datum/reagent/water = 10, /datum/reagent/consumable/flour = 15)
 	mix_message = "The ingredients form a dough."
+	resulting_food_path = /obj/item/food/dough
 
-/datum/chemical_reaction/dough/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/food/dough(location)
-
-/datum/chemical_reaction/cakebatter
+/datum/chemical_reaction/food/cakebatter
 	name = "Cake Batter"
-	id = "cakebatter"
-	required_reagents = list(/datum/reagent/consumable/eggyolk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
+	required_reagents = list(/datum/reagent/consumable/eggyolk = 6, /datum/reagent/consumable/eggwhite = 12, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 	mix_message = "The ingredients form a cake batter."
+	resulting_food_path = /obj/item/food/cakebatter
 
-/datum/chemical_reaction/cakebatter/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/food/cakebatter(location)
-
-/datum/chemical_reaction/cakebatter/vegan
-	id = "vegancakebatter"
+/datum/chemical_reaction/food/cakebatter/vegan
 	required_reagents = list(/datum/reagent/consumable/soymilk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 
-/datum/chemical_reaction/ricebowl
-	name = "Rice Bowl"
-	id = "ricebowl"
+/datum/chemical_reaction/food/pancakebatter
+	results = list(/datum/reagent/consumable/pancakebatter = 15)
+	required_reagents = list(/datum/reagent/consumable/eggyolk = 6, /datum/reagent/consumable/eggwhite = 12, /datum/reagent/consumable/milk = 10, /datum/reagent/consumable/flour = 5)
+
+/datum/chemical_reaction/food/uncooked_rice
+	name = "Uncooked Rice"
 	required_reagents = list(/datum/reagent/consumable/rice = 10, /datum/reagent/water = 10)
-	required_container = /obj/item/reagent_containers/glass/bowl
 	mix_message = "The rice absorbs the water."
+	resulting_food_path = /obj/item/food/uncooked_rice
 
-/datum/chemical_reaction/ricebowl/on_reaction(datum/reagents/holder)
-	var/location = get_turf(holder.my_atom)
-	new /obj/item/reagent_containers/food/snacks/salad/ricebowl(location)
-	if(holder?.my_atom)
-		qdel(holder.my_atom)
-
-/datum/chemical_reaction/bbqsauce
+/datum/chemical_reaction/food/bbqsauce
 	name = "BBQ Sauce"
-	id = /datum/reagent/consumable/bbqsauce
 	results = list(/datum/reagent/consumable/bbqsauce = 5)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/tomatojuice = 1, /datum/reagent/medicine/salglu_solution = 3, /datum/reagent/consumable/blackpepper = 1)
+
+/datum/chemical_reaction/food/gravy
+	results = list(/datum/reagent/consumable/gravy = 3)
+	required_reagents = list(/datum/reagent/consumable/milk = 1, /datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/flour = 1)
+
+/datum/chemical_reaction/food/olive_oil_upconvert
+	required_catalysts = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 1)
+	required_reagents = list( /datum/reagent/consumable/nutriment/fat/oil = 2)
+	results = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 2)
+	mix_message = "The cooking oil dilutes the quality oil- how delightfully devilish..."
+
+//datum/chemical_reaction/food/olive_oil
+//	results = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 2)
+//	required_reagents = list(/datum/reagent/consumable/olivepaste = 4, /datum/reagent/water = 1)

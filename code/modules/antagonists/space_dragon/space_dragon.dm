@@ -6,6 +6,7 @@
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
+	required_living_playtime = 4
 	// TODO: ui_name = "AntagInfoDragon"
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
@@ -27,7 +28,7 @@
 					Space is an empty void, of which our kind is the apex predator, and there was little to rival our claim to this title.\n\
 					But now, we find intruders spread out amongst our claim, willing to fight our teeth with magics unimaginable, their dens like lights flicking in the depths of space.\n\
 					Today, we will snuff out one of those lights.</b>")
-	to_chat(owner, "<span class='boldwarning'>You have five minutes to find a safe location to place down the first rift. If you take longer than five minutes to place a rift, you will enter a depression and become slow and vulnerable.</span>")
+	to_chat(owner, span_boldwarning("You have five minutes to find a safe location to place down the first rift. If you take longer than five minutes to place a rift, you will enter a depression and become slow and vulnerable."))
 	owner.announce_objectives()
 	SEND_SOUND(owner.current, sound('sound/magic/demon_attack1.ogg'))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Dragon",
@@ -85,7 +86,7 @@
 	rift_ability.Grant(owner.current)
 	wavespeak_ability = new
 	wavespeak_ability.Grant(owner.current)
-	owner.current.faction |= "carp"
+	owner.current.faction |= FACTION_CARP
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(destroy_rifts))
 	RegisterSignal(owner.current, COMSIG_PARENT_QDELETING, PROC_REF(destroy_rifts))
@@ -96,7 +97,7 @@
 /datum/antagonist/space_dragon/on_removal()
 	. = ..()
 	rift_ability.Remove(owner.current)
-	owner.current.faction -= "carp"
+	owner.current.faction -= FACTION_CARP
 	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)
 	UnregisterSignal(owner.current, COMSIG_MOB_DEATH)
 	rift_list = null
@@ -139,7 +140,7 @@
 /datum/antagonist/space_dragon/proc/rift_empower(is_permanent)
 	owner.current.fully_heal()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	owner.current.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(rift_depower)), 30 SECONDS)
 
 /**
@@ -151,7 +152,7 @@
 /datum/antagonist/space_dragon/proc/permanent_empower()
 	owner.current.fully_heal()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	owner.current.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 
 /**
  * Removes Space Dragon's rift speed buff.
@@ -162,7 +163,7 @@
  */
 /datum/antagonist/space_dragon/proc/rift_depower()
 	owner.current.remove_filter("anger_glow")
-	owner.current.remove_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE)
+	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 
 /**
  * Destroys all of Space Dragon's current rifts.
@@ -177,7 +178,7 @@
 		return
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
-			to_chat(S, "<span class='big bold'><font color=\"#44aaff\">The Space Dragon has died! All is lost, and the rifts have closed...</font></span>")
+			to_chat(S, span_bigbold("<font color=\"#44aaff\">The Space Dragon has died! All is lost, and the rifts have closed...</font>"))
 	rifts_charged = 0
 	playsound(owner.current, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
 	for(var/obj/structure/carp_rift/rift in rift_list)
@@ -193,7 +194,7 @@
 	var/list/parts = list()
 	var/datum/objective/summon_carp/S = locate() in objectives
 	if(S.check_completion())
-		parts += "<span class='redtext big'>The [name] has succeeded! Station space has been reclaimed by the space carp!</span>"
+		parts += span_redtextbig("The [name] has succeeded! Station space has been reclaimed by the space carp!")
 	parts += printplayer(owner)
 	var/objectives_complete = TRUE
 	if(length(objectives))
@@ -203,11 +204,11 @@
 				objectives_complete = FALSE
 				break
 	if(objectives_complete)
-		parts += "<span class='greentext big'>The [name] was successful!</span>"
+		parts += span_greentextbig("The [name] was successful!")
 	else
-		parts += "<span class='redtext big'>The [name] has failed!</span>"
+		parts += span_redtextbig("The [name] has failed!")
 	if(length(carp))
-		parts += "<span class='header'>The [name] was assisted by:</span>"
+		parts += span_header("The [name] was assisted by:")
 		parts += printplayerlist(carp)
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
@@ -215,19 +216,19 @@
 	name = "Carp Wavespeak"
 	desc = "Communicate through wavespeak."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "wavespeak"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/wavespeak/IsAvailable()
+/datum/action/innate/wavespeak/is_available()
 	if(!("carp" in owner.faction))
 		return FALSE
 	return ..()
 
-/datum/action/innate/wavespeak/Activate()
+/datum/action/innate/wavespeak/on_activate()
 	// This is filtered, treated, and logged in carp_talk
 	var/input = stripped_input(usr, "Enter wavespeak message.", "Carp Wavespeak", "")
-	if(!input || !IsAvailable() || !isliving(owner))
+	if(!input || !is_available() || !isliving(owner))
 		return
 	var/mob/living/L = owner
 	L.carp_talk(input)

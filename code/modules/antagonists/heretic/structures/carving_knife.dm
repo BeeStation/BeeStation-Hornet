@@ -6,12 +6,14 @@
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
 	throwforce = 20
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	actions_types = list(/datum/action/item_action/rune_shatter)
 	embedding = list(
 		ignore_throwspeed_threshold = TRUE,
@@ -37,10 +39,10 @@
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
-	. += "<span class='notice'><b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.</span>"
-	. += "<span class='info'>The following runes can be carved:</span>"
+	. += span_notice("<b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.")
+	. += span_info("The following runes can be carved:")
 	for(var/obj/structure/trap/eldritch/trap as anything in subtypesof(/obj/structure/trap/eldritch))
-		var/potion_string = "<span class='info'>\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "</span>"
+		var/potion_string = span_info("\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "")
 		. += potion_string
 
 /obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -126,7 +128,7 @@
 	desc = "Destroys all runes carved by this blade."
 	background_icon_state = "bg_ecult"
 	button_icon_state = "rune_break"
-	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -140,21 +142,17 @@
 
 	return ..()
 
-/datum/action/item_action/rune_shatter/IsAvailable()
+/datum/action/item_action/rune_shatter/is_available()
 	. = ..()
 	if(!.)
 		return
 	if(!IS_HERETIC_OR_MONSTER(owner))
 		return FALSE
-	var/obj/item/melee/rune_carver/target_sword = target
+	var/obj/item/melee/rune_carver/target_sword = master
 	if(!length(target_sword.current_runes))
 		return FALSE
 
-/datum/action/item_action/rune_shatter/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
+/datum/action/item_action/rune_shatter/on_activate(mob/user, atom/target)
 	owner.playsound_local(get_turf(owner), 'sound/magic/blind.ogg', 50, TRUE)
 	var/obj/item/melee/rune_carver/target_sword = target
 	QDEL_LIST(target_sword.current_runes)
@@ -165,11 +163,13 @@
 /obj/structure/trap/eldritch
 	name = "elder carving"
 	desc = "A collection of unknown symbols, they remind you of days long gone..."
-	icon = 'icons/obj/heretic.dmi'
+	icon = 'icons/obj/hand_of_god_structures.dmi'
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip
 	/// Reference to trap owner mob
 	var/datum/weakref/owner
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()
@@ -205,7 +205,7 @@
 /obj/structure/trap/eldritch/alert/trap_effect(mob/living/victim)
 	var/mob/living/real_owner = owner?.resolve()
 	if(real_owner)
-		to_chat(real_owner, "<span class='userdanger'>[victim.real_name] has stepped on the alert rune in [get_area(src)]!</span>")
+		to_chat(real_owner, span_userdanger("[victim.real_name] has stepped on the alert rune in [get_area(src)]!"))
 		real_owner.playsound_local(get_turf(real_owner), 'sound/magic/curse.ogg', 50, TRUE)
 
 /obj/structure/trap/eldritch/tentacle

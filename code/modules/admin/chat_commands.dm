@@ -121,3 +121,5 @@ GLOBAL_LIST(round_end_notifiees)
 	set waitfor = FALSE
 	load_admins()
 **/
+
+#undef IRC_STATUS_THROTTLE

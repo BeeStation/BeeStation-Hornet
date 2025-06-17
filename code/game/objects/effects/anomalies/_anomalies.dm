@@ -25,6 +25,8 @@
 	///How many harvested pierced realities do we spawn on destruction
 	var/max_spawned_faked = 2
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
+
 /obj/effect/anomaly/Initialize(mapload, new_lifespan, spawned_fake_harvested)
 	. = ..()
 
@@ -90,6 +92,6 @@
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_ANALYZER)
-		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))
 
 #undef ANOMALY_MOVECHANCE

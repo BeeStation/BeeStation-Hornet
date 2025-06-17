@@ -1,7 +1,7 @@
-/// Helper that allows for atoms to recieve buffer information
+/// Helper that allows for atoms to receive buffer information
 #define REGISTER_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/ComponentInitialize() {\
 		. = ..();\
-		RegisterSignal(src, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(_buffer_handler));\
+		RegisterSignal(src, COMSIG_PARENT_RECEIVE_BUFFER, PROC_REF(_buffer_handler));\
 	}\
 
 #define DEFINE_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/proc/_buffer_handler(datum/source, mob/user, atom/buffer, obj/item/buffer_parent)
@@ -26,14 +26,14 @@
 
 /datum/component/buffer/proc/intercept_attack(datum/source, atom/attack_target, mob/user, params)
 	SIGNAL_HANDLER
-	if ((SEND_SIGNAL(attack_target, COMSIG_PARENT_RECIEVE_BUFFER, user, target, parent) & COMPONENT_BUFFER_RECIEVED))
-		return COMPONENT_NO_ATTACK
+	if ((SEND_SIGNAL(attack_target, COMSIG_PARENT_RECEIVE_BUFFER, user, target, parent) & COMPONENT_BUFFER_RECEIVED))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 	return NONE
 
 /datum/component/buffer/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	if(target)
-		examine_list += "<span class='notice'>Its buffer contains [target].</span>"
+		examine_list += span_notice("Its buffer contains [target].")
 
 /datum/component/buffer/proc/self_flush_buffer(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -41,8 +41,8 @@
 		return NONE
 	flush_buffer()
 	if (user)
-		to_chat(user, "<span class='notice'>You flush the buffer of [source]!</span>")
-	return COMPONENT_NO_INTERACT
+		to_chat(user, span_notice("You flush the buffer of [source]!"))
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/buffer/proc/populate_buffer(datum/source, datum/buffer_entity)
 	SIGNAL_HANDLER

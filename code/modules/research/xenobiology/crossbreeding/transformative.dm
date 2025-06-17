@@ -14,11 +14,11 @@ transformative extracts:
 		return FALSE
 	var/mob/living/simple_animal/slime/S = target
 	if(S.stat)
-		to_chat(user, "<span class='warning'>The slime is dead!</span>")
+		to_chat(user, span_warning("The slime is dead!"))
 	if(S.transformeffects & effect_applied)
-		to_chat(user,"<span class='warning'>This slime already has the [colour] transformative effect applied!</span>")
+		to_chat(user,span_warning("This slime already has the [colour] transformative effect applied!"))
 		return FALSE
-	to_chat(user,"<span class='notice'>You apply [src] to [target].</span>")
+	to_chat(user,span_notice("You apply [src] to [target]."))
 	do_effect(S, user)
 	S.transformeffects = effect_applied //S.transformeffects |= effect_applied
 	qdel(src)
@@ -36,7 +36,7 @@ transformative extracts:
 		var/datum/language_holder/LH = S.get_language_holder()
 		LH.selected_language = /datum/language/slime
 	if(S.transformeffects & SLIME_EFFECT_SEPIA)
-		S.add_movespeed_modifier(MOVESPEED_ID_SLIME_SEPIA, update=TRUE, priority=100, multiplicative_slowdown=-1)
+		S.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/transformative_sepia)
 
 /obj/item/slimecross/transformative/grey
 	colour = "grey"
@@ -119,7 +119,12 @@ transformative extracts:
 /obj/item/slimecross/transformative/green
 	colour = "green"
 	effect_applied = SLIME_EFFECT_GREEN
-	effect_desc = "Slimes will eat corpses."
+	effect_desc = "Grants sentient slimes the ability to become oozelings at will, once."
+
+/obj/item/slimecross/transformative/green/do_effect(mob/living/simple_animal/slime/S)
+	..()
+	var/datum/action/spell/oozeling_evolve/transform = new(S)
+	transform.Grant(S)
 
 /obj/item/slimecross/transformative/pink
 	colour = "pink"
@@ -128,7 +133,7 @@ transformative extracts:
 
 /obj/item/slimecross/transformative/pink/do_effect(mob/living/simple_animal/slime/S)
 	..()
-	S.grant_language(/datum/language/common, TRUE, TRUE)
+	S.grant_language(/datum/language/common)
 	var/datum/language_holder/LH = S.get_language_holder()
 	LH.selected_language = /datum/language/common
 

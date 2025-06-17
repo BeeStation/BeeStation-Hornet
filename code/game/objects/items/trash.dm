@@ -7,6 +7,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
+/obj/item/trash/attack(mob/M, mob/living/user)
+	return
+
 /obj/item/trash/raisins
 	name = "\improper 4no raisins"
 	icon_state= "4no_raisins"
@@ -48,11 +51,6 @@
 	name = "waffles tray"
 	icon_state = "waffles"
 
-/obj/item/trash/plate
-	name = "plate"
-	icon_state = "plate"
-	resistance_flags = NONE
-
 /obj/item/trash/pistachios
 	name = "pistachios pack"
 	icon_state = "pistachios_pack"
@@ -77,29 +75,53 @@
 	resistance_flags = NONE
 	grind_results = list(/datum/reagent/aluminium = 10)
 
-/obj/item/trash/can/food/peaches
-	name = "canned peaches"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "peachcan_empty"
-
-/obj/item/trash/can/food/peaches/maint
-	name = "Maintenance Peaches"
-	icon_state = "peachcanmaint_empty"
-
-/obj/item/trash/can/food/beefbroth
-	name = "canned beef broth"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "beefcan_empty"
-
-/obj/item/trash/can/food/beans
-	name = "tin of beans"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "beans_empty"
-
 /obj/item/trash/can/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-4,4)
-	pixel_y = rand(-4,4)
+	if(!pixel_y && !pixel_x)
+		pixel_x = rand(-4,4)
+		pixel_y = rand(-4,4)
 
-/obj/item/trash/attack(mob/M, mob/living/user)
-	return
+///canned foods
+
+/obj/item/trash/canned
+	name = "unknown tin"
+	icon = 'icons/obj/food/canned.dmi'
+	icon_state = "air_empty"
+	resistance_flags = NONE
+	var/maint = FALSE
+	var/maint_overlay = ""
+	grind_results = list(/datum/reagent/aluminium = 10)
+
+/obj/item/trash/canned/Initialize(mapload)
+	. = ..()
+	if(!pixel_y && !pixel_x)
+		pixel_x = rand(-4,4)
+		pixel_y = rand(-4,4)
+	if(maint)
+		maint_overlay = "can_maint"
+		add_overlay(maint_overlay)
+		name = "maintenance [name]"
+
+/obj/item/trash/canned/maint
+	maint = TRUE
+
+/obj/item/trash/canned/beans
+	name = "can of beans"
+	icon_state = "beans_empty"
+
+/obj/item/trash/canned/beans/maint
+	maint = TRUE
+
+/obj/item/trash/canned/peaches
+	name = "canned peaches"
+	icon_state = "peaches_empty"
+
+/obj/item/trash/canned/peaches/maint
+	maint = TRUE
+
+/obj/item/trash/canned/beefbroth
+	name = "can of beef stew"
+	icon_state = "beef_empty"
+
+/obj/item/trash/canned/beefbroth/maint
+	maint = TRUE

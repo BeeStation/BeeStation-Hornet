@@ -73,7 +73,7 @@
 	thought_bubble.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	var/mutable_appearance/point_visual = mutable_appearance(
-		'icons/mob/screen_gen.dmi',
+		'icons/hud/screen_gen.dmi',
 		"arrow",
 		plane = thought_bubble.plane,
 	)
@@ -88,10 +88,12 @@
 
 /obj/effect/temp_visual/point
 	name = "pointer"
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "arrow"
 	plane = POINT_PLANE
 	duration = POINT_TIME
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/point)
 
 /obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
 	. = ..()

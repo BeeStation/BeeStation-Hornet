@@ -8,12 +8,12 @@
 	taste_description = "sweet tasting metal"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/thermite/reaction_turf(turf/T, reac_volume)
+/datum/reagent/thermite/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 1)
 		T.AddComponent(/datum/component/thermite, reac_volume)
 
-/datum/reagent/thermite/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(1, 0)
+/datum/reagent/thermite/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustFireLoss(1 * REM * delta_time, 0)
 	..()
 	return TRUE
 
@@ -38,22 +38,21 @@
 	reagent_state = LIQUID
 	color = "#FFC8C8"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	metabolization_rate = 4
+	metabolization_rate = 10 * REAGENTS_METABOLISM
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/clf3/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(2)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
+/datum/reagent/clf3/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjust_fire_stacks(2 * REM * delta_time)
+	M.adjustFireLoss(0.3 * max(M.fire_stacks, 1) * REM * delta_time, 0)
 	..()
 	return TRUE
 
-/datum/reagent/clf3/reaction_turf(turf/T, reac_volume)
+/datum/reagent/clf3/expose_turf(turf/T, reac_volume)
 	if(isplatingturf(T))
 		var/turf/open/floor/plating/F = T
 		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
-			F.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(F, EXPLODE_DEVASTATE)
 	if(isfloorturf(T))
 		var/turf/open/floor/F = T
 		if(prob(reac_volume))
@@ -67,9 +66,9 @@
 	if(iswallturf(T))
 		var/turf/closed/wall/W = T
 		if(prob(reac_volume))
-			W.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(W, EXPLODE_DEVASTATE)
 
-/datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/clf3/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(istype(M))
 		if(method != INGEST && method != INJECT)
 			M.adjust_fire_stacks(min(reac_volume/5, 10))
@@ -99,15 +98,28 @@
 	reagent_state = LIQUID
 	color = "#000000"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	metabolization_rate = 0.05
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	taste_description = "salt"
 
-/datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M)
+/datum/reagent/blackpowder/on_new(data)
+	. = ..()
+	if(holder?.my_atom)
+		RegisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT, PROC_REF(on_ex_act))
+
+/datum/reagent/blackpowder/Destroy()
+	if(holder?.my_atom)
+		UnregisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT)
+	return ..()
+
+/datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	..()
 	if(isplasmaman(M))
-		M.hallucination += 5
+		M.hallucination += 5 * REM * delta_time
 
-/datum/reagent/blackpowder/on_ex_act()
+/datum/reagent/blackpowder/proc/on_ex_act(atom/source, severity, target)
+	SIGNAL_HANDLER
+	if(source.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)
+		return
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(1 + round(volume/6, 1), location, 0, 0, message = 0)
@@ -148,17 +160,16 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/phlogiston/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	M.adjust_fire_stacks(1)
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
 	M.adjustFireLoss(burndmg, 0)
 	M.IgniteMob()
 	..()
 
-/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(1)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
+/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/metabolizer, delta_time, times_fired)
+	metabolizer.adjust_fire_stacks(1 * REM * delta_time)
+	metabolizer.adjustFireLoss(0.3 * max(metabolizer.fire_stacks, 0.15) * REM * delta_time, 0)
 	..()
 	return TRUE
 
@@ -172,11 +183,11 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/napalm/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(1)
+/datum/reagent/napalm/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjust_fire_stacks(1 * REM * delta_time)
 	..()
 
-/datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/napalm/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(istype(M))
 		if(method != INGEST && method != INJECT)
 			M.adjust_fire_stacks(min(reac_volume/4, 20))
@@ -192,13 +203,16 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 
-/datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M) //TODO: code freezing into an ice cube
+/datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M, delta_time, times_fired) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
-		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
-		M.adjust_bodytemperature(-15)
+		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5 * REM * delta_time)
+		M.adjust_bodytemperature(-15 * REM * delta_time)
+		if(ishuman(M))
+			var/mob/living/carbon/human/humi = M
+			humi.adjust_coretemperature(-15 * REM * delta_time)
 	..()
 
-/datum/reagent/cryostylane/reaction_turf(turf/T, reac_volume)
+/datum/reagent/cryostylane/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 5)
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -214,10 +228,13 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 
-/datum/reagent/pyrosium/on_mob_life(mob/living/carbon/M)
-	if(M.reagents.has_reagent(/datum/reagent/oxygen))
-		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
-		M.adjust_bodytemperature(15)
+/datum/reagent/pyrosium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(holder.has_reagent(/datum/reagent/oxygen))
+		holder.remove_reagent(/datum/reagent/oxygen, 0.5 * REM * delta_time)
+		M.adjust_bodytemperature(15 * REM * delta_time)
+		if(ishuman(M))
+			var/mob/living/carbon/human/humi = M
+			humi.adjust_coretemperature(15 * REM * delta_time)
 	..()
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
@@ -232,13 +249,25 @@
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/teslium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/teslium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		M.electrocute_act(rand(5,20), "Teslium in their body", 1, SHOCK_NOGLOVES) //SHOCK_NOGLOVES because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	..()
+
+/datum/reagent/teslium/on_mob_metabolize(mob/living/carbon/human/L)
+	. = ..()
+	if(!istype(L))
+		return
+	L.physiology.siemens_coeff *= 2
+
+/datum/reagent/teslium/on_mob_end_metabolize(mob/living/carbon/human/L)
+	. = ..()
+	if(!istype(L))
+		return
+	L.physiology.siemens_coeff *= 0.5
 
 /datum/reagent/teslium/energized_jelly
 	name = "Energized Jelly"
@@ -249,15 +278,15 @@
 	taste_description = "jelly"
 	overdose_threshold = 30
 
-/datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M)
+/datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(isoozeling(M))
 		shock_timer = 0 //immune to shocks
-		M.AdjustAllImmobility(-40, FALSE)
-		M.adjustStaminaLoss(-2, 0)
+		M.AdjustAllImmobility(-40  *REM * delta_time)
+		M.adjustStaminaLoss(-2 * REM * delta_time, 0)
 		if(isluminescent(M))
 			var/mob/living/carbon/human/H = M
 			var/datum/species/oozeling/luminescent/L = H.dna.species
-			L.extract_cooldown = max(0, L.extract_cooldown - 20)
+			L.extract_cooldown = max(L.extract_cooldown - (20 * REM * delta_time), 0)
 	..()
 
 /datum/reagent/teslium/energized_jelly/overdose_process(mob/living/carbon/M)
@@ -275,7 +304,7 @@
 	chem_flags = NONE
 	taste_description = "the inside of a fire extinguisher"
 
-/datum/reagent/firefighting_foam/reaction_turf(turf/open/T, reac_volume)
+/datum/reagent/firefighting_foam/expose_turf(turf/open/T, reac_volume)
 	if (!istype(T))
 		return
 
@@ -291,14 +320,14 @@
 		if(T.air)
 			var/datum/gas_mixture/G = T.air
 			if(G.return_temperature() > T20C)
-				G.set_temperature(max(G.return_temperature()/2,T20C))
+				G.temperature = (max(G.return_temperature()/2,T20C))
 			G.react(src)
 			qdel(hotspot)
 
-/datum/reagent/firefighting_foam/reaction_obj(obj/O, reac_volume)
+/datum/reagent/firefighting_foam/expose_obj(obj/O, reac_volume)
 	O.extinguish()
 
-/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/firefighting_foam/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method in list(VAPOR, TOUCH))
 		M.adjust_fire_stacks(-reac_volume)
 		M.ExtinguishMob()

@@ -18,28 +18,36 @@
 #define THERMAL_PROTECTION_HAND_LEFT	0.025
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
 
-/mob/living/carbon/human/Life()
+/mob/living/carbon/human/Life(delta_time = SSMOBS_DT, times_fired)
 	set invisibility = 0
-	if (notransform)
+	if(notransform)
 		return
 
 	. = ..()
-
-	if (QDELETED(src))
-		return 0
+	if(QDELETED(src))
+		return FALSE
 
 	if(!IS_IN_STASIS(src))
-		if(stat != DEAD && undergoing_cardiac_arrest())
-			//heart attack stuff
-			var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+		if(stat != DEAD)
+			if(undergoing_cardiac_arrest())
+				//heart attack stuff
+				var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
-			if(we_breath)
-				adjustOxyLoss(8)
-				Unconscious(80)
-			// Tissues die without blood circulation
-			adjustBruteLoss(2)
+				if(we_breath)
+					adjustOxyLoss(4 * delta_time)
+					Unconscious(80)
+				
+				// Tissues die without blood circulation, machines burn without coolant circulation
+				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+					adjustFireLoss(0.5 * delta_time)
+				else
+					adjustBruteLoss(1 * delta_time)
+			handle_liver()
 
-		dna.species.spec_life(src) // for mutantraces
+		//Body temperature stability and damage
+		dna.species.handle_body_temperature(src, delta_time, times_fired)
+
+		dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
@@ -62,15 +70,15 @@
 	return pressure
 
 
-/mob/living/carbon/human/handle_traits(delta_time)
+/mob/living/carbon/human/handle_traits(delta_time, times_fired)
 	if (getOrganLoss(ORGAN_SLOT_BRAIN) >= 60)
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
 	else
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 	return ..()
 
-/mob/living/carbon/human/handle_mutations_and_radiation()
-	if(!dna || !dna.species.handle_mutations_and_radiation(src))
+/mob/living/carbon/human/handle_mutations_and_radiation(delta_time, times_fired)
+	if(!dna || !dna.species.handle_mutations_and_radiation(src, delta_time, times_fired))
 		..()
 
 /mob/living/carbon/human/breathe()
@@ -79,7 +87,7 @@
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
-	var/L = getorganslot(ORGAN_SLOT_LUNGS)
+	var/L = get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(!L)
 		if(health >= crit_threshold)
@@ -91,7 +99,7 @@
 
 		var/datum/species/S = dna.species
 
-		if(S.breathid == "o2")
+		if(S.breathid == GAS_O2)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else if(S.breathid == "tox")
 			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
@@ -106,17 +114,47 @@
 			var/obj/item/organ/lungs/lun = L
 			lun.check_breath(breath,src)
 
-/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
-	dna.species.handle_environment(environment, src)
+/// Environment handlers for species
+/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
+	// If we are in a cryo bed do not process life functions
+	if(istype(loc, /obj/machinery/cryo_cell))
+		return
+
+	dna.species.handle_environment(src, environment, delta_time, times_fired)
+
+/**
+ * Adjust the core temperature of a mob
+ *
+ * vars:
+ * * amount The amount of degrees to change body temperature by
+ * * min_temp (optional) The minimum body temperature after adjustment
+ * * max_temp (optional) The maximum body temperature after adjustment
+ */
+/mob/living/carbon/human/proc/adjust_coretemperature(amount, min_temp=0, max_temp=INFINITY)
+	coretemperature = clamp(coretemperature + amount, min_temp, max_temp)
+
+/**
+ * get_body_temperature Returns the body temperature with any modifications applied
+ *
+ * This applies the result from proc/get_body_temp_normal_change() against the bodytemp_normal
+ * for the species and returns the result
+ *
+ * arguments:
+ * * apply_change (optional) Default True This applies the changes to body temperature normal
+ */
+/mob/living/carbon/human/get_body_temp_normal(apply_change=TRUE)
+	if(!apply_change)
+		return dna.species.bodytemp_normal
+	return dna.species.bodytemp_normal + get_body_temp_normal_change()
 
 ///FIRE CODE
-/mob/living/carbon/human/handle_fire()
+/mob/living/carbon/human/handle_fire(delta_time, times_fired)
 	. = ..()
 	if(.) //if the mob isn't on fire anymore
 		return
 
 	if(dna)
-		. = dna.species.handle_fire(src) //do special handling based on the mob's species. TRUE = they are immune to the effects of the fire.
+		. = dna.species.handle_fire(src, delta_time, times_fired) //do special handling based on the mob's species. TRUE = they are immune to the effects of the fire.
 
 	if(!last_fire_update)
 		last_fire_update = fire_stacks
@@ -175,10 +213,11 @@
 
 	return thermal_protection_flags
 
-/mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
+/mob/living/carbon/human/get_heat_protection(temperature)
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
+	var/thermal_protection = heat_protection
 
-	var/thermal_protection = 0
+	// Apply clothing items protection
 	if(thermal_protection_flags)
 		if(thermal_protection_flags & HEAD)
 			thermal_protection += THERMAL_PROTECTION_HEAD
@@ -202,7 +241,6 @@
 			thermal_protection += THERMAL_PROTECTION_HAND_LEFT
 		if(thermal_protection_flags & HAND_RIGHT)
 			thermal_protection += THERMAL_PROTECTION_HAND_RIGHT
-
 
 	return min(1,thermal_protection)
 
@@ -232,11 +270,15 @@
 
 	return thermal_protection_flags
 
-/mob/living/carbon/human/proc/get_cold_protection(temperature)
-	temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
+/mob/living/carbon/human/get_cold_protection(temperature)
+	// There is an occasional bug where the temperature is miscalculated in areas with small amounts of gas.
+	// This is necessary to ensure that does not affect this calculation.
+	// Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
+	temperature = max(temperature, 2.7)
 	var/thermal_protection_flags = get_cold_protection_flags(temperature)
+	var/thermal_protection = cold_protection
 
-	var/thermal_protection = 0
+	// Apply clothing items protection
 	if(thermal_protection_flags)
 		if(thermal_protection_flags & HEAD)
 			thermal_protection += THERMAL_PROTECTION_HEAD
@@ -263,14 +305,17 @@
 
 	return min(1,thermal_protection)
 
-/mob/living/carbon/human/handle_random_events()
+/mob/living/carbon/human/handle_random_events(delta_time, times_fired)
 	//Puke if toxloss is too high
-	if(!stat)
-		if(getToxLoss() >= 45 && nutrition > 20)
-			lastpuke += prob(50)
-			if(lastpuke >= 50) // about 25 second delay I guess
-				vomit(20, toxic = TRUE)
-				lastpuke = 0
+	if(stat)
+		return
+	if(getToxLoss() < 45 || nutrition <= 20)
+		return
+
+	lastpuke += DT_PROB(30, delta_time)
+	if(lastpuke >= 50) // about 25 second delay I guess // This is actually closer to 150 seconds
+		vomit(20)
+		lastpuke = 0
 
 
 /mob/living/carbon/human/has_smoke_protection()

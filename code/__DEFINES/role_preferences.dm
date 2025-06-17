@@ -19,9 +19,7 @@
 #define ROLE_OPERATIVE			"Nuclear Operative"
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
-//#define ROLE_MALF				"Malf AI" // Currently under traitor datum, so we can't have this separate.
-#define ROLE_INCURSION			"Incursion Team"
-#define ROLE_EXCOMM				"Excommunicated Syndicate Agent"
+#define ROLE_MALF				"Malfunctioning AI"
 #define ROLE_REV				"Revolutionary"
 #define ROLE_REV_HEAD			"Head Revolutionary"
 #define ROLE_ALIEN				"Xenomorph"
@@ -34,7 +32,6 @@
 #define ROLE_REVENANT			"Revenant"
 #define ROLE_DEVIL				"Devil"
 #define ROLE_BROTHER			"Blood Brother"
-#define ROLE_OVERTHROW			"Syndicate Mutineer"
 #define ROLE_HIVE				"Hivemind Host"
 #define ROLE_OBSESSED			"Obsessed"
 #define ROLE_SPACE_DRAGON		"Space Dragon"
@@ -53,6 +50,8 @@
 #define ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
 #define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
+#define ROLE_PRISONER			"Prisoner"
+#define ROLE_WIZARD_APPRENTICE "apprentice"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
@@ -60,9 +59,7 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
-//	ROLE_MALF,
-	ROLE_INCURSION,
-	ROLE_EXCOMM,
+	ROLE_MALF,
 	ROLE_REV,
 	ROLE_REV_HEAD,
 	ROLE_ALIEN,
@@ -75,7 +72,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_REVENANT,
 	ROLE_DEVIL,
 	ROLE_BROTHER,
-	ROLE_OVERTHROW,
 	ROLE_HIVE,
 	ROLE_OBSESSED,
 	ROLE_SPACE_DRAGON,

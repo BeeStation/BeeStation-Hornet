@@ -39,3 +39,11 @@ GLOBAL_LIST_EMPTY(soundtrack_this_round) // A running list of soundtrack songs t
 	file = 'sound/soundtrack/mind_crawler.ogg'
 	length = (2 MINUTES) + (50 SECONDS)
 	station_only = TRUE
+
+/datum/soundtrack_song/tearofveil
+	title = "Tear of Veil"
+	artist = "Bolgarich"
+	album = "None!" //so it doesnt show up on credits as ()
+	url = "https://www.youtube.com/watch?v=NqNHKfTAvcw"
+	file = 'sound/soundtrack/tearofveil.ogg'
+	length = (2 MINUTES) + (52 SECONDS)

@@ -64,7 +64,7 @@
 
 /obj/effect/explosion/delamination
 	name = "delamination"
-	icon_state = "sm_shatter"
+	//icon_state = "sm_shatter" We have no 96x96 version
 	plane = ABOVE_LIGHTING_PLANE
 	appearance_flags = PIXEL_SCALE
 
@@ -74,11 +74,13 @@
 
 /obj/effect/explosion/delamination/inner
 	icon = 'icons/effects/512x512.dmi'
+	icon_state = "sm_shatter"
 	pixel_x = -240
 	pixel_y = -240
 
 /obj/effect/explosion/delamination/outer
 	icon = 'icons/effects/1024x1024.dmi'
+	icon_state = "sm_shatter"
 	pixel_x = -496
 	pixel_y = -496
 

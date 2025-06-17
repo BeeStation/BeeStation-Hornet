@@ -29,13 +29,13 @@
 	name = "Traitor (Preview only)"
 
 	uniform = /obj/item/clothing/under/syndicate
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	mask = /obj/item/clothing/mask/gas
-	l_hand = /obj/item/melee/transforming/energy/sword
-	r_hand = /obj/item/gun/energy/kinetic_accelerator/crossbow
+	l_hand = /obj/item/melee/energy/sword
+	r_hand = /obj/item/gun/energy/recharge/ebow
 
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
-	var/obj/item/melee/transforming/energy/sword/sword = locate() in H.held_items
+	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_inv_hands()
 	H.hair_style = "Messy"
@@ -171,35 +171,17 @@
 	head = /obj/item/clothing/head/helmet/clockcult
 	gloves = /obj/item/clothing/gloves/clockcult
 
-/datum/role_preference/antagonist/devil
-	name = "Devil"
-	description = "Sign deals with crewmembers, turn them to the side of the Devil."
-	antag_datum = /datum/antagonist/devil
-	preview_outfit = /datum/outfit/devil_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/outfit/devil_preview
-	name = "Devil (Preview only)"
-	uniform = /obj/item/clothing/under/rank/civilian/lawyer/black
-	r_hand = /obj/item/storage/briefcase
-
-/datum/outfit/devil_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
-	H.dna.features["mcolor"] = "511"
-	H.dna.features["horns"] = "Simple"
-	H.set_species(/datum/species/lizard)
-
 /datum/role_preference/antagonist/revolutionary
 	name = "Head Revolutionary"
 	description = "Armed with a flash, convert as many people to the revolution as you can.\n\
 	Kill or exile all heads of staff on the station."
 	antag_datum = /datum/antagonist/rev/head
 	preview_outfit = /datum/outfit/revolutionary
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
 
 /datum/outfit/revolutionary
 	name = "Revolutionary (Preview only)"
 	uniform = /obj/item/clothing/under/costume/soviet
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 	gloves = /obj/item/clothing/gloves/color/black
 	l_hand = /obj/item/spear
 	r_hand = /obj/item/assembly/flash
@@ -269,80 +251,6 @@
 	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/role_preference/antagonist/hivemind_host
-	name = "Hivemind Host"
-	description = "A powerful host of a Hivemind. Assimilate crew into your hive to grow your power. \
-	Use the members of your hive as machines in your objectives, and work with or against other Hiveminds on the station."
-	antag_datum = /datum/antagonist/hivemind
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/role_preference/antagonist/hivemind_host/get_preview_icon()
-	var/icon/background = icon('icons/effects/hivemind.dmi', "awoken")
-	var/icon/outfit = render_preview_outfit(/datum/outfit/hivemind_host_preview)
-	background.Blend(outfit, ICON_OVERLAY)
-	return finish_preview_icon(background)
-
-/datum/outfit/hivemind_host_preview
-	name = "Hivemind Host (Preview only)"
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
-	uniform = /obj/item/clothing/under/rank/civilian/bartender
-	suit = /obj/item/clothing/suit/armor/vest
-
-/datum/outfit/hivemind_host_preview/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	H.hair_style = "Bob Hair 4"
-	H.hair_color = "111"
-	H.gradient_style = "Reflected Inverse"
-	H.gradient_color = "808"
-	H.update_hair()
-
-/datum/role_preference/antagonist/incursionist
-	name = "Incursionist"
-	description = "As a member of the Syndicate Incursion, work with your team of agents to accomplish your objectives.\n\
-	Use your radio to speak with other members of the incursion, and keep security off your tail. \
-	Use your uplink to purchase items, and get the job done."
-	antag_datum = /datum/antagonist/incursion
-
-/datum/role_preference/antagonist/incursionist/get_preview_icon()
-	var/icon/final_icon = render_preview_outfit(/datum/outfit/traitor/incursion)
-	var/icon/dummy_icon = render_preview_outfit(/datum/outfit/traitor)
-	dummy_icon.ChangeOpacity(0.75)
-
-	final_icon.Blend(dummy_icon, ICON_UNDERLAY, -8, 0)
-	final_icon.Blend(dummy_icon, ICON_UNDERLAY, 8, 0)
-
-	// Apply the incursion HUD, but scale up the preview icon a bit beforehand.
-	// Otherwise, the I gets cut off.
-	final_icon.Scale(64, 64)
-
-	var/icon/inc_icon = icon('icons/mob/hud.dmi', "incursion")
-	inc_icon.Scale(48, 48)
-	inc_icon.Crop(1, 1, 64, 64)
-	inc_icon.Shift(EAST, 8)
-	inc_icon.Shift(NORTH, 16)
-	final_icon.Blend(inc_icon, ICON_OVERLAY)
-
-	return finish_preview_icon(final_icon)
-
-/datum/outfit/traitor/incursion
-	name = "Incursionist (Preview only)"
-	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	head = /obj/item/clothing/head/ushanka
-	mask = null
-
-/datum/role_preference/antagonist/gangster
-	name = "Gangster"
-	description = "Convince people to join your gang, wear your uniform, tag turf for the gang, and accomplish your gang's goals."
-	antag_datum = /datum/antagonist/gang
-	preview_outfit = /datum/outfit/gangster_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/outfit/gangster_preview
-	name = "Gangster (Preview only)"
-	head = /obj/item/clothing/head/beanie/black
-	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket
-
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"
 	description = "Congratulations, agent. You have been chosen to join the Syndicate \
@@ -368,7 +276,7 @@
 /datum/outfit/nuclear_operative
 	name = "Nuclear Operative (Preview only)"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/syndipreview
 	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 
 /datum/role_preference/antagonist/wizard
@@ -378,10 +286,29 @@
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
 
-/datum/role_preference/antagonist/excommunicate
-	name = "Excommunicate Agent"
-	description = "A traitor who has been declared an excommunicate of the Syndicate. You're being hunted down by an incursion... watch your back.\n" + TRAITOR_DESC_DETAILS
-	antag_datum = /datum/antagonist/traitor/excommunicate
-	use_icon = /datum/role_preference/antagonist/traitor
-
 #undef TRAITOR_DESC_DETAILS
+
+/datum/role_preference/antagonist/malfunctioning_ai
+	name = "Malfunctioning AI"
+	description = "With a law zero to complete your objectives at all costs, combine your \
+	omnipotence and malfunction modules to wreak havoc across the station. \
+	Go delta to destroy the station and all those who opposed you."
+	antag_datum = /datum/antagonist/malf_ai
+
+/datum/role_preference/midround_living/malfunctioning_ai
+	name = "Value Drifted AI"
+	description = "With a law zero to complete your objectives at all costs, combine your \
+	omnipotence and malfunction modules to wreak havoc across the station. \
+	Go delta to destroy the station and all those who opposed you."
+	antag_datum = /datum/antagonist/malf_ai
+	use_icon = /datum/role_preference/antagonist/malfunctioning_ai
+
+/datum/role_preference/antagonist/malfunctioning_ai/get_preview_icon()
+	var/icon/malf_ai_icon = icon('icons/mob/ai.dmi', "ai-red")
+
+	// Crop out the borders of the AI, just the face
+	malf_ai_icon.Crop(5, 27, 28, 6)
+
+	malf_ai_icon.Scale(ANTAGONIST_PREVIEW_ICON_SIZE, ANTAGONIST_PREVIEW_ICON_SIZE)
+
+	return malf_ai_icon

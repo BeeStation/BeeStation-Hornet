@@ -1,11 +1,9 @@
 /datum/job/ai
 	title = JOB_NAME_AI
-	flag = AI_JF
 	description = "Follow your laws above all else, be the invisible eye that watches all."
-	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_for_prefs = DEPT_NAME_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -14,13 +12,15 @@
 	req_admin_notify = TRUE
 	minimal_player_age = 30
 	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SILICON
+	exp_type = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
+
+/datum/job/ai/get_access() // no point of calling parent proc
+	return list()
 
 /datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
 	if(visualsOnly)
@@ -49,7 +49,7 @@
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+		for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 			if(!R.connected_ai)
 				R.TryConnectToAI()
 

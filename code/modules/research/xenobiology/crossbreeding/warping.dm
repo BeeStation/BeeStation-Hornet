@@ -23,7 +23,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	name = "warped rune"
 	desc = "An unstable rune born of the depths of bluespace"
 	icon = 'icons/obj/slimecrossing.dmi'
-	icon_state = "greyspace_rune"
+	icon_state = "rune_grey"
 	move_resist = INFINITY //here to avoid the rune being moved since it only sets it's turf once when it's drawn. doesn't include admin fuckery.
 	anchored = TRUE
 	layer = MID_TURF_LAYER
@@ -59,14 +59,14 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 	var/obj/item/stack/space_crystal = used_item
 	if(do_after(user, storing_time,target = src)) //the time it takes to nullify it depends on the rune too
-		to_chat(user, "<span class='notice'>You nullify the effects of the rune with the bluespace crystal!</span>")
+		to_chat(user, span_notice("You nullify the effects of the rune with the bluespace crystal!"))
 		space_crystal.use(1)
 		playsound(src, 'sound/effects/phasein.ogg', 20, TRUE)
 		qdel(src)
 
 /obj/effect/warped_rune/acid_act()
 	. = ..()
-	visible_message("<span class='warning'>[src] has been dissolved by the acid</span>")
+	visible_message(span_warning("[src] has been dissolved by the acid"))
 	playsound(src, 'sound/items/welder.ogg', 150, TRUE)
 	qdel(src)
 
@@ -95,15 +95,15 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		return
 
 	if(isturf(target) && locate(/obj/effect/warped_rune) in target) //check if the target is a floor and if there's a rune on said floor
-		to_chat(user, "<span class='warning'>There is already a bluespace rune here!</span>")
+		to_chat(user, span_warning("There is already a bluespace rune here!"))
 		return
 
 	if(!isfloorturf(target))
-		to_chat(user, "<span class='warning'>you cannot draw a rune here!</span>")
+		to_chat(user, span_warning("you cannot draw a rune here!"))
 		return
 
 	if(warp_charge < 1) //check if we have at least 1 charge left.
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 
 	if(!check_cd(user))
@@ -120,19 +120,19 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	playsound(target, 'sound/effects/slosh.ogg', 20, TRUE)
 	warp_charge--
 	new runepath(target)
-	to_chat(user, "<span class='notice'>You carefully draw the rune with [src].</span>")
+	to_chat(user, span_notice("You carefully draw the rune with [src]."))
 
 
 ///absorb the rune into the crossbreed adding one more charge to the crossbreed.
 /obj/item/slimecross/warping/proc/warping_crossbreed_absorb(atom/target, mob/user)
-	//to_chat(user, "<span class='notice'>You store the rune in [src].</span>")
+	//to_chat(user, span_notice("You store the rune in [src]."))
 	qdel(target)
 	warp_charge++
 
 /obj/item/slimecross/warping/proc/check_cd(user)
 	if(world.time < cooldown)
 		if(user)
-			to_chat(user, "<span class='warning'>[src] is recharging energy.</span>")
+			to_chat(user, span_warning("[src] is recharging energy."))
 		return FALSE
 	return TRUE
 
@@ -147,7 +147,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	SHOULD_CALL_PARENT(TRUE)
 	if(remove_on_activation)
 		playsound(rune_turf, dir_sound, 20, TRUE)
-		to_chat(user, ("<span class='notice'>[src] fades.</span>"))
+		to_chat(user, (span_notice("[src] fades.")))
 		qdel(src)
 
 /obj/effect/warped_rune/proc/on_entered(datum/source, atom/movable/AM, oldloc)
@@ -155,7 +155,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 	if(activated_on_step)
 		playsound(rune_turf, dir_sound, 20, TRUE)
-		visible_message("<span class='notice'>[src] fades.</span>")
+		visible_message(span_notice("[src] fades."))
 		qdel(src)
 
 /obj/item/slimecross/warping/grey
@@ -174,13 +174,13 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/greyspace/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Requires absorbing [req_extracts] [extracttype ? "[extracttype] extracts" : "slime extracts"].</span>")
+	to_chat(user, span_notice("Requires absorbing [req_extracts] [extracttype ? "[extracttype] extracts" : "slime extracts"]."))
 
 /obj/effect/warped_rune/greyspace/do_effect(mob/user)
 	for(var/obj/item/slime_extract/extract in rune_turf)
 		if(extract.color_slime == extracttype || !extracttype) //check if the extract is the first one or of the right color.
 			extracttype = extract.color_slime
-			qdel(extract) //vores the slime extract
+			qdel(extract) //destroy the slime extract
 			req_extracts--
 			if(req_extracts <= 0)
 				switch(extracttype)
@@ -197,7 +197,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 				break
 			playsound(rune_turf, 'sound/effects/splat.ogg', 20, TRUE)
 		else
-			to_chat(user, "<span class='warning'>Requires a [extracttype ? "[extracttype] extracts" : "slime extract"].</span>")
+			to_chat(user, span_warning("Requires a [extracttype ? "[extracttype] extracts" : "slime extract"]."))
 
 
 /obj/item/slimecross/warping/orange
@@ -355,7 +355,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		new path_material(rune_turf, amt)
 		return ..()
 	else
-		to_chat(user, "<span class='warning'>Requires plasma!</span>")
+		to_chat(user, span_warning("Requires plasma!"))
 
 /obj/item/slimecross/warping/silver
 	colour = "silver"
@@ -379,9 +379,22 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/storage/backpack/holding/bluespace
 	name = "warped rune"
 	anchored = TRUE
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100)
+	armor_type = /datum/armor/holding_bluespace
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+
+/datum/armor/holding_bluespace
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 100
 
 /obj/item/slimecross/warping/bluespace
 	colour = "bluespace"
@@ -397,8 +410,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(!GLOB.blue_storage)
 		GLOB.blue_storage = new
 	GLOB.blue_storage.loc = loc
-	var/datum/component/storage/STR = GLOB.blue_storage.GetComponent(/datum/component/storage)
-	STR.show_to(user)
+	GLOB.blue_storage.atom_storage.refresh_views()
 	playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
@@ -464,8 +476,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	holotile.name = "[holo_host.name] (Hologram)"
 	holotile.add_atom_colour("#77abff", FIXED_COLOUR_PRIORITY)
 	holotile.copy_overlays(holo_host, TRUE)
-	holotile.anchored = TRUE
-	holotile.density = FALSE
+	holotile.set_anchored(TRUE)
+	holotile.set_density(FALSE)
 
 	//the code that follows is basically the code that changeling use to get people's last spoken sentences with a few tweaks.
 	recent_speech = list() //resets the list from its previous sentences
@@ -555,7 +567,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
-		randomize_human(AM)
+		randomize_human(AM, TRUE)
 		activated_on_step = TRUE
 	. = ..()
 
@@ -575,7 +587,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(istype(AM, /mob/living/carbon/human))
 		playsound(rune_turf, "sound/weapons/thudswoosh.ogg", 50, TRUE)
 		SEND_SIGNAL(AM, COMSIG_ADD_MOOD_EVENT,"jolly", /datum/mood_event/jolly)
-		to_chat(AM, "<span class='notice'>You feel happier.</span>")
+		to_chat(AM, span_notice("You feel happier."))
 		activated_on_step = TRUE
 	. = ..()
 
@@ -594,15 +606,17 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/toy/plush/bubbleplush,
 		/obj/item/toy/plush/plushvar,
 		/obj/item/toy/plush/narplush,
-		/obj/item/toy/plush/lizardplushie,
+		/obj/item/toy/plush/lizard_plushie,
 		/obj/item/toy/plush/snakeplushie,
 		/obj/item/toy/plush/nukeplushie,
-		/obj/item/toy/plush/slimeplushie,
+		/obj/item/toy/plush/slimeplushie/random,
 		/obj/item/toy/plush/awakenedplushie,
 		/obj/item/toy/plush/beeplushie,
 		/obj/item/toy/plush/moth/random,
 		/obj/item/toy/plush/gondola,
 		/obj/item/toy/plush/flushed = 2,
+		/obj/item/toy/plush/flushed/rainbow,
+		/obj/item/toy/plush/shark,
 		/obj/item/toy/eightball/haunted,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/katana,
@@ -630,13 +644,13 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 	var/static/list/uncommon_items = list(
-		/obj/item/clothing/head/speedwagon/cursed,
+		/obj/item/clothing/head/costume/speedwagon/cursed,
 		/obj/item/clothing/suit/space/hardsuit/ancient,
 		/obj/item/gun/energy/laser/retro/old,
 		/obj/item/storage/toolbox/mechanical/old,
 		/obj/item/storage/toolbox/emergency/old,
 		/obj/effect/spawner/lootdrop/three_course_meal,
-		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+		/mob/living/basic/pet/dog/corgi/puppy/void,
 		/obj/structure/closet/crate/necropolis/tendril,
 		/obj/item/card/emagfake,
 		/obj/item/flashlight/flashdark,
@@ -672,9 +686,9 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 		var/atom/movable/A = new path(rune_turf)
 		QDEL_LIST(valuable_items)
-		to_chat(user, "<spawn class='notice'>[src] shines and [A] appears before you.</span>")
+		to_chat(user, span_notice("[src] shines and [A] appears before you."))
 	else
-		to_chat(user, "<span class='warning'>The sacrifice is insufficient.</span>")
+		to_chat(user, span_warning("The sacrifice is insufficient."))
 	. = ..()
 
 //oil
@@ -701,38 +715,40 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/slimecross/warping/black
 	colour = "black"
 	runepath = /obj/effect/warped_rune/blackspace
-	effect_desc = "Draw a rune that can transmute a corpse into a shade."
+	effect_desc = "Draw a rune that can transmute weapons with a starborne enchantment."
 
 /obj/effect/warped_rune/blackspace
 	icon_state = "rune_black"
-	desc = "Souls are like any other material, you just have to find the right place to manufacture them."
+	desc = "Every material comes with weakness. Improvement is a matter of finding the least weak."
 
-/obj/effect/warped_rune/blackspace/do_effect(mob/user)
-	for(var/mob/living/carbon/human/host in rune_turf)
-		if(host.key) //checks if the ghost and brain's there
-			to_chat(user, "<span class='warning'>This body can't be transmuted by the rune in this state!</span>")
+/obj/effect/warped_rune/blackspace/attack_hand(mob/living/user)
+	to_chat(user, span_brass("[src] demands a weapon to enhance."))
+	return
+
+/obj/effect/warped_rune/blackspace/attackby(obj/item/I, mob/living/user, params)
+	if(HAS_TRAIT(I, TRAIT_STARGAZED))
+		to_chat(user, span_brass("[I] has already been enhanced!"))
+		return
+	to_chat(user, span_brass("You begin placing [I] onto [src]."))
+	if(do_after(user, 60, target=I))
+		if(HAS_TRAIT(I, TRAIT_STARGAZED))
+			to_chat(user, span_brass("[I] has already been enhanced!"))
 			return
+		if(istype(I, /obj/item) && !istype(I, /obj/item/clothing) && I.force)
+			upgrade_weapon(I, user)
+			do_effect(user)
+			return
+		to_chat(user, span_brass("You cannot upgrade [I]."))
 
-		to_chat(user, "<span class='warning'>The rune is trying to repair [host.name]'s soul!</span>")
-		var/list/candidates = pollCandidatesForMob("Do you want to replace the soul of [host.name]?", ROLE_SENTIENCE, null, 5 SECONDS, host, POLL_IGNORE_SHADE)
-
-		if(length(candidates) && !host.key) //check if anyone wanted to play as the dead person and check if no one's in control of the body one last time.
-			var/mob/dead/observer/ghost = pick(candidates)
-
-			host.mind.memory = "" //resets the memory since it's a new soul inside.
-			host.key = ghost.key
-			var/mob/living/simple_animal/shade/S = host.change_mob_type(/mob/living/simple_animal/shade , rune_turf, "Shade", FALSE)
-			S.maxHealth = 1
-			S.health = 1
-			S.faction = host.faction
-			S.copy_languages(host, LANGUAGE_MIND)
-			playsound(host, "sound/magic/castsummon.ogg", 50, TRUE)
-			qdel(host)
-			activated_on_step = TRUE
-			return ..()
-
-		to_chat(user, "<span class='warning'>The rune failed! Maybe you should try again later.</span>")
-
+/obj/effect/warped_rune/blackspace/proc/upgrade_weapon(obj/item/I, mob/living/user)
+	//Prevent re-enchanting
+	ADD_TRAIT(I, TRAIT_STARGAZED, STARGAZER_TRAIT)
+	//Add a glowy colour
+	I.add_atom_colour(rgb(243, 227, 183), ADMIN_COLOUR_PRIORITY)
+	//Pick a random effect
+	var/static/list/possible_components = subtypesof(/datum/component/enchantment)
+	I.AddComponent(pick(possible_components))
+	to_chat(user, span_notice("[I] glows with a brilliant light!"))
 
 /obj/item/slimecross/warping/lightpink
 	colour = "light pink"
@@ -768,7 +784,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/adamantinespace/do_effect(mob/user)
 	for(var/turf/open/T in RANGE_TURFS(1, src) - rune_turf)
 		var/obj/structure/reflector/box/anchored/mob_pass/D = new (T)
-		D.setAngle(dir2angle(get_dir(src, D)))
+		D.set_angle(dir2angle(get_dir(src, D)))
 		D.admin = TRUE
 		QDEL_IN(D, 300)
 	activated_on_step = TRUE
@@ -808,9 +824,9 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 /area/warped_room
 	name = "warped room"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = TRUE
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/warped_room/get_virtual_z(turf/T)

@@ -38,15 +38,24 @@
 
 	for(var/i in 1 to stored_ammo.len)
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
-		if(!bullet || !bullet.BB) // found a spent ammo
+		if(!bullet) //Found an empty chamber in the cylinder
 			stored_ammo[i] = R
 			R.forceMove(src)
-
-			if(bullet)
-				bullet.forceMove(drop_location())
 			return TRUE
 
 	return FALSE
+
+/obj/item/ammo_box/magazine/internal/cylinder/top_off(load_type, starting=FALSE)
+	if(starting) // nulls don't exist when we're starting off
+		return ..()
+
+	if(!load_type)
+		load_type = ammo_type
+
+	for(var/i in 1 to max_ammo)
+		if(!give_round(new load_type(src)))
+			break
+	update_appearance()
 
 /obj/item/ammo_box/magazine/internal/cylinder/mime
 	name = "fingergun cylinder"

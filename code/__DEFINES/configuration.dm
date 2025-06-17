@@ -48,6 +48,7 @@
 #define SPLASH_DESC_FILE "splash.json"
 #define MEDIEVAL_SPEECH_FILE "medieval_speech.json"
 #define HERETIC_INFLUENCE_FILE "heretic_influences.json"
+#define MALFUNCTION_FLAVOR_FILE "malfunction_flavor.json"
 
 /// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
@@ -59,3 +60,10 @@
 // Defib stats
 /// The time (in deciseconds) in which a fresh body can be defibbed
 #define DEFIB_TIME_LIMIT 900
+
+#define VALUE_MODE_NUM 0
+#define VALUE_MODE_TEXT 1
+#define VALUE_MODE_FLAG 2
+
+#define KEY_MODE_TEXT 0
+#define KEY_MODE_TYPE 1
