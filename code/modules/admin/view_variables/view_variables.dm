@@ -236,7 +236,7 @@
 	var/href_reference_string = \
 		vv_spectre.dmlist_varname \
 		? "dmlist_origin_ref=[vv_spectre.dmlist_origin_ref];dmlist_varname=[vv_spectre.dmlist_varname]" \
-		: "Vars=[refid]"
+		: "[HREF_PARAM(var_edit::Vars, REF(refid))]"
 	/*
 		href key "Vars" only does refreshing. I hate that name because it's contextless.
 		"dmlist_origin_ref" and "dmlist_varname" must exist at the same time, to access a special list directly, because such special list is not possible to be accessed through 'locate(refID)'
@@ -375,7 +375,7 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='byond://?[HREF_COMMAND(var_edit)][HrefToken()];[href_reference_string]'>Refresh</a>
+							<a id='refresh_link' href='byond://?[HREF_GROUP(var_edit)][HrefToken()];[href_reference_string]'>Refresh</a>
 							<form>
 								<select name="file" size="1"
 									onchange="handle_dropdown(this)"
