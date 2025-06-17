@@ -309,20 +309,16 @@
 	SEND_SIGNAL(C, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 
 
-/obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special = FALSE, abort = FALSE, is_creating = FALSE)
-	. = ..()
-	if(!.)
-		return .
-	//Transfer some head appearance vars over
-	if(brain)
-		if(brainmob)
-			brainmob.container = null //Reset brainmob head var.
-			brainmob.forceMove(brain) //Throw mob into brain.
-			brain.brainmob = brainmob //Set the brain to use the brainmob
-			brainmob = null //Set head brainmob var to null
-		brain.Insert(C) //Now insert the brain proper
-		brain = null //No more brain in the head
+/obj/item/bodypart/head/attach_limb(mob/living/carbon/new_head_owner, special = FALSE, abort = FALSE, is_creating = FALSE)
+	var/old_real_name = src.real_name
 
+	. = ..()
+
+	if(!.)
+		return
+
+	if(brain)
+		brain = null
 	if(tongue)
 		tongue = null
 	if(ears)
@@ -330,30 +326,29 @@
 	if(eyes)
 		eyes = null
 
-	if(ishuman(C) && !is_creating) // don't overwrite if the mob being created
-		var/mob/living/carbon/human/H = C
+	if(ishuman(new_head_owner) && !is_creating) // don't overwrite if the mob being created
+		var/mob/living/carbon/human/H = new_head_owner
 		H.hair_color = hair_color
 		H.hair_style = hair_style
 		H.facial_hair_color = facial_hair_color
 		H.facial_hair_style = facial_hair_style
 		H.lip_style = lip_style
 		H.lip_color = lip_color
-	if(real_name)
-		C.real_name = real_name
-	real_name = ""
-	name = initial(name)
+	if(old_real_name)
+		new_head_owner.real_name = old_real_name
+	real_name = new_head_owner.real_name
 
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/P in src)
 		for(var/datum/action/item_action/hands_free/activate_pill/AP in P.actions)
-			P.forceMove(C)
-			AP.Grant(C)
+			P.forceMove(new_head_owner)
+			AP.Grant(new_head_owner)
 			break
 
-	C.updatehealth()
-	C.update_body()
-	C.update_hair()
-	C.update_damage_overlays()
+	new_head_owner.updatehealth()
+	new_head_owner.update_body()
+	new_head_owner.update_hair()
+	new_head_owner.update_damage_overlays()
 
 /obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/C)
 	if(!C.dna.species)
