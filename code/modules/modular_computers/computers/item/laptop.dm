@@ -1,12 +1,9 @@
 /obj/item/modular_computer/laptop
 	name = "laptop"
 	desc = "A portable laptop computer."
-
 	icon = 'icons/obj/modular_laptop.dmi'
 	icon_state = "laptop-closed"
-	base_icon_state = "laptop"
 	icon_state_menu = "menu"
-
 	hardware_flag = PROGRAM_LAPTOP
 	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_NORMAL
@@ -33,7 +30,10 @@
 
 /obj/item/modular_computer/laptop/update_icon_state()
 	. = ..()
-	icon_state = "[base_icon_state][screen_on && "-closed"]"
+	if(screen_on)
+		icon_state = "laptop"
+	else
+		icon_state = "laptop-closed"
 
 /obj/item/modular_computer/laptop/attack_self(mob/user)
 	if(!screen_on)
@@ -96,7 +96,6 @@
 		to_chat(user, span_notice("You open \the [src]."))
 		slowdown = slowdown_open
 		w_class = w_class_open
-
 	screen_on = !screen_on
 	update_icon()
 
