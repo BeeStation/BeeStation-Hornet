@@ -7,14 +7,14 @@
 /obj/structure/closet/secure_closet/medical1/PopulateContents()
 	..()
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/reagent_containers/dropper = 2,
 		/obj/item/storage/belt/medical = 1,
 		/obj/item/storage/box/syringes = 1,
-		/obj/item/reagent_containers/glass/bottle/toxin = 1,
-		/obj/item/reagent_containers/glass/bottle/morphine = 2,
-		/obj/item/reagent_containers/glass/bottle/epinephrine= 3,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 3,
+		/obj/item/reagent_containers/cup/bottle/toxin = 1,
+		/obj/item/reagent_containers/cup/bottle/morphine = 2,
+		/obj/item/reagent_containers/cup/bottle/epinephrine= 3,
+		/obj/item/reagent_containers/cup/bottle/charcoal = 3,
 		/obj/item/storage/box/rxglasses = 1,
 		/obj/item/stack/ducts/fifty = 4,
 		/obj/item/construction/plumbing = 2,
@@ -41,7 +41,7 @@
 
 /obj/structure/closet/secure_closet/medical3/PopulateContents()
 	..()
-	new /obj/item/clothing/head/beret/med(src)
+	new /obj/item/clothing/head/beret/medical(src)
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
@@ -59,12 +59,12 @@
 
 /obj/structure/closet/secure_closet/medicaldanger/PopulateContents()
 	..()
-	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
-	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
-	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
-	new /obj/item/reagent_containers/glass/bottle/chloralhydrate(src)
-	new /obj/item/reagent_containers/glass/bottle/morphine(src)
-	new /obj/item/reagent_containers/glass/bottle/sodium_thiopental(src)
+	new /obj/item/reagent_containers/cup/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/cup/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/cup/bottle/charcoal(src)
+	new /obj/item/reagent_containers/cup/bottle/chloralhydrate(src)
+	new /obj/item/reagent_containers/cup/bottle/morphine(src)
+	new /obj/item/reagent_containers/cup/bottle/sodium_thiopental(src)
 	new /obj/item/storage/pill_bottle/epinephrine(src)
 	new /obj/item/storage/pill_bottle/charcoal(src)
 	new /obj/item/reagent_containers/syringe/calomel(src)
@@ -104,7 +104,7 @@
 	new /obj/item/storage/lockbox/medal/med(src)
 
 	new /obj/item/circuitboard/machine/techfab/department/medical(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/synthflesh(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/synthflesh(src)
 
 	// prioritized items
 	new /obj/item/door_remote/chief_medical_officer(src)
@@ -126,7 +126,7 @@
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
-	new /obj/item/clothing/head/beret/cmo(src)
+	new /obj/item/clothing/head/beret/medical/cmo(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

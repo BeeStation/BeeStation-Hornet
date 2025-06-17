@@ -2,6 +2,7 @@
 #define INVESTIGATE_ATMOS "atmos"
 #define INVESTIGATE_BOTANY "botany"
 #define INVESTIGATE_CARGO "cargo"
+#define INVESTIGATE_CRAFTING "crafting"
 #define INVESTIGATE_DEATHS "deaths"
 #define INVESTIGATE_ENGINES "engines"
 #define INVESTIGATE_EXONET "exonet"
@@ -17,6 +18,7 @@
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_TELESCI "telesci"
 #define INVESTIGATE_WIRES "wires"
+#define INVESTIGATE_TOOLS "wires"
 
 #define INVESTIGATE_VERB_PICKEDUP	"picked up"
 #define INVESTIGATE_VERB_DROPPED	"dropped"

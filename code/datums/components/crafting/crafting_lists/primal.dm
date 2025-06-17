@@ -6,7 +6,7 @@
 	result = /obj/item/clothing/suit/armor/bone
 	time = 3 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 6)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/heavybonearmor
 	name = "Heavy Bone Armor"
@@ -16,7 +16,7 @@
 		/obj/item/stack/sheet/bone = 8,
 		/obj/item/stack/sheet/sinew = 3
 	)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/bonetalisman
 	name = "Bone Talisman"
@@ -26,7 +26,7 @@
 		/obj/item/stack/sheet/bone = 2,
 		/obj/item/stack/sheet/sinew = 1
 	)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/bonecodpiece
 	name = "Skull Codpiece"
@@ -36,7 +36,7 @@
 		/obj/item/stack/sheet/bone = 2,
 		/obj/item/stack/sheet/animalhide/goliath_hide = 1
 	)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/bracers
 	name = "Bone Bracers"
@@ -46,14 +46,14 @@
 		/obj/item/stack/sheet/bone = 2,
 		/obj/item/stack/sheet/sinew = 1
 	)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/skullhelm
 	name = "Skull Helmet"
 	result = /obj/item/clothing/head/helmet/skull
 	time = 3 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 4)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/goliathcloak
 	name = "Goliath Cloak"
@@ -64,7 +64,7 @@
 		/obj/item/stack/sheet/sinew = 2,
 		/obj/item/stack/sheet/animalhide/goliath_hide = 2 //it takes 4 goliaths to make 1 cloak if the plates are skinned
 	)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/drakecloak
 	name = "Ash Drake Armour"
@@ -75,8 +75,8 @@
 		/obj/item/stack/sheet/sinew = 2,
 		/obj/item/stack/sheet/animalhide/ashdrake = 5
 	)
-	always_available = FALSE
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/watcherbola
 	name = "Watcher Bola"
@@ -86,7 +86,7 @@
 		/obj/item/stack/sheet/animalhide/goliath_hide = 2,
 		/obj/item/restraints/handcuffs/cable/sinew = 1
 	)
-	category = CAT_PRIMAL
+	category = CAT_WEAPON_RANGED
 
 /datum/crafting_recipe/goliathshield
 	name = "Goliath shield"
@@ -96,7 +96,7 @@
 		/obj/item/stack/sheet/bone = 4,
 		/obj/item/stack/sheet/animalhide/goliath_hide = 3
 	)
-	category = CAT_PRIMAL
+	category = CAT_WEAPON_MELEE
 
 /datum/crafting_recipe/bonesword
 	name = "Bone Sword"
@@ -106,7 +106,7 @@
 		/obj/item/stack/sheet/bone = 3,
 		/obj/item/stack/sheet/sinew = 2
 	)
-	category = CAT_PRIMAL
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/hunterbelt
@@ -117,7 +117,7 @@
 		/obj/item/stack/sheet/sinew = 2,
 		/obj/item/stack/sheet/animalhide/goliath_hide = 2
 	)
-	category = CAT_PRIMAL
+	category = CAT_CLOTHING
 
 /datum/crafting_recipe/quiver
 	name = "Quiver"
@@ -127,7 +127,7 @@
 		/obj/item/stack/sheet/leather = 3,
 		/obj/item/stack/sheet/sinew = 4
 	)
-	category = CAT_PRIMAL
+	category = CAT_WEAPON_RANGED
 
 /datum/crafting_recipe/firebrand
 	name = "Firebrand"
@@ -141,7 +141,7 @@
 	result = /obj/item/knife/combat/bone
 	time = 2 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 2)
-	category = CAT_PRIMAL
+	category = CAT_WEAPON_MELEE
 
 /datum/crafting_recipe/bonespear
 	name = "Bone Spear"
@@ -151,7 +151,7 @@
 		/obj/item/stack/sheet/bone = 4,
 		/obj/item/stack/sheet/sinew = 1
 	)
-	category = CAT_PRIMAL
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/boneaxe
@@ -162,23 +162,25 @@
 		/obj/item/stack/sheet/bone = 6,
 		/obj/item/stack/sheet/sinew = 3
 	)
-	category = CAT_PRIMAL
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/bonfire
 	name = "Bonfire"
 	time = 6 SECONDS
 	reqs = list(/obj/item/grown/log = 5)
+	parts = list(/obj/item/grown/log = 5)
+	blacklist = list(/obj/item/grown/log/steel)
 	result = /obj/structure/bonfire
-	category = CAT_PRIMAL
+	category = CAT_STRUCTURE
 
 /datum/crafting_recipe/skeleton_key
 	name = "Skeleton Key"
 	time = 3 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 5)
 	result = /obj/item/skeleton_key
-	always_available = FALSE
-	category = CAT_PRIMAL
+	category = CAT_MISC
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/headpike
 	name = "Spike Head (Glass Spear)"
@@ -193,7 +195,7 @@
 	)
 	blacklist = list(/obj/item/spear/explosive, /obj/item/spear/bonespear, /obj/item/spear/bamboospear)
 	result = /obj/structure/headpike/glass
-	category = CAT_PRIMAL
+	category = CAT_ENTERTAINMENT
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/headpikebone
@@ -208,7 +210,7 @@
 		/obj/item/spear/bonespear = 1
 	)
 	result = /obj/structure/headpike/bone
-	category = CAT_PRIMAL
+	category = CAT_ENTERTAINMENT
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/headpikebamboo
@@ -223,7 +225,7 @@
 		/obj/item/spear/bamboospear = 1
 	)
 	result = /obj/structure/headpike/bamboo
-	category = CAT_PRIMAL
+	category = CAT_ENTERTAINMENT
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/primal_lasso
@@ -234,8 +236,8 @@
 		/obj/item/stack/sheet/animalhide/goliath_hide = 3,
 		/obj/item/stack/sheet/sinew = 4
 	)
-	always_available = FALSE
-	category = CAT_PRIMAL
+	category = CAT_EQUIPMENT
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/dragon_lasso
 	name = "Ash Drake Lasso"
@@ -246,22 +248,15 @@
 		/obj/item/stack/sheet/sinew = 2,
 		/obj/item/stack/sheet/animalhide/ashdrake = 5
 	)
-	always_available = FALSE
-	category = CAT_PRIMAL
-
-/datum/crafting_recipe/fermenting_barrel
-	name = "Wooden Barrel"
-	result = /obj/structure/fermenting_barrel
-	time = 5 SECONDS
-	reqs = list(/obj/item/stack/sheet/wood = 30)
-	category = CAT_PRIMAL
+	category = CAT_EQUIPMENT
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/mushroom_bowl
 	name = "Mushroom Bowl"
-	result = /obj/item/reagent_containers/glass/bowl/mushroom_bowl
+	result = /obj/item/reagent_containers/cup/bowl/mushroom_bowl
 	time = 3 SECONDS
 	reqs = list(/obj/item/food/grown/ash_flora/shavings = 5)
-	category = CAT_PRIMAL
+	category = CAT_CONTAINERS
 
 /datum/crafting_recipe/charcoal_stylus
 	name = "Charcoal Stylus"
@@ -271,18 +266,18 @@
 		/datum/reagent/ash = 30
 	)
 	time = 3 SECONDS
-	category = CAT_PRIMAL
+	category = CAT_TOOLS
 
 /datum/crafting_recipe/oar
 	name = "Goliath Bone Oar"
 	result = /obj/item/oar
 	time = 1.5 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 2)
-	category = CAT_PRIMAL
+	category = CAT_TOOLS
 
 /datum/crafting_recipe/boat
 	name = "Goliath Hide Boat (lava boat)"
 	result = /obj/vehicle/ridden/lavaboat
 	time = 5 SECONDS
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
-	category = CAT_PRIMAL
+	category = CAT_TOOLS

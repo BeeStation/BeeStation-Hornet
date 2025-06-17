@@ -22,14 +22,14 @@ SUBSYSTEM_DEF(pai)
 */
 /datum/controller/subsystem/pai/proc/findPAI(obj/item/paicard/pai, mob/user)
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
-		to_chat(user, "<span class='warning'>Due to growing incidents of SELF corrupted independent artificial intelligences, freeform personality devices have been temporarily banned in this sector.</span>")
+		to_chat(user, span_warning("Due to growing incidents of SELF corrupted independent artificial intelligences, freeform personality devices have been temporarily banned in this sector."))
 		return
 	if(request_spam[user.ckey])
-		to_chat(user, "<span class='warning'>Request sent too recently.</span>")
+		to_chat(user, span_warning("Request sent too recently."))
 		return
 	request_spam[user.ckey] = TRUE
 	playsound(src, 'sound/machines/ping.ogg', 20, TRUE)
-	to_chat(user, "<span class='notice'>You have requested pAI assistance.</span>")
+	to_chat(user, span_notice("You have requested pAI assistance."))
 	var/mutable_appearance/alert_overlay = mutable_appearance('icons/obj/aicards.dmi', "pai")
 	notify_ghosts("[user] is requesting a pAI personality! Use the pAI button to submit yourself as one.", source=user, alert_overlay = alert_overlay, action=NOTIFY_ORBIT, header="pAI Request!", ignore_key = POLL_IGNORE_PAI)
 	addtimer(VARSET_LIST_CALLBACK(request_spam, user.ckey, FALSE), 10 SECONDS)
@@ -87,21 +87,21 @@ SUBSYSTEM_DEF(pai)
 	/// The matching candidate from search
 	var/datum/pai_candidate/candidate = candidates[usr.ckey]
 	if(is_banned_from(usr.ckey, ROLE_PAI))
-		to_chat(usr, "<span class='warning'>You are banned from playing pAI!</span>")
+		to_chat(usr, span_warning("You are banned from playing pAI!"))
 		ui.close()
 		return FALSE
 	if(isnull(candidate))
-		to_chat(usr, "<span class='warning'>There was an error. Please resubmit.</span>")
+		to_chat(usr, span_warning("There was an error. Please resubmit."))
 		ui.close()
 		return FALSE
 	if(CHAT_FILTER_CHECK(params["candidate"]["comments"]))
-		to_chat(usr, "<span class='warning'>Your OOC comment contains prohibited word(s)!</span>")
+		to_chat(usr, span_warning("Your OOC comment contains prohibited word(s)!"))
 		return FALSE
 	if(CHAT_FILTER_CHECK(params["candidate"]["description"]))
-		to_chat(usr, "<span class='warning'>Your description contains prohibited word(s)!</span>")
+		to_chat(usr, span_warning("Your description contains prohibited word(s)!"))
 		return FALSE
 	if(CHAT_FILTER_CHECK(params["candidate"]["name"]))
-		to_chat(usr, "<span class='warning'>Your name contains prohibited word(s)!</span>")
+		to_chat(usr, span_warning("Your name contains prohibited word(s)!"))
 		return FALSE
 	switch(action)
 		if("submit")
@@ -120,7 +120,7 @@ SUBSYSTEM_DEF(pai)
 			if(!candidate.ready)
 				return FALSE
 			candidate.ready = FALSE
-			to_chat(usr, "<span class='notice'>Your candidacy has been deleted. You can no longer be selected as a pAI personality.</span>")
+			to_chat(usr, span_notice("Your candidacy has been deleted. You can no longer be selected as a pAI personality."))
 	return TRUE
 
 
@@ -129,13 +129,13 @@ SUBSYSTEM_DEF(pai)
  */
 /datum/controller/subsystem/pai/proc/submit_alert()
 	if(submit_spam[usr.ckey])
-		to_chat(usr, "<span class='warning'>Your candidacy has been submitted, but pAI cards have been alerted too recently.</span>")
+		to_chat(usr, span_warning("Your candidacy has been submitted, but pAI cards have been alerted too recently."))
 		return FALSE
 	submit_spam[usr.ckey] = TRUE
 	for(var/obj/item/paicard/paicard in pai_card_list)
 		if(!paicard.pai)
 			paicard.alertUpdate()
-	to_chat(usr, "<span class='notice'>Your pAI candidacy has been submitted!</span>")
+	to_chat(usr, span_notice("Your pAI candidacy has been submitted!"))
 	addtimer(VARSET_LIST_CALLBACK(submit_spam, usr.ckey, FALSE), 10 SECONDS)
 	return TRUE
 

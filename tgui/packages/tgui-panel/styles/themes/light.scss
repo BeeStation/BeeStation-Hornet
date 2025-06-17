@@ -69,8 +69,8 @@
     $with: ('text-color': rgba(0, 0, 0, 0.75), 'background-color': base.$color-bg, 'shadow-color-core': rgba(0, 0, 0, 0.25))
   );
 
-  // Goonchat styles
-  @include meta.load-css('../goon/chat-light.scss');
+  // tgchat styles
+  @include meta.load-css('../tgchat/chat-light.scss');
 
   // Chat formats (color, size, font, etc)
   @include meta.load-css('../chat-format/chat-light-theme.scss');

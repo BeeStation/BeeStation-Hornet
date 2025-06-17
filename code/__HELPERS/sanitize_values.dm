@@ -1,6 +1,6 @@
 //general stuff
 /// Return `number` if it is in the range `min to max`, otherwise `default`
-/proc/sanitize_integer(number, min=0, max=1, default=0)
+/proc/sanitize_integer(number, min=0, max=INFINITY, default=0)
 	if(isnum_safe(number))
 		number = round(number)
 		if(min <= number && number <= max)

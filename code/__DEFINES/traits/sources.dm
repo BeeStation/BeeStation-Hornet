@@ -11,10 +11,14 @@
 #define DISEASE_TRAIT "disease"
 #define SPECIES_TRAIT "species"
 #define ORGAN_TRAIT "organ"
+/// Trait given by organ gained via abductor surgery
+#define ABDUCTOR_GLAND_TRAIT "abductor_gland"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define JOB_TRAIT "job"
 #define CYBORG_ITEM_TRAIT "cyborg-item"
 #define ADMIN_TRAIT "admin" // (B)admins only.
+/// Any traits given through a smite.
+#define SMITE_TRAIT "smite"
 #define CHANGELING_TRAIT "changeling"
 #define CULT_TRAIT "cult"
 #define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed
@@ -53,7 +57,7 @@
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
 #define HIGHLANDER "highlander"
-#define TRAIT_HULK "hulk"
+#define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
 #define EYES_COVERED "eyes_covered"
@@ -84,7 +88,7 @@
 #define NINJA_SUIT_TRAIT "ninja-suit"
 #define ANTI_DROP_IMPLANT_TRAIT "anti-drop-implant"
 #define HIVEMIND_TRAIT "hivemind-trait"
-#define VR_ZONE_TRAIT "vr_zone_trait"
+#define SLEEPING_CARP_TRAIT "sleeping_carp"
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"
 #define MIRROR_TRAIT "mirror_trait"
@@ -114,8 +118,8 @@
 #define SOULSTONE_TRAIT "soulstone"
 /// Trait applied to slimes by low temperature
 #define SLIME_COLD "slime-cold"
-/// Trait applied to bots by being tipped over
-#define BOT_TIPPED_OVER "bot-tipped-over"
+/// Trait applied to mobs by being tipped over
+#define TIPPED_OVER "tipped-over"
 /// Trait applied to PAIs by being folded
 #define PAI_FOLDED "pai-folded"
 /// Trait applied to brain mobs when they lack external aid for locomotion, such as being inside a mech.
@@ -124,12 +128,20 @@
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"
-
+#define LICH_TRAIT "lich_trait"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
+
+/// This trait comes from when a mob is currently typing.
+#define CURRENTLY_TYPING_TRAIT "currently_typing"
 
 #define VENTCRAWLING_TRAIT "ventcrawling"
 #define SPECIES_FLIGHT_TRAIT "species-flight"
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
+#define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+/// Sources for TRAIT_IGNORING_GRAVITY
+#define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
+#define FROM_SHADOW_SECT "shadow_sect"
+#define FROM_NOOARTRIUM "nooartrium"

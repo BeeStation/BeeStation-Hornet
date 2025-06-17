@@ -1,24 +1,14 @@
 
 /// Egg stuff crafting
 
-/datum/crafting_recipe/food/friedegg
-	name = "Fried egg"
-	result = /obj/item/food/friedegg
-	reqs = list(
-		/datum/reagent/consumable/sodiumchloride = 1,
-		/datum/reagent/consumable/blackpepper = 1,
-		/obj/item/food/egg = 1
-	)
-	subcategory = CAT_EGG
-
 /datum/crafting_recipe/food/omelette
-	name = "Omelette"
+	name = "Omelette du fromage"
 	result = /obj/item/food/omelette
 	reqs = list(
 		/obj/item/food/egg = 2,
 		/obj/item/food/cheese/wedge = 2
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/chocolateegg
 	name = "Chocolate egg"
@@ -27,7 +17,7 @@
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/chocolatebar = 1
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/eggsbenedict
 	name = "Eggs benedict"
@@ -37,19 +27,19 @@
 		/obj/item/food/meat/steak = 1,
 		/obj/item/food/breadslice/plain = 1,
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/eggbowl
 	name = "Egg bowl"
 	result = /obj/item/food/salad/eggbowl
 	reqs = list(
-		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/boiledrice = 1,
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/grown/carrot = 1,
 		/obj/item/food/grown/corn = 1
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/wrap
 	name = "Wrap"
@@ -58,7 +48,7 @@
 		/obj/item/food/friedegg = 1,
 		/obj/item/food/grown/cabbage = 1,
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG
 
 /datum/crafting_recipe/food/chawanmushi
 	name = "Chawanmushi"
@@ -69,4 +59,4 @@
 		/obj/item/food/boiledegg = 2,
 		/obj/item/food/grown/mushroom/chanterelle = 1
 	)
-	subcategory = CAT_EGG
+	category = CAT_EGG

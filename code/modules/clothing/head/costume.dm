@@ -126,7 +126,16 @@
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet_old"
 	flags_inv = HIDEEARS|HIDEHAIR
-	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
+	armor_type = /datum/armor/costume_bronze
+
+
+/datum/armor/costume_bronze
+	melee = 5
+	laser = -5
+	bomb = 10
+	fire = 20
+	acid = 20
+	stamina = 30
 
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
@@ -151,22 +160,35 @@
 /obj/item/clothing/head/hooded/carp_hood/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if (slot == ITEM_SLOT_HEAD)
-		user.faction |= "carp"
+		user.faction |= FACTION_CARP
 
 /obj/item/clothing/head/hooded/carp_hood/dropped(mob/living/carbon/human/user)
 	..()
 	if (user.head == src)
-		user.faction -= "carp"
+		user.faction -= FACTION_CARP
 
 /obj/item/clothing/head/hooded/carp_hood/spaceproof
 	name = "carp helmet"
 	desc = "Spaceworthy and it looks like a space carp's head, smells like one too."
 	icon_state = "carp_helm"
 	item_state = "syndicate"
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
+	armor_type = /datum/armor/carp_hood_spaceproof
 	light_system = NO_LIGHT_SUPPORT
 	light_range = 0 //luminosity when on
 	actions_types = list()
+
+
+/datum/armor/carp_hood_spaceproof
+	melee = 20
+	bullet = 10
+	laser = 20
+	energy = 20
+	bomb = 30
+	bio = 100
+	rad = 75
+	fire = 60
+	acid = 75
+	stamina = 40
 
 /obj/item/clothing/head/hooded/carp_hood/spaceproof/Initialize(mapload)
 	. = ..()
@@ -175,15 +197,24 @@
 /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
 	name = "battered carp helmet"
 	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
+	armor_type = /datum/armor/spaceproof_old
+
+
+/datum/armor/spaceproof_old
+	bio = 100
+	rad = 50
+	fire = 80
+	acid = 70
+	stamina = 10
 
 /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old
 	name = "battered carp space suit"
 	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
 	slowdown = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
+	armor_type = /datum/armor/spaceproof_old
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
+
 
 /obj/item/clothing/head/hooded/ian_hood
 	name = "corgi hood"
@@ -209,11 +240,31 @@
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
-	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 40, BOMB = 0, BIO = 60, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 40)
+	armor_type = /datum/armor/bee_costume_syndie
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
 
+
+/datum/armor/bee_costume_syndie
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 40
+	bio = 60
+	acid = 50
+	stamina = 40
+
 /obj/item/clothing/head/hooded/bee_hood/syndie
-	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 40, BOMB = 0, BIO = 60, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 40)
+	armor_type = /datum/armor/bee_hood_syndie
+
+
+/datum/armor/bee_hood_syndie
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 40
+	bio = 60
+	acid = 50
+	stamina = 40
 
 /obj/item/clothing/head/hooded/human_head
 	name = "bloated human head"

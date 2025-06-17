@@ -2,7 +2,7 @@
 /// !!!!!!!!!!HEY LISTEN!!!!!!!!!!!!!!!!!!!!!!!!
 /// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-// If you modify this file you ALSO need to modify code/modules/goonchat/browserAssets/browserOutput.css
+// If you modify this file you ALSO need to modify tgui/packages/tgui-panel/styles/tgchat/chat-light.scss and chat-dark.scss
 // BUT you have to use PX font sizes with are on a x8 scale of these font sizes
 // Sample font-size: DM: 8 CSS: 64px
 
@@ -108,11 +108,11 @@ h1.alert, h2.alert		{color: #000000;}
 .green					{color: #03ff39;}
 .nicegreen					{color: #14a833;}
 .shadowling				{color: #3b2769;}
-.cult					{color: #960000;}
-.cultlarge				{color: #960000; font-weight: bold; font-size: 3;}
-.narsie					{color: #960000; font-weight: bold; font-size: 15;}
-.narsiesmall			{color: #960000; font-weight: bold; font-size: 6;}
-.narsiesmaller			{color: #960000; font-weight: bold; font-size: 3;}
+.cult					{color: #973e3b;}
+.cultlarge				{color: #973e3b; font-weight: bold; font-size: 3;}
+.narsie					{color: #973e3b; font-weight: bold; font-size: 15;}
+.narsiesmall			{color: #973e3b; font-weight: bold; font-size: 6;}
+.narsiesmaller			{color: #973e3b; font-weight: bold; font-size: 3;}
 .colossus				{color: #7F282A; font-size: 5;}
 .hierophant				{color: #660099; font-weight: bold; font-style: italic;}
 .hierophant_warning		{color: #660099; font-style: italic;}

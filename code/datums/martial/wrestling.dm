@@ -1,12 +1,12 @@
-/mob/living/carbon/human/proc/wrestling_help()
+/mob/living/proc/wrestling_help()
 	set name = "Recall Teachings"
 	set desc = "Remember how to wrestle."
 	set category = "Wrestling"
 
 	to_chat(usr, "<b><i>You flex your muscles and have a revelation...</i></b>")
-	to_chat(usr, "<span class='notice'>Clinch</span>: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
-	to_chat(usr, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
-	to_chat(usr, "<span class='notice'>Advanced grab</span>: Grab. Passively causes stamina damage when grabbing someone.")
+	to_chat(usr, "[span_notice("Clinch")]: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
+	to_chat(usr, "[span_notice("Suplex")]: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
+	to_chat(usr, "[span_notice("Advanced grab")]: Grab. Passively causes stamina damage when grabbing someone.")
 
 /datum/martial_art/wrestling
 	name = "Wrestling"
@@ -17,7 +17,7 @@
 	var/datum/action/strike/strike = new/datum/action/strike()
 	var/datum/action/drop/drop = new/datum/action/drop()
 
-/datum/martial_art/wrestling/proc/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/check_streak(mob/living/A, mob/living/D)
 	switch(streak)
 		if("drop")
 			streak = ""
@@ -43,89 +43,74 @@
 
 /datum/action/slam
 	name = "Slam (Cinch) - Slam a grappled opponent into the floor."
-	button_icon_state = "wrassle_slam"
+	//button_icon_state = "wrassle_slam" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/slam/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
-	owner.visible_message("<span class='danger'>[owner] prepares to BODY SLAM!</span>", "<b><i>Your next attack will be a BODY SLAM.</i></b>")
-	var/mob/living/carbon/human/H = owner
-	H.mind.martial_art.streak = "slam"
+/datum/action/slam/on_activate(mob/user, atom/target)
+	owner.visible_message(span_danger("[owner] prepares to BODY SLAM!"), "<b><i>Your next attack will be a BODY SLAM.</i></b>")
+	owner.mind.martial_art.streak = "slam"
 
 /datum/action/throw_wrassle
 	name = "Throw (Cinch) - Spin a cinched opponent around and throw them."
-	button_icon_state = "wrassle_throw"
+	//button_icon_state = "wrassle_throw" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/throw_wrassle/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
-	owner.visible_message("<span class='danger'>[owner] prepares to THROW!</span>", "<b><i>Your next attack will be a THROW.</i></b>")
-	var/mob/living/carbon/human/H = owner
-	H.mind.martial_art.streak = "throw"
+/datum/action/throw_wrassle/on_activate(mob/user, atom/target)
+	owner.visible_message(span_danger("[owner] prepares to THROW!"), "<b><i>Your next attack will be a THROW.</i></b>")
+	owner.mind.martial_art.streak = "throw"
 
 /datum/action/kick
 	name = "Kick - A powerful kick, sends people flying away from you. Also useful for escaping from bad situations."
-	button_icon_state = "wrassle_kick"
+	//button_icon_state = "wrassle_kick" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/kick/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
-	owner.visible_message("<span class='danger'>[owner] prepares to KICK!</span>", "<b><i>Your next attack will be a KICK.</i></b>")
-	var/mob/living/carbon/human/H = owner
-	H.mind.martial_art.streak = "kick"
+/datum/action/kick/on_activate(mob/user, atom/target)
+	owner.visible_message(span_danger("[owner] prepares to KICK!"), "<b><i>Your next attack will be a KICK.</i></b>")
+	owner.mind.martial_art.streak = "kick"
 
 /datum/action/strike
 	name = "Strike - Hit a neaby opponent with a quick attack."
-	button_icon_state = "wrassle_strike"
+	//button_icon_state = "wrassle_strike" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/strike/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
-	owner.visible_message("<span class='danger'>[owner] prepares to STRIKE!</span>", "<b><i>Your next attack will be a STRIKE.</i></b>")
-	var/mob/living/carbon/human/H = owner
-	H.mind.martial_art.streak = "strike"
+/datum/action/strike/on_activate(mob/user, atom/target)
+	owner.visible_message(span_danger("[owner] prepares to STRIKE!"), "<b><i>Your next attack will be a STRIKE.</i></b>")
+	owner.mind.martial_art.streak = "strike"
 
 /datum/action/drop
 	name = "Drop - Smash down onto an opponent."
-	button_icon_state = "wrassle_drop"
+	//button_icon_state = "wrassle_drop" (There is no such icon yet)
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/drop/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't WRESTLE while you're OUT FOR THE COUNT.</span>")
-		return
-	owner.visible_message("<span class='danger'>[owner] prepares to LEG DROP!</span>", "<b><i>Your next attack will be a LEG DROP.</i></b>")
-	var/mob/living/carbon/human/H = owner
-	H.mind.martial_art.streak = "drop"
+/datum/action/drop/on_activate(mob/user, atom/target)
+	owner.visible_message(span_danger("[owner] prepares to LEG DROP!"), "<b><i>Your next attack will be a LEG DROP.</i></b>")
+	owner.mind.martial_art.streak = "drop"
 
-/datum/martial_art/wrestling/teach(mob/living/carbon/human/H,make_temporary=0)
+/datum/martial_art/wrestling/teach(mob/living/owner, make_temporary=FALSE)
 	if(..())
-		to_chat(H, "<span class = 'userdanger'>SNAP INTO A THIN TIM!</span>")
-		to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
-		drop.Grant(H)
-		kick.Grant(H)
-		slam.Grant(H)
-		throw_wrassle.Grant(H)
-		strike.Grant(H)
+		to_chat(owner, span_userdanger("SNAP INTO A THIN TIM!"))
+		to_chat(owner, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
+		drop.Grant(owner)
+		kick.Grant(owner)
+		slam.Grant(owner)
+		throw_wrassle.Grant(owner)
+		strike.Grant(owner)
 
-/datum/martial_art/wrestling/on_remove(mob/living/carbon/human/H)
-	to_chat(H, "<span class = 'userdanger'>You no longer feel that the tower of power is too sweet to be sour...</span>")
-	drop.Remove(H)
-	kick.Remove(H)
-	slam.Remove(H)
-	throw_wrassle.Remove(H)
-	strike.Remove(H)
+/datum/martial_art/wrestling/on_remove(mob/living/owner)
+	to_chat(owner, span_userdanger("You no longer feel that the tower of power is too sweet to be sour..."))
+	drop.Remove(owner)
+	kick.Remove(owner)
+	slam.Remove(owner)
+	throw_wrassle.Remove(owner)
+	strike.Remove(owner)
 
-/datum/martial_art/wrestling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/harm_act(mob/living/A, mob/living/D)
 	if(check_streak(A,D))
 		return 1
 	log_combat(A, D, "punched with wrestling", name)
 	..()
 
-/datum/martial_art/wrestling/proc/throw_wrassle(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/throw_wrassle(mob/living/A, mob/living/D)
 	if(!D)
 		return
 	if(!A.pulling || A.pulling != D)
@@ -135,9 +120,9 @@
 	D.setDir(get_dir(D, A))
 
 	D.Stun(80)
-	D.visible_message("<span class='danger'>[A] starts spinning around with [D]!</span>", \
-					"<span class='userdanger'>You're spun around by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
-	to_chat(A, "<span class='danger'>You start spinning around with [D]!</span>")
+	D.visible_message(span_danger("[A] starts spinning around with [D]!"), \
+					span_userdanger("You're spun around by [A]!"), span_hear("You hear aggressive shuffling!"), null, A)
+	to_chat(A, span_danger("You start spinning around with [D]!"))
 	A.emote("scream")
 
 	for (var/i in 1 to 20)
@@ -189,19 +174,19 @@
 
 		D.forceMove(A.loc) // Maybe this will help with the wallthrowing bug.
 
-		D.visible_message("<span class='danger'>[A] throws [D]!</span>", \
-						"<span class='userdanger'>You're thrown by [A]!</span>", "<span class='hear'>You hear aggressive shuffling and a loud thud!</span>", null, A)
-		to_chat(A, "<span class='danger'>You throw [D]!</span>")
+		D.visible_message(span_danger("[A] throws [D]!"), \
+						span_userdanger("You're thrown by [A]!"), span_hear("You hear aggressive shuffling and a loud thud!"), null, A)
+		to_chat(A, span_danger("You throw [D]!"))
 		playsound(A.loc, "swing_hit", 50, 1)
 		var/turf/T = get_edge_target_turf(A, A.dir)
 		if (T && isturf(T))
 			if (!D.stat)
 				D.emote("scream")
-			D.throw_at(T, 10, 4, A, TRUE, TRUE, callback = CALLBACK(D, TYPE_PROC_REF(/mob/living/carbon/human, Paralyze), 20))
+			D.throw_at(T, 10, 4, A, TRUE, TRUE, callback = CALLBACK(D, TYPE_PROC_REF(/mob/living, Paralyze), 20))
 	log_combat(A, D, "has thrown with wrestling", name)
 	return 0
 
-/datum/martial_art/wrestling/proc/FlipAnimation(mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/FlipAnimation(mob/living/D)
 	set waitfor = FALSE
 	if (D)
 		animate(D, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
@@ -209,7 +194,7 @@
 	if (D)
 		animate(D, transform = null, time = 1, loop = 0)
 
-/datum/martial_art/wrestling/proc/slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/slam(mob/living/A, mob/living/D)
 	if(!D)
 		return
 	if(!A.pulling || A.pulling != D)
@@ -219,9 +204,9 @@
 	A.setDir(get_dir(A, D))
 	D.setDir(get_dir(D, A))
 
-	D.visible_message("<span class='danger'>[A] lifts [D] up!</span>", \
-					"<span class='userdanger'>You're lifted up by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
-	to_chat(A, "<span class='danger'>You lift [D] up!</span>")
+	D.visible_message(span_danger("[A] lifts [D] up!"), \
+					span_userdanger("You're lifted up by [A]!"), span_hear("You hear aggressive shuffling!"), null, A)
+	to_chat(A, span_danger("You lift [D] up!"))
 
 	FlipAnimation()
 
@@ -291,9 +276,9 @@
 			if (3)
 				fluff = "atomic [fluff]"
 
-		D.visible_message("<span class='danger'>[A] [fluff] [D]!</span>", \
-						"<span class='userdanger'>You're [fluff]ed by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='danger'>You [fluff] [D]!</span>")
+		D.visible_message(span_danger("[A] [fluff] [D]!"), \
+						span_userdanger("You're [fluff]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+		to_chat(A, span_danger("You [fluff] [D]!"))
 		playsound(A.loc, "swing_hit", 50, 1)
 		if (!D.stat)
 			D.emote("scream")
@@ -321,11 +306,11 @@
 	log_combat(A, D, "body-slammed", name)
 	return 0
 
-/datum/martial_art/wrestling/proc/CheckStrikeTurf(mob/living/carbon/human/A, turf/T)
+/datum/martial_art/wrestling/proc/CheckStrikeTurf(mob/living/A, turf/T)
 	if (A && (T && isturf(T) && get_dist(A, T) <= 1))
 		A.forceMove(T)
 
-/datum/martial_art/wrestling/proc/strike(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/strike(mob/living/A, mob/living/D)
 	if(!D)
 		return
 	var/turf/T = get_turf(A)
@@ -336,24 +321,24 @@
 		A.forceMove(D.loc)
 		addtimer(CALLBACK(src, PROC_REF(CheckStrikeTurf), A, T), 4)
 
-		D.visible_message("<span class='danger'>[A] headbutts [D]!</span>", \
-						"<span class='userdanger'>You're headbutted by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='danger'>You headbutt [D]!</span>")
+		D.visible_message(span_danger("[A] headbutts [D]!"), \
+						span_userdanger("You're headbutted by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+		to_chat(A, span_danger("You headbutt [D]!"))
 		D.adjustBruteLoss(rand(10,20))
 		playsound(A.loc, "swing_hit", 50, 1)
 		D.Unconscious(20)
 	log_combat(A, D, "headbutted", name)
 
-/datum/martial_art/wrestling/proc/kick(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/kick(mob/living/A, mob/living/D)
 	if(!D)
 		return
 	A.emote("scream")
 	A.emote("flip")
 	A.setDir(turn(A.dir, 90))
 
-	D.visible_message("<span class='danger'>[A] roundhouse-kicks [D]!</span>", \
-					"<span class='userdanger'>You're roundhouse-kicked by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, "<span class='danger'>You roundhouse-kick [D]!</span>")
+	D.visible_message(span_danger("[A] roundhouse-kicks [D]!"), \
+					span_userdanger("You're roundhouse-kicked by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+	to_chat(A, span_danger("You roundhouse-kick [D]!"))
 	playsound(A.loc, "swing_hit", 50, 1)
 	D.adjustBruteLoss(rand(10,20))
 
@@ -363,7 +348,7 @@
 		D.throw_at(T, 3, 2)
 	log_combat(A, D, "roundhouse-kicked", name)
 
-/datum/martial_art/wrestling/proc/drop(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/drop(mob/living/A, mob/living/D)
 	if(!D)
 		return
 	var/obj/surface = null
@@ -383,8 +368,8 @@
 
 	if (surface && (ST && isturf(ST)))
 		A.forceMove(ST)
-		A.visible_message("<span class='danger'>[A] climbs onto [surface]!</span>", \
-						"<span class='danger'>You climb onto [surface]!</span>")
+		A.visible_message(span_danger("[A] climbs onto [surface]!"), \
+						span_danger("You climb onto [surface]!"))
 		A.pixel_y = A.base_pixel_y + 10
 		falling = 1
 		sleep(10)
@@ -395,8 +380,8 @@
 		if ((falling == 0 && get_dist(A, D) > 1) || (falling == 1 && get_dist(A, D) > 2)) // We climbed onto stuff.
 			A.pixel_y = A.base_pixel_y
 			if (falling == 1)
-				A.visible_message("<span class='danger'>...and dives head-first into the ground, ouch!</span>", \
-								"<span class='userdanger'>...and dive head-first into the ground, ouch!</span>")
+				A.visible_message(span_danger("...and dives head-first into the ground, ouch!"), \
+								span_userdanger("...and dive head-first into the ground, ouch!"))
 				A.adjustBruteLoss(rand(10,20))
 				A.Paralyze(60)
 			to_chat(A, "[D] is too far away!")
@@ -415,9 +400,9 @@
 
 		A.forceMove(D.loc)
 
-		D.visible_message("<span class='danger'>[A] leg-drops [D]!</span>", \
-						"<span class='userdanger'>You're leg-dropped by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
-		to_chat(A, "<span class='danger'>You leg-drop [D]!</span>")
+		D.visible_message(span_danger("[A] leg-drops [D]!"), \
+						span_userdanger("You're leg-dropped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
+		to_chat(A, span_danger("You leg-drop [D]!"))
 		playsound(A.loc, "swing_hit", 50, 1)
 		A.emote("scream")
 
@@ -439,21 +424,21 @@
 	log_combat(A, D, "leg-dropped", name)
 	return
 
-/datum/martial_art/wrestling/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/disarm_act(mob/living/A, mob/living/D)
 	if(check_streak(A,D))
 		return 1
 	log_combat(A, D, "wrestling-disarmed", name)
 	..()
 
-/datum/martial_art/wrestling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/wrestling/grab_act(mob/living/A, mob/living/D)
 	if(check_streak(A,D))
 		return 1
 	if(A.pulling == D)
 		return 1
 	A.start_pulling(D)
-	D.visible_message("<span class='danger'>[A] gets [D] in a cinch!</span>", \
-					"<span class='userdanger'>You're put into a cinch by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, "<span class='danger'>You get [D] in a cinch!</span>")
+	D.visible_message(span_danger("[A] gets [D] in a cinch!"), \
+					span_userdanger("You're put into a cinch by [A]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, A)
+	to_chat(A, span_danger("You get [D] in a cinch!"))
 	D.Stun(rand(60,100))
 	log_combat(A, D, "cinched", name)
 	return 1
@@ -464,17 +449,11 @@
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	. = ..()
-	if(!ishuman(user))
-		return
 	if(slot == ITEM_SLOT_BELT)
-		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(user, TRUE)
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
 	. = ..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
-		style.remove(H)
+	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
+		style.remove(user)

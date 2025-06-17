@@ -112,7 +112,7 @@
 "aB" = (
 /obj/structure/rack,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/machinery/light/small,
 /obj/item/paper/fluff/itemnotice,
 /turf/open/floor/pod/dark,
@@ -202,7 +202,7 @@
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/gloves/fingerless,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -229,7 +229,7 @@
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/gloves/fingerless,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/item/pickaxe/mini,
 /obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,

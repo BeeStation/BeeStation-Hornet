@@ -45,7 +45,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	LAZYREMOVE(buckled_mob, src)
 
-/obj/machinery/manned_turret/user_buckle_mob(mob/living/M, mob/living/carbon/user, check_loc = TRUE)
+/obj/machinery/manned_turret/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(user.incapacitated() || !istype(user))
 		return
 	M.forceMove(get_turf(src))
@@ -200,7 +200,7 @@
 /obj/item/gun_control/CanItemAutoclick()
 	return TRUE
 
-/obj/item/gun_control/attack_obj(obj/O, mob/living/user)
+/obj/item/gun_control/attack_atom(obj/O, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	O.attacked_by(src, user)
 

@@ -9,9 +9,20 @@
 #define COMSIG_PARENT_EXAMINE "atom_examine"
 /// from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
+///from base of atom/examine_more(): (/mob)
+///from base of atom/examine(): (/mob, list/examine_text, can_see_inside)
+#define COMSIG_PARENT_REAGENT_EXAMINE "atom_reagent_examine"
+	/// Stop the generic reagent examine text
+	#define STOP_GENERIC_REAGENT_EXAMINE (1<<0)
+///from base of atom/examine_more(): (/mob)
+#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
 	//Positions for overrides list
 	#define EXAMINE_POSITION_ARTICLE (1<<0)
 	#define EXAMINE_POSITION_BEFORE (1<<1)
+///from base of atom/examine(): (/mob, list/examine_text)
+#define COMSIG_ATOM_EXAMINE "atom_examine"
+///from base of atom/examine_tags(): (/mob, list/examine_tags)
+#define COMSIG_ATOM_EXAMINE_TAGS "atom_examine_tags"
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
 
@@ -93,7 +104,7 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
-///! from base of atom/setDir(): (old_dir, new_dir)
+///from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
 ///! from base of atom/handle_atom_del(): (atom/deleted)
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
@@ -115,9 +126,10 @@
 #define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
 ///when an atom is processed (mob/living/user, obj/item/I, list/atom/results)
 #define COMSIG_ATOM_PROCESSED "atom_processed"
-///! called when teleporting into a protected turf: (channel, turf/origin)
+///! from the base of atom/intercept_teleport: (channel, turf/origin, turf/destination)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
+#define COMSIG_ATOM_HEARER_IN_VIEW "atom_hearer_in_view" //called when an atom is added to the hearers on get_hearers_in_view(): (list/processing_list, list/hearers)
 ///called when an atom starts orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 /// called when an atom stops orbiting another atom: (atom)
@@ -131,6 +143,9 @@
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
+///from base of atom/throw_impact, sent by the target hit by a thrown object. (hit_atom, thrown_atom, datum/thrownthing/throwingdatum)
+#define COMSIG_ATOM_PREHITBY "atom_pre_hitby"
+	#define COMSIG_HIT_PREVENTED (1<<0)
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 
@@ -141,15 +156,6 @@
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
 /////////////////
-#define COMSIG_CLICK "atom_click"								//! from base of atom/Click(): (location, control, params, mob/user)
-#define COMSIG_CLICK_SHIFT "shift_click"						//! from base of atom/ShiftClick(): (/mob)
-#define COMSIG_CLICK_CTRL "ctrl_click"							//! from base of atom/CtrlClickOn(): (/mob)
-#define COMSIG_CLICK_ALT "alt_click"							//! from base of atom/AltClick(): (/mob)
-	#define COMPONENT_INTERCEPT_ALT 1
-#define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"				//! from base of atom/CtrlShiftClick(/mob)
-#define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"					//! from base of atom/MouseDrop(): (/atom/over, /mob/user)
-	#define COMPONENT_NO_MOUSEDROP 1
-#define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"			//! from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 
 /// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
@@ -162,3 +168,14 @@
 
 #define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
 #define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.
+
+/////////////////
+/// Screentip signals
+/////////////////
+
+/// proc/add_context(datum/source, datum/screentip_context/context, mob/user)
+#define COMSIG_ATOM_ADD_CONTEXT "add_screentip_context"
+//////////////////
+
+// From /atom/proc/set_density(new_value) for when an atom changes density
+#define COMSIG_ATOM_DENSITY_CHANGED "atom_density_change"

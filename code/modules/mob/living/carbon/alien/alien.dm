@@ -20,7 +20,6 @@
 	heat_protection = 0.5 // minor heat insulation
 
 	var/leaping = FALSE
-	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
 
 /mob/living/carbon/alien/Initialize(mapload)
@@ -43,7 +42,7 @@
 /mob/living/carbon/alien/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
 	return -10
 
-/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
+/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
 	// Run base mob body temperature proc before taking damage
 	// this balances body temp to the enviroment and natural stabilization
 	. = ..()
@@ -53,22 +52,19 @@
 		throw_alert("alien_fire", /atom/movable/screen/alert/alien_fire)
 		switch(bodytemperature)
 			if(360 to 400)
-				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
+				apply_damage(HEAT_DAMAGE_LEVEL_1 * delta_time, BURN)
 			if(400 to 460)
-				apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
+				apply_damage(HEAT_DAMAGE_LEVEL_2 * delta_time, BURN)
 			if(460 to INFINITY)
 				if(on_fire)
-					apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
+					apply_damage(HEAT_DAMAGE_LEVEL_3 * delta_time, BURN)
 				else
-					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
+					apply_damage(HEAT_DAMAGE_LEVEL_2 * delta_time, BURN)
 	else
 		clear_alert("alien_fire")
 
-/mob/living/carbon/alien/reagent_check(datum/reagent/R) //can metabolize all reagents
+/mob/living/carbon/alien/reagent_check(datum/reagent/R, delta_time, times_fired) //can metabolize all reagents
 	return FALSE
-
-/mob/living/carbon/alien/IsAdvancedToolUser()
-	return has_fine_manipulation
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)
@@ -85,7 +81,7 @@ Des: Gives the client of the alien an image on each infected mob.
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
 		if(HAS_TRAIT(L, TRAIT_XENO_HOST))
-			var/obj/item/organ/body_egg/alien_embryo/A = L.getorgan(/obj/item/organ/body_egg/alien_embryo)
+			var/obj/item/organ/body_egg/alien_embryo/A = L.get_organ_by_type(/obj/item/organ/body_egg/alien_embryo)
 			if(A)
 				var/I = image('icons/mob/alien.dmi', loc = L, icon_state = "infected[A.stage]")
 				client.images += I
@@ -110,8 +106,10 @@ Des: Removes all infected images from the alien.
 	return TRUE
 
 /mob/living/carbon/alien/proc/alien_evolve(mob/living/carbon/alien/new_xeno)
-	to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
-	visible_message("<span class='alertalien'>[src] begins to twist and contort!</span>")
+	visible_message(
+		span_noticealien("[src] begins to twist and contort!"),
+		span_alertalien("You begin to evolve!"),
+	)
 	new_xeno.setDir(dir)
 	if(!alien_name_regex.Find(name))
 		new_xeno.name = name
@@ -120,8 +118,8 @@ Des: Removes all infected images from the alien.
 		mind.transfer_to(new_xeno)
 	qdel(src)
 
-/mob/living/carbon/alien/can_hold_items()
-	return has_fine_manipulation
+/mob/living/carbon/alien/can_hold_items(obj/item/I)
+	return ((I && istype(I, /obj/item/clothing/mask/facehugger)) || (ISADVANCEDTOOLUSER(src) && ..()))
 
 /mob/living/carbon/alien/on_lying_down(new_lying_angle)
 	. = ..()

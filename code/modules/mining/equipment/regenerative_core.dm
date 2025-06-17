@@ -10,16 +10,16 @@
 	. = ..()
 	var/obj/item/organ/regenerative_core/C = M
 	if(!istype(C, /obj/item/organ/regenerative_core))
-		to_chat(user, "<span class='warning'>The stabilizer only works on certain types of monster organs, generally regenerative in nature.</span>")
+		to_chat(user, span_warning("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
 		return ..()
 	if(C.preserved)
-		to_chat(user, "<span class='notice'>[M] is already stabilised.")
+		to_chat(user, span_notice("[M] is already stabilised."))
 		return
 	if(C.inert)
-		to_chat(user, "<span class='notice'>[M] is inert, it's not worth it to stabilize a nonfunctional one.")
+		to_chat(user, span_notice("[M] is inert, it's not worth it to stabilize a nonfunctional one."))
 		return
 	C.preserved()
-	to_chat(user, "<span class='notice'>You inject [M] with the stabilizer. It will no longer go inert.</span>")
+	to_chat(user, span_notice("You inject [M] with the stabilizer. It will no longer go inert."))
 	qdel(src)
 
 /************************Hivelord core*******************/
@@ -27,6 +27,7 @@
 	name = "regenerative core"
 	desc = "All that remains of a hivelord. It can be used to heal completely, but it will rapidly decay into uselessness."
 	icon_state = "roro core 2"
+	visual = FALSE
 	item_flags = NOBLUDGEON
 	organ_flags = null
 	slot = "hivecore"
@@ -61,14 +62,14 @@
 
 /obj/item/organ/regenerative_core/ui_action_click()
 	if(!z == 5 && !preserved)
-		to_chat(owner, "<span class='notice'>[src] breaks down as it tries to activate without the necropolis' power.</span>")
+		to_chat(owner, span_notice("[src] breaks down as it tries to activate without the necropolis' power."))
 	else if(inert)
-		to_chat(owner, "<span class='notice'>[src] breaks down as it tries to activate.</span>")
+		to_chat(owner, span_notice("[src] breaks down as it tries to activate."))
 	else
-		owner.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
+		owner.apply_status_effect(/datum/status_effect/regenerative_core)
 	qdel(src)
 
-/obj/item/organ/regenerative_core/on_life()
+/obj/item/organ/regenerative_core/on_life(delta_time, times_fired)
 	..()
 	if(owner.health <= owner.crit_threshold)
 		ui_action_click()
@@ -78,27 +79,27 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(inert)
-			to_chat(user, "<span class='notice'>[src] has decayed and can no longer be used to heal.</span>")
+			to_chat(user, span_notice("[src] has decayed and can no longer be used to heal."))
 			return
 		else
 			if(H.stat == DEAD)
-				to_chat(user, "<span class='notice'>[src] is useless on the dead.</span>")
+				to_chat(user, span_notice("[src] is useless on the dead."))
 				return
 			if(H != user)
-				to_chat(user, "<span class='notice'>You begin to rub the regenerative core on [H]...</span>")
-				to_chat(H, "<span class='userdanger'>[user] begins to smear the regenerative core all over you...</span>")
+				to_chat(user, span_notice("You begin to rub the regenerative core on [H]..."))
+				to_chat(H, span_userdanger("[user] begins to smear the regenerative core all over you..."))
 				if(do_after(user, 3 SECONDS, H))
 					H.visible_message("[user] forces [H] to apply [src]... [H.p_they()] quickly regenerates all injuries!")
 					SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 				else
 					return
 			else
-				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. It feels and smells disgusting, but you feel amazingly refreshed in mere moments.</span>")
+				to_chat(user, span_notice("You start to smear [src] on yourself. It feels and smells disgusting, but you feel amazingly refreshed in mere moments."))
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 			if(HAS_TRAIT(H, TRAIT_NECROPOLIS_INFECTED))
 				H.ForceContractDisease(new /datum/disease/transformation/legion())
-				to_chat(H, "<span class='userdanger'>You feel the necropolis strengthen its grip on your heart and soul... You're powerless to resist for much longer...</span>")
-			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
+				to_chat(H, span_userdanger("You feel the necropolis strengthen its grip on your heart and soul... You're powerless to resist for much longer..."))
+			H.apply_status_effect(/datum/status_effect/regenerative_core)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "core", /datum/mood_event/healsbadman) //Now THIS is a miner buff (fixed - nerf)
 			qdel(src)
 
@@ -111,15 +112,17 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/regenerative_core/Insert(mob/living/carbon/target_carbon, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
+	if(!.)
+		return
 	if(!preserved && !inert)
 		preserved(TRUE)
-		owner.visible_message("<span class='notice'>[src] stabilizes as it's inserted.</span>")
+		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
 
 /obj/item/organ/regenerative_core/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(!inert && !special)
-		owner.visible_message("<span class='notice'>[src] rapidly decays as it's removed.</span>")
+		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()
 	return ..()
 

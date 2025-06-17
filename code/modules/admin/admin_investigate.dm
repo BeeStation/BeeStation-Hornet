@@ -20,6 +20,7 @@
 		INVESTIGATE_ATMOS,
 		INVESTIGATE_BOTANY,
 		INVESTIGATE_CARGO,
+		INVESTIGATE_CRAFTING,
 		INVESTIGATE_DEATHS,
 		INVESTIGATE_ENGINES,
 		INVESTIGATE_EXONET,
@@ -33,6 +34,7 @@
 		INVESTIGATE_RECORDS,
 		INVESTIGATE_RESEARCH,
 		INVESTIGATE_TELESCI,
+		INVESTIGATE_TOOLS,
 		INVESTIGATE_WIRES,
 	)
 
@@ -60,8 +62,12 @@
 		browse_messages()
 		return
 
-	var/F = file("[GLOB.log_directory]/[selected].html")
+	var/filepath = "[GLOB.log_directory]/[selected].html"
+	var/F = file(filepath)
 	if(!fexists(F))
-		to_chat(src, "<span class='danger'>No [selected] logfile was found.</span>")
+		to_chat(src, span_danger("No [selected] logfile was found."))
 		return
-	src << browse(F,"window=investigate[selected];size=800x300")
+
+	var/datum/browser/browser = new(usr, "investigate[selected]", "Investigation of [selected]", 800, 300)
+	browser.set_content(rustg_file_read(filepath))
+	browser.open()

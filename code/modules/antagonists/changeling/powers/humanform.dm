@@ -21,11 +21,11 @@
 		return
 	if(!user || user.notransform)
 		return 0
-	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
+	to_chat(user, span_notice("We transform our appearance."))
 	..()
 	changeling.purchasedpowers -= src
 
 	var/newmob = user.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
 
-	changeling_transform(newmob, chosen_prof)
+	changeling.transform(newmob, chosen_prof)
 	return TRUE

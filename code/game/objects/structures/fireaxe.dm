@@ -5,7 +5,7 @@
 	icon_state = "fireaxe"
 	anchored = TRUE
 	density = FALSE
-	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_fireaxecabinet
 	max_integrity = 150
 	integrity_failure = 0.33
 	layer = ABOVE_WINDOW_LAYER
@@ -14,6 +14,16 @@
 	var/obj/item/fireaxe/fireaxe
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
+
+
+/datum/armor/structure_fireaxecabinet
+	melee = 50
+	bullet = 20
+	energy = 100
+	bomb = 10
+	rad = 100
+	fire = 90
+	acid = 50
 
 /obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()
@@ -25,42 +35,42 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		QDEL_NULL(fireaxe)
 	return ..()
 
-/obj/structure/fireaxecabinet/attackby(obj/item/I, mob/user, params)
+/obj/structure/fireaxecabinet/attackby(obj/item/I, mob/living/user, params)
 	if(iscyborg(user) || I.tool_behaviour == TOOL_MULTITOOL)
 		toggle_lock(user)
-	else if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
-		if(obj_integrity < max_integrity)
+	else if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && !broken)
+		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=2))
 				return
 
-			to_chat(user, "<span class='notice'>You begin repairing [src].</span>")
+			to_chat(user, span_notice("You begin repairing [src]."))
 			if(I.use_tool(src, user, 40, volume=50, amount=2))
-				obj_integrity = max_integrity
+				atom_integrity = max_integrity
 				update_appearance()
-				to_chat(user, "<span class='notice'>You repair [src].</span>")
+				to_chat(user, span_notice("You repair [src]."))
 		else
-			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+			to_chat(user, span_warning("[src] is already in good condition!"))
 		return
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two glass sheets to fix [src]!</span>")
+			to_chat(user, span_warning("You need two glass sheets to fix [src]!"))
 			return
-		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
+		to_chat(user, span_notice("You start fixing [src]..."))
 		if(do_after(user, 20, target = src) && G.use(2))
 			broken = 0
-			obj_integrity = max_integrity
+			atom_integrity = max_integrity
 			update_appearance()
 	else if(open || broken)
 		if(istype(I, /obj/item/fireaxe) && !fireaxe)
 			var/obj/item/fireaxe/F = I
 			if(F && ISWIELDED(F))
-				to_chat(user, "<span class='warning'>Unwield the [F.name] first.</span>")
+				to_chat(user, span_warning("Unwield the [F.name] first."))
 				return
 			if(!user.transferItemToLoc(F, src))
 				return
 			fireaxe = F
-			to_chat(user, "<span class='notice'>You place the [F.name] back in the [name].</span>")
+			to_chat(user, span_notice("You place the [F.name] back in the [name]."))
 			update_appearance()
 			return
 		else if(!broken)
@@ -85,7 +95,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	if(.)
 		update_appearance()
 
-/obj/structure/fireaxecabinet/obj_break(damage_flag)
+/obj/structure/fireaxecabinet/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		update_appearance()
@@ -108,7 +118,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		fireaxe = null
 	qdel(src)
 
-/obj/structure/fireaxecabinet/attack_hand(mob/user)
+/obj/structure/fireaxecabinet/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -116,12 +126,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		if(fireaxe)
 			user.put_in_hands(fireaxe)
 			fireaxe = null
-			to_chat(user, "<span class='notice'>You take the fire axe from the [name].</span>")
+			to_chat(user, span_notice("You take the fire axe from the [name]."))
 			add_fingerprint(user)
 			update_appearance()
 			return
 	if(locked)
-		to_chat(user, "<span class='warning'>The [name] won't budge!</span>")
+		to_chat(user, span_warning("The [name] won't budge!"))
 		return
 	else
 		open = !open
@@ -131,14 +141,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 /obj/structure/fireaxecabinet/attack_paw(mob/living/user)
 	return attack_hand(user)
 
-/obj/structure/fireaxecabinet/attack_ai(mob/user)
+/obj/structure/fireaxecabinet/attack_silicon(mob/user)
 	toggle_lock(user)
 	return
 
 /obj/structure/fireaxecabinet/attack_tk(mob/user)
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(locked)
-		to_chat(user, "<span class='warning'>The [name] won't budge!</span>")
+		to_chat(user, span_warning("The [name] won't budge!"))
 		return
 	open = !open
 	update_icon()
@@ -148,7 +158,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	if(fireaxe)
 		add_overlay("axe")
 	if(!open)
-		var/hp_percent = obj_integrity/max_integrity * 100
+		var/hp_percent = atom_integrity/max_integrity * 100
 		if(broken)
 			add_overlay("glass4")
 		else
@@ -169,10 +179,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		add_overlay("glass_raised")
 
 /obj/structure/fireaxecabinet/proc/toggle_lock(mob/user)
-	to_chat(user, "<span class='notice'> Resetting circuitry...</span>")
+	to_chat(user, span_notice(" Resetting circuitry..."))
 	playsound(src, 'sound/machines/locktoggle.ogg', 50, 1)
 	if(do_after(user, 20, target = src))
-		to_chat(user, "<span class='notice'>You [locked ? "disable" : "re-enable"] the locking modules.</span>")
+		to_chat(user, span_notice("You [locked ? "disable" : "re-enable"] the locking modules."))
 		locked = !locked
 		update_appearance()
 
@@ -182,7 +192,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	set src in oview(1)
 
 	if(locked)
-		to_chat(usr, "<span class='warning'>The [name] won't budge!</span>")
+		to_chat(usr, span_warning("The [name] won't budge!"))
 		return
 	else
 		open = !open

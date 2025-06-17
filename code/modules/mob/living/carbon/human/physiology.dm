@@ -1,28 +1,45 @@
 //Stores several modifiers in a way that isn't cleared by changing species
-
 /datum/physiology
-	var/brute_mod = 1   	// % of brute damage taken from all sources
-	var/burn_mod = 1    	// % of burn damage taken from all sources
-	var/tox_mod = 1     	// % of toxin damage taken from all sources
-	var/oxy_mod = 1     	// % of oxygen damage taken from all sources
-	var/clone_mod = 1   	// % of clone damage taken from all sources
-	var/stamina_mod = 1 	// % of stamina damage taken from all sources
-	var/brain_mod = 1   	// % of brain damage taken from all sources
+	/// Multiplier to brute damage received.
+	/// IE: A brute mod of 0.9 = 10% less brute damage.
+	/// Only applies to damage dealt via [apply_damage][/mob/living/proc/apply_damage] unless factored in manually.
+	var/brute_mod = 1
+	/// Multiplier to burn damage received
+	var/burn_mod = 1
+	/// Multiplier to toxin damage received
+	var/tox_mod = 1
+	/// Multiplier to oxygen damage received
+	var/oxy_mod = 1
+	/// Multiplier to stamina damage received
+	var/clone_mod = 1
+	/// Multiplier to stamina damage received
+	var/stamina_mod = 1
+	/// Multiplier to brain damage received
+	var/brain_mod = 1
 
-	var/pressure_mod = 1	// % of brute damage taken from low or high pressure (stacks with brute_mod)
-	var/heat_mod = 1    	// % of burn damage taken from heat (stacks with burn_mod)
-	var/cold_mod = 1    	// % of burn damage taken from cold (stacks with burn_mod)
+	/// Multiplier to damage taken from high / low pressure exposure, stacking with the brute modifier
+	var/pressure_mod = 1
+	/// Multiplier to damage taken from high temperature exposure, stacking with the burn modifier
+	var/heat_mod = 1
+	/// Multiplier to damage taken from low temperature exposure, stacking with the toxin modifier
+	var/cold_mod = 1
 
 	var/damage_resistance = 0 // %damage reduction from all sources
 
 	var/siemens_coeff = 1 	// resistance to shocks
 
-	var/stun_add = 0		// % additive stun increaser
-	var/stun_mod = 1      	// % multiplicitive stun multiplayer, applied after additive is applied
-	var/bleed_mod = 1     	// % bleeding modifier
-	var/datum/armor/armor 	// internal armor datum
+	// % additive stun increaser
+	var/stun_add = 0
+	// % multiplicitive stun multiplayer, applied after additive is applied
+	var/stun_mod = 1
+	// % bleeding modifier
+	var/bleed_mod = 1
 
-	var/hunger_mod = 1		//% of hunger rate taken per tick.
+	// internal armor datum
+	var/datum/armor/physio_armor
+
+	//% of hunger rate taken per tick.
+	var/hunger_mod = 1
 
 /datum/physiology/New()
-	armor = new
+	physio_armor = new

@@ -15,5 +15,5 @@ CREATION_TEST_IGNORE_SELF(/obj/merge_conflict_marker)
 	. = ..()
 	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(src)]! Please manually address all potential merge conflicts!!!"
 	log_mapping(msg)
-	to_chat(world, ("<span class='boldannounce'>[msg]</span>"))
+	to_chat(world, (span_boldannounce("[msg]")))
 	warning(msg)

@@ -31,29 +31,20 @@
 /proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.underwear_m)
-		if(FEMALE)
-			return pick(GLOB.underwear_f)
-		else
-			return pick(GLOB.underwear_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.underwear_list, required_gender = gender)
+	return picked.name
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.undershirt_m)
-		if(FEMALE)
-			return pick(GLOB.undershirt_f)
-		else
-			return pick(GLOB.undershirt_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.undershirt_list, required_gender = gender)
+	return picked.name
 
-/proc/random_socks()
+/proc/random_socks(gender)
 	if(!GLOB.socks_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
-	return pick(GLOB.socks_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, required_gender = gender)
+	return picked.name
 
 /proc/random_features(gender)
 	if(!GLOB.tails_list_human.len)
@@ -159,22 +150,12 @@
 	)
 
 /proc/random_hair_style(gender)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.hair_styles_male_list)
-		if(FEMALE)
-			return pick(GLOB.hair_styles_female_list)
-		else
-			return pick(GLOB.hair_styles_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hair_styles_list, required_gender = gender)
+	return picked.name
 
 /proc/random_facial_hair_style(gender)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.facial_hair_styles_male_list)
-		if(FEMALE)
-			return pick(GLOB.facial_hair_styles_female_list)
-		else
-			return pick(GLOB.facial_hair_styles_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hair_styles_list, required_gender = gender)
+	return picked.name
 
 /proc/random_unique_name(gender, attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
@@ -285,13 +266,19 @@ GLOBAL_LIST_EMPTY(species_list)
  * * progress - if TRUE, a progress bar is displayed.
  * * extra_checks - a callback that can be used to add extra checks to the do_after. Returning false in this callback will cancel the do_after.
  */
-/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1, hidden = FALSE)
 	if(!user)
 		return FALSE
+	if(!isnum(delay))
+		CRASH("do_after was passed a non-number delay: [delay || "null"].")
 
-	if(target)
-		LAZYADD(user.do_afters, target)
-		LAZYADD(target.targeted_by, user)
+	if(!interaction_key && target)
+		interaction_key = target //Use the direct ref to the target
+	if(interaction_key) //Do we have a interaction_key now?
+		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+		if(current_interaction_count >= max_interact_count) //We are at our peak
+			return
+		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 
 	var/atom/user_loc = user.loc
 	var/atom/target_loc = target?.loc
@@ -304,12 +291,18 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	delay *= user.cached_multiplicative_actions_slowdown
 
+	if (HAS_TRAIT(user, INSTANT_DO_AFTER))
+		delay = -1
+
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
+
 	if(progress)
-		if(target) // the progress bar needs a target, so if we don't have one just pass it the user.
-			progbar = new(user, delay, target)
-		else
-			progbar = new(user, delay, user)
+		if(user.client)
+			progbar = new(user, delay, target || user)
+
+		if(!hidden && delay >= 1 SECONDS)
+			cog = new(user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
@@ -317,48 +310,46 @@ GLOBAL_LIST_EMPTY(species_list)
 	while(world.time < endtime)
 		stoplag(1)
 
-		if(QDELETED(user))
-			. = FALSE
-			break
-
-		if(progress)
+		if(!QDELETED(progbar))
 			progbar.update(world.time - starttime)
 
 		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
 			user_loc = user.loc
 
-		// Check flags
-		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
+		if(QDELETED(user) \
+			|| (!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
+			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && HAS_TRAIT(user, TRAIT_INCAPACITATED)) \
+			|| (extra_checks && !extra_checks.Invoke()))
 			. = FALSE
+			break
 
-		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
+		if(target && (user != target) && \
+			(QDELETED(target) \
+			|| (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
 			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
-			. = FALSE
-
-
-		if(extra_checks && !extra_checks.Invoke())
-			. = FALSE
-
-		// If we have a target, we check for them moving here. We don't care about it if we're drifting or we ignore target loc change
-		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && !drifting)
-			if(target_loc && user != target && (QDELETED(target) || target_loc != target.loc))
-				. = FALSE
-
-		if(target && !(timed_action_flags & IGNORE_TARGET_IN_DOAFTERS) && !(target in user.do_afters))
-			. = FALSE
-
-		if(!.)
 			break
 
 	if(!QDELETED(progbar))
 		progbar.end_progress()
 
-	if(!QDELETED(target))
-		LAZYREMOVE(user.do_afters, target)
-		LAZYREMOVE(target.targeted_by, user)
+	cog?.remove()
+
+	if(interaction_key)
+		var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1
+		if(reduced_interaction_count > 0) // Not done yet!
+			LAZYSET(user.do_afters, interaction_key, reduced_interaction_count)
+			return
+		// all out, let's clear er out fully
+		LAZYREMOVE(user.do_afters, interaction_key)
+
+/// Returns the total amount of do_afters this mob is taking part in
+/mob/proc/do_after_count()
+	var/count = 0
+	for(var/key in do_afters)
+		count += do_afters[key]
+	return count
 
 /proc/is_species(A, species_datum)
 	. = FALSE
@@ -416,7 +407,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	return spawned_mobs
 
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
-	message = "<span class='linkify'>[message]</span>"
+	message = span_linkify("[message]")
 	for(var/mob/M in GLOB.player_list)
 		var/death_rattle = TRUE
 		var/arrivals_rattle = TRUE
@@ -585,6 +576,26 @@ GLOBAL_LIST_EMPTY(species_list)
 		else
 			return zone
 
+///Takes a zone and returns it's "parent" zone, if it has one.
+/proc/deprecise_zone(precise_zone)
+	switch(precise_zone)
+		if(BODY_ZONE_PRECISE_GROIN)
+			return BODY_ZONE_CHEST
+		if(BODY_ZONE_PRECISE_EYES)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return BODY_ZONE_R_ARM
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return BODY_ZONE_L_ARM
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return BODY_ZONE_L_LEG
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return BODY_ZONE_R_LEG
+		else
+			return precise_zone
+
 ///Returns the direction that the initiator and the target are facing
 /proc/check_target_facings(mob/living/initator, mob/living/target)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
@@ -702,7 +713,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /// Returns a list of unslaved cyborgs
 /proc/active_free_borgs()
 	. = list()
-	for(var/mob/living/silicon/robot/borg in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/robot/borg as anything in GLOB.cyborg_list)
 		if(borg.connected_ai || borg.shell)
 			continue
 		if(borg.stat == DEAD)
@@ -765,8 +776,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
  */
 /proc/get_temp_change_amount(temp_diff, change_rate = 0.06)
 	if(temp_diff < 0)
-		return (log((temp_diff * -1) * change_rate + 1) * BODYTEMP_AUTORECOVERY_DIVISOR) * -1
-	return log(temp_diff * change_rate + 1) * BODYTEMP_AUTORECOVERY_DIVISOR
+		return -(BODYTEMP_AUTORECOVERY_DIVISOR / 2) * log(1 - (temp_diff * change_rate))
+	return (BODYTEMP_AUTORECOVERY_DIVISOR / 2) * log(1 + (temp_diff * change_rate))
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(preference_type, client/C)
@@ -817,7 +828,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	//This name has already been taken and this is not the original user, return FALSE
 	else
-		to_chat(C.mob, "<span class='warning'>Cyborg name already used this round by another character, your name has been randomized</span>")
+		to_chat(C.mob, span_warning("Cyborg name already used this round by another character, your name has been randomized"))
 		return FALSE
 
 /proc/view_or_range(distance = world.view , center = usr , type)

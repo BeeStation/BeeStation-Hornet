@@ -64,3 +64,7 @@
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
 
+/datum/outfit/job/cook/get_types_to_preload()
+	. = ..()
+	. += /obj/item/clothing/suit/apron/chef
+	. += /obj/item/clothing/head/soft

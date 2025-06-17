@@ -9,7 +9,7 @@
 		/datum/reagent/consumable/sugar = 1,
 		/obj/item/food/pastrybase = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donut/chaos
 	name = "Chaos donut"
@@ -248,7 +248,7 @@
 	reqs = list(
 		/obj/item/food/pastrybase = 2
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/soylenviridians
 	name = "Soylent viridians"
@@ -257,7 +257,7 @@
 		/obj/item/food/pastrybase = 2,
 		/obj/item/food/grown/soybeans = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/soylentgreen
 	name = "Soylent green"
@@ -266,7 +266,7 @@
 		/obj/item/food/pastrybase = 2,
 		/obj/item/food/meat/slab/human = 2
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/rofflewaffles
 	name = "Roffle waffles"
@@ -275,33 +275,7 @@
 		/datum/reagent/drug/mushroomhallucinogen = 5,
 		/obj/item/food/pastrybase = 2
 	)
-	subcategory = CAT_PASTRY
-
-/datum/crafting_recipe/food/pancakes
-	name = "Pancake"
-	result = /obj/item/food/pancakes
-	reqs = list(
-		/obj/item/food/pastrybase = 1
-	)
-	subcategory = CAT_PASTRY
-
-/datum/crafting_recipe/food/bbpancakes
-	name = "Blueberry pancake"
-	result = /obj/item/food/pancakes/blueberry
-	reqs = list(
-		/obj/item/food/pastrybase = 1,
-		/obj/item/food/grown/berries = 1
-	)
-	subcategory = CAT_PASTRY
-
-/datum/crafting_recipe/food/ccpancakes
-	name = "Chocolate chip pancake"
-	result = /obj/item/food/pancakes/chocolatechip
-	reqs = list(
-		/obj/item/food/pastrybase = 1,
-		/obj/item/food/chocolatebar = 1
-	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket
 	name = "Donk-pocket"
@@ -311,7 +285,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/meatball = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/dankpocket
 	name = "Dank-pocket"
@@ -320,7 +294,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/cannabis = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/spicy
 	name = "Spicy-pocket"
@@ -329,7 +303,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/chili = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/teriyaki
 	name = "Teriyaki-pocket"
@@ -338,7 +312,7 @@
 		/obj/item/food/pastrybase = 1,
 		/datum/reagent/consumable/soysauce = 3
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/pizza
 	name = "Pizza-pocket"
@@ -347,7 +321,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/tomato = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/honk
 	name = "Honk-Pocket"
@@ -357,7 +331,7 @@
 		/obj/item/food/grown/banana = 1,
 		/datum/reagent/consumable/sugar = 3
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/berry
 	name = "Berry-pocket"
@@ -366,7 +340,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/berries = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/gondola //PERKELE :DDD
 	name = "Gondola-pocket"
@@ -375,7 +349,7 @@
 		/obj/item/food/pastrybase = 1,
 		/datum/reagent/tranquility = 5
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/muffin
 	name = "Muffin"
@@ -385,7 +359,7 @@
 		/datum/reagent/consumable/milk = 5,
 		/obj/item/food/pastrybase = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/muffin/berrymuffin
 	name = "Berry muffin"
@@ -395,7 +369,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/berries = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/muffin/booberrymuffin
 	name = "Booberry muffin"
@@ -406,7 +380,7 @@
 		/obj/item/food/grown/berries = 1,
 		/obj/item/ectoplasm = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/muffin/moffin
 	name = "Moffin"
@@ -416,17 +390,18 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/stack/sheet/cotton/cloth = 1,
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/khachapuri
 	name = "Khachapuri"
 	result = /obj/item/food/khachapuri
 	reqs = list(
-		/datum/reagent/consumable/eggyolk = 5,
+		/datum/reagent/consumable/eggyolk = 2,
+		/datum/reagent/consumable/eggwhite = 4,
 		/obj/item/food/cheese/wedge = 1,
 		/obj/item/food/bread/plain = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/sugarcookie
 	name = "Sugar cookie"
@@ -436,7 +411,7 @@
 		/datum/reagent/consumable/sugar = 5,
 		/obj/item/food/pastrybase = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/fortunecookie
 	name = "Fortune cookie"
@@ -447,7 +422,7 @@
 		/obj/item/paper = 1
 	)
 	parts =	list(/obj/item/paper = 1)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/poppypretzel
 	name = "Poppy pretzel"
@@ -457,7 +432,7 @@
 		/obj/item/seeds/flower/poppy = 1,
 		/obj/item/food/pastrybase = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/plumphelmetbiscuit
 	name = "Plumphelmet biscuit"
@@ -467,7 +442,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/mushroom/plumphelmet = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/cracker
 	name = "Cracker"
@@ -477,7 +452,7 @@
 		/datum/reagent/consumable/sodiumchloride = 1,
 		/obj/item/food/pastrybase = 1,
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/chococornet
 	name = "Choco cornet"
@@ -487,7 +462,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/chocolatebar = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/oatmealcookie
 	name = "Oatmeal cookie"
@@ -496,7 +471,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/oat = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/raisincookie
 	name = "Raisin cookie"
@@ -506,7 +481,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/oat = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/cherrycupcake
 	name = "Cherry cupcake"
@@ -515,7 +490,7 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/cherries = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/bluecherrycupcake
 	name = "Blue cherry cupcake"
@@ -524,7 +499,17 @@
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/bluecherries = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
+
+/datum/crafting_recipe/food/jupitercupcake
+	name = "Jupiter-cup-cake"
+	reqs = list(
+		/obj/item/food/pastrybase = 1,
+		/obj/item/food/grown/mushroom/jupitercup = 1,
+		/datum/reagent/consumable/caramel = 3,
+	)
+	result = /obj/item/food/jupitercupcake
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/honeybun
 	name = "Honey bun"
@@ -533,7 +518,7 @@
 		/obj/item/food/pastrybase = 1,
 		/datum/reagent/consumable/honey = 5
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/ravtart
 	name = "Rav'tart"
@@ -544,4 +529,4 @@
 		/obj/item/food/grown/berries = 2,
 		/obj/item/food/grown/citrus/orange = 1
 	)
-	subcategory = CAT_PASTRY
+	category = CAT_PASTRY

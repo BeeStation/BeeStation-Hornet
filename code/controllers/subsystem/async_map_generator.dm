@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(async_map_generator)
 			current_run_index --
 			//Decrement the current run length
 			current_run_length --
-			//to_chat(world, "<span class='announce'>Fully completed running map generator [current_run_index + 1].</span>")
+			//to_chat(world, span_announce("Fully completed running map generator [current_run_index + 1]."))
 		//Continue to the next process
 		MC_SPLIT_TICK
 

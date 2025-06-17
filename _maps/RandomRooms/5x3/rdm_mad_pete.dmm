@@ -1,11 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Rabid Maintenance Pete";
-	faction = list("hostile");
-	melee_damage = 10;
-	health = 50
-	},
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8;
 	pixel_y = 8
@@ -15,6 +9,7 @@
 	dir = 1
 	},
 /obj/effect/trap/nexus/doorbolt,
+/mob/living/simple_animal/hostile/retaliate/goat/rabid,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "d" = (
@@ -109,7 +104,7 @@
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "R" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "Z" = (

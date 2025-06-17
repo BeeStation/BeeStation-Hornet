@@ -1051,6 +1051,9 @@
 /obj/effect/turf_decal/trimline/white/warning
 	icon_state = "trimline_warn"
 
+/obj/effect/turf_decal/trimline/white/warning_offset
+	icon_state = "trimline_warn_offset"
+
 /obj/effect/turf_decal/trimline/white/mid_joiner
 	icon_state = "trimline_mid"
 
@@ -1106,6 +1109,9 @@
 
 /obj/effect/turf_decal/trimline/red/warning
 	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/red/warning_offset
+	icon_state = "trimline_warn_offset"
 
 /obj/effect/turf_decal/trimline/red/mid_joiner
 	icon_state = "trimline_mid"
@@ -1163,6 +1169,9 @@
 /obj/effect/turf_decal/trimline/dark_red/warning
 	icon_state = "trimline_warn"
 
+/obj/effect/turf_decal/trimline/dark_red/warning_offset
+	icon_state = "trimline_warn_offset"
+
 /obj/effect/turf_decal/trimline/dark_red/mid_joiner
 	icon_state = "trimline_mid"
 
@@ -1218,6 +1227,9 @@
 
 /obj/effect/turf_decal/trimline/green/warning
 	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/green/warning_offset
+	icon_state = "trimline_warn_offset"
 
 /obj/effect/turf_decal/trimline/green/mid_joiner
 	icon_state = "trimline_mid"
@@ -1275,6 +1287,9 @@
 /obj/effect/turf_decal/trimline/dark_green/warning
 	icon_state = "trimline_warn"
 
+/obj/effect/turf_decal/trimline/dark_green/warning_offset
+	icon_state = "trimline_warn_offset"
+
 /obj/effect/turf_decal/trimline/dark_green/mid_joiner
 	icon_state = "trimline_mid"
 
@@ -1330,6 +1345,9 @@
 
 /obj/effect/turf_decal/trimline/blue/warning
 	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/blue/warning_offset
+	icon_state = "trimline_warn_offset"
 
 /obj/effect/turf_decal/trimline/blue/mid_joiner
 	icon_state = "trimline_mid"
@@ -1387,6 +1405,9 @@
 /obj/effect/turf_decal/trimline/dark_blue/warning
 	icon_state = "trimline_warn"
 
+/obj/effect/turf_decal/trimline/dark_blue/warning_offset
+	icon_state = "trimline_warn_offset"
+
 /obj/effect/turf_decal/trimline/dark_blue/mid_joiner
 	icon_state = "trimline_mid"
 
@@ -1442,6 +1463,9 @@
 
 /obj/effect/turf_decal/trimline/yellow/warning
 	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/yellow/warning_offset
+	icon_state = "trimline_warn_offset"
 
 /obj/effect/turf_decal/trimline/yellow/mid_joiner
 	icon_state = "trimline_mid"
@@ -1499,6 +1523,9 @@
 /obj/effect/turf_decal/trimline/purple/warning
 	icon_state = "trimline_warn"
 
+/obj/effect/turf_decal/trimline/purple/warning_offset
+	icon_state = "trimline_warn_offset"
+
 /obj/effect/turf_decal/trimline/purple/mid_joiner
 	icon_state = "trimline_mid"
 
@@ -1554,6 +1581,9 @@
 
 /obj/effect/turf_decal/trimline/brown/warning
 	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/brown/warning_offset
+	icon_state = "trimline_warn_offset"
 
 /obj/effect/turf_decal/trimline/brown/mid_joiner
 	icon_state = "trimline_mid"
@@ -1612,6 +1642,9 @@
 /obj/effect/turf_decal/trimline/neutral/warning
 	icon_state = "trimline_warn"
 
+/obj/effect/turf_decal/trimline/neutral/warning_offset
+	icon_state = "trimline_warn_offset"
+
 /obj/effect/turf_decal/trimline/neutral/mid_joiner
 	icon_state = "trimline_mid"
 
@@ -1667,6 +1700,9 @@
 
 /obj/effect/turf_decal/trimline/dark/warning
 	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/dark/warning_offset
+	icon_state = "trimline_warn_offset"
 
 /obj/effect/turf_decal/trimline/dark/mid_joiner
 	icon_state = "trimline_mid"
@@ -1724,6 +1760,9 @@
 
 /obj/effect/turf_decal/trimline/black/warning
 	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/black/warning_offset
+	icon_state = "trimline_warn_offset"
 
 /obj/effect/turf_decal/trimline/black/mid_joiner
 	icon_state = "trimline_mid"

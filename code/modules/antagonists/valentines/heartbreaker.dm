@@ -31,7 +31,7 @@
 	. = ..()
 
 /datum/antagonist/heartbreaker/greet()
-	to_chat(owner, "<span class='big bold warning'>You didn't get a date! They're all having fun without you! you'll show them though...</span>")
+	to_chat(owner, span_bigboldwarning("You didn't get a date! They're all having fun without you! you'll show them though..."))
 	owner.announce_objectives()
 
 /datum/antagonist/heartbreaker/apply_innate_effects(mob/living/mob_override)

@@ -493,7 +493,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	return FALSE
 
 /datum/holiday/ramadan/getStationPrefix()
-	return pick("Harm","Halaal","Jihad","Muslim")
+	return pick("Harm","Halaal","Eid","Suhur","Iftar","Muslim")
 
 /datum/holiday/ramadan/end
 	name = "End of Ramadan"
@@ -539,7 +539,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in GLOB.machines)
 		Monitor.icon_state_on = "entertainment_xmas"
 
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_living_list)
+	for(var/mob/living/basic/pet/dog/corgi/Ian/Ian in GLOB.mob_living_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
 
 
@@ -602,7 +602,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/easter/celebrate()
 	GLOB.maintenance_loot += list(
-		/obj/item/suprise_egg = 15,
+		/obj/item/surprise_egg = 15,
 		/obj/item/storage/basket/easter = 15)
 
 /datum/holiday/easter/greet()

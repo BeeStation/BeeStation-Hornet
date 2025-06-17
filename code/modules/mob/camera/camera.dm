@@ -16,6 +16,7 @@
 
 /mob/camera/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_GLIDE, TRAIT_GENERIC) //Hacky, but needed
 	if(!can_hear_init)
 		// Cameras should not be able to hear by default despite being mobs
 		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
@@ -27,7 +28,7 @@
 	return FALSE
 
 /mob/camera/emote(act, m_type=1, message = null, intentional = FALSE)
-	return
+	return FALSE
 
 // Cameras can't fall
 /mob/camera/has_gravity(turf/T)

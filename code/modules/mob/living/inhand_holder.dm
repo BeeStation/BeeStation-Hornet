@@ -70,7 +70,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 
 	if(isliving(loc))
 		var/mob/living/L = loc
-		to_chat(L, "<span class='warning'>[held_mob] wriggles free!</span>")
+		to_chat(L, span_warning("[held_mob] wriggles free!"))
 		L.dropItemToGround(src)
 
 	if(attached_wig)
@@ -79,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 	held_mob.forceMove(get_turf(held_mob))
 	held_mob.reset_perspective()
 	held_mob.setDir(SOUTH)
-	held_mob.visible_message("<span class='warning'>[held_mob] uncurls!</span>")
+	held_mob.visible_message(span_warning("[held_mob] uncurls!"))
 	held_mob = null
 
 	if(del_on_release)
@@ -99,7 +99,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder/rabbit)
 
 /obj/item/clothing/head/mob_holder/rabbit/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
-	var/mob/living/simple_animal/chicken/rabbit/normal/rabbit = new(src)
+	var/mob/living/simple_animal/chicken/rabbit/easter/rabbit = new(src)
 	return ..(mapload, rabbit, rabbit.held_state, rabbit.head_icon, rabbit.held_lh, rabbit.held_rh, rabbit.worn_slot_flags)
 
 /obj/item/clothing/head/mob_holder/drone/deposit(mob/living/L)

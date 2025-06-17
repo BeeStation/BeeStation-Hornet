@@ -117,11 +117,6 @@
 /obj/item/radio,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
-"C" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "D" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -328,7 +323,7 @@ a
 "}
 (7,1,1) = {"
 a
-C
+m
 s
 r
 s
@@ -336,7 +331,7 @@ s
 s
 r
 s
-C
+m
 a
 "}
 (8,1,1) = {"
@@ -393,7 +388,7 @@ d
 "}
 (12,1,1) = {"
 a
-C
+m
 s
 s
 s
@@ -401,12 +396,12 @@ r
 s
 s
 s
-C
+m
 a
 "}
 (13,1,1) = {"
 a
-C
+m
 s
 s
 s
@@ -414,7 +409,7 @@ r
 s
 s
 s
-C
+m
 a
 "}
 (14,1,1) = {"
@@ -446,13 +441,13 @@ a
 (16,1,1) = {"
 a
 a
-C
+m
 y
 A
 F
 A
 L
-C
+m
 a
 a
 "}
@@ -473,11 +468,11 @@ a
 a
 a
 a
-C
+m
 B
 G
 I
-C
+m
 a
 a
 a
@@ -487,9 +482,9 @@ a
 a
 a
 d
-C
-C
-C
+m
+m
+m
 d
 a
 a

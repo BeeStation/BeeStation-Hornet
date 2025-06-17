@@ -13,7 +13,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/uplink)
 
 /obj/item/implant/uplink/Initialize(mapload, owner, uplink_flag)
 	. = ..()
-	AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
+	if(!uplink_flag)
+		uplink_flag = src.uplink_flag
+	var/datum/component/uplink/new_uplink = AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
+	new_uplink.unlock_text = "Your Syndicate Uplink has been cunningly implanted in you, for a small TC fee. Simply trigger the uplink to access it."
 	RegisterSignal(src, COMSIG_COMPONENT_REMOVING, PROC_REF(_component_removal))
 
 /**
@@ -24,6 +27,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/uplink)
  * the component, so delete itself.
  */
 /obj/item/implant/uplink/proc/_component_removal(datum/source, datum/component/component)
+	SIGNAL_HANDLER
+	if(QDELETED(src))
+		return
 	if(istype(component, /datum/component/uplink))
 		qdel(src)
 

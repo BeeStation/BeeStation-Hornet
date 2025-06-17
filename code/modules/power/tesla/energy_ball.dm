@@ -125,9 +125,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	var/obj/effect/energy_ball/EB = new(loc, 0, TRUE)
 
 	EB.transform *= rand(30, 70) * 0.01
-	var/icon/I = icon(icon,icon_state,dir)
+	var/list/icon_dimensions = get_icon_dimensions(icon)
 
-	var/orbitsize = (I.Width() + I.Height()) * rand(40, 80) * 0.01
+	var/orbitsize = (icon_dimensions["width"] + icon_dimensions["height"]) * rand(40, 80) * 0.01
 	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
@@ -152,7 +152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/jedi = user
-	to_chat(jedi, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
+	to_chat(jedi, span_userdanger("That was a shockingly dumb idea."))
 	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
 	jedi.ghostize(jedi)
 	if(rip_u)

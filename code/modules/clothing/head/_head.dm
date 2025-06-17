@@ -34,14 +34,14 @@
 	. = ..()
 	if(istype(W, /obj/item/clothing/head/wig))
 		if(flags_inv & HIDEHAIR)
-			to_chat(user, "<span class='notice'>You can't attach a wig to [src]!</span>")
+			to_chat(user, span_notice("You can't attach a wig to [src]!"))
 			return
 		if(attached_wig)
-			to_chat(user,"<span class='notice'>[src] already has a wig attached!</span>")
+			to_chat(user,span_notice("[src] already has a wig attached!"))
 			return
 		else
 			if(!user.transferItemToLoc(W, src))
-				to_chat(user, "<span class='warning'>\The [W] is stuck to your hand and can't be attached to \the [src]!</span>")
+				to_chat(user, span_warning("\The [W] is stuck to your hand and can't be attached to \the [src]!"))
 				return
 			attached_wig = W
 			attached_wig.hat_attached_to = src
@@ -60,7 +60,7 @@
 	if(!user)
 		return
 	if(HAS_TRAIT_FROM(attached_wig, TRAIT_NODROP, GLUED_ITEM_TRAIT))
-		to_chat(user, "<span class='warning'>\The [attached_wig] is stuck to \the [src] and can't be detached!</span>")
+		to_chat(user, span_warning("\The [attached_wig] is stuck to \the [src] and can't be detached!"))
 		return
 	user.put_in_hands(attached_wig)
 	if (user.get_item_by_slot(ITEM_SLOT_HEAD) == user)
@@ -86,9 +86,9 @@
 /obj/item/clothing/head/examine(mob/user)
 	. = ..()
 	if(attached_wig)
-		. += "<span class='notice'>There's \a [attached_wig.name] attached, which can be removed through the context menu.</span>"
+		. += span_notice("There's \a [attached_wig.name] attached, which can be removed through the context menu.")
 	else if(!(flags_inv & HIDEHAIR))
-		. += "<span class='notice'>A wig can be attached to the [src].</span>"
+		. += span_notice("A wig can be attached to the [src].")
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
@@ -110,29 +110,29 @@
 			var/obj/item/clothing/WH = H.head
 			///check if the item has NODROP
 			if(HAS_TRAIT(WH, TRAIT_NODROP))
-				H.visible_message("<span class='warning'>[src] bounces off [H]'s [WH.name]!</span>", "<span class='warning'>[src] bounces off your [WH.name], falling to the floor.</span>")
+				H.visible_message(span_warning("[src] bounces off [H]'s [WH.name]!"), span_warning("[src] bounces off your [WH.name], falling to the floor."))
 				return
 			///check if the item is an actual clothing head item, since some non-clothing items can be worn
 			if(istype(WH, /obj/item/clothing/head))
 				var/obj/item/clothing/head/WHH = WH
 				///SNUG_FIT hats are immune to being knocked off
 				if(WHH.clothing_flags & SNUG_FIT)
-					H.visible_message("<span class='warning'>[src] bounces off [H]'s [WHH.name]!</span>", "<span class='warning'>[src] bounces off your [WHH.name], falling to the floor.</span>")
+					H.visible_message(span_warning("[src] bounces off [H]'s [WHH.name]!"), span_warning("[src] bounces off your [WHH.name], falling to the floor."))
 					return
 			///if the hat manages to knock something off
 			if(H.dropItemToGround(WH))
-				H.visible_message("<span class='warning'>[src] knocks [WH] off [H]'s head!</span>", "<span class='warning'>[WH] is suddenly knocked off your head by [src]!</span>")
+				H.visible_message(span_warning("[src] knocks [WH] off [H]'s head!"), span_warning("[WH] is suddenly knocked off your head by [src]!"))
 		if(H.equip_to_slot_if_possible(src, ITEM_SLOT_HEAD, 0, 1, 1))
-			H.visible_message("<span class='notice'>[src] lands neatly on [H]'s head!</span>", "<span class='notice'>[src] lands perfectly onto your head!</span>")
+			H.visible_message(span_notice("[src] lands neatly on [H]'s head!"), span_notice("[src] lands perfectly onto your head!"))
 		return
 	if(iscyborg(hit_atom))
 		var/mob/living/silicon/robot/R = hit_atom
 		///hats in the borg's blacklist bounce off
 		if(is_type_in_typecache(src, R.blacklisted_hats))
-			R.visible_message("<span class='warning'>[src] bounces off [R]!</span>", "<span class='warning'>[src] bounces off you, falling to the floor.</span>")
+			R.visible_message(span_warning("[src] bounces off [R]!"), span_warning("[src] bounces off you, falling to the floor."))
 			return
 		else
-			R.visible_message("<span class='notice'>[src] lands neatly on top of [R]</span>", "<span class='notice'>[src] lands perfectly on top of you.</span>")
+			R.visible_message(span_notice("[src] lands neatly on top of [R]"), span_notice("[src] lands perfectly on top of you."))
 			R.place_on_head(src) //hats aren't designed to snugly fit borg heads or w/e so they'll always manage to knock eachother off
 
 /obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)

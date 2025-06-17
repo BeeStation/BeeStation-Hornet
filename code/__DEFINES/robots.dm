@@ -28,6 +28,7 @@
 #define BOT_WAIT_FOR_NAV	16	//!  waiting for nav computation
 #define BOT_NO_ROUTE		17	//!  no destination beacon found (or no route)
 #define BOT_EMPTY			18  //!  no fuel/chems inside of them
+#define BOT_TIPPED 			19  //!  someone tipped a bot over ;_;
 
 //Bot types
 #define SEC_BOT				(1<<0)	//!  Secutritrons (Beepsky) and ED-209s
@@ -60,4 +61,4 @@
 #define ASSEMBLY_FOURTH_STEP    3
 #define ASSEMBLY_FIFTH_STEP     4
 
-#define FLASHED_COOLDOWN 30 SECONDS
+#define MALFUNCTION_DURATION 30 SECONDS

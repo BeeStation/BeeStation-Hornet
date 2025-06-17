@@ -24,12 +24,20 @@
 		/obj/item/toy/katana = 10,
 		/obj/item/dualsaber/toy = 5)
 
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/vending_donksofttoyvendor
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75
 	extra_price = 300
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+
+/datum/armor/vending_donksofttoyvendor
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	fire = 100
+	acid = 50
 
 /obj/item/vending_refill/donksoft
 	machine_name = "Donksoft Toy Vendor"

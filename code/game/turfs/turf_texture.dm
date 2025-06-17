@@ -43,6 +43,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/turf_texture)
 	icon_state = "hallway"
 	alpha = 55
 
+/datum/turf_texture/hallway_nonsegmented
+	icon_state = "hallway_nonsegmented"
+	alpha = 55
+
 //Deep maint use
 /datum/turf_texture/maint
 	icon_state = "maint"

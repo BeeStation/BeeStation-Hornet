@@ -28,17 +28,11 @@
 	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
 
 /obj/item/instrument/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return TRUE
 	interact(user)
-
-/obj/item/instrument/interact(mob/user)
-	ui_interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)
 	if((!isliving(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) && !ispAI(user))
@@ -214,7 +208,7 @@
 	SIGNAL_HANDLER
 
 	if(song.playing && ismob(loc))
-		to_chat(loc, "<span class='warning'>You stop playing the harmonica to talk...</span>")
+		to_chat(loc, span_warning("You stop playing the harmonica to talk..."))
 		song.playing = FALSE
 
 /obj/item/instrument/harmonica/equipped(mob/M, slot)
@@ -224,6 +218,17 @@
 /obj/item/instrument/harmonica/dropped(mob/M)
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
+
+/datum/action/item_action/instrument
+	name = "Use Instrument"
+	desc = "Use the instrument specified"
+
+/datum/action/item_action/instrument/on_activate(mob/user, atom/target)
+	if(istype(target, /obj/item/instrument))
+		var/obj/item/instrument/I = target
+		I.interact(usr)
+		return
+	return ..()
 
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"
@@ -280,7 +285,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/music/generate_item_list()

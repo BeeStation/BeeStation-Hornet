@@ -154,8 +154,8 @@ There are several things that need to be remembered:
 		var/mutable_appearance/uniform_overlay
 
 		if(dna?.species.sexes)
-			if(dna.features["body_model"] == FEMALE && U.fitted != NO_FEMALE_UNIFORM)
-				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/under/default.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
+			if(dna.features["body_model"] == FEMALE && U.female_sprite_flags != NO_FEMALE_UNIFORM)
+				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/under/default.dmi', isinhands = FALSE, femaleuniform = U.female_sprite_flags, override_state = target_overlay)
 
 		//Change check_adjustable_clothing.dm if you change this
 		var/icon_file = 'icons/mob/clothing/under/default.dmi'
@@ -693,7 +693,7 @@ default_icon_file: The icon file to draw states from if no other icon file is sp
 isinhands: If true then worn_icon is skipped so that default_icon_file is used,
 in this situation default_icon_file is expected to match either the lefthand_ or righthand_ file var
 
-femalueuniform: A value matching a uniform item's fitted var, if this is anything but NO_FEMALE_UNIFORM, we
+femalueuniform: A value matching a uniform item's female_sprite_flags var, if this is anything but NO_FEMALE_UNIFORM, we
 generate/load female uniform sprites matching all previously decided variables
 
 
@@ -736,31 +736,36 @@ generate/load female uniform sprites matching all previously decided variables
 
 	standing = center_image(standing, isinhands ? inhand_x_dimension : worn_x_dimension, isinhands ? inhand_y_dimension : worn_y_dimension)
 
-	//Handle held offsets
-	var/mob/M = loc
-	if(istype(M))
-		var/list/L = get_held_offsets()
-		if(L)
-			standing.pixel_x += L["x"] //+= because of center()ing
-			standing.pixel_y += L["y"]
+	//Worn offsets
+	var/list/offsets = get_worn_offsets(isinhands)
+	standing.pixel_x += offsets[1]
+	standing.pixel_y += offsets[2]
 
 	standing.alpha = alpha
 	standing.color = color
 
 	return standing
 
-/obj/item/proc/get_held_offsets()
-	var/list/L
-	if(ismob(loc))
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			L = H.dna?.species.get_item_offsets_for_index(src)
-			if(L)
-				return L
-		var/mob/M = loc
-		L = M.get_item_offsets_for_index(M.get_held_index_of_item(src))
-
-	return L
+/// Returns offsets used for equipped item overlays in list(px_offset,py_offset) form.
+/obj/item/proc/get_worn_offsets(isinhands)
+	. = list(0,0) //(px,py)
+	if(isinhands)
+		//Handle held offsets
+		var/mob/holder = loc
+		var/list/offsets
+		if(ismob(loc))
+			if(ishuman(loc))
+				var/mob/living/carbon/human/H = loc
+				offsets = H.dna?.species.get_item_offsets_for_index(src)
+				if(offsets)
+					return offsets
+		if(istype(holder))
+			offsets = holder.get_item_offsets_for_index(holder.get_held_index_of_item(src))
+			if(offsets)
+				.[1] = offsets["x"]
+				.[2] = offsets["y"]
+	else
+		.[2] = worn_y_offset
 
 
 //Can't think of a better way to do this, sadly
@@ -819,7 +824,7 @@ generate/load female uniform sprites matching all previously decided variables
 
 		// eyes
 		if(!(NOEYESPRITES in dna.species.species_traits))
-			var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+			var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)
 				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))

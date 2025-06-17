@@ -52,7 +52,7 @@
 	if(stat == DEAD)
 		return
 	stop_sound_channel(CHANNEL_HEARTBEAT)
-	var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
 	if(H)
 		H.beat = BEAT_NONE
 
@@ -67,13 +67,6 @@
 	if(SSticker.HasRoundStarted())
 		SSblackbox.ReportDeath(src)
 		log_game("[key_name(src)] has died (BRUTE: [src.getBruteLoss()], BURN: [src.getFireLoss()], TOX: [src.getToxLoss()], OXY: [src.getOxyLoss()], CLONE: [src.getCloneLoss()]) ([AREACOORD(src)])")
-	if(is_devil(src))
-		INVOKE_ASYNC(is_devil(src), TYPE_PROC_REF(/datum/antagonist/devil, beginResurrectionCheck), src)
-	if(is_hivemember(src))
-		remove_hivemember(src)
-	if(IS_HIVEHOST(src))
-		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
-		hive.destroy_hive()
 	if(HAS_TRAIT(src, TRAIT_DROPS_ITEMS_ON_DEATH)) //if you want to add anything else, do it before this if statement
 		var/list/turfs_to_throw = view(2, src)
 		for(var/obj/item/I in contents)
@@ -96,13 +89,17 @@
 	if (death_message)
 		to_chat(src, death_message)
 
+/mob/living/carbon/human/gib(no_brain, no_organs, no_bodyparts)
+	dna.species.spec_gib(no_brain, no_organs, no_bodyparts, src)
+	return
+
 /mob/living/carbon/human/proc/reagents_readout()
 	var/readout = "Blood:"
 	for(var/datum/reagent/reagent in reagents?.reagent_list)
 		readout += "<br>[round(reagent.volume, 0.001)] units of [reagent.name]"
 	/*
 	readout += "<br>Stomach:"
-	var/obj/item/organ/internal/stomach/belly = getorganslot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
 	for(var/datum/reagent/bile in belly?.reagents?.reagent_list)
 		if(!belly.food_reagents[bile.type])
 			readout += "<br>[round(bile.volume, 0.001)] units of [bile.name]"

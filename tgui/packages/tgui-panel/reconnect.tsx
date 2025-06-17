@@ -11,7 +11,7 @@ setInterval(() => {
   });
 }, 5000);
 
-export const ReconnectButtons = (props, context) => {
+export const ReconnectButtons = (props) => {
   return (
     url && (
       <>
@@ -25,12 +25,14 @@ export const ReconnectButtons = (props, context) => {
 
         <Button
           color="white"
+          icon="power-off"
+          tooltip="Relaunch game"
+          tooltipPosition="bottom-end"
           onClick={() => {
             location.href = `byond://${url}`;
             Byond.command('.quit');
-          }}>
-          Relaunch game
-        </Button>
+          }}
+        />
       </>
     )
   );

@@ -104,14 +104,14 @@
 /obj/machinery/fax/examine()
 	. = ..()
 	if(jammed)
-		. += "<span class='notice'>Its output port is jammed and needs cleaning.</span>"
+		. += span_notice("Its output port is jammed and needs cleaning.")
 
 
 /obj/machinery/fax/process(delta_time)
 	if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
 		seconds_electrified -= delta_time
 
-/obj/machinery/fax/attack_hand(mob/user)
+/obj/machinery/fax/attack_hand(mob/user, list/modifiers)
 	if(seconds_electrified && !(machine_stat & NOPOWER))
 		if(shock(user, 100))
 			return
@@ -128,7 +128,7 @@
 		return
 	if(!(obj_flags & EMAGGED))
 		obj_flags |= EMAGGED
-		to_chat(user, "<span class='warning'>An image appears on [src] screen for a moment with Ian in the cap of a Syndicate officer.</span>")
+		to_chat(user, span_warning("An image appears on [src] screen for a moment with Ian in the cap of a Syndicate officer."))
 
 /**
  * EMP Interaction
@@ -138,7 +138,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	allow_exotic_faxes = !allow_exotic_faxes
-	visible_message("<span class='warning'>[src] [allow_exotic_faxes ? "starts beeping" : "stops beeping"] ominously[allow_exotic_faxes ? "..." : "."]")
+	visible_message(span_warning("[src] [allow_exotic_faxes ? "starts beeping" : "stops beeping"] ominously[allow_exotic_faxes ? "..." : "."]"))
 
 /**
  * Unanchor/anchor
@@ -170,7 +170,7 @@
 		if(fax_name_exist(new_fax_name))
 			// Being able to set the same name as another fax machine will give a lot of gimmicks for the traitor.
 			if(syndicate_network != TRUE && obj_flags != EMAGGED)
-				to_chat(user, "<span class='warning'>There is already a fax machine with this name on the network.</span>")
+				to_chat(user, span_warning("There is already a fax machine with this name on the network."))
 				return TOOL_ACT_TOOLTYPE_SUCCESS
 		user.log_message("renamed [fax_name] (fax machine) to [new_fax_name]", LOG_GAME)
 		fax_name = new_fax_name
@@ -202,17 +202,17 @@
 			return FALSE
 		clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this, 1)
 		playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -5)
-		user.visible_message("<span class='notice'>[user] cleans \the [src].</span>", "<span class='notice'>You clean \the [src].</span>")
+		user.visible_message(span_notice("[user] cleans \the [src]."), span_notice("You clean \the [src]."))
 		jammed = FALSE
 		return TRUE
-	if(istype(item, /obj/item/soap) || istype(item, /obj/item/reagent_containers/glass/rag))
+	if(istype(item, /obj/item/soap) || istype(item, /obj/item/reagent_containers/cup/rag))
 		var/cleanspeed = 50
 		if(istype(item, /obj/item/soap))
 			var/obj/item/soap/used_soap = item
 			cleanspeed = used_soap.cleanspeed
-		user.visible_message("<span class='notice'>[user] starts to clean \the [src].</span>", "<span class='notice'>You start to clean \the [src]...</span>")
+		user.visible_message(span_notice("[user] starts to clean \the [src]."), span_notice("You start to clean \the [src]..."))
 		if(do_after(user, cleanspeed, target = src))
-			user.visible_message("<span class='notice'>[user] cleans \the [src].</span>", "<span class='notice'>You clean \the [src].</span>")
+			user.visible_message(span_notice("[user] cleans \the [src]."), span_notice("You clean \the [src]."))
 			jammed = FALSE
 		return TRUE
 	return FALSE
@@ -233,6 +233,8 @@
  * This list expands if you snip a particular wire.
  */
 /obj/machinery/fax/proc/is_allowed_type(obj/item/item)
+	if(item?.GetComponent(/datum/component/xenoartifact))
+		return FALSE
 	if(is_type_in_list(item, allowed_types))
 		return TRUE
 	if(!allow_exotic_faxes)
@@ -305,7 +307,7 @@
 		if("send_special")
 			var/obj/item/paper/fax_paper = loaded_item_ref?.resolve()
 			if(!istype(fax_paper))
-				to_chat(usr, icon2html(src.icon, usr) + "<span class='warning'>ERROR: Failed to send fax.</span>")
+				to_chat(usr, icon2html(src.icon, usr) + span_warning("ERROR: Failed to send fax."))
 				return
 
 			fax_paper.request_state = TRUE
@@ -315,7 +317,7 @@
 			history_add("Send", params["name"])
 
 			GLOB.requests.fax_request(usr.client, "sent a fax message from [fax_name]/[fax_id] to [params["name"]]", fax_paper)
-			to_chat(GLOB.admins, "<span class='adminnotice'>[icon2html(src.icon, GLOB.admins)]<b><font color=green>FAX REQUEST: </font>[ADMIN_FULLMONTY(usr)]:</b> <span class='linkify'>sent a fax message from [fax_name]/[fax_id][ADMIN_FLW(src)] to [html_encode(params["name"])]</span> [ADMIN_SHOW_PAPER(fax_paper)]")
+			to_chat(GLOB.admins, span_adminnotice("[icon2html(src.icon, GLOB.admins)]<b><font color=green>FAX REQUEST: </font>[ADMIN_FULLMONTY(usr)]:</b> [span_linkify("sent a fax message from [fax_name]/[fax_id][ADMIN_FLW(src)] to [html_encode(params["name"])]")] [ADMIN_SHOW_PAPER(fax_paper)]"))
 			log_fax(fax_paper, params["id"], params["name"])
 			loaded_item_ref = null
 
@@ -432,7 +434,7 @@
 		return "[state_prefix]_cash"
 	if(istype(item, /obj/item/card))
 		return "[state_prefix]_id"
-	if(istype(item, /obj/item/reagent_containers/food))
+	if (istype(item, /obj/item/food))
 		return "[state_prefix]_food"
 	if(istype(item, /obj/item/throwing_star))
 		return "[state_prefix]_star"

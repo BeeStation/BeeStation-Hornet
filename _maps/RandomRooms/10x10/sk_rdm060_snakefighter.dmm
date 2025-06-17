@@ -15,14 +15,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"c" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/template_noop)
 "d" = (
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 /turf/open/floor/wood,
@@ -39,6 +31,16 @@
 	pixel_y = 32
 	},
 /obj/item/knife/kitchen,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/sign/warning{
+	pixel_y = -32
+	},
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -115,13 +117,6 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"x" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/wood,
-/area/template_noop)
 "y" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -131,17 +126,6 @@
 /area/template_noop)
 "z" = (
 /obj/item/clothing/suit/toggle/labcoat/science,
-/turf/open/floor/plating,
-/area/template_noop)
-"A" = (
-/obj/structure/cable,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/sign/warning{
-	pixel_y = -32
-	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
@@ -185,16 +169,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"F" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/sign/warning{
-	pixel_y = -32
-	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
-/turf/open/floor/plating,
-/area/template_noop)
 "G" = (
 /obj/item/shard,
 /turf/open/floor/plating,
@@ -221,6 +195,13 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plating,
 /area/template_noop)
+"L" = (
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/template_noop)
 "N" = (
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/plating,
@@ -232,15 +213,19 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"P" = (
+"R" = (
+/obj/item/food/meat/slab/monkey,
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/structure/cable,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /obj/structure/sign/warning{
 	pixel_y = -32
 	},
-/obj/machinery/shieldwallgen/xenobiologyaccess,
-/turf/open/floor/plating,
-/area/template_noop)
-"R" = (
-/obj/item/food/meat/slab/monkey,
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
@@ -251,6 +236,13 @@
 "U" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/food/meat/slab/monkey,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/structure/sign/warning{
+	pixel_y = -32
+	},
+/obj/machinery/power/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (
@@ -294,7 +286,7 @@ b
 k
 X
 u
-A
+S
 H
 H
 f
@@ -302,7 +294,7 @@ H
 f
 "}
 (3,1,1) = {"
-c
+Z
 l
 e
 v
@@ -323,7 +315,7 @@ I
 f
 R
 H
-P
+V
 "}
 (5,1,1) = {"
 e
@@ -353,13 +345,13 @@ f
 f
 o
 r
-x
+L
 C
 J
 U
 f
 H
-P
+V
 "}
 (8,1,1) = {"
 Z
@@ -378,7 +370,7 @@ h
 q
 f
 W
-F
+i
 H
 H
 N

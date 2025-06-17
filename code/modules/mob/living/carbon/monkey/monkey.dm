@@ -2,7 +2,6 @@
 	name = "monkey"
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
-	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
 	gender = NEUTER
@@ -13,7 +12,8 @@
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	// Managed by the limb overlay system
+	blocks_emissive = FALSE
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
@@ -25,7 +25,7 @@
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
-	faction = list("neutral", "monkey")
+	faction = list(FACTION_NEUTRAL, FACTION_MONKEY)
 	/// Whether it can be made into a human with mutadone
 	var/natural = TRUE
 	///Item reference for jumpsuit
@@ -65,7 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		var/cap = CONFIG_GET(number/max_cube_monkeys)
 		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
 			if (spawner)
-				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
+				to_chat(spawner, span_warning("Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!"))
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
 
@@ -185,17 +185,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	return threatcount
 
 /mob/living/carbon/monkey/IsVocal()
-	if(!getorganslot(ORGAN_SLOT_LUNGS))
+	if(!get_organ_slot(ORGAN_SLOT_LUNGS))
 		return 0
 	return 1
 
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
-
-/mob/living/carbon/monkey/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED)) //Obtainable with Brain trauma
-		return FALSE
-	return TRUE //Something about an infinite amount of monkeys on typewriters writing Shakespeare...
 
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
@@ -234,6 +229,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
 	ai_controller = null
+	var/creator_key = null
+
+/mob/living/carbon/monkey/tumor/death(gibbed)
+	. = ..()
+	for (var/mob/living/creator in GLOB.player_list)
+		if (creator.key != creator_key)
+			continue
+		if (creator.stat == DEAD)
+			return
+		if (!creator.mind)
+			return
+		if (!creator.mind.has_antag_datum(/datum/antagonist/changeling))
+			return
+		to_chat(creator, span_warning("We gain the energy to birth another Teratoma..."))
+		return
 
 /datum/dna/tumor
 	species = new /datum/species/teratoma
@@ -242,7 +252,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	name = "Teratoma"
 	id = "teratoma"
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_RADIMMUNE,
+		TRAIT_BADDNA,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_NONECRODISEASE
+	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN

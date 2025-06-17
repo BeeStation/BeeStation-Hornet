@@ -113,9 +113,7 @@
 
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
-	/*
-	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? SQRT_2 : 1 ) )) // set it now in case of pulled objects
-	*/
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1 ) )) // set it now in case of pulled objects
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
 	if(old_move_delay + world.tick_lag > world.time)
@@ -124,6 +122,10 @@
 		move_delay = old_move_delay
 	else
 		move_delay = world.time
+
+	//Basically an optional override for our glide size
+	//Sometimes you want to look like you're moving with a delay you don't actually have yet
+	visual_delay = 0
 
 	if(L.confused && L.m_intent == MOVE_INTENT_RUN && !HAS_TRAIT(L, TRAIT_CONFUSEIMMUNE))
 		var/newdir = 0
@@ -143,6 +145,10 @@
 		add_delay *= sqrt(2)
 	// Record any time that we gained due to sub-tick slowdown
 	var/move_delta = move_delay - floored_move_delay
+	if(visual_delay)
+		mob.set_glide_size(visual_delay)
+	else
+		mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay))
 	add_delay += move_delta
 	// Apply the movement delay
 	move_delay += add_delay
@@ -169,12 +175,12 @@
 
 	if(mob.pulledby == mob.pulling && mob.pulledby.grab_state == GRAB_PASSIVE) //Don't autoresist passive grabs if we're grabbing them too.
 		return FALSE
-	if(mob.incapacitated(ignore_restraints = TRUE))
+	if(HAS_TRAIT(mob, TRAIT_INCAPACITATED))
 		COOLDOWN_START(src, move_delay, 1 SECONDS)
 		return TRUE
 	else if(HAS_TRAIT(mob, TRAIT_RESTRAINED))
 		COOLDOWN_START(src, move_delay, 1 SECONDS)
-		to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+		to_chat(src, span_warning("You're restrained! You can't move!"))
 		return TRUE
 	else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
 		COOLDOWN_START(src, move_delay, 1 SECONDS)
@@ -209,7 +215,7 @@
 			if(T && !istype(T, /turf/closed/indestructible/cordon))
 				L.forceMove(T)
 			else
-				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
+				to_chat(L, span_warning("There's nowhere to go in that direction!"))
 		if(INCORPOREAL_MOVE_SHADOW)
 			if(prob(50))
 				var/locx
@@ -259,39 +265,39 @@
 			if(stepTurf)
 				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
 				if(salt)
-					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
+					to_chat(L, span_warning("[salt] bars your passage!"))
 					if(isrevenant(L))
 						var/mob/living/simple_animal/revenant/R = L
 						R.reveal(20)
 						R.stun(20)
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
-					to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
+					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())
-					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
+					to_chat(L, span_warning("Holy energies block your path!"))
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
+				to_chat(L, span_warning("There's nowhere to go in that direction!"))
 		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
 			if(stepTurf)
 				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
 				if(salt)
-					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
+					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					if(!is_reebe(loccheck.z))
-						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
+						to_chat(L, span_warning("Some strange aura is blocking the way."))
 						return
 				if(stepTurf.is_holy())
-					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
+					to_chat(L, span_warning("Holy energies block your path!"))
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
+				to_chat(L, span_warning("There's nowhere to go in that direction!"))
 	return TRUE
 
 /**
@@ -311,7 +317,7 @@
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180), instant = TRUE)) //You're pushing off something movable, so it moves
-				to_chat(src, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+				to_chat(src, span_info("You push off of [backup] to propel yourself."))
 		return TRUE
 	return FALSE
 
@@ -348,6 +354,9 @@
 			continue
 		return rebound
 
+/mob/has_gravity(turf/gravity_turf)
+	return mob_negates_gravity() || ..()
+
 /**
   * Does this mob ignore gravity
   */
@@ -360,18 +369,11 @@
 		return
 	if(!client)
 		return
+	client.visual_delay = MOVEMENT_ADJUSTED_GLIDE_SIZE(inertia_move_delay, SSspacedrift.visual_delay) //Make sure moving into a space move looks like a space move
 
 /// Called when this mob slips over, override as needed
 /mob/proc/slip(knockdown, paralyze, forcedrop, w_amount, obj/O, lube)
 	return
-
-/// Update the gravity status of this mob
-/mob/proc/update_gravity(has_gravity, override=FALSE)
-	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
-	if(!speed_change)
-		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
-	else
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/gravity, multiplicative_slowdown=speed_change)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth
@@ -529,7 +531,7 @@
 	set category = "IC"
 
 	if(zMove(UP, TRUE))
-		to_chat(src, "<span class='notice'>You move upwards.</span>")
+		to_chat(src, span_notice("You move upwards."))
 
 ///Moves a mob down a z level
 /mob/verb/down()
@@ -537,7 +539,7 @@
 	set category = "IC"
 
 	if(zMove(DOWN, TRUE))
-		to_chat(src, "<span class='notice'>You move down.</span>")
+		to_chat(src, span_notice("You move down."))
 
 ///Move a mob between z levels, if it's valid to move z's on this turf
 /mob/proc/zMove(dir, feedback = FALSE, feedback_to = src)
@@ -547,12 +549,12 @@
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, span_warning("There's nowhere to go in that direction!"))
 		return FALSE
 	var/ventcrawling = movement_type & VENTCRAWLING
 	if(!canZMove(dir, source, target) && !ventcrawling)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, span_warning("You couldn't move there!"))
 		return FALSE
 	if(!ventcrawling) //let this be handled in atmosmachinery.dm
 		forceMove(target)

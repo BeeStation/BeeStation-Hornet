@@ -3,19 +3,23 @@
 #define AREA_USAGE_EQUIP			1
 #define AREA_USAGE_LIGHT			2
 #define AREA_USAGE_ENVIRON			3
-#define AREA_USAGE_STATIC_EQUIP 	4
-#define AREA_USAGE_STATIC_LIGHT	5
+#define AREA_USAGE_STATIC_EQUIP		4
+#define AREA_USAGE_STATIC_LIGHT		5
 #define AREA_USAGE_STATIC_ENVIRON	6
 #define AREA_USAGE_LEN AREA_USAGE_STATIC_ENVIRON // largest idx
+
 /// Index of the first dynamic usage channel
 #define AREA_USAGE_DYNAMIC_START AREA_USAGE_EQUIP
 /// Index of the last dynamic usage channel
 #define AREA_USAGE_DYNAMIC_END AREA_USAGE_ENVIRON
+
 /// Index of the first static usage channel
 #define AREA_USAGE_STATIC_START AREA_USAGE_STATIC_EQUIP
 /// Index of the last static usage channel
 #define AREA_USAGE_STATIC_END AREA_USAGE_STATIC_ENVIRON
 
+#define DYNAMIC_TO_STATIC_CHANNEL(dyn_channel) (dyn_channel + (AREA_USAGE_STATIC_START - AREA_USAGE_DYNAMIC_START))
+#define STATIC_TO_DYNAMIC_CHANNEL(static_channel) (static_channel - (AREA_USAGE_STATIC_START - AREA_USAGE_DYNAMIC_START))
 
 //Power use
 #define NO_POWER_USE 0
@@ -32,6 +36,7 @@
 #define BOLTS	(1<<2)
 #define SHOCK	(1<<3)
 #define SAFE	(1<<4)
+#define EMERGENCY (1<<5)
 
 //used in design to specify which machine can build it
 #define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
@@ -83,10 +88,15 @@
 #define MIN_NTNET_LOGS 10
 
 //Program bitflags
-#define PROGRAM_ALL		(~0)
-#define PROGRAM_CONSOLE	(1<<0)
-#define PROGRAM_LAPTOP	(1<<1)
-#define PROGRAM_TABLET	(1<<2)
+///Runs on everything.
+#define PROGRAM_ALL ALL
+///Can run on Modular PC Consoles
+#define PROGRAM_CONSOLE (1<<0)
+///Can run on Laptops.
+#define PROGRAM_LAPTOP (1<<1)
+///Can run on PDAs.
+#define PROGRAM_PDA (1<<2)
+
 //Program states
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1
@@ -112,6 +122,11 @@
 #define SUPERMATTER_DANGER 4		// Integrity < 50%
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 25%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious.
+
+#define NUCLEAR_REACTOR_ERROR -1
+#define NUCLEAR_REACTOR_INACTIVE 0
+#define NUCLEAR_REACTOR_ACTIVE 1
+#define NUCLEAR_EXPLODING 2
 
 //Nuclear bomb stuff
 #define NUKESTATE_INTACT		5
@@ -220,12 +235,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 
 #define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
-// Circulator defines
-// ---------------------------------------------------
-
-#define CIRCULATOR_HOT 0
-#define CIRCULATOR_COLD 1
-
 // Particle Accelerator defines
 // ---------------------------------------------------
 
@@ -244,3 +253,41 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 // ---------------------------------------------------
 
 #define SENTENCE_MAX_TIMER 10 HOURS //Permabrig.
+
+// Camera defines
+// ---------------------------------------------------
+
+// Station networks
+#define CAMERA_NETWORK_STATION "ss13"
+#define CAMERA_NETWORK_VAULT "vault"
+#define CAMERA_NETWORK_RESEARCH "research"
+#define CAMERA_NETWORK_ENGINEERING "engineer"
+#define CAMERA_NETWORK_MEDICAL "medical"
+#define CAMERA_NETWORK_THUNDERDOME "thunder"
+#define CAMERA_NETWORK_AUXBASE "auxbase"
+#define CAMERA_NETWORK_LABOR "labor"
+#define CAMERA_NETWORK_PRISON "prison"
+#define CAMERA_NETWORK_MINE "mine"
+#define CAMERA_NETWORK_TOXINS_TEST "toxins_test"
+#define CAMERA_NETWORK_INTERROGATION "interrogation"
+#define CAMERA_NETWORK_MINISAT "minisat"
+#define CAMERA_NETWORK_AI_UPLOAD "aiupload"
+#define CAMERA_NETWORK_TCOMMS "tcomms"
+#define CAMERA_NETWORK_COURT "court"
+#define CAMERA_NETWORK_EVAC "evac"
+#define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
+#define CAMERA_NETWORK_THEATHRE "theathre"
+
+// Off-station networks
+#define CAMERA_NETWORK_BUNKER "bunker"
+
+// Special
+#define CAMERA_NETWORK_PRIVATE "private"
+
+// Air alarm buildstage [/obj/machinery/airalarm/buildstage]
+/// Air alarm missing circuit
+#define AIRALARM_BUILD_NO_CIRCUIT 0
+/// Air alarm has circuit but is missing wires
+#define AIRALARM_BUILD_NO_WIRES 1
+/// Air alarm has all components but isn't completed
+#define AIRALARM_BUILD_COMPLETE 2

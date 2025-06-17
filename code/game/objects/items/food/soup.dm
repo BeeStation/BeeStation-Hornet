@@ -1,7 +1,7 @@
 /obj/item/food/soup
 	w_class = WEIGHT_CLASS_NORMAL
 	icon = 'icons/obj/food/soupsalad.dmi'
-	trash_type = /obj/item/reagent_containers/glass/bowl
+	trash_type = /obj/item/reagent_containers/cup/bowl
 	bite_consumption = 5
 	max_volume = 80
 	food_reagents = list(
@@ -73,7 +73,7 @@
 	name = "wing fang chu"
 	desc = "A savory dish of alien wing wang in soy."
 	icon_state = "wingfangchu"
-	trash_type = /obj/item/reagent_containers/glass/bowl
+	trash_type = /obj/item/reagent_containers/cup/bowl
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 9,
 		/datum/reagent/consumable/soysauce = 10,
@@ -269,6 +269,7 @@
 	)
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	foodtypes = VEGETABLES
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/soup/amanitajelly
 	name = "amanita jelly"
@@ -283,6 +284,7 @@
 	)
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	foodtypes = VEGETABLES | TOXIC
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/soup/stew
 	name = "stew"
@@ -367,6 +369,7 @@
 		/datum/reagent/consumable/nutriment = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/soup/oatmeal
 	name = "oatmeal"

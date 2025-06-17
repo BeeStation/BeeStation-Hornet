@@ -52,8 +52,8 @@
 /obj/item/cultivator{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/grass,
 /area/template_noop)
 "k" = (

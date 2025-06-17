@@ -21,7 +21,6 @@
 /area/template_noop)
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "g" = (
@@ -205,7 +204,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "N" = (

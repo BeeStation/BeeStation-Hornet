@@ -20,11 +20,6 @@ Multi-Z stations are supported and multi-Z mining and away missions would
 require only minor tweaks.
 */
 
-// helpers for modifying jobs, used in various job_changes.dm files. JOB_MODIFICATION_MAP_NAME = map_name set in .json file.
-#define MAP_JOB_CHECK if(SSmapping.config.map_name != JOB_MODIFICATION_MAP_NAME) { return; }
-#define MAP_JOB_CHECK_BASE if(SSmapping.config.map_name != JOB_MODIFICATION_MAP_NAME) { return ..(); }
-#define MAP_REMOVE_JOB(jobpath) /datum/job/##jobpath/map_check() { return (SSmapping.config.map_name != JOB_MODIFICATION_MAP_NAME) && ..() }
-
 #define SPACERUIN_MAP_EDGE_PAD 15
 
 /// Distance from edge to move to another z-level
@@ -99,6 +94,10 @@ require only minor tweaks.
 #define DL_NAME "name"
 #define DL_TRAITS "traits"
 #define DECLARE_LEVEL(NAME, TRAITS) list(DL_NAME = NAME, DL_TRAITS = TRAITS)
+
+/// boolean - does this z prevent phasing
+#define ZTRAIT_NOPHASE "No Phase"
+
 
 /// must correspond to _basemap.dm for things to work correctly
 #define DEFAULT_MAP_TRAITS list(\

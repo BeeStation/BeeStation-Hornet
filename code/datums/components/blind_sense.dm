@@ -33,7 +33,7 @@
 	ears = null
 	return ..()
 
-/datum/component/blind_sense/RemoveComponent()
+/datum/component/blind_sense/ClearFromParent()
 	UnregisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED)
 	return ..()
@@ -63,7 +63,7 @@
 	if(!owner_client || isdead(parent) || !owner?.client)
 		owner_client = owner?.client
 		return
-	
+
 	//setup icon
 	var/icon/I = icon('icons/mob/blind.dmi', masked_texture)
 

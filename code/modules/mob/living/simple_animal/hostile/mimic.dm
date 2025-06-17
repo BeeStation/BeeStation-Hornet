@@ -24,7 +24,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("mimic")
+	faction = list(FACTION_MIMIC)
 	move_to_delay = 9
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
@@ -56,7 +56,7 @@
 			ate_something += "[each_obj.name]"
 		each_obj.forceMove(src) // nom nom
 	if(!mapload && length(ate_something))
-		visible_message("<span class='warning'>[src] ate some stuff!</span>")
+		visible_message(span_warning("[src] ate some stuff!"))
 		log_game("Newly created mimic-crate ate item(s): [english_list(ate_something)] in [AREACOORD(src)]")
 		message_admins("Newly created mimic-crate ate item(s): [english_list(ate_something)] in [ADMIN_VERBOSEJMP(src)]")
 	add_overlay("[icon_state]_door")
@@ -150,16 +150,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 	if(!CopyObject(original, creator, destroy_original))
 		stack_trace("something's wrong to create a mimic. It failed to mimic something - [original].")
 
-/mob/living/simple_animal/hostile/mimic/copy/Life()
+/mob/living/simple_animal/hostile/mimic/copy/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(idledamage && !target && !mind) //Objects eventually revert to normal if no one is around to terrorize
-		adjustBruteLoss(1)
+		adjustBruteLoss(0.5 * delta_time)
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
 		death()
 
 /mob/living/simple_animal/hostile/mimic/copy/ListTargets()
 	. = ..()
 	return . - creator
+
+/mob/living/simple_animal/hostile/mimic/copy/wabbajack(what_to_randomize, change_flags = WABBAJACK)
+	visible_message(span_warning("[src] resists polymorphing into a new creature!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)
@@ -209,8 +212,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 	if(knockdown_people && . && prob(15) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Paralyze(40)
-		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-				"<span class='userdanger'>\The [src] knocks you down!</span>")
+		C.visible_message(span_danger("\The [src] knocks down \the [C]!"), \
+				span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/machine
 	speak = list("HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
@@ -283,7 +286,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 				Pewgun.chambered.update_icon()
 				..()
 			else
-				visible_message("<span class='danger'>The <b>[src]</b> clears a jam!</span>")
+				visible_message(span_danger("The <b>[src]</b> clears a jam!"))
 			Pewgun.chambered.forceMove(loc) //rip revolver immersions, blame shotgun snowflake procs
 			Pewgun.chambered = null
 			if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len)
@@ -293,7 +296,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 		else if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len) //only true for pumpguns i think
 			Pewgun.chambered = Pewgun.magazine.get_round(0)
 			Pewgun.chambered.forceMove(Pewgun)
-			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")
+			visible_message(span_danger("The <b>[src]</b> cocks itself!"))
 	else
 		ranged = 0 //BANZAIIII
 		retreat_distance = 0

@@ -109,6 +109,7 @@
           .antagonist-icon {
             border-radius: 50%;
             -ms-interpolation-mode: nearest-neighbor;
+            image-rendering: pixelated;
             overflow: hidden;
             transition: transform 0.1s ease-in;
           }

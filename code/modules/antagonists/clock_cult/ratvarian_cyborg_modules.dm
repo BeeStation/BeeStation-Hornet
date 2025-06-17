@@ -27,11 +27,11 @@
 	if(!internal_slab)
 		return
 	if(internal_slab.invoking_scripture)
-		to_chat(user, "<span class='brass'>You fail to invoke [name].</span>")
+		to_chat(user, span_brass("You fail to invoke [name]."))
 		return FALSE
 	var/datum/clockcult/scripture/new_scripture = new scripture_datum
 	if(new_scripture.power_cost > GLOB.clockcult_power)
-		to_chat(user, "<span class='neovgre'>You need [new_scripture.power_cost]W to invoke [new_scripture.name].</span>")
+		to_chat(user, span_neovgre("You need [new_scripture.power_cost]W to invoke [new_scripture.name]."))
 		qdel(new_scripture)
 		return FALSE
 	//Create a new scripture temporarilly to process, when it's done it will be qdeleted.

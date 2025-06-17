@@ -27,6 +27,8 @@
 	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/breadloaf/teleport_act()
+	. = ..()
+
 	if(mutations == 0)
 		mutationcap = rand(1,mutability)
 		if(prob(90))

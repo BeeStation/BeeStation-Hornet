@@ -5,8 +5,8 @@
 
 /atom/movable/screen/swarmer/FabricateTrap
 	icon_state = "ui_trap"
-	name = "Create trap (Costs 5 Resources)"
-	desc = "Creates a trap that will nonlethally shock any non-swarmer that attempts to cross it. (Costs 5 resources)"
+	name = "Create trap (Costs 2 Resources)"
+	desc = "Creates a trap that will nonlethally shock any non-swarmer that attempts to cross it. (Costs 2 resources)"
 
 /atom/movable/screen/swarmer/FabricateTrap/Click()
 	if(isswarmer(usr))
@@ -15,8 +15,8 @@
 
 /atom/movable/screen/swarmer/Barricade
 	icon_state = "ui_barricade"
-	name = "Create barricade (Costs 5 Resources)"
-	desc = "Creates a destructible barricade that will stop any non swarmer from passing it. Also allows disabler beams to pass through. (Costs 5 resources)"
+	name = "Create barricade (Costs 2 Resources)"
+	desc = "Creates a destructible barricade that will stop any non swarmer from passing it. Also allows disabler beams to pass through. (Costs 2 resources)"
 
 /atom/movable/screen/swarmer/Barricade/Click()
 	if(isswarmer(usr))
@@ -25,8 +25,8 @@
 
 /atom/movable/screen/swarmer/Replicate
 	icon_state = "ui_replicate"
-	name = "Replicate (Costs 50 Resources)"
-	desc = "Creates another of our kind."
+	name = "Replicate (Costs 20 Resources)"
+	desc = "Creates another of our kind. (Costs 20 resources)"
 
 /atom/movable/screen/swarmer/Replicate/Click()
 	if(isswarmer(usr))

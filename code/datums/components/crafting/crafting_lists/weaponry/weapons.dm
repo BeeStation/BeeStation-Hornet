@@ -9,11 +9,10 @@
 		/datum/reagent/fuel = 50,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/assembly/igniter = 1,
-		/obj/item/reagent_containers/food/drinks/soda_cans = 1
+		/obj/item/reagent_containers/cup/soda_cans = 1
 	)
-	parts = list(/obj/item/reagent_containers/food/drinks/soda_cans = 1)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	parts = list(/obj/item/reagent_containers/cup/soda_cans = 1)
+	category = CAT_CHEMISTRY
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/lance
@@ -29,8 +28,7 @@
 		/obj/item/grenade = 1
 	)
 	blacklist = list(/obj/item/spear/bonespear)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/strobeshield
@@ -42,20 +40,22 @@
 		/obj/item/assembly/flash/handheld = 1,
 		/obj/item/shield/riot = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_EQUIPMENT
+
+/datum/crafting_recipe/strobeshield/New()
+	..()
+	blacklist |= subtypesof(/obj/item/shield/riot)
 
 /datum/crafting_recipe/molotov
 	name = "Molotov"
-	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
+	result = /obj/item/reagent_containers/cup/glass/bottle/molotov
 	time = 4 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/glass/rag = 1,
-		/obj/item/reagent_containers/food/drinks/bottle = 1
+		/obj/item/reagent_containers/cup/rag = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1
 	)
-	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	parts = list(/obj/item/reagent_containers/cup/glass/bottle = 1)
+	category = CAT_CHEMISTRY
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/stunprod
@@ -67,8 +67,7 @@
 		/obj/item/stack/rods = 1,
 		/obj/item/assembly/igniter = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/teleprod
@@ -81,8 +80,7 @@
 		/obj/item/assembly/igniter = 1,
 		/obj/item/stack/ore/bluespace_crystal = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/bola
@@ -93,8 +91,7 @@
 		/obj/item/restraints/handcuffs/cable = 1,
 		/obj/item/stack/sheet/iron = 6
 	)
-	category= CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 
 /datum/crafting_recipe/gonbola
 	name = "Gonbola"
@@ -105,8 +102,7 @@
 		/obj/item/stack/sheet/iron = 6,
 		/obj/item/stack/sheet/animalhide/gondola = 1
 	)
-	category= CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/tailclub
@@ -117,8 +113,7 @@
 		/obj/item/organ/tail/lizard = 1,
 		/obj/item/stack/sheet/iron = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 
 /datum/crafting_recipe/club
 	name = "improvised maul"
@@ -130,8 +125,7 @@
 		/obj/item/restraints/handcuffs/cable = 2,
 		/obj/item/stack/sheet/cotton/cloth = 3
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/tailwhip
@@ -142,8 +136,7 @@
 		/obj/item/organ/tail/lizard = 1,
 		/obj/item/stack/cable_coil = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 
 /datum/crafting_recipe/catwhip
 	name = "Cat O' Nine Tails"
@@ -153,28 +146,26 @@
 		/obj/item/organ/tail/cat = 1,
 		/obj/item/stack/cable_coil = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 
 /datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but arguably underused for what it is...
 	name = "Pneumatic Cannon"
 	result = /obj/item/pneumatic_cannon/ghetto
 	time = 5 SECONDS
-	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	tool_behaviors = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 4,
 		/obj/item/stack/package_wrap = 8,
 		/obj/item/pipe = 2
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/flamethrower
 	name = "Flamethrower"
 	result = /obj/item/flamethrower
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
 	reqs = list(
 		/obj/item/weldingtool = 1,
 		/obj/item/assembly/igniter = 1,
@@ -184,15 +175,14 @@
 		/obj/item/assembly/igniter = 1,
 		/obj/item/weldingtool = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = /obj/item/gun/ballistic/shotgun/doublebarrel/improvised
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	reqs = list(
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/pipe = 1,
@@ -200,15 +190,14 @@
 		/obj/item/assembly/igniter = 1,
 		/obj/item/stack/package_wrap = 5
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/piperifle
 	name = "Singleshot Pipe Rifle"
 	result = /obj/item/gun/ballistic/rifle/pipe
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	reqs = list(
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/pipe = 1,
@@ -216,15 +205,14 @@
 		/obj/item/assembly/igniter = 1,
 		/obj/item/stack/package_wrap = 5
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/pipesmg
 	name = "Mag-Fed Pipe Repeater"
 	result = /obj/item/gun/ballistic/automatic/pipe_smg
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	reqs = list(
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/pipe = 2,
@@ -233,22 +221,20 @@
 		/obj/item/assembly/igniter = 1,
 		/obj/item/stack/package_wrap = 5
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
 	result = /obj/item/chainsaw
 	time = 5 SECONDS
-	tools = list(TOOL_WELDER)
+	tool_behaviors = list(TOOL_WELDER)
 	reqs = list(
 		/obj/item/circular_saw = 1,
 		/obj/item/stack/cable_coil = 3,
 		/obj/item/stack/sheet/plasteel = 5
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/spear
@@ -261,43 +247,40 @@
 		/obj/item/stack/rods = 1
 	)
 	parts = list(/obj/item/shard = 1)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/switchblade_kitchen
 	name = "Iron Switchblade"
 	result = /obj/item/switchblade/kitchen
 	time = 4 SECONDS
-	tools = list(TOOL_WELDER)
+	tool_behaviors = list(TOOL_WELDER)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 2,
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/knife = 1,
 		/obj/item/stack/cable_coil = 2
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/switchblade_kitchenupgrade
 	name = "Plastitanium Switchblade"
 	result = /obj/item/switchblade/plastitanium
 	time = 2 SECONDS
-	tools = list(TOOL_WELDER)
+	tool_behaviors = list(TOOL_WELDER)
 	reqs = list(
 		/obj/item/switchblade/kitchen = 1,
 		/obj/item/stack/sheet/mineral/plastitanium = 2
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/switchblade_plastitanium
 	name = "Plastitanium Switchblade"
 	result = /obj/item/switchblade/plastitanium
 	time = 6.5 SECONDS
-	tools = list(TOOL_WELDER)
+	tool_behaviors = list(TOOL_WELDER)
 	reqs = list(
 		/obj/item/weaponcrafting/stock = 1,
 		/obj/item/weaponcrafting/receiver = 1,
@@ -305,8 +288,7 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stack/sheet/mineral/plastitanium = 2
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/chemical_payload
@@ -322,8 +304,7 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/grenade/chem_grenade = 2
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_CHEMISTRY
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/chemical_payload2
@@ -339,34 +320,30 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/grenade/chem_grenade = 2
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_CHEMISTRY
 	dangerous_craft = TRUE
 
 // Shank - Makeshift weapon that can embed on throw
 /datum/crafting_recipe/shank
 	name = "Shank"
-	result = /obj/item/knife/shank
+	result = /obj/item/knife/shiv
 	time = 2 SECONDS
-	tools = list(TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(
 		/obj/item/shard = 1,
 		/obj/item/stack/cable_coil = 10
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-	always_available = TRUE
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/sharpmop
 	name = "Sharpened Mop"
 	result = /obj/item/mop/sharp
 	time = 3 SECONDS
-	tools = list(TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(
 		/obj/item/mop = 1,
 		/obj/item/shard = 1
 	)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	category = CAT_WEAPON_MELEE
 	dangerous_craft = TRUE

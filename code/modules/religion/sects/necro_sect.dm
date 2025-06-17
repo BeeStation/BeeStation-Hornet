@@ -22,7 +22,7 @@
 	if(!istype(N, /obj/item/organ))
 		return
 	adjust_favor(10, L)
-	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	to_chat(L, span_notice("You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process."))
 	qdel(N)
 	return TRUE
 
@@ -42,42 +42,42 @@
 /// the creature chosen for the rite
 	var/mob/living/lich_to_be
 /// the the typepath of the spell to gran
-	var/lichspell = /obj/effect/proc_holder/spell/targeted/lesserlichdom
+	var/datum/action/spell/lichspell = /datum/action/spell/lesserlichdom
 
 /datum/religion_rites/create_lesser_lich/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
-		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(length(movable_reltool.buckled_mobs))
 		for(var/creature in movable_reltool.buckled_mobs)
 			lich_to_be = creature
 		if(!lich_to_be.mind.hasSoul)
-			to_chat(user,"<span class='warning'>[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool].</span>")
+			to_chat(user,span_warning("[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
-		for(var/obj/effect/proc_holder/spell/knownspell in lich_to_be.mob_spell_list)
+		for(var/datum/action/spell/knownspell in lich_to_be.actions)
 			if(knownspell.type == lichspell)
-				to_chat(user,"<span class='warning'>You've already empowered [lich_to_be], get them to use the spell granted to them! To empower another, they must be buckled to [movable_reltool].</span>")
+				to_chat(user,span_warning("You've already empowered [lich_to_be], get them to use the spell granted to them! To empower another, they must be buckled to [movable_reltool]."))
 				lich_to_be = null
 				return FALSE
-		to_chat(user,"<span class='warning'>You're going to empower the [lich_to_be] who is buckled on [movable_reltool].</span>")
+		to_chat(user,span_warning("You're going to empower the [lich_to_be] who is buckled on [movable_reltool]."))
 		return ..()
 	else
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
-			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
 		lich_to_be = user
 		if(!lich_to_be.mind.hasSoul)
-			to_chat(user,"<span class='warning'>You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool].</span>")
+			to_chat(user,span_warning("You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
-		for(var/obj/effect/proc_holder/spell/knownspell in lich_to_be.mob_spell_list)
+		for(var/datum/action/spell/knownspell in lich_to_be.actions)
 			if(knownspell.type == lichspell)
-				to_chat(user,"<span class='warning'>You've already empowered yourself, use the spell granted to you! To empower another, they must be buckled to [movable_reltool].</span>")
+				to_chat(user,span_warning("You've already empowered yourself, use the spell granted to you! To empower another, they must be buckled to [movable_reltool]."))
 				lich_to_be = null
 				return FALSE
-		to_chat(user,"<span class='warning'>You're empowering yourself!</span>")
+		to_chat(user,span_warning("You're empowering yourself!"))
 		return ..()
 
 
@@ -94,8 +94,9 @@
 			break
 	if(!lich_to_be)
 		return FALSE
-	lich_to_be.AddSpell(new lichspell(null))
-	lich_to_be.visible_message("<span class='notice'>[lich_to_be] has been empowered by the soul pool!</span>")
+	lichspell = new /datum/action/spell/lesserlichdom
+	lichspell.Grant(lich_to_be)
+	lich_to_be.visible_message(span_notice("[lich_to_be] has been empowered by the soul pool!"))
 	lich_to_be = null
 	return ..()
 
@@ -117,9 +118,9 @@
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
 	var/list/candidates = poll_ghost_candidates("Do you wish to be resurrected as a Holy Summoned Undead?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYUNDEAD)
 	if(!length(candidates))
-		to_chat(user, "<span class='warning'>The soul pool is empty...")
+		to_chat(user, span_warning("The soul pool is empty..."))
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
-		user.visible_message("<span class='warning'>The soul pool was not strong enough to bring forth the undead.")
+		user.visible_message(span_warning("The soul pool was not strong enough to bring forth the undead."))
 		GLOB.religious_sect?.adjust_favor(favor_cost, user) //refund if nobody takes the role
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
@@ -133,7 +134,8 @@
 	undead.equip_to_slot_or_del(new /obj/item/clothing/under/costume/skeleton(undead), ITEM_SLOT_ICLOTHING)
 	undead.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(undead), ITEM_SLOT_OCLOTHING)
 	undead.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(undead), ITEM_SLOT_FEET)
-	undead.AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke(null))
+	var/datum/action/spell/smoke = new /datum/action/spell/smoke
+	smoke.Grant(undead)
 	if(GLOB.religion)
 		var/obj/item/storage/book/bible/booze/B = new
 		undead.mind?.holy_role = HOLY_ROLE_PRIEST
@@ -145,9 +147,9 @@
 		undead.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(undead)
 	if(is_special_character(user))
-		to_chat(undead, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+		to_chat(undead, span_userdanger("You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
 	else
-		to_chat(undead, "<span class='big notice'>You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble.</span>")
+		to_chat(undead, span_bignotice("You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble."))
 	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
 	return ..()
 
@@ -169,21 +171,21 @@
 
 /datum/religion_rites/raise_dead/perform_rite(mob/living/user, atom/religious_tool)
 	if(!religious_tool || !ismovable(religious_tool))
-		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user, span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(!length(movable_reltool.buckled_mobs))
-		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
+		to_chat(user, span_warning("Nothing is buckled to the altar!"))
 		return FALSE
 	for(var/mob/living/carbon/r_target in movable_reltool.buckled_mobs)
 		if(!iscarbon(r_target))
-			to_chat(user, "<span class='warning'>Only carbon lifeforms can be properly resurrected!</span>")
+			to_chat(user, span_warning("Only carbon lifeforms can be properly resurrected!"))
 			return FALSE
 		if(r_target.stat != DEAD)
-			to_chat(user, "<span class='warning'>You can only resurrect dead bodies, this one is still alive!</span>")
+			to_chat(user, span_warning("You can only resurrect dead bodies, this one is still alive!"))
 			return FALSE
 		if(!r_target.mind)
-			to_chat(user, "<span class='warning'>This creature has no connected soul...")
+			to_chat(user, span_warning("This creature has no connected soul..."))
 			return FALSE
 		raise_target = r_target
 		raise_target.notify_ghost_cloning("Your soul is being summoned back to your body by mystical power!", source = src)
@@ -192,15 +194,15 @@
 /datum/religion_rites/raise_dead/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	if(!(raise_target in religious_tool.buckled_mobs))
-		to_chat(user, "<span class='warning'>The body is no longer on the altar!</span>")
+		to_chat(user, span_warning("The body is no longer on the altar!"))
 		raise_target = null
 		return FALSE
 	if(!raise_target.mind)
-		to_chat(user, "<span class='warning'>This creature's soul has left the pool...")
+		to_chat(user, span_warning("This creature's soul has left the pool..."))
 		raise_target = null
 		return FALSE
 	if(raise_target.stat != DEAD)
-		to_chat(user, "<span class='warning'>The target has to stay dead for the rite to work! If they came back without your spiritual guidence... Who knows what could happen!?</span>")
+		to_chat(user, span_warning("The target has to stay dead for the rite to work! If they came back without your spiritual guidence... Who knows what could happen!?"))
 		raise_target = null
 		return FALSE
 	raise_target.grab_ghost() // Shove them back in their body.
@@ -224,20 +226,24 @@
 	var/mob/living/chosen_sacrifice
 /datum/religion_rites/living_sacrifice/perform_rite(mob/living/user, atom/religious_tool)
 	if(!religious_tool || !ismovable(religious_tool))
-		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user, span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(!length(movable_reltool.buckled_mobs))
-		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
+		to_chat(user, span_warning("Nothing is buckled to the altar!"))
 		return FALSE
 	for(var/creature in movable_reltool.buckled_mobs)
 		chosen_sacrifice = creature
 		if(chosen_sacrifice.stat == DEAD)
-			to_chat(user, "<span class='warning'>You can only sacrifice living creatures, this one is dead!</span>")
+			to_chat(user, span_warning("You can only sacrifice living creatures, this one is dead!"))
 			chosen_sacrifice = null
 			return FALSE
 		if(chosen_sacrifice.mind)
-			to_chat(user, "<span class='warning'>This sacrifice is sentient! [GLOB.deity] will not accept this offering.</span>")
+			to_chat(user, span_warning("This sacrifice is sentient! [GLOB.deity] will not accept this offering."))
+			chosen_sacrifice = null
+			return FALSE
+		if(chosen_sacrifice.flags_1 & HOLOGRAM_1)
+			to_chat(user, span_warning("You cannot sacrifice this. It is not made of flesh!"))
 			chosen_sacrifice = null
 			return FALSE
 		var/mob/living/carbon/C = creature
@@ -248,17 +254,17 @@
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	if(!(chosen_sacrifice in religious_tool.buckled_mobs)) //checks one last time if the right creature is still buckled
-		to_chat(user, "<span class='warning'>The right sacrifice is no longer on the altar!</span>")
+		to_chat(user, span_warning("The right sacrifice is no longer on the altar!"))
 		chosen_sacrifice = null
 		return FALSE
 	if(chosen_sacrifice.stat == DEAD)
-		to_chat(user, "<span class='warning'>The sacrifice is no longer alive, it needs to be alive until the end of the rite!</span>")
+		to_chat(user, span_warning("The sacrifice is no longer alive, it needs to be alive until the end of the rite!"))
 		chosen_sacrifice = null
 		return FALSE
 	var/favor_gained = 200 + round(chosen_sacrifice.health * 2)
 	GLOB.religious_sect?.adjust_favor(favor_gained, user)
 	new /obj/effect/temp_visual/cult/blood/out(altar_turf)
-	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sacrifice], leaving blood and gore in its place. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
+	to_chat(user, span_notice("[GLOB.deity] absorbs [chosen_sacrifice], leaving blood and gore in its place. [GLOB.deity] rewards you with [favor_gained] favor."))
 	chosen_sacrifice.gib(TRUE, FALSE, TRUE)
 	playsound(get_turf(religious_tool), 'sound/effects/bamf.ogg', 50, TRUE)
 	chosen_sacrifice = null
@@ -270,4 +276,4 @@
 	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)
 	C.update_handcuffed()
 	playsound(C, 'sound/magic/smoke.ogg', 50, 1)
-	C.visible_message("<span class='warning'>Darkness forms around [C]'s wrists as shadowy bindings appear on them!</span>")
+	C.visible_message(span_warning("Darkness forms around [C]'s wrists as shadowy bindings appear on them!"))

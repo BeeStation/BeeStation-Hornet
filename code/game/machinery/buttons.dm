@@ -5,16 +5,26 @@
 	icon_state = "doorctrl"
 	var/skin = "doorctrl"
 	layer = ABOVE_WINDOW_LAYER
-	power_channel = AREA_USAGE_ENVIRON
 	var/obj/item/assembly/device
 	var/obj/item/electronics/airlock/board
 	var/device_type = null
 	var/id = null
 	var/initialized_button = 0
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 70, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_button
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+
+
+/datum/armor/machinery_button
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 10
+	rad = 100
+	fire = 90
+	acid = 70
 
 /obj/machinery/button/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -58,40 +68,40 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		else
 			icon_state = skin
 
-/obj/machinery/button/attackby(obj/item/W, mob/user, params)
+/obj/machinery/button/attackby(obj/item/W, mob/living/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(panel_open || allowed(user))
 			default_deconstruction_screwdriver(user, "button-open", "[skin]",W)
 			update_icon()
 		else
-			to_chat(user, "<span class='danger'>Maintenance Access Denied.</span>")
+			to_chat(user, span_danger("Maintenance Access Denied."))
 			flick("[skin]-denied", src)
 		return
 
 	if(panel_open)
 		if(!device && istype(W, /obj/item/assembly))
 			if(!user.transferItemToLoc(W, src))
-				to_chat(user, "<span class='warning'>\The [W] is stuck to you!</span>")
+				to_chat(user, span_warning("\The [W] is stuck to you!"))
 				return
 			device = W
-			to_chat(user, "<span class='notice'>You add [W] to the button.</span>")
+			to_chat(user, span_notice("You add [W] to the button."))
 
 		if(!board && istype(W, /obj/item/electronics/airlock))
 			if(!user.transferItemToLoc(W, src))
-				to_chat(user, "<span class='warning'>\The [W] is stuck to you!</span>")
+				to_chat(user, span_warning("\The [W] is stuck to you!"))
 				return
 			board = W
 			if(board.one_access)
 				req_one_access = board.accesses
 			else
 				req_access = board.accesses
-			to_chat(user, "<span class='notice'>You add [W] to the button.</span>")
+			to_chat(user, span_notice("You add [W] to the button."))
 
 		if(!device && !board && W.tool_behaviour == TOOL_WRENCH)
-			to_chat(user, "<span class='notice'>You start unsecuring the button frame...</span>")
+			to_chat(user, span_notice("You start unsecuring the button frame..."))
 			W.play_tool_sound(src)
 			if(W.use_tool(src, user, 40))
-				to_chat(user, "<span class='notice'>You unsecure the button frame.</span>")
+				to_chat(user, span_notice("You unsecure the button frame."))
 				transfer_fingerprints_to(new /obj/item/wallframe/button(get_turf(src)))
 				playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 				qdel(src)
@@ -99,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		update_icon()
 		return
 
-	if(user.a_intent != INTENT_HARM && !(W.item_flags & NOBLUDGEON))
+	if(!user.combat_mode && !(W.item_flags & NOBLUDGEON))
 		return attack_hand(user)
 	else
 		return ..()
@@ -112,16 +122,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 
 /obj/machinery/button/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
-	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	to_chat(usr, span_brass("You begin manipulating [src]!"))
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		attack_hand(eminence)
 
-/obj/machinery/button/attack_ai(mob/user)
+/obj/machinery/button/attack_silicon(mob/user)
 	if(!panel_open)
 		return attack_hand(user)
-
-/obj/machinery/button/attack_robot(mob/user)
-	return attack_ai(user)
 
 /obj/machinery/button/proc/setup_device()
 	if(id && istype(device, /obj/item/assembly/control))
@@ -129,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		A.id = id
 	initialized_button = 1
 
-/obj/machinery/button/attack_hand(mob/user)
+/obj/machinery/button/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -148,14 +155,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 				req_one_access = list()
 				board = null
 			update_icon()
-			to_chat(user, "<span class='notice'>You remove electronics from the button frame.</span>")
+			to_chat(user, span_notice("You remove electronics from the button frame."))
 
 		else
 			if(skin == "doorctrl")
 				skin = "launcher"
 			else
 				skin = "doorctrl"
-			to_chat(user, "<span class='notice'>You change the button frame's front panel.</span>")
+			to_chat(user, span_notice("You change the button frame's front panel."))
 		return
 
 	if((machine_stat & (NOPOWER|BROKEN)))
@@ -165,7 +172,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		return
 
 	if(!allowed(user) && !istype(user, /mob/living/simple_animal/eminence))
-		to_chat(user, "<span class='danger'>Access Denied.</span>")
+		to_chat(user, span_danger("Access Denied."))
 		flick("[skin]-denied", src)
 		return
 
@@ -288,3 +295,33 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	result_path = /obj/machinery/button
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	pixel_shift = 24
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
+
+/obj/machinery/button/shieldwallgen
+	name = "holofield switch"
+	desc = "A remote switch for a holofield generator"
+	icon_state = "launcher"
+	skin = "launcher"
+	device_type = /obj/item/assembly/control/shieldwallgen
+	req_access = list()
+	id = 1
+
+/obj/machinery/button/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
+	id = "[REF(port)][id]"
+
+/obj/machinery/button/add_context_self(datum/screentip_context/context, mob/user)
+	if (length(req_access) || length(req_one_access) || req_access_txt != "0" || req_one_access_txt != "0")
+		context.add_access_context("Access Required", allowed(user))
+	if (context.accept_silicons())
+		if (!panel_open)
+			context.add_attack_hand_action("Activate")
+		return
+	if (panel_open)
+		if(device || board)
+			context.add_attack_hand_action("Remove Electronics")
+		else
+			context.add_attack_hand_action("Change Appearance")
+	else
+		context.add_attack_hand_action("Push")
+	context.add_left_click_item_action("Hack", /obj/item/card/emag)

@@ -21,7 +21,7 @@
 	record_to_blackbox() // bleh I don't like doing this here, but there's no other place to do it without adding new signals, and I've added WAY too many signals already...
 	return {"
 		<div class='panel [considered_alive(holder.owner) ? "green" : "red"]border'>
-			<span class='header'>[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:</span>
+			[span_header("[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:")]
 			<br>
 			[print_all_holoparas()]
 		</div>

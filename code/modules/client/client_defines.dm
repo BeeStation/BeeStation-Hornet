@@ -46,10 +46,12 @@
 	/// The last world.time that the client's mob turned
 	var/last_turn = 0
 
-	/// The next world.time this client is allowed to move
+	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
 	var/move_delay = 0
-
-	var/area			= null
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
+	///Current area of the controlled mob
+	var/area = null
 
 	var/buzz_playing = null
 		////////////
@@ -76,12 +78,6 @@
 	preload_rsc = PRELOAD_RSC
 
 	var/atom/movable/screen/click_catcher/void
-
-	//These two vars are used to make a special mouse cursor, with a unique icon for clicking
-	/// Mouse icon while not clicking
-	var/mouse_up_icon = null
-	/// Mouse icon while clicking
-	var/mouse_down_icon = null
 
 	var/ip_intel = "Disabled"
 
@@ -133,3 +129,27 @@
 
 	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
 	var/datum/weakref/eye_weakref
+
+///Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	var/list/atom/selected_target[2]
+	///Used in MouseDrag to preserve the original mouse click parameters
+	var/mouseParams = ""
+	///Used in MouseDrag to preserve the last mouse-entered location. Weakref
+	var/datum/weakref/mouse_location_ref = null
+	///Used in MouseDrag to preserve the last mouse-entered object. Weakref
+	var/datum/weakref/mouse_object_ref
+	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
+	var/datum/weakref/middle_drag_atom_ref
+
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	///used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
+
+
+	/// Whether or not we want to show screentips
+	var/show_screentips = TRUE
+	/// Should extended screentips be shown?
+	var/show_extended_screentips = FALSE

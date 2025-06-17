@@ -1,6 +1,6 @@
 /obj/item/modular_computer/interact(mob/user)
 	if(enabled)
-		ui_interact(user)
+		return ..()
 	else
 		turn_on(user)
 
@@ -31,7 +31,7 @@
 	// This screen simply lists available programs and user may select them.
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	if(!hard_drive || !hard_drive.stored_files || !hard_drive.stored_files.len)
-		to_chat(user, "<span class='danger'>\The [src] beeps three times, it's screen displaying a \"DISK ERROR\" warning.</span>")
+		to_chat(user, span_danger("\The [src] beeps three times, it's screen displaying a \"DISK ERROR\" warning."))
 		return FALSE // No HDD, No HDD files list or no stored files. Something is very broken.
 
 	if(honk_amount > 0) // EXTRA annoying, huh!
@@ -188,7 +188,7 @@
 			if(killed_program in idle_threads)
 				idle_threads.Remove(killed_program)
 			killed_program.kill_program(forced = TRUE)
-			to_chat(usr, "<span class='notice'>Program [killed_program.filename].[killed_program.filetype] with PID [rand(100,999)] has been killed.</span>")
+			to_chat(usr, span_notice("Program [killed_program.filename].[killed_program.filetype] with PID [rand(100,999)] has been killed."))
 			return TRUE
 		if("PC_runprogram")
 			var/is_disk = params["is_disk"]
@@ -201,7 +201,7 @@
 				program = ssd.find_file_by_name(params["name"])
 
 			if(!program || !istype(program)) // Program not found or it's not executable program.
-				to_chat(usr, "<span class='danger'>\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning.</span>")
+				to_chat(usr, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 				return
 			program.computer = src
 			open_program(usr, program)
@@ -217,7 +217,7 @@
 				if(!new_color)
 					return
 				if(is_color_dark_with_saturation(new_color, 50) ) //Colors too dark are rejected
-					to_chat(user, "<span class='warning'>That color is too dark! Choose a lighter one.</span>")
+					to_chat(user, span_warning("That color is too dark! Choose a lighter one."))
 					new_color = null
 			return set_flashlight_color(new_color)
 
@@ -286,7 +286,7 @@
 			else if(params["option"] == "eject")
 				usr.put_in_hands(stored_pai_card)
 				remove_pai()
-				to_chat(usr, "<span class='notice'>You remove the pAI from [src].</span>")
+				to_chat(usr, span_notice("You remove the pAI from [src]."))
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 			return TRUE
 	if(active_program)

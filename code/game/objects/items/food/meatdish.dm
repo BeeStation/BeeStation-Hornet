@@ -18,6 +18,7 @@
 	tastes = list("fish" = 4, "batter" = 1, "hot peppers" = 1)
 	foodtypes = MEAT | FRIED
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/fishmeat
 	name = "fish fillet"
@@ -33,6 +34,7 @@
 	foodtypes = MEAT
 	eatverbs = list("bite", "chew", "gnaw", "swallow", "chomp")
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/fishmeat/carp
 	name = "carp fillet"
@@ -62,6 +64,7 @@
 	tastes = list("fish" = 1, "breadcrumbs" = 1)
 	foodtypes = MEAT | FRIED
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/fishandchips
 	name = "fish and chips"
@@ -75,6 +78,7 @@
 	)
 	tastes = list("fish" = 1, "chips" = 1)
 	foodtypes = MEAT | VEGETABLES | FRIED
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /*
 /obj/item/food/fishfry
@@ -86,6 +90,7 @@
 	tastes = list("fish" = 1, "pan seared vegtables" = 1)
 	foodtypes = SEAFOOD | VEGETABLES | FRIED
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/fishtaco
 	name = "fish taco"
@@ -95,6 +100,7 @@
 	tastes = list("taco" = 4, "fish" = 2, "cheese" = 2, "cabbage" = 1)
 	foodtypes = SEAFOOD | DAIRY | GRAIN | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 */
 
 ////////////////////////////////////////////MEATS AND ALIKE////////////////////////////////////////////
@@ -109,12 +115,14 @@
 	tastes = list("tofu" = 1)
 	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/tofu/prison
 	name = "soggy tofu"
 	desc = "You refuse to eat this strange bean curd."
 	tastes = list("sour, rotten water" = 1)
 	foodtypes = GROSS
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/spiderleg
 	name = "spider leg"
@@ -129,6 +137,7 @@
 	tastes = list("cobwebs" = 1)
 	foodtypes = MEAT | TOXIC
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/spiderleg/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/boiledspiderleg, rand(50 SECONDS, 60 SECONDS), TRUE, TRUE)
@@ -146,6 +155,7 @@
 	tastes = list("meat" = 1, "cabbage" = 1)
 	foodtypes = MEAT | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/bearsteak
 	name = "Filet migrawr"
@@ -160,6 +170,7 @@
 	tastes = list("meat" = 1, "salmon" = 1)
 	foodtypes = MEAT | ALCOHOL
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 //Raw
 
@@ -174,12 +185,13 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/meatball_type = /obj/item/food/meatball
 	var/patty_type = /obj/item/food/raw_patty
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/raw_meatball/make_grillable()
 	AddComponent(/datum/component/grillable, meatball_type, rand(30 SECONDS, 40 SECONDS), TRUE)
 
 /obj/item/food/raw_meatball/make_processable()
-	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, patty_type, 1, 20)
+	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, patty_type, 1, table_required = TRUE, screentip_verb = "Flatten")
 
 /obj/item/food/raw_meatball/human
 	name = "strange raw meatball"
@@ -220,6 +232,7 @@
 	foodtypes = MEAT
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/meatball/human
 	name = "strange meatball"
@@ -250,6 +263,7 @@
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_SMALL
 	var/patty_type = /obj/item/food/patty/plain
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/raw_patty/make_grillable()
 	AddComponent(/datum/component/grillable, patty_type, rand(30 SECONDS, 40 SECONDS), TRUE)
@@ -286,6 +300,7 @@
 	tastes = list("meat" = 1)
 	foodtypes = MEAT
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 ///Exists purely for the crafting recipe (because itll take subtypes)
 /obj/item/food/patty/plain
@@ -319,6 +334,7 @@
 	foodtypes = MEAT | RAW
 	eatverbs = list("bite","chew","nibble","gobble","chomp")
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/raw_sausage/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/sausage, rand(60 SECONDS, 75 SECONDS), TRUE)
@@ -338,10 +354,11 @@
 	eatverbs = list("bite", "chew", "nibble", "gobble", "chomp")
 	w_class = WEIGHT_CLASS_SMALL
 	var/roasted = FALSE
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/sausage/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE,/*  screentip_verb = "Slice"*/)
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/sausage/american, 1, 3 SECONDS, table_required = TRUE)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE,  screentip_verb = "Slice")
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/sausage/american, 1, 3 SECONDS, table_required = TRUE,  screentip_verb = "Slice")
 
 /obj/item/food/sausage/american
 	name = "american sausage"
@@ -363,6 +380,7 @@
 	foodtypes = MEAT
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/rawkhinkali
 	name = "raw khinkali"
@@ -378,6 +396,7 @@
 	tastes = list("meat" = 1, "onions" = 1, "garlic" = 1)
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/rawkhinkali/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/khinkali, rand(50 SECONDS, 60 SECONDS), TRUE)
@@ -397,6 +416,7 @@
 	tastes = list("meat" = 1, "onions" = 1, "garlic" = 1)
 	foodtypes = MEAT
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/meatbun
 	name = "meat bun"
@@ -410,6 +430,7 @@
 	tastes = list("bun" = 3, "meat" = 2)
 	foodtypes = GRAIN | MEAT | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/stewedsoymeat
 	name = "stewed soy meat"
@@ -424,6 +445,7 @@
 	eatverbs = list("slurp", "sip", "inhale", "drink")
 	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/boiledspiderleg
 	name = "boiled spider leg"
@@ -438,6 +460,7 @@
 	tastes = list("hot peppers" = 1, "cobwebs" = 1)
 	foodtypes = MEAT
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/spidereggsham
 	name = "green eggs and ham"
@@ -452,6 +475,7 @@
 	tastes = list("meat" = 1, "the colour green" = 1)
 	foodtypes = MEAT | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/sashimi
 	name = "carp sashimi"
@@ -466,6 +490,7 @@
 	tastes = list("fish" = 1, "hot peppers" = 1)
 	foodtypes = MEAT
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/nugget
 	name = "chicken nugget"
@@ -475,11 +500,13 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	icon = 'icons/obj/food/meat.dmi'
+	/// Default nugget icon for recipes that need any nugget
 	icon_state_preview = "nugget_lizard"
 	tastes = list("\"chicken\"" = 1)
 	foodtypes = MEAT
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/nugget/Initialize(mapload)
 	. = ..()
@@ -500,6 +527,7 @@
 	tastes = list("meat" = 1, "butter" = 1)
 	foodtypes = MEAT | DAIRY | GRAIN
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/bbqribs
 	name = "bbq ribs"
@@ -514,6 +542,7 @@
 	)
 	tastes = list("meat" = 3, "smokey sauce" = 1)
 	foodtypes = MEAT | SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/meatclown
 	name = "meat clown"
@@ -527,6 +556,7 @@
 	)
 	tastes = list("meat" = 5, "clowns" = 3, "sixteen teslas" = 1)
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/meatclown/Initialize(mapload)
 	. = ..()
@@ -544,6 +574,7 @@
 	)
 	tastes = list("meat" = 3, "metal" = 1)
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/kebab/human
 	name = "human-kebab"
@@ -614,3 +645,4 @@
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/consumable/capsaicin = 3
 	)
+	crafting_complexity = FOOD_COMPLEXITY_3

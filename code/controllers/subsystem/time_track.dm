@@ -67,7 +67,6 @@ SUBSYSTEM_DEF(time_track)
 			"air_eg_cost",
 			"air_highpressure_cost",
 			"air_hotspots_cost",
-			"air_superconductivity_cost",
 			"air_pipenets_cost",
 			"air_rebuilds_cost",
 			"air_turf_count",
@@ -101,6 +100,7 @@ SUBSYSTEM_DEF(time_track)
 		time_dilation_avg_fast = MC_AVERAGE_FAST(time_dilation_avg_fast, time_dilation_current)
 		time_dilation_avg = MC_AVERAGE(time_dilation_avg, time_dilation_avg_fast)
 		time_dilation_avg_slow = MC_AVERAGE_SLOW(time_dilation_avg_slow, time_dilation_avg)
+		GLOB.glide_size_multiplier = (current_byondtime - last_tick_byond_time) / (current_realtime - last_tick_realtime)
 	else
 		first_run = FALSE
 	last_tick_realtime = current_realtime
@@ -136,13 +136,11 @@ SUBSYSTEM_DEF(time_track)
 			SSair.cost_groups,
 			SSair.cost_highpressure,
 			SSair.cost_hotspots,
-			SSair.cost_superconductivity,
 			SSair.cost_pipenets,
 			SSair.cost_rebuilds,
 			length(SSair.hotspots),
 			length(SSair.networks),
 			length(SSair.high_pressure_delta),
-			//length(SSair.active_super_conductivity), // LINDA, I assume
 			SSdbcore.all_queries_num,
 			SSdbcore.queries_active_num,
 			SSdbcore.queries_standby_num
