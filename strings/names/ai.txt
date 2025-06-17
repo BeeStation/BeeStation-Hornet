@@ -34,3 +34,9 @@ delta
 beta
 gamma
 simulator
+socket
+singularity
+hertz
+interface
+volt
+ampere
