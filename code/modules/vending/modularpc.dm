@@ -34,7 +34,6 @@
 					/obj/item/computer_hardware/processor_unit/photonic = 1,
 					/obj/item/computer_hardware/sensorpackage = 4,
 					/obj/item/computer_hardware/printer/mini = 2,
-					/obj/item/computer_hardware/camera_component = 4,
 					/obj/item/storage/box/tabletcolorizer = 5)
 	premium = list(/obj/item/colorizer/tablet/gw = 2,
 					/obj/item/colorizer/tablet/rugged = 2,

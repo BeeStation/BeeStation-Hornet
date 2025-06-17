@@ -42,6 +42,7 @@
 	var/init_icon = initial(icon)
 	if(!init_icon)
 		return
+	cut_overlays()
 	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
 	if(card)
 		if(card.stored_card)

@@ -20,7 +20,7 @@
 
 /obj/item/computer_hardware/camera_component
 	name = "photographic camera"
-	desc = "A camera to be installed into computers for the purposes of taking photos."
+	desc = "A camera to be installed into computers for the purposes of taking photos, yet, it is completely useless, such is the way of life."
 	icon_state = "camera"
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CAMERA
