@@ -380,6 +380,7 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/assign_roles(priority = JP_MEDIUM)
 	// Create random orderings for all players
+	var/list/sorted_orderings = list()
 	var/list/random_orderings = list()
 	// Step 1: Generate random orderings for the players medium jobs
 	for(var/mob/dead/new_player/player in unassigned)
@@ -392,16 +393,19 @@ SUBSYSTEM_DEF(job)
 			available_jobs += job
 		// Create random orderings
 		shuffle_inplace(available_jobs)
+		// Use the same reference, so that we only have to update one
+		sorted_orderings[player] = available_jobs
 		random_orderings[player] = available_jobs
 		JobDebug("DO [player.ckey] was given the job priority list [jointext(available_jobs, ",")]")
 	// Step 2: Sort the list by the number of availble jobs that each person has, keeping it
 	// random when the amount is the same
+	shuffle_inplace(sorted_orderings)
 	shuffle_inplace(random_orderings)
-	random_orderings = sortTim(random_orderings, GLOBAL_PROC_REF(cmp_list_size), TRUE)
+	sorted_orderings = sortTim(sorted_orderings, GLOBAL_PROC_REF(cmp_list_size), TRUE)
 	// Step 3: Assign provisional jobs
-	for(var/mob/dead/new_player/player in random_orderings)
+	for(var/mob/dead/new_player/player in sorted_orderings)
 		// Get the first available job for this player
-		for (var/datum/job/job in random_orderings[player])
+		for (var/datum/job/job in sorted_orderings[player])
 			var/job_position_count = job.get_spawn_position_count()
 			if (job.current_positions >= job_position_count && job_position_count != -1)
 				continue
@@ -414,12 +418,12 @@ SUBSYSTEM_DEF(job)
 	// The player list is already shuffled, so we will re-use that for player preference
 	// Step 5: Assign high priority job roles
 	if (priority == JP_MEDIUM)
-		for(var/mob/dead/new_player/player in random_orderings)
+		for(var/mob/dead/new_player/player in sorted_orderings)
 			// Assign high priority jobs
 			for(var/datum/job/job in occupations)
 				if (!is_valid_job(player, job, JP_HIGH))
 					continue
-				var/list/player_job_list = random_orderings[player]
+				var/list/player_job_list = sorted_orderings[player]
 				// Add this job to the start of the player's preferences list
 				player_job_list.Insert(1, job)
 				JobDebug("DO [player.ckey] requested [job.title] as a high priority job. Updated assignment list: [jointext(player_job_list, ",")]")
@@ -452,7 +456,7 @@ SUBSYSTEM_DEF(job)
 				changed = TRUE
 				break
 	// Step 5: Assign job roles that we have so far
-	for(var/mob/dead/new_player/player in random_orderings)
+	for(var/mob/dead/new_player/player in sorted_orderings)
 		if (!player.mind.assigned_role)
 			JobDebug("DO [player.ckey] has no medium or high priority jobs assigned")
 			continue
