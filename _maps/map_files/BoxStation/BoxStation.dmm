@@ -19594,12 +19594,6 @@
 	input_dir = 2;
 	output_dir = 1
 	},
-/obj/machinery/door/window/westright{
-	dir = 1;
-	name = "Ore redemption machine";
-	pixel_y = -1;
-	req_one_access_txt = "31;48"
-	},
 /turf/open/floor/iron/tech,
 /area/quartermaster/miningdock)
 "eze" = (
