@@ -50,7 +50,7 @@
 			if(!logname)
 				return
 			// Now we will generate HTML-compliant file that can actually be viewed/printed.
-			var/datum/computer_file/data/log_file/logfile = new()
+			var/datum/computer_file/data/text/log_file/logfile = new()
 			logfile.filename = "[logname].txt" // Custom extension, different from .log
 
 			var/log_data = tablet.note ? tablet.note : ""

@@ -3,7 +3,7 @@
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
 	icon_state_menu = "menu"
-	hardware_flag = PROGRAM_TABLET
+	hardware_flag = PROGRAM_PDA
 	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_SMALL
 	max_bays = 3

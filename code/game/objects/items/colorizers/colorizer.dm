@@ -13,8 +13,8 @@
 	var/apply_item_state = null
 	var/apply_righthand_file = null
 	var/apply_lefthand_file = null
-    /// Deletes the colorizer when it runs out of charges
-    var/delete_me = TRUE
+	/// Deletes the colorizer when it runs out of charges
+	var/delete_me = TRUE
 
 /obj/item/colorizer/examine(mob/user)
 	. = ..()
@@ -41,9 +41,9 @@
 /obj/item/colorizer/proc/do_colorize(atom/to_be_colored, mob/user)
 	if(!to_be_colored)
 		return
-    if(uses_left == 0 && !delete_me)
-        to_chat(user, "<span class='warning'>This colorizer is empty!</span>")
-        return
+	if(uses_left == 0 && !delete_me)
+		to_chat(user, "<span class='warning'>This colorizer is empty!</span>")
+		return
 	if(!is_type_in_list(to_be_colored, allowed_targets) || is_type_in_list(to_be_colored, forbidden_targets))
 		to_chat(user, span_warning("This colorizer is not compatible with that!"))
 		return

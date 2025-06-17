@@ -6,7 +6,7 @@
 	size = 6
 	program_icon_state = "camera"
 
-	usage_flags = PROGRAM_TABLET | PROGRAM_LAPTOP
+	usage_flags = PROGRAM_PDA | PROGRAM_LAPTOP
 	tgui_id = "NtosCamera"
 	program_icon = "camera"
 
