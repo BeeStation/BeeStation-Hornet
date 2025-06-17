@@ -19594,7 +19594,13 @@
 	input_dir = 2;
 	output_dir = 1
 	},
-/turf/open/floor/iron,
+/obj/machinery/door/window/westright{
+	dir = 1;
+	name = "Ore redemption machine";
+	pixel_y = -1;
+	req_one_access_txt = "31;48"
+	},
+/turf/open/floor/iron/tech,
 /area/quartermaster/miningdock)
 "eze" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -21081,11 +21087,11 @@
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "fbz" = (
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Quartermaster";
 	req_access_txt = "41"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/wood/big,
 /area/quartermaster/qm)
 "fbS" = (
@@ -38915,10 +38921,10 @@
 /turf/open/floor/iron,
 /area/janitor)
 "mcM" = (
-/obj/effect/landmark/start/cargo_technician,
 /obj/structure/chair/office{
 	dir = 4
 	},
+/obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/iron/tech,
 /area/quartermaster/office)
 "mcV" = (
@@ -48755,7 +48761,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/wood/big,
 /area/quartermaster/qm)
 "qgO" = (
 /obj/effect/turf_decal/pool,
@@ -60991,20 +60997,6 @@
 /area/engine/engineering)
 "uPZ" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen/red,
-/obj/item/stamp/denied{
-	pixel_x = 4;
-	pixel_y = -2
-	},
-/obj/item/stamp{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -61016,6 +61008,22 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 10
+	},
+/obj/item/clipboard{
+	pixel_x = 6
+	},
+/obj/item/paper_bin{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/item/pen/red,
+/obj/item/stamp/denied{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/obj/item/stamp{
+	pixel_x = -8;
+	pixel_y = 6
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
