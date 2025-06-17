@@ -25,6 +25,10 @@
 	)
 
 	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	// At lowpop, we are a proxy for assistant; we will count towards an
+	// assistant slot rather than the job's normal slot and will get full access
+	// to service.
+	min_pop_redirect = /datum/job/assistant
 
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()

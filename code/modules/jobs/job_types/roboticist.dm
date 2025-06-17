@@ -34,6 +34,7 @@
 		/area/science/robotics,
 		/area/storage/tech
 	)
+	min_pop_redirect = /datum/job/scientist
 
 /datum/outfit/job/roboticist
 	name = JOB_NAME_ROBOTICIST

@@ -7,7 +7,6 @@
 	faction = "Station"
 	total_positions = 1
 	selection_color = "#dddddd"
-	min_pop = MINPOP_JOB_LIMIT
 
 	outfit = /datum/outfit/job/clown
 
@@ -27,6 +26,10 @@
 	)
 
 	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	// At lowpop, we are a proxy for assistant; we will count towards an
+	// assistant slot rather than the job's normal slot and will get full access
+	// to service.
+	min_pop_redirect = /datum/job/assistant
 
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()

@@ -35,6 +35,7 @@
 		/area/medical/apothecary
 	)
 	minimal_lightup_areas = list(/area/medical/virology)
+	min_pop_redirect = /datum/job/medical_doctor
 
 /datum/job/virologist/config_check()
 	return CONFIG_GET(flag/allow_virologist)

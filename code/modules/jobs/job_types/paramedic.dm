@@ -34,6 +34,7 @@
 		/area/medical/morgue,
 		/area/medical/genetics/cloning
 	)
+	min_pop_redirect = /datum/job/medical_doctor
 
 /datum/outfit/job/paramedic
 	name = JOB_NAME_PARAMEDIC

@@ -10,7 +10,10 @@
 	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
-	min_pop = MINPOP_JOB_LIMIT
+	// At lowpop, we are a proxy for assistant; we will count towards an
+	// assistant slot rather than the job's normal slot and will get full access
+	// to service.
+	min_pop_redirect = /datum/job/assistant
 
 	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)

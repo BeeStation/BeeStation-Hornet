@@ -11,7 +11,6 @@
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SECURITY
-	min_pop = MINPOP_JOB_LIMIT
 
 	outfit = /datum/outfit/job/warden
 

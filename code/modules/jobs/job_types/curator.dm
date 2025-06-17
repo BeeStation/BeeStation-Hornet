@@ -31,6 +31,10 @@
 		/area/library,
 		/area/construction/mining/aux_base
 	)
+	// At lowpop, we are a proxy for assistant; we will count towards an
+	// assistant slot rather than the job's normal slot and will get full access
+	// to service.
+	min_pop_redirect = /datum/job/assistant
 
 /datum/outfit/job/curator
 	name = JOB_NAME_CURATOR

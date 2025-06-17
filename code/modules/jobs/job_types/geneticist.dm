@@ -39,6 +39,7 @@
 		/area/medical/apothecary
 	)
 	minimal_lightup_areas = list(/area/medical/morgue, /area/medical/genetics)
+	min_pop_redirect = /datum/job/medical_doctor
 
 /datum/outfit/job/geneticist
 	name = JOB_NAME_GENETICIST

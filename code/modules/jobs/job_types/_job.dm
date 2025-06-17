@@ -120,8 +120,13 @@
 	 */
 	var/list/minimal_lightup_areas = list()
 
+	/// If the minimum pop is not met, then we will be assigned as if we were actually
+	/// this job instead; this means that the geneticist can still appear on low-pop, but
+	/// we will be assigned the access of a medical doctor and will count as if a medical
+	/// doctor spawned instead.
+	var/datum/job/min_pop_redirect = null
 	/// The minimum population required at roundstart for this job to appear
-	var/min_pop = LOWPOP_JOB_LIMIT
+	var/min_pop = MINPOP_JOB_LIMIT
 	/// The maximum population required at roundstart for this job to appear
 	var/max_pop = INFINITY
 
@@ -153,22 +158,26 @@
 	// SSjob has not been allocated yet
 	if (!player_count)
 		player_count = length(GLOB.clients)
-	// Out of range
-	if (player_count < min_pop)
+	// Out of range, and no proxy
+	if (player_count < min_pop && !min_pop_redirect)
 		return 0
 	if (player_count > max_pop)
 		return 0
 	// Unlimited
 	if (total_positions == -1)
 		return -1
+	// If the population is lower than our min pop spawn amount
+	var/datum/job/proxy = src
+	if (min_pop_redirect && player_count < min_pop)
+		proxy = SSjob.GetJob(min_pop_redirect::title)
 	// Does not have a spawn group
 	if (!dynamic_spawn_group)
-		return max(total_positions + total_position_delta, 0)
+		return max(proxy.total_positions + total_position_delta, 0)
 	// Calculate spawn group size
 	var/spawn_group_minimum = INFINITY
 	for (var/datum/job/other in SSjob.occupations)
 		// Find everything in the same group, doesn't matter if its us
-		if (other.dynamic_spawn_group != dynamic_spawn_group)
+		if (other.dynamic_spawn_group != proxy.dynamic_spawn_group)
 			continue
 		// Find the least filled job in the group
 		// If the HOP removes a position from another job, then that removed position.
@@ -176,7 +185,8 @@
 		// group bumps.
 		spawn_group_minimum = min(spawn_group_minimum, other.current_positions - other.total_position_delta)
 	// The amount of positions we have is the least filled job + our allowed variance
-	return max(spawn_group_minimum + dynamic_spawn_variance_limit + total_position_delta, 0)
+	// variance is calculated per job, not based on the proxy
+	return max(spawn_group_minimum + proxy.dynamic_spawn_variance_limit + total_position_delta, 0)
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -340,6 +350,10 @@
 		. |= ACCESS_MAINT_TUNNELS
 	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT && SSjob.is_job_empty(JOB_NAME_COOK))
 		. |= ACCESS_KITCHEN
+	// Claim all the access from the redirected role too
+	if (SSjob.initial_players_to_assign < min_pop && min_pop_redirect)
+		var/datum/job/redirected_role = SSjob.GetJob(min_pop_redirect::title)
+		. |= redirected_role.get_access()
 
 /datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
@@ -563,3 +577,11 @@
 	// If this checks fails, then the name will have been handled during initialization.
 	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME && check_cyborg_name(player_client, mmi))
 		apply_pref_name(/datum/preference/name/cyborg, player_client)
+
+/datum/job/proc/increment_current_positions()
+	current_positions++
+	// Also count towards our redirecting job
+	if (SSjob.initial_players_to_assign < min_pop && min_pop_redirect)
+		// TODO: If we increment both, then it will show as counting twice in the job
+		// selection screen. Instead the current positions should count all jobs that
+		// redirect to our job

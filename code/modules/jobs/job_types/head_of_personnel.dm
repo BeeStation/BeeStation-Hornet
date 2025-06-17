@@ -14,7 +14,6 @@
 	minimal_player_age = 10
 	exp_requirements = 600
 	exp_type = EXP_TYPE_COMMAND
-	min_pop = MINPOP_JOB_LIMIT
 
 	outfit = /datum/outfit/job/head_of_personnel
 

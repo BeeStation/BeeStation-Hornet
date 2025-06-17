@@ -7,7 +7,6 @@
 	faction = "Station"
 	total_positions = 2
 	selection_color = "#bbe291"
-	min_pop = MINPOP_JOB_LIMIT
 
 	outfit = /datum/outfit/job/janitor
 
@@ -27,6 +26,10 @@
 	)
 
 	minimal_lightup_areas = list(/area/janitor)
+	// At lowpop, we are a proxy for assistant; we will count towards an
+	// assistant slot rather than the job's normal slot and will get full access
+	// to service.
+	min_pop_redirect = /datum/job/assistant
 
 /datum/outfit/job/janitor
 	name = JOB_NAME_JANITOR

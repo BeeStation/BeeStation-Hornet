@@ -1,9 +1,9 @@
 
-// At what point do we start enabling more specific jobs in the service
-// department?
-#define MINPOP_JOB_LIMIT 5
+// At what point do we enable all specific jobs, including heads of
+// staff, service roles and specific department roles.
+#define MINPOP_JOB_LIMIT 8
 // What do we consider a lowpop roundstart population for the sake
-// of enabling heads of staff
+// of additional access rqeuirements.
 #define LOWPOP_JOB_LIMIT 12
 
 #define JOB_AVAILABLE 0

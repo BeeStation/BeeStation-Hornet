@@ -7,7 +7,6 @@
 	faction = "Station"
 	total_positions = 2
 	selection_color = "#bbe291"
-	min_pop = MINPOP_JOB_LIMIT
 	var/cooks = 0 //Counts cooks amount
 
 	outfit = /datum/outfit/job/cook
@@ -29,6 +28,10 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/kitchen, /area/medical/morgue)
 	lightup_areas = list(/area/hydroponics)
+	// At lowpop, we are a proxy for assistant; we will count towards an
+	// assistant slot rather than the job's normal slot and will get full access
+	// to service.
+	min_pop_redirect = /datum/job/assistant
 
 /datum/outfit/job/cook
 	name = JOB_NAME_COOK
