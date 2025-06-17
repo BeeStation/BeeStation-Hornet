@@ -119,7 +119,7 @@
 	icon_state = "fangs"
 	force = 5
 	spread = 2
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	gun_suitable = FALSE
 	added_description = "<span class='info'>Iron Fangs have been attached to it, making it dangerous in melee combat.</span>"
@@ -130,7 +130,7 @@
 	icon_state = "fangs_bone"
 	force = 7
 	spread = 3
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	bleed_force = BLEED_SCRATCH
 	gun_suitable = FALSE
 	added_description = "<span class='info'>Bone fangs have been attached to it, making it dangerous in melee combat.</span>"

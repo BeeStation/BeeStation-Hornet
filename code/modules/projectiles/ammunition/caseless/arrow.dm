@@ -77,7 +77,7 @@ COOLDOWN_DECLARE(Burning_arrow)
 			return TRUE
 
 	//Give the arrow a bottle to splash reagents on the target hit by the arrow
-	else if(istype(I, /obj/item/reagent_containers/food/drinks) || istype(I, /obj/item/reagent_containers/glass/bottle))
+	else if(istype(I, /obj/item/reagent_containers/cup/glass))
 		if(do_after(user, 1 SECONDS, I))
 			user.show_message("<span class='notice'>You attach \the [I.name] to the shaft.</span>", MSG_VISUAL)
 			update_arrow_state(BOTTLE_TIP, I)

@@ -16,7 +16,7 @@
 	casing_ejector = FALSE
 	internal_magazine = TRUE
 	has_weapon_slowdown = FALSE
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	bleed_force = 0
 	pin = null
 	no_pin_required = TRUE

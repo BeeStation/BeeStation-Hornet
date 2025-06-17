@@ -18,7 +18,7 @@
 		var/obj/item/bodypart/B = C.get_bodypart(def_zone)
 		if(obj_arrow.tryEmbed(B))
 			if(reagents) //if we embed successfully, inject all of our reagents
-				reagents.reaction(C, INJECT, reagents.total_volume)
+				reagents.handle_reactions(C, INJECT, reagents.total_volume)
 				reagents.trans_to(C, reagents.total_volume)
 		if(burning)
 			var/mob/living/carbon/M = target
@@ -26,7 +26,7 @@
 			M.IgniteMob()
 
 	if(reagents?.total_volume)//In case we didn't inject, reagents will splash out here
-		reagents.reaction(target, TOUCH, reagents.total_volume)
+		reagents.handle_reactions(target, TOUCH, reagents.total_volume)  /// this was 	reagents.reaction(target, TOUCH, reagents.total_volume)
 		visible_message("<span class='notice'>[src] spills its contents all over [target].</span>")
 
 	if (isanimal(target)) //Arrows are very effective against simplemobs

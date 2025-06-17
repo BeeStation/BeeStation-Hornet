@@ -23,7 +23,7 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/snow)
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new/datum/stack_recipe_list("weapon crafting", list( \
-		new/datum/stack_recipe("pvc bow",	/obj/item/gun/ballistic/bow/pvc/stringless, 2, time = 1.5 SECONDS, category = CAT_WEAPONS),\
+		new/datum/stack_recipe("pvc bow",	/obj/item/gun/ballistic/bow/pvc/stringless, 2, time = 1.5 SECONDS, category = CAT_WEAPON_RANGED),\
 		)), \
 	new /datum/stack_recipe("plastic chair", /obj/structure/chair/fancy/plastic, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 2 SECONDS, category = CAT_FURNITURE), \
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 4 SECONDS, category = CAT_FURNITURE), \

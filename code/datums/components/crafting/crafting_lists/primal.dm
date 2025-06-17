@@ -134,7 +134,7 @@
 	result = /obj/item/match/firebrand
 	time = 10 SECONDS //Long construction time. Making fire is hard work.
 	reqs = list(/obj/item/stack/sheet/wood = 2)
-	category = CAT_PRIMAL
+	category = CAT_TOOLS
 
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"

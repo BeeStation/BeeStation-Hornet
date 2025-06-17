@@ -65,8 +65,8 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/bone)
 
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
-	new/datum/stack_recipe("sinew string",								/obj/item/weaponcrafting/attachment/primary/sinewstring, 1, time = 1 SECONDS, crafting_flags = NONE, category = CAT_EQUIPMENT)), \
-	new/datum/stack_recipe("sinew restraints",							/obj/item/restraints/handcuffs/cable/sinew, 1, crafting_flags = NONE, category = CAT_EQUIPMENT), \
+	new/datum/stack_recipe("sinew string", /obj/item/weaponcrafting/attachment/primary/sinewstring, 1, time = 1 SECONDS, crafting_flags = NONE, category = CAT_EQUIPMENT), \
+	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/cable/sinew, 1, crafting_flags = NONE, category = CAT_EQUIPMENT), \
 ))
 
 /obj/item/stack/sheet/sinew/get_recipes()
