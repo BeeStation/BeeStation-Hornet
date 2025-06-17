@@ -62521,7 +62521,6 @@
 /turf/closed/wall,
 /area/quartermaster/qm_bedroom)
 "mQK" = (
-/obj/machinery/lapvend,
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "mQO" = (

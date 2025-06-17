@@ -24950,7 +24950,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "geJ" = (
-/obj/machinery/lapvend,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/ue_no{
 	pixel_x = -32

@@ -8,8 +8,8 @@
 	program_state = PROGRAM_STATE_BACKGROUND
 	extended_desc = "This program allows old-school communication with other modular devices."
 	size = 0
-	undeletable = FALSE // It comes by default in tablets, can't be downloaded, takes no space and is now able to be deleted and transfered. Let players make mistakes.
-	available_on_ntnet = FALSE
+	undeletable = FALSE // It comes by default in tablets. takes no space and is now able to be deleted and transfered. Let players make mistakes.
+	available_on_ntnet = TRUE
 	usage_flags = PROGRAM_PDA
 	ui_header = "ntnrc_idle.gif"
 	tgui_id = "NtosMessenger"
