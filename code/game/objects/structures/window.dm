@@ -47,6 +47,9 @@
 	icon_state = "window_corner"
 	density = FALSE
 
+/obj/structure/window/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	if(reinf)
@@ -140,7 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if(.)
 		return
 
-	if(density)
+	if(!density)
 		return TRUE
 
 	if(fulltile)
@@ -456,6 +459,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "rwindow_corner"
 	density = FALSE
 
+/obj/structure/window/reinforced/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/plasma
 	name = "plasma window"
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
@@ -505,6 +511,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "plasmawindow_corner"
 	density = FALSE
 
+/obj/structure/window/plasma/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/plasma/reinforced
 	name = "reinforced plasma window"
 	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
@@ -540,10 +549,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	icon_state = "plasmarwindow_corner"
 	density = FALSE
 
+/obj/structure/window/plasma/reinforced/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow" //what what, hon hon
 	opacity = TRUE
+
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "twindow"
@@ -585,9 +598,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/depleteduranium/unanchored
 	anchored = FALSE
 
-/obj/structure/window/depleteduranium/unanchored/corner
+/obj/structure/window/depleteduranium/corner
 	icon_state = "duwindow_corner"
 	density = FALSE
+
+/obj/structure/window/depleteduranium/corner/unanchored
+	anchored = FALSE
 
 /* Full Tile Windows (more atom_integrity) */
 
@@ -874,4 +890,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	glass_amount = 2
 
 /obj/structure/window/bronze/fulltile/unanchored
+	anchored = FALSE
+
+/obj/structure/window/bronze/corner
+	icon_state = "clockwork_window_single_corner"
+	density = FALSE
+
+/obj/structure/window/bronze/corner/unanchored
 	anchored = FALSE

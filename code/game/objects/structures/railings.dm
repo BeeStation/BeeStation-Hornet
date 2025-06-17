@@ -143,7 +143,7 @@
 	name = "checkpoint railing"
 	desc = "A security wall used in checkpoints. It is just small enough that you can climb over..."
 	icon_state = "railing_sec"
-	layer = ABOVE_MOB_LAYER+0.1
+	layer = ABOVE_MOB_LAYER
 
 /obj/structure/railing/sec/corner
 	icon_state = "railing_corner"
@@ -153,23 +153,23 @@
 /obj/structure/railing/perspective
 	name = "railing"
 	icon_state = "railing_gray"
-	layer = LOW_OBJ_LAYER+0.1
+	layer = LOW_OBJ_LAYER
 
 /obj/structure/railing/perspective/Initialize()
 	. = ..()
 	update_perspective()
 
 /obj/structure/railing/perspective/proc/update_perspective()
-	layer = LOW_OBJ_LAYER+0.1
+	layer = LOW_OBJ_LAYER
 	cut_overlays()
 	if(!climbable) //janky way of distinguishing corners from everything else
-		if(dir == WEST || dir == SOUTH)
-			layer = ABOVE_MOB_LAYER+0.1
+		if(pixel_y <= -16 || dir == WEST || dir == SOUTH) //pixel_y for when a mapper wants to pixelshift them to look cool
+			layer = ABOVE_MOB_LAYER
 	else
 		var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER+0.1)
 		switch(blocking_dir)
 			if(SOUTH)
-				layer = ABOVE_MOB_LAYER+0.1
+				layer = ABOVE_MOB_LAYER
 			if(EAST,NORTHEAST)
 				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = EAST))
 			if(WEST,NORTHWEST)
@@ -219,6 +219,7 @@
 /obj/structure/railing/perspective/black/corner
 	icon_state = "railing_black_corner"
 	density = FALSE
+	climbable = FALSE
 	diagonals_possible = FALSE
 
 /obj/structure/railing/perspective/black/end
