@@ -197,4 +197,5 @@
 	pixel_x = -32
 	pixel_y = -16
 	plane = FLOOR_PLANE
+	anchored = FALSE
 	deconstructible = FALSE

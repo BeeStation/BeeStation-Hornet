@@ -122,18 +122,18 @@
 			layer = ABOVE_MOB_LAYER
 	else
 		var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER)
-		switch(blocking_dir)
+		switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
 			if(SOUTH)
 				layer = ABOVE_MOB_LAYER
 			if(EAST,NORTHEAST)
 				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = EAST))
 			if(WEST,NORTHWEST)
 				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = WEST))
-			if(SOUTHEAST, 7)
+			if(SOUTHEAST, NORTH|SOUTH|EAST)
 				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHEAST))
-			if(SOUTHWEST, 11)
+			if(SOUTHWEST, NORTH|SOUTH|WEST)
 				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHWEST))
-			if(13, 14)
+			if(SOUTH|WEST|EAST, NORTH|WEST|EAST)
 				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray_end", dir = SOUTH))
 		if(overlay.filters.len)
 			add_overlay(overlay)

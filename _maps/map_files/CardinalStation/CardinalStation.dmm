@@ -2166,14 +2166,6 @@
 /obj/structure/bookcase/manuals/research_and_development,
 /turf/open/floor/wood,
 /area/library/lounge)
-"ayQ" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/fluff/rug{
-	pixel_y = -16;
-	pixel_x = -32
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
 "ayS" = (
 /obj/machinery/firealarm{
 	pixel_x = -28;
@@ -26510,18 +26502,31 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "fwP" = (
-/obj/effect/turf_decal/siding{
-	color = "#535c5b";
+/obj/structure/railing/perspective/black{
+	pixel_y = 23
+	},
+/obj/effect/turf_decal/edges/borderfloor/black{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/item/reagent_containers/cup/soda_cans/thirteenloko{
-	pixel_y = 63;
-	pixel_x = -7
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron/smooth_edge{
-	dir = 8
+	dir = 1
 	},
-/area/hallway/secondary/command)
+/area/hallway/primary/port)
 "fwY" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/libraryscanner,
@@ -47671,8 +47676,8 @@
 /area/quartermaster/storage)
 "jJc" = (
 /obj/structure/fluff/rug{
-	pixel_y = -19;
-	pixel_x = -24
+	pixel_y = -18;
+	pixel_x = -19
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -88574,31 +88579,18 @@
 	},
 /area/hallway/primary/central)
 "rYh" = (
-/obj/structure/railing/perspective/black{
-	pixel_y = 23
-	},
-/obj/effect/turf_decal/edges/borderfloor/black{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+/obj/effect/turf_decal/siding{
+	color = "#535c5b";
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/item/reagent_containers/cup/soda_cans/thirteenloko{
+	pixel_y = 63;
+	pixel_x = -7
 	},
 /turf/open/floor/iron/smooth_edge{
-	dir = 1
+	dir = 8
 	},
-/area/hallway/primary/port)
+/area/hallway/secondary/command)
 "rYo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -136338,7 +136330,7 @@ rPp
 bnw
 ksh
 dCy
-fwP
+rYh
 lqN
 kit
 ksh
@@ -141227,7 +141219,7 @@ waW
 jJF
 oHy
 aZZ
-rYh
+fwP
 xws
 aXq
 aXq
@@ -155360,7 +155352,7 @@ eMZ
 eMZ
 czN
 vFO
-ayQ
+djs
 djs
 mPu
 pnT
