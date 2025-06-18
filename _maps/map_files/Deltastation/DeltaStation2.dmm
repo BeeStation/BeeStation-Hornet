@@ -1881,13 +1881,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/vacant_room/office)
-"aod" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/vending/cigarette,
-/turf/open/floor/prison,
-/area/security/prison)
 "aok" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -9684,13 +9677,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"bml" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/machinery/vending/cola/black,
-/turf/open/floor/prison,
-/area/security/prison)
 "bmv" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -31331,7 +31317,9 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "elA" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/west{
+	dir = 4
+	},
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
@@ -37154,6 +37142,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/machinery/vending/snack/green,
 /turf/open/floor/prison,
 /area/security/prison)
 "fXH" = (
@@ -70162,6 +70151,8 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/item/kirbyplants/random,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "qAQ" = (
@@ -70542,6 +70533,10 @@
 "qHA" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -82872,6 +82867,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/north,
+/obj/machinery/vending/cola/black,
 /turf/open/floor/prison,
 /area/security/prison)
 "uBf" = (
@@ -92226,7 +92222,6 @@
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "xvt" = (
-/obj/item/kirbyplants/random,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -92236,7 +92231,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/vending/cigarette,
 /turf/open/floor/prison,
 /area/security/prison)
 "xvv" = (
@@ -93457,10 +93452,6 @@
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "xNk" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -94732,7 +94723,6 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/south,
-/obj/machinery/vending/snack/green,
 /turf/open/floor/prison,
 /area/security/prison)
 "ygX" = (
@@ -143488,7 +143478,7 @@ tuM
 xvt
 xEk
 tYL
-aod
+tYL
 jep
 aFm
 qmr
@@ -144001,7 +143991,7 @@ aFm
 aFm
 qAO
 nZc
-bml
+jWY
 aFm
 aFm
 aKV
