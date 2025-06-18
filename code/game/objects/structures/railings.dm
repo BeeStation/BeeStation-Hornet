@@ -155,7 +155,7 @@
 	icon_state = "railing_gray"
 	layer = LOW_OBJ_LAYER
 
-/obj/structure/railing/perspective/Initialize()
+/obj/structure/railing/perspective/Initialize(mapload)
 	. = ..()
 	update_perspective()
 
