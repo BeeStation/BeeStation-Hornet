@@ -1,7 +1,0 @@
-author: BriggsIDP
-delete-after: true
-changes:
-  - rscadd: You can now walk though any tree, but with a short slow down
-  - tweak: updated some open turf thermal code, so heating and cooling should be a
-      bit slower
-  - tweak: removed radio from random parrots
