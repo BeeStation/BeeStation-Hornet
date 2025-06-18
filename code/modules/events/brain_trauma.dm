@@ -13,7 +13,7 @@
 			continue
 		if(H.stat == DEAD) // What are you doing in this list
 			continue
-		if(!H.getorgan(/obj/item/organ/brain)) // If only I had a brain
+		if(!H.get_organ_by_type(/obj/item/organ/brain)) // If only I had a brain
 			continue
 
 		traumatize(H)

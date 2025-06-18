@@ -10,11 +10,22 @@
 	id = SPECIES_SHADOWPERSON
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
-	species_traits = list(NOBLOOD,NOEYESPRITES,NOFLASH)
-	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH)
+	species_traits = list(
+		NOEYESPRITES,
+		NOFLASH
+	)
+	inherent_traits = list(
+		TRAIT_NOBREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NOBLOOD,
+	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	mutanteyes = /obj/item/organ/eyes/night_vision
+	mutantheart = null
+	mutantlungs = null
+
 	species_language_holder = /datum/language_holder/shadowpeople
 
 	species_chest = /obj/item/bodypart/chest/shadow
@@ -33,7 +44,7 @@
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			H.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
+			H.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -42,7 +53,7 @@
 
 /datum/species/shadow/get_species_description()
 	return "Victims of a long extinct space alien. Their flesh is a sickly \
-		seethrough filament, their tangled insides in clear view. Their form \
+		see-through filament, their tangled insides in clear view. Their form \
 		is a mockery of life, leaving them mostly unable to work with others under \
 		normal circumstances."
 
@@ -94,7 +105,13 @@
 	id = "nightmare"
 	burnmod = 1.5
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NO_DNA_COPY,NOTRANSSTING,NOEYESPRITES,NOFLASH)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NO_DNA_COPY,
+		NOTRANSSTING,
+		NOEYESPRITES,
+		NOFLASH
+	)
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
@@ -105,7 +122,8 @@
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NOHUNGER
+		TRAIT_NOHUNGER,
+		TRAIT_NOBLOOD,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -140,22 +158,21 @@
 	name = "tumorous mass"
 	desc = "A fleshy growth that was dug out of the skull of a Nightmare."
 	icon_state = "brain-x-d"
-	var/datum/action/spell/jaunt/shadow_walk/shadowwalk
+	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
 
-/obj/item/organ/brain/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/brain/nightmare/on_insert(mob/living/carbon/brain_owner)
 	..()
-	if(M.dna.species.id != "nightmare")
-		M.set_species(/datum/species/shadow/nightmare)
-		visible_message(span_warning("[M] thrashes as [src] takes root in [M.p_their()] body!"))
-	shadowwalk = new /datum/action/spell/jaunt/shadow_walk
-	shadowwalk.Grant(M)
+	if(brain_owner.dna.species.id != SPECIES_NIGHTMARE)
+		brain_owner.set_species(/datum/species/shadow/nightmare)
+		visible_message(span_warning("[brain_owner] thrashes as [src] takes root in [brain_owner.p_their()] body!"))
+
+	our_jaunt = new(brain_owner)
+	our_jaunt.Grant(brain_owner)
 
 
-/obj/item/organ/brain/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	if(shadowwalk)
-		shadowwalk.Remove(M)
-	..()
-
+/obj/item/organ/brain/nightmare/on_remove(mob/living/carbon/brain_owner)
+	QDEL_NULL(our_jaunt)
+	return ..()
 
 /obj/item/organ/heart/nightmare
 	name = "heart of darkness"
@@ -182,18 +199,18 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	Insert(user)
 
-/obj/item/organ/heart/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/nightmare/on_insert(mob/living/carbon/heart_owner, special)
+	. = ..()
 	if(special != HEART_SPECIAL_SHADOWIFY)
 		blade = new/obj/item/light_eater
-		M.put_in_hands(blade)
+		heart_owner.put_in_hands(blade)
 
-/obj/item/organ/heart/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/nightmare/on_remove(mob/living/carbon/heart_owner, special)
+	. = ..()
 	respawn_progress = 0
 	if(blade && special != HEART_SPECIAL_SHADOWIFY)
-		M.visible_message(span_warning("\The [blade] disintegrates!"))
+		heart_owner.visible_message(span_warning("\The [blade] disintegrates!"))
 		QDEL_NULL(blade)
-	..()
 
 /obj/item/organ/heart/nightmare/Stop()
 	return 0
@@ -353,4 +370,242 @@
 	..()
 
 #undef HEART_SPECIAL_SHADOWIFY
+
+
+// Shadow sect section
+#define SHADOW_CONVERSION_TRESHOLD 60 // Used for people changing into shadowpeople because of hearts
+
+/datum/species/shadow/blessed // Shadow person subsiecies with interacts with shadow sect
+	id = "shadow_blessed"
+	var/sect_rituals_completed = 0 // only important if shadow sect is at play, this is a way to check what level of rituals it completed. Used by shadow hearts
+
+
+/datum/species/shadow/blessed/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	var/turf/T = H.loc
+	if(istype(T))
+		var/light_amount = T.get_lumcount()
+
+		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
+			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
+			if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+				H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
+			if(sect_rituals_completed >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
+				H.nutrition += 2 * delta_time
+			H.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
+			if(sect_rituals_completed >= 2)
+				if(sect_rituals_completed == 3)
+					H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+
+
+/datum/species/shadow/blessed/check_roundstart_eligible()
+	return FALSE
+
+/datum/species/shadow/blessed/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	. = ..()
+	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
+		change_hearts_ritual(C)
+
+/datum/species/shadow/proc/change_hearts_ritual(mob/living/carbon/C) // This is supposed to be called only for shadow sect
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!isnightmare(C))
+		if(sect.grand_ritual_level == 1)
+			mutantheart = new/obj/item/organ/heart/shadow_ritual/first
+			mutantheart.Insert(C, 0, FALSE)
+		if(sect.grand_ritual_level == 2)
+			mutantheart = new/obj/item/organ/heart/shadow_ritual/second
+			mutantheart.Insert(C, 0, FALSE)
+		if(sect.grand_ritual_level == 3)
+			mutantheart = new/obj/item/organ/heart/shadow_ritual/third
+			mutantheart.Insert(C, 0, FALSE)
+
+/datum/species/shadow/blessed/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
+	var/turf/T = H.loc
+	if(istype(T))
+		if(prob(20) && sect_rituals_completed >= 2)
+			var/light_amount = T.get_lumcount()
+			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
+				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
+				playsound(T, "bullet_miss", 75, 1)
+				return BULLET_ACT_FORCE_PIERCE
+	return ..()
+
+/datum/movespeed_modifier/shadow_sect
+	multiplicative_slowdown = -0.15
+
+
+/obj/item/organ/heart/shadow_ritual // This parent should never appear itself
+	visual = TRUE
+	decay_factor = 0
+	var/shadow_conversion = 0 // Determines progress of transforming owner into shadow person
+	var/sect_rituals_completed_granted = 0 // What level of sect_rituals_completed the heart grants
+	var/datum/action/innate/shadow_comms/comms/C = new // For granting shadow comms
+
+/obj/item/organ/heart/shadow_ritual/first
+	name = "shadowed heart"
+	desc = "An object resembling a heart, completely shrouded by a thick layer of darkness."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "shadow_heart_1"
+	sect_rituals_completed_granted = 1
+
+/obj/item/organ/heart/shadow_ritual/second
+	name = "faded heart"
+	desc = "A hard to distinguish heart-like organ covered by a shifting darkness."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "shadow_heart_2"
+	sect_rituals_completed_granted = 2
+
+/obj/item/organ/heart/shadow_ritual/third
+	name = "pulsing darkness"
+	desc = "An indistinguishable object cloaked in an undispellable darkness. The only thing that can be made out is the darkness pulsing."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "shadow_heart_3"
+	var/respawn_progress = 0
+	sect_rituals_completed_granted = 3
+
+
+/obj/item/organ/heart/shadow_ritual/Stop()
+	return FALSE
+
+/obj/item/organ/heart/shadow_ritual/update_icon()
+	return
+
+/obj/item/organ/heart/shadow_ritual/on_insert(mob/living/carbon/heart_owner)
+	. = ..()
+	if(isblessedshadow(heart_owner))
+		var/mob/living/carbon/human/O = heart_owner
+		var/datum/species/shadow/blessed/S = O.dna.species
+		S.sect_rituals_completed = sect_rituals_completed_granted
+		C.Grant(heart_owner)
+	else
+		shadow_conversion = 0
+		to_chat(heart_owner, span_userdanger("You feel a chill spreading throughout your body..."))
+
+
+/obj/item/organ/heart/shadow_ritual/on_remove(mob/living/carbon/heart_owner)
+	. = ..()
+	if(isblessedshadow(heart_owner))
+		var/mob/living/carbon/human/O = heart_owner
+		var/datum/species/shadow/blessed/S = O.dna.species
+		S.sect_rituals_completed = 0
+		heart_owner.alpha = 255
+		C.Remove(heart_owner)
+		if(heart_owner.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+			heart_owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+	if(shadow_conversion != 0)
+		to_chat(heart_owner, span_bigboldinfo("You feel warmth returning to you once more."))
+		shadow_conversion = 0
+
+/obj/item/organ/heart/shadow_ritual/third/on_remove(mob/living/carbon/heart_owner)
+	..()
+	respawn_progress = 0
+
+/obj/item/organ/heart/shadow_ritual/on_life(delta_time, times_fired)
+	..()
+	if(!isshadow(owner))
+		shadow_conversion += 1
+		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
+			shadow_conversion = 0
+			to_chat(owner, span_userdanger("You feel the shadows invade your skin, leaping from the center of your chest!"))
+			var/mob/living/carbon/old_owner = owner
+			old_owner.set_species(/datum/species/shadow/blessed)
+		else
+			var/random_mesage = rand(0,90)
+			if(random_mesage == 0)
+				to_chat(owner, span_warning("Dark spots appear all over your skin."))
+			if(random_mesage == 1)
+				to_chat(owner, span_warning("Bright lights seem really unpleasant."))
+			if(random_mesage == 2)
+				to_chat(owner, span_warning("The chill isn't going away."))
+			if(random_mesage == 4)
+				to_chat(owner, span_warning("You feel like you should rest in a dark place."))
+	else if(!isblessedshadow(owner) && !isnightmare(owner))
+		to_chat(owner, span_userdanger("You feel closer to shadows surrounding you."))
+		var/mob/living/carbon/old_owner = owner
+		old_owner.set_species(/datum/species/shadow/blessed)
+
+
+/obj/item/organ/heart/shadow_ritual/third/on_death(delta_time)
+	if(!owner)
+		return
+	var/turf/T = get_turf(owner)
+	if(istype(T))
+		var/light_amount = T.get_lumcount()
+		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
+			respawn_progress += 0.75 * delta_time SECONDS
+			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
+	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
+		owner.revive(full_heal = TRUE)
+		if(!isshadow(owner))
+			var/mob/living/carbon/old_owner = owner
+			old_owner.set_species(/datum/species/shadow/blessed)
+			to_chat(owner, span_userdanger("You feel the shadows invade your skin, leaping from the center of your chest! You're alive!"))
+			SEND_SOUND(owner, sound('sound/effects/ghost.ogg'))
+		owner.visible_message(span_warning("[owner] staggers to [owner.p_their()] feet!"))
+		playsound(owner, 'sound/hallucinations/far_noise.ogg', 50, 1)
+		respawn_progress = 0
+
+
 #undef HEART_RESPAWN_THRESHOLD
+
+
+// Shadow comms, copied from cult
+
+/datum/action/innate/shadow_comms
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	background_icon_state = "bg_default"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+
+/datum/action/innate/shadow_comms/is_available()
+	if(!isblessedshadow(owner))
+		return FALSE
+	var/mob/living/carbon/human/O = owner
+	var/datum/species/shadow/blessed/S = O.dna.species
+	if(S.sect_rituals_completed == 0)
+		return FALSE
+	return ..()
+
+/datum/action/innate/shadow_comms/comms
+	name = "Whisper"
+	desc = "Talk to other shadowpeople using shadows."
+	button_icon_state = "commune"
+	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/shadow_comms/comms/on_activate()
+	var/input = tgui_input_text(usr, "Please choose a message to tell to the shadows.", "Voice of Shadows", "")
+	if(!input || !is_available())
+		return
+	if(CHAT_FILTER_CHECK(input))
+		to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
+		return
+	shadow_commune(usr, input)
+
+/datum/action/innate/shadow_comms/comms/proc/shadow_commune(mob/living/user, message)
+	var/my_message
+	if(!message)
+		return
+	var/title = "Shadow"
+	var/span = "average"
+	if(user.mind && user.mind.holy_role > 1)
+		span = "big bold"
+		title = "Darkest shadow"
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, span_warning("Your message contains forbidden words."))
+		return
+	message = user.treat_message_min(message)
+	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
+	for(var/i in GLOB.player_list)
+		var/mob/M = i
+		if(isblessedshadow(M))
+			var/mob/living/carbon/human/O = M
+			var/datum/species/shadow/blessed/S = O.dna.species
+			if(S.sect_rituals_completed != 0)
+				to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
+		else if(M in GLOB.dead_mob_list)
+			var/link = FOLLOW_LINK(M, user)
+			to_chat(M, "[link] [my_message]", type = MESSAGE_TYPE_RADIO)
+
+	user.log_talk(message, LOG_SAY, tag="shadow sect")
+
+
+#undef SHADOW_CONVERSION_TRESHOLD
