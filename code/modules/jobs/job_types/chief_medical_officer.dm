@@ -15,6 +15,7 @@
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/chief_medical_officer
 

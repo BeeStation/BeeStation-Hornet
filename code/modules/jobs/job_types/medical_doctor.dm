@@ -41,11 +41,9 @@
 
 /datum/job/medical_doctor/get_access()
 	. = ..()
-	if (SSjob.is_job_empty(JOB_NAME_CHEMIST))
-		. |= ACCESS_CHEMISTRY
-	if (SSjob.is_job_empty(JOB_NAME_GENETICIST))
-		. |= ACCESS_GENETICS
-	if (SSjob.is_job_empty(JOB_NAME_CHIEFMEDICALOFFICER) && SSjob.initial_players_to_assign < 14)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_CHEMIST, ACCESS_CHEMISTRY)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_GENETICIST, ACCESS_GENETICS)
+	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
 		. |= ACCESS_CMO
 
 /datum/outfit/job/medical_doctor

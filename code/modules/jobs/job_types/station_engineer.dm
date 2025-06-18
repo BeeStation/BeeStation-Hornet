@@ -31,9 +31,8 @@
 
 /datum/job/station_engineer/get_access()
 	. = ..()
-	if (SSjob.is_job_empty(JOB_NAME_ATMOSPHERICTECHNICIAN))
-		. |= ACCESS_ATMOSPHERICS
-	if (SSjob.is_job_empty(JOB_NAME_CHIEFENGINEER) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_ATMOSPHERICTECHNICIAN, ACCESS_ATMOSPHERICS)
+	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
 		. |= ACCESS_CE
 
 /datum/outfit/job/engineer

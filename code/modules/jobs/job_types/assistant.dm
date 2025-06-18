@@ -7,7 +7,7 @@ Assistant
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	supervisors = "absolutely everyone"
 	faction = "Station"
-	total_positions = 5
+	total_positions = -1
 	selection_color = "#dddddd"
 	antag_rep = 7
 	min_pop = 0
@@ -35,7 +35,7 @@ Assistant
 
 /datum/job/assistant/get_spawn_position_count()
 	// Outside of minpop, there are infinite assistants
-	if (SSjob.initial_players_to_assign > MINPOP_JOB_LIMIT)
+	if (SSjob.initial_players_to_assign >= MINPOP_JOB_LIMIT)
 		return -1
 	return ..()
 
@@ -45,18 +45,12 @@ Assistant
 		. |= ACCESS_MAINT_TUNNELS
 	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
 		. |= list(ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_AUX_BASE)
-	if (SSjob.is_job_empty(JOB_NAME_BARTENDER) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_BAR
-	if (SSjob.is_job_empty(JOB_NAME_JANITOR) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_JANITOR
-	if (SSjob.is_job_empty(JOB_NAME_COOK) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_KITCHEN
-	if (SSjob.is_job_empty(JOB_NAME_BOTANIST) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_HYDROPONICS
-	if (SSjob.is_job_empty(JOB_NAME_CLOWN) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_THEATRE
-	if (SSjob.is_job_empty(JOB_NAME_CURATOR) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_LIBRARY
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BARTENDER, ACCESS_BAR)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BARTENDER, ACCESS_JANITOR)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_COOK, ACCESS_KITCHEN)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BOTANIST, ACCESS_HYDROPONICS)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_CLOWN, ACCESS_THEATRE)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_CURATOR, ACCESS_LIBRARY)
 
 /datum/outfit/job/assistant
 	name = JOB_NAME_ASSISTANT

@@ -42,17 +42,15 @@
 
 /datum/job/security_officer/get_access()
 	. = ..()
+	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_FORENSICS_LOCKERS)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_MORGUE)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BRIGPHYSICIAN, ACCESS_BRIGPHYS)
 	if(check_config_for_sec_maint())
 		. |= ACCESS_MAINT_TUNNELS
 	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
 		. |= ACCESS_MAINT_TUNNELS
-	if (SSjob.is_job_empty(JOB_NAME_DETECTIVE) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_FORENSICS_LOCKERS
-		. |= ACCESS_MORGUE
-	if (SSjob.is_job_empty(JOB_NAME_WARDEN) && SSjob.is_job_empty(JOB_NAME_HEADOFSECURITY) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+	if (SSjob.is_job_empty(JOB_NAME_WARDEN) && SSjob.is_job_empty(JOB_NAME_HEADOFSECURITY) && SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
 		. |= ACCESS_ARMORY
-	if (SSjob.is_job_empty(JOB_NAME_BRIGPHYSICIAN) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_BRIGPHYS
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
