@@ -156,7 +156,7 @@
 		to_chat(src, span_userdanger("You are not being nourished by the vines and are withering away! Stay in the vines!"))
 	withering = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
-	adjustHealth(maxHealth*0.05)
+	adjustHealth(maxHealth*0.10)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
@@ -189,7 +189,7 @@
 	vines += newVine
 	if(isliving(the_target))
 		var/mob/living/L = the_target
-		L.Paralyze(20)
+		L.Knockdown(10)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 /mob/living/simple_animal/hostile/venus_human_trap/Destroy()
