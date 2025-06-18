@@ -854,9 +854,8 @@
 	var/obj/effect/particle_effect/foam/foam = locate() in location
 	var/obj/structure/foamedmetal/resin = locate() in location
 	if(heat_efficiency > HALON_COMBUSTION_MINIMUM_RESIN_MOLES && isopenturf(location) && !foam && !resin) // Don't resin if there is aleady resin or we are not in an open turf.
-		// TODO: hallucinations (not really just make this HALON FOAM)
-		var/datum/effect_system/foam_spread/foam_effect = new
-		foam_effect.set_up(HALON_COMBUSTION_RESIN_VOLUME, location, holder)
+		var/datum/effect_system/foam_spread/metal/halon/foam_effect = new
+		foam_effect.set_up(HALON_COMBUSTION_RESIN_VOLUME, location)
 		foam_effect.start()
 
 	return REACTING
