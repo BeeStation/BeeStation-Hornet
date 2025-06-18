@@ -82,7 +82,7 @@
 		if(!seen_by_sm.mind)
 			continue
 
-		if(HAS_TRAIT(seen_by_sm.mind, TRAIT_SUPERMATTER_SOOTHER))
+		if(HAS_MIND_TRAIT(seen_by_sm, TRAIT_SUPERMATTER_SOOTHER))
 			psy_coeff_diff = 0.05
 
 	// TODO: hallucinations

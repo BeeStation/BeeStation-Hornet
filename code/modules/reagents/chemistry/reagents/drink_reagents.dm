@@ -865,7 +865,7 @@
 	. = ..()
 	// Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
 	if(affected_mob.nutrition && (affected_mob.nutrition - 2 > 0))
-		if(affected_mob.mind && !HAS_TRAIT(affected_mob.mind, TRAIT_MEDICAL_METABOLISM))
+		if(!HAS_MIND_TRAIT(affected_mob, TRAIT_MEDICAL_METABOLISM))
 			affected_mob.adjust_nutrition(-2 * REM * delta_time)
 
 	affected_mob.adjustBruteLoss(-0.5 * REM * delta_time, updating_health = FALSE)

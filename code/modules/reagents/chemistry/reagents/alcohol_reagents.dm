@@ -823,14 +823,14 @@
 	. = ..()
 	if(HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
 		metabolization_rate = 0.8
-	if(affected_mob.mind && !HAS_TRAIT(affected_mob.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(!HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		beepsky = new()
 		affected_mob.gain_trauma(beepsky, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.Jitter(2)
-	if(affected_mob.mind && HAS_TRAIT(affected_mob.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
 		if(DT_PROB(10, delta_time))
 			new /datum/hallucination/items_other(affected_mob)
@@ -844,7 +844,7 @@
 	QDEL_NULL(beepsky)
 
 /datum/reagent/consumable/ethanol/beepsky_smash/overdose_start(mob/living/carbon/affected_mob)
-	if(affected_mob.mind && !HAS_TRAIT(affected_mob.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(!HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		affected_mob.gain_trauma(/datum/brain_trauma/mild/phobia/security, TRAUMA_RESILIENCE_BASIC)
 
 /datum/reagent/consumable/ethanol/irish_cream
@@ -1964,7 +1964,7 @@
 /datum/reagent/consumable/ethanol/quadruple_sec/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes
-	if(affected_mob.mind && HAS_TRAIT(affected_mob.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		affected_mob.heal_bodypart_damage(0.5 * REM * delta_time, 0.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjust_nutrition(-1 * REM * delta_time)
 		return UPDATE_MOB_HEALTH
@@ -1988,7 +1988,7 @@
 /datum/reagent/consumable/ethanol/quintuple_sec/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	//Securidrink in line with the Screwdriver for engineers or Nothing for mimes but STRONG..
-	if(affected_mob.mind && HAS_TRAIT(affected_mob.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjust_nutrition(-2 * REM * delta_time)
 		return UPDATE_MOB_HEALTH

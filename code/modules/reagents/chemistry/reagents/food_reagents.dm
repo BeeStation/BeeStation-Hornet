@@ -450,7 +450,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind && HAS_TRAIT(affected_mob.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 

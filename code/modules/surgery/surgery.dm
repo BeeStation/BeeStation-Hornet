@@ -48,14 +48,14 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
+	if(HAS_MIND_TRAIT(user, TRAIT_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else
 			return TRUE
 	//Grants the user innate access to all surgeries
 
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else if(!abductor_surgery_blacklist)
@@ -149,10 +149,10 @@
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
+	if(HAS_MIND_TRAIT(user, TRAIT_SURGEON))
 		return TRUE
 
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SURGEON))
 		if(!abductor_surgery_blacklist)
 			return TRUE
 	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
