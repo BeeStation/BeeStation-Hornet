@@ -88567,9 +88567,6 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
-"rYh" = (
-/turf/open/space/basic,
-/area/crew_quarters/toilet/restrooms)
 "rYo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -138344,8 +138341,8 @@ meV
 wlE
 xbR
 xbR
-rYh
-fwP
+xbR
+hyT
 nzj
 nzj
 hyT
