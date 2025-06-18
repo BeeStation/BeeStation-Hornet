@@ -631,13 +631,6 @@
 				span_danger("You shove [name]!"), null, COMBAT_MESSAGE_RANGE)
 		log_combat(attacker, src, "shoved", "disarm")
 
-
-/// Allows us to append additional disarm behavior, dependent on our species
-/// src is our attacker
-/mob/living/proc/disarm_aftereffect(mob/living/carbon/target)
-	return
-
-
 /** Handles exposing a mob to reagents.
   *
   * If the method is INGEST the mob tastes the reagents.

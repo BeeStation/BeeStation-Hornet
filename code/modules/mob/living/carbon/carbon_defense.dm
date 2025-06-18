@@ -271,7 +271,6 @@
 
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, src, get_combat_bodyzone(target))
 	target.disarm_effect(src)
-	disarm_aftereffect(target) //lets add additional behavior based on what mob is doing it
 
 /mob/living/carbon/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
 	for (var/obj/item/clothing/clothing in get_equipped_items())
