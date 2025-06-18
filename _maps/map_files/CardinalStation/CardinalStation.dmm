@@ -36717,8 +36717,7 @@
 	pixel_x = -3
 	},
 /obj/item/phone{
-	pixel_x = 7;
-	pixel_y = 0
+	pixel_x = 7
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
@@ -44828,8 +44827,7 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced{
-	color = "#c2bfa3";
-	pixel_y = -2
+	color = "#c2bfa3"
 	},
 /obj/item/phone{
 	pixel_x = -12;
@@ -48210,7 +48208,6 @@
 	pixel_y = 8
 	},
 /obj/item/storage/photo_album{
-	pixel_y = 0;
 	pixel_x = 5
 	},
 /obj/machinery/light/small/directional/south,
@@ -74519,8 +74516,7 @@
 "peh" = (
 /obj/structure/railing/perspective/black,
 /obj/structure/table/reinforced{
-	color = "#c2bfa3";
-	pixel_y = 1
+	color = "#c2bfa3"
 	},
 /obj/machinery/fax/bridge{
 	pixel_y = 9
@@ -75453,8 +75449,7 @@
 	dir = 9
 	},
 /obj/structure/table/reinforced{
-	color = "#c2bfa3";
-	pixel_y = -2
+	color = "#c2bfa3"
 	},
 /turf/open/floor/iron/smooth_corner,
 /area/bridge)
@@ -77288,7 +77283,6 @@
 	department = "Bridge";
 	departmentType = 5;
 	name = "Bridge RC";
-	pixel_y = 0;
 	pixel_x = 31
 	},
 /obj/structure/disposalpipe/trunk,
@@ -86438,8 +86432,7 @@
 	dir = 6
 	},
 /obj/structure/table/reinforced{
-	color = "#c2bfa3";
-	pixel_x = -3
+	color = "#c2bfa3"
 	},
 /obj/item/camera{
 	pixel_y = 5;
@@ -90233,7 +90226,6 @@
 	color = "#c2bfa3"
 	},
 /obj/item/toy/figure/botanist{
-	pixel_y = 0;
 	pixel_x = -1
 	},
 /obj/item/food/grown/flower/harebell{
