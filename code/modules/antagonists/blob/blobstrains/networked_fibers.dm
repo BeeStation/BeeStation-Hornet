@@ -1,7 +1,7 @@
 //does massive brute and burn damage, but can only expand manually
 /datum/blobstrain/reagent/networked_fibers
 	name = "Networked Fibers"
-	description = "will do high brute and burn damage and will generate resources quicker, but can only expand manually using the core or nodes."
+	description = "will do high brute and burn damage and will generate resources quicker, but can only expand manually."
 	shortdesc = "will do high brute and burn damage."
 	effectdesc = "will move your core when manually expanding near it."
 	analyzerdescdamage = "Does high brute and burn damage."
@@ -23,6 +23,7 @@
 			new_blob.forceMove(get_turf(possible_expander))
 			possible_expander.forceMove(chosen_turf)
 			possible_expander.setDir(get_dir(new_blob, possible_expander))
+			return
 	overmind.add_points(4)
 	qdel(new_blob)
 
