@@ -3,6 +3,7 @@
 	desc = "you should not be reading this"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "madeyoulook"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/search_history
 	name = "Captain's search history"

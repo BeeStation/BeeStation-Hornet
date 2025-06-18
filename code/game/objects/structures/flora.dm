@@ -196,7 +196,7 @@
 	icon = 'icons/obj/flora/bigplant.dmi'
 	icon_state = "bigplant1"
 	anchored = FALSE
-	layer = ABOVE_MOB_LAYER
+	layer = ABOVE_MOB_LAYER+0.1 //because railings
 	pixel_x = -17
 
 /obj/structure/flora/bigplant/Initialize(mapload)
