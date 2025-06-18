@@ -167,8 +167,8 @@
 	bullet_bounce_sound = 'sound/effects/splash.ogg'
 	footstep = FOOTSTEP_WATER
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	canSmoothWith = SMOOTH_GROUP_FLOOR_BEACH
-	smoothing_groups = list(SMOOTH_GROUP_FLOOR_BEACH)
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_FLOOR_GRASS)
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_FLOOR_GRASS)
 
 // pool.dm copy paste
 
@@ -284,6 +284,8 @@
 	icon_state = "water_deep"
 	name = "deep water"
 	density = 1 //no swimming
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_FLOOR_GRASS)
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_FLOOR_ICE, SMOOTH_GROUP_FLOOR_GRASS)
 
 /turf/open/floor/plating/ironsand
 	gender = PLURAL

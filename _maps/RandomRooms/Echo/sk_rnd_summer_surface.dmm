@@ -79,7 +79,7 @@
 /obj/structure/chair/stool/directional/west,
 /obj/effect/landmark/start/assistant,
 /obj/item/food/fishandchips,
-/turf/open/floor/plating/beach/water,
+/turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "bt" = (
 /obj/effect/turf_decal/caution/stand_clear{
@@ -525,7 +525,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/assistant,
-/turf/open/floor/plating/beach/water,
+/turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "hu" = (
 /obj/effect/turf_decal/evac/evac_big{
@@ -1421,7 +1421,7 @@
 /area/template_noop)
 "wl" = (
 /obj/structure/bonfire/prelit,
-/turf/open/floor/plating/beach/water,
+/turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -3216,7 +3216,7 @@
 "XT" = (
 /obj/effect/landmark/start/randommaint/vip,
 /obj/structure/chair/stool/directional/west,
-/turf/open/floor/plating/beach/water,
+/turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "XV" = (
 /obj/effect/turf_decal/stripes/line,
@@ -12404,8 +12404,8 @@ ni
 Lb
 ni
 Lb
-GP
-GP
+ni
+Ba
 Lu
 Ba
 Ba
@@ -12539,7 +12539,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 pW
 qX
 Ba
@@ -12674,7 +12674,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 Ba
 UY
 Ba
@@ -12809,7 +12809,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 ck
 Ba
 DR
@@ -12943,7 +12943,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 Lu
 Lu
 Ba
@@ -13077,7 +13077,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 Ba
 Ba
 xd
@@ -13211,7 +13211,7 @@ GP
 Ci
 GP
 GP
-GP
+Ba
 BY
 pW
 mk
@@ -13346,7 +13346,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 Ba
 Ba
 mk
@@ -13480,7 +13480,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 Ba
 DR
 xd
@@ -13614,7 +13614,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 Ba
 Ba
 xd
@@ -13748,7 +13748,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 By
 Ba
 mk
@@ -13882,7 +13882,7 @@ GP
 GP
 sN
 GP
-GP
+Ba
 Ku
 Ba
 Ba
@@ -14016,7 +14016,7 @@ GP
 GP
 GP
 GP
-GP
+Ba
 Ba
 kR
 ww
@@ -14150,7 +14150,7 @@ GP
 GP
 GP
 bo
-GP
+Ba
 Ba
 mk
 Lc
@@ -14551,7 +14551,7 @@ GP
 sQ
 GP
 GP
-GP
+Ba
 Ba
 Cg
 Ba
@@ -14684,7 +14684,7 @@ GP
 GP
 GP
 XO
-GP
+Ba
 pA
 Ba
 mk
