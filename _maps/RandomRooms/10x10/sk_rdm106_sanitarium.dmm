@@ -189,7 +189,6 @@
 /area/template_noop)
 "uS" = (
 /obj/structure/chair/office,
-/obj/effect/landmark/start/randommaint/psychiatrist,
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "yb" = (

@@ -142,7 +142,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "Z" = (
-/obj/effect/landmark/start/randommaint/magician,
 /turf/open/floor/wood,
 /area/template_noop)
 
