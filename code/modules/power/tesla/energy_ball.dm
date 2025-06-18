@@ -62,7 +62,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 
 	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
 
-	playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)
+	playsound(src, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)
 
 	pixel_x = 0
 	pixel_y = 0
@@ -70,10 +70,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	//Main one can zap
 	//Tesla only zaps if the tick usage isn't over the limit.
 	if(!TICK_CHECK)
-		tesla_zap(src, 7, TESLA_DEFAULT_ENERGY, ZAP_TESLA_LARGE_FLAGS)
+		tesla_zap(src, 7, TESLA_DEFAULT_ENERGY, zap_flags = ZAP_TESLA_LARGE_FLAGS)
 	else
 		//Weaker, less intensive zap
-		tesla_zap(src, 4, TESLA_DEFAULT_ENERGY, ZAP_TESLA_SMALL_FLAGS)
+		tesla_zap(src, 4, TESLA_DEFAULT_ENERGY, zap_flags = ZAP_TESLA_SMALL_FLAGS)
 		pixel_x = -32
 		pixel_y = -32
 		return
@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 			return
 		var/range = rand(1, clamp(length(orbiting_balls), 3, 7))
 		// Miniballs don't explode.
-		tesla_zap(ball, range, TESLA_MINI_ENERGY / 7 * range, ZAP_TESLA_SMALL_FLAGS)
+		tesla_zap(ball, range, TESLA_MINI_ENERGY / 7 * range, zap_flags = ZAP_TESLA_SMALL_FLAGS)
 
 /obj/anomaly/energy_ball/examine(mob/user)
 	. = ..()

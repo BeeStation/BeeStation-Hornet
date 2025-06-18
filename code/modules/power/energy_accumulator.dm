@@ -63,9 +63,6 @@
 		return TRUE
 	return FALSE
 
-//obj/machinery/power/energy_accumulator/should_have_node()
-//	return wants_powernet && anchored
-
 /obj/machinery/power/energy_accumulator/set_anchored(anchorvalue)
 	. = ..()
 	if(isnull(.))

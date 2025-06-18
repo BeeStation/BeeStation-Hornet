@@ -117,7 +117,13 @@
 	add_load(power)
 
 	playsound(src, 'sound/magic/lightningshock.ogg', zap_sound_volume, TRUE, zap_sound_range)
-	tesla_zap(source = src, zap_range = 10, power = power, cutoff = 1e3, zap_flags = zap_flags)
+	tesla_zap(
+		source = src,
+		zap_range = 10,
+		power = power,
+		cutoff = 1e3,
+		zap_flags = zap_flags
+	)
 	zap_buckle_check(power)
 
 // Tesla R&D researcher
@@ -232,7 +238,7 @@
 		stored_energy += energy
 		return 0
 	else
-		. = ..()
+		return ..()
 
 /obj/machinery/power/energy_accumulator/grounding_rod/release_energy(joules = 0)
 	stored_energy -= joules
