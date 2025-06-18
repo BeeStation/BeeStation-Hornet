@@ -16,7 +16,7 @@
 	if(!.)
 		return
 	for(var/mob/living/carbon/M in focus)
-		var/obj/item/organ/O = M.getorganslot(target_organ_slot)
+		var/obj/item/organ/O = M.get_organ_slot(target_organ_slot)
 		O?.Remove(M)
 		O?.forceMove(get_turf(component_parent.parent))
 	dump_targets()

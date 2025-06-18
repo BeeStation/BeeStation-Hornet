@@ -78,10 +78,10 @@
 				H.Paralyze(100)
 				H.visible_message(span_warning("[H] writhes in pain as [H.p_their()] vacuoles boil."), span_userdanger("You writhe in pain as your vacuoles boil!"), span_italics("You hear the crunching of leaves."))
 				if(prob(80))
-					H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+					H.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 				else
-					H.easy_randmut(POSITIVE)
-				H.randmuti()
+					H.easy_random_mutate(POSITIVE)
+				H.random_mutate()
 				H.domutcheck()
 			else
 				H.adjustFireLoss(rand(5,15))
@@ -180,7 +180,7 @@
 		//Otherwise pull our brain out
 		else
 			to_chat(H, span_warning("You pull your brain out!"))
-			var/obj/item/organ/B = H.getorganslot(ORGAN_SLOT_BRAIN)
+			var/obj/item/organ/B = H.get_organ_slot(ORGAN_SLOT_BRAIN)
 			B.Remove(H)
 			B.forceMove(get_turf(H))
 
