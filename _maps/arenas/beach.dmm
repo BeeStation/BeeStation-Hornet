@@ -115,11 +115,6 @@
 /obj/item/clothing/head/collectable/paper,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
-"B" = (
-/turf/open/floor/plating/beach/water{
-	dir = 8
-	},
-/area/tdome/arena)
 "D" = (
 /obj/structure/chair/fancy/shuttle,
 /mob/living/simple_animal/crab,
@@ -129,29 +124,9 @@
 /obj/item/toy/beach_ball,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
-"G" = (
-/turf/open/floor/plating/beach/water{
-	
-	},
-/area/tdome/arena)
-"K" = (
-/turf/open/floor/plating/beach/water{
-	desc = "What's the difference?";
-	name = "coastline water"
-	},
-/area/tdome/arena)
-"L" = (
-/turf/open/floor/holofloor/beach/coast_b,
-/area/tdome/arena)
 "M" = (
-/obj/structure/flora/rock{
-	desc = "A volcanic rock.";
-	name = "coastal rock"
-	},
-/obj/structure/flora/ausbushes/stalkybush{
-	desc = "It can't be smoked.";
-	name = "sea weed"
-	},
+/obj/structure/flora/rock,
+/obj/structure/flora/ausbushes/stalkybush,
 /turf/open/floor/plating/beach/water,
 /area/tdome/arena)
 "N" = (
@@ -164,8 +139,8 @@ k
 d
 d
 N
-G
-K
+N
+N
 M
 "}
 (2,1,1) = {"
@@ -173,9 +148,9 @@ b
 l
 d
 d
-B
-G
-L
+N
+N
+N
 N
 "}
 (3,1,1) = {"
@@ -185,7 +160,7 @@ r
 d
 d
 N
-L
+N
 N
 "}
 (4,1,1) = {"
@@ -195,7 +170,7 @@ s
 d
 d
 N
-L
+N
 N
 "}
 (5,1,1) = {"
@@ -205,7 +180,7 @@ d
 d
 D
 N
-L
+N
 N
 "}
 (6,1,1) = {"
@@ -215,7 +190,7 @@ d
 d
 E
 N
-L
+N
 N
 "}
 (7,1,1) = {"
@@ -225,7 +200,7 @@ t
 v
 d
 N
-L
+N
 N
 "}
 (8,1,1) = {"
@@ -235,7 +210,7 @@ t
 w
 d
 N
-L
+N
 N
 "}
 (9,1,1) = {"
@@ -245,7 +220,7 @@ t
 x
 d
 N
-L
+N
 N
 "}
 (10,1,1) = {"
@@ -255,7 +230,7 @@ d
 d
 d
 N
-L
+N
 N
 "}
 (11,1,1) = {"
@@ -265,7 +240,7 @@ d
 d
 d
 N
-L
+N
 N
 "}
 (12,1,1) = {"
@@ -275,7 +250,7 @@ d
 y
 d
 N
-L
+N
 N
 "}
 (13,1,1) = {"
@@ -285,7 +260,7 @@ u
 d
 d
 N
-L
+N
 N
 "}
 (14,1,1) = {"
@@ -294,8 +269,8 @@ q
 d
 d
 N
-G
-L
+N
+N
 N
 "}
 (15,1,1) = {"
@@ -304,7 +279,7 @@ k
 d
 d
 N
-G
-K
+N
+N
 M
 "}
