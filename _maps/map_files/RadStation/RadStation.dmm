@@ -1501,7 +1501,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/security/prison/shielded)
+/area/security/prison)
 "avk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4456,7 +4456,7 @@
 	req_one_access_txt = "2"
 	},
 /turf/open/floor/iron/dark,
-/area/security/prison/shielded)
+/area/security/prison)
 "bsw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -4871,7 +4871,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/security/prison/shielded)
+/area/security/prison)
 "byV" = (
 /obj/structure/railing/corner,
 /turf/open/floor/iron/dark/smooth_corner{
@@ -24923,9 +24923,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/main)
-"ifC" = (
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "ifH" = (
 /obj/machinery/telecomms/server/presets/common,
 /obj/effect/turf_decal/stripes/line{
@@ -30920,9 +30917,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"kbT" = (
-/turf/closed/wall,
-/area/security/prison/shielded)
 "kcv" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -42780,7 +42774,7 @@
 	pixel_y = 15
 	},
 /turf/open/floor/iron/dark,
-/area/security/prison/shielded)
+/area/security/prison)
 "ofC" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -46712,7 +46706,7 @@
 /obj/structure/bed,
 /obj/item/toy/batong,
 /turf/open/floor/iron/dark,
-/area/security/prison/shielded)
+/area/security/prison)
 "psm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
@@ -53525,7 +53519,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/security/prison/shielded)
+/area/security/prison)
 "rGQ" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -102579,9 +102573,9 @@ uux
 bDs
 pVy
 xeu
-ifC
+qLO
 avj
-ifC
+qLO
 qLO
 apD
 fHK
@@ -102835,10 +102829,10 @@ xeu
 wwa
 isG
 aRj
-ifC
+qLO
 oeW
 byu
-kbT
+mTK
 erK
 tYT
 csB
@@ -103092,10 +103086,10 @@ nmm
 qFR
 dkf
 sbd
-kbT
+mTK
 prX
 rGC
-kbT
+mTK
 bcg
 wGw
 jGH
@@ -103349,10 +103343,10 @@ jNd
 gVG
 oQn
 bsy
-kbT
-kbT
+mTK
+mTK
 bsl
-kbT
+mTK
 iLM
 oPd
 hFn
