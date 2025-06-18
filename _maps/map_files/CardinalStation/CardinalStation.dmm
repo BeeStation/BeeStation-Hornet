@@ -87117,7 +87117,8 @@
 	name = "emergency supermatter ejection pad"
 	},
 /obj/machinery/power/supermatter_crystal/engine{
-	moveable = 1
+	moveable = 1;
+	anchored = 0
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
