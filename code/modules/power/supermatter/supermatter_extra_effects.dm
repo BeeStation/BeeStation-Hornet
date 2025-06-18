@@ -48,7 +48,7 @@
 	var/chance = (CHANCE_EQUATION_SLOPE * (1 - integrity)) + RADIATION_CHANCE_AT_FULL_INTEGRITY
 
 	radiation_pulse(
-		src,
+		source = src,
 		max_range = 8,
 		threshold = threshold,
 		chance = chance * 100,

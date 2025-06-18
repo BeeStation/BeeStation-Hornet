@@ -17,17 +17,18 @@
 
 	var/power_gen = 1000 // Enough to power a single APC. 4000 output with T4 capacitor.
 
-	var/irradiate = TRUE // RTGs irradiate surroundings, but only when panel is open.
+	var/irradiate = TRUE // RTGs irradiate surroundings
 
 /obj/machinery/power/rtg/Initialize(mapload)
 	. = ..()
 	connect_to_network()
 
+	if(irradiate)
+		AddElement(/datum/element/radioactive, range = 5)
+
 /obj/machinery/power/rtg/process()
-	..()
+	. = ..()
 	add_avail(power_gen)
-	if(panel_open && irradiate)
-		radiation_pulse(src, 60)
 
 /obj/machinery/power/rtg/RefreshParts()
 	var/part_level = 0

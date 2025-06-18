@@ -155,7 +155,8 @@
 
 
 	update_icon()
-	radiation_pulse(src, temperature*radioactivity_spice_multiplier)
+	radiation_pulse(src, max_range = 6, threshold = RAD_EXTREME_INSULATION)
+
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1 MINUTES
 		for(var/obj/machinery/light/light in GLOB.machines)

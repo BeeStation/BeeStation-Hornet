@@ -26,11 +26,11 @@
 		var/mob/living/L = entered_mob
 		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, 1)
 
-	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
+	radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, chance = 50)
 
 /obj/effect/decal/cleanable/nuclear_waste/attackby(obj/item/tool, mob/user)
 	if(tool.tool_behaviour == TOOL_SHOVEL)
-		radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
+		radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, chance = 50)
 		to_chat(user, span_notice("You start to clear [src]..."))
 		if(tool.use_tool(src, user, 50, volume=100))
 			to_chat(user, span_notice("You clear [src]. "))

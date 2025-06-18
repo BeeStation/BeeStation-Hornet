@@ -9,7 +9,7 @@
 			to_chat(user, span_warning("[src] is already at maximum fuel load."))
 			return FALSE
 		to_chat(user, span_notice("You start to insert [attacked_item] into [src]..."))
-		radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
+		radiation_pulse(src, max_range = 3, threshold = RAD_EXTREME_INSULATION)
 		if(do_after(user, 5 SECONDS, target=src))
 			if(length(fuel_rods) >= 5)
 				to_chat(user, span_warning("[src] is already at maximum fuel load."))
