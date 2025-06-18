@@ -39,18 +39,6 @@
 	if(check_config_for_sec_maint())
 		. |= ACCESS_MAINT_TUNNELS
 
-//If warden joins, always open up prisoners unless they are already open
-/datum/job/warden/initialize()
-	//Gets the prisoner job datum. This is disgusting code. I have not found a better way to do it.
-	var/datum/job/prisoner/prisoners
-	for(var/datum/job/prisoner/p in SSjob.occupations)
-		prisoners = p
-	if (prisoners.total_positions >= 3)
-		return
-	prisoners.total_positions = 3
-	log_game("[title] joining has opened prisoner slots for use")
-	message_admins("[title] joining has opened prisoner slots for use")
-
 /datum/outfit/job/warden
 	name = JOB_NAME_WARDEN
 	jobtype = /datum/job/warden

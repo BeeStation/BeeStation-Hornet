@@ -133,10 +133,6 @@
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
 
-/// Called only once when someone joins as said job, AFTER equip() does it's thing. Override this instead of running some fancy snowflake code somewhere else.
-/// Latejoin is provided for the sheer convenience of having it.
-/datum/job/proc/initialize(mob/living/carbon/human/H, latejoin = FALSE)
-
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
 /// do actions on H but send messages to M as the key may not have been transferred_yet
