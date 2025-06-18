@@ -34,7 +34,7 @@
 
 /datum/element/slapcrafting/Detach(datum/source, ...)
 	. = ..()
-	UnregisterSignal(source, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EXAMINE_TAGS, COMSIG_ATOM_EXAMINE_MORE))
+	UnregisterSignal(source, list(COMSIG_TOPIC, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EXAMINE_TAGS, COMSIG_ATOM_EXAMINE_MORE))
 
 /datum/element/slapcrafting/proc/attempt_slapcraft(obj/item/parent_item, obj/item/slapper, mob/user)
 
@@ -52,7 +52,7 @@
 		var/list/type_ingredient_list = recipe.reqs
 		qdel(recipe)
 		if(length(type_ingredient_list) == 1) // No ingredients besides itself? We use one of the tools then
-			type_ingredient_list = recipe.tool_paths
+			type_ingredient_list = initial(recipe.tool_paths)
 			// Check the tool behaviours differently as they aren't types
 			for(var/behaviour in initial(recipe.tool_behaviors))
 				if(slapper.tool_behaviour == behaviour)
@@ -134,7 +134,7 @@
 
 	for(var/datum/crafting_recipe/recipe as anything in slapcraft_recipes)
 		var/atom/result = initial(recipe.result)
-		examine_list += "<a href='?src=[REF(source)];check_recipe=[REF(recipe)]'>See Recipe For [initial(result.name)]</a>"
+		examine_list += "<a href='byond://?src=[REF(source)];check_recipe=[REF(recipe)]'>See Recipe For [initial(result.name)]</a>"
 
 /datum/element/slapcrafting/proc/topic_handler(atom/source, user, href_list)
 	SIGNAL_HANDLER
