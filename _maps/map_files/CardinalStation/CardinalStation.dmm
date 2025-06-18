@@ -26509,10 +26509,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
-"fwP" = (
-/obj/item/reagent_containers/cup/soda_cans/thirteenloko,
-/turf/closed/wall,
-/area/bridge/meeting_room)
 "fwY" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/libraryscanner,
@@ -68482,9 +68478,6 @@
 	},
 /obj/machinery/light/small/directional/west,
 /obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/light_switch/directional/west{
 	pixel_y = 18
 	},
@@ -68492,6 +68485,9 @@
 	pixel_y = 37
 	},
 /obj/machinery/camera/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/wood/big,
 /area/bridge/meeting_room)
 "nTi" = (
@@ -106844,7 +106840,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/item/reagent_containers/cup/soda_cans/thirteenloko,
 /turf/open/floor/iron/smooth_edge{
 	dir = 4
 	},
@@ -137613,7 +137608,7 @@ rrX
 xhM
 oep
 rrX
-fwP
+wGn
 gnH
 auL
 dwF
