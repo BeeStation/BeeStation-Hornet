@@ -3110,12 +3110,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/medical/patients_rooms)
-"buU" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "buV" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "armory";
@@ -8959,12 +8953,6 @@
 	},
 /turf/open/floor/pod/dark,
 /area/maintenance/department/crew_quarters/dorms)
-"eDp" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "eDX" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -12544,6 +12532,15 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
+"guk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/numbers{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/hallway/primary/fore)
 "gup" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -37020,10 +37017,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engineering/hallway)
-"tyB" = (
-/obj/effect/spawner/structure/window,
-/turf/open/openspace/planetary,
-/area/crew_quarters/cafeteria)
 "tyI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -38051,7 +38044,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "tXV" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -44883,7 +44876,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "xGI" = (
 /obj/effect/turf_decal/stripes/line,
@@ -45197,7 +45190,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "xLT" = (
 /obj/structure/lattice/catwalk/over,
@@ -126053,7 +126046,7 @@ gTv
 xUQ
 mHP
 mHP
-tyB
+pqE
 aGT
 bYy
 psI
@@ -126310,7 +126303,7 @@ qgB
 cbu
 mHP
 mHP
-tyB
+pqE
 aGT
 nhd
 rSN
@@ -126567,7 +126560,7 @@ olO
 loM
 mHP
 mHP
-tyB
+pqE
 aGT
 bYy
 psI
@@ -191874,7 +191867,7 @@ olf
 kTE
 iwX
 iwX
-xLC
+guk
 jjv
 rcM
 nGy
@@ -257158,10 +257151,10 @@ cGX
 cGX
 cGX
 nZM
-buU
-buU
-buU
-buU
+qCv
+qCv
+qCv
+qCv
 qCv
 qCv
 nZM
@@ -257672,10 +257665,10 @@ cGX
 cGX
 cGX
 nZM
-eDp
-eDp
-eDp
-eDp
+qCv
+qCv
+qCv
+qCv
 qCv
 qCv
 nZM
