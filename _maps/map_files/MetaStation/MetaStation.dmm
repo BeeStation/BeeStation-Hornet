@@ -22912,7 +22912,7 @@
 	dir = 8
 	},
 /turf/open/floor/prison,
-/area/space/nearstation)
+/area/security/prison)
 "dzq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -22955,7 +22955,7 @@
 	},
 /obj/structure/mirror/directional/west,
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/security/prison)
 "dAL" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
@@ -33066,9 +33066,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
-"hse" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/port/fore)
 "hsl" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -36974,7 +36971,7 @@
 	dir = 10
 	},
 /turf/open/floor/prison,
-/area/space/nearstation)
+/area/security/prison)
 "iKp" = (
 /obj/machinery/vending/security,
 /obj/machinery/firealarm{
@@ -40406,9 +40403,6 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
-"kco" = (
-/turf/closed/wall,
-/area/space)
 "kcH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -40984,7 +40978,7 @@
 	dir = 8
 	},
 /turf/open/floor/prison,
-/area/space/nearstation)
+/area/security/prison)
 "kmr" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 4
@@ -48247,7 +48241,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/security/prison)
 "mUk" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63428,7 +63422,7 @@
 	dir = 9
 	},
 /turf/open/floor/prison,
-/area/space)
+/area/security/prison)
 "sqB" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/bodycontainer/morgue,
@@ -76299,11 +76293,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/science/research)
-"wVx" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/urinal/directional/north,
-/turf/open/floor/iron/freezer,
-/area/space/nearstation)
 "wVJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 1
@@ -79199,7 +79188,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/freezer,
-/area/space)
+/area/security/prison)
 "xSc" = (
 /obj/machinery/computer/turbine_computer{
 	dir = 1;
@@ -100899,19 +100888,19 @@ aaa
 lMJ
 aaa
 lMJ
-hse
-hse
-hse
-hse
-hse
-hse
-hse
-hse
-hse
-hse
-hse
-hse
-hse
+aax
+aax
+aax
+aax
+aax
+aax
+aax
+aax
+aax
+aax
+aax
+aax
+aax
 aaa
 aaa
 aaf
@@ -101156,19 +101145,19 @@ aaa
 lMJ
 aaa
 gXq
-bKK
+aax
 xRL
-kco
+abe
 mUd
-blx
-wVx
+abe
+lrt
 dAb
-kco
+abe
 sqr
 dyk
 kmm
 iKk
-bKK
+aax
 aaf
 awW
 awW

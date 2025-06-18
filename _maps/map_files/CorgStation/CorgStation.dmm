@@ -1022,12 +1022,17 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/kitchen/rollingpin,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
 /obj/machinery/reagentgrinder{
 	pixel_x = -1;
 	pixel_y = 8
+	},
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -8883,10 +8888,35 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/processor,
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/freezer{
+	name = "freezer"
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/reagent_containers/condiment/rice,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/food/meat/slab,
+/obj/item/food/meat/slab,
+/obj/item/food/meat/slab,
+/obj/item/storage/fancy/egg_box,
+/obj/item/storage/fancy/egg_box,
 /turf/open/floor/prison,
 /area/security/prison)
 "cHD" = (
@@ -9926,11 +9956,18 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "dcc" = (
-/obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/structure/table/reinforced,
 /obj/machinery/microwave{
 	pixel_x = -1;
 	pixel_y = 8
+	},
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -12218,8 +12255,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/structure/chair/stool/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/structure/railing,
 /turf/open/floor/prison,
 /area/security/prison)
 "dQH" = (
@@ -12451,6 +12489,7 @@
 	pixel_y = 5;
 	pixel_x = 2
 	},
+/obj/structure/railing,
 /turf/open/floor/prison,
 /area/security/prison)
 "dTw" = (
@@ -13630,6 +13669,17 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
+"emc" = (
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "emd" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -13666,6 +13716,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/railing,
 /turf/open/floor/prison,
 /area/security/prison)
 "emR" = (
@@ -15584,6 +15635,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
+"faF" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "faL" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 1
@@ -19818,13 +19875,15 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "gqC" = (
-/mob/living/simple_animal/kalo{
-	desc = "The Perma brig's cute grass snake.";
-	icon_dead = "snake_dead";
-	icon_living = "snake";
-	icon_state = "snake";
-	name = "Hugel"
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
 	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
+	},
+/obj/machinery/processor,
 /turf/open/floor/prison,
 /area/security/prison)
 "gqP" = (
@@ -31761,6 +31820,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/mob/living/simple_animal/kalo{
+	desc = "The Perma brig's cute grass snake.";
+	icon_dead = "snake_dead";
+	icon_living = "snake";
+	icon_state = "snake";
+	name = "Hugel"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "kmq" = (
@@ -32917,6 +32983,14 @@
 /area/medical/sleeper)
 "kHa" = (
 /obj/machinery/oven,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "kHo" = (
@@ -33082,7 +33156,6 @@
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "kJI" = (
-/obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/structure/table/reinforced,
 /obj/item/book/manual/chef_recipes{
 	pixel_x = 2;
@@ -33098,6 +33171,14 @@
 /obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -9;
 	pixel_y = 5
+	},
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -38882,6 +38963,7 @@
 	dir = 4
 	},
 /obj/structure/chair/stool/directional/east,
+/obj/structure/railing,
 /turf/open/floor/prison,
 /area/security/prison)
 "mAq" = (
@@ -41213,13 +41295,18 @@
 /area/maintenance/department/chapel/monastery)
 "npo" = (
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = 9;
 	pixel_y = 17
+	},
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -57266,7 +57353,14 @@
 	pixel_x = 27
 	},
 /obj/machinery/vending/dinnerware,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "sMa" = (
@@ -59899,28 +59993,13 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
-/obj/structure/closet/secure_closet/freezer{
-	name = "freezer"
+/obj/structure/railing{
+	dir = 4
 	},
-/obj/item/storage/fancy/egg_box,
-/obj/item/storage/fancy/egg_box,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab,
-/obj/item/reagent_containers/condiment/soymilk,
-/obj/item/reagent_containers/condiment/soymilk,
-/obj/item/reagent_containers/condiment/soymilk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/sugar,
-/obj/item/reagent_containers/condiment/rice,
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/prison,
 /area/security/prison)
 "tHX" = (
@@ -64505,6 +64584,14 @@
 /area/crew_quarters/heads/cmo)
 "vhS" = (
 /obj/machinery/griddle,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/white{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "vhY" = (
@@ -70965,6 +71052,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/railing/corner,
 /turf/open/floor/prison,
 /area/security/prison)
 "xqt" = (
@@ -111490,7 +111578,7 @@ uKT
 wjB
 jhv
 xqk
-iwG
+faF
 iwG
 tHS
 uKT
@@ -111748,7 +111836,7 @@ kmm
 jdT
 mAn
 gqC
-iwG
+emc
 cHB
 uKT
 xMh
@@ -112005,7 +112093,7 @@ gio
 tpe
 dTn
 kHa
-iwG
+emc
 alp
 gIQ
 kqU
@@ -112262,7 +112350,7 @@ wjB
 oYD
 dQF
 vhS
-iwG
+emc
 npo
 xSy
 xay
