@@ -1,6 +1,6 @@
 /obj/structure/platform
 	name = "platform ledge"
-	desc = "Basic platform meant to protect idiots like you from falling."
+	desc = "The ledge of a raised surface. Beyond it waits a steep fall."
 	icon = 'icons/obj/platforms.dmi'
 	icon_state = "platform_gray"
 	flags_1 = ON_BORDER_1
