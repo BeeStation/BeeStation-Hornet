@@ -1308,7 +1308,7 @@
 	icon_state = "glass_brown"
 
 /datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
-	var/obj/item/organ/tongue/T = M.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = M.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(T.liked_food & MEAT)
 		to_chat(M, span_notice("That drink was PERFECTLY beefy! It's great!."))
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
@@ -1346,7 +1346,7 @@
 	icon_state = "beef_fizz"
 
 /datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
-	var/obj/item/organ/tongue/T = M.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = M.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(T.liked_food & MEAT)
 		to_chat(M, span_notice("That drink was like a liquid steak! It's amazing!."))
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)

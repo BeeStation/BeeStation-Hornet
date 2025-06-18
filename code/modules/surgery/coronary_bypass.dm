@@ -5,7 +5,7 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery/coronary_bypass/can_start(mob/user, mob/living/carbon/target, target_zone)
-	var/obj/item/organ/heart/H = target.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/H = target.get_organ_slot(ORGAN_SLOT_HEART)
 	if(H)
 		if(H.damage > 60 && !H.operated)
 			return TRUE
@@ -30,7 +30,7 @@
 /datum/surgery_step/incise_heart/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if (!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)))
+		if (!HAS_TRAIT(H, TRAIT_NOBLOOD))
 			display_results(user, target, span_notice("Blood pools around the incision in [H]'s heart."),
 				"Blood pools around the incision in [H]'s heart.",
 				"")
@@ -61,7 +61,7 @@
 
 /datum/surgery_step/coronary_bypass/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	target.setOrganLoss(ORGAN_SLOT_HEART, 60)
-	var/obj/item/organ/heart/heart = target.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = target.get_organ_slot(ORGAN_SLOT_HEART)
 	if(heart)	//slightly worrying if we lost our heart mid-operation, but that's life
 		heart.operated = TRUE
 	display_results(user, target, span_notice("You successfully graft a bypass onto [target]'s heart."),
