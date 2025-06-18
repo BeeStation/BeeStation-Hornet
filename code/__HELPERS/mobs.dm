@@ -195,7 +195,7 @@
 					var/sector
 					var/sector_characters
 					var/breakup_character = "-"
-					var/sectorlength = rand(1,4)
+					var/sectorlength = rand(1,3)
 					switch(rand(1,100))
 						if(1 to 25)//25% chance for both numbers and letters
 							sector_characters = numbers + GLOB.alphabet + GLOB.alphabet //add alphabet twice so that numbers are lower weight
