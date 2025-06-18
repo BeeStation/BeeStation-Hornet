@@ -21194,21 +21194,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"eTO" = (
-/obj/structure/table,
-/obj/item/taperecorder,
-/obj/item/folder/red{
-	pixel_x = 4;
-	pixel_y = 5
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
-/area/security/brig)
 "eTP" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -32211,10 +32196,10 @@
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "jlE" = (
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
 /obj/structure/chair/foldable{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -42585,11 +42570,17 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "nyh" = (
-/obj/structure/chair/foldable{
-	dir = 8
+/obj/structure/table,
+/obj/item/taperecorder,
+/obj/item/folder/red{
+	pixel_x = 4;
+	pixel_y = 5
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -67586,7 +67577,14 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "xeg" = (
-)
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -22
+	},
+/obj/structure/chair/foldable{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
 "xel" = (
 /obj/structure/filingcabinet{
 	pixel_x = -8
@@ -95644,8 +95642,8 @@ aaa
 aaa
 aaa
 aaa
-xeg
-xeg
+aaa
+aaa
 "}
 (99,1,1) = {"
 aaa
@@ -96232,7 +96230,7 @@ gAg
 fHy
 ajL
 hZM
-eTO
+nyh
 sjJ
 tnE
 deV
@@ -96489,8 +96487,8 @@ tyc
 mqu
 agj
 dmT
-nyh
 jlE
+xeg
 tnE
 tnE
 tnE
@@ -96672,8 +96670,8 @@ aaa
 aaa
 aaa
 aaa
-xeg
-xeg
+aaa
+aaa
 "}
 (103,1,1) = {"
 aaa
