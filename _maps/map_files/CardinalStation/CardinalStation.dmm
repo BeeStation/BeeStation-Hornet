@@ -1928,6 +1928,9 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"auL" = (
+/turf/closed/wall,
+/area/hallway/primary/port)
 "auR" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -2163,6 +2166,14 @@
 /obj/structure/bookcase/manuals/research_and_development,
 /turf/open/floor/wood,
 /area/library/lounge)
+"ayQ" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/fluff/rug{
+	pixel_y = -16;
+	pixel_x = -32
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "ayS" = (
 /obj/machinery/firealarm{
 	pixel_x = -28;
@@ -6374,9 +6385,6 @@
 	},
 /turf/open/floor/vault/rock,
 /area/science/mixing/chamber)
-"bmB" = (
-/turf/closed/wall,
-/area/crew_quarters/heads/captain)
 "bmE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -44597,6 +44605,26 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness)
+"iYq" = (
+/obj/effect/turf_decal/tile/white{
+	color = "#3a3b3b";
+	alpha = 255
+	},
+/obj/effect/turf_decal/tile/white{
+	dir = 4;
+	color = "#3a3b3b";
+	alpha = 255
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured_edge{
+	dir = 8
+	},
+/area/teleporter)
 "iYw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -44619,9 +44647,6 @@
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/smooth,
 /area/construction/mining/aux_base)
-"iYK" = (
-/turf/closed/wall,
-/area/hallway/secondary/command)
 "iYY" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2{
@@ -51346,7 +51371,7 @@
 /area/gateway)
 "ksh" = (
 /turf/closed/wall,
-/area/bridge)
+/area/hallway/secondary/command)
 "ksk" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -62145,6 +62170,9 @@
 	},
 /turf/open/floor/carpet/black,
 /area/vacant_room/office)
+"mHb" = (
+/turf/closed/wall,
+/area/crew_quarters/heads/captain/private)
 "mHc" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -63120,9 +63148,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
-"mPB" = (
-/turf/closed/wall,
-/area/crew_quarters/heads/captain/private)
 "mPE" = (
 /obj/effect/turf_decal/siding{
 	color = "#535c5b";
@@ -68167,9 +68192,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"nQE" = (
-/turf/closed/wall,
-/area/hallway/primary/port)
 "nQJ" = (
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 6
@@ -79196,9 +79218,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
-"qbP" = (
-/turf/closed/wall,
-/area/engine/transit_tube)
 "qbQ" = (
 /obj/structure/railing/perspective/gray{
 	dir = 1
@@ -89051,13 +89070,8 @@
 	},
 /area/hallway/secondary/entry)
 "scJ" = (
-/obj/structure/chair/wood/normal{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/asteroid,
-/turf/open/floor/wood/big,
-/area/crew_quarters/kitchen)
+/turf/closed/wall,
+/area/bridge)
 "scR" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -89428,6 +89442,9 @@
 /obj/structure/closet/crate/trashcart,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"shj" = (
+/turf/closed/wall,
+/area/engine/transit_tube)
 "shq" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/steelgrid/diagonal{
@@ -89508,6 +89525,9 @@
 	},
 /turf/open/floor/iron/checker/other,
 /area/hallway/secondary/entry)
+"sik" = (
+/turf/closed/wall,
+/area/crew_quarters/heads/captain)
 "sil" = (
 /obj/structure/railing/perspective/wood/corner{
 	dir = 8
@@ -90642,9 +90662,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"svA" = (
-/turf/closed/wall,
-/area/bridge/meeting_room)
 "svC" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -111622,25 +111639,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "wGn" = (
-/obj/effect/turf_decal/tile/white{
-	color = "#3a3b3b";
-	alpha = 255
-	},
-/obj/effect/turf_decal/tile/white{
-	dir = 4;
-	color = "#3a3b3b";
-	alpha = 255
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/textured_edge{
-	dir = 8
-	},
-/area/teleporter)
+/turf/closed/wall,
+/area/bridge/meeting_room)
 "wGR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -136050,20 +136050,20 @@ ejW
 ejW
 gBD
 jMH
-ksh
-ksh
+scJ
+scJ
 saC
 saC
-ksh
-ksh
+scJ
+scJ
 wuc
 jMn
-ksh
-ksh
+scJ
+scJ
 saC
 saC
-ksh
-ksh
+scJ
+scJ
 bqK
 kOt
 asf
@@ -136304,23 +136304,23 @@ tDL
 nBd
 sIh
 aUi
-bmB
+sik
 rPp
 bnw
-iYK
+ksh
 dCy
 lqN
 lqN
 kit
-iYK
+ksh
 vLD
 iKP
-iYK
+ksh
 mFL
 mPE
 iWa
 qvr
-iYK
+ksh
 ddV
 oOa
 prd
@@ -136558,13 +136558,13 @@ cRt
 beY
 fFF
 mwg
-bmB
+sik
 toF
 aFQ
 gYM
 qtq
 lTK
-iYK
+ksh
 dNq
 imf
 fww
@@ -136577,13 +136577,13 @@ oNA
 sQd
 sWO
 qlX
-iYK
+ksh
 oli
 hcV
 hrE
 pZe
 bHi
-qbP
+shj
 ceC
 mJV
 hTb
@@ -136815,12 +136815,12 @@ vyN
 jEI
 gTB
 qOQ
-bmB
-bmB
-bmB
-bmB
-bmB
-bmB
+sik
+sik
+sik
+sik
+sik
+sik
 lEO
 dWP
 qau
@@ -136834,13 +136834,13 @@ biF
 xHy
 gWq
 pAT
-iYK
-qbP
+ksh
+shj
 nNw
-qbP
-qbP
-qbP
-qbP
+shj
+shj
+shj
+shj
 cDy
 dwN
 ykP
@@ -137098,7 +137098,7 @@ izs
 jTL
 jjz
 mNi
-wGn
+iYq
 fTc
 fTc
 qsU
@@ -137338,8 +137338,8 @@ rNs
 adT
 vGH
 cYq
-iYK
-iYK
+ksh
+ksh
 juA
 tfA
 dbD
@@ -137586,16 +137586,16 @@ rWi
 xhf
 nsk
 bjn
-svA
-svA
-svA
+wGn
+wGn
+wGn
 rrX
 xhM
 oep
 rrX
-svA
+wGn
 gnH
-nQE
+auL
 dwF
 fvf
 mAC
@@ -137843,7 +137843,7 @@ iLq
 iwJ
 eFW
 dav
-svA
+wGn
 yjy
 nTf
 hHl
@@ -138093,14 +138093,14 @@ nzj
 nzj
 hyT
 vsx
-mPB
-mPB
+mHb
+mHb
 kZx
-mPB
+mHb
 mwO
 mwO
 mwO
-svA
+wGn
 cbf
 lXZ
 vGv
@@ -138357,7 +138357,7 @@ jny
 tRu
 fKr
 jOt
-svA
+wGn
 iEh
 lXZ
 ddH
@@ -138614,7 +138614,7 @@ rzH
 lLY
 rjm
 njx
-svA
+wGn
 aAW
 euU
 kwU
@@ -138871,7 +138871,7 @@ uIi
 iCa
 dra
 sGf
-svA
+wGn
 oSx
 xnX
 tqr
@@ -153014,7 +153014,7 @@ rif
 iGb
 nbE
 wmf
-scJ
+jxG
 nFq
 aKb
 oLe
@@ -155331,7 +155331,7 @@ eMZ
 eMZ
 czN
 vFO
-djs
+ayQ
 djs
 mPu
 pnT

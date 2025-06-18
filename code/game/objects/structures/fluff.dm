@@ -194,5 +194,7 @@
 	icon_state = "tiger_rug"
 	name = "tiger rug"
 	desc = "A huge rug made out of tiger skin. Was this a real tiger?"
+	pixel_x = -32
+	pixel_y = -16
 	layer = BELOW_OPEN_DOOR_LAYER
 	deconstructible = FALSE
