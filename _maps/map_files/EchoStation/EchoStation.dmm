@@ -7795,7 +7795,7 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "dVM" = (
-/turf/open/openspace/planetary,
+/turf/closed/wall,
 /area/ai_monitored/turret_protected/aisat_interior)
 "dVS" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -12758,7 +12758,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
 "gzY" = (
 /obj/structure/bodycontainer/crematorium{
@@ -15809,7 +15809,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
 "ifj" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -19910,7 +19910,7 @@
 /area/maintenance/department/eva)
 "knP" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "koz" = (
 /obj/item/wallframe/extinguisher_cabinet{
@@ -20966,7 +20966,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/plating,
 /area/hallway/primary/fore)
 "kQZ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -21255,7 +21255,7 @@
 /obj/effect/turf_decal/trimline/dark_red/filled/warning{
 	dir = 8
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "kZz" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
@@ -25325,7 +25325,7 @@
 "njC" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "nlc" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -26229,7 +26229,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "nIv" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -26377,7 +26377,7 @@
 /area/maintenance/department/medical/morgue)
 "nOc" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/openspace/planetary,
+/turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
 "nOn" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -26674,7 +26674,7 @@
 /obj/effect/turf_decal/trimline/dark_red/filled/warning{
 	dir = 4
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "nZX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -29959,7 +29959,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "pLd" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -33448,7 +33448,7 @@
 	pixel_x = -27;
 	dir = 8
 	},
-/turf/open/openspace/planetary,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "rDI" = (
 /obj/machinery/disposal/bin,
