@@ -98,9 +98,3 @@
 		w_class = w_class_open
 	screen_on = !screen_on
 	update_icon()
-
-
-
-// Laptop frame, starts empty and closed.
-/obj/item/modular_computer/laptop/buildable
-	start_open = FALSE
