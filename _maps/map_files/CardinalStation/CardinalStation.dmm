@@ -26510,8 +26510,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "fwP" = (
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/item/reagent_containers/cup/soda_cans/thirteenloko,
+/turf/closed/wall,
+/area/bridge/meeting_room)
 "fwY" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/libraryscanner,
@@ -66736,6 +66737,14 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "nBI" = (
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_y = 6;
+	pixel_x = -2
+	},
+/obj/item/chess_piece/white/king{
+	pixel_x = 9;
+	pixel_y = 0
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "nBJ" = (
@@ -88567,6 +88576,19 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
+"rYh" = (
+/obj/effect/turf_decal/siding{
+	color = "#535c5b";
+	dir = 8
+	},
+/obj/item/reagent_containers/cup/soda_cans/thirteenloko{
+	pixel_y = 63;
+	pixel_x = -7
+	},
+/turf/open/floor/iron/smooth_edge{
+	dir = 8
+	},
+/area/hallway/secondary/command)
 "rYo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -106822,6 +106844,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/item/reagent_containers/cup/soda_cans/thirteenloko,
 /turf/open/floor/iron/smooth_edge{
 	dir = 4
 	},
@@ -135039,7 +135062,7 @@ nzj
 nzj
 nzj
 hyT
-fwP
+nzj
 uLJ
 joK
 hyT
@@ -136306,7 +136329,7 @@ rPp
 bnw
 ksh
 dCy
-lqN
+rYh
 lqN
 kit
 ksh
@@ -137590,7 +137613,7 @@ rrX
 xhM
 oep
 rrX
-wGn
+fwP
 gnH
 auL
 dwF
