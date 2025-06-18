@@ -81,21 +81,30 @@
 			if(type in IMP.advanced_surgeries)
 				return TRUE
 
-	var/turf/patient_turf = get_turf(patient)
+	var/turf/T = get_turf(target)
+	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
+	if(table)
+		if(!table.computer)
+			return .
+		if(table.computer.machine_stat & (NOPOWER|BROKEN))
+			return .
+		if(replaced_by in table.computer.advanced_surgeries)
+			return FALSE
+		if(type in table.computer.advanced_surgeries)
+			return TRUE
 
-	//Get the relevant operating computer
-	var/obj/machinery/computer/operating/opcomputer = locate_operating_computer(patient_turf)
-	if (isnull(opcomputer))
-		return .
-	if(replaced_by in opcomputer.advanced_surgeries)
-		return FALSE
-	if(type in opcomputer.advanced_surgeries)
-		return TRUE
+	var/obj/machinery/stasis/the_stasis_bed = locate(/obj/machinery/stasis, T)
+	if(the_stasis_bed?.op_computer)
+		if(the_stasis_bed.op_computer.machine_stat & (NOPOWER|BROKEN))
+			return .
+		if(replaced_by in the_stasis_bed.op_computer.advanced_surgeries)
+			return FALSE
+		if(type in the_stasis_bed.op_computer.advanced_surgeries)
+			return TRUE
+
 
 /datum/surgery/proc/next_step(mob/living/user, modifiers)
 	failed_step = FALSE
-	if(location != user.get_combat_bodyzone(target, precise = TRUE))
-		return FALSE
 	if(user.combat_mode)
 		return FALSE
 	if(step_in_progress)
@@ -133,23 +142,6 @@
 	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
 	qdel(src)
 
-/// Returns a nearby operating computer linked to an operating table
-/datum/surgery/proc/locate_operating_computer(turf/patient_turf)
-	if (isnull(patient_turf))
-		return null
-
-	var/obj/structure/table/optable/operating_table = locate(/obj/structure/table/optable, patient_turf)
-	if(operating_table?.computer)
-		if(!(operating_table.computer.machine_stat & (NOPOWER|BROKEN)))
-			return operating_table.computer
-
-	var/obj/machinery/stasis/stasis_table = locate(/obj/structure/table/optable, patient_turf)
-	if(stasis_table?.op_computer)
-		if(!(stasis_table.op_computer.machine_stat & (NOPOWER|BROKEN)))
-			return stasis_table.op_computer
-
-	return null
-
 /datum/surgery/advanced
 	name = "advanced surgery"
 	requires_tech = TRUE
@@ -181,10 +173,12 @@
 				return TRUE
 
 	var/turf/T = get_turf(target)
-	var/obj/machinery/computer/operating/computer = locate_operating_computer(T)
-	if(!computer || (computer.machine_stat & (NOPOWER|BROKEN)))
-		return .
-	if(type in computer.advanced_surgeries)
+	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
+	if(!table || !table.computer)
+		return FALSE
+	if(table.computer.machine_stat & (NOPOWER|BROKEN))
+		return FALSE
+	if(type in table.computer.advanced_surgeries)
 		return TRUE
 
 /obj/item/disk/surgery
