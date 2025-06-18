@@ -1,0 +1,13 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Shadow sect obelisks have less intense lighting effects
+  - tweak: Various other aspects of the shadow sect have been improved on the backend
+      with minimal front-end changes.
+  - tweak: Shadow sect favor is earned at a steady rate per obelisk, with a bonus
+      depending on how many grand rituals are completed - it will no longer compound
+      with the current darkness as this made the snowballing effect too strong.
+  - bugfix: The server should no longer shit itself during the third grand ritual
+      of the shadow sect
+  - bugfix: Night vision and extra healing from shadow obelisks no longer work through
+      walls
