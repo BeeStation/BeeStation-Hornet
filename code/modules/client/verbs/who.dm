@@ -78,7 +78,7 @@
 			continue
 
 		var/list/info = list()
-		var/rank = "\improper [C.holder.rank]"
+		var/rank = C.holder.rank
 		info += "• [C] is \a <span class='[rank]'>[rank]</span>"
 
 		if(show_sensitive)
