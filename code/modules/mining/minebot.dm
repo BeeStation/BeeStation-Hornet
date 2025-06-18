@@ -70,9 +70,9 @@
 	stored_scanner = new /obj/item/t_scanner/adv_mining_scanner/lesser(src) // No full-power scanner right off the bat
 
 	// Keep track of our equipment
-	RegisterSignal(stored_pka, COMSIG_PARENT_QDELETING, PROC_REF(on_pka_qdel))
-	RegisterSignal(stored_drill, COMSIG_PARENT_QDELETING, PROC_REF(on_drill_qdel))
-	RegisterSignal(stored_scanner, COMSIG_PARENT_QDELETING, PROC_REF(on_scanner_qdel))
+	RegisterSignal(stored_pka, COMSIG_QDELETING, PROC_REF(on_pka_qdel))
+	RegisterSignal(stored_drill, COMSIG_QDELETING, PROC_REF(on_drill_qdel))
+	RegisterSignal(stored_scanner, COMSIG_QDELETING, PROC_REF(on_scanner_qdel))
 
 	// Setup actions
 	var/datum/action/innate/minedrone/toggle_light/toggle_light_action = new()
@@ -208,10 +208,10 @@
 		if(!do_after(user, 20, src))
 			return TRUE
 		stored_scanner.forceMove(get_turf(src))
-		UnregisterSignal(stored_scanner, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(stored_scanner, COMSIG_QDELETING)
 		item.forceMove(src)
 		stored_scanner = item
-		RegisterSignal(stored_scanner, COMSIG_PARENT_QDELETING, PROC_REF(on_scanner_qdel))
+		RegisterSignal(stored_scanner, COMSIG_QDELETING, PROC_REF(on_scanner_qdel))
 		to_chat(user, span_info("You install [item]."))
 		return TRUE
 	if(istype(item, /obj/item/borg/upgrade/modkit))
@@ -231,10 +231,10 @@
 		if(stored_cutter)
 			stored_cutter.forceMove(get_turf(src))
 			stored_cutter.requires_wielding = initial(stored_cutter.requires_wielding)
-			UnregisterSignal(stored_cutter, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(stored_cutter, COMSIG_QDELETING)
 		item.forceMove(src)
 		stored_cutter = item
-		RegisterSignal(stored_cutter, COMSIG_PARENT_QDELETING, PROC_REF(on_cutter_qdel))
+		RegisterSignal(stored_cutter, COMSIG_QDELETING, PROC_REF(on_cutter_qdel))
 		stored_cutter.requires_wielding = FALSE // Prevents inaccuracy when firing for the minebot.
 		to_chat(user, span_info("You install [item]."))
 		return TRUE
@@ -243,10 +243,10 @@
 			return TRUE
 		if(stored_drill)
 			stored_drill.forceMove(get_turf(src))
-			UnregisterSignal(stored_drill, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(stored_drill, COMSIG_QDELETING)
 		item.forceMove(src)
 		stored_drill = item
-		RegisterSignal(stored_drill, COMSIG_PARENT_QDELETING, PROC_REF(on_drill_qdel))
+		RegisterSignal(stored_drill, COMSIG_QDELETING, PROC_REF(on_drill_qdel))
 		to_chat(user, span_info("You install [item]."))
 		return TRUE
 	..()
@@ -255,22 +255,22 @@
 // Procs handling deletion of items
 /mob/living/simple_animal/hostile/mining_drone/proc/on_scanner_qdel()
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_scanner, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_scanner, COMSIG_QDELETING)
 	stored_scanner = null
 
 /mob/living/simple_animal/hostile/mining_drone/proc/on_drill_qdel()
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_drill, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_drill, COMSIG_QDELETING)
 	stored_drill = null
 
 /mob/living/simple_animal/hostile/mining_drone/proc/on_pka_qdel(datum/source, forced)
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_pka, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_pka, COMSIG_QDELETING)
 	stored_pka = null
 
 /mob/living/simple_animal/hostile/mining_drone/proc/on_cutter_qdel()
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_cutter, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_cutter, COMSIG_QDELETING)
 	stored_cutter = null
 
 /// EMPs stun and do some damage

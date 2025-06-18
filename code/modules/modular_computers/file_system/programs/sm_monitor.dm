@@ -92,7 +92,7 @@
 			continue
 
 		supermatters += sm
-		RegisterSignal(sm, COMSIG_PARENT_QDELETING, PROC_REF(clear_supermatter))
+		RegisterSignal(sm, COMSIG_QDELETING, PROC_REF(clear_supermatter))
 
 
 /**
@@ -114,7 +114,7 @@
 	supermatters -= sm
 	if(focused_supermatter == sm)
 		unfocus_supermatter()
-	UnregisterSignal(sm, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(sm, COMSIG_QDELETING)
 
 /datum/computer_file/program/supermatter_monitor/proc/focus_supermatter(obj/machinery/power/supermatter_crystal/sm)
 	if(sm == focused_supermatter)

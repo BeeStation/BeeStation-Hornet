@@ -120,15 +120,15 @@ Contents:
 	QDEL_NULL(spark_system)
 	QDEL_NULL(cell)
 	if(ismob(loc))
-		UnregisterSignal(loc, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(loc, COMSIG_QDELETING)
 	return ..()
 
 /obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
 	. = ..()
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(terminate))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(terminate))
 
 /obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
-	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(user, COMSIG_QDELETING)
 	. = ..()
 
 //Simply deletes all the attachments and self, killing all related procs.

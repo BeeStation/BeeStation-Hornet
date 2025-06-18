@@ -1736,7 +1736,7 @@
 		context.add_access_context("Access Required", allowed(user))
 
 /obj/machinery/door/airlock/proc/set_cycle_pump(obj/machinery/atmospherics/components/unary/airlock_pump/pump)
-	RegisterSignal(pump, COMSIG_PARENT_QDELETING, PROC_REF(unset_cycle_pump))
+	RegisterSignal(pump, COMSIG_QDELETING, PROC_REF(unset_cycle_pump))
 	cycle_pump = pump
 
 /obj/machinery/door/airlock/proc/unset_cycle_pump()

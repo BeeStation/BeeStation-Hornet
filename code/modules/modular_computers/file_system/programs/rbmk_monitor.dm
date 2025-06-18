@@ -89,7 +89,7 @@
 			continue
 
 		reactors += reactor
-		RegisterSignal(reactor, COMSIG_PARENT_QDELETING, PROC_REF(clear_reactor))
+		RegisterSignal(reactor, COMSIG_QDELETING, PROC_REF(clear_reactor))
 
 
 /**
@@ -111,7 +111,7 @@
 	reactors -= reactor
 	if(focused_reactor == reactor)
 		unfocus_reactor()
-	UnregisterSignal(reactor, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(reactor, COMSIG_QDELETING)
 
 /datum/computer_file/program/nuclear_monitor/proc/focus_reactor(obj/machinery/atmospherics/components/unary/rbmk/core/reactor)
 	if(reactor == focused_reactor)

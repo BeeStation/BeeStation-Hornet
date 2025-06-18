@@ -657,7 +657,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		stored_pai_card = attacking_item
 		// If the pAI moves out of the PDA, remove the reference.
 		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
-		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
+		RegisterSignal(stored_pai_card, COMSIG_QDELETING, PROC_REF(remove_pai))
 		to_chat(user, span_notice("You slot \the [attacking_item] into [src]."))
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		update_icon()
@@ -715,7 +715,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!istype(stored_pai_card))
 		return
 	UnregisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_pai_card, COMSIG_QDELETING)
 	stored_pai_card = null
 	update_icon()
 

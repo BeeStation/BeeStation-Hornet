@@ -255,7 +255,7 @@
 		return FALSE
 
 	blood_target = new_target
-	RegisterSignal(blood_target, COMSIG_PARENT_QDELETING, PROC_REF(unset_blood_target_and_timer))
+	RegisterSignal(blood_target, COMSIG_QDELETING, PROC_REF(unset_blood_target_and_timer))
 	var/area/target_area = get_area(new_target)
 
 	blood_target_image = image('icons/effects/mouse_pointers/cult_target.dmi', new_target, "glow", ABOVE_MOB_LAYER)
@@ -292,7 +292,7 @@
 			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark has expired!</span></span>")))
 		cultist.current.client.images -= blood_target_image
 
-	UnregisterSignal(blood_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(blood_target, COMSIG_QDELETING)
 	blood_target = null
 
 	QDEL_NULL(blood_target_image)

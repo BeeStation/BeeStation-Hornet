@@ -37,7 +37,7 @@
 
 /datum/element/radioactive/Detach(datum/source, ...)
 	radioactive_objects -= source
-	. = ..()
+	return ..()
 
 /datum/element/radioactive/process(seconds_per_tick)
 	for (var/radioactive_object in radioactive_objects)
