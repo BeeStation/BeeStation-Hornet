@@ -41,6 +41,21 @@
 
 	minimal_lightup_areas = list(/area/construction/mining/aux_base)
 
+//If officer joins, check how many people there are in security. If there are more than 3 people, open up prisoners.
+/datum/job/security_officer/initialize()
+	//Gets the prisoner job datum. This is disgusting code. I have not found a better way to do it.
+	var/datum/job/prisoner/prisoners
+	for(var/datum/job/prisoner/p in SSjob.occupations)
+		prisoners = p
+	var/staffpop = length(SSjob.get_all_sec())
+	if (staffpop < 3)
+		return
+	if (prisoners.total_positions >= 3)
+		return
+	prisoners.total_positions = 3
+	log_game("[title] joining has opened prisoner slots for use")
+	message_admins("[title] joining has opened prisoner slots for use")
+
 /datum/job/security_officer/get_access()
 	. = ..()
 	if(check_config_for_sec_maint())

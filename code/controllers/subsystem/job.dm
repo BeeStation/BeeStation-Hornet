@@ -559,6 +559,7 @@ SUBSYSTEM_DEF(job)
 	to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
+		job.initialize(new_mob)
 		if(ismob(new_mob))
 			living_mob = new_mob
 			if(!joined_late)
