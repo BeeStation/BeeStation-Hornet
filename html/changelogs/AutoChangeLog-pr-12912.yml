@@ -1,0 +1,5 @@
+author: VmpOS2NHSkhkejA9
+delete-after: true
+changes:
+  - bugfix: networked fibers blobs can no longer move and attack with nodes for free,
+      along with properly leaving a trail behind moving nodes.
