@@ -74,20 +74,28 @@
 /proc/format_staff_list(list/staff_list, show_sensitive = FALSE)
 	var/list/formatted = list()
 	for(var/client/C in staff_list)
-		if(!show_sensitive && (C.is_afk() || !isnull(C.holder.fakekey)))
+		if(!show_sensitive && (C.is_afk() || (!isnull(C.holder) && !isnull(C.holder.fakekey))))
 			continue
 
 		var/list/info = list()
-		var/rank = C.holder.rank
-		var/display_rank = LOWER_TEXT(rank)
-		if(display_rank == "!localhost!")
-			display_rank = "localhost"
-		// Convert spaces to underscores
-		var/css_class = replacetext(display_rank, " ", "_")
-		info += "• [C] is \a <span class='[css_class]'>[rank]</span>"
+		//We check for admins first, since you can have a mentor datum and a holder datum at the same time
+		if(C?.holder)
+			var/rank = C.holder.rank
+			var/display_rank = LOWER_TEXT(rank)
+			if(display_rank == "!localhost!")
+				display_rank = "localhost"
+			// Convert spaces to underscores
+			var/css_class = replacetext(display_rank, " ", "_")
+			info += "• [C] is \a <span class='[css_class]'>[rank]</span>"
+		//You are just a mint green, no admin about you
+		else if(C?.mentor_datum)
+			info += "• [C] is \a <span class='mentor'>Mentor</span>"
+		else
+			message_admins("Client [C] has no admin holder or mentor datum, yet is being passed as staff in staffwho. What the FUCK.")
+			continue
 
 		if(show_sensitive)
-			if(C.holder.fakekey)
+			if(C?.holder.fakekey)
 				info += "<i>(as [C.holder.fakekey])</i>"
 
 			if(isobserver(C.mob))
