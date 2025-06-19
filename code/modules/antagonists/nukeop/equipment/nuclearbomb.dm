@@ -538,7 +538,7 @@
 	Cinematic(get_cinematic_type(off_station),world)
 	if (!bomb_z_level)
 		bomb_z_level = 0 // just in case it hasn't been set by anything
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), bomb_z_level)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZCategory), bomb_z_level)
 	qdel(src)
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
@@ -615,11 +615,11 @@
 /obj/machinery/nuclearbomb/beer/really_actually_explode()
 	disarm()
 
-/proc/KillEveryoneOnZLevel(z)
-	if(!z)
+/proc/KillEveryoneOnZCategory(zLevel)
+	if(!zLevel)
 		return
 	for(var/mob/M in GLOB.mob_list)
-		if (compare_z(M.get_virtual_z_level(), z)) // check whether we're exploding on the station, if so we should include multi-z station levels
+		if (compare_z(M.get_virtual_z_level(), zLevel)) // check whether the mob is on the same z category as the input level
 			if(M.stat != DEAD && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 				to_chat(M, span_userdanger("You are shredded to atoms!"))
 				M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
