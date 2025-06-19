@@ -26793,10 +26793,6 @@
 /obj/item/reagent_containers/cup/glass/shaker,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
-"fem" = (
-/obj/item/stack/tile/iron/checker/other,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "feW" = (
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
@@ -27641,10 +27637,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
 /area/security/prison)
-"fua" = (
-/obj/item/stack/tile/iron/checker/softer,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "fue" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -49384,7 +49376,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/item/stack/tile/iron/checker/softer,
 /turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "nva" = (
@@ -75105,10 +75096,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/brig)
-"wHW" = (
-/obj/item/stack/tile/iron/checker,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "wIf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -113374,7 +113361,7 @@ cPp
 tkd
 xTu
 kJK
-wHW
+xTu
 edP
 bKe
 hfh
@@ -113631,7 +113618,7 @@ iCq
 tkd
 xTu
 kJK
-fem
+xTu
 blf
 rxb
 ujJ
@@ -113888,7 +113875,7 @@ wiR
 gFs
 wmZ
 uNZ
-fua
+xTu
 blf
 ozj
 ujJ

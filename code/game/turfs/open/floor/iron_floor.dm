@@ -152,18 +152,18 @@
 	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/checker
-	icon_state = "blackwhite"
-	base_icon_state = "blackwhite"
-	floor_tile = /obj/item/stack/tile/iron/checker
-
-/turf/open/floor/iron/checker/other
 	icon_state = "checker"
 	base_icon_state = "checker"
 	floor_tile = /obj/item/stack/tile/iron/checker
 
+/turf/open/floor/iron/checker/other
+	icon_state = "checker_alternate"
+	base_icon_state = "checker_alternate"
+	floor_tile = /obj/item/stack/tile/iron/checker
+
 /turf/open/floor/iron/checker/softer
-	icon_state = "blackwhite_softer"
-	base_icon_state = "blackwhite_softer"
+	icon_state = "checker_softer"
+	base_icon_state = "checker_softer"
 	floor_tile = /obj/item/stack/tile/iron/checker/softer
 
 /turf/open/floor/iron/dark/textured
