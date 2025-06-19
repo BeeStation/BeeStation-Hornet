@@ -401,7 +401,7 @@ SUBSYSTEM_DEF(job)
 	// random when the amount is the same
 	shuffle_inplace(sorted_orderings)
 	shuffle_inplace(random_orderings)
-	sorted_orderings = sortTim(sorted_orderings, GLOBAL_PROC_REF(cmp_list_size), TRUE)
+	sorted_orderings = sortTim(sorted_orderings, GLOBAL_PROC_REF(cmp_list_size_dsc), TRUE)
 	// Step 3: Assign provisional jobs
 	for(var/mob/dead/new_player/player in sorted_orderings)
 		// Get the first available job for this player
