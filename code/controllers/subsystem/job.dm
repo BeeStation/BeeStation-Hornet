@@ -180,6 +180,11 @@ SUBSYSTEM_DEF(job)
 		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 		player.mind.assigned_role = rank
 		unassigned -= player
+		// Unassign our previous job, to prevent double counts
+		if (player.mind.assigned_role)
+			var/datum/job/current_job = SSjob.GetJob(player.mind.assigned_role)
+			current_job.current_positions--
+			player.mind.assigned_role = null
 		job.current_positions++
 		return TRUE
 	JobDebug("AR has failed, Player: [player], Rank: [rank]")
