@@ -32,6 +32,7 @@ Assistant
 	// job selection and access selection.
 	min_pop = 0
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
+	dynamic_spawn_group_multiplier = 0
 
 /datum/job/assistant/get_spawn_position_count()
 	// Outside of minpop, there are infinite assistants

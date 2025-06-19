@@ -177,7 +177,6 @@ SUBSYSTEM_DEF(job)
 		if(job.required_playtime_remaining(player.client))
 			return FALSE
 		var/position_limit = job.get_spawn_position_count()
-		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 		// Unassign our previous job, to prevent double counts
 		if (player.mind.assigned_role)
 			var/datum/job/current_job = SSjob.GetJob(player.mind.assigned_role)
@@ -186,6 +185,7 @@ SUBSYSTEM_DEF(job)
 		player.mind.assigned_role = rank
 		unassigned -= player
 		job.current_positions++
+		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]. Group size: [job.get_group_position_count()]")
 		return TRUE
 	JobDebug("AR has failed, Player: [player], Rank: [rank]")
 	return FALSE

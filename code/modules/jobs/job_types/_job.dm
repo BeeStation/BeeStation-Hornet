@@ -136,6 +136,8 @@
 	/// The maximum allowed variance to other job roles in this group.
 	/// Should be the same as everything else in the dynamic spawn group
 	var/dynamic_spawn_variance_limit = 3
+	/// How many times should this role count towards the spawn group size?
+	var/dynamic_spawn_group_multiplier = 1
 
 	/// The HOP can manually add or decrease the amount of players
 	/// that can apply for a job, which adjusts the delta value.
@@ -189,13 +191,13 @@
 			// If the HOP adds a geneticist slot, and that slot gets taken then it counts as if
 			// there is no geneticist at all.
 			// If the HOP adds a geneticist slot and it doesn't get taken, then it has no effect.
-			spawn_group_size += max(0, group_job.current_positions - group_job.total_position_delta)
+			spawn_group_size += max(0, group_job.current_positions * group_job.dynamic_spawn_group_multiplier - group_job.total_position_delta)
 		// If we proxy to this job, then our proxy needs to be active
 		if (min_pop_redirect == group_job.type && SSjob.initial_players_to_assign < min_pop)
-			spawn_group_size += max(0, group_job.current_positions - group_job.total_position_delta)
+			spawn_group_size += max(0, group_job.current_positions * group_job.dynamic_spawn_group_multiplier - group_job.total_position_delta)
 		// If we are sharing a proxy, both proxies need to be active
 		if (min_pop_redirect != null && min_pop_redirect == group_job.min_pop_redirect && SSjob.initial_players_to_assign < group_job.min_pop && SSjob.initial_players_to_assign < min_pop)
-			spawn_group_size += max(0, group_job.current_positions - group_job.total_position_delta)
+			spawn_group_size += max(0, group_job.current_positions * group_job.dynamic_spawn_group_multiplier - group_job.total_position_delta)
 	return spawn_group_size - total_position_delta
 
 /// Get the number of positions that are available for this job.
