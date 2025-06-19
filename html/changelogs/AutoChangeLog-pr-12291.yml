@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: The recommended ghost role cooldown has been reduced to 60 seconds.
