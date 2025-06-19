@@ -82,7 +82,9 @@
 		var/display_rank = LOWER_TEXT(rank)
 		if(display_rank == "!localhost!")
 			display_rank = "localhost"
-		info += "• [C] is \a <span class='[display_rank]'>[rank]</span>"
+		// Convert spaces to underscores
+		var/css_class = replacetext(display_rank, " ", "_")
+		info += "• [C] is \a <span class='[css_class]'>[rank]</span>"
 
 		if(show_sensitive)
 			if(C.holder.fakekey)
