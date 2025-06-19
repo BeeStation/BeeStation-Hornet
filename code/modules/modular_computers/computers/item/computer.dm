@@ -466,6 +466,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			data["PC_ntneticon"] = "sig_high.gif"
 		if(3)
 			data["PC_ntneticon"] = "sig_lan.gif"
+		if(4)
+			data["PC_ntneticon"] = "smmon_6.gif"
 
 	var/list/program_headers = list()
 	for(var/datum/computer_file/program/P as anything in idle_threads)

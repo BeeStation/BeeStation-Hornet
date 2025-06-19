@@ -164,7 +164,12 @@
 
 	if(charging.percent() >= 100)
 		return
-	var/main_draw = use_power_from_net(charge_rate * delta_time, take_any = TRUE) //Pulls directly from the Powernet to dump into the cell or PDA
+	var max_charge_per_second = 50  // max watts per second for PDA charging
+	var desired_charge = charge_rate * delta_time
+	var charge_to_give = desired_charge
+	if(pda)
+		charge_to_give = min(desired_charge, max_charge_per_second * delta_time)
+	var main_draw = use_power_from_net(charge_to_give, take_any = TRUE) //Pulls directly from the Powernet to dump into the cell or PDA
 	if(!main_draw)
 		return
 	charging.give(main_draw)

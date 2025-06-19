@@ -112,6 +112,8 @@
 			download_netspeed = NTNETSPEED_HIGHSIGNAL
 		if(3)
 			download_netspeed = NTNETSPEED_ETHERNET
+		if(4)
+			download_netspeed = NTNETSPEED_ETHERNET
 	download_completion += download_netspeed
 
 /datum/computer_file/program/ntnetdownload/ui_act(action, params)
