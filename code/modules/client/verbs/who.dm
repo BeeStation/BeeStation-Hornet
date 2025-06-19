@@ -39,7 +39,7 @@
 
 	for(var/staff_type in list("maintainer", "mentor"))
 		var/list/staff_data = staff_info[staff_type]
-		if(staff_data["data"])
+		if(!isnull(staff_data["data"]))
 			lines += span_bold(staff_data["header"])
 			lines += staff_data["data"]
 
@@ -79,7 +79,10 @@
 
 		var/list/info = list()
 		var/rank = C.holder.rank
-		info += "• [C] is \a <span class='[rank]'>[rank]</span>"
+		var/display_rank = LOWER_TEXT(rank)
+		if(display_rank == "!localhost!")
+			display_rank = "localhost"
+		info += "• [C] is \a <span class='[display_rank]'>[rank]</span>"
 
 		if(show_sensitive)
 			if(C.holder.fakekey)
