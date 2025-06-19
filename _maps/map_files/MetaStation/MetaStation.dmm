@@ -778,7 +778,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "agV" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -20168,7 +20168,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "cTw" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -22535,7 +22535,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "dvc" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -23430,7 +23430,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/vending/dinnerware,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "dLV" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -24474,7 +24474,7 @@
 	id = "kitchen";
 	name = "Serving Hatch"
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "efl" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -25516,7 +25516,7 @@
 "eDs" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "eDC" = (
 /obj/machinery/light{
@@ -26793,6 +26793,10 @@
 /obj/item/reagent_containers/cup/glass/shaker,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
+"fem" = (
+/obj/item/stack/tile/iron/checker/other,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "feW" = (
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
@@ -27637,6 +27641,10 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
 /area/security/prison)
+"fua" = (
+/obj/item/stack/tile/iron/checker/softer,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "fue" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -32145,7 +32153,7 @@
 /obj/machinery/dish_drive{
 	pixel_y = 12
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "hfu" = (
 /obj/structure/cable/yellow{
@@ -34278,7 +34286,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "hSA" = (
 /obj/structure/cable/yellow{
@@ -37036,7 +37044,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "iQH" = (
 /obj/item/radio/intercom{
@@ -38473,7 +38481,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/hydroponics)
 "jwU" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -39967,7 +39975,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "jYt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -40744,7 +40752,7 @@
 	},
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "kml" = (
 /obj/structure/table,
@@ -41938,7 +41946,7 @@
 /obj/structure/table,
 /obj/item/book/manual/wiki/cooking_to_serve_man,
 /obj/item/storage/box/donkpockets,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "kIn" = (
 /obj/machinery/firealarm/directional/west,
@@ -42891,7 +42899,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "leO" = (
 /obj/structure/table,
@@ -44744,7 +44752,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "lMo" = (
 /obj/machinery/light{
@@ -49376,7 +49384,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron/checker,
+/obj/item/stack/tile/iron/checker/softer,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "nva" = (
 /obj/structure/cable/yellow{
@@ -49923,7 +49932,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "nFv" = (
 /obj/machinery/airalarm/directional/east,
@@ -50674,7 +50683,7 @@
 	pixel_y = -24;
 	req_access_txt = "28"
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "nSr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -52315,7 +52324,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "otF" = (
 /obj/machinery/light_switch{
@@ -52486,7 +52495,7 @@
 "owC" = (
 /obj/effect/landmark/start/cook,
 /obj/machinery/holopad,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "owR" = (
 /turf/closed/wall,
@@ -52673,7 +52682,7 @@
 	name = "Serving Hatch"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "ozk" = (
 /obj/structure/table/wood,
@@ -54094,7 +54103,7 @@
 /area/science/research)
 "paP" = (
 /obj/effect/landmark/start/cook,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "pbb" = (
 /obj/machinery/power/apc/highcap/five_k{
@@ -55883,7 +55892,7 @@
 /obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "pLY" = (
 /obj/structure/cable/yellow{
@@ -56094,7 +56103,7 @@
 	pixel_x = 3
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "pPJ" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -56395,7 +56404,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "pVa" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -57606,7 +57615,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "qqC" = (
 /obj/structure/cable/yellow{
@@ -60582,7 +60591,7 @@
 /obj/structure/desk_bell{
 	pixel_x = 8
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "rxo" = (
 /obj/structure/rack,
@@ -62382,7 +62391,7 @@
 /obj/machinery/camera/directional/south{
 	c_tag = "Kitchen"
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "sdu" = (
 /obj/item/radio/intercom{
@@ -64549,7 +64558,7 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "sST" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -66551,7 +66560,7 @@
 	pixel_x = -3;
 	pixel_y = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "tDC" = (
 /obj/machinery/door/window/southleft{
@@ -66585,7 +66594,7 @@
 /area/medical/medbay/aft)
 "tDH" = (
 /obj/machinery/griddle,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "tDM" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
@@ -68390,7 +68399,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "ujJ" = (
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "ujU" = (
 /obj/machinery/door/airlock/atmos/glass{
@@ -69944,7 +69953,7 @@
 	pixel_x = -3;
 	pixel_y = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "uNB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -72898,7 +72907,7 @@
 	pixel_y = 6
 	},
 /obj/item/food/mint,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "vOs" = (
 /obj/machinery/status_display/evac{
@@ -73542,7 +73551,7 @@
 /area/maintenance/solars/port/fore)
 "wde" = (
 /obj/machinery/deepfryer,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "wdl" = (
 /obj/machinery/door/window/northleft{
@@ -74415,7 +74424,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "wvw" = (
 /obj/structure/grille,
@@ -75096,6 +75105,10 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/brig)
+"wHW" = (
+/obj/item/stack/tile/iron/checker,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "wIf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -75933,7 +75946,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "wVV" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -76816,7 +76829,7 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/oven,
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/softer,
 /area/crew_quarters/kitchen)
 "xlH" = (
 /obj/structure/grille,
@@ -113361,7 +113374,7 @@ cPp
 tkd
 xTu
 kJK
-xTu
+wHW
 edP
 bKe
 hfh
@@ -113618,7 +113631,7 @@ iCq
 tkd
 xTu
 kJK
-xTu
+fem
 blf
 rxb
 ujJ
@@ -113875,7 +113888,7 @@ wiR
 gFs
 wmZ
 uNZ
-xTu
+fua
 blf
 ozj
 ujJ
