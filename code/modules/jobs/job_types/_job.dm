@@ -135,7 +135,7 @@
 	var/dynamic_spawn_group = null
 	/// The maximum allowed variance to other job roles in this group.
 	/// Should be the same as everything else in the dynamic spawn group
-	var/dynamic_spawn_variance_limit = 2
+	var/dynamic_spawn_variance_limit = 3
 
 	/// The HOP can manually add or decrease the amount of players
 	/// that can apply for a job, which adjusts the delta value.
