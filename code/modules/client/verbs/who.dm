@@ -86,10 +86,10 @@
 				display_rank = "localhost"
 			// Convert spaces to underscores
 			var/css_class = replacetext(display_rank, " ", "_")
-			info += "• [C] is \a <span class='[css_class]'>[rank]</span>"
+			info += "• [C] is a <span class='[css_class]'>[rank]</span>"
 		//You are just a mint green, no admin about you
 		else if(C?.mentor_datum)
-			info += "• [C] is \a <span class='mentor'>Mentor</span>"
+			info += "• [C] is a <span class='mentor'>Mentor</span>"
 		else
 			message_admins("Client [C] has no admin holder or mentor datum, yet is being passed as staff in staffwho. What the FUCK.")
 			continue
