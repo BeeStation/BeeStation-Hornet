@@ -34,7 +34,7 @@
 	lines += admin_data || NO_ADMINS_ONLINE_MESSAGE
 
 	// Add disclaimer if other staff exists
-	if(staff_info["maintainer"]["data"] || staff_info["mentor"]["data"])
+	if(!admin_data && (staff_info["maintainer"]["data"] || staff_info["mentor"]["data"]))
 		lines += "<b>Non-admin staff are unable to handle adminhelp tickets.</b>"
 
 	for(var/staff_type in list("maintainer", "mentor"))
