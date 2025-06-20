@@ -10,7 +10,6 @@ Assistant
 	total_positions = -1
 	selection_color = "#dddddd"
 	antag_rep = 7
-	min_pop = 0
 
 	outfit = /datum/outfit/job/assistant
 
@@ -26,13 +25,6 @@ Assistant
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
-	// We are the leader of the service department, since department spawn
-	// groups require at least 1 lead role.
-	// All service jobs at lowpop will be treated as a cook for the sake of
-	// job selection and access selection.
-	min_pop = 0
-	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
-	dynamic_spawn_group_multiplier = 0
 
 /datum/job/assistant/get_spawn_position_count()
 	// Outside of minpop, there are infinite assistants

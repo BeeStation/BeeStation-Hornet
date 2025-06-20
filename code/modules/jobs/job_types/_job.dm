@@ -126,7 +126,7 @@
 	/// doctor spawned instead.
 	var/datum/job/min_pop_redirect = null
 	/// The minimum population required at roundstart for this job to appear
-	var/min_pop = MINPOP_JOB_LIMIT
+	var/min_pop = 0
 	/// The maximum population required at roundstart for this job to appear
 	var/max_pop = INFINITY
 
@@ -163,7 +163,7 @@
 	if (group_slots == -1)
 		return TRUE
 	// If the department itself is saturated, return false
-	if (get_group_position_count() >= group_slots)
+	if (dynamic_spawn_group_multiplier && get_group_position_count() >= group_slots)
 		return FALSE
 	// If the role itself does not care about saturation, return true
 	if (total_positions == -1 || dynamic_spawn_group)
@@ -179,7 +179,7 @@
 /// its population limit, otherwise groups together roles by checking for their
 /// min_pop_redirect proxy role.
 /datum/job/proc/get_group_position_count()
-	var/spawn_group_size = current_positions
+	var/spawn_group_size = current_positions * dynamic_spawn_group_multiplier
 	// Find all jobs that proxy to the target's spawn group
 	// This will mean that medical will count all of the players in medical
 	for (var/datum/job/group_job in SSjob.occupations)
@@ -427,6 +427,49 @@
 	if (SSjob.initial_players_to_assign < min_pop && min_pop_redirect)
 		var/datum/job/redirected_role = SSjob.GetJob(min_pop_redirect::title)
 		. |= redirected_role.get_access()
+	// Gain massive access in super lowpop mode
+	if (SSjob.initial_players_to_assign < STATION_UNLOCK_POPULATION)
+		// Base increased access
+		. |= list(
+			ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA,
+			ACCESS_CHAPEL_OFFICE, ACCESS_TECH_STORAGE, ACCESS_BAR,
+			ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_KITCHEN,
+			ACCESS_CONSTRUCTION, ACCESS_HYDROPONICS, ACCESS_LIBRARY,
+			ACCESS_THEATRE, ACCESS_MAILSORTING, ACCESS_MINING_STATION,
+			ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINING
+		)
+		// Access to cargo
+		if (SSjob.is_job_empty(JOB_NAME_CARGOTECHNICIAN))
+			. |= list(
+				ACCESS_CARGO
+			)
+		// Access to the bridge to request spare ID
+		if (SSjob.is_job_empty(JOB_NAME_CAPTAIN))
+			. |= ACCESS_HEADS
+			. |= ACCESS_KEYCARD_AUTH
+		// Access to security basics (get captain for guns)
+		if (SSjob.is_job_empty(JOB_NAME_SECURITYOFFICER))
+			. |= list(
+				ACCESS_SECURITY, ACCESS_BRIG, ACCESS_SEC_DOORS
+			)
+		// Access to science
+		if (SSjob.is_job_empty(JOB_NAME_SCIENTIST))
+			. |= list(
+				ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_ROBOTICS,
+				ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_XENOBIOLOGY
+			)
+		// Access to engineering to setup the engine
+		if (SSjob.is_job_empty(JOB_NAME_STATIONENGINEER))
+			. |= list(
+				ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS
+			)
+		// Access to medical. Jobs like geneticist don't count
+		if (SSjob.is_job_empty(JOB_NAME_MEDICALDOCTOR))
+			. |= list(
+				ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS,
+				ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_SURGERY,
+				ACCESS_CLONING
+			)
 
 /datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)

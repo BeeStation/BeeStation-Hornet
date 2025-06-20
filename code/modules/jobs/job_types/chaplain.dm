@@ -10,10 +10,6 @@
 	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
-	// At lowpop, we are a proxy for assistant; we will count towards an
-	// assistant slot rather than the job's normal slot and will get full access
-	// to service.
-	min_pop_redirect = /datum/job/assistant
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
 	extra_access = list()

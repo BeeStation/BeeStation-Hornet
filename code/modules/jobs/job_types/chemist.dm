@@ -39,7 +39,6 @@
 		/area/medical/chemistry,
 		/area/medical/apothecary
 	)
-	min_pop_redirect = /datum/job/medical_doctor
 
 /datum/outfit/job/chemist
 	name = JOB_NAME_CHEMIST

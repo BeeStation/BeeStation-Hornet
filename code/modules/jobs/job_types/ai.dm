@@ -16,7 +16,6 @@
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
-	min_pop = 0
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc

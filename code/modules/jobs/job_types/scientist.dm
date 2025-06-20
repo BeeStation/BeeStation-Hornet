@@ -9,7 +9,6 @@
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
-	min_pop = 0
 
 	outfit = /datum/outfit/job/scientist
 

@@ -31,7 +31,6 @@
 	)
 
 	minimal_lightup_areas = list(/area/medical/morgue, /area/security/detectives_office)
-	min_pop_redirect = /datum/job/security_officer
 
 /datum/outfit/job/detective
 	name = JOB_NAME_DETECTIVE

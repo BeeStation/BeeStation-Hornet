@@ -7,7 +7,6 @@
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	faction = "Station"
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
-	min_pop = 0
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 840

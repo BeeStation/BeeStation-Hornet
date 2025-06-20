@@ -10,7 +10,6 @@
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/medical_doctor
-	min_pop = 0
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_VIROLOGY)
 

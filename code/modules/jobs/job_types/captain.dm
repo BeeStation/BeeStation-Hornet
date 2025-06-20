@@ -13,8 +13,6 @@
 	minimal_player_age = 14
 	exp_requirements = 900
 	exp_type = EXP_TYPE_COMMAND
-	// Allowed on low-pop stations
-	min_pop = 0
 
 	outfit = /datum/outfit/job/captain
 

@@ -8,7 +8,6 @@
 	faction = "Station"
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#dcba97"
-	min_pop = 0
 
 	outfit = /datum/outfit/job/cargo_technician
 

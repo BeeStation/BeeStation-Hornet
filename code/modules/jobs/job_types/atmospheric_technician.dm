@@ -29,7 +29,6 @@
 	)
 
 	minimal_lightup_areas = list(/area/engine/atmos)
-	min_pop_redirect = /datum/job/station_engineer
 
 /datum/outfit/job/atmospheric_technician
 	name = JOB_NAME_ATMOSPHERICTECHNICIAN
