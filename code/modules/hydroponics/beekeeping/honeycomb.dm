@@ -5,7 +5,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "honeycomb"
 	max_volume = 10
-	foodtypes = GROSS | SUGAR //raw honeycomb is full of gross wax.
+	foodtypes = SUGAR
 	food_reagents = list(/datum/reagent/consumable/honey = 5)
 	var/honey_color = ""
 
