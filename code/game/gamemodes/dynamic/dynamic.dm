@@ -14,7 +14,7 @@
 	/// Set at the beginning of the round. Used to purchase rules.
 	var/roundstart_points = 0
 	/// Only here for logging purposes
-	var/roundstart_point_divergence = 1
+	var/roundstart_point_divergence = 0
 	/// List of all roundstart rulesets that have been executed
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
 	/// List of players ready on roundstart.
@@ -99,9 +99,12 @@
 	 * Light Ruleset Chance decrease rate is given to the Medium Ruleset Chance is 75%.
 	 * The Heavy Ruleset Chance will receive the remainder, in this case, 25%
 	 *
-	 * The rest is pretty simple, the chosen midround ruleset is picked based off
-	 * the Light/Medium/Heavy Ruleset Chances and once chosen
-	 * we will save up until we have enough points to execute it.
+	 * When the round time reaches one hour the Light Ruleset Chance will reach 0%
+	 * and the Medium Ruleset Chance will start to decrease while the Heavy Ruleset Chance increases.
+	 *
+	 * The rest is pretty simple, the chosen midround ruleset's severity is picked based off
+	 * the Light/Medium/Heavy Ruleset Chances and after that, we choose based off ruleset weights of that severity.
+	 * Finally, we save up until we have enough points to execute our chosen midround ruleset and repeat the cycle.
 	**/
 
 	/// The chances for each type of midround ruleset to be picked at roundstart
@@ -254,12 +257,12 @@
 			roundstart_points += roundstart_points_per_unready
 
 	roundstart_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
-	roundstart_points = round(roundstart_points * roundstart_point_divergence, 1)
+	roundstart_points = round(roundstart_points * roundstart_point_divergence)
 
-	log_dynamic("ROUNDSTART: Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100, 1)]%")
+	log_dynamic("ROUNDSTART: Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100)]%")
 
 /**
- * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags, etc.)
+ * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags)
 **/
 /datum/game_mode/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
 	// Extended was forced, don't pick any rulesets
@@ -395,9 +398,9 @@
 		if(ruleset.rule_process() == RULESET_STOP_PROCESSING)
 			rulesets_to_process -= ruleset
 
-/*
-* Execute a ruleset and if it needs to process, add it to the list of rulesets to process
-*/
+/**
+ * Execute a ruleset and if it needs to process, add it to the list of rulesets to process
+**/
 /datum/game_mode/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	if(!ruleset)
 		return DYNAMIC_EXECUTE_FAILURE
@@ -407,9 +410,9 @@
 
 	return ruleset.execute()
 
-/*
-* Configure the midround rulesets from 'dynamic.json' and start rolling midrounds
-*/
+/**
+ * Configure the midround rulesets from 'dynamic.json' and start rolling midrounds
+**/
 /datum/game_mode/dynamic/proc/init_midround()
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
 	if(!length(midround_configured_rulesets))
@@ -509,7 +512,7 @@
 		midround_medium_chance *= adjustment_factor
 		midround_heavy_chance *= adjustment_factor
 
-	log_dynamic("MIDROUND: Updated chances: Light: [round(midround_light_chance, 1)]%, Medium: [round(midround_medium_chance, 1)]%, Heavy: [round(midround_heavy_chance, 1)]%")
+	log_dynamic("MIDROUND: Updated chances: Light: [round(midround_light_chance)]%, Medium: [round(midround_medium_chance)]%, Heavy: [round(midround_heavy_chance)]%")
 
 /**
  * Choose the midround ruleset to save towards
@@ -640,7 +643,7 @@
 
 /**
  * Admin interaction panel
- * TODO: maybe make this tgui?
+ * TODO: make this tgui
 **/
 /datum/game_mode/dynamic/admin_panel()
 	var/list/dat = list()
@@ -649,12 +652,12 @@
 	dat += "Forced extended: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];forced_extended=1'><b>[forced_extended ? "On" : "Off"]</b></a><br/>"
 
 	dat += "Roundstart points: <b>[roundstart_points]</b>"
-	dat += "Roundstart point divergence: <b>[round((roundstart_point_divergence - 1) * 100, 1)]%</b>"
+	dat += "Roundstart point divergence: <b>[round((roundstart_point_divergence - 1) * 100)]%</b>"
 	dat += "Roundstart candidates: <b>[length(roundstart_candidates)]</b><br/>"
 
 	dat += "Midround grace period: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_graceperiod=1'><b>[midround_grace_period ? DisplayTimeText(midround_grace_period) : "0 seconds"]</b></a>"
 	dat += "Current midround points: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_points=1'><b>[midround_points]</b></a>"
-	dat += "Current midround percentages: Light: [round(midround_light_chance, 1)]%, Medium: [round(midround_medium_chance, 1)]%, Heavy: [round(midround_heavy_chance, 1)]%"
+	dat += "Current midround percentages: Light: [round(midround_light_chance)]%, Medium: [round(midround_medium_chance)]%, Heavy: [round(midround_heavy_chance)]%"
 	dat += "Chosen midround ruleset: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_midround_ruleset=1'><b>[midround_chosen_ruleset ? midround_chosen_ruleset.name : "None"]</b></a><br/>"
 
 	dat += "Latejoin probability: <a href='byond://?src=[FAST_REF(src)];[HrefToken()];set_latejoin_prob=1'><b>[latejoin_ruleset_probability]%</b></a>"
