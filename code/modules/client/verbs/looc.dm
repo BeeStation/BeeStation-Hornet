@@ -70,7 +70,8 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 			continue
 
 		if(in_view[get_turf(client.mob)])
-			targets |= client.mob
+			if(client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
+				targets |= client.mob
 			to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = (client == src))
 
 	// Send to admins
@@ -78,7 +79,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 		if(!admin.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			continue
 
-		if(in_view[get_turf(admin.mob)])
+		if(in_view[get_turf(admin.mob)] && admin.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_looc))
 			targets |= admin.mob
 		to_chat(admin, span_looc("[span_prefix("LOOC:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
 
