@@ -214,7 +214,7 @@
 		edit_rights_topic(href_list)
 
 	else if(href_list["gamemode_panel"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_FUN))
 			return
 		SSticker.mode.admin_panel()
 
