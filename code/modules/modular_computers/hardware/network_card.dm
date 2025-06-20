@@ -1,10 +1,3 @@
-#define	NO_SIGNAL 0
-#define LOW 1
-#define HIGH 2
-#define NO_RELAY 3
-#define HACKED 4
-
-
 /obj/item/computer_hardware/network_card
 	name = "network card"
 	desc = "A basic wireless network card for usage with standard NTNet frequencies."

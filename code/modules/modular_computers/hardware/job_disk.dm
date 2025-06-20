@@ -99,7 +99,7 @@
 /obj/item/computer_hardware/hard_drive/role/update_overclocking()
 	var/obj/item/computer_hardware/hard_drive/portable/new_disk = new /obj/item/computer_hardware/hard_drive/portable(get_turf(src))
 	for(var/datum/computer_file/program/prog in stored_files)
-		var/datum/computer_file/program/clone = new prog(new_disk)
+		var/datum/computer_file/program/clone = new prog.type(new_disk)
 		new_disk.store_file(clone)
 	new_disk.hacked = TRUE
 	new_disk.name = "modified job data disk"

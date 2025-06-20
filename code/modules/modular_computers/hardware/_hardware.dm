@@ -188,7 +188,7 @@
 		for(var/i = 1 to min(length(input), length(serial_code)))
 			difference += abs(text2ascii(input, i) - text2ascii(serial_code, i))
 		difference += 10 * abs(length(input) - length(serial_code)) // Penalty for wrong length
-		if(difference <= 100)
+		if(difference <= 100) /// ALL THIS SHIT NEEDS FUCKING WORRRRRRRRRRRRRRRRKKKKKKK ITS FUCKED!!! WHAT THE HELLL!!!
 			overclock_failure(user, tool)
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 		else if(difference <= 300)
@@ -208,7 +208,7 @@
 
 /obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
 	if(prob(30))
-		damage = damage_failure
+		take_damage(rand(1, 100))
 		to_chat(user, "The [name] has been damaged.")
 		playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
 		return TRUE
@@ -234,9 +234,9 @@
 		to_chat(user, "You have sucessefuly overclocked [name].")
 	playsound(src, "sparks", 50)
 	update_icon_state()
-	update_overclocking()
+	update_overclocking(user, tool)
 
-/obj/item/computer_hardware/proc/update_overclocking()
+/obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
 	return /// Nothing happens here yet
 
 /// Called on multitool click, prints diagnostic information to the user.

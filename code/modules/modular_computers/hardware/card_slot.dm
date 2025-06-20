@@ -6,6 +6,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
 	custom_price = 20
+	can_hack = TRUE
 
 	var/obj/item/card/id/stored_card
 	var/current_identification
@@ -50,7 +51,7 @@
 		return FALSE
 
 	var/obj/item/card/id/newcard = I
-	if(!newcard.electric)
+	if(!newcard.electric && !hacked) //Lets Non Eletric IDs pass if Hacked
 		to_chat(user, span_warning("You attempt to jam \the [I] into \the [expansion_hw ? "secondary" : "primary"] [src]. It doesn't fit."))
 		return
 
