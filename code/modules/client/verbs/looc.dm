@@ -59,26 +59,32 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 	mob.log_talk(raw_msg, LOG_OOC, tag="LOOC")
 
 	// Search everything in the view for anything that might be a mob, or contain a mob.
-	var/list/client/targets = list()
+	var/list/mob/targets = list()
 	var/list/turf/in_view = list()
 	for(var/turf/viewed_turf in view(get_turf(mob)))
 		in_view[viewed_turf] = TRUE
+
+	// Send to people in range
 	for(var/client/client in GLOB.clients)
 		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc) || (client in GLOB.admins))
 			continue
-		if(in_view[get_turf(client.mob)])
-			targets |= client
-			to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
 
-	for(var/client/client in GLOB.admins)
-		if(!client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
-			continue
-		var/prefix
 		if(in_view[get_turf(client.mob)])
-			prefix = "[(client in targets) ? "" : "(R)"]LOOC (NEARBY)"
-		else
-			prefix = "[(client in targets) ? "" : "(R)"]LOOC"
-		to_chat(client, span_looc("[span_prefix("[prefix]:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
+			targets |= client.mob
+			to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message(msg)]"), avoid_highlighting = (client == src))
+
+	// Send to admins
+	for(var/client/admin in GLOB.admins)
+		if(!admin.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
+			continue
+
+		if(in_view[get_turf(admin.mob)])
+			targets |= admin.mob
+		to_chat(admin, span_looc("[span_prefix("LOOC:")] <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> [span_message(msg)]"), avoid_highlighting = (admin == src))
+
+	// Create runechat message
+	if(length(targets))
+		create_chat_message(mob, /datum/language/metalanguage, targets, "\[LOOC: [raw_msg]\]", spans = list("looc"))
 
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_ooc))

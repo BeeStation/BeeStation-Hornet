@@ -20,10 +20,9 @@ GLOBAL_LIST_INIT(leakless_channels, list(
 	MSAY_CHANNEL,
 ))
 
-/// These are entirely OOC
+/// These shouldn't have a typing indicator
 GLOBAL_LIST_INIT(ooc_channels, list(
 	OOC_CHANNEL,
-	LOOC_CHANNEL,
 	ASAY_CHANNEL,
 	DSAY_CHANNEL,
 	MSAY_CHANNEL,
