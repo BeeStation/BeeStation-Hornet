@@ -149,7 +149,7 @@
 			to_chat(usr, span_notice("Tool behaviour of [src] is now [tool_behaviour]"))
 			return
 
-/obj/item/construction/rcd/arcd/debug
+/obj/item/construction/rcd/sarcd/debug
 	name = "\improper CentCom Admin RCD"
 	icon_state = "ircd"
 	item_state = "ircd"
@@ -282,7 +282,7 @@
 		/obj/item/geiger_counter=1,
 		/obj/item/holosign_creator/atmos/debug=1,
 		/obj/item/pipe_dispenser/debug=1,
-		/obj/item/construction/rcd/arcd/debug=1,
+		/obj/item/construction/rcd/sarcd/debug=1,
 		/obj/item/construction/rld/debug=1,
 		/obj/item/areaeditor/blueprints=1,
 		/obj/item/card/emag=1,
