@@ -662,6 +662,9 @@
 		eye_lights.icon = icon
 		add_overlay(eye_lights)
 
+	if(combat_indicator)
+		add_overlay(GLOB.combat_indicator_overlay)
+
 	if(opened)
 		if(wiresexposed)
 			add_overlay("ov-opencover +w")
