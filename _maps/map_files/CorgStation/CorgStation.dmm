@@ -13869,12 +13869,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"epo" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/platform/wood,
-/obj/structure/railing/perspective/wood,
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "epu" = (
 /obj/effect/landmark/blobstart,
 /obj/structure/cable/yellow{
@@ -16894,10 +16888,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool/bar/directional/south{
 	dir = 1
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "ftA" = (
@@ -46046,6 +46040,9 @@
 /obj/structure/railing/perspective/wood{
 	dir = 6
 	},
+/obj/item/kirbyplants{
+	icon_state = "plant-18"
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "oRA" = (
@@ -46798,8 +46795,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/landmark/start/assistant,
+/obj/structure/chair/stool/bar/directional/south,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "pgq" = (
@@ -50243,21 +50240,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
-"qpO" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/platform/wood/corner{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "qpW" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L2"
@@ -52835,13 +52817,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"rjN" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/platform/wood{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "rjR" = (
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -55359,23 +55334,6 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
-"sdG" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/platform/wood/corner,
-/obj/structure/railing/perspective/wood/corner{
-	dir = 4;
-	pixel_y = -20
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "sdI" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/random{
@@ -60587,7 +60545,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "tOL" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/light_switch{
 	pixel_x = 1;
 	pixel_y = 28
@@ -60601,6 +60558,9 @@
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-18"
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -62530,7 +62490,7 @@
 /area/science/mixing)
 "uwL" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-08"
+	icon_state = "plant-18"
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -64429,10 +64389,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
+/obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool/bar/directional/south{
 	dir = 1
 	},
-/obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "vdA" = (
@@ -108051,8 +108011,8 @@ kXw
 cyv
 mwy
 wKN
-sdG
-qpO
+mwy
+mwy
 mwy
 oVF
 oDE
@@ -108308,8 +108268,8 @@ mus
 nhe
 mus
 pti
-epo
-rjN
+nEj
+nEj
 nEj
 fAZ
 nEj
