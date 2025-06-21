@@ -24,6 +24,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
+	custom_price = 5 /// Silly useless thing
 	custom_materials = list(/datum/material/iron=80)
 	flags_1 = CONDUCT_1
 	attack_verb_continuous = list("attacks", "stabs", "pokes")

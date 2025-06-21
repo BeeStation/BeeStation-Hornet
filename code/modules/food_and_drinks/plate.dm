@@ -4,6 +4,7 @@
 	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "plate"
 	w_class = WEIGHT_CLASS_BULKY //No backpack.
+	custom_price = 5
 	///How many things fit on this plate?
 	var/max_items = 8
 	///The offset from side to side the food items can have on the plate
@@ -14,6 +15,7 @@
 	var/placement_offset = -15
 	/// If the plate will shatter when thrown
 	var/fragile = TRUE
+
 
 /obj/item/plate/Initialize(mapload)
 	. = ..()
