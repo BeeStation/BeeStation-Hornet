@@ -97,18 +97,16 @@
 #define BODYTYPE_ROBOTIC (1<<1)
 ///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
 #define BODYTYPE_HUMANOID (1<<2)
-//TV Head
-#define BODYTYPE_BOXHEAD (1<<3)
 ///The limb is digitigrade.
-#define BODYTYPE_DIGITIGRADE (1<<4)
+#define BODYTYPE_DIGITIGRADE (1<<3)
 ///The limb fits the monkey mold.
-#define BODYTYPE_MONKEY (1<<5)
+#define BODYTYPE_MONKEY (1<<4)
 ///The limb is snouted.
-//#define BODYTYPE_SNOUTED (1<<6)
+//#define BODYTYPE_SNOUTED (1<<5)
 ///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
-#define BODYTYPE_LARVA_PLACEHOLDER (1<<7)
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
 ///The limb is from a xenomorph.
-#define BODYTYPE_ALIEN (1<<8)
+#define BODYTYPE_ALIEN (1<<7)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"

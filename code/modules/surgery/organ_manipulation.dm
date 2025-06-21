@@ -92,8 +92,6 @@
 			return -1
 		target_organ = tool.contents[1]
 		if(!isorgan(target_organ))
-			if (target_zone == BODY_ZONE_PRECISE_EYES)
-				target_zone = check_zone(target_zone)
 			to_chat(user, span_notice("You cannot put [target_organ] into [target]'s [parse_zone(target_zone)]!"))
 			return -1
 		tool = target_organ
@@ -118,8 +116,6 @@
 			to_chat(user, span_warning("[target_organ] seems to have been chewed on, you can't use this!"))
 			return -1
 
-		if (target_zone == BODY_ZONE_PRECISE_EYES)
-			target_zone = check_zone(target_zone)
 		display_results(
 			user,
 			target,
@@ -131,9 +127,7 @@
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
-		var/list/organs = target.get_organs_for_zone(target_zone)
-		if (target_zone == BODY_ZONE_PRECISE_EYES)
-			target_zone = check_zone(target_zone)
+		var/list/organs = target.get_organs_for_zone(target_zone, TRUE) //Including children is temporary
 		if(!length(organs))
 			to_chat(user, span_warning("There are no removable organs in [target]'s [parse_zone(target_zone)]!"))
 			return -1
@@ -166,8 +160,6 @@
 				return -1
 
 /datum/surgery_step/manipulate_organs/success(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
-	if (target_zone == BODY_ZONE_PRECISE_EYES)
-		target_zone = check_zone(target_zone)
 	if(current_type == "insert")
 		if(istype(tool, /obj/item/organ_storage))
 			target_organ = tool.contents[1]
