@@ -1,6 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - refactor: Compiling the codebase now requires 515.1642 minimum.
-  - config: Updated the minimum and maximum byond client versions that a client can
-      use to connect to the server

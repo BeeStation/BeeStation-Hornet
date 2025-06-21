@@ -202,16 +202,13 @@
 	barf_contents()
 	..()
 
+//TODO Componentize this
 /mob/living/simple_animal/hostile/morph/proc/barf_contents()
 	for(var/atom/movable/AM in src)
 		RemoveContents(AM)
 		if(prob(90))
 			step(AM, pick(GLOB.alldirs))
 	morph_stomach.ui_update()
-
-/mob/living/simple_animal/hostile/morph/wabbajack_act(mob/living/new_mob)
-	barf_contents()
-	. = ..()
 
 /mob/living/simple_animal/hostile/morph/Aggro() // automated only
 	..()

@@ -330,7 +330,7 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
+			if (L.get_organ_by_type(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
 				M.visible_message(span_warning("[src] grabs [L] by [L.p_their()] tail!"),\
 								span_warning(" [src] grabs you by the tail!"), null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, span_notice("You grab [L] by [L.p_their()] tail!"))  //Message sent to grabber
@@ -808,7 +808,7 @@
 	set_dizziness(0)
 	cure_nearsighted()
 	//Some eye logic
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	cure_blind(null, eyes?.can_see)
 	cure_husk()
 	hallucination = 0
@@ -909,7 +909,7 @@
 							TH.color = spec_color
 
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
-	if((NOBLOOD in dna.species.species_traits) || !is_bleeding())
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
 	spec_color = dna.species.blood_color
 	..()
@@ -1241,19 +1241,208 @@
 	stop_pulling()
 	. = ..()
 
+// Used in polymorph code to shapeshift mobs into other creatures
+/**
+ * Polymorphs our mob into another mob.
+ * If successful, our current mob is qdeleted!
+ *
+ * what_to_randomize - what are we randomizing the mob into? See the defines for valid options.
+ * change_flags - only used for humanoid randomization (currently), what pool of changeflags should we draw from?
+ *
+ * Returns a mob (what our mob turned into) or null (if we failed).
+ */
+/mob/living/proc/wabbajack(what_to_randomize, change_flags = WABBAJACK)
+	if(stat == DEAD || notransform || (GODMODE & status_flags))
+		return
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_PRE_WABBAJACKED, what_to_randomize) & STOP_WABBAJACK)
+		return
+
+	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	icon = null
+	cut_overlays()
+	invisibility = INVISIBILITY_ABSTRACT
+
+	var/list/item_contents = list()
+
+	if(iscyborg(src))
+		var/mob/living/silicon/robot/Robot = src
+		// Disconnect AI's in shells
+		if(Robot.connected_ai)
+			Robot.undeploy() // disconnect any AI shells first
+		if(Robot.mmi)
+			qdel(Robot.mmi)
+		Robot.notify_ai(NEW_BORG)
+	else
+		for(var/obj/item/item in src)
+			if(!dropItemToGround(item))
+				qdel(item)
+				continue
+			item_contents += item
+
+	var/mob/living/new_mob
+
+	var/static/list/possible_results = list(
+		WABBAJACK_MONKEY,
+		WABBAJACK_ROBOT,
+		WABBAJACK_SLIME,
+		WABBAJACK_XENO,
+		WABBAJACK_HUMAN,
+		WABBAJACK_ANIMAL,
+	)
+
+	// If we weren't passed one, pick a default one
+	what_to_randomize ||= pick(possible_results)
+
+	switch(what_to_randomize)
+		if(WABBAJACK_MONKEY)
+			new_mob = new /mob/living/carbon/monkey(loc)
+
+		if(WABBAJACK_ROBOT)
+			var/static/list/robot_options = list(
+				/mob/living/silicon/robot = 200,
+				/mob/living/simple_animal/drone/polymorphed = 200,
+				/mob/living/silicon/robot/model/syndicate = 1,
+				/mob/living/silicon/robot/modules/syndicate/medical = 1,
+				/mob/living/silicon/robot/modules/syndicate/saboteur = 1,
+			)
+
+			var/picked_robot = pick(robot_options)
+			new_mob = new picked_robot(loc)
+			if(issilicon(new_mob))
+				var/mob/living/silicon/robot/created_robot = new_mob
+				new_mob.gender = gender
+				new_mob.invisibility = 0
+				new_mob.job = JOB_NAME_CYBORG
+				created_robot.lawupdate = FALSE
+				created_robot.connected_ai = null
+				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
+				created_robot.clear_inherent_laws(announce = FALSE)
+				created_robot.clear_zeroth_law(announce = FALSE)
+
+		if(WABBAJACK_SLIME)
+			new_mob = new /mob/living/simple_animal/slime/random(loc)
+
+		if(WABBAJACK_XENO)
+			var/picked_xeno_type
+
+			if(ckey)
+				picked_xeno_type = pick(
+					/mob/living/carbon/alien/humanoid/hunter,
+					/mob/living/carbon/alien/humanoid/sentinel,
+				)
+			else
+				picked_xeno_type = pick(
+					/mob/living/carbon/alien/humanoid/hunter,
+					/mob/living/simple_animal/hostile/alien/sentinel,
+				)
+			new_mob = new picked_xeno_type(loc)
+
+		if(WABBAJACK_ANIMAL)
+			var/picked_animal = pick(
+				/mob/living/simple_animal/hostile/carp,
+				/mob/living/simple_animal/hostile/bear,
+				/mob/living/simple_animal/hostile/mushroom,
+				/mob/living/simple_animal/hostile/statue,
+				/mob/living/simple_animal/hostile/retaliate/bat,
+				/mob/living/simple_animal/hostile/retaliate/goat,
+				/mob/living/simple_animal/hostile/killertomato,
+				/mob/living/simple_animal/hostile/poison/giant_spider,
+				/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+				/mob/living/simple_animal/hostile/blob/blobbernaut/independent,
+				/mob/living/simple_animal/hostile/carp/ranged,
+				/mob/living/simple_animal/hostile/carp/ranged/chaos,
+				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
+				/mob/living/simple_animal/hostile/asteroid/goliath/beast,
+				/mob/living/simple_animal/hostile/headcrab,
+				/mob/living/simple_animal/hostile/morph,
+				/mob/living/simple_animal/hostile/stickman,
+				/mob/living/simple_animal/hostile/stickman/dog,
+				/mob/living/simple_animal/hostile/megafauna/dragon/lesser,
+				/mob/living/simple_animal/hostile/gorilla,
+				/mob/living/simple_animal/parrot,
+				/mob/living/basic/pet/dog/corgi,
+				/mob/living/simple_animal/crab,
+				/mob/living/basic/pet/dog/pug,
+				/mob/living/simple_animal/pet/cat,
+				/mob/living/simple_animal/mouse,
+				/mob/living/simple_animal/chicken,
+				/mob/living/basic/cow,
+				/mob/living/simple_animal/hostile/lizard,
+				/mob/living/simple_animal/pet/fox,
+				/mob/living/simple_animal/butterfly,
+				/mob/living/simple_animal/pet/cat/cak,
+				/mob/living/simple_animal/chick,
+				)
+			new_mob = new picked_animal(loc)
+
+		if(WABBAJACK_HUMAN)
+			var/mob/living/carbon/human/new_human = new(loc)
+
+			// 50% chance that we'll also randomice race
+			if(prob(50))
+				var/list/chooseable_races = list()
+				for(var/datum/species/species_type as anything in subtypesof(/datum/species))
+					if(initial(species_type.changesource_flags) & change_flags)
+						chooseable_races += species_type
+
+				if(length(chooseable_races))
+					new_human.set_species(pick(chooseable_races))
+
+			// Randomize everything but the species, which was already handled above.
+			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
+			new_human.update_hair()
+			new_human.update_body() // is_creating = TRUE
+			new_human.dna.update_dna_identity()
+			new_mob = new_human
+
+		else
+			stack_trace("wabbajack() was called without an invalid randomization choice. ([what_to_randomize])")
+
+	if(!new_mob)
+		return
+
+	to_chat(src, span_hypnophrase(span_big("Your form morphs into that of a [what_to_randomize]!")))
+
+	// And of course, make sure they get policy for being transformed
+	//var/poly_msg = get_policy(POLICY_POLYMORPH)
+	//if(poly_msg)
+	//	to_chat(src, poly_msg)
+
+	new_mob.grant_language(/datum/language/common)
+
+	// Some forms can still wear some items
+	for(var/obj/item/item as anything in item_contents)
+		new_mob.equip_to_appropriate_slot(item)
+
+	// I don't actually know why we do this
+	new_mob.set_combat_mode(TRUE)
+
+	// on_wabbajack is where we handle setting up the name,
+	// transfering the mind and observerse, and other miscellaneous
+	// actions that should be done before we delete the original mob.
+	on_wabbajacked(new_mob)
+
+	qdel(src)
+	return new_mob
+
 // Called when we are hit by a bolt of polymorph and changed
 // Generally the mob we are currently in is about to be deleted
-/mob/living/proc/wabbajack_act(mob/living/new_mob)
+/mob/living/proc/on_wabbajacked(mob/living/new_mob)
+	log_message("became [new_mob.name] ([new_mob.type])", LOG_ATTACK, color = "orange")
+	SEND_SIGNAL(src, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 	new_mob.name = real_name
 	new_mob.real_name = real_name
 
+	// Transfer mind to the new mob (also handles actions and observers and stuff)
 	if(mind)
 		mind.transfer_to(new_mob)
-	else
-		new_mob.key = key
 
-	for(var/holopara in holoparasites())
-		to_chat(holopara, span_holoparasite("Your summoner has changed form!"))
+	// Well, no mmind, guess we should try to move a key over
+	else if(key)
+		new_mob.key = key
 
 /mob/living/rad_act(amount)
 	. = ..()
@@ -1806,3 +1995,40 @@
 			return FALSE
 		return style.harm_act(src, target)
 	return style.help_act(src, target)
+
+/// Actually does the shapeshift
+/mob/living/proc/do_shapeshift(shapeshift_type = /mob/living/basic/pet/dog/corgi)
+	// Spawn the new mob
+	var/mob/living/new_shape = new shapeshift_type(src.loc)
+
+	// Apply the shapechange_mob status effect to handle the transformation
+	var/datum/status_effect/shapechange_mob/shapechange = new_shape.apply_status_effect(/datum/status_effect/shapechange_mob, src)
+	if(!shapechange)
+		// If the status effect fails, clean up and return
+		to_chat(src, span_warning("You can't shapeshift in this form!"))
+		stack_trace("[type] do_shapeshift was called when the mob was already shapeshifted.")
+		qdel(new_shape)
+		return
+
+	// Transfer the mind of the original mob to the new mob
+	mind?.transfer_to(new_shape)
+
+	// Move the original mob into stasis
+	forceMove(new_shape)
+	notransform = TRUE
+	apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_SHAPECHANGE_EFFECT)
+
+	// Return the new mob
+	return new_shape
+
+/mob/living/proc/do_unshapeshift()
+	var/datum/status_effect/shapechange_mob/shapechange = has_status_effect(/datum/status_effect/shapechange_mob)
+	if(!shapechange)
+		// We made it to do_unshapeshift without having a shapeshift status effect, this shouldn't happen.
+		to_chat(src, span_warning("You can't un-shapeshift from this form!"))
+		stack_trace("[type] do_unshapeshift was called when the mob wasn't even shapeshifted.")
+		return
+
+	var/mob/living/unshapeshifted_mob = shapechange.caster_mob
+	remove_status_effect(/datum/status_effect/shapechange_mob)
+	return unshapeshifted_mob

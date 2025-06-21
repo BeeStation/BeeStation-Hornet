@@ -11,6 +11,7 @@
 #define SPECIES_IPC "ipc"
 #define SPECIES_LIZARD "lizard"
 #define SPECIES_ASHWALKER "ashlizard"
+#define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_MONKEY "monkey"
 #define SPECIES_MOTH "moth"
 #define SPECIES_OOZELING "oozeling"
@@ -108,6 +109,16 @@
 #define SLIME_EXTRACT (1<<5)
 /// Wabbacjack staff projectiles
 #define WABBAJACK     (1<<6)
+
+// Randomization keys for calling wabbajack with.
+// Note the contents of these keys are important, as they're displayed to the player
+// Ex: (You turn into a "monkey", You turn into a "xenomorph")
+#define WABBAJACK_MONKEY "monkey"
+#define WABBAJACK_ROBOT "robot"
+#define WABBAJACK_SLIME "slime"
+#define WABBAJACK_XENO "xenomorph"
+#define WABBAJACK_HUMAN "humanoid"
+#define WABBAJACK_ANIMAL "animal"
 
 // Sounds used by species for "nasal/lungs" emotes - the DEFAULT being used mainly by humans, lizards, and ethereals becase biology idk
 

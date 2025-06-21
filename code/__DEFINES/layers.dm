@@ -205,6 +205,8 @@
 #define HUD_PLANE 1000
 #define HUD_LAYER 25
 #define HUD_RENDER_TARGET "HUD_PLANE"
+/// Layer for screentips
+#define SCREENTIP_LAYER 26
 
 #define ABOVE_HUD_PLANE 1100
 #define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"

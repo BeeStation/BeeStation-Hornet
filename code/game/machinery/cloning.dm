@@ -90,6 +90,8 @@
 	if(heal_level > 100)
 		heal_level = 100
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
+
 /obj/machinery/clonepod/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
@@ -233,9 +235,9 @@
 			var/list/unclean_mutations = (GLOB.not_good_mutations|GLOB.bad_mutations)
 			H.dna.remove_mutation_group(unclean_mutations)
 		if(efficiency > 5 && prob(20))
-			H.easy_randmut(POSITIVE)
+			H.easy_random_mutate(POSITIVE)
 		if(efficiency < 3 && prob(50))
-			var/mob/M = H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			var/mob/M = H.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 			if(ismob(M))
 				H = M
 

@@ -440,28 +440,43 @@
 //////////////////STABILIZED EXTRACTS//////////////////
 ///////////////////////////////////////////////////////
 
+/atom/movable/screen/alert/status_effect/stabilized
+	name = "Stabililzed"
+	icon_state = "template"
+
 /datum/status_effect/stabilized //The base stabilized extract effect, has no effect of its' own.
 	id = "stabilizedbase"
 	duration = -1
-	alert_type = null
+	alert_type = /atom/movable/screen/alert/status_effect/stabilized
+	status_type = STATUS_EFFECT_REPLACE
 	var/obj/item/slimecross/stabilized/linked_extract
 	var/colour = "null"
 
+/datum/status_effect/stabilized/proc/link_extract(obj/item/slimecross/stabilized/linked_extract)
+	src.linked_extract = linked_extract
+	if (linked_extract && linked_alert)
+		linked_alert.name = linked_extract.name
+		linked_alert.desc = linked_extract.desc
+		linked_alert.add_overlay(linked_extract)
+
 /datum/status_effect/stabilized/tick()
+	if (duration != -1)
+		return ..()
 	if(!linked_extract || !linked_extract.loc) //Sanity checking
-		qdel(src)
-		return
+		duration = world.time + 15 SECONDS
+		START_PROCESSING(SSfastprocess, src)
+		return ..()
 	if(linked_extract.loc != owner && linked_extract.loc.loc != owner)
 		linked_extract.linked_effect = null
 		if(!QDELETED(linked_extract))
 			linked_extract.owner = null
 			START_PROCESSING(SSobj,linked_extract)
-		qdel(src)
+		duration = world.time + 15 SECONDS
+		START_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /datum/status_effect/stabilized/null //This shouldn't ever happen, but just in case.
 	id = "stabilizednull"
-
 
 //Stabilized effects start below.
 /datum/status_effect/stabilized/grey
@@ -692,11 +707,11 @@
 /datum/status_effect/stabilized/sepia/tick()
 	if(prob(50) && mod > -1)
 		mod--
-		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = -1)
+		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = -0.5)
 	else if(mod < 1)
 		mod++
 		// yeah a value of 0 does nothing but replacing the trait in place is cheaper than removing and adding repeatedly
-		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = 0)
+		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = 0.5)
 	return ..()
 
 /datum/status_effect/stabilized/sepia/on_remove()
@@ -896,7 +911,8 @@
 		if(owner.getCloneLoss() > 0)
 			healing_types += CLONE
 
-		owner.apply_damage_type(-heal_amount, damagetype=pick(healing_types))
+		if(LAZYLEN(healing_types) != 0)
+			owner.apply_damage_type(-heal_amount, damagetype=pick(healing_types), forced = TRUE)
 		owner.adjust_nutrition(3)
 		M.adjustCloneLoss(heal_amount * 1.2) //This way, two people can't just convert each other's damage away.
 	else

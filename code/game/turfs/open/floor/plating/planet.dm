@@ -14,6 +14,8 @@
 	tiled_dirt = FALSE
 	resistance_flags = INDESTRUCTIBLE
 	baseturfs = /turf/open/floor/plating/dirt
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/open/floor/plating/dirt/planetary
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS

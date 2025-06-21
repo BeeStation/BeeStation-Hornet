@@ -421,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
+		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)])
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
