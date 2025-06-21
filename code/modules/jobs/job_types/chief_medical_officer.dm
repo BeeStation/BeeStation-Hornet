@@ -10,12 +10,12 @@
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#c1e1ec"
 	req_admin_notify = 1
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/chief_medical_officer
 

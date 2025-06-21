@@ -9,12 +9,12 @@
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	minimal_player_age = 10
 	exp_requirements = 600
 	exp_type = EXP_TYPE_COMMAND
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_personnel
 
