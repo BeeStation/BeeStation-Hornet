@@ -1,5 +1,0 @@
-author: VmpOS2NHSkhkejA9
-delete-after: true
-changes:
-  - tweak: Completely overhaul random AI names. This also affects syndicate saboteur
-      cyborgs, since they use the same random names AI do.
