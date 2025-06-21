@@ -16875,9 +16875,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/structure/chair/wood{
-	dir = 1
-	},
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool/bar/directional/south{
 	dir = 1
