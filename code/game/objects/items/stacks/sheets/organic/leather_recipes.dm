@@ -1,4 +1,7 @@
 GLOBAL_LIST_INIT(leather_recipes, list ( \
+	new/datum/stack_recipe_list("weapon crafting", list( \
+		new/datum/stack_recipe("leather bow string",	/obj/item/weaponcrafting/attachment/primary/leatherstring, 2, time = 1 SECONDS), \
+		)), \
 	new/datum/stack_recipe("wallet", /obj/item/storage/wallet, 1, crafting_flags = NONE, category = CAT_CONTAINERS), \
 	new/datum/stack_recipe("muzzle", /obj/item/clothing/mask/muzzle, 2, crafting_flags = NONE, category = CAT_ENTERTAINMENT), \
 	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/laceup, 2, crafting_flags = NONE, category = CAT_CLOTHING), \

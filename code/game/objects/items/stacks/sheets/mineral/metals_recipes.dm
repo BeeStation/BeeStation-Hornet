@@ -5,6 +5,12 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("bar stool", /obj/structure/chair/stool/bar, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
 
 	null, \
+	new/datum/stack_recipe_list("weapon crafting", list( \
+	new/datum/stack_recipe("iron bow fangs",							/obj/item/weaponcrafting/attachment/secondary/bowfangs, 2, time = 1 SECONDS),\
+	new/datum/stack_recipe("accelerators",								/obj/item/weaponcrafting/attachment/secondary/accelerators, 2, time = 1 SECONDS),\
+	new/datum/stack_recipe("scope body",								/obj/item/weaponcrafting/attachment/secondary/scope/glassless, 1, time = 1 SECONDS),\
+	new/datum/stack_recipe("grenade casing",							/obj/item/grenade/chem_grenade), \
+		)), \
 	new/datum/stack_recipe_list("office chairs", list( \
 		new/datum/stack_recipe("dark office chair", /obj/structure/chair/office, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \
 		new/datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_FURNITURE), \

@@ -38,6 +38,20 @@
 	grind_results = list(/datum/reagent/carbon = 10)
 	merge_type = /obj/item/stack/sheet/bone
 
+/obj/item/stack/sheet/bone/get_recipes()
+	return GLOB.bone_recipes
+
+GLOBAL_LIST_INIT(bone_recipes, list( \
+	new/datum/stack_recipe_list("weapon crafting", list( \
+		new/datum/stack_recipe("bow frame",										/obj/item/gun/ballistic/bow/ashen/stringless, 4, time = 2 SECONDS), \
+		new/datum/stack_recipe("bow fangs",										/obj/item/weaponcrafting/attachment/secondary/bowfangs/bone, 2, time = 1 SECONDS), \
+		new/datum/stack_recipe("arrow shaft",									/obj/item/ammo_casing/caseless/arrow/bone, 1, time = 0.5 SECONDS), \
+		)), \
+	null, \
+))
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/bone)
+
 /* Sinew */
 
 /obj/item/stack/sheet/sinew
@@ -51,9 +65,11 @@
 
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
+	new/datum/stack_recipe("sinew string", /obj/item/weaponcrafting/attachment/primary/sinewstring, 1, time = 1 SECONDS, crafting_flags = NONE, category = CAT_EQUIPMENT), \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/cable/sinew, 1, crafting_flags = NONE, category = CAT_EQUIPMENT), \
 ))
 
 /obj/item/stack/sheet/sinew/get_recipes()
 	return GLOB.sinew_recipes
 
+STACKSIZE_MACRO(/obj/item/stack/sheet/sinew)

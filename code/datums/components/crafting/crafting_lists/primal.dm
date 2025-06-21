@@ -129,15 +129,12 @@
 	)
 	category = CAT_WEAPON_RANGED
 
-/datum/crafting_recipe/bone_bow
-	name = "Bone Bow"
-	result = /obj/item/gun/ballistic/bow/ashen
-	time = 20 SECONDS
-	reqs = list(
-		/obj/item/stack/sheet/bone = 8,
-		/obj/item/stack/sheet/sinew = 4
-	)
-	category = CAT_WEAPON_RANGED
+/datum/crafting_recipe/firebrand
+	name = "Firebrand"
+	result = /obj/item/match/firebrand
+	time = 10 SECONDS //Long construction time. Making fire is hard work.
+	reqs = list(/obj/item/stack/sheet/wood = 2)
+	category = CAT_TOOLS
 
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"

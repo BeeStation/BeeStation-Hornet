@@ -475,6 +475,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 ////////////////////////////////
 
 GLOBAL_LIST_INIT(cable_coil_recipes, list (
+	new/datum/stack_recipe("cable coil string",	/obj/item/weaponcrafting/attachment/primary/cablestring, 2, time = 1 SECONDS), \
 	new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15, category = CAT_EQUIPMENT),
 	new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND),
 ))

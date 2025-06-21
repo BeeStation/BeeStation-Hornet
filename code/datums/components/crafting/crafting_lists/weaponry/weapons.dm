@@ -178,30 +178,6 @@
 	category = CAT_WEAPON_RANGED
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/pipebow
-	name = "Pipe Bow"
-	result = /obj/item/gun/ballistic/bow/pipe
-	time = 12 SECONDS
-	reqs = list(
-		/obj/item/pipe = 5,
-		/obj/item/stack/sheet/plastic = 15,
-		/obj/item/weaponcrafting/silkstring = 4
-	)
-	category = CAT_WEAPON_RANGED
-	dangerous_craft = TRUE
-
-/datum/crafting_recipe/woodenbow
-	name = "Wooden Bow"
-	result = /obj/item/gun/ballistic/bow
-	time = 12 SECONDS
-	reqs = list(
-		/obj/item/stack/sheet/wood = 8,
-		/obj/item/stack/sheet/iron = 2,
-		/obj/item/weaponcrafting/silkstring = 4
-	)
-	category = CAT_WEAPON_RANGED
-
-
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = /obj/item/gun/ballistic/shotgun/doublebarrel/improvised

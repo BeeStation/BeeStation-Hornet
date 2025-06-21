@@ -95,6 +95,7 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/titanium)
 
 GLOBAL_LIST_INIT(plastitanium_recipes, list ( \
 	new/datum/stack_recipe("plastitanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20, crafting_flags = NONE, category = CAT_TILES), \
+	new/datum/stack_recipe("plastitanium arrow", /obj/item/ammo_casing/caseless/arrow/plastitanium, 1, 1, 1, crafting_flags = NONE), \
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/plastitanium)

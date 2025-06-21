@@ -771,11 +771,7 @@
 	atom_storage.max_slots = 15
 	atom_storage.numerical_stacking = TRUE
 	atom_storage.set_holdable(list(
-		/obj/item/ammo_casing/caseless/arrow/wood,
-		/obj/item/ammo_casing/caseless/arrow/ash,
-		/obj/item/ammo_casing/caseless/arrow/bone,
-		/obj/item/ammo_casing/caseless/arrow/bronze
-		))
+		/obj/item/ammo_casing/caseless/arrow))
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -801,7 +797,7 @@
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
 	name = "Worn belt"
 	desc = "A weathered belt that is used for storing various gadgets"
-	
+
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
 	icon_state = "fannypack_black"
