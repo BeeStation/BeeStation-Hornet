@@ -63,14 +63,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && welding_result != null)
 		if(get_amount() < amount_needed)
-			to_chat(user, "<span class='warning'>You need at least [amount_needed] of [src] to do this!</span>")
+			to_chat(user, span_warning("You need at least [amount_needed] of [src] to do this!"))
 			return
 
 		if(W.use_tool(src, user, 0, volume=40))
 			var/obj/item/result = new welding_result(usr.loc)
 			user.visible_message("[user.name] shaped [src] into [result] with [W].", \
-						"<span class='notice'>You shape [src] into [result] with [W].</span>", \
-						"<span class='italics'>You hear welding.</span>")
+						span_notice("You shape [src] into [result] with [W]."), \
+						span_italics("You hear welding.</span>"))
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_held_item()==R)

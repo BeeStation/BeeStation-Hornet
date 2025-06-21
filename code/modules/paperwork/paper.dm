@@ -379,8 +379,8 @@
 		new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
 		playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
 		user.visible_message("[user] cuts [src] into tiny pieces.", \
-				"<span class='notice'>You cut [src] into tiny pieces.</span>", \
-				"<span class='hear'>You hear cutting.</span>")
+				span_notice("You cut [src] into tiny pieces."), \
+				span_hear("You hear cutting."))
 		qdel(src)
 		return TRUE
 

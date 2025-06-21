@@ -158,8 +158,8 @@
 	if(secondary_salvage_material != null)
 		new secondary_salvage_material(user.drop_location(), secondary_salvage_amount)
 	user.visible_message("[user] salvages some usable materials from [src].", \
-		"<span class='notice'>You salvage some usable materials from [src].</span>", \
-		"<span class='hear'>You hear salvaging.</span>")
+		span_notice("You salvage some usable materials from [src]."), \
+		span_hear("You hear salvaging."))
 	playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE) //this sounds more like scissors
 	qdel(src)
 
@@ -176,16 +176,16 @@
 			if(CLOTHING_SHREDDED)
 				var/obj/item/stack/cloth_repair = W
 				if(cloth_repair.amount < 3)
-					to_chat(user, "<span class='warning'>You require 3 [cloth_repair.name] to repair [src].</span>")
+					to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
 					return TRUE
-				to_chat(user, "<span class='notice'>You begin fixing the damage to [src] with [cloth_repair]...</span>")
+				to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
 				if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
 					return TRUE
 				repair(user, params)
 				return TRUE
 	if((istype(W, /obj/item/wirecutters/scissors)) && salvage_material != null)
 		if(!isturf(loc) && user.get_inactive_held_item() != src)
-			to_chat(user, "<span class='warning'>You need to be holding [src] or set it down somewhere to salvage it!</span>")
+			to_chat(user, span_warning("You need to be holding [src] or set it down somewhere to salvage it!"))
 			return TRUE
 		if(do_after(user, 1.5 / W.toolspeed SECONDS))
 			salvage(src, user, params)

@@ -104,12 +104,12 @@
 			new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
 			playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
 			user.visible_message("[user] cuts a paper sheet into tiny pieces.", \
-				"<span class='notice'>You cut a paper sheet into tiny pieces.</span>", \
-				"<span class='hear'>You hear cutting.</span>")
+				span_notice("You cut a paper sheet into tiny pieces."), \
+				span_hear("You hear cutting."))
 			total_paper--
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>The paper tray is empty!.</span>")
+			to_chat(user, span_notice("The paper tray is empty!."))
 		return TRUE
 	if(istype(I, /obj/item/paper))
 		var/obj/item/paper/P = I
