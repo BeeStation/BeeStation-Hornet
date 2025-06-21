@@ -829,7 +829,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/structure/closet/stasis/Initialize(mapload)
 	. = ..()
-	if(isanimal(loc))
+	if(isanimal_or_basicmob(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 
