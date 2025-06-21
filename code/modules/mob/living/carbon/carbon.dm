@@ -1032,7 +1032,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return
 		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
 			return
-		usr.client.holder.Topic("vv_override", list("makeai"=href_list[VV_HK_TARGET]))
+		usr.client.holder.Topic("vv_override", list("makeai"=href_list[NAMEOF_HREF(var_edit::target)]))
 
 	if(href_list[VV_HK_MODIFY_ORGANS] && check_rights(R_FUN|R_DEBUG))
 		usr.client.manipulate_organs(src)
