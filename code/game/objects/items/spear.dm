@@ -22,23 +22,50 @@
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	armor_type = /datum/armor/item_spear
+	/// For explosive spears, what we cry out when we use this to bap someone
 	var/war_cry = "AAAAARGH!!!"
+	/// The icon prefix for this flavor of spear
 	var/icon_prefix = "spearglass"
+	/// How much damage to do unwielded
+	var/force_unwielded = 10
+	/// How much damage to do wielded
+	var/force_wielded = 18
+	//Zesko shitcode blockpower
+	var/block_power_wielded = 25
 
 
 /datum/armor/item_spear
 	fire = 50
 	acid = 30
 
-/obj/item/spear/ComponentInitialize()
+/obj/item/spear/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 100, 70) //decent in a pinch, but pretty bad.
 	AddComponent(/datum/component/jousting)
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/butchering, \
+		_speed = 10 SECONDS, \
+		_effectiveness = 70, \
+	)
+	AddComponent(/datum/component/two_handed, \
+		force_unwielded = force_unwielded, \
+		force_wielded = force_wielded, \
+		block_power_wielded = block_power_wielded, \
+		icon_wielded = "[icon_prefix]1", \
+	)
+	add_headpike_component()
+	update_appearance()
 
-/obj/item/spear/update_icon()
+// I dunno man
+/obj/item/spear/proc/add_headpike_component()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/headpike)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
+
+/obj/item/spear/update_icon_state()
 	icon_state = "[icon_prefix]0"
-	..()
+	return ..()
 
 /obj/item/spear/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -147,10 +174,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	attack_verb_continuous = list("gores")
 	attack_verb_simple = list("gore")
 	force=15
-
-/obj/item/spear/grey_tide/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	force_unwielded = 15
+	force_wielded = 25
+	block_power_wielded = 25
 
 /obj/item/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
 	. = ..()
@@ -170,18 +196,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 /*
  * Bone Spear
  */
-/obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+/obj/item/spear/bonespear //Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
 	icon_prefix = "bone_spear"
 	icon_state = "bone_spear0"
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	force = 12
 	throwforce = 22
-	armour_penetration = 15				//Enhanced armor piercing
+	armour_penetration = 15	//Enhanced armor piercing
+	force_unwielded = 12
+	force_wielded = 20
+	block_power_wielded = 25
 
-/obj/item/spear/bonespear/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+/obj/item/spear/bonespear/add_headpike_component()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/headpikebone)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 /obj/item/spear/bamboospear
 	icon_prefix = "bamboo_spear"
@@ -204,7 +237,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 
-/obj/item/spear/bamboospear/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, \
-				block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	force_unwielded = 10
+	force_wielded = 18
+	block_power_wielded = 25
+
+/obj/item/spear/bamboospear/add_headpike_component()
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/headpikebamboo)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
