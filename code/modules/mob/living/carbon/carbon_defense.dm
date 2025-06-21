@@ -260,6 +260,7 @@
  * Attempt to disarm the target mob.
  * Will shove the target mob back, and drop them if they're in front of something dense
  * or another carbon.
+ * src is the attacker
 */
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
 	do_attack_animation(target, ATTACK_EFFECT_DISARM)
