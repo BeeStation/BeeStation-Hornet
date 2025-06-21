@@ -230,7 +230,7 @@
 /obj/item/stack/tile/iron/checker/other
 	name = "alternate checker tile"
 	singular_name = "alternate checker floor tile"
-	icon_state = "tile_checker"
+	icon_state = "tile_checker_alternate"
 	turf_type = /turf/open/floor/iron/checker/other
 	merge_type = /obj/item/stack/tile/iron/checker/other
 
