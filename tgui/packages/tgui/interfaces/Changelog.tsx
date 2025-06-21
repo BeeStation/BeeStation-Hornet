@@ -67,7 +67,7 @@ const ChangeRow = (props: { kind: string; content: string }, _context) => {
 const Header = (props: { dropdown: any }, _context) => {
   return (
     <Section>
-      <h1>Beestation</h1>
+      <h1>BeeStation</h1>
       <p>
         <b>Thanks to: </b>
         /TG/station, Baystation 12, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, the original
