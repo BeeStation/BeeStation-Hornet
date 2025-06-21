@@ -8,6 +8,8 @@
 	equip_delay_other = 140
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
 	var/mutable_appearance/psychic_overlay
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 50
 
 
 /datum/armor/costume_foilhat

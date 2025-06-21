@@ -69,6 +69,7 @@
 	icon_state = "witchhunter"
 	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	salvage_material = /obj/item/stack/sheet/leather
 
 /obj/item/clothing/suit/hooded/chaplainsuit/monkfrock
 	name = "monk's frock"
@@ -130,7 +131,10 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
-
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 5
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /datum/armor/helmet_chaplain
 	melee = 50
@@ -149,6 +153,10 @@
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	slowdown = 0
 	move_sound = null
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 10
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/head/helmet/plate/crusader
 	name = "Crusader's Hood"
@@ -160,7 +168,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
 	armor_type = /datum/armor/plate_crusader
-
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /datum/armor/plate_crusader
 	melee = 50
@@ -221,6 +230,8 @@
 	icon_state = "cage"
 	item_state = null
 	dynamic_hair_suffix = ""
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 5
 	worn_y_offset = 7
 
 /obj/item/clothing/head/helmet/chaplain/ancient
@@ -234,6 +245,10 @@
 	desc = "Defend the treasure..."
 	icon_state = "knight_ancient"
 	item_state = null
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 10
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/head/helmet/chaplain/witchunter_hat
 	name = "witchunter hat"
@@ -242,6 +257,9 @@
 	item_state = null
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEEYES
+	salvage_material = /obj/item/stack/sheet/leather
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/head/helmet/chaplain/adept
 	name = "adept hood"
@@ -250,12 +268,18 @@
 	item_state = null
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar/adept
 	name = "adept robes"
 	desc = "The ideal outfit for burning the unfaithful."
 	icon_state = "crusader"
 	item_state = null
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/suit/chaplainsuit/armor/crusader
 	name = "Crusader's Armour"
@@ -265,7 +289,10 @@
 	slowdown = 2.0 //gotta pretend we're balanced.
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	armor_type = /datum/armor/armor_crusader
-
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 10
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /datum/armor/armor_crusader
 	melee = 50
@@ -321,6 +348,10 @@
 	icon_state = "graverobber_coat"
 	item_state = "graverobber_coat"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	salvage_material = /obj/item/stack/sheet/leather
+	salvage_amount = 3
+	secondary_salvage_material = /obj/item/stack/rods/scrap
+	secondary_salvage_amount = 2
 
 
 
@@ -331,6 +362,8 @@
 	item_state = "graverobber_hat"
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR|HIDEEARS
+	salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_material = /obj/item/stack/rods/scrap
 
 /obj/item/clothing/gloves/graverobber_gloves
 	name = "grave robber gloves"
@@ -343,7 +376,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_graverobber_gloves
-
+	salvage_material = /obj/item/stack/sheet/leather
 
 /datum/armor/gloves_graverobber_gloves
 	bio = 10
@@ -356,3 +389,4 @@
 	icon_state = "graverobber_under"
 	item_state = "graverobber_under"
 	can_adjust = FALSE
+	salvage_material = /obj/item/stack/sheet/leather

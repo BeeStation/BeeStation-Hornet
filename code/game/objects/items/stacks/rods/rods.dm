@@ -22,6 +22,11 @@
 	cost = 250
 	source = /datum/robot_energy_storage/metal
 
+	///What is the result when we weld 2 rods together?
+	var/obj/item/welding_result = /obj/item/stack/sheet/iron
+	///How many of this rod do we need to be able to weld it into a sheet of usable material
+	var/amount_needed = 2
+
 /obj/item/stack/rods/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!"))//it looks like theyre ur mum
 	return BRUTELOSS
@@ -51,28 +56,180 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	. = ..()
 	var/amount = get_amount()
 	if(amount <= 5)
-		icon_state = "rods-[amount]"
+		icon_state = "[initial(icon_state)]-[amount]"
 	else
-		icon_state = "rods"
+		icon_state = "[initial(icon_state)]"
 
 /obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER)
-		if(get_amount() < 2)
-			to_chat(user, span_warning("You need at least two rods to do this!"))
+	if(W.tool_behaviour == TOOL_WELDER && welding_result != null)
+		if(get_amount() < amount_needed)
+			to_chat(user, span_warning("You need at least [amount_needed] of [src] to do this!"))
 			return
 
 		if(W.use_tool(src, user, 0, volume=40))
-			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
-			user.visible_message("[user.name] shaped [src] into iron with [W].", \
-						span_notice("You shape [src] into iron with [W]."), \
-						span_italics("You hear welding."))
+			var/obj/item/result = new welding_result(usr.loc)
+			user.visible_message("[user.name] shaped [src] into [result] with [W].", \
+						span_notice("You shape [src] into [result] with [W]."), \
+						span_italics("You hear welding.</span>"))
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_held_item()==R)
 			R.use(2)
 			if (!R && replace)
-				user.put_in_hands(new_item)
+				user.put_in_hands(result)
 
 	else
 		return ..()
 
+/obj/item/stack/rods/scrap
+	name = "metal scraps"
+	desc = "Scraps of metal salvaged with rudimentary tools. It can be welded into an iron sheet."
+	singular_name = "metal scrap"
+	icon_state = "metal_scraps"
+	item_state = "metal_scraps"
+	w_class = WEIGHT_CLASS_SMALL
+	material_flags = MATERIAL_EFFECTS //This is necessary to ensure the rods behave as the materials would have them behave
+	force = 5  //being hit with this must be the equivalent of being hit with a random assortment of pebbles
+	throwforce = 5
+	mats_per_unit = list(/datum/material/iron=100)
+	max_amount = 100
+	merge_type = /obj/item/stack/rods/scrap
+	matter_amount = 0
+	source = null
+	amount_needed = 10
+
+/obj/item/stack/rods/scrap/get_recipes()
+	return GLOB.metal_scrap_recipes
+
+/obj/item/stack/rods/scrap/silver
+	name = "silver scraps"
+	desc = "Scraps of silver salvaged with rudimentary tools. It can be welded into a silver sheet."
+	singular_name = "silver scrap"
+	icon_state = "silver_scraps"
+	item_state = "silver_scraps"
+	mats_per_unit = list(/datum/material/silver=100)
+	merge_type = /obj/item/stack/rods/scrap/silver
+	welding_result = /obj/item/stack/sheet/mineral/silver
+
+/obj/item/stack/rods/scrap/silver/get_recipes()
+	return list()
+
+/obj/item/stack/rods/scrap/gold
+	name = "gold scraps"
+	desc = "Scraps of gold salvaged with rudimentary tools. It can be welded into a gold sheet."
+	singular_name = "gold scrap"
+	icon_state = "gold_scraps"
+	item_state = "gold_scraps"
+	mats_per_unit = list(/datum/material/gold=100)
+	merge_type = /obj/item/stack/rods/scrap/gold
+	welding_result = /obj/item/stack/sheet/mineral/gold
+
+/obj/item/stack/rods/scrap/gold/get_recipes()
+	return list()
+
+/obj/item/stack/rods/scrap/plasteel
+	name = "plasteel scraps"
+	desc = "Scraps of plasteel salvaged with rudimentary tools. It can be welded into a plasteel sheet."
+	singular_name = "plasteel scrap"
+	icon_state = "plasteel_scraps"
+	item_state = "plasteel_scraps"
+	resistance_flags = FIRE_PROOF
+	mats_per_unit = list(/datum/material/alloy/plasteel=100)
+	merge_type = /obj/item/stack/rods/scrap/plasteel
+	welding_result = /obj/item/stack/sheet/plasteel
+
+/obj/item/stack/rods/scrap/plasteel/get_recipes()
+	return list()
+
+/obj/item/stack/rods/scrap/bronze
+	name = "bronze scraps"
+	desc = "Scraps of bronze salvaged with rudimentary tools. It can be welded into a bronze sheet."
+	singular_name = "bronze scrap"
+	icon_state = "bronze_scraps"
+	item_state = "bronze_scraps"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	mats_per_unit = list(/datum/material/copper=50, /datum/material/iron=50)
+	merge_type = /obj/item/stack/rods/scrap/bronze
+	welding_result = /obj/item/stack/sheet/bronze
+
+/obj/item/stack/rods/scrap/bronze/get_recipes()
+	return list()
+
+/obj/item/stack/rods/scrap/glass
+	name = "glass scraps"
+	desc = "Scraps of glass salvaged with rudimentary tools. It can be welded into a glass sheet."
+	singular_name = "glass scrap"
+	icon_state = "glass_scraps"
+	item_state = "glass_scraps"
+	flags_1 = NONE
+	resistance_flags = ACID_PROOF
+	mats_per_unit = list(/datum/material/glass=100)
+	merge_type = /obj/item/stack/rods/scrap/glass
+	attack_verb_continuous = list("stabs", "slashes", "slices", "cuts")
+	attack_verb_simple = list("stab", "slash", "slice", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	welding_result = /obj/item/stack/sheet/glass
+
+/obj/item/stack/rods/scrap/glass/get_recipes()
+	return GLOB.glass_scrap_recipes
+
+/obj/item/stack/rods/scrap/uranium
+	name = "uranium scraps"
+	desc = "Scraps of uranium salvaged with rudimentary tools. Can be welded into an uranium bar. You... probably shouldn't be holding this for too long..."
+	singular_name = "uranium scrap"
+	icon_state = "uranium_scraps"
+	item_state = "uranium_scraps"
+	flags_1 = NONE
+	mats_per_unit = list(/datum/material/uranium=100)
+	merge_type = /obj/item/stack/rods/scrap/uranium
+	welding_result = /obj/item/stack/sheet/mineral/uranium
+
+/obj/item/stack/rods/scrap/uranium/get_recipes()
+	return list()
+
+/obj/item/stack/rods/scrap/plasma
+	name = "plasma scraps"
+	desc = "Scraps of plasma salvaged with rudimentary tools. Try welding it, see what happens."
+	singular_name = "plasma scrap"
+	icon_state = "plasma_scraps"
+	item_state = "plasma_scraps"
+	flags_1 = NONE
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	mats_per_unit = list(/datum/material/plasma=100)
+	merge_type = /obj/item/stack/rods/scrap/plasma
+	welding_result = null
+
+/obj/item/stack/rods/scrap/plasma/get_recipes()
+	return GLOB.plasma_scrap_recipes
+
+/obj/item/stack/rods/scrap/plastic
+	name = "plastic scraps"
+	desc = "Scraps of plastic salvaged with rudimentary tools. It can be welded into a plastic sheet."
+	singular_name = "plastic scrap"
+	icon_state = "plastic_scraps"
+	item_state = "plastic_scraps"
+	mats_per_unit = list(/datum/material/plastic=100)
+	merge_type = /obj/item/stack/rods/scrap/plastic
+	welding_result = /obj/item/stack/sheet/plastic
+
+/obj/item/stack/rods/scrap/silver/get_recipes()
+	return list()
+
+//Yes hello, Joon here, I know paper is tecnically not a mineral but I wanted a way to make crafting with paper easier since paper doesn't stack
+//salvaging the paper scraps requires you to have a wirecutter anyways so might as well be able to craft while avoiding the crafting menu
+/obj/item/stack/rods/scrap/paper
+	name = "paper scraps"
+	desc = "Scraps of paper cut haphazardly."
+	singular_name = "paper scrap"
+	icon_state = "paper_scraps"
+	item_state = "paper_scraps"
+	flags_1 = NONE
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	mats_per_unit = null
+	merge_type = /obj/item/stack/rods/scrap/paper
+	welding_result = null
+
+/obj/item/stack/rods/scrap/paper/get_recipes()
+	return GLOB.paper_scrap_recipes

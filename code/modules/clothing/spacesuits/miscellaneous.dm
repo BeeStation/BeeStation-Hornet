@@ -180,6 +180,10 @@ Contains:
 	strip_delay = 40
 	equip_delay_other = 20
 	flags_cover = HEADCOVERSEYES
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = null
+
 
 
 /datum/armor/space_pirate
@@ -223,6 +227,9 @@ Contains:
 	armor_type = /datum/armor/space_pirate
 	strip_delay = 40
 	equip_delay_other = 20
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
+	salvage_amount = 3
+	secondary_salvage_material = null
 
 	//Emergency Response Team suits
 

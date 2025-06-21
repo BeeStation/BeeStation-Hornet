@@ -50,7 +50,7 @@
 	///The cooldown itself of the reactive armor for when it can activate again.
 	COOLDOWN_DECLARE(reactivearmor_cooldown)
 	pockets = FALSE
-
+	salvage_material = null //indestructible
 
 /datum/armor/armor_reactive
 	fire = 100

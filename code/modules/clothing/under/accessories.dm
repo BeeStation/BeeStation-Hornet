@@ -10,6 +10,7 @@
 	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
 	var/attachment_slot = CHEST
 	appearance_flags = TILE_BOUND | RESET_COLOR
+	salvage_material = null //For now I won't touch accessories
 
 /obj/item/clothing/accessory/proc/can_attach_accessory(obj/item/clothing/U, mob/user)
 	if(!attachment_slot || (U && U.body_parts_covered & attachment_slot))

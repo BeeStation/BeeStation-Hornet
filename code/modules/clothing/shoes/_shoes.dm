@@ -14,6 +14,7 @@
 	strip_delay = 1 SECONDS
 	var/offset = 0
 	var/equipped_before_drop = FALSE
+	salvage_amount = 2
 
 
 /datum/armor/clothing_shoes
