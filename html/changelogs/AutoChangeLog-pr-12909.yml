@@ -1,0 +1,7 @@
+author: BarteG44
+delete-after: true
+changes:
+  - rscadd: Added platform ledges
+  - rscadd: Added more railings
+  - rscadd: Added directional window corners
+  - tweak: Reworked CardStation's Bridge
