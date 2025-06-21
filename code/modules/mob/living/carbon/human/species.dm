@@ -101,10 +101,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = GAS_O2
 
-	//Blank list. As it runs through regenerate_organs, organs that are missing are added in sequential order to the list
-	//List is called in health analyzer and displays all missing organs
-	var/list/required_organs = list()
-
 	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
 	//why does it work this way? because traits also disable the downsides of not having an organ, removing organs but not having the trait will make your species die
 
@@ -371,14 +367,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			else
 				existing_organ.before_organ_replacement(new_organ)
 				existing_organ.Remove(organ_holder, special = TRUE)
-				required_organs -= existing_organ.type
 				QDEL_NULL(existing_organ)
 
 		if(isnull(existing_organ) && should_have && !(new_organ.zone in excluded_zones))
 			used_neworgan = TRUE
 			new_organ.set_organ_damage(new_organ.maxHealth * (1 - health_pct))
 			new_organ.Insert(organ_holder, special = TRUE, drop_if_replaced = FALSE)
-			required_organs |= new_organ.type
 
 		if(!used_neworgan)
 			QDEL_NULL(new_organ)
@@ -391,7 +385,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/current_organ = organ_holder.get_organ_by_type(mutant_organ)
 			if(current_organ)
 				current_organ.Remove(organ_holder)
-				required_organs -= current_organ.type
 				QDEL_NULL(current_organ)
 
 	/*
@@ -427,7 +420,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				current_organ.before_organ_replacement(replacement)
 			// organ.Insert will qdel any current organs in that slot, so we don't need to.
 			replacement.Insert(organ_holder, special=TRUE, drop_if_replaced=FALSE)
-			required_organs |= replacement.type
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.

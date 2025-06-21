@@ -364,3 +364,15 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	// If we're being replace with an identical type we should take organ damage
 	if(replacement.type == type)
 		replacement.set_organ_damage(damage)
+
+/// Called by medical scanners to get a simple summary of how healthy the organ is. Returns an empty string if things are fine.
+/obj/item/organ/proc/get_status_text()
+	var/status = ""
+	if(organ_flags & ORGAN_FAILING)
+		status = "<font color='#cc3333'>Non-Functional</font>"
+	else if(damage > high_threshold)
+		status = "<font color='#ff9933'>Severely Damaged</font>"
+	else if (damage > low_threshold)
+		status = "<font color='#ffcc33'>Mildly Damaged</font>"
+
+	return status

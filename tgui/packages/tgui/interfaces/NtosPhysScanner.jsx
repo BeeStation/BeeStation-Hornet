@@ -1,33 +1,26 @@
 import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
-import { Section, Dropdown, Box } from '../components';
+import { Section, Box } from '../components';
 import { sanitizeText } from '../sanitize';
 
 export const NtosPhysScanner = (props) => {
   const { act, data } = useBackend();
-  const { set_mode, available_modes = [], last_record } = data;
+  const { last_record } = data;
   const textHtml = {
     __html: sanitizeText(last_record),
   };
   return (
     <NtosWindow width={600} height={350}>
       <NtosWindow.Content scrollable>
-        <Section title="Scanner Mode">
-          <Dropdown
-            options={available_modes}
-            selected={set_mode || 'Select Mode'}
-            onSelected={(value) =>
-              act('selectMode', {
-                newMode: value,
-              })
-            }
-          />
+        <Section>Tap something (right-click) with your tablet to use the physical scanner.</Section>
+        <Section>
+          <Box bold>
+            LAST SAVED RESULT
+            <br />
+            <br />
+          </Box>
+          <Box style={{ 'white-space': 'pre-line' }} dangerouslySetInnerHTML={textHtml} />
         </Section>
-        {textHtml.__html.length ? (
-          <Section title="Results">
-            <Box style={{ whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={textHtml} />
-          </Section>
-        ) : null}
       </NtosWindow.Content>
     </NtosWindow>
   );
