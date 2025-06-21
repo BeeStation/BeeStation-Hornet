@@ -7729,6 +7729,9 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-08"
 	},
+/obj/structure/platform/wood{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "ckh" = (
@@ -8582,6 +8585,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/effect/turf_decal/siding/wood,
+/obj/structure/platform/wood,
 /obj/structure/railing/perspective/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -12437,6 +12441,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
+/obj/structure/platform/wood/corner{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "dSK" = (
@@ -12819,6 +12826,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/platform/wood{
 	dir = 8
 	},
 /obj/structure/railing/perspective/wood{
@@ -13856,6 +13866,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"epo" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/platform/wood,
+/obj/structure/railing/perspective/wood,
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "epu" = (
 /obj/effect/landmark/blobstart,
 /obj/structure/cable/yellow{
@@ -26034,6 +26050,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/siding/wood,
+/obj/structure/platform/wood,
 /obj/structure/railing/perspective/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -33396,6 +33413,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
+/obj/structure/platform/wood/corner{
+	dir = 8
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "kNj" = (
@@ -33670,7 +33690,13 @@
 /area/security/detectives_office)
 "kTL" = (
 /obj/effect/turf_decal/siding/wood/end,
+/obj/structure/platform/wood{
+	dir = 8
+	},
 /obj/structure/railing/perspective/wood,
+/obj/structure/platform/wood/corner{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "kTX" = (
@@ -34326,9 +34352,6 @@
 "lee" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/structure/platform/wood{
-	dir = 4
-	},
 /obj/structure/chair/fancy/sofa/old/left{
 	dir = 8;
 	color = "#742925"
@@ -35441,6 +35464,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood,
+/obj/structure/platform/wood,
 /obj/structure/railing/perspective/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -45058,6 +45082,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/platform/wood{
+	dir = 8
+	},
+/obj/structure/platform/wood/corner,
 /obj/structure/railing/perspective/wood/corner{
 	dir = 4;
 	pixel_y = -20
@@ -50200,6 +50228,21 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
+"qpO" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/platform/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "qpW" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L2"
@@ -52774,6 +52817,13 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"rjN" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/platform/wood{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "rjR" = (
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -55294,6 +55344,23 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
+"sdG" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/platform/wood/corner,
+/obj/structure/railing/perspective/wood/corner{
+	dir = 4;
+	pixel_y = -20
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "sdI" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/random{
@@ -55717,6 +55784,9 @@
 "skf" = (
 /obj/effect/spawner/randomarcade{
 	dir = 4
+	},
+/obj/structure/platform/wood{
+	dir = 8
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -57073,10 +57143,10 @@
 /obj/effect/decal/fakestairs{
 	dir = 4
 	},
+/obj/structure/railing/perspective/wood,
 /obj/structure/platform/wood/stair_cutoff{
 	dir = 1
 	},
-/obj/structure/railing/perspective/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "sGG" = (
@@ -66853,6 +66923,10 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
+/obj/structure/platform/wood/corner,
+/obj/structure/platform/wood/corner{
+	dir = 8
+	},
 /obj/structure/railing/perspective/wood/corner{
 	dir = 8
 	},
@@ -70009,9 +70083,6 @@
 /area/hallway/primary/fore)
 "wVx" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/platform/wood{
-	dir = 4
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -73391,6 +73462,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/structure/platform/wood{
+	dir = 8
+	},
 /obj/structure/railing/perspective/wood{
 	dir = 8
 	},
@@ -73587,6 +73661,7 @@
 /obj/effect/decal/fakestairs{
 	dir = 8
 	},
+/obj/structure/platform/wood,
 /obj/structure/railing/perspective/wood,
 /obj/structure/railing/perspective/wood/corner,
 /turf/open/floor/wood,
@@ -107969,8 +108044,8 @@ kXw
 cyv
 mwy
 wKN
-mwy
-mwy
+sdG
+qpO
 mwy
 oVF
 oDE
@@ -108226,8 +108301,8 @@ mus
 nhe
 mus
 pti
-nEj
-nEj
+epo
+rjN
 nEj
 fAZ
 nEj
