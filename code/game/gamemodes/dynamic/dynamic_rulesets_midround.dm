@@ -192,6 +192,7 @@
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_AI, "Positronic Brain")
 	required_candidates = 1
 	weight = 20
+	minimum_players = 10
 	cost = 8
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
 	repeatable = TRUE
@@ -644,6 +645,7 @@
 	required_candidates = 1
 	weight = 3
 	cost = 5
+	minimum_players = 10
 	repeatable = TRUE
 	consider_antag_rep = TRUE
 
