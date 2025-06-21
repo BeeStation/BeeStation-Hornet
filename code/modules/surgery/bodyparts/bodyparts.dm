@@ -121,8 +121,8 @@
 /// Not all bodyparts have the same injury trees
 /// Allow them to be overriden
 /obj/item/bodypart/proc/setup_injury_trees()
-	// Apply the burn tree
 	apply_injury_tree(/datum/injury/healthy_skin_burn)
+	apply_injury_tree(/datum/injury/cut_healthy)
 
 /obj/item/bodypart/Destroy()
 	if(owner)
@@ -402,6 +402,8 @@
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
 		// Remove all injuries
+		for (var/datum/injury/injury in injuries)
+			injury.remove_from_human(owner)
 	if(owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -413,7 +415,8 @@
 		if(needs_update_disabled)
 			update_disabled()
 		// Apply all injuries
-
+		for (var/datum/injury/injury in injuries)
+			injury.apply_to_human(owner)
 	return old_owner
 
 
@@ -747,6 +750,7 @@
 	injury.remove_from_part(src)
 	if (owner && ishuman(owner))
 		injury.remove_from_human(owner)
+	qdel(injury)
 
 /// Add a new injury to the set of injury trees on this bodypart
 /// Do not use this to set an injury, as the previous injury tree
