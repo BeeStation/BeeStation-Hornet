@@ -43742,16 +43742,8 @@
 /area/maintenance/starboard/aft)
 "ods" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = 4;
-	pixel_y = 10
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = -4;
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -62450,7 +62442,7 @@
 	},
 /obj/structure/platform/wood/stair_cutoff,
 /obj/structure/railing/perspective/wood,
-/turf/open/space/basic,
+/turf/open/floor/wood,
 /area/crew_quarters/bar)
 "uwP" = (
 /obj/item/kirbyplants/random,
