@@ -10,4 +10,7 @@
 	var/name = holder.saved_identification
 	var/job = holder.saved_job
 
-	holder.name = "PDA-[name] ([job])"
+	if(istype(holder, /obj/item/modular_computer/tablet/pda))
+		holder.name = "PDA-[name] ([job])"
+	else if(istype(holder, /obj/item/modular_computer/tablet))
+		holder.name = "Tablet-[name] ([job])"

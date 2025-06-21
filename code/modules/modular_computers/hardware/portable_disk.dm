@@ -7,6 +7,7 @@
 	critical = 0
 	max_capacity = 16
 	device_type = MC_SDD
+	custom_price = 10
 
 /obj/item/computer_hardware/hard_drive/portable/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	return //this is a floppy disk, let's not shut the computer down when it gets pulled out.
@@ -26,3 +27,4 @@
 	power_usage = 40
 	icon_state = "datadisk3"
 	max_capacity = 256
+	custom_price = 60

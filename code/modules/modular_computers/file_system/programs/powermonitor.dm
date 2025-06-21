@@ -8,7 +8,7 @@
 	extended_desc = "This program connects to sensors around the station to provide information about electrical systems"
 	ui_header = "power_norm.gif"
 	transfer_access = list(ACCESS_ENGINE)
-	usage_flags = PROGRAM_CONSOLE
+	usage_flags = PROGRAM_ALL
 	requires_ntnet = 0
 	network_destination = "power monitoring system"
 	size = 9
@@ -33,6 +33,10 @@
 	search()
 	history["supply"] = list()
 	history["demand"] = list()
+	if(istype(computer, /obj/machinery/modular_computer/console)) // This way the console doesn't require a signaller
+		return
+	if(!computer?.get_modular_computer_part(MC_CHARGE)) //Giving a clue to users why the program is spitting out zeros.
+		to_chat(user, span_warning("\The [computer] flashes an error: \"hardware\\recharger_hardware\\power conector :: Not found\"."))
 
 
 /datum/computer_file/program/power_monitor/process_tick()

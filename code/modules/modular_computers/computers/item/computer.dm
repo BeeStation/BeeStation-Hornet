@@ -48,8 +48,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// must have it's own DMI file. Icon states must be called exactly the same in all files, but may look differently
 	// If you create a program which is limited to Laptops and Consoles you don't have to add it's icon_state overlay for Tablets too, for example.
 
-	var/icon_state_unpowered = null							// Icon state when the computer is turned off.
-	var/icon_state_powered = null							// Icon state when the computer is turned on.
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "laptop"
 	var/icon_state_menu = "menu"							// Icon state overlay when the computer is turned on, but no program is loaded that would override the screen.
 	var/max_hardware_size = 0								// Maximal hardware w_class. Tablets/PDAs have 1, laptops 2, consoles 4.
 	var/steel_sheet_cost = 5								// Amount of steel sheets refunded when disassembling an empty frame of this computer.
@@ -299,24 +299,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	. += get_modular_computer_parts_examine(user)
 
-/obj/item/modular_computer/update_icon()
-	cut_overlays()
-	if(!bypass_state)
-		icon_state = enabled ? icon_state_powered : icon_state_unpowered
+/obj/item/modular_computer/update_overlays()
+	. = ..()
 
 	var/init_icon = initial(icon)
 	if(!init_icon)
 		return
 
-	if(enabled)
-		add_overlay(active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu))
+	if(enabled && screen_on)
+		. += active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu)
 
-	if(can_store_pai && stored_pai_card)
-		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
+	if(stored_pai_card)
+		. += stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay")
 
 	if(atom_integrity <= integrity_failure * max_integrity)
-		add_overlay(mutable_appearance(init_icon, "bsod"))
-		add_overlay(mutable_appearance(init_icon, "broken"))
+		. += mutable_appearance(init_icon, "bsod")
+		. += mutable_appearance(init_icon, "broken")
 
 /obj/item/modular_computer/proc/turn_on(mob/user, open_ui = TRUE)
 	if(enabled)
@@ -468,6 +466,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			data["PC_ntneticon"] = "sig_high.gif"
 		if(3)
 			data["PC_ntneticon"] = "sig_lan.gif"
+		if(4)
+			data["PC_ntneticon"] = "smmon_6.gif"
 
 	var/list/program_headers = list()
 	for(var/datum/computer_file/program/P as anything in idle_threads)

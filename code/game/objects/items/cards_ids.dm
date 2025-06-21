@@ -880,8 +880,10 @@ update_label("John Doe", "Clowny")
 	if(istype(W, /obj/item/pen))
 		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel
-		assignment = "Unknown"
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
+		var/target_job = stripped_input(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
+		assignment = target_job || assignment
+		to_chat(user, span_notice("You scribble the name [target_job] onto the slip."))
 		update_label()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)

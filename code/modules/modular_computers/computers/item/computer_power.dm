@@ -48,10 +48,10 @@
 
 	var/power_usage = screen_on ? base_active_power_usage : base_idle_power_usage
 
-	for(var/obj/item/computer_hardware/H in all_components)
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
 		if(H.enabled)
 			power_usage += H.power_usage
-
 	if(use_power(power_usage))
 		last_power_usage = power_usage
 		return TRUE

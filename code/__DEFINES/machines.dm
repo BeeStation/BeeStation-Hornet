@@ -70,6 +70,7 @@
 #define MC_SENSORS "SENSORS"
 #define MC_SIGNALLER "SIGNALER"
 #define MC_IDENTIFY "IDENTIFY"
+#define MC_CAMERA "CAMERA"
 
 //! ## NTNet stuff, for modular computers
 //!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
@@ -77,6 +78,13 @@
 #define NTNET_PEERTOPEER 2			//! P2P transfers of files between devices
 #define NTNET_COMMUNICATION 3		//! Communication (messaging)
 #define NTNET_SYSTEMCONTROL 4		//! Control of various systems, RCon, air alarm control, etc.
+
+// Types of Signal for Network Card Components!
+#define	NO_SIGNAL 0
+#define LOW 1
+#define HIGH 2
+#define NO_RELAY 3
+#define HACKED 4
 
 //! **NTNet transfer speeds, used when downloading/uploading a file/program.**
 #define NTNETSPEED_LOWSIGNAL 0.5	//! GQ/s transfer speed when the device is wirelessly connected and on Low signal
