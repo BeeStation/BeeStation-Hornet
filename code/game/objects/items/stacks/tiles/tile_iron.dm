@@ -234,13 +234,6 @@
 	turf_type = /turf/open/floor/iron/checker/other
 	merge_type = /obj/item/stack/tile/iron/checker/other
 
-/obj/item/stack/tile/iron/checker/softer
-	name = "softer checker tile"
-	singular_name = "softer checker floor tile"
-	icon_state = "tile_checker_softer"
-	turf_type = /turf/open/floor/iron/checker/softer
-	merge_type = /obj/item/stack/tile/iron/checker/softer
-
 /obj/item/stack/tile/iron/dark/textured
 	name = "dark textured tile"
 	singular_name = "dark textured floor tile"

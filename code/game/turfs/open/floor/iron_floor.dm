@@ -161,11 +161,6 @@
 	base_icon_state = "checker_alternate"
 	floor_tile = /obj/item/stack/tile/iron/checker
 
-/turf/open/floor/iron/checker/softer
-	icon_state = "checker_softer"
-	base_icon_state = "checker_softer"
-	floor_tile = /obj/item/stack/tile/iron/checker/softer
-
 /turf/open/floor/iron/dark/textured
 	icon_state = "textured_dark"
 	base_icon_state = "textured_dark"
