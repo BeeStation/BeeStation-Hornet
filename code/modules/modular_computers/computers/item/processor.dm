@@ -8,7 +8,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	desc = "You shouldn't see this. If you do, report it."
 	icon = null
 	icon_state = null
-	icon_state_unpowered = null
 	icon_state_menu = null
 	hardware_flag = 0
 	max_bays = 4

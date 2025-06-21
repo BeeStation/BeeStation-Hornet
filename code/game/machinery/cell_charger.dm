@@ -10,6 +10,7 @@
 	circuit = /obj/item/circuitboard/machine/cell_charger
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
+	var/obj/item/modular_computer/tablet/pda/pda = null
 	var/chargelevel = -1
 	var/charge_rate = 250
 
@@ -21,17 +22,49 @@
 			var/newlevel = 	round(charging.percent() * 4 / 100)
 			chargelevel = newlevel
 			add_overlay("ccharger-o[newlevel]")
+	if(pda)
+		add_overlay("pda")
 
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()
-	. += "There's [charging ? "a" : "no"] cell in the charger."
+	. += "There's [charging ? "a" : "no"] [pda ? "pda" : "cell"] in the charger."
 	if(charging)
 		. += "Current charge: [round(charging.percent(), 1)]%."
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Charging power: <b>[charge_rate]W</b>.")
 
 /obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
+	if(istype(W, /obj/item/modular_computer/tablet/pda) && !panel_open)
+		if(machine_stat & BROKEN)
+			to_chat(user, span_warning("[src] is broken!"))
+			return
+		if(!anchored)
+			to_chat(user, span_warning("[src] isn't attached to the ground!"))
+			return
+		if(charging)
+			to_chat(user, "<span class='warning'>The charger is already in use!</span>")
+			return
+		pda = W
+		if(pda.get_cell() == null)
+			to_chat(user, "<span class='warning'>There is no cell in that PDA!</span>")
+			pda = null
+			return
+		else
+			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
+			if(!isarea(a))
+				return
+			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
+				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the PDA!</span>")
+				return
+			if(!user.transferItemToLoc(W,src))
+				return
+
+			pda = W
+			charging = pda.get_cell()
+			user.visible_message("[user] inserts a PDA into [src].", "<span class='notice'>You insert the PDA into [src].</span>")
+			chargelevel = -1
+			update_icon()
+	else if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
 		if(machine_stat & BROKEN)
 			to_chat(user, span_warning("[src] is broken!"))
 			return
@@ -86,10 +119,11 @@
 	if(!charging)
 		return
 
-	user.put_in_hands(charging)
+	user.put_in_hands(pda ? pda : charging)
 	charging.add_fingerprint(user)
 
-	user.visible_message("[user] removes [charging] from [src].", span_notice("You remove [charging] from [src]."))
+	user.visible_message("[user] removes [pda ? pda : charging] from [src].", span_notice("You remove [pda ? pda : charging] from [src]."))
+	pda = null
 
 	removecell()
 
@@ -97,9 +131,13 @@
 	if(!charging)
 		return
 
-	charging.forceMove(loc)
-	to_chat(user, span_notice("You telekinetically remove [charging] from [src]."))
-
+	if(pda)
+		pda.forceMove(loc)
+		to_chat(user, "<span class='notice'>You telekinetically remove [pda] from [src].</span>")
+	else
+		charging.forceMove(loc)
+		to_chat(user, span_notice("You telekinetically remove [charging] from [src]."))
+	pda = null
 	removecell()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -126,7 +164,7 @@
 
 	if(charging.percent() >= 100)
 		return
-	var/main_draw = use_power_from_net(charge_rate * delta_time, take_any = TRUE) //Pulls directly from the Powernet to dump into the cell
+	var/main_draw = use_power_from_net(charge_rate * delta_time, take_any = TRUE) //Pulls directly from the Powernet to dump into the cell or PDA
 	if(!main_draw)
 		return
 	charging.give(main_draw)

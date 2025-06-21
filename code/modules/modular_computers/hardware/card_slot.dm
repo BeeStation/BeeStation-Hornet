@@ -5,6 +5,7 @@
 	icon_state = "card_mini"
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
+	custom_price = 20
 
 	var/obj/item/card/id/stored_card
 	var/current_identification
@@ -143,3 +144,4 @@
 	name = "secondary RFID card module"
 	device_type = MC_CARD2
 	expansion_hw = TRUE
+	custom_price = 100

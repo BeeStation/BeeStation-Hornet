@@ -4,11 +4,11 @@
 	filename = "notepad"
 	filedesc = "Notepad"
 	category = PROGRAM_CATEGORY_MISC
-	program_icon_state = "generic"
+	program_icon_state = "notepad"
 	extended_desc = "Jot down your work-safe thoughts and what not."
 	size = 0
-	undeletable = TRUE // It comes by default in PDAs, can't be downloaded, takes no space and should obviously not be able to be deleted.
-	available_on_ntnet = FALSE
+	undeletable = FALSE // It comes by default in tablets, can't be downloaded, takes no space and is now able to be deleted and transfered. Let players make mistakes.
+	available_on_ntnet = TRUE
 	tgui_id = "NtosNotepad"
 	program_icon = "book"
 	usage_flags = PROGRAM_PDA
@@ -50,7 +50,7 @@
 			if(!logname)
 				return
 			// Now we will generate HTML-compliant file that can actually be viewed/printed.
-			var/datum/computer_file/data/log_file/logfile = new()
+			var/datum/computer_file/data/text/log_file/logfile = new()
 			logfile.filename = "[logname].txt" // Custom extension, different from .log
 
 			var/log_data = tablet.note ? tablet.note : ""
