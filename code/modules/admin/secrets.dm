@@ -818,8 +818,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					candidates = poll_ghost_candidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), BAN_ROLE_ALL_ANTAGONISTS, ignore_category = FALSE)
-
+					SSpolling.poll_ghost_candidates(
+						question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)),
+						check_jobban = BAN_ROLE_ALL_ANTAGONISTS,
+						poll_time = 30 SECONDS,
+						role_name_text = "portal storm",
+						alert_pic = /obj/structure/carp_rift,
+					)
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
 					return
