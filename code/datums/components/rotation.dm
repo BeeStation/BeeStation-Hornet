@@ -56,11 +56,17 @@
 
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_CLOCKWISE)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, ROTATION_CLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, ROTATION_CLOCKWISE)
 
 /datum/component/simple_rotation/proc/RotateLeft(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_COUNTERCLOCKWISE)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, ROTATION_COUNTERCLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, ROTATION_COUNTERCLOCKWISE)
 
 /datum/component/simple_rotation/proc/Rotate(mob/user, degrees)
 	if(QDELETED(user))
