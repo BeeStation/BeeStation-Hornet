@@ -7732,6 +7732,9 @@
 /obj/structure/platform/wood{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "ckh" = (
@@ -17248,6 +17251,9 @@
 	dir = 10
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "fzO" = (
@@ -29947,6 +29953,9 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-08"
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "jFZ" = (
@@ -30039,6 +30048,9 @@
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/vending/cigarette,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "jHq" = (
@@ -33696,6 +33708,9 @@
 /obj/structure/railing/perspective/wood,
 /obj/structure/platform/wood/corner{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -51802,6 +51817,9 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "qRp" = (
@@ -54863,9 +54881,6 @@
 	},
 /obj/machinery/newscaster{
 	pixel_x = -30
-	},
-/obj/machinery/light{
-	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -58525,15 +58540,6 @@
 	},
 /turf/closed/wall,
 /area/hallway/primary/fore)
-"teW" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/bar)
 "tfu" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -60593,6 +60599,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "tOQ" = (
@@ -61252,7 +61261,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ucp" = (
-/obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -4;
 	pixel_y = 2
@@ -61260,6 +61268,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/structure/table/wood,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "ucs" = (
@@ -68565,9 +68574,8 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
-/obj/structure/table/wood,
-/obj/machinery/light,
 /obj/item/modular_computer/laptop/preset/civillian,
+/obj/structure/table/wood,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "wvQ" = (
@@ -69270,7 +69278,6 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "wIa" = (
-/obj/structure/table/wood,
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8
 	},
@@ -69281,7 +69288,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
-/obj/machinery/light,
+/obj/structure/table/wood,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "wId" = (
@@ -109318,7 +109325,7 @@ gyr
 tmF
 vYB
 fhO
-teW
+qAi
 xlq
 pIy
 uLF
