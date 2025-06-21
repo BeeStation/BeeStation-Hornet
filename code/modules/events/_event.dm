@@ -72,7 +72,7 @@
 		return FALSE
 
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
-	if (istype(dynamic) && dynamic_should_hijack && dynamic.random_event_hijacked != HIJACKED_NOTHING)
+	if(istype(dynamic) && dynamic_should_hijack)
 		return FALSE
 
 	return TRUE

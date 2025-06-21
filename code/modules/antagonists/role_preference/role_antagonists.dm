@@ -220,11 +220,21 @@
 /datum/role_preference/antagonist/heretic
 	name = "Heretic"
 	description = "Find hidden influences and sacrifice crew members to gain magical \
-	powers and ascend as one of several paths. \n\
-	Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces \
-	of decay, but the mansus veil has weakened. We will make them taste fear \
-	again..."
+		powers and ascend as one of several paths. \n\
+		Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces \
+		of decay, but the mansus veil has weakened. We will make them taste fear \
+		again..."
 	antag_datum = /datum/antagonist/heretic
+
+/datum/role_preference/midround_living/heretic
+	name = "Heretic"
+	description = "Find hidden influences and sacrifice crew members to gain magical \
+		powers and ascend as one of several paths. \n\
+		Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces \
+		of decay, but the mansus veil has weakened. We will make them taste fear \
+		again..."
+	antag_datum = /datum/antagonist/heretic
+	use_icon = /datum/role_preference/antagonist/heretic
 
 /datum/role_preference/antagonist/heretic/get_preview_icon()
 	var/icon/icon = render_preview_outfit(/datum/outfit/heretic_preview)
