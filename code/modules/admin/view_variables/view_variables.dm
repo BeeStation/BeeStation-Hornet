@@ -233,10 +233,10 @@
 
 	// ------------------------------------------------------
 	// Builds text: 'href string' based on the existence of 'vv_spectre' (which remembers actual refID of a special list)
-	var/href_reference_string = \
+	var/href_parameters = \
 		vv_spectre.dmlist_varname \
-		? "[HREF_PARAM(var_edit::dmlist_origin_ref, vv_spectre.dmlist_origin_ref)][HREF_PARAM(var_edit::dmlist_varname, vv_spectre.dmlist_varname)]" \
-		: "[HREF_PARAM(var_edit::Vars, refid)]"
+		? "[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::dmlist_origin_ref, vv_spectre.dmlist_origin_ref)][HREF_PARAM(var_edit::dmlist_varname, vv_spectre.dmlist_varname)][HrefToken()]" \
+		: "[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, refid)][HrefToken()]"
 	/*
 		href key "Vars" only does refreshing. I hate that name because it's contextless.
 		"dmlist_origin_ref" and "dmlist_varname" must exist at the same time, to access a special list directly, because such special list is not possible to be accessed through 'locate(refID)'
@@ -375,7 +375,7 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='byond://?[HREF_TYPE(var_edit)][href_reference_string][HrefToken()]'>Refresh</a>
+							<a id='refresh_link' href='byond://?[href_parameters]'>Refresh</a>
 							<form>
 								<select name="file" size="1"
 									onchange="handle_dropdown(this)"
