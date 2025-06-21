@@ -42,8 +42,11 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	. = ..()
 
 /mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/projectile/projectile)
-	if(isliving(projectile.fired_from) && is_servant_of_ratvar(projectile.fired_from))
-		return FALSE
+	if(isliving(projectile.fired_from))
+		var/mob/living/living_target = projectile.fired_from
+		if(IS_SERVANT_OF_RATVAR(living_target))
+			return FALSE
+
 	return TRUE
 
 //====Shell====
