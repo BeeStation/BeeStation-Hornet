@@ -117,15 +117,17 @@
 
 /// Grants the action to the passed mob, making it the owner
 /datum/action/proc/Grant(mob/grant_to)
-	if(!grant_to)
+	if(isnull(grant_to))
 		Remove(owner)
 		return
-	if(owner)
-		if(owner == grant_to)
-			return
-		Remove(owner)
-	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, grant_to)
+	if(grant_to == owner)
+		return // We already have it
+	var/mob/previous_owner = owner
 	owner = grant_to
+	if(!isnull(previous_owner))
+		Remove(previous_owner)
+	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
+	//SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
 	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
 
 	// Register some signals based on our check_flags
@@ -161,20 +163,28 @@
 	LAZYREMOVE(remove_from.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 
-	if(owner)
-		SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
-		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+	if(isnull(owner))
+		return
+	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
+	//SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
+	UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
 
-		// Clean up our check_flag signals
-		UnregisterSignal(owner, list(
-			COMSIG_LIVING_SET_BODY_POSITION,
-			COMSIG_MOB_STATCHANGE,
-			SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
-			SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
-		))
+	// Clean up our check_flag signals
+	UnregisterSignal(owner, list(
+		COMSIG_LIVING_SET_BODY_POSITION,
+		COMSIG_MOB_STATCHANGE,
+		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED),
+		SIGNAL_ADDTRAIT(TRAIT_MAGICALLY_PHASED),
+		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED),
+	))
 
-		if(master == owner)
-			RegisterSignal(master, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+	if(master == owner)
+		RegisterSignal(master, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+	if (owner == remove_from)
 		owner = null
 
 	if (remove_from.click_intercept == src)
@@ -269,13 +279,13 @@
 /// Intercepts client owner clicks to activate the ability
 /// This proc is called via reflection, do not change the name if you do
 /// not know what that means.
-/datum/action/InterceptClickOn(mob/living/caller, params, atom/target)
-	return _internal_InterceptClickOn(caller, params, target)
+/datum/action/InterceptClickOn(mob/living/clicker, params, atom/target)
+	return _internal_InterceptClickOn(clicker, params, target)
 
-/datum/action/proc/_internal_InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/proc/_internal_InterceptClickOn(mob/living/clicker, params, atom/target)
 	set waitfor = FALSE
 	if(!is_available())
-		unset_click_ability(caller, refund_cooldown = FALSE)
+		unset_click_ability(clicker, refund_cooldown = FALSE)
 		return FALSE
 	if(!target)
 		return FALSE
@@ -283,14 +293,14 @@
 	// normal, even if the action isn't able to run; the user asked for it after all.
 	. = TRUE
 	// The actual action begins here
-	if(!pre_activate(caller, target))
+	if(!pre_activate(clicker, target))
 		return
 
 	// And if we reach here, the action was complete successfully
 	if(unset_after_click)
 		start_cooldown()
-		unset_click_ability(caller, refund_cooldown = FALSE)
-	caller.next_click = world.time + click_cd_override
+		unset_click_ability(clicker, refund_cooldown = FALSE)
+	clicker.next_click = world.time + click_cd_override
 
 /// Whether our action is currently available to use or not
 /datum/action/proc/is_available()
@@ -516,3 +526,12 @@
 
 /datum/action/proc/is_active()
 	return active
+
+//Exists to keep master private
+/datum/action/proc/get_master()
+	SHOULD_BE_PURE(TRUE)
+	return master
+
+//Exists to keep next_use_time private
+/datum/action/proc/reset_next_use_time()
+	next_use_time = initial(next_use_time)

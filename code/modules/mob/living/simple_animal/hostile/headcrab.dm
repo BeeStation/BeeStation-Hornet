@@ -1,4 +1,4 @@
-#define EGG_INCUBATION_TIME 120
+#define EGG_INCUBATION_TIME 4 MINUTES
 
 /mob/living/simple_animal/hostile/headcrab
 	name = "headspider"
@@ -53,12 +53,14 @@
 /obj/item/organ/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
+	/// The mind of the original changeling that gave forth to the headslug mob.
 	var/datum/mind/origin
-	var/time
+	/// Tracks how long the egg has been growing.
+	var/time = 0
 
-/obj/item/organ/body_egg/changeling_egg/egg_process()
+/obj/item/organ/body_egg/changeling_egg/egg_process(delta_time, times_fired)
 	// Changeling eggs grow in dead people
-	time++
+	time += delta_time
 	if(time >= EGG_INCUBATION_TIME)
 		Pop()
 		Remove(owner.loc)

@@ -2,7 +2,7 @@
 //make incision
 /datum/surgery_step/incise
 	name = "make incision"
-	implements = list(TOOL_SCALPEL = 100, /obj/item/melee/transforming/energy/sword = 75, /obj/item/knife = 65,
+	implements = list(TOOL_SCALPEL = 100, /obj/item/melee/energy/sword = 75, /obj/item/knife = 65,
 		/obj/item/shard = 45, /obj/item = 30) // 30% success with any sharp item.
 	time = 16
 	preop_sound = 'sound/surgery/scalpel1.ogg'
@@ -22,7 +22,7 @@
 /datum/surgery_step/incise/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if ishuman(target)
 		var/mob/living/carbon/human/H = target
-		if (!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD)))
+		if (!HAS_TRAIT(H, TRAIT_NOBLOOD))
 			display_results(user, target, span_notice("Blood pools around the incision in [H]'s [parse_zone(surgery.location)]."),
 				"Blood pools around the incision in [H]'s [parse_zone(surgery.location)].",
 				"")

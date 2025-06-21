@@ -18,6 +18,7 @@ export const Button = (props) => {
     icon,
     iconRotation,
     iconSpin,
+    iconColor,
     iconPosition,
     color,
     disabled,
@@ -219,7 +220,7 @@ export class ButtonInput extends Component {
         className={classes(['Button', fluid && 'Button--fluid', 'Button--color--' + color])}
         {...rest}
         onClick={() => this.setInInput(true)}>
-        {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
+        {icon && <Icon name={icon} color={iconColor} rotation={iconRotation} spin={iconSpin} />}
         <div>{content}</div>
         <input
           ref={this.inputRef}

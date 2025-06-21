@@ -168,7 +168,7 @@
 /obj/projectile/hallucination/taser/hal_apply_effect()
 	hal_target.Paralyze(100)
 	hal_target.stuttering += 20
-	if(hal_target.has_dna() && hal_target.dna.check_mutation(HULK))
+	if(hal_target.has_dna() && hal_target.dna.check_mutation(/datum/mutation/hulk))
 		hal_target.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 	else if((hal_target.status_flags & CANKNOCKDOWN) && !HAS_TRAIT(hal_target, TRAIT_STUNIMMUNE))
 		addtimer(CALLBACK(hal_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 20), 5)

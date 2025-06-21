@@ -61,7 +61,7 @@
 			new /obj/item/pen/edagger(src)
 
 		if("murder")
-			new /obj/item/melee/transforming/energy/sword/saber(src)
+			new /obj/item/melee/energy/sword/saber(src)
 			new /obj/item/clothing/glasses/thermal/syndi(src)
 			new /obj/item/card/emag(src)
 			new /obj/item/clothing/shoes/chameleon/noslip(src)
@@ -204,7 +204,7 @@
 			new /obj/item/dnainjector/geladikinesis(src)
 			new /obj/item/dnainjector/cryokinesis(src)
 			new /obj/item/gun/energy/temperature/pin(src)
-			new /obj/item/melee/transforming/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue
+			new /obj/item/melee/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue //wow you are such a smartie
 
 /obj/item/storage/box/syndie_kit/contract_kit
 	name = "Contract Kit"
@@ -375,11 +375,10 @@
 /obj/item/storage/box/syndie_kit/space
 	name = "boxed space suit and helmet"
 
-/obj/item/storage/box/syndie_kit/space/ComponentInitialize()
+/obj/item/storage/box/syndie_kit/space/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.set_holdable(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.set_holdable(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
 
 /obj/item/storage/box/syndie_kit/space/PopulateContents()
 	if(prob(50))
@@ -401,10 +400,9 @@
 /obj/item/storage/box/syndie_kit/chemical
 	name = "chemical kit"
 
-/obj/item/storage/box/syndie_kit/chemical/ComponentInitialize()
+/obj/item/storage/box/syndie_kit/chemical/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 14
+	atom_storage.max_slots = 14
 
 /obj/item/storage/box/syndie_kit/chemical/PopulateContents()
 	new /obj/item/reagent_containers/cup/bottle/polonium(src)

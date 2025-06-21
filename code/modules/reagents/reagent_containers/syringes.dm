@@ -24,6 +24,11 @@
 	fill_icon_state = "syringe"
 	fill_icon_thresholds = list(1, 5, 10, 15)
 
+/obj/item/reagent_containers/syringe/add_context_self(datum/screentip_context/context, mob/living/user)
+	context.use_cache()
+	context.add_left_click_action("Inject")
+	context.add_right_click_action("Draw")
+
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 
@@ -158,7 +163,7 @@
 	item_state = "[base_icon_state]_[rounded_vol]"
 
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
-	C.apply_status_effect(STATUS_EFFECT_SYRINGE, src, injectmult)
+	C.apply_status_effect(/datum/status_effect/syringe, src, injectmult)
 	forceMove(C)
 
 /obj/item/reagent_containers/syringe/used

@@ -10,7 +10,7 @@
 	species_language_holder = /datum/language_holder/psyphoza
 	exotic_blood = /datum/reagent/drug/mushroomhallucinogen
 	allow_numbers_in_name = TRUE
-	inert_mutation = SPORES
+	inert_mutation = /datum/mutation/spores
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
@@ -436,7 +436,8 @@
 /datum/action/change_psychic_auto/New(Target)
 	. = ..()
 	psychic_action = Target
-	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	//Bad, but not my job to fix your runtimes
+	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy), override = TRUE)
 
 /datum/action/change_psychic_auto/Destroy()
 	psychic_action = null

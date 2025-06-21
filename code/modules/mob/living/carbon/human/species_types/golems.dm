@@ -2,7 +2,11 @@
 	// Animated beings of stone. They have increased defenses, and do not need to breathe. They're also slow as fuuuck.
 	name = "\improper Golem"
 	id = SPECIES_GOLEM_IRON
-	species_traits = list(NOBLOOD,MUTCOLORS,NO_UNDERWEAR,NOTRANSSTING)
+	species_traits = list(
+		MUTCOLORS,
+		NO_UNDERWEAR,
+		NOTRANSSTING
+	)
 	inherent_traits = list(
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
@@ -14,8 +18,11 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NONECRODISEASE
+		TRAIT_NONECRODISEASE,
+		TRAIT_NOBLOOD,
 	)
+	mutantheart = null
+	mutantlungs = null
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutant_organs = list(/obj/item/organ/adamantine_resonator)
 	mutanttongue = /obj/item/organ/tongue/golem
@@ -139,7 +146,7 @@
 	var/boom_warning = FALSE
 	var/datum/action/innate/ignite/ignite
 
-/datum/species/golem/plasma/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/plasma/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.bodytemperature > 750)
 		if(!boom_warning && H.on_fire)
 			to_chat(H, span_userdanger("You feel like you could blow up at any moment!"))
@@ -155,7 +162,7 @@
 			H.investigate_log("has been gibbed as [H.p_their()] body explodes.", INVESTIGATE_DEATHS)
 			H.gib()
 	if(H.fire_stacks < 2) //flammable
-		H.adjust_fire_stacks(1)
+		H.adjust_fire_stacks(0.5 * delta_time)
 	..()
 
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -324,7 +331,7 @@
 /datum/species/golem/alloy
 	name = "Alien Alloy Golem"
 	id = SPECIES_GOLEM_ALLOY
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/tongue/abductor
 	speedmod = 1 //faster
@@ -340,12 +347,12 @@
 	species_r_leg = /obj/item/bodypart/r_leg/golem/alloy
 
 //Regenerates because self-repairing super-advanced alien tech
-/datum/species/golem/alloy/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/alloy/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.stat == DEAD)
 		return
 	H.heal_overall_damage(2,2, 0, BODYTYPE_ORGANIC)
-	H.adjustToxLoss(-2)
-	H.adjustOxyLoss(-2)
+	H.adjustToxLoss(-1 * delta_time)
+	H.adjustOxyLoss(-1 * delta_time)
 
 //Since this will usually be created from a collaboration between podpeople and free golems, wood golems are a mix between the two races
 /datum/species/golem/wood
@@ -374,28 +381,28 @@
 	special_name_chance = 100
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 
-/datum/species/golem/wood/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/wood/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(1,T.get_lumcount()) - 0.5
-		H.adjust_nutrition(light_amount * 10)
+		light_amount = min(1, T.get_lumcount()) - 0.5
+		H.adjust_nutrition(5 * light_amount * delta_time)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2) //if there's enough light, heal
-			H.heal_overall_damage(1,1,0, BODYTYPE_ORGANIC)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
+			H.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
+			H.adjustToxLoss(-0.5 * delta_time)
+			H.adjustOxyLoss(-0.5 * delta_time)
 
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(2,0)
 
-/datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
 
@@ -586,7 +593,7 @@
 /datum/species/golem/bananium
 	name = "Bananium Golem"
 	id = SPECIES_GOLEM_BANANIUM
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
 	punchdamage = 0
 	meat = /obj/item/stack/ore/bananium
 	mutanttongue = /obj/item/organ/tongue/golem/bananium
@@ -603,16 +610,19 @@
 	species_l_leg = /obj/item/bodypart/l_leg/golem/bananium
 	species_r_leg = /obj/item/bodypart/r_leg/golem/bananium
 
-	var/last_honk = 0
-	var/honkooldown = 0
-	var/last_banana = 0
-	var/banana_cooldown = 100
-	var/active = null
+	/// Cooldown for producing honks
+	COOLDOWN_DECLARE(honkooldown)
+	/// Cooldown for producing bananas
+	COOLDOWN_DECLARE(banana_cooldown)
+	/// Time between possible banana productions
+	var/banana_delay = 10 SECONDS
+	/// Same as the uranium golem. I'm pretty sure this is vestigial.
+	var/active = FALSE
 
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	last_banana = world.time
-	last_honk = world.time
+	COOLDOWN_START(src, honkooldown, 0)
+	COOLDOWN_START(src, banana_cooldown, banana_delay)
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
@@ -626,21 +636,21 @@
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
-	if(world.time > last_banana + banana_cooldown && M != H &&  M.combat_mode)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+	if(COOLDOWN_FINISHED(src, banana_cooldown) && M != H &&  M.combat_mode)
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_banana + banana_cooldown && user != H)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+	if((user != H) && COOLDOWN_FINISHED(src, banana_cooldown))
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_banana + banana_cooldown)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
+	if(COOLDOWN_FINISHED(src, banana_cooldown))
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
@@ -651,16 +661,14 @@
 			return 0
 		else
 			new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-			last_banana = world.time
+			COOLDOWN_START(src, banana_cooldown, banana_delay)
 
-/datum/species/golem/bananium/spec_life(mob/living/carbon/human/H)
-	if(!active)
-		if(world.time > last_honk + honkooldown)
-			active = 1
-			playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, 1)
-			last_honk = world.time
-			honkooldown = rand(20, 80)
-			active = null
+/datum/species/golem/bananium/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	if(!active && COOLDOWN_FINISHED(src, honkooldown))
+		active = TRUE
+		playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, TRUE)
+		COOLDOWN_START(src, honkooldown, rand(2 SECONDS, 8 SECONDS))
+		active = FALSE
 	..()
 
 /datum/species/golem/bananium/spec_death(gibbed, mob/living/carbon/human/H)
@@ -676,7 +684,7 @@
 	id = SPECIES_GOLEM_RUNIC
 	sexes = FALSE
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING) //no mutcolors
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING) //no mutcolors
 	prefix = "Runic"
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
@@ -727,16 +735,16 @@
 	QDEL_NULL(dominate)
 	return ..()
 
-/datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(istype(chem, /datum/reagent/water/holywater))
-		H.adjustFireLoss(4)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustFireLoss(4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 
 	if(chem.type == /datum/reagent/fuel/unholywater)
-		H.adjustBruteLoss(-4)
-		H.adjustFireLoss(-4)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustBruteLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustFireLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
 
@@ -744,7 +752,7 @@
 	name = "Clockwork Golem"
 	id = SPECIES_GOLEM_CLOCKWORK
 	info_text = span_boldalloy("As a " + span_danger("Clockwork Golem") + ", you are faster than other types of golems. On death, you will break down into scrap.")
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	armor = 20 //Reinforced, but much less so to allow for fast movement
 	attack_verb = "smash"
@@ -804,7 +812,7 @@
 	sexes = FALSE
 	info_text = "As a " + span_danger("Cloth Golem") + ", you are able to reform yourself after death, provided your remains aren't burned or destroyed. You are, of course, very flammable. \
 	Being made of cloth, your body is magic resistant and faster than that of other golems, but weaker and less resilient."
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOTRANSSTING) //no mutcolors, and can burn
+	species_traits = list(NO_UNDERWEAR,NOTRANSSTING) //no mutcolors, and can burn
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
@@ -813,7 +821,8 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_CHUNKYFINGERS
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_NOBLOOD,
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	armor = 15 //feels no pain, but not too resistant
@@ -1073,7 +1082,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	prefix = "Cardboard"
 	special_names = list("Box")
 	info_text = "As a " + span_danger("Cardboard Golem") + ", you aren't very strong, but you are a bit quicker and can easily create more brethren by using cardboard on yourself."
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,
@@ -1082,7 +1091,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_NODISMEMBER
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
 	)
 	attack_verb = "whips"
 	attack_sound = 'sound/weapons/whip.ogg'
@@ -1154,7 +1164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	id = SPECIES_GOLEM_DURATHREAD
 	prefix = "Durathread"
 	special_names = list("Boll","Weave")
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
 	fixed_mut_color = null
 	inherent_traits = list(
 		TRAIT_NOBREATH,
@@ -1164,7 +1174,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_NODISMEMBER
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
 	)
 	info_text = "As a " + span_danger("Durathread Golem") + ", your strikes will cause those your targets to start choking, but your woven body won't withstand fire as well."
 
@@ -1177,14 +1188,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
 /datum/species/golem/durathread/spec_unarmedattack(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
-	target.apply_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+	target.apply_status_effect(/datum/status_effect/strandling)
 
 /datum/species/golem/bone
 	name = "Bone Golem"
 	id = SPECIES_GOLEM_BONE
 	prefix = "Bone"
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/tongue/bone
 	sexes = FALSE
@@ -1200,7 +1211,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_FAKEDEATH
+		TRAIT_FAKEDEATH,
+		TRAIT_NOBLOOD,
 	)
 	species_language_holder = /datum/language_holder/golem/bone
 	info_text = "As a " + span_danger("Bone Golem") + ", You have a powerful spell that lets you chill your enemies with fear, and milk heals you! Just make sure to watch our for bone-hurting juice."
@@ -1224,7 +1236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		bonechill.Remove(C)
 	..()
 
-/datum/species/golem/bone/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/golem/bone/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume >= 6)
 			H.reagents.remove_reagent(chem.type, chem.volume - 5)
@@ -1277,13 +1289,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 /datum/species/golem/snow
 	name = "Snow Golem"
 	id = SPECIES_GOLEM_SNOW
-	fixed_mut_color = "null" //custom sprites
+	fixed_mut_color = null //custom sprites
 	armor = 45 //down from 55
 	burnmod = 3 //melts easily
 	info_text = "As a " + span_danger("Snow Golem") + ", you are extremely vulnerable to burn damage, but you can generate snowballs and shoot cryokinetic beams. You will also turn to snow when dying, preventing any form of recovery."
 	prefix = "Snow"
 	special_names = list("Flake", "Blizzard", "Storm")
-	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING) //no mutcolors, no eye sprites
+	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING) //no mutcolors, no eye sprites
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,
@@ -1292,7 +1304,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_NODISMEMBER
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
 	)
 
 	/// A ref to our "throw snowball" spell we get on species gain.

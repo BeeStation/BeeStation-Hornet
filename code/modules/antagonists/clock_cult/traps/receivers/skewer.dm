@@ -10,7 +10,7 @@
 	icon_state = "brass_skewer"
 	component_datum = /datum/component/clockwork_trap/skewer
 	unwrench_path = /obj/item/clockwork/trap_placer/skewer
-	buckle_lying = FALSE
+	buckle_lying = 0
 	max_integrity = 40
 	var/cooldown = 0
 	var/extended = FALSE

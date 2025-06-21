@@ -28,9 +28,21 @@
 	if(!istype(I) || I.anchored)
 		return
 
+	if(loc.atom_storage && I.atom_storage)
+		to_chat(user, "<span class='warning'>No matter what way you try, you can't get [I] to fit inside [src].</span>")
+		return TRUE //now this is podracing
+
+	if(HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT))
+		to_chat(user, "<span class='warning'>No matter what way you try, you can't get [I] to fit inside [src].</span>")
+		return TRUE
+
 	if(istype(I, /obj/item/evidencebag))
 		to_chat(user, span_notice("You find putting an evidence bag in another evidence bag to be slightly absurd."))
-		return 1 //now this is podracing
+		return TRUE //now this is podracing
+
+	if(loc in I.GetAllContents()) // fixes tg #39452, evidence bags could store their own location, causing I to be stored in the bag while being present inworld still, and able to be teleported when removed.
+		to_chat(user, "<span class='warning'>You find putting [I] in [src] while it's still inside it quite difficult!</span>")
+		return
 
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
 		to_chat(user, span_notice("[I] won't fit in [src]."))
@@ -41,13 +53,13 @@
 		return
 
 	if(!isturf(I.loc)) //If it isn't on the floor. Do some checks to see if it's in our hands or a box. Otherwise give up.
-		if(SEND_SIGNAL(I.loc, COMSIG_CONTAINS_STORAGE))	//in a container.
-			SEND_SIGNAL(I.loc, COMSIG_TRY_STORAGE_TAKE, I, src)
+		if(I.loc.atom_storage) //in a container.
+			I.loc.atom_storage.remove_single(user, I, src)
 		if(!user.dropItemToGround(I))
 			return
 
 	user.visible_message("[user] puts [I] into [src].", span_notice("You put [I] inside [src]."),\
-	span_italics("You hear a rustle as someone puts something into a plastic bag."))
+	"<span class='hear'>You hear a rustle as someone puts something into a plastic bag.</span>")
 
 	icon_state = "evidence"
 
@@ -85,11 +97,10 @@
 	desc = "A small box specially designed for carrying evidence bags."
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/storage/box/evidence/ComponentInitialize()
+/obj/item/storage/box/evidence/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 6
-	STR.set_holdable(list(/obj/item/evidencebag))
+	atom_storage.max_slots = 6
+	atom_storage.set_holdable(list(/obj/item/evidencebag))
 
 /obj/item/storage/box/evidence/PopulateContents()
 	for(var/i in 1 to 6)

@@ -349,7 +349,8 @@
 /datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	priority_announce("[generate_heretic_text()] Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever-twisting hand! [generate_heretic_text()]", "[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
-	var/datum/action/spell/shed_human_form/worm_spell = new(user.mind)
+
+	var/datum/action/spell/shapeshift/shed_human_form/worm_spell = new(user.mind)
 	worm_spell.Grant(user)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
@@ -359,6 +360,10 @@
 	ritual_ghoul.limit *= 3
 	var/datum/heretic_knowledge/limited_amount/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/base_flesh)
 	blade_ritual.limit = 999
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/flesh_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 #undef GHOUL_MAX_HEALTH
 #undef MUTE_MAX_HEALTH

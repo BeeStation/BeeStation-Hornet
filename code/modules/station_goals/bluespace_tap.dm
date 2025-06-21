@@ -112,7 +112,7 @@
 		/obj/item/bedsheet/syndie = 2,
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
-		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/gloves/tackler/combat = 5
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic

@@ -128,7 +128,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Check objective
 	if(current_objective)
 		if(current_objective.check_failed())
-			priority_announce("Central Command priority objective failed.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 			QDEL_NULL(current_objective)
 	//Process events
 	for(var/datum/ruin_event/ruin_event as() in ruin_events)

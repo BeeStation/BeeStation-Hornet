@@ -22,7 +22,7 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 2
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_power = 70
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
@@ -73,7 +73,7 @@
 	SIGNAL_HANDLER
 
 	if(user && user.has_dna())
-		if(user.dna.check_mutation(HULK))
+		if(user.dna.check_mutation(/datum/mutation/hulk))
 			to_chat(user, span_warning("You lack the grace to wield this!"))
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
 	sharpness = SHARP_DISMEMBER_EASY
@@ -104,7 +104,7 @@
 		user.visible_message(span_suicide("[user] begins spinning way too fast! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 		var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)//stole from chainsaw code
-		var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/organ/brain/B = user.get_organ_slot(ORGAN_SLOT_BRAIN)
 		B.organ_flags &= ~ORGAN_VITAL	//this cant possibly be a good idea
 		var/randdir
 		for(var/i in 1 to 24)//like a headless chicken!
@@ -126,7 +126,7 @@
 /obj/item/dualsaber/attack(mob/target, mob/living/carbon/user)
 	var/wielded = ISWIELDED(src)
 	if(user.has_dna())
-		if(user.dna.check_mutation(HULK))
+		if(user.dna.check_mutation(/datum/mutation/hulk))
 			to_chat(user, span_warning("You grip the blade too hard and accidentally drop it!"))
 			if(wielded)
 				user.dropItemToGround(src, force=TRUE)
@@ -171,7 +171,7 @@
 		return 1
 
 /obj/item/dualsaber/ignition_effect(atom/A, mob/user)
-	// same as /obj/item/melee/transforming/energy, mostly
+	// same as /obj/item/melee/energy, mostly
 	if(!ISWIELDED(src))
 		return ""
 	var/in_mouth = ""

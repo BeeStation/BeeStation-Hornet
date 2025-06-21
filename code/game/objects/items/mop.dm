@@ -7,10 +7,10 @@
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 8
 	throwforce = 10
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	throw_speed = 3
 	throw_range = 7
-	w_class = WEIGHT_CLASS_LARGE
+	w_class = WEIGHT_CLASS_MEDIUM
 	attack_verb_continuous = list("mops", "bashes", "bludgeons", "whacks")
 	attack_verb_simple = list("mop", "bash", "bludgeon", "whack")
 	resistance_flags = FLAMMABLE

@@ -39,6 +39,8 @@
 #define LAZYACCESS(L, I) (L ? (isnum_safe(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
 ///Sets the item K to the value V, if the list is null it will initialize it
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
+///Sets the length of a lazylist
+#define LAZYSETLEN(L, V) if (!L) { L = list(); } L.len = V;
 ///Returns the lenght of the list
 #define LAZYLEN(L) length(L) // should only be used for lazy lists. Using this with non-lazy lists is bad
 ///Sets a list to null
@@ -486,7 +488,7 @@
 /proc/sort_record(list/record_list, order = 1)
 	return sortTim(record_list, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
-/// sorting any value in a list with any comparator
+/// sorting any value in a list with any comparator. Ascending Alphabetize if no second arg is passed
 /proc/sort_list(list/list_to_sort, cmp=GLOBAL_PROC_REF(cmp_text_asc))
 	return sortTim(list_to_sort.Copy(), cmp)
 

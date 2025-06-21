@@ -13,7 +13,7 @@
 		)
 
 /datum/surgery/hepatectomy/can_start(mob/user, mob/living/carbon/target, target_zone)
-	var/obj/item/organ/liver/L = target.getorganslot(ORGAN_SLOT_LIVER)
+	var/obj/item/organ/liver/L = target.get_organ_slot(ORGAN_SLOT_LIVER)
 	if(L?.damage > 50 && !(L.organ_flags & ORGAN_FAILING))
 		return TRUE
 
@@ -21,7 +21,7 @@
 //95% chance of success, not 100 because organs are delicate
 /datum/surgery_step/hepatectomy
 	name = "remove damaged liver section"
-	implements = list(TOOL_SCALPEL = 95, /obj/item/melee/transforming/energy/sword = 65, /obj/item/knife = 45,
+	implements = list(TOOL_SCALPEL = 95, /obj/item/melee/energy/sword = 65, /obj/item/knife = 45,
 		/obj/item/shard = 35)
 	time = 52
 

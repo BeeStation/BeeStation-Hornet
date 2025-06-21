@@ -12,8 +12,10 @@
 	var/amount_created
 	///Whether or not the atom being processed has to be on a table or tray to process it
 	var/table_required
+	///Verb used in processing food (such as slice, flatten), defaults to process
+	var/screentip_verb
 
-/datum/element/processable/Attach(datum/target, tool_behaviour, result_atom_type, amount_created = 3, time_to_process = 2 SECONDS, table_required = FALSE)
+/datum/element/processable/Attach(datum/target, tool_behaviour, result_atom_type, amount_created = 3, time_to_process = 2 SECONDS, table_required = FALSE, screentip_verb = "Process")
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
@@ -23,13 +25,17 @@
 	src.time_to_process = time_to_process
 	src.result_atom_type = result_atom_type
 	src.table_required = table_required
+	src.screentip_verb = screentip_verb
 
+	var/atom/atom_target = target
+
+	RegisterSignal(atom_target, COMSIG_ATOM_ADD_CONTEXT, PROC_REF(on_requesting_context_from_item))
 	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(tool_behaviour), PROC_REF(try_process))
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 /datum/element/processable/Detach(datum/target)
 	. = ..()
-	UnregisterSignal(target, list(COMSIG_ATOM_TOOL_ACT(tool_behaviour), COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(target, list(COMSIG_ATOM_TOOL_ACT(tool_behaviour), COMSIG_PARENT_EXAMINE, COMSIG_ATOM_ADD_CONTEXT))
 
 /datum/element/processable/proc/try_process(datum/source, mob/living/user, obj/item/I, list/mutable_recipes)
 	SIGNAL_HANDLER
@@ -67,3 +73,13 @@
 			examine_list += span_notice("It can be turned into some [result_name] with <b>[tool_desc]</b>!")
 		else
 			examine_list += span_notice("It can be turned into \a [result_name] with <b>[tool_desc]</b>!")
+
+/**
+ * Arguments:
+ * * source - refers to item that will display its screentip
+ * * context - refers to, in this case, an item that can be proccessed into another item via add element proccessable
+ * * user - refers to user who will see the screentip when the proper context and tool are there
+ */
+/datum/element/processable/proc/on_requesting_context_from_item(datum/source, datum/screentip_context/context, mob/user)
+	SIGNAL_HANDLER
+	context.add_left_click_tool_action("[screentip_verb] into [initial(result_atom_type.name)]", tool_behaviour)

@@ -239,11 +239,6 @@ SUBSYSTEM_DEF(zcopy)
 			T.opacity = FALSE
 			//T.underlays = underlay_copy
 			T.plane = t_target
-			var/area/A = T.loc
-			if(!IS_DYNAMIC_LIGHTING(A))
-				T.shadower.icon_state = "transparent"
-			else
-				T.shadower.icon_state = "dark"
 		else
 			// Some openturfs have icons, so we can't overwrite their appearance.
 			if (!T.below.mimic_proxy)
@@ -275,11 +270,12 @@ SUBSYSTEM_DEF(zcopy)
 		else if (T.below.mimic_above_copy)
 			QDEL_NULL(T.below.mimic_above_copy)
 
+		T.shadower.copy_lighting(T.below.lighting_object, T.below.loc, T.below)
+
 		// Add everything below us to the update queue.
 		for (var/thing in T.below)
 			var/atom/movable/object = thing
 			if(istype(object, /atom/movable/lighting_object))
-				T.shadower.copy_lighting(T.below.lighting_object, T.below.loc)
 				continue
 
 			if (QDELETED(object) || (object.zmm_flags & ZMM_IGNORE) || object.loc != T.below || object.invisibility == INVISIBILITY_ABSTRACT)
@@ -591,7 +587,6 @@ SUBSYSTEM_DEF(zcopy)
 
 	var/is_above_space = T.is_above_space()
 	var/list/out = list(
-		"<head><meta charset='utf-8'/></head><body>",
 		"<h1>Analysis of [T] at [T.x],[T.y],[T.z]</h1>",
 		"<b>Queue occurrences:</b> [T.z_queued]",
 		"<b>Above space:</b> Apparent [T.z_eventually_space ? "Yes" : "No"], Actual [is_above_space ? "Yes" : "No"] - [T.z_eventually_space == is_above_space ? "<font color='green'>OK</font>" : "<font color='red'>MISMATCH</font>"]",
@@ -675,9 +670,7 @@ SUBSYSTEM_DEF(zcopy)
 
 		out += "<hr/>"
 
-	out += "</body>"
-
-	usr << browse(out.Join("<br>"), "size=980x580;window=openturfanalysis-[REF(T)]")
+	usr << browse(HTML_SKELETON(out.Join("<br>")), "size=980x580;window=openturfanalysis-[REF(T)]")
 
 	for (var/item in temp_objects)
 		qdel(item)

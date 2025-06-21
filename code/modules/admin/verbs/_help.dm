@@ -265,6 +265,11 @@
 		type = STAT_BUTTON,
 		action = "browsetickets",
 	)
+	tab_data["Requests"] = list(
+		text = "Open Requests Browser",
+		type = STAT_BUTTON,
+		action = "browserequests",
+	)
 	return tab_data
 
 //Reassociate still open ticket if one exists
@@ -886,7 +891,7 @@
 											"ckey" = found.ckey,
 											"key" = found.key,
 											"antag" = is_antag)
-							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
+							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "
 	if(external)

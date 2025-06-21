@@ -78,7 +78,7 @@
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
-	max_integrity = 100
+	max_integrity = 200
 	var/active = FALSE
 	var/list/deployed_shields
 	var/locked = FALSE
@@ -120,6 +120,7 @@
 /obj/machinery/shieldgen/deconstruct(disassembled = TRUE)
 	atom_break()
 	locked = pick(0,1)
+	return ..()
 
 /obj/machinery/shieldgen/interact(mob/user)
 	. = ..()
@@ -132,7 +133,7 @@
 		to_chat(user, span_warning("The panel must be closed before operating this machine!"))
 		return
 
-	if (active)
+	if(active)
 		user.visible_message("[user] deactivated \the [src].", \
 			span_notice("You deactivate \the [src]."), \
 			span_italics("You hear heavy droning fade out."))

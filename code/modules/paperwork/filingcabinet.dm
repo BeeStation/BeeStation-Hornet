@@ -76,9 +76,9 @@
 	var/i
 	for(i=contents.len, i>=1, i--)
 		var/obj/item/P = contents[i]
-		dat += "<tr><td><a href='?src=[REF(src)];retrieve=[REF(P)]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='byond://?src=[REF(src)];retrieve=[REF(P)]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
-	user << browse("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>[name]</title></head><body>[dat]</body></html>", "window=filingcabinet;size=350x300")
+	user << browse(HTML_SKELETON_TITLE(name, dat), "window=filingcabinet;size=350x300")
 
 /obj/structure/filingcabinet/attack_tk(mob/user)
 	if(anchored)
@@ -101,7 +101,7 @@
 	if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(usr)))
 		return
 	if(href_list["retrieve"])
-		usr << browse("", "window=filingcabinet") // Close the menu
+		usr << browse(null, "window=filingcabinet") // Close the menu
 
 		var/obj/item/P = locate(href_list["retrieve"]) in src //contents[retrieveindex]
 		if(istype(P) && in_range(src, usr))

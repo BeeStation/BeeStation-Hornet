@@ -132,7 +132,7 @@
 			else
 				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
 
-	if(get_bodypart(BODY_ZONE_HEAD) && !getorgan(/obj/item/organ/brain))
+	if(get_bodypart(BODY_ZONE_HEAD) && !get_organ_by_type(/obj/item/organ/brain))
 		. += span_deadsay("It appears that [t_his] brain is missing.")
 
 	var/temp = getBruteLoss() //no need to calculate each of these twice
@@ -228,16 +228,6 @@
 			else
 				msg += "<B>[t_He] [t_has] severe [burn_msg]!</B>\n"
 
-		temp = getCloneLoss()
-		if(temp)
-			if(temp < 25)
-				msg += "[t_He] [t_has] minor cellular damage.\n"
-			else if(temp < 50)
-				msg += "[t_He] [t_has] <b>moderate</b> cellular damage!\n"
-			else
-				msg += "<b>[t_He] [t_has] severe cellular damage!</b>\n"
-
-
 	if(fire_stacks > 0)
 		msg += "[t_He] [t_is] covered in something flammable.\n"
 	if(fire_stacks < 0)
@@ -323,7 +313,7 @@
 			if(CONSCIOUS)
 				if(HAS_TRAIT(src, TRAIT_DUMB))
 					msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
-		if(getorgan(/obj/item/organ/brain))
+		if(get_organ_by_type(/obj/item/organ/brain))
 			if(ai_controller?.ai_status == AI_STATUS_ON)
 				msg += "[span_deadsay("[t_He] do[t_es]n't appear to be [t_him]self.")]\n"
 			if(!key)
@@ -365,11 +355,11 @@
 				. += "Detected cybernetic modifications: [english_list(cyberimp_detect)]"
 			if(target_record)
 				var/physical_status = target_record.physical_status
-				. += "Physical status: <a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[physical_status]\]</a>"
+				. += "Physical status: <a href='byond://?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[physical_status]\]</a>"
 				var/mental_status = target_record.mental_status
-				. += "Mental status: <a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[mental_status]\]</a>"
+				. += "Mental status: <a href='byond://?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[mental_status]\]</a>"
 			target_record = find_record(perpname, GLOB.manifest.general)
-			. += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
+			. += "<a href='byond://?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
 				. += span_info("Detected physiological traits:\n[traitstring]")
 
@@ -385,15 +375,15 @@
 						security_note = target_record.security_note
 
 				if(ishuman(user))
-					. += "[span_deptradio("Criminal status:")] <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
+					. += "[span_deptradio("Criminal status:")] <a href='byond://?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
 				else
 					. += "[span_deptradio("Criminal status:")] [wanted_status]"
 				. += "<span class='deptradio'>Important Notes: [security_note]"
-				. += "[span_deptradio("Security record:")] <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
+				. += "[span_deptradio("Security record:")] <a href='byond://?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
 				if(ishuman(user))
-					. += jointext(list("<a href='?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
-						"<a href='?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
-						"<a href='?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
+					. += jointext(list("<a href='byond://?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
+						"<a href='byond://?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
+						"<a href='byond://?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
 	else if(isobserver(user) && traitstring)
 		. += span_info("<b>Traits:</b> [traitstring]")
 
@@ -415,4 +405,4 @@
 	return !key && !get_ghost(FALSE, TRUE)
 
 /mob/living/soul_departed()
-	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)
+	return get_organ_by_type(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)

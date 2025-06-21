@@ -4,8 +4,8 @@
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your throat is burning!</span>"
-	text_lose_indication = "<span class='notice'>Your throat is cooling down.</span>"
+	text_gain_indication = span_notice("Your throat is burning!")
+	text_lose_indication = span_notice("Your throat is cooling down.")
 	power_path = /datum/action/spell/cone/staggered/fire_breath
 	instability = 30
 	energy_coeff = 1
@@ -54,7 +54,7 @@
 
 	our_lizard.adjust_fire_stacks(cone_levels)
 	our_lizard.IgniteMob()
-	to_chat(our_lizard, ("<span class='warning'>Something in front of your mouth catches fire!</span>"))
+	to_chat(our_lizard, span_warning("Something in front of your mouth catches fire!"))
 
 /datum/action/spell/cone/staggered/fire_breath/post_cast(mob/user, atom/target)
 	. = ..()

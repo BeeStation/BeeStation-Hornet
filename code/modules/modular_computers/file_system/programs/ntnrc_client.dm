@@ -132,7 +132,7 @@
 				return
 			var/datum/computer_file/data/log_file/logfile = new()
 			// Now we will generate HTML-compliant file that can actually be viewed/printed.
-			logfile.filename = logname
+			logfile.filename = "[logname].log"
 			var/log_data = "Logfile dump from NTNRC channel [channel.title]\n"
 			for(var/logstring in channel.messages)
 				log_data += "[logstring]\n"

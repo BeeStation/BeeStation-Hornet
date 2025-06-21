@@ -88,9 +88,10 @@
 
 /datum/nanite_program/explosive/proc/boom()
 	var/nanite_amount = nanites.nanite_volume
-	var/dev_range = FLOOR(nanite_amount/200, 1) - 1
-	var/heavy_range = FLOOR(nanite_amount/100, 1) - 1
-	var/light_range = FLOOR(nanite_amount/50, 1) - 1
+	var/max_nanites = nanites.max_nanites
+	var/dev_range = FLOOR(nanite_amount/(max_nanites * 0.4), 1) - 1
+	var/heavy_range = FLOOR(nanite_amount/(max_nanites * 0.2), 1) - 1
+	var/light_range = FLOOR(nanite_amount/(max_nanites * 0.1), 1) - 1
 	explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
 
@@ -107,7 +108,7 @@
 /datum/nanite_program/heart_stop/on_trigger(comm_message)
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/obj/item/organ/heart/heart = C.getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/heart = C.get_organ_slot(ORGAN_SLOT_HEART)
 		if(heart)
 			if(heart.beating)
 				heart.Stop()

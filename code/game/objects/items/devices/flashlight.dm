@@ -153,7 +153,7 @@
 	 * Handle eyes
 	 */
 
-	var/obj/item/organ/eyes/E = M.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = M.get_organ_slot(ORGAN_SLOT_EYES)
 
 	if((M.head && M.head.flags_cover & HEADCOVERSEYES) || (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) || (M.glasses && M.glasses.flags_cover & GLASSESCOVERSEYES))
 		results += span_notice("[M.p_their()] eyes are covered by [(M.head && M.head.flags_cover & HEADCOVERSEYES) ? "a helmet" : (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) ? "a mask": "some glasses"].")
@@ -169,12 +169,12 @@
 	else
 		if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
 			results += span_warning("[M.p_their(TRUE)] pupils don't react to the light!")
-		else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
+		else if(M.has_dna() && M.dna.check_mutation(/datum/mutation/thermal/x_ray))	//mob has X-ray vision
 			results += span_danger("[M.p_their(TRUE)] pupils give an eerie glow!")
 		else //they're okay!
 			results += span_notice("[M.p_their(TRUE)] pupils narrow.")
 
-	to_chat(user, EXAMINE_BLOCK(jointext(results, "\n")))
+	to_chat(user, examine_block(jointext(results, "\n")))
 
 /obj/item/flashlight/pen
 	name = "penlight"
@@ -531,7 +531,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	if(!fuel)
 		user.visible_message(span_suicide("[user] is trying to squirt [src]'s fluids into [user.p_their()] eyes... but it's empty!"))
 		return SHAME
-	var/obj/item/organ/eyes/eyes = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	if(!eyes)
 		user.visible_message(span_suicide("[user] is trying to squirt [src]'s fluids into [user.p_their()] eyes... but [user.p_they()] don't have any!"))
 		return SHAME

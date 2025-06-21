@@ -539,7 +539,7 @@
 				var/datum/species/ethereal/E = user.dna.species
 				if(E.drain_time > world.time)
 					return
-				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
+				var/obj/item/organ/stomach/battery/stomach = user.get_organ_slot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))
 					to_chat(user, span_warning("You can't receive charge!"))
 					return
@@ -574,7 +574,7 @@
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 			to_chat(user, span_notice("You remove the light [fitting]."))
-		else if(user.has_dna() && user.dna.check_mutation(TK))
+		else if(user.has_dna() && user.dna.check_mutation(/datum/mutation/telekinesis))
 			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
 			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))

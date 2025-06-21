@@ -7,6 +7,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	. = ..()
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
+
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
@@ -44,7 +45,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		H = hud_used.hand_slots["[held_index]"]
 		if(H)
 			H.update_icon()
-
+	refresh_self_screentips()
 
 /mob/living/carbon/activate_hand(selhand) //l/r OR 1-held_items.len
 	if(!selhand)
@@ -153,9 +154,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return FALSE
 
 	var/atom/movable/thrown_thing
-	var/obj/item/I = get_active_held_item()
-
-	if(!I)
+	var/obj/item/held_item = get_active_held_item()
+	var/verb_text = pick("throw", "toss", "hurl", "chuck", "fling")
+	if(!held_item)
 		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
 			var/mob/living/throwable_mob = pulling
 			if(!throwable_mob.buckled)
@@ -163,36 +164,33 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				stop_pulling()
 				if(HAS_TRAIT(src, TRAIT_PACIFISM))
 					to_chat(src, span_notice("You gently let go of [throwable_mob]."))
-				var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
-				var/turf/end_T = get_turf(target)
-				if(start_T && end_T)
-					log_combat(src, throwable_mob, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
+					return FALSE
+	else
+		thrown_thing = held_item.on_thrown(src, target)
+	if(!thrown_thing)
+		return FALSE
+	if(isliving(thrown_thing))
+		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+		var/turf/end_T = get_turf(target)
+		if(start_T && end_T)
+			log_combat(src, thrown_thing, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
 
-	else if(!CHECK_BITFIELD(I.item_flags, ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
-		thrown_thing = I
-		var/pacifist = FALSE
-		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			pacifist = TRUE
-		else
-			I.item_flags |= WAS_THROWN
-		dropItemToGround(I, silent = TRUE)
-		if(pacifist)
-			to_chat(src, span_notice("You set [I] down gently on the ground."))
-			return TRUE
+	do_attack_animation(target, no_effect = 1)
+	var/sound/throwsound = 'sound/weapons/throw.ogg'
+	playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
+	log_message("has thrown [thrown_thing].", LOG_ATTACK)
 
-	if(thrown_thing)
-		visible_message(span_danger("[src] throws [thrown_thing]."), \
-						span_danger("You throw [thrown_thing]."))
-		log_message("has thrown [thrown_thing]", LOG_ATTACK)
-		newtonian_move(get_dir(target, src))
-		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
-		do_attack_animation(target, no_effect = 1)
-		var/sound/throwsound = 'sound/weapons/throw.ogg'
-		var/power_throw_text = "."
-		playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
-		log_message("has thrown [thrown_thing] [power_throw_text]", LOG_ATTACK)
-		return TRUE
-	return FALSE
+	if (!held_item)
+		visible_message(span_danger("[src] [verb_text] [thrown_thing]."), \
+							span_danger("You [verb_text] [thrown_thing]."))
+	else
+		visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."), \
+							span_danger("You [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."))
+	log_message("has thrown [thrown_thing]", LOG_ATTACK)
+
+	newtonian_move(get_dir(target, src))
+	thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	return TRUE
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
@@ -409,7 +407,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/get_stat_tab_status()
 	var/list/tab_data = ..()
-	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+	var/obj/item/organ/alien/plasmavessel/vessel = get_organ_by_type(/obj/item/organ/alien/plasmavessel)
 	if(vessel)
 		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.stored_plasma]/[vessel.max_plasma]")
 	if(locate(/obj/item/assembly/health) in src)
@@ -461,6 +459,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!blood)
 		adjust_nutrition(-lost_nutrition)
 		adjustToxLoss(-3)
+
 	for(var/i=0 to distance)
 		if(blood)
 			if(T)
@@ -474,9 +473,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(T)
 				T.add_vomit_floor(src, toxic, purge)//toxic barf looks different
 		T = get_step(T, dir)
-		if (T.is_blocked_turf())
+		if (T?.is_blocked_turf())
 			break
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)
@@ -553,7 +552,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
-	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(!E)
 		update_tint()
 	else
@@ -617,7 +616,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(isclothing(wear_mask))
 		. += wear_mask.tint
 
-	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(E)
 		. += E.tint
 	else
@@ -629,7 +628,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!client)
 		return
 
-	if(health <= crit_threshold)
+	if(health <= crit_threshold && !HAS_TRAIT(src,TRAIT_NOSOFTCRIT))
 		var/severity = 0
 		switch(health)
 			if(-20 to -10)
@@ -652,7 +651,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				severity = 9
 			if(-INFINITY to -95)
 				severity = 10
-		if(stat != HARD_CRIT)
+		if(stat != HARD_CRIT && !HAS_TRAIT(src,TRAIT_NOHARDCRIT))
 			var/visionseverity = 4
 			switch(health)
 				if(-8 to -4)
@@ -830,15 +829,15 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
 	// We can't heal them if they're missing a heart
-	if(needs_heart() && !getorganslot(ORGAN_SLOT_HEART))
+	if(needs_heart() && !get_organ_slot(ORGAN_SLOT_HEART))
 		return FALSE
 
 	// We can't heal them if they're missing their lungs
-	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !getorganslot(ORGAN_SLOT_LUNGS))
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !get_organ_slot(ORGAN_SLOT_LUNGS))
 		return FALSE
 
 	// And we can't heal them if they're missing their liver
-	if(!getorganslot(ORGAN_SLOT_LIVER))
+	if(!get_organ_slot(ORGAN_SLOT_LIVER))
 		return FALSE
 
 	// We don't want walking husks god no
@@ -852,8 +851,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		for(var/addi in reagents.addiction_list)
 			reagents.remove_addiction(addi)
 	for(var/obj/item/organ/organ as anything in internal_organs)
-		organ.setOrganDamage(0)
-	var/obj/item/organ/brain/B = getorgan(/obj/item/organ/brain)
+		organ.set_organ_damage(0)
+	var/obj/item/organ/brain/B = get_organ_by_type(/obj/item/organ/brain)
 	if(B)
 		B.brain_death = FALSE
 	for(var/thing in diseases)
@@ -878,7 +877,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/can_be_revived()
 	. = ..()
-	if(!getorgan(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
+	if(!get_organ_by_type(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
 		return 0
 
 /mob/living/carbon/harvest(mob/living/user)

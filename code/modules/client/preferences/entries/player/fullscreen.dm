@@ -46,7 +46,11 @@
 			winset(client, "status_bar_wide", "is-visible=true")
 			winset(client, "mainwindow", "on-status=\".winset \\\"status_bar_wide.text = \[\[*]]\\\"\"")
 			winset(client, "status_bar", "is-visible=false")
-		INVOKE_ASYNC(client, TYPE_VERB_REF(/client, fit_viewport))
+
+		if(client.fully_created)
+			INVOKE_ASYNC(client, TYPE_VERB_REF(/client, fit_viewport))
+		else
+			addtimer(CALLBACK(client, TYPE_VERB_REF(/client, fit_viewport), 1 SECONDS))
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
 	var/windowsize = winget(client, "split", "size")

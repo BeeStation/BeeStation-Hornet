@@ -41,10 +41,11 @@
 	return ..()
 
 /datum/nanite_program/temperature/active_effect()
-	if(host_mob.bodytemperature > host_mob.get_body_temp_normal(apply_change=FALSE))
-		host_mob.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT, host_mob.get_body_temp_normal(apply_change=FALSE))
-	else if(host_mob.bodytemperature < (host_mob.get_body_temp_normal(apply_change=FALSE) + 1))
-		host_mob.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, host_mob.get_body_temp_normal(apply_change=FALSE))
+	var/target_temp = host_mob.get_body_temp_normal(apply_change=FALSE)
+	if(host_mob.bodytemperature > target_temp)
+		host_mob.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT, target_temp)
+	else if(host_mob.bodytemperature < (target_temp + 1))
+		host_mob.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, target_temp)
 
 /datum/nanite_program/purging
 	name = "Blood Purification"
@@ -233,9 +234,9 @@
 		return FALSE
 	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE) || !C.can_be_revived()) //too damaged
 		return FALSE
-	if(!C.getorgan(/obj/item/organ/heart)) //what are we even shocking
+	if(!C.get_organ_by_type(/obj/item/organ/heart)) //what are we even shocking
 		return FALSE
-	var/obj/item/organ/brain/BR = C.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/BR = C.get_organ_by_type(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
 		return FALSE
 	if(C.get_ghost())

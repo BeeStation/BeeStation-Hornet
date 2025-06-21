@@ -491,9 +491,6 @@
 	. = 0
 	if(HAS_TRAIT(src, TRAIT_POOR_AIM)) //nice shootin' tex
 		. += 25
-	// Unwielded weapons
-	if(!weapon.is_wielded && weapon.requires_wielding)
-		. += weapon.spread_unwielded
 	// Nothing to hold onto, slight penalty for flying around in space
 	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
 	var/current_speed = cached_multiplicative_slowdown
@@ -504,7 +501,7 @@
 		var/datum/component/riding/riding_component = buckled.GetComponent(/datum/component/riding)
 		if (riding_component)
 			current_speed = riding_component.vehicle_move_delay
-			move_time = max(move_time, riding_component.last_vehicle_move)
+			move_time = move_time
 		// If we are buckled to a mob, use the speed of the mob we are buckled to instead
 		else if (istype(buckled, /mob))
 			var/mob/buckle_target = buckled

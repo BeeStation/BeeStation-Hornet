@@ -9,8 +9,8 @@
 /datum/mutation/cluwne/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	owner.dna.add_mutation(CLOWNMUT)
-	owner.dna.add_mutation(EPILEPSY)
+	owner.dna.add_mutation(/datum/mutation/clumsy)
+	owner.dna.add_mutation(/datum/mutation/epilepsy)
 	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 
 	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', vol = 50, vary = TRUE)
@@ -38,8 +38,8 @@
 	owner.emote("scream")
 	owner.visible_message(span_warning("[span_name("[owner]")] faints as [owner.p_their()] cursed cluwne clothing melts away!"))
 	owner.Unconscious(rand(45 SECONDS, 70 SECONDS))
-	owner.dna.remove_mutation(CLOWNMUT)
-	owner.dna.remove_mutation(EPILEPSY)
+	owner.dna.remove_mutation(/datum/mutation/clumsy)
+	owner.dna.remove_mutation(/datum/mutation/epilepsy)
 	for(var/datum/weakref/clothing_weakref in clothing_weakrefs)
 		var/obj/item/clothing/clothing = clothing_weakref.resolve()
 		if(QDELETED(clothing))
@@ -59,7 +59,7 @@
 		clothing_weakrefs += WEAKREF(cursed_clothing)
 
 /mob/living/carbon/proc/cluwneify(cursed = FALSE)
-	dna.add_mutation(cursed ? CURSEDCLUWNEMUT : CLUWNEMUT)
+	dna.add_mutation(cursed ? /datum/mutation/cluwne/cursed : /datum/mutation/cluwne)
 	emote("scream")
 	regenerate_icons()
 	visible_message(span_danger("[span_name("[src]'s")] body glows green, the glow dissipating only to leave behind a cluwne formerly known as [span_name("[src]")]!"), \

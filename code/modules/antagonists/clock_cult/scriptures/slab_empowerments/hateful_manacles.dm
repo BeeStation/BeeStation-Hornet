@@ -17,40 +17,40 @@
 
 //For the Hateful Manacles scripture; applies replicant handcuffs to the clicked_on.
 
-/datum/clockcult/scripture/slab/proc/hateful_manacles(mob/living/caller, atom/clicked_on)
+/datum/clockcult/scripture/slab/proc/hateful_manacles(mob/living/clicker, atom/clicked_on)
 	empowerment = null
-	var/turf/T = caller.loc
+	var/turf/T = clicker.loc
 	if(!isturf(T))
 		return FALSE
 
-	if(iscarbon(clicked_on) && clicked_on.Adjacent(caller))
+	if(iscarbon(clicked_on) && clicked_on.Adjacent(clicker))
 		var/mob/living/carbon/L = clicked_on
 		if(is_servant_of_ratvar(L))
-			to_chat(caller, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] a servant.\"</span>"))
+			to_chat(clicker, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] a servant.\"</span>"))
 			return FALSE
 		else if(L.stat)
-			to_chat(caller, ("<span class='neovgre'>\"There is use in shackling the dead, but for examples.\"</span>"))
+			to_chat(clicker, ("<span class='neovgre'>\"There is use in shackling the dead, but for examples.\"</span>"))
 			return FALSE
 		else if (istype(L.handcuffed, /obj/item/restraints/handcuffs/clockwork))
-			to_chat(caller, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] already helpless, no?\"</span>"))
+			to_chat(clicker, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] already helpless, no?\"</span>"))
 			return FALSE
 
-		playsound(caller.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE)
-		caller.visible_message(("<span class='danger'>[caller] begins forming manacles around [L]'s wrists!</span>"), \
+		playsound(clicker.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE)
+		clicker.visible_message(("<span class='danger'>[clicker] begins forming manacles around [L]'s wrists!</span>"), \
 		("<span class='neovgre_small'>You begin shaping replicant alloy into manacles around [L]'s wrists...</span>"))
-		to_chat(L, ("<span class='userdanger'>[caller] begins forming manacles around your wrists!</span>"))
-		if(do_after(caller, 3 SECONDS, L))
+		to_chat(L, ("<span class='userdanger'>[clicker] begins forming manacles around your wrists!</span>"))
+		if(do_after(clicker, 3 SECONDS, L))
 			if(!(istype(L.handcuffed,/obj/item/restraints/handcuffs/clockwork)))
 				var/obj/item/restraints/handcuffs/clockwork/restraints = new(L)
-				if (!restraints.apply_cuffs(L, caller))
+				if (!restraints.apply_cuffs(L, clicker))
 					qdel(restraints)
 					return TRUE
 				restraints.item_flags |= DROPDEL
 
-				to_chat(caller, ("<span class='neovgre_small'>You shackle [L].</span>"))
-				log_combat(caller, L, "handcuffed")
+				to_chat(clicker, ("<span class='neovgre_small'>You shackle [L].</span>"))
+				log_combat(clicker, L, "handcuffed")
 		else
-			to_chat(caller, ("<span class='warning'>You fail to shackle [L].</span>"))
+			to_chat(clicker, ("<span class='warning'>You fail to shackle [L].</span>"))
 	return TRUE
 
 /obj/item/restraints/handcuffs/clockwork

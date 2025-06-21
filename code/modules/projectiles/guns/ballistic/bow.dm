@@ -25,8 +25,8 @@
 /obj/item/gun/ballistic/bow/chamber_round()
 	chambered = magazine.get_round(1)
 
-/obj/item/gun/ballistic/bow/process_chamber()
-	chambered = null
+/obj/item/gun/ballistic/bow/on_chamber_fired()
+	QDEL_NULL(chambered)
 	magazine.get_round(0)
 	update_icon()
 
@@ -53,7 +53,7 @@
 	icon_state = "[initial(icon_state)]_[get_ammo() ? (chambered ? "firing" : "loaded") : "unloaded"]"
 
 /obj/item/gun/ballistic/bow/can_shoot()
-	return chambered
+	return chambered && ..()
 
 /obj/item/gun/ballistic/bow/ashen
 	name = "Bone Bow"

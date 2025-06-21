@@ -229,7 +229,7 @@
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
@@ -465,9 +465,8 @@
 				if(!put_in_hands(B))
 					return // box could not be placed in players hands.  I don't know what to do here...
 			//Now, B represents a container we can insert W into.
-			var/datum/component/storage/STR = B.GetComponent(/datum/component/storage)
-			if(STR.can_be_inserted(W, stop_messages=TRUE))
-				STR.handle_item_insertion(W,1)
+			if(B.atom_storage.can_insert(W))
+				B.atom_storage.attempt_insert(W)
 			return B
 
 /**
@@ -537,7 +536,7 @@
 	face_atom(A)
 	var/list/result = A.examine(src)
 
-	to_chat(src, EXAMINE_BLOCK(jointext(result, "\n")))
+	to_chat(src, examine_block(jointext(result, "\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
 /mob/proc/blind_examine_check(atom/examined_thing)
@@ -987,22 +986,20 @@
 	return restrict_magic_flags == NONE
 
 ///Return any anti artifact atom on this mob
-/mob/proc/anti_artifact_check(self = FALSE)
+/mob/proc/anti_artifact_check(self = FALSE, slot)
 	var/list/protection_sources = list()
-	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources) & COMPONENT_BLOCK_ARTIFACT)
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources, slot) & COMPONENT_BLOCK_ARTIFACT)
 		if(protection_sources.len)
 			return pick(protection_sources)
 		else
 			return src
 
 /**
-  * Buckle a living mob to this mob
-  *
-  * You can buckle on mobs if you're next to them since most are dense
-  *
-  * Turns you to face the other mob too
-  */
-/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+ * Buckle a living mob to this mob. Also turns you to face the other mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ */
+/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(M.buckled && !force)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -1039,7 +1036,7 @@
 	if(IsAdminGhost(src))
 		return TRUE
 	var/datum/dna/mob_dna = has_dna()
-	if(mob_dna?.check_mutation(TK) && tkMaxRangeCheck(src, A))
+	if(mob_dna?.check_mutation(/datum/mutation/telekinesis) && tkMaxRangeCheck(src, A))
 		return TRUE
 	if(treat_mob_as_adjacent && src == A.loc)
 		return TRUE
@@ -1352,16 +1349,5 @@
 	. = stat
 	stat = new_stat
 	update_action_buttons_icon(TRUE)
-
-/mob/proc/set_active_storage(new_active_storage)
-	if(active_storage)
-		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
-	active_storage = new_active_storage
-	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
-
-/mob/proc/active_storage_deleted(datum/source)
-	SIGNAL_HANDLER
-	set_active_storage(null)
 
 #undef MOB_FACE_DIRECTION_DELAY

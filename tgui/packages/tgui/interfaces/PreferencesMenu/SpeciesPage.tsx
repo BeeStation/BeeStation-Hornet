@@ -215,7 +215,7 @@ const SpeciesPageInner = (props: { handleClose: () => void; species: ServerData[
       <Stack.Item grow>
         <Stack fill>
           <Stack.Item>
-            <Box height="calc(100vh - 170px)" overflowY="auto" pr={3}>
+            <Box height="calc(100vh - 170px)" overflowY="auto" overflowX="hidden" mr={3}>
               {selectableSpecies.map(([speciesKey, species]) => {
                 return !currentSpecies.selectable ? (
                   <Button.Confirm

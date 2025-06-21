@@ -2,9 +2,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 /// Client Stuff
 
-/client
-	var/adminhelptimerid = 0	//a timer id for returning the ahelp verb
-	var/datum/help_ticket/current_adminhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
+/client/var/adminhelptimerid = 0	//a timer id for returning the ahelp verb
+/client/var/datum/help_ticket/current_adminhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
 
 /client/proc/openTicketManager()
 	set name = "Ticket Manager"
@@ -226,21 +225,21 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/proc/ClosureLinks(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	. = " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reject'>REJT</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=icissue'>IC</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=close'>CLOSE</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=resolve'>RSLVE</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=mhelp'>MHELP</A>)"
+	. = " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reject'>REJT</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=icissue'>IC</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=close'>CLOSE</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=resolve'>RSLVE</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=mhelp'>MHELP</A>)"
 
 /datum/help_ticket/admin/LinkedReplyName(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reply'>[initiator_key_name]</A>"
+	return "<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reply'>[initiator_key_name]</A>"
 
 /datum/help_ticket/admin/TicketHref(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=[action]'>[msg]</A>"
+	return "<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=[action]'>[msg]</A>"
 
 /datum/help_ticket/admin/blackbox_feedback(increment, data)
 	SSblackbox.record_feedback("tally", "ahelp_stats", increment, data)

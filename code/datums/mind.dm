@@ -213,7 +213,7 @@
 	var/datum/team/antag_team = A.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
-	A.on_gain()
+	INVOKE_ASYNC(A, TYPE_PROC_REF(/datum/antagonist, on_gain))
 	log_game("[key_name(src)] has gained antag datum [A.name]([A.type])")
 	return A
 
@@ -363,10 +363,6 @@
 	if (!implant)
 		. = uplink_loc
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
-		if(src.has_antag_datum(/datum/antagonist/incursion))
-			U.uplink_flag = UPLINK_INCURSION
-		if(src.has_antag_datum(/datum/antagonist/traitor/excommunicate))
-			U.uplink_flag = UPLINK_EXCOMMUNICATE
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
@@ -403,7 +399,7 @@
 	if(creator.has_antag_datum(/datum/antagonist/cult))
 		SSticker.mode.add_cultist(src, stun = FALSE, equip = FALSE)
 	else if(creator.has_antag_datum(/datum/antagonist/servant_of_ratvar))
-		add_servant_of_ratvar(current, silent = TRUE)
+		INVOKE_ASYNC(src, PROC_REF(add_servant_of_ratvar), current, TRUE)
 	if(creator.has_antag_datum(/datum/antagonist/rev))
 		var/datum/antagonist/rev/converter = creator.has_antag_datum(/datum/antagonist/rev, TRUE)
 		converter.add_revolutionary(src, FALSE)
@@ -451,7 +447,7 @@
 			output += "<br>[objective.explanation_text]"
 
 	if(window)
-		recipient << browse(output,"window=memory")
+		recipient << browse(HTML_SKELETON(output),"window=memory")
 	else if(antag_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 

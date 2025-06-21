@@ -51,8 +51,17 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		if(vent_found_parent && (vent_found_parent.members.len || vent_found_parent.other_atmos_machines))
 			visible_message(span_notice("[src] begins climbing into the ventilation system.") ,span_notice("You begin climbing into the ventilation system."))
 
+			ADD_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+			ADD_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+			ADD_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 			if(!do_after(src, 25, target = vent_found))
+				REMOVE_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+				REMOVE_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+				REMOVE_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 				return
+			REMOVE_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 
 			if(!client)
 				return

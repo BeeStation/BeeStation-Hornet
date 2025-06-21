@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = null
+	layer = OBJ_LAYER+0.1 //so food appears above stuff like plates 'n stuff
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	///List of reagents this food gets on creation
@@ -63,7 +64,7 @@
 	make_processable()
 	make_leave_trash()
 	make_grillable()
-	make_decompose()
+	make_decompose(mapload)	//if it was placed by a mapper, there is a good reason why it isn't ants already
 	make_bakeable()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.

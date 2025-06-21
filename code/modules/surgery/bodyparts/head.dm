@@ -3,6 +3,7 @@
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
 	icon = 'icons/mob/human_parts_greyscale.dmi'
 	//icon_state = "default_human_head"
+	icon_state_preview = "human_head_m"
 	max_damage = 200
 	body_zone = BODY_ZONE_HEAD
 	body_part = HEAD
@@ -116,7 +117,7 @@
 				brainmob = null
 			if(violent_removal && prob(rand(80, 100))) //ghetto surgery can damage the brain.
 				to_chat(user, span_warning("[brain] was damaged in the process!"))
-				brain.setOrganDamage(brain.maxHealth)
+				brain.set_organ_damage(brain.maxHealth)
 			brain.forceMove(T)
 			brain = null
 			update_icon_dropped()
@@ -209,7 +210,7 @@
 			//facial hair
 			if(facial_hair_style)
 				var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facial_hair_style]
-				if(S)
+				if(S?.icon_state)
 					var/image/facial_overlay = image(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
 					facial_overlay.color = "#" + facial_hair_color
 					facial_overlay.alpha = hair_alpha
@@ -224,13 +225,13 @@
 				else if(animal_origin == LARVA_BODYPART)
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_larva"
-				else if(!(NOBLOOD in species_flags_list))
+				else if(!(TRAIT_NOBLOOD in species_flags_list))
 					debrain_overlay.icon = 'icons/mob/human_face.dmi'
 					debrain_overlay.icon_state = "debrained"
 				. += debrain_overlay
 			else
 				var/datum/sprite_accessory/S2 = GLOB.hair_styles_list[hair_style]
-				if(S2)
+				if(S2?.icon_state)
 					var/image/hair_overlay = image(S2.icon, "[S2.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
 					hair_overlay.color = "#" + hair_color
 					hair_overlay.alpha = hair_alpha

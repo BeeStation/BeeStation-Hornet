@@ -298,7 +298,7 @@
 	var/glow_color = "#C3E381"
 
 /datum/plant_gene/trait/glow/proc/glow_range(obj/item/seeds/S)
-	return 1.4 + S.potency*rate
+	return round(1.4 + S.potency*rate) //lights with non-integer ranges aren't centered properly
 
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
 	return max(S.potency*(rate + 0.01), 0.1)

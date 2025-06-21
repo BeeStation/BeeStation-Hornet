@@ -8,7 +8,6 @@
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	species_traits = list(
-		NOBLOOD,
 		NOZOMBIE,
 		NOTRANSSTING
 	)
@@ -27,8 +26,13 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
-		TRAIT_NOSTASIS
+		TRAIT_NOSTASIS,
+		TRAIT_NOBLOOD,
 	)
+	mutantstomach = null
+	mutantheart = null
+	mutantliver = null
+	mutantlungs = null
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	bodytemp_normal = T0C // They have no natural body heat, the environment regulates body temp
@@ -73,8 +77,9 @@
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
-	var/heal_rate = 1
+	/// The rate the zombies regenerate at
+	var/heal_rate = 0.5
+	/// The cooldown before the zombie can start regenerating
 	COOLDOWN_DECLARE(regen_cooldown)
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
@@ -88,7 +93,7 @@
 	if(.)
 		COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY)
 
-/datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
+/datum/species/zombie/infectious/spec_life(mob/living/carbon/C, delta_time, times_fired)
 	. = ..()
 	C.set_combat_mode(TRUE) // THE SUFFERING MUST FLOW
 
@@ -98,17 +103,17 @@
 		var/heal_amt = heal_rate
 		if(HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION))
 			heal_amt *= 2
-		C.heal_overall_damage(heal_amt,heal_amt)
-		C.adjustToxLoss(-heal_amt)
-		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt)
-	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && prob(4))
+		C.heal_overall_damage(heal_amt * delta_time, heal_amt * delta_time)
+		C.adjustToxLoss(-heal_amt * delta_time)
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt * delta_time)
+	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && DT_PROB(2, delta_time))
 		playsound(C, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie
 /datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()
 	var/obj/item/organ/zombie_infection/infection
-	infection = C.getorganslot(ORGAN_SLOT_ZOMBIE)
+	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(infection)
 		qdel(infection)
 
@@ -119,7 +124,7 @@
 	//  Infection organ needs to be handled separately from mutant_organs
 	//  because it persists through species transitions
 	var/obj/item/organ/zombie_infection/infection
-	infection = C.getorganslot(ORGAN_SLOT_ZOMBIE)
+	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(!infection)
 		infection = new()
 		infection.Insert(C)

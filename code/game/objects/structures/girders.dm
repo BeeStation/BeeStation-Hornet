@@ -303,10 +303,10 @@
 	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/projectile))
 		return prob(girderpasschance)
 
-/obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	. = !density
-	if(istype(caller))
-		. = . || (caller.pass_flags & PASSGRILLE)
+	if(istype(passing_atom))
+		. = . || (passing_atom.pass_flags & PASSGRILLE)
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

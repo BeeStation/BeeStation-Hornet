@@ -449,8 +449,6 @@
 	icon_state = "rus_helmet"
 	item_state = "rus_helmet"
 	armor_type = /datum/armor/helmet_rus_helmet
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/helmet
-
 
 /datum/armor/helmet_rus_helmet
 	melee = 25
@@ -462,6 +460,11 @@
 	acid = 50
 	stamina = 20
 	bleed = 15
+
+/obj/item/clothing/head/helmet/rus_helmet/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/helmet)
 
 /obj/item/clothing/head/helmet/rus_ushanka
 	name = "battle ushanka"

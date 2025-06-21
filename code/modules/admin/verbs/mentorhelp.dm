@@ -2,9 +2,8 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 /// Client Stuff
 
-/client
-	var/mentorhelptimerid = 0	//a timer id for returning the mhelp verb
-	var/datum/help_ticket/current_mentorhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
+/client/var/mentorhelptimerid = 0	//a timer id for returning the mhelp verb
+/client/var/datum/help_ticket/current_mentorhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
 
 /client/proc/openMentorTicketManager()
 	set name = "Mentor Ticket Manager"
@@ -173,19 +172,19 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		return ""
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	. = " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reject'>REJT</A>)"
-	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=resolve'>RSLVE</A>)"
-	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=ahelp'>AHELP</A>)"
+	. = " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reject'>REJT</A>)"
+	. += " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=resolve'>RSLVE</A>)"
+	. += " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=ahelp'>AHELP</A>)"
 
 /datum/help_ticket/mentor/LinkedReplyName(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reply'>[initiator_key_name]</A>"
+	return "<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reply'>[initiator_key_name]</A>"
 
 /datum/help_ticket/mentor/TicketHref(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=[action]'>[msg]</A>"
+	return "<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=[action]'>[msg]</A>"
 
 /datum/help_ticket/mentor/blackbox_feedback(increment, data)
 	SSblackbox.record_feedback("tally", "mhelp_stats", increment, data)

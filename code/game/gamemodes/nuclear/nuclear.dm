@@ -173,10 +173,12 @@
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/storage/belt/military
 	r_hand = /obj/item/gun/ballistic/shotgun/automatic/bulldog
-	backpack_contents = list(/obj/item/storage/box/survival/syndie=1,\
-		/obj/item/tank/jetpack/oxygen/harness=1,\
+	l_hand = /obj/item/tank/jetpack/oxygen/harness
+	backpack_contents = list(
+		/obj/item/storage/box/survival/syndie=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
-		/obj/item/knife/combat/survival)
+		/obj/item/knife/combat/survival=1,\
+		)
 
 
 /datum/game_mode/nuclear/generate_credit_text()

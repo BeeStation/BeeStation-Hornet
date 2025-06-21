@@ -74,9 +74,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isbrain(A) (istype(A, /mob/living/brain))
 
-// basic mobs
-#define isbasicmob(A) (istype(A, /mob/living/basic))
-
 //Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
@@ -97,6 +94,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iszombie(A) (is_species(A, /datum/species/zombie))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
 #define isshadow(A) (is_species(A, /datum/species/shadow))
+#define isblessedshadow(A) (is_species(A, /datum/species/shadow/blessed))
+#define isnightmare(A) (is_species(A, /datum/species/shadow/nightmare))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 #define ishumanbasic(A) (is_species(A, /datum/species/human) && !is_species(A, /datum/species/human/krokodil_addict))
 #define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
@@ -139,6 +138,13 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isAI(A) (istype(A, /mob/living/silicon/ai))
 
 #define ispAI(A) (istype(A, /mob/living/silicon/pai))
+
+// basic mobs
+
+#define isbasicmob(A) (istype(A, /mob/living/basic))
+
+/// returns whether or not the atom is either a basic mob OR simple animal
+#define isanimal_or_basicmob(A) (istype(A, /mob/living/simple_animal) || istype(A, /mob/living/basic))
 
 //Simple animals
 #define isanimal(A) (istype(A, /mob/living/simple_animal))
@@ -217,6 +223,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isvehicle(A) (istype(A, /obj/vehicle))
+
 #define ismecha(A) (istype(A, /obj/vehicle/sealed/mecha))
 
 #define ismedicalmecha(A) (istype(A, /obj/vehicle/sealed/mecha/medical))
@@ -240,6 +248,8 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 #define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
+
+#define isammobox(A) (istype(A, /obj/item/ammo_box))
 
 #define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
 
@@ -288,3 +298,6 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
 
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
+
+/// Helper for checking of someone's shapeshifted currently.
+#define is_shifted(mob) mob.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)

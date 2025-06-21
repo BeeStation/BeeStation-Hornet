@@ -17,6 +17,8 @@
 #define COMSIG_LIVING_REGENERATE_LIMBS "living_regen_limbs"
 ///from base of mob/living/set_buckled(): (new_buckled)
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
+///from base of mob/living/set_body_position()
+#define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"		//! sent from borg recharge stations: (amount, repairs)
 #define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"			///From post-can inject check of syringe after attack (mob/user)
@@ -61,16 +63,10 @@
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 	#define COMPONENT_NO_STUN (1<<0)		//For all of them
+#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
 #define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.
-
-///From wabbajack(): ()
-#define COMSIG_LIVING_PRE_WABBAJACKED "living_mob_wabbajacked"
-	/// Return to stop the rest of the wabbajack from triggering.
-	#define STOP_WABBAJACK (1 << 0)
-///From wabbajack(): (mob/living/new_mob)
-#define COMSIG_LIVING_ON_WABBAJACKED "living_wabbajacked"
 
 // basic mob signals
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
@@ -85,8 +81,6 @@
 	/// Block the electrocute_act() proc from proceeding
 	#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
 ///sent by stuff like stunbatons and tasers: ()
-///from base of mob/living/set_body_position()
-#define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
 /// Sent to a mob being injected with a syringe when the do_after initiates
 #define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
 /// Sent to a mob being withdrawn from with a syringe when the do_after initiates
@@ -97,3 +91,22 @@
 #define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
+
+/// From /mob/living/proc/stop_leaning()
+#define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
+
+///From mob/living/proc/wabbajack(): (randomize_type)
+#define COMSIG_LIVING_PRE_WABBAJACKED "living_mob_wabbajacked"
+	/// Return to stop the rest of the wabbajack from triggering.
+	#define STOP_WABBAJACK (1<<0)
+///From mob/living/proc/on_wabbajack(): (mob/living/new_mob)
+#define COMSIG_LIVING_ON_WABBAJACKED "living_wabbajacked"
+
+/// From /datum/status_effect/shapechange_mob/on_apply(): (mob/living/shape)
+#define COMSIG_LIVING_SHAPESHIFTED "living_shapeshifted"
+/// From /datum/status_effect/shapechange_mob/after_unchange(): (mob/living/caster)
+#define COMSIG_LIVING_UNSHAPESHIFTED "living_unshapeshifted"
+
+/// from /mob/proc/change_mob_type() : ()
+#define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
+	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
