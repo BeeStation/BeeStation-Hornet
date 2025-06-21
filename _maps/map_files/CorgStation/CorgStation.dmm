@@ -55783,9 +55783,6 @@
 /turf/open/floor/wood,
 /area/security/prison)
 "sks" = (
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 8
