@@ -34,7 +34,7 @@
 #define ADMIN_QUE(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(user)]'>?</a>)"
 #define ADMIN_FLW(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(user)]'>FLW</a>)"
 #define ADMIN_PP(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminplayeropts=[REF(user)]'>PP</a>)"
-#define ADMIN_VV(atom) "(<a href='byond://?"+HREF_GROUP(var_edit)+"[HrefToken(TRUE)];"+HREF_PARAM(var_edit::Vars, REF(atom))+"'>VV</a>)"
+#define ADMIN_VV(atom) "(<a href='byond://?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::Vars, REF(atom))+"[HrefToken(TRUE)]'>VV</a>)"
 #define ADMIN_SM(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];subtlemessage=[REF(user)]'>SM</a>)"
 #define ADMIN_TP(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];traitor=[REF(user)]'>TP</a>)"
 #define ADMIN_KICK(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];boot2=[REF(user)]'>KICK</a>)"

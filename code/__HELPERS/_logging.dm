@@ -332,11 +332,11 @@
 	if(key)
 		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='byond://?[HREF_GROUP(admin_pm)][HREF_PARAM(admin_pm::msg_target, C.findStealthKey())]'>"
+				. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, C.findStealthKey())]'>"
 			. += "Administrator"
 		else
 			if(include_link)
-				. += "<a href='byond://?[HREF_GROUP(admin_pm)][HREF_PARAM(admin_pm::msg_target, ckey)]'>"
+				. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, ckey)]'>"
 			. += key
 		if(!C)
 			. += "\[DC\]"

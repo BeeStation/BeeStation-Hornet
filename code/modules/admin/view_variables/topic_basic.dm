@@ -3,7 +3,7 @@
 	var/target_var = GET_VV_VAR_TARGET
 	if(check_rights(R_VAREDIT))
 		if(target_var)
-			if(href_list[VV_HK_BASIC_EDIT])
+			if(LOCATE_HREF(var_edit::datumedit, href_list))
 				if(!modify_variables(target, target_var, 1))
 					return
 				switch(target_var)
@@ -36,7 +36,7 @@
 		if(!target)
 			to_chat(usr, span_warning("The object you tried to expose to [C] no longer exists (nulled or hard-deled)"))
 			return
-		message_admins("[key_name_admin(usr)] Showed [key_name_admin(C)] a <a href='byond://?[HREF_GROUP(var_edit)][HREF_PARAM(var_edit::Vars, REF(target))]'>VV window</a>")
+		message_admins("[key_name_admin(usr)] Showed [key_name_admin(C)] a <a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(target))]'>VV window</a>")
 		log_admin("Admin [key_name(usr)] Showed [key_name(C)] a VV window of a [target]")
 		to_chat(C, "[holder.fakekey ? "an Administrator" : "[usr.client.key]"] has granted you access to view a View Variables window")
 		C.debug_variables(target)

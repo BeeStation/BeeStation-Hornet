@@ -105,6 +105,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		asset_cache_preload_data(href_list["asset_cache_preload_data"])
 		return
 
+	// Prints href params you have taken in the chat window
+	if(src.check_my_topic_href && (href_list["type"]!="ping"))
+		to_chat(src, span_notice("<i>\[T[worldtime2text()]\] Href data:</i> [json_encode(href_list)]</span>"))
+
 	//-------------------------
 	// #4. TGUI Topic middleware
 	if(tgui_Topic(href_list))
@@ -113,12 +117,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	//-------------------------
 	// #5. /datum/hrefcmd system
 	// For /datum/hrefcmd type, check "href_commands.dm"
-	var/href_command = href_list["hrefcmd"]
-	if(href_command)
-#ifdef HREF_DEBUG
-		to_chat(src, span_danger("Href data: [json_encode(href_list)]"))
-#endif
-		switch(href_command)
+	var/hrefcmd_type = LOCATE_HREF(hrefcmd, href_list)
+	if(hrefcmd_type)
+		switch(hrefcmd_type)
 			if(NAMEOF_HREF(reload_tguipanel)) // Attempts to fix TGUI panel
 				nuke_chat()
 			if(NAMEOF_HREF(admin_pm)) // Admin PM
@@ -128,7 +129,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			if(NAMEOF_HREF(commandbar_typing))
 				handle_commandbar_typing(href_list)
 			if(NAMEOF_HREF(openLink))
-				src << link(href_list["link"])
+				src << link(LOCATE_HREF(openLink::link, href_list))
 			if(NAMEOF_HREF(var_edit))
 				view_var_Topic(href, href_list, hsrc)
 			else

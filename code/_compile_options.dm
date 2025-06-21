@@ -6,7 +6,6 @@
 // Comment this out if you are debugging problems that might be obscured by custom error handling in world/Error
 #ifdef DEBUG
 #define USE_CUSTOM_ERROR_HANDLER
-#define HREF_DEBUG
 #endif
 
 #ifdef TESTING
@@ -93,9 +92,6 @@
 //#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
 	#warn WARNING: Compiling with LOWMEMORYMODE.
-	#ifndef HREF_DEBUG
-	#define HREF_DEBUG
-	#endif
 	#ifdef FORCE_MAP
 	#warn WARNING: FORCE_MAP is already defined.
 	#else

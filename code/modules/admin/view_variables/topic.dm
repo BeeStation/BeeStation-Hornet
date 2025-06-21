@@ -8,14 +8,14 @@
 
 	vv_do_basic(target, href_list, href)
 	// for non-standard special list
-	if(href_list["dmlist_origin_ref"])
-		var/datum/located = locate(href_list["dmlist_origin_ref"])
-		var/dmlist_varname = href_list["dmlist_varname"]
+	if(LOCATE_HREF(var_edit::dmlist_origin_ref, href_list))
+		var/datum/located = locate(LOCATE_HREF(var_edit::dmlist_origin_ref, href_list))
+		var/dmlist_varname = LOCATE_HREF(var_edit::dmlist_varname, href_list)
 		if(!isdatum(located) || !GLOB.vv_special_lists[dmlist_varname] || !(dmlist_varname in located.vars))
 			return
 		if(GET_VV_VAR_TARGET || href_list[VV_HK_DO_LIST_EDIT]) // if href_list["targetvar"] exists, we do vv_edit to list. if not, it's just viewing.
 			vv_do_list(located.vars[dmlist_varname], href_list)
-		GLOB.vv_ghost.mark_special(href_list["dmlist_origin_ref"], dmlist_varname)
+		GLOB.vv_ghost.mark_special(LOCATE_HREF(var_edit::dmlist_origin_ref, href_list), dmlist_varname)
 		vv_refresh_target = GLOB.vv_ghost
 	// for standard /list
 	else if(islist(target))
@@ -23,13 +23,13 @@
 		GLOB.vv_ghost.mark_list(target)
 		vv_refresh_target = GLOB.vv_ghost
 	// for standard /datum
-	else if(istype(target, /datum))
+	else if(isdatum(target))
 		var/datum/D = target
 		D.vv_do_topic(href_list)
 
 	// if there is no `href_list["target"]`, we check `href_list["Vars"]` to see if we want see it
 	if(!target && !vv_refresh_target)
-		vv_refresh_target = locate(href_list["Vars"])
+		vv_refresh_target = locate(LOCATE_HREF(var_edit::Vars, href_list))
 		// "Vars" means we want to view-variables this thing.
 
 	if(vv_refresh_target)
@@ -60,16 +60,16 @@
 			vv_update_display(M, "name", new_name)
 			vv_update_display(M, "real_name", M.real_name || "No real name")
 
-		else if(href_list["rotatedatum"])
+		else if(LOCATE_HREF(var_edit::rotatedatum, href_list))
 			if(!check_rights(NONE))
 				return
 
-			var/atom/A = locate(href_list["rotatedatum"])
+			var/atom/A = locate(LOCATE_HREF(var_edit::rotatedatum, href_list))
 			if(!istype(A))
 				to_chat(usr, "This can only be done to instances of type /atom")
 				return
 
-			switch(href_list["rotatedir"])
+			switch(LOCATE_HREF(var_edit::rotatedir, href_list))
 				if("right")
 					A.setDir(turn(A.dir, -45))
 				if("left")
@@ -93,15 +93,15 @@
 				return
 			holder.Topic(href, list("humanone"=href_list["makehuman"]))
 
-		else if(href_list["adjustDamage"] && href_list["mobToDamage"])
+		else if(LOCATE_HREF(var_edit::adjustDamage, href_list) && LOCATE_HREF(var_edit::mobToDamage, href_list))
 			if(!check_rights(NONE))
 				return
 
-			var/mob/living/L = locate(href_list["mobToDamage"]) in GLOB.mob_list
+			var/mob/living/L = locate(LOCATE_HREF(var_edit::mobToDamage, href_list)) in GLOB.mob_list
 			if(!istype(L))
 				return
 
-			var/Text = href_list["adjustDamage"]
+			var/Text = LOCATE_HREF(var_edit::adjustDamage, href_list)
 
 			var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
 

@@ -439,13 +439,13 @@
 		var/mob/M = N.current
 		if(M)
 			heads_report += "<tr><td><a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[REF(M)]'>[M.real_name]</a>[M.client ? "" : " <i>(No Client)</i>"][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-			heads_report += "<td><A href='byond://?[HREF_GROUP(admin_pm)][HREF_PARAM(admin_pm::msg_target, M.ckey)]'>PM</A></td>"
+			heads_report += "<td><A href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, M.ckey)]'>PM</A></td>"
 			heads_report += "<td><A href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a></td>"
 			var/turf/mob_loc = get_turf(M)
 			heads_report += "<td>[mob_loc.loc]</td></tr>"
 		else
-			heads_report += "<tr><td><a href='byond://?[HREF_GROUP(var_edit)][HrefToken()];[HREF_PARAM(var_edit::Vars, REF(N))]'>[N.name]([N.key])</a><i>Head body destroyed!</i></td>"
-			heads_report += "<td><A href='byond://?[HREF_GROUP(admin_pm)][HREF_PARAM(admin_pm::msg_target, N.key)]'>PM</A></td></tr>"
+			heads_report += "<tr><td><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(N))][HrefToken()]'>[N.name]([N.key])</a><i>Head body destroyed!</i></td>"
+			heads_report += "<td><A href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, N.key)]'>PM</A></td></tr>"
 	heads_report += "</table>"
 	return common_part + heads_report
 
