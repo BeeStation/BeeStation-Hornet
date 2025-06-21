@@ -27,6 +27,9 @@
 	var/list/gamemode_blacklist = list() // Event won't happen in these gamemodes
 	var/list/gamemode_whitelist = list() // Event will happen ONLY in these gamemodes if not empty
 
+	var/list/map_blacklist = list() // Event won't happen on this map
+	var/list/map_whitelist = list() // Event will happen ONLY on this map if not empty
+
 	var/triggering	//admin cancellation
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
 	var/can_malf_fake_alert = FALSE	//Can be faked by malf ai?
@@ -59,6 +62,10 @@
 	if(wizardevent != SSevents.wizardmode)
 		return FALSE
 	if(players_amt < min_players)
+		return FALSE
+	if(map_blacklist.len && (SSmapping.config.map_name in map_blacklist))
+		return FALSE
+	if(map_whitelist.len && !(SSmapping.config.map_name in map_whitelist))
 		return FALSE
 	if(gamemode_blacklist.len && (gamemode in gamemode_blacklist))
 		return FALSE
