@@ -207,14 +207,14 @@
 
 	// Append radio icon if from a virtual speaker
 	if (extra_classes.Find("virtual-speaker"))
-		var/image/r_icon = image('icons/ui_icons/chat/516/chat_icons.dmi', icon_state = "radio")
+		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "radio")
 		LAZYADD(prefixes, "\icon[r_icon]")
 	else if (extra_classes.Find("emote"))
-		var/image/r_icon = image('icons/ui_icons/chat/516/chat_icons.dmi', icon_state = "emote")
+		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "emote")
 		LAZYADD(prefixes, "\icon[r_icon]")
 		tgt_color = COLOR_CHAT_EMOTE
 	else if (extra_classes.Find("looc"))
-		var/image/r_icon = image('icons/ui_icons/chat/516/chat_icons.dmi', icon_state = "looc")
+		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "looc")
 		LAZYADD(prefixes, "\icon[r_icon]")
 		tgt_color = COLOR_CHAT_LOOC
 
