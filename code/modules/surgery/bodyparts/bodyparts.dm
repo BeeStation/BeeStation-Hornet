@@ -102,7 +102,7 @@
 	/// The amount of penetration that the bones reduce an attack by
 	var/bone_penetration_resistance = 15
 	/// Injury status effects applied to this limb
-	var/list/injuries = null
+	var/list/injuries = list()
 
 	/// If the bodypart is permanently destroyed
 	var/destroyed = FALSE
@@ -752,16 +752,23 @@
 		injury.remove_from_human(owner)
 	qdel(injury)
 
+/obj/item/bodypart/proc/get_injury_by_base(base_path)
+	for (var/datum/injury/injury in injuries)
+		if (injury.base_type == base_path)
+			return injury
+	return null
+
 /// Add a new injury to the set of injury trees on this bodypart
 /// Do not use this to set an injury, as the previous injury tree
 /// node has to be removed first, simply adding a new injury due
 /// to damage will result in multiple trees of that damage type.
-/obj/item/bodypart/proc/apply_injury_tree(injury_path)
+/obj/item/bodypart/proc/apply_injury_tree(injury_path, injury_base_path)
 	for (var/datum/injury/injury in injuries)
 		if (injury.type == injury_path)
 			return
 	var/datum/injury/injury = new injury_path()
-	LAZYADD(injuries, injury)
+	injury.base_type = injury_base_path || injury_path
+	injuries += injury
 	injury.bodypart = src
 	injury.apply_to_part(src)
 	if (owner && ishuman(owner))

@@ -1,4 +1,6 @@
 /datum/injury
+	/// The starting point of the injury tree
+	var/base_type = null
 	/// The type of alert shown to the owner of the limb
 	var/alert_type = null
 	/// Current amount of damage taken
@@ -57,4 +59,4 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	message_admins("[type] converted to [new_type]")
 	bodypart.remove_injury_tree(src)
-	bodypart.apply_injury_tree(new_type)
+	bodypart.apply_injury_tree(new_type, base_type)

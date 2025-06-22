@@ -17,5 +17,10 @@
 		"[user] starts extracting some healthy skin from [target]'s [parse_zone(surgery.location)].",
 		"[user] starts extracting some healthy skin from [target]'s [parse_zone(surgery.location)].")
 
+/datum/surgery_step/incise/skin_graft/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+	. = ..()
+	var/datum/injury/cut = surgery.operated_bodypart.get_injury_by_base(/datum/injury/cut_healthy)
+	cut.transition_to(/datum/injury/cut_healthy)
+
 /datum/surgery/skin_graft/third_degree
 	name = "skin graft"
