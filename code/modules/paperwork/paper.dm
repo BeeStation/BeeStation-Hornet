@@ -34,6 +34,9 @@
 	dog_fashion = /datum/dog_fashion/head
 	color = COLOR_WHITE
 	dye_color = DYE_WHITE
+	salvage_material = /obj/item/stack/rods/scrap/paper
+	salvage_amount = 5
+	salvage_message_diff = TRUE
 
 	/// Lazylist of raw, unsanitised, unparsed text inputs that have been made to the paper.
 	var/list/datum/paper_input/raw_text_inputs
@@ -375,9 +378,8 @@
 	if(burn_paper_product_attackby_check(attacking_item, user))
 		SStgui.close_uis(src)
 		return
-	if((attacking_item.tool_behaviour == TOOL_WIRECUTTER || attacking_item.is_sharp())) //doing it like this because people will expect it to work as gauze and bedsheets do
-		new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
-		playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+	if((attacking_item == salvage_tool || attacking_item.tool_behaviour == TOOL_WIRECUTTER || attacking_item.is_sharp())) // We are checking for sharpness and wirecutters in order to not surprise players who are otherwise used to this feature being used in gauze and bedsheets
+		salvage(attacking_item, user, params)
 		user.visible_message("[user] cuts [src] into tiny pieces.", \
 				span_notice("You cut [src] into tiny pieces."), \
 				span_hear("You hear cutting."))

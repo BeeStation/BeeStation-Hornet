@@ -242,6 +242,21 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// Used if we want to have a custom verb text for throwing. "John Spaceman flicks the ciggerate" for example.
 	var/throw_verb
 
+	/// The tool with which the item should be salvaged
+	var/salvage_tool = /obj/item/wirecutters/scissors
+	/// What should we get when we cut this piece of clothing (if null salvage wont happen)
+	var/salvage_material = null
+	/// For complex items, what other material type do we get when salvaging? (disabled if null)
+	var/secondary_salvage_material = null
+	/// The amount of materials we should get upon salvage
+	var/salvage_amount
+	/// The amount of secondary materials we should get upon salvage
+	var/secondary_salvage_amount
+	/// Sound for salvage action
+	var/salvage_sound = 'sound/items/handling/wirecutter_pickup.ogg'
+	/// If this item has a Salvage Message of its own, different from the "you salvage materials"
+	var/salvage_message_diff = FALSE
+
 /obj/item/Initialize(mapload)
 
 	if(attack_verb_continuous)
@@ -1606,3 +1621,29 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_strip_actions(datum/strip_context/context)
 
 /obj/item/proc/perform_strip_actions(action_key, mob/actor)
+
+/obj/item/attackby(obj/item/I, mob/living/user, params)
+	. = ..()
+	if((istype(I, salvage_tool)) && salvage_material != null)
+		if(!isturf(loc) && user.get_inactive_held_item() != src)
+			to_chat(user, span_warning("You need to be holding [src] or set it down somewhere to salvage it!"))
+			return TRUE
+		if(do_after(user, 1.5 / I.toolspeed SECONDS))
+			salvage(src, user, params)
+		return TRUE
+
+/obj/item/proc/salvage(obj/item/W, mob/user, params)
+	if(atom_storage)
+		atom_storage.remove_all(get_turf(src))
+	if(HAS_BLOOD_DNA(src) && salvage_material == /obj/item/stack/sheet/cotton/cloth)
+		new /obj/item/stack/sheet/cotton/cloth/bloody(get_turf(src), salvage_amount)
+	else
+		new salvage_material(get_turf(src), salvage_amount)
+	if(secondary_salvage_material != null)
+		new secondary_salvage_material(get_turf(src), secondary_salvage_amount)
+	if(!salvage_message_diff)
+		user.visible_message("[user] salvages some usable materials from [src].", \
+			span_notice("You salvage some usable materials from [src]."), \
+			span_hear("You hear salvaging."))
+	playsound(user, salvage_sound, 50, TRUE)
+	qdel(src)

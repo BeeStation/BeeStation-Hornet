@@ -99,9 +99,9 @@
 	return ..()
 
 /obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
-	if((I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())) //Doing this the same way as in item/paper
+	if((I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())) //Mirrors Item/Paper, requires snowflake code due to it being a paper bin thus, salvage functions differently.
 		if(total_paper > 0)
-			new /obj/item/stack/rods/scrap/paper(user.drop_location(), 5)
+			new /obj/item/stack/rods/scrap/paper(get_turf(src), 5)
 			playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
 			user.visible_message("[user] cuts a paper sheet into tiny pieces.", \
 				span_notice("You cut a paper sheet into tiny pieces."), \

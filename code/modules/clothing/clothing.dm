@@ -62,14 +62,9 @@
 	/// A lazily initiated "food" version of the clothing for moths
 	var/obj/item/food/clothing/moth_snack
 
-	/// What should we get when we cut this piece of clothing
-	var/salvage_material = /obj/item/stack/sheet/cotton/cloth
-	/// For complex items, what other material type do we get when salvaging?
-	var/secondary_salvage_material = null
-	/// The amount of materials we should get upon salvage
-	var/salvage_amount = 3
-	/// The amount of secondary materials we should get upon salvage
-	var/secondary_salvage_amount = 1
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 3
+	secondary_salvage_amount = 1
 
 /obj/item/clothing/Initialize(mapload)
 	if(clothing_flags & VOICEBOX_TOGGLABLE)
@@ -150,19 +145,6 @@
 		moth_snack.clothing = WEAKREF(src)
 	moth_snack.attack(target, user, params)
 
-/obj/item/clothing/proc/salvage(obj/item/W, mob/user, params)
-	if(HAS_BLOOD_DNA(src) && salvage_material == /obj/item/stack/sheet/cotton/cloth)
-		new /obj/item/stack/sheet/cotton/cloth/bloody(user.drop_location(), salvage_amount)
-	else
-		new salvage_material(user.drop_location(), salvage_amount)
-	if(secondary_salvage_material != null)
-		new secondary_salvage_material(user.drop_location(), secondary_salvage_amount)
-	user.visible_message("[user] salvages some usable materials from [src].", \
-		span_notice("You salvage some usable materials from [src]."), \
-		span_hear("You hear salvaging."))
-	playsound(user, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE) //this sounds more like scissors
-	qdel(src)
-
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
 	if(istype(W, repairable_by))
 		switch(damaged_clothes)
@@ -183,14 +165,6 @@
 					return TRUE
 				repair(user, params)
 				return TRUE
-	if((istype(W, /obj/item/wirecutters/scissors)) && salvage_material != null)
-		if(!isturf(loc) && user.get_inactive_held_item() != src)
-			to_chat(user, span_warning("You need to be holding [src] or set it down somewhere to salvage it!"))
-			return TRUE
-		if(do_after(user, 1.5 / W.toolspeed SECONDS))
-			salvage(src, user, params)
-		return TRUE
-
 	return ..()
 
 /// Set the clothing's integrity back to 100%, remove all damage to bodyparts, and generally fix it up
