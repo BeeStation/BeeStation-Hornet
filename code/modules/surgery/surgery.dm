@@ -119,7 +119,7 @@
 		failed_step = TRUE
 		return FALSE
 	var/obj/item/tool = user.get_active_held_item()
-	if(step.try_op(user, target, user.get_combat_bodyzone(), tool, src, try_to_fail))
+	if(step.try_op(user, target, location, tool, src, try_to_fail))
 		return TRUE
 	if(tool && tool.item_flags & SURGICAL_TOOL)
 		to_chat(user, span_warning("This step requires a different tool!"))

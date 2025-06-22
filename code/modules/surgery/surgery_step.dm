@@ -42,10 +42,10 @@
 
 	if(success)
 		if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
-			return initiate(user, target, target_zone, tool, surgery, try_to_fail)
+			initiate(user, target, target_zone, tool, surgery, try_to_fail)
 		else
 			to_chat(user, span_warning("You need to expose [target]'s [parse_zone(target_zone)] to perform surgery on it!"))
-			return TRUE	//returns TRUE so we don't stab the guy in the dick or wherever.
+		return TRUE	//returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
 		var/datum/surgery_step/next_step = surgery.get_surgery_next_step()
@@ -134,9 +134,13 @@
 	return advance
 
 /datum/surgery_step/proc/preop(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to perform surgery on [target]..."),
+	display_results(
+		user,
+		target,
+		span_notice("You begin to perform surgery on [target]..."),
 		span_notice("[user] begins to perform surgery on [target]."),
-		span_notice("[user] begins to perform surgery on [target]."))
+		span_notice("[user] begins to perform surgery on [target].")
+	)
 
 /datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!preop_sound)

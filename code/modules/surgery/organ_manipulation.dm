@@ -127,7 +127,7 @@
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
-		var/list/organs = target.get_organs_for_zone(target_zone, TRUE) //Including children is temporary
+		var/list/organs = target.get_organs_for_zone(target_zone) //Including children is temporary
 		if(!length(organs))
 			to_chat(user, span_warning("There are no removable organs in [target]'s [parse_zone(target_zone)]!"))
 			return -1
