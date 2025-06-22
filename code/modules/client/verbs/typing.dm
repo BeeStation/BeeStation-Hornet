@@ -9,7 +9,7 @@
 /client/proc/handle_commandbar_typing(href_list)
 	//if (!typing_indicators) //check pref
 	//	return
-	var/href_param_verb = LOCATE_HREF(commandbar_typing::verb, href_list)
+	var/href_param_verb = LOCATE_HREF(commandbar_typing::param_verb, href_list)
 	if (length(href_param_verb) < 1 || !(LOWER_TEXT(href_param_verb) in IC_VERBS) || text2num(LOCATE_HREF(commandbar_typing::argument_length, href_list)) < 1)
 		if (commandbar_typing)
 			commandbar_typing = FALSE

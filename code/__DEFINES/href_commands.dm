@@ -40,7 +40,7 @@ DECLARE_HREF_PARAM(mentor_msg, msg_target)
 
 // check 'typing_indicator.html'
 DECLARE_HREF_TYPE(commandbar_typing)
-DECLARE_HREF_PARAM(commandbar_typing, verb)
+DECLARE_HREF_PARAM(commandbar_typing, param_verb)
 DECLARE_HREF_PARAM(commandbar_typing, argument_length)
 
 DECLARE_HREF_TYPE(openLink)
