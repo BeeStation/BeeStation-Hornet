@@ -5,6 +5,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { useState, useEffect } from 'react';
+import { clamp } from 'common/math';
 
 type NumberInputData = {
   init_value: number;
@@ -19,8 +20,9 @@ type NumberInputData = {
 
 export const NumberInputModal = (_) => {
   const { act, data } = useBackend<NumberInputData>();
-  const { init_value, large_buttons, message = '', timeout, title } = data;
+  const { init_value, large_buttons, message = '', timeout, title, min_value, max_value } = data;
   const [input, setInput] = useLocalState('input', init_value);
+  const [clampedInput, setClampedInput] = useState(clamp(input, min_value, max_value));
   const onChange = (value: number) => {
     if (value === input) {
       return;
@@ -33,6 +35,11 @@ export const NumberInputModal = (_) => {
     }
     setInput(value);
   };
+
+  useEffect(() => {
+    setClampedInput(clamp(input, min_value, max_value));
+  }, [input]);
+
   // Dynamically changes the window height based on the message.
   const windowHeight =
     140 + (message.length > 30 ? Math.ceil(message.length / 3) : 0) + (message.length && large_buttons ? 5 : 0);
@@ -43,7 +50,7 @@ export const NumberInputModal = (_) => {
       <Window.Content
         onKeyDown={(event) => {
           if (event.key === KEY.Enter) {
-            act('submit', { entry: input });
+            act('submit', { entry: clampedInput });
           }
           if (isEscape(event.key)) {
             act('cancel');
@@ -58,7 +65,7 @@ export const NumberInputModal = (_) => {
               <InputArea input={input} onClick={onClick} onChange={onChange} />
             </Stack.Item>
             <Stack.Item>
-              <InputButtons input={input} />
+              <InputButtons input={clampedInput} />
             </Stack.Item>
           </Stack>
         </Section>
@@ -74,7 +81,7 @@ const InputArea = (props) => {
   const { input, onClick, onChange } = props;
   const [inputValue, setInputValue] = useState(input);
   useEffect(() => {
-    onChange(inputValue);
+    onChange(clamp(inputValue, min_value, max_value));
   }, [inputValue]);
 
   return (

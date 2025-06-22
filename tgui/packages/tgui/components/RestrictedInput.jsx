@@ -51,6 +51,10 @@ export const RestrictedInput = (props) => {
     if (editing) {
       setEditing(false);
     }
+    const input = inputRef.current;
+    if (input) {
+      input.value = getClampedNumber(value?.toString(), minValue, maxValue, allowFloats);
+    }
   };
 
   const handleChange = (e) => {
@@ -104,9 +108,9 @@ export const RestrictedInput = (props) => {
   useEffect(() => {
     const input = inputRef.current;
     if (input) {
-      input.value = getClampedNumber(value?.toString(), minValue, maxValue, allowFloats);
+      input.value = value;
     }
-  }, [value, minValue, maxValue, allowFloats]);
+  }, [inputRef]);
 
   // Effect for handling focus
   useEffect(() => {
