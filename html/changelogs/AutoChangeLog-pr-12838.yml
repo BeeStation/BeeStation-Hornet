@@ -1,0 +1,6 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: fix attack interactions from and against xenos
+  - balance: removes erroneous hardstun from xenos, they use normal disarm() proc
+      now
