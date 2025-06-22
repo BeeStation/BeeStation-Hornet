@@ -16,9 +16,11 @@
 		return
 
 	var/obj/item/stock_parts/cell/cell = battery_module.battery
-	if(cell.charge >= cell.maxcharge)
+	if(cell.charge >= cell.maxcharge && !hacked) // If hacked, will continue to absorb power regardless of cell charge
 		return
-
+	if(hacked)
+		charge_rate = charge_rate * 10	// If hacked will suck up 10 times more power
+		playsound(src, 'sound/items/timer.ogg', 50, FALSE, ignore_walls = TRUE)
 	if(use_power(charge_rate, charging=1))
 		holder.give_power(charge_rate * GLOB.CELLRATE)
 

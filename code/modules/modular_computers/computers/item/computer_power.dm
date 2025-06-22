@@ -32,6 +32,7 @@
 
 // Used in following function to reduce copypaste
 /obj/item/modular_computer/proc/power_failure()
+	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]
 	if(enabled) // Shut down the computer
 		if(active_program)
 			active_program.event_powerfailure(0)
@@ -39,6 +40,20 @@
 			var/datum/computer_file/program/PRG = I
 			PRG.event_powerfailure(1)
 		shutdown_computer(0)
+	if(controler.hacked && controler.battery)
+		switch(controler.battery.size)
+			if(1)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 1)
+			if(2)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 2)
+			if(3)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 2, flame_range = 1)
+			if(4)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
+			if(5)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 3, flash_range = 4, flame_range = 3)
+		qdel(controler.battery)
+		update_icon()
 
 // Handles power-related things, such as battery interaction, recharging, shutdown when it's discharged
 /obj/item/modular_computer/proc/handle_power(delta_time)

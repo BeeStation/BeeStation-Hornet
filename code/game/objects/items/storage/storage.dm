@@ -111,3 +111,40 @@
 /// Don't do anything stupid, please
 /obj/item/storage/proc/get_types_to_preload()
 	return
+
+/obj/item/storage/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/obj/item/modular_computer/comp
+	for(var/obj/item/modular_computer/M in contents)
+		comp = M
+		break
+	if(comp)
+		var/obj/item/computer_hardware/processor_unit/cpu = comp.all_components[MC_CPU]
+		var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+		var/turf/start = get_turf(src)
+		if(!target)
+			return
+		if(!comp.enabled)
+			return
+		if(!cpu.hacked)
+			return
+		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+		playsound(start, "sparks", 50, 1)
+		playsound(target, "sparks", 50, 1)
+		do_dash(src, start, target, 0, TRUE)
+	return
+
+/obj/item/storage/proc/get_blink_destination(turf/start, direction, range)
+	var/turf/t = start
+	var/open_tiles_crossed = 0
+	// Will teleport trough walls untill finding open space, then will subtract from range every open turf
+	for(var/i = 1; i <= 100; i++) // hard limit to avoid infinite loops
+		var/turf/next = get_step(t, direction)
+		if(!isturf(next))
+			break
+		t = next
+		if(!t.density)
+			open_tiles_crossed++
+		if(open_tiles_crossed >= range)
+			return t
+	// If we exit the loop without finding enough open tiles, we return the last valid turf
+	return t

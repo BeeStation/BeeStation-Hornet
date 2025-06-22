@@ -6,7 +6,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
 	custom_price = 20
-	can_hack = TRUE
 
 	var/obj/item/card/id/stored_card
 	var/current_identification

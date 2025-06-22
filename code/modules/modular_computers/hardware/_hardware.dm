@@ -40,7 +40,7 @@
 	/// The icon used for when this is open
 	var/icon_open
 	/// If this can be hacked (This is a temporary flag for PArts that already have an overclocking effect to them)
-	var/can_hack = FALSE
+	var/can_hack = TRUE
 	/// If this is currently Hacked (Also reffered to as "Overclocking")
 	var/hacked = FALSE
 	/// A Serial Number used in hacking and other niffty things

@@ -12,7 +12,6 @@
 	malfunction_probability = 1
 	device_type = MC_NET
 	custom_price = 10
-	can_hack = TRUE
 
 /obj/item/computer_hardware/network_card/LateInitialize()
 	. = ..()

@@ -290,6 +290,38 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
 
+/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
+	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+	var/turf/start = get_turf(src)
+	if(!target)
+		return
+	if(!enabled)
+		return
+	if(!cpu.hacked)
+		return
+	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+	playsound(start, "sparks", 50, 1)
+	playsound(target, "sparks", 50, 1)
+	do_dash(src, start, target, 0, TRUE)
+	return
+
+/obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
+	var/turf/t = start
+	var/open_tiles_crossed = 0
+	// Will teleport trough walls untill finding open space, then will subtract from range every open turf
+	for(var/i = 1; i <= 100; i++) // hard limit to avoid infinite loops
+		var/turf/next = get_step(t, direction)
+		if(!isturf(next))
+			break
+		t = next
+		if(!t.density)
+			open_tiles_crossed++
+		if(open_tiles_crossed >= range)
+			return t
+	// If we exit the loop without finding enough open tiles, we return the last valid turf
+	return t
+
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
 	if(atom_integrity <= integrity_failure * max_integrity)
@@ -626,6 +658,27 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	uninstall_component(H, user, TRUE)
 	ui_update()
 	return
+
+/obj/item/modular_computer/screwdriver_act_secondary(mob/living/user, obj/item/tool) // Removes all components at once
+	if(!length(all_components))
+		balloon_alert(user, "no components installed!")
+		return
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
+		uninstall_component(H, user, TRUE)
+	tool.play_tool_sound(user, volume=20)
+	ui_update()
+	return
+
+/obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
+	if(!istype(A, /obj/item/computer_hardware))
+		return
+	var/obj/item/computer_hardware/inserted_hardware = A
+	if(istype(inserted_hardware))
+		if(install_component(inserted_hardware, user))
+			inserted_hardware.on_inserted(user)
+			ui_update()
+			return TRUE
 
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
 	// Check for ID first

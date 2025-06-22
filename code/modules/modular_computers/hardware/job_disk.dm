@@ -10,7 +10,6 @@
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
 	hotswap = TRUE
-	can_hack = TRUE
 	var/list/progs_to_store = list()
 
 	var/disk_flags = 0 // bit flag for the programs
@@ -110,7 +109,7 @@
 	new_disk.update_icon_state()
 	new /obj/effect/particle_effect/sparks(get_turf(src))
 	qdel(src)
-	return
+	return // NEED TO SOLVE THIS, MOST PROGRAMS CAN'T BE TRADED BECAUSE FUCK!!
 
 // Disk Definitions
 
