@@ -17452,6 +17452,7 @@
 	id = "executionburn";
 	pixel_y = 25
 	},
+/obj/item/electropack,
 /turf/open/floor/prison/dark,
 /area/security/execution/transfer)
 "dIg" = (
@@ -27948,12 +27949,11 @@
 /area/crew_quarters/theatre)
 "hNV" = (
 /obj/structure/bed,
+/obj/effect/landmark/blobstart,
+/obj/effect/turf_decal/bot_red,
 /obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/mask/muzzle,
-/obj/item/electropack,
-/obj/effect/landmark/blobstart,
-/obj/effect/turf_decal/bot_red,
 /turf/open/floor/prison/dark,
 /area/security/execution/transfer)
 "hNY" = (
@@ -59748,15 +59748,16 @@
 /area/maintenance/aft)
 "uok" = (
 /obj/machinery/light,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/glasses/eyepatch,
-/obj/item/clothing/mask/muzzle,
-/obj/item/clothing/glasses/blindfold,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/south,
 /obj/structure/table,
+/obj/item/clothing/suit/jacket/straight_jacket,
+/obj/item/clothing/ears/earmuffs,
+/obj/item/clothing/glasses/eyepatch,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/glasses/blindfold,
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
 "uos" = (
