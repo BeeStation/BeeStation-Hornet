@@ -32,7 +32,7 @@
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
 		return FALSE
-	var/question = alert("Do you want to become [name]?", "[name]", "Yes", "No")
+	var/question = tgui_alert(user, "Do you want to become [name]?", "[name]", list("Yes", "No"))
 	if(question != "Yes" || !src || QDELETED(src))
 		return FALSE
 	if(key)
