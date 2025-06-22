@@ -1,0 +1,7 @@
+author: ClownMoff
+delete-after: true
+changes:
+  - imageadd: added a stack icon for the checker subtype called "alternate"
+  - imageadd: replaced the checker tile with a less saturated one
+  - tweak: Standarized and moved around some names and icons from the the checker
+      tiles in the .dmi and .dm files
