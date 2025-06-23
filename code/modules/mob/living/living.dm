@@ -1781,7 +1781,7 @@
 			BRUTE:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "brute")][HrefToken()]' id='brute'>[getBruteLoss()]</a>
 			FIRE:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "fire")][HrefToken()]' id='fire'>[getFireLoss()]</a>
 			TOXIN:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "toxin")][HrefToken()]' id='toxin'>[getToxLoss()]</a>
-			OXY:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "oxygen")][HrefToken()]' id=''>[getOxyLoss()]</a>
+			OXY:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "oxygen")][HrefToken()]' id='oxygen'>[getOxyLoss()]</a>
 			CLONE:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "clone")][HrefToken()]' id='clone'>[getCloneLoss()]</a>
 			BRAIN:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "brain")][HrefToken()]' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
 			STAMINA:<font size='1'><a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::mobToDamage, refid)][HREF_PARAM(var_edit::adjustDamage, "stamina")][HrefToken()]' id='stamina'>[getStaminaLoss()]</a>
