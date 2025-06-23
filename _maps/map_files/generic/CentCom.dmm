@@ -23272,7 +23272,7 @@
 /obj/structure/closet/crate,
 /obj/item/clothing/suit/space/syndicate/black/green,
 /obj/item/clothing/head/helmet/space/syndicate/green/dark,
-/obj/item/toy/syndicateballoon{
+/obj/item/toy/balloon/syndicate{
 	pixel_x = 7;
 	pixel_y = 4
 	},

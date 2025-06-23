@@ -270,3 +270,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 	icon = 'icons/effects/confetti_and_decor.dmi'
 	icon_state = "confetti"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT //the confetti itself might be annoying enough
+
+/obj/effect/decal/cleanable/pinata
+	name = "pinata shreds"
+	desc = "Torn pieces of papier-mâché, left over from a pinata"
+	icon = 'icons/effects/confetti_and_decor.dmi'
+	icon_state = "pinata_shreds"
+
+/obj/effect/decal/cleanable/pinata/syndie
+	icon_state = "syndie_pinata_shreds"
+
+/obj/effect/decal/cleanable/pinata/donk
+	icon_state = "donk_pinata_shreds"

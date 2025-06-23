@@ -535,7 +535,9 @@
 	var/sponsor = pick("DonkCo", "Waffle Co.", "Roffle Co.", "Gorlax Marauders", "Tiger Cooperative")
 	desc = "A set of snack-tical webbing worn by athletes of the [sponsor] VR sports division."
 
-/obj/item/storage/belt/military/snack/Initialize(mapload)
+/obj/item/storage/belt/military/snack/full
+
+/obj/item/storage/belt/military/snack/full/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 6
 	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
@@ -801,7 +803,7 @@
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
 	name = "Worn belt"
 	desc = "A weathered belt that is used for storing various gadgets"
-	
+
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
 	icon_state = "fannypack_black"

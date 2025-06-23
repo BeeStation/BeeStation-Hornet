@@ -151,6 +151,10 @@
 	throw_range = 7
 	force = 0
 
+	var/random_color = TRUE
+	/// the string describing the name of balloon's current colour.
+	var/current_color
+
 /obj/item/toy/balloon/Initialize(mapload)
 	. = ..()
 	if(random_color)
