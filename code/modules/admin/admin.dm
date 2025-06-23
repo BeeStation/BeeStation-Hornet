@@ -523,7 +523,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom(object as text)
+/datum/admins/proc/spawn_atom()
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
@@ -531,7 +531,7 @@
 	if(!check_rights(R_SPAWN))
 		return
 
-	var/chosen = pick_closest_path(object)
+	var/chosen = pick_closest_path(tgui_input_text(usr, "Spawn an atom:", "Spawn"))
 	if(!chosen)
 		return
 	var/turf/T = get_turf(usr)
