@@ -14,6 +14,9 @@
 	/// If this client has been fully initialized or not
 	var/fully_created = FALSE
 
+	/// If this client has been authenticated as actually being authorized to use the attached CKEY
+	var/logged_in = FALSE
+
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc

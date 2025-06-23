@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	return TRUE
 
-/client/verb/keyDown(_key as text)
+CLIENT_VERB(keyDown, _key as text)
 	set instant = TRUE
 	set hidden = TRUE
 
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	mob.focus?.key_down(_key, src) //same as above
 	mob.update_mouse_pointer()
 
-/client/verb/keyUp(_key as text)
+CLIENT_VERB(keyUp, _key as text)
 	set instant = TRUE
 	set hidden = TRUE
 

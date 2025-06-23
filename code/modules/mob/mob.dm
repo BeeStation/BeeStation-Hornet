@@ -638,6 +638,9 @@
 	set category = "Object"
 	set src = usr
 
+	if(isnewplayer(src))
+		return
+
 	if(ismecha(loc))
 		return
 
@@ -694,6 +697,8 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	if(isnewplayer(src))
+		return
 	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
@@ -1313,7 +1318,8 @@
 /mob/verb/open_language_menu_verb()
 	set name = "Open Language Menu"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	get_language_holder().open_language_menu(usr)
 
 ///Adjust the nutrition of a mob

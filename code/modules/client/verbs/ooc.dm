@@ -2,7 +2,7 @@
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
-/client/verb/ooc(msg as text)
+CLIENT_VERB(ooc, msg as text)
 	set name = "OOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
 	set category = "OOC"
 
@@ -153,7 +153,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	GLOB.OOC_COLOR = null
 
 //Checks admin notice
-/client/verb/admin_notice()
+CLIENT_VERB(admin_notice)
 	set name = "Adminnotice"
 	set category = "Admin"
 	set desc ="Check the admin notice if it has been set"
@@ -163,7 +163,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	else
 		to_chat(src, span_notice("There are no admin notices at the moment."))
 
-/client/verb/motd()
+CLIENT_VERB(motd)
 	set name = "MOTD"
 	set category = "OOC"
 	set desc ="Check the Message of the Day"
@@ -207,7 +207,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	to_chat(src, "You are [(C.key in prefs.ignoring) ? "now" : "no longer"] ignoring [displayed_key] on the OOC channel.")
 	prefs.mark_undatumized_dirty_player()
 
-/client/verb/select_ignore()
+CLIENT_VERB(select_ignore)
 	set name = "Ignore"
 	set category = "OOC"
 	set desc ="Ignore a player's messages on the OOC channel"
@@ -244,7 +244,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	SSticker.show_roundend_report(src, TRUE)
 
-/client/verb/fit_viewport()
+CLIENT_VERB(fit_viewport)
 	set name = "Fit Viewport"
 	set category = "OOC"
 	set desc = "Fit the width of the map window to match the viewport"
@@ -317,11 +317,11 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
 	if(fully_created)
-		INVOKE_ASYNC(src, VERB_REF(fit_viewport))
+		INVOKE_ASYNC(src, PROC_REF(fit_viewport))
 	else //Delayed to avoid wingets from Login calls.
-		addtimer(CALLBACK(src, VERB_REF(fit_viewport), 1 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(fit_viewport), 1 SECONDS))
 
-/client/verb/view_runtimes_minimal()
+CLIENT_VERB(view_runtimes_minimal)
 	set name = "View Minimal Runtimes"
 	set category = "OOC"
 	set desc = "Open the runtime error viewer, with reduced information"
@@ -332,7 +332,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	GLOB.error_cache.show_to_minimal(src)
 
-/client/verb/speech_format_help()
+CLIENT_VERB(speech_format_help)
 	set name = "Speech Format Help"
 	set category = "OOC"
 	set desc = "Chat formatting help"
@@ -345,7 +345,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	to_chat(usr, span_notice("[message]"))
 
-/client/verb/vote_to_leave()
+CLIENT_VERB(vote_to_leave)
 	set name = "Vote to leave"
 	set category = "OOC"
 	set desc = "Votes to end the round"

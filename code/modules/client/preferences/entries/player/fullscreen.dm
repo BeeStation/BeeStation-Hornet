@@ -22,7 +22,7 @@
 			// Set the main window's size
 			winset(client, null, "split.size=mainwindow.size")
 			// Fit the viewport
-			INVOKE_ASYNC(client, TYPE_VERB_REF(/client, fit_viewport))
+			INVOKE_ASYNC(client, TYPE_PROC_REF(/client, fit_viewport))
 		else
 			// Restore the menu
 			winset(client, "mainwindow", "menu=\"menu\"")
@@ -48,9 +48,9 @@
 			winset(client, "status_bar", "is-visible=false")
 
 		if(client.fully_created)
-			INVOKE_ASYNC(client, TYPE_VERB_REF(/client, fit_viewport))
+			INVOKE_ASYNC(client, TYPE_PROC_REF(/client, fit_viewport))
 		else
-			addtimer(CALLBACK(client, TYPE_VERB_REF(/client, fit_viewport), 1 SECONDS))
+			addtimer(CALLBACK(client, TYPE_PROC_REF(/client, fit_viewport), 1 SECONDS))
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
 	var/windowsize = winget(client, "split", "size")

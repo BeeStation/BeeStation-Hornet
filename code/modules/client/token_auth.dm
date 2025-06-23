@@ -1,10 +1,16 @@
 /client/verb/test_login()
 	set name = "Test Login"
+	set category = "Login"
 	token_login("Itsmeowdev")
+
+/mob/dead/new_player/pre_auth/Login()
+	. = ..()
+	client?.add_verb(/client/verb/test_login, TRUE)
 
 /mob/dead/new_player/pre_auth/proc/convert_to_authed()
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)]")
+		return
 	var/mob/dead/new_player/authenticated/authed = new()
 	authed.key = client.key
 	qdel(src)
@@ -18,39 +24,30 @@
 		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 		message_admins("Auth bypass attempted by [key_name(usr)] for [key_name(src)] (attempted CKEY: [ckey(new_key)])")
 		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-	GLOB.directory -= ckey
-	key = new_key
-	ckey = ckey(new_key)
+		return
+	if(logged_in)
+		return
+	logged_in = TRUE
+	var/ckey = ckey(new_key)
+	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey])")
+	GLOB.directory -= src.ckey
+	var/mob/my_mob = src.mob
+	src.key = new_key
 	tgui_panel?.owner_ckey = ckey
-	GLOB.authed_clients += src
-	GLOB.directory[ckey] = src
-	if(CONFIG_GET(flag/respect_upstream_bans) || CONFIG_GET(flag/respect_upstream_permabans))
-		check_upstream_bans()
-	client_pre_login()
-	var/list/duplicate_result = check_duplicate_login()
-	var/alert_mob_dupe_login = duplicate_result[1]
-	var/alert_admin_multikey = duplicate_result[2]
-	run_dupe_alerts(alert_mob_dupe_login, alert_admin_multikey)
+
+	if(!client_pre_login(TRUE, FALSE))
+		return null
 
 	// Mob is ready
 	// calls /mob/dead/new_player/authenticated/Login()
 	// creates mind and such
-	if(isnewplayer_preauth(mob))
-		var/mob/dead/new_player/pre_auth/pre_auth_player = mob
+	if(isnewplayer_preauth(my_mob))
+		var/mob/dead/new_player/pre_auth/pre_auth_player = my_mob
 		pre_auth_player.convert_to_authed()
 
-	init_admin_if_present()
-	add_verbs_from_config()
-	get_message_output("watchlist entry", ckey)
-	if(!ban_cache_start && SSban_cache?.query_started)
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_ban_cache), src)
-	if(CONFIG_GET(flag/autoconvert_notes))
-		convert_notes_sql(ckey)
-	send_client_messages()
-	check_ckey_redirects()
-	src.add_verb(/client/verb/mentorhelp)
-	src.add_verb(/client/verb/adminhelp)
+	if(!client_post_login(TRUE, FALSE, !!(holder || GLOB.deadmins[ckey])))
+		return null
+
 	// send the new CKEY to telemetry
 	tgui_panel.on_message("ready")
-	// update stat if still initializing game
-	mob.UpdateMobStat(TRUE)
+

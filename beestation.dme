@@ -66,6 +66,7 @@
 #include "code\__DEFINES\chat.dm"
 #include "code\__DEFINES\cinematics.dm"
 #include "code\__DEFINES\cleaning.dm"
+#include "code\__DEFINES\client.dm"
 #include "code\__DEFINES\clockcult.dm"
 #include "code\__DEFINES\clothing.dm"
 #include "code\__DEFINES\colors.dm"

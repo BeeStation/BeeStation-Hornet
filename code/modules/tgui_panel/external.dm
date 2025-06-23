@@ -8,7 +8,7 @@
 /**
  * tgui panel / chat troubleshooting verb
  */
-/client/verb/fix_tgui_panel()
+CLIENT_VERB(fix_tgui_panel)
 	set name = "Fix chat"
 	set category = "OOC"
 	var/action
@@ -32,7 +32,7 @@
 	// Force show the panel to see if there are any errors
 	winset(src, "legacy_output_selector", "left=output_browser")
 
-/client/verb/refresh_tgui()
+CLIENT_VERB(refresh_tgui)
 	set name = "Refresh TGUI"
 	set category = "OOC"
 
@@ -40,7 +40,7 @@
 		var/datum/tgui_window/window = tgui_windows[window_id]
 		window.reinitialize()
 
-/client/verb/panel_devtools()
+CLIENT_VERB(panel_devtools)
 	set name = "Enable TGUI Devtools"
 	set category = "OOC"
 	winset(src, "", "browser-options=devtools")

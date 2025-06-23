@@ -26,11 +26,11 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 /client/proc/givementorhelpverb()
 	if(!src)
 		return
-	src.add_verb(/client/verb/mentorhelp)
+	src.add_verb(/client/proc/mentorhelp)
 	deltimer(mentorhelptimerid)
 	mentorhelptimerid = 0
 
-/client/verb/mentorhelp()
+CLIENT_VERB(mentorhelp)
 	set category = "Mentor"
 	set name = "Mentorhelp"
 	var/msg
@@ -136,7 +136,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	return TRUE
 
 /datum/help_ticket/mentor/TimeoutVerb()
-	initiator.remove_verb(/client/verb/mentorhelp)
+	initiator.remove_verb(/client/proc/mentorhelp)
 	initiator.mentorhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/mentor/key_name_ticket(mob/user)

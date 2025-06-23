@@ -29,11 +29,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /client/proc/giveadminhelpverb()
 	if(!src)
 		return
-	src.add_verb(/client/verb/adminhelp)
+	src.add_verb(/client/proc/adminhelp)
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0
 
-/client/verb/adminhelp()
+CLIENT_VERB(adminhelp)
 	set category = "Admin"
 	set name = "Adminhelp"
 	var/msg
@@ -170,7 +170,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	..()
 
 /datum/help_ticket/admin/TimeoutVerb()
-	initiator.remove_verb(/client/verb/adminhelp)
+	initiator.remove_verb(/client/proc/adminhelp)
 	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/admin/get_ticket_additional_data(mob/user, list/data)

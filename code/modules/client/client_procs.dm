@@ -199,223 +199,26 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
 		return null
 
+	var/authenticated = TRUE
 	// If auth isn't set up, immediately change their key to a guest key
 	// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
 #ifdef USE_EXTERNAL_AUTH
 	key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
-#endif
-	var/is_guest = IS_GUEST_KEY(key)
-
-#ifndef USE_EXTERNAL_AUTH
-	if(CONFIG_GET(flag/respect_upstream_bans) || CONFIG_GET(flag/respect_upstream_permabans))
-		check_upstream_bans()
-#endif
-
-	GLOB.clients += src
-	GLOB.directory[ckey] = src
-#ifndef USE_EXTERNAL_AUTH
-	GLOB.authed_clients += src
-#endif
-
-	if(byond_version >= 516)
-		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
-
-	// Instantiate tgui panel
-	tgui_panel = new(src, "browseroutput")
-
-	tgui_say = new(src, "tgui_say")
-	tgui_asay = new(src, "tgui_asay")
-
-	initialize_commandbar_spy()
-
-	set_right_click_menu_mode(TRUE)
-#ifndef USE_EXTERNAL_AUTH
-	var/connecting_admin = client_pre_login()
-	if(connecting_admin == -1)
-		return
+	authenticated = FALSE
 #else
-	var/connecting_admin = 0
+	logged_in = TRUE
 #endif
-
-	if(fexists(roundend_report_file()))
-		add_verb(/client/proc/show_previous_roundend_report)
-
-	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
-	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
-
-#ifndef USE_EXTERNAL_AUTH
-	var/list/duplicate_result = check_duplicate_login()
-	var/alert_mob_dupe_login = duplicate_result[1]
-	var/alert_admin_multikey = duplicate_result[2]
-#endif
+	if(!client_pre_login(authenticated, TRUE))
+		return null
 
 	. = ..()	//calls mob.Login()
 
-	if (byond_version >= 512)
-		if (!byond_build || byond_build < 1386)
-			message_admins(span_adminnotice("[key_name(src)] has been detected as spoofing their byond version. Connection rejected."))
-			add_system_note("Spoofed-Byond-Version", "Detected as using a spoofed byond version.")
-			log_access("Failed Login: [key] - Spoofed byond version")
-			qdel(src)
-
-		if (num2text(byond_build) in GLOB.blacklisted_builds)
-			log_access("Failed login: [key] - blacklisted byond version")
-			to_chat_immediate(src, span_userdanger("Your version of byond is blacklisted."))
-			to_chat_immediate(src, span_danger("Byond build [byond_build] ([byond_version].[byond_build]) has been blacklisted for the following reason: [GLOB.blacklisted_builds[num2text(byond_build)]]."))
-			to_chat_immediate(src, span_danger("Please download a new version of byond. If [byond_build] is the latest, you can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions."))
-			if(connecting_admin)
-				to_chat_immediate(src, "As an admin, you are being allowed to continue using this version, but please consider changing byond versions")
-			else
-				qdel(src)
-				return
-
-	var/max_recommended_client = CONFIG_GET(number/client_max_build)
-	if(byond_build > max_recommended_client)
-		to_chat(src, span_userdanger("Your version of byond is over the maximum recommended version for clients (build [max_recommended_client]) and may be unstable."))
-		to_chat(src, span_danger("Please download an older version of byond. You can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions."))
-	if(SSinput.initialized)
-		set_macros()
-
-	// Initialize tgui panel
-	tgui_panel.Initialize()
-	tgui_say.initialize()
-	tgui_asay.initialize()
-
-#ifndef USE_EXTERNAL_AUTH
-	run_dupe_alerts(alert_mob_dupe_login, alert_admin_multikey)
-#endif
-
-	connection_time = world.time
-	connection_realtime = world.realtime
-	connection_timeofday = world.timeofday
-	winset(src, null, "command=\".configure graphics-hwmode on\"")
-
-	var/breaking_version = CONFIG_GET(number/client_error_version)
-	var/breaking_build = CONFIG_GET(number/client_error_build)
-	var/warn_version = CONFIG_GET(number/client_warn_version)
-	var/warn_build = CONFIG_GET(number/client_warn_build)
-
-	if (byond_version < breaking_version || (byond_version == breaking_version && byond_build < breaking_build)) //Out of date client.
-		to_chat_immediate(src, span_danger("<b>Your version of BYOND is too old:</b>"))
-		to_chat_immediate(src, CONFIG_GET(string/client_error_message))
-		to_chat_immediate(src, "Your version: [byond_version].[byond_build]")
-		to_chat_immediate(src, "Required version: [breaking_version].[breaking_build] or later")
-		to_chat_immediate(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
-		if (connecting_admin)
-			to_chat_immediate(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
-		else
-			qdel(src)
-			return
-	else if (byond_version < warn_version || (byond_version == warn_version && byond_build < warn_build)) //We have words for this client.
-		if(CONFIG_GET(flag/client_warn_popup))
-			var/msg = "<b>Your version of byond may be getting out of date:</b><br>"
-			msg += CONFIG_GET(string/client_warn_message) + "<br><br>"
-			msg += "Your version: [byond_version].[byond_build]<br>"
-			msg += "Required version to remove this message: [warn_version].[warn_build] or later<br>"
-			msg += "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.<br>"
-			src << browse(HTML_SKELETON(msg), "window=warning_popup")
-		else
-			to_chat(src, span_danger("<b>Your version of byond may be getting out of date:</b>"))
-			to_chat(src, CONFIG_GET(string/client_warn_message))
-			to_chat(src, "Your version: [byond_version].[byond_build]")
-			to_chat(src, "Required version to remove this message: [warn_version].[warn_build] or later")
-			to_chat(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
-
-	if (connection == "web" && !connecting_admin)
-		if (!CONFIG_GET(flag/allow_webclient))
-			to_chat_immediate(src, "Web client is disabled")
-			qdel(src)
-			return 0
-		if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
-			to_chat_immediate(src, "Sorry, but the web client is restricted to byond members only.")
-			qdel(src)
-			return 0
-
-	if( (world.address == address || !address) && !GLOB.host )
-		GLOB.host = key
-		world.update_status()
-
-#ifndef USE_EXTERNAL_AUTH
-	init_admin_if_present()
-	add_verbs_from_config()
-#endif
-	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
-
-	if(QDELETED(src))
+	if(!client_post_login(authenticated, TRUE, authenticated && !!(holder || GLOB.deadmins[ckey]), tdata))
 		return null
-
-	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
-		player_age = 0
-	var/nnpa = CONFIG_GET(number/notify_new_player_age)
-	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
-		if (nnpa >= 0 && !is_guest)
-			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
-			if (CONFIG_GET(flag/irc_first_connection_alert))
-				send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
-	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa && !is_guest)
-		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
-	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
-		player_age = account_age
-	if(account_age >= 0 && account_age < nnpa && !IS_GUEST_KEY(key))
-		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
-		if (CONFIG_GET(flag/irc_first_connection_alert))
-			send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
-	if(!is_guest)
-		get_message_output("watchlist entry", ckey)
-	check_ip_intel()
-	if(!is_guest)
-		validate_key_in_db()
-	// If we aren't already generating a ban cache, fire off a build request
-	// This way hopefully any users of request_ban_cache will never need to yield
-	if(!is_guest && !ban_cache_start && SSban_cache?.query_started)
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_ban_cache), src)
-
-	if(!is_guest)
-		fetch_uuid()
-		add_verb(/client/proc/show_account_identifier)
-
-	send_resources()
-
-	generate_clickcatcher()
-	apply_clickcatcher()
-
-	if(prefs && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
-		to_chat(src, span_info("You have unread updates in the changelog."))
-		if(CONFIG_GET(flag/aggressive_changelog))
-			changelog()
-		else
-			winset(src, "infowindow.changelog", "font-style=bold")
-
-	send_client_messages()
-
-	if(!is_guest && CONFIG_GET(flag/autoconvert_notes))
-		convert_notes_sql(ckey)
-	to_chat(src, get_message_output("message", ckey))
-	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
-		to_chat(src, span_warning("Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you."))
-
-	//This is down here because of the browse() calls in tooltip/New()
-	if(!tooltips)
-		tooltips = new /datum/tooltip(src)
-
-	view_size = new(src, getScreenSize(mob))
-	view_size.resetFormat()
-	view_size.setZoomMode()
-	fit_viewport()
-	Master.UpdateTickRate()
-
-	check_ckey_redirects()
-
-	//Add the default client verbs to the TGUI window
-	add_verb(subtypesof(/client/verb), TRUE)
-#ifdef USE_EXTERNAL_AUTH
-	remove_verb(/client/verb/adminhelp)
-	remove_verb(/client/verb/mentorhelp)
-#endif
-
-	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
-	mob.UpdateMobStat(TRUE)
 	fully_created = TRUE
+
+/client/proc/add_default_verbs()
+	add_verb(collect_client_verbs())
 
 /client/proc/send_client_messages()
 	if(ckey in GLOB.clientmessages)
@@ -431,13 +234,259 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		else
 			GLOB.ckey_redirects -= ckey
 
-/client/proc/client_pre_login()
+/client/proc/client_pre_login(authenticated, first_run)
+	if(authenticated)
+		if(CONFIG_GET(flag/respect_upstream_bans) || CONFIG_GET(flag/respect_upstream_permabans))
+			check_upstream_bans()
+	if(QDELETED(src))
+		return FALSE
+	if(first_run)
+		GLOB.clients += src
+	GLOB.directory[ckey] = src
+	if(authenticated)
+		GLOB.authed_clients += src
+
+	if(first_run && byond_version >= 516)
+		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
+
+	// Instantiate tgui panel
+	if(first_run)
+		tgui_panel = new(src, "browseroutput")
+		tgui_say = new(src, "tgui_say")
+		tgui_asay = new(src, "tgui_asay")
+		initialize_commandbar_spy()
+
+		set_right_click_menu_mode(TRUE)
+
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
 	GLOB.interviews.client_login(src)
 	GLOB.requests.client_login(src)
-	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
-	//Admin Authorisation
+
+	if(authenticated)
+		if(!IS_GUEST_KEY(key))
+			//Admin Authorisation
+			setup_holder()
+			// This needs to go after admin loading but before prefs
+			assign_mentor_datum_if_exists()
+
+			// Retrieve cached metabalance
+			get_metabalance_db()
+			// Retrieve cached antag token count
+			get_antag_token_count_db()
+			if(QDELETED(src)) // Yes this is possible, because the procs above sleep.
+				return FALSE
+		else
+			metabalance_cached = 0
+			antag_token_count_cached = 0
+		//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
+		init_client_prefs()
+		setup_player_details()
+
+		if(fexists(roundend_report_file()))
+			add_verb(/client/proc/show_previous_roundend_report)
+
+	if(first_run)
+		var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
+		if(authenticated)
+			log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
+		else
+			log_access("Pre-Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
+
+	return TRUE
+
+/client/proc/client_post_login(authenticated, first_run, connecting_admin, tdata)
+	if(first_run)
+		if(!check_client_blocked_byond_versions(connecting_admin) || QDELETED(src))
+			return FALSE
+
+		if(SSinput.initialized)
+			set_macros()
+
+		// Initialize tgui panel
+		tgui_panel.Initialize()
+		tgui_say.initialize()
+		tgui_asay.initialize()
+
+	if(authenticated)
+		var/list/duplicate_result = check_duplicate_login()
+		var/alert_mob_dupe_login = duplicate_result[1]
+		var/alert_admin_multikey = duplicate_result[2]
+		run_dupe_alerts(alert_mob_dupe_login, alert_admin_multikey)
+
+	if(first_run)
+		connection_time = world.time
+		connection_realtime = world.realtime
+		connection_timeofday = world.timeofday
+		winset(src, null, "command=\".configure graphics-hwmode on\"")
+
+		if (connection == "web" && !connecting_admin)
+			if (!CONFIG_GET(flag/allow_webclient))
+				to_chat_immediate(src, "Web client is disabled")
+				qdel(src)
+				return FALSE
+			if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
+				to_chat_immediate(src, "Sorry, but the web client is restricted to byond members only.")
+				qdel(src)
+				return FALSE
+
+	if(authenticated)
+		if( (world.address == address || !address) && !GLOB.host )
+			GLOB.host = key
+			world.update_status()
+
+	if(authenticated)
+		init_admin_if_present()
+
+	var/is_guest = IS_GUEST_KEY(key)
+
+#ifndef USE_EXTERNAL_AUTH
+	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
+	if(QDELETED(src))
+		return
+	// The following is only relevant to BYOND accounts.
+	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
+		player_age = 0
+	var/nnpa = CONFIG_GET(number/notify_new_player_age)
+	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
+		if (nnpa >= 0 && !is_guest)
+			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
+			if (CONFIG_GET(flag/irc_first_connection_alert))
+				send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
+	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa && !is_guest)
+		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
+	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
+		player_age = account_age
+	if(account_age >= 0 && account_age < nnpa && !is_guest)
+		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
+		if (CONFIG_GET(flag/irc_first_connection_alert))
+			send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
+#endif
+	if(authenticated && !is_guest)
+		get_message_output("watchlist entry", ckey)
+	if(authenticated)
+		check_ip_intel()
+#ifndef USE_EXTERNAL_AUTH
+	if(!is_guest)
+		validate_key_in_db()
+#endif
+
+	// If we aren't already generating a ban cache, fire off a build request
+	// This way hopefully any users of request_ban_cache will never need to yield
+	if(authenticated && !is_guest && !ban_cache_start && SSban_cache?.query_started)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_ban_cache), src)
+
+#ifndef USE_EXTERNAL_AUTH
+	if(!is_guest)
+		fetch_uuid()
+		add_verb(/client/proc/show_account_identifier)
+#endif
+
+	if(first_run)
+		send_resources()
+
+		generate_clickcatcher()
+		apply_clickcatcher()
+
+	if(authenticated && prefs && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
+		to_chat(src, span_info("You have unread updates in the changelog."))
+		if(CONFIG_GET(flag/aggressive_changelog))
+			changelog()
+		else
+			winset(src, "infowindow.changelog", "font-style=bold")
+
+	send_client_messages()
+
+	if(authenticated && !is_guest && CONFIG_GET(flag/autoconvert_notes))
+		convert_notes_sql(ckey)
+	if(authenticated && !is_guest)
+		to_chat(src, get_message_output("message", ckey))
+	if(first_run)
+		if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
+			to_chat(src, span_warning("Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you."))
+
+		//This is down here because of the browse() calls in tooltip/New()
+		if(!tooltips)
+			tooltips = new /datum/tooltip(src)
+
+	view_size = new(src, getScreenSize(mob))
+	view_size.resetFormat()
+	view_size.setZoomMode()
+	fit_viewport()
+
+	if(first_run)
+		Master.UpdateTickRate()
+
+	check_ckey_redirects()
+
+	if(authenticated)
+		add_default_verbs()
+		add_verbs_from_config()
+		// Create input box templates
+		create_preset_input_window("say", show=FALSE)
+		create_preset_input_window("me", show=FALSE)
+
+	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
+	mob.UpdateMobStat(TRUE)
+	return TRUE
+
+/client/proc/check_client_blocked_byond_versions(connecting_admin)
+	if (byond_version < 512)
+		if (!byond_build || byond_build < 1386)
+			message_admins(span_adminnotice("[key_name(src)] has been detected as spoofing their byond version. Connection rejected."))
+			add_system_note("Spoofed-Byond-Version", "Detected as using a spoofed byond version.")
+			log_access("Failed Login: [key] - Spoofed byond version")
+			qdel(src)
+			return FALSE
+
+		if (num2text(byond_build) in GLOB.blacklisted_builds)
+			log_access("Failed login: [key] - blacklisted byond version")
+			to_chat_immediate(src, span_userdanger("Your version of byond is blacklisted."))
+			to_chat_immediate(src, span_danger("Byond build [byond_build] ([byond_version].[byond_build]) has been blacklisted for the following reason: [GLOB.blacklisted_builds[num2text(byond_build)]]."))
+			to_chat_immediate(src, span_danger("Please download a new version of byond. If [byond_build] is the latest, you can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions."))
+			if(connecting_admin)
+				to_chat_immediate(src, "As an admin, you are being allowed to continue using this version, but please consider changing byond versions")
+			else
+				qdel(src)
+				return FALSE
+	var/max_recommended_client = CONFIG_GET(number/client_max_build)
+	if(byond_build > max_recommended_client)
+		to_chat(src, span_userdanger("Your version of byond is over the maximum recommended version for clients (build [max_recommended_client]) and may be unstable."))
+		to_chat(src, span_danger("Please download an older version of byond. You can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions."))
+	var/breaking_version = CONFIG_GET(number/client_error_version)
+	var/breaking_build = CONFIG_GET(number/client_error_build)
+	var/warn_version = CONFIG_GET(number/client_warn_version)
+	var/warn_build = CONFIG_GET(number/client_warn_build)
+
+	if (byond_version < breaking_version || (byond_version == breaking_version && byond_build < breaking_build)) //Out of date client.
+		to_chat_immediate(src, span_danger("<b>Your version of BYOND is too old:</b>"))
+		to_chat_immediate(src, CONFIG_GET(string/client_error_message))
+		to_chat_immediate(src, "Your version: [byond_version].[byond_build]")
+		to_chat_immediate(src, "Required version: [breaking_version].[breaking_build] or later")
+		to_chat_immediate(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
+		if (connecting_admin)
+			to_chat_immediate(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
+		else
+			qdel(src)
+			return FALSE
+	else if (byond_version < warn_version || (byond_version == warn_version && byond_build < warn_build)) //We have words for this client.
+		if(CONFIG_GET(flag/client_warn_popup))
+			var/msg = "<b>Your version of byond may be getting out of date:</b><br>"
+			msg += CONFIG_GET(string/client_warn_message) + "<br><br>"
+			msg += "Your version: [byond_version].[byond_build]<br>"
+			msg += "Required version to remove this message: [warn_version].[warn_build] or later<br>"
+			msg += "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.<br>"
+			src << browse(HTML_SKELETON(msg), "window=warning_popup")
+		else
+			to_chat_immediate(src, span_danger("<b>Your version of byond may be getting out of date:</b>"))
+			to_chat_immediate(src, CONFIG_GET(string/client_warn_message))
+			to_chat_immediate(src, "Your version: [byond_version].[byond_build]")
+			to_chat_immediate(src, "Required version to remove this message: [warn_version].[warn_build] or later")
+			to_chat_immediate(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
+	return TRUE
+
+/client/proc/setup_holder()
+	var/connecting_admin = FALSE
 	holder = GLOB.admin_datums[ckey]
 	if(holder)
 		GLOB.admins |= src
@@ -465,20 +514,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
 
-	// This needs to go after admin loading but before prefs
-	assign_mentor_datum_if_exists()
-
-	// Retrieve cached metabalance
-	get_metabalance_db()
-	// Retrieve cached antag token count
-	get_antag_token_count_db()
-	if(!src) // Yes this is possible, because the procs above sleep.
-		return -1
-	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
-	init_client_prefs()
-	setup_player_details()
-	return connecting_admin
-
 /client/proc/init_admin_if_present()
 	if(holder)
 		add_admin_verbs()
@@ -499,7 +534,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			var/datum/preferences/joined_player_preferences = GLOB.preferences_datums[joined_player_ckey]
 			if(!joined_player_preferences)
-				continue // skip unauthentricated players
+				continue // skip unauthenticated players
 
 			var/client/C = GLOB.directory[joined_player_ckey]
 			var/in_round = ""
