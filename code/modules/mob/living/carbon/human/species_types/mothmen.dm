@@ -10,7 +10,6 @@
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
-	default_color = "00FF00"
 	species_traits = list(
 		LIPS,
 		HAS_MARKINGS

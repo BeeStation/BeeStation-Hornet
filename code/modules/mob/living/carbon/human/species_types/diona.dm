@@ -4,7 +4,6 @@
 	id = SPECIES_DIONA
 	sexes = 0 //no sex for bug/plant people!
 	bodyflag = FLAG_DIONA
-	default_color = "59CE00"
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,

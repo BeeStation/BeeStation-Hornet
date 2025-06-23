@@ -2,7 +2,6 @@
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
-	default_color = "00FF90"
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,

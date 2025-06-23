@@ -4,7 +4,6 @@
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
-	default_color = "00FF00"
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,

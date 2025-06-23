@@ -13,7 +13,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
 	var/plural_form
 	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
-	var/default_color = "#FFF"	// if alien colors are disabled, this is the color that will be used by that race
 	var/bodytype = BODYTYPE_HUMANOID
 	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
 
