@@ -108,11 +108,11 @@
 	//health_doll_icon = "venus_human_trap"
 	mob_biotypes = MOB_ORGANIC
 	layer = SPACEVINE_MOB_LAYER
-	health = 50
-	maxHealth = 50
+	health = 100
+	maxHealth = 100
 	ranged = TRUE
 	obj_damage = 60
-	melee_damage = 25
+	melee_damage = 10
 	combat_mode = TRUE
 	del_on_death = TRUE
 	deathmessage = "collapses into bits of plant matter."
@@ -149,14 +149,14 @@
 	if(locate(/obj/structure/spacevine) in get_turf(src))//Heal if we are on vines
 		if(withering)
 			to_chat(src, span_notice(" The vines nourish you, healing your wounds."))
-		adjustHealth(-maxHealth*0.05)
+		adjustHealth(-maxHealth*0.1)
 		withering = FALSE
 		return
 	if(!withering)
 		to_chat(src, span_userdanger("You are not being nourished by the vines and are withering away! Stay in the vines!"))
 	withering = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
-	adjustHealth(maxHealth*0.10)
+	adjustHealth(maxHealth*0.1)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
@@ -167,7 +167,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat != DEAD)
-			adjustHealth(-maxHealth * 0.1)
+			adjustHealth(-maxHealth * 0.050)
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
 	for(var/datum/beam/B in vines)
@@ -184,17 +184,29 @@
 			if(O.density)
 				return
 
-	var/datum/beam/newVine = Beam(the_target, "vine", maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
-	RegisterSignal(newVine, COMSIG_PARENT_QDELETING, PROC_REF(remove_vine), newVine)
-	vines += newVine
-	if(isliving(the_target))
-		var/mob/living/L = the_target
-		L.Knockdown(10)
+	// Only create a new vine if the target is a mob or an object
+	if(ismob(the_target) || isobj(the_target))
+		var/datum/beam/newVine = Beam(the_target, "vine", maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
+		RegisterSignal(newVine, COMSIG_PARENT_QDELETING, PROC_REF(remove_vine), newVine, override = TRUE)
+		vines += newVine
+
+	var/mob/living/L = the_target
+	if(iscarbon(L))
+		L.apply_damage(30, STAMINA, BODY_ZONE_CHEST)
+		L.Knockdown(1 SECONDS)
+		to_chat(L, span_alert("The vines knock you down"))
+	else if(iscyborg(L))
+		var/mob/living/silicon/robot/R = L
+		R.apply_status_effect(/datum/status_effect/cyborg_malfunction/vine)
+		playsound(R.loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
+		to_chat(src, span_disarm("You successfully wrap vines around [R]'s sensors, overloading them!"))
+		to_chat(R, span_danger("The last thing you see is vines wrapping around your sensors before they attempt to reboot!"))
+
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 /mob/living/simple_animal/hostile/venus_human_trap/Destroy()
 	for(var/datum/beam/vine as anything in vines)
-		qdel(vine) //reference is automatically deleted by remove_vine
+		qdel(vine)
 	return ..()
 
 /mob/living/simple_animal/hostile/venus_human_trap/Login()
@@ -234,12 +246,20 @@
   * If the target is on the same tile as the plant, destroy the vine
   * Removes any QDELETED vines from the vines list.
   */
+
 /mob/living/simple_animal/hostile/venus_human_trap/proc/pull_vines()
 	for(var/datum/beam/B in vines)
 		if(istype(B.target, /atom/movable))
 			var/atom/movable/AM = B.target
 			if(!AM.anchored)
 				step(AM, get_dir(AM,src))
+
+		if(iscarbon(B.target)) // If they dont get away quickly, make them take constant stamina damage
+
+			var/mob/living/L = B.target
+			L.apply_damage(5, STAMINA, BODY_ZONE_CHEST)
+			to_chat(L, span_userdanger("Your body feels weaker!"))
+
 		if(get_dist(src, B.target) == 0)
 			qdel(B)
 
