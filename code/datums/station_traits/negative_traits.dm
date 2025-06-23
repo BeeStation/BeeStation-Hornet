@@ -4,9 +4,7 @@
 	weight = 3
 	show_in_report = TRUE
 	report_message = "Please be nice to him."
-	blacklist = list(/datum/station_trait/announcement_medbot,
-	/datum/station_trait/announcement_baystation
-	)
+	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_baystation, /datum/station_trait/birthday)
 
 /datum/station_trait/announcement_intern/New()
 	. = ..()
@@ -37,8 +35,10 @@
 	report_message = "Sorry for that, we didn't expect to fly into that vomiting goose while bringing you to your new station."
 	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
 	blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
-	possible_announcements = list("You are getting late, again. Get your stuff together or you are all fired.",
-								"Our calculations were off by a bit. Shuttle will be there in a few seconds.")
+	possible_announcements = list(
+		"You are getting late, again. Get your stuff together or you are all fired.",
+		"Our calculations were off by a bit. Shuttle will be there in a few seconds.",
+	)
 
 /datum/station_trait/random_spawns
 	name = "Drive-by landing"
@@ -64,6 +64,7 @@
 		"Party's over. Get back to work.",
 	)
 
+	/// All spawned hangover spots
 	var/list/obj/effect/spawner/hangover_spawn/spawns = list()
 
 /datum/station_trait/hangover/New()
@@ -73,7 +74,7 @@
 
 /datum/station_trait/hangover/revert()
 	for(var/obj/effect/spawner/hangover_spawn/hangover_spot in spawns)
-		QDEL_LIST(hangover_spot.debris)
+		QDEL_LIST(hangover_spot.hangover_debris)
 	return ..()
 
 /datum/station_trait/hangover/proc/create_spawners()
