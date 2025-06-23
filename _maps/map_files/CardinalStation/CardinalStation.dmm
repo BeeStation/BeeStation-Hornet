@@ -7804,16 +7804,11 @@
 /area/science/server)
 "bCK" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard{
-	pixel_y = 5
-	},
 /obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/paper{
-	pixel_y = 5
-	},
-/obj/item/pen/red{
-	pixel_y = 5
+/obj/item/reagent_containers/cup/glass/bottle/champagne{
+	pixel_x = -6;
+	pixel_y = 12
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 6
@@ -9036,7 +9031,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -9051,6 +9045,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "bQS" = (
@@ -9489,6 +9484,9 @@
 /obj/machinery/light/directional/east,
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/railing/perspective/wood/corner{
+	dir = 1
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/hop)
@@ -22870,7 +22868,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -22883,6 +22880,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "eIJ" = (
@@ -23453,7 +23451,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -23469,6 +23466,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "eOg" = (
@@ -25058,6 +25056,7 @@
 /area/hydroponics/garden)
 "fgE" = (
 /obj/structure/filingcabinet/chestdrawer/wheeled,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
@@ -34090,6 +34089,7 @@
 /area/quartermaster/exploration_prep)
 "gTl" = (
 /obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -41550,6 +41550,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/hop)
@@ -50319,10 +50322,10 @@
 	dir = 1;
 	alpha = 200
 	},
-/obj/structure/window/reinforced/corner{
+/obj/structure/platform/warning/corner{
 	dir = 8
 	},
-/obj/structure/platform/warning/corner{
+/obj/structure/railing/perspective/gray/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -80769,6 +80772,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/hop)
 "qrw" = (
@@ -82763,7 +82769,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
 	},
@@ -82775,6 +82780,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "qMz" = (
@@ -99025,7 +99031,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -99038,6 +99043,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "ufc" = (
@@ -106600,10 +106606,19 @@
 	pixel_x = 8;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/glass/bottle/champagne{
-	pixel_x = -6;
-	pixel_y = 12
+/obj/item/clipboard{
+	pixel_y = 5;
+	pixel_x = -6
 	},
+/obj/item/paper{
+	pixel_y = 5;
+	pixel_x = -6
+	},
+/obj/item/pen/red{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
@@ -106658,6 +106673,18 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark/textured_half,
 /area/medical/chemistry)
+"vDU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/railing/perspective/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "vDW" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 9
@@ -108773,8 +108800,8 @@
 	dir = 1;
 	alpha = 200
 	},
-/obj/structure/window/reinforced/corner,
 /obj/structure/platform/warning/corner,
+/obj/structure/railing/perspective/gray/corner,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "vYT" = (
@@ -138862,7 +138889,7 @@ twv
 uOP
 otx
 cko
-unN
+vDU
 tXR
 eYi
 eYi
