@@ -35,6 +35,8 @@ GLOBAL_LIST_INIT(valid_keys, list(
 ))
 
 /proc/input_sanity_check(client/C, key)
+	if(isnewplayer_preauth(C))
+		return FALSE
 	if(GLOB.valid_keys[key])
 		return FALSE
 

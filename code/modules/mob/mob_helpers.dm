@@ -503,7 +503,7 @@
 	// Cannot use the list as a map if the key is a number, so we stringify it (thank you BYOND)
 	var/smessage_type = num2text(message_type)
 
-	if(client)
+	if(client?.player_details)
 		if(!islist(client.player_details.logging[smessage_type]))
 			client.player_details.logging[smessage_type] = list()
 
@@ -532,7 +532,7 @@
 
 	logging[smessage_type] += timestamped_message
 
-	if(client)
+	if(client?.player_details)
 		client.player_details.logging[smessage_type] += timestamped_message
 
 	..()

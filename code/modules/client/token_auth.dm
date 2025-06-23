@@ -12,8 +12,9 @@
 		log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)]")
 		return
 	var/mob/dead/new_player/authenticated/authed = new()
-	authed.key = client.key
-	authed.name = client.key
+	var/key = client.key
+	authed.name = key
+	authed.key = key
 	qdel(src)
 
 /// Equivalent of /client/New() for token login
