@@ -130,9 +130,9 @@
 		if(can_open_list_window)
 			var/href_reference_string = \
 				special_list_secure_level \
-				? "[HREF_PARAM(var_edit::dmlist_origin_ref, REF(owner))][HREF_PARAM(var_edit::dmlist_varname, name)]" \
-				: "[HREF_PARAM(var_edit::Vars, REF(value))]"
-			a_open = "<a href='byond://?[HREF_TYPE(var_edit)][href_reference_string][HrefToken()]'>"
+				? "[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::dmlist_origin_ref, REF(owner))][HREF_PARAM(var_edit::dmlist_varname, name)][HrefToken()]" \
+				: "[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(value))][HrefToken()]"
+			a_open = "<a href='byond://?[href_reference_string]'>"
 			a_close = "</a>"
 
 		var/should_fold_list_items = (display_flags & VV_ALWAYS_CONTRACT_LIST) || length(list_value) > VV_BIG_SIZED_LIST_THRESHOLD

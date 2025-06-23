@@ -22,7 +22,7 @@
 
 	/* 3. Used to get names and values for code failproofs, usually after topic called. */
 //! Used get the string of the href key. This exists to prevent typo.
-#define NAMEOF_HREF(_href_key) (/datum/hrefcmd::##_href_key || /datum/hrefcmd/param::##_href_key) // + is a trick
+#define NAMEOF_HREF(_href_key) (/datum/hrefcmd::##_href_key || /datum/hrefcmd/param::##_href_key) // operator || is a trick. It's to access two types. If /param version(name::thing) is given, the first one(/hrefcmd) will be null, and then it will lead to /hrefcmd/param/name::thing
 //! Used get a value from a href_list based on the given key
 #define LOCATE_HREF(_href_key, _list) (_list[NAMEOF_HREF(_href_key)])
 
