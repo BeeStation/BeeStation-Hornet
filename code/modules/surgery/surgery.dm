@@ -50,12 +50,19 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_SURGEON))
-		return !replaced_by
-	else if(user.mind)
-		if((!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_SURGEON)) || (HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON) && !abductor_surgery_blacklist))
-			return !replaced_by
+	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
+		if(replaced_by)
+			return FALSE
+		else
+			return TRUE
+	//Grants the user innate access to all surgeries
 
+	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
+		if(replaced_by)
+			return FALSE
+		else if(!abductor_surgery_blacklist)
+			return TRUE
+	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
 	if(!requires_tech && !replaced_by)
 		return TRUE
@@ -74,19 +81,18 @@
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT)
 		if(!isnull(IMP))
 			if(replaced_by in IMP.advanced_surgeries)
 				return FALSE
 			if(type in IMP.advanced_surgeries)
 				return TRUE
 
-	var/turf/T = get_turf(target)
+	var/turf/T = get_turf(patient) //patient, not target. Weird as shit, but the other one breaks.
+
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
 	if(table)
-		if(!table.computer)
-			return .
-		if(table.computer.machine_stat & (NOPOWER|BROKEN))
+		if(!table.computer || (table.computer.machine_stat & (NOPOWER|BROKEN)))
 			return .
 		if(replaced_by in table.computer.advanced_surgeries)
 			return FALSE
@@ -101,7 +107,6 @@
 			return FALSE
 		if(type in the_stasis_bed.op_computer.advanced_surgeries)
 			return TRUE
-
 
 /datum/surgery/proc/next_step(mob/living/user, modifiers)
 	failed_step = FALSE
@@ -146,41 +151,6 @@
 	name = "advanced surgery"
 	requires_tech = TRUE
 
-/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target)
-	if(!..())
-		return FALSE
-	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
-		return TRUE
-
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
-		if(!abductor_surgery_blacklist)
-			return TRUE
-	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
-
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		var/obj/item/surgical_processor/SP = locate() in R.module.modules
-		if(!isnull(SP))
-			if(type in SP.advanced_surgeries)
-				return TRUE
-
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT)
-		if(!isnull(IMP))
-			if(type in IMP.advanced_surgeries)
-				return TRUE
-
-	var/turf/T = get_turf(target)
-	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
-	if(!table || !table.computer)
-		return FALSE
-	if(table.computer.machine_stat & (NOPOWER|BROKEN))
-		return FALSE
-	if(type in table.computer.advanced_surgeries)
-		return TRUE
-
 /obj/item/disk/surgery
 	name = "Surgery Procedure Disk"
 	desc = "A disk that contains advanced surgery procedures, must be loaded into an Operating Console."
@@ -198,8 +168,7 @@
 	. = ..()
 	surgeries = list()
 	var/list/req_tech_surgeries = subtypesof(/datum/surgery)
-	for(var/i in req_tech_surgeries)
-		var/datum/surgery/beep = i
+	for(var/datum/surgery/beep as anything in req_tech_surgeries)
 		if(initial(beep.requires_tech))
 			surgeries += beep
 
