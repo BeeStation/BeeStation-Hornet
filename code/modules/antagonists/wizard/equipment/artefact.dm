@@ -391,7 +391,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 					to_chat(user, span_warning("Your message contains forbidden words."))
 					log_game("[key_name(user)] tried to make [key_name(target)] say [wgw] with a voodoo doll but didn't pass the filter.")
 					return
-				target.say(wgw, forced = "voodoo doll")
+				target.say(wgw, sanitize = FALSE, forced = "voodoo doll") // Note: tgui_input_text sanitizes for us, so we pass sanitize = FALSE (atleast that's what the holoparasite comments tell me)
 				log_game("[key_name(user)] made [key_name(target)] say [wgw] with a voodoo doll.")
 			if(BODY_ZONE_PRECISE_EYES)
 				user.set_machine(src)
