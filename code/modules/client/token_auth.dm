@@ -13,6 +13,7 @@
 		return
 	var/mob/dead/new_player/authenticated/authed = new()
 	authed.key = client.key
+	authed.name = client.key
 	qdel(src)
 
 /// Equivalent of /client/New() for token login
