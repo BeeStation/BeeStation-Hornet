@@ -167,11 +167,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	if(!key)
 		set_playable(ROLE_BLOB)
 
-/mob/living/simple_animal/hostile/blob/blobspore/give_mind(mob/user)
-	..()
-	LoseTarget()
-	return TRUE
-
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)
 	var/datum/effect_system/smoke_spread/chem/S = new
