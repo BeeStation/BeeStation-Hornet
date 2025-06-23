@@ -31,5 +31,5 @@
 		/datum/objective/custom
 	),/proc/cmp_typepaths_asc)
 
-	for(var/datum/objective/X as() in allowed_types)
+	for(var/datum/objective/X = tgui_input_list(admin, "Pick an objective:", "Objective", allowed_types))
 		GLOB.admin_objective_list[initial(X.name)] = X
