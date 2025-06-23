@@ -208,7 +208,7 @@
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)
 
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		if(C)
 
 			C?.process_endround_metacoin()
@@ -271,7 +271,7 @@
 	CHECK_TICK
 
 	//Process veteran achievements
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as() in GLOB.authed_clients)
 		var/hours = round(C?.get_exp_living(TRUE)/60)
 		if(hours > 1000)
 			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
@@ -451,7 +451,7 @@
 /datum/controller/subsystem/ticker/proc/display_report(popcount)
 	GLOB.common_report = build_roundend_report()
 	GLOB.survivor_report = survivor_report(popcount)
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		show_roundend_report(C, FALSE)
 		give_show_report_button(C)
 		CHECK_TICK

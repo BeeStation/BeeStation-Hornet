@@ -2,7 +2,11 @@
 //Try looking in game/world.dm
 
 /world
-	mob = /mob/dead/new_player
+#ifdef USE_EXTERNAL_AUTH
+	mob = /mob/dead/new_player/pre_auth
+#else
+	mob = /mob/dead/new_player/authenticated
+#endif
 	turf = /turf/open/space/basic
 	area = /area/space
 	view = "17x15"

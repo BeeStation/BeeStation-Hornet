@@ -453,8 +453,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 						continue
 					vars[variable] = configuration["Dynamic"][variable]
 
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/player = i
+	for(var/i in GLOB.auth_new_player_list)
+		var/mob/dead/new_player/authenticated/player = i
 		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
 			continue
 		if(player.ready == PLAYER_READY_TO_PLAY)

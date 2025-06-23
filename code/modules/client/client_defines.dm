@@ -4,6 +4,9 @@
 		//BLACK MAGIC THINGS//
 		//////////////////////
 	parent_type = /datum
+#ifdef USE_EXTERNAL_AUTH
+	authenticate = FALSE
+#endif
 		////////////////
 		//ADMIN THINGS//
 		////////////////

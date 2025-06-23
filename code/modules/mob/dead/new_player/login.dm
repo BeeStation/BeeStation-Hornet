@@ -1,4 +1,4 @@
-/mob/dead/new_player/Login()
+/mob/dead/new_player/authenticated/Login()
 	if(!client)
 		return
 	if(CONFIG_GET(flag/use_exp_tracking))

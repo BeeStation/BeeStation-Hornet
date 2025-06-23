@@ -885,7 +885,7 @@
 		log_admin("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 		message_admins("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 
-		var/mob/dead/new_player/NP = new()
+		var/mob/dead/new_player/authenticated/NP = new()
 		NP.ckey = M.ckey
 		qdel(M)
 

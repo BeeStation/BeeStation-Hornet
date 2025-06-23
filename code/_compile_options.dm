@@ -32,6 +32,9 @@
 //#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
 #endif //ifdef TESTING
 
+/// Enables token-based authentication. This must be done at compile time due to /client::authenticate using the compiled value
+#define USE_EXTERNAL_AUTH
+
 /// Enables BYOND TRACY, which allows profiling using Tracy.
 /// The prof.dll/libprof.so must be built and placed in the repo folder.
 /// https://github.com/mafemergency/byond-tracy

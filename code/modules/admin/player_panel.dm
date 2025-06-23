@@ -59,6 +59,8 @@
 				data_entry["job"] = player.job
 			else
 				data_entry["job"] = initial(player.name)
+		else if(istype(player, /mob/dead/new_player/pre_auth))
+			data_entry["job"] = "PREAUTH"
 		else if(isnewplayer(player))
 			data_entry["job"] = "New Player"
 		else if(isobserver(player))

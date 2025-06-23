@@ -40,7 +40,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		return
 
 	//handle muting and automuting
-	if(prefs.muted & MUTE_MHELP)
+	if(prefs && prefs.muted & MUTE_MHELP)
 		to_chat(src, span_danger("Error: Mentor-PM: You cannot send mentorhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg, MUTE_MHELP))

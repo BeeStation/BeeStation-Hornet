@@ -2,6 +2,8 @@
 	set name = "Hear/Silence Lobby Music"
 	set category = "Preferences"
 	set desc = "Hear Music In Lobby"
+	if(!prefs)
+		return
 	var/hear = !prefs.read_player_preference(/datum/preference/toggle/sound_lobby)
 	prefs.update_preference(/datum/preference/toggle/sound_lobby, hear)
 	if(hear)
@@ -14,6 +16,8 @@
 	set name = "Hear/Silence Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ambient Sound Effects"
+	if(!prefs)
+		return
 	var/hear = !prefs.read_player_preference(/datum/preference/toggle/sound_ambience)
 	prefs.update_preference(/datum/preference/toggle/sound_ambience, hear)
 	if(hear)
@@ -26,6 +30,8 @@
 	set name = "Hear/Silence Ship Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ship Ambience Roar"
+	if(!prefs)
+		return
 	var/hear = !prefs.read_player_preference(/datum/preference/toggle/sound_ship_ambience)
 	prefs.update_preference(/datum/preference/toggle/sound_ship_ambience, hear)
 	if(hear)

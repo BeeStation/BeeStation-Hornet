@@ -13,6 +13,9 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(!mob)
 		return
 
+	if(isnewplayer_preauth(mob))
+		return
+
 	if(!holder)
 		if(!GLOB.ooc_allowed)
 			to_chat(src, span_danger("OOC is globally muted."))
@@ -82,7 +85,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	//Get client badges
 	var/badge_data = badge_parse(get_badges())
 	//The linkify span classes and linkify=TRUE below make ooc text get clickable chat href links if you pass in something resembling a url
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		if(!C.prefs || C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(holder)
 				if(!holder.fakekey || C.holder)
@@ -194,6 +197,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	new /datum/job_report_menu(src, usr)
 
 /client/proc/ignore_key(client, displayed_key)
+	if(!prefs)
+		return
 	var/client/C = client
 	if(C.key in prefs.ignoring)
 		prefs.ignoring -= C.key
@@ -207,11 +212,12 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set category = "OOC"
 	set desc ="Ignore a player's messages on the OOC channel"
 
-
+	if(!prefs)
+		return
 	var/see_ghost_names = isobserver(mob)
 	var/list/choices = list()
 	var/displayed_choicename = ""
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		if(C.holder?.fakekey)
 			displayed_choicename = C.holder.fakekey
 		else
@@ -308,7 +314,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /// Attempt to automatically fit the viewport, assuming the user wants it
 /client/proc/attempt_auto_fit_viewport()
-	if (!prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
+	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
 	if(fully_created)
 		INVOKE_ASYNC(src, VERB_REF(fit_viewport))

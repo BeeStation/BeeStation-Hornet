@@ -104,7 +104,7 @@ Admin:
 	var/datum/asset/simple/namespaced/changelog = get_asset_datum(/datum/asset/simple/namespaced/changelog)
 	changelog.send(src)
 	src << browse(changelog.get_htmlloader("changelog.html"), "window=changes;size=675x650")
-	if(prefs.lastchangelog != GLOB.changelog_hash)
+	if(prefs && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.mark_undatumized_dirty_player()
 		winset(src, "infowindow.changelog", "font-style=;")

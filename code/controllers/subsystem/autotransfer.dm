@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(autotransfer)
 /datum/controller/subsystem/autotransfer/Initialize()
 	reminder_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_decay_start)
 	checkvotes_time = REALTIMEOFDAY + 5 MINUTES
-	required_votes_to_leave = length(GLOB.clients) * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
+	required_votes_to_leave = length(GLOB.authed_clients) * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
 
 	if(!CONFIG_GET(flag/vote_autotransfer_enabled))
 		can_fire = FALSE
@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(autotransfer)
 	connected_votes_to_leave = 0
 	active_playercount = 0
 
-	for(var/client/c in GLOB.clients)
+	for(var/client/c in GLOB.authed_clients)
 		if(isnewplayer(c.mob))
 			continue //We don't count them or their votes
 		if (c.player_details.voted_to_leave)

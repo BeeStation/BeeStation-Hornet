@@ -132,7 +132,7 @@
 			return
 
 	var/final_composed = span_announce("PR: [input["announce"]]")
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		C.AnnouncePR(final_composed)
 	statuscode = 200
 	response = "PR Announced"

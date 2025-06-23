@@ -2489,6 +2489,7 @@
 #include "code\modules\client\helpers.dm"
 #include "code\modules\client\message.dm"
 #include "code\modules\client\player_details.dm"
+#include "code\modules\client\token_auth.dm"
 #include "code\modules\client\loadout\loadout.dm"
 #include "code\modules\client\loadout\loadout_accessories.dm"
 #include "code\modules\client\loadout\loadout_colorizers.dm"

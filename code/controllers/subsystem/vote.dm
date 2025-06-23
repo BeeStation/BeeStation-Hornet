@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(vote)
 			. = pick(winners)
 			text += "\n<b>Vote Result: [.]</b>"
 		else
-			text += "\n<b>Did not vote:</b> [GLOB.clients.len-voted.len]"
+			text += "\n<b>Did not vote:</b> [GLOB.authed_clients.len-voted.len]"
 	else
 		text += "<b>Vote Result: Inconclusive - No Votes!</b>"
 	log_vote(text)

@@ -2,7 +2,7 @@
 
 //Misc mob defines
 
-//Ready states at roundstart for mob/dead/new_player
+//Ready states at roundstart for /mob/dead/new_player/authenticated
 #define PLAYER_NOT_READY 0
 #define PLAYER_READY_TO_PLAY 1
 #define PLAYER_READY_TO_OBSERVE 2

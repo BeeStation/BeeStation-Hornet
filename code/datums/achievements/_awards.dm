@@ -79,7 +79,7 @@
 
 /datum/award/achievement/on_unlock(mob/user)
 	. = ..()
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		to_chat(C, span_greenannounce("<B>[user.client.key] earned the achievement: [name]</B>"))
 	user.client.inc_metabalance(reward, reason="Earned an achievement!")
 

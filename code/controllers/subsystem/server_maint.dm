@@ -36,6 +36,8 @@ SUBSYSTEM_DEF(server_maint)
 	if(!resumed)
 		if(list_clear_nulls(GLOB.clients))
 			log_world("Found a null in clients list!")
+		if(list_clear_nulls(GLOB.authed_clients))
+			log_world("Found a null in authed_clients list!")
 		src.currentrun = GLOB.clients.Copy()
 
 	var/position_in_loop = (cleanup_ticker / delay) + 1  //Index at 1, thanks byond

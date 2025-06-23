@@ -377,7 +377,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || (!C.prefs.read_player_preference(/datum/preference/toggle/window_flashing) && !ignorepref))
+	if(!C || (C.prefs && !C.prefs.read_player_preference(/datum/preference/toggle/window_flashing) && !ignorepref))
 		return
 	winset(C, "mainwindow", "flash=5")
 

@@ -24,7 +24,11 @@ GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA
 #define iscolortext(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // simple check whether or not a player is a guest using their key
-#define IS_GUEST_KEY(key)	(findtextEx(key, "Guest-", 1, 7))
+#define IS_GUEST_KEY(key) (findtextEx(key, "Guest-", 1, 7))
+GLOBAL_DATUM_INIT(token_auth_regex, /regex, regex(@"^[dD]\d{10}\d+$"))
+#define IS_TOKEN_AUTH_KEY(key) (istext(key) && GLOB.token_auth_regex.Find(key))
+#define IS_PREAUTH_KEY(key) (findtextEx(key, "Guest-preauth", 1, 14))
+#define IS_PREAUTH_CKEY(key) (findtextEx(key, "guestpreauth", 1, 14))
 
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.
@@ -197,6 +201,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isdead(A) (istype(A, /mob/dead))
 
 #define isnewplayer(A) (istype(A, /mob/dead/new_player))
+#define isnewplayer_auth(A) (istype(A, /mob/dead/new_player/authenticated))
+#define isnewplayer_preauth(A) (istype(A, /mob/dead/new_player/pre_auth))
 
 #define isovermind(A) (istype(A, /mob/camera/blob))
 

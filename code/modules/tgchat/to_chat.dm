@@ -25,7 +25,7 @@
 	if(!target || (!html && !text))
 		return
 	if(target == world)
-		target = GLOB.clients
+		target = GLOB.authed_clients
 
 	// Build a message
 	var/message = list()
@@ -70,7 +70,7 @@
 	if(!target || (!html && !text))
 		return
 	if(target == world)
-		target = GLOB.clients
+		target = GLOB.authed_clients
 
 	// Build a message
 	var/message = list()

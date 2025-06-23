@@ -36,7 +36,7 @@ GLOBAL_LIST(end_titles)
 			GLOB.end_titles += "<br>"
 
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/show_credits))
 			C.screen += new /atom/movable/screen/credit/title_card(null, null, SSticker.mode.title_icon)
 	sleep(CREDIT_SPAWN_SPEED * 3)
@@ -76,7 +76,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
 	QDEL_IN(src, CREDIT_ROLL_SPEED)
 
 /atom/movable/screen/credit/proc/add_to_clients()
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.authed_clients)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/show_credits))
 			C.screen += src
 

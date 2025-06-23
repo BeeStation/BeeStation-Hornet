@@ -29,6 +29,9 @@ SUBSYSTEM_DEF(ban_cache)
 		// If they've already got a ban cached, or a request goin, don't do it
 		if(lad.ban_cache || lad.ban_cache_start)
 			continue
+		// skip pre-auth users
+		if(IS_PREAUTH_CKEY(ckey))
+			continue
 
 		look_for += ckey
 		lad.ban_cache_start = current_time

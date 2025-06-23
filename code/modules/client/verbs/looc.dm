@@ -14,6 +14,9 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 	if(!mob?.ckey)
 		return
 
+	if(isnewplayer_preauth(mob))
+		return
+
 	msg = trim(sanitize(msg), MAX_MESSAGE_LEN)
 	if(!length(msg))
 		return
@@ -63,7 +66,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 	var/list/turf/in_view = list()
 	for(var/turf/viewed_turf in view(get_turf(mob)))
 		in_view[viewed_turf] = TRUE
-	for(var/client/client in GLOB.clients)
+	for(var/client/client in GLOB.authed_clients)
 		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc) || (client in GLOB.admins))
 			continue
 		if(in_view[get_turf(client.mob)])

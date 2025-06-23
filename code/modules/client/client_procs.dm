@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /// If this client is BYOND member.
 /client/proc/is_content_unlocked()
-	return prefs.unlock_content
+	return prefs?.unlock_content
 
 /*
  * Call back proc that should be checked in all paths where a client can send messages
@@ -199,11 +199,23 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
 		return null
 
+	// If auth isn't set up, immediately change their key to a guest key
+	// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
+#ifdef USE_EXTERNAL_AUTH
+	key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+#endif
+	var/is_guest = IS_GUEST_KEY(key)
+
+#ifndef USE_EXTERNAL_AUTH
 	if(CONFIG_GET(flag/respect_upstream_bans) || CONFIG_GET(flag/respect_upstream_permabans))
 		check_upstream_bans()
+#endif
 
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
+#ifndef USE_EXTERNAL_AUTH
+	GLOB.authed_clients += src
+#endif
 
 	if(byond_version >= 516)
 		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
@@ -217,61 +229,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	initialize_commandbar_spy()
 
 	set_right_click_menu_mode(TRUE)
-
-	GLOB.ahelp_tickets.ClientLogin(src)
-	GLOB.mhelp_tickets.ClientLogin(src)
-	GLOB.interviews.client_login(src)
-	GLOB.requests.client_login(src)
-	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
-	//Admin Authorisation
-	holder = GLOB.admin_datums[ckey]
-	if(holder)
-		GLOB.admins |= src
-		holder.owner = src
-		connecting_admin = TRUE
-	else if(GLOB.deadmins[ckey])
-		add_verb(/client/proc/readmin)
-		connecting_admin = TRUE
-	if(CONFIG_GET(flag/autoadmin))
-		if(!GLOB.admin_datums[ckey])
-			var/datum/admin_rank/autorank
-			for(var/datum/admin_rank/R in GLOB.admin_ranks)
-				if(R.name == CONFIG_GET(string/autoadmin_rank))
-					autorank = R
-					break
-			if(!autorank)
-				to_chat(world, "Autoadmin rank not found")
-			else
-				new /datum/admins(autorank, ckey)
-	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin)
-		var/localhost_addresses = list("127.0.0.1", "::1")
-		if(isnull(address) || (address in localhost_addresses))
-			if(Debugger?.enabled)
-				to_chat_immediate(src, span_userdanger("Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab."))
-			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
-			new /datum/admins(localhost_rank, ckey, 1, 1)
-
-	// This needs to go after admin loading but before prefs
-	assign_mentor_datum_if_exists()
-
-	// Retrieve cached metabalance
-	get_metabalance_db()
-	// Retrieve cached antag token count
-	get_antag_token_count_db()
-	if(!src) // Yes this is possible, because the procs above sleep.
+#ifndef USE_EXTERNAL_AUTH
+	var/connecting_admin = client_pre_login()
+	if(connecting_admin == -1)
 		return
-	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
-	prefs = GLOB.preferences_datums[ckey]
-	if(prefs)
-		prefs.parent = src
-		prefs.apply_all_client_preferences()
-	else
-		prefs = new /datum/preferences(src)
-		GLOB.preferences_datums[ckey] = prefs
-	prefs.last_ip = address				//these are gonna be used for banning
-	prefs.last_id = computer_id			//these are gonna be used for banning
-
-	prefs.handle_donator_items()
+#else
+	var/connecting_admin = 0
+#endif
 
 	if(fexists(roundend_report_file()))
 		add_verb(/client/proc/show_previous_roundend_report)
@@ -279,53 +243,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
 
-	var/alert_mob_dupe_login = FALSE
-	var/alert_admin_multikey = FALSE
-	if(CONFIG_GET(flag/log_access))
-		var/list/joined_players = list()
-		for(var/player_ckey in GLOB.joined_player_list)
-			joined_players[player_ckey] = 1
-
-		for(var/joined_player_ckey in (GLOB.directory | joined_players))
-			if (!joined_player_ckey || joined_player_ckey == ckey)
-				continue
-
-			var/datum/preferences/joined_player_preferences = GLOB.preferences_datums[joined_player_ckey]
-			if(!joined_player_preferences)
-				continue //this shouldn't happen.
-
-			var/client/C = GLOB.directory[joined_player_ckey]
-			var/in_round = ""
-			if (joined_players[joined_player_ckey])
-				in_round = " who has played in the current round"
-			var/message_type = "Notice"
-
-			var/matches
-			if(joined_player_preferences.last_ip == address)
-				matches += "IP ([address])"
-			if(joined_player_preferences.last_id == computer_id)
-				if(matches)
-					matches = "BOTH [matches] and "
-					alert_admin_multikey = TRUE
-					message_type = "MULTIKEY"
-				matches += "Computer ID ([computer_id])"
-				alert_mob_dupe_login = TRUE
-
-			if(matches)
-				if(C)
-					message_admins("[span_danger("<B>[message_type]:</B>")] [span_notice("Connecting player [key_name_admin(src)] has the same [matches] as [key_name_admin(C)]<b>[in_round]</b>.")]")
-					log_admin_private("[message_type]: Connecting player [key_name(src)] has the same [matches] as [key_name(C)][in_round].")
-				else
-					message_admins("[span_danger("<B>[message_type]: </B>")][span_notice("Connecting player [key_name_admin(src)] has the same [matches] as [joined_player_ckey](no longer logged in)<b>[in_round]</b>.")]")
-					log_admin_private("[message_type]: Connecting player [key_name(src)] has the same [matches] as [joined_player_ckey](no longer logged in)[in_round].")
-	if(GLOB.player_details[ckey])
-		player_details = GLOB.player_details[ckey]
-		player_details.byond_version = full_version
-	else
-		player_details = new(ckey)
-		player_details.byond_version = full_version
-		GLOB.player_details[ckey] = player_details
-
+#ifndef USE_EXTERNAL_AUTH
+	var/list/duplicate_result = check_duplicate_login()
+	var/alert_mob_dupe_login = duplicate_result[1]
+	var/alert_admin_multikey = duplicate_result[2]
+#endif
 
 	. = ..()	//calls mob.Login()
 
@@ -359,16 +281,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_say.initialize()
 	tgui_asay.initialize()
 
-	if(alert_mob_dupe_login && !holder)
-		var/dupe_login_message = "Your ComputerID has already logged in with another key this round, please log out of this one NOW or risk being banned!"
-		if (alert_admin_multikey)
-			dupe_login_message += "\nAdmins have been informed."
-			message_admins("[span_danger("<B>MULTIKEYING:</B>")] [span_notice("[key_name_admin(src)] has a matching CID+IP with another player and is clearly multikeying. They have been warned to leave the server or risk getting banned.")]")
-			log_admin_private("MULTIKEYING: [key_name(src)] has a matching CID+IP with another player and is clearly multikeying. They have been warned to leave the server or risk getting banned.")
-		spawn(0.5 SECONDS) //needs to run during world init, do not convert to add timer
-			alert(mob, dupe_login_message) //players get banned if they don't see this message, do not convert to tgui_alert (or even tg_alert) please.
-			to_chat_immediate(mob, span_danger("[dupe_login_message]"))
-
+#ifndef USE_EXTERNAL_AUTH
+	run_dupe_alerts(alert_mob_dupe_login, alert_admin_multikey)
+#endif
 
 	connection_time = world.time
 	connection_realtime = world.realtime
@@ -420,11 +335,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		GLOB.host = key
 		world.update_status()
 
-	if(holder)
-		add_admin_verbs()
-		to_chat(src, get_message_output("memo"))
-		adminGreet()
+#ifndef USE_EXTERNAL_AUTH
+	init_admin_if_present()
 	add_verbs_from_config()
+#endif
 	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
 
 	if(QDELETED(src))
@@ -434,47 +348,47 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		player_age = 0
 	var/nnpa = CONFIG_GET(number/notify_new_player_age)
 	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
-		if (nnpa >= 0)
+		if (nnpa >= 0 && !is_guest)
 			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
 			if (CONFIG_GET(flag/irc_first_connection_alert))
 				send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
-	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
+	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa && !is_guest)
 		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
 	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
 		player_age = account_age
-	if(account_age >= 0 && account_age < nnpa)
+	if(account_age >= 0 && account_age < nnpa && !IS_GUEST_KEY(key))
 		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
 		if (CONFIG_GET(flag/irc_first_connection_alert))
 			send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
-	get_message_output("watchlist entry", ckey)
+	if(!is_guest)
+		get_message_output("watchlist entry", ckey)
 	check_ip_intel()
-	validate_key_in_db()
+	if(!is_guest)
+		validate_key_in_db()
 	// If we aren't already generating a ban cache, fire off a build request
 	// This way hopefully any users of request_ban_cache will never need to yield
-	if(!ban_cache_start && SSban_cache?.query_started)
+	if(!is_guest && !ban_cache_start && SSban_cache?.query_started)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_ban_cache), src)
 
-	fetch_uuid()
-	add_verb(/client/proc/show_account_identifier)
+	if(!is_guest)
+		fetch_uuid()
+		add_verb(/client/proc/show_account_identifier)
 
 	send_resources()
 
 	generate_clickcatcher()
 	apply_clickcatcher()
 
-	if(prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
+	if(prefs && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."))
 		if(CONFIG_GET(flag/aggressive_changelog))
 			changelog()
 		else
 			winset(src, "infowindow.changelog", "font-style=bold")
 
-	if(ckey in GLOB.clientmessages)
-		for(var/message in GLOB.clientmessages[ckey])
-			to_chat(src, message)
-		GLOB.clientmessages.Remove(ckey)
+	send_client_messages()
 
-	if(CONFIG_GET(flag/autoconvert_notes))
+	if(!is_guest && CONFIG_GET(flag/autoconvert_notes))
 		convert_notes_sql(ckey)
 	to_chat(src, get_message_output("message", ckey))
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
@@ -490,6 +404,26 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	fit_viewport()
 	Master.UpdateTickRate()
 
+	check_ckey_redirects()
+
+	//Add the default client verbs to the TGUI window
+	add_verb(subtypesof(/client/verb), TRUE)
+#ifdef USE_EXTERNAL_AUTH
+	remove_verb(/client/verb/adminhelp)
+	remove_verb(/client/verb/mentorhelp)
+#endif
+
+	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
+	mob.UpdateMobStat(TRUE)
+	fully_created = TRUE
+
+/client/proc/send_client_messages()
+	if(ckey in GLOB.clientmessages)
+		for(var/message in GLOB.clientmessages[ckey])
+			to_chat(src, message)
+		GLOB.clientmessages.Remove(ckey)
+
+/client/proc/check_ckey_redirects()
 	if(GLOB.ckey_redirects.Find(ckey))
 		if(isnewplayer(mob))
 			to_chat(src, span_redtext("The server is full. You will be redirected to [CONFIG_GET(string/redirect_address)] in 10 seconds."))
@@ -497,12 +431,136 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		else
 			GLOB.ckey_redirects -= ckey
 
-	//Add the default client verbs to the TGUI window
-	add_verb(subtypesof(/client/verb), TRUE)
+/client/proc/client_pre_login()
+	GLOB.ahelp_tickets.ClientLogin(src)
+	GLOB.mhelp_tickets.ClientLogin(src)
+	GLOB.interviews.client_login(src)
+	GLOB.requests.client_login(src)
+	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
+	//Admin Authorisation
+	holder = GLOB.admin_datums[ckey]
+	if(holder)
+		GLOB.admins |= src
+		holder.owner = src
+		connecting_admin = TRUE
+	else if(GLOB.deadmins[ckey])
+		add_verb(/client/proc/readmin)
+		connecting_admin = TRUE
+	if(CONFIG_GET(flag/autoadmin))
+		if(!GLOB.admin_datums[ckey])
+			var/datum/admin_rank/autorank
+			for(var/datum/admin_rank/R in GLOB.admin_ranks)
+				if(R.name == CONFIG_GET(string/autoadmin_rank))
+					autorank = R
+					break
+			if(!autorank)
+				to_chat(world, "Autoadmin rank not found")
+			else
+				new /datum/admins(autorank, ckey)
+	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin)
+		var/localhost_addresses = list("127.0.0.1", "::1")
+		if(isnull(address) || (address in localhost_addresses))
+			if(Debugger?.enabled)
+				to_chat_immediate(src, span_userdanger("Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab."))
+			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
+			new /datum/admins(localhost_rank, ckey, 1, 1)
 
-	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
-	mob.UpdateMobStat(TRUE)
-	fully_created = TRUE
+	// This needs to go after admin loading but before prefs
+	assign_mentor_datum_if_exists()
+
+	// Retrieve cached metabalance
+	get_metabalance_db()
+	// Retrieve cached antag token count
+	get_antag_token_count_db()
+	if(!src) // Yes this is possible, because the procs above sleep.
+		return -1
+	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
+	init_client_prefs()
+	setup_player_details()
+	return connecting_admin
+
+/client/proc/init_admin_if_present()
+	if(holder)
+		add_admin_verbs()
+		to_chat(src, get_message_output("memo"))
+		adminGreet()
+
+/client/proc/check_duplicate_login()
+	var/alert_mob_dupe_login = FALSE
+	var/alert_admin_multikey = FALSE
+	if(CONFIG_GET(flag/log_access))
+		var/list/joined_players = list()
+		for(var/player_ckey in GLOB.joined_player_list)
+			joined_players[player_ckey] = 1
+
+		for(var/joined_player_ckey in (GLOB.directory | joined_players))
+			if (!joined_player_ckey || joined_player_ckey == ckey)
+				continue
+
+			var/datum/preferences/joined_player_preferences = GLOB.preferences_datums[joined_player_ckey]
+			if(!joined_player_preferences)
+				continue // skip unauthentricated players
+
+			var/client/C = GLOB.directory[joined_player_ckey]
+			var/in_round = ""
+			if (joined_players[joined_player_ckey])
+				in_round = " who has played in the current round"
+			var/message_type = "Notice"
+
+			var/matches
+			if(joined_player_preferences.last_ip == address)
+				matches += "IP ([address])"
+			if(joined_player_preferences.last_id == computer_id)
+				if(matches)
+					matches = "BOTH [matches] and "
+					alert_admin_multikey = TRUE
+					message_type = "MULTIKEY"
+				matches += "Computer ID ([computer_id])"
+				alert_mob_dupe_login = TRUE
+
+			if(matches)
+				if(C)
+					message_admins("[span_danger("<B>[message_type]:</B>")] [span_notice("Connecting player [key_name_admin(src)] has the same [matches] as [key_name_admin(C)]<b>[in_round]</b>.")]")
+					log_admin_private("[message_type]: Connecting player [key_name(src)] has the same [matches] as [key_name(C)][in_round].")
+				else
+					message_admins("[span_danger("<B>[message_type]: </B>")][span_notice("Connecting player [key_name_admin(src)] has the same [matches] as [joined_player_ckey](no longer logged in)<b>[in_round]</b>.")]")
+					log_admin_private("[message_type]: Connecting player [key_name(src)] has the same [matches] as [joined_player_ckey](no longer logged in)[in_round].")
+	return list(alert_mob_dupe_login, alert_admin_multikey)
+
+/client/proc/run_dupe_alerts(alert_mob_dupe_login, alert_admin_multikey)
+	if(!alert_mob_dupe_login || holder)
+		return
+	var/dupe_login_message = "Your ComputerID has already logged in with another key this round, please log out of this one NOW or risk being banned!"
+	if (alert_admin_multikey)
+		dupe_login_message += "\nAdmins have been informed."
+		message_admins("[span_danger("<B>MULTIKEYING:</B>")] [span_notice("[key_name_admin(src)] has a matching CID+IP with another player and is clearly multikeying. They have been warned to leave the server or risk getting banned.")]")
+		log_admin_private("MULTIKEYING: [key_name(src)] has a matching CID+IP with another player and is clearly multikeying. They have been warned to leave the server or risk getting banned.")
+	spawn(0.5 SECONDS) //needs to run during world init, do not convert to add timer
+		alert(mob, dupe_login_message) //players get banned if they don't see this message, do not convert to tgui_alert (or even tg_alert) please.
+		to_chat_immediate(mob, span_danger("[dupe_login_message]"))
+
+/client/proc/init_client_prefs()
+	prefs = GLOB.preferences_datums[ckey]
+	if(prefs)
+		prefs.parent = src
+		prefs.apply_all_client_preferences()
+	else
+		prefs = new /datum/preferences(src)
+		GLOB.preferences_datums[ckey] = prefs
+	prefs.last_ip = address				//these are gonna be used for banning
+	prefs.last_id = computer_id			//these are gonna be used for banning
+
+	prefs.handle_donator_items()
+
+/client/proc/setup_player_details()
+	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
+	if(GLOB.player_details[ckey])
+		player_details = GLOB.player_details[ckey]
+		player_details.byond_version = full_version
+	else
+		player_details = new(ckey)
+		player_details.byond_version = full_version
+		GLOB.player_details[ckey] = player_details
 
 /client/proc/set_right_click_menu_mode(shift_only)
 	if(shift_only)
@@ -522,15 +580,18 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	src << link("[redirect_address]")
 	qdel(src)
 
+/client/proc/generate_uuid_string()
+	var/fiftyfifty = prob(50) ? FEMALE : MALE
+	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
+	return "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
+
 /client/proc/generate_uuid()
 	if(IsAdminAdvancedProcCall())
 		log_admin("Attempted admin generate_uuid() proc call blocked.")
 		message_admins("Attempted admin generate_uuid() proc call blocked.")
 		return FALSE
 
-	var/fiftyfifty = prob(50) ? FEMALE : MALE
-	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
-	var/uuid = "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
+	var/uuid = generate_uuid_string()
 
 	if(!SSdbcore.Connect())
 		return FALSE
@@ -581,6 +642,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/Destroy()
 	GLOB.clients -= src
 	GLOB.directory -= ckey
+	GLOB.authed_clients -= src
 	GLOB.mentors -= src
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
