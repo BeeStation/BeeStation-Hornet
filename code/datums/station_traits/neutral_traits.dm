@@ -2,6 +2,7 @@
 	name = "Bananium Shipment"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
+	cost = STATION_TRAIT_COST_LOW
 	report_message = "Rumors has it that the clown planet has been sending support packages to clowns in this system"
 	trait_to_give = STATION_TRAIT_BANANIUM_SHIPMENTS
 
@@ -9,6 +10,7 @@
 	name = "Ian's Adventure"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
+	cost = STATION_TRAIT_COST_LOW
 	show_in_report = FALSE
 	report_message = "Ian has gone exploring somewhere in the station."
 
@@ -32,6 +34,7 @@
 	name = "PDA glitch"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 8
+	cost = STATION_TRAIT_COST_MINIMAL
 	show_in_report = TRUE
 	report_message = "Something seems to be wrong with the PDAs issued to you all this shift. Nothing too bad though."
 	trait_to_give = STATION_TRAIT_PDA_GLITCHED

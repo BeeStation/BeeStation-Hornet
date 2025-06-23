@@ -514,18 +514,37 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 /obj/effect/spawner/hangover_spawn
 	name = "hangover spawner"
 
+	/// A list of everything this hangover spawn created
+	var/list/debris = list()
+
 /obj/effect/spawner/hangover_spawn/Initialize(mapload)
-	..()
-	if(prob(60))
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-	if(prob(70))
-		var/bottle_count = pick(10;1, 5;2, 2;3)
-		for(var/index in 1 to bottle_count)
-			var/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty/B = new(get_turf(src))
-			B.pixel_x += rand(-6, 6)
-			B.pixel_y += rand(-6, 6)
+	. = ..()
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/spawner/hangover_spawn/LateInitialize()
+	. = ..()
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		return
+	if(prob(60))
+		debris += new /obj/effect/decal/cleanable/vomit(get_turf(src))
+	if(prob(70))
+		var/bottle_count = rand(1, 3)
+		for(var/index in 1 to bottle_count)
+			var/turf/turf_to_spawn_on = get_step(src, pick(GLOB.alldirs))
+			if(!isopenturf(turf_to_spawn_on))
+				continue
+			var/dense_object = FALSE
+			for(var/atom/content in turf_to_spawn_on.contents)
+				if(content.density)
+					dense_object = TRUE
+					break
+			if(dense_object)
+				continue
+			debris += new /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty(turf_to_spawn_on)
+
+/obj/effect/spawner/hangover_spawn/Destroy()
+	debris = null
+	return ..()
 
 //Landmark that creates destinations for the navigate verb to path to
 /obj/effect/landmark/navigate_destination
