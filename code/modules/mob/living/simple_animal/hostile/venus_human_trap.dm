@@ -137,6 +137,7 @@
 	/// Whether or not this plant is ghost possessable
 	var/playable_plant = TRUE
 	var/withering = FALSE
+	var/retreating = FALSE
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/venus_human_trap/Initialize(mapload)
@@ -149,18 +150,35 @@
 	if(locate(/obj/structure/spacevine) in get_turf(src))//Heal if we are on vines
 		if(withering)
 			to_chat(src, span_notice(" The vines nourish you, healing your wounds."))
+			stop_automated_movement = 0
 		adjustHealth(-maxHealth*0.1)
 		withering = FALSE
+		retreating = FALSE
 		return
 	if(!withering)
 		to_chat(src, span_userdanger("You are not being nourished by the vines and are withering away! Stay in the vines!"))
 	withering = TRUE
+	if(!ckey && (health < maxHealth * 0.50) && !(locate(/obj/structure/spacevine) in get_turf(src))) //Retreat!!!
+		var/list/turf/possible_retreat_turfs = list()
+		FOR_DVIEW(var/turf/T, 8, get_turf(src), null)
+			if(locate(/obj/structure/spacevine) in T)
+				possible_retreat_turfs += T
+		if(possible_retreat_turfs.len > 0)
+			LoseTarget()
+			stop_automated_movement = 1
+			Goto(possible_retreat_turfs[rand(1,possible_retreat_turfs.len)], move_to_delay, 0)
+			retreating = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
 	adjustHealth(maxHealth*0.1)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
 	pixel_x = base_pixel_x + (dir & (NORTH|WEST) ? 2 : -2)
+
+/mob/living/simple_animal/hostile/venus_human_trap/MoveToTarget(list/possible_targets)
+	if(health < maxHealth * 0.50 && retreating) //Don't move away from the vines if we are below 50% health
+		return 1
+	. = ..()
 
 /mob/living/simple_animal/hostile/venus_human_trap/AttackingTarget()
 	. = ..()
