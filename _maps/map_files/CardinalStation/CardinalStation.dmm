@@ -16823,17 +16823,32 @@
 /area/security/brig/medbay)
 "dqh" = (
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses/advanced/big{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/structure/bookcase,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/structure/railing/perspective/wood{
 	dir = 8
+	},
+/obj/item/clothing/glasses/sunglasses/advanced/big{
+	pixel_x = 1;
+	pixel_y = 16
+	},
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/sopscience,
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/book/manual/wiki/sopengineering,
+/obj/item/book/manual/wiki/sopsecurity,
+/obj/item/book/manual/wiki/sopservice{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/item/book/manual/wiki/sopcommand{
+	pixel_y = 7
+	},
+/obj/item/book/manual/wiki/sopsupply{
+	pixel_x = -6;
+	pixel_y = 9
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
@@ -87314,8 +87329,7 @@
 	name = "emergency supermatter ejection pad"
 	},
 /obj/machinery/power/supermatter_crystal/engine{
-	moveable = 1;
-	anchored = 0
+	moveable = 1
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -99186,22 +99200,6 @@
 	},
 /obj/machinery/camera/directional/north,
 /obj/machinery/digital_clock/directional/west,
-/obj/item/book/manual/wiki/sopsupply{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/book/manual/wiki/sopcommand{
-	pixel_y = 7
-	},
-/obj/item/book/manual/wiki/sopservice{
-	pixel_y = 10;
-	pixel_x = 6
-	},
-/obj/item/book/manual/wiki/sopsecurity,
-/obj/item/book/manual/wiki/sopengineering,
-/obj/item/book/manual/wiki/sopmedical,
-/obj/item/book/manual/wiki/sopscience,
-/obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "ufX" = (
@@ -116519,6 +116517,9 @@
 /obj/machinery/status_display/evac/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = -12
 	},
 /obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = -12
