@@ -14,9 +14,6 @@ CLIENT_VERB(looc, msg as text)
 	if(!mob?.ckey)
 		return
 
-	if(isnewplayer_preauth(mob))
-		return
-
 	msg = trim(sanitize(msg), MAX_MESSAGE_LEN)
 	if(!length(msg))
 		return

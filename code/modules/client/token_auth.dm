@@ -50,7 +50,7 @@
 	// Mob is ready
 	// calls /mob/dead/new_player/authenticated/Login()
 	// creates mind and such
-	if(isnewplayer_preauth(my_mob))
+	if(istype(my_mob, /mob/dead/new_player/pre_auth))
 		var/mob/dead/new_player/pre_auth/pre_auth_player = my_mob
 		pre_auth_player.convert_to_authed()
 

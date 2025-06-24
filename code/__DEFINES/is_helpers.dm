@@ -201,8 +201,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isdead(A) (istype(A, /mob/dead))
 
 #define isnewplayer(A) (istype(A, /mob/dead/new_player))
-#define isnewplayer_auth(A) (istype(A, /mob/dead/new_player/authenticated))
-#define isnewplayer_preauth(A) (istype(A, /mob/dead/new_player/pre_auth))
 
 #define isovermind(A) (istype(A, /mob/camera/blob))
 

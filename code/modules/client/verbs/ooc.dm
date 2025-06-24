@@ -13,9 +13,6 @@ CLIENT_VERB(ooc, msg as text)
 	if(!mob)
 		return
 
-	if(isnewplayer_preauth(mob))
-		return
-
 	if(!holder)
 		if(!GLOB.ooc_allowed)
 			to_chat(src, span_danger("OOC is globally muted."))
