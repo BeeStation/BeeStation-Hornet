@@ -109,7 +109,7 @@
 		layer = M.layer+0.01 //appear above the target mob
 		M.visible_message(span_danger("[name] has latched onto [M]!"), \
 						span_userdanger("[name] has latched onto [M]!"))
-		if(colour == "green" && istype(get_turf(M), /turf/open/floor/grass))
+		if(colour == SLIME_TYPE_GREEN && istype(get_turf(M), /turf/open/floor/grass))
 			special_mutation = TRUE
 			special_mutation_type = "dark green"
 			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
@@ -227,12 +227,12 @@
 	var/child_colour = colour
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
-			child_colour = "rainbow"
+			child_colour = SLIME_TYPE_RAINBOW
 		else if(special_mutation == TRUE)
 			child_colour = special_mutation_type
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
-				slime_mutation = mutation_table(pick(slime_colours - list("rainbow", "dark green", "cobalt", "dark grey", "crimson")))
+				slime_mutation = mutation_table(pick(slime_colours - SLIME_TYPE_RAINBOW))
 			child_colour = slime_mutation[rand(1,4)]
 		else
 			child_colour = colour
