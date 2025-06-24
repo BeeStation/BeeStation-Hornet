@@ -285,6 +285,7 @@
 
 /datum/world_topic/identify_uuid/Run(list/input)
 	var/uuid = input["uuid"]
+	var/discord_uid = input["discord_uid"]
 	data = list()
 
 	if(!SSdbcore.Connect())
@@ -294,7 +295,7 @@
 		return
 
 	var/datum/db_query/query_ckey_lookup = SSdbcore.NewQuery(
-		"SELECT ckey FROM [format_table_name("player")] WHERE uuid = :uuid",
+		"SELECT ckey,discord_uid FROM [format_table_name("player")] WHERE uuid = :uuid",
 		list("uuid" = uuid)
 	)
 	if(!query_ckey_lookup.Execute())
@@ -307,8 +308,48 @@
 	response = "UUID Checked against database"
 	data["identified_ckey"] = null
 	if(query_ckey_lookup.NextRow())
-		data["identified_ckey"] = query_ckey_lookup.item[1]
+		var/identified_discord_uid = query_ckey_lookup.item[2]
+		var/identified_ckey = query_ckey_lookup.item[1]
+		if(!istext(identified_ckey))
+			qdel(query_ckey_lookup)
+			return
+		// No associated UID (unlinked account), a UID was not sent (outdated cog), or the UIDs match
+		// If the UIDs do not match, we error
+		if(!isnull(identified_discord_uid) && !isnull(discord_uid) && identified_discord_uid != discord_uid)
+			qdel(query_ckey_lookup)
+			statuscode = 401
+			response = "Discord ID mismatch"
+			return
+		// Update the UID in the database if it's blank.
+		if(!isnull(discord_uid) && isnull(identified_discord_uid))
+			var/datum/db_query/query_select_discord_uid = SSdbcore.NewQuery(
+				"SELECT ckey FROM [format_table_name("player")] WHERE discord_uid = :discord_uid",
+				list("discord_uid" = discord_uid)
+			)
+			if(!query_select_discord_uid.Execute())
+				qdel(query_ckey_lookup)
+				qdel(query_select_discord_uid)
+				statuscode = 500
+				response = "Database query failed"
+				return
+			// Only set it if no one else already has this Discord UID.
+			if(!query_select_discord_uid.NextRow())
+				var/datum/db_query/query_update_discord_uid = SSdbcore.NewQuery(
+					"UPDATE [format_table_name("player")] SET discord_uid = :discord_uid WHERE uuid = :uuid",
+					list("uuid" = uuid, "discord_uid" = discord_uid)
+				)
+				if(!query_update_discord_uid.Execute())
+					qdel(query_ckey_lookup)
+					qdel(query_select_discord_uid)
+					qdel(query_update_discord_uid)
+					statuscode = 500
+					response = "Database query failed"
+					return
+				qdel(query_update_discord_uid)
+			qdel(query_select_discord_uid)
+		data["identified_ckey"] = identified_ckey
 	qdel(query_ckey_lookup)
+
 
 /datum/world_topic/d_ooc_send
 	key = "discord_send"
