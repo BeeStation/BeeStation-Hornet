@@ -111,7 +111,7 @@
 						span_userdanger("[name] has latched onto [M]!"))
 		if(colour == SLIME_TYPE_GREEN && istype(get_turf(M), /turf/open/floor/grass))
 			special_mutation = TRUE
-			special_mutation_type = "dark green"
+			special_mutation_type = SLIME_TYPE_DARK_GREEN
 			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
 		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
