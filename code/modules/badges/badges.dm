@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(badge_data)
 /client/proc/get_badges()
 	//No badges
 	if(!CONFIG_GET(flag/badges))
+		if(key_is_external && external_method == "discord")
+			return list("discord")
 		return
 	//Send cached badges
 	if(islist(cached_badges))
@@ -59,6 +61,9 @@ GLOBAL_LIST_EMPTY(badge_data)
 	//Add the donator rank
 	if(IS_PATRON(ckey) && GLOB.badge_data["Donator"])
 		badges += GLOB.badge_data["Donator"]
+	//Add discord tag
+	if(key_is_external && external_method == "discord")
+		badges += "discord"
 	cached_badges = badges
 	return badges
 
@@ -73,6 +78,9 @@ GLOBAL_LIST_EMPTY(badge_data)
 	var/first_badge = TRUE
 
 	if(!CONFIG_GET(flag/badges))
+		// This is a must
+		if("discord" in badges)
+			return "[output]<span class='chat16x16 badge-badge_discord'></span></font> "
 		return ""
 
 	for(var/badge in badges)

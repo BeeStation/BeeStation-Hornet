@@ -25,9 +25,12 @@ GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA
 
 // simple check whether or not a player is a guest using their key
 #define IS_GUEST_KEY(key) (findtextEx(key, "Guest-", 1, 7))
-GLOBAL_DATUM_INIT(token_auth_regex, /regex, regex(@"^d\d{10}\d+$"))
-#define IS_TOKEN_AUTH_KEY(key) (istext(key) && GLOB.token_auth_regex.Find(ckey(key)))
+GLOBAL_DATUM_INIT(external_auth_ckey_regex, /regex, regex(@"^d\d{10}\d+$"))
+/// use client.key_is_external where possible
+#define IS_EXTERNAL_AUTH_KEY(key) (istext(key) && GLOB.external_auth_ckey_regex.Find(ckey(key)))
+/// use client.logged_in where possible
 #define IS_PREAUTH_KEY(key) (findtextEx(key, "Guest-preauth", 1, 14))
+/// use client.logged_in where possible
 #define IS_PREAUTH_CKEY(key) (findtextEx(key, "guestpreauth", 1, 13))
 
 //Turfs

@@ -208,12 +208,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 #else
 	logged_in = TRUE
 #endif
-	if(!client_pre_login(authenticated, TRUE))
+	if(!client_pre_login(authenticated, TRUE, null, null))
 		return null
 
 	. = ..()	//calls mob.Login()
 
-	if(!client_post_login(authenticated, TRUE, authenticated && !!(holder || GLOB.deadmins[ckey])))
+	if(!client_post_login(authenticated, TRUE, authenticated && !!(holder || GLOB.deadmins[ckey]), null, null))
 		return null
 	fully_created = TRUE
 
@@ -235,6 +235,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			GLOB.ckey_redirects -= ckey
 
 /client/proc/client_pre_login(authenticated, first_run)
+	if(IsAdminAdvancedProcCall())
+		return FALSE
 	if(authenticated)
 		if(CONFIG_GET(flag/respect_upstream_bans) || CONFIG_GET(flag/respect_upstream_permabans))
 			check_upstream_bans()
@@ -296,6 +298,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return TRUE
 
 /client/proc/client_post_login(authenticated, first_run, connecting_admin)
+	if(IsAdminAdvancedProcCall())
+		return FALSE
 	if(first_run)
 		if(!check_client_blocked_byond_versions(connecting_admin) || QDELETED(src))
 			return FALSE
@@ -716,7 +720,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
-/client/proc/set_client_age_from_db()
+/client/proc/set_client_age_from_db(exteral_method, external_uid)
+	if(IsAdminAdvancedProcCall())
+		return
 	if(IS_GUEST_KEY(key))
 		return
 	if(!SSdbcore.Connect())
@@ -724,9 +730,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/key_or_display_name = key // TODO: update this to use discord usernames for users without a byond ckey
 	// copy numerical portion of token auth key
 	var/discord_uid = null
-	if(IS_TOKEN_AUTH_KEY(key))
-		discord_uid = copytext(key, 2)
-		key_or_display_name = "placeholder_username"
+	if(src.key_is_external && src.external_method == "discord")
+		discord_uid = src.external_uid
+		key_or_display_name = src.external_display_name
 	related_accounts_ip = ""
 	if(!is_localhost())
 		var/datum/db_query/query_get_related_ip = SSdbcore.NewQuery(
@@ -798,7 +804,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/safe_storage_address = address || "127.0.0.1"
 	if(!client_is_in_db)
 		new_player = 1
-		if(!IS_TOKEN_AUTH_KEY(key))
+		if(!src.key_is_external)
 			account_join_date = findJoinDate()
 		var/datum/db_query/query_add_player = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("player")] (`ckey`, `byond_key`, `discord_uid`, `firstseen`, `firstseen_round_id`, `lastseen`, `lastseen_round_id`, `ip`, `computerid`, `lastadminrank`, `accountjoindate`)
@@ -810,7 +816,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return
 		qdel(query_add_player)
 		if(!account_join_date)
-			account_join_date = IS_TOKEN_AUTH_KEY(key) ? "N/A" : "Error"
+			account_join_date = src.key_is_external ? "N/A" : "Error"
 			account_age = -1
 	qdel(query_client_in_db)
 	var/datum/db_query/query_get_client_age = SSdbcore.NewQuery(
@@ -826,7 +832,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(!account_join_date)
 			account_join_date = query_get_client_age.item[3]
 			account_age = text2num(query_get_client_age.item[4])
-			if(!account_age && !IS_TOKEN_AUTH_KEY(key))
+			if(!account_age && src.key_is_external)
 				account_join_date = findJoinDate()
 				if(!account_join_date)
 					account_age = -1
@@ -888,8 +894,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/proc/validate_key_in_db()
 	if(IS_GUEST_KEY(key))
 		return
-	if(IS_TOKEN_AUTH_KEY(key))
-		update_username_in_db("placeholder_username") // TODO get the username
+	if(src.key_is_external)
+		update_username_in_db()
 		return
 	var/sql_key
 	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
@@ -1184,6 +1190,27 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (NAMEOF(src, cached_badges))
 			return FALSE
 		if (NAMEOF(src, metabalance_cached))
+			return FALSE
+		if (NAMEOF(src, antag_token_count_cached))
+			return FALSE
+		if (NAMEOF(src, authenticate))
+			return FALSE
+		if (NAMEOF(src, logged_in))
+			log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)] via client.logged_in")
+			return FALSE
+		if (NAMEOF(src, key_is_external))
+			return FALSE
+		if (NAMEOF(src, external_method))
+			return FALSE
+		if (NAMEOF(src, external_uid))
+			return FALSE
+		if (NAMEOF(src, external_display_name))
+			return FALSE
+		if (NAMEOF(src, temp_topicdata))
+			return FALSE
+		if (NAMEOF(src, ban_cache))
+			return FALSE
+		if (NAMEOF(src, mentor_datum))
 			return FALSE
 		if (NAMEOF(src, view))
 			view_size.setDefault(var_value)

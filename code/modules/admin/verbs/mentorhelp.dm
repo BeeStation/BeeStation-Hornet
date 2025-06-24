@@ -190,7 +190,7 @@ CLIENT_VERB(mentorhelp)
 	SSblackbox.record_feedback("tally", "mhelp_stats", increment, data)
 
 /// Close ticket and escalate to adminhelp, auto-converts and creates a new admin ticket with the same history
-/datum/help_ticket/mentor/proc/AHelpThis(key_name = key_name_ticket(usr))
+/datum/help_ticket/mentor/proc/AHelpThis(ahelp_marker = usr)
 	if(state > TICKET_ACTIVE)
 		return
 
@@ -202,16 +202,13 @@ CLIENT_VERB(mentorhelp)
 		SEND_SOUND(initiator, sound(reply_sound))
 		resolve_message(status = "Escalated to Adminhelp!", message = "This question is for administrators. Such questions should be asked with <b>Adminhelp</b>.")
 
-	blackbox_feedback(1, "ahelp this")
-	var/msg = "<span class='[span_class]'>Mentor Ticket [TicketHref("#[id]")] transferred to adminhelp by [key_name]</span>"
-	AddInteraction("red", "Transferred to adminhelp by [key_name].")
+
+	ticket_interaction("red", "transferred to adminhelp", ahelp_marker, blackbox_override="ahelp this")
 	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_ADMINHELP)
-		message_ticket_managers(src, span_danger("Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this."))
-		log_admin_private(src, span_danger("[initiator_ckey] blocked from mhelp escalation (performed by [key_name]) to ahelp due to mute. Possible abuse of mhelp system."))
+		message_ticket_managers(span_danger("Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this."))
+		log_admin_private("[initiator_ckey] blocked from mhelp escalation (performed by [istext(ahelp_marker) ? ahelp_marker : key_name(ahelp_marker, include_link = FALSE)]) to ahelp due to mute. Possible abuse of mhelp system.")
 		return
-	message_ticket_managers(msg)
-	log_admin_private(msg)
 	var/datum/help_ticket/admin/ticket = new(initiator)
 	ticket.NewFrom(src)
 
@@ -236,11 +233,11 @@ CLIENT_VERB(mentorhelp)
 		if("ahelp")
 			AHelpThis()
 
-/datum/help_ticket/mentor/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/mentor/Resolve(resolver = usr, silent = FALSE)
 	..()
 	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 50)
 
-/datum/help_ticket/mentor/Reject(key_name = key_name_ticket(usr))
+/datum/help_ticket/mentor/Reject(rejecter = usr, extra_text)
 	..()
 	if(initiator)
 		initiator.givementorhelpverb()

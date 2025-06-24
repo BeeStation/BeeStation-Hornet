@@ -43,6 +43,11 @@
 		body += " <A href='byond://?_src_=holder;[HrefToken()];revive=[REF(M)]'>Heal</A>"
 
 	if(M.client)
+		if(!M.client.logged_in)
+			body += "<br><strong><font color='red'>CLIENT NOT LOGGED IN</font></strong><br>"
+		if(!isnull(M.client.external_method))
+			body += "<br><br><b>External Login Method: </b>[M.client.external_method]<br><b>External User ID: </b>[M.client.external_uid]<br>"
+			body += "<b>External Display Name: </b>[M.client.external_display_name]"
 		body += "<br><br><b>First Seen:</b> [M.client.player_join_date]<br><b>Byond account registered on:</b> [M.client.account_join_date]"
 
 		if(M.client?.tgui_panel)
