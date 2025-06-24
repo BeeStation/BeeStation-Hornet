@@ -28,7 +28,7 @@ GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA
 GLOBAL_DATUM_INIT(token_auth_regex, /regex, regex(@"^d\d{10}\d+$"))
 #define IS_TOKEN_AUTH_KEY(key) (istext(key) && GLOB.token_auth_regex.Find(ckey(key)))
 #define IS_PREAUTH_KEY(key) (findtextEx(key, "Guest-preauth", 1, 14))
-#define IS_PREAUTH_CKEY(key) (findtextEx(key, "guestpreauth", 1, 14))
+#define IS_PREAUTH_CKEY(key) (findtextEx(key, "guestpreauth", 1, 13))
 
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.

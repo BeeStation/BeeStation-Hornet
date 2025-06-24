@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(ban_cache)
 		if(lad.ban_cache || lad.ban_cache_start)
 			continue
 		// skip pre-auth users
-		if(IS_PREAUTH_CKEY(ckey))
+		if(!lad.logged_in)
 			continue
 
 		look_for += ckey
