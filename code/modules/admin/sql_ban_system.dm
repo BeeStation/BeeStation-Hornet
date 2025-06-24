@@ -22,6 +22,9 @@
 	player_ckey = ckey(player_ckey)
 	var/client/player_client = GLOB.directory[player_ckey]
 	if(player_client)
+		// Unauthenticated users can't be banned
+		if(!player_client.logged_in)
+			return FALSE
 		var/list/ban_cache = retrieve_ban_cache(player_client)
 		if(!islist(ban_cache))
 			return // Disconnected while building the list.
@@ -76,6 +79,9 @@
 //returns an associative nested list of each matching row's ban id, bantime, ban round id, expiration time, ban duration, applies to admins, reason, key, ip, cid and banning admin's key in that order
 /proc/is_banned_from_with_details(player_ckey, player_ip, player_cid, role)
 	if(!player_ckey && !player_ip && !player_cid)
+		return
+	// pre-auth users can't be banned
+	if(IS_PREAUTH_CKEY(player_ckey))
 		return
 	var/ssqlname = CONFIG_GET(string/serversqlname)
 	var/server_check
@@ -147,6 +153,9 @@
 	if(!SSdbcore.Connect())
 		return
 	if(QDELETED(player_client))
+		return
+	// Gotta be authenticated for this to work
+	if(!player_client.logged_in)
 		return
 	var/current_time = REALTIMEOFDAY
 	player_client.ban_cache_start = current_time

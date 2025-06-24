@@ -35,6 +35,7 @@
 		return
 	if(logged_in)
 		return
+	// Set this early so that we can rely on it in setup (for things like build_ban_cache)
 	logged_in = TRUE
 	var/ckey = ckey(new_key)
 	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey])")
