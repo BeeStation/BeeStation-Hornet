@@ -34,11 +34,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = 26;
-	use_power = 0
-	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
 /area/template_noop)
