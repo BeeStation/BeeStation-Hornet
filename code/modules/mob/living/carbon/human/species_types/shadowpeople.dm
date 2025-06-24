@@ -163,8 +163,8 @@
 	icon_state = "brain-x-d"
 	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
 
-/obj/item/organ/brain/nightmare/on_insert(mob/living/carbon/brain_owner)
-	..()
+/obj/item/organ/brain/nightmare/Insert(mob/living/carbon/brain_owner, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE)
+	. = ..()
 	if(brain_owner.dna.species.id != SPECIES_NIGHTMARE)
 		brain_owner.set_species(/datum/species/shadow/nightmare)
 		visible_message(span_warning("[brain_owner] thrashes as [src] takes root in [brain_owner.p_their()] body!"))
@@ -173,7 +173,7 @@
 	our_jaunt.Grant(brain_owner)
 
 
-/obj/item/organ/brain/nightmare/on_remove(mob/living/carbon/brain_owner)
+/obj/item/organ/brain/nightmare/Remove(mob/living/carbon/M, special = FALSE, no_id_transfer = FALSE, pref_load)
 	QDEL_NULL(our_jaunt)
 	return ..()
 

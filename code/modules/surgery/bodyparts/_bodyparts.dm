@@ -108,6 +108,9 @@
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
 
+	///A list of all the external organs we've got stored to draw horns, wings and stuff with (special because we are actually in the limbs unlike normal organs :/ )
+	var/list/obj/item/organ/external/external_organs = list()
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -580,7 +583,7 @@
 	add_overlay(standing)
 
 
-/obj/item/bodypart/proc/get_limb_icon(dropped)
+/obj/item/bodypart/proc/get_limb_icon(dropped, draw_external_organs)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
@@ -641,6 +644,24 @@
 		limb.color = "#[draw_color]"
 		if(aux_zone)
 			aux.color = "#[draw_color]"
+
+	if(!draw_external_organs)
+		return
+
+	//Draw external organs like horns and frills
+	for(var/obj/item/organ/external/external_organ in external_organs)
+		if(!dropped && !external_organ.can_draw_on_bodypart(owner))
+			continue
+		//Some externals have multiple layers for background, foreground and between
+		for(var/external_layer in external_organ.all_layers)
+			if(external_organ.layers & external_layer)
+				external_organ.get_overlays(
+					.,
+					image_dir,
+					external_organ.bitflag_to_layer(external_layer),
+					limb_gender,
+					external_organ.overrides_color ? external_organ.override_color(draw_color) : "#[draw_color]"
+				)
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	SHOULD_CALL_PARENT(TRUE)

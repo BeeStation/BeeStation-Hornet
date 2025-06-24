@@ -59,7 +59,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/list/forced_features = list()	// A list of features forced on characters
 
-	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	///List of external organs to generate like horns, frills, wings, etc. list(typepath of organ = "Round Beautiful BDSM Snout"). Still WIP
+	var/list/external_organs = list()
+
+	///Multiplier for the race's speed. Positive numbers make it move slower, negative numbers make it move faster.
+	var/speedmod = 0
 	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/brutemod = 1	// multiplier for brute damage
 	var/burnmod = 1		// multiplier for burn damage
@@ -131,7 +135,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Replaces default appendix with a different organ.
 	var/obj/item/organ/appendix/mutantappendix = /obj/item/organ/appendix
 	///Replaces default wings with a different organ. (There should be no default wings, only those on moths & apids, thus null)
-	var/obj/item/organ/wings/mutantwings = null
+	var/obj/item/organ/external/wings/mutantwings = null
 	//only an honorary mutantthing because not an organ and not loaded in the same way, you've been warned to do your research
 	var/obj/item/mutanthands
 
@@ -281,7 +285,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return mutantliver
 		if(ORGAN_SLOT_STOMACH)
 			return mutantstomach
-		if(ORGAN_SLOT_WINGS)
+		if(ORGAN_SLOT_EXTERNAL_WINGS)
 			return mutantwings
 		else
 			CRASH("Invalid organ slot [slot]")
@@ -318,12 +322,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		ORGAN_SLOT_TONGUE,
 		ORGAN_SLOT_LIVER,
 		ORGAN_SLOT_STOMACH,
-		ORGAN_SLOT_WINGS
+		ORGAN_SLOT_EXTERNAL_WINGS
 	)
 
 	//if theres no added wing type, we want to avoid adding a null(rkz code lol)
 	if(isnull(mutantwings))
-		organ_slots -= ORGAN_SLOT_WINGS
+		organ_slots -= ORGAN_SLOT_EXTERNAL_WINGS
 
 	for(var/slot in organ_slots)
 		var/obj/item/organ/existing_organ = organ_holder.get_organ_slot(slot)
@@ -386,9 +390,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(current_organ)
 				current_organ.Remove(organ_holder)
 				QDEL_NULL(current_organ)
-
-	/*
-	for(var/obj/item/organ/external/external_organ in organ_holder.organs)
+	for(var/obj/item/organ/external/external_organ in organ_holder.internal_organs)
 		// External organ checking. We need to check the external organs owned by the carbon itself,
 		// because we want to also remove ones not shared by its species.
 		// This should be done even if species was not changed.
@@ -397,19 +399,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		external_organ.Remove(organ_holder)
 		QDEL_NULL(external_organ)
-	*/
 
-	var/list/species_organs = mutant_organs /*+ external_organs*/
+	var/list/species_organs = mutant_organs + external_organs
+
 	for(var/organ_path in species_organs)
 		var/obj/item/organ/current_organ = organ_holder.get_organ_by_type(organ_path)
-		/*
-		if(ispath(organ_path, /obj/item/organ/external) && !should_external_organ_apply_to(organ_path, organ_holder))
-			if(!isnull(current_organ) && replace_current)
-				// if we have an organ here and we're replacing organs, remove it
-				current_organ.Remove(organ_holder)
-				QDEL_NULL(current_organ)
-			continue
-		*/
 
 		if(!current_organ || replace_current)
 			var/obj/item/organ/replacement = SSwardrobe.provide_type(organ_path)
@@ -483,6 +477,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
 			head.mouth = FALSE
 
+	if(ishuman(C))
+		var/mob/living/carbon/human/human = C
+		for(var/obj/item/organ/external/organ_path as anything in external_organs)
+			//Load a persons preferences from DNA
+			var/feature_key_name = human.dna.features[initial(organ_path.preference)]
+
+			var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
+			new_organ.set_sprite(feature_key_name)
+			new_organ.Insert(human, special=TRUE, drop_if_replaced=FALSE)
+
 	for(var/X in inherent_traits)
 		ADD_TRAIT(C, X, SPECIES_TRAIT)
 
@@ -538,6 +542,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	for(var/X in inherent_traits)
 		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
+	for(var/obj/item/organ/external/organ in C.internal_organs)
+		if(organ.type in external_organs)
+			organ.Remove(C)
+			qdel(organ)
 
 	//If their inert mutation is not the same, swap it out
 	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(C.dna.mutation_index) && (inert_mutation in C.dna.mutation_index))
@@ -920,35 +928,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else if (mutant_bodyparts["tail"])
 			bodyparts_to_add -= "waggingspines"
 
-	if(mutant_bodyparts["snout"]) //Take a closer look at that snout!
-		if((H.wear_mask?.flags_inv & HIDESNOUT) || (H.head?.flags_inv & HIDESNOUT) || !HD)
-			bodyparts_to_add -= "snout"
-
-	if(mutant_bodyparts["frills"])
-		if(!H.dna.features["frills"] || H.dna.features["frills"] == "None" || (H.head?.flags_inv & HIDEEARS) || !HD)
-			bodyparts_to_add -= "frills"
-
-	if(mutant_bodyparts["horns"])
-		if(!H.dna.features["horns"] || H.dna.features["horns"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
-			bodyparts_to_add -= "horns"
-
 	if(mutant_bodyparts["ears"])
 		if(!H.dna.features["ears"] || H.dna.features["ears"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ears"
-
-	if(mutant_bodyparts["wings"])
-		if(!H.dna.features["wings"] || H.dna.features["wings"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
-			bodyparts_to_add -= "wings"
-
-	if(mutant_bodyparts["wings_open"])
-		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception)))
-			bodyparts_to_add -= "wings_open"
-		else if (mutant_bodyparts["wings"])
-			bodyparts_to_add -= "wings_open"
-
-	if(mutant_bodyparts["moth_antennae"])
-		if(!H.dna.features["moth_antennae"] || H.dna.features["moth_antennae"] == "None" || !HD)
-			bodyparts_to_add -= "moth_antennae"
 
 	if(mutant_bodyparts["ipc_screen"])
 		if(!H.dna.features["ipc_screen"] || H.dna.features["ipc_screen"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
@@ -1043,32 +1025,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.spines_list[H.dna.features["spines"]]
 				if("waggingspines")
 					S = GLOB.animated_spines_list[H.dna.features["spines"]]
-				if("snout")
-					S = GLOB.snouts_list[H.dna.features["snout"]]
-				if("frills")
-					S = GLOB.frills_list[H.dna.features["frills"]]
-				if("horns")
-					S = GLOB.horns_list[H.dna.features["horns"]]
 				if("ears")
 					S = GLOB.ears_list[H.dna.features["ears"]]
 				if("body_markings")
 					S = GLOB.body_markings_list[H.dna.features["body_markings"]]
-				if("wings")
-					S = GLOB.wings_list[H.dna.features["wings"]]
-				if("wingsopen")
-					S = GLOB.wings_open_list[H.dna.features["wings"]]
 				if("legs")
 					S = GLOB.legs_list[H.dna.features["legs"]]
-				if("moth_wings")
-					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-						S = GLOB.moth_wings_list["Burnt Off"]
-					else
-						S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
-				if("moth_antennae")
-					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-						S = GLOB.moth_antennae_list["Burnt Off"]
-					else
-						S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
 				if("moth_wingsopen")
 					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("moth_markings")
@@ -1194,8 +1156,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		if((H.health <= H.crit_threshold) && takes_crit_damage)
 			H.adjustBruteLoss(0.5 * delta_time)
-	if(H.get_organ_by_type(/obj/item/organ/wings))
-		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
@@ -2274,6 +2234,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!CanIgniteMob(H))
 		return TRUE
 	if(H.on_fire)
+		SEND_SIGNAL(H, COMSIG_HUMAN_BURNING)
 		//the fire tries to damage the exposed clothes and items
 		var/list/burning_items = list()
 		var/obscured = H.check_obscured_slots(TRUE)
@@ -2348,26 +2309,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 ////////////
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-	if(H.get_organ_by_type(/obj/item/organ/wings))
-		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
-			flyslip(H)
-	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
-
-//////////////
-//Space Move//
-//////////////
-
-/datum/species/proc/space_move(mob/living/carbon/human/H)
-	if(H.loc && !isspaceturf(H.loc) && H.get_organ_by_type(/obj/item/organ/wings))
-		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(wings.flight_level == WINGS_FLIGHTLESS)
-			var/datum/gas_mixture/current = H.loc.return_air()
-			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
-				return TRUE
 	if(H.movement_type & FLYING)
-		return TRUE
-	return FALSE
+		var/obj/item/organ/external/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+		if(wings)
+			wings.toggle_flight(H)
+			wings.fly_slip(H)
+	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
 
 /datum/species/proc/negates_gravity(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)
@@ -2381,78 +2328,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
 	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
 	tail?.set_wagging(H, FALSE)
-
-///////////////
-//FLIGHT SHIT//
-///////////////
-
-/datum/species/proc/handle_flight(mob/living/carbon/human/H)
-	if(H.movement_type & FLYING)
-		if(!CanFly(H))
-			toggle_flight(H)
-			return FALSE
-		return TRUE
-	else
-		return FALSE
-
-/datum/species/proc/CanFly(mob/living/carbon/human/H)
-	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-	if(!H.get_organ_by_type(/obj/item/organ/wings))
-		return FALSE
-	if(H.stat || H.body_position == LYING_DOWN)
-		return FALSE
-	var/turf/T = get_turf(H)
-	if(!T)
-		return FALSE
-	if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-		return FALSE
-	var/datum/gas_mixture/environment = T.return_air()
-	if(environment && !(environment.return_pressure() > 30) && wings.flight_level <= WINGS_FLYING)
-		to_chat(H, span_warning("The atmosphere is too thin for you to fly!"))
-		return FALSE
-	else
-		return TRUE
-
-/datum/species/proc/flyslip(mob/living/carbon/human/H)
-	var/obj/buckled_obj
-	if(H.buckled)
-		buckled_obj = H.buckled
-
-	to_chat(H, span_notice("Your wings spazz out and launch you!"))
-
-	for(var/obj/item/I in H.held_items)
-		H.accident(I)
-
-	var/olddir = H.dir
-
-	H.stop_pulling()
-	if(buckled_obj)
-		buckled_obj.unbuckle_mob(H)
-		step(buckled_obj, olddir)
-	else
-		new /datum/forced_movement(H, get_ranged_target_turf(H, olddir, 4), 1, FALSE, CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, spin), 1, 1))
-	return TRUE
-
-//UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
-/datum/species/proc/toggle_flight(mob/living/carbon/human/H)
-	if(!HAS_TRAIT_FROM(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT))
-		stunmod *= 2
-		speedmod -= 0.35
-		ADD_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
-		H.pass_flags |= PASSTABLE
-		if((H.dna.species.mutant_bodyparts["wings"]) || (H.dna.species.mutant_bodyparts["moth_wings"]))
-			H.Togglewings()
-	else
-		stunmod *= 0.5
-		speedmod += 0.35
-		REMOVE_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
-		H.pass_flags &= ~PASSTABLE
-		if((H.dna.species.mutant_bodyparts["wingsopen"]) || (H.dna.species.mutant_bodyparts["moth_wingsopen"]))
-			H.Togglewings()
-		if(isturf(H.loc))
-			var/turf/T = H.loc
-			T.Entered(H)
-	H.refresh_gravity()
 
 ///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
 /datum/species/proc/get_custom_icons(var/part)
@@ -3067,8 +2942,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_types_to_preload()
 	var/list/to_store = list()
 	to_store += mutant_organs
-	//for(var/obj/item/organ/external/horny as anything in external_organs)
-	//	to_store += horny //Haha get it?
+	for(var/obj/item/organ/external/horny as anything in external_organs)
+		to_store += horny //Haha get it?
 
 	//Don't preload brains, cause reuse becomes a horrible headache
 	to_store += mutantheart
@@ -3079,7 +2954,5 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	to_store += mutantliver
 	to_store += mutantstomach
 	to_store += mutantappendix
-	//Store wings for now...
-	to_store += mutantwings
 	//We don't cache mutant hands because it's not constrained enough, too high a potential for failure
 	return to_store

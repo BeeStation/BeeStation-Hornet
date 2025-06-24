@@ -30,7 +30,7 @@
 	visual = FALSE
 	item_flags = NOBLUDGEON
 	organ_flags = null
-	slot = "hivecore"
+	slot = ORGAN_SLOT_MONSTER_CORE
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/inert = 0

@@ -62,4 +62,4 @@
 	name = "Pair of Moth Wings"
 	description = "Central Command's moth janitor has had its wings burnt off. Care to ship a replacement pair?"
 	reward = 3000
-	wanted_types = list(/obj/item/organ/wings/moth)
+	wanted_types = list(/obj/item/organ/external/wings/moth)

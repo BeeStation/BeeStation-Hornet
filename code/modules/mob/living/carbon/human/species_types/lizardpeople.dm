@@ -15,13 +15,15 @@
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list(
 		"tail_lizard" = "Smooth",
-		"snout" = "Round",
-		"horns" = "None",
-		"frills" = "None",
 		"spines" = "None",
 		"body_markings" = "None",
 		"legs" = "Normal Legs",
 		"body_size" = "Normal"
+	)
+	external_organs = list(
+		/obj/item/organ/external/horns = "None",
+		/obj/item/organ/external/frills = "None",
+		/obj/item/organ/external/snout = "Round"
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard
 	mutant_organs = list(/obj/item/organ/tail/lizard)

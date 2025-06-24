@@ -170,9 +170,9 @@
 		L[DNA_HUMAN_TAIL_BLOCK] = construct_block(GLOB.tails_list_human.Find(features["tail_human"]), GLOB.tails_list_human.len)
 	if(features["ears"])
 		L[DNA_EARS_BLOCK] = construct_block(GLOB.ears_list.Find(features["ears"]), GLOB.ears_list.len)
-	if(features["moth_wings"] != "Burnt Off")
+	if(features["moth_wings"])
 		L[DNA_MOTH_WINGS_BLOCK] = construct_block(GLOB.moth_wings_list.Find(features["moth_wings"]), GLOB.moth_wings_list.len)
-	if(features["moth_antennae"] != "Burnt Off")
+	if(features["moth_antennae"])
 		L[DNA_MOTH_ANTENNAE_BLOCK] = construct_block(GLOB.moth_antennae_list.Find(features["moth_antennae"]), GLOB.moth_antennae_list.len)
 	if(features["moth_markings"])
 		L[DNA_MOTH_MARKINGS_BLOCK] = construct_block(GLOB.moth_markings_list.Find(features["moth_markings"]), GLOB.moth_markings_list.len)
@@ -651,13 +651,13 @@
 	if(dna.features["diona_pbody"])
 		dna.features["diona_pbody"] = GLOB.diona_pbody_list[deconstruct_block(getblock(features, DNA_DIONA_PBODY_BLOCK), GLOB.diona_pbody_list.len)]
 
-	// Ensure we update the skin tone of all non-foreign bodyparts
-	//for(var/obj/item/bodypart/part in bodyparts)
-	//	part.update_limb(dropping_limb = FALSE, is_creating = TRUE)
 	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color
+
+	for(var/obj/item/organ/external/external_organ in internal_organs)
+		external_organ.mutate_feature(features, src)
 
 	if(icon_update)
 		dna.species.handle_body(src)

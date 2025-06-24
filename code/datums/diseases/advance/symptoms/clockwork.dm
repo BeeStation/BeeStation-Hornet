@@ -148,8 +148,8 @@
 					var/obj/item/organ/tail/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
 					return TRUE
-				if(ORGAN_SLOT_WINGS)
-					var/obj/item/organ/wings/cybernetic/clockwork/organ = new()
+				if(ORGAN_SLOT_EXTERNAL_WINGS)
+					var/obj/item/organ/external/wings/cybernetic/clockwork/organ = new()
 					if(robustbits)
 						organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
@@ -324,14 +324,11 @@
 	status = ORGAN_ROBOTIC
 
 
-/obj/item/organ/wings/cybernetic/clockwork
+/obj/item/organ/external/wings/cybernetic/clockwork
 	name = "biometallic wings"
 	desc = "A pair of thin metallic membranes."
 	flight_level = WINGS_FLIGHTLESS
-	wing_type = "Clockwork"
 	icon_state = "clockwings"
-	basewings = "moth_wings"
-	canopen = FALSE
 
 /obj/item/organ/tail/clockwork
 	name = "biomechanical tail"

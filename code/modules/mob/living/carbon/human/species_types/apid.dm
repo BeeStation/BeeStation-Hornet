@@ -14,7 +14,7 @@
 	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
-	mutantwings = /obj/item/organ/wings/bee
+	mutantwings = /obj/item/organ/external/wings/bee
 	mutanttongue = /obj/item/organ/tongue/bee
 	burnmod = 1.5
 	toxmod = 1.5

@@ -14,7 +14,7 @@
 	var/static/list/test_organ_blacklist = typecacheof(list(
 		//obj/item/organ/internal,
 		//obj/item/organ/external,
-		/obj/item/organ/wings,
+		/obj/item/organ/external/wings,
 		/obj/item/organ/cyberimp,
 		/obj/item/organ/cyberimp/brain,
 		/obj/item/organ/cyberimp/mouth,

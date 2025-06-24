@@ -373,16 +373,16 @@
 /datum/mutation/strongwings/on_acquiring()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/external/wings/wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(!wings)
 		to_chat(owner, span_warning("You don't have wings to strengthen!"))
 		return
-	if(istype(wings, /obj/item/organ/wings/moth))
-		var/obj/item/organ/wings/moth/moth_wings = wings
+	if(istype(wings, /obj/item/organ/external/wings/moth))
+		var/obj/item/organ/external/wings/moth/moth_wings = wings
 		moth_wings.flight_level += 1
 		moth_wings.Refresh(owner)
-	else if(istype(wings, /obj/item/organ/wings/bee))
-		var/obj/item/organ/wings/bee/bee_wings = wings
+	else if(istype(wings, /obj/item/organ/external/wings/bee))
+		var/obj/item/organ/external/wings/bee/bee_wings = wings
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
 	else
 		to_chat(owner, span_warning("Those wings are incompatible with the mutation!"))
@@ -392,22 +392,22 @@
 /datum/mutation/strongwings/on_losing()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/external/wings/wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(!wings)
 		return
-	if(istype(wings, /obj/item/organ/wings/moth))
-		var/obj/item/organ/wings/moth/moth_wings = wings
+	if(istype(wings, /obj/item/organ/external/wings/moth))
+		var/obj/item/organ/external/wings/moth/moth_wings = wings
 		moth_wings.flight_level -= 1
 		moth_wings.Refresh(owner)
 		to_chat(owner, span_warning("Your wings feel weak."))
-	else if(istype(wings, /obj/item/organ/wings/bee))
-		var/obj/item/organ/wings/bee/bee_wings = wings
+	else if(istype(wings, /obj/item/organ/external/wings/bee))
+		var/obj/item/organ/external/wings/bee/bee_wings = wings
 		bee_wings.jumpdist = initial(bee_wings.jumpdist)
 		to_chat(owner, span_warning("Your wings feel weak."))
 
 /datum/mutation/strongwings/modify()
 	..()
-	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/external/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
 /datum/mutation/catclaws

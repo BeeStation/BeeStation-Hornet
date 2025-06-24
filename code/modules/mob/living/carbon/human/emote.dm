@@ -212,7 +212,7 @@
 		if(H.dna.features["wings"] != "None")
 			return TRUE
 		if(H.dna.features["moth_wings"] != "None")
-			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
+			var/obj/item/organ/external/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 			if(istype(wings))
 				if(wings.flight_level >= WINGS_FLYING)
 					return TRUE
@@ -221,12 +221,10 @@
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)
 		return FALSE
-	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/external/wings/wings = get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(istype(wings))
 		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
 			return FALSE
-		if(wings.toggleopen(src))
-			return TRUE
 	return FALSE
 
 

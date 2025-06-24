@@ -194,7 +194,7 @@
 		lip_style = null
 		lip_color = "white"
 
-/obj/item/bodypart/head/get_limb_icon(dropped)
+/obj/item/bodypart/head/get_limb_icon(dropped, draw_external_organs)
 	cut_overlays()
 	. = ..()
 
