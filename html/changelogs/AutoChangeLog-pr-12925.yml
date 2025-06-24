@@ -1,0 +1,5 @@
+author: BarteG44
+delete-after: true
+changes:
+  - bugfix: fixed Cardstation's SM
+  - bugfix: fixed conveyors' layer
