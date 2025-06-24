@@ -522,12 +522,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 
 /obj/effect/spawner/hangover_spawn/Initialize(mapload)
 	. = ..()
-	return INITIALIZE_HINT_QDEL
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/spawner/hangover_spawn/LateInitialize()
 	. = ..()
+	// Birthday
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BIRTHDAY))
-		party_debris += new /obj/effect/decal/cleanable/confetti(get_turf(src)) //a birthday celebration can also be a hangover
+		party_debris += new /obj/effect/decal/cleanable/confetti(get_turf(src))
 		var/list/bonus_confetti = GLOB.alldirs
 		for(var/confettis in bonus_confetti)
 			var/party_turf_to_spawn_on = get_step(src, confettis)
@@ -544,26 +545,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 				party_debris += new /obj/effect/decal/cleanable/confetti(party_turf_to_spawn_on)
 			if(prob(10))
 				party_debris += new /obj/item/toy/balloon(party_turf_to_spawn_on)
+	// Hangover
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		if(prob(60))
+			hangover_debris += new /obj/effect/decal/cleanable/vomit(get_turf(src))
+		if(prob(70))
+			var/bottle_count = rand(1, 3)
+			for(var/index in 1 to bottle_count)
+				var/turf/turf_to_spawn_on = get_step(src, pick(GLOB.alldirs))
+				if(!isopenturf(turf_to_spawn_on))
+					continue
+				var/dense_object = FALSE
+				for(var/atom/content in turf_to_spawn_on.contents)
+					if(content.density)
+						dense_object = TRUE
+						break
+				if(dense_object)
+					continue
+				hangover_debris += new /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty(turf_to_spawn_on)
 
-	if(!HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
-		return
-
-	if(prob(60))
-		hangover_debris += new /obj/effect/decal/cleanable/vomit(get_turf(src))
-	if(prob(70))
-		var/bottle_count = rand(1, 3)
-		for(var/index in 1 to bottle_count)
-			var/turf/turf_to_spawn_on = get_step(src, pick(GLOB.alldirs))
-			if(!isopenturf(turf_to_spawn_on))
-				continue
-			var/dense_object = FALSE
-			for(var/atom/content in turf_to_spawn_on.contents)
-				if(content.density)
-					dense_object = TRUE
-					break
-			if(dense_object)
-				continue
-			hangover_debris += new /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty(turf_to_spawn_on)
+	qdel(src)
 
 /obj/effect/spawner/hangover_spawn/Destroy()
 	hangover_debris = null
