@@ -69,6 +69,7 @@
 	name = "Employee Birthday"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 2
+	force = TRUE
 	show_in_report = TRUE
 	report_message = "We here at Nanotrasen would all like to wish Employee Name a very happy birthday"
 	trait_to_give = STATION_TRAIT_BIRTHDAY
@@ -85,7 +86,8 @@
 
 /datum/station_trait/birthday/New()
 	. = ..()
-	RegisterSignals(SSdcs, list(COMSIG_GLOB_JOB_AFTER_SPAWN), PROC_REF(on_job_after_spawn))
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(create_spawners))
 
 /datum/station_trait/birthday/revert()
 	for(var/obj/effect/spawner/hangover_spawn/party_spot in spawns)
@@ -99,19 +101,38 @@
 			message_admins("Attempted to make [birthday_override_ckey] the birthday person but they are not a valid station role. A random birthday person has be selected instead.")
 
 	if(!birthday_person)
-		birthday_person = pick(GLOB.human_list)
-		birthday_person_name = birthday_person.real_name
+		var/list/birthday_options = list()
+		for(var/mob/living/carbon/human/human in GLOB.human_list)
+			if(human.mind?.assigned_role in get_all_jobs())
+				birthday_options += human
+		if(length(birthday_options))
+			birthday_person = pick(birthday_options)
+			birthday_person_name = birthday_person.real_name
 
 	addtimer(CALLBACK(src, PROC_REF(announce_birthday)), 10 SECONDS)
+
+/datum/station_trait/birthday/proc/create_spawners()
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(pick_turfs_and_spawn))
+	UnregisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE)
+
+/datum/station_trait/birthday/proc/pick_turfs_and_spawn()
+	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms), rand(200, 300))
+	for(var/turf/turf as() in turfs)
+		spawns += new /obj/effect/spawner/hangover_spawn(turf)
 
 /datum/station_trait/birthday/proc/check_valid_override()
 	var/mob/living/carbon/human/birthday_override_mob = get_mob_by_ckey(birthday_override_ckey)
 	if(isnull(birthday_override_mob))
 		return FALSE
 
-	birthday_person = birthday_override_mob
-	birthday_person_name = birthday_person.real_name
-	return TRUE
+	if(birthday_override_mob.mind?.assigned_role in get_all_jobs())
+		birthday_person = birthday_override_mob
+		birthday_person_name = birthday_person.real_name
+		return TRUE
+	else
+		return FALSE
 
 /datum/station_trait/birthday/proc/announce_birthday()
 	report_message = "We here at Nanotrasen would all like to wish [birthday_person ? birthday_person_name : "Employee Name"] a very happy birthday"
@@ -130,22 +151,22 @@
 		/obj/item/clothing/head/costume/festive = 2,
 		/obj/item/clothing/head/utility/hardhat/cakehat = 1,
 	))
-	hat = new hat(spawned_mob)
-	if(!spawned_mob.equip_to_slot_if_possible(hat, ITEM_SLOT_HEAD, disable_warning = TRUE))
-		spawned_mob.equip_to_slot_or_del(hat, ITEM_SLOT_BACKPACK)
+	hat = new hat(living_mob)
+	if(!living_mob.equip_to_slot_if_possible(hat, ITEM_SLOT_HEAD, disable_warning = TRUE))
+		living_mob.equip_to_slot_or_del(hat, ITEM_SLOT_BACKPACK)
 	var/obj/item/toy = pick_weight(list(
 		/obj/item/reagent_containers/spray/chemsprayer/party = 4,
 		/obj/item/toy/balloon = 2,
 		/obj/item/sparkler = 2,
 		/obj/item/clothing/mask/party_horn = 2,
 	))
-	toy = new toy(spawned_mob)
+	toy = new toy(living_mob)
 	if(istype(toy, /obj/item/toy/balloon))
-		spawned_mob.equip_to_slot_or_del(toy, ITEM_SLOT_HANDS) //Balloons do not fit inside of backpacks.
+		living_mob.equip_to_slot_or_del(toy, ITEM_SLOT_HANDS) //Balloons do not fit inside of backpacks.
 	else
-		spawned_mob.equip_to_slot_or_del(toy, ITEM_SLOT_BACKPACK)
+		living_mob.equip_to_slot_or_del(toy, ITEM_SLOT_BACKPACK)
 
 	if(birthday_person) //Anyone who joins after the annoucement gets one of these.
-		var/obj/item/birthday_invite/birthday_invite = new(spawned_mob)
+		var/obj/item/birthday_invite/birthday_invite = new(living_mob)
 		birthday_invite.setup_card(birthday_person.name)
-		spawned_mob.equip_to_slot_or_del(birthday_invite, ITEM_SLOT_HANDS)
+		living_mob.equip_to_slot_or_del(birthday_invite, ITEM_SLOT_HANDS)

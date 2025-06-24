@@ -85,8 +85,8 @@
 
 /datum/station_trait/hangover/proc/pick_turfs_and_spawn()
 	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms), rand(200, 300))
-	for(var/turf/T as() in turfs)
-		spawns += new /obj/effect/spawner/hangover_spawn(T)
+	for(var/turf/turf as() in turfs)
+		spawns += new /obj/effect/spawner/hangover_spawn(turf)
 
 /datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
 	SIGNAL_HANDLER
