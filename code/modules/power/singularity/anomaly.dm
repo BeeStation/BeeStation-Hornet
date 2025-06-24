@@ -3,6 +3,7 @@
  **/
 /obj/anomaly
 	pass_flags_self = PASSANOMALY
+	flags_1 = SUPERMATTER_IGNORES_1
 
 	/// How strong are we?
 	var/energy

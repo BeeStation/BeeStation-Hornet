@@ -150,7 +150,7 @@
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	. = TRUE
 
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return

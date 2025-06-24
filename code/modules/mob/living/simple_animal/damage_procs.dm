@@ -1,6 +1,6 @@
 
 /mob/living/simple_animal/proc/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	bruteloss = round(clamp(bruteloss + amount, 0, maxHealth * 2), DAMAGE_PRECISION)
 	if(updating_health)

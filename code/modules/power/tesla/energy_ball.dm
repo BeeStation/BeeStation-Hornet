@@ -177,7 +177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 		return
 
 	var/mob/living/carbon/carbon_target = target_atom
-	if(carbon_target.incorporeal_move || carbon_target.status_flags & GODMODE)
+	if(carbon_target.incorporeal_move || HAS_TRAIT(carbon_target, TRAIT_GODMODE))
 		return
 
 	for(var/obj/machinery/power/energy_accumulator/grounding_rod/rod in orange(2, src))

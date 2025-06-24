@@ -788,7 +788,7 @@
 #include "code\datums\components\squashable.dm"
 #include "code\datums\components\squeak.dm"
 #include "code\datums\components\stationloving.dm"
-#include "code\datums\components\supermatter.dm"
+#include "code\datums\components\supermatter_crystal.dm"
 #include "code\datums\components\swarming.dm"
 #include "code\datums\components\tackle.dm"
 #include "code\datums\components\tactical.dm"

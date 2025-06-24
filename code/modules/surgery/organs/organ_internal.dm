@@ -123,7 +123,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		organ_owner.internal_organs -= src
 		if(organ_owner.internal_organs_slot[slot] == src)
 			organ_owner.internal_organs_slot.Remove(slot)
-		if((organ_flags & ORGAN_VITAL) && !special && !(organ_owner.status_flags & GODMODE))
+		if((organ_flags & ORGAN_VITAL) && !special && !(HAS_TRAIT(organ_owner, TRAIT_GODMODE)))
 			if(organ_owner.stat != DEAD)
 				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 			organ_owner.death()

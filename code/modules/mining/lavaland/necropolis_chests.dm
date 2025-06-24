@@ -507,14 +507,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 
 	user.forceMove(src)
 	user.notransform = TRUE
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, type)
 
 	can_destroy = FALSE
 
 	addtimer(CALLBACK(src, PROC_REF(unvanish), user), 10 SECONDS)
 
 /obj/effect/immortality_talisman/proc/unvanish(mob/user)
-	user.status_flags &= ~GODMODE
+	REMOVE_TRAIT(user, TRAIT_GODMODE, type)
 	user.notransform = FALSE
 	user.forceMove(get_turf(src))
 

@@ -60,7 +60,7 @@
 	sentience.name = pick(SSxenoarchaeology.xenoa_artifact_names)
 	sentience.real_name = "[sentience.name] - [component_parent?.parent]"
 	sentience.key = ckey
-	sentience.status_flags |= GODMODE
+	ADD_TRAIT(sentience, TRAIT_GODMODE, TRAIT_GENERIC)
 	ADD_TRAIT(sentience, TRAIT_ARTIFACT_IGNORE, TRAIT_GENERIC)
 	//Stop them from wriggling away
 	var/atom/movable/movable = component_parent.parent
