@@ -41957,7 +41957,7 @@
 "lHX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
+	name = "Security Office";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -59231,6 +59231,15 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"rkv" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Office";
+	req_one_access_txt = "1;4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
 "rkB" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -64601,12 +64610,12 @@
 /area/hallway/primary/central)
 "sVK" = (
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
+	name = "Security Office";
 	req_one_access_txt = "1;4"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "sWe" = (
@@ -103898,7 +103907,7 @@ vFv
 msV
 mMb
 nQf
-lHX
+rkv
 czT
 dtZ
 dWU

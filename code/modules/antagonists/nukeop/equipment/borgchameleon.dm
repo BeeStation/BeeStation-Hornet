@@ -29,7 +29,7 @@
 
 /obj/item/borg_chameleon/Initialize(mapload)
 	. = ..()
-	friendlyName = pick(GLOB.ai_names)
+	friendlyName = capitalize(pick(GLOB.ai_names))
 
 /obj/item/borg_chameleon/Destroy()
 	listeningTo = null

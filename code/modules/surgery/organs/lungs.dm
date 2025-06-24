@@ -432,7 +432,7 @@
 	safe_breath_max = 20
 	gas_max = list(
 		/datum/gas/carbon_dioxide = 45,
-		/datum/gas/plasma = MOLES_GAS_VISIBLE
+		/datum/gas/plasma = 1
 	)
 
 /obj/item/organ/lungs/diona

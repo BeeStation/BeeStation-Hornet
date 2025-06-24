@@ -23,6 +23,7 @@
 			new_blob.forceMove(get_turf(possible_expander))
 			possible_expander.forceMove(chosen_turf)
 			possible_expander.setDir(get_dir(new_blob, possible_expander))
+			return
 	overmind.add_points(4)
 	qdel(new_blob)
 
