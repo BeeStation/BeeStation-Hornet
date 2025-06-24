@@ -740,7 +740,7 @@
 "da" = (
 /obj/item/toy/figure/syndie,
 /obj/item/gun/ballistic/automatic/toy/pistol,
-/obj/item/toy/syndicateballoon,
+/obj/item/toy/balloon/syndicate,
 /obj/item/toy/sword,
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /obj/structure/chair/wood/wings{
