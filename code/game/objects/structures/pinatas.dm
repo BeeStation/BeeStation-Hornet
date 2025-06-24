@@ -43,6 +43,7 @@
 
 /obj/structure/pinata/deconstruct(disassembled)
 	new debris(get_turf(src))
+	return ..()
 
 ///An item that when used inhand spawns an immovable pinata
 /obj/item/pinata
