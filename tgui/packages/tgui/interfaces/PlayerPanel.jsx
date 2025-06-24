@@ -32,7 +32,8 @@ const TELEMETRY_COLOR_MAP = {
   'DC': '#aaaaaa',
 };
 
-const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
+const KEY_REGEX =
+  /^(\[[\d:]+\]) ([\S\s]+?)\/\(([^#]+?)?\)(?:#\(([\S\s]+?)?\))? \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
 
 const TIMESTAMP_PARSE_REGEX = /^\[(\d+):(\d+):(\d+)\]/;
 
@@ -628,7 +629,7 @@ class LogViewer extends Component {
     const log_entries = [];
     for (let key of sorted) {
       if (!hideLogKey) {
-        log_entries.push(<LogEntryKey key={key} key_data={key} />);
+        log_entries.push(<LogEntryKey key={key} key_data={key} clientMode={clientLog} />);
       }
       log_entries.push(<LogEntryValue key={key + log_data[key]} value_data={log_data[key]} />);
     }
@@ -675,23 +676,31 @@ class LogViewer extends Component {
 class LogEntryKey extends PureComponent {
   render() {
     const { act } = useBackend();
-    const { key_data } = this.props;
+    const { key_data, clientMode } = this.props;
     let results = KEY_REGEX.exec(key_data);
-    if (results && results.length === 7) {
+    if (results && results.length === 8) {
       let key_obj = {
         timestamp: results[1],
         ckey: results[2],
         character_name: results[3],
-        area_name: results[4],
-        coordinates: results[5],
-        event_number: results[6],
+        external_display_name: results[4],
+        area_name: results[5],
+        coordinates: results[6],
+        event_number: results[7],
       };
       return (
         <Table.Row>
           <Table.Cell collapsing>{key_obj.timestamp}</Table.Cell>
           <Table.Cell collapsing>#{key_obj.event_number}</Table.Cell>
           <Table.Cell style={ELLIPSIS_STYLE}>
-            <TooltipWrap text={key_obj.character_name} />
+            <Tooltip
+              content={
+                clientMode
+                  ? key_obj.character_name
+                  : `${key_obj.ckey}${key_obj.external_display_name ? ` (${key_obj.external_display_name})` : ''}`
+              }>
+              <span>{clientMode ? key_obj.character_name : key_obj.external_display_name || key_obj.ckey}</span>
+            </Tooltip>
           </Table.Cell>
           <Table.Cell
             collapsing

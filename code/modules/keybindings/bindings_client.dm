@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 ))
 
 /proc/input_sanity_check(client/C, key)
-	if(!C?.logged_in)
+	if(!C?.logged_in || !C.prefs)
 		return FALSE
 	if(GLOB.valid_keys[key])
 		return FALSE

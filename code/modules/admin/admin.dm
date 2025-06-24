@@ -28,11 +28,11 @@
 		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.")
 		return
 
-	var/datum/browser/popup = new(usr, "adminplayeropts-[REF(M)]", "<div align='center'>Options for [M.key]</div>", 700, 600)
+	var/datum/browser/popup = new(usr, "adminplayeropts-[REF(M)]", "<div align='center'>Options for [M.key][M.client?.key_is_external ? " (@[M.client.external_display_name])" : ""]</div>", 700, 600)
 
 	var/body = "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>Options panel for <b>[M]</b>"
 	if(M.client)
-		body += " played by <b>[M.client]</b>"
+		body += " played by <b>[M.client.ckey]</b>"
 		body += " <A href='byond://?_src_=holder;[HrefToken()];editrights=[(GLOB.admin_datums[M.client.ckey] || GLOB.deadmins[M.client.ckey]) ? "rank" : "add"];key=[M.key]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>"
 		if(CONFIG_GET(flag/use_exp_tracking))
 			body += " <A href='byond://?_src_=holder;[HrefToken()];getplaytimewindow=[REF(M)]'>" + M.client.get_exp_living() + "</a>"
