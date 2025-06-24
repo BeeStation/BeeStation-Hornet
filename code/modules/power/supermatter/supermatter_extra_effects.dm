@@ -85,13 +85,7 @@
 		if(HAS_MIND_TRAIT(seen_by_sm, TRAIT_SUPERMATTER_SOOTHER))
 			psy_coeff_diff = 0.05
 
-	// TODO: hallucinations
-	//visible_hallucination_pulse(
-	//	center = src,
-	//	radius = SM_HALLUCINATION_RANGE(internal_energy),
-	//	hallucination_duration = internal_energy * hallucination_power,
-	//	hallucination_max_duration = 400 SECONDS,
-	//)
+	hallucination_pulse(src, SM_HALLUCINATION_RANGE(internal_energy), internal_energy * hallucination_power)
 	psy_coeff = clamp(psy_coeff + psy_coeff_diff, 0, 1)
 
 /obj/machinery/power/supermatter_crystal/proc/handle_high_power()

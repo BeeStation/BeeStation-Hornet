@@ -294,13 +294,11 @@
 
 	//-- BZ --//
 	// (Facepunch port of their Agent B)
-	/* TODO: hallucinations
 	if(bz_pp)
 		if(bz_pp > 1)
-			//adjust_hallucinations(20 SECONDS)
+			hallucination += 20 SECONDS
 		else if(bz_pp > 0.01)
-			//adjust_hallucinations(10 SECONDS)
-	*/
+			hallucination += 10 SECONDS
 
 	//-- FREON --//
 	if(freon_pp)

@@ -31,9 +31,8 @@
 		//Hilariously enough, running into a closet should make you get hit the hardest.
 		//duration between min and max, calculated by distance from the supermatter and size of the delam explosion
 
-		//var/hallucination_amount = LERP(DETONATION_HALLUCINATION_MIN, DETONATION_HALLUCINATION_MAX, 1 - get_dist(victim, sm) / 128) * LERP(0.75, 1.25, calculate_explosion(sm) * 0.5 / DELAM_MAX_DEVASTATION)
-		// TODO: hallucinations
-		// victim.adjust_hallucinations(hallucination_amount)
+		var/hallucination_amount = LERP(DETONATION_HALLUCINATION_MIN, DETONATION_HALLUCINATION_MAX, 1 - get_dist(victim, sm) / 128) * LERP(0.75, 1.25, calculate_explosion(sm) * 0.5 / DELAM_MAX_DEVASTATION)
+		victim.hallucination += hallucination_amount
 
 	for(var/mob/victim in GLOB.player_list)
 		var/turf/victim_turf = get_turf(victim)
