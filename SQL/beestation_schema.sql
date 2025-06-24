@@ -510,6 +510,22 @@ INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 4);
 
 
 
+-- Dumping structure for table ss13tgdb.SS13_session
+DROP TABLE IF EXISTS `SS13_session`;
+CREATE TABLE IF NOT EXISTS `SS13_session` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` int(10) unsigned NOT NULL,
+  `session_token` varchar(64) NOT NULL,
+  `external_method` varchar(16) NOT NULL,
+  `external_uid` varchar(32) NOT NULL,
+  `external_display_name` varchar(32) NOT NULL,
+  `valid_until` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `ip_token` (`ip`, `session_token`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 -- Dumping structure for table ss13tgdb.SS13_stickyban
 DROP TABLE IF EXISTS `SS13_stickyban`;
 CREATE TABLE IF NOT EXISTS `SS13_stickyban` (
