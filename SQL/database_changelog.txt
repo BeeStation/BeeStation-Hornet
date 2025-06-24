@@ -8,6 +8,17 @@ INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 3);
 
 In any query remember to add a prefix to the table names if you use one.
 
+-----------------------------------------------------
+Version 7.4, 23 June 2025, by itsmeow
+External Discord ID authentication
+
+IMPORTANT: Before running external auth on production, it is highly recommended to import any known `discord_uid` value to the production SS13_player table.
+This allows users the opportunity to use their existing player data.
+
+ALTER TABLE `SS13_player`
+	ADD COLUMN IF NOT EXISTS `discord_uid` varchar(32) DEFAULT NULL AFTER `byond_key`;
+
+-----------------------------------------------------
 
 -----------------------------------------------------
 Version 7.3, 30 April 2024, by XeonMations

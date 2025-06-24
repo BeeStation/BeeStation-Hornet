@@ -352,6 +352,7 @@ DROP TABLE IF EXISTS `SS13_player`;
 CREATE TABLE IF NOT EXISTS `SS13_player` (
   `ckey` varchar(32) NOT NULL,
   `byond_key` varchar(32) NOT NULL DEFAULT 'Player',
+  `discord_uid` varchar(32) DEFAULT NULL,
   `firstseen` datetime NOT NULL,
   `firstseen_round_id` int(11) unsigned NOT NULL,
   `lastseen` datetime NOT NULL,

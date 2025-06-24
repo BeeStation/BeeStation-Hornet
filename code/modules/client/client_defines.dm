@@ -159,3 +159,6 @@
 	var/show_screentips = TRUE
 	/// Should extended screentips be shown?
 	var/show_extended_screentips = FALSE
+
+	/// New connection TopicData, cached prior to authentication
+	var/temp_topicdata = null

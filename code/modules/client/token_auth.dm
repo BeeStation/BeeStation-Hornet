@@ -1,11 +1,17 @@
-/client/verb/test_login()
-	set name = "Test Login"
+/client/verb/test_ckey_login()
+	set name = "Test CKEY Login"
 	set category = "Login"
 	token_login("Itsmeowdev")
 
+/client/verb/test_discord_login()
+	set name = "Test Discord Login"
+	set category = "Login"
+	token_login("d126059512611340288")
+
 /mob/dead/new_player/pre_auth/Login()
 	. = ..()
-	client?.add_verb(/client/verb/test_login, TRUE)
+	client?.add_verb(/client/verb/test_ckey_login, TRUE)
+	client?.add_verb(/client/verb/test_discord_login, TRUE)
 
 /mob/dead/new_player/pre_auth/proc/convert_to_authed()
 	if(IsAdminAdvancedProcCall())
@@ -53,3 +59,25 @@
 	// send the new CKEY to telemetry
 	tgui_panel.on_message("ready")
 
+/// update byond_key to match the provided username
+/client/proc/update_username_in_db(username)
+	if(!IS_TOKEN_AUTH_KEY(key) || IS_GUEST_KEY(key))
+		return
+	var/sql_key
+	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
+		"SELECT byond_key FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	if(!query_check_byond_key.Execute())
+		qdel(query_check_byond_key)
+		return
+	if(query_check_byond_key.NextRow())
+		sql_key = query_check_byond_key.item[1]
+	qdel(query_check_byond_key)
+	if(username != sql_key)
+		var/datum/db_query/query_update_byond_key = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("player")] SET byond_key = :byond_key WHERE ckey = :ckey",
+			list("byond_key" = username, "ckey" = ckey)
+		)
+		query_update_byond_key.Execute()
+		qdel(query_update_byond_key)

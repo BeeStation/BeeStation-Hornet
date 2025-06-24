@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	///////////
 
 /client/New(TopicData)
-	var/tdata = TopicData //save this for later use
+	temp_topicdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	. = ..()	//calls mob.Login()
 
-	if(!client_post_login(authenticated, TRUE, authenticated && !!(holder || GLOB.deadmins[ckey]), tdata))
+	if(!client_post_login(authenticated, TRUE, authenticated && !!(holder || GLOB.deadmins[ckey])))
 		return null
 	fully_created = TRUE
 
@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	return TRUE
 
-/client/proc/client_post_login(authenticated, first_run, connecting_admin, tdata)
+/client/proc/client_post_login(authenticated, first_run, connecting_admin)
 	if(first_run)
 		if(!check_client_blocked_byond_versions(connecting_admin) || QDELETED(src))
 			return FALSE
@@ -339,48 +339,46 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		init_admin_if_present()
 
 	var/is_guest = IS_GUEST_KEY(key)
-
+	if(authenticated && !is_guest) // guests don't have account ages
+		//we have to cache this because other shit may change it and we need its current value now down below.
+		var/cached_player_age = set_client_age_from_db()
+		// We're done using this now
+		temp_topicdata = null
+		if(QDELETED(src))
+			return
+		// The following is only relevant to BYOND accounts.
+		if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
+			player_age = 0
+		var/nnpa = CONFIG_GET(number/notify_new_player_age)
+		if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
+			if (nnpa >= 0)
+				message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
+				if (CONFIG_GET(flag/irc_first_connection_alert))
+					send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
+		else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
+			message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
 #ifndef USE_EXTERNAL_AUTH
-	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
-	if(QDELETED(src))
-		return
-	// The following is only relevant to BYOND accounts.
-	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
-		player_age = 0
-	var/nnpa = CONFIG_GET(number/notify_new_player_age)
-	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
-		if (nnpa >= 0 && !is_guest)
-			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
+		if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
+			player_age = account_age
+		if(account_age >= 0 && account_age < nnpa)
+			message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
 			if (CONFIG_GET(flag/irc_first_connection_alert))
-				send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
-	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa && !is_guest)
-		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
-	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
-		player_age = account_age
-	if(account_age >= 0 && account_age < nnpa && !is_guest)
-		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
-		if (CONFIG_GET(flag/irc_first_connection_alert))
-			send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
+				send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
 #endif
-	if(authenticated && !is_guest)
 		get_message_output("watchlist entry", ckey)
+
 	if(authenticated)
 		check_ip_intel()
-#ifndef USE_EXTERNAL_AUTH
-	if(!is_guest)
 		validate_key_in_db()
-#endif
 
 	// If we aren't already generating a ban cache, fire off a build request
 	// This way hopefully any users of request_ban_cache will never need to yield
 	if(authenticated && !is_guest && !ban_cache_start && SSban_cache?.query_started)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_ban_cache), src)
 
-#ifndef USE_EXTERNAL_AUTH
-	if(!is_guest)
+	if(authenticated && !is_guest)
 		fetch_uuid()
 		add_verb(/client/proc/show_account_identifier)
-#endif
 
 	if(first_run)
 		send_resources()
@@ -506,13 +504,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				to_chat(world, "Autoadmin rank not found")
 			else
 				new /datum/admins(autorank, ckey)
-	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin)
-		var/localhost_addresses = list("127.0.0.1", "::1")
-		if(isnull(address) || (address in localhost_addresses))
-			if(Debugger?.enabled)
-				to_chat_immediate(src, span_userdanger("Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab."))
-			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
-			new /datum/admins(localhost_rank, ckey, 1, 1)
+	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin && is_localhost())
+		if(Debugger?.enabled)
+			to_chat_immediate(src, span_userdanger("Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab."))
+		var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
+		new /datum/admins(localhost_rank, ckey, 1, 1)
+
+/client/proc/is_localhost()
+	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
+	return isnull(address) || (address in localhost_addresses)
 
 /client/proc/init_admin_if_present()
 	if(holder)
@@ -543,7 +543,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			var/message_type = "Notice"
 
 			var/matches
-			if(joined_player_preferences.last_ip == address)
+			if(!is_localhost() && joined_player_preferences.last_ip == address)
 				matches += "IP ([address])"
 			if(joined_player_preferences.last_id == computer_id)
 				if(matches)
@@ -716,22 +716,29 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
-/client/proc/set_client_age_from_db(connectiontopic)
+/client/proc/set_client_age_from_db()
 	if(IS_GUEST_KEY(key))
 		return
 	if(!SSdbcore.Connect())
 		return
-	var/datum/db_query/query_get_related_ip = SSdbcore.NewQuery(
-		"SELECT ckey FROM [format_table_name("player")] WHERE ip = INET_ATON(:address) AND ckey != :ckey",
-		list("address" = address, "ckey" = ckey)
-	)
-	if(!query_get_related_ip.Execute())
-		qdel(query_get_related_ip)
-		return
+	var/key_or_display_name = key // TODO: update this to use discord usernames for users without a byond ckey
+	// copy numerical portion of token auth key
+	var/discord_uid = null
+	if(IS_TOKEN_AUTH_KEY(key))
+		discord_uid = copytext(key, 2)
+		key_or_display_name = "placeholder_username"
 	related_accounts_ip = ""
-	while(query_get_related_ip.NextRow())
-		related_accounts_ip += "[query_get_related_ip.item[1]], "
-	qdel(query_get_related_ip)
+	if(!is_localhost())
+		var/datum/db_query/query_get_related_ip = SSdbcore.NewQuery(
+			"SELECT ckey FROM [format_table_name("player")] WHERE ip = INET_ATON(:address) AND ckey != :ckey",
+			list("address" = address, "ckey" = ckey)
+		)
+		if(!query_get_related_ip.Execute())
+			qdel(query_get_related_ip)
+			return
+		while(query_get_related_ip.NextRow())
+			related_accounts_ip += "[query_get_related_ip.item[1]], "
+		qdel(query_get_related_ip)
 	var/datum/db_query/query_get_related_cid = SSdbcore.NewQuery(
 		"SELECT ckey FROM [format_table_name("player")] WHERE computerid = :computerid AND ckey != :ckey",
 		list("computerid" = computer_id, "ckey" = ckey)
@@ -747,7 +754,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(holder?.rank)
 		admin_rank = holder.rank.name
 	else
-		if(!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
+		if(!GLOB.deadmins[ckey] && check_randomizer(temp_topicdata))
 			return
 	var/new_player
 	var/datum/db_query/query_client_in_db = SSdbcore.NewQuery(
@@ -778,7 +785,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				var/message = CONFIG_GET(string/panic_bunker_message)
 				message = replacetext(message, "%minutes%", living_recs)
 				to_chat_immediate(src, message)
-				var/list/connectiontopic_a = params2list(connectiontopic)
+				var/list/connectiontopic_a = params2list(temp_topicdata)
 				var/list/panic_addr = CONFIG_GET(string/panic_server_address)
 				if(panic_addr && !connectiontopic_a["redirect"])
 					var/panic_name = CONFIG_GET(string/panic_server_name)
@@ -788,21 +795,22 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				qdel(query_client_in_db)
 				qdel(src)
 				return
-
+	var/safe_storage_address = address || "127.0.0.1"
 	if(!client_is_in_db)
 		new_player = 1
-		account_join_date = findJoinDate()
+		if(!IS_TOKEN_AUTH_KEY(key))
+			account_join_date = findJoinDate()
 		var/datum/db_query/query_add_player = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("player")] (`ckey`, `byond_key`, `firstseen`, `firstseen_round_id`, `lastseen`, `lastseen_round_id`, `ip`, `computerid`, `lastadminrank`, `accountjoindate`)
-			VALUES (:ckey, :key, Now(), :round_id, Now(), :round_id, INET_ATON(:ip), :computerid, :adminrank, :account_join_date)
-		"}, list("ckey" = ckey, "key" = key, "round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = account_join_date || null))
+			INSERT INTO [format_table_name("player")] (`ckey`, `byond_key`, `discord_uid`, `firstseen`, `firstseen_round_id`, `lastseen`, `lastseen_round_id`, `ip`, `computerid`, `lastadminrank`, `accountjoindate`)
+			VALUES (:ckey, :key, :discord_uid, Now(), :round_id, Now(), :round_id, INET_ATON(:ip), :computerid, :adminrank, :account_join_date)
+		"}, list("ckey" = ckey, "key" = key_or_display_name, "discord_uid" = discord_uid, "round_id" = GLOB.round_id, "ip" = safe_storage_address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = account_join_date || null))
 		if(!query_add_player.Execute())
 			qdel(query_client_in_db)
 			qdel(query_add_player)
 			return
 		qdel(query_add_player)
 		if(!account_join_date)
-			account_join_date = "Error"
+			account_join_date = IS_TOKEN_AUTH_KEY(key) ? "N/A" : "Error"
 			account_age = -1
 	qdel(query_client_in_db)
 	var/datum/db_query/query_get_client_age = SSdbcore.NewQuery(
@@ -818,7 +826,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(!account_join_date)
 			account_join_date = query_get_client_age.item[3]
 			account_age = text2num(query_get_client_age.item[4])
-			if(!account_age)
+			if(!account_age && !IS_TOKEN_AUTH_KEY(key))
 				account_join_date = findJoinDate()
 				if(!account_join_date)
 					account_age = -1
@@ -833,11 +841,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 					if(query_datediff.NextRow())
 						account_age = text2num(query_datediff.item[1])
 					qdel(query_datediff)
+			else if(!account_age)
+				account_join_date = "N/A"
+				// dummy large value, this won't be used anywhere on external auth mode anyway
+				account_age = 365
 	qdel(query_get_client_age)
 	if(!new_player)
 		var/datum/db_query/query_log_player = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET lastseen = Now(), lastseen_round_id = :round_id, ip = INET_ATON(:ip), computerid = :computerid, lastadminrank = :admin_rank, accountjoindate = :account_join_date WHERE ckey = :ckey",
-			list("round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "admin_rank" = admin_rank, "account_join_date" = account_join_date || null, "ckey" = ckey)
+			list("round_id" = GLOB.round_id, "ip" = safe_storage_address, "computerid" = computer_id, "admin_rank" = admin_rank, "account_join_date" = account_join_date || null, "ckey" = ckey)
 		)
 		if(!query_log_player.Execute())
 			qdel(query_log_player)
@@ -851,7 +863,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/datum/db_query/query_log_connection = SSdbcore.NewQuery({"
 		INSERT INTO `[format_table_name("connection_log")]` (`id`,`datetime`,`server_name`,`server_ip`,`server_port`,`round_id`,`ckey`,`ip`,`computerid`)
 		VALUES(null,Now(),:server_name,INET_ATON(:internet_address),:port,:round_id,:ckey,INET_ATON(:ip),:computerid)
-	"}, list("server_name" = ssqlname, "internet_address" = world.internet_address || "0", "port" = world.port, "round_id" = GLOB.round_id, "ckey" = ckey, "ip" = address, "computerid" = computer_id))
+	"}, list("server_name" = ssqlname, "internet_address" = world.internet_address || "0", "port" = world.port, "round_id" = GLOB.round_id, "ckey" = ckey, "ip" = safe_storage_address, "computerid" = computer_id))
 	query_log_connection.Execute()
 	qdel(query_log_connection)
 	if(new_player)
@@ -874,6 +886,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			CRASH("Age check regex failed for [ckey]")
 
 /client/proc/validate_key_in_db()
+	if(IS_GUEST_KEY(key))
+		return
+	if(IS_TOKEN_AUTH_KEY(key))
+		update_username_in_db("placeholder_username") // TODO get the username
+		return
 	var/sql_key
 	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
 		"SELECT byond_key FROM [format_table_name("player")] WHERE ckey = :ckey",
@@ -1025,7 +1042,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if (CONFIG_GET(string/ipintel_email))
+	if (!is_localhost() && CONFIG_GET(string/ipintel_email))
 		var/datum/ipintel/res = get_ip_intel(address)
 		if (res.intel >= CONFIG_GET(number/ipintel_rating_bad))
 			message_admins(span_adminnotice("Proxy Detection: [key_name_admin(src)] IP intel rated [res.intel*100]% likely to be a Proxy/VPN."))

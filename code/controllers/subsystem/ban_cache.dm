@@ -40,6 +40,9 @@ SUBSYSTEM_DEF(ban_cache)
 		query_arg_keys += ":key[num_keys]"
 		num_keys++
 
+	if(num_keys == 0)
+		return
+
 	// We're gonna try and make a query for clients
 	var/datum/db_query/query_batch_ban_cache = SSdbcore.NewQuery(
 		"SELECT ckey, role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey IN ([query_arg_keys.Join(",")]) AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW())",
