@@ -281,8 +281,6 @@
 	var/key
 	var/ckey
 	var/fallback_name
-	var/external_source
-	var/external_name
 
 	if(!whom)
 		return "*null*"
@@ -360,7 +358,7 @@
 	if(include_external_name && C?.key_is_external)
 		. += "#("
 		if(include_link) // show an icon
-			. += "<span class='chat16x16 badge-badge_discord' style='vertical-align: -3px;'></span> "
+			. += "<span class='chat16x16 badge-badge_discord' style='vertical-align: -3px;'></span>"
 		else
 			. += "@"
 		. += "[C.external_display_name])"

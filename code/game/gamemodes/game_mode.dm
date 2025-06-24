@@ -735,16 +735,16 @@
 			if(D.mind && D.mind.current == L)
 				if(L.stat == DEAD)
 					if(L.suiciding)	//Suicider
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] ([span_boldannounce("Suicide")])\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.display_key())]), the [L.job] ([span_boldannounce("Suicide")])\n"
 						continue //Disconnected client
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (Dead)\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.display_key())]), the [L.job] (Dead)\n"
 						continue //Dead mob, ghost abandoned
 				else
 					if(D.can_reenter_corpse)
 						continue //Adminghost, or cult/wizard ghost
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] ([span_boldannounce("Ghosted")])\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.display_key())]), the [L.job] ([span_boldannounce("Ghosted")])\n"
 						continue //Ghosted while alive
 
 

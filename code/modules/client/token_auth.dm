@@ -25,7 +25,7 @@
 		return
 	var/mob/dead/new_player/authenticated/authed = new()
 	var/key = client.key
-	authed.name = client.key_is_external ? "@[client.external_display_name]" : key
+	authed.name = client.display_name()
 	authed.key = key
 	qdel(src)
 
@@ -114,6 +114,8 @@
 
 	// send the new CKEY to telemetry
 	tgui_panel.on_message("ready")
+	// Update stat again
+	mob.UpdateMobStat(TRUE)
 	return TRUE
 
 /client/proc/real_byond_key_for_discord_uid(discord_uid)
@@ -171,5 +173,19 @@
 /// Make sure you differentiate display names from BYOND keys by using client.external_method as a tag
 /client/proc/display_name()
 	if(src.key_is_external && !isnull(src.external_display_name))
-		return src.external_display_name
+		return "@[src.external_display_name]"
 	return src.key
+
+/client/proc/display_name_chat()
+	if(src.key_is_external && !isnull(src.external_display_name))
+		return "<span class='chat16x16 badge-badge_[src.external_method]' style='vertical-align: -3px;'></span> @[src.external_display_name]"
+	return src.key
+
+/datum/mind/proc/full_key()
+	return "[key][!isnull(display_name) && display_name != key ? " (@[display_name])" : ""]"
+
+/datum/mind/proc/display_key()
+	return !isnull(display_name) ? display_name : key
+
+/datum/mind/proc/display_key_chat()
+	return !isnull(display_name_chat) ? display_name_chat : key

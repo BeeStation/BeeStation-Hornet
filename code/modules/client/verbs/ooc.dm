@@ -75,9 +75,8 @@ CLIENT_VERB(ooc, msg as text)
 
 	mob.log_talk(raw_msg, LOG_OOC)
 
-	var/keyname = key
-	if(key_is_external)
-		keyname = "@[external_display_name]"
+	var/display_name = display_name()
+	var/keyname = display_name
 	var/ooccolor = prefs?.read_player_preference(/datum/preference/color/ooc_color) || DEFAULT_BONUS_OOC_COLOR
 	if(prefs.unlock_content && prefs.read_player_preference(/datum/preference/toggle/member_public))
 		keyname = "<font color='[ooccolor ? ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"
@@ -104,7 +103,7 @@ CLIENT_VERB(ooc, msg as text)
 				else
 					to_chat(C, "[badge_data][span_ooc("[span_prefix("OOC:")] <EM>[keyname]:</EM> [span_messagelinkify(msg)]")]")
 	// beestation, send to discord
-	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || (key_is_external ? "@[external_display_name]" : key), raw_msg)
+	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || display_name, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
 	var/discord_ooc_tag = CONFIG_GET(string/discord_ooc_tag) // check server config file. check `config.txt` file for the usage.

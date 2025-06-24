@@ -25,7 +25,7 @@
 		I.add_kick_action()
 
 		friend_initialized = TRUE
-		to_chat(owner, span_notice("You have acquired the mentor rat [friend.key], ask them any question you like. They will leave your presence when they are done."))
+		to_chat(owner, span_notice("You have acquired the mentor rat [C.client?.display_name_chat() || C.key], ask them any question you like. They will leave your presence when they are done."))
 	else
 		to_chat(owner, span_warning("No mentor responded to your request. Try again later."))
 		qdel(src)

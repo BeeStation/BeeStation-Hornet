@@ -16,7 +16,7 @@ CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check the ad
 		msg = "<b>Current Admins:</b>\n"
 		for(var/client/C in GLOB.admins)
 			var/rank = "\improper [C.holder.rank]"
-			msg += "\t[C] is \a [rank]"
+			msg += "\t[C.display_name_chat()] is \a [rank]"
 
 			if(C.holder.fakekey)
 				msg += " <i>(as [C.holder.fakekey])</i>"
@@ -33,7 +33,7 @@ CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check the ad
 			msg += "\n"
 		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
-			msg += "\t[C] is a Mentor"
+			msg += "\t[C.display_name_chat()] is a Mentor"
 
 			if(isobserver(C.mob))
 				msg += " - Observing"
@@ -56,10 +56,10 @@ CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check the ad
 			if(!C.holder.fakekey)
 				if(check_rights_for(C, R_ADMIN)) // ahelp needs R_ADMIN. If they have R_ADMIN, they'll be listed in admin list.
 					var/rank = "\improper [C.holder.rank]"
-					admin_list += "\t[C] is \a [rank]\n"
+					admin_list += "\t[C.display_name_chat()] is \a [rank]\n"
 				else // admins without R_ADMIN perm should be sorted in different area, so that people won't believe coders will handle ahelp
 					var/rank = "\improper [C.holder.rank]"
-					non_admin_list += "\t[C] is \a [rank]\n"
+					non_admin_list += "\t[C.display_name_chat()] is \a [rank]\n"
 
 		msg = "<b>Current Admins:</b>\n"
 		for(var/each in admin_list)
@@ -73,7 +73,7 @@ CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check the ad
 		for(var/client/C in GLOB.mentors)
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
-			msg += "\t[C] is a Mentor\n"
+			msg += "\t[C.display_name_chat()] is a Mentor\n"
 
 		msg += span_info("Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.")
 		if(world.time - src.staff_check_rate > 1 MINUTES)
