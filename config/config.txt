@@ -242,19 +242,17 @@ GUEST_BAN
 ## This overrides GUEST_BAN. Guests may connect but will not be able to play without authenticating.
 ## If the DISABLE_BYOND_AUTH compile flag is set, all connecting CKEYs will be forced to authorize.
 ## Disable LOCALHOST_AUTH_BYPASS to test this on localhost.
-ENABLE_GUEST_EXTERNAL_AUTH
+# ENABLE_GUEST_EXTERNAL_AUTH
 
 ## Comment this out to require locally connected clients to go through the same authorization checks as any user.
 ## This can be used to test external auth on localhost.
-# LOCALHOST_AUTH_BYPASS
+LOCALHOST_AUTH_BYPASS
 
 ## All external authentication methods and their URLs. Multiple entries of this config are supported.
 ## Right now, any methods other than "discord" are ignored.
-## ?ip=[INET_ATON(client.address)] will be appended to the URL by the client.
+## ?ip=[client.address]&seeker_port=[client.seeker_port] will be appended to the URL by the client.
 ## Must use https:// unless localhost
-EXTERNAL_AUTH_METHOD discord https://api.beestation13.com/discord/auth
-
-## Comment this to blindly trust
+# EXTERNAL_AUTH_METHOD discord http://api.beestation13.com/discord/auth
 
 ## Comment this out to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER

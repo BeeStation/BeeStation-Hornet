@@ -867,7 +867,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(!account_join_date)
 			account_join_date = query_get_client_age.item[3]
 			account_age = text2num(query_get_client_age.item[4])
-			if(!account_age && src.key_is_external)
+			if(!account_age && !src.key_is_external)
 				account_join_date = findJoinDate()
 				if(!account_join_date)
 					account_age = -1
