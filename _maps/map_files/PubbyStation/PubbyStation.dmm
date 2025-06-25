@@ -495,8 +495,10 @@
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat_interior)
 "adp" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/machinery/meter/monitored/waste_loop,
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "adr" = (
@@ -1961,12 +1963,12 @@
 /turf/open/floor/plating,
 /area/space/nearstation)
 "amH" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Maintenance";
 	req_access_txt = "12;24"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "amT" = (
@@ -15998,9 +16000,6 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bUp" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 6
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -16194,8 +16193,8 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/security/main)
 "bVV" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Waste to Space"
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 6
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -16292,9 +16291,11 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "bWI" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Waste to Space"
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -16589,12 +16590,11 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "bZd" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
+/obj/effect/turf_decal/tile/red{
+	dir = 8
 	},
-/turf/open/floor/iron,
-/area/engine/atmos)
+/turf/open/floor/iron/dark/textured,
+/area/security/execution)
 "bZe" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
@@ -19653,9 +19653,6 @@
 /area/space/nearstation)
 "csl" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/white/line{
@@ -19664,6 +19661,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "csA" = (
@@ -20885,7 +20883,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/white/line,
@@ -20898,6 +20895,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cFt" = (
@@ -23825,6 +23823,9 @@
 /obj/item/wrench,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
 	},
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
@@ -30549,7 +30550,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/west,
@@ -31248,6 +31249,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/red/fourcorners,
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
 "hwC" = (
@@ -31349,7 +31351,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -35730,8 +35731,8 @@
 /area/quartermaster/office)
 "juI" = (
 /obj/structure/table/optable,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
 	},
 /obj/item/clothing/suit/jacket/straight_jacket,
 /turf/open/floor/iron/dark/textured,
@@ -43973,7 +43974,10 @@
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/item/flashlight/lamp,
+/obj/item/clothing/mask/balaclava,
+/obj/item/mmi,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured,
@@ -52804,8 +52808,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
@@ -58096,6 +58100,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
 "ttS" = (
@@ -66131,7 +66136,7 @@
 /obj/structure/rack,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured,
@@ -67394,15 +67399,9 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
 "xNA" = (
-/obj/structure/table/glass,
-/obj/item/mmi,
-/obj/item/clothing/mask/balaclava,
-/obj/item/flashlight/lamp,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/textured,
-/area/security/execution)
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/turf/open/floor/plating,
+/area/maintenance/department/security/brig)
 "xNU" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -68105,6 +68104,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/event_spawn,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
 "ygV" = (
@@ -85852,8 +85854,8 @@ afU
 hKA
 afU
 afU
-afU
 gYA
+xNA
 lPR
 alj
 alV
@@ -86108,7 +86110,7 @@ afU
 hwj
 vHx
 juI
-xNA
+afU
 afU
 iEp
 mMu
@@ -86364,7 +86366,7 @@ mCJ
 msX
 dVI
 rbt
-agx
+bZd
 nis
 afU
 iEp
@@ -86877,7 +86879,7 @@ kIl
 agF
 agT
 xlq
-agx
+rQY
 ygu
 rQY
 hbo
@@ -104190,7 +104192,7 @@ bTM
 acV
 ioI
 bVh
-bZd
+woe
 dhK
 adj
 bRC
