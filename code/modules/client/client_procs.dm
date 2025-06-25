@@ -242,6 +242,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!client_post_login(logged_in, TRUE, logged_in && !!(holder || GLOB.deadmins[ckey])))
 		return null
 	fully_created = TRUE
+	if(logged_in)
+		remove_verb(/client/verb/get_token)
+		remove_verb(/client/verb/use_token)
 
 /client/proc/add_default_verbs()
 	add_verb(collect_client_verbs())

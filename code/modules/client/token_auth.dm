@@ -1,22 +1,26 @@
-/client/verb/test_ckey_login()
-	set name = "Test CKEY Login"
-	set category = "Login"
-	login_as("Itsmeowdev", "discord", "126059512611340288", "its_meow#6903")
-
-/client/verb/test_discord_login()
-	set name = "Test Discord Login"
-	set category = "Login"
-	login_as("d126059512611340288", "discord", "126059512611340288", "itsmeowdev")
-
 /client/verb/use_token(token as text)
 	set name = "Login with Token"
 	set category = "Login"
 	login_with_token(token)
 
+/client/verb/get_token()
+	set name = "Get Token"
+	set category = "Login"
+	var/list/methods = CONFIG_GET(keyed_list/external_auth_method)
+	var/discord_link = methods["discord"]
+	if(istext(discord_link))
+		if(alert("This will open a Discord login page in your browser.",,"OK","Cancel")!="OK")
+			return
+		var/ip = src.address
+		if(is_localhost())
+			ip = "127.0.0.1"
+		src << link("[discord_link]?ip=[url_encode(ip)]")
+	else
+		to_chat_immediate(src, span_danger("Discord authentication has not been configured!"))
+
 /mob/dead/new_player/pre_auth/Login()
 	. = ..()
-	client?.add_verb(/client/verb/test_ckey_login, TRUE)
-	client?.add_verb(/client/verb/test_discord_login, TRUE)
+	client?.add_verb(/client/verb/get_token, TRUE)
 	client?.add_verb(/client/verb/use_token, TRUE)
 
 /mob/dead/new_player/pre_auth/proc/convert_to_authed()
@@ -40,6 +44,9 @@
 	if(!CONFIG_GET(flag/enable_guest_external_auth))
 		to_chat_immediate(usr, span_userdanger("External auth is currently disabled!"))
 		return FALSE
+	if(!istext(token) || !length(token) || length(token) > 128)
+		to_chat_immediate(usr, span_userdanger("Token is not formatted correctly"))
+		return
 	var/hashed_token = rustg_hash_string(RUSTG_HASH_SHA256, token)
 	if(!istext(hashed_token) || !length(hashed_token))
 		return
@@ -88,8 +95,7 @@
 		return FALSE
 	if(logged_in)
 		return FALSE
-	remove_verb(/client/verb/test_ckey_login)
-	remove_verb(/client/verb/test_discord_login)
+	remove_verb(/client/verb/get_token)
 	remove_verb(/client/verb/use_token)
 	// Set this early so that we can rely on it in setup (for things like build_ban_cache)
 	src.logged_in = TRUE

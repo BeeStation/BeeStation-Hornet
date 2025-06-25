@@ -258,6 +258,16 @@
 /datum/config_entry/flag/enable_guest_external_auth
 	protection = CONFIG_ENTRY_LOCKED
 
+/datum/config_entry/keyed_list/external_auth_method
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_TEXT
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/keyed_list/external_auth_method/ValidateListEntry(key_name, key_value)
+	if(key_name != "discord" || !findtext(key_value, "https://", 1, 9))
+		return FALSE
+	return ..()
+
 /datum/config_entry/number/id_console_jobslot_delay
 	config_entry_value = 30
 	integer = FALSE

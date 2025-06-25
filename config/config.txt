@@ -76,10 +76,6 @@ MENTOR_LEGACY_SYSTEM
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
 ENABLE_LOCALHOST_RANK
 
-## Comment this out to require locally connected clients to go through the same authorization checks as any user.
-## This can be used to test external auth on localhost.
-LOCALHOST_AUTH_BYPASS
-
 ## Uncomment this entry to have certain jobs require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different jobs by editing
 ## the minimal_player_age variable in the files in folder /code/game/jobs/job/.. for the job you want to edit. Set minimal_player_age to 0 to disable age requirement for that job.
 ## REQUIRES the database set up to work. Keep it hashed if you don't have a database set up.
@@ -246,7 +242,17 @@ GUEST_BAN
 ## This overrides GUEST_BAN. Guests may connect but will not be able to play without authenticating.
 ## If the DISABLE_BYOND_AUTH compile flag is set, all connecting CKEYs will be forced to authorize.
 ## Disable LOCALHOST_AUTH_BYPASS to test this on localhost.
-# ENABLE_GUEST_EXTERNAL_AUTH
+ENABLE_GUEST_EXTERNAL_AUTH
+
+## Comment this out to require locally connected clients to go through the same authorization checks as any user.
+## This can be used to test external auth on localhost.
+# LOCALHOST_AUTH_BYPASS
+
+## All external authentication methods and their URLs. Multiple entries of this config are supported.
+## Right now, any methods other than "discord" are ignored.
+## ?ip=[INET_ATON(client.address)] will be appended to the URL by the client.
+## Must use https://
+EXTERNAL_AUTH_METHOD discord https://api.beestation13.com/discord/auth
 
 ## Comment this to blindly trust
 
