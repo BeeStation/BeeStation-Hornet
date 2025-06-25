@@ -110,16 +110,6 @@
 	playsound(source = src, soundin = 'sound/machines/terminal_prompt_deny.ogg', vol = 20, vary = FALSE, ignore_walls = FALSE)
 	balloon_alert_to_viewers("offline")
 
-/obj/item/broadcast_camera/proc/ensure_still_active()
-	if(!active)
-		return FALSE
-	if(!isliving(loc))
-		return FALSE
-	var/mob/living/wielder = loc
-	if(!wielder.is_holding(src))
-		return FALSE
-	return TRUE
-
 /mob/living/wielder/Moved(oldLoc, dir)
 	. = ..()
 	var/obj/item/broadcast_camera/camera = src.get_active_held_item()
