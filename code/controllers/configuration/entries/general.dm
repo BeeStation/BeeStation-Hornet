@@ -264,7 +264,7 @@
 	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/keyed_list/external_auth_method/ValidateListEntry(key_name, key_value)
-	if(key_name != "discord" || !findtext(key_value, "https://", 1, 9))
+	if(key_name != "discord" || (!findtext(key_value, "https://", 1, 9) && !findtext(key_value, "http://localhost", 1, 17)))
 		return FALSE
 	return ..()
 

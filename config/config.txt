@@ -251,7 +251,7 @@ ENABLE_GUEST_EXTERNAL_AUTH
 ## All external authentication methods and their URLs. Multiple entries of this config are supported.
 ## Right now, any methods other than "discord" are ignored.
 ## ?ip=[INET_ATON(client.address)] will be appended to the URL by the client.
-## Must use https://
+## Must use https:// unless localhost
 EXTERNAL_AUTH_METHOD discord https://api.beestation13.com/discord/auth
 
 ## Comment this to blindly trust
