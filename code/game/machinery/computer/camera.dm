@@ -268,7 +268,7 @@
 	desc = "A console to monitor the outside status of the shuttle."
 	network = list(CAMERA_NETWORK_CARAVAN_SYNDICATE)
 
-// TELESCREENS
+//TELESCREENS
 
 /obj/machinery/computer/security/telescreen
 	name = "\improper Telescreen"
@@ -298,17 +298,23 @@
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
-	desc = "Damn, they better have the beestation channel on these things."
+	desc = "Damn, they better have the Beestation channel on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment_blank"
-	network = list(CAMERA_NETWORK_THUNDERDOME, CAMERA_NETWORK_COURT)
+	network = list(CAMERA_NETWORK_THUNDERDOME)
 	density = FALSE
 	circuit = null
 	long_ranged = TRUE
 	var/icon_state_off = "entertainment_blank"
 	var/icon_state_on = "entertainment"
+	var/obj/item/radio/entertainment/speakers/speakers
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertainment, 32)
+
+/obj/machinery/computer/security/telescreen/entertainment/CtrlClick(mob/user)
+	. = ..()
+	balloon_alert(user, speakers.should_be_listening ? "muted" : "unmuted")
+	speakers.toggle_mute()
 
 //Can use this telescreen at long range.
 /obj/machinery/computer/security/telescreen/entertainment/ui_state(mob/user)
@@ -318,18 +324,71 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	. = ..()
 	interact(usr)
 
-/obj/machinery/computer/security/telescreen/entertainment/proc/notify(on)
+/obj/machinery/computer/security/telescreen/entertainment/proc/notify(on, announcement)
 	if(on && icon_state == icon_state_off)
-		say(pick(
-			"Feats of bravery live now at the thunderdome!",
-			"Two enter, one leaves! Tune in now!",
-			"Violence like you've never seen it before!",
-			"Spears! Camera! Action! LIVE NOW!"))
 		icon_state = icon_state_on
 	else
 		icon_state = icon_state_off
+	if(announcement)
+		say(announcement)
 
-/obj/machinery/computer/security/telescreen/entertainment/theathre
+/obj/machinery/computer/security/telescreen/entertainment/Initialize(mapload)
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_NETWORK_BROADCAST_UPDATED, PROC_REF(on_network_broadcast_updated))
+	speakers = new(src)
+
+/obj/machinery/computer/security/telescreen/entertainment/Destroy()
+	UnregisterSignal(SSdcs, COMSIG_GLOB_NETWORK_BROADCAST_UPDATED)
+	QDEL_NULL(speakers)
+	return ..()
+
+/// Adds a camera network ID to the entertainment monitor, and turns off the monitor if network list is empty
+/obj/machinery/computer/security/telescreen/entertainment/proc/on_network_broadcast_updated(datum/source, tv_show_id, is_show_active, announcement)
+	SIGNAL_HANDLER
+	if(!network)
+		return
+
+	if(is_show_active)
+		network |= tv_show_id
+	else
+		network -= tv_show_id
+
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/datum, update_static_data_for_all_viewers))
+	notify(length(network), announcement)
+
+/**
+ * Adds a camera network to all entertainment monitors.
+ *
+ * * camera_net - The camera network ID to add to the monitors.
+ * * announcement - Optional, what announcement to make when the show starts.
+ */
+/proc/start_broadcasting_network(camera_net, announcement)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NETWORK_BROADCAST_UPDATED, camera_net, TRUE, announcement)
+
+/**
+ * Removes a camera network from all entertainment monitors.
+ *
+ * * camera_net - The camera network ID to remove from the monitors.
+ * * announcement - Optional, what announcement to make when the show ends.
+ */
+/proc/stop_broadcasting_network(camera_net, announcement)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NETWORK_BROADCAST_UPDATED, camera_net, FALSE, announcement)
+
+/**
+ * Sets the camera network status on all entertainment monitors.
+ * A way to force a network to a status if you are unsure of the current state.
+ *
+ * * camera_net - The camera network ID to set on the monitors.
+ * * is_show_active - Whether the show is active or not.
+ * * announcement - Optional, what announcement to make.
+ * Note this announcement will be made regardless of the current state of the show:
+ * This means if it's currently on and you set it to on, the announcement will still be made.
+ * Likewise, there's no way to differentiate off -> on and on -> off, unless you handle that yourself.
+ */
+/proc/set_network_broadcast_status(camera_net, is_show_active, announcement)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NETWORK_BROADCAST_UPDATED, camera_net, is_show_active, announcement)
+
+/obj/machinery/computer/security/telescreen/theathre
 	name = "stage monitor"
 	desc = "Used for watching the stage from the back seats."
 	network = list(CAMERA_NETWORK_THEATHRE)

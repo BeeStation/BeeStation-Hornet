@@ -4,6 +4,45 @@
 	else
 		turn_on(user)
 
+/**
+ * update_tablet_open_uis  (port from monkestation from a port of /tg/)
+ *
+ * Will search the user to see if they have the tablet open.
+ * If they don't, we'll open a new UI depending on the tab the tablet is meant to be on.
+ * If they do, we'll update the interface and title, then update all static data and re-send assets.
+ *
+ * This is best called when you're actually changing the app, as we don't check
+ * if we're swapping to the current UI repeatedly.
+ * Args:
+ * user - The person whose UI we're updating.
+ */
+/obj/item/modular_computer/proc/update_tablet_open_uis(mob/user)
+	var/datum/tgui/active_ui = SStgui.get_open_ui(user, src)
+	if(!active_ui)
+		if(active_program)
+			active_ui = new(user, src, active_program.tgui_id, active_program.filedesc)
+			active_program.ui_interact(user, active_ui)
+		else
+			active_ui = new(user, src, "NtosMain")
+		return active_ui.open()
+
+	if(active_program)
+		active_ui.interface = active_program.tgui_id
+		active_ui.title = active_program.filedesc
+		active_program.ui_interact(user, active_ui)
+	else
+		active_ui.interface = "NtosMain"
+
+	active_ui.send_assets()
+	update_static_data_for_all_viewers()
+
+/obj/item/modular_computer/interact(mob/user)
+	if(enabled)
+		ui_interact(user)
+	else
+		turn_on(user)
+
+
 // Operates TGUI
 
 /obj/item/modular_computer/ui_state(mob/user)

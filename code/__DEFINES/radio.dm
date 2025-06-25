@@ -47,6 +47,10 @@
 #define RADIO_KEY_AI_PRIVATE "o"
 #define RADIO_TOKEN_AI_PRIVATE ":o"
 
+#define RADIO_CHANNEL_ENTERTAINMENT "Entertainment"
+#define RADIO_KEY_ENTERTAINMENT "k"
+#define RADIO_TOKEN_ENTERTAINMENT ":k"
+
 #define RADIO_CHANNEL_SYNDICATE "Syndicate"
 #define RADIO_KEY_SYNDICATE "t"
 #define RADIO_TOKEN_SYNDICATE ":t"
@@ -78,6 +82,7 @@
 #define FREQ_ENGINEERING 1357  //! Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  //! Security comms frequency, red
 #define FREQ_EXPLORATION 1361 //! Exploration comms frequency, cyan
+#define FREQ_ENTERTAINMENT 1415 // Used by entertainment monitors, light blue
 
 #define FREQ_STATUS_DISPLAYS 1435
 

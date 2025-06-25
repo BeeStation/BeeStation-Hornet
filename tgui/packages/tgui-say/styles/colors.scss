@@ -41,6 +41,7 @@ $left: #4c0675;
 $right: #4c0675;
 $slime: #008ca2;
 $holoparasite: #b76e79;
+$entertainment: #00ff99;
 
 $_restricted_channel_map: (
   'asay': $asay,
@@ -77,6 +78,7 @@ $_channel_map: (
   'intercom': $intercom,
   'slime': $slime,
   'holoparasite': $holoparasite,
+  'entertainment': $entertainment,
 );
 
 $channel_keys: map.keys($_channel_map) !default;

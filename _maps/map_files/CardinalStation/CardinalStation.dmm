@@ -2316,7 +2316,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/obj/machinery/computer/security/telescreen/entertainment/theathre{
+/obj/machinery/computer/security/telescreen/theathre{
 	pixel_x = 64
 	},
 /turf/open/floor/carpet/red,
@@ -23745,7 +23745,7 @@
 	buildstackamount = 0;
 	color = "#742925"
 	},
-/obj/machinery/computer/security/telescreen/entertainment/theathre{
+/obj/machinery/computer/security/telescreen/theathre{
 	pixel_y = 32;
 	pixel_x = -32
 	},
@@ -66223,7 +66223,7 @@
 	buildstackamount = 0;
 	color = "#742925"
 	},
-/obj/machinery/computer/security/telescreen/entertainment/theathre{
+/obj/machinery/computer/security/telescreen/theathre{
 	pixel_y = 32;
 	pixel_x = 32
 	},
@@ -69839,7 +69839,7 @@
 "ozc" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/computer/security/telescreen/entertainment/theathre{
+/obj/machinery/computer/security/telescreen/theathre{
 	pixel_x = -64
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{

@@ -161,6 +161,24 @@
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 
+/obj/item/storage/box/hero/journalist
+	name = "Investigative Journalist - 1950's."
+	item_icon_state = "journalist"
+	info_text = "Investigative Journalist - 1950's. \n" + span_notice("Comes with a microphone and a camera")
+
+/obj/item/storage/box/hero/journalist/PopulateContents()
+	new /obj/item/clothing/under/suit/black(src)
+	new /obj/item/clothing/suit/jacket/leather(src)
+	new /obj/item/clothing/neck/tie/red(src)
+	new /obj/item/clothing/head/fedora(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/radio/entertainment/microphone/physical(src)
+	new /obj/item/radio/entertainment/speakers/physical(src)
+	new /obj/item/clipboard(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/camera(src)
+
+
 /obj/item/storage/box/hero/carphunter
 	name = "Carp Hunter, Wildlife Expert - 2506."
 	item_icon_state = "carp"

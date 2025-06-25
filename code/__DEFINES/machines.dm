@@ -277,6 +277,7 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_EVAC "evac"
 #define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
 #define CAMERA_NETWORK_THEATHRE "theathre"
+#define CAMERA_NETWORK_CURATOR "curator"
 
 // Off-station networks
 #define CAMERA_NETWORK_BUNKER "bunker"

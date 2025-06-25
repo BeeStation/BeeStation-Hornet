@@ -43,3 +43,5 @@
 #define COMSIG_GLOB_CREW_MANIFEST_UPDATE "!crew_manifest_update"
 /// Called whenever something is sold through exports
 #define COMSIG_GLOB_ATOM_SOLD "!atom_sold"
+/// Global signal whenever a camera network broadcast is started/stopped/updated: (camera_net, is_show_active, announcement)
+#define COMSIG_GLOB_NETWORK_BROADCAST_UPDATED "!network_broadcast_updated"

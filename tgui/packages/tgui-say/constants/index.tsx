@@ -70,6 +70,10 @@ export const RADIO_PREFIXES = {
     id: 'ai',
     label: 'AI',
   },
+  ':k ': {
+    id: 'entertainment',
+    label: 'Ent',
+  },
   ':q ': {
     id: 'exploration',
     label: 'Explo',
