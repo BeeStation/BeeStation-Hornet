@@ -37,6 +37,9 @@
 		log_admin_private("[key_name(usr)] attempted to check session token: \"[token]\"")
 		message_admins("[key_name(usr)] performed a proccall that attempts to test a session token!")
 		return
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
+		to_chat_immediate(usr, span_userdanger("External auth is currently disabled!"))
+		return FALSE
 	var/hashed_token = rustg_hash_string(RUSTG_HASH_SHA256, token)
 	if(!istext(hashed_token) || !length(hashed_token))
 		return
@@ -80,6 +83,8 @@
 		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 		message_admins("Auth bypass attempted by [key_name(usr)] for [key_name(src)] (attempted CKEY: [ckey(new_key)])")
 		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+		return FALSE
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
 		return FALSE
 	if(logged_in)
 		return FALSE

@@ -4,7 +4,7 @@
 		//BLACK MAGIC THINGS//
 		//////////////////////
 	parent_type = /datum
-#ifdef USE_EXTERNAL_AUTH
+#ifdef DISABLE_BYOND_AUTH
 	authenticate = FALSE
 #endif
 		////////////////

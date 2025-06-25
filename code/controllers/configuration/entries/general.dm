@@ -252,6 +252,9 @@
 
 /datum/config_entry/flag/guest_ban
 
+/datum/config_entry/flag/enable_guest_external_auth
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/number/id_console_jobslot_delay
 	config_entry_value = 30
 	integer = FALSE

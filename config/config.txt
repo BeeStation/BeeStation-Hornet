@@ -237,6 +237,13 @@ HOSTEDBY Crossedfall
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
 
+## Uncomment this to allow guest users to authenticate using external authentication sources.
+## This overrides GUEST_BAN. Guests may connect but will not be able to play without authenticating.
+## If the DISABLE_BYOND_AUTH compile flag is set, all connecting CKEYs will be forced to authorize.
+# ENABLE_GUEST_EXTERNAL_AUTH
+
+## Comment this to blindly trust
+
 ## Comment this out to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER
 

@@ -199,21 +199,45 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
 		return null
 
-	var/authenticated = TRUE
-	// If auth isn't set up, immediately change their key to a guest key
-	// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
-#ifdef USE_EXTERNAL_AUTH
-	key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
-	authenticated = FALSE
+#ifdef DISABLE_BYOND_AUTH
+	if(CONFIG_GET(flag/enable_guest_external_auth))
+		// If auth isn't set up, immediately change their key to a guest key
+		// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
+		key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+		logged_in = FALSE
+	else
+		to_chat_immediate(src, span_dangerbold("Authorization is totally disabled! The game is configured to blindly trust connecting CKEYs!!!"))
+		logged_in = TRUE
 #else
-	logged_in = TRUE
+	// Guests are redirected to secondary auth
+	if(IS_GUEST_KEY(key))
+		if(is_localhost() && CONFIG_GET(flag/enable_localhost_rank)) // allow localhost to connect as guest
+			logged_in = TRUE
+		else if(!CONFIG_GET(flag/guest_ban)) // guests are allowed to connect, no authorization necessary
+			logged_in = TRUE
+		else if(CONFIG_GET(flag/enable_guest_external_auth)) // guests need to authorize
+			key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+			logged_in = FALSE
+		else // should be caught by IsBanned, but localhost can get to this point
+			src << "NOTICE: Guests are not currently allowed to connect!"
+			if(is_localhost()) // inform the developer that they have made a mistake
+				log_world("You are localhost and have been denied guest connection. Toggle enable_localhost_rank, enable_guest_external_auth, or guest_ban in the config to continue.")
+			qdel(src)
+			return null
+	else
+		logged_in = TRUE
 #endif
-	if(!client_pre_login(authenticated, TRUE, null, null))
+	if(!client_pre_login(logged_in, TRUE))
 		return null
 
 	. = ..()	//calls mob.Login()
 
-	if(!client_post_login(authenticated, TRUE, authenticated && !!(holder || GLOB.deadmins[ckey]), null, null))
+	// if the user logged in directly with a valid key, we can convert them now
+	if(logged_in && istype(mob, /mob/dead/new_player/pre_auth))
+		var/mob/dead/new_player/pre_auth/pre_auth_player = mob
+		pre_auth_player.convert_to_authed()
+
+	if(!client_post_login(logged_in, TRUE, logged_in && !!(holder || GLOB.deadmins[ckey])))
 		return null
 	fully_created = TRUE
 
@@ -361,13 +385,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 					send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
 		else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
 			message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
-#ifndef USE_EXTERNAL_AUTH
-		if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
-			player_age = account_age
-		if(account_age >= 0 && account_age < nnpa)
-			message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
-			if (CONFIG_GET(flag/irc_first_connection_alert))
-				send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
+#ifndef DISABLE_BYOND_AUTH
+		if(!src.key_is_external)
+			if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
+				player_age = account_age
+			if(account_age >= 0 && account_age < nnpa)
+				message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
+				if (CONFIG_GET(flag/irc_first_connection_alert))
+					send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
 #endif
 		get_message_output("watchlist entry", ckey)
 

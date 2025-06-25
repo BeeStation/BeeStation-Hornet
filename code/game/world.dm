@@ -85,8 +85,10 @@ GLOBAL_VAR(restart_counter)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
 
-#ifdef USE_EXTERNAL_AUTH
-	CONFIG_SET(flag/guest_ban, FALSE)
+#ifdef DISABLE_BYOND_AUTH
+	CONFIG_SET(flag/guest_ban, FALSE) // no point in banning guests if BYOND auth doesn't exist
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
+		log_world("DANGER: External authorization is disabled while DISABLE_BYOND_AUTH is set. This means connecting CKEYs are blindly trusted and susceptible to spoofing!")
 #endif
 
 	if(fexists(RESTART_COUNTER_PATH))
