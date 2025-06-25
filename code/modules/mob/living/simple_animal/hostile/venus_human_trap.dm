@@ -211,7 +211,7 @@
 	var/mob/living/L = the_target
 	if(iscarbon(L))
 		L.apply_damage(30, STAMINA, BODY_ZONE_CHEST)
-		L.Knockdown(1 SECONDS)
+		L.Knockdown(3 SECONDS)
 		to_chat(L, span_alert("The vines knock you down"))
 	else if(iscyborg(L))
 		var/mob/living/silicon/robot/R = L
@@ -276,7 +276,7 @@
 
 			var/mob/living/L = B.target
 			L.apply_damage(5, STAMINA, BODY_ZONE_CHEST)
-			to_chat(L, span_userdanger("Your body feels weaker!"))
+			L.Knockdown(3 SECONDS)
 
 		if(get_dist(src, B.target) == 0)
 			qdel(B)
