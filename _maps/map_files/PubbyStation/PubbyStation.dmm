@@ -2312,7 +2312,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms,
 /area/science/server)
 "apE" = (
 /obj/effect/landmark/event_spawn,
@@ -11024,7 +11024,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms,
 /area/science/server)
 "blN" = (
 /obj/machinery/light{
@@ -11238,7 +11238,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms,
 /area/science/server)
 "bmV" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
@@ -49708,7 +49708,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms,
 /area/science/server)
 "pGL" = (
 /obj/structure/cable/yellow{
