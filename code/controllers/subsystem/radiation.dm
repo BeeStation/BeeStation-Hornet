@@ -85,7 +85,7 @@ SUBSYSTEM_DEF(radiation)
 	if (ishuman(target) && wearing_rad_protected_clothing(target))
 		return FALSE
 
-	target.AddComponent(/datum/component/irradiated)
+	target?.AddComponent(/datum/component/irradiated)
 	return TRUE
 
 /// Returns whether or not the target can be irradiated by any means.

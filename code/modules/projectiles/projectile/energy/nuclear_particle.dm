@@ -1,7 +1,7 @@
 /obj/projectile/energy/nuclear_particle
 	name = "nuclear particle"
 	icon_state = "nuclear_particle"
-	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSMACHINE
 	armor_flag = ENERGY
 	damage_type = TOX
 	damage = 10
