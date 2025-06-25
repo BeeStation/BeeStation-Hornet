@@ -15245,7 +15245,7 @@
 /area/chapel/asteroid/monastery)
 "bQh" = (
 /obj/structure/fans/tiny,
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space)
 "bQl" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -33834,7 +33834,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "iBJ" = (
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space)
 "iBK" = (
 /obj/structure/cable{
@@ -37082,7 +37082,7 @@
 /area/maintenance/department/cargo)
 "kbj" = (
 /obj/item/shuttle_creator,
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space)
 "kbq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -60775,7 +60775,7 @@
 /area/hallway/primary/aft)
 "uMV" = (
 /obj/structure/girder/displaced,
-/turf/open/floor/plating,
+/turf/open/floor/plating/airless,
 /area/space)
 "uNb" = (
 /obj/effect/spawner/structure/window/reinforced,
