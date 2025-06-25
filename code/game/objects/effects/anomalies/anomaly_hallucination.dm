@@ -25,7 +25,7 @@
 	hallucination_pulse(our_turf, 10)
 	our_turf.generate_fake_pierced_realities(max_spawned_faked)
 
-/proc/hallucination_pulse(turf/location, range, strength = 50)
+/proc/hallucination_pulse(turf/location, range, strength = 50, message = TRUE)
 	for(var/mob/living/carbon/human/near in view(location, range))
 		// If they are immune to hallucinations
 		if (HAS_MIND_TRAIT(near, TRAIT_MADNESS_IMMUNE))
@@ -39,11 +39,13 @@
 		var/dist = sqrt(1 / max(1, get_dist(near, location)))
 		near.hallucination += strength * dist
 		near.hallucination = clamp(near.hallucination, 0, 150)
-		var/list/messages = list(
-			"You feel your conscious mind fall apart!",
-			"Reality warps around you!",
-			"Something's wispering around you!",
-			"You are going insane!",
-			"What was that?!"
-		)
-		to_chat(near, span_warning("[pick(messages)]"))
+
+		if(message)
+			var/list/messages = list(
+				"You feel your conscious mind fall apart!",
+				"Reality warps around you!",
+				"Something's wispering around you!",
+				"You are going insane!",
+				"What was that?!"
+			)
+			to_chat(near, span_warning(pick(messages)))

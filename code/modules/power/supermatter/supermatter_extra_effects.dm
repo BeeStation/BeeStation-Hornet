@@ -85,7 +85,7 @@
 		if(HAS_MIND_TRAIT(seen_by_sm, TRAIT_SUPERMATTER_SOOTHER))
 			psy_coeff_diff = 0.05
 
-	hallucination_pulse(src, SM_HALLUCINATION_RANGE(internal_energy), internal_energy * hallucination_power)
+	hallucination_pulse(src, SM_HALLUCINATION_RANGE(internal_energy), internal_energy * hallucination_power, message = FALSE)
 	psy_coeff = clamp(psy_coeff + psy_coeff_diff, 0, 1)
 
 /obj/machinery/power/supermatter_crystal/proc/handle_high_power()

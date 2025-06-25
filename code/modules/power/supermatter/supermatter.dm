@@ -910,8 +910,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(QDELETED(zapstart))
 		return
 	if(zap_cutoff <= 0)
-		stack_trace("/obj/machinery/supermatter_zap() was called with a non-positive value")
-		return
+		CRASH("/obj/machinery/supermatter_zap() was called with a non-positive value")
 	if(zap_str <= 0) // Just in case something scales zap_str and zap_cutoff to 0.
 		return
 	. = zapstart.dir
