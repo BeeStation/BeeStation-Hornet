@@ -199,7 +199,7 @@
 	drafted_players_amount = 2
 	weight = 5
 	points_cost = 20
-	minimum_points_required = 24
+	minimum_points_required = 30
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/clockcult,
