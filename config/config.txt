@@ -76,6 +76,10 @@ MENTOR_LEGACY_SYSTEM
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
 ENABLE_LOCALHOST_RANK
 
+## Comment this out to require locally connected clients to go through the same authorization checks as any user.
+## This can be used to test external auth on localhost.
+LOCALHOST_AUTH_BYPASS
+
 ## Uncomment this entry to have certain jobs require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different jobs by editing
 ## the minimal_player_age variable in the files in folder /code/game/jobs/job/.. for the job you want to edit. Set minimal_player_age to 0 to disable age requirement for that job.
 ## REQUIRES the database set up to work. Keep it hashed if you don't have a database set up.
@@ -84,6 +88,7 @@ ENABLE_LOCALHOST_RANK
 #USE_AGE_RESTRICTION_FOR_JOBS
 
 ## Uncomment this to have the job system use the player's account creation date, rather than the when they first joined the server for job timers.
+## This option is ignored if BYOND authentication is disabled at compile-time, or if the user is authenticated with a non-BYOND key
 #USE_ACCOUNT_AGE_FOR_JOBS
 
 ## Unhash this to track player playtime in the database. Requires database to be enabled.
@@ -240,6 +245,7 @@ GUEST_BAN
 ## Uncomment this to allow guest users to authenticate using external authentication sources.
 ## This overrides GUEST_BAN. Guests may connect but will not be able to play without authenticating.
 ## If the DISABLE_BYOND_AUTH compile flag is set, all connecting CKEYs will be forced to authorize.
+## Disable LOCALHOST_AUTH_BYPASS to test this on localhost.
 # ENABLE_GUEST_EXTERNAL_AUTH
 
 ## Comment this to blindly trust

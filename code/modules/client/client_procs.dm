@@ -200,18 +200,20 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return null
 
 #ifdef DISABLE_BYOND_AUTH
-	if(CONFIG_GET(flag/enable_guest_external_auth))
-		// If auth isn't set up, immediately change their key to a guest key
-		// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
-		key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
-		logged_in = FALSE
+	if(is_localhost() && CONFIG_GET(flag/localhost_auth_bypass))
+		logged_in = TRUE
+	else if(CONFIG_GET(flag/enable_guest_external_auth))
+			// If auth isn't set up, immediately change their key to a guest key
+			// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
+			key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+			logged_in = FALSE
 	else
 		to_chat_immediate(src, span_dangerbold("Authorization is totally disabled! The game is configured to blindly trust connecting CKEYs!!!"))
 		logged_in = TRUE
 #else
 	// Guests are redirected to secondary auth
 	if(IS_GUEST_KEY(key))
-		if(is_localhost() && CONFIG_GET(flag/enable_localhost_rank)) // allow localhost to connect as guest
+		if(is_localhost() && CONFIG_GET(flag/localhost_auth_bypass)) // allow localhost to connect as guest
 			logged_in = TRUE
 		else if(!CONFIG_GET(flag/guest_ban)) // guests are allowed to connect, no authorization necessary
 			logged_in = TRUE
@@ -221,7 +223,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		else // should be caught by IsBanned, but localhost can get to this point
 			src << "NOTICE: Guests are not currently allowed to connect!"
 			if(is_localhost()) // inform the developer that they have made a mistake
-				log_world("You are localhost and have been denied guest connection. Toggle enable_localhost_rank, enable_guest_external_auth, or guest_ban in the config to continue.")
+				log_world("You are localhost and have been denied guest connection. Toggle localhost_auth_bypass, enable_guest_external_auth, or guest_ban in the config to continue.")
 			qdel(src)
 			return null
 	else
