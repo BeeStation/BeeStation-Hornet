@@ -6,11 +6,11 @@
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/mob/species/human/bodyparts.dmi'
-	icon_state = ""
+	icon_state = "" //Leave this blank! Bodyparts are built using overlays
 	/// The icon for Organic limbs using greyscale
 	VAR_PROTECTED/icon_greyscale = DEFAULT_BODYPART_ICON_ORGANIC
 	///The icon for non-greyscale limbs
-	var/icon_static = 'icons/mob/species/human/bodyparts.dmi'
+	VAR_PROTECTED/icon_static = 'icons/mob/species/human/bodyparts.dmi'
 	///The icon for husked limbs
 	VAR_PROTECTED/icon_husk = 'icons/mob/species/human/bodyparts.dmi'
 	///The type of husk for building an iconstate
@@ -19,24 +19,22 @@
 	/// The mob that "owns" this limb
 	/// DO NOT MODIFY DIRECTLY. Use set_owner()
 	var/mob/living/carbon/owner
-	var/datum/weakref/original_owner
 	var/needs_processing = FALSE
+
 	///A bitfield of bodytypes for clothing, surgery, and misc information
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
 	///Defines when a bodypart should not be changed. Example: BP_BLOCK_CHANGE_SPECIES prevents the limb from being overwritten on species gain
 	var/change_exempt_flags
 
-	///Whether the bodypart (and the owner) is husked.
 	var/is_husked = FALSE
 	///The ID of a species used to generate the icon. Needs to match the icon_state portion in the limbs file!
 	var/limb_id = SPECIES_HUMAN
 	//Defines what sprite the limb should use if it is also sexually dimorphic.
-	var/limb_gender = "m"
-	var/uses_mutcolor = TRUE //Does this limb have a greyscale version?
+	VAR_PROTECTED/limb_gender = "m"
 	///Is there a sprite difference between male and female?
 	var/is_dimorphic = FALSE
 	///The actual color a limb is drawn as, set by /proc/update_limb()
-	var/draw_color //NEVER. EVER. EDIT THIS VALUE OUTSIDE OF UPDATE_LIMB. I WILL FIND YOU. It ruins the limb icon pipeline.
+	VAR_PROTECTED/draw_color
 
 	/// BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
 	var/body_zone
@@ -46,7 +44,7 @@
 	var/aux_layer = BODYPARTS_LAYER
 	/// bitflag used to check which clothes cover this bodypart
 	var/body_part
-/// List of obj/item's embedded inside us. Managed by embedded components, do not modify directly
+	/// List of obj/item's embedded inside us. Managed by embedded components, do not modify directly
 	var/list/embedded_objects = list()
 	/// are we a hand? if so, which one!
 	var/held_index = 0
@@ -60,17 +58,24 @@
 	///Controls whether bodypart_disabled makes sense or not for this limb.
 	var/can_be_disabled = FALSE
 
-	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
-	var/stam_damage_coeff = 0.7 //Why is this the default???
+	///Multiplier of the limb's damage that gets applied to the mob
+	var/body_damage_coeff = 1
+	///Multiplier of the limb's stamina damage that gets applied to the mob. Why is this 0.75 by default? Good question!
+	var/stam_damage_coeff = 0.75
 	var/brutestate = 0
 	var/burnstate = 0
+	///The current amount of brute damage the limb has
 	var/brute_dam = 0
+	///The current amount of burn damage the limb has
 	var/burn_dam = 0
-	var/max_stamina_damage = 0
-	var/max_damage = 0
-
+	///The current amount of stamina damage the limb has
 	var/stamina_dam = 0
-	var/stamina_heal_rate = 1	//Stamina heal multiplier
+	///The maximum stamina damage a bodypart can take
+	var/max_stamina_damage = 0
+	///The maximum "physical" damage a bodypart can take. Set by children
+	var/max_damage = 0
+	//Stamina heal multiplier
+	var/stamina_heal_rate = 1
 
 	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
 	///Amount subtracted from brute damage inflicted on the limb.
@@ -135,11 +140,15 @@
 	return ..()
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
+	SHOULD_CALL_PARENT(TRUE)
+
 	. = ..()
 	if(isturf(destination))
 		update_icon_dropped()
 
 /obj/item/bodypart/examine(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+
 	. = ..()
 	if(brute_dam >= DAMAGE_PRECISION)
 		. += span_warning("This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.")
@@ -189,6 +198,8 @@
 		return ..()
 
 /obj/item/bodypart/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	SHOULD_CALL_PARENT(TRUE)
+
 	..()
 	if(IS_ORGANIC_LIMB(src))
 		playsound(get_turf(src), 'sound/misc/splort.ogg', 50, TRUE, -1)
@@ -238,7 +249,7 @@
 	if((!brute && !burn && !stamina) || hit_percent <= 0)
 		return FALSE
 	if(owner && (owner.status_flags & GODMODE))
-		return FALSE	//godmode
+		return FALSE //godmode
 	if(required_status && !(bodytype & required_status))
 		return FALSE
 
@@ -435,6 +446,9 @@
 
 ///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_can_be_disabled(new_can_be_disabled)
+	PROTECTED_PROC(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(can_be_disabled == new_can_be_disabled)
 		return
 	. = can_be_disabled
@@ -547,16 +561,16 @@
 	// There should technically to be an ishuman(owner) check here, but it is absent because no basetype carbons use bodyparts
 	// No, xenos don't actually use bodyparts. Don't ask.
 	var/mob/living/carbon/human/human_owner = owner
-
 	var/datum/species/owner_species = human_owner.dna.species
 	species_flags_list = owner_species.species_traits
 	limb_gender = (human_owner.dna.features["body_model"] == MALE) ? "m" : "f"
+
 	if(owner_species.use_skintones)
 		skin_tone = human_owner.skin_tone
 	else
 		skin_tone = ""
 
-	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
+	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits))) //Ethereal code. Motherfuckers.
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
 		else
@@ -567,6 +581,8 @@
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
+
+	return TRUE
 
 //to update the bodypart's icon when not attached to a mob
 /obj/item/bodypart/proc/update_icon_dropped()
@@ -582,7 +598,7 @@
 		I.pixel_y = px_y
 	add_overlay(standing)
 
-
+///Generates an /image for the limb to be used as an overlay
 /obj/item/bodypart/proc/get_limb_icon(dropped, draw_external_organs)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
@@ -604,6 +620,7 @@
 	var/image/limb = image(layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 	var/image/aux
 
+	// Handles making bodyparts look husked
 	if(is_husked)
 		limb.icon = icon_husk
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
@@ -616,52 +633,56 @@
 			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		return .
 
-	////This is the MEAT of limb icon code
-	limb.icon = icon_greyscale
-	if(!should_draw_greyscale || !icon_greyscale)
-		limb.icon = icon_static
+	// Normal non-husk handling
+	if(!is_husked)
+		////This is the MEAT of limb icon code
+		limb.icon = icon_greyscale
+		if(!should_draw_greyscale || !icon_greyscale)
+			limb.icon = icon_static
 
-	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
-		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
-	else
-		limb.icon_state = "[limb_id]_[body_zone]"
-	. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
+		if(is_dimorphic) //Does this type of limb have sexual dimorphism?
+			limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
+		else
+			limb.icon_state = "[limb_id]_[body_zone]"
+		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 
-	icon_exists(limb.icon, limb.icon_state, TRUE) //Prints a stack trace on the first failure of a given iconstate.
+		icon_exists(limb.icon, limb.icon_state, TRUE) //Prints a stack trace on the first failure of a given iconstate.
 
-	. += limb
+		. += limb
 
-	if(aux_zone) //Hand shit
-		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
-		. += aux
-		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+		if(aux_zone) //Hand shit
+			aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+			. += aux
+			. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 
-	draw_color = variable_color
-	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
+		draw_color = variable_color
+		if(should_draw_greyscale) //Should the limb be colored?
+			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
-	if(draw_color)
-		limb.color = "#[draw_color]"
-		if(aux_zone)
-			aux.color = "#[draw_color]"
+		if(draw_color)
+			limb.color = "#[draw_color]"
+			if(aux_zone)
+				aux.color = "#[draw_color]"
 
 	if(!draw_external_organs)
 		return
 
-	//Draw external organs like horns and frills
-	for(var/obj/item/organ/external/external_organ in external_organs)
-		if(!dropped && !external_organ.can_draw_on_bodypart(owner))
-			continue
-		//Some externals have multiple layers for background, foreground and between
-		for(var/external_layer in external_organ.all_layers)
-			if(external_organ.layers & external_layer)
-				external_organ.get_overlays(
-					.,
-					image_dir,
-					external_organ.bitflag_to_layer(external_layer),
-					limb_gender,
-					external_organ.overrides_color ? external_organ.override_color(draw_color) : "#[draw_color]"
-				)
+	// And finally put bodypart_overlays on if not husked
+	if(!is_husked)
+		//Draw external organs like horns and frills
+		for(var/obj/item/organ/external/external_organ in external_organs)
+			if(!dropped && !external_organ.can_draw_on_bodypart(owner))
+				continue
+			//Some externals have multiple layers for background, foreground and between
+			for(var/external_layer in external_organ.all_layers)
+				if(external_organ.layers & external_layer)
+					external_organ.get_overlays(
+						.,
+						image_dir,
+						external_organ.bitflag_to_layer(external_layer),
+						limb_gender,
+						external_organ.overrides_color ? external_organ.override_color(draw_color) : "#[draw_color]"
+					)
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	SHOULD_CALL_PARENT(TRUE)

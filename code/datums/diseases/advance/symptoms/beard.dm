@@ -41,5 +41,5 @@ BONUS
 		if(index > 0 && H.facial_hair_style != beard_order[index])
 			to_chat(H, span_notice("Your chin itches."))
 			H.facial_hair_style = beard_order[index]
-			H.update_hair()
+			H.update_body_parts()
 

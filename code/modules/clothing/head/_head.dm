@@ -4,16 +4,9 @@
 	worn_icon = 'icons/mob/clothing/head/default.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
-	dynamic_hair_suffix = "+generic"
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
 	var/obj/item/clothing/head/wig/attached_wig
-
-/obj/item/clothing/head/Initialize(mapload)
-	. = ..()
-	if(ishuman(loc) && dynamic_hair_suffix)
-		var/mob/living/carbon/human/H = loc
-		H.update_hair()
 
 /obj/item/clothing/head/equipped(mob/user, slot)
 	. = ..()

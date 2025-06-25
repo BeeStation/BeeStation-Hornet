@@ -39,6 +39,8 @@
 #define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
 #define HAND_ITEM (1<<19) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 #define SURGICAL_TOOL (1<<20)
+///Can be equipped on digitigrade legs.
+#define IGNORE_DIGITIGRADE (1<<21)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

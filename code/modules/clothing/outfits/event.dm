@@ -24,4 +24,4 @@
 	H.facial_hair_style = "Beard (Full)"
 	H.hair_color = "FFF"
 	H.facial_hair_color = "FFF"
-	H.update_hair()
+	H.update_body_parts()

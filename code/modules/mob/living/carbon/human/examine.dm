@@ -11,7 +11,7 @@
 	var/obscure_examine
 
 	var/obscured = check_obscured_slots()
-	var/skipface = ((wear_mask?.flags_inv & HIDEFACE) || (head?.flags_inv & HIDEFACE))
+	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
 
 	if(isliving(user))
 		var/mob/living/L = user

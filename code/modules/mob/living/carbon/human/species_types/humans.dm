@@ -48,7 +48,7 @@
 /datum/species/human/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.hair_style = "Business Hair"
 	human.hair_color = "b96" // brown
-	human.update_hair()
+	human.update_body_parts()
 
 /datum/species/human/get_species_description()
 	return "Humans are the dominant species in the known galaxy. \

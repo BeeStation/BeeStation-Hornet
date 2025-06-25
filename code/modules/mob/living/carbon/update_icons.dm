@@ -1,3 +1,6 @@
+///The standard amount of bodyparts a carbon has. Currently 6, HEAD/L_ARM/R_ARM/CHEST/L_LEG/R_LEG
+#define BODYPARTS_DEFAULT_MAXIMUM 6
+
 //IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
 /mob/living/carbon/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -43,10 +46,12 @@
 /mob/living/carbon/regenerate_icons()
 	if(notransform)
 		return 1
+	icon_render_keys = list() //Clear this bad larry out
 	update_inv_hands()
 	update_inv_handcuffed()
 	update_inv_legcuffed()
 	update_fire()
+	update_body_parts()
 
 
 /mob/living/carbon/update_inv_hands()
@@ -208,73 +213,110 @@
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 
-/mob/living/carbon/update_body()
-	update_body_parts()
+/mob/living/carbon/update_body(is_creating)
+	update_body_parts(is_creating)
 
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
+	//update_wound_overlays()
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
-		var/old_key = icon_render_keys?[BP.body_zone]
-		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
-		if(!(icon_render_keys[BP.body_zone] == old_key))
-			needs_update += BP
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		var/old_key = icon_render_keys?[limb.body_zone] //Checks the mob's icon render key list for the bodypart
+		icon_render_keys[limb.body_zone] = (limb.is_husked) ? limb.generate_husk_key().Join() : limb.generate_icon_key().Join() //Generates a key for the current bodypart
+		if(!(icon_render_keys[limb.body_zone] == old_key)) //If the keys match, that means the limb doesn't need to be redrawn
+			needs_update += limb
 
 
 	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : 6) - icon_render_keys.len) != missing_bodyparts.len)
+	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
 		limb_count_update = TRUE
-		for(var/X in missing_bodyparts)
-			icon_render_keys -= X
+		for(var/missing_limb in missing_bodyparts)
+			icon_render_keys -= missing_limb //Removes dismembered limbs from the key list
 
 	if(!needs_update.len && !limb_count_update)
 		return
 
 	remove_overlay(BODYPARTS_LAYER)
 
-
 	//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP in needs_update)
-			var/bp_icon = BP.get_limb_icon()
-			new_limbs += bp_icon
-			limb_icon_cache[icon_render_keys[BP.body_zone]] = bp_icon
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		if(limb in needs_update) //Checks to see if the limb needs to be redrawn
+			var/bodypart_icon = limb.get_limb_icon()
+			new_limbs += bodypart_icon
+			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon //Caches the icon with the bodypart key, as it is new
 		else
-			new_limbs += limb_icon_cache[icon_render_keys[BP.body_zone]]
+			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]] //Pulls existing sprites from the cache
 
 	if(new_limbs.len)
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
 
 	apply_overlay(BODYPARTS_LAYER)
 
-
 /////////////////////////
 // Limb Icon Cache 2.0 //
 /////////////////////////
-//Updated by Kapu#1178
-/*
-	Called from update_body_parts() these procs handle the limb icon cache.
-	the limb icon cache adds an icon_render_key to a human mob, it represents:
-	- Gender, if applicable
-	- The ID of the limb
-	- Draw color, if applicable
-	These procs only store limbs as to increase the number of matching icon_render_keys
-	This cache exists because drawing 6/7 icons for humans constantly is quite a waste
-	See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
-*/
-/mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
-	if(BP.is_dimorphic)
-		. += "[BP.limb_gender]-"
-	. += "[BP.limb_id]"
-	. += "-[BP.body_zone]"
-	if(BP.should_draw_greyscale && BP.draw_color)
-		. += "-[BP.draw_color]"
+/**
+ * Called from update_body_parts() these procs handle the limb icon cache.
+ * the limb icon cache adds an icon_render_key to a human mob, it represents:
+ * - Gender, if applicable
+ * - The ID of the limb
+ * - Draw color, if applicable
+ * These procs only store limbs as to increase the number of matching icon_render_keys
+ * This cache exists because drawing 6/7 icons for humans constantly is quite a waste
+ * See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
+**/
+/obj/item/bodypart/proc/generate_icon_key()
+	RETURN_TYPE(/list)
+	. = list()
+	if(is_dimorphic)
+		. += "[limb_gender]-"
+	. += "[limb_id]"
+	. += "-[body_zone]"
+	if(should_draw_greyscale && draw_color)
+		. += "-[draw_color]"
+	for(var/obj/item/organ/external/external_organ as anything in external_organs)
+		if(!external_organ.can_draw_on_bodypart(owner))
+			continue
+		. += "-[external_organ.generate_icon_cache()]"
 
-/mob/living/carbon/proc/generate_husk_key(obj/item/bodypart/BP)
-	. += "[BP.husk_type]"
+	return .
+
+///Generates a cache key specifically for husks
+/obj/item/bodypart/proc/generate_husk_key()
+	RETURN_TYPE(/list)
+	. = list()
+	. += "[husk_type]"
 	. += "-husk"
-	. += "-[BP.body_zone]"
+	. += "-[body_zone]"
+	return .
+
+/obj/item/bodypart/head/generate_icon_key()
+	. = ..()
+	. += "-[facial_hair_style]"
+	. += "-[facial_hair_color]"
+	//if(facial_hair_gradient_style)
+	//	. += "-[facial_hair_gradient_style]"
+	//	if(hair_gradient_color)
+	//		. += "-[facial_hair_gradient_color]"
+	if(facial_hair_hidden)
+		. += "-FACIAL_HAIR_HIDDEN"
+	if(show_debrained)
+		. += "-SHOW_DEBRAINED"
+		return .
+
+	. += "-[hair_style]"
+	. += "-[fixed_hair_color || override_hair_color || hair_color]"
+	if(hair_gradient_style)
+		. += "-[hair_gradient_style]"
+		if(hair_gradient_color)
+			. += "-[hair_gradient_color]"
+	if(hair_hidden)
+		. += "-HAIR_HIDDEN"
+
+	return .
+
+#undef BODYPARTS_DEFAULT_MAXIMUM

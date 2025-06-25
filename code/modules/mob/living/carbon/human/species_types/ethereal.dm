@@ -73,14 +73,14 @@
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	ethereal_light = ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	spec_updatehealth(ethereal)
-
 	new_ethereal.set_safe_hunger_level()
 
-	//The following code is literally only to make admin-spawned ethereals not be black.
-	//new_ethereal.dna.features["mcolor"] = new_ethereal.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
-	//for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
-	//	if(limb.limb_id == SPECIES_ETHEREAL)
-	//		limb.update_limb(is_creating = TRUE)
+	//var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	//ethereal_heart.ethereal_color = default_color
+
+	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
+		if(limb.limb_id == SPECIES_ETHEREAL)
+			limb.update_limb(is_creating = TRUE)
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
@@ -102,6 +102,7 @@
 	. = ..()
 	if(!ethereal_light)
 		return
+
 	if(default_color != ethereal.dna.features["ethcolor"])
 		var/new_color = ethereal.dna.features["ethcolor"]
 		r1 = GETREDPART(new_color)
@@ -117,8 +118,9 @@
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = rgb(128,128,128)
+	ethereal.hair_color = current_color
+	ethereal.facial_hair_color = current_color
 	ethereal.update_body()
-	//ethereal.update_hair()
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER

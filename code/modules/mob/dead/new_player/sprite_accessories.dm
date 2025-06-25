@@ -24,16 +24,17 @@
 	if(!istype(female))
 		female = list()
 
-	for(var/path in typesof(prototype))
-		if(path == prototype)
-			continue
+	for(var/path in subtypesof(prototype))
 		if(roundstart)
 			var/datum/sprite_accessory/P = path
 			if(initial(P.locked))
 				continue
 		var/datum/sprite_accessory/D = new path()
 
-		L[D.name] = D
+		if(D.icon_state)
+			L[D.name] = D
+		else
+			L += D.name
 
 		switch(D.use_default_gender)
 			if(MALE)
@@ -46,19 +47,33 @@
 	return L
 
 /datum/sprite_accessory
-	var/icon			//the icon file the accessory is located in
-	var/icon_state		//the icon_state of the accessory
+	/// The icon file the accessory is located in.
+	var/icon
+	/// The icon_state of the accessory.
+	var/icon_state
 	var/emissive_state	//state of the emissive overlay
 	var/emissive_alpha = 255	//Alpha of the emissive
-	var/name			//the preview name of the accessory
-	var/gender_specific //Something that can be worn by either gender, but looks different on each
-	var/use_static		//determines if the accessory will be skipped by color preferences
-	var/color_src = MUTCOLORS	//Currently only used by mutantparts so don't worry about hair and stuff. This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
-	var/hasinner		//Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
-	var/locked = FALSE		//Is this part locked from roundstart selection? Used for parts that apply effects
+	/// The preview name of the accessory.
+	var/name
+	/// Something that can be worn by either gender, but looks different on each.
+	var/gender_specific
+	/// Determines if the accessory will be skipped by color preferences.
+	var/use_static
+	/**
+	 * Currently only used by mutantparts so don't worry about hair and stuff.
+	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
+	 */
+	var/color_src = MUTCOLORS
+	/// Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
+	var/hasinner
+	/// Is this part locked from roundstart selection? Used for parts that apply effects.
+	var/locked = FALSE
+	/// Should we center the sprite?
+	var/center = FALSE
+	/// The width of the sprite in pixels. Used to center it if necessary.
 	var/dimension_x = 32
+	/// The height of the sprite in pixels. Used to center it if necessary.
 	var/dimension_y = 32
-	var/center = FALSE	//Should we center the sprite?
 	var/limbs_id // The limbs id supplied for full-body replacing features.
 	/// Is this sprite accessory okay to use for a default option
 	var/use_default = TRUE
@@ -1042,61 +1057,97 @@
 /////////////////////////////////////
 */
 
-/datum/sprite_accessory/hair_gradient
+/datum/sprite_accessory/gradient
 	icon = 'icons/mob/hair_gradients.dmi'
 	use_default = FALSE
+	///whether this gradient applies to hair and/or beards. Some gradients do not work well on beards.
+	var/gradient_category = GRADIENT_APPLIES_TO_HAIR|GRADIENT_APPLIES_TO_FACIAL_HAIR
 
-/datum/sprite_accessory/hair_gradient/none
+/datum/sprite_accessory/gradient/none
 	name = "None"
 	icon_state = "none"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/fadeup
+/datum/sprite_accessory/gradient/fadeup
 	name = "Fade Up"
 	icon_state = "fadeup"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/fadedown
+/datum/sprite_accessory/gradient/fadedown
 	name = "Fade Down"
 	icon_state = "fadedown"
 
-/datum/sprite_accessory/hair_gradient/vertical_split
+/datum/sprite_accessory/gradient/vertical_split
 	name = "Vertical Split"
 	icon_state = "vsplit"
 
-/datum/sprite_accessory/hair_gradient/horizontal_split
+/datum/sprite_accessory/gradient/horizontal_split
 	name = "Horizontal Split"
 	icon_state = "bottomflat"
 
-/datum/sprite_accessory/hair_gradient/reflected
+/datum/sprite_accessory/gradient/reflected
 	name = "Reflected"
 	icon_state = "reflected_high"
 	use_default = TRUE
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/reflected_inverse
+/datum/sprite_accessory/gradient/reflected/beard
+	icon_state = "reflected_high_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/reflected_inverse
 	name = "Reflected Inverse"
 	icon_state = "reflected_inverse_high"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/wavy
+/datum/sprite_accessory/gradient/reflected_inverse/beard
+	icon_state = "reflected_inverse_high_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/wavy
 	name = "Wavy"
 	icon_state = "wavy"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/long_fade_up
+/datum/sprite_accessory/gradient/long_fade_up
 	name = "Long Fade Up"
 	icon_state = "long_fade_up"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/long_fade_down
+/datum/sprite_accessory/gradient/long_fade_down
 	name = "Long Fade Down"
 	icon_state = "long_fade_down"
 
-/datum/sprite_accessory/hair_gradient/short_fade_up
+/datum/sprite_accessory/gradient/short_fade_up
 	name = "Short Fade Up"
 	icon_state = "short_fade_up"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/short_fade_down
+/datum/sprite_accessory/gradient/short_fade_up/beard
+	icon_state = "short_fade_down"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/short_fade_down
 	name = "Short Fade Down"
 	icon_state = "short_fade_down"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
+
+/datum/sprite_accessory/gradient/short_fade_down/beard
+	icon_state = "short_fade_down_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/wavy_spike
+	name = "Spiked Wavy"
+	icon_state = "wavy_spiked"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
+
+/datum/sprite_accessory/gradient/striped
+	name = "striped"
+	icon_state = "striped"
+
+/datum/sprite_accessory/gradient/striped_vertical
+	name = "Striped Vertical"
+	icon_state = "striped_vertical"
 
 /////////////////////////////
 // Facial Hair Definitions //

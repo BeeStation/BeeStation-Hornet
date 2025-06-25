@@ -1775,7 +1775,7 @@
 			var/mob/living/carbon/human/H = M
 			H.hair_color = pick(potential_colors)
 			H.facial_hair_color = pick(potential_colors)
-			H.update_hair()
+			H.update_body_parts()
 
 /datum/reagent/barbers_aid
 	name = "Barber's Aid"
@@ -1793,7 +1793,7 @@
 			var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
 			H.hair_style = picked_hair.name
 			H.facial_hair_style = picked_beard
-			H.update_hair()
+			H.update_body_parts()
 
 /datum/reagent/concentrated_barbers_aid
 	name = "Concentrated Barber's Aid"
@@ -1809,7 +1809,29 @@
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Very Long Hair"
 			H.facial_hair_style = "Beard (Very Long)"
-			H.update_hair()
+			H.update_body_parts()
+
+/datum/reagent/concentrated_barbers_aid/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
+	if(current_cycle > 20)
+		if(!ishuman(M))
+			return
+		var/mob/living/carbon/human/human_mob = M
+		//if(human_mob.mind.has_quirk(/datum/quirk/item_quirk/bald))
+		//	human_mob.mind.remove_quirk(/datum/quirk/item_quirk/bald)
+		var/datum/species/species_datum = human_mob.dna?.species
+		if(!species_datum)
+			return
+		if(species_datum.species_traits.Find(HAIR))
+			return
+		species_datum.species_traits |= HAIR
+		var/message
+		//if(HAS_TRAIT(M, TRAIT_BALD))
+		//	message = span_warning("You feel your scalp mutate, but you are still hopelessly bald.")
+		//else
+		message = span_notice("Your scalp mutates, a full head of hair sprouting from it.")
+		to_chat(M, message)
+		human_mob.update_body_parts()
 
 /datum/reagent/barbers_afro_mania
 	name = "Barber's Afro Mania"
@@ -1824,7 +1846,7 @@
 		if(M && ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Afro (Large)"
-			H.update_hair()
+			H.update_body_parts()
 
 /datum/reagent/barbers_shaving_aid
 	name = "Barber's Shaving Aid"
@@ -1840,7 +1862,7 @@
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Bald 2"
 			H.facial_hair_style = "Shaved"
-			H.update_hair()
+			H.update_body_parts()
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"

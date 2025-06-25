@@ -159,7 +159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	icon = H.icon
 	icon_state = "zombie"
 	H.hair_style = null
-	H.update_hair()
+	H.update_body_parts()
 	H.forceMove(src)
 	oldguy = H
 	update_icons()

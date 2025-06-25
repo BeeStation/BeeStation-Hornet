@@ -56,4 +56,4 @@ BONUS
 		H.hair_style = "Bald"
 	else
 		H.hair_style = "Balding Hair"
-	H.update_hair()
+	H.update_body_parts()

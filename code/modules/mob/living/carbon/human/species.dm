@@ -7,22 +7,48 @@ GLOBAL_LIST_EMPTY(accepatable_no_hard_check_races)
 GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species
-	var/id	// if the game needs to manually check your race to do something not included in a proc here, it will use this
-	var/name	// this is the fluff name. these will be left generic (such as 'Lizardperson' for the lizard race) so servers can change them to whatever
+	///If the game needs to manually check your race to do something not included in a proc here, it will use this.
+	var/id
+	///This is the fluff name. They are displayed on health analyzers and in the character setup menu. Leave them generic for other servers to customize.
+	var/name
 	/// The formatting of the name of the species in plural context. Defaults to "[name]\s" if unset.
 	/// Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
 	var/plural_form
 	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
-	var/bodytype = BODYTYPE_HUMANOID
-	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
+	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
+	var/sexes = TRUE
+	///A bitfield of "bodytypes", updated by /datum/obj/item/bodypart/proc/synchronize_bodytypes()
+	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
 
-	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
-	var/max_bodypart_count = 6 //The maximum number of bodyparts this species can have.
-	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
-	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
-	var/examine_limb_id //This is used for children, felinids and ashwalkers namely
+	var/list/offset_features = list(
+		OFFSET_UNIFORM = list(0,0),
+		OFFSET_ID = list(0,0),
+		OFFSET_GLOVES = list(0,0),
+		OFFSET_GLASSES = list(0,0),
+		OFFSET_EARS = list(0,0),
+		OFFSET_SHOES = list(0,0),
+		OFFSET_S_STORE = list(0,0),
+		OFFSET_FACEMASK = list(0,0),
+		OFFSET_HEAD = list(0,0),
+		OFFSET_FACE = list(0,0),
+		OFFSET_BELT = list(0,0),
+		OFFSET_BACK = list(0,0),
+		OFFSET_SUIT = list(0,0),
+		OFFSET_NECK = list(0,0),
+		OFFSET_RIGHT_HAND = list(0,0),
+		OFFSET_LEFT_HAND = list(0,0)
+	)
+	///The maximum number of bodyparts this species can have.
+	var/max_bodypart_count = 6
+	///This allows races to have specific hair colors. If null, it uses the H's hair/facial hair colors. If "mutcolor", it uses the H's mutant_color. If "fixedmutcolor", it uses fixedmutcolor
+	var/hair_color
+	///The alpha used by the hair. 255 is completely solid, 0 is invisible.
+	var/hair_alpha = 255
 
-	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
+	///This is used for children, it will determine their default limb ID for use of examine. See [/mob/living/carbon/human/proc/examine].
+	var/examine_limb_id
+	///Never, Optional, or Forced digi legs?
+	var/digitigrade_customization = DIGITIGRADE_NEVER
 	var/use_skintones = FALSE	// does it use skintones or not? (spoiler alert this is only used by humans)
 	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
 	var/datum/reagent/exotic_blood
@@ -574,190 +600,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
-/datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
-	H.remove_overlay(HAIR_LAYER)
-	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
-	if(!HD) //Decapitated
-		return
-
-	if(HAS_TRAIT(H, TRAIT_HUSK))
-		return
-	var/datum/sprite_accessory/S
-	var/list/standing = list()
-
-	var/hair_hidden = FALSE //ignored if the matching dynamic_X_suffix is non-empty
-	var/facialhair_hidden = FALSE // ^
-
-	var/dynamic_hair_suffix = "" //if this is non-null, and hair+suffix matches an iconstate, then we render that hair instead
-	var/dynamic_fhair_suffix = ""
-	var/obj/item/clothing/head/wig/worn_wig
-
-	if(H.head)// Wig stuff
-		if(istype(H.head, /obj/item/clothing/head/wig))
-			worn_wig = H.head
-		if(istype(H.head, /obj/item/clothing/head))
-			var/obj/item/clothing/head/hat = H.head
-			if(hat.attached_wig)
-				worn_wig = hat.attached_wig
-
-	//for augmented heads
-	if(!IS_ORGANIC_LIMB(HD) && !worn_wig) //Wig overrides mechanical heads not having hair
-		return
-
-	//we check if our hat or helmet hides our facial hair.
-	if(H.head)
-		var/obj/item/I = H.head
-		if(isclothing(I))
-			var/obj/item/clothing/C = I
-			dynamic_fhair_suffix = C.dynamic_fhair_suffix
-		if(I.flags_inv & HIDEFACIALHAIR)
-			facialhair_hidden = TRUE
-
-	if(H.wear_mask)
-		var/obj/item/I = H.wear_mask
-		if(isclothing(I))
-			var/obj/item/clothing/C = I
-			dynamic_fhair_suffix = C.dynamic_fhair_suffix //mask > head in terms of facial hair
-		if(I.flags_inv & HIDEFACIALHAIR)
-			facialhair_hidden = TRUE
-
-	if(H.facial_hair_style && (FACEHAIR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
-		S = GLOB.facial_hair_styles_list[H.facial_hair_style]
-		if(S?.icon_state)
-
-			//List of all valid dynamic_fhair_suffixes
-			var/static/list/fextensions
-			if(!fextensions)
-				var/icon/fhair_extensions = icon('icons/mob/facialhair_extensions.dmi')
-				fextensions = list()
-				for(var/s in fhair_extensions.IconStates(1))
-					fextensions[s] = TRUE
-				qdel(fhair_extensions)
-
-			//Is hair+dynamic_fhair_suffix a valid iconstate?
-			var/fhair_state = S.icon_state
-			var/fhair_file = S.icon
-			if(fextensions[fhair_state+dynamic_fhair_suffix])
-				fhair_state += dynamic_fhair_suffix
-				fhair_file = 'icons/mob/facialhair_extensions.dmi'
-
-			var/mutable_appearance/facial_overlay = mutable_appearance(fhair_file, fhair_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-
-			if(!forced_colour)
-				if(hair_color)
-					if(hair_color == "mutcolor")
-						facial_overlay.color = "#" + H.dna.features["mcolor"]
-					else if (hair_color =="fixedmutcolor")
-						facial_overlay.color = "#[fixed_mut_color]"
-					else
-						facial_overlay.color = "#" + hair_color
-				else
-					facial_overlay.color = "#" + H.facial_hair_color
-			else
-				facial_overlay.color = forced_colour
-
-			facial_overlay.alpha = hair_alpha
-
-			standing += facial_overlay
-			standing += emissive_blocker(facial_overlay.icon, facial_overlay.icon_state, facial_overlay.layer, facial_overlay.alpha)
-
-	if(H.head)
-		var/obj/item/I = H.head
-		if(isclothing(I) && !istype(I, /obj/item/clothing/head/wig))
-			var/obj/item/clothing/C = I
-			dynamic_hair_suffix = C.dynamic_hair_suffix
-		if(I.flags_inv & HIDEHAIR)
-			hair_hidden = TRUE
-
-	if(H.wear_mask)
-		var/obj/item/I = H.wear_mask
-		if(!dynamic_hair_suffix && isclothing(I)) //head > mask in terms of head hair
-			var/obj/item/clothing/C = I
-			dynamic_hair_suffix = C.dynamic_hair_suffix
-		if(I.flags_inv & HIDEHAIR)
-			hair_hidden = TRUE
-
-	if(!hair_hidden || dynamic_hair_suffix || worn_wig)
-		var/mutable_appearance/hair_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-		var/mutable_appearance/gradient_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-		if(!hair_hidden && !H.get_organ_slot(ORGAN_SLOT_BRAIN) && !HAS_TRAIT(H, TRAIT_NOBLOOD))
-			hair_overlay.icon = 'icons/mob/species/human/human_face.dmi'
-			hair_overlay.icon_state = "debrained"
-
-		else if((H.hair_style && (HAIR in species_traits)) || worn_wig)
-			var/current_hair_style = H.hair_style
-			var/current_hair_color = H.hair_color
-			var/current_gradient_style = H.gradient_style
-			var/current_gradient_color = H.gradient_color
-			if(worn_wig)
-				current_hair_style = worn_wig.hair_style
-				current_hair_color = worn_wig.hair_color
-				current_gradient_style = worn_wig.gradient_style
-				current_gradient_color = worn_wig.gradient_color
-			S = GLOB.hair_styles_list[current_hair_style]
-			if(S?.icon_state)
-
-				//List of all valid dynamic_hair_suffixes
-				var/static/list/extensions
-				if(!extensions)
-					var/icon/hair_extensions = icon('icons/mob/hair_extensions.dmi') //hehe
-					extensions = list()
-					for(var/s in hair_extensions.IconStates(1))
-						extensions[s] = TRUE
-					qdel(hair_extensions)
-
-				//Is hair+dynamic_hair_suffix a valid iconstate?
-				var/hair_state = S.icon_state
-				var/hair_file = S.icon
-				if(extensions[hair_state+dynamic_hair_suffix])
-					hair_state += dynamic_hair_suffix
-					hair_file = 'icons/mob/hair_extensions.dmi'
-
-				hair_overlay.icon = hair_file
-				hair_overlay.icon_state = hair_state
-
-				if(!forced_colour)
-					if(hair_color)
-						if(hair_color == "mutcolor")
-							hair_overlay.color = "#" + H.dna.features["mcolor"]
-						else if(hair_color == "fixedmutcolor")
-							hair_overlay.color = "#[fixed_mut_color]"
-						else
-							hair_overlay.color = "#" + hair_color
-					else
-						hair_overlay.color = "#" + current_hair_color
-					if(worn_wig)//Total override
-						hair_overlay.color = current_hair_color
-					//Gradients
-					var/gradient_style = current_gradient_style
-					var/gradient_color = current_gradient_color
-					if(gradient_style)
-						var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[gradient_style]
-						var/icon/temp = icon(gradient.icon, gradient.icon_state)
-						var/icon/temp_hair = icon(hair_file, hair_state)
-						temp.Blend(temp_hair, ICON_ADD)
-						gradient_overlay.icon = temp
-						gradient_overlay.color = "#" + gradient_color
-
-				else
-					hair_overlay.color = forced_colour
-
-				hair_overlay.alpha = hair_alpha
-				if(worn_wig)
-					hair_overlay.alpha = 255
-				if(OFFSET_FACE in H.dna.species.offset_features)
-					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-		if(hair_overlay.icon)
-			standing += hair_overlay
-			standing += gradient_overlay
-			standing += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, hair_overlay.layer, hair_overlay.alpha)
-
-	if(standing.len)
-		H.overlays_standing[HAIR_LAYER] = standing
-
-	H.apply_overlay(HAIR_LAYER)
-
 /datum/species/proc/handle_body(mob/living/carbon/human/H)
 	H.remove_overlay(BODY_LAYER)
 
@@ -975,33 +817,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_pbody"
 
-
-	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
-	///Digi handling
-	if(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE)
-		var/uniform_compatible = FALSE
-		var/suit_compatible = FALSE
-		if(!(H.w_uniform) || (H.w_uniform.supports_variations & DIGITIGRADE_VARIATION) || (H.w_uniform.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks uniform compatibility
-			uniform_compatible = TRUE
-		if((!H.wear_suit) || (H.wear_suit.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit.body_parts_covered & LEGS) || (H.wear_suit.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
-			suit_compatible = TRUE
-
-		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit?.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
-			for(var/obj/item/bodypart/BP as() in H.bodyparts)
-				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
-					BP.limb_id = BODYPART_ID_DIGITIGRADE
-
-		else
-			for(var/obj/item/bodypart/BP as() in H.bodyparts)
-				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
-					BP.limb_id = "lizard"
-	///End digi handling
-
-
-	////END REAL-LIMB HANDLING
-	H.update_body_parts()
-
-
 	if(!bodyparts_to_add)
 		return
 
@@ -1181,13 +996,32 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// handles the equipping of species-specific gear
 	return
 
-/datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE)
+
+/datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
+
 	if(I.species_restricted & H.dna?.species.bodyflag)
 		to_chat(H, span_warning("Your species cannot wear this item!"))
 		return FALSE
+
+	// if there's an item in the slot we want, fail
+	if(!ignore_equipped)
+		if(H.get_item_by_slot(slot))
+			return FALSE
+
+	// this check prevents us from equipping something to a slot it doesn't support, WITH the exceptions of storage slots (pockets, suit storage, and backpacks)
+	// we don't require having those slots defined in the item's slot_flags, so we'll rely on their own checks further down
+	if(!(I.slot_flags & slot))
+		var/excused = FALSE
+		// Anything that's small or smaller can fit into a pocket by default
+		if((slot & (ITEM_SLOT_RPOCKET|ITEM_SLOT_LPOCKET)) && I.w_class <= WEIGHT_CLASS_SMALL)
+			excused = TRUE
+		else if(slot & (ITEM_SLOT_SUITSTORE|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDS))
+			excused = TRUE
+		if(!excused)
+			return FALSE
 
 	switch(slot)
 		if(ITEM_SLOT_HANDS)
@@ -1195,107 +1029,64 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return TRUE
 			return FALSE
 		if(ITEM_SLOT_MASK)
-			if(H.wear_mask)
-				return FALSE
-			if(!(I.slot_flags & ITEM_SLOT_MASK))
-				return FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_NECK)
-			if(H.wear_neck)
-				return FALSE
-			if( !(I.slot_flags & ITEM_SLOT_NECK) )
-				return FALSE
 			return TRUE
 		if(ITEM_SLOT_BACK)
-			if(H.back)
-				return FALSE
-			if( !(I.slot_flags & ITEM_SLOT_BACK) )
-				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_OCLOTHING)
-			if(H.wear_suit)
-				return FALSE
-			if( !(I.slot_flags & ITEM_SLOT_OCLOTHING) )
-				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_GLOVES)
-			if(H.gloves)
-				return FALSE
-			if( !(I.slot_flags & ITEM_SLOT_GLOVES) )
-				return FALSE
 			if(H.num_hands < 2)
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_FEET)
-			if(H.shoes)
-				return FALSE
-			if( !(I.slot_flags & ITEM_SLOT_FEET) )
-				return FALSE
 			if(H.num_legs < 2)
 				return FALSE
-			if((bodytype & BODYTYPE_DIGITIGRADE) && !(I.supports_variations & DIGITIGRADE_VARIATION))
-				if(!disable_warning)
-					to_chat(H, span_warning("The footwear around here isn't compatible with your feet!"))
-				return FALSE
+			if((bodytype & BODYTYPE_DIGITIGRADE) && !(I.item_flags & IGNORE_DIGITIGRADE))
+				if(!(I.supports_variations_flags & (CLOTHING_DIGITIGRADE_VARIATION|CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON)))
+					if(!disable_warning)
+						to_chat(H, span_warning("The footwear around here isn't compatible with your feet!"))
+					return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_BELT)
-			if(H.belt)
-				return FALSE
-
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 
 			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
-			if(!(I.slot_flags & ITEM_SLOT_BELT))
-				return
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_EYES)
-			if(H.glasses)
-				return FALSE
-			if(!(I.slot_flags & ITEM_SLOT_EYES))
-				return FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
 				return FALSE
-			var/obj/item/organ/eyes/E = H.get_organ_slot(ORGAN_SLOT_EYES)
-			if(E?.no_glasses)
+			var/obj/item/organ/eyes/eyes = H.get_organ_slot(ORGAN_SLOT_EYES)
+			if(eyes?.no_glasses)
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_HEAD)
-			if(H.head)
-				return FALSE
-			if(!(I.slot_flags & ITEM_SLOT_HEAD))
-				return FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_EARS)
-			if(H.ears)
-				return FALSE
-			if(!(I.slot_flags & ITEM_SLOT_EARS))
-				return FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_ICLOTHING)
-			if(H.w_uniform)
-				return FALSE
-			if( !(I.slot_flags & ITEM_SLOT_ICLOTHING) )
-				return FALSE
+			//var/obj/item/bodypart/chest = H.get_bodypart(BODY_ZONE_CHEST)
+			//if(chest && (chest.bodytype & BODYTYPE_MONKEY))
+			//	if(!(I.supports_variations_flags & CLOTHING_MONKEY_VARIATION))
+			//		if(!disable_warning)
+			//			to_chat(H, span_warning("[I] doesn't fit your [chest.name]!"))
+			//		return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_ID)
-			if(H.wear_id)
-				return FALSE
-
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
-				return FALSE
-			if( !(I.slot_flags & ITEM_SLOT_ID) )
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_LPOCKET)
@@ -1310,8 +1101,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
-			if( I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_LPOCKET) )
-				return TRUE
+			return TRUE
 		if(ITEM_SLOT_RPOCKET)
 			if(HAS_TRAIT(I, TRAIT_NODROP))
 				return FALSE
@@ -1324,13 +1114,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
-			if( I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_RPOCKET) )
-				return TRUE
-			return FALSE
+			return TRUE
 		if(ITEM_SLOT_SUITSTORE)
 			if(HAS_TRAIT(I, TRAIT_NODROP))
-				return FALSE
-			if(H.s_store)
 				return FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
@@ -1348,16 +1134,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return TRUE
 			return FALSE
 		if(ITEM_SLOT_HANDCUFFED)
-			if(H.handcuffed)
-				return FALSE
 			if(!istype(I, /obj/item/restraints/handcuffs))
 				return FALSE
 			if(H.num_legs < 2)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_LEGCUFFED)
-			if(H.legcuffed)
-				return FALSE
 			if(!istype(I, /obj/item/restraints/legcuffs))
 				return FALSE
 			if(H.num_legs < 2)
@@ -1372,7 +1154,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/equip_delay_self_check(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
-	H.visible_message(span_notice("[H] start putting on [I]."), span_notice("You start putting on [I]."))
+	H.visible_message(span_notice("[H] start putting on [I]..."), span_notice("You start putting on [I]..."))
 	return do_after(H, I.equip_delay_self, target = H)
 
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
@@ -1592,7 +1374,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return
 	target.facial_hair_style = "Shaved"
 	target.hair_style = "Bald"
-	target.update_hair()
+	target.update_body_parts()
 
 ////////////////
 // MOVE SPEED //

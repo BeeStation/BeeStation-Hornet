@@ -528,12 +528,13 @@
 /datum/antagonist/changeling/proc/admin_restore_appearance(mob/admin)
 	if(!stored_profiles.len || !iscarbon(owner.current))
 		to_chat(admin, span_danger("Resetting DNA failed!"))
-	else
-		var/mob/living/carbon/C = owner.current
-		first_prof.dna.transfer_identity(C, transfer_SE=1)
-		C.real_name = first_prof.name
-		C.updateappearance(mutcolor_update=1)
-		C.domutcheck()
+		return
+
+	var/mob/living/carbon/C = owner.current
+	first_prof.dna.transfer_identity(C, transfer_SE=1)
+	C.real_name = first_prof.name
+	C.updateappearance(mutcolor_update = TRUE)
+	C.domutcheck()
 
 // Profile
 

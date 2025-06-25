@@ -42,13 +42,6 @@
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 
-	//These allow head/mask items to dynamically alter the user's hair
-	// and facial hair, checking hair_extensions.dmi and facialhair_extensions.dmi
-	// for a state matching hair_state+dynamic_hair_suffix
-	// THESE OVERRIDE THE HIDEHAIR FLAGS
-	var/dynamic_hair_suffix = ""//head > mask for head hair
-	var/dynamic_fhair_suffix = ""//mask > head for facial hair
-
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
 
@@ -195,7 +188,7 @@
 /obj/item/clothing/proc/take_damage_zone(def_zone, damage_amount, damage_type, armour_penetration)
 	if(!def_zone || !limb_integrity || (initial(body_parts_covered) in GLOB.bitflags)) // the second check sees if we only cover one bodypart anyway and don't need to bother with this
 		return
-	var/list/covered_limbs = body_parts_covered2organ_names(body_parts_covered) // what do we actually cover?
+	var/list/covered_limbs = cover_flags2body_zones(body_parts_covered) // what do we actually cover?
 	if(!(def_zone in covered_limbs))
 		return
 
@@ -217,7 +210,7 @@
   * * damage_type: Only really relevant for the verb for describing the breaking, and maybe obj_destruction()
   */
 /obj/item/clothing/proc/disable_zone(def_zone, damage_type)
-	var/list/covered_limbs = body_parts_covered2organ_names(body_parts_covered)
+	var/list/covered_limbs = cover_flags2body_zones(body_parts_covered)
 	if(!(def_zone in covered_limbs))
 		return
 

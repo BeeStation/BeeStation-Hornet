@@ -200,7 +200,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		H.skin_tone = skin_tone
 	else
 		H.skin_tone = random_skin_tone()
-	H.update_hair()
+	H.update_body_parts()
 	H.update_body()
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")

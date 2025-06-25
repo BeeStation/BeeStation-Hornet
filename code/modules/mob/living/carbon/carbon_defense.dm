@@ -72,7 +72,7 @@
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
-	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
+	send_item_attack_message(I, user, affecting.plaintext_zone, affecting)
 	if (I.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
 		var/hit_amount = (100 - armour_block) / 100

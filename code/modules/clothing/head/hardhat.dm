@@ -214,6 +214,6 @@
 	flags_inv = 0
 	armor_type = /datum/armor/none
 	light_range = 1 //luminosity when on
-	dynamic_hair_suffix = ""
+
 
 	dog_fashion = /datum/dog_fashion/head/reindeer

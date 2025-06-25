@@ -490,13 +490,12 @@
 
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
-		if(icon_update)
-			update_mutations_overlay()// no lizard with human hulk overlay please.
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
 	if(icon_update)
-		update_hair()
+		update_body(is_creating = TRUE)
+		update_mutations_overlay()// no lizard with human hulk overlay please.
 
 
 /mob/proc/has_dna()
@@ -547,9 +546,7 @@
 		updateappearance(icon_update=0)
 
 	if(mrace || newfeatures || ui)
-		update_body()
-		update_hair()
-		update_body_parts()
+		update_body(is_creating = TRUE)
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations))
@@ -660,9 +657,8 @@
 		external_organ.mutate_feature(features, src)
 
 	if(icon_update)
-		dna.species.handle_body(src)
-		update_body()
-		update_hair()
+		dna.species.handle_body(src) // We want 'update_body_parts(update_limb_data = TRUE)' to be called only if mutcolor_update is TRUE, so no 'update_body()' here.
+		update_body_parts() //We can call this because it doesnt refresh limb data, and it handles hair and such.
 		if(mutcolor_update)
 			update_body_parts(update_limb_data = TRUE)
 		if(mutations_overlay_update)

@@ -89,7 +89,6 @@
 	H.dna.features["diona_eyes"] = pick(GLOB.diona_eyes_list)
 	H.dna.features["diona_pbody"] = pick(GLOB.diona_pbody_list)
 
-	H.update_body()
-	H.update_hair()
+	H.update_body(is_creating = TRUE)
 	H.dna.species.spec_updatehealth(H)
 

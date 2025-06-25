@@ -46,7 +46,7 @@
 		if(brainmob && !(brain_owner.stat == DEAD || (HAS_TRAIT(brain_owner, TRAIT_DEATHCOMA))))
 			to_chat(brainmob, span_danger("You can't feel your body! You're still just a brain!"))
 		forceMove(brain_owner)
-		brain_owner.update_hair()
+		brain_owner.update_body_parts()
 		return
 
 	if(ai_controller && !special) //are we a monkey brain?
@@ -85,7 +85,7 @@
 		trauma.on_gain()
 
 	//Update the body's icon so it doesnt appear debrained anymore
-	brain_owner.update_hair()
+	brain_owner.update_body_parts()
 
 /obj/item/organ/brain/on_insert(mob/living/carbon/organ_owner, special)
 	// Are we inserting into a new mob from a head?
@@ -121,7 +121,7 @@
 			if(brain_owner.mind.current)
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
-	brain_owner.update_hair()
+	brain_owner.update_body_parts()
 	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)

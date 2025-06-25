@@ -401,7 +401,7 @@
 				probability = 50
 		for(var/obj/item/bodypart/BP as() in bodyparts)
 			if(prob(probability) && !prob(getarmor(BP, BOMB)) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
-				BP.brute_dam = BP.max_damage
+				BP.receive_damage(INFINITY) //Capped by proc
 				BP.dismember()
 				max_limb_loss--
 				if(!max_limb_loss)
@@ -452,7 +452,7 @@
 	if(. & EMP_PROTECT_CONTENTS)
 		return
 	var/informed = FALSE
-	for(var/obj/item/bodypart/bodypart in src.bodyparts)
+	for(var/obj/item/bodypart/bodypart as anything in src.bodyparts)
 		if(!IS_ORGANIC_LIMB(bodypart))
 			if(!informed)
 				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
@@ -588,7 +588,7 @@
 				emote("scream")
 				facial_hair_style = "Shaved"
 				hair_style = "Bald"
-				update_hair()
+				update_body_parts()
 				ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 
 		update_damage_overlays()

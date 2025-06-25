@@ -15,8 +15,6 @@
 	create_bodyparts()
 
 	setup_human_dna()
-
-
 	prepare_huds() //Prevents a nasty runtime on human init
 
 	if(dna.species)
@@ -470,8 +468,7 @@
 	hair_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
 	underwear = "Nude"
 	socks = "Nude"
-	update_body()
-	update_hair()
+	update_body(is_creating = TRUE)
 
 /mob/living/carbon/human/singularity_pull(S, current_size)
 	..()
@@ -1248,9 +1245,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/zombie/infectious
 	race = /datum/species/zombie/infectious
-
-/mob/living/carbon/human/species/zombie/krokodil_addict
-	race = /datum/species/human/krokodil_addict
 
 /mob/living/carbon/human/species/pumpkin_man
 	race = /datum/species/pumpkin_man

@@ -40,7 +40,7 @@
 	H.update_inv_hands()
 	H.hair_style = "Messy"
 	H.hair_color = "431"
-	H.update_hair()
+	H.update_body_parts()
 
 /datum/role_preference/antagonist/changeling
 	name = "Changeling"
@@ -89,7 +89,7 @@
 
 	brother1.hair_style = "Pigtails"
 	brother1.hair_color = "532"
-	brother1.update_hair()
+	brother1.update_body_parts()
 
 	brother2.dna.features["moth_antennae"] = "Plain"
 	brother2.dna.features["moth_markings"] = "None"
@@ -208,7 +208,7 @@
 /datum/role_preference/antagonist/revolutionary/proc/make_assistant_icon(hair_style)
 	var/mob/living/carbon/human/dummy/consistent/assistant = new
 	assistant.hair_style = hair_style
-	assistant.update_hair()
+	assistant.update_body_parts()
 
 	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)
 	assistant_icon.ChangeOpacity(0.5)

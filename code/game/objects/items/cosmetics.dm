@@ -120,7 +120,7 @@
 	else
 		H.hair_style = "Skinhead"
 
-	H.update_hair()
+	H.update_body_parts()
 	playsound(loc, 'sound/items/welder2.ogg', 20, 1)
 
 
@@ -226,7 +226,7 @@
 	if(new_style && do_after(user, 60, target = H))
 		user.visible_message(span_notice("[user] successfully changes [H]'s hairstyle using [src]."), span_notice("You successfully change [H]'s hairstyle using [src]."))
 		H.hair_style = new_style
-		H.update_hair()
+		H.update_body_parts()
 
 /obj/item/razor/proc/new_facial_hairstyle(mob/living/carbon/human/H, mob/user, var/mirror)
 	if(H == user && !mirror)
@@ -242,7 +242,7 @@
 	if(new_style && do_after(user, 60, target = H))
 		user.visible_message(span_notice("[user] successfully changes [H]'s facial hair style using [src]."), span_notice("You successfully change [H]'s facial hair style using [src]."))
 		H.facial_hair_style = new_style
-		H.update_hair()
+		H.update_body_parts()
 
 /obj/item/razor/straightrazor
 	name = "straight razor"

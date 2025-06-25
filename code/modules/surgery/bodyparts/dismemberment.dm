@@ -119,14 +119,13 @@
 			O.transfer_to_limb(src, C)
 
 
-	synchronize_bodytypes(C)
-
 	update_icon_dropped()
+	synchronize_bodytypes(C)
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
-	C.update_hair()
+	C.update_body_parts()
 
-	if(!Tsec)	// Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
+	if(!Tsec) // Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
 		return
 
@@ -311,7 +310,6 @@
 	synchronize_bodytypes(new_limb_owner)
 	new_limb_owner.updatehealth()
 	new_limb_owner.update_body()
-	new_limb_owner.update_hair()
 	new_limb_owner.update_damage_overlays()
 	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 	return TRUE
@@ -345,15 +343,6 @@
 		new_head_owner.real_name = real_name
 	real_name = ""
 
-	if(!special && ishuman(new_head_owner))
-		var/mob/living/carbon/human/H = new_head_owner
-		H.hair_color = hair_color
-		H.hair_style = hair_style
-		H.facial_hair_color = facial_hair_color
-		H.facial_hair_style = facial_hair_style
-		H.lip_style = lip_style
-		H.lip_color = lip_color
-
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/P in src)
 		for(var/datum/action/item_action/hands_free/activate_pill/AP in P.actions)
@@ -361,16 +350,29 @@
 			AP.Grant(new_head_owner)
 			break
 
+	///Transfer existing hair properties to the new human.
+	if(!special && ishuman(new_head_owner))
+		var/mob/living/carbon/human/sexy_chad = new_head_owner
+		sexy_chad.hair_style = hair_style
+		sexy_chad.hair_color = hair_color
+		sexy_chad.facial_hair_color = facial_hair_color
+		sexy_chad.facial_hair_style = facial_hair_style
+		if(hair_gradient_style)
+			LAZYSETLEN(sexy_chad.gradient_style, GRADIENTS_LEN)
+			LAZYSETLEN(sexy_chad.gradient_color, GRADIENTS_LEN)
+			sexy_chad.gradient_style[GRADIENT_HAIR_KEY] =  hair_gradient_style
+			sexy_chad.gradient_color[GRADIENT_HAIR_KEY] =  hair_gradient_color
+			//sexy_chad.gradient_style[GRADIENT_FACIAL_HAIR_KEY] = facial_hair_gradient_style
+			//sexy_chad.gradient_color[GRADIENT_FACIAL_HAIR_KEY] = facial_hair_gradient_color
+
 	new_head_owner.updatehealth()
 	new_head_owner.update_body()
-	new_head_owner.update_hair()
 	new_head_owner.update_damage_overlays()
 
 ///Makes sure that the owner's bodytype flags match the flags of all of it's parts.
 /obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/carbon_owner)
 	if(!carbon_owner?.dna?.species) //carbon_owner and dna can somehow be null during garbage collection, at which point we don't care anyway.
 		return
-	//This codeblock makes sure that the owner's bodytype flags match the flags of all of it's parts.
 	var/all_limb_flags
 	for(var/obj/item/bodypart/limb as anything in carbon_owner.bodyparts)
 		for(var/obj/item/organ/external/ext_organ as anything in limb.external_organs)
@@ -380,10 +382,10 @@
 	carbon_owner.dna.species.bodytype = all_limb_flags
 
 //Regenerates all limbs. Returns amount of limbs regenerated
-/mob/living/proc/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
-	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, noheal, excluded_zones)
+/mob/living/proc/regenerate_limbs(list/excluded_zones = list())
+	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, excluded_zones)
 
-/mob/living/carbon/regenerate_limbs(noheal = FALSE, list/excluded_zones = list())
+/mob/living/carbon/regenerate_limbs(list/excluded_zones = list())
 	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, excluded_zones)
 	var/list/zone_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	if(length(excluded_zones))
@@ -391,10 +393,10 @@
 	for(var/limb_zone in zone_list)
 		regenerate_limb(limb_zone)
 
-/mob/living/proc/regenerate_limb(limb_zone, noheal)
+/mob/living/proc/regenerate_limb(limb_zone)
 	return
 
-/mob/living/carbon/regenerate_limb(limb_zone, noheal)
+/mob/living/carbon/regenerate_limb(limb_zone)
 	var/obj/item/bodypart/limb
 	if(get_bodypart(limb_zone))
 		return FALSE
@@ -404,6 +406,15 @@
 			qdel(limb)
 			return FALSE
 		limb.update_limb(is_creating = TRUE)
+
+		//Copied from /datum/species/proc/on_species_gain()
+		for(var/obj/item/organ/external/organ_path as anything in dna.species.external_organs)
+			//Load a persons preferences from DNA
+			var/zone = initial(organ_path.zone)
+			if(zone != limb_zone)
+				continue
+			var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
+			new_organ.Insert(src)
 
 		update_body_parts()
 		return TRUE
