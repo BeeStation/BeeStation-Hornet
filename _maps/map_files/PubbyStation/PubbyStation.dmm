@@ -4517,7 +4517,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/security/armory)
 "aCy" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
