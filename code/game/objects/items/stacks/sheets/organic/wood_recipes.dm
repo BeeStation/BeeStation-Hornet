@@ -1,6 +1,11 @@
 /* Wood */
 
 GLOBAL_LIST_INIT(wood_recipes, list ( \
+	new/datum/stack_recipe_list("railing", list(
+		new/datum/stack_recipe("wood railing", /obj/structure/railing/perspective/wood, 3, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_CHECK_DIRECTION, time = 1.8 SECONDS, category = CAT_STRUCTURE), \
+		new/datum/stack_recipe("wood railing corner", /obj/structure/railing/perspective/wood/corner, 3, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_CHECK_DIRECTION, time = 1.8 SECONDS, category = CAT_STRUCTURE), \
+		new/datum/stack_recipe("wood railing end", /obj/structure/railing/perspective/wood/end, 3, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_CHECK_DIRECTION, time = 1.8 SECONDS, category = CAT_STRUCTURE), \
+		)),
 	new/datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1, crafting_flags = NONE, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20, crafting_flags = NONE, category = CAT_TILES), \
 	new/datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS, crafting_flags = NONE, category = CAT_FURNITURE), \
