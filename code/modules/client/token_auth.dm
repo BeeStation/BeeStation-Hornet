@@ -14,7 +14,10 @@
 		var/ip = src.address
 		if(is_localhost())
 			ip = "127.0.0.1"
-		src << link("[discord_link]?ip=[url_encode(ip)]")
+		var/port_data = ""
+		if(isnum_safe(seeker_port))
+			port_data = "&seeker_port=[url_encode(seeker_port)]"
+		src << link("[discord_link]?ip=[url_encode(ip)][port_data]")
 	else
 		to_chat_immediate(src, span_danger("Discord authentication has not been configured!"))
 
@@ -41,9 +44,19 @@
 		log_admin_private("[key_name(usr)] attempted to check session token: \"[token]\"")
 		message_admins("[key_name(usr)] performed a proccall that attempts to test a session token!")
 		return
+	if(logged_in)
+		return FALSE
 	if(!CONFIG_GET(flag/enable_guest_external_auth))
 		to_chat_immediate(usr, span_userdanger("External auth is currently disabled!"))
 		return FALSE
+	token_attempts++
+	if(token_attempts > 3)
+		log_access("[ckey] has been rate-limited while performing token authentication ([token_attempts] attempts)")
+		to_chat_immediate(usr, span_userdanger("Maximum number of login attempts reached. Try again later."))
+		// Reset attempts after delay
+		if(token_attempts == 4)
+			spawn(60 SECONDS) token_attempts = 0
+		return
 	if(!istext(token) || !length(token) || length(token) > 128)
 		to_chat_immediate(usr, span_userdanger("Token is not formatted correctly"))
 		return
@@ -77,6 +90,7 @@
 			new_key = "d[external_uid]"
 	if(length(new_key))
 		qdel(query_check_token)
+		tgui_panel.save_session_token(token)
 		return login_as(new_key, external_method, external_uid, external_display_name)
 	qdel(query_check_token)
 	return FALSE
@@ -95,6 +109,7 @@
 		return FALSE
 	if(logged_in)
 		return FALSE
+	token_attempts = 0
 	remove_verb(/client/verb/get_token)
 	remove_verb(/client/verb/use_token)
 	// Set this early so that we can rely on it in setup (for things like build_ban_cache)

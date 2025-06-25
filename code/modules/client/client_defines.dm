@@ -171,3 +171,8 @@
 	var/external_uid = null
 	/// The display name from an external auth source. Used instead of the BYOND key in some UIs. Can be set even if the CKEY is a real BYOND CKEY.
 	var/external_display_name = null
+
+	/// Number of attempts this client has made to authenticate with a token
+	var/token_attempts = 0
+	/// Port currently used by this client's Dream Seeker
+	var/seeker_port

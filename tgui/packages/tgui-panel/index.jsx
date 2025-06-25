@@ -25,6 +25,7 @@ import { statMiddleware, statReducer } from './stat';
 import { telemetryMiddleware } from './telemetry';
 import { setGlobalStore } from 'tgui/backend';
 import { logger } from 'tgui/logging';
+import { authMiddleware } from './auth';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');
@@ -47,6 +48,7 @@ const store = configureStore({
       audioMiddleware,
       gameMiddleware,
       statMiddleware,
+      authMiddleware,
     ],
   },
 });
@@ -94,6 +96,8 @@ const setupApp = () => {
       }
     );
   }
+
+  Byond.sendMessage('seeker_port', location.port);
 };
 
 const based_winset = async (based_on_what = 'output') => {

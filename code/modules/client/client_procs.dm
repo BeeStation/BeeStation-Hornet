@@ -117,6 +117,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
 
+	if(href_list["session_token"])
+		login_with_token(href_list["session_token"])
+
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder
@@ -245,6 +248,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(logged_in)
 		remove_verb(/client/verb/get_token)
 		remove_verb(/client/verb/use_token)
+	else // send the stored session token, if any
+		tgui_panel.try_auth()
 
 /client/proc/add_default_verbs()
 	add_verb(collect_client_verbs())
@@ -1237,6 +1242,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (NAMEOF(src, external_display_name))
 			return FALSE
 		if (NAMEOF(src, temp_topicdata))
+			return FALSE
+		if (NAMEOF(src, seeker_port))
 			return FALSE
 		if (NAMEOF(src, ban_cache))
 			return FALSE
