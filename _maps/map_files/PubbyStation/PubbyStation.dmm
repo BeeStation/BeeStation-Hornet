@@ -17930,7 +17930,7 @@
 "cgQ" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/statue/gold/ce,
-/turf/open/floor/iron,
+/turf/open/floor/iron/airless,
 /area/space/nearstation)
 "cgZ" = (
 /obj/machinery/door/airlock/research/glass{
@@ -18833,7 +18833,8 @@
 /turf/open/floor/iron/tech,
 /area/tcommsat/computer)
 "cmt" = (
-/turf/open/floor/iron/yellowsiding,
+/obj/effect/turf_decal/siding/yellow,
+/turf/open/floor/iron/airless,
 /area/space/nearstation)
 "cmw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
@@ -21983,9 +21984,10 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "dcE" = (
-/turf/open/floor/iron/yellowsiding{
+/obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
+/turf/open/floor/iron/airless,
 /area/space/nearstation)
 "ddd" = (
 /obj/structure/cable/yellow{
@@ -33642,7 +33644,8 @@
 /obj/machinery/camera/motion/directional/north{
 	c_tag = "Engineering - ShuttleDock"
 	},
-/turf/open/floor/iron/yellowsiding,
+/obj/effect/turf_decal/siding/yellow,
+/turf/open/floor/iron/airless,
 /area/space/nearstation)
 "iyU" = (
 /obj/structure/cable/yellow{
@@ -41126,7 +41129,7 @@
 "lNv" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/airless,
 /area/space/nearstation)
 "lNE" = (
 /obj/structure/cable/yellow{
@@ -47338,7 +47341,7 @@
 "oGE" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/turf/open/floor/iron/airless,
 /area/engine/engine_room/external)
 "oGR" = (
 /obj/item/kirbyplants,
@@ -59701,7 +59704,7 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/qm)
 "ukR" = (
-/turf/open/floor/iron,
+/turf/open/floor/iron/airless,
 /area/space/nearstation)
 "ukU" = (
 /obj/effect/landmark/event_spawn,
