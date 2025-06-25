@@ -101,7 +101,7 @@
 	weight = 6
 	points_cost = 13
 	restricted_roles = list(JOB_NAME_CYBORG)
-	flags = SHOULD_USE_ANTAG_REP|CANNOT_REPEAT
+	flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
 
 /datum/dynamic_ruleset/roundstart/malf/choose_candidates()
 	return
@@ -130,7 +130,7 @@
 	weight = 1
 	points_cost = 15
 	minimum_points_required = 20
-	flags = HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
 	. = ..()
@@ -200,7 +200,7 @@
 	weight = 5
 	points_cost = 20
 	minimum_points_required = 24
-	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
+	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/clockcult,
 	)
@@ -247,7 +247,7 @@
 	weight = 5
 	points_cost = 35
 	minimum_points_required = 24
-	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
+	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
 	)
@@ -303,8 +303,8 @@
 	drafted_players_amount = 3
 	weight = 3
 	points_cost = 20
-	minimum_points_required = 24
-	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
+	minimum_points_required = 28
+	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
@@ -400,7 +400,7 @@
 	weight = 4
 	points_cost = 20
 	minimum_points_required = 35
-	flags = SHOULD_USE_ANTAG_REP|HIGH_IMPACT_RULESET|NO_OTHER_RULESETS
+	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/team/revolution/team
 	var/finished = FALSE

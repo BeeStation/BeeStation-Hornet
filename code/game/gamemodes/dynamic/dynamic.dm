@@ -125,9 +125,8 @@
 	var/midround_points_per_living = 0.2
 	var/midround_points_per_observer = 0
 	var/midround_points_per_dead = -0.5
-	/// Every time we update midround points we add this value to the points and to itself
-	/// For example: Minute 1, +0.05. Minute 2, +0.1. Minute 3, +0.15...
-	var/midround_linear_point_increase = 0.01
+	/// Base increase for midround points
+	var/midround_linear_point_increase = 2
 
 	/**
 	 * Latejoin
@@ -473,7 +472,6 @@
 
 	midround_points += max(midround_delta, 0)
 	midround_points += midround_linear_point_increase
-	midround_linear_point_increase += initial(midround_linear_point_increase)
 
 	log_dynamic("MIDROUND: Updated points. From [previous_midround_points] to [midround_points]")
 
