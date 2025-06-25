@@ -16526,14 +16526,17 @@
 /area/engine/engine_smes)
 "bYj" = (
 /obj/machinery/vending/engivend,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "bYk" = (
 /obj/machinery/vending/tool,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "bYl" = (
 /obj/structure/closet/firecloset,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "bYo" = (
@@ -34512,6 +34515,7 @@
 	dir = 1;
 	initialize_directions = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "iUI" = (
@@ -36268,6 +36272,7 @@
 "jHq" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/structure/railing,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "jHt" = (
@@ -40394,6 +40399,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "lub" = (
@@ -40549,6 +40555,7 @@
 /area/engine/atmos)
 "lyp" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "lyH" = (
@@ -49304,6 +49311,16 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"pwy" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/gloves/color/yellow{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/item/clothing/gloves/color/yellow,
+/turf/open/floor/engine,
+/area/engine/engineering)
 "pwS" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/science)
@@ -97532,7 +97549,7 @@ imB
 xzn
 cJw
 iUE
-ulY
+pwy
 bXk
 gOn
 cdm
