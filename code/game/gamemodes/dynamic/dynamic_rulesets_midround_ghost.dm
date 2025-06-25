@@ -46,7 +46,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/select_player()
 	if(!length(candidates))
-		stack_trace("[src] called select_player without any candidates!")
+		CRASH("[src] called select_player without any candidates!")
 		return
 
 	var/mob/candidate = dynamic && CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)

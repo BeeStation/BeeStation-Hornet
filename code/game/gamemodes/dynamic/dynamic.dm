@@ -415,8 +415,7 @@
 /datum/game_mode/dynamic/proc/init_midround()
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
 	if(!length(midround_configured_rulesets))
-		stack_trace("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
-		return
+		CRASH("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
 
 	midround_light_chance = midround_light_starting_chance
 	midround_medium_chance = midround_medium_starting_chance

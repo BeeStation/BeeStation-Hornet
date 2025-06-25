@@ -100,8 +100,7 @@
 **/
 /datum/dynamic_ruleset/proc/select_player()
 	if(!length(candidates))
-		stack_trace("[src] called select_player without any candidates!")
-		return
+		CRASH("[src] called select_player without any candidates!")
 
 	var/mob/selected_player = dynamic && CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
 
