@@ -129,7 +129,7 @@
 	antag_datum = /datum/antagonist/wizard
 	weight = 1
 	points_cost = 15
-	minimum_points_required = 20
+	minimum_points_required = 26
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
@@ -199,7 +199,7 @@
 	drafted_players_amount = 2
 	weight = 5
 	points_cost = 20
-	minimum_points_required = 24
+	minimum_points_required = 30
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/clockcult,
@@ -246,7 +246,7 @@
 	drafted_players_amount = 4
 	weight = 5
 	points_cost = 35
-	minimum_points_required = 24
+	minimum_points_required = 35
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
