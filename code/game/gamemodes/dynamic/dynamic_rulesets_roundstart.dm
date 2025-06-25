@@ -129,7 +129,7 @@
 	antag_datum = /datum/antagonist/wizard
 	weight = 1
 	points_cost = 15
-	minimum_points_required = 20
+	minimum_points_required = 26
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
