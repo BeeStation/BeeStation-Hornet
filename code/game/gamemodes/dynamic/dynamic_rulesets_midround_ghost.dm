@@ -453,7 +453,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/revenant
 	role_preference = /datum/role_preference/midround_ghost/space_pirate
-	points_cost = 10
+	points_cost = 40
 	weight = 6
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
