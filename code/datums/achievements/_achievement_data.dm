@@ -142,7 +142,7 @@
 			continue
 		.["highscore"] += list(list("name" = S.name,"scores" = S.high_scores))
 
-CLIENT_VERB(checkachievements)
+AUTH_CLIENT_VERB(checkachievements)
 	set category = "OOC"
 	set name = "Check Achievements"
 	set desc = "See all of your achievements!"
@@ -150,5 +150,5 @@ CLIENT_VERB(checkachievements)
 	if(player_details?.achievements)
 		player_details.achievements.ui_interact(usr)
 
-CLIENT_VERB(gimme_jackpot)
+AUTH_CLIENT_VERB(gimme_jackpot)
 	src.give_award(/datum/award/achievement/misc/time_waste,src.mob)

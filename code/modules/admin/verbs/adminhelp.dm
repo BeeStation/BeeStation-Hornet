@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0
 
-CLIENT_VERB(adminhelp)
+AUTH_CLIENT_VERB(adminhelp)
 	set category = "Admin"
 	set name = "Adminhelp"
 	var/msg

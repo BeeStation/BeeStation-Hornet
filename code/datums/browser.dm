@@ -455,7 +455,7 @@
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
 //
-CLIENT_VERB(windowclose, atomref as text)
+/client/verb/windowclose(atomref as text)
 	set hidden = 1						// hide this verb from the user's panel
 	set name = ".windowclose"			// no autocomplete on cmd line
 

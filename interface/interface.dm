@@ -1,5 +1,5 @@
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
-CLIENT_VERB(wiki, query as text)
+AUTH_CLIENT_VERB(wiki, query as text)
 	set name = "wiki"
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser. Type nothing to go to the main page."
 	set hidden = 1
@@ -14,7 +14,7 @@ CLIENT_VERB(wiki, query as text)
 		to_chat(src, span_danger("The wiki URL is not set in the server configuration."))
 	return
 
-CLIENT_VERB(forum)
+AUTH_CLIENT_VERB(forum)
 	set name = "forum"
 	set desc = "Visit the forum."
 	set hidden = 1
@@ -27,7 +27,7 @@ CLIENT_VERB(forum)
 		to_chat(src, span_danger("The forum URL is not set in the server configuration."))
 	return
 
-CLIENT_VERB(rules)
+AUTH_CLIENT_VERB(rules)
 	set name = "rules"
 	set desc = "Show Server Rules."
 	set hidden = 1
@@ -40,7 +40,7 @@ CLIENT_VERB(rules)
 		to_chat(src, span_danger("The rules URL is not set in the server configuration."))
 	return
 
-CLIENT_VERB(github)
+AUTH_CLIENT_VERB(github)
 	set name = "github"
 	set desc = "Visit Github"
 	set hidden = 1
@@ -53,7 +53,7 @@ CLIENT_VERB(github)
 		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
 
-CLIENT_VERB(reportissue)
+AUTH_CLIENT_VERB(reportissue)
 	set name = "report-issue"
 	set desc = "Report an issue"
 	set hidden = 1
@@ -78,7 +78,7 @@ CLIENT_VERB(reportissue)
 		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
 
-CLIENT_VERB(hotkeys_help)
+AUTH_CLIENT_VERB(hotkeys_help)
 	set name = "hotkeys-help"
 	set category = "OOC"
 
@@ -98,7 +98,7 @@ Admin:
 	if(holder)
 		to_chat(src, adminhotkeys)
 
-CLIENT_VERB(changelog)
+AUTH_CLIENT_VERB(changelog)
 	set name = "Changelog"
 	set category = "OOC"
 	var/datum/asset/simple/namespaced/changelog = get_asset_datum(/datum/asset/simple/namespaced/changelog)
@@ -229,7 +229,7 @@ Any-Mode: (hotkey doesn't need to be on)
 
 
 
-CLIENT_VERB(donate)
+AUTH_CLIENT_VERB(donate)
 	set name = "donate"
 	set desc = "Donate to the server"
 	set hidden = 1
@@ -242,7 +242,7 @@ CLIENT_VERB(donate)
 		to_chat(src, span_danger("The Donation URL is not set in the server configuration."))
 	return
 
-CLIENT_VERB(discord)
+AUTH_CLIENT_VERB(discord)
 	set name = "discord"
 	set desc = "Join the Discord"
 	set hidden = 1
@@ -255,7 +255,7 @@ CLIENT_VERB(discord)
 		to_chat(src, span_danger("The Discord invite is not set in the server configuration."))
 	return
 
-CLIENT_VERB(map)
+AUTH_CLIENT_VERB(map)
 	set name = "View Webmap"
 	set desc = "View the current map in the webviewer"
 	set category = "OOC"

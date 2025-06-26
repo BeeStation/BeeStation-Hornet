@@ -2,7 +2,7 @@
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
-CLIENT_VERB(ooc, msg as text)
+AUTH_CLIENT_VERB(ooc, msg as text)
 	set name = "OOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
 	set category = "OOC"
 
@@ -151,7 +151,7 @@ CLIENT_VERB(ooc, msg as text)
 	GLOB.OOC_COLOR = null
 
 //Checks admin notice
-CLIENT_VERB(admin_notice)
+AUTH_CLIENT_VERB(admin_notice)
 	set name = "Adminnotice"
 	set category = "Admin"
 	set desc ="Check the admin notice if it has been set"
@@ -161,7 +161,7 @@ CLIENT_VERB(admin_notice)
 	else
 		to_chat(src, span_notice("There are no admin notices at the moment."))
 
-CLIENT_VERB(motd)
+AUTH_CLIENT_VERB(motd)
 	set name = "MOTD"
 	set category = "OOC"
 	set desc ="Check the Message of the Day"
@@ -205,7 +205,7 @@ CLIENT_VERB(motd)
 	to_chat(src, "You are [(C.key in prefs.ignoring) ? "now" : "no longer"] ignoring [displayed_key] on the OOC channel.")
 	prefs.mark_undatumized_dirty_player()
 
-CLIENT_VERB(select_ignore)
+AUTH_CLIENT_VERB(select_ignore)
 	set name = "Ignore"
 	set category = "OOC"
 	set desc ="Ignore a player's messages on the OOC channel"
@@ -242,7 +242,7 @@ CLIENT_VERB(select_ignore)
 
 	SSticker.show_roundend_report(src, TRUE)
 
-CLIENT_VERB(fit_viewport)
+AUTH_CLIENT_VERB(fit_viewport)
 	set name = "Fit Viewport"
 	set category = "OOC"
 	set desc = "Fit the width of the map window to match the viewport"
@@ -319,7 +319,7 @@ CLIENT_VERB(fit_viewport)
 	else //Delayed to avoid wingets from Login calls.
 		addtimer(CALLBACK(src, PROC_REF(fit_viewport), 1 SECONDS))
 
-CLIENT_VERB(view_runtimes_minimal)
+AUTH_CLIENT_VERB(view_runtimes_minimal)
 	set name = "View Minimal Runtimes"
 	set category = "OOC"
 	set desc = "Open the runtime error viewer, with reduced information"
@@ -330,7 +330,7 @@ CLIENT_VERB(view_runtimes_minimal)
 
 	GLOB.error_cache.show_to_minimal(src)
 
-CLIENT_VERB(speech_format_help)
+AUTH_CLIENT_VERB(speech_format_help)
 	set name = "Speech Format Help"
 	set category = "OOC"
 	set desc = "Chat formatting help"
@@ -343,7 +343,7 @@ CLIENT_VERB(speech_format_help)
 
 	to_chat(usr, span_notice("[message]"))
 
-CLIENT_VERB(vote_to_leave)
+AUTH_CLIENT_VERB(vote_to_leave)
 	set name = "Vote to leave"
 	set category = "OOC"
 	set desc = "Votes to end the round"

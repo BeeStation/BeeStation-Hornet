@@ -81,6 +81,6 @@ SUBSYSTEM_DEF(metrics)
 
 // Uncomment this if you add new metrics to verify how the JSON formats
 
-CLIENT_VERB(debug_metrics)
+AUTH_CLIENT_VERB(debug_metrics)
 	usr << browse(SSmetrics.get_metrics_json(), "window=aadebug")
 */

@@ -30,7 +30,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	deltimer(mentorhelptimerid)
 	mentorhelptimerid = 0
 
-CLIENT_VERB(mentorhelp)
+AUTH_CLIENT_VERB(mentorhelp)
 	set category = "Mentor"
 	set name = "Mentorhelp"
 	var/msg

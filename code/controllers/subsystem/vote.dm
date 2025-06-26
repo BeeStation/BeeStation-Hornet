@@ -268,7 +268,7 @@ SUBSYSTEM_DEF(vote)
 			V.Remove(V.owner)
 	generated_actions = list()
 
-CLIENT_VERB(vote)
+AUTH_CLIENT_VERB(vote)
 	set category = "OOC"
 	set name = "Vote"
 	if(src.mob)

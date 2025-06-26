@@ -1,4 +1,4 @@
-#define CLIENT_VERB(verb_name, args...)\
+#define AUTH_CLIENT_VERB(verb_name, args...)\
 /client/collect_client_verbs(){\
 	. = ..();\
 	. += /client/proc/##verb_name;\

@@ -1,9 +1,9 @@
-CLIENT_VERB(staffwho)
+AUTH_CLIENT_VERB(staffwho)
 	set category = "Admin"
 	set name = "Staffwho"
 	staff_who("Staffwho")
 
-CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check the admin tab for if there are mentors on
+AUTH_CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check the admin tab for if there are mentors on
 	set category = "Mentor"
 	set name = "Mentorwho"
 	staff_who("Mentorwho")

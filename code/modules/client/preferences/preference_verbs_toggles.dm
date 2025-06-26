@@ -1,4 +1,4 @@
-CLIENT_VERB(toggletitlemusic)
+AUTH_CLIENT_VERB(toggletitlemusic)
 	set name = "Hear/Silence Lobby Music"
 	set category = "Preferences"
 	set desc = "Hear Music In Lobby"
@@ -12,7 +12,7 @@ CLIENT_VERB(toggletitlemusic)
 		to_chat(usr, "You will no longer hear music in the game lobby.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Lobby Music", "[hear ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-CLIENT_VERB(Toggle_Soundscape)
+AUTH_CLIENT_VERB(Toggle_Soundscape)
 	set name = "Hear/Silence Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ambient Sound Effects"
@@ -26,7 +26,7 @@ CLIENT_VERB(Toggle_Soundscape)
 		to_chat(usr, "You will no longer hear ambient sounds.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ambience", "[hear ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-CLIENT_VERB(toggle_ship_ambience)
+AUTH_CLIENT_VERB(toggle_ship_ambience)
 	set name = "Hear/Silence Ship Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ship Ambience Roar"
@@ -40,7 +40,7 @@ CLIENT_VERB(toggle_ship_ambience)
 		to_chat(usr, "You will no longer hear ship ambience.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[hear ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
 
-CLIENT_VERB(stop_client_sounds)
+AUTH_CLIENT_VERB(stop_client_sounds)
 	set name = "Stop Sounds"
 	set category = "Preferences"
 	set desc = "Stop Current Sounds"
