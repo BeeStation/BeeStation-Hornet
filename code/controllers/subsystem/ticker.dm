@@ -156,7 +156,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			if(Master.initializations_finished_with_no_players_logged_in)
 				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
-			for(var/client/C in GLOB.clients)
+			for(var/client/C in GLOB.clients_unsafe)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, span_boldnotice("Welcome to [station_name()]!"))
 			send2chat(new /datum/tgs_message_content("New round starting on [SSmapping.config.map_name]!"), CONFIG_GET(string/chat_announce_new_game))
@@ -693,7 +693,7 @@ SUBSYSTEM_DEF(ticker)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
-	for(var/thing in GLOB.clients)
+	for(var/thing in GLOB.clients_unsafe)
 		var/client/C = thing
 		if (!C)
 			continue

@@ -103,7 +103,7 @@
 	. = ..()
 	statuscode = 200
 	response = "Pong!"
-	data = length(GLOB.clients)
+	data = length(GLOB.clients_unsafe)
 
 /datum/world_topic/playing
 	key = "playing"
@@ -132,7 +132,7 @@
 			return
 
 	var/final_composed = span_announce("PR: [input["announce"]]")
-	for(var/client/C in GLOB.authed_clients)
+	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 	statuscode = 200
 	response = "PR Announced"
@@ -209,7 +209,7 @@
 /datum/world_topic/playerlist/Run(list/input)
 	. = ..()
 	data = list()
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as() in GLOB.clients_unsafe)
 		data += C.ckey
 	statuscode = 200
 	response = "Player list fetched"
@@ -229,7 +229,7 @@
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null
 	data["round_id"] = text2num(GLOB.round_id) // I don't know who's fault it is that round id is loaded as a string but screw you
-	data["players"] = GLOB.clients.len
+	data["players"] = GLOB.clients_unsafe.len
 	data["revision"] = GLOB.revdata.commit
 	data["revision_date"] = GLOB.revdata.date
 	data["hub"] = GLOB.hub_visibility
@@ -363,7 +363,7 @@
 	unm = copytext(sanitize(unm), 1, MAX_MESSAGE_LEN)
 	msg = emoji_parse(msg)
 	log_ooc("DISCORD: [unm]: [msg]")
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients_unsafe)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(!("discord-[unm]" in C.prefs.ignoring))
 				to_chat(C, span_dooc("<b>[span_prefix("OOC: ")] <EM>[unm]:</EM> [span_messagelinkify("[msg]")]</b>"))

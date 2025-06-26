@@ -398,12 +398,12 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		map_voted = FALSE
 		return
 
-	var/players = GLOB.authed_clients.len
+	var/players = GLOB.clients.len
 	var/list/mapvotes = list()
 	//count votes
 	var/pmv = CONFIG_GET(flag/preference_map_voting)
 	if(pmv)
-		for (var/client/c in GLOB.authed_clients)
+		for (var/client/c in GLOB.clients)
 			var/vote = c.prefs.read_player_preference(/datum/preference/choiced/preferred_map)
 			if (!vote || vote == "Default")
 				if (global.config.defaultmap)

@@ -3,7 +3,7 @@
 	sleep(50)
 	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 	priority_announce("Huge gravitational-energy spike detected emminating from a neutron star near your sector. Event has been determined to be survivable by 0% of life. ESTIMATED TIME UNTIL ENERGY PULSE REACHES [GLOB.station_name]: 56 SECONDS. Godspeed crew, glory to Nanotrasen. -Admiral Telvig.", "Central Command Anomolous Materials Division", 'sound/misc/bloblarm.ogg')
-	for(var/client/C in GLOB.authed_clients)
+	for(var/client/C in GLOB.clients)
 		SEND_SOUND(C, sound('sound/misc/airraid.ogg', 1))
 	sleep(500)
 	priority_announce("Station [GLOB.station_name] is in the wa#e %o[text2ratvar("YOU WILL SEE THE LIGHT")] action imminent. Glory[text2ratvar(" TO ENG'INE")].","Central Command Anomolous Materials Division", 'sound/machines/alarm.ogg')

@@ -77,7 +77,7 @@ GLOBAL_PROTECT(exp_to_update)
 /datum/controller/subsystem/blackbox/proc/update_exp(mins, ann = FALSE)
 	if(!SSdbcore.Connect())
 		return -1
-	for(var/client/L in GLOB.authed_clients)
+	for(var/client/L in GLOB.clients)
 		if(L.is_afk())
 			continue
 		L.update_exp_list(mins,ann)

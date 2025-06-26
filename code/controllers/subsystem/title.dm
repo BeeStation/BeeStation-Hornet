@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(title)
 		var/F = file("data/previous_title.dat")
 		WRITE_FILE(F, file_path)
 
-	for(var/thing in GLOB.clients)
+	for(var/thing in GLOB.clients_unsafe)
 		if(!thing)
 			continue
 		var/atom/movable/screen/splash/S = new(null, thing, FALSE)

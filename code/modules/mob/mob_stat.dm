@@ -253,7 +253,7 @@
 		var/pre_auth = SSticker.totalPlayersPreAuth ? " ([SSticker.totalPlayersPreAuth] pre-auth)" : ""
 		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[SSticker.totalPlayers][pre_auth]")
 	else
-		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
+		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients_unsafe.len]")
 	if(SSticker.round_start_time)
 		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 

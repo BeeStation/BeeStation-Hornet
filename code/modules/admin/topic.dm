@@ -1578,7 +1578,7 @@
 	else if(href_list["showrelatedacc"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/client/C = locate(href_list["client"]) in GLOB.clients_unsafe
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
 			thing_to_check = C.related_accounts_cid

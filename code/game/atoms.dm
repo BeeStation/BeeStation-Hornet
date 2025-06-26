@@ -351,7 +351,7 @@
 
 	if (hovered_user_count)
 		SSscreentips.deleted_hovered_atoms ++
-		for (var/client/client in GLOB.clients)
+		for (var/client/client in GLOB.clients_unsafe)
 			if (client.hovered_atom == src)
 				client.hovered_atom = null
 		hovered_user_count = 0

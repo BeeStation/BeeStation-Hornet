@@ -229,7 +229,7 @@ GLOBAL_VAR(restart_counter)
 			log_topic("(NON-JSON) \"[topic_decoded]\", from:[addr], master:[master], key:[key]")
 		// Fallback check for spacestation13.com requests
 		if(topic_decoded == "ping")
-			return length(GLOB.clients)
+			return length(GLOB.clients_unsafe)
 		response["statuscode"] = 400
 		response["response"] = "Bad Request - Invalid JSON format"
 		return json_encode(response)
@@ -289,7 +289,7 @@ GLOBAL_VAR(restart_counter)
 			return
 
 	var/final_composed = span_announce("PR: [announcement]")
-	for(var/client/C in GLOB.authed_clients)
+	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 
 /world/proc/FinishTestRun()
@@ -372,7 +372,7 @@ GLOBAL_VAR(restart_counter)
 	var/server_name = CONFIG_GET(string/servername)
 	var/server_tag = CONFIG_GET(string/servertag)
 	var/station_name = station_name()
-	var/players = GLOB.clients.len
+	var/players = GLOB.clients_unsafe.len
 	var/popcaptext = ""
 	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
 	if (popcap)

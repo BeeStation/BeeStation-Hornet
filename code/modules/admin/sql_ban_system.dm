@@ -638,7 +638,7 @@
 	if(duration > 1) //pluralize the interval if necessary
 		time_message += "s"
 	var/note_reason = "Banned from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"] [isnull(duration) ? "permanently" : "for [time_message]"] - [reason]"
-	var/list/clients_online = GLOB.clients.Copy()
+	var/list/clients_online = GLOB.clients_unsafe.Copy()
 	var/list/admins_online = list()
 	for(var/client/C in clients_online)
 		if(C.holder) //deadmins aren't included since they wouldn't show up on adminwho
@@ -724,7 +724,7 @@
 			qdel(C)
 	if(roles_to_ban[1] == "Server" && AH)
 		AH.Resolve()
-	for(var/client/i in GLOB.clients - C)
+	for(var/client/i in GLOB.clients_unsafe - C)
 		if(i.address == player_ip || i.computer_id == player_cid)
 			build_ban_cache(i)
 			to_chat(i, "[span_boldannounce("You have been [special_prefix]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]")]<br>[span_danger("This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].")]<br>[span_danger("To appeal this ban go to [appeal_url]")]")
@@ -909,7 +909,7 @@
 	if(C)
 		build_ban_cache(C)
 		to_chat(C, span_boldannounce("[usr.client.key] has removed a ban from [role] for your key."))
-	for(var/client/i in GLOB.clients - C)
+	for(var/client/i in GLOB.clients_unsafe - C)
 		if(i.address == player_ip || i.computer_id == player_cid)
 			build_ban_cache(i)
 			to_chat(i, span_boldannounce("[usr.client.key] has removed a ban from [role] for your IP or CID."))
@@ -1053,7 +1053,7 @@
 	if(C)
 		build_ban_cache(C)
 		to_chat(C, span_boldannounce("[usr.client.key] has edited the [changes_keys_text] of a ban for your key."))
-	for(var/client/i in GLOB.clients - C)
+	for(var/client/i in GLOB.clients_unsafe - C)
 		if(i.address == old_ip || i.computer_id == old_cid)
 			build_ban_cache(i)
 			to_chat(i, span_boldannounce("[usr.client.key] has edited the [changes_keys_text] of a ban for your IP or CID."))

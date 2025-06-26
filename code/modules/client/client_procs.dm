@@ -288,10 +288,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(QDELETED(src))
 		return FALSE
 	if(first_run)
-		GLOB.clients += src
+		GLOB.clients_unsafe += src
 	GLOB.directory[ckey] = src
 	if(authenticated)
-		GLOB.authed_clients += src
+		GLOB.clients += src
 
 	if(first_run && byond_version >= 516)
 		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
@@ -731,9 +731,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return ..()
 
 /client/Destroy()
-	GLOB.clients -= src
+	GLOB.clients_unsafe -= src
 	GLOB.directory -= ckey
-	GLOB.authed_clients -= src
+	GLOB.clients -= src
 	GLOB.mentors -= src
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)

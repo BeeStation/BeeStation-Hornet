@@ -83,7 +83,7 @@ CLIENT_VERB(ooc, msg as text)
 	//Get client badges
 	var/badge_data = badge_parse(get_badges())
 	//The linkify span classes and linkify=TRUE below make ooc text get clickable chat href links if you pass in something resembling a url
-	for(var/client/C in GLOB.authed_clients)
+	for(var/client/C in GLOB.clients)
 		if(!C.prefs || C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(holder)
 				if(!holder.fakekey || C.holder)
@@ -215,7 +215,7 @@ CLIENT_VERB(select_ignore)
 	var/see_ghost_names = isobserver(mob)
 	var/list/choices = list()
 	var/displayed_choicename = ""
-	for(var/client/C in GLOB.authed_clients)
+	for(var/client/C in GLOB.clients)
 		if(C.holder?.fakekey)
 			displayed_choicename = C.holder.fakekey
 		else

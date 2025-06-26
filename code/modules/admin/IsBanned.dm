@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 	//Population Cap Checking
 	var/extreme_popcap = CONFIG_GET(number/extreme_popcap)
 	if(!real_bans_only && !C && extreme_popcap && !admin)
-		var/popcap_value = GLOB.clients.len
+		var/popcap_value = GLOB.clients_unsafe.len
 		if(popcap_value >= extreme_popcap && !GLOB.joined_player_list.Find(ckey))
 			if((!CONFIG_GET(flag/byond_member_bypass_popcap) || !world.IsSubscribed(ckey, "BYOND")) && !IS_PATRON(ckey))
 				var/redirect_address = CONFIG_GET(string/redirect_address)

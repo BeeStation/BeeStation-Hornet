@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(achievements)
 
 	update_metadata()
 
-	for(var/i in GLOB.authed_clients)
+	for(var/i in GLOB.clients)
 		var/client/C = i
 		if(C?.player_details && !C.player_details.achievements.initialized)
 			C.player_details.achievements.InitializeData()
