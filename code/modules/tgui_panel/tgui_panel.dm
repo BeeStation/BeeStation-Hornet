@@ -110,10 +110,6 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 			),
 		))
 		return TRUE
-	if(type == "seeker_port")
-		var/port_num = text2num(payload)
-		if(client && isnum_safe(port_num))
-			client.seeker_port = port_num
 	if(type == "audio/setAdminMusicVolume")
 		client.admin_music_volume = payload["volume"]
 		return TRUE
@@ -130,11 +126,3 @@ GLOBAL_LIST_EMPTY(tgui_panels)
  */
 /datum/tgui_panel/proc/send_roundrestart()
 	window.send_message("roundrestart")
-
-/datum/tgui_panel/proc/save_session_token(token)
-	if(!istext(token))
-		return
-	window.send_message("auth/store", token)
-
-/datum/tgui_panel/proc/try_auth()
-	window.send_message("auth/login")

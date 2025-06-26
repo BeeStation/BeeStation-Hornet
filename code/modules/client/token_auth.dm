@@ -1,16 +1,14 @@
 /client/verb/use_token(token as text)
-	set name = "Login with Token"
+	set name = "Enter Token (Manual)"
 	set category = "Login"
 	login_with_token(token)
 
 /client/verb/get_token()
-	set name = "Get Token"
+	set name = "Retrieve Token (Manual)"
 	set category = "Login"
 	var/list/methods = CONFIG_GET(keyed_list/external_auth_method)
 	var/discord_link = methods["discord"]
 	if(istext(discord_link))
-		if(alert("This will open a Discord login page in your browser.",,"OK","Cancel")!="OK")
-			return
 		var/ip = src.address
 		if(is_localhost())
 			ip = "127.0.0.1"
@@ -21,10 +19,22 @@
 	else
 		to_chat_immediate(src, span_danger("Discord authentication has not been configured!"))
 
+/client/verb/open_login()
+	set name = "Log In"
+	set category = "Login"
+	tgui_login?.open()
+
+/client/proc/log_out()
+	set name = "Log Out"
+	set category = "Login"
+	tgui_login?.clear_session_token()
+	qdel(src)
+
 /mob/dead/new_player/pre_auth/Login()
 	. = ..()
 	client?.add_verb(/client/verb/get_token, TRUE)
 	client?.add_verb(/client/verb/use_token, TRUE)
+	client?.add_verb(/client/verb/open_login, TRUE)
 
 /mob/dead/new_player/pre_auth/proc/convert_to_authed()
 	if(IsAdminAdvancedProcCall())
@@ -39,7 +49,7 @@
 /mob/dead/new_player/pre_auth/vv_edit_var(var_name, var_value)
 	return FALSE
 
-/client/proc/login_with_token(token)
+/client/proc/login_with_token(token, from_ui)
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("[key_name(usr)] attempted to check session token: \"[token]\"")
 		message_admins("[key_name(usr)] performed a proccall that attempts to test a session token!")
@@ -47,30 +57,37 @@
 	if(logged_in)
 		return FALSE
 	if(!CONFIG_GET(flag/enable_guest_external_auth))
-		to_chat_immediate(usr, span_userdanger("External auth is currently disabled!"))
+		to_chat_immediate(src, span_userdanger("External auth is currently disabled!"))
 		return FALSE
 	token_attempts++
 	if(token_attempts > 3)
 		log_access("[ckey] has been rate-limited while performing token authentication ([token_attempts] attempts)")
-		to_chat_immediate(usr, span_userdanger("Maximum number of login attempts reached. Try again later."))
+		to_chat_immediate(src, span_userdanger("Maximum number of login attempts reached. Try again later."))
+		if(from_ui)
+			tgui_alert(src.mob, "Maximum number of login attempts reached. Try again later.", "Warning", list("OK"))
 		// Reset attempts after delay
 		if(token_attempts == 4)
 			spawn(60 SECONDS) token_attempts = 0
-		return
+		return FALSE
 	if(!istext(token) || !length(token) || length(token) > 128)
-		to_chat_immediate(usr, span_userdanger("Token is not formatted correctly"))
-		return
+		to_chat_immediate(src, span_userdanger("Submitted token is not formatted correctly."))
+		if(from_ui)
+			tgui_alert(src.mob, "Submitted token is not formatted correctly.", "Warning", list("OK"))
+		return FALSE
 	var/hashed_token = rustg_hash_string(RUSTG_HASH_SHA256, token)
 	if(!istext(hashed_token) || !length(hashed_token))
-		return
+		return FALSE
 	var/ip = isnull(src.address) || src.address == "::1" ? "127.0.0.1" : src.address
 	var/datum/db_query/query_check_token = SSdbcore.NewQuery(
 		"SELECT external_method,external_uid,external_display_name FROM [format_table_name("session")] WHERE `ip` = INET_ATON(:ip) AND `session_token` = :session_token AND `valid_until` > NOW() LIMIT 1",
 		list("ip" = ip, "session_token" = hashed_token)
 	)
 	if(!query_check_token.Execute() || !query_check_token.NextRow())
+		to_chat_immediate(src, span_userdanger("Login failed: Invalid session! Log in again with a new token."))
+		if(from_ui)
+			tgui_alert(src.mob, "Invalid session token. Make sure your IP address has not changed since the token was issued.", "Warning", list("OK"))
 		qdel(query_check_token)
-		return
+		return FALSE
 	var/external_method = query_check_token.item[1]
 	var/external_uid = query_check_token.item[2]
 	var/external_display_name = query_check_token.item[3]
@@ -90,7 +107,7 @@
 			new_key = "d[external_uid]"
 	if(length(new_key))
 		qdel(query_check_token)
-		tgui_panel.save_session_token(token)
+		tgui_login?.save_session_token(token)
 		return login_as(new_key, external_method, external_uid, external_display_name)
 	qdel(query_check_token)
 	return FALSE
@@ -112,6 +129,8 @@
 	token_attempts = 0
 	remove_verb(/client/verb/get_token)
 	remove_verb(/client/verb/use_token)
+	remove_verb(/client/verb/open_login)
+	add_verb(/client/proc/log_out)
 	// Set this early so that we can rely on it in setup (for things like build_ban_cache)
 	src.logged_in = TRUE
 	src.key_is_external = IS_EXTERNAL_AUTH_KEY(new_key)
@@ -128,6 +147,7 @@
 	if(!client_pre_login(TRUE, FALSE))
 		return FALSE
 
+	to_chat_immediate(src, span_good("Successfully signed in as [span_bold("[src.display_name_chat()]")]"))
 	// Mob is ready
 	// calls /mob/dead/new_player/authenticated/Login()
 	// creates mind and such

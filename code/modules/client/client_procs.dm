@@ -118,7 +118,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		handle_commandbar_typing(href_list)
 
 	if(href_list["session_token"])
-		login_with_token(href_list["session_token"])
+		login_with_token(href_list["session_token"], text2num(href_list["from_ui"]))
+
+	if(href_list["seeker_port"])
+		var/port_num = text2num(href_list["seeker_port"])
+		if(isnum_safe(port_num))
+			seeker_port = port_num
+		if(!logged_in) // the login handler is ready now
+			tgui_login?.try_auth()
 
 	switch(href_list["_src_"])
 		if("holder")
@@ -232,6 +239,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	else
 		logged_in = TRUE
 #endif
+
+	if(!logged_in)
+		tgui_login = new(src)
+
 	if(!client_pre_login(logged_in, TRUE))
 		return null
 
@@ -248,8 +259,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(logged_in)
 		remove_verb(/client/verb/get_token)
 		remove_verb(/client/verb/use_token)
-	else // send the stored session token, if any
-		tgui_panel.try_auth()
+		remove_verb(/client/verb/open_login)
 
 /client/proc/add_default_verbs()
 	add_verb(collect_client_verbs())
@@ -345,6 +355,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		tgui_panel.Initialize()
 		tgui_say.initialize()
 		tgui_asay.initialize()
+
+	if(!authenticated)
+		tgui_login?.initialize()
 
 	if(authenticated)
 		var/list/duplicate_result = check_duplicate_login()
