@@ -231,14 +231,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	if((ghost_accs == GHOST_ACCS_DIR || ghost_accs == GHOST_ACCS_FULL) && (icon_state in GLOB.ghost_forms_with_directions_list)) //if this icon has dirs AND the client wants to show them, we make sure we update the dir on movement
 		updatedir = 1
 	else
-		updatedir = 0	//stop updating the dir in case we want to show accessories with dirs on a ghost sprite without dirs
-		setDir(2 		)//reset the dir to its default so the sprites all properly align up
+		updatedir = 0 //stop updating the dir in case we want to show accessories with dirs on a ghost sprite without dirs
+		setDir(2) //reset the dir to its default so the sprites all properly align up
 
 	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list)) //check if this form supports accessories and if the client wants to show them
 		var/datum/sprite_accessory/S
 		if(facial_hair_style)
 			S = GLOB.facial_hair_styles_list[facial_hair_style]
-			if(S?.icon_state)
+			if(S)
 				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(facial_hair_color)
 					facial_hair_overlay.color = "#" + facial_hair_color
@@ -246,7 +246,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 				add_overlay(facial_hair_overlay)
 		if(hair_style)
 			S = GLOB.hair_styles_list[hair_style]
-			if(S?.icon_state)
+			if(S)
 				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(hair_color)
 					hair_overlay.color = "#" + hair_color

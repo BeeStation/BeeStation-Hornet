@@ -16,27 +16,31 @@
 #define	MINOR_NEGATIVE		4
 
 
-// Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
+//Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
+/// A mutation that can be activated and deactived by completing a sequence
 #define MUT_NORMAL 1
+/// A mutation that is in the mutations tab, and can be given and taken away through though the DNA console. Has a 0 before it's name in the mutation section of the dna console
 #define MUT_EXTRA 2
+/// Cannot be interacted with by players through normal means. I.E. wizards mutate
 #define MUT_OTHER 3
 
 // DNA - Because fuck you and your magic numbers being all over the codebase.
 #define DNA_BLOCK_SIZE 3
+
 #define DNA_BLOCK_SIZE_COLOR DEFAULT_HEX_COLOR_LEN
 
-#define DNA_UNI_IDENTITY_BLOCKS			9
-#define DNA_HAIR_COLOR_BLOCK			1
-#define DNA_FACIAL_HAIR_COLOR_BLOCK		2
-#define DNA_SKIN_TONE_BLOCK				3
-#define DNA_EYE_COLOR_BLOCK				4
-#define DNA_GENDER_BLOCK				5
-#define DNA_FACIAL_HAIR_STYLE_BLOCK		6
-#define DNA_HAIR_STYLE_BLOCK			7
-#define DNA_HAIR_GRADIENT_COLOR_BLOCK	8
-#define DNA_HAIR_GRADIENT_STYLE_BLOCK	9
+#define DNA_EYE_COLOR_BLOCK 4
+#define DNA_FACIAL_HAIR_COLOR_BLOCK 2
+#define DNA_FACIAL_HAIR_STYLE_BLOCK 6
+#define DNA_GENDER_BLOCK 5
+#define DNA_HAIR_COLOR_BLOCK 1
+#define DNA_HAIR_STYLE_BLOCK 7
+#define DNA_SKIN_TONE_BLOCK 3
+#define DNA_UNI_IDENTITY_BLOCKS 7
 
+/// This number needs to equal the total number of DNA blocks
 #define DNA_FEATURE_BLOCKS 29
+
 #define DNA_MUTANT_COLOR_BLOCK 1
 #define DNA_ETHEREAL_COLOR_BLOCK 2
 #define DNA_LIZARD_MARKINGS_BLOCK 3

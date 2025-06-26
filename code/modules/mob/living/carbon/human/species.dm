@@ -691,7 +691,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.use_default_gender == MALE))
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.gender == MALE))
 					underwear_overlay = wear_female_version(underwear.icon_state, underwear.icon, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), FEMALE_UNIFORM_FULL)
 				else
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -838,7 +838,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.diona_pbody_list[H.dna.features["diona_pbody"]]
 
 
-			if(!S || S.icon_state == "none" || !S?.icon_state)
+			if(!S || S.icon_state == "none")
 				continue
 
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))

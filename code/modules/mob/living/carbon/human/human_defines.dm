@@ -16,7 +16,7 @@
 	///Colour used for the hair gradient.
 	var/list/gradient_color
 	///Style used for the hair gradient.
-	var/list/gradient_style = "None"
+	var/list/gradient_style
 	///Facial hair colour
 	var/facial_hair_color = "000"
 	///Facial hair style

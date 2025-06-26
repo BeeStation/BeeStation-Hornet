@@ -181,8 +181,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_FACIAL_HAIR_COLOR_BLOCK] = sanitize_hexcolor(H.facial_hair_color)
 		L[DNA_SKIN_TONE_BLOCK] = construct_block(GLOB.skin_tones.Find(H.skin_tone), GLOB.skin_tones.len)
 		L[DNA_EYE_COLOR_BLOCK] = sanitize_hexcolor(H.eye_color)
-		L[DNA_HAIR_GRADIENT_COLOR_BLOCK] = sanitize_hexcolor(H.gradient_color)
-		L[DNA_HAIR_GRADIENT_STYLE_BLOCK] = construct_block(GLOB.hair_gradients_list.Find(H.gradient_style), GLOB.hair_gradients_list.len)
 
 	for(var/i=1, i<=DNA_UNI_IDENTITY_BLOCKS, i++)
 		if(L[i])
@@ -352,10 +350,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			set_uni_identity_block(blocknumber, construct_block(GLOB.facial_hair_styles_list.Find(H.facial_hair_style), GLOB.facial_hair_styles_list.len))
 		if(DNA_HAIR_STYLE_BLOCK)
 			set_uni_identity_block(blocknumber, construct_block(GLOB.hair_styles_list.Find(H.hair_style), GLOB.hair_styles_list.len))
-		if(DNA_HAIR_GRADIENT_COLOR_BLOCK)
-			set_uni_identity_block(blocknumber, sanitize_hexcolor(H.gradient_color, include_crunch = FALSE))
-		if(DNA_HAIR_GRADIENT_STYLE_BLOCK)
-			set_uni_identity_block(blocknumber, construct_block(GLOB.hair_gradients_list.Find(H.gradient_style), GLOB.hair_gradients_list.len))
 
 /datum/dna/proc/update_uf_block(blocknumber)
 	if(!blocknumber)
@@ -541,7 +535,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 		if (dna.species.properly_gained)
 			dna.species.on_species_loss(src, new_race, pref_load)
-			
+
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
 
@@ -639,8 +633,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	facial_hair_style = GLOB.facial_hair_styles_list[deconstruct_block(get_uni_identity_block(structure, DNA_FACIAL_HAIR_STYLE_BLOCK), GLOB.facial_hair_styles_list.len)]
 	hair_style = GLOB.hair_styles_list[deconstruct_block(get_uni_identity_block(structure, DNA_HAIR_STYLE_BLOCK), GLOB.hair_styles_list.len)]
-	gradient_color = sanitize_hexcolor(get_uni_identity_block(structure, DNA_HAIR_GRADIENT_COLOR_BLOCK))
-	gradient_style = GLOB.hair_gradients_list[deconstruct_block(get_uni_identity_block(structure, DNA_HAIR_GRADIENT_STYLE_BLOCK), GLOB.hair_gradients_list.len)]
 
 	var/features = dna.unique_features
 	if(dna.features["mcolor"])

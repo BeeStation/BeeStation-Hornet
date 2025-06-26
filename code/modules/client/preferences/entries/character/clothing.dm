@@ -9,8 +9,8 @@
 	for (var/accessory_name in accessory_list)
 		var/datum/universal_icon/icon_with_socks = lower_half.copy()
 
-		var/datum/sprite_accessory/accessory = accessory_list[accessory_name]
-		if (accessory.icon_state != null)
+		if (accessory_name != "Nude")
+			var/datum/sprite_accessory/accessory = accessory_list[accessory_name]
 			var/datum/universal_icon/accessory_icon = uni_icon('icons/mob/clothing/underwear.dmi', accessory.icon_state)
 			if (color && !accessory.use_static)
 				accessory_icon.blend_color(color, ICON_MULTIPLY)
@@ -79,18 +79,12 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
-	informed = TRUE
-	priority = PREFERENCE_PRIORITY_SOCKS
 
 /datum/preference/choiced/socks/init_possible_values()
 	return generate_values_for_underwear(GLOB.socks_list, list("human_r_leg", "human_l_leg"))
 
 /datum/preference/choiced/socks/apply_to_human(mob/living/carbon/human/target, value)
 	target.socks = value
-
-/datum/preference/choiced/socks/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	return random_socks(gender)
 
 /// Undershirt preference
 /datum/preference/choiced/undershirt
@@ -100,8 +94,6 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
-	informed = TRUE
-	priority = PREFERENCE_PRIORITY_UNDERSHIRT
 
 /datum/preference/choiced/undershirt/init_possible_values()
 	var/datum/universal_icon/body = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_leg")
@@ -117,8 +109,8 @@
 	for (var/accessory_name in GLOB.undershirt_list)
 		var/datum/universal_icon/icon_with_undershirt = body.copy()
 
-		var/datum/sprite_accessory/accessory = GLOB.undershirt_list[accessory_name]
-		if (accessory.icon_state != null)
+		if (accessory_name != "Nude")
+			var/datum/sprite_accessory/accessory = GLOB.undershirt_list[accessory_name]
 			icon_with_undershirt.blend_icon(uni_icon('icons/mob/clothing/underwear.dmi', accessory.icon_state), ICON_OVERLAY)
 
 		icon_with_undershirt.crop(9, 9, 23, 23)
@@ -130,10 +122,6 @@
 /datum/preference/choiced/undershirt/apply_to_human(mob/living/carbon/human/target, value)
 	target.undershirt = value
 
-/datum/preference/choiced/undershirt/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	return random_undershirt(gender)
-
 /// Underwear preference
 /datum/preference/choiced/underwear
 	db_key = "underwear"
@@ -142,8 +130,6 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
-	informed = TRUE
-	priority = PREFERENCE_PRIORITY_UNDERWEAR
 
 /datum/preference/choiced/underwear/init_possible_values()
 	return generate_values_for_underwear(GLOB.underwear_list, list("human_chest_m", "human_r_leg", "human_l_leg"), COLOR_ALMOST_BLACK)
@@ -165,7 +151,3 @@
 	data[SUPPLEMENTAL_FEATURE_KEY] = "underwear_color"
 
 	return data
-
-/datum/preference/choiced/underwear/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	return random_underwear(gender)

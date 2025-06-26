@@ -1791,7 +1791,7 @@
 			var/mob/living/carbon/human/H = M
 			var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
 			var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
-			H.hair_style = picked_hair.name
+			H.hair_style = picked_hair
 			H.facial_hair_style = picked_beard
 			H.update_body_parts()
 
