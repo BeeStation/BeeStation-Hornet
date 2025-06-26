@@ -1,5 +1,5 @@
-GLOBAL_LIST_EMPTY(clients)							//all clients
-GLOBAL_LIST_EMPTY(authed_clients)					//all clients who have authenticated
+GLOBAL_LIST_EMPTY(clients)							//all clients who have authenticated
+GLOBAL_LIST_EMPTY(clients_unsafe)					//all clients, including unauthenticated ones
 GLOBAL_LIST_EMPTY(admins)							//all clients whom are admins
 GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY(deadmins)							//all ckeys who have used the de-admin verb.
