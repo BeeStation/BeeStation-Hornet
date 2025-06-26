@@ -212,6 +212,7 @@
 	if(iscarbon(L))
 		L.apply_damage(30, STAMINA, BODY_ZONE_CHEST)
 		L.Knockdown(3 SECONDS)
+		L?.pulledby.stop_pulling()
 		to_chat(L, span_alert("The vines knock you down"))
 	else if(iscyborg(L))
 		var/mob/living/silicon/robot/R = L
@@ -269,13 +270,16 @@
 	for(var/datum/beam/B in vines)
 		if(istype(B.target, /atom/movable))
 			var/atom/movable/AM = B.target
+			if(AM.pulledby) //If someone is pulling the victim that a vine has hit, release them.
+				qdel(B)
+				return //This vine no longer exists abort
 			if(!AM.anchored)
 				step(AM, get_dir(AM,src))
 
 		if(iscarbon(B.target)) // If they dont get away quickly, make them take constant stamina damage
 
 			var/mob/living/L = B.target
-			L.apply_damage(5, STAMINA, BODY_ZONE_CHEST)
+			L.apply_damage(20, STAMINA, BODY_ZONE_CHEST)
 			L.Knockdown(3 SECONDS)
 
 		if(get_dist(src, B.target) == 0)
