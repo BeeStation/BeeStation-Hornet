@@ -216,6 +216,7 @@
 		to_chat(L, span_alert("The vines knock you down"))
 	else if(iscyborg(L))
 		var/mob/living/silicon/robot/R = L
+        if(R.stat != DEAD) // Dont trigger these if the borg is already dead
 		R.apply_status_effect(/datum/status_effect/cyborg_malfunction/vine)
 		playsound(R.loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 		to_chat(src, span_disarm("You successfully wrap vines around [R]'s sensors, overloading them!"))
@@ -275,6 +276,13 @@
 				return //This vine no longer exists abort
 			if(!AM.anchored)
 				step(AM, get_dir(AM,src))
+
+		                      
+        if(iscyborg(B.target))  // Check if the target is a cyborg and is dead, then qdel the vine, otherwise they'll be forever pulled if nothing breaks the vine
+            var/mob/living/silicon/robot/R = B.target
+            if(R.stat == DEAD)
+                qdel(B)
+                continue // Move to the next vine since this one is deleted
 
 		if(iscarbon(B.target)) // If they dont get away quickly, make them take constant stamina damage
 
