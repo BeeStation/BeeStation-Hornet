@@ -30,12 +30,12 @@
 		return TRUE
 	return FALSE
 
-/obj/item/organ/external/wings/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
+/obj/item/organ/external/wings/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 
-	Refresh(reciever)
+	Refresh(receiver)
 
-	RegisterSignal(reciever, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(update_float_move))
+	RegisterSignal(receiver, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(update_float_move))
 
 /obj/item/organ/external/wings/proc/Refresh(mob/living/carbon/human/H)
 	if(flight_level >= WINGS_FLYING)

@@ -17,20 +17,20 @@
 	var/wag_flags = NONE
 	///The original owner of this tail
 	var/original_owner //Yay, snowflake code!
-	
-/obj/item/organ/external/tail/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
+
+/obj/item/organ/external/tail/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 	if(.)
-		RegisterSignal(reciever, COMSIG_ORGAN_WAG_TAIL, .proc/wag)
-		original_owner ||= WEAKREF(reciever)
+		RegisterSignal(receiver, COMSIG_ORGAN_WAG_TAIL, PROC_REF(wag))
+		original_owner ||= WEAKREF(receiver)
 
-		SEND_SIGNAL(reciever, COMSIG_CLEAR_MOOD_EVENT, "tail_lost")
-		SEND_SIGNAL(reciever, COMSIG_CLEAR_MOOD_EVENT, "tail_balance_lost")
+		SEND_SIGNAL(receiver, COMSIG_CLEAR_MOOD_EVENT, "tail_lost")
+		SEND_SIGNAL(receiver, COMSIG_CLEAR_MOOD_EVENT, "tail_balance_lost")
 
-		if(IS_WEAKREF_OF(reciever, original_owner))
-			SEND_SIGNAL(reciever, COMSIG_CLEAR_MOOD_EVENT, "wrong_tail_regained")
-		else if(type in reciever.dna.species.external_organs)
-			SEND_SIGNAL(reciever, COMSIG_ADD_MOOD_EVENT, "wrong_tail_regained", /datum/mood_event/tail_regained_wrong)
+		if(IS_WEAKREF_OF(receiver, original_owner))
+			SEND_SIGNAL(receiver, COMSIG_CLEAR_MOOD_EVENT, "wrong_tail_regained")
+		else if(type in receiver.dna.species.external_organs)
+			SEND_SIGNAL(receiver, COMSIG_ADD_MOOD_EVENT, "wrong_tail_regained", /datum/mood_event/tail_regained_wrong)
 
 /obj/item/organ/external/tail/Remove(mob/living/carbon/organ_owner, special, moving)
 	if(wag_flags & WAG_WAGGING)
@@ -49,7 +49,7 @@
 	if(start)
 		start_wag()
 		if(stop_after)
-			addtimer(CALLBACK(src, .proc/wag, FALSE), stop_after, TIMER_STOPPABLE|TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(wag), FALSE), stop_after, TIMER_STOPPABLE|TIMER_DELETE_ME)
 	else
 		stop_wag()
 	owner.update_body_parts()
@@ -68,6 +68,7 @@
 
 ///Tail parent type (which is MONKEEEEEEEEEEE by default), with wagging functionality
 /datum/bodypart_overlay/mutant/tail
+
 	layers = EXTERNAL_FRONT|EXTERNAL_BEHIND
 	feature_key = "tail_monkey"
 	var/wagging = FALSE
@@ -121,7 +122,7 @@
 	///A reference to the paired_spines, since for some fucking reason tail spines are tied to the spines themselves.
 	var/obj/item/organ/external/spines/paired_spines
 
-/obj/item/organ/external/tail/lizard/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
+/obj/item/organ/external/tail/lizard/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 	if(.)
 		paired_spines = ownerlimb.owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_SPINES)

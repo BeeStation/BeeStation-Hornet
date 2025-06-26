@@ -8,7 +8,7 @@
 	// List of organ typepaths which cause species change.
 	// Species change swaps out all the organs, making test_organ un-usable after insertion.
 	var/static/list/species_changing_organs = typecacheof(list(
-		/obj/item/organ/internal/brain/shadow/nightmare,
+		/obj/item/organ/internal/brain/nightmare,
 	))
 	// List of organ typepaths which are not test-able, such as certain class prototypes.
 	var/static/list/test_organ_blacklist = typecacheof(list(
