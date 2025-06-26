@@ -7,9 +7,7 @@
 	// This should be running when the tablet is created, so it's minimized by default
 	program_state = PROGRAM_STATE_BACKGROUND
 	extended_desc = "This program allows old-school communication with other modular devices."
-	size = 0
-	undeletable = FALSE // It comes by default in tablets. takes no space and is now able to be deleted and transfered. Let players make mistakes.
-	available_on_ntnet = TRUE
+	size = 4
 	usage_flags = PROGRAM_PDA
 	ui_header = "ntnrc_idle.gif"
 	tgui_id = "NtosMessenger"
@@ -139,11 +137,17 @@
 			if(!sending_and_receiving)
 				to_chat(usr, span_notice("ERROR: Device has sending disabled."))
 				return
-			var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
-			if(!disk?.spam_delay)
-				if(!disk)
+			var/obj/item/computer_hardware/hard_drive/drive
+			var/obj/item/computer_hardware/hard_drive/role/role = computer.all_components[MC_HDD_JOB]
+			var/obj/item/computer_hardware/hard_drive/hdd = computer.all_components[MC_HDD]
+			if(role && role.spam_delay)
+				drive = role
+			else if(hdd && hdd.spam_delay)
+				drive = hdd
+			if(!drive?.spam_delay) // We're checking for a hard drive (drive) capable of mass messages
+				if(!drive)
 					return
-				log_href_exploit(usr, " Attempted sending PDA message to all without a disk capable of doing so: [disk].")
+				log_href_exploit(usr, " Attempted sending PDA message to all without a disk capable of doing so: [drive].")
 				return
 
 			var/list/targets = list()
@@ -152,10 +156,10 @@
 				targets += mc
 
 			if(targets.len > 0)
-				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay))
-					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds."))
+				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay))
+					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds."))
 					return
-				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
+				send_message(usr, targets, TRUE, multi_delay = drive.spam_delay)
 
 			return TRUE
 		if("PDA_sendMessage")
@@ -218,6 +222,7 @@
 /datum/computer_file/program/messenger/ui_data(mob/user)
 	var/list/data = list()
 
+	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
 	var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
 
 	data["owner"] = computer.saved_identification
@@ -238,9 +243,16 @@
 	data["photo"] = photo_path
 
 	if(disk)
-		data["canSpam"] = disk.spam_delay > 0
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus
+
+	var/can_spam = FALSE	// Checks for all possible sources of spam_delay
+
+	if(disk && disk.spam_delay > 0)
+		can_spam = TRUE
+	if(drive && drive.spam_delay > 0)
+		can_spam = TRUE
+	data["canSpam"] = can_spam
 
 	return data
 

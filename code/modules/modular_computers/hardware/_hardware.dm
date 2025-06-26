@@ -43,6 +43,8 @@
 	var/can_hack = TRUE
 	/// If this is currently Hacked (Also reffered to as "Overclocking")
 	var/hacked = FALSE
+	/// If the part gains a red outline on hacking
+	var/hack_visible = TRUE
 	/// A Serial Number used in hacking and other niffty things
 	var/serial_code
 
@@ -104,7 +106,6 @@
 				"type" = "outline",
 				"color" = "#e42828ff",
 				"size" = 1))
-			addtimer(CALLBACK(src, PROC_REF(glow_loop), A), rand(1,5))
 	else
 		A.remove_filter("hacked_glow")
 	if(!icon_open)
@@ -113,18 +114,6 @@
 		icon_state = initial(icon_state)
 	else
 		icon_state = icon_open
-
-/obj/item/computer_hardware/proc/glow_loop(atom/movable/A)
-	var/filter = A.get_filter("hacked_glow")
-	if(!filter)
-		return
-	animate(filter, alpha = 40, time = 5, (CALLBACK(src, PROC_REF(glow_loop2), A)))
-
-/obj/item/computer_hardware/proc/glow_loop2(atom/movable/A)
-	var/filter = A.get_filter("hacked_glow")
-	if(!filter)
-		return
-	animate(filter, alpha = 110, time = 5, (CALLBACK(src, PROC_REF(glow_loop), A)))
 
 /obj/item/computer_hardware/screwdriver_act(mob/living/user, obj/item/I)
 	if(!open)
@@ -141,16 +130,19 @@
 /obj/item/computer_hardware/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(hacked)
 		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
-		playsound(src, "sparks", 10)
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 20)
 		return TRUE
-	var/input = text2num(capped_input(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption"))
+	var/input = tgui_input_number(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption", 0, 100000000, (initial(power_usage) / 2), 0, TRUE)
 	if(input == null || input == "")
 		return TRUE
-	if(input <= ((initial(power_usage) / 2) - 1))
+	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
 		to_chat(user, "Input value too low for current hardware")
-		playsound(src, "sparks", 10)
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 20)
 		return TRUE
 	power_usage = input
+	new /obj/effect/particle_effect/sparks(get_turf(src))
 	playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
 	return TRUE
 
@@ -158,7 +150,7 @@
 	to_chat(user, "***** DIAGNOSTICS REPORT *****")
 	diagnostics(user)
 	to_chat(user, "******************************")
-	playsound(src, 'sound/effects/fastbeep.ogg', 10)
+	playsound(src, 'sound/effects/fastbeep.ogg', 20)
 	return TRUE
 
 /obj/item/computer_hardware/multitool_act_secondary(mob/living/user, obj/item/tool)
@@ -182,25 +174,9 @@
 		playsound(src, 'sound/effects/fastbeep.ogg', 10)
 	else
 		to_chat(user, "Error: Unauthorized calibration key detected.")
-
-		// Convert both to pseudo-numeric values for chaos scale
-		var/difference = 0
-		for(var/i = 1 to min(length(input), length(serial_code)))
-			difference += abs(text2ascii(input, i) - text2ascii(serial_code, i))
-		difference += 10 * abs(length(input) - length(serial_code)) // Penalty for wrong length
-		if(difference <= 100) /// ALL THIS SHIT NEEDS FUCKING WORRRRRRRRRRRRRRRRKKKKKKK ITS FUCKED!!! WHAT THE HELLL!!!
-			overclock_failure(user, tool)
-			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-		else if(difference <= 300)
-			to_chat(user, "You feel a small shock as something shorts!")
-			user.electrocute_act(15, src, 1)
-		else if(difference <= 600)
-			to_chat(user, "Sparks fly as your careless tampering goes wrong!")
-			user.electrocute_act(40, src, 1)
-		else
-			to_chat(user, "A high-pitched whine builds up before—")
-			explosion(get_turf(src), 0, 0, 2, 2)
-			qdel(src)
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 40)
+		user.electrocute_act(40, src, 1)
 	return TRUE
 
 /obj/item/computer_hardware/proc/overclock_failure(mob/living/user, obj/item/tool)
@@ -232,6 +208,7 @@
 		hacked = TRUE
 		power_usage = (power_usage * 5)
 		to_chat(user, "You have sucessefuly overclocked [name].")
+	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	playsound(src, "sparks", 50)
 	update_icon_state()
 	update_overclocking(user, tool)

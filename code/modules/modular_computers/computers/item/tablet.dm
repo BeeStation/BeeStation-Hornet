@@ -21,9 +21,6 @@
 	//This is the currently inserted item
 	var/obj/item/inserted_item
 
-	/// If this tablet can be detonated with detomatix (needs to be refactored into a signal)
-	var/detonatable = TRUE
-
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
 	/// Scanned paper
@@ -392,6 +389,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 	install_component(new /obj/item/computer_hardware/identifier)
 	install_component(new /obj/item/computer_hardware/sensorpackage)
 
+	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
+	if(hdd)
+		hdd.virus_defense = default_virus_defense
 	if(default_disk)
 		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
 		install_component(disk)

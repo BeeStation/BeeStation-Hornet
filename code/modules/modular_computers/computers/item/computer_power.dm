@@ -16,7 +16,7 @@
 		if(cell.use(amount * GLOB.CELLRATE))
 			return TRUE
 		else // Discharge the cell anyway.
-			cell.use(min(amount*GLOB.CELLRATE, cell.charge))
+			cell.use(min(amount * GLOB.CELLRATE, cell.charge))
 			return FALSE
 	return FALSE
 
@@ -40,6 +40,8 @@
 			var/datum/computer_file/program/PRG = I
 			PRG.event_powerfailure(1)
 		shutdown_computer(0)
+	if(!controler)
+		return
 	if(controler.hacked && controler.battery)
 		switch(controler.battery.size)
 			if(1)

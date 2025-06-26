@@ -16,6 +16,10 @@
 	var/has_been_installed = FALSE
 	/// List of airlocks this disk can control with program/remote_airlock
 	var/list/controllable_airlocks
+	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
+	var/spam_delay = 0
+	/// If this hard drive is imprevious to basic viruses
+	var/virus_defense = 0
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
@@ -47,6 +51,17 @@
 	// 999 is a byond limit that is in place. It's unlikely someone will reach that many files anyway, since you would sooner run out of space.
 	to_chat(user, "NT-NFS File Table Status: [stored_files.len]/999")
 	to_chat(user, "Storage capacity: [used_capacity]/[max_capacity]GQ")
+	if(virus_defense)
+		to_chat(user, "<font color='#ff1865'>Virus Buster</font> Lvl [virus_defense] :: <font color='#34b600'>Engaged</font>")
+	if(spam_delay)
+		to_chat(user, "<font color='#00c3ff'>Advertisement Messaging</font> Enabled")
+
+/obj/item/computer_hardware/hard_drive/update_overclocking()
+	if(hacked)
+		virus_defense = 2
+	else
+		virus_defense = FALSE
+
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)
@@ -183,7 +198,6 @@
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
-	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
 	..()
 
@@ -213,7 +227,6 @@
 	desc = "An efficient SSD for portable devices developed by a rival organisation."
 	power_usage = 8
 	max_capacity = 70
-	var/datum/antagonist/traitor/traitor_data // Syndicate hard drive has the user's data baked directly into it on creation
 
 /// For tablets given to nuke ops
 /obj/item/computer_hardware/hard_drive/small/nukeops
@@ -243,7 +256,6 @@
 /obj/item/computer_hardware/hard_drive/micro/install_default_programs()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
-	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
 	store_file(new/datum/computer_file/program/ntnetdownload(src))		// NTNet Downloader Utility, allows users to download more software from NTNet repository
 	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar

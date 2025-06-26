@@ -97,6 +97,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
+	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
+	var/default_virus_defense = 0
 
 
 /datum/armor/item_modular_computer
@@ -290,7 +292,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
 
-/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // Teleporting for hacked CPU's
 	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
 	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
 	var/turf/start = get_turf(src)
@@ -300,10 +302,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return
 	if(!cpu.hacked)
 		return
-	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-	playsound(start, "sparks", 50, 1)
-	playsound(target, "sparks", 50, 1)
-	do_dash(src, start, target, 0, TRUE)
+	if(use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)) // The better the CPU the farther it goes, and the more battery it needs
+		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+		playsound(start, "sparks", 50, 1)
+		playsound(target, "sparks", 50, 1)
+		do_dash(src, start, target, 0, TRUE)
+	else
+		new /obj/effect/particle_effect/sparks(start)
+		playsound(start, "sparks", 50, 1)
 	return
 
 /obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
@@ -464,6 +470,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 
 	if(battery_module?.battery)
 		switch(battery_module.battery.percent())
@@ -487,7 +494,21 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		data["PC_showbatteryicon"] = battery_module ? 1 : 0
 
 	if(recharger && recharger.enabled && recharger.check_functionality() && recharger.use_power(0))
-		data["PC_apclinkicon"] = "charging.gif"
+		if(!recharger.hacked)
+			data["PC_apclinkicon"] = "charging.gif"
+		else
+			data["PC_apclinkicon"] = "power_drain.gif" // If hacked glitches (to make it very obvious its hacked)
+	switch(drive.virus_defense)
+		if(0)
+			data["PC_AntiVirus"] = "antivirus_0.gif"
+		if(1)
+			data["PC_AntiVirus"] = "antivirus_1.gif"
+		if(2)
+			data["PC_AntiVirus"] = "antivirus_2.gif"
+		if(3)
+			data["PC_AntiVirus"] = "antivirus_3.gif"
+		if(4)
+			data["PC_AntiVirus"] = "antivirus_4.gif"
 
 	switch(get_ntnet_status())
 		if(0)
@@ -499,7 +520,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(3)
 			data["PC_ntneticon"] = "sig_lan.gif"
 		if(4)
-			data["PC_ntneticon"] = "smmon_6.gif"
+			data["PC_ntneticon"] = "no_relay.gif" // This exists to give a hacked UI indicator
 
 	var/list/program_headers = list()
 	for(var/datum/computer_file/program/P as anything in idle_threads)
@@ -792,3 +813,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 // Make messages visible via allow_inside_usr
 /obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
 	return ..()
+
+/obj/item/modular_computer/proc/virus_blocked(mob/living/user)	// If we caught a Virus, tell the player
+	var/mob/living/holder = loc
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
+	playsound(src, "sparks", 50, 1)
+	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+	to_chat(holder, span_notice("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>"))

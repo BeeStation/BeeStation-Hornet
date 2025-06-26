@@ -3528,6 +3528,7 @@
 #include "code\modules\modular_computers\file_system\programs\statusdisplay.dm"
 #include "code\modules\modular_computers\file_system\programs\wiki_uplink.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\contract_uplink.dm"
+#include "code\modules\modular_computers\file_system\programs\antagonist\disk_viruses.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\dos.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\emag.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\revelation.dm"

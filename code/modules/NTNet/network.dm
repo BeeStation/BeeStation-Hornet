@@ -317,7 +317,7 @@
 		return FALSE
 
 	// Check all relays. If we have at least one working relay, network is up.
-	if(signal_level != NO_RELAY && !SSnetworks.check_relay_operation(zlevel))
+	if(signal_level != (NO_RELAY || HACKED) && !SSnetworks.check_relay_operation(zlevel))
 		return FALSE
 
 	if(setting_disabled)

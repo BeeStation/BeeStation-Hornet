@@ -15,15 +15,14 @@
 	if(!holder || !battery_module || !battery_module.battery)
 		return
 
-	var/obj/item/stock_parts/cell/cell = battery_module.battery
+	var/obj/item/stock_parts/cell/computer/cell = battery_module.battery
 	if(cell.charge >= cell.maxcharge && !hacked) // If hacked, will continue to absorb power regardless of cell charge
 		return
 	if(hacked)
-		charge_rate = charge_rate * 10	// If hacked will suck up 10 times more power
+		charge_rate = cell.maxcharge / GLOB.CELLRATE
 		playsound(src, 'sound/items/timer.ogg', 50, FALSE, ignore_walls = TRUE)
 	if(use_power(charge_rate, charging=1))
 		holder.give_power(charge_rate * GLOB.CELLRATE)
-
 
 /obj/item/computer_hardware/recharger/APC
 	name = "area power connector"

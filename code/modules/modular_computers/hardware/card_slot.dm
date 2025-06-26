@@ -8,6 +8,7 @@
 	custom_price = 20
 
 	var/obj/item/card/id/stored_card
+	var/obj/item/card/id/fake_card
 	var/current_identification
 	var/current_job
 
@@ -22,12 +23,14 @@
 	return ..()
 
 /obj/item/computer_hardware/card_slot/GetAccess()
-	var/list/total_access
+	var/list/total_access = list()
 	if(stored_card)
 		total_access = stored_card.GetAccess()
 	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2] //Best of both worlds
 	if(card_slot2?.stored_card)
 		total_access |= card_slot2.stored_card.GetAccess()
+	if(card_slot2?.fake_card)
+		total_access |= card_slot2.fake_card.GetAccess()
 	return total_access
 
 /obj/item/computer_hardware/card_slot/GetID()
@@ -66,7 +69,9 @@
 			return FALSE
 	else
 		I.forceMove(src)
-
+	if(fake_card)
+		qdel(fake_card)
+		fake_card = null
 	stored_card = I
 	to_chat(user, span_notice("You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -84,7 +89,11 @@
 	if(!stored_card)
 		to_chat(user, span_warning("There are no cards in \the [src]."))
 		return FALSE
-
+	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2]
+	if(card_slot2?.hacked)
+		fake_card = new stored_card.type(src) // make a fake clone using the same type
+		fake_card.name = "[stored_card.name] (Simulated)"
+		fake_card.access = stored_card.access
 	if(user && !issilicon(user) && in_range(src, user))
 		user.put_in_hands(stored_card)
 	else
@@ -139,9 +148,18 @@
 	. += "The connector is set to fit into [expansion_hw ? "an expansion bay" : "a computer's primary ID bay"], but can be adjusted with a screwdriver."
 	if(stored_card)
 		. += "There appears to be something loaded in the card slots."
+	if(fake_card)
+		. += "<font color='#33ff00'>ERROR DETECTED:</font> Phantom credentials present in port 2."
 
 /obj/item/computer_hardware/card_slot/secondary
 	name = "secondary RFID card module"
 	device_type = MC_CARD2
 	expansion_hw = TRUE
 	custom_price = 100
+
+/obj/item/computer_hardware/card_slot/secondary/update_overclocking(mob/living/user, obj/item/tool)
+	if(fake_card) // IF theres a fake card inside then it stands to reason the module is being de-hacked, thus, we remove the fake card
+		qdel(fake_card)
+		fake_card = null
+
+
