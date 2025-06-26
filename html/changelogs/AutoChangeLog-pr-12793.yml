@@ -1,6 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - bugfix: Fix sentience spawner spam
-  - bugfix: Fix artifact pricing
-  - bugfix: Fix artifact label examine text

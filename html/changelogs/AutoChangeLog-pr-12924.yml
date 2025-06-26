@@ -1,5 +1,0 @@
-author: Gilgax
-delete-after: true
-changes:
-  - bugfix: Fixed hostile mobs (like blob spore zombies) keeping their AI for a few
-      seconds when taking control of them.

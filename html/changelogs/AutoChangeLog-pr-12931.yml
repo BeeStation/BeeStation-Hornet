@@ -1,5 +1,0 @@
-author: distributivgesetz, Gboster
-delete-after: true
-changes:
-  - code_imp: added defines for slime colors, making new crossbreeds a bit less painfull
-      to code
