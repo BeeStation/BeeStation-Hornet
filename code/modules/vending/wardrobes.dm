@@ -208,7 +208,7 @@
 					/obj/item/clothing/head/beret/science = 2)
 
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2,
-					/obj/item/organ/tongue/robot = 2,
+					/obj/item/organ/internal/tongue/robot = 2,
 					/obj/item/clothing/under/costume/mech_suit = 2,
 					/obj/item/clothing/under/costume/mech_suit/white = 2,
 					/obj/item/clothing/under/costume/mech_suit/blue = 2,)

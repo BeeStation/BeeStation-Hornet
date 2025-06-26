@@ -17,10 +17,10 @@
 	is_dimorphic = TRUE
 
 	var/mob/living/brain/brainmob //The current occupant.
-	var/obj/item/organ/brain/brain //The brain organ
-	var/obj/item/organ/eyes/eyes
-	var/obj/item/organ/ears/ears
-	var/obj/item/organ/tongue/tongue
+	var/obj/item/organ/internal/brain/brain //The brain organ
+	var/obj/item/organ/internal/eyes/eyes
+	var/obj/item/organ/internal/ears/ears
+	var/obj/item/organ/internal/tongue/tongue
 
 	/// Do we show the information about missing organs upon being examined? Defaults to TRUE, useful for Dullahan heads.
 	var/show_organs_on_examine = TRUE

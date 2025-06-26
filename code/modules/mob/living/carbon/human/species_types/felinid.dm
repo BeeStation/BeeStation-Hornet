@@ -8,9 +8,9 @@
 	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
-	mutantears = /obj/item/organ/ears/cat
-	mutant_organs = list(/obj/item/organ/tail/cat)
-	mutanttongue = /obj/item/organ/tongue/cat
+	mutantears = /obj/item/organ/internal/ears/cat
+	mutant_organs = list(/obj/item/organ/external/tail/cat)
+	mutanttongue = /obj/item/organ/internal/tongue/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
@@ -18,37 +18,18 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/human/felinid/qualifies_for_rank(rank, list/features)
-	return TRUE
-
-//Curiosity killed the cat's wagging tail.
-/datum/species/human/felinid/spec_death(gibbed, mob/living/carbon/human/H)
-	if(H)
-		stop_wagging_tail(H)
-
-/datum/species/human/felinid/spec_stun(mob/living/carbon/human/H,amount)
-	if(H)
-		stop_wagging_tail(H)
-	. = ..()
-
-/datum/species/human/felinid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(!pref_load)			//Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
-			if(H.dna.features["tail_human"] == "None")
-				H.dna.features["tail_human"] = "Cat"
-			if(H.dna.features["ears"] == "None")
-				H.dna.features["ears"] = "Cat"
-		if(H.dna.features["ears"] == "Cat")
-			var/obj/item/organ/ears/cat/ears = new
-			ears.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
+/datum/species/human/felinid/on_species_gain(mob/living/carbon/carbon_being, datum/species/old_species, pref_load)
+	if(ishuman(carbon_being))
+		var/mob/living/carbon/human/target_human = carbon_being
+		if(!pref_load) //Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
+			target_human.dna.features["tail_cat"] = "Cat"
+			if(target_human.dna.features["ears"] == "None")
+				target_human.dna.features["ears"] = "Cat"
+		if(target_human.dna.features["ears"] == "Cat")
+			var/obj/item/organ/internal/ears/cat/ears = new
+			ears.Insert(target_human, drop_if_replaced = FALSE)
 		else
-			mutantears = /obj/item/organ/ears
-		if(H.dna.features["tail_human"] == "Cat")
-			var/obj/item/organ/tail/cat/tail = new
-			tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
-		else
-			mutant_organs = list()
+			mutantears = /obj/item/organ/internal/ears
 	return ..()
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
@@ -61,11 +42,15 @@
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
 			to_chat(M, span_notice("[sick_message]"))
 		if(prob(15))
-			if(locate(/obj/item/organ/stomach) in M.internal_organs)
-				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
+			if(locate(/obj/item/organ/internal/stomach) in M.organs)
+				var/obj/item/organ/internal/stomach/cat_stomach = M.organs_slot[ORGAN_SLOT_STOMACH]
 				cat_stomach.applyOrganDamage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
+
+/datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
+	randomize_external_organs(human_mob)
+	return ..()
 
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)
@@ -112,7 +97,7 @@
 	human.hair_color = "fcc" // pink
 	human.update_body_parts()
 
-	var/obj/item/organ/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/ears/cat)
+	var/obj/item/organ/internal/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/internal/ears/cat)
 	if (cat_ears)
 		cat_ears.color = human.hair_color
 		human.update_body()

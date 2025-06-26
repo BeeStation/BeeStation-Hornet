@@ -8,20 +8,20 @@
 	// List of organ typepaths which cause species change.
 	// Species change swaps out all the organs, making test_organ un-usable after insertion.
 	var/static/list/species_changing_organs = typecacheof(list(
-		/obj/item/organ/brain/nightmare,
+		/obj/item/organ/internal/brain/shadow/nightmare,
 	))
 	// List of organ typepaths which are not test-able, such as certain class prototypes.
 	var/static/list/test_organ_blacklist = typecacheof(list(
-		//obj/item/organ/internal,
-		//obj/item/organ/external,
+		/obj/item/organ/internal,
+		/obj/item/organ/external,
 		/obj/item/organ/external/wings,
-		/obj/item/organ/cyberimp,
-		/obj/item/organ/cyberimp/brain,
-		/obj/item/organ/cyberimp/mouth,
-		/obj/item/organ/cyberimp/arm,
-		/obj/item/organ/cyberimp/chest,
-		/obj/item/organ/cyberimp/eyes,
-		/obj/item/organ/alien,
+		/obj/item/organ/internal/cyberimp,
+		/obj/item/organ/internal/cyberimp/brain,
+		/obj/item/organ/internal/cyberimp/mouth,
+		/obj/item/organ/internal/cyberimp/arm,
+		/obj/item/organ/internal/cyberimp/chest,
+		/obj/item/organ/internal/cyberimp/eyes,
+		/obj/item/organ/internal/alien,
 	))
 
 /datum/unit_test/organ_sanity/Run()
@@ -49,9 +49,9 @@
 		return
 
 	TEST_ASSERT(test_organ.owner == lab_rat, TEST_ORGAN_INSERT_MESSAGE(test_organ, "should assign the human to the organ's `owner` var."))
-	TEST_ASSERT(test_organ in lab_rat.internal_organs, TEST_ORGAN_INSERT_MESSAGE(test_organ, "should insert the organ into the human's `internal_organs` list."))
+	TEST_ASSERT(test_organ in lab_rat.organs, TEST_ORGAN_INSERT_MESSAGE(test_organ, "should insert the organ into the human's `internal_organs` list."))
 	if(test_organ.slot)
-		TEST_ASSERT(lab_rat.internal_organs_slot[test_organ.slot] == test_organ, TEST_ORGAN_INSERT_MESSAGE(test_organ, "should add the organ to the human's `internal_organs_slot` list."))
+		TEST_ASSERT(lab_rat.organs_slot[test_organ.slot] == test_organ, TEST_ORGAN_INSERT_MESSAGE(test_organ, "should add the organ to the human's `internal_organs_slot` list."))
 		TEST_ASSERT(lab_rat.get_organ_slot(test_organ.slot) == test_organ, TEST_ORGAN_INSERT_MESSAGE(test_organ, "should make the organ available via human's `get_organ_slot()` proc."))
 
 	if(LAZYLEN(test_organ.organ_traits))
@@ -72,9 +72,9 @@
 	test_organ.Remove(lab_rat, special = TRUE)
 
 	TEST_ASSERT(test_organ.owner == null, TEST_ORGAN_REMOVE_MESSAGE(test_organ, "should assign the organ's `owner` var to null."))
-	TEST_ASSERT(!(test_organ in lab_rat.internal_organs), TEST_ORGAN_REMOVE_MESSAGE(test_organ, "should remove the organ from the human's `internal_organs` list."))
+	TEST_ASSERT(!(test_organ in lab_rat.organs), TEST_ORGAN_REMOVE_MESSAGE(test_organ, "should remove the organ from the human's `internal_organs` list."))
 	if(test_organ.slot)
-		TEST_ASSERT(lab_rat.internal_organs_slot[test_organ.slot] != test_organ, TEST_ORGAN_REMOVE_MESSAGE(test_organ, "should remove the organ from the human's `internal_organs_slot` list."))
+		TEST_ASSERT(lab_rat.organs_slot[test_organ.slot] != test_organ, TEST_ORGAN_REMOVE_MESSAGE(test_organ, "should remove the organ from the human's `internal_organs_slot` list."))
 		TEST_ASSERT(lab_rat.get_organ_slot(test_organ.slot) != test_organ, TEST_ORGAN_REMOVE_MESSAGE(test_organ, "should remove the organ from the human's `get_organ_slot()` proc."))
 
 	return

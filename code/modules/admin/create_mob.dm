@@ -11,14 +11,14 @@
 	user << browse(create_panel_helper(create_mob_html), "window=create_mob;size=425x475")
 
 /proc/randomize_human(mob/living/carbon/human/H, unique = FALSE)
-	H.gender = pick(MALE, FEMALE)
+	if(H.dna.species.sexes)
+		H.gender = pick(MALE, FEMALE, PLURAL)
+	else
+		H.gender = PLURAL
 	H.real_name = random_unique_name(H.gender)
 	H.name = H.real_name
-	H.underwear = random_underwear(H.gender)
 	H.socks = random_socks(H.gender)
 	H.undershirt = random_undershirt(H.undershirt)
-	H.underwear_color = random_short_color()
-	H.skin_tone = random_skin_tone()
 	H.eye_color = random_eye_color()
 	H.dna.blood_type = random_blood_type()
 
@@ -65,30 +65,12 @@
 
 	// Mutant randomizing, doesn't affect the mob appearance unless it's the specific mutant.
 	H.dna.features["mcolor"] = random_short_color()
-	H.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
-	H.dna.features["tail_lizard"] = pick(GLOB.tails_list_lizard)
-	H.dna.features["snout"] = pick(GLOB.snouts_list)
-	H.dna.features["horns"] = pick(GLOB.horns_list)
-	H.dna.features["frills"] = pick(GLOB.frills_list)
-	H.dna.features["spines"] = pick(GLOB.spines_list)
-	H.dna.features["body_markings"] = pick(GLOB.body_markings_list)
-	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_roundstart_list)
-	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_roundstart_list)
-	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_roundstart_list)
-	H.dna.features["apid_antenna"] = pick(GLOB.apid_antenna_list)
-	H.dna.features["apid_stripes"] = pick(GLOB.apid_stripes_list)
-	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)
-	H.dna.features["body_model"] = H.gender
-	H.dna.features["psyphoza_cap"] = pick(GLOB.psyphoza_cap_list)
-	H.dna.features["diona_leaves"] = pick(GLOB.diona_leaves_list)
-	H.dna.features["diona_thorns"] = pick(GLOB.diona_thorns_list)
-	H.dna.features["diona_flowers"] = pick(GLOB.diona_flowers_list)
-	H.dna.features["diona_moss"] = pick(GLOB.diona_moss_list)
-	H.dna.features["diona_mushroom"] = pick(GLOB.diona_mushroom_list)
-	H.dna.features["diona_antennae"] = pick(GLOB.diona_antennae_list)
-	H.dna.features["diona_eyes"] = pick(GLOB.diona_eyes_list)
-	H.dna.features["diona_pbody"] = pick(GLOB.diona_pbody_list)
+	H.dna.species.randomize_active_underwear(H)
 
-	H.update_body(is_creating = TRUE)
+	for(var/datum/species/species_path as anything in subtypesof(/datum/species))
+		var/datum/species/new_species = new species_path
+		new_species.randomize_features(H)
 	H.dna.species.spec_updatehealth(H)
-
+	H.dna.update_dna_identity(H)
+	H.updateappearance(H)
+	H.update_body(is_creating = TRUE)

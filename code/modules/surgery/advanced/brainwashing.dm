@@ -22,7 +22,7 @@
 /datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/brain/B = target.get_organ_slot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/internal/brain/B = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!B)
 		return FALSE
 	return TRUE
@@ -44,7 +44,7 @@
 /datum/surgery_step/brainwash/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	objective = tgui_input_text(user, "Choose the objective to imprint on your victim's brain", "Brainwashing")
 	if(!objective)
-		return -1
+		return SURGERY_STEP_FAIL
 	display_results(
 		user,
 		target,

@@ -1,4 +1,4 @@
-/obj/item/organ/heart
+/obj/item/organ/internal/heart
 	name = "heart"
 	desc = "I feel bad for the heartless bastard who lost this."
 	icon_state = "heart-on"
@@ -28,44 +28,39 @@
 	///Color of the heart, is set by the species on gain
 	//var/ethereal_color = "#9c3030"
 
-/obj/item/organ/heart/update_icon()
+/obj/item/organ/internal/heart/update_icon()
 	if(beating)
 		icon_state = "[icon_base]-on"
 	else
 		icon_state = "[icon_base]-off"
 
-/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(!special)
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
 
-/obj/item/organ/heart/proc/stop_if_unowned()
+/obj/item/organ/internal/heart/proc/stop_if_unowned()
 	if(!owner)
 		Stop()
 
-/obj/item/organ/heart/attack_self(mob/user)
+/obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
 	if(!beating)
 		user.visible_message(span_notice("[user] squeezes [src] to make it beat again!"), span_notice("You squeeze [src] to make it beat again!"))
 		Restart()
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
-/obj/item/organ/heart/proc/Stop()
+/obj/item/organ/internal/heart/proc/Stop()
 	beating = 0
 	update_icon()
 	return 1
 
-/obj/item/organ/heart/proc/Restart()
+/obj/item/organ/internal/heart/proc/Restart()
 	beating = 1
 	update_icon()
 	return 1
 
-/obj/item/organ/heart/on_eat_from(eater, feeder)
-	. = ..()
-	beating = FALSE
-	update_icon()
-
-/obj/item/organ/heart/on_life(delta_time, times_fired)
+/obj/item/organ/internal/heart/on_life(delta_time, times_fired)
 	..()
 
 	if(owner.client && beating)
@@ -97,10 +92,10 @@
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
-/obj/item/organ/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
+/obj/item/organ/internal/heart/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantheart
 
-/obj/item/organ/heart/cursed
+/obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
 	desc = "A heart that, when inserted, will force you to pump it manually."
 	icon_state = "cursedheart-off"
@@ -118,7 +113,7 @@
 	var/heal_oxy = 0
 
 
-/obj/item/organ/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
+/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
 		playsound(user,'sound/effects/singlebeat.ogg',40,1)
 		user.temporarilyRemoveItemFromInventory(src, TRUE)
@@ -126,7 +121,7 @@
 	else
 		return ..()
 
-/obj/item/organ/heart/cursed/on_life(delta_time, times_fired)
+/obj/item/organ/internal/heart/cursed/on_life(delta_time, times_fired)
 	SHOULD_CALL_PARENT(FALSE)
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
@@ -140,11 +135,11 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/heart/cursed/on_insert(mob/living/carbon/accursed)
+/obj/item/organ/internal/heart/cursed/on_insert(mob/living/carbon/accursed)
 	. = ..()
 	to_chat(accursed, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
-/obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	M.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 
@@ -153,8 +148,8 @@
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/on_activate(mob/user, atom/target)
-	if(. && istype(target, /obj/item/organ/heart/cursed))
-		var/obj/item/organ/heart/cursed/cursed_heart = target
+	if(. && istype(target, /obj/item/organ/internal/heart/cursed))
+		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
 
 		if(world.time < cursed_heart.last_pump + (cursed_heart.pump_delay-10)) //no spam
 			to_chat(owner, span_userdanger("Too soon!"))
@@ -180,7 +175,7 @@
 	priority = 100 //it's an indicator you're dying, so it's very high priority
 	colour = "red"
 
-/obj/item/organ/heart/cybernetic
+/obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c-on"
@@ -191,7 +186,7 @@
 	var/rid = /datum/reagent/medicine/epinephrine
 	var/ramount = 10
 
-/obj/item/organ/heart/cybernetic/emp_act(severity)
+/obj/item/organ/internal/heart/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
@@ -199,37 +194,37 @@
 		Stop()
 		addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
 
-/obj/item/organ/heart/cybernetic/on_life(delta_time, times_fired)
+/obj/item/organ/internal/heart/cybernetic/on_life(delta_time, times_fired)
 	. = ..()
 	if(dose_available && owner.stat == UNCONSCIOUS && !owner.reagents.has_reagent(rid))
 		owner.reagents.add_reagent(rid, ramount)
 		used_dose()
 
-/obj/item/organ/heart/cybernetic/proc/used_dose()
+/obj/item/organ/internal/heart/cybernetic/proc/used_dose()
 	dose_available = FALSE
 
-/obj/item/organ/heart/cybernetic/upgraded
+/obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
 	icon_state = "heart-c-u-on"
 	icon_base = "heart-c-u"
 
-/obj/item/organ/heart/cybernetic/upgraded/used_dose()
+/obj/item/organ/internal/heart/cybernetic/upgraded/used_dose()
 	. = ..()
 	addtimer(VARSET_CALLBACK(src, dose_available, TRUE), 5 MINUTES)
 
-/obj/item/organ/heart/cybernetic/ipc
+/obj/item/organ/internal/heart/cybernetic/ipc
 	desc = "An electronic device that appears to mimic the functions of an organic heart."
 	dose_available = FALSE
 
-/obj/item/organ/heart/freedom
+/obj/item/organ/internal/heart/freedom
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
 	organ_flags = ORGAN_SYNTHETIC //the power of freedom prevents heart attacks
 	/// The cooldown until the next time this heart can give the host an adrenaline boost.
 	COOLDOWN_DECLARE(adrenaline_cooldown)
 
-/obj/item/organ/heart/freedom/on_life(delta_time, times_fired)
+/obj/item/organ/internal/heart/freedom/on_life(delta_time, times_fired)
 	. = ..()
 	if(owner.health < 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
 		COOLDOWN_START(src, adrenaline_cooldown, rand(25 SECONDS, 1 MINUTES))
@@ -238,7 +233,7 @@
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
 			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
 
-/obj/item/organ/heart/diona
+/obj/item/organ/internal/heart/diona
 	name = "polypment segment"
 	desc = "A segment of plant matter that is resposible for pumping nutrients around the body."
 	icon_state = "diona_heart"

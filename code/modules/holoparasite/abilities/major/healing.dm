@@ -158,7 +158,7 @@
 			SSblackbox.record_feedback("nested tally", "holoparasite_reagents_purged", 1, reagents_purged)
 	if(heal_debuffs)
 		target.restoreEars()
-		var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/internal/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 		if(istype(eyes))
 			eyes.applyOrganDamage(-actual_heal_amt)
 		target.adjust_blindness(-actual_effect_heal_amt)

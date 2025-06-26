@@ -201,12 +201,12 @@
 		new_body.adjustToxLoss(rand(40, 55), updating_health = FALSE, forced = TRUE)
 	else
 		new_body.adjustCloneLoss(rand(40, 55), updating_health = FALSE)
-	var/obj/item/organ/brain/brain = new_body.get_organ_slot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/internal/brain/brain = new_body.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!istype(brain) || brain.decoy_override)
-		var/obj/item/organ/heart = new_body.get_organ_slot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/internal/heart = new_body.get_organ_slot(ORGAN_SLOT_HEART)
 		if(!heart)
 			// damn you, heartless bastard!!
-			for(var/obj/item/organ/organ in new_body.internal_organs)
+			for(var/obj/item/organ/organ in new_body.organs)
 				organ.applyOrganDamage(rand(20, 40), organ.maxHealth - 1)
 		else
 			heart.applyOrganDamage(rand(20, 40), heart.maxHealth - 1)

@@ -20505,7 +20505,7 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "gEx" = (
-/obj/item/organ/eyes/diona,
+/obj/item/organ/internal/eyes/diona,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "gEE" = (
@@ -47416,7 +47416,7 @@
 /area/medical/medbay/central)
 "pvY" = (
 /obj/machinery/gibber,
-/obj/item/organ/brain/diona,
+/obj/item/organ/internal/brain/diona,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "pwq" = (
@@ -51090,7 +51090,7 @@
 "qHQ" = (
 /obj/structure/table/wood,
 /obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
+/obj/item/organ/internal/heart,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/chapel/office)

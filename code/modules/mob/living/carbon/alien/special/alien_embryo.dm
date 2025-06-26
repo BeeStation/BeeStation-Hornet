@@ -1,6 +1,6 @@
 // This is to replace the previous datum/disease/alien_embryo for slightly improved handling and maintainability
 // It functions almost identically (see code/datums/diseases/alien_embryo.dm)
-/obj/item/organ/body_egg/alien_embryo
+/obj/item/organ/internal/body_egg/alien_embryo
 	name = "alien embryo"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
@@ -9,7 +9,7 @@
 	COOLDOWN_DECLARE(next_stage_time)
 	var/bursting = FALSE
 
-/obj/item/organ/body_egg/alien_embryo/on_find(mob/living/finder)
+/obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	. = ..()
 	if(stage < 4)
 		to_chat(finder, "It's small and weak, barely the size of a foetus.")
@@ -18,7 +18,7 @@
 		if(prob(10))
 			AttemptGrow(0)
 
-/obj/item/organ/body_egg/alien_embryo/on_life(delta_time, times_fired)
+/obj/item/organ/internal/body_egg/alien_embryo/on_life(delta_time, times_fired)
 	. = ..()
 	if(!owner)
 		return
@@ -49,13 +49,13 @@
 			to_chat(owner, span_danger("You feel something tearing its way out of your stomach."))
 			owner.adjustToxLoss(5 * delta_time) // Why is this [TOX]?
 
-/obj/item/organ/body_egg/alien_embryo/on_death()
+/obj/item/organ/internal/body_egg/alien_embryo/on_death()
 	. = ..()
 	if(!owner) // If we're out of the body, kill us and stop processing
 		applyOrganDamage(maxHealth)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/organ/body_egg/alien_embryo/egg_process()
+/obj/item/organ/internal/body_egg/alien_embryo/egg_process()
 	if(!next_stage_time)
 		COOLDOWN_START(src, next_stage_time, 30 SECONDS)
 		return
@@ -72,12 +72,12 @@
 
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == BODY_ZONE_CHEST && istype(S.get_surgery_step(), /datum/surgery_step/manipulate_organs))
+			if(S.location == BODY_ZONE_CHEST && istype(S.get_surgery_step(), /datum/surgery_step/manipulate_organs/internal))
 				AttemptGrow(FALSE)
 				return
 		AttemptGrow()
 
-/obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
 	if(!owner || bursting)
 		return
 
@@ -147,7 +147,7 @@
 Proc: AddInfectionImages(C)
 Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
-/obj/item/organ/body_egg/alien_embryo/AddInfectionImages()
+/obj/item/organ/internal/body_egg/alien_embryo/AddInfectionImages()
 	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
 		if(alien.client)
 			var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
@@ -157,7 +157,7 @@ Des: Adds the infection image to all aliens for this embryo
 Proc: RemoveInfectionImage(C)
 Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
-/obj/item/organ/body_egg/alien_embryo/RemoveInfectionImages()
+/obj/item/organ/internal/body_egg/alien_embryo/RemoveInfectionImages()
 	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
 		if(alien.client)
 			for(var/image/I in alien.client.images)

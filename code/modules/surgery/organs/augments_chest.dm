@@ -1,11 +1,11 @@
-/obj/item/organ/cyberimp/chest
+/obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
 	desc = "Implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
 	zone = BODY_ZONE_CHEST
 
-/obj/item/organ/cyberimp/chest/nutriment
+/obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
 	icon_state = "chest_implant"
@@ -15,7 +15,7 @@
 	var/malfunctioning = FALSE
 	slot = ORGAN_SLOT_STOMACH_AID
 
-/obj/item/organ/cyberimp/chest/nutriment/on_life(delta_time, times_fired)
+/obj/item/organ/internal/cyberimp/chest/nutriment/on_life(delta_time, times_fired)
 	SHOULD_CALL_PARENT(FALSE)
 	if(synthesizing)
 		return
@@ -32,24 +32,24 @@
 		owner.adjust_nutrition(25 * delta_time)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 5 SECONDS)
 
-/obj/item/organ/cyberimp/chest/nutriment/proc/synth_cool()
+/obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
 
-/obj/item/organ/cyberimp/chest/nutriment/emp_act(severity)
+/obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
 	if(prob(30/severity))
 		malfunctioning = TRUE
 
-/obj/item/organ/cyberimp/chest/nutriment/plus
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
 	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 
-/obj/item/organ/cyberimp/chest/reviver
+/obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to revive and heal you if you lose consciousness. For the faint of heart!"
 	icon_state = "chest_implant"
@@ -59,7 +59,7 @@
 	var/reviving = FALSE
 	COOLDOWN_DECLARE(reviver_cooldown)
 
-/obj/item/organ/cyberimp/chest/reviver/on_life(delta_time, times_fired)
+/obj/item/organ/internal/cyberimp/chest/reviver/on_life(delta_time, times_fired)
 	SHOULD_CALL_PARENT(FALSE)
 	if(reviving)
 		switch(owner.stat)
@@ -80,7 +80,7 @@
 			reviving = TRUE
 			to_chat(owner, span_notice("You feel a faint buzzing as your reviver implant starts patching your wounds..."))
 
-/obj/item/organ/cyberimp/chest/reviver/proc/heal()
+/obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(owner.getOxyLoss())
 		owner.adjustOxyLoss(-5)
 		revive_cost += 5
@@ -94,7 +94,7 @@
 		owner.adjustToxLoss(-1)
 		revive_cost += 40
 
-/obj/item/organ/cyberimp/chest/reviver/emp_act(severity)
+/obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
@@ -103,10 +103,10 @@
 		owner.Knockdown((3 SECONDS))
 		Destroy()
 
-/obj/item/organ/cyberimp/chest/reviver/syndicate
+/obj/item/organ/internal/cyberimp/chest/reviver/syndicate
 	syndicate_implant = TRUE
 
-/obj/item/organ/cyberimp/chest/thrusters
+/obj/item/organ/internal/cyberimp/chest/thrusters
 	name = "implantable thrusters set"
 	desc = "An implantable set of thruster ports. They use the gas from environment or subject's internals for propulsion in zero-gravity areas. \
 	Unlike regular jetpacks, this device has no stabilization system."
@@ -120,21 +120,21 @@
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/internal/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	if(!ion_trail)
 		ion_trail = new
 	ion_trail.set_up(M)
 
-/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(on)
 		toggle(silent = TRUE)
 	..()
 
-/obj/item/organ/cyberimp/chest/thrusters/ui_action_click()
+/obj/item/organ/internal/cyberimp/chest/thrusters/ui_action_click()
 	toggle()
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/toggle(silent = FALSE)
+/obj/item/organ/internal/cyberimp/chest/thrusters/proc/toggle(silent = FALSE)
 	if(!on)
 		if((organ_flags & ORGAN_FAILING))
 			if(!silent)
@@ -156,16 +156,16 @@
 		on = FALSE
 	update_icon()
 
-/obj/item/organ/cyberimp/chest/thrusters/update_icon_state()
+/obj/item/organ/internal/cyberimp/chest/thrusters/update_icon_state()
 	icon_state = "[base_icon_state][on ? "-on" : null]"
 	return ..()
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/move_react()
+/obj/item/organ/internal/cyberimp/chest/thrusters/proc/move_react()
 	SIGNAL_HANDLER
 
 	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE)
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num, use_fuel = TRUE)
+/obj/item/organ/internal/cyberimp/chest/thrusters/proc/allow_thrust(num, use_fuel = TRUE)
 	if(!on || !owner)
 		return 0
 

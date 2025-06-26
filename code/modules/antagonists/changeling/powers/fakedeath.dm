@@ -40,7 +40,7 @@
 
 	user.cure_fakedeath("changeling")
 	user.revive(full_heal = TRUE)
-	user.regenerate_organs()
+	user.regenerate_limbs()
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(datum/mind/mind)
 	if(!mind || !iscarbon(mind.current))

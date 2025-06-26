@@ -54069,7 +54069,7 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "kWV" = (
-/obj/item/organ/heart{
+/obj/item/organ/internal/heart{
 	pixel_x = -7
 	},
 /obj/structure/table/wood/fancy/royalblack,
@@ -107289,7 +107289,7 @@
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/wall_closet/freezer/directional/east,
-/obj/item/organ/heart/cybernetic/upgraded,
+/obj/item/organ/internal/heart/cybernetic/upgraded,
 /turf/open/floor/noslip/white,
 /area/maintenance/starboard/central)
 "vJn" = (

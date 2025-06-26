@@ -525,7 +525,7 @@
 	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
-	var/obj/item/organ/brain/B = M.get_organ_by_type(/obj/item/organ/brain)
+	var/obj/item/organ/internal/brain/B = M.get_organ_by_type(/obj/item/organ/internal/brain)
 	var/gained_trauma = FALSE
 	if(!gained_trauma)
 		B.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)
@@ -588,7 +588,7 @@
 /datum/reagent/drug/nooartrium/on_mob_add(mob/living/affected_mob)
 	if(affected_mob.suiciding)
 		return
-	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/internal/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
 	if(!heart || heart.organ_flags & ORGAN_FAILING)
 		return
 	ADD_TRAIT(affected_mob, TRAIT_NOCRITDAMAGE, FROM_NOOARTRIUM)
@@ -627,7 +627,7 @@
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (((affected_mob.getBruteLoss() + affected_mob.getFireLoss()) / 200) + 0.5)* delta_time/6)
-	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/internal/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
 	if(!heart || heart.organ_flags & ORGAN_FAILING)
 		on_mob_delete(affected_mob)
 	else
@@ -636,7 +636,7 @@
 
 /datum/reagent/drug/nooartrium/on_mob_delete(mob/living/carbon/affected_mob)
 	. = ..()
-	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/internal/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
 	remove_buffs(affected_mob)
 	if(affected_mob.health < -300 || !heart || heart.organ_flags & ORGAN_FAILING)
 		affected_mob.add_splatter_floor(get_turf(affected_mob))

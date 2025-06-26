@@ -136,13 +136,17 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Tail"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "tail_lizard"
+	relevant_external_organ = /obj/item/organ/external/tail/lizard
 
 /datum/preference/choiced/lizard_tail/init_possible_values()
 	return generate_lizard_body_shots(GLOB.tails_list_lizard, "tail")
 
 /datum/preference/choiced/lizard_tail/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["tail_lizard"] = value
+
+/datum/preference/choiced/lizard_tail/create_default_value()
+	var/datum/sprite_accessory/tails/lizard/smooth/tail = /datum/sprite_accessory/tails/lizard/smooth
+	return initial(tail.name)
 
 /proc/generate_lizard_body_shots(list/sprite_accessories, key, show_tail = FALSE, shift_x = -8)
 	var/list/values = list()

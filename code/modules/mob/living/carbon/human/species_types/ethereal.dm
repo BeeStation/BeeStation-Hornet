@@ -5,8 +5,8 @@
 	attack_sound = 'sound/weapons/etherealhit.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
-	mutantstomach = /obj/item/organ/stomach/battery/ethereal
-	mutanttongue = /obj/item/organ/tongue/ethereal
+	mutantstomach = /obj/item/organ/internal/stomach/battery/ethereal
+	mutanttongue = /obj/item/organ/internal/tongue/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
@@ -75,7 +75,7 @@
 	spec_updatehealth(ethereal)
 	new_ethereal.set_safe_hunger_level()
 
-	//var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	//var/obj/item/organ/internal/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
 	//ethereal_heart.ethereal_color = default_color
 
 	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
@@ -97,6 +97,9 @@
 	if(unique && attempts < 10)
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
+
+/datum/species/ethereal/randomize_features(mob/living/carbon/human/human_mob)
+	human_mob.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()

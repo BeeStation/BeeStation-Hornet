@@ -1,5 +1,5 @@
 
-/obj/item/organ/cyberimp
+/obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
 	visual = FALSE
@@ -9,7 +9,7 @@
 	var/implant_overlay
 	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
-/obj/item/organ/cyberimp/New(var/mob/M = null)
+/obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	if(iscarbon(M))
 		src.Insert(M)
 	if(implant_overlay)
@@ -22,7 +22,7 @@
 
 //[[[[BRAIN]]]]
 
-/obj/item/organ/cyberimp/brain
+/obj/item/organ/internal/cyberimp/brain
 	name = "cybernetic brain implant"
 	desc = "Injectors of extra sub-routines for the brain."
 	icon_state = "brain_implant"
@@ -30,7 +30,7 @@
 	zone = BODY_ZONE_HEAD
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/organ/cyberimp/brain/emp_act(severity)
+/obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
@@ -41,7 +41,7 @@
 		to_chat(owner, span_warning("Your body seizes up!"))
 
 
-/obj/item/organ/cyberimp/brain/anti_drop
+/obj/item/organ/internal/cyberimp/brain/anti_drop
 	name = "anti-drop implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
 	var/active = FALSE
@@ -50,7 +50,7 @@
 	slot = ORGAN_SLOT_BRAIN_ANTIDROP
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
-/obj/item/organ/cyberimp/brain/anti_drop/ui_action_click()
+/obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
 	active = !active
 	if(active)
 		for(var/obj/item/I in owner.held_items)
@@ -70,23 +70,23 @@
 		to_chat(owner, span_notice("Your hands relax..."))
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/emp_act(severity)
+/obj/item/organ/internal/cyberimp/brain/anti_drop/emp_act(severity)
 	if(active)
 		release_items()
 	..()
 
-/obj/item/organ/cyberimp/brain/anti_drop/proc/release_items()
+/obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	for(var/obj/item/I in stored_items)
 		REMOVE_TRAIT(I, TRAIT_NODROP, ANTI_DROP_IMPLANT_TRAIT)
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(active)
 		ui_action_click()
 	..()
 
-/obj/item/organ/cyberimp/brain/anti_stun
+/obj/item/organ/internal/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
 	implant_color = "#FFFF00"
@@ -101,32 +101,32 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/cyberimp/brain/anti_stun/on_remove(mob/living/carbon/implant_owner)
+/obj/item/organ/internal/cyberimp/brain/anti_stun/on_remove(mob/living/carbon/implant_owner)
 	. = ..()
 	UnregisterSignal(implant_owner, signalCache)
 
-/obj/item/organ/cyberimp/brain/anti_stun/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/internal/cyberimp/brain/anti_stun/on_insert(mob/living/carbon/receiver)
 	. = ..()
 	RegisterSignals(receiver, signalCache, PROC_REF(on_signal))
 
-/obj/item/organ/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
+/obj/item/organ/internal/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
 	SIGNAL_HANDLER
 
 	if(!(organ_flags & ORGAN_FAILING) && amount > 0)
 		addtimer(CALLBACK(src, PROC_REF(clear_stuns)), stun_cap_amount, TIMER_UNIQUE|TIMER_OVERRIDE)
 
-/obj/item/organ/cyberimp/brain/anti_stun/proc/clear_stuns()
+/obj/item/organ/internal/cyberimp/brain/anti_stun/proc/clear_stuns()
 	if(owner || !(organ_flags & ORGAN_FAILING))
 		owner.SetStun(0)
 		owner.SetKnockdown(0)
 		owner.SetImmobilized(0)
 		owner.SetParalyzed(0)
 
-/obj/item/organ/cyberimp/brain/anti_stun/syndicate
+/obj/item/organ/internal/cyberimp/brain/anti_stun/syndicate
 	syndicate_implant = TRUE
 
 
-/obj/item/organ/cyberimp/brain/linkedsurgery
+/obj/item/organ/internal/cyberimp/brain/linkedsurgery
 	name = "surgical serverlink brain implant"
 	desc = "A brain implant with a bluespace technology that lets you perform an advanced surgery through your station research server."
 	slot = ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
@@ -134,12 +134,12 @@
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
+/obj/item/organ/internal/cyberimp/brain/linkedsurgery/Initialize(mapload)
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
+/obj/item/organ/internal/cyberimp/brain/linkedsurgery/proc/update_surgery()
 	for(var/i in linked_techweb.researched_designs)
 		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
 		if(!istype(D))
@@ -186,8 +186,8 @@
 	name = "Update Surgical Implant"
 
 /datum/action/item_action/update_linkedsurgery/on_activate(mob/user, atom/target)
-	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
+	if(istype(target, /obj/item/organ/internal/cyberimp/brain/linkedsurgery))
+		var/obj/item/organ/internal/cyberimp/brain/linkedsurgery/I = target
 		var/old_surgeries_amount = length(I.advanced_surgeries)
 		I.update_surgery()
 		if(length(I.advanced_surgeries) > old_surgeries_amount)
@@ -197,17 +197,17 @@
 	return ..()
 
 //[[[[MOUTH]]]]
-/obj/item/organ/cyberimp/mouth
+/obj/item/organ/internal/cyberimp/mouth
 	zone = BODY_ZONE_PRECISE_MOUTH
 
-/obj/item/organ/cyberimp/mouth/breathing_tube
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube
 	name = "breathing tube implant"
 	desc = "This simple implant adds an internals connector to your back, allowing you to use internals without a mask and protecting you from being choked."
 	icon_state = "implant_mask"
 	slot = ORGAN_SLOT_BREATHING_TUBE
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/organ/cyberimp/mouth/breathing_tube/emp_act(severity)
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return

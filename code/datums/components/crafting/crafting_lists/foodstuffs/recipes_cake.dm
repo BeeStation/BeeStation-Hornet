@@ -89,7 +89,7 @@
 	name = "Brain cake"
 	result = /obj/item/food/cake/brain
 	reqs = list(
-		/obj/item/organ/brain = 1,
+		/obj/item/organ/internal/brain = 1,
 		/obj/item/food/cake/plain = 1
 	)
 	category = CAT_CAKE
@@ -218,8 +218,8 @@
 	name = "Living cat/cake hybrid"
 	result = /mob/living/simple_animal/pet/cat/cak
 	reqs = list(
-		/obj/item/organ/brain = 1,
-		/obj/item/organ/heart = 1,
+		/obj/item/organ/internal/brain = 1,
+		/obj/item/organ/internal/heart = 1,
 		/obj/item/food/cake/birthday = 1,
 		/obj/item/food/meat/slab = 3,
 		/datum/reagent/blood = 30,

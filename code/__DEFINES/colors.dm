@@ -232,6 +232,8 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 /// The default color for Byond Member / ADMIN OOC, used as a fallback when the preference is not enabled
 #define DEFAULT_BONUS_OOC_COLOR "#c43b23"
 
+#define DEFAULT_HEX_COLOR_LEN 6
+
 // Some defines for accessing specific entries in color matrices.
 
 #define CL_MATRIX_RR 1

@@ -166,6 +166,25 @@
 	description = span_warning("I look like an Assistant...")
 	mood_change = -1
 
+/datum/mood_event/tail_lost
+	description = "My tail!! Why?!"
+	mood_change = -8
+	timeout = 10 MINUTES
+
+/datum/mood_event/tail_balance_lost
+	description = "I feel off-balance without my tail."
+	mood_change = -2
+
+/datum/mood_event/tail_regained_right
+	description = "My tail is back, but that was traumatic..."
+	mood_change = -2
+	timeout = 5 MINUTES
+
+/datum/mood_event/tail_regained_wrong
+	description = "Is this some kind of sick joke?! This is NOT the right tail."
+	mood_change = -12 // -8 for tail still missing + -4 bonus for being frakenstein's monster
+	timeout = 5 MINUTES
+
 /datum/mood_event/burnt_wings
 	description = span_boldwarning("MY PRECIOUS WINGS!!!")
 	mood_change = -10

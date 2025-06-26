@@ -1,12 +1,14 @@
 /obj/item/organ/external/wings
-	name = "Pair of wings"
-	desc = "A pair of wings. They look skinny and useless"
+	name = "wings"
+	desc = "Spread your wings and FLLLLLLLLYYYYY!"
+
 	icon_state = "angelwings"
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_EXTERNAL_WINGS
-	layers = ALL_EXTERNAL_OVERLAYS
 
-	feature_key = "wings"
+	use_mob_sprite_as_obj_sprite = TRUE
+	bodypart_overlay = /datum/bodypart_overlay/mutant/wings
+
 	/// The flight level determines flight capabilities
 	var/flight_level = WINGS_COSMETIC
 	/// Are the wings open or closed?
@@ -14,12 +16,12 @@
 	///The flight action object
 	var/datum/action/innate/flight/fly
 
-	///The preference type for opened wings
-	var/wings_open_feature_key = "wingsopen"
-	///The preference type for closed wings
-	var/wings_closed_feature_key = "wings"
+///Bodypart overlay of default wings. Does not have any wing functionality
+/datum/bodypart_overlay/mutant/wings
+	layers = ALL_EXTERNAL_OVERLAYS
+	feature_key = "wings"
 
-/obj/item/organ/external/wings/can_draw_on_bodypart(mob/living/carbon/human/human)
+/datum/bodypart_overlay/mutant/wings/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!human.wear_suit)
 		return TRUE
 	if(!(human.wear_suit.flags_inv & HIDEJUMPSUIT))
@@ -45,13 +47,13 @@
 		if(H.movement_type & FLYING)
 			toggle_flight(H)
 
-/obj/item/organ/external/wings/Remove(mob/living/carbon/organ_owner, special, pref_load)
+/obj/item/organ/external/wings/Remove(mob/living/carbon/organ_owner, special, moving)
 	. = ..()
 
 	for(fly in organ_owner.actions)
 		fly.Remove(organ_owner)
 
-	if(organ_owner.movement_type & FLYING)
+	if(wings_open)
 		toggle_flight(organ_owner)
 
 	UnregisterSignal(organ_owner, COMSIG_MOVABLE_PRE_MOVE)
@@ -140,25 +142,52 @@
 		REMOVE_TRAIT(human, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
 		passtable_off(human, SPECIES_TRAIT)
 		close_wings()
+	human.update_body_parts()
 
 ///Opens wings appearance
 /obj/item/organ/external/wings/proc/open_wings()
-	feature_key = wings_open_feature_key
+	var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
+	overlay.open_wings()
 	wings_open = TRUE
-
-	cache_key = generate_icon_cache() //we've changed preference to open, so we only need to update the key and ask for an update to change our sprite
-	owner.update_body_parts()
 
 ///Closes wings appearance
 /obj/item/organ/external/wings/proc/close_wings()
-	feature_key = wings_closed_feature_key
+	var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
 	wings_open = FALSE
+	overlay.close_wings()
 
-	cache_key = generate_icon_cache()
-	owner.update_body_parts()
 	if(isturf(owner?.loc))
 		var/turf/location = loc
 		location.Entered(src, NONE)
+
+///Bodypart overlay of function wings, including open and close functionality!
+/datum/bodypart_overlay/mutant/wings
+	///Are our wings currently open? Change through open_wings or close_wings()
+	VAR_PRIVATE/wings_open = FALSE
+	///Feature render key for opened wings
+	var/open_feature_key = "wingsopen"
+
+/datum/bodypart_overlay/mutant/wings/get_global_feature_list()
+	if(wings_open)
+		return GLOB.wings_open_list
+	else
+		return GLOB.wings_list
+
+///Update our wingsprite to the open wings variant
+/datum/bodypart_overlay/mutant/wings/proc/open_wings()
+	wings_open = TRUE
+	feature_key = open_feature_key
+	set_appearance_from_name(sprite_datum.name) //It'll look for the same name again, but this time from the open wings list
+
+///Update our wingsprite to the closed wings variant
+/datum/bodypart_overlay/mutant/wings/proc/close_wings()
+	wings_open = FALSE
+	feature_key = initial(feature_key)
+	set_appearance_from_name(sprite_datum.name)
+
+/datum/bodypart_overlay/mutant/wings/generate_icon_cache()
+	. = ..()
+	. += wings_open ? "open" : "closed"
 
 ///Cybernetic wings that can malfunction from EMP
 /obj/item/organ/external/wings/cybernetic
@@ -205,36 +234,18 @@
 	name = "pair of moth wings"
 	desc = "A pair of moth wings."
 
-	feature_key = "moth_wings"
 	preference = "feature_moth_wings"
 	icon_state = "mothwings"
-	layers = EXTERNAL_BEHIND | EXTERNAL_FRONT
 
 	dna_block = DNA_MOTH_WINGS_BLOCK
 	flight_level = WINGS_FLIGHTLESS
 
+	bodypart_overlay = /datum/bodypart_overlay/mutant/wings/moth
+
 	/// Are the wings burned?
 	var/burnt = FALSE
-	/// Store original wing feature for when wings are healed
-	var/original_sprite = ""
-
-/obj/item/organ/external/wings/moth/get_global_feature_list()
-	return GLOB.moth_wings_list
-
-/obj/item/organ/external/wings/moth/can_draw_on_bodypart(mob/living/carbon/human/human)
-	return TRUE
-
-/obj/item/organ/external/wings/moth/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
-	. = ..()
-
-	RegisterSignal(reciever, COMSIG_HUMAN_BURNING, PROC_REF(try_burn_wings))
-	RegisterSignal(reciever, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(heal_wings))
-
-/obj/item/organ/external/wings/moth/Remove(mob/living/carbon/organ_owner, special, pref_load)
-	. = ..()
-
-	UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL))
-	REMOVE_TRAIT(organ_owner, TRAIT_MOTH_BURNT, "fire")
+	///Store our old datum here for if our burned wings are healed
+	var/original_sprite_datum
 
 ///check if our wings can burn off
 /obj/item/organ/external/wings/moth/proc/try_burn_wings(mob/living/carbon/human/human)
@@ -249,9 +260,9 @@
 
 ///burn the wings off
 /obj/item/organ/external/wings/moth/proc/burn_wings()
+	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
+	wings.burnt = TRUE
 	burnt = TRUE
-	original_sprite = sprite_datum.name
-	set_sprite("Burnt Off")
 
 	// Disable flight if we're flying
 	flight_level = WINGS_COSMETIC
@@ -267,20 +278,34 @@
 	SIGNAL_HANDLER
 
 	if(burnt)
+		var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
+		wings.burnt = FALSE
 		burnt = FALSE
-		set_sprite(original_sprite)
 
-		if(istype(src, /obj/item/organ/external/wings/moth/robust))
-			flight_level = WINGS_FLYING
-		else
-			flight_level = WINGS_FLIGHTLESS
+///Moth wing bodypart overlay, including burn functionality!
+/datum/bodypart_overlay/mutant/wings/moth
+	feature_key = "moth_wings"
+	layers = EXTERNAL_BEHIND | EXTERNAL_FRONT
+	///Accessory datum of the burn sprite
+	var/datum/sprite_accessory/burn_datum = /datum/sprite_accessory/moth_wings/punished
+	///Are we burned? If so we draw differently
+	var/burnt
 
-		REMOVE_TRAIT(owner, TRAIT_MOTH_BURNT, "fire")
-		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
-		to_chat(owner, span_notice("Your wings have regenerated!"))
+/datum/bodypart_overlay/mutant/wings/moth/New()
+	. = ..()
 
-		owner.dna.species.handle_mutant_bodyparts(owner)
-		owner.dna.species.handle_body(owner)
+	burn_datum = fetch_sprite_datum(burn_datum)
+
+/datum/bodypart_overlay/mutant/wings/moth/get_global_feature_list()
+	return GLOB.moth_wings_list
+
+/datum/bodypart_overlay/mutant/wings/moth/can_draw_on_bodypart(mob/living/carbon/human/human)
+	if(!(human.wear_suit?.flags_inv & HIDEMUTWINGS))
+		return TRUE
+	return FALSE
+
+/datum/bodypart_overlay/mutant/wings/moth/get_base_icon_state()
+	return burnt ? burn_datum.icon_state : sprite_datum.icon_state
 
 ///Robust moth wings that can fly
 /obj/item/organ/external/wings/moth/robust
@@ -292,16 +317,16 @@
 /obj/item/organ/external/wings/angel
 	name = "pair of feathered wings"
 	desc = "A pair of feathered wings. They seem robust enough for flight."
-	color = "#FFFFFF"
 	flight_level = WINGS_FLYING
+	sprite_accessory_override = /datum/sprite_accessory/wings_open/angel
 
 ///Dragon wings
 /obj/item/organ/external/wings/dragon
 	name = "pair of dragon wings"
 	desc = "A pair of dragon wings. They seem robust enough for flight."
-	color = "#FFFFFF"
 	icon_state = "dragonwings"
 	flight_level = WINGS_FLYING
+	sprite_accessory_override = /datum/sprite_accessory/wings/dragon
 
 ///Decorative dragon wings
 /obj/item/organ/external/wings/dragon/fake
@@ -312,7 +337,6 @@
 /obj/item/organ/external/wings/bee
 	name = "pair of bee wings"
 	desc = "A pair of bee wings. They seem tiny and undergrown."
-	color = "#FFFF00"
 	icon_state = "beewings"
 	flight_level = WINGS_COSMETIC
 	actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)

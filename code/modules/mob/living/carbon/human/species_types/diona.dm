@@ -45,14 +45,14 @@
 	deathsound = "sound/emotes/diona/death.ogg"
 	species_bitflags = NOT_TRANSMORPHIC
 
-	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
-	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
-	mutantbrain = /obj/item/organ/brain/diona //SS14 sprite
-	mutantliver = /obj/item/organ/liver/diona //Dungeon's sprite
-	mutantlungs = /obj/item/organ/lungs/diona //Dungeon's sprite
-	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
-	mutantears = /obj/item/organ/ears/diona //SS14 sprite
-	mutantheart = /obj/item/organ/heart/diona //Dungeon's sprite
+	mutanteyes = /obj/item/organ/internal/eyes/diona //SS14 sprite
+	mutanttongue = /obj/item/organ/internal/tongue/diona //Dungeon's sprite
+	mutantbrain = /obj/item/organ/internal/brain/diona //SS14 sprite
+	mutantliver = /obj/item/organ/internal/liver/diona //Dungeon's sprite
+	mutantlungs = /obj/item/organ/internal/lungs/diona //Dungeon's sprite
+	mutantstomach = /obj/item/organ/internal/stomach/diona //SS14 sprite
+	mutantears = /obj/item/organ/internal/ears/diona //SS14 sprite
+	mutantheart = /obj/item/organ/internal/heart/diona //Dungeon's sprite
 	mutantappendix = null
 
 	bodypart_overrides = list(

@@ -1,4 +1,4 @@
-/obj/item/organ/ears
+/obj/item/organ/internal/ears
 	name = "ears"
 	icon_state = "ears"
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
@@ -28,7 +28,7 @@
 	// Multiplier for both long term and short term ear damage
 	var/damage_multiplier = 1
 
-/obj/item/organ/ears/on_life(delta_time, times_fired)
+/obj/item/organ/internal/ears/on_life(delta_time, times_fired)
 	if(!iscarbon(owner))
 		return
 	..()
@@ -47,7 +47,7 @@
 	else if((organ_flags & ORGAN_FAILING) && (deaf == 0))
 		deaf = 1	//stop being not deaf you deaf idiot
 
-/obj/item/organ/ears/proc/restoreEars()
+/obj/item/organ/internal/ears/proc/restoreEars()
 	deaf = 0
 	damage = 0
 	organ_flags &= ~ORGAN_FAILING
@@ -57,28 +57,28 @@
 	if(iscarbon(owner) && HAS_TRAIT(C, TRAIT_DEAF))
 		deaf = 1
 
-/obj/item/organ/ears/proc/adjustEarDamage(ddmg, ddeaf)
+/obj/item/organ/internal/ears/proc/adjustEarDamage(ddmg, ddeaf)
 	damage = max(damage + (ddmg*damage_multiplier), 0)
 	deaf = max(deaf + (ddeaf*damage_multiplier), 0)
 
-/obj/item/organ/ears/proc/minimumDeafTicks(value)
+/obj/item/organ/internal/ears/proc/minimumDeafTicks(value)
 	deaf = max(deaf, value)
 
-/obj/item/organ/ears/invincible
+/obj/item/organ/internal/ears/invincible
 	damage_multiplier = 0
 
 
 /mob/proc/restoreEars()
 
 /mob/living/carbon/restoreEars()
-	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
+	var/obj/item/organ/internal/ears/ears = get_organ_by_type(/obj/item/organ/internal/ears)
 	if(ears)
 		ears.restoreEars()
 
 /mob/proc/adjustEarDamage()
 
 /mob/living/carbon/adjustEarDamage(ddmg, ddeaf)
-	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
+	var/obj/item/organ/internal/ears/ears = get_organ_by_type(/obj/item/organ/internal/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
 		if(ears.deaf)
@@ -87,12 +87,12 @@
 /mob/proc/minimumDeafTicks()
 
 /mob/living/carbon/minimumDeafTicks(value)
-	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
+	var/obj/item/organ/internal/ears/ears = get_organ_by_type(/obj/item/organ/internal/ears)
 	if(ears)
 		ears.minimumDeafTicks(value)
 
 
-/obj/item/organ/ears/cat
+/obj/item/organ/internal/ears/cat
 	name = "cat ears"
 	icon = 'icons/obj/clothing/head/costume.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
@@ -100,14 +100,14 @@
 	visual = TRUE
 	bang_protect = -2
 
-/obj/item/organ/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
 		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
 		ear_owner.update_body()
 
-/obj/item/organ/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
@@ -115,30 +115,30 @@
 		ear_owner.dna.species.mutant_bodyparts -= "ears"
 		ear_owner.update_body()
 
-/obj/item/organ/ears/penguin
+/obj/item/organ/internal/ears/penguin
 	name = "penguin ears"
 	desc = "The source of a penguin's happy feet."
 	var/datum/component/waddle
 
-/obj/item/organ/ears/penguin/on_insert(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/penguin/on_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("You suddenly feel like you've lost your balance."))
 		waddle = ear_owner.AddComponent(/datum/component/waddling)
 
-/obj/item/organ/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))
 		QDEL_NULL(waddle)
 
-/obj/item/organ/ears/bronze
+/obj/item/organ/internal/ears/bronze
 	name = "tin ears"
 	desc = "The robust ears of a bronze golem. "
 	damage_multiplier = 0.1 //STRONK
 	bang_protect = 1 //Fear me weaklings.
 
-/obj/item/organ/ears/robot
+/obj/item/organ/internal/ears/robot
 	name = "auditory sensors"
 	icon_state = "robotic_ears"
 	desc = "A pair of microphones intended to be installed in an IPC head, that grant the ability to hear."
@@ -148,7 +148,7 @@
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 
-/obj/item/organ/ears/robot/emp_act(severity)
+/obj/item/organ/internal/ears/robot/emp_act(severity)
 	. = ..()
 	if(prob(30/severity))
 		owner.Jitter(30/severity)
@@ -156,7 +156,7 @@
 		to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
 
 
-/obj/item/organ/ears/diona
+/obj/item/organ/internal/ears/diona
 	name = "trichomes"
 	icon_state = "diona_ears"
 	desc = "A pair of plant matter based ears."

@@ -332,7 +332,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 	hits = 2
 	heavy = 1
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = list(/obj/item/food/meat/slab/human, /obj/item/food/meat/slab/human/mutant, /obj/item/organ/heart, /obj/item/organ/lungs, /obj/item/organ/tongue, /obj/item/organ/appendix/)
+	meteordrop = list(/obj/item/food/meat/slab/human, /obj/item/food/meat/slab/human/mutant, /obj/item/organ/internal/heart, /obj/item/organ/internal/lungs, /obj/item/organ/internal/tongue, /obj/item/organ/internal/appendix/)
 	var/meteorgibs = /obj/effect/gibspawner/generic
 	threat = 2
 
@@ -343,7 +343,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 			meteordrop += pick(subtypesof(path))
 
 	for(var/path in meteordrop)
-		if(path == /obj/item/organ/tongue)
+		if(path == /obj/item/organ/internal/tongue)
 			meteordrop -= path
 			meteordrop += pick(typesof(path))
 	return ..()
@@ -364,11 +364,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 //Meaty Ore Xeno edition
 /obj/effect/meteor/meaty/xeno
 	color = "#5EFF00"
-	meteordrop = list(/obj/item/food/meat/slab/xeno, /obj/item/organ/tongue/alien)
+	meteordrop = list(/obj/item/food/meat/slab/xeno, /obj/item/organ/internal/tongue/alien)
 	meteorgibs = /obj/effect/gibspawner/xeno
 
 /obj/effect/meteor/meaty/xeno/Initialize(mapload)
-	meteordrop += subtypesof(/obj/item/organ/alien)
+	meteordrop += subtypesof(/obj/item/organ/internal/alien)
 	return ..()
 
 /obj/effect/meteor/meaty/xeno/ram_turf(turf/T)

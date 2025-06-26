@@ -15,7 +15,7 @@
 						/obj/item/voodoo,
 						/obj/item/grenade/clusterbuster/inferno,
 						/obj/item/clothing/neck/necklace/memento_mori,
-						/obj/item/organ/heart/cursed/wizard,
+						/obj/item/organ/internal/heart/cursed/wizard,
 						/obj/item/clothing/suit/hooded/cloak/drake,
 						/obj/item/dragons_blood,
 						/obj/item/lava_staff,

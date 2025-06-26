@@ -14,7 +14,7 @@
 		)
 
 /datum/surgery/gastrectomy/can_start(mob/user, mob/living/carbon/target)
-	var/obj/item/organ/stomach/L = target.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/internal/stomach/L = target.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(L?.damage > 50 && !(L.organ_flags & ORGAN_FAILING))
 		return TRUE
 

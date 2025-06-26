@@ -4,7 +4,7 @@
 	///The amount of time you can sense things for
 	var/sense_time = 5 SECONDS
 	///Reference to the users ears
-	var/obj/item/organ/ears/ears
+	var/obj/item/organ/internal/ears/ears
 	///ref to client for image stuff
 	var/client/owner_client
 	///What texture we use
@@ -25,7 +25,7 @@
 	//Register ears for people with them - deaf people can't use this component
 	if(iscarbon(parent))
 		var/mob/living/carbon/C = parent
-		ears = locate(/obj/item/organ/ears) in C.internal_organs
+		ears = locate(/obj/item/organ/internal/ears) in C.organs
 		RegisterSignal(ears, COMSIG_PARENT_QDELETING, PROC_REF(handle_ears))
 
 /datum/component/blind_sense/Destroy(force, silent)

@@ -25,7 +25,7 @@
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
-	var/obj/item/organ/body_egg/changeling_egg/egg = new(victim)
+	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
 	egg.Insert(victim)
 	if(origin)
 		egg.origin = origin
@@ -50,7 +50,7 @@
 			to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
 			addtimer(CALLBACK(src, PROC_REF(death)), 100)
 
-/obj/item/organ/body_egg/changeling_egg
+/obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
 	/// The mind of the original changeling that gave forth to the headslug mob.
@@ -58,7 +58,7 @@
 	/// Tracks how long the egg has been growing.
 	var/time = 0
 
-/obj/item/organ/body_egg/changeling_egg/egg_process(delta_time, times_fired)
+/obj/item/organ/internal/body_egg/changeling_egg/egg_process(delta_time, times_fired)
 	// Changeling eggs grow in dead people
 	time += delta_time
 	if(time >= EGG_INCUBATION_TIME)
@@ -66,7 +66,7 @@
 		Remove(owner.loc)
 		qdel(src)
 
-/obj/item/organ/body_egg/changeling_egg/proc/Pop()
+/obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
 	var/mob/living/carbon/monkey/M = new(owner.loc)
 
 	for(var/obj/item/organ/I in src)

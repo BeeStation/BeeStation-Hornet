@@ -729,7 +729,7 @@
 /datum/action/item_action/chameleon/tongue_change/proc/generate_tongue_list()
 	var/obj/item/found_item
 	var/tongue_name
-	var/static/list/predefined_tongues = typesof(/obj/item/organ/tongue)
+	var/static/list/predefined_tongues = typesof(/obj/item/organ/internal/tongue)
 	var/list/temporary_list = list()
 	tongue_list = list()
 	for(var/found_var in predefined_tongues)
@@ -744,7 +744,7 @@
 	if(!isitem(target))
 		return FALSE
 	var/obj/item/clothing/mask/target_mask = target
-	var/obj/item/organ/tongue/picked_tongue
+	var/obj/item/organ/internal/tongue/picked_tongue
 	var/picked_name
 	picked_name = tgui_input_list(owner,"select tongue to change into", "Chameleon tongue selection", tongue_list)
 	if(!picked_name)

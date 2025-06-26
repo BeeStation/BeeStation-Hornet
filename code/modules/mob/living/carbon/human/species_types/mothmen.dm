@@ -31,9 +31,9 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/food/meat/slab/human/mutant/moth
-	mutanteyes = /obj/item/organ/eyes/moth
+	mutanteyes = /obj/item/organ/internal/eyes/moth
 	mutantwings = /obj/item/organ/external/wings/moth
-	mutanttongue = /obj/item/organ/tongue/moth
+	mutanttongue = /obj/item/organ/internal/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
 	inert_mutation = /datum/mutation/strongwings
@@ -72,6 +72,10 @@
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 9 //flyswatters deal 10x damage to moths
 	return 0
+
+/datum/species/moth/randomize_features(mob/living/carbon/human/human_mob)
+	human_mob.dna.features["moth_markings"] = pick(GLOB.moth_markings_list)
+	randomize_external_organs(human_mob)
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
 	return 'sound/emotes/moth/mothlaugh.ogg'

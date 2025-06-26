@@ -397,10 +397,10 @@
 		if(tackle_target.is_shove_knockdown_blocked()) // riot armor and such
 			defense_mod += 5
 
-		var/obj/item/organ/tail/lizard/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_TAIL)
+		var/obj/item/organ/external/tail/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
 		if(HAS_TRAIT(tackle_target, TRAIT_TACKLING_TAILED_DEFENDER) && !el_tail)
 			defense_mod -= 1
-		if(el_tail && el_tail.is_wagging()) // lizard tail wagging is robust and can swat away assailants!
+		else if(el_tail.wag_flags & WAG_WAGGING) // lizard tail wagging is robust and can swat away assailants!
 			defense_mod += 1
 
 	// OF-FENSE

@@ -107,8 +107,8 @@
 			var/heart_strength = span_danger("no")
 			var/lung_strength = span_danger("no")
 
-			var/obj/item/organ/heart/heart = M.get_organ_slot(ORGAN_SLOT_HEART)
-			var/obj/item/organ/lungs/lungs = M.get_organ_slot(ORGAN_SLOT_LUNGS)
+			var/obj/item/organ/internal/heart/heart = M.get_organ_slot(ORGAN_SLOT_HEART)
+			var/obj/item/organ/internal/lungs/lungs = M.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 			if(!(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH))))
 				if(heart && istype(heart))

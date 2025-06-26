@@ -1,4 +1,4 @@
-/obj/item/organ/appendix
+/obj/item/organ/internal/appendix
 	name = "appendix"
 	icon_state = "appendix"
 	visual = FALSE
@@ -13,7 +13,7 @@
 
 	var/inflamed
 
-/obj/item/organ/appendix/update_icon()
+/obj/item/organ/internal/appendix/update_icon()
 	if(inflamed)
 		icon_state = "appendixinflamed"
 		name = "inflamed appendix"
@@ -21,7 +21,7 @@
 		icon_state = "appendix"
 		name = "appendix"
 
-/obj/item/organ/appendix/on_life(delta_time, times_fired)
+/obj/item/organ/internal/appendix/on_life(delta_time, times_fired)
 	..()
 	if(!(organ_flags & ORGAN_FAILING))
 		return
@@ -29,17 +29,17 @@
 	if(M)
 		M.adjustToxLoss(2 * delta_time, TRUE, TRUE)//forced to ensure people don't use it to gain tox as slime person
 
-/obj/item/organ/appendix/get_availability(datum/species/owner_species, mob/living/owner_mob)
+/obj/item/organ/internal/appendix/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantappendix
 
-/obj/item/organ/appendix/on_remove(mob/living/carbon/organ_owner)
+/obj/item/organ/internal/appendix/on_remove(mob/living/carbon/organ_owner)
 	. = ..()
 	for(var/datum/disease/appendicitis/A in organ_owner.diseases)
 		A.cure()
 		inflamed = TRUE
 	update_icon()
 
-/obj/item/organ/appendix/on_insert(mob/living/carbon/organ_owner)
+/obj/item/organ/internal/appendix/on_insert(mob/living/carbon/organ_owner)
 	. = ..()
 	if(inflamed)
 		organ_owner.ForceContractDisease(new /datum/disease/appendicitis(), FALSE, TRUE)

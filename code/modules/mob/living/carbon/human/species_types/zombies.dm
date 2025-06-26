@@ -6,7 +6,7 @@
 	id = SPECIES_ZOMBIE
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
-	mutanttongue = /obj/item/organ/tongue/zombie
+	mutanttongue = /obj/item/organ/internal/tongue/zombie
 	species_traits = list(
 		NOZOMBIE,
 		NOTRANSSTING
@@ -80,7 +80,7 @@
 	examine_limb_id = SPECIES_ZOMBIE
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
-	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
 	mutanthands = /obj/item/zombie_hand
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	/// The rate the zombies regenerate at
@@ -140,7 +140,7 @@
 //Congrats you somehow died so hard you stopped being a zombie
 /datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/zombie_infection/infection
+	var/obj/item/organ/internal/zombie_infection/infection
 	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(infection)
 		qdel(infection)
@@ -151,7 +151,7 @@
 	// Deal with the source of this zombie corruption
 	//  Infection organ needs to be handled separately from mutant_organs
 	//  because it persists through species transitions
-	var/obj/item/organ/zombie_infection/infection
+	var/obj/item/organ/internal/zombie_infection/infection
 	infection = C.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 	if(!infection)
 		infection = new()
@@ -163,7 +163,7 @@
 	armor = 0
 	speedmod = 0
 	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
-	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
 	mutanthands = /obj/item/zombie_hand/infectious
 
 // Your skin falls off
@@ -172,7 +172,7 @@
 	id = SPECIES_ZOMBIE_KROKODIL
 	examine_limb_id = SPECIES_HUMAN
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
-	mutanttongue = /obj/item/organ/tongue/zombie
+	mutanttongue = /obj/item/organ/internal/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	examine_limb_id = SPECIES_HUMAN

@@ -90,10 +90,10 @@
 "n" = (
 /obj/structure/closet/crate/freezer,
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/organ/eyes,
-/obj/item/organ/eyes/apid,
-/obj/item/organ/eyes/moth,
-/obj/item/organ/eyes/robotic,
+/obj/item/organ/internal/eyes,
+/obj/item/organ/internal/eyes/apid,
+/obj/item/organ/internal/eyes/moth,
+/obj/item/organ/internal/eyes/robotic,
 /obj/effect/spawner/lootdrop/teratoma/major,
 /turf/open/floor/iron/white,
 /area/template_noop)

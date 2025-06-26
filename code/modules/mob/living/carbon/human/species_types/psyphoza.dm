@@ -14,9 +14,9 @@
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
-	mutantbrain = /obj/item/organ/brain/psyphoza
-	mutanteyes = /obj/item/organ/eyes/psyphoza
-	mutanttongue = /obj/item/organ/tongue/psyphoza
+	mutantbrain = /obj/item/organ/internal/brain/psyphoza
+	mutanteyes = /obj/item/organ/internal/eyes/psyphoza
+	mutanttongue = /obj/item/organ/internal/tongue/psyphoza
 
 	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
@@ -127,7 +127,7 @@
 	return to_add
 
 //This originally held the psychic action until I moved it to the eyes, keep it please.
-/obj/item/organ/brain/psyphoza
+/obj/item/organ/internal/brain/psyphoza
 	name = "psyphoza brain"
 	desc = "Bubbling with psychic energy...no wait...that's blood."
 	color = "#ff00ee"
@@ -148,7 +148,7 @@
 	///The amount of time you can sense things for
 	var/sense_time = 10 SECONDS
 	///Reference to the users eyes - we use this to toggle xray vision for scans
-	var/obj/item/organ/eyes/eyes
+	var/obj/item/organ/internal/eyes/eyes
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
 	///Time between uses
@@ -235,7 +235,7 @@
 	if(!eyes && istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		//eyes
-		eyes = locate(/obj/item/organ/eyes) in H.internal_organs
+		eyes = locate(/obj/item/organ/internal/eyes) in H.organs
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		if(eyes)

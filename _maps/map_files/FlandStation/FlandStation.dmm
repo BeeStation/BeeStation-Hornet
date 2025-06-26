@@ -32434,7 +32434,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/surgical_drapes,
-/obj/item/organ/ears/cat,
+/obj/item/organ/internal/ears/cat,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "ioV" = (
@@ -47239,7 +47239,7 @@
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/organ/eyes,
+/obj/item/organ/internal/eyes,
 /turf/open/floor/iron,
 /area/maintenance/department/security/brig)
 "lYr" = (
@@ -83767,7 +83767,7 @@
 "vsd" = (
 /obj/structure/table/wood/fancy,
 /obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart{
+/obj/item/organ/internal/heart{
 	pixel_x = 8;
 	pixel_y = 7
 	},

@@ -81,7 +81,7 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/internal/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 	switch(A.stage)
@@ -153,7 +153,7 @@
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1, required_status = status)
 		M.adjustOrganLoss(ORGAN_SLOT_HEART, -1, required_status = status)
 		M.adjustOrganLoss(ORGAN_SLOT_LIVER, -1, required_status = status)
-		M.adjustOrganLoss(ORGAN_SLOT_TAIL, -1, required_status = status)
+		M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, -1, required_status = status)
 		M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_WINGS, -1, required_status = status)
 		if(curing)
 			for(var/datum/disease/D in M.diseases)
@@ -165,13 +165,13 @@
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				var/datum/species/S = H.dna.species
-				if(!M.get_organ_by_type(/obj/item/organ/appendix) && !((TRAIT_NOHUNGER in S.inherent_traits) || (TRAIT_POWERHUNGRY in S.inherent_traits)))
-					var/obj/item/organ/appendix/O = new()
+				if(!M.get_organ_by_type(/obj/item/organ/internal/appendix) && !((TRAIT_NOHUNGER in S.inherent_traits) || (TRAIT_POWERHUNGRY in S.inherent_traits)))
+					var/obj/item/organ/internal/appendix/O = new()
 					O.Insert(M)
 					M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 99, 99) //don't make it fail, or the host will start taking massive damage
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/stomach))
-					var/obj/item/organ/stomach/O
+				if(!M.get_organ_by_type(/obj/item/organ/internal/stomach))
+					var/obj/item/organ/internal/stomach/O
 					if(S.mutantstomach)
 						O = new S.mutantstomach()
 					else
@@ -179,8 +179,8 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/lungs) && !(TRAIT_NOBREATH in S.inherent_traits))
-					var/obj/item/organ/lungs/O
+				if(!M.get_organ_by_type(/obj/item/organ/internal/lungs) && !(TRAIT_NOBREATH in S.inherent_traits))
+					var/obj/item/organ/internal/lungs/O
 					if(S.mutantlungs)
 						O = new S.mutantlungs()
 					else
@@ -188,13 +188,13 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/heart) && !HAS_TRAIT(S, TRAIT_NOBLOOD))
-					var/obj/item/organ/heart/O = new()
+				if(!M.get_organ_by_type(/obj/item/organ/internal/heart) && !HAS_TRAIT(S, TRAIT_NOBLOOD))
+					var/obj/item/organ/internal/heart/O = new()
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/liver) && !(TRAIT_NOMETABOLISM in S.inherent_traits))
-					var/obj/item/organ/liver/O
+				if(!M.get_organ_by_type(/obj/item/organ/internal/liver) && !(TRAIT_NOMETABOLISM in S.inherent_traits))
+					var/obj/item/organ/internal/liver/O
 					if(S.mutantliver)
 						O = new S.mutantliver()
 					else

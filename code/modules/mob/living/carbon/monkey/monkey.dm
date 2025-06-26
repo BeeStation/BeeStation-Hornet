@@ -94,15 +94,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	return ..()
 
 /mob/living/carbon/monkey/create_internal_organs()
-	internal_organs += new /obj/item/organ/appendix
-	internal_organs += new /obj/item/organ/lungs
-	internal_organs += new /obj/item/organ/heart
-	internal_organs += new /obj/item/organ/brain
-	internal_organs += new /obj/item/organ/tongue
-	internal_organs += new /obj/item/organ/eyes
-	internal_organs += new /obj/item/organ/ears
-	internal_organs += new /obj/item/organ/liver
-	internal_organs += new /obj/item/organ/stomach
+	organs += new /obj/item/organ/internal/appendix
+	organs += new /obj/item/organ/internal/lungs
+	organs += new /obj/item/organ/internal/heart
+	organs += new /obj/item/organ/internal/brain
+	organs += new /obj/item/organ/internal/tongue
+	organs += new /obj/item/organ/internal/eyes
+	organs += new /obj/item/organ/internal/ears
+	organs += new /obj/item/organ/internal/liver
+	organs += new /obj/item/organ/internal/stomach
 	..()
 
 /mob/living/carbon/monkey/on_reagent_change()
@@ -262,8 +262,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
-	mutantbrain = /obj/item/organ/brain/tumor
-	mutanttongue = /obj/item/organ/tongue/teratoma
+	mutantbrain = /obj/item/organ/internal/brain/tumor
+	mutanttongue = /obj/item/organ/internal/tongue/teratoma
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
@@ -274,10 +274,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/monkey/teratoma
 	)
 
-/obj/item/organ/brain/tumor
+/obj/item/organ/internal/brain/tumor
 	name = "teratoma brain"
 
-/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load = FALSE)
+/obj/item/organ/internal/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load = FALSE)
 	. = ..()
 	//Removing it deletes it
 	if(!QDELETED(src))

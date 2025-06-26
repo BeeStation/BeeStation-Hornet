@@ -16,7 +16,7 @@
 
 /obj/machinery/abductor/gland_dispenser/Initialize(mapload)
 	. = ..()
-	gland_types = subtypesof(/obj/item/organ/heart/gland)
+	gland_types = subtypesof(/obj/item/organ/internal/heart/gland)
 	gland_types = shuffle(gland_types)
 	gland_colors = new/list(gland_types.len)
 	amounts = new/list(gland_types.len)
@@ -64,7 +64,7 @@
 			return TRUE
 
 /obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/organ/heart/gland))
+	if(istype(W, /obj/item/organ/internal/heart/gland))
 		if(!user.transferItemToLoc(W, src))
 			return
 		for(var/i in 1 to gland_colors.len)
@@ -104,9 +104,9 @@
 	generate_glands()
 
 /obj/machinery/smartfridge/abductor/proc/generate_glands()
-	for(var/each as() in shuffle(subtypesof(/obj/item/organ/heart/gland)))
+	for(var/each as() in shuffle(subtypesof(/obj/item/organ/internal/heart/gland)))
 		for(var/i in 1 to rand(2, 7))
-			var/obj/item/organ/heart/gland/each_gland = new each
+			var/obj/item/organ/internal/heart/gland/each_gland = new each
 			each_gland.name = each_gland.true_name
 			each_gland.forceMove(src)
 
@@ -119,7 +119,7 @@
 	return GLOB.physical_state
 
 /obj/machinery/smartfridge/abductor/accept_check(obj/item/O)
-	if(istype(O, /obj/item/organ/heart/gland))
+	if(istype(O, /obj/item/organ/internal/heart/gland))
 		return TRUE
 	return FALSE
 
@@ -127,17 +127,17 @@
 	. = ..()
 	if(!.)	//if the item loads, clear can_decompose
 		return
-	if(!istype(O, /obj/item/organ/heart/gland))
+	if(!istype(O, /obj/item/organ/internal/heart/gland))
 		return
-	var/obj/item/organ/heart/gland/organ = O
+	var/obj/item/organ/internal/heart/gland/organ = O
 	organ.organ_flags |= ORGAN_FROZEN
 	organ.name = organ.true_name
 
 /obj/machinery/smartfridge/abductor/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(!istype(gone, /obj/item/organ/heart/gland))
+	if(!istype(gone, /obj/item/organ/internal/heart/gland))
 		return
-	var/obj/item/organ/heart/gland/organ = gone
+	var/obj/item/organ/internal/heart/gland/organ = gone
 	organ.organ_flags &= ~ORGAN_FROZEN
 	organ.organ_flags &= ~ORGAN_FAILING
 	organ.set_organ_damage(-200)

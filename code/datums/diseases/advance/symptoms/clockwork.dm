@@ -62,7 +62,7 @@
 
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/H)
 	if(replaceorgans)
-		for(var/obj/item/organ/O in H.internal_organs)
+		for(var/obj/item/organ/internal/O in H.organs)
 			if(O.status == ORGAN_ROBOTIC) //they are either part robotic or we already converted them!
 				continue
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
@@ -75,19 +75,19 @@
 					return TRUE
 				if(ORGAN_SLOT_STOMACH)
 					if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
-						var/obj/item/organ/stomach/battery/clockwork/organ = new()
+						var/obj/item/organ/internal/stomach/battery/clockwork/organ = new()
 						if(robustbits)
 							organ.max_charge = 15000
 						organ.Insert(H, TRUE, FALSE)
 					else
-						var/obj/item/organ/stomach/clockwork/organ = new()
+						var/obj/item/organ/internal/stomach/clockwork/organ = new()
 						organ.Insert(H, TRUE, FALSE)
 					if(prob(40) && H.stat != DEAD)
 						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_EARS)
-					var/obj/item/organ/ears/robot/clockwork/organ = new()
+					var/obj/item/organ/internal/ears/robot/clockwork/organ = new()
 					if(robustbits)
 						organ.damage_multiplier = 0.5
 					organ.Insert(H, TRUE, FALSE)
@@ -95,7 +95,7 @@
 						to_chat(H, span_warning("Your ears pop."))
 					return TRUE
 				if(ORGAN_SLOT_EYES)
-					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
+					var/obj/item/organ/internal/eyes/robotic/clockwork/organ = new()
 					if(robustbits)
 						organ.flash_protect = 1
 					organ.Insert(H, TRUE, FALSE)
@@ -104,7 +104,7 @@
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LUNGS)
-					var/obj/item/organ/lungs/clockwork/organ = new()
+					var/obj/item/organ/internal/lungs/clockwork/organ = new()
 					if(robustbits)
 						organ.gas_max = list(
 							/datum/gas/plasma = 15,
@@ -120,14 +120,14 @@
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_HEART)
-					var/obj/item/organ/heart/clockwork/organ = new()
+					var/obj/item/organ/internal/heart/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
 					if(H.stat != DEAD)
 						to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LIVER)
-					var/obj/item/organ/liver/clockwork/organ = new()
+					var/obj/item/organ/internal/liver/clockwork/organ = new()
 					if(robustbits)
 						organ.toxTolerance = 7
 					organ.Insert(H, TRUE, FALSE)
@@ -137,17 +137,13 @@
 					return TRUE
 				if(ORGAN_SLOT_TONGUE)
 					if(robustbits)
-						var/obj/item/organ/tongue/robot/clockwork/better/organ = new()
+						var/obj/item/organ/internal/tongue/robot/clockwork/better/organ = new()
 						organ.Insert(H, TRUE, FALSE)
 						return TRUE
 					else
-						var/obj/item/organ/tongue/robot/clockwork/organ = new()
+						var/obj/item/organ/internal/tongue/robot/clockwork/organ = new()
 						organ.Insert(H, TRUE, FALSE)
 						return TRUE
-				if(ORGAN_SLOT_TAIL)
-					var/obj/item/organ/tail/clockwork/organ = new()
-					organ.Insert(H, TRUE, FALSE)
-					return TRUE
 				if(ORGAN_SLOT_EXTERNAL_WINGS)
 					var/obj/item/organ/external/wings/cybernetic/clockwork/organ = new()
 					if(robustbits)
@@ -238,34 +234,34 @@
 	A.infectable_biotypes -= MOB_ROBOTIC
 
 //below this point lies all clockwork bits that make this symptom tick. no pun intended.
-/obj/item/organ/ears/robot/clockwork
+/obj/item/organ/internal/ears/robot/clockwork
 	name = "biometallic recorder"
 	desc = "An odd sort of microphone that looks grown, rather than built."
 	icon_state = "ears-clock"
 
-/obj/item/organ/eyes/robotic/clockwork
+/obj/item/organ/internal/eyes/robotic/clockwork
 	name = "biometallic receptors"
 	desc = "A fragile set of small, mechanical cameras."
 	icon_state = "clockwork_eyeballs"
 
-/obj/item/organ/heart/clockwork //this heart doesnt have the fancy bits normal cyberhearts do. However, it also doesnt fucking kill you when EMPd
+/obj/item/organ/internal/heart/clockwork //this heart doesnt have the fancy bits normal cyberhearts do. However, it also doesnt fucking kill you when EMPd
 	name = "biomechanical pump"
 	desc = "A complex, multi-valved hydraulic pump, which fits perfectly where a heart normally would."
 	icon_state = "heart-clock"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 
-/obj/item/organ/stomach/clockwork
+/obj/item/organ/internal/stomach/clockwork
 	name = "nutriment refinery"
 	desc = "A biomechanical furnace, which turns calories into mechanical energy."
 	icon_state = "stomach-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 
-/obj/item/organ/stomach/clockwork/emp_act(severity)
+/obj/item/organ/internal/stomach/clockwork/emp_act(severity)
 	owner.adjust_nutrition(-200/severity)
 
-/obj/item/organ/stomach/battery/clockwork
+/obj/item/organ/internal/stomach/battery/clockwork
 	name = "biometallic flywheel"
 	desc = "A biomechanical battery which stores mechanical energy."
 	icon_state = "stomach-clock"
@@ -274,19 +270,19 @@
 	max_charge = 7500
 	charge = 7500
 
-/obj/item/organ/tongue/robot/clockwork
+/obj/item/organ/internal/tongue/robot/clockwork
 	name = "dynamic micro-phonograph"
 	desc = "An old-timey looking device connected to an odd, shifting cylinder."
 	icon_state = "tongueclock"
 
-/obj/item/organ/tongue/robot/clockwork/better
+/obj/item/organ/internal/tongue/robot/clockwork/better
 	name = "amplified dynamic micro-phonograph"
 
-/obj/item/organ/tongue/robot/clockwork/better/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/internal/tongue/robot/clockwork/better/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
 	speech_args[SPEECH_SPANS] |= SPAN_REALLYBIG  //yes, this is a really really good idea, trust me
 
-/obj/item/organ/brain/clockwork
+/obj/item/organ/internal/brain/clockwork
 	name = "enigmatic gearbox"
 	desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
 	icon_state = "brain-clock"
@@ -294,19 +290,19 @@
 	organ_flags = ORGAN_SYNTHETIC
 	var/robust //Set to true if the robustbits causes brain replacement. Because holy fuck is the CLANG CLANG CLANG CLANG annoying
 
-/obj/item/organ/brain/clockwork/emp_act(severity)
+/obj/item/organ/internal/brain/clockwork/emp_act(severity)
 	switch(severity)
 		if(1)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
 		if(2)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
 
-/obj/item/organ/brain/clockwork/on_life(delta_time, times_fired)
+/obj/item/organ/internal/brain/clockwork/on_life(delta_time, times_fired)
 	. = ..()
 	if(prob(5) && !robust)
 		SEND_SOUND(owner, pick_weight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))
 
-/obj/item/organ/liver/clockwork
+/obj/item/organ/internal/liver/clockwork
 	name = "biometallic alembic"
 	desc = "A series of small pumps and boilers, designed to facilitate proper metabolism."
 	icon_state = "liver-clock"
@@ -316,7 +312,7 @@
 	toxLethality = 0
 	toxTolerance = 1 //while the organ isn't damaged by doing its job, it doesnt do it very well
 
-/obj/item/organ/lungs/clockwork
+/obj/item/organ/internal/lungs/clockwork
 	name = "clockwork diaphragm"
 	desc = "A utilitarian bellows which serves to pump oxygen into an automaton's body."
 	icon_state = "lungs-clock"
@@ -329,29 +325,6 @@
 	desc = "A pair of thin metallic membranes."
 	flight_level = WINGS_FLIGHTLESS
 	icon_state = "clockwings"
-
-/obj/item/organ/tail/clockwork
-	name = "biomechanical tail"
-	desc = "A stiff tail composed of a strange alloy."
-	color = null
-	tail_type = "Clockwork"
-	icon_state = "clocktail"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
-
-/obj/item/organ/tail/clockwork/on_insert(mob/living/carbon/human/tail_owner)
-	. = ..()
-	if(istype(tail_owner) && tail_owner.dna)
-		if(!(tail_owner.dna.species.mutant_bodyparts["tail_human"]))
-			tail_owner.dna.features["tail_human"] = tail_type
-			tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
-		tail_owner.update_body()
-
-/obj/item/organ/tail/clockwork/on_remove(mob/living/carbon/human/tail_owner)
-	. = ..()
-	if(istype(tail_owner) && tail_owner.dna)
-		tail_owner.dna.species.mutant_bodyparts -= "tail_human"
-		tail_owner.update_body()
 
 /obj/item/bodypart/l_arm/robot/clockwork
 	name = "clockwork left arm"

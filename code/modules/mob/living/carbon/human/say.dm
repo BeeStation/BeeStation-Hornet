@@ -1,5 +1,5 @@
 /mob/living/carbon/human/say_mod(input, list/message_mods = list())
-	var/obj/item/organ/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/internal/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(T)
 		verb_say = pick(T.say_mod)
 		verb_ask = pick(T.ask_mod)

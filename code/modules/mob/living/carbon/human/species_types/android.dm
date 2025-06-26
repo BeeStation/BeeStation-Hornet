@@ -26,7 +26,7 @@
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
-	mutanttongue = /obj/item/organ/tongue/robot
+	mutanttongue = /obj/item/organ/internal/tongue/robot
 	mutantstomach = null
 	mutantheart = null
 	mutantliver = null

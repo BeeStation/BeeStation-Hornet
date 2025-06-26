@@ -26,8 +26,8 @@
 	miss_sound = 'sound/weapons/punchmiss.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
-	mutantbrain = /obj/item/organ/brain/pumpkin_brain
-	mutanttongue = /obj/item/organ/tongue/diona/pumpkin
+	mutantbrain = /obj/item/organ/internal/brain/pumpkin_brain
+	mutanttongue = /obj/item/organ/internal/tongue/diona/pumpkin
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/pumpkin_man,
@@ -138,13 +138,13 @@
 			M.update_body_parts_head_only()
 			to_chat(_user, span_notice("You carve a face into [_source]."))
 			//Adjust the tongue
-			var/obj/item/organ/tongue/diona/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
+			var/obj/item/organ/internal/tongue/diona/pumpkin/P = M.organs_slot[ORGAN_SLOT_TONGUE]
 			if(istype(P))
 				P?.carved = TRUE
 		else
 			to_chat(_user, span_warning("You fail to carve a face into [_source]!"))
 
-/obj/item/organ/brain/pumpkin_brain
+/obj/item/organ/internal/brain/pumpkin_brain
 	name = "pumpkinperson brain"
 	actions_types = list(/datum/action/item_action/organ_action/pumpkin_head_candy)
 	color = "#ff7b00"

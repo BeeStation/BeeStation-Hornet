@@ -52,25 +52,32 @@
 /obj/item/bodypart/chest/dismember()
 	if(!owner)
 		return FALSE
-	var/mob/living/carbon/C = owner
+	var/mob/living/carbon/chest_owner = owner
 	if(!dismemberable)
 		return FALSE
-	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
+	if(HAS_TRAIT(chest_owner, TRAIT_NODISMEMBER))
 		return FALSE
 	. = list()
-	var/turf/T = get_turf(C)
-	C.add_bleeding(BLEED_CRITICAL)
-	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
-	for(var/X in C.internal_organs)
-		var/obj/item/organ/O = X
-		var/org_zone = check_zone(O.zone)
+	if(isturf(chest_owner.loc))
+		chest_owner.add_splatter_floor(chest_owner.loc)
+	chest_owner.add_bleeding(BLEED_CRITICAL)
+	playsound(get_turf(chest_owner), 'sound/misc/splort.ogg', 80, TRUE)
+	for(var/obj/item/organ/organ as anything in chest_owner.organs)
+		var/org_zone = check_zone(organ.zone)
 		if(org_zone != BODY_ZONE_CHEST)
 			continue
-		O.Remove(C)
-		O.forceMove(T)
-		. += X
+		organ.Remove(chest_owner)
+		organ.forceMove(chest_owner.loc)
+		. += organ
+
+	for(var/obj/item/organ/external/ext_organ as anything in src.external_organs)
+		if(!(ext_organ.organ_flags & ORGAN_UNREMOVABLE))
+			ext_organ.Remove(chest_owner)
+			ext_organ.forceMove(chest_owner.loc)
+			. += ext_organ
+
 	if(cavity_item)
-		cavity_item.forceMove(T)
+		cavity_item.forceMove(chest_owner.loc)
 		. += cavity_item
 		cavity_item = null
 
@@ -78,90 +85,102 @@
 /obj/item/bodypart/proc/drop_limb(special, dismembered)
 	if(!owner)
 		return
-	var/atom/Tsec = owner.drop_location()
-	var/mob/living/carbon/C = owner
+	var/atom/drop_loc = owner.drop_location()
+
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(TRUE)
-	C.remove_bodypart(src)
+	owner.remove_bodypart(src)
 
 	if(held_index)
-		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
-		C.hand_bodyparts[held_index] = null
+		if(owner.hand_bodyparts[held_index] == src)
+			// We only want to do this if the limb being removed is the active hand part.
+			// This catches situations where limbs are "hot-swapped" such as augmentations and roundstart prosthetics.
+			owner.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
+			owner.hand_bodyparts[held_index] = null
 
-	owner = null
+	for(var/obj/item/organ/external/ext_organ as anything in external_organs)
+		ext_organ.transfer_to_limb(src, null) //Null is the second arg because the bodypart is being removed from it's owner.
 
-	for(var/X in C.surgeries) //if we had an ongoing surgery on that limb, we stop it.
-		var/datum/surgery/S = X
-		if(S.operated_bodypart == src)
-			C.surgeries -= S
-			qdel(S)
+	var/mob/living/carbon/phantom_owner = set_owner(null) // so we can still refer to the guy who lost their limb after said limb forgets 'em
+
+	for(var/datum/surgery/surgery as anything in phantom_owner.surgeries) //if we had an ongoing surgery on that limb, we stop it.
+		if(surgery.operated_bodypart == src)
+			phantom_owner.surgeries -= surgery
+			qdel(surgery)
 			break
 
-	for(var/obj/item/I in embedded_objects)
-		embedded_objects -= I
-		I.forceMove(src)
-	if(!C.has_embedded_objects())
-		C.clear_alert("embeddedobject")
-		SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "embedded")
+	for(var/obj/item/embedded in embedded_objects)
+		embedded.forceMove(src) // It'll self remove via signal reaction, just need to move it
+	if(!phantom_owner.has_embedded_objects())
+		phantom_owner.clear_alert("embeddedobject")
+		SEND_SIGNAL(phantom_owner, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 	if(!special)
-		if(C.dna)
-			for(var/datum/mutation/MT as() in C.dna.mutations) //some mutations require having specific limbs to be kept.
-				if(MT.limb_req && MT.limb_req == body_zone)
-					C.dna.force_lose(MT)
+		if(phantom_owner.dna)
+			for(var/datum/mutation/human/mutation as anything in phantom_owner.dna.mutations) //some mutations require having specific limbs to be kept.
+				if(mutation.limb_req && mutation.limb_req == body_zone)
+					to_chat(phantom_owner, span_warning("You feel your [mutation] deactivating from the loss of your [body_zone]!"))
+					phantom_owner.dna.force_lose(mutation)
 
-		for(var/X in C.internal_organs) //internal organs inside the dismembered limb are dropped.
-			var/obj/item/organ/O = X
-			var/org_zone = check_zone(O.zone)
+		for(var/obj/item/organ/organ as anything in phantom_owner.organs) //internal organs inside the dismembered limb are dropped.
+			var/org_zone = check_zone(organ.zone)
 			if(org_zone != body_zone)
 				continue
-			O.transfer_to_limb(src, C)
+			organ.transfer_to_limb(src, phantom_owner)
 
 
 	update_icon_dropped()
-	synchronize_bodytypes(C)
-	C.update_health_hud() //update the healthdoll
-	C.update_body()
-	C.update_body_parts()
+	synchronize_bodytypes(phantom_owner)
+	phantom_owner.update_health_hud() //update the healthdoll
+	phantom_owner.update_body()
+	phantom_owner.update_body_parts()
 
-	if(!Tsec) // Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
+	if(!drop_loc) // drop_loc = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
 		return
 
 	if(is_pseudopart)
-		drop_organs(C)	//Psuedoparts shouldn't have organs, but just in case
+		drop_organs(phantom_owner) //Psuedoparts shouldn't have organs, but just in case
 		qdel(src)
 		return
 
-	forceMove(Tsec)
-	SEND_SIGNAL(C, COMSIG_CARBON_POST_REMOVE_LIMB, src, dismembered)
+	forceMove(drop_loc)
+	SEND_SIGNAL(phantom_owner, COMSIG_CARBON_POST_REMOVE_LIMB, src, dismembered)
 
 
-//when a limb is dropped, the internal organs are removed from the mob and put into the limb
-/obj/item/organ/proc/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
-	Remove(C, TRUE)
-	forceMove(LB)
+///Transfers the organ to the limb, and to the limb's owner, if it has one. This is done on drop_limb().
+/obj/item/organ/proc/transfer_to_limb(obj/item/bodypart/bodypart, mob/living/carbon/bodypart_owner)
+	Remove(bodypart_owner)
+	add_to_limb(bodypart)
 
-/obj/item/organ/brain/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
-	Remove(C)	//Changeling brain concerns are now handled in Remove
-	forceMove(LB)
-	LB.brain = src
+///Adds the organ to a bodypart, used in transfer_to_limb()
+/obj/item/organ/proc/add_to_limb(obj/item/bodypart/bodypart)
+	forceMove(bodypart)
+
+///Removes the organ from the limb, placing it into nullspace.
+/obj/item/organ/proc/remove_from_limb()
+	moveToNullspace()
+
+/obj/item/organ/internal/brain/transfer_to_limb(obj/item/bodypart/head/head, mob/living/carbon/human/head_owner)
+	Remove(head_owner) //Changeling brain concerns are now handled in Remove
+	forceMove(head)
+	head.brain = src
 	if(brainmob)
-		LB.brainmob = brainmob
+		head.brainmob = brainmob
 		brainmob = null
-		LB.brainmob.forceMove(LB)
-		LB.brainmob.set_stat(DEAD)
+		head.brainmob.forceMove(head)
+		head.brainmob.set_stat(DEAD)
 
-/obj/item/organ/eyes/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
+/obj/item/organ/internal/eyes/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
 	LB.eyes = src
 	..()
 
-/obj/item/organ/ears/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
+/obj/item/organ/internal/ears/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
 	LB.ears = src
 	..()
 
-/obj/item/organ/tongue/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
+/obj/item/organ/internal/tongue/transfer_to_limb(obj/item/bodypart/head/LB, mob/living/carbon/human/C)
 	LB.tongue = src
 	..()
 
@@ -301,7 +320,7 @@
 				break
 
 	for(var/obj/item/organ/limb_organ in contents)
-		limb_organ.Insert(new_limb_owner)
+		limb_organ.Insert(new_limb_owner, TRUE)
 
 	update_bodypart_damage_state()
 	if(can_be_disabled)

@@ -817,7 +817,7 @@
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(HAS_TRAIT(M, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/stomach = M.get_organ_slot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/internal/stomach/battery/stomach = M.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(stomach))
 			stomach.adjust_charge(40*REM)
 	else if(DT_PROB(1.5, delta_time)) //scp13 optimization

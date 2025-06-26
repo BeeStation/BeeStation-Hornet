@@ -165,27 +165,32 @@
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
-	message = "wags their tail"
+	message = "their tail."
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/wag/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
-	if(!tail)
+	if(!.)
 		return
-	tail.toggle_wag(H)
-
-/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
-	var/mob/living/carbon/human/H = user
-	return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+	var/obj/item/organ/external/tail/oranges_accessory = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(oranges_accessory.wag_flags & WAG_WAGGING) //We verified the tail exists in can_run_emote()
+		SEND_SIGNAL(user, COMSIG_ORGAN_WAG_TAIL, FALSE)
+	else
+		SEND_SIGNAL(user, COMSIG_ORGAN_WAG_TAIL, TRUE)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H.get_organ_slot(ORGAN_SLOT_TAIL)
-	if(tail?.is_wagging(H))
-		. = null
+	var/obj/item/organ/external/tail/oranges_accessory = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(oranges_accessory.wag_flags & WAG_WAGGING)
+		. = "stops wagging " + message
+	else
+		. = "wags " + message
+
+/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check, intentional)
+	var/obj/item/organ/external/tail/tail = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(tail?.wag_flags & WAG_ABLE)
+		return ..()
+	return FALSE
 
 /datum/emote/living/carbon/human/wing
 	key = "wing"
@@ -255,7 +260,7 @@
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/tongue/T = user.get_organ_slot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/internal/tongue/T = user.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(T.status == ORGAN_ROBOTIC)
 		return TRUE
 

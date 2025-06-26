@@ -15,9 +15,9 @@
 	meat = /obj/item/food/meat/slab/human/mutant/fly
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/fly
-	mutanttongue = /obj/item/organ/tongue/fly
-	mutantliver = /obj/item/organ/liver/fly
-	mutantstomach = /obj/item/organ/stomach/fly
+	mutanttongue = /obj/item/organ/internal/tongue/fly
+	mutantliver = /obj/item/organ/internal/liver/fly
+	mutantstomach = /obj/item/organ/internal/stomach/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
 	burnmod = 1.4
 	brutemod = 1.4

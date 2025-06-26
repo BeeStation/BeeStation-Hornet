@@ -27,7 +27,7 @@
 	mutantlungs = null
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutant_organs = list(/obj/item/organ/adamantine_resonator)
-	mutanttongue = /obj/item/organ/tongue/golem
+	mutanttongue = /obj/item/organ/internal/tongue/golem
 	speedmod = 2
 	armor = 55
 	siemens_coeff = 0
@@ -324,7 +324,7 @@
 	id = SPECIES_GOLEM_ALLOY
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
 	meat = /obj/item/stack/sheet/mineral/abductor
-	mutanttongue = /obj/item/organ/tongue/abductor
+	mutanttongue = /obj/item/organ/internal/tongue/abductor
 	speedmod = 1 //faster
 	info_text = "As an " + span_danger("Alloy Golem") + ", you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to be heard by other alloy golems."
 	prefix = "Alien"
@@ -589,7 +589,7 @@
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
 	punchdamage = 0
 	meat = /obj/item/stack/ore/bananium
-	mutanttongue = /obj/item/organ/tongue/golem/bananium
+	mutanttongue = /obj/item/organ/internal/tongue/golem/bananium
 	info_text = "As a " + span_danger("Bananium Golem") + ", you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	attack_verb = "honk"
 	attack_sound = 'sound/items/airhorn2.ogg'
@@ -760,7 +760,7 @@
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
 	inherent_factions = list(FACTION_RATVAR)
-	mutanttongue = /obj/item/organ/tongue/golem/clockwork
+	mutanttongue = /obj/item/organ/internal/tongue/golem/clockwork
 	var/has_corpse
 
 	bodypart_overrides = list(
@@ -1015,7 +1015,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	fixed_mut_color = "cd7f32"
 	info_text = "As a " + span_danger("Bronze Golem") + ", you are very resistant to loud noises, and make loud noises if something hard hits you, however this ability does hurt your hearing."
 	special_step_sounds = list('sound/machines/clockcult/integration_cog_install.ogg', 'sound/magic/clockwork/fellowship_armory.ogg' )
-	mutantears = /obj/item/organ/ears/bronze
+	mutantears = /obj/item/organ/internal/ears/bronze
 	var/last_gong_time = 0
 	var/gong_cooldown = 150
 
@@ -1201,7 +1201,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	mutanttongue = /obj/item/organ/tongue/bone
+	mutanttongue = /obj/item/organ/internal/tongue/bone
 	sexes = FALSE
 	fixed_mut_color = null
 	inherent_traits = list(

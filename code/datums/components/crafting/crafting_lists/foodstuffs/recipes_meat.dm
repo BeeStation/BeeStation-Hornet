@@ -33,7 +33,7 @@
 	result = /obj/item/food/kebab/tail
 	reqs = list(
 		/obj/item/stack/rods = 1,
-		/obj/item/organ/tail/lizard = 1
+		/obj/item/organ/external/tail/lizard = 1
 	)
 	category = CAT_MEAT
 

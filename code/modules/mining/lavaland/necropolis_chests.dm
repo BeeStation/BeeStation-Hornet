@@ -36,7 +36,7 @@
 		/obj/item/clothing/glasses/godeye									= 5,
 		/obj/item/clothing/gloves/concussive_gauntlets						= 5,
 		/obj/item/rod_of_asclepius											= 5,
-		/obj/item/organ/heart/cursed/wizard						 			= 5,
+		/obj/item/organ/internal/heart/cursed/wizard						 			= 5,
 		/obj/item/ship_in_a_bottle											= 5,
 		/obj/item/jacobs_ladder												= 5,
 		/obj/item/warp_cube/red												= 5,

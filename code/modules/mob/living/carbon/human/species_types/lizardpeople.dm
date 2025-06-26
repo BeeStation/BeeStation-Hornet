@@ -14,8 +14,6 @@
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list(
-		"tail_lizard" = "Smooth",
-		"spines" = "None",
 		"body_markings" = "None",
 		"legs" = "Normal Legs",
 		"body_size" = "Normal"
@@ -23,10 +21,11 @@
 	external_organs = list(
 		/obj/item/organ/external/horns = "None",
 		/obj/item/organ/external/frills = "None",
-		/obj/item/organ/external/snout = "Round"
+		/obj/item/organ/external/snout = "Round",
+		/obj/item/organ/external/spines = "None",
+		/obj/item/organ/external/tail/lizard = "Smooth",
 	)
-	mutanttongue = /obj/item/organ/tongue/lizard
-	mutant_organs = list(/obj/item/organ/tail/lizard)
+	mutanttongue = /obj/item/organ/internal/tongue/lizard
 	coldmod = 1.5
 	heatmod = 0.67
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
@@ -68,15 +67,9 @@
 		if(findname(.))
 			. = .(gender, TRUE, null, ++attempts)
 
-//I wag in death
-/datum/species/lizard/spec_death(gibbed, mob/living/carbon/human/H)
-	if(H)
-		stop_wagging_tail(H)
-
-/datum/species/lizard/spec_stun(mob/living/carbon/human/H,amount)
-	if(H)
-		stop_wagging_tail(H)
-	. = ..()
+/datum/species/lizard/randomize_features(mob/living/carbon/human/human_mob)
+	human_mob.dna.features["body_markings"] = pick(GLOB.body_markings_list)
+	randomize_external_organs(human_mob)
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)
 	return pick(
@@ -129,7 +122,7 @@
 		TRAIT_VIRUSIMMUNE
 		)
 	species_language_holder = /datum/language_holder/lizard/ash
-	mutantlungs = /obj/item/organ/lungs/ashwalker
+	mutantlungs = /obj/item/organ/internal/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
 
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
