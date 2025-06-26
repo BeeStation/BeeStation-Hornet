@@ -19,11 +19,10 @@
 /obj/vehicle/ridden/wheelchair/motorized/Initialize(mapload)
 	. = ..()
 	//default parts, removed in checkparts if it was actually crafted
-	power_cell = new /obj/item/stock_parts/cell/high()
-	contents += power_cell
-	contents += new /obj/item/stock_parts/manipulator()
-	contents += new /obj/item/stock_parts/manipulator()
-	contents += new /obj/item/stock_parts/capacitor()
+	power_cell = new /obj/item/stock_parts/cell/high(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/capacitor(src)
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/make_ridable()
