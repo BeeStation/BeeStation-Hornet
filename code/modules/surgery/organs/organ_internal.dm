@@ -34,7 +34,9 @@
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
 	/// Traits that are given to the holder of the organ.
-	var/list/organ_traits = list()
+	var/list/organ_traits
+	/// Status Effects that are given to the holder of the organ.
+	var/list/organ_effects
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -56,33 +58,66 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(organ_flags & ORGAN_SYNTHETIC)
 		juice_typepath = null
 
-/obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	if(!iscarbon(M) || owner == M)
-		return
+/*
+ * Insert the organ into the select mob.
+ *
+ * receiver - the mob who will get our organ
+ * special - "quick swapping" an organ out - when TRUE, the mob will be unaffected by not having that organ for the moment
+ * drop_if_replaced - if there's an organ in the slot already, whether we drop it afterwards
+ * pref_load - some lazy shit used only for passing an arg into another proc
+ */
+/obj/item/organ/proc/Insert(mob/living/carbon/receiver, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 
-	var/obj/item/organ/replaced = M.getorganslot(slot)
+	if(!iscarbon(receiver) || owner == receiver)
+		return FALSE
+
+	var/obj/item/organ/replaced = receiver.get_organ_slot(slot)
 	if(replaced)
-		replaced.Remove(M, special = 1, pref_load = pref_load)
+		replaced.Remove(receiver, special = TRUE, pref_load = pref_load)
 		if(drop_if_replaced)
-			replaced.forceMove(get_turf(M))
+			replaced.forceMove(get_turf(receiver))
 		else
 			qdel(replaced)
 
-	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, M)
-	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src)
+	receiver.internal_organs |= src
+	receiver.internal_organs_slot[slot] = src
+	owner = receiver
 
-	owner = M
-	M.internal_organs |= src
-	M.internal_organs_slot[slot] = src
-	moveToNullspace()
-	for(var/trait in organ_traits)
-		ADD_TRAIT(M, trait, REF(src))
-	for(var/datum/action/action as anything in actions)
-		action.Grant(M)
+
+	// Apply unique side-effects. Return value does not matter.
+	on_insert(receiver, special)
+
 	STOP_PROCESSING(SSobj, src)
+
+	return TRUE
+
+/// Called after the organ is inserted into a mob.
+/// Adds Traits, Actions, and Status Effects on the mob in which the organ is impanted.
+/// Override this proc to create unique side-effects for inserting your organ. Must be called by overrides.
+/obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special)
+	SHOULD_CALL_PARENT(TRUE)
+
+	moveToNullspace()
+
+	for(var/trait in organ_traits)
+		ADD_TRAIT(organ_owner, trait, REF(src))
+		//message_admins("[key_name(organ_owner)] has gained organ [src] ([slot]) and trait [trait] added.")
+
+	for(var/datum/action/action as anything in actions)
+		action.Grant(organ_owner)
+
+	for(var/datum/status_effect/effect as anything in organ_effects)
+		organ_owner.apply_status_effect(effect, type)
+
+	//RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_owner_examine))
+	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
+	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	owner = null
 	if(organ_owner)
 		organ_owner.internal_organs -= src
@@ -92,16 +127,32 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 			if(organ_owner.stat != DEAD)
 				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 			organ_owner.death()
+
+	// Apply or reset unique side-effects. Return value does not matter.
+	on_remove(organ_owner, special)
+
+	START_PROCESSING(SSobj, src)
+
+	return TRUE
+
+/// Called after the organ is removed from a mob.
+/// Removes Traits, Actions, and Status Effects on the mob in which the organ was impanted.
+/// Override this proc to create unique side-effects for removing your organ. Must be called by overrides.
+/obj/item/organ/proc/on_remove(mob/living/carbon/organ_owner, special)
+	SHOULD_CALL_PARENT(TRUE)
+
 	for(var/trait in organ_traits)
 		REMOVE_TRAIT(organ_owner, trait, REF(src))
+		//message_admins("[key_name(organ_owner)] has lost organ [src] ([slot]) and trait [trait] removed.")
 
 	for(var/datum/action/action as anything in actions)
 		action.Remove(organ_owner)
 
-	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
-	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	for(var/datum/status_effect/effect as anything in organ_effects)
+		organ_owner.remove_status_effect(effect, type)
 
-	START_PROCESSING(SSobj, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
+	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
 
 /// Add a trait to an organ that it will give its owner.
 /obj/item/organ/proc/add_organ_trait(trait)
@@ -117,6 +168,20 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	REMOVE_TRAIT(owner, trait, REF(src))
 
+/// Add a Status Effect to an organ that it will give its owner.
+/obj/item/organ/proc/add_organ_status(status)
+	LAZYADD(organ_effects, status)
+	if(isnull(owner))
+		return
+	owner.apply_status_effect(status, type)
+
+/// Removes a Status Effect from an organ, and by extension, its owner.
+/obj/item/organ/proc/remove_organ_status(status)
+	LAZYREMOVE(organ_effects, status)
+	if(isnull(owner))
+		return
+	owner.remove_status_effect(status, type)
+
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
 
@@ -129,6 +194,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	applyOrganDamage(decay_factor * maxHealth * delta_time)
 
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
+	SHOULD_CALL_PARENT(TRUE) //PASS YOUR ARGS FUCKER
+
 	if(organ_flags & ORGAN_FAILING)
 		return
 	///Damage decrements by a percent of its maxhealth
@@ -204,7 +271,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		to_chat(owner, mess)
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
-/obj/item/organ/proc/setOrganDamage(var/d)	//use mostly for admin heals
+/obj/item/organ/proc/set_organ_damage(var/d)	//use mostly for admin heals
 	applyOrganDamage(d - damage)
 
 /** check_damage_thresholds
@@ -246,35 +313,35 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 
 	else
-		var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
+		var/obj/item/organ/lungs/L = get_organ_slot(ORGAN_SLOT_LUNGS)
 		if(!L)
 			L = new()
 			L.Insert(src)
-		L.setOrganDamage(0)
+		L.set_organ_damage(0)
 
-		var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
 		if(!H)
 			H = new()
 			H.Insert(src)
-		H.setOrganDamage(0)
+		H.set_organ_damage(0)
 
-		var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
+		var/obj/item/organ/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
 		if(!T)
 			T = new()
 			T.Insert(src)
-		T.setOrganDamage(0)
+		T.set_organ_damage(0)
 
-		var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 		if(!eyes)
 			eyes = new()
 			eyes.Insert(src)
-		eyes.setOrganDamage(0)
+		eyes.set_organ_damage(0)
 
-		var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+		var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 		if(!ears)
 			ears = new()
 			ears.Insert(src)
-		ears.setOrganDamage(0)
+		ears.set_organ_damage(0)
 
 /** get_availability
   * returns whether the species should innately have this organ.
@@ -282,11 +349,18 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
   * regenerate organs works with generic organs, so we need to get whether it can accept certain organs just by what this returns.
   * This is set to return true or false, depending on if a species has a specific organless trait. stomach for example checks if the species has NOSTOMACH and return based on that.
   * Arguments:
-  * S - species, needed to return whether the species has an organ specific trait
-  */
-/obj/item/organ/proc/get_availability(datum/species/S)
+  * owner_species - species, needed to return the mutant slot as true or false. stomach set to null means it shouldn't have one.
+  * owner_mob - for more specific checks, like nightmares.
+ */
+/obj/item/organ/proc/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return TRUE
 
 /// Called before organs are replaced in regenerate_organs with new ones
 /obj/item/organ/proc/before_organ_replacement(obj/item/organ/replacement)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_ORGAN_BEING_REPLACED, replacement)
+
+	// If we're being replace with an identical type we should take organ damage
+	if(replacement.type == type)
+		replacement.set_organ_damage(damage)

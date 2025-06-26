@@ -283,7 +283,7 @@
 /area/shuttle/escape)
 "HP" = (
 /obj/machinery/vending/boozeomat,
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "IK" = (
 /obj/item/scalpel{
@@ -492,6 +492,9 @@
 "PH" = (
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
+"PK" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
 "Rv" = (
 /obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line{
@@ -581,7 +584,7 @@ fI
 "}
 (2,1,1) = {"
 DN
-DN
+PK
 Tx
 Tx
 Tx
@@ -596,7 +599,7 @@ Js
 qn
 Jn
 qn
-DN
+PK
 DN
 fI
 "}
@@ -670,14 +673,14 @@ xm
 xm
 xm
 xm
-DN
+PK
 LQ
 RK
 RK
 RK
 qn
 qn
-DN
+PK
 xm
 xm
 DN
@@ -838,14 +841,14 @@ xm
 xm
 xm
 xm
-DN
+PK
 yG
 sV
 sV
 sV
 qn
 qn
-DN
+PK
 xm
 xm
 DN
@@ -932,7 +935,7 @@ Js
 qn
 NH
 qn
-DN
+PK
 DN
 fI
 "}
