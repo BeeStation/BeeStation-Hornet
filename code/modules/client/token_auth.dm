@@ -25,14 +25,15 @@
 	tgui_login?.open()
 
 /client/proc/log_out()
-	set name = "Log Out & Disconnect"
+	set name = "Log Out and Disconnect"
 	set category = "Login"
-	if(tgui_alert(src.mob, "You will be disconnected from the game and all your sessions will be immediately revoked.", "Are you sure?", list("Yes", "Cancel")) != "Yes")
+	if(tgui_alert(src.mob, "You will be disconnected from the game and all session tokens will be revoked.", "Are you sure?", list("Yes", "Cancel")) != "Yes")
 		return
 	tgui_login?.clear_session_token()
 	to_chat_immediate(src, span_userdanger("You have been logged out. Your client has been disconnected from the game."))
 	db_invalidate_all_sessions_for(src.external_uid)
-	qdel(src)
+	spawn(5)
+		qdel(src)
 
 /mob/dead/new_player/pre_auth/proc/convert_to_authed()
 	if(IsAdminAdvancedProcCall())
@@ -102,10 +103,13 @@
 		if(istext(existing_byond_key) && length(existing_byond_key))
 			new_key = existing_byond_key
 		else // otherwise make a new one for them
-			new_key = "d[external_uid]"
+			new_key = "D[external_uid]" //capitalize the key because otherwise the client displays as "The d549835457345893475"
 	if(length(new_key))
 		qdel(query_check_token)
 		tgui_login?.save_session_token(token)
+		// Make sure this stupid thing closes correctly
+		spawn(5 SECONDS)
+			tgui_login?.close()
 		return login_as(new_key, external_method, external_uid, external_display_name)
 	qdel(query_check_token)
 	return FALSE
@@ -124,6 +128,17 @@
 		return FALSE
 	if(logged_in)
 		return FALSE
+	var/ckey = ckey(new_key)
+	var/client/existing_client = GLOB.directory[ckey]
+	if(!QDELETED(existing_client))
+		var/usr_msg = "The CKEY [ckey] is already connected with another client! You have been disconnected from the game."
+		alert(src, usr_msg, "DANGER!", "OK")
+		to_chat_immediate(src, span_userdanger(usr_msg))
+		log_admin_private("MULTICONNECTION: [key_name(src)] authenticated as [ckey], who is already playing as [key_name(existing_client)]!")
+		message_admins("[span_danger("<B>MULTICONNECTION:</B>")] [span_notice("[key_name_admin(src)] authenticated as [ckey], who is already playing as [key_name_admin(existing_client)]! The authorizing guest has been kicked from the game.")]")
+		spawn(5)
+			qdel(src)
+		return FALSE
 	token_attempts = 0
 	remove_verb(/client/verb/get_token)
 	remove_verb(/client/verb/use_token)
@@ -135,7 +150,7 @@
 	src.external_method = external_method
 	src.external_uid = external_uid
 	src.external_display_name = external_display_name
-	var/ckey = ckey(new_key)
+
 	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey]) using [external_method] ID [external_uid]")
 	GLOB.directory -= src.ckey
 	var/mob/my_mob = src.mob
@@ -145,7 +160,6 @@
 	if(!client_pre_login(TRUE, FALSE))
 		return FALSE
 
-	to_chat_immediate(src, span_good("Successfully signed in as [span_bold("[src.display_name_chat()]")]"))
 	// Mob is ready
 	// calls /mob/dead/new_player/authenticated/Login()
 	// creates mind and such
@@ -226,7 +240,7 @@
 	return src.key
 
 /datum/mind/proc/full_key()
-	return "[key][!isnull(display_name) && display_name != key ? " (@[display_name])" : ""]"
+	return "[key][!isnull(display_name) && display_name != key ? " ([display_name])" : ""]"
 
 /datum/mind/proc/display_key()
 	return !isnull(display_name) ? display_name : key

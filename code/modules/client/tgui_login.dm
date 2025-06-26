@@ -25,7 +25,9 @@
 	if(client?.mob)
 		ui_interact(client.mob)
 
-// Confusing, I know, but this is both a plain TGUI and a special tgui_window for handling the token
+/datum/tgui_login/proc/close()
+	SStgui.close_uis(src)
+
 /datum/tgui_login/Destroy(force, ...)
 	SStgui.close_uis(src)
 	. = ..()
@@ -60,15 +62,6 @@
 	if(isnum_safe(user.client.seeker_port))
 		port_data = "&seeker_port=[url_encode(user.client.seeker_port)]"
 	.["decorator"] = "?ip=[url_encode(ip)][port_data]"
-
-/datum/tgui_login/ui_act(action, list/params)
-	. = ..()
-	if (.)
-		return
-	switch(action)
-		if("cancel")
-			SStgui.close_uis(src)
-			return TRUE
 
 /datum/tgui_login/proc/save_session_token(token)
 	if(!istext(token))

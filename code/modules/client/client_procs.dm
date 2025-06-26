@@ -121,6 +121,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		login_with_token(href_list["session_token"], text2num(href_list["from_ui"]))
 
 	if(href_list["seeker_port"])
+		winshow(src, "login", FALSE) // make sure this thing is hidden
 		var/port_num = text2num(href_list["seeker_port"])
 		if(isnum_safe(port_num))
 			seeker_port = port_num
