@@ -1349,3 +1349,4 @@
 /obj/item/storage/box/party_poppers/PopulateContents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/spray/chemsprayer/party(src)
+
