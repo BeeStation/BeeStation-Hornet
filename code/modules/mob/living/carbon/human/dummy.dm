@@ -164,7 +164,6 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	return
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
-	target.create_dna()
 	target.dna.features["body_markings"] = "None"
 	target.dna.features["ears"] = "Cat"
 	target.dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]

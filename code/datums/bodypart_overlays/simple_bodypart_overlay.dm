@@ -11,5 +11,6 @@
 /datum/bodypart_overlay/simple/get_image(layer, obj/item/bodypart/limb)
 	return image(icon, icon_state, layer = layer)
 
-/datum/bodypart_overlay/simple/color_image(image/overlay, layer)
+/datum/bodypart_overlay/simple/color_image(image/overlay, layer, obj/item/bodypart/limb)
+
 	overlay.color = draw_color

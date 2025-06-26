@@ -6,10 +6,15 @@
 
 	for (var/name in values)
 		var/datum/sprite_accessory/accessory = accessories[name]
-		if (accessory == null || accessory.icon_state == null)
+		if (accessory == null)
 			continue
-
 		var/datum/universal_icon/final_icon = head_icon.copy()
+
+		if (accessory.icon_state == null)
+			final_icon.crop(10, 19, 22, 31)
+			final_icon.scale(32, 32)
+			values[name] = final_icon
+			continue
 
 		var/datum/universal_icon/beard_icon = values[name]
 		beard_icon.blend_color("#42250a", ICON_MULTIPLY)
@@ -189,10 +194,8 @@
 	target.gradient_color[GRADIENT_HAIR_KEY] = value
 	target.update_body_parts()
 
-/datum/preference/color_legacy/hair_gradient/is_accessible(datum/preferences/preferences, ignore_page)
-	if (!..(preferences))
-		return FALSE
-	return preferences.read_preference(/datum/preference/choiced/hair_gradient) != "None"
+/datum/preference/choiced/hair_gradient/create_default_value()
+	return /datum/sprite_accessory/gradient/none::name
 
 /*
 /datum/preference/color_legacy/hair_gradient/create_informed_default_value(datum/preferences/preferences)

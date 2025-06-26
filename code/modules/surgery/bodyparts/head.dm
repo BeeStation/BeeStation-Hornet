@@ -259,6 +259,22 @@
 /obj/item/bodypart/head/proc/make_gradient_overlay(file, icon, layer, datum/sprite_accessory/gradient, gradient_color)
 	RETURN_TYPE(/mutable_appearance)
 
+	// Return null if we don't have valid file or icon
+	if(!file || !icon)
+		return null
+
+	// Special case: "None" gradient should return null
+	if(istext(gradient) && (gradient == "None" || gradient == "none"))
+		return null
+
+	// Handle case where gradient might be just a name string
+	if(istext(gradient))
+		gradient = GLOB.hair_gradients_list[gradient]
+
+	// If we still don't have a valid gradient object, return null
+	if(!gradient || gradient.name == "None" || gradient.name == "none")
+		return null
+
 	var/mutable_appearance/gradient_overlay = mutable_appearance(layer = -layer)
 	var/icon/temp = icon(gradient.icon, gradient.icon_state)
 	var/icon/temp_hair = icon(file, icon)

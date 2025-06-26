@@ -515,6 +515,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, y = 8, size = desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /mob/living/brain/set_species(datum/species/mrace, icon_update = 1)
@@ -538,7 +539,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			return
 		deathsound = new_race.deathsound
 
-		dna.species.on_species_loss(src, new_race, pref_load)
+		if (dna.species.properly_gained)
+			dna.species.on_species_loss(src, new_race, pref_load)
+			
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
 

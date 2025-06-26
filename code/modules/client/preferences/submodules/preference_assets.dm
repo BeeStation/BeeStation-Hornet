@@ -18,7 +18,9 @@
 		var/list/choices = preference.get_choices_serialized()
 		for (var/preference_value in choices)
 			var/create_icon_of = choices[preference_value]
+
 			var/datum/universal_icon/icon
+
 			if (ispath(create_icon_of, /atom))
 				var/atom/atom_icon_source = create_icon_of
 				icon = uni_icon(initial(atom_icon_source.icon), initial(atom_icon_source.icon_state))

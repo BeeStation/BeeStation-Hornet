@@ -31,10 +31,7 @@
 				continue
 		var/datum/sprite_accessory/D = new path()
 
-		if(D.icon_state)
-			L[D.name] = D
-		else
-			L += D.name
+		L[D.name] = D
 
 		switch(D.use_default_gender)
 			if(MALE)
