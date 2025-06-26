@@ -1,7 +1,7 @@
 /**
  * tgui state: pre_auth_state
  *
- * Checks that the user is not logged in, or if user is an admin
+ * Checks that the user is not logged in
  */
 
 GLOBAL_DATUM_INIT(pre_auth_state, /datum/ui_state/pre_auth_state, new)
