@@ -42,11 +42,11 @@
 			to_chat(user, span_warning("[src] isn't attached to the ground!"))
 			return
 		if(charging)
-			to_chat(user, "<span class='warning'>The charger is already in use!</span>")
+			to_chat(user, span_warning("The charger is already in use!"))
 			return
 		pda = W
 		if(pda.get_cell() == null)
-			to_chat(user, "<span class='warning'>There is no cell in that PDA!</span>")
+			to_chat(user, span_warning("There is no cell in that PDA!"))
 			pda = null
 			return
 		else
@@ -61,7 +61,7 @@
 
 			pda = W
 			charging = pda.get_cell()
-			user.visible_message("[user] inserts a PDA into [src].", "<span class='notice'>You insert the PDA into [src].</span>")
+			user.visible_message("[user] inserts a PDA into [src].", span_notice("You insert the PDA into [src]."))
 			chargelevel = -1
 			update_icon()
 	else if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
@@ -133,7 +133,7 @@
 
 	if(pda)
 		pda.forceMove(loc)
-		to_chat(user, "<span class='notice'>You telekinetically remove [pda] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [pda] from [src]."))
 	else
 		charging.forceMove(loc)
 		to_chat(user, span_notice("You telekinetically remove [charging] from [src]."))

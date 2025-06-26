@@ -96,7 +96,7 @@
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 
-	if(!target.detonatable || prob(difficulty * 15) || (hidden_uplink) || app.sending_and_receiving == FALSE)
+	if(!target.detonatable || prob(difficulty * 15) || hidden_uplink || !app.sending_and_receiving)
 		to_chat(user, span_danger("An error flashes on your [src]."))
 	else
 		log_bomber(user, "triggered a PDA explosion on", target, "[!is_special_character(user) ? "(TRIGGED BY NON-ANTAG)" : ""]")
