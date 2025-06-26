@@ -469,6 +469,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	check_ckey_redirects()
 
+	if(first_run)
+		add_verb(subtypesof(/client/verb), TRUE)
+
 	if(authenticated)
 		add_default_verbs()
 		add_verbs_from_config()

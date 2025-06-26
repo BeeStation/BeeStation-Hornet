@@ -1,10 +1,10 @@
 /client/verb/use_token(token as text)
-	set name = "Enter Token (Manual)"
+	set name = "Manual Token Entry"
 	set category = "Login"
 	login_with_token(token)
 
 /client/verb/get_token()
-	set name = "Retrieve Token (Manual)"
+	set name = "Login with Discord"
 	set category = "Login"
 	var/list/methods = CONFIG_GET(keyed_list/external_auth_method)
 	var/discord_link = methods["discord"]
@@ -20,21 +20,19 @@
 		to_chat_immediate(src, span_danger("Discord authentication has not been configured!"))
 
 /client/verb/open_login()
-	set name = "Log In"
+	set name = "Open Login UI"
 	set category = "Login"
 	tgui_login?.open()
 
 /client/proc/log_out()
-	set name = "Log Out"
+	set name = "Log Out & Disconnect"
 	set category = "Login"
+	if(tgui_alert(src.mob, "You will be disconnected from the game and all your sessions will be immediately revoked.", "Are you sure?", list("Yes", "Cancel")) != "Yes")
+		return
 	tgui_login?.clear_session_token()
+	to_chat_immediate(src, span_userdanger("You have been logged out. Your client has been disconnected from the game."))
+	db_invalidate_all_sessions_for(src.external_uid)
 	qdel(src)
-
-/mob/dead/new_player/pre_auth/Login()
-	. = ..()
-	client?.add_verb(/client/verb/get_token, TRUE)
-	client?.add_verb(/client/verb/use_token, TRUE)
-	client?.add_verb(/client/verb/open_login, TRUE)
 
 /mob/dead/new_player/pre_auth/proc/convert_to_authed()
 	if(IsAdminAdvancedProcCall())
@@ -235,3 +233,16 @@
 
 /datum/mind/proc/display_key_chat()
 	return !isnull(display_name_chat) ? display_name_chat : key
+
+/proc/db_invalidate_all_sessions_for(external_uid)
+	if(IsAdminAdvancedProcCall())
+		return
+	if(!SSdbcore.Connect())
+		return
+
+	var/datum/db_query/query_update_sessions = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("session")] SET valid_until = NOW() WHERE external_uid = :external_uid AND valid_until > NOW()",
+		list("external_uid" = external_uid)
+	)
+	query_update_sessions.Execute()
+	qdel(query_update_sessions)

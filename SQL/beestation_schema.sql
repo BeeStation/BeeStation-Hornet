@@ -515,7 +515,7 @@ DROP TABLE IF EXISTS `SS13_session`;
 CREATE TABLE IF NOT EXISTS `SS13_session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip` int(10) unsigned NOT NULL,
-  `session_token` varchar(64) NOT NULL,
+  `session_token` varchar(64) NOT NULL UNIQUE,
   `external_method` varchar(16) NOT NULL,
   `external_uid` varchar(32) NOT NULL,
   `external_display_name` varchar(32) NOT NULL,
