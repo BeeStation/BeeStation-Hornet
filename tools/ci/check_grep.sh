@@ -74,6 +74,14 @@ if $grep '(new|newlist|icon|matrix|sound)\(.+\)' $map_files;	then
 	echo -e "${RED}ERROR: Using unsupported procs in variables in a map file! Please remove all instances of this.${NC}"
 	st=1
 fi;
+
+part "update_icon_updates_onmob element usage"
+if $grep 'AddElement\(/datum/element/update_icon_updates_onmob.+ITEM_SLOT_HANDS' $code_files; then
+	echo
+	echo -e "${RED}ERROR: update_icon_updates_onmob element automatically updates ITEM_SLOT_HANDS, this is redundant and should be removed.${NC}"
+	st=1
+fi;
+
 part "common spelling mistakes"
 if $grep -i 'nanotransen' $map_files; then
 	echo

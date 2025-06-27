@@ -2,7 +2,6 @@
 	name = "\improper Psyphoza"
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
-	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
 	sexes = FALSE

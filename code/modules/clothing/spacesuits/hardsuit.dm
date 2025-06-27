@@ -69,7 +69,7 @@
 	else
 		on = !on
 	icon_state = "[basestate][on]-[hardsuit_type]"
-	user?.update_inv_head()	//so our mob-overlays update
+	user?.update_worn_head()	//so our mob-overlays update
 
 	set_light_on(on)
 
@@ -707,7 +707,7 @@
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
-	user.update_inv_head()
+	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
@@ -796,8 +796,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
 	name = "[initial(name)] (combat)"
@@ -808,8 +808,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 //Stupid snowflake type so we dont freak out the spritesheets. Its not actually used ingame
 /obj/item/clothing/suit/space/hardsuit/syndipreview

@@ -1,26 +1,21 @@
-/proc/generate_possible_values_for_sprite_accessories_on_head(accessories)
-	var/list/values = possible_values_for_sprite_accessory_list(accessories)
+/proc/generate_icon_with_head_accessory(datum/sprite_accessory/sprite_accessory)
+	var/static/datum/universal_icon/head_icon
+	if (isnull(head_icon))
+		head_icon = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
+		head_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
 
-	var/datum/universal_icon/head_icon = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
-	head_icon.blend_color(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
+	var/datum/universal_icon/final_icon = head_icon.copy()
+	if (!isnull(sprite_accessory) && sprite_accessory.icon_state != SPRITE_ACCESSORY_NONE)
+		ASSERT(istype(sprite_accessory))
 
-	for (var/name in values)
-		var/datum/sprite_accessory/accessory = accessories[name]
-		if (accessory == null || accessory.icon_state == null)
-			continue
+		var/datum/universal_icon/head_accessory_icon = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)
+		head_accessory_icon.blend_color(COLOR_DARK_BROWN, ICON_MULTIPLY)
+		final_icon.blend_icon(head_accessory_icon, ICON_OVERLAY)
 
-		var/datum/universal_icon/final_icon = head_icon.copy()
+	final_icon.crop(10, 19, 22, 31)
+	final_icon.scale(32, 32)
 
-		var/datum/universal_icon/beard_icon = values[name]
-		beard_icon.blend_color("#42250a", ICON_MULTIPLY)
-		final_icon.blend_icon(beard_icon, ICON_OVERLAY)
-
-		final_icon.crop(10, 19, 22, 31)
-		final_icon.scale(32, 32)
-
-		values[name] = final_icon
-
-	return values
+	return final_icon
 
 /datum/preference/color_legacy/eye_color
 	db_key = "eye_color"
@@ -53,7 +48,10 @@
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 
 /datum/preference/choiced/facial_hairstyle/init_possible_values()
-	return generate_possible_values_for_sprite_accessories_on_head(GLOB.facial_hair_styles_list)
+	return assoc_to_keys_features(GLOB.facial_hair_styles_list)
+
+/datum/preference/choiced/facial_hairstyle/icon_for(value)
+	return generate_icon_with_head_accessory(GLOB.facial_hair_styles_list[value])
 
 /datum/preference/choiced/facial_hairstyle/apply_to_human(mob/living/carbon/human/target, value)
 	target.facial_hair_style = value
@@ -71,6 +69,10 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_species_trait = FACEHAIR
+
+/datum/preference/color_legacy/facial_hair_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.facial_hair_color = value
+	target.update_body_parts()
 
 /datum/preference/color_legacy/hair_color
 	db_key = "hair_color"
@@ -97,7 +99,10 @@
 	preference_spritesheet = PREFERENCE_SHEET_HUGE
 
 /datum/preference/choiced/hairstyle/init_possible_values()
-	return generate_possible_values_for_sprite_accessories_on_head(GLOB.hair_styles_list)
+	return assoc_to_keys_features(GLOB.hair_styles_list)
+
+/datum/preference/choiced/hairstyle/icon_for(value)
+	return generate_icon_with_head_accessory(GLOB.hair_styles_list[value])
 
 /datum/preference/choiced/hairstyle/apply_to_human(mob/living/carbon/human/target, value)
 	target.hair_style = value
@@ -110,15 +115,14 @@
 	return data
 
 /datum/preference/choiced/hair_gradient
-	db_key = "gradient_style"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	main_feature_name = "Gradient Style"
+	db_key = "gradient_style"
 	should_generate_icons = TRUE
 	relevant_species_trait = HAIR
 
 /datum/preference/choiced/hair_gradient/init_possible_values()
-	return assoc_to_keys(GLOB.hair_gradients_list)
+	return assoc_to_keys_features(GLOB.hair_gradients_list)
 
 /datum/preference/choiced/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	LAZYSETLEN(target.gradient_style, GRADIENTS_LEN)

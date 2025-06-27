@@ -1,7 +1,6 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
-	bodyflag = FLAG_OOZELING
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,

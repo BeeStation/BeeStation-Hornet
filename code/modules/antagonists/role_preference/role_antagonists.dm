@@ -37,7 +37,7 @@
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
-	H.update_inv_hands()
+	H.update_held_items()
 	H.hair_style = "Messy"
 	H.hair_color = "431"
 	H.update_body_parts()

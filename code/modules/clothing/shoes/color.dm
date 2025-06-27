@@ -79,6 +79,10 @@
 	greyscale_config_worn = /datum/greyscale_config/sneakers_orange_worn
 	flags_1 = NONE
 
+/obj/item/clothing/shoes/sneakers/orange/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob, ITEM_SLOT_HANDCUFFED)
+
 /obj/item/clothing/shoes/sneakers/orange/attack_self(mob/user)
 	if (src.chained)
 		src.chained = null

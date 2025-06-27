@@ -2,7 +2,6 @@
 	name = "Flyperson"
 	plural_form = "Flypeople"
 	id = SPECIES_FLY
-	bodyflag = FLAG_FLY
 	species_traits = list(
 		NOEYESPRITES,
 		NO_UNDERWEAR,

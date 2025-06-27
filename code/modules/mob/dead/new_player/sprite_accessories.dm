@@ -46,7 +46,7 @@
 				female += D.name
 
 	if(add_blank)
-		L["None"] = new /datum/sprite_accessory/blank
+		L[SPRITE_ACCESSORY_NONE] = new /datum/sprite_accessory/blank
 
 	return L
 
@@ -89,7 +89,8 @@
 // Hair Definitions //
 //////////////////////
 /datum/sprite_accessory/hair
-	icon = 'icons/mob/species/human/human_face.dmi'	  // default icon for all hairs
+	icon = 'icons/mob/species/human/human_face.dmi' // default icon for all hairs
+	var/y_offset = 0 // Y offset to apply so we can have hair that reaches above the player sprite's visual bounding box
 
 	// please make sure they're sorted alphabetically and, where needed, categorized
 	// try to capitalize the names please~
@@ -1648,6 +1649,9 @@
 /datum/sprite_accessory/tails
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
+/datum/sprite_accessory/tails/lizard
+	icon = 'icons/mob/species/lizard/lizard_tails.dmi'
+
 /datum/sprite_accessory/tails/lizard/smooth
 	name = "Smooth"
 	icon_state = "smooth"
@@ -1815,7 +1819,7 @@
 	dimension_y = 34
 
 /datum/sprite_accessory/frills
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/frills/none
 	name = "None"
@@ -1834,16 +1838,9 @@
 	icon_state = "aqua"
 
 /datum/sprite_accessory/spines
-	icon = 'icons/mob/mutant_bodyparts.dmi'
-
-/datum/sprite_accessory/spines_animated
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_spines.dmi'
 
 /datum/sprite_accessory/spines/none
-	name = "None"
-	icon_state = "none"
-
-/datum/sprite_accessory/spines_animated/none
 	name = "None"
 	icon_state = "none"
 
@@ -1851,15 +1848,7 @@
 	name = "Short"
 	icon_state = "short"
 
-/datum/sprite_accessory/spines_animated/short
-	name = "Short"
-	icon_state = "short"
-
 /datum/sprite_accessory/spines/shortmeme
-	name = "Short + Membrane"
-	icon_state = "shortmeme"
-
-/datum/sprite_accessory/spines_animated/shortmeme
 	name = "Short + Membrane"
 	icon_state = "shortmeme"
 
@@ -1867,15 +1856,7 @@
 	name = "Long"
 	icon_state = "long"
 
-/datum/sprite_accessory/spines_animated/long
-	name = "Long"
-	icon_state = "long"
-
 /datum/sprite_accessory/spines/longmeme
-	name = "Long + Membrane"
-	icon_state = "longmeme"
-
-/datum/sprite_accessory/spines_animated/longmeme
 	name = "Long + Membrane"
 	icon_state = "longmeme"
 
@@ -1883,12 +1864,8 @@
 	name = "Aquatic"
 	icon_state = "aqua"
 
-/datum/sprite_accessory/spines_animated/aqautic
-	name = "Aquatic"
-	icon_state = "aqua"
-
-/datum/sprite_accessory/legs 	//legs are a special case, they aren't actually sprite_accessories but are updated with them.
-	icon = null					//These datums exist for selecting legs on preference, and little else
+/datum/sprite_accessory/legs //legs are a special case, they aren't actually sprite_accessories but are updated with them.
+	icon = null //These datums exist for selecting legs on preference, and little else
 
 /datum/sprite_accessory/legs/none
 	name = "Normal Legs"

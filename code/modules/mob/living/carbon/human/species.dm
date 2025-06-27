@@ -14,7 +14,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// The formatting of the name of the species in plural context. Defaults to "[name]\s" if unset.
 	/// Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
 	var/plural_form
-	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
 	///A bitfield of "bodytypes", updated by /datum/obj/item/bodypart/proc/synchronize_bodytypes()
@@ -428,6 +427,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	for(var/organ_path in species_organs)
 		var/obj/item/organ/current_organ = organ_holder.get_organ_by_type(organ_path)
+		if(ispath(organ_path, /obj/item/organ/external) && !should_external_organ_apply_to(organ_path, organ_holder))
+			if(!isnull(current_organ) && replace_current)
+				// if we have an organ here and we're replacing organs, remove it
+				current_organ.Remove(organ_holder)
+				QDEL_NULL(current_organ)
+			continue
 
 		if(!current_organ || replace_current)
 			var/obj/item/organ/replacement = SSwardrobe.provide_type(organ_path)
@@ -504,6 +509,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(ishuman(C))
 		var/mob/living/carbon/human/human = C
 		for(var/obj/item/organ/external/organ_path as anything in external_organs)
+			if(!should_external_organ_apply_to(organ_path, human))
+				continue
+
 			//Load a persons preferences from DNA
 			var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
 			new_organ.Insert(human, special=TRUE, drop_if_replaced=FALSE)
@@ -978,10 +986,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 
-	if(I.species_restricted & H.dna?.species.bodyflag)
-		to_chat(H, span_warning("Your species cannot wear this item!"))
-		return FALSE
-
 	// if there's an item in the slot we want, fail
 	if(!ignore_equipped)
 		if(H.get_item_by_slot(slot))
@@ -1188,16 +1192,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
 			REMOVE_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_inv_w_uniform()
-			H.update_inv_wear_suit()
+			H.update_worn_undersuit()
+			H.update_worn_oversuit()
 	else
 		if(H.overeatduration >= (200 SECONDS))
 			to_chat(H, "<span class='danger'>You suddenly feel blubbery!</span>")
 			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
 			ADD_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_inv_w_uniform()
-			H.update_inv_wear_suit()
+			H.update_worn_undersuit()
+			H.update_worn_oversuit()
 
 	// nutrition decrease and satiety
 	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
@@ -1555,21 +1559,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(BODY_ZONE_HEAD)
 					if(H.wear_mask)
 						H.wear_mask.add_mob_blood(H)
-						H.update_inv_wear_mask()
+						H.update_worn_mask()
 					if(H.head)
 						H.head.add_mob_blood(H)
-						H.update_inv_head()
+						H.update_worn_head()
 					if(H.glasses && prob(33))
 						H.glasses.add_mob_blood(H)
-						H.update_inv_glasses()
+						H.update_worn_glasses()
 
 				if(BODY_ZONE_CHEST)
 					if(H.wear_suit)
 						H.wear_suit.add_mob_blood(H)
-						H.update_inv_wear_suit()
+						H.update_worn_oversuit()
 					if(H.w_uniform)
 						H.w_uniform.add_mob_blood(H)
-						H.update_inv_w_uniform()
+						H.update_worn_undersuit()
 
 	H.send_item_attack_message(I, user, hit_area)
 
@@ -2078,38 +2082,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(H.movement_type & FLYING)
 		return TRUE
 	return FALSE
-
-///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
-/datum/species/proc/get_custom_icons(var/part)
-	return
-/*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
-/datum/species/teshari/get_custom_icons(var/part)
-	switch(part)
-		if("uniform")
-			return 'icons/mob/species/teshari/tesh_uniforms.dmi'
-		if("gloves")
-			return 'icons/mob/species/teshari/tesh_gloves.dmi'
-		if("glasses")
-			return 'icons/mob/species/teshari/tesh_glasses.dmi'
-		if("ears")
-			return 'icons/mob/species/teshari/tesh_ears.dmi'
-		if("shoes")
-			return 'icons/mob/species/teshari/tesh_shoes.dmi'
-		if("head")
-			return 'icons/mob/species/teshari/tesh_head.dmi'
-		if("belt")
-			return 'icons/mob/species/teshari/tesh_belts.dmi'
-		if("suit")
-			return 'icons/mob/species/teshari/tesh_suits.dmi'
-		if("mask")
-			return 'icons/mob/species/teshari/tesh_masks.dmi'
-		if("back")
-			return 'icons/mob/species/teshari/tesh_back.dmi'
-		if("generic")
-			return 'icons/mob/species/teshari/tesh_generic.dmi'
-		else
-			return
-*/
 
 /datum/species/proc/get_item_offsets_for_index(i)
 	return

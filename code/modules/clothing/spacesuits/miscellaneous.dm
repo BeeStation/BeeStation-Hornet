@@ -654,7 +654,6 @@ Contains:
 	max_integrity = 200
 	slowdown = 3 //Higher is slower
 	clothing_flags = STOPSPRESSUREDAMAGE
-	species_restricted = null
 	gas_transfer_coefficient = 0.5
 	armor_type = /datum/armor/hardsuit_skinsuit
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
