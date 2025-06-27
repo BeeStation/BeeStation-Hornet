@@ -40,7 +40,8 @@
 		/obj/item/organ/external/wings,
 		/obj/item/organ/external/wings/moth,
 		/obj/item/organ/external/wings/bee,
-		/obj/item/organ/external/wings/dragon/fake,)
+		/obj/item/organ/external/wings/functional/dragon,
+	)
 	new mail_organminor(loc)
 	return ..()
 
@@ -65,8 +66,9 @@
 		/obj/item/organ/vocal_cords/adamantine,
 		/obj/effect/gibspawner/xeno,
 		/obj/effect/mob_spawn/human/corpse/assistant,
-		/obj/item/organ/external/wings/moth/robust,
-		/obj/item/organ/external/wings/dragon,)
+		/obj/item/organ/external/wings/moth, //TODO: MAKE USABLE
+		/obj/item/organ/external/wings/functional/dragon,
+	)
 	new mail_organmajor(loc)
 	return ..()
 

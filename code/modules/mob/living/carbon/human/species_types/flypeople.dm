@@ -8,7 +8,8 @@
 		TRAIT_BEEFRIEND
 	)
 	inherent_traits = list(
-		TRAIT_TACKLING_FRAIL_ATTACKER
+		TRAIT_CAN_USE_FLIGHT_POTION,
+		TRAIT_TACKLING_FRAIL_ATTACKER,
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	meat = /obj/item/food/meat/slab/human/mutant/fly

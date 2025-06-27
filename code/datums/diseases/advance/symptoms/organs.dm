@@ -202,14 +202,5 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/external/wings))
-					if(S.mutantwings)
-						var/obj/item/organ/external/wings/O = new S.mutantwings()
-						O.Insert(M, drop_if_replaced = FALSE)
-						M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_WINGS, 200)
-						M.visible_message(span_notice("[M] sprouts a new pair of wings!"), span_userdanger("You sprout a new pair of wings!."))
-						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
-						M.add_splatter_floor(get_turf(M))
-						return
 	if(prob(2) && M.stat != DEAD)
 		to_chat(M, span_notice("[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]"))

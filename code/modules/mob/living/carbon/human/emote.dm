@@ -200,28 +200,28 @@
 
 /datum/emote/living/carbon/human/wing/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	H.Togglewings()
+	if(.)
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/wings/functional/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+		if(wings && findtext(select_message_type(user,intentional), "open"))
+			wings.open_wings()
+		else
+			wings.close_wings()
 
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	if((H.dna.species.mutant_bodyparts["wings"]) || (H.dna.species.mutant_bodyparts["moth_wings"]))
+	if(H.dna.species.mutant_bodyparts["wings"])
 		. = "opens " + message
 	else
 		. = "closes " + message
 
-/datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional, params)
+/datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(H.dna && H.dna.species)
-		if(H.dna.features["wings"] != "None")
-			return TRUE
-		if(H.dna.features["moth_wings"] != "None")
-			var/obj/item/organ/external/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
-			if(istype(wings))
-				if(wings.flight_level >= WINGS_FLYING)
-					return TRUE
-	return FALSE
+	if(H.dna && H.dna.species && (H.dna.features["wings"] != "None"))
+		return TRUE
 
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)

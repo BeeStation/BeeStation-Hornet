@@ -82,8 +82,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest,
 	)
 
-	var/list/forced_features = list()	// A list of features forced on characters
-
 	///List of external organs to generate like horns, frills, wings, etc. list(typepath of organ = "Round Beautiful BDSM Snout"). Still WIP
 	var/list/external_organs = list()
 
@@ -114,6 +112,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
 
+	//Dictates which wing icons are allowed for a given species. If count is >1 a radial menu is used to choose between all icons in list
+	var/list/wing_types = list(/obj/item/organ/external/wings/functional/angel)
 	/// The natural temperature for a body
 	var/bodytemp_normal = BODYTEMP_NORMAL
 	/// Minimum amount of kelvin moved toward normal body temperature per tick.
@@ -160,8 +160,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/internal/stomach/mutantstomach = /obj/item/organ/internal/stomach
 	///Replaces default appendix with a different organ.
 	var/obj/item/organ/internal/appendix/mutantappendix = /obj/item/organ/internal/appendix
-	///Replaces default wings with a different organ. (There should be no default wings, only those on moths & apids, thus null)
-	var/obj/item/organ/external/wings/mutantwings = null
 	//only an honorary mutantthing because not an organ and not loaded in the same way, you've been warned to do your research
 	var/obj/item/mutanthands
 
@@ -200,8 +198,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 ///////////
 
 /datum/species/New()
+	wing_types = string_list(wing_types)
+
 	if(!plural_form)
 		plural_form = "[name]\s"
+
 	return ..()
 
 /// Gets a list of all species available to choose in roundstart.
@@ -315,8 +316,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return mutantliver
 		if(ORGAN_SLOT_STOMACH)
 			return mutantstomach
-		if(ORGAN_SLOT_EXTERNAL_WINGS)
-			return mutantwings
 		else
 			CRASH("Invalid organ slot [slot]")
 
@@ -345,12 +344,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		ORGAN_SLOT_TONGUE,
 		ORGAN_SLOT_LIVER,
 		ORGAN_SLOT_STOMACH,
-		ORGAN_SLOT_EXTERNAL_WINGS
 	)
-
-	//if theres no added wing type, we want to avoid adding a null(rkz code lol)
-	if(isnull(mutantwings))
-		organ_slots -= ORGAN_SLOT_EXTERNAL_WINGS
 
 	for(var/slot in organ_slots)
 		var/obj/item/organ/existing_organ = organ_holder.get_organ_slot(slot)
@@ -2072,7 +2066,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
 	if(H.movement_type & FLYING)
-		var/obj/item/organ/external/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+		var/obj/item/organ/external/wings/functional/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 		if(wings)
 			wings.toggle_flight(H)
 			wings.fly_slip(H)
@@ -2082,9 +2076,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(H.movement_type & FLYING)
 		return TRUE
 	return FALSE
-
-/datum/species/proc/get_item_offsets_for_index(i)
-	return
 
 /datum/species/proc/get_harm_descriptors()
 	return

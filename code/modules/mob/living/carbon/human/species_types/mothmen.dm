@@ -14,7 +14,8 @@
 		HAS_MARKINGS
 	)
 	inherent_traits = list(
-		TRAIT_TACKLING_WINGED_ATTACKER
+		TRAIT_CAN_USE_FLIGHT_POTION,
+		TRAIT_TACKLING_WINGED_ATTACKER,
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list(
@@ -31,11 +32,11 @@
 	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/internal/eyes/moth
-	mutantwings = /obj/item/organ/external/wings/moth
 	mutanttongue = /obj/item/organ/internal/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	inert_mutation = /datum/mutation/strongwings
+	wing_types = list(/obj/item/organ/external/wings/functional/moth/megamoth, /obj/item/organ/external/wings/functional/moth/mothra)
+	//inert_mutation = /datum/mutation/strongwings
 	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	bodypart_overrides = list(
@@ -82,6 +83,7 @@
 /datum/species/moth/get_scream_sound(mob/living/carbon/user)
 	return 'sound/voice/moth/scream_moth.ogg'
 
+/*
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
 	cocoon_action = new()
@@ -215,6 +217,7 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+*/
 
 /datum/species/moth/get_species_description()
 	return "Mothpeople are an intelligent species, known for their affinity to all things moth - lights, cloth, wings, and friendship."

@@ -1,15 +1,17 @@
 //Subtype of human
 /datum/species/human/felinid
-	name = "\improper Felinid"
+	name = "Felinid"
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
-	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
+	mutant_bodyparts = list("ears" = "Cat", "wings" = "None", "body_size" = "Normal")
 
 	mutantears = /obj/item/organ/internal/ears/cat
-	mutant_organs = list(/obj/item/organ/external/tail/cat)
+	external_organs = list(
+		/obj/item/organ/external/tail/cat = "Cat",
+	)
 	mutanttongue = /obj/item/organ/internal/tongue/cat
+	inherent_traits = list(TRAIT_CAN_USE_FLIGHT_POTION)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid

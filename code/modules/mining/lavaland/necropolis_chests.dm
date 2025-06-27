@@ -611,40 +611,49 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	color = "#FFEBEB"
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
-/datum/reagent/flightpotion/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		var/mob/living/carbon/C = M
-		var/holycheck = ishumanbasic(C)
-		if(reac_volume < 5) // implying xenohumans are holy //as with all things,
-			if(method == INGEST && show_message)
-				to_chat(C, span_notice("<i>You feel nothing but a terrible aftertaste.</i>"))
-			return ..()
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			var/obj/item/organ/external/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
-			if(H.get_organ_by_type(/obj/item/organ/external/wings))
-				if(wings.flight_level <= WINGS_FLIGHTLESS)
-					wings.flight_level += 1 //upgrade the flight level
-					wings.Refresh(H) //they need to insert to get the flight emote
-			else
-				if(MOB_ROBOTIC in H.mob_biotypes)
-					var/obj/item/organ/external/wings/cybernetic/newwings = new()
-					newwings.Insert(H)
-				else if(holycheck)
-					var/obj/item/organ/external/wings/angel/newwings = new()
-					newwings.Insert(H)
-				else
-					var/obj/item/organ/external/wings/dragon/newwings = new()
-					newwings.Insert(H)
-				to_chat(C, span_userdanger("A terrible pain travels down your back as wings burst out!"))
-				playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
-				C.adjustBruteLoss(20)
-				C.emote("scream")
-		if(holycheck)
-			to_chat(C, span_notice("You feel blessed!"))
-			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
-	..()
+/datum/reagent/flightpotion/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+	. = ..()
+	if(!ishuman(exposed_mob) || exposed_mob.stat == DEAD)
+		return
+	var/mob/living/carbon/human/exposed_human = exposed_mob
+	if(!HAS_TRAIT(exposed_human, TRAIT_CAN_USE_FLIGHT_POTION) || reac_volume < 5 || !exposed_human.dna)
+		if((methods & INGEST) && show_message)
+			to_chat(exposed_human, span_notice("<i>You feel nothing but a terrible aftertaste.</i>"))
+		return
+	if(exposed_human.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS))
+		to_chat(exposed_human, span_userdanger("A terrible pain travels down your back as your wings change shape!"))
+	else
+		to_chat(exposed_human, span_userdanger("A terrible pain travels down your back as wings burst out!"))
+	var/obj/item/organ/external/wings/functional/wings = get_wing_choice(exposed_human)
+	wings = new wings()
+	wings.Insert(exposed_human)
+	exposed_human.dna.species.handle_mutant_bodyparts(exposed_human)
+	playsound(exposed_human.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
+	exposed_human.adjustBruteLoss(20)
+	exposed_human.emote("scream")
 
+/datum/reagent/flightpotion/proc/get_wing_choice(mob/living/carbon/human/needs_wings)
+	var/list/wing_types = needs_wings.dna.species.wing_types.Copy()
+	if(wing_types.len == 1 || !needs_wings.client)
+		return wing_types[1]
+	var/list/radial_wings = list()
+	var/list/name2type = list()
+	for(var/obj/item/organ/external/wings/functional/possible_type as anything in wing_types)
+		var/datum/sprite_accessory/accessory = initial(possible_type.sprite_accessory_override) //get the type
+		accessory = GLOB.wings_list[initial(accessory.name)] //get the singleton instance
+		var/image/img = image(icon = accessory.icon, icon_state = "m_wingsopen_[accessory.icon_state]_BEHIND") //Process the HUD elements
+		img.transform *= 0.5
+		img.pixel_x = -32
+		if(radial_wings[accessory.name])
+			stack_trace("Different wing types with repeated names. Please fix as this may cause issues.")
+		else
+			radial_wings[accessory.name] = img
+			name2type[accessory.name] = possible_type
+	var/wing_name = show_radial_menu(needs_wings, needs_wings, radial_wings, tooltips = TRUE)
+	var/wing_type = name2type[wing_name]
+	if(!wing_type)
+		wing_type = pick(wing_types)
+	return wing_type
 
 /obj/item/jacobs_ladder
 	name = "jacob's ladder"

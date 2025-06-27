@@ -218,12 +218,13 @@
 		/obj/item/organ/external/wings = 1,
 		/obj/item/organ/external/wings/moth = 1,
 		/obj/item/organ/external/wings/bee = 1,
-		/obj/item/organ/external/wings/dragon/fake = 1)
+		//obj/item/organ/external/wings/dragon/fake = 1
+	)
 
 /obj/effect/spawner/lootdrop/teratoma/major
 	name = "advanced teratoma spawner"
 	loot = list(
-		/obj/item/organ/adamantine_resonator = 2,,
+		/obj/item/organ/adamantine_resonator = 2,
 		/obj/item/organ/internal/ears/penguin = 2,
 		/obj/item/organ/internal/heart/gland/viral = 1,
 		/obj/item/organ/internal/eyes/night_vision = 1,
@@ -239,8 +240,8 @@
 		/obj/item/organ/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
-		/obj/item/organ/external/wings/moth/robust = 1,
-		/obj/item/organ/external/wings/dragon = 1)
+		///obj/item/organ/external/wings/moth/robust = 1,
+		/obj/item/organ/external/wings/functional/dragon = 1)
 
 /obj/effect/spawner/lootdrop/teratoma/robot
 	name = "robotic teratoma spawner"
@@ -254,18 +255,13 @@
 		/obj/item/organ/internal/lungs/cybernetic = 4,
 		/obj/item/organ/internal/lungs/cybernetic/upgraded= 2,
 		/obj/item/organ/internal/stomach/battery/ipc = 4,
-		/obj/item/organ/internal/heart/clockwork = 6,
-		/obj/item/organ/internal/stomach/clockwork = 6,
-		/obj/item/organ/internal/liver/clockwork = 6,
-		/obj/item/organ/internal/lungs/clockwork = 6,
 		/obj/item/organ/adamantine_resonator = 1,
 		/obj/item/organ/internal/eyes/robotic/thermals = 2,
 		/obj/item/organ/internal/heart/gland/viral = 1,
 		/obj/item/organ/internal/eyes/robotic/shield = 2,
 		/obj/item/organ/internal/eyes/robotic/glow = 2,
 		/obj/item/organ/internal/heart/cybernetic = 2,
-		/obj/item/organ/external/wings/cybernetic = 2,
-		/obj/item/organ/internal/tongue/robot/clockwork/better = 2,
+		/obj/item/organ/external/wings/functional/cybernetic = 2,
 		/obj/effect/gibspawner/robot = 4,
 		/obj/effect/mob_spawn/drone = 1,
 		)

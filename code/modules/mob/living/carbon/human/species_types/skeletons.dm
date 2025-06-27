@@ -1,6 +1,6 @@
 /datum/species/skeleton
 	// 2spooky
-	name = "\improper Spooky Scary Skeleton"
+	name = "Spooky Scary Skeleton"
 	plural_form = "Skeletons"
 	id = SPECIES_SKELETON
 	sexes = 0
@@ -9,6 +9,7 @@
 		NOHUSK,
 	)
 	inherent_traits = list(
+		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,

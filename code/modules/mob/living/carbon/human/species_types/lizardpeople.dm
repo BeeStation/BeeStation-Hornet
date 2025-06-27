@@ -9,7 +9,8 @@
 		LIPS
 	)
 	inherent_traits = list(
-		TRAIT_TACKLING_TAILED_DEFENDER
+		TRAIT_CAN_USE_FLIGHT_POTION,
+		TRAIT_TACKLING_TAILED_DEFENDER,
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list(
