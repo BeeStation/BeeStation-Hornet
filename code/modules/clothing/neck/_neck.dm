@@ -107,8 +107,8 @@
 			var/heart_strength = span_danger("no")
 			var/lung_strength = span_danger("no")
 
-			var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
-			var/obj/item/organ/lungs/lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
+			var/obj/item/organ/heart/heart = M.get_organ_slot(ORGAN_SLOT_HEART)
+			var/obj/item/organ/lungs/lungs = M.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 			if(!(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH))))
 				if(heart && istype(heart))
@@ -136,6 +136,8 @@
 /obj/item/clothing/neck/scarf //Default white color, same functionality as beanies.
 	name = "white scarf"
 	icon_state = "scarf"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "scarf_cloth"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
 	custom_price = 10

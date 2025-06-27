@@ -4,6 +4,7 @@
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
+#define UF_CHANGED "uf changed"
 
 #define CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY 204
 
@@ -34,6 +35,37 @@
 #define DNA_HAIR_GRADIENT_COLOR_BLOCK	8
 #define DNA_HAIR_GRADIENT_STYLE_BLOCK	9
 
+#define DNA_FEATURE_BLOCKS			29
+#define DNA_MUTANT_COLOR_BLOCK		1
+#define DNA_ETHEREAL_COLOR_BLOCK	2
+#define DNA_LIZARD_MARKINGS_BLOCK	3
+#define DNA_LIZARD_TAIL_BLOCK		4
+#define DNA_SNOUT_BLOCK				5
+#define DNA_HORNS_BLOCK				6
+#define DNA_FRILLS_BLOCK			7
+#define DNA_SPINES_BLOCK			8
+#define DNA_HUMAN_TAIL_BLOCK		9
+#define DNA_EARS_BLOCK				10
+#define DNA_MOTH_WINGS_BLOCK		11
+#define DNA_MOTH_ANTENNAE_BLOCK		12
+#define DNA_MOTH_MARKINGS_BLOCK		13
+#define DNA_APID_ANTENNA_BLOCK		14
+#define DNA_APID_STRIPES_BLOCK		15
+#define DNA_APID_HEADSTRIPES_BLOCK	16
+#define DNA_PSYPHOZA_CAP_BLOCK		17
+#define DNA_INSECT_TYPE_BLOCK		18
+#define DNA_IPC_SCREEN_BLOCK		19
+#define DNA_IPC_ANTENNA_BLOCK		20
+#define DNA_IPC_CHASSIS_BLOCK		21
+#define DNA_DIONA_LEAVES_BLOCK		22
+#define DNA_DIONA_THORNS_BLOCK		23
+#define DNA_DIONA_FLOWERS_BLOCK		24
+#define DNA_DIONA_MOSS_BLOCK		25
+#define DNA_DIONA_MUSHROOM_BLOCK	26
+#define DNA_DIONA_ANTENNAE_BLOCK	27
+#define DNA_DIONA_EYES_BLOCK		28
+#define DNA_DIONA_PBODY_BLOCK		29
+
 #define DNA_SEQUENCE_LENGTH			4
 #define DNA_MUTATION_BLOCKS			8
 #define DNA_UNIQUE_ENZYMES_LEN		32
@@ -53,28 +85,34 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS		1
-#define HAIR			2
-#define FACEHAIR		3
-#define EYECOLOR		4
-#define LIPS			5
-#define NOBLOOD			6
-#define NOTRANSSTING	7
-#define NOZOMBIE		8
-#define NO_UNDERWEAR	9
-#define NOLIVER			10
-#define NOSTOMACH		11
-#define NO_DNA_COPY     12
-#define NOFLASH			13
-#define DYNCOLORS		14 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
-#define AGENDER			15
-#define NOEYESPRITES	16 //! Do not draw eyes or eyeless overlay
-#define NOREAGENTS     17 //! DO NOT PROCESS REAGENTS
-#define REVIVESBYHEALING 18 // Will revive on heal when healing and total HP > 0.
-#define NOHUSK			19 // Can't be husked.
-#define NOMOUTH			20
-#define NOSOCKS       21 // You cannot wear socks.
-#define ENVIROSUIT		22 //! spawns with an envirosuit
+#define MUTCOLORS 1
+#define HAIR 2
+#define FACEHAIR 3
+#define EYECOLOR 4
+#define LIPS 5
+#define NOTRANSSTING 6
+#define NOZOMBIE 8
+#define NO_UNDERWEAR 9
+#define NO_DNA_COPY 10
+//Flashing has no effect
+#define NOFLASH 11
+// Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
+#define DYNCOLORS 12
+// No sex!
+#define AGENDER 13
+// Do not draw eyes or eyeless overlay
+#define NOEYESPRITES 14
+// DO NOT PROCESS REAGENTS
+#define NOREAGENTS 15
+// Will revive on heal when healing and total HP > 0.
+#define REVIVESBYHEALING 16
+// Can't be husked.
+#define NOHUSK 17
+#define NOMOUTH 18
+// You cannot wear socks.
+#define NOSOCKS 19
+// spawns with an envirosuit
+#define ENVIROSUIT 20
 
 /// Used for determining which wounds are applicable to this species.
 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)

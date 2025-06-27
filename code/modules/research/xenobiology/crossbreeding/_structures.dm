@@ -31,45 +31,45 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/itemcolor = "#FFFFFF"
 
 	switch(colour)
-		if("orange")
+		if(SLIME_TYPE_ORANGE)
 			itemcolor = "#FFA500"
-		if("purple")
+		if(SLIME_TYPE_PURPLE)
 			itemcolor = "#B19CD9"
-		if("blue")
+		if(SLIME_TYPE_BLUE)
 			itemcolor = "#ADD8E6"
-		if("metal")
+		if(SLIME_TYPE_METAL)
 			itemcolor = "#7E7E7E"
-		if("yellow")
+		if(SLIME_TYPE_YELLOW)
 			itemcolor = "#FFFF00"
-		if("dark purple")
+		if(SLIME_TYPE_DARK_PURPLE)
 			itemcolor = "#551A8B"
-		if("dark blue")
+		if(SLIME_TYPE_DARK_BLUE)
 			itemcolor = "#0000FF"
-		if("silver")
+		if(SLIME_TYPE_SILVER)
 			itemcolor = "#D3D3D3"
-		if("bluespace")
+		if(SLIME_TYPE_BLUESPACE)
 			itemcolor = "#32CD32"
-		if("sepia")
+		if(SLIME_TYPE_SEPIA)
 			itemcolor = "#704214"
-		if("cerulean")
+		if(SLIME_TYPE_CERULEAN)
 			itemcolor = "#2956B2"
-		if("pyrite")
+		if(SLIME_TYPE_PYRITE)
 			itemcolor = "#FAFAD2"
-		if("red")
+		if(SLIME_TYPE_RED)
 			itemcolor = "#FF0000"
-		if("green")
+		if(SLIME_TYPE_GREEN)
 			itemcolor = "#00FF00"
-		if("pink")
+		if(SLIME_TYPE_PINK)
 			itemcolor = "#FF69B4"
-		if("gold")
+		if(SLIME_TYPE_GOLD)
 			itemcolor = "#FFD700"
-		if("oil")
+		if(SLIME_TYPE_OIL)
 			itemcolor = "#505050"
-		if("black")
+		if(SLIME_TYPE_BLACK)
 			itemcolor = "#000000"
-		if("light pink")
+		if(SLIME_TYPE_LIGHT_PINK)
 			itemcolor = "#FFB6C1"
-		if("adamantine")
+		if(SLIME_TYPE_ADAMANTINE)
 			itemcolor = "#008B8B"
 	add_atom_colour(itemcolor, FIXED_COLOUR_PRIORITY)
 	if(uses_process)
@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	return
 
 /obj/structure/slime_crystal/grey
-	colour = "grey"
+	colour = SLIME_TYPE_GREY
 	range_type = "view"
 
 /obj/structure/slime_crystal/grey/on_mob_effect(mob/living/affected_mob)
@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	slime_mob.nutrition += 2
 
 /obj/structure/slime_crystal/orange
-	colour = "orange"
+	colour = SLIME_TYPE_ORANGE
 	range_type = "view"
 
 /obj/structure/slime_crystal/orange/on_mob_effect(mob/living/affected_mob)
@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/purple
-	colour = "purple"
+	colour = SLIME_TYPE_PURPLE
 
 	var/heal_amt = 2
 
@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			carbon_mob.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_HEART,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS), -heal_amt)
 
 /obj/structure/slime_crystal/blue
-	colour = "blue"
+	colour = SLIME_TYPE_BLUE
 	range_type = "view"
 
 /obj/structure/slime_crystal/blue/process()
@@ -199,7 +199,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/metal
-	colour = "metal"
+	colour = SLIME_TYPE_METAL
 
 	var/heal_amt = 3
 
@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	borgo.adjustBruteLoss(-heal_amt)
 
 /obj/structure/slime_crystal/yellow
-	colour = "yellow"
+	colour = SLIME_TYPE_YELLOW
 	light_color = LIGHT_COLOR_DIM_YELLOW //a good, sickly atmosphere
 	light_power = 0.75
 	uses_process = FALSE
@@ -232,7 +232,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		return
 	return ..()
 /obj/structure/slime_crystal/darkpurple
-	colour = "dark purple"
+	colour = SLIME_TYPE_DARK_PURPLE
 
 /obj/structure/slime_crystal/darkpurple/process()
 	var/turf/T = get_turf(src)
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	return ..()
 
 /obj/structure/slime_crystal/darkblue
-	colour = "dark blue"
+	colour = SLIME_TYPE_DARK_BLUE
 
 /obj/structure/slime_crystal/darkblue/process(delta_time)
 	for(var/turf/open/T in RANGE_TURFS(5, src))
@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			qdel(trashie)
 
 /obj/structure/slime_crystal/silver
-	colour = "silver"
+	colour = SLIME_TYPE_SILVER
 
 /obj/structure/slime_crystal/silver/process(delta_time)
 	for(var/obj/machinery/hydroponics/hydr in range(5,src))
@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			hydr.age++
 
 /obj/structure/slime_crystal/bluespace
-	colour = "bluespace"
+	colour = SLIME_TYPE_BLUESPACE
 	density = FALSE
 	uses_process = FALSE
 	///Is it in use?
@@ -327,7 +327,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	do_teleport(user ,assoc_list[chosen_input])
 
 /obj/structure/slime_crystal/sepia
-	colour = "sepia"
+	colour = SLIME_TYPE_SEPIA
 
 /obj/structure/slime_crystal/sepia/on_mob_enter(mob/living/affected_mob)
 	ADD_TRAIT(affected_mob,TRAIT_NOBREATH,type)
@@ -399,7 +399,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	return ..()
 
 /obj/structure/slime_crystal/cerulean
-	colour = "cerulean"
+	colour = SLIME_TYPE_CERULEAN
 	uses_process = FALSE
 	var/crystals = 0
 
@@ -422,7 +422,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 		return
 
 /obj/structure/slime_crystal/pyrite
-	colour = "pyrite"
+	colour = SLIME_TYPE_PYRITE
 	uses_process = FALSE
 
 /obj/structure/slime_crystal/pyrite/Initialize(mapload)
@@ -438,7 +438,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	addtimer(CALLBACK(src,PROC_REF(change_colour)),rand(0.75 SECONDS,1.25 SECONDS))
 
 /obj/structure/slime_crystal/red
-	colour = "red"
+	colour = SLIME_TYPE_RED
 
 	var/blood_amt = 0
 
@@ -492,7 +492,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	item_beaker.reagents.add_reagent(/datum/reagent/blood,10)
 
 /obj/structure/slime_crystal/green
-	colour = "green"
+	colour = SLIME_TYPE_GREEN
 	var/datum/mutation/stored_mutation
 
 /obj/structure/slime_crystal/green/examine(mob/user)
@@ -539,7 +539,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	carbon_mob.dna.remove_mutation(stored_mutation)
 
 /obj/structure/slime_crystal/pink
-	colour = "pink"
+	colour = SLIME_TYPE_PINK
 
 /obj/structure/slime_crystal/pink/on_mob_enter(mob/living/affected_mob)
 	ADD_TRAIT(affected_mob,TRAIT_PACIFISM,type)
@@ -548,7 +548,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	REMOVE_TRAIT(affected_mob,TRAIT_PACIFISM,type)
 
 /obj/structure/slime_crystal/gold
-	colour = "gold"
+	colour = SLIME_TYPE_GOLD
 
 /obj/structure/slime_crystal/gold/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -571,14 +571,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	qdel(affected_mob)
 
 /obj/structure/slime_crystal/oil
-	colour = "oil"
+	colour = SLIME_TYPE_OIL
 
 /obj/structure/slime_crystal/oil/process()
 	for(var/turf/open/turf_in_range in RANGE_TURFS(3,src))
 		turf_in_range.MakeSlippery(TURF_WET_LUBE,5 SECONDS)
 
 /obj/structure/slime_crystal/black
-	colour = "black"
+	colour = SLIME_TYPE_BLACK
 
 /obj/structure/slime_crystal/black/on_mob_effect(mob/living/affected_mob)
 	if(!ishuman(affected_mob) || isoozeling(affected_mob))
@@ -591,7 +591,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	human_transformed.set_species(pick(typesof(/datum/species/oozeling)))
 
 /obj/structure/slime_crystal/lightpink
-	colour = "light pink"
+	colour = SLIME_TYPE_LIGHT_PINK
 
 /obj/structure/slime_crystal/lightpink/attack_ghost(mob/user)
 	. = ..()
@@ -607,7 +607,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 		qdel(affected_mob)
 
 /obj/structure/slime_crystal/adamantine
-	colour = "adamantine"
+	colour = SLIME_TYPE_ADAMANTINE
 
 /obj/structure/slime_crystal/adamantine/on_mob_enter(mob/living/affected_mob)
 	if(!ishuman(affected_mob))
@@ -626,7 +626,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	human.dna.species.burnmod += 0.1
 
 /obj/structure/slime_crystal/rainbow
-	colour = "rainbow"
+	colour = SLIME_TYPE_RAINBOW
 	uses_process = FALSE
 	var/list/inserted_cores = list()
 
