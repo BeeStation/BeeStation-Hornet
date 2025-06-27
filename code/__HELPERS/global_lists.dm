@@ -26,7 +26,6 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)

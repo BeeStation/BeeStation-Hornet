@@ -17,6 +17,8 @@
 	conversion in savefile.dm
 */
 /proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female,roundstart = FALSE, add_blank)//Roundstart argument builds a specific list for roundstart parts where some parts may be locked
+	RETURN_TYPE(/list)
+
 	if(!istype(L))
 		L = list()
 	if(!istype(male))
@@ -82,7 +84,7 @@
 	var/limbs_id // The limbs id supplied for full-body replacing features.
 
 /datum/sprite_accessory/blank
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "None"
 
 //////////////////////
@@ -874,7 +876,7 @@
 	var/gradient_category = GRADIENT_APPLIES_TO_HAIR|GRADIENT_APPLIES_TO_FACIAL_HAIR
 
 /datum/sprite_accessory/gradient/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/gradient/fadeup
@@ -1625,7 +1627,7 @@
 /////////////////////////////
 
 /datum/sprite_accessory/body_markings
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
@@ -1651,6 +1653,10 @@
 
 /datum/sprite_accessory/tails/lizard
 	icon = 'icons/mob/species/lizard/lizard_tails.dmi'
+
+/datum/sprite_accessory/tails/lizard/none
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = "none"
 
 /datum/sprite_accessory/tails/lizard/smooth
 	name = "Smooth"
@@ -1684,7 +1690,7 @@
 	color_src = null
 
 /datum/sprite_accessory/snouts
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/snouts/sharp
 	name = "Sharp"
@@ -1703,11 +1709,7 @@
 	icon_state = "roundlight"
 
 /datum/sprite_accessory/horns
-	icon = 'icons/mob/mutant_bodyparts.dmi'
-
-/datum/sprite_accessory/horns/none
-	name = "None"
-	icon_state = "none"
+	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/horns/simple
 	name = "Simple"
@@ -1732,24 +1734,16 @@
 /datum/sprite_accessory/ears
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
-/datum/sprite_accessory/ears/none
-	name = "None"
-	icon_state = "none"
-
 /datum/sprite_accessory/ears/cat
 	name = "Cat"
 	icon_state = "cat"
 	hasinner = 1
 	color_src = HAIR
 
-/datum/sprite_accessory/wings/none
-	name = "None"
-	icon_state = "none"
-
-/datum/sprite_accessory/wings_open
+/datum/sprite_accessory/wings
 	icon = 'icons/mob/wings.dmi'
 
-/datum/sprite_accessory/wings
+/datum/sprite_accessory/wings_open
 	icon = 'icons/mob/wings.dmi'
 
 /datum/sprite_accessory/wings/angel
@@ -1906,10 +1900,6 @@
 /datum/sprite_accessory/frills
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
-/datum/sprite_accessory/frills/none
-	name = "None"
-	icon_state = "none"
-
 /datum/sprite_accessory/frills/simple
 	name = "Simple"
 	icon_state = "simple"
@@ -1924,10 +1914,6 @@
 
 /datum/sprite_accessory/spines
 	icon = 'icons/mob/species/lizard/lizard_spines.dmi'
-
-/datum/sprite_accessory/spines/none
-	name = "None"
-	icon_state = "none"
 
 /datum/sprite_accessory/spines/short
 	name = "Short"
@@ -1945,7 +1931,7 @@
 	name = "Long + Membrane"
 	icon_state = "longmeme"
 
-/datum/sprite_accessory/spines/aqautic
+/datum/sprite_accessory/spines/aquatic
 	name = "Aquatic"
 	icon_state = "aqua"
 
@@ -1957,14 +1943,6 @@
 
 /datum/sprite_accessory/legs/digitigrade_lizard
 	name = "Digitigrade Legs"
-
-/datum/sprite_accessory/caps
-	icon = 'icons/mob/mutant_bodyparts.dmi'
-	color_src = HAIR
-
-/datum/sprite_accessory/caps/round
-	name = "Round"
-	icon_state = "round"
 
 /datum/sprite_accessory/moth_wings
 	icon = 'icons/mob/species/moth/moth_wings.dmi'
@@ -2268,10 +2246,6 @@
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
 	icon = 'icons/mob/species/moth/moth_markings.dmi'
 	color_src = null
-
-/datum/sprite_accessory/moth_markings/none
-	name = "None"
-	icon_state = "none"
 
 /datum/sprite_accessory/moth_markings/reddish
 	name = "Reddish"

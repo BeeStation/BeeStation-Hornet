@@ -804,8 +804,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("moth_markings")
 					S = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
-				if("caps")
-					S = GLOB.caps_list[H.dna.features["caps"]]
 				if("ipc_screen")
 					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
 				if("ipc_antenna")
@@ -933,7 +931,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/obj/item/organ/external/randomized_organ = human_mob.get_organ_by_type(organ_path)
 		if(randomized_organ)
 			var/datum/bodypart_overlay/mutant/overlay = randomized_organ.bodypart_overlay
-			var/new_look = pick(overlay.get_global_feature_list())
+			var/new_look = overlay.get_random_appearance().name
 			human_mob.dna.features["[overlay.feature_key]"] = new_look
 			mutant_bodyparts["[overlay.feature_key]"] = new_look
 
@@ -2171,6 +2169,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			|| (preference.relevant_external_organ in external_organs)
 		)
 			features += preference.db_key
+
+	for (var/obj/item/organ/external/organ_type as anything in external_organs)
+		var/preference = initial(organ_type.preference)
+		if (!isnull(preference))
+			features += preference
 
 	GLOB.features_by_species[type] = features
 

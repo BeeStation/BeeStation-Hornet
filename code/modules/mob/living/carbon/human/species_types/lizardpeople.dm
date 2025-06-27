@@ -19,10 +19,10 @@
 		"body_size" = "Normal"
 	)
 	external_organs = list(
-		/obj/item/organ/external/horns = "None",
-		/obj/item/organ/external/frills = "None",
+		/obj/item/organ/external/horns = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/external/frills = SPRITE_ACCESSORY_NONE,
 		/obj/item/organ/external/snout = "Round",
-		/obj/item/organ/external/spines = "None",
+		/obj/item/organ/external/spines = SPRITE_ACCESSORY_NONE,
 		/obj/item/organ/external/tail/lizard = "Smooth",
 	)
 	mutanttongue = /obj/item/organ/internal/tongue/lizard

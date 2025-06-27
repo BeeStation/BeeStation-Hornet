@@ -14,8 +14,7 @@
 
 	if (isnull(moth_head))
 		moth_head = uni_icon('icons/mob/species/moth/bodyparts.dmi', "moth_head")
-		moth_head.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
-		moth_head.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
+		moth_head.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/antennae = GLOB.moth_antennae_list[value]
 
@@ -55,8 +54,7 @@
 		for (var/obj/item/bodypart/body_part as anything in body_parts)
 			moth_body.blend_icon(uni_icon('icons/mob/species/moth/bodyparts.dmi', initial(body_part.icon_state)), ICON_OVERLAY)
 
-		moth_body.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
-		moth_body.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
+		moth_body.blend_icon(uni_icon('icons/mob/species/human/human_face.dmi', "motheyes"), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = GLOB.moth_markings_list[value]
 	var/datum/universal_icon/icon_with_markings = moth_body.copy()

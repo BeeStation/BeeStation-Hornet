@@ -4,7 +4,7 @@
 
 	if (isnull(lizard))
 		lizard = uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_head", EAST)
-		var/datum/universal_icon/eyes = uni_icon('icons/mob/species/human/human_face.dmi', "eyes_l", EAST)
+		var/datum/universal_icon/eyes = uni_icon('icons/mob/species/human/human_face.dmi', "eyes", EAST)
 		eyes.blend_color(COLOR_GRAY, ICON_MULTIPLY)
 		lizard.blend_icon(eyes, ICON_OVERLAY)
 
@@ -98,7 +98,7 @@
 	relevant_mutant_bodypart = "legs"
 
 /datum/preference/choiced/lizard_legs/init_possible_values()
-	return assoc_to_keys(GLOB.legs_list)
+	return assoc_to_keys_features(GLOB.legs_list)
 
 /datum/preference/choiced/lizard_legs/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["legs"] = value
@@ -125,7 +125,6 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Spines"
-	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "spines"
 
 /datum/preference/choiced/lizard_spines/init_possible_values()
@@ -139,7 +138,6 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Tail"
-	should_generate_icons = TRUE
 	relevant_external_organ = /obj/item/organ/external/tail/lizard
 
 /datum/preference/choiced/lizard_tail/init_possible_values()

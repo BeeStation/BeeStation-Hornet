@@ -127,6 +127,9 @@
 	return ..()
 
 /proc/should_external_organ_apply_to(obj/item/organ/external/organpath, mob/living/carbon/target)
+	if(!initial(organpath.bodypart_overlay))
+		return TRUE
+
 	if(isnull(organpath) || isnull(target))
 		stack_trace("passed a null path or mob to 'should_external_organ_apply_to'")
 		return FALSE
