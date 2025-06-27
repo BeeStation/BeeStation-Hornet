@@ -59,10 +59,12 @@
 		return
 
 	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
-		var/balls = !!type_selection.color_src
-		if(balls)
-			BP.should_draw_greyscale = TRUE
+		BP.should_draw_greyscale = !!type_selection.color_src
+		if(BP.should_draw_greyscale)
 			BP.species_color = C.dna?.features["mcolor"]
+		else
+			BP.species_color = null
+
 		// Hardcoded bullshit that will probably break. Woo shitcode. Bee insect_type has dimorphic parts while flies do not.
 		BP.is_dimorphic = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
 

@@ -270,10 +270,11 @@
 	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
 	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
-		var/balls = chassis_of_choice.color_src ? TRUE : FALSE
-		if(balls)
-			BP.should_draw_greyscale = TRUE
+		BP.should_draw_greyscale = chassis_of_choice.color_src ? TRUE : FALSE
+		if(BP.should_draw_greyscale)
 			BP.species_color = C.dna?.features["mcolor"]
+		else
+			BP.species_color = null
 
 		BP.limb_id = chassis_of_choice.limbs_id
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
