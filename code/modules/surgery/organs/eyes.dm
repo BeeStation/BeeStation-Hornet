@@ -122,10 +122,10 @@
 	name = "undead eyes"
 	desc = "Somewhat counterintuitively, these half-rotten eyes actually have superior vision to those of a living human."
 
-/obj/item/organ/internal/eyes/night_vision/nightmare
+/obj/item/organ/internal/eyes/night_vision/shadow
 	name = "burning red eyes"
 	desc = "Even without their shadowy owner, looking at these eyes gives you a sense of dread."
-	icon_state = "burning_eyes"
+	icon = 'icons/obj/medical/organs/shadow_organs.dmi'
 
 /obj/item/organ/internal/eyes/night_vision/mushroom
 	name = "fung-eye"

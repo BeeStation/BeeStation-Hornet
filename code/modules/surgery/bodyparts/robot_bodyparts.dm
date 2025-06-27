@@ -16,8 +16,8 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	attack_verb_simple = list("slapped", "punched")
 	item_state = "buildpipe"
+	icon = 'icons/mob/augmentation/augments.dmi'
 	icon_static = 'icons/mob/augmentation/augments.dmi'
-	icon = null
 	flags_1 = CONDUCT_1
 	icon_state = "borg_l_arm"
 	is_dimorphic = FALSE
@@ -43,7 +43,7 @@
 	attack_verb_simple = list("slapped", "punched")
 	item_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
-	icon = null
+	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	flags_1 = CONDUCT_1
 	icon_state = "borg_r_arm"
@@ -70,7 +70,7 @@
 	attack_verb_simple = list("kicked", "stomped")
 	item_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
-	icon = null
+	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	flags_1 = CONDUCT_1
 	icon_state = "borg_l_leg"
@@ -122,8 +122,8 @@
 	name = "cyborg torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	item_state = "buildpipe"
-	icon_static = 'icons/mob/augmentation/augments.dmi'
-	icon = null
+	icon_static =  'icons/mob/augmentation/augments.dmi'
+	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	flags_1 = CONDUCT_1
 	icon_state = "borg_chest"
@@ -231,8 +231,8 @@
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	item_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
+	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
-	icon = null
 	flags_1 = CONDUCT_1
 	icon_state = "borg_head"
 	is_dimorphic = FALSE

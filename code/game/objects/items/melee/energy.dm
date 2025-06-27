@@ -256,6 +256,7 @@
 
 /obj/item/melee/energy/sword/esaw/implant //Energy Saw Arm Implant
 	icon_state = "implant-esaw"
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 
