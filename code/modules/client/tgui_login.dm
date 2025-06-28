@@ -25,9 +25,6 @@
 	if(client?.mob)
 		ui_interact(client.mob)
 
-/datum/tgui_login/proc/close()
-	SStgui.close_uis(src)
-
 /datum/tgui_login/Destroy(force, ...)
 	SStgui.close_uis(src)
 	. = ..()

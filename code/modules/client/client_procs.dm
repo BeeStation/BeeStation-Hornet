@@ -863,7 +863,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 					to_chat_immediate(src, span_notice("Sending you to [panic_name ? panic_name : panic_addr]."))
 					winset(src, null, "command=.options")
 					src << link("[panic_addr]?redirect=1")
-				qdel(query_client_in_db)
 				qdel(src)
 				return
 	var/safe_storage_address = address || "127.0.0.1"
@@ -876,14 +875,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			VALUES (:ckey, :key, :discord_uid, Now(), :round_id, Now(), :round_id, INET_ATON(:ip), :computerid, :adminrank, :account_join_date)
 		"}, list("ckey" = ckey, "key" = key, "discord_uid" = discord_uid, "round_id" = GLOB.round_id, "ip" = safe_storage_address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = account_join_date == "Error" || account_join_date == "N/A" ? null : account_join_date || null))
 		if(!query_add_player.Execute())
-			qdel(query_client_in_db)
 			qdel(query_add_player)
 			return
 		qdel(query_add_player)
 		if(!account_join_date)
 			account_join_date = src.key_is_external ? "N/A" : "Error"
 			account_age = -1
-	qdel(query_client_in_db)
 	var/datum/db_query/query_get_client_age = SSdbcore.NewQuery(
 		"SELECT firstseen, DATEDIFF(Now(),firstseen), accountjoindate, DATEDIFF(Now(),accountjoindate) FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)

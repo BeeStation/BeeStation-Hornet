@@ -139,9 +139,6 @@
 	if(length(new_key))
 		qdel(query_check_token)
 		tgui_login?.save_session_token(token)
-		// Make sure this stupid thing closes correctly
-		spawn(5 SECONDS)
-			tgui_login?.close()
 		return login_as(new_key, external_method, external_uid, external_display_name)
 	qdel(query_check_token)
 	return FALSE
