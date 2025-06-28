@@ -46,7 +46,11 @@
 	authed.key = key
 	if(istype(login_window))
 		login_window.user = authed
-		login_window.close()
+		if(login_window.window)
+			login_window.window.client = client
+		login_window.close() // try suspending it
+		if(login_window.window?.id)
+			client << browse(null, "window=[login_window.window.id]") // ok seriously get out
 	qdel(src)
 
 /mob/dead/new_player/pre_auth/vv_edit_var(var_name, var_value)
