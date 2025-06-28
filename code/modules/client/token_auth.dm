@@ -41,8 +41,12 @@
 		return
 	var/mob/dead/new_player/authenticated/authed = new()
 	var/key = client.key
+	var/datum/tgui/login_window = SStgui.get_open_ui(src, client.tgui_login)
 	authed.name = client.display_name()
 	authed.key = key
+	if(istype(login_window))
+		login_window.user = authed
+		login_window.close()
 	qdel(src)
 
 /mob/dead/new_player/pre_auth/vv_edit_var(var_name, var_value)
