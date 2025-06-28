@@ -1,5 +1,0 @@
-author: 'mrmanlikesbt, 13spacemen, Absolucy, Flleeppyy, Timberpoes, Ghommie, vinylspiders,
-  SmArtKar, '
-delete-after: true
-changes:
-  - refactor: refactored ghost polling to use alerts instead of a tgui popup
