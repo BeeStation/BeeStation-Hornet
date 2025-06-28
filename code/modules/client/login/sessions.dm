@@ -149,6 +149,9 @@
 	if(!client_pre_login(TRUE, FALSE))
 		return FALSE
 
+	if(QDELETED(src))
+		return FALSE
+
 	// Mob is ready
 	// calls /mob/dead/new_player/authenticated/Login()
 	// creates mind and such

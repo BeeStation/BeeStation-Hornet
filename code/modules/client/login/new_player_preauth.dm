@@ -2,6 +2,9 @@
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)] via convert_to_authed()")
 		return
+	if(QDELETED(client))
+		qdel(src)
+		return
 	var/mob/dead/new_player/authenticated/authed = new()
 	var/key = client.key
 	var/datum/tgui/login_window = SStgui.get_open_ui(src, client.tgui_login)

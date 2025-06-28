@@ -48,6 +48,9 @@
 
 	. = ..()	//calls mob.Login()
 
+	if(QDELETED(src))
+		return null
+
 	// if the user logged in directly with a valid key, we can convert them now
 	if(logged_in && istype(mob, /mob/dead/new_player/pre_auth))
 		var/mob/dead/new_player/pre_auth/pre_auth_player = mob
