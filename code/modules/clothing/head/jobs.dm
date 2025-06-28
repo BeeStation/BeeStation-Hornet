@@ -187,6 +187,17 @@
 	icon_state = "fedora"
 	dog_fashion = /datum/dog_fashion/head/noir
 
+/obj/item/clothing/head/fedora/det_hat/noir/proc/flip(mob/user)
+	if(!user.incapacitated() && adjustable == TRUE)
+		adjusted = !adjusted
+		if(adjusted)
+			worn_icon_state = "fedora_aura"
+			to_chat(user, span_notice("You adjust your hat to look more intimidating."))
+		else
+			worn_icon_state = "fedora"
+			to_chat(user, span_notice("You return your hat to its original position."))
+		user.update_inv_head()
+
 //Mime
 /obj/item/clothing/head/beret
 	name = "beret"
