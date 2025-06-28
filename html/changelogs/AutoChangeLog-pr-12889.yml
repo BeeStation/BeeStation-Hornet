@@ -1,6 +1,0 @@
-author: rkz, Ryll/Shaps, Bumtickley00, san7890
-delete-after: true
-changes:
-  - rscadd: adds a revamped and restyled medical analyzer UI
-  - refactor: refactors admin antag chat
-  - bugfix: fixes examine_more
