@@ -97,7 +97,7 @@
 			var/known_ckey = existing_user[1]
 			var/known_key = existing_user[2]
 			if(IS_EXTERNAL_AUTH_KEY(known_ckey)) // UID exists already but is a Discord key
-				if(istext(src.byond_authenticated_key)) // they signed in with a CKEY but already created a discord account. yikes.
+				if(istext(src.byond_authenticated_key) && length(src.byond_authenticated_key)) // they signed in with a CKEY but already created a discord account. yikes.
 					new_key = known_ckey
 					to_chat_immediate(src, span_userdanger("You connected with the key [byond_authenticated_key], but you already logged in before linking your CKEY and were issued the Discord key @[known_key]! You have been signed in as @[known_key]."))
 					byond_authenticated_key = null
@@ -116,7 +116,7 @@
 			else
 				new_key = known_key
 				// Login CKEY and saved CKEY differ
-				if(ckey(src.byond_authenticated_key) != known_ckey)
+				if(istext(src.byond_authenticated_key) && length(src.byond_authenticated_key) && ckey(src.byond_authenticated_key) != known_ckey)
 					to_chat_immediate(src, span_userdanger("You connected with the key [byond_authenticated_key], but your Discord account is already linked to [known_key]! You have been signed in as [known_key]."))
 					message_admins("[key_name_admin(src)] is potentially multikeying. They connected under the BYOND key [byond_authenticated_key], but their [external_method] UID [external_uid] is already linked with the key [known_key].")
 					log_admin_private("POTENTIAL MULTIKEYING: [key_name(src)] connected with BYOND key [byond_authenticated_key] but their [external_method] UID [external_uid] is associated with the key [known_key]")
@@ -129,7 +129,7 @@
 			CRASH(message)
 		else // This Discord user has never connected and has no associated BYOND ckey. Make one for them.
 			new_key = "D[external_uid]" //capitalize the key because otherwise the client displays as "The d549835457345893475"
-			if(istext(src.byond_authenticated_key)) // they have a key already, let's associate it for them on login
+			if(istext(src.byond_authenticated_key) && length(src.byond_authenticated_key)) // they have a key already, let's associate it for them on login
 				new_key = src.byond_authenticated_key
 				src.byond_authenticated_key = null
 	if(length(new_key))
