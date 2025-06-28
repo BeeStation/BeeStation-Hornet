@@ -62,6 +62,7 @@
 	if(isnum_safe(user.client.seeker_port))
 		port_data = "&seeker_port=[url_encode(user.client.seeker_port)]"
 	.["decorator"] = "?ip=[url_encode(ip)][port_data]"
+	.["authenticated_key"] = user.client.byond_authenticated_key
 
 /datum/tgui_login/proc/save_session_token(token)
 	if(!istext(token))

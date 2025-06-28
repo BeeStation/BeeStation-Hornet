@@ -237,6 +237,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				log_world("You are localhost and have been denied guest connection. Toggle localhost_auth_bypass, enable_guest_external_auth, or guest_ban in the config to continue.")
 			qdel(src)
 			return null
+	else if(CONFIG_GET(flag/force_byond_external_auth))
+		byond_authenticated_key = key
+		key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+		logged_in = FALSE
 	else
 		logged_in = TRUE
 #endif
@@ -779,12 +783,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 	if(!SSdbcore.Connect())
 		return
-	var/key_or_display_name = key // TODO: update this to use discord usernames for users without a byond ckey
 	// copy numerical portion of token auth key
 	var/discord_uid = null
-	if(src.key_is_external && src.external_method == "discord")
-		discord_uid = src.external_uid
-		key_or_display_name = src.external_display_name
+	if(src.external_method == "discord")
+		discord_uid = src.external_uid // link BYOND ckeys to discord
 	related_accounts_ip = ""
 	if(!is_localhost())
 		var/datum/db_query/query_get_related_ip = SSdbcore.NewQuery(
@@ -861,7 +863,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/datum/db_query/query_add_player = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("player")] (`ckey`, `byond_key`, `discord_uid`, `firstseen`, `firstseen_round_id`, `lastseen`, `lastseen_round_id`, `ip`, `computerid`, `lastadminrank`, `accountjoindate`)
 			VALUES (:ckey, :key, :discord_uid, Now(), :round_id, Now(), :round_id, INET_ATON(:ip), :computerid, :adminrank, :account_join_date)
-		"}, list("ckey" = ckey, "key" = key_or_display_name, "discord_uid" = discord_uid, "round_id" = GLOB.round_id, "ip" = safe_storage_address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = account_join_date || null))
+		"}, list("ckey" = ckey, "key" = key, "discord_uid" = discord_uid, "round_id" = GLOB.round_id, "ip" = safe_storage_address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = account_join_date == "Error" || account_join_date == "N/A" ? null : account_join_date || null))
 		if(!query_add_player.Execute())
 			qdel(query_client_in_db)
 			qdel(query_add_player)
@@ -905,6 +907,18 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				account_age = 365
 	qdel(query_get_client_age)
 	if(!new_player)
+		// associate with discord UID for existing byond users who connect with CKEY and sign in with Discord
+		if(!isnull(discord_uid) && !src.key_is_external)
+			var/datum/db_query/query_set_discord_uid = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("player")] SET discord_uid = :discord_uid WHERE ckey = :ckey AND discord_uid IS NULL",
+				list("ckey" = ckey, "discord_uid" = discord_uid)
+			)
+			if(query_set_discord_uid.Execute() && query_set_discord_uid.NextRow())
+				var/msg = "Associated your BYOND CKEY with [capitalize(external_method)] UID [external_uid]! Make sure you always log in with this Discord account from now on to retain your access."
+				spawn(1) // no sleeping
+					alert(src, msg, "", "OK")
+				to_chat_immediate(src, span_good(msg))
+			qdel(query_set_discord_uid)
 		var/datum/db_query/query_log_player = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET lastseen = Now(), lastseen_round_id = :round_id, ip = INET_ATON(:ip), computerid = :computerid, lastadminrank = :admin_rank, accountjoindate = :account_join_date WHERE ckey = :ckey",
 			list("round_id" = GLOB.round_id, "ip" = safe_storage_address, "computerid" = computer_id, "admin_rank" = admin_rank, "account_join_date" = account_join_date || null, "ckey" = ckey)
@@ -947,7 +961,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(IS_GUEST_KEY(key))
 		return
 	if(src.key_is_external)
-		update_username_in_db()
 		return
 	var/sql_key
 	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
@@ -1249,6 +1262,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return FALSE
 		if (NAMEOF(src, logged_in))
 			log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)] via client.logged_in")
+			return FALSE
+		if (NAMEOF(src, byond_authenticated_key))
 			return FALSE
 		if (NAMEOF(src, key_is_external))
 			return FALSE

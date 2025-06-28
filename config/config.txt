@@ -244,6 +244,10 @@ GUEST_BAN
 ## Disable LOCALHOST_AUTH_BYPASS to test this on localhost.
 # ENABLE_GUEST_EXTERNAL_AUTH
 
+## Uncomment this to force authenticated BYOND users to use external auth (while also linking their CKEY to their external ID)
+## This does nothing if ENABLE_GUEST_EXTERNAL_AUTH is not enabled.
+# FORCE_BYOND_EXTERNAL_AUTH
+
 ## Comment this out to require locally connected clients to go through the same authorization checks as any user.
 ## This can be used to test external auth on localhost.
 LOCALHOST_AUTH_BYPASS
@@ -252,7 +256,7 @@ LOCALHOST_AUTH_BYPASS
 ## Right now, any methods other than "discord" are ignored.
 ## ?ip=[client.address]&seeker_port=[client.seeker_port] will be appended to the URL by the client.
 ## Must use https:// unless localhost
-# EXTERNAL_AUTH_METHOD discord http://api.beestation13.com/discord/auth
+EXTERNAL_AUTH_METHOD discord http://localhost:8081/discord/auth
 
 ## Comment this out to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER

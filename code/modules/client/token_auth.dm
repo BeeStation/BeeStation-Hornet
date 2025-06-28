@@ -63,7 +63,7 @@
 		log_access("[ckey] has been rate-limited while performing token authentication ([token_attempts] attempts)")
 		to_chat_immediate(src, span_userdanger("Maximum number of login attempts reached. Try again later."))
 		if(from_ui)
-			tgui_alert(src.mob, "Maximum number of login attempts reached. Try again later.", "Warning", list("OK"))
+			tgui_alert_async(src.mob, "Maximum number of login attempts reached. Try again later.", "Warning", list("OK"))
 		// Reset attempts after delay
 		if(token_attempts == 4)
 			spawn(60 SECONDS) token_attempts = 0
@@ -71,7 +71,7 @@
 	if(!istext(token) || !length(token) || length(token) > 128)
 		to_chat_immediate(src, span_userdanger("Submitted token is not formatted correctly."))
 		if(from_ui)
-			tgui_alert(src.mob, "Submitted token is not formatted correctly.", "Warning", list("OK"))
+			tgui_alert_async(src.mob, "Submitted token is not formatted correctly.", "Warning", list("OK"))
 		return FALSE
 	var/hashed_token = rustg_hash_string(RUSTG_HASH_SHA256, token)
 	if(!istext(hashed_token) || !length(hashed_token))
@@ -84,7 +84,7 @@
 	if(!query_check_token.Execute() || !query_check_token.NextRow())
 		to_chat_immediate(src, span_userdanger("Login failed: Invalid session! Log in again with a new token."))
 		if(from_ui)
-			tgui_alert(src.mob, "Invalid session token. Make sure your IP address has not changed since the token was issued.", "Warning", list("OK"))
+			tgui_alert_async(src.mob, "Invalid session token. Make sure your IP address has not changed since the token was issued.", "Warning", list("OK"))
 		qdel(query_check_token)
 		return FALSE
 	var/external_method = query_check_token.item[1]
@@ -92,18 +92,46 @@
 	var/external_display_name = query_check_token.item[3]
 	var/new_key = ""
 	if(external_method == "discord" && !isnull(external_uid))
-		// Log in as known BYOND key
-		var/existing_byond_key = real_byond_key_for_discord_uid(external_uid)
+		var/list/existing_user = existing_user_for_uid(external_uid)
+		if(islist(existing_user) && length(existing_user) == 2) // Discord user has logged in before
+			var/known_ckey = existing_user[1]
+			var/known_key = existing_user[2]
+			if(IS_EXTERNAL_AUTH_KEY(known_ckey)) // UID exists already but is a Discord key
+				if(istext(src.byond_authenticated_key)) // they signed in with a CKEY but already created a discord account. yikes.
+					new_key = known_ckey
+					to_chat_immediate(src, span_userdanger("You connected with the key [byond_authenticated_key], but you already logged in before linking your CKEY and were issued the Discord key @[known_key]! You have been signed in as @[known_key]."))
+					byond_authenticated_key = null
+				else if(known_ckey != "d[external_uid]")
+					to_chat_immediate(src, span_userdanger("Your account key is somehow associated with a different Discord UID [known_ckey] than your login [external_uid]. This shouldn't be possible. Help."))
+					return FALSE
+				else // connected as a guest and already has logged in with Discord. Use the Discord key.
+					new_key = "D[external_uid]"
+			else if(IS_GUEST_KEY(known_key))
+				to_chat_immediate(src, span_userdanger("Your Discord UID is associated with a Guest key. This shouldn't be possible. Help."))
+				return FALSE
+			// Real BYOND key
+			else if(ckey(known_key) != known_ckey)
+				to_chat_immediate(src, span_userdanger("Your associated BYOND key ([known_key]) is inconsistent with your CKEY ([known_ckey]), which should be [ckey(known_key)]. This shouldn't be possible. Help."))
+				return FALSE
+			else
+				new_key = known_key
+				// Login CKEY and saved CKEY differ
+				if(ckey(src.byond_authenticated_key) != known_ckey)
+					to_chat_immediate(src, span_userdanger("You connected with the key [byond_authenticated_key], but your Discord account is already linked to [known_key]! You have been signed in as [known_key]."))
+					message_admins("[key_name_admin(src)] is potentially multikeying. They connected under the BYOND key [byond_authenticated_key], but their [external_method] UID [external_uid] is already linked with the key [known_key].")
+					log_admin_private("POTENTIAL MULTIKEYING: [key_name(src)] connected with BYOND key [byond_authenticated_key] but their [external_method] UID [external_uid] is associated with the key [known_key]")
+					byond_authenticated_key = null
 		// More than one associated key. AHHHHHHHHHHHHHHHHHHHHHHHHHH
-		if(isnum(existing_byond_key) && existing_byond_key == TRUE)
+		else if(isnum(existing_user) && existing_user == TRUE)
 			qdel(query_check_token)
 			var/message = "[key_name(src)] successfully authenticated with discord UID [external_uid], but they have more than one associated CKEY!"
 			message_admins("[message] Tell a maintainer immedietaly!")
 			CRASH(message)
-		if(istext(existing_byond_key) && length(existing_byond_key))
-			new_key = existing_byond_key
-		else // otherwise make a new one for them
+		else // This Discord user has never connected and has no associated BYOND ckey. Make one for them.
 			new_key = "D[external_uid]" //capitalize the key because otherwise the client displays as "The d549835457345893475"
+			if(istext(src.byond_authenticated_key)) // they have a key already, let's associate it for them on login
+				new_key = src.byond_authenticated_key
+				src.byond_authenticated_key = null
 	if(length(new_key))
 		qdel(query_check_token)
 		tgui_login?.save_session_token(token)
@@ -128,15 +156,26 @@
 		return FALSE
 	if(logged_in)
 		return FALSE
+	var/list/ban = world.IsBanned(new_key, src.address, src.computer_id, src.connection, FALSE, from_auth=TRUE)
+	if(islist(ban))
+		var/ban_reason = ban["reason"]
+		var/ban_desc = ban["desc"]
+		to_chat_immediate(src, span_userdanger("Login: Access denied."))
+		to_chat_immediate(src, "Banned by host: [ban_reason] - [ban_desc]")
+		message_admins("[key_name(src)] has authenticated via [src.external_method] UID [src.external_uid] as banned user <b>[new_key]</b>. They have been informed of this ban and kicked from the server.")
+		src << browse(HTML_SKELETON_TITLE("Banned: [ban_reason]", "<span style='white-space:pre-line;'>[ban_desc]</span>"), "window=ban_notice;size=800x250")
+		spawn(5 SECONDS)
+			qdel(src)
+		return FALSE
 	var/ckey = ckey(new_key)
 	var/client/existing_client = GLOB.directory[ckey]
 	if(!QDELETED(existing_client))
 		var/usr_msg = "The CKEY [ckey] is already connected with another client! You have been disconnected from the game."
-		alert(src, usr_msg, "DANGER!", "OK")
 		to_chat_immediate(src, span_userdanger(usr_msg))
 		log_admin_private("MULTICONNECTION: [key_name(src)] authenticated as [ckey], who is already playing as [key_name(existing_client)]!")
 		message_admins("[span_danger("<B>MULTICONNECTION:</B>")] [span_notice("[key_name_admin(src)] authenticated as [ckey], who is already playing as [key_name_admin(existing_client)]! The authorizing guest has been kicked from the game.")]")
-		spawn(5)
+		src << browse(HTML_SKELETON_TITLE("DANGER!", usr_msg), "window=multiconnect_notice")
+		spawn(5 SECONDS)
 			qdel(src)
 		return FALSE
 	token_attempts = 0
@@ -176,6 +215,9 @@
 	mob.UpdateMobStat(TRUE)
 	return TRUE
 
+/// Returns null if there is no associated byond key.
+/// Returns TRUE if the UID has more than one key associated.
+/// Otherwise, returns the key stored in the database.
 /client/proc/real_byond_key_for_discord_uid(discord_uid)
 	if(isnull(discord_uid))
 		return null
@@ -197,35 +239,46 @@
 			qdel(query_check_byond_key)
 			return TRUE
 		// if the ckey doesn't match or is not a real BYOND ckey
-		if(ckey_count != 1 || ckey(tmp_sql_key) != sql_ckey || IS_EXTERNAL_AUTH_KEY(sql_ckey))
+		if(ckey_count != 1 || ckey(tmp_sql_key) != sql_ckey || IS_EXTERNAL_AUTH_KEY(sql_ckey) || IS_GUEST_KEY(tmp_sql_key))
 			qdel(query_check_byond_key)
 			return null
 		sql_key = tmp_sql_key
 	qdel(query_check_byond_key)
 	return sql_key
 
-/// update byond_key to match the provided username
-/client/proc/update_username_in_db()
-	if(!src.key_is_external || isnull(src.external_display_name))
-		return
-	var/sql_key
+/// Returns null if there is no associated byond key.
+/// Returns TRUE if the UID has more than one key associated.
+/// Otherwise, returns list(ckey, key)
+/// Warning: this can return fake keys from discord, including discord usernames as the key
+/client/proc/existing_user_for_uid(discord_uid)
+	if(isnull(discord_uid))
+		return null
+	var/sql_ckey = null
+	var/sql_key = null
 	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
-		"SELECT byond_key FROM [format_table_name("player")] WHERE ckey = :ckey",
-		list("ckey" = ckey)
+		"SELECT ckey,byond_key,COUNT(ckey) FROM [format_table_name("player")] WHERE discord_uid = :discord_uid",
+		list("discord_uid" = discord_uid)
 	)
 	if(!query_check_byond_key.Execute())
 		qdel(query_check_byond_key)
-		return
+		return null
 	if(query_check_byond_key.NextRow())
-		sql_key = query_check_byond_key.item[1]
+		var/tmp_sql_ckey = query_check_byond_key.item[1]
+		var/tmp_sql_key = query_check_byond_key.item[2]
+		var/ckey_count = query_check_byond_key.item[3]
+		// what the fuck, this person has multiple CKEYs linked to one Discord
+		// we can't pick one so just throw a fit
+		if(ckey_count > 1)
+			qdel(query_check_byond_key)
+			return TRUE
+		// if there are zero ckeys
+		if(ckey_count != 1)
+			qdel(query_check_byond_key)
+			return null
+		sql_ckey = tmp_sql_ckey
+		sql_key = tmp_sql_key
 	qdel(query_check_byond_key)
-	if(src.external_display_name != sql_key)
-		var/datum/db_query/query_update_byond_key = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("player")] SET byond_key = :byond_key WHERE ckey = :ckey",
-			list("byond_key" = src.external_display_name, "ckey" = ckey)
-		)
-		query_update_byond_key.Execute()
-		qdel(query_update_byond_key)
+	return list(sql_ckey, sql_key)
 
 /// Gets the key of this user, or their external display name.
 /// Make sure you differentiate display names from BYOND keys by using client.external_method as a tag
@@ -260,3 +313,17 @@
 	)
 	query_update_sessions.Execute()
 	qdel(query_update_sessions)
+
+/mob/dead/new_player/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(src.client && CONFIG_GET(flag/enable_guest_external_auth) && !isnull(src.client.external_uid))
+		if(src.client.logged_in)
+			if(src.client.key_is_external)
+				tab_data["CKEY"] = GENERATE_STAT_TEXT(src.client.ckey)
+				tab_data["Authentication Method"] = GENERATE_STAT_TEXT(src.client.external_method)
+				tab_data["Display Name"] = GENERATE_STAT_TEXT(src.client.external_display_name)
+			else
+				tab_data["CKEY"] = GENERATE_STAT_TEXT(src.client.key)
+		else
+			tab_data["CKEY"] = GENERATE_STAT_TEXT("Please log in!")
+	return tab_data

@@ -581,6 +581,9 @@
 			return
 		if(query_create_ban_get_player.NextRow())
 			player_key = query_create_ban_get_player.item[1]
+			if(IS_EXTERNAL_AUTH_KEY(player_ckey))
+				// this is only used for display purposes, so we can put html and stuff
+				player_key = "<span class='chat16x16 badge-badge_discord' style='vertical-align: -3px;'></span> @[player_key]"
 			if(use_last_connection)
 				if(ip_check)
 					player_ip = query_create_ban_get_player.item[2]
@@ -629,7 +632,7 @@
 				qdel(query_check_adminban_count)
 				return
 		qdel(query_check_adminban_count)
-	var/admin_ip = usr.client.address
+	var/admin_ip = usr.client.is_localhost() ? "127.0.0.1" : usr.client.address
 	var/admin_cid = usr.client.computer_id
 	duration = text2num(duration)
 	if (!(interval in list("SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR")))

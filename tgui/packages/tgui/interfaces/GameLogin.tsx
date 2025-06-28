@@ -31,7 +31,8 @@ const methodToComponent = (method: string, url: string): ReactElement => {
 };
 
 export const GameLogin = (props) => {
-  const { act, data } = useBackend<{ byond_enabled: boolean; methods: Record<string, string>; decorator: string }>();
+  const { act, data } =
+    useBackend<{ byond_enabled: boolean; methods: Record<string, string>; decorator: string; authenticated_key: string }>();
   const [showInput, setShowInput] = useState(false);
   const inputToken = useRef<string>('');
   const sendToken = (token: string) => {
@@ -47,10 +48,29 @@ export const GameLogin = (props) => {
           <Stack vertical height="100%">
             <Stack.Item>
               <Box mt={2}>
-                <Box>You have connected as a guest.</Box>
+                <Box>
+                  You have connected as{' '}
+                  {data.authenticated_key ? (
+                    <span>
+                      BYOND account <strong>{data.authenticated_key}</strong>
+                    </span>
+                  ) : (
+                    <span>a guest</span>
+                  )}
+                  .
+                </Box>
+                {data.authenticated_key ? (
+                  <Box>
+                    Server policy requires that you authorize through Discord due to ongoing authentication issues with BYOND
+                    Hub. Your Discord account will be permanently linked to this CKEY. You may not link more than one CKEY to a
+                    Discord account.
+                  </Box>
+                ) : null}
                 <Box>
                   {`${
-                    data.byond_enabled ? ' Reconnect after signing into your BYOND account or ' : ' Please '
+                    data.byond_enabled && !data.authenticated_key
+                      ? ' Reconnect after signing into your BYOND account or '
+                      : ' Please '
                   }log in with one of the following methods.`}
                 </Box>
               </Box>

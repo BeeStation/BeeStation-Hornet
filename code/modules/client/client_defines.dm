@@ -163,6 +163,9 @@
 	/// New connection TopicData, cached prior to authentication
 	var/temp_topicdata = null
 
+	/// When FORCE_BYOND_EXTERNAL_AUTH is enabled, this is set to the client's hub-authenticated BYOND key if it is valid
+	var/byond_authenticated_key = null
+
 	/// True if this client's `key` is a not real BYOND CKEY (the cached result of IS_EXTERNAL_AUTH_KEY(src.key))
 	var/key_is_external = FALSE
 	/// The source of external authentication. Can be set even if the CKEY is a real BYOND CKEY.

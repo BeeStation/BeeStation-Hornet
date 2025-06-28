@@ -258,6 +258,9 @@
 /datum/config_entry/flag/enable_guest_external_auth
 	protection = CONFIG_ENTRY_LOCKED
 
+/datum/config_entry/flag/force_byond_external_auth
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/keyed_list/external_auth_method
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_TEXT
