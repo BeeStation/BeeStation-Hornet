@@ -19,7 +19,6 @@
 		login_html = replacetext(login_html, "<!--- SERVER --->", CONFIG_GET(string/server) || "beestation")
 	client << browse(login_html, "window=login;file=login.html;can_minimize=0;auto_format=0;titlebar=0;can_resize=0;")
 	winshow(client, "login", FALSE)
-	open()
 
 /datum/tgui_login/proc/open()
 	if(client?.mob)

@@ -484,6 +484,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		create_preset_input_window("say", show=FALSE)
 		create_preset_input_window("me", show=FALSE)
 
+	if(!authenticated)
+		spawn(2 SECONDS) // wait a sec for the client to send a valid token
+			if(!src.logged_in) // client did not send a valid token in the last 2 seconds
+				tgui_login?.open()
+
 	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
 	mob.UpdateMobStat(TRUE)
 	return TRUE
