@@ -4,12 +4,11 @@
 	filename = "secureye"
 	filedesc = "SecurEye"
 	category = PROGRAM_CATEGORY_MISC
-	program_icon_state = "generic"
+	program_icon_state = "camera"
 	extended_desc = "This program allows access to standard security camera networks."
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_SECURITY)
-	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
-	size = 5
+	size = 8
 	tgui_id = "NtosSecurEye"
 	program_icon = "eye"
 

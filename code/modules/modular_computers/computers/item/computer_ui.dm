@@ -137,6 +137,8 @@
 	var/obj/item/computer_hardware/card_slot/secondarycardholder = all_components[MC_CARD2]
 	if(secondarycardholder?.stored_card)
 		data["removable_media"] += "secondary RFID card"
+	if(secondarycardholder?.fake_card)
+		data["removable_media"] += "ERROR DETECTED: Phantom credentials present in port 2."
 
 	data["programs"] = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]

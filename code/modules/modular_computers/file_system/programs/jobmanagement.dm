@@ -2,10 +2,9 @@
 	filename = "job_manage"
 	filedesc = "Job Manager"
 	category = PROGRAM_CATEGORY_CREW
-	program_icon_state = "id"
+	program_icon_state = "command"
 	extended_desc = "Program for viewing and changing job slot avalibility."
 	transfer_access = list(ACCESS_HEADS)
-	requires_ntnet = 0
 	size = 4
 	tgui_id = "NtosJobManager"
 	program_icon = "address-book"

@@ -10,10 +10,9 @@
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
 	hotswap = TRUE
+	var/list/progs_to_store = list()
 
 	var/disk_flags = 0 // bit flag for the programs
-	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
-	var/spam_delay = 0
 
 /obj/item/computer_hardware/hard_drive/role/on_inserted(mob/user)
 	..()
@@ -25,7 +24,6 @@
 
 /obj/item/computer_hardware/hard_drive/role/Initialize(mapload)
 	. = ..()
-	var/list/progs_to_store = list()
 
 	if(disk_flags & DISK_POWER)
 		progs_to_store += new /datum/computer_file/program/power_monitor(src)
@@ -94,6 +92,24 @@
 		prog.required_access = list()
 		prog.transfer_access = list()
 		store_file(prog)
+
+/obj/item/computer_hardware/hard_drive/role/update_overclocking()
+	var/obj/item/computer_hardware/hard_drive/portable/new_disk = new /obj/item/computer_hardware/hard_drive/portable(get_turf(src))
+	for(var/datum/computer_file/program/prog in stored_files)
+		var/datum/computer_file/program/clone = new prog.type(new_disk)
+		new_disk.store_file(clone)
+	new_disk.hacked = TRUE // Here we're making a copy of the job disk, but its now a of portable disk! (in order to get the files out)
+	new_disk.name = "modified job data disk"
+	new_disk.desc = "A disk meant to give a worker the needed programs to work, modified to allow the transfer of its programs and now behaves more like a portable disk."
+	new_disk.max_capacity = max_capacity
+	new_disk.icon_state = initial(icon_state)
+	new_disk.icon = initial(icon)
+	new_disk.update_icon_state()
+	new_disk.spam_delay = initial(spam_delay)
+	new_disk.former_jobdisk = TRUE
+	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
+	qdel(src)
+	return
 
 // Disk Definitions
 

@@ -16,6 +16,10 @@
 	var/has_been_installed = FALSE
 	/// List of airlocks this disk can control with program/remote_airlock
 	var/list/controllable_airlocks
+	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
+	var/spam_delay = 0
+	/// If this hard drive is imprevious to basic viruses
+	var/virus_defense = 0
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
@@ -47,6 +51,17 @@
 	// 999 is a byond limit that is in place. It's unlikely someone will reach that many files anyway, since you would sooner run out of space.
 	to_chat(user, "NT-NFS File Table Status: [stored_files.len]/999")
 	to_chat(user, "Storage capacity: [used_capacity]/[max_capacity]GQ")
+	if(virus_defense)
+		to_chat(user, "<font color='#ff1865'>Virus Buster</font> Lvl [virus_defense] :: <font color='#34b600'>Engaged</font>")
+	if(spam_delay)
+		to_chat(user, "<font color='#00c3ff'>Advertisement Messaging</font> Enabled")
+
+/obj/item/computer_hardware/hard_drive/update_overclocking()
+	if(hacked)
+		virus_defense = 2
+	else
+		virus_defense = FALSE
+
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)
@@ -150,14 +165,16 @@
 	power_usage = 50 					// Hybrid, medium capacity and medium power storage
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 50
 
 /obj/item/computer_hardware/hard_drive/super
-	name = "super hard disk drive"
+	name = "super-advanced hard disk drive"
 	desc = "A high capacity HDD, for use in cluster storage solutions where capacity is more important than power efficiency."
 	max_capacity = 512
 	power_usage = 100					// High-capacity but uses lots of power, shortening battery life. Best used with APC link.
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 60
 
 /obj/item/computer_hardware/hard_drive/cluster
 	name = "cluster hard disk drive"
@@ -175,13 +192,12 @@
 	max_capacity = 64
 	icon_state = "ssd_mini"
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = 15
+	custom_price = 20
 
 // PDA Version of the SSD, contains all the programs that PDAs have by default, however with the variables of the SSD.
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
-	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
 	..()
 
@@ -211,7 +227,6 @@
 	desc = "An efficient SSD for portable devices developed by a rival organisation."
 	power_usage = 8
 	max_capacity = 70
-	var/datum/antagonist/traitor/traitor_data // Syndicate hard drive has the user's data baked directly into it on creation
 
 /// For tablets given to nuke ops
 /obj/item/computer_hardware/hard_drive/small/nukeops
@@ -230,8 +245,27 @@
 
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"
-	desc = "A highly efficient SSD chip for portable devices."
+	desc = "A highly efficient SSD chip for portable devices. It comes pre-installed with all default programs common in PDAs."
 	power_usage = 2
 	max_capacity = 32
 	icon_state = "ssd_micro"
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 10
+
+// Micro SSD's will now contain all default programs.
+/obj/item/computer_hardware/hard_drive/micro/install_default_programs()
+	store_file(new /datum/computer_file/program/messenger(src))
+	store_file(new /datum/computer_file/program/notepad(src))
+	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
+	store_file(new/datum/computer_file/program/ntnetdownload(src))		// NTNet Downloader Utility, allows users to download more software from NTNet repository
+	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar
+	store_file(new/datum/computer_file/program/filemanager(src))		// File manager, allows text editor functions and basic file manipulation.
+
+/obj/item/computer_hardware/hard_drive/micro/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	. = ..()
+	if(!.)
+		return
+	// Set the default ringtone
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		messenger.ringer_status = install_into.init_ringer_on
+		messenger.ringtone = install_into.init_ringtone

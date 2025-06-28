@@ -48,8 +48,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// must have it's own DMI file. Icon states must be called exactly the same in all files, but may look differently
 	// If you create a program which is limited to Laptops and Consoles you don't have to add it's icon_state overlay for Tablets too, for example.
 
-	var/icon_state_unpowered = null							// Icon state when the computer is turned off.
-	var/icon_state_powered = null							// Icon state when the computer is turned on.
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "laptop"
 	var/icon_state_menu = "menu"							// Icon state overlay when the computer is turned on, but no program is loaded that would override the screen.
 	var/max_hardware_size = 0								// Maximal hardware w_class. Tablets/PDAs have 1, laptops 2, consoles 4.
 	var/steel_sheet_cost = 5								// Amount of steel sheets refunded when disassembling an empty frame of this computer.
@@ -97,6 +97,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
+	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
+	var/default_virus_defense = 0
 
 
 /datum/armor/item_modular_computer
@@ -290,6 +292,42 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
 
+/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // Teleporting for hacked CPU's
+	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
+	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+	var/turf/start = get_turf(src)
+	if(!target)
+		return
+	if(!enabled)
+		return
+	if(!cpu.hacked)
+		return
+	if(use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)) // The better the CPU the farther it goes, and the more battery it needs
+		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+		playsound(start, "sparks", 50, 1)
+		playsound(target, "sparks", 50, 1)
+		do_dash(src, start, target, 0, TRUE)
+	else
+		new /obj/effect/particle_effect/sparks(start)
+		playsound(start, "sparks", 50, 1)
+	return
+
+/obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
+	var/turf/t = start
+	var/open_tiles_crossed = 0
+	// Will teleport trough walls untill finding open space, then will subtract from range every open turf
+	for(var/i = 1; i <= 100; i++) // hard limit to avoid infinite loops
+		var/turf/next = get_step(t, direction)
+		if(!isturf(next))
+			break
+		t = next
+		if(!t.density)
+			open_tiles_crossed++
+		if(open_tiles_crossed >= range)
+			return t
+	// If we exit the loop without finding enough open tiles, we return the last valid turf
+	return t
+
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
 	if(atom_integrity <= integrity_failure * max_integrity)
@@ -299,24 +337,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	. += get_modular_computer_parts_examine(user)
 
-/obj/item/modular_computer/update_icon()
-	cut_overlays()
-	if(!bypass_state)
-		icon_state = enabled ? icon_state_powered : icon_state_unpowered
+/obj/item/modular_computer/update_overlays()
+	. = ..()
 
 	var/init_icon = initial(icon)
 	if(!init_icon)
 		return
 
-	if(enabled)
-		add_overlay(active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu))
+	if(enabled && screen_on)
+		. += active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu)
 
-	if(can_store_pai && stored_pai_card)
-		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
+	if(stored_pai_card)
+		. += stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay")
 
 	if(atom_integrity <= integrity_failure * max_integrity)
-		add_overlay(mutable_appearance(init_icon, "bsod"))
-		add_overlay(mutable_appearance(init_icon, "broken"))
+		. += mutable_appearance(init_icon, "bsod")
+		. += mutable_appearance(init_icon, "broken")
 
 /obj/item/modular_computer/proc/turn_on(mob/user, open_ui = TRUE)
 	if(enabled)
@@ -434,6 +470,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 
 	if(battery_module?.battery)
 		switch(battery_module.battery.percent())
@@ -457,7 +494,21 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		data["PC_showbatteryicon"] = battery_module ? 1 : 0
 
 	if(recharger && recharger.enabled && recharger.check_functionality() && recharger.use_power(0))
-		data["PC_apclinkicon"] = "charging.gif"
+		if(!recharger.hacked)
+			data["PC_apclinkicon"] = "charging.gif"
+		else
+			data["PC_apclinkicon"] = "power_drain.gif" // If hacked glitches (to make it very obvious its hacked)
+	switch(drive.virus_defense)
+		if(0)
+			data["PC_AntiVirus"] = "antivirus_0.gif"
+		if(1)
+			data["PC_AntiVirus"] = "antivirus_1.gif"
+		if(2)
+			data["PC_AntiVirus"] = "antivirus_2.gif"
+		if(3)
+			data["PC_AntiVirus"] = "antivirus_3.gif"
+		if(4)
+			data["PC_AntiVirus"] = "antivirus_4.gif"
 
 	switch(get_ntnet_status())
 		if(0)
@@ -468,6 +519,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			data["PC_ntneticon"] = "sig_high.gif"
 		if(3)
 			data["PC_ntneticon"] = "sig_lan.gif"
+		if(4)
+			data["PC_ntneticon"] = "no_relay.gif" // This exists to give a hacked UI indicator
 
 	var/list/program_headers = list()
 	for(var/datum/computer_file/program/P as anything in idle_threads)
@@ -627,6 +680,27 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	ui_update()
 	return
 
+/obj/item/modular_computer/screwdriver_act_secondary(mob/living/user, obj/item/tool) // Removes all components at once
+	if(!length(all_components))
+		balloon_alert(user, "no components installed!")
+		return
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
+		uninstall_component(H, user, TRUE)
+	tool.play_tool_sound(user, volume=20)
+	ui_update()
+	return
+
+/obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
+	if(!istype(A, /obj/item/computer_hardware))
+		return
+	var/obj/item/computer_hardware/inserted_hardware = A
+	if(istype(inserted_hardware))
+		if(install_component(inserted_hardware, user))
+			inserted_hardware.on_inserted(user)
+			ui_update()
+			return TRUE
+
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
 	// Check for ID first
 	if(istype(attacking_item, /obj/item/card/id) && InsertID(attacking_item))
@@ -739,3 +813,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 // Make messages visible via allow_inside_usr
 /obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
 	return ..()
+
+/obj/item/modular_computer/proc/virus_blocked(mob/living/user)	// If we caught a Virus, tell the player
+	var/mob/living/holder = loc
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
+	playsound(src, "sparks", 50, 1)
+	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+	to_chat(holder, span_notice("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>"))

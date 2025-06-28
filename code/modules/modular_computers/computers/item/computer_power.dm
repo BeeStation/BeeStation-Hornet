@@ -16,7 +16,7 @@
 		if(cell.use(amount * GLOB.CELLRATE))
 			return TRUE
 		else // Discharge the cell anyway.
-			cell.use(min(amount*GLOB.CELLRATE, cell.charge))
+			cell.use(min(amount * GLOB.CELLRATE, cell.charge))
 			return FALSE
 	return FALSE
 
@@ -32,6 +32,7 @@
 
 // Used in following function to reduce copypaste
 /obj/item/modular_computer/proc/power_failure()
+	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]
 	if(enabled) // Shut down the computer
 		if(active_program)
 			active_program.event_powerfailure(0)
@@ -39,6 +40,22 @@
 			var/datum/computer_file/program/PRG = I
 			PRG.event_powerfailure(1)
 		shutdown_computer(0)
+	if(!controler)
+		return
+	if(controler.hacked && controler.battery)
+		switch(controler.battery.size)
+			if(1)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 1)
+			if(2)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 2)
+			if(3)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 2, flame_range = 1)
+			if(4)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
+			if(5)
+				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 3, flash_range = 4, flame_range = 3)
+		qdel(controler.battery)
+		update_icon()
 
 // Handles power-related things, such as battery interaction, recharging, shutdown when it's discharged
 /obj/item/modular_computer/proc/handle_power(delta_time)
@@ -48,10 +65,10 @@
 
 	var/power_usage = screen_on ? base_active_power_usage : base_idle_power_usage
 
-	for(var/obj/item/computer_hardware/H in all_components)
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
 		if(H.enabled)
 			power_usage += H.power_usage
-
 	if(use_power(power_usage))
 		last_power_usage = power_usage
 		return TRUE

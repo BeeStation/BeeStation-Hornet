@@ -7,7 +7,7 @@
 	extended_desc = "This program provides visual interface for station's alarm system."
 	requires_ntnet = 1
 	network_destination = "alarm monitoring network"
-	size = 5
+	size = 4
 	tgui_id = "NtosStationAlertConsole"
 	program_icon = "bell"
 	/// If there is any station alert

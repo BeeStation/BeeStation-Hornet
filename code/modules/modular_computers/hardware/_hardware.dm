@@ -35,11 +35,36 @@
 	var/device_type
 	/// If the hardware can be "hotswapped" (ejected when another is installed)
 	var/hotswap = FALSE
+	/// If this has been opened by a screwdriver
+	var/open = FALSE
+	/// The icon used for when this is open
+	var/icon_open
+	/// If this can be hacked (This is a temporary flag for PArts that already have an overclocking effect to them)
+	var/can_hack = TRUE
+	/// If this is currently Hacked (Also reffered to as "Overclocking")
+	var/hacked = FALSE
+	/// If the part gains a red outline on hacking
+	var/hack_visible = TRUE
+	/// A Serial Number used in hacking and other niffty things
+	var/serial_code
 
 /obj/item/computer_hardware/New(var/obj/L)
 	..()
 	pixel_x = base_pixel_x + rand(-8, 8)
 	pixel_y = base_pixel_y + rand(-8, 8)
+
+/obj/item/computer_hardware/Initialize(mapload)
+	. = ..()
+	serial_code = generate_series_code()
+
+/obj/item/computer_hardware/proc/generate_series_code()
+	var/list/charset = list("A","B","C","D","E","F","G","H","I","J","K","L","M",
+							"N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+							"0","1","2","3","4","5","6","7","8","9")
+	var/code = ""
+	for(var/i = 1 to 4)
+		code += pick(charset)
+	return code
 
 /obj/item/computer_hardware/Destroy()
 	if(holder)
@@ -48,34 +73,159 @@
 
 /// Called when the hardware is inserted BY HAND. Use on_install for cases where it's installed by code.
 /obj/item/computer_hardware/proc/on_inserted()
+	playsound(src, 'sound/items/flashlight_on.ogg', 50, TRUE)
 	return
 
 /obj/item/computer_hardware/attackby(obj/item/I, mob/living/user)
-	// Cable coil. Works as repair method, but will probably require multiple applications and more cable.
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/S = I
-		if(atom_integrity == max_integrity)
-			to_chat(user, span_warning("\The [src] doesn't seem to require repairs."))
-			return 1
-		if(S.use(1))
-			to_chat(user, span_notice("You patch up \the [src] with a bit of \the [I]."))
-			atom_integrity = min(atom_integrity + 10, max_integrity)
-		return 1
-
 	if(try_insert(I, user))
 		return TRUE
 
 	return ..()
 
+/obj/item/computer_hardware/welder_act(mob/living/user, obj/item/I)
+	if(atom_integrity == max_integrity)
+		to_chat(user, span_warning("\The [src] doesn't seem to require repairs."))
+		return TRUE
+	if(!I.tool_start_check(user, amount=0))
+		return TRUE
+	user.visible_message(span_notice("[user.name] starts to repair [name]."), \
+	span_notice("You start to repair [src]."), \
+	span_hear("You hear welding."))
+	if(!I.use_tool(src, user, 10, amount=2, volume=20))
+		return
+	atom_integrity = max_integrity
+	to_chat(user, span_notice("The [src] is now fixed."))
+	return TRUE
+
+/obj/item/computer_hardware/update_icon_state()
+	. = ..()
+	var/atom/movable/A = src
+	if(hacked)
+		if(!A.get_filter("hacked_glow"))
+			A.add_filter("hacked_glow", 2, list(
+				"type" = "outline",
+				"color" = "#e42828ff",
+				"size" = 1))
+	else
+		A.remove_filter("hacked_glow")
+	if(!icon_open)
+		return
+	if(!open)
+		icon_state = initial(icon_state)
+	else
+		icon_state = icon_open
+
+/obj/item/computer_hardware/screwdriver_act(mob/living/user, obj/item/I)
+	if(!open)
+		to_chat(user, "You unscrew the [name]'s service panel, exposing its internal ports and configuration nodes")
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		open = TRUE
+	else
+		to_chat(user, "You screw the service panel back into place, sealing the [name]'s internals")
+		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+		open = FALSE
+	update_icon_state()
+	return TRUE
+
+/obj/item/computer_hardware/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+	if(hacked)
+		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 20)
+		return TRUE
+	var/input = tgui_input_number(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption", 0, 100000000, (initial(power_usage) / 2), 0, TRUE)
+	if(input == null || input == "")
+		return TRUE
+	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
+		to_chat(user, "Input value too low for current hardware")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 20)
+		return TRUE
+	power_usage = input
+	new /obj/effect/particle_effect/sparks(get_turf(src))
+	playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
+	return TRUE
+
 /obj/item/computer_hardware/multitool_act(mob/living/user, obj/item/I)
 	to_chat(user, "***** DIAGNOSTICS REPORT *****")
 	diagnostics(user)
 	to_chat(user, "******************************")
+	playsound(src, 'sound/effects/fastbeep.ogg', 20)
 	return TRUE
+
+/obj/item/computer_hardware/multitool_act_secondary(mob/living/user, obj/item/tool)
+	if(!open)
+		to_chat(user, "You must unscrew the service panel in order to fiddle with the [name]'s internals.")
+		return TRUE
+	if(!can_hack)
+		to_chat(user, "[name] cannot be overclocked.")
+		return TRUE
+
+	to_chat(user, "You fiddle with the [name]'s internals")
+	playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+
+	var/input = input(user, "ENTER VALID CODE", "Overclocking") as text|null
+	if(!input)
+		return TRUE
+	input = uppertext(trim(copytext(input, 1, 5))) // Trim to 4 chars max and uppercase
+	if(input == serial_code)
+		to_chat(user, "Access Authorized. System overclocking initiated.")
+		overclock(user, tool)
+		playsound(src, 'sound/effects/fastbeep.ogg', 10)
+	else
+		to_chat(user, "Error: Unauthorized calibration key detected.")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 40)
+		user.electrocute_act(40, src, 1)
+	return TRUE
+
+/obj/item/computer_hardware/proc/overclock_failure(mob/living/user, obj/item/tool)
+	to_chat(user, "You hear a faint click inside... but nothing changes...")
+
+/obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
+	if(prob(30))
+		take_damage(rand(1, 100))
+		to_chat(user, "The [name] has been damaged.")
+		playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
+		return TRUE
+	if(enabled)
+		enabled = FALSE
+		to_chat(user, "The [name] has been disabled.")
+		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+		return TRUE
+	if(!enabled)
+		enabled = TRUE
+		to_chat(user, "The [name] has been enabled.")
+		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+		return TRUE
+
+/obj/item/computer_hardware/proc/overclock(mob/living/user, obj/item/tool)
+	if(hacked)
+		hacked = FALSE
+		power_usage = initial(power_usage)
+		to_chat(user, "You returned [name] to legal working parameters.")
+	else
+		hacked = TRUE
+		power_usage = (power_usage * 5)
+		to_chat(user, "You have sucessefuly overclocked [name].")
+	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
+	playsound(src, "sparks", 50)
+	update_icon_state()
+	update_overclocking(user, tool)
+
+/obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
+	return /// Nothing happens here yet
 
 /// Called on multitool click, prints diagnostic information to the user.
 /obj/item/computer_hardware/proc/diagnostics(mob/user)
 	to_chat(user, "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]")
+	if(!enabled)
+		to_chat(user, "<font color='#e06eb1'>Warning</font> // Hardware Disabled")
+	to_chat(user, "Current power consumption :: [power_usage]")
+	to_chat(user, "SERIAL <font color='#c99f15'>[serial_code]</font>")
+	if(hacked)
+		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>")
+
 
 /// Handles damage checks
 /obj/item/computer_hardware/proc/check_functionality()

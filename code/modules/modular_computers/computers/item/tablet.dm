@@ -2,33 +2,24 @@
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
-	worn_icon_state = "pda"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
+	worn_icon_state = "pda"
 	hardware_flag = PROGRAM_PDA
-	max_hardware_size = 1
+	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_SMALL
 	max_bays = 3
 	steel_sheet_cost = 1
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	has_light = TRUE //LED flashlight!
-	comp_light_luminosity = 2.3 //Same as the PDA
+	comp_light_luminosity = 3 //not the same as the PDA
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
-
-	var/has_variants = TRUE
-	var/finish_color = null
-
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
 	//This is the typepath to load "into" the pda
 	var/obj/item/insert_type = /obj/item/pen
 	//This is the currently inserted item
 	var/obj/item/inserted_item
-
-	/// If this tablet can be detonated with detomatix (needs to be refactored into a signal)
-	var/detonatable = TRUE
 
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
@@ -44,14 +35,21 @@
 	data["show_imprint"] = TRUE
 	return data
 
-/obj/item/modular_computer/tablet/update_icon()
-	..()
-	if (has_variants && !bypass_state)
-		if(!finish_color)
-			finish_color = pick("red","blue","brown","green","black")
-		icon_state = "tablet-[finish_color]"
-		icon_state_unpowered = "tablet-[finish_color]"
-		icon_state_powered = "tablet-[finish_color]"
+/obj/item/modular_computer/tablet/update_overlays()
+	. = ..()
+	var/init_icon = initial(icon)
+	if(!init_icon)
+		return
+	cut_overlays()
+	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
+	if(card)
+		if(card.stored_card)
+			. += mutable_appearance(init_icon, "id_overlay")
+	if(inserted_item)
+		. += mutable_appearance(init_icon, "insert_overlay")
+	if(light_on)
+		. += mutable_appearance(init_icon, "light_overlay")
+
 
 /obj/item/modular_computer/tablet/emp_act(severity)
 	. = ..()
@@ -186,28 +184,21 @@
 	qdel(src)
 
 // SUBTYPES
-
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
 	name = "contractor tablet"
 	icon = 'icons/obj/contractor_tablet.dmi'
 	icon_state = "tablet"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "assign"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
 	icon_state = "tablet-syndicate"
-	icon_state_powered = "tablet-syndicate"
-	icon_state_unpowered = "tablet-syndicate"
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	light_color = COLOR_RED
@@ -223,12 +214,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 /obj/item/modular_computer/tablet/integrated
 	name = "modular interface"
 	icon_state = "tablet-silicon"
-	icon_state_unpowered = "tablet-silicon"
-	icon_state_powered = "tablet-silicon"
 	icon_state_menu = "menu"
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
-	has_variants = FALSE
 	///Ref to the silicon we're installed in. Set by the borg during our creation.
 	var/mob/living/silicon/borgo
 	///Ref to the Cyborg Self-Monitoring app. Important enough to borgs to deserve a ref.
@@ -318,8 +306,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 
 /obj/item/modular_computer/tablet/integrated/syndicate
 	icon_state = "tablet-silicon-syndicate"
-	icon_state_unpowered = "tablet-silicon-syndicate"
-	icon_state_powered = "tablet-silicon-syndicate"
 	icon_state_menu = "command-syndicate"
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
@@ -341,8 +327,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	comp_light_luminosity = 2.3
+	max_hardware_size = 1
 
-	bypass_state = TRUE
 	can_store_pai = TRUE
 
 	var/default_disk = 0
@@ -394,14 +381,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/modular_computer/tablet/pda/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
+	install_component(new /obj/item/computer_hardware/hard_drive/micro)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/nano))
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
 	install_component(new /obj/item/computer_hardware/sensorpackage)
 
+	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
+	if(hdd)
+		hdd.virus_defense = default_virus_defense
 	if(default_disk)
 		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
 		install_component(disk)

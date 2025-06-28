@@ -15,19 +15,20 @@
 	if(!holder || !battery_module || !battery_module.battery)
 		return
 
-	var/obj/item/stock_parts/cell/cell = battery_module.battery
-	if(cell.charge >= cell.maxcharge)
+	var/obj/item/stock_parts/cell/computer/cell = battery_module.battery
+	if(cell.charge >= cell.maxcharge && !hacked) // If hacked, will continue to absorb power regardless of cell charge
 		return
-
+	if(hacked)
+		charge_rate = cell.maxcharge / GLOB.CELLRATE
+		playsound(src, 'sound/items/timer.ogg', 50, FALSE, ignore_walls = TRUE)
 	if(use_power(charge_rate, charging=1))
 		holder.give_power(charge_rate * GLOB.CELLRATE)
-
 
 /obj/item/computer_hardware/recharger/APC
 	name = "area power connector"
 	desc = "A device that wirelessly recharges connected device from nearby APC."
 	icon_state = "charger_APC"
-	w_class = WEIGHT_CLASS_SMALL // Can't be installed into tablets/PDAs
+	w_class = WEIGHT_CLASS_SMALL // Can't be installed into PDAs. Tablets are good to go
 
 /obj/item/computer_hardware/recharger/APC/use_power(amount, charging=0)
 	if(ismachinery(holder.physical))

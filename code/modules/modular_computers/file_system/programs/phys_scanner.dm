@@ -1,11 +1,10 @@
 /datum/computer_file/program/phys_scanner
 	filename = "phys_scanner"
 	filedesc = "Physical Scanner"
-	program_icon_state = "generic"
+	program_icon_state = "comm_monitor"
 	category = PROGRAM_CATEGORY_MISC
 	extended_desc = "This program allows the tablet to scan physical objects and display a data output."
 	size = 8
-	usage_flags = PROGRAM_PDA
 	available_on_ntnet = FALSE
 	tgui_id = "NtosPhysScanner"
 	program_icon = "barcode"

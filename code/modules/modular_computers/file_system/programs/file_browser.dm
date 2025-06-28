@@ -2,8 +2,8 @@
 	filename = "filemanager"
 	filedesc = "File Manager"
 	extended_desc = "This program allows management of files."
-	program_icon_state = "generic"
-	size = 8
+	program_icon_state = "software"
+	size = 2
 	requires_ntnet = FALSE
 	available_on_ntnet = FALSE
 	undeletable = TRUE
