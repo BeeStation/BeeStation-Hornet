@@ -776,7 +776,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
-/client/proc/set_client_age_from_db(exteral_method, external_uid)
+/client/proc/set_client_age_from_db()
 	if(IsAdminAdvancedProcCall())
 		return
 	if(IS_GUEST_KEY(key))
@@ -817,15 +817,26 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(!GLOB.deadmins[ckey] && check_randomizer(temp_topicdata))
 			return
 	var/new_player
-	var/datum/db_query/query_client_in_db = SSdbcore.NewQuery(
-		"SELECT 1 FROM [format_table_name("player")] WHERE ckey = :ckey",
+	var/datum/db_query/query_client_in_db_plus_uid = SSdbcore.NewQuery(
+		"SELECT 1,discord_uid FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
-	if(!query_client_in_db.Execute())
-		qdel(query_client_in_db)
+	if(!query_client_in_db_plus_uid.Execute())
+		qdel(query_client_in_db_plus_uid)
 		return
-
-	var/client_is_in_db = query_client_in_db.NextRow()
+	var/list/client_is_in_db_plus_uid = query_client_in_db_plus_uid.NextRow()
+	var/client_is_in_db = FALSE
+	var/discord_uid_from_db = null
+	if(islist(client_is_in_db_plus_uid) && length(client_is_in_db_plus_uid))
+		client_is_in_db = TRUE
+		discord_uid_from_db = client_is_in_db_plus_uid[2]
+	qdel(query_client_in_db_plus_uid)
+	if(!isnull(discord_uid_from_db) && !isnull(discord_uid) && length(discord_uid) && length(discord_uid_from_db) && discord_uid != discord_uid_from_db)
+		var/msg = "Hey what the fuck, this [key_name(src)] has different discord UIDs than the one they logged in with. This shouldn't even be possible. Some horrible fuckery is happening. login [discord_uid] db [discord_uid_from_db]"
+		to_chat_immediate(src, "Something VERY weird is happening. [msg]")
+		message_admins(msg)
+		qdel(src)
+		CRASH(msg)
 	// If we aren't an admin, and the flag is set (the panic bunker is enabled).
 	if(CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey])
 		// The amount of hours needed to bypass the panic bunker.
@@ -908,12 +919,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	qdel(query_get_client_age)
 	if(!new_player)
 		// associate with discord UID for existing byond users who connect with CKEY and sign in with Discord
-		if(!isnull(discord_uid) && !src.key_is_external)
+		if(!isnull(discord_uid) && !src.key_is_external && isnull(discord_uid_from_db))
 			var/datum/db_query/query_set_discord_uid = SSdbcore.NewQuery(
-				"UPDATE [format_table_name("player")] SET discord_uid = :discord_uid WHERE ckey = :ckey AND discord_uid IS NULL",
+				"UPDATE [format_table_name("player")] SET discord_uid = :discord_uid WHERE ckey = :ckey",
 				list("ckey" = ckey, "discord_uid" = discord_uid)
 			)
-			if(query_set_discord_uid.Execute() && query_set_discord_uid.NextRow())
+			if(query_set_discord_uid.Execute())
 				var/msg = "Associated your BYOND CKEY with [capitalize(external_method)] UID [external_uid]! Make sure you always log in with this Discord account from now on to retain your access."
 				spawn(1) // no sleeping
 					alert(src, msg, "", "OK")

@@ -316,7 +316,7 @@
 
 /mob/dead/new_player/get_stat_tab_status()
 	var/list/tab_data = ..()
-	if(src.client && CONFIG_GET(flag/enable_guest_external_auth) && !isnull(src.client.external_uid))
+	if(src.client && CONFIG_GET(flag/enable_guest_external_auth))
 		if(src.client.logged_in)
 			if(src.client.key_is_external)
 				tab_data["CKEY"] = GENERATE_STAT_TEXT(src.client.ckey)
