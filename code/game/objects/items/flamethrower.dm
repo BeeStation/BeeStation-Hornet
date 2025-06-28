@@ -33,9 +33,15 @@
 	var/igniter_type = /obj/item/assembly/igniter
 	trigger_guard = TRIGGER_GUARD_NORMAL
 
-/obj/item/flamethrower/ComponentInitialize()
+/obj/item/flamethrower/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
+	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/flamethrower)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+	)
 
 /obj/item/flamethrower/Destroy()
 	if(weldtool)
@@ -48,8 +54,7 @@
 
 /obj/item/flamethrower/process()
 	if(!lit || !igniter)
-		STOP_PROCESSING(SSobj, src)
-		return null
+		return PROCESS_KILL
 	var/turf/location = loc
 	if(istype(location, /mob/))
 		var/mob/M = location

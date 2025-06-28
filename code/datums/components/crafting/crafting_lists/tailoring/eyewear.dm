@@ -64,6 +64,26 @@
 	blacklist = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded)
 	category = CAT_EQUIPMENT
 
+/datum/crafting_recipe/scienceglasses
+	name = "Science Glasses"
+	result = /obj/item/clothing/glasses/sunglasses/advanced/chemical
+	time = 2 SECONDS
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(
+		/obj/item/clothing/glasses/science = 1,
+		/obj/item/clothing/glasses/sunglasses = 1,
+		/obj/item/stack/cable_coil = 5
+		)
+	category = CAT_EQUIPMENT
+
+/datum/crafting_recipe/scienceglassesremoval
+	name = "Chemical Scanner removal"
+	result = /obj/item/clothing/glasses/sunglasses/advanced
+	time = 2 SECONDS
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses/advanced/chemical = 1)
+	category = CAT_EQUIPMENT
+
 /datum/crafting_recipe/beergoggles
 	name = "Beer Goggles"
 	result = /obj/item/clothing/glasses/sunglasses/advanced/reagent
