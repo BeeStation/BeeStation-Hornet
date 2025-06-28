@@ -1300,6 +1300,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
 
+/area/security/detectives_office/Exited/(mob/living/carbon/human/a,atom/oldloc)
+	..()
+	if ((HAS_TRAIT(a,TRAIT_NOIR)) && (!a.has_quirk(/datum/quirk/monochromatic)))
+		a.remove_client_colour(/datum/client_colour/monochrome)
+
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
 	icon_state = "detective"

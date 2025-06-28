@@ -110,7 +110,10 @@
 	icon_state = "detective"
 	item_state = "det_hat"
 	var/candy_cooldown = 0
+	var/adjusted = FALSE
+	var/adjustable = TRUE
 	dog_fashion = /datum/dog_fashion/head/detective
+	actions_types = list(/datum/action/item_action/noirmode)
 
 
 /datum/armor/fedora_det_hat
@@ -132,7 +135,7 @@
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()
-	. += span_notice("Alt-click to take a candy corn.")
+	. += span_notice("Alt-click to take a candy corn. Control-click to adjust it.")
 
 /obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
 	. = ..()
@@ -145,6 +148,38 @@
 		candy_cooldown = world.time+1200
 	else
 		to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
+
+/obj/item/clothing/head/fedora/det_hat/ui_action_click(mob/user, action)
+	if(user.mind?.assigned_role != JOB_NAME_DETECTIVE)
+		to_chat(user, "<span class='warning>Only a true detective can use the noir ability.</span>")
+		return
+	var/turf/T = get_turf(user)
+	if (istype(T.loc, /area/security/detectives_office))
+		for(var/mob/living/carbon/human/H in T.loc)
+			ADD_TRAIT(H, TRAIT_NOIR, TRAIT_GENERIC)
+			H.add_client_colour(/datum/client_colour/monochrome)
+			if(H.mind?.assigned_role == JOB_NAME_DETECTIVE)
+				to_chat(H, span_notice("The shadows overtake your office. They are in your realm now."))
+			else
+				to_chat(H, span_userdanger("The shadows overtake the detective's office. An omnious feeling takes over you"))
+	else
+		to_chat(user, "<span class='warning'>You can not use this outside of your office.</span>")
+
+/obj/item/clothing/head/fedora/det_hat/CtrlClick(mob/user)
+	..()
+	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
+		flip(user)
+
+/obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
+	if(!user.incapacitated() && adjustable == TRUE)
+		adjusted = !adjusted
+		if(adjusted)
+			worn_icon_state = "detective_aura"
+			to_chat(user, span_notice("You adjust your hat to look more intimidating."))
+		else
+			worn_icon_state = "detective"
+			to_chat(user, span_notice("You return your hat to its original position."))
+		user.update_inv_head()
 
 /obj/item/clothing/head/fedora/det_hat/noir
 	name = "noir fedora"
