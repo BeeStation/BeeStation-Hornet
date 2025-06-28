@@ -610,7 +610,7 @@ AUTOTRANSFER_DECAY_START 24000
 AUTOTRANSFER_DECAY_AMOUNT 0.025
 
 ## Ghost role cooldown time after death (In deciseconds)
-GHOST_ROLE_COOLDOWN 3000
+GHOST_ROLE_COOLDOWN 600
 
 ## Enable/disable roundstart station traits
 #STATION_TRAITS

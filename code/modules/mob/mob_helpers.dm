@@ -439,14 +439,20 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = poll_message,
+		check_jobban = ban_key,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		alert_pic = M,
+	)
 
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		to_chat(M, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(C)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
+	if(candidate)
 		M.ghostize(FALSE)
-		M.key = C.key
+		M.key = candidate.key
+
+		to_chat(M, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(candidate)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
 		return TRUE
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
