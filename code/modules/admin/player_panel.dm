@@ -82,8 +82,8 @@
 		if(P)
 			data_entry["previous_names"] = P.played_names
 			search_data += P.played_names.Join(" ")
-		if(player.client?.key_is_external)
-			search_data += " @[player.client.external_display_name]"
+		if(player.client?.key_is_external && istype(player.client?.external_method))
+			search_data += " [player.client.external_method.format_display_name(player.client.external_display_name)]"
 		if(length(search_text) && !findtext(search_data, search_text)) // skip this player, not included in query
 			continue
 		data_entry["last_ip"] = player.lastKnownIP
@@ -107,9 +107,11 @@
 		data_entry["log_client"] = list()
 		// do not convert to ?., since that makes null while TGUI expects undefined
 		if(player.client)
-			if(player.client.key_is_external && !isnull(player.client.external_display_name))
-				data_entry["external_method"] = player.client.external_method
+			if(player.client.key_is_external && istype(player.client.external_method))
+				data_entry["external_method_id"] = player.client.external_method::id
+				data_entry["external_method_name"] = player.client.external_method::name
 				data_entry["external_display_name"] = player.client.external_display_name
+				data_entry["formatted_external_display_name"] = player.client.external_method.format_display_name(player.client.external_display_name)
 			if(CONFIG_GET(flag/use_exp_tracking) && player.client.prefs)
 				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()

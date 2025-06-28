@@ -7,19 +7,6 @@
 /datum/tgui_login/New(client/client)
 	src.client = client
 
-/datum/tgui_login/proc/initialize()
-	set waitfor = FALSE
-	// Minimal sleep to defer initialization to after client constructor
-	sleep(1)
-	if(!src.client)
-		return
-	var/static/login_html
-	if(isnull(login_html))
-		login_html = rustg_file_read("html/login_handler.html")
-		login_html = replacetext(login_html, "<!--- SERVER --->", CONFIG_GET(string/server) || "beestation")
-	client << browse(login_html, "window=login;file=login.html;can_minimize=0;auto_format=0;titlebar=0;can_resize=0;")
-	winshow(client, "login", FALSE)
-
 /datum/tgui_login/proc/open()
 	if(client?.mob)
 		ui_interact(client.mob)
@@ -60,15 +47,3 @@
 	.["decorator"] = "?ip=[url_encode(ip)][port_data]"
 	.["authenticated_key"] = user.client.byond_authenticated_key
 
-/datum/tgui_login/proc/save_session_token(token)
-	if(!istext(token))
-		return
-	client << output("store&[token]", "login.browser:login_listener")
-
-/datum/tgui_login/proc/clear_session_token()
-	client << output("clear", "login.browser:login_listener")
-
-/datum/tgui_login/proc/try_auth()
-	if(IsAdminAdvancedProcCall())
-		return
-	client << output("login", "login.browser:login_listener")

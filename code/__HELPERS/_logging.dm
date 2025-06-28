@@ -355,13 +355,12 @@
 		else if(fallback_name)
 			. += "/([fallback_name])"
 
-	if(include_external_name && C?.key_is_external)
+	if(include_external_name && C?.key_is_external && istype(C?.external_method))
 		. += "#("
 		if(include_link) // show an icon
-			. += "<span class='chat16x16 badge-badge_discord' style='vertical-align: -3px;'></span>"
-		else
-			. += "@"
-		. += "[C.external_display_name])"
+			. += "<span class='chat16x16 badge-badge_[C.external_method.get_badge_id()]' style='vertical-align: -3px;'></span>"
+		. += "[C.external_method.format_display_name(C.external_display_name)]"
+		. += ")"
 
 
 	return .

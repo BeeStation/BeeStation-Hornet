@@ -581,9 +581,14 @@
 			return
 		if(query_create_ban_get_player.NextRow())
 			player_key = query_create_ban_get_player.item[1]
-			if(IS_EXTERNAL_AUTH_KEY(player_ckey))
-				// this is only used for display purposes, so we can put html and stuff
-				player_key = "<span class='chat16x16 badge-badge_discord' style='vertical-align: -3px;'></span> @[player_key]"
+			for(var/method_id in GLOB.login_methods)
+				var/datum/external_login_method/method = GLOB.login_methods[method_id]
+				if(!istype(method))
+					continue
+				if(method.is_fake_key(player_ckey))
+					// this is only used for display purposes, so we can put html and stuff
+					player_key = "<span class='chat16x16 badge-badge_[method.get_badge_id()]' style='vertical-align: -3px;'></span>[player_ckey]"
+					break
 			if(use_last_connection)
 				if(ip_check)
 					player_ip = query_create_ban_get_player.item[2]

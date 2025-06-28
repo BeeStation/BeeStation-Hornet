@@ -253,10 +253,10 @@ GUEST_BAN
 LOCALHOST_AUTH_BYPASS
 
 ## All external authentication methods and their URLs. Multiple entries of this config are supported.
-## Right now, any methods other than "discord" are ignored.
+## All IDs should correspond to /datum/external_login_method subtype IDs
 ## ?ip=[client.address]&seeker_port=[client.seeker_port] will be appended to the URL by the client.
 ## Must use https:// unless localhost
-EXTERNAL_AUTH_METHOD discord http://localhost:8081/discord/auth
+# EXTERNAL_AUTH_METHOD discord https://api.beestation13.com/discord/auth
 
 ## Comment this out to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER

@@ -1,8 +1,3 @@
-/mob/dead/new_player/pre_auth/Logout()
-	..()
-	key = null
-	qdel(src)
-
 /mob/dead/new_player/authenticated/Logout()
 	ready = 0
 	..()

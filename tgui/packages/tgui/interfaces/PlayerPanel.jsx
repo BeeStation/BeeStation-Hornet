@@ -185,7 +185,7 @@ export const PlayerPanel = (_) => {
                 <PlayerDetails
                   metacurrency_name={metacurrency_name}
                   ckey={selected_player.ckey}
-                  external_method={selected_player.external_method}
+                  external_method_name={selected_player.external_method_name}
                   external_display_name={selected_player.external_display_name}
                   previous_names={selected_player.previous_names}
                   has_mind={selected_player.has_mind}
@@ -265,7 +265,7 @@ class PlayerDetails extends Component {
       ip = 'N/A',
       related_accounts_ip = 'N/A',
       related_accounts_cid = 'N/A',
-      external_method,
+      external_method_name,
       external_display_name,
     } = this.props;
 
@@ -274,7 +274,7 @@ class PlayerDetails extends Component {
         <Flex.Item grow={1} minWidth="125px">
           <PlayerDetailsSection
             ckey={ckey}
-            external_method={external_method}
+            external_method_name={external_method_name}
             external_display_name={external_display_name}
             mob_type={mob_type}
             species={species}
@@ -320,7 +320,7 @@ class PlayerDetailsSection extends Component {
     const { act } = useBackend();
     const {
       ckey,
-      external_method,
+      external_method_name,
       external_display_name,
       mob_type,
       species,
@@ -394,9 +394,9 @@ class PlayerDetailsSection extends Component {
             {metacurrency_balance}
           </Box>
           <br />
-          {external_method ? (
+          {external_method_name ? (
             <>
-              <strong>{capitalizeFirst(external_method)} Name:</strong>{' '}
+              <strong>{external_method_name} Name:</strong>{' '}
               <Box inline color="#d8d8d8">
                 {external_display_name}
               </Box>
@@ -766,8 +766,8 @@ const PlayerTable = (_) => {
           <PlayerTableEntry
             key={player.ckey}
             selected_ckey={selected_ckey}
-            external_method={player.external_method}
-            external_display_name={player.external_display_name}
+            external_method_id={player.external_method_id}
+            formatted_external_display_name={player.formatted_external_display_name}
             name={player.name}
             real_name={player.real_name}
             job={player.job}
@@ -894,8 +894,8 @@ class PlayerTableEntry extends PureComponent {
   render() {
     const {
       selected_ckey,
-      external_method,
-      external_display_name,
+      external_method_id,
+      formatted_external_display_name,
       name,
       real_name,
       job,
@@ -928,8 +928,8 @@ class PlayerTableEntry extends PureComponent {
             telemetry={telemetry}
             connected={connected}
             ckey={ckey}
-            external_method={external_method}
-            external_display_name={external_display_name}
+            external_method_id={external_method_id}
+            formatted_external_display_name={formatted_external_display_name}
           />
         </Table.Cell>
         <Table.Cell collapsing textAlign="center">
@@ -1012,7 +1012,7 @@ class PlayerTelemetryButton extends PureComponent {
 class PlayerCKEYButton extends PureComponent {
   render() {
     const { act } = useBackend();
-    const { telemetry, connected, ckey, external_method, external_display_name } = this.props;
+    const { telemetry, connected, ckey, external_method_id, formatted_external_display_name } = this.props;
     return (
       <Button
         fluid
@@ -1024,15 +1024,16 @@ class PlayerCKEYButton extends PureComponent {
           fontStyle: !connected ? 'italic' : null,
         }}
         content={
-          external_method ? (
+          external_method_id ? (
             <>
-              <Icon name={`tg-${external_method}`} mr={1} style={{ verticalAlign: 'middle' }} />@{external_display_name}
+              <Icon name={`tg-${external_method_id}`} mr={1} style={{ verticalAlign: 'middle' }} />
+              {formatted_external_display_name}
             </>
           ) : (
             ckey
           )
         }
-        tooltip={`Open Player Panel - ${ckey}${external_method ? ` (@${external_display_name})` : ''}`}
+        tooltip={`Open Player Panel - ${ckey}${external_method_id ? ` (${formatted_external_display_name})` : ''}`}
         onClick={() => act('open_player_panel', { who: ckey })}
       />
     );

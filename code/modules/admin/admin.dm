@@ -28,7 +28,7 @@
 		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.")
 		return
 
-	var/datum/browser/popup = new(usr, "adminplayeropts-[REF(M)]", "<div align='center'>Options for [M.key][M.client?.key_is_external ? " (@[M.client.external_display_name])" : ""]</div>", 700, 600)
+	var/datum/browser/popup = new(usr, "adminplayeropts-[REF(M)]", "<div align='center'>Options for [M.key][M.client?.key_is_external && istype(M.client?.external_method) ? " ([M.client.external_method.format_display_name(M.client.external_display_name)])" : ""]</div>", 700, 600)
 
 	var/body = "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>Options panel for <b>[M]</b>"
 	if(M.client)
@@ -45,8 +45,8 @@
 	if(M.client)
 		if(!M.client.logged_in)
 			body += "<br><strong><font color='red'>CLIENT NOT LOGGED IN</font></strong><br>"
-		if(!isnull(M.client.external_method))
-			body += "<br><br><b>External Login Method: </b>[M.client.external_method]<br><b>External User ID: </b>[M.client.external_uid]<br>"
+		if(istype(M.client.external_method))
+			body += "<br><br><b>External Login Method: </b>[M.client.external_method::name]<br><b>External User ID: </b>[M.client.external_uid]<br>"
 			body += "<b>External Display Name: </b>[M.client.external_display_name]"
 		body += "<br><br><b>First Seen:</b> [M.client.player_join_date]<br><b>Byond account registered on:</b> [M.client.account_join_date]"
 
