@@ -251,7 +251,7 @@
 /// Returns TRUE if the UID has more than one key associated.
 /// Otherwise, returns list(ckey, key)
 /// Warning: this can return fake keys from discord, including discord usernames as the key
-/client/proc/existing_user_for_uid(discord_uid)
+/proc/existing_user_for_uid(discord_uid)
 	if(isnull(discord_uid))
 		return null
 	var/sql_ckey = null

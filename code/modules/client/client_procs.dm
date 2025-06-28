@@ -921,11 +921,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				"UPDATE [format_table_name("player")] SET discord_uid = :discord_uid WHERE ckey = :ckey",
 				list("ckey" = ckey, "discord_uid" = discord_uid)
 			)
-			if(query_set_discord_uid.Execute())
-				var/msg = "Associated your BYOND CKEY with [capitalize(external_method)] UID [external_uid]! Make sure you always log in with this Discord account from now on to retain your access."
-				spawn(1) // no sleeping
-					alert(src, msg, "", "OK")
-				to_chat_immediate(src, span_good(msg))
+			query_set_discord_uid.Execute()
+			var/msg = "Associated your BYOND CKEY with [capitalize(external_method)] UID [external_uid] (@[external_display_name])! Make sure you always log in with this Discord account from now on to retain your access."
+			to_chat_immediate(src, span_good(msg))
+			spawn(1) // no sleeping
+				alert(src, msg, "", "OK")
 			qdel(query_set_discord_uid)
 		var/datum/db_query/query_log_player = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET lastseen = Now(), lastseen_round_id = :round_id, ip = INET_ATON(:ip), computerid = :computerid, lastadminrank = :admin_rank, accountjoindate = :account_join_date WHERE ckey = :ckey",
