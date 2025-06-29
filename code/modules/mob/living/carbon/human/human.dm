@@ -360,11 +360,16 @@
 		. = FALSE
 	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
 	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
-	if(!(injection_flags & INJECT_CHECK_PENETRATE_THICK))
-		for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
-			if(iter_clothing.clothing_flags & THICKMATERIAL)
-				. = FALSE
-				break
+	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
+	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
+		// If it has armour, it has enough thickness to block basic things
+		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) || iter_clothing.get_armor().get_rating(BULLET)))
+			. = FALSE
+			break
+		// If it is ultra thick, then block piercing syringes
+		if(iter_clothing.clothing_flags & THICKMATERIAL)
+			. = FALSE
+			break
 
 /mob/living/carbon/human/try_inject(mob/user, target_zone, injection_flags)
 	. = ..()
