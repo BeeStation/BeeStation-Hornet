@@ -20,6 +20,7 @@
 	power_usage = 20
 	icon_state = "datadisk5"
 	max_capacity = 64
+	custom_price = 30
 
 /obj/item/computer_hardware/hard_drive/portable/super
 	name = "super data disk"
