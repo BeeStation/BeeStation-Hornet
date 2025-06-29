@@ -222,15 +222,15 @@
 	qdel(query_check_byond_key)
 	return list(sql_ckey, sql_key)
 
-/proc/db_invalidate_all_sessions_for(external_uid)
+/proc/db_invalidate_all_sessions_for(datum/external_login_method/external_method, external_uid)
 	if(IsAdminAdvancedProcCall())
 		return
-	if(!SSdbcore.Connect())
+	if(!SSdbcore.Connect() || !istype(external_method) || !istext(external_uid) || !length(external_uid))
 		return
 
 	var/datum/db_query/query_update_sessions = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("session")] SET valid_until = NOW() WHERE external_uid = :external_uid AND valid_until > NOW()",
-		list("external_uid" = external_uid)
+		"UPDATE [format_table_name("session")] SET valid_until = NOW() WHERE external_uid = :external_uid AND external_method = :external_method_id AND valid_until > NOW()",
+		list("external_uid" = external_uid, "external_method_id" = external_method::id)
 	)
 	query_update_sessions.Execute()
 	qdel(query_update_sessions)

@@ -40,10 +40,13 @@
 /client/proc/log_out()
 	set name = "Log Out and Disconnect"
 	set category = "Login"
+	if(!istype(external_method))
+		to_chat(src, span_bad("You did not sign in with any external login method!"))
+		return
 	if(tgui_alert(src.mob, "You will be disconnected from the game and all session tokens will be revoked.", "Are you sure?", list("Yes", "Cancel")) != "Yes")
 		return
 	clear_saved_session_token()
 	to_chat_immediate(src, span_userdanger("You have been logged out. Your client has been disconnected from the game."))
-	db_invalidate_all_sessions_for(src.external_uid)
+	db_invalidate_all_sessions_for(src.external_method, src.external_uid)
 	spawn(5)
 		qdel(src)
