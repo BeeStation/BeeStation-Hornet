@@ -182,7 +182,7 @@
 	return finish_preview_icon(morph_icon)
 
 /datum/role_preference/midround_ghost/prisoner
-	name = "prisoner"
+	name = "Prisoner"
 	description = "You are a Prisoner, sent to the station brig by Nanotrasen. \
 	You have a chance to escape, but be careful, the security officers are on high alert."
 	antag_datum = /datum/antagonist/prisoner
