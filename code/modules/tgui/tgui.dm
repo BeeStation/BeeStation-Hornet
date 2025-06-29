@@ -55,8 +55,6 @@
  * return datum/tgui The requested UI.
  */
 /datum/tgui/New(mob/user, datum/src_object, interface, title, ui_x, ui_y)
-	if(!user.client) // No client to show the TGUI to, so stop here
-		return
 	log_tgui(user, "new [interface] fancy [user?.client?.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)]")
 	src.user = user
 	src.src_object = src_object
