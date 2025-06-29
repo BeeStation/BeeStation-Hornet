@@ -43,7 +43,7 @@
 		if(STYLE_READ_ONLY)
 			. = "<li style='backgroundColor:white'>(Disabled) "
 		if(STYLE_NORMAL)
-			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
+			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner, NAMEOF_HREF(var_edit::datumedit), "E", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(owner, VV_HK_BASIC_MASSEDIT, "M", name)]) "
 		if(STYLE_LIST)
 			. = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(owner_list, VV_HK_LIST_REMOVE, "-", index)]) "
 		if(STYLE_SPECIAL)
@@ -55,10 +55,10 @@
 	var/name_part = VV_HTML_ENCODE(name)
 	if(level > 0 || islist(owner)) //handling keys in assoc lists
 		if(istype(name,/datum))
-			name_part = "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(name)]'>[VV_HTML_ENCODE(name)] [REF(name)]</a>"
+			name_part = "<a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(name))][HrefToken()]'>[VV_HTML_ENCODE(name)] [REF(name)]</a>"
 		else if(islist(name))
 			var/list/list_value = name
-			name_part = "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(name)]'> /list ([length(list_value)]) [REF(name)]</a>"
+			name_part = "<a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(name))][HrefToken()]'> /list ([length(list_value)]) [REF(name)]</a>"
 
 	. = "[.][name_part] = "
 
@@ -91,11 +91,11 @@
 		#endif
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
-		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
+		return "<a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(value))][HrefToken()]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
 
 	if(isimage(value))
 		var/image/image = value
-		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] ([span_value("[get_appearance_vv_summary_name(image)]")]) [REF(value)]</a>"
+		return "<a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(value))][HrefToken()]'>[image.type] ([span_value("[get_appearance_vv_summary_name(image)]")]) [REF(value)]</a>"
 
 	// fun fact: there are two types of /filters. `/filters(/filters(), /filters(), ...)`
 	// isfilter() doesn't know if it's a parent filter(that has [/filters]s inside of itself), or a child filter
@@ -130,9 +130,9 @@
 		if(can_open_list_window)
 			var/href_reference_string = \
 				special_list_secure_level \
-				? "dmlist_origin_ref=[REF(owner)];dmlist_varname=[name]" \
-				: "Vars=[REF(value)]"
-			a_open = "<a href='byond://?_src_=vars;[HrefToken()];[href_reference_string]'>"
+				? "[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::dmlist_origin_ref, REF(owner))][HREF_PARAM(var_edit::dmlist_varname, name)][HrefToken()]" \
+				: "[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(value))][HrefToken()]"
+			a_open = "<a href='byond://?[href_reference_string]'>"
 			a_close = "</a>"
 
 		var/should_fold_list_items = (display_flags & VV_ALWAYS_CONTRACT_LIST) || length(list_value) > VV_BIG_SIZED_LIST_THRESHOLD
@@ -168,13 +168,13 @@
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.
-		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[src] [type] [REF(src)]</a>"
+		return "<a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(src))][HrefToken()]'>[src] [type] [REF(src)]</a>"
 	else
-		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[type] [REF(src)]</a>"
+		return "<a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, REF(src))][HrefToken()]'>[type] [REF(src)]</a>"
 
 /datum/weakref/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	. = ..()
-	return "[.] <a href='byond://?_src_=vars;[HrefToken()];Vars=[reference]'>(Resolve)</a>"
+	return "[.] <a href='byond://?[HREF_TYPE(var_edit)][HREF_PARAM(var_edit::Vars, reference)][HrefToken()]'>(Resolve)</a>"
 
 /matrix/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	return {"<span class='value'>
