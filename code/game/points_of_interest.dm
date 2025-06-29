@@ -4,6 +4,8 @@
 	var/list/namecounts = list()
 	var/list/pois = list()
 	for(var/mob/M in mobs)
+		if(istype(M, /mob/dead/new_player/pre_auth)) // don't show preauth players in orbit panel
+			continue
 		if(skip_mindless && (!M.mind && !M.ckey))
 			if(!isbot(M) && !iscameramob(M) && !ismegafauna(M))
 				continue

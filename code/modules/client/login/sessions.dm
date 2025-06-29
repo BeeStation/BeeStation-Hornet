@@ -119,7 +119,7 @@
 		return FALSE
 	var/ckey = ckey(new_key)
 	var/client/existing_client = GLOB.directory[ckey]
-	if(!QDELETED(existing_client))
+	if(!QDELETED(existing_client) && existing_client != src) // directory can already contain their CKEY if they connected with a valid BYOND key
 		var/usr_msg = "The CKEY [ckey] is already connected with another client! You have been disconnected from the game."
 		to_chat_immediate(src, span_userdanger(usr_msg))
 		log_admin_private("MULTICONNECTION: [key_name(src)] authenticated as [ckey], who is already playing as [key_name(existing_client)]!")
