@@ -522,22 +522,41 @@
   * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
   * for why this isn't atom/verb/examine()
   */
-/mob/verb/examinate(atom/A as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
+/mob/verb/examinate(atom/examinify as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
 	set name = "Examine"
 	set category = "IC"
 
-	if(isturf(A) && !(sight & SEE_TURFS) && !(A in view(client ? client.view : world.view, src)))
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind(src) && !blind_examine_check(A))
+	if(is_blind(src) && !blind_examine_check(examinify))
 		return
 
-	face_atom(A)
-	var/list/result = A.examine(src)
+	face_atom(examinify)
+	var/list/result
+	if(client)
+		LAZYINITLIST(client.recent_examines)
+		var/ref_to_atom = ref(examinify)
+		var/examine_time = client.recent_examines[ref_to_atom]
+		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
+			result = examinify.examine_more(src)
+			if(!length(result))
+				result += span_notice("<i>You examine [examinify] closer, but find nothing of interest...</i>")
+		else
+			result = examinify.examine(src)
+			SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
+			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
+			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
+	else
+		result = examinify.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 
-	to_chat(src, examine_block(jointext(result, "\n")))
-	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
+	if(result.len)
+		for(var/i in 1 to (length(result) - 1))
+			result[i] += "\n"
+
+	to_chat(src, examine_block("<span class='infoplain'>[result.Join()]</span>"))
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
 /mob/proc/blind_examine_check(atom/examined_thing)
 	return TRUE
@@ -569,7 +588,9 @@
 
 	/// how long it takes for the blind person to find the thing they're examining
 	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
-	if(isobj(examined_thing))
+	if(client?.recent_examines && client?.recent_examines[ref(examined_thing)]) //easier to find things we just touched
+		examine_delay_length = 0.33 SECONDS
+	else if(isobj(examined_thing))
 		examine_delay_length *= 1.5
 	else if(ismob(examined_thing) && examined_thing != src)
 		examine_delay_length *= 2
@@ -585,6 +606,12 @@
 	examined_thing.attack_hand(src)
 	set_combat_mode(previous_combat_mode)
 	return TRUE
+
+/mob/proc/clear_from_recent_examines(ref_to_clear)
+	SIGNAL_HANDLER
+	if(!client)
+		return
+	LAZYREMOVE(client.recent_examines, ref_to_clear)
 
 /**
   * Called by using Activate Held Object with an empty hand/limb

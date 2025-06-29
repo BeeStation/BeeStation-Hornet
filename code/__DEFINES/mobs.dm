@@ -438,6 +438,12 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
 #define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
 
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
+
 #define SILENCE_RANGED_MESSAGE (1<<0)
 
 // Mob Playability Set By Admin Or Ghosting
