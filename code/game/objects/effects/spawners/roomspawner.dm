@@ -62,7 +62,7 @@
 					continue
 				// Check to see if we correctly placed ourselves on a wall
 				if (!isclosedturf(get_step(placed_object, placed_object.dir)))
-					qdel(placed_object)
+					stack_trace("room spawner placed a [placed_object] on a non-wall turf.")
 
 /obj/effect/spawner/room/special/tenxfive_terrestrial
 	name = "10x5 terrestrial room"
