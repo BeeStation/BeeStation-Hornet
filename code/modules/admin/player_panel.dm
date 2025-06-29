@@ -117,12 +117,13 @@
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
 			if(ckey == selected_ckey)
-				for(var/log_type in player.client.player_details.logging)
-					var/list/log_type_data = list()
-					var/list/log = player.client.player_details.logging[log_type]
-					for(var/entry in log)
-						log_type_data[entry] += html_decode(log[entry])
-					data_entry["log_client"][log_type] = log_type_data
+				if(player.client.player_details)
+					for(var/log_type in player.client.player_details.logging)
+						var/list/log_type_data = list()
+						var/list/log = player.client.player_details.logging[log_type]
+						for(var/entry in log)
+							log_type_data[entry] += html_decode(log[entry])
+						data_entry["log_client"][log_type] = log_type_data
 				data_entry["metacurrency_balance"] = player.client.get_metabalance_unreliable()
 				data_entry["antag_tokens"] = player.client.get_antag_token_count_unreliable()
 				data_entry["register_date"] = player.client.account_join_date
@@ -154,7 +155,7 @@
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
 	data["search_text"] = search_text
-	data["update_interval"] = update_interval
+	data["update_interval"] = isnum_safe(update_interval) ? update_interval : 5
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)
