@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Re-added menu bar for non-fullscreen 516 clients
