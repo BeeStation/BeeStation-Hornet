@@ -1,9 +1,8 @@
 /obj/vehicle/ridden/lawnmower
 	name = "Doom. Co Ultra-Mega-Mower"
-	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace. The safety light is <b>on</b>."
+	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "lawnmower"
-	uses_integrity = 1
 	max_integrity = 200
 	var/emagged = FALSE
 	var/emagged_by = null
@@ -11,8 +10,8 @@
 	var/list/gib_sounds = list('sound/effects/mowermovesquish.ogg')
 	var/normal_variant = TRUE // This is just so the lawnmower doesn't explode twice on destruction and for initializing.
 
-
 /obj/vehicle/ridden/lawnmower/Initialize(mapload)
+
 	if(normal_variant)
 		. = ..()
 		AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower)
@@ -20,9 +19,17 @@
 		. = ..()
 		AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lawnmower/nukie)
 
+
 /obj/vehicle/ridden/lawnmower/emagged
 	emagged = TRUE
-	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace. The safety light is off"
+	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
+
+/obj/vehicle/ridden/lawnmower/examine(mob/user)
+	. = ..()
+	if(emagged)
+		. += span_warning("The safety lights are <b>off<b>.")
+	else
+		. += span_notice("The safety lights are <b>on<b>.")
 
 /obj/vehicle/ridden/lawnmower/atom_destruction()
 	if(normal_variant)
@@ -38,7 +45,7 @@
 		to_chat(user, span_warning("The safety mechanisms on \the [src] are already disabled!"))
 		return
 	to_chat(user, span_warning("You disable the safety mechanisms on \the [src]."))
-	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace. The safety light is <b>off</b>."
+	desc = "Equipped with reliable safeties to prevent <i>accidents</i> in the workplace."
 	emagged = TRUE
 	if(user)
 		emagged_by = key_name(user)
@@ -107,7 +114,7 @@
 
 /obj/vehicle/ridden/lawnmower/nukie
 	name = "Syndicate Organism Shredder"
-	desc = "A modified lawnmower with a custom paint job. There are no safety mechanisms on this model, rip and tear."
+	desc = "A modified Nanotrasen lawnmower with a custom paint job. The safety mechanisms were turned off automatically, rip and tear."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "syndi_lawnmower"
 	max_integrity = 150
