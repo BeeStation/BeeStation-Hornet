@@ -16,8 +16,6 @@
 		/obj/item/stock_parts/cell,
 		/obj/item/modular_computer/tablet)
 
-var/obj/item/stock_parts/cell/charging = null
-
 /obj/machinery/cell_charger/update_overlays()
 	. = ..()
 	var/init_icon = initial(icon)
