@@ -150,7 +150,7 @@
 		if(withering)
 			to_chat(src, span_notice(" The vines nourish you, healing your wounds."))
 			stop_automated_movement = 0
-		adjustHealth(-maxHealth*0.1)
+		adjustHealth(-maxHealth*0.05)
 		withering = FALSE
 		retreating = FALSE
 		return
@@ -209,7 +209,7 @@
 
 	var/mob/living/L = the_target
 	if(iscarbon(L))
-		L.apply_damage(30, STAMINA, BODY_ZONE_CHEST)
+		L.apply_damage(20, STAMINA, BODY_ZONE_CHEST)
 		L.Knockdown(3 SECONDS)
 		L?.pulledby.stop_pulling()
 		to_chat(L, span_alert("The vines knock you down"))
@@ -284,7 +284,7 @@
 
 		if(iscarbon(B.target)) // If they dont get away quickly, make them take constant stamina damage
 			var/mob/living/L = B.target
-			L.apply_damage(20, STAMINA, BODY_ZONE_CHEST)
+			L.apply_damage(10, STAMINA, BODY_ZONE_CHEST)
 			L.Knockdown(3 SECONDS)
 
 		if(get_dist(src, B.target) == 0)
