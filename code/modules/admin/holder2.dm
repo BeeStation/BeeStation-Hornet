@@ -142,10 +142,8 @@ GLOBAL_PROTECT(href_token)
 		log_admin("[key_name(usr)][msg]")
 		return
 	if(owner)
-		if(rank.rights & R_DEBUG)
+		if((rank.rights & R_DEBUG) && length(winexists(owner, "menudebug")))
 			winset(owner, "menudebug", "parent=")
-			winset(owner, "menuoptions", "parent=")
-			winset(owner, "menuprofiler", "parent=")
 		GLOB.admins -= owner
 		owner.remove_admin_verbs()
 		owner.holder = null
