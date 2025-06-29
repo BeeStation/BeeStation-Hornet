@@ -41,14 +41,14 @@
 	if(use_spawn_locations)
 		get_spawn_locations()
 		if(!length(spawn_locations))
-			log_dynamic("NOT ALLOWED: [name] could not trigger due to a lack of valid spawning locations.")
+			log_dynamic("NOT ALLOWED: [src] could not trigger due to a lack of valid spawning locations.")
 			return FALSE
 
 /datum/dynamic_ruleset/midround/ghost/select_player()
 	if(!length(candidates))
 		CRASH("[src] called select_player without any candidates!")
 
-	var/mob/candidate = dynamic && CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/candidate = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= candidate
 
 	if(!isobserver(candidate))
@@ -67,18 +67,11 @@
 	set_drafted_players_amount()
 	get_candidates()
 	trim_candidates()
-
 	send_applications()
+	trim_candidates()
 
 	if(!allowed())
 		return DYNAMIC_EXECUTE_FAILURE
-
-	// Make sure they haven't disconnected or anything
-	trim_candidates()
-
-	if(length(candidates) < drafted_players_amount)
-		log_dynamic("NOT ALLOWED: No players were eligible for the ruleset [src] - the previous applicants were revived/left and could no longer take the role.")
-		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 	// Pick our candidates
 	for(var/i = 1 to drafted_players_amount)
@@ -107,17 +100,17 @@
 **/
 /datum/dynamic_ruleset/midround/ghost/proc/send_applications()
 	// How?
+	to_chat(world, "[length(candidates)]")
 	if(!length(candidates))
 		return
 
 	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 	log_dynamic("MIDROUND: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
-	candidates = poll_candidates(
-		question = "Looking for [src] volunteers",
-		banning_key = initial(antag_datum.banning_key),
-		role_preference_key = role_preference,
-		group = candidates
+	candidates = SSpolling.poll_ghost_candidates(
+		poll_time = 30 SECONDS,
+		role_name_text = initial(antag_datum.name),
+		alert_pic = get_poll_icon(),
 	)
 
 	if(length(candidates) >= drafted_players_amount)
@@ -156,6 +149,9 @@
 	points_cost = 50
 	weight = 2
 
+/datum/dynamic_ruleset/midround/ghost/wizard/get_poll_icon()
+	return /obj/item/clothing/head/wizard
+
 /datum/dynamic_ruleset/midround/ghost/wizard/get_spawn_locations()
 	spawn_locations = GLOB.wizardstart
 	for(var/obj/effect/landmark/start/wizard/spawnpoint in GLOB.wizardstart)
@@ -186,6 +182,9 @@
 	var/datum/team/nuclear/team
 	var/has_made_leader = FALSE
 
+/datum/dynamic_ruleset/midround/ghost/nuclear_assault/get_poll_icon()
+	return /obj/machinery/nuclearbomb
+
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_OPERATIVE
 	new_character.mind.assigned_role = ROLE_OPERATIVE
@@ -215,6 +214,12 @@
 	use_spawn_locations = FALSE
 	flags = CANNOT_REPEAT
 
+/datum/dynamic_ruleset/midround/ghost/blob/get_poll_icon()
+	var/icon/blob_icon = icon('icons/mob/blob.dmi', icon_state = "blob_core")
+	blob_icon.Blend("#9ACD32", ICON_MULTIPLY)
+	blob_icon.Blend(icon('icons/mob/blob.dmi', "blob_core_overlay"), ICON_OVERLAY)
+	return blob_icon
+
 /datum/dynamic_ruleset/midround/ghost/blob/generate_ruleset_body(mob/dead/observer/chosen_ghost)
 	var/mob/camera/blob/body = chosen_ghost.become_overmind()
 	return body
@@ -233,6 +238,9 @@
 	points_cost = 50
 	weight = 4
 	flags = CANNOT_REPEAT
+
+/datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/get_poll_icon()
+	return /mob/living/carbon/alien/larva
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/obj/vent = pick_n_take(spawn_locations)
@@ -275,6 +283,9 @@
 	weight = 6
 	flags = CANNOT_REPEAT
 
+/datum/dynamic_ruleset/midround/ghost/space_dragon/get_poll_icon()
+	return /mob/living/simple_animal/hostile/space_dragon
+
 /datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
 	player_mind.active = TRUE
@@ -302,6 +313,9 @@
 	weight = 6
 	flags = CANNOT_REPEAT
 
+/datum/dynamic_ruleset/midround/ghost/ninja/get_poll_icon()
+	return /obj/item/energy_katana
+
 /datum/dynamic_ruleset/midround/ghost/ninja/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
 	player_mind.active = TRUE
@@ -324,6 +338,9 @@
 	role_preference = /datum/role_preference/midround_ghost/nightmare
 	points_cost = 30
 	weight = 6
+
+/datum/dynamic_ruleset/midround/ghost/nightmare/get_poll_icon()
+	return /obj/item/light_eater
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/get_spawn_locations()
 	for(var/turf/potential_spawn in GLOB.xeno_spawn)
@@ -361,6 +378,9 @@
 	var/has_made_leader = FALSE
 	var/datum/team/abductor_team/team
 
+/datum/dynamic_ruleset/midround/ghost/abductors/get_poll_icon()
+	return /obj/item/melee/baton/abductor
+
 /datum/dynamic_ruleset/midround/ghost/abductors/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
 	new_character.mind.assigned_role = ROLE_ABDUCTOR
@@ -389,6 +409,9 @@
 
 	var/datum/team/abductor_team/team
 
+/datum/dynamic_ruleset/midround/ghost/lone_abductor/get_poll_icon()
+	return /obj/item/melee/baton/abductor
+
 /datum/dynamic_ruleset/midround/ghost/lone_abductor/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
 	new_character.mind.assigned_role = ROLE_ABDUCTOR
@@ -409,6 +432,9 @@
 	role_preference = /datum/role_preference/midround_ghost/revenant
 	points_cost = 30
 	weight = 6
+
+/datum/dynamic_ruleset/midround/ghost/revenant/get_poll_icon()
+	return /mob/living/simple_animal/revenant
 
 /datum/dynamic_ruleset/midround/ghost/revenant/get_spawn_locations()
 	// Corpses
@@ -491,6 +517,9 @@
 
 	var/datum/team/spiders/team
 
+/datum/dynamic_ruleset/midround/ghost/spiders/get_poll_icon()
+	return /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
+
 /datum/dynamic_ruleset/midround/ghost/spiders/set_drafted_players_amount()
 	drafted_players_amount = ROUND_UP(length(dynamic.roundstart_candidates) / 7)
 
@@ -552,6 +581,9 @@
 
 	var/announce_probability = 25
 
+/datum/dynamic_ruleset/midround/ghost/swarmer/get_poll_icon()
+	return /mob/living/simple_animal/hostile/swarmer
+
 /datum/dynamic_ruleset/midround/ghost/swarmer/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
 	player_mind.active = TRUE
@@ -583,6 +615,9 @@
 	points_cost = 30
 	weight = 4
 
+/datum/dynamic_ruleset/midround/ghost/morph/get_poll_icon()
+	return /mob/living/simple_animal/hostile/morph
+
 /datum/dynamic_ruleset/midround/ghost/morph/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
 	player_mind.active = TRUE
@@ -612,6 +647,9 @@
 	points_cost = 30
 	weight = 4
 	use_spawn_locations = FALSE
+
+/datum/dynamic_ruleset/midround/ghost/prisoners/get_poll_icon()
+	return /obj/item/card/id/prisoner
 
 /datum/dynamic_ruleset/midround/ghost/prisoners/get_spawn_locations()
 	for(var/obj/effect/landmark/prisonspawn/spawnpoint in GLOB.landmarks_list)
@@ -650,6 +688,9 @@
 	points_cost = 30
 	weight = 4
 	use_spawn_locations = FALSE
+
+/datum/dynamic_ruleset/midround/ghost/fugitives/get_poll_icon()
+	return /obj/item/clothing/mask/gas/tiki_mask
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/allowed()
 	. = ..()

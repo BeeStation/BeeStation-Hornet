@@ -330,11 +330,11 @@
 			roundstart_executed_rulesets[ruleset] = null
 
 			// Undraft our previously drafted players
-			for(var/datum/mind/chosen_mind in ruleset.chosen_candidates)
-				GLOB.pre_setup_antags -= chosen_mind
+			for(var/mob/chosen_candidate in ruleset.chosen_candidates)
+				GLOB.pre_setup_antags -= chosen_candidate.mind
 
-				chosen_mind.special_role = null
-				chosen_mind.restricted_roles = list()
+				chosen_candidate.mind.special_role = null
+				chosen_candidate.mind.restricted_roles = list()
 
 /**
  * Checks if this ruleset is blocked by any other rulesets or ruleset flags.
@@ -435,7 +435,7 @@
 
 	update_midround_chances()
 
-	if(world.time < midround_grace_period)
+	if(world.time - SSticker.round_start_time < midround_grace_period)
 		return
 
 	update_midround_points()

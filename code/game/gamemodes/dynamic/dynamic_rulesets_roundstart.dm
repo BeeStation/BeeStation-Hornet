@@ -1,19 +1,3 @@
-/*
-* Order of operations
-*
-* set_drafted_players_amount()
-* get_candidates()
-* trim_candidates()
-* allowed()
-* Here we are checking if the ruleset is valid and whether or not we can execute it
-*
-* choose_candidates()
-*
-* execute()
-*
-* rule_process() - Only if the ruleset has the flag 'SHOULD_PROCESS_RULESET'
-*/
-
 /datum/dynamic_ruleset/roundstart
 	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
 	flags = SHOULD_USE_ANTAG_REP
@@ -35,21 +19,21 @@
 
 /**
  * Choose candidates
- **/
+**/
 /datum/dynamic_ruleset/roundstart/proc/choose_candidates()
 	for(var/i = 1 to drafted_players_amount)
-		var/datum/mind/chosen_mind = select_player()
+		var/mob/chosen_candidate = select_player()
 
-		GLOB.pre_setup_antags += chosen_mind
-		chosen_candidates += chosen_mind
+		GLOB.pre_setup_antags += chosen_candidate.mind
+		chosen_candidates += chosen_candidate
 
-		chosen_mind.special_role = antag_datum.banning_key
-		chosen_mind.restricted_roles = restricted_roles
+		chosen_candidate.mind.special_role = antag_datum.banning_key
+		chosen_candidate.mind.restricted_roles = restricted_roles
 
 /datum/dynamic_ruleset/roundstart/execute()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		GLOB.pre_setup_antags -= chosen_mind
+	for(var/mob/chosen_candidate in chosen_candidates)
+		GLOB.pre_setup_antags -= chosen_candidate.mind
 
 //////////////////////////////////////////////
 //                                          //
@@ -108,12 +92,11 @@
 
 /datum/dynamic_ruleset/roundstart/malf/execute()
 	var/list/living_players = dynamic.current_players[CURRENT_LIVING_PLAYERS]
-	for(var/mob/living/player in living_players)
-		if(isAI(player))
-			candidates -= player
-			player.mind.special_role = antag_datum.banning_key
-			player.mind.add_antag_datum(antag_datum)
-			return DYNAMIC_EXECUTE_SUCCESS
+	for(var/mob/living/silicon/ai/ai in living_players)
+		candidates -= ai
+		ai.mind.special_role = antag_datum.banning_key
+		ai.mind.add_antag_datum(antag_datum)
+		return DYNAMIC_EXECUTE_SUCCESS
 
 	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
@@ -143,13 +126,13 @@
 
 /datum/dynamic_ruleset/roundstart/wizard/choose_candidates()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = antag_datum.banning_key
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.assigned_role = antag_datum.banning_key
 
 /datum/dynamic_ruleset/roundstart/wizard/execute()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.forceMove(pick(GLOB.wizardstart))
 
 //////////////////////////////////////////
 //                                      //
@@ -171,16 +154,16 @@
 	. = ..()
 	team = new
 
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		team.add_member(chosen_mind)
-		GLOB.pre_setup_antags -= chosen_mind
+	for(var/mob/chosen_candidate in chosen_candidates)
+		team.add_member(chosen_candidate.mind)
+		GLOB.pre_setup_antags += chosen_candidate.mind
 
 /datum/dynamic_ruleset/roundstart/brothers/execute()
 	team.pick_meeting_area()
 	team.forge_brother_objectives()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		GLOB.pre_setup_antags -= chosen_mind
-		chosen_mind.add_antag_datum(antag_datum, team)
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.add_antag_datum(antag_datum, team)
+		GLOB.pre_setup_antags -= chosen_candidate.mind
 
 	team.update_name()
 	return DYNAMIC_EXECUTE_SUCCESS
@@ -212,14 +195,14 @@
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	team = new
-	for(var/datum/mind/chosen_mind in chosen_candidates)
+	for(var/mob/chosen_candidate in chosen_candidates)
 		var/datum/antagonist/cult/cultist_datum = new antag_datum()
 
 		cultist_datum.cult_team = team
 		cultist_datum.give_equipment = TRUE
 
-		chosen_mind.add_antag_datum(cultist_datum)
-		GLOB.pre_setup_antags -= chosen_mind
+		chosen_candidate.mind.add_antag_datum(cultist_datum)
+		GLOB.pre_setup_antags -= chosen_candidate.mind
 
 	team.setup_objectives()
 	return DYNAMIC_EXECUTE_SUCCESS
@@ -261,21 +244,21 @@
 	LoadReebe()
 	generate_clockcult_scriptures()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = antag_datum.banning_key
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.assigned_role = antag_datum.banning_key
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
 	main_cult = new
 
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.current.forceMove(pick_n_take(GLOB.servant_spawns))
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.forceMove(pick_n_take(GLOB.servant_spawns))
 
-		var/datum/antagonist/servant_of_ratvar/servant_datum = add_servant_of_ratvar(chosen_mind.current, team = main_cult)
-		servant_datum.equip_carbon(chosen_mind.current)
+		var/datum/antagonist/servant_of_ratvar/servant_datum = add_servant_of_ratvar(chosen_candidate, team = main_cult)
+		servant_datum.equip_carbon(chosen_candidate)
 		servant_datum.equip_servant()
 		servant_datum.prefix = CLOCKCULT_PREFIX_MASTER
 
-		GLOB.pre_setup_antags -= chosen_mind
+		GLOB.pre_setup_antags -= chosen_candidate.mind
 
 	main_cult.setup_objectives()
 
@@ -314,20 +297,20 @@
 
 /datum/dynamic_ruleset/roundstart/nuclear/choose_candidates()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = antag_datum.banning_key
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.assigned_role = antag_datum.banning_key
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
 	var/has_made_leader = FALSE
-	for(var/datum/mind/chosen_mind in chosen_candidates)
+	for(var/mob/chosen_candidate in chosen_candidates)
 		if(!has_made_leader)
 			has_made_leader = TRUE
-			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
+			var/datum/antagonist/nukeop/leader/leader_datum = chosen_candidate.mind.add_antag_datum(antag_leader_datum)
 			leader_datum = leader_datum.nuke_team
 		else
-			chosen_mind.add_antag_datum(antag_datum)
+			chosen_candidate.mind.add_antag_datum(antag_datum)
 
-		GLOB.pre_setup_antags -= chosen_mind
+		GLOB.pre_setup_antags -= chosen_candidate.mind
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
@@ -410,14 +393,14 @@
 
 /datum/dynamic_ruleset/roundstart/revolution/execute()
 	team = new
-	for(var/datum/mind/chosen_mind in chosen_candidates)
+	for(var/mob/chosen_candidate in chosen_candidates)
 		var/datum/antagonist/rev/head/headrev_datum = new antag_datum()
 		headrev_datum.give_flash = TRUE
 		headrev_datum.give_hud = TRUE
 		headrev_datum.remove_clumsy = TRUE
 
-		chosen_mind.add_antag_datum(headrev_datum, team)
-		GLOB.pre_setup_antags -= chosen_mind
+		chosen_candidate.mind.add_antag_datum(headrev_datum, team)
+		GLOB.pre_setup_antags -= chosen_candidate.mind
 
 	team.update_objectives()
 	team.update_heads()

@@ -34,7 +34,7 @@
 	var/datum/game_mode/dynamic/dynamic
 	/// List of possible people for this ruleset to draft. Assigned in 'dynamic.dm' 'pick_roundstart_rulesets()'
 	var/list/candidates = list()
-	/// A list of people chosen for this ruleset. This will be a list of minds for every ruleset except ghost midrounds
+	/// A list of mobs chosen for this ruleset.
 	var/list/chosen_candidates = list()
 
 /datum/dynamic_ruleset/New(dynamic_mode)
@@ -76,7 +76,7 @@
 			role_preference_key = role_preference,
 			req_hours = antag_datum.required_living_playtime
 		))
-			candidates -= candidate
+			//candidates -= candidate
 			continue
 
 		// Already assigned antag?
@@ -102,22 +102,20 @@
 	if(!length(candidates))
 		CRASH("[src] called select_player without any candidates!")
 
-	var/mob/selected_player = dynamic && CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/selected_player = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	candidates -= selected_player
 
-	if(selected_player)
-		candidates -= selected_player
-	return selected_player.mind
+	return selected_player
 
 /**
  * Give our chosen candidates their antag datums
- * Give your chosen minds their antag datums.
 **/
 /datum/dynamic_ruleset/proc/execute()
 	if(!length(chosen_candidates))
 		return DYNAMIC_EXECUTE_FAILURE
 
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.add_antag_datum(antag_datum)
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.add_antag_datum(antag_datum)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 

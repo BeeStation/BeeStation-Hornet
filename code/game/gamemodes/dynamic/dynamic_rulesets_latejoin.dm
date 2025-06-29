@@ -10,8 +10,8 @@
 
 /datum/dynamic_ruleset/latejoin/execute()
 	chosen_candidates += select_player()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.special_role = antag_datum.banning_key
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.special_role = antag_datum.banning_key
 	. = ..()
 
 //////////////////////////////////////////////
@@ -52,8 +52,8 @@
 
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute()
 	. = ..()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		var/datum/antagonist/heretic/new_heretic = IS_HERETIC(chosen_mind.current)
+	for(var/mob/chosen_candidate in chosen_candidates)
+		var/datum/antagonist/heretic/new_heretic = IS_HERETIC(chosen_candidate)
 
 		// Heretics passively gain influence over time.
 		// As a consequence, latejoin heretics start out at a massive
