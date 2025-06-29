@@ -64,7 +64,7 @@
 		remove_verb(/client/verb/use_token)
 		remove_verb(/client/verb/open_login)
 
-/client/proc/add_default_verbs()
+/client/proc/add_authenticated_verbs()
 	add_verb(collect_client_verbs())
 
 /client/proc/send_client_messages()
@@ -101,11 +101,13 @@
 	// Instantiate tgui panel
 	if(first_run)
 		tgui_panel = new(src, "browseroutput")
-		tgui_say = new(src, "tgui_say")
-		tgui_asay = new(src, "tgui_asay")
 		initialize_commandbar_spy()
 
 		set_right_click_menu_mode(TRUE)
+
+	if(authenticated)
+		tgui_say = new(src, "tgui_say")
+		tgui_asay = new(src, "tgui_asay")
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
@@ -151,11 +153,13 @@
 		if(!check_client_blocked_byond_versions(connecting_admin) || QDELETED(src))
 			return FALSE
 
-		if(SSinput.initialized)
-			set_macros()
+	if(authenticated && SSinput.initialized)
+		set_macros()
 
-		// Initialize tgui panel
+	if(first_run)
 		tgui_panel.Initialize()
+
+	if(authenticated)
 		tgui_say.initialize()
 		tgui_asay.initialize()
 
@@ -174,15 +178,15 @@
 		connection_timeofday = world.timeofday
 		winset(src, null, "command=\".configure graphics-hwmode on\"")
 
-		if (connection == "web" && !connecting_admin)
-			if (!CONFIG_GET(flag/allow_webclient))
-				to_chat_immediate(src, "Web client is disabled")
-				qdel(src)
-				return FALSE
-			if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
-				to_chat_immediate(src, "Sorry, but the web client is restricted to byond members only.")
-				qdel(src)
-				return FALSE
+	if (connection == "web" && !CONFIG_GET(flag/allow_webclient))
+		to_chat_immediate(src, "Web client is disabled")
+		qdel(src)
+		return FALSE
+	if (authenticated && connection == "web" && !connecting_admin)
+		if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
+			to_chat_immediate(src, "Sorry, but the web client is restricted to byond members only.")
+			qdel(src)
+			return FALSE
 
 	if(authenticated)
 		if( (world.address == address || !address) && !GLOB.host )
@@ -224,7 +228,7 @@
 
 	if(authenticated)
 		check_ip_intel()
-		validate_key_in_db()
+		sync_db_key_with_byond_key()
 
 	// If we aren't already generating a ban cache, fire off a build request
 	// This way hopefully any users of request_ban_cache will never need to yield
@@ -262,7 +266,8 @@
 		if(!tooltips)
 			tooltips = new /datum/tooltip(src)
 
-	view_size = new(src, getScreenSize(mob))
+	if(isnull(view_size))
+		view_size = new(src, getScreenSize(mob))
 	view_size.resetFormat()
 	view_size.setZoomMode()
 	fit_viewport()
@@ -276,8 +281,9 @@
 		add_verb(subtypesof(/client/verb), TRUE)
 
 	if(authenticated)
-		add_default_verbs()
-		add_verbs_from_config()
+		if(!interviewee)
+			add_authenticated_verbs()
+			add_verbs_from_config()
 		// Create input box templates
 		create_preset_input_window("say", show=FALSE)
 		create_preset_input_window("me", show=FALSE)
@@ -386,7 +392,6 @@
 		return
 	if(!SSdbcore.Connect())
 		return
-	// copy numerical portion of token auth key
 	var/external_uid = null
 	var/external_column = null
 	if(istype(src.external_method))
@@ -481,7 +486,7 @@
 	if(!client_is_in_db)
 		new_player = 1
 		if(!src.key_is_external)
-			account_join_date = findJoinDate()
+			account_join_date = get_byond_account_creation_date()
 		var/external_insert = istext(external_column) && length(external_column) ? "`[external_column]`, " : ""
 		var/datum/db_query/query_add_player = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("player")] (`ckey`, `byond_key`, [external_insert]`firstseen`, `firstseen_round_id`, `lastseen`, `lastseen_round_id`, `ip`, `computerid`, `lastadminrank`, `accountjoindate`)
@@ -508,7 +513,7 @@
 			account_join_date = query_get_client_age.item[3]
 			account_age = text2num(query_get_client_age.item[4])
 			if(!account_age && !src.key_is_external)
-				account_join_date = findJoinDate()
+				account_join_date = get_byond_account_creation_date()
 				if(!account_join_date)
 					account_age = -1
 				else
@@ -563,22 +568,25 @@
 		player_age = -1
 	. = player_age
 
-/client/proc/findJoinDate()
-	var/datum/http_request/http = new()
-	http = http.get_request("http://byond.com/members/[ckey]?format=text")
-
-	if(!http)
-		log_world("Failed to connect to byond member page to age check [ckey]")
+/client/proc/get_byond_account_creation_date()
+	if(src.key_is_external)
 		return
-	var/F = http.body
-	if(F)
-		var/regex/R = regex("joined = \"(\\d{4}-\\d{2}-\\d{2})\"")
-		if(R.Find(F))
-			. = R.group[1]
-		else
-			CRASH("Age check regex failed for [ckey]")
+	if(!GLOB.byond_http)
+		return
+	var/datum/http_request/http = new()
+	var/datum/http_response/response = http.get_request("http://byond.com/members/[ckey]?format=text", timeout_seconds=5)
 
-/client/proc/validate_key_in_db()
+	if(!istype(response) || response.status_code != 200 || !length(response.body))
+		log_world("Failed to connect to byond member page to age check [ckey]")
+		GLOB.byond_http = FALSE
+		return
+	var/regex/join_date_regex = regex("joined = \"(\\d{4}-\\d{2}-\\d{2})\"")
+	if(join_date_regex.Find(response.body))
+		. = join_date_regex.group[1]
+	else
+		CRASH("Age check regex failed for [ckey]")
+
+/client/proc/sync_db_key_with_byond_key()
 	if(IS_GUEST_KEY(key))
 		return
 	if(src.key_is_external)
@@ -595,25 +603,26 @@
 		sql_key = query_check_byond_key.item[1]
 	qdel(query_check_byond_key)
 	if(key != sql_key)
-		var/datum/http_request/http = new()
-		http = http.get_request("http://byond.com/members/[ckey]?format=text")
-
-		if(!http)
-			log_world("Failed to connect to byond member page to get changed key for [ckey]")
+		if(!GLOB.byond_http)
 			return
-		var/F = http.body
-		if(F)
-			var/regex/R = regex("\\tkey = \"(.+)\"")
-			if(R.Find(F))
-				var/web_key = R.group[1]
-				var/datum/db_query/query_update_byond_key = SSdbcore.NewQuery(
-					"UPDATE [format_table_name("player")] SET byond_key = :byond_key WHERE ckey = :ckey",
-					list("byond_key" = web_key, "ckey" = ckey)
-				)
-				query_update_byond_key.Execute()
-				qdel(query_update_byond_key)
-			else
-				CRASH("Key check regex failed for [ckey]")
+		var/datum/http_request/http = new()
+		var/datum/http_response/response = http.get_request("http://byond.com/members/[ckey]?format=text", timeout_seconds=5)
+
+		if(!istype(response) || response.status_code != 200 || !length(response.body))
+			log_world("Failed to connect to byond member page to get changed key for [ckey]")
+			GLOB.byond_http = FALSE
+			return
+		var/regex/key_regex = regex("\\tkey = \"(.+)\"")
+		if(key_regex.Find(response.body))
+			var/web_key = key_regex.group[1]
+			var/datum/db_query/query_update_byond_key = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("player")] SET byond_key = :byond_key WHERE ckey = :ckey",
+				list("byond_key" = web_key, "ckey" = ckey)
+			)
+			query_update_byond_key.Execute()
+			qdel(query_update_byond_key)
+		else
+			CRASH("Key check regex failed for [ckey]")
 
 /client/proc/check_duplicate_login()
 	var/alert_mob_dupe_login = FALSE

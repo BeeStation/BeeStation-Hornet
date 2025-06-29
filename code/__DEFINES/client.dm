@@ -9,3 +9,11 @@
 /// authorized users to be able to use
 /client/proc/collect_client_verbs() as /list
 	return list()
+
+/// If BYOND's HTTP API currently responding?
+/// Set to false on the first request failure
+#ifndef DISABLE_BYOND_AUTH
+GLOBAL_VAR_INIT(byond_http, TRUE)
+#else
+GLOBAL_VAR_INIT(byond_http, FALSE)
+#endif

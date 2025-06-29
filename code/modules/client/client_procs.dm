@@ -513,8 +513,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 
 /client/proc/add_verbs_from_config()
-	if (interviewee)
-		return
 	if(CONFIG_GET(flag/see_own_notes))
 		add_verb(/client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))

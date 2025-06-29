@@ -37,7 +37,7 @@
 /// DO NOT ENABLE THIS FLAG ON PRODUCTION WITHOUT EXTERNAL AUTH SET UP
 /// Toggle ENABLE_GUEST_EXTERNAL_AUTH to require external auth, otherwise CKEYs are blindly trusted!
 /// This flag also forcibly enables guest connections, because every client has its key reassigned on login.
-/// This flag also disables BYOND account age checks  and makes the config flag use_account_age_for_jobs useess.
+/// This flag also disables BYOND account age checks, BYOND Key change verification, and makes the config flag use_account_age_for_jobs useless.
 //#define DISABLE_BYOND_AUTH
 
 /// Enables BYOND TRACY, which allows profiling using Tracy.
