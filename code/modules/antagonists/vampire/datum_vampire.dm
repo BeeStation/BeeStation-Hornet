@@ -137,7 +137,7 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
-	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(current_mob, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	RegisterSignal(current_mob, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	handle_clown_mutation(current_mob, "Your clownish nature has been subdued by your thirst for blood.")
@@ -383,7 +383,7 @@
 				vassal_report += " and was the <b>Favorite Vassal</b>"
 			report += vassal_report.Join()
 
-	if(objectives.len == 0 || objectives_complete)
+	if(!length(objectives) || objectives_complete)
 		report += span_greentextbig("The [name] was successful!")
 	else
 		report += span_redtextbig("The [name] has failed!")
@@ -400,11 +400,11 @@
 	var/mob/living/carbon/human/user = owner.current
 
 	// Species traits
-	if(ishuman(user))
+	if(ishuman(user) && user.dna)
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits += TRAIT_DRINKSBLOOD
 		user_species.punchdamage += 2
-		user.dna?.remove_all_mutations()
+		user.dna.remove_all_mutations()
 
 	// Give Vampire Traits
 	user.add_traits(vampire_traits, TRAIT_VAMPIRE)

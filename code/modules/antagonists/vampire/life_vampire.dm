@@ -85,35 +85,37 @@
 
 	if(!iscarbon(owner.current))
 		return FALSE
-	var/mob/living/carbon/user = owner.current
+	var/mob/living/carbon/carbon_owner = owner.current
 
 	var/bloodcost_multiplier = 1 // Coffin makes it cheaper
 	var/healing_mulitplier = 1
 
-	var/brute_heal = min(user.getBruteLoss(), actual_regen) * healing_mulitplier
-	var/burn_heal = min(user.getFireLoss(), actual_regen) * 0.75 * healing_mulitplier
+	var/brute_heal = min(carbon_owner.getBruteLoss(), actual_regen) * healing_mulitplier
+	var/burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.75 * healing_mulitplier
+
+	carbon_owner.suppress_bloodloss(BLEED_TINY * healing_mulitplier)
 
 	if(in_torpor)
 		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set bloodcost to 50%, and regenerate limbs
 		// If not: heal 3x as fast and heal burn damage at 80%
-		if(istype(user.loc, /obj/structure/closet/crate/coffin))
+		if(istype(carbon_owner.loc, /obj/structure/closet/crate/coffin))
 			if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, vampire_spam_healing)))
-				to_chat(user, span_alert("You do not heal while your Masquerade ability is active."))
+				to_chat(carbon_owner, span_alert("You do not heal while your Masquerade ability is active."))
 				COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_MASQUERADE)
 				return FALSE
 
-			burn_heal = min(user.getFireLoss(), actual_regen)
+			burn_heal = min(carbon_owner.getFireLoss(), actual_regen)
 			healing_mulitplier = 5
 			bloodcost_multiplier = 0.5 // Decrease cost if we're sleeping in a coffin.
 
 			// Extinguish and remove embedded objects
-			user.ExtinguishMob()
-			user.remove_all_embedded_objects()
+			carbon_owner.ExtinguishMob()
+			carbon_owner.remove_all_embedded_objects()
 
 			if(try_regenerate_limbs(bloodcost_multiplier))
 				return TRUE
 		else
-			burn_heal = min(user.getFireLoss(), actual_regen) * 0.8
+			burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.8
 			healing_mulitplier = 3
 
 	// Heal if Damaged
@@ -122,25 +124,25 @@
 
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
 		var/bloodcost = (brute_heal * 0.5 + burn_heal) * bloodcost_multiplier * healing_mulitplier
-		user.heal_overall_damage(brute_heal, burn_heal)
+		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
 		AddBloodVolume(-bloodcost)
 		return TRUE
 	return FALSE
 
 /datum/antagonist/vampire/proc/try_regenerate_limbs(cost_muliplier = 1)
-	var/mob/living/carbon/user = owner.current
+	var/mob/living/carbon/carbon_owner = owner.current
 	var/limb_regen_cost = 50 * -cost_muliplier
 
-	var/list/missing = user.get_missing_limbs()
+	var/list/missing = carbon_owner.get_missing_limbs()
 	if(missing.len && (vampire_blood_volume < limb_regen_cost + 5))
 		return FALSE
 	for(var/missing_limb in missing) //Find ONE Limb and regenerate it.
-		user.regenerate_limb(missing_limb, FALSE)
+		carbon_owner.regenerate_limb(missing_limb, FALSE)
 		AddBloodVolume(-limb_regen_cost)
-		var/obj/item/bodypart/missing_bodypart = user.get_bodypart(missing_limb)
+		var/obj/item/bodypart/missing_bodypart = carbon_owner.get_bodypart(missing_limb)
 		missing_bodypart.brute_dam = 60
-		to_chat(user, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
-		playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+		to_chat(carbon_owner, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
+		playsound(carbon_owner, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		return TRUE
 
 /*
@@ -158,7 +160,7 @@
 	carbon_user.regenerate_organs()
 
 	// Heal organs
-	for(var/obj/item/organ/organ in carbon_user.internal_organs)
+	for(var/obj/item/organ/organ as anything in carbon_user.internal_organs)
 		organ.set_organ_damage(0)
 
 	// Heart
@@ -181,7 +183,7 @@
 		carbon_user.get_organ_by_type(/obj/item/organ/zombie_infection)
 	)
 
-	for(var/obj/item/organ/bad_organ in bad_organs)
+	for(var/obj/item/organ/bad_organ as anything in bad_organs)
 		var/obj/item/organ/yucky_organ = bad_organ
 		if(!istype(yucky_organ))
 			continue
