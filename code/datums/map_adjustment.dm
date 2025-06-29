@@ -31,8 +31,8 @@
 	return
 
 /// * job_name<string/JOB_DEFINES>: 	JOB_NAME macros from jobs.dm
-/// * total_positions<number, null>: 	Sets the number of total positions of this job, including roundstart and latejoin
-/datum/map_adjustment/proc/change_job_position(job_name, total_positions = null)
+/// * total_positions<number>: 	Sets the number of total positions of this job, including roundstart and latejoin
+/datum/map_adjustment/proc/change_job_position(job_name, total_positions)
 	SHOULD_NOT_OVERRIDE(TRUE) // no reason to override for a new behaviour
 	PROTECTED_PROC(TRUE) // no reason to call this outside of /map_adjustment datum. (I didn't add _underbar_ to the proc name because you use this frequently)
 	var/datum/job/job = SSjob.GetJob(job_name)

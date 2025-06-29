@@ -34,6 +34,7 @@
 #define JOB_LOCK_REASON_CONFIG (1<<2)
 
 // Job spawn groups
+// Spawn group representing the primary roles of a department
 #define JOB_SPAWN_GROUP_DEPARTMENT "department"
 
 #define DEFAULT_RELIGION "Christianity"

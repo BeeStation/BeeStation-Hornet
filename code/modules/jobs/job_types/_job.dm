@@ -20,7 +20,7 @@
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
 
-	/// Can we latejoin as this role?
+	/// Determines whether or not late-joining as this role is allowed
 	var/latejoin_allowed = TRUE
 
 	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
@@ -155,7 +155,7 @@
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
 
-/// Does this job have any space to join?
+/// Returns true if there are available slots
 /datum/job/proc/has_space()
 	// How many slots does our group have?
 	var/group_slots = get_spawn_position_count(TRUE)
@@ -163,7 +163,7 @@
 	if (group_slots == -1)
 		return TRUE
 	// If the department itself is saturated, return false
-	if (dynamic_spawn_group_multiplier && get_group_position_count() >= group_slots)
+	if (dynamic_spawn_group_multiplier && count_players_in_group() >= group_slots)
 		return FALSE
 	// If the role itself does not care about saturation, return true
 	if (total_positions == -1 || dynamic_spawn_group)
@@ -178,7 +178,7 @@
 /// Returns the number of players who are inside a role if the job hasn't reached
 /// its population limit, otherwise groups together roles by checking for their
 /// min_pop_redirect proxy role.
-/datum/job/proc/get_group_position_count()
+/datum/job/proc/count_players_in_group()
 	var/spawn_group_size = current_positions * dynamic_spawn_group_multiplier
 	// Find all jobs that proxy to the target's spawn group
 	// This will mean that medical will count all of the players in medical
@@ -250,7 +250,7 @@
 		// If the HOP removes a position from another job, then that removed position.
 		// If the HOP adds a position to a job group, then it has to be filled before the spawn
 		// group bumps.
-		spawn_group_minimum = min(spawn_group_minimum, other.get_group_position_count())
+		spawn_group_minimum = min(spawn_group_minimum, other.count_players_in_group())
 	// The amount of positions we have is the least filled job + our allowed variance
 	// variance is calculated per job, not based on the proxy
 	// If we are using a proxy, then the number of spawn positions is limited to the total
@@ -259,7 +259,12 @@
 	// If the proxying target has a dynamic spawn group, then that implictly means that there is
 	// no limit to the total positions; this behaviour only exists so that we can limit the number
 	// of players joining as a sub-role of a department, not as the primary role.
-	return min((proxy == src || ignore_self_limit || proxy.dynamic_spawn_group) ? INFINITY : total_positions, max(spawn_group_minimum + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
+	var/position_limit = total_positions
+	// If we don't care about how many positions this job has itself, then treat the job as having infinite space
+	// being only limited by its spawn variance limit
+	if (proxy == src || ignore_self_limit || proxy.dynamic_spawn_group)
+		position_limit = INFINITY
+	return min(position_limit, max(spawn_group_minimum + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
