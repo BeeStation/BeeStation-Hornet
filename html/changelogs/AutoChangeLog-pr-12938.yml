@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Fixes antagonist roles being assigned to players on the main menu if they
+      did not have any valid jobs available.
