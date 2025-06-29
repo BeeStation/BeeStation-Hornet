@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - server: Added a new Discord-based authentication system.
+  - code_imp: Cleaned up many processes related to client login and guest connections.
