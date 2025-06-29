@@ -288,6 +288,19 @@
 	..()
 	. = 1
 
+/datum/reagent/medicine/advanced_burn_gel
+	name = "Advanced Burn Gel"
+	description = "A high-tier burn medicine made from the sap of Ambrosia Vulgaris plants. Capable of treating second-degree burns when applied to the skin, but causes liver damage if ingested."
+	reagent_state = LIQUID
+	color = "#f78400"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/advanced_burn_gel/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM)
+	. = ..()
+	. = 1
+
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
 	description = "Stimulates the healing of severe burns. Overdosing will double the effectiveness of healing the burns while also dealing toxin and liver damage"
@@ -1397,6 +1410,18 @@
 		M.vomit(20) // nanite safety protocols make your body expel them to prevent harmies
 	..()
 	. = 1
+
+/datum/reagent/medicine/terranol
+	name = "Terranol"
+	description = "A potent base chemical used in the production of high-tier medicine. Causes liver damage if ingested without further processing."
+	color = "#82cdb0"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+
+/datum/reagent/medicine/terranol/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2 * REM)
+	M.jitteriness = min(max(0, M.jitteriness + 3), 30)
+	..()
+	return TRUE
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Earthsblood"

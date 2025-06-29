@@ -23,7 +23,8 @@
 	var/abductor_surgery_blacklist = FALSE
 	//Blacklisted surgeries aren't innately known by Abductor Scientists
 	//However, they can still be used by them if they meet the normal requirements to access the surgery
-
+	/// If true, then this surgery is only visible if you have the injury associated with it
+	var/requires_injury = FALSE
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -67,6 +68,18 @@
 
 	if(requires_tech)
 		. = FALSE
+
+	if (requires_injury)
+		var/obj/item/bodypart/part = target.get_bodypart(target_zone)
+		if (!part)
+			return FALSE
+		var/valid = FALSE
+		for (var/datum/injury/injury in part.injuries)
+			if (type in injury.surgeries_provided)
+				valid = TRUE
+				break
+		if (!valid)
+			return FALSE
 
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user

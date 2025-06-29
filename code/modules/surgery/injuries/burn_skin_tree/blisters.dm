@@ -19,7 +19,21 @@
 	addtimer(CALLBACK(src, PROC_REF(check_heal), part), rand(5 MINUTES, 15 MINUTES), TIMER_DELETE_ME)
 
 /datum/injury/blisters/proc/check_heal(obj/item/bodypart/part)
-	if (prob(30))
+	//if (prob(30))
 		// Gain an infection
 	// Heal the blisters
 	transition_to(/datum/injury/repaired_skin_burn)
+
+/datum/injury/blisters/intercept_medical_application(obj/item/stack/medical/medical_item, mob/living/carbon/human/victim, mob/living/carbon/human/actor)
+	if (ispath(medical_item, /datum/reagent/medicine/silver_sulfadiazine))
+		return MEDICAL_ITEM_VALID
+	return MEDICAL_ITEM_NO_INTERCEPT
+
+/datum/injury/blisters/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
+	if (!istype(reagent, /datum/reagent/medicine/silver_sulfadiazine) && !istype(reagent, /datum/reagent/medicine/advanced_burn_gel))
+		return
+	if (reac_volume < 10)
+		return
+	if (method != TOUCH && method != PATCH)
+		return
+	transition_to(/datum/injury/treated_burn)

@@ -24,7 +24,16 @@
 	addtimer(CALLBACK(src, PROC_REF(check_heal), part), rand(5 MINUTES, 15 MINUTES), TIMER_DELETE_ME)
 
 /datum/injury/second_degree_burns/proc/check_heal(obj/item/bodypart/part)
-	if (prob(60))
+	//if (prob(60))
 		// Gain an infection
 	// Heal the blisters
 	transition_to(/datum/injury/repaired_skin_burn)
+
+/datum/injury/second_degree_burns/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
+	if (!istype(reagent, /datum/reagent/medicine/advanced_burn_gel))
+		return
+	if (reac_volume < 10)
+		return
+	if (method != TOUCH && method != PATCH)
+		return
+	transition_to(/datum/injury/treated_burn)

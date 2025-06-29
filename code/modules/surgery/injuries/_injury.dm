@@ -33,11 +33,11 @@
 
 /// Apply the injury to the target
 /datum/injury/proc/apply_to_human(mob/living/carbon/human/target)
-	return
+	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(item_interaction))
 
 /// Take the injury away from the person who owns the limb
 /datum/injury/proc/remove_from_human(mob/living/carbon/human/target)
-	return
+	UnregisterSignal(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
@@ -60,3 +60,18 @@
 	message_admins("[type] converted to [new_type]")
 	bodypart.remove_injury_tree(src)
 	bodypart.apply_injury_tree(new_type, base_type)
+
+/// Intercept item interactions. Return COMPONENT_NO_AFTERATTACK if successful.
+/datum/injury/proc/item_interaction(mob/living/carbon/human/source, obj/item, mob/living/attacker, params)
+	return 0
+
+/// Intercept the application of medical items.
+/// This differs from item_interaction, as it applies after standard medical item checks are applied.
+/// Return either MEDICAL_ITEM_APPLIED or MEDICAL_ITEM_FAILED to intercept
+/datum/injury/proc/intercept_medical_application(obj/item/stack/medical/medical_item, mob/living/carbon/human/victim, mob/living/actor)
+	return MEDICAL_ITEM_NO_INTERCEPT
+
+/// Intercept the exposure of a reagent to a mob.
+/// Adds additional behaviour on top of the standard exposure of the reagent
+/datum/injury/proc/intercept_reagent_exposure(datum/reagent, mob/living/victim, method = TOUCH, reac_volume = 0, touch_protection = 0)
+	return

@@ -4,7 +4,7 @@
 	if (damage_type != BURN)
 		return FALSE
 	if (total_damage >= 10 || delta_damage >= 5)
-		transition_to(/datum/injury/second_degree_burns)
+		transition_to(/datum/injury/third_degree_burn)
 	return TRUE
 
 /datum/injury/restored_skin_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)

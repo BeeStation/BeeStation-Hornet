@@ -8,6 +8,8 @@
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/incise/skin_graft
 	)
+	requires_injury = TRUE
+	var/target_injury = /datum/injury/cut_healthy
 
 /datum/surgery_step/incise/skin_graft
 	name = "cut skin"
@@ -20,7 +22,8 @@
 /datum/surgery_step/incise/skin_graft/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	. = ..()
 	var/datum/injury/cut = surgery.operated_bodypart.get_injury_by_base(/datum/injury/cut_healthy)
-	cut.transition_to(/datum/injury/cut_healthy)
+	cut.transition_to(target_injury)
 
 /datum/surgery/skin_graft/third_degree
 	name = "skin graft"
+	var/target_injury = /datum/injury/restored_skin_burn

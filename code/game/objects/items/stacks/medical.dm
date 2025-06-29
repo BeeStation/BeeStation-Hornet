@@ -127,12 +127,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	else
 		valid = TRUE
 
+	/// Was our healing intercepted?
+	var/intercepted = FALSE
+	for (var/datum/injury/injury in affecting.injuries)
+		var/intercept_result = injury.intercept_medical_application(src, C, user)
+		if (intercept_result == MEDICAL_ITEM_FAILED)
+			return
+		if (intercept_result == MEDICAL_ITEM_APPLIED)
+			intercepted = TRUE
+			valid = TRUE
+		if (intercept_result == MEDICAL_ITEM_VALID)
+			valid = TRUE
+
 	if (!valid)
 		to_chat(user, span_warning("[message]"))
 		C.balloon_alert(user, message)
 		return
 
-	if(C == user)
+	if(C == user && !intercepted)
 		user.visible_message(span_notice("[user] starts to apply [src] on [user.p_them()]self..."), span_notice("You begin applying [src] on yourself..."))
 		if(!do_after(user, self_delay, M))
 			return
