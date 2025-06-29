@@ -95,8 +95,6 @@
 		for(var/key in D.key_bindings[kb_name])
 			for(var/i in 1 to macro_sets.len)
 				var/setname = macro_sets[i]
-				if(!winexists(src, setname))
-					continue
 				switch(kb_name)
 					if("say")
 						winset(src, "[setname]-say", "parent=[setname];name=[key];command=[say]")
