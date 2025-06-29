@@ -114,6 +114,10 @@
 	GLOB.interviews.client_login(src)
 	GLOB.requests.client_login(src)
 
+	// Set up macros before prefs so the macro sets exist on the client
+	if(authenticated && SSinput.initialized)
+		set_macros()
+
 	if(authenticated)
 		if(!IS_GUEST_KEY(key))
 			//Admin Authorisation
@@ -152,9 +156,6 @@
 	if(first_run)
 		if(!check_client_blocked_byond_versions(connecting_admin) || QDELETED(src))
 			return FALSE
-
-	if(authenticated && SSinput.initialized)
-		set_macros()
 
 	if(first_run)
 		tgui_panel.Initialize()
