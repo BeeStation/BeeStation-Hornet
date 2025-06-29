@@ -44,7 +44,7 @@
 			var/list/messages = list(
 				"You feel your conscious mind fall apart!",
 				"Reality warps around you!",
-				"Something's wispering around you!",
+				"Something's whispering around you!",
 				"You are going insane!",
 				"What was that?!"
 			)

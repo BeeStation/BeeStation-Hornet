@@ -187,3 +187,19 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
+
+/obj/item/paper/guides/antag/cascade_instructions
+	default_raw_text = "How to cause a supermatter cascade:<br>\
+	<ul>\
+	<li>Infiltrate engineering</li>\
+	<li>Retrieve magboots and a vacuum worthy suit</li>\
+	<li>Approach the supermatter crystal and apply the destabilizing crystal</li>\
+	<li>Cause a delamination</li>\
+	<li>Run</li>\
+	</ul>"
+
+/obj/item/storage/box/syndie_kit/cascade
+
+/obj/item/storage/box/syndie_kit/cascade/PopulateContents()
+	new /obj/item/destabilizing_crystal(src)
+	new /obj/item/paper/guides/antag/cascade_instructions(src)

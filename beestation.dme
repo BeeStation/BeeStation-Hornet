@@ -1212,6 +1212,7 @@
 #include "code\game\gamemodes\objectives\basic\silicon\robot_army.dm"
 #include "code\game\gamemodes\objectives\basic\untracked\chaos.dm"
 #include "code\game\gamemodes\objectives\basic\untracked\custom.dm"
+#include "code\game\gamemodes\objectives\finale\cascade.dm"
 #include "code\game\gamemodes\objectives\finale\elimination.dm"
 #include "code\game\gamemodes\objectives\finale\escape.dm"
 #include "code\game\gamemodes\objectives\finale\hijack.dm"
