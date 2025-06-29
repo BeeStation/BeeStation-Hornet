@@ -10,10 +10,16 @@
 		if(!ishuman(M.current))
 			continue
 		var/mob/living/carbon/human/W = M.current
-		var/list/candidates = poll_ghost_candidates("Would you like to be an imposter wizard?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, ignore_category = POLL_IGNORE_WIZARD_HELPER)
-		if(!candidates)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			role = /datum/role_preference/midround_ghost/wizard,
+			check_jobban = ROLE_WIZARD,
+			poll_time = 10 SECONDS,
+			ignore_category = POLL_IGNORE_WIZARD_HELPER,
+			role_name_text = "imposter wizard",
+			alert_pic = /obj/item/clothing/head/wizard,
+		)
+		if(!candidate)
 			return //Sad Trombone
-		var/mob/dead/observer/C = pick(candidates)
 
 		new /obj/effect/particle_effect/smoke(W.loc)
 
@@ -23,7 +29,7 @@
 		I.name = I.dna.real_name
 		I.updateappearance(mutcolor_update=1)
 		I.domutcheck()
-		I.key = C.key
+		I.key = candidate.key
 		var/datum/antagonist/wizard/master = M.has_antag_datum(/datum/antagonist/wizard)
 		if(!master.wiz_team)
 			master.create_wiz_team()

@@ -428,6 +428,11 @@
 		. = t[1]
 		return uppertext(.) + copytext(t, 1 + length(.))
 
+/// Returns a string with the first letter of each word capitialized
+/proc/full_capitalize(input)
+	var/regex/first_letter = new(@"[^A-z]*?([A-z]*)", "g")
+	return replacetext(input, first_letter, /proc/capitalize)
+
 /proc/stringmerge(text,compare,replace = "*")
 	var/newtext = text
 	var/text_it = 1 //iterators

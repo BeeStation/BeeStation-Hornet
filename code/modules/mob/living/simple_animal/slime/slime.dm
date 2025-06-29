@@ -77,18 +77,40 @@
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
 
-	var/colour = "grey"
+	var/colour = SLIME_TYPE_GREY
 	var/coretype = /obj/item/slime_extract/grey
 	var/list/slime_mutation[4]
 
-	var/static/list/normal_slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
-	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
-	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
-	"cerulean", "sepia", "black", "pyrite")
-	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
-	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
-	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
-	"cerulean", "sepia", "black", "pyrite", "dark green", "cobalt", "dark grey", "crimson")
+	var/static/list/slime_colours = list(
+		SLIME_TYPE_RAINBOW,
+		SLIME_TYPE_GREY,
+		SLIME_TYPE_PURPLE,
+		SLIME_TYPE_METAL,
+		SLIME_TYPE_ORANGE,
+		SLIME_TYPE_BLUE,
+		SLIME_TYPE_DARK_BLUE,
+		SLIME_TYPE_DARK_PURPLE,
+		SLIME_TYPE_YELLOW,
+		SLIME_TYPE_SILVER,
+		SLIME_TYPE_PINK,
+		SLIME_TYPE_RED,
+		SLIME_TYPE_GOLD,
+		SLIME_TYPE_GREEN,
+		SLIME_TYPE_ADAMANTINE,
+		SLIME_TYPE_OIL,
+		SLIME_TYPE_LIGHT_PINK,
+		SLIME_TYPE_BLUESPACE,
+		SLIME_TYPE_CERULEAN,
+		SLIME_TYPE_SEPIA,
+		SLIME_TYPE_BLACK,
+		SLIME_TYPE_PYRITE,
+/* While these are technically colors, they are only obtained under special circumstances
+		SLIME_TYPE_DARK_GREEN,
+		SLIME_TYPE_COBALT,
+		SLIME_TYPE_DARK_GREY,
+		SLIME_TYPE_CRIMSON,
+*/
+	)
 
 	var/special_mutation = FALSE
 	var/special_mutation_type = null
@@ -105,7 +127,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
-/mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
+/mob/living/simple_animal/slime/Initialize(mapload, new_colour = SLIME_TYPE_GREY, new_is_adult=FALSE)
 	GLOB.total_slimes++
 	var/datum/action/innate/slime/feed/F = new
 	F.Grant(src)
@@ -149,7 +171,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		real_name = name
 
 /mob/living/simple_animal/slime/proc/random_colour()
-	set_colour(pick(normal_slime_colours))
+	set_colour(pick(slime_colours))
 
 /mob/living/simple_animal/slime/regenerate_icons()
 	cut_overlays()
@@ -199,9 +221,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 /mob/living/simple_animal/slime/refresh_gravity()
 	. = ..()
 	var/grav = has_gravity()
-	if(colour == "gold" && grav > STANDARD_GRAVITY)
+	if(colour == SLIME_TYPE_GOLD && grav > STANDARD_GRAVITY)
 		special_mutation = TRUE
-		special_mutation_type = "cobalt"
+		special_mutation_type = SLIME_TYPE_COBALT
 		visible_message(span_danger("[src] shudders under the intense gravity, flecks of blue swirling in their membrane."))
 
 /mob/living/simple_animal/slime/ObjBump(obj/O)
@@ -364,10 +386,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
 		return
-	if(istype(W, /obj/item/organ/regenerative_core) && !stat && colour == "pink")
+	if(istype(W, /obj/item/organ/regenerative_core) && !stat && colour == SLIME_TYPE_PINK)
 		to_chat(user, span_warning("The slime absorbs the regenerative core, pink darkening to an ominous grey"))
 		special_mutation = TRUE
-		special_mutation_type = "dark grey"
+		special_mutation_type = SLIME_TYPE_DARK_GREY
 		var/obj/item/organ/regenerative_core/R = W
 		qdel(R)
 		return
@@ -520,7 +542,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
-	. = ..(mapload, pick(normal_slime_colours), prob(50))
+	. = ..(mapload, pick(slime_colours), prob(50))
 
 /mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
@@ -549,7 +571,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
-/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour = SLIME_TYPE_RAINBOW, new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)
 
 /mob/living/simple_animal/slime/proc/set_target(new_target)

@@ -41,17 +41,25 @@
 		sentience.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate()
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the maleviolent force inside the [component_parent?.parent]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
-	if(LAZYLEN(candidates) && component_parent?.parent)
-		var/mob/dead/observer/O = pick(candidates)
-		if(istype(O) && O.ckey) //I though LAZYLEN would catch this, I guess NULL is getting injected somewhere
-			setup_sentience(O.ckey)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		question = "Do you want to play as the maleviolent force inside the [component_parent?.parent]?",
+		check_jobban = ROLE_SENTIENT_XENOARTIFACT,
+		poll_time = 10 SECONDS,
+		checked_target = component_parent?.parent,
+		jump_target = component_parent?.parent,
+		role_name_text = "[component_parent?.parent]",
+		alert_pic = component_parent?.parent,
+	)
+	if(candidate && component_parent?.parent)
+		if(istype(candidate) && candidate.ckey)
+			setup_sentience(candidate.ckey)
 			return
 	mob_spawner = new(component_parent?.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(ckey)
 	var/atom/atom_parent = component_parent?.parent
 	if(!atom_parent?.loc)
+		QDEL_NULL(mob_spawner)
 		mob_spawner = new(component_parent?.parent, src)
 	if(!component_parent?.parent || !ckey || !atom_parent?.loc)
 		return

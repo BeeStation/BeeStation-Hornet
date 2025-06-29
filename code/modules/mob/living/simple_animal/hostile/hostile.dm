@@ -611,4 +611,9 @@
 	if(target)
 		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(handle_target_del))
 
+/mob/living/simple_animal/hostile/Login(mob/user) // We add a LosetTarget() here to stop the mob from chasing down targets after it has been given over to a player
+	..()
+	LoseTarget()
+	return TRUE
+
 

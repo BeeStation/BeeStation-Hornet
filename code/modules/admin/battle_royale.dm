@@ -323,7 +323,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = poll_ghost_candidates("Would you like to partake in BATTLE ROYALE?")
+	var/list/participants = SSpolling.poll_ghost_candidates(
+		question = "Would you like to partake in BATTLE ROYALE?",
+		poll_time = 30 SECONDS,
+		role_name_text = "battle royale player",
+		alert_pic = /obj/item/claymore,
+	)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()

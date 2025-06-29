@@ -22,88 +22,86 @@
 	var/mob/living/simple_animal/slime/T = M
 	slime_scan(T, user)
 
-/proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
-	var/list/message = list()
+/proc/slime_scan(mob/living/simple_animal/slime/scanned_slime, mob/living/user)
+	var/to_render = "<b>Slime scan results:</b>\
+					\n[span_notice("[scanned_slime.colour] [scanned_slime.is_adult ? "adult" : "baby"] slime")]\
+					\nNutrition: [scanned_slime.nutrition]/[scanned_slime.get_max_nutrition()]"
 
-	message += "<b>Slime scan results:</b>"
-	message += span_notice("[T.colour] [T.is_adult ? "adult" : "baby"] slime")
-	message += "Nutrition: [T.nutrition]/[T.get_max_nutrition()]"
-	if(T.nutrition < T.get_starve_nutrition())
-		message += span_warning("Warning: slime is starving!")
-	else if(T.nutrition < T.get_hunger_nutrition())
-		message += span_warning("Warning: slime is hungry")
-	message += "Electric change strength: [T.powerlevel]"
-	message += "Health: [round(T.health/T.maxHealth,0.01)*100]%"
-	if(T.slime_mutation[4] == T.colour)
-		message += "This slime does not evolve any further."
+	if (scanned_slime.nutrition < scanned_slime.get_starve_nutrition())
+		to_render += "\n[span_warning("Warning: slime is starving!")]"
+	else if (scanned_slime.nutrition < scanned_slime.get_hunger_nutrition())
+		to_render += "\n[span_warning("Warning: slime is hungry")]"
+
+	to_render += "\nElectric charge strength: [scanned_slime.powerlevel]\nHealth: [round(scanned_slime.health/scanned_slime.maxHealth,0.01)*100]%"
+	if(scanned_slime.slime_mutation[4] == scanned_slime.colour)
+		to_render += "\nThis slime does not evolve any further."
 	else
-		if(T.slime_mutation[3] == T.slime_mutation[4])
-			if(T.slime_mutation[2] == T.slime_mutation[1])
-				message += "Possible mutation: [T.slime_mutation[3]]"
-				message += "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting"
+		if (scanned_slime.slime_mutation[3] == scanned_slime.slime_mutation[4])
+			if (scanned_slime.slime_mutation[2] == scanned_slime.slime_mutation[1])
+				to_render += "\nPossible mutation: [scanned_slime.slime_mutation[3]]\
+							  \nGenetic destability: [scanned_slime.mutation_chance/2] % chance of mutation on splitting"
 			else
-				message += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)"
-				message += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting"
+				to_render += "\nPossible mutations: [scanned_slime.slime_mutation[1]], [scanned_slime.slime_mutation[2]], [scanned_slime.slime_mutation[3]] (x2)\
+							  \nGenetic destability: [scanned_slime.mutation_chance] % chance of mutation on splitting"
 		else
-			message += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]"
-			message += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting"
-	if(T.cores > 1)
-		message += "Multiple cores detected"
-	message += "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]"
-	if(T.has_status_effect(/datum/status_effect/slimegrub))
-		message += "<b>Redgrub infestation detected. Quarantine immediately.</b>"
-		message += "Redgrubs can be purged from a slime using capsaicin oil or extreme heat"
-	if(T.effectmod)
-		message += span_notice("Core mutation in progress: [T.effectmod]")
-		message += span_notice("Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]")
-	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
+			to_render += "\nPossible mutations: [scanned_slime.slime_mutation[1]], [scanned_slime.slime_mutation[2]], [scanned_slime.slime_mutation[3]], [scanned_slime.slime_mutation[4]]\
+						  \nGenetic destability: [scanned_slime.mutation_chance] % chance of mutation on splitting"
+	if (scanned_slime.cores > 1)
+		to_render += "\nMultiple cores detected"
+	to_render += "\nGrowth progress: [scanned_slime.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]"
+	if(scanned_slime.has_status_effect(/datum/status_effect/slimegrub))
+		to_render += "\n<b>Redgrub infestation detected. Quarantine immediately.</b>"
+		to_render += "\nRedgrubs can be purged from a slime using capsaicin oil or extreme heat"
+	if(scanned_slime.effectmod)
+		to_render += "\n[span_notice("Core mutation in progress: [scanned_slime.effectmod]")]\
+					  \n[span_notice("Progress in core mutation: [scanned_slime.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]")]"
+	if(scanned_slime.transformeffects != SLIME_EFFECT_DEFAULT)
 		var/slimeeffect = "\nTransformative extract effect detected: "
-		if(T.transformeffects & SLIME_EFFECT_GREY)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_GREY)
 			slimeeffect += "grey"
-		if(T.transformeffects & SLIME_EFFECT_ORANGE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_ORANGE)
 			slimeeffect += "orange"
-		if(T.transformeffects & SLIME_EFFECT_PURPLE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_PURPLE)
 			slimeeffect += "purple"
-		if(T.transformeffects & SLIME_EFFECT_BLUE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_BLUE)
 			slimeeffect += "blue"
-		if(T.transformeffects & SLIME_EFFECT_METAL)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_METAL)
 			slimeeffect += "metal"
-		if(T.transformeffects & SLIME_EFFECT_YELLOW)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_YELLOW)
 			slimeeffect += "yellow"
-		if(T.transformeffects & SLIME_EFFECT_DARK_PURPLE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_DARK_PURPLE)
 			slimeeffect += "dark purple"
-		if(T.transformeffects & SLIME_EFFECT_DARK_BLUE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_DARK_BLUE)
 			slimeeffect += "dark blue"
-		if(T.transformeffects & SLIME_EFFECT_SILVER)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_SILVER)
 			slimeeffect += "silver"
-		if(T.transformeffects & SLIME_EFFECT_BLUESPACE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_BLUESPACE)
 			slimeeffect += "bluespace"
-		if(T.transformeffects & SLIME_EFFECT_SEPIA)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_SEPIA)
 			slimeeffect += "sepia"
-		if(T.transformeffects & SLIME_EFFECT_CERULEAN)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_CERULEAN)
 			slimeeffect += "cerulean"
-		if(T.transformeffects & SLIME_EFFECT_PYRITE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_PYRITE)
 			slimeeffect += "pyrite"
-		if(T.transformeffects & SLIME_EFFECT_RED)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_RED)
 			slimeeffect += "red"
-		if(T.transformeffects & SLIME_EFFECT_GREEN)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_GREEN)
 			slimeeffect += "green"
-		if(T.transformeffects & SLIME_EFFECT_PINK)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_PINK)
 			slimeeffect += "pink"
-		if(T.transformeffects & SLIME_EFFECT_GOLD)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_GOLD)
 			slimeeffect += "gold"
-		if(T.transformeffects & SLIME_EFFECT_OIL)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_OIL)
 			slimeeffect += "oil"
-		if(T.transformeffects & SLIME_EFFECT_BLACK)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_BLACK)
 			slimeeffect += "black"
-		if(T.transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_LIGHT_PINK)
 			slimeeffect += "light pink"
-		if(T.transformeffects & SLIME_EFFECT_ADAMANTINE)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_ADAMANTINE)
 			slimeeffect += "adamantine"
-		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
+		if(scanned_slime.transformeffects & SLIME_EFFECT_RAINBOW)
 			slimeeffect += "rainbow"
-		message += span_notice("[slimeeffect].")
-	if(T.special_mutation == TRUE)
-		message += span_notice("\n This slime has achieved the critera for a special mutation! On split, it will become four [T.special_mutation_type] slimes")
-
-	to_chat(user, examine_block(jointext(message, "\n")))
+		to_render += span_notice("\n[slimeeffect].")
+	if(scanned_slime.special_mutation == TRUE)
+		to_render += span_notice("\n This slime has achieved the criteria for a special mutation! On split, it will become four [scanned_slime.special_mutation_type] slimes")
+	to_chat(user, examine_block(to_render))
