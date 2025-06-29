@@ -61,11 +61,19 @@
 			if(living_target.mind)
 				living_target.mind.grab_ghost(TRUE)
 			else
-				var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [living_target.name], an inactive clock cultist?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 7.5 SECONDS, living_target)
-				if(length(candidates))
-					var/mob/dead/observer/candidate = pick(candidates)
-					message_admins("[key_name_admin(candidate)] has taken control of [key_name_admin(living_target)] to replace an AFK player.")
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+					question = "Do you want to play as a [living_target], an inactive clock cultist?",
+					role = /datum/role_preference/antagonist/clock_cultist,
+					check_jobban = ROLE_SERVANT_OF_RATVAR,
+					poll_time = 10 SECONDS,
+					checked_target = living_target,
+					jump_target = living_target,
+					role_name_text = "inactive clock cultist",
+					alert_pic = living_target,
+				)
+				if(candidate)
 					living_target.key = candidate.key
+					message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(living_target)]) to replace an AFK player.")
 		else
 			visible_message(span_neovgre("\The [src] fails to revive [living_target]!"))
 	else

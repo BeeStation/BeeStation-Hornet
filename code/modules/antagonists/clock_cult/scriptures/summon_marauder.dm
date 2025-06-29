@@ -21,12 +21,18 @@
 		return FALSE
 
 /datum/clockcult/scripture/marauder/on_invoke_success()
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS, POLL_IGNORE_CLOCKWORK_HELPER)
-	if(!length(candidates))
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/antagonist/clock_cultist,
+		check_jobban = ROLE_SERVANT_OF_RATVAR,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_CLOCKWORK_HELPER,
+		role_name_text = "clockwork marauder",
+		alert_pic = /mob/living/simple_animal/hostile/clockwork_marauder,
+	)
+	if(!candidate)
 		invoker.balloon_alert(invoker, "no available ghosts!")
 		return
 
-	var/mob/dead/observer/selected = pick(candidates)
 	var/mob/new_mob = new /mob/living/simple_animal/hostile/clockwork_marauder(get_turf(invoker))
-	new_mob.key = selected.key
+	new_mob.key = candidate.key
 	. = ..()

@@ -81,4 +81,3 @@
 			log_admin("[key_name(src)] has checked online staff[via ? " (via [via])" : ""].")
 			src.staff_check_rate = world.time
 	to_chat(src, msg)
-
