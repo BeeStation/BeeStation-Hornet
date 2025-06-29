@@ -381,7 +381,7 @@
 
 /client/proc/init_admin_if_present()
 	if(holder)
-		add_admin_verbs()
+		holder.associate(src)
 		to_chat(src, get_message_output("memo"))
 		adminGreet()
 
