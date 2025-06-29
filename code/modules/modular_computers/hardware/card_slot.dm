@@ -76,7 +76,7 @@
 	current_identification = stored_card.registered_name
 	current_job = stored_card.assignment
 	holder?.on_id_insert()
-	holder?.update_icon()
+	holder?.update_appearance()
 	return TRUE
 
 
@@ -107,7 +107,7 @@
 	stored_card = null
 	current_identification = null
 	current_job = null
-	holder?.update_icon()
+	holder?.update_appearance()
 	holder?.ui_update()
 	return TRUE
 

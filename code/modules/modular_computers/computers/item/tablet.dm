@@ -43,7 +43,6 @@
 	var/init_icon = initial(icon)
 	if(!init_icon)
 		return
-	cut_overlays()
 	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
 	if(card)
 		if(card.stored_card)
@@ -91,7 +90,7 @@
 			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-			update_icon()
+			update_appearance()
 
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
@@ -161,7 +160,7 @@
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-		update_icon()
+		update_appearance()
 	else
 		to_chat(user, span_warning("This tablet does not have a pen in it!"))
 
@@ -363,21 +362,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		device_theme = allowed_themes[pref_theme]
 	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
 
-/obj/item/modular_computer/tablet/pda/update_icon()
-	..()
-	var/init_icon = initial(icon)
-	if(!init_icon)
-		return
-	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
-	if(card)
-		if(card.stored_card)
-			add_overlay(mutable_appearance(init_icon, "id_overlay"))
-	if(inserted_item)
-		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
-	if(light_on)
-		add_overlay(mutable_appearance(init_icon, "light_overlay"))
-
-
 /obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
 	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
 	return // we don't want ais or cyborgs using a private role tablet
@@ -399,7 +383,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(insert_type)
 		inserted_item = new insert_type(src)
 		// show the inserted item
-		update_icon()
+		update_appearance()
 
 /// Return a list of types you want to pregenerate and use later
 /// Do not pass in things that care about their init location, or expect extra input
