@@ -28,11 +28,11 @@
 		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.")
 		return
 
-	var/datum/browser/popup = new(usr, "adminplayeropts-[REF(M)]", "<div align='center'>Options for [M.key]</div>", 700, 600)
+	var/datum/browser/popup = new(usr, "adminplayeropts-[REF(M)]", "<div align='center'>Options for [M.key][M.client?.key_is_external && istype(M.client?.external_method) ? " ([M.client.external_method.format_display_name(M.client.external_display_name)])" : ""]</div>", 700, 600)
 
 	var/body = "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>Options panel for <b>[M]</b>"
 	if(M.client)
-		body += " played by <b>[M.client]</b>"
+		body += " played by <b>[M.client.ckey]</b>"
 		body += " <A href='byond://?_src_=holder;[HrefToken()];editrights=[(GLOB.admin_datums[M.client.ckey] || GLOB.deadmins[M.client.ckey]) ? "rank" : "add"];key=[M.key]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>"
 		if(CONFIG_GET(flag/use_exp_tracking))
 			body += " <A href='byond://?_src_=holder;[HrefToken()];getplaytimewindow=[REF(M)]'>" + M.client.get_exp_living() + "</a>"
@@ -43,6 +43,11 @@
 		body += " <A href='byond://?_src_=holder;[HrefToken()];revive=[REF(M)]'>Heal</A>"
 
 	if(M.client)
+		if(!M.client.logged_in)
+			body += "<br><strong><font color='red'>CLIENT NOT LOGGED IN</font></strong><br>"
+		if(istype(M.client.external_method))
+			body += "<br><br><b>External Login Method: </b>[M.client.external_method::name]<br><b>External User ID: </b>[M.client.external_uid]<br>"
+			body += "<b>External Display Name: </b>[M.client.external_display_name]"
 		body += "<br><br><b>First Seen:</b> [M.client.player_join_date]<br><b>Byond account registered on:</b> [M.client.account_join_date]"
 
 		if(M.client?.tgui_panel)
@@ -717,7 +722,7 @@
 //returns a list of ckeys of the kicked clients
 /proc/kick_clients_in_lobby(message, kick_only_afk = 0)
 	var/list/kicked_client_names = list()
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients_unsafe)
 		if(isnewplayer(C.mob))
 			if(kick_only_afk && !C.is_afk()) //Ignore clients who are not afk
 				continue
