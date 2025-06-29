@@ -144,6 +144,7 @@
 	GLOB.directory -= src.ckey
 	var/mob/my_mob = src.mob
 	src.key = new_key
+	src.ckey = ckey
 	tgui_panel?.owner_ckey = ckey
 
 	if(!client_pre_login(TRUE, FALSE))
