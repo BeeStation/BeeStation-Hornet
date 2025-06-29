@@ -25,6 +25,9 @@
 	key = null
 	qdel(src)
 
+/mob/dead/new_player/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote, is_heard)
+	return CHATMESSAGE_CANNOT_HEAR
+
 /mob/dead/new_player/get_stat_tab_status()
 	var/list/tab_data = ..()
 	if(src.client && CONFIG_GET(flag/enable_guest_external_auth))
