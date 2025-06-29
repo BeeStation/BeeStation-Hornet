@@ -253,7 +253,8 @@ SUBSYSTEM_DEF(job)
 			JobDebug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
-		if((job.current_positions < job.get_spawn_position_count()) || job.get_spawn_position_count() == -1)
+		var/spawn_position_count = job.get_spawn_position_count()
+		if((job.current_positions < spawn_position_count) || (spawn_position_count == -1))
 			JobDebug("GRJ Random job given, Player: [player], Job: [job]")
 			if(AssignRole(player, job.title))
 				return TRUE
