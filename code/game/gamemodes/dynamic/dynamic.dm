@@ -248,7 +248,7 @@
 		if(player.ready == PLAYER_READY_TO_OBSERVE)
 			roundstart_points += roundstart_points_per_observer
 			continue
-		else if(player.ready == PLAYER_READY_TO_PLAY)
+		else if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
 			roundstart_points += roundstart_points_per_ready
 			roundstart_candidates.Add(player)
 			continue
