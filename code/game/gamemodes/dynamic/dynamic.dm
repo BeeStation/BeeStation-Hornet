@@ -457,7 +457,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		var/mob/dead/new_player/player = i
 		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
 			continue
-		if(player.ready == PLAYER_READY_TO_PLAY)
+		if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
 			roundstart_pop_ready++
 			candidates.Add(player)
 		else
