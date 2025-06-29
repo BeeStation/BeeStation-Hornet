@@ -29,10 +29,10 @@
 
 /datum/component/religious_tool/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY,PROC_REF(AttemptActions))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/religious_tool/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EXAMINE))
 
 /**
  * Since all of these involve attackby, we require mega proc. Handles Invocation, Sacrificing, And Selection of Sects.

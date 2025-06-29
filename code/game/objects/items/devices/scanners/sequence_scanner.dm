@@ -49,7 +49,7 @@
 
 	var/obj/machinery/computer/scan_consolenew/console = target
 	if(console.stored_research)
-		to_chat(user, span_notice("[name] database updated."))
+		to_chat(user, span_notice("[name] linked to central research database."))
 		discovered = console.stored_research.discovered_mutations
 	else
 		to_chat(user, span_warning("No database to update from."))

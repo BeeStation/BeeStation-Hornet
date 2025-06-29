@@ -55,15 +55,15 @@
 		qdel(src)
 		return PROCESS_KILL
 
-/datum/component/genetic_damage/proc/on_healthscan(datum/source, list/message, advanced, mob/user, to_chat)
+/datum/component/genetic_damage/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
 	SIGNAL_HANDLER
 
 	if (advanced)
-		message += "<span class='alert ml-1'>Genetic damage: [round(total_damage / minimum_before_damage * 100, 0.1)]%</span>"
+		render_list += "<span class='alert ml-1'>Genetic damage: [round(total_damage / minimum_before_damage * 100, 0.1)]%</span>"
 	else if (total_damage >= minimum_before_damage)
-		message += "<span class='alert ml-1'>Severe genetic damage detected.</span>"
+		render_list += "<span class='alert ml-1'>Severe genetic damage detected.</span>"
 	else
-		message += "<span class='alert ml-1'>Minor genetic damage detected.</span>"
+		render_list += "<span class='alert ml-1'>Minor genetic damage detected.</span>"
 
 #undef GORILLA_MUTATION_CHANCE_PER_SECOND
 #undef GORILLA_MUTATION_MINIMUM_DAMAGE

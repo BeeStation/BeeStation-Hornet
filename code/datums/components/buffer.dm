@@ -22,7 +22,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(self_flush_buffer))
 	RegisterSignal(parent, COMSIG_ITEM_FLUSH_BUFFER, PROC_REF(self_flush_buffer))
 	RegisterSignal(parent, COMSIG_ITEM_PUSH_BUFFER, PROC_REF(populate_buffer))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
 /datum/component/buffer/proc/intercept_attack(datum/source, atom/attack_target, mob/user, params)
 	SIGNAL_HANDLER

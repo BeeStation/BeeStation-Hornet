@@ -221,7 +221,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	user_port.set_output(owner)
 	user = WEAKREF(owner)
 
-	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 
@@ -232,7 +232,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	user = null
 
 	UnregisterSignal(owner, list(
-		COMSIG_PARENT_EXAMINE,
+		COMSIG_ATOM_EXAMINE,
 		COMSIG_PROCESS_BORGCHARGER_OCCUPANT,
 		COMSIG_LIVING_ELECTROCUTE_ACT,
 	))

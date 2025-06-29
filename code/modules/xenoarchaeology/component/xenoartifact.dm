@@ -103,7 +103,7 @@
 	//Description
 	material_description = get_material_desc()
 	//Setup description stuff
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 
 /datum/component/xenoartifact/Destroy(force, silent)
 	if(!QDELETED(parent))

@@ -184,10 +184,9 @@
 
 	return COMSIG_GEIGER_COUNTER_SCAN_SUCCESSFUL
 
-/datum/component/irradiated/proc/on_healthscan(datum/source, list/message, advanced, mob/user, to_chat)
+/datum/component/irradiated/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
 	SIGNAL_HANDLER
-
-	message += span_alert("Subject is irradiated. Supply antiradiation or antitoxin.")
+	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply antiradiation or antitoxin.</span><br>"
 
 /atom/movable/screen/alert/irradiated
 	name = "Irradiated"

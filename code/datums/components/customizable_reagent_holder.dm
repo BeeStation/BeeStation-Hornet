@@ -57,7 +57,7 @@
 /datum/component/customizable_reagent_holder/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(customizable_attack))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE,  PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE,  PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_EXITED, PROC_REF(food_exited))
 	RegisterSignal(parent, COMSIG_ATOM_PROCESSED,  PROC_REF(on_processed))
 	ADD_TRAIT(parent, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER, REF(src))
@@ -67,7 +67,7 @@
 	. = ..()
 	UnregisterSignal(parent, list(
 		COMSIG_PARENT_ATTACKBY,
-		COMSIG_PARENT_EXAMINE,
+		COMSIG_ATOM_EXAMINE,
 		COMSIG_ATOM_EXITED,
 		COMSIG_ATOM_PROCESSED,
 	))

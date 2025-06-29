@@ -103,7 +103,7 @@ SUBSYSTEM_DEF(polling)
 			continue
 
 		new_poll.alert_buttons += poll_alert_button
-		new_poll.RegisterSignal(poll_alert_button, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/datum/candidate_poll, clear_alert_ref))
+		new_poll.RegisterSignal(poll_alert_button, COMSIG_QDELETING, TYPE_PROC_REF(/datum/candidate_poll, clear_alert_ref))
 
 		poll_alert_button.icon = ui_style2icon(candidate_mob.client?.prefs?.read_preference(/datum/preference/choiced/ui_style))
 		poll_alert_button.desc = "[question]"
