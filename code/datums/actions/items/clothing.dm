@@ -65,3 +65,10 @@
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
 		H.interact(owner)
+
+//aurafarming
+/datum/action/item_action/noirmode
+	name = "Noir Ambience"
+	desc = "Set up the mood for an interrogation."
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "noir_mode"
