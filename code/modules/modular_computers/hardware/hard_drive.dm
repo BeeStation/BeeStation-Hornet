@@ -183,7 +183,6 @@
 	store_file(new /datum/computer_file/program/notepad(src))
 	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
-	..()
 
 /obj/item/computer_hardware/hard_drive/small/pda/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
 	. = ..()

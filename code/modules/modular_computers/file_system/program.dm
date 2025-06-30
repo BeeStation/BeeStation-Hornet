@@ -35,6 +35,7 @@
 	var/use_attack = FALSE
 	/// If this program should process attack_atom calls
 	var/use_attack_obj = FALSE
+	///Boolean on whether the UI should *always* be updated while active.
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
