@@ -17,7 +17,7 @@
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 	if(app.sending_and_receiving == FALSE)
-		to_chat(user, span_notice("ERROR: Target has their recieving DISABLED."))
+		to_chat(user, span_notice("ERROR: Target has their receiving DISABLED."))
 		return FALSE
 	if(drive.virus_defense)
 		if(drive.virus_defense > virus_strength)

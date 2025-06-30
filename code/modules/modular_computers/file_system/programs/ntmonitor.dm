@@ -73,7 +73,7 @@
 	for (var/i in SSnetworks.logs)
 		var/log_entry = i
 		var/log_color = "#ffffff"            // default white
-		var/entry_lower = lowertext(log_entry)	// This will make sure lower case and upper case are treated the same for this purpose
+		var/entry_lower = LOWER_TEXT(log_entry)	// This will make sure lower case and upper case are treated the same for this purpose
 		// very simple keyword‑based colouring
 		if(findtext(entry_lower, "alert") || findtext(entry_lower, "warning"))
 			log_color = "#ff0000"            // red for alerts (detected threat)
