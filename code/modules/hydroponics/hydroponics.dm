@@ -722,6 +722,7 @@
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/medicine/adminordrazine) * 1))
 		adjustPests(-rand(1,5))
 		adjustWeeds(-rand(1,5))
+		
 	if(S.has_reagent(/datum/reagent/medicine/adminordrazine, 5))
 		switch(rand(100))
 			if(66  to 100)

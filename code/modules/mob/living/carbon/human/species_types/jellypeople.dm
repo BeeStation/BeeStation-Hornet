@@ -7,7 +7,6 @@
 	name = "Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
-	default_color = "00FFFF"
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
@@ -23,12 +22,14 @@
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
 
-	species_chest = /obj/item/bodypart/chest/slime
-	species_head = /obj/item/bodypart/head/slime
-	species_l_arm = /obj/item/bodypart/l_arm/slime
-	species_r_arm = /obj/item/bodypart/r_arm/slime
-	species_l_leg = /obj/item/bodypart/l_leg/slime
-	species_r_leg = /obj/item/bodypart/r_leg/slime
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/slime,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/slime,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/slime,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/slime,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/slime,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/slime,
+	)
 
 
 /datum/species/oozeling/slime/on_species_loss(mob/living/carbon/C)
@@ -306,14 +307,22 @@
 	plural_form = null
 	id = SPECIES_LUMINESCENT
 	examine_limb_id = SPECIES_OOZELING
-
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/luminescent,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/luminescent,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/luminescent,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/luminescent,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/luminescent,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/luminescent,
+	)
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	var/obj/effect/dummy/lighting_obj/moblight/glow
 	var/obj/item/slime_extract/current_extract
 	var/datum/action/innate/integrate_extract/integrate_extract
 	var/datum/action/innate/use_extract/extract_minor
 	var/datum/action/innate/use_extract/major/extract_major
-	var/extract_cooldown = 0
+	/// The cooldown of us using extracts
+	COOLDOWN_DECLARE(extract_cooldown)
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/oozeling/luminescent/Destroy(force)
@@ -436,7 +445,7 @@
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		var/datum/species/oozeling/luminescent/species = H.dna?.species
-		if(species && species.current_extract && (world.time > species.extract_cooldown))
+		if(istype(species) && species.current_extract && (COOLDOWN_FINISHED(species, extract_cooldown)))
 			return TRUE
 		return FALSE
 
@@ -451,7 +460,7 @@
 
 	if(!istype(species, /datum/species/oozeling/luminescent))
 		return
-	
+
 	if(species.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
@@ -463,9 +472,9 @@
 	CHECK_DNA_AND_SPECIES(H)
 
 	if(species.current_extract)
-		species.extract_cooldown = world.time + 10 SECONDS
-		var/cooldown = species.current_extract.activate(H, species, activation_type)
-		species.extract_cooldown = world.time + cooldown
+		COOLDOWN_START(species, extract_cooldown, 10 SECONDS)
+		var/after_use_cooldown = species.current_extract.activate(H, species, activation_type)
+		COOLDOWN_START(species, extract_cooldown, after_use_cooldown)
 
 /datum/action/innate/use_extract/major
 	name = "Extract Major Activation"
