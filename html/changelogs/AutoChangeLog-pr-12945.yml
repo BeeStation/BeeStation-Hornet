@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Mitigated security vulnerability related to servers pretending to be BeeStation
-      on the hub being able to issue valid session tokens for a malicious IP address.
-  - server: Added SS13_session_creation_nonce table
