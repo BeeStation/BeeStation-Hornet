@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed preauth Guests showing in Orbit panel
+  - bugfix: Fixed authenticating BYOND keys getting kicked after signing in with Discord.
