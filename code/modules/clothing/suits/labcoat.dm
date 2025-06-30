@@ -55,7 +55,7 @@
 	icon_state = "labcoat_sec"
 	item_state = "labcoat_sec"
 	armor_type = /datum/armor/labcoat_brig_physician
-
+	salvage_material = /obj/item/stack/rods/scrap/plastic
 
 /datum/armor/labcoat_brig_physician
 	melee = 10

@@ -317,6 +317,11 @@
 						body_parts_covered &= part
 	return adjusted
 
+/obj/item/clothing/under/salvage(obj/item/W, mob/user, params)
+	remove_accessory(user)
+	return ..()
+
+
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
 

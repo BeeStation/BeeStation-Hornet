@@ -6,6 +6,8 @@
 	armor_type = /datum/armor/plasmaman_security
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	salvage_amount = 2
+	secondary_salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/plasmaman_security

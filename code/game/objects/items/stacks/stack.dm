@@ -669,7 +669,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	if(can_merge(W))
 		var/obj/item/stack/S = W
 		if(merge(S))
-			to_chat(user, span_notice("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
+			to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
+			return TRUE
 	else
 		return ..()
 
