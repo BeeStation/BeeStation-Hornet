@@ -3,23 +3,11 @@ import { useBackend } from 'tgui/backend';
 import { Box, Button, Flex, Icon, Input, Section, Stack } from 'tgui/components';
 import { Window } from 'tgui/layouts';
 
-const methodToComponent = (method: string, url: string): ReactElement => {
+const methodToComponent = (method: string, login: () => void): ReactElement => {
   switch (method) {
     case 'discord':
       return (
-        <Button
-          color="blurple"
-          fontSize="16px"
-          p={2}
-          onClick={() => {
-            if (url.startsWith('byond://')) {
-              return;
-            }
-            Byond.sendMessage({
-              type: 'openLink',
-              url,
-            });
-          }}>
+        <Button color="blurple" fontSize="16px" p={2} onClick={login}>
           <Box inline style={{ transform: 'translateY(1.5px)' }}>
             <Icon name="tg-discord" />
           </Box>{' '}
@@ -31,8 +19,7 @@ const methodToComponent = (method: string, url: string): ReactElement => {
 };
 
 export const GameLogin = (props) => {
-  const { act, data } =
-    useBackend<{ byond_enabled: boolean; methods: Record<string, string>; decorator: string; authenticated_key: string }>();
+  const { act, data } = useBackend<{ byond_enabled: boolean; methods: Record<string, string>; authenticated_key: string }>();
   const [showInput, setShowInput] = useState(false);
   const inputToken = useRef<string>('');
   const sendToken = (token: string) => {
@@ -80,8 +67,8 @@ export const GameLogin = (props) => {
                 <Flex.Item>
                   <Section fill fitted title="Methods">
                     <Flex direction="row" align="center" justify="center" height="100%" p={2}>
-                      {Object.entries(data.methods).map(([key, link]) => (
-                        <Flex.Item key={key}>{methodToComponent(key, link + data.decorator)}</Flex.Item>
+                      {Object.keys(data.methods).map((key) => (
+                        <Flex.Item key={key}>{methodToComponent(key, () => act('login', { method: key }))}</Flex.Item>
                       ))}
                     </Flex>
                   </Section>

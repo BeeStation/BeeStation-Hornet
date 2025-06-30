@@ -19,19 +19,6 @@
 	else
 		to_chat_immediate(src, span_danger("No authentication methods have been configured!"))
 
-/client/proc/login_with_method(datum/external_login_method/method)
-	if(!istype(method))
-		to_chat_immediate(src, span_danger("Method not implemented!"))
-		return
-	var/ip = src.address
-	if(is_localhost())
-		ip = "127.0.0.1"
-	var/link = method.get_url(ip, src.seeker_port)
-	if(istext(link))
-		src << link(link)
-	else
-		to_chat_immediate(src, span_danger("[method::name] authentication has not been configured!"))
-
 /client/verb/open_login()
 	set name = "Log In"
 	set category = "Login"

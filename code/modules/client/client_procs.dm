@@ -199,8 +199,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return 1
 
 /client/proc/is_localhost()
-	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
-	return isnull(address) || (address in localhost_addresses)
+	return isnull(address) || address == "127.0.0.1" || address == "::1"
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)

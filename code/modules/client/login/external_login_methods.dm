@@ -9,15 +9,15 @@
 /datum/external_login_method/vv_edit_var(var_name, var_value)
 	return FALSE
 
-/datum/external_login_method/proc/get_url(ip, seeker_port)
+/datum/external_login_method/proc/get_url(ip, seeker_port, session_creation_nonce)
 	var/list/methods = CONFIG_GET(keyed_list/external_auth_method)
 	var/link = methods[src::id]
 	if(!istext(link))
 		return null
 	var/port_data = ""
 	if(isnum_safe(seeker_port))
-		port_data = "&seeker_port=[url_encode(seeker_port)]"
-	return "[link]?ip=[url_encode(ip)][port_data]"
+		port_data = "&seeker_port=[seeker_port]"
+	return "[link]?ip=[url_encode(ip)]&nonce=[session_creation_nonce][port_data]"
 
 /// use client.key_is_external where possible
 /datum/external_login_method/proc/is_fake_key(key)
