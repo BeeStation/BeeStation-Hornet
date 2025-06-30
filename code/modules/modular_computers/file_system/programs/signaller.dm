@@ -83,8 +83,8 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(computer)
 	if(usr)
-		log_telecomms("[time] <B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
-		message_admins("<B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
+		log_telecomms("[time] <B>:</B> [key_name(usr)] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
+		message_admins("<B>:</B> [ADMIN_LOOKUPFLW(usr)] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
 	var/logging_data = "[time] <B>:</B> [key_name(usr)] used the computer '[initial(computer.name)]' @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(signal_frequency)]/[signal_code]"
 	add_to_signaler_investigate_log(logging_data)
 

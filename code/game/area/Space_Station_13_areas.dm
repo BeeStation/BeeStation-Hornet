@@ -78,30 +78,33 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-/area/asteroid/paradise
+/area/paradise
 	name = "paradise"
 	icon_state = "asteroid"
 	outdoors = TRUE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 	camera_networks = list(CAMERA_NETWORK_STATION)
+	requires_power = FALSE
 
-/area/asteroid/paradise/surface
+/area/paradise/surface
 	name = "paradise surface"
 	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
-/area/asteroid/paradise/surface/sand
+/area/paradise/surface/sand
 	name = "paradise surface sand"
 	map_generator = /datum/map_generator/grass_generator
 
-/area/asteroid/paradise/surface/water
+/area/paradise/surface/water
 	name = "paradise surface water"
 	ambientsounds = list('sound/ambience/shore.ogg')
 	mood_bonus = 1
 	mood_message = span_warning("The waves sound nice.\n")
 
-/area/asteroid/paradise/surface/grass
+/area/paradise/surface/grass
 	name = "paradise surface grass"
 	map_generator = /datum/map_generator/grass_generator
 

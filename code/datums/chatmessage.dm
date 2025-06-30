@@ -47,6 +47,7 @@
 
 #define COLOR_PERSON_UNKNOWN "#999999"
 #define COLOR_CHAT_EMOTE "#727272"
+#define COLOR_CHAT_LOOC "#ffde5c"
 
 /datum/chatmessage_group
 	/// List of clients in this group
@@ -212,6 +213,10 @@
 		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "emote")
 		LAZYADD(prefixes, "\icon[r_icon]")
 		tgt_color = COLOR_CHAT_EMOTE
+	else if (extra_classes.Find("looc"))
+		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "looc")
+		LAZYADD(prefixes, "\icon[r_icon]")
+		tgt_color = COLOR_CHAT_LOOC
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
@@ -416,6 +421,9 @@
 	if(stat != CONSCIOUS && stat != DEAD)
 		return CHATMESSAGE_CANNOT_HEAR
 	return ..()
+
+/mob/dead/new_player/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote, is_heard)
+	return CHATMESSAGE_CANNOT_HEAR
 
 /proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
 	if(!length(hearers))
@@ -698,6 +706,7 @@
 #undef CHATMESSAGE_SHOW_LANGUAGE_ICON
 #undef COLOR_PERSON_UNKNOWN
 #undef COLOR_CHAT_EMOTE
+#undef COLOR_CHAT_LOOC
 #undef BUCKET_LIMIT
 #undef CM_COLOR_SAT_MIN
 #undef CM_COLOR_SAT_MAX

@@ -165,6 +165,13 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_LAVA)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 
+/turf/open/lava/smooth/echo
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
+	luminosity = 2
+	light_range = 5
+	light_color = "#ff5100"
+
 /turf/open/lava/smooth/cold
 	initial_gas_mix = FROZEN_ATMOS
 
