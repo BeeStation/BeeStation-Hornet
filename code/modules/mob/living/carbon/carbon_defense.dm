@@ -210,7 +210,7 @@
 		help_shake_act(M)
 		return FALSE
 
-	if(..() && can_inject(M, TRUE)) //successful monkey bite.
+	if(..() && can_inject(M, get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK | INJECT_TRY_SHOW_ERROR_MESSAGE)) //successful monkey bite.
 		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			ForceContractDisease(D)

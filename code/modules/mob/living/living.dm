@@ -658,7 +658,7 @@
  *   Check __DEFINES/injection.dm for more details. Unlike can_inject, the INJECT_TRY_* defines will behave differently.
  */
 /mob/living/proc/try_inject(mob/user, target_zone, injection_flags)
-	return can_inject(user, target_zone, injection_flags)
+	return can_inject(user, target_zone, injection_flags & ~(INJECT_TRY_SHOW_ERROR_MESSAGE))
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))

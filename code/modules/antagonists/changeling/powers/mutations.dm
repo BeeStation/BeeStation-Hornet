@@ -502,6 +502,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
 	slowdown = 0
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/armor_changeling

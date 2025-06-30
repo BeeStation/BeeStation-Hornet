@@ -31,11 +31,11 @@
 	icon_state = "rsecurity"
 	item_state = "r_suit"
 	armor_type = /datum/armor/security_officer
-	alt_covers_chest = TRUE
+	alt_covers_chest = FALSE
 
 
 /datum/armor/security_officer
-	melee = 10
+	melee = 5
 	fire = 30
 	acid = 30
 	stamina = 10

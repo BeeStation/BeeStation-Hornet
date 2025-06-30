@@ -295,7 +295,7 @@
 
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
-	desc = "A diamond-tipped syringe that pierces armor. It can hold up to 10 units."
+	desc = "A diamond-tipped syringe that pierces clothing, but not heavy armor. It can hold up to 10 units."
 	icon_state = "piercing_0"
 	base_icon_state = "piercing"
 	volume = 10
