@@ -1027,6 +1027,16 @@
 	. = ..()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/malfunction)
 
+/datum/status_effect/cyborg_malfunction/vine
+	id = "cyborg_malfunction_vine"
+	duration = MALFUNCTION_DURATION_VINE
+	alert_type = /atom/movable/screen/alert/status_effect/malfunction_vine
+
+/atom/movable/screen/alert/status_effect/malfunction_vine
+	name = "Malfunctioning Sensors"
+	desc = "Your sensors are overloaded!"
+	icon_state = "hypnosis"
+
 /datum/status_effect/slimegrub
 	id = "grub_infection"
 	duration = 60 SECONDS //a redgrub infestation in a slime
