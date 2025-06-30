@@ -582,6 +582,21 @@
 		else
 			to_chat(user, span_warning("You're incapable of slapping in your current state."))
 
+/datum/emote/living/middlefinger
+	key = "middlefinger"
+	key_third_person = "prepares their middle finger"
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
+
+/datum/emote/living/middlefinger/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(intentional)
+		var/obj/item/circlegame/middlefinger/M = new(user)
+		if(user.put_in_hands(M))
+			to_chat(user, span_notice("You prepare your middle finger."))
+		else
+			to_chat(user, span_warning("You're incapable of telling someone to go fuck themselves right now."))
+
 /datum/emote/living/raisehand
 	key = "highfive"
 	key_third_person = "highfives"
