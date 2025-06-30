@@ -640,6 +640,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/depleteduranium/fulltile/unanchored
 	anchored = FALSE
 
+/obj/structure/window/depleteduranium/fulltile/debug
+	name = "unbreakable depleted uranium window"
+	max_integrity = INFINITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
 /obj/structure/window/plasma/fulltile
 	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
 	icon_state = "plasma_window-0"
