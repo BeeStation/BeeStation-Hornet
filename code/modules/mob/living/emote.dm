@@ -148,7 +148,7 @@
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 		if(H.Togglewings())
 			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
 		// play moth flutter noise if moth wing
@@ -214,24 +214,6 @@
 	key_third_person = "grimaces"
 	message = "grimaces"
 	emote_type = EMOTE_VISIBLE
-
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps"
-	hands_use_check = TRUE
-	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
-
-/datum/emote/living/jump/run_emote(mob/living/user, params, type_override, intentional)
-	. = ..()
-	animate(user, pixel_y = user.pixel_y + 4, time = 0.1 SECONDS)
-	animate(pixel_y = user.pixel_y - 4, time = 0.1 SECONDS)
-	if(iscarbon(user))
-		var/mob/living/carbon/jumps_till_drops = user
-		jumps_till_drops.adjustStaminaLoss(10, forced = TRUE)
-
-/datum/emote/living/jump/get_sound(mob/living/user)
-	return 'sound/weapons/thudswoosh.ogg'
 
 /datum/emote/living/kiss
 	key = "kiss"
@@ -735,7 +717,7 @@
 		return FALSE
 	if(islizard(user))
 		var/mob/living/carbon/human/H = user
-		return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+		return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 

@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: fixed the runechat looc preference not showing up sometimes

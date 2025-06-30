@@ -6,10 +6,17 @@
 	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	taste_description = "iron"
 	taste_mult = 1.3
-	glass_icon_state = "glass_red"
-	glass_name = "glass of tomato juice"
-	glass_desc = "Are you sure this is tomato juice?"
-	shot_glass_icon_state = "shotglassred"
+	default_container = /obj/item/reagent_containers/blood
+
+/datum/glass_style/shot_glass/blood
+	required_drink_type = /datum/reagent/blood
+	icon_state = "shotglassred"
+
+/datum/glass_style/drinking_glass/blood
+	required_drink_type = /datum/reagent/blood
+	name = "glass of tomato juice"
+	desc = "Are you sure this is tomato juice?"
+	icon_state = "glass_red"
 
 /datum/reagent/blood/expose_mob(mob/living/L, method=TOUCH, reac_volume)
 	if(data && data["viruses"])
@@ -95,7 +102,10 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	description = "You don't even want to think about what's in here."
 	taste_description = "gross iron"
-	shot_glass_icon_state = "shotglassred"
+
+/datum/glass_style/shot_glass/liquidgibs
+	required_drink_type = /datum/reagent/liquidgibs
+	icon_state = "shotglassred"
 
 /datum/reagent/vaccine
 	//data must contain virus type
@@ -122,37 +132,20 @@
 	color = "#ecca7f"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "dog treats"
-	var/mob/living/basic/pet/dog/corgi/new_corgi
+	var/mob/living/resulting_mob
 
-/datum/reagent/corgium/on_mob_metabolize(mob/living/L)
+/datum/reagent/corgium/on_mob_metabolize(mob/living/target)
 	. = ..()
-	var/obj/shapeshift_holder/H = locate() in L
-	if(H)
-		to_chat(L, span_warning("You're already corgified!"))
-		return
-	new_corgi = new(L.loc)
-	//hat check
-	var/mob/living/carbon/C = L
-	if(istype(C))
-		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(hat?.dog_fashion)
-			new_corgi.place_on_head(hat,null,FALSE)
-	H = new(new_corgi,src,L)
+	target.buckled?.unbuckle_mob(target, force = TRUE)
+	resulting_mob = target.do_shapeshift(shapeshift_type = /mob/living/basic/pet/dog/corgi)
 	//Restore after this time
-	addtimer(CALLBACK(src, PROC_REF(restore), L), 5 * (volume / metabolization_rate))
+	addtimer(CALLBACK(src, PROC_REF(restore), resulting_mob), 5 * (volume / metabolization_rate))
 
-/datum/reagent/corgium/proc/restore(mob/living/L)
-	//The mob was qdeleted by an explosion or something
-	if(QDELETED(L))
-		return
+/datum/reagent/corgium/proc/restore(mob/living/target)
+	target.do_unshapeshift()
 	//Remove all the corgium from the person
-	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
-	if(QDELETED(new_corgi))
-		return
-	var/obj/shapeshift_holder/H = locate() in new_corgi
-	if(!H)
-		return
-	H.restore()
+	target.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
+	holder.remove_reagent(/datum/reagent/corgium, INFINITY)
 
 /datum/reagent/water
 	name = "Water"
@@ -161,12 +154,18 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL // because we want to give it to oozelings
 	taste_description = "water"
 	var/cooling_temperature = 2
-	glass_icon_state = "glass_clear"
-	glass_name = "glass of water"
-	glass_desc = "The father of all refreshments."
-	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
+	default_container = /obj/item/reagent_containers/cup/glass/waterbottle
 
+/datum/glass_style/shot_glass/water
+	required_drink_type = /datum/reagent/water
+	icon_state = "shotglassclear"
+
+/datum/glass_style/drinking_glass/water
+	required_drink_type = /datum/reagent/water
+	name = "glass of water"
+	desc = "The father of all refreshments."
+	icon_state = "glass_clear"
 
 /*
  *	Water reaction to turf
@@ -241,10 +240,14 @@
 	description = "Water blessed by some deity."
 	color = "#E0E8EF" // rgb: 224, 232, 239
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
-	glass_icon_state  = "glass_clear"
-	glass_name = "glass of holy water"
-	glass_desc = "A glass of holy water."
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/holywater
+
+/datum/glass_style/drinking_glass/holywater
+	required_drink_type = /datum/reagent/water/holywater
+	name = "glass of holy water"
+	desc = "A glass of holy water."
+	icon_state = "glass_clear"
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
@@ -398,6 +401,7 @@
 	metabolization_rate = 10 * REAGENTS_METABOLISM // very fast, so it can be applied rapidly.  But this changes on an overdose
 	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
 	taste_description = "sour oranges"
+
 
 /datum/reagent/spraytan/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(ishuman(M))
@@ -1017,6 +1021,7 @@
 	taste_description = "the inside of a reactor"
 	var/irradiation_level = 0.5*REM
 	process_flags = ORGANIC | SYNTHETIC
+	default_container = /obj/effect/decal/cleanable/greenglow
 
 /datum/reagent/uranium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.apply_effect(irradiation_level*delta_time/M.metabolism_efficiency, EFFECT_IRRADIATE,0)
@@ -1091,11 +1096,13 @@
 	color = "#660000" // rgb: 102, 0, 0
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "gross metal"
-	glass_icon_state = "dr_gibb_glass"
-	glass_name = "glass of welder fuel"
-	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
 
+/datum/glass_style/drinking_glass/fuel
+	required_drink_type = /datum/reagent/fuel
+	name = "glass of welder fuel"
+	desc = "Unless you're an industrial tool, this is probably not safe for consumption."
+	icon_state = "dr_gibb_glass"
 
 /datum/reagent/fuel/expose_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH || method == VAPOR)
@@ -1335,19 +1342,19 @@
 		M.confused = min(M.confused + 2, 5)
 	..()
 
-/datum/reagent/stimulum
-	name = "Stimulum"
-	description = "An unstable experimental gas that greatly increases the energy of those that inhale it, but also causes hypoxia."
+/datum/reagent/nitrium_high_metabolization
+	name = "Nitrosyl plasmide"
+	description = "A highly reactive byproduct that stops you from sleeping, while dealing increasing toxin damage over time."
 	reagent_state = GAS
-	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because nitrium are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "#E1A116"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
 	///stores whether or not the mob has been warned that they are having difficulty breathing.
 	var/warned = FALSE
 
-/datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
-	..()
+/datum/reagent/nitrium_high_metabolization/on_mob_metabolize(mob/living/L)
+	. = ..()
 	ADD_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
@@ -1355,40 +1362,40 @@
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	L.visible_message(span_warning("You feel like nothing can stop you!"))
 
-/datum/reagent/stimulum/on_mob_end_metabolize(mob/living/L)
+/datum/reagent/nitrium_high_metabolization/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	L.visible_message(span_warning("You can feel your brief high wearing off"))
-	..()
+	return ..()
 
-/datum/reagent/stimulum/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/nitrium_high_metabolization/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustStaminaLoss(-2 * REM * delta_time, 0)
 	if(M.losebreath <= 10)
 		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticeable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
 		M.visible_message(span_danger("You feel like you can't breathe!"))
 		warned = TRUE
-	..()
+	return ..()
 
-/datum/reagent/nitryl
-	name = "Nitryl"
+/datum/reagent/nitrium_low_metabolization
+	name = "Nitrium"
 	description = "A highly reactive gas that makes you feel faster."
 	reagent_state = GAS
-	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because nitrium are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "#90560B"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 
-/datum/reagent/nitryl/on_mob_metabolize(mob/living/L)
-	..()
-	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
+/datum/reagent/nitrium_low_metabolization/on_mob_metabolize(mob/living/L)
+	. = ..()
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
 
-/datum/reagent/nitryl/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
-	..()
+/datum/reagent/nitrium_low_metabolization/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
+	return ..()
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
@@ -1545,8 +1552,12 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 8
 
-
-
+/datum/reagent/plantnutriment/slimenutriment
+	name = "Living Fertiliser"
+	description = "A viscous fluid that clings to living tissue and speeds up growth, in exchange for yield."
+	color = "#6ed8db"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	tox_prob = 17
 
 
 
@@ -1563,7 +1574,7 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "oil"
 	process_flags = ORGANIC | SYNTHETIC
-
+	default_container = /obj/effect/decal/cleanable/oil
 
 /datum/reagent/stable_plasma
 	name = "Stable Plasma"
@@ -1707,6 +1718,7 @@
 	color = "#C8A5DC"
 	chem_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "ash"
+	default_container = /obj/effect/decal/cleanable/ash
 
 /datum/reagent/acetone
 	name = "Acetone"
@@ -1959,7 +1971,7 @@
 
 /datum/reagent/romerol/expose_mob(mob/living/carbon/human/H, method=TOUCH, reac_volume)
 	// Silently add the zombie infection organ to be activated upon death
-	if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
+	if(!H.get_organ_slot(ORGAN_SLOT_ZOMBIE))
 		var/obj/item/organ/zombie_infection/nodamage/ZI = new()
 		ZI.Insert(H)
 	..()
@@ -2304,8 +2316,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	taste_mult = 1.3
 	taste_description = "tiny legs scuttling down the back of your throat."
 	metabolization_rate = 5 * REAGENTS_METABOLISM //1u per second
-	glass_name = "glass of ants"
-	glass_desc = "Bottoms up...?"
 	/// How much damage the ants are going to be doing (rises with each tick the ants are in someone's body)
 	var/ant_damage = 0 // Not actual damage, only way to check how long they were inside
 	/// Tells the debuff how many ants we are being covered with.
@@ -2316,8 +2326,13 @@ Basically, we fill the time between now and 2s from now with hands based off the
 		"GET THEM OUT OF ME!!",
 		"HOLY HELL THEY BURN!!",
 		"MY GOD THEY'RE INSIDE ME!!",
-		"GET THEM OUT!!"
+		"GET THEM OUT!!",
 		)
+
+/datum/glass_style/drinking_glass/ants
+	required_drink_type = /datum/reagent/ants
+	name = "glass of ants"
+	desc = "Bottoms up...?"
 
 /datum/reagent/ants/on_mob_life(mob/living/carbon/victim, delta_time)
 	ant_damage++

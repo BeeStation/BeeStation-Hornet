@@ -1,20 +1,21 @@
 
 
-/mob/living/carbon/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+/mob/living/carbon/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
 	var/hit_percent = (100-blocked)/100
 	if(!damage || (!forced && hit_percent <= 0))
 		return 0
 
 	var/obj/item/bodypart/BP = null
-	if(isbodypart(def_zone)) //we specified a bodypart object
-		BP = def_zone
-	else
-		if(!def_zone)
-			def_zone = ran_zone(def_zone)
-		BP = get_bodypart(check_zone(def_zone))
-		if(!BP)
-			BP = bodyparts[1]
+	if(!spread_damage)
+		if(isbodypart(def_zone)) //we specified a bodypart object
+			BP = def_zone
+		else
+			if(!def_zone)
+				def_zone = ran_zone(def_zone)
+			BP = get_bodypart(check_zone(def_zone))
+			if(!BP)
+				BP = bodyparts[1]
 
 	var/damage_amount = forced ? damage : damage * hit_percent
 	switch(damagetype)
@@ -119,7 +120,7 @@
   * description: If an organ exists in the slot requested, and we are capable of taking damage (we don't have GODMODE on), call the damage proc on that organ.
   */
 /mob/living/carbon/adjustOrganLoss(slot, amount, maximum, required_status)
-	var/obj/item/organ/O = getorganslot(slot)
+	var/obj/item/organ/O = get_organ_slot(slot)
 	if(O && !(status_flags & GODMODE))
 		if(required_status && O.status != required_status)
 			return FALSE
@@ -132,9 +133,9 @@
   *				 set or clear the failing variable on that organ, making it either cease or start functions again, unlike adjustOrganLoss.
   */
 /mob/living/carbon/setOrganLoss(slot, amount)
-	var/obj/item/organ/O = getorganslot(slot)
+	var/obj/item/organ/O = get_organ_slot(slot)
 	if(O && !(status_flags & GODMODE))
-		O.setOrganDamage(amount)
+		O.set_organ_damage(amount)
 
 /** getOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART)
@@ -142,7 +143,7 @@
   * description: If an organ exists in the slot requested, return the amount of damage that organ has
   */
 /mob/living/carbon/getOrganLoss(slot)
-	var/obj/item/organ/O = getorganslot(slot)
+	var/obj/item/organ/O = get_organ_slot(slot)
 	if(O)
 		return O.damage
 

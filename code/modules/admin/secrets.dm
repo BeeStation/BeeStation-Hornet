@@ -326,7 +326,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
 			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 				if(H.ckey)
-					dat += "<tr><td>[H]</td><td>[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)]</td></tr>"
+					dat += "<tr><td>[H]</td><td>[rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)]</td></tr>"
 			dat += "</table>"
 			usr << browse(HTML_SKELETON(dat), "window=fingerprints;size=440x410")
 
@@ -817,8 +817,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					candidates = poll_ghost_candidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), BAN_ROLE_ALL_ANTAGONISTS, ignore_category = FALSE)
-
+					SSpolling.poll_ghost_candidates(
+						question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)),
+						check_jobban = BAN_ROLE_ALL_ANTAGONISTS,
+						poll_time = 30 SECONDS,
+						role_name_text = "portal storm",
+						alert_pic = /obj/structure/carp_rift,
+					)
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
 					return

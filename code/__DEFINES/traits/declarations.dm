@@ -90,7 +90,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NODISMEMBER		"dismember_immunity"
 #define TRAIT_NOFIRE			"nonflammable"
 #define TRAIT_NOGUNS			"no_guns"
-#define TRAIT_NOHUNGER			"no_hunger"
+///This carbon doesn't get hungry
+#define TRAIT_NOHUNGER "no_hunger"
+///This carbon doesn't bleed
+#define TRAIT_NOBLOOD "noblood"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
 #define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
@@ -287,8 +290,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FISH_SAFE_STORAGE "fish_case" //Fish in this won't die
 #define TRAIT_FISH_CASE_COMPATIBILE "fish_case_compatibile" //Stuff that can go inside fish cases
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands" // The items needs two hands to be carried
-
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
+#define TRAIT_ARTIFACT_IGNORE "artifact_ignore" //This item is compltely ignored by artifacts, this is different to anti-artifact
+#define TRAIT_IGNORE_EXPORT_SCAN "ignore_export_scan" //The export scanner can't scan this item
 
 /// Climbable trait, given and taken by the climbable element when added or removed. Exists to be easily checked via HAS_TRAIT().
 #define TRAIT_CLIMBABLE "trait_climbable"
@@ -401,4 +405,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
+
+
 // END TRAIT DEFINES

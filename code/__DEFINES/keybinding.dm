@@ -70,6 +70,7 @@
 #define COMSIG_KB_MOB_TARGETCYCLEUP_DOWN "keybinding_mob_targetcycleup_down"
 #define COMSIG_KB_MOB_TARGETCYCLEDOWN_DOWN "keybinding_mob_targetcycledown_down"
 #define COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN "keybinding_mob_preventmovement_down"
+#define COMSIG_KB_MOB_EXTENDEDSCREENTIPS_DOWN "keybinding_mob_extendedscreentips_down"
 #define COMSIG_KB_MOB_MOVEUP_DOWN "keybinding_mob_moveup_down"
 #define COMSIG_KB_MOB_MOVEDOWN_DOWN "keybinding_mob_movedown_down"
 

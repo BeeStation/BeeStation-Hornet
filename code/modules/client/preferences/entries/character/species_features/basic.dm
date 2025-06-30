@@ -39,7 +39,7 @@
 		return
 	target.eye_color = value
 
-	var/obj/item/organ/eyes/eyes_organ = target.getorgan(/obj/item/organ/eyes)
+	var/obj/item/organ/eyes/eyes_organ = target.get_organ_by_type(/obj/item/organ/eyes)
 	if (istype(eyes_organ))
 		if (!initial(eyes_organ.eye_color))
 			eyes_organ.eye_color = value

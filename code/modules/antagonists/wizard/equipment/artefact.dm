@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		if(ismob(A))
 			to_chat(A, span_warning("There is no way out of this place..."))
 		return
-	var/atom/return_thing = pick(GLOB.destabliization_exits)
+	var/atom/return_thing = pick(GLOB.destabliization_exits) || pick(get_safe_random_station_turfs())
 	var/turf/T = get_turf(return_thing)
 	if(!T)
 		return
@@ -414,7 +414,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
+		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)])
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)

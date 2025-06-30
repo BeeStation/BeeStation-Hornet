@@ -42,7 +42,6 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_CHIEFENGINEER,
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_BRIGPHYSICIAN,
 		JOB_NAME_DEPUTY,
 		JOB_NAME_GIMMICK)
 
@@ -164,7 +163,7 @@ SUBSYSTEM_DEF(job)
 	var/datum/job/J = name_occupations[rank]
 	return J.departments
 
-/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
+/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/authenticated/player, rank, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
@@ -202,7 +201,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/FindOccupationCandidates(datum/job/job, level)
 	JobDebug("Running FOC, Job: [job], Level: [level]")
 	var/list/candidates = list()
-	for(var/mob/dead/new_player/player in unassigned)
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
 		if(QDELETED(player) || is_banned_from(player.ckey, job.title))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
@@ -220,7 +219,7 @@ SUBSYSTEM_DEF(job)
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/authenticated/player)
 	JobDebug("GRJ Giving random job, Player: [player]")
 	. = FALSE
 	for(var/datum/job/job in shuffle(occupations))
@@ -261,7 +260,7 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if((player) && (player.mind))
 			player.mind.assigned_role = null
 			player.mind.special_role = null
@@ -269,7 +268,6 @@ SUBSYSTEM_DEF(job)
 	SetupOccupations()
 	unassigned = list()
 	return
-
 
 /** Proc DivideOccupations
  *  fills var "assigned_role" for all ready players.
@@ -287,7 +285,7 @@ SUBSYSTEM_DEF(job)
 			S.latejoin_active = TRUE
 
 	//Get the players who are ready
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.assigned_role)
 			if(!player.check_preferences())
 				player.ready = PLAYER_NOT_READY
@@ -359,7 +357,7 @@ SUBSYSTEM_DEF(job)
 	shuffle_inplace(unassigned)
 
 	// Firstly, remove any players over the pop-cap
-	for(var/mob/dead/new_player/player in unassigned)
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
 		if(PopcapReached() && !IS_PATRON(player.ckey))
 			RejectPlayer(player)
 
@@ -369,12 +367,12 @@ SUBSYSTEM_DEF(job)
 	JobDebug("DO, Handling unassigned.")
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
-	for(var/mob/dead/new_player/player in unassigned)
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
 		HandleUnassigned(player)
 
 	JobDebug("DO, Handling unrejectable unassigned")
 	//Mop up people who can't leave.
-	for(var/mob/dead/new_player/player in unassigned) //Players that wanted to back out but couldn't because they're antags (can you feel the edge case?)
+	for(var/mob/dead/new_player/authenticated/player in unassigned) //Players that wanted to back out but couldn't because they're antags (can you feel the edge case?)
 		if(!GiveRandomJob(player))
 			if(!AssignRole(player, SSjob.overflow_role)) //If everything is already filled, make them an assistant
 				return FALSE //Living on the edge, the forced antagonist couldn't be assigned to overflow role (bans, client age) - just reroll
@@ -389,7 +387,7 @@ SUBSYSTEM_DEF(job)
 	var/list/sorted_orderings = list()
 	var/list/random_orderings = list()
 	// Step 1: Generate random orderings for the players medium jobs
-	for(var/mob/dead/new_player/player in unassigned)
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
 		var/list/available_jobs = list()
 		// Find all jobs that we are actually able to be
 		for(var/datum/job/job in occupations)
@@ -409,7 +407,7 @@ SUBSYSTEM_DEF(job)
 	shuffle_inplace(random_orderings)
 	sorted_orderings = sortTim(sorted_orderings, GLOBAL_PROC_REF(cmp_list_size_dsc), TRUE)
 	// Step 3: Assign provisional jobs
-	for(var/mob/dead/new_player/player in sorted_orderings)
+	for(var/mob/dead/new_player/authenticated/player in sorted_orderings)
 		// Get the first available job for this player
 		for (var/datum/job/job in sorted_orderings[player])
 			var/job_position_count = job.get_spawn_position_count()
@@ -424,7 +422,7 @@ SUBSYSTEM_DEF(job)
 	// The player list is already shuffled, so we will re-use that for player preference
 	// Step 5: Assign high priority job roles
 	if (priority == JP_MEDIUM)
-		for(var/mob/dead/new_player/player in sorted_orderings)
+		for(var/mob/dead/new_player/authenticated/player in sorted_orderings)
 			// Assign high priority jobs
 			for(var/datum/job/job in occupations)
 				if (!is_valid_job(player, job, JP_HIGH))
@@ -439,7 +437,7 @@ SUBSYSTEM_DEF(job)
 	var/changed = TRUE
 	while (changed && iteration_limit-- > 0)
 		changed = FALSE
-		for(var/mob/dead/new_player/player in random_orderings)
+		for(var/mob/dead/new_player/authenticated/player in random_orderings)
 			var/list/player_preferences = random_orderings[player]
 			// Reassign to a new job
 			for (var/datum/job/job in player_preferences)
@@ -462,14 +460,14 @@ SUBSYSTEM_DEF(job)
 				changed = TRUE
 				break
 	// Step 5: Assign job roles that we have so far
-	for(var/mob/dead/new_player/player in sorted_orderings)
+	for(var/mob/dead/new_player/authenticated/player in sorted_orderings)
 		if (!player.mind.assigned_role)
 			JobDebug("DO [player.ckey] has no medium or high priority jobs assigned")
 			continue
 		AssignRole(player, player.mind.assigned_role)
 		unassigned -= player
 
-/datum/controller/subsystem/job/proc/is_valid_job(mob/dead/new_player/player, datum/job/job, required_priority)
+/datum/controller/subsystem/job/proc/is_valid_job(mob/dead/new_player/authenticated/player, datum/job/job, required_priority)
 	if(!job || job.lock_flags)
 		return FALSE
 	if(is_banned_from(player.ckey, job.title))
@@ -510,7 +508,7 @@ SUBSYSTEM_DEF(job)
 	return FALSE
 
 //We couldn't find a job from prefs for this guy.
-/datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/authenticated/player)
 	var/jobless_role = player.client.prefs.read_character_preference(/datum/preference/choiced/jobless_role)
 
 	if(PopcapReached() && !IS_PATRON(player.ckey))
@@ -545,7 +543,7 @@ SUBSYSTEM_DEF(job)
 
 //Gives the player the stuff he should have with his rank
 /datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
-	var/mob/dead/new_player/newplayer
+	var/mob/dead/new_player/authenticated/newplayer
 	var/mob/living/living_mob
 
 	if(!joined_late)
@@ -604,7 +602,7 @@ SUBSYSTEM_DEF(job)
 		else
 			if(!isnull(new_mob)) //Detect fail condition on equip
 			//if equip() is somehow able to fail, send them back to lobby
-				var/mob/dead/new_player/NP = new()
+				var/mob/dead/new_player/authenticated/NP = new()
 				NP.ckey = M.client.ckey
 				qdel(M)
 				to_chat(M, "Error equipping [rank]. Returning to lobby.</b>")
@@ -687,7 +685,7 @@ SUBSYSTEM_DEF(job)
 		var/never = 0 //never
 		var/banned = 0 //banned
 		var/young = 0 //account too young
-		for(var/mob/dead/new_player/player in GLOB.player_list)
+		for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 			if(job.lock_flags)
 				continue
 			if(!(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.assigned_role))
@@ -726,7 +724,7 @@ SUBSYSTEM_DEF(job)
 			return 1
 	return 0
 
-/datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/authenticated/player)
 	if(player.mind && player.mind.special_role)
 		return
 	if(PopcapReached() && !IS_PATRON(player.ckey))
@@ -869,7 +867,7 @@ SUBSYSTEM_DEF(job)
 	name = "Emergency Spare ID Safe Code Requisition"
 	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
 
-/datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/new_captain, acting_captain = FALSE)
+/datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/authenticated/new_captain, acting_captain = FALSE)
 	var/mob/living/carbon/human/H = new_captain.new_character
 	if(!new_captain)
 		CRASH("Cannot promote [new_captain.ckey], there is no new_character attached to him.")
