@@ -15,7 +15,7 @@
 	/// If the drive has been installed before (used to prevent re-setting initial ringtone)
 	var/has_been_installed = FALSE
 	/// List of airlocks this disk can control with program/remote_airlock
-	var/list/controllable_airlocks
+	var/list/controllable_airlocks = list()
 	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
 	var/spam_delay = 0
 	/// If this hard drive is imprevious to basic viruses
@@ -56,12 +56,11 @@
 	if(spam_delay)
 		to_chat(user, "<font color='#00c3ff'>Advertisement Messaging</font> Enabled")
 
-/obj/item/computer_hardware/hard_drive/update_overclocking()
+/obj/item/computer_hardware/hard_drive/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
 		virus_defense = 2
 	else
 		virus_defense = FALSE
-
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)
@@ -227,6 +226,7 @@
 	desc = "An efficient SSD for portable devices developed by a rival organisation."
 	power_usage = 8
 	max_capacity = 70
+	var/datum/antagonist/traitor/traitor_data // Syndicate hard drive has the user's data baked directly into it on creation
 
 /// For tablets given to nuke ops
 /obj/item/computer_hardware/hard_drive/small/nukeops

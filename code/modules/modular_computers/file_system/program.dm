@@ -62,10 +62,21 @@
 	if(computer)
 		computer.update_icon()
 
-// Attempts to create a log in global ntnet datum. Returns 1 on success, 0 on fail.
-/datum/computer_file/program/proc/generate_network_log(text)
+/**
+ * Passes a message to modular computer, which will in turn be passed onto SSNetworks to be logged.
+ * Returns 1 on success, 0 on fail.
+ *
+ * Should a Program want to create a log on the network this is the proc to use
+ * it will pass all its information onto SSnetworks (trough modular computer) which have their own add_log proc.
+ * It will automatically apply the network argument on its own.
+ * Arguments:
+ * * text - message to log
+ * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
+ * * card = network card, will extract identification string and hardware ID from it later on (if log_id = TRUE).
+ */
+/datum/computer_file/program/proc/generate_network_log(text, log_id = TRUE, obj/item/computer_hardware/network_card/card)
 	if(computer)
-		return computer.add_log(text)
+		return computer.add_log(text, log_id, card)	//This is important since Hardware_id wasn't working otherwise
 	return 0
 
 /**
@@ -163,7 +174,8 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if(can_run(user, 1))
 		if(requires_ntnet && network_destination)
-			generate_network_log("Connection opened to [network_destination].")
+			var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+			generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut
 		program_state = PROGRAM_STATE_ACTIVE
 		return TRUE
 	return FALSE
@@ -192,8 +204,9 @@
 /datum/computer_file/program/proc/kill_program(forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	program_state = PROGRAM_STATE_KILLED
+	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 	if(network_destination)
-		generate_network_log("Connection to [network_destination] closed.")
+		generate_network_log("Connection to [network_destination] closed.", network_card) //Probably should be cut
 	return 1
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.

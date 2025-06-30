@@ -6,21 +6,28 @@
 	icon_open = "radio_mini_open"
 	network_id = NETWORK_CARDS	// Network we are on
 	var/hardware_id = null	// Identification ID. Technically MAC address of this device. Can't be changed by user.
-	var/identification_string = "" 	// Identification string, technically nickname seen in the network. Can be set by user.
+	var/identification_string = "nt_card_SFS" 	// Default Identification string, like half an IP.
 	/// Type of signal, High requires no Tcoms in Z-level, Lan is always on
 	var/signal_level = LOW
 	malfunction_probability = 1
 	device_type = MC_NET
 	custom_price = 10
 
-/obj/item/computer_hardware/network_card/LateInitialize()
+/obj/item/computer_hardware/network_card/Initialize(mapload)
 	. = ..()
-	hardware_id = GetComponent(/datum/component/ntnet_interface).hardware_id
+	//hardware_id = GetComponent(/datum/component/ntnet_interface).hardware_id // This was not working at all, but since this ntnet code is extremely complex I will leave this here for future's sake
+	hardware_id = "[serial_code]"
+	// ID_String will tell us the job of the person who did something, the hardware_ID can serve as legitimate proof (it will all be loged)
+
+/obj/item/computer_hardware/network_card/on_install(obj/item/modular_computer/install_into, mob/living/user)
+	. = ..()
+	if(!user && install_into && identification_string == initial(identification_string))	//Only overide default string IF its being installed trough code
+		identification_string = "[install_into.icon_state]"
 
 /obj/item/computer_hardware/network_card/diagnostics(var/mob/user)
 	..()
-	to_chat(user, "NIX Unique ID: [hardware_id]")
-	to_chat(user, "NIX User Tag: [identification_string]")
+	to_chat(user, "NIX Unique ID: <font color='#0300c0'>[hardware_id]</font>")
+	to_chat(user, "NIX Identification String: <font color='#9002d1'>[identification_string]</font>")
 	to_chat(user, "Supported protocols:")
 	switch(signal_level)
 		if(NO_SIGNAL)
@@ -42,7 +49,7 @@
 		signal_level = initial(signal_level)
 	return
 
-/obj/item/computer_hardware/network_card/overclock_failure(mob/living/user, obj/item/tool)
+/obj/item/computer_hardware/network_card/overclock_failure(mob/living/user, obj/item/tool) // Needs reworkin
 	to_chat(user, "You hear a faint click inside... something changed!")
 	signal_level = HIGH
 
@@ -85,6 +92,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = 40
+	identification_string = "nt_card_WFS/HB"
 
 /obj/item/computer_hardware/network_card/advanced/norelay
 	name = "ultra-advanced network card"
@@ -93,6 +101,7 @@
 	power_usage = 200
 	icon_state = "no-relay"
 	custom_price = 100
+	identification_string = "x_net_card"
 
 /obj/item/computer_hardware/network_card/wired
 	name = "wired network card"
@@ -101,6 +110,7 @@
 	power_usage = 100 // Better range but higher power usage.
 	icon_state = "net_wired"
 	w_class = WEIGHT_CLASS_NORMAL
+	identification_string = "open_eth"
 
 /obj/item/computer_hardware/network_card/integrated //Borg tablet version, only works while the borg has power and is not locked
 	name = "cyborg data link"

@@ -11,7 +11,8 @@
 	default_installs = FALSE
 	hotswap = TRUE
 	var/list/progs_to_store = list()
-
+	/// Job disk will ignore programs to instal if this is TRUE
+	var/dont_instal = FALSE
 	var/disk_flags = 0 // bit flag for the programs
 
 /obj/item/computer_hardware/hard_drive/role/on_inserted(mob/user)
@@ -24,7 +25,8 @@
 
 /obj/item/computer_hardware/hard_drive/role/Initialize(mapload)
 	. = ..()
-
+	if(dont_instal)
+		return
 	if(disk_flags & DISK_POWER)
 		progs_to_store += new /datum/computer_file/program/power_monitor(src)
 		progs_to_store += new /datum/computer_file/program/supermatter_monitor(src)
@@ -71,6 +73,9 @@
 	if(disk_flags & DISK_SIGNAL)
 		progs_to_store += new /datum/computer_file/program/signaller(src)
 
+	if(disk_flags & DISK_NETWORK) // add network here
+		progs_to_store += new /datum/computer_file/program/ntnetmonitor(src)
+
 	if(disk_flags & DISK_NEWSCASTER)
 		progs_to_store += new /datum/computer_file/program/newscaster(src)
 
@@ -106,7 +111,7 @@
 	new_disk.icon = initial(icon)
 	new_disk.update_icon_state()
 	new_disk.spam_delay = initial(spam_delay)
-	new_disk.former_jobdisk = TRUE
+	new_disk.dormant_virus = FALSE
 	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
 	qdel(src)
 	return
@@ -183,7 +188,7 @@
 	name = "\improper Signal Ace 2 disk"
 	icon_state = "cart-tox"
 	desc = "Complete with integrated radio signaler!"
-	disk_flags = DISK_ATMOS | DISK_SIGNAL | DISK_CHEM
+	disk_flags = DISK_ATMOS | DISK_SIGNAL | DISK_CHEM | DISK_NETWORK
 
 /obj/item/computer_hardware/hard_drive/role/quartermaster
 	name = "space parts DELUXE disk"
@@ -225,7 +230,7 @@
 /obj/item/computer_hardware/hard_drive/role/rd
 	name = "\improper Signal Ace DELUXE disk"
 	icon_state = "cart-rd"
-	disk_flags = DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL
+	disk_flags = DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL | DISK_NETWORK
 
 /obj/item/computer_hardware/hard_drive/role/captain
 	name = "\improper Value-PAK disk"

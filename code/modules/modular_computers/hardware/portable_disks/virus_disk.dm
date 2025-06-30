@@ -4,6 +4,8 @@
 	var/charges = 5
 	/// Strength of the virus, it will fight the virus buster, if it wins, it passes, if it ties theres a 50% chance of passing.
 	var/virus_strength = 1
+	///A name for the virus, it will be used in network logs!
+	var/virus_class = "generix"
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
@@ -26,23 +28,40 @@
 				virus_blocked(target, user)
 				return FALSE
 	charges-- //Continues from here
-	new /obj/effect/particle_effect/sparks/red(get_turf(target))
+	new /obj/effect/particle_effect/sparks/red(get_turf(target))	// We don't make it extremely obvious the target got trolled
+	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	playsound(target, "sparks", 50, 1)
+	playsound(src, "sparks", 50, 1)
+	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
 	to_chat(user, span_notice("<font color='#ff0000'>Virus deployed.</font> charges left: <font color='#00ff4c'>[charges]</font>."))
+	nt_log(target, user)
 	return TRUE
+
+/obj/item/computer_hardware/hard_drive/role/virus/proc/nt_log(obj/item/modular_computer/tablet/target, mob/living/user, blocked = FALSE)
+	var/obj/item/computer_hardware/network_card/card = holder.all_components[MC_NET]
+	var/obj/item/computer_hardware/network_card/t_card = target.all_components[MC_NET]
+	var/virus_name = virus_class
+	if(prob(30) && !blocked)
+		virus_name = "UNKNOWN"	//If the virus wasn't blocked, lets not be a tattletale (always)!
+	if(!blocked)
+		holder.add_log("SYSnotice :: Network anomaly class: [virus_name]! suspicious transmission detected. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]", log_id = FALSE)
+	else
+		holder.add_log("ALERT: Threat class [virus_name] suppressed by AV software. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]", log_id = FALSE)
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/virus_blocked(obj/item/modular_computer/tablet/target, mob/living/user)
 	charges--
-	target.virus_blocked()
-	new /obj/effect/particle_effect/sparks/blue(get_turf(target))
+	target.virus_blocked_info()
+	new /obj/effect/particle_effect/sparks/red(get_turf(src))
 	playsound(src, "sparks", 50, 1)
 	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
 	to_chat(user, span_notice("<font color='#ff0000'>ERROR: Virus Blocked!</font> charges left: <font color='#00ff4c'>[charges]</font>."))
+	nt_log(target, user, blocked = TRUE)
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown
 	name = "\improper H.O.N.K. disk"
 	desc = "A data disk for portable microcomputers. It smells vaguely of bananas."
 	icon_state = "cart-clown"
+	virus_class = "HONK::CORE"
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
@@ -81,6 +100,7 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/mime
 	name = "\improper sound of silence disk"
+	virus_class = "MUTEWORM.VRS"
 
 /obj/item/computer_hardware/hard_drive/role/virus/mime/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
@@ -96,6 +116,7 @@
 	icon_state = "cart-detomatrix"
 	charges = 4
 	virus_strength = 2
+	virus_class = "ViperClass.Syn"
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
@@ -110,12 +131,14 @@
 	// Make sure this matches the syndicate shuttle's shield/door id in _maps/shuttles/infiltrator/infiltrator_basic.dmm
 	controllable_airlocks = list("smindicate")
 	virus_strength = 3
+	virus_class = "WIDDOWCLASS.Syn"
 
 /obj/item/computer_hardware/hard_drive/role/virus/frame
 	name = "\improper F.R.A.M.E. disk"
 	icon_state = "cart-prove"
 	var/telecrystals = 0
 	virus_strength = 2
+	virus_class = "TagInject.Syn"
 
 /obj/item/computer_hardware/hard_drive/role/virus/frame/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()

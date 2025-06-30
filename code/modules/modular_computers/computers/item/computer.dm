@@ -605,11 +605,24 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	else
 		return 0
 
-/obj/item/modular_computer/proc/add_log(text)
+/**
+ * Passes a message to be logged by SSnetworks
+ *
+ * Should a Modular want to create a log on the network this is the proc to use
+ * it will pass all its information onto SSnetworks which have their own add_log proc.
+ * It will automatically apply the network argument on its own.
+ * Arguments:
+ * * text - message to log
+ * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
+ * * card = network card, will extract identification string and hardware ID from it (if log_id = TRUE).
+ */
+/obj/item/modular_computer/proc/add_log(text, log_id = FALSE, obj/item/computer_hardware/network_card/card)
 	if(!get_ntnet_status())
 		return FALSE
-	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
-	return SSnetworks.add_log(text, network_card.GetComponent(/datum/component/ntnet_interface).network, network_card.hardware_id)
+	if(!card)
+		card = all_components[MC_NET]
+	return SSnetworks.add_log(text, card.GetComponent(/datum/component/ntnet_interface).network, card.hardware_id, log_id, card)
+	// We also return network_card so SSnetworks can extract values from it itself
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
 	kill_program(forced = TRUE)
@@ -814,7 +827,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
 	return ..()
 
-/obj/item/modular_computer/proc/virus_blocked(mob/living/user)	// If we caught a Virus, tell the player
+/obj/item/modular_computer/proc/virus_blocked_info(mob/living/user)	// If we caught a Virus, tell the player
 	var/mob/living/holder = loc
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))

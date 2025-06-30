@@ -10,7 +10,6 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
-		"antivirus",
 		"basic_capacitor",
 		"basic_cell",
 		"basic_matter_bin",
@@ -398,7 +397,6 @@
 		"adv_scanning",
 		"airalarm_electronics",
 		"airlock_board",
-		"antivirus2",
 		"apc_control",
 		"atmos_control",
 		"atmosalerts",
@@ -568,7 +566,6 @@
 		"practical_bluespace",
 	)
 	design_ids = list(
-		"antivirus4",
 		"bluespace_matter_bin",
 		"femto_mani",
 		"quantum_keycard",
@@ -632,7 +629,6 @@
 		"engineering",
 	)
 	design_ids = list(
-		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
 	"bluespace_capsule",
@@ -1119,6 +1115,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //Very basic hardware, very basic cost
 	export_price = 2000
 	design_ids = list(
+		"antivirus",
 		"bat_control",
 		"bat_nano",
 		"bat_micro",
@@ -1141,6 +1138,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 3000
 	design_ids = list(
+		"antivirus2",
 		"bat_normal",
 		"bat_advanced",
 		"hdd_basic",
@@ -1166,6 +1164,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
 	export_price = 4000
 	design_ids = list(
+		"antivirus3",
 		"aislot",
 		"APClink",
 		"portadrive_super",
@@ -1183,6 +1182,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
 	export_price = 5000
 	design_ids = list(
+		"antivirus4",
 		"XNetCard"
 	)
 
