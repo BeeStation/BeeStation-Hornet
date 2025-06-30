@@ -2353,8 +2353,6 @@
 	prereq_ids = list("nanite_smart")
 	design_ids = list(
 		"free_range_nanites",
-		"hive_nanites",
-		"unsafe_storage_nanites",
 		"zip_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
@@ -2376,6 +2374,7 @@
 		"pyro_nanites",
 		"viral_nanites",
 		"armblade_nanites",
+		"unsafe_storage_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500
