@@ -506,7 +506,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 4);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 5);
 
 
 
@@ -522,6 +522,19 @@ CREATE TABLE IF NOT EXISTS `SS13_session` (
   `valid_until` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `ip_token` (`ip`, `session_token`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- Dumping structure for table ss13tgdb.SS13_session_creation_nonce
+DROP TABLE IF EXISTS `SS13_session_creation_nonce`;
+CREATE TABLE IF NOT EXISTS `SS13_session_creation_nonce` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip` varchar(32) NOT NULL,
+  `seeker_port` SMALLINT UNSIGNED DEFAULT NULL,
+  `session_nonce` varchar(64) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `ip_nonce` (`ip`, `session_nonce`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
