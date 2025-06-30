@@ -143,8 +143,8 @@
 	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey]) using [external_method] ID [external_uid]")
 	GLOB.directory -= src.ckey
 	var/mob/my_mob = src.mob
-	src.key = new_key
 	src.ckey = ckey
+	src.key = new_key
 	tgui_panel?.owner_ckey = ckey
 
 	if(!client_pre_login(TRUE, FALSE))
