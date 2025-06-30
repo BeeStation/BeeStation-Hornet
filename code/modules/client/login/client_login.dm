@@ -12,6 +12,7 @@
 		// If auth isn't set up, immediately change their key to a guest key
 		// IT IS VERY IMPORTANT THAT IS_GUEST_KEY RETURNS TRUE OTHERWISE THE DB WILL GET POLLUTED
 		key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+		ckey = ckey(key)
 		logged_in = FALSE
 	else
 		to_chat_immediate(src, span_dangerbold("Authorization is totally disabled! The game is configured to blindly trust connecting CKEYs!!!"))
@@ -25,6 +26,7 @@
 			logged_in = TRUE
 		else if(CONFIG_GET(flag/enable_guest_external_auth)) // guests need to authorize
 			key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+			ckey = ckey(key)
 			logged_in = FALSE
 		else // should be caught by IsBanned, but localhost can get to this point
 			src << "NOTICE: Guests are not currently allowed to connect!"
@@ -35,6 +37,7 @@
 	else if(CONFIG_GET(flag/force_byond_external_auth))
 		byond_authenticated_key = key
 		key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
+		ckey = ckey(key)
 		logged_in = FALSE
 	else
 		logged_in = TRUE
