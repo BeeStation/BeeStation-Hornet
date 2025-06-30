@@ -1,4 +1,5 @@
 /datum/injury/repaired_skin_burn
+	alert_message = "<s>Minor Burns</s> (Scar)"
 	surgeries_provided = list(/datum/surgery/skin_graft)
 
 /datum/injury/repaired_skin_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)

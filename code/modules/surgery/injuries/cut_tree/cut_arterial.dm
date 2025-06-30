@@ -1,4 +1,5 @@
 /datum/injury/cut_arterial
+	alert_message = "Arterial Bleeding"
 	effectiveness_modifier = 0.4
 	skin_armour_modifier = 0.4
 

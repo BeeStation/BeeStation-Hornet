@@ -1,4 +1,5 @@
 /datum/injury/treated_burn
+	alert_message = "<s>Minor Burns</s> (Treated)"
 
 /datum/injury/treated_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)

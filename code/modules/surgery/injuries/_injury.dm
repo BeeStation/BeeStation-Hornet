@@ -3,6 +3,8 @@
 	var/base_type = null
 	/// The type of alert shown to the owner of the limb
 	var/alert_type = null
+	/// The message of the alert
+	var/alert_message = null
 	/// Current amount of damage taken
 	var/current_damage = 0
 	/// Bodypart we are attached to
@@ -34,10 +36,13 @@
 /// Apply the injury to the target
 /datum/injury/proc/apply_to_human(mob/living/carbon/human/target)
 	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(item_interaction))
+	if (alert_message)
+		target.throw_alert("injury_[type]_[bodypart.name]", /atom/movable/screen/alert/status_effect/injury)
 
 /// Take the injury away from the person who owns the limb
 /datum/injury/proc/remove_from_human(mob/living/carbon/human/target)
 	UnregisterSignal(target, COMSIG_PARENT_ATTACKBY)
+	target.clear_alert("injury_[type]_[bodypart.name]")
 
 /datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))

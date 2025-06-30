@@ -1,4 +1,5 @@
 /datum/injury/cut_muscle_tear
+	alert_message = "Muscle Tear"
 	effectiveness_modifier = 0.4
 	skin_armour_modifier = 0.4
 

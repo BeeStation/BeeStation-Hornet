@@ -1,4 +1,5 @@
 /datum/injury/cut_laceration
+	alert_message = "Laceration"
 	effectiveness_modifier = 0.8
 	skin_armour_modifier = 0.6
 

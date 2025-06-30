@@ -1,4 +1,5 @@
 /datum/injury/third_degree_burn
+	alert_message = "Third-Degree Burns"
 	skin_armour_modifier = 0.4
 	effectiveness_modifier = 0
 	surgeries_provided = list(/datum/surgery/skin_graft/third_degree)

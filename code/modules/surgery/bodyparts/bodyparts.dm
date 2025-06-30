@@ -751,6 +751,7 @@
 	if (owner && ishuman(owner))
 		injury.remove_from_human(owner)
 	qdel(injury)
+	check_effectiveness()
 
 /obj/item/bodypart/proc/get_injury_by_base(base_path)
 	for (var/datum/injury/injury in injuries)
@@ -773,6 +774,7 @@
 	injury.apply_to_part(src)
 	if (owner && ishuman(owner))
 		injury.apply_to_human(owner)
+	check_effectiveness()
 
 /obj/item/bodypart/proc/get_skin_multiplier()
 	var/rate = 1
@@ -790,6 +792,8 @@
 	effectiveness = initial(effectiveness)
 	for (var/datum/injury/injury in injuries)
 		effectiveness *= injury.effectiveness_modifier
+	if (!owner)
+		return
 	clear_effectiveness_modifiers()
 	update_effectiveness()
 
@@ -1197,6 +1201,9 @@
 
 /datum/movespeed_modifier/l_leg
 	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = FLOATING|FLYING
+	flags = IGNORE_NOSLOW
 
 /obj/item/bodypart/l_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -1306,6 +1313,9 @@
 
 /datum/movespeed_modifier/r_leg
 	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = FLOATING|FLYING
+	flags = IGNORE_NOSLOW
 
 /obj/item/bodypart/r_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'

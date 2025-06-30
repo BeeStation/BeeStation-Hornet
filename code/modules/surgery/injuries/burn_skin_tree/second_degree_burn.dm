@@ -1,4 +1,5 @@
 /datum/injury/second_degree_burns
+	alert_message = "Second-Degree Burns"
 	skin_armour_modifier = 0.6
 	effectiveness_modifier = 0.6
 	surgeries_provided = list(/datum/surgery/skin_graft)
