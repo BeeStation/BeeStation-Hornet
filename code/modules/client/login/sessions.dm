@@ -235,3 +235,53 @@
 	)
 	query_update_sessions.Execute()
 	qdel(query_update_sessions)
+
+/client/proc/login_with_method_id(method_id)
+	var/datum/external_login_method/method = GLOB.login_methods[method_id]
+	if(istype(method))
+		login_with_method(method)
+	else
+		to_chat_immediate(src, span_danger("Invalid login method: [method_id]"))
+
+/client/proc/login_with_method(datum/external_login_method/method)
+	if(!istype(method))
+		to_chat_immediate(src, span_danger("Method not implemented!"))
+		return
+	var/ip = src.address
+	if(is_localhost())
+		ip = "127.0.0.1"
+	var/seeker_port_in = src.seeker_port
+	if(!isnum_safe(seeker_port_in) || seeker_port_in < 1024 || seeker_port_in > 65535)
+		seeker_port_in = null
+	var/my_nonce = add_session_creation_nonce()
+	if(!istext(my_nonce) || !length(my_nonce))
+		to_chat_immediate(src, span_userdanger("Login not available at this time. Please contact the host."))
+		return
+	var/link = method.get_url(ip, seeker_port_in, my_nonce)
+	if(istext(link))
+		src << link(link)
+	else
+		to_chat_immediate(src, span_danger("[method::name] authentication has not been configured!"))
+
+/client/proc/add_session_creation_nonce()
+	var/ip = src.address
+	if(is_localhost())
+		ip = "127.0.0.1"
+	if(!length(ip))
+		return null
+	if(!SSdbcore.Connect())
+		return null
+	var/seeker_port_in = src.seeker_port
+	if(!isnum_safe(seeker_port_in) || seeker_port_in < 1024 || seeker_port_in > 65535)
+		seeker_port_in = null
+	var/fiftyfifty = prob(50) ? FEMALE : MALE
+	// sufficiently entropic, unguessable string unique to this user's current connection
+	var/hashtext = "[ckey][ip][rand(0,9999)][world.realtime][rand(0,9999)][world.address][random_unique_name(fiftyfifty)][rand(0,9999)][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
+	var/nonce = rustg_hash_string(RUSTG_HASH_SHA256, hashtext)
+	var/datum/db_query/insert_nonce_query = SSdbcore.NewQuery(
+		"INSERT INTO [format_table_name("session_creation_nonce")] (`ip`, `seeker_port`, `session_nonce`) VALUES (:ip, :seeker_port, :nonce)",
+		list("ip" = ip, "seeker_port" = seeker_port_in, "nonce" = nonce)
+	)
+	insert_nonce_query.Execute()
+	qdel(insert_nonce_query)
+	return nonce
