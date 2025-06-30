@@ -112,14 +112,15 @@
 		if(client.tgui_panel)
 			client.tgui_panel.set_verb_infomation(client)
 
-		if(client.player_details.player_actions.len)
-			for(var/datum/action/A in client.player_details.player_actions)
-				A.Grant(src)
+		if(client.player_details)
+			if(client.player_details.player_actions.len)
+				for(var/datum/action/A in client.player_details.player_actions)
+					A.Grant(src)
 
-		for(var/foo in client.player_details.post_login_callbacks)
-			var/datum/callback/CB = foo
-			CB.Invoke()
-		log_played_names(client.ckey,name,real_name)
+			for(var/foo in client.player_details.post_login_callbacks)
+				var/datum/callback/CB = foo
+				CB.Invoke()
+			log_played_names(client.ckey,name,real_name)
 		auto_deadmin_on_login()
 
 	//Sort verbs

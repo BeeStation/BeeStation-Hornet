@@ -45,19 +45,6 @@
 	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_MED) || (disk_flags & DISK_POWER) || (disk_flags & DISK_ATMOS))
 		var/datum/computer_file/program/phys_scanner/scanner = new(src)
 
-		if(disk_flags & DISK_CHEM)
-			scanner.available_modes += DISK_CHEM
-
-		if(disk_flags & DISK_MED)
-			progs_to_store += new /datum/computer_file/program/records/medical(src)
-			scanner.available_modes += DISK_MED
-
-		if(disk_flags & DISK_POWER)
-			scanner.available_modes += DISK_POWER
-
-		if(disk_flags & DISK_ATMOS)
-			scanner.available_modes += DISK_ATMOS
-
 		progs_to_store += scanner
 
 	if(disk_flags & DISK_ROBOS)

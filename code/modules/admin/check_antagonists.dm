@@ -166,7 +166,7 @@
 	dat += "<a href='byond://?_src_=holder;[HrefToken()];end_round=[REF(usr)]'>End Round Now</a><br>"
 	dat += "<a href='byond://?_src_=holder;[HrefToken()];delay_round_end=1'>[SSticker.delay_end ? "Undelay Round End" : "Delay Round End"]</a><br>"
 	dat += "<a href='byond://?_src_=holder;[HrefToken()];check_teams=1'>Check Teams</a>"
-	var/connected_players = GLOB.clients.len
+	var/connected_players = GLOB.clients_unsafe.len
 	var/lobby_players = 0
 	var/observers = 0
 	var/observers_connected = 0
