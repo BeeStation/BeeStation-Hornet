@@ -330,7 +330,7 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
+			if (L.get_organ_by_type(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
 				M.visible_message(span_warning("[src] grabs [L] by [L.p_their()] tail!"),\
 								span_warning(" [src] grabs you by the tail!"), null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, span_notice("You grab [L] by [L.p_their()] tail!"))  //Message sent to grabber
@@ -808,7 +808,7 @@
 	set_dizziness(0)
 	cure_nearsighted()
 	//Some eye logic
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	cure_blind(null, eyes?.can_see)
 	cure_husk()
 	hallucination = 0
@@ -909,7 +909,7 @@
 							TH.color = spec_color
 
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
-	if((NOBLOOD in dna.species.species_traits) || !is_bleeding())
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
 	spec_color = dna.species.blood_color
 	..()
@@ -1868,6 +1868,14 @@
 		return BODYTEMP_NORMAL
 	return BODYTEMP_NORMAL + get_body_temp_normal_change()
 
+///Returns the body temperature at which this mob will start taking heat damage.
+/mob/living/proc/get_body_temp_heat_damage_limit()
+	return BODYTEMP_HEAT_DAMAGE_LIMIT
+
+///Returns the body temperature at which this mob will start taking cold damage.
+/mob/living/proc/get_body_temp_cold_damage_limit()
+	return BODYTEMP_COLD_DAMAGE_LIMIT
+
 //Used for applying color correction
 /mob/living/proc/apply_color_correction(datum/source, area/entered)
 	SIGNAL_HANDLER
@@ -2070,11 +2078,17 @@
 			reviver.log_message("has revived mob [key_name(src)] with a malfunctioning lazarus injector.", LOG_GAME)
 		else
 			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
-			if(prob(10)) //chance of sentience without loyalty
-				var/list/candidates = poll_candidates_for_mob("Do you want to play as [src] being revived by [reviver]?", ROLE_SENTIENCE, null, 15 SECONDS, target_mob = src)
-				if(length(candidates))
-					var/mob/dead/observer/C = pick(candidates)
-					target_hostile.key = C.key
+			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+					question = "Do you want to play as \a [src] being revived by [reviver]?",
+					check_jobban = ROLE_SENTIENCE,
+					poll_time = 15 SECONDS,
+					jump_target = src,
+					role_name_text = "lazarus revived mob",
+					alert_pic = src,
+					)
+				if(candidate)
+					src.key = candidate.key
 					target_hostile.sentience_act()
 					to_chat(target_hostile, span_userdanger("In a striking moment of clarity you have gained greater intellect. You feel no strong sense of loyalty to anyone or anything, you simply feel... free"))
 

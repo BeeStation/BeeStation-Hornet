@@ -1320,7 +1320,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if (!target)
 		return
 	if (target == world)
-		target = GLOB.clients
+		target = GLOB.clients_unsafe
 
 	var/list/targets
 	if (!islist(target))

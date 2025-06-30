@@ -40,8 +40,15 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	priority_announce(sentience_report,"[command_name()] Medium-Priority Update", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/ghost_role/sentience/spawn_role()
-	var/list/mob/dead/observer/candidates
-	candidates = get_candidates(ROLE_SENTIENT_ANIMAL, null)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		role = /datum/role_preference/midround_ghost/abductor,
+		check_jobban = ROLE_SENTIENT_ANIMAL,
+		poll_time = 30 SECONDS,
+		role_name_text = "sentient animal",
+		alert_pic = /mob/living/basic/pet/dog/corgi/Ian,
+	)
+	if(!length(candidates))
+		return NOT_ENOUGH_PLAYERS
 
 	// find our chosen mob to breathe life into
 	// Mobs have to be simple animals, mindless, on station, and NOT holograms.
@@ -65,8 +72,6 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 
 	if(!potential.len)
 		return WAITING_FOR_SOMETHING
-	if(!candidates.len)
-		return NOT_ENOUGH_PLAYERS
 
 	var/spawned_animals = 0
 	while(spawned_animals < animals && candidates.len && potential.len)

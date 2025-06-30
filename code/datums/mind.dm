@@ -32,6 +32,10 @@
 /datum/mind
 	/// Key of the mob
 	var/key
+	/// The display name of the mob (client.display_name())
+	var/display_name
+	/// The display name of this mob, with an icon if applicable
+	var/display_name_chat
 	/// The name linked to this mind
 	var/name
 	/// replaces name for observers name if set
@@ -93,6 +97,10 @@
 
 /datum/mind/New(var/key)
 	src.key = key
+	var/client/found_client = GLOB.directory[ckey(key)]
+	if(found_client)
+		src.display_name = found_client.display_name()
+		src.display_name_chat = found_client.display_name_chat()
 	soulOwner = src
 	martial_art = default_martial_art
 	setup_soul_glimmer()
@@ -128,6 +136,10 @@
 			new_character.ghostize(TRUE,SENTIENCE_ERASE)						//we'll need to ghostize so that key isn't mobless.
 	else
 		key = new_character.key
+		var/client/found_client = GLOB.directory[ckey(key)]
+		if(found_client)
+			src.display_name = found_client.display_name()
+			src.display_name_chat = found_client.display_name_chat()
 
 	if(new_character.mind)								//disassociate any mind curently in our new body's mind variable
 		new_character.mind.set_current(null)
@@ -164,7 +176,9 @@
 	transfer_martial_arts(new_character) //Todo: Port this proc
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
-		new_character.key = key		//now transfer the key to link the client to our new body
+		new_character.key = key //now transfer the key to link the client to our new body
+	if(new_character.client)
+		LAZYCLEARLIST(new_character.client.recent_examines)
 
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFERRED, old_current)
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
@@ -769,6 +783,10 @@
 /mob/proc/mind_initialize()
 	if(mind)
 		mind.key = key
+		var/client/found_client = GLOB.directory[ckey(key)]
+		if(found_client)
+			mind.display_name = found_client.display_name()
+			mind.display_name_chat = found_client.display_name_chat()
 
 	else
 		mind = new /datum/mind(key)

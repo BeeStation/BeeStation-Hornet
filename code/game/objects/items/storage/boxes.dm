@@ -528,7 +528,7 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "Instructions: Heat in microwave. Product will stay perpetually warmed with cutting edge Donk Co. technology."
 	icon_state = "donkpocketbox"
 	illustration=null
 	var/donktype = /obj/item/food/donkpocket
@@ -1317,3 +1317,12 @@
 	new /obj/item/encryptionkey/heads/ce/fake(src)
 	new /obj/item/encryptionkey/heads/cmo/fake(src)
 	new /obj/item/encryptionkey/heads/hop/fake(src)
+
+/obj/item/storage/box/locker
+	name = "locker box"
+	desc = "A solution to locker clutter. A box. Science's best achievement."
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/locker/security
+	name = "security locker box"
+	icon_state = "secbox"

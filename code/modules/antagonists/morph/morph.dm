@@ -199,7 +199,16 @@
 		visible_message(span_warning("[src] twists and dissolves into a pile of green flesh!"), \
 						span_userdanger("Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--"))
 		restore()
-	. = ..()
+	barf_contents()
+	..()
+
+//TODO Componentize this
+/mob/living/simple_animal/hostile/morph/proc/barf_contents()
+	for(var/atom/movable/AM in src)
+		RemoveContents(AM)
+		if(prob(90))
+			step(AM, pick(GLOB.alldirs))
+	morph_stomach.ui_update()
 
 /mob/living/simple_animal/hostile/morph/Aggro() // automated only
 	..()
@@ -275,26 +284,33 @@
 	role_name = ROLE_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_MORPH, /datum/role_preference/midround_ghost/morph)
-	if(!candidates.len)
-		return NOT_ENOUGH_PLAYERS
-
-	var/mob/dead/selected = pick_n_take(candidates)
-
-	var/datum/mind/player_mind = new /datum/mind(selected.key)
-	player_mind.active = 1
 	if(!GLOB.xeno_spawn)
 		return MAP_ERROR
-	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
-	player_mind.transfer_to(S)
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/midround_ghost/morph,
+		check_jobban = ROLE_MORPH,
+		poll_time = 30 SECONDS,
+		role_name_text = "morph",
+		alert_pic = /mob/living/simple_animal/hostile/morph,
+	)
+	if(!candidate)
+		return NOT_ENOUGH_PLAYERS
+
+	var/mob/living/simple_animal/hostile/morph/morph = new(pick(GLOB.xeno_spawn))
+
+	var/datum/mind/player_mind = new /datum/mind(candidate.key)
+	player_mind.active = TRUE
+	player_mind.transfer_to(morph)
 	player_mind.assigned_role = ROLE_MORPH
 	player_mind.special_role = ROLE_MORPH
 	player_mind.add_antag_datum(/datum/antagonist/morph)
-	to_chat(S, S.playstyle_string)
-	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))
-	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a morph by an event.")
-	log_game("[key_name(S)] was spawned as a morph by an event.")
-	spawned_mobs += S
+
+	to_chat(morph, morph.playstyle_string)
+	SEND_SOUND(morph, sound('sound/magic/mutate.ogg'))
+	message_admins("[ADMIN_LOOKUPFLW(morph)] has been made into a morph by an event.")
+	log_game("[key_name(morph)] was spawned as a morph by an event.")
+	spawned_mobs += morph
 	return SUCCESSFUL_SPAWN
 
 #undef MORPH_COOLDOWN
