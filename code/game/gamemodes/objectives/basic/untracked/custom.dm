@@ -3,9 +3,11 @@
 	name = "custom"
 
 /datum/objective/custom/admin_edit(mob/admin)
-	var/expl = stripped_input(admin, "Custom objective:", "Objective", explanation_text)
-	if(expl)
-		explanation_text = expl
+	var/expl = tgui_input_text(admin, "Custom objective:", "Objective", explanation_text)
+	if(!expl) // no input so we return
+		to_chat(admin, span_warning("You need to enter something!"))
+		return
+	explanation_text = expl
 
 //Ideally this would be all of them but laziness and unusual subtypes
 /proc/generate_admin_objective_list()

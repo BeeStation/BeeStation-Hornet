@@ -355,7 +355,7 @@ GLOBAL_LIST(admin_antag_list)
 	return custom_team
 
 /datum/antagonist/custom/admin_add(datum/mind/new_owner,mob/admin)
-	var/custom_name = stripped_input(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
+	var/custom_name = tgui_input_text(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
 	if(custom_name)
 		name = custom_name
 	else
