@@ -5,7 +5,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   testRunner: require.resolve('jest-circus/runner'),
   transform: {
-    '^.+\\.(js|cjs|ts|tsx)$': require.resolve('@swc/jest'),
+    '^.+\\.(js|jsx|cjs|ts|tsx)$': require.resolve('@swc/jest'),
   },
   moduleFileExtensions: ['js', 'jsx', 'cjs', 'ts', 'tsx', 'json'],
   resetMocks: true,

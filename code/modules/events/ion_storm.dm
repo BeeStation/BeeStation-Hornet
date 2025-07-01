@@ -46,9 +46,9 @@
 					M.replace_random_law(message, list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 				else
 					M.add_ion_law(message)
-					log_law("[M.key]/([M.name]) had an ion law added, as follows:\"[message]\". Source: [lawsource].")
+					log_law("[key_name(M)] had an ion law added, as follows:\"[message]\". Source: [lawsource].")
 					var/time = time2text(world.realtime,"hh:mm:ss")
-					GLOB.lawchanges.Add("[time] <B>:</B> [M.key]/([M.name]) had an ion law added, as follows:\"[message]\". Source: [lawsource].")
+					GLOB.lawchanges.Add("[time] <B>:</B> [key_name(M)] had an ion law added, as follows:\"[message]\". Source: [lawsource].")
 
 			if(prob(shuffleLawsChance))
 				M.shuffle_laws(list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))

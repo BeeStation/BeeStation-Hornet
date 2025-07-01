@@ -42,7 +42,8 @@
 #define MAXIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE 90
 
 //ATMOS MIX IDS
-#define LAVALAND_DEFAULT_ATMOS "o2=14;n2=5;co2=13;TEMP=300"
+/// Plasma in lavaland is temporary, feel free to replace it once it is actually rarer.
+#define LAVALAND_DEFAULT_ATMOS "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 
 //AIRLOCK CONTROLLER TAGS
 

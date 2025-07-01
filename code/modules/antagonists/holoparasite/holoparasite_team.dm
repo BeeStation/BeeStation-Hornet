@@ -34,7 +34,7 @@
 	return {"
 		<div class="section">
 			<div class="section-title">
-				<b>[holopara_mind.key]</b> was <b>[holoparasite.color_name]</b>, the <b>[holoparasite.theme.name]</b><br>
+				<b>[holopara_mind.display_key()]</b> was <b>[holoparasite.color_name]</b>, the <b>[holoparasite.theme.name]</b><br>
 			</div>
 			<div class="section-rest">
 				<div class="section-content">
