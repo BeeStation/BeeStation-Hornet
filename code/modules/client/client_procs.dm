@@ -84,8 +84,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, span_danger("Your previous action was ignored because you've done too many in a second"))
 			return
 
-	//Logs all hrefs, except chat pings
-	if(!(href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4))
+	//Logs all hrefs, except chat pings and session tokens
+	var/is_chat_ping = href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4
+	if(!is_chat_ping && !href_list["session_token"])
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	//byond bug ID:2256651
