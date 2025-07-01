@@ -36,7 +36,7 @@
 				log_world("You are localhost and have been denied guest connection. Toggle localhost_auth_bypass, enable_guest_external_auth, or guest_ban in the config to continue.")
 			qdel(src)
 			return null
-	else if(CONFIG_GET(flag/force_byond_external_auth))
+	else if(CONFIG_GET(flag/force_byond_external_auth) && CONFIG_GET(flag/enable_guest_external_auth))
 		byond_authenticated_key = key
 		var/new_key = "Guest-preauth-[computer_id]-[rand(1000,9999)]"
 		ckey = ckey(key)
