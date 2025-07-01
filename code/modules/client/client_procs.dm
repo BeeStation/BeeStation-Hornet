@@ -86,8 +86,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	//Logs all hrefs, except chat pings and session tokens
 	var/is_chat_ping = href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4
-	if(!is_chat_ping && !href_list["session_token"])
-		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
+	if(!is_chat_ping)
+		var/logged_href = href
+		if(href_list["session_token"])
+			replacetextEx(logged_href, href_list["session_token"], "TOKEN_REDACTED")
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][logged_href]")
 
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
