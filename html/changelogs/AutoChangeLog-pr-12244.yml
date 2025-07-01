@@ -1,0 +1,7 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Reworked the Trasen-Knox hud, aswell added 3 variants of the Trasen knox
+      (Midnight-Knox, Plasma-Knox and Nyan-Knox)
+  - tweak: The default HUD is now Midnight-Knox
+  - rscdel: Removed the plasmafire, slimecore, operative and retro HUDs
