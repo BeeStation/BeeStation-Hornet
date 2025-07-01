@@ -92,51 +92,7 @@
 
 /// Basically the same thing as key_name_admin but with the mentorPM key instead
 /proc/key_name_mentor(var/whom, var/include_link = null)
-	var/mob/M
-	var/client/C
-	var/key
-	var/ckey
-
-	if(!whom)
-		return "*null*"
-	if(istype(whom, /client))
-		C = whom
-		M = C.mob
-		key = C.key
-		ckey = C.ckey
-	else if(ismob(whom))
-		M = whom
-		C = M.client
-		key = M.key
-		ckey = M.ckey
-	else if(istext(whom))
-		key = whom
-		ckey = ckey(whom)
-		C = GLOB.directory[ckey]
-		if(C)
-			M = C.mob
-	else
-		return "*invalid*"
-
-	. = ""
-
-	if(!ckey)
-		include_link = FALSE
-
-	if(key)
-		if(include_link)
-			. += "<a href='byond://?_src_=mentor;mentor_msg=[ckey];'>"
-		if(C && C.holder && C.holder.fakekey)
-			. += "Administrator"
-		else
-			. += key
-		if(!C)
-			. += "\[DC\]"
-		if(include_link)
-			. += "</a>"
-	else
-		. += "*no key*"
-	return .
+	return key_name(whom, include_link = include_link, include_name = FALSE, href="_src_=mentor;mentor_msg", include_external_name = TRUE)
 
 /// Used when Reply is clicked for a ticket in chat - informs other mentors when you start typing.
 /client/proc/cmd_mhelp_reply(whom)
