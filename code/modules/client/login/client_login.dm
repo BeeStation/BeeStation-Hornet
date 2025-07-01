@@ -448,12 +448,12 @@
 	if(!query_client_in_db_plus_uid.Execute())
 		qdel(query_client_in_db_plus_uid)
 		return
-	var/list/client_is_in_db_plus_uid = query_client_in_db_plus_uid.NextRow()
 	var/client_is_in_db = FALSE
 	var/external_uid_from_db = null
-	if(islist(client_is_in_db_plus_uid) && length(client_is_in_db_plus_uid))
-		client_is_in_db = TRUE
-		external_uid_from_db = client_is_in_db_plus_uid[2]
+	if(query_client_in_db_plus_uid.NextRow())
+		if(islist(query_client_in_db_plus_uid.item) && length(query_client_in_db_plus_uid.item) == 2)
+			client_is_in_db = TRUE
+			external_uid_from_db = query_client_in_db_plus_uid.item[2]
 	qdel(query_client_in_db_plus_uid)
 	if(!isnull(external_uid_from_db) && !isnull(external_uid) && length(external_uid) && length(external_uid_from_db) && external_uid != external_uid_from_db)
 		var/msg = "Hey what the fuck, this [key_name(src)] has different external UIDs ([external_column]) than the one they logged in with. This shouldn't even be possible. Some horrible fuckery is happening. login [external_uid] db [external_uid_from_db]"
@@ -547,10 +547,10 @@
 				list("ckey" = ckey, "external_uid" = external_uid)
 			)
 			query_set_external_uid.Execute()
-			var/msg = "Associated your BYOND CKEY with [external_method::name] UID [external_uid] ([external_method.format_display_name(src.external_display_name)])! Make sure you always log in with this [external_method::name] account from now on to retain your access."
+			var/msg = "You have associated your BYOND CKEY with [external_method::name] UID [external_uid] ([external_method.format_display_name(src.external_display_name)])! Make sure you always log in with this [external_method::name] account from now on to retain your access."
 			to_chat_immediate(src, span_good(msg))
 			spawn(1) // no sleeping
-				alert(src, msg, "", "OK")
+				alert(src, msg, "Success", "OK")
 			qdel(query_set_external_uid)
 		var/datum/db_query/query_log_player = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET lastseen = Now(), lastseen_round_id = :round_id, ip = INET_ATON(:ip), computerid = :computerid, lastadminrank = :admin_rank, accountjoindate = :account_join_date WHERE ckey = :ckey",
