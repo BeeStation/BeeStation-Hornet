@@ -1,0 +1,4 @@
+author: rkz, Celotajs, MSO, Wayland-Smithy
+delete-after: true
+changes:
+  - server: converted html changelog to TGUI
