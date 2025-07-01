@@ -32,6 +32,16 @@
 	density = FALSE
 	climbable = FALSE
 
+/obj/structure/railing/pointy
+	icon_state = "railing_pointy_end"
+	density = FALSE
+	climbable = FALSE
+w
+/obj/structure/railing/end
+	icon_state = "railing_end"
+	reverse = TRUE
+	diagonals_possible = FALSE
+
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	get_blocking_dir()
