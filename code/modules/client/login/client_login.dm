@@ -541,7 +541,9 @@
 	qdel(query_get_client_age)
 	if(!new_player)
 		// associate with external UID for existing byond users who connect with CKEY and sign in with external method
-		if(!isnull(external_uid) && istext(external_column) && length(external_column) && istype(src.external_method) && !src.key_is_external && isnull(external_uid_from_db))
+		var/empty_uid_from_db = isnull(external_uid_from_db) || (istext(external_uid_from_db) && !length(external_uid_from_db))
+		var/column_exists = istext(external_column) && length(external_column)
+		if(!isnull(external_uid) && column_exists && istype(src.external_method) && !src.key_is_external && empty_uid_from_db)
 			var/datum/db_query/query_set_external_uid = SSdbcore.NewQuery(
 				"UPDATE [format_table_name("player")] SET [external_column] = :external_uid WHERE ckey = :ckey",
 				list("ckey" = ckey, "external_uid" = external_uid)
