@@ -4,7 +4,7 @@
 	var/charge_rate = 100
 	device_type = MC_CHARGE
 
-/obj/item/computer_hardware/recharger/proc/use_power(amount, charging=0)
+/obj/item/computer_hardware/recharger/proc/use_power(amount, charging = 0)
 	if(charging)
 		return 1
 	return 0
@@ -21,7 +21,7 @@
 	if(hacked)
 		charge_rate = cell.maxcharge / GLOB.CELLRATE
 		playsound(src, 'sound/items/timer.ogg', 50, FALSE, ignore_walls = TRUE)
-	if(use_power(charge_rate, charging=1))
+	if(use_power(charge_rate, charging = 1))
 		holder.give_power(charge_rate * GLOB.CELLRATE)
 
 /obj/item/computer_hardware/recharger/APC
@@ -30,18 +30,19 @@
 	icon_state = "charger_APC"
 	w_class = WEIGHT_CLASS_SMALL // Can't be installed into PDAs. Tablets are good to go
 
-/obj/item/computer_hardware/recharger/APC/use_power(amount, charging=0)
+/obj/item/computer_hardware/recharger/APC/use_power(amount, charging = 0)
 	if(ismachinery(holder.physical))
 		var/obj/machinery/M = holder.physical
+		if(hacked)
+			M.directly_use_power(amount)
+			return 1
 		if(M.powered())
 			M.use_power(amount)
 			return 1
-
 	else
 		var/area/A = get_area(src)
 		if(!istype(A))
 			return 0
-
 		if(A.powered(AREA_USAGE_EQUIP))
 			A.use_power(amount, AREA_USAGE_EQUIP)
 			return 1
@@ -59,7 +60,7 @@
 	to_chat(user, span_warning("\The [src] is incompatible with portable computers!"))
 	return 0
 
-/obj/item/computer_hardware/recharger/wired/use_power(amount, charging=0)
+/obj/item/computer_hardware/recharger/wired/use_power(amount, charging = 0)
 	if(ismachinery(holder.physical) && holder.physical.anchored)
 		var/obj/machinery/M = holder.physical
 		var/turf/T = M.loc
@@ -84,7 +85,7 @@
 	name = "modular interface power harness"
 	desc = "A standard connection to power a small computer device from a cyborg's chassis."
 
-/obj/item/computer_hardware/recharger/cyborg/use_power(amount, charging=0)
+/obj/item/computer_hardware/recharger/cyborg/use_power(amount, charging = 0)
 	return TRUE
 
 
@@ -96,6 +97,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	charge_rate = 100000
 
-/obj/item/computer_hardware/recharger/lambda/use_power(amount, charging=0)
+/obj/item/computer_hardware/recharger/lambda/use_power(amount, charging = 0)
 	return 1
 

@@ -872,7 +872,6 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
 
-
 /datum/armor/id_paper
 	acid = 50
 
@@ -894,26 +893,6 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
-
-/obj/item/card/id/paper/update_label(newname, newjob)
-	if(newname || newjob)
-		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
-		return
-
-	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
-
-/obj/item/card/id/paper/equipped(mob/user, slot, initial = FALSE)
-	. = ..()
-	if(slot == ITEM_SLOT_ID)
-		RegisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_visible_name))
-
-/obj/item/card/id/paper/dropped(mob/user, silent = FALSE)
-	. = ..()
-	UnregisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME)
-
-/obj/item/card/id/paper/proc/return_visible_name(mob/living/carbon/human/source, list/identity)
-	SIGNAL_HANDLER
-	identity[VISIBLE_NAME_ID] = registered_name
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"

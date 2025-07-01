@@ -6,19 +6,21 @@
 	var/virus_strength = 1
 	///A name for the virus, it will be used in network logs!
 	var/virus_class = "generix"
+	can_hack = FALSE
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
-		to_chat(user, span_notice("ERROR: Could not find device."))
+		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Could not find device."))
 		return FALSE
 	if(charges <= 0)
-		to_chat(user, span_notice("ERROR: Out of charges."))
+		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Out of charges."))
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 	if(app.sending_and_receiving == FALSE)
-		to_chat(user, span_notice("ERROR: Target has their receiving DISABLED."))
+		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
 		return FALSE
+	calculate_strength()
 	if(drive.virus_defense)
 		if(drive.virus_defense > virus_strength)
 			virus_blocked(target, user)
@@ -36,6 +38,13 @@
 	to_chat(user, span_notice("<font color='#ff0000'>Virus deployed.</font> charges left: <font color='#00ff4c'>[charges]</font>."))
 	nt_log(target, user)
 	return TRUE
+
+/obj/item/computer_hardware/hard_drive/role/virus/proc/calculate_strength()
+	var/obj/item/computer_hardware/hard_drive/drive = holder.all_components[MC_HDD]
+	if(drive.virus_lethality)
+		virus_strength = min((virus_strength + drive.virus_lethality), 4)
+	else
+		virus_strength = initial(virus_strength)
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/nt_log(obj/item/modular_computer/tablet/target, mob/living/user, blocked = FALSE)
 	var/obj/item/computer_hardware/network_card/card = holder.all_components[MC_NET]
@@ -155,3 +164,63 @@
 	hidden_uplink.telecrystals = telecrystals
 	telecrystals = 0
 	hidden_uplink.active = TRUE
+
+/obj/item/computer_hardware/hard_drive/role/virus/antivirus
+	name = "\improper NT Virus Buster (Crack)"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "antivirus1"
+	virus_strength = 1
+	virus_class = "NTVBGiftBsc.exe"
+
+/obj/item/computer_hardware/hard_drive/role/virus/antivirus/Initialize(mapload)
+	. = ..()
+	store_file(new/datum/computer_file/program/antivirus_readme())
+
+/obj/item/computer_hardware/hard_drive/role/virus/antivirus/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
+	if(!target)
+		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Could not find device."))
+		return FALSE
+	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
+	if(app.sending_and_receiving == FALSE)
+		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
+		return FALSE
+	calculate_strength()
+	if(drive.virus_defense >= virus_strength)
+		virus_blocked(target, user)
+		return FALSE
+	else
+		target.antivirus_gift(virus_strength)
+		playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
+		playsound(src, "sparks", 50, 1)
+		nt_log(target, user)
+		to_chat(user, span_notice("<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!"))
+		holder.uninstall_component(src)
+		qdel(src)
+		ui_update()
+
+/obj/item/computer_hardware/hard_drive/role/virus/antivirus/virus_blocked(obj/item/modular_computer/tablet/target, mob/living/user)
+	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+
+	target.virus_blocked_info(gift_card = TRUE)
+	new /obj/effect/particle_effect/sparks/red(get_turf(src))
+	playsound(src, "sparks", 50, 1)
+	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+	to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!"))
+	nt_log(target, user)
+
+/obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_2
+	icon_state = "antivirus2"
+	virus_strength = 2
+	virus_class = "NTVBGiftStndrd.exe"
+
+/obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_3
+	icon_state = "antivirus3"
+	virus_strength = 3
+	virus_class = "NTVBGiftEssl.exe"
+
+/obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_4
+	icon_state = "antivirus4"
+	virus_strength = 4
+	virus_class = "NTVBGiftPrm.exe"

@@ -241,7 +241,8 @@
 	data["sortByJob"] = sort_by_job
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
-
+	if(!disk || !istype(disk, /obj/item/computer_hardware/hard_drive/role/virus))
+		sending_virus = FALSE      // <- reset when the cartridge is gone
 	if(disk)
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus

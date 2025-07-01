@@ -55,3 +55,14 @@
 	if(controler)	// Hacked super disk will cause an explosion by hacking the battery controler
 		controler.hacked = TRUE
 		controler.battery.charge = 1
+
+/datum/computer_file/program/antivirus_readme
+	filename = "Crack-README.txt"
+	filedesc = "Crack-README.txt"
+	category = PROGRAM_CATEGORY_MISC
+	program_icon_state = "notepad"
+	extended_desc = "This file explains how to use this cracked subscription package."
+	size = 0
+	available_on_ntnet = FALSE
+	tgui_id = "antivirus_readme"
+	program_icon = "file-lines"

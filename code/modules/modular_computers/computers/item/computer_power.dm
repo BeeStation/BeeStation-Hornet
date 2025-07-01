@@ -42,7 +42,7 @@
 		shutdown_computer(0)
 	if(!controler)
 		return
-	if(controler.hacked && controler.battery)
+	if(controler.hacked && controler.battery)	// If the battery controler is hacked the battery just fucking explodes
 		switch(controler.battery.size)
 			if(1)
 				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 1)
@@ -54,8 +54,11 @@
 				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
 			if(5)
 				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 3, flash_range = 4, flame_range = 3)
+		new /obj/effect/particle_effect/sparks/red(get_turf(src))
+		playsound(src, "sparks", 50, 1)
 		qdel(controler.battery)
-		update_icon()
+		qdel(controler)
+		update_icon()	//update_appearance()
 
 // Handles power-related things, such as battery interaction, recharging, shutdown when it's discharged
 /obj/item/modular_computer/proc/handle_power(delta_time)

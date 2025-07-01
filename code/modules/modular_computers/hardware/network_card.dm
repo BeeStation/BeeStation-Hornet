@@ -26,8 +26,8 @@
 
 /obj/item/computer_hardware/network_card/diagnostics(var/mob/user)
 	..()
-	to_chat(user, "NIX Unique ID: <font color='#0300c0'>[hardware_id]</font>")
-	to_chat(user, "NIX Identification String: <font color='#9002d1'>[identification_string]</font>")
+	to_chat(user, "NIX Unique ID: <font color='#ffe600'>[hardware_id]</font>")
+	to_chat(user, "NIX Identification String: <font color='#ae00ff'>[identification_string]</font>")
 	to_chat(user, "Supported protocols:")
 	switch(signal_level)
 		if(NO_SIGNAL)
@@ -42,16 +42,13 @@
 			to_chat(user, "<font color='#d10282'>(!WARN)</font> F.N-<font color='#d10236'>72::BLUESP</font>ΔCE <font color='#02d19d'>LINK_OVRCLK@ERR_0x3F</font>")
 	return
 
-/obj/item/computer_hardware/network_card/update_overclocking()
+/obj/item/computer_hardware/network_card/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
 		signal_level = HACKED
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection established.")
 	else
 		signal_level = initial(signal_level)
-	return
-
-/obj/item/computer_hardware/network_card/overclock_failure(mob/living/user, obj/item/tool) // Needs reworkin
-	to_chat(user, "You hear a faint click inside... something changed!")
-	signal_level = HIGH
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection disabled.")
 
 // Returns a string identifier of this network card
 /obj/item/computer_hardware/network_card/proc/get_network_tag()

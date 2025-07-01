@@ -161,5 +161,8 @@
 	if(fake_card) // IF theres a fake card inside then it stands to reason the module is being de-hacked, thus, we remove the fake card
 		qdel(fake_card)
 		fake_card = null
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol engaged")
+	else
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol disengaged")
 
 

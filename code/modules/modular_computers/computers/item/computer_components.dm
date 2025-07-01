@@ -43,6 +43,7 @@
 	install.holder = src
 	install.forceMove(src)
 	install.on_install(src, user)
+	ui_update()
 	return TRUE
 
 /// Uninstalls component.
@@ -61,6 +62,7 @@
 	if(enabled && !use_power())
 		shutdown_computer()
 	update_icon()
+	ui_update()
 	return TRUE
 
 /// This isn't the "uninstall fully" proc, it just makes the computer lose all its references to the component

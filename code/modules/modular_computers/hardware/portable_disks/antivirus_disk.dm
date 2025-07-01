@@ -2,7 +2,7 @@
 	name = "NT Virus Buster Basic"
 	desc = "An NT Brand anti-virus disk. Its the basic package, but its better than nothing."
 	icon = 'icons/obj/module.dmi'
-	icon_state = "antivirus4"
+	icon_state = "antivirus1"
 	item_state = "card-id"
 	max_capacity = 16
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
@@ -14,25 +14,25 @@
 	virus_defense = 1
 	custom_price = 50
 	dont_instal = TRUE
+	var/sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/update_overclocking(mob/living/user, obj/item/tool)
+	var/obj/item/computer_hardware/hard_drive/role/virus/antivirus/new_disk = new sender_disk_typepath(get_turf(src))
+	new_disk.hacked = TRUE
+	new_disk.name = "[initial(name)] (crack)"
+	new_disk.desc = "Cracked version of an NT Virus Buster subscription, made for sharing!"
+	new_disk.max_capacity = max_capacity
+	new_disk.icon_state = initial(icon_state)
+	new_disk.icon = initial(icon)
+	new_disk.update_icon_state() // update_appearance()
+	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
+	playsound(src, "sparks", 50, 1)
+	qdel(src)
 	return	//Hack function is done inside on_install
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/on_install(obj/item/modular_computer/install_into, mob/living/user)
 	..()
 	var/obj/item/computer_hardware/hard_drive/drive = install_into.all_components[MC_HDD]
-	if(hacked)
-		if(drive.virus_defense)
-			to_chat(user, span_notice("<font color='#ff0033'>!! INTRUSION DETECTED !!</font> <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> core integrity <font color='#ff6600'>BREACHED</font>. Protection services <font color='#ff0000'>DISABLED</font>."))
-			drive.virus_defense = 0
-			new /obj/effect/particle_effect/sparks/red(get_turf(holder))
-			playsound(install_into, "sparks", 50, 1)
-			install_into.uninstall_component(src)
-			qdel(src)
-		else
-			to_chat(user, span_notice("<font color='#15ff00'>(SYS_CHECK)</font> → Antivirus module: <font color='#ff0000'>MISSING</font>."))
-		playsound(install_into, 'sound/machines/defib_failed.ogg', 50, TRUE)
-		return
 	if(drive.virus_defense >= virus_defense)
 		playsound(install_into, 'sound/machines/defib_saftyOff.ogg', 50, TRUE)
 		to_chat(user, span_notice("Your device already has a <font color='#00f7ff'>NTOS Virus Buster</font> Subscription Package. Version currently installed <font color='#00f7ff'>Lvl-[drive.virus_defense]</font>."))
@@ -43,14 +43,17 @@
 		new /obj/effect/particle_effect/sparks/blue(get_turf(holder))
 		playsound(install_into, "sparks", 50, 1)
 		install_into.uninstall_component(src)
+		holder.ui_update()
 		qdel(src)
+		drive.trojan_victim = FALSE	// Resets trojan victim status
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier2
 	name = "NT Virus Buster Standard"
 	desc = "An NT Brand anti-virus disk. This standard package will be enough to protect your system from most mundane malware."
 	resistcap = 11
-	icon_state = "antivirus1"
+	icon_state = "antivirus2"
 	virus_defense = 2
+	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_2
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier3
 	name = "NT Virus Buster Essential"
@@ -58,13 +61,15 @@
 	resistcap = 16
 	icon_state = "antivirus3"
 	virus_defense = 3
+	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_3
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier4
 	name = "NT Virus Buster Premium"
 	desc = "The most expensive NT Virus Buster package. Nothing will top it!"
 	resistcap = INFINITY
-	icon_state = "antivirus2"
+	icon_state = "antivirus4"
 	virus_defense = 4
+	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_4
 
 // Previous Medical use can be found here:
 

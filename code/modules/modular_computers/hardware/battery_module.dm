@@ -51,7 +51,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 
 	return TRUE
 
-
 /obj/item/computer_hardware/battery/try_eject(mob/living/user = null, forced = FALSE)
 	if(!battery)
 		to_chat(user, span_warning("There is no power cell connected to \the [src]."))

@@ -57,7 +57,7 @@
 	. = ..()
 	serial_code = generate_series_code()
 
-/obj/item/computer_hardware/proc/generate_series_code()
+/obj/item/computer_hardware/proc/generate_series_code()	//Generates a code unique to each individual hardware piece. For now used in hardware_id of network cards
 	var/list/charset = list("A","B","C","D","E","F","G","H","I","J","K","L","M",
 							"N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
 							"0","1","2","3","4","5","6","7","8","9")
@@ -101,7 +101,7 @@
 	. = ..()
 	var/atom/movable/A = src
 	if(hacked)
-		if(!A.get_filter("hacked_glow"))
+		if(!A.get_filter("hacked_glow"))	//update_overlays()
 			A.add_filter("hacked_glow", 2, list(
 				"type" = "outline",
 				"color" = "#e42828ff",
@@ -124,10 +124,13 @@
 		to_chat(user, "You screw the service panel back into place, sealing the [name]'s internals")
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 		open = FALSE
-	update_icon_state()
+	update_icon_state()	//update_appearance()
 	return TRUE
 
 /obj/item/computer_hardware/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+	if(!open)
+		to_chat(user, "You must unscrew the service panel in order to fiddle with the [src]'s internals.")
+		return TRUE
 	if(hacked)
 		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
@@ -154,64 +157,64 @@
 	return TRUE
 
 /obj/item/computer_hardware/multitool_act_secondary(mob/living/user, obj/item/tool)
+	var/time_to_hack = 3 SECONDS
+	var/fail_chance = 15
+	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR))	// Scientist buff
+		time_to_hack = 2 SECONDS
+		fail_chance = 5
+	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
+		time_to_hack = 1 SECONDS
+		fail_chance = 0
 	if(!open)
-		to_chat(user, "You must unscrew the service panel in order to fiddle with the [name]'s internals.")
+		to_chat(user, "You must unscrew the service panel in order to fiddle with the [src]'s internals.")
 		return TRUE
 	if(!can_hack)
-		to_chat(user, "[name] cannot be overclocked.")
+		to_chat(user, "\The [src] cannot be overclocked.")
 		return TRUE
+	to_chat(user, "<font color='#12e21d'>Authorization Required. Keygen in progress...</font>")
+	playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, TRUE)
 
-	to_chat(user, "You fiddle with the [name]'s internals")
-	playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-
-	var/input = input(user, "ENTER VALID CODE", "Overclocking") as text|null
-	if(!input)
-		return TRUE
-	input = uppertext(trim(copytext(input, 1, 5))) // Trim to 4 chars max and uppercase
-	if(input == serial_code)
-		to_chat(user, "Access Authorized. System overclocking initiated.")
-		overclock(user, tool)
-		playsound(src, 'sound/effects/fastbeep.ogg', 10)
-	else
-		to_chat(user, "Error: Unauthorized calibration key detected.")
+	if(!do_after(user, time_to_hack, src))
+		to_chat(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 40)
-		user.electrocute_act(40, src, 1)
+		user.electrocute_act(25, src, 1)
+		return TRUE
+	if(prob(fail_chance))
+		to_chat(user, "<font color='#d80000'>Error:</font> Serial Key provided is invalid.")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 40)
+		user.electrocute_act(25, src, 1)
+	else
+		overclock(user, tool)
+		playsound(src, 'sound/effects/fastbeep.ogg', 10)
 	return TRUE
-
-/obj/item/computer_hardware/proc/overclock_failure(mob/living/user, obj/item/tool)
-	to_chat(user, "You hear a faint click inside... but nothing changes...")
-
-/obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
-	if(prob(30))
-		take_damage(rand(1, 100))
-		to_chat(user, "The [name] has been damaged.")
-		playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
-		return TRUE
-	if(enabled)
-		enabled = FALSE
-		to_chat(user, "The [name] has been disabled.")
-		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
-		return TRUE
-	if(!enabled)
-		enabled = TRUE
-		to_chat(user, "The [name] has been enabled.")
-		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
-		return TRUE
 
 /obj/item/computer_hardware/proc/overclock(mob/living/user, obj/item/tool)
 	if(hacked)
 		hacked = FALSE
 		power_usage = initial(power_usage)
-		to_chat(user, "You returned [name] to legal working parameters.")
+		to_chat(user, "You returned [src] to safe working parameters.")
 	else
 		hacked = TRUE
 		power_usage = (power_usage * 5)
-		to_chat(user, "You have sucessefuly overclocked [name].")
+		to_chat(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	playsound(src, "sparks", 50)
-	update_icon_state()
+	update_icon_state()	//update_appearance()
 	update_overclocking(user, tool)
+
+/obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
+	if(enabled)
+		enabled = FALSE
+		to_chat(user, "The [src] has been disabled.")
+		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+		return TRUE
+	else
+		enabled = TRUE
+		to_chat(user, "The [src] has been enabled.")
+		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+		return TRUE
 
 /obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
 	return /// Nothing happens here yet
@@ -222,7 +225,6 @@
 	if(!enabled)
 		to_chat(user, "<font color='#e06eb1'>Warning</font> // Hardware Disabled")
 	to_chat(user, "Current power consumption :: [power_usage]")
-	to_chat(user, "SERIAL <font color='#c99f15'>[serial_code]</font>")
 	if(hacked)
 		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>")
 
@@ -256,12 +258,14 @@
 
 /// Called when component is installed into PC.
 /obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	install_into.ui_update(user)
 	return
 
 /// Called when component is removed from PC.
 /obj/item/computer_hardware/proc/on_remove(obj/item/modular_computer/remove_from, mob/living/user)
 	if(remove_from.physical && !QDELETED(remove_from) && !QDELETED(src))
 		try_eject(forced = TRUE)
+	remove_from.ui_update(user)
 
 /// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
 /obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)

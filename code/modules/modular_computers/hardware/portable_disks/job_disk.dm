@@ -21,6 +21,7 @@
 		playsound(holder, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 /obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
+	ui_update(user)
 	return
 
 /obj/item/computer_hardware/hard_drive/role/Initialize(mapload)
@@ -60,7 +61,7 @@
 	if(disk_flags & DISK_SIGNAL)
 		progs_to_store += new /datum/computer_file/program/signaller(src)
 
-	if(disk_flags & DISK_NETWORK) // add network here
+	if(disk_flags & DISK_NETWORK)
 		progs_to_store += new /datum/computer_file/program/ntnetmonitor(src)
 
 	if(disk_flags & DISK_NEWSCASTER)
@@ -85,12 +86,13 @@
 		prog.transfer_access = list()
 		store_file(prog)
 
-/obj/item/computer_hardware/hard_drive/role/update_overclocking()
+/// This creates a clone of the original job disk except its a portable disk (which we use to copy the files that are inside)
+/obj/item/computer_hardware/hard_drive/role/update_overclocking(mob/living/user, obj/item/tool)
 	var/obj/item/computer_hardware/hard_drive/portable/new_disk = new /obj/item/computer_hardware/hard_drive/portable(get_turf(src))
 	for(var/datum/computer_file/program/prog in stored_files)
 		var/datum/computer_file/program/clone = new prog.type(new_disk)
 		new_disk.store_file(clone)
-	new_disk.hacked = TRUE // Here we're making a copy of the job disk, but its now a of portable disk! (in order to get the files out)
+	new_disk.hacked = TRUE
 	new_disk.name = "modified job data disk"
 	new_disk.desc = "A disk meant to give a worker the needed programs to work, modified to allow the transfer of its programs and now behaves more like a portable disk."
 	new_disk.max_capacity = max_capacity
@@ -99,6 +101,7 @@
 	new_disk.update_icon_state()
 	new_disk.spam_delay = initial(spam_delay)
 	new_disk.dormant_virus = FALSE
+	new_disk.can_hack = FALSE
 	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
 	qdel(src)
 	return
@@ -175,7 +178,7 @@
 	name = "\improper Signal Ace 2 disk"
 	icon_state = "cart-tox"
 	desc = "Complete with integrated radio signaler!"
-	disk_flags = DISK_ATMOS | DISK_SIGNAL | DISK_CHEM | DISK_NETWORK
+	disk_flags = DISK_NETWORK | DISK_ATMOS | DISK_SIGNAL | DISK_CHEM
 
 /obj/item/computer_hardware/hard_drive/role/quartermaster
 	name = "space parts DELUXE disk"
@@ -217,7 +220,7 @@
 /obj/item/computer_hardware/hard_drive/role/rd
 	name = "\improper Signal Ace DELUXE disk"
 	icon_state = "cart-rd"
-	disk_flags = DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL | DISK_NETWORK
+	disk_flags = DISK_NETWORK | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL
 
 /obj/item/computer_hardware/hard_drive/role/captain
 	name = "\improper Value-PAK disk"
