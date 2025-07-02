@@ -38,12 +38,13 @@
 	. = list()
 	if(!user.client)
 		return
-	var/ip = user.client.address
-	if(user.client.is_localhost())
-		ip = "127.0.0.1"
-	var/port_data = ""
-	if(isnum_safe(user.client.seeker_port))
-		port_data = "&seeker_port=[url_encode(user.client.seeker_port)]"
-	.["decorator"] = "?ip=[url_encode(ip)][port_data]"
 	.["authenticated_key"] = user.client.byond_authenticated_key
 
+/datum/tgui_login/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(. || !usr?.client || usr.client.logged_in || ui.user != usr)
+		return
+	if(action == "login")
+		var/method_id = params["method"]
+		if(istext(method_id) && length(method_id))
+			usr.client.login_with_method_id(method_id)
