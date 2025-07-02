@@ -1,8 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Prevent the server from logging session tokens
-  - bugfix: Fixed FORCE_BYOND_EXTERNAL_AUTH breaking logins if ENABLE_GUEST_EXTERNAL_AUTH
-      was disabled
-  - bugfix: Fixed logins always erroneously determining that a user does not exist
-      in the database.
