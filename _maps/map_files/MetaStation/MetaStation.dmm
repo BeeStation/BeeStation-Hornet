@@ -56038,13 +56038,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"pOu" = (
-/obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "pOJ" = (
 /obj/machinery/light,
 /obj/structure/rack,
@@ -104899,7 +104892,7 @@ tMi
 sRD
 eFh
 trD
-pOu
+pmD
 pmD
 uPm
 xSE
