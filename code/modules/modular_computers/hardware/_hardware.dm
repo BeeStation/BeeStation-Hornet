@@ -43,8 +43,6 @@
 	var/can_hack = TRUE
 	/// If this is currently Hacked (Also reffered to as "Overclocking")
 	var/hacked = FALSE
-	/// If the part gains a red outline on hacking
-	var/hack_visible = TRUE
 	/// A Serial Number used in hacking and other niffty things
 	var/serial_code
 

@@ -24,35 +24,51 @@ Opening README.txt …
 `;
 
 const body = `
-Yarr matey!
+Ok.
 
-You are now running the cracked build of *NTOS Virus Buster*.
-This crack allows for remote activation of subscription packages on other devices.
-Which is fancy talk for "gift card".
-NT removed this feature soon after release since there were internal concerns that this might influence users into socialism.
-We, of the Hellraiser team release this feature form their greedy talons and give them back to you, the user!
+Gloves are off this time.
 
-Usage:
+We have decided to use our knowledge of NTOS Virus Buster to deliver it's reckoning.
+(or is it reconing? Rekoning? I mean like, it will cease to be.)
+
+While they hide behind their walls NT keeps reeping in the rewards of
+exploiting the common person, that has nowhere better to be...
+
+Well, their walls are no more. Cus we bring in the SLEDGEHAMMER!
+(This One's mine!)
+
+One shot.
+Dual injection.
+
+
+Remote usage:
  1. Install "NTmessager".
- 2. Turn on "Send Executable" when prompted. (Do not be alarmed)
- 3. A message will appear on your device if the activation was successful.
- 4. Enjoy! Sharing is caring!
+ 2. Turn on "Send Executable" when prompted.
+ 3. Pick a target.
+ 4. If they have Virus Buster installed it will knock them down a sub.
+
+You can also activate the file itself.
+
+Manual Usage:
+ 1. Run the File that comes pre-installed.
+ 2. Let it play (or not).
+ 3. Completely removes Virus Buster from your device.
 
 Notes:
- • Be aware that all comunication trough NTnetwork is LOGGED!
- • The program will let you know if the recipient already has an equal or better subscription package.
+ • Careful. The virus doesn't stack. So if they have level 3 package they can only go down to 2.
+ • This is ideal for manual uninstalls of VB (To set up other viruses)
  • The cartrige will self-detonate on usage.
 
-Have fun, and stay safe!
+Let them fear us!
 - Hellraisers  ⧉ 2536
 `;
 
 const FPS = 120;
 const tickInterval = 1000 / FPS;
 
-export const antivirus_readme = (props) => {
+export const VirusReadme_Sledge = (props) => {
   return (
-    <NtosWindow title="Crack-README.txt" width={770} height={560}>
+    <NtosWindow title="Sleghamr-README.txt" width={760} height={560}>
       <NtosWindow.Content>
         <ReadmeScroller text={body} preText={intro} />
       </NtosWindow.Content>
@@ -97,5 +113,5 @@ export class ReadmeScroller extends Component {
   }
 }
 export const interfaces = {
-  antivirus_readme,
+  VirusReadme_Sledge,
 };

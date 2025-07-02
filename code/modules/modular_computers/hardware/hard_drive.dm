@@ -23,7 +23,7 @@
 	/// A Virus sent by a computer using this hard drive will be stronger based on this number
 	var/virus_lethality = 0
 	/// If this hard drive has been victim of a trojan then it can't be affected by another one
-	var/trojan_victim = FALSE
+	var/trojan
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	..()

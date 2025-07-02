@@ -13,6 +13,12 @@
 	device_type = MC_CPU
 	custom_price = 20
 
+/obj/item/computer_hardware/processor_unit/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Processing Power Overload // <font color='#ffffff'>Spatial Stability Compromized</font>")
+	else
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Values Nominal // <font color='#00d41c'>Stability Regained/font>")
+
 /obj/item/computer_hardware/processor_unit/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
 

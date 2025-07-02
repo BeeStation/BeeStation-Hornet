@@ -151,6 +151,12 @@
 	if(fake_card)
 		. += "<font color='#33ff00'>ERROR DETECTED:</font> Phantom credentials present in port 2."
 
+/obj/item/computer_hardware/battery/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
+	else
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Enabled</font>")
+
 /obj/item/computer_hardware/card_slot/secondary
 	name = "secondary RFID card module"
 	device_type = MC_CARD2
@@ -158,6 +164,10 @@
 	custom_price = 100
 
 /obj/item/computer_hardware/card_slot/secondary/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Access Storing Malfunction // <font color='#cc00ff'>Detected</font>")
+	else
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Access Storing Component // <font color='#00d41c'>Functional</font>")
 	if(fake_card) // IF theres a fake card inside then it stands to reason the module is being de-hacked, thus, we remove the fake card
 		qdel(fake_card)
 		fake_card = null

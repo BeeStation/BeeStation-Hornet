@@ -48,6 +48,12 @@
 			return 1
 	return 0
 
+/obj/item/computer_hardware/recharger/APC/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#ff2600'>Disengaged</font>")
+	else
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#17c011'>Engaged</font>")
+
 /obj/item/computer_hardware/recharger/wired
 	name = "wired power connector"
 	desc = "A power connector that recharges connected device from nearby power wire. Incompatible with portable computers."

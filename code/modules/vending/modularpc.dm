@@ -19,7 +19,7 @@
 					/obj/item/computer_hardware/hard_drive/super = 1,
 					/obj/item/computer_hardware/network_card = 8,			// No relay hack - DONE
 					/obj/item/computer_hardware/network_card/advanced = 4,
-					/obj/item/computer_hardware/hard_drive/portable = 8,		// No idea yet
+					/obj/item/computer_hardware/hard_drive/portable = 8,		// Destroy hard drive LETS GO // NEED TO SOLVE THIS, MOST PROGRAMS CAN'T BE TRADED BECAUSE FUCK!!
 					/obj/item/computer_hardware/hard_drive/portable/advanced = 4, // Calling here, Job disks turn to portable - DONE (needs work)
 					/obj/item/computer_hardware/hard_drive/portable/super = 2,		// NEED TO MAKE FUCKING JOB DISKS TRANSFER MESSAGE ALL
 					/obj/item/computer_hardware/battery = 8,				// Explodes battery when power over - DONE
@@ -28,10 +28,11 @@
 					/obj/item/stock_parts/cell/computer = 3,
 					/obj/item/stock_parts/cell/computer/advanced = 2,
 					/obj/item/stock_parts/cell/computer/super = 1,
-					/obj/item/computer_hardware/processor_unit/small = 4,		// TELEPORTs like fucking trough walls DONE (SHOULD ADD BATTERY COST)
+					/obj/item/computer_hardware/processor_unit/small = 4,		// TELEPORTs like fucking trough walls DONE
 					/obj/item/computer_hardware/processor_unit = 3,
 					/obj/item/computer_hardware/processor_unit/photonic/small = 2,
 					/obj/item/computer_hardware/processor_unit/photonic = 1,
+					/obj/item/computer_hardware/hard_drive/role/antivirus = 2,
 					/obj/item/computer_hardware/sensorpackage = 4,				// No idea yet (possibly a scanner of some type like medscanner)
 					/obj/item/computer_hardware/printer/mini = 2,				// No useful hack found
 					/obj/item/storage/box/tabletcolorizer = 5)
@@ -41,10 +42,10 @@
 					/obj/item/colorizer/tablet/clearb = 2,
 					/obj/item/colorizer/tablet/cat = 2,
 					/obj/item/computer_hardware/ai_slot = 2,					// Could be fun turning a PDA into a PAI? I think thats a thing already
-					/obj/item/computer_hardware/recharger/APC = 2,				// Possible power sink oportunity here!!!!
+					/obj/item/computer_hardware/recharger/APC = 2,				// Possible power sink oportunity here!!!! DONE
 					/obj/item/computer_hardware/radio_card = 1,					// The fuck is a radio card?
 					/obj/item/paicard = 2)
-	contraband = list(/obj/item/computer_hardware/card_slot/secondary = 1,		// No idea....
+	contraband = list(/obj/item/computer_hardware/card_slot/secondary = 1,		// Pahntom Card Access
 					/obj/item/colorizer/tablet/syndi = 2,
 					/obj/item/colorizer/tablet/contractor = 2,
 					/obj/item/colorizer/tablet/emag = 2)

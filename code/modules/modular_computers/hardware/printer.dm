@@ -8,6 +8,7 @@
 	expansion_hw = TRUE
 	var/stored_paper = 20
 	var/max_paper = 30
+	can_hack = FALSE
 
 /obj/item/computer_hardware/printer/diagnostics(mob/living/user)
 	..()

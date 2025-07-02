@@ -4,9 +4,11 @@
 	var/charges = 5
 	/// Strength of the virus, it will fight the virus buster, if it wins, it passes, if it ties theres a 50% chance of passing.
 	var/virus_strength = 1
-	///A name for the virus, it will be used in network logs!
+	/// A name for the virus, it will be used in network logs!
 	var/virus_class = "generix"
 	can_hack = FALSE
+	/// If this virus bypasses Sending and Recieving being disabled
+	var/sending_bypass = FALSE
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
@@ -17,7 +19,9 @@
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
-	if(app.sending_and_receiving == FALSE)
+	if(trojan && drive.trojan)
+		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
+	if(app.sending_and_receiving == FALSE && !sending_bypass)
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
 		return FALSE
 	calculate_strength()
@@ -132,7 +136,16 @@
 	if(!.)
 		return
 	log_bomber(user, "triggered a PDA explosion on", target, "[!is_special_character(user) ? "(TRIGGED BY NON-ANTAG)" : ""]")
-	target.explode(target, user)
+	var/obj/item/computer_hardware/battery/controler = target.all_components[MC_CELL]
+	var/obj/item/stock_parts/cell/computer/cell = controler.battery
+	if(controler)
+		if(!controler.hacked)
+			if(ismob(loc))
+				var/mob/victim = loc
+				controler.overclock(victim)
+			else
+				controler.hacked = TRUE
+		cell.use(cell.charge - 1)	// We want to delay the explosion a bit so the target recieves the overclocking notification and gets spooked
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
 	name = "\improper D.E.T.O.M.A.T.I.X. Deluxe disk"
@@ -165,6 +178,84 @@
 	telecrystals = 0
 	hidden_uplink.active = TRUE
 
+/obj/item/computer_hardware/hard_drive/role/virus/coil
+	name = "\improper Coilvrs Drive"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk6"
+	virus_strength = 1
+	virus_class = "Coilvrs.exe"
+
+/obj/item/computer_hardware/hard_drive/role/virus/coil/Initialize(mapload)
+	. = ..()
+	store_file(new/datum/computer_file/program/readme/coil_readme())
+
+/obj/item/computer_hardware/hard_drive/role/virus/coil/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
+	. = ..()
+	if(!.)
+		return
+	empulse(get_turf(target), 1, 2, 1)
+	holder.uninstall_component(src)
+	qdel(src)
+	ui_update()
+
+/obj/item/computer_hardware/hard_drive/role/virus/breacher
+	name = "\improper BrexerTrojn Drive"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk6"
+	virus_strength = 2
+	virus_class = "BrexerTrojn.exe"
+	sending_bypass = TRUE
+	trojan = BREACHER
+
+/obj/item/computer_hardware/hard_drive/role/virus/breacher/Initialize(mapload)
+	. = ..()
+	store_file(new/datum/computer_file/program/readme/breacher_readme())
+
+/obj/item/computer_hardware/hard_drive/role/virus/breacher/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
+	if(drive)
+		if(drive.trojan)
+			to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
+		else
+			drive.trojan = BREACHER
+			app.sending_and_receiving = TRUE
+		holder.uninstall_component(src)
+		qdel(src)
+		ui_update()
+
+/obj/item/computer_hardware/hard_drive/role/virus/sledge
+	name = "\improper Sleghamr Drive"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk6"
+	virus_strength = 2
+	virus_class = "Sleghamr.exe"
+	trojan = SLEDGE
+
+/obj/item/computer_hardware/hard_drive/role/virus/sledge/Initialize(mapload)
+	. = ..()
+	store_file(new/datum/computer_file/program/readme/sledge_readme())
+
+/obj/item/computer_hardware/hard_drive/role/virus/sledge/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+	if(drive)
+		if(drive.trojan)
+			to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
+			return
+		else
+			drive.trojan = SLEDGE
+			if(drive.virus_defense)
+				drive.virus_defense --
+		holder.uninstall_component(src)
+		qdel(src)
+		ui_update()
+
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus
 	name = "\improper NT Virus Buster (Crack)"
 	icon = 'icons/obj/module.dmi'
@@ -174,7 +265,7 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/Initialize(mapload)
 	. = ..()
-	store_file(new/datum/computer_file/program/antivirus_readme())
+	store_file(new/datum/computer_file/program/readme/antivirus_readme())
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)

@@ -5,7 +5,7 @@
 	icon_state = "laptop-closed"
 	icon_state_menu = "menu"
 	hardware_flag = PROGRAM_LAPTOP
-	max_hardware_size = 2
+	max_hardware_size = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
 	max_bays = 4
 

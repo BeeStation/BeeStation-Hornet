@@ -1,5 +1,5 @@
 /obj/item/computer_hardware/hard_drive/role/antivirus
-	name = "NT Virus Buster Basic"
+	name = "NTOS VB Basic"
 	desc = "An NT Brand anti-virus disk. Its the basic package, but its better than nothing."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "antivirus1"
@@ -45,10 +45,10 @@
 		install_into.uninstall_component(src)
 		holder.ui_update()
 		qdel(src)
-		drive.trojan_victim = FALSE	// Resets trojan victim status
+		drive.trojan = FALSE	// Resets trojan victim status
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier2
-	name = "NT Virus Buster Standard"
+	name = "NTOS VB Standard"
 	desc = "An NT Brand anti-virus disk. This standard package will be enough to protect your system from most mundane malware."
 	resistcap = 11
 	icon_state = "antivirus2"
@@ -56,7 +56,7 @@
 	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_2
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier3
-	name = "NT Virus Buster Essential"
+	name = "NTOS VB Essential"
 	desc = "An NT Brand anti-virus disk. This version actually protects your device."
 	resistcap = 16
 	icon_state = "antivirus3"
@@ -64,8 +64,8 @@
 	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_3
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier4
-	name = "NT Virus Buster Premium"
-	desc = "The most expensive NT Virus Buster package. Nothing will top it!"
+	name = "NTOS VB Premium"
+	desc = "The most expensive NTOS Virus Buster package. Nothing will top it!"
 	resistcap = INFINITY
 	icon_state = "antivirus4"
 	virus_defense = 4

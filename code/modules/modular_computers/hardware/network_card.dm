@@ -45,10 +45,10 @@
 /obj/item/computer_hardware/network_card/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
 		signal_level = HACKED
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection established.")
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ffd900'>established.</font>")
 	else
 		signal_level = initial(signal_level)
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection disabled.")
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ff0095'>disabled.</font>.")
 
 // Returns a string identifier of this network card
 /obj/item/computer_hardware/network_card/proc/get_network_tag()

@@ -24,35 +24,53 @@ Opening README.txt …
 `;
 
 const body = `
-Yarr matey!
+Comrades!
 
-You are now running the cracked build of *NTOS Virus Buster*.
-This crack allows for remote activation of subscription packages on other devices.
-Which is fancy talk for "gift card".
-NT removed this feature soon after release since there were internal concerns that this might influence users into socialism.
-We, of the Hellraiser team release this feature form their greedy talons and give them back to you, the user!
+Haha, just kidding.
 
-Usage:
+NT kinda pissed us of this time they didn't really enjoy the crack we did for their Antivirus
+so they decided to start "legally" syphoning credits from members of our team.
+
+It was okay when it was just us. But then they started doing it to our families
+and it was when I had to explain to my grandma why she had suddenly become destitute
+after decades of hard work that I decided we could do more.
+
+We are entrusting you with this Virus, the Coil.
+
+You only get one shot so listen carefully:
+This Virus has two injection methods.
+
+
+Remote usage:
  1. Install "NTmessager".
- 2. Turn on "Send Executable" when prompted. (Do not be alarmed)
- 3. A message will appear on your device if the activation was successful.
- 4. Enjoy! Sharing is caring!
+ 2. Turn on "Send Executable" when prompted. (Be alarmed)
+ 3. Pick a target (Hopefully an NT prick).
+ 4. Emp ensues.
+ 5. Profit?
+
+You can also activate the file itself.
+
+Manual Usage:
+ 1. Run the File that comes pre-installed.
+ 2. Let it play in its entirity...
+ 3. Emp ensues.
+ 4. But on your own face this time.
 
 Notes:
- • Be aware that all comunication trough NTnetwork is LOGGED!
- • The program will let you know if the recipient already has an equal or better subscription package.
+ • BE CREATIVE! NT Security are brainwashed drones, they will not understand this concept!
+ • Closing the program early will cause early detonation, but it will be not as strong.
  • The cartrige will self-detonate on usage.
 
-Have fun, and stay safe!
+Stick it to the man!!
 - Hellraisers  ⧉ 2536
 `;
 
 const FPS = 120;
 const tickInterval = 1000 / FPS;
 
-export const antivirus_readme = (props) => {
+export const VirusReadme_Coil = (props) => {
   return (
-    <NtosWindow title="Crack-README.txt" width={770} height={560}>
+    <NtosWindow title="Coilvrs-README.txt" width={760} height={560}>
       <NtosWindow.Content>
         <ReadmeScroller text={body} preText={intro} />
       </NtosWindow.Content>
@@ -97,5 +115,5 @@ export class ReadmeScroller extends Component {
   }
 }
 export const interfaces = {
-  antivirus_readme,
+  VirusReadme_Coil,
 };

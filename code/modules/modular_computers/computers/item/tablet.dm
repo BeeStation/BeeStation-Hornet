@@ -5,7 +5,7 @@
 	icon_state_menu = "menu"
 	worn_icon_state = "pda"
 	hardware_flag = PROGRAM_PDA
-	max_hardware_size = 2
+	max_hardware_size = WEIGHT_CLASS_SMALL
 	w_class = WEIGHT_CLASS_SMALL
 	max_bays = 3
 	steel_sheet_cost = 1
@@ -162,27 +162,6 @@
 	else
 		to_chat(user, span_warning("This tablet does not have a pen in it!"))
 
-// Tablet 'splosion..
-
-/obj/item/modular_computer/tablet/proc/explode(mob/target, mob/bomber)
-	var/turf/current_turf = get_turf(src)
-
-	log_bomber(bomber, "tablet-bombed", target, "[bomber && !is_special_character(bomber) ? "(SENT BY NON-ANTAG)" : ""]")
-
-	if (ismob(loc))
-		var/mob/victim = loc
-		victim.show_message(span_userdanger("Your [src] explodes!"), MSG_VISUAL, span_warning("You hear a loud *pop*!"), MSG_AUDIBLE)
-	else
-		visible_message(span_danger("[src] explodes!"), span_warning("You hear a loud *pop*!"))
-
-	if(current_turf)
-		current_turf.hotspot_expose(700,125)
-		if(istype(all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/syndicate))
-			explosion(current_turf, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4)
-		else
-			explosion(current_turf, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
-	qdel(src)
-
 // SUBTYPES
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
 	name = "contractor tablet"
@@ -328,8 +307,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	comp_light_luminosity = 2.3
-	max_hardware_size = 1
-
+	max_hardware_size = WEIGHT_CLASS_TINY
 	can_store_pai = TRUE
 
 	var/default_disk = 0

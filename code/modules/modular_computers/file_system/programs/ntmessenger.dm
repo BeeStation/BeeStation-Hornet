@@ -8,7 +8,6 @@
 	program_state = PROGRAM_STATE_BACKGROUND
 	extended_desc = "This program allows old-school communication with other modular devices."
 	size = 4
-	usage_flags = PROGRAM_PDA
 	ui_header = "ntnrc_idle.gif"
 	tgui_id = "NtosMessenger"
 	program_icon = "comment-alt"
@@ -104,7 +103,7 @@
 	. = ..()
 	if(.)
 		return
-
+	var/obj/item/computer_hardware/hard_drive/hdd = computer.all_components[MC_HDD]
 	switch(action)
 		if("PDA_ringSet")
 			var/mob/living/usr_mob = usr
@@ -122,8 +121,12 @@
 			ringer_status = !ringer_status
 			return TRUE
 		if("PDA_sAndR")
-			sending_and_receiving = !sending_and_receiving
-			return TRUE
+			if(hdd.trojan == BREACHER)	// Button does nothing if trojan is present
+				to_chat(usr, span_notice("<font color='#c70000'>ERROR:</font> UNKNOWN ERROR. CONTACT I.T."))
+				return TRUE
+			else
+				sending_and_receiving = !sending_and_receiving
+				return TRUE
 		if("PDA_viewMessages")
 			viewing_messages = !viewing_messages
 			return TRUE
@@ -135,11 +138,10 @@
 			return TRUE
 		if("PDA_sendEveryone")
 			if(!sending_and_receiving)
-				to_chat(usr, span_notice("ERROR: Device has sending disabled."))
+				to_chat(usr, span_notice("<font color='#c70000'>ERROR:</font> Device has sending disabled."))
 				return
 			var/obj/item/computer_hardware/hard_drive/drive
 			var/obj/item/computer_hardware/hard_drive/role/role = computer.all_components[MC_HDD_JOB]
-			var/obj/item/computer_hardware/hard_drive/hdd = computer.all_components[MC_HDD]
 			if(role && role.spam_delay)
 				drive = role
 			else if(hdd && hdd.spam_delay)
