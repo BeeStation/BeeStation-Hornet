@@ -850,9 +850,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/slapper
 	name = "slapper"
 	desc = "This is how real men fight."
-	icon_state = "slap"
+	icon_state = "latexballoon"
 	item_state = "nothing"
-	force = 1
+	force = 0
 	throwforce = 0
 	item_flags = DROPDEL | ABSTRACT | ISWEAPON
 	attack_verb_continuous = list("slaps")
@@ -862,11 +862,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/table_smacks_left = 3
 
 /obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
-	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/L = M
 		if(L && L.dna && L.dna.species)
 			L.dna.species.stop_wagging_tail(M)
+		user.do_attack_animation(M)
 
 	var/slap_volume = 50
 	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, simplified_probability = 50))
@@ -881,15 +881,14 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	return
 
 /obj/item/slapper/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
-	if(user.combat_mode && !istype(target, /obj/structure/table))
+	if(!istype(target, /obj/structure/table))
 		return ..()
 
 	var/obj/structure/table/the_table = target
 
 	if(!proximity_flag)
 		return
-	if(user.combat_mode && table_smacks_left == initial(table_smacks_left))
-	 // so you can't do 2 weak slaps followed by a big slam
+	if(user.combat_mode && table_smacks_left == initial(table_smacks_left))// so you can't do 2 weak slaps followed by a big slam
 		transform = transform.Scale(5) // BIG slap
 		if(HAS_TRAIT(user, TRAIT_HULK))
 			transform = transform.Scale(2)
@@ -913,21 +912,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(!user.can_use_guns(src))
 		return FALSE
 	return TRUE
-
-/obj/item/circlegame/middlefinger
-	name = "Middle finger"
-	desc = "For heated arguments. Fuck you leather man!."
-	icon_state = "middlefinger"
-	item_flags = DROPDEL | ABSTRACT | ISWEAPON
-	attack_verb_continuous = list("gives you the middle finger")
-	attack_verb_simple = list("gives you the middle finger")
-
-/obj/item/circlegame/middlefinger/attack(mob/living/W, mob/living/carbon/human/user)
-	if(isliving(W))
-		transform = transform.Scale(4)
-		playsound(get_turf(W), 'sound/emotes/fuckyou.ogg', 80, TRUE) // https://www.youtube.com/watch?v=ZvsF3lsgp2c
-		user.do_attack_animation(W)
-		qdel(src)
 
 /obj/item/extendohand
 	name = "extendo-hand"
@@ -958,7 +942,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/highfive
 	name = "raised hand"
 	desc = "Slap my hand."
-	icon_state = "slap"
+	icon_state = "latexballoon"
 	item_state = "nothing"
 	hitsound = 'sound/weapons/punchmiss.ogg'
 	force = 0
