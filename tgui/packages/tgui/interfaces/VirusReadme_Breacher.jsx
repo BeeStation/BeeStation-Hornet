@@ -46,7 +46,7 @@ Remote usage:
  1. Install "NTmessager".
  2. Turn on "Send Executable" when prompted.
  3. Pick a target.
- 4. Their Device's recieving will be locked ON.
+ 4. Their Device's receiving will be locked ON.
  5. Harrass them freely.
 
 You can also activate the file itself.

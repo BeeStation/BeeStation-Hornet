@@ -7,7 +7,7 @@
 	/// A name for the virus, it will be used in network logs!
 	var/virus_class = "generix"
 	can_hack = FALSE
-	/// If this virus bypasses Sending and Recieving being disabled
+	/// If this virus bypasses Sending and Receiving being disabled
 	var/sending_bypass = FALSE
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
@@ -145,7 +145,7 @@
 				controler.overclock(victim)
 			else
 				controler.hacked = TRUE
-		cell.use(cell.charge - 1)	// We want to delay the explosion a bit so the target recieves the overclocking notification and gets spooked
+		cell.use(cell.charge - 1)	// We want to delay the explosion a bit so the target receives the overclocking notification and gets spooked
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
 	name = "\improper D.E.T.O.M.A.T.I.X. Deluxe disk"
