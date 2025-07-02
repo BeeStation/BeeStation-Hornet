@@ -146,9 +146,11 @@
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
 
 /obj/item/bodypart/blob_act()
-	take_damage(max_damage)
+	receive_damage(max_damage)
 
 /obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
@@ -157,6 +159,7 @@
 				if(!try_attach_limb(C))
 					to_chat(user, span_warning("[H]'s body rejects [src]!"))
 					forceMove(H.loc)
+					return
 				if(H == user)
 					H.visible_message(span_warning("[H] jams [src] into [H.p_their()] empty socket!"),\
 					span_notice("You force [src] into your empty socket, and it locks into place!"))
@@ -167,6 +170,8 @@
 	..()
 
 /obj/item/bodypart/attackby(obj/item/W, mob/user, params)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(W.is_sharp())
 		add_fingerprint(user)
 		if(!contents.len)

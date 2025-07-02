@@ -322,7 +322,8 @@
 
 	. = ..()
 	if(!.)
-		return .
+		return
+
 	//Transfer some head appearance vars over
 	if(brain)
 		if(brainmob)
