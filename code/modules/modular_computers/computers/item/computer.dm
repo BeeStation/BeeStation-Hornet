@@ -147,8 +147,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(card_slot.stored_card)
-		card_slot.RemoveID()
+	if(card_slot)
+		if(card_slot.stored_card)
+			card_slot.RemoveID()
 	for(var/port in all_components)
 		var/obj/item/computer_hardware/component = all_components[port]
 		if(prob(50))
