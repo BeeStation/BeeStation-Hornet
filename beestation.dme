@@ -4211,7 +4211,7 @@
 #include "code\modules\surgery\bodyparts\species_parts\plasmaman_bodyparts.dm"
 #include "code\modules\surgery\bodyparts\species_parts\psyphoza_bodyparts.dm"
 #include "code\modules\surgery\injuries\_injury.dm"
-#include "code\modules\surgery\injuries\broken_bone.dm"
+#include "code\modules\surgery\injuries\injury_status.dm"
 #include "code\modules\surgery\injuries\limb_destroyed.dm"
 #include "code\modules\surgery\injuries\burn_skin_tree\blisters.dm"
 #include "code\modules\surgery\injuries\burn_skin_tree\healthy_skin_burn.dm"

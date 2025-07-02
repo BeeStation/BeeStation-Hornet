@@ -711,6 +711,7 @@
 			hud_used.healthdoll.cut_overlays()
 			if(stat != DEAD)
 				hud_used.healthdoll.icon_state = "healthdoll_OVERLAY"
+				var/list/injury_list = list()
 				for(var/obj/item/bodypart/BP as() in bodyparts)
 					var/damage = BP.burn_dam + BP.brute_dam + (hallucination ? BP.stamina_dam : 0)
 					var/comparison = (BP.max_damage/5)
@@ -727,6 +728,19 @@
 						icon_num = 5
 					if(hal_screwyhud == SCREWYHUD_HEALTHY)
 						icon_num = 0
+					// Add injuries
+					var/highest_injury_level = 0
+					injury_list.Cut()
+					for (var/datum/injury/injury in BP.injuries)
+						if (injury.severity_level <= 0 || !injury.health_doll_icon || injury.severity_level < highest_injury_level)
+							continue
+						if (injury.severity_level > highest_injury_level)
+							highest_injury_level = injury.severity_level
+							injury_list.Cut()
+						injury_list |= injury.health_doll_icon
+					// If you have an active injury, it can never be healthy
+					if (highest_injury_level >= INJURY_PRIORITY_ACTIVE)
+						icon_num = max(1, icon_num)
 					if(icon_num)
 						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone][icon_num]"))
 					//Stamina Outline (Communicate that we have stamina damage)
@@ -735,6 +749,8 @@
 						var/mutable_appearance/MA = mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]stam")
 						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 70 + 30
 						hud_used.healthdoll.add_overlay(MA)
+					for (var/injury_icon in injury_list)
+						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]_[injury_icon]"))
 				for(var/t in get_missing_limbs()) //Missing limbs
 					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
 				for(var/t in get_disabled_limbs()) //Disabled limbs

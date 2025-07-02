@@ -1,5 +1,4 @@
 /datum/injury/blisters
-	alert_message = "Blisters"
 	skin_armour_modifier = 0.9
 	effectiveness_modifier = 0.7
 	surgeries_provided = list(/datum/surgery/skin_graft)

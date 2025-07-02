@@ -1,5 +1,6 @@
 /datum/injury/cut_sutured
-	alert_message = "<s>Laceration</s> (Sutured)"
+	severity_level = INJURY_PRIORITY_HEALING
+	health_doll_icon = "bandage"
 
 /datum/injury/cut_sutured/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

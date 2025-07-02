@@ -1,5 +1,4 @@
 /datum/injury/cut_minor
-	alert_message = "Minor Cut"
 
 /datum/injury/cut_minor/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

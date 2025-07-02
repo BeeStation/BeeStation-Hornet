@@ -377,3 +377,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define DAMAGE_SLOWDOWN_CRIT 0.8
 /// Multiplier to slowdown when the mob is flying
 #define DAMAGE_SLOWDOWN_FLYING_MULTIPLIER 0.333
+
+/// No priority
+#define INJURY_PRIORITY_NONE 0
+/// The injury is healing
+#define INJURY_PRIORITY_HEALING 1
+/// Show these over the top of healing injuries.
+#define INJURY_PRIORITY_ACTIVE 2

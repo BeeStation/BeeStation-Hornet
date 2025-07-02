@@ -1,7 +1,9 @@
 /datum/surgery/skin_graft
 	name = "skin graft"
-	// Dynamically determined
-	location = null
+	possible_locs = list(
+		BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM,
+		BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG
+	)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/clamp_bleeders,
