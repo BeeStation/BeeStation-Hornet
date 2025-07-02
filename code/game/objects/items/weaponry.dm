@@ -850,7 +850,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/slapper
 	name = "slapper"
 	desc = "This is how real men fight."
-	icon_state = "latexballoon"
+	icon_state = "latexballon"
 	item_state = "nothing"
 	force = 0
 	throwforce = 0
@@ -866,7 +866,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		var/mob/living/carbon/human/L = M
 		if(L && L.dna && L.dna.species)
 			L.dna.species.stop_wagging_tail(M)
-		user.do_attack_animation(M)
+	user.do_attack_animation(M)
 
 	var/slap_volume = 50
 	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, simplified_probability = 50))
@@ -888,6 +888,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 	if(!proximity_flag)
 		return
+
 	if(user.combat_mode && table_smacks_left == initial(table_smacks_left))// so you can't do 2 weak slaps followed by a big slam
 		transform = transform.Scale(5) // BIG slap
 		if(HAS_TRAIT(user, TRAIT_HULK))
@@ -942,7 +943,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/highfive
 	name = "raised hand"
 	desc = "Slap my hand."
-	icon_state = "latexballoon"
+	icon_state = "latexballon"
 	item_state = "nothing"
 	hitsound = 'sound/weapons/punchmiss.ogg'
 	force = 0
