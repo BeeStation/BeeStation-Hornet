@@ -32,8 +32,9 @@
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/pointy
-	icon_state = "railing_pointy_end"
+/obj/structure/railing/end_single //name changed so it appears next to "end" on strongdmm
+	name = "railing single end"
+	icon_state = "railing_single_end"
 	density = FALSE
 	climbable = FALSE
 w
@@ -219,8 +220,9 @@ w
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/white/pointy
-	icon_state = "railing_pointy_end_white"
+/obj/structure/railing/white/end_single //name changed so it appears next to "end" on strongdmm
+	name = "railing single end"
+	icon_state = "railing_single_end_white"
 	density = FALSE
 	climbable = FALSE
 
