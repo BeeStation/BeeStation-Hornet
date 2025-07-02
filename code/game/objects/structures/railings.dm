@@ -209,8 +209,30 @@ w
 	. = ..()
 	update_perspective()
 
-/obj/structure/railing/perspective/gray
+/obj/structure/railing/white
+	icon_state = "railing_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/white/corner
+	icon_state = "railing_corner_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/white/pointy
+	icon_state = "railing_pointy_end_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/white/end
+	icon_state = "railing_end_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/perspective
 	icon_state = "railing_gray"
+	density = FALSE
+	climbable = FALSE
 
 /obj/structure/railing/perspective/gray/corner
 	icon_state = "railing_gray_corner"
