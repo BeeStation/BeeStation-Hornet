@@ -119,7 +119,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	update_id_display()
 	if(has_light)
 		add_item_action(/datum/action/item_action/toggle_computer_light)
-	update_icon()
+	update_appearance()
 	add_messenger()
 
 /obj/item/modular_computer/proc/update_id_display()
@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		emag_console.program_state = PROGRAM_STATE_ACTIVE
 		active_program = emag_console
 		ui_interact(user)
-		update_icon()
+		update_appearance()
 		return TRUE
 	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
@@ -384,7 +384,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		else
 			to_chat(user, span_notice("You press the power button and start up \the [src]."))
 		enabled = 1
-		update_icon()
+		update_appearance()
 		if(open_ui)
 			ui_interact(user)
 		return TRUE
@@ -555,7 +555,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		var/mob/user = usr
 		if(user && istype(user))
 			ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
-		update_icon()
+		update_appearance()
 
 /obj/item/modular_computer/proc/open_program(mob/user, datum/computer_file/program/program, in_background = FALSE)
 	if(program.computer != src)
@@ -575,7 +575,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			active_program = program
 			program.alert_pending = FALSE
 			idle_threads.Remove(program)
-			update_icon()
+			update_appearance()
 			return TRUE
 	else if(program in idle_threads)
 		return TRUE
@@ -598,7 +598,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	else
 		program.program_state = PROGRAM_STATE_BACKGROUND
 		idle_threads.Add(program)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 
@@ -638,7 +638,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(loud)
 		physical.visible_message(span_notice("\The [src] shuts down."))
 	enabled = 0
-	update_icon()
+	update_appearance()
 
 /**
   * Toggles the computer's flashlight, if it has one.
@@ -650,7 +650,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!has_light)
 		return FALSE
 	set_light_on(!light_on)
-	update_icon()
+	update_appearance()
 	// Show the light_on overlay on top of the action button icon
 	update_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
 	return TRUE
@@ -754,7 +754,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
 		to_chat(user, span_notice("You slot \the [attacking_item] into [src]."))
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
-		update_icon()
+		update_appearance()
 
 	// Insert new hardware
 	var/obj/item/computer_hardware/inserted_hardware = attacking_item
@@ -787,7 +787,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
 			atom_integrity = max_integrity
 			to_chat(user, span_notice("You repair \the [src]."))
-			update_icon()
+			update_appearance()
 		return
 
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
@@ -811,7 +811,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	UnregisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING)
 	stored_pai_card = null
-	update_icon()
+	update_appearance()
 
 // Used by processor to relay qdel() to machinery type.
 /obj/item/modular_computer/proc/relay_qdel()

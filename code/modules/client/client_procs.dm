@@ -84,9 +84,21 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, span_danger("Your previous action was ignored because you've done too many in a second"))
 			return
 
-	//Logs all hrefs, except chat pings
-	if(!(href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4))
-		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
+	//Logs all hrefs, except chat pings and session tokens
+	var/is_chat_ping = href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4
+	if(!is_chat_ping)
+		var/logged_href = href
+		if(href_list["session_token"])
+			logged_href = replacetextEx(logged_href, href_list["session_token"], "TOKEN_REDACTED")
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][logged_href]")
+
+	// Run this EARLY so it can't be hijacked by any other topics later on
+	if(href_list["session_token"])
+		var/token = href_list["session_token"]
+		href_list["session_token"] = ""
+		href = replacetextEx(href, href_list["session_token"], "")
+		login_with_token(token, text2num(href_list["from_ui"]))
+		return
 
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
@@ -116,9 +128,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
-
-	if(href_list["session_token"])
-		login_with_token(href_list["session_token"], text2num(href_list["from_ui"]))
 
 	if(href_list["seeker_port"])
 		winshow(src, "login", FALSE) // make sure this thing is hidden
