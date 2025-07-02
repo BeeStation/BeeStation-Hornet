@@ -12,7 +12,7 @@
 	var/obj/item/charging = null
 	var/chargelevel = -1
 	var/charge_rate = 250
-	var/list/allowed_items = list(
+	var/static/list/allowed_items = list(
 		/obj/item/stock_parts/cell,
 		/obj/item/modular_computer/tablet)
 

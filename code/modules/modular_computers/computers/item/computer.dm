@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	update_id_display()
 	if(has_light)
 		add_item_action(/datum/action/item_action/toggle_computer_light)
-	update_icon()
+	update_appearance()
 	add_messenger()
 
 /obj/item/modular_computer/proc/update_id_display()
@@ -692,7 +692,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
 			atom_integrity = max_integrity
 			to_chat(user, span_notice("You repair \the [src]."))
-			update_icon()
+			update_appearance()
 		return
 
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]

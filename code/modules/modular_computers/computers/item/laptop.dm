@@ -28,7 +28,7 @@
 	if(start_open && !screen_on)
 		toggle_open()
 
-/obj/item/modular_computer/laptop/update_icon_state()
+/obj/item/modular_computer/laptop/update_icon()
 	. = ..()
 	if(screen_on)
 		icon_state = "laptop"
@@ -97,4 +97,4 @@
 		slowdown = slowdown_open
 		w_class = w_class_open
 	screen_on = !screen_on
-	update_icon()
+	update_appearance()
