@@ -26598,7 +26598,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/ai_module/supplied/freeform,
+/obj/item/aiModule/supplied/freeform,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "fbm" = (
@@ -29297,6 +29297,7 @@
 /turf/open/floor/iron/dark,
 /area/science/server)
 "fYN" = (
+/obj/machinery/lapvend,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -31880,10 +31881,10 @@
 	pixel_y = 24
 	},
 /obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/item/ai_module/supplied/oxygen,
-/obj/item/ai_module/supplied/protect_station,
-/obj/item/ai_module/zeroth/onehuman,
-/obj/item/ai_module/reset/purge,
+/obj/item/aiModule/supplied/oxygen,
+/obj/item/aiModule/supplied/protectStation,
+/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/reset/purge,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "hbi" = (
@@ -41869,7 +41870,7 @@
 "kHt" = (
 /obj/structure/table,
 /obj/item/aicard,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "kHK" = (
@@ -65527,7 +65528,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/ai_module/supplied/quarantine,
+/obj/item/aiModule/supplied/quarantine,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "tlP" = (
@@ -68894,9 +68895,9 @@
 /area/space)
 "uur" = (
 /obj/structure/table,
-/obj/item/ai_module/core/full/asimov,
+/obj/item/aiModule/core/full/asimov,
 /obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/item/ai_module/core/freeformcore,
+/obj/item/aiModule/core/freeformcore,
 /obj/machinery/door/window{
 	base_state = "right";
 	dir = 4;
@@ -68906,7 +68907,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/effect/spawner/lootdrop/aimodule_neutral,
-/obj/item/ai_module/core/full/custom,
+/obj/item/aiModule/core/full/custom,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
@@ -71133,7 +71134,7 @@
 /area/crew_quarters/heads/chief)
 "vjr" = (
 /obj/structure/table,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /obj/machinery/light{
 	dir = 8
 	},

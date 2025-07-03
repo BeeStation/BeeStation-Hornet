@@ -15766,7 +15766,7 @@
 /area/science/mixing)
 "cRW" = (
 /obj/structure/table,
-/obj/item/ai_module/supplied/freeform,
+/obj/item/aiModule/supplied/freeform,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 8
@@ -23873,7 +23873,7 @@
 /area/maintenance/starboard/fore)
 "gbu" = (
 /obj/structure/table,
-/obj/item/ai_module/supplied/quarantine,
+/obj/item/aiModule/supplied/quarantine,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 4
@@ -28447,10 +28447,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/ai_module/reset/purge,
-/obj/item/ai_module/zeroth/onehuman,
-/obj/item/ai_module/supplied/protect_station,
-/obj/item/ai_module/supplied/oxygen,
+/obj/item/aiModule/reset/purge,
+/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/supplied/protectStation,
+/obj/item/aiModule/supplied/oxygen,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = -24
@@ -34997,7 +34997,7 @@
 	},
 /obj/effect/spawner/lootdrop/aimodule_neutral,
 /obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/item/ai_module/core/full/asimov,
+/obj/item/aiModule/core/full/asimov,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "kvF" = (
@@ -42141,7 +42141,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/item/aicard,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /turf/open/floor/iron/grid/steel,
 /area/storage/tech)
 "nzC" = (
@@ -63428,7 +63428,7 @@
 /area/medical/virology)
 "vOU" = (
 /obj/structure/table,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 4

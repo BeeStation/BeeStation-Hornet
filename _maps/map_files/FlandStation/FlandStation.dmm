@@ -7856,7 +7856,7 @@
 	lootcount = 3;
 	lootdoubles = 0
 	},
-/obj/item/ai_module/supplied/quarantine,
+/obj/item/aiModule/supplied/quarantine,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -8188,12 +8188,12 @@
 /area/security/checkpoint/auxiliary)
 "cdB" = (
 /obj/structure/table/reinforced,
-/obj/item/ai_module/supplied/protect_station{
+/obj/item/aiModule/supplied/protectStation{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/ai_module/zeroth/onehuman,
-/obj/item/ai_module/reset/purge{
+/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/reset/purge{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -14575,7 +14575,7 @@
 	},
 /obj/structure/rack,
 /obj/item/aicard,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /obj/item/wirecutters,
 /obj/item/screwdriver{
 	pixel_y = 16
@@ -21294,7 +21294,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "fyj" = (
 /obj/structure/table/reinforced,
-/obj/item/ai_module/reset,
+/obj/item/aiModule/reset,
 /obj/machinery/door/window/brigdoor{
 	name = "Core Modules";
 	req_access_txt = "20"
@@ -66045,12 +66045,12 @@
 /area/crew_quarters/dorms)
 "qVv" = (
 /obj/structure/table/reinforced,
-/obj/item/ai_module/core/freeformcore{
+/obj/item/aiModule/core/freeformcore{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/ai_module/core/full/custom,
-/obj/item/ai_module/core/full/asimov{
+/obj/item/aiModule/core/full/custom,
+/obj/item/aiModule/core/full/asimov{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -70317,6 +70317,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"sal" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 9
+	},
+/obj/machinery/lapvend,
+/turf/open/floor/iron/white,
+/area/science/lobby)
 "sax" = (
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -88371,7 +88378,7 @@
 	lootcount = 2;
 	lootdoubles = 0
 	},
-/obj/item/ai_module/supplied/oxygen{
+/obj/item/aiModule/supplied/oxygen{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -96886,7 +96893,7 @@
 	lootcount = 3;
 	lootdoubles = 0
 	},
-/obj/item/ai_module/supplied/freeform,
+/obj/item/aiModule/supplied/freeform,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -132173,7 +132180,7 @@ usO
 okI
 eJJ
 wvE
-vJN
+sal
 wQP
 hmf
 yiN
