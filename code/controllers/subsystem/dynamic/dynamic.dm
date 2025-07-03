@@ -13,22 +13,22 @@ SUBSYSTEM_DEF(dynamic)
 	/// List of all roundstart rulesets that have been executed
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
 	/// List of players ready on roundstart.
-	var/list/roundstart_candidates = list()
+	var/list/mob/dead/new_player/authenticated/roundstart_candidates = list()
 	/// A list if roundstart rulesets configured from 'dynamic.json'
-	var/list/roundstart_configured_rulesets
+	var/list/datum/dynamic_ruleset/roundstart/roundstart_configured_rulesets
 
 	/**
 	 * Midround variables
 	**/
 
-	/// List of all midround rulesets that have been executed
-	var/list/datum/dynamic_ruleset/midround/midround_executed_rulesets = list()
 	/// How many points we currently have to spend on the next midround. Constantly changing
 	var/midround_points = 0
+	/// List of all midround rulesets that have been executed
+	var/list/datum/dynamic_ruleset/midround/midround_executed_rulesets = list()
 	/// The midround that we are currently saving points up for.
 	var/datum/dynamic_ruleset/midround/midround_chosen_ruleset
 	/// A list if midround rulesets configured from 'dynamic.json'
-	var/list/midround_configured_rulesets
+	var/list/datum/dynamic_ruleset/midround/midround_configured_rulesets
 
 	/// The chances for each type of midround ruleset to be picked
 	/// Set in init_midround()
@@ -45,16 +45,16 @@ SUBSYSTEM_DEF(dynamic)
 	/// The latejoin ruleset to force. Only for admin interaction
 	var/datum/dynamic_ruleset/latejoin/latejoin_forced_ruleset
 	/// A list if latejoin rulesets configured from 'dynamic.json'
-	var/list/latejoin_configured_rulesets
+	var/list/datum/dynamic_ruleset/latejoin/latejoin_configured_rulesets
 
 	/**
 	 * Other variables
 	**/
 
-	/// The dynamic configuration file. Used for setting ruleset and dynamic variables
-	var/list/dynamic_configuration = null
 	/// Can dynamic actually do stuff? Execute midrounds, latejoins, etc.
 	var/forced_extended = FALSE
+	/// The dynamic configuration file. Used for setting ruleset and dynamic variables
+	var/list/dynamic_configuration = null
 	/// Some rulesets (like revolution) need to process
 	var/list/datum/dynamic_ruleset/rulesets_to_process = list()
 	/// Associative list of current players
@@ -184,11 +184,11 @@ SUBSYSTEM_DEF(dynamic)
  * A randomized divergence is then applied so rounds are less predictable
 **/
 /datum/controller/subsystem/dynamic/proc/set_roundstart_points()
-	for(var/mob/dead/new_player/player in GLOB.new_player_list)
+	for(var/mob/dead/new_player/authenticated/player as anything in GLOB.auth_new_player_list)
 		if(player.ready == PLAYER_READY_TO_OBSERVE)
 			roundstart_points += roundstart_points_per_observer
 			continue
-		else if(player.ready == PLAYER_READY_TO_PLAY/* && player.check_preferences()*/)
+		else if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
 			roundstart_points += roundstart_points_per_ready
 			roundstart_candidates += player
 			continue
