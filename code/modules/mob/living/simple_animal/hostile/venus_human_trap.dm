@@ -185,22 +185,22 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/venus_human_trap/AttackingTarget()
-    if (world.time < last_attack_time + attack_cooldown)
-        return
+	if (world.time < last_attack_time + attack_cooldown)
+		return
 
-    last_attack_time = world.time
+	last_attack_time = world.time
 
-    if (istype(target, /obj/structure/spacevine))
-        var/mob/M_on_turf = locate(/mob) in get_turf(target)
-        if (M_on_turf)
-            target = M_on_turf
+	if (istype(target, /obj/structure/spacevine))
+		var/mob/M_on_turf = locate(/mob) in get_turf(target)
+		if (M_on_turf)
+			target = M_on_turf
 
-    . = ..()
+	. = ..()
 
-    if (isliving(target))
-        var/mob/living/L = target
-        if (L.stat != DEAD)
-            adjustHealth(-maxHealth * 0.050)
+	if (isliving(target))
+		var/mob/living/L = target
+		if (L.stat != DEAD)
+			adjustHealth(-maxHealth * 0.050)
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
 	for(var/datum/beam/B in vines)
@@ -211,8 +211,7 @@
 			ranged_cooldown = world.time + (ranged_cooldown_time * 0.5)
 			return
 
-	 // Prioritize mobs over spacevines
-	if (istype(the_target, /obj/structure/spacevine))
+	if (istype(the_target, /obj/structure/spacevine))  // Prioritize mobs over spacevines
 		var/mob/M_on_turf = locate(/mob) in get_turf(the_target)
 		if (M_on_turf)
 			the_target = M_on_turf // Redirect target to the mob
