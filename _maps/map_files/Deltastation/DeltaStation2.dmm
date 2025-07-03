@@ -13589,6 +13589,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/railing/single_end{
+	dir = 10
+	},
 /turf/open/floor/iron/textured,
 /area/security/brig)
 "bQQ" = (
@@ -34129,6 +34132,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/railing/single_end{
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/security/main)
 "fbw" = (
@@ -51647,6 +51653,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"kDs" = (
+/obj/structure/railing/single_end{
+	dir = 8
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "kDw" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -52238,6 +52250,12 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/maintenance/disposal/incinerator)
+"kNp" = (
+/obj/structure/railing/single_end{
+	dir = 6
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/security/main)
 "kNE" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -52480,6 +52498,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
+/obj/structure/railing/single_end{
+	dir = 6
+	},
 /turf/open/floor/iron/dark,
 /area/security/main)
 "kSY" = (
@@ -53988,6 +54009,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/railing/single_end{
+	dir = 5
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
@@ -57195,6 +57219,10 @@
 /area/bridge)
 "mtr" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/structure/railing/single_end{
+	dir = 8
+	},
+/obj/structure/railing/single_end,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "mtF" = (
@@ -63226,11 +63254,11 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "onI" = (
-/obj/structure/railing{
-	dir = 10
-	},
 /obj/machinery/biogenerator,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 10
+	},
+/obj/structure/railing{
 	dir = 10
 	},
 /turf/open/floor/prison/dark,
@@ -63399,6 +63427,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/railing/single_end{
+	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
@@ -72985,6 +73016,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/structure/railing/single_end{
+	dir = 5
+	},
 /turf/open/floor/iron/dark,
 /area/security/main)
 "ruB" = (
@@ -79357,6 +79391,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/railing/single_end{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "trb" = (
@@ -85620,6 +85657,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/railing/single_end{
+	dir = 1
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "vvO" = (
@@ -89510,6 +89550,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/structure/railing/single_end{
+	dir = 5
+	},
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
@@ -92955,6 +92998,12 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
+/obj/structure/railing/single_end{
+	dir = 1
+	},
+/obj/structure/railing/single_end{
+	dir = 4
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "xHL" = (
@@ -93342,6 +93391,18 @@
 	},
 /turf/open/floor/iron,
 /area/science/xenobiology)
+"xNi" = (
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/railing/single_end{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "xNk" = (
 /obj/structure/sink{
 	dir = 8;
@@ -145147,7 +145208,7 @@ wkM
 wkM
 wkM
 wkM
-vvI
+xNi
 woe
 mNn
 xNk
@@ -146949,7 +147010,7 @@ nLN
 jWY
 xHJ
 lzq
-lzq
+kDs
 lzq
 mtr
 dmD
@@ -149540,7 +149601,7 @@ bLr
 kYq
 byL
 asE
-aZx
+kNp
 fEb
 bhd
 biP
