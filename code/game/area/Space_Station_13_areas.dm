@@ -1300,7 +1300,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
 
-/area/security/detectives_office/Exited(mob/living/a, atom/oldloc)
+/area/security/detectives_office/Exited(atom/movable/a, atom/oldloc)
 	..()
 	if (istype(a, /mob/living/carbon/human))
 		var/mob/living/carbon/human/human_a = a
@@ -1316,7 +1316,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Interrogation Room"
 	icon_state = "interrogation"
 
-/area/security/interrogation_room/Exited(mob/living/a, atom/oldloc)
+/area/security/interrogation_room/Exited(atom/movable/a, atom/oldloc)
 	..()
 	if (istype(a, /mob/living/carbon/human))
 		var/mob/living/carbon/human/human_a = a

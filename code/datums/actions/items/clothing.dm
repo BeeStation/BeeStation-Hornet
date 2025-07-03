@@ -72,3 +72,4 @@
 	desc = "Set up the mood for an interrogation."
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "noir_mode"
+	cooldown_time = 15 SECONDS

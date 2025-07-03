@@ -113,6 +113,7 @@
 	var/adjusted = FALSE
 	var/adjustable = TRUE
 	var/aura_icon_on = "detective_aura"
+	var/aura_icon_off = "detective"
 	dog_fashion = /datum/dog_fashion/head/detective
 	actions_types = list(/datum/action/item_action/noirmode)
 
@@ -149,22 +150,29 @@
 	else
 		to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
 
+/obj/item/clothing/head/fedora/proc/apply_noir_effect(mob/living/L)
+	ADD_TRAIT(L, TRAIT_NOIR, TRAIT_GENERIC)
+	L.add_client_colour(/datum/client_colour/monochrome)
+
+/obj/item/clothing/head/fedora/proc/noir_aura(mob/living/carbon/human/D)
+	var/area/A = get_area(D)
+	if(istype(A, /area/security/detectives_office) || istype(A, /area/security/interrogation_room))
+		var/list/mobs_to_iterate = mobs_in_area_type(list(A))
+		for(var/mob/living/L as() in mobs_to_iterate)
+			apply_noir_effect(L)
+			if(L.mind?.assigned_role == JOB_NAME_DETECTIVE)
+				to_chat(L, span_notice("The shadows overtake the room. They are in your realm now."))
+			else
+				to_chat(L, span_userdanger("The shadows overtake the room. An ominous feeling takes over you."))
+	else
+		to_chat(D, "<span class='warning'>You can only use the noir ability in the detective's office or interrogation room.</span>")
+		return
+
 /obj/item/clothing/head/fedora/det_hat/ui_action_click(mob/user, action)
 	if(user.mind?.assigned_role != JOB_NAME_DETECTIVE)
-		to_chat(user, "<span class='warning>Only a true detective can use the noir ability.</span>")
+		to_chat(user, "<span class='warning'>Only a true detective can use the noir ability.</span>")
 		return
-	var/turf/T = get_turf(user)
-	if (istype(T.loc, /area/security/detectives_office) || istype(T.loc, /area/security/interrogation_room))
-		for(var/mob/living/carbon/human/H in T.loc)
-			ADD_TRAIT(H, TRAIT_NOIR, TRAIT_GENERIC)
-			H.add_client_colour(/datum/client_colour/monochrome)
-			if(H.mind?.assigned_role == JOB_NAME_DETECTIVE)
-				to_chat(H, span_notice("The shadows overtake your office. They are in your realm now."))
-			else
-				to_chat(H, span_userdanger("The shadows overtake the detective's office. An omnious feeling takes over you"))
-	if(!istype(T.loc, /area/security/detectives_office))
-		to_chat(user, span_warning("You can not use this outside of your office."))
-		return
+	noir_aura(user)
 
 /obj/item/clothing/head/fedora/det_hat/CtrlClick(mob/user)
 	..()
@@ -178,7 +186,7 @@
 			worn_icon_state = aura_icon_on
 			to_chat(user, span_notice("You adjust your hat to look more intimidating."))
 		else
-			worn_icon_state = worn_icon_state
+			worn_icon_state = aura_icon_off
 			to_chat(user, span_notice("You return your hat to its original position."))
 		user.update_inv_head()
 
