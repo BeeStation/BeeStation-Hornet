@@ -22213,15 +22213,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
-"lxx" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/railing,
-/obj/structure/railing,
-/turf/open/openspace/planetary,
-/area/ai_monitored/turret_protected/aisat/maint)
 "lxZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -190987,7 +190978,7 @@ jYA
 ozI
 rFF
 mlR
-lxx
+qFW
 mlR
 mlR
 mlR
