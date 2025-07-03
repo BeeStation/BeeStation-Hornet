@@ -19,7 +19,6 @@
 	..()
 	if(holder)
 		playsound(holder, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	holder.ui_update(user)
 
 /obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.ui_update(user)

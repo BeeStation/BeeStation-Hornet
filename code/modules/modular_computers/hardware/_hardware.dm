@@ -226,6 +226,12 @@
 	if(hacked)
 		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>")
 
+/obj/item/computer_hardware/proc/component_qdel()	// Handles deleting a component professionally
+	//if(!src)
+	//	return
+	if(holder)
+		holder.uninstall_component(src)
+	qdel(src)
 
 /// Handles damage checks
 /obj/item/computer_hardware/proc/check_functionality()

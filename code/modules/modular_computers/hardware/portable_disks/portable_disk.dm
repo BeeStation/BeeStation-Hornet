@@ -30,7 +30,7 @@
 	var/obj/item/computer_hardware/hard_drive/role/virus/virus_disk = new virus_typepath(get_turf(src))
 	virus_disk.icon_state = initial(icon_state)
 	virus_disk.icon = initial(icon)
-	virus_disk.update_icon_state()
+	virus_disk.update_appearance()
 	virus_disk.hacked = TRUE
 	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
 	qdel(src)

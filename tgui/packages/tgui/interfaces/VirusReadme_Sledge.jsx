@@ -5,17 +5,16 @@ import { useBackend } from '../backend';
 
 // Static header always visible
 const header = String.raw`
-  $$\   $$\           $$\ $$\                    $$\
-  $$ |  $$ |          $$ |$$ |                   \__|
-  $$ |  $$ | $$$$$$\  $$ |$$ | $$$$$$\  $$$$$$\  $$\  $$$$$$$\  $$$$$$\   $$$$$$\   $$$$$$$\
-  $$$$$$$$ |$$  __$$\ $$ |$$ |$$  __$$\ \____$$\ $$ |$$  _____|$$  __$$\ $$  __$$\ $$  _____|
-  $$  __$$ |$$$$$$$$ |$$ |$$ |$$ |  \__|$$$$$$$ |$$ |\$$$$$$\  $$$$$$$$ |$$ |  \__|\$$$$$$\
-  $$ |  $$ |$$   ____|$$ |$$ |$$ |     $$  __$$ |$$ | \____$$\ $$   ____|$$ |       \____$$\
-  $$ |  $$ |\$$$$$$$\ $$ |$$ |$$ |     \$$$$$$$ |$$ |$$$$$$$  |\$$$$$$$\ $$ |      $$$$$$$  |
-  \__|  \__| \_______|\__|\__|\__|      \_______|\__|\_______/  \_______|\__|      \_______/
+  $$\   $$\         $$\$$\                 $$\
+  $$ |  $$ |        $$ $$ |                \__|
+  $$ |  $$ |$$$$$$\ $$ $$ |$$$$$$\ $$$$$$\ $$\ $$$$$$$\ $$$$$$\  $$$$$$\  $$$$$$$\
+  $$$$$$$$ $$  __$$\$$ $$ $$  __$$\\____$$\$$ $$  _____$$  __$$\$$  __$$\$$  _____|
+  $$  __$$ $$$$$$$$ $$ $$ $$ |  \__$$$$$$$ $$ \$$$$$$\ $$$$$$$$ $$ |  \__\$$$$$$\
+  $$ |  $$ $$   ____$$ $$ $$ |    $$  __$$ $$ |\____$$\$$   ____$$ |      \____$$\
+  $$ |  $$ \$$$$$$$\$$ $$ $$ |    \$$$$$$$ $$ $$$$$$$  \$$$$$$$\$$ |     $$$$$$$  |
+  \__|  \__|\_______\__\__\__|     \_______\__\_______/ \_______\__|     \_______/
 
-
-                              -==[ HELLRAISERS CRACK TEAM ]==-
+                        -==[ HELLRAISERS CRACK TEAM ]==-
 `;
 
 const intro = `
@@ -24,7 +23,7 @@ Opening README.txt …
 `;
 
 const body = `
-Ok.
+Ok!
 
 Gloves are off this time.
 
@@ -35,7 +34,7 @@ While they hide behind their walls NT keeps reeping in the rewards of
 exploiting the common person, that has nowhere better to be...
 
 Well, their walls are no more. Cus we bring in the SLEDGEHAMMER!
-(This One's mine!)
+(This Ones mine!)
 
 One shot.
 Dual injection.
@@ -63,12 +62,12 @@ Let them fear us!
 - Hellraisers  ⧉ 2536
 `;
 
-const FPS = 120;
+const FPS = 150;
 const tickInterval = 1000 / FPS;
 
 export const VirusReadme_Sledge = (props) => {
   return (
-    <NtosWindow title="Sleghamr-README.txt" width={760} height={560}>
+    <NtosWindow title="Sleghamr-README.txt" width={650} height={560}>
       <NtosWindow.Content>
         <ReadmeScroller text={body} preText={intro} />
       </NtosWindow.Content>

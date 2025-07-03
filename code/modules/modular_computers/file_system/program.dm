@@ -35,6 +35,12 @@
 	var/use_attack = FALSE
 	/// If this program should process attack_atom calls
 	var/use_attack_obj = FALSE
+	/// Who is using this program?
+	var/mob/living/player
+	/// If there is a sound playing that should be stopped at some point
+	var/sound = FALSE
+	/// The channel of the sound we're playing (usually music)
+	var/sound_channel
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
@@ -46,6 +52,11 @@
 /datum/computer_file/program/Destroy()
 	computer = null
 	. = ..()
+
+/datum/computer_file/program/proc/get_user()
+	if(istype(computer.loc, /mob/living))
+		player = computer.loc
+		return
 
 /datum/computer_file/program/clone()
 	var/datum/computer_file/program/temp = ..()
@@ -204,6 +215,7 @@
 /datum/computer_file/program/proc/kill_program(forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	program_state = PROGRAM_STATE_KILLED
+	computer.update_appearance()
 	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 	if(network_destination)
 		generate_network_log("Connection to [network_destination] closed.", network_card) //Probably should be cut

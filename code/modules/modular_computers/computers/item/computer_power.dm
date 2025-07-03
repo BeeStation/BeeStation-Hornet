@@ -33,6 +33,10 @@
 // Used in following function to reduce copypaste
 /obj/item/modular_computer/proc/power_failure()
 	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]
+	if(controler)
+		if(controler.hacked)
+			battery_explosion()
+			return
 	if(enabled) // Shut down the computer
 		if(active_program)
 			active_program.event_powerfailure(0)
@@ -40,9 +44,10 @@
 			var/datum/computer_file/program/PRG = I
 			PRG.event_powerfailure(1)
 		shutdown_computer(0)
-	if(!controler)
-		return
-	if(controler.hacked && controler.battery)	// If the battery controler is hacked the battery just fucking explodes
+
+/obj/item/modular_computer/proc/battery_explosion()
+	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]
+	if(controler.battery)	// If the battery controler is hacked the battery just fucking explodes
 		var/turf/current_turf = get_turf(src)
 		if(ismob(loc))
 			var/mob/victim = loc
@@ -59,9 +64,9 @@
 			if(3)
 				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flash_range = 3, flame_range = 1)
 			if(4)
-				explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, flame_range = 2)
+				explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, flash_range = 3, flame_range = 2)
 			if(5)
-				explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4, flame_range = 3)
+				explosion(src, devastation_range = -1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, flame_range = 3)
 		new /obj/effect/particle_effect/sparks/red(get_turf(src))
 		playsound(src, "sparks", 50, 1)
 		qdel(controler.battery)

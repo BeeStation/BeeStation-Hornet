@@ -21,6 +21,7 @@
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 	if(trojan && drive.trojan)
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
+		return FALSE
 	if(app.sending_and_receiving == FALSE && !sending_bypass)
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
 		return FALSE
@@ -183,26 +184,29 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk6"
 	virus_strength = 1
+	charges = 1
 	virus_class = "Coilvrs.exe"
 
 /obj/item/computer_hardware/hard_drive/role/virus/coil/Initialize(mapload)
 	. = ..()
 	store_file(new/datum/computer_file/program/readme/coil_readme())
+	store_file(new/datum/computer_file/program/coil_virus())
 
 /obj/item/computer_hardware/hard_drive/role/virus/coil/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
 	if(!.)
 		return
-	empulse(get_turf(target), 1, 2, 1)
-	holder.uninstall_component(src)
-	qdel(src)
-	ui_update()
+	empulse(get_turf(target), 1, 1, 1)
+	playsound(get_turf(target), "sparks", 50)
+	playsound(get_turf(target), 'sound/machines/defib_zap.ogg', 25, TRUE)
+	component_qdel()
 
 /obj/item/computer_hardware/hard_drive/role/virus/breacher
 	name = "\improper BrexerTrojn Drive"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk6"
 	virus_strength = 2
+	charges = 1
 	virus_class = "BrexerTrojn.exe"
 	sending_bypass = TRUE
 	trojan = BREACHER
@@ -210,6 +214,7 @@
 /obj/item/computer_hardware/hard_drive/role/virus/breacher/Initialize(mapload)
 	. = ..()
 	store_file(new/datum/computer_file/program/readme/breacher_readme())
+	store_file(new/datum/computer_file/program/breacher_virus())
 
 /obj/item/computer_hardware/hard_drive/role/virus/breacher/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
@@ -217,49 +222,39 @@
 		return
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
-	if(drive)
-		if(drive.trojan)
-			to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
-		else
-			drive.trojan = BREACHER
-			app.sending_and_receiving = TRUE
-		holder.uninstall_component(src)
-		qdel(src)
-		ui_update()
+	drive.trojan = BREACHER
+	app.sending_and_receiving = TRUE
+	component_qdel()
 
 /obj/item/computer_hardware/hard_drive/role/virus/sledge
 	name = "\improper Sleghamr Drive"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk6"
 	virus_strength = 2
+	charges = 1
 	virus_class = "Sleghamr.exe"
 	trojan = SLEDGE
 
 /obj/item/computer_hardware/hard_drive/role/virus/sledge/Initialize(mapload)
 	. = ..()
 	store_file(new/datum/computer_file/program/readme/sledge_readme())
+	store_file(new/datum/computer_file/program/sledge_virus())
 
 /obj/item/computer_hardware/hard_drive/role/virus/sledge/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
-	if(drive)
-		if(drive.trojan)
-			to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
-			return
-		else
-			drive.trojan = SLEDGE
-			if(drive.virus_defense)
-				drive.virus_defense --
-		holder.uninstall_component(src)
-		qdel(src)
-		ui_update()
+	drive.trojan = SLEDGE
+	if(drive.virus_defense)
+		drive.virus_defense --
+	component_qdel()
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus
 	name = "\improper NT Virus Buster (Crack)"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "antivirus1"
+	charges = 1
 	virus_strength = 1
 	virus_class = "NTVBGiftBsc.exe"
 
@@ -287,9 +282,7 @@
 		playsound(src, "sparks", 50, 1)
 		nt_log(target, user)
 		to_chat(user, span_notice("<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!"))
-		holder.uninstall_component(src)
-		qdel(src)
-		ui_update()
+		component_qdel()
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/virus_blocked(obj/item/modular_computer/tablet/target, mob/living/user)
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
@@ -304,14 +297,17 @@
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_2
 	icon_state = "antivirus2"
 	virus_strength = 2
+	charges = 1
 	virus_class = "NTVBGiftStndrd.exe"
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_3
 	icon_state = "antivirus3"
 	virus_strength = 3
+	charges = 1
 	virus_class = "NTVBGiftEssl.exe"
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_4
 	icon_state = "antivirus4"
 	virus_strength = 4
+	charges = 1
 	virus_class = "NTVBGiftPrm.exe"

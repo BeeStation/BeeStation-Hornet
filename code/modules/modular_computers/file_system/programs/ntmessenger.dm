@@ -185,6 +185,8 @@
 					var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
 					if(istype(disk))
 						disk.send_virus(target, usr)
+						if(!disk || !istype(disk, /obj/item/computer_hardware/hard_drive/role/virus))
+							sending_virus = FALSE
 						return TRUE
 				send_message(usr, list(target))
 				return TRUE
@@ -243,8 +245,6 @@
 	data["sortByJob"] = sort_by_job
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
-	if(!disk || !istype(disk, /obj/item/computer_hardware/hard_drive/role/virus))
-		sending_virus = FALSE      // <- reset when the cartridge is gone
 	if(disk)
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus

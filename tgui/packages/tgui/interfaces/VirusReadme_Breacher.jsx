@@ -5,17 +5,16 @@ import { useBackend } from '../backend';
 
 // Static header always visible
 const header = String.raw`
-  $$\   $$\           $$\ $$\                    $$\
-  $$ |  $$ |          $$ |$$ |                   \__|
-  $$ |  $$ | $$$$$$\  $$ |$$ | $$$$$$\  $$$$$$\  $$\  $$$$$$$\  $$$$$$\   $$$$$$\   $$$$$$$\
-  $$$$$$$$ |$$  __$$\ $$ |$$ |$$  __$$\ \____$$\ $$ |$$  _____|$$  __$$\ $$  __$$\ $$  _____|
-  $$  __$$ |$$$$$$$$ |$$ |$$ |$$ |  \__|$$$$$$$ |$$ |\$$$$$$\  $$$$$$$$ |$$ |  \__|\$$$$$$\
-  $$ |  $$ |$$   ____|$$ |$$ |$$ |     $$  __$$ |$$ | \____$$\ $$   ____|$$ |       \____$$\
-  $$ |  $$ |\$$$$$$$\ $$ |$$ |$$ |     \$$$$$$$ |$$ |$$$$$$$  |\$$$$$$$\ $$ |      $$$$$$$  |
-  \__|  \__| \_______|\__|\__|\__|      \_______|\__|\_______/  \_______|\__|      \_______/
+  $$\   $$\         $$\$$\                 $$\
+  $$ |  $$ |        $$ $$ |                \__|
+  $$ |  $$ |$$$$$$\ $$ $$ |$$$$$$\ $$$$$$\ $$\ $$$$$$$\ $$$$$$\  $$$$$$\  $$$$$$$\
+  $$$$$$$$ $$  __$$\$$ $$ $$  __$$\\____$$\$$ $$  _____$$  __$$\$$  __$$\$$  _____|
+  $$  __$$ $$$$$$$$ $$ $$ $$ |  \__$$$$$$$ $$ \$$$$$$\ $$$$$$$$ $$ |  \__\$$$$$$\
+  $$ |  $$ $$   ____$$ $$ $$ |    $$  __$$ $$ |\____$$\$$   ____$$ |      \____$$\
+  $$ |  $$ \$$$$$$$\$$ $$ $$ |    \$$$$$$$ $$ $$$$$$$  \$$$$$$$\$$ |     $$$$$$$  |
+  \__|  \__|\_______\__\__\__|     \_______\__\_______/ \_______\__|     \_______/
 
-
-                              -==[ HELLRAISERS CRACK TEAM ]==-
+                        -==[ HELLRAISERS CRACK TEAM ]==-
 `;
 
 const intro = `
@@ -36,7 +35,8 @@ So, we've developed a special little something for you, child of mankind.
 
 We are entrusting you with this Virus, the Breacher.
 (Daxter spells it like Brexer, and since he kinda coded the whole thing...
-I let him have this win)
+I let him have this win. Also, idk why the heck you'd need a virus that
+explodes your fingers off but... again... his code...)
 
 As usual you only get one shot so listen carefully:
 Dual injection method Virus.
@@ -53,24 +53,25 @@ You can also activate the file itself.
 
 Manual Usage:
  1. Run the File that comes pre-installed.
- 2. Let it play.
- 3. Your Hard-Drive and Network Card are desintegrated.
+ 2. Let it play (or don't).
+ 4. Press Detonate
+ 3. Your computer battery will EXPLODE.
 
 Notes:
  • Be warned! It is possible a fresh install of an anti-virus can do away with this trojan.
- • There is no penalty for closing the program early (It's just Daxters diary in funny letters)
- • The cartrige will self-detonate on usage.
+ • Starting the virus is non-reversable, it will either detonate or brick your computer.
+ • The cartrige will self-destroy on use.
 
 Have fun raising hell!
 - Hellraisers  ⧉ 2536
 `;
 
-const FPS = 120;
+const FPS = 150;
 const tickInterval = 1000 / FPS;
 
 export const VirusReadme_Breacher = (props) => {
   return (
-    <NtosWindow title="BrexerTrojn-README.txt" width={760} height={560}>
+    <NtosWindow title="BrexerTrojn-README.txt" width={650} height={560}>
       <NtosWindow.Content>
         <ReadmeScroller text={body} preText={intro} />
       </NtosWindow.Content>

@@ -31,3 +31,218 @@
 	filedesc = "Crack-README.txt"
 	extended_desc = "This file explains how to use this cracked subscription package of NTOS Virus Buster."
 	tgui_id = "antivirus_readme"
+
+/datum/computer_file/program/coil_virus
+	filename = "Coilvrs.exe"
+	filedesc = "Coilvrs.exe"
+	program_icon_state = "single_contract"
+	extended_desc = "Virus that causes an EMP type event."
+	size = 0
+	available_on_ntnet = FALSE
+	tgui_id = "coil_virus"
+	program_icon = "charging-station"
+	var/triggered = FALSE
+
+/datum/computer_file/program/coil_virus/on_start(mob/living/user)
+	. = ..()
+	holder = computer.all_components[MC_HDD_JOB]
+	get_user()
+	if(player)
+		sound_channel = rand(200, 800)
+		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_HappyPlace.ogg', 50, channel = sound_channel)
+		sound = TRUE
+
+/datum/computer_file/program/coil_virus/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("Detonate")
+			triggered = TRUE
+			kill_program()
+			return TRUE
+
+/datum/computer_file/program/coil_virus/kill_program(forced)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	if(triggered)
+		empulse(get_turf(computer), 2, 2, 1)
+		new /obj/effect/particle_effect/sparks/blue(get_turf(computer))
+		playsound(computer, "sparks", 50)
+		playsound(computer, 'sound/machines/defib_zap.ogg', 25, TRUE)
+	else
+		weaker_emp()
+		return
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
+	if(card)
+		if(drive.virus_lethality)
+			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.identification_string] (NID ?%&!).", log_id = FALSE)
+		else
+			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.get_network_tag()].", log_id = FALSE)
+	holder.component_qdel()
+
+/datum/computer_file/program/coil_virus/on_ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	kill_program()
+
+/datum/computer_file/program/coil_virus/proc/weaker_emp()
+	empulse(get_turf(computer), 1, 1, 1)
+	new /obj/effect/particle_effect/sparks/blue(get_turf(computer))
+	playsound(computer, "sparks", 50)
+	playsound(computer, 'sound/machines/defib_zap.ogg', 25, TRUE)
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	holder.component_qdel()
+	if(card)
+		computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!", log_id = FALSE)
+
+/datum/computer_file/program/breacher_virus
+	filename = "BrexerTrojn.exe"
+	filedesc = "BrexerTrojn.exe"
+	program_icon_state = "single_contract"
+	extended_desc = "Detonates the Computer's battery after an arming period."
+	size = 0
+	available_on_ntnet = FALSE
+	tgui_id = "breacher_virus"
+	program_icon = "user-secret"
+	var/triggered = FALSE
+
+/datum/computer_file/program/breacher_virus/on_start(mob/living/user)
+	. = ..()
+	holder = computer.all_components[MC_HDD_JOB]
+	get_user()
+	if(player)
+		sound_channel = rand(200, 800)
+		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_DaxtersPlaceOutro.ogg', 50, channel = sound_channel)
+		sound = TRUE
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	if(card)
+		computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!", log_id = FALSE)
+
+/datum/computer_file/program/breacher_virus/kill_program(mob/user, forced)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	if(!triggered)
+		dud()
+		return
+	var/obj/item/computer_hardware/battery/controler = computer.all_components[MC_CELL]
+	if(controler)
+		if(!controler.hacked)
+			controler.hacked = TRUE
+			new /obj/effect/particle_effect/sparks/red(get_turf(computer))
+			playsound(computer, "sparks", 50)
+		computer.power_failure()	// Instant explosion
+	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	holder.component_qdel()
+
+/datum/computer_file/program/breacher_virus/on_ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	if(!triggered)
+		dud()
+		return
+
+/datum/computer_file/program/breacher_virus/proc/dud()
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
+	computer.update_appearance()
+	if(card)
+		card.component_qdel()
+	if(drive)
+		drive.component_qdel()
+	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
+	playsound(computer, "sparks", 50)
+	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	holder.component_qdel()
+
+/datum/computer_file/program/breacher_virus/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("Detonate")
+			triggered = TRUE
+			kill_program()
+			return TRUE
+
+/datum/computer_file/program/sledge_virus
+	filename = "Sleghamr.exe"
+	filedesc = "Sleghamr.exe"
+	program_icon_state = "single_contract"
+	extended_desc = "Destroys any traces of NTOS Virus Buster from your system."
+	size = 0
+	available_on_ntnet = FALSE
+	tgui_id = "virus_sledge"
+	program_icon = "book-skull"
+	var/triggered = FALSE
+
+/datum/computer_file/program/sledge_virus/on_start(mob/living/user)
+	. = ..()
+	holder = computer.all_components[MC_HDD_JOB]
+	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
+	if(!drive.virus_defense)
+		to_chat(user, "<font color='#ff0000'>ERROR:</font> No traces of NTOS Virus Buster found.")
+		triggered = TRUE
+		kill_program()
+		return
+	get_user()
+	if(player)
+		sound_channel = rand(200, 800)
+		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_HellraiserAnthem.ogg', 50, channel = sound_channel)
+		sound = TRUE
+
+/datum/computer_file/program/sledge_virus/on_ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	triggered = TRUE
+	kill_program()
+
+/datum/computer_file/program/sledge_virus/kill_program(mob/user, forced)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	if(triggered)
+		var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+		if(card)
+			computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!", log_id = FALSE)
+		return
+	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
+	drive.virus_defense = 0
+	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
+	playsound(computer, "sparks", 50)
+	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	if(card)
+		if(drive.virus_lethality)
+			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.identification_string] (NID ?%&!).", log_id = FALSE)
+		else
+			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.get_network_tag()].", log_id = FALSE)
+	holder.component_qdel()
+
+/datum/computer_file/program/sledge_virus/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("Detonate")
+			triggered = FALSE
+			kill_program()
+			return TRUE

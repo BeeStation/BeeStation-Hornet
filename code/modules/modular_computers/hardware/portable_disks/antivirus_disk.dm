@@ -42,9 +42,7 @@
 		to_chat(user, span_notice("<font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> sucessefuly installed. Your device is now <font color='#00ff2a'>SAFE!</font>"))
 		new /obj/effect/particle_effect/sparks/blue(get_turf(holder))
 		playsound(install_into, "sparks", 50, 1)
-		install_into.uninstall_component(src)
-		holder.ui_update()
-		qdel(src)
+		component_qdel()
 		drive.trojan = FALSE	// Resets trojan victim status
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier2
