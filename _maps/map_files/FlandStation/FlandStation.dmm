@@ -1616,7 +1616,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/red/warning,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/prison,
@@ -1890,7 +1890,7 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/chair/office/light,
 /obj/structure/disposalpipe/segment,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/iron,
@@ -4712,7 +4712,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "ber" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron/grid/steel,
@@ -5237,7 +5237,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/engine,
@@ -5456,7 +5456,7 @@
 /turf/closed/wall,
 /area/engine/engineering)
 "boy" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron/dark,
@@ -9650,10 +9650,10 @@
 "cxT" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -11349,10 +11349,10 @@
 "cUs" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -12392,7 +12392,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "djF" = (
@@ -13288,7 +13288,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/iron/grid/steel,
@@ -13400,7 +13400,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "dyb" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/iron/techmaint,
@@ -13426,7 +13426,7 @@
 /turf/open/floor/iron/grid,
 /area/medical/virology)
 "dyC" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -16514,7 +16514,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron/grid/steel,
@@ -16530,7 +16530,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron/dark/side,
@@ -20409,7 +20409,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -21946,7 +21946,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron/grid/steel,
@@ -23863,10 +23863,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron/grid/steel,
@@ -25239,7 +25239,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/iron/grid/steel,
@@ -26178,7 +26178,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -27312,7 +27312,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 6
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -27806,7 +27806,7 @@
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine)
 "hau" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
@@ -30509,7 +30509,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hLU" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -31194,7 +31194,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/iron/grid/steel,
@@ -32330,7 +32330,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 6
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/iron/sepia,
@@ -32414,7 +32414,7 @@
 /turf/open/floor/iron,
 /area/medical/medbay/central)
 "imM" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/carpet,
@@ -32557,7 +32557,7 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "ioj" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/plating{
@@ -34418,7 +34418,7 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/iron/white,
@@ -35448,7 +35448,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -36920,7 +36920,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/engine,
@@ -38989,8 +38989,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/railing/end_single,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end,
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -41846,7 +41846,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron,
@@ -42183,7 +42183,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/iron/grid/steel,
@@ -42206,7 +42206,7 @@
 /area/engine/engine_room)
 "kJN" = (
 /obj/machinery/firealarm/directional/west,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron/sepia,
@@ -47030,7 +47030,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "lSo" = (
@@ -47888,7 +47888,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "mdU" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/iron/dark,
@@ -51249,7 +51249,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/iron/dark/side,
 /area/quartermaster/office)
 "mZC" = (
@@ -52532,10 +52532,10 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -52585,7 +52585,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -54026,7 +54026,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "nKf" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
@@ -54214,10 +54214,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -56270,7 +56270,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/carpet,
@@ -59030,7 +59030,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "pde" = (
@@ -62533,7 +62533,7 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "pZR" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -64299,7 +64299,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 9
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/iron/sepia,
@@ -64882,7 +64882,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/iron/sepia,
@@ -65989,7 +65989,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "qQU" = (
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/iron/sepia,
 /area/maintenance/department/engine)
 "qRb" = (
@@ -66026,10 +66026,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron/white,
@@ -67524,7 +67524,7 @@
 	dir = 10
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/iron/grid/steel,
@@ -68803,7 +68803,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron/white,
@@ -69130,7 +69130,7 @@
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "rIg" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -70472,7 +70472,7 @@
 /area/maintenance/department/engine)
 "rXu" = (
 /obj/effect/turf_decal/guideline/guideline_in_T/red,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/iron/dark/side{
@@ -71888,7 +71888,7 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/aft)
 "sqS" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/plating{
@@ -72599,7 +72599,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "sAE" = (
@@ -73077,7 +73077,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -74598,10 +74598,10 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/plating,
@@ -76948,7 +76948,7 @@
 /area/maintenance/starboard/aft)
 "tHL" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -78263,7 +78263,7 @@
 /obj/machinery/atmospherics/components/binary/valve/digital{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron/grid/steel,
@@ -79693,7 +79693,7 @@
 /turf/open/floor/iron/techmaint,
 /area/hallway/secondary/entry)
 "urw" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/iron/techmaint,
@@ -80287,7 +80287,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -80984,7 +80984,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/red/warning,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/prison,
@@ -81389,7 +81389,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/iron,
@@ -83632,7 +83632,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
@@ -83707,7 +83707,7 @@
 	id = "garbage"
 	},
 /obj/structure/lattice/catwalk/over,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 6
 	},
 /turf/open/floor/plating,
@@ -84314,7 +84314,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/side{
@@ -84995,7 +84995,7 @@
 /turf/closed/wall/r_wall,
 /area/security/checkpoint/auxiliary)
 "vyq" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 10
 	},
 /turf/open/floor/iron/dark,
@@ -85028,7 +85028,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "vyN" = (
@@ -87190,7 +87190,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/iron/sepia,
 /area/maintenance/department/engine)
 "vYt" = (
@@ -88306,7 +88306,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -88992,7 +88992,7 @@
 /turf/open/floor/plating,
 /area/construction)
 "wwq" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/side{
@@ -89926,7 +89926,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 5
 	},
 /turf/open/floor/iron,
@@ -90128,8 +90128,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/railing/end_single,
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end,
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -92301,7 +92301,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/side{
@@ -93093,7 +93093,7 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 4
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -94985,7 +94985,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/structure/railing/end_single,
+/obj/structure/railing/single_end,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "xIV" = (
@@ -95661,7 +95661,7 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine)
 "xOF" = (
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron/sepia,
@@ -96486,7 +96486,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/railing/end_single{
+/obj/structure/railing/single_end{
 	dir = 9
 	},
 /turf/open/floor/iron/white,
