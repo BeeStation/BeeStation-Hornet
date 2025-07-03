@@ -245,7 +245,7 @@
 
 	/// We give a reference to the mind that'll be the support unit
 	partner_mind = partner.mind
-	partner_mind.make_Contractor_Support()
+	partner_mind.add_antag_datum(/datum/antagonist/contractor_support)
 
 	to_chat(partner_mind.current, "\n[span_alertwarning("[user.real_name] is your superior. Follow any, and all orders given by them. You're here to support their mission only.")]")
 	to_chat(partner_mind.current, "[span_alertwarning("Should they perish, or be otherwise unavailable, you're to assist other active agents in this mission area to the best of your ability.")]\n\n")

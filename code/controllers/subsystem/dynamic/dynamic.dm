@@ -1,11 +1,6 @@
-/datum/game_mode/dynamic
-	name = "dynamic"
-	config_tag = "dynamic"
-	report_type = "dynamic"
-	announce_span = "danger"
-	announce_text = "Dynamic mode!"
-
-	reroll_friendly = FALSE
+SUBSYSTEM_DEF(dynamic)
+	name = "Dynamic"
+	wait = 1 MINUTES
 
 	/**
 	 * Roundstart variables
@@ -62,6 +57,13 @@
 	var/forced_extended = FALSE
 	/// Some rulesets (like revolution) need to process
 	var/list/datum/dynamic_ruleset/rulesets_to_process = list()
+	/// Associative list of current players
+	var/list/list/current_players = list(
+		CURRENT_LIVING_PLAYERS = list(),
+		CURRENT_LIVING_ANTAGS = list(),
+		CURRENT_DEAD_PLAYERS = list(),
+		CURRENT_OBSERVERS = list(),
+	)
 
 	/**
 	 * Configurable variables
@@ -137,39 +139,14 @@
 	/// The probability for a latejoin ruleset to be picked
 	var/latejoin_ruleset_probability = 20
 
-
-// Yes, this is copy pasted from game_mode
-/datum/game_mode/dynamic/check_finished(force_ending)
-	if(!SSticker.setup_done || !gamemode_ready)
-		return FALSE
-	if(replacementmode && round_converted == 2)
-		return replacementmode.check_finished()
-	if(SSshuttle.emergency && (SSshuttle.emergency.mode == SHUTTLE_ENDGAME))
-		return TRUE
-	if(station_was_nuked)
-		return TRUE
-	if(force_ending)
-		return TRUE
-
-/datum/game_mode/dynamic/can_start()
-	return TRUE
+/datum/controller/subsystem/dynamic/Initialize()
+	configure_variables()
+	return SS_INIT_SUCCESS
 
 /**
- * Called 30 seconds before roundstart.
- * * Configure dynamic variables
- * * Set roundstart points and pick rulesets
+ * Configure dynamic variables from `dynamic.json`
 **/
-/datum/game_mode/dynamic/pre_setup()
-	// Ok, this is stupid and should be a TEMPORARY solution
-	// Dynamic is not initialized until roundstart... for some reason
-	// Which MEANS anyone that started observing before roundstart is not added to current_players[CURRENT_OBSERVERS], thus blacklisting them from ghost roles
-	// So, lets go over every observer in GLOB.player_list and add them to dynamic's list of observers
-	for(var/mob/player in GLOB.player_list)
-		if(isobserver(player))
-			var/mob/dead/observer/observer_player = player
-			current_players[CURRENT_OBSERVERS] |= observer_player
-
-	// Load the dynamic config file
+/datum/controller/subsystem/dynamic/proc/configure_variables()
 	if(CONFIG_GET(flag/dynamic_config_enabled))
 		var/json_file = file("config/dynamic.json")
 		if(fexists(json_file))
@@ -181,12 +158,15 @@
 			if(dynamic_configuration && dynamic_configuration["Dynamic"])
 				for(var/variable in dynamic_configuration["Dynamic"])
 					if(!vars[variable])
-						stack_trace("Invalid dynamic configuration variable [variable] in game mode variable changes.")
+						stack_trace("Invalid dynamic configuration variable: [variable]")
 						continue
 					vars[variable] = dynamic_configuration["Dynamic"][variable]
 
-
-	// Setup roundstart
+/**
+ * Called at roundstart, set roundstart points and choose rulesets
+**/
+/datum/controller/subsystem/dynamic/proc/select_roundstart_antagonists()
+	. = FALSE
 	set_roundstart_points()
 
 	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
@@ -198,59 +178,19 @@
 	return TRUE
 
 /**
- * Returns a list of all the configured rulesets of a specific typepath (/datum/dynamic_ruleset/roundstart, etc...)
-**/
-/datum/game_mode/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype)
-	var/list/datum/dynamic_ruleset/rulesets = list()
-
-	for(var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
-		if(!ruleset_type.name)
-			continue
-		if(!ruleset_type.weight)
-			continue
-		if(!ruleset_type.points_cost)
-			continue
-
-		rulesets += configure_ruleset(new ruleset_type(src))
-	return rulesets
-
-/**
- * Sets the variables of a ruleset to those in the dynamic configuration file
-**/
-/datum/game_mode/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
-	var/rule_conf = LAZYACCESSASSOC(dynamic_configuration, ruleset.rule_category, ruleset.name)
-
-	// Set variables
-	for(var/variable in rule_conf)
-		if(!(variable in ruleset.vars))
-			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
-			continue
-		ruleset.vars[variable] = rule_conf[variable]
-
-	// Check config for additional restricted_roles
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		ruleset.restricted_roles |= ruleset.protected_roles
-	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
-	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
-
-	return ruleset
-
-/**
  * Generate the amount of roundstart points based on how many people are ready
  * and add those ready people to the list of roundstart candidates
  *
  * A randomized divergence is then applied so rounds are less predictable
 **/
-/datum/game_mode/dynamic/proc/set_roundstart_points()
+/datum/controller/subsystem/dynamic/proc/set_roundstart_points()
 	for(var/mob/dead/new_player/player in GLOB.new_player_list)
 		if(player.ready == PLAYER_READY_TO_OBSERVE)
 			roundstart_points += roundstart_points_per_observer
 			continue
-		else if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
+		else if(player.ready == PLAYER_READY_TO_PLAY/* && player.check_preferences()*/)
 			roundstart_points += roundstart_points_per_ready
-			roundstart_candidates.Add(player)
+			roundstart_candidates += player
 			continue
 		else
 			roundstart_points += roundstart_points_per_unready
@@ -263,7 +203,7 @@
 /**
  * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags)
 **/
-/datum/game_mode/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
+/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
 	// Extended was forced, don't pick any rulesets
 	if(forced_extended)
 		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
@@ -339,7 +279,7 @@
 /**
  * Checks if this ruleset is blocked by any other rulesets or ruleset flags.
 **/
-/datum/game_mode/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, list/datum/dynamic_ruleset/applied_rulesets)
+/datum/controller/subsystem/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, list/datum/dynamic_ruleset/applied_rulesets)
 	// Check for blocked rulesets
 	if(length(ruleset.blocking_rulesets))
 		for(var/datum/dynamic_ruleset/blocked_ruleset in ruleset.blocking_rulesets)
@@ -364,13 +304,10 @@
 	return FALSE
 
 /**
- * Called at roundstart
- * * Executes roundstart rulesets
- * * Initiates midrounds
- * * Configures latejoins
- * * Sets up event hijacking
+ * Execute roundstart rulesets, configures midrounds and latejoins
 **/
-/datum/game_mode/dynamic/post_setup(report)
+/datum/controller/subsystem/dynamic/proc/post_setup(report)
+	// Execute Roundstarts
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
 
@@ -378,21 +315,24 @@
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
 			roundstart_executed_rulesets[ruleset] -= 1
 
-	init_midround()
+	// Configure Midrounds
+	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
+	if(!length(midround_configured_rulesets))
+		stack_trace("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
 
-	// Configure Latejoin rulesets
+	midround_light_chance = midround_light_starting_chance
+	midround_medium_chance = midround_medium_starting_chance
+	midround_heavy_chance = midround_heavy_starting_chance
+
+	// Configure Latejoins
 	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin)
 	if(!length(latejoin_configured_rulesets))
 		stack_trace("DYNAMIC: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
 
-	// Event hijacking
-	RegisterSignal(SSdcs, COMSIG_GLOB_PRE_RANDOM_EVENT, PROC_REF(on_pre_random_event))
-	. = ..()
-
 /**
  * Some rulesets need to process each tick. Lets give them the opportunity to do so.
 **/
-/datum/game_mode/dynamic/process()
+/datum/controller/subsystem/dynamic/proc/process_rulesets()
 	for(var/datum/dynamic_ruleset/ruleset in rulesets_to_process)
 		if(ruleset.rule_process() == RULESET_STOP_PROCESSING)
 			rulesets_to_process -= ruleset
@@ -400,7 +340,7 @@
 /**
  * Execute a ruleset and if it needs to process, add it to the list of rulesets to process
 **/
-/datum/game_mode/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
+/datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	if(!ruleset)
 		return DYNAMIC_EXECUTE_FAILURE
 
@@ -410,27 +350,13 @@
 	return ruleset.execute()
 
 /**
- * Configure the midround rulesets from 'dynamic.json' and start rolling midrounds
-**/
-/datum/game_mode/dynamic/proc/init_midround()
-	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
-	if(!length(midround_configured_rulesets))
-		CRASH("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
-
-	midround_light_chance = midround_light_starting_chance
-	midround_medium_chance = midround_medium_starting_chance
-	midround_heavy_chance = midround_heavy_starting_chance
-
-	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
-
-/**
  * Update our midround points and chances
  * Choose a midround ruleset to save up for if one is not already selected
 **/
-/datum/game_mode/dynamic/proc/try_midround_roll()
+/datum/controller/subsystem/dynamic/fire(resumed)
 	if(forced_extended)
 		return
-	if(check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
+	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
 	update_midround_chances()
@@ -458,7 +384,7 @@
 /**
  * Generate midround points once per minute based off of each player's status
 **/
-/datum/game_mode/dynamic/proc/update_midround_points()
+/datum/controller/subsystem/dynamic/proc/update_midround_points()
 	var/previous_midround_points = midround_points
 
 	var/midround_delta = 0
@@ -480,7 +406,7 @@
  * After reaching 60 minutes, the Light Ruleset Chance will reach 0%
  * Additionally, the Medium Ruleset Chance will start to decrease and the Heavy Ruleset Chance will increase
 **/
-/datum/game_mode/dynamic/proc/update_midround_chances()
+/datum/controller/subsystem/dynamic/proc/update_midround_chances()
 	// How much should we decrease per minute to reach 0% by the configured time?
 	var/light_decrease_rate = midround_light_starting_chance / (midround_light_end_time / (1 MINUTES))
 
@@ -516,7 +442,7 @@
  * * First we choose the severity based off the Light/Medium/Heavy Ruleset Chances
  * * We then pick a midround ruleset of the same severity based of weight
 **/
-/datum/game_mode/dynamic/proc/choose_midround_ruleset()
+/datum/controller/subsystem/dynamic/proc/choose_midround_ruleset()
 	// Pick severity
 	var/severity = DYNAMIC_MIDROUND_LIGHT
 
@@ -553,22 +479,8 @@
 
 	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
-	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. cost: [midround_chosen_ruleset.points_cost]")
-	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] cost: [midround_chosen_ruleset.points_cost]")
-
-/**
- * Stop antagonist events from running
-**/
-/datum/game_mode/dynamic/proc/on_pre_random_event(datum/source, datum/round_event_control/round_event_control)
-	SIGNAL_HANDLER
-
-	if(!round_event_control.dynamic_should_hijack)
-		return
-
-	log_dynamic("EVENT: Cancelling [round_event_control]")
-	SSevents.spawnEvent()
-	SSevents.reschedule()
-	return CANCEL_PRE_RANDOM_EVENT
+	log_dynamic("MIDROUND: A new midround has been chosen to save up for: [midround_chosen_ruleset]. (COST: [midround_chosen_ruleset.points_cost])")
+	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 
 /**
  * Latejoin functionality
@@ -576,8 +488,8 @@
  * A maximum of 3 people can be chosen for a latejoin ruleset.
  * There is a 10% chance for someone to be picked
 **/
-/datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/character)
-	if(forced_extended || check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
+/datum/controller/subsystem/dynamic/proc/make_antag_chance(mob/living/carbon/human/character)
+	if(forced_extended || SSticker.check_finished() ||EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
 	if(!length(latejoin_configured_rulesets))
@@ -623,26 +535,142 @@
 /**
  * Checks all high impact rulesets for their round result and sets dynamic's round result to that
 **/
-/datum/game_mode/dynamic/set_round_result()
-	var/list/executed_rulesets = roundstart_executed_rulesets | midround_executed_rulesets | latejoin_executed_rulesets
+/datum/controller/subsystem/dynamic/proc/set_round_result()
+	var/list/datum/dynamic_ruleset/executed_rulesets = roundstart_executed_rulesets | midround_executed_rulesets | latejoin_executed_rulesets
+
 	for(var/datum/dynamic_ruleset/ruleset in executed_rulesets)
 		if(CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
-			return ruleset.round_result()
-	. = ..()
+			ruleset.round_result()
+			if(SSticker.news_report)
+				return
+
 
 /**
- * if the config flag `NO_INTERCEPT_REPORT` is not defined, send an alert to the crew notifying them that its not a greenshift
+ * Returns a list of all the configured rulesets of a specific typepath (/datum/dynamic_ruleset/roundstart, etc...)
 **/
-/datum/game_mode/dynamic/send_intercept()
-	priority_announce("A summary has been copied and printed to all communications consoles.", "Security level elevated.", ANNOUNCER_INTERCEPT)
-	if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_BLUE)
-		SSsecurity_level.set_level(SEC_LEVEL_BLUE)
+/datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype)
+	var/list/datum/dynamic_ruleset/rulesets = list()
+
+	for(var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
+		if(!ruleset_type.name)
+			continue
+		if(!ruleset_type.weight)
+			continue
+		if(!ruleset_type.points_cost)
+			continue
+
+		rulesets += configure_ruleset(new ruleset_type(src))
+	return rulesets
+
+/**
+ * Sets the variables of a ruleset to those in the dynamic configuration file
+**/
+/datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
+	var/rule_conf = LAZYACCESSASSOC(dynamic_configuration, ruleset.rule_category, ruleset.name)
+
+	// Set variables
+	for(var/variable in rule_conf)
+		if(!(variable in ruleset.vars))
+			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
+			continue
+		ruleset.vars[variable] = rule_conf[variable]
+
+	// Check config for additional restricted_roles
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
+		ruleset.restricted_roles |= ruleset.protected_roles
+	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
+		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
+
+	return ruleset
+
+/**
+ * This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to
+ * "win". The default is 100 tickets. If no players use any extra tickets (earned with the antagonist rep system) calling this function should be equivalent to calling the normal
+ * pick() function. By default you may use up to 100 extra tickets per roll, meaning at maximum a player may double their chances compared to a player who has no extra tickets.
+ *
+ * The odds of being picked are simply (your_tickets / total_tickets). Suppose you have one player using fifty (50) extra tickets, and one who uses no extra:
+ *     Player A: 150 tickets
+ *     Player B: 100 tickets
+ *        Total: 250 tickets
+ *
+ * The odds become:
+ *     Player A: 150 / 250 = 0.6 = 60%
+ *     Player B: 100 / 250 = 0.4 = 40%
+ *  The role_preference argument is optional, but candidates will not use their PERSONAL antag rep if the preference is disabled, rather only using the "base" antag rep.
+ *  This is mainly used in the situation where someone is drafted for a ruleset despite having the preference disabled (a feature of gamemodes) - we don't want to spend their rep.
+**/
+/datum/controller/subsystem/dynamic/proc/antag_pick(list/datum/candidates, role_preference)
+	if(!CONFIG_GET(flag/use_antag_rep)) // || candidates.len <= 1)
+		return pick(candidates)
+
+	// Tickets start at 100
+	var/DEFAULT_ANTAG_TICKETS = CONFIG_GET(number/default_antag_tickets)
+
+	// You may use up to 100 extra tickets (double your odds)
+	var/MAX_TICKETS_PER_ROLL = CONFIG_GET(number/max_tickets_per_roll)
+
+	var/total_tickets = 0
+
+	MAX_TICKETS_PER_ROLL += DEFAULT_ANTAG_TICKETS
+
+	var/p_ckey
+	var/p_rep
+
+	for(var/candidate in candidates)
+		var/mob/player
+		if(istype(candidate, /datum/mind))
+			var/datum/mind/mind = candidate
+			p_ckey = ckey(mind.key)
+			player = get_mob_by_ckey(p_ckey)
+		else if(ismob(candidate))
+			player = candidate
+			p_ckey = player.ckey
+		else
+			continue
+		if(!player)
+			candidates -= candidate
+			continue
+		var/role_enabled = TRUE
+		if(role_preference && player.client)
+			role_enabled = player.client.role_preference_enabled(role_preference)
+		total_tickets += min((role_enabled ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
+
+	var/antag_select = rand(1,total_tickets)
+	var/current = 1
+
+	for(var/candidate in candidates)
+		var/mob/player
+		if(istype(candidate, /datum/mind))
+			var/datum/mind/mind = candidate
+			p_ckey = ckey(mind.key)
+			player = get_mob_by_ckey(p_ckey)
+		else if(ismob(candidate))
+			player = candidate
+			p_ckey = player.ckey
+		else
+			continue
+		p_rep = SSpersistence.antag_rep[p_ckey]
+		var/role_enabled = TRUE
+		if(role_preference && player.client)
+			role_enabled = player.client.role_preference_enabled(role_preference)
+		var/previous = current
+		var/spend = min((role_enabled ? p_rep : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
+		current += spend
+
+		if(antag_select >= previous && antag_select <= (current-1))
+			SSpersistence.antag_rep_change[p_ckey] = -(spend - DEFAULT_ANTAG_TICKETS)
+			return candidate
+
+	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
+	return pick(candidates)
 
 /**
  * Admin interaction panel
  * TODO: make this tgui
 **/
-/datum/game_mode/dynamic/admin_panel()
+/datum/controller/subsystem/dynamic/proc/admin_panel()
 	var/list/dat = list()
 	dat += "Dynamic Mode <a href='byond://?_src_=vars;[HrefToken()];Vars=[FAST_REF(src)]'><b>VV</b></a> <a href='byond://?src=[FAST_REF(src)];[HrefToken()]'><b>Refresh</b></a><br/>"
 
@@ -691,11 +719,11 @@
 	for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
 		dat += "[FOURSPACES]<b>[rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
 
-	var/datum/browser/browser = new(usr, "gamemode_panel", "Game Mode Panel", 500, 500)
+	var/datum/browser/browser = new(usr, "dynamic_panel", "Dynamic Panel", 500, 500)
 	browser.set_content(dat.Join("<br/>"))
 	browser.open()
 
-/datum/game_mode/dynamic/Topic(href, href_list)
+/datum/controller/subsystem/dynamic/Topic(href, href_list)
 	if(!check_rights(R_FUN))
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has attempted to access the dynamic panel without authorization!")
 		log_admin("[usr.key] tried to use the dynamic panel without authorization.")

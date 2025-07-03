@@ -7,7 +7,7 @@
 	stat = DEAD
 	shift_to_open_context_menu = FALSE
 
-	var/ready = 0
+	var/ready = PLAYER_NOT_READY
 	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
 	var/mob/living/new_character	//for instant transfer once the round is set up
 	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
@@ -367,12 +367,10 @@
 		if(SSshuttle.emergency)
 			switch(SSshuttle.emergency.mode)
 				if(SHUTTLE_RECALL, SHUTTLE_IDLE)
-					SSticker.mode.make_antag_chance(humanc)
-					SSticker.mode.make_special_antag_chance(humanc)
+					SSdynamic.make_antag_chance(humanc)
 				if(SHUTTLE_CALL)
 					if(SSshuttle.emergency.timeLeft(1) > initial(SSshuttle.emergencyCallTime)*0.5)
-						SSticker.mode.make_antag_chance(humanc)
-						SSticker.mode.make_special_antag_chance(humanc)
+						SSdynamic.make_antag_chance(humanc)
 
 	if(CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(character.mind, character.client, TRUE)

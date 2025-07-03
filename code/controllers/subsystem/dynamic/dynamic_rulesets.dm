@@ -17,7 +17,7 @@
 	var/datum/role_preference/antagonist/role_preference = /datum/role_preference/antagonist/traitor
 	/// The antag datum assigned to a candidates mind on execution
 	var/datum/antagonist/antag_datum = /datum/antagonist/traitor
-	/// If the config flag 'protect_roles_from_antagonist' is TRUE, then these roles are excluded
+	/// If the config flag `protect_roles_from_antagonist` is set, these roles are excluded
 	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	/// The roles that can never have this ruleset applied to them regardless of the config
 	var/list/restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
@@ -26,21 +26,14 @@
 	/// A flag that determines how the ruleset is handled. (HIGH_IMPACT_RULESET, CANNOT_REPEAT, SHOULD_PROCESS_RULESET)
 	var/flags = NONE
 
-	/*
+	/**
 	 * Backend Variables
-	*/
+	**/
 
-	/// Reference to the dynamic gamemode
-	var/datum/game_mode/dynamic/dynamic
-	/// List of possible people for this ruleset to draft. Assigned in 'dynamic.dm' 'pick_roundstart_rulesets()'
+	/// List of possible mobs or minds for this ruleset to draft.
 	var/list/candidates = list()
-	/// A list of mobs chosen for this ruleset.
+	/// A list of mobs or minds chosen for this ruleset.
 	var/list/chosen_candidates = list()
-
-/datum/dynamic_ruleset/New(dynamic_mode)
-	SHOULD_NOT_OVERRIDE(TRUE)
-	dynamic = dynamic_mode
-	. = ..()
 
 /**
  * Set the amount of players to be drafted.
@@ -102,7 +95,7 @@
 	if(!length(candidates))
 		CRASH("[src] called select_player without any candidates!")
 
-	var/mob/selected_player = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/selected_player = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= selected_player
 
 	return selected_player

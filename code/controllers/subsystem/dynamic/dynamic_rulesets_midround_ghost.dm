@@ -13,7 +13,7 @@
 	var/use_spawn_locations = TRUE
 
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
-	candidates = dynamic.current_players[CURRENT_DEAD_PLAYERS] | dynamic.current_players[CURRENT_OBSERVERS]
+	candidates = SSdynamic.current_players[CURRENT_DEAD_PLAYERS] | SSdynamic.current_players[CURRENT_OBSERVERS]
 
 /datum/dynamic_ruleset/midround/ghost/trim_candidates()
 	for(var/mob/candidate in candidates)
@@ -48,7 +48,7 @@
 	if(!length(candidates))
 		CRASH("[src] called select_player without any candidates!")
 
-	var/mob/candidate = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/candidate = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= candidate
 
 	if(!isobserver(candidate))
@@ -320,7 +320,10 @@
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
 	player_mind.active = TRUE
 
-	var/mob/living/carbon/human/ninja_body = create_space_ninja(pick(spawn_locations))
+	var/mob/living/carbon/human/ninja_body = new(pick(spawn_locations))
+	ninja_body.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
+	ninja_body.name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
+	ninja_body.dna.update_dna_identity()
 	player_mind.transfer_to(ninja_body)
 
 	return ninja_body
@@ -467,39 +470,6 @@
 
 //////////////////////////////////////////////
 //                                          //
-//             PIRATES (MEDIUM)             //
-//                                          //
-//////////////////////////////////////////////
-
-/// This is a weird one.
-/// This ruleset doesn't actually spawn pirates, instead it triggers the pirate threat, hence the low points cost
-
-/datum/dynamic_ruleset/midround/ghost/pirates
-	name = "Space Pirates"
-	severity = DYNAMIC_MIDROUND_MEDIUM
-	antag_datum = /datum/antagonist/revenant
-	role_preference = /datum/role_preference/midround_ghost/space_pirate
-	points_cost = 40
-	weight = 6
-	use_spawn_locations = FALSE
-	flags = CANNOT_REPEAT
-
-/datum/dynamic_ruleset/midround/ghost/pirates/allowed()
-	if(!SSmapping.empty_space)
-		return FALSE
-	if(GLOB.pirates_spawned)
-		return FALSE
-	return TRUE
-
-/datum/dynamic_ruleset/midround/ghost/pirates/execute()
-	if(GLOB.pirates_spawned)
-		return DYNAMIC_EXECUTE_FAILURE
-
-	send_pirate_threat()
-	return DYNAMIC_EXECUTE_SUCCESS
-
-//////////////////////////////////////////////
-//                                          //
 //       SPIDER INFESTATION (MEDIUM)        //
 //                                          //
 //////////////////////////////////////////////
@@ -521,7 +491,7 @@
 	return /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
 
 /datum/dynamic_ruleset/midround/ghost/spiders/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(dynamic.roundstart_candidates) / 7)
+	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 7)
 
 /datum/dynamic_ruleset/midround/ghost/spiders/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
@@ -596,7 +566,9 @@
 /datum/dynamic_ruleset/midround/ghost/swarmer/execute(mob/applicant)
 	. = ..()
 	if(. == DYNAMIC_EXECUTE_SUCCESS && prob(announce_probability))
-		announce_swarmer()
+		var/swarmer_report = span_bigbold("[command_name()] High-Priority Update")
+		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station. We recommend immediate investigation, as something foreign may have infiltrated the station."
+		print_command_report(swarmer_report, announce=TRUE)
 
 /datum/dynamic_ruleset/midround/ghost/swarmer/get_spawn_locations()
 	spawn_locations = GLOB.xeno_spawn

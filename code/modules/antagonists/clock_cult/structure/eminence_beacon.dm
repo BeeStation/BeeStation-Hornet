@@ -9,7 +9,7 @@
 
 /obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	if(vote_active)
 		deltimer(vote_timer)

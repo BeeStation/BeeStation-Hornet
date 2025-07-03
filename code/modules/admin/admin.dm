@@ -232,11 +232,7 @@
 		return
 
 	var/dat
-	dat += "<a href='byond://?src=[REF(src)];[HrefToken()];c_mode=1'>Change Game Mode</a><br>"
-	if(GLOB.master_mode == "secret")
-		dat += "<A href='byond://?src=[REF(src)];[HrefToken()];f_secret=1'>(Force Secret Mode)</A><br>"
-	if(SSticker.IsRoundInProgress())
-		dat += "<a href='byond://?src=[REF(src)];[HrefToken()];gamemode_panel=1'>(Game Mode Panel)</a><BR>"
+	dat += "<a href='byond://?src=[REF(src)];[HrefToken()];dynamic_panel=1'>Dynamic Panel</a><br>"
 
 	dat += {"
 		<A href='byond://?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>

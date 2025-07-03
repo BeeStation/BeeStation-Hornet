@@ -303,8 +303,6 @@ GLOBAL_LIST(admin_antag_list)
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	on_removal()
 
-//gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
-
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc
 /datum/antagonist/proc/antag_panel_data()

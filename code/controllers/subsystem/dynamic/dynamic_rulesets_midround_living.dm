@@ -5,7 +5,7 @@
 	var/mob_type = /mob/living/carbon/human
 
 /datum/dynamic_ruleset/midround/living/get_candidates()
-	candidates = dynamic.current_players[CURRENT_LIVING_PLAYERS]
+	candidates = SSdynamic.current_players[CURRENT_LIVING_PLAYERS]
 
 /datum/dynamic_ruleset/midround/living/trim_candidates()
 	. = ..()
@@ -48,8 +48,8 @@
 	)
 
 	if(!length(chosen_candidates))
-		message_admins("DYNAMIC: [previous_chosen_candidates] players were selected for [src] but none of them wanted to play it.")
-		log_dynamic("NOT ALLOWED: Not enough players volunteered for the [src] ruleset - [length(chosen_candidates)] out of [drafted_players_amount].")
+		message_admins("DYNAMIC: [previous_chosen_candidates] players were selected for [src], but none of them wanted to play it.")
+		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] players were selected for [src], but none of them wanted to play it.")
 		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 	for(var/mob/chosen_candidate in chosen_candidates)
@@ -151,3 +151,9 @@
 	for(var/mob/chosen_candidate in chosen_candidates)
 		var/mob/living/carbon/human/human_target = chosen_candidate
 		human_target.gain_trauma(/datum/brain_trauma/special/obsessed)
+
+		if(!human_target.has_trauma_type(/datum/brain_trauma/special/obsessed))
+			// hope you don't ever have more than one drafted player, lul
+			// also, i can't really think of a better way to do this so... lets just hope you weren't a traitor before!
+			human_target.mind.special_role = null
+			return DYNAMIC_EXECUTE_FAILURE

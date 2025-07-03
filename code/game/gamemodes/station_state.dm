@@ -1,3 +1,5 @@
+GLOBAL_DATUM(start_state, /datum/station_state)
+
 /datum/station_state
 	var/floor = 0
 	var/wall = 0

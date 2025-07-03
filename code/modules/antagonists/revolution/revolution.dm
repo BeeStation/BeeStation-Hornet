@@ -344,18 +344,6 @@
 	else if (check_heads_victory())
 		return STATION_VICTORY
 
-/// Mutates the ticker to report that the revs have won
-/datum/team/revolution/proc/round_result(finished)
-	if (finished == REVOLUTION_VICTORY)
-		SSticker.mode_result = "win - heads killed"
-		SSticker.news_report = REVS_WIN
-	else if (finished == STATION_VICTORY)
-		SSticker.mode_result = "loss - rev heads killed"
-		SSticker.news_report = REVS_LOSE
-	else
-		SSticker.mode_result = "minor win - station forced to be abandoned"
-		SSticker.news_report = STATION_EVACUATED
-
 /datum/team/revolution/roundend_report()
 	if(!members.len && !ex_headrevs.len)
 		return
@@ -447,9 +435,6 @@
 			heads_report += "<td><A href='byond://?priv_msg=[N.key]'>PM</A></td></tr>"
 	heads_report += "</table>"
 	return common_part + heads_report
-
-/datum/team/revolution/is_gamemode_hero()
-	return SSticker.mode.name == "revolution"
 
 /datum/objective/revolution
 	name = "revolution"

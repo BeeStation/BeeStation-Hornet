@@ -1358,7 +1358,7 @@
 
 /obj/item/toy/cog/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		. += span_warning("It's clearly a fake, how could anybody fall for this!")
 
 /*
@@ -1375,7 +1375,7 @@
 
 /obj/item/toy/replica_fabricator/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		. += span_warning("It's clearly a fake, how could anybody fall for this!")
 
 /*

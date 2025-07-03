@@ -148,7 +148,7 @@
 	if(R.emagged)
 		for(var/obj/item/I in emag_modules)
 			add_module(I, FALSE, FALSE)
-	if(is_servant_of_ratvar(R) && !R.ratvar)	//It just works :^)
+	if(IS_SERVANT_OF_RATVAR(R) && !R.ratvar)	//It just works :^)
 		R.SetRatvar(TRUE, FALSE)
 	if(R.ratvar)
 		for(var/obj/item/I in ratvar_modules)

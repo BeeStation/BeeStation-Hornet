@@ -18,13 +18,6 @@
 
 #undef TRAITOR_DESC
 
-/datum/role_preference/antagonist/internal_affairs
-	name = "Internal Affairs Agent"
-	description = "A traitor who was actually hired by Nanotrasen to stage a Syndicate attack.\n" + TRAITOR_DESC_DETAILS
-	antag_datum = /datum/antagonist/traitor/internal_affairs
-	use_icon = /datum/role_preference/antagonist/traitor
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
 /datum/outfit/traitor
 	name = "Traitor (Preview only)"
 

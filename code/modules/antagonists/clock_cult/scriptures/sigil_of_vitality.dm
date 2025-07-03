@@ -28,7 +28,7 @@
 	looping = TRUE
 
 /obj/structure/destructible/clockwork/sigil/vitality/can_affect(mob/living/M)
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return TRUE
 	if(M.stat == DEAD)
 		return FALSE
@@ -44,7 +44,7 @@
 /obj/structure/destructible/clockwork/sigil/vitality/apply_effects(mob/living/M)
 	if(!..())
 		return FALSE
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		if(M.stat == DEAD)
 			var/damage_healed = 20 + ((M.maxHealth - M.health) * 0.6)
 			if(GLOB.clockcult_vitality >= damage_healed)
