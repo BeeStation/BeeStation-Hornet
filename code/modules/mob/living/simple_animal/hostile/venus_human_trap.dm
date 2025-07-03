@@ -137,6 +137,11 @@
 	var/playable_plant = TRUE
 	var/withering = FALSE
 	var/retreating = FALSE
+	var/last_attack_time = 0
+	var/attack_cooldown = 1 SECONDS // This makes it  actually respect cooldowns when attacking objectives under vines, otherwise they'd attack 40 times per second
+	var/last_manual_pull_time = 0
+	var/manual_pull_cooldown = 2 SECONDS
+
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/venus_human_trap/Initialize(mapload)
@@ -180,26 +185,52 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/venus_human_trap/AttackingTarget()
-	. = ..()
-	if(isliving(target))
-		var/mob/living/L = target
-		if(L.stat != DEAD)
-			adjustHealth(-maxHealth * 0.050)
+    if (world.time < last_attack_time + attack_cooldown)
+        return
+
+    last_attack_time = world.time
+
+    if (istype(target, /obj/structure/spacevine))
+        var/mob/M_on_turf = locate(/mob) in get_turf(target)
+        if (M_on_turf)
+            target = M_on_turf
+
+    . = ..()
+
+    if (isliving(target))
+        var/mob/living/L = target
+        if (L.stat != DEAD)
+            adjustHealth(-maxHealth * 0.050)
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
 	for(var/datum/beam/B in vines)
 		if(B.target == the_target)
-			pull_vines()
+			if (world.time >= last_manual_pull_time + manual_pull_cooldown)
+				pull_vines()
+				last_manual_pull_time = world.time
 			ranged_cooldown = world.time + (ranged_cooldown_time * 0.5)
 			return
+
+	 // Prioritize mobs over spacevines
+	if (istype(the_target, /obj/structure/spacevine))
+		var/mob/M_on_turf = locate(/mob) in get_turf(the_target)
+		if (M_on_turf)
+			the_target = M_on_turf // Redirect target to the mob
+
+	// Prevent targeting spacevines directly if no mob is present
+	if(istype(the_target, /obj/structure/spacevine))
+		return
+
 	if(get_dist(src,the_target) > vine_grab_distance || vines.len == max_vines)
 		return
-	for(var/turf/T in getline(src,target))
+
+	for(var/turf/T in getline(src,the_target))
 		if (T.density)
 			return
 		for(var/obj/O in T)
 			if(O.density)
 				return
+
 
 	// Only create a new vine if the target is a mob or an object
 	if(ismob(the_target) || isobj(the_target))
@@ -211,7 +242,7 @@
 	if(iscarbon(L))
 		L.apply_damage(20, STAMINA, BODY_ZONE_CHEST)
 		L.Knockdown(3 SECONDS)
-		L?.pulledby.stop_pulling()
+		L.pulledby?.stop_pulling()
 		to_chat(L, span_alert("The vines knock you down"))
 	else if(iscyborg(L))
 		var/mob/living/silicon/robot/R = L
