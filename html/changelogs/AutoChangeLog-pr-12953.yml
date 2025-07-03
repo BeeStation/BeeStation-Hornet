@@ -1,0 +1,5 @@
+author: ClownMoff
+delete-after: true
+changes:
+  - rscadd: Added a missing fire alarm in RadStation Brig, in the processing room.
+  - rscdel: Removed an extra unnecesary fire alarm in MetaStation, in medbay.
