@@ -3455,6 +3455,12 @@
 "aRB" = (
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
+"aRF" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "aRI" = (
 /obj/machinery/light{
 	dir = 1
@@ -8319,6 +8325,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
+"cvX" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/landmark/start/assistant,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/bar)
 "cwa" = (
 /obj/structure/cable/white{
 	icon_state = "4-8"
@@ -60269,9 +60289,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-08"
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "tLk" = (
@@ -65099,7 +65117,9 @@
 /area/space/nearstation)
 "voe" = (
 /obj/effect/spawner/randomvend/cola,
-/obj/machinery/camera/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "vou" = (
@@ -70856,11 +70876,6 @@
 "xlq" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/digital_clock/directional/south,
-/obj/structure/railing/perspective/wood/corner{
-	dir = 4;
-	pixel_y = -20
-	},
-/obj/machinery/light,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "xlF" = (
@@ -108998,8 +109013,8 @@ skf
 dSG
 kNg
 oBk
-pVI
-lix
+aRF
+cvX
 oKh
 fhO
 jzC
