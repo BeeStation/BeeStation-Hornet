@@ -196,6 +196,7 @@
 	icon_state = "fedora"
 	dog_fashion = /datum/dog_fashion/head/noir
 	aura_icon_on = "fedora_aura"
+	aura_icon_off = "fedora"
 
 //Mime
 /obj/item/clothing/head/beret
