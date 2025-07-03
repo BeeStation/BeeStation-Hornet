@@ -1,0 +1,331 @@
+2025-03-02:
+  PowerfulBacon:
+  - tweak: Altered the game preference menu to hide less important settings and dangerous
+      settings by default.
+  - tweak: Changes ghost ears, ghost whispers and ghost emotes to be false by default
+      to prevent players being spammed in the chat by default.
+2025-03-04:
+  PowerfulBacon:
+  - bugfix: Fixes mobs being able to swap with you while you are in combat mode
+  - bugfix: Fixes an issue where ctrl-click wouldn't stop pulling items while in combat
+      mode.
+  Tsar-Salat:
+  - bugfix: zombie tumors work again
+  - code_imp: tgui'd VV dropdown organ manipulator
+  mrmanlikesbt:
+  - bugfix: fixed abductor consoles
+  - code_imp: some code cleanup on abductors
+2025-03-05:
+  marshmellow105, azarak, gandalf2k15, tristrian:
+  - rscadd: a sound and animation for throwing things
+2025-03-06:
+  Gilgaxx:
+  - tweak: TGUIfies Adminhelp and Mentorhelp
+  PositiveEntropy, AxieTheAxolotl, Ebin-Halcyon, Imaginos16:
+  - rscadd: New Syndicate uniforms
+  PowerfulBacon:
+  - refactor: Refactors multi-z to allow for partial z-levels.
+  Rukofamicom:
+  - balance: Quirks no longer require balancing of good and bad. All characters are
+      now able to choose three positive quirks, even if they take no negative quirks.
+      Nothing increases or decreases this amount, and negative quirks exist only for
+      those who wish to actually interact with them as part of their character.
+  - tweak: Drunken Resilience may no longer be combined with Light Drinker, get to
+      chugging if you want that whiskey to numb the pain.
+  - tweak: Alcohol tolerance, light drinker, plushie lover, musician and spiritual
+      have all been moved to neutral traits
+  XeonMations, MrMelbert, JohnFulpWillard, SuperNovaa41, GPeckman, Ben10Omintrix:
+  - balance: You can now tip over borgs with alt clicking them with non-help intent!
+      (Will be changed to combat mode on + right click once combat mode is merged)
+  - rscadd: Tippable component. Admins can now add this component to make you able
+      to be tipped over.
+  - refactor: Bots and cows now use the tippable component instead of snowflake code.
+  wikimody:
+  - bugfix: Welding a damaged wall now heals it's values rather than only it's appearance
+  - bugfix: Rclicking untiled floors no longer reinforces them, as it overrode the
+      behavior of Rclicking with iron sheets to build girders
+2025-03-07:
+  BarteG44:
+  - bugfix: fixed mjolnir dropping onto the ground when summoned with a spell
+  therealdoooc213, Kryonism, Tastyfish:
+  - refactor: Dogs are now basic mobs.
+  - code_imp: Adds framework for future basic mob pets
+  - refactor: Syndicate sentience potions now use the simple_access component
+  - bugfix: basic mobs can now have sentience potions and mind transferance potions
+      used on them
+2025-03-08:
+  itsmeow, JohnFulpWillard, S34NW:
+  - code_imp: HREFs will now use byond:// links, improving 516 compatibility
+  mrmanlikesbt:
+  - bugfix: fixed Void Phase heretic ability
+  rkz, Ryll/Shaps, necromanceranne, Rohesie, silicons, Timberpoes, TaeruAlethea, bobbahbrown, Ghommie:
+  - refactor: refactored riding onto a centralized element/component system.
+  - bugfix: Mobs without MOBILITY_MOVE can no longer move by users trying to ride
+      them around.
+  - bugfix: riders will now turn with their vehicle (notable piggybacking fix)
+  - tweak: ridden vehicles now check incapacitation traits instead of number of hands
+  - tweak: ridden vehicles now pass the same stuff as tables
+2025-03-09:
+  PowerfulBacon:
+  - balance: You can no longer pull mobs that are in the process of entering a vent.
+  Rukofamicom:
+  - bugfix: Taeclowndo shoes now work as expected again. Clown antagonists can use
+      them without being clumsy, and assassination target clowns can use them without
+      taking the shoes off and on again
+  itsmeow, Aylong, Absolucy:
+  - code_imp: Added support for BYOND 516
+  - code_imp: Replaced instances of variables named caller
+  - bugfix: Fixed plane master relay offsets on 516
+  - rscadd: Added support for 516 ByondStorage to the TGUI Panel
+  - tweak: Added support for Chromium's CSS quirks
+  - rscadd: Added OOC -> Enable TGUI Devtools verb for Webview2
+  - tweak: Added dm_version to Smart Asset Cache to allow for DM-based cache invalidation
+  mrmanlikesbt, Thunder12345, tralezab, nikothedude, Rex9001, jlsnow301, AMyriad, afonamos2, LemonInTheDark:
+  - bugfix: fixed Malfunctioning AI Info not showing up
+  - refactor: separated Malf AI and traitor datums
+  - rscdel: removed 'Malfunction Modules' verb and replaced it with a button in the
+      top left of your screen
+  - rscadd: added 5 new malfunction modules, 'Percussive intercom Interference', 'Targeted
+      Safeties Override', 'Rolling Servos', 'Remote vendor tilting', and 'Voice Changer'
+  - rscdel: removed 'disable emergency lighting' malfunction module
+  - tweak: hacking APCs in a head of staff's office gives twice the points now.
+  - rscadd: added roundstart Malfunctioning AI
+  - config: removes the config setting 'malf_ai_min_pop'. change the min_players value
+      in dynamic.json
+2025-03-10:
+  Rukofamicom:
+  - balance: EMPs are now significantly less lethal to players with cybernetic implants,
+      organs and limbs including IPCs. Most cybernetics have a maximum of a 30% chance
+      to be affected by an EMP now, but it will be rolled separately for each limb/organ/implant
+      so that the more you have the more likely you are to be affected in some way.
+      This means IPCs will still be relatively weak to EMP, but crew can upgrade in
+      moderation without fear of an EMP hitting them too hard.
+  - balance: Ion rifles and carbines have lost their AoE effect on the projectiles
+      and now require a direct hit to trigger an EMP
+  - tweak: Ion rifles have had their firing rate reduced from 2.5 shots per second
+      to 1.5 shots per second
+  - tweak: Ion rifles have had their capacity increased from 10 shots with a full
+      charge to 15
+  - tweak: Ion carbines are now fully automatic at 2.5 shots per second (this is the
+      same fire rate they already had)
+  - tweak: Ion carbines have a new capacity of 24, up from 10
+  - tweak: Ion carbines no longer fit into bags
+  ? Ryll-Ryll, uomo91, ShizCalev, GPeckman, necromanceranne, MrMelbert, optimumtact,
+    carlarctg, Ghommie, GuillaumePrata, XeonMations
+  : - rscadd: 'Added tackling, you can now tackle people to the floor with special
+        gloves:'
+    - rscadd: Added the enhanced retrieval gloves to the game, available at the security
+        vendor.
+    - rscadd: Added guerilla gloves to the game. You can order them at cargo.
+    - rscadd: Added makeshift guerilla gloves. You can make them with a pair of fingerless
+        gloves and duct tape.
+    - balance: People with wings can tackle people better than people without wings.
+        This includes moths.
+    - balance: Moths with burnt wings or without wings will be worse off tackling
+        people.
+    - balance: Anyone with a lizard tail that is wagging it will be able to better
+        defend against tackles.
+    - balance: Lizards without a tail will be worse at defending against tackles.
+    - balance: Fly people have a higher chance of breaking their bodies after splatting
+        themselves into a window/wall
+2025-03-11:
+  Bokkiewokkie:
+  - bugfix: Fixed a vine issue
+  PowerfulBacon, RKz, Gilgax, dwasint, Thalpy, gorock, mothblocks:
+  - rscdel: Removes recipes from the chem dispenser.
+  - rscadd: Adds a new recipe lookup screen to the chem dispenser, which shows the
+      user unlocked recipes.
+  RDS88-beeman:
+  - rscadd: IPC mutation toxin, again!
+  Rukofamicom:
+  - bugfix: Quirks should no longer randomly reset with a false error message!
+2025-03-12:
+  BriggsIDP:
+  - tweak: Delta cargo door codes to allow miners entry
+  Marshmellow105:
+  - tweak: Overhauls the fland whiteship to be a restaurant shuttle
+  PowerfulBacon:
+  - tweak: Reduces the mail spawn rate, but expands the mail item pools to include
+      more items.
+  - bugfix: Mail with multiple items in will now open correctly.
+  - tweak: Added a lot of rules on how random characters can generate, resulting in
+      more normal looking random characters.
+  SunShine214:
+  - rscadd: Added virology, genetics, and nanite scanners as new ghost scanners.
+  - tweak: Improved the genetics sequencer to be more visually pleasing as well as
+      more in-line with other scanner outputs.
+  - refactor: Refactored related scan procs to no longer require the items related
+      to them
+  TheSmallBlue, MarioWizard119, stylemistake ported by Hardly:
+  - tweak: Makes cult chat look more distinct from warnings
+  - tweak: Makes dark chat theme's command chat gold to keep it consistent with the
+      light theme's
+  - tweak: Deadsay is now pink on the dark chat theme
+  - admin: Better colors for some of admin logs and says
+  - tweak: Service is easier on the eyes for the dark chat theme.
+  XeonMations, itseasytosee, vinylspiders, MrMelbert, SmArtKar, optimumtact, SyncIt21:
+  - rscadd: Added leaning to the game. You can now lean by dragging your character
+      onto various things.
+  mrmanlikesbt:
+  - rscdel: exploration missions no longer create a central command announcement when
+      failed
+  - tweak: cult actions are at the top of the screen now like all other actions
+  - tweak: cult runes are now created by interacting with the dagger in-hand
+  - tweak: switched the cult rune creation to tgui
+  rkz, AnturK, Ghommie:
+  - rscadd: You can now become patron of your favorite painting by buying sponsorship
+      from Nanotrasen Trust Foundation.
+  - rscadd: Painter's palettes are now available at library vendor.
+  - rscadd: Can use strokes in paintings now
+  - rscadd: Adds a eye-dropper-like right-click function to the painting canvas UI.
+      Right-Click a pixel on the canvas while holding a painting tool to have it copy
+      its color.
+  - rscadd: Also adds a right-click function to the color palette at the bottom of
+      the UI to allow users to set its colors without having to alternate between
+      the game window and the UI.
+  - rscadd: A tooltip has been added near the top-left corner of the same UI to let
+      players know of these features.
+  - rscadd: The Canvas UI now shows a grid while the user is painting.
+  - admin: adds admin menu for seeing all current paintings
+  therealdoooc213, MTandi:
+  - tweak: You now remove tanks from tank dispensers with left and right click (Left
+      click is plasma, right is oxygen)
+  ? thunder12345, rex9001, kaylexis, Zargoar, Chimpston, atlasle, aBlimpfox, riggleprime,
+    Constellado, vekter, DATA_, Jacquerel
+  : - rscadd: new barsigns
+2025-03-14:
+  Therealdoooc213:
+  - spellcheck: Fixes the anomaly core bounty names.
+  XeonMations:
+  - bugfix: You can no longer change the alert when the alert is higher than red alert.
+  - rscadd: Added Yellow alert, used for engineering emergencies.
+  - rscadd: Added Cyan alert, used for medical emergencies.
+  - rscadd: And a couple more station alerts, that are not able to be activated manually
+      as a player, to the game.
+2025-03-15:
+  Gilgax:
+  - bugfix: You can throw people again!
+  - balance: Nanite chain detonation is now based on nanite volume percentage, not
+      total nanite count (you can't maxcap people anymore with nanites).
+  - tweak: Debug outfit doesn't click endlessly anymore
+  Tsar-Salat:
+  - code_imp: removed typepath defines for mutations and status effects
+  - bugfix: reverted undocumented change preventing lizards from having firebreath
+      gene, and oozelings from having acidhands gene
+  - rscdel: removed necropolis code added 8 years ago but never used
+  therealdoooc, JohnFulpWillard, Comxy:
+  - refactor: Refactors gondolas into basic mobs
+2025-03-16:
+  Gilgax:
+  - tweak: Crew transfer shuttle is no longer mandatory at the 3 hour mark.
+  St0rmC4st3r:
+  - rscadd: You can now lobotomise monkeys and humanised monkeys to get rid of their
+      behaviour.
+  - tweak: AI controllers are now transferrable by removing/implanting the brain or
+      head.
+2025-03-17:
+  rkz, magatsuchi, JohnFulpWillard, GuillaumePrata, Vishenka0704, mothblocks, MrMelbert:
+  - refactor: refactored storage component to be datumized
+  - tweak: tweaked overall weight of items so all the outfits fit again. TELL ME IF
+      IT IS A SIGNIFICANT DEPARTURE FROM BEFORE, it should be about the same. Most
+      of them were relating to ERT.
+  - balance: increased the slots of ERT/Abductor bags because trying to fit all those
+      items that featurecoders like to put in them was causing errors during outfit
+      init.
+  - balance: tweaks trashbag interaction to remove cheese, but keep balance in new
+      system
+  - tweak: decreased storage notification spam for ore bags
+  - rscadd: adds storage mass transferring to griddles
+2025-03-18:
+  Rukofamicom:
+  - tweak: Colorful reagents now have 50x color intensity in reagent containers. This
+      means you can use crayon powder to dye your ugly brown medicine into a bright
+      cherry red.
+  Rukofamicom, Evildragonfiend:
+  - bugfix: Fixed undocumented changes to revenants. They can now phase shift and
+      teleport again, and their malfunction ability properly triggers EMPs again.
+      Runechat displays when using telepathy again
+  - tweak: Revenants can now teleport to specific locations on the station instead
+      of just back to the station from off of the station. This ability may be used
+      even if they are already on the station
+  - tweak: Malfunction now affects APCs and SMES, and when successfully emagging an
+      object it will show purple sparkles.
+  - tweak: Revenant telepathy works even if the person it's being used on has protection
+      from other revenant magic
+2025-03-19:
+  Gilgax:
+  - tweak: Paper doesn't move around during mapload
+  RDS88-beeman:
+  - rscadd: Threw a few new screens onto IPCs. You can now use about 20 percent of
+      the greek alphabet, or mimic a specific anomalous computer.
+  Therealdoooc213:
+  - balance: securitrons only do 60 stun damage now
+  - bugfix: replica pods are no longer mentioned in the botanists job description
+  wikimody:
+  - bugfix: Took away shield generators ability to stay alive through pure spite despite
+      having negative health (and doubled their health to compensate)
+2025-03-23:
+  St0rmC4st3r:
+  - bugfix: Rolling paper packs now have rolling paper again.
+2025-03-24:
+  ClownMoff, Reds88:
+  - rscadd: Added vials, small potions and potions,  glass bottles resprites that
+      can be printed in the autolathe
+  - tweak: Bottles now break when thrown, as they are made out of glass
+  - imageadd: Resprited the xenobio potions
+  - imageadd: Resprited the potion of flight icons
+  Tsar-Salat:
+  - bugfix: fixed void cloak storage
+  - bugfix: removed storage from several things that weren't supposed to have it
+  rkz, temporaloroboros, Rohesie, ATH1909, NotRanged:
+  - code_imp: moves life() onto delta_time. There should not be a significant difference
+      apparent to the player.
+  - refactor: refactors disease code
+2025-03-25:
+  Fresh839:
+  - rscdel: Removes the who-verb
+  Varo10, Rukofamicom:
+  - bugfix: Fixed the errors with potions - they are now possible to create at autolathes
+      as intended, and also fixed some oversights with the liquid being displayed
+      improperly.
+2025-03-27:
+  itsmeow:
+  - bugfix: Fixed TGUI assets and icons sometimes not showing up until you refreshed
+      the page on 516 clients
+  rkz:
+  - balance: wearing plasmaman helmets are now hazardous to oxygen breathers! Thankfully
+      the helmets are smart enough to stop you from killing yourself!
+2025-03-28:
+  DeltaFire15:
+  - bugfix: Manually triggering a lightning discharge via tesla coils now respects
+      current grid load when deciding zap power.
+2025-03-29:
+  Gilgax:
+  - tweak: Spruced up Metastation's brig a bit (Decals, missing furnishing/cameras,
+      brought back the hidden bathroom maints room, etc.)
+  PowerfulBacon:
+  - bugfix: Fixes a record console security exploit.
+  - bugfix: Fixes users being unable to enter numbers other than 18 and 85 into the
+      age section.
+  Rukofamicom:
+  - tweak: The auto-transfer vote system no longer factors in players who are sitting
+      in the lobby when calculating the required votes to leave.
+  St0rmC4st3r:
+  - bugfix: Fixed botanist player hours requiring civilian exp despite saying it requires
+      service exp.
+  - bugfix: GPS devices once again start on by default.
+  mrmanlikesbt:
+  - tweak: you must be on the same tile as a borg to hear its radio now
+  rkz, Mothblocks, MrMelbert:
+  - code_imp: converted transformation typepath into a component
+  - refactor: refactors most of the cleaving saw's snowflake code into its status_effect
+  - tweak: the advanced cautery now starts... as a cautery, not the drill.
+  wikimody:
+  - tweak: Key card device now gives you 5 seconds instead of 2 to authorise
+  - bugfix: Alert levels above red no longer block activating BSA and emergency main
+      access
+2025-03-31:
+  Tsar-Salat:
+  - bugfix: fixes transforming bugs
+  axietheaxolotl, ported by hardly:
+  - imageadd: improves clown appearance

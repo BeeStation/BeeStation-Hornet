@@ -59,6 +59,8 @@
 				data_entry["job"] = player.job
 			else
 				data_entry["job"] = initial(player.name)
+		else if(istype(player, /mob/dead/new_player/pre_auth))
+			data_entry["job"] = "PREAUTH"
 		else if(isnewplayer(player))
 			data_entry["job"] = "New Player"
 		else if(isobserver(player))
@@ -80,6 +82,8 @@
 		if(P)
 			data_entry["previous_names"] = P.played_names
 			search_data += P.played_names.Join(" ")
+		if(player.client?.key_is_external && istype(player.client?.external_method))
+			search_data += " [player.client.external_method.format_display_name(player.client.external_display_name)]"
 		if(length(search_text) && !findtext(search_data, search_text)) // skip this player, not included in query
 			continue
 		data_entry["last_ip"] = player.lastKnownIP
@@ -103,17 +107,23 @@
 		data_entry["log_client"] = list()
 		// do not convert to ?., since that makes null while TGUI expects undefined
 		if(player.client)
+			if(player.client.key_is_external && istype(player.client.external_method))
+				data_entry["external_method_id"] = player.client.external_method::id
+				data_entry["external_method_name"] = player.client.external_method::name
+				data_entry["external_display_name"] = player.client.external_display_name
+				data_entry["formatted_external_display_name"] = player.client.external_method.format_display_name(player.client.external_display_name)
 			if(CONFIG_GET(flag/use_exp_tracking) && player.client.prefs)
 				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
 			if(ckey == selected_ckey)
-				for(var/log_type in player.client.player_details.logging)
-					var/list/log_type_data = list()
-					var/list/log = player.client.player_details.logging[log_type]
-					for(var/entry in log)
-						log_type_data[entry] += html_decode(log[entry])
-					data_entry["log_client"][log_type] = log_type_data
+				if(player.client.player_details)
+					for(var/log_type in player.client.player_details.logging)
+						var/list/log_type_data = list()
+						var/list/log = player.client.player_details.logging[log_type]
+						for(var/entry in log)
+							log_type_data[entry] += html_decode(log[entry])
+						data_entry["log_client"][log_type] = log_type_data
 				data_entry["metacurrency_balance"] = player.client.get_metabalance_unreliable()
 				data_entry["antag_tokens"] = player.client.get_antag_token_count_unreliable()
 				data_entry["register_date"] = player.client.account_join_date
@@ -145,7 +155,7 @@
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
 	data["search_text"] = search_text
-	data["update_interval"] = update_interval
+	data["update_interval"] = isnum_safe(update_interval) ? update_interval : 5
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)

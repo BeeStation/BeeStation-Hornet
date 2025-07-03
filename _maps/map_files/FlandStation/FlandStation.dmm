@@ -348,6 +348,17 @@
 /obj/machinery/smartfridge,
 /turf/open/floor/iron,
 /area/hydroponics)
+"aej" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/cable,
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "aep" = (
 /obj/structure/lattice,
 /turf/open/space,
@@ -3657,23 +3668,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"aRc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 1
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "aRe" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -8050,6 +8044,23 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"cbv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "cbS" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -16865,17 +16876,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"exk" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/red/line,
-/obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "exq" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -20349,6 +20349,14 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"fnw" = (
+/obj/machinery/camera/directional/south{
+	c_tag = "Engineering - Secure Storage";
+	name = "engineering camera"
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron/dark,
+/area/engine/engine_room)
 "fnz" = (
 /obj/machinery/light{
 	dir = 4
@@ -25114,6 +25122,25 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"gum" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "guq" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -32727,6 +32754,14 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
+"irV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/detective,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "irW" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
@@ -34657,17 +34692,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
-"iPu" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line,
-/obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "iPv" = (
 /turf/open/floor/plating{
 	broken = 1
@@ -42276,14 +42300,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/science/research)
-"kNy" = (
-/obj/machinery/camera/directional/south{
-	c_tag = "Engineering - Secure Storage";
-	name = "engineering camera"
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "kNG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -52300,10 +52316,6 @@
 /obj/machinery/power/shieldwallgen,
 /turf/open/floor/engine,
 /area/maintenance/department/engine)
-"nrG" = (
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/iron/dark,
-/area/engine/engine_room)
 "nrL" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
@@ -52473,6 +52485,20 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/engine/atmos)
+"ntD" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/cable,
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/camera/directional/west{
+	c_tag = "Supermatter Chamber"
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "ntH" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -54445,14 +54471,6 @@
 "nVS" = (
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
-"nWa" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/closet/secure_closet/detective,
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "nWo" = (
 /obj/machinery/telecomms/server/presets/exploration,
 /obj/effect/turf_decal/stripes/end{
@@ -62003,20 +62021,6 @@
 	},
 /turf/open/floor/iron/ridged,
 /area/crew_quarters/toilet/auxiliary)
-"pWR" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line,
-/obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
-/obj/machinery/camera/directional/west{
-	c_tag = "Supermatter Chamber"
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "pWT" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
@@ -76993,6 +76997,10 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
+"tMc" = (
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/iron/dark,
+/area/engine/engine_room)
 "tMf" = (
 /obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -79572,13 +79580,6 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/carpet,
 /area/chapel/main)
-"uuA" = (
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 9
-	},
-/obj/machinery/lapvend,
-/turf/open/floor/iron/white,
-/area/science/lobby)
 "uuM" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -84396,25 +84397,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
-"vwL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 1
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "vwP" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
@@ -84627,6 +84609,17 @@
 /obj/structure/chair/stool/directional/west,
 /turf/open/floor/iron,
 /area/vacant_room/commissary/commissary1)
+"vzd" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/cable,
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "vzm" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -128560,7 +128553,7 @@ iSJ
 xgk
 iOM
 njq
-nWa
+irV
 hhg
 iSJ
 ery
@@ -132174,7 +132167,7 @@ usO
 okI
 eJJ
 wvE
-uuA
+vJN
 wQP
 hmf
 yiN
@@ -145798,8 +145791,8 @@ kXP
 vro
 mFf
 wBq
-nrG
-kNy
+tMc
+fnw
 wWM
 hNB
 kvw
@@ -146813,11 +146806,11 @@ xvC
 iro
 uxj
 vMJ
-pWR
+ntD
 qmU
 wNG
 aUg
-aRc
+cbv
 edg
 uxj
 ekl
@@ -147070,11 +147063,11 @@ xvC
 iro
 uxj
 vMJ
-iPu
+vzd
 txe
 apy
 mDD
-aRc
+cbv
 edg
 uxj
 rJD
@@ -147327,11 +147320,11 @@ lMA
 hXT
 uxj
 xht
-exk
+aej
 bfG
 cKc
 cvq
-vwL
+gum
 jlC
 uxj
 ekA

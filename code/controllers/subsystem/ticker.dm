@@ -40,6 +40,7 @@ SUBSYSTEM_DEF(ticker)
 
 	var/totalPlayers = 0					//used for pregame stats on statpanel
 	var/totalPlayersReady = 0				//used for pregame stats on statpanel
+	var/totalPlayersPreAuth = 0				//used for pregame stats on statpanel
 
 	var/queue_delay = 0
 	var/list/queued_players = list()		//used for join queues when the server exceeds the hard population cap
@@ -155,7 +156,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			if(Master.initializations_finished_with_no_players_logged_in)
 				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
-			for(var/client/C in GLOB.clients)
+			for(var/client/C in GLOB.clients_unsafe)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, span_boldnotice("Welcome to [station_name()]!"))
 			send2chat(new /datum/tgs_message_content("New round starting on [SSmapping.config.map_name]!"), CONFIG_GET(string/chat_announce_new_game))
@@ -169,7 +170,11 @@ SUBSYSTEM_DEF(ticker)
 				timeLeft = max(0,start_at - world.time)
 			totalPlayers = 0
 			totalPlayersReady = 0
-			for(var/mob/dead/new_player/player in GLOB.player_list)
+			totalPlayersPreAuth = 0
+			for(var/mob/dead/new_player/pre_auth/player in GLOB.player_list)
+				++totalPlayersPreAuth
+				++totalPlayers
+			for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 				++totalPlayers
 				if(player.ready == PLAYER_READY_TO_PLAY)
 					++totalPlayersReady
@@ -422,7 +427,7 @@ SUBSYSTEM_DEF(ticker)
 				M.gib(TRUE)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
 			player.create_character(FALSE)
@@ -431,7 +436,7 @@ SUBSYSTEM_DEF(ticker)
 		CHECK_TICK
 
 /datum/controller/subsystem/ticker/proc/collect_minds()
-	for(var/mob/dead/new_player/P in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/P in GLOB.player_list)
 		if(P.new_character?.mind)
 			SSticker.minds += P.new_character.mind
 		CHECK_TICK
@@ -443,7 +448,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/spare_id_candidates = list()
 	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
 
-	for(var/mob/dead/new_player/N in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		var/datum/mind/mind = player?.mind
 		if(istype(player) && mind && mind.assigned_role)
@@ -469,7 +474,7 @@ SUBSYSTEM_DEF(ticker)
 		CHECK_TICK
 	if(length(spare_id_candidates))			//No captain, time to choose acting captain
 		if(!enforce_coc)
-			for(var/mob/dead/new_player/player in spare_id_candidates)
+			for(var/mob/dead/new_player/authenticated/player in spare_id_candidates)
 				SSjob.promote_to_captain(player, captainless)
 
 		else
@@ -479,7 +484,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
-	for(var/mob/dead/new_player/player in GLOB.mob_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.mob_list)
 		var/mob/living = player.transfer_character()
 		if(living)
 			qdel(player)
@@ -517,7 +522,7 @@ SUBSYSTEM_DEF(ticker)
 	var/hpc = CONFIG_GET(number/hard_popcap)
 	if(!hpc)
 		list_clear_nulls(queued_players)
-		for (var/mob/dead/new_player/NP in queued_players)
+		for (var/mob/dead/new_player/authenticated/NP in queued_players)
 			to_chat(NP, span_userdanger("The alive players limit has been released!<br><a href='byond://?src=[REF(NP)];late_join=override'>[html_encode(">>Join Game<<")]</a>"))
 			SEND_SOUND(NP, sound('sound/misc/notice1.ogg'))
 			NP.LateChoices()
@@ -526,7 +531,7 @@ SUBSYSTEM_DEF(ticker)
 		return
 
 	queue_delay++
-	var/mob/dead/new_player/next_in_line = queued_players[1]
+	var/mob/dead/new_player/authenticated/next_in_line = queued_players[1]
 
 	switch(queue_delay)
 		if(5) //every 5 ticks check if there is a slot available
@@ -586,6 +591,7 @@ SUBSYSTEM_DEF(ticker)
 
 	totalPlayers = SSticker.totalPlayers
 	totalPlayersReady = SSticker.totalPlayersReady
+	totalPlayersPreAuth = SSticker.totalPlayersPreAuth
 
 	queue_delay = SSticker.queue_delay
 	queued_players = SSticker.queued_players
@@ -671,10 +677,10 @@ SUBSYSTEM_DEF(ticker)
 
 //Everyone who wanted to be an observer gets made one now
 /datum/controller/subsystem/ticker/proc/create_observers()
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_OBSERVE && player.mind)
 			//Break chain since this has a sleep input in it
-			addtimer(CALLBACK(player, TYPE_PROC_REF(/mob/dead/new_player, make_me_an_observer)), 1)
+			addtimer(CALLBACK(player, TYPE_PROC_REF(/mob/dead/new_player/authenticated, make_me_an_observer)), 1)
 
 /datum/controller/subsystem/ticker/proc/load_mode()
 	var/mode = CONFIG_GET(string/master_mode)
@@ -689,7 +695,7 @@ SUBSYSTEM_DEF(ticker)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
-	for(var/thing in GLOB.clients)
+	for(var/thing in GLOB.clients_unsafe)
 		var/client/C = thing
 		if (!C)
 			continue

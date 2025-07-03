@@ -422,6 +422,9 @@
 		return CHATMESSAGE_CANNOT_HEAR
 	return ..()
 
+/mob/dead/new_player/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote, is_heard)
+	return CHATMESSAGE_CANNOT_HEAR
+
 /proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
 	if(!length(hearers))
 		return
