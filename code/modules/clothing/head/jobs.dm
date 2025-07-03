@@ -154,7 +154,7 @@
 		to_chat(user, "<span class='warning>Only a true detective can use the noir ability.</span>")
 		return
 	var/turf/T = get_turf(user)
-	if (istype(T.loc, /area/security/detectives_office))
+	if (istype(T.loc, /area/security/detectives_office) || istype(T.loc, /area/security/interrogation_room))
 		for(var/mob/living/carbon/human/H in T.loc)
 			ADD_TRAIT(H, TRAIT_NOIR, TRAIT_GENERIC)
 			H.add_client_colour(/datum/client_colour/monochrome)
@@ -162,15 +162,18 @@
 				to_chat(H, span_notice("The shadows overtake your office. They are in your realm now."))
 			else
 				to_chat(H, span_userdanger("The shadows overtake the detective's office. An omnious feeling takes over you"))
-	return
-		to_chat(user, ("<span class='warning'>You can not use this outside of your office.</span>"))
+	if(!istype(T.loc, /area/security/detectives_office))
+		to_chat(user, span_warning("You can not use this outside of your office."))
+		return
+
 
 /obj/item/clothing/head/fedora/det_hat/CtrlClick(mob/user)
 	..()
 	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
 		flip(user)
 
-/obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
+/obj/item/clothing/head/fedora/det_hat/flip(mob/user)
+	..()
 	if(!user.incapacitated() && adjustable == TRUE)
 		adjusted = !adjusted
 		if(adjusted)
@@ -187,7 +190,8 @@
 	icon_state = "fedora"
 	dog_fashion = /datum/dog_fashion/head/noir
 
-/obj/item/clothing/head/fedora/det_hat/noir/proc/flip(mob/user)
+/obj/item/clothing/head/fedora/det_hat/noir/flip(mob/user)
+	..()
 	if(!user.incapacitated() && adjustable == TRUE)
 		adjusted = !adjusted
 		if(adjusted)
