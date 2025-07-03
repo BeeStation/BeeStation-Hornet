@@ -54,3 +54,7 @@
       was disabled
   - bugfix: Fixed logins always erroneously determining that a user does not exist
       in the database.
+2025-07-03:
+  ClownMoff:
+  - rscadd: Added a missing fire alarm in RadStation Brig, in the processing room.
+  - rscdel: Removed an extra unnecesary fire alarm in MetaStation, in medbay.
