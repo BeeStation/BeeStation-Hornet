@@ -113,7 +113,6 @@
 	var/adjusted = FALSE
 	var/adjustable = TRUE
 	var/aura_icon_on = "detective_aura"
-	var/aura_icon_off = "detective"
 	dog_fashion = /datum/dog_fashion/head/detective
 	actions_types = list(/datum/action/item_action/noirmode)
 
@@ -186,7 +185,7 @@
 			worn_icon_state = aura_icon_on
 			to_chat(user, span_notice("You adjust your hat to look more intimidating."))
 		else
-			worn_icon_state = aura_icon_off
+			worn_icon_state = initial(worn_icon_state)
 			to_chat(user, span_notice("You return your hat to its original position."))
 		user.update_inv_head()
 
@@ -196,7 +195,6 @@
 	icon_state = "fedora"
 	dog_fashion = /datum/dog_fashion/head/noir
 	aura_icon_on = "fedora_aura"
-	aura_icon_off = "fedora"
 
 //Mime
 /obj/item/clothing/head/beret
