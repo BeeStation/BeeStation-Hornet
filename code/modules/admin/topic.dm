@@ -885,7 +885,7 @@
 		log_admin("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 		message_admins("[key_name(src.owner)] has sent [key_name(M)] back to the Lobby.")
 
-		var/mob/dead/new_player/NP = new()
+		var/mob/dead/new_player/authenticated/NP = new()
 		NP.ckey = M.ckey
 		qdel(M)
 
@@ -1578,7 +1578,7 @@
 	else if(href_list["showrelatedacc"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/client/C = locate(href_list["client"]) in GLOB.clients_unsafe
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
 			thing_to_check = C.related_accounts_cid

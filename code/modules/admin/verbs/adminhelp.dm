@@ -29,11 +29,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /client/proc/giveadminhelpverb()
 	if(!src)
 		return
-	src.add_verb(/client/verb/adminhelp)
+	src.add_verb(/client/proc/adminhelp)
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0
 
-/client/verb/adminhelp()
+AUTH_CLIENT_VERB(adminhelp)
 	set category = "Admin"
 	set name = "Adminhelp"
 	var/msg
@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		return
 
 	//handle muting and automuting
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(prefs && prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You cannot send adminhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg,MUTE_ADMINHELP))
@@ -170,7 +170,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	..()
 
 /datum/help_ticket/admin/TimeoutVerb()
-	initiator.remove_verb(/client/verb/adminhelp)
+	initiator.remove_verb(/client/proc/adminhelp)
 	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/admin/get_ticket_additional_data(mob/user, list/data)
@@ -245,7 +245,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	SSblackbox.record_feedback("tally", "ahelp_stats", increment, data)
 
 /// Resolve ticket with IC Issue message
-/datum/help_ticket/admin/proc/ICIssue(key_name = key_name_ticket(usr))
+/datum/help_ticket/admin/proc/ICIssue(ic_marker = usr)
 	if(state > TICKET_ACTIVE)
 		return
 
@@ -259,17 +259,13 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		For further resolution, you should pursue options that are in character, such as filing a report with security or a head of staff.<br />\
 		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.")
 
-	blackbox_feedback(1, "IC")
-	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] marked as IC by [key_name]</span>"
-	message_admins(msg)
-	log_admin_private(msg)
-	AddInteraction("red", "Marked as IC issue by [key_name]")
+	ticket_interaction("red", "marked as IC", ic_marker, blackbox_override="IC")
 	Resolve(silent = TRUE)
 
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] marked as IC by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] marked as IC by [istext(ic_marker) ? ic_marker : key_name(ic_marker, include_link = FALSE)]")
 
-/datum/help_ticket/admin/proc/MHelpThis(key_name = key_name_ticket(usr))
+/datum/help_ticket/admin/proc/MHelpThis(mhelp_marker = usr)
 	if(state > TICKET_ACTIVE)
 		return
 
@@ -281,17 +277,13 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		SEND_SOUND(initiator, sound(reply_sound))
 		resolve_message(status = "De-Escalated to Mentorhelp!", message = "This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.")
 
-	blackbox_feedback(1, "mhelp this")
-	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] transferred to mentorhelp by [key_name]</span>"
-	AddInteraction("red", "Transferred to mentorhelp by [key_name].")
+	ticket_interaction("red", "transferred to mentorhelp", mhelp_marker, blackbox_override="mhelp this")
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] transferred to mentorhelp by [istext(mhelp_marker) ? mhelp_marker : key_name(mhelp_marker, include_link = FALSE)]")
 	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_MHELP)
-		message_admins(src, span_danger("Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted."))
+		message_admins(span_danger("Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted."))
 		return
-	message_admins(msg)
-	log_admin_private(msg)
 	var/datum/help_ticket/mentor/ticket = new(initiator)
 	ticket.NewFrom(src)
 
@@ -318,28 +310,28 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		if("mhelp")
 			MHelpThis()
 
-/datum/help_ticket/admin/Claim(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/admin/Claim(silent = FALSE)
 	..()
 	if(!bwoink && !silent && !claimee)
 		sendadminhelp2ext("Ticket #[id] is being investigated by [key_name(usr, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Close(key_name = key_name_ticket(usr), silent = FALSE, hide_interaction = FALSE)
+/datum/help_ticket/admin/Close(closer = usr, silent = FALSE, hide_interaction = FALSE)
 	..()
 	if(!bwoink && !silent)
-		sendadminhelp2ext("Ticket #[id] closed by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] closed by [istext(closer) ? closer : key_name(closer, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/admin/Resolve(resolver = usr, silent = FALSE)
 	..()
 	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 5 SECONDS)
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] resolved by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] resolved by [istext(resolver) ? resolver : key_name(resolver, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Reject(key_name = key_name_ticket(usr), extra_text = ", and clearly state the names of anybody you are reporting")
+/datum/help_ticket/admin/Reject(rejecter = usr, extra_text = ", and clearly state the names of anybody you are reporting")
 	..()
 	if(initiator)
 		initiator.giveadminhelpverb()
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] rejected by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] rejected by [istext(rejecter) ? rejecter : key_name(rejecter, include_link = FALSE)]")
 
 /datum/help_ticket/admin/resolve_message(status = "Resolved", message = null, extratext = " If your ticket was a report, then the appropriate action has been taken where necessary.")
 	..()
