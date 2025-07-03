@@ -1,0 +1,409 @@
+2023-08-01:
+  Absolucy:
+  - bugfix: Fixed admins seeing LOOC message senders as themselves rather the actual
+      sender
+  AgentCitrus, kit-katz:
+  - rscadd: 'A visual upgrade for the supermatter: a displacement effect that worsens
+      with damage, particles, a new delamination animation, and a subtle distortion
+      effect left behind after a delamination'
+  Rukofamicom:
+  - bugfix: Revenants can no longer phase shift inside of dense objects! There was
+      a missing check which made this possible.
+  Tyranicranger4:
+  - admin: Adds logging for when people are crushed by an emagged recycler
+  XeonMations, Dakae:
+  - rscadd: Sentient monkey helmets, orderable from cargo
+  - refactor: TRAIT_MONKEYLIKE is now TRAIT_DISCOORDINATED
+2023-08-02:
+  PowerfulBacon:
+  - balance: Reworks peppersprays and replaces them with the peppercloud deployer.
+      This deploys a 3x3 cloud in front of the user which slows down anybody entering
+      it, and will provide the normal pepperspray effect if they do not have cloud
+      protection.
+  - balance: You now move slowly inside of clouds.
+  mystery3525:
+  - rscadd: Logs for medical records, better format for security records logging
+  - rscadd: Cooldown for biogenerator
+2023-08-03:
+  RKz, JJRCop, vuonojenmustaturska:
+  - code_imp: kills arbitrary stasis wrapper proc and turns it into a define. Scrubs
+      stasis from update_mobility. Eeks out a tiny bit of responsiveness compared
+      to before.
+  - tweak: stasis now supports multiple sources
+  itsmeow:
+  - bugfix: Fixed a runtime when using the spawn reagent containers verb.
+2023-08-04:
+  PowerfulBacon:
+  - rscdel: Removes the random artifact name 'bacon'.
+  Rukofamicom:
+  - tweak: Simplemobs can no longer walk through grilles like they don't exist.
+  itsmeow:
+  - bugfix: Coder OOC will now sort into the correct chat filters.
+2023-08-05:
+  Absolucy:
+  - bugfix: Fixed roundstart lighting not properly turning on.
+  - bugfix: Fix operating computer automatic linking only working if you built the
+      computer first, and the table/bed last.
+  - rscadd: Operating tables now display when examined if they're linked to a computer
+      or not (and if they are, which computer).
+  - tweak: Stasis beds now display WHICH operating computer they're linked to when
+      examined
+  BriggsIDP:
+  - tweak: Updated Meta medbay with feedback
+  - tweak: Updated Delta medbay with feedback
+  HowToLoLu:
+  - bugfix: 'Monkey Sentience Helmets now properly ghost players when subjected to:
+      mind transfers, death, and disconnection/ghosting. Note that if you do lose
+      connection you immediately lose control of the monkey.'
+  - tweak: Stasis Beds can now be rotated by using a wrench while no-one is buckled
+      to it and the maintenance panel is open.
+  - bugfix: Beds now properly rotate the mob buckled to them. No more waking up on
+      the wrong side of the bed.
+  PowerfulBacon:
+  - bugfix: Fixes some internal dynamic calculations, fixes dynamic simulations, fixes
+      default dynamic server config.
+  - bugfix: Fixes ethereal lighting and luminescent eyes.
+  RKz, LemonInTheDark:
+  - server: adds load testing macros, letting you simulate load, without the perils
+      of live sage.
+  itsmeow:
+  - tweak: The SM now has a max positive gas composition accumulation of 5% per tick.
+      This should reduce SM instability, but from testing it does not appear to fix
+      the notorious "SM delam bug".
+  - bugfix: The SM's power will not update when it is not supposed to.
+  - bugfix: Fixed double parsing of gas strings.
+2023-08-06:
+  CydiaLamiales:
+  - balance: Added a cooldown for dragging mobs into turfs with dense objects through
+      the alt-click menu
+  - admin: Added a new verb for toggling all lights on or off, found in the Secrets
+      panel
+  ike709:
+  - code_imp: Pill code no longer needlessly picks redpill lines unless the pill is
+      actually redpilled.
+  updooter:
+  - bugfix: fixed the reviver implant not working
+2023-08-07:
+  Absolucy & Tamumus:
+  - bugfix: Fix 'false' Observe targets that would blank your screen or crash you
+  CydiaLamiales:
+  - tweak: Made the air alarm set the lights to vacuum emergency blue mode whenever
+      they send out an alarm, rather than when only manually triggered
+  - bugfix: Fixed radial menus becoming transparent together with the user
+  Penwin0:
+  - bugfix: Control click grabs are now affected by blocking, as their normal counterparts
+      are.
+  PowerfulBacon:
+  - rscadd: Open objectives, objectives which are not tracked by win/lose but have
+      a numeric outcome.
+  - rscadd: Sabotage machinery objectives
+  - rscadd: Obtain and detonate explosive objective
+  - rscdel: Gimmick objective
+  - refactor: Refactors traitor objective item spawning to start in "stashes" rather
+      than in the backpack.
+  - balance: You can no longer get steal objectives for certain items when there is
+      no head to own them.
+  - code_imp: Improves objective code file organisation.
+  - bugfix: Pizza bombs and the syndicate lavaland base will now properly explode.
+  - balance: The hand teleporter can now lock onto slipspace wakes left behind by
+      bluespace, cult and magic teleportations.
+  - balance: Portals closed by the hand teleporter take 3 seconds to be dispeled.
+      Portals will have an animation upon expiring rather than instantly disappearing.
+  - bugfix: The hand teleporter will no longer open entry portals inside windows and
+      airlocks
+  - balance: Armour now stacks compoundly rather than additively. 2 sets of 50% armour
+      will result in a total armour rating of 75% rather than 100%.
+  - refactor: Refactors the code for armour penetration.
+  - balance: Armour now has a maximum of 75% protection when coming from combat sources
+      (Radsuits won't be capped at 75% protection).
+  - balance: When the amount of armour a player has exceeds 50, additional armour
+      will increase the armour however it will have a diminishing returns effect.
+      This maps [50, Infinity] -> [50, 75] in a way such that adding more armour is
+      always better for you and is guaranteed to result in an improved defense, but
+      having infinite armour will only give you a total protection rating of 75%.
+  itsmeow:
+  - code_imp: Optimized autoname camera init, saving 88ms init on MetaStation.
+  - code_imp: Reverted some verb optimizations, fixing verbs not getting added properly
+2023-08-08:
+  EvilDragonfiend:
+  - tweak: BB implant chat colour will be randomly chosen
+  Haliris:
+  - tweak: Changed and improved some strings used by traumas for forced speech to
+      make them more in line with RP standards.
+  PowerfulBacon:
+  - bugfix: Fixes some minor issues with the supermatter distortion effect.
+  - bugfix: Fixes the causality field not appearing due to being mispelt
+2023-08-09:
+  Absolucy:
+  - rscadd: Added a search bar to the morph stomach UI.
+  - rscadd: Morphs can now digest nutritious food to recover small amounts of health,
+      however this healing is capped - a morph can only recover up to 20% of its health
+      over the course of 2.5 minutes by digesting food.
+  - tweak: Being husked by morph digestion is now considered a burn husk, meaning
+      that synthflesh or rezadone can fix morph digestion victims.
+  HowToLoLu:
+  - bugfix: Dense objects can no longer be hidden under the floor, and will now produce
+      a runtime when attempted.
+2023-08-10:
+  Absolucy:
+  - bugfix: Hypnoflashes now properly work on sleeping targets again.
+  BriggsIDP:
+  - tweak: replaces meta & delta chem locker with gear locker
+  Dejaku51:
+  - bugfix: fixed wiremod USBs not working
+  JikkaJoestar:
+  - rscadd: added library computer, table, and stool
+  boombaklops:
+  - bugfix: edaggers are now sharp
+2023-08-11:
+  Bokkiewokkie:
+  - code_imp: changed how suit boxes apply slowdown
+  CydiaLamiales:
+  - bugfix: Fixes light switches that start turned off due to an empty department,
+      turning their lights on instantly and silently for the first time
+  - code_imp: Refactored the process for making un-staffed departments be dark at
+      roundstart
+  - code_imp: Slightly reduced the processing cost of flicking light switches
+  - code_imp: Removed leftover testing code for light switches
+  itsmeow:
+  - rscadd: Say-related keys can now be rebound (T, M, O, Y, U, etc).
+  - rscadd: Added TGUI Asay, Msay, and Dsay for admins and mentors. There is also
+      a preference for this.
+  - bugfix: Fixed TGUI Say not updating the typing indicator in the Me channel if
+      you are browsing your history, like in Say and Radio.
+  ? itsmeow, Mothblocks, Absolucy, Rukofamicom, Ghommie, JohnFulpWillard, Watermelon914,
+    PeterMorrison1, Y0SH1M4S73R, AnturK, GoldenAlpharex, Seris02, tralezab, AndrewL97,
+    MrMelbert, Tastyfish, LemonInTheDark, vinylspiders, kriskog, Couls, MrStonedOne,
+    jlsnow301, actioninja, Synclt21, KoJIT2009
+  : - refactor: Rewrote the entire preferences UI.
+    - refactor: Rewrote the entire preferences backend and serialization system to
+        reduce database usage, datumized the addition of preferences.
+    - server: Flattened some preference database schema stuff, migration is required.
+    - tweak: Loadouts now preview the items you equip on your mob, and will replace
+        existing items in the preview window to ensure they preview correctly.
+    - bugfix: Deadminned admins now retain their access to Donator loadout items.
+    - rscadd: You can now purchase multiple antag tokens from loadouts.
+    - rscadd: You can now bind up to 3 keybinds to one overall action.
+    - rscadd: You can now select specific preferences to be randomized on join rather
+        than globally randomizing your body. You can also make specific preferences
+        only randomize if you are an antagonist.
+    - tweak: PDA Theme can now be customized per-character.
+    - tweak: Failed job selection now defaults to "Return to lobby" instead of "Be
+        random job"
+    - tweak: TGUI Dropdowns now have improved UX experience, and exist outside of
+        the object they are within, instead existing above other UI elements. This
+        means they cannot cause windows to scroll by overflowing, for example.
+    - tweak: You can now select preferences to be randomized only when you are an
+        antagonist
+    - tweak: Per-character antagonist preferences can now be toggled globally, with
+        per-character prefs only affecting if it's set to off.
+2023-08-12:
+  Absolucy:
+  - bugfix: Fixed an improperly wired APC in the Medbay lobby on RadStation.
+  - tweak: Swapped the position of a plant and water cooler in the Medbay lobby on
+      RadStation, to allow for easier access to the APC.
+  PowerfulBacon:
+  - bugfix: Fixes space ninjas being missing from dynamic rulesets.
+  - balance: The capture ninja objective will now return captured mobs.
+  - bugfix: Fixes the round not rebooting properly.
+  - code_imp: Adds in a task library for asynchronous behaviour handling.
+  - balance: Following wakes with the hand teleporter takes 10 seconds, is visible
+      on the other side and only teleports the holder of the hand teleporter.
+2023-08-13:
+  Absolucy:
+  - bugfix: You can now properly place slime speed potions on tables, in lockers,
+      etc.
+  - tweak: Using a slime speed potion on something that has no slowdown in the first
+      place will no longer waste it.
+  - rscadd: Slime renaming potions will now offer better feedback as to why a rename
+      didn't occur.
+  - rscadd: Slime renaming potions now let you rename playerless, mindless mobs.
+  - tweak: Slime renaming potion prompts now use tgui input.
+  - tweak: Slime renaming potion prompts now time out after 2 minutes, so you can't
+      just deadlock the potion forever.
+  - tweak: Offering a slime speed potion to a player mob whose client is either disconnected
+      or AFK will just tell you to try again later.
+  EvilDragonfiend:
+  - tweak: mimic mob only takes self-damage when they do not mind instead of not-ckey
+  PowerfulBacon:
+  - bugfix: Fixes a runtime in mech building.
+  RKz, tralezab:
+  - code_imp: you can milk anything! Componentizes milking.
+  - code_imp: just kidding, only stuff that coders define as milkable.
+  itsmeow:
+  - code_imp: Optimized spawner and decals init, saving ~0.25sec init
+  - rscadd: Added a new preference for darkened flashes, which flash to black rather
+      than white.
+  - bugfix: Fixed fugitives being unable to spawn if more than 4 people signed up
+      for it.
+2023-08-14:
+  Antops12:
+  - tweak: designed science cargo shuttle
+  Bokkiewokkie:
+  - bugfix: Fixed VV menu not showing new turfs after deleting a turf
+  - bugfix: Fixed admins adding components not logging the object it was added to
+  boombaklops:
+  - balance: the edagger's attacks are now quieter
+  itsmeow:
+  - bugfix: Fixed build mode's map regenerator not working.
+  - bugfix: Fixed build mode's map regenerator not properly hiding undertile elements.
+  mystery3525:
+  - bugfix: Radstation AI Satellite no longer depowers 30 minutes into a shift.
+2023-08-15:
+  Penwin0:
+  - bugfix: Corg Janitor Closet camera is no longer floating
+  bluezorua:
+  - rscdel: Carp spawners in Corg Armoury, to prevent unintended antagonists from
+      spawning in there
+2023-08-16:
+  BriggsIDP:
+  - rscadd: Aux doc to Rad dorms
+  - tweak: Explo shuttle area in Rad
+  PowerfulBacon:
+  - balance: Mech movement speed is now proportional to player movement speed, increasing
+      their movement delay by 33%.
+  Tyranicranger4:
+  - balance: Abductors no longer have access to necrotic revival surgery
+  - code_imp: Added TRAIT_ABDUCTOR_SURGEON, seperate from the normal SURGEON trait
+      - to be used for Abductors.
+  - bugfix: Fixed a runtime in supermatter.dm
+2023-08-17:
+  PowerfulBacon:
+  - code_imp: Refactors multitool buffers to use a component, removing some hard-delete
+      potential.
+2023-08-18:
+  CydiaLamiales:
+  - rscadd: made examining the power fist show mols and pressure of the mounted tank
+  - bugfix: fixes the power fist not working
+  - bugfix: Fixed Infrared emitters not being alligned with their "lazers"
+  itsmeow:
+  - refactor: Refactored mentor loading, and moved it before preferences fixing mentor-related
+      prefs and keybinds.
+  - bugfix: Improved handling of "mentor datum created without a ckey" case, making
+      it more clear what caused it.
+  - bugfix: Added a check to prevent admins from adding an empty ckey as a mentor.
+2023-08-19:
+  CydiaLamiales:
+  - rscadd: The Syndicate has upgraded its chameleon gear with the ability to completely
+      hide any and all chameleon functionality with a multitool. Be sure not to confuse
+      your own gear for a plain old piece of clothing, agent!
+  - bugfix: Fixed maps having the "omnibelt" parent object instead of toolbelts
+  Impish_Delights:
+  - tweak: Hoods for winter coats/hoodies/explorer suits are now stored in nullspace
+      instead of the suit's inventory
+  itsmeow:
+  - bugfix: Fixed runtimes and fingerprints not getting properly applied when a stack
+      merges with something during deconstruction.
+  - bugfix: Fixed a load of runtimes
+  - bugfix: Fixed assets not properly sending in the permissions panel
+2023-08-20:
+  Absolucy:
+  - rscadd: Adds a specific preference to enable/disable AI VOX (text-to-speech) announcements.
+  - rscadd: You can now examine organs and implants to see which part of the body
+      it fits in.
+  Absolucy, Rukofamicom:
+  - bugfix: Fixed the obsessed "take picture" objective.
+  - bugfix: Fixed some possible edge cases with obsession targets being cloned or
+      body swapped or whatever.
+  - tweak: Obsessed people now get a protect instead of a kill objective on their
+      obsession, and new flavor text leaning more into the whole 'yandere' thing.
+  - tweak: Obsession trauma now requires a lobotomy to cure.
+  - tweak: Obsessed people are now guaranteed to pick someone who is on-station as
+      their obsession target.
+  - tweak: Obsession targets are much more likely to be someone who will likely remain
+      ON-station.
+  - tweak: Headpats now count as hugs for the sake of the 'hug x times' obsession
+      objective.
+  - admin: Admins can now give someone a specific obsession.
+  EvilDragonfiend:
+  - tweak: abductor gland storage now uses smartfridge UI instead of too-alieny-UI.
+  - balance: gland names will be revealed when these are in abductor's new organ storage.
+  - tweak: abductor gland storage now has 2~7 glands per each at starting.
+  - rscadd: broken glands will be restored once you put these into a new storage (old
+      one doesn't work)
+  - tweak: antagonists can open abductor gland storage even if they're not an abductor
+      species.
+  HowToLoLu:
+  - tweak: Reworked all of Lavaland Mining Station Airlocks to use Tiny Fans instead
+      of Airlock Controllers.
+  - tweak: Mining EVA now has wider doorways, and moved Officer Fastmosky to inside
+      the emergency locker.
+  - tweak: Lavaland's Laborcamp External Access now has its own atmosbot (Sergeant
+      Airhead) inside an emergency locker.
+  - tweak: Put tiny fans under the shutters at the Science Shuttle Dock on Lavaland
+2023-08-21:
+  AnturK, esainane, MrMelbert, Son-of-Space, san7890, Ghommie, ported by mystery3525:
+  - bugfix: Various fixes to the UpdatePaths tool
+  - bugfix: UpdatePaths will now handle lists that contain strings.
+  - code_imp: Adds support for simple subtype repathing, outright deletion,  for UpdatePaths
+      scripts
+  - code_imp: Orginizes UpdatePaths folder and adds a well-documented readme.md
+  itsmeow:
+  - bugfix: Fixed the jobless role preference (Join as assistant, random job, return
+      to lobby, etc) not saving properly.
+  - bugfix: Fixed a runtime from prefs if a player disconnected during their client
+      initialization.
+2023-08-22:
+  CydiaLamiales:
+  - bugfix: Fixed the logging for the gas tanks rupturing not working correctly
+  bluezorua:
+  - rscdel: Certain Medical Banners on some maps no longer magically heal
+2023-08-23:
+  Absolucy:
+  - rscdel: Xenos, morphs, and nightmares can no longer spawn in the atmos gas tanks.
+  EvilDragonfiend, HowToLoLu(sprite):
+  - rscadd: You can now print 'nullifiers' from Genetics console.
+  - tweak: handheld genetic sequence scanner now tells the genetic stability level
+  - imageadd: dna nullifier sprite
+2023-08-25:
+  CydiaLamiales:
+  - admin: Added logs for when mobs stop pulling other mobs
+  PowerfulBacon:
+  - balance: Chapel, Law office, virology, morgue, chemistry, genetics, cargo bay
+      and tech storage will now have their airlock shock wires labelled.
+  - balance: Electricuted airlocks will no longer shock people with the UI open, only
+      when performing a pulse action or using a multitool on the door for the first
+      time. This means that low tier airlocks are now safe to hack.
+  - balance: Airlocks now have an indication when they are shocked (Test light is
+      bright and flickering).
+  itsmeow:
+  - tweak: Changed how special/faction faxes work and removed all except centcom and
+      syndicate. Login is no longer required to use special faxes.
+  - admin: Removed old fax manager in favor of Requests Manager, added "Send Fax Message"
+      verb to send admin faxes via a menu.
+  - bugfix: Fixed runtime when ghosts tried to view paper.
+  - code_imp: Cached \ref values for datums, reducing init time spent resolving qdel
+      refs
+2023-08-26:
+  PowerfulBacon:
+  - rscadd: Adds a note onto objectives that require a stash informing players to
+      read their notes.
+2023-08-27:
+  Absolucy, ShizCalev:
+  - imageadd: The Rod of Asclepius now has a proper inhand sprite.
+  Bokkiewokkie:
+  - bugfix: Fixed raven emergency shuttle console not working
+  PowerfulBacon:
+  - bugfix: You can no longer bring items back from the hotel.
+2023-08-28:
+  Absolucy:
+  - bugfix: Protect objectives now properly greentext
+  - bugfix: Fixed the obsessed greeting text displaying twice.
+  itsmeow:
+  - bugfix: Fixed a massive assortment of runtimes.
+2023-08-29:
+  CydiaLamiales:
+  - tweak: Moved the Digital and Manual pipes to the "Pipe" category of the RPD.
+  - rscadd: Made the gas analyzers show the contents of a gas tank inside of a portable
+      pump/scrubber/canister
+  HowToLoLu:
+  - bugfix: Beds now actually properly initialize their lying angle on map load
+  PowerfulBacon:
+  - code_imp: Implements a new system for determining when a jammer moves into range
+      of an object.
+  - balance: Cameras will now visibly turn off when a singal jammer is nearby.
+2023-08-31:
+  CydiaLamiales:
+  - bugfix: Fixed cloning mindless mobs throwing a runtime
+  PowerfulBacon:
+  - bugfix: Fixes not being able to stand while cuffed

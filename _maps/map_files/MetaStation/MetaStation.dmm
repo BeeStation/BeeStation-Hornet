@@ -42454,7 +42454,6 @@
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "kSn" = (
-/obj/machinery/lapvend,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},

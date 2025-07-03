@@ -283,7 +283,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Delay pre-game if we are in it.
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		//Force people to be not ready and start the game
-		for(var/mob/dead/new_player/player in GLOB.player_list)
+		for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 			to_chat(player, span_greenannounce("You have been forced as an observer. When the prompt to join battle royale comes up, press yes. This is normal and you are still in queue to play."))
 			player.ready = FALSE
 			player.make_me_an_observer(TRUE)

@@ -665,6 +665,9 @@
 	set category = "Object"
 	set src = usr
 
+	if(isnewplayer(src))
+		return
+
 	if(ismecha(loc))
 		return
 
@@ -721,6 +724,8 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	if(isnewplayer(src))
+		return
 	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
@@ -1166,8 +1171,8 @@
 					break
 				search_id = 0
 
-		else if(search_pda && istype(A, /obj/item/modular_computer/tablet/pda))
-			var/obj/item/modular_computer/tablet/pda/PDA = A
+		else if(search_pda && istype(A, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/PDA = A
 			if(PDA.saved_identification == oldname)
 				PDA.saved_identification = newname
 				PDA.update_id_display()
@@ -1340,7 +1345,8 @@
 /mob/verb/open_language_menu_verb()
 	set name = "Open Language Menu"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	get_language_holder().open_language_menu(usr)
 
 ///Adjust the nutrition of a mob
