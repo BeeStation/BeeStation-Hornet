@@ -69,7 +69,7 @@
 			role_preference_key = role_preference,
 			req_hours = antag_datum.required_living_playtime
 		))
-			//candidates -= candidate
+			candidates -= candidate
 			continue
 
 		// Already assigned antag?

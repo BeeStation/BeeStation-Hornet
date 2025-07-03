@@ -2,7 +2,7 @@
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,
-		"roundstart_points_per_ready": 100,
+		"roundstart_points_per_ready": 1,
 		"roundstart_points_per_unready": 0.5
 	},
 	"Roundstart": {
@@ -19,9 +19,6 @@
 		},
 		"Clown Operatives": {
 			"points_cost": 500
-		},
-		"Wizard": {
-			"weight": 100
 		}
 	},
 	"Midround": {
