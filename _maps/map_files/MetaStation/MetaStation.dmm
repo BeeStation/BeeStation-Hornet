@@ -2429,7 +2429,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
@@ -26603,7 +26603,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 8
 	},
-/obj/structure/railing/single_end,
+/obj/structure/railing/end_single,
 /turf/open/floor/iron,
 /area/science/shuttledock)
 "eZr" = (
@@ -27070,7 +27070,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 10
 	},
 /turf/open/floor/iron/white,
@@ -28009,7 +28009,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 1
 	},
 /turf/open/floor/prison,
@@ -29356,7 +29356,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 1
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 6
 	},
 /turf/open/floor/iron/white,
@@ -42538,7 +42538,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 8
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 9
 	},
 /turf/open/floor/iron/dark,
@@ -50057,7 +50057,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 4
 	},
 /turf/open/floor/prison,
@@ -58983,7 +58983,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 10
 	},
 /turf/open/floor/iron/dark,
@@ -60784,7 +60784,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -64265,7 +64265,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
@@ -68777,7 +68777,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
@@ -70658,7 +70658,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 4
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 9
 	},
 /turf/open/floor/iron/white,
@@ -74350,7 +74350,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 4
 	},
-/obj/structure/railing/single_end{
+/obj/structure/railing/end_single{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
