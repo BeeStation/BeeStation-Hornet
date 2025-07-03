@@ -47,10 +47,9 @@ export const GameLogin = (props) => {
                   .
                 </Box>
                 {data.authenticated_key ? (
-                  <Box>
+                  <Box my={1}>
                     Server policy requires that you authorize through Discord due to ongoing authentication issues with BYOND
-                    Hub. Your Discord account will be permanently linked to this CKEY. You may not link more than one CKEY to a
-                    Discord account.
+                    Hub. Your Discord account will be linked to this CKEY.
                   </Box>
                 ) : null}
                 <Box>

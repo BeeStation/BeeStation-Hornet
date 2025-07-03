@@ -404,12 +404,6 @@
 	if(istype(src.external_method))
 		external_uid = src.external_uid // link BYOND ckeys to external method
 		external_column = external_method::db_id_column_name
-		// Double check
-		var/list/acceptable_ids = list()
-		for(var/datum/external_login_method/method_path as anything in subtypesof(/datum/external_login_method))
-			acceptable_ids += method_path::db_id_column_name
-		if(!(external_column in acceptable_ids))
-			CRASH("PANIC! POSSIBLE SQL INJECTION! external_column value of [external_column] WAS NOT IN LIST OF ACCEPTABLE IDS [english_list(acceptable_ids)]")
 	var/external_column_selectable = istext(external_column) && length(external_column) ? external_column : "NULL"
 	related_accounts_ip = ""
 	if(!is_localhost())
