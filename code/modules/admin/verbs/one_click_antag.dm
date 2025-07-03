@@ -1,3 +1,6 @@
+/// If we spawn an ERT with the "choose experienced leader" option, select the leader from the top X playtimes
+#define ERT_EXPERIENCED_LEADER_CHOOSE_TOP	3
+
 /client/proc/one_click_antag()
 	set name = "Create Antagonist"
 	set desc = "Auto-create an antagonist of your choice"
@@ -11,26 +14,26 @@
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=traitors'>Make Traitors</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=changelings'>Make Changelings</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=revs'>Make Revs</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=cult'>Make Cult</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=blob'>Make Blob</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=wizard'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=nukeops'>Make Nuke Team (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=centcom'>Make CentCom Response Team (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=abductors'>Make Abductor Team (Requires Ghosts)</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=revenant'>Make Revenant (Requires Ghost)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=traitors'>Make Traitors</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=changelings'>Make Changelings</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=revs'>Make Revs</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=cult'>Make Cult</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=blob'>Make Blob</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=wizard'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=nukeops'>Make Nuke Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=centcom'>Make CentCom Response Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=abductors'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[REF(src)];[HrefToken()];makeAntag=revenant'>Make Revenant (Requires Ghost)</a><br>
 		"}
 
 	var/datum/browser/popup = new(usr, "oneclickantag", "Quick-Create Antagonist", 400, 400)
 	popup.set_content(dat)
 	popup.open()
 
-/datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
+/datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, preference, onstation = TRUE, conscious = TRUE)
 	if(applicant.mind.special_role)
 		return FALSE
-	if(!(targetrole in applicant.client.prefs.be_special))
+	if(!applicant.client?.should_include_for_role(targetrole, preference))
 		return FALSE
 	if(onstation)
 		var/turf/T = get_turf(applicant)
@@ -40,7 +43,7 @@
 		return FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
 		return FALSE
-	return !is_banned_from(applicant.ckey, list(targetrole, ROLE_SYNDICATE))
+	return TRUE
 
 
 /datum/admins/proc/makeTraitors(maxCount = 3)
@@ -53,16 +56,15 @@
 		temp.restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		temp.restricted_jobs += GLOB.command_positions
+		temp.restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_TRAITOR))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+		if(isReadytoRumble(applicant, ROLE_TRAITOR, /datum/role_preference/midround_living/traitor))
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numTraitors = min(candidates.len, maxCount)
@@ -88,16 +90,15 @@
 		temp.restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		temp.restricted_jobs += GLOB.command_positions
+		temp.restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_CHANGELING))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+		if(isReadytoRumble(applicant, ROLE_CHANGELING, /datum/role_preference/antagonist/changeling))
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numChangelings = min(candidates.len, maxCount)
@@ -124,10 +125,9 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_REV))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+		if(isReadytoRumble(applicant, ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numRevs = min(candidates.len, maxCount)
@@ -141,12 +141,17 @@
 	return FALSE
 
 /datum/admins/proc/makeWizard()
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = "Do you wish to be considered for the position of a Wizard Federation 'diplomat'?",
+		role = /datum/role_preference/midround_ghost/wizard,
+		check_jobban = ROLE_WIZARD,
+		poll_time = 30 SECONDS,
+		ignore_category = POLL_IGNORE_WIZARD_HELPER,
+		role_name_text = "wizard",
+		alert_pic = /obj/item/clothing/head/wizard,
+	)
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", ROLE_WIZARD, null)
-
-	var/mob/dead/observer/selected = pick_n_take(candidates)
-
-	var/mob/living/carbon/human/new_character = makeBody(selected)
+	var/mob/living/carbon/human/new_character = makeBody(candidate)
 	new_character.mind.make_Wizard()
 	return TRUE
 
@@ -160,16 +165,15 @@
 		temp.restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		temp.restricted_jobs += GLOB.command_positions
+		temp.restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_CULTIST))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+		if(isReadytoRumble(applicant, ROLE_CULTIST, /datum/role_preference/antagonist/blood_cultist))
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numCultists = min(candidates.len, maxCount)
@@ -186,8 +190,15 @@
 
 
 /datum/admins/proc/makeNukeTeam(maxCount = 5)
-	var/datum/game_mode/nuclear/temp = new
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", ROLE_OPERATIVE, temp)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		question = "Do you wish to be considered for a nuke team being sent in?",
+		role = /datum/role_preference/midround_ghost/nuclear_operative,
+		check_jobban = ROLE_OPERATIVE,
+		poll_time = 30 SECONDS,
+		role_name_text = "nuclear operative",
+		alert_pic = /obj/machinery/nuclearbomb,
+	)
+
 	var/list/mob/dead/observer/chosen = list()
 	var/mob/dead/observer/theghost = null
 
@@ -260,6 +271,9 @@
 	.["mainsettings"]["mission"]["value"] = newtemplate.mission
 	.["mainsettings"]["polldesc"]["value"] = newtemplate.polldesc
 	.["mainsettings"]["open_armory"]["value"] = newtemplate.opendoors ? "Yes" : "No"
+	.["mainsettings"]["leader_experience"]["value"] = newtemplate.leader_experience ? "Yes" : "No"
+	.["mainsettings"]["random_names"]["value"] = newtemplate.random_names ? "Yes" : "No"
+	.["mainsettings"]["spawn_admin"]["value"] = newtemplate.spawn_admin ? "Yes" : "No"
 
 
 /datum/admins/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
@@ -268,8 +282,6 @@
 	if (ispath(antag, /datum/antagonist/ert))
 		var/datum/antagonist/ert/ert = antag
 		mannequin.equipOutfit(initial(ert.outfit), TRUE)
-	else if (ispath(antag, /datum/antagonist/official))
-		mannequin.equipOutfit(/datum/outfit/centcom_official, TRUE)
 
 /datum/admins/proc/makeERTPreviewIcon(list/settings)
 	// Set up the dummy for its photoshoot
@@ -327,6 +339,9 @@
 		"polldesc" = list("desc" = "Ghost poll description", "type" = "string", "value" = ertemplate.polldesc),
 		"enforce_human" = list("desc" = "Enforce human authority", "type" = "boolean", "value" = "[(CONFIG_GET(flag/enforce_human_authority) ? "Yes" : "No")]"),
 		"open_armory" = list("desc" = "Open armory doors", "type" = "boolean", "value" = "[(ertemplate.opendoors ? "Yes" : "No")]"),
+		"leader_experience" = list("desc" = "Pick an experienced leader", "type" = "boolean", "value" = "[(ertemplate.leader_experience ? "Yes" : "No")]"),
+		"random_names" = list("desc" = "Randomize names", "type" = "boolean", "value" = "[(ertemplate.random_names ? "Yes" : "No")]"),
+		"spawn_admin" = list("desc" = "Spawn yourself as briefing officer", "type" = "boolean", "value" = "[(ertemplate.spawn_admin ? "Yes" : "No")]")
 		)
 	)
 
@@ -348,77 +363,115 @@
 		ertemplate.teamsize = prefs["teamsize"]["value"]
 		ertemplate.mission = prefs["mission"]["value"]
 		ertemplate.polldesc = prefs["polldesc"]["value"]
-		ertemplate.enforce_human = prefs["enforce_human"]["value"] == "Yes" ? TRUE : FALSE
-		ertemplate.opendoors = prefs["open_armory"]["value"] == "Yes" ? TRUE : FALSE
+		ertemplate.enforce_human = prefs["enforce_human"]["value"] == "Yes" // these next 5 are effectively toggles
+		ertemplate.opendoors = prefs["open_armory"]["value"] == "Yes"
+		ertemplate.leader_experience = prefs["leader_experience"]["value"] == "Yes"
+		ertemplate.random_names = prefs["random_names"]["value"] == "Yes"
+		ertemplate.spawn_admin = prefs["spawn_admin"]["value"] == "Yes"
 
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", "deathsquad", null, req_hours = 50)
+		var/list/spawnpoints = GLOB.emergencyresponseteamspawn
+		var/index = 0
+
+		if(ertemplate.spawn_admin)
+			if(isobserver(usr))
+				var/mob/living/carbon/human/admin_officer = new (spawnpoints[1])
+				var/chosen_outfit = usr.client?.prefs?.read_preference(/datum/preference/choiced/brief_outfit)
+				usr.client.prefs.safe_transfer_prefs_to(admin_officer, is_antag = TRUE)
+				admin_officer.equipOutfit(chosen_outfit)
+				admin_officer.key = usr.key
+			else
+				to_chat(usr, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
+
+		var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+			question = "Do you wish to be considered for [ertemplate.polldesc]?",
+			check_jobban = ROLE_ERT,
+			poll_time = 30 SECONDS,
+			role_name_text = "emergency response team",
+			alert_pic = /obj/item/card/id/ert,
+		)
+		if(!length(candidates))
+			return FALSE
+
 		var/teamSpawned = FALSE
 
-		if(candidates.len > 0)
-			//Pick the (un)lucky players
-			var/numagents = min(ertemplate.teamsize,candidates.len)
+		//Pick the (un)lucky players
+		var/numagents = min(ertemplate.teamsize,candidates.len)
 
-			//Create team
-			var/datum/team/ert/ert_team = new ertemplate.team
-			if(ertemplate.rename_team)
-				ert_team.name = ertemplate.rename_team
+		//Create team
+		var/datum/team/ert/ert_team = new ertemplate.team ()
+		if(ertemplate.rename_team)
+			ert_team.name = ertemplate.rename_team
 
-			//Asign team objective
-			var/datum/objective/missionobj = new
-			missionobj.team = ert_team
-			missionobj.explanation_text = ertemplate.mission
-			missionobj.completed = TRUE
-			ert_team.objectives += missionobj
-			ert_team.mission = missionobj
+		//Assign team objective
+		var/datum/objective/missionobj = new ()
+		missionobj.team = ert_team
+		missionobj.explanation_text = ertemplate.mission
+		missionobj.completed = TRUE
+		ert_team.objectives += missionobj
+		ert_team.mission = missionobj
 
-			var/list/spawnpoints = GLOB.emergencyresponseteamspawn
-			while(numagents && candidates.len)
-				if (numagents > spawnpoints.len)
-					numagents--
-					continue // This guy's unlucky, not enough spawn points, we skip him.
-				var/spawnloc = spawnpoints[numagents]
-				var/mob/dead/observer/chosen_candidate = pick(candidates)
-				candidates -= chosen_candidate
-				if(!chosen_candidate.key)
-					continue
+		var/mob/dead/observer/earmarked_leader
+		var/leader_spawned = FALSE // just in case the earmarked leader disconnects or becomes unavailable, we can try giving leader to the last guy to get chosen
 
-				//Spawn the body
-				var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
-				chosen_candidate.client.prefs.active_character.copy_to(ERTOperative)
-				ERTOperative.key = chosen_candidate.key
-				log_objective(ERTOperative, missionobj.explanation_text)
+		if(ertemplate.leader_experience)
+			var/list/candidate_living_exps = list()
+			for(var/i in candidates)
+				var/mob/dead/observer/potential_leader = i
+				candidate_living_exps[potential_leader] = potential_leader.client?.get_exp_living(TRUE)
 
-				if(ertemplate.enforce_human || !(ERTOperative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
-					ERTOperative.set_species(/datum/species/human)
-
-				//Give antag datum
-				var/datum/antagonist/ert/ert_antag
-
-				if(numagents == 1)
-					ert_antag = new ertemplate.leader_role
-				else
-					ert_antag = ertemplate.roles[WRAP(numagents,1,length(ertemplate.roles) + 1)]
-					ert_antag = new ert_antag
-
-				ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
-				ERTOperative.mind.assigned_role = ert_antag.name
-
-				//Logging and cleanup
-				log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]")
-				numagents--
-				teamSpawned++
-
-			if (teamSpawned)
-				message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
-
-			//Open the Armory doors
-			if(ertemplate.opendoors)
-				for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
-					door.open()
-					CHECK_TICK
-			return TRUE
+			candidate_living_exps = sort_list(candidate_living_exps, cmp=/proc/cmp_numeric_dsc)
+			if(candidate_living_exps.len > ERT_EXPERIENCED_LEADER_CHOOSE_TOP)
+				candidate_living_exps = candidate_living_exps.Cut(ERT_EXPERIENCED_LEADER_CHOOSE_TOP+1) // pick from the top ERT_EXPERIENCED_LEADER_CHOOSE_TOP contenders in playtime
+			earmarked_leader = pick(candidate_living_exps)
 		else
-			return FALSE
+			earmarked_leader = pick(candidates)
+
+		while(numagents && candidates.len)
+			var/spawnloc = spawnpoints[index+1]
+			//loop through spawnpoints one at a time
+			index = (index + 1) % spawnpoints.len
+			var/mob/dead/observer/chosen_candidate = earmarked_leader || pick(candidates) // this way we make sure that our leader gets chosen
+			candidates -= chosen_candidate
+			if(!chosen_candidate?.key)
+				continue
+
+			//Spawn the body
+			var/mob/living/carbon/human/ert_operative = new ertemplate.mobtype(spawnloc)
+			chosen_candidate.client.prefs.safe_transfer_prefs_to(ert_operative, is_antag = TRUE)
+			ert_operative.key = chosen_candidate.key
+
+			if(ertemplate.enforce_human || !(ert_operative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
+				ert_operative.set_species(/datum/species/human)
+
+			//Give antag datum
+			var/datum/antagonist/ert/ert_antag
+
+			if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
+				ert_antag = new ertemplate.leader_role ()
+				earmarked_leader = null
+				leader_spawned = TRUE
+			else
+				ert_antag = ertemplate.roles[WRAP(numagents,1,length(ertemplate.roles) + 1)]
+				ert_antag = new ert_antag ()
+			ert_antag.random_names = ertemplate.random_names
+
+			ert_operative.mind.add_antag_datum(ert_antag,ert_team)
+			ert_operative.mind.assigned_role = ert_antag.name
+
+			//Logging and cleanup
+			log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")
+			numagents--
+			teamSpawned++
+
+		if (teamSpawned)
+			message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
+
+		//Open the Armory doors
+		if(ertemplate.opendoors)
+			for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
+				door.open()
+				CHECK_TICK
+		return TRUE
 
 	return
 
@@ -430,3 +483,5 @@
 /datum/admins/proc/makeRevenant()
 	new /datum/round_event/ghost_role/revenant(TRUE, TRUE)
 	return 1
+
+#undef ERT_EXPERIENCED_LEADER_CHOOSE_TOP

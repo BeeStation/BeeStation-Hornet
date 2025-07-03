@@ -1,6 +1,6 @@
 /proc/create_message(type, target_key, admin_ckey, text, timestamp, server_name, secret, logged = 1, browse, expiry, note_severity)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!type)
 		return
@@ -10,7 +10,7 @@
 		if(!new_key)
 			return
 		var/new_ckey = ckey(new_key)
-		var/datum/DBQuery/query_find_ckey = SSdbcore.NewQuery(
+		var/datum/db_query/query_find_ckey = SSdbcore.NewQuery(
 			"SELECT ckey FROM [format_table_name("player")] WHERE ckey = :ckey",
 			list("ckey" = new_ckey)
 		)
@@ -61,7 +61,7 @@
 			var/expire_time = input("Set expiry time for [type] as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than current time for obvious reasons.", "Set expiry time", SQLtime()) as null|text
 			if(!expire_time)
 				return
-			var/datum/DBQuery/query_validate_expire_time = SSdbcore.NewQuery(
+			var/datum/db_query/query_validate_expire_time = SSdbcore.NewQuery(
 				"SELECT IF(STR_TO_DATE(:expire_time,'%Y-%c-%d %T') > NOW(), STR_TO_DATE(:expire_time,'%Y-%c-%d %T'), 0)",
 				list("expire_time" = expire_time)
 			)
@@ -82,7 +82,7 @@
 		note_severity = input("Set the severity of the note.", "Severity", null, null) as null|anything in list("High", "Medium", "Minor", "None")
 		if(!note_severity)
 			return
-	var/datum/DBQuery/query_create_message = SSdbcore.NewQuery({"
+	var/datum/db_query/query_create_message = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("messages")] (type, targetckey, adminckey, text, timestamp, server_name, server_ip, server_port, round_id, secret, expire_timestamp, severity, playtime)
 		VALUES (:type, :target_ckey, :admin_ckey, :text, :timestamp, :server_name, INET_ATON(:internet_address), :port, :round_id, :secret, :expiry, :note_severity, (SELECT `minutes` FROM [format_table_name("role_time")] WHERE `ckey` = :target_ckey AND `job` = 'Living'))
 	"}, list(
@@ -117,7 +117,7 @@
 
 /proc/delete_message(message_id, logged = 1, browse)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
@@ -128,7 +128,7 @@
 	var/user_key_name = key_name(usr)
 	var/user_name_admin = key_name_admin(usr)
 	var/deleted_by_ckey = usr.ckey
-	var/datum/DBQuery/query_find_del_message = SSdbcore.NewQuery(
+	var/datum/db_query/query_find_del_message = SSdbcore.NewQuery(
 		"SELECT type, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE ckey = targetckey), targetckey), text FROM [format_table_name("messages")] WHERE id = :id AND deleted = 0",
 		list("id" = message_id)
 	)
@@ -140,7 +140,7 @@
 		target_key = query_find_del_message.item[2]
 		text = query_find_del_message.item[3]
 	qdel(query_find_del_message)
-	var/datum/DBQuery/query_del_message = SSdbcore.NewQuery(
+	var/datum/db_query/query_del_message = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("messages")] SET deleted = 1, lasteditor = :last_editor WHERE id = :id",
 		list("last_editor" = deleted_by_ckey, "id" = message_id)
 	)
@@ -160,7 +160,7 @@
 
 /proc/edit_message(message_id, browse)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
@@ -169,7 +169,7 @@
 	var/editor_key = usr.key
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
-	var/datum/DBQuery/query_find_edit_message = SSdbcore.NewQuery({"
+	var/datum/db_query/query_find_edit_message = SSdbcore.NewQuery({"
 		SELECT
 			type,
 			IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE ckey = targetckey), targetckey),
@@ -191,7 +191,7 @@
 			qdel(query_find_edit_message)
 			return
 		var/edit_text = "Edited by [editor_key] on [SQLtime()] from<br>[old_text]<br>to<br>[new_text]<hr>"
-		var/datum/DBQuery/query_edit_message = SSdbcore.NewQuery({"
+		var/datum/db_query/query_edit_message = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("messages")]
 			SET text = :text, lasteditor = :lasteditor, edits = CONCAT(IFNULL(edits,''),:edit_text)
 			WHERE id = :id AND deleted = 0
@@ -210,7 +210,7 @@
 
 /proc/edit_message_expiry(message_id, browse)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
@@ -219,7 +219,7 @@
 	var/editor_key = usr.key
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
-	var/datum/DBQuery/query_find_edit_expiry_message = SSdbcore.NewQuery({"
+	var/datum/db_query/query_find_edit_expiry_message = SSdbcore.NewQuery({"
 		SELECT
 			type,
 			IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE ckey = targetckey), targetckey),
@@ -244,7 +244,7 @@
 		if(expire_time == "-1")
 			new_expiry = "non-expiring"
 		else
-			var/datum/DBQuery/query_validate_expire_time_edit = SSdbcore.NewQuery({"
+			var/datum/db_query/query_validate_expire_time_edit = SSdbcore.NewQuery({"
 				SELECT IF(STR_TO_DATE(:expire_time,'%Y-%c-%d %T') > NOW(), STR_TO_DATE(:expire_time,'%Y-%c-%d %T'), 0)
 			"}, list("expire_time" = expire_time))
 			if(!query_validate_expire_time_edit.warn_execute())
@@ -261,7 +261,7 @@
 				new_expiry = query_validate_expire_time_edit.item[1]
 			qdel(query_validate_expire_time_edit)
 		var/edit_text = "Expiration time edited by [editor_key] on [SQLtime()] from [old_expiry] to [new_expiry]<hr>"
-		var/datum/DBQuery/query_edit_message_expiry = SSdbcore.NewQuery({"
+		var/datum/db_query/query_edit_message_expiry = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("messages")]
 			SET expire_timestamp = :expire_time, lasteditor = :lasteditor, edits = CONCAT(IFNULL(edits,''),:edit_text)
 			WHERE id = :id AND deleted = 0
@@ -281,14 +281,14 @@
 
 /proc/edit_message_severity(message_id)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
 		return
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
-	var/datum/DBQuery/query_find_edit_note_severity = SSdbcore.NewQuery({"
+	var/datum/db_query/query_find_edit_note_severity = SSdbcore.NewQuery({"
 		SELECT
 			type,
 			IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE ckey = targetckey), targetckey),
@@ -315,7 +315,7 @@
 			return
 		new_severity = new_severity
 		var/edit_text = "Note severity edited by [editor_key] on [SQLtime()] from [old_severity] to [new_severity]<hr>"
-		var/datum/DBQuery/query_edit_note_severity = SSdbcore.NewQuery({"
+		var/datum/db_query/query_edit_note_severity = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("messages")]
 			SET severity = :severity, lasteditor = :lasteditor, edits = CONCAT(IFNULL(edits,''),:edit_text)
 			WHERE id = :id AND deleted = 0
@@ -332,7 +332,7 @@
 
 /proc/toggle_message_secrecy(message_id)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	message_id = text2num(message_id)
 	if(!message_id)
@@ -341,7 +341,7 @@
 	var/editor_key = usr.key
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
-	var/datum/DBQuery/query_find_message_secret = SSdbcore.NewQuery({"
+	var/datum/db_query/query_find_message_secret = SSdbcore.NewQuery({"
 		SELECT
 			type,
 			IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE ckey = targetckey), targetckey),
@@ -359,7 +359,7 @@
 		var/admin_key = query_find_message_secret.item[3]
 		var/secret = text2num(query_find_message_secret.item[4])
 		var/edit_text = "Made [secret ? "not secret" : "secret"] by [editor_key] on [SQLtime()]<hr>"
-		var/datum/DBQuery/query_message_secret = SSdbcore.NewQuery({"
+		var/datum/db_query/query_message_secret = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("messages")]
 			SET secret = NOT secret, lasteditor = :lasteditor, edits = CONCAT(IFNULL(edits,''),:edit_text)
 			WHERE id = :id
@@ -376,14 +376,14 @@
 
 /proc/browse_messages(type, target_ckey, index, linkless = FALSE, filter, agegate = FALSE)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/list/output = list()
 	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
-	var/list/navbar = list("<a href='?_src_=holder;[HrefToken()];nonalpha=1'>All</a><a href='?_src_=holder;[HrefToken()];nonalpha=2'>#</a>")
+	var/list/navbar = list("<a href='byond://?_src_=holder;[HrefToken()];nonalpha=1'>All</a><a href='byond://?_src_=holder;[HrefToken()];nonalpha=2'>#</a>")
 	for(var/letter in GLOB.alphabet)
-		navbar += "<a href='?_src_=holder;[HrefToken()];showmessages=[letter]'>[letter]</a>"
-	navbar += "<a href='?_src_=holder;[HrefToken()];showmemo=1'>Memos</a><a href='?_src_=holder;[HrefToken()];showwatch=1'>Watchlist</a>"
+		navbar += "<a href='byond://?_src_=holder;[HrefToken()];showmessages=[letter]'>[letter]</a>"
+	navbar += "<a href='byond://?_src_=holder;[HrefToken()];showmemo=1'>Memos</a><a href='byond://?_src_=holder;[HrefToken()];showwatch=1'>Watchlist</a>"
 	navbar += "<br><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	[HrefTokenFormField()]\
@@ -394,16 +394,16 @@
 	if(type == "memo" || type == "watchlist entry")
 		if(type == "memo")
 			output += "<h2><center>Admin memos</h2>"
-			output += "<a href='?_src_=holder;[HrefToken()];addmemo=1'>Add memo</a></center>"
+			output += "<a href='byond://?_src_=holder;[HrefToken()];addmemo=1'>Add memo</a></center>"
 		else if(type == "watchlist entry")
 			output += "<h2><center>Watchlist entries</h2>"
-			output += "<a href='?_src_=holder;[HrefToken()];addwatchempty=1'>Add watchlist entry</a>"
+			output += "<a href='byond://?_src_=holder;[HrefToken()];addwatchempty=1'>Add watchlist entry</a>"
 			if(filter)
-				output += "<a href='?_src_=holder;[HrefToken()];showwatch=1'>Unfilter clients</a></center>"
+				output += "<a href='byond://?_src_=holder;[HrefToken()];showwatch=1'>Unfilter clients</a></center>"
 			else
-				output += "<a href='?_src_=holder;[HrefToken()];showwatchfilter=1'>Filter offline clients</a></center>"
+				output += "<a href='byond://?_src_=holder;[HrefToken()];showwatchfilter=1'>Filter offline clients</a></center>"
 		output += ruler
-		var/datum/DBQuery/query_get_type_messages = SSdbcore.NewQuery({"
+		var/datum/db_query/query_get_type_messages = SSdbcore.NewQuery({"
 			SELECT
 				id,
 				IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE ckey = targetckey), targetckey),
@@ -445,16 +445,16 @@
 			if(expire_timestamp)
 				output += " | Expires [expire_timestamp]"
 			output += "</b>"
-			output += " <a href='?_src_=holder;[HrefToken()];editmessageexpiryempty=[id]'>Change Expiry Time</a>"
-			output += " <a href='?_src_=holder;[HrefToken()];deletemessageempty=[id]'>Delete</a>"
-			output += " <a href='?_src_=holder;[HrefToken()];editmessageempty=[id]'>Edit</a>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];editmessageexpiryempty=[id]'>Change Expiry Time</a>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];deletemessageempty=[id]'>Delete</a>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];editmessageempty=[id]'>Edit</a>"
 			if(editor_key)
-				output += " <font size='2'>Last edit by [editor_key] <a href='?_src_=holder;[HrefToken()];messageedits=[id]'>(Click here to see edit log)</a></font>"
+				output += " <font size='2'>Last edit by [editor_key] <a href='byond://?_src_=holder;[HrefToken()];messageedits=[id]'>(Click here to see edit log)</a></font>"
 			output += "<br>[text]<hr style='background:#000000; border:0; height:1px'>"
 		qdel(query_get_type_messages)
 	if(target_ckey)
 		var/target_key
-		var/datum/DBQuery/query_get_messages = SSdbcore.NewQuery({"
+		var/datum/db_query/query_get_messages = SSdbcore.NewQuery({"
 			SELECT
 				type,
 				secret,
@@ -502,7 +502,7 @@
 			var/nsd = CONFIG_GET(number/note_stale_days)
 			var/nfd = CONFIG_GET(number/note_fresh_days)
 			if (agegate && type == "note" && isnum_safe(nsd) && isnum_safe(nfd) && nsd > nfd)
-				var/alpha = CLAMP(100 - (age - nfd) * (85 / (nsd - nfd)), 15, 100)
+				var/alpha = clamp(100 - (age - nfd) * (85 / (nsd - nfd)), 15, 100)
 				if (alpha < 100)
 					if (alpha <= 15)
 						if (skipped)
@@ -513,7 +513,7 @@
 					alphatext = "filter: alpha(opacity=[alpha]); opacity: [alpha/100];"
 			var/list/data = list("<div style='margin:0px;[alphatext]'><p class='severity'>")
 			if(severity)
-				data += "<img src='[SSassets.transport.get_asset_url("[lowertext(severity)]_button.png")]' height='24' width='24'></img> "
+				data += "<img src='[SSassets.transport.get_asset_url("[LOWER_TEXT(severity)]_button.png")]' height='24' width='24'></img> "
 			data += "<b>[timestamp] | [server_name] | [admin_key][secret ? " | <i>- Secret</i>" : ""] | [get_exp_format(text2num(playtime))] Living Playtime"
 			if(expire_timestamp)
 				data += " | Expires [expire_timestamp]"
@@ -521,21 +521,21 @@
 			if(!linkless)
 				if(type == "note")
 					if(severity)
-						data += "<a href='?_src_=holder;[HrefToken()];editmessageseverity=[id]'>[severity=="none" ? "No" : "[capitalize(severity)]"] Severity</a>"
+						data += "<a href='byond://?_src_=holder;[HrefToken()];editmessageseverity=[id]'>[severity=="none" ? "No" : "[capitalize(severity)]"] Severity</a>"
 					else
-						data += "<a href='?_src_=holder;[HrefToken()];editmessageseverity=[id]'>N/A Severity</a>"
-				data += " <a href='?_src_=holder;[HrefToken()];editmessageexpiry=[id]'>Change Expiry Time</a>"
-				data += " <a href='?_src_=holder;[HrefToken()];deletemessage=[id]'>Delete</a>"
+						data += "<a href='byond://?_src_=holder;[HrefToken()];editmessageseverity=[id]'>N/A Severity</a>"
+				data += " <a href='byond://?_src_=holder;[HrefToken()];editmessageexpiry=[id]'>Change Expiry Time</a>"
+				data += " <a href='byond://?_src_=holder;[HrefToken()];deletemessage=[id]'>Delete</a>"
 				if(type == "note")
-					data += " <a href='?_src_=holder;[HrefToken()];secretmessage=[id]'>[secret ? "<b>Secret</b>" : "Not secret"]</a>"
+					data += " <a href='byond://?_src_=holder;[HrefToken()];secretmessage=[id]'>[secret ? "<b>Secret</b>" : "Not secret"]</a>"
 				if(type == "message sent")
 					data += " <font size='2'>Message has been sent</font>"
 					if(editor_key)
 						data += "|"
 				else
-					data += " <a href='?_src_=holder;[HrefToken()];editmessage=[id]'>Edit</a>"
+					data += " <a href='byond://?_src_=holder;[HrefToken()];editmessage=[id]'>Edit</a>"
 				if(editor_key)
-					data += " <font size='2'>Last edit by [editor_key] <a href='?_src_=holder;[HrefToken()];messageedits=[id]'>(Click here to see edit log)</a></font>"
+					data += " <font size='2'>Last edit by [editor_key] <a href='byond://?_src_=holder;[HrefToken()];messageedits=[id]'>(Click here to see edit log)</a></font>"
 			data += "</div></center>"
 			data += "<p style='[alphatext]'>[text]</p><hr style='background:#000000; border:0; height:1px; [alphatext]'>"
 			switch(type)
@@ -549,7 +549,7 @@
 					notedata += data
 		qdel(query_get_messages)
 		if(!target_key)
-			var/datum/DBQuery/query_get_message_key = SSdbcore.NewQuery({"
+			var/datum/db_query/query_get_message_key = SSdbcore.NewQuery({"
 				SELECT byond_key FROM [format_table_name("player")] WHERE ckey = :ckey
 			"}, list("ckey" = target_ckey))
 			if(!query_get_message_key.warn_execute())
@@ -560,12 +560,12 @@
 			qdel(query_get_message_key)
 		output += "<h2><center>[target_key]</center></h2><center>"
 		if(!linkless)
-			output += "<a href='?_src_=holder;[HrefToken()];addnote=[target_key]'>Add note</a>"
-			output += " <a href='?_src_=holder;[HrefToken()];addmessage=[target_key]'>Add message</a>"
-			output += " <a href='?_src_=holder;[HrefToken()];addwatch=[target_key]'>Add to watchlist</a>"
-			output += " <a href='?_src_=holder;[HrefToken()];showmessageckey=[target_ckey]'>Refresh page</a></center>"
+			output += "<a href='byond://?_src_=holder;[HrefToken()];addnote=[target_key]'>Add note</a>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];addmessage=[target_key]'>Add message</a>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];addwatch=[target_key]'>Add to watchlist</a>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];showmessageckey=[target_ckey]'>Refresh page</a></center>"
 		else
-			output += " <a href='?_src_=holder;[HrefToken()];showmessageckeylinkless=[target_ckey]'>Refresh page</a></center>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];showmessageckeylinkless=[target_ckey]'>Refresh page</a></center>"
 		output += ruler
 		if(messagedata)
 			output += "<h2>Messages</h2>"
@@ -579,14 +579,14 @@
 			if(!linkless)
 				if (agegate)
 					if (skipped) //the first skipped message is still shown so that we can put this link over it.
-						output += "<center><a href='?_src_=holder;[HrefToken()];showmessageckey=[target_ckey];showall=1' style='position: relative; top: -3em;'>Show [skipped] hidden messages</a></center>"
+						output += "<center><a href='byond://?_src_=holder;[HrefToken()];showmessageckey=[target_ckey];showall=1' style='position: relative; top: -3em;'>Show [skipped] hidden messages</a></center>"
 					else
-						output += "<center><a href='?_src_=holder;[HrefToken()];showmessageckey=[target_ckey];showall=1'>Show All</a></center>"
+						output += "<center><a href='byond://?_src_=holder;[HrefToken()];showmessageckey=[target_ckey];showall=1'>Show All</a></center>"
 				else
-					output += "<center><a href='?_src_=holder;[HrefToken()];showmessageckey=[target_ckey]'>Hide Old</a></center>"
+					output += "<center><a href='byond://?_src_=holder;[HrefToken()];showmessageckey=[target_ckey]'>Hide Old</a></center>"
 	if(index)
 		var/search
-		output += "<center><a href='?_src_=holder;[HrefToken()];addmessageempty=1'>Add message</a><a href='?_src_=holder;[HrefToken()];addwatchempty=1'>Add watchlist entry</a><a href='?_src_=holder;[HrefToken()];addnoteempty=1'>Add note</a></center>"
+		output += "<center><a href='byond://?_src_=holder;[HrefToken()];addmessageempty=1'>Add message</a><a href='byond://?_src_=holder;[HrefToken()];addwatchempty=1'>Add watchlist entry</a><a href='byond://?_src_=holder;[HrefToken()];addnoteempty=1'>Add note</a></center>"
 		output += ruler
 		switch(index)
 			if(1)
@@ -595,7 +595,7 @@
 				search = "^\[^\[:alpha:\]\]"
 			else
 				search = "^[index]"
-		var/datum/DBQuery/query_list_messages = SSdbcore.NewQuery({"
+		var/datum/db_query/query_list_messages = SSdbcore.NewQuery({"
 			SELECT DISTINCT
 				targetckey,
 				(SELECT byond_key FROM [format_table_name("player")] WHERE ckey = targetckey)
@@ -616,10 +616,10 @@
 			var/index_key = query_list_messages.item[2]
 			if(!index_key)
 				index_key = index_ckey
-			output += "<a href='?_src_=holder;[HrefToken()];showmessageckey=[index_ckey]'>[index_key]</a><br>"
+			output += "<a href='byond://?_src_=holder;[HrefToken()];showmessageckey=[index_ckey]'>[index_key]</a><br>"
 		qdel(query_list_messages)
 	else if(!type && !target_ckey && !index)
-		output += "<center><a href='?_src_=holder;[HrefToken()];addmessageempty=1'>Add message</a><a href='?_src_=holder;[HrefToken()];addwatchempty=1'>Add watchlist entry</a><a href='?_src_=holder;[HrefToken()];addnoteempty=1'>Add note</a></center>"
+		output += "<center><a href='byond://?_src_=holder;[HrefToken()];addmessageempty=1'>Add message</a><a href='byond://?_src_=holder;[HrefToken()];addwatchempty=1'>Add watchlist entry</a><a href='byond://?_src_=holder;[HrefToken()];addnoteempty=1'>Add note</a></center>"
 		output += ruler
 	var/datum/browser/browser = new(usr, "Note panel", "Manage player notes", 1000, 500)
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/notes)
@@ -629,12 +629,12 @@
 
 /proc/get_message_output(type, target_ckey)
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!type)
 		return
 	var/output
-	var/datum/DBQuery/query_get_message_output = SSdbcore.NewQuery({"
+	var/datum/db_query/query_get_message_output = SSdbcore.NewQuery({"
 		SELECT
 			id,
 			IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE ckey = adminckey), adminckey),
@@ -658,9 +658,9 @@
 		var/editor_key = query_get_message_output.item[5]
 		switch(type)
 			if("message")
-				output += "<font color='red' size='3'><b>Admin message left by <span class='prefix'>[admin_key]</span> on [timestamp]</b></font>"
+				output += "<font color='red' size='3'><b>Admin message left by [span_prefix("[admin_key]")] on [timestamp]</b></font>"
 				output += "<br><font color='red'>[text]</font><br>"
-				var/datum/DBQuery/query_message_read = SSdbcore.NewQuery(
+				var/datum/db_query/query_message_read = SSdbcore.NewQuery(
 					"UPDATE [format_table_name("messages")] SET type = 'message sent' WHERE id = :id",
 					list("id" = message_id)
 				)
@@ -673,9 +673,9 @@
 				message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(target_ckey)] has been on the watchlist since [timestamp] and has just connected - Reason: [text]</font>")
 				send2tgs_adminless_only("Watchlist", "[key_name(target_ckey)] is on the watchlist and has just connected - Reason: [text]")
 			if("memo")
-				output += "<span class='memo'>Memo by <span class='prefix'>[admin_key]</span> on [timestamp]"
+				output += "[span_memo("Memo by [span_prefix(admin_key)]")] on [timestamp]"
 				if(editor_key)
-					output += "<br><span class='memoedit'>Last edit by [editor_key] <A href='?_src_=holder;[HrefToken()];messageedits=[message_id]'>(Click here to see edit log)</A></span>"
+					output += "<br>[span_memoedit("Last edit by [editor_key] <A href='byond://?_src_=holder;[HrefToken()];messageedits=[message_id]'>(Click here to see edit log)</A>")]"
 				output += "<br>[text]</span><br>"
 	qdel(query_get_message_output)
 	return output
@@ -703,7 +703,7 @@
 		var/timestamp = note.group[1]
 		notetext = note.group[2]
 		var/admin_ckey = note.group[3]
-		var/datum/DBQuery/query_convert_time = SSdbcore.NewQuery("SELECT ADDTIME(STR_TO_DATE(:timestamp,'%d-%b-%Y'), '0')", list("timestamp" = timestamp))
+		var/datum/db_query/query_convert_time = SSdbcore.NewQuery("SELECT ADDTIME(STR_TO_DATE(:timestamp,'%d-%b-%Y'), '0')", list("timestamp" = timestamp))
 		if(!query_convert_time.Execute())
 			qdel(query_convert_time)
 			return

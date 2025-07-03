@@ -1,8 +1,8 @@
 #define ATMOSBOT_MAX_AREA_SCAN 100
 #define ATMOSBOT_HOLOBARRIER_COOLDOWN 150
 
-#define ATMOSBOT_MAX_PRESSURE_CHANGE 150
-#define ATMOSBOT_MAX_SCRUB_CHANGE 15
+#define ATMOSBOT_MAX_PRESSURE_CHANGE 1
+#define ATMOSBOT_MAX_SCRUB_CHANGE 0.4
 
 #define ATMOSBOT_CHECK_BREACH 0
 #define ATMOSBOT_LOW_OXYGEN 1
@@ -52,25 +52,32 @@
 	var/last_barrier_tick
 	//Gasses
 	var/list/gasses = list(
-		GAS_BZ = 1,
-		GAS_CO2 = 1,
-		GAS_HYPERNOB = 1,
-		GAS_NITROUS = 1,
-		GAS_NITRYL = 1,
-		GAS_PLASMA = 1,
-		GAS_PLUOXIUM = 0,
-		GAS_STIMULUM = 0,
-		GAS_TRITIUM = 1,
-		GAS_H2O = 0,
+		/datum/gas/bz = 1,
+		/datum/gas/carbon_dioxide = 1,
+		/datum/gas/hypernoblium = 1,
+		/datum/gas/nitrous_oxide = 1,
+		/datum/gas/nitrium = 1,
+		/datum/gas/plasma = 1,
+		/datum/gas/pluoxium = 0,
+		/datum/gas/tritium = 1,
+		/datum/gas/water_vapor = 0,
 	)
+	// Have we spoken our alert yet?
+	var/has_spoken = FALSE
 	//Tank type
 	var/tank_type = /obj/item/tank/internals/oxygen/empty
+	// The range that our atmos operations act on
+	var/atmos_range = 3
+	// Last time we spoke
+	var/last_speech
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 
 /mob/living/simple_animal/bot/atmosbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
-	var/datum/job/station_engineer/J = new/datum/job/station_engineer
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 /mob/living/simple_animal/bot/atmosbot/turn_on()
 	. = ..()
@@ -94,7 +101,7 @@
 /mob/living/simple_animal/bot/atmosbot/on_emag(mob/user)
 	. = ..()
 	if(emagged == 2)
-		audible_message("<span class='danger'>[src] whirs ominously.</span>")
+		audible_message(span_danger("[src] whirs ominously."))
 		playsound(src, "sparks", 75, TRUE)
 
 /mob/living/simple_animal/bot/atmosbot/handle_automated_action()
@@ -117,20 +124,26 @@
 				else
 					target = get_vent_turf()
 					action = ATMOSBOT_VENT_AIR
+				try_speak("Low pressure detected at [get_area(src)], attempting to detect and isolate breach...")
 			if(ATMOSBOT_LOW_OXYGEN)
 				target = get_vent_turf()
 				action = ATMOSBOT_VENT_AIR
+				try_speak("Low oxygen detected at [get_area(src)].")
 			if(ATMOSBOT_HIGH_TOXINS)
 				target = get_vent_turf()
 				action = ATMOSBOT_SCRUB_TOXINS
+				try_speak("Toxic contaminants in the atmosphere have been detected at [get_area(src)].")
 			if(ATMOSBOT_BAD_TEMP)
 				target = get_vent_turf()
 				action = ATMOSBOT_TEMPERATURE_CONTROL
+				try_speak("The atmospheric temperature in [get_area(src)] exceeds allowed operating limits.")
 			if(ATMOSBOT_AREA_STABLE)
 				if(emagged == 2)
 					if(prob(20))
 						target = get_vent_turf()
 						action = ATMOSBOT_VENT_AIR
+				else
+					has_spoken = FALSE
 	update_icon()
 
 	if(!target)
@@ -176,37 +189,49 @@
 			mode = BOT_IDLE
 			return
 
+/mob/living/simple_animal/bot/atmosbot/proc/try_speak(message)
+	if (has_spoken || last_speech > world.time + 3 MINUTES)
+		return
+	has_spoken = TRUE
+	last_speech = world.time
+	speak(message, radio_channel)
+
 /mob/living/simple_animal/bot/atmosbot/proc/change_temperature()
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	environment.set_temperature(ideal_temperature)
+	environment.temperature = (ideal_temperature)
 
 /mob/living/simple_animal/bot/atmosbot/proc/vent_air()
 	//Just start pumping out air
-	var/turf/T = get_turf(src)
+	var/turf/source_turf = get_turf(src)
+	for (var/turf/T in RANGE_TURFS(atmos_range, src))
+		if (!inLineOfSight(source_turf.x, source_turf.y, T.x, T.y, T.z))
+			continue
+		var/datum/gas_mixture/environment = T.return_air()
+		var/environment_pressure = environment.return_pressure()
 
-	var/datum/gas_mixture/environment = T.return_air()
-	var/environment_pressure = environment.return_pressure()
+		var/pressure_delta = min(ATMOSBOT_MAX_PRESSURE_CHANGE, (ONE_ATMOSPHERE - environment_pressure))
 
-	var/pressure_delta = min(ATMOSBOT_MAX_PRESSURE_CHANGE, (ONE_ATMOSPHERE - environment_pressure))
-
-	if(pressure_delta > 0)
-		var/transfer_moles = pressure_delta*environment.return_volume()/(T20C * R_IDEAL_GAS_EQUATION)
-		if(emagged == 2)
-			environment.adjust_moles(GAS_CO2, transfer_moles)
-		else
-			environment.adjust_moles(GAS_N2, transfer_moles * 0.7885)
-			environment.adjust_moles(GAS_O2, transfer_moles * 0.2115)
-		air_update_turf()
-		new /obj/effect/temp_visual/vent_wind(get_turf(src))
+		if(pressure_delta > 0)
+			var/transfer_moles = pressure_delta*environment.return_volume()/(T20C * R_IDEAL_GAS_EQUATION)
+			if(emagged == 2)
+				environment.gases[/datum/gas/carbon_dioxide][MOLES] += transfer_moles
+			else
+				environment.gases[/datum/gas/nitrogen][MOLES] += transfer_moles * 0.7885
+				environment.gases[/datum/gas/oxygen][MOLES] += transfer_moles * 0.2115
+			air_update_turf(FALSE, FALSE)
+	new /obj/effect/temp_visual/vent_wind(get_turf(src))
 
 /mob/living/simple_animal/bot/atmosbot/proc/scrub_toxins()
-	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/environment = T.return_air()
-	for(var/G in gasses)
-		if(gasses[G])
-			var/moles_in_atmos = environment.get_moles(G)
-			environment.adjust_moles(G, -min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE))
+	var/turf/source_turf = get_turf(src)
+	for (var/turf/T in RANGE_TURFS(atmos_range, src))
+		if (!inLineOfSight(source_turf.x, source_turf.y, T.x, T.y, T.z))
+			continue
+		var/datum/gas_mixture/environment = T.return_air()
+		for(var/G in gasses)
+			if(gasses[G])
+				var/moles_in_atmos = GET_MOLES(G, environment)
+				REMOVE_MOLES(G, environment, min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE))
 
 /mob/living/simple_animal/bot/atmosbot/proc/deploy_holobarrier()
 	if(deployed_holobarrier)
@@ -223,11 +248,11 @@
 	//Toxins in the air
 	if(emagged != 2)
 		for(var/G in gasses)
-			if(gasses[G] && gas_mix.get_moles(G) > 0.2)
+			if(gasses[G] && GET_MOLES(G, gas_mix) > 0.2)
 				return ATMOSBOT_HIGH_TOXINS
 	//Too little oxygen or too little pressure
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * gas_mix.return_temperature() / gas_mix.return_volume()
-	var/oxygen_moles = gas_mix.get_moles(GAS_O2) * partial_pressure
+	var/oxygen_moles = GET_MOLES(/datum/gas/oxygen, gas_mix) * partial_pressure
 	if(oxygen_moles < 20 || gas_mix.return_pressure() < WARNING_LOW_PRESSURE)
 		return ATMOSBOT_LOW_OXYGEN
 	//Check temperature
@@ -241,7 +266,7 @@
 	for(var/obj/structure/holosign/barrier/atmos/A in target_turf)
 		blocked = TRUE
 		break
-	if(!target_turf.CanAtmosPass(target_turf) || blocked)
+	if(!target_turf.can_atmos_pass(target_turf) || blocked)
 		//Pressumable from being inside a holobarrier, move somewhere nearby
 		var/turf/open/floor/floor_turf = pick(view(3, src))
 		if(floor_turf && istype(floor_turf))
@@ -252,7 +277,7 @@
 /mob/living/simple_animal/bot/atmosbot/proc/return_nearest_breach()
 	var/turf/origin = get_turf(src)
 
-	if(isclosedturf(origin))
+	if(origin.blocks_air)
 		return null
 
 	var/room_limit = ATMOSBOT_MAX_AREA_SCAN
@@ -268,59 +293,55 @@
 		for(var/obj/structure/holosign/barrier/atmos/A in checking_turf)
 			blocked = TRUE
 			break
-		if(blocked || !checking_turf.CanAtmosPass(checking_turf))
+		if(blocked || !checking_turf.can_atmos_pass(checking_turf))
 			continue
+		var/datum/gas_mixture/current_air = checking_turf.return_air()
+		if (!current_air)
+			continue
+		var/current_pressure = current_air.return_pressure()
 		//Add adjacent turfs
 		for(var/direction in list(NORTH, SOUTH, EAST, WEST))
 			var/turf/adjacent_turf = get_step(checking_turf, direction)
-			if(adjacent_turf in checked_turfs || !adjacent_turf.CanAtmosPass(adjacent_turf) || istype(adjacent_turf.loc, /area/space))
+			if((adjacent_turf in checked_turfs) || !(adjacent_turf.can_atmos_pass(adjacent_turf)))
 				continue
-			if(isspaceturf(adjacent_turf))
+			var/datum/gas_mixture/checking_air = checking_turf.return_air()
+			if (!checking_air)
+				continue
+			var/checking_pressure = checking_air.return_pressure()
+			// If the pressure difference is high or its a space turf, place a shield wall here
+			if (abs(checking_pressure - current_pressure) > 30 || isspaceturf(adjacent_turf))
 				return checking_turf
 			to_check_turfs |= adjacent_turf
 	return null
 
-/mob/living/simple_animal/bot/atmosbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<tt><b>Atmospheric Stabilizer Controls v1.1</b></tt><br><br>"
-	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<br>"
-	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Breach Pressure: <a href='?src=[REF(src)];set_breach_pressure=1'>[breached_pressure]</a><br>"
-		dat += "Temperature Control: <a href='?src=[REF(src)];toggle_temp_control=1'>[temperature_control?"Enabled":"Disabled"]</a><br>"
-		dat += "Temperature Target: <a href='?src=[REF(src)];set_ideal_temperature=[ideal_temperature]'>[ideal_temperature]C</a><br>"
-		dat += "Gas Scrubbing Controls<br>"
-		for(var/gas_id in gasses)
-			var/gas_enabled = gasses[gas_id]
-			dat += "[GLOB.gas_data.names[gas_id]]: <a href='?src=[REF(src)];toggle_gas=[gas_id]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
-		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-	return dat
+/mob/living/simple_animal/bot/atmosbot/ui_data(mob/user)
+	var/list/data = ..()
+	if (!locked || issilicon(user) || IsAdminGhost(user))
+		data["custom_controls"]["breach_pressure"] = breached_pressure
+		data["custom_controls"]["temperature_control"] = temperature_control
+		data["custom_controls"]["ideal_temperature"] = ideal_temperature
+		data["custom_controls"]["scrub_gasses"] = gasses
+	return data
 
-/mob/living/simple_animal/bot/atmosbot/Topic(href, href_list)
+/mob/living/simple_animal/bot/atmosbot/ui_act(action, params)
 	if(..())
 		return TRUE
-
-	if(href_list["set_breach_pressure"])
-		var/new_breach_pressure = input(usr, "Pressure to scan for breaches at? (0 to 100)", "Breach Pressure") as num
-		if(!isnum(new_breach_pressure) || new_breach_pressure < 0 || new_breach_pressure > 100)
-			return
-		breached_pressure = new_breach_pressure
-	else if(href_list["toggle_temp_control"])
-		temperature_control = temperature_control ? FALSE : TRUE
-	else if(href_list["toggle_gas"])
-		var/gas_id = href_list["toggle_gas"]
-		for(var/G in gasses)
-			if("[G]" == gas_id)
-				gasses[G] = gasses[G] ? FALSE : TRUE
-	else if(href_list["set_ideal_temperature"])
-		var/new_temp = input(usr, "Set Target Temperature ([T0C] to [T20C + 20])", "Target Temperature") as num
-		if(!isnum(new_temp) || new_temp < T0C || new_temp > T20C + 20)
-			return
-		ideal_temperature = new_temp
-
-	update_controls()
+	switch(action)
+		if("breach_pressure")
+			var/adjust_num = round(text2num(params["pressure"]))
+			adjust_num = clamp(adjust_num, 0, 100)
+			breached_pressure = adjust_num
+		if("temperature_control")
+			temperature_control = !temperature_control
+		if("ideal_temperature")
+			var/adjust_num = round(text2num(params["temperature"]))
+			adjust_num = clamp(adjust_num, T0C, T20C + 20)
+			ideal_temperature = adjust_num
+		if("scrub_gasses")
+			var/id = params["id"]
+			for(var/gas_id in gasses)
+				if (gas_id == id)
+					gasses[id] = !gasses[id]
 	update_icon()
 
 /mob/living/simple_animal/bot/atmosbot/update_icon()
@@ -336,7 +357,7 @@
 
 /mob/living/simple_animal/bot/atmosbot/explode()
 	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 
 	var/atom/Tsec = drop_location()
 
@@ -355,3 +376,18 @@
 
 	do_sparks(3, TRUE, src)
 	..()
+
+#undef ATMOSBOT_MAX_AREA_SCAN
+#undef ATMOSBOT_HOLOBARRIER_COOLDOWN
+#undef ATMOSBOT_MAX_PRESSURE_CHANGE
+#undef ATMOSBOT_MAX_SCRUB_CHANGE
+#undef ATMOSBOT_CHECK_BREACH
+#undef ATMOSBOT_LOW_OXYGEN
+#undef ATMOSBOT_HIGH_TOXINS
+#undef ATMOSBOT_BAD_TEMP
+#undef ATMOSBOT_AREA_STABLE
+#undef ATMOSBOT_NOTHING
+#undef ATMOSBOT_DEPLOY_BARRIER
+#undef ATMOSBOT_VENT_AIR
+#undef ATMOSBOT_SCRUB_TOXINS
+#undef ATMOSBOT_TEMPERATURE_CONTROL

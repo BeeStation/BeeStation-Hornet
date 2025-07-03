@@ -2,7 +2,7 @@
 "e" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "f" = (
@@ -24,18 +24,18 @@
 	pixel_y = 26
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "u" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "J" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Q" = (
 /obj/machinery/vending/autodrobe/all_access,
@@ -45,7 +45,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "S" = (
 /obj/structure/dresser,
@@ -54,7 +54,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Z" = (
 /obj/structure/table/wood,
@@ -69,7 +69,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 
 (1,1,1) = {"

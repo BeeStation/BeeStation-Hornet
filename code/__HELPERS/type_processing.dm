@@ -10,8 +10,8 @@
 			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
 			/obj/item/bodypart = "BODYPART",
 			/obj/item/book/manual = "MANUAL",
-			/obj/item/reagent_containers/food/drinks = "DRINK", //longest paths comes first
-			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers/cup/glass = "DRINK", //longest paths comes first
+			/obj/item/food = "FOOD",
 			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
 			/obj/machinery/atmospherics = "ATMOS_MECH",
 			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
@@ -26,6 +26,7 @@
 			/turf/open = "OPEN",
 			/turf/closed = "CLOSED",
 			/turf = "T",
+			/mob/living/basic = "BASIC_MOB",
 			/mob/living/carbon = "CARBON",
 			/mob/living/simple_animal = "SIMPLE",
 			/mob/living = "LIVING",
@@ -58,3 +59,6 @@
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")

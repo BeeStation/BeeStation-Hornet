@@ -1,6 +1,7 @@
 /datum/saymode
 	var/key
 	var/mode
+	var/early = FALSE
 
 //Return FALSE if you have handled the message. Otherwise, return TRUE and saycode will continue doing saycode things.
 //user = whoever said the message
@@ -16,7 +17,7 @@
 /datum/saymode/xeno/handle_message(mob/living/user, message, datum/language/language)
 	if(user.hivecheck())
 		user.alien_talk(message)
-	else if("carp" in user.faction)
+	else if(FACTION_CARP in user.faction)
 		user.carp_talk(message)
 	return FALSE
 
@@ -28,7 +29,7 @@
 /datum/saymode/vocalcords/handle_message(mob/living/user, message, datum/language/language)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/vocal_cords/V = C.getorganslot(ORGAN_SLOT_VOICE)
+		var/obj/item/organ/vocal_cords/V = C.get_organ_slot(ORGAN_SLOT_VOICE)
 		if(V && V.can_speak_with())
 			V.handle_speech(message) //message
 			V.speak_with(message) //action
@@ -62,5 +63,15 @@
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		AI.holopad_talk(message, language)
-		return FALSE
 	return TRUE
+
+/datum/saymode/holoparasite
+	key = MODE_KEY_HOLOPARASITE
+	mode = MODE_HOLOPARASITE
+	early = TRUE
+
+/datum/saymode/holoparasite/handle_message(mob/living/user, message, datum/language/_language)
+	. = FALSE
+	if(!istype(user) || !user.mind || !length(message) || (!isholopara(user) && !user.has_holoparasites()))
+		return TRUE
+	user.holoparasite_telepathy(message, sanitize = FALSE) // sanitize = FALSE is used because say() sanitizes the message before passing it to any saymodes, even early saymodes.

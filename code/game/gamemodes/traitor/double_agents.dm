@@ -12,15 +12,15 @@
 	recommended_enemies = 8
 	reroll_friendly = 0
 	traitor_name = "Nanotrasen Internal Affairs Agent"
-	antag_flag = ROLE_INTERNAL_AFFAIRS
+	antag_datum = /datum/antagonist/traitor/internal_affairs
+	role_preference = /datum/role_preference/antagonist/internal_affairs
 
 	traitors_possible = 10 //hard limit on traitors if scaling is turned off
 	num_modifier = 4 // Four additional traitors
-	antag_datum = /datum/antagonist/traitor/internal_affairs
 
-	announce_text = "There are Nanotrasen Internal Affairs Agents trying to kill each other!\n\
-	<span class='danger'>IAA</span>: Eliminate your targets and protect yourself!\n\
-	<span class='notice'>Crew</span>: Stop the IAA agents before they can cause too much mayhem."
+	announce_text = "There are Nanotrasen Internal Affairs Agents trying to kill each other!\n \
+	" + span_danger("IAA") + ":Eliminate your targets and protect yourself!\n \
+	" + span_notice("Crew") + ":Stop the IAA agents before they can cause too much mayhem."
 
 
 

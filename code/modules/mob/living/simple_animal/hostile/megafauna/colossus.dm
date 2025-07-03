@@ -8,11 +8,11 @@ The colossus has a degree of sentience, proving this in speech during its attack
 It acts as a melee creature, chasing down and attacking its target while also using different attacks to augment its power that increase as it takes damage.
 
 The colossus' true danger lies in its ranged capabilities. It fires immensely damaging death bolts that penetrate all armor in a variety of ways:
- 1. The colossus fires death bolts in alternating patterns: the cardinal directions and the diagonal directions.
- 2. The colossus fires death bolts in a shotgun-like pattern, instantly downing anything unfortunate enough to be hit by all of them.
- 3. The colossus fires a spiral of death bolts.
-At 33% health, the colossus gains an additional attack:
- 4. The colossus fires two spirals of death bolts, spinning in opposite directions.
+	1. The colossus fires death bolts in alternating patterns: the cardinal directions and the diagonal directions.
+	2. The colossus fires death bolts in a shotgun-like pattern, instantly downing anything unfortunate enough to be hit by all of them.
+	3. The colossus fires a spiral of death bolts.
+	At 33% health, the colossus gains an additional attack:
+	4. The colossus fires two spirals of death bolts, spinning in opposite directions.
 
 When a colossus dies, it leaves behind a chunk of glowing crystal known as a black box. Anything placed inside will carry over into future rounds.
 For instance, you could place a bag of holding into the black box, and then kill another colossus next round and retrieve the bag of holding from inside.
@@ -26,12 +26,14 @@ Difficulty: Very Hard
 	desc = "A monstrous creature protected by heavy shielding."
 	health = 1250
 	maxHealth = 1250
-	attacktext = "judges"
+	attack_verb_continuous = "judges"
+	attack_verb_simple = "judge"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
 	icon_living = "eva"
 	icon_dead = ""
-	friendly = "stares down"
+	friendly_verb_continuous = "stares down"
+	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
 	armour_penetration = 40
@@ -40,6 +42,7 @@ Difficulty: Very Hard
 	move_to_delay = 10
 	ranged = TRUE
 	pixel_x = -32
+	base_pixel_x = -32
 	del_on_death = TRUE
 	gps_name = "Angelic Signal"
 	achievement_type = /datum/award/achievement/boss/colussus_kill
@@ -55,37 +58,41 @@ Difficulty: Very Hard
 	small_sprite_type = /datum/action/small_sprite/megafauna/colossus
 	var/invulnerable_finale = FALSE
 
+/mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT) //we don't want this guy to float, messes up his animations.
+
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
+	chosen_message = span_colossus("You are now firing in a spiral.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "at_shield2"
-	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
+	chosen_message = span_colossus("You are now firing in all directions.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
 	icon_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "shotgun"
-	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
+	chosen_message = span_colossus("You are now firing shotgun shots where you aim.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
 	icon_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "pistol"
-	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
+	chosen_message = span_colossus("You are now firing in alternating cardinal directions.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = CLAMP(((maxHealth - health)/20),0,20)
+	anger_modifier = clamp(((maxHealth - health)/20),0,20)
 
 	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
@@ -95,32 +102,32 @@ Difficulty: Very Hard
 				else
 					telegraph()
 					say("Judgment")
-					visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+					visible_message(span_colossus("\"<b>Judgment</b>\""))
 					select_spiral_attack()
 					ranged_cooldown = world.time + 30
 			if(2)
 				telegraph()
 				say("Wrath")
-				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
+				visible_message(span_colossus("\"<b>Wrath</b>\""))
 				random_shots()
 				ranged_cooldown = world.time + 30
 			if(3)
 				telegraph()
 				say("Retribution")
-				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
+				visible_message(span_colossus("\"<b>Retribution</b>\""))
 				blast()
 				ranged_cooldown = world.time + 30
 			if(4)
 				telegraph()
 				say("Lament")
-				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
+				visible_message(span_colossus("\"<b>Lament</b>\""))
 				alternating_dir_shots()
 				ranged_cooldown = world.time + 30
 		return
 
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
-			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
+			visible_message(span_colossus("\"<b>You can't dodge.</b>\""))
 		telegraph()
 		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
@@ -142,25 +149,25 @@ Difficulty: Very Hard
 
 	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
 		say("Die..")
-		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		visible_message(span_colossus("\"<b>Die..</b>\""))
 		random_attack_num = 5
 	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
 		say("Judgment")
-		visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+		visible_message(span_colossus("\"<b>Judgment</b>\""))
 		random_attack_num = 1
 	else
 		switch(rand(1, 3))
 			if(1)
 				say("Wrath")
-				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
+				visible_message(span_colossus("\"<b>Wrath</b>\""))
 				random_attack_num = 2
 			if(2)
 				say("Retribution")
-				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
+				visible_message(span_colossus("\"<b>Retribution</b>\""))
 				random_attack_num = 3
 			if(3)
 				say("Lament")
-				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
+				visible_message(span_colossus("\"<b>Lament</b>\""))
 				random_attack_num = 4
 	telegraph()
 	ranged_cooldown = world.time + 30
@@ -169,7 +176,7 @@ Difficulty: Very Hard
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.mind)
-			if(H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+			if(istype(H.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 				. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
@@ -199,7 +206,7 @@ Difficulty: Very Hard
 		if(finale_counter > 4)
 			telegraph()
 			say("Die!!")
-			visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
+			visible_message(span_colossus("\"<b>Die!</b>\""))
 			blast()
 		if(finale_counter > 1)
 			finale_counter--
@@ -210,14 +217,14 @@ Difficulty: Very Hard
 	for(var/ii in 1 to 3)
 		telegraph()
 		say("Die")
-		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		visible_message(span_colossus("\"<b>Die..</b>\""))
 		random_shots()
 		finale_counter += 6
 		sleep(finale_counter)
 	for(var/iii in 1 to 4)
 		telegraph()
 		say("Die..")
-		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		visible_message(span_colossus("\"<b>Die..</b>\""))
 		invulnerable_finale = FALSE
 		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
 
@@ -241,7 +248,7 @@ Difficulty: Very Hard
 	if(!isnum_safe(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
+	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
 	P.preparePixelProjectile(marker, startloc)
 	P.firer = src
 	if(target)
@@ -292,12 +299,14 @@ Difficulty: Very Hard
 	duration = 8
 	var/target
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/at_shield)
+
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
 	target = new_target
 	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/projectile/P)
 	if(!stat)
 		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
@@ -307,7 +316,7 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-/obj/item/projectile/colossus
+/obj/projectile/colossus
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 25
@@ -317,7 +326,7 @@ Difficulty: Very Hard
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
-/obj/item/projectile/colossus/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/colossus/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(isturf(target) || isobj(target))
 		if(isobj(target))
@@ -341,6 +350,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	pixel_y = -4
 	use_power = NO_POWER_USE
+	opacity = FALSE
 	var/memory_saved = FALSE
 	var/list/stored_items = list()
 	var/list/blacklist = list()
@@ -352,14 +362,14 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(!istype(O))
 		return FALSE
 	if(blacklist[O])
-		visible_message("<span class='boldwarning'>[src] ripples as it rejects [O]. The device will not accept items that have been removed from it.</span>")
+		visible_message(span_boldwarning("[src] ripples as it rejects [O]. The device will not accept items that have been removed from it."))
 		return FALSE
 	return TRUE
 
 /obj/machinery/smartfridge/black_box/Initialize(mapload)
 	. = ..()
 	if(GLOB.blackbox != src)
-		return INITIALIZE_HINT_QDEL_FORCE
+		return INITIALIZE_HINT_QDEL
 	GLOB.blackbox = src
 	ReadMemory()
 
@@ -482,7 +492,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isliving(speaker))
 		ActivationReaction(speaker, ACTIVATE_SPEECH)
 
-/obj/machinery/anomalous_crystal/attack_hand(mob/user)
+/obj/machinery/anomalous_crystal/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -495,9 +505,9 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		ActivationReaction(user, ACTIVATE_WEAPON)
 	..()
 
-/obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
+/obj/machinery/anomalous_crystal/bullet_act(obj/projectile/P, def_zone)
 	. = ..()
-	if(istype(P, /obj/item/projectile/magic))
+	if(istype(P, /obj/projectile/magic))
 		ActivationReaction(P.firer, ACTIVATE_MAGIC, P.damage_type)
 		return
 	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
@@ -531,9 +541,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.dropItemToGround(W)
-		var/datum/job/clown/C = new /datum/job/clown()
+		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
 		C.equip(H)
-		qdel(C)
 		affected_targets.Add(H)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
@@ -588,7 +597,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/open/O = T.ChangeTurf(NewTerrainFloors, flags = CHANGETURF_INHERIT_AIR)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O, TRUE))
+						if(prob(florachance) && NewFlora.len && !O.is_blocked_turf(TRUE))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
@@ -610,18 +619,18 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	observer_desc = "This crystal generates a projectile when activated."
 	activation_method = ACTIVATE_TOUCH
 	cooldown_add = 50
-	var/obj/item/projectile/generated_projectile = /obj/item/projectile/beam/emitter
+	var/obj/projectile/generated_projectile = /obj/projectile/beam/emitter
 
 /obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
 	. = ..()
-	generated_projectile = pick(/obj/item/projectile/colossus)
+	generated_projectile = pick(/obj/projectile/colossus)
 
 	var/proj_name = initial(generated_projectile.name)
 	observer_desc = "This crystal generates \a [proj_name] when activated."
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())
-		var/obj/item/projectile/P = new generated_projectile(get_turf(src))
+		var/obj/projectile/P = new generated_projectile(get_turf(src))
 		P.setDir(dir)
 		switch(dir)
 			if(NORTH)
@@ -665,15 +674,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_sound = 'sound/effects/ghost2.ogg'
 	var/ready_to_deploy = FALSE
 
-/obj/machinery/anomalous_crystal/helpers/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
-
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		ready_to_deploy = TRUE
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=[REF(src)];ghostjoin=1>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
+		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href='byond://?src=[REF(src)];ghostjoin=1'>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	. = ..()
@@ -699,15 +704,19 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
 	turns_per_move = 1
-	response_help = "waves away"
-	response_disarm = "brushes aside"
-	response_harm = "disrupts"
+	response_help_continuous = "waves away"
+	response_help_simple = "wave away"
+	response_disarm_continuous = "brushes aside"
+	response_disarm_simple = "brush aside"
+	response_harm_continuous = "disrupts"
+	response_harm_simple = "disrupt"
 	speak_emote = list("oscillates")
 	maxHealth = 2
 	health = 2
-	friendly = "mends"
+	friendly_verb_continuous = "mends"
+	friendly_verb_simple = "mend"
 	density = FALSE
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
@@ -719,10 +728,9 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	initial_language_holder = /datum/language_holder/lightbringer
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	light_range = 4
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
-	movement_type = FLYING
 	minbodytemp = 0
 	maxbodytemp = 1500
 	obj_damage = 0
@@ -764,7 +772,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		/obj/item/implant,
 		/obj/item/implanter,
 		/obj/item/disk/nuclear,
-		/obj/item/projectile,
+		/obj/projectile,
 		/obj/item/spellbook,
 		/obj/item/dice/d20/fate
 	))
@@ -800,7 +808,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 				mobcheck = TRUE
 				break
 			if(!mobcheck)
-				new /mob/living/simple_animal/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
+				new /mob/living/basic/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
 
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"
@@ -815,6 +823,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(holder_animal)
 		if(holder_animal.stat == DEAD)
 			dump_contents()
+			holder_animal.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 			holder_animal.gib()
 			return
 
@@ -832,21 +841,23 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
-		var/obj/effect/proc_holder/spell/targeted/exit_possession/P = new /obj/effect/proc_holder/spell/targeted/exit_possession
-		holder_animal.mind.AddSpell(P)
+		var/datum/action/exit_possession/P = new /datum/action/exit_possession
+		P.Grant(holder_animal)
 		holder_animal.remove_verb(/mob/living/verb/pulled)
 
-/obj/structure/closet/stasis/dump_contents(var/kill = 1)
+/obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
 		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags &= ~GODMODE
 		L.notransform = 0
 		if(holder_animal)
+			var/datum/action/exit_possession/P = new /datum/action/exit_possession
+			P.Remove(holder_animal)
 			holder_animal.mind.transfer_to(L)
-			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
 		if(kill || !isanimal(loc))
-			L.death(0)
+			L.investigate_log("has died from [src].", INVESTIGATE_DEATHS)
+			L.death(FALSE)
 	..()
 
 /obj/structure/closet/stasis/emp_act()
@@ -855,32 +866,23 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/structure/closet/stasis/ex_act()
 	return
 
-/obj/effect/proc_holder/spell/targeted/exit_possession
+/datum/action/exit_possession
 	name = "Exit Possession"
-	desc = "Exits the body you are possessing."
-	charge_max = 60
-	clothes_req = 0
-	invocation_type = INVOCATION_NONE
-	max_targets = 1
-	range = -1
-	include_user = TRUE
-	selection_type = "view"
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
-	action_icon_state = "exit_possession"
-	sound = null
+	desc = "Exits the body you are possessing. They will explode violently when this occurs."
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon_state = "exit_possession"
 
-/obj/effect/proc_holder/spell/targeted/exit_possession/cast(list/targets, mob/user = usr)
-	if(!isfloorturf(user.loc))
-		return
-	var/datum/mind/target_mind = user.mind
-	for(var/i in user)
-		if(istype(i, /obj/structure/closet/stasis))
-			var/obj/structure/closet/stasis/S = i
-			S.dump_contents(0)
-			qdel(S)
-			break
-	user.gib()
-	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
+/datum/action/exit_possession/is_available()
+	return ..() && isfloorturf(owner.loc)
+
+/datum/action/exit_possession/on_activate(mob/user, atom/target)
+	var/obj/structure/closet/stasis/stasis = locate() in owner
+	if(!stasis)
+		CRASH("[type] did not find a stasis closet thing in the owner.")
+
+	stasis.dump_contents(FALSE)
+	qdel(stasis)
+	qdel(src)
 
 
 #undef ACTIVATE_TOUCH

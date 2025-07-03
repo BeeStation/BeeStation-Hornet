@@ -3,11 +3,11 @@ import { useBackend } from '../backend';
 import { Stack, Section } from '../components';
 
 type Data = {
-  src?: string
+  src?: string;
 };
 
-export const NtosDatabank = (props, context) => {
-  const { data } = useBackend<Data>(context);
+export const NtosDatabank = (props) => {
+  const { data } = useBackend<Data>();
   const { src } = data;
 
   return (
@@ -15,12 +15,7 @@ export const NtosDatabank = (props, context) => {
       <NtosWindow.Content>
         <Stack fill vertical justify="space-between">
           <Section fill>
-            <iframe
-              src={src}
-              height="100%"
-              width="100%"
-              frameBorder="0"
-            />
+            <iframe src={src} height="100%" width="100%" frameBorder="0" />
           </Section>
         </Stack>
       </NtosWindow.Content>

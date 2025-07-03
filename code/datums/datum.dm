@@ -19,16 +19,30 @@
 
 	/// Active timers with this datum as the target
 	var/list/active_timers
-	/// Components attached to this datum
-	var/list/datum_components
-	/// Status traits attached to this datum
+	/// Status traits attached to this datum. associative list of the form: list(trait name (string) = list(source1, source2, source3,...))
 	var/list/status_traits
-	/// Any datum registered to receive signals from this datum is in this list
+
+	/**
+	  * Components attached to this datum
+	  *
+	  * Lazy associated list in the structure of `type:component/list of components`
+	  */
+	var/list/datum_components
+	/**
+	  * Any datum registered to receive signals from this datum is in this list
+	  *
+	  * Lazy associated list in the structure of `signal:registree/list of registrees`
+	  */
 	var/list/comp_lookup
-	/// List of callbacks for signal procs
+	/// Lazy associated list in the structure of `signals:proctype` that are run when the datum receives that signal
 	var/list/list/datum/callback/signal_procs
+
 	/// Datum level flags
 	var/datum_flags = NONE
+	/// A cached version of our \ref
+	/// The brunt of \ref costs are in creating entries in the string tree (a tree of immutable strings)
+	/// This avoids doing that more then once per datum by ensuring ref strings always have a reference to them after they're first pulled
+	var/cached_ref
 
 	/// A weak reference to another datum
 	var/datum/weakref/weak_reference
@@ -50,14 +64,19 @@
 	#endif
 #endif
 
+	// If we have called dump_harddel_info already. Used to avoid duped calls (since we call it immediately in some cases on failure to process)
+	// Create and destroy is weird and I wanna cover my bases
+	var/harddel_deets_dumped = FALSE
+
 #ifdef DATUMVAR_DEBUGGING_MODE
 	var/list/cached_vars
 #endif
 
 /**
-  * Topic signals
-  */
-
+ * Called when a href for this datum is clicked
+ *
+ * Sends a [COMSIG_TOPIC] signal
+ */
 /datum/Topic(href, href_list[])
 	..()
 	SEND_SIGNAL(src, COMSIG_TOPIC, usr, href_list)
@@ -86,7 +105,7 @@
 
 	var/list/timers = active_timers
 	active_timers = null
-  
+
 	for(var/datum/timedevent/timer as anything in timers)
 		if (timer?.spent && !(timer.flags & TIMER_DELETE_ME))
 			continue
@@ -103,9 +122,8 @@
 	if(dc)
 		var/all_components = dc[/datum/component]
 		if(length(all_components))
-			for(var/I in all_components)
-				var/datum/component/C = I
-				qdel(C, FALSE, TRUE)
+			for(var/datum/component/component as anything in all_components)
+				qdel(component, FALSE, TRUE)
 		else
 			var/datum/component/C = all_components
 			qdel(C, FALSE, TRUE)
@@ -124,8 +142,7 @@
 		for(var/sig in lookup)
 			var/list/comps = lookup[sig]
 			if(length(comps))
-				for(var/i in comps)
-					var/datum/component/comp = i
+				for(var/datum/component/comp as anything in comps)
 					comp.UnregisterSignal(src, sig)
 			else
 				var/datum/component/comp = comps
@@ -255,3 +272,28 @@
 		return
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
+
+///Generate a tag for this /datum, if it implements one
+///Should be called as early as possible, best would be in New, to avoid weakref mistargets
+///Really just don't use this, you don't need it, global lists will do just fine MOST of the time
+///We really only use it for mobs to make id'ing people easier
+/datum/proc/GenerateTag()
+	datum_flags |= DF_USE_TAG
+
+/// Return text from this proc to provide extra context to hard deletes that happen to it
+/// Optional, you should use this for cases where replication is difficult and extra context is required
+/// Can be called more then once per object, use harddel_deets_dumped to avoid duplicate calls (I am so sorry)
+/datum/proc/dump_harddel_info()
+	return
+
+///images are pretty generic, this should help a bit with tracking harddels related to them
+/image/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Image icon: [icon] - icon_state: [icon_state] [loc ? "loc: [loc] ([loc.x],[loc.y],[loc.z])" : ""]"
+
+/// Intercept click on when registered as a click intercept
+/datum/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
+	SHOULD_NOT_SLEEP(TRUE)
+	return FALSE

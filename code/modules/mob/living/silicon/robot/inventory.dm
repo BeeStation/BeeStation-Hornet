@@ -17,7 +17,7 @@
 		sight_mode &= ~S.sight_mode
 		update_sight()
 	else if(istype(O, /obj/item/storage/bag/tray/))
-		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_QUICK_EMPTY)
+		O.atom_storage.remove_all(loc)
 	if(client)
 		client.screen -= O
 	observer_screen_update(O,FALSE)
@@ -48,7 +48,7 @@
 	if(!(O in module.modules))
 		return
 	if(activated(O))
-		to_chat(src, "<span class='warning'>That module is already activated.</span>")
+		to_chat(src, span_warning("That module is already activated."))
 		return
 	if(!held_items[1])
 		held_items[1] = O
@@ -63,7 +63,7 @@
 		O.screen_loc = inv3.screen_loc
 		. = TRUE
 	else
-		to_chat(src, "<span class='warning'>You need to disable a module first!</span>")
+		to_chat(src, span_warning("You need to disable a module first!"))
 	if(.)
 		O.equipped(src, ITEM_SLOT_HANDS)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -74,6 +74,7 @@
 			var/obj/item/borg/sight/S = O
 			sight_mode |= S.sight_mode
 			update_sight()
+	updatehealth() //handles modules being equipped when heavily damaged
 
 
 /mob/living/silicon/robot/proc/observer_screen_update(obj/item/I,add = TRUE)
@@ -212,3 +213,7 @@
 
 /mob/living/silicon/robot/swap_hand()
 	cycle_modules()
+	refresh_self_screentips()
+
+/mob/living/silicon/robot/can_hold_items(obj/item/I)
+	return (I && (I in module.modules)) //Only if it's part of our module.

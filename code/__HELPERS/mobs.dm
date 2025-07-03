@@ -31,33 +31,26 @@
 /proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.underwear_m)
-		if(FEMALE)
-			return pick(GLOB.underwear_f)
-		else
-			return pick(GLOB.underwear_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.underwear_list, required_gender = gender)
+	return picked.name
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.undershirt_m)
-		if(FEMALE)
-			return pick(GLOB.undershirt_f)
-		else
-			return pick(GLOB.undershirt_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.undershirt_list, required_gender = gender)
+	return picked.name
 
-/proc/random_socks()
+/proc/random_socks(gender)
 	if(!GLOB.socks_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
-	return pick(GLOB.socks_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, required_gender = gender)
+	return picked.name
 
-/proc/random_features()
+/proc/random_features(gender)
 	if(!GLOB.tails_list_human.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
+	if(!GLOB.tails_roundstart_list_human.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_roundstart_list_human)
 	if(!GLOB.tails_list_lizard.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
 	if(!GLOB.snouts_list.len)
@@ -96,6 +89,26 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
 	if(!GLOB.apid_headstripes_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
+	if(!GLOB.psyphoza_cap_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
+	if(!GLOB.diona_leaves_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_leaves, GLOB.diona_leaves_list)
+	if(!GLOB.diona_thorns_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_thorns, GLOB.diona_thorns_list)
+	if(!GLOB.diona_flowers_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_flowers, GLOB.diona_flowers_list)
+	if(!GLOB.diona_moss_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_moss, GLOB.diona_moss_list)
+	if(!GLOB.diona_mushroom_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_mushroom, GLOB.diona_mushroom_list)
+	if(!GLOB.diona_antennae_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_antennae, GLOB.diona_antennae_list)
+	if(!GLOB.diona_eyes_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_eyes, GLOB.diona_eyes_list)
+	if(!GLOB.diona_pbody_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_pbody, GLOB.diona_pbody_list)
+
+
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -123,27 +136,26 @@
 		"apid_antenna" = pick(GLOB.apid_antenna_list),
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
-		"body_model" = MALE
+		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
+		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
+		"diona_leaves" = pick(GLOB.diona_leaves_list),
+		"diona_thorns" = pick(GLOB.diona_thorns_list),
+		"diona_flowers" = pick(GLOB.diona_flowers_list),
+		"diona_moss" = pick(GLOB.diona_moss_list),
+		"diona_mushroom" = pick(GLOB.diona_mushroom_list),
+		"diona_antennae" = pick(GLOB.diona_antennae_list),
+		"diona_eyes" = pick(GLOB.diona_eyes_list),
+		"diona_pbody" = pick(GLOB.diona_pbody_list)
 		)
 	)
 
 /proc/random_hair_style(gender)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.hair_styles_male_list)
-		if(FEMALE)
-			return pick(GLOB.hair_styles_female_list)
-		else
-			return pick(GLOB.hair_styles_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hair_styles_list, required_gender = gender)
+	return picked.name
 
 /proc/random_facial_hair_style(gender)
-	switch(gender)
-		if(MALE)
-			return pick(GLOB.facial_hair_styles_male_list)
-		if(FEMALE)
-			return pick(GLOB.facial_hair_styles_female_list)
-		else
-			return pick(GLOB.facial_hair_styles_list)
+	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hair_styles_list, required_gender = gender)
+	return picked.name
 
 /proc/random_unique_name(gender, attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
@@ -151,7 +163,7 @@
 			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else if(gender==MALE)
 			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
-		else if(gender==PLURAL)
+		else
 			. = capitalize(pick(GLOB.first_names)) + " " + capitalize(pick(GLOB.last_names))
 
 		if(!findname(.))
@@ -166,6 +178,56 @@
 	if(attempts < 10)
 		if(findname(.))
 			. = .(gender, ++attempts)
+
+//this proc tries to generate an AI name that mimics the way players name AIs and borgs
+/proc/random_ai_name(style, attempts = 1)
+	var/numbers = list("1","2","3","4","5","6","7","8","9","0")
+	var/version_words = list("v", "V", "Version ", "mk", "MK", "Mark ")
+	for(var/i in 1 to attempts)
+
+		if(!style)
+			style = rand(1,2)
+
+		switch(style)
+			if(1) //2-3 random sectors
+				var/sectors = 2 + prob(20) //small chance for 3 sectors
+				for(var/s in 1 to sectors)
+					var/sector
+					var/sector_characters
+					var/breakup_character = "-"
+					var/sectorlength = rand(1,3)
+					switch(rand(1,100))
+						if(1 to 25)//25% chance for both numbers and letters
+							sector_characters = numbers + GLOB.alphabet + GLOB.alphabet //add alphabet twice so that numbers are lower weight
+						if(25 to 75) //50% chance for only letters
+							sector_characters = GLOB.alphabet
+						else //25% chance for only numbers, along with shorter sector length and a different breakup character
+							sector_characters = numbers
+							breakup_character = "."
+							sectorlength = rand(1,3)
+
+					sector = random_string(sectorlength, sector_characters)
+					if(prob(80)) //it's probably going to be uppercase
+						sector = uppertext(sector)
+
+					if(s > 1)
+						. += breakup_character
+					. += sector
+
+			if(2) //random vaguely AI related word with a chance to be followed by a version number or a "mark", such as mk1.2, or v3.6
+				. += pick(GLOB.ai_names)
+				if(prob(max(30 - (LAZYLEN(.)), 10))) //chance to for every character to be capitalized followed by a period. the chance is lower the longer the name is.
+					. = uppertext(replacetextEx(.,regex(@"([a-z](?=[a-z]))","g"),"$1."))
+				else if (prob(50)) //slightly higher chance to just be full uppertext
+					. = uppertext(.)
+				else
+					. = capitalize(.)
+
+				if(prob(33))
+
+					var/version_string = " " + pick(version_words) + num2text(prob(50) ? rand(1, 100) / 10 : rand(1,10))
+
+					. += version_string
 
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
@@ -185,6 +247,22 @@ GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"african2"
 	)))
 
+GLOBAL_LIST_INIT(skin_tone_names, list(
+	"african1" = "Medium brown",
+	"african2" = "Dark brown",
+	"albino" = "Albino",
+	"arab" = "Light brown",
+	"asian1" = "Ivory",
+	"asian2" = "Beige",
+	"caucasian1" = "Porcelain",
+	"caucasian2" = "Light peach",
+	"caucasian3" = "Peach",
+	"indian" = "Brown",
+	"latino" = "Light beige",
+	"mediterranean" = "Olive",
+))
+
+/// An assoc list of species IDs to type paths
 GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
@@ -229,7 +307,7 @@ GLOBAL_LIST_EMPTY(species_list)
  *
  * Checks that `user` does not move, change hands, get stunned, etc. for the
  * given `delay`. Returns `TRUE` on success or `FALSE` on failure.
- * 
+ *
  * Arguments:
  * * user - the primary "user" of the do_after.
  * * delay - how long the do_after takes. Defaults to 3 SECONDS.
@@ -238,13 +316,19 @@ GLOBAL_LIST_EMPTY(species_list)
  * * progress - if TRUE, a progress bar is displayed.
  * * extra_checks - a callback that can be used to add extra checks to the do_after. Returning false in this callback will cancel the do_after.
  */
-/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1, hidden = FALSE)
 	if(!user)
 		return FALSE
+	if(!isnum(delay))
+		CRASH("do_after was passed a non-number delay: [delay || "null"].")
 
-	if(target)
-		LAZYADD(user.do_afters, target)
-		LAZYADD(target.targeted_by, user)
+	if(!interaction_key && target)
+		interaction_key = target //Use the direct ref to the target
+	if(interaction_key) //Do we have a interaction_key now?
+		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+		if(current_interaction_count >= max_interact_count) //We are at our peak
+			return
+		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 
 	var/atom/user_loc = user.loc
 	var/atom/target_loc = target?.loc
@@ -257,12 +341,18 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	delay *= user.cached_multiplicative_actions_slowdown
 
+	if (HAS_TRAIT(user, INSTANT_DO_AFTER))
+		delay = -1
+
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
+
 	if(progress)
-		if(target) // the progress bar needs a target, so if we don't have one just pass it the user.
-			progbar = new(user, delay, target)
-		else
-			progbar = new(user, delay, user)
+		if(user.client)
+			progbar = new(user, delay, target || user)
+
+		if(!hidden && delay >= 1 SECONDS)
+			cog = new(user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
@@ -270,48 +360,46 @@ GLOBAL_LIST_EMPTY(species_list)
 	while(world.time < endtime)
 		stoplag(1)
 
-		if(QDELETED(user))
-			. = FALSE
-			break
-
-		if(progress)
+		if(!QDELETED(progbar))
 			progbar.update(world.time - starttime)
 
 		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
 			user_loc = user.loc
 
-		// Check flags
-		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
+		if(QDELETED(user) \
+			|| (!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
+			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && HAS_TRAIT(user, TRAIT_INCAPACITATED)) \
+			|| (extra_checks && !extra_checks.Invoke()))
 			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
-			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
-			. = FALSE
-
-
-		if(extra_checks && !extra_checks.Invoke())
-			. = FALSE
-
-		// If we have a target, we check for them moving here. We don't care about it if we're drifting or we ignore target loc change
-		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && !drifting)
-			if(target_loc && user != target && (QDELETED(target) || target_loc != target.loc))
-				. = FALSE
-
-		if(target && !(timed_action_flags & IGNORE_TARGET_IN_DOAFTERS) && !(target in user.do_afters))
-			. = FALSE
-
-		if(!.)
 			break
 
-	if(progress)
-		qdel(progbar)
+		if(target && (user != target) && \
+			(QDELETED(target) \
+			|| (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
+			. = FALSE
+			break
 
-	if(!QDELETED(target))
-		LAZYREMOVE(user.do_afters, target)
-		LAZYREMOVE(target.targeted_by, user)
+	if(!QDELETED(progbar))
+		progbar.end_progress()
+
+	cog?.remove()
+
+	if(interaction_key)
+		var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1
+		if(reduced_interaction_count > 0) // Not done yet!
+			LAZYSET(user.do_afters, interaction_key, reduced_interaction_count)
+			return
+		// all out, let's clear er out fully
+		LAZYREMOVE(user.do_afters, interaction_key)
+
+/// Returns the total amount of do_afters this mob is taking part in
+/mob/proc/do_after_count()
+	var/count = 0
+	for(var/key in do_afters)
+		count += do_afters[key]
+	return count
 
 /proc/is_species(A, species_datum)
 	. = FALSE
@@ -369,20 +457,23 @@ GLOBAL_LIST_EMPTY(species_list)
 	return spawned_mobs
 
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
-	message = "<span class='linkify'>[message]</span>"
+	message = span_linkify("[message]")
 	for(var/mob/M in GLOB.player_list)
-		var/chat_toggles = TOGGLES_DEFAULT_CHAT
-		var/toggles = TOGGLES_DEFAULT
+		var/death_rattle = TRUE
+		var/arrivals_rattle = TRUE
+		var/dchat = FALSE
+		var/ghostlaws = TRUE
 		var/list/ignoring
 		if(M?.client.prefs)
 			var/datum/preferences/prefs = M.client.prefs
-			chat_toggles = prefs.chat_toggles
-			toggles = prefs.toggles
 			ignoring = prefs.ignoring
-
+			death_rattle = prefs.read_player_preference(/datum/preference/toggle/death_rattle)
+			arrivals_rattle = prefs.read_player_preference(/datum/preference/toggle/arrivals_rattle)
+			dchat = prefs.read_player_preference(/datum/preference/toggle/chat_dead)
+			ghostlaws = prefs.read_player_preference(/datum/preference/toggle/chat_ghostlaws)
 
 		var/override = FALSE
-		if(M?.client.holder && (chat_toggles & CHAT_DEAD))
+		if(M?.client.holder && dchat)
 			override = TRUE
 		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE))
 			override = TRUE
@@ -397,13 +488,13 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_DEATHRATTLE)
+				if(!death_rattle)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE)
+				if(!arrivals_rattle)
 					continue
 			if(DEADCHAT_LAWCHANGE)
-				if(!(chat_toggles & CHAT_GHOSTLAWS))
+				if(!ghostlaws)
 					continue
 
 		if(isobserver(M))
@@ -437,14 +528,20 @@ GLOBAL_LIST_EMPTY(species_list)
 					mob_spawn_meancritters += T
 				if(FRIENDLY_SPAWN)
 					mob_spawn_nicecritters += T
+		for(var/mob/living/basic/basic_mob as anything in typesof(/mob/living/basic))
+			switch(initial(basic_mob.gold_core_spawnable))
+				if(HOSTILE_SPAWN)
+					mob_spawn_meancritters += basic_mob
+				if(FRIENDLY_SPAWN)
+					mob_spawn_nicecritters += basic_mob
 
 	var/chosen
 	if(mob_class == FRIENDLY_SPAWN)
 		chosen = pick(mob_spawn_nicecritters)
 	else
 		chosen = pick(mob_spawn_meancritters)
-	var/mob/living/simple_animal/C = new chosen(spawn_location)
-	return C
+	var/mob/living/spawned_mob = new chosen(spawn_location)
+	return spawned_mob
 
 /proc/passtable_on(target, source)
 	var/mob/living/L = target
@@ -458,6 +555,18 @@ GLOBAL_LIST_EMPTY(species_list)
 	REMOVE_TRAIT(L, TRAIT_PASSTABLE, source)
 	if(!HAS_TRAIT(L, TRAIT_PASSTABLE))
 		L.pass_flags &= ~PASSTABLE
+
+/proc/dance_rotate(atom/movable/AM, datum/callback/callperrotate, set_original_dir=FALSE)
+	set waitfor = FALSE
+	var/originaldir = AM.dir
+	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
+		if(!AM)
+			return
+		AM.setDir(i)
+		callperrotate?.Invoke()
+		sleep(0.1 SECONDS)
+	if(set_original_dir)
+		AM.setDir(originaldir)
 
 //Gets the sentient mobs that are not on centcom and are alive
 /proc/get_sentient_mobs()
@@ -493,31 +602,56 @@ GLOBAL_LIST_EMPTY(species_list)
 
 ///Return a string for the specified body zone. Should be used for parsing non-instantiated bodyparts, otherwise use [/obj/item/bodypart/var/plaintext_zone]
 /proc/parse_zone(zone)
-	if(zone == BODY_ZONE_PRECISE_R_HAND)
-		return "right hand"
-	else if (zone == BODY_ZONE_PRECISE_L_HAND)
-		return "left hand"
-	else if (zone == BODY_ZONE_L_ARM)
-		return "left arm"
-	else if (zone == BODY_ZONE_R_ARM)
-		return "right arm"
-	else if (zone == BODY_ZONE_L_LEG)
-		return "left leg"
-	else if (zone == BODY_ZONE_R_LEG)
-		return "right leg"
-	else if (zone == BODY_ZONE_PRECISE_L_FOOT)
-		return "left foot"
-	else if (zone == BODY_ZONE_PRECISE_R_FOOT)
-		return "right foot"
-	else
-		return zone
+	switch(zone)
+		if(BODY_ZONE_CHEST)
+			return "chest"
+		if(BODY_ZONE_HEAD)
+			return "head"
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return "right hand"
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return "left hand"
+		if(BODY_ZONE_L_ARM)
+			return "left arm"
+		if(BODY_ZONE_R_ARM)
+			return "right arm"
+		if(BODY_ZONE_L_LEG)
+			return "left leg"
+		if(BODY_ZONE_R_LEG)
+			return "right leg"
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return "left foot"
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return "right foot"
+		else
+			return zone
+
+///Takes a zone and returns it's "parent" zone, if it has one.
+/proc/deprecise_zone(precise_zone)
+	switch(precise_zone)
+		if(BODY_ZONE_PRECISE_GROIN)
+			return BODY_ZONE_CHEST
+		if(BODY_ZONE_PRECISE_EYES)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return BODY_ZONE_R_ARM
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return BODY_ZONE_L_ARM
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return BODY_ZONE_L_LEG
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return BODY_ZONE_R_LEG
+		else
+			return precise_zone
 
 ///Returns the direction that the initiator and the target are facing
 /proc/check_target_facings(mob/living/initator, mob/living/target)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overridden at the same time*/
-	if(!ismob(target) || !(target.mobility_flags & MOBILITY_STAND))
+	if(!isliving(target) || target.body_position == LYING_DOWN)
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
 		return FALSE
 	if(initator.dir == target.dir) //mobs are facing the same direction
@@ -629,7 +763,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /// Returns a list of unslaved cyborgs
 /proc/active_free_borgs()
 	. = list()
-	for(var/mob/living/silicon/robot/borg in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/robot/borg as anything in GLOB.cyborg_list)
 		if(borg.connected_ai || borg.shell)
 			continue
 		if(borg.stat == DEAD)
@@ -681,8 +815,22 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			. = pick(ais)
 	return .
 
+/**
+ * Used to get the amount of change between two body temperatures
+ *
+ * When passed the difference between two temperatures returns the amount of change to temperature to apply.
+ * The change rate should be kept at a low value tween 0.16 and 0.02 for optimal results.
+ * vars:
+ * * temp_diff (required) The differance between two temperatures
+ * * change_rate (optional)(Default: 0.06) The rate of range multiplyer
+ */
+/proc/get_temp_change_amount(temp_diff, change_rate = 0.06)
+	if(temp_diff < 0)
+		return -(BODYTEMP_AUTORECOVERY_DIVISOR / 2) * log(1 - (temp_diff * change_rate))
+	return (BODYTEMP_AUTORECOVERY_DIVISOR / 2) * log(1 + (temp_diff * change_rate))
+
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
-/mob/proc/apply_pref_name(role, client/C)
+/mob/proc/apply_pref_name(preference_type, client/C)
 	if(!C)
 		C = client
 	var/oldname = real_name
@@ -693,20 +841,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
 
 	while(loop && safety < 5)
-		if(C?.prefs.active_character.custom_names[role] && !safety && !banned)
-			newname = C.prefs.active_character.custom_names[role]
+		if(!safety && !banned)
+			newname = C?.prefs?.read_character_preference(preference_type)
 		else
-			switch(role)
-				if("human")
-					newname = random_unique_name(gender)
-				if("clown")
-					newname = pick(GLOB.clown_names)
-				if("mime")
-					newname = pick(GLOB.mime_names)
-				if("ai")
-					newname = pick(GLOB.ai_names)
-				else
-					return FALSE
+			var/datum/preference/preference = GLOB.preference_entries[preference_type]
+			newname = preference.create_informed_default_value(C.prefs)
 
 		for(var/mob/living/M in GLOB.player_list)
 			if(M == src)
@@ -722,6 +861,25 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		fully_replace_character_name(oldname,newname)
 		return TRUE
 	return FALSE
+
+/// Special handler for cyborg naming to check if cyborg name preferences match a name that has already been used. Returns TRUE if preferences are good to use and FALSE if not.
+/mob/proc/check_cyborg_name(client/C, obj/item/mmi/mmi)
+	var/name = C?.prefs?.read_character_preference(/datum/preference/name/cyborg)
+
+	//Name is original, add it to the list to prevent it from being used again and return TRUE
+	if(!(name in GLOB.cyborg_name_list))
+		GLOB.cyborg_name_list += name
+		mmi.original_name = name
+		return TRUE
+
+	//Name is not original, but is this the original user of the name? If so we still return TRUE but do not need to add it to the list
+	else if(name == mmi.original_name)
+		return TRUE
+
+	//This name has already been taken and this is not the original user, return FALSE
+	else
+		to_chat(C.mob, span_warning("Cyborg name already used this round by another character, your name has been randomized"))
+		return FALSE
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -739,6 +897,22 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if("range")
 			. = orange(distance,center)
 	return
+
+/**
+ * Gets the mind from a variable, whether it be a mob, or a mind itself.
+ * If [include_last] is true, then it will also return last_mind for carbons if there isn't a current mind.
+ */
+/proc/get_mind(target, include_last = FALSE)
+	if(istype(target, /datum/mind))
+		return target
+	if(ismob(target))
+		var/mob/mob_target = target
+		if(!QDELETED(mob_target.mind))
+			return mob_target.mind
+		if(include_last && iscarbon(mob_target))
+			var/mob/living/carbon/carbon_target = mob_target
+			if(!QDELETED(carbon_target.last_mind))
+				return carbon_target.last_mind
 
 #undef FACING_SAME_DIR
 #undef FACING_EACHOTHER

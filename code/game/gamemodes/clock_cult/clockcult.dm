@@ -32,15 +32,14 @@ GLOBAL_VAR(clockcult_eminence)
 	required_players = 24
 	required_enemies = 4
 	recommended_enemies = 4
-	antag_flag = ROLE_SERVANT_OF_RATVAR
-	enemy_minimum_age = 14
+	role_preference = /datum/role_preference/antagonist/clock_cultist
+	antag_datum = /datum/antagonist/servant_of_ratvar
 
 	title_icon = "clockcult"
 	announce_span = "danger"
-	announce_text = "A powerful group of fanatics is trying to summon their deity!\n\
-	<span class='danger'>Servants</span>: Convert more servants and defend the Ark of the Clockwork Justicar!\n\
-	<span class='notice'>Crew</span>: Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
-
+	announce_text = "A powerful group of fanatics is trying to summon their deity!\n \
+	" + span_danger("Servants") + ": Convert more servants and defend the Ark of the Clockwork Justicar!\n \
+	" + span_notice("Crew") + ": Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
 
 	var/clock_cultists = CLOCKCULT_SERVANTS
 	var/list/selected_servants = list()
@@ -58,7 +57,7 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		var/datum/mind/clockie = antag_pick(antag_candidates, /datum/role_preference/antagonist/clock_cultist)
 		//In case antag_pick breaks
 		if(!clockie)
 			continue
@@ -66,6 +65,7 @@ GLOBAL_VAR(clockcult_eminence)
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
+		GLOB.pre_setup_antags += clockie
 	generate_clockcult_scriptures()
 	return TRUE
 
@@ -87,6 +87,7 @@ GLOBAL_VAR(clockcult_eminence)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
+		GLOB.pre_setup_antags -= S
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
@@ -161,11 +162,11 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
 		return FALSE
-	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE
-	if(M.mind.enslaved_to && !is_servant_of_ratvar(M.mind.enslaved_to))
+	if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		return FALSE
 	if(M.mind.unconvertable)
 		return FALSE
@@ -192,19 +193,19 @@ GLOBAL_VAR(clockcult_eminence)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
-/proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
+/proc/hierophant_message(msg, mob/living/sender, span = "<span class='srt_radio brass'>", use_sanitisation=TRUE, say=TRUE)
 	if(CHAT_FILTER_CHECK(msg))
 		if(sender)
-			to_chat(sender, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")
+			to_chat(sender, span_warning("You message contains forbidden words, please review the server rules and do not attempt to bypass this filter."))
 		return
 	var/hierophant_message = "[span]"
 	if(sender?.reagents)
 		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
-			to_chat(sender, "<span class='nezbere'>[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]</span>")
+			to_chat(sender, span_nezbere("[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]"))
 			return FALSE
 	if(!msg)
 		if(sender)
-			to_chat(sender, "<span class='brass'>You cannot transmit nothing!</span>")
+			to_chat(sender, span_brass("You cannot transmit nothing!"))
 		return FALSE
 	if(use_sanitisation)
 		msg = sanitize(msg)
@@ -227,15 +228,15 @@ GLOBAL_VAR(clockcult_eminence)
 			if(CLOCKCULT_PREFIX_RECRUIT)
 				var/role = sender.mind?.assigned_role
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
-				if(role in GLOB.command_positions)
+				if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 					prefix = "High Priest"
-				else if(role in GLOB.engineering_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING))
 					prefix = "Cogturner"
-				else if(role in GLOB.medical_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL))
 					prefix = "Rejuvinator"
-				else if(role in GLOB.science_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE))
 					prefix = "Calculator"
-				else if(role in GLOB.supply_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO))
 					prefix = "Pathfinder"
 				else if(role in JOB_NAME_ASSISTANT)
 					prefix = "Helper"
@@ -243,11 +244,11 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Cogwatcher"
 				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
-				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
+				else if((role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)))
 					prefix = "Cogworker"
-				else if(role in GLOB.security_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 					prefix = "Warrior"
-				else if(role in GLOB.nonhuman_positions)
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON))
 					prefix = "CPU"
 			//Fallthrough is default of "Clockbrother"
 		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""
@@ -256,20 +257,21 @@ GLOBAL_VAR(clockcult_eminence)
 	if(span)
 		hierophant_message += "</span>"
 	for(var/datum/mind/mind in GLOB.all_servants_of_ratvar)
-		send_hierophant_message_to(mind, hierophant_message)
+		send_hierophant_message_to(sender, mind, hierophant_message)
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		if(istype(sender))
-			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]")
+			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]", type = MESSAGE_TYPE_RADIO)
 		else
-			to_chat(O, hierophant_message)
+			to_chat(O, hierophant_message, type = MESSAGE_TYPE_RADIO)
+	sender.log_talk(msg, LOG_SAY, tag="clock cult")
 
-/proc/send_hierophant_message_to(datum/mind/mind, hierophant_message)
+/proc/send_hierophant_message_to(mob/living/sender, datum/mind/mind, hierophant_message)
 	var/mob/M = mind.current
 	if(!isliving(M) || QDELETED(M))
 		return
 	if(M.reagents)
 		if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
 			if(pick(20))
-				to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
+				to_chat(M, span_nezbere("You hear the cogs whispering to you, but cannot understand their words."))
 			return
-	to_chat(M, hierophant_message)
+	to_chat(M, hierophant_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == sender)

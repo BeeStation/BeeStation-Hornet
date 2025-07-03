@@ -6,6 +6,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	var/datum/team/nation/nation
+	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 
 /datum/antagonist/separatist/create_team(datum/team/nation/new_team)
 	if(!new_team)

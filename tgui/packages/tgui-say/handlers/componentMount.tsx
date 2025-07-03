@@ -15,14 +15,15 @@ export const handleComponentMount = function (this: Modal) {
   Byond.subscribeTo('open', (data) => {
     const channel = CHANNELS.indexOf(data.channel) || 0;
     this.setState({
-      buttonContent:
-        RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
+      buttonContent: RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
       channel,
     });
     setTimeout(() => {
       this.fields.innerRef.current?.focus();
     }, 1);
     windowOpen(CHANNELS[channel]);
+    const input = this.fields.innerRef.current;
+    input?.focus();
   });
   Byond.subscribeTo('close', () => {
     windowClose();

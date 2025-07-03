@@ -21,28 +21,48 @@
 	var/space_chance = 55        // Likelihood of getting a space in the random scramble string
 	var/list/spans = list()
 	var/list/scramble_cache = list()
-	var/default_priority = 0          // the language that an atom knows with the highest "default_priority" is selected by default.
+	var/default_priority = 0          // the language that an atom knows with the highest "default_priority" is selected by default. if -1, it will not be chosen as dafault by auto-update.
 
 	// if you are seeing someone speak popcorn language, then something is wrong.
 	var/icon = 'icons/misc/language.dmi'
 	var/icon_state = "popcorn"
 
+	// get_icon() proc will return a complete string rather than calling a proc every time.
+	var/fast_icon_span
+
+/// Returns TRUE/FALSE based on seeing a language icon is validated to a given hearer in the parameter.
 /datum/language/proc/display_icon(atom/movable/hearer)
+	// ghosts want to know how it is going.
+	if((flags & LANGUAGE_ALWAYS_SHOW_ICON_TO_GHOSTS) && \
+			(isobserver(hearer) || (HAS_TRAIT(hearer, TRAIT_METALANGUAGE_KEY_ALLOWED) && istype(src, /datum/language/metalanguage))))
+		return TRUE
+
 	var/understands = hearer.has_language(src.type)
-	if(flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD && understands)
-		return FALSE
-	if(!understands)
+	if(understands)
+		// It's something common so that you don't have to see a language icon
+		// or, it's not a valid language that should show a language icon
+		if((flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD) || (flags & LANGUAGE_HIDE_ICON_TO_YOURSELF))
+			return FALSE
+
+	else
+		// Standard to Galatic Common
 		if(flags & LANGUAGE_ALWAYS_SHOW_ICON_IF_NOT_UNDERSTOOD)
 			return TRUE
+
+		// You'll typically end here - not being able to see a language icon
 		if(!HAS_TRAIT(hearer, TRAIT_LINGUIST))
 			return FALSE
-		else if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD_WITH_LINGUIST_TRAIT)
+		else if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD__LINGUIST_ONLY) // don't merge with the if above. it's different check.
 			return FALSE
+
+	// If you reach here, you'd be a linguist quirk holder, and will be eligible to see a lang icon
 	return TRUE
 
 /datum/language/proc/get_icon()
-	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
-	return sheet.icon_tag("language-[icon_state]")
+	if(!fast_icon_span)
+		var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
+		fast_icon_span = sheet.icon_tag("language-[icon_state]")
+	return fast_icon_span
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4, syllable_divisor=2)
 	if(!syllables || !syllables.len)
@@ -59,7 +79,7 @@
 		var/Y = rand(FLOOR(syllable_count/syllable_divisor, 1), syllable_count)
 		for(var/x in Y to 0)
 			new_name += pick(syllables)
-		full_name += " [capitalize(lowertext(new_name))]"
+		full_name += " [capitalize(LOWER_TEXT(new_name))]"
 
 	return "[trim(full_name)]"
 

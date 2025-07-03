@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE)
 	stop_automated_movement_when_pulled = 0
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
@@ -43,7 +43,8 @@
 	var/search_objects_timer_id //Timer for regaining our old search_objects value after being attacked
 	var/search_objects_regain_time = 30 //the delay between being attacked and gaining our old search_objects value back
 	var/list/wanted_objects = list() //A typecache of objects types that will be checked against to attack, should we have search_objects enabled
-	var/stat_attack = CONSCIOUS //Mobs with stat_attack to UNCONSCIOUS will attempt to attack things that are unconscious, Mobs with stat_attack set to DEAD will attempt to attack the dead.
+	///Mobs ignore mob/living targets with a stat lower than that of stat_attack. If set to DEAD, then they'll include corpses in their targets, if to HARD_CRIT they'll keep attacking until they kill, and so on.
+	var/stat_attack = CONSCIOUS
 	var/stat_exclusive = FALSE //Mobs with this set to TRUE will exclusively attack things defined by stat_attack, stat_attack DEAD means they will only attack corpses
 	var/attack_same = 0 //Set us to 1 to allow us to attack our own faction
 	//Use GET_TARGETS_FROM(mob) to access this
@@ -54,6 +55,8 @@
 	var/lose_patience_timer_id //id for a timer to call LoseTarget(), used to stop mobs fixating on a target they can't reach
 	var/lose_patience_timeout = 300 //30 seconds by default, so there's no major changes to AI behaviour, beyond actually bailing if stuck forever
 
+	var/backup_nosound = FALSE //Should it not play a sound if it's requesting backup?
+
 /mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()
 	wanted_objects = typecacheof(wanted_objects)
@@ -63,7 +66,7 @@
 	GiveTarget(null)
 	return ..()
 
-/mob/living/simple_animal/hostile/Life()
+/mob/living/simple_animal/hostile/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(!.) //dead
 		SSmove_manager.stop_looping(src)
@@ -119,7 +122,7 @@
 		FindTarget(list(user), 1)
 	return ..()
 
-/mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/bullet_act(obj/projectile/P)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
@@ -131,7 +134,7 @@
 /mob/living/simple_animal/hostile/proc/ListTargets() //Step 1, find out what we can see
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	if(!search_objects)
-		var/static/target_list = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha)) //mobs are handled via ismob(A)
+		var/static/target_list = typecacheof(list(/obj/machinery/porta_turret, /obj/vehicle/sealed/mecha)) //mobs are handled via ismob(A)
 		. = list()
 		for(var/atom/A as() in dview(vision_range, get_turf(target_from), SEE_INVISIBLE_MINIMUM))
 			if((ismob(A) && A != src) || target_list[A.type])
@@ -218,9 +221,9 @@
 			return TRUE
 
 		if(ismecha(the_target))
-			var/obj/mecha/M = the_target
-			if(M.occupant)//Just so we don't attack empty mechs
-				if(CanAttack(M.occupant))
+			var/obj/vehicle/sealed/mecha/M = the_target
+			for(var/occupant in M.occupants)
+				if(CanAttack(occupant))
 					return TRUE
 
 		if(istype(the_target, /obj/machinery/porta_turret))
@@ -255,14 +258,14 @@
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
 	else
-		AttackingTarget()
+		AttackingTarget(target)
 	if(patience)
 		GainPatience()
 
 /mob/living/simple_animal/hostile/proc/CheckAndAttack()
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	if(target && isturf(target_from.loc) && target.Adjacent(target_from) && !incapacitated())
-		AttackingTarget()
+		AttackingTarget(target)
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
 	stop_automated_movement = 1
@@ -284,7 +287,7 @@
 			return 1
 		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
-				SSmove_manager.move_away(src, target, retreat_distance, move_to_delay)
+				SSmove_manager.move_away(src, target, retreat_distance, move_to_delay, flags = MOVEMENT_LOOP_IGNORE_GLIDE)
 			else
 				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
 		else
@@ -317,7 +320,7 @@
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	SSmove_manager.move_to(src, target, minimum_distance, delay)
+	SSmove_manager.move_to(src, target, minimum_distance, delay, flags = MOVEMENT_LOOP_IGNORE_GLIDE)
 
 /mob/living/simple_animal/hostile/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
@@ -332,9 +335,14 @@
 			FindTarget()
 
 
-/mob/living/simple_animal/hostile/proc/AttackingTarget()
-	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
+/mob/living/simple_animal/hostile/proc/AttackingTarget(atom/attacked_target)
+	if(isnull(attacked_target))
+		stack_trace("[src] did not pass args for target")
+
 	in_melee = TRUE
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, attacked_target) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE //but more importantly return before attack_animal called
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target)
 	return target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/proc/Aggro()
@@ -364,7 +372,8 @@
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
 	do_alert_animation(src)
-	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
+	if(!backup_nosound)
+		playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	for(var/mob/living/simple_animal/hostile/M in oview(distance, target_from))
 		if(faction_check_mob(M, TRUE))
@@ -387,7 +396,7 @@
 		return
 
 	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
-		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+		visible_message(span_danger("<b>[src]</b> [ranged_message] at [A]!"))
 
 
 	if(rapid > 1)
@@ -407,9 +416,9 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, 1)
-		casing.fire_casing(targeted_atom, src, null, null, null, ran_zone(), 0, 1,  src)
+		casing.fire_casing(targeted_atom, src, zone_override = ran_zone(), fired_from = src)
 	else if(projectiletype)
-		var/obj/item/projectile/P = new projectiletype(startloc)
+		var/obj/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		P.starting = startloc
 		P.firer = src
@@ -500,12 +509,11 @@
 			A.attack_animal(src)
 		return 1
 
-/mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
+/mob/living/simple_animal/hostile/RangedAttack(atom/A, modifiers) //Player firing
 	if(ranged && ranged_cooldown <= world.time)
 		GiveTarget(A)
 		OpenFire(A)
-	..()
-
+	return ..()
 
 
 ////// AI Status ///////
@@ -572,7 +580,7 @@
 		toggle_ai(AI_ON)
 
 /mob/living/simple_animal/hostile/proc/ListTargetsLazy(var/_Z)//Step 1, find out what we can see
-	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
+	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/vehicle/sealed/mecha))
 	. = list()
 	for (var/I in SSmobs.clients_by_zlevel[_Z])
 		var/mob/M = I
@@ -602,3 +610,10 @@
 	target = new_target
 	if(target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
+
+/mob/living/simple_animal/hostile/Login(mob/user) // We add a LosetTarget() here to stop the mob from chasing down targets after it has been given over to a player
+	..()
+	LoseTarget()
+	return TRUE
+
+

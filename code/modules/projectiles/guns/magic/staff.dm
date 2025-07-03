@@ -1,12 +1,14 @@
 /obj/item/gun/magic/staff
 	slot_flags = ITEM_SLOT_BACK
+	worn_icon_state = null
+	icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
 	block_power = 20 //staffs can block shit if you're walking
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -15,6 +17,11 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
+	//school = SCHOOL_TRANSMUTATION
+	/// If set, all wabbajacks this staff produces will be of this type, instead of random
+	var/preset_wabbajack_type
+	/// If set, all wabbajacks this staff produces will be of this changeflag, instead of only WABBAJACK
+	var/preset_wabbajack_changeflag
 
 /obj/item/gun/magic/staff/animate
 	name = "staff of animation"
@@ -45,15 +52,32 @@
 	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
-	var/allowed_projectile_types = list(/obj/item/projectile/magic/change, /obj/item/projectile/magic/animate, /obj/item/projectile/magic/resurrection,
-	/obj/item/projectile/magic/death, /obj/item/projectile/magic/teleport, /obj/item/projectile/magic/door, /obj/item/projectile/magic/fireball,
-	/obj/item/projectile/magic/spellblade, /obj/item/projectile/magic/arcane_barrage, /obj/item/projectile/magic/locker, /obj/item/projectile/magic/flying,
-	/obj/item/projectile/magic/bounty, /obj/item/projectile/magic/antimagic, /obj/item/projectile/magic/fetch, /obj/item/projectile/magic/sapping,
-	/obj/item/projectile/magic/necropotence, /obj/item/projectile/magic, /obj/item/projectile/temp/chill, /obj/item/projectile/magic/wipe)
+	/// Static list of all projectiles we can fire from our staff.
+	/// Doesn't contain all subtypes of magic projectiles, unlike what it looks like
+	var/static/list/allowed_projectile_types = list(
+		/obj/projectile/magic/animate,
+		/obj/projectile/magic/antimagic,
+		/obj/projectile/magic/arcane_barrage,
+		/obj/projectile/magic/bounty,
+		/obj/projectile/magic/change,
+		/obj/projectile/magic/death,
+		/obj/projectile/magic/door,
+		/obj/projectile/magic/fetch,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/flying,
+		/obj/projectile/magic/locker,
+		/obj/projectile/magic/necropotence,
+		/obj/projectile/magic/resurrection,
+		/obj/projectile/magic/sapping,
+		/obj/projectile/magic/spellblade,
+		/obj/projectile/magic/teleport,
+		/obj/projectile/magic/wipe,
+		/obj/projectile/temp/chill,
+	)
 
-/obj/item/gun/magic/staff/chaos/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/magic/staff/chaos/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	chambered.projectile_type = pick(allowed_projectile_types)
-	. = ..()
+	return ..()
 
 /obj/item/gun/magic/staff/door
 	name = "staff of door creation"
@@ -89,7 +113,8 @@
 	force = 20
 	armour_penetration = 75
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_DEEP_WOUND
 	max_charges = 4
 
 /obj/item/gun/magic/staff/spellblade/Initialize(mapload)
@@ -108,6 +133,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/locker
 	icon_state = "locker"
 	item_state = "locker"
+	worn_icon_state = "lockerstaff"
 	max_charges = 6
 	recharge_rate = 4
 
@@ -120,6 +146,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/flying
 	icon_state = "staffofflight"
 	item_state = "staffofflight"
+	worn_icon_state = "flightstaff"
 
 /obj/item/gun/magic/staff/sapping
 	name = "staff of sapping"
@@ -128,6 +155,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/sapping
 	icon_state = "staffofsapping"
 	item_state = "staffofsapping"
+	worn_icon_state = "staff"
 
 /obj/item/gun/magic/staff/necropotence
 	name = "staff of necropotence"
@@ -136,6 +164,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/necropotence
 	icon_state = "staffofnecropotence"
 	item_state = "staffofnecropotence"
+	worn_icon_state = "necrostaff"
 
 /obj/item/gun/magic/staff/wipe
 	name = "staff of possession"
@@ -144,3 +173,4 @@
 	ammo_type = /obj/item/ammo_casing/magic/wipe
 	icon_state = "staffofwipe"
 	item_state = "staffofwipe"
+	worn_icon_state = "wipestaff"

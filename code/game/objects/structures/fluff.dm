@@ -7,15 +7,15 @@
 	icon_state = "minibar"
 	anchored = TRUE
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	var/deconstructible = TRUE
 
 /obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && deconstructible)
-		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
+		user.visible_message(span_notice("[user] starts disassembling [src]..."), span_notice("You start disassembling [src]..."))
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 50))
-			user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
+			user.visible_message(span_notice("[user] disassembles [src]!"), span_notice("You break down [src] into scrap metal."))
 			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
 			new/obj/item/stack/sheet/iron(drop_location())
 			qdel(src)
@@ -75,8 +75,8 @@
 	name = "bus"
 	desc = "GO TO SCHOOL. READ A BOOK."
 	icon = 'icons/obj/bus.dmi'
+	icon_state = null
 	density = TRUE
-	anchored = TRUE
 	deconstructible = FALSE
 
 /obj/structure/fluff/bus/dense
@@ -103,8 +103,8 @@
 	desc = "Space Jesus is my copilot."
 	icon_state = "driverseat"
 
-/obj/structure/fluff/bus/passable/seat/driver/attack_hand(mob/user)
-	playsound(src, 'sound/items/carhorn.ogg', 50, 1)
+/obj/structure/fluff/bus/passable/seat/driver/attack_hand(mob/user, list/modifiers)
+	playsound(src, 'sound/items/carhorn.ogg', 50, TRUE)
 	. = ..()
 
 /obj/structure/fluff/paper
@@ -126,7 +126,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
-	anchored = TRUE
+	icon_state = "error"
 	density = TRUE
 
 /obj/structure/fluff/divine/nexus
@@ -167,3 +167,35 @@
 	desc = "A crudely-made sign with the words 'fok of' written in some sort of red paint."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "fokof"
+
+/obj/structure/fluff/hedge
+	name = "hedge"
+	desc = "A large bushy hedge."
+	icon = 'icons/obj/smooth_structures/hedge.dmi'
+	icon_state = "hedge-0"
+	base_icon_state = "hedge"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_HEDGE_FLUFF)
+	canSmoothWith = list(SMOOTH_GROUP_HEDGE_FLUFF)
+	density = TRUE
+	deconstructible = FALSE
+
+/obj/structure/fluff/hedge/opaque //useful for mazes and such
+	opacity = TRUE
+
+/obj/structure/fluff/fans
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "fan_tiny"
+	name = "environmental regulation system"
+	desc = "A vent nested into the wall, managing the airflow between the rooms"
+
+/obj/structure/fluff/rug
+	icon = 'icons/obj/rug.dmi'
+	icon_state = "tiger_rug"
+	name = "tiger rug"
+	desc = "A huge rug made out of tiger skin. Was this a real tiger?"
+	pixel_x = -32
+	pixel_y = -16
+	plane = FLOOR_PLANE
+	anchored = FALSE
+	deconstructible = FALSE

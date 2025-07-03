@@ -54,6 +54,15 @@
 /proc/sanitize(t,list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+/// Same as sanitize name, but doesn't reject common words like 'space'.
+/// Enforces that the filter isn't bypassed
+/// Enforces that HTML is encoded and certain bad characters are removed.
+/proc/sanitize_ic(t, list/repl_chars = null)
+	if(CHAT_FILTER_CHECK(t))
+		alert("You cannot set a name that contains a word prohibited in IC chat!")
+		return ""
+	return sanitize(t)
+
 /// Runs sanitize and strip_html_simple. I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(t,limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
@@ -62,6 +71,17 @@
 /proc/adminscrub(t,limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
+//Modified proc from strip_html_simple, guts the inbetween of <>
+/proc/strip_html_tags(t,limit=100)
+	var/index_one = findtext_char(t, "<")
+	var/index_two
+	while(index_one)
+		index_two = findtext_char(t, ">")
+		if(index_one >= index_two)
+			break
+		t = splicetext_char(t, index_one, index_two + 1, "") // I hope this + 1 works?
+		index_one = findtext_char(t, "<")
+	return t
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE, alphanumeric_only = FALSE, underscore_allowed = TRUE)
@@ -145,21 +165,50 @@
 		return trim(name, max_length)
 
 /// Used to get a properly sanitized (html encoded) input, of max_length. no_trim is self explanatory but it prevents the input from being trimed if you intend to parse newlines or whitespace.
-/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE, strip_method=BYOND_ENCODE)
 	var/name = input(user, message, title, default) as text|null
 
+	switch(strip_method)
+		if(BYOND_ENCODE)
+			name = html_encode(name)
+		if(STRIP_HTML)
+			name = strip_html(name)
+		if(STRIP_HTML_SIMPLE)
+			name = strip_html_simple(name)
+		if(SANITIZE)
+			name = sanitize(name)
+		if(SANITIZE_SIMPLE)
+			name = sanitize_simple(name)
+		if(ADMIN_SCRUB)
+			name = adminscrub(name)
+
 	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
+		return copytext(name, 1, max_length)
 	else
-		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+		return trim(name, max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 
 /// Used to get a properly sanitized (html encoded) multiline input, of max_length
-/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE, strip_method=BYOND_ENCODE)
 	var/name = input(user, message, title, default) as message|null
+
+	switch(strip_method)
+		if(BYOND_ENCODE)
+			name = html_encode(name)
+		if(STRIP_HTML)
+			name = strip_html(name)
+		if(STRIP_HTML_SIMPLE)
+			name = strip_html_simple(name)
+		if(SANITIZE)
+			name = sanitize(name)
+		if(SANITIZE_SIMPLE)
+			name = sanitize_simple(name)
+		if(ADMIN_SCRUB)
+			name = adminscrub(name)
+
 	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
+		return copytext(name, 1, max_length)
 	else
-		return trim(html_encode(name), max_length)
+		return trim(name, max_length)
 
 /// returns a text after replacing wiki square brackets blacket in a given text into clickable wiki hyperlink
 /proc/encode_wiki_link(text_value)
@@ -325,11 +374,45 @@
 			return copytext(text, 1, i + 1)
 	return ""
 
+/// Returns a string with reserved characters and spaces after the first and last letters removed
+/// Like trim(), but very slightly faster. worth it for niche usecases
+/proc/trim_reduced(text)
+	var/starting_coord = 1
+	var/text_len = length(text)
+	for (var/i in 1 to text_len)
+		if (text2ascii(text, i) > 32)
+			starting_coord = i
+			break
+
+	for (var/i = text_len, i >= starting_coord, i--)
+		if (text2ascii(text, i) > 32)
+			return copytext(text, starting_coord, i + 1)
+
+	if(starting_coord > 1)
+		return copytext(text, starting_coord)
+	return ""
+
+/**
+ * Truncate a string to the given length
+ *
+ * Will only truncate if the string is larger than the length and *ignores unicode concerns*
+ *
+ * This exists soley because trim does other stuff too.
+ *
+ * Arguments:
+ * * text - String
+ * * max_length - integer length to truncate at
+ */
+/proc/truncate(text, max_length)
+	if(length(text) > max_length)
+		return copytext(text, 1, max_length)
+	return text
+
 /// Returns a string with reserved characters and spaces before the first word and after the last word removed.
 /proc/trim(text, max_length)
 	if(max_length)
 		text = copytext_char(text, 1, max_length)
-	return trim_left(trim_right(text))
+	return trim_reduced(text)
 
 /// Returns a string with proper punctuation if there is none.
 /proc/punctuate(message)
@@ -344,6 +427,11 @@
 	if(t)
 		. = t[1]
 		return uppertext(.) + copytext(t, 1 + length(.))
+
+/// Returns a string with the first letter of each word capitialized
+/proc/full_capitalize(input)
+	var/regex/first_letter = new(@"[^A-z]*?([A-z]*)", "g")
+	return replacetext(input, first_letter, /proc/capitalize)
 
 /proc/stringmerge(text,compare,replace = "*")
 	var/newtext = text
@@ -612,7 +700,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 
 	t = parsemarkdown_basic_step1(t)
 
-	t = replacetext(t, regex("%s(?:ign)?(?=\\s|$)", "igm"), user ? "<font face=\"[SIGNFONT]\"><i>[user.real_name]</i></font>" : "<span class=\"paper_field\"></span>")
+	t = replacetext(t, regex("%s(?:ign)?(?=\\s|$)", "igm"), user ? "<font face=\"[SIGNATURE_FONT]\"><i>[user.real_name]</i></font>" : "<span class=\"paper_field\"></span>")
 	t = replacetext(t, regex("%f(?:ield)?(?=\\s|$)", "igm"), "<span class=\"paper_field\"></span>")
 
 	t = parsemarkdown_basic_step2(t)
@@ -764,41 +852,44 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		return string
 
 	var/base = next_backslash == 1 ? "" : copytext(string, 1, next_backslash)
-	var/macro = lowertext(copytext(string, next_backslash + length(string[next_backslash]), next_space))
+	var/macro = LOWER_TEXT(copytext(string, next_backslash + length(string[next_backslash]), next_space))
 	var/rest = next_backslash > leng ? "" : copytext(string, next_space + length(string[next_space]))
 
 	//See https://secure.byond.com/docs/ref/info.html#/DM/text/macros
 	switch(macro)
 		//prefixes/agnostic
 		if("the")
-			rest = text("\the []", rest)
+			rest = "\the [rest]"
 		if("a")
-			rest = text("\a []", rest)
+			rest = "\a [rest]"
 		if("an")
-			rest = text("\an []", rest)
+			rest = "\an [rest]"
 		if("proper")
-			rest = text("\proper []", rest)
+			rest = "\proper [rest]"
 		if("improper")
-			rest = text("\improper []", rest)
+			rest = "\improper [rest]"
 		if("roman")
-			rest = text("\roman []", rest)
+			rest = "\roman [rest]"
 		//postfixes
 		if("th")
-			base = text("[]\th", rest)
+			base = "[rest]\th"
 		if("s")
-			base = text("[]\s", rest)
+			base = "[rest]\s"
 		if("he")
-			base = text("[]\he", rest)
+			base = "[rest]\he"
 		if("she")
-			base = text("[]\she", rest)
+			base = "[rest]\she"
 		if("his")
-			base = text("[]\his", rest)
+			base = "[rest]\his"
 		if("himself")
-			base = text("[]\himself", rest)
+			base = "[rest]\himself"
 		if("herself")
-			base = text("[]\herself", rest)
+			base = "[rest]\herself"
 		if("hers")
-			base = text("[]\hers", rest)
+			base = "[rest]\hers"
+		else // Someone fucked up, if you're not a macro just go home yeah?
+			// This does technically break parsing, but at least it's better then what it used to do
+			return base
 
 	. = base
 	if(rest)
@@ -911,6 +1002,54 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		loadstring += i <= limit ? "█" : "░"
 	return "\[[loadstring]\]"
 
+/**
+  * Formats a number to human readable form with the appropriate SI unit.
+  *
+  * Supports SI exponents between 1e-15 to 1e15, but properly handles numbers outside that range as well.
+  * Examples:
+  * * `siunit(1234, "Pa", 1)` -> `"1.2 kPa"`
+  * * `siunit(0.5345, "A", 0)` -> `"535 mA"`
+  * * `siunit(1000, "Pa", 4)` -> `"1 kPa"`
+  * Arguments:
+  * * value - The number to convert to text. Can be positive or negative.
+  * * unit - The base unit of the number, such as "Pa" or "W".
+  * * maxdecimals - Maximum amount of decimals to display for the final number. Defaults to 1.
+  * *
+  * * For pressure conversion, use proc/siunit_pressure() below
+  */
+/proc/siunit(value, unit, maxdecimals=1)
+	var/static/list/prefixes = list("f","p","n","μ","m","","k","M","G","T","P")
+
+	// We don't have prefixes beyond this point
+	// and this also captures value = 0 which you can't compute the logarithm for
+	// and also byond numbers are floats and doesn't have much precision beyond this point anyway
+	if(abs(value) <= 1e-18)
+		return "0 [unit]"
+
+	var/exponent = clamp(log(10, abs(value)), -15, 15) // Calculate the exponent and clamp it so we don't go outside the prefix list bounds
+	var/divider = 10 ** (round(exponent / 3) * 3) // Rounds the exponent to nearest SI unit and power it back to the full form
+	var/coefficient = round(value / divider, 10 ** -maxdecimals) // Calculate the coefficient and round it to desired decimals
+	var/prefix_index = round(exponent / 3) + 6 // Calculate the index in the prefixes list for this exponent
+
+	// An edge case which happens if we round 999.9 to 0 decimals for example, which gets rounded to 1000
+	// In that case, we manually swap up to the next prefix if there is one available
+	if(coefficient >= 1000 && prefix_index < 11)
+		coefficient /= 1e3
+		prefix_index++
+
+	var/prefix = prefixes[prefix_index]
+	return "[coefficient] [prefix][unit]"
+
+/** The game code never uses Pa, but kPa, since 1 Pa is too small to reasonably handle
+  * Thus, to ensure correct conversion from any kPa in game code, this value needs to be multiplied by 10e3 to get Pa, which the siunit() proc expects
+  * Args:
+  * * value_in_kpa - Value that should be converted to readable text in kPa
+  * * maxdecimals - maximum number of decimals that are displayed, defaults to 1 in proc/siunit()
+ */
+/proc/siunit_pressure(value_in_kpa, maxdecimals)
+	var/pressure_adj = value_in_kpa * 1000 //to adjust for using kPa instead of Pa
+	return siunit(pressure_adj, "Pa", maxdecimals)
+
 ///Properly format a string of text by using replacetext()
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
@@ -924,6 +1063,8 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 			. = "small"
 		if(WEIGHT_CLASS_NORMAL)
 			. = "normal-sized"
+		if(WEIGHT_CLASS_LARGE)
+			. = "large"
 		if(WEIGHT_CLASS_BULKY)
 			. = "bulky"
 		if(WEIGHT_CLASS_HUGE)
@@ -932,6 +1073,16 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 			. = "gigantic"
 		else
 			. = ""
+
+/proc/weight_class_to_tooltip(w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY to WEIGHT_CLASS_SMALL)
+			return "This item can fit into pockets, boxes and backpacks."
+		if(WEIGHT_CLASS_NORMAL)
+			return "This item can fit into backpacks."
+		if(WEIGHT_CLASS_BULKY to WEIGHT_CLASS_GIGANTIC)
+			return "This item is too large to fit into any standard storage."
+	return ""
 
 /atom/proc/get_boozepower_text(booze_power, mob/living/L)
 	if(isnull(booze_power))
@@ -1006,3 +1157,8 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	if(!.)
 		. = "not measurable. Ask the space god for what's wrong with this drink."
 		CRASH("not valid booze power value is detected: [booze_power]")
+
+/// Returns TRUE if the input_text ends with the ending
+/proc/endswith(input_text, ending)
+	var/input_length = LAZYLEN(ending)
+	return !!findtext(input_text, ending, -input_length)

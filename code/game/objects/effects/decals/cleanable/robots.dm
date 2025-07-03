@@ -10,8 +10,10 @@
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	mergeable_decal = FALSE
+	//beauty = -50
+	clean_type = CLEAN_TYPE_BLOOD
 
-/obj/effect/decal/cleanable/robot_debris/Initialize()
+/obj/effect/decal/cleanable/robot_debris/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 
@@ -60,11 +62,11 @@
 	random_icon_states = list("gibarm", "gibleg")
 
 /obj/effect/decal/cleanable/robot_debris/up
-	icon_state = "gibup1"
+	icon_state = "gibup"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7","gibup1","gibup1")
 
 /obj/effect/decal/cleanable/robot_debris/down
-	icon_state = "gibdown1"
+	icon_state = "gibdown"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7","gibdown1","gibdown1")
 
 /obj/effect/decal/cleanable/oil
@@ -75,16 +77,15 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
-
-/obj/effect/decal/cleanable/oil/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent(/datum/reagent/oil, 30)
+	clean_type = CLEAN_TYPE_BLOOD
+	decal_reagent = /datum/reagent/oil
+	reagent_amount = 30
 
 /obj/effect/decal/cleanable/oil/attackby(obj/item/I, mob/living/user)
 	var/attacked_by_hot_thing = I.is_hot()
 	if(attacked_by_hot_thing)
-		visible_message("<span class='warning'>[user] tries to ignite [src] with [I]!</span>", "<span class='warning'>You try to ignite [src] with [I].</span>")
-		log_combat(user, src, (attacked_by_hot_thing < 480) ? "tried to ignite" : "ignited", I)
+		visible_message(span_warning("[user] tries to ignite [src] with [I]!"), span_warning("You try to ignite [src] with [I]."))
+		log_combat(user, src, (attacked_by_hot_thing < 480) ? "tried to ignite" : "ignited", I, important = FALSE)
 		fire_act(attacked_by_hot_thing)
 		return
 	return ..()
@@ -92,7 +93,7 @@
 /obj/effect/decal/cleanable/oil/fire_act(exposed_temperature, exposed_volume)
 	if(exposed_temperature < 480)
 		return
-	visible_message("<span class='danger'>[src] catches fire!</span>")
+	visible_message(span_danger("[src] catches fire!"))
 	var/turf/T = get_turf(src)
 	qdel(src)
 	new /obj/effect/hotspot(T)

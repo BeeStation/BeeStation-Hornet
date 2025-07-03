@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(master_crystal)
 		invisibility = INVISIBILITY_MAXIMUM
 		max_integrity = 1000
-		obj_integrity = 1000
+		atom_integrity = 1000
 
 /obj/structure/slime_crystal/Initialize(mapload)
 	. = ..()
@@ -31,45 +31,45 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/itemcolor = "#FFFFFF"
 
 	switch(colour)
-		if("orange")
+		if(SLIME_TYPE_ORANGE)
 			itemcolor = "#FFA500"
-		if("purple")
+		if(SLIME_TYPE_PURPLE)
 			itemcolor = "#B19CD9"
-		if("blue")
+		if(SLIME_TYPE_BLUE)
 			itemcolor = "#ADD8E6"
-		if("metal")
+		if(SLIME_TYPE_METAL)
 			itemcolor = "#7E7E7E"
-		if("yellow")
+		if(SLIME_TYPE_YELLOW)
 			itemcolor = "#FFFF00"
-		if("dark purple")
+		if(SLIME_TYPE_DARK_PURPLE)
 			itemcolor = "#551A8B"
-		if("dark blue")
+		if(SLIME_TYPE_DARK_BLUE)
 			itemcolor = "#0000FF"
-		if("silver")
+		if(SLIME_TYPE_SILVER)
 			itemcolor = "#D3D3D3"
-		if("bluespace")
+		if(SLIME_TYPE_BLUESPACE)
 			itemcolor = "#32CD32"
-		if("sepia")
+		if(SLIME_TYPE_SEPIA)
 			itemcolor = "#704214"
-		if("cerulean")
+		if(SLIME_TYPE_CERULEAN)
 			itemcolor = "#2956B2"
-		if("pyrite")
+		if(SLIME_TYPE_PYRITE)
 			itemcolor = "#FAFAD2"
-		if("red")
+		if(SLIME_TYPE_RED)
 			itemcolor = "#FF0000"
-		if("green")
+		if(SLIME_TYPE_GREEN)
 			itemcolor = "#00FF00"
-		if("pink")
+		if(SLIME_TYPE_PINK)
 			itemcolor = "#FF69B4"
-		if("gold")
+		if(SLIME_TYPE_GOLD)
 			itemcolor = "#FFD700"
-		if("oil")
+		if(SLIME_TYPE_OIL)
 			itemcolor = "#505050"
-		if("black")
+		if(SLIME_TYPE_BLACK)
 			itemcolor = "#000000"
-		if("light pink")
+		if(SLIME_TYPE_LIGHT_PINK)
 			itemcolor = "#FFB6C1"
-		if("adamantine")
+		if(SLIME_TYPE_ADAMANTINE)
 			itemcolor = "#008B8B"
 	add_atom_colour(itemcolor, FIXED_COLOUR_PRIORITY)
 	if(uses_process)
@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	return
 
 /obj/structure/slime_crystal/grey
-	colour = "grey"
+	colour = SLIME_TYPE_GREY
 	range_type = "view"
 
 /obj/structure/slime_crystal/grey/on_mob_effect(mob/living/affected_mob)
@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	slime_mob.nutrition += 2
 
 /obj/structure/slime_crystal/orange
-	colour = "orange"
+	colour = SLIME_TYPE_ORANGE
 	range_type = "view"
 
 /obj/structure/slime_crystal/orange/on_mob_effect(mob/living/affected_mob)
@@ -149,11 +149,11 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!istype(T))
 		return
 	var/datum/gas_mixture/gas = T.return_air()
-	gas.set_temperature(T0C + 200)
-	T.air_update_turf()
+	gas.temperature = (T0C + 200)
+	T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/purple
-	colour = "purple"
+	colour = SLIME_TYPE_PURPLE
 
 	var/heal_amt = 2
 
@@ -182,19 +182,24 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			carbon_mob.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_HEART,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS), -heal_amt)
 
 /obj/structure/slime_crystal/blue
-	colour = "blue"
+	colour = SLIME_TYPE_BLUE
 	range_type = "view"
 
 /obj/structure/slime_crystal/blue/process()
 	for(var/turf/open/T in view(2, src))
 		if(isspaceturf(T))
 			continue
-		var/datum/gas_mixture/gas = T.return_air()
-		gas.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
-		T.air_update_turf()
+
+		var/datum/gas_mixture/air = T.return_air()
+		var/moles_to_remove = air.total_moles()
+		T.remove_air(moles_to_remove)
+
+		var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
+		T.assume_air(base_mix)
+		T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/metal
-	colour = "metal"
+	colour = SLIME_TYPE_METAL
 
 	var/heal_amt = 3
 
@@ -205,8 +210,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	borgo.adjustBruteLoss(-heal_amt)
 
 /obj/structure/slime_crystal/yellow
-	colour = "yellow"
-	light_color = LIGHT_COLOR_YELLOW //a good, sickly atmosphere
+	colour = SLIME_TYPE_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW //a good, sickly atmosphere
 	light_power = 0.75
 	uses_process = FALSE
 
@@ -219,15 +224,15 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
 		if(cell.charge == cell.maxcharge)
-			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...")
+			to_chat(span_danger(" You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea..."))
 			cell.explode()
 			return
-		to_chat("<span class = 'notice'> You charged the [I.name] on [name]!")
+		to_chat(user, span_notice("You charged the [I.name] on [name]!"))
 		cell.give(cell.maxcharge)
 		return
 	return ..()
 /obj/structure/slime_crystal/darkpurple
-	colour = "dark purple"
+	colour = SLIME_TYPE_DARK_PURPLE
 
 /obj/structure/slime_crystal/darkpurple/process()
 	var/turf/T = get_turf(src)
@@ -236,8 +241,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/turf/open/open_turf = T
 	var/datum/gas_mixture/air = open_turf.return_air()
 
-	if(air.get_moles(GAS_PLASMA) > 15)
-		air.adjust_moles(GAS_PLASMA, -15)
+	if(GET_MOLES(/datum/gas/plasma, air) > 15)
+		REMOVE_MOLES(/datum/gas/plasma, air, 15)
 		new /obj/item/stack/sheet/mineral/plasma(open_turf)
 
 /obj/structure/slime_crystal/darkpurple/Destroy()
@@ -245,7 +250,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	return ..()
 
 /obj/structure/slime_crystal/darkblue
-	colour = "dark blue"
+	colour = SLIME_TYPE_DARK_BLUE
 
 /obj/structure/slime_crystal/darkblue/process(delta_time)
 	for(var/turf/open/T in RANGE_TURFS(5, src))
@@ -258,7 +263,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			qdel(trashie)
 
 /obj/structure/slime_crystal/silver
-	colour = "silver"
+	colour = SLIME_TYPE_SILVER
 
 /obj/structure/slime_crystal/silver/process(delta_time)
 	for(var/obj/machinery/hydroponics/hydr in range(5,src))
@@ -268,7 +273,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			hydr.age++
 
 /obj/structure/slime_crystal/bluespace
-	colour = "bluespace"
+	colour = SLIME_TYPE_BLUESPACE
 	density = FALSE
 	uses_process = FALSE
 	///Is it in use?
@@ -282,7 +287,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	GLOB.bluespace_slime_crystals -= src
 	return ..()
 
-/obj/structure/slime_crystal/bluespace/attack_hand(mob/user)
+/obj/structure/slime_crystal/bluespace/attack_hand(mob/user, list/modifiers)
 
 	if(in_use)
 		return
@@ -322,7 +327,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	do_teleport(user ,assoc_list[chosen_input])
 
 /obj/structure/slime_crystal/sepia
-	colour = "sepia"
+	colour = SLIME_TYPE_SEPIA
 
 /obj/structure/slime_crystal/sepia/on_mob_enter(mob/living/affected_mob)
 	ADD_TRAIT(affected_mob,TRAIT_NOBREATH,type)
@@ -351,6 +356,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/stage = 0
 	var/max_stage = 5
 	var/datum/weakref/pylon
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 
 /obj/structure/cerulean_slime_crystal/Initialize(mapload, obj/structure/slime_crystal/cerulean/master_pylon)
 	. = ..()
@@ -392,20 +399,20 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	return ..()
 
 /obj/structure/slime_crystal/cerulean
-	colour = "cerulean"
+	colour = SLIME_TYPE_CERULEAN
 	uses_process = FALSE
 	var/crystals = 0
 
 /obj/structure/slime_crystal/cerulean/Initialize(mapload)
 	. = ..()
-	while(crystals < 3)
+	for (var/i in 1 to 10) // doesn't guarantee 3 but it's a good effort
 		spawn_crystal()
 
 /obj/structure/slime_crystal/cerulean/proc/spawn_crystal()
 	if(crystals >= 3)
 		return
 	for(var/turf/T as() in RANGE_TURFS(2,src))
-		if(is_blocked_turf(T) || isspaceturf(T)  || T == get_turf(src) || prob(50))
+		if(T.is_blocked_turf() || isspaceturf(T)  || T == get_turf(src) || prob(50))
 			continue
 		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
 		if(CSC)
@@ -415,7 +422,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		return
 
 /obj/structure/slime_crystal/pyrite
-	colour = "pyrite"
+	colour = SLIME_TYPE_PYRITE
 	uses_process = FALSE
 
 /obj/structure/slime_crystal/pyrite/Initialize(mapload)
@@ -431,7 +438,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	addtimer(CALLBACK(src,PROC_REF(change_colour)),rand(0.75 SECONDS,1.25 SECONDS))
 
 /obj/structure/slime_crystal/red
-	colour = "red"
+	colour = SLIME_TYPE_RED
 
 	var/blood_amt = 0
 
@@ -462,22 +469,22 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(blood_amt == max_blood_amt)
 			return
 
-/obj/structure/slime_crystal/red/attack_hand(mob/user)
+/obj/structure/slime_crystal/red/attack_hand(mob/user, list/modifiers)
 	if(blood_amt < 100)
 		return ..()
 
 	blood_amt -= 100
-	var/type = pick(/obj/item/reagent_containers/food/snacks/meat/slab,/obj/item/organ/heart,/obj/item/organ/lungs,/obj/item/organ/liver,/obj/item/organ/eyes,/obj/item/organ/tongue,/obj/item/organ/stomach,/obj/item/organ/ears)
+	var/type = pick(/obj/item/food/meat/slab,/obj/item/organ/heart,/obj/item/organ/lungs,/obj/item/organ/liver,/obj/item/organ/eyes,/obj/item/organ/tongue,/obj/item/organ/stomach,/obj/item/organ/ears)
 	new type(get_turf(src))
 
 /obj/structure/slime_crystal/red/attacked_by(obj/item/I, mob/living/user)
 	if(blood_amt < 10)
 		return ..()
 
-	if(!istype(I, /obj/item/reagent_containers/glass/beaker))
+	if(!istype(I, /obj/item/reagent_containers/cup/beaker))
 		return ..()
 
-	var/obj/item/reagent_containers/glass/beaker/item_beaker = I
+	var/obj/item/reagent_containers/cup/beaker/item_beaker = I
 
 	if(!item_beaker.is_refillable() || (item_beaker.reagents.total_volume + 10 > item_beaker.reagents.maximum_volume))
 		return ..()
@@ -485,7 +492,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	item_beaker.reagents.add_reagent(/datum/reagent/blood,10)
 
 /obj/structure/slime_crystal/green
-	colour = "green"
+	colour = SLIME_TYPE_GREEN
 	var/datum/mutation/stored_mutation
 
 /obj/structure/slime_crystal/green/examine(mob/user)
@@ -495,7 +502,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	else
 		. += "It doesn't hold any mutations"
 
-/obj/structure/slime_crystal/green/attack_hand(mob/user)
+/obj/structure/slime_crystal/green/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!iscarbon(user) || !user.has_dna())
 		return
@@ -532,7 +539,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	carbon_mob.dna.remove_mutation(stored_mutation)
 
 /obj/structure/slime_crystal/pink
-	colour = "pink"
+	colour = SLIME_TYPE_PINK
 
 /obj/structure/slime_crystal/pink/on_mob_enter(mob/living/affected_mob)
 	ADD_TRAIT(affected_mob,TRAIT_PACIFISM,type)
@@ -541,14 +548,14 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	REMOVE_TRAIT(affected_mob,TRAIT_PACIFISM,type)
 
 /obj/structure/slime_crystal/gold
-	colour = "gold"
+	colour = SLIME_TYPE_GOLD
 
-/obj/structure/slime_crystal/gold/attack_hand(mob/user)
+/obj/structure/slime_crystal/gold/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_mob = user
-	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/pug,/mob/living/simple_animal/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
+	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/basic/pet/dog/corgi,/mob/living/basic/pet/dog/pug,/mob/living/basic/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
 	chosen_pet = new chosen_pet(get_turf(human_mob))
 	human_mob.forceMove(chosen_pet)
 	human_mob.mind.transfer_to(chosen_pet)
@@ -564,27 +571,27 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	qdel(affected_mob)
 
 /obj/structure/slime_crystal/oil
-	colour = "oil"
+	colour = SLIME_TYPE_OIL
 
 /obj/structure/slime_crystal/oil/process()
 	for(var/turf/open/turf_in_range in RANGE_TURFS(3,src))
 		turf_in_range.MakeSlippery(TURF_WET_LUBE,5 SECONDS)
 
 /obj/structure/slime_crystal/black
-	colour = "black"
+	colour = SLIME_TYPE_BLACK
 
 /obj/structure/slime_crystal/black/on_mob_effect(mob/living/affected_mob)
-	if(!ishuman(affected_mob) || isjellyperson(affected_mob))
+	if(!ishuman(affected_mob) || isoozeling(affected_mob))
 		return
 
 	if(affected_mobs[affected_mob] < 60) //Around 2 minutes
 		return
 
 	var/mob/living/carbon/human/human_transformed = affected_mob
-	human_transformed.set_species(pick(typesof(/datum/species/jelly)))
+	human_transformed.set_species(pick(typesof(/datum/species/oozeling)))
 
 /obj/structure/slime_crystal/lightpink
-	colour = "light pink"
+	colour = SLIME_TYPE_LIGHT_PINK
 
 /obj/structure/slime_crystal/lightpink/attack_ghost(mob/user)
 	. = ..()
@@ -600,7 +607,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		qdel(affected_mob)
 
 /obj/structure/slime_crystal/adamantine
-	colour = "adamantine"
+	colour = SLIME_TYPE_ADAMANTINE
 
 /obj/structure/slime_crystal/adamantine/on_mob_enter(mob/living/affected_mob)
 	if(!ishuman(affected_mob))
@@ -619,7 +626,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	human.dna.species.burnmod += 0.1
 
 /obj/structure/slime_crystal/rainbow
-	colour = "rainbow"
+	colour = SLIME_TYPE_RAINBOW
 	uses_process = FALSE
 	var/list/inserted_cores = list()
 
@@ -649,7 +656,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			SC.master_crystal_destruction()
 	return ..()
 
-/obj/structure/slime_crystal/rainbow/attack_hand(mob/user)
+/obj/structure/slime_crystal/rainbow/attack_hand(mob/user, list/modifiers)
 	for(var/X in inserted_cores)
 		if(inserted_cores[X])
 			var/obj/structure/slime_crystal/SC = inserted_cores[X]

@@ -28,7 +28,27 @@
 //INDEXES
 #define COOLDOWN_BORG_SELF_REPAIR	"borg_self_repair"
 #define COOLDOWN_LARRYKNIFE			"larry_knife"
+#define COOLDOWN_CLOCK_WMCHIMES		"clock_westminister"
 
+//circuit cooldowns
+
+#define COOLDOWN_CIRCUIT_SOUNDEMITTER "circuit_soundemitter"
+#define COOLDOWN_CIRCUIT_SPEECH "circuit_speech"
+#define COOLDOWN_CIRCUIT_PATHFIND_SAME "circuit_pathfind_same"
+#define COOLDOWN_CIRCUIT_PATHFIND_DIF "circuit_pathfind_different"
+#define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
+
+//Item cooldowns
+#define COOLDOWN_SIGNALLER_SEND "cooldown_signaller_send"
+
+//Mecha cooldowns
+#define COOLDOWN_MECHA_MESSAGE "mecha_message"
+#define COOLDOWN_MECHA_EQUIPMENT "mecha_equipment"
+#define COOLDOWN_MECHA_ARMOR "mecha_armor"
+#define COOLDOWN_MECHA_MELEE_ATTACK "mecha_melee"
+#define COOLDOWN_MECHA_SMOKE "mecha_smoke"
+
+#define COOLDOWN_EMOTE_WINDOW "emote_window"
 
 //TIMER COOLDOWN MACROS
 
@@ -72,3 +92,5 @@
 #define COOLDOWN_RESET(cd_source, cd_index) cd_source.cd_index = 0
 
 #define COOLDOWN_TIMELEFT(cd_source, cd_index) (max(0, cd_source.cd_index - world.time))
+
+#define COOLDOWN_TIMELEFT_TEXT(cd_source, cd_index) DisplayTimeText(COOLDOWN_TIMELEFT(cd_source, cd_index))

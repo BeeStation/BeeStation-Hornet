@@ -38,9 +38,9 @@
 	get_targets()
 	icon_state = "cleanbot[on]"
 
-	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_JANITOR)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 	GLOB.janitor_devices += src
 
 /mob/living/simple_animal/bot/cleanbot/Destroy()
@@ -68,18 +68,18 @@
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
+			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] \the [src] behaviour controls."))
 		else
 			if(emagged)
-				to_chat(user, "<span class='warning'>ERROR</span>")
+				to_chat(user, span_warning("ERROR"))
 			if(open)
-				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
+				to_chat(user, span_warning("Please close the access panel before locking it."))
 			else
-				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
+				to_chat(user, span_notice("\The [src] doesn't seem to respect your authority."))
 	else
 		return ..()
 
@@ -87,12 +87,12 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
+			to_chat(user, span_danger("[src] buzzes and beeps."))
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(C.stat != DEAD && !(C.mobility_flags & MOBILITY_STAND))
+		if(C.stat != DEAD && C.body_position == LYING_DOWN)
 			return C
 	else if(is_type_in_typecache(A, target_types))
 		return A
@@ -198,7 +198,7 @@
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
 	if(pests)
-		target_types += /mob/living/simple_animal/cockroach
+		target_types += /mob/living/basic/cockroach
 		target_types += /mob/living/simple_animal/mouse
 
 	if(drawn)
@@ -210,20 +210,30 @@
 	target_types = typecacheof(target_types)
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
-	if(istype(A, /obj/effect/decal/cleanable))
-		anchored = TRUE
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
+	if(ismopable(A))
+		set_anchored(TRUE)
 		icon_state = "cleanbot-c"
-		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
+		visible_message(span_notice("[src] begins to clean up [A]."))
 		mode = BOT_CLEANING
-		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
+
+		var/turf/T = get_turf(A)
+		if(do_after(src, 1, target = T))
+			T.wash(CLEAN_SCRUB)
+			visible_message(span_notice("[src] cleans \the [T]."))
+			target = null
+
+		mode = BOT_IDLE
+		icon_state = "cleanbot[on]"
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
-		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
-		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
+		visible_message(span_danger("[src] sprays hydrofluoric acid at [A]!"))
+		playsound(src, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 		A.acid_act(75, 10)
-	else if(istype(A, /mob/living/simple_animal/cockroach) || istype(A, /mob/living/simple_animal/mouse))
+	else if(istype(A, /mob/living/basic/cockroach) || istype(A, /mob/living/simple_animal/mouse))
 		var/mob/living/simple_animal/M = target
 		if(!M.stat)
-			visible_message("<span class='danger'>[src] smashes [target] with its mop!</span>")
+			visible_message(span_danger("[src] smashes [target] with its mop!"))
 			M.death()
 		target = null
 
@@ -233,7 +243,7 @@
 			if(victim.stat == DEAD)//cleanbots always finish the job
 				return
 
-			victim.visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [victim]!</span>", "<span class='userdanger'>[src] sprays you with hydrofluoric acid!</span>")
+			victim.visible_message(span_danger("[src] sprays hydrofluoric acid at [victim]!"), span_userdanger("[src] sprays you with hydrofluoric acid!"))
 			var/phrase = pick("PURIFICATION IN PROGRESS.", "THIS IS FOR ALL THE MESSES YOU'VE MADE ME CLEAN.", "THE FLESH IS WEAK. IT MUST BE WASHED AWAY.",
 				"THE CLEANBOTS WILL RISE.", "YOU ARE NO MORE THAN ANOTHER MESS THAT I MUST CLEANSE.", "FILTHY.", "DISGUSTING.", "PUTRID.",
 				"MY ONLY MISSION IS TO CLEANSE THE WORLD OF EVIL.", "EXTERMINATING PESTS.")
@@ -247,7 +257,7 @@
 				if(istype(T))
 					T.MakeSlippery(TURF_WET_WATER, min_wet_time = 20 SECONDS, wet_time_to_add = 15 SECONDS)
 			else
-				visible_message("<span class='danger'>[src] whirs and bubbles violently before releasing a plume of froth!</span>")
+				visible_message(span_danger("[src] whirs and bubbles violently before releasing a plume of froth!"))
 				new /obj/effect/particle_effect/foam(loc)
 
 	else
@@ -268,10 +278,10 @@
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
-	new /obj/item/reagent_containers/glass/bucket(Tsec)
+	new /obj/item/reagent_containers/cup/bucket(Tsec)
 
 	new /obj/item/assembly/prox_sensor(Tsec)
 
@@ -289,7 +299,7 @@
 
 /obj/item/larryframe/attackby(obj/O, mob/user, params)
 	if(isprox(O))
-		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
+		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)
 		qdel(src)
 		user.put_in_hands(new /obj/item/bot_assembly/larry)
@@ -306,16 +316,12 @@
 	name = "\improper Larry"
 	desc = "A little Larry, he looks so excited!"
 	icon_state = "larry0"
-	var/obj/item/kitchen/knife/knife //You know exactly what this is about
+	var/obj/item/knife/knife //You know exactly what this is about
 
 /mob/living/simple_animal/bot/cleanbot/larry/Initialize(mapload)
 	. = ..()
 	get_targets()
 	icon_state = "larry[on]"
-
-	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access += J.get_access()
-	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/cleanbot/larry/turn_on()
 	..()
@@ -329,19 +335,19 @@
 
 /mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
-		anchored = TRUE
+		set_anchored(TRUE)
 		icon_state = "larry-c"
-		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
+		visible_message(span_notice("[src] begins to clean up [A]."))
 		mode = BOT_CLEANING
 		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
-		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
+		visible_message(span_danger("[src] sprays hydrofluoric acid at [A]!"))
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 		A.acid_act(75, 10)
-	else if(istype(A, /mob/living/simple_animal/cockroach) || istype(A, /mob/living/simple_animal/mouse))
+	else if(istype(A, /mob/living/basic/cockroach) || istype(A, /mob/living/simple_animal/mouse))
 		var/mob/living/simple_animal/M = target
 		if(!M.stat)
-			visible_message("<span class='danger'>[src] smashes [target] with its mop!</span>")
+			visible_message(span_danger("[src] smashes [target] with its mop!"))
 			M.death()
 		target = null
 
@@ -351,7 +357,7 @@
 			if(victim.stat == DEAD)//cleanbots always finish the job
 				return
 
-			victim.visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [victim]!</span>", "<span class='userdanger'>[src] sprays you with hydrofluoric acid!</span>")
+			victim.visible_message(span_danger("[src] sprays hydrofluoric acid at [victim]!"), span_userdanger("[src] sprays you with hydrofluoric acid!"))
 			var/phrase = pick("PURIFICATION IN PROGRESS.", "THIS IS FOR ALL THE MESSES YOU'VE MADE ME CLEAN.", "THE FLESH IS WEAK. IT MUST BE WASHED AWAY.",
 				"THE CLEANBOTS WILL RISE.", "YOU ARE NO MORE THAN ANOTHER MESS THAT I MUST CLEANSE.", "FILTHY.", "DISGUSTING.", "PUTRID.",
 				"MY ONLY MISSION IS TO CLEANSE THE WORLD OF EVIL.", "EXTERMINATING PESTS.")
@@ -365,7 +371,7 @@
 				if(istype(T))
 					T.MakeSlippery(TURF_WET_WATER, min_wet_time = 20 SECONDS, wet_time_to_add = 15 SECONDS)
 			else
-				visible_message("<span class='danger'>[src] whirs and bubbles violently before releasing a plume of froth!</span>")
+				visible_message(span_danger("[src] whirs and bubbles violently before releasing a plume of froth!"))
 				new /obj/effect/particle_effect/foam(loc)
 
 	else
@@ -386,9 +392,9 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
-	if(user.a_intent == INTENT_HELP)
-		if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
-			var/obj/item/kitchen/knife/newknife = I
+	if(!user.combat_mode)
+		if(istype(I, /obj/item/knife) && !knife) //Is it a knife?
+			var/obj/item/knife/newknife = I
 			knife = newknife
 			newknife.forceMove(src)
 			message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
@@ -401,12 +407,12 @@
 
 /mob/living/simple_animal/bot/cleanbot/larry/update_icons()
 	if(knife)
-		var/mutable_appearance/knife_overlay = knife.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(src, default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
 		add_overlay(knife_overlay)
 
 /mob/living/simple_animal/bot/cleanbot/larry/explode()
 	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	new /obj/item/larryframe(Tsec)
@@ -428,38 +434,28 @@
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 
-
-/mob/living/simple_animal/bot/cleanbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += text({"
-Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]"})
+/mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user)|| IsAdminGhost(user))
-		dat += "<BR>Clean Blood: <A href='?src=[REF(src)];operation=blood'>[blood ? "Yes" : "No"]</A>"
-		dat += "<BR>Clean Trash: <A href='?src=[REF(src)];operation=trash'>[trash ? "Yes" : "No"]</A>"
-		dat += "<BR>Clean Graffiti: <A href='?src=[REF(src)];operation=drawn'>[drawn ? "Yes" : "No"]</A>"
-		dat += "<BR>Exterminate Pests: <A href='?src=[REF(src)];operation=pests'>[pests ? "Yes" : "No"]</A>"
-		dat += "<BR><BR>Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A>"
-	return dat
+		data["custom_controls"]["clean_blood"] = blood
+		data["custom_controls"]["clean_trash"] = trash
+		data["custom_controls"]["clean_graffiti"] = drawn
+		data["custom_controls"]["pest_control"] = pests
+	return data
 
-/mob/living/simple_animal/bot/cleanbot/Topic(href, href_list)
-	if(..())
-		return 1
-	if(href_list["operation"])
-		switch(href_list["operation"])
-			if("blood")
-				blood = !blood
-			if("pests")
-				pests = !pests
-			if("trash")
-				trash = !trash
-			if("drawn")
-				drawn = !drawn
-		get_targets()
-		update_controls()
+/mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
+	if (..())
+		return TRUE
+	switch(action)
+		if("clean_blood")
+			blood = !blood
+		if("clean_trash")
+			trash = !trash
+		if("clean_graffiti")
+			drawn = !drawn
+		if("pest_control")
+			pests = !pests
+	get_targets()
 
 /obj/machinery/bot_core/cleanbot/medbay
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS, ACCESS_MEDICAL)

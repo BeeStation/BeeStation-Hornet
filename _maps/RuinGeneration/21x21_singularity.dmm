@@ -4,13 +4,13 @@
 /turf/template_noop/open,
 /area/template_noop)
 "c" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "d" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "g" = (
 /turf/closed/wall,
@@ -19,7 +19,7 @@
 /obj/structure/sign/warning/radiation{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "l" = (
 /obj/machinery/the_singularitygen,
@@ -31,52 +31,48 @@
 /area/template_noop)
 "p" = (
 /obj/machinery/power/rad_collector,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "q" = (
 /obj/structure/sign/warning/radiation{
 	pixel_y = -32
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "t" = (
 /turf/template_noop/open,
 /area/template_noop)
 "x" = (
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "z" = (
 /obj/structure/closet/radiation,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "A" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "C" = (
 /turf/closed/wall/r_wall,
 /area/ruin)
 "E" = (
 /obj/machinery/computer,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "F" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "G" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
-"N" = (
-/obj/effect/decal/fakelattice,
-/turf/template_noop/open,
-/area/template_noop)
 "R" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -88,7 +84,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin)
 "X" = (
 /turf/template_noop,
@@ -240,13 +236,13 @@ c
 c
 C
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
 C
 x
@@ -262,7 +258,7 @@ c
 c
 c
 R
-N
+a
 o
 t
 S
@@ -270,7 +266,7 @@ S
 S
 t
 o
-N
+a
 R
 E
 c
@@ -308,7 +304,7 @@ c
 c
 c
 R
-N
+a
 S
 a
 S
@@ -316,7 +312,7 @@ S
 S
 a
 S
-N
+a
 R
 E
 c
@@ -354,7 +350,7 @@ c
 c
 c
 R
-N
+a
 S
 a
 S
@@ -362,7 +358,7 @@ S
 S
 a
 S
-N
+a
 R
 E
 c
@@ -400,7 +396,7 @@ c
 c
 c
 R
-N
+a
 o
 t
 S
@@ -408,7 +404,7 @@ S
 S
 t
 o
-N
+a
 R
 E
 c
@@ -424,13 +420,13 @@ c
 c
 C
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
 C
 x

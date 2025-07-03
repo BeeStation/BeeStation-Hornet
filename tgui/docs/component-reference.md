@@ -28,6 +28,7 @@ Make sure to add new items to this list if you document new components.
   - [`Grid`](#grid)
   - [`Grid.Column`](#gridcolumn)
   - [`Icon`](#icon)
+ - [`ImageButton`](#imagebutton)
   - [`Input`](#input)
   - [`Knob`](#knob)
   - [`LabeledControls`](#labeledcontrols)
@@ -63,17 +64,13 @@ it is used a lot in this framework.
 
 **Event handlers.**
 Event handlers are callbacks that you can attack to various element to
-listen for browser events. Inferno supports camelcase (`onClick`) and
-lowercase (`onclick`) event names.
+listen for browser events. React supports camelcase (`onClick`) event names.
 
 - Camel case names are what's called *synthetic* events, and are the
 **preferred way** of handling events in React, for efficiency and
 performance reasons. Please read
-[Inferno Event Handling](https://infernojs.org/docs/guides/event-handling)
+[React Event Handling](https://react.dev/learn/responding-to-events)
 to understand what this is about.
-- Lower case names are native browser events and should be used sparingly,
-for example when you need an explicit IE8 support. **DO NOT** use
-lowercase event handlers unless you really know what you are doing.
 
 ## `tgui/components`
 
@@ -359,15 +356,14 @@ and displays selected entry.
 
 - See inherited props: [Box](#box)
 - See inherited props: [Icon](#icon)
-- `options: string[]` - An array of strings which will be displayed in the
-dropdown when open
-- `selected: string` - Currently selected entry
-- `width: number` - Width of dropdown button and resulting menu
+- `options: string[] | DropdownEntry[]` - An array of strings which will be displayed in the
+dropdown when open. See Dropdown.tsx for more adcanced usage with DropdownEntry
+- `selected: any` - Currently selected entry
+- `width: string` - Width of dropdown button and resulting menu; css width value
 - `over: boolean` - Dropdown renders over instead of below
 - `color: string` - Color of dropdown button
 - `nochevron: boolean` - Whether or not the arrow on the right hand side of the dropdown button is visible
-- `noscroll: boolean` - Whether or not the dropdown menu should have a scroll bar
-- `displayText: string` - Text to always display in place of the selected text
+- `displayText: string | number | ReactNode` - Text to always display in place of the selected text
 - `onClick: (e) => void` - Called when dropdown button is clicked
 - `onSelected: (value) => void` - Called when a value is picked from the list, `value` is the value that was picked
 
@@ -530,6 +526,43 @@ Fractional numbers are supported.
 - `spin: boolean` - Whether an icon should be spinning. Good for load
 indicators.
 
+### `ImageButton`
+
+A Robust button is specifically for sticking a picture in it.
+
+**Props:**
+
+- See inherited props: [Box](#box)
+- `asset: string[]` - Asset cache. Example: `asset={`assetname32x32, ${thing.key}`}`
+- `base64: string` - Classic way to put images. Example: `base64={thing.image}`
+- `buttons: any` - Special section for any component, or, content.
+  Quite a small area at the bottom of the image in non-fluid mode.
+  Has a style overrides, best to use [Button](#button) inside.
+- `buttonsAlt: boolean` - Enables alternative buttons layout.
+  With fluid, makes buttons like a humburger.
+  Without, moves it to top, and disables pointer-events.
+- `children: any` - Content under image.
+- `className: string` - Applies a CSS class to the element.
+- `color: string` - Color of the button, but without `transparent`; see [Button](#button)
+- `disabled: boolean` - Makes button disabled and dark red if true.
+  Also disables onClick & onRightClick.
+- `selected: boolean` - Makes button selected and green if true.
+- `dmFallback: any` - Optional. Adds a "stub" when loading DmIcon.
+- `dmIcon: string` - Parameter `icon` of component `DmIcon`.
+- `dmIconState: string` - Parameter `icon_state` of component `DmIcon`.
+  For proper work of `DmIcon` it is necessary that both parameters are filled in!
+- `fluid: boolean` - Changes the layout of the button, making it fill the entire horizontally available space.
+  Allows the use of `title`
+- `imageSize: number` - Parameter responsible for the size of the image, component and standard "stubs".
+  Measured in pixels. `imageSize={64}` = 64px.
+- `imageSrc: string` - Prop `src` of <img>. Example: `imageSrc={resolveAsset(thing.image)}`
+- `onClick: (e) => void` - Called when button is clicked with LMB.
+- `onRightClick: (e) => void` - Called when button is clicked with RMB.
+- `title: string` - Requires `fluid` for work. Bold text with divider betwen content.
+- `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
+over the button.
+- `tooltipPosition: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
+
 ### `Input`
 
 A basic text input, which allow users to enter text into a UI.
@@ -645,10 +678,23 @@ to perform some sort of action), there is a way to do that:
 
 **Props:**
 
-- `label: string` - Item label.
-- `color: string` - Sets the color of the text.
+- `className: string` - Applies a CSS class to the element.
+- `label: string|ReactNode` - Item label.
+- `labelWrap: boolean` - Lets the label wrap and makes it not take the minimum width.
+- `labelColor: string` - Sets the color of the label.
+- `color: string` - Sets the color of the content text.
+- `textAlign: string` - Align the content text.
+  - `left` (default)
+  - `center`
+  - `right`
+- `verticalAlign: string` - Align both the label and the content vertically.
+  - `baseline` (default)
+  - `top`
+  - `middle`
+  - `bottom`
 - `buttons: any` - Buttons to render aside the content.
 - `children: any` - Content of this labeled item.
+- `tooltip: string` - Hovering this labeled item will show a tooltip.
 
 ### `LabeledList.Divider`
 
@@ -700,27 +746,25 @@ to fine tune the value, or single click it to manually type a number.
 **Props:**
 
 - `animated: boolean` - Animates the value if it was changed externally.
+- `disabled: boolean` - Makes the input field uneditable & non draggable to prevent user changes
 - `fluid: boolean` - Fill all available horizontal space.
-- `value: number` - Value itself.
+- `value: string|number` - Value itself.
 - `unit: string` - Unit to display to the right of value.
 - `minValue: number` - Lowest possible value.
 - `maxValue: number` - Highest possible value.
-- `step: number` (default: 1) - Adjust value by this amount when
+- `step: number` - Adjust value by this amount when
 dragging the input.
 - `stepPixelSize: number` (default: 1) - Screen distance mouse needs
 to travel to adjust value by one `step`.
-- `width: string|number` - Width of the element, in `Box` units or pixels.
-- `height: string|numer` - Height of the element, in `Box` units or pixels.
-- `lineHeight: string|number` - lineHeight of the element, in `Box` units or pixels.
-- `fontSize: string|number` - fontSize of the element, in `Box` units or pixels.
-- `format: value => value` - Format value using this function before
+- `width: string` - Width of the element, in `Box` units or pixels.
+- `height: string` - Height of the element, in `Box` units or pixels.
+- `lineHeight: string` - lineHeight of the element, in `Box` units or pixels.
+- `fontSize: string` - fontSize of the element, in `Box` units or pixels.
+- `format: (value: number) => string` - Format value using this function before
 displaying it.
-- `suppressFlicker: number` - A number in milliseconds, for which the input
-will hold off from updating while events propagate through the backend.
-Default is about 250ms, increase it if you still see flickering.
-- `onChange: (e, value) => void` - An event, which fires when you release
+- `onChange: (value: number) => void` - An event, which fires when you release
 the input, or successfully enter a number.
-- `onDrag: (e, value) => void` - An event, which fires about every 500ms
+- `onDrag: (value: number) => void` - An event, which fires about every 500ms
 when you drag the input up and down, on release and on manual editing.
 
 ### `Popper`
@@ -729,7 +773,7 @@ Popper lets you position elements so that they don't go out of the bounds of the
 
 **Props:**
 
-- `popperContent: InfernoNode` - The content that will be put inside the popper.
+- `popperContent: ReactNode` - The content that will be put inside the popper.
 - `options?: { ... }` - An object of options to pass to `createPopper`. See [https://popper.js.org/docs/v2/constructors/#options], but the one you want most is `placement`. Valid placements are "bottom", "top", "left", and "right". You can affix "-start" and "-end" to achieve something like top left or top right respectively. You can also use "auto" (with an optional "-start" or "-end"), where a best fit will be chosen.
 - `additionalStyles: { ... }` - A map of CSS styles to add to the element that will contain the popper.
 
@@ -762,7 +806,11 @@ percentage and how filled the bar is.
 - `maxValue: number` - Highest possible value.
 - `ranges: { color: [from, to] }` - Applies a `color` to the progress bar
 based on whether the value lands in the range between `from` and `to`.
-- `color: string` - Color of the progress bar.
+- `color: string` - Color of the progress bar. Can take any of the following formats:
+  - `#ffffff` - Hex format
+  - `rgb(r,g,b) / rgba(r,g,b,a)` - RGB format
+  - `<name>` - the name of a `color-<name>` CSS class. See `CSS_COLORS` in `constants.js`.
+  - `<name>` - the name of a base CSS color, if not overridden by the definitions above.
 - `children: any` - Content to render inside the progress bar.
 
 ### `Section`
@@ -987,25 +1035,41 @@ Notice that tabs do not contain state. It is your job to track the selected
 tab, handle clicks and place tab content where you need it. In return, you get
 a lot of flexibility in regards to how you can layout your tabs.
 
-Tabs also support a vertical configuration. This is usually paired with a
-[Flex](#flex) component to render tab content to the right.
+Tabs also support a vertical configuration. This is usually paired with
+[Stack](#stack) to render tab content to the right.
 
 ```jsx
-<Flex>
-  <Flex.Item>
+<Stack>
+  <Stack.Item>
     <Tabs vertical>
       ...
     </Tabs>
-  </Flex.Item>
-  <Flex.Item grow={1} basis={0}>
+  </Stack.Item>
+  <Stack.Item grow={1} basis={0}>
     Tab content.
-  </Flex.Item>
-</Flex>
+  </Stack.Item>
+</Stack>
+```
+
+If you need to combine a tab section with other elements, or if you want to
+add scrollable functionality to tabs, pair them with the [Section](#section)
+component:
+
+```jsx
+<Section fill fitted scrollable width="128px">
+  <Tabs vertical>
+    ...
+  </Tabs>
+  ... other things ...
+</Section>
 ```
 
 **Props:**
 
 - See inherited props: [Box](#box)
+- `fluid: boolean` - If true, tabs will take all available horizontal space.
+- `fill: boolean` - Similarly to `fill` on [Section](#section), tabs will fill
+all available vertical space. Only makes sense in a vertical configuration.
 - `vertical: boolean` - Use a vertical configuration, where tabs will be
 stacked vertically.
 - `children: Tab[]` - This component only accepts tabs as its children.

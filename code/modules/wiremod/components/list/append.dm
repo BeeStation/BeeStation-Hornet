@@ -5,7 +5,7 @@
 ***/
 /obj/item/circuit_component/append
 	display_name = "Append Component"
-	display_desc = "A component that appends a value to a list."
+	desc = "A component that appends a value to a list."
 
 	//Input ports
 	var/datum/port/input/list_port
@@ -16,8 +16,7 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/append/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/append/populate_ports()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	value_port = add_input_port("Value", PORT_TYPE_ANY)
 
@@ -34,8 +33,8 @@
 	if(.)
 		return
 
-	var/value = value_port.input_value
-	var/list/input_list = list_port.input_value
+	var/value = value_port.value
+	var/list/input_list = list_port.value
 	input_list = input_list?.Copy() //input_value of an input port isn't typecasted to a list, so it doesn't reconize Copy() until you put it in a typed var
 
 	//appending a null value onto a list is a reasonable thing to do if the goal is only to change the length of the list, therefore, isnull(value) isn't checked

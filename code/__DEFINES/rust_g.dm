@@ -19,31 +19,30 @@
 /* This comment bypasses grep checks */ /var/__rust_g
 
 /proc/__detect_rust_g()
+	var/arch_suffix = null
+	#ifdef OPENDREAM
+	arch_suffix = "64"
+	#endif
 	if (world.system_type == UNIX)
-		if (fexists("./librust_g.so"))
+		if (fexists("./librust_g[arch_suffix].so"))
 			// No need for LD_LIBRARY_PATH badness.
-			return __rust_g = "./librust_g.so"
-		else if (fexists("./rust_g"))
+			return __rust_g = "./librust_g[arch_suffix].so"
+		else if (fexists("./rust_g[arch_suffix]"))
 			// Old dumb filename.
-			return __rust_g = "./rust_g"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
+			return __rust_g = "./rust_g[arch_suffix]"
+		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g[arch_suffix]"))
 			// Old dumb filename in `~/.byond/bin`.
-			return __rust_g = "rust_g"
+			return __rust_g = "rust_g[arch_suffix]"
 		else
 			// It's not in the current directory, so try others
-			return __rust_g = "librust_g.so"
+			return __rust_g = "librust_g[arch_suffix].so"
 	else
-		return __rust_g = "rust_g"
+		return __rust_g = "rust_g[arch_suffix]"
 
 #define RUST_G (__rust_g || __detect_rust_g())
 #endif
 
-// Handle 515 call() -> call_ext() changes
-#if DM_VERSION >= 515
 #define RUSTG_CALL call_ext
-#else
-#define RUSTG_CALL call
-#endif
 
 /// Gets the version of rust_g
 /proc/rustg_get_version() return RUSTG_CALL(RUST_G, "get_version")()
@@ -124,12 +123,19 @@
 	RUSTG_CALL(RUST_G, "dbp_generate")(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
 
 
+
 #define rustg_dmi_strip_metadata(fname) RUSTG_CALL(RUST_G, "dmi_strip_metadata")("[fname]")
 #define rustg_dmi_create_png(path, width, height, data) RUSTG_CALL(RUST_G, "dmi_create_png")(path, width, height, data)
 #define rustg_dmi_resize_png(path, width, height, resizetype) RUSTG_CALL(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
+/**
+ * input: must be a path, not an /icon; you have to do your own handling if it is one, as icon objects can't be directly passed to rustg.
+ *
+ * output: json_encode'd list. json_decode to get a flat list with icon states in the order they're in inside the .dmi
+ */
+#define rustg_dmi_icon_states(fname) RUSTG_CALL(RUST_G, "dmi_icon_states")("[fname]")
 
 #define rustg_file_read(fname) RUSTG_CALL(RUST_G, "file_read")("[fname]")
-#define rustg_file_exists(fname) RUSTG_CALL(RUST_G, "file_exists")("[fname]")
+#define rustg_file_exists(fname) (RUSTG_CALL(RUST_G, "file_exists")("[fname]") == "true")
 #define rustg_file_write(text, fname) RUSTG_CALL(RUST_G, "file_write")(text, "[fname]")
 #define rustg_file_append(text, fname) RUSTG_CALL(RUST_G, "file_append")(text, "[fname]")
 #define rustg_file_get_line_count(fname) text2num(RUSTG_CALL(RUST_G, "file_get_line_count")("[fname]"))
@@ -140,8 +146,23 @@
 	#define text2file(text, fname) rustg_file_append(text, "[fname]")
 #endif
 
+/// Returns the git hash of the given revision, ex. "HEAD".
 #define rustg_git_revparse(rev) RUSTG_CALL(RUST_G, "rg_git_revparse")(rev)
-#define rustg_git_commit_date(rev) RUSTG_CALL(RUST_G, "rg_git_commit_date")(rev)
+
+/**
+ * Returns the date of the given revision using the provided format.
+ * Defaults to returning %F which is YYYY-MM-DD.
+ */
+/proc/rustg_git_commit_date(rev, format = "%F")
+	return RUSTG_CALL(RUST_G, "rg_git_commit_date")(rev, format)
+
+/**
+ * Returns the formatted datetime string of HEAD using the provided format.
+ * Defaults to returning %F which is YYYY-MM-DD.
+ * This is different to rustg_git_commit_date because it only needs the logs directory.
+ */
+/proc/rustg_git_commit_date_head(format = "%F")
+	return RUSTG_CALL(RUST_G, "rg_git_commit_date_head")(format)
 
 #define rustg_hash_string(algorithm, text) RUSTG_CALL(RUST_G, "hash_string")(algorithm, text)
 #define rustg_hash_file(algorithm, fname) RUSTG_CALL(RUST_G, "hash_file")(algorithm, "[fname]")
@@ -154,6 +175,11 @@
 #define RUSTG_HASH_SHA512 "sha512"
 #define RUSTG_HASH_XXH64 "xxh64"
 #define RUSTG_HASH_BASE64 "base64"
+
+/// Encode a given string into base64
+#define rustg_encode_base64(str) rustg_hash_string(RUSTG_HASH_BASE64, str)
+/// Decode a given base64 string
+#define rustg_decode_base64(str) RUSTG_CALL(RUST_G, "decode_base64")(str)
 
 #ifdef RUSTG_OVERRIDE_BUILTINS
 	#define md5(thing) (isfile(thing) ? rustg_hash_file(RUSTG_HASH_MD5, "[thing]") : rustg_hash_string(RUSTG_HASH_MD5, thing))
@@ -169,6 +195,80 @@
 #define rustg_http_request_async(method, url, body, headers, options) RUSTG_CALL(RUST_G, "http_request_async")(method, url, body, headers, options)
 #define rustg_http_check_request(req_id) RUSTG_CALL(RUST_G, "http_check_request")(req_id)
 
+/// Generates a spritesheet at: [file_path][spritesheet_name]_[size_id].png
+/// The resulting spritesheet arranges icons in a random order, with the position being denoted in the "sprites" return value.
+/// All icons have the same y coordinate, and their x coordinate is equal to `icon_width * position`.
+///
+/// hash_icons is a boolean (0 or 1), and determines if the generator will spend time creating hashes for the output field dmi_hashes.
+/// These hashes can be heplful for 'smart' caching (see rustg_iconforge_cache_valid), but require extra computation.
+///
+/// Spritesheet will contain all sprites listed within "sprites".
+/// "sprites" format:
+/// list(
+///     "sprite_name" = list( // <--- this list is a [SPRITE_OBJECT]
+///         icon_file = 'icons/path_to/an_icon.dmi',
+///         icon_state = "some_icon_state",
+///         dir = SOUTH,
+///         frame = 1,
+///         transform = list([TRANSFORM_OBJECT], ...)
+///     ),
+///     ...,
+/// )
+/// TRANSFORM_OBJECT format:
+/// list("type" = RUSTG_ICONFORGE_BLEND_COLOR, "color" = "#ff0000", "blend_mode" = ICON_MULTIPLY)
+/// list("type" = RUSTG_ICONFORGE_BLEND_ICON, "icon" = [SPRITE_OBJECT], "blend_mode" = ICON_OVERLAY)
+/// list("type" = RUSTG_ICONFORGE_SCALE, "width" = 32, "height" = 32)
+/// list("type" = RUSTG_ICONFORGE_CROP, "x1" = 1, "y1" = 1, "x2" = 32, "y2" = 32) // (BYOND icons index from 1,1 to the upper bound, inclusive)
+///
+/// Returns a SpritesheetResult as JSON, containing fields:
+/// list(
+///     "sizes" = list("32x32", "64x64", ...),
+///     "sprites" = list("sprite_name" = list("size_id" = "32x32", "position" = 0), ...),
+///     "dmi_hashes" = list("icons/path_to/an_icon.dmi" = "d6325c5b4304fb03", ...),
+///     "sprites_hash" = "a2015e5ff403fb5c", // This is the xxh64 hash of the INPUT field "sprites".
+///     "error" = "[A string, empty if there were no errors.]"
+/// )
+/// In the case of an unrecoverable panic from within Rust, this function ONLY returns a string containing the error.
+#define rustg_iconforge_generate(file_path, spritesheet_name, sprites, hash_icons) RUSTG_CALL(RUST_G, "iconforge_generate")(file_path, spritesheet_name, sprites, "[hash_icons]")
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_generate_async(file_path, spritesheet_name, sprites, hash_icons) RUSTG_CALL(RUST_G, "iconforge_generate_async")(file_path, spritesheet_name, sprites, "[hash_icons]")
+/// Returns the status of an async job_id, or its result if it is completed. See RUSTG_JOB DEFINEs.
+#define rustg_iconforge_check(job_id) RUSTG_CALL(RUST_G, "iconforge_check")("[job_id]")
+/// Clears all cached DMIs and images, freeing up memory.
+/// This should be used after spritesheets are done being generated.
+#define rustg_iconforge_cleanup RUSTG_CALL(RUST_G, "iconforge_cleanup")
+/// Takes in a set of hashes, generate inputs, and DMI filepaths, and compares them to determine cache validity.
+/// input_hash: xxh64 hash of "sprites" from the cache.
+/// dmi_hashes: xxh64 hashes of the DMIs in a spritesheet, given by `rustg_iconforge_generate` with `hash_icons` enabled. From the cache.
+/// sprites: The new input that will be passed to rustg_iconforge_generate().
+/// Returns a CacheResult with the following structure: list(
+///     "result": "1" (if cache is valid) or "0" (if cache is invalid)
+///     "fail_reason": "" (emtpy string if valid, otherwise a string containing the invalidation reason or an error with ERROR: prefixed.)
+/// )
+/// In the case of an unrecoverable panic from within Rust, this function ONLY returns a string containing the error.
+#define rustg_iconforge_cache_valid(input_hash, dmi_hashes, sprites) RUSTG_CALL(RUST_G, "iconforge_cache_valid")(input_hash, dmi_hashes, sprites)
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_cache_valid_async(input_hash, dmi_hashes, sprites) RUSTG_CALL(RUST_G, "iconforge_cache_valid_async")(input_hash, dmi_hashes, sprites)
+/// Provided a /datum/greyscale_config typepath, JSON string containing the greyscale config, and path to a DMI file containing the base icons,
+/// Loads that config into memory for later use by rustg_iconforge_gags(). The config_path is the unique identifier used later.
+/// JSON Config schema: https://hackmd.io/@tgstation/GAGS-Layer-Types
+/// Unsupported features: color_matrix layer type, 'or' blend_mode. May not have BYOND parity with animated icons or varying dirs between layers.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustg_iconforge_load_gags_config(config_path, config_json, config_icon_path) RUSTG_CALL(RUST_G, "iconforge_load_gags_config")("[config_path]", config_json, config_icon_path)
+/// Given a config_path (previously loaded by rustg_iconforge_load_gags_config), and a string of hex colors formatted as "#ff00ff#ffaa00"
+/// Outputs a DMI containing all of the states within the config JSON to output_dmi_path, creating any directories leading up to it if necessary.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustg_iconforge_gags(config_path, colors, output_dmi_path) RUSTG_CALL(RUST_G, "iconforge_gags")("[config_path]", colors, output_dmi_path)
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_load_gags_config_async(config_path, config_json, config_icon_path) RUSTG_CALL(RUST_G, "iconforge_load_gags_config_async")("[config_path]", config_json, config_icon_path)
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_gags_async(config_path, colors, output_dmi_path) RUSTG_CALL(RUST_G, "iconforge_gags_async")("[config_path]", colors, output_dmi_path)
+
+#define RUSTG_ICONFORGE_BLEND_COLOR "BlendColor"
+#define RUSTG_ICONFORGE_BLEND_ICON "BlendIcon"
+#define RUSTG_ICONFORGE_CROP "Crop"
+#define RUSTG_ICONFORGE_SCALE "Scale"
+
 #define RUSTG_JOB_NO_RESULTS_YET "NO RESULTS YET"
 #define RUSTG_JOB_NO_SUCH_JOB "NO SUCH JOB"
 #define RUSTG_JOB_ERROR "JOB PANICKED"
@@ -179,6 +279,20 @@
 /proc/rustg_log_close_all() return RUSTG_CALL(RUST_G, "log_close_all")()
 
 #define rustg_noise_get_at_coordinates(seed, x, y) RUSTG_CALL(RUST_G, "noise_get_at_coordinates")(seed, x, y)
+
+/**
+ * Generates a 2D poisson disk distribution ('blue noise'), which is relatively uniform.
+ *
+ * params:
+ * 	`seed`: str
+ * 	`width`: int, width of the noisemap (see world.maxx)
+ * 	`length`: int, height of the noisemap (see world.maxy)
+ * 	`radius`: int, distance between points on the noisemap
+ *
+ * returns:
+ * 	a width*length length string of 1s and 0s representing a 2D poisson sample collapsed into a 1D string
+ */
+#define rustg_noise_poisson_map(seed, width, length, radius) RUSTG_CALL(RUST_G, "noise_poisson_map")(seed, width, length, radius)
 
 /**
  * Register a list of nodes into a rust library. This list of nodes must have been serialized in a json.
@@ -203,15 +317,15 @@
  */
 #define rustg_add_node_astar(json) RUSTG_CALL(RUST_G, "add_node_astar")(json)
 
-/**²
+/**
  * Remove every link to the node with unique_id. Replace that node by null
  */
-#define rustg_remove_node_astart(unique_id) RUSTG_CALL(RUST_G, "remove_node_astar")(unique_id)
+#define rustg_remove_node_astar(unique_id) RUSTG_CALL(RUST_G, "remove_node_astar")("[unique_id]")
 
 /**
  * Compute the shortest path between start_node and goal_node using A*. Heuristic used is simple geometric distance
  */
-#define rustg_generate_path_astar(start_node_id, goal_node_id) RUSTG_CALL(RUST_G, "generate_path_astar")(start_node_id, goal_node_id)
+#define rustg_generate_path_astar(start_node_id, goal_node_id) RUSTG_CALL(RUST_G, "generate_path_astar")("[start_node_id]", "[goal_node_id]")
 
 #define RUSTG_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
 
@@ -220,6 +334,55 @@
 #define rustg_redis_subscribe(channel) RUSTG_CALL(RUST_G, "redis_subscribe")(channel)
 /proc/rustg_redis_get_messages() return RUSTG_CALL(RUST_G, "redis_get_messages")()
 #define rustg_redis_publish(channel, message) RUSTG_CALL(RUST_G, "redis_publish")(channel, message)
+
+/**
+ * Connects to a given redis server.
+ *
+ * Arguments:
+ * * addr - The address of the server, for example "redis://127.0.0.1/"
+ */
+#define rustg_redis_connect_rq(addr) RUSTG_CALL(RUST_G, "redis_connect_rq")(addr)
+/**
+ * Disconnects from a previously connected redis server
+ */
+/proc/rustg_redis_disconnect_rq() return RUSTG_CALL(RUST_G, "redis_disconnect_rq")()
+/**
+ * https://redis.io/commands/lpush/
+ *
+ * Arguments
+ * * key (string) - The key to use
+ * * elements (list) - The elements to push, use a list even if there's only one element.
+ */
+#define rustg_redis_lpush(key, elements) RUSTG_CALL(RUST_G, "redis_lpush")(key, json_encode(elements))
+/**
+ * https://redis.io/commands/lrange/
+ *
+ * Arguments
+ * * key (string) - The key to use
+ * * start (string) - The zero-based index to start retrieving at
+ * * stop (string) - The zero-based index to stop retrieving at (inclusive)
+ */
+#define rustg_redis_lrange(key, start, stop) RUSTG_CALL(RUST_G, "redis_lrange")(key, start, stop)
+/**
+ * https://redis.io/commands/lpop/
+ *
+ * Arguments
+ * * key (string) - The key to use
+ * * count (string|null) - The amount to pop off the list, pass null to omit (thus just 1)
+ *
+ * Note: `count` was added in Redis version 6.2.0
+ */
+#define rustg_redis_lpop(key, count) RUSTG_CALL(RUST_G, "redis_lpop")(key, count)
+
+/*
+ * Takes in a string and json_encode()"d lists to produce a sanitized string.
+ * This function operates on whitelists, there is currently no way to blacklist.
+ * Args:
+ * * text: the string to sanitize.
+ * * attribute_whitelist_json: a json_encode()'d list of HTML attributes to allow in the final string.
+ * * tag_whitelist_json: a json_encode()'d list of HTML tags to allow in the final string.
+ */
+#define rustg_sanitize_html(text, attribute_whitelist_json, tag_whitelist_json) RUSTG_CALL(RUST_G, "sanitize_html")(text, attribute_whitelist_json, tag_whitelist_json)
 
 #define rustg_sql_connect_pool(options) RUSTG_CALL(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) RUSTG_CALL(RUST_G, "sql_query_async")(handle, query, params)
@@ -232,8 +395,9 @@
 #define rustg_time_milliseconds(id) text2num(RUSTG_CALL(RUST_G, "time_milliseconds")(id))
 #define rustg_time_reset(id) RUSTG_CALL(RUST_G, "time_reset")(id)
 
+/// Returns the timestamp as a string
 /proc/rustg_unix_timestamp()
-	return text2num(RUSTG_CALL(RUST_G, "unix_timestamp")())
+	return RUSTG_CALL(RUST_G, "unix_timestamp")()
 
 #define rustg_raw_read_toml_file(path) json_decode(RUSTG_CALL(RUST_G, "toml_file_to_json")(path) || "null")
 

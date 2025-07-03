@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/gentle)
+
 /obj/item/slimecross/gentle
 	name = "gentle extract"
 	desc = "It pulses slowly, as if breathing."
@@ -12,7 +14,7 @@
 /obj/item/slimecross/gentle/Initialize(mapload)
 	..()
 	extract = new extract_type(src.loc)
-	visible_message("<span class='notice'>[src] glows and pulsates softly.</span>")
+	visible_message(span_notice("[src] glows and pulsates softly."))
 	extract.name = name
 	extract.desc = desc
 	extract.icon = icon
@@ -21,103 +23,106 @@
 	extract.forceMove(src)
 
 /obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
-	if(user.incapacitated() || !iscarbon(user))
-		return
-	if(!COOLDOWN_FINISHED(src, use_cooldown))
-		return
-	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
+	if(preactivate_core(user))
+		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
+	if(preactivate_core(user))
+		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
+
+/obj/item/slimecross/gentle/proc/preactivate_core(mob/living/carbon/user)
 	if(user.incapacitated() || !iscarbon(user))
-		return
+		return FALSE
 	if(!COOLDOWN_FINISHED(src, use_cooldown))
-		return
-	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
+		to_chat(user, span_notice("[src] isn't ready yet!"))
+		return FALSE
+	COOLDOWN_START(src, use_cooldown, 10 SECONDS) //This will be overwritten depending on exact activation, but prevents bypassing cooldowns on extracts with a do_after.
+	return TRUE
 
 /obj/item/slimecross/gentle/grey
 	extract_type = /obj/item/slime_extract/grey
-	colour = "grey"
+	colour = SLIME_TYPE_GREY
 
 /obj/item/slimecross/gentle/orange
 	extract_type = /obj/item/slime_extract/orange
-	colour = "orange"
+	colour = SLIME_TYPE_ORANGE
 
 /obj/item/slimecross/gentle/purple
 	extract_type = /obj/item/slime_extract/purple
-	colour = "purple"
+	colour = SLIME_TYPE_PURPLE
 
 /obj/item/slimecross/gentle/blue
 	extract_type = /obj/item/slime_extract/blue
-	colour = "blue"
+	colour = SLIME_TYPE_BLUE
 
 /obj/item/slimecross/gentle/metal
 	extract_type = /obj/item/slime_extract/metal
-	colour = "metal"
+	colour = SLIME_TYPE_METAL
 
 /obj/item/slimecross/gentle/yellow
 	extract_type = /obj/item/slime_extract/yellow
-	colour = "yellow"
+	colour = SLIME_TYPE_YELLOW
 
 /obj/item/slimecross/gentle/darkpurple
 	extract_type = /obj/item/slime_extract/darkpurple
-	colour = "dark purple"
+	colour = SLIME_TYPE_DARK_PURPLE
 
 /obj/item/slimecross/gentle/darkblue
 	extract_type = /obj/item/slime_extract/darkblue
-	colour = "dark blue"
+	colour = SLIME_TYPE_DARK_BLUE
 
 /obj/item/slimecross/gentle/silver
 	extract_type = /obj/item/slime_extract/silver
-	colour = "silver"
+	colour = SLIME_TYPE_SILVER
 
 /obj/item/slimecross/gentle/bluespace
 	extract_type = /obj/item/slime_extract/bluespace
-	colour = "bluespace"
+	colour = SLIME_TYPE_BLUESPACE
 
 /obj/item/slimecross/gentle/sepia
 	extract_type = /obj/item/slime_extract/sepia
-	colour = "sepia"
+	colour = SLIME_TYPE_SEPIA
 
 /obj/item/slimecross/gentle/cerulean
 	extract_type = /obj/item/slime_extract/cerulean
-	colour = "cerulean"
+	colour = SLIME_TYPE_CERULEAN
 
 /obj/item/slimecross/gentle/pyrite
 	extract_type = /obj/item/slime_extract/pyrite
-	colour = "pyrite"
+	colour = SLIME_TYPE_PYRITE
 
 /obj/item/slimecross/gentle/red
 	extract_type = /obj/item/slime_extract/red
-	colour = "red"
+	colour = SLIME_TYPE_RED
 
 /obj/item/slimecross/gentle/green
 	extract_type = /obj/item/slime_extract/green
-	colour = "green"
+	colour = SLIME_TYPE_GREEN
 
 /obj/item/slimecross/gentle/pink
 	extract_type = /obj/item/slime_extract/pink
-	colour = "pink"
+	colour = SLIME_TYPE_PINK
 
 /obj/item/slimecross/gentle/gold
 	extract_type = /obj/item/slime_extract/gold
-	colour = "gold"
+	colour = SLIME_TYPE_GOLD
 
 /obj/item/slimecross/gentle/oil
 	extract_type = /obj/item/slime_extract/oil
-	colour = "oil"
+	colour = SLIME_TYPE_OIL
 
 /obj/item/slimecross/gentle/black
 	extract_type = /obj/item/slime_extract/black
-	colour = "black"
+	colour = SLIME_TYPE_BLACK
 
 /obj/item/slimecross/gentle/lightpink
 	extract_type = /obj/item/slime_extract/lightpink
-	colour = "light pink"
+	colour = SLIME_TYPE_LIGHT_PINK
 
 /obj/item/slimecross/gentle/adamantine
 	extract_type = /obj/item/slime_extract/adamantine
-	colour = "adamantine"
+	colour = SLIME_TYPE_ADAMANTINE
 
 /obj/item/slimecross/gentle/rainbow
 	extract_type = /obj/item/slime_extract/rainbow
-	colour = "rainbow"
+	colour = SLIME_TYPE_RAINBOW

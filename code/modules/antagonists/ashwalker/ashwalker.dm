@@ -4,13 +4,14 @@
 
 /datum/antagonist/ashwalker
 	name = "Ash Walker"
-	job_rank = ROLE_LAVALAND
+	banning_key = ROLE_ASHWALKER
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
 	antagpanel_category = "Ash Walkers"
 	delay_roundend = FALSE
 	count_against_dynamic_roll_chance = FALSE
+	required_living_playtime = 1
 	var/datum/team/ashwalkers/ashie_team
 
 /datum/antagonist/ashwalker/create_team(datum/team/team)

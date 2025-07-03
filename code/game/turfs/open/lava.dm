@@ -6,6 +6,7 @@
 	gender = PLURAL //"That's some lava."
 	baseturfs = /turf/open/lava //lava all the way down
 	slowdown = 2
+	resistance_flags = INDESTRUCTIBLE
 
 	light_range = 2
 	light_power = 0.75
@@ -17,18 +18,12 @@
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
 
-/turf/open/lava/ex_act(severity, target)
-	contents_explosion(severity, target)
-
 /turf/open/lava/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
 /turf/open/lava/Melt()
 	to_be_destroyed = FALSE
 	return src
-
-/turf/open/lava/acid_act(acidpwr, acid_volume)
-	return
 
 /turf/open/lava/MakeDry(wet_setting = TURF_WET_WATER)
 	return
@@ -57,24 +52,20 @@
 		STOP_PROCESSING(SSobj, src)
 
 /turf/open/lava/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_FLOORWALL)
-			return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
+	if(the_rcd.mode == RCD_FLOORWALL)
+		return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
 	return FALSE
 
 /turf/open/lava/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_FLOORWALL)
-			to_chat(user, "<span class='notice'>You build a floor.</span>")
-			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
+	if(passed_mode == RCD_FLOORWALL)
+		to_chat(user, span_notice("You build a floor."))
+		log_attack("[key_name(user)] has constructed a floor over lava at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		return TRUE
 	return FALSE
 
 /turf/open/lava/rust_heretic_act()
 	return FALSE
-
-/turf/open/lava/singularity_act()
-	return
 
 /turf/open/lava/singularity_pull(S, current_size)
 	return
@@ -84,13 +75,13 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/open/lava/GetHeatCapacity()
+/turf/open/lava/get_heat_capacity()
 	. = 700000
 
-/turf/open/lava/GetTemperature()
+/turf/open/lava/get_temperature()
 	. = 5000
 
-/turf/open/lava/TakeTemperature(temp)
+/turf/open/lava/take_temperature(temp)
 
 
 /turf/open/lava/proc/is_safe()
@@ -124,8 +115,8 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor.fire > 50) //obj with 100% fire armor still get slowly burned away.
-				O.armor = O.armor.setRating(fire = 50)
+			if(O.get_armor_rating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
+				O.set_armor_rating(FIRE, 50)
 			O.fire_act(10000, 1000 * delta_time)
 			if(istype(O, /obj/structure/closet))
 				var/obj/structure/closet/C = O
@@ -134,11 +125,9 @@
 		else if (isliving(thing))
 			. = 1
 			var/mob/living/L = thing
-			if(L.movement_type & FLYING)
+			if(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 				continue	//YOU'RE FLYING OVER IT
-			var/buckle_check = L.buckling
-			if(!buckle_check)
-				buckle_check = L.buckled
+			var/buckle_check = L.buckled
 			if(isobj(buckle_check))
 				var/obj/O = buckle_check
 				if(O.resistance_flags & LAVA_PROOF)
@@ -175,6 +164,13 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_LAVA)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
+
+/turf/open/lava/smooth/echo
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
+	luminosity = 2
+	light_range = 5
+	light_color = "#ff5100"
 
 /turf/open/lava/smooth/cold
 	initial_gas_mix = FROZEN_ATMOS

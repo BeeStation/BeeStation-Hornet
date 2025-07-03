@@ -12,10 +12,12 @@
 	icon_state = "tesla"
 	item_state = "tesla"
 	ammo_type = list(/obj/item/ammo_casing/energy/tesla_revolver)
-	can_flashlight = FALSE
 	pin = null
-	shaded_charge = 1
+	shaded_charge = TRUE
 	fire_rate = 1.5
+
+/obj/item/gun/energy/tesla_revolver/add_seclight_point()
+	return
 
 /obj/item/gun/energy/e_gun/advtaser
 	name = "hybrid taser"
@@ -27,10 +29,20 @@
 /obj/item/gun/energy/e_gun/advtaser/cyborg
 	name = "cyborg taser"
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."
-	can_flashlight = FALSE
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	requires_wielding = FALSE
+
+/obj/item/gun/energy/e_gun/advtaser/cyborg/add_seclight_point()
+	return
+
+/obj/item/gun/energy/e_gun/advtaser/heirloom
+	name = "old hybrid taser"
+	desc = "A old and dusty taser, used so much its cell no longer charges. there is a text scribbled on the side saying \"Dont forget your origins.\""
+	w_class = WEIGHT_CLASS_NORMAL
+	can_charge = FALSE
+	dead_cell = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/broken) //Fool, you think you can outsmart me. But i am smarter.
 
 /obj/item/gun/energy/disabler
 	name = "disabler"
@@ -39,9 +51,13 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
-	can_flashlight = TRUE
-	flight_x_offset = 15
-	flight_y_offset = 10
+
+/obj/item/gun/energy/disabler/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 15, \
+		overlay_y = 10)
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

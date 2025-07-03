@@ -14,10 +14,10 @@
 	if(!isitem(O))
 		return 0
 	var/obj/item/I = O
-	if(!(getmaterialref(material_id) in I.materials))
+	if(!(SSmaterials.GetMaterialRef(material_id) in I.custom_materials))
 		return 0
 
-	var/amount = I.materials[getmaterialref(material_id)]
+	var/amount = I.custom_materials[SSmaterials.GetMaterialRef(material_id)]
 
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
@@ -41,7 +41,6 @@
 
 /datum/export/material/plasma
 	cost = 200
-	k_elasticity = 0
 	material_id = /datum/material/plasma
 	message = "cm3 of plasma"
 
@@ -70,17 +69,27 @@
 	material_id = /datum/material/titanium
 	message = "cm3 of titanium"
 
-/datum/export/material/plastitanium
-	cost = 325 // plasma + titanium costs
-	material_id = /datum/material/titanium // code can only check for one material_id; plastitanium is half plasma, half titanium
-	message = "cm3 of plastitanium"
+/datum/export/material/adamantine
+	cost = 500
+	material_id = /datum/material/adamantine
+	message = "cm3 of adamantine"
+
+/datum/export/material/bscrystal
+	cost = 300
+	message = "of bluespace crystals"
+	material_id = /datum/material/bluespace
+
+/datum/export/material/plastic
+	cost = 25
+	message = "cm3 of plastic"
+	material_id = /datum/material/plastic
 
 /datum/export/material/iron
 	cost = 5
 	message = "cm3 of metal"
 	material_id = /datum/material/iron
 	export_types = list(
-		/obj/item/stack/sheet/iron, /obj/item/stack/tile/plasteel,
+		/obj/item/stack/sheet/iron, /obj/item/stack/tile/iron,
 		/obj/item/stack/rods, /obj/item/stack/ore, /obj/item/coin)
 
 /datum/export/material/glass

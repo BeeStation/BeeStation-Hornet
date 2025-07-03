@@ -4,14 +4,13 @@
 	message_admins("[ADMIN_LOOKUPFLW(victim)] was hypnotized with the phrase '[hypnotic_phrase]'.")
 	victim.log_message("was hypnotized with the phrase '[hypnotic_phrase]'.", LOG_ATTACK, color="red")
 	log_game("[key_name(victim)] was hypnotized with the phrase '[hypnotic_phrase]'.")
-	to_chat(victim, "<span class='reallybig hypnophrase'>[hypnotic_phrase]</span>")
-	to_chat(victim, "<span class='notice'>[pick("You feel your thoughts focusing on this phrase... you can't seem to get it out of your head.",\
+	to_chat(victim, span_reallybighypnophrase("[hypnotic_phrase]"))
+	to_chat(victim, span_notice(pick("You feel your thoughts focusing on this phrase... you can't seem to get it out of your head.",\
 												"Your head hurts, but this is all you can think of. It must be vitally important.",\
 												"You feel a part of your mind repeating this over and over. You need to follow these words.",\
 												"Something about this sounds... right, for some reason. You feel like you should follow these words.",\
-												"These words keep echoing in your mind. You find yourself completely fascinated by them.")]</span>")
-	to_chat(victim, "<span class='boldwarning'>You've been hypnotized by this sentence. You must follow these words. If it isn't a clear order, you can freely interpret how to do so,\
-										as long as you act like the words are your highest priority.</span>")
+												"These words keep echoing in your mind. You find yourself completely fascinated by them.")))
+	to_chat(victim, span_boldwarning("You've been hypnotized by this sentence. You must follow these words. If it isn't a clear order, you can freely interpret how to do so, as long as you act like the words are your highest priority."))
 	var/atom/movable/screen/alert/hypnosis/hypno_alert = victim.throw_alert("hypnosis", /atom/movable/screen/alert/hypnosis)
 	hypno_alert.desc = "\"[hypnotic_phrase]\"... your mind seems to be fixated on this concept."
 	var/datum/mind/M = victim.mind
@@ -20,18 +19,19 @@
 	B.objectives += objective
 	log_objective(M, objective.explanation_text)
 	M.add_antag_datum(B)
-	var/rendered = "<span class='deadsay'><b>[victim]</b> has been hypnotized with the following phrase: <b>[hypnotic_phrase]</b>.</span>"
+	var/rendered = span_deadsay("<b>[victim]</b> has been hypnotized with the following phrase: <b>[hypnotic_phrase]</b>.")
 	deadchat_broadcast(rendered, follow_target = victim, turf_target = get_turf(victim), message_type=DEADCHAT_REGULAR)
 	victim.log_message(rendered, LOG_ATTACK, color="red")
 
 /datum/antagonist/hypnotized
 	name = "Hypnotized Victim"
-	job_rank = ROLE_HYPNOTIZED
+	banning_key = ROLE_HYPNOTIZED
 	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
 	count_against_dynamic_roll_chance = FALSE
+	required_living_playtime = 0
 
 /datum/antagonist/hypnotized/on_gain()
 	owner.current.log_message("has been hypnotized!", LOG_ATTACK, color="red")
@@ -46,6 +46,7 @@
 
 
 /datum/antagonist/hypnotized/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/hypnosis.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	var/i = 1
 	for(var/X in objectives)
 		var/datum/objective/O = X

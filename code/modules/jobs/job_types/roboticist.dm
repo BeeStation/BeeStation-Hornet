@@ -1,6 +1,7 @@
 /datum/job/roboticist
 	title = JOB_NAME_ROBOTICIST
-	flag = ROBOTICIST
+	description = "Create bots and utility mechs for helping out around the station. Construct war machines by the request of the Captain or Head of Security. Make new Cyborgs, give augmentations and implants to crew members."
+	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	faction = "Station"
 	total_positions = 2
@@ -12,12 +13,11 @@
 
 	outfit = /datum/outfit/job/roboticist
 
-	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_MECH_SCIENCE,
-					ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_XENOBIOLOGY, ACCESS_AUX_BASE)
-	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MECH_SCIENCE,
-					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
-	department_flag = MEDSCI
+	base_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING,
+						ACCESS_MECH_MEDICAL, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
+	extra_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
+
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
@@ -27,6 +27,13 @@
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/robotics
+	)
+
+	lightup_areas = list(/area/science/mixing, /area/science/storage)
+	minimal_lightup_areas = list(
+		/area/medical/morgue,
+		/area/science/robotics,
+		/area/storage/tech
 	)
 
 /datum/outfit/job/roboticist
@@ -42,5 +49,6 @@
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
+	duffelbag = /obj/item/storage/backpack/duffelbag/science
 
 	pda_slot = ITEM_SLOT_LPOCKET

@@ -38,25 +38,36 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	var/list/report = list()
 
-	report += "<span class='header'>[name]:</span>"
+	report += span_header("[name]:")
 	report += "The [member_name]s were:"
 	report += printplayerlist(members)
 
 	if(objectives.len)
-		report += "<span class='header'>Team had following objectives:</span>"
+		report += span_header("Team had following objectives:")
 		var/win = TRUE
 		var/objective_count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion())
-				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else
-				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			if(!objective.check_completion())
 				win = FALSE
+			report += "<B>Objective #[objective_count]</B>: [objective.get_completion_message()]"
 			objective_count++
 		if(win)
-			report += "<span class='greentext'>The [name] was successful!</span>"
+			report += span_greentext("The [name] was successful!")
 		else
-			report += "<span class='redtext'>The [name] have failed!</span>"
+			report += span_redtext("The [name] have failed!")
 
 
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
+
+/// gets team name for orbit category. Reasoning is described in each subtype
+/datum/team/proc/get_team_name()
+	if(name == "team")
+		stack_trace("[type] has no team name")
+		return "Unnamed team"
+	return name
+
+/datum/team/proc/get_member_names()
+	. = list()
+	for(var/M in members)
+		var/datum/mind/member = M
+		. |= member.name

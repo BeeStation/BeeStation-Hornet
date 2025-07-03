@@ -27,9 +27,10 @@
 		/datum/material/titanium,
 		/datum/material/diamond,
 		/datum/material/bananium,
+		/datum/material/adamantine,
 		/datum/material/plastic
 	), MINERAL_MATERIAL_AMOUNT * 75, FALSE, /obj/item/stack)
-	chosen = getmaterialref(chosen)
+	chosen = SSmaterials.GetMaterialRef(chosen)
 
 
 /obj/machinery/mineral/mint/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
@@ -120,6 +121,8 @@
 	switch(action)
 		if ("startpress")
 			if (!processing)
+				if(produced_coins > 0)
+					log_econ("[produced_coins] coins were created by [src] in the last cycle.")
 				produced_coins = 0
 			processing = TRUE
 			begin_processing()
@@ -142,7 +145,8 @@
 	if(T)
 		var/obj/item/O = new /obj/item/coin(src)
 		O.set_custom_materials(temp_list)
-		if(QDELETED(bag_to_use) || (bag_to_use.loc != T) || !SEND_SIGNAL(bag_to_use, COMSIG_TRY_STORAGE_INSERT, O, null, TRUE)) //important to send the signal so we don't overfill the bag.
+		if(QDELETED(bag_to_use) || (bag_to_use.loc != T) || !bag_to_use.atom_storage?.attempt_insert(bag_to_use, O, null, TRUE)) //important to send the signal so we don't overfill the bag.
 			bag_to_use = new(src) //make a new bag if we can't find or use the old one.
 			unload_mineral(bag_to_use) //just forcemove memes.
 			O.forceMove(bag_to_use) //don't bother sending the signal, the new bag is empty and all that.
+			SSblackbox.record_feedback("amount", "coins_minted", 1)

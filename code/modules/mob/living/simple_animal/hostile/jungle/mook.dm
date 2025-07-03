@@ -14,29 +14,28 @@
 	icon_living = "mook"
 	icon_dead = "mook_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	pixel_x = -16
+	SET_BASE_PIXEL(-16, -8)
 	maxHealth = 45
 	health = 45
 	melee_damage = 30
-	pixel_y = -8
 	ranged = TRUE
 	ranged_cooldown_time = 10
 	pass_flags_self = LETPASSTHROW
 	robust_searching = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	attack_sound = 'sound/weapons/rapierhit.ogg'
 	deathsound = 'sound/voice/mook_death.ogg'
 	aggro_vision_range = 15 //A little more aggressive once in combat to balance out their really low HP
 	var/attack_state = MOOK_ATTACK_NEUTRAL
 	var/struck_target_leap = FALSE
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_BAREFOOT
 
-/mob/living/simple_animal/hostile/jungle/mook/CanAllowThrough(atom/movable/O)
+/mob/living/simple_animal/hostile/jungle/mook/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(O, /mob/living/simple_animal/hostile/jungle/mook))
-		var/mob/living/simple_animal/hostile/jungle/mook/M = O
-		if(M.attack_state == MOOK_ATTACK_ACTIVE && M.throwing)
+	if(istype(mover, /mob/living/simple_animal/hostile/jungle/mook))
+		var/mob/living/simple_animal/hostile/jungle/mook/mook_moover = mover
+		if(mook_moover.attack_state == MOOK_ATTACK_ACTIVE && mook_moover.throwing)
 			return TRUE
 
 /mob/living/simple_animal/hostile/jungle/mook/death()
@@ -214,8 +213,7 @@
 	icon = 'icons/mob/jungle/mook.dmi'
 	icon_state = "mook_leap_cloud"
 	layer = BELOW_MOB_LAYER
-	pixel_x = -16
-	pixel_y = -16
+	SET_BASE_PIXEL(-16, -16)
 	duration = 10
 
 #undef MOOK_ATTACK_NEUTRAL

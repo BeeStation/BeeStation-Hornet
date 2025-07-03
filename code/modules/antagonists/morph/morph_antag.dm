@@ -2,9 +2,11 @@
 	name = "Morph"
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
-	job_rank = ROLE_MORPH
+	banning_key = ROLE_MORPH
 	antagpanel_category = "Morph"
 	show_name_in_check_antagonists = TRUE
+	ui_name = "AntagInfoMorph"
+	required_living_playtime = 4
 
 //It does nothing! (Besides tracking)//Scratch that, it does something now at least
 
@@ -49,7 +51,7 @@
 		M.unequip_everything()
 		var/mob/living/new_mob = new /mob/living/simple_animal/hostile/morph(M.loc)
 		if(istype(new_mob))
-			new_mob.a_intent = INTENT_HARM
+			new_mob.set_combat_mode(TRUE)
 			M.mind.transfer_to(new_mob)
 			new_owner.assigned_role = ROLE_MORPH
 			new_owner.special_role = ROLE_MORPH

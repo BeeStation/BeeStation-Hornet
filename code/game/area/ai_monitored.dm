@@ -4,6 +4,7 @@
 	var/list/obj/machinery/camera/motioncameras = list()
 	var/list/datum/weakref/motionTargets = list()
 	sound_environment = SOUND_ENVIRONMENT_ROOM
+	camera_networks = list(CAMERA_NETWORK_AI_UPLOAD)
 
 /area/ai_monitored/Initialize(mapload)
 	. = ..()
@@ -11,7 +12,7 @@
 		for (var/obj/machinery/camera/M in src)
 			if(M.isMotion())
 				motioncameras.Add(M)
-				M.area_motion = src
+				M.set_area_motion(src)
 
 //Only need to use one camera
 

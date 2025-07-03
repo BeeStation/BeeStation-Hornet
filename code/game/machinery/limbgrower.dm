@@ -57,13 +57,13 @@
 	popup.open()
 
 /obj/machinery/limbgrower/on_deconstruction()
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
-		reagents.trans_to(G, G.reagents.maximum_volume)
+	for(var/obj/item/reagent_containers/cup/our_beaker in component_parts)
+		reagents.trans_to(our_beaker, our_beaker.reagents.maximum_volume)
 	..()
 
-/obj/machinery/limbgrower/attackby(obj/item/O, mob/user, params)
+/obj/machinery/limbgrower/attackby(obj/item/O, mob/living/user, params)
 	if (busy)
-		to_chat(user, "<span class=\"alert\">The Limb Grower is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The Limb Grower is busy. Please wait for completion of previous operation."))
 		return
 
 	if(default_deconstruction_screwdriver(user, "limbgrower_panelopen", "limbgrower_idleoff", O))
@@ -73,7 +73,7 @@
 	if(panel_open && default_deconstruction_crowbar(O))
 		return
 
-	if(user.a_intent == INTENT_HARM) //so we can hit the machine
+	if(user.combat_mode) //so we can hit the machine
 		return ..()
 
 /obj/machinery/limbgrower/Topic(href, href_list)
@@ -84,7 +84,10 @@
 			screen = text2num(href_list["menu"])
 
 		if(href_list["category"])
-			selected_category = href_list["category"]
+			var/requested_category = href_list["category"]
+			if (!(requested_category in categories))
+				return
+			selected_category = requested_category
 
 		if(href_list["disposeI"])  //Get rid of a reagent incase you add the wrong one by mistake
 			reagents.del_reagent(text2path(href_list["disposeI"]))
@@ -109,7 +112,7 @@
 				addtimer(CALLBACK(src, PROC_REF(build_item)),32*prod_coeff)
 
 	else
-		to_chat(usr, "<span class=\"alert\">The limb grower is busy. Please wait for completion of previous operation.</span>")
+		to_chat(usr, span_alert("The limb grower is busy. Please wait for completion of previous operation."))
 
 	updateUsrDialog()
 	return
@@ -124,7 +127,7 @@
 			//Just build whatever it is
 			new buildpath(loc)
 	else
-		src.visible_message("<span class=\"error\"> Something went very wrong and there isn't enough synthflesh anymore!</span>")
+		src.visible_message(span_red("Something went very wrong and there isn't enough synthflesh anymore!"))
 	busy = FALSE
 	flick("limbgrower_unfill",src)
 	icon_state = "limbgrower_idleoff"
@@ -152,9 +155,9 @@
 
 /obj/machinery/limbgrower/RefreshParts()
 	reagents.maximum_volume = 0
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
-		reagents.maximum_volume += G.volume
-		G.reagents.trans_to(src, G.reagents.total_volume)
+	for(var/obj/item/reagent_containers/cup/our_beaker in component_parts)
+		reagents.maximum_volume += our_beaker.volume
+		our_beaker.reagents.trans_to(src, our_beaker.reagents.total_volume)
 	var/T=1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T -= M.rating*0.2
@@ -163,16 +166,16 @@
 /obj/machinery/limbgrower/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Storing up to <b>[reagents.maximum_volume]u</b> of synthflesh.<br>Synthflesh consumption at <b>[prod_coeff*100]%</b>.</span>"
+		. += span_notice("The status display reads: Storing up to <b>[reagents.maximum_volume]u</b> of synthflesh.<br>Synthflesh consumption at <b>[prod_coeff*100]%</b>.")
 
 /obj/machinery/limbgrower/proc/main_win(mob/user)
 	var/dat = "<div class='statusDisplay'><h3>Limb Grower Menu:</h3><br>"
-	dat += "<A href='?src=[REF(src)];menu=[LIMBGROWER_CHEMICAL_MENU]'>Chemical Storage</A>"
+	dat += "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_CHEMICAL_MENU]'>Chemical Storage</A>"
 	dat += materials_printout()
 	dat += "<table style='width:100%' align='center'><tr>"
 
 	for(var/C in categories)
-		dat += "<td><A href='?src=[REF(src)];category=[C];menu=[LIMBGROWER_CATEGORY_MENU]'>[C]</A></td>"
+		dat += "<td><A href='byond://?src=[REF(src)];category=[C];menu=[LIMBGROWER_CATEGORY_MENU]'>[C]</A></td>"
 		dat += "</tr><tr>"
 		//one category per line
 
@@ -180,7 +183,7 @@
 	return dat
 
 /obj/machinery/limbgrower/proc/category_win(mob/user,selected_category)
-	var/dat = "<A href='?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
+	var/dat = "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><br>"
 	dat += materials_printout()
 
@@ -189,9 +192,9 @@
 		if(!(selected_category in D.category))
 			continue
 		if(disabled || !can_build(D))
-			dat += "<span class='linkOff'>[D.name]</span>"
+			dat += span_linkoff("[D.name]")
 		else
-			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
+			dat += "<a href='byond://?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
 		dat += "[get_design_cost(D)]<br>"
 
 	dat += "</div>"
@@ -199,13 +202,13 @@
 
 
 /obj/machinery/limbgrower/proc/chemical_win(mob/user)
-	var/dat = "<A href='?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
+	var/dat = "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing Chemical Storage:</h3><br>"
 	dat += materials_printout()
 
 	for(var/datum/reagent/R in reagents.reagent_list)
 		dat += "[R.name]: [R.volume]"
-		dat += "<A href='?src=[REF(src)];disposeI=[R]'>Purge</A><BR>"
+		dat += "<A href='byond://?src=[REF(src)];disposeI=[R]'>Purge</A><BR>"
 
 	dat += "</div>"
 	return dat
@@ -229,4 +232,8 @@
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
 		if((D.build_type & LIMBGROWER) && ("emagged" in D.category))
 			stored_research.add_design(D)
-	to_chat(user, "<span class='warning'>A warning flashes onto the screen, stating that safety overrides have been deactivated!</span>")
+	to_chat(user, span_warning("A warning flashes onto the screen, stating that safety overrides have been deactivated!"))
+
+#undef LIMBGROWER_MAIN_MENU
+#undef LIMBGROWER_CATEGORY_MENU
+#undef LIMBGROWER_CHEMICAL_MENU

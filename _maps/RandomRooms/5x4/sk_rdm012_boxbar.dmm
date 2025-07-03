@@ -18,7 +18,7 @@
 /obj/structure/table/wood,
 /obj/item/soap/nanotrasen,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
@@ -28,7 +28,7 @@
 /area/template_noop)
 "i" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -43,7 +43,7 @@
 "M" = (
 /obj/machinery/vending/boozeomat/all_access,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

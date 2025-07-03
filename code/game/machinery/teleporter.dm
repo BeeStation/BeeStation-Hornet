@@ -36,7 +36,7 @@
 /obj/machinery/teleport/hub/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Probability of malfunction decreased by <b>[(accuracy-1)*100/3]%</b>.</span>"
+		. += span_notice("The status display reads: Probability of malfunction decreased by <b>[(accuracy-1)*100/3]%</b>.")
 
 /obj/machinery/teleport/hub/proc/link_power_station()
 	if(power_station)
@@ -44,6 +44,7 @@
 	for(var/direction in GLOB.cardinals)
 		power_station = locate(/obj/machinery/teleport/station, get_step(src, direction))
 		if(power_station)
+			power_station.link_console_and_hub()
 			break
 	return power_station
 
@@ -73,7 +74,7 @@
 		target = com.target_ref.resolve()
 	if (!target)
 		com.target_ref = null
-		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
+		visible_message(span_alert("Cannot authenticate locked on coordinates. Please reinstate coordinate matrix."))
 		return
 	if (ismovable(M))
 		if(do_teleport(M, target, channel = TELEPORT_CHANNEL_BLUESPACE))
@@ -83,7 +84,7 @@
 					var/mob/living/carbon/human/human = M
 					if(human.dna && !isflyperson(human) && !HAS_TRAIT(M, TRAIT_RADIMMUNE))
 						log_game("[M] ([key_name(M)]) was turned into a fly person")
-						to_chat(M, "<span class='italics'>You hear a buzzing in your ears.</span>")
+						to_chat(M, span_italics("You hear a buzzing in your ears."))
 						human.set_species(/datum/species/fly)
 
 					human.apply_effect((rand(160 - accuracy * 40, 240 - accuracy * 60)), EFFECT_IRRADIATE, 0)
@@ -98,18 +99,14 @@
 	else
 		icon_state = "tele0"
 
-/obj/machinery/teleport/hub/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/teleport/hub/proc/is_ready()
 	. = !panel_open && !(machine_stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.machine_stat & (BROKEN|NOPOWER))
 
 /obj/machinery/teleport/hub/syndicate/Initialize(mapload)
 	. = ..()
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	var/obj/item/stock_parts/matter_bin/super/super_bin = new(src)
+	LAZYADD(component_parts, super_bin)
 	RefreshParts()
-
 
 /obj/machinery/teleport/station
 	name = "teleporter station"
@@ -138,11 +135,11 @@
 /obj/machinery/teleport/station/examine(mob/user)
 	. = ..()
 	if(!panel_open)
-		. += "<span class='notice'>The panel is <i>screwed</i> in, obstructing the linking device and wiring panel.</span>"
+		. += span_notice("The panel is <i>screwed</i> in, obstructing the linking device and wiring panel.")
 	else
-		. += "<span class='notice'>The <i>linking</i> device is now able to be <i>scanned</i> with a multitool.<br>The <i>wiring</i> can be <i>connected<i> to a nearby console and hub with a pair of wirecutters.</span>"
+		. += span_notice("The <i>linking</i> device is now able to be <i>scanned</i> with a multitool.")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: This station can be linked to <b>[efficiency]</b> other station(s).</span>"
+		. += span_notice("The status display reads: This station can be linked to <b>[efficiency]</b> other station(s).")
 
 /obj/machinery/teleport/station/proc/link_console_and_hub()
 	for(var/direction in GLOB.cardinals)
@@ -171,36 +168,32 @@
 	return ..()
 
 /obj/machinery/teleport/station/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/M = W
-		if(panel_open)
-			M.buffer = src
-			to_chat(user, "<span class='caution'>You download the data to the [W.name]'s buffer.</span>")
-		else
-			if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
-				if(linked_stations.len < efficiency)
-					linked_stations.Add(M.buffer)
-					M.buffer = null
-					to_chat(user, "<span class='caution'>You upload the data from the [W.name]'s buffer.</span>")
-				else
-					to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
-		return
-	else if(default_deconstruction_screwdriver(user, "controller-o", "controller", W))
+	if(default_deconstruction_screwdriver(user, "controller-o", "controller", W))
 		update_icon()
 		return
 
 	else if(default_deconstruction_crowbar(W))
 		return
-
-	else if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if(panel_open)
-			link_console_and_hub()
-			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
-			return
 	else
 		return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/teleport/station)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
+	if(panel_open)
+		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+			to_chat(user, span_notice("You download the data to the [buffer_parent.name]'s buffer."))
+			return COMPONENT_BUFFER_RECEIVED
+	else
+		if(istype(buffer, /obj/machinery/teleport/station) && buffer != src)
+			if(linked_stations.len < efficiency)
+				linked_stations.Add(buffer)
+				buffer = null
+				to_chat(user, span_notice("You upload the data from the [buffer_parent.name]'s buffer."))
+			else
+				to_chat(user, span_alert("This station can't hold more information, try to use better parts."))
+			return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /obj/machinery/teleport/station/interact(mob/user)
 	toggle(user)
@@ -209,22 +202,21 @@
 	if(machine_stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
 		return
 	if(teleporter_hub.panel_open || teleporter_hub.machine_stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
+		to_chat(user, span_alert("The teleporter hub isn't responding."))
 		return
 	if (teleporter_console.target_ref?.resolve())
 		engaged = !engaged
 		use_power(5000)
-		to_chat(user, "<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
+		to_chat(user, span_notice("Teleporter [engaged ? "" : "dis"]engaged!"))
 	else
 		teleporter_console.target_ref = null
-		to_chat(user, "<span class='alert'>No target detected.</span>")
+		to_chat(user, span_alert("No target detected."))
 		engaged = FALSE
 	teleporter_hub.update_icon()
 	add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
-	..()
-	update_icon()
+	. = ..()
 	if(teleporter_hub)
 		teleporter_hub.update_icon()
 

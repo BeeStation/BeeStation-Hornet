@@ -6,9 +6,9 @@
 /mob/living/circuit_drone
 	name = "drone"
 	icon = 'icons/obj/wiremod.dmi'
-	icon_state = "setup_medium_med"
-	//light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_range = FALSE
+	icon_state = "setup_drone_arms"		//RIP setup_medium_med, you were too cute for this world. Maybe some other day they'll find a use for you
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_on = FALSE
 
 /mob/living/circuit_drone/Initialize(mapload)
 	. = ..()
@@ -26,7 +26,7 @@
 
 /obj/item/circuit_component/bot_circuit
 	display_name = "Drone"
-	display_desc = "Used to send movement output signals to the drone shell."
+	desc = "Used to send movement output signals to the drone shell."
 
 	/// The inputs to allow for the drone to move
 	var/datum/port/input/north
@@ -43,17 +43,13 @@
 	/// Delay between each movement
 	var/move_delay = 0.2 SECONDS
 
-/obj/item/circuit_component/bot_circuit/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/bot_circuit/populate_ports()
 	north = add_input_port("Move North", PORT_TYPE_SIGNAL)
 	east = add_input_port("Move East", PORT_TYPE_SIGNAL)
 	south = add_input_port("Move South", PORT_TYPE_SIGNAL)
 	west = add_input_port("Move West", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/bot_circuit/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	var/mob/living/shell = parent.shell
 	if(!istype(shell) || shell.stat)

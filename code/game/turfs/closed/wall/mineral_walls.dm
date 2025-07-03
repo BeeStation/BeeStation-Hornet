@@ -10,6 +10,7 @@
 	var/active = null
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
+	material_flags = MATERIAL_EFFECTS
 
 /turf/closed/wall/mineral/gold
 	name = "gold wall"
@@ -22,6 +23,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_GOLD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_GOLD_WALLS)
+	max_integrity = 500
 
 /turf/closed/wall/mineral/silver
 	name = "silver wall"
@@ -33,7 +35,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SILVER_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
-	custom_materials = list(/datum/material/silver = 4000)
+	max_integrity = 600
 
 /turf/closed/wall/mineral/copper
 	name = "copper wall"
@@ -46,6 +48,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_COPPER_WALLS) //copper walls
 	canSmoothWith = list(SMOOTH_GROUP_COPPER_WALLS)
+	max_integrity = 350
 
 /turf/closed/wall/mineral/diamond
 	name = "diamond wall"
@@ -59,6 +62,8 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_DIAMOND_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_DIAMOND_WALLS)
+	max_integrity = 800
+	damage_deflection = 10
 
 /turf/closed/wall/mineral/bananium
 	name = "bananium wall"
@@ -70,6 +75,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BANANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BANANIUM_WALLS)
+	max_integrity = 200
 
 /turf/closed/wall/mineral/sandstone
 	name = "sandstone wall"
@@ -82,6 +88,8 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SANDSTONE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SANDSTONE_WALLS)
+	max_integrity = 150
+	damage_deflection = 0
 
 /turf/closed/wall/mineral/uranium
 	article = "a"
@@ -94,6 +102,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
+	max_integrity = 500
 
 
 /turf/closed/wall/mineral/uranium/proc/radiate()
@@ -108,7 +117,7 @@
 			return
 	return
 
-/turf/closed/wall/mineral/uranium/attack_hand(mob/user)
+/turf/closed/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
 	. = ..()
 
@@ -128,7 +137,9 @@
 	base_icon_state = "plasma_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	thermal_conductivity = 0.04
-	canSmoothWith = list(/turf/closed/wall/mineral/plasma, /obj/structure/falsewall/plasma)
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_PLASMA_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
+	max_integrity = 400
 
 /turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
@@ -136,12 +147,13 @@
 			new /obj/structure/girder/displaced(loc)
 	..()
 
-/turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
-	if(exposed_temperature > 300)
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
+/turf/closed/wall/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+/turf/closed/wall/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(plasma_ignition(6))
+		new /obj/structure/girder/displaced(loc)
 
-/turf/closed/wall/mineral/plasma/bullet_act(obj/item/projectile/Proj)
+/turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
@@ -159,6 +171,8 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
+	max_integrity = 200
+	damage_deflection = 0
 
 /turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
 	if(W.is_sharp() && W.force)
@@ -186,6 +200,8 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BAMBOO_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BAMBOO_WALLS)
+	max_integrity = 100
+	damage_deflection = 0
 
 /turf/closed/wall/mineral/iron
 	name = "rough iron wall"
@@ -215,6 +231,9 @@
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 
+	max_integrity = 100
+	damage_deflection = 0
+
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
@@ -227,6 +246,8 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
+	max_integrity = 900
+	damage_deflection = 15
 
 /////////////////////Titanium walls/////////////////////
 
@@ -243,6 +264,7 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	max_integrity = 600
 
 /turf/closed/wall/mineral/titanium/nodiagonal
 	smoothing_flags = SMOOTH_BITMASK
@@ -287,7 +309,7 @@
 	icon_state = "survival_pod_walls-0"
 	base_icon_state = "survival_pod_walls"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
-	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/closed/wall/mineral/titanium/survival/nodiagonal
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
@@ -311,7 +333,9 @@
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	max_integrity = 800
+	damage_deflection = 10
 
 /turf/closed/wall/mineral/plastitanium/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE
@@ -329,9 +353,26 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/////////////////////Lavaland Base Syndicate Explosive Walls /////////////////////
+
+/turf/closed/wall/mineral/plastitanium/explosive
+	///Ensures the payload can only go off once, because of shenanigans where it didn't
+	var/payload_active = TRUE
+
+/turf/closed/wall/mineral/plastitanium/explosive/proc/try_detonate()
+	if(payload_active)
+		payload_active = FALSE
+		var/devastation_range = 12
+		var/heavy_impact_range = 16
+		var/light_impact_range = 20
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, devastation_range, heavy_impact_range, light_impact_range), 1 SECONDS)
+
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
-	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
-	bombcore.detonate()
+	try_detonate()
+	..()
+
+/turf/closed/wall/mineral/plastitanium/explosive/dismantle_wall()
+	try_detonate()
 	..()
 
 //have to copypaste this code

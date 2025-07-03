@@ -11,13 +11,13 @@
 	appearance_flags = LONG_GLIDE
 	density = TRUE
 	plane = MASSIVE_OBJ_PLANE
+	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
 	move_resist = INFINITY
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 	pixel_x = -32
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = SUPERMATTER_IGNORES_1
 	var/target
 	var/list/orbiting_balls = list()
 	dissipate = TRUE //Do we lose energy over time?
@@ -27,6 +27,8 @@
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 
 /obj/anomaly/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
@@ -70,7 +72,7 @@
 	for (var/ball in orbiting_balls)
 		if(TICK_CHECK)
 			return
-		var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
+		var/range = rand(1, clamp(orbiting_balls.len, 3, 7))
 		//Miniballs don't explode.
 		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 
@@ -123,9 +125,9 @@
 	var/obj/effect/energy_ball/EB = new(loc, 0, TRUE)
 
 	EB.transform *= rand(30, 70) * 0.01
-	var/icon/I = icon(icon,icon_state,dir)
+	var/list/icon_dimensions = get_icon_dimensions(icon)
 
-	var/orbitsize = (I.Width() + I.Height()) * rand(40, 80) * 0.01
+	var/orbitsize = (icon_dimensions["width"] + icon_dimensions["height"]) * rand(40, 80) * 0.01
 	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
@@ -147,13 +149,17 @@
 	dust_mobs(AM)
 
 /obj/anomaly/energy_ball/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
-		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		C.ghostize(0)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, span_userdanger("That was a shockingly dumb idea."))
+	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
+	jedi.ghostize(jedi)
+	if(rip_u)
 		qdel(rip_u)
-		C.death()
+	jedi.investigate_log("had [jedi.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
+	jedi.death()
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
@@ -166,6 +172,7 @@
 		if(GR.anchored)
 			return
 	var/mob/living/carbon/C = A
+	C.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	C.dust()
 
 //Less intensive energy ball for the orbiting ones.
@@ -293,7 +300,7 @@
 	//Alright, we've done our loop, now lets see if was anything interesting in range
 	if(closest_atom)
 		//common stuff
-		source.Beam(closest_atom, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)
+		source.Beam(closest_atom, icon_state="lightning[rand(1,12)]", time = 5)
 		if(!(tesla_flags & TESLA_ALLOW_DUPLICATES))
 			LAZYSET(shocked_targets, closest_atom, TRUE)
 		var/zapdir = get_dir(source, closest_atom)
@@ -304,7 +311,7 @@
 		if(priority == 3)
 			var/mob/living/m = closest_atom
 			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
-			m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
+			m.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((tesla_flags & TESLA_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 			if(issilicon(m))
 				if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
 					m.emp_act(EMP_LIGHT)
@@ -315,3 +322,6 @@
 			var/obj/o = closest_atom
 			o.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
+
+#undef TESLA_DEFAULT_POWER
+#undef TESLA_MINI_POWER

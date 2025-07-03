@@ -11,7 +11,7 @@
 		return
 	..()
 
-/mob/living/silicon/ai/attack_slime(mob/living/simple_animal/slime/user)
+/mob/living/silicon/ai/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
 	return //immune to slimes
 
 /mob/living/silicon/ai/blob_act(obj/structure/blob/B)
@@ -35,19 +35,20 @@
 
 /mob/living/silicon/ai/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
+			investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 			gib()
-		if(2)
+		if(EXPLODE_HEAVY)
 			if (stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 
 
 
-/mob/living/silicon/ai/bullet_act(obj/item/projectile/Proj)
+/mob/living/silicon/ai/bullet_act(obj/projectile/Proj)
 	. = ..(Proj)
 	updatehealth()
 

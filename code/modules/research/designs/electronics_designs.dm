@@ -46,6 +46,16 @@
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/nanite_comm_remote
+	name = "Nanite Communication Remote"
+	desc = "Allows for the construction of a nanite communication remote."
+	id = "nanite_comm_remote"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/glass = 500, /datum/material/iron = 500, /datum/material/copper = 200)
+	build_path = /obj/item/nanite_remote/comm
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/nanite_scanner
 	name = "Nanite Scanner"
 	desc = "Allows for the construction of a nanite scanner."

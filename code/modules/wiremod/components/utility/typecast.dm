@@ -1,61 +1,58 @@
 /**
  * # Typecast Component
  *
- * Checks the type of a value
+ * A component that casts a value to a type if it matches or outputs null.
  */
-/obj/item/circuit_component/compare/typecast
+/obj/item/circuit_component/typecast
 	display_name = "Typecast"
-	display_desc = "A component that checks and casts the type of its input."
+	desc = "A component that casts a value to a type if it matches or outputs null."
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-	input_port_amount = 1
+	var/datum/port/input/option/typecast_options
 
-/obj/item/circuit_component/compare/typecast/populate_options()
-	var/static/component_options = list(
+	var/datum/port/input/input_value
+
+	var/datum/port/output/output_value
+
+	var/current_type
+
+/obj/item/circuit_component/typecast/populate_ports()
+	current_type = typecast_options.value
+	input_value = add_input_port("Input", PORT_TYPE_ANY)
+	output_value = add_output_port("Output", current_type)
+
+/obj/item/circuit_component/typecast/populate_options()
+	var/static/list/component_options = list(
 		PORT_TYPE_STRING,
 		PORT_TYPE_NUMBER,
 		PORT_TYPE_LIST,
 		PORT_TYPE_ATOM,
-		COMP_TYPECAST_MOB,
-		COMP_TYPECAST_HUMAN,
 	)
-	options = component_options
+	typecast_options = add_option_port("Typecast Options", component_options)
 
-/obj/item/circuit_component/compare/typecast/Initialize(mapload)
-	. = ..()
-	set_option(current_option)
+/obj/item/circuit_component/typecast/pre_input_received(datum/port/input/port)
+	var/current_option = typecast_options.value
+	if(current_type != current_option)
+		current_type = current_option
+		output_value.set_datatype(current_type)
 
-/obj/item/circuit_component/compare/typecast/set_option(option)
-	var/static/list/options_to_port_types = list(
-		COMP_TYPECAST_MOB = PORT_TYPE_ATOM,
-		COMP_TYPECAST_HUMAN = PORT_TYPE_ATOM,
-	)
 
-	//Change our results port to our correct type
-	var/current_result_type = options_to_port_types[option] ? options_to_port_types[option] : option
-	if(result.datatype != current_result_type)
-		result.set_datatype(current_result_type)
-
-	. = ..()
-
-/obj/item/circuit_component/compare/typecast/do_comparisons(list/ports)
-
-	if(!length(ports))
-		return
-	. = FALSE
-
-	// We're only comparing the first port/value. There shouldn't be any more.
-	var/datum/port/input/input_port = ports[1]
-	var/input_val = input_port.input_value
+/obj/item/circuit_component/typecast/input_received(datum/port/input/port)
+	var/current_option = typecast_options.value
+	var/value = input_value.value
+	var/value_to_set = null
 	switch(current_option)
 		if(PORT_TYPE_STRING)
-			return istext(input_val) ? input_val : null
+			if(istext(value))
+				value_to_set = value
 		if(PORT_TYPE_NUMBER)
-			return isnum(input_val) ? input_val : null
+			if(isnum(value))
+				value_to_set = value
 		if(PORT_TYPE_LIST)
-			return islist(input_val) ? input_val : null
+			if(islist(value))
+				value_to_set = value
 		if(PORT_TYPE_ATOM)
-			return isatom(input_val) ? input_val : null
-		if(COMP_TYPECAST_MOB)
-			return ismob(input_val) ? input_val : null
-		if(COMP_TYPECAST_HUMAN)
-			return ishuman(input_val) ? input_val : null
+			if(isatom(value))
+				value_to_set = value
+
+	output_value.set_output(value_to_set)

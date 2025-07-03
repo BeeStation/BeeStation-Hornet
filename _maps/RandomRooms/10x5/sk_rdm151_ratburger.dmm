@@ -2,19 +2,6 @@
 "a" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/rack,
-/obj/item/storage/box/ingredients/carnivore,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/turf/open/floor/grass,
-/area/template_noop)
 "c" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
@@ -22,7 +9,7 @@
 "d" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/deepfryer,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "g" = (
 /obj/structure/window/reinforced/spawner,
@@ -32,24 +19,29 @@
 "h" = (
 /obj/machinery/door/window,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "i" = (
 /turf/closed/wall,
+/area/template_noop)
+"k" = (
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/template_noop)
 "l" = (
 /obj/machinery/microwave,
 /obj/structure/window/reinforced/spawner,
 /obj/structure/table,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "n" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/burger/rat{
+/obj/item/food/burger/rat{
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/burger/rat,
+/obj/item/food/burger/rat,
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
@@ -63,25 +55,22 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall,
 /area/template_noop)
+"q" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/template_noop)
 "r" = (
 /obj/structure/window/reinforced/spawner,
 /obj/structure/window/reinforced/spawner/east,
 /mob/living/simple_animal/mouse/brown,
 /turf/open/floor/grass,
 /area/template_noop)
-"v" = (
+"y" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/template_noop)
-"w" = (
-/obj/structure/rack,
-/obj/item/stack/cable_coil/blue,
-/obj/item/stack/cable_coil/blue,
-/obj/item/kitchen/knife/butcher,
-/obj/item/clothing/suit/hooded/wintercoat/security,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "z" = (
@@ -90,8 +79,8 @@
 /area/template_noop)
 "A" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/reagent_dispensers/cooking_oil,
-/turf/open/floor/plasteel/cafeteria,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "B" = (
 /mob/living/simple_animal/mouse/white,
@@ -107,36 +96,44 @@
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -7;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -1
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
+"E" = (
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/turf/open/floor/plating{
+	broken = 1
+	},
 /area/template_noop)
 "F" = (
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/burger/rat{
+/obj/item/food/burger/rat{
 	pixel_x = 7;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/snacks/burger/rat{
+/obj/item/food/burger/rat{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/burger/rat,
+/obj/item/food/burger/rat,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "G" = (
@@ -149,23 +146,11 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"I" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/landmark/blobstart,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/template_noop)
 "J" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
-"K" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/snacks/bun,
-/turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "L" = (
 /obj/machinery/door/window/eastright,
@@ -182,13 +167,8 @@
 /obj/item/trash/popcorn,
 /turf/open/floor/plating,
 /area/template_noop)
-"O" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/template_noop)
 "Q" = (
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "R" = (
 /obj/machinery/light/small{
@@ -197,33 +177,48 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
 /area/template_noop)
-"S" = (
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/template_noop)
 "T" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
+/area/template_noop)
+"U" = (
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/rack,
+/obj/item/storage/box/ingredients/carnivore,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/turf/open/floor/grass,
 /area/template_noop)
 "V" = (
 /obj/structure/window/reinforced/spawner/north,
 /mob/living/simple_animal/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
-"Y" = (
+"W" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil/blue,
+/obj/item/knife/butcher,
+/obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
+/area/template_noop)
+"X" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/food/bun,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 
 (1,1,1) = {"
 a
 a
-Y
+y
 H
 a
 "}
@@ -236,29 +231,29 @@ c
 "}
 (3,1,1) = {"
 M
-b
+U
 B
 g
 G
 "}
 (4,1,1) = {"
-v
+y
 V
 z
 g
 a
 "}
 (5,1,1) = {"
-O
+k
 C
 L
 r
-Y
+y
 "}
 (6,1,1) = {"
-S
+E
 d
-K
+X
 l
 a
 "}
@@ -278,15 +273,15 @@ G
 "}
 (9,1,1) = {"
 a
-w
+W
 o
-I
+q
 N
 "}
 (10,1,1) = {"
 a
 J
-v
+y
 T
 a
 "}

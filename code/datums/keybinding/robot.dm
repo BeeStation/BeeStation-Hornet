@@ -7,7 +7,7 @@
 
 
 /datum/keybinding/robot/toggle_module_1
-	key = "1"
+	keys = list("1")
 	name = "toggle_module_1"
 	full_name = "Toggle Module 1"
 	description = "Toggle your first module as a robot."
@@ -23,7 +23,7 @@
 
 
 /datum/keybinding/robot/toggle_module_2
-	key = "2"
+	keys = list("2")
 	name = "toggle_module_2"
 	full_name = "Toggle Module 2"
 	description = "Toggle your second module as a robot."
@@ -39,7 +39,7 @@
 
 
 /datum/keybinding/robot/toggle_module_3
-	key = "3"
+	keys = list("3")
 	name = "toggle_module_3"
 	full_name = "Toggle Module 3"
 	description = "Toggle your third module as a robot."
@@ -53,25 +53,8 @@
 	M.toggle_module(3)
 	return TRUE
 
-
-/datum/keybinding/robot/change_intent_robot
-	key = "4"
-	name = "change_intent_robot"
-	full_name = "Change Intent"
-	description = "Change your intent as a robot."
-	keybind_signal = COMSIG_KB_SILICON_CYCLEINTENT_DOWN
-
-/datum/keybinding/robot/change_intent_robot/down(client/user)
-	. = ..()
-	if(.)
-		return
-	var/mob/living/silicon/robot/M = user.mob
-	M.a_intent_change(INTENT_HOTKEY_LEFT)
-	return TRUE
-
-
 /datum/keybinding/robot/unequip_module
-	key = "Q"
+	keys = list("Q")
 	name = "unequip_module"
 	full_name = "Unequip Module"
 	description = "Unequip a robot module."

@@ -2,8 +2,6 @@
 //
 // The datum containing all the chunks.
 
-#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
-
 GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 /datum/cameranet
@@ -30,6 +28,18 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
 	return chunks["[x],[y],[z]"]
+
+/// A faster, turf only version of [/datum/cameranet/proc/majorChunkChange]
+/// For use in sensitive code, be careful with it
+/datum/cameranet/proc/bareMajorChunkChange(turf/changed)
+	var/x1 = max(1, changed.x - (CHUNK_SIZE / 2))
+	var/y1 = max(1, changed.y - (CHUNK_SIZE / 2))
+	var/x2 = min(world.maxx, changed.x + (CHUNK_SIZE / 2))
+	var/y2 = min(world.maxy, changed.y + (CHUNK_SIZE / 2))
+	for(var/x = x1; x <= x2; x += CHUNK_SIZE)
+		for(var/y = y1; y <= y2; y += CHUNK_SIZE)
+			var/datum/camerachunk/chunk = chunkGenerated(x, y, changed.z)
+			chunk?.hasChanged()
 
 // Returns the chunk in the x, y, z.
 // If there is no chunk, it creates a new chunk and returns that.
@@ -162,7 +172,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	icon = null
 	icon_state = null
 	anchored = TRUE  // should only appear in vis_contents, but to be safe
-	appearance_flags = RESET_TRANSFORM | TILE_BOUND
+	appearance_flags = RESET_TRANSFORM | TILE_BOUND | LONG_GLIDE
 	// this combination makes the static block clicks to everything below it,
 	// without appearing in the right-click menu for non-AI clients
 	mouse_opacity = MOUSE_OPACITY_ICON

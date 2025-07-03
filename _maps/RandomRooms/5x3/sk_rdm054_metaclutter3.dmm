@@ -1,10 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/rack,
-/obj/item/storage/belt{
-	desc = "Can hold quite a lot of stuff.";
-	name = "multi-belt"
-	},
 /obj/item/clothing/gloves/color/fyellow,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/sink/kitchen{
@@ -12,6 +8,7 @@
 	name = "old sink";
 	pixel_y = 28
 	},
+/obj/item/storage/belt/utility,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -40,13 +37,13 @@
 "d" = (
 /obj/structure/easel,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "e" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/reagent_containers/food/drinks/beer{
+/obj/item/reagent_containers/cup/glass/bottle/beer{
 	desc = "Takes you to a whole new level of thinking.";
 	name = "Meta-Cider"
 	},
@@ -61,14 +58,14 @@
 /area/template_noop)
 "g" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/poncho,
-/obj/item/clothing/head/sombrero,
+/obj/item/clothing/suit/costume/poncho,
+/obj/item/clothing/head/costume/sombrero,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "i" = (

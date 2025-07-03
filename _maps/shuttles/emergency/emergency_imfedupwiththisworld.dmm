@@ -41,7 +41,7 @@
 /area/shuttle/escape)
 "i" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "l" = (
@@ -61,7 +61,7 @@
 /area/shuttle/escape)
 "o" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/store/cake/birthday,
+/obj/item/food/cake/birthday,
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "q" = (
@@ -87,7 +87,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/snacks/cakeslice/birthday,
+/obj/item/food/cakeslice/birthday,
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "x" = (
@@ -136,7 +136,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "Q" = (
 /obj/machinery/light{
@@ -146,31 +146,31 @@
 	req_access = null
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "T" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "U" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "V" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "Z" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 
 (1,1,1) = {"

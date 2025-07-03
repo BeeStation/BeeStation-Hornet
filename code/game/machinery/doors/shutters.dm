@@ -2,21 +2,33 @@
 	gender = PLURAL
 	name = "shutters"
 	desc = "Heavy duty metal shutters that open mechanically."
-	icon = 'icons/obj/doors/shutters.dmi'
+	icon = 'icons/obj/doors/blastdoors/shutters.dmi'
 	layer = SHUTTER_LAYER
 	closingLayer = SHUTTER_LAYER
 	damage_deflection = 20
+	armor_type = /datum/armor/poddoor_shutters
 	recipe_type = /datum/crafting_recipe/shutters
 	base_state = "shut"
 	icon_state = "shut_closed"
 	pod_open_sound  = 'sound/machines/shutter_open.ogg'
 	pod_close_sound = 'sound/machines/shutter_close.ogg'
 
+
+/datum/armor/poddoor_shutters
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 75
+	bomb = 25
+	fire = 100
+	acid = 70
+	rad = 75
+
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "shut_open"
 	density = FALSE
-	obj_flags = CAN_BE_HIT // reset zblock
-	opacity = 0
+	z_flags = NONE // reset zblock
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/shutters/indestructible
 	name = "hardened shutters"
@@ -38,7 +50,7 @@
 	density = FALSE
 	opacity = FALSE
 	rad_insulation = RAD_NO_INSULATION
-	obj_flags = CAN_BE_HIT // reset zblock
+	z_flags = NONE // reset zblock
 
 /obj/machinery/door/poddoor/shutters/radiation/open()
 	. = ..()
@@ -60,4 +72,4 @@
 /obj/machinery/door/poddoor/shutters/window/preopen
 	icon_state = "win_open"
 	density = FALSE
-	obj_flags = CAN_BE_HIT // reset zblock
+	z_flags = NONE // reset zblock

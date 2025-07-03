@@ -5,22 +5,22 @@
 "b" = (
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "e" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "g" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "h" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "i" = (
 /turf/closed/wall/r_wall,
@@ -29,35 +29,35 @@
 /obj/effect/turf_decal/bot_white/right,
 /obj/item/circuitboard/machine/ore_silo,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "o" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/filingcabinet,
 /obj/item/folder,
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "s" = (
 /obj/structure/frame/computer,
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "t" = (
 /obj/item/weldingtool/mini,
 /turf/open/floor/plating/airless{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "w" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -66,7 +66,7 @@
 "y" = (
 /obj/item/stack/cable_coil/random/five,
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "z" = (
 /turf/template_noop/open,
@@ -75,13 +75,13 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "F" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/structure/frame/machine,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "H" = (
 /obj/structure/frame/machine,
@@ -89,41 +89,41 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "K" = (
 /obj/structure/closet/crate/silvercrate,
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "L" = (
 /obj/structure/safe,
 /obj/effect/turf_decal/bot_white/left,
 /obj/item/ammo_box/a357,
 /obj/item/paper{
-	info = "IOU - One Very Cool Revolver (Thanks HOP)"
+	default_raw_text = "IOU - One Very Cool Revolver (Thanks HOP)"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "N" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "O" = (
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Q" = (
 /obj/structure/closet/crate/goldcrate,
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/spawner/lootdrop/ruinloot/important,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "R" = (
 /obj/machinery/door/airlock/vault{
@@ -131,19 +131,19 @@
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "U" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "V" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "W" = (
 /obj/effect/decal/cleanable/blood,
@@ -152,7 +152,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/airless,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "X" = (
 /turf/open/floor/circuit/airless,
@@ -161,7 +161,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

@@ -110,7 +110,7 @@
 	category = list("Firing Pins")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/stunmine/sec/
+/datum/design/stunmine
 	name = "Stun Mine"
 	desc = "A basic nonlethal stunning mine. Does very heavy stamina damage to anyone who walks over it."
 	id = "stunmine"
@@ -120,7 +120,7 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/adv_stunmine/sec
+/datum/design/adv_stunmine
 	name = "Smart Stun Mine"
 	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant."
 	id = "stunmine_adv"
@@ -130,7 +130,7 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/lm6_stunmine/sec
+/datum/design/lm6_stunmine
 	name = "Rapid Deployment Smartmine"
 	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant. Can be rapidly placed and disarmed."
 	id = "stunmine_rapid"
@@ -140,7 +140,7 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/lm12_stunmine/sec
+/datum/design/lm12_stunmine
 	name = "Sledgehammer Smartmine"
 	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant. Very powerful and hard to disarm."
 	id = "stunmine_heavy"
@@ -396,7 +396,7 @@
 	id = "largecrossbow"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1500, /datum/material/uranium = 1500, /datum/material/silver = 1500)
-	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
+	build_path = /obj/item/gun/energy/recharge/ebow/large
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -419,3 +419,17 @@
 	build_path = /obj/item/flashbulb
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/////////////////////////////////////////
+/////////////////Armour//////////////////
+/////////////////////////////////////////
+
+/datum/design/shield_belt
+	name = "Shield Belt"
+	desc = "A belt which evelops the user inside a high-energy shield which blocks incoming and outgoing high-energy projectiles."
+	id = "shieldbelt"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1 * MINERAL_MATERIAL_AMOUNT, /datum/material/uranium = 1 * MINERAL_MATERIAL_AMOUNT)
+	build_path = /obj/item/shield_belt
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

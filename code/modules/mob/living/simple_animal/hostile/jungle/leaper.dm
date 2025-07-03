@@ -14,21 +14,22 @@
 	maxHealth = 300
 	health = 300
 	ranged = TRUE
-	projectiletype = /obj/item/projectile/leaper
+	projectiletype = /obj/projectile/leaper
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged_cooldown_time = 30
 	pixel_x = -16
+	base_pixel_x = -16
 	layer = LARGE_MOB_LAYER
 	speed = 10
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	var/hopping = FALSE
 	var/hop_cooldown = 0 //Strictly for player controlled leapers
 	var/projectile_ready = FALSE //Stopping AI leapers from firing whenever they want, and only doing it after a hop has finished instead
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 
-/obj/item/projectile/leaper
+/obj/projectile/leaper
 	name = "leaper bubble"
 	icon_state = "leaper"
 	paralyze = 50
@@ -38,7 +39,7 @@
 	nondirectional_sprite = TRUE
 	impact_effect_type = /obj/effect/temp_visual/leaper_projectile_impact
 
-/obj/item/projectile/leaper/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/leaper/on_hit(atom/target, blocked = FALSE)
 	..()
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -48,7 +49,7 @@
 		var/mob/living/simple_animal/L = target
 		L.adjustHealth(25)
 
-/obj/item/projectile/leaper/on_range()
+/obj/projectile/leaper/on_range()
 	var/turf/T = get_turf(src)
 	..()
 	new /obj/structure/leaper_bubble(T)
@@ -80,12 +81,16 @@
 
 /obj/structure/leaper_bubble/Initialize(mapload)
 	. = ..()
-	float(on = TRUE)
 	QDEL_IN(src, 100)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/leaper_bubble/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/movetype_handler)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPER_BUBBLE_TRAIT)
 
 /obj/structure/leaper_bubble/Destroy()
 	new /obj/effect/temp_visual/leaper_projectile_impact(get_turf(src))
@@ -117,9 +122,9 @@
 	taste_description = "french cuisine"
 	taste_mult = 1.3
 
-/datum/reagent/toxin/leaper_venom/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/leaper_venom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(volume >= 10)
-		M.adjustToxLoss(5, 0)
+		M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
 	..()
 
 /obj/effect/temp_visual/leaper_crush
@@ -128,8 +133,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "lily_pad"
 	layer = BELOW_MOB_LAYER
-	pixel_x = -32
-	pixel_y = -32
+	SET_BASE_PIXEL(-32, -32)
 	duration = 30
 
 /mob/living/simple_animal/hostile/jungle/leaper/Initialize(mapload)
@@ -171,7 +175,7 @@
 		if(!hopping)
 			Hop()
 
-/mob/living/simple_animal/hostile/jungle/leaper/Life()
+/mob/living/simple_animal/hostile/jungle/leaper/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	update_icons()
 
@@ -246,7 +250,7 @@
 				throw_dir = pick(GLOB.alldirs)
 			var/throwtarget = get_edge_target_turf(src, throw_dir)
 			L.throw_at(throwtarget, 3, 1)
-			visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
+			visible_message(span_warning("[L] is thrown clear of [src]!"))
 	if(ckey)//Lessens ability to chain stun as a player
 		ranged_cooldown = ranged_cooldown_time + world.time
 		update_icons()

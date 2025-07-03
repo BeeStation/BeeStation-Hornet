@@ -5,7 +5,8 @@
 	icon_state = "bloodpack"
 	volume = 200
 	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
-	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE
+	has_variable_transfer_amount = FALSE
+	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
 
 /obj/item/reagent_containers/chem_bag/Initialize(mapload)
 	. = ..()
@@ -17,11 +18,11 @@
 	. = ..()
 	if(reagents)
 		if(volume == reagents.total_volume)
-			. += "<span class='notice'>It is fully filled.</span>"
+			. += span_notice("It is fully filled.")
 		else if(!reagents.total_volume)
-			. += "<span class='notice'>It's empty.</span>"
+			. += span_notice("It's empty.")
 		else
-			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
+			. += span_notice("It seems [round(reagents.total_volume/volume*100)]% filled.")
 
 // this is specifically made as an example for a sleeper feature that uses a chem bag at roundstart.
 /obj/item/reagent_containers/chem_bag/oxy_mix
@@ -34,3 +35,31 @@
 		/datum/reagent/medicine/dexalinp = 10,
 		/datum/reagent/medicine/salbutamol = 10
 		) // you are welcome to change the chem contents here
+
+/obj/item/reagent_containers/chem_bag/epi
+	name = "epinephrine reserve bag"
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)
+
+/obj/item/reagent_containers/chem_bag/bicaridine
+	name = "bicaridine reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/bicaridine = 100)
+
+/obj/item/reagent_containers/chem_bag/triamed
+	name = "triamed reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/bicaridine = 40, /datum/reagent/medicine/kelotane = 40, /datum/reagent/medicine/epinephrine = 20)
+
+/obj/item/reagent_containers/chem_bag/tricordrazine
+	name = "tricordrazine reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/tricordrazine = 100)
+
+/obj/item/reagent_containers/chem_bag/kelotane
+	name = "kelotane reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/kelotane = 100)
+
+/obj/item/reagent_containers/chem_bag/antitoxin
+	name = "anti-toxin reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/antitoxin = 100)
+
+/obj/item/reagent_containers/chem_bag/syndicate
+	name = "suspicious reserve bag"
+	list_reagents = list(/datum/reagent/medicine/leporazine = 30, /datum/reagent/medicine/syndicate_nanites = 40, /datum/reagent/medicine/stabilizing_nanites = 30)

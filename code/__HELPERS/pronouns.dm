@@ -5,6 +5,9 @@
 	if(capitalized)
 		. = capitalize(.)
 
+/datum/proc/p_They(temp_gender)
+	return capitalize(p_they(temp_gender))
+
 /datum/proc/p_their(capitalized, temp_gender)
 	. = "its"
 	if(capitalized)
@@ -38,6 +41,21 @@
 
 /datum/proc/p_es(temp_gender)
 	. = "es"
+
+/datum/proc/plural_s(pluralize)
+	switch(copytext_char(pluralize, -2))
+		if ("ss")
+			return "es"
+		if ("sh")
+			return "es"
+		if ("ch")
+			return "es"
+		else
+			switch(copytext_char(pluralize, -1))
+				if("s", "x", "z")
+					return "es"
+				else
+					return "s"
 
 //like clients, which do have gender.
 /client/p_they(capitalized, temp_gender)

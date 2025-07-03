@@ -1,5 +1,5 @@
 ///Defines for anomaly types
-#define ANOMALY_DELIMBER "delimber_anomaly"
+#define ANOMALY_BIOSCRAMBLER "bioscrambler_anomaly"
 #define ANOMALY_FLUX "flux_anomaly"
 #define ANOMALY_GRAVITATIONAL "gravitational_anomaly"
 #define ANOMALY_HALLUCINATION "hallucination_anomaly"
@@ -11,7 +11,7 @@
 #define ANOMALY_AREA_SUBTYPE_WHITELIST list(/area/engine/break_room)
 
 ///Defines for weighted anomaly chances
-#define ANOMALY_WEIGHTS list(ANOMALY_GRAVITATIONAL = 55, ANOMALY_HALLUCINATION = 45, ANOMALY_DELIMBER = 35, ANOMALY_FLUX = 25, ANOMALY_PYRO = 5, ANOMALY_VORTEX = 1)
+#define ANOMALY_WEIGHTS list(ANOMALY_GRAVITATIONAL = 55, ANOMALY_HALLUCINATION = 45, ANOMALY_BIOSCRAMBLER = 35, ANOMALY_FLUX = 25, ANOMALY_PYRO = 5, ANOMALY_VORTEX = 1)
 
 ///Defines for the different types of explosion a flux anomaly can have
 #define ANOMALY_FLUX_NO_EXPLOSION 0

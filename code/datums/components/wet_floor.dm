@@ -66,6 +66,7 @@
 		T.cut_overlay(current_overlay)
 		T.add_overlay(intended)
 		current_overlay = intended
+		T.clean_turf_texture()
 
 /datum/component/wet_floor/proc/AfterSlip(mob/living/L)
 	if(highest_strength == TURF_WET_LUBE)
@@ -114,7 +115,7 @@
 	var/turf/open/T = parent
 	var/diff = world.time - last_process
 	var/decrease = 0
-	var/t = T.GetTemperature()
+	var/t = T.get_temperature()
 	switch(t)
 		if(-INFINITY to T0C)
 			add_wet(TURF_WET_ICE, max_time_left())			//Water freezes into ice!
@@ -125,8 +126,7 @@
 	decrease = max(0, decrease)
 	if((is_wet() & TURF_WET_ICE) && t > T0C)		//Ice melts into water!
 		for(var/obj/O in T.contents)
-			if(O.obj_flags & FROZEN)
-				O.make_unfrozen()
+			O.unfreeze()
 		add_wet(TURF_WET_WATER, max_time_left())
 		dry(null, TURF_WET_ICE)
 	dry(null, ALL, FALSE, decrease)
@@ -181,7 +181,7 @@
 /datum/component/wet_floor/proc/_do_add_wet(type, duration_minimum, duration_add, duration_maximum)
 	var/time = 0
 	if(LAZYACCESS(time_left_list, "[type]"))
-		time = CLAMP(LAZYACCESS(time_left_list, "[type]") + duration_add, duration_minimum, duration_maximum)
+		time = clamp(LAZYACCESS(time_left_list, "[type]") + duration_add, duration_minimum, duration_maximum)
 	else
 		time = min(duration_minimum, duration_maximum)
 	LAZYSET(time_left_list, "[type]", time)

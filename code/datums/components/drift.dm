@@ -57,11 +57,15 @@
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
-	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_NEWTONIAN_MOVE))
+	UnregisterSignal(movable_parent, COMSIG_MOVABLE_MOVED)
 
 /datum/component/drift/proc/before_move(datum/source)
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
+	// We cannot drift while not on a turf
+	if (!isturf(movable_parent.loc))
+		qdel(src)
+		return MOVELOOP_SKIP_STEP
 	movable_parent.inertia_moving = TRUE
 	old_dir = movable_parent.dir
 

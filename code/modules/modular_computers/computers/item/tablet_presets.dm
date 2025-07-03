@@ -86,7 +86,7 @@
 	install_component(new /obj/item/computer_hardware/network_card)
 
 //Borg Built-in tablet
-/obj/item/modular_computer/tablet/integrated/Initialize()
+/obj/item/modular_computer/tablet/integrated/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
 	install_component(new /obj/item/computer_hardware/recharger/cyborg)

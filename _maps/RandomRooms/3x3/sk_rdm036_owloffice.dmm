@@ -25,7 +25,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/template_noop)
 "e" = (
@@ -62,7 +62,7 @@
 /obj/item/book/manual/wiki/detective,
 /obj/item/camera/detective,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 
 (1,1,1) = {"

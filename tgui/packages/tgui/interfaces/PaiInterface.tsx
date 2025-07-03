@@ -1,17 +1,7 @@
+import { BooleanLike } from 'common/react';
+import { capitalizeAll } from 'common/string';
 import { useBackend, useSharedState } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  Icon,
-  NoticeBox,
-  ProgressBar,
-  Section,
-  Stack,
-  Table,
-  Tabs,
-  Tooltip,
-} from '../components';
+import { Box, Button, LabeledList, Icon, NoticeBox, ProgressBar, Section, Stack, Table, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 type PaiInterfaceData = {
@@ -25,7 +15,7 @@ type PaiInterfaceData = {
   master: Master;
   ram: number;
   records: Records;
-  refresh_spam: number;
+  refresh_spam: BooleanLike;
 };
 
 type Available = {
@@ -70,29 +60,21 @@ of your ability.`;
 
 const SOFTWARE_DESC = {
   'Crew Manifest': 'A tool that allows you to view the crew manifest.',
-  'Digital Messenger':
-    'A tool that allows you to send messages to other crew members.',
-  'Atmosphere Sensor':
-    'A tool that allows you to analyze local atmospheric contents.',
-  'Photography Module':
-    'A portable camera module. Engage, then click to shoot.',
+  'Digital Messenger': 'A tool that allows you to send messages to other crew members.',
+  'Atmosphere Sensor': 'A tool that allows you to analyze local atmospheric contents.',
+  'Photography Module': 'A portable camera module. Engage, then click to shoot.',
   'Camera Zoom': 'A tool that allows you to zoom in on your camera.',
   'Printer Module': 'A portable printer module for photographs.',
-  'Remote Signaler':
-    'A remote signalling device to transmit and receive codes.',
+  'Remote Signaler': 'A remote signalling device to transmit and receive codes.',
   'Medical Records': 'A tool that allows you to view station medical records.',
-  'Security Records':
-    'A tool that allows you to view station security records, warrants.',
+  'Security Records': 'A tool that allows you to view station security records, warrants.',
   'Host Scan': 'A portable health analyzer. Must be held to use.',
   'Medical HUD': 'Allows you to view medical status using an overlay HUD.',
   'Security HUD': 'Allows you to view security records using an overlay HUD.',
-  'Loudness Booster':
-    'Synthesizes instruments, plays sounds and imported songs.',
-  'Newscaster':
-    'A tool that allows you to broadcast news to other crew members.',
+  'Loudness Booster': 'Synthesizes instruments, plays sounds and imported songs.',
+  'Newscaster': 'A tool that allows you to broadcast news to other crew members.',
   'Door Jack': 'A tool that allows you to open doors.',
-  'Encryption Keys':
-    'A tool that allows you to decrypt and speak on other radio frequencies.',
+  'Encryption Keys': 'A tool that allows you to decrypt and speak on other radio frequencies.',
   'Internal GPS': 'A tool that allows you to track your location.',
   'Universal Translator': 'Translation module for non-common languages.',
 };
@@ -109,16 +91,16 @@ const ICON_MAP = {
   'what': 'question',
 };
 
-export const PaiInterface = (_, context) => {
-  const [tab, setTab] = useSharedState(context, 'tab', 1);
+export const PaiInterface = (_) => {
+  const [tab, setTab] = useSharedState('tab', 1);
   const setTabHandler = (tab: number) => {
     setTab(tab);
   };
-  const { data } = useBackend<PaiInterfaceData>(context);
+  const { data } = useBackend<PaiInterfaceData>();
   const { emagged } = data;
 
   return (
-    <Window theme={emagged ? "syndicate" : "ntos"} title="pAI Software Interface v2.4" width={380} height={480}>
+    <Window theme={emagged ? 'syndicate' : 'ntos'} title="pAI Software Interface v2.4" width={380} height={480}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item grow>
@@ -142,28 +124,16 @@ const TabDisplay = (props) => {
 
   return (
     <Tabs fluid>
-      <Tabs.Tab
-        icon="list"
-        onClick={() => onTabClick(Tab.System)}
-        selected={tab === Tab.System}>
+      <Tabs.Tab icon="list" onClick={() => onTabClick(Tab.System)} selected={tab === Tab.System}>
         System
       </Tabs.Tab>
-      <Tabs.Tab
-        icon="list"
-        onClick={() => onTabClick(Tab.Directive)}
-        selected={tab === Tab.Directive}>
+      <Tabs.Tab icon="list" onClick={() => onTabClick(Tab.Directive)} selected={tab === Tab.Directive}>
         Directives
       </Tabs.Tab>
-      <Tabs.Tab
-        icon="list"
-        onClick={() => onTabClick(Tab.Installed)}
-        selected={tab === Tab.Installed}>
+      <Tabs.Tab icon="list" onClick={() => onTabClick(Tab.Installed)} selected={tab === Tab.Installed}>
         Installed
       </Tabs.Tab>
-      <Tabs.Tab
-        icon="list"
-        onClick={() => onTabClick(Tab.Available)}
-        selected={tab === Tab.Available}>
+      <Tabs.Tab icon="list" onClick={() => onTabClick(Tab.Available)} selected={tab === Tab.Available}>
         Download
       </Tabs.Tab>
     </Tabs>
@@ -184,8 +154,8 @@ const SystemDisplay = () => {
 };
 
 /** Renders some ASCII art. Changes to red on emag. */
-const SystemWallpaper = (_, context) => {
-  const { data } = useBackend<PaiInterfaceData>(context);
+const SystemWallpaper = (_) => {
+  const { data } = useBackend<PaiInterfaceData>();
   const { emagged } = data;
 
   const owner = !emagged ? 'NANOTRASEN' : ' SYNDICATE';
@@ -213,8 +183,8 @@ const SystemWallpaper = (_, context) => {
 /** Displays master info.
  * You can check their DNA and change your image here.
  */
-const SystemInfo = (_, context) => {
-  const { act, data } = useBackend<PaiInterfaceData>(context);
+const SystemInfo = (_) => {
+  const { act, data } = useBackend<PaiInterfaceData>();
   const { image, master } = data;
 
   return (
@@ -234,10 +204,7 @@ const SystemInfo = (_, context) => {
             tooltip="Change your display image.">
             Display
           </Button>
-          <Button
-            icon="skull"
-            onClick={() => act('wipe_core')}
-            tooltip="Wipe yourself">
+          <Button icon="skull" onClick={() => act('wipe_core')} tooltip="Wipe yourself">
             Wipe
           </Button>
         </>
@@ -246,9 +213,7 @@ const SystemInfo = (_, context) => {
       scrollable
       title="System Info">
       <LabeledList>
-        <LabeledList.Item label="Master">
-          {master.name || 'None.'}
-        </LabeledList.Item>
+        <LabeledList.Item label="Master">{master.name || 'None.'}</LabeledList.Item>
         <LabeledList.Item label="DNA">{master.dna || 'None.'}</LabeledList.Item>
       </LabeledList>
     </Section>
@@ -256,8 +221,8 @@ const SystemInfo = (_, context) => {
 };
 
 /** Shows the hardcoded PAI info along with any supplied orders. */
-const DirectiveDisplay = (_, context) => {
-  const { data } = useBackend<PaiInterfaceData>(context);
+const DirectiveDisplay = (_) => {
+  const { data } = useBackend<PaiInterfaceData>();
   const { directives, master } = data;
 
   return (
@@ -278,9 +243,7 @@ const DirectiveDisplay = (_, context) => {
             'None.'
           ) : (
             <LabeledList>
-              <LabeledList.Item label="Prime">
-                Serve your master.
-              </LabeledList.Item>
+              <LabeledList.Item label="Prime">Serve your master.</LabeledList.Item>
               <LabeledList.Item label="Supplemental">
                 <Box wrap>{directives}</Box>
               </LabeledList.Item>
@@ -296,12 +259,8 @@ const DirectiveDisplay = (_, context) => {
  * another section that displays the selected installed
  * software info.
  */
-const InstalledDisplay = (_, context) => {
-  const [installSelected, setInstallSelected] = useSharedState(
-    context,
-    'software',
-    ''
-  );
+const InstalledDisplay = (_) => {
+  const [installSelected, setInstallSelected] = useSharedState('software', '');
   const onInstallHandler = (software: string) => {
     setInstallSelected(software);
   };
@@ -319,8 +278,8 @@ const InstalledDisplay = (_, context) => {
 };
 
 /** Iterates over installed software to render buttons. */
-const InstalledSoftware = (props, context) => {
-  const { data } = useBackend<PaiInterfaceData>(context);
+const InstalledSoftware = (props) => {
+  const { data } = useBackend<PaiInterfaceData>();
   const { installed = [] } = data;
   const { onInstallClick } = props;
 
@@ -332,9 +291,7 @@ const InstalledSoftware = (props, context) => {
         installed.map((software) => {
           return (
             <Button key={software} onClick={() => onInstallClick(software)}>
-              {software.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-                letter.toUpperCase()
-              )}
+              {capitalizeAll(software)}
             </Button>
           );
         })
@@ -348,23 +305,13 @@ const InstalledInfo = (props) => {
   const { software } = props;
 
   /** Records get their own section here */
-  if (software === 'medical records') {
+  if (software === 'Medical Records') {
     return <RecordsDisplay record_type="medical" />;
-  } else if (software === 'security records') {
+  } else if (software === 'Security Records') {
     return <RecordsDisplay record_type="security" />;
   } else {
     return (
-      <Section
-        fill
-        scrollable
-        title={
-          !software
-            ? 'Select a Program'
-            : software.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-              letter.toUpperCase()
-            // eslint-disable-next-line react/jsx-indent
-            )
-        }>
+      <Section fill scrollable title={!software ? 'Select a Program' : capitalizeAll(software)}>
         {software && (
           <Stack fill vertical>
             <Stack.Item>{SOFTWARE_DESC[software] || ''}</Stack.Item>
@@ -379,8 +326,8 @@ const InstalledInfo = (props) => {
 };
 
 /** Todo: Remove this entirely when records get a TGUI interface themselves */
-const RecordsDisplay = (props, context) => {
-  const { act, data } = useBackend<PaiInterfaceData>(context);
+const RecordsDisplay = (props) => {
+  const { act, data } = useBackend<PaiInterfaceData>();
   const { record_type } = props;
   const { records = [], refresh_spam } = data;
   const convertedRecords: CrewRecord[] = records[record_type];
@@ -391,11 +338,8 @@ const RecordsDisplay = (props, context) => {
       buttons={
         <Stack>
           <Stack.Item>
-            <Button
-              disabled={refresh_spam}
-              onClick={() => act('refresh', { list: record_type })}
-              tooltip="Refresh">
-              <Icon mr={-0.7} name="sync" spin={refresh_spam} />
+            <Button disabled={refresh_spam} onClick={() => act('refresh', { list: record_type })} tooltip="Refresh">
+              <Icon mr={-0.7} name="sync" spin={!!refresh_spam} />
             </Button>
           </Stack.Item>
           <Stack.Item>
@@ -421,12 +365,8 @@ const RecordLabels = (props) => {
   return (
     <Table>
       <Table.Row>
-        <Table.Cell>
-          {record_type === 'medical' ? 'Physical Health' : 'Arrest Status'}
-        </Table.Cell>
-        <Table.Cell>
-          {record_type === 'medical' ? 'Mental Health' : 'Total Crimes'}
-        </Table.Cell>
+        <Table.Cell>{record_type === 'medical' ? 'Physical Health' : 'Arrest Status'}</Table.Cell>
+        <Table.Cell>{record_type === 'medical' ? 'Mental Health' : 'Total Crimes'}</Table.Cell>
       </Table.Row>
     </Table>
   );
@@ -450,8 +390,8 @@ const RecordRow = (props) => {
 /** Once a software is selected, generates custom buttons or a default
  * power toggle.
  */
-const SoftwareButtons = (props, context) => {
-  const { act, data } = useBackend<PaiInterfaceData>(context);
+const SoftwareButtons = (props) => {
+  const { act, data } = useBackend<PaiInterfaceData>();
   const { door_jack, languages } = data;
   const { software } = props;
 
@@ -459,23 +399,13 @@ const SoftwareButtons = (props, context) => {
     case 'Door Jack':
       return (
         <>
-          <Button
-            disabled={door_jack}
-            icon="plug"
-            onClick={() => act('door_jack', { jack: 'cable' })}>
+          <Button disabled={door_jack} icon="plug" onClick={() => act('door_jack', { jack: 'cable' })}>
             Extend Cable
           </Button>
-          <Button
-            color="bad"
-            disabled={!door_jack}
-            icon="door-open"
-            onClick={() => act('door_jack', { jack: 'jack' })}>
+          <Button color="bad" disabled={!door_jack} icon="door-open" onClick={() => act('door_jack', { jack: 'jack' })}>
             Hack Door
           </Button>
-          <Button
-            disabled={!door_jack}
-            icon="unlink"
-            onClick={() => act('door_jack', { jack: 'cancel' })}>
+          <Button disabled={!door_jack} icon="unlink" onClick={() => act('door_jack', { jack: 'cancel' })}>
             Cancel
           </Button>
         </>
@@ -483,14 +413,10 @@ const SoftwareButtons = (props, context) => {
     case 'Host Scan': {
       return (
         <>
-          <Button
-            icon="search"
-            onClick={() => act('host_scan', { scan: 'scan' })}>
+          <Button icon="search" onClick={() => act('host_scan', { scan: 'scan' })}>
             Host Scan
           </Button>
-          <Button
-            icon="cog"
-            onClick={() => act('host_scan', { scan: 'wounds' })}>
+          <Button icon="cog" onClick={() => act('host_scan', { scan: 'wounds' })}>
             Switch Scanner mode
           </Button>
         </>
@@ -498,10 +424,7 @@ const SoftwareButtons = (props, context) => {
     }
     case 'Universal Translator':
       return (
-        <Button
-          icon="download"
-          onClick={() => act(software.toLowerCase().replace(/ /g, '_'))}
-          disabled={!!languages}>
+        <Button icon="download" onClick={() => act(software.toLowerCase().replace(/ /g, '_'))} disabled={!!languages}>
           {!languages ? 'Install' : 'Installed'}
         </Button>
       );
@@ -519,19 +442,15 @@ const SoftwareButtons = (props, context) => {
 
 const AvailableDisplay = () => {
   return (
-    <Section
-      buttons={<AvailableMemory />}
-      fill
-      scrollable
-      title="Available Software">
+    <Section buttons={<AvailableMemory />} fill scrollable title="Available Software">
       <AvailableSoftware />
     </Section>
   );
 };
 
 /** Displays the remaining RAM left as a progressbar. */
-const AvailableMemory = (_, context) => {
-  const { data } = useBackend<PaiInterfaceData>(context);
+const AvailableMemory = (_) => {
+  const { data } = useBackend<PaiInterfaceData>();
   const { ram } = data;
 
   return (
@@ -560,8 +479,8 @@ const AvailableMemory = (_, context) => {
 /** A list of available software.
  *  creates table rows for each, like a vendor.
  */
-const AvailableSoftware = (_, context) => {
-  const { data } = useBackend<PaiInterfaceData>(context);
+const AvailableSoftware = (_) => {
+  const { data } = useBackend<PaiInterfaceData>();
   const { available } = data;
   const convertedList: Available[] = Object.entries(available).map((key) => {
     return { name: key[0], value: key[1] };
@@ -577,8 +496,8 @@ const AvailableSoftware = (_, context) => {
 };
 
 /** A row for an individual software listing. */
-const AvailableRow = (props, context) => {
-  const { act, data } = useBackend<PaiInterfaceData>(context);
+const AvailableRow = (props) => {
+  const { act, data } = useBackend<PaiInterfaceData>();
   const { ram } = data;
   const { installed } = data;
   const { software } = props;
@@ -587,17 +506,12 @@ const AvailableRow = (props, context) => {
   return (
     <Table.Row className="candystripe">
       <Table.Cell collapsible>
-        <Box color="label">
-          {software.name.replace(/^\w/, (c) => c.toUpperCase())}
-        </Box>
+        <Box color="label">{capitalizeAll(software.name)}</Box>
       </Table.Cell>
       <Table.Cell collapsible>
         <Box color={ram < software.value && 'bad'} textAlign="right">
           {!purchased && software.value}{' '}
-          <Icon
-            color={purchased || ram >= software.value ? 'purple' : 'bad'}
-            name={purchased ? 'check' : 'microchip'}
-          />
+          <Icon color={purchased || ram >= software.value ? 'purple' : 'bad'} name={purchased ? 'check' : 'microchip'} />
         </Box>
       </Table.Cell>
       <Table.Cell collapsible>

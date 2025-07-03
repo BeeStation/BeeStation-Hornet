@@ -43,6 +43,8 @@
 
 #define THEME_SYNDICATE "syndicate"
 
+#define THEME_NEUTRAL "neutral"
+
 /// Map of theme name -> theme ID
 GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 	"NtOS Default" = THEME_NTOS,
@@ -68,34 +70,9 @@ GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 	"Retro" = THEME_RETRO
 ))
 
-// I hate BYOND lists. just let me reverse the map please
-/// Sanitization list for the database, allowed roundstart theme IDs
-GLOBAL_LIST_INIT(ntos_device_themes_default_content, list(
-	THEME_NTOS,
-	THEME_THINKTRONIC,
-	THEME_NTOS_LIGHT,
-	THEME_NTOS_DARK,
-	THEME_NTOS_RED,
-	THEME_NTOS_ORANGE,
-	THEME_NTOS_YELLOW,
-	THEME_NTOS_OLIVE,
-	THEME_NTOS_GREEN,
-	THEME_NTOS_TEAL,
-	THEME_NTOS_BLUE,
-	THEME_NTOS_VIOLET,
-	THEME_NTOS_PURPLE,
-	THEME_NTOS_PINK,
-	THEME_NTOS_BROWN,
-	THEME_NTOS_GREY,
-	THEME_NTOS_CLOWN_PINK,
-	THEME_NTOS_CLOWN_YELLOW,
-	THEME_NTOS_HACKERMAN,
-	THEME_HACKERMAN,
-	THEME_RETRO
-))
-
 GLOBAL_LIST_INIT(ntos_device_themes_emagged, list(
-	"Syndix" = THEME_SYNDICATE
+	"Syndix" = THEME_SYNDICATE,
+	"Neutral" = THEME_NEUTRAL,
 ) + GLOB.ntos_device_themes_default)
 
 /// Reverse map of GLOB.ntos_device_themes_emagged

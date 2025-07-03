@@ -1,3 +1,10 @@
+/**
+ * For FTP requests. (i.e. downloading runtime logs.)
+ *
+ * However it'd be ok to use for accessing attack logs and such too, which are even laggier.
+ */
+GLOBAL_VAR_INIT(fileaccess_timer, 0)
+
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt","log","htm", "html"))
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("BROWSEFILES: Admin proc call blocked")
@@ -78,6 +85,7 @@
 
 /// Save file as an external file then md5 it.
 /// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
+/// https://www.byond.com/forum/post/2611357
 /proc/md5asfile(file)
 	var/static/notch = 0
 	// its importaint this code can handle md5filepath sleeping instead of hard blocking, if it's converted to use rust_g.

@@ -1,7 +1,7 @@
 /obj/machinery/gibber
 	name = "gibber"
 	desc = "The name isn't descriptive enough?"
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "grinder"
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -33,10 +33,10 @@
 /obj/machinery/gibber/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Outputting <b>[meat_produced]</b> meat slab(s) after <b>[gibtime*0.1]</b> seconds of processing.</span>"
+		. += span_notice("The status display reads: Outputting <b>[meat_produced]</b> meat slab(s) after <b>[gibtime*0.1]</b> seconds of processing.")
 		for(var/obj/item/stock_parts/manipulator/M in component_parts)
 			if(M.rating >= 2)
-				. += "<span class='notice'>Gibber has been upgraded to process inorganic materials.</span>"
+				. += span_notice("Gibber has been upgraded to process inorganic materials.")
 
 /obj/machinery/gibber/update_icon()
 	cut_overlays()
@@ -57,46 +57,46 @@
 /obj/machinery/gibber/container_resist(mob/living/user)
 	go_out()
 
-/obj/machinery/gibber/relaymove(mob/living/user)
+/obj/machinery/gibber/relaymove(mob/living/user, direction)
 	go_out()
 
-/obj/machinery/gibber/attack_hand(mob/user)
+/obj/machinery/gibber/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(operating)
-		to_chat(user, "<span class='danger'>It's locked and running.</span>")
+		to_chat(user, span_danger("It's locked and running."))
 		return
 
 	if(!anchored)
-		to_chat(user, "<span class='notice'>[src] cannot be used unless bolted to the ground.</span>")
+		to_chat(user, span_notice("[src] cannot be used unless bolted to the ground."))
 		return
 
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(!iscarbon(L))
-			to_chat(user, "<span class='danger'>This item is not suitable for the gibber!</span>")
+			to_chat(user, span_danger("This item is not suitable for the gibber!"))
 			return
 		var/mob/living/carbon/C = L
 		if(C.buckled ||C.has_buckled_mobs())
-			to_chat(user, "<span class='warning'>[C] is attached to something!</span>")
+			to_chat(user, span_warning("[C] is attached to something!"))
 			return
 
 		if(!ignore_clothing)
 			for(var/obj/item/I in C.held_items + C.get_equipped_items())
 				if(!HAS_TRAIT(I, TRAIT_NODROP))
-					to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+					to_chat(user, span_danger("Subject may not have abiotic items on."))
 					return
 
-		user.visible_message("<span class='danger'>[user] starts to put [C] into the gibber!</span>")
+		user.visible_message(span_danger("[user] starts to put [C] into the gibber!"))
 
 		add_fingerprint(user)
 
 		if(do_after(user, gibtime, target = src))
 			if(C && user.pulling == C && !C.buckled && !C.has_buckled_mobs() && !occupant)
-				user.visible_message("<span class='danger'>[user] stuffs [C] into the gibber!</span>")
+				user.visible_message(span_danger("[user] stuffs [C] into the gibber!"))
 				C.forceMove(src)
 				set_occupant(C)
 				update_icon()
@@ -124,25 +124,26 @@
 	set category = "Object"
 	set name = "empty gibber"
 	set src in oview(1)
-
 	if(usr.incapacitated())
+		return
+	if(!usr.canUseTopic())
 		return
 	src.go_out()
 	add_fingerprint(usr)
 	return
 
 /obj/machinery/gibber/proc/go_out()
-	dropContents()
+	dump_inventory_contents()
 	update_icon()
 
 /obj/machinery/gibber/proc/startgibbing(mob/user)
 	if(operating)
 		return
 	if(!occupant)
-		visible_message("<span class='italics'>You hear a loud metallic grinding sound.</span>")
+		visible_message(span_italics("You hear a loud metallic grinding sound."))
 		return
 	use_power(1000)
-	visible_message("<span class='italics'>You hear a loud squelchy grinding sound.</span>")
+	visible_message(span_italics("You hear a loud squelchy grinding sound."))
 	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 	operating = TRUE
 	update_icon()
@@ -157,10 +158,10 @@
 		sourcejob = gibee.job
 	var/sourcenutriment = mob_occupant.nutrition / 15
 	var/gibtype = /obj/effect/decal/cleanable/blood/gibs
-	var/typeofmeat = /obj/item/reagent_containers/food/snacks/meat/slab/human
+	var/typeofmeat = /obj/item/food/meat/slab/human
 	var/typeofskin
 
-	var/obj/item/reagent_containers/food/snacks/meat/slab/allmeat[meat_produced]
+	var/obj/item/food/meat/slab/allmeat[meat_produced]
 	var/obj/item/stack/sheet/animalhide/skin
 	var/list/datum/disease/diseases = mob_occupant.get_static_viruses()
 
@@ -182,7 +183,7 @@
 	if(occupant?.reagents)
 		occupant_volume = occupant.reagents.total_volume
 	for (var/i=1 to meat_produced)
-		var/obj/item/reagent_containers/food/snacks/meat/slab/newmeat = new typeofmeat
+		var/obj/item/food/meat/slab/newmeat = new typeofmeat
 		newmeat.name = "[sourcename] [newmeat.name]"
 		if(istype(newmeat))
 			newmeat.subjectname = sourcename
@@ -197,13 +198,14 @@
 		skin = new typeofskin
 
 	log_combat(user, occupant, "gibbed")
-	mob_occupant.death(1)
+	mob_occupant.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
+	mob_occupant.death(TRUE)
 	mob_occupant.ghostize()
 	set_occupant(null)
 	qdel(mob_occupant)
 	addtimer(CALLBACK(src, PROC_REF(make_meat), skin, allmeat, meat_produced, gibtype, diseases), gibtime)
 
-/obj/machinery/gibber/proc/make_meat(obj/item/stack/sheet/animalhide/skin, list/obj/item/reagent_containers/food/snacks/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases)
+/obj/machinery/gibber/proc/make_meat(obj/item/stack/sheet/animalhide/skin, list/obj/item/food/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases)
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	operating = FALSE
 	var/turf/T = get_turf(src)
@@ -220,7 +222,7 @@
 			if (!gibturf.density && (src in view(gibturf)))
 				new gibtype(gibturf,i,diseases)
 
-	pixel_x = initial(pixel_x) //return to its spot after shaking
+	pixel_x = base_pixel_x //return to its spot after shaking
 	operating = FALSE
 	update_icon()
 

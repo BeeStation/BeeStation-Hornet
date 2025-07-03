@@ -50,33 +50,37 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue//no parent vent
 			//Stops Aliens getting stuck in small networks.
 			//See: Security, Virology
-			if(temp_vent_parent.other_atmosmch.len > 20)
+			if(temp_vent_parent.other_atmos_machines.len > 20)
 				vents += temp_vent
 
-	if(!vents.len)
-		message_admins("An event attempted to spawn an alien but no suitable vents were found. Shutting down.")
+	if(!length(vents))
 		return MAP_ERROR
 
-	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
-
-	if(!candidates.len)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		role = /datum/role_preference/midround_ghost/xenomorph,
+		check_jobban = ROLE_ALIEN,
+		poll_time = 30 SECONDS,
+		role_name_text = "alien larva",
+		alert_pic = /mob/living/carbon/alien/larva,
+	)
+	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 
-	while(spawncount > 0 && vents.len && candidates.len)
+	while(spawncount > 0 && length(candidates) && length(vents))
 		var/obj/vent = pick_n_take(vents)
-		var/client/C = pick_n_take(candidates)
+		var/mob/dead/observer/candidate = pick_n_take(candidates)
 
 		var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
-		new_xeno.key = C.key
+		new_xeno.key = candidate.key
 
-		spawncount--
 		message_admins("[ADMIN_LOOKUPFLW(new_xeno)] has been made into an alien by an event.")
 		log_game("[key_name(new_xeno)] was spawned as an alien by an event.")
 		spawned_mobs += new_xeno
+		spawncount--
 
 	return SUCCESSFUL_SPAWN

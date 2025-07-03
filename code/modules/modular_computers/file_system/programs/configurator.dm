@@ -6,11 +6,10 @@
 	filename = "compconfig"
 	filedesc = "Settings"
 	extended_desc = "This program allows configuration of computer's hardware and operating system"
-	program_icon_state = "generic"
-	unsendable = 1
-	undeletable = 1
+	program_icon_state = "config"
+	undeletable = TRUE
 	size = 4
-	available_on_ntnet = 0
+	available_on_ntnet = TRUE
 	requires_ntnet = 0
 	tgui_id = "NtosConfiguration"
 	program_icon = "cog"
@@ -72,7 +71,7 @@
 		if("PC_set_classic_color")
 			if(computer.device_theme != THEME_THINKTRONIC)
 				return
-			var/new_color = input(usr, "Choose a new color for the device's system theme.", "System Color",computer.classic_color) as color|null
+			var/new_color = tgui_color_picker(usr, "Choose a new color for the device's system theme.", "System Color",computer.classic_color)
 			if(!new_color)
 				return
 			computer.classic_color = new_color

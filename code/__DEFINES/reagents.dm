@@ -1,18 +1,19 @@
-#define SOLID 			1
-#define LIQUID			2
-#define GAS				3
+#define SOLID 1
+#define LIQUID 2
+#define GAS 3
 
-#define INJECTABLE		(1<<0)	//! Makes it possible to add reagents through droppers and syringes.
-#define DRAWABLE		(1<<1)	//! Makes it possible to remove reagents through syringes.
+#define INJECTABLE (1<<0) // Makes it possible to add reagents through droppers and syringes.
+#define DRAWABLE (1<<1) // Makes it possible to remove reagents through syringes.
 
-#define REFILLABLE		(1<<2)	//! Makes it possible to add reagents through any reagent container.
-#define DRAINABLE		(1<<3)	//! Makes it possible to remove reagents through any reagent container.
+#define REFILLABLE (1<<2) // Makes it possible to add reagents through any reagent container.
+#define DRAINABLE (1<<3) // Makes it possible to remove reagents through any reagent container.
+#define DUNKABLE (1<<4) // Allows items to be dunked into this container for transfering reagents. Used in conjunction with the dunkable component.
 
-#define TRANSPARENT		(1<<4)	//! Used on containers which you want to be able to see the reagents off.
-#define AMOUNT_VISIBLE	(1<<5)	//! For non-transparent containers that still have the general amount of reagents in them visible.
-#define NO_REACT        (1<<6)  //! Applied to a reagent holder, the contents will not react with each other.
+#define TRANSPARENT (1<<5) // Used on containers which you want to be able to see the reagents off.
+#define AMOUNT_VISIBLE (1<<6) // For non-transparent containers that still have the general amount of reagents in them visible.
+#define NO_REACT (1<<7) // Applied to a reagent holder, the contents will not react with each other.
 
-#define ABSOLUTELY_GRINDABLE   (1<<7)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
+#define ABSOLUTELY_GRINDABLE   (1<<8)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
 
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
@@ -35,6 +36,11 @@
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
 
+//Used in holder.dm/equlibrium.dm to set values and volume limits
+///the minimum volume of reagents than can be operated on.
+#define CHEMICAL_QUANTISATION_LEVEL 0.0001
+/// the default temperature at which chemicals are added to reagent holders at
+#define DEFAULT_REAGENT_TEMPERATURE 300
 
 // synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
 #define CHEMICAL_NOT_DEFINED   (1<<0)  // identical to CHEMICAL_NOT_SYNTH, but it is good to label when you are not sure which flag you should set on it, or something that shouldn't exist in the game. - i.e) medicine parent type
@@ -117,3 +123,41 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 		"bandaid_big_blank",))
 
 #define PATCH_SHAPE_LIST (GLOB.patch_shape_list)
+
+//used by chem master
+#define CONDIMASTER_STYLE_AUTO "auto"
+#define CONDIMASTER_STYLE_FALLBACK "_"
+
+///reagent tags - used to look up reagents for specific effects. Feel free to add to but comment it
+/// This reagent does brute effects (BOTH damaging and healing)
+#define REACTION_TAG_BRUTE (1<<0)
+/// This reagent does burn effects (BOTH damaging and healing)
+#define REACTION_TAG_BURN (1<<1)
+/// This reagent does toxin effects (BOTH damaging and healing)
+#define REACTION_TAG_TOXIN (1<<2)
+/// This reagent does oxy effects (BOTH damaging and healing)
+#define REACTION_TAG_OXY (1<<3)
+/// This reagent does clone effects (BOTH damaging and healing)
+#define REACTION_TAG_CLONE (1<<4)
+/// This reagent primarily heals, or it's supposed to be used for healing (in the case of c2 - they are healing)
+#define REACTION_TAG_HEALING (1<<5)
+/// This reagent primarily damages
+#define REACTION_TAG_DAMAGING (1<<6)
+/// This reagent explodes as a part of it's intended effect (i.e. not overheated/impure)
+#define REACTION_TAG_EXPLOSIVE (1<<7)
+/// This reagent does things that are unique and special
+#define REACTION_TAG_OTHER (1<<8)
+/// This reagent affects organs
+#define REACTION_TAG_ORGAN (1<<9)
+/// This reaction creates a drink reagent
+#define REACTION_TAG_DRINK (1<<10)
+/// This reaction has something to do with food
+#define REACTION_TAG_FOOD (1<<11)
+/// This reaction is a slime reaction
+#define REACTION_TAG_SLIME (1<<12)
+/// This reaction is a drug reaction
+#define REACTION_TAG_DRUG (1<<13)
+/// This reaction is produces a product that affects reactions
+#define REACTION_TAG_CHEMICAL (1<<14)
+/// This reaction is produces a product that affects plants
+#define REACTION_TAG_PLANT (1<<15)

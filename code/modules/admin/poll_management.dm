@@ -73,13 +73,13 @@
   *
   */
 /datum/admins/proc/poll_list_panel(show_expired)
-	var/list/output = list("Current and future polls<br>Note when editing polls or their options changes are not saved until you press Submit Poll.<br><a href='?_src_=holder;[HrefToken()];newpoll=1'>New Poll</a><a href='?_src_=holder;[HrefToken()];reloadpolls=1'>Reload Polls</a><hr>")
+	var/list/output = list("Current and future polls<br>Note when editing polls or their options changes are not saved until you press Submit Poll.<br><a href='byond://?_src_=holder;[HrefToken()];newpoll=1'>New Poll</a><a href='byond://?_src_=holder;[HrefToken()];reloadpolls=1'>Reload Polls</a><hr>")
 	for(var/p in GLOB.polls)
 		var/datum/poll_question/poll = p
 		output += {"[poll.question]
-		<a href='?_src_=holder;[HrefToken()];editpoll=[REF(poll)]'> Edit</a>
-		<a href='?_src_=holder;[HrefToken()];deletepoll=[REF(poll)]'> Delete</a>
-		<a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)]'> Results</a>
+		<a href='byond://?_src_=holder;[HrefToken()];editpoll=[REF(poll)]'> Edit</a>
+		<a href='byond://?_src_=holder;[HrefToken()];deletepoll=[REF(poll)]'> Delete</a>
+		<a href='byond://?_src_=holder;[HrefToken()];resultspoll=[REF(poll)]'> Results</a>
 		"}
 		if(poll.subtitle)
 			output += "<br>[poll.subtitle]"
@@ -100,7 +100,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='danger'>Not connected to database. Cannot retrieve data.</span>")
+		to_chat(usr, span_danger("Not connected to database. Cannot retrieve data."))
 		return
 	var/output = "<div align='center'><B>Player Poll Results</B><hr>[poll.question]<hr>"
 	//Each poll type is different
@@ -109,7 +109,7 @@
 		if (POLLTYPE_MULTI, POLLTYPE_OPTION)
 			output += "<table><tr><th>Options</th><th>Votes</th></tr>"
 			//Get the results
-			var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery({"
+			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"
 SELECT p.text, count(*)
 	FROM [format_table_name("poll_vote")] AS pv
 	INNER JOIN [format_table_name("poll_option")] AS p ON pv.optionid = p.id
@@ -128,10 +128,10 @@ SELECT p.text, count(*)
 		//Provide lists of ckeys and their answers
 		if (POLLTYPE_TEXT)
 			//Change the table name
-			output += "<a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index-10]'>Previous Page</a><a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index+10]'>Next Page</a><br/>"
+			output += "<a href='byond://?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index-10]'>Previous Page</a><a href='byond://?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index+10]'>Next Page</a><br/>"
 			output += "<table><tr><th>Ckey</th><th>Response</th></tr>"
 			//Get the results
-			var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery({"
+			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"
 SELECT ckey, replytext
 	FROM [format_table_name("poll_textreply")]
 	WHERE pollid = :pollid AND deleted = 0
@@ -151,7 +151,7 @@ SELECT ckey, replytext
 		if (POLLTYPE_RATING)
 			output += "<table><tr><th>Option</th><th>Rating</th><th>Count</th></tr>"
 			//Get the results
-			var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery({"
+			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"
 SELECT p.text, pv.rating, COUNT(*)
 	FROM [format_table_name("poll_vote")] AS pv
 	INNER JOIN [format_table_name("poll_option")] AS p ON pv.optionid = p.id
@@ -168,18 +168,18 @@ SELECT p.text, pv.rating, COUNT(*)
 				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td><td>[query_get_poll_results.item[3]]</td></tr>"
 			qdel(query_get_poll_results)
 		if (POLLTYPE_IRV)
-			to_chat(usr, "<span class='warning'>View results for instant runoff voting is not currently supported.</span>")
+			to_chat(usr, span_warning("View results for instant runoff voting is not currently supported."))
 			return
 	output += "</table>"
 	if(!QDELETED(usr))
-		usr << browse(output, "window=playerpolllist;size=500x300")
+		usr << browse(HTML_SKELETON(output), "window=playerpolllist;size=500x300")
 
 /**
   * Show the options for creating a poll or editing its parameters along with its linked options.
   *
   */
 /datum/admins/proc/poll_management_panel(datum/poll_question/poll)
-	var/list/output = list("<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]")
+	var/list/output = list("<form method='get' action='byond://?src=[REF(src)]'>[HrefTokenFormField()]")
 	output += {"<input type='hidden' name='src' value='[REF(src)]'>Poll type
 	<div class="select">
 		<select name='polltype' [poll ? " disabled": ""]>
@@ -303,20 +303,20 @@ SELECT p.text, pv.rating, COUNT(*)
 			<br>
 			"}
 			if(poll.poll_type == POLLTYPE_TEXT)
-				output += "<a href='?_src_=holder;[HrefToken()];clearpollvotes=[REF(poll)]'>Clear poll responses</a> [poll.poll_votes] players have responded"
+				output += "<a href='byond://?_src_=holder;[HrefToken()];clearpollvotes=[REF(poll)]'>Clear poll responses</a> [poll.poll_votes] players have responded"
 			else
-				output += "<a href='?_src_=holder;[HrefToken()];clearpollvotes=[REF(poll)]'>Clear poll votes</a> [poll.poll_votes] players have voted"
+				output += "<a href='byond://?_src_=holder;[HrefToken()];clearpollvotes=[REF(poll)]'>Clear poll votes</a> [poll.poll_votes] players have voted"
 		if(poll.poll_type == POLLTYPE_TEXT)
 			output += "</div></div>"
 		else
-			output += "</div></div><hr><a href='?_src_=holder;[HrefToken()];addpolloption=[REF(poll)]'>Add Option</a><br>"
+			output += "</div></div><hr><a href='byond://?_src_=holder;[HrefToken()];addpolloption=[REF(poll)]'>Add Option</a><br>"
 			if(length(poll.options))
 				for(var/o in poll.options)
 					var/datum/poll_option/option = o
 					option_count++
 					output += {"Option [option_count]
-					<a href='?_src_=holder;[HrefToken()];editpolloption=[REF(option)];parentpoll=[REF(poll)]'> Edit</a>
-					<a href='?_src_=holder;[HrefToken()];deletepolloption=[REF(option)]'> Delete</a>
+					<a href='byond://?_src_=holder;[HrefToken()];editpolloption=[REF(option)];parentpoll=[REF(poll)]'> Edit</a>
+					<a href='byond://?_src_=holder;[HrefToken()];deletepolloption=[REF(option)]'> Delete</a>
 					<br>[option.text]
 					"}
 					if(poll.poll_type == POLLTYPE_RATING)
@@ -328,7 +328,7 @@ SELECT p.text, pv.rating, COUNT(*)
 					output += "<hr style='background:#000000; border:0; height:3px'>"
 	var/datum/browser/panel = new(usr, "pmpanel", "Poll Management Panel", 780, 640)
 	panel.add_stylesheet("admin_panelscss", 'html/admin/admin_panels.css')
-	if(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
 		panel.add_stylesheet("admin_panelscss3", 'html/admin/admin_panels_css3.css')
 	panel.set_content(jointext(output, ""))
 	panel.open()
@@ -344,7 +344,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/list/error_state = list()
 	var/new_poll = FALSE
@@ -416,9 +416,9 @@ SELECT p.text, pv.rating, COUNT(*)
 		error_state += "This poll type requires at least one option."
 	if(error_state.len)
 		if(poll.edit_ready)
-			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]"))
 		else
-			to_chat(usr, "<span class='danger'>Poll not [new_poll ? "initialized" : "submitted"] because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Poll not [new_poll ? "initialized" : "submitted"] because the following errors were present:\n[error_state.Join("\n")]"))
 			if(new_poll)
 				qdel(poll)
 		return
@@ -465,9 +465,9 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
-	var/datum/DBQuery/query_delete_poll = SSdbcore.NewQuery(
+	var/datum/db_query/query_delete_poll = SSdbcore.NewQuery(
 		"CALL set_poll_deleted(:poll_id)",
 		list("poll_id" = poll_id)
 	)
@@ -495,13 +495,13 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/new_poll = !poll_id
 	if(poll_type != POLLTYPE_MULTI)
 		options_allowed = null
 	var/admin_ckey = created_by
-	var/admin_ip = usr.client.address
+	var/admin_ip = usr.client.is_localhost() ? "127.0.0.1" : usr.client.address
 	var/end_datetime_sql
 	if (interval in list("SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR"))
 		end_datetime_sql = "NOW() + INTERVAL :duration [interval]"
@@ -509,7 +509,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		end_datetime_sql = ":duration"
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
-	var/datum/DBQuery/query_save_poll = SSdbcore.NewQuery({"
+	var/datum/db_query/query_save_poll = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("poll_question")] (id, polltype, created_datetime, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow, allow_revoting, minimumplaytime)
 		VALUES (:poll_id, :poll_type, NOW(), COALESCE(:start_datetime, NOW()), [end_datetime_sql], :question, :subtitle, :admin_only, :options_allowed, :admin_ckey, INET_ATON(:admin_ip), :dont_show, :allow_revoting, :minimumplaytime)
 		ON DUPLICATE KEY UPDATE starttime = :start_datetime, endtime = [end_datetime_sql], question = :question, subtitle = :subtitle, adminonly = :admin_only, multiplechoiceoptions = :options_allowed, dontshow = :dont_show, allow_revoting = :allow_revoting, minimumplaytime = :minimumplaytime
@@ -525,7 +525,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if (!poll_id)
 		poll_id = query_save_poll.last_insert_id
 	qdel(query_save_poll)
-	var/datum/DBQuery/query_get_poll_id_start_endtime = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_poll_id_start_endtime = SSdbcore.NewQuery(
 		"SELECT starttime, endtime, IF(starttime > NOW(), 1, 0) FROM [format_table_name("poll_question")] WHERE id = :poll_id",
 		list("poll_id" = poll_id)
 	)
@@ -557,7 +557,7 @@ SELECT p.text, pv.rating, COUNT(*)
   */
 /datum/poll_question/proc/save_all_options()
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	for(var/o in options)
 		var/datum/poll_option/option = o
@@ -571,12 +571,12 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/table = "poll_vote"
 	if(poll_type == POLLTYPE_TEXT)
 		table = "poll_textreply"
-	var/datum/DBQuery/query_clear_poll_votes = SSdbcore.NewQuery(
+	var/datum/db_query/query_clear_poll_votes = SSdbcore.NewQuery(
 		"UPDATE [format_table_name(table)] SET deleted = 1 WHERE pollid = :poll_id",
 		list("poll_id" = poll_id)
 	)
@@ -585,14 +585,14 @@ SELECT p.text, pv.rating, COUNT(*)
 		return
 	qdel(query_clear_poll_votes)
 	poll_votes = 0
-	to_chat(usr, "<span class='danger'>Poll [poll_type == POLLTYPE_TEXT ? "responses" : "votes"] cleared.</span>")
+	to_chat(usr, span_danger("Poll [poll_type == POLLTYPE_TEXT ? "responses" : "votes"] cleared."))
 
 /**
   * Show the options for creating a poll option or editing its parameters.
   *
   */
 /datum/admins/proc/poll_option_panel(datum/poll_question/poll, datum/poll_option/option)
-	var/list/output = list("<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]")
+	var/list/output = list("<form method='get' action='byond://?src=[REF(src)]'>[HrefTokenFormField()]")
 	output += {"<input type='hidden' name='src' value='[REF(src)]'>	Option for poll [poll.question]
 	<br>
 	<textarea class='textbox' name='optiontext'>[option?.text]</textarea>
@@ -604,7 +604,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		Maximum Value
 		<input type='text' name='maxval' size='3' value='[option?.max_val]'>
 		<div class='row'>
-  			<div class='column left'>
+				<div class='column left'>
 				<label class='inputlabel checkbox'>Minimum description
 				<input type='checkbox' id='descmincheck' name='descmincheck' value='1'[option?.desc_min ? " checked": ""]>
 				<div class='inputbox'></div></label>
@@ -638,7 +638,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		panel_height = 320
 	var/datum/browser/panel = new(usr, "popanel", "Poll Option Panel", 370, panel_height)
 	panel.add_stylesheet("admin_panelscss", 'html/admin/admin_panels.css')
-	if(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
 		panel.add_stylesheet("admin_panelscss3", 'html/admin/admin_panels_css3.css')
 	panel.set_content(jointext(output, ""))
 	panel.open()
@@ -654,7 +654,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/list/error_state = list()
 	var/new_option = FALSE
@@ -712,10 +712,10 @@ SELECT p.text, pv.rating, COUNT(*)
 			option.desc_max = null
 	if(error_state.len)
 		if(new_option)
-			to_chat(usr, "<span class='danger'>Option not added because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Option not added because the following errors were present:\n[error_state.Join("\n")]"))
 			qdel(option)
 		else
-			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]"))
 		return
 	if(new_option)
 		poll.options += option
@@ -752,7 +752,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 
 	var/list/values = list("text" = text, "default_percentage_calc" = default_percentage_calc, "pollid" = parent_poll.poll_id, "id" = option_id)
@@ -767,7 +767,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	for (var/k in values)
 		update_data += "[k] = VALUES([k])"
 
-	var/datum/DBQuery/query_update_poll_option = SSdbcore.NewQuery(
+	var/datum/db_query/query_update_poll_option = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("poll_option")] ([jointext(values, ",")]) VALUES (:[jointext(values, ",:")]) ON DUPLICATE KEY UPDATE [jointext(update_data, ", ")]",
 		values
 	)
@@ -788,9 +788,9 @@ SELECT p.text, pv.rating, COUNT(*)
 	. = parent_poll
 	if(option_id)
 		if(!SSdbcore.Connect())
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 			return
-		var/datum/DBQuery/query_delete_poll_option = SSdbcore.NewQuery(
+		var/datum/db_query/query_delete_poll_option = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("poll_option")] AS o INNER JOIN [format_table_name("poll_vote")] AS v ON o.id = v.optionid SET o.deleted = 1, v.deleted = 1 WHERE o.id = :option_id",
 			list("option_id" = option_id)
 		)
@@ -806,9 +806,9 @@ SELECT p.text, pv.rating, COUNT(*)
   */
 /proc/load_poll_data()
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
-	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime < NOW() AND NOW() < endtime, 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
+	var/datum/db_query/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime < NOW() AND NOW() < endtime, 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
 	if(!query_load_polls.Execute())
 		qdel(query_load_polls)
 		return
@@ -818,7 +818,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		poll_ids += query_load_polls.item[1]
 	qdel(query_load_polls)
 	if(length(poll_ids))
-		var/datum/DBQuery/query_load_poll_options = SSdbcore.NewQuery("SELECT id, text, minval, maxval, descmin, descmid, descmax, default_percentage_calc, pollid FROM [format_table_name("poll_option")] WHERE pollid IN ([jointext(poll_ids, ",")])")
+		var/datum/db_query/query_load_poll_options = SSdbcore.NewQuery("SELECT id, text, minval, maxval, descmin, descmid, descmax, default_percentage_calc, pollid FROM [format_table_name("poll_option")] WHERE pollid IN ([jointext(poll_ids, ",")])")
 		if(!query_load_poll_options.Execute())
 			qdel(query_load_poll_options)
 			return

@@ -1,4 +1,7 @@
 #define EXPLOSION_THROW_SPEED 4
+/// Max amount of explosions that we accept in a row from the same turf
+#define EXPLOSION_TURF_MAX 100
+
 GLOBAL_LIST_EMPTY(explosions)
 
 SUBSYSTEM_DEF(explosions)
@@ -31,10 +34,13 @@ SUBSYSTEM_DEF(explosions)
 	var/list/med_mov_atom = list()
 	var/list/high_mov_atom = list()
 
-	var/list/explosions = list()
+	// Track how many explosions have happened.
+	var/explosion_index = 0
 
-	var/currentpart = SSAIR_REBUILD_PIPENETS
+	var/currentpart = SSEXPLOSIONS_TURFS
 
+	var/turf/last_exploded_turf = null
+	var/last_explosion_count = 0
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
 	msg += "C:{"
@@ -153,12 +159,12 @@ SUBSYSTEM_DEF(explosions)
 		A.color = null
 		A.maptext = ""
 
-/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, smoke = TRUE, list/explosion_multiplier = list(1, 1, 1, 1))
+/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, explosion_type = /datum/effect_system/explosion/smoke, list/explosion_multiplier = list(1, 1, 1, 1))
 	if(!power)
 		return
 	var/range = 0
 	range = round((2 * power)**GLOB.DYN_EX_SCALE)
-	explosion(epicenter, round(range * 0.25 * explosion_multiplier[1]), round(range * 0.5 * explosion_multiplier[2]), round(range * explosion_multiplier[3]), flash_range * range * explosion_multiplier[4], adminlog, ignorecap, flame_range*range, silent, smoke)
+	explosion(epicenter, round(range * 0.25 * explosion_multiplier[1]), round(range * 0.5 * explosion_multiplier[2]), round(range * explosion_multiplier[3]), flash_range * range * explosion_multiplier[4], adminlog, ignorecap, flame_range*range, silent, explosion_type)
 
 // Using default dyn_ex scale:
 // 100 explosion power is a (5, 10, 20) explosion.
@@ -169,7 +175,7 @@ SUBSYSTEM_DEF(explosions)
 // 5 explosion power is a (0, 1, 3) explosion.
 // 1 explosion power is a (0, 0, 1) explosion.
 
-/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE, magic = FALSE, holy = FALSE, cap_modifier = 1)
+/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, explosion_type = /datum/effect_system/explosion, magic = FALSE, holy = FALSE, cap_modifier = 1)
 	. = SSexplosions.explode(arglist(args))
 
 #define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
@@ -182,10 +188,19 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, magic, holy, cap_modifier, explode_z = TRUE)
+/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, explosion_type, magic, holy, cap_modifier, explode_z = TRUE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
+
+	// If we get a lot of explosions on the same turfs, do a lot of explosions but skip some of the ones towards the end
+	if (epicenter == last_exploded_turf)
+		last_explosion_count ++
+		if (last_explosion_count > EXPLOSION_TURF_MAX)
+			return
+	else
+		last_explosion_count = 0
+		last_exploded_turf = epicenter
 
 	if(isnull(flame_range))
 		flame_range = light_impact_range
@@ -220,7 +235,7 @@ SUBSYSTEM_DEF(explosions)
 		message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [ADMIN_VERBOSEJMP(epicenter)]")
 		log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [loc_name(epicenter)]")
 		if(is_station_level(epicenter.z))
-			deadchat_broadcast("<span class='ghostalert'>Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!</span>", turf_target = epicenter)
+			deadchat_broadcast(span_ghostalert("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!"), turf_target = epicenter)
 
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
@@ -250,6 +265,7 @@ SUBSYSTEM_DEF(explosions)
 
 		if(prob(devastation_range*DEVASTATION_PROB+heavy_impact_range*HEAVY_IMPACT_PROB) && on_station) // Huge explosions are near guaranteed to make the station creak and whine, smaller ones might.
 			creaking_explosion = TRUE // prob over 100 always returns true
+			flicker_all_lights()
 
 		for(var/MN in GLOB.player_list)
 			var/mob/M = MN
@@ -287,23 +303,19 @@ SUBSYSTEM_DEF(explosions)
 						shake_camera(M, 10, clamp(baseshakeamount*0.25, 0, SHAKE_CLAMP))
 						echo_volume = 60
 					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
-
 				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, TRUE, hull_creaking_sound, 0), CREAK_DELAY)
 
+
 	if(heavy_impact_range > 1)
-		var/datum/effect_system/explosion/E
-		if(smoke)
-			E = new /datum/effect_system/explosion/smoke
-		else
-			E = new
+		var/datum/effect_system/explosion/E = new explosion_type
 		E.set_up(epicenter)
 		E.start()
 
 	//flash mobs
 	if(flash_range)
 		for(var/mob/living/L in viewers(flash_range, epicenter))
-			if(L.anti_magic_check(magic, holy))
+			if(L.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0), 0))
 				continue
 			L.flash_act()
 
@@ -323,7 +335,7 @@ SUBSYSTEM_DEF(explosions)
 		var/dist = init_dist
 
 		//Phew, that was a close one.
-		if(holy && (locate(/obj/effect/blessing) in T))
+		if(holy && T.is_holy())
 			continue
 
 		if(reactionary)
@@ -352,7 +364,7 @@ SUBSYSTEM_DEF(explosions)
 				//Ignore magic protected things.
 				if(ismob(A))
 					var/mob/M = A
-					if(M.anti_magic_check(magic, holy, TRUE, TRUE))
+					if(M.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0)))
 						continue
 				if (length(A.contents) && !(A.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)) //The atom/contents_explosion() proc returns null if the contents ex_acting has been handled by the atom, and TRUE if it hasn't.
 					items += A.GetAllContents(ignore_flag_1 = PREVENT_CONTENTS_EXPLOSION_1)
@@ -372,7 +384,7 @@ SUBSYSTEM_DEF(explosions)
 		if(magic || holy)
 			var/divine_protection = FALSE
 			for(var/mob/living/L in T.contents)
-				if(L.anti_magic_check(magic, holy, TRUE))
+				if(L.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0)))
 					divine_protection = TRUE
 					break
 			if(divine_protection)
@@ -430,7 +442,6 @@ SUBSYSTEM_DEF(explosions)
 				ignorecap,
 				max(flame_range - z_reduction, 0),
 				silent = TRUE,
-				smoke = FALSE,
 				explode_z = FALSE)
 
 	var/took = (REALTIMEOFDAY - started_at) / 10
@@ -439,7 +450,9 @@ SUBSYSTEM_DEF(explosions)
 	if(GLOB.Debug2)
 		log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	explosion_index += 1
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 
 #undef CREAK_DELAY
 #undef DEVASTATION_PROB
@@ -529,7 +542,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in low_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_LIGHT)
-			turf_thing.ex_act(EXPLODE_LIGHT)
+			EX_ACT(turf_thing, EXPLODE_LIGHT)
 			lowturf -= turf_thing
 		cost_lowturf = MC_AVERAGE(cost_lowturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -539,7 +552,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in med_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_HEAVY)
-			turf_thing.ex_act(EXPLODE_HEAVY)
+			EX_ACT(turf_thing, EXPLODE_HEAVY)
 			medturf -= turf_thing
 		cost_medturf = MC_AVERAGE(cost_medturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -549,7 +562,7 @@ SUBSYSTEM_DEF(explosions)
 		for(var/thing in high_turf)
 			var/turf/turf_thing = thing
 			turf_thing.explosion_level = max(turf_thing.explosion_level, EXPLODE_DEVASTATE)
-			turf_thing.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(turf_thing, EXPLODE_DEVASTATE)
 			highturf -= turf_thing
 		cost_highturf = MC_AVERAGE(cost_highturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -562,7 +575,9 @@ SUBSYSTEM_DEF(explosions)
 				new /obj/effect/hotspot(T) //Mostly for ambience!
 		cost_flameturf = MC_AVERAGE(cost_flameturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
-		if (low_turf.len || med_turf.len || high_turf.len)
+		// If a significant amount of turfs change, then we will run lighter for the rest of the tick
+		// because maptick is going to have an unexpected increase.
+		if (low_turf.len + med_turf.len + high_turf.len > 10)
 			Master.laggy_byond_map_update_incoming()
 
 	if(currentpart == SSEXPLOSIONS_MOVABLES)
@@ -575,7 +590,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(movable_thing, EXPLODE_DEVASTATE)
 			high_mov_atom -= movable_thing
 		cost_high_mov_atom = MC_AVERAGE(cost_high_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -586,7 +601,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_HEAVY)
+			EX_ACT(movable_thing, EXPLODE_HEAVY)
 			med_mov_atom -= movable_thing
 		cost_med_mov_atom = MC_AVERAGE(cost_med_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -597,7 +612,7 @@ SUBSYSTEM_DEF(explosions)
 			var/atom/movable/movable_thing = thing
 			if(QDELETED(movable_thing))
 				continue
-			movable_thing.ex_act(EXPLODE_LIGHT)
+			EX_ACT(movable_thing, EXPLODE_LIGHT)
 			low_mov_atom -= movable_thing
 		cost_low_mov_atom = MC_AVERAGE(cost_low_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -627,4 +642,7 @@ SUBSYSTEM_DEF(explosions)
 
 	currentpart = SSEXPLOSIONS_TURFS
 
-#undef SSAIR_REBUILD_PIPENETS
+#undef EXPLOSION_THROW_SPEED
+#undef EXPLOSION_TURF_MAX
+#undef SSEX_TURF
+#undef SSEX_OBJ

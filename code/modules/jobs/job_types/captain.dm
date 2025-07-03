@@ -1,7 +1,9 @@
 /datum/job/captain
 	title = JOB_NAME_CAPTAIN
-	flag = CAPTAIN
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	description = "Supreme leader of the station, oversee and appoint missing heads of staff, manage alert levels and contact CentCom if needed. Don't forget to secure the nuclear authentication disk."
+	department_for_prefs = DEPT_NAME_CAPTAIN
+	department_head_for_prefs = JOB_NAME_CAPTAIN
+	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	supervisors = "Nanotrasen officials and Space law"
 	faction = "Station"
@@ -10,16 +12,14 @@
 	selection_color = "#ccccff"
 	req_admin_notify = 1
 	minimal_player_age = 14
-	exp_requirements = 1200
+	exp_requirements = 900
 	exp_type = EXP_TYPE_COMMAND
-	exp_type_department = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/captain
 
-	access = list() 			//See get_access()
-	minimal_access = list() 	//See get_access()
+	base_access = list()  //See get_access()
+	extra_access = list() //See get_access()
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
@@ -33,6 +33,13 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/command
 	)
+
+	minimal_lightup_areas = list(
+		/area/crew_quarters/heads/captain,
+		/area/crew_quarters/heads/hop,
+		/area/security
+	)
+
 /datum/job/captain/get_access()
 	return get_all_accesses()
 
@@ -52,7 +59,7 @@
 	uniform =  /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	head = /obj/item/clothing/head/caphat
+	head = /obj/item/clothing/head/hats/caphat
 	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/station_charter=1)
 
 	backpack = /obj/item/storage/backpack/captain

@@ -19,6 +19,10 @@
 		/turf/open/floor/dock,
 		/turf/open/floor/plating/snowed,
 		/turf/open/floor/plating/ice,
+		/turf/open/floor/plating/grass,
+		/turf/open/floor/plating/dirt/planetary,
+		/turf/open/floor/plating/beach,
+
 	)
 	var/designate_time = 50
 	var/turf/designating_target_loc
@@ -27,6 +31,8 @@
 	var/datum/action/innate/camera_multiz_up/move_up_action = new
 	///Camera action button to move down a Z level
 	var/datum/action/innate/camera_multiz_down/move_down_action = new
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -39,32 +45,26 @@
 
 /obj/machinery/computer/shuttle_flight/proc/GrantActions(mob/living/user)
 	if(off_action)
-		off_action.target = user
 		off_action.Grant(user)
 		actions += off_action
 
 	if(rotate_action)
-		rotate_action.target = user
 		rotate_action.Grant(user)
 		actions += rotate_action
 
 	if(place_action)
-		place_action.target = user
 		place_action.Grant(user)
 		actions += place_action
 
 	if(docker_action)
-		docker_action.target = user
 		docker_action.Grant(user)
 		actions += docker_action
 
 	if(move_up_action)
-		move_up_action.target = user
 		move_up_action.Grant(user)
 		actions += move_up_action
 
 	if(move_down_action)
-		move_down_action.target = user
 		move_down_action.Grant(user)
 		actions += move_down_action
 
@@ -73,6 +73,13 @@
 	if(QDELETED(shuttle_port))
 		shuttle_port = null
 		return
+
+	var/static/list/passible_things = list(
+		/obj/machinery/door,
+		/obj/structure/falsewall,
+		/obj/structure/holosign/barrier/atmos,
+		/obj/structure/fans/tiny
+	)
 
 	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
 	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(origin, src)
@@ -83,13 +90,19 @@
 			for(var/turf/T in A)
 				if(T.get_virtual_z_level() != origin.get_virtual_z_level())
 					continue
-				var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
+				// if it has doors or something passible, turn on a flag so it can return a better flag to show better result
+				var/passible = FALSE
+				for(var/each in passible_things)
+					if(locate(each) in T)
+						passible = TRUE
+						break
+				var/image/I = image('icons/effects/alphacolors_shuttle.dmi', origin, "red", dir=NORTH)
 				var/x_off = T.x - origin.x
 				var/y_off = T.y - origin.y
 				I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
 				I.plane = ABOVE_LIGHTING_PLANE
 				I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-				the_eye.placement_images[I] = list(x_off, y_off)
+				the_eye.placement_images[I] = list(x_off, y_off, passible)
 
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
 	if(!isliving(user))
@@ -154,29 +167,29 @@
 		return
 
 	if(QDELETED(shuttleObject))
-		to_chat(usr, "<span class='warning'>Shuttle has already docked.</span>")
+		to_chat(usr, span_warning("Shuttle has already docked."))
 		return
 
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 	var/landing_clear = checkLandingSpot()
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
-		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
+		to_chat(current_user, span_warning("Targeting transit location, please wait [DisplayTimeText(designate_time)]..."))
 		designating_target_loc = the_eye.loc
 		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, progress = TRUE, timed_action_flags = IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
 		if(!wait_completed)
-			to_chat(current_user, "<span class='warning'>Operation aborted.</span>")
+			to_chat(current_user, span_warning("Operation aborted."))
 			return
 		landing_clear = checkLandingSpot()
 
 	if(landing_clear != SHUTTLE_DOCKER_LANDING_CLEAR)
 		switch(landing_clear)
 			if(SHUTTLE_DOCKER_BLOCKED)
-				to_chat(current_user, "<span class='warning'>Invalid transit location.</span>")
+				to_chat(current_user, span_warning("Invalid transit location."))
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				to_chat(current_user, "<span class='warning'>Unknown object detected in landing zone. Please designate another location.</span>")
+				to_chat(current_user, span_warning("Unknown object detected in landing zone. Please designate another location."))
 		return
 
 	///Make one use port that deleted after fly off, to don't lose info that need on to properly fly off.
@@ -207,7 +220,7 @@
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V
-		var/image/newI = image('icons/effects/alphacolors.dmi', the_eye.loc, "blue")
+		var/image/newI = image('icons/effects/alphacolors_shuttle.dmi', the_eye.loc, "blue")
 		newI.loc = I.loc //It is highly unlikely that any landing spot including a null tile will get this far, but better safe than sorry.
 		newI.plane = ABOVE_LIGHTING_PLANE
 		newI.mouse_opacity = 0
@@ -224,9 +237,9 @@
 			say("Waiting for hyperspace lane...")
 			INVOKE_ASYNC(src, PROC_REF(unfreeze_shuttle), M, SSmapping.get_level(eyeobj.z))
 		if(1)
-			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+			to_chat(usr, span_warning("Invalid shuttle requested."))
 		else
-			to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+			to_chat(usr, span_notice("Unable to comply."))
 
 	return TRUE
 
@@ -246,6 +259,7 @@
 		coords[1] = coords[2]
 		coords[2] = -Tmp
 		pic.loc = locate(the_eye.x + coords[1], the_eye.y + coords[2], the_eye.z)
+		pic.setDir(turn(pic.dir, -90))
 	checkLandingSpot()
 
 /obj/machinery/computer/shuttle_flight/proc/checkLandingSpot()
@@ -267,13 +281,22 @@
 		I.loc = T
 		switch(checkLandingTurf(T, overlappers))
 			if(SHUTTLE_DOCKER_LANDING_CLEAR)
-				I.icon_state = "green"
+				if(coords[3])
+					I.icon_state = "blue"
+				else
+					I.icon_state = "green_arrows"
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				I.icon_state = "green"
+				if(coords[3])
+					I.icon_state = "blue"
+				else
+					I.icon_state = "green_arrows"
 				if(. == SHUTTLE_DOCKER_LANDING_CLEAR)
 					. = SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT
 			else
-				I.icon_state = "red"
+				if(coords[3])
+					I.icon_state = "blue_blocked"
+				else
+					I.icon_state = "red_arrows"
 				. = SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/shuttle_flight/proc/checkLandingTurf(turf/T, list/overlappers)
@@ -335,6 +358,8 @@
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
+
 /mob/camera/ai_eye/remote/shuttle_docker/Initialize(mapload, obj/machinery/computer/camera_advanced/origin)
 	src.origin = origin
 	return ..()
@@ -355,38 +380,38 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
-/datum/action/innate/shuttledocker_rotate/Activate()
-	if(QDELETED(target) || !isliving(target))
+/datum/action/innate/shuttledocker_rotate/on_activate()
+	if(QDELETED(owner) || !isliving(owner))
 		return
-	var/mob/living/C = target
+	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/shuttle_flight/origin = remote_eye.origin
 	origin.rotateLandingSpot()
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
-/datum/action/innate/shuttledocker_place/Activate()
-	if(QDELETED(target) || !isliving(target))
+/datum/action/innate/shuttledocker_place/on_activate()
+	if(QDELETED(owner) || !isliving(owner))
 		return
-	var/mob/living/C = target
+	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/shuttle_flight/origin = remote_eye.origin
-	origin.placeLandingSpot(target)
+	origin.placeLandingSpot(owner)
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Jump to Location"
 	button_icon_state = "camera_jump"
 
-/datum/action/innate/camera_jump/shuttle_docker/Activate()
-	if(QDELETED(target) || !isliving(target))
+/datum/action/innate/camera_jump/shuttle_docker/on_activate()
+	if(QDELETED(owner) || !isliving(owner))
 		return
-	var/mob/living/C = target
+	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/shuttle_flight/console = remote_eye.origin
 
@@ -405,17 +430,18 @@
 			L["(L.len)[S.name]"] = S
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
-	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in L
-	if(QDELETED(src) || QDELETED(target) || !isliving(target))
+	var/selected = tgui_input_list(usr, "Choose location to jump to", "Locations", sort_list(L))
+	if(isnull(selected))
+		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
 		return
-	playsound(src, "terminal_type", 25, 0)
-	if(selected)
-		var/turf/T = get_turf(L[selected])
-		if(T)
-			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
-			remote_eye.setLoc(T)
-			to_chat(target, "<span class='notice'>Jumped to [selected].</span>")
-			C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
-			C.clear_fullscreen("flash", 3)
-	else
-		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+	if(QDELETED(src) || QDELETED(owner) || !isliving(owner))
+		return
+	playsound(src, "terminal_type", 25, FALSE)
+	var/turf/T = get_turf(L[selected])
+	if(isnull(T))
+		return
+	playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
+	remote_eye.setLoc(T)
+	to_chat(owner, span_notice("Jumped to [selected]."))
+	C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+	C.clear_fullscreen("flash", 3)

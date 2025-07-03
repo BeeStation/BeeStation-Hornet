@@ -78,14 +78,18 @@ HUMANS_NEED_SURNAMES
 
 
 ## ALERT LEVELS ###
-ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced.
+ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are now in effect.
 ALERT_BLUE_UPTO The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted.
 ALERT_BLUE_DOWNTO The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.
-ALERT_RED_UPTO There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. Additionally, access requirements on some doors have been lifted.
-ALERT_RED_DOWNTO The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
-ALERT_DELTA Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.
-
-
+ALERT_RED_UPTO The station is now under martial law. There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.
+ALERT_RED_DOWNTO There is still an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
+ALERT_DELTA Destruction of the station is imminent. Prepare for immediate evacuation. Any violations of orders from Heads of Staff or security are punishable by death.
+ALERT_ENGINEERING The security alert is now Yellow(Engineering). A critical engineering issue is present on the station. Don protective gear and personal oxygen systems. Command authority is transferred to the Chief Engineer for the duration of this alert.
+ALERT_MEDICAL The security alert is now Yellow(Medical). A C-B-R-N threat is present aboard the station. Don protective gear and personal oxygen systems. Command authority is transferred to the Chief Medical Officer for the duration of this alert.
+ALERT_BLACK Command staff has activated "BLACK" security level on the station. All hands are to prepare for combat. Any violations of orders from Heads of Staff or security are punishable by death.
+ALERT_GAMMA Central Command has ordered "GAMMA" security level on the station. The station is now under direct central command control. All central command staff are to be obeyed at all costs.
+ALERT_LAMBDA Central Command has ordered "LAMBDA" security level on the station. Any violations of orders from Heads of Staff or security are punishable by death. All hands, prepare for evacuation.
+ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. Your station is designated as a lost asset. Consider your contracts with Nanotrasen terminated.
 
 ## GAME MODES ###
 
@@ -105,7 +109,6 @@ PROBABILITY CULT 0
 PROBABILITY TRAITORCHAN 0
 PROBABILITY CHANGELING 0
 PROBABILITY ASSIMILATION 0
-PROBABILITY INCURSION 0
 PROBABILITY NUCLEAR 0
 PROBABILITY CLOCKCULT 0
 PROBABILITY SECRET_EXTENDED 0
@@ -136,7 +139,6 @@ REPEATED_MODE_ADJUST 45 30 10
 CONTINUOUS TRAITOR
 CONTINUOUS TRAITORBRO
 CONTINUOUS TRAITORCHAN
-CONTINUOUS INCURSION
 CONTINUOUS INTERNAL_AFFAIRS
 #CONTINUOUS NUCLEAR
 #CONTINUOUS REVOLUTION
@@ -163,7 +165,6 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
-MIDROUND_ANTAG INCURSION
 #MIDROUND_ANTAG TRAITORBRO
 MIDROUND_ANTAG TRAITORCHAN
 MIDROUND_ANTAG INTERNAL_AFFAIRS
@@ -215,9 +216,6 @@ MAX_POP DEVIL -1
 MIN_POP DEVIL_AGENTS 25
 MAX_POP DEVIL_AGENTS -1
 
-MIN_POP INCURSION 22
-MAX_POP INCURSION -1
-
 ## Setting at least one mode to be playable at 0/1 players is required.
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
@@ -249,7 +247,7 @@ SECURITY_SCALING_COEFF 10
 
 ## The number of objectives traitors get.
 ## Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 3
+TRAITOR_OBJECTIVES_AMOUNT 2
 BROTHER_OBJECTIVES_AMOUNT 2
 
 ## Uncomment to prohibit jobs that start with loyalty
@@ -267,19 +265,6 @@ PROTECT_HEADS_FROM_ANTAGONIST
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
-
-## The minimum amount of players for malfunctioning AI to be occur.
-MALF_AI_MINIMUM_POP 30
-
-## Incursion Rules
-## The more incursion-traitors spawn, the most pop is required to spawn the next
-## Values of 6 and 2 will be 6 for 1 then (6) + (6 + 2) for 2
-## 6, 14, 24, 36, 50, 66, 84
-INCURSION_COST_BASE 6
-INCURSION_COST_INCREMENT 0.25
-INCURSION_COUNT_MAX 6
-INCURSION_COUNT_MIN 2
-INCURSION_OBJECTIVE_AMOUNT 4
 
 ## Comment this out to disable the antagonist reputation system. This system rewards players who participate in the game instead of greytiding by giving them slightly higher odds to
 ## roll antagonist in subsequent rounds until they get it.
@@ -491,7 +476,8 @@ ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
 #ROUNDSTART_RACES fly
-
+ROUNDSTART_RACES psyphoza
+ROUNDSTART_RACES diona
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES apid
@@ -499,23 +485,34 @@ ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES ipc
 ROUNDSTART_RACES oozeling
 ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES abductor
+
+## Golems
+## ----------------
+
 #ROUNDSTART_RACES adamantine_golem
 #ROUNDSTART_RACES diamond_golem
 #ROUNDSTART_RACES gold_golem
 #ROUNDSTART_RACES iron_golem
-#ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES plasma_golem
-#ROUNDSTART_RACES shadow
 #ROUNDSTART_RACES silver_golem
 #ROUNDSTART_RACES uranium_golem
 
-## Races that are straight upgrades. If these are on expect powergamers to always pick them
-#ROUNDSTART_RACES agent
-#ROUNDSTART_RACES pod
+## Halloween races
+## ----------------
+
+#ROUNDSTART_RACES abductor
+#ROUNDSTART_RACES shadow
+#ROUNDSTART_RACES dullahan
+#ROUNDSTART_RACES pumpkin_man
+#ROUNDSTART_RACES vampire
+
+## OP Halloween races:
 #ROUNDSTART_RACES skeleton
-#ROUNDSTART_RACES slime
 #ROUNDSTART_RACES zombie
+
+## Races that are straight upgrades. If these are on expect powergamers to always pick them
+#ROUNDSTART_RACES pod
+
 
 ## Roundstart no-reset races
 ##-------------------------------------------------------------------------------------------
@@ -646,3 +643,53 @@ SPARE_ENFORCE_COC
 
 ## Uncomment to disable local bans, effectively enforcing only global bans
 DISABLE_LOCAL_BANS
+
+## Comment this to disable roundstart lights being turned off in non-staffed departments
+#DARK_UNSTAFFED_DEPARTMENTS
+
+## Virology tweaks
+
+## Allow the Virologist job to be picked.
+#ALLOW_VIROLOGIST
+
+##Uncomment to allow most virus recipes to work
+#CHEMVIRO_ALLOWED
+
+##Uncomment to allow the virus extrapolator to isolate virus symptoms
+#ISOLATION_ALLOWED
+
+##Uncomment to allow Formaldehyde to be used to neuter viruses, as well as other utility chems (synaptizine, cryostylane) to function
+NEUTER_ALLOWED
+
+##Uncomment to allow viruses to be mixed to combine symptoms
+MIXVIRUS_ALLOWED
+
+##Uncomment to disable seeded symptom removal.
+##This should be commented if you want fully custom viruses. At the start of each round, the ID of each symptom is randomized. This random ID is used to pre-determine rng-based methods of symptom removal.
+SEEDED_SYMPTOMS
+
+##Uncomment to allow dormant diseases, rats, and other biohazardous items to infect players
+BIOHAZARDS_ALLOWED
+
+##Uncomment to allow necrotic metabolism to process on dead mobs. Some symptoms require this to function
+PROCESS_DEAD_ALLOWED
+
+##Comment to make symptoms that result in virus spreading require a transmission threshold.
+##It is recommended that you comment this if you want fully customizeable viro, for a balanced experience.
+#UNCONDITIONAL_VIRUS_SPREADING
+
+##uncomment to make certain symptom thresholds no longer required for their effects, and others have lowered effect thresholds
+##It is recommended that you comment this if you want fully customizeable viro, for a balanced experience.
+UNCONDITIONAL_SYMPTOM_THRESHOLDS
+
+##Uncomment to allow event viruses to have the UNCONDITIONAL_SYMPTOM_THRESHOLDS above, without enabling that setting. Also enables special virus thresholds even if they're normally disabled
+EVENT_SYMPTOM_THRESHOLDS
+
+##Uncomment to allow certain symptoms to have powerful, game-warping thresholds (vampirism, zombies, etc)
+SPECIAL_SYMPTOM_THRESHOLDS
+
+##At this amount of symptoms, Synaptizine will no longer remove symptoms from a virus. Set this to 6 or higher to prevent removing symptoms at all. Set this to 1 to allow synaptizine to work to its full effect
+VIRUS_THINNING_CAP 4
+
+
+

@@ -11,18 +11,19 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/obj/item/implantcase/case = null
 
-/obj/item/implantpad/update_icon()
+/obj/item/implantpad/update_icon_state()
 	icon_state = "implantpad-[!QDELETED(case)]"
+	return ..()
 
 /obj/item/implantpad/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
 		. += "It [case ? "contains \a [case]" : "is currently empty"]."
 		if(case)
-			. += "<span class='info'>Alt-click to remove [case].</span>"
+			. += span_info("Alt-click to remove [case].")
 	else
 		if(case)
-			. += "<span class='warning'>There seems to be something inside it, but you can't quite tell what from here...</span>"
+			. += span_warning("There seems to be something inside it, but you can't quite tell what from here...")
 
 /obj/item/implantpad/handle_atom_del(atom/A)
 	if(A == case)
@@ -35,7 +36,7 @@
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	if(!case)
-		to_chat(user, "<span class='warning'>There's no implant to remove from [src].</span>")
+		to_chat(user, span_warning("There's no implant to remove from [src]."))
 		return
 
 	user.put_in_hands(case)
@@ -73,5 +74,5 @@
 			dat += "The implant casing is empty."
 	else
 		dat += "Please insert an implant casing!"
-	user << browse(dat, "window=implantpad")
+	user << browse(HTML_SKELETON(dat), "window=implantpad")
 	onclose(user, "implantpad")

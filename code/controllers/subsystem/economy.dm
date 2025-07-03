@@ -15,14 +15,14 @@ SUBSYSTEM_DEF(economy)
 	var/list/dep_cards = list()
 	///The modifier multiplied to the value of bounties paid out.
 	///Multiplied as they go to all department accounts rather than just cargo.
-	var/bounty_modifier = 3
+	var/bounty_modifier = 9
 
 	/// Number of mail items generated.
 	var/mail_waiting
 	/// Mail Holiday: AKA does mail arrive today? Always blocked on Sundays, but not on bee, the mail is 24/7.
 	var/mail_blocked = FALSE
 
-/datum/controller/subsystem/economy/Initialize(timeofday)
+/datum/controller/subsystem/economy/Initialize()
 	//Calculating before creating dept accounts
 	var/budget_size = 0
 	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(economy)
 		D.account_holder = ACCOUNT_ALL_NAME
 		// Note: if you want to remove united_budget feature, try /event verb and find united budget cancel event
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/economy/Recover()
 	budget_accounts = SSeconomy.budget_accounts
@@ -53,7 +53,7 @@ SUBSYSTEM_DEF(economy)
 		var/datum/bank_account/B = A
 		B.payday(1)
 	var/effective_mailcount = living_player_count()
-	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
+	mail_waiting = clamp(mail_waiting + clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE), 0, MAX_MAIL_LIMIT)
 
 /datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
 	if(!length(bank_accounts))
@@ -132,11 +132,16 @@ SUBSYSTEM_DEF(economy)
 /datum/bank_account/department/proc/is_nonstation_account() // It's better to read than if(D.nonstation_account)
 	return nonstation_account
 
-/datum/controller/subsystem/economy/proc/distribute_funds(amount)
+/// Returns the total amount of shares into which distributed funds are split
+/datum/controller/subsystem/economy/proc/distribution_sum()
 	var/distribution_sum = 0
 	for(var/datum/bank_account/department/D in budget_accounts)
 		distribution_sum += D.budget_ratio
-	var/single_part = round(amount / distribution_sum)
+	return distribution_sum
+
+/// Distributes funds to every budget according to its budget ratio
+/datum/controller/subsystem/economy/proc/distribute_funds(amount)
+	var/single_part = round(amount / distribution_sum())
 	for(var/datum/bank_account/department/D in budget_accounts)
 		D.adjust_money(single_part * D.budget_ratio)
 		if(D.nonstation_account)

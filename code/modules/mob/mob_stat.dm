@@ -1,4 +1,26 @@
+/// How many items per tile until we just completely give up?
+#define MAX_ITEMS_TO_READ 500
+/// How many unique entries should we show per-tile before giving up?
 #define MAX_ICONS_PER_TILE 50
+
+/// Determine the priority of this item in the stat panel
+/// I decided to do it this way to reduce the amount of memory wasted on all atoms.
+/// There is a reason for this madness
+#define STAT_PANEL_TAG(atom) ishuman(atom) \
+	? "Human" \
+	: ismob(atom) \
+		? "Mob" \
+		: isitem(atom) \
+			? "Item" \
+			: isstructure(atom) \
+				? "Structure" \
+				: ismachinery(atom) \
+					? "Machinery" \
+					: isturf(atom) \
+						? "Turf" \
+						: "Other"
+
+#define STAT_TAB_ACTIONS "Actions"
 
 /client
 	var/stat_update_mode = STAT_FAST_UPDATE
@@ -10,7 +32,7 @@
 /*
  * Overrideable proc which gets the stat content for the selected tab.
  */
- //33.774 CPU time
+//33.774 CPU time
 /mob/proc/get_stat(selected_tab)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
@@ -37,6 +59,10 @@
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data = GLOB.interviews.stat_entry()
+		if ("Combat")
+			client.stat_update_mode = STAT_SLOW_UPDATE
+			requires_holder = TRUE
+			tab_data = SScombat_logging.generate_stat_tab()
 		// ===== SDQL2 =====
 		if("SDQL2")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
@@ -69,44 +95,109 @@
 						"message" = message.message
 					)
 					tab_data["messages"] += list(msg)
+		if (STAT_TAB_ACTIONS)
+			for(var/datum/action/action in actions)
+				tab_data["[action.name]"] = list(
+					text = action.get_stat_label(),
+					type = STAT_BUTTON,
+					action = "do_action",
+					params = list("ref" = REF(action))
+				)
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
 			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
-				client.stat_update_mode = STAT_MEDIUM_UPDATE
-				var/list/overrides = list()
-				for(var/image/I in client.images)
-					if(I.loc && I.loc.loc == listed_turf && I.override)
-						overrides += I.loc
-				tab_data[REF(listed_turf)] = list(
-					text="[listed_turf.name]",
-					type=STAT_ATOM
-				)
-				var/sanity = MAX_ICONS_PER_TILE
-				for(var/atom/A in listed_turf)
-					if(!A.mouse_opacity)
-						continue
-					if(A.invisibility > see_invisible)
-						continue
-					if(overrides.len && (A in overrides))
-						continue
-					if(A.IsObscured())
-						continue
-					sanity --
-					tab_data[REF(A)] = list(
-						text="[A.name]",
-						type=STAT_ATOM
-					)
-					if(sanity < 0)
-						break
-			if(mind)
-				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
-			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
+				// Check if we can actually see the turf
+				listed_turf.render_stat_information(client, tab_data)
 	if(requires_holder && !client.holder)
 		message_admins("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		return list()
 	return tab_data
+
+/turf/proc/render_stat_information(client/client, list/tab_data)
+	client.stat_update_mode = STAT_MEDIUM_UPDATE
+	// Display the turf
+	var/list/overrides = list()
+	for(var/image/I in client.images)
+		if(I.loc && I.loc.loc == src && I.override)
+			overrides[I.loc] = I
+	tab_data[REF(src)] = list(
+		text="[name]",
+		tag = STAT_PANEL_TAG(src),
+		image = FAST_REF(src),
+		type=STAT_ATOM
+	)
+	var/max_item_sanity = MAX_ITEMS_TO_READ
+	var/icon_count_sanity = MAX_ICONS_PER_TILE
+	var/list/atom_count = list()
+	var/list/image_overrides = list()
+	// Caching for A.IsObscured to improve performance, in is faster than dictionary lookups for
+	// small (and even quite large) lists.
+	var/list/checked_layers = list()
+	var/list/obscured_layers = list()
+	// Find items and group them by both name and count
+	for (var/atom/A as() in src)
+		// Too many items read
+		if(max_item_sanity-- < 0)
+			break
+		if(!A.mouse_opacity)
+			continue
+		if(A.invisibility > client.mob.see_invisible)
+			continue
+		if(A.layer in checked_layers)
+			if (A.layer in obscured_layers)
+				continue
+		else
+			checked_layers += A.layer
+			if (A.IsObscured())
+				obscured_layers += A.layer
+		var/atom_type = A.type
+		var/atom_name = A.name
+		if(overrides.len && overrides[A])
+			var/image/override_image = overrides[A]
+			atom_name = override_image.name
+			image_overrides[A] = override_image
+		// use the max item sanity as an extention if the unique flag is set, since its unique
+		var/extension = (A.flags_1 & STAT_UNIQUE_1) && max_item_sanity
+		var/list/item_group = atom_count["[atom_type][atom_name][extension]"]
+		if (item_group)
+			item_group += A
+		else
+			atom_count["[A.type][A.name][extension]"] = list(A)
+			// To many icon types per tile
+			if (icon_count_sanity-- <= 0)
+				break
+	// Display the atoms
+	for(var/atom_type in atom_count)
+		var/atom_items = atom_count[atom_type]
+		var/item_count = length(atom_items)
+		var/atom/first_atom = atom_items[1]
+		if (istype(first_atom, /obj/item/stack))
+			item_count = 0
+			for (var/obj/item/stack/stack_item as() in atom_items)
+				item_count += stack_item.amount
+		var/atom_name = first_atom.name
+		var/image_icon
+		if (image_overrides[first_atom])
+			var/image/override_image = image_overrides[first_atom]
+			atom_name = override_image.name
+			image_icon = FAST_REF(override_image)
+		else
+			image_icon = FAST_REF(first_atom)
+		tab_data[REF(first_atom)] = list(
+			text = "[atom_name][item_count > 1 ? " (x[item_count])" : ""]",
+			tag = STAT_PANEL_TAG(first_atom),
+			image = image_icon,
+			type = STAT_ATOM
+		)
+	// Display self
+	tab_data[REF(client.mob)] = list(
+		text = client.mob.name,
+		tag = "You",
+		image = FAST_REF(client.mob),
+		type = STAT_ATOM
+	)
 
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
@@ -159,17 +250,23 @@
 	tab_data["divider_2"] = GENERATE_STAT_BLANK
 
 	if(!SSticker.HasRoundStarted())
-		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[GLOB.clients.len]")
+		var/pre_auth = SSticker.totalPlayersPreAuth ? " ([SSticker.totalPlayersPreAuth] pre-auth)" : ""
+		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[SSticker.totalPlayers][pre_auth]")
 	else
-		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
+		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients_unsafe.len]")
 	if(SSticker.round_start_time)
-		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(get_security_level())]")
+		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 
 	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+	if (!isnewplayer(src) && SSautotransfer.can_fire && client?.player_details)
+		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac() == TRUE) //THIS MUST BE "== TRUE" TO WORK. canEvac() ALWAYS RETURNS A VALUE.
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
+		else
+			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"]", "votetoleave")
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -195,6 +292,20 @@
 		tab_data["divider_2"] = GENERATE_STAT_DIVIDER
 		for(var/datum/controller/subsystem/SS in Master.subsystems)
 			tab_data += SS.stat_entry()
+		tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+		var/datum/controller/subsystem/queue_node = Master.last_type_processed
+		if (queue_node)
+			tab_data["Last Processed:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+		queue_node = Master.queue_head
+		var/i = 0
+		while (queue_node)
+			tab_data["Queue [i++]:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+			queue_node = queue_node.queue_next
+		tab_data["divider_4"] = GENERATE_STAT_DIVIDER
+		for (var/j in 1 to length(Master.previous_ticks))
+			var/datum/mc_tick/tick = Master.previous_ticks[(Master.circular_queue_head - j + length(Master.previous_ticks)) % length(Master.previous_ticks) + 1]
+			tab_data["Tick [tick.tick_number]"] = GENERATE_STAT_TEXT(tick.get_stat_text())
+	tab_data["divider_5"] = GENERATE_STAT_DIVIDER
 	tab_data += GLOB.cameranet.stat_entry()
 	return tab_data
 
@@ -217,17 +328,14 @@
 			listed_turf = null
 		else
 			tabs |= sanitize(listed_turf.name)
-	//Add spells
-	var/list/spells = mob_spell_list
-	if(mind)
-		spells = mind.spell_list
-	for(var/obj/effect/proc_holder/spell/S in spells)
-		if(S.can_be_cast_by(src))
-			tabs |= S.panel
+	//Spells we have
+	if (length(actions))
+		tabs += STAT_TAB_ACTIONS
 	//Holder stat tabs
 	if(client.holder)
 		tabs |= "MC"
 		tabs |= "Tickets"
+		tabs |= "Combat"
 		if(CONFIG_GET(flag/panic_bunker_interview))
 			tabs |= "Interviews"
 		if(length(GLOB.sdql2_queries))
@@ -254,18 +362,42 @@
 		return
 	switch(button_pressed)
 		if("browsetickets")
+			if (!client.holder)
+				return
 			GLOB.ahelp_tickets.BrowseTickets(src)
+		if("browserequests")
+			if (!client.holder)
+				return
+			GLOB.requests.ui_interact(usr)
 		if("browseinterviews")
+			if (!check_rights(R_ADMIN))
+				return
 			GLOB.interviews.BrowseInterviews(src)
 		if("open_interview")
+			if (!check_rights(R_ADMIN))
+				return
 			var/datum/interview/I = GLOB.interviews.interview_by_id(text2num(params["id"]))
 			if (I && client.holder)
 				I.ui_interact(src)
 		if("open_ticket")
+			if (!client.holder)
+				return
 			var/ticket_id = text2num(params["id"])
 			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH && client.holder)
 				AH.ui_interact(src)
+		if ("claim_ticket")
+			if (!check_rights(R_ADMIN))
+				return
+			var/ticket_id = text2num(params["id"])
+			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
+			if(AH && client.holder)
+				AH.Claim()
+		if ("orbit")
+			if (!check_rights(R_ADMIN))
+				return
+			var/mob_ref = params["ref"]
+			usr.client.holder?.admin_follow(locate(mob_ref))
 		if("atomClick")
 			var/atomRef = params["ref"]
 			var/atom/atom_actual = locate(atomRef)
@@ -296,7 +428,7 @@
 				message_admins("[usr.client] attempted to interact with the MC without sufficient perms.")
 				return
 			if(!target)
-				to_chat(usr, "<span class='warning'>Could not locate target, report this!</span>")
+				to_chat(usr, span_warning("Could not locate target, report this!"))
 				log_runtime("[usr] attempted to interact with a statClickDebug, but was unsuccessful due to the target not existing.")
 				return
 			usr.client.debug_variables(target)
@@ -305,13 +437,19 @@
 			var/verb_name = params["verb"]
 			winset(client, null, "command=[replacetext(verb_name, " ", "-")]")
 		if("sdql2debug")
+			if (!check_rights(R_DEBUG))
+				return
 			client.debug_variables(GLOB.sdql2_queries)
 		if("sdql2delete")
+			if (!check_rights(R_DEBUG))
+				return
 			var/query_id = params["qid"]
 			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
 			if(query)
 				query.delete_click()
 		if("sdql2toggle")
+			if (!check_rights(R_DEBUG))
+				return
 			var/query_id = params["qid"]
 			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
 			if(query)
@@ -322,14 +460,21 @@
 				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
 					client.last_adminhelp_reply = world.time
 					if(client.current_adminhelp_ticket)
-						client.current_adminhelp_ticket.MessageNoRecipient(message)
+						client.current_adminhelp_ticket.MessageNoRecipient(message, sanitized = TRUE)
 					else
-						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
+						to_chat(src, span_warning("Your issue has already been resolved!"))
 				else
-					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
+					to_chat(src, span_warning("You are sending messages too fast!"))
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()
+		if ("votetoleave")
+			client.vote_to_leave()
+		if ("do_action")
+			var/datum/action/action = locate(params["ref"]) in actions
+			if (!action)
+				return
+			action.trigger()
 
 /*
  * Sets the current stat tab selected.
@@ -378,4 +523,8 @@
 	var/list/status_data = get_stat(client.selected_stat_tab)
 	client.tgui_panel.set_panel_infomation(status_data)
 
+#undef MAX_ITEMS_TO_READ
 #undef MAX_ICONS_PER_TILE
+
+#undef STAT_PANEL_TAG
+#undef STAT_TAB_ACTIONS

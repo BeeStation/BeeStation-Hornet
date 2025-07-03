@@ -2,17 +2,18 @@
 #define MOVES_HITSCAN -1		//Not actually hitscan but close as we get without actual hitscan.
 #define MUZZLE_EFFECT_PIXEL_INCREMENT 17	//How many pixels to move the muzzle flash up so your character doesn't look like they're shitting out lasers.
 
-/obj/item/projectile
+/obj/projectile
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
 	density = FALSE
 	anchored = TRUE
-	item_flags = ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	generic_canpass = FALSE
 	movement_type = FLYING
-	hitsound = 'sound/weapons/pierce.ogg'
+	//wound_bonus = CANT_WOUND // can't wound by default
+	generic_canpass = FALSE
+	//The sound this plays on impact.
+	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -41,6 +42,8 @@
 	var/ignore_source_check = FALSE
 	/// We are flagged PHASING temporarily to not stop moving when we Bump something but want to keep going anyways.
 	var/temporary_unstoppable_movement = FALSE
+	/// We ignore mobs with these factions.
+	var/list/ignored_factions
 
 	/** PROJECTILE PIERCING
 	  * WARNING:
@@ -60,7 +63,7 @@
 	var/phasing_ignore_direct_target = FALSE
 	/// Bitflag for things the projectile should just phase through entirely - No hitting unless direct target and [phasing_ignore_direct_target] is FALSE. Uses pass_flags flags.
 	var/projectile_phasing = NONE
-	/// Bitflag for things the projectile should hit, but pierce through without deleting itself. Defers to projectile_phasing. Uses pass_flags flags.
+	/// Bitflag for things the projectile should hit, but pierce through without deleting itself. Considered before just purely phasing. Uses pass_flags flags.
 	var/projectile_piercing = NONE
 	/// number of times we've pierced something. Incremented BEFORE bullet_act and on_hit proc!
 	var/pierces = 0
@@ -93,6 +96,7 @@
 	//Hitscan
 	var/hitscan = FALSE		//Whether this is hitscan. If it is, speed is basically ignored.
 	var/list/beam_segments	//assoc list of datum/point or datum/point/vector, start = end. Used for hitscan effect generation.
+	var/turf/last_angle_set_hitscan_store /// Last turf an angle was changed in for hitscan projectiles.
 	var/datum/point/beam_index
 	var/turf/hitscan_last	//last turf touched during hitscanning.
 	var/tracer_type
@@ -113,8 +117,8 @@
 	//Homing
 	var/homing = FALSE
 	var/atom/homing_target
-	var/homing_turn_speed = 10		//Angle per tick.
-	var/homing_inaccuracy_min = 0		//in pixels for these. offsets are set once when setting target.
+	var/homing_turn_speed = 10 //Angle per tick.
+	var/homing_inaccuracy_min = 0 //in pixels for these. offsets are set once when setting target.
 	var/homing_inaccuracy_max = 0
 	var/homing_offset_x = 0
 	var/homing_offset_y = 0
@@ -123,10 +127,12 @@
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/armor_flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
-	var/projectile_type = /obj/item/projectile
+	///How much armor this projectile pierces.
+	var/armour_penetration = 0
+	var/projectile_type = /obj/projectile
 	var/range = 50 //This will de-increment every step. When 0, it will deletze the projectile.
-	var/decayedRange			//stores original range
-	var/reflect_range_decrease = 5			//amount of original range that falls off when reflecting, so it doesn't go forever
+	var/decayedRange //stores original range
+	var/reflect_range_decrease = 5 //amount of original range that falls off when reflecting, so it doesn't go forever
 	var/reflectable = NONE // Can it be reflected or not?
 		//Effects
 	var/stun = 0
@@ -146,12 +152,12 @@
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
 	var/martial_arts_no_deflect = FALSE
 
-	///If defined, on hit we create an item of this type then call hitby() on the hit target with this, mainly used for embedding items (bullets) in targets
+	///If defined, gets passed to checkEmbedProjectile() via signalling & adds embed element to projectile
 	var/shrapnel_type
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
 
-/obj/item/projectile/Initialize(mapload)
+/obj/projectile/Initialize(mapload)
 	. = ..()
 	decayedRange = range
 
@@ -159,13 +165,15 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	if(shrapnel_type) //Only add embed element if the project HAS STUFF to try to embed
+		AddElement(/datum/element/embed) //Allows Embed to read signal from COMSIG_PROJECTILE_SELF_ON_HIT, actually embedding handled by shrapnel_type
 
-/obj/item/projectile/proc/Range()
+/obj/projectile/proc/Range()
 	range--
 	if(range <= 0 && loc)
 		on_range()
 
-/obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+/obj/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	SEND_SIGNAL(src, COMSIG_PROJECTILE_RANGE_OUT)
 	qdel(src)
 
@@ -188,12 +196,15 @@
  * blocked - percentage of hit blocked
  * pierce_hit - are we piercing through or regular hitting
  */
-/obj/item/projectile/proc/on_hit(atom/target, blocked = FALSE, pierce_hit)
+/obj/projectile/proc/on_hit(atom/target, blocked = FALSE, pierce_hit)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
 	// i know that this is probably more with wands and gun mods in mind, but it's a bit silly that the projectile on_hit signal doesn't ping the projectile itself.
 	// maybe we care what the projectile thinks! See about combining these via args some time when it's not 5AM
-	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle)
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, def_zone)
+
+	if(QDELETED(src)) // in case one of the above signals deleted the projectile for whatever reason
+		return
 	var/turf/target_loca = get_turf(target)
 
 	var/hitx
@@ -250,17 +261,17 @@
 		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.
 		if(limb_hit)
 			organ_hit_text = " in \the [parse_zone(limb_hit)]"
-		if(suppressed==SUPPRESSED_VERY)
+		if(suppressed == SUPPRESSED_VERY)
 			playsound(loc, hitsound, 5, TRUE, -1)
 		else if(suppressed)
 			playsound(loc, hitsound, 5, 1, -1)
-			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
+			to_chat(L, span_userdanger("You're shot by \a [src][organ_hit_text]!"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
 				playsound(src, hitsound, volume, TRUE, -1)
-			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
-					"<span class='userdanger'>You're hit by \a [src][organ_hit_text]!</span>", null, COMBAT_MESSAGE_RANGE)
+			L.visible_message(span_danger("[L] is hit by \a [src][organ_hit_text]!"), \
+					span_userdanger("You're hit by \a [src][organ_hit_text]!"), null, COMBAT_MESSAGE_RANGE)
 		L.on_hit(src)
 
 	var/reagent_note
@@ -268,12 +279,13 @@
 		reagent_note = " REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += "[R.name] ([num2text(R.volume)])"
-	if(istype(src, /obj/item/projectile/bullet/dart))
-		var/obj/item/projectile/bullet/dart/D = src
+	if(istype(src, /obj/projectile/bullet/dart))
+		var/obj/projectile/bullet/dart/D = src
 		if(length(D.syringe?.reagents?.reagent_list) > 0)
 			reagent_note = " REAGENTS:"
 			for(var/datum/reagent/R in D.syringe.reagents.reagent_list)
 				reagent_note += "[R.name] ([num2text(R.volume)])"
+
 	if(ismob(firer))
 		log_combat(firer, L, "shot", src, reagent_note)
 	else
@@ -281,13 +293,13 @@
 
 	return L.apply_effects(stun, knockdown, unconscious, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter, paralyze, immobilize)
 
-/obj/item/projectile/proc/vol_by_damage()
+/obj/projectile/proc/vol_by_damage()
 	if(src.damage)
-		return CLAMP((src.damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then CLAMP the value between 30 and 100
+		return clamp((src.damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
-/obj/item/projectile/proc/on_ricochet(atom/A)
+/obj/projectile/proc/on_ricochet(atom/A)
 	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
 		return
 
@@ -296,7 +308,7 @@
 	if(firer && HAS_TRAIT(firer, TRAIT_NICE_SHOT))
 		best_angle += NICE_SHOT_RICOCHET_BONUS
 	for(var/mob/living/L in range(ricochet_auto_aim_range, src.loc))
-		if(L.stat == DEAD || !isInSight(src, L))
+		if(L.stat == DEAD || !is_in_sight(src, L))
 			continue
 		var/our_angle = abs(closer_angle_difference(Angle, get_angle(src.loc, L.loc)))
 		if(our_angle < best_angle)
@@ -304,14 +316,14 @@
 			unlucky_sob = L
 
 	if(unlucky_sob)
-		setAngle(get_angle(src, unlucky_sob.loc))
+		set_angle(get_angle(src, unlucky_sob.loc))
 
-/obj/item/projectile/proc/store_hitscan_collision(datum/point/pcache)
-	beam_segments[beam_index] = pcache
-	beam_index = pcache
+/obj/projectile/proc/store_hitscan_collision(datum/point/point_cache)
+	beam_segments[beam_index] = point_cache
+	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A)
+/obj/projectile/Bump(atom/A)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
 	if(!can_hit_target(A, A == original, TRUE, TRUE))
 		return
@@ -328,13 +340,13 @@
  * Furthermore, this proc shouldn't check can_hit_target - this should only be called if can hit target is already checked.
  * Also, we select_target to find what to process_hit first.
  */
-/obj/item/projectile/proc/Impact(atom/A)
+/obj/projectile/proc/Impact(atom/A)
 	if(!trajectory)
 		qdel(src)
 		return FALSE
 	if(impacted[A])		// NEVER doublehit
 		return FALSE
-	var/datum/point/pcache = trajectory.copy_to()
+	var/datum/point/point_cache = trajectory.copy_to()
 	var/turf/T = get_turf(A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
 		ricochets++
@@ -345,7 +357,7 @@
 			decayedRange = max(0, decayedRange - reflect_range_decrease)
 			range = decayedRange
 			if(hitscan)
-				store_hitscan_collision(pcache)
+				store_hitscan_collision(point_cache)
 			return TRUE
 
 	var/distance = get_dist(T, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
@@ -376,7 +388,7 @@
  *
  * Returns if we hit something.
  */
-/obj/item/projectile/proc/process_hit(turf/T, atom/target, atom/bumped, hit_something = FALSE)
+/obj/projectile/proc/process_hit(turf/T, atom/target, atom/bumped, hit_something = FALSE)
 	// 1.
 	if(QDELETED(src) || !T || !target)
 		return
@@ -394,7 +406,7 @@
 		return process_hit(T, select_target(T, target, bumped), bumped, hit_something)	// try to hit something else
 	// at this point we are going to hit the thing
 	// in which case send signal to it
-	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, args)
+	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, src, args)
 	if(mode == PROJECTILE_PIERCE_HIT)
 		++pierces
 	hit_something = TRUE
@@ -426,7 +438,7 @@
  * 4. Turf
  * 5. Nothing
  */
-/obj/item/projectile/proc/select_target(turf/T, atom/target, atom/bumped)
+/obj/projectile/proc/select_target(turf/T, atom/target, atom/bumped)
 	// 1. original
 	if(can_hit_target(original, TRUE, FALSE, original == bumped))
 		return original
@@ -457,7 +469,7 @@
 
 //Returns true if the target atom is on our current turf and above the right layer
 //If direct target is true it's the originally clicked target.
-/obj/item/projectile/proc/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
+/obj/projectile/proc/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
 	if(QDELETED(target) || impacted[target])
 		return FALSE
 	if(!ignore_loc && (loc != target.loc))
@@ -467,11 +479,13 @@
 		// Calling CanAllowThrough introduces side effects
 		if(target.pass_flags_self & pass_flags)
 			return FALSE
-		if ((pass_flags & PASSTRANSPARENT) && target.alpha < 255 && prob(100 - (target.alpha/2.55)))
-			return FALSE
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
+			return FALSE
+	if(ignored_factions?.len && ismob(target) && !direct_target)
+		var/mob/target_mob = target
+		if(faction_check(target_mob.faction, ignored_factions))
 			return FALSE
 	if(target.density || cross_failed)		//This thing blocks projectiles, hit it regardless of layer/mob stuns/etc.
 		return TRUE
@@ -491,11 +505,16 @@
 		// If target not able to use items, move and stand - or if they're just dead, pass over.
 		if(L.stat == DEAD)
 			return FALSE
+		// If things pass through the mob, then this will too unless they are lying down (lying down forces density to be false)
 		if(!L.density)
+			// If you are moving, then bullets will hit you even if you are lying.
+			// This is to counter abuse in space where you can be moving via inertia while lying #11020
+			if ((L.body_position == LYING_DOWN) && L.last_move_time + max(L.inertia_move_delay, CRAWLING_ADD_SLOWDOWN + CONFIG_GET(number/movedelay/run_delay)) > world.time)
+				return TRUE
 			return FALSE
-		if(!L.lying)
+		if(L.body_position != LYING_DOWN)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
 			return TRUE
-		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
+		var/stunned = HAS_TRAIT(L, TRAIT_IMMOBILIZED) && HAS_TRAIT(L, TRAIT_FLOORED) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED)
 		return !stunned || hit_stunned_targets
 	return TRUE
 
@@ -508,7 +527,7 @@
  * In impact there's more code for selecting WHAT to hit
  * So this proc is more of checking if we should hit something at all BY having an atom cross us.
  */
-/obj/item/projectile/proc/scan_crossed_hit(atom/movable/A)
+/obj/projectile/proc/scan_crossed_hit(atom/movable/A)
 	if(can_hit_target(A, direct_target = (A == original)))
 		Impact(A)
 
@@ -517,7 +536,7 @@
  *
  * This proc is a little high in overhead but allows us to not snowflake CanPass in living and other things.
  */
-/obj/item/projectile/proc/scan_moved_turf()
+/obj/projectile/proc/scan_moved_turf()
 	// Optimally, we scan: mobs --> objs --> turf for impact
 	// but, overhead is a thing and 2 for loops every time it moves is a no-go.
 	// realistically, since we already do select_target in impact, we can not do that
@@ -537,7 +556,7 @@
  * Projectile can pass through
  * Used to not even attempt to Bump() or fail to Cross() anything we already hit.
  */
-/obj/item/projectile/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+/obj/projectile/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	return impacted[blocker]? TRUE : ..()
 
 /**
@@ -549,7 +568,7 @@
  * Scan turf we're now in for anything we can/should hit. This is useful for hitting non dense objects the user
  * directly clicks on, as well as for PHASING projectiles to be able to hit things at all as they don't ever Bump().
  */
-/obj/item/projectile/Moved(atom/OldLoc, Dir)
+/obj/projectile/Moved(atom/OldLoc, Dir)
 	. = ..()
 	if(!fired)
 		return
@@ -564,23 +583,23 @@
  * NOT meant to be a pure proc, since this replaces prehit() which was used to do things.
  * Return PROJECTILE_DELETE_WITHOUT_HITTING to delete projectile without hitting at all!
  */
-/obj/item/projectile/proc/prehit_pierce(atom/A)
-	if((projectile_phasing & A.pass_flags_self) && (!phasing_ignore_direct_target || original != A))
-		return PROJECTILE_PIERCE_PHASE
+/obj/projectile/proc/prehit_pierce(atom/A)
 	if(projectile_piercing & A.pass_flags_self)
 		return PROJECTILE_PIERCE_HIT
+	if((projectile_phasing & A.pass_flags_self) && (!phasing_ignore_direct_target || original != A))
+		return PROJECTILE_PIERCE_PHASE
 	if(ismovable(A))
 		var/atom/movable/AM = A
 		if(AM.throwing)
 			return (projectile_phasing & LETPASSTHROW)? PROJECTILE_PIERCE_PHASE : ((projectile_piercing & LETPASSTHROW)? PROJECTILE_PIERCE_HIT : PROJECTILE_PIERCE_NONE)
 	return PROJECTILE_PIERCE_NONE
 
-/obj/item/projectile/proc/check_ricochet()
+/obj/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/check_ricochet_flag(atom/A)
+/obj/projectile/proc/check_ricochet_flag(atom/A)
 	if((armor_flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
@@ -589,7 +608,7 @@
 
 	return FALSE
 
-/obj/item/projectile/proc/return_predicted_turf_after_moves(moves, forced_angle)		//I say predicted because there's no telling that the projectile won't change direction/location in flight.
+/obj/projectile/proc/return_predicted_turf_after_moves(moves, forced_angle)		//I say predicted because there's no telling that the projectile won't change direction/location in flight.
 	if(!trajectory && isnull(forced_angle) && isnull(Angle))
 		return FALSE
 	var/datum/point/vector/current = trajectory
@@ -599,15 +618,15 @@
 	var/datum/point/vector/v = current.return_vector_after_increments(moves * SSprojectiles.global_iterations_per_move)
 	return v.return_turf()
 
-/obj/item/projectile/proc/return_pathing_turfs_in_moves(moves, forced_angle)
+/obj/projectile/proc/return_pathing_turfs_in_moves(moves, forced_angle)
 	var/turf/current = get_turf(src)
 	var/turf/ending = return_predicted_turf_after_moves(moves, forced_angle)
 	return getline(current, ending)
 
-/obj/item/projectile/Process_Spacemove(movement_dir = 0)
+/obj/projectile/Process_Spacemove(movement_dir = 0)
 	return TRUE	//Bullets don't drift in space
 
-/obj/item/projectile/process()
+/obj/projectile/process()
 	last_process = world.time
 	if(!loc || !fired || !trajectory)
 		fired = FALSE
@@ -630,7 +649,7 @@
 	for(var/i in 1 to required_moves)
 		pixel_move(1, FALSE)
 
-/obj/item/projectile/proc/fire(angle, atom/direct_target)
+/obj/projectile/proc/fire(angle, atom/direct_target)
 	LAZYINITLIST(impacted)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
@@ -642,17 +661,17 @@
 		if(QDELETED(src))
 			return
 	if(isnum_safe(angle))
-		setAngle(angle)
+		set_angle(angle)
 	if(spread)
-		setAngle(Angle + ((rand() - 0.5) * spread))
+		set_angle(Angle + ((rand() - 0.5) * spread))
 	var/turf/starting = get_turf(src)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
 		if(isnull(xo) || isnull(yo))
 			stack_trace("WARNING: Projectile [type] deleted due to being unable to resolve a target after angle was null!")
 			qdel(src)
 			return
-		var/turf/target = locate(CLAMP(starting + xo, 1, world.maxx), CLAMP(starting + yo, 1, world.maxy), starting.z)
-		setAngle(get_angle(src, target))
+		var/turf/target = locate(clamp(starting + xo, 1, world.maxx), clamp(starting + yo, 1, world.maxy), starting.z)
+		set_angle(get_angle(src, target))
 	original_angle = Angle
 	if(!nondirectional_sprite)
 		var/matrix/M = new
@@ -670,17 +689,43 @@
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)	//move it now!
 
-/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+/obj/projectile/proc/set_angle(new_angle) //wrapper for overrides.
 	Angle = new_angle
 	if(!nondirectional_sprite)
-		var/matrix/M = new
-		M.Turn(Angle)
-		transform = M
+		var/matrix/matrix = new
+		matrix.Turn(Angle)
+		transform = matrix
 	if(trajectory)
 		trajectory.set_angle(new_angle)
+	if(fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
+		last_angle_set_hitscan_store = loc
+		var/datum/point/point_cache = new (src)
+		point_cache = trajectory.copy_to()
+		store_hitscan_collision(point_cache)
 	return TRUE
 
-/obj/item/projectile/forceMove(atom/target)
+/// Same as set_angle, but the reflection continues from the center of the object that reflects it instead of the side
+/obj/projectile/proc/set_angle_centered(new_angle)
+	Angle = new_angle
+	if(!nondirectional_sprite)
+		var/matrix/matrix = new
+		matrix.Turn(Angle)
+		transform = matrix
+	if(trajectory)
+		trajectory.set_angle(new_angle)
+
+	var/list/coordinates = trajectory.return_coordinates()
+	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
+
+	if(fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store)) // Handles hitscan projectiles
+		last_angle_set_hitscan_store = loc
+		var/datum/point/point_cache = new (src)
+		point_cache.initialize_location(coordinates[1], coordinates[2], coordinates[3]) // Take the center of the hitscan collision tile
+		store_hitscan_collision(point_cache)
+	return TRUE
+
+
+/obj/projectile/forceMove(atom/target)
 	if(!isloc(target) || !isloc(loc) || !z)
 		return ..()
 	var/zc = target.z != z
@@ -699,32 +744,32 @@
 	if(zc)
 		after_z_change(old, target)
 
-/obj/item/projectile/proc/after_z_change(atom/olcloc, atom/newloc)
+/obj/projectile/proc/after_z_change(atom/olcloc, atom/newloc)
 
-/obj/item/projectile/proc/before_z_change(atom/oldloc, atom/newloc)
+/obj/projectile/proc/before_z_change(atom/oldloc, atom/newloc)
 
-/obj/item/projectile/vv_edit_var(var_name, var_value)
+/obj/projectile/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, Angle))
-			setAngle(var_value)
+			set_angle(var_value)
 			return TRUE
 		else
 			return ..()
 
-/obj/item/projectile/proc/set_pixel_speed(new_speed)
+/obj/projectile/proc/set_pixel_speed(new_speed)
 	if(trajectory)
 		trajectory.set_speed(new_speed)
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/record_hitscan_start(datum/point/pcache)
-	if(pcache)
+/obj/projectile/proc/record_hitscan_start(datum/point/point_cache)
+	if(point_cache)
 		beam_segments = list()
-		beam_index = pcache
+		beam_index = point_cache
 		beam_segments[beam_index] = null	//record start.
 
-/obj/item/projectile/proc/process_hitscan()
-	var/safety = range * 3
+/obj/projectile/proc/process_hitscan()
+	var/safety = range * 10
 	record_hitscan_start(RETURN_POINT_VECTOR_INCREMENT(src, Angle, MUZZLE_EFFECT_PIXEL_INCREMENT, 1))
 	while(loc && !QDELETED(src))
 		if(paused)
@@ -738,7 +783,7 @@
 			return	//Kill!
 		pixel_move(1, TRUE)
 
-/obj/item/projectile/proc/pixel_move(trajectory_multiplier, hitscanning = FALSE)
+/obj/projectile/proc/pixel_move(trajectory_multiplier, hitscanning = FALSE)
 	if(!loc || !trajectory)
 		return
 	last_projectile_move = world.time
@@ -780,16 +825,16 @@
 		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
 	Range()
 
-/obj/item/projectile/proc/process_homing()			//may need speeding up in the future performance wise.
+/obj/projectile/proc/process_homing()			//may need speeding up in the future performance wise.
 	if(!homing_target)
 		return FALSE
 	var/datum/point/PT = RETURN_PRECISE_POINT(homing_target)
-	PT.x += CLAMP(homing_offset_x, 1, world.maxx)
-	PT.y += CLAMP(homing_offset_y, 1, world.maxy)
+	PT.x += clamp(homing_offset_x, 1, world.maxx)
+	PT.y += clamp(homing_offset_y, 1, world.maxy)
 	var/angle = closer_angle_difference(Angle, angle_between_points(RETURN_PRECISE_POINT(src), PT))
-	setAngle(Angle + CLAMP(angle, -homing_turn_speed, homing_turn_speed))
+	set_angle(Angle + clamp(angle, -homing_turn_speed, homing_turn_speed))
 
-/obj/item/projectile/proc/set_homing_target(atom/A)
+/obj/projectile/proc/set_homing_target(atom/A)
 	if(!A || (!isturf(A) && !isturf(A.loc)))
 		return FALSE
 	homing = TRUE
@@ -802,45 +847,47 @@
 		homing_offset_y = -homing_offset_y
 
 //Spread is FORCED!
-/obj/item/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)
-	var/turf/curloc = get_turf(source)
+/obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, modifiers, spread = 0)
+	if(!isnull(modifiers) && !islist(modifiers))
+		stack_trace("WARNING: Projectile [type] fired with non-list modifiers, likely was passed click params.")
+
+	var/turf/current_location = get_turf(source)
 	var/turf/targloc = get_turf(target)
 	trajectory_ignore_forcemove = TRUE
 	forceMove(get_turf(source))
 	trajectory_ignore_forcemove = FALSE
 	starting = get_turf(source)
 	original = target
-	if(targloc || !params)
-		yo = targloc.y - curloc.y
-		xo = targloc.x - curloc.x
-		setAngle(get_angle(src, targloc) + spread)
+	if(targloc || !length(modifiers))
+		yo = targloc.y - current_location.y
+		xo = targloc.x - current_location.x
+		set_angle(get_angle(src, targloc) + spread)
 
-	if(isliving(source) && params)
-		var/list/calculated = calculate_projectile_angle_and_pixel_offsets(source, params)
+	if(isliving(source) && length(modifiers))
+		var/list/calculated = calculate_projectile_angle_and_pixel_offsets(source, modifiers)
 		p_x = calculated[2]
 		p_y = calculated[3]
 
-		setAngle(calculated[1] + spread)
+		set_angle(calculated[1] + spread)
 	else if(targloc)
-		yo = targloc.y - curloc.y
-		xo = targloc.x - curloc.x
-		setAngle(get_angle(src, targloc) + spread)
+		yo = targloc.y - current_location.y
+		xo = targloc.x - current_location.x
+		set_angle(get_angle(src, targloc) + spread)
 	else
 		stack_trace("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
 		qdel(src)
 
-/proc/calculate_projectile_angle_and_pixel_offsets(mob/user, params)
-	var/list/mouse_control = params2list(params)
+/proc/calculate_projectile_angle_and_pixel_offsets(mob/user, modifiers)
 	var/p_x = 0
 	var/p_y = 0
 	var/angle = 0
-	if(mouse_control["icon-x"])
-		p_x = text2num(mouse_control["icon-x"])
-	if(mouse_control["icon-y"])
-		p_y = text2num(mouse_control["icon-y"])
-	if(mouse_control["screen-loc"])
+	if(LAZYACCESS(modifiers, ICON_X))
+		p_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	if(LAZYACCESS(modifiers, ICON_Y))
+		p_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+	if(LAZYACCESS(modifiers, SCREEN_LOC))
 		//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-		var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
+		var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
 
 		//Split X+Pixel_X up into list(X, Pixel_X)
 		var/list/screen_loc_X = splittext(screen_loc_params[1],":")
@@ -860,12 +907,12 @@
 		angle = ATAN2(y - oy, x - ox)
 	return list(angle, p_x, p_y)
 
-/obj/item/projectile/proc/on_entered(datum/source, atom/movable/AM)
+/obj/projectile/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
 	scan_crossed_hit(AM)
 
-/obj/item/projectile/Destroy()
+/obj/projectile/Destroy()
 	if(hitscan)
 		finalize_hitscan_and_generate_tracers()
 	STOP_PROCESSING(SSprojectiles, src)
@@ -874,18 +921,18 @@
 		QDEL_NULL(trajectory)
 	return ..()
 
-/obj/item/projectile/proc/cleanup_beam_segments()
+/obj/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
 	beam_segments = list()
 	QDEL_NULL(beam_index)
 
-/obj/item/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
+/obj/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
 	if(trajectory && beam_index)
-		var/datum/point/pcache = trajectory.copy_to()
-		beam_segments[beam_index] = pcache
+		var/datum/point/point_cache = trajectory.copy_to()
+		beam_segments[beam_index] = point_cache
 	generate_hitscan_tracers(null, null, impacting)
 
-/obj/item/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
+/obj/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
 	if(!length(beam_segments))
 		return
 	if(tracer_type)
@@ -915,5 +962,8 @@
 	if(cleanup)
 		cleanup_beam_segments()
 
-/obj/item/projectile/experience_pressure_difference()
+/obj/projectile/experience_pressure_difference()
 	return
+
+#undef MOVES_HITSCAN
+#undef MUZZLE_EFFECT_PIXEL_INCREMENT

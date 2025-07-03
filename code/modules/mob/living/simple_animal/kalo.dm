@@ -7,7 +7,7 @@
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "lizard"
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	can_be_held = TRUE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
 	mob_size = MOB_SIZE_SMALL
@@ -17,20 +17,23 @@
 	see_in_dark     = 5
 	speak_chance    = 1
 	turns_per_move  = 3
-	response_help   = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "stomps on"
+	response_harm_simple = "stomp on"
 	speak = list("Hissssss!", "Squeak!")
 	speak_emote = list("hisses", "squeaks")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("hisses", "squeaks")
 	emote_see = list("pounces")
-	faction = list("Lizard")
+	faction = list(FACTION_LIZARD)
 	health = 15
 	maxHealth = 15
 	minbodytemp = 50
 	maxbodytemp = 800
-	var/turns_since_scan = 0
-	var/obj/item/reagent_containers/food/snacks/movement_target
+	var/obj/item/food/movement_target
 	mobchatspan = "centcom"
 
 /mob/living/simple_animal/kalo/Destroy()
@@ -49,7 +52,7 @@
 				stop_automated_movement = 0
 			if(!movement_target || !(src in viewers(5, movement_target.loc)))
 				stop_automated_movement = 0
-				movement_target = locate(/obj/item/reagent_containers/food/snacks) in oview(5, src) //can smell things up to 5 blocks radius
+				movement_target = locate(/obj/item/food) in oview(5, src) //can smell things up to 5 blocks radius
 
 			if(movement_target)
 				stop_automated_movement = 1
@@ -68,12 +71,12 @@
 						return
 
 					if(isturf(movement_target.loc) )
-						if(movement_target.bitecount == 0 || prob(50))
+						if(movement_target.bite_consumption == 0 || prob(50))
 							INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "nibbles on \the [movement_target]")
-						movement_target.bitecount++
+						movement_target.bite_consumption++
 						taste(movement_target.reagents)
 						turns_since_scan = 2
-						if(movement_target.bitecount >= 4)
+						if(movement_target.bite_consumption >= 4)
 							if(prob(60))
 								INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "burps")
 							fully_heal()
@@ -113,7 +116,7 @@
 
 /mob/living/simple_animal/kalo/attack_hand(mob/living/carbon/human/M)
 	..()
-	if (M.a_intent == "help")
+	if (!M.combat_mode)
 		if(prob(20))
 			//yes lizards chirp I googled it it must be true
 			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("chirps","squeaks"))

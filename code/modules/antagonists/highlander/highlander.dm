@@ -5,6 +5,7 @@
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
 	count_against_dynamic_roll_chance = FALSE
+	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 
 /datum/antagonist/highlander/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = owner.current || mob_override
@@ -31,12 +32,11 @@
 	. = ..()
 
 /datum/antagonist/highlander/greet()
-	to_chat(owner, "<span class='boldannounce'>Your [sword.name] cries out for blood. Claim the lives of others, and your own will be restored!\n\
-	Activate it in your hand, and it will lead to the nearest target. Attack the nuclear authentication disk with it, and you will store it.</span>")
+	to_chat(owner, span_boldannounce("Your [sword.name] cries out for blood. Claim the lives of others, and your own will be restored!\n\
+	Activate it in your hand, and it will lead to the nearest target. Attack the nuclear authentication disk with it, and you will store it."))
 
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Highlander",
-		"Locate victims to fall to your sword and claim the nuclear authentication disk for yourself.")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Highlander", "Locate victims to fall to your sword and claim the nuclear authentication disk for yourself.")
 
 /datum/antagonist/highlander/proc/give_equipment()
 	var/mob/living/carbon/human/H = owner.current
@@ -57,7 +57,7 @@
 	var/obj/item/card/id/W = new(H)
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_all_centcom_access()
+	W.access |= get_all_centcom_access()
 	W.assignment = "Highlander"
 	W.registered_name = H.real_name
 	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER)

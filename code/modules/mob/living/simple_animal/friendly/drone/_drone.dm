@@ -3,8 +3,8 @@
 #define DRONE_HEAD_LAYER 2
 #define DRONE_TOTAL_LAYERS 2
 
-#define DRONE_NET_CONNECT "<span class='notice'>DRONE NETWORK: [name] connected.</span>"
-#define DRONE_NET_DISCONNECT "<span class='danger'>DRONE NETWORK: [name] is not responding.</span>"
+#define DRONE_NET_CONNECT span_notice("DRONE NETWORK: [name] connected.")
+#define DRONE_NET_DISCONNECT span_danger("DRONE NETWORK: [name] is not responding.")
 
 #define MAINTDRONE	"drone_maint"
 #define REPAIRDRONE	"drone_repair"
@@ -21,7 +21,6 @@
 	icon_state = "drone_maint_grey"
 	icon_living = "drone_maint_grey"
 	icon_dead = "drone_maint_dead"
-	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
 	health = 30
 	maxHealth = 30
 	unsuitable_atmos_damage = 0
@@ -44,7 +43,7 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	hud_possible = list(DIAG_STAT_HUD, DIAG_HUD, ANTAG_HUD)
 	unique_name = TRUE
-	faction = list("neutral","silicon","turret")
+	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 	dextrous = TRUE
 	dextrous_hud_type = /datum/hud/dextrous/drone
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -62,7 +61,10 @@
 	"2. You may not harm any being, regardless of intent or circumstance.\n"+\
 	"3. Your goals are to actively build, maintain, repair, improve, and provide power to the best of your abilities within the facility that housed your activation." //for derelict drones so they don't go to station.
 	var/heavy_emp_damage = 25 //Amount of damage sustained if hit by a heavy EMP pulse
-	var/alarms = list("Atmosphere" = list(), FIRE = list(), "Power" = list())
+
+	///Alarm listener datum, handes caring about alarm events and such
+	var/datum/alarm_listener/listener
+
 	var/obj/item/internal_storage //Drones can store one item, of any size/type in their body
 	var/obj/item/head
 	var/obj/item/default_storage = /obj/item/storage/backpack/duffelbag/drone //If this exists, it will spawn in internal storage
@@ -77,15 +79,14 @@
 	"<span class='notify'>     - Interacting with living beings (communication, attacking, healing, etc.)</span>\n"+\
 	"<span class='notify'>     - Interacting with non-living beings (dragging bodies, looting bodies, etc.)</span>\n"+\
 	"<span class='warning'>These rules are at admin discretion and will be heavily enforced.</span>\n"+\
-	"<span class='warning'><u>If you do not have the regular drone laws, follow your laws to the best of your ability.</u></span>"
+	span_warning("<u>If you do not have the regular drone laws, follow your laws to the best of your ability.</u>")
 	chat_color = "#8AB48C"
 
 /mob/living/simple_animal/drone/Initialize(mapload)
 	. = ..()
 	GLOB.drones_list += src
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/captain/C = new /datum/job/captain
-	access_card.access = C.get_access()
+	access_card.access = get_all_accesses()
 
 	if(default_storage)
 		var/obj/item/I = new default_storage(src)
@@ -101,6 +102,11 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 
+	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER), list(z))
+	RegisterSignal(listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
+	RegisterSignal(listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
+	listener.RegisterSignal(src, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/datum/alarm_listener, prevent_alarm_changes))
+	listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/alarm_listener, allow_alarm_changes))
 
 /mob/living/simple_animal/drone/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
@@ -121,11 +127,14 @@
 
 /mob/living/simple_animal/drone/Destroy()
 	GLOB.drones_list -= src
-	qdel(access_card) //Otherwise it ends up on the floor!
+	QDEL_NULL(access_card) //Otherwise it ends up on the floor!
+	QDEL_NULL(listener)
 	return ..()
 
 /mob/living/simple_animal/drone/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	check_laws()
 
 	if(flavortext)
@@ -137,7 +146,7 @@
 /mob/living/simple_animal/drone/auto_deadmin_on_login()
 	if(!client?.holder)
 		return TRUE
-	if(CONFIG_GET(flag/auto_deadmin_silicons) || (client.prefs?.toggles & PREFTOGGLE_DEADMIN_POSITION_SILICON))
+	if(CONFIG_GET(flag/auto_deadmin_silicons) || client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_silicon))
 		return client.holder.auto_deadmin()
 	return ..()
 
@@ -176,21 +185,21 @@
 
 	//Hacked
 	if(hacked)
-		. += "<span class='warning'>Its display is glowing red!</span>"
+		. += span_warning("Its display is glowing red!")
 
 	//Damaged
 	if(health != maxHealth)
 		if(health > maxHealth * 0.33) //Between maxHealth and about a third of maxHealth, between 30 and 10 for normal drones
-			. += "<span class='warning'>Its screws are slightly loose.</span>"
+			. += span_warning("Its screws are slightly loose.")
 		else //otherwise, below about 33%
-			. += "<span class='boldwarning'>Its screws are very loose!</span>"
+			. += span_boldwarning("Its screws are very loose!")
 
 	//Dead
 	if(stat == DEAD)
 		if(client)
-			. += "<span class='deadsay'>A message repeatedly flashes on its display: \"REBOOT -- REQUIRED\".</span>"
+			. += span_deadsay("A message repeatedly flashes on its display: \"REBOOT -- REQUIRED\".")
 		else
-			. += "<span class='deadsay'>A message repeatedly flashes on its display: \"ERROR -- OFFLINE\".</span>"
+			. += span_deadsay("A message repeatedly flashes on its display: \"ERROR -- OFFLINE\".")
 	. += "</span>"
 
 
@@ -203,49 +212,18 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	Stun(100)
-	to_chat(src, "<span class='danger'><b>ER@%R: MME^RY CO#RU9T!</b> R&$b@0tin)...</span>")
+	to_chat(src, span_danger("<b>ER@%R: MME^RY CO#RU9T!</b> R&$b@0tin)..."))
 	if(severity == 1)
 		adjustBruteLoss(heavy_emp_damage)
-		to_chat(src, "<span class='userdanger'>HeAV% DA%^MMA+G TO I/O CIR!%UUT!</span>")
+		to_chat(src, span_userdanger("HeAV% DA%^MMA+G TO I/O CIR!%UUT!"))
 
+/mob/living/simple_animal/drone/proc/alarm_triggered(datum/source, alarm_type, area/source_area)
+	SIGNAL_HANDLER
+	to_chat(src, "--- [alarm_type] alarm detected in [source_area.name]!")
 
-/mob/living/simple_animal/drone/proc/triggerAlarm(class, area/home, cameras, obj/source)
-	if(source.get_virtual_z_level() != get_virtual_z_level())
-		return
-	if(stat == DEAD)
-		return
-	var/list/our_sort = alarms[class]
-	for(var/areaname in our_sort)
-		if (areaname == home.name)
-			var/list/alarm = our_sort[areaname]
-			var/list/sources = alarm[3]
-			if (!(source in sources))
-				sources += source
-			return TRUE
-
-	our_sort[home.name] = list(home, list(source))
-	to_chat(src, "--- [class] alarm detected in [home.name]!")
-
-///This isn't currently needed since drones do jack shit with cameras. I hate this code so much
-/mob/living/simple_animal/drone/proc/freeCamera(area/home, obj/machinery/camera/cam)
-	return
-
-
-/mob/living/simple_animal/drone/proc/cancelAlarm(class, area/A, obj/origin)
-	if(stat != DEAD)
-		var/list/L = alarms[class]
-		var/cleared = 0
-		for (var/I in L)
-			if (I == A.name)
-				var/list/alarm = L[I]
-				var/list/srcs  = alarm[2]
-				if (origin in srcs)
-					srcs -= origin
-				if (srcs.len == 0)
-					cleared = 1
-					L -= I
-		if(cleared)
-			to_chat(src, "--- [class] alarm in [A.name] has been cleared.")
+/mob/living/simple_animal/drone/proc/alarm_cleared(datum/source, alarm_type, area/source_area)
+	SIGNAL_HANDLER
+	to_chat(src, "--- [alarm_type] alarm in [source_area.name] has been cleared.")
 
 /mob/living/simple_animal/drone/handle_temperature_damage()
 	return
@@ -267,5 +245,5 @@
 	// Why would bees pay attention to drones?
 	return 1
 
-/mob/living/simple_animal/drone/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
+/mob/living/simple_animal/drone/electrocute_act(shock_damage, source, siemens_coeff, flags = NONE)
 	return 0 //So they don't die trying to fix wiring

@@ -1,5 +1,5 @@
 /datum/controller/subsystem/job/proc/give_crew_objective(datum/mind/crewMind, mob/M)
-	if(CONFIG_GET(flag/allow_crew_objectives) && ((M?.client?.prefs.toggles2 & PREFTOGGLE_2_CREW_OBJECTIVES) || (crewMind?.current?.client?.prefs.toggles2 & PREFTOGGLE_2_CREW_OBJECTIVES)))
+	if(CONFIG_GET(flag/allow_crew_objectives) && (M?.client?.prefs.read_player_preference(/datum/preference/toggle/crew_objectives) || crewMind?.current?.client?.prefs.read_player_preference(/datum/preference/toggle/crew_objectives)))
 		generate_individual_objectives(crewMind)
 	return
 
@@ -26,7 +26,7 @@
 	newObjective.owner = src
 	src.crew_objectives += newObjective
 	if(!silent)
-		to_chat(src, "<B>As a part of Nanotrasen's anti-tide efforts, you have been assigned an optional objective. It will be checked at the end of the shift. <span class='warning'>Performing traitorous acts in pursuit of your objective may result in termination of your employment.</span></B>")
+		to_chat(src, "<B>As a part of Nanotrasen's anti-tide efforts, you have been assigned an optional objective. It will be checked at the end of the shift. [span_warning("Performing traitorous acts in pursuit of your objective may result in termination of your employment.")]</B>")
 		to_chat(src, "<B>Your objective:</B> [newObjective.explanation_text]")
 
 /datum/objective/crew

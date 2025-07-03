@@ -11,7 +11,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "c" = (
 /obj/structure/table/wood,
@@ -19,7 +19,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "d" = (
 /obj/machinery/status_display/evac{
@@ -40,14 +40,14 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "g" = (
 /obj/structure/table/wood,
 /obj/item/storage/briefcase,
 /obj/item/taperecorder,
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 "h" = (
@@ -67,12 +67,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"m" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "n" = (
 /turf/open/floor/wood,
@@ -82,7 +77,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/template_noop)
 "p" = (
@@ -103,17 +98,17 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "r" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "s" = (
 /obj/item/kirbyplants/random,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "t" = (
 /obj/structure/chair/fancy/comfy{
@@ -143,9 +138,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "z" = (
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/wood,
 /area/template_noop)
 "A" = (
@@ -166,15 +159,9 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"D" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken4"
-	},
-/area/template_noop)
 "F" = (
 /obj/structure/table/wood,
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /obj/machinery/light_switch{
@@ -185,7 +172,7 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/item/circuitboard/machine/microwave,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "H" = (
 /obj/structure/table/wood,
@@ -198,7 +185,7 @@
 	pixel_y = -3
 	},
 /obj/item/poster/random_contraband,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
 /obj/machinery/light/small,
@@ -207,23 +194,23 @@
 "N" = (
 /obj/structure/table/wood,
 /obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/that,
+/obj/item/clothing/head/hats/tophat,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "O" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "P" = (
 /obj/structure/table/wood,
 /obj/item/circuitboard/computer/arcade,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "V" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -231,19 +218,19 @@
 /area/template_noop)
 "X" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Y" = (
 /obj/structure/table/wood,
 /obj/item/electronics/airalarm,
-/obj/item/circuitboard/computer/med_data,
+/obj/item/circuitboard/computer/records/medical,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Z" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -269,7 +256,7 @@ H
 "}
 (4,1,1) = {"
 d
-m
+r
 n
 z
 z
@@ -307,12 +294,12 @@ e
 n
 V
 n
-m
+r
 "}
 (10,1,1) = {"
 i
 r
 w
-D
+r
 e
 "}

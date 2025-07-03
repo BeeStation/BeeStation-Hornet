@@ -19,7 +19,7 @@
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	a_intent = INTENT_HARM //No swapping
+	combat_mode = TRUE //No swapping
 	buckle_lying = 0
 	buckle_prevents_pull = TRUE // No pulling loaded shit
 	mob_size = MOB_SIZE_LARGE
@@ -30,6 +30,7 @@
 	bot_type = MULE_BOT
 	model = "MULE"
 	bot_core_type = /obj/machinery/bot_core/mulebot
+	carryable = FALSE
 
 
 
@@ -41,42 +42,47 @@
 	var/base_icon = "mulebot" /// icon_state to use in update_icon_state
 	var/atom/movable/load = null /// what we're transporting
 	var/mob/living/passenger = null /// who's riding us
-	var/turf/target				/// this is turf to navigate to (location of beacon)
-	var/loaddir = 0				/// this the direction to unload onto/load from
-	var/home_destination = "" 	/// tag of home delivery beacon
+	var/turf/target /// this is turf to navigate to (location of beacon)
+	var/loaddir = 0 /// this the direction to unload onto/load from
+	var/home_destination = ""  /// tag of home delivery beacon
 
-	var/reached_target = TRUE 	///true if already reached the target
+	var/reached_target = TRUE  ///true if already reached the target
 
-	var/auto_return = TRUE		/// true if auto return to home beacon after unload
-	var/auto_pickup = TRUE 	/// true if auto-pickup at beacon
+	var/auto_return = TRUE /// true if auto return to home beacon after unload
+	var/auto_pickup = TRUE  /// true if auto-pickup at beacon
 	var/report_delivery = TRUE /// true if bot will announce an arrival to a location.
 	var/turf/last_target
 	var/mulebot_z_mode
 
 	var/obj/item/stock_parts/cell/cell /// Internal Powercell
+	var/cell_move_power_usage = 1 ///How much power we use when we move.
 	var/bloodiness = 0 ///If we've run over a mob, how many tiles will we leave tracks on while moving
 	var/num_steps = 0 ///The amount of steps we should take until we rest for a time.
 	var/network_id = NETWORK_BOTS_CARGO
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
+
+	RegisterSignal(src, COMSIG_MOB_BOT_PRE_STEP, PROC_REF(check_pre_step))
+	RegisterSignal(src, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(check_pre_step))
+	RegisterSignal(src, COMSIG_MOB_BOT_STEP, PROC_REF(on_bot_step))
+	RegisterSignal(src, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_bot_step))
+
+	ADD_TRAIT(src, TRAIT_NOMOBSWAP, INNATE_TRAIT)
+
 	wires = new /datum/wires/mulebot(src)
-	var/datum/job/cargo_technician/J = new/datum/job/cargo_technician
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_CARGOTECHNICIAN)
 	access_card.access = J.get_access()
-	prev_access = access_card.access
+	prev_access = access_card.access.Copy()
+
 	cell = new /obj/item/stock_parts/cell/upgraded(src, 2000)
 
 	var/static/mulebot_count = 0
 	mulebot_count += 1
 	set_id(suffix || id || "#[mulebot_count]")
 	suffix = null
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 12), TEXT_SOUTH = list(0, 12), TEXT_EAST = list(0, 12), TEXT_WEST = list(0, 12)))
-	D.ride_check_rider_incapacitated = TRUE //so mobs fall off when the vehicle is shot.
-	D.set_vehicle_dir_layer(SOUTH, layer) //vehicles default to ABOVE_MOB_LAYER while moving, let's make sure that doesn't happen while a mob is riding us.
-	D.set_vehicle_dir_layer(NORTH, layer)
-	D.set_vehicle_dir_layer(EAST, layer)
-	D.set_vehicle_dir_layer(WEST, layer)
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/mulebot)
 	if(network_id)
 		AddComponent(/datum/component/ntnet_interface, network_id)
 
@@ -92,15 +98,16 @@
 	. = ..()
 	if(open)
 		if(cell)
-			. += "<span class='notice'>It has \a [cell] installed.</span>"
-			. += "<span class='info'>You can use a <b>crowbar</b> to remove it.</span>"
+			. += span_notice("It has \a [cell] installed.")
+			. += span_info("You can use a <b>crowbar</b> to remove it.")
 		else
-			. += "<span class='notice'>It has an empty compartment where a <b>power cell</b> can be installed.</span>"
+			. += span_notice("It has an empty compartment where a <b>power cell</b> can be installed.")
 	if(load) //observer check is so we don't show the name of the ghost that's sitting on it to prevent metagaming who's ded.
-		. += "<span class='notice'>\A [isobserver(load) ? "ghostly figure" : load] is on its load platform.</span>"
+		. += span_notice("\A [isobserver(load) ? "ghostly figure" : load] is on its load platform.")
 
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
+	UnregisterSignal(src, list(COMSIG_MOB_BOT_PRE_STEP, COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_MOB_BOT_STEP, COMSIG_MOB_CLIENT_MOVED))
 	unload(0)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
@@ -118,11 +125,6 @@
 /mob/living/simple_animal/bot/mulebot/proc/has_power(bypass_open_check)
 	return (!open || bypass_open_check) && cell && cell.charge > 0 && (!wires.is_cut(WIRE_POWER1) && !wires.is_cut(WIRE_POWER2))
 
-/mob/living/simple_animal/bot/mulebot/update_mobility()
-	. = ..()
-	if(!on)
-		mobility_flags |= MOBILITY_STAND //base bots removes all mobility flags when turned off, resulting in the bot becoming passable. we don't want this since it's a large device that should block things.
-
 /mob/living/simple_animal/bot/mulebot/proc/set_id(new_id)
 	id = new_id
 	if(paicard)
@@ -135,7 +137,7 @@
 	reached_target = FALSE
 	new_destination = null
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		. = ..()
 		if(open)
@@ -144,34 +146,37 @@
 			update_icon() //this is also handled by turn_off(), so no need to call this twice.
 	else if(istype(I, /obj/item/stock_parts/cell) && open)
 		if(cell)
-			to_chat(user, "<span class='warning'>[src] already has a power cell!</span>")
+			to_chat(user, span_warning("[src] already has a power cell!"))
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
 		cell = I
-		visible_message("<span class='notice'>[user] inserts \a [cell] into [src].</span>",
-						"<span class='notice'>You insert [cell] into [src].</span>")
-	else if(I.tool_behaviour == TOOL_CROWBAR && open && user.a_intent != INTENT_HARM)
+		visible_message(span_notice("[user] inserts \a [cell] into [src]."),
+						span_notice("You insert [cell] into [src]."))
+	else if(I.tool_behaviour == TOOL_CROWBAR && open && !user.combat_mode)
 		if(!cell)
-			to_chat(user, "<span class='warning'>[src] doesn't have a power cell!</span>")
+			to_chat(user, span_warning("[src] doesn't have a power cell!"))
 			return
 		cell.add_fingerprint(user)
 		if(Adjacent(user) && !issilicon(user))
 			user.put_in_hands(cell)
 		else
 			cell.forceMove(drop_location())
-		visible_message("<span class='notice'>[user] crowbars [cell] out from [src].</span>",
-						"<span class='notice'>You pry [cell] out of [src].</span>")
+		visible_message(span_notice("[user] crowbars [cell] out from [src]."),
+						span_notice("You pry [cell] out of [src]."))
 		cell = null
 	else if(is_wire_tool(I) && open)
-		return attack_hand(user)
+		if (!user.combat_mode)
+			return interact(user)
+		else
+			return ..()
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
-			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
-									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
+			user.visible_message(span_danger("[user] knocks [load] off [src] with \the [I]!"),
+									span_danger("You knock [load] off [src] with \the [I]!"))
 		else
-			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
+			to_chat(user, span_warning("You hit [src] with \the [I] but to no effect!"))
 			return ..()
 	else
 		return ..()
@@ -181,7 +186,7 @@
 		emagged = TRUE
 	if(!open)
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src]'s controls!</span>")
+		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] [src]'s controls!"))
 	flick("[base_icon]-emagged", src)
 	playsound(src, "sparks", 100, FALSE)
 
@@ -196,7 +201,7 @@
 	if(!load || ismob(load)) //mob offsets and such are handled by the riding component / buckling
 		return
 	var/mutable_appearance/load_overlay = new(load) // Our crates use overlays for opening, closing, etc. as opposed to tg
-	load_overlay.pixel_y = initial(load.pixel_y) + 9
+	load_overlay.pixel_y = initial(load.pixel_y) + 12
 	if(load_overlay.layer < layer)
 		load_overlay.layer = layer + 0.01
 	. += load_overlay
@@ -208,19 +213,19 @@
 			qdel(src)
 		if(2)
 			for(var/i = 1; i < 3; i++)
-				wires.cut_random()
+				wires.cut_random(null)
 		if(3)
-			wires.cut_random()
+			wires.cut_random(null)
 
 
-/mob/living/simple_animal/bot/mulebot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
 	. = ..()
 	if(. && !QDELETED(src)) //Got hit and not blown up yet.
 		if(prob(50) && !isnull(load))
 			unload(0)
 		if(prob(25))
-			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
-			wires.cut_random()
+			visible_message(span_danger("Something shorts out inside [src]!"))
+			wires.cut_random(null)
 
 /mob/living/simple_animal/bot/mulebot/interact(mob/user)
 	if(open && !isAI(user))
@@ -269,44 +274,37 @@
 	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params)
-	if(..() || (locked && !usr.has_unlimited_silicon_privilege))
-		return
-	switch(action)
-		if("lock")
-			if(usr.has_unlimited_silicon_privilege)
-				locked = !locked
-				. = TRUE
-		if("power")
-			if(on)
-				turn_off()
-			else if(open)
-				to_chat(usr, "<span class='warning'>[name]'s maintenance panel is open!</span>")
-				return
-			else if(cell)
-				if(!turn_on())
-					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
-					return
-			. = TRUE
-		else
-			. = bot_control(action, usr, params) // Kill this later.
+	if (action == "power")
+		if(locked && !usr.has_unlimited_silicon_privilege)
+			return TRUE
+		if(on)
+			turn_off()
+		else if(open)
+			to_chat(usr, span_warning("[name]'s maintenance panel is open!"))
+			return TRUE
+		else if(cell)
+			if(!turn_on())
+				to_chat(usr, span_warning("You can't switch on [src]!"))
+				return TRUE
+	else
+		if(..())
+			return TRUE
+		. = bot_control(action, usr, params) // Kill this later.
 
 /mob/living/simple_animal/bot/mulebot/bot_control(command, mob/user, list/params = list(), pda = FALSE)
 	if(pda && wires.is_cut(WIRE_RX)) // MULE wireless is controlled by wires.
-		return
+		return TRUE
 
 	switch(command)
 		if("stop")
 			if(mode >= BOT_DELIVER)
 				bot_reset()
-				. = TRUE
 		if("go")
 			if(mode == BOT_IDLE)
 				start()
-				. = TRUE
 		if("home")
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
-				. = TRUE
 		if("destination")
 			var/new_dest
 			if(pda)
@@ -315,7 +313,6 @@
 				new_dest = params["value"]
 			if(new_dest)
 				set_destination(new_dest)
-				. = TRUE
 		if("setid")
 			var/new_id
 			if(pda)
@@ -324,7 +321,6 @@
 				new_id = params["value"]
 			if(new_id)
 				set_id(new_id)
-				. = TRUE
 		if("sethome")
 			var/new_home
 			if(pda)
@@ -333,26 +329,20 @@
 				new_home = params["value"]
 			if(new_home)
 				home_destination = new_home
-				. = TRUE
 		if("unload")
 			if(load && mode != BOT_HUNT)
 				if(loc == target)
 					unload(loaddir)
 				else
 					unload(0)
-				. = TRUE
 		if("autoret")
 			auto_return = !auto_return
-			. = TRUE
 		if("autopick")
 			auto_pickup = !auto_pickup
-			. = TRUE
 		if("report")
 			report_delivery = !report_delivery
-			. = TRUE
 		if("ejectpai")
 			ejectpairemote(user)
-			. = TRUE
 
 // TODO: remove this; PDAs currently depend on it
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
@@ -365,17 +355,17 @@
 	dat += "<div class='statusDisplay'>"
 	switch(mode)
 		if(BOT_IDLE)
-			dat += "<span class='good'>Ready</span>"
+			dat += span_good("Ready")
 		if(BOT_DELIVER)
-			dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
+			dat += span_good("[mode_name[BOT_DELIVER]]")
 		if(BOT_GO_HOME)
-			dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
+			dat += span_good("[mode_name[BOT_GO_HOME]]")
 		if(BOT_BLOCKED)
-			dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
+			dat += span_average("[mode_name[BOT_BLOCKED]]")
 		if(BOT_NAV,BOT_WAIT_FOR_NAV)
-			dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
+			dat += span_average("[mode_name[BOT_NAV]]")
 		if(BOT_NO_ROUTE)
-			dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
+			dat += span_bad("[mode_name[BOT_NO_ROUTE]]")
 	dat += "</div>"
 
 	dat += "<b>Current Load:</b> [isobserver(load) ? "<i>Unknown</i>" : (load ? load.name : "<i>None</i>")]<BR>"
@@ -406,16 +396,16 @@
 /mob/living/simple_animal/bot/mulebot/proc/buzz(type)
 	switch(type)
 		if(SIGH)
-			audible_message("[src] makes a sighing buzz.", "<span class='italics'>You hear an electronic buzzing sound.</span>")
+			audible_message("[src] makes a sighing buzz.", span_italics("You hear an electronic buzzing sound."))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		if(ANNOYED)
-			audible_message("[src] makes an annoyed buzzing sound.", "<span class='italics'>You hear an electronic buzzing sound.</span>")
+			audible_message("[src] makes an annoyed buzzing sound.", span_italics("You hear an electronic buzzing sound."))
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 		if(DELIGHT)
-			audible_message("[src] makes a delighted ping!", "<span class='italics'>You hear a ping.</span>")
+			audible_message("[src] makes a delighted ping!", span_italics("You hear a ping."))
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		if(CHIME)
-			audible_message("[src] makes a chiming sound!", "<span class='italics'>You hear a chime.</span>")
+			audible_message("[src] makes a chiming sound!", span_italics("You hear a chime."))
 			playsound(loc, 'sound/machines/chime.ogg', 50, 0)
 	flick("[base_icon]1", src)
 
@@ -428,7 +418,7 @@
 	if (!istype(L))
 		return
 
-	if(user.incapacitated() || (istype(L) && !(L.mobility_flags & MOBILITY_STAND)))
+	if(user.incapacitated() || (istype(L) && L.body_position == LYING_DOWN))
 		return
 
 	if(!istype(AM) || isdead(AM) || iscameramob(AM) || istype(AM, /obj/effect/dummy/phased_mob))
@@ -532,6 +522,14 @@
 	B.setDir(direct)
 	bloodiness--
 
+/mob/living/simple_animal/bot/mulebot/Moved()
+	. = ..()
+	if(has_gravity())
+		for(var/mob/living/carbon/human/future_pancake in loc)
+			run_over(future_pancake)
+
+	diag_hud_set_mulebotcell()
+
 /mob/living/simple_animal/bot/mulebot/handle_automated_action()
 	if(!on)
 		return
@@ -572,19 +570,20 @@
 					path -= next
 					return
 				if(isturf(next))
+					if(SEND_SIGNAL(src, COMSIG_MOB_BOT_PRE_STEP) & COMPONENT_MOB_BOT_BLOCK_PRE_STEP)
+						return
 					var/oldloc = loc
 					var/moved = step_towards(src, next)	// attempt to move
-					cell.use(1)
 					if(moved && oldloc!=loc)	// successful move
+						SEND_SIGNAL(src, COMSIG_MOB_BOT_STEP)
 						blockcount = 0
 						path -= loc
-
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
 						else
 							mode = BOT_DELIVER
 
-					else		// failed to move
+					else // failed to move
 
 						blockcount++
 						mode = BOT_BLOCKED
@@ -613,14 +612,14 @@
 
 /mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
 	calc_path(avoid=next)
-	if(path.len > 0)
+	if(length(path))
 		buzz(DELIGHT)
 	mode = BOT_BLOCKED
 
 /mob/living/simple_animal/bot/mulebot/proc/process_nav()
 	calc_path()
 
-	if(path.len > 0)
+	if(length(path))
 		blockcount = 0
 		mode = BOT_BLOCKED
 		buzz(DELIGHT)
@@ -707,12 +706,12 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, "<span class='notice'>[icon2html(src, calling_ai)] [src] wirelessly plays a chiming sound!</span>")
+				to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [src] wirelessly plays a chiming sound!"))
 				calling_ai.playsound_local(calling_ai, 'sound/machines/chime.ogg', 40, FALSE)
 				calling_ai = null
 				radio_channel = RADIO_CHANNEL_AI_PRIVATE //Report on AI Private instead if the AI is controlling us.
 
-		if(load)		// if loaded, unload at target
+		if(load) // if loaded, unload at target
 			if(report_delivery)
 				speak("Destination <b>[destination]</b> reached. Unloading [load].",radio_channel)
 			unload(loaddir)
@@ -747,18 +746,18 @@
 	var/mob/living/L = M
 	if(wires.is_cut(WIRE_AVOIDANCE)) // usually just bumps, but if the avoidance wire is cut, knocks them over.
 		if(iscyborg(L))
-			visible_message("<span class='danger'>[src] bumps into [L]!</span>")
+			visible_message(span_danger("[src] bumps into [L]!"))
 		else if(L.Paralyze(160))
 			log_combat(src, L, "knocked down")
-			visible_message("<span class='danger'>[src] knocks over [L]!</span>")
+			visible_message(span_danger("[src] knocks over [L]!"))
 	return ..()
 
 // called from mob/living/carbon/human/Crossed()
 // when mulebot is in the same loc
-/mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
+/mob/living/simple_animal/bot/mulebot/proc/run_over(mob/living/carbon/human/H)
 	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
-	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
-					"<span class='userdanger'>[src] drives over you!</span>")
+	H.visible_message(span_danger("[src] drives over [H]!"), \
+					span_userdanger("[src] drives over you!"))
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5,15)
@@ -777,7 +776,7 @@
 	bloodiness += 4
 
 // player on mulebot attempted to move
-/mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
+/mob/living/simple_animal/bot/mulebot/relaymove(mob/living/user, direction)
 	if(user.incapacitated())
 		return
 	if(load == user)
@@ -811,7 +810,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/explode()
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -831,18 +830,14 @@
 /mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
 	return loc ? loc.remove_air(amount) : null
 
-/mob/living/simple_animal/bot/mulebot/remove_air_ratio(ratio)
-	if(loc)
-		return loc.remove_air_ratio(ratio)
-	else
-		return null
-
 /mob/living/simple_animal/bot/mulebot/resist()
 	..()
 	if(load)
 		unload()
 
 /mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else
@@ -852,6 +847,23 @@
 	. = ..()
 	if(.)
 		visible_message("[src]'s safeties are locked on.")
+
+/// Checks whether the bot can complete a step_towards, checking whether the bot is on and has the charge to do the move. Returns COMPONENT_MOB_BOT_CANCELSTEP if the bot should not step.
+/mob/living/simple_animal/bot/mulebot/proc/check_pre_step(datum/source)
+	SIGNAL_HANDLER
+
+	if(!on)
+		return COMPONENT_MOB_BOT_BLOCK_PRE_STEP
+
+	if((cell && (cell.charge < cell_move_power_usage)) || !has_power((client || paicard)))
+		turn_off()
+		return COMPONENT_MOB_BOT_BLOCK_PRE_STEP
+
+/// Uses power from the cell when the bot steps.
+/mob/living/simple_animal/bot/mulebot/proc/on_bot_step(datum/source)
+	SIGNAL_HANDLER
+
+	cell?.use(cell_move_power_usage)
 
 #undef SIGH
 #undef ANNOYED

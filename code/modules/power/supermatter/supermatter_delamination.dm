@@ -53,7 +53,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == supermatter_z)
 			SEND_SOUND(M, 'sound/magic/charge.ogg')
-			to_chat(M, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
+			to_chat(M, span_boldannounce("You feel reality distort for a moment..."))
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam)
 
 
@@ -89,7 +89,8 @@
 		light_impact_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 4,
 		flash_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 6,
 		adminlog = TRUE,
-		ignorecap = TRUE)
+		ignorecap = TRUE,
+		explosion_type = /datum/effect_system/explosion/delamination)
 
 /datum/supermatter_delamination/proc/setup_anomalies()
 	anomalies_to_spawn = max(round(0.005 * supermatter_power, 1) + rand(-2, 5), 1)

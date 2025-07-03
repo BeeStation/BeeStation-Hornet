@@ -1,8 +1,9 @@
 /datum/job/ai
 	title = JOB_NAME_AI
-	flag = AI_JF
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
-	department_flag = ENGSEC
+	description = "Follow your laws above all else, be the invisible eye that watches all."
+	department_for_prefs = DEPT_NAME_SILICON
+	department_head_for_prefs = JOB_NAME_AI
+	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -11,20 +12,22 @@
 	req_admin_notify = TRUE
 	minimal_player_age = 30
 	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SILICON
+	exp_type = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
 
+/datum/job/ai/get_access() // no point of calling parent proc
+	return list()
+
 /datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
 	if(visualsOnly)
 		CRASH("dynamic preview is unsupported")
 	. = H.AIize(latejoin,preference_source)
 
-/datum/job/ai/after_spawn(mob/H, mob/M, latejoin)
+/datum/job/ai/after_spawn(mob/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(latejoin)
 		var/obj/structure/AIcore/latejoin_inactive/lateJoinCore
@@ -38,12 +41,15 @@
 			H.forceMove(lateJoinCore.loc)
 			qdel(lateJoinCore)
 	var/mob/living/silicon/ai/AI = H
-	AI.apply_pref_name("ai", M.client)			//If this runtimes oh well jobcode is fucked.
-	AI.set_core_display_icon(null, M.client)
+	if(M.client)
+		AI.apply_pref_name(/datum/preference/name/ai, preference_source)			//If this runtimes oh well jobcode is fucked.
+	AI.set_core_display_icon(null, preference_source)
+	if(!M.client || on_dummy)
+		return
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+		for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 			if(!R.connected_ai)
 				R.TryConnectToAI()
 

@@ -22,7 +22,7 @@
 /obj/structure/closet/cardboard/agent/Initialize(mapload)
 	. = ..()
 	go_invisible()
-
+	SSvis_overlays.add_obj_alpha(src)
 
 /obj/structure/closet/cardboard/agent/open()
 	. = ..()

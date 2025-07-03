@@ -8,7 +8,7 @@ export const handleViewHistory = function (this: Modal) {
   const { historyCounter } = this.fields;
   if (historyCounter > 0 && getHistoryLength()) {
     this.fields.value = getHistoryAt(historyCounter);
-    if (channel < 2) {
+    if (channel < 3) {
       this.timers.typingThrottle();
     }
     this.setState({ buttonContent: historyCounter, edited: true });
@@ -18,8 +18,7 @@ export const handleViewHistory = function (this: Modal) {
     this.fields.value = this.fields.tempHistory;
     this.fields.tempHistory = '';
     this.setState({
-      buttonContent:
-        RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
+      buttonContent: RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
       edited: true,
     });
   }

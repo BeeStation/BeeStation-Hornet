@@ -13,6 +13,8 @@
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
+	radio = /obj/item/radio/headset/silicon/pai
+	can_buckle_to = FALSE
 	move_force = 0
 	pull_force = 0
 	move_resist = 0
@@ -88,7 +90,7 @@
 	var/can_transmit = TRUE
 	var/can_receive = TRUE
 	var/chassis = "repairbot"
-	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
+	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mothroach" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
 	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
 	var/static/item_lh_icon = 'icons/mob/pai_item_lh.dmi'
 	var/static/item_rh_icon = 'icons/mob/pai_item_rh.dmi'
@@ -106,12 +108,6 @@
 	var/silent = FALSE
 	var/atom/movable/screen/ai/modpc/interface_button
 
-
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
 
 /mob/living/silicon/pai/handle_atom_del(atom/A)
 	if(A == hacking_cable)
@@ -163,8 +159,6 @@
 	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
 	atmos_analyzer = new /obj/item/analyzer(src)
-	if(!radio)
-		radio = new /obj/item/radio/headset/silicon/pai(src)
 	newscaster = new /obj/machinery/newscaster/pai(src)
 	if(!aicamera)
 		aicamera = new /obj/item/camera/siliconcam/ai_camera(src)
@@ -176,6 +170,11 @@
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
+
+	if(!holoform)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
+
 	return INITIALIZE_HINT_LATELOAD
 
 
@@ -184,12 +183,12 @@
 		process_hack(delta_time)
 	return ..()
 
-/mob/living/silicon/pai/proc/process_hack(delta_time)
+/mob/living/silicon/pai/proc/process_hack(delta_time, times_fired)
 	if(hacking_cable?.machine && istype(hacking_cable.machine, /obj/machinery/door) && hacking_cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
 		hackprogress = clamp(hackprogress + (2 * delta_time), 0, 100)
 		hackbar.update(hackprogress)
 	else
-		to_chat(src, "<span class='notice'>Door Jack: Connection to airlock has been lost. Hack aborted.</span>")
+		to_chat(src, span_notice("Door Jack: Connection to airlock has been lost. Hack aborted."))
 		hackprogress = 0
 		hacking = FALSE
 		hackdoor = null
@@ -215,16 +214,17 @@
 	return TRUE
 
 /mob/living/silicon/pai/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assigned_role = JOB_NAME_PAI
-	if(!notes_assets.send(client))
-		return
+	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
-		client.eye = src
+		client.set_eye(src)
 	else
-		client.eye = card
+		client.set_eye(card)
 
 /mob/living/silicon/pai/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -234,16 +234,10 @@
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
 
-/mob/living/silicon/pai/restrained(ignore_grab)
-	. = FALSE
-
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-	if(be_close && !in_range(M, src))
-		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
+/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+	return ..(M, be_close, no_dexterity, no_tk, need_hands, TRUE) //Resting is just an aesthetic feature for them.
 
 /mob/proc/makePAI(delold)
 	var/obj/item/paicard/card = new /obj/item/paicard(get_turf(src))
@@ -256,10 +250,11 @@
 
 /datum/action/innate/pai
 	name = "PAI Action"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon_state = null
 	var/mob/living/silicon/pai/P
 
-/datum/action/innate/pai/Trigger()
+/datum/action/innate/pai/on_activate(mob/user, atom/target)
 	if(!ispAI(owner))
 		return 0
 	P = owner
@@ -269,8 +264,7 @@
 	button_icon_state = "pai"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/software/Trigger()
-	..()
+/datum/action/innate/pai/software/on_activate(mob/user, atom/target)
 	P.ui_act()
 
 /datum/action/innate/pai/shell
@@ -278,8 +272,7 @@
 	button_icon_state = "pai_holoform"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/shell/Trigger()
-	..()
+/datum/action/innate/pai/shell/on_activate(mob/user, atom/target)
 	if(P.holoform)
 		P.fold_in(0)
 	else
@@ -290,8 +283,7 @@
 	button_icon_state = "pai_chassis"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/chassis/Trigger()
-	..()
+/datum/action/innate/pai/chassis/on_activate(mob/user, atom/target)
 	P.choose_chassis()
 
 /datum/action/innate/pai/rest
@@ -299,55 +291,54 @@
 	button_icon_state = "pai_rest"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/rest/Trigger()
-	..()
-	P.lay_down()
+/datum/action/innate/pai/rest/on_activate(mob/user, atom/target)
+	P.toggle_resting()
 
 /datum/action/innate/pai/light
 	name = "Toggle Integrated Lights"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "emp"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/light/Trigger()
-	..()
+/datum/action/innate/pai/light/on_activate(mob/user, atom/target)
 	P.toggle_integrated_light()
 
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(!.)
-		add_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE, 100, multiplicative_slowdown = 2)
+		add_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 		return TRUE
-	remove_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE)
+	remove_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 	return TRUE
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 	. += "A personal AI in holochassis mode. Its master ID string seems to be [master]."
 
-/mob/living/silicon/pai/Life()
-	if(stat == DEAD)
+/mob/living/silicon/pai/Life(delta_time = SSMOBS_DT, times_fired)
+	. = ..()
+	if(QDELETED(src) || stat == DEAD)
 		return
 	if(hacking_cable)
 		if(get_dist(src, hacking_cable) > 1)
 			var/turf/T = get_turf(src.loc)
-			T.visible_message("<span class='warning'>[hacking_cable] rapidly retracts back into its spool.</span>", "<span class='hear'>You hear a click and the sound of wire spooling rapidly.</span>")
+			T.visible_message(span_warning("[hacking_cable] rapidly retracts back into its spool."), span_hear("You hear a click and the sound of wire spooling rapidly."))
 			QDEL_NULL(hacking_cable)
 			if(!QDELETED(card))
 				card.update_icon()
 		else if(hacking)
-			process_hack()
-	silent = max(silent - 1, 0)
-	. = ..()
+			process_hack(delta_time, times_fired)
+	silent = max(silent - (0.5 * delta_time), 0)
 
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)
 		return
-	health = maxHealth - getBruteLoss() - getFireLoss()
+	set_health(maxHealth - getBruteLoss() - getFireLoss())
 	update_stat()
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
 
 /mob/living/silicon/pai/process(delta_time)
-	emitterhealth = CLAMP((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
+	emitterhealth = clamp((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
 
 /mob/living/silicon/pai/can_interact_with(atom/A)
 	if(A == signaler) // Bypass for signaler
@@ -358,11 +349,11 @@
 /obj/item/paicard/attackby(obj/item/used, mob/user, params)
 	if(pai && (istype(used, /obj/item/encryptionkey) || used.tool_behaviour == TOOL_SCREWDRIVER))
 		if(!pai.encryptmod)
-			to_chat(user, "<span class='alert'>Encryption Key ports not configured.</span>")
+			to_chat(user, span_alert("Encryption Key ports not configured."))
 			return
 		user.set_machine(src)
 		pai.radio.attackby(used, user, params)
-		to_chat(user, "<span class='notice'>You insert [used] into the [src].</span>")
+		to_chat(user, span_notice("You insert [used] into the [src]."))
 		return
 
 	return ..()
@@ -377,8 +368,8 @@
 
 /obj/item/paicard/on_emag(mob/user) // Emag to wipe the master DNA and supplemental directive
 	..()
-	to_chat(user, "<span class='notice'>You override [pai]'s directive system, clearing its master string and supplied directive.</span>")
-	to_chat(pai, "<span class='danger'>Warning: System override detected, check directive sub-system for any changes.'</span>")
+	to_chat(user, span_notice("You override [pai]'s directive system, clearing its master string and supplied directive."))
+	to_chat(pai, span_danger("Warning: System override detected, check directive sub-system for any changes.'"))
 	log_game("[key_name(user)] emagged [key_name(pai)], wiping their master DNA and supplemental directive.")
 	pai.emagged = TRUE
 	pai.master = null

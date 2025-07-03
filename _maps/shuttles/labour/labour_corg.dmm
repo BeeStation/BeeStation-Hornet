@@ -4,8 +4,8 @@
 	input_dir = 2;
 	output_dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -14,15 +14,21 @@
 	machinedir = 1;
 	pixel_x = 30
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "e" = (
-/obj/effect/turf_decal/stripes/corner{
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"g" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/obj/item/gps/security,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "h" = (
@@ -30,16 +36,6 @@
 	pixel_x = -31
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"p" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -55,6 +51,7 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "y" = (
@@ -68,9 +65,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -101,15 +95,22 @@
 	port_direction = 4;
 	width = 8
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "F" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
+/obj/machinery/door/window/southleft{
+	name = "Gulag";
+	req_one_access_txt = "63;42;38"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	req_access_txt = "1";
+	pixel_x = -25
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -117,17 +118,9 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
 "I" = (
-/obj/machinery/button/flasher{
-	id = "gulagshuttleflasher";
-	name = "Flash Control";
-	pixel_y = -26;
-	req_access_txt = "1"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "P" = (
@@ -199,8 +192,8 @@ S
 B
 Q
 I
-y
-p
+g
+e
 X
 R
 S

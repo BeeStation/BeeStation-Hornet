@@ -9,7 +9,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "i" = (
 /obj/structure/closet/crate/coffin,
@@ -18,7 +18,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "n" = (
 /obj/structure/table,
@@ -29,14 +29,14 @@
 	},
 /obj/item/shovel,
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "t" = (
 /obj/structure/closet/crate/coffin,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "u" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -48,7 +48,7 @@
 	pixel_y = 22
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 "y" = (
@@ -60,7 +60,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "D" = (
 /obj/structure/closet/crate/coffin,
@@ -68,7 +68,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "G" = (
 /obj/structure/closet/crate/coffin,
@@ -85,13 +85,13 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "J" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "R" = (
@@ -105,7 +105,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "X" = (
 /obj/structure/closet/cardboard,
@@ -114,7 +114,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Z" = (
 /obj/structure/closet/crate/coffin,
@@ -124,7 +124,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 
 (1,1,1) = {"

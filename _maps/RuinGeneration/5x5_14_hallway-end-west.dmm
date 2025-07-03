@@ -13,14 +13,13 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "P" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "V" = (
 /obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 

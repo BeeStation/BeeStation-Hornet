@@ -8,7 +8,8 @@ Slimecrossing Weapons
 /obj/item/melee/arm_blade/slime
 	name = "slimy boneblade"
 	desc = "What remains of the bones in your arm. Incredibly sharp, and painful for both you and your opponents."
-	force = 15
+	force = 20
+	sharpness = SHARP_DISMEMBER
 	force_string = "painful"
 
 /obj/item/melee/arm_blade/slime/attack(mob/living/L, mob/user)
@@ -23,35 +24,40 @@ Slimecrossing Weapons
 
 
 //Rainbow knife - Burning Rainbow
-/obj/item/kitchen/knife/rainbowknife
+/obj/item/knife/rainbowknife
 	name = "rainbow knife"
 	desc = "A strange, transparent knife which constantly shifts color. It hums slightly when moved."
-	icon = 'icons/obj/slimecrossing.dmi'
+	icon = 'icons/obj/knives.dmi'
 	icon_state = "rainbowknife"
 	item_state = "rainbowknife"
 	force = 15
 	throwforce = 15
 	damtype = BRUTE
 
-/obj/item/kitchen/knife/rainbowknife/afterattack(atom/O, mob/user, proximity)
+/obj/item/knife/rainbowknife/afterattack(atom/O, mob/user, proximity)
 	if(proximity && istype(O, /mob/living))
 		damtype = pick(BRUTE, BURN, TOX, OXY, CLONE)
 	switch(damtype)
 		if(BRUTE)
 			hitsound = 'sound/weapons/bladeslice.ogg'
-			attack_verb = list("slashed","sliced","cut")
+			attack_verb_continuous = list("slashes", "slices", "cuts")
+			attack_verb_simple = list("slash", "slice", "cut")
 		if(BURN)
 			hitsound = 'sound/weapons/sear.ogg'
-			attack_verb = list("burned","singed","heated")
+			attack_verb_continuous = list("burns", "singes", "heats")
+			attack_verb_simple = list("burn", "singe", "heat")
 		if(TOX)
 			hitsound = 'sound/weapons/pierce.ogg'
-			attack_verb = list("poisoned","dosed","toxified")
+			attack_verb_continuous = list("poisons", "doses", "toxifies")
+			attack_verb_simple = list("poison", "dose", "toxify")
 		if(OXY)
 			hitsound = 'sound/effects/space_wind.ogg'
-			attack_verb = list("suffocated","winded","vacuumed")
+			attack_verb_continuous = list("suffocates", "winds", "vacuums")
+			attack_verb_simple = list("suffocate", "wind", "vacuum")
 		if(CLONE)
 			hitsound = 'sound/items/geiger/ext1.ogg'
-			attack_verb = list("irradiated","mutated","maligned")
+			attack_verb_continuous = list("irradiates", "mutates", "maligns")
+			attack_verb_simple = list("irradiate", "mutate", "malign")
 	return ..()
 
 //Adamantine shield - Burning Adamantine
@@ -62,17 +68,28 @@ Slimecrossing Weapons
 	icon_state = "adamshield"
 	item_state = "adamshield"
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70, STAMINA = 70)
+	armor_type = /datum/armor/shield_adamantineshield
 	slot_flags = ITEM_SLOT_BACK
 	attack_weight = 2
 	block_power = 75
 	block_level = 3
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	block_flags = BLOCKING_PROJECTILE
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2
-	attack_verb = list("bashed","pounded","slammed")
+	attack_verb_continuous = list("bashes", "pounds", "slams")
+	attack_verb_simple = list("bash", "pound", "slam")
 	item_flags = SLOWS_WHILE_IN_HAND
+
+
+/datum/armor/shield_adamantineshield
+	melee = 50
+	bullet = 50
+	laser = 50
+	bomb = 30
+	fire = 80
+	acid = 70
+	stamina = 70
 
 /obj/item/shield/adamantineshield/ComponentInitialize()
 	. = ..()
@@ -114,9 +131,9 @@ Slimecrossing Weapons
 	return 1
 
 /obj/item/ammo_casing/magic/bloodchill
-	projectile_type = /obj/item/projectile/magic/bloodchill
+	projectile_type = /obj/projectile/magic/bloodchill
 
-/obj/item/projectile/magic/bloodchill
+/obj/projectile/magic/bloodchill
 	name = "blood ball"
 	icon_state = "pulse0_bl"
 	damage = 0
@@ -124,7 +141,7 @@ Slimecrossing Weapons
 	nodamage = TRUE
 	hitsound = 'sound/effects/splat.ogg'
 
-/obj/item/projectile/magic/bloodchill/on_hit(mob/living/target)
+/obj/projectile/magic/bloodchill/on_hit(mob/living/target)
 	. = ..()
 	if(isliving(target))
 		target.apply_status_effect(/datum/status_effect/bloodchill)

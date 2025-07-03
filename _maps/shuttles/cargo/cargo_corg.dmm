@@ -13,7 +13,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -45,7 +45,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -64,7 +64,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor2";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -116,7 +116,7 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor2";
-	name = "supply dock loading door"
+	name = "supply Dock Loading Door"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,

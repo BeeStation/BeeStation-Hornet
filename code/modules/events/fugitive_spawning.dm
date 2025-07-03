@@ -28,7 +28,13 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/candidates = get_candidates(ROLE_FUGITIVE, null, ROLE_FUGITIVE)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		role = /datum/role_preference/midround_ghost/fugitive,
+		check_jobban = ROLE_FUGITIVE,
+		poll_time = 30 SECONDS,
+		role_name_text = "fugitive",
+		alert_pic = /obj/item/clothing/mask/gas/tiki_mask,
+	)
 	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
@@ -40,14 +46,18 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	var/list/possible_backstories = list()
 	for(var/type_key as() in GLOB.fugitive_types)
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
-		if(length(candidates) > F.max_amount)
+		// without this second check it will filter out "safe" backstories even if there are enough players to fill it
+		if(length(candidates) > F.max_amount_allowed && F.max_amount_allowed < MAXIMUM_TOTAL_FUGITIVES)
+			continue
+		// Not enough for this backstory
+		if(length(candidates) < F.min_spawn_amount)
 			continue
 		possible_backstories += type_key
 	if(!length(possible_backstories) || length(candidates) < 1)
 		return NOT_ENOUGH_PLAYERS
 
 	var/datum/fugitive_type/backstory = GLOB.fugitive_types[admin_select_backstory(possible_backstories)]
-	var/member_size = min(length(candidates), backstory.max_amount)
+	var/member_size = min(length(candidates), backstory.max_spawn_amount)
 	var/leader
 	if(backstory.has_leader)
 		leader = pick_n_take(candidates)
@@ -93,7 +103,14 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/spawn_hunters()
 	set waitfor = FALSE
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
-	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		question = "The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?",
+		role = /datum/role_preference/midround_ghost/fugitive_hunter,
+		check_jobban = ROLE_FUGITIVE_HUNTER,
+		poll_time = 15 SECONDS,
+		role_name_text = backstory.name,
+		alert_pic = /obj/item/melee/baton,
+	)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
@@ -101,7 +118,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	var/turf/T = locate(x,y,z)
 	if(!T)
 		CRASH("Fugitive Hunters (Created from fugitive event) found no turf to load in")
-	var/datum/map_generator/template_placer = ship.load(T)
+	var/datum/async_map_generator/template_placer = ship.load(T)
 	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(announce_fugitive_spawns), ship, candidates, backstory))
 
 /proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, datum/fugitive_type/hunter/backstory, datum/map_generator/map_generator, turf/T)
@@ -133,7 +150,8 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 
 /proc/admin_select_backstory(list/backstory_keys)
 	GLOB.fugitive_backstory_selection = backstory_keys
-	message_admins("Choosing random fugitive backstory in 15 seconds. \
-		<a href='?_src_=holder;[HrefToken(TRUE)];backstory_select=[REF(backstory_keys)]'>SELECT MANUALLY</a>")
-	sleep(15 SECONDS)
+	message_admins("Choosing random fugitive backstory in 20 seconds. \
+		<a href='byond://?_src_=holder;[HrefToken(TRUE)];backstory_select=[REF(backstory_keys)]'>SELECT MANUALLY</a>")
+	play_sound_to_all_admins('sound/effects/admin_alert.ogg')
+	sleep(20 SECONDS)
 	return pick(GLOB.fugitive_backstory_selection)

@@ -4,46 +4,53 @@
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	power = /obj/effect/proc_holder/spell/targeted/touch/shock
+	power_path = /datum/action/spell/touch/shock
 	instability = 30
 	locked = TRUE
-
-/obj/effect/proc_holder/spell/targeted/touch/shock
-	name = "Shock Touch"
-	desc = "Channel electricity to your hand to shock people with."
-	drawmessage = "You channel electricity into your hand."
-	dropmessage = "You let the electricity from your hand dissipate."
-	hand_path = /obj/item/melee/touch_attack/shock
-	charge_max = 100
-	clothes_req = FALSE
-	action_icon_state = "zap"
+	energy_coeff = 1
+	power_coeff = 1
 
 /obj/item/melee/touch_attack/shock
 	name = "\improper shock touch"
 	desc = "This is kind of like when you rub your feet on a shag rug so you can zap your friends, only a lot less safe."
-	catchphrase = null
-	on_use_sound = 'sound/weapons/zapbang.ogg'
 	icon_state = "zapper"
 	item_state = "zapper"
 
+/datum/action/spell/touch/shock
+	name = "Shock Touch"
+	desc = "Channel electricity to your hand to shock people with."
+	button_icon_state = "zap"
+	sound = 'sound/weapons/zapbang.ogg'
+	cooldown_time = 10 SECONDS
+	invocation_type = INVOCATION_NONE
+	spell_requirements = NONE
+	antimagic_flags = NONE
+	mindbound = FALSE
+	hand_path = /obj/item/melee/touch_attack/shock
+	draw_message = ("<span class='notice'>You channel electricity into your hand.</span>")
+	drop_message = ("<span class='notice'>You let the electricity from your hand dissipate.</span>")
+
+/datum/action/spell/touch/shock/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+	return TRUE
+
 /obj/item/melee/touch_attack/shock/afterattack(atom/target, mob/living/carbon/user, proximity)
-	user.Beam(target, icon_state="lightning[rand(1,12)]", time=5, maxdistance = 32)
+	if(QDELETED(target) || isturf(target))
+		return
+	user.Beam(target, icon_state = "lightning[rand(1, 12)]", time = 5, maxdistance = 32)
+	var/zap = 15
 	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(C.electrocute_act(15, user, 1, FALSE, FALSE, FALSE, FALSE, FALSE))//doesnt stun. never let this stun
-			C.dropItemToGround(C.get_active_held_item())
-			C.dropItemToGround(C.get_inactive_held_item())
-			C.confused += 15
-			C.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
-			return ..()
+		var/mob/living/carbon/ctarget = target
+		if(ctarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)) //doesnt stun. never let this stun
+			ctarget.drop_all_held_items()
+			ctarget.confused += zap
+			ctarget.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
 		else
-			user.visible_message("<span class='warning'>[user] fails to electrocute [target]!</span>")
-			return ..()
+			user.visible_message(span_warning("[user] fails to electrocute [target]!"))
 	else if(isliving(target))
-		var/mob/living/L = target
-		L.electrocute_act(15, user, 1, FALSE, FALSE, FALSE, FALSE)
-		L.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
-		return ..()
+		var/mob/living/ltarget = target
+		ltarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)
+		ltarget.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
 	else
-		to_chat(user,"<span class='warning'>The electricity doesn't seem to affect [target]...</span>")
-		return ..()
+		to_chat(user, span_warning("The electricity doesn't seem to affect [target]..."))
+	remove_hand_with_no_refund(user)
+	return ..()

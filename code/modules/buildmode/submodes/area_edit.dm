@@ -21,11 +21,11 @@
 	return ..()
 
 /datum/buildmode_mode/area_edit/show_help(client/c)
-	to_chat(c, "<span class='notice'>***********************************************************</span>")
-	to_chat(c, "<span class='notice'>Left Mouse Button on obj/turf/mob  = Paint area</span>")
-	to_chat(c, "<span class='notice'>Right Mouse Button on obj/turf/mob = Select area to paint</span>")
-	to_chat(c, "<span class='notice'>Right Mouse Button on buildmode button = Create new area</span>")
-	to_chat(c, "<span class='notice'>***********************************************************</span>")
+	to_chat(c, span_notice("***********************************************************"))
+	to_chat(c, span_notice("Left Mouse Button on obj/turf/mob  = Paint area"))
+	to_chat(c, span_notice("Right Mouse Button on obj/turf/mob = Select area to paint"))
+	to_chat(c, span_notice("Right Mouse Button on buildmode button = Create new area"))
+	to_chat(c, span_notice("***********************************************************"))
 
 /datum/buildmode_mode/area_edit/change_settings(client/c)
 	var/target_path = input(c, "Enter typepath:", "Typepath", "/area")
@@ -43,19 +43,17 @@
 		areaimage.loc = storedarea // color our area
 
 /datum/buildmode_mode/area_edit/handle_click(client/c, params, object)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/right_click = pa.Find("right")
+	var/list/modifiers = params2list(params)
 
-	if(left_click)
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		if(!storedarea)
-			to_chat(c, "<span class='warning'>Configure or select the area you want to paint first!</span>")
+			to_chat(c, span_warning("Configure or select the area you want to paint first!"))
 			return
 		var/turf/T = get_turf(object)
 		if(get_area(T) != storedarea)
 			log_admin("Build Mode: [key_name(c)] added [AREACOORD(T)] to [storedarea]")
 			storedarea.contents.Add(T)
-	else if(right_click)
+	else if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		var/turf/T = get_turf(object)
 		storedarea = get_area(T)
 		areaimage.loc = storedarea // color our area

@@ -186,3 +186,10 @@ Temporary Items
 
 # Common build tooling, C B T
 !/tools/build
+
+# byond-tracy
+prof.dll
+libprof.so
+
+# Define sanity output
+define_sanity_output.txt

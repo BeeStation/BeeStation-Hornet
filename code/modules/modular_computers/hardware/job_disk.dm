@@ -30,12 +30,11 @@
 	if(disk_flags & DISK_POWER)
 		progs_to_store += new /datum/computer_file/program/power_monitor(src)
 		progs_to_store += new /datum/computer_file/program/supermatter_monitor(src)
+		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
-
-	if(disk_flags & DISK_MANIFEST)
-		progs_to_store += new /datum/computer_file/program/crew_manifest(src)
+		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
@@ -45,19 +44,6 @@
 
 	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_MED) || (disk_flags & DISK_POWER) || (disk_flags & DISK_ATMOS))
 		var/datum/computer_file/program/phys_scanner/scanner = new(src)
-
-		if(disk_flags & DISK_CHEM)
-			scanner.available_modes += DISK_CHEM
-
-		if(disk_flags & DISK_MED)
-			progs_to_store += new /datum/computer_file/program/records/medical(src)
-			scanner.available_modes += DISK_MED
-
-		if(disk_flags & DISK_POWER)
-			scanner.available_modes += DISK_POWER
-
-		if(disk_flags & DISK_ATMOS)
-			scanner.available_modes += DISK_ATMOS
 
 		progs_to_store += scanner
 
@@ -117,7 +103,7 @@
 /obj/item/computer_hardware/hard_drive/role/chemistry
 	name = "\improper ChemWhiz disk"
 	icon_state = "cart-chem"
-	disk_flags = DISK_CHEM
+	disk_flags = DISK_CHEM | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/brig_physician
 	name = "\improper R.O.B.U.S.T. MED-U disk"
@@ -132,7 +118,7 @@
 /obj/item/computer_hardware/hard_drive/role/detective
 	name = "\improper D.E.T.E.C.T. disk"
 	icon_state = "cart-det"
-	disk_flags = DISK_MED | DISK_SEC | DISK_MANIFEST | DISK_ROBOS
+	disk_flags = DISK_MED | DISK_SEC | DISK_MANIFEST | DISK_ROBOS | DISK_CHEM
 
 /obj/item/computer_hardware/hard_drive/role/janitor
 	name = "\improper CustodiPRO disk"

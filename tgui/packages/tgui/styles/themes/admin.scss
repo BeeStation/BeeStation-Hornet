@@ -19,17 +19,11 @@ $generic: #4c4958;
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: (
-      'color-default': color.scale($generic, $lightness: -30%),
-      'color-transparent-text': rgba(227, 240, 255, 0.75)
-    )
+    $with: ('color-default': color.scale($generic, $lightness: -30%), 'color-transparent-text': rgba(227, 240, 255, 0.75))
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: (
-      'color-default-fill': $generic,
-      'background-color': rgba(0, 0, 0, 0.5)
-    )
+    $with: ('color-default-fill': $generic, 'background-color': rgba(0, 0, 0, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
 
@@ -48,5 +42,8 @@ $generic: #4c4958;
 
   .Layout__content {
     background-image: url('../../assets/bg-beestation.svg');
+    background-size: 70% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

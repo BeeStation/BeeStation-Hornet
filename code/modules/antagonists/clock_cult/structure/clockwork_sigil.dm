@@ -28,7 +28,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/destructible/clockwork/sigil/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/sigil/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	dispell()
 
@@ -65,7 +65,7 @@
 	var/mob/living/M = AM
 	if(!istype(M))
 		return FALSE
-	var/amc = M.anti_magic_check(magic=FALSE,holy=TRUE)
+	var/amc = M.can_block_magic(MAGIC_RESISTANCE_HOLY)
 	if(amc)
 		return FALSE
 	return TRUE
@@ -121,8 +121,11 @@
 	if(!..())
 		return FALSE
 	M.Paralyze(60)
-	M.blind_eyes(120)
+	M.adjust_blindness(120)
 	var/mob/living/carbon/C = M
 	if(istype(C))
 		C.silent += 15
 	qdel(src)
+
+#undef SIGIL_INVOKATION_ALPHA
+#undef SIGIL_INVOKED_ALPHA

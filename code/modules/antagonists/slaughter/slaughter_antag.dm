@@ -3,7 +3,7 @@
 	show_name_in_check_antagonists = TRUE
 	var/objective_verb = "Kill"
 	var/datum/mind/summoner
-	job_rank = ROLE_ALIEN
+	banning_key = ROLE_SLAUGHTER_DEMON
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 
@@ -14,6 +14,9 @@
 /datum/antagonist/slaughter/greet()
 	. = ..()
 	owner.announce_objectives()
+
+/datum/antagonist/slaughter/get_antag_name() // makes laughter demon in the same category with slaughter demon in orbit panel
+	return "Slaughter demon"
 
 /datum/antagonist/slaughter/proc/forge_objectives()
 	if(summoner)

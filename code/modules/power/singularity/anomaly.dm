@@ -11,7 +11,7 @@
 	var/dissipate_strength = 1
 	/// How long its been (in seconds) since the last dissipation
 	var/time_since_last_dissipiation = 0
-	/// How long until we start to dissipate/gain energy again after beeing hit by a /obj/item/projectile/energy/accelerated_particle/weak
+	/// How long until we start to dissipate/gain energy again after beeing hit by a /obj/projectile/energy/accelerated_particle/weak
 	var/conistant_energy_cooldown = 10 SECONDS
 	COOLDOWN_DECLARE(RESTART_DISSIPATE)
 
@@ -27,7 +27,7 @@
 
 	time_since_last_dissipiation -= dissipate_delay
 
-/obj/anomaly/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
+/obj/anomaly/bullet_act(obj/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
 	if(istype(P))
 		if(P.stop_dissipate) //if we get hit by the weak version we won't dissipate nor gain energy
 			COOLDOWN_START(src, RESTART_DISSIPATE, conistant_energy_cooldown)

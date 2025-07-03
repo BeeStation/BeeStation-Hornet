@@ -17,7 +17,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_NECK
-	materials = list(/datum/material/iron = 50, /datum/material/glass = 150)
+	custom_materials = list(/datum/material/iron = 50, /datum/material/glass = 150)
 	var/flash_enabled = TRUE
 	var/state_on = "camera"
 	var/state_off = "camera_off"
@@ -54,19 +54,19 @@
 /obj/item/camera/attack_self(mob/user)
 	if(!disk)
 		return
-	to_chat(user, "<span class='notice'>You eject [disk] out the back of [src].</span>")
+	to_chat(user, span_notice("You eject [disk] out the back of [src]."))
 	user.put_in_hands(disk)
 	disk = null
 
 /obj/item/camera/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to change its focusing, allowing you to set how big of an area it will capture.</span>"
+	. += span_notice("Alt-click to change its focusing, allowing you to set how big of an area it will capture.")
 
 /obj/item/camera/proc/adjust_zoom(mob/user)
 	var/desired_x = input(user, "How high do you want the camera to shoot, between [picture_size_x_min] and [picture_size_x_max]?", "Zoom", picture_size_x) as num
 	var/desired_y = input(user, "How wide do you want the camera to shoot, between [picture_size_y_min] and [picture_size_y_max]?", "Zoom", picture_size_y) as num
-	picture_size_x = min(CLAMP(desired_x, picture_size_x_min, picture_size_x_max), CAMERA_PICTURE_SIZE_HARD_LIMIT)
-	picture_size_y = min(CLAMP(desired_y, picture_size_y_min, picture_size_y_max), CAMERA_PICTURE_SIZE_HARD_LIMIT)
+	picture_size_x = min(clamp(desired_x, picture_size_x_min, picture_size_x_max), CAMERA_PICTURE_SIZE_HARD_LIMIT)
+	picture_size_y = min(clamp(desired_y, picture_size_y_min, picture_size_y_max), CAMERA_PICTURE_SIZE_HARD_LIMIT)
 
 /obj/item/camera/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
@@ -79,23 +79,23 @@
 /obj/item/camera/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/camera_film))
 		if(pictures_left)
-			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
+			to_chat(user, span_notice("[src] still has some film in it!"))
 			return
 		if(!user.temporarilyRemoveItemFromInventory(I))
 			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+		to_chat(user, span_notice("You insert [I] into [src]."))
 		qdel(I)
 		pictures_left = pictures_max
 		return
 	if(istype(I, /obj/item/disk/holodisk))
 		if (!disk)
 			if(!user.transferItemToLoc(I, src))
-				to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+				to_chat(user, span_warning("[I] is stuck to your hand!"))
 				return TRUE
-			to_chat(user, "<span class='notice'>You slide [I] into the back of [src].</span>")
+			to_chat(user, span_notice("You slide [I] into the back of [src]."))
 			disk = I
 		else
-			to_chat(user, "<span class='warning'>There's already a disk inside [src].</span>")
+			to_chat(user, span_warning("There's already a disk inside [src]."))
 		return TRUE //no afterattack
 	..()
 
@@ -133,7 +133,7 @@
 			disk.record.caller_name = M.name
 			disk.record.set_caller_image(M)
 		else
-			to_chat(user, "<span class='warning'>Invalid holodisk target.</span>")
+			to_chat(user, span_warning("Invalid holodisk target."))
 			return
 
 	if(!can_target(target, user, flag))
@@ -172,43 +172,43 @@
 	if(!isturf(target_turf))
 		blending = FALSE
 		return FALSE
-	size_x = CLAMP(size_x, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
-	size_y = CLAMP(size_y, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
+	size_x = clamp(size_x, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
+	size_y = clamp(size_y, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
 	var/list/desc = list("This is a photo of an area of [(2*size_x)+1] meters by [(2*size_y)+1] meters.")
 	var/list/mobs_spotted = list()
-	var/list/dead_spotted = list()
+	var/list/minds_spotted = list()
 	var/ai_user = isAI(user)
 	var/list/seen
-	var/list/viewlist = (user && user.client)? getviewsize(user.client.view) : getviewsize(world.view)
+	var/list/viewlist = user?.client ? getviewsize(user.client.view) : getviewsize(world.view)
 	var/viewr = max(viewlist[1], viewlist[2]) + max(size_x, size_y)
-	var/viewc = user.client? user.client.eye : target
+	var/viewc = user?.client ? user.client.eye : target
 	seen = get_hear(viewr, get_turf(viewc))
 	var/list/turfs = list()
 	var/list/mobs = list()
 	var/blueprints = FALSE
 	var/clone_area = SSmapping.RequestBlockReservation(size_x * 2 + 1, size_y * 2 + 1)
 	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.z), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.z)))
-		var/turf/T = placeholder
-		while(istype(T, /turf/open/openspace)) //Multi-z photography
-			T = SSmapping.get_turf_below(T)
-			if(!T)
+		var/turf/turf = placeholder
+		while(istype(turf, /turf/open/openspace)) //Multi-z photography
+			turf = GET_TURF_BELOW(turf)
+			if(!turf)
 				break
 
-		if(T && ((ai_user && GLOB.cameranet.checkTurfVis(placeholder)) || (placeholder in seen)))
-			turfs += T
-			for(var/mob/M in T)
-				mobs += M
-			if(locate(/obj/item/areaeditor/blueprints) in T)
+		if(turf && ((ai_user && GLOB.cameranet.checkTurfVis(placeholder)) || (placeholder in seen)))
+			turfs += turf
+			for(var/mob/mob in turf)
+				mobs += mob
+			if(locate(/obj/item/areaeditor/blueprints) in turf)
 				blueprints = TRUE
-	for(var/mob/M in mobs)
+	for(var/mob/mob in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if(M.alpha <= 50 || !((M.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(M))))
+		if(mob.alpha <= 50 || !((mob.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(mob))))
 			continue
-		mobs_spotted += M
-		if(M.stat == DEAD)
-			dead_spotted += M
+		mobs_spotted[mob] = mob.stat
+		if(mob.mind)
+			minds_spotted[mob.mind] = considered_alive(mob.mind) ? mob.stat : DEAD // if you're a silicon, you're dead
 		// |=, let's not spam "You can also see a ... thing? 8 times"
-		desc |= M.get_photo_description(src)
+		desc |= mob.get_photo_description(src)
 
 	var/psize_x = (size_x * 2 + 1) * world.icon_size
 	var/psize_y = (size_y * 2 + 1) * world.icon_size
@@ -219,7 +219,7 @@
 	temp.Scale(psize_x, psize_y)
 	temp.Blend(get_icon, ICON_OVERLAY)
 
-	var/datum/picture/P = new("picture", desc.Join(" "), mobs_spotted, dead_spotted, temp, null, psize_x, psize_y, blueprints)
+	var/datum/picture/P = new("picture", desc.Join(" "), mobs_spotted, minds_spotted, temp, null, psize_x, psize_y, blueprints)
 	after_picture(user, P, flag)
 	blending = FALSE
 
@@ -239,7 +239,7 @@
 		if(!ispAI(user))
 			user.put_in_hands(p)
 			pictures_left--
-			to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
+			to_chat(user, span_notice("[pictures_left] photos left."))
 		var/customise = "No"
 		if(can_customise)
 			customise = alert(user, "Do you want to customize the photo?", "Customization", "Yes", "No")
@@ -260,3 +260,5 @@
 		p.set_picture(picture, TRUE, TRUE)
 		if(CONFIG_GET(flag/picture_logging_camera))
 			picture.log_to_file()
+
+#undef CAMERA_PICTURE_SIZE_HARD_LIMIT

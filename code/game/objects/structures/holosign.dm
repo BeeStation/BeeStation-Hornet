@@ -6,9 +6,17 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list(MELEE = 0,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 0)
+	armor_type = /datum/armor/structure_holosign
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/holosign_creator/projector
+
+
+/datum/armor/structure_holosign
+	bullet = 50
+	laser = 50
+	energy = 50
+	fire = 20
+	acid = 20
 
 /obj/structure/holosign/emp_act(severity)
 	take_damage(max_integrity/severity, BRUTE, MELEE, 1)
@@ -23,6 +31,8 @@
 	. = ..()
 	alpha = 0
 	SSvis_overlays.add_vis_overlay(src, icon, icon_state, ABOVE_MOB_LAYER, plane, dir, add_appearance_flags = RESET_ALPHA) //you see mobs under it, but you hit them like they are above it
+
+
 
 /obj/structure/holosign/Destroy()
 	if(projector)
@@ -60,7 +70,7 @@
 	max_integrity = 20
 	var/allow_walk = 1 //can we pass through it on walk intent
 
-/obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
@@ -75,7 +85,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holosign"
 
-/obj/structure/holosign/barrier/wetsign/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/wetsign/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/vehicle/ridden/janicart))
 		return TRUE
@@ -91,7 +101,7 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	anchored = TRUE
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 	alpha = 150
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
@@ -107,11 +117,12 @@
 	. = ..()
 	var/turf/local = get_turf(loc)
 	ADD_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/local = get_turf(loc)
 	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
+	air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/structure/holosign/barrier/atmos/Move(atom/newloc, direct)
@@ -126,11 +137,11 @@
 	max_integrity = 10
 	allow_walk = 0
 
-/obj/structure/holosign/barrier/cyborg/bullet_act(obj/item/projectile/P)
+/obj/structure/holosign/barrier/cyborg/bullet_act(obj/projectile/P)
 	take_damage((P.damage / 5) , BRUTE, MELEE, 1)	//Doesn't really matter what damage flag it is.
-	if(istype(P, /obj/item/projectile/energy/electrode))
+	if(istype(P, /obj/projectile/energy/electrode))
 		take_damage(10, BRUTE, MELEE, 1)	//Tasers aren't harmful.
-	if(istype(P, /obj/item/projectile/beam/disabler))
+	if(istype(P, /obj/projectile/beam/disabler))
 		take_damage(5, BRUTE, MELEE, 1)	//Disablers aren't harmful.
 	return BULLET_ACT_HIT
 
@@ -144,9 +155,9 @@
 
 /obj/structure/holosign/barrier/medical/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The biometric scanners are <b>[force_allaccess ? "off" : "on"]</b>.</span>"
+	. += span_notice("The biometric scanners are <b>[force_allaccess ? "off" : "on"]</b>.")
 
-/obj/structure/holosign/barrier/medical/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/medical/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(force_allaccess)
 		return TRUE
@@ -173,10 +184,10 @@
 	else
 		return TRUE //nice or benign diseases!
 
-/obj/structure/holosign/barrier/medical/attack_hand(mob/living/user)
-	if(CanPass(user) && user.a_intent == INTENT_HELP)
+/obj/structure/holosign/barrier/medical/attack_hand(mob/living/user, list/modifiers)
+	if(!user.combat_mode && CanPass(user, get_dir(src, user)))
 		force_allaccess = !force_allaccess
-		to_chat(user, "<span class='warning'>You [force_allaccess ? "deactivate" : "activate"] the biometric scanners.</span>") //warning spans because you can make the station sick!
+		to_chat(user, span_warning("You [force_allaccess ? "deactivate" : "activate"] the biometric scanners.")) //warning spans because you can make the station sick!
 	else
 		return ..()
 
@@ -186,7 +197,7 @@
 	max_integrity = 20
 	var/shockcd = 0
 
-/obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/item/projectile/P)
+/obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)
 	take_damage(P.damage, BRUTE, MELEE, 1)	//Yeah no this doesn't get projectile resistance.
 	return BULLET_ACT_HIT
 
@@ -200,7 +211,7 @@
 	if(!shockcd)
 		if(ismob(user))
 			var/mob/living/M = user
-			M.electrocute_act(15,"Energy Barrier", safety=1)
+			M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES)
 			shockcd = TRUE
 			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
@@ -212,6 +223,6 @@
 		return
 
 	var/mob/living/M = AM
-	M.electrocute_act(15,"Energy Barrier", safety=1)
+	M.electrocute_act(15,"Energy Barrier", flags = SHOCK_NOGLOVES)
 	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

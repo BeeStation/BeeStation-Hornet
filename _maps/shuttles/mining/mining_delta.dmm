@@ -193,23 +193,23 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
@@ -249,8 +249,7 @@
 "t" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,

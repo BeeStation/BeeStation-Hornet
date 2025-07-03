@@ -16,14 +16,17 @@ SUBSYSTEM_DEF(communications)
 	else
 		. = TRUE
 
-/datum/controller/subsystem/communications/proc/make_announcement(mob/living/user, is_silicon, input, auth_id)
+/datum/controller/subsystem/communications/proc/make_announcement(mob/living/user, is_silicon, input, auth_id, emagged)
 	if(!can_announce(user, is_silicon))
 		return FALSE
 	if(is_silicon)
 		minor_announce(input,"[user.name] Announces:", html_encode = FALSE)
 		silicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN_AI
 	else
-		priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', "Captain", has_important_message = TRUE, auth_id = auth_id)
+		if(emagged)
+			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce_syndi.ogg', ANNOUNCEMENT_TYPE_SYNDICATE, has_important_message = TRUE)
+		else
+			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', ANNOUNCEMENT_TYPE_CAPTAIN, has_important_message = TRUE)
 		nonsilicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN
 	user.log_talk(input, LOG_SAY, tag="priority announcement")
 	message_admins("[ADMIN_LOOKUPFLW(user)] has made a priority announcement.")
@@ -37,10 +40,10 @@ SUBSYSTEM_DEF(communications)
 				var/datum/comm_message/M = new(sending.title,sending.content,sending.possible_answers.Copy())
 				C.add_message(M)
 			if(print)
-				var/obj/item/paper/P = new /obj/item/paper(C.loc)
-				P.name = "paper - '[sending.title]'"
-				P.info = sending.content
-				P.update_icon()
+				var/obj/item/paper/printed_paper = new /obj/item/paper(C.loc)
+				printed_paper.name = "paper - '[sending.title]'"
+				printed_paper.add_raw_text(sending.content)
+				printed_paper.update_appearance()
 
 #undef COMMUNICATION_COOLDOWN
 #undef COMMUNICATION_COOLDOWN_AI

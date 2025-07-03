@@ -16,6 +16,7 @@
 	if(self_visible)
 		add_hud_to(M)
 	M.mind.antag_hud = src
+	SEND_SIGNAL(M.mind, COMSIG_MIND_JOIN_ANTAG_HUD, src)
 
 /datum/atom_hud/antag/proc/leave_hud(mob/M)
 	if(!M)
@@ -24,7 +25,8 @@
 		CRASH("leave_hud(): [M] ([M.type]) is not a mob!")
 	remove_from_hud(M)
 	remove_hud_from(M)
-	if(M.mind)
+	if(M.mind?.antag_hud)
+		SEND_SIGNAL(M.mind, COMSIG_MIND_LEAVE_ANTAG_HUD, M.mind.antag_hud)
 		M.mind.antag_hud = null
 
 //GAME_MODE PROCS

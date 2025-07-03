@@ -4,7 +4,7 @@
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT | INTERACT_ATOM_REQUIRES_DEXTERITY
 	var/can_play_unanchored = FALSE
 	var/list/allowed_instrument_ids = list("r3grand","r3harpsi","crharpsi","crgrand1","crbright1", "crichugan", "crihamgan","piano")
-	var/datum/song/song
+	var/datum/song/stationary/song
 
 /obj/structure/musician/Initialize(mapload)
 	. = ..()

@@ -8,6 +8,8 @@
 	var/obj/structure/bot_elevator/up
 	max_integrity = 100
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/bot_elevator)
+
 /obj/structure/bot_elevator/Initialize(mapload, obj/structure/bot_elevator/up, obj/structure/bot_elevator/down)
 	..()
 	GLOB.bot_elevator += src
@@ -39,12 +41,12 @@
 	var/obj/structure/bot_elevator/Elevator
 
 	if (!down)
-		Elevator = locate() in SSmapping.get_turf_below(T)
+		Elevator = locate() in GET_TURF_BELOW(T)
 		if (Elevator)
 			down = Elevator
 			Elevator.up = src  // Don't waste effort looping the other way
 	if (!up)
-		Elevator = locate() in SSmapping.get_turf_above(T)
+		Elevator = locate() in GET_TURF_ABOVE(T)
 		if (Elevator)
 			up = Elevator
 			Elevator.down = src  // Don't waste effort looping the other way

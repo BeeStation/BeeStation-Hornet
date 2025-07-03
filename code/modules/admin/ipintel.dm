@@ -35,7 +35,7 @@
 
 		if(SSdbcore.Connect())
 			var/rating_bad = CONFIG_GET(number/ipintel_rating_bad)
-			var/datum/DBQuery/query_get_ip_intel = SSdbcore.NewQuery({"
+			var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
 				SELECT date, intel, TIMESTAMPDIFF(MINUTE,date,NOW())
 				FROM [format_table_name("ipintel")]
 				WHERE
@@ -67,7 +67,7 @@
 	if (updatecache && res.intel >= 0)
 		SSipintel.cache[ip] = res
 		if(SSdbcore.Connect())
-			var/datum/DBQuery/query_add_ip_intel = SSdbcore.NewQuery(
+			var/datum/db_query/query_add_ip_intel = SSdbcore.NewQuery(
 				"INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON(:ip), :intel) ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()",
 				list("ip" = ip, "intel" = res.intel)
 			)
@@ -93,7 +93,7 @@
 			sleep(25)
 			return .(ip, 1)
 	else if(results.status_code == 200)
-		var/response = json_decode(results["body"])
+		var/response = json_decode(results.body)
 		if (response)
 			if (response["status"] == "success")
 				var/intelnum = text2num(response["result"])

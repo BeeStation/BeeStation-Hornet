@@ -33,7 +33,7 @@
 	var/perlin_zoom = 65
 
 ///Seeds the rust-g perlin noise with a random number.
-/datum/map_generator/tundra_generator/generate_terrain(var/list/turfs)
+/datum/map_generator/tundra_generator/generate_terrain(list/turfs, area/generate_in)
 	. = ..()
 	var/height_seed = rand(0, 50000) //no mountains please
 	var/humidity_seed = rand(0, 50000)

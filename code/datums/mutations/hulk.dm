@@ -10,41 +10,44 @@
 	health_req = 25
 	instability = 40
 	locked = TRUE
+	traits = list(
+		TRAIT_STUNIMMUNE,
+		TRAIT_PUSHIMMUNE,
+		TRAIT_CONFUSEIMMUNE,
+		TRAIT_IGNOREDAMAGESLOWDOWN,
+		TRAIT_NOSTAMCRIT,
+		TRAIT_NOLIMBDISABLE,
+		TRAIT_FAST_CUFF_REMOVAL
+	)
 
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_CONFUSEIMMUNE, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
+	ADD_VALUE_TRAIT(owner, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_HULK, "00aa00", SKIN_PRIORITY_HULK)
+	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	owner.update_body_parts()
 
 /datum/mutation/hulk/on_attack_hand(atom/target, proximity)
 	if(proximity) //no telekinetic hulk attack
 		return target.attack_hulk(owner)
 
-/datum/mutation/hulk/on_life()
+/datum/mutation/hulk/on_life(delta_time, times_fired)
 	if(owner.health < 0)
 		on_losing(owner)
-		to_chat(owner, "<span class='danger'>You suddenly feel very weak.</span>")
+		to_chat(owner, span_danger("You suddenly feel very weak."))
 
 /datum/mutation/hulk/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
-	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_CONFUSEIMMUNE, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
-	owner.update_body_parts()
+	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
+	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
+	REMOVE_TRAIT(owner, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_HULK)
+	owner.update_body_parts()
 
 /datum/mutation/hulk/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER

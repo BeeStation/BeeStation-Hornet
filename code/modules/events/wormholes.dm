@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 /datum/round_event/wormholes/end()
 	QDEL_LIST(wormholes)
 	wormholes = null
+	var/turf/T = get_random_station_turf()
+	T.generate_fake_pierced_realities(FALSE, 6)
 
 /obj/effect/portal/wormhole
 	name = "wormhole"
@@ -47,7 +49,9 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 	mech_sized = TRUE
 
 
-/obj/effect/portal/wormhole/Initialize(mapload, _creator, _lifespan = 0, obj/effect/portal/_linked, automatic_link = FALSE, turf/hard_target_override, atmos_link_override)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal/wormhole)
+
+/obj/effect/portal/wormhole/Initialize(mapload, _creator, _lifespan = 0, obj/effect/portal/_linked, automatic_link = FALSE, turf/hard_target_override)
 	. = ..()
 	GLOB.all_wormholes += src
 

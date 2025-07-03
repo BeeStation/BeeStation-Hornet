@@ -1,63 +1,63 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cola/random,
-/turf/open/floor/plasteel,
+/obj/effect/spawner/randomvend/cola,
+/turf/open/floor/iron,
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "d" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "e" = (
 /obj/machinery/vending/coffee,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "f" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "g" = (
 /obj/item/trash/can,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "h" = (
 /obj/item/trash/cheesie,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug,
-/turf/open/floor/plasteel,
+/obj/item/reagent_containers/cup/glass/mug,
+/turf/open/floor/iron,
 /area/template_noop)
 "j" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mopbucket,
 /obj/item/mop,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "l" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/bin,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

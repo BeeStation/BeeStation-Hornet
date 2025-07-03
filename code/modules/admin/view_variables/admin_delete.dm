@@ -22,3 +22,4 @@
 			qdel(D)
 			if(!QDELETED(D))
 				vv_update_display(D, "deleted", "")
+		return TRUE

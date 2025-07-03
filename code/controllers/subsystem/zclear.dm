@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(zclear)
 
 /datum/controller/subsystem/zclear/New()
 	. = ..()
-	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /obj/effect/abstract/mirage_holder))
+	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /atom/movable/mirage_holder))
 
 /datum/controller/subsystem/zclear/Recover()
 	if(!islist(autowipe)) autowipe = list()
@@ -232,7 +232,7 @@ SUBSYSTEM_DEF(zclear)
 				var/nullspaced_mob_names = ""
 				var/valid = FALSE
 				for(var/mob/M as() in nullspaced_mobs)
-					if(M.key || M.get_ghost(FALSE, TRUE))
+					if(M.key || !M.soul_departed())
 						nullspaced_mob_names += " - [M.name]\n"
 						valid = TRUE
 				if(valid)
@@ -270,7 +270,7 @@ SUBSYSTEM_DEF(zclear)
 							//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
 							random_teleport_atom(M)
 							M.Knockdown(5)
-							to_chat(M, "<span class='warning'>You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind.</span>")
+							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here emanate no more and you get the horrible feeling that you have been left behind."))
 					else
 						delete_atom(thing)
 				else
@@ -307,15 +307,15 @@ SUBSYSTEM_DEF(zclear)
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
-	var/list/possible_transtitons = list()
+	var/list/possible_transitions = list()
 	for(var/datum/space_level/D as() in SSmapping.z_list)
 		if (D.linkage == CROSSLINKED)
-			possible_transtitons += D.z_value
+			possible_transitions += D.z_value
 
-	if(!length(possible_transtitons))
-		possible_transtitons = list(SSmapping.empty_space)
+	if(!length(possible_transitions))
+		possible_transitions = list(SSmapping.empty_space)
 
-	var/_z = pick(possible_transtitons)
+	var/_z = pick(possible_transitions)
 
 	//now select coordinates for a border turf
 	var/_x = rand(min,max)
@@ -330,12 +330,13 @@ SUBSYSTEM_DEF(zclear)
 		var/turf/newT
 		if(istype(T, /turf/open/space))
 			newT = T
+			newT.baseturfs = /turf/baseturf_bottom
 		else
-			newT = T.ChangeTurf(/turf/open/space, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
+			newT = T.ChangeTurf(/turf/open/space, /turf/baseturf_bottom, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
+		var/area/old_area = newT.loc
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
-			newA.contents += newT
-			newT.change_area(newT.loc, newA)
+			newT.change_area(old_area, newA)
 		newT.flags_1 &= ~NO_RUINS_1
 		new_turfs += newT
 	return new_turfs
@@ -347,3 +348,6 @@ SUBSYSTEM_DEF(zclear)
 	var/tracking
 	//Callback when completed, z value passed as parameters
 	var/datum/callback/completion_callback
+
+#undef CLEAR_TURF_PROCESSING_TIME
+#undef CHECK_ZLEVEL_TICKS

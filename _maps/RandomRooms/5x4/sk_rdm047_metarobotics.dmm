@@ -30,21 +30,6 @@
 "f" = (
 /turf/open/floor/mech_bay_recharge_floor,
 /area/template_noop)
-"g" = (
-/obj/structure/closet,
-/obj/item/stack/sheet/iron{
-	amount = 34
-	},
-/obj/item/extinguisher/mini,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plating,
-/area/template_noop)
-"h" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/template_noop)
 "i" = (
 /obj/structure/closet,
 /obj/item/stack/sheet/glass{
@@ -95,42 +80,61 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"x" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 2
+	},
+/turf/open/floor/plating,
+/area/template_noop)
 "P" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/circuit,
+/area/template_noop)
+"S" = (
+/obj/machinery/ecto_sniffer,
+/turf/open/floor/plating,
 /area/template_noop)
 "T" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)
+"X" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/iron{
+	amount = 34
+	},
+/obj/item/extinguisher/mini,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/circuit,
+/area/template_noop)
 
 (1,1,1) = {"
-a
+x
 f
-h
+a
 j
 "}
 (2,1,1) = {"
-b
+X
 P
 b
 k
 "}
 (3,1,1) = {"
 c
-T
+S
 c
 l
 "}
 (4,1,1) = {"
 d
 c
-c
+T
 m
 "}
 (5,1,1) = {"
 e
-g
+c
 i
 n
 "}

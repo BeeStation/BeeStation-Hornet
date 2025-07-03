@@ -1,12 +1,13 @@
 /datum/antagonist/fugitive
 	name = "Fugitive"
 	roundend_category = "Fugitive"
-	job_rank = ROLE_FUGITIVE
+	banning_key = ROLE_FUGITIVE
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Fugitives"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
 	count_against_dynamic_roll_chance = FALSE
+	required_living_playtime = 1
 	var/datum/team/fugitive/fugitive_team
 	var/is_captured = FALSE
 	var/living_on_capture = TRUE
@@ -27,10 +28,10 @@
 	return ..()
 
 /datum/antagonist/fugitive/greet()
-	to_chat(owner, "<span class='big bold'>You are the Fugitive!</span>")
+	to_chat(owner, span_bigbold("You are the Fugitive!"))
 	to_chat(owner, backstory.greet_message)
-	to_chat(owner, "<span class='boldannounce'>You should not be killing anyone you please, but you can do anything to avoid being captured.</span>")
-	to_chat(owner, "<span class='bold'>Someone was hot on my tail when I managed to get to this space station! I probably have about 10 minutes before they show up...</span>")
+	to_chat(owner, span_boldannounce("You should not be killing anyone you please, but you can do anything to avoid being captured."))
+	to_chat(owner, span_bold("Someone was hot on my tail when I managed to get to this space station! I probably have about 10 minutes before they show up..."))
 	owner.announce_objectives()
 
 /datum/antagonist/fugitive/create_team(datum/team/fugitive/new_team)
@@ -42,6 +43,7 @@
 				fugitive_team = H.fugitive_team
 				return
 		fugitive_team = new /datum/team/fugitive
+		fugitive_team.backstory = backstory
 		fugitive_team.forge_team_objectives()
 		return
 	if(!istype(new_team))
@@ -67,6 +69,10 @@
 /datum/team/fugitive
 	name = "Fugitives"
 	member_name = "fugitive"
+	var/datum/fugitive_type/backstory
+
+/datum/team/fugitive/get_team_name() // simple to know fugitive story
+	return backstory.multiple_name
 
 /datum/team/fugitive/roundend_report() //shows the number of fugitives, but not if they won in case there is no security
 	var/list/fugitives = list()
@@ -78,7 +84,7 @@
 
 	var/list/result = list()
 	result += "<div class='panel redborder'>"
-	result += "<span class='header'>[name]:</span>"
+	result += span_header("[name]:")
 	result += "<b>[fugitives.len]</b> fugitive\s took refuge on [station_name()]!<br />"
 	var/list/parts = list()
 	parts += "<ul class='playerlist'>"
@@ -86,7 +92,7 @@
 		if(!antag.owner)
 			continue
 		parts += "<li>[printplayer(antag.owner)]\
-		<br />  - and they [antag.is_captured ? "<span class='redtext'>were captured by the hunters, [antag.living_on_capture ? "alive" : "dead"]</span>" : "<span class='greentext'>escaped the hunters</span>"]</li>"
+		<br />  - and they [antag.is_captured ? span_redtext("were captured by the hunters, [antag.living_on_capture ? "alive" : "dead"]") : span_greentext("escaped the hunters")]</li>"
 	parts += "</ul>"
 	result += parts.Join()
 	result += "</div>"

@@ -17,15 +17,25 @@
 	var/busy = FALSE
 	var/busy_icon_state
 	var/message_cooldown = 0
+	var/nanite_coeff = 1
+	var/speed_coeff = 1
 
 /obj/machinery/public_nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 
 /obj/machinery/public_nanite_chamber/RefreshParts()
+	nanite_coeff = 0
+	speed_coeff = 1
 	var/obj/item/circuitboard/machine/public_nanite_chamber/board = circuit
 	if(board)
 		cloud_id = board.cloud_id
+	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
+		nanite_coeff += manipulator.rating
+	var/total_laser_rating = 0
+	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
+		total_laser_rating += micro_laser.rating
+	speed_coeff = 1 / (total_laser_rating * 0.5)
 
 /obj/machinery/public_nanite_chamber/proc/set_busy(status, working_icon)
 	busy = status
@@ -45,9 +55,9 @@
 
 	//TODO OMINOUS MACHINE SOUNDS
 	set_busy(TRUE, "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"),60)
-	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker),80)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"), 20)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"), max(60 * speed_coeff, 25))
+	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker), max(80 * speed_coeff, 30))
 
 /obj/machinery/public_nanite_chamber/proc/complete_injection(locked_state, mob/living/attacker)
 	//TODO MACHINE DING
@@ -58,7 +68,7 @@
 	if(attacker)
 		occupant.investigate_log("was injected with nanites by [key_name(attacker)] using [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 		log_combat(attacker, occupant, "injected", null, "with nanites via [src]")
-	occupant.AddComponent(/datum/component/nanites, 75, cloud_id)
+	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id)
 
 /obj/machinery/public_nanite_chamber/proc/change_cloud(mob/living/attacker)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -72,9 +82,9 @@
 	locked = TRUE
 
 	set_busy(TRUE, "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"),40)
-	addtimer(CALLBACK(src, PROC_REF(complete_cloud_change), locked_state, attacker),60)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"), 20)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"), max(40 * speed_coeff, 25))
+	addtimer(CALLBACK(src, PROC_REF(complete_cloud_change), locked_state, attacker), max(60 * speed_coeff, 30))
 
 /obj/machinery/public_nanite_chamber/proc/complete_cloud_change(locked_state, mob/living/attacker)
 	locked = locked_state
@@ -110,13 +120,9 @@
 	//running
 	icon_state = initial(icon_state)+ (state_open ? "_open" : "")
 
-/obj/machinery/public_nanite_chamber/power_change()
-	. = ..()
-	update_icon()
-
 /obj/machinery/public_nanite_chamber/proc/toggle_open(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 
 	if(state_open)
@@ -124,7 +130,7 @@
 		return
 
 	else if(locked)
-		to_chat(user, "<span class='notice'>The bolts are locked down, securing the door shut.</span>")
+		to_chat(user, span_notice("The bolts are locked down, securing the door shut."))
 		return
 
 	open_machine()
@@ -137,15 +143,15 @@
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	user.visible_message("<span class='notice'>You see [user] kicking against the door of [src]!</span>", \
-		"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
-		"<span class='hear'>You hear a metallic creaking from [src].</span>")
+	user.visible_message(span_notice("You see [user] kicking against the door of [src]!"), \
+		span_notice("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"), \
+		span_hear("You hear a metallic creaking from [src]."))
 	if(do_after(user,(breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || state_open || !locked || busy)
 			return
 		locked = FALSE
-		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
-			"<span class='notice'>You successfully break out of [src]!</span>")
+		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
+			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
 /obj/machinery/public_nanite_chamber/close_machine(mob/living/carbon/user, mob/living/attacker)
@@ -177,11 +183,11 @@
 
 	return TRUE
 
-/obj/machinery/public_nanite_chamber/relaymove(mob/user as mob)
+/obj/machinery/public_nanite_chamber/relaymove(mob/living/user, direction)
 	if(user.stat || locked)
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
-			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
+			to_chat(user, span_warning("[src]'s door won't budge!"))
 		return
 	open_machine()
 

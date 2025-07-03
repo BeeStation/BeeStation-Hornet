@@ -6,3 +6,25 @@ hit_punch.ogg and hit_kick.ogg are made by Taira Komori
 
 cartoon_pop.ogg by Tobiasz 'unfa' Karoń
 (https://freesound.org/people/unfa/sounds/245645/)
+
+admin_alert.ogg by FoolBoyMedia
+(https://freesound.org/people/FoolBoyMedia/sounds/352659/)
+
+light_on.ogg by kyles
+(https://freesound.org/people/kyles/sounds/452624/)
+
+burn_out.ogg is a mix from ST303, sophiehall3535 and DaniloSFX
+(https://freesound.org/people/ST303/sounds/201788/)
+(https://freesound.org/people/sophiehall3535/sounds/245942/)
+(https://freesound.org/people/DaniloSFX/sounds/672745/)
+
+washing machine loop sounds made by modifying a sound by Nkzdra licensed under CC-BY 3.0 license.
+Present in:
+washingmachinestart.ogg, washingmid1.ogg, washingmid2.ogg, washingmid3.ogg, washingmid4.ogg, washingmid5.ogg, washingmid6.ogg, washingmid7.ogg and washingmid8.ogg
+(https://freesound.org/people/Nkzdra/sounds/347965/)
+
+alert.ogg by bbrocer. Extended, looped, and reverbed
+https://freesound.org/people/bbrocer/sounds/389511/
+
+airraid.ogg by Jwade722. Shortened and cut.
+https://freesound.org/people/Jwade722/sounds/534550/

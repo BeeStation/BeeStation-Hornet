@@ -2,7 +2,8 @@
 	name = "Teratoma"
 	roundend_category = "other"
 	antagpanel_category = "Changeling"
-	job_rank = ROLE_TERATOMA
+	banning_key = ROLE_TERATOMA
+	required_living_playtime = 1
 
 /datum/antagonist/teratoma/on_gain()
 	owner.special_role = "Teratoma"
@@ -45,8 +46,7 @@
 	name = "Maintenance Teratoma"
 	roundend_category = "other"
 	antagpanel_category = "Changeling"
-	job_rank = ROLE_TERATOMA
 
 /datum/antagonist/teratoma/hugbox/greet()
 	..()
-	to_chat(owner, "<span class='userdanger'>Avoid killing unprovoked, kill only in self defense!</span>")
+	to_chat(owner, span_userdanger("Avoid killing unprovoked, kill only in self defense!"))

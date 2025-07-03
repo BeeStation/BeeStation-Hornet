@@ -19,7 +19,7 @@
 "hL" = (
 /obj/structure/table_frame/wood,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "ig" = (
@@ -27,7 +27,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "iU" = (
@@ -42,11 +42,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
-"nt" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/template_noop)
 "oV" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -56,11 +51,11 @@
 "pb" = (
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/structure/rack,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "pI" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "qm" = (
 /obj/structure/table_frame/wood,
@@ -76,12 +71,7 @@
 	brightness = 3;
 	dir = 8
 	},
-/turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
-"uB" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "uE" = (
 /obj/item/stack/tile/carpet/black/fifty,
@@ -99,7 +89,7 @@
 /area/template_noop)
 "vO" = (
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "wa" = (
 /obj/structure/table/wood/fancy/black,
@@ -114,7 +104,7 @@
 "xT" = (
 /obj/machinery/light/small,
 /obj/machinery/processor,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "ya" = (
 /obj/machinery/chem_dispenser/drinks/beer,
@@ -130,7 +120,7 @@
 /area/template_noop)
 "yH" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "ze" = (
@@ -156,7 +146,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "Bw" = (
@@ -172,12 +162,12 @@
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Eg" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "FF" = (
@@ -190,11 +180,11 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "Hd" = (
 /obj/structure/table/wood,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Il" = (
@@ -207,7 +197,7 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "Mm" = (
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "Ny" = (
 /obj/structure/bookcase/random/reference,
@@ -215,7 +205,7 @@
 /area/template_noop)
 "Ok" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Os" = (
@@ -224,7 +214,7 @@
 /area/template_noop)
 "Pi" = (
 /obj/machinery/smartfridge/drinks,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "QG" = (
 /obj/machinery/door/airlock/wood,
@@ -241,7 +231,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Sl" = (
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "SJ" = (
 /turf/open/floor/carpet/royalblack,
@@ -266,18 +256,13 @@
 /obj/item/stack/sheet/wood,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
-"XA" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/template_noop)
 "XO" = (
 /obj/structure/closet/crate,
 /obj/item/storage/box/ingredients/sweets,
 /obj/item/storage/box/ingredients/sweets,
 /obj/item/storage/box/ingredients/vegetarian,
 /obj/item/storage/box/ingredients/carnivore,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "Yd" = (
 /obj/structure/sign/warning/nosmoking,
@@ -291,7 +276,7 @@
 /area/template_noop)
 "Yt" = (
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "Zp" = (
 /obj/structure/chair/wood{
@@ -301,11 +286,11 @@
 /area/template_noop)
 "ZF" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "ZH" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
 	pixel_x = -2;
 	pixel_y = 12
 	},
@@ -337,7 +322,7 @@ SJ
 iU
 "}
 (3,1,1) = {"
-uB
+Eg
 Os
 SJ
 SJ
@@ -353,7 +338,7 @@ ze
 Zp
 SJ
 qm
-nt
+Eg
 Pi
 Ch
 Ch
@@ -361,7 +346,7 @@ QG
 Ch
 "}
 (5,1,1) = {"
-XA
+Eg
 Dz
 Wn
 tO

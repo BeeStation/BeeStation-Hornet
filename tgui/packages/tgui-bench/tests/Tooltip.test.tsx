@@ -1,10 +1,11 @@
-import { Box, Tooltip } from "tgui/components";
-import { createRenderer } from "tgui/renderer";
+import { Box, Tooltip } from 'tgui/components';
+import { createRenderer } from 'tgui/renderer';
+import type { ReactNode } from 'react';
 
 const render = createRenderer();
 
 export const ListOfTooltips = () => {
-  const nodes: JSX.Element[] = [];
+  const nodes: ReactNode[] = [];
 
   for (let i = 0; i < 100; i++) {
     nodes.push(

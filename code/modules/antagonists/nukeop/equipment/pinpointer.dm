@@ -1,4 +1,5 @@
 /obj/item/pinpointer/nuke
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/mode = TRACK_NUKE_DISK
 
 /obj/item/pinpointer/nuke/examine(mob/user)
@@ -28,7 +29,7 @@
 					playsound(src, 'sound/items/nuke_toy_lowpower.ogg', 50, 0)
 					if(isliving(loc))
 						var/mob/living/L = loc
-						to_chat(L, "<span class='userdanger'>Your [name] vibrates and lets out a tinny alarm. Uh oh.</span>")
+						to_chat(L, span_userdanger("Your [name] vibrates and lets out a tinny alarm. Uh oh."))
 
 /obj/item/pinpointer/nuke/scan_for_target()
 	target = null
@@ -37,12 +38,10 @@
 			var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
 			target = N
 		if(TRACK_MALF_AI)
-			for(var/V in GLOB.ai_list)
-				var/mob/living/silicon/ai/A = V
+			for(var/mob/living/silicon/ai/A as anything in GLOB.ai_list)
 				if(A.nuking)
 					target = A
-			for(var/V in GLOB.apcs_list)
-				var/obj/machinery/power/apc/A = V
+			for(var/obj/machinery/power/apc/A as anything in GLOB.apcs_list)
 				if(A.malfhack && A.occupier)
 					target = A
 		if(TRACK_INFILTRATOR)
@@ -52,7 +51,7 @@
 /obj/item/pinpointer/nuke/proc/switch_mode_to(new_mode)
 	if(isliving(loc))
 		var/mob/living/L = loc
-		to_chat(L, "<span class='userdanger'>Your [name] beeps as it reconfigures it's tracking algorithms.</span>")
+		to_chat(L, span_userdanger("Your [name] beeps as it reconfigures it's tracking algorithms."))
 		playsound(L, 'sound/machines/triple_beep.ogg', 50, 1)
 	mode = new_mode
 	scan_for_target()
@@ -61,6 +60,7 @@
 	name = "syndicate pinpointer"
 	desc = "A handheld tracking device that locks onto certain signals. It's configured to switch tracking modes once it detects the activation signal of a nuclear device."
 	icon_state = "pinpointer_syndicate"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/pinpointer/syndicate_cyborg // Cyborg pinpointers just look for a random operative.
 	name = "cyborg syndicate pinpointer"

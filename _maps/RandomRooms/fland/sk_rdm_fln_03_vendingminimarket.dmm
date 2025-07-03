@@ -3,12 +3,12 @@
 /turf/closed/wall,
 /area/template_noop)
 "b" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 8
 	},
 /area/template_noop)
@@ -21,7 +21,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 4
 	},
 /area/template_noop)
@@ -33,37 +33,32 @@
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"j" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plating,
+/turf/open/floor/iron,
 /area/template_noop)
 "k" = (
 /obj/machinery/light_switch{
 	pixel_x = 22
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "l" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "m" = (
 /obj/machinery/light{
@@ -76,26 +71,30 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 4
 	},
 /area/template_noop)
 "o" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "p" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
@@ -109,20 +108,20 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 4
 	},
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "t" = (
 /obj/machinery/vending/assist,
@@ -134,27 +133,21 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 8
 	},
 /area/template_noop)
 "u" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Vending machine Store Backroom"
+	name = "Vending Machine Store Backroom"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/template_noop)
-"w" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "y" = (
 /obj/machinery/vending/coffee,
@@ -163,82 +156,11 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 8
 	},
 /area/template_noop)
 "B" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/template_noop)
-"H" = (
-/obj/structure/chair/stool/bar{
-	pixel_x = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"J" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Vending machine Store Maintenance";
-	req_access_txt = "12"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/template_noop,
-/area/template_noop)
-"K" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"L" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"M" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark/side{
-	dir = 4
-	},
-/area/template_noop)
-"O" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"P" = (
 /obj/structure/table,
 /obj/item/coin/arcade_token{
 	pixel_x = 6
@@ -249,17 +171,77 @@
 /obj/item/coin/arcade_token{
 	pixel_y = 6
 	},
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
-	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 8
 	},
+/area/template_noop)
+"H" = (
+/obj/structure/chair/stool/bar{
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"J" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Vending Machine Store Maintenance";
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/template_noop,
+/area/template_noop)
+"K" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"L" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"M" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/template_noop)
 "Q" = (
 /obj/effect/decal/cleanable/dirt,
@@ -267,10 +249,10 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "R" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
@@ -279,12 +261,12 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 4
 	},
 /area/template_noop)
 "S" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -292,7 +274,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 8
 	},
 /area/template_noop)
@@ -307,14 +289,14 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 8
 	},
 /area/template_noop)
 "W" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "X" = (
 /obj/machinery/light{
@@ -327,23 +309,22 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 4
 	},
 /area/template_noop)
 
 (1,1,1) = {"
 U
-P
+B
 t
 b
 y
 S
 V
 a
-j
 f
-a
+l
 "}
 (2,1,1) = {"
 W
@@ -354,7 +335,6 @@ o
 i
 s
 a
-B
 p
 J
 "}
@@ -367,9 +347,8 @@ O
 O
 L
 a
-a
 u
-a
+l
 "}
 (4,1,1) = {"
 U
@@ -379,21 +358,19 @@ q
 c
 m
 M
-w
 k
 g
 l
 "}
 (5,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+l
+l
+l
+l
+l
+l
+l
+l
+l
 l
 "}

@@ -94,7 +94,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "at" = (
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/ruin/powered/clownplanet)
 "au" = (
 /obj/structure/flora/ausbushes/brflowers,
@@ -111,11 +111,11 @@
 /area/ruin/powered/clownplanet)
 "ax" = (
 /obj/item/assembly/mousetrap/armed,
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/ruin/powered/clownplanet)
 "ay" = (
 /obj/structure/flora/tree/jungle,
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/ruin/powered/clownplanet)
 "az" = (
 /obj/structure/signpost,
@@ -346,7 +346,7 @@
 /turf/open/floor/bluespace,
 /area/ruin/powered/clownplanet)
 "bh" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/stripes/white/box,
 /turf/open/floor/bluespace,
 /area/ruin/powered/clownplanet)
@@ -356,11 +356,11 @@
 "bj" = (
 /obj/structure/mineral_door/wood,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/ruin/powered/clownplanet)
 "bk" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/stripes/white/box,
 /turf/open/floor/bluespace,
 /area/ruin/powered/clownplanet)

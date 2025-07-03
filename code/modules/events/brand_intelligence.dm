@@ -14,12 +14,12 @@
 	var/list/obj/machinery/vending/infectedMachines = list()
 	var/obj/machinery/vending/originMachine
 	var/list/rampant_speeches = list("Try our aggressive new marketing strategies!", \
-									 "You should buy products to feed your lifestyle obsession!", \
-									 "Consume!", \
-									 "Your money can buy happiness!", \
-									 "Engage direct marketing!", \
-									 "Advertising is legalized lying! But don't let that put you off our great deals!", \
-									 "You don't want to buy anything? Yeah, well, I didn't want to buy your mom either.")
+									"You should buy products to feed your lifestyle obsession!", \
+									"Consume!", \
+									"Your money can buy happiness!", \
+									"Engage direct marketing!", \
+									"Advertising is legalized lying! But don't let that put you off our great deals!", \
+									"You don't want to buy anything? Yeah, well, I didn't want to buy your mom either.")
 
 
 /datum/round_event/brand_intelligence/announce(fake)
@@ -56,17 +56,33 @@
 			originMachine.visible_message("[originMachine] beeps and seems lifeless.")
 		kill()
 		return
-	vendingMachines = remove_nulls_from_list(vendingMachines)
+	vendingMachines = list_clear_nulls(vendingMachines)
 	if(!vendingMachines.len)	//if every machine is infected
+		infectedMachines.Add(originMachine)
 		for(var/obj/machinery/vending/upriser in infectedMachines)
-			if(prob(70) && !QDELETED(upriser))
-				var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
-				M.faction = list("profit")
-				M.speak = rampant_speeches.Copy()
-				M.speak_chance = 7
-			else
-				explosion(upriser.loc, -1, 1, 2, 4, 0)
-				qdel(upriser)
+			if(QDELETED(upriser))
+				continue
+			var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null) // it will delete upriser on creation and override any machine checks
+			M.faction = list(FACTION_HOSTILE)
+			M.speak = rampant_speeches.Copy()
+			M.speak_chance = 7
+
+			switch(rand(1, 100)) // for 30% chance, they're stronger
+				if(1 to 70) // these are usually weak
+					var/adjusted_health = max(M.health-20, 20) // don't make it negative-health
+					M.health = adjusted_health
+					M.maxHealth = adjusted_health
+				if(71 to 80) // has more health
+					var/bonus_health = 15+rand(1, 7)*5
+					M.health += bonus_health
+					M.maxHealth += bonus_health
+					M.desc += " This one seems extra robust..."
+				if(81 to 90) // does stronger damage
+					M.melee_damage += 2+rand(1, 6) // 3~8
+					M.desc += " This one seems extra painful..."
+				if(91 to 100) // moves faster
+					M.move_to_delay /= 2 // just half
+					M.desc += " This one seems more agile..."
 
 		kill()
 		return

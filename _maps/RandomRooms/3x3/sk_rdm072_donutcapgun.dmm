@@ -5,16 +5,16 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/head/cone,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "d" = (
 /obj/structure/rack,
@@ -24,7 +24,7 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "e" = (
 /obj/structure/rack,
@@ -37,7 +37,7 @@
 /obj/structure/sign/poster/contraband/revolver{
 	pixel_y = -32
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

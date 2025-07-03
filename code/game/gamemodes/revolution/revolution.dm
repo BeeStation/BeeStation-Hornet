@@ -11,20 +11,20 @@
 	name = "revolution"
 	config_tag = "revolution"
 	report_type = "revolution"
-	antag_flag = ROLE_REV
+	role_preference = /datum/role_preference/antagonist/revolutionary
+	antag_datum = /datum/antagonist/rev/head
 	false_report_weight = 10
 	restricted_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_AI, JOB_NAME_CYBORG,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	required_jobs = list(list(JOB_NAME_CAPTAIN=1),list(JOB_NAME_HEADOFPERSONNEL=1),list(JOB_NAME_HEADOFSECURITY=1),list(JOB_NAME_CHIEFENGINEER=1),list(JOB_NAME_RESEARCHDIRECTOR=1),list(JOB_NAME_CHIEFMEDICALOFFICER=1)) //Any head present
+	required_jobs = list(list(JOB_NAME_CAPTAIN=1, JOB_NAME_LAWYER=1),list(JOB_NAME_HEADOFPERSONNEL=1),list(JOB_NAME_HEADOFSECURITY=1, JOB_NAME_LAWYER=1),list(JOB_NAME_CHIEFENGINEER=1, JOB_NAME_LAWYER=1),list(JOB_NAME_RESEARCHDIRECTOR=1, JOB_NAME_LAWYER=1),list(JOB_NAME_CHIEFMEDICALOFFICER=1, JOB_NAME_LAWYER=1)) //Any head present and a deconverter present
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
-	enemy_minimum_age = 14
 	title_icon = "revolution"
 
 	announce_span = "danger"
-	announce_text = "Some crewmembers are attempting a coup!\n\
-	<span class='danger'>Revolutionaries</span>: Expand your cause and overthrow the heads of staff by execution or otherwise.\n\
-	<span class='notice'>Crew</span>: Prevent the revolutionaries from taking over the station."
+	announce_text = "Some crewmembers are attempting a coup!\n \
+	" + span_danger("Revolutionaries") + ": Expand your cause and overthrow the heads of staff by execution or otherwise.\n \
+	" + span_notice("Crew") + ": Prevent the revolutionaries from taking over the station."
 
 	var/finished = 0
 	var/check_counter = 0
@@ -55,7 +55,7 @@
 	for (var/i=1 to max_headrevs)
 		if (antag_candidates.len==0)
 			break
-		var/datum/mind/lenin = antag_pick(antag_candidates, ROLE_REV_HEAD)
+		var/datum/mind/lenin = antag_pick(antag_candidates, /datum/role_preference/antagonist/revolutionary)
 		antag_candidates -= lenin
 		headrev_candidates += lenin
 		lenin.restricted_roles = restricted_jobs
@@ -64,6 +64,8 @@
 		setup_error = "Not enough headrev candidates"
 		return FALSE
 
+	for(var/antag in headrev_candidates)
+		GLOB.pre_setup_antags += antag
 	return TRUE
 
 /datum/game_mode/revolution/post_setup()
@@ -106,6 +108,7 @@
 		new_head.give_hud = TRUE
 		new_head.remove_clumsy = TRUE
 		rev_mind.add_antag_datum(new_head,revolution)
+		GLOB.pre_setup_antags -= rev_mind
 
 	revolution.update_objectives()
 	revolution.update_heads()
@@ -156,9 +159,11 @@
 //Checks for rev victory//
 //////////////////////////
 /datum/game_mode/revolution/proc/check_rev_victory()
-	for(var/datum/objective/mutiny/objective in revolution.objectives)
-		if(!(objective.check_completion()))
-			return FALSE
+	for(var/datum/mind/staff_mind in SSjob.get_all_heads())
+		var/turf/location = get_turf(staff_mind.current)
+		if(!considered_afk(staff_mind) && considered_alive(staff_mind) && is_station_level(location.z))
+			if(ishuman(staff_mind.current))
+				return FALSE
 	return TRUE
 
 /////////////////////////////
@@ -185,9 +190,9 @@
 //TODO What should be displayed for revs in non-rev rounds
 /datum/game_mode/revolution/special_report()
 	if(finished == 1)
-		return "<div class='panel redborder'><span class='redtext big'>The heads of staff were killed or exiled! The revolutionaries win!</span></div>"
+		return "<div class='panel redborder'>[span_redtextbig("The heads of staff were killed or exiled! The revolutionaries win!")]</div>"
 	else if(finished == 2)
-		return "<div class='panel redborder'><span class='redtext big'>The heads of staff managed to stop the revolution!</span></div>"
+		return "<div class='panel redborder'>[span_redtextbig("The heads of staff managed to stop the revolution!")]</div>"
 
 /datum/game_mode/revolution/generate_report()
 	return "Employee unrest has spiked in recent weeks, with several attempted mutinies on heads of staff. Some crew have been observed using flashbulb devices to blind their colleagues, \

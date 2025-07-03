@@ -59,7 +59,7 @@
 	return attack_hand(user)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/paper_bin/attack_hand(mob/user)
+/obj/item/paper_bin/attack_hand(mob/user, list/modifiers)
 	if(isliving(user))
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
@@ -70,7 +70,7 @@
 		P.add_fingerprint(user)
 		P.forceMove(user.loc)
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of \the [src].</span>")
+		to_chat(user, span_notice("You take [P] out of \the [src]."))
 		bin_pen = null
 		update_icon()
 	else if(total_paper >= 1)
@@ -85,15 +85,16 @@
 			P = new papertype(src)
 			if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 				if(prob(30))
-					P.info = "<font face=\"[CRAYON_FONT]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
+					P.add_raw_text("<font face=\"[CRAYON_FONT]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>")
 					P.AddComponent(/datum/component/honkspam)
+					P.update_appearance()
 
 		P.add_fingerprint(user)
 		P.forceMove(user.loc)
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of \the [src].</span>")
+		to_chat(user, span_notice("You take [P] out of \the [src]."))
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 	add_fingerprint(user)
 	return ..()
 
@@ -102,7 +103,7 @@
 		var/obj/item/paper/P = I
 		if(!user.transferItemToLoc(P, src))
 			return
-		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
+		to_chat(user, span_notice("You put [P] in [src]."))
 		papers.Add(P)
 		total_paper++
 		update_icon()
@@ -110,7 +111,7 @@
 		var/obj/item/pen/P = I
 		if(!user.transferItemToLoc(P, src))
 			return
-		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
+		to_chat(user, span_notice("You put [P] in [src]."))
 		bin_pen = P
 		update_icon()
 	else
@@ -142,11 +143,15 @@
 /obj/item/paper_bin/bundlenatural
 	name = "natural paper bundle"
 	desc = "A bundle of paper created using traditional methods."
-	icon_state = "paper_bundle"
+	icon_state = "paper_stack"
 	papertype = /obj/item/paper/natural
 	resistance_flags = FLAMMABLE
 
-/obj/item/paper_bin/bundlenatural/attack_hand(mob/user)
+/obj/item/paper_bin/bundlenatural/examine()
+	. = ..()
+	. += span_notice("You can cut the cord on this with a sharp implement, freeing all 30 sheets at once.")
+
+/obj/item/paper_bin/bundlenatural/attack_hand(mob/user, list/modifiers)
 	..()
 	if(total_paper < 1)
 		qdel(src)
@@ -156,7 +161,7 @@
 
 /obj/item/paper_bin/bundlenatural/attackby(obj/item/W, mob/user)
 	if(W.is_sharp())
-		to_chat(user, "<span class='notice'>You snip \the [src], spilling paper everywhere.</span>")
+		to_chat(user, span_notice("You snip \the [src], spilling paper everywhere."))
 		var/turf/T = get_turf(src.loc)
 		while(total_paper > 0)
 			total_paper--

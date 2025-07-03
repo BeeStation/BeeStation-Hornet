@@ -1,6 +1,6 @@
 /datum/unit_test/adjustable_clothing/Run()
 	var/list/failing = list()
-	var/list/valid_states = icon_states('icons/mob/clothing/uniform.dmi')
+	var/list/valid_states = icon_states('icons/mob/clothing/under/suits.dmi')
 	for(var/obj/item/clothing/under/path as() in subtypesof(/obj/item/clothing/under))
 		if(initial(path.can_adjust))
 			//Check for adjustable clothing
@@ -19,4 +19,4 @@
 				failing += path
 	if(!length(failing))
 		return
-	Fail("The following clothing items have can_adjust set to true, but have no adjusted icon state: [failing.Join(" \n")]")
+	TEST_FAIL("The following clothing items have can_adjust set to true, but have no adjusted icon state: [failing.Join(" \n")]")

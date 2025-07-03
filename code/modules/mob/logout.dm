@@ -14,6 +14,13 @@
 			var/datum/callback/CB = foo
 			CB.Invoke()
 
-	qdel(GetComponent(/datum/component/moved_relay))
+	for (var/datum/component/comp in GetComponents(/datum/component/moved_relay))
+		qdel(comp)
 
+	// Unset the click abilities when logging out
+	for (var/datum/action/action in actions)
+		if (click_intercept == action)
+			action.unset_click_ability(src)
+
+	clear_important_client_contents(client)
 	return TRUE

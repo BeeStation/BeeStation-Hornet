@@ -10,16 +10,15 @@
 
 /obj/item/gun/energy/beam_rifle
 	name = "particle acceleration rifle"
-	desc = "An energy-based anti material marksman rifle that uses highly charged particle beams moving at extreme velocities to decimate whatever is unfortunate enough to be targeted by one. \
-		<span class='boldnotice'>Hold down left click while scoped to aim, when weapon is fully aimed (Tracer goes from red to green as it charges), release to fire. Moving while aiming or \
-		changing where you're pointing at while aiming will delay the aiming process depending on how much you changed.</span>"
+	desc = "An energy-based anti material marksman rifle that uses highly charged particle beams moving at extreme velocities to decimate whatever is unfortunate enough to be targeted by one." + span_boldnotice("Hold down left click while scoped to aim, when weapon is fully aimed (Tracer goes from red to green as it charges), release to fire. Moving while aiming or changing where you're pointing at while aiming will delay the aiming process depending on how much you changed.")
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "esniper"
-	item_state = "esniper"
+	item_state = null
+	worn_icon_state = null
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 	slot_flags = ITEM_SLOT_BACK
 	force = 15
-	materials = list()
+	custom_materials = null
 	recoil = 4
 	ammo_x_offset = 3
 	ammo_y_offset = 3
@@ -104,13 +103,13 @@
 			zoom_lock = 0
 		switch(zoom_lock)
 			if(ZOOM_LOCK_AUTOZOOM_FREEMOVE)
-				to_chat(user, "<span class='boldnotice'>You switch [src]'s zooming processor to free directional.</span>")
+				to_chat(user, span_boldnotice("You switch [src]'s zooming processor to free directional."))
 			if(ZOOM_LOCK_AUTOZOOM_ANGLELOCK)
-				to_chat(user, "<span class='boldnotice'>You switch [src]'s zooming processor to locked directional.</span>")
+				to_chat(user, span_boldnotice("You switch [src]'s zooming processor to locked directional."))
 			if(ZOOM_LOCK_CENTER_VIEW)
-				to_chat(user, "<span class='boldnotice'>You switch [src]'s zooming processor to center mode.</span>")
+				to_chat(user, span_boldnotice("You switch [src]'s zooming processor to center mode."))
 			if(ZOOM_LOCK_OFF)
-				to_chat(user, "<span class='boldnotice'>You disable [src]'s zooming system.</span>")
+				to_chat(user, span_boldnotice("You disable [src]'s zooming system."))
 		reset_zooming()
 	else
 		..()
@@ -151,7 +150,7 @@
 
 /obj/item/gun/energy/beam_rifle/attack_self(mob/user)
 	projectile_setting_pierce = !projectile_setting_pierce
-	to_chat(user, "<span class='boldnotice'>You set \the [src] to [projectile_setting_pierce? "pierce":"impact"] mode.</span>")
+	to_chat(user, span_boldnotice("You set \the [src] to [projectile_setting_pierce? "pierce":"impact"] mode."))
 	aiming_beam()
 
 /obj/item/gun/energy/beam_rifle/proc/update_slowdown()
@@ -181,7 +180,7 @@
 	if(diff < AIMING_BEAM_ANGLE_CHANGE_THRESHOLD && !force_update)
 		return
 	aiming_lastangle = lastangle
-	var/obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/P = new
+	var/obj/projectile/beam/beam_rifle/hitscan/aiming_beam/P = new
 	P.gun = src
 	P.wall_pierce_amount = wall_pierce_amount
 	P.structure_pierce_amount = structure_piercing
@@ -191,13 +190,14 @@
 		P.color = rgb(255 * percent,255 * ((100 - percent) / 100),0)
 	else
 		P.color = rgb(0, 255, 0)
-	var/turf/curloc = get_turf(src)
+	var/turf/current_location = get_turf(src)
 	var/turf/targloc = get_turf(aiming_target)
 	if(!istype(targloc))
-		if(!istype(curloc))
+		if(!istype(current_location))
 			return
-		targloc = get_turf_in_angle(lastangle, curloc, 10)
-	P.preparePixelProjectile(targloc, current_user, aiming_params, 0)
+		targloc = get_turf_in_angle(lastangle, current_location, 10)
+	var/mouse_modifiers = params2list(aiming_params)
+	P.preparePixelProjectile(targloc, current_user, mouse_modifiers, 0)
 	P.fire(lastangle)
 
 /obj/item/gun/energy/beam_rifle/process()
@@ -300,9 +300,9 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
+		if(!ismob(target) || user.combat_mode) //melee attack
 			return
-		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return
 	if(!passthrough && (aiming_time > aiming_time_fire_threshold))
 		return
@@ -317,7 +317,7 @@
 		AC.sync_stats()
 
 /obj/item/gun/energy/beam_rifle/proc/delay_penalty(amount)
-	aiming_time_left = CLAMP(aiming_time_left + amount, 0, aiming_time)
+	aiming_time_left = clamp(aiming_time_left + amount, 0, aiming_time)
 
 /obj/item/ammo_casing/energy/beam_rifle
 	name = "particle acceleration lens"
@@ -361,18 +361,18 @@
 
 /obj/item/ammo_casing/energy/beam_rifle/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	. = ..()
-	var/obj/item/projectile/beam/beam_rifle/hitscan/HS_BB = BB
+	var/obj/projectile/beam/beam_rifle/hitscan/HS_BB = BB
 	if(!istype(HS_BB))
 		return
 	HS_BB.impact_direct_damage = projectile_damage
 	HS_BB.stun = projectile_stun
 	HS_BB.impact_structure_damage = impact_structure_damage
 	HS_BB.aoe_mob_damage = aoe_mob_damage
-	HS_BB.aoe_mob_range = CLAMP(aoe_mob_range, 0, 15)				//Badmin safety lock
+	HS_BB.aoe_mob_range = clamp(aoe_mob_range, 0, 15)				//Badmin safety lock
 	HS_BB.aoe_fire_chance = aoe_fire_chance
 	HS_BB.aoe_fire_range = aoe_fire_range
 	HS_BB.aoe_structure_damage = aoe_structure_damage
-	HS_BB.aoe_structure_range = CLAMP(aoe_structure_range, 0, 15)	//Badmin safety lock
+	HS_BB.aoe_structure_range = clamp(aoe_structure_range, 0, 15)	//Badmin safety lock
 	HS_BB.wall_devastate = wall_devastate
 	HS_BB.wall_pierce_amount = wall_pierce_amount
 	HS_BB.structure_pierce_amount = structure_piercing
@@ -381,12 +381,12 @@
 	HS_BB.gun = host
 
 /obj/item/ammo_casing/energy/beam_rifle/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
-	var/turf/curloc = get_turf(user)
-	if(!istype(curloc) || !BB)
+	var/turf/current_location = get_turf(user)
+	if(!istype(current_location) || !BB)
 		return FALSE
 	var/obj/item/gun/energy/beam_rifle/gun = loc
 	if(!targloc && gun)
-		targloc = get_turf_in_angle(gun.lastangle, curloc, 10)
+		targloc = get_turf_in_angle(gun.lastangle, current_location, 10)
 	else if(!targloc)
 		return FALSE
 	var/firing_dir
@@ -394,18 +394,19 @@
 		firing_dir = BB.firer.dir
 	if(!BB.suppressed && firing_effect_type)
 		new firing_effect_type(get_turf(src), firing_dir)
-	BB.preparePixelProjectile(target, user, params, spread)
+	var/modifiers = params2list(params)
+	BB.preparePixelProjectile(target, user, modifiers, spread)
 	BB.fire(gun? gun.lastangle : null, null)
 	BB = null
 	return TRUE
 
 /obj/item/ammo_casing/energy/beam_rifle/hitscan
-	projectile_type = /obj/item/projectile/beam/beam_rifle/hitscan
+	projectile_type = /obj/projectile/beam/beam_rifle/hitscan
 	select_name = "beam"
 	e_cost = 10000
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 
-/obj/item/projectile/beam/beam_rifle
+/obj/projectile/beam/beam_rifle
 	name = "particle beam"
 	icon = null
 	hitsound = 'sound/effects/explosion3.ogg'
@@ -432,13 +433,13 @@
 	var/impact_direct_damage = 0
 	var/list/pierced = list()
 
-/obj/item/projectile/beam/beam_rifle/proc/AOE(turf/epicenter)
+/obj/projectile/beam/beam_rifle/proc/AOE(turf/epicenter)
 	if(!epicenter)
 		return
 	new /obj/effect/temp_visual/explosion/fast(epicenter)
 	for(var/mob/living/L in hearers(aoe_mob_range, epicenter))		//handle aoe mob damage
 		L.adjustFireLoss(aoe_mob_damage)
-		to_chat(L, "<span class='userdanger'>\The [src] sears you!</span>")
+		to_chat(L, span_userdanger("\The [src] sears you!"))
 	for(var/turf/T in RANGE_TURFS(aoe_fire_range, epicenter))		//handle aoe fire
 		if(prob(aoe_fire_chance))
 			new /obj/effect/hotspot(T)
@@ -446,7 +447,7 @@
 		if(!isitem(O))
 			O.take_damage(aoe_structure_damage * get_damage_coeff(O), BURN, LASER, FALSE)
 
-/obj/item/projectile/beam/beam_rifle/prehit_pierce(atom/A)
+/obj/projectile/beam/beam_rifle/prehit_pierce(atom/A)
 	if(isclosedturf(A) && (wall_pierce < wall_pierce_amount))
 		if(prob(wall_devastate))
 			if(iswallturf(A))
@@ -463,14 +464,14 @@
 		return PROJECTILE_PIERCE_PHASE			// ditto and this could be refactored to on_hit honestly
 	return ..()
 
-/obj/item/projectile/beam/beam_rifle/proc/get_damage_coeff(atom/target)
+/obj/projectile/beam/beam_rifle/proc/get_damage_coeff(atom/target)
 	if(istype(target, /obj/machinery/door))
 		return 0.4
 	if(istype(target, /obj/structure/window))
 		return 0.5
 	return 1
 
-/obj/item/projectile/beam/beam_rifle/proc/handle_impact(atom/target)
+/obj/projectile/beam/beam_rifle/proc/handle_impact(atom/target)
 	if(isobj(target))
 		var/obj/O = target
 		O.take_damage(impact_structure_damage * get_damage_coeff(target), BURN, LASER, FALSE)
@@ -479,7 +480,7 @@
 		L.adjustFireLoss(impact_direct_damage)
 		L.emote("scream")
 
-/obj/item/projectile/beam/beam_rifle/proc/handle_hit(atom/target, piercing_hit = FALSE)
+/obj/projectile/beam/beam_rifle/proc/handle_hit(atom/target, piercing_hit = FALSE)
 	set waitfor = FALSE
 	if(nodamage)
 		return FALSE
@@ -489,17 +490,17 @@
 	if(!QDELETED(target))
 		handle_impact(target)
 
-/obj/item/projectile/beam/beam_rifle/on_hit(atom/target, blocked = FALSE, piercing_hit = FALSE)
+/obj/projectile/beam/beam_rifle/on_hit(atom/target, blocked = FALSE, piercing_hit = FALSE)
 	handle_hit(target, piercing_hit)
 	return ..()
 
-/obj/item/projectile/beam/beam_rifle/hitscan
+/obj/projectile/beam/beam_rifle/hitscan
 	icon_state = ""
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/tracer/beam_rifle
 	var/constant_tracer = FALSE
 
-/obj/item/projectile/beam/beam_rifle/hitscan/generate_hitscan_tracers(cleanup = TRUE, duration = 5, impacting = TRUE, highlander)
+/obj/projectile/beam/beam_rifle/hitscan/generate_hitscan_tracers(cleanup = TRUE, duration = 5, impacting = TRUE, highlander)
 	set waitfor = FALSE
 	if(isnull(highlander))
 		highlander = constant_tracer
@@ -515,7 +516,7 @@
 		beam_segments = null
 		QDEL_NULL(beam_index)
 
-/obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam
+/obj/projectile/beam/beam_rifle/hitscan/aiming_beam
 	tracer_type = /obj/effect/projectile/tracer/tracer/aiming
 	name = "aiming beam"
 	hitsound = null
@@ -528,9 +529,16 @@
 	hitscan_light_color_override = "#99ff99"
 	reflectable = REFLECT_FAKEPROJECTILE
 
-/obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/prehit_pierce(atom/target)
+/obj/projectile/beam/beam_rifle/hitscan/aiming_beam/prehit_pierce(atom/target)
 	return PROJECTILE_DELETE_WITHOUT_HITTING
 
-/obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/on_hit()
+/obj/projectile/beam/beam_rifle/hitscan/aiming_beam/on_hit()
 	qdel(src)
 	return BULLET_ACT_BLOCK
+
+#undef ZOOM_LOCK_AUTOZOOM_FREEMOVE
+#undef ZOOM_LOCK_AUTOZOOM_ANGLELOCK
+#undef ZOOM_LOCK_CENTER_VIEW
+#undef ZOOM_LOCK_OFF
+#undef AUTOZOOM_PIXEL_STEP_FACTOR
+#undef AIMING_BEAM_ANGLE_CHANGE_THRESHOLD

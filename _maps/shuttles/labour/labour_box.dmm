@@ -25,19 +25,13 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/obj/item/gps/security,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "f" = (
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"g" = (
-/obj/machinery/button/flasher{
-	id = "gulagshuttleflasher";
-	name = "Flash Control";
-	pixel_y = -26;
-	req_access_txt = "1"
-	},
-/obj/machinery/light,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "h" = (
@@ -53,12 +47,16 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "j" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
+/obj/structure/window/reinforced,
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	req_access_txt = "1";
+	pixel_x = -25
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -67,18 +65,18 @@
 	input_dir = 2;
 	output_dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/labor)
 "l" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
-"m" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/labor)
 "n" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
 /obj/machinery/mineral/labor_claim_console{
 	machinedir = 1;
 	pixel_x = 30
@@ -113,19 +111,44 @@
 	port_direction = 4;
 	width = 9
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "r" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
 "s" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"L" = (
+/obj/machinery/door/window/southleft{
+	name = "Gulag";
+	req_one_access_txt = "63;42;38"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"Q" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/labor)
+"S" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 
 (1,1,1) = {"
@@ -144,8 +167,8 @@ b
 c
 f
 j
-l
-l
+S
+Q
 p
 r
 s
@@ -153,9 +176,9 @@ s
 (3,1,1) = {"
 b
 d
-g
-a
-m
+f
+L
+l
 l
 l
 r

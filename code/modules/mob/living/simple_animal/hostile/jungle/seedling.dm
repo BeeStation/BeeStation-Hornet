@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/jungle/seedling
 	name = "seedling"
 	desc = "This oversized, predatory flower conceals what can only be described as an organic energy cannon, and it will not die until its hidden vital organs are sliced out. \
-	 The concentrated streams of energy it sometimes produces require its full attention, attacking it during this time will prevent it from finishing its attack."
+		The concentrated streams of energy it sometimes produces require its full attention, attacking it during this time will prevent it from finishing its attack."
 	icon = 'icons/mob/jungle/seedling.dmi'
 	icon_state = "seedling"
 	icon_living = "seedling"
@@ -16,37 +16,36 @@
 	maxHealth = 100
 	health = 100
 	melee_damage = 30
-	pixel_x = -16
-	pixel_y = -14
+	SET_BASE_PIXEL(-16, -14)
 	minimum_distance = 3
 	move_to_delay = 20
 	vision_range = 9
 	aggro_vision_range = 15
 	ranged = TRUE
 	ranged_cooldown_time = 10
-	projectiletype = /obj/item/projectile/seedling
+	projectiletype = /obj/projectile/seedling
 	projectilesound = 'sound/weapons/pierce.ogg'
 	robust_searching = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	var/combatant_state = SEEDLING_STATE_NEUTRAL
 	var/obj/seedling_weakpoint/weak_point
 	var/mob/living/beam_debuff_target
 	var/solar_beam_identifier = 0
 
-/obj/item/projectile/seedling
+/obj/projectile/seedling
 	name = "solar energy"
 	icon_state = "seedling"
 	damage = 10
 	damage_type = BURN
 	light_range = 2
 	armor_flag = ENERGY
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	nondirectional_sprite = TRUE
 
-/obj/item/projectile/seedling/Bump(atom/A)//Stops seedlings from destroying other jungle mobs through FF
+/obj/projectile/seedling/Bump(atom/A)//Stops seedlings from destroying other jungle mobs through FF
 	if(isliving(A))
 		var/mob/living/L = A
 		if("jungle" in L.faction)
@@ -180,7 +179,7 @@
 			Shoot(target)
 			return
 		var/turf/our_turf = get_turf(src)
-		var/obj/item/projectile/seedling/readied_shot = new /obj/item/projectile/seedling(our_turf)
+		var/obj/projectile/seedling/readied_shot = new /obj/projectile/seedling(our_turf)
 		readied_shot.preparePixelProjectile(target, src, null, rand(-10, 10))
 		readied_shot.fire()
 		playsound(src, projectilesound, 100, 1)

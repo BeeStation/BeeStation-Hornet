@@ -24,6 +24,7 @@ have ways of interacting with a specific mob and control it.
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
+	idle_behavior = /datum/idle_behavior/idle_monkey
 
 /datum/ai_controller/monkey/angry
 
@@ -40,16 +41,10 @@ have ways of interacting with a specific mob and control it.
 	blackboard[BB_MONKEY_NEXT_HUNGRY] = world.time + rand(0, 300)
 
 	var/mob/living/living_pawn = new_pawn
-	RegisterSignal(new_pawn, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
-	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
-	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_PAW, PROC_REF(on_attack_paw))
-	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(on_attack_animal))
-	RegisterSignal(new_pawn, COMSIG_MOB_ATTACK_ALIEN, PROC_REF(on_attack_alien))
-	RegisterSignal(new_pawn, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
-	RegisterSignal(new_pawn, COMSIG_ATOM_HITBY, PROC_REF(on_hitby))
+	living_pawn.AddElement(/datum/element/relay_attackers)
+	RegisterSignal(new_pawn, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_attacked))
 	RegisterSignal(new_pawn, COMSIG_LIVING_START_PULL, PROC_REF(on_startpulling))
 	RegisterSignal(new_pawn, COMSIG_LIVING_TRY_SYRINGE, PROC_REF(on_try_syringe))
-	RegisterSignal(new_pawn, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_hulk))
 	RegisterSignal(new_pawn, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
 	RegisterSignal(new_pawn, COMSIG_MOB_MOVESPEED_UPDATED, PROC_REF(update_movespeed))
 	RegisterSignal(new_pawn, COMSIG_FOOD_EATEN, PROC_REF(on_eat))
@@ -59,8 +54,8 @@ have ways of interacting with a specific mob and control it.
 	return ..() //Run parent at end
 
 /datum/ai_controller/monkey/UnpossessPawn(destroy)
-	UnregisterSignal(pawn, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_LIVING_START_PULL,\
-	COMSIG_LIVING_TRY_SYRINGE, COMSIG_ATOM_HULK_ATTACK, COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_MOB_MOVESPEED_UPDATED, COMSIG_ATOM_ATTACK_ANIMAL, COMSIG_MOB_ATTACK_ALIEN))
+	UnregisterSignal(pawn, list(COMSIG_ATOM_WAS_ATTACKED, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_LIVING_START_PULL,\
+	COMSIG_LIVING_TRY_SYRINGE,  COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_MOB_MOVESPEED_UPDATED))
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
 	return ..() //Run parent at end
 
@@ -150,60 +145,28 @@ have ways of interacting with a specific mob and control it.
 	return top_force_item
 
 /datum/ai_controller/monkey/proc/IsEdible(obj/item/thing)
-	if(istype(thing, /obj/item/reagent_containers/food))
+	if(IS_EDIBLE(thing))
 		return TRUE
-	if(istype(thing, /obj/item/reagent_containers/food/drinks/drinkingglass))
-		var/obj/item/reagent_containers/food/drinks/drinkingglass/glass = thing
+	if(istype(thing, /obj/item/reagent_containers/cup/glass/drinkingglass))
+		var/obj/item/reagent_containers/cup/glass/drinkingglass/glass = thing
 		if(glass.reagents.total_volume) // The glass has something in it, time to drink the mystery liquid!
 			return TRUE
 	return FALSE
-
-//When idle just kinda fuck around.
-/datum/ai_controller/monkey/PerformIdleBehavior(delta_time)
-	var/mob/living/living_pawn = pawn
-
-	if(DT_PROB(25, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE) && isturf(living_pawn.loc) && !living_pawn.pulledby)
-		var/move_dir = pick(GLOB.alldirs)
-		living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
-	else if(DT_PROB(1, delta_time))
-		INVOKE_ASYNC(living_pawn, TYPE_PROC_REF(/mob, emote), pick("scratch","jump","roll","tail"))
 
 ///Reactive events to being hit
 /datum/ai_controller/monkey/proc/retaliate(mob/living/L)
 	var/list/enemies = blackboard[BB_MONKEY_ENEMIES]
 	enemies[L] += MONKEY_HATRED_AMOUNT
 
-/datum/ai_controller/monkey/proc/on_attackby(datum/source, obj/item/I, mob/user)
-	SIGNAL_HANDLER
-	if(I.force && I.damtype != STAMINA)
-		retaliate(user)
-
-/datum/ai_controller/monkey/proc/on_attack_hand(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	if(user.a_intent == INTENT_HARM && prob(MONKEY_RETALIATE_HARM_PROB))
-		retaliate(user)
-	else if(user.a_intent == INTENT_DISARM && prob(MONKEY_RETALIATE_DISARM_PROB))
-		retaliate(user)
-
-/datum/ai_controller/monkey/proc/on_attack_paw(datum/source, mob/living/user)
+/datum/ai_controller/monkey/proc/on_attacked(datum/source, mob/attacker)
 	SIGNAL_HANDLER
 	if(prob(MONKEY_RETALIATE_PROB))
-		retaliate(user)
+		retaliate(attacker)
 
-/datum/ai_controller/monkey/proc/on_attack_animal(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	if(user.melee_damage > 0 && prob(MONKEY_RETALIATE_PROB))
-		retaliate(user)
-
-/datum/ai_controller/monkey/proc/on_attack_alien(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	if(prob(MONKEY_RETALIATE_PROB))
-		retaliate(user)
-
-/datum/ai_controller/monkey/proc/on_bullet_act(datum/source, obj/item/projectile/Proj)
+/datum/ai_controller/monkey/proc/on_bullet_act(datum/source, obj/projectile/Proj)
 	SIGNAL_HANDLER
 	var/mob/living/living_pawn = pawn
-	if(istype(Proj , /obj/item/projectile/beam)||istype(Proj, /obj/item/projectile/bullet))
+	if(istype(Proj , /obj/projectile/beam)||istype(Proj, /obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < living_pawn.health && isliving(Proj.firer))
 				retaliate(Proj.firer)
@@ -214,7 +177,7 @@ have ways of interacting with a specific mob and control it.
 		var/mob/living/living_pawn = pawn
 		var/obj/item/I = AM
 		var/mob/thrown_by = I.thrownby?.resolve()
-		if(I.throwforce < living_pawn.health && ishuman(thrown_by))
+		if(I.throwforce && I.throwforce < living_pawn.health && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
 

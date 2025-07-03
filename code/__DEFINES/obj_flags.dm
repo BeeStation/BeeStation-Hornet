@@ -1,20 +1,19 @@
 // Flags for the obj_flags var on /obj
 
 
-#define EMAGGED					(1<<0)
-#define IN_USE					(1<<1)  //! If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-#define CAN_BE_HIT				(1<<2)  //! can this be bludgeoned by items?
-#define BEING_SHOCKED			(1<<3)  //! Whether this thing is currently (already) being shocked by a tesla
-#define DANGEROUS_POSSESSION	(1<<4)  //! Admin possession yes/no
-#define ON_BLUEPRINTS			(1<<5)  //! Are we visible on the station blueprints at roundstart?
-#define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
-#define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
-#define FROZEN					(1<<8)
-#define BLOCK_Z_OUT_DOWN		(1<<9)  // Should this object block z falling from loc?
-#define BLOCK_Z_OUT_UP			(1<<10) // Should this object block z uprise from loc?
-#define BLOCK_Z_IN_DOWN			(1<<11) // Should this object block z falling from above?
-#define BLOCK_Z_IN_UP			(1<<12) // Should this object block z uprise from below?
-#define OBJ_EMPED				(1<<13) // Object is affected by EMP
+#define EMAGGED (1<<0)
+#define IN_USE (1<<1)  //! If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+#define CAN_BE_HIT (1<<2)  //! can this be bludgeoned by items?
+#define BEING_SHOCKED (1<<3)  //! Whether this thing is currently (already) being shocked by a tesla
+#define DANGEROUS_POSSESSION (1<<4)  //! Admin possession yes/no
+#define ON_BLUEPRINTS (1<<5)  //! Are we visible on the station blueprints at roundstart?
+#define UNIQUE_RENAME (1<<6)  //! can you customize the description/name of the thing?
+#define USES_TGUI (1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
+#define OBJ_EMPED (1<<8)  //! Object is affected by EMP
+#define SCANNED (1<<9)  //! Object has been scanned by the prison_scanner
+#define BLOCKS_CONSTRUCTION (1<<10) //! Does this object prevent things from being built on it?
+#define BLOCKS_CONSTRUCTION_DIR (1<<11) //! Does this object prevent same-direction things from being built on it?
+#define IGNORE_DENSITY (1<<12) //! Can we ignore density when building on this object? (for example, directional windows and grilles)
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -35,6 +34,10 @@
 #define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
 #define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
+#define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
+#define ISCARVABLE			    (1<<17) //! Examine will not read out this item
+#define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
+#define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -52,6 +55,19 @@
 #define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
+/// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
+#define CASTING_CLOTHES (1<<15)
+/// Headgear/helmet allows internals
+#define HEADINTERNALS (1<<18)
+/// noslip with only works if wearer is walking
+#define NOSLIP_WALKING (1<<19)
+/// noslip with includes the higher level sliping hazards, like ice or lube, witch only works if wearer is walking
+#define NOSLIP_ALL_WALKING (1<<20)
+
+/// Integrity defines for clothing (not flags but close enough)
+#define CLOTHING_PRISTINE 0 // We have no damage on the clothing
+#define CLOTHING_DAMAGED 1 // There's some damage on the clothing but it still has at least one functioning bodypart and can be equipped
+#define CLOTHING_SHREDDED 2 // The clothing is useless and cannot be equipped unless repaired first
 
 /// Flags for the organ_flags var on /obj/item/organ
 
@@ -61,6 +77,7 @@
 #define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
 #define ORGAN_VITAL				(1<<4)	//Currently only the brain
 #define ORGAN_EDIBLE			(1<<5)	//is a snack? :D
+#define ORGAN_UNREMOVABLE 		(1<<6)	//Can't be removed using surgery
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 

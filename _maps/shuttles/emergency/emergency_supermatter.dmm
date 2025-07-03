@@ -6,10 +6,6 @@
 /obj/structure/sign/warning/radiation,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ad" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ae" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -37,7 +33,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/shuttle/escape)
 "am" = (
 /obj/structure/reflector/single/mapping{
@@ -65,7 +61,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/shuttle/escape)
 "ar" = (
 /obj/structure/chair/fancy/shuttle{
@@ -285,7 +281,6 @@
 /area/shuttle/escape)
 "lT" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "my" = (
@@ -399,7 +394,7 @@ ag
 ai
 ai
 ai
-ad
+lT
 aa
 aa
 aM
@@ -448,7 +443,7 @@ bg
 as
 as
 bk
-ad
+lT
 aM
 aO
 aa
@@ -496,7 +491,7 @@ bh
 au
 au
 bl
-ad
+lT
 aM
 aP
 aa
@@ -543,7 +538,7 @@ ag
 ai
 ai
 ai
-ad
+lT
 aa
 aa
 aM

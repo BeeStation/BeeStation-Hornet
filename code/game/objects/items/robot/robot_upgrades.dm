@@ -1,3 +1,6 @@
+#define STANDARD "standard" //repair module is operating in standard repair mode
+#define CRITICAL "critical" //repair module is operating in critical repair mode
+
 // robot_upgrades.dm
 // Contains various borg upgrades.
 
@@ -18,7 +21,7 @@
 
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R, user = usr)
 	if(R.stat == DEAD)
-		to_chat(user, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
+		to_chat(user, span_notice("[src] will not function on a deceased cyborg."))
 		return FALSE
 	if(module_type && !is_type_in_list(R.module, module_type))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
@@ -61,7 +64,7 @@
 
 /obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R, user = usr)
 	if(R.health < 0)
-		to_chat(user, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
+		to_chat(user, span_warning("You have to repair the cyborg before using this module!"))
 		return FALSE
 
 	if(R.mind)
@@ -82,8 +85,8 @@
 	. = ..()
 	if(.)
 		if(R.speed < 0)
-			to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
-			to_chat(user, "<span class='notice'>There's no room for another VTEC unit!</span>")
+			to_chat(R, span_notice("A VTEC unit is already installed!"))
+			to_chat(user, span_notice("There's no room for another VTEC unit!"))
 			return FALSE
 
 		R.speed = -2 // Gotta go fast.
@@ -106,11 +109,11 @@
 	if(.)
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 		if(!T)
-			to_chat(user, "<span class='notice'>There's no disabler in this unit!</span>")
+			to_chat(user, span_notice("There's no disabler in this unit!"))
 			return FALSE
 		if(T.charge_delay <= 2)
-			to_chat(R, "<span class='notice'>A cooling unit is already installed!</span>")
-			to_chat(user, "<span class='notice'>There's no room for another cooling unit!</span>")
+			to_chat(R, span_notice("A cooling unit is already installed!"))
+			to_chat(user, span_notice("There's no room for another cooling unit!"))
 			return FALSE
 
 		T.charge_delay = max(2 , T.charge_delay - 4)
@@ -132,7 +135,7 @@
 	. = ..()
 	if(.)
 		if(R.ionpulse)
-			to_chat(user, "<span class='notice'>This unit already has ion thrusters installed!</span>")
+			to_chat(user, span_notice("This unit already has ion thrusters installed!"))
 			return FALSE
 
 		R.ionpulse = TRUE
@@ -327,11 +330,12 @@
 	desc = "This module will repair the cyborg over time."
 	icon_state = "cyborg_upgrade5"
 	require_module = 1
-	var/repair_amount = -1
+	var/repair_amount = -5
 	/// world.time of next repair
 	var/next_repair = 0
-	/// Minimum time between repairs in seconds
-	var/repair_cooldown = 4
+	/// Minimum time between repairs
+	var/mode = STANDARD
+	var/repair_cooldown = 10 SECONDS
 	var/msg_cooldown = 0
 	var/on = FALSE
 	var/powercost = 10
@@ -343,7 +347,7 @@
 	if(.)
 		var/obj/item/borg/upgrade/selfrepair/U = locate() in R
 		if(U)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
+			to_chat(user, span_warning("This unit is already equipped with a self-repair module."))
 			return FALSE
 
 		cyborg = R
@@ -373,26 +377,27 @@
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
-		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
+		playsound(cyborg.loc, 'sound/machines/terminal_processing.ogg', 30)
+		to_chat(cyborg, span_notice("You activate the self-repair module."))
 		START_PROCESSING(SSobj, src)
 	else
-		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
+		playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
+		to_chat(cyborg, span_notice("You deactivate the self-repair module."))
 		STOP_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance()
 
-/obj/item/borg/upgrade/selfrepair/update_icon()
+/obj/item/borg/upgrade/selfrepair/update_icon_state()
 	if(cyborg)
 		icon_state = "selfrepair_[on ? "on" : "off"]"
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
 	else
 		icon_state = "cyborg_upgrade5"
+	return ..()
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
+	playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/item/borg/upgrade/selfrepair/process()
 	if(world.time < next_repair)
@@ -400,38 +405,37 @@
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
+			to_chat(cyborg, span_warning("[src] deactivated. Please, insert the power cell."))
 			deactivate_sr()
 			return
 
-		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please recharge.</span>")
+		if(cyborg.cell.charge < powercost * 20)
+			to_chat(cyborg, span_warning("Low power levels detected. [src] deactivated."))
 			deactivate_sr()
 			return
 
 		if(cyborg.health < cyborg.maxHealth)
-			if(cyborg.health < 0)
-				repair_amount = -2.5
-				powercost = 30
-			else
-				repair_amount = -1
-				powercost = 10
-			cyborg.adjustBruteLoss(repair_amount)
-			cyborg.adjustFireLoss(repair_amount)
-			cyborg.updatehealth()
+			if(cyborg.health < cyborg.maxHealth / 2 && mode == STANDARD)
+				mode = CRITICAL
+				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice("[mode]")] mode."))
+				repair_amount = initial(repair_amount) * 2
+				powercost = initial(repair_amount) * 3
+			else if (cyborg.health >= cyborg.maxHealth / 2 && mode == CRITICAL)
+				mode = STANDARD
+				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice("[mode]")] mode."))
+				repair_amount = initial(repair_amount)
+				powercost = initial(powercost)
+			if(cyborg.getBruteLoss())
+				cyborg.adjustBruteLoss(repair_amount)
+			else if(cyborg.getFireLoss())
+				cyborg.adjustFireLoss(repair_amount)
+			playsound(cyborg.loc, 'sound/items/welder2.ogg', 10) //Quiet so it isn't obnoxious, but still making itself known
 			cyborg.cell.use(powercost)
+			cyborg.updatehealth()
 		else
-			cyborg.cell.use(5)
-		next_repair = world.time + repair_cooldown * 10 // Multiply by 10 since world.time is in deciseconds
-
-		if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_BORG_SELF_REPAIR))
-			TIMER_COOLDOWN_START(src, COOLDOWN_BORG_SELF_REPAIR, 200 SECONDS)
-			var/msgmode = "standby"
-			if(cyborg.health < 0)
-				msgmode = "critical"
-			else if(cyborg.health < cyborg.maxHealth)
-				msgmode = "normal"
-			to_chat(cyborg, "<span class='notice'>Self-repair is active in <span class='boldnotice'>[msgmode]</span> mode.</span>")
+			to_chat(cyborg, span_warning("Unit fully repaired. [src] deactivated."))
+			deactivate_sr()
+		next_repair = world.time + repair_cooldown
 	else
 		deactivate_sr()
 
@@ -546,11 +550,11 @@
 /obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		if(R.shell)
-			to_chat(user, "<span class='warning'>This unit is already an AI shell!</span>")
+		if(locate(/obj/item/borg/upgrade/ai) in R.upgrades)
+			to_chat(user, span_warning("This unit is already an AI shell!"))
 			return FALSE
 		if(R.key) //You cannot replace a player unless the key is completely removed.
-			to_chat(user, "<span class='warning'>Intelligence patterns detected in this [R.braintype]. Aborting.</span>")
+			to_chat(user, span_warning("Intelligence patterns detected in this [R.braintype]. Aborting."))
 			return FALSE
 
 		R.make_shell(src)
@@ -572,13 +576,13 @@
 	if(.)
 
 		if(R.hasExpanded)
-			to_chat(usr, "<span class='notice'>This unit already has an expand module installed!</span>")
+			to_chat(usr, span_notice("This unit already has an expand module installed!"))
 			return FALSE
 
 		R.notransform = TRUE
 		var/prev_lockcharge = R.lockcharge
 		R.SetLockdown(TRUE)
-		R.anchored = TRUE
+		R.set_anchored(TRUE)
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(TRUE, R.loc)
 		smoke.start()
@@ -588,7 +592,7 @@
 			sleep(12)
 		if(!prev_lockcharge)
 			R.SetLockdown(FALSE)
-		R.anchored = FALSE
+		R.set_anchored(FALSE)
 		R.notransform = FALSE
 		R.resize = 2
 		R.hasExpanded = TRUE
@@ -605,7 +609,7 @@
 /obj/item/borg/upgrade/rped
 	name = "engineering cyborg RPED"
 	desc = "A rapid part exchange device for the engineering cyborg."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "borgrped"
 	require_module = TRUE
 	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)
@@ -617,7 +621,7 @@
 
 		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in R
 		if(RPED)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a RPED module.</span>")
+			to_chat(user, span_warning("This unit is already equipped with a RPED module."))
 			return FALSE
 
 		RPED = new(R.module)
@@ -647,7 +651,7 @@
 
 		var/obj/item/pinpointer/crew/PP = locate() in R.module
 		if(PP)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a pinpointer module.</span>")
+			to_chat(user, span_warning("This unit is already equipped with a pinpointer module."))
 			return FALSE
 
 		PP = new(R.module)
@@ -657,6 +661,8 @@
 		crew_monitor.Grant(R)
 		icon_state = "scanner"
 
+/datum/action/item_action/crew_monitor
+	name = "Interface With Crew Monitor"
 
 /obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -706,7 +712,7 @@
 
 /obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
 	if(CONFIG_GET(flag/disable_secborg))
-		to_chat(user, "<span class='warning'>Nanotrasen policy disallows the use of weapons of mass destruction.</span>")
+		to_chat(user, span_warning("Nanotrasen policy disallows the use of weapons of mass destruction."))
 		return FALSE
 	return ..()
 
@@ -723,7 +729,7 @@
 	if(.)
 		var/obj/item/borg/apparatus/circuit/C = locate() in R.module.modules
 		if(C)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a circuit apparatus.</span>")
+			to_chat(user, span_warning("This unit is already equipped with a circuit apparatus."))
 			return FALSE
 
 		C = new(R.module)
@@ -738,8 +744,8 @@
 			R.module.remove_module(C, TRUE)
 
 /obj/item/borg/upgrade/beaker_app
-	name = "beaker storage apparatus"
-	desc = "A supplementary beaker storage apparatus for medical cyborgs."
+	name = "container storage apparatus"
+	desc = "A supplementary container storage apparatus for medical cyborgs."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
 	module_type = list(/obj/item/robot_module/medical)
@@ -748,9 +754,9 @@
 /obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if(E)
-			to_chat(user, "<span class='warning'>This unit has no room for additional beaker storage.</span>")
+			to_chat(user, span_warning("This unit has no room for additional beaker storage."))
 			return FALSE
 
 		E = new(R.module)
@@ -760,10 +766,9 @@
 /obj/item/borg/upgrade/beaker_app/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
+		var/obj/item/borg/apparatus/container/extra/E = locate() in R.module.modules
 		if (E)
 			R.module.remove_module(E, TRUE)
-
 
 /obj/item/borg/upgrade/speciality
 	name = "Speciality Module"
@@ -816,9 +821,9 @@
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
 	desc = "A service cyborg upgrade allowing for basic food handling."
-	hat = /obj/item/clothing/head/chefhat
+	hat = /obj/item/clothing/head/utility/chefhat
 	addmodules = list (
-		/obj/item/kitchen/knife,
+		/obj/item/knife/kitchen,
 		/obj/item/kitchen/rollingpin,
 	)
 	additional_reagents = list(
@@ -831,7 +836,7 @@
 /obj/item/borg/upgrade/speciality/botany
 	name = "Botany Speciality"
 	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
-	hat = /obj/item/clothing/head/rice_hat
+	hat = /obj/item/clothing/head/costume/rice_hat
 	addmodules = list (
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/cultivator,
@@ -846,7 +851,7 @@
 /obj/item/borg/upgrade/speciality/casino
 	name = "Gambler Speciality"
 	desc = "It's not crew harm if they do it themselves!"
-	hat = /obj/item/clothing/head/rabbitears
+	hat = /obj/item/clothing/head/costume/rabbitears
 	addmodules = list (
 		/obj/item/gobbler,
 		/obj/item/storage/pill_bottle/dice_cup/cyborg,
@@ -862,3 +867,6 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/dance_trance,
 	)
+
+#undef STANDARD
+#undef CRITICAL

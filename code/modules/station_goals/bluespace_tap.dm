@@ -4,15 +4,16 @@
 	var/goal = 45000
 
 /datum/station_goal/bluespace_tap/get_report()
-	return {"<b>Bluespace Harvester Experiment</b><br>
-	Another research station has developed a device called a Bluespace Harvester.
-	It reaches through bluespace into other dimensions to shift through them for interesting objects.<br>
-	Due to unforeseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.
-	Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.
-	<br><br>
-	Be advised that the device is experimental and might act in slightly unforeseen ways if sufficiently powered.
-	<br>
-	Nanotrasen Science Directorate"}
+	return list(
+	"<blockquote><b>Bluespace Harvester Experiment</b>",
+	"Another research station has developed a device called a Bluespace Harvester.",
+	"It reaches through bluespace into other dimensions to shift through them for interesting objects.",
+	"Due to unforeseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.",
+	"Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.",
+	"",
+	"Be advised that the device is experimental and might act in slightly unforeseen ways if sufficiently powered.",
+	"Nanotrasen Science Directorate</blockquote>",
+	).Join("\n")
 
 /datum/station_goal/bluespace_tap/on_report()
 	var/datum/supply_pack/engineering/bluespace_tap/P = SSsupply.supply_packs[/datum/supply_pack/engineering/bluespace_tap]
@@ -24,7 +25,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? span_greenannounce("[highscore]") : span_boldannounce("[highscore]")]")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
@@ -65,7 +66,7 @@
 			/obj/item/clothing/head/collectable/flatcap,
 			/obj/item/clothing/head/collectable/pirate,
 			/obj/item/clothing/head/collectable/kitty,
-			/obj/item/clothing/head/crown/fancy,
+			/obj/item/clothing/head/costume/crown/fancy,
 			/obj/item/clothing/head/collectable/rabbitears,
 			/obj/item/clothing/head/collectable/wizard,
 			/obj/item/clothing/head/collectable/hardhat,
@@ -100,10 +101,10 @@
 		/obj/item/gun/ballistic/shotgun/toy/crossbow = 1,
 		/obj/item/dualsaber/toy = 5,
 		/obj/machinery/smoke_machine = 10,
-		/obj/item/clothing/head/kitty = 5,
+		/obj/item/clothing/head/costume/kitty = 5,
 		/obj/item/coin/antagtoken = 5,
-		/obj/item/clothing/suit/cardborg = 10,
-		/obj/item/toy/prize/honk = 10,
+		/obj/item/clothing/suit/costume/cardborg = 10,
+		/obj/item/toy/mecha/honk = 10,
 		/obj/item/bedsheet/patriot = 2,
 		/obj/item/bedsheet/rainbow = 2,
 		/obj/item/bedsheet/captain = 2,
@@ -111,7 +112,7 @@
 		/obj/item/bedsheet/syndie = 2,
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
-		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/gloves/tackler/combat = 5
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -124,9 +125,9 @@
 		/obj/item/dnainjector/telemut = 5,
 		/obj/item/dnainjector/chameleonmut = 5,
 		/obj/item/dnainjector/dwarf = 5,
-		/mob/living/simple_animal/pet/dog/corgi/ = 5,
+		/mob/living/basic/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
-		/mob/living/simple_animal/pet/dog/bullterrier = 5,
+		/mob/living/basic/pet/dog/bullterrier = 5,
 		/mob/living/simple_animal/pet/penguin = 5,
 		/mob/living/simple_animal/parrot = 5,
 		/obj/item/slimepotion/slime/sentience = 5,
@@ -143,29 +144,27 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/reagent_containers/food/snacks/burger/crab,
-		/obj/item/reagent_containers/food/snacks/crab_rangoon,
-		/obj/item/reagent_containers/food/snacks/scotchegg,
-		/obj/item/reagent_containers/food/snacks/pancakes/chocolatechip,
-		/obj/item/reagent_containers/food/snacks/carrotfries,
-		/obj/item/reagent_containers/food/snacks/chocolatebunny,
-		/obj/item/reagent_containers/food/snacks/benedict,
-		/obj/item/reagent_containers/food/snacks/cornedbeef,
-		/obj/item/reagent_containers/food/snacks/soup/meatball,
-		/obj/item/reagent_containers/food/snacks/soup/monkeysdelight,
-		/obj/item/reagent_containers/food/snacks/soup/stew,
-		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
-		/obj/item/reagent_containers/food/snacks/burger/fish,
-		/obj/item/reagent_containers/food/snacks/cubancarp,
-		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/pie/meatpie,
+		/obj/item/food/burger/crab,
+		/obj/item/food/crab_rangoon,
+		/obj/item/food/scotchegg,
+		/obj/item/food/pancakes/chocolatechip,
+		/obj/item/food/carrotfries,
+		/obj/item/food/chocolatebunny,
+		/obj/item/food/benedict,
+		/obj/item/food/cornedbeef,
+		/obj/item/food/soup/meatball,
+		/obj/item/food/soup/monkeysdelight,
+		/obj/item/food/soup/stew,
+		/obj/item/food/soup/hotchili,
+		/obj/item/food/burrito,
+		/obj/item/food/burger/fish,
+		/obj/item/food/cubancarp,
+		/obj/item/food/fishandchips,
+		/obj/item/food/pie/meatpie,
 		/obj/item/pizzabox,
 	)
 
-#define kW *1000
-#define MW kW *1000
-#define GW MW *1000
+
 
 /**
   * # Bluespace Harvester
@@ -190,10 +189,10 @@
 	luminosity = 1
 
 	/// Correspond to power required for a mining level, first entry for level 1, etc.
-	var/list/power_needs = list(1 kW, 5 kW, 50 kW, 100 kW, 500 kW,
-								1 MW, 2 MW, 5 MW, 10 MW, 25 MW,
-								50 MW, 75 MW, 125 MW, 200 MW, 500 MW,
-								1 GW, 5 GW, 15 GW, 45 GW, 500 GW)
+	var/list/power_needs = list(1 KILOWATT, 5 KILOWATT, 50 KILOWATT, 100 KILOWATT, 500 KILOWATT,
+								1 MEGAWATT, 2 MEGAWATT, 5 MEGAWATT, 10 MEGAWATT, 25 MEGAWATT,
+								50 MEGAWATT, 75 MEGAWATT, 125 MEGAWATT, 200 MEGAWATT, 500 MEGAWATT,
+								1 GIGAWATT, 5 GIGAWATT, 15 GIGAWATT, 45 GIGAWATT, 500 GIGAWATT)
 
 	/// list of possible products
 	var/static/product_list = list(
@@ -354,14 +353,14 @@
 	return data
 
 
-/obj/machinery/power/bluespace_tap/attack_hand(mob/user)
+/obj/machinery/power/bluespace_tap/attack_hand(mob/user, list/modifiers)
 	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/power/bluespace_tap/attack_ai(mob/user)
+/obj/machinery/power/bluespace_tap/attack_silicon(mob/user)
 	ui_interact(user)
 
 /**
@@ -410,7 +409,7 @@
 /obj/machinery/power/bluespace_tap/on_emag(mob/user)
 	..()
 	do_sparks(5, FALSE, src)
-	user?.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+	user?.visible_message(span_warning("[user] overrides the safety protocols of [src]."), span_warning("You override the safety protocols."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
@@ -423,7 +422,7 @@
 
 /obj/item/paper/bluespace_tap
 	name = "paper- 'The Experimental NT Bluespace Harvester - Mining other universes for science and profit!'"
-	info = "<h1>Important Instructions!</h1>Please follow all setup instructions to ensure proper operation. <br>\
+	default_raw_text = "<h1>Important Instructions!</h1>Please follow all setup instructions to ensure proper operation. <br>\
 	1. Create a wire node with ample access to spare power. The device operates independently of APCs. <br>\
 	2. Create a machine frame as normal on the wire node, taking into account the device's dimensions (3 by 3 meters). <br>\
 	3. Insert wiring, circuit board and required components and finish construction according to NT engineering standards. <br>\
@@ -438,7 +437,3 @@
 	<p>NT Science Directorate, Extradimensional Exploitation Research Group</p> \
 	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
 	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
-
-#undef kW
-#undef MW
-#undef GW

@@ -4,15 +4,15 @@
 	var/final_pixel_y = pixel_y
 	var/final_dir = dir
 	var/changed = 0
-	if(lying != lying_prev && rotate_on_lying)
+	if(lying_angle != lying_prev && rotate_on_lying)
 		changed++
-		ntransform.TurnTo(lying_prev , lying)
-		if(!lying) //Lying to standing
-			final_pixel_y = get_standard_pixel_y_offset()
+		ntransform.TurnTo(lying_prev , lying_angle)
+		if(!lying_angle) //Lying to standing
+			final_pixel_y = base_pixel_y
 		else //if(lying != 0)
 			if(lying_prev == 0) //Standing to lying
-				pixel_y = get_standard_pixel_y_offset()
-				final_pixel_y = get_standard_pixel_y_offset(lying)
+				pixel_y = base_pixel_y
+				final_pixel_y = base_pixel_y + PIXEL_Y_OFFSET_LYING
 				if(dir & (EAST|WEST)) //Facing east or west
 					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
 	if(resize != RESIZE_DEFAULT_SIZE)
@@ -21,8 +21,9 @@
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)
-		animate(src, transform = ntransform, time = (lying_prev == 0 || !lying) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
-		setMovetype(movement_type & ~FLOATING)  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
+		SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
+		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+	UPDATE_OO_IF_PRESENT
 
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]
@@ -36,6 +37,8 @@
 	if(I)
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/regenerate_icons()
 	if(notransform)
@@ -72,7 +75,7 @@
 		if(get_held_index_of_item(I) % 2 == 0)
 			icon_file = I.righthand_file
 
-		hands += I.build_worn_icon(default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+		hands += I.build_worn_icon(src, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
 
 	overlays_standing[HANDS_LAYER] = hands
 	apply_overlay(HANDS_LAYER)
@@ -90,11 +93,11 @@
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
 
-	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", -DAMAGE_LAYER)
+	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
 	overlays_standing[DAMAGE_LAYER] = damage_overlay
 
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP.dmg_overlay_type)
+		if(BP.dmg_overlay_type && !BP.is_husked)
 			if(BP.brutestate)
 				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
 			if(BP.burnstate)
@@ -115,7 +118,7 @@
 
 	if(wear_mask)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK))
-			overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/mask.dmi')
+			overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(src, default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/clothing/mask.dmi')
 		update_hud_wear_mask(wear_mask)
 
 	apply_overlay(FACEMASK_LAYER)
@@ -129,7 +132,7 @@
 
 	if(wear_neck)
 		if(!(check_obscured_slots() & ITEM_SLOT_NECK))
-			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(default_layer = NECK_LAYER, default_icon_file = 'icons/mob/neck.dmi')
+			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(src, default_layer = NECK_LAYER, default_icon_file = 'icons/mob/clothing/neck.dmi')
 		update_hud_neck(wear_neck)
 
 	apply_overlay(NECK_LAYER)
@@ -142,7 +145,7 @@
 		inv.update_icon()
 
 	if(back)
-		overlays_standing[BACK_LAYER] = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi')
+		overlays_standing[BACK_LAYER] = back.build_worn_icon(src, default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi')
 		update_hud_back(back)
 
 	apply_overlay(BACK_LAYER)
@@ -158,15 +161,15 @@
 		inv.update_icon()
 
 	if(head)
-		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
+		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		update_hud_head(head)
-		
+
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
-		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", -HANDCUFF_LAYER)
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
 		apply_overlay(HANDCUFF_LAYER)
 
 
@@ -201,9 +204,9 @@
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
-/obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file)
+//Clothing layer is the layer that clothing would usually appear on
+/obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
-
 
 /mob/living/carbon/update_body()
 	update_body_parts()

@@ -6,17 +6,17 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "f" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "h" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "i" = (
 /obj/machinery/vending/coffee,
@@ -26,10 +26,10 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "k" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "m" = (
@@ -48,23 +48,23 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "u" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "w" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "z" = (
 /obj/item/kirbyplants/random,
@@ -74,7 +74,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "C" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -88,18 +88,16 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "G" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "I" = (
-/obj/item/kirbyplants/photosynthetic{
-	layer = 3.1
-	},
+/obj/item/kirbyplants/photosynthetic,
 /obj/structure/window/fulltile,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -132,7 +130,7 @@
 /area/space)
 "V" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/sign/poster/contraband/lizard{

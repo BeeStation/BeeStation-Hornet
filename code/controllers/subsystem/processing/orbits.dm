@@ -51,11 +51,12 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Ruin level count
 	var/ruin_levels = 0
 
-/datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
-	. = ..()
+/datum/controller/subsystem/processing/orbits/Initialize()
 	setup_event_list()
 	//Create the main orbital map.
 	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
+
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/processing/orbits/Recover()
 	orbital_maps |= SSorbits.orbital_maps
@@ -127,7 +128,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Check objective
 	if(current_objective)
 		if(current_objective.check_failed())
-			priority_announce("Central Command priority objective failed.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 			QDEL_NULL(current_objective)
 	//Process events
 	for(var/datum/ruin_event/ruin_event as() in ruin_events)
@@ -155,9 +155,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		/datum/orbital_objective/artifact = 2,
 		/datum/orbital_objective/vip_recovery = 1
 	)
-	if(!length(possible_objectives))
-		priority_announce("Priority station objective received - Details transmitted to all available objective consoles. \
-			[GLOB.station_name] will have funds distributed upon objective completion.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 	var/chosen = pick_weight(valid_objectives)
 	if(!chosen)
 		return
@@ -173,7 +170,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		return "An objective has already been selected and must be completed first."
 	objective.on_assign(objective_computer)
 	objective.generate_attached_beacon()
-	objective.announce()
 	current_objective = objective
 	possible_objectives.Remove(objective)
 	update_objective_computers()
@@ -183,6 +179,11 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	for(var/obj/machinery/computer/objective/computer as() in GLOB.objective_computers)
 		for(var/M in computer.viewing_mobs)
 			computer.update_static_data(M)
+
+/// parameter must accept 'get_virtual_z_level()' values
+/datum/controller/subsystem/processing/orbits/proc/get_orbital_map_name_from_z(my_z)
+	var/datum/orbital_object/O = assoc_z_levels["[my_z]"]
+	return O?.name
 
 /*
  * Returns the base data of what is required for

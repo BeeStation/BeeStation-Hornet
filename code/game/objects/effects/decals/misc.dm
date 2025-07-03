@@ -55,18 +55,18 @@
 
 			if(!turf_mob.can_inject())
 				continue
-			if(!(turf_mob.mobility_flags & MOBILITY_STAND) && !travelled_max_distance)
+			if(turf_mob.body_position != STANDING_UP && !travelled_max_distance)
 				continue
 
 			lifetime--
 		else if(travelled_max_distance)
 			lifetime--
-		reagents?.reaction(turf_atom, VAPOR)
+		reagents?.expose(turf_atom, VAPOR)
 		if(user)
 			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
 
 	if(lifetime >= 0 && (!stream || travelled_max_distance))
-		reagents?.reaction(our_turf, VAPOR)
+		reagents?.expose(our_turf, VAPOR)
 		lifetime--
 		if(user)
 			log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")
@@ -75,5 +75,31 @@
 	name = "lattice"
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
-	icon_state = "lattice"
-	density = TRUE
+	icon_state = "lattice-255"
+	density = FALSE
+
+/obj/effect/decal/fakestairs
+	name = "stairs"
+	desc = "A great height, divided into small heights, all for your convenience."
+	icon = 'icons/obj/stairs.dmi'
+	icon_state = "stairs-p"
+	layer = TURF_DECAL_STRIPE_LAYER
+	density = FALSE
+
+/obj/effect/decal/fakestairs/newstairs
+	icon_state = "stairs-n"
+
+/obj/effect/decal/fakestairs/newstairs/middle
+	icon_state = "stairs-m"
+
+/obj/effect/decal/fakestairs/newstairs/right
+	icon_state = "stairs-r"
+
+/obj/effect/decal/fakestairs/newstairs/left
+	icon_state = "stairs-l"
+
+/obj/effect/decal/fakestairs/Initialize(mapload)
+	. = ..()
+	var/turf/open/floor/T = get_turf(src)
+	if(istype(T, /turf/open/floor))
+		T.slowdown = 2

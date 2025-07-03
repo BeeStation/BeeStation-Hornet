@@ -41,6 +41,7 @@
 
 /obj/item/disk/nuclear/decommission/ComponentInitialize()
 	AddComponent(/datum/component/gps, "AUTH0", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#f3d594", TRUE, TRUE)
 
 //==============
 //The bomb
@@ -57,6 +58,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "BOMB0", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#df3737", TRUE, TRUE)
 
 /obj/machinery/nuclearbomb/decomission/Initialize(mapload)
 	. = ..()
@@ -96,15 +98,13 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 
 /obj/machinery/nuclearbomb/decomission/set_active()
 	if(safety)
-		to_chat(usr, "<span class='danger'>The safety is still on.</span>")
+		to_chat(usr, span_danger("The safety is still on."))
 		return
 	timing = !timing
 	if(timing)
 		detonation_timer = world.time + (timer_set * 10)
 		countdown.start()
-		priority_announce("Nuclear fission explosive armed at abandoned outpost, vacate \
-			outpost immediately.",
-			null, 'sound/misc/notice1.ogg', "Priority")
+		exploration_announce("Nuclear fission explosive armed. Vacate the outpost immediately.", z)
 	else
 		detonation_timer = null
 		countdown.stop()
@@ -122,6 +122,6 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/actually_explode()
 	SSticker.roundend_check_paused = FALSE
 	linked_objective.complete_objective()
-	INVOKE_ASYNC(GLOBAL_PROC,PROC_REF(KillEveryoneOnZLevel), target_z)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), target_z)
 	QDEL_NULL(linked_objective.linked_beacon)
 	qdel(src)

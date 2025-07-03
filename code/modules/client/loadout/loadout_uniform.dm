@@ -248,6 +248,10 @@
 	display_name = "white and green suit"
 	path = /obj/item/clothing/under/suit/white_on_white
 
+/datum/gear/uniform/suit/relaxed
+	display_name = "relaxed slacks"
+	path = /obj/item/clothing/under/suit/relaxed
+
 /datum/gear/uniform/suit/sl_suit
 	display_name = "amish suit"
 	path = /obj/item/clothing/under/suit/sl
@@ -385,9 +389,4 @@
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
 	path = /obj/item/clothing/under/rank/security/officer/blueshirt
-	cost = 7500
-
-/datum/gear/uniform/rank/security/blart
-	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
-	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500

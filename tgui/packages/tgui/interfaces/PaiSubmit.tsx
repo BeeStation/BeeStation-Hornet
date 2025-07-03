@@ -12,10 +12,11 @@ type Data = {
   comments: string;
   description: string;
   name: string;
+  ready: boolean;
   default_name: string;
   default_description: string;
   default_comments: string;
-}
+};
 const PAI_DESCRIPTION = `Personal AIs are advanced models
 capable of nuanced interaction. They are designed to be used
 in a variety of situations, assisting their masters in their
@@ -27,9 +28,9 @@ const PAI_RULES = `You are expected to role play to some degree.
 Keep in mind: Not entering information may lead to you not being
 selected. Press submit to alert pAI cards of your candidacy.`;
 
-export const PaiSubmit = (_, context) => {
-  const { data } = useBackend<Data>(context);
-  const [input, setInput] = useLocalState<CandidateData>(context, 'input', {
+export const PaiSubmit = (_) => {
+  const { data } = useBackend<Data>();
+  const [input, setInput] = useLocalState<CandidateData>('input', {
     name: data.name || '',
     description: data.description || '',
     comments: data.comments || '',
@@ -80,13 +81,7 @@ const InputDisplay = (props) => {
             <Box bold color="label">
               Name
             </Box>
-            <Input
-              fluid
-              value={input.name}
-              onChange={
-                (e) => setInput({ ...input, name: e.target.value })
-              }
-            />
+            <Input fluid value={input.name} onChange={(e) => setInput({ ...input, name: e.target.value })} />
           </Tooltip>
         </Stack.Item>
         <Stack.Item>
@@ -94,13 +89,7 @@ const InputDisplay = (props) => {
             <Box bold color="label">
               Description
             </Box>
-            <Input
-              fluid
-              value={input.description}
-              onChange={
-                (e) => setInput({ ...input, description: e.target.value })
-              }
-            />
+            <Input fluid value={input.description} onChange={(e) => setInput({ ...input, description: e.target.value })} />
           </Tooltip>
         </Stack.Item>
         <Stack.Item>
@@ -108,13 +97,7 @@ const InputDisplay = (props) => {
             <Box bold color="label">
               OOC Comments
             </Box>
-            <Input
-              fluid
-              value={input.comments}
-              onChange={
-                (e) => setInput({ ...input, comments: e.target.value })
-              }
-            />
+            <Input fluid value={input.comments} onChange={(e) => setInput({ ...input, comments: e.target.value })} />
           </Tooltip>
         </Stack.Item>
       </Stack>
@@ -123,24 +106,22 @@ const InputDisplay = (props) => {
 };
 
 /** Gives the user a submit button */
-const ButtonsDisplay = (props, context) => {
-  const { act } = useBackend<CandidateData>(context);
+const ButtonsDisplay = (props) => {
+  const { act } = useBackend<CandidateData>();
   const { input, setInput, data } = props;
   return (
     <Section fill>
       <Stack>
         <Stack.Item>
-          <Button
-            onClick={() => act('save', { candidate: input })}
-            tooltip="Saves your candidate data locally.">
+          <Button onClick={() => act('save', { candidate: input })} tooltip="Saves your candidate data locally.">
             SAVE
           </Button>
         </Stack.Item>
         <Stack.Item>
           <Button
-            onClick={() =>
-            {
-              setInput({ ...input,
+            onClick={() => {
+              setInput({
+                ...input,
                 name: data.default_name,
                 description: data.default_description,
                 comments: data.default_comments,
@@ -155,8 +136,18 @@ const ButtonsDisplay = (props, context) => {
             onClick={() =>
               act('submit', {
                 candidate: input,
-              })}>
+              })
+            }>
             SUBMIT
+          </Button>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            disabled={!data.ready}
+            color="bad"
+            onClick={() => act('delete')}
+            tooltip="Removes you from the candidate pool">
+            DELETE
           </Button>
         </Stack.Item>
       </Stack>

@@ -3,27 +3,27 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "e" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "g" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "h" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "l" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "o" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "y" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -31,7 +31,7 @@
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

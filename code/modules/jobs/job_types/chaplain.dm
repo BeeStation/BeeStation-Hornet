@@ -1,19 +1,20 @@
 /datum/job/chaplain
 	title = JOB_NAME_CHAPLAIN
-	flag = CHAPLAIN
+	description = "Tend to the spiritual well-being of the crew, conduct rites and rituals in your Chapel, exorcise evil spirits and other supernatural beings."
+	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
-
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
 
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
+	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
+	extra_access = list()
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
@@ -26,8 +27,16 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chaplain
 	)
 
-/datum/job/chaplain/after_spawn(mob/living/H, mob/M)
+	minimal_lightup_areas = list(
+		/area/chapel,
+		/area/medical/morgue,
+		/area/crew_quarters/theatre
+	)
+
+/datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
+	if(!M.client || on_dummy)
+		return
 
 	var/obj/item/storage/book/bible/booze/B = new
 
@@ -43,18 +52,12 @@
 		return
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
 
-	var/new_religion = DEFAULT_RELIGION
-	if(M.client && M.client.prefs.active_character.custom_names["religion"])
-		new_religion = M.client.prefs.active_character.custom_names["religion"]
-
-	var/new_deity = DEFAULT_DEITY
-	if(M.client && M.client.prefs.active_character.custom_names["deity"])
-		new_deity = M.client.prefs.active_character.custom_names["deity"]
+	var/new_religion = preference_source?.prefs?.read_character_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
+	var/new_deity = preference_source?.prefs?.read_character_preference(/datum/preference/name/deity) || DEFAULT_DEITY
 
 	B.deity_name = new_deity
 
-
-	switch(lowertext(new_religion))
+	switch(LOWER_TEXT(new_religion))
 		if("christianity") // DEFAULT_RELIGION
 			B.name = pick("The Holy Bible","The Dead Sea Scrolls")
 		if("buddhism")
@@ -121,8 +124,9 @@
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	backpack_contents = list(
 		/obj/item/nullrod = 1,
-		/obj/item/choice_beacon/holy = 1,
-		/obj/item/camera/spooky = 1
+		/obj/item/choice_beacon/radial/holy = 1,
+		/obj/item/camera/spooky = 1,
+		/obj/item/stamp/chap=1
 	)
 	backpack = /obj/item/storage/backpack/cultpack
 	satchel = /obj/item/storage/backpack/cultpack

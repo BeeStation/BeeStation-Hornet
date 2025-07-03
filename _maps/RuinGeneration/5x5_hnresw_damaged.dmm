@@ -9,31 +9,31 @@
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "G" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "I" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "O" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "P" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "X" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 m

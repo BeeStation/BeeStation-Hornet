@@ -8,7 +8,7 @@
 	available_on_ntnet = FALSE
 	unsendable = TRUE
 	undeletable = TRUE
-	usage_flags = PROGRAM_TABLET
+	usage_flags = PROGRAM_PDA
 	size = 5
 	tgui_id = "NtosCyborgSelfMonitor"
 	///A typed reference to the computer, specifying the borg tablet type
@@ -20,7 +20,7 @@
 
 /datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
 	if(!istype(computer, /obj/item/modular_computer/tablet/integrated))
-		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
+		to_chat(user, span_warning("A warning flashes across \the [computer]: Device Incompatible."))
 		return FALSE
 	. = ..()
 	if(.)
@@ -47,12 +47,13 @@
 		maxcharge = borgo.cell.maxcharge
 	data["charge"] = charge //Current cell charge
 	data["maxcharge"] = maxcharge //Cell max charge
-	data["integrity"] = ((borgo.health + 100) / 2) //Borgo health, as percentage
+	data["integrity"] = (borgo.health / borgo.maxHealth) * 100 //Borgo health, as percentage
 	data["lampIntensity"] = borgo.lamp_intensity //Borgo lamp power setting
 	data["sensors"] = "[borgo.sensors_on?"ACTIVE":"DISABLED"]"
 	data["printerPictures"] = borgo.connected_ai ? length(borgo.connected_ai.aicamera?.stored) : length(borgo.aicamera?.stored) //Number of pictures taken, synced to AI if available
 	data["printerToner"] = borgo.toner //amount of toner
 	data["printerTonerMax"] = borgo.tonermax //It's a variable, might as well use it
+	data["cameraRadius"] = isnull(borgo.aicamera) ? 1 : borgo.aicamera.picture_size_x // picture_size_x and picture_size_y should always be the same.
 	data["thrustersInstalled"] = borgo.ionpulse //If we have a thruster uprade
 	data["thrustersStatus"] = "[borgo.ionpulse_on?"ACTIVE":"DISABLED"]" //Feedback for thruster status
 	data["selfDestructAble"] = (borgo.emagged || istype(borgo, /mob/living/silicon/robot/modules/syndicate))
@@ -109,7 +110,7 @@
 		if("alertPower")
 			if(borgo.stat == CONSCIOUS)
 				if(!borgo.cell || !borgo.cell.charge)
-					borgo.visible_message("<span class='notice'>The power warning light on <span class='name'>[borgo]</span> flashes urgently.</span>", \
+					borgo.visible_message(span_notice("The power warning light on [span_name("[borgo]")] flashes urgently."), \
 						"You announce you are operating in low power mode.")
 					playsound(borgo, 'sound/machines/buzz-two.ogg', 50, FALSE)
 
@@ -130,8 +131,22 @@
 			borgo.toggle_ionpulse()
 
 		if("lampIntensity")
-			borgo.lamp_intensity = CLAMP(text2num(params["ref"]), 1, 5)
+			borgo.lamp_intensity = clamp(text2num(params["ref"]), 1, 5)
 			borgo.toggle_headlamp(FALSE, TRUE)
+
+		if("cameraRadius")
+			var/obj/item/camera/siliconcam/robot_camera/borgcam = borgo.aicamera
+			if(isnull(borgcam))
+				CRASH("Cyborg embedded AI camera is null somehow, was it qdeleted?")
+			var/desired_radius = text2num(params["ref"])
+			if(isnull(desired_radius))
+				return
+			// respect the limits
+			if(desired_radius > borgcam.picture_size_x_max || desired_radius < borgcam.picture_size_x_min)
+				log_href_exploit(usr, " attempted to select an invalid borg camera size '[desired_radius]'.")
+				return
+			borgcam.picture_size_x = desired_radius
+			borgcam.picture_size_y = desired_radius
 
 		if("selfDestruct")
 			if(borgo.stat || borgo.lockcharge) //No detonation while stunned or locked down
@@ -149,4 +164,4 @@
 	if(tablet)
 		var/datum/tgui/active_ui = SStgui.get_open_ui(tablet.borgo, src)
 		if(active_ui)
-			active_ui.send_full_update()
+			active_ui.send_full_update(bypass_cooldown = TRUE)

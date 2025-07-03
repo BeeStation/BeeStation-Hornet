@@ -84,7 +84,7 @@
 /area/warped_room)
 "r" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle,
+/obj/item/reagent_containers/cup/glass/bottle,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "s" = (
@@ -100,8 +100,8 @@
 /area/warped_room)
 "u" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
-/obj/item/kitchen/knife,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/knife/kitchen,
 /obj/item/kitchen/rollingpin,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
@@ -133,11 +133,11 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "A" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "B" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "C" = (

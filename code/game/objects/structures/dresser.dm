@@ -8,10 +8,10 @@
 
 /obj/structure/dresser/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
+		to_chat(user, span_notice("You begin to [anchored ? "unwrench" : "wrench"] [src]."))
 		if(I.use_tool(src, user, 20, volume=50))
-			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
-			setAnchored(!anchored)
+			to_chat(user, span_notice("You successfully [anchored ? "unwrench" : "wrench"] [src]."))
+			set_anchored(!anchored)
 	else
 		return ..()
 
@@ -19,7 +19,7 @@
 	new /obj/item/stack/sheet/wood(drop_location(), 10)
 	qdel(src)
 
-/obj/structure/dresser/attack_hand(mob/user)
+/obj/structure/dresser/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -29,7 +29,7 @@
 		var/mob/living/carbon/human/H = user
 
 		if(H.dna && H.dna.species && (NO_UNDERWEAR in H.dna.species.species_traits))
-			to_chat(user, "<span class='warning'>You are not capable of wearing underwear.</span>")
+			to_chat(user, span_warning("You are not capable of wearing underwear."))
 			return
 
 		var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Underwear Color","Undershirt","Socks")
@@ -42,7 +42,7 @@
 				if(new_undies)
 					H.underwear = new_undies
 			if("Underwear Color")
-				var/new_underwear_color = input(H, "Choose your underwear color", "Underwear Color","#"+H.underwear_color) as color|null
+				var/new_underwear_color = tgui_color_picker(H, "Choose your underwear color", "Underwear Color","#"+H.underwear_color)
 				if(new_underwear_color)
 					H.underwear_color = sanitize_hexcolor(new_underwear_color)
 			if("Undershirt")

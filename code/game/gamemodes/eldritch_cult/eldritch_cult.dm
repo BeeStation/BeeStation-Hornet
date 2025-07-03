@@ -2,7 +2,8 @@
 	name = "heresy"
 	config_tag = "heresy"
 	report_type = "heresy"
-	antag_flag = ROLE_HERETIC
+	role_preference = /datum/role_preference/antagonist/heretic
+	antag_datum = /datum/antagonist/heretic
 	false_report_weight = 5
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
@@ -10,14 +11,13 @@
 	required_enemies = 1
 	recommended_enemies = 4
 	reroll_friendly = 1
-	enemy_minimum_age = 0
 
 	allowed_special = list(/datum/special_role/traitor/higher_chance)
 
 	announce_span = "danger"
-	announce_text = "Heretics have been spotted on the station!\n\
-	<span class='danger'>Heretics</span>: Accomplish your objectives.\n\
-	<span class='notice'>Crew</span>: Do not let the madman succeed!"
+	announce_text = "Heretics have been spotted on the station!\n \
+	" + span_danger("Heretics") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Do not let the madman succeed!"
 
 	var/ecult_possible = 4 //hard limit on culties if scaling is turned off
 	var/num_ecult = 1
@@ -32,7 +32,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 
 	var/esc = CONFIG_GET(number/ecult_scaling_coeff)
@@ -44,11 +44,12 @@
 	for(var/i in 1 to num_ecult)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultie = antag_pick(antag_candidates, ROLE_HERETIC)
+		var/datum/mind/cultie = antag_pick(antag_candidates, /datum/role_preference/antagonist/heretic)
 		antag_candidates -= cultie
 		cultie.special_role = ROLE_HERETIC
 		cultie.restricted_roles = restricted_jobs
 		culties += cultie
+		GLOB.pre_setup_antags += cultie
 
 	if(!LAZYLEN(culties))
 		setup_error = "Not enough heretic candidates"
@@ -62,6 +63,7 @@
 		log_game("[key_name(cultie)] has been selected as a heretic!")
 		var/datum/antagonist/heretic/new_antag = new()
 		cultie.add_antag_datum(new_antag)
+		GLOB.pre_setup_antags -= cultie
 	return ..()
 
 /datum/game_mode/heretics/generate_report()

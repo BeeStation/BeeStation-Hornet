@@ -26,15 +26,18 @@
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 
-	var/list/candidates = get_candidates(ROLE_SPACE_DRAGON, null, ROLE_SPACE_DRAGON)
-	if(!candidates.len)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/midround_ghost/space_dragon,
+		check_jobban = ROLE_SPACE_DRAGON,
+		poll_time = 30 SECONDS,
+		role_name_text = "space dragon",
+		alert_pic = /mob/living/simple_animal/hostile/space_dragon,
+	)
+	if(!candidate)
 		return NOT_ENOUGH_PLAYERS
 
-	var/mob/dead/selected = pick(candidates)
-	var/key = selected.key
-
 	var/mob/living/simple_animal/hostile/space_dragon/dragon = new (pick(spawn_locs))
-	dragon.key = key
+	dragon.key = candidate.key
 	dragon.mind.assigned_role = "Space Dragon"
 	dragon.mind.special_role = "Space Dragon"
 	dragon.mind.add_antag_datum(/datum/antagonist/space_dragon)

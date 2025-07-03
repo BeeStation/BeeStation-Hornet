@@ -23,13 +23,13 @@
 		return
 	var/obj/item/circuitboard/computer/syndicate_shuttle/board = circuit
 	if(board.challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-		to_chat(usr, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [DisplayTimeText(SYNDICATE_CHALLENGE_TIMER - world.time)] more to allow them to prepare.</span>")
+		to_chat(usr, span_warning("You've issued a combat challenge to the station! You've got to give them at least [DisplayTimeText(SYNDICATE_CHALLENGE_TIMER - world.time)] more to allow them to prepare."))
 		return FALSE
 	board.moved = TRUE
 	. = ..()
 
 /obj/machinery/computer/shuttle_flight/syndicate/allowed(mob/M)
-	if(issilicon(M) && !(ROLE_SYNDICATE in M.faction))
+	if(issilicon(M) && !(FACTION_SYNDICATE in M.faction))
 		return FALSE
 	return ..()
 
@@ -37,6 +37,12 @@
 	name = "syndicate assault pod control"
 	desc = "Controls the drop pod's launch system."
 	icon = 'icons/obj/terminals.dmi'
+
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	icon_state = "dorm_available"
 	light_color = LIGHT_COLOR_BLUE
 	req_access = list(ACCESS_SYNDICATE)

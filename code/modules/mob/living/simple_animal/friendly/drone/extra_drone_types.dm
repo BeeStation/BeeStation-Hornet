@@ -18,7 +18,7 @@
 	health = 30
 	maxHealth = 120 //If you murder other drones and cannibalize them you can get much stronger
 	initial_language_holder = /datum/language_holder/drone/syndicate
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 	speak_emote = list("hisses")
 	bubble_icon = "syndibot"
 	heavy_emp_damage = 10
@@ -37,8 +37,10 @@
 	hidden_uplink.telecrystals = 10
 
 /mob/living/simple_animal/drone/syndrone/Login()
-	..()
-	to_chat(src, "<span class='notice'>You can kill and eat other drones to increase your health!</span>" )
+	. = ..()
+	if(!. || !client)
+		return FALSE
+	to_chat(src, span_notice("You can kill and eat other drones to increase your health!") )
 
 /mob/living/simple_animal/drone/syndrone/badass
 	name = "Badass Syndrone"
@@ -109,4 +111,4 @@
 
 /mob/living/simple_animal/drone/derelict
 	name = "derelict drone"
-	default_hatmask = /obj/item/clothing/head/ushanka
+	default_hatmask = /obj/item/clothing/head/costume/ushanka

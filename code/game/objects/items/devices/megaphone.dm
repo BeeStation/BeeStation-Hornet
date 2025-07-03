@@ -10,9 +10,10 @@
 	siemens_coefficient = 1
 	var/spamcheck = 0
 	var/list/voicespan = list(SPAN_MEGAPHONE)
+	var/cooldown = 5 SECONDS
 
 /obj/item/megaphone/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is uttering [user.p_their()] last words into \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is uttering [user.p_their()] last words into \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	spamcheck = 0//so they dont have to worry about recharging
 	user.say("AAAAAAAAAAAARGHHHHH", forced="megaphone suicide")//he must have died while coding this
 	return OXYLOSS
@@ -33,15 +34,15 @@
 
 	if (user.get_active_held_item() == src)
 		if(spamcheck > world.time)
-			to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
+			to_chat(user, span_warning("\The [src] needs to recharge!"))
 		else
 			playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
-			spamcheck = world.time + 50
+			spamcheck = world.time + cooldown
 			speech_args[SPEECH_SPANS] |= voicespan
 
 /obj/item/megaphone/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
+	to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
 	voicespan = list(SPAN_REALLYBIG, "userdanger")
 
 /obj/item/megaphone/sec
@@ -65,3 +66,45 @@
 	icon_state = "megaphone-clown"
 	item_state = "megaphone-clown"
 	voicespan = list(SPAN_CLOWN)
+
+/obj/item/megaphone/nospam
+	cooldown = 2 MINUTES // So it can be varedited if needed
+	var/list/charges_list = list()
+	var/maximum_charge = 5 //So it can be varedited too
+
+/obj/item/megaphone/nospam/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/megaphone/nospam/process(delta_time)
+	var/current_index = length(charges_list)
+	while(current_index > 0)
+		if(charges_list[current_index] < world.time)
+			charges_list.Cut(current_index, current_index+1)
+		current_index--
+	return
+
+/obj/item/megaphone/nospam/handle_speech(mob/living/carbon/user, list/speech_args)
+	if (user.get_active_held_item() != src)
+		return
+	if(length(charges_list) < maximum_charge)
+		charges_list.Add(world.time + cooldown)
+		playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
+		speech_args[SPEECH_SPANS] |= voicespan
+	else
+		to_chat(user, span_warning("You neeed to wait a bit before you can use [src] again!"))
+
+/obj/item/megaphone/nospam/examine(mob/user)
+	. = ..()
+	var/charges = maximum_charge - length(charges_list)
+	switch(charges)
+		if(2 to INFINITY)
+			. += span_notice("It has [charges] charges remaining.")
+		if(1)
+			. += span_notice("It has [charges] charge remaining.")
+		if(-INFINITY to 0)
+			. += span_warning("It needs to recharge!")
+
+/obj/item/megaphone/nospam/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	. = ..()

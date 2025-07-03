@@ -7,7 +7,7 @@
  *
  * Not intended as a replacement for the mob verb
  */
-/atom/movable/proc/point_at(atom/pointed_atom)
+/atom/movable/proc/point_at(atom/pointed_atom, params = "" as text, mob/M)
 	if(!isturf(loc))
 		return
 
@@ -22,7 +22,28 @@
 	var/turf/our_tile = get_turf(src)
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
 
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
+	/// Set position
+	var/final_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x
+	var/final_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y
+	var/list/modifiers = params2list(params)
+	if(!length(modifiers) || !LAZYACCESS(modifiers, SCREEN_LOC))
+		animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
+		return
+	else
+		var/list/actual_view = getviewsize(M.client ? M.client.view : world.view)
+		var/list/split_coords = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
+		final_x = (text2num(splittext(split_coords[1], ":")[1]) - actual_view[1] / 2) * world.icon_size + (text2num(splittext(split_coords[1], ":")[2]) - world.icon_size)
+		final_y = (text2num(splittext(split_coords[2], ":")[1]) - actual_view[2] / 2) * world.icon_size + (text2num(splittext(split_coords[2], ":")[2]) - world.icon_size)
+	//
+
+	/// Set rotation
+	var/matrix/rotated_matrix = new()
+	var/matrix/old_visual = visual.transform
+	rotated_matrix.TurnTo(0, get_pixel_angle(-final_y, -final_x))
+	visual.transform = rotated_matrix
+	//
+
+	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 1.7, easing = EASE_OUT, transform = old_visual)
 
 /atom/movable/proc/create_point_bubble(atom/pointed_atom)
 	var/obj/effect/thought_bubble_effect = new
@@ -52,7 +73,7 @@
 	thought_bubble.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	var/mutable_appearance/point_visual = mutable_appearance(
-		'icons/mob/screen_gen.dmi',
+		'icons/hud/screen_gen.dmi',
 		"arrow",
 		plane = thought_bubble.plane,
 	)
@@ -67,10 +88,12 @@
 
 /obj/effect/temp_visual/point
 	name = "pointer"
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "arrow"
 	plane = POINT_PLANE
 	duration = POINT_TIME
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/point)
 
 /obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
 	. = ..()
@@ -95,13 +118,15 @@
  *
  * overridden here and in /mob/dead/observer for different point span classes and sanity checks
  */
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
+/mob/verb/pointed(atom/A as mob|obj|turf in view(), params = "" as text)
 	set name = "Point To"
 	set category = "Object"
+	if(isnewplayer(src))
+		return FALSE
 	if(client && !(A in view(client.view, src)))
 		return FALSE
 	if(istype(A, /obj/effect/temp_visual/point))
 		return FALSE
-	point_at(A)
+	point_at(A, params, usr)
 	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE

@@ -5,24 +5,40 @@
 #define CHANGETURF_INHERIT_AIR 16 //! Inherit air from previous turf. Implies CHANGETURF_IGNORE_AIR
 #define CHANGETURF_RECALC_ADJACENT 32 //! Immediately recalc adjacent atmos turfs instead of queuing.
 
+#define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)
+
+#define READ_BASETURF(T) (islist(T.baseturfs) ? T.baseturfs[length(T.baseturfs)] : T.baseturfs)
+
 //supposedly the fastest way to do this according to https://gist.github.com/Giacom/be635398926bb463b42a
 ///Returns a list of turf in a square
 #define RANGE_TURFS(RADIUS, CENTER) \
-  block( \
-    locate(max(CENTER.x-(RADIUS),1),          max(CENTER.y-(RADIUS),1),          CENTER.z), \
-    locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
-  )
+	block( \
+		locate(max(CENTER.x-(RADIUS),1),          max(CENTER.y-(RADIUS),1),          CENTER.z), \
+		locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+	)
 
 #define RANGE_TURFS_XY(XRADIUS, YRADIUS, CENTER) \
-  block( \
-    locate(max(CENTER.x-(XRADIUS),1),          max(CENTER.y-(YRADIUS),1),          CENTER.z), \
-    locate(min(CENTER.x+(XRADIUS),world.maxx), min(CENTER.y+(YRADIUS),world.maxy), CENTER.z) \
-  )
+	block( \
+		locate(max(CENTER.x-(XRADIUS),1),          max(CENTER.y-(YRADIUS),1),          CENTER.z), \
+		locate(min(CENTER.x+(XRADIUS),world.maxx), min(CENTER.y+(YRADIUS),world.maxy), CENTER.z) \
+	)
 
 ///Returns all turfs in a zlevel
 #define Z_TURFS(ZLEVEL) block(locate(1,1,ZLEVEL), locate(world.maxx, world.maxy, ZLEVEL))
 
+///Returns all currently loaded turfs
+#define ALL_TURFS(...) block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
+
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
+
+///Okay so the ways these work is from ascending order.
+///For example "if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)" would mean, if you cant interact iteract with the underfloor directly, it will fire cuz its less than
+/// The pipes, disposals, and wires are hidden
+#define UNDERFLOOR_HIDDEN 0
+/// The pipes, disposals, and wires are visible but cannot be interacted with
+#define UNDERFLOOR_VISIBLE 1
+/// The pipes, disposals, and wires are visible and can be interacted with
+#define UNDERFLOOR_INTERACTABLE 2
 
 //Wet floor type flags. Stronger ones should be higher in number.
 /// Turf is dry and mobs won't slip
@@ -55,3 +71,4 @@
  * Use instead of `A.loc.loc`.
  */
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
+

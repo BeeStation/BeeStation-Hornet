@@ -44,7 +44,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

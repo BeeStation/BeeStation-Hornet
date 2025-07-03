@@ -71,7 +71,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE)
+	var/list/candidates = SSpolling.poll_ghost_candidates(
+		role = /datum/role_preference/midround_ghost/space_pirate,
+		check_jobban = ROLE_SPACE_PIRATE,
+		poll_time = 15 SECONDS,
+		role_name_text = "pirate crew",
+		alert_pic = /obj/item/stack/sheet/mineral/gold,
+	)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new
@@ -82,12 +88,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!T)
 		CRASH("Pirate event found no turf to load in")
 
-	var/datum/map_generator/template_placer = ship.load(T)
+	var/datum/async_map_generator/template_placer = ship.load(T)
 	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
 
 	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
+	SSsecurity_level.set_level(SEC_LEVEL_BLACK)
 
-/proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/map_generator/map_generator, turf/T)
+/proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/async_map_generator/async_map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
 			if(candidates.len > 0)
@@ -132,8 +139,8 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	SSshuttle.registerTradeBlockade(src)
 	AddComponent(/datum/component/gps, "Nautical Signal")
 	active = TRUE
-	to_chat(user,"<span class='notice'>You toggle [src] [active ? "on":"off"].</span>")
-	to_chat(user,"<span class='warning'>The scrambling signal can be now tracked by GPS.</span>")
+	to_chat(user,span_notice("You toggle [src] [active ? "on":"off"]."))
+	to_chat(user,span_warning("The scrambling signal can be now tracked by GPS."))
 	START_PROCESSING(SSobj,src)
 
 /obj/machinery/shuttle_scrambler/interact(mob/user)
@@ -159,10 +166,10 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 /obj/machinery/shuttle_scrambler/proc/dump_loot(mob/user)
 	if(credits_stored)	// Prevents spamming empty holochips
 		new /obj/item/holochip(drop_location(), credits_stored)
-		to_chat(user,"<span class='notice'>You retrieve the siphoned credits!</span>")
+		to_chat(user,span_notice("You retrieve the siphoned credits!"))
 		credits_stored = 0
 	else
-		to_chat(user,"<span class='notice'>There's nothing to withdraw.</span>")
+		to_chat(user,span_notice("There's nothing to withdraw."))
 
 /obj/machinery/shuttle_scrambler/proc/send_notification()
 	priority_announce("Data theft signal detected, source registered on local gps units.", sound = SSstation.announcer.get_rand_alert_sound())
@@ -212,7 +219,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 /obj/machinery/loot_locator/interact(mob/user)
 	if(world.time <= next_use)
-		to_chat(user,"<span class='warning'>[src] is recharging.</span>")
+		to_chat(user,span_warning("[src] is recharging."))
 		return
 	next_use = world.time + cooldown
 	var/atom/movable/AM = find_random_loot()
@@ -244,12 +251,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/sending_state = "lpad-beam"
 	var/cargo_hold_id
 
-/obj/machinery/piratepad/multitool_act(mob/living/user, obj/item/multitool/I)
-	. = ..()
-	if (istype(I))
-		to_chat(user, "<span class='notice'>You register [src] in [I]s buffer.</span>")
-		I.buffer = src
-		return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/piratepad)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/piratepad)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, span_notice("You register [src] in [buffer_parent]'s buffer."))
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control
 	name = "cargo hold control terminal"
@@ -268,13 +276,15 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/computer/piratepad_control/multitool_act(mob/living/user, obj/item/multitool/I)
-	. = ..()
-	if (istype(I) && istype(I.buffer,/obj/machinery/piratepad))
-		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		set_pad(I.buffer)
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
+	if (istype(buffer,/obj/machinery/piratepad))
+		to_chat(user, span_notice("You link [src] with [buffer] in [buffer_parent] buffer."))
+		set_pad(buffer)
 		ui_update()
-		return TRUE
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
 	. = ..()
@@ -389,7 +399,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!value)
 		status_report += "Nothing"
 
-	pad.visible_message("<span class='notice'>[pad] activates!</span>")
+	pad.visible_message(span_notice("[pad] activates!"))
 	flick(pad.sending_state,pad)
 	pad.icon_state = pad.idle_state
 	sending = FALSE
@@ -400,7 +410,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		return
 	sending = TRUE
 	status_report = "Sending..."
-	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
+	pad.visible_message(span_notice("[pad] starts charging up."))
 	pad.icon_state = pad.warmup_state
 	sending_timer = addtimer(CALLBACK(src,PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
 
@@ -436,10 +446,10 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/mob/living/carbon/human/H = AM
 	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
 		return 0
-	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
+	else if(FACTION_PIRATE in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
 	else
-		if(H.mind.assigned_role in GLOB.command_positions)
+		if(H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			return 3000
 		else
 			return 1000

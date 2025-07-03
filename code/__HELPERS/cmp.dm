@@ -35,12 +35,11 @@
 /proc/cmp_datum_text_dsc(datum/a, datum/b, variable)
 	return sorttext(a.vars[variable], b.vars[variable])
 
-GLOBAL_VAR_INIT(cmp_field, "name")
-/proc/cmp_records_asc(datum/data/record/a, datum/data/record/b)
-	return sorttext(b.fields[GLOB.cmp_field], a.fields[GLOB.cmp_field])
+/proc/cmp_records_asc(datum/record/a, datum/record/b)
+	return sorttext(b.name, a.name)
 
-/proc/cmp_records_dsc(datum/data/record/a, datum/data/record/b)
-	return sorttext(a.fields[GLOB.cmp_field], b.fields[GLOB.cmp_field])
+/proc/cmp_records_dsc(datum/record/a, datum/record/b)
+	return sorttext(a.name, b.name)
 
 /proc/cmp_ckey_asc(client/a, client/b)
 	return sorttext(b.ckey, a.ckey)
@@ -98,9 +97,12 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_advdisease_resistance_asc(datum/disease/advance/A, datum/disease/advance/B)
 	return A.resistance - B.resistance
 
+/proc/cmp_advdisease_symptomid_asc(datum/symptom/A, datum/symptom/B)
+	return sorttext(B.id, A.id)
+
 /proc/cmp_quirk_asc(datum/quirk/A, datum/quirk/B)
-	var/a_sign = SIGN(initial(A.value) * -1)
-	var/b_sign = SIGN(initial(B.value) * -1)
+	var/a_sign = SIGN(initial(A.quirk_value) * -1)
+	var/b_sign = SIGN(initial(B.quirk_value) * -1)
 
 	// Neutral traits go last.
 	if(a_sign == 0)
@@ -136,3 +138,26 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_mob_realname_dsc(mob/A,mob/B)
 	return sorttext(A.real_name,B.real_name)
+
+/// Orders by integrated circuit weight
+/proc/cmp_port_order_asc(datum/port/compare1, datum/port/compare2)
+	return compare1.order - compare2.order
+
+/**
+  * Sorts crafting recipe requirements before the crafting recipe is inserted into GLOB.crafting_recipes
+  *
+  * Prioritises [/datum/reagent] to ensure reagent requirements are always processed first when crafting.
+  * This prevents any reagent_containers from being consumed before the reagents they contain, which can
+  * lead to runtimes and item duplication when it happens.
+  */
+/proc/cmp_crafting_req_priority(var/A, var/B)
+	var/lhs
+	var/rhs
+
+	lhs = ispath(A, /datum/reagent) ? 0 : 1
+	rhs = ispath(B, /datum/reagent) ? 0 : 1
+
+	return lhs - rhs
+
+/proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)
+	return initial(knowledge_b.priority) - initial(knowledge_a.priority)

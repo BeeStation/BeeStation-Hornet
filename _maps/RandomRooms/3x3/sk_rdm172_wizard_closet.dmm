@@ -1,0 +1,97 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/closet/crate/internals,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/wizard/fake,
+/obj/item/toy/figure/janitor{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/closet,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/obj/effect/decal/cleanable/xenoblood/xgibs/limb,
+/obj/effect/decal/cleanable/vomit,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/item/ammo_casing/a357{
+	dir = 6;
+	pixel_x = 6;
+	pixel_y = 10
+	},
+/obj/item/ammo_casing/a357{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/obj/item/ammo_casing/a357{
+	dir = 4;
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/ammo_casing/a357{
+	dir = 6;
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/ammo_casing/a357{
+	dir = 8;
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/structure/holosign/barrier,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/blood/gibs/torso,
+/turf/open/floor/plating,
+/area/template_noop)
+"y" = (
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/item/clothing/head/cone{
+	pixel_x = -9
+	},
+/obj/effect/decal/cleanable/vomit,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+h
+a
+c
+"}
+(2,1,1) = {"
+k
+i
+l
+"}
+(3,1,1) = {"
+y
+e
+g
+"}

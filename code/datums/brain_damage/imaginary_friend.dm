@@ -2,17 +2,22 @@
 	name = "Imaginary Friend"
 	desc = "Patient can see and hear an imaginary person."
 	scan_desc = "partial schizophrenia"
-	gain_text = "<span class='notice'>You feel in good company, for some reason.</span>"
-	lose_text = "<span class='warning'>You feel lonely again.</span>"
+	gain_text = span_notice("You feel in good company, for some reason.")
+	lose_text = span_warning("You feel lonely again.")
 	var/mob/camera/imaginary_friend/friend
 	var/friend_initialized = FALSE
 
 /datum/brain_trauma/special/imaginary_friend/on_gain()
+	var/mob/living/M = owner
+	// dead or clientless mobs dont get the brain trauma
+	if(M.stat == DEAD || !M.client)
+		qdel(src)
+		return
 	..()
 	make_friend()
 	get_ghost()
 
-/datum/brain_trauma/special/imaginary_friend/on_life()
+/datum/brain_trauma/special/imaginary_friend/on_life(delta_time, times_fired)
 	if(get_dist(owner, friend) > 9)
 		friend.recall()
 	if(!friend)
@@ -46,10 +51,17 @@
 	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s imaginary friend?", ROLE_PAI, null, null, 75, friend, POLL_IGNORE_IMAGINARYFRIEND)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		friend.key = C.key
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		check_jobban = ROLE_IMAGINARY_FRIEND,
+		poll_time = 10 SECONDS,
+		checked_target = owner,
+		jump_target = owner,
+		role_name_text = "[owner]'s imaginary friend",
+		alert_pic = owner,
+	)
+	if(candidate)
+		friend.key = candidate.key
 		friend_initialized = TRUE
 	else
 		qdel(src)
@@ -66,6 +78,7 @@
 	see_invisible = SEE_INVISIBLE_LIVING
 	invisibility = INVISIBILITY_MAXIMUM
 	can_hear_init = TRUE // Enable hearing sensitive trait
+	initial_language_holder = /datum/language_holder/empty // language will be changed from init()
 	var/icon/human_image
 	var/image/current_image
 	var/hidden = FALSE
@@ -77,21 +90,27 @@
 	var/datum/action/innate/imaginary_hide/hide
 
 /mob/camera/imaginary_friend/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	greet()
 	Show()
 
 /mob/camera/imaginary_friend/proc/greet()
-	to_chat(src, "<span class='notice'><b>You are the imaginary friend of [owner]!</b></span>")
-	to_chat(src, "<span class='notice'>You are absolutely loyal to your friend, no matter what.</span>")
-	to_chat(src, "<span class='notice'>You cannot directly influence the world around you, but you can see what [owner] cannot.</span>")
+	to_chat(src, span_notice("<b>You are the imaginary friend of [owner]!</b>"))
+	to_chat(src, span_notice("You are absolutely loyal to your friend, no matter what."))
+	to_chat(src, span_notice("You cannot directly influence the world around you, but you can see what [owner] cannot."))
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 /mob/camera/imaginary_friend/Initialize(mapload, _trauma)
 	. = ..()
 
 	trauma = _trauma
 	owner = trauma.owner
-	copy_languages(owner, LANGUAGE_FRIEND)
+	copy_languages(owner, LANGUAGE_FRIEND, spoken=FALSE) // they don't have to speak in a language of their owner knows - as their language is imaginary echoes from their owner.
+	grant_language(/datum/language/metalanguage) // they only speak in metalanguage
+	language_holder.selected_language = /datum/language/metalanguage
 
 	setup_friend()
 
@@ -155,8 +174,8 @@
 	SIGNAL_HANDLER
 	var/list/listening = get_hearers_in_view(6, owner, SEE_INVISIBLE_MAXIMUM)
 	if(!(src in listening))
-		to_chat(src, "<span class='hear'>You hear a distant voice in your head...</span>")
-		to_chat(src, "<span class='game say'><span class='name'>[speaker]</span> <span class='message'>[say_quote(speech_args[SPEECH_MESSAGE])]</span></span>")
+		to_chat(src, span_hear("You hear a distant voice in your head..."))
+		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[say_quote(speech_args[SPEECH_MESSAGE])]")]"))
 
 /mob/camera/imaginary_friend/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if (!message)
@@ -183,8 +202,8 @@
 	src.log_talk(message, LOG_SAY, tag="imaginary friend")
 
 	// Display message
-	var/owner_chat_map = owner.client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
-	var/friend_chat_map = client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
+	var/owner_chat_map = owner.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) && owner.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs)
+	var/friend_chat_map = client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) && client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs)
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -196,9 +215,10 @@
 			hearers += client
 		if(owner_chat_map)
 			hearers += owner.client
+		new /datum/chatmessage(message, src, hearers, null)
 
-	var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[say_quote(message)]</span></span>"
-	var/dead_rendered = "<span class='game say'><span class='name'>[name] (Imaginary friend of [owner])</span> <span class='message'>[say_quote(message)]</span></span>"
+	var/rendered = span_gamesay("[span_name("[name]")] [span_message("[say_quote(message)]")]")
+	var/dead_rendered = span_gamesay("[span_name("[name] (Imaginary friend of [owner])")] [span_message("[say_quote(message)]")]")
 
 	to_chat(owner, "[rendered]")
 	to_chat(src, "[rendered]")
@@ -230,11 +250,11 @@
 	if(!..())
 		return FALSE
 	to_chat(owner, "<b>[src]</b> points at [A].")
-	to_chat(src, "<span class='notice'>You point at [A].</span>")
+	to_chat(src, span_notice("You point at [A]."))
 
 	var/turf/our_tile = get_turf(src)
 	var/turf/tile = get_turf(A)
-	var/image/arrow = image(icon = 'icons/mob/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
+	var/image/arrow = image(icon = 'icons/hud/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
 	arrow.plane = POINT_PLANE
 	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
@@ -250,18 +270,18 @@
 /datum/action/innate/imaginary_join
 	name = "Join"
 	desc = "Join your owner, following them from inside their mind."
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "join"
 
-/datum/action/innate/imaginary_join/Activate()
+/datum/action/innate/imaginary_join/on_activate()
 	var/mob/camera/imaginary_friend/I = owner
 	I.recall()
 
 /datum/action/innate/imaginary_hide
 	name = "Hide"
 	desc = "Hide yourself from your owner's sight."
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "hide"
 
@@ -275,9 +295,9 @@
 		name = "Hide"
 		desc = "Hide yourself from your owner's sight."
 		button_icon_state = "hide"
-	UpdateButtonIcon()
+	update_buttons()
 
-/datum/action/innate/imaginary_hide/Activate()
+/datum/action/innate/imaginary_hide/on_activate()
 	var/mob/camera/imaginary_friend/I = owner
 	I.hidden = !I.hidden
 	I.Show()
@@ -291,7 +311,7 @@
 	desc = "Patient appears to be targeted by an invisible entity."
 	gain_text = ""
 	lose_text = ""
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/special/imaginary_friend/trapped_owner/make_friend()
 	friend = new /mob/camera/imaginary_friend/trapped(get_turf(owner), src)
@@ -312,9 +332,9 @@
 	desc = "The previous host of this body."
 
 /mob/camera/imaginary_friend/trapped/greet()
-	to_chat(src, "<span class='notice'><b>You have managed to hold on as a figment of the new host's imagination!</b></span>")
-	to_chat(src, "<span class='notice'>All hope is lost for you, but at least you may interact with your host. You do not have to be loyal to them.</span>")
-	to_chat(src, "<span class='notice'>You cannot directly influence the world around you, but you can see what the host cannot.</span>")
+	to_chat(src, span_notice("<b>You have managed to hold on as a figment of the new host's imagination!</b>"))
+	to_chat(src, span_notice("All hope is lost for you, but at least you may interact with your host. You do not have to be loyal to them."))
+	to_chat(src, span_notice("You cannot directly influence the world around you, but you can see what the host cannot."))
 
 /mob/camera/imaginary_friend/trapped/setup_friend()
 	real_name = "[owner.real_name]?"

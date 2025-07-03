@@ -38,30 +38,34 @@
 	. = ..()
 
 	if(!machine)
-		to_chat(user, "<span class='notice'>[src] is not linked to a machine!</span>")
+		to_chat(user, span_notice("[src] is not linked to a machine!"))
 		return
 
 	var/obj/item/stack/sheet/s
 	var/dat
 
-	dat += text("<b>Stacking unit console</b><br><br>")
+	dat += "<b>Stacking unit console</b><br><br>"
 
 	for(var/O in machine.stack_list)
 		s = machine.stack_list[O]
 		if(s.amount > 0)
-			dat += text("[capitalize(s.name)]: [s.amount] <A href='?src=[REF(src)];release=[s.type]'>Release</A><br>")
+			dat += "[capitalize(s.name)]: [s.amount] <A href='byond://?src=[REF(src)];release=[s.type]'>Release</A><br>"
 
-	dat += text("<br>Stacking: [machine.stack_amt]<br><br>")
+	dat += "<br>Stacking: [machine.stack_amt]<br><br>"
 
-	user << browse(dat, "window=console_stacking_machine")
+	user << browse(HTML_SKELETON(dat), "window=console_stacking_machine")
 
-/obj/machinery/mineral/stacking_unit_console/multitool_act(mob/living/user, obj/item/I)
-	if(!multitool_check_buffer(user, I))
-		return
-	var/obj/item/multitool/M = I
-	M.buffer = src
-	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
-	return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
+	if(istype(buffer, /obj/machinery/mineral/stacking_machine))
+		var/obj/machinery/mineral/stacking_machine/stacking_machine = buffer
+		stacking_machine.console = src
+		machine = stacking_machine
+		to_chat(user, span_notice("You link [src] to the console in [buffer_parent]'s buffer."))
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, span_notice("You store linkage information in [buffer_parent]'s buffer."))
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
@@ -99,6 +103,8 @@
 	var/stack_amt = 50 //amount to stack before releassing
 	var/datum/component/remote_materials/materials
 	var/force_connect = FALSE
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 	var/link_id = null
 
 /obj/machinery/mineral/stacking_machine/Initialize(mapload)
@@ -110,7 +116,7 @@
 	if(console)
 		console.machine = null
 		console = null
-	materials = null
+	custom_materials = null
 	return ..()
 
 /obj/machinery/mineral/stacking_machine/HasProximity(atom/movable/AM)
@@ -119,7 +125,7 @@
 	if(istype(AM, /obj/item/stack/sheet) && AM.loc == get_step(src, input_dir))
 		var/obj/effect/portal/P = locate() in AM.loc
 		if(P)
-			visible_message("<span class='warning'>[src] attempts to stack the portal!</span>")
+			visible_message(span_warning("[src] attempts to stack the portal!"))
 			message_admins("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
 			log_game("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
 			explosion(src.loc, 0, 1, 2, 3)
@@ -128,13 +134,16 @@
 		else
 			process_sheet(AM)
 
-/obj/machinery/mineral/stacking_machine/multitool_act(mob/living/user, obj/item/multitool/M)
-	if(istype(M))
-		if(istype(M.buffer, /obj/machinery/mineral/stacking_unit_console))
-			console = M.buffer
-			console.machine = src
-			to_chat(user, "<span class='notice'>You link [src] to the console in [M]'s buffer.</span>")
-			return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
+	if(istype(buffer, /obj/machinery/mineral/stacking_unit_console))
+		console = buffer
+		console.machine = src
+		to_chat(user, span_notice("You link [src] to the console in [buffer_parent]'s buffer."))
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, span_notice("You store linkage information in [buffer_parent]'s buffer."))
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(QDELETED(inp))
@@ -147,9 +156,9 @@
 	qdel(inp)
 
 	if(materials.silo && !materials.on_hold()) //Dump the sheets to the silo
-		var/matlist = storage.materials & materials.mat_container.materials
+		var/matlist = storage.custom_materials & materials.mat_container.materials
 		if (length(matlist))
-			var/inserted = materials.mat_container.insert_stack(storage)
+			var/inserted = materials.mat_container.insert_item(storage)
 			materials.silo_log(src, "collected", inserted, "sheets", matlist)
 			if (QDELETED(storage))
 				stack_list -= key

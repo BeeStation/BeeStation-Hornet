@@ -28,7 +28,7 @@
 /area/template_noop)
 "f" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/costume/kitty,
 /obj/item/clothing/under/costume/schoolgirl,
 /turf/open/floor/carpet/purple,
 /area/template_noop)

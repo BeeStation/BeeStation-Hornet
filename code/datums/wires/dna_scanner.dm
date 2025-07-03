@@ -10,6 +10,8 @@
 	..()
 
 /datum/wires/dna_scanner/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/dna_scannernew/S = holder
 	if(S.panel_open)
 		return TRUE
@@ -44,7 +46,7 @@
 				S.shock(user, 50)
 	ui_update()
 
-/datum/wires/dna_scanner/on_cut(wire, mend)
+/datum/wires/dna_scanner/on_cut(wire, mob/user, mend)
 	var/obj/machinery/dna_scannernew/S = holder
 	switch(wire)
 		if(WIRE_IDSCAN)
@@ -60,6 +62,6 @@
 					S.locked = TRUE
 					S.update_icon()
 		if(WIRE_ZAP1, WIRE_ZAP2)
-			if(isliving(usr))
-				S.shock(usr, 90)
+			if(isliving(user))
+				S.shock(user, 90)
 	ui_update()

@@ -3,7 +3,7 @@
 #define LAYING_EGGS 2
 #define MOVING_TO_TARGET 3
 #define SPINNING_COCOON 4
-#define MAX_WEBS_PER_TILE 3
+#define INTERACTION_SPIDER_KEY "spider_key"
 
 /mob/living/simple_animal/hostile/poison
 	mobchatspan = "researchdirector"
@@ -31,10 +31,11 @@
 	speed = 1
 	turns_per_move = 5
 	see_in_dark = 10
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	butcher_results = list(/obj/item/food/meat/slab/spider = 2, /obj/item/food/spiderleg = 8)
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
 	initial_language_holder = /datum/language_holder/spider // Speaks buzzwords, understands buzzwords and common
 	maxHealth = 85
 	health = 85
@@ -42,19 +43,21 @@
 	melee_damage = 15
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/spidervenom
-	faction = list("spiders")
+	var/spider_lightmask = "tarantula-light-mask" // Variable to prevent spider emissives from overlapping
+	faction = list(FACTION_SPIDER)
 	pass_flags = PASSTABLE
 	move_to_delay = 4
 	ventcrawler = VENTCRAWLER_ALWAYS
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
 	unique_name = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	sentience_type = SENTIENCE_OTHER // not eligible for sentience potions
 	var/busy = SPIDER_IDLE // What a spider's doing
-	var/datum/action/innate/spider/lay_web/lay_web // Web action
-	var/obj/effect/proc_holder/wrap/lesser/lesserwrap // Wrap action
+	//var/obj/effect/proc_holder/spider/wrap/lesser/lesserwrap // Wrap action
 	var/web_speed = 1 // How quickly a spider lays down webs (percentage)
 	var/mob/master // The spider's master, used by sentience
 	var/onweb_speed
@@ -66,20 +69,27 @@
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
 	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
-	role = ROLE_SPIDER
-
+	var/datum/action/innate/spider/lay_web/webbing
+	var/datum/action/wrap/wrap
+	var/datum/action/innate/spider/comm/comm
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	do_footstep = TRUE
 	discovery_points = 1000
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
+/mob/living/simple_animal/hostile/poison/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
+	. = ..()
+	var/mutable_appearance/emissive_overlay = emissive_appearance(icon = 'icons/mob/animal.dmi', icon_state = spider_lightmask, layer = layer)
+	. += emissive_overlay
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
-	lay_web = new
-	lay_web.Grant(src)
-	lesserwrap = new
-	AddAbility(lesserwrap)
+	update_appearance() //Used for emissive spider eyes.
+	webbing = new(src)
+	webbing.Grant(src)
+	wrap = new(src)
+	wrap.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
 	. = ..()
@@ -91,12 +101,14 @@
 		mind.add_antag_datum(spooder, spider_team)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
-	QDEL_NULL(lay_web)
+	webbing.Remove()
 	GLOB.spidermobs -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	GLOB.spidermobs[src] = TRUE
 
@@ -111,13 +123,13 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		return
 	var/health_percentage = round((health / maxHealth) * 100)
 	if(health_percentage <= 75)
-		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = ((100 - health_percentage) / 50), blacklisted_movetypes = FLOATING|FLYING)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = ((100 - health_percentage) / 50))
 	else
-		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 
 // Handles faster movement on webs
 // This is triggered after the first time a spider steps on/off a web, making web-peeking using this harder
@@ -140,7 +152,7 @@
 		if(!busy)
 			var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
 			if(!W)
-				lay_web.Activate()
+				webbing.trigger()
 			else
 				var/list/can_see = view(10, src)
 				for(var/obj/O in can_see)
@@ -159,25 +171,25 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/cocoon()
 	if(stat != DEAD && cocoon_target && !cocoon_target.anchored)
 		if(cocoon_target == src)
-			to_chat(src, "<span class='warning'>You can't wrap yourself!</span>")
+			to_chat(src, span_warning("You can't wrap yourself!"))
 			return
 		if(istype(cocoon_target, /mob/living/simple_animal/hostile/poison/giant_spider))
-			to_chat(src, "<span class='warning'>You can't wrap other spiders!</span>")
+			to_chat(src, span_warning("You can't wrap other spiders!"))
 			return
 		if(!Adjacent(cocoon_target))
-			to_chat(src, "<span class='warning'>You can't reach [cocoon_target]!</span>")
+			to_chat(src, span_warning("You can't reach [cocoon_target]!"))
 			return
 		if(busy == SPINNING_COCOON)
-			to_chat(src, "<span class='warning'>You're already spinning a cocoon!</span>")
+			to_chat(src, span_warning("You're already spinning a cocoon!"))
 			return //we're already doing this, don't cancel out or anything
 		if(isliving(cocoon_target))
 			if(!istype(src, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
-				to_chat(src, "<span class='warning'>You should bring food to your broodmother!</span>")
+				to_chat(src, span_warning("You should bring food to your broodmother!"))
 				return
 			var/mob/living/M = cocoon_target
 			M.attacked_by(null, src)
 		busy = SPINNING_COCOON
-		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>","<span class='notice'>You begin wrapping [cocoon_target] into a cocoon.</span>")
+		visible_message(span_notice("[src] begins to secrete a sticky substance around [cocoon_target]."),span_notice("You begin wrapping [cocoon_target] into a cocoon."))
 		stop_automated_movement = TRUE
 		SSmove_manager.stop_looping(src)
 		if(do_after(src, 50, target = cocoon_target))
@@ -186,6 +198,7 @@
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
 					if(L.stat != DEAD)
+						L.investigate_log("has been killed by being wrapped in a cocoon.", INVESTIGATE_DEATHS)
 						L.death() //If it's not already dead, we want it dead regardless of nourishment
 					if(L.blood_volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
 						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
@@ -195,10 +208,10 @@
 						else
 							fed++ //it is not a humanoid, but still has nourishment
 						if(lay_eggs)
-							lay_eggs.UpdateButtonIcon(TRUE)
-						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
+							lay_eggs.update_buttons(TRUE)
+						visible_message(span_danger("[src] sticks a proboscis into [L] and sucks a viscous substance out."),span_notice("You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs."))
 					else
-						to_chat(src, "<span class='warning'>[L] cannot sate your hunger!</span>")
+						to_chat(src, span_warning("[L] cannot sate your hunger!"))
 				cocoon_target.forceMove(C)
 
 				if(cocoon_target.density || ismob(cocoon_target))
@@ -219,11 +232,11 @@
 		return ..()
 	// Spider IFF
 	if(istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
-		visible_message("<span class='notice'>[src] nuzzles [target_mob.name]!</span>", \
-			"<span class='notice'>You nuzzle [target_mob.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+		visible_message(span_notice("[src] nuzzles [target_mob.name]!"), \
+			span_notice("You nuzzle [target_mob.name]!"), null, COMBAT_MESSAGE_RANGE)
 		return
 	return ..()
-s
+
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/GiveUp()
 	if(busy == MOVING_TO_TARGET)
 		cocoon_target = null
@@ -232,12 +245,6 @@ s
 		stop_automated_movement = FALSE
 		SSmove_manager.stop_looping(src)
 
-// Tarantulas are the balanced generalist of the spider family: Moderate stats all around.
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula
-	name = "tarantula"
-	obj_damage = 35
-	speed = 0.5
-	onweb_speed = 0
 
 // Nurses heal other spiders and maintain the core of the nest.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -254,8 +261,11 @@ s
 	speed = 1
 	onweb_speed = 0
 	web_speed = 0.33
+	spider_lightmask = "nurse-light-mask"
 	///The health HUD applied to the mob.
 	var/health_hud = DATA_HUD_MEDICAL_ADVANCED
+	var/datum/action/innate/spider/set_directive/set_directive
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
@@ -264,7 +274,7 @@ s
 
 // Allows nurses to heal other spiders if they're adjacent
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/AttackingTarget()
-	if(is_busy)
+	if(DOING_INTERACTION(src, INTERACTION_SPIDER_KEY))
 		return
 	var/mob/target_mob = target
 	if(!istype(target_mob))
@@ -272,19 +282,19 @@ s
 	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
-	if(hurt_spider == src)
-		to_chat(src, "<span class='warning'>You don't have the dexerity to wrap your own wounds.</span>")
-		return
 	if(hurt_spider.health >= hurt_spider.maxHealth)
-		to_chat(src, "<span class='warning'>You can't find any wounds to wrap up.</span>")
+		to_chat(src, span_warning("You can't find any wounds to wrap up."))
 		return ..() // IFF is handled in parent
-	visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
-	is_busy = TRUE
-	if(do_after(src, 20, target = hurt_spider))
-		hurt_spider.heal_overall_damage(20)
-		new /obj/effect/temp_visual/heal(get_turf(hurt_spider), "#80F5FF")
-		visible_message("<span class='notice'>[src] wraps the wounds of [hurt_spider].</span>","<span class='notice'>You wrap the wounds of [hurt_spider].</span>")
-	is_busy = FALSE
+	if(hurt_spider == src)
+		visible_message(span_notice("[src] begins wrapping their wounds."),span_notice("You begin wrapping your wounds."))
+	else
+		visible_message(span_notice("[src] begins wrapping the wounds of [hurt_spider]."),span_notice("You begin wrapping the wounds of [hurt_spider]."))
+	if(!do_after(src, 2 SECONDS, target = hurt_spider))
+		return
+
+	hurt_spider.heal_overall_damage(20, 20)
+	new /obj/effect/temp_visual/heal(get_turf(hurt_spider), "#80F5FF")
+	visible_message(span_notice("[src] wraps the wounds of [hurt_spider]."), span_notice("You wrap the wounds of [hurt_spider]."))
 
 //Handles AI nurse healing when spiders are idle
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement()
@@ -299,8 +309,8 @@ s
 					addtimer(CALLBACK(src, PROC_REF(GiveUp)), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
 			UnarmedAttack(heal_target)
-			if(heal_target.health >= heal_target.maxHealth)
-				GiveUp(heal_target)
+			if(!heal_target || heal_target.health >= heal_target.maxHealth)
+				GiveUp()
 	..() //Do normal stuff after giving priority to healing attempts
 
 //Broodmothers have well rounded stats and are able to lay eggs, but somewhat slow.
@@ -317,30 +327,30 @@ s
 	speed = 2
 	onweb_speed = 1
 	web_speed = 0.25
+	spider_lightmask = "broodmother-light-mask"
 
 	gender = FEMALE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
-	var/obj/effect/proc_holder/wrap/wrap
+	butcher_results = list(
+		/obj/item/food/meat/slab/spider = 2,
+		/obj/item/food/spiderleg = 8,
+		/obj/item/food/spidereggs = 4
+	)
 	var/datum/action/innate/spider/set_directive/set_directive
 	/// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
 
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Initialize(mapload)
 	. = ..()
-	RemoveAbility(lesserwrap)
-	wrap = new
-	AddAbility(wrap)
 	lay_eggs = new
 	lay_eggs.Grant(src)
-	set_directive = new
-	set_directive.Grant(src)
 	letmetalkpls = new
 	letmetalkpls.Grant(src)
+	set_directive = new
+	set_directive.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Destroy()
-	RemoveAbility(wrap)
+	wrap.Remove()
 	QDEL_NULL(lay_eggs)
-	QDEL_NULL(set_directive)
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
@@ -356,8 +366,8 @@ s
 				busy = MOVING_TO_TARGET
 				Goto(C, move_to_delay)
 				addtimer(CALLBACK(src, PROC_REF(GiveUp), C), 20 SECONDS)
-		if(prob(10) && lay_eggs.IsAvailable()) //so eggs aren't always placed immediately and directly by corpses
-			lay_eggs.Activate()
+		if(prob(10) && lay_eggs.is_available()) //so eggs aren't always placed immediately and directly by corpses
+			lay_eggs.trigger()
 	..()
 
 // Hunters are the most independent of the spiders, not relying on web and having a bit more damage and venom at the cost of health.
@@ -374,6 +384,7 @@ s
 	poison_per_bite = 5
 	move_to_delay = 3
 	speed = 0
+	spider_lightmask = "hunter-light-mask"
 
 // Vipers are physically very weak and fragile, but also very fast and inject a lot of venom.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
@@ -389,6 +400,7 @@ s
 	onweb_speed = -1
 	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
+	spider_lightmask = "viper-light-mask"
 
 //Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs.
 /mob/living/simple_animal/hostile/poison/giant_spider/guard
@@ -409,6 +421,17 @@ s
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
 	web_speed = 0.5
+	var/datum/action/innate/spider/block/block //Guards are huge and can block doorways
+	spider_lightmask = "guard-light-mask"
+
+/mob/living/simple_animal/hostile/poison/giant_spider/guard/Initialize(mapload)
+	. = ..()
+	block = new
+	block.Grant(src)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/guard/Destroy()
+	QDEL_NULL(block)
+	return ..()
 
 // Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
@@ -437,7 +460,8 @@ s
 // SPIDER ACTIONS/PROCS
 
 /datum/action/innate/spider
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_alien"
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -446,7 +470,7 @@ s
 	desc = "Spin a web to slow down potential prey."
 	button_icon_state = "lay_web"
 
-/datum/action/innate/spider/lay_web/Activate()
+/datum/action/innate/spider/lay_web/on_activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
@@ -459,93 +483,153 @@ s
 	for(var/obj/structure/spider/stickyweb/web in target_turf)
 		webs++
 	if(webs >= MAX_WEBS_PER_TILE)
-		to_chat(spider, "<span class='warning'>You can't fit more web here!</span>")
+		to_chat(spider, span_warning("You can't fit more web here!"))
 		return
 
 	if(spider.busy != SPINNING_WEB)
 		spider.busy = SPINNING_WEB
-		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to lay a web.</span>")
+		spider.visible_message(span_notice("[spider] begins to secrete a sticky substance."),span_notice("You begin to lay a web."))
 		spider.stop_automated_movement = TRUE
 		if(do_after(spider, 40 * spider.web_speed, target = target_turf))
 			new /obj/structure/spider/stickyweb(target_turf)
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 	else
-		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+		to_chat(spider, span_warning("You're already spinning a web!"))
+/datum/action/innate/spider/block
+	name = "Block Passage"
+	desc = "Use your massive size to prevent others from passing by you."
+	button_icon_state = "block"
 
-/obj/effect/proc_holder/wrap
-	name = "Wrap"
-	panel = "Spider"
-	desc = "Wrap something or someone in a cocoon. If it's a living being, you'll also consume them, allowing you to lay eggs."
-	ranged_mousepointer = 'icons/effects/wrap_target.dmi'
-	action_icon = 'icons/mob/actions/actions_animal.dmi'
-	action_icon_state = "wrap_0"
-	action_background_icon_state = "bg_alien"
+/datum/action/innate/spider/block/on_activate()
 
-/obj/effect/proc_holder/wrap/lesser
-	desc = "Wrap loose objects in a cocoon of silk to prevent them from being used"
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider)) // Update_button is here to make an effect to the icon as if it were a pointed/projectile icon.
+		return
+	var/mob/living/living_owner = owner
+	button_icon_state = "block_1"
+	update_buttons()
+	if(!living_owner.combat_mode)
+		living_owner.combat_mode = TRUE
+		button_icon_state = "block_1"
+		update_buttons()
+		owner.visible_message(span_notice("[owner] widens its stance and blocks passage around it."),span_notice("You are now blocking others from passing around you."))
+	else
+		living_owner.combat_mode = FALSE
+		button_icon_state = "block"
+		update_buttons()
+		owner.visible_message(span_notice("[owner] loosens up and allows others to pass again."),span_notice("You are no longer blocking others from passing around you."))
 
-/obj/effect/proc_holder/wrap/update_icon()
-	action.button_icon_state = "wrap_[active]"
-	action.UpdateButtonIcon()
+/datum/action/innate/spider/block/on_deactivate(mob/user, atom/target)
+	button_icon_state = "block"
+	update_buttons()
 
-/obj/effect/proc_holder/wrap/Click()
-	if(!istype(usr, /mob/living/simple_animal/hostile/poison/giant_spider))
-		return TRUE
-	var/mob/living/simple_animal/hostile/poison/giant_spider/user = usr
-	activate(user)
+/datum/action/innate/spider/lay_web/is_available()
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(DOING_INTERACTION(owner, INTERACTION_SPIDER_KEY))
+		return FALSE
+	if(!isspider(owner))
+		return FALSE
+
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
+	var/obj/structure/spider/stickyweb/web = locate() in get_turf(spider)
+	if(web && (istype(web, /obj/structure/spider/stickyweb)))
+		to_chat(owner, span_warning("There's already a web here!"))
+		return FALSE
+
+	if(!isturf(spider.loc))
+		return FALSE
+
 	return TRUE
 
-/obj/effect/proc_holder/wrap/proc/activate(mob/living/user)
-	var/message
-	if(active)
-		message = "<span class='notice'>You no longer prepare to wrap something in a cocoon.</span>"
-		remove_ranged_ability(message)
-	else
-		message = "<span class='notice'>You prepare to wrap something in a cocoon. <B>Left-click your target to start wrapping!</B></span>"
-		add_ranged_ability(user, message, TRUE)
-		return TRUE
+/datum/action/wrap
+	name = "Wrap"
+	desc = "Wrap something or someone in a cocoon. If it's a human or similar species, \
+		you'll also consume them, allowing you to lay enriched eggs."
+	background_icon_state = "bg_alien"
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon_state = "wrap_0"
+	check_flags = AB_CHECK_CONSCIOUS
+	requires_target = TRUE
+	ranged_mousepointer = 'icons/effects/mouse_pointers/wrap_target.dmi'
+	/// The time it takes to wrap something.
+	var/wrap_time = 5 SECONDS
 
-/obj/effect/proc_holder/wrap/InterceptClickOn(mob/living/caller, params, atom/target)
-	if(..())
+/datum/action/wrap/is_available()
+	. = ..()
+	if(!.)
+		return FALSE
+	if(owner.incapacitated())
+		return FALSE
+	if(DOING_INTERACTION(owner, INTERACTION_SPIDER_KEY))
+		return FALSE
+	return TRUE
+
+/datum/action/wrap/set_click_ability(mob/on_who)
+	. = ..()
+	if(!.)
 		return
-	if(ranged_ability_user.incapacitated() || !istype(ranged_ability_user, /mob/living/simple_animal/hostile/poison/giant_spider))
-		remove_ranged_ability()
+
+	to_chat(on_who, ("<span class='notice'>You prepare to wrap something in a cocoon. <B>Left-click your target to start wrapping!</B></span>"))
+	button_icon_state = "wrap_1"
+	update_buttons()
+
+/datum/action/wrap/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
+	. = ..()
+	if(!.)
 		return
 
-	var/mob/living/simple_animal/hostile/poison/giant_spider/user = ranged_ability_user
+	if(refund_cooldown)
+		to_chat(on_who, ("<span class='notice'>You no longer prepare to wrap something in a cocoon.</span>"))
+	button_icon_state = "wrap_0"
+	update_buttons()
 
-	if(user.Adjacent(target) && (ismob(target) || isobj(target)))
-		var/atom/movable/target_atom = target
-		if(target_atom.anchored)
-			return
-		user.cocoon_target = target_atom
-		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/giant_spider, cocoon))
-		remove_ranged_ability()
-		return TRUE
+/datum/action/wrap/on_activate(mob/user, atom/target)
+	if(!owner.Adjacent(target))
+		owner.balloon_alert(owner, "must be closer!")
+		return FALSE
 
-/obj/effect/proc_holder/wrap/on_lose(mob/living/carbon/user)
-	remove_ranged_ability()
+	if(!ismob(target) && !isobj(target))
+		return FALSE
 
-// Laying eggs
-// If a spider eats a human, they can lay eggs that can hatch into special variants of the base spiders
-// Otherwise, it's just basic spiders.
+	if(target == owner)
+		return FALSE
+
+	if(isspider(target))
+		owner.balloon_alert(owner, "can't wrap spiders!")
+		return FALSE
+
+	var/atom/movable/target_movable = target
+	if(target_movable.anchored)
+		return FALSE
+
+	start_cooldown(wrap_time)
+	INVOKE_ASYNC(src, PROC_REF(cocoon), target)
+	return TRUE
+
+/datum/action/wrap/proc/cocoon(atom/movable/to_wrap)
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
+	spider.cocoon_target = to_wrap
+	spider.cocoon()
+
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
 	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap a living being to do this."
 	button_icon_state = "lay_eggs"
 
-/datum/action/innate/spider/lay_eggs/IsAvailable()
-	if(..())
-		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
-			return FALSE
-		var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
-		var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
-		if((S.fed || S.enriched_fed) && (spider_antag?.spider_team.directive || !S.ckey))
-			return TRUE
+/datum/action/innate/spider/lay_eggs/is_available()
+	. = ..()
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
+	var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
+	if((S.fed || S.enriched_fed) && (spider_antag?.spider_team.directive || !S.ckey))
+		return TRUE
+	return FALSE
 
-/datum/action/innate/spider/lay_eggs/Activate()
+/datum/action/innate/spider/lay_eggs/on_activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/spider = owner
@@ -553,14 +637,14 @@ s
 
 	var/obj/structure/spider/eggcluster/cluster = locate() in get_turf(spider)
 	if(cluster)
-		to_chat(spider, "<span class='warning'>There is already a cluster of eggs here!</span>")
+		to_chat(spider, span_warning("There is already a cluster of eggs here!"))
 	else if(!(spider.fed || spider.enriched_fed))
-		to_chat(spider, "<span class='warning'>You are too hungry to do this!</span>")
+		to_chat(spider, span_warning("You are too hungry to do this!"))
 	else if(!spider_antag?.spider_team.directive && spider.ckey)
-		to_chat(spider, "<span class='warning'>You need to set a directive to do this!</span>")
+		to_chat(spider, span_warning("You need to set a directive to do this!"))
 	else if(spider.busy != LAYING_EGGS)
 		spider.busy = LAYING_EGGS
-		spider.visible_message("<span class='notice'>[spider] begins to lay a cluster of eggs.</span>","<span class='notice'>You begin to lay a cluster of eggs.</span>")
+		spider.visible_message(span_notice("[spider] begins to lay a cluster of eggs."),span_notice("You begin to lay a cluster of eggs."))
 		spider.stop_automated_movement = TRUE
 		if(do_after(spider, 50, target = get_turf(spider)))
 			if(spider.busy == LAYING_EGGS)
@@ -583,37 +667,12 @@ s
 						spider.spider_team = spiders					//lets make sure her potentially sentient children are all on the same team
 						new_cluster.spider_team = spider.spider_team
 					new_cluster.faction = spider.faction.Copy()
-					UpdateButtonIcon(TRUE)
+					update_buttons()
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 
-// Directive command, for giving children orders
-// The set directive is placed in the notes of every child spider, and said child gets the objective when they log into the mob
-/datum/action/innate/spider/set_directive
-	name = "Set Directive"
-	desc = "Set a directive for your children to follow."
-	button_icon_state = "directive"
 
-/datum/action/innate/spider/set_directive/IsAvailable()
-	if(..())
-		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
-			return FALSE
-		return TRUE
 
-/datum/action/innate/spider/set_directive/Activate()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
-		return
-	if(!owner.mind)
-		return
-	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
-	var/datum/antagonist/spider/spider_antag = S.mind.has_antag_datum(/datum/antagonist/spider)
-	if(!spider_antag)
-		spider_antag = S.mind.add_antag_datum(/datum/antagonist/spider)
-	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive")
-	if(new_directive)
-		spider_antag.spider_team.update_directives(new_directive)
-		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
-		S.lay_eggs.UpdateButtonIcon(TRUE)
 
 // Spider command ability for broodmothers
 /datum/action/innate/spider/comm
@@ -621,12 +680,12 @@ s
 	desc = "Send a command to all living spiders."
 	button_icon_state = "command"
 
-/datum/action/innate/spider/comm/IsAvailable()
+/datum/action/innate/spider/comm/is_available()
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
-/datum/action/innate/spider/comm/Trigger()
+/datum/action/innate/spider/comm/on_activate(mob/user, atom/target)
 	var/input = stripped_input(owner, "Input a command for your children to follow.", "Command", "")
-	if(QDELETED(src) || !input || !IsAvailable())
+	if(QDELETED(src) || !input || !is_available())
 		return FALSE
 	spider_command(owner, input)
 	return TRUE
@@ -635,21 +694,21 @@ s
 	if(!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	message = user.treat_message_min(message)
-	var/my_message = "<span class='spiderlarge'><b>Command from [user]:</b> [message]</span>"
+	var/my_message = span_spiderlarge("<b>Command from [user]:</b> [message]")
 	var/datum/antagonist/spider/spider_antag = user.mind?.has_antag_datum(/datum/antagonist/spider)
 	if(!spider_antag)
 		return
-	for(var/mob/living/simple_animal/hostile/poison/giant_spider/M in GLOB.spidermobs)
-		var/datum/antagonist/spider/target_spider_antag = M.mind?.has_antag_datum(/datum/antagonist/spider)
+	for(var/mob/living/simple_animal/hostile/poison/giant_spider/spider as anything in GLOB.spidermobs)
+		var/datum/antagonist/spider/target_spider_antag = spider.mind?.has_antag_datum(/datum/antagonist/spider)
 		if(spider_antag?.spider_team == target_spider_antag?.spider_team)
-			to_chat(M, my_message)
+			to_chat(spider, my_message)
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, user)
 		to_chat(M, "[link] [my_message]")
-	usr.log_talk(message, LOG_SAY, tag="spider command")
+	user.log_talk(message, LOG_SAY, tag = "spider command")
 
 // Temperature damage
 // Flat 10 brute if they're out of safe temperature, making them vulnerable to fire or spacing
@@ -663,9 +722,100 @@ s
 	else
 		clear_alert("temp")
 
+
+// Net casters are the balanced generalist of the spider family: Moderate stats all around, and a ranged knockdown to assist others
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster
+	name = "net caster"
+	obj_damage = 35
+	speed = 0.5
+	onweb_speed = 0
+	var/datum/action/spell/pointed/projectile/throw_web/spidernet
+
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
+	. = ..()
+	spidernet = new
+	spidernet.Grant(src)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
+	. = ..()
+	spidernet.Remove()
+
+/datum/action/spell/pointed/projectile/throw_web
+	name = "Throw web"
+	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
+	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon_state = "throw_web_0"
+	background_icon_state = "bg_alien"
+	cooldown_time = 2 SECONDS
+	projectile_type = /obj/projectile/bullet/spidernet
+	deactive_msg = span_notice("You discard the webbing.")
+
+/datum/action/spell/pointed/projectile/throw_web/can_cast_spell(feedback)
+	. = ..()
+	var/mob/living/user = owner
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		return TRUE
+	else
+		return FALSE
+
+/datum/action/spell/pointed/projectile/throw_web/set_click_ability(mob/on_who)
+	var/mob/living/user = owner
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		spider.busy = SPINNING_WEB
+		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
+		spider.stop_automated_movement = TRUE
+		. = FALSE
+		if(do_after(spider, 30 * spider.web_speed, spider))
+			var/message = "<span class='notice'>You ready the completed net with your forelimbs."
+			to_chat(spider, message)
+			. = ..()
+		spider.busy = SPIDER_IDLE
+		spider.stop_automated_movement = FALSE
+	else
+		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+		return FALSE
+
+// Directive command, for giving children orders
+// The set directive is placed in the notes of every child spider, and said child gets the objective when they log into the mob
+/datum/action/innate/spider/set_directive
+	name = "Set Directive"
+	desc = "Set a directive for your children to follow."
+	button_icon_state = "directive"
+
+
+/datum/action/innate/spider/set_directive/is_available()
+	if(..())
+		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+			return FALSE
+		return TRUE
+
+
+/datum/action/innate/spider/set_directive/on_activate()
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
+		return
+	if(!owner.mind)
+		return
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/S = owner
+	var/datum/antagonist/spider/spider_antag = S.mind.has_antag_datum(/datum/antagonist/spider)
+	if(!spider_antag)
+		spider_antag = S.mind.add_antag_datum(/datum/antagonist/spider)
+	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive")
+	if(new_directive)
+		spider_antag.spider_team.update_directives(new_directive)
+		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
+		S.lay_eggs.update_buttons()
+
+
 #undef SPIDER_IDLE
 #undef SPINNING_WEB
 #undef LAYING_EGGS
 #undef MOVING_TO_TARGET
 #undef SPINNING_COCOON
-#undef MAX_WEBS_PER_TILE
+#undef INTERACTION_SPIDER_KEY

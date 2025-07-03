@@ -11,6 +11,8 @@
 	var/trigger_cost = 0		//Amount of nanites required to trigger
 	var/trigger_cooldown = 50	//Deciseconds required between each trigger activation
 	var/next_trigger = 0		//World time required for the next trigger activation
+	var/activate_cooldown = 0	//Deciseconds required between each activation
+	COOLDOWN_DECLARE(next_activate)
 
 	var/program_flags = NONE
 	var/passive_enabled = FALSE //If the nanites have an on/off-style effect, it's tracked by this var
@@ -57,8 +59,8 @@
 	//Logic
 	//a list of logic types a nanite program's rules follow
 	var/static/list/logic = list(
-    	"AND" = NL_AND,
-    	"OR" = NL_OR,
+		"AND" = NL_AND,
+		"OR" = NL_OR,
 		"NOR" = NL_NOR,
 		"NAND" = NL_NAND,
 	)
@@ -122,7 +124,7 @@
 	var/datum/nanite_extra_setting/ES = extra_settings[setting]
 	if(istype(ES, /datum/nanite_extra_setting/text))
 		if(CHAT_FILTER_CHECK(value))
-			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			to_chat(usr, span_warning("Your message contains forbidden words."))
 			var/logmsg = "attempted to set a forbidden nanite cloud [src] field \"[setting]\" with contents: \"[value]\". The message was filtered and blocked."
 			log_admin_private("[key_name(usr)] [logmsg]")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] [logmsg]")
@@ -173,9 +175,14 @@
 		deactivate()
 
 /datum/nanite_program/proc/activate()
+	if(!COOLDOWN_FINISHED(src, next_activate))
+		deactivate()
+		return
 	activated = TRUE
 	if(timer_shutdown)
 		timer_shutdown_next = world.time + timer_shutdown
+	if(activate_cooldown)
+		COOLDOWN_START(src, next_activate, activate_cooldown)
 
 /datum/nanite_program/proc/deactivate()
 	if(passive_enabled)
@@ -217,36 +224,38 @@
 //If false, disables active and passive effects, but doesn't consume nanites
 //Can be used to avoid consuming nanites for nothing
 /datum/nanite_program/proc/check_conditions()
-	var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
-	if(logictype)
-		switch(logictype.get_value())
-			if(NL_AND)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(!rule.check_rule())
-						return FALSE
-			if(NL_OR)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(rule.check_rule())
-						return TRUE
-				return FALSE
-			if(NL_NOR)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(rule.check_rule())
-						return FALSE
-			if(NL_NAND)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(!rule.check_rule())
-						return TRUE
-				return FALSE
-	else
-		for(var/R in rules)
-			var/datum/nanite_rule/rule = R
-			if(!rule.check_rule())
-				return FALSE
+	var/rule_amt = length(rules)
+	if(rule_amt)
+		var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
+		if(logictype)
+			switch(logictype.get_value())
+				if(NL_AND)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(!rule.check_rule())
+							return FALSE
+				if(NL_OR)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(rule.check_rule())
+							return TRUE
+					return FALSE
+				if(NL_NOR)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(rule.check_rule())
+							return FALSE
+				if(NL_NAND)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(!rule.check_rule())
+							return TRUE
+					return FALSE
+		else
+			for(var/R in 1 to min(rule_amt, 5))
+				var/datum/nanite_rule/rule = rules[R]
+				if(!rule.check_rule())
+					return FALSE
 	return TRUE
 
 //Constantly procs as long as the program is active
@@ -263,14 +272,10 @@
 
 //Checks conditions then fires the nanite trigger effect
 /datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
-	if(!can_trigger)
-		return
-	if(!activated)
+	if(!can_trigger || !activated || world.time < next_trigger)
 		return
 	if(timer_trigger_delay && !delayed)
 		timer_trigger_delay_next = world.time + timer_trigger_delay
-		return
-	if(world.time < next_trigger)
 		return
 	if(!check_conditions())
 		return
@@ -330,7 +335,7 @@
 			nanites.add_program(null, rogue, src)
 			qdel(src)
 
-/datum/nanite_program/proc/receive_signal(code, source)
+/datum/nanite_program/proc/receive_nanite_signal(code, source)
 	if(activation_code && code == activation_code && !activated)
 		activate()
 		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)

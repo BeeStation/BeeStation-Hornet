@@ -4,7 +4,6 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	always_unpowered = TRUE
 	requires_power = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
@@ -12,7 +11,7 @@
 	flags_1 = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_SPOOKY
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 	area_flags = UNIQUE_AREA | FLORA_ALLOWED

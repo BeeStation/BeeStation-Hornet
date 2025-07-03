@@ -8,40 +8,40 @@
 /area/survivalpod)
 "d" = (
 /obj/machinery/stasis/survival_pod,
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "e" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "f" = (
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "g" = (
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "h" = (
 /obj/structure/table,
 /obj/item/storage/firstaid,
 /obj/item/holosign_creator/medical,
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "i" = (
 /obj/machinery/light,
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "j" = (
 /obj/machinery/chem_master,
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "B" = (
 /obj/machinery/sleeper/survival_pod,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "F" = (
 /obj/structure/sign/departments/medbay/alt,
@@ -57,7 +57,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grid,
+/turf/open/floor/iron/grid,
 /area/survivalpod)
 "U" = (
 /obj/machinery/door/airlock/survival_pod/glass,

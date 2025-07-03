@@ -2,10 +2,12 @@
 	name = "Nuclear Operative"
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
-	job_rank = ROLE_OPERATIVE
+	banning_key = ROLE_OPERATIVE
+	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
+	ui_name = "AntagInfoNukeOp"
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
@@ -43,8 +45,8 @@
 	return TRUE
 
 /datum/antagonist/nukeop/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0, use_reverb = FALSE)
-	to_chat(owner, "<span class='notice'>You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!</span>")
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
+	to_chat(owner, span_notice("You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!"))
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative",
 		"Destroy the station with a nuclear device.")
@@ -59,7 +61,7 @@
 	if(send_to_spawnpoint)
 		move_to_spawnpoint()
 		// grant extra TC for the people who start in the nukie base ie. not the lone op
-		var/extra_tc = CEILING(GLOB.joined_player_list.len/5, 5)
+		var/extra_tc = CEILING(GLOB.joined_player_list.len / 2, 5)
 		var/datum/component/uplink/U = owner.find_syndicate_uplink()
 		if (U)
 			U.telecrystals += extra_tc
@@ -68,6 +70,12 @@
 
 /datum/antagonist/nukeop/get_team()
 	return nuke_team
+
+/datum/antagonist/nukeop/ui_static_data(mob/user)
+	. = ..()
+	.["leader"] = FALSE
+	.["lone"] = FALSE
+	.["nuke_code"] = nuke_team.memorized_code || "???"
 
 /datum/antagonist/nukeop/proc/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
@@ -144,7 +152,7 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_SYNDICATE
+	new_owner.assigned_role = ROLE_OPERATIVE
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")
@@ -167,7 +175,7 @@
 		antag_memory += "<B>Syndicate Nuclear Bomb Code</B>: [code]<br>"
 		to_chat(owner.current, "The nuclear authorization code is: <B>[code]</B>")
 	else
-		to_chat(admin, "<span class='danger'>No valid nuke found!</span>")
+		to_chat(admin, span_danger("No valid nuke found!"))
 
 /datum/antagonist/nukeop/leader
 	name = "Nuclear Operative Leader"
@@ -178,14 +186,14 @@
 /datum/antagonist/nukeop/leader/memorize_code()
 	..()
 	if(nuke_team?.memorized_code)
-		var/obj/item/paper/P = new
-		P.info = "The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>"
-		P.name = "nuclear bomb code"
+		var/obj/item/paper/nuke_code_paper = new
+		nuke_code_paper.add_raw_text("The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>")
+		nuke_code_paper.name = "nuclear bomb code"
 		var/mob/living/carbon/human/H = owner.current
 		if(!istype(H))
-			P.forceMove(get_turf(H))
+			nuke_code_paper.forceMove(get_turf(H))
 		else
-			H.put_in_hands(P, TRUE)
+			H.put_in_hands(nuke_code_paper, TRUE)
 			H.update_icons()
 
 /datum/antagonist/nukeop/leader/give_alias()
@@ -196,7 +204,7 @@
 		owner.current.real_name = "Syndicate [title]"
 
 /datum/antagonist/nukeop/leader/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<B>You are the Syndicate [title] for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
 	to_chat(owner, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(owner, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
@@ -210,9 +218,13 @@
 		return
 	nuke_team.rename_team(ask_name())
 
+/datum/antagonist/nukeop/leader/ui_static_data(mob/user)
+	. = ..()
+	.["leader"] = TRUE
+
 /datum/team/nuclear/proc/rename_team(new_name)
 	syndicate_name = new_name
-	name = "[syndicate_name] Team"
+	name = "Family [syndicate_name]"
 	for(var/I in members)
 		var/datum/mind/synd_mind = I
 		var/mob/living/carbon/human/H = synd_mind.current
@@ -252,6 +264,11 @@
 		else
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
+		nuke_team.name = "Lone Operative - [nuke_team.syndicate_name]"
+
+/datum/antagonist/nukeop/lone/ui_static_data(mob/user)
+	. = ..()
+	.["lone"] = TRUE
 
 /datum/antagonist/nukeop/reinforcement
 	send_to_spawnpoint = FALSE
@@ -268,6 +285,7 @@
 /datum/team/nuclear/New()
 	..()
 	syndicate_name = syndicate_name()
+	name = "Family [syndicate_name]"
 	team_frequency = get_free_team_frequency("synd")
 
 /datum/team/nuclear/proc/update_objectives()
@@ -336,53 +354,56 @@
 
 /datum/team/nuclear/roundend_report()
 	var/list/parts = list()
-	parts += "<span class='header'>[syndicate_name] Operatives:</span>"
+	parts += span_header("[syndicate_name] Operatives:")
 
 	switch(get_result())
 		if(NUKE_RESULT_FLUKE)
-			parts += "<span class='redtext big'>Humiliating Syndicate Defeat</span>"
+			parts += span_redtextbig("Humiliating Syndicate Defeat")
 			parts += "<B>The crew of [station_name()] gave [syndicate_name] operatives back their bomb! The syndicate base was destroyed!</B> Next time, don't lose the nuke!"
 		if(NUKE_RESULT_NUKE_WIN)
-			parts += "<span class='greentext big'>Syndicate Major Victory!</span>"
+			parts += span_greentextbig("Syndicate Major Victory!")
 			parts += "<B>[syndicate_name] operatives have destroyed [station_name()]!</B>"
 		if(NUKE_RESULT_NOSURVIVORS)
-			parts += "<span class='neutraltext big'>Total Annihilation</span>"
+			parts += span_neutraltextbig("Total Annihilation")
 			parts +=  "<B>[syndicate_name] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!"
 		if(NUKE_RESULT_WRONG_STATION)
-			parts += "<span class='redtext big'>Crew Minor Victory</span>"
+			parts += span_redtextbig("Crew Minor Victory")
 			parts += "<B>[syndicate_name] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't do that!"
 		if(NUKE_RESULT_WRONG_STATION_DEAD)
-			parts += "<span class='redtext big'>[syndicate_name] operatives have earned Darwin Award!</span>"
+			parts += span_redtextbig("[syndicate_name] operatives have earned Darwin Award!")
 			parts += "<B>[syndicate_name] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't do that!"
 		if(NUKE_RESULT_CREW_WIN_SYNDIES_DEAD)
-			parts += "<span class='redtext big'>Crew Major Victory!</span>"
+			parts += span_redtextbig("Crew Major Victory!")
 			parts += "<B>The Research Staff has saved the disk and killed the [syndicate_name] Operatives</B>"
 		if(NUKE_RESULT_CREW_WIN)
-			parts += "<span class='redtext big'>Crew Major Victory</span>"
+			parts += span_redtextbig("Crew Major Victory")
 			parts += "<B>The Research Staff has saved the disk and stopped the [syndicate_name] Operatives!</B>"
 		if(NUKE_RESULT_DISK_LOST)
-			parts += "<span class='neutraltext big'>Neutral Victory!</span>"
+			parts += span_neutraltextbig("Neutral Victory!")
 			parts += "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name] Operatives!</B>"
 		if(NUKE_RESULT_DISK_STOLEN)
-			parts += "<span class='greentext big'>Syndicate Minor Victory!</span>"
+			parts += span_greentextbig("Syndicate Minor Victory!")
 			parts += "<B>[syndicate_name] operatives survived the assault but did not achieve the destruction of [station_name()].</B> Next time, don't lose the disk!"
 		else
-			parts += "<span class='neutraltext big'>Neutral Victory</span>"
+			parts += span_neutraltextbig("Neutral Victory")
 			parts += "<B>Mission aborted!</B>"
 
-	var/text = "<br><span class='header'>The syndicate operatives were:</span>"
+	var/text = "<br>[span_header("The syndicate operatives were:")]"
 	var/purchases = ""
 	var/TC_uses = 0
+	var/effective_tc = 0
 	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 	for(var/I in members)
 		var/datum/mind/syndicate = I
 		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
 		if(H)
 			TC_uses += H.total_spent
+			effective_tc += H.effective_amount
 			purchases += H.generate_render(show_key = FALSE)
 	text += printplayerlist(members)
 	text += "<br>"
-	text += "(Syndicates used [TC_uses] TC) [purchases]"
+	var/effective_message = TC_uses < effective_tc ? " / effectively worth [effective_tc] TC" : ""
+	text += "(Syndicates used [TC_uses] TC[effective_message]) [purchases]"
 	if(TC_uses == 0 && SSticker.mode.station_was_nuked && !operatives_dead())
 		text += "<BIG>[icon2html('icons/badass.dmi', world, "badass")]</BIG>"
 
@@ -405,12 +426,12 @@
 		while(!isturf(disk_loc))
 			if(ismob(disk_loc))
 				var/mob/M = disk_loc
-				disk_report += "carried by <a href='?_src_=holder;[HrefToken()];adminplayeropts=[REF(M)]'>[M.real_name]</a> "
+				disk_report += "carried by <a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[REF(M)]'>[M.real_name]</a> "
 			if(isobj(disk_loc))
 				var/obj/O = disk_loc
 				disk_report += "in \a [O.name] "
 			disk_loc = disk_loc.loc
-		disk_report += "in [disk_loc.loc] at ([disk_loc.x], [disk_loc.y], [disk_loc.z])</td><td><a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(N)]'>FLW</a></td></tr>"
+		disk_report += "in [disk_loc.loc] at ([disk_loc.x], [disk_loc.y], [disk_loc.z])</td><td><a href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(N)]'>FLW</a></td></tr>"
 	disk_report += "</table>"
 	var/common_part = ..()
 	return common_part + disk_report

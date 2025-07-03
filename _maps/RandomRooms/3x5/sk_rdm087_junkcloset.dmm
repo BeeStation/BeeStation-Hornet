@@ -23,7 +23,7 @@
 /area/template_noop)
 "c" = (
 /obj/item/clothing/under/misc/mailman,
-/obj/item/clothing/head/mailman,
+/obj/item/clothing/head/costume/mailman,
 /obj/structure/closet,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,

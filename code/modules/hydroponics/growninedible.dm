@@ -5,9 +5,13 @@
 /obj/item/grown // Grown weapons
 	name = "grown_weapon"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
+	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 	var/discovery_points = 0 //Amount of discovery points given for scanning
+	var/max_volume = 100 // There is the same variable in the food/grown.dm - this variable only exists to suppress a runtime error by /datum/plant_gene/trait/maxchem touching max_volume
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown)
 
 /obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -20,8 +24,8 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
@@ -38,17 +42,17 @@
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
+		var/msg = "[span_info("This is \a [span_name(src)]")]\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
-		to_chat(usr, EXAMINE_BLOCK(msg))
+		to_chat(usr, examine_block(msg))
 		return
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
@@ -60,5 +64,6 @@
 	return
 
 /obj/item/grown/on_grind()
+	. = ..()
 	for(var/i in 1 to grind_results.len)
 		grind_results[grind_results[i]] = round(seed.potency)

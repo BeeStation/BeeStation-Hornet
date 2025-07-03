@@ -18,6 +18,10 @@
 /obj/machinery/elevator_indicator/primary
 	id = "primary"
 
+// Glowstation
+/obj/machinery/elevator_indicator/secure
+	id = "secure"
+
 /obj/machinery/elevator_indicator/Initialize(mapload)
 	. = ..()
 	update_display(force = TRUE)

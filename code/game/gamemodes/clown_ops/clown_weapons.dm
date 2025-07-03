@@ -17,30 +17,58 @@
 	desc = "advanced clown shoes that protect the wearer and render them nearly immune to slipping on their own peels. They also squeak at 100% capacity."
 	clothing_flags = NOSLIP
 	slowdown = SHOES_SLOWDOWN
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 25)
+	armor_type = /datum/armor/clown_shoes_combat
 	strip_delay = 70
 	resistance_flags = NONE
-	permeability_coefficient = 0.05
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+
+/obj/item/clothing/shoes/clown_shoes/combat/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /// Recharging rate in PPS (peels per second)
 #define BANANA_SHOES_RECHARGE_RATE 17
 #define BANANA_SHOES_MAX_CHARGE 3000
+
+/datum/armor/clown_shoes_combat
+	melee = 25
+	bullet = 25
+	laser = 25
+	energy = 25
+	bomb = 50
+	bio = 90
+	fire = 70
+	acid = 50
+	stamina = 25
+	bleed = 40
 
 //The super annoying version
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat
 	name = "mk-honk combat shoes"
 	desc = "The culmination of years of clown combat research, these shoes leave a trail of chaos in their wake. They will slowly recharge themselves over time, or can be manually charged with bananium."
 	slowdown = SHOES_SLOWDOWN
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 25)
+	armor_type = /datum/armor/banana_shoes_combat
 	strip_delay = 70
 	resistance_flags = NONE
-	permeability_coefficient = 0.05
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	always_noslip = TRUE
+
+/datum/armor/banana_shoes_combat
+	melee = 25
+	bullet = 25
+	laser = 25
+	energy = 25
+	bomb = 50
+	bio = 50
+	fire = 90
+	acid = 50
+	stamina = 25
+	bleed = 40
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
 	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
+
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
 	bananium.insert_amount_mat(BANANA_SHOES_MAX_CHARGE, /datum/material/bananium)
 	START_PROCESSING(SSobj, src)
@@ -63,65 +91,67 @@
 
 //BANANIUM SWORD
 
-/obj/item/melee/transforming/energy/sword/bananium
+/obj/item/melee/energy/sword/bananium
 	name = "bananium sword"
-	desc = "An elegant weapon, for a more civilized age."
+	icon_state = "e_sword"
+	attack_verb_continuous = list("hits", "taps", "pokes")
+	attack_verb_simple = list("hit", "tap", "poke")
 	force = 0
+	bleed_force = 0
 	throwforce = 0
-	force_on = 0
-	throwforce_on = 0
 	hitsound = null
-	attack_verb_on = list("slipped")
-	clumsy_check = FALSE
-	sharpness = IS_BLUNT
-	sword_color = "yellow"
-	heat = 0
-	light_color = "#ffff00"
-	var/next_trombone_allowed = 0
+	embedding = null
+	light_color = COLOR_YELLOW
+	sword_color_icon = "yellow"
+	active_heat = 0
+	/// Cooldown for making a trombone noise for failing to make a bananium desword
+	COOLDOWN_DECLARE(next_trombone_allowed)
 
-/obj/item/melee/transforming/energy/sword/bananium/Initialize(mapload)
+/obj/item/melee/energy/sword/bananium/make_transformable()
+	AddComponent(/datum/component/transforming, \
+		throw_speed_on = 4, \
+		bleedforce_on = 0, \
+		attack_verb_continuous_on = list("slips"), \
+		attack_verb_simple_on = list("slip"), \
+		clumsy_check = FALSE)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+
+/obj/item/melee/energy/sword/bananium/on_transform(obj/item/source, mob/user, active)
 	. = ..()
 	adjust_slipperiness()
 
-/* Adds or removes a slippery component, depending on whether the sword
- * is active or not.
+/*
+ * Adds or removes a slippery component, depending on whether the sword is active or not.
  */
-/obj/item/melee/transforming/energy/sword/proc/adjust_slipperiness()
-	if(active)
+/obj/item/melee/energy/sword/bananium/proc/adjust_slipperiness()
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
-/obj/item/melee/transforming/energy/sword/bananium/attack(mob/living/M, mob/living/user)
-	..()
-	if(active)
+/obj/item/melee/energy/sword/bananium/attack(mob/living/M, mob/living/user)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 		slipper.Slip(src, M)
 
-/obj/item/melee/transforming/energy/sword/bananium/throw_impact(atom/hit_atom, throwingdatum)
+/obj/item/melee/energy/sword/bananium/throw_impact(atom/hit_atom, throwingdatum)
 	. = ..()
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 		slipper.Slip(src, hit_atom)
 
-/obj/item/melee/transforming/energy/sword/bananium/attackby(obj/item/I, mob/living/user, params)
-	if((world.time > next_trombone_allowed) && istype(I, /obj/item/melee/transforming/energy/sword/bananium))
-		next_trombone_allowed = world.time + 50
+/obj/item/melee/energy/sword/bananium/attackby(obj/item/weapon, mob/living/user, params)
+	if(COOLDOWN_FINISHED(src, next_trombone_allowed) && istype(weapon, /obj/item/melee/energy/sword/bananium))
+		COOLDOWN_START(src, next_trombone_allowed, 5 SECONDS)
 		to_chat(user, "You slap the two swords together. Sadly, they do not seem to fit.")
 		playsound(src, 'sound/misc/sadtrombone.ogg', 50)
 		return TRUE
 	return ..()
 
-/obj/item/melee/transforming/energy/sword/bananium/transform_weapon(mob/living/user, supress_message_text)
-	. = ..()
-	adjust_slipperiness()
-
-/obj/item/melee/transforming/energy/sword/bananium/ignition_effect(atom/A, mob/user)
-	return ""
-
-/obj/item/melee/transforming/energy/sword/bananium/suicide_act(mob/user)
-	if(!active)
-		transform_weapon(user, TRUE)
+/obj/item/melee/energy/sword/bananium/suicide_act(mob/living/user)
+	if(!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+		attack_self(user)
 	user.visible_message("<span class='suicide'>[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku, but the blade slips off of [user.p_them()] harmlessly!</span>")
 	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 	slipper.Slip(src, user)
@@ -132,42 +162,40 @@
 /obj/item/shield/energy/bananium
 	name = "bananium energy shield"
 	desc = "A shield that stops most melee attacks, protects user from almost all energy projectiles, and can be thrown to slip opponents."
+	icon_state = "bananaeshield"
+	item_state = "bananaeshield"
 	throw_speed = 1
-	clumsy_check = 0
-	base_icon_state = "bananaeshield"
 	force = 0
 	throwforce = 0
 	throw_range = 5
-	on_force = 0
-	on_throwforce = 0
-	on_throw_speed = 1
 
-/obj/item/shield/energy/bananium/Initialize(mapload)
+	active_force = 0
+	active_throwforce = 0
+	active_throw_speed = 1
+	can_clumsy_use = TRUE
+
+/obj/item/shield/energy/bananium/on_transform(obj/item/source, mob/user, active)
 	. = ..()
 	adjust_slipperiness()
 
-/* Adds or removes a slippery component, depending on whether the shield
- * is active or not.
+/*
+ * Adds or removes a slippery component, depending on whether the shield is active or not.
  */
 /obj/item/shield/energy/bananium/proc/adjust_slipperiness()
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
-/obj/item/shield/energy/bananium/attack_self(mob/living/carbon/human/user)
-	. = ..()
-	adjust_slipperiness()
-
 /obj/item/shield/energy/bananium/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		if(iscarbon(thrower))
 			var/mob/living/carbon/C = thrower
 			C.throw_mode_on(THROW_MODE_TOGGLE) //so they can catch it on the return.
 	return ..()
 
 /obj/item/shield/energy/bananium/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		var/caught = hit_atom.hitby(src, FALSE, FALSE, throwingdatum=throwingdatum)
 		if(iscarbon(hit_atom) && !caught)//if they are a carbon and they didn't catch it
 			var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
@@ -179,19 +207,23 @@
 		return ..()
 
 
-//BOMBANANA
+//BOMBANANA]
 
-/obj/item/reagent_containers/food/snacks/grown/banana/bombanana
-	trash = /obj/item/grown/bananapeel/bombanana
-	bitesize = 1
-	customfoodfilling = FALSE
-	seed = null
+/obj/item/seeds/banana/bombanana
+	name = "pack of bombanana seeds"
+	desc = "They're seeds that grow into bombanana trees. When grown, give to the clown."
+	plantname = "Bombanana Tree"
+	product = /obj/item/food/grown/banana/bombanana
+
+/obj/item/food/grown/banana/bombanana
+	trash_type = /obj/item/grown/bananapeel/bombanana
+	seed = /obj/item/seeds/banana/bombanana
 	tastes = list("explosives" = 10)
-	list_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
+	food_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
 
 /obj/item/grown/bananapeel/bombanana
 	desc = "A peel from a banana. Why is it beeping?"
-	seed = null
+	seed = /obj/item/seeds/banana/bombanana
 	var/det_time = 50
 	var/obj/item/grenade/syndieminibomb/bomb
 
@@ -213,11 +245,11 @@
 	. = ..()
 	QDEL_NULL(bomb)
 
-/obj/item/grown/bananapeel/bombanana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is deliberately slipping on the [src.name]! It looks like \he's trying to commit suicide.</span>")
+/obj/item/grown/bananapeel/bombanana/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] is deliberately slipping on the [src.name]! It looks like \he's trying to commit suicide."))
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
 	bomb.preprime(user, 0, FALSE)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 //TEARSTACHE GRENADE
 
@@ -246,72 +278,3 @@
 
 /obj/item/clothing/mask/fakemoustache/sticky/proc/unstick()
 	REMOVE_TRAIT(src, TRAIT_NODROP, STICKY_MOUSTACHE_TRAIT)
-
-//DARK H.O.N.K. AND CLOWN MECH WEAPONS
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana
-	name = "bombanana mortar"
-	desc = "Equipment for clown exosuits. Launches exploding banana peels."
-	icon_state = "mecha_bananamrtr"
-	projectile = /obj/item/grown/bananapeel/bombanana
-	projectiles = 8
-	projectile_energy_cost = 1000
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana/can_attach(obj/mecha/combat/honker/M)
-	if(..())
-		if(istype(M))
-			return TRUE
-	return FALSE
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache
-	name = "\improper HONKeR-6 grenade launcher"
-	desc = "A weapon for combat exosuits. Launches primed tear-stache grenades."
-	icon_state = "mecha_grenadelnchr"
-	projectile = /obj/item/grenade/chem_grenade/teargas/moustache
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	projectiles = 6
-	missile_speed = 1.5
-	projectile_energy_cost = 800
-	equip_cooldown = 60
-	det_time = 20
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache/can_attach(obj/mecha/combat/honker/M)
-	if(..())
-		if(istype(M))
-			return TRUE
-	return FALSE
-
-/obj/mecha/combat/honker/dark
-	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. This one has been painted black for maximum fun. HONK!"
-	name = "\improper Dark H.O.N.K"
-	icon_state = "darkhonker"
-	max_integrity = 300
-	deflect_chance = 15
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 35, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
-	max_temperature = 35000
-	operation_req_access = list(ACCESS_SYNDICATE)
-	internals_req_access = list(ACCESS_SYNDICATE)
-	wreckage = /obj/structure/mecha_wreckage/honker/dark
-	max_equip = 4
-
-/obj/mecha/combat/honker/dark/add_cell(obj/item/stock_parts/cell/C)
-	if(C)
-		C.forceMove(src)
-		cell = C
-		return
-	cell = new /obj/item/stock_parts/cell/hyper(src)
-
-/obj/mecha/combat/honker/dark/loaded/Initialize(mapload)
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/honker()
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana()//Needed more offensive weapons.
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache()//The mousetrap mortar was not up-to-snuff.
-	ME.attach(src)
-
-/obj/structure/mecha_wreckage/honker/dark
-	name = "\improper Dark H.O.N.K wreckage"
-	icon_state = "darkhonker-broken"

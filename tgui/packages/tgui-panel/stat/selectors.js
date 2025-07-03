@@ -1,2 +1,1 @@
-
-export const selectStatPanel = state => state.stat;
+export const selectStatPanel = (state) => state.stat;

@@ -1,4 +1,4 @@
-#define ADMIN_CANCEL_MIDROUND_TIME (10 SECONDS)
+#define ADMIN_CANCEL_MIDROUND_TIME (30 SECONDS)
 
 /// From a list of rulesets, returns one based on weight and availability.
 /// Mutates the list that is passed into it to remove invalid rules.
@@ -18,7 +18,7 @@
 
 			return null
 
-		if (check_blocking(rule.blocking_rules, executed_rules))
+		if (check_blocking(rule, executed_rules))
 			drafted_rules -= rule
 			if(drafted_rules.len <= 0)
 				return null
@@ -27,7 +27,7 @@
 			rule.flags & HIGH_IMPACT_RULESET \
 			&& threat_level < GLOB.dynamic_stacking_limit \
 			&& GLOB.dynamic_no_stacking \
-			&& high_impact_ruleset_executed \
+			&& high_impact_ruleset_active() \
 		)
 			log_game("DYNAMIC: FAIL: [rule] can't execute as a high impact ruleset was already executed.")
 			drafted_rules -= rule
@@ -47,16 +47,20 @@
 
 	current_midround_rulesets = drafted_rules - rule
 
-	midround_injection_timer_id = addtimer(
-		CALLBACK(src, PROC_REF(execute_midround_rule), rule), \
-		ADMIN_CANCEL_MIDROUND_TIME, \
-		TIMER_STOPPABLE, \
-	)
+	if (!simulated)
+		midround_injection_timer_id = addtimer(
+			CALLBACK(src, PROC_REF(execute_midround_rule), rule), \
+			ADMIN_CANCEL_MIDROUND_TIME, \
+			TIMER_STOPPABLE, \
+		)
 
-	log_game("DYNAMIC: [rule] ruleset executing...")
-	message_admins("DYNAMIC: Executing midround ruleset [rule] in [DisplayTimeText(ADMIN_CANCEL_MIDROUND_TIME)]. \
-		<a href='?src=[REF(src)];cancelmidround=[midround_injection_timer_id]'>CANCEL</a> | \
-		<a href='?src=[REF(src)];differentmidround=[midround_injection_timer_id]'>SOMETHING ELSE</a>")
+		log_game("DYNAMIC: [rule] ruleset executing...")
+		message_admins("DYNAMIC: Executing midround ruleset [rule] in [DisplayTimeText(ADMIN_CANCEL_MIDROUND_TIME)]. \
+			<a href='byond://?src=[REF(src)];cancelmidround=[midround_injection_timer_id]'>CANCEL</a> | \
+			<a href='byond://?src=[REF(src)];differentmidround=[midround_injection_timer_id]'>SOMETHING ELSE</a>")
+		play_sound_to_all_admins('sound/effects/admin_alert.ogg')
+	else
+		execute_midround_rule(rule)
 
 	return rule
 
@@ -66,7 +70,10 @@
 	midround_injection_timer_id = null
 	if (!rule.repeatable)
 		midround_rules = remove_from_list(midround_rules, rule.type)
-	addtimer(CALLBACK(src, PROC_REF(execute_midround_latejoin_rule), rule), rule.delay)
+	if (!simulated)
+		addtimer(CALLBACK(src, PROC_REF(execute_midround_latejoin_rule), rule), rule.delay)
+	else
+		execute_midround_latejoin_rule(rule)
 
 /// Executes a random latejoin ruleset from the list of drafted rules.
 /datum/game_mode/dynamic/proc/pick_latejoin_rule(list/drafted_rules)
@@ -81,13 +88,24 @@
 /// Mainly here to facilitate delayed rulesets. All midround/latejoin rulesets are executed with a timered callback to this proc.
 /datum/game_mode/dynamic/proc/execute_midround_latejoin_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
-	spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
+	if(mid_round_budget >= rule.cost)
+		spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
+	else if(is_lategame())
+		rule.lategame_spawned = TRUE
+	else
+		CRASH("execute_midround_latejoin_rule was somehow called with an invalid state - cost is too high, but it's also not a lategame execution?")
+	if (simulated)
+		if(rule.flags & ONLY_RULESET)
+			only_ruleset_executed = TRUE
+		executed_rules += rule
+		if (rule.persistent)
+			current_rules += rule
+		return TRUE
 	rule.pre_execute(current_players[CURRENT_LIVING_PLAYERS].len)
-	if (rule.execute())
+	var/execute_result = rule.execute()
+	if(execute_result == DYNAMIC_EXECUTE_SUCCESS)
 		log_game("DYNAMIC: Injected a [rule.ruletype == "latejoin" ? "latejoin" : "midround"] ruleset [rule.name].")
-		if(rule.flags & HIGH_IMPACT_RULESET)
-			high_impact_ruleset_executed = TRUE
-		else if(rule.flags & ONLY_RULESET)
+		if(rule.flags & ONLY_RULESET)
 			only_ruleset_executed = TRUE
 		if(rule.ruletype == "Latejoin")
 			var/mob/M = pick(rule.candidates)
@@ -98,14 +116,14 @@
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
-	rule.clean_up()
-	stack_trace("The [rule.ruletype] rule \"[rule.name]\" failed to execute.")
+	if(!execute_result || execute_result == DYNAMIC_EXECUTE_FAILURE) // not enough players is an expected failure. Any other should be reported
+		CRASH("The [rule.ruletype] rule \"[rule.name]\" failed to execute.")
 	return FALSE
 
 /// Fired when an admin cancels the current midround injection.
 /datum/game_mode/dynamic/proc/admin_cancel_midround(mob/user, timer_id)
 	if (midround_injection_timer_id != timer_id || !deltimer(midround_injection_timer_id))
-		to_chat(user, "<span class='notice'>Too late!</span>")
+		to_chat(user, span_notice("Too late!"))
 		return
 
 	dynamic_log("[key_name(user)] cancelled the next midround injection.")
@@ -115,7 +133,7 @@
 /// Fired when an admin requests a different midround injection.
 /datum/game_mode/dynamic/proc/admin_different_midround(mob/user, timer_id)
 	if (midround_injection_timer_id != timer_id || !deltimer(midround_injection_timer_id))
-		to_chat(user, "<span class='notice'>Too late!</span>")
+		to_chat(user, span_notice("Too late!"))
 		return
 
 	midround_injection_timer_id = null

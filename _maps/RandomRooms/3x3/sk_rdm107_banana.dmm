@@ -6,35 +6,35 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/turf/open/floor/plating,
-/area/template_noop)
 "c" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"d" = (
+"h" = (
+/obj/item/food/grown/banana,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
 /obj/item/clothing/shoes/clown_shoes,
 /obj/item/stack/ore/bananium,
 /obj/effect/spawner/lootdrop/clowntrap,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 
 (1,1,1) = {"
 a
 c
-b
+h
 "}
 (2,1,1) = {"
-b
-d
+h
+n
 c
 "}
 (3,1,1) = {"
 c
 c
-b
+h
 "}

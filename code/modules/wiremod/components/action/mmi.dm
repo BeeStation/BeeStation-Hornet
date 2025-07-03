@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/mmi
 	display_name = "Man-Machine Interface"
-	display_desc = "A component that allows MMI to enter shells to send output signals."
+	desc = "A component that allows MMI to enter shells to send output signals."
 
 	/// The message to send to the MMI in the shell.
 	var/datum/port/input/message
@@ -36,8 +36,7 @@
 	/// Maximum length of the message that can be sent to the MMI
 	var/max_length = 300
 
-/obj/item/circuit_component/mmi/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/mmi/populate_ports()
 	message = add_input_port("Message", PORT_TYPE_STRING)
 	send = add_input_port("Send Message", PORT_TYPE_SIGNAL)
 	eject = add_input_port("Eject", PORT_TYPE_SIGNAL)
@@ -53,22 +52,9 @@
 
 /obj/item/circuit_component/mmi/Destroy()
 	remove_current_brain()
-	message = null
-	send = null
-	eject = null
-	north = null
-	east = null
-	south = null
-	west = null
-	attack = null
-	secondary_attack = null
-	clicked_atom = null
 	return ..()
 
 /obj/item/circuit_component/mmi/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!brain)
 		return
@@ -76,16 +62,16 @@
 	if(COMPONENT_TRIGGERED_BY(eject, port))
 		remove_current_brain()
 	if(COMPONENT_TRIGGERED_BY(send, port))
-		if(!message.input_value)
+		if(!message.value)
 			return
 
-		var/msg_str = copytext(html_encode(message.input_value), 1, max_length)
+		var/msg_str = copytext(html_encode(message.value), 1, max_length)
 
 		var/mob/living/target = brain.brainmob
 		if(!target)
 			return
 
-		to_chat(target, "<span class='bold'>You hear a message in your ear: </span>[msg_str]")
+		to_chat(target, "[span_bold("You hear a message in your ear: ")][msg_str]")
 
 
 /obj/item/circuit_component/mmi/register_shell(atom/movable/shell)
@@ -117,6 +103,8 @@
 	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, PROC_REF(mmi_moved))
 
 /obj/item/circuit_component/mmi/proc/mmi_moved(atom/movable/mmi)
+	SIGNAL_HANDLER
+
 	if(mmi.loc != src)
 		remove_current_brain()
 
@@ -159,14 +147,13 @@
 
 	return TRUE
 
-/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target)
+/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target, list/modifiers)
 	SIGNAL_HANDLER
-
-	if(source.a_intent == INTENT_HARM)
+	if(modifiers[RIGHT_CLICK])
 		clicked_atom.set_output(target)
 		secondary_attack.set_output(COMPONENT_SIGNAL)
 		. = COMSIG_MOB_CANCEL_CLICKON
-	else
+	else if(modifiers[LEFT_CLICK] && !modifiers[SHIFT_CLICK] && !modifiers[ALT_CLICK] && !modifiers[CTRL_CLICK])
 		clicked_atom.set_output(target)
 		attack.set_output(COMPONENT_SIGNAL)
 		. = COMSIG_MOB_CANCEL_CLICKON
@@ -175,9 +162,9 @@
 	. = ..()
 	if(HAS_TRAIT(add_to, TRAIT_COMPONENT_MMI))
 		return FALSE
-	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, src)
+	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, type)
 
 /obj/item/circuit_component/mmi/removed_from(obj/item/integrated_circuit/removed_from)
-	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, src)
+	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, type)
 	remove_current_brain()
 	return ..()

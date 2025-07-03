@@ -8,10 +8,13 @@
 INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 
 ///Ensures that all the planes are correctly in the controlled_planes list.
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
+
 /atom/movable/plane_master_controller/Initialize(mapload, datum/hud/hud)
 	. = ..()
 	if(!istype(hud))
 		return
+
 	owner_hud = hud
 	var/assoc_controlled_planes = list()
 	for(var/i in controlled_planes)
@@ -88,13 +91,11 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 /atom/movable/plane_master_controller/game
 	name = PLANE_MASTERS_GAME
 	controlled_planes = list(
-		OPENSPACE_PLANE,
 		FLOOR_PLANE,
 		GAME_PLANE,
 		MASSIVE_OBJ_PLANE,
 		GHOST_PLANE,
 		POINT_PLANE,
 		LIGHTING_PLANE,
+		LIGHTING_PLANE_ADDITIVE,
 	)
-
-/datum/unit_test

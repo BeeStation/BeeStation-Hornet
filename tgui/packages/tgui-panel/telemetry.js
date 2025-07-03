@@ -11,16 +11,12 @@ const logger = createLogger('telemetry');
 
 const MAX_CONNECTIONS_STORED = 10;
 
-const connectionsMatch = (a, b) => (
-  a.ckey === b.ckey
-    && a.address === b.address
-    && a.computer_id === b.computer_id
-);
+const connectionsMatch = (a, b) => a.ckey === b.ckey && a.address === b.address && a.computer_id === b.computer_id;
 
-export const telemetryMiddleware = store => {
+export const telemetryMiddleware = (store) => {
   let telemetry;
   let wasRequestedWithPayload;
-  return next => action => {
+  return (next) => (action) => {
     const { type, payload } = action;
     // Handle telemetry requests
     if (type === 'telemetry/request') {
@@ -49,7 +45,7 @@ export const telemetryMiddleware = store => {
         }
         // Load telemetry
         if (!telemetry) {
-          telemetry = await storage.get('telemetry') || {};
+          telemetry = (await storage.get('telemetry')) || {};
           if (!telemetry.connections) {
             telemetry.connections = [];
           }
@@ -57,9 +53,9 @@ export const telemetryMiddleware = store => {
         }
         // Append a connection record
         let telemetryMutated = false;
-        const duplicateConnection = telemetry.connections
-          .find(conn => connectionsMatch(conn, client));
-        if (!duplicateConnection) {
+        const duplicateConnection = telemetry.connections.find((conn) => connectionsMatch(conn, client));
+        // skip guestpreauth ckeys to avoid polluting telemetry
+        if (!duplicateConnection && !client.ckey.startsWith('guestpreauth')) {
           telemetryMutated = true;
           telemetry.connections.unshift(client);
           if (telemetry.connections.length > MAX_CONNECTIONS_STORED) {

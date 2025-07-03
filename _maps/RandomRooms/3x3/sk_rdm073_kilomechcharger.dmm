@@ -13,7 +13,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "c" = (
@@ -21,9 +21,11 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/emergency,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
+/obj/effect/spawner/lootdrop/whiteship_cere_ripley,
 /turf/open/floor/mech_bay_recharge_floor,
 /area/template_noop)
 "e" = (
@@ -49,12 +51,6 @@
 	},
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "sparemech";
-	name = "Abandoned Mech Bay Toggle";
-	pixel_x = -24;
-	pixel_y = -24
 	},
 /turf/open/floor/plating,
 /area/template_noop)

@@ -2,7 +2,7 @@
 
 //Misc mob defines
 
-//Ready states at roundstart for mob/dead/new_player
+//Ready states at roundstart for /mob/dead/new_player/authenticated
 #define PLAYER_NOT_READY 0
 #define PLAYER_READY_TO_PLAY 1
 #define PLAYER_READY_TO_OBSERVE 2
@@ -17,6 +17,23 @@
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
 
+// Bleed rates
+// See blood.dm for calculations
+#define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal
+#define BLEED_HEAL_RATE_MINOR 0.02 	/// How quickly minor bleeds will stop bleeding (0.05/sec)
+#define MAX_BLEED_RATE 3			/// Mobs can get more bleed than this, but won't actually bleed faster than this value
+
+// Bleed damage values
+#define BLEED_TINY 0.1
+#define BLEED_SCRATCH 0.8
+#define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
+#define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
+#define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
+#define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
+
+#define BLEED_RATE_MULTIPLIER 1				/// How quickly do we bleed out? A value of 1 means that if we have a bleed rate of 10, then we lose 5 blood per second.
+#define BLEED_RATE_MULTIPLIER_NO_HEART 0.4 	/// If we have no heart, then we will bleed slower. This multiplies by our bleeding rate if that is the case.
+
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_SLIME_SPLIT	1120
@@ -25,6 +42,11 @@
 #define BLOOD_VOLUME_OKAY			336
 #define BLOOD_VOLUME_BAD			224
 #define BLOOD_VOLUME_SURVIVE		122
+
+#define AMOUNT_TO_BLEED_INTENSITY(x) ((x) ** 0.3333)
+
+/// How efficiently humans regenerate blood.
+#define BLOOD_REGEN_FACTOR 0.25
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
@@ -54,8 +76,8 @@
 #define MOB_SPIRIT		"spirit"
 
 //Organ defines for carbon mobs
-#define ORGAN_ORGANIC   1
-#define ORGAN_ROBOTIC   2
+#define ORGAN_ORGANIC 1
+#define ORGAN_ROBOTIC 2
 
 
 //Bodytype defines for how things can be worn.
@@ -65,10 +87,6 @@
 #define BODYTYPE_BOXHEAD		(1<<3) //TV Head
 #define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
 #define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
-
-#define BODYPART_NOT_DISABLED 0
-#define BODYPART_DISABLED_DAMAGE 1
-#define BODYPART_DISABLED_PARALYSIS 2
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
@@ -86,84 +104,12 @@
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
 
-//Defines for Species IDs
-#define SPECIES_ABDUCTOR "abductor"
-#define SPECIES_ANDROID "android"
-#define SPECIES_APID "apid"
-#define SPECIES_DEBUG "debug"
-#define SPECIES_DULLAHAN "dullahan"
-#define SPECIES_ETHEREAL "ethereal"
-#define SPECIES_FELINID "felinid"
-#define SPECIES_FLY "fly"
-#define SPECIES_HUMAN "human"
-#define SPECIES_IPC "ipc"
-#define SPECIES_JELLYPERSON "jelly"
- #define SPECIES_LUMINESCENT "lum"
- #define SPECIES_SLIMEPERSON "slime"
- #define SPECIES_STARGAZER "stargazer"
-#define SPECIES_LIZARD "lizard"
- #define SPECIES_ASHWALKER "ashlizard"
-#define SPECIES_MONKEY "monkey"
-#define SPECIES_MOTH "moth"
-#define SPECIES_OOZELING "oozeling"
-#define SPECIES_PLASMAMAN "plasmaman"
-#define SPECIES_PODPERSON "pod"
-#define SPECIES_PUMPKINPERSON "pumpkin_man"
-#define SPECIES_SHADOWPERSON "shadow"
-#define SPECIES_SKELETON "skeleton"
-#define SPECIES_SNAILPERSON "snail"
-#define SPECIES_SUPERSOILDER "supersoldier"
-#define SPECIES_VAMPIRE "vampire"
-
-//Defines for Golem Species IDs
-#define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
-#define SPECIES_GOLEM_ALLOY "alloy_golem"
-#define SPECIES_GOLEM_BANANIUM "bananium_golem"
-#define SPECIES_GOLEM_BLUESPACE "bluespace_golem"
-#define SPECIES_GOLEM_BONE "bone_golem"
-#define SPECIES_GOLEM_BRONZE "bronze_golem"
-#define SPECIES_GOLEM_CAPITALIST "capitalist_golem"
-#define SPECIES_GOLEM_CARDBOARD "cardboard_golem"
-#define SPECIES_GOLEM_CLOCKWORK "clockwork_golem"
-#define SPECIES_GOLEM_CLOCKWORK_SERVANT "clockwork golem servant"
-#define SPECIES_GOLEM_CLOTH "cloth_golem"
-#define SPECIES_GOLEM_COPPER "copper_golem"
-#define SPECIES_GOLEM_DIAMOND "diamond_golem"
-#define SPECIES_GOLEM_DURATHREAD "durathread_golem"
-#define SPECIES_GOLEM_GLASS "glass_golem"
-#define SPECIES_GOLEM_GOLD "gold_golem"
-#define SPECIES_GOLEM_IRON "iron_golem"
-#define SPECIES_GOLEM_LEATHER "leather_golem"
-#define SPECIES_GOLEM_PLASMA "plasma_golem"
-#define SPECIES_GOLEM_PLASTEEL "plasteel_golem"
-#define SPECIES_GOLEM_PLASTIC "plastic_golem"
-#define SPECIES_GOLEM_PLASTITANIUM "plastitanium_golem"
-#define SPECIES_GOLEM_RUNIC "cult_golem"
-#define SPECIES_GOLEM_SAND "sand_golem"
-#define SPECIES_GOLEM_SILVER "silver_golem"
-#define SPECIES_GOLEM_SNOW "snow_golem"
-#define SPECIES_GOLEM_SOVIET "soviet_golem"
-#define SPECIES_GOLEM_TITANIUM "titanium_golem"
-#define SPECIES_GOLEM_URANIUM "uranium_golem"
-#define SPECIES_GOLEM_WOOD "wood_golem"
-
-//Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
-#define FLAG_HUMAN			(1<<0)
-#define FLAG_IPC			(1<<1)
-#define FLAG_ETHEREAL		(1<<2)
-#define FLAG_PLASMAMAN		(1<<3)
-#define	FLAG_APID			(1<<4)
-#define FLAG_MOTH			(1<<5)
-#define FLAG_LIZARD			(1<<6)
-#define FLAG_FELINID		(1<<7)
-#define FLAG_OOZELING		(1<<8)
-#define FLAG_FLY			(1<<9)
-#define FLAG_DEBUG_SPECIES	(1<<10)
-#define FLAG_MONKEY (1<<11)
-
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
+
+// Health/damage defines
+#define MAX_LIVING_HEALTH 100
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -185,18 +131,18 @@
 
 // Health/damage defines for carbon mobs
 #define HUMAN_MAX_OXYLOSS 3
-#define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
+#define HUMAN_CRIT_MAX_OXYLOSS (SSMOBS_DT/3)
 
 #define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
 #define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
 
-#define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //! Amount of damage applied when your body temperature passes the 460K point and you are on fire
+#define HEAT_DAMAGE_LEVEL_1 1 //Amount of damage applied when your body temperature just passes the 360.15k safety point
+#define HEAT_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 400K point
+#define HEAT_DAMAGE_LEVEL_3 4 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
 
-#define COLD_DAMAGE_LEVEL_1 0.5 //! Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 1.5 //! Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 3 //! Amount of damage applied when your body temperature passes the 120K point
+#define COLD_DAMAGE_LEVEL_1 0.25 //Amount of damage applied when your body temperature just passes the 260.15k safety point
+#define COLD_DAMAGE_LEVEL_2 0.75 //Amount of damage applied when your body temperature passes the 200K point
+#define COLD_DAMAGE_LEVEL_3 1.5 //Amount of damage applied when your body temperature passes the 120K point
 
 //Note that gas heat damage is only applied once every FOUR ticks.
 #define HEAT_GAS_DAMAGE_LEVEL_1 2 //! Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
@@ -223,6 +169,35 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
+GLOBAL_LIST_INIT(available_random_trauma_list, list(
+	"spiders" = 5,
+	"space" = 2,
+	"security" = 5,
+	"clowns" = 5,
+	"greytide" = 5,
+	"lizards" = 5,
+	"skeletons" = 5,
+	"snakes" = 5,
+	"robots" = 4,
+	"doctors" = 4,
+	"authority" = 5,
+	"the supernatural" = 5,
+	"aliens" = 5,
+	"strangers" = 5,
+	"birds" = 5,
+	"falling" = 5,
+	"anime" = 5
+))
+
+/// This trauma cannot be cured through "special" means, such as nanites or viruses.
+#define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
+/// This trauma transfers on cloning.
+#define TRAUMA_CLONEABLE			(1<<1)
+/// This trauma CANNOT be obtained randomly.
+#define TRAUMA_NOT_RANDOM			(1<<2)
+/// Default trauma flags.
+#define TRAUMA_DEFAULT_FLAGS		(TRAUMA_CLONEABLE)
+
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2
@@ -243,6 +218,7 @@
 #define BIOWARE_NERVES "nerves"
 #define BIOWARE_CIRCULATION "circulation"
 #define BIOWARE_LIGAMENTS "ligaments"
+#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
@@ -341,6 +317,10 @@
 #define SENTIENCE_BOSS 5
 
 //Mob AI Status
+#define POWER_RESTORATION_OFF 0
+#define POWER_RESTORATION_START 1
+#define POWER_RESTORATION_SEARCH_APC 2
+#define POWER_RESTORATION_APC_FOUND 3
 
 //Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
@@ -349,7 +329,8 @@
 #define AI_OFF		3
 #define AI_Z_OFF	4
 
-//determines if a mob can smash through it
+/// An AI hint which tells the AI what it should break.
+/// Note that mobs being able to break walls and r-walls is determined by their attack force.
 #define ENVIRONMENT_SMASH_NONE			0
 #define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect
 #define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
@@ -414,13 +395,14 @@
 #define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
-#define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
-#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
+#define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
+#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
 // Roundstart trait system
 
-#define MAX_QUIRKS 6 //! The maximum amount of quirks one character can have at roundstart
+//The maximum amount of positive quirks one character can have at roundstart, and I hope whoever originally named this simply MAX_QUIRKS stubs their toe
+#define MAX_POSITIVE_QUIRKS 3
 
 // AI Toggles
 #define AI_CAMERA_LUMINOSITY	5
@@ -441,24 +423,18 @@
 #define PULL_PRONE_SLOWDOWN 1.5
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
-//! ## control what things can spawn species
-/// Badmin magic mirror
-#define MIRROR_BADMIN (1<<0)
-/// Standard magic mirror (wizard)
-#define MIRROR_MAGIC  (1<<1)
-/// Pride ruin mirror
-#define MIRROR_PRIDE  (1<<2)
-/// Race swap wizard event
-#define RACE_SWAP     (1<<3)
-/// ERT spawn template (avoid races that don't function without correct gear)
-#define ERT_SPAWN     (1<<4)
-/// xenobio black crossbreed
-#define SLIME_EXTRACT (1<<5)
-/// Wabbacjack staff projectiles
-#define WABBAJACK     (1<<6)
-
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
-#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
+
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
+#define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
+#define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
+#define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
+
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 
@@ -480,16 +456,54 @@
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
-//Body sizes
-#define BODY_SIZE_NORMAL 1
-#define BODY_SIZE_SHORT 0.93
-#define BODY_SIZE_TALL 1.03
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
+
+///Squash flags. For squashable element
+
+///Whether or not the squashing requires the squashed mob to be lying down
+#define SQUASHED_SHOULD_BE_DOWN (1<<0)
+///Whether or not to gib when the squashed mob is moved over
+#define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
+
+/*
+ * Defines for "AI emotions", allowing the AI to expression emotions
+ * with status displays via emotes.
+ */
+
+#define AI_EMOTION_VERY_HAPPY "Very Happy"
+#define AI_EMOTION_HAPPY "Happy"
+#define AI_EMOTION_NEUTRAL "Neutral"
+#define AI_EMOTION_UNSURE "Unsure"
+#define AI_EMOTION_CONFUSED "Confused"
+#define AI_EMOTION_SAD "Sad"
+#define AI_EMOTION_BSOD "BSOD"
+#define AI_EMOTION_BLANK "Blank"
+#define AI_EMOTION_PROBLEMS "Problems?"
+#define AI_EMOTION_AWESOME "Awesome"
+#define AI_EMOTION_FACEPALM "Facepalm"
+#define AI_EMOTION_THINKING "Thinking"
+#define AI_EMOTION_FRIEND_COMPUTER "Friend Computer"
+#define AI_EMOTION_DORFY "Dorfy"
+#define AI_EMOTION_BLUE_GLOW "Blue Glow"
+#define AI_EMOTION_RED_GLOW "Red Glow"
+
+//Generic body sizes
+#define BODY_SIZE_NORMAL 0
+#define BODY_SIZE_SHORT 1
+#define BODY_SIZE_TALL -1
 
 /// Throw modes, defines whether or not to turn off throw mode after
 #define THROW_MODE_DISABLED 0
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
 
+#define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
+
+/// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
+/// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
+#define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 // Mob Overlays Indexes
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
@@ -586,6 +600,24 @@
 #define VOMIT_TOXIC 1
 /// The mob will vomit a purple color
 #define VOMIT_PURPLE 2
+/// The mob will vomit up nanites
+#define VOMIT_NANITE 3
+
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+/// Returns whether or not the given mob can succumb
+#define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
+
+/// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
+#define NO_BUCKLE_LYING -1
+
+// Body position defines.
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1
+
+// Species related bitflags go here.
+#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.

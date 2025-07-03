@@ -54,6 +54,12 @@
 	var/cache_expiration = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE
 
+/obj/effect/overlay/vis/mob_alpha
+	/// this separately exists because "mob_alpha_id" is to reference this single, but "mob_owner_ref" is to reference multiple things to a mob
+	var/mob_owner_ref
+	var/mob_alpha_id
+	var/use_count = 0
+
 /obj/effect/overlay/airlock_part
 	anchored = TRUE
 	plane = FLOAT_PLANE
@@ -77,3 +83,26 @@
 	layer = FLOAT_LAYER
 	vis_flags = VIS_INHERIT_ID
 	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE
+
+/obj/effect/overlay/atmos_excited
+	name = "excited group"
+	icon = null
+	icon_state = null
+	anchored = TRUE  // should only appear in vis_contents, but to be safe
+	appearance_flags = RESET_TRANSFORM | TILE_BOUND
+	invisibility = INVISIBILITY_ABSTRACT
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	vis_flags = VIS_INHERIT_PLANE
+	plane = ATMOS_GROUP_PLANE
+	layer = ATMOS_GROUP_LAYER
+
+/obj/effect/overlay/light_cone
+	name = ""
+	icon = 'icons/effects/light_overlays/light_cone.dmi'
+	icon_state = "light"
+	layer = O_LIGHTING_VISUAL_LAYER
+	plane = O_LIGHTING_VISUAL_PLANE
+	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	vis_flags = NONE
+	alpha = 110

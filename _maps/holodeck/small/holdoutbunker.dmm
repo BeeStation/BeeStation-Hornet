@@ -1,0 +1,220 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/foamedmetal,
+/obj/structure/window{
+	dir = 8
+	},
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"b" = (
+/obj/structure/foamedmetal,
+/obj/structure/window{
+	dir = 4
+	},
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"l" = (
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"m" = (
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"o" = (
+/obj/structure/foamedmetal,
+/obj/structure/window,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"p" = (
+/obj/item/stack/medical/bruise_pack{
+	heal_brute = 10;
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = -1;
+	pixel_y = -14
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"q" = (
+/obj/effect/turf_decal/sand,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"t" = (
+/obj/structure/foamedmetal,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"x" = (
+/obj/item/stack/sheet/sandbags/ten,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"y" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"z" = (
+/obj/structure/foamedmetal,
+/obj/structure/window{
+	dir = 1
+	},
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"A" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"C" = (
+/obj/item/gun/energy/laser{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"D" = (
+/obj/structure/barricade/sandbags,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"I" = (
+/obj/machinery/recharger,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"K" = (
+/obj/effect/turf_decal/sand,
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"M" = (
+/obj/item/soap,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"N" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"O" = (
+/obj/item/stack/medical/ointment{
+	heal_burn = 10;
+	pixel_x = -1;
+	pixel_y = -1
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = 8;
+	pixel_y = 11
+	},
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"R" = (
+/obj/machinery/recharger,
+/obj/effect/turf_decal/sand,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"T" = (
+/obj/structure/foamedmetal,
+/obj/structure/window,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"W" = (
+/obj/structure/foamedmetal,
+/obj/structure/window{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"X" = (
+/obj/structure/foamedmetal,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"Y" = (
+/obj/item/gun/energy/laser{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/structure/barricade/sandbags,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+"Z" = (
+/obj/structure/foamedmetal,
+/obj/structure/window{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
+
+(1,1,1) = {"
+t
+Z
+b
+A
+Z
+b
+t
+"}
+(2,1,1) = {"
+l
+D
+Y
+N
+l
+C
+l
+"}
+(3,1,1) = {"
+T
+D
+q
+A
+I
+l
+X
+"}
+(4,1,1) = {"
+o
+A
+R
+K
+q
+m
+X
+"}
+(5,1,1) = {"
+T
+l
+O
+N
+p
+D
+z
+"}
+(6,1,1) = {"
+l
+l
+x
+M
+D
+y
+A
+"}
+(7,1,1) = {"
+t
+W
+a
+l
+W
+a
+t
+"}

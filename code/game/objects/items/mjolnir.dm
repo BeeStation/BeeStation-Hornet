@@ -9,14 +9,14 @@
 	force = 5
 	throwforce = 30
 	throw_range = 7
-	block_upgrade_walk = 1
+	block_upgrade_walk = TRUE
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/item/mjolnir/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjolnir1", attacksound="sparks")
+	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
 
 /obj/item/mjolnir/update_icon_state()
 	icon_state = "mjollnir0"
@@ -31,13 +31,12 @@
 	. = ..()
 
 /obj/item/mjolnir/proc/shock(mob/living/target)
-	target.Stun(60)
 	var/datum/effect_system/lightning_spread/s = new /datum/effect_system/lightning_spread
 	s.set_up(5, 1, target.loc)
 	s.start()
-	target.visible_message("<span class='danger'>[target.name] was shocked by [src]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
-		"<span class='italics'>You hear a heavy electrical crack!</span>")
+	target.visible_message(span_danger("[target.name] was shocked by [src]!"), \
+		span_userdanger("You feel a powerful shock course through your body sending you flying!"), \
+		span_italics("You hear a heavy electrical crack!"))
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 	return
@@ -49,9 +48,9 @@
 		shock(M)
 
 /obj/item/mjolnir/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, quickstart)
-	thrower.visible_message("<span class='warning'>[thrower] throws [src] with impossible strength!</span>", "<span class='notice'>You lightly throw [src] and it accelerates out of your hand!</span>")
+	thrower.visible_message(span_warning("[thrower] throws [src] with impossible strength!"), span_notice("You lightly throw [src] and it accelerates out of your hand!"))
 	//Create the mjolnir projectile
-	var/obj/item/projectile/created = new /obj/item/projectile/mjolnir(get_turf(src), src)
+	var/obj/projectile/created = new /obj/projectile/mjolnir(get_turf(src), src)
 	created.preparePixelProjectile(target, thrower)
 	created.firer = thrower
 	created.fire()
@@ -67,7 +66,7 @@
 
 /obj/item/mjolnir/dropped(mob/user)
 	. = ..()
-	user.visible_message("<span class='warning'>[user] releases [src] and it instantly slams to the ground with a heavy thud.</span>")
+	user.visible_message(span_warning("[user] releases [src] and it instantly slams to the ground with a heavy thud."))
 	//Create the mjolnir hammer
 	new /obj/structure/anchored_mjolnir(get_turf(src), src)
 
@@ -75,7 +74,7 @@
 	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon = 'icons/obj/wizard_48x32.dmi'
-	icon_state = "anchored_mjollnir"
+	icon_state = "anchored_mjolnir"
 	flags_1 = CONDUCT_1
 	anchored = TRUE
 	move_resist = INFINITY
@@ -83,6 +82,8 @@
 	layer = HIGH_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/obj/item/mjolnir/contained
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 
 /obj/structure/anchored_mjolnir/Initialize(mapload, obj/item/mjolnir/god_hammer)
 	. = ..()
@@ -109,25 +110,25 @@
 			continue
 		mob_on_tile.emote("scream")
 		mob_on_tile.take_bodypart_damage(40, 0, 0, check_armor = TRUE)
-		to_chat(mob_on_tile, "<span class='userdanger'>You are crushed by [god_hammer]!</span>")
+		to_chat(mob_on_tile, span_userdanger("You are crushed by [god_hammer]!"))
 
 //How did this even happen?
 /obj/structure/anchored_mjolnir/Destroy()
-	if (contained)
+	if(contained)
 		QDEL_NULL(contained)
 	return ..()
 
-/obj/structure/anchored_mjolnir/attack_hand(mob/user)
+/obj/structure/anchored_mjolnir/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if (iswizard(user))
 		var/hammer = contained
 		if (user.put_in_active_hand(contained))
-			user.visible_message("<span class='danger'>[user] effortlessly lifts [hammer].</span>")
+			user.visible_message(span_danger("[user] effortlessly lifts [hammer]."))
 	else
-		user.visible_message("<span class='notice'>[user] attempts to lift [contained], but its too heavy!</span>", "<span class='userdanger'>[contained] is too heavy!</span>")
+		user.visible_message(span_notice("[user] attempts to lift [contained], but its too heavy!"), span_userdanger("[contained] is too heavy!"))
 
 
-/obj/item/projectile/mjolnir
+/obj/projectile/mjolnir
 	name = "mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir"
@@ -139,24 +140,26 @@
 	speed = 0.3
 	var/obj/item/mjolnir/contained
 
-/obj/item/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/mjolnir)
+
+/obj/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
 	. = ..()
 	contained = contained_hammer
 	if (contained_hammer)
 		contained_hammer.forceMove(src)
 
-/obj/item/projectile/mjolnir/Destroy()
+/obj/projectile/mjolnir/Destroy()
 	if (contained)
 		new /obj/structure/anchored_mjolnir(loc, contained)
 		contained = null
 	. = ..()
 
-/obj/item/projectile/mjolnir/on_hit(atom/target, blocked, pierce_hit)
+/obj/projectile/mjolnir/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	if (isobj(target))
 		var/obj/hit_structure = target
 		hit_structure.take_damage(120)
-		if (hit_structure.obj_integrity > 0)
+		if (hit_structure.get_integrity() > 0)
 			qdel(src)
 	if (isliving(target))
 		var/mob/living/hit_mob = target

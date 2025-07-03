@@ -2,28 +2,28 @@
 "a" = (
 /obj/structure/table/glass,
 /obj/item/stock_parts/matter_bin/bluespace,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "b" = (
 /obj/structure/table/glass,
 /obj/item/stack/cable_coil/blue,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "e" = (
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/unpowered)
 "j" = (
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/ruin/unpowered)
 "k" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
@@ -33,74 +33,74 @@
 "r" = (
 /obj/machinery/porta_turret/syndicate{
 	desc = "A ballistic machine gun auto-turret that fires bluespace bullets.";
-	lethal_projectile = /obj/item/projectile/magic/teleport;
+	lethal_projectile = /obj/projectile/magic/teleport;
 	name = "displacement turret";
-	stun_projectile = /obj/item/projectile/magic/teleport
+	stun_projectile = /obj/projectile/magic/teleport
 	},
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "s" = (
 /obj/item/paper/crumpled/docslogs,
 /obj/item/pen,
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/displaycase{
 	start_showpiece_type = /obj/item/hilbertshotel
 	},
-/turf/open/floor/plasteel/vaporwave,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/unpowered)
 "u" = (
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "y" = (
 /obj/structure/table/glass,
 /obj/item/stock_parts/subspace/amplifier,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "A" = (
-/turf/open/floor/plasteel/stairs/medium,
+/turf/open/floor/iron/stairs/medium,
 /area/ruin/unpowered)
 "B" = (
 /obj/structure/table/glass,
 /obj/item/assembly/signaler,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/table/glass,
 /obj/item/storage/backpack/holding,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "E" = (
-/turf/open/floor/plasteel/stairs/left,
+/turf/open/floor/iron/stairs/left,
 /area/ruin/unpowered)
 "I" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/bluespace,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "K" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/ruinloot/important,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "L" = (
 /obj/structure/table/glass,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
@@ -108,38 +108,38 @@
 /obj/structure/table/glass,
 /obj/item/stock_parts/subspace/crystal,
 /obj/item/stock_parts/subspace/transmitter,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "S" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/turf/open/floor/plasteel/grimy{
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "T" = (
 /obj/structure/table/glass,
 /obj/item/analyzer,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "V" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured door";
+	name = "secured Door";
 	req_access = 207
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/table/glass,
 /obj/item/slimecross/industrial/bluespace,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)

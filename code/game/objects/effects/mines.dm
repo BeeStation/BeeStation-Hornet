@@ -43,6 +43,11 @@
 	mine_type = /obj/effect/mine/explosive/traitor
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/deployablemine/traitor/toy
+	name = "toy rubber ducky mine"
+	desc = "A rubber duck with a flash inside of it. Plant it on the floor to arm it. Will only work once!"
+	mine_type = /obj/effect/mine/explosive/traitor/toy
+
 /obj/item/deployablemine/traitor/bigboom
 	name = "high yield exploding rubber duck"
 	desc = "A pressure activated explosive disguised as a rubber duck. Plant it to arm. This version is fitted with high yield X4 for a larger blast."
@@ -71,18 +76,18 @@
 		return
 
 	if(isspaceturf(plantspot))
-		to_chat(user, "<span class='warning'>you cannot plant a mine in space!</span>")
+		to_chat(user, span_warning("you cannot plant a mine in space!"))
 		return
 
 	if((istype(plantspot,/turf/open/lava)) || (istype(plantspot,/turf/open/chasm)))
-		to_chat(user, "<span class='warning'>You can't plant the mine here!</span>")
+		to_chat(user, span_warning("You can't plant the mine here!"))
 		return
 
-	to_chat(user, "<span class='notice'>You start arming the [src]...</span>")
+	to_chat(user, span_notice("You start arming the [src]..."))
 	if(do_after(user, arming_time, target = src))
 		new mine_type(plantspot)
-		to_chat(user, "<span class='notice'>You plant and arm the [src].</span>")
-		log_combat(user, src, "planted and armed")
+		to_chat(user, span_notice("You plant and arm the [src]."))
+		log_combat(user, src, "planted and armed", important = FALSE)
 		qdel(src)
 
 /obj/effect/mine
@@ -108,19 +113,19 @@
 
 /obj/effect/mine/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
-		to_chat(user, "<span class='notice'>You begin to disarm the [src]...</span>")
+		to_chat(user, span_notice("You begin to disarm the [src]..."))
 		if(do_after(user, disarm_time, target = src))
-			to_chat(user, "<span class='notice'>You disarm the [src].</span>")
+			to_chat(user, span_notice("You disarm the [src]."))
 			new disarm_product(src.loc)
 			qdel(src)
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
-	to_chat(victim, "<span class='danger'>*click*</span>")
+	to_chat(victim, span_danger("*click*"))
 
 /obj/effect/mine/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity() || triggered)
+	if(!isturf(loc) || AM.throwing || (AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !AM.has_gravity() || triggered)
 		return
 	if(ismob(AM))
 		checksmartmine(AM)
@@ -141,10 +146,11 @@
 		else
 			triggered = 1
 			triggermine(target)
-					
+
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
-	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
+	visible_message(span_danger("[victim] sets off [icon2html(src, viewers(src))] [src]!"))
+	log_combat(victim, src, "triggered a", important = FALSE)
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
@@ -152,7 +158,7 @@
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
 
-/obj/effect/mine/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+/obj/effect/mine/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	triggermine()
 
@@ -173,7 +179,7 @@
 	range_heavy = 2
 	range_light = 3
 	range_flash = 4
-	disarm_time = 400
+	disarm_time = 40 SECONDS
 	disarm_product = /obj/item/deployablemine/traitor
 
 /obj/effect/mine/explosive/traitor/bigboom
@@ -185,6 +191,19 @@
 
 /obj/effect/mine/explosive/mineEffect(mob/victim)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+	log_bomber(victim, "has primed a", src, "for detonation (Range:[range_devastation]/[range_heavy]/[range_light]/[range_flash])")
+
+/obj/effect/mine/explosive/traitor/toy
+	disarm_time = 2 SECONDS
+	disarm_product = /obj/item/deployablemine/traitor/toy
+
+/obj/effect/mine/explosive/traitor/toy/mineEffect(mob/victim)
+	if(isliving(victim))
+		var/mob/living/honked = victim
+		honked.flash_act()
+		var/obj/item/assembly/flash/handheld/burnt_out = new(loc)
+		new /obj/item/bikehorn/rubberducky(loc)
+		burnt_out.burn_out()
 
 /obj/effect/mine/stun
 	name = "stun mine"
@@ -220,7 +239,7 @@
 
 /obj/effect/mine/shrapnel
 	name = "shrapnel mine"
-	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	var/shrapnel_type = /obj/projectile/bullet/shrapnel
 	var/shrapnel_magnitude = 3
 
 /obj/effect/mine/shrapnel/mineEffect(mob/victim)
@@ -228,21 +247,21 @@
 
 /obj/effect/mine/shrapnel/sting
 	name = "stinger mine"
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
+	shrapnel_type = /obj/projectile/bullet/pellet/stingball
 
 /obj/effect/mine/kickmine
 	name = "kick mine"
 
 /obj/effect/mine/kickmine/mineEffect(mob/victim)
 	if(isliving(victim) && victim.client)
-		to_chat(victim, "<span class='userdanger'>You have been kicked FOR NO REISIN!</span>")
+		to_chat(victim, span_userdanger("You have been kicked FOR NO REISIN!"))
 		qdel(victim.client)
 
 
 /obj/effect/mine/gas
 	name = "oxygen mine"
 	var/gas_amount = 360
-	var/gas_type = "o2"
+	var/gas_type = GAS_O2
 	disarm_product = /obj/item/deployablemine/gas
 
 /obj/effect/mine/gas/mineEffect(mob/victim)
@@ -272,7 +291,7 @@
 
 /obj/effect/mine/sound/attackby(obj/item/soundsynth/J, mob/user, params)
 	if(istype(J, /obj/item/soundsynth))
-		to_chat(user, "<span class='notice'>You change the sound settings of the [src].</span>")
+		to_chat(user, span_notice("You change the sound settings of the [src]."))
 		sound = J.selected_sound
 
 
@@ -312,7 +331,7 @@
 /obj/effect/mine/pickup/bloodbath/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='reallybig redtext'>RIP AND TEAR</span>")
+	to_chat(victim, span_reallybigredtext("RIP AND TEAR"))
 
 	spawn(0)
 		new /datum/hallucination/delusion(victim, TRUE, "demon",duration,0)
@@ -325,7 +344,7 @@
 	victim.put_in_hands(chainsaw, forced = TRUE)
 	chainsaw.attack_self(victim)
 	victim.reagents.add_reagent(/datum/reagent/medicine/adminordrazine,25)
-	to_chat(victim, "<span class='warning'>KILL, KILL, KILL! YOU HAVE NO ALLIES ANYMORE, KILL THEM ALL!</span>")
+	to_chat(victim, span_warning("KILL, KILL, KILL! YOU HAVE NO ALLIES ANYMORE, KILL THEM ALL!"))
 
 	var/datum/client_colour/colour = victim.add_client_colour(/datum/client_colour/bloodlust)
 	QDEL_IN(colour, 11)
@@ -337,7 +356,7 @@
 	SIGNAL_HANDLER
 
 	if(doomslayer)
-		to_chat(doomslayer, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
+		to_chat(doomslayer, span_notice("Your bloodlust seeps back into the bog of your subconscious and you regain self control."))
 		doomslayer.log_message("exited a blood frenzy", LOG_ATTACK)
 	if(chainsaw)
 		qdel(chainsaw)
@@ -350,7 +369,7 @@
 /obj/effect/mine/pickup/healing/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel great!</span>")
+	to_chat(victim, span_notice("You feel great!"))
 	victim.revive(full_heal = 1, admin_revive = 1)
 
 /obj/effect/mine/pickup/speed
@@ -362,10 +381,10 @@
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.add_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
+	to_chat(victim, span_notice("You feel fast!"))
+	victim.add_movespeed_modifier(/datum/movespeed_modifier/yellow_orb)
 	addtimer(CALLBACK(src, PROC_REF(finish_effect), victim), duration)
 
 /obj/effect/mine/pickup/speed/proc/finish_effect(mob/living/carbon/victim)
-	victim.remove_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB)
-	to_chat(victim, "<span class='notice'>You slow down.</span>")
+	victim.remove_movespeed_modifier(/datum/movespeed_modifier/yellow_orb)
+	to_chat(victim, span_notice("You slow down."))

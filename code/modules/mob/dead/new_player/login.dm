@@ -1,24 +1,40 @@
-/mob/dead/new_player/Login()
+/mob/dead/new_player/authenticated/Login()
+	if(!client)
+		return
+	if(!client.logged_in)
+		log_admin_private("/mob/dead/new_player/authenticated/Login() was called on [key_name(src)] without the assigned client being authenticated! Possible auth bypass! Caller: [key_name(usr)]")
+		qdel(client)
+		qdel(src)
+		return
 	if(CONFIG_GET(flag/use_exp_tracking))
 		client.set_exp_from_db()
+		if(!client) // client null during sleep
+			return
 		client.set_db_player_flags()
+		if(!client) // client null during sleep
+			return
 	if(!mind)
 		mind = new /datum/mind(key)
 		mind.active = TRUE
 		mind.set_current(src)
 
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
+
+	if(client.logged_in && client.external_uid)
+		to_chat(src, span_good("Successfully signed in as [span_bold("[client.display_name_chat()]")]"))
 
 	var/motd = global.config.motd
 	if(motd)
 		to_chat(src, "<div class=\"motd\">[motd]</div>", handle_whitespace=FALSE, allow_linkify = TRUE)
 
 	if(GLOB.admin_notice)
-		to_chat(src, "<span class='notice'><b>Admin Notice:</b>\n \t [GLOB.admin_notice]</span>")
+		to_chat(src, span_notice("<b>Admin Notice:</b>\n \t [GLOB.admin_notice]"))
 
 	var/spc = CONFIG_GET(number/soft_popcap)
 	if(spc && living_player_count() >= spc)
-		to_chat(src, "<span class='notice'><b>Server Notice:</b>\n \t [CONFIG_GET(string/soft_popcap_message)]</span>", allow_linkify = TRUE)
+		to_chat(src, span_notice("<b>Server Notice:</b>\n \t [CONFIG_GET(string/soft_popcap_message)]"), allow_linkify = TRUE)
 
 	sight |= SEE_TURFS
 

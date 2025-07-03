@@ -32,7 +32,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/lootdrop/clowntrap,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "f" = (
 /obj/effect/turf_decal/stripes/line{

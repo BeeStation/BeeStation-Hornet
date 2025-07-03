@@ -185,25 +185,25 @@
 			return FALSE
 	return TRUE
 
-/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/proc/on_new(obj/item/food/grown/G, newloc)
 	return
 
-/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/proc/on_consume(obj/item/food/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/proc/on_slip(obj/item/food/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_squash(obj/item/food/grown/G, atom/target)
 	return
 
-/datum/plant_gene/trait/proc/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_squashreact(obj/item/food/grown/G, atom/target)
 	return
 
-/datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
+/datum/plant_gene/trait/proc/on_attackby(obj/item/food/grown/G, obj/item/I, mob/user)
 	return
 
-/datum/plant_gene/trait/proc/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_throw_impact(obj/item/food/grown/G, atom/target)
 	return
 
 ///This proc triggers when the tray processes and a roll is sucessful, the success chance scales with production.
@@ -215,9 +215,9 @@
 	// Also splashes everything in target turf with reagents and applies other trait effects (teleporting, etc) to the target by on_squash.
 	// For code, see grown.dm
 	name = "Liquid Contents"
-	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
+	examine_line = span_info("It has a lot of liquid contents inside.")
 
-/datum/plant_gene/trait/squash/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/squash/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	// Squash the plant on slip.
 	G.squash(C)
 
@@ -226,11 +226,11 @@
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
 	rate = 1.6
-	examine_line = "<span class='info'>It has a very slippery skin.</span>"
+	examine_line = span_info("It has a very slippery skin.")
 
-/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/slip/on_new(obj/item/food/grown/G, newloc)
 	..()
-	if(istype(G) && ispath(G.trash, /obj/item/grown))
+	if(istype(G) && ispath(G.trash_type, /obj/item/grown))
 		return
 	var/obj/item/seeds/seed = G.seed
 	var/stun_len = seed.potency * rate
@@ -240,7 +240,7 @@
 
 	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, PROC_REF(handle_slip), G))
 
-/datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
+/datum/plant_gene/trait/slip/proc/handle_slip(obj/item/food/grown/G, mob/M)
 	for(var/datum/plant_gene/trait/T in G.seed.genes)
 		T.on_slip(G, M)
 
@@ -252,7 +252,7 @@
 	name = "Electrical Activity"
 	rate = 0.2
 
-/datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/cell_charge/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	var/power = round(G.seed.potency*rate)
 	if(prob(power))
 		C.electrocute_act(power, G, 1, 1)
@@ -261,17 +261,17 @@
 			C.investigate_log("[C] has slipped on an electric plant at [AREACOORD(T)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 			log_combat(C, G, "slipped on and got electrocuted by", null, "with the power of 10. Last fingerprint: [G.fingerprintslast]")
 
-/datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/cell_charge/on_squash(obj/item/food/grown/G, atom/target)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			C.electrocute_act(round(power), G, 1, 1)
+			C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 			if(C.ckey != G.fingerprintslast)
 				log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
 				C.investigate_log("[C] has been hit by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
-/datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/cell_charge/on_consume(obj/item/food/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
 		var/batteries_recharged = 0
 		for(var/obj/item/stock_parts/cell/C in target.GetAllContents())
@@ -284,7 +284,7 @@
 				C.update_icon()
 				batteries_recharged = 1
 		if(batteries_recharged)
-			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
+			to_chat(target, span_notice("Your batteries are recharged!"))
 
 
 
@@ -293,17 +293,17 @@
 	// Adds 1 + potency*rate light range and potency*(rate + 0.01) light_power to products.
 	name = "Bioluminescence"
 	rate = 0.03
-	examine_line = "<span class='info'>It emits a soft glow.</span>"
+	examine_line = span_info("It emits a soft glow.")
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 
 /datum/plant_gene/trait/glow/proc/glow_range(obj/item/seeds/S)
-	return 1.4 + S.potency*rate
+	return round(1.4 + S.potency*rate) //lights with non-integer ranges aren't centered properly
 
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
 	return max(S.potency*(rate + 0.01), 0.1)
 
-/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/glow/on_new(obj/item/food/grown/G, newloc)
 	. = ..()
 	G.light_system = MOVABLE_LIGHT
 	G.AddComponent(/datum/component/overlay_lighting, glow_range(G.seed), glow_power(G.seed), glow_color)
@@ -363,7 +363,7 @@
 	name = "Bluespace Activity"
 	rate = 0.1
 
-/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/teleport/on_squash(obj/item/food/grown/G, atom/target)
 	if(isliving(target))
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(target)
@@ -375,10 +375,10 @@
 		log_combat(G.thrownby, C, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(C)]")
 		C.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
-/datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/teleport/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
-	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+	to_chat(C, span_warning("You slip through spacetime!"))
 	do_teleport(C, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	if(C.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
 		C.investigate_log("has slipped on bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
@@ -393,10 +393,11 @@
 	// 2x to max reagents volume.
 	name = "Densified Chemicals"
 	rate = 2
+	trait_id = "chem_boost"
 
-/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/maxchem/on_new(obj/item/food/grown/G, newloc)
 	..()
-	G.reagents.maximum_volume *= rate
+	G.max_volume *= rate
 
 /datum/plant_gene/trait/repeated_harvest
 	name = "Perennial Growth"
@@ -404,18 +405,18 @@
 /datum/plant_gene/trait/repeated_harvest/can_add(obj/item/seeds/S)
 	if(!..())
 		return FALSE
-	if(istype(S, /obj/item/seeds/replicapod))
+	if(istype(S, /obj/item/seeds/dionapod))
 		return FALSE
 	return TRUE
 
 /datum/plant_gene/trait/battery
 	name = "Capacitive Cell Production"
 
-/datum/plant_gene/trait/battery/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
+/datum/plant_gene/trait/battery/on_attackby(obj/item/food/grown/G, obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
-			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
+			to_chat(user, span_notice("You add some cable to [G] and slide it inside the battery encasing."))
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state
 			pocell.maxcharge = G.seed.potency * 20
@@ -433,13 +434,13 @@
 
 			qdel(G)
 		else
-			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
+			to_chat(user, span_warning("You need five lengths of cable to make a [G] battery!"))
 
 
 /datum/plant_gene/trait/stinging
 	name = "Hypodermic Prickles"
 
-/datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/stinging/on_slip(obj/item/food/grown/G, atom/target)
 	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)
 		return
 	var/mob/living/L = target
@@ -449,7 +450,7 @@
 			L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 			log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].")
 
-/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/food/grown/G, atom/target)
 	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)
 		return
 	var/mob/living/L = target
@@ -459,21 +460,21 @@
 			log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
 			L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
-/datum/plant_gene/trait/stinging/proc/prick(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L)
+/datum/plant_gene/trait/stinging/proc/prick(obj/item/food/grown/G, mob/living/L)
 	if(!L.reagents && !L.can_inject(null, 0))
 		return FALSE
 
 	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
-	G.reagents.reaction(L, INJECT, fraction)
+	G.reagents.expose(L, INJECT, fraction)
 	G.reagents.trans_to(L, injecting_amount)
-	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
+	to_chat(L, span_danger("You are pricked by [G]!"))
 	return TRUE
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"
 
-/datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/smoke/on_squash(obj/item/food/grown/G, atom/target)
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
@@ -493,7 +494,7 @@
 	if(!(S.resistance_flags & FIRE_PROOF))
 		S.resistance_flags |= FIRE_PROOF
 
-/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/food/grown/G, newloc)
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 
@@ -519,7 +520,13 @@
 			HY.weedlevel = 0 // Reset
 			HY.pestlevel = 0 // Reset
 			HY.update_icon()
-			HY.visible_message("<span class='warning'>The [H.myseed.plantname] spreads!</span>")
+			HY.visible_message(span_warning("The [H.myseed.plantname] spreads!"))
+
+// It boosts chemical output of a plant by rate
+/datum/plant_gene/trait/richer_juice
+	name = "Richer Juice"
+	rate = 2
+	trait_id = "chem_boost"
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

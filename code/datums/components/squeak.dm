@@ -13,23 +13,30 @@
 	var/last_use = 0
 	var/use_delay = 20
 
+	///extra-range for this component's sound
+	var/sound_extra_range = -1
+	///when sounds start falling off for the squeak
+	var/sound_falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE
+	///sound exponent for squeak. Defaults to 10 as squeaking is loud and annoying enough.
+	var/sound_falloff_exponent = 10
+
 	///what we set connect_loc to if parent is an item
 	var/static/list/item_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(play_squeak_crossed),
 	)
 
-/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override)
+/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override, extrarange, falloff_exponent, fallof_distance)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), PROC_REF(play_squeak))
+	RegisterSignals(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), PROC_REF(play_squeak))
 	if(ismovable(parent))
-		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), PROC_REF(play_squeak))
+		RegisterSignals(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), PROC_REF(play_squeak))
 
 		AddComponent(/datum/component/connect_loc_behalf, parent, item_connections)
 		RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, PROC_REF(play_squeak_crossed))
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposing_react))
 		if(isitem(parent))
-			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(play_squeak))
+			RegisterSignals(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(play_squeak))
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(use_squeak))
 			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 			RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
@@ -45,6 +52,12 @@
 		step_delay = step_delay_override
 	if(isnum_safe(use_delay_override))
 		use_delay = use_delay_override
+	if(isnum(extrarange))
+		sound_extra_range = extrarange
+	if(isnum(falloff_exponent))
+		sound_falloff_exponent = falloff_exponent
+	if(isnum(fallof_distance))
+		sound_falloff_distance = fallof_distance
 
 /datum/component/squeak/UnregisterFromParent()
 	. = ..()
@@ -55,9 +68,9 @@
 
 	if(prob(squeak_chance))
 		if(!override_squeak_sounds)
-			playsound(parent, pick_weight(default_squeak_sounds), volume, 1, -1)
+			playsound(parent, pick_weight(default_squeak_sounds), volume, TRUE, sound_extra_range, sound_falloff_exponent, falloff_distance = sound_falloff_distance)
 		else
-			playsound(parent, pick_weight(override_squeak_sounds), volume, 1, -1)
+			playsound(parent, pick_weight(override_squeak_sounds), volume, TRUE, sound_extra_range, sound_falloff_exponent, falloff_distance = sound_falloff_distance)
 
 /datum/component/squeak/proc/step_squeak()
 	SIGNAL_HANDLER
@@ -75,13 +88,13 @@
 		var/obj/item/I = arrived
 		if(I.item_flags & ABSTRACT)
 			return
-		else if(istype(arrived, /obj/item/projectile))
-			var/obj/item/projectile/P = arrived
+		else if(istype(arrived, /obj/projectile))
+			var/obj/projectile/P = arrived
 			if(P.original != parent)
 				return
 	if(istype(arrived, /obj/effect/dummy/phased_mob)) //don't squeek if they're in a phased/jaunting container.
 		return
-	if(arrived.movement_type & (FLYING|FLOATING) || !arrived.has_gravity())
+	if(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND || !arrived.has_gravity())
 		return
 	var/atom/current_parent = parent
 	if(isturf(current_parent?.loc))
@@ -105,7 +118,7 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
 
 // Disposal pipes related shits
-/datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/source)
+/datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/disposals_unit)
 	SIGNAL_HANDLER
 
 	//We don't need to worry about unregistering this signal as it will happen for us automaticaly when the holder is qdeleted

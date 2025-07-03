@@ -21,8 +21,10 @@ other types of metals and chemistry for reagents).
 //DO NOT REFERENCE OUTSIDE OF SSRESEARCH. USE THE PROCS IN SSRESEARCH TO OBTAIN A REFERENCE.
 
 /datum/design						//Datum for object designs, used in construction
-	var/name = "Name"					//Name of the created object.
-	var/desc = "Desc"					//Description of the created object.
+	/// Name of the created object
+	var/name = "Name"
+	/// Description of the created object
+	var/desc = null
 	var/id = DESIGN_ID_IGNORE						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
 	var/list/materials = list()			//List of materials. Format: "id" = amount.
@@ -55,18 +57,22 @@ other types of metals and chemistry for reagents).
 	for(var/i in materials) //Go through all of our materials, get the subsystem instance, and then replace the list.
 		var/amount = materials[i]
 		if(!istext(i)) //Not a category, so get the ref the normal way
-			var/datum/material/M =  getmaterialref(i)
+			var/datum/material/M = SSmaterials.GetMaterialRef(i)
 			temp_list[M] = amount
 		else
 			temp_list[i] = amount
 	materials = temp_list
-	for(var/i in materials)
-		to_chat("[i] [materials[i]]")
 
 /datum/design/proc/icon_html(client/user)
-	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/research_designs)
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
 	sheet.send(user)
 	return sheet.icon_tag(id)
+
+/// Returns the description of the design
+/datum/design/proc/get_description()
+	var/obj/object_build_item_path = build_path
+
+	return isnull(desc) ? initial(object_build_item_path.desc) : desc
 
 ////////////////////////////////////////
 //Disks for transporting design datums//
@@ -76,19 +82,19 @@ other types of metals and chemistry for reagents).
 	name = "Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk1"
-	materials = list(/datum/material/iron = 300, /datum/material/glass =100)
+	custom_materials = list(/datum/material/iron = 300, /datum/material/glass =100)
 	var/list/blueprints = list()
 	var/max_blueprints = 1
 
 /obj/item/disk/design_disk/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 	for(var/i in 1 to max_blueprints)
 		blueprints += null
 
 /obj/item/disk/design_disk/adv
 	name = "Advanced Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes. This one has extra storage space."
-	materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/silver = 50)
+	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/silver = 50)
 	max_blueprints = 5

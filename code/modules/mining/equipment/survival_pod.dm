@@ -2,9 +2,9 @@
 /area/survivalpod
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 
 //Survival Capsule
@@ -28,6 +28,7 @@
 
 /obj/item/survivalcapsule/Destroy()
 	template = null // without this, capsules would be one use. per round.
+	air_update_turf(TRUE, FALSE)
 	. = ..()
 
 /obj/item/survivalcapsule/examine(mob/user)
@@ -41,18 +42,18 @@
 	//Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
-		loc.visible_message("<span class='warning'>\The [src] begins to shake. Stand back!</span>")
+		loc.visible_message(span_warning("\The [src] begins to shake. Stand back!"))
 		used = TRUE
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
-				src.loc.visible_message("<span class='warning'>\The [src] will not function in this area.</span>")
+				src.loc.visible_message(span_warning("\The [src] will not function in this area."))
 			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
 				var/width = template.width
 				var/height = template.height
-				src.loc.visible_message("<span class='warning'>\The [src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+				src.loc.visible_message(span_warning("\The [src] doesn't have room to deploy! You need to clear a [width]x[height] area!"))
 
 		if(status != SHELTER_DEPLOY_ALLOWED)
 			used = FALSE
@@ -107,6 +108,13 @@
 	icon = 'icons/obj/mining.dmi'
 	template_id = "capsule_barricade"
 
+/obj/item/survivalcapsule/capsule_checkpoint
+	name = "checkpoint capsule"
+	desc = "A 3x3 glass checkpoint designed for allowing safely searching passing personnel."
+	icon_state = "capsulesec"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "capsule_checkpoint"
+
 /obj/item/survivalcapsule/party
 	name = "party capsule"
 	desc = "A 7x7 party area, fit with tables and a dancefloor. Groovy."
@@ -123,7 +131,7 @@
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
+	smoothing_groups = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD, SMOOTH_GROUP_SHUTTLE_PARTS)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
 /obj/structure/window/shuttle/survival_pod/spawner/north
@@ -139,6 +147,10 @@
 	name = "pod window"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
+
+/obj/structure/window/reinforced/survival_pod/corner
+	icon_state = "pwindow_corner"
+	density = FALSE
 
 //Door
 /obj/machinery/door/airlock/survival_pod
@@ -217,14 +229,14 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return TRUE
 
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>",
-		"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(span_warning("[user] disassembles [src]."),
+		span_notice("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(I.use_tool(src, user, 20, volume=50))
 		new /obj/item/gps(loc)
 		qdel(src)
 	return TRUE
 
-/obj/item/gps/computer/attack_hand(mob/user)
+/obj/item/gps/computer/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -251,6 +263,7 @@
 	max_n_of_items = 10
 	pixel_y = -4
 	flags_1 = NODECONSTRUCT_1
+	opacity = FALSE
 	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/update_icon()
@@ -261,7 +274,7 @@
 	if(empty)
 		return
 	for(var/i in 1 to 5)
-		var/obj/item/reagent_containers/food/snacks/donkpocket/warm/W = new(src)
+		var/obj/item/food/donkpocket/warm/W = new(src)
 		load(W)
 	if(prob(50))
 		var/obj/item/storage/pill_bottle/dice/D = new(src)
@@ -288,7 +301,7 @@
 	density = TRUE
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 5
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 
 /obj/structure/fans/deconstruct()
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -300,8 +313,8 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return TRUE
 
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>",
-		"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(span_warning("[user] disassembles [src]."),
+		span_notice("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(I.use_tool(src, user, 20, volume=50))
 		deconstruct()
 	return TRUE
@@ -316,7 +329,7 @@
 
 /obj/structure/fans/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 
 //Inivisible, indestructible fans
 /obj/structure/fans/tiny/invisible
@@ -328,14 +341,12 @@
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
 	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "ntpod"
+	icon_state = "minskymine"
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "A high visibility sign designating a safe shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "survival"
+	icon_state = "securearea"
 
 //Fluff
 /obj/structure/tubes
@@ -348,7 +359,7 @@
 
 /obj/item/fakeartefact
 	name = "expensive forgery"
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x2"
 	var/possible = list(/obj/item/ship_in_a_bottle,
 						/obj/item/gun/energy/pulse,
@@ -366,7 +377,6 @@
 						/obj/item/gun/magic/wand/fireball,
 						/obj/item/stack/sheet/telecrystal/twenty,
 						/obj/item/nuke_core,
-						/obj/item/phylactery,
 						/obj/item/banhammer)
 
 /obj/item/fakeartefact/Initialize(mapload)

@@ -5,18 +5,22 @@
 	speak_emote = list("Blubbers")
 	emote_hear = list("Blubbers")
 	melee_damage = 1
-	attacktext = "pierces"
-	response_help  = "shoos"
-	response_disarm = "swats away"
-	response_harm   = "squashes"
+	attack_verb_continuous = "pierces"
+	attack_verb_simple = "pierce"
+	response_help_continuous = "shoos"
+	response_help_simple = "shoo"
+	response_disarm_continuous = "swats away"
+	response_disarm_simple = "swat away"
+	response_harm_continuous = "squashes"
+	response_harm_simple = "squash"
 	maxHealth = 6
 	health = 6
 	spacewalk = TRUE
-	faction = list("hostile")
+	faction = list(FACTION_PLANTS)
 	move_to_delay = 0
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
@@ -25,7 +29,7 @@
 	minbodytemp = 0
 	del_on_death = TRUE
 	var/aggressive = FALSE
-	var/datum/disease/basedisease = null
+	var/datum/disease/base_disease = null
 	var/list/infections = list()
 	discovery_points = 2000
 
@@ -37,7 +41,7 @@
 	if(isliving(the_target))
 		var/mob/living/M = the_target
 		for(var/datum/disease/D in M.diseases)
-			if(D.GetDiseaseID() == basedisease.GetDiseaseID())
+			if(D.GetDiseaseID() == base_disease.GetDiseaseID())
 				if(aggressive)
 					if(D.stage >= 4)
 						alreadyinfected = TRUE
@@ -46,15 +50,14 @@
 	if(alreadyinfected)
 		return FALSE
 
-/mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(scan)
-		E.scan(src, infections, user)
-	else
-		if(E.create_culture(basedisease, user))
-			dust()
-			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
-	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
-	return TRUE
+/mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., base_disease)
+	if(!dry_run && !EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL) && extrapolator.create_culture(user, base_disease))
+		user.visible_message(span_danger("[user] stabs [src] with [extrapolator], sucking it up!"), \
+				span_danger("You stab [src] with [extrapolator]'s probe, destroying it!"))
+		dust()
+		EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)
 
 /mob/living/simple_animal/hostile/macrophage/AttackingTarget()
 	. = ..()
@@ -63,18 +66,18 @@
 		if(M.can_inject(src))
 			for(var/datum/disease/D in infections)
 				if(M.ForceContractDisease(D)) //we already check spread type in the macrophage creation proc
-					to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
+					to_chat(src, span_notice("You infect [M] with [D]!"))
 		else if(aggressive)
-			M.visible_message("<span class='danger'>the [src] begins penetrating [M]' protection!</span>", \
-	 				 "<span class='danger'>[src] begins penetrating your protection!</span>")
+			M.visible_message(span_danger("the [src] begins penetrating [M]' protection!"), \
+					span_danger("[src] begins penetrating your protection!"))
 			if(do_after(src, 1.5 SECONDS, M))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))
-						to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
-				to_chat(M, "<span class ='userdanger'>[src] pierces your protection, and you feel a sharp stab!</span>")
+						to_chat(src, span_notice("You infect [M] with [D]!"))
+				to_chat(M, span_userdanger("[src] pierces your protection, and you feel a sharp stab!"))
 
 /mob/living/simple_animal/hostile/macrophage/proc/shrivel()
-	visible_message("<span class='danger'>the [src] shrivels up and dies!</span>")
+	visible_message(span_danger("the [src] shrivels up and dies!"))
 	dust()
 
 /mob/living/simple_animal/hostile/macrophage/aggro
@@ -97,5 +100,5 @@
 	maxHealth += D.resistance
 	melee_damage += max(0, D.resistance)
 	infections += D
-	basedisease = D
+	base_disease = D
 

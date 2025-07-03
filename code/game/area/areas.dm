@@ -5,6 +5,7 @@
   */
 /area
 	name = "Space"
+	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
@@ -17,11 +18,36 @@
 
 	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
 	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
+	/// List of all turfs currently inside this area. Acts as a filtered bersion of area.contents
+	/// For faster lookup (area.contents is actually a filtered loop over world)
+	/// Semi fragile, but it prevents stupid so I think it's worth it
+	var/list/turf/contained_turfs = list()
+	/// Contained turfs is a MASSIVE list, so rather then adding/removing from it each time we have a problem turf
+	/// We should instead store a list of turfs to REMOVE from it, then hook into a getter for it
+	/// There is a risk of this and contained_turfs leaking, so a subsystem will run it down to 0 incrementally if it gets too large
+	var/list/turf/turfs_to_uncontain = list()
 
-	var/fire = null
-	///Whether there is an atmos alarm in this area
-	var/atmosalm = FALSE
-	var/poweralm = TRUE
+	///Do we have an active fire alarm?
+	var/fire = FALSE
+	///A var for whether the area allows for detecting fires/etc. Disabled or enabled at a fire alarm, checked by fire locks.
+	var/fire_detect = TRUE
+	///A list of all fire locks in this area. Used by fire alarm panels when resetting fire locks or activating all in an area
+	var/list/firedoors
+	///A list of firelocks currently active. Used by fire alarms when setting their icons.
+	var/list/active_firelocks
+	///A list of all fire alarms in this area. Used by firelocks and burglar alarms to change icon state.
+	var/list/firealarms = list()
+	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
+	var/list/active_alarms = list()
+	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing. Fire alarms and fire locks will set and clear alarms.
+	var/datum/alarm_handler/alarm_manager
+	/// The current alarm fault status
+	var/fault_status = AREA_FAULT_NONE
+	/// The source machinery for the area's fault status
+	var/fault_location
+	///List of all lights in our area
+	var/list/lights = list()
+
 	var/lightswitch = TRUE
 	var/vacuum = null
 
@@ -31,7 +57,7 @@
 	var/areasize = 0 //Size of the area in open turfs, only calculated for indoors areas.
 
 	var/mood_bonus = 0 //Mood for being here
-	var/mood_message = "<span class='nicegreen'>This area is pretty nice!\n</span>" //Mood message for being here, only shows up if mood_bonus != 0
+	var/mood_message = span_nicegreen("This area is pretty nice!\n") //Mood message for being here, only shows up if mood_bonus != 0
 	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
 	var/list/mood_job_allowed = null
 	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
@@ -42,11 +68,14 @@
 	/// This gets overridden to 1 for space in area/Initialize(mapload).
 	var/always_unpowered = FALSE
 
+	var/obj/machinery/power/apc/apc = null
+
 	var/power_equip = TRUE
 	var/power_light = TRUE
 	var/power_environ = TRUE
 
-	var/has_gravity = FALSE
+	/// The default gravity for the area
+	var/default_gravity = ZERO_GRAVITY
 	///Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
 	var/teleport_restriction = TELEPORT_ALLOW_ALL
 
@@ -75,12 +104,15 @@
 
 	flags_1 = CAN_BE_DIRTY_1
 
-	var/list/firedoors
 	var/list/cameras
-	var/list/firealarms
-	var/firedoors_last_closed_on = 0
 	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
 	var/list/canSmoothWithAreas
+
+	/// List of all air vents in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_pump/air_vents = list()
+
+	/// List of all air scrubbers in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_scrubber/air_scrubbers = list()
 
 	var/list/power_usage
 
@@ -98,6 +130,10 @@
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
 	var/lighting_overlay_opacity = 0
+	var/lighting_overlay_matrix_cr = 0
+	var/lighting_overlay_matrix_cg = 0
+	var/lighting_overlay_matrix_cb = 0
+	var/lighting_overlay_cached_darkening_matrix
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
@@ -112,6 +148,15 @@
 
 	/// How hard it is to hack airlocks in this area
 	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
+
+	/// Whether the lights in this area aren't turned off when it's empty at roundstart
+	var/lights_always_start_on = FALSE
+
+	///The areas specific color correction
+	var/color_correction = /datum/client_colour/area_color
+
+	/// What networks should cameras in this area belong to?
+	var/list/camera_networks = list()
 
 /**
   * A list of teleport locations
@@ -131,19 +176,15 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   * The returned list of turfs is sorted by name
   */
 /proc/process_teleport_locs()
-	for(var/V in GLOB.sortedAreas)
-		var/area/AR = V
+	for(var/area/AR as anything in get_sorted_areas())
 		if(istype(AR, /area/shuttle) || AR.teleport_restriction)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
-		if (!AR.contents.len)
+		if (!AR.has_contained_turfs())
 			continue
-		var/turf/picked = AR.contents[1]
-		if (picked && is_station_level(picked.z))
+		if (is_station_level(AR.z))
 			GLOB.teleportlocs[AR.name] = AR
-
-	sortTim(GLOB.teleportlocs, GLOBAL_PROC_REF(cmp_text_asc))
 
 /**
   * Called when an area loads
@@ -155,7 +196,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	// rather than waiting for atoms to initialize.
 	if (area_flags & UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
+	GLOB.areas += src
 	power_usage = new /list(AREA_USAGE_LEN) // Some atoms would like to use power in Initialize()
+	alarm_manager = new(src) // just in case
+
 	return ..()
 
 /**
@@ -176,26 +220,24 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!ambientmusic && ambient_music_index)
 		ambientmusic = GLOB.ambient_music_assoc[ambient_music_index]
 
-	if(requires_power)
-		luminosity = 0
-	else
+	if(!requires_power)
 		power_light = TRUE
 		power_equip = TRUE
 		power_environ = TRUE
 
-		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
-			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-			luminosity = 0
-		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
 		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
+	if(dynamic_lighting == DYNAMIC_LIGHTING_DISABLED)
+		set_base_luminosity(src, 1)
 
 	. = ..()
 
 	if(!IS_DYNAMIC_LIGHTING(src))
 		blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-		add_overlay(/obj/effect/fullbright)
+		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+			add_overlay(GLOB.starlight_overlay)
+		else
+			add_overlay(GLOB.fullbright_overlay)
 	else if(lighting_overlay_opacity && lighting_overlay_colour)
 		generate_lighting_overlay()
 	reg_in_areas_in_z()
@@ -212,6 +254,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
 
+/area/vv_edit_var(var_name, var_value)
+	// Reference type, so please don't touch
+	if (var_name == NAMEOF(src, camera_networks))
+		return FALSE
+	return ..()
+
 /**
  * Performs initial setup of the lighting overlays.
  */
@@ -222,14 +270,26 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		//Delete the old lighting overlay object
 		QDEL_NULL(lighting_overlay)
 	//Create the lighting overlay object for this area
+	update_lighting_overlay()
+	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
+	//be luminous
+	set_base_luminosity(src, 1)
+	//Add the lighting overlay
+	add_overlay(lighting_overlay)
+
+/area/proc/update_lighting_overlay()
 	lighting_overlay = new /obj/effect/fullbright
 	lighting_overlay.color = lighting_overlay_colour
 	lighting_overlay.alpha = lighting_overlay_opacity
-	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
-	//be luminous
-	luminosity = 1
-	//Add the lighting overlay
-	add_overlay(lighting_overlay)
+	if(length(lighting_overlay_colour) != 7)
+		return
+	var/r = hex2num(copytext(lighting_overlay_colour, 2, 4))/255
+	var/g = hex2num(copytext(lighting_overlay_colour, 4, 6))/255
+	var/b = hex2num(copytext(lighting_overlay_colour, 6, 8))/255
+	lighting_overlay_matrix_cr = r * (lighting_overlay_opacity/255)
+	lighting_overlay_matrix_cg = g * (lighting_overlay_opacity/255)
+	lighting_overlay_matrix_cb = b * (lighting_overlay_opacity/255)
+	lighting_overlay_cached_darkening_matrix = null // Clear cached list
 
 /area/proc/RunGeneration()
 	if(map_generator)
@@ -240,7 +300,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(additional_genturfs)
 			turfs += additional_genturfs
 			additional_genturfs = null
-		map_generator.generate_terrain(turfs)
+		map_generator.generate_terrain(turfs, src)
 
 /area/proc/test_gen()
 	if(map_generator)
@@ -250,35 +310,43 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(additional_genturfs)
 			turfs += additional_genturfs
 			additional_genturfs = null
-		map_generator.generate_terrain(turfs)
+		map_generator.generate_terrain(turfs, src)
 
+/area/proc/get_contained_turfs()
+	if(length(turfs_to_uncontain))
+		cannonize_contained_turfs()
+	return contained_turfs
+
+/// Ensures that the contained_turfs list properly represents the turfs actually inside us
+/area/proc/cannonize_contained_turfs()
+	// This is massively suboptimal for LARGE removal lists
+	// Try and keep the mass removal as low as you can. We'll do this by ensuring
+	// We only actually add to contained turfs after large changes (Also the management subsystem)
+	// Do your damndest to keep turfs out of /area/space as a stepping stone
+	// That sucker gets HUGE and will make this take actual tens of seconds if you stuff turfs_to_uncontain
+	contained_turfs -= turfs_to_uncontain
+	turfs_to_uncontain = list()
+
+/// Returns TRUE if we have contained turfs, FALSE otherwise
+/area/proc/has_contained_turfs()
+	return length(contained_turfs) - length(turfs_to_uncontain) > 0
 
 /**
   * Register this area as belonging to a z level
   *
   * Ensures the item is added to the SSmapping.areas_in_z list for this z
-  *
-  * It also goes through every item in this areas contents and sets the area level z to it
-  * breaking the exat first time it does this, this seems crazy but what would I know, maybe
-  * areas don't have a valid z themself or something
   */
 /area/proc/reg_in_areas_in_z()
-	if(contents.len)
-		var/list/areas_in_z = SSmapping.areas_in_z
-		var/z
-		update_areasize()
-		for(var/i in 1 to contents.len)
-			var/atom/thing = contents[i]
-			if(!thing)
-				continue
-			z = thing.z
-			break
-		if(!z)
-			WARNING("No z found for [src]")
-			return
-		if(!areas_in_z["[z]"])
-			areas_in_z["[z]"] = list()
-		areas_in_z["[z]"] += src
+	if(!has_contained_turfs())
+		return
+	var/list/areas_in_z = SSmapping.areas_in_z
+	update_areasize()
+	if(!z)
+		WARNING("No z found for [src]")
+		return
+	if(!areas_in_z["[z]"])
+		areas_in_z["[z]"] = list()
+	areas_in_z["[z]"] += src
 
 /**
   * Destroy an area and clean it up
@@ -291,188 +359,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	GLOB.sortedAreas -= src
-	if(fire)
-		STOP_PROCESSING(SSobj, src)
+	//this is not initialized until get_sorted_areas() is called so we have to do a null check
+	if(!isnull(GLOB.sortedAreas))
+		GLOB.sortedAreas -= src
+	//just for sanity sake cause why not
+	if(!isnull(GLOB.areas))
+		GLOB.areas -= src
+	//machinery cleanup
+	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(alarm_manager)
+	firedoors = null
+	//atmos cleanup
+	firealarms = null
+	air_vents = null
+	air_scrubbers = null
+	//turf cleanup
+	contained_turfs = null
+	turfs_to_uncontain = null
+	//parent cleanup
 	return ..()
-
-/**
-  * Generate a power alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
-/area/proc/poweralert(state, obj/source)
-	if (state != poweralm)
-		poweralm = state
-		if(istype(source))	//Only report power alarms on the z-level where the source is located.
-			for (var/item in GLOB.silicon_mobs)
-				var/mob/living/silicon/aiPlayer = item
-				if (state == 1)
-					aiPlayer.cancelAlarm("Power", src, source)
-				else
-					aiPlayer.triggerAlarm("Power", src, cameras, source)
-
-			for (var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				if(state == 1)
-					a.cancelAlarm("Power", src, source)
-				else
-					a.triggerAlarm("Power", src, cameras, source)
-
-			for (var/item in GLOB.drones_list)
-				var/mob/living/simple_animal/drone/D = item
-				if(state == 1)
-					D.cancelAlarm("Power", src, source)
-				else
-					D.triggerAlarm("Power", src, cameras, source)
-			for(var/item in GLOB.alarmdisplay)
-				var/datum/computer_file/program/alarm_monitor/p = item
-				if(state == 1)
-					p.cancelAlarm("Power", src, source)
-				else
-					p.triggerAlarm("Power", src, cameras, source)
-
-/**
-  * Generate an atmospheric alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
-/area/proc/atmosalert(isdangerous, obj/source)
-	if(isdangerous != atmosalm)
-		if(isdangerous==TRUE)
-
-			for (var/item in GLOB.silicon_mobs)
-				var/mob/living/silicon/aiPlayer = item
-				aiPlayer.triggerAlarm("Atmosphere", src, cameras, source)
-			for (var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				a.triggerAlarm("Atmosphere", src, cameras, source)
-			for (var/item in GLOB.drones_list)
-				var/mob/living/simple_animal/drone/D = item
-				D.triggerAlarm("Atmosphere", src, cameras, source)
-			for(var/item in GLOB.alarmdisplay)
-				var/datum/computer_file/program/alarm_monitor/p = item
-				p.triggerAlarm("Atmosphere", src, cameras, source)
-
-		else
-			for (var/item in GLOB.silicon_mobs)
-				var/mob/living/silicon/aiPlayer = item
-				aiPlayer.cancelAlarm("Atmosphere", src, source)
-			for (var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				a.cancelAlarm("Atmosphere", src, source)
-			for (var/item in GLOB.drones_list)
-				var/mob/living/simple_animal/drone/D = item
-				D.cancelAlarm("Atmosphere", src, source)
-			for(var/item in GLOB.alarmdisplay)
-				var/datum/computer_file/program/alarm_monitor/p = item
-				p.cancelAlarm("Atmosphere", src, source)
-
-		atmosalm = isdangerous
-		return TRUE
-	return FALSE
-
-/**
-  * Try to close all the firedoors in the area
-  */
-/area/proc/ModifyFiredoors(opening)
-	if(firedoors)
-		firedoors_last_closed_on = world.time
-		for(var/FD in firedoors)
-			var/obj/machinery/door/firedoor/D = FD
-			var/cont = !D.welded
-			if(cont && opening)	//don't open if adjacent area is on fire
-				for(var/I in D.affecting_areas)
-					var/area/A = I
-					if(A.fire)
-						cont = FALSE
-						break
-			if(cont && D.is_operational)
-				if(D.operating)
-					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
-				else if(!(D.density ^ opening))
-					INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/, close)))
-
-/**
-  * Generate an firealarm alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  *
-  * Also starts the area processing on SSobj
-  */
-/area/proc/firealert(obj/source)
-	if(always_unpowered == 1) //no fire alarms in space/asteroid
-		return
-
-	if (!fire)
-		set_fire_alarm_effect()
-		ModifyFiredoors(FALSE)
-		START_PROCESSING(SSobj, src)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-
-	for (var/item in GLOB.alert_consoles)
-		var/obj/machinery/computer/station_alert/a = item
-		a.triggerAlarm("Fire", src, cameras, source)
-	for (var/item in GLOB.silicon_mobs)
-		var/mob/living/silicon/aiPlayer = item
-		aiPlayer.triggerAlarm("Fire", src, cameras, source)
-	for (var/item in GLOB.drones_list)
-		var/mob/living/simple_animal/drone/D = item
-		D.triggerAlarm("Fire", src, cameras, source)
-	for(var/item in GLOB.alarmdisplay)
-		var/datum/computer_file/program/alarm_monitor/p = item
-		p.triggerAlarm("Fire", src, cameras, source)
-
-/**
-  * Reset the firealarm alert for this area
-  *
-  * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
-  * in the world
-  *
-  * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
-  */
-/area/proc/firereset(obj/source)
-	if (fire)
-		unset_fire_alarm_effects()
-		ModifyFiredoors(TRUE)
-		STOP_PROCESSING(SSobj, src)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-
-	for (var/item in GLOB.silicon_mobs)
-		var/mob/living/silicon/aiPlayer = item
-		aiPlayer.cancelAlarm("Fire", src, source)
-	for (var/item in GLOB.alert_consoles)
-		var/obj/machinery/computer/station_alert/a = item
-		a.cancelAlarm("Fire", src, source)
-	for (var/item in GLOB.drones_list)
-		var/mob/living/simple_animal/drone/D = item
-		D.cancelAlarm("Fire", src, source)
-	for(var/item in GLOB.alarmdisplay)
-		var/datum/computer_file/program/alarm_monitor/p = item
-		p.cancelAlarm("Fire", src, source)
-
-///Get rid of any dangling camera refs
-/area/proc/clear_camera(obj/machinery/camera/cam)
-	LAZYREMOVE(cameras, cam)
-	for (var/mob/living/silicon/aiPlayer as anything in GLOB.silicon_mobs)
-		aiPlayer.freeCamera(src, cam)
-	for (var/obj/machinery/computer/station_alert/comp as anything in GLOB.alert_consoles)
-		comp.freeCamera(src, cam)
-	for (var/mob/living/simple_animal/drone/drone_on as anything in GLOB.drones_list)
-		drone_on.freeCamera(src, cam)
-	for(var/datum/computer_file/program/alarm_monitor/monitor as anything in GLOB.alarmdisplay)
-		monitor.freeCamera(src, cam)
-
-/**
-  * If 100 ticks has elapsed, toggle all the firedoors closed again
-  */
-/area/process()
-	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
-		ModifyFiredoors(FALSE)
 
 /**
   * Close and lock a door passed into this proc
@@ -495,94 +400,58 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/burglaralert(obj/trigger)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
-
 	//Trigger alarm effect
-	set_fire_alarm_effect()
-	//Lockdown airlocks
-	for(var/obj/machinery/door/DOOR in src)
-		close_and_lock_door(DOOR)
-
-	for (var/i in GLOB.silicon_mobs)
-		var/mob/living/silicon/SILICON = i
-		if(SILICON.triggerAlarm("Burglar", src, cameras, trigger))
-			//Cancel silicon alert after 1 minute
-			addtimer(CALLBACK(SILICON, TYPE_PROC_REF(/mob/living/silicon, cancelAlarm),"Burglar",src,trigger), 600)
+	set_fire_effect(TRUE)
+	for(var/obj/machinery/door/door in src)
+		close_and_lock_door(door)
 
 /**
-  * Trigger the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
-/area/proc/set_fire_alarm_effect()
-	fire = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
-	for(var/obj/machinery/light/L in src)
-		L.update()
+ * Set the fire alarm visual affects in an area
+ *
+ * Allows interested parties (lights and fire alarms) to react
+ */
+/area/proc/set_fire_effect(new_fire, fault_type, fault_source)
+	if(new_fire == fire)
+		return
+	fire = new_fire
+	fault_status = fault_type
+	if(fire)
+		fault_location = fault_source
+	else
+		fault_location = null
+	SEND_SIGNAL(src, COMSIG_AREA_FIRE_CHANGED, fire)
 
-/**
-  * unset the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
-/area/proc/unset_fire_alarm_effects()
-	fire = FALSE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
-	for(var/obj/machinery/light/L in src)
-		L.update()
-
-/area/proc/set_vacuum_alarm_effect() //Just like fire alarm but blue
+/area/proc/set_pressure_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, TRUE)
 
-/area/proc/unset_vacuum_alarm_effect()
+/area/proc/unset_pressure_alarm_effect()
 	vacuum = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, TRUE)
 
 /**
-  * Update the icon state of the area
-  *
-  * Im not sure what the heck this does, somethign to do with weather being able to set icon
-  * states on areas?? where the heck would that even display?
-  */
-/area/update_icon_state()
-	var/weather_icon
-	for(var/V in SSweather.processing)
-		var/datum/weather/W = V
-		if(W.stage != END_STAGE && (src in W.impacted_areas))
-			W.update_areas()
-			weather_icon = TRUE
-	if(!weather_icon)
-		icon_state = null
-	return ..()
-/**
-  * Update the icon of the area (overridden to always be null for space
-  */
+ * Update the icon of the area (overridden to always be null for space
+ */
 /area/space/update_icon_state()
+	SHOULD_CALL_PARENT(FALSE)
 	icon_state = null
-	return ..()
 
 /**
-  * Returns int 1 or 0 if the area has power for the given channel
-  *
-  * evalutes a mixture of variables mappers can set, requires_power, always_unpowered and then
-  * per channel power_equip, power_light, power_environ
-  */
-/area/proc/powered(chan)		// return true if the area has power to given channel
+ * Returns int 1 or 0 if the area has power for the given channel
+ *
+ * evalutes a mixture of variables mappers can set, requires_power, always_unpowered and then
+ * per channel power_equip, power_light, power_environ
+ */
+/area/proc/powered(chan) // return true if the area has power to given channel
 
 	if(!requires_power)
-		return 1
+		return TRUE
 	if(always_unpowered)
-		return 0
+		return FALSE
 	switch(chan)
 		if(AREA_USAGE_EQUIP)
 			return power_equip
@@ -591,13 +460,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(AREA_USAGE_ENVIRON)
 			return power_environ
 
-	return 0
+	return FALSE
 
 /**
-  * Space is not powered ever, so this returns 0
-  */
+ * Space is not powered ever, so this returns false
+ */
 /area/space/powered(chan) //Nope.avi
-	return 0
+	return FALSE
 
 /**
   * Called when the area power status changes
@@ -605,11 +474,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
   */
 /area/proc/power_change()
-	for(var/obj/machinery/M in src)	// for each machine in the area
-		M.power_change()				// reverify power status (to update icons etc.)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
-	update_icon()
-
+	update_appearance()
 
 /**
   * Add a static amount of power load to an area
@@ -625,13 +491,27 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			power_usage[powerchannel] += value
 
 /**
-  * Clear all power usage in area
+ * Remove a static amount of power load to an area
+ *
+ * Possible channels
+ * *AREA_USAGE_STATIC_EQUIP
+ * *AREA_USAGE_STATIC_LIGHT
+ * *AREA_USAGE_STATIC_ENVIRON
+ */
+/area/proc/removeStaticPower(value, powerchannel)
+	switch(powerchannel)
+		if(AREA_USAGE_STATIC_START to AREA_USAGE_STATIC_END)
+			power_usage[powerchannel] -= value
+
+/**
+ * Clear all non-static power usage in area
   *
-  * Clears all power used for equipment, light and environment channels
+	* Clears all power used for the dynamic equipment, light and environment channels
   */
 /area/proc/clear_usage()
-	for(var/i in AREA_USAGE_DYNAMIC_START to AREA_USAGE_DYNAMIC_END)
-		power_usage[i] = 0
+	power_usage[AREA_USAGE_EQUIP] = 0
+	power_usage[AREA_USAGE_LIGHT] = 0
+	power_usage[AREA_USAGE_ENVIRON] = 0
 
 /**
   * Add a power value amount to the stored used_x variables
@@ -663,51 +543,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
 
 /**
-  * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
-  * In other words, it returns whether the atom can be *on* the turf (i.e. not forced to float)
-  *
-  * Sends signals COMSIG_ATOM_HAS_GRAVITY and COMSIG_TURF_HAS_GRAVITY, both can force gravity with
-  * the forced gravity var
-  *
-  * Gravity situations:
-  * * No gravity if you're not in a turf
-  * * No gravity if this atom is in is a space turf
-  * * Gravity if the area it's in always has gravity
-  * * Gravity if there's a gravity generator on the z level
-  * * Gravity if the Z level has an SSMappingTrait for ZTRAIT_GRAVITY
-  * * otherwise no gravity
-  */
-/atom/proc/has_gravity(turf/T)
-	if(!T || !isturf(T))
-		T = get_turf(src)
-
-	if(!T)
-		return FALSE
-
-	var/list/forced_gravity = list()
-	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, T, forced_gravity)
-	if(!length(forced_gravity))
-		SEND_SIGNAL(T, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
-	if(length(forced_gravity))
-		var/max_grav
-		for(var/i in forced_gravity)
-			max_grav = max(max_grav, i)
-		return max_grav
-
-	if(!T.check_gravity()) // Turf never has gravity
-		return FALSE
-	var/area/A = get_area(T)
-	if(A.has_gravity) // Areas which always has gravity
-		return TRUE
-	else if(SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
-		return TRUE
-	else if(GLOB.gravity_generators["[T.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
-		var/max_grav = 0
-		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-			max_grav = max(G.setting,max_grav)
-		return max_grav
-	return FALSE
-/**
   * Setup an area (with the given name)
   *
   * Sets the area name, sets all status var's to false and adds the area to the sorted area list
@@ -720,7 +555,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	always_unpowered = FALSE
 	area_flags &= ~VALID_TERRITORY
 	area_flags &= ~BLOBS_ALLOWED
-	addSorted()
+	require_area_resort()
 /**
   * Set the area size of the area
   *
@@ -731,7 +566,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(outdoors)
 		return FALSE
 	areasize = 0
-	for(var/turf/open/T in contents)
+	for(var/turf/open/T in get_contained_turfs())
 		areasize++
 
 /**
@@ -770,3 +605,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
+
+/area/proc/get_area_textures()
+	return list()
+
+/// returns a name of the area. some subtype area needs to return different value.
+/area/proc/get_navigation_area_name()
+	return navigation_area_name || name

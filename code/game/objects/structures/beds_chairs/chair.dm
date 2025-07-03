@@ -4,61 +4,48 @@
 	icon = 'icons/obj/beds_chairs/chairs.dmi'
 	icon_state = "chair"
 	anchored = TRUE
-	can_buckle = 1
+	can_buckle = TRUE
 	buckle_lying = 0 //you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
-	integrity_failure = 25
+	integrity_failure = 0.1
+	custom_materials = list(/datum/material/iron = 2000)
 	move_resist = MOVE_FORCE_WEAK
+	layer = OBJ_LAYER
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
-	layer = OBJ_LAYER
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 	var/colorable = FALSE
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+	. += span_notice("It's held together by a couple of <b>bolts</b>.")
 	if(!has_buckled_mobs())
-		. += "<span class='notice'>Drag your sprite to sit in it.</span>"
+		. += span_notice("Drag your sprite to sit in it.")
 
 /obj/structure/chair/Initialize(mapload)
 	. = ..()
-	if(!anchored)	//why would you put these on the shuttle?
-		addtimer(CALLBACK(src, PROC_REF(RemoveFromLatejoin)), 0)
+	MakeRotate()
 
-/obj/structure/chair/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)),CALLBACK(src, PROC_REF(can_be_rotated)),null)
-
-/obj/structure/chair/proc/can_be_rotated(mob/user)
-	return TRUE
-
-/obj/structure/chair/proc/can_user_rotate(mob/user)
-	var/mob/living/L = user
-
-	if(istype(L))
-		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-			return FALSE
-		else
-			return TRUE
-	else if(isobserver(user) && CONFIG_GET(flag/ghost_interaction))
-		return TRUE
-	return FALSE
+///This proc adds the rotate component, overwrite this if you for some reason want to change some specific args.
+/obj/structure/chair/proc/MakeRotate()
+	AddComponent(/datum/component/simple_rotation, ROTATION_IGNORE_ANCHORED|ROTATION_GHOSTS_ALLOWED)
 
 /obj/structure/chair/Destroy()
-	RemoveFromLatejoin()
+	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
 	return ..()
 
-/obj/structure/chair/proc/RemoveFromLatejoin()
-	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
-
-/obj/structure/chair/deconstruct()
+/obj/structure/chair/deconstruct(disassembled)
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags_1 & NODECONSTRUCT_1)))
-		new buildstacktype(loc,buildstackamount)
+	if(!(flags_1 & NODECONSTRUCT_1))
+		if(buildstacktype)
+			new buildstacktype(loc,buildstackamount)
+		else
+			for(var/i in custom_materials)
+				var/datum/material/M = i
+				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
 	..()
 
 /obj/structure/chair/attack_paw(mob/user)
@@ -74,13 +61,11 @@
 	B.setDir(dir)
 	qdel(src)
 
+/obj/structure/chair/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1))
-		to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
-		if(W.use_tool(src, user, 30, volume=50))
-			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			deconstruct(TRUE, 1)
-	else if(istype(W, /obj/item/assembly/shock_kit))
+	if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
 			return
 		var/obj/item/assembly/shock_kit/SK = W
@@ -94,11 +79,19 @@
 	else
 		return ..()
 
+/obj/structure/chair/wrench_act_secondary(mob/living/user, obj/item/weapon)
+	if(flags_1&NODECONSTRUCT_1)
+		return TRUE
+	..()
+	weapon.play_tool_sound(src)
+	deconstruct(disassembled = TRUE)
+	return TRUE
+
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
-		..()
-	else
-		setDir(turn(dir,-90))
+		return ..()
+	setDir(turn(dir,-90))
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
@@ -147,6 +140,12 @@
 
 /obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
 	M.pixel_y -= 5
+
+///Material chair
+/obj/structure/chair/greyscale
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	item_chair = /obj/item/chair/greyscale
+	buildstacktype = null //Custom mats handle this
 
 /obj/structure/chair/wood
 	icon_state = "wooden_chair"
@@ -249,6 +248,7 @@
 	anchored = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
+	custom_materials = list(/datum/material/plastic = 2000)
 	buildstacktype = /obj/item/stack/sheet/plastic
 	buildstackamount = 1
 	item_chair = /obj/item/chair/plastic
@@ -266,9 +266,9 @@
 
 /obj/structure/chair/fancy/plastic/proc/snap_check(mob/living/M)
 	if (M.nutrition >= NUTRITION_LEVEL_FAT) //you are so fat
-		to_chat(M, "<span class='warning'>The chair begins to pop and crack, you're too heavy!</span>")
+		to_chat(M, span_warning("The chair begins to pop and crack, you're too heavy!"))
 		if(do_after(M, 6 SECONDS, progress = FALSE))
-			M.visible_message("<span class='notice'>The plastic chair snaps under [M]'s weight!</span>")
+			M.visible_message(span_notice("The plastic chair snaps under [M]'s weight!"))
 			qdel(src)
 
 /obj/structure/chair/fancy/brass
@@ -309,12 +309,12 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(!(datum_flags & DF_ISPROCESSING))
-		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
-		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")
+		user.visible_message(span_notice("[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER."), \
+		span_notice("Automated spinny chairs. The pinnacle of Ratvarian technology."))
 		START_PROCESSING(SSfastprocess, src)
 	else
-		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
-		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
+		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
+		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
 
 /obj/structure/chair/fancy/brass/bronze
@@ -338,6 +338,14 @@
 	buildstackamount = 5
 	item_chair = null
 	icon_state = "officechair_dark"
+
+/obj/structure/chair/office/relaymove(mob/user, direction)
+	if(!direction)
+		return FALSE
+	if(direction == dir)
+		return
+	setDir(direction)
+	return FALSE
 
 /obj/structure/chair/office/Moved()
 	. = ..()
@@ -374,27 +382,35 @@
 	buildstackamount = 1
 	item_chair = /obj/item/chair/stool
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
+
 /obj/structure/chair/stool/narsie_act()
 	return
 
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || !usr.can_hold_items() || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
+		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
 			return
-		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+		if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 			return
-		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
-		var/C = new item_chair(loc)
+		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
+		var/obj/item/C = new item_chair(loc)
+		C.set_custom_materials(custom_materials)
 		TransferComponents(C)
 		usr.put_in_hands(C)
 		qdel(src)
+
+/obj/structure/chair/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+	return ..()
 
 /obj/structure/chair/stool/bar
 	name = "bar stool"
 	desc = "The apex of the bar experience."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool/bar, 0)
 
 /obj/structure/chair/stool/bamboo
 	name = "bamboo stool"

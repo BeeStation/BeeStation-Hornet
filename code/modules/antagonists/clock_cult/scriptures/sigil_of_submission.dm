@@ -32,7 +32,7 @@
 
 /obj/structure/destructible/clockwork/sigil/submission/apply_effects(mob/living/M)
 	if(!..())
-		M.visible_message("<span class='warning'>[M] resists conversion!</span>")
+		M.visible_message(span_warning("[M] resists conversion!"))
 		return FALSE
 	M.Paralyze(50)
 	if(M.client)

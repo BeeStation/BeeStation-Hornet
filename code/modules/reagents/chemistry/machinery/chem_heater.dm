@@ -3,12 +3,11 @@
 	density = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
+	base_icon_state = "mixer"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_heater
-
-
 
 	var/obj/item/reagent_containers/beaker = null
 	var/target_temperature = 300
@@ -23,32 +22,37 @@
 	. = ..()
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_appearance()
 
-/obj/machinery/chem_heater/update_icon()
-	if(beaker)
-		icon_state = "mixer1b"
-	else
-		icon_state = "mixer0b"
+/obj/machinery/chem_heater/update_icon_state()
+	icon_state = "[base_icon_state][beaker ? 1 : 0]b"
+	return ..()
 
-/obj/machinery/chem_heater/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+/obj/machinery/chem_heater/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(!can_interact(user) || !user.canUseTopic(src, !issilicon(user), FALSE, NO_TK))
 		return
 	replace_beaker(user)
 	ui_update()
-	return
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/chem_heater/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
+
+/obj/machinery/chem_heater/attack_ai_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /obj/machinery/chem_heater/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
+	if(!user)
+		return FALSE
 	if(beaker)
-		beaker.forceMove(drop_location())
-		if(user && Adjacent(user) && !issiliconoradminghost(user))
-			user.put_in_hands(beaker)
+		try_put_in_hand(beaker, user)
+		beaker = null
 	if(new_beaker)
 		beaker = new_beaker
-	else
-		beaker = null
-		on = FALSE
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/chem_heater/RefreshParts()
@@ -59,7 +63,7 @@
 /obj/machinery/chem_heater/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Heating reagents at <b>[heater_coefficient*1000]%</b> speed.</span>"
+		. += span_notice("The status display reads: Heating reagents at <b>[heater_coefficient*1000]%</b> speed.")
 
 /obj/machinery/chem_heater/process(delta_time)
 	..()
@@ -84,9 +88,9 @@
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
-		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
+		to_chat(user, span_notice("You add [B] to [src]."))
 		ui_update()
-		update_icon()
+		update_appearance()
 		return
 	return ..()
 

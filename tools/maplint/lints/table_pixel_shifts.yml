@@ -1,0 +1,4 @@
+/obj/structure/table:
+  banned_variables:
+  - pixel_x
+  - pixel_y

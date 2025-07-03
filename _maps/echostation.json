@@ -1,0 +1,32 @@
+{
+	"map_name": "Echo Station",
+	"map_link": "echostation",
+	"map_path": "map_files/EchoStation",
+	"map_file": "EchoStation.dmm",
+	"planetary_station": "true",
+	"planet_name": "5513-E",
+	"planet_radius": "100",
+	"shuttles": {
+		"cargo": "cargo_tiny",
+		"ferry": "ferry_standard",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_tiny"
+	},
+
+	"traits": [{"Up" : true, "Baseturf" : "/turf/open/floor/plating/asteroid", "Linkage" : "Cross", "Gravity": true},
+		{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true},
+		{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true},
+		{"Down" : true, "Baseturf" : "/turf/open/floor/plating/asteroid", "Linkage" : "Cross", "Gravity": true}],
+
+	"starlight": "cycle",
+	"starlight_colours": [
+		"#040412",
+		"#25507a",
+		"#E2E9FF",
+		"#FFF7EF",
+		"#FFD5B3",
+		"#FFAA5F",
+		"#968857",
+		"#110c1c"
+		]
+	}

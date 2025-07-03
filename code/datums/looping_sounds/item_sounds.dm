@@ -13,7 +13,7 @@
 	volume = 25
 	var/last_radiation
 
-/datum/looping_sound/geiger/get_sound(starttime)
+/datum/looping_sound/geiger/get_sound()
 	var/danger
 	switch(last_radiation)
 		if(RAD_BACKGROUND_RADIATION to RAD_GEIGER_LOW)
@@ -26,7 +26,7 @@
 			danger = 4
 		else
 			return null
-	return ..(starttime, mid_sounds[danger])
+	return ..(mid_sounds[danger])
 
 /datum/looping_sound/geiger/stop()
 	. = ..()
@@ -45,4 +45,14 @@
 /datum/looping_sound/reverse_bear_trap_beep
 	mid_sounds = list('sound/machines/beep.ogg')
 	mid_length = 60
+	volume = 10
+
+/datum/looping_sound/siren
+	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
+	mid_length = 15
+	volume = 20
+
+/datum/looping_sound/tape_recorder_hiss
+	mid_sounds = list('sound/items/taperecorder/taperecorder_hiss_mid.ogg')
+	start_sound = list('sound/items/taperecorder/taperecorder_hiss_start.ogg')
 	volume = 10

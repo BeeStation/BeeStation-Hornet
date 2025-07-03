@@ -17,11 +17,14 @@
 	var/export_price = 0					//Cargo export price.
 	var/list/research_costs = list()					//Point cost to research. type = amount
 	var/category = "Misc"				//Category
+	/// Whether or not this node should show on the wiki
+	var/show_on_wiki = TRUE
 
 /datum/techweb_node/error_node
 	id = "ERROR"
 	display_name = "ERROR"
 	description = "This usually means something in the database has corrupted. If it doesn't go away automatically, inform Central Command for their techs to fix it ASAP(tm)"
+	show_on_wiki = FALSE
 
 /datum/techweb_node/proc/Initialize()
 	//Make lists associative for lookup
@@ -42,9 +45,9 @@
 	VARSET_TO_LIST(., display_name)
 	VARSET_TO_LIST(., hidden)
 	VARSET_TO_LIST(., starting_node)
-	VARSET_TO_LIST(., assoc_list_strip_value(prereq_ids))
-	VARSET_TO_LIST(., assoc_list_strip_value(design_ids))
-	VARSET_TO_LIST(., assoc_list_strip_value(unlock_ids))
+	VARSET_TO_LIST(., assoc_to_keys(prereq_ids))
+	VARSET_TO_LIST(., assoc_to_keys(design_ids))
+	VARSET_TO_LIST(., assoc_to_keys(unlock_ids))
 	VARSET_TO_LIST(., boost_item_paths)
 	VARSET_TO_LIST(., autounlock_by_boost)
 	VARSET_TO_LIST(., export_price)
@@ -113,4 +116,4 @@
 	return techweb_point_display_generic(get_price(TN))
 
 /datum/techweb_node/proc/on_research() //new proc, not currently in file
-    return
+	return

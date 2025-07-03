@@ -5,6 +5,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throwforce = 0
@@ -14,14 +15,14 @@
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user.name] activates the [src]!</span>", "<span class='notice'>You activate the [src]!</span>")
+	user.visible_message(span_notice("[user.name] activates the [src]!"), span_notice("You activate the [src]!"))
 	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf || is_centcom_level(device_turf.z) || is_reserved_level(device_turf.z))
-		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
+		to_chat(user, span_notice("You're having difficulties getting the [src.name] to work."))
 		return FALSE
 	return TRUE
 
@@ -41,7 +42,7 @@
 
 	var/list/L = get_destinations(user)
 	if(!L.len)
-		to_chat(user, "<span class='notice'>The [src.name] found no beacons in the world to anchor a wormhole to.</span>")
+		to_chat(user, span_notice("The [src.name] found no beacons in the world to anchor a wormhole to."))
 		return
 	var/chosen_beacon = pick(L)
 	var/obj/effect/portal/jaunt_tunnel/J = new (get_turf(src), src, 100, null, FALSE, get_turf(chosen_beacon))
@@ -49,7 +50,7 @@
 		try_move_adjacent(J)
 	else
 		user.Paralyze(2 SECONDS, TRUE, TRUE) //Ignore stun immunity here, for their own good
-		user.setMovetype(user.movement_type | FLOATING) //Prevents falling into chasm during delay, automatically removed upon movement
+		ADD_TRAIT(user, TRAIT_MOVE_FLOATING, "jaunter") //Prevents falling into chasm during delay, automatically removed upon movement
 		addtimer(CALLBACK(J, TYPE_PROC_REF(/atom, attackby), null, user), 1 SECONDS) //Forcibly teleport them away from the chasm after a brief dramatic delay
 	playsound(src,'sound/effects/sparks4.ogg',50,1)
 	qdel(src)
@@ -69,18 +70,18 @@
 				triggered = TRUE
 
 		if(triggered)
-			M.visible_message("<span class='warning'>[src] overloads and activates!</span>")
+			M.visible_message(span_warning("[src] overloads and activates!"))
 			SSblackbox.record_feedback("tally", "jaunter", 1, "EMP") // EMP accidental activation
 			activate(M)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
 	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
-		user.visible_message("<span class='notice'>[user] is saved by their [src]!</span>", "<span class='warning'>Your [src] activates, saving you from the chasm!</span>")
+		user.visible_message(span_notice("[user] is saved by their [src]!"), span_warning("Your [src] activates, saving you from the chasm!"))
 		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
 		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/chasmjaunt, user)
 		activate(user, FALSE)
 	else
-		to_chat(user, "[src] is not attached to your belt, preventing it from saving you from the chasm. RIP.</span>")
+		to_chat(user, span_danger("[src] is not attached to your belt, preventing it from saving you from the chasm. RIP."))
 
 //jaunter tunnel
 /obj/effect/portal/jaunt_tunnel

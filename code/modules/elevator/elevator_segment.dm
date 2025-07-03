@@ -1,7 +1,7 @@
 /obj/structure/elevator_segment
 	icon = 'icons/obj/elevator.dmi'
 	icon_state = "elevator_maker"
-	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_OUT_DOWN | Z_BLOCK_IN_UP
 	//Helps us group elevator components
 	var/id
 	///What turf we'll throw under us when we kill daddy. If not set, we just use dad
@@ -14,7 +14,12 @@
 //Mapping preset - Primary Elevator
 /obj/structure/elevator_segment/primary
 	id = "primary"
-	base_turf = /turf/open/floor/plasteel/elevatorshaft
+	base_turf = /turf/open/floor/plating/elevatorshaft
+
+// Glowstation
+/obj/structure/elevator_segment/secure
+	id = "secure"
+	base_turf = /turf/open/floor/plating/elevatorshaft
 
 /obj/structure/elevator_segment/Initialize(mapload)
 	music_files = list('sound/effects/turbolift/elevatormusic.ogg' = 45, 'sound/effects/turbolift/elevator_loop.ogg' = 25)

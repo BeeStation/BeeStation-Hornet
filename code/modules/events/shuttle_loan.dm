@@ -100,7 +100,7 @@
 		for(var/place in shuttle_areas)
 			var/area/shuttle/shuttle_area = place
 			for(var/turf/open/floor/T in shuttle_area)
-				if(is_blocked_turf(T))
+				if(T.is_blocked_turf())
 					continue
 				empty_shuttle_turfs += T
 		if(!empty_shuttle_turfs.len)
@@ -156,7 +156,7 @@
 				var/turf/T
 				for(var/i in 1 to 10)
 					if(prob(15))
-						shuttle_spawns.Add(/obj/item/reagent_containers/glass/bottle)
+						shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle)
 					else if(prob(15))
 						shuttle_spawns.Add(/obj/item/reagent_containers/syringe)
 					else if(prob(25))
@@ -164,8 +164,8 @@
 					T = pick_n_take(empty_shuttle_turfs)
 					new infected_assistant(T)
 				shuttle_spawns.Add(/obj/structure/closet/crate)
-				shuttle_spawns.Add(/obj/item/reagent_containers/glass/bottle/pierrot_throat)
-				shuttle_spawns.Add(/obj/item/reagent_containers/glass/bottle/magnitis)
+				shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle/pierrot_throat)
+				shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle/magnitis)
 
 			if(DEPARTMENT_RESUPPLY)
 				var/list/crate_types = list(
@@ -245,21 +245,21 @@
 
 /obj/item/paper/fluff/bee_objectives
 	name = "Objectives of a Bee Liberation Front Operative"
-	info = "<b>Objective #1</b>. Liberate all bees on the NT transport vessel 2416/B. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
+	default_raw_text = "<b>Objective #1</b>. Liberate all bees on the NT transport vessel 2416/B. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
 
 /obj/machinery/syndicatebomb/shuttle_loan/Initialize(mapload)
 	. = ..()
-	setAnchored(TRUE)
+	set_anchored(TRUE)
 	timer_set = rand(480, 600) //once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb
 	activate()
 	update_icon()
 
 /obj/item/paper/fluff/cargo/bomb
 	name = "hastly scribbled note"
-	info = "GOOD LUCK!"
+	default_raw_text = "GOOD LUCK!"
 
 /obj/item/paper/fluff/cargo/bomb/allyourbase
-	info = "Somebody set us up the bomb!"
+	default_raw_text = "Somebody set us up the bomb!"
 
 #undef HIJACK_SYNDIE
 #undef RUSKY_PARTY

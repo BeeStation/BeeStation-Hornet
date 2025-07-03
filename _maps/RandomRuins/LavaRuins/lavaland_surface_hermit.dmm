@@ -32,7 +32,7 @@
 	},
 /area/ruin/powered)
 "i" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
@@ -54,7 +54,7 @@
 /obj/item/seeds/reishi,
 /obj/item/seeds/plump,
 /obj/item/seeds/plump,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom,
+/obj/item/food/grown/mushroom/glowshroom,
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "n" = (
@@ -116,7 +116,7 @@
 /area/ruin/powered)
 "A" = (
 /obj/structure/table,
-/obj/item/kitchen/knife/combat/survival,
+/obj/item/knife/combat/survival,
 /turf/open/floor/plating,
 /area/ruin/powered)
 "B" = (

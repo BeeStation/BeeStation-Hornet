@@ -9,6 +9,8 @@
 	var/list/gibamounts = list() //amount to spawn for each gib decal type we'll spawn.
 	var/list/gibdirections = list() //of lists of possible directions to spread each gib decal type towards.
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
+
 /obj/effect/gibspawner/Initialize(mapload, mob/living/source_mob, list/datum/disease/diseases)
 	. = ..()
 
@@ -79,7 +81,7 @@
 	gibtypes = list(/obj/effect/decal/cleanable/blood/splatter, /obj/effect/decal/cleanable/blood/drip, /obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/gibspawner/generic/animal
-	gib_mob_type = /mob/living/simple_animal/pet
+	gib_mob_type = /mob/living/basic/pet
 
 
 

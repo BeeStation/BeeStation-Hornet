@@ -13,19 +13,25 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -31
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "d" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "e" = (
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/obj/item/gps/security,
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "i" = (
@@ -33,37 +39,47 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "j" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	req_access_txt = "1";
+	pixel_x = -25
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/light{
+	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/window/reinforced,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "k" = (
 /obj/machinery/mineral/stacking_machine/laborstacker{
 	input_dir = 2;
 	output_dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"l" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/door/window/southleft{
+	name = "Gulag";
+	req_one_access_txt = "63;42;38"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "u" = (
 /obj/machinery/door/airlock/titanium{
@@ -79,11 +95,9 @@
 	port_direction = 4;
 	width = 9
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
@@ -100,13 +114,10 @@
 /area/shuttle/labor)
 "y" = (
 /obj/structure/shuttle/engine/propulsion,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
 "B" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -114,29 +125,19 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "D" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "F" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "J" = (
 /obj/machinery/flasher{
@@ -146,11 +147,8 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "L" = (
 /obj/machinery/mineral/stacking_unit_console{
@@ -158,65 +156,25 @@
 	pixel_x = 30;
 	pixel_y = 30
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "M" = (
 /obj/structure/closet/crate,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/labor)
-"O" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "R" = (
 /obj/machinery/mineral/labor_claim_console{
 	machinedir = 1;
 	pixel_x = 30
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"T" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/labor)
-"U" = (
-/obj/machinery/light{
+/obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"Y" = (
-/obj/machinery/button/flasher{
-	id = "gulagshuttleflasher";
-	name = "Flash Control";
-	pixel_y = -26;
-	req_access_txt = "1"
-	},
-/obj/machinery/light,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 
 (1,1,1) = {"
@@ -244,10 +202,10 @@ y
 (3,1,1) = {"
 b
 d
-Y
-a
-U
-O
+B
+l
+D
+D
 D
 w
 y
@@ -259,7 +217,7 @@ L
 k
 R
 J
-T
+D
 w
 y
 "}

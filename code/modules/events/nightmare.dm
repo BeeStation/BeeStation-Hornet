@@ -12,15 +12,6 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/nightmare/spawn_role()
-	var/list/candidates = get_candidates(ROLE_NIGHTMARE, null, ROLE_NIGHTMARE)
-	if(!candidates.len)
-		return NOT_ENOUGH_PLAYERS
-
-	var/mob/dead/selected = pick(candidates)
-
-	var/datum/mind/player_mind = new /datum/mind(selected.key)
-	player_mind.active = TRUE
-
 	var/list/spawn_locs = list()
 	for(var/X in GLOB.xeno_spawn)
 		var/turf/T = X
@@ -29,17 +20,31 @@
 			spawn_locs += T
 
 	if(!spawn_locs.len)
-		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 
-	var/mob/living/carbon/human/S = new ((pick(spawn_locs)))
-	player_mind.transfer_to(S)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/midround_ghost/nightmare,
+		check_jobban = ROLE_NIGHTMARE,
+		poll_time = 30 SECONDS,
+		role_name_text = "nightmare",
+		alert_pic = /obj/item/light_eater,
+	)
+	if(!candidate)
+		return NOT_ENOUGH_PLAYERS
+
+	var/mob/living/carbon/human/nightmare = new(pick(spawn_locs))
+	nightmare.set_species(/datum/species/shadow/nightmare)
+
+	var/datum/mind/player_mind = new /datum/mind(candidate.key)
+	player_mind.active = TRUE
 	player_mind.assigned_role = ROLE_NIGHTMARE
 	player_mind.special_role = ROLE_NIGHTMARE
+	player_mind.transfer_to(nightmare)
 	player_mind.add_antag_datum(/datum/antagonist/nightmare)
-	S.set_species(/datum/species/shadow/nightmare)
-	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
-	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Nightmare by an event.")
-	log_game("[key_name(S)] was spawned as a Nightmare by an event.")
-	spawned_mobs += S
+
+	playsound(nightmare, 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
+	message_admins("[ADMIN_LOOKUPFLW(nightmare)] has been made into a Nightmare by an event.")
+	log_game("[key_name(nightmare)] was spawned as a Nightmare by an event.")
+	spawned_mobs += nightmare
+
 	return SUCCESSFUL_SPAWN

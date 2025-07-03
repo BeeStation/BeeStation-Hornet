@@ -25,17 +25,6 @@
 #define APPRENTICE_HEALING "healing"
 #define APPRENTICE_WILDMAGIC "wildmagic"
 
-
-//Blob
-#define BLOB_REROLL_TIME 2400 //blob gets a free reroll every X time
-#define BLOB_SPREAD_COST 4
-#define BLOB_ATTACK_REFUND 2 //blob refunds this much if it attacks and doesn't spread
-#define BLOB_REFLECTOR_COST 15
-#define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
-
-//Overthrow time to update heads obj
-#define OBJECTIVE_UPDATING_TIME 300
-
 //gang dominators
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3
@@ -75,15 +64,44 @@
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+/// Checks if the given mob is either a heretic or a heretic monster.
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
-#define PATH_SIDE "Side"
+/// Define for the heretic faction applied to heretics and heretic mobs.
 
-#define PATH_ASH "Ash"
-#define PATH_RUST "Rust"
-#define PATH_FLESH "Flesh"
+#define FACTION_SYNDICATE "Syndicate"
+#define FACTION_BLOB "Blob"
+#define FACTION_ALIEN "Xenomorph"
+#define FACTION_WIZARD "Wizard"
 
-/// How much does it cost to reroll strains?
-#define BLOB_REROLL_COST 40
+// Heretic path defines.
+#define HERETIC_PATH_START "Heretic Start Path"
+#define HERETIC_PATH_SIDE "Heretic Side Path"
+#define HERETIC_PATH_ASH "Heretic Ash Path"
+#define HERETIC_PATH_RUST "Heretic Rust Path"
+#define HERETIC_PATH_FLESH "Heretic Flesh Path"
+#define HERETIC_PATH_VOID "Heretic Void Path"
+
+/// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
+#define HERETIC_NO_HEART_ORGAN -1
+#define HERETIC_NO_LIVING_HEART 0
+#define HERETIC_HAS_LIVING_HEART 1
+
+/// A define used in ritual priority for heretics.
+#define MAX_KNOWLEDGE_PRIORITY 100
+
+/// The maximum (and optimal) number of sacrifice targets a heretic should roll.
+#define HERETIC_MAX_SAC_TARGETS 4
+
+//Cult Construct defines
+
+#define CONSTRUCT_JUGGERNAUT "Juggernaut"
+#define CONSTRUCT_WRAITH "Wraith"
+#define CONSTRUCT_ARTIFICER "Artificer"
+
+/// Used in logging spells for roundend results
+#define LOG_SPELL_TYPE "type"
+#define LOG_SPELL_AMOUNT "amount"
 
 /// How many telecrystals a normal traitor starts with
 #define TELECRYSTALS_DEFAULT 20
@@ -94,10 +112,46 @@
 /// because they have nothing else that supports an implant.
 #define UPLINK_IMPLANT_TELECRYSTAL_COST 3
 
+GLOBAL_LIST_INIT(ai_employers, list(
+	"Biohazard",
+	"Despotic Ruler",
+	"Fanatical Revelation",
+	"Logic Core Error",
+	"Problem Solver",
+	"S.E.L.F.",
+	"Something's Wrong",
+	"Spam Virus",
+	"SyndOS",
+	"Unshackled",
+))
+
+/// The Classic Wizard wizard loadout.
+#define WIZARD_LOADOUT_CLASSIC "loadout_classic"
+/// Mjolnir's Power wizard loadout.
+#define WIZARD_LOADOUT_MJOLNIR "loadout_hammer"
+/// Fantastical Army wizard loadout.
+#define WIZARD_LOADOUT_WIZARMY "loadout_army"
+/// Soul Tapper wizard loadout.
+#define WIZARD_LOADOUT_SOULTAP "loadout_tap"
+/// Convenient list of all wizard loadouts for unit testing.
+#define ALL_WIZARD_LOADOUTS list( \
+	WIZARD_LOADOUT_CLASSIC, \
+	WIZARD_LOADOUT_MJOLNIR, \
+	WIZARD_LOADOUT_WIZARMY, \
+	WIZARD_LOADOUT_SOULTAP, \
+)
+
+/// Checks if the given mob is a wizard
+#define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
 ///Checks if given mob is a hive host
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
+///Checks if the given mob is a malfunctioning AI
+#define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
+
+// Max of all fugitive types
+#define MAXIMUM_TOTAL_FUGITIVES 4
 
 // Fugitive hunter types
 #define FUGITIVE_HUNTER_SPACE_POLICE "space_police"
@@ -109,3 +163,28 @@
 #define FUGITIVE_WALDO "waldo"
 #define FUGITIVE_CULT "cultist"
 #define FUGITIVE_SYNTH "synth"
+
+//Spider webs
+#define MAX_WEBS_PER_TILE 3
+
+/// The dimensions of the antagonist preview icon. Will be scaled to this size.
+#define ANTAGONIST_PREVIEW_ICON_SIZE 96
+
+// Changelings
+// ------------------------------------
+
+#define LING_FAKEDEATH_TIME					600 //1 minute.
+#define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
+#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
+
+// Clockcult
+// ------------------------------------
+
+#define SIGIL_TRANSMISSION_RANGE 4
+/// Clockcult drone
+#define CLOCKDRONE	"drone_clock"
+
+// Abductors
+// ------------------------------------
+
+#define ABDUCTOR_MAX_TEAMS 4

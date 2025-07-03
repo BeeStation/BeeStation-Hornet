@@ -18,7 +18,7 @@
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 6
 	multiple_sprites = 1
-	materials = list(/datum/material/iron = 20000)
+	custom_materials = list(/datum/material/iron = 20000)
 
 /obj/item/ammo_box/c38/trac
 	name = "speed loader (.38 TRAC)"
@@ -37,18 +37,23 @@
 
 /obj/item/ammo_box/c38/dumdum
 	name = "speed loader (.38 DumDum)"
-	desc = "Designed to quickly reload revolvers. DumDum bullets shatter on impact and shred the target's innards, likely getting caught inside."
+	desc = "Designed to quickly reload revolvers. DumDum rounds shatter on impact and shred the target's innards, likely getting caught inside."
 	ammo_type = /obj/item/ammo_casing/c38/dumdum
 
 /obj/item/ammo_box/c38/hotshot
 	name = "speed loader (.38 Hot Shot)"
-	desc = "Designed to quickly reload revolvers. Hot Shot bullets contain an incendiary payload."
+	desc = "Designed to quickly reload revolvers. Hot Shot rounds contain an incendiary payload."
 	ammo_type = /obj/item/ammo_casing/c38/hotshot
 
 /obj/item/ammo_box/c38/iceblox
 	name = "speed loader (.38 Iceblox)"
-	desc = "Designed to quickly reload revolvers. Iceblox bullets contain a cryogenic payload."
+	desc = "Designed to quickly reload revolvers. Iceblox rounds contain a cryogenic payload."
 	ammo_type = /obj/item/ammo_casing/c38/iceblox
+
+/obj/item/ammo_box/c38/dart
+	name = "speed loader (.38 Blister)"
+	desc = "Designed to quickly reload revolvers. Blister rounds can be injected with up to 10 units of chemicals."
+	ammo_type = /obj/item/ammo_casing/c38/dart
 
 /obj/item/ammo_box/c38/mime
 	name = "speed loader (.38 finger)"
@@ -57,11 +62,29 @@
 	item_flags = DROPDEL
 	ammo_type = /obj/item/ammo_casing/caseless/mime/lethal
 
+/obj/item/ammo_box/pouch/c38
+	name = "ammo pouch (.38)"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c38/improv
+	name = "ammo pouch (improv .38)"
+	ammo_type = /obj/item/ammo_casing/c38/improv
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
+
+/obj/item/ammo_box/pouch/c9mm
+	name = "ammo pouch (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	max_ammo = 6
+
+/obj/item/ammo_box/pouch/c9mm/improv
+	name = "ammo pouch (improv 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm/improv
 
 /obj/item/ammo_box/c10mm
 	name = "ammo box (10mm)"
@@ -69,11 +92,31 @@
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 20
 
+/obj/item/ammo_box/pouch/c10mm
+	name = "ammo pouch (10mm)"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c10mm/improv
+	name = "ammo pouch (improv 10mm)"
+	ammo_type = /obj/item/ammo_casing/c10mm/improv
+
 /obj/item/ammo_box/c45
 	name = "ammo box (.45)"
 	icon_state = "45box"
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
+
+/obj/item/ammo_box/c38/box
+	name = "ammo box (.38)"
+	desc = "A small pack of .38 cartridges"
+	icon_state = "357OLD"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 7
+	multiple_sprites = 1
+	custom_materials = list(/datum/material/iron = 22000)
+	bullet_cost = list(/datum/material/iron = 21000)
+	base_cost = list(/datum/material/iron = 1000)
 
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
@@ -102,9 +145,9 @@
 	icon_state = "foambox"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
-	materials = list(/datum/material/iron = 500)
+	custom_materials = list(/datum/material/iron = 500)
 
 /obj/item/ammo_box/foambox/riot
 	icon_state = "foambox_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	materials = list(/datum/material/iron = 50000)
+	custom_materials = list(/datum/material/iron = 50000)

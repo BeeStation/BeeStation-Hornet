@@ -19,10 +19,18 @@
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots1"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/computer/slot_machine
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = 0
@@ -30,7 +38,7 @@
 	var/jackpots = 0
 	var/paymode = HOLOCHIP //toggles between HOLOCHIP/COIN, defined above
 	var/cointype = /obj/item/coin/iron //default cointype
-	var/list/coinvalues = list()
+	var/static/list/coinvalues
 	var/list/reels = list(list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0)
 	var/list/symbols = list(SEVEN = 1, "<font color='orange'>&</font>" = 2, "<font color='yellow'>@</font>" = 2, "<font color='green'>$</font>" = 2, "<font color='blue'>?</font>" = 2, "<font color='grey'>#</font>" = 2, "<font color='white'>!</font>" = 2, "<font color='fuchsia'>%</font>" = 2) //if people are winning too much, multiply every number in this list by 2 and see if they are still winning too much.
 
@@ -41,17 +49,20 @@
 	jackpots = rand(1, 4) //false hope
 	plays = rand(75, 200)
 
-	toggle_reel_spin(1) //The reels won't spin unless we activate them
+	INVOKE_ASYNC(src, PROC_REF(toggle_reel_spin), TRUE) //The reels won't spin unless we activate them
 
 	var/list/reel = reels[1]
 	for(var/i in 1 to reel.len) //Populate the reels.
 		randomize_reels()
 
-	toggle_reel_spin(0)
+	INVOKE_ASYNC(src, PROC_REF(toggle_reel_spin), FALSE)
+	if (isnull(coinvalues))
+		coinvalues = list()
 
-	for(cointype in typesof(/obj/item/coin))
-		var/obj/item/coin/C = new cointype
-		coinvalues["[cointype]"] = C.get_item_credit_value()
+		for(cointype in typesof(/obj/item/coin))
+			var/obj/item/coin/C = new cointype
+			coinvalues["[cointype]"] = C.get_item_credit_value()
+			qdel(C) //Sigh
 
 /obj/machinery/computer/slot_machine/Destroy()
 	if(balance)
@@ -78,10 +89,6 @@
 	else
 		icon_state = "slots1"
 
-/obj/machinery/computer/slot_machine/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/computer/slot_machine/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/coin))
 		var/obj/item/coin/C = I
@@ -92,26 +99,26 @@
 				C.throw_at(user, 3, 10)
 				if(prob(10))
 					balance = max(balance - SPIN_PRICE, 0)
-				to_chat(user, "<span class='warning'>[src] spits your coin back out!</span>")
+				to_chat(user, span_warning("[src] spits your coin back out!"))
 
 			else
 				if(!user.temporarilyRemoveItemFromInventory(C))
 					return
-				to_chat(user, "<span class='notice'>You insert a [C.cmineral] coin into [src]'s slot!</span>")
+				to_chat(user, span_notice("You insert [C] into [src]'s slot!"))
 				balance += C.value
 				qdel(C)
 		else
-			to_chat(user, "<span class='warning'>This machine is only accepting holochips!</span>")
+			to_chat(user, span_warning("This machine is only accepting holochips!"))
 	else if(istype(I, /obj/item/holochip))
 		if(paymode == HOLOCHIP)
 			var/obj/item/holochip/H = I
 			if(!user.temporarilyRemoveItemFromInventory(H))
 				return
-			to_chat(user, "<span class='notice'>You insert [H.credits] holocredits into [src]'s slot!</span>")
+			to_chat(user, span_notice("You insert [H.credits] holocredits into [src]'s slot!"))
 			balance += H.credits
 			qdel(H)
 		else
-			to_chat(user, "<span class='warning'>This machine is only accepting coins!</span>")
+			to_chat(user, span_warning("This machine is only accepting coins!"))
 	else if(I.tool_behaviour == TOOL_MULTITOOL)
 		if(balance > 0)
 			visible_message("<b>[src]</b> says, 'ERROR! Please empty the machine balance before altering paymode'") //Prevents converting coins into holocredits and vice versa
@@ -152,12 +159,12 @@
 		<B>Credit Remaining:</B> [balance]<BR>
 		[plays] players have tried their luck today, and [jackpots] have won a jackpot!<BR>
 		<HR><BR>
-		<A href='?src=[REF(src)];spin=1'>Play!</A><BR>
+		<A href='byond://?src=[REF(src)];spin=1'>Play!</A><BR>
 		<BR>
 		[reeltext]
 		<BR>"}
 		if(balance > 0)
-			dat+="<font size='1'><A href='?src=[REF(src)];refund=1'>Refund balance</A><BR>"
+			dat+="<font size='1'><A href='byond://?src=[REF(src)];refund=1'>Refund balance</A><BR>"
 
 	var/datum/browser/popup = new(user, "slotmachine", "Slot Machine")
 	popup.set_content(dat)
@@ -197,7 +204,7 @@
 	var/the_name
 	if(user)
 		the_name = user.real_name
-		visible_message("<span class='notice'>[user] pulls the lever and the slot machine starts spinning!</span>")
+		visible_message(span_notice("[user] pulls the lever and the slot machine starts spinning!"))
 	else
 		the_name = "Exaybachay"
 
@@ -225,14 +232,14 @@
 
 /obj/machinery/computer/slot_machine/proc/can_spin(mob/user)
 	if(machine_stat & NOPOWER)
-		to_chat(user, "<span class='warning'>The slot machine has no power!</span>")
+		to_chat(user, span_warning("The slot machine has no power!"))
 	if(machine_stat & BROKEN)
-		to_chat(user, "<span class='warning'>The slot machine is broken!</span>")
+		to_chat(user, span_warning("The slot machine is broken!"))
 	if(working)
-		to_chat(user, "<span class='warning'>You need to wait until the machine stops spinning before you can play again!</span>")
+		to_chat(user, span_warning("You need to wait until the machine stops spinning before you can play again!"))
 		return 0
 	if(balance < SPIN_PRICE)
-		to_chat(user, "<span class='warning'>Insufficient money to play!</span>")
+		to_chat(user, span_warning("Insufficient money to play!"))
 		return 0
 	return 1
 
@@ -275,12 +282,12 @@
 		give_money(SMALL_PRIZE)
 
 	else if(linelength == 3)
-		to_chat(user, "<span class='notice'>You win three free games!</span>")
+		to_chat(user, span_notice("You win three free games!"))
 		balance += SPIN_PRICE * 4
 		money = max(money - SPIN_PRICE * 4, money)
 
 	else
-		to_chat(user, "<span class='warning'>No luck!</span>")
+		to_chat(user, span_warning("No luck!"))
 
 /obj/machinery/computer/slot_machine/proc/get_lines()
 	var/amountthesame
@@ -343,11 +350,12 @@
 
 	return amount
 
-#undef SEVEN
-#undef SPIN_TIME
-#undef JACKPOT
-#undef BIG_PRIZE
-#undef SMALL_PRIZE
 #undef SPIN_PRICE
+#undef SMALL_PRIZE
+#undef BIG_PRIZE
+#undef JACKPOT
+#undef SPIN_TIME
+#undef REEL_DEACTIVATE_DELAY
+#undef SEVEN
 #undef HOLOCHIP
 #undef COIN

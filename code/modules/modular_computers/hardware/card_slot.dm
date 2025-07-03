@@ -5,6 +5,7 @@
 	icon_state = "card_mini"
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
+	custom_price = 20
 
 	var/obj/item/card/id/stored_card
 	var/current_identification
@@ -50,7 +51,7 @@
 
 	var/obj/item/card/id/newcard = I
 	if(!newcard.electric)
-		to_chat(user, "<span class='warning'>You attempt to jam \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]. It doesn't fit.")
+		to_chat(user, span_warning("You attempt to jam \the [I] into \the [expansion_hw ? "secondary" : "primary"] [src]. It doesn't fit."))
 		return
 
 	if(stored_card)
@@ -67,7 +68,7 @@
 		I.forceMove(src)
 
 	stored_card = I
-	to_chat(user, "<span class='notice'>You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src].</span>")
+	to_chat(user, span_notice("You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -75,13 +76,13 @@
 	current_identification = stored_card.registered_name
 	current_job = stored_card.assignment
 	holder?.on_id_insert()
-	holder?.update_icon()
+	holder?.update_appearance()
 	return TRUE
 
 
 /obj/item/computer_hardware/card_slot/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)
-		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
+		to_chat(user, span_warning("There are no cards in \the [src]."))
 		return FALSE
 
 	if(user && !issilicon(user) && in_range(src, user))
@@ -101,12 +102,12 @@
 		var/mob/living/carbon/human/human_wearer = user
 		if(human_wearer.wear_id == holder)
 			human_wearer.sec_hud_set_ID()
-	to_chat(user, "<span class='notice'>You remove the card from \the [src].</span>")
+	to_chat(user, span_notice("You remove the card from \the [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	stored_card = null
 	current_identification = null
 	current_job = null
-	holder?.update_icon()
+	holder?.update_appearance()
 	holder?.ui_update()
 	return TRUE
 
@@ -115,11 +116,11 @@
 		return
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(stored_card)
-			to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
+			to_chat(user, span_notice("You press down on the manual eject button with \the [I]."))
 			try_eject(user)
 			return
 		swap_slot()
-		to_chat(user, "<span class='notice'>You adjust the connector to fit into [expansion_hw ? "an expansion bay" : "the primary ID bay"].</span>")
+		to_chat(user, span_notice("You adjust the connector to fit into [expansion_hw ? "an expansion bay" : "the primary ID bay"]."))
 
 /**
   *Swaps the card_slot hardware between using the dedicated card slot bay on a computer, and using an expansion bay.
@@ -143,3 +144,4 @@
 	name = "secondary RFID card module"
 	device_type = MC_CARD2
 	expansion_hw = TRUE
+	custom_price = 100

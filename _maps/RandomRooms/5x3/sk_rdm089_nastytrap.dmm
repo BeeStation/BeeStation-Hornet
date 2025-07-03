@@ -5,7 +5,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "b" = (
@@ -13,14 +13,14 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/throwing_star,
+/obj/item/throwing_star/toy,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/trap/nexus/trickyspawner,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "d" = (
@@ -38,7 +38,7 @@
 /area/template_noop)
 "f" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "g" = (
@@ -57,7 +57,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "i" = (
@@ -65,7 +65,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/throwing_star,
+/obj/item/throwing_star/toy,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -76,7 +76,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "k" = (

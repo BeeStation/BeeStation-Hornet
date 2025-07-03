@@ -1,0 +1,14 @@
+/obj/item/reagent_containers/food/snacks/candy_corn : /obj/item/food/candy_corn{@OLD}
+/obj/item/reagent_containers/food/snacks/candy_corn/@SUBTYPES : /obj/item/food/candy_corn/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/candiedapple : /obj/item/food/candiedapple{@OLD}
+/obj/item/reagent_containers/food/snacks/mint : /obj/item/food/mint{@OLD}
+/obj/item/reagent_containers/food/snacks/chocolatebar : /obj/item/food/chocolatebar{@OLD}
+/obj/item/reagent_containers/food/snacks/chococoin : /obj/item/food/chococoin{@OLD}
+/obj/item/reagent_containers/food/snacks/fudgedice : /obj/item/food/fudgedice{@OLD}
+/obj/item/reagent_containers/food/snacks/chocoorange : /obj/item/food/chocoorange{@OLD}
+/obj/item/reagent_containers/food/snacks/tinychocolate : /obj/item/food/bonbon{@OLD}
+/obj/item/reagent_containers/food/snacks/gumball : /obj/item/food/gumball{@OLD}
+/obj/item/reagent_containers/food/snacks/gumball/@SUBTYPES : /obj/item/food/gumball/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/lollipop : /obj/item/food/lollipop{@OLD}
+/obj/item/reagent_containers/food/snacks/lollipop/@SUBTYPES : /obj/item/food/lollipop/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/spiderlollipop : /obj/item/food/spiderlollipop{@OLD}

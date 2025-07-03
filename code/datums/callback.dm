@@ -84,17 +84,17 @@
   * * ... optional list of arguments to pass as arguments to the proc being called
   */
 /world/proc/ImmediateInvokeAsync(thingtocall, proctocall, ...)
-	set waitfor = FALSE
+	DECLARE_ASYNC
 
 	if (!thingtocall)
-		return
+		ASYNC_FINISH
 
 	var/list/calling_arguments = length(args) > 2 ? args.Copy(3) : null
 
 	if (thingtocall == GLOBAL_PROC)
-		call(proctocall)(arglist(calling_arguments))
+		ASYNC_RETURN(call(proctocall)(arglist(calling_arguments)))
 	else
-		call(thingtocall, proctocall)(arglist(calling_arguments))
+		ASYNC_RETURN(call(thingtocall, proctocall)(arglist(calling_arguments)))
 
 /**
   * Invoke this callback

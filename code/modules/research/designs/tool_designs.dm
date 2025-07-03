@@ -93,6 +93,16 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/rcd_upgrade/furnishing
+	name = "RCD furnishing upgrade"
+	desc = "Adds the ability to furnish areas using the RCD."
+	id = "rcd_upgrade_furnishing"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/silver = 1500, /datum/material/titanium = 2000)
+	build_path = /obj/item/rcd_upgrade/furnishing
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
 /datum/design/rcd_upgrade/silo_link
 	name = "Advanced RCD silo link upgrade"
 	desc = "Upgrades the RCD to be able to pull materials from the ore silo. The RCD must be linked to the silo using a multitool before it will function."
@@ -112,6 +122,27 @@
 	build_path = /obj/item/rpd_upgrade/unwrench
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/atmos_backpack_upgrade
+	name = "Generic Backpack Firefighter Tank upgrade"
+	desc = "You're not supposed to see this"
+	build_type = PROTOLATHE
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/atmos_backpack_upgrade/smartfoam
+	name = "Backpack Firefighter Tank smart foam upgrade"
+	desc = "Allows the backpack firefighter tank to synthesize a better foam compound which can pass through already deployed foam and have a chain reaction of dissipation."
+	id = "bft_upgrade_smartfoam"
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000, /datum/material/plasma = 2500, /datum/material/plastic = 2500) //That's right, gotta ask chem for help
+	build_path = /obj/item/atmostank_upgrade/smartfoam
+
+/datum/design/atmos_backpack_upgrade/efficiency
+	name = "Backpack Firefighter Tank efficiency upgrade"
+	desc = "Improves the nozzle's efficiency, decreasing the amount of water used per resin launch and shortets the time it takes to synthesize the resin, as well as increasing the volume of the tank."
+	id = "bft_upgrade_efficiency"
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500)
+	build_path = /obj/item/atmostank_upgrade/efficiency
 
 /////////////////////////////////////////
 //////////////Alien Tools////////////////

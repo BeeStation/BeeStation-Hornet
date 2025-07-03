@@ -11,6 +11,7 @@
 	hud_possible = list(ANTAG_HUD, AI_DETECT_HUD = HUD_LIST_LIST)
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
+	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
 	var/ai_detector_visible = TRUE
@@ -21,12 +22,6 @@
 	GLOB.ai_eyes += src
 	update_ai_detect_hud()
 	setLoc(loc, TRUE)
-
-/mob/camera/ai_eye/proc/set_relay_speech(relay)
-	if(relay)
-		become_hearing_sensitive()
-	else
-		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
 
 /mob/camera/ai_eye/proc/update_ai_detect_hud()
 	var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
@@ -87,12 +82,11 @@
 		if(use_static)
 			ai.camera_visibility(src)
 		if(ai.client && !ai.multicam_on)
-			ai.client.eye = src
+			ai.client.set_eye(src)
 		update_ai_detect_hud()
 		//Holopad
-		if(istype(ai.current, /obj/machinery/holopad))
-			var/obj/machinery/holopad/H = ai.current
-			H.move_hologram(ai, destination)
+		if(istype(ai.current_holopad, /obj/machinery/holopad))
+			ai.current_holopad.move_hologram(ai, destination)
 		if(ai.camera_light_on)
 			ai.light_cameras()
 		if(ai.master_multicam)
@@ -106,11 +100,11 @@
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, span_warning("There's nowhere to go in that direction!"))
 		return FALSE
 	if(!canZMove(dir, source, target))
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, span_warning("You couldn't move there!"))
 		return FALSE
 	setLoc(target, TRUE)
 	return TRUE
@@ -119,7 +113,7 @@
 	return TRUE
 
 /mob/camera/ai_eye/Move()
-	return 0
+	return
 
 /mob/camera/ai_eye/proc/GetViewerClient()
 	if(ai)
@@ -128,6 +122,7 @@
 
 /mob/camera/ai_eye/Destroy()
 	if(ai)
+		transfer_observers_to(ai) // eye mob is destroyed for some reason...
 		ai.all_eyes -= src
 		ai = null
 	for(var/V in visibleCameraChunks)
@@ -175,11 +170,10 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/view_core()
-	if(istype(current,/obj/machinery/holopad))
-		var/obj/machinery/holopad/H = current
-		H.clear_holo(src)
+	if(istype(current_holopad, /obj/machinery/holopad))
+		current_holopad.clear_holo(src)
 	else
-		current = null
+		current_holopad = null
 	if(ai_tracking_target)
 		ai_stop_tracking()
 	unset_machine()
@@ -188,18 +182,19 @@
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
 		create_eye()
 
-	eyeobj?.setLoc(loc)
+	transfer_observers_to(eyeobj) // ai core to eyemob
+	eyeobj.setLoc(loc)
 
 /mob/living/silicon/ai/proc/create_eye()
-	if(eyeobj)
-		return
-	eyeobj = new /mob/camera/ai_eye()
-	all_eyes += eyeobj
-	eyeobj.ai = src
-	eyeobj.setLoc(loc)
-	eyeobj.name = "[name] (AI Eye)"
-	eyeobj.real_name = eyeobj.name
-	set_eyeobj_visible(TRUE)
+	if(!eyeobj || QDELETED(eyeobj))
+		eyeobj = new /mob/camera/ai_eye()
+		all_eyes += eyeobj
+		eyeobj.ai = src
+		eyeobj.setLoc(loc)
+		eyeobj.name = "[name] (AI Eye)"
+		eyeobj.real_name = eyeobj.name
+		set_eyeobj_visible(TRUE)
+		transfer_observers_to(eyeobj)
 
 /mob/living/silicon/ai/proc/set_eyeobj_visible(state = TRUE)
 	if(!eyeobj)
@@ -218,7 +213,7 @@
 
 /mob/camera/ai_eye/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
+	if(relay_speech && speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
 		ai.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 /obj/effect/overlay/ai_detect_hud

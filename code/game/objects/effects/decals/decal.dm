@@ -31,18 +31,24 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/turf_decal)
+
 /obj/effect/turf_decal
 	icon = 'icons/turf/decals.dmi'
 	icon_state = "warningline"
 	layer = TURF_DECAL_LAYER
+	plane = FLOOR_PLANE
+	anchored = TRUE
 
+// This is with the intent of optimizing mapload
+// See spawners for more details since we use the same pattern
+// Basically rather then creating and deleting ourselves, why not just do the bare minimum?
 /obj/effect/turf_decal/Initialize(mapload)
-	..()
+	SHOULD_CALL_PARENT(FALSE)
+	loc.AddElement(/datum/element/decal, icon, icon_state, dir, FALSE, color, TURF_LAYER + (layer - TURF_DECAL_LOWEST_LAYER), null, alpha, FALSE, pixel_x, pixel_y)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/turf_decal/ComponentInitialize()
-	. = ..()
-	var/turf/T = loc
-	if(!istype(T)) //you know this will happen somehow
-		CRASH("Turf decal initialized in an object/nullspace")
-	T.AddElement(/datum/element/decal, icon, icon_state, dir, FALSE, color, TURF_LAYER + (layer - TURF_DECAL_LOWEST_LAYER), null, alpha, FALSE)
+/obj/effect/turf_decal/Destroy()
+	SHOULD_CALL_PARENT(FALSE)
+	loc = null
+	return QDEL_HINT_QUEUE

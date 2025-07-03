@@ -1,6 +1,7 @@
 /datum/job/station_engineer
 	title = JOB_NAME_STATIONENGINEER
-	flag = ENGINEER
+	description = "Ensure the station has an adequate power supply, repair and build new machinery, repair wiring chewed up by mice."
+	department_for_prefs = DEPT_NAME_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"
@@ -12,13 +13,10 @@
 
 	outfit = /datum/outfit/job/engineer
 
-	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
-					ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM,
-					ACCESS_AUX_BASE)
-	minimal_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
-					ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
+	base_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
+						ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
+	extra_access = list(ACCESS_ATMOSPHERICS)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
@@ -30,6 +28,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/engineering
 	)
 
+	lightup_areas = list(/area/engine/atmos)
+
 /datum/outfit/job/engineer
 	name = JOB_NAME_STATIONENGINEER
 	jobtype = /datum/job/station_engineer
@@ -40,13 +40,13 @@
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
-	head = /obj/item/clothing/head/hardhat
+	head = /obj/item/clothing/head/utility/hardhat
 	r_pocket = /obj/item/t_scanner
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer
 	pda_slot = ITEM_SLOT_LPOCKET
 
 /datum/outfit/job/engineer/gloved

@@ -1,36 +1,36 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
 /obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "d" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "h" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "q" = (
-/obj/structure/chair/comfy{
-	dir = 4
+/obj/structure/chair/fancy/comfy{
+	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "t" = (
-/obj/machinery/vending/snack/random,
-/turf/open/floor/plasteel,
+/obj/effect/spawner/randomvend/snack,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "G" = (
-/obj/machinery/vending/cola/random,
-/turf/open/floor/plasteel,
+/obj/effect/spawner/randomvend/cola,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Z" = (
 /turf/closed/wall,
@@ -50,9 +50,9 @@ Z
 (2,1,1) = {"
 Z
 c
-q
-q
-q
+h
+h
+h
 h
 h
 t
@@ -75,8 +75,8 @@ h
 h
 h
 h
-h
-h
+q
+q
 G
 Z
 "}

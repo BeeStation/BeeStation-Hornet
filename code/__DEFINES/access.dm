@@ -11,6 +11,7 @@
 #define ACCESS_ENGINE_EQUIP 11 //! APCs, EngiVend/YouTool, engineering equipment lockers
 #define ACCESS_MAINT_TUNNELS 12
 #define ACCESS_EXTERNAL_AIRLOCKS 13
+#define ACCESS_PRISONER 14//! Brig turnstile and prisonner locker
 #define ACCESS_CHANGE_IDS 15
 #define ACCESS_AI_UPLOAD 16
 #define ACCESS_TELEPORTER 17

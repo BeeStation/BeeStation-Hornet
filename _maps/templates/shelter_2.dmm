@@ -39,7 +39,7 @@
 /area/survivalpod)
 "i" = (
 /obj/structure/toilet/secret{
-	secret_type = /obj/item/kitchen/knife/combat/survival
+	secret_type = /obj/item/knife/combat/survival
 	},
 /turf/open/floor/pod,
 /area/survivalpod)
@@ -66,8 +66,7 @@
 /area/survivalpod)
 "n" = (
 /obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	layer = 3
+	dir = 8
 	},
 /obj/machinery/door/window/survival_pod{
 	dir = 1
@@ -76,7 +75,7 @@
 /area/survivalpod)
 "o" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#666666" 
+	color = "#666666"
 	},
 /obj/item/cardboard_cutout{
 	desc = "A cardboard cutout of a xenomorph maid.";
@@ -113,11 +112,11 @@
 	light_color = "#DDFFD3"
 	},
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 7;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/cup/glass/bottle/wine{
 	pixel_x = -6;
 	pixel_y = 10
 	},
@@ -125,14 +124,12 @@
 /area/survivalpod)
 "t" = (
 /obj/machinery/microwave{
-	pixel_y = -2
+	pixel_y = 4
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/structure/table/wood/fancy/black{
-	pixel_y = -9
-	},
+/obj/structure/table/wood/fancy/black,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "u" = (
@@ -163,7 +160,7 @@
 /area/survivalpod)
 "x" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 7;
 	pixel_y = 2
 	},
@@ -186,7 +183,7 @@
 /area/survivalpod)
 "B" = (
 /obj/structure/chair/fancy/comfy{
-	color = "#666666" ;
+	color = "#666666";
 	dir = 1
 	},
 /turf/open/floor/carpet/black,

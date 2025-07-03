@@ -7,6 +7,7 @@
 	item_state = "sheet-hide"
 	icon = 'icons/obj/stacks/organic.dmi'
 	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/animalhide
 
 /* Generic hide */
 
@@ -15,6 +16,7 @@
 	desc = "A piece of skin."
 	singular_name = "skin piece"
 	novariants = FALSE
+	merge_type = /obj/item/stack/sheet/animalhide/generic
 
 /* Human hide */
 
@@ -23,10 +25,10 @@
 	desc = "The by-product of human farming."
 	singular_name = "human skin piece"
 	novariants = FALSE
+	merge_type = /obj/item/stack/sheet/animalhide/human
 
-/obj/item/stack/sheet/animalhide/human/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.human_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/human/get_recipes()
+	return GLOB.human_recipes
 
 /* Corgi hide */
 
@@ -36,10 +38,10 @@
 	singular_name = "corgi hide piece"
 	icon_state = "sheet-corgi"
 	item_state = "sheet-corgi"
+	merge_type = /obj/item/stack/sheet/animalhide/corgi
 
-/obj/item/stack/sheet/animalhide/corgi/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.corgi_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/corgi/get_recipes()
+	return GLOB.corgi_recipes
 
 /* Mothroach hide */
 
@@ -49,6 +51,7 @@
 	singular_name = "mothroach hide piece"
 	icon_state = "sheet-mothroach"
 	item_state = "sheet-mothroach"
+	merge_type = /obj/item/stack/sheet/animalhide/mothroach
 
 /* Gondola hide */
 
@@ -58,10 +61,10 @@
 	singular_name = "gondola hide piece"
 	icon_state = "sheet-gondola"
 	item_state = "sheet-gondola"
+	merge_type = /obj/item/stack/sheet/animalhide/gondola
 
-/obj/item/stack/sheet/animalhide/gondola/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.gondola_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/gondola/get_recipes()
+	return GLOB.gondola_recipes
 
 /* Cot hide */
 
@@ -71,6 +74,7 @@
 	singular_name = "cat hide piece"
 	icon_state = "sheet-cat"
 	item_state = "sheet-cat"
+	merge_type = /obj/item/stack/sheet/animalhide/cat
 
 /* Monkey hide */
 
@@ -80,10 +84,10 @@
 	singular_name = "monkey hide piece"
 	icon_state = "sheet-monkey"
 	icon_state = "sheet-monkey"
+	merge_type = /obj/item/stack/sheet/animalhide/monkey
 
-/obj/item/stack/sheet/animalhide/monkey/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.monkey_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/monkey/get_recipes()
+	return GLOB.monkey_recipes
 
 /* Lizard hide */
 
@@ -93,6 +97,7 @@
 	singular_name = "lizard hide"
 	icon_state = "sheet-lizard"
 	item_state = "sheet-lizard"
+	merge_type = /obj/item/stack/sheet/animalhide/lizard
 
 /* Xeno hide */
 
@@ -103,9 +108,8 @@
 	icon_state = "sheet-xeno"
 	item_state = "sheet-xeno"
 
-/obj/item/stack/sheet/animalhide/xeno/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.xeno_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/xeno/get_recipes()
+	return GLOB.xeno_recipes
 
 /* Ashdrake hide */
 
@@ -119,6 +123,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	merge_type = /obj/item/stack/sheet/animalhide/ashdrake
 
 /* Goliath Plates */
 /obj/item/stack/sheet/animalhide/goliath_hide
@@ -131,6 +136,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	merge_type = /obj/item/stack/sheet/animalhide/goliath_hide
 
 /* Generic functions for hides, fun for all the family! */
 
@@ -139,9 +145,9 @@
 /obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, params)
 	if(W.is_sharp())
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
+		user.visible_message("[user] starts cutting hair off \the [src].", span_notice("You start cutting the hair off \the [src]..."), span_italics("You hear the sound of a knife rubbing against flesh."))
 		if(do_after(user, 50, target = src))
-			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
+			to_chat(user, span_notice("You cut the hair from this [src.singular_name]."))
 			new /obj/item/stack/sheet/leather/hairlesshide(user.drop_location(), 1)
 			use(1)
 	else

@@ -31,59 +31,31 @@
 
 #define R_EVERYTHING (1<<16)-1 //the sum of all other rank permissions, used for +EVERYTHING
 
-#define ADMIN_QUE(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(user)]'>?</a>)"
-#define ADMIN_FLW(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(user)]'>FLW</a>)"
-#define ADMIN_PP(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminplayeropts=[REF(user)]'>PP</a>)"
-#define ADMIN_VV(atom) "(<a href='?_src_=vars;[HrefToken(TRUE)];Vars=[REF(atom)]'>VV</a>)"
-#define ADMIN_SM(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];subtlemessage=[REF(user)]'>SM</a>)"
-#define ADMIN_TP(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];traitor=[REF(user)]'>TP</a>)"
-#define ADMIN_KICK(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];boot2=[REF(user)]'>KICK</a>)"
-#define ADMIN_CENTCOM_REPLY(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];CentComReply=[REF(user)]'>RPLY</a>)"
-#define ADMIN_SYNDICATE_REPLY(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];SyndicateReply=[REF(user)]'>RPLY</a>)"
-#define ADMIN_SC(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminspawncookie=[REF(user)]'>SC</a>)"
-#define ADMIN_SMITE(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminsmite=[REF(user)]'>SMITE</a>)"
+#define ADMIN_QUE(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(user)]'>?</a>)"
+#define ADMIN_FLW(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(user)]'>FLW</a>)"
+#define ADMIN_PP(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminplayeropts=[REF(user)]'>PP</a>)"
+#define ADMIN_VV(atom) "(<a href='byond://?_src_=vars;[HrefToken(TRUE)];Vars=[REF(atom)]'>VV</a>)"
+#define ADMIN_SM(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];subtlemessage=[REF(user)]'>SM</a>)"
+#define ADMIN_TP(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];traitor=[REF(user)]'>TP</a>)"
+#define ADMIN_KICK(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];boot2=[REF(user)]'>KICK</a>)"
+#define ADMIN_CENTCOM_REPLY(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];CentComReply=[REF(user)]'>RPLY</a>)"
+#define ADMIN_SYNDICATE_REPLY(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];SyndicateReply=[REF(user)]'>RPLY</a>)"
+#define ADMIN_SC(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminspawncookie=[REF(user)]'>SC</a>)"
+#define ADMIN_SMITE(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminsmite=[REF(user)]'>SMITE</a>)"
 #define ADMIN_LOOKUP(user) "[key_name_admin(user)][ADMIN_QUE(user)]"
 #define ADMIN_LOOKUPFLW(user) "[key_name_admin(user)][ADMIN_QUE(user)] [ADMIN_FLW(user)]"
-#define ADMIN_SET_SD_CODE "(<a href='?_src_=holder;[HrefToken(TRUE)];set_selfdestruct_code=1'>SETCODE</a>)"
+#define ADMIN_SET_SD_CODE "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];set_selfdestruct_code=1'>SETCODE</a>)"
 #define ADMIN_FULLMONTY_NONAME(user) "[ADMIN_QUE(user)] [ADMIN_PP(user)] [ADMIN_VV(user)] [ADMIN_SM(user)] [ADMIN_FLW(user)] [ADMIN_TP(user)] [ADMIN_INDIVIDUALLOG(user)] [ADMIN_SMITE(user)]"
 #define ADMIN_FULLMONTY(user) "[key_name_admin(user)] [ADMIN_FULLMONTY_NONAME(user)]"
-#define ADMIN_JMP(src) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)"
+#define ADMIN_JMP(src) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)"
 #define COORD(src) "[src ? "([src.x],[src.y],[src.z])" : "nonexistent location"]"
 #define AREACOORD(src) "[src ? "[get_area_name(src, TRUE)] ([src.x], [src.y], [src.z])" : "nonexistent location"]"
 #define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
-#define ADMIN_INDIVIDUALLOG(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
-#define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
-
-#define ADMIN_PUNISHMENT_AHEAL "Adminheal"
-#define ADMIN_PUNISHMENT_ANIMALIZE "Make into simplemob"
-#define ADMIN_PUNISHMENT_BRAINDAMAGE "Give Brain Damage"
-#define ADMIN_PUNISHMENT_BSA "Bluespace Artillery Device"
-#define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
-#define ADMIN_PUNISHMENT_COOKIE "Give Cookie"
-#define ADMIN_PUNISHMENT_CRYO "Force Cryo"
-#define ADMIN_PUNISHMENT_DAMAGE "Admindamage"
-#define ADMIN_PUNISHMENT_DCHAT_ANARCHY "Deadchat Control (Anarchy)"
-#define ADMIN_PUNISHMENT_DCHAT_DEMOCRACY "Deadchat Control (Democracy)"
-#define ADMIN_PUNISHMENT_FIREBALL "Fireball"
-#define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne (Aggressive)"
-#define ADMIN_PUNISHMENT_FLOORCLUWNE_STALKER "Floor Cluwne (Stalker)"
-#define ADMIN_PUNISHMENT_FORCESAY "Forcesay"
-#define ADMIN_PUNISHMENT_GHOST "Offer To Ghosts"
-#define ADMIN_PUNISHMENT_GIB "Admingib"
-#define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
-#define ADMIN_PUNISHMENT_LIGHTNING "Lightning Bolt"
-#define ADMIN_PUNISHMENT_NUGGET "Nugget"
-#define ADMIN_PUNISHMENT_PACIFISM "Force Pacifism"
-#define ADMIN_PUNISHMENT_PUZZLE "Puzzle"
-#define ADMIN_PUNISHMENT_ROD "Immovable Rod"
-#define ADMIN_PUNISHMENT_SLEEP "Force Sleep"
-#define ADMIN_PUNISHMENT_STALKER "Give Stalker Trauma"
-#define ADMIN_PUNISHMENT_SUPPLYPOD "Supply Pod"
-#define ADMIN_PUNISHMENT_SUPPLYPOD_QUICK "Supply Pod (Quick)"
-#define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
-#define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
-#define ADMIN_PUNISHMENT_VOICE_OF_GOD "Voice of God"
+#define ADMIN_INDIVIDUALLOG(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
+#define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
+/// Displays "(SHOW)" in the chat, when clicked it tries to show atom(paper). First you need to set the request_state variable to TRUE for the paper.
+#define ADMIN_SHOW_PAPER(atom) "(<A href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];show_paper=[REF(atom)]'>SHOW</a>)"
 
 #define TICKET_UNCLAIMED 1
 #define TICKET_ACTIVE 2
@@ -115,3 +87,15 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define GHOSTROLE_SILICONS			(1<<3)
 //ie mafia, ctf
 #define GHOSTROLE_MINIGAME			(1<<4)
+
+// Job deadmin flags
+#define DEADMIN_POSITION_HEAD		(1<<0)
+#define DEADMIN_POSITION_SECURITY	(1<<1)
+#define DEADMIN_POSITION_SILICON	(1<<2)
+
+/// State when an interview has been approved
+#define INTERVIEW_APPROVED	"interview_approved"
+/// State when an interview as been denied
+#define INTERVIEW_DENIED 	"interview_denied"
+/// State when an interview has had no action on it yet
+#define INTERVIEW_PENDING	"interview_pending"

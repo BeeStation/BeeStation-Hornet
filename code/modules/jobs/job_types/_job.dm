@@ -2,9 +2,13 @@
 	///The name of the job , used for preferences, bans and more. Make sure you know what you're doing before changing this.
 	var/title = "NOPE"
 
+	/// The description of the job, used for preferences menu.
+	/// Keep it short and useful. Avoid in-jokes, these are for new players.
+	var/description
+
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
-	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
-	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
+	var/list/base_access = list()  // access list that's basically given to jobs.
+	var/list/extra_access = list() // EXTRA access list that's given in lowpop.
 
 	///Determines who can demote this position
 	var/department_head = list()
@@ -15,6 +19,15 @@
 	///Bitflags for the job
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
+
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
+
+	/// If this job should show in the preferences menu
+	var/show_in_prefs = TRUE
+
+	/// The head of the department to show in the preferences menu
+	var/department_head_for_prefs
 
 	///Mostly deprecated, but only used in pref job savefiles
 	var/department_flag = NONE
@@ -48,10 +61,13 @@
 
 	var/outfit = null
 
+	/// Minutes of experience-time required to play in this job.
 	var/exp_requirements = 0
-
+	/// What experience type is required to play this role
+	/// This does not determine the type of EXP that is granted, that is based
+	/// on department. You do not need to set this if exp_requirements is set
+	/// to 0, because this role has no exp requirement.
 	var/exp_type = ""
-	var/exp_type_department = ""
 
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
 	var/antag_rep = 10
@@ -77,6 +93,8 @@
 
 	///Bitfield of departments this job belongs with
 	var/departments = NONE
+	/// Same as the departments bitflag, but only one is allowed. Used in the preferences menu.
+	var/department_for_prefs = null
 	///Is this job affected by weird spawns like the ones from station traits
 	var/random_spawns_possible = TRUE
 	/// Should this job be allowed to be picked for the bureaucratic error event?
@@ -90,28 +108,58 @@
 	///RPG job names, for the memes
 	var/rpg_title
 
+	/**
+	 * A list of job-specific areas to enable lights for if this job is present at roundstart, whenever minimal access is not in effect.
+	 * This will be combined with minimal_lightup_areas, so no need to duplicate entries.
+	 * Areas within their department will have their lights turned on automatically, so you should really only use this for areas outside of their department.
+	 */
+	var/list/lightup_areas = list()
+	/**
+	 * A list of job-specific areas to enable lights for if this job is present at roundstart.
+	 * Areas within their department will have their lights turned on automatically, so you should really only use this for areas outside of their department.
+	 */
+	var/list/minimal_lightup_areas = list()
+
 
 /datum/job/New()
 	. = ..()
+	lightup_areas = typecacheof(lightup_areas)
+	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
 
-//Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
-//H is usually a human unless an /equip override transformed it
-//do actions on H but send messages to M as the key may not have been transferred_yet
-/datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE)
-	//do actions on H but send messages to M as the key may not have been transferred_yet
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
-	if(mind_traits)
-		for(var/t in mind_traits)
-			ADD_TRAIT(H.mind, t, JOB_TRAIT)
+	if(!config_check())
+		lock_flags |= JOB_LOCK_REASON_CONFIG
+	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
+		lock_flags |= JOB_LOCK_REASON_MAP
+	if(lock_flags || gimmick)
+		SSjob.job_manager_blacklisted |= title
+
+/// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
+/// H is usually a human unless an /equip override transformed it
+/// do actions on H but send messages to M as the key may not have been transferred_yet
+/// preference_source allows preferences to be retrieved if the original mob (M) is null - for use on preference dummies.
+/// Don't do non-visual changes if M.client is null, since that means it's just a dummy and doesn't need them.
+/datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+	if(!on_dummy) // Bad dummy
+		//do actions on H but send messages to M as the key may not have been transferred_yet
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
+		if(mind_traits && H?.mind)
+			for(var/t in mind_traits)
+				ADD_TRAIT(H.mind, t, JOB_TRAIT)
 
 	if(!ishuman(H))
 		return
+	apply_loadout_to_mob(H, M, preference_source, on_dummy)
+
+/proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
-	if(M.client && LAZYLEN(M.client.prefs.active_character.equipped_gear))
-		for(var/gear in M.client.prefs.active_character.equipped_gear)
+	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
+	if(preference_source && LAZYLEN(preference_source.prefs.equipped_gear))
+		for(var/gear in preference_source.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
+				if(!G.is_equippable)
+					continue
 				var/permitted = FALSE
 
 				if(G.allowed_roles && H.mind && (H.mind.assigned_role in G.allowed_roles))
@@ -128,47 +176,61 @@
 					permitted = FALSE
 
 				if(!permitted)
-					to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [G.display_name]!</span>")
+					if(M.client)
+						to_chat(M, span_warning("Your current species or role does not permit you to spawn with [G.display_name]!"))
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = M.client.prefs.active_character.jumpsuit_style), G.slot))
-						to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+					var/obj/o
+					if(on_dummy) // remove the old item
+						o = H.get_item_by_slot(G.slot)
+						H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
+					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = jumpsuit_style), G.slot))
+						if(M.client)
+							to_chat(M, span_notice("Equipping you with [G.display_name]!"))
+						if(on_dummy && o)
+							qdel(o)
 					else
 						gear_leftovers += G
 				else
 					gear_leftovers += G
 
 			else
-				M.client.prefs.active_character.equipped_gear -= gear
+				preference_source.prefs.equipped_gear -= gear
+				preference_source.prefs.mark_undatumized_dirty_character()
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/metadata = M.client.prefs.active_character.equipped_gear[G.id]
-			var/item = G.spawn_item(null, metadata, M.client.prefs.active_character.jumpsuit_style)
+			var/metadata = preference_source.prefs.equipped_gear[G.id]
+			var/item = G.spawn_item(null, metadata, jumpsuit_style)
 			var/atom/placed_in = human.equip_or_collect(item)
 
 			if(istype(placed_in))
 				if(isturf(placed_in))
-					to_chat(M, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
+					if(M.client)
+						to_chat(M, span_notice("Placing [G.display_name] on [placed_in]!"))
 				else
-					to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
+					if(M.client)
+						to_chat(M, span_notice("Placing [G.display_name] in [placed_in.name]]"))
 				continue
 
 			if(H.equip_to_appropriate_slot(item))
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+				if(M.client)
+					to_chat(M, span_notice("Placing [G.display_name] in your inventory!"))
 				continue
 			if(H.put_in_hands(item))
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+				if(M.client)
+					to_chat(M, span_notice("Placing [G.display_name] in your hands!"))
 				continue
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
-				G.spawn_item(B, metadata, M.client.prefs.active_character.jumpsuit_style)
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
+				G.spawn_item(B, metadata, jumpsuit_style)
+				if(M.client)
+					to_chat(M, span_notice("Placing [G.display_name] in [B.name]!"))
 				continue
-
-			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			if(M.client)
+				to_chat(M, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(item)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
@@ -188,18 +250,19 @@
 		if(!rep_value)
 			rep_value = 0
 		return rep_value
-	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
+	. = CONFIG_GET(keyed_list/antag_rep)[LOWER_TEXT(title)]
 	if(. == null)
 		return antag_rep
 
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
+//Returning FALSE is considered a failure. A null or mob return is a successful equip.
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
-	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
+	if(CONFIG_GET(flag/enforce_human_authority) && (title in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
-			H.apply_pref_name("human", preference_source)
+			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
 	if(!visualsOnly)
 		var/datum/bank_account/bank_account = new(H.real_name, src)
 		bank_account.payday(STARTING_PAYCHECKS, TRUE)
@@ -220,21 +283,18 @@
 
 	if(!visualsOnly && announce)
 		announce(H)
-	dormant_disease_check(H)
+	H.give_random_dormant_disease(biohazard, (title == JOB_NAME_CLOWN || title == JOB_NAME_MIME) ? 0 : 4)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
-		return src.minimal_access.Copy()
+		return base_access.Copy()
 
-	. = list()
-
-	if(CONFIG_GET(flag/jobs_have_minimal_access))
-		. = src.minimal_access.Copy()
-	else
-		. = src.access.Copy()
+	. = base_access.Copy()
+	if(!CONFIG_GET(flag/jobs_have_minimal_access))
+		. |= extra_access
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
-		. |= list(ACCESS_MAINT_TUNNELS)
+		. |= ACCESS_MAINT_TUNNELS
 
 /datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
@@ -247,6 +307,22 @@
 		return TRUE	//Available in 0 days = available right now = player is old enough to play.
 	return FALSE
 
+/datum/job/proc/areas_to_light_up(minimal_access = TRUE)
+	. = minimal_lightup_areas.Copy()
+	if(!minimal_access)
+		. |= lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_COM))
+		. |= GLOB.command_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_ENG))
+		. |= GLOB.engineering_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_MED))
+		. |= GLOB.medical_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SCI))
+		. |= GLOB.science_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_CAR))
+		. |= GLOB.supply_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SEC))
+		. |= GLOB.security_lightup_areas
 
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
@@ -263,8 +339,15 @@
 /datum/job/proc/config_check()
 	return TRUE
 
-/datum/job/proc/map_check()
-	return TRUE
+/datum/job/proc/get_lock_reason()
+	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
+		return "Not a real job"
+	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+		return "Disabled by server configuration"
+	else if(lock_flags & JOB_LOCK_REASON_MAP)
+		return "Not available on this map"
+	else if(lock_flags) // somehow flag exists
+		return "Unknown: [lock_flags]"
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
@@ -281,6 +364,8 @@
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	box = /obj/item/storage/box/survival
+
+	preload = TRUE // These are used by the prefs ui, and also just kinda could use the extra help at roundstart
 
 	var/backpack = /obj/item/storage/backpack
 	var/satchel  = /obj/item/storage/backpack/satchel
@@ -355,37 +440,81 @@
 	types += duffelbag
 	return types
 
+/datum/outfit/job/get_types_to_preload()
+	var/list/preload = ..()
+	preload += backpack
+	preload += satchel
+	preload += duffelbag
+	preload += /obj/item/storage/backpack/satchel/leather
+	var/skirtpath = "[uniform]/skirt"
+	preload += text2path(skirtpath)
+	return preload
+
 //Warden and regular officers add this result to their get_access()
 /datum/job/proc/check_config_for_sec_maint()
-	if(CONFIG_GET(flag/security_has_maint_access))
-		return list(ACCESS_MAINT_TUNNELS)
-	return list()
+	return CONFIG_GET(flag/security_has_maint_access)
 
-//why is this as part of a job? because it's something every human receives at roundstart after all other initializations and factors job in. it fits best with the equipment proc
-//this gives a dormant disease for the virologist to check for. if this disease actually does something to the mob... call me, or your local coder
-/datum/job/proc/dormant_disease_check(mob/living/carbon/human/H)
-	var/datum/symptom/guaranteed
-	var/sickrisk = 1
-	var/unfunny = 4
-	if((flag == CLOWN) || (flag == MIME))
-		unfunny = 0
-	if(islizard(H) || iscatperson(H))
-		sickrisk += 0.5 //these races like eating diseased mice, ew
-	if(MOB_INORGANIC in H.mob_biotypes)
-		sickrisk -= 0.5
-		guaranteed = /datum/symptom/inorganic_adaptation
-	else if(MOB_ROBOTIC in H.mob_biotypes)
-		sickrisk -= 0.75
-		guaranteed = /datum/symptom/robotic_adaptation
-	else if(MOB_UNDEAD in H.mob_biotypes)//this doesnt matter if it's not halloween, but...
-		sickrisk -= 0.25
-		guaranteed = /datum/symptom/undead_adaptation
-	else if(!(MOB_ORGANIC in H.mob_biotypes))
-		return //this mob cant be given a disease
-	if(prob (min(100, (biohazard * sickrisk))))
-		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(2, 4), 9, unfunny, guaranteed, infected = H)
-		scandisease.dormant = TRUE
-		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-		scandisease.spread_text = "None"
-		scandisease.visibility_flags |= HIDDEN_SCANNER
-		H.ForceContractDisease(scandisease)
+/// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
+/mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
+
+/mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
+	var/fully_randomize = is_banned_from(player_client.ckey, "Appearance")
+	if(!player_client)
+		return // Disconnected while checking for the appearance ban.
+
+	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPT_BITFLAG_COM)
+
+	if(fully_randomize)
+		if(require_human)
+			player_client.prefs.randomize_appearance_prefs(~RANDOMIZE_SPECIES)
+		else
+			player_client.prefs.randomize_appearance_prefs()
+
+		player_client.prefs.apply_prefs_to(src)
+
+		if (require_human)
+			set_species(/datum/species/human)
+	else
+		var/is_antag = (player_client.mob.mind in GLOB.pre_setup_antags)
+		if(require_human)
+			player_client.prefs.randomize["species"] = FALSE
+		player_client.prefs.safe_transfer_prefs_to(src, TRUE, is_antag)
+		if (require_human)
+			set_species(/datum/species/human)
+			apply_pref_name(/datum/preference/name/backup_human, player_client)
+		if(CONFIG_GET(flag/force_random_names))
+			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
+			var/datum/species/species = new species_type
+
+			var/gender = player_client.prefs.read_character_preference(/datum/preference/choiced/gender)
+			real_name = species.random_name(gender, TRUE)
+	dna.update_dna_identity()
+
+/mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
+	apply_pref_name(/datum/preference/name/ai, player_client) // This proc already checks if the player is appearance banned.
+	set_core_display_icon(null, player_client)
+
+/mob/living/silicon/robot/apply_prefs_job(client/player_client, datum/job/job)
+	if(mmi)
+		var/organic_name
+		if(player_client.prefs.read_character_preference(/datum/preference/choiced/random_name) == RANDOM_ENABLED || CONFIG_GET(flag/force_random_names) || is_banned_from(player_client.ckey, "Appearance"))
+			if(!player_client)
+				return // Disconnected while checking the appearance ban.
+
+			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
+			var/datum/species/species = new species_type
+			organic_name = species.random_name(player_client.prefs.read_character_preference(/datum/preference/choiced/gender), TRUE)
+		else
+			if(!player_client)
+				return // Disconnected while checking the appearance ban.
+			organic_name = player_client.prefs.read_character_preference(/datum/preference/name/real_name)
+
+		mmi.name = "[initial(mmi.name)]: [organic_name]"
+		if(mmi.brain)
+			mmi.brain.name = "[organic_name]'s brain"
+		if(mmi.brainmob)
+			mmi.brainmob.real_name = organic_name //the name of the brain inside the cyborg is the robotized human's name.
+			mmi.brainmob.name = organic_name
+	// If this checks fails, then the name will have been handled during initialization.
+	if(player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME && check_cyborg_name(player_client, mmi))
+		apply_pref_name(/datum/preference/name/cyborg, player_client)

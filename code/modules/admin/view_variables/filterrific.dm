@@ -67,7 +67,7 @@
 			target.add_filter(params["name"], old_filter_data["priority"], new_filter_data)
 			. = TRUE
 		if("modify_color_value")
-			var/new_color = input(usr, "Pick new filter color", "Filteriffic Colors!") as color|null
+			var/new_color = tgui_color_picker(usr, "Pick new filter color", "Filteriffic Colors!")
 			if(new_color)
 				target.transition_filter(params["name"], 4, list("color" = new_color))
 				. = TRUE
@@ -79,7 +79,7 @@
 				. = TRUE
 		if("mass_apply")
 			if(!check_rights_for(usr.client, R_FUN))
-				to_chat(usr, "<span class='userdanger>Stay in your lane, jannie.</span>'")
+				to_chat(usr, span_userdanger("Stay in your lane, jannie."))
 				return
 			var/target_path = text2path(params["path"])
 			if(!target_path)

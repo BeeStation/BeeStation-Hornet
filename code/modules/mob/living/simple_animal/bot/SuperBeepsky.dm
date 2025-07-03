@@ -5,7 +5,7 @@
 	icon_state = "grievous"
 	health = 150
 	maxHealth = 150
-	baton_type = /obj/item/melee/transforming/energy/sword/saber
+	baton_type = /obj/item/melee/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
 	var/obj/item/weapon
 	var/block_chance = 50
@@ -24,13 +24,13 @@
 	desc = "The Syndicate sends their regards."
 	emagged = 2
 	noloot = TRUE
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 
 /mob/living/simple_animal/bot/secbot/grievous/nullcrate/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
 
-/mob/living/simple_animal/bot/secbot/grievous/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/bot/secbot/grievous/bullet_act(obj/projectile/P)
 	visible_message("[src] deflects [P] with its energy swords!")
 	playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE)
 	return BULLET_ACT_BLOCK
@@ -89,7 +89,7 @@
 				if(Adjacent(target) && isturf(target.loc))	// if right next to perp
 					target_lastloc = target.loc //stun_attack() can clear the target if they're dead, so this needs to be set first
 					stun_attack(target)
-					anchored = TRUE
+					set_anchored(TRUE)
 					return
 				else								// not next to perp
 					var/turf/olddist = get_dist(src, target)
@@ -142,7 +142,7 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/explode()
 
-	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
+	visible_message(span_boldannounce("[src] lets out a huge cough as it blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)

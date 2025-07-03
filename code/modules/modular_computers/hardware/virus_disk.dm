@@ -13,15 +13,15 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(charges <= 0)
-		to_chat(user, "<span class='notice'>ERROR: Out of charges.</span>")
+		to_chat(user, span_notice("ERROR: Out of charges."))
 		return
 
 	if(target)
-		to_chat(user, "<span class='notice'>Success!</span>")
+		to_chat(user, span_notice("Success!"))
 		charges--
 		target.honk_amount = rand(15, 25)
 	else
-		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
+		to_chat(user, span_notice("ERROR: Could not find device."))
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/process_pre_attack(atom/target, mob/living/user, params)
 	// only run if we're inside a computer
@@ -33,12 +33,12 @@
 	if(!target_machine.panel_open && !istype(target, /obj/machinery/computer))
 		return TRUE
 	if(!charges)
-		to_chat(user, "<span class='notice'>[src] beeps: 'Out of charge. Please insert a new cartridge.'</span>")
+		to_chat(user, span_notice("[src] beeps: 'Out of charge. Please insert a new cartridge.'"))
 		return TRUE
 	if(target.GetComponent(/datum/component/sound_player))
-		to_chat(user, "<span class='notice'>[src] beeps: 'Virus already present on client, aborting.'</span>")
+		to_chat(user, span_notice("[src] beeps: 'Virus already present on client, aborting.'"))
 		return TRUE
-	to_chat(user, "<span class='notice'>You upload the virus to [target]!</span>")
+	to_chat(user, span_notice("You upload the virus to [target]!"))
 	var/list/sig_list
 	if(istype(target, /obj/machinery/door/airlock))
 		sig_list = list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
@@ -57,18 +57,18 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/mime/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(charges <= 0)
-		to_chat(user, "<span class='notice'>ERROR: Out of charges.</span>")
+		to_chat(user, span_notice("ERROR: Out of charges."))
 		return
 
 	if(target)
-		to_chat(user, "<span class='notice'>Success!</span>")
+		to_chat(user, span_notice("Success!"))
 		charges--
 		var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 			app.ringer_status = FALSE
 			app.ringtone = ""
 	else
-		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
+		to_chat(user, span_notice("ERROR: Could not find device."))
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate
 	name = "\improper D.E.T.O.M.A.T.I.X. disk"
@@ -77,16 +77,15 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(charges <= 0)
-		to_chat(user, "<span class='notice'>ERROR: Out of charges.</span>")
+		to_chat(user, span_notice("ERROR: Out of charges."))
 		return
 	if(!target)
-		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
+		to_chat(user, span_notice("ERROR: Could not find device."))
 		return
 	charges--
 
 	var/difficulty = 0
 	var/obj/item/computer_hardware/hard_drive/role/disk = target.all_components[MC_HDD_JOB]
-
 	if(disk)
 		difficulty += bit_count(disk.disk_flags & (DISK_MED | DISK_SEC | DISK_POWER | DISK_MANIFEST))
 		if(disk.disk_flags & DISK_MANIFEST)
@@ -94,11 +93,14 @@
 		else
 			difficulty += 2
 	var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
-	if(!target.detonatable || prob(difficulty * 15) || (hidden_uplink))
-		to_chat(user, "<span class='danger'>An error flashes on your [src].</span>")
+	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
+
+	if(!target.detonatable || prob(difficulty * 15) || hidden_uplink || !app.sending_and_receiving)
+		to_chat(user, span_danger("An error flashes on your [src]."))
 	else
 		log_bomber(user, "triggered a PDA explosion on", target, "[!is_special_character(user) ? "(TRIGGED BY NON-ANTAG)" : ""]")
-		to_chat(user, "<span class='notice'>Success!</span>")
+		to_chat(user, span_notice("Success!"))
 		target.explode(target, user)
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
@@ -114,14 +116,14 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/frame/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(charges <= 0)
-		to_chat(user, "<span class='notice'>ERROR: Out of charges.</span>")
+		to_chat(user, span_notice("ERROR: Out of charges."))
 		return
 	if(!target)
-		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
+		to_chat(user, span_notice("ERROR: Could not find device."))
 		return
 	charges--
 	var/lock_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
-	to_chat(user, "<span class='notice'>Success! The unlock code to the target is: [lock_code]</span>")
+	to_chat(user, span_notice("Success! The unlock code to the target is: [lock_code]"))
 	var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
 	if(!hidden_uplink)
 		hidden_uplink = target.AddComponent(/datum/component/uplink)

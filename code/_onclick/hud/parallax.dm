@@ -1,12 +1,11 @@
 
-/client
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
-	var/turf/previous_turf
-	var/parallax_movedir = 0
-	var/parallax_layers_max = 4
-	var/parallax_animate_timer
-	var/frozen_parallax
+/client/var/list/parallax_layers
+/client/var/list/parallax_layers_cached
+/client/var/turf/previous_turf
+/client/var/parallax_movedir = 0
+/client/var/parallax_layers_max = 4
+/client/var/parallax_animate_timer
+/client/var/frozen_parallax
 
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
@@ -30,16 +29,17 @@
 
 	C.screen |= (C.parallax_layers)
 	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
-	if(screenmob != mymob)
-		C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
-		C.screen += PM
-	PM.color = list(
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		1, 1, 1, 1,
-		0, 0, 0, 0
-		)
+	if(PM)
+		if(screenmob != mymob)
+			C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
+			C.screen += PM
+		PM.color = list(
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			1, 1, 1, 1,
+			0, 0, 0, 0
+			)
 
 
 /datum/hud/proc/remove_parallax(mob/viewmob)
@@ -47,20 +47,21 @@
 	var/client/C = screenmob.client
 	C.screen -= (C.parallax_layers_cached)
 	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
-	if(screenmob != mymob)
-		C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
-		C.screen += PM
-	PM.color = initial(PM.color)
+	if(PM)
+		if(screenmob != mymob)
+			C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
+			C.screen += PM
+		PM.color = initial(PM.color)
 	C.parallax_layers = null
 
 /datum/hud/proc/apply_parallax_pref(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 	if(C.prefs)
-		var/pref = C.prefs.parallax
+		var/pref = C.prefs.read_player_preference(/datum/preference/choiced/parallax)
 		if (isnull(pref))
 			pref = PARALLAX_HIGH
-		switch(C.prefs.parallax)
+		switch(pref)
 			if (PARALLAX_INSANE)
 				C.parallax_layers_max = 5
 				return TRUE
@@ -83,12 +84,13 @@
 /datum/hud/proc/update_parallax_pref(mob/viewmob)
 	remove_parallax(viewmob)
 	create_parallax(viewmob)
-	update_parallax()
+	update_parallax(viewmob)
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
-/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups)
+/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups, mob/viewmob)
 	. = FALSE
-	var/client/C = mymob.client
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
@@ -180,8 +182,9 @@
 			L.screen_loc = "CENTER-7:0,CENTER-7:0"
 			C.frozen_parallax = TRUE
 
-/datum/hud/proc/update_parallax()
-	var/client/C = mymob.client
+/datum/hud/proc/update_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	if(!C)
 		return
 	var/turf/posobj = get_turf(C.eye)
@@ -190,7 +193,7 @@
 	var/area/areaobj = posobj.loc
 
 	// Update the movement direction of the parallax if necessary (for shuttles)
-	set_parallax_movedir(areaobj.parallax_movedir, FALSE)
+	set_parallax_movedir(areaobj.parallax_movedir, FALSE, screenmob)
 
 	var/force
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
@@ -208,7 +211,7 @@
 
 	for(var/thing in C.parallax_layers)
 		var/atom/movable/screen/parallax_layer/L = thing
-		L.update_status(mymob)
+		L.update_status(screenmob)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)
 
@@ -262,6 +265,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
+
 /atom/movable/screen/parallax_layer/Initialize(mapload, view)
 	. = ..()
 	if (!view)
@@ -313,8 +318,11 @@
 /atom/movable/screen/parallax_layer/random/space_gas
 	icon_state = "random_layer1"
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_gas)
+
 /atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, view)
-	src.add_atom_colour(SSparallax.random_parallax_color, ADMIN_COLOUR_PRIORITY)
+	. = ..()
+	src.add_atom_colour(SSparallax.assign_random_parallax_colour(), ADMIN_COLOUR_PRIORITY)
 
 /atom/movable/screen/parallax_layer/random/asteroids
 	icon_state = "random_layer2"

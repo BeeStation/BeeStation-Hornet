@@ -1,0 +1,332 @@
+{
+	"Minor": [
+	  {
+		"name": "Assault",
+		"tooltip": "To use physical force against someone without the apparent intent to kill them.",
+		"colour": "yellow",
+		"icon": "hand-rock",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Pickpocketting",
+		"tooltip": "To steal items from another's person.",
+		"colour": "yellow",
+		"icon": "mask",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Minor Vandalism",
+		"tooltip": "To damage, destroy, or permanently deface non-critical furniture, vendors, or personal property.",
+		"colour": "yellow",
+		"icon": "house-damage",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Vigilantism",
+		"tooltip": "To perform the responsibilities and duties of the security department without approval or due cause to act.",
+		"colour": "yellow",
+		"icon": "user-secret",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Illegal Distribution",
+		"tooltip": "The possession of dangerous or illegal drugs/equipment in a quantity greater than that which is reasonable for personal consumption.",
+		"colour": "yellow",
+		"icon": "joint",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Disturbing the Peace",
+		"tooltip": "To knowingly organize a movement which disrupts the normal operations of a department.",
+		"colour": "yellow",
+		"icon": "fist-raised",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Negligence",
+		"tooltip": "To be negligent in one's duty to an extent that it may cause harm, illness, or other negative effect, to another.",
+		"colour": "yellow",
+		"icon": "low-vision",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Trespass",
+		"tooltip": "To be in an area which a person has either not purposefully been admitted to, does not have access, or has been asked to leave by someone who has access to that area.",
+		"colour": "yellow",
+		"icon": "walking",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Breaking and Entering",
+		"tooltip": "To trespass into an area using a method of forcible entry.",
+		"colour": "yellow",
+		"icon": "door-open",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Discriminatory Language",
+		"tooltip": "To use language which demeans, generalizes, or otherwise de-personafies the individual at which it is targeted.",
+		"colour": "yellow",
+		"icon": "comment-slash",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Fine Evasion",
+		"tooltip": "To purposefully avoid or refuse to pay a legal fine.",
+		"colour": "yellow",
+		"icon": "dollar-sign",
+		"sentence": 3000
+	  },
+	  {
+		"name": "Religious Activity outside of the chapel",
+		"tooltip": "To convert, proselytize, hold rituals or otherwise attempt to act in the name of a religion or deity outside of the chapel.",
+		"colour": "yellow",
+		"icon": "cross",
+		"sentence": 3000
+	  }
+	],
+	"Misdemeanour": [
+	  {
+		"name": "Aggravated Assault",
+		"tooltip": "To take physical action against a person with intent to grievously harm, but not to kill.",
+		"colour": "orange",
+		"icon": "user-injured",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Theft",
+		"tooltip": "To steal equipment or items from a workplace, or items of extraordinary value from one's person.",
+		"colour": "orange",
+		"icon": "mask",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Major Vandalism",
+		"tooltip": "To destroy or damage non-critical furniture, vendors, or personal property in a manor that can not be repaired.",
+		"colour": "orange",
+		"icon": "house-damage",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Conspiracy",
+		"tooltip": "To knowingly work with another person in the interest of committing an illegal action.",
+		"colour": "orange",
+		"icon": "user-friends",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Hostile Agent",
+		"tooltip": "To knowingly act as a recruiter, representative, messenger, ally, benefactor, or other associate of a hostile organization as defined within Code 405(EOTC).",
+		"colour": "orange",
+		"icon": "user-ninja",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Contraband Equipment Possession",
+		"tooltip": "To possess equipment not approved for use or production aboard Nanotrasen stations. This includes equipment produced by The Syndicate, Wizard Federation, or any other hostile organization as defined within Code 405(EOTC).",
+		"colour": "orange",
+		"icon": "briefcase",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Rioting",
+		"tooltip": "To act as a member in a group which collectively commits acts of major vandalism, sabotage, grand sabotage, or other felony crimes.",
+		"colour": "orange",
+		"icon": "fist-raised",
+		"sentence": 6000
+	  },
+	  {
+		"name": "High Negligence",
+		"tooltip": "To be negligent in one's duty to an extent that it may cause harm to multiple individuals, a department, or in a manor which directly leads to a serious injury of another person which requires emergency medical treatment.",
+		"colour": "orange",
+		"icon": "blind",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Trespass, Inherently Dangerous Areas",
+		"tooltip": "Trespassing in an area which may lead to the injury of self, or others.",
+		"colour": "orange",
+		"icon": "door-closed",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Breaking and Entering, Inherently Dangerous Areas",
+		"tooltip": "To trespass into an area which may lead to the injury of self or others using forcible entry.",
+		"colour": "orange",
+		"icon": "door-open",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Insubordination",
+		"tooltip": "To knowingly disobey a lawful order from a superior.",
+		"colour": "orange",
+		"icon": "hand-middle-finger",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Fraud",
+		"tooltip": "To misrepresent ones intention in the interest of gaining property or money from another individual.",
+		"colour": "orange",
+		"icon": "comment-dollar",
+		"sentence": 6000
+	  },
+	  {
+		"name": "Genetic Mutilation",
+		"tooltip": "To purposefully modify an individual's genetic code without consent, or with intent to harm.",
+		"colour": "orange",
+		"icon": "dna",
+		"sentence": 6000
+	  }
+	],
+	"Major": [
+	  {
+		"name": "Murder",
+		"tooltip": "To purposefully kill someone.",
+		"colour": "bad",
+		"icon": "skull",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Larceny",
+		"tooltip": "To steal rare, expensive (Items of greater than 1000 credit value), or restricted equipment from secure areas or one's person.",
+		"colour": "bad",
+		"icon": "mask",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Sabotage",
+		"tooltip": "To destroy station assets or resources critical to normal or emergency station procedures, or cause sections of the station to become uninhabitable.",
+		"colour": "bad",
+		"icon": "bomb",
+		"sentence": 9000
+	  },
+	  {
+		"name": "High Conspiracy",
+		"tooltip": "To knowingly work with another person in the interest of committing a major or greater crime.",
+		"colour": "bad",
+		"icon": "users",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Hostile Activity",
+		"tooltip": "To knowingly commit an act which is in direct opposition to the interests of Nanotrasen, Or to directly assist a known enemy of the corporation.",
+		"colour": "bad",
+		"icon": "thumbs-down",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Possession, Illegal Inherently Dangerous Equipment",
+		"tooltip": "To possess restricted or illegal equipment which has a primary purpose of causing harm to others, or large amounts of destruction.",
+		"colour": "bad",
+		"icon": "exclamation-triangle",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Inciting a Riot",
+		"tooltip": "To perform actions in the interest of causing large amounts of unrest up to and including rioting.",
+		"colour": "bad",
+		"icon": "fist-raised",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Manslaughter",
+		"tooltip": "To unintentionally kill someone through negligent, but not malicious, actions.",
+		"colour": "bad",
+		"icon": "book-dead",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Trespass, High Security Areas",
+		"tooltip": "Trespassing in any of the following without appropriate permission or access: Command areas, Personal offices, Weapons storage, weapon production, explosive storage, explosive production, or other high security areas.",
+		"colour": "bad",
+		"icon": "running",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Breaking and Entering, High Security Areas",
+		"tooltip": "To commit trespassing into a secure area as defined in Code 309(Trespass, High Security Areas) using forcible entry.",
+		"colour": "bad",
+		"icon": "door-open",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Dereliction",
+		"tooltip": "To willfully abandon an obligation that is critical to the station's continued operation.",
+		"colour": "bad",
+		"icon": "walking",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Corporate Fraud",
+		"tooltip": "To misrepresent one's intention in the interest of gaining property or money from Nanotrasen, or to gain or give property or money from Nanotrasen without proper authorization.",
+		"colour": "bad",
+		"icon": "hand-holding-usd",
+		"sentence": 9000
+	  },
+	  {
+		"name": "Identity Theft",
+		"tooltip": "To assume the identity of another individual.",
+		"colour": "bad",
+		"icon": "theater-masks",
+		"sentence": 9000
+	  }
+	],
+	"Capital": [
+	  {
+		"name": "Prime Murder",
+		"tooltip": "To commit the act of murder, with clear intent to kill, and clear intent or to have materially take steps to prevent the revival of the victim",
+		"colour": "grey",
+		"icon": "skull-crossbones",
+		"sentence": 360000
+	  },
+	  {
+		"name": "Grand Larceny",
+		"tooltip": "To steal inherently dangerous items from their storage, one's person, or other such methods acquire through illicit means.",
+		"colour": "grey",
+		"icon": "mask",
+		"sentence": 360000
+	  },
+	  {
+		"name": "Grand Sabotage",
+		"tooltip": "To destroy or modify station assets or equipment without which the station may collapse or otherwise become uninhabitable.",
+		"colour": "grey",
+		"icon": "bomb",
+		"sentence": 360000
+	  },
+	  {
+		"name": "Espionage",
+		"tooltip": "To knowingly betray critical information to enemies of the station.",
+		"colour": "grey",
+		"icon": "user-secret",
+		"sentence": 360000
+	  },
+	  {
+		"name": "Enemy of the Corporation",
+		"tooltip": "To be a member of any of the following organizations: Hostile boarding parties, Wizards, Changeling Hiveminds, cults.",
+		"colour": "grey",
+		"icon": "user-alt-slash",
+		"sentence": 360000
+	  },
+	  {
+		"name": "Possession, Corporate Secrets",
+		"tooltip": "To possess secret documentation or high density tamper-resistant data storage devices (Blackboxes) from any organization without authorization by Nanotrasen.",
+		"colour": "grey",
+		"icon": "file-invoice",
+		"sentence": 360000
+	  },
+	  {
+		"name": "Subversion of the Chain of Command",
+		"tooltip": "Disrupting the chain of command via either murder of a commanding officer or illegaly declaring oneself to be a commanding officer.",
+		"colour": "grey",
+		"icon": "link",
+		"sentence": 360000
+	  },
+	  {
+		"name": "Biological Terror",
+		"tooltip": "To knowingly release, cause, or otherwise cause the station to become affected by a disease, plant, or other biological form which may spread uncontained and or cause serious physical harm.",
+		"colour": "grey",
+		"icon": "biohazard",
+		"sentence": 360000
+	  }
+	]
+  }

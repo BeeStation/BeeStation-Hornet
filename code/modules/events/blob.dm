@@ -20,14 +20,25 @@
 	priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", ANNOUNCER_OUTBREAK5)
 
 /datum/round_event/ghost_role/blob/spawn_role()
-	if(!GLOB.blobstart.len)
+	if(!length(GLOB.blobstart))
 		return MAP_ERROR
-	var/list/candidates = get_candidates(ROLE_BLOB, null, ROLE_BLOB)
-	if(!candidates.len)
+
+	var/icon/blob_icon = icon('icons/mob/blob.dmi', icon_state = "blob_core")
+	blob_icon.Blend("#9ACD32", ICON_MULTIPLY)
+	blob_icon.Blend(icon('icons/mob/blob.dmi', "blob_core_overlay"), ICON_OVERLAY)
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/midround_ghost/blob,
+		check_jobban = ROLE_BLOB,
+		poll_time = 30 SECONDS,
+		role_name_text = "blob",
+		alert_pic = blob_icon,
+	)
+	if(!candidate)
 		return NOT_ENOUGH_PLAYERS
-	var/mob/dead/observer/new_blob = pick(candidates)
-	var/mob/camera/blob/BC = new_blob.become_overmind()
-	spawned_mobs += BC
-	message_admins("[ADMIN_LOOKUPFLW(BC)] has been made into a blob overmind by an event.")
-	log_game("[key_name(BC)] was spawned as a blob overmind by an event.")
+
+	var/mob/camera/blob/blob = candidate.become_overmind()
+	spawned_mobs += blob
+	message_admins("[ADMIN_LOOKUPFLW(blob)] has been made into a blob overmind by an event.")
+	log_game("[key_name(blob)] was spawned as a blob overmind by an event.")
 	return SUCCESSFUL_SPAWN

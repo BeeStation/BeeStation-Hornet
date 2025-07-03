@@ -66,6 +66,8 @@
 /datum/bank_account/proc/transfer_money(datum/bank_account/from, amount)
 	if(from.has_money(amount))
 		adjust_money(amount)
+		SSblackbox.record_feedback("amount", "credits_transferred", amount)
+		log_econ("[amount] credits were transferred from [from.account_holder]'s account to [src.account_holder]")
 		from.adjust_money(-amount)
 		return TRUE
 	return FALSE
@@ -87,6 +89,8 @@
 			money_to_transfer += bonus_per_department[D]
 		if(free)
 			adjust_money(money_to_transfer)
+			SSblackbox.record_feedback("amount", "free_income", money_to_transfer)
+			log_econ("[money_to_transfer] credits were given to [src.account_holder]'s account from income.")
 			if(bonus_per_department[D] > 0) //Get rid of bonus if we have one
 				bonus_per_department[D] = 0
 		else
@@ -110,7 +114,7 @@
 	for(var/obj/A in bank_cards)
 		var/mob/card_holder = recursive_loc_check(A, /mob)
 		if(ismob(card_holder)) //If on a mob
-			if(card_holder.client && !(card_holder.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
+			if(card_holder.client && !card_holder.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)
 				return
 
 			card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
@@ -118,14 +122,14 @@
 				to_chat(card_holder, "[icon2html(A, card_holder)] *[message]*")
 		else if(isturf(A.loc)) //If on the ground
 			for(var/mob/M as() in hearers(1,get_turf(A)))
-				if(M.client && !(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
+				if(M.client && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)
 					return
 				playsound(A, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				A.audible_message("[icon2html(A, hearers(A))] *[message]*", null, 1)
 				break
 		else
 			for(var/mob/M in A.loc) //If inside a container with other mobs (e.g. locker)
-				if(M.client && !(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
+				if(M.client && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)
 					return
 				M.playsound_local(get_turf(M), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				if(M.can_hear())
@@ -251,3 +255,8 @@
 	department_id = ACCOUNT_GOLEM_ID
 	department_bitflag = NONE
 	exclusive_budget_pool = 13 // oh no, someone used it! damn communism
+
+/datum/bank_account/remote // Bank account not belonging to the local station
+	add_to_accounts = FALSE
+
+#undef ACCOUNT_CREATION_MAX_ATTEMPT

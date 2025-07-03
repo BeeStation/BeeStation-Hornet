@@ -9,9 +9,9 @@
 		var/datum/poll_question/poll = p
 		if((poll.admin_only && !client.holder) || poll.future_poll)
 			continue
-		output += "<tr bgcolor='#e2e2e2'><td><a href='?src=[rs];viewpoll=[REF(poll)]'><b>[poll.question]</b></a></td></tr>"
+		output += "<tr bgcolor='#e2e2e2'><td><a href='byond://?src=[rs];viewpoll=[REF(poll)]'><b>[poll.question]</b></a></td></tr>"
 	output += "</table>"
-	src << browse(jointext(output, ""),"window=playerpolllist;size=500x300")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpolllist;size=500x300")
 
 /**
   * Redirects a player to the correct poll window based on poll type.
@@ -21,7 +21,7 @@
 	if(!poll)
 		return
 	if(!SSdbcore.Connect())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	switch(poll.poll_type)
 		if(POLLTYPE_OPTION)
@@ -42,7 +42,7 @@
   *
   */
 /mob/dead/new_player/proc/poll_player_option(datum/poll_question/poll)
-	var/datum/DBQuery/query_option_get_voted = SSdbcore.NewQuery({"
+	var/datum/db_query/query_option_get_voted = SSdbcore.NewQuery({"
 		SELECT optionid FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
 	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
@@ -60,7 +60,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!voted_option_id || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		"}
@@ -77,7 +77,7 @@
 	if(!voted_option_id || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x250")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x250")
 
 /**
   * Shows voting window for a text response type poll, listing its relevant details.
@@ -86,7 +86,7 @@
   *
   */
 /mob/dead/new_player/proc/poll_player_text(datum/poll_question/poll)
-	var/datum/DBQuery/query_text_get_replytext = SSdbcore.NewQuery({"
+	var/datum/db_query/query_text_get_replytext = SSdbcore.NewQuery({"
 		SELECT replytext FROM [format_table_name("poll_textreply")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
 	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
@@ -104,7 +104,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!reply_text || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		<font size='2'>Please provide feedback below. You can use any letters of the English alphabet, numbers and the symbols: . , ! ? : ; -</font><br>
@@ -114,7 +114,7 @@
 	else
 		output += "[reply_text]"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x500")
 
 /**
   * Shows voting window for a rating type poll, listing its options and relevant details.
@@ -123,7 +123,7 @@
   *
   */
 /mob/dead/new_player/proc/poll_player_rating(datum/poll_question/poll)
-	var/datum/DBQuery/query_rating_get_votes = SSdbcore.NewQuery({"
+	var/datum/db_query/query_rating_get_votes = SSdbcore.NewQuery({"
 		SELECT optionid, rating FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
 	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
@@ -141,7 +141,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!length(voted_ratings) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		"}
@@ -169,7 +169,7 @@
 	if(!length(voted_ratings) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Submit'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x500")
 
 /**
   * Shows voting window for a multiple choice type poll, listing its options and relevant details.
@@ -178,7 +178,7 @@
   *
   */
 /mob/dead/new_player/proc/poll_player_multi(datum/poll_question/poll)
-	var/datum/DBQuery/query_multi_get_votes = SSdbcore.NewQuery({"
+	var/datum/db_query/query_multi_get_votes = SSdbcore.NewQuery({"
 		SELECT optionid FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
 	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
@@ -196,7 +196,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!length(voted_for) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		"}
@@ -213,7 +213,7 @@
 	if(!length(voted_for) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x300")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x300")
 
 /**
   * Shows voting window for an IRV type poll, listing its options and relevant details.
@@ -224,7 +224,7 @@
 /mob/dead/new_player/proc/poll_player_irv(datum/poll_question/poll)
 	var/datum/asset/irv_assets = get_asset_datum(/datum/asset/group/irv)
 	irv_assets.send(src)
-	var/datum/DBQuery/query_irv_get_votes = SSdbcore.NewQuery({"
+	var/datum/db_query/query_irv_get_votes = SSdbcore.NewQuery({"
 		SELECT optionid FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
 	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
@@ -251,7 +251,7 @@
 	//otherwise just shuffle the options
 	else
 		prepared_options = shuffle(poll.options)
-	var/list/output = list({"<html><head><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	var/list/output = list({"<!DOCTYPE html><html><head><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 	<script src="[SSassets.transport.get_asset_url("jquery.min.js")]"></script>
 	<script src="[SSassets.transport.get_asset_url("jquery-ui.custom-core-widgit-mouse-sortable-min.js")]"></script>
@@ -288,7 +288,7 @@
 		output += "<font size='2'>Revoting is enabled.</font>"
 	output += "Please sort the options in the order of <b>most preferred</b> to <b>least preferred</b><br></div>"
 	if(!length(voted_for) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='POST'>
+		output += {"<form action='byond://?src=[REF(src)]' method='POST'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		<input type='hidden' name='IRVdata' id='IRVdata'>
@@ -296,11 +296,11 @@
 	output += "<div id='ballot' class='center'><b><center>Most Preferred</center></b><ol id='sortable' class='rankings' style='padding:0px'>"
 	for(var/o in prepared_options)
 		var/datum/poll_option/option = o
-		output += "<li optionref='[REF(option)]' class='ranking'><span class='grippy'></span> [option.text]</li>\n"
+		output += "<li optionref='[REF(option)]' class='ranking'>[span_grippy("")] [option.text]</li>\n"
 	output += "</ol><b><center>Least Preferred</center></b><br>"
 	if(!length(voted_for) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
-	output += "</div>"
+	output += "</div></body></html>"
 	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
 
 /**
@@ -313,15 +313,15 @@
   */
 /mob/dead/new_player/proc/vote_on_poll_handler(datum/poll_question/poll, href_list)
 	if(!SSdbcore.Connect())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	if(!poll || !href_list)
 		return
 	if(IsAdminAdvancedProcCall())
 		log_game("[key_name(usr)] attempted to rig the vote by voting as [key]")
 		message_admins("[key_name_admin(usr)] attempted to rig the vote by voting as [key]")
-		to_chat(usr, "<span class='danger'>You don't seem to be [key].</span>")
-		to_chat(src, "<span class='danger'>Something went horribly wrong processing your vote. Please contact an administrator, they should have gotten a message about this</span>")
+		to_chat(usr, span_danger("You don't seem to be [key]."))
+		to_chat(src, span_danger("Something went horribly wrong processing your vote. Please contact an administrator, they should have gotten a message about this"))
 		return
 	var/admin_rank
 	if(client.holder)
@@ -333,14 +333,14 @@
 			admin_rank = "Player"
 	var/player_playtime = round(client?.get_exp_living(TRUE) / 60)
 	if(!isnull(player_playtime) && (player_playtime < poll.minimumplaytime))
-		to_chat(usr, "<span class='warning'>You do not have sufficient playtime to vote in this poll. Minimum: [poll.minimumplaytime] hour(s). Your playtime: [player_playtime] hour(s).</span>")
+		to_chat(usr, span_warning("You do not have sufficient playtime to vote in this poll. Minimum: [poll.minimumplaytime] hour(s). Your playtime: [player_playtime] hour(s)."))
 		return
 	var/table = "poll_vote"
 	if(poll.poll_type == POLLTYPE_TEXT)
 		table = "poll_textreply"
 	var/sql_poll_id = poll.poll_id
 	var/vote_id //only used for option and text polls to save needing another query
-	var/datum/DBQuery/query_validate_poll_vote = SSdbcore.NewQuery({"
+	var/datum/db_query/query_validate_poll_vote = SSdbcore.NewQuery({"
 		SELECT
 			(SELECT id FROM [format_table_name(table)] WHERE ckey = :ckey AND pollid = :pollid AND deleted = 0 LIMIT 1)
 		FROM [format_table_name("poll_question")]
@@ -353,11 +353,11 @@
 	if(query_validate_poll_vote.NextRow())
 		vote_id = text2num(query_validate_poll_vote.item[1])
 		if(vote_id && !poll.allow_revoting)
-			to_chat(usr, "<span class='danger'>Poll revoting is disabled and you've already replied to this poll.</span>")
+			to_chat(usr, span_danger("Poll revoting is disabled and you've already replied to this poll."))
 			qdel(query_validate_poll_vote)
 			return
 	else
-		to_chat(usr, "<span class='danger'>Selected poll is not open.</span>")
+		to_chat(usr, span_danger("Selected poll is not open."))
 		qdel(query_validate_poll_vote)
 		return
 	qdel(query_validate_poll_vote)
@@ -376,7 +376,7 @@
 	if(vote_success)
 		if(!vote_id)
 			poll.poll_votes++
-		to_chat(usr, "<span class='notice'>Vote successful.</span>")
+		to_chat(usr, span_notice("Vote successful."))
 
 /**
   * Processes vote form data and saves results to the database for an option type poll.
@@ -384,15 +384,15 @@
   */
 /mob/dead/new_player/proc/vote_on_poll_option(datum/poll_question/poll, href_list, admin_rank, sql_poll_id, vote_id)
 	if(!SSdbcore.Connect())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	if(IsAdminAdvancedProcCall())
 		return
 	var/datum/poll_option/option = locate(href_list["voteoptionref"]) in poll.options
 	if(!option)
-		to_chat(src, "<span class='danger'>No option was selected.</span>")
+		to_chat(src, span_danger("No option was selected."))
 		return
-	var/datum/DBQuery/query_vote_option = SSdbcore.NewQuery({"
+	var/datum/db_query/query_vote_option = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("poll_vote")] (id, datetime, pollid, optionid, ckey, ip, adminrank)
 		VALUES (:vote_id, NOW(), :poll_id, :option_id, :ckey, INET_ATON(:ip), :admin_rank)
 		ON DUPLICATE KEY UPDATE datetime = NOW(), optionid = :option_id, ip = INET_ATON(:ip), adminrank = :admin_rank
@@ -416,15 +416,15 @@
   */
 /mob/dead/new_player/proc/vote_on_poll_text(href_list, admin_rank, sql_poll_id, vote_id)
 	if(!SSdbcore.Connect())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	if(IsAdminAdvancedProcCall())
 		return
 	var/reply_text = href_list["replytext"]
 	if(!reply_text || (length(reply_text) > 2048))
-		to_chat(src, "<span class='danger'>The text you entered was blank or too long. Please correct the text and submit again.</span>")
+		to_chat(src, span_danger("The text you entered was blank or too long. Please correct the text and submit again."))
 		return
-	var/datum/DBQuery/query_vote_text = SSdbcore.NewQuery({"
+	var/datum/db_query/query_vote_text = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("poll_textreply")] (id, datetime, pollid, ckey, ip, replytext, adminrank)
 		VALUES (:vote_id, NOW(), :poll_id, :ckey, INET_ATON(:ip), :reply_text, :admin_rank)
 		ON DUPLICATE KEY UPDATE datetime = NOW(), ip = INET_ATON(:ip), replytext = :reply_text, adminrank = :admin_rank
@@ -448,12 +448,12 @@
   */
 /mob/dead/new_player/proc/vote_on_poll_rating(datum/poll_question/poll, list/href_list, admin_rank, sql_poll_id)
 	if(!SSdbcore.Connect())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	if(IsAdminAdvancedProcCall())
 		return
 	var/list/votes = list()
-	var/datum/DBQuery/query_get_rating_votes = SSdbcore.NewQuery({"
+	var/datum/db_query/query_get_rating_votes = SSdbcore.NewQuery({"
 		SELECT id, optionid FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
 	"}, list("pollid" = sql_poll_id, "ckey" = ckey))
@@ -491,14 +491,14 @@
   */
 /mob/dead/new_player/proc/vote_on_poll_multi(datum/poll_question/poll, list/href_list, admin_rank, sql_poll_id)
 	if(!SSdbcore.Connect())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	if(IsAdminAdvancedProcCall())
 		return
 	if(length(href_list) > 2)
 		href_list.Cut(1,3) //first two values aren't options
 	else
-		to_chat(src, "<span class='danger'>No options were selected.</span>")
+		to_chat(src, span_danger("No options were selected."))
 
 	var/special_columns = list(
 		"datetime" = "NOW()",
@@ -509,7 +509,7 @@
 	var/vote_count = 0
 	for(var/h in href_list)
 		if(vote_count == poll.options_allowed)
-			to_chat(src, "<span class='danger'>Allowed option count exceeded, only the first [poll.options_allowed] selected options have been saved.</span>")
+			to_chat(src, span_danger("Allowed option count exceeded, only the first [poll.options_allowed] selected options have been saved."))
 			break
 		vote_count++
 		var/datum/poll_option/option = locate(h) in poll.options
@@ -522,7 +522,7 @@
 		))
 	/*with revoting and poll editing possible there can be an edge case where a poll is changed to allow less multiple choice options than a user has already voted on
 	rather than trying to calculate which options should be updated and which deleted, we just delete all of a user's votes and re-insert as needed*/
-	var/datum/DBQuery/query_delete_multi_votes = SSdbcore.NewQuery({"
+	var/datum/db_query/query_delete_multi_votes = SSdbcore.NewQuery({"
 		UPDATE [format_table_name("poll_vote")] SET deleted = 1 WHERE pollid = :pollid AND ckey = :ckey
 	"}, list("pollid" = sql_poll_id, "ckey" = ckey))
 	if(!query_delete_multi_votes.warn_execute())
@@ -538,13 +538,13 @@
   */
 /mob/dead/new_player/proc/vote_on_poll_irv(datum/poll_question/poll, list/href_list, admin_rank, sql_poll_id)
 	if(!SSdbcore.Connect())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	if(IsAdminAdvancedProcCall())
 		return
 	var/list/votelist = splittext(href_list["IRVdata"], ",")
 	if(!length(votelist))
-		to_chat(src, "<span class='danger'>No ordering data found. Please try again or contact an administrator.</span>")
+		to_chat(src, span_danger("No ordering data found. Please try again or contact an administrator."))
 
 	var/list/special_columns = list(
 		"datetime" = "NOW()",
@@ -562,7 +562,7 @@
 			"adminrank" = admin_rank
 		))
 	//IRV results are calculated based on id order, we delete all of a user's votes to avoid potential errors caused by revoting and option editing
-	var/datum/DBQuery/query_delete_irv_votes = SSdbcore.NewQuery({"
+	var/datum/db_query/query_delete_irv_votes = SSdbcore.NewQuery({"
 		UPDATE [format_table_name("poll_vote")] SET deleted = 1 WHERE pollid = :pollid AND ckey = :ckey
 	"}, list("pollid" = sql_poll_id, "ckey" = ckey))
 	if(!query_delete_irv_votes.warn_execute())

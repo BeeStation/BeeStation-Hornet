@@ -25,6 +25,9 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 #define HOLODECK_CD 2 SECONDS
 #define HOLODECK_DMG_CD 5 SECONDS
 
+/// typecache for turfs that should be considered ok during floorchecks.
+/// A linked turf being anything not in this typecache will cause the holodeck to perform an emergency shutdown.
+GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf/open/floor/holofloor, /turf/closed)))
 
 /obj/machinery/computer/holodeck
 	name = "holodeck control console"
@@ -53,11 +56,11 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	var/area/holodeck/linked
 
 	///what program is loaded right now or is about to be loaded
-	var/program = "offline"
+	var/program = "recreational-offline"
 	var/last_program
 
 	///the default program loaded by this holodeck when spawned and when deactivated
-	var/offline_program = "offline"
+	var/offline_program = "recreational-offline"
 
 	///stores all of the unrestricted holodeck map templates that this computer has access to
 	var/list/program_cache
@@ -65,7 +68,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	var/list/emag_programs
 
 	///subtypes of this (but not this itself) are loadable programs
-	var/program_type = /datum/map_template/holodeck
+	var/program_type = /datum/map_template/holodeck/recreation
 
 	///every holo object created by the holodeck goes in here to track it
 	var/list/spawned = list()
@@ -85,6 +88,10 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 /obj/machinery/computer/holodeck/LateInitialize()//from here linked is populated and the program list is generated. its also set to load the offline program
 	linked = GLOB.areas_by_type[mapped_start_area]
+#ifdef UNIT_TESTS // This is needed so that the icon smoothing unit test doesn't error when the area doesn't get loaded.
+	if(!linked)
+		return
+#endif
 	bottom_left = locate(linked.x, linked.y, src.z)
 
 	var/area/computer_area = get_area(src)
@@ -172,6 +179,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		if("safety")
 			if((obj_flags & EMAGGED) && program)
 				emergency_shutdown()
+			log_game("[key_name(usr)] has [(obj_flags & EMAGGED ? "enabled" : "disabled" )] the holodeck safety settings at [loc_name(src)].")
 			nerf(obj_flags & EMAGGED,FALSE)
 			obj_flags ^= EMAGGED
 			say("Safeties reset. Restarting...")
@@ -182,7 +190,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	for(var/turf/possible_blacklist as anything in get_affected_turfs(placement))
 		if (possible_blacklist.holodeck_compatible)
 			continue
-		input_blacklist += possible_blacklist
+		input_blacklist[possible_blacklist] = TRUE
 
 ///loads the template whose id string it was given ("offline_program" loads datum/map_template/holodeck/offline)
 /obj/machinery/computer/holodeck/proc/load_program(map_id, force = FALSE, add_delay = TRUE)
@@ -207,7 +215,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 	spawning_simulation = TRUE
 	active = (map_id != offline_program)
-	use_power = active + IDLE_POWER_USE
+	update_use_power(active + IDLE_POWER_USE)
 	program = map_id
 
 	//clear the items from the previous program
@@ -227,15 +235,16 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				holo_turf.baseturfs -= baseturf
 				holo_turf.baseturfs += /turf/open/floor/holofloor/plating
 
+	log_game("[key_name(usr)] has loaded the holodeck program '[program]' at [loc_name(src)].")
 	template = SSmapping.holodeck_templates[map_id]
-	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	var/datum/async_map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
 	template_placer.on_completion(CALLBACK(src, PROC_REF(finish_spawn), template))
 
 ///finalizes objects in the spawned list
 /obj/machinery/computer/holodeck/proc/finish_spawn()
 	spawned = template.created_atoms //populate the spawned list with the atoms belonging to the holodeck
 
-	if(istype(template, /datum/map_template/holodeck/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
+	if(istype(template, /datum/map_template/holodeck/recreation/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
 		say("Special note from \"1218 AD\" developer: I see you too are interested in the REAL dark ages of humanity! I've made this program also unlock some interesting shuttle designs on any communication console around. Have fun!")
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
@@ -292,7 +301,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		atom_contents.forceMove(target_turf)
 
 	if(!silent)
-		visible_message("<span class='notice'>[holo_atom] fades away!</span>")
+		visible_message(span_notice("[holo_atom] fades away!"))
 
 	qdel(holo_atom)
 
@@ -328,7 +337,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				derez(item)
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.tick()
-	active_power_usage = 50 + spawned.len * 3 + effects.len * 5
+	update_mode_power_usage(ACTIVE_POWER_USE, 50 + spawned.len * 3 + effects.len * 5)
 
 /obj/machinery/computer/holodeck/proc/toggle_power(toggleOn = FALSE)
 	if(active == toggleOn)
@@ -349,18 +358,21 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 ///shuts down the holodeck and force loads the offline_program
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()
+#ifdef UNIT_TESTS
+	return
+#else
 	last_program = program
 	active = FALSE
 	load_program(offline_program, TRUE)
 	ui_update()
+#endif
 
-///returns TRUE if the entire floor of the holodeck is intact, returns FALSE if any are broken
+///returns TRUE if all floors of the holodeck are present, returns FALSE if any are broken or removed
 /obj/machinery/computer/holodeck/proc/floorcheck()
 	for(var/turf/holo_floor in linked)
-		if(isspaceturf(holo_floor))
-			return FALSE
-		if(!holo_floor.intact)
-			return FALSE
+		if (is_type_in_typecache(holo_floor, GLOB.typecache_holodeck_linked_floorcheck_ok))
+			continue
+		return FALSE
 	return TRUE
 
 ///changes all weapons in the holodeck to do stamina damage if set
@@ -383,7 +395,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 /obj/machinery/computer/holodeck/on_emag(mob/user)
 	..()
 	playsound(src, "sparks", 75, TRUE)
-	to_chat(user, "<span class='warning'>You vastly increase projector power and override the safety and security protocols.</span>")
+	to_chat(user, span_warning("You vastly increase projector power and override the safety and security protocols."))
 	say("Warning. Automatic shutoff and derezzing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Console")
 	nerf(FALSE, FALSE)
@@ -409,6 +421,14 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 /obj/machinery/computer/holodeck/blob_act(obj/structure/blob/B)
 	emergency_shutdown()
 	return ..()
+
+/obj/machinery/computer/holodeck/small
+	mapped_start_area = /area/holodeck/small
+	program_type = /datum/map_template/holodeck/small
+	offline_program = "Small - Offline"
+
+/obj/machinery/computer/holodeck/small/LateInitialize()
+	..()
 
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD

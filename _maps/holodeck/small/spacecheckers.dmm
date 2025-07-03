@@ -1,0 +1,79 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/structure/chess/checker/whiteman,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"d" = (
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"J" = (
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"M" = (
+/obj/structure/chess/checker/blackman,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+
+(1,1,1) = {"
+M
+J
+d
+J
+d
+J
+c
+"}
+(2,1,1) = {"
+J
+M
+J
+d
+J
+c
+J
+"}
+(3,1,1) = {"
+M
+J
+d
+J
+d
+J
+c
+"}
+(4,1,1) = {"
+J
+M
+J
+d
+J
+c
+J
+"}
+(5,1,1) = {"
+M
+J
+d
+J
+d
+J
+c
+"}
+(6,1,1) = {"
+J
+M
+J
+d
+J
+c
+J
+"}
+(7,1,1) = {"
+M
+J
+d
+J
+d
+J
+c
+"}

@@ -177,6 +177,16 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/scigoggles_night
+	name = "Night Vision Science Goggles"
+	desc = "An advanced set of science goggles that let experiments continue even in complete darkness"
+	id= "scigoggles_night"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/plasma = 300, /datum/material/copper = 300)
+	build_path= /obj/item/clothing/glasses/science/night
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/diskplantgene
 	name = "Plant Data Disk"
 	desc = "A disk for storing plant genetic data."
@@ -256,13 +266,13 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/xenoartifact_labeler
+/datum/design/xenoartifact_labeller
 	name = "Artifact Labeler"
 	desc = "A scientific labeler used to warn others of the dangers of an alien artifact."
 	id = "xenoa_labeler"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/silver = 1000, /datum/material/gold = 3000)
-	build_path = /obj/item/xenoartifact_labeler
+	build_path = /obj/item/xenoarchaeology_labeler
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -275,6 +285,25 @@
 	build_path = /obj/item/clothing/gloves/artifact_pinchers
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/xenoartifact_tracker
+	name = "Artifact Tracker"
+	desc = "A tracker for researching artifacts."
+	id = "xenoa_tracker"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/silver = 500, /datum/material/gold = 500)
+	build_path = /obj/item/sticker/artifact_tracker
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/bluespace_capsule
+	name = "Bluespace Capsule"
+	id = "bluespace_capsule"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/titanium = 1000, /datum/material/diamond = 500, /datum/material/bluespace = 500)
+	build_path = /obj/item/bluespace_capsule
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /////////////////////////////////////////
 ////////////Janitor Designs//////////////
@@ -443,12 +472,12 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/pepperspray
-	name = "Pepper Spray"
-	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly. Printed pepper sprays do not contain reagents."
+	name = "Peppercloud Deployer"
+	desc = "Manufactured by UhangInc, used to rapidly deploy a peppercloud providing an area denial effect. Printed peppercloud canisters do not contain reagents and need to be filled."
 	id = "pepperspray"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000)
-	build_path = /obj/item/reagent_containers/spray/pepper/empty
+	build_path = /obj/item/reagent_containers/peppercloud_deployer/empty
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -531,3 +560,46 @@
 	build_path = /obj/item/stack/sticky_tape/pointy
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/paper_reader
+	name = "Electronic Paper Reader"
+	desc = "A device to read papers for blind people."
+	id = "epaperread"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
+	build_path = /obj/item/paper_reader
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/oven_tray
+	name = "Oven Tray"
+	desc = "Gotta shove something in!"
+	id = "oven_tray"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 500)
+	build_path = /obj/item/plate/oven_tray
+	category = list("initial","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+
+/////////////////////////////////////////
+////////////Tackle Gloves////////////////
+/////////////////////////////////////////
+
+/datum/design/tackle_dolphin
+	name = "Dolphin Gloves"
+	id = "tackle_dolphin"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 2500)
+	build_path = /obj/item/clothing/gloves/tackler/dolphin
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/tackle_rocket
+	name = "Rocket Gloves"
+	id = "tackle_rocket"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plasma = 1000, /datum/material/plastic = 2000)
+	build_path = /obj/item/clothing/gloves/tackler/rocket
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

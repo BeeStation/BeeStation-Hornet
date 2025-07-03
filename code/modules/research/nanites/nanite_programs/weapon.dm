@@ -14,7 +14,7 @@
 	else
 		host_mob.adjustBruteLoss(1, TRUE)
 	if(prob(3))
-		to_chat(host_mob, "<span class='warning'>You feel a stab of pain from somewhere inside you.</span>")
+		to_chat(host_mob, span_warning("You feel a stab of pain from somewhere inside you."))
 
 /datum/nanite_program/poison
 	name = "Poisoning"
@@ -25,7 +25,7 @@
 /datum/nanite_program/poison/active_effect()
 	host_mob.adjustToxLoss(1)
 	if(prob(2) && !HAS_TRAIT(host_mob, TRAIT_TOXINLOVER))
-		to_chat(host_mob, "<span class='warning'>You feel nauseous.</span>")
+		to_chat(host_mob, span_warning("You feel nauseous."))
 		if(iscarbon(host_mob))
 			var/mob/living/carbon/C = host_mob
 			C.vomit(20)
@@ -66,12 +66,12 @@
 
 /datum/nanite_program/meltdown/enable_passive_effect()
 	. = ..()
-	to_chat(host_mob, "<span class='userdanger'>Your blood is burning!</span>")
+	to_chat(host_mob, span_userdanger("Your blood is burning!"))
 	nanites.safety_threshold = 0
 
 /datum/nanite_program/meltdown/disable_passive_effect()
 	. = ..()
-	to_chat(host_mob, "<span class='warning'>Your blood cools down, and the pain gradually fades.</span>")
+	to_chat(host_mob, span_warning("Your blood cools down, and the pain gradually fades."))
 
 /datum/nanite_program/explosive
 	name = "Chain Detonation"
@@ -82,15 +82,16 @@
 	rogue_types = list(/datum/nanite_program/toxic)
 
 /datum/nanite_program/explosive/on_trigger(comm_message)
-	host_mob.visible_message("<span class='warning'>[host_mob] starts emitting a high-pitched buzzing, and [host_mob.p_their()] skin begins to glow...</span>",\
-							"<span class='userdanger'>You start emitting a high-pitched buzzing, and your skin begins to glow...</span>")
+	host_mob.visible_message(span_warning("[host_mob] starts emitting a high-pitched buzzing, and [host_mob.p_their()] skin begins to glow..."),\
+							span_userdanger("You start emitting a high-pitched buzzing, and your skin begins to glow..."))
 	addtimer(CALLBACK(src, PROC_REF(boom)), clamp((nanites.nanite_volume * 0.35), 25, 150))
 
 /datum/nanite_program/explosive/proc/boom()
 	var/nanite_amount = nanites.nanite_volume
-	var/dev_range = FLOOR(nanite_amount/200, 1) - 1
-	var/heavy_range = FLOOR(nanite_amount/100, 1) - 1
-	var/light_range = FLOOR(nanite_amount/50, 1) - 1
+	var/max_nanites = nanites.max_nanites
+	var/dev_range = FLOOR(nanite_amount/(max_nanites * 0.4), 1) - 1
+	var/heavy_range = FLOOR(nanite_amount/(max_nanites * 0.2), 1) - 1
+	var/light_range = FLOOR(nanite_amount/(max_nanites * 0.1), 1) - 1
 	explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
 
@@ -107,7 +108,7 @@
 /datum/nanite_program/heart_stop/on_trigger(comm_message)
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/obj/item/organ/heart/heart = C.getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/heart = C.get_organ_slot(ORGAN_SLOT_HEART)
 		if(heart)
 			if(heart.beating)
 				heart.Stop()
@@ -177,13 +178,12 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/ES = extra_settings[NES_DIRECTIVE]
 		sent_directive = ES.get_value()
-	brainwash(host_mob, sent_directive)
+	var/directive = brainwash(host_mob, sent_directive, nanites.cloud_id ? "nanites in cloud [nanites.cloud_id]" : "nanites")
 	log_game("A mind control nanite program brainwashed [key_name(host_mob)] with the objective '[sent_directive]'.")
-	addtimer(CALLBACK(src, PROC_REF(end_brainwashing)), 600)
+	addtimer(CALLBACK(src, PROC_REF(end_brainwashing), directive), 600)
 
-/datum/nanite_program/comm/mind_control/proc/end_brainwashing()
-	if(host_mob.mind && host_mob.mind.has_antag_datum(/datum/antagonist/brainwashed))
-		host_mob.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+/datum/nanite_program/comm/mind_control/proc/end_brainwashing(directive)
+	unbrainwash(host_mob, directive)
 	log_game("[key_name(host_mob)] is no longer brainwashed by nanites.")
 
 /datum/nanite_program/comm/mind_control/disable_passive_effect()

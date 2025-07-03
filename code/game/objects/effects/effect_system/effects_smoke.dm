@@ -8,15 +8,17 @@
 	icon_state = "smoke"
 	pixel_x = -32
 	pixel_y = -32
-	opacity = 0
+	opacity = FALSE
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = 0
 	var/amount = 4
 	var/lifetime = 5
-	var/opaque = 1 //whether the smoke can block the view when in enough amount
-
+	var/opaque = 1 //whether the smoke can block the view when in enough amountz
+	var/static/list/connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(mob_entered),
+	)
 
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	if(alpha == 0) //Handle already transparent case
@@ -34,7 +36,13 @@
 	. = ..()
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
+	// Smoke out any mobs on initialise
+	for (var/mob/living/target in loc)
+		target.apply_status_effect(/datum/status_effect/smoke)
 
+/obj/effect/particle_effect/smoke/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -54,6 +62,13 @@
 		smoke_mob(L)
 	return 1
 
+/obj/effect/particle_effect/smoke/proc/mob_entered(datum/source, mob/living/target)
+	SIGNAL_HANDLER
+	if (!istype(target))
+		return
+	// Mobs inside the smoke get slowed if they can't see through it
+	target.apply_status_effect(/datum/status_effect/smoke)
+
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
 		return 0
@@ -71,12 +86,12 @@
 	if(C)
 		C.smoke_delay = 0
 
-/obj/effect/particle_effect/smoke/proc/spread_smoke()
+/obj/effect/particle_effect/smoke/proc/spread_smoke(circle = TRUE)
 	var/turf/t_loc = get_turf(src)
 	if(!t_loc)
 		return
 	var/list/newsmokes = list()
-	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs())
+	for(var/turf/T in t_loc.get_atmos_adjacent_turfs(!circle))
 		var/obj/effect/particle_effect/smoke/foundsmoke = locate() in T //Don't spread smoke where there's already smoke!
 		if(foundsmoke)
 			continue
@@ -96,19 +111,20 @@
 	if(newsmokes.len)
 		spawn(1) //the smoke spreads rapidly but not instantly
 			for(var/obj/effect/particle_effect/smoke/SM in newsmokes)
-				SM.spread_smoke()
-
+				SM.spread_smoke(circle)
 
 /datum/effect_system/smoke_spread
 	var/amount = 10
+	var/circle = TRUE
 	effect_type = /obj/effect/particle_effect/smoke
 
-/datum/effect_system/smoke_spread/set_up(radius = 5, loca)
+/datum/effect_system/smoke_spread/set_up(radius = 5, loca, circle = TRUE)
 	if(isturf(loca))
 		location = loca
 	else
 		location = get_turf(loca)
 	amount = radius
+	src.circle = TRUE
 
 /datum/effect_system/smoke_spread/start()
 	if(holder)
@@ -116,7 +132,7 @@
 	var/obj/effect/particle_effect/smoke/S = new effect_type(location)
 	S.amount = amount
 	if(S.amount)
-		S.spread_smoke()
+		S.spread_smoke(circle)
 
 
 /////////////////////////////////////////////
@@ -159,26 +175,27 @@
 	if(T.air)
 		var/datum/gas_mixture/G = T.air
 		if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-			G.set_temperature(temperature)
-		T.air_update_turf()
+			G.temperature = temperature
+		T.air_update_turf(FALSE, FALSE)
 		for(var/obj/effect/hotspot/H in T)
 			qdel(H)
-		if(G.get_moles(GAS_PLASMA))
-			G.adjust_moles(GAS_N2, G.get_moles(GAS_PLASMA))
-			G.set_moles(GAS_PLASMA, 0)
+		if(G.gases[/datum/gas/plasma][MOLES])
+			ADD_MOLES(/datum/gas/nitrogen, G, G.gases[/datum/gas/plasma][MOLES])
+			G.gases[/datum/gas/plasma][MOLES] = 0
+
 	if (weldvents)
 		for(var/obj/machinery/atmospherics/components/unary/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
 				U.welded = TRUE
 				U.update_icon()
-				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
+				U.visible_message(span_danger("[U] was frozen shut!"))
 	for(var/mob/living/L in T)
 		L.ExtinguishMob()
 	for(var/obj/item/Item in T)
 		Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0)
-	..()
+/datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0, circle = TRUE)
+	..(radius, loca, circle)
 	blast = blast_radius
 
 /datum/effect_system/smoke_spread/freezing/start()
@@ -188,7 +205,7 @@
 	..()
 
 /datum/effect_system/smoke_spread/freezing/decon
-	temperature = 293.15
+	temperature = T20C
 	distcheck = FALSE
 	weldvents = FALSE
 
@@ -225,9 +242,9 @@
 		for(var/atom/movable/AM in T)
 			if(AM.type == src.type)
 				continue
-			reagents.reaction(AM, TOUCH, fraction)
+			reagents.expose(AM, TOUCH, fraction)
 
-		reagents.reaction(T, TOUCH, fraction)
+		reagents.expose(T, TOUCH, fraction)
 		return 1
 
 /obj/effect/particle_effect/smoke/chem/smoke_mob(mob/living/carbon/M)
@@ -240,7 +257,7 @@
 		return 0
 	var/fraction = 1/initial(lifetime)
 	reagents.copy_to(C, fraction*reagents.total_volume)
-	reagents.reaction(M, INGEST, fraction)
+	reagents.expose(M, INGEST, fraction)
 	if(isapid(C))
 		C.SetSleeping(50) // Bees sleep when smoked
 	M.log_message("breathed in some smoke with reagents [english_list(reagents.reagent_list)]", LOG_ATTACK, null, FALSE) // Do not log globally b/c spam
@@ -264,13 +281,14 @@
 	chemholder = null
 	return ..()
 
-/datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, radius = 1, loca, silent = FALSE)
+/datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, radius = 1, loca, silent = FALSE, circle = TRUE)
 	if(isturf(loca))
 		location = loca
 	else
 		location = get_turf(loca)
 	amount = radius
 	carry.copy_to(chemholder, carry.total_volume)
+	src.circle = circle
 
 	if(!silent)
 		var/contained = ""
@@ -307,8 +325,8 @@
 		S.add_atom_colour(mixcolor, FIXED_COLOUR_PRIORITY) // give the smoke color, if it has any to begin with
 	S.amount = amount
 	if(S.amount)
-		S.spread_smoke() //calling process right now so the smoke immediately attacks mobs.
-
+		S.spread_smoke(circle) //calling process right now so the smoke immediately attacks mobs.
+	return S
 
 /////////////////////////////////////////////
 // Transparent smoke

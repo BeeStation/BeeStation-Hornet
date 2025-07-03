@@ -2,18 +2,51 @@
 
 GLOBAL_VAR(restart_counter)
 
+/**
+ * WORLD INITIALIZATION
+ * THIS IS THE INIT ORDER:
+ *
+ * BYOND =>
+ * - (secret init native) =>
+ *   - world.Genesis() =>
+ *     - world.init_byond_tracy()
+ *   - (/static variable inits, reverse declaration order)
+ * - Master/New()
+ * - (all pre-mapped atoms) /atom/New()
+ * - world.New()
+ *
+ * Now listen up because I want to make something clear:
+ * If something is not in this list it should almost definitely be handled by a subsystem Initialize()ing
+ * If whatever it is that needs doing doesn't fit in a subsystem you probably aren't trying hard enough tbhfam
+ *
+ * GOT IT MEMORIZED?
+ * - Dominion/Cyberboss
+ */
+
+/**
+ * THIS !!!SINGLE!!! PROC IS WHERE ANY FORM OF INIITIALIZATION THAT CAN'T BE PERFORMED IN MASTER/NEW() IS DONE
+ * NOWHERE THE FUCK ELSE
+ * I DON'T CARE HOW MANY LAYERS OF DEBUG/PROFILE/TRACE WE HAVE, YOU JUST HAVE TO DEAL WITH THIS PROC EXISTING
+ * I'M NOT EVEN GOING TO TELL YOU WHERE IT'S CALLED FROM BECAUSE I'M DECLARING THAT FORBIDDEN KNOWLEDGE
+ * SO HELP ME GOD IF I FIND ABSTRACTION LAYERS OVER THIS!
+ */
+/world/proc/Genesis()
+	#ifdef USE_BYOND_TRACY
+	#warn USE_BYOND_TRACY is enabled
+	init_byond_tracy()
+	#endif
+	// Anything else that needs to happen before /world/New() goes here.
+	// On TG this includes debugger init and intializing Master, but for now we'll leave that as a BYOND global.
+
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	//Keep the auxtools stuff at the top
-	AUXTOOLS_CHECK(AUXMOS)
-
 	log_world("World loaded at [time_stamp()]!")
 	SSmetrics.world_init_time = REALTIMEOFDAY // Important
 
 	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
-	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
+	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = GLOB.world_econ_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
@@ -52,6 +85,12 @@ GLOBAL_VAR(restart_counter)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
 
+#ifdef DISABLE_BYOND_AUTH
+	CONFIG_SET(flag/guest_ban, FALSE) // no point in banning guests if BYOND auth doesn't exist
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
+		log_world("DANGER: External authorization is disabled while DISABLE_BYOND_AUTH is set. This means connecting CKEYs are blindly trusted and susceptible to spoofing!")
+#endif
+
 	if(fexists(RESTART_COUNTER_PATH))
 		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
 		fdel(RESTART_COUNTER_PATH)
@@ -63,6 +102,10 @@ GLOBAL_VAR(restart_counter)
 
 	#ifdef UNIT_TESTS
 	HandleTestRun()
+	#endif
+
+	#ifdef AUTOWIKI
+	setup_autowiki()
 	#endif
 
 /world/proc/InitTgs()
@@ -109,6 +152,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_mecha_log = "[GLOB.log_directory]/mecha.log"
 	GLOB.world_virus_log = "[GLOB.log_directory]/virus.log"
 	GLOB.world_cloning_log = "[GLOB.log_directory]/cloning.log"
+	GLOB.world_econ_log = "[GLOB.log_directory]/econ.log"
 	GLOB.world_id_log = "[GLOB.log_directory]/id.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.world_attack_log = "[GLOB.log_directory]/attack.log"
@@ -125,8 +169,9 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_job_debug_log = "[GLOB.log_directory]/job_debug.log"
 	GLOB.world_paper_log = "[GLOB.log_directory]/paper.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
+	GLOB.prefs_log = "[GLOB.log_directory]/preferences.log"
 
-#ifdef UNIT_TESTS
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
 	start_log(GLOB.test_log)
 #endif
@@ -136,6 +181,7 @@ GLOBAL_VAR(restart_counter)
 #endif
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_attack_log)
+	start_log(GLOB.world_econ_log)
 	start_log(GLOB.world_pda_log)
 	start_log(GLOB.world_telecomms_log)
 	start_log(GLOB.world_manifest_log)
@@ -145,8 +191,10 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.world_job_debug_log)
 	start_log(GLOB.world_id_log)
 	start_log(GLOB.tgui_log)
+	start_log(GLOB.prefs_log)
 
-	GLOB.changelog_hash = md5('html/changelog.html') //for telling if the changelog has changed recently
+	var/latest_changelog = file("[global.config.directory]/../html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
+	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
@@ -182,7 +230,7 @@ GLOBAL_VAR(restart_counter)
 			log_topic("(NON-JSON) \"[topic_decoded]\", from:[addr], master:[master], key:[key]")
 		// Fallback check for spacestation13.com requests
 		if(topic_decoded == "ping")
-			return length(GLOB.clients)
+			return length(GLOB.clients_unsafe)
 		response["statuscode"] = 400
 		response["response"] = "Bad Request - Invalid JSON format"
 		return json_encode(response)
@@ -241,7 +289,7 @@ GLOBAL_VAR(restart_counter)
 		if(PRcounts[id] > PR_ANNOUNCEMENTS_PER_ROUND)
 			return
 
-	var/final_composed = "<span class='announce'>PR: [announcement]</span>"
+	var/final_composed = span_announce("PR: [announcement]")
 	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 
@@ -272,9 +320,9 @@ GLOBAL_VAR(restart_counter)
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
-		to_chat(world, "<span class='boldannounce'>Rebooting World immediately due to host request.</span>")
+		to_chat(world, span_boldannounce("Rebooting World immediately due to host request."))
 	else
-		to_chat(world, "<span class='boldannounce'>Rebooting world...</span>")
+		to_chat(world, span_boldannounce("Rebooting world..."))
 		Master.Shutdown()	//run SS shutdowns
 
 	TgsReboot()
@@ -282,7 +330,7 @@ GLOBAL_VAR(restart_counter)
 	#ifdef UNIT_TESTS
 	FinishTestRun()
 	return
-	#endif
+	#else
 
 	if(TgsAvailable())
 		var/do_hard_reboot
@@ -307,55 +355,85 @@ GLOBAL_VAR(restart_counter)
 
 	log_world("World rebooted at [time_stamp()]")
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
-	AUXTOOLS_SHUTDOWN(AUXMOS)
 	..()
+	#endif
 
 /world/Del()
 	shutdown_logging() // makes sure the thread is closed before end, else we terminate
-	AUXTOOLS_SHUTDOWN(AUXMOS)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
-		LIBCALL(debug_server, "auxtools_shutdown")()
+		call_ext(debug_server, "auxtools_shutdown")()
 	..()
 
 /world/proc/update_status()
-
-	var/list/features = list()
-
-	if (!GLOB.enter_allowed)
-		features += "closed"
-
 	var/s = ""
-	var/hostedby
-	if(config)
-		var/server_name = CONFIG_GET(string/servername)
-		if (server_name)
-			s += "<b>[server_name]</b> &#8212; "
 
-		hostedby = CONFIG_GET(string/hostedby)
-
-	s += "<b>[station_name()]</b>";
-	var/discordurl = CONFIG_GET(string/discordurl)
-	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
-
-	var/players = GLOB.clients.len
-
+	// Remove the https: since // is good enough
+	var/discordurl = replacetext(CONFIG_GET(string/discordurl), "https:", "")
+	var/server_name = CONFIG_GET(string/servername)
+	var/server_tag = CONFIG_GET(string/servertag)
+	var/station_name = station_name()
+	var/players = GLOB.clients_unsafe.len
 	var/popcaptext = ""
 	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
 	if (popcap)
 		popcaptext = "/[popcap]"
 
-	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
+	// Determine our character usage
+	var/character_usage = 92	// Base character usage
+	// Discord URL is needed
+	if (discordurl)
+		character_usage += length(discordurl)
+	// Server name is needed
+	if (server_name)
+		character_usage += length(server_name)
+	// We also need this stuff
+	character_usage += length("[players][popcaptext][SSmapping.config?.map_name || "Loading..."][server_tag]")
+	var/station_name_limit = 255 - character_usage
 
-	if (!host && hostedby)
-		features += "hosted by <b>[hostedby]</b>"
+	if (station_name_limit <= 10)
+		// Too few characters to display the station name
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name]</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b></b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name]</b><br>"
+			else
+				s += "<b>Space Station 13</b><br>"
+	if (station_name_limit < length(station_name))
+		// Station name is going to be truncated with ...
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name]</b> - <b>[copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b>[copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name]</b> - <b>[copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
+			else
+				s += "<b>[copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
+	else
+		// Station name can be displayed in full
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name]</b> - <b>[station_name]</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b>[station_name]</b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name]</b> - <b>[station_name]</b><br>"
+			else
+				s += "<b>[station_name]</b><br>"
 
-	if(length(features))
-		s += ": [jointext(features, ", ")]"
+	if (server_tag)
+		s += "[server_tag]<p>"
 
-	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
-	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
-	s += "<br>Players: <b>[players][popcaptext]</b>"
+	s += "Time: <b>[gameTimestamp("hh:mm:ss")]</b><br>"
+	s += "Players: <b>[players][popcaptext]</b><br>"
+	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]"
 
 	status = s
 
@@ -375,3 +453,43 @@ GLOBAL_VAR(restart_counter)
 	world.refresh_atmos_grid()
 
 /world/proc/refresh_atmos_grid()
+
+/world/proc/change_fps(new_value = 20)
+	if(new_value <= 0)
+		CRASH("change_fps() called with [new_value] new_value.")
+	if(fps == new_value)
+		return //No change required.
+
+	fps = new_value
+	on_tickrate_change()
+
+/* UNUSED. uncomment if using
+/world/proc/change_tick_lag(new_value = 0.5)
+	if(new_value <= 0)
+		CRASH("change_tick_lag() called with [new_value] new_value.")
+	if(tick_lag == new_value)
+		return //No change required.
+
+	tick_lag = new_value
+	on_tickrate_change()
+*/
+
+/world/proc/on_tickrate_change()
+	SStimer?.reset_buckets()
+
+/world/proc/init_byond_tracy()
+	var/library
+
+	switch (system_type)
+		if (MS_WINDOWS)
+			library = "prof.dll"
+		if (UNIX)
+			library = "libprof.so"
+		else
+			CRASH("Unsupported platform: [system_type]")
+
+	var/init_result = call_ext(library, "init")("block")
+	if (init_result != "0")
+		CRASH("Error initializing byond-tracy: [init_result]")
+
+#undef RESTART_COUNTER_PATH

@@ -11,8 +11,7 @@ const isNode = process && process.release && process.release.name === 'node';
 let isChrome = false;
 try {
   isChrome = window.navigator.userAgent.toLowerCase().includes('chrome');
-}
-catch {}
+} catch {}
 
 // Timestamping function
 const getTimestamp = () => {
@@ -32,9 +31,7 @@ const getPrefix = (() => {
       bright: '\x1b[37;1m',
       reset: '\x1b[0m',
     };
-    return ns => [
-      `${ESC.dimmed}${getTimestamp()} ${ESC.bright}${ns}${ESC.reset}`,
-    ];
+    return (ns) => [`${ESC.dimmed}${getTimestamp()} ${ESC.bright}${ns}${ESC.reset}`];
   }
   if (isChrome) {
     // Styles
@@ -42,21 +39,15 @@ const getPrefix = (() => {
       dimmed: 'color: #888',
       bright: 'font-weight: bold',
     };
-    return ns => [
-      `%c${getTimestamp()}%c ${ns}`,
-      styles.dimmed,
-      styles.bright,
-    ];
+    return (ns) => [`%c${getTimestamp()}%c ${ns}`, styles.dimmed, styles.bright];
   }
-  return ns => [
-    `${getTimestamp()} ${ns}`,
-  ];
+  return (ns) => [`${getTimestamp()} ${ns}`];
 })();
 
 /**
  * Creates a logger object.
  */
-export const createLogger = ns => ({
+export const createLogger = (ns) => ({
   log: (...args) => console.log(...getPrefix(ns), ...args),
   trace: (...args) => console.trace(...getPrefix(ns), ...args),
   debug: (...args) => console.debug(...getPrefix(ns), ...args),
@@ -68,5 +59,4 @@ export const createLogger = ns => ({
 /**
  * Explicitly log with chosen namespace.
  */
-export const directLog = (ns, ...args) =>
-  console.log(...getPrefix(ns), ...args);
+export const directLog = (ns, ...args) => console.log(...getPrefix(ns), ...args);

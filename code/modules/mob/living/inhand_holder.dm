@@ -4,13 +4,15 @@
 	name = "bugged mob"
 	desc = "Yell at coderbrush."
 	icon = null
-	icon_state = ""
+	icon_state = null
 	slot_flags = NONE
 	clothing_flags = NOTCONSUMABLE
 	var/mob/living/held_mob
 	var/can_head = TRUE
 	///We are currently releasing the mob held in holder
 	var/releasing = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 
 /obj/item/clothing/head/mob_holder/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
 	. = ..()
@@ -24,6 +26,7 @@
 		righthand_file = rh_icon
 	if(worn_slot_flags)
 		slot_flags = worn_slot_flags
+	item_flags &= ~(ABSTRACT)
 	deposit(M)
 
 /obj/item/clothing/head/mob_holder/Destroy()
@@ -67,13 +70,16 @@
 
 	if(isliving(loc))
 		var/mob/living/L = loc
-		to_chat(L, "<span class='warning'>[held_mob] wriggles free!</span>")
+		to_chat(L, span_warning("[held_mob] wriggles free!"))
 		L.dropItemToGround(src)
+
+	if(attached_wig)
+		unattach_wig()
 
 	held_mob.forceMove(get_turf(held_mob))
 	held_mob.reset_perspective()
 	held_mob.setDir(SOUTH)
-	held_mob.visible_message("<span class='warning'>[held_mob] uncurls!</span>")
+	held_mob.visible_message(span_warning("[held_mob] uncurls!"))
 	held_mob = null
 
 	if(del_on_release)
@@ -82,7 +88,7 @@
 	releasing = FALSE
 	return TRUE
 
-/obj/item/clothing/head/mob_holder/relaymove(mob/user)
+/obj/item/clothing/head/mob_holder/relaymove(mob/living/user, direction)
 	release()
 
 /obj/item/clothing/head/mob_holder/container_resist()
@@ -90,8 +96,10 @@
 
 /obj/item/clothing/head/mob_holder/rabbit
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder/rabbit)
+
 /obj/item/clothing/head/mob_holder/rabbit/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
-	var/mob/living/simple_animal/chicken/rabbit/normal/rabbit = new(src)
+	var/mob/living/simple_animal/chicken/rabbit/easter/rabbit = new(src)
 	return ..(mapload, rabbit, rabbit.held_state, rabbit.head_icon, rabbit.held_lh, rabbit.held_rh, rabbit.worn_slot_flags)
 
 /obj/item/clothing/head/mob_holder/drone/deposit(mob/living/L)

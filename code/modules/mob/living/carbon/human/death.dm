@@ -51,7 +51,7 @@
 	if(stat == DEAD)
 		return
 	stop_sound_channel(CHANNEL_HEARTBEAT)
-	var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
 	if(H)
 		H.beat = BEAT_NONE
 
@@ -60,24 +60,12 @@
 	dizziness = 0
 	jitteriness = 0
 
-	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		if(M.occupant == src)
-			M.go_out()
-
 	if(!QDELETED(dna)) //The gibbed param is bit redundant here since dna won't exist at this point if they got deleted.
 		dna.species.spec_death(gibbed, src)
 
 	if(SSticker.HasRoundStarted())
 		SSblackbox.ReportDeath(src)
 		log_game("[key_name(src)] has died (BRUTE: [src.getBruteLoss()], BURN: [src.getFireLoss()], TOX: [src.getToxLoss()], OXY: [src.getOxyLoss()], CLONE: [src.getCloneLoss()]) ([AREACOORD(src)])")
-	if(is_devil(src))
-		INVOKE_ASYNC(is_devil(src), TYPE_PROC_REF(/datum/antagonist/devil, beginResurrectionCheck), src)
-	if(is_hivemember(src))
-		remove_hivemember(src)
-	if(IS_HIVEHOST(src))
-		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
-		hive.destroy_hive()
 	if(HAS_TRAIT(src, TRAIT_DROPS_ITEMS_ON_DEATH)) //if you want to add anything else, do it before this if statement
 		var/list/turfs_to_throw = view(2, src)
 		for(var/obj/item/I in contents)
@@ -90,6 +78,33 @@
 		//Death
 		dust(TRUE)
 		return
+	if(key) // Prevents log spamming of keyless mob deaths (like xenobio monkeys)
+		investigate_log("has died at [loc_name(src)].<br>\
+			BRUTE: [src.getBruteLoss()] BURN: [src.getFireLoss()] TOX: [src.getToxLoss()] OXY: [src.getOxyLoss()] CLONE: [src.getCloneLoss()] STAM: [src.getStaminaLoss()]<br>\
+			<b>Brain damage</b>: [src.getOrganLoss(ORGAN_SLOT_BRAIN) || "0"]<br>\
+			<b>Blood volume</b>: [src.blood_volume]cl ([round((src.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
+			<b>Reagents</b>:<br>[reagents_readout()]", INVESTIGATE_DEATHS)
+	var/death_message = CONFIG_GET(string/death_message)
+	if (death_message)
+		to_chat(src, death_message)
+
+/mob/living/carbon/human/gib(no_brain, no_organs, no_bodyparts)
+	dna.species.spec_gib(no_brain, no_organs, no_bodyparts, src)
+	return
+
+/mob/living/carbon/human/proc/reagents_readout()
+	var/readout = "Blood:"
+	for(var/datum/reagent/reagent in reagents?.reagent_list)
+		readout += "<br>[round(reagent.volume, 0.001)] units of [reagent.name]"
+	/*
+	readout += "<br>Stomach:"
+	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
+	for(var/datum/reagent/bile in belly?.reagents?.reagent_list)
+		if(!belly.food_reagents[bile.type])
+			readout += "<br>[round(bile.volume, 0.001)] units of [bile.name]"
+	*/
+
+	return readout
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
