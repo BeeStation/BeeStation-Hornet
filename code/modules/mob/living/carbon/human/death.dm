@@ -20,14 +20,8 @@
 	dust_animation()
 	QDEL_IN(src, 20)
 
-/mob/living/carbon/human/dust_animation()
-	// Animate them being dusted out of existence
-	var/obj/effect/dusting_anim/dust_effect = new(loc, REF(src))
-	filters += filter(type = "displace", size = 256, render_source = "*snap[REF(src)]")
-	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
-
+/mob/living/carbon/human/spawn_dust(just_ash = FALSE)
 	new dna.species.remains_type(get_turf(src))
-	QDEL_IN(dust_effect, 20)
 	return TRUE
 
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
