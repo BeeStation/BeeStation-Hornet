@@ -171,8 +171,7 @@
 	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
 		flip(user)
 
-/obj/item/clothing/head/fedora/det_hat/flip(mob/user)
-	..()
+/obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
 	if(!user.incapacitated() && adjustable == TRUE)
 		adjusted = !adjusted
 		if(adjusted)
