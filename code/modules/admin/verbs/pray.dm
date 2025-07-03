@@ -6,6 +6,9 @@
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
+	if(isnewplayer(src))
+		return
+
 	msg = copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	if(!msg)
 		return

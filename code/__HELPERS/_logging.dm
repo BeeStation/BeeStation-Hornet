@@ -275,7 +275,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE, href = "priv_msg")
+/proc/key_name(whom, include_link = null, include_name = TRUE, href = "priv_msg", include_external_name = TRUE)
 	var/mob/M
 	var/client/C
 	var/key
@@ -355,10 +355,18 @@
 		else if(fallback_name)
 			. += "/([fallback_name])"
 
+	if(include_external_name && C?.key_is_external && istype(C?.external_method))
+		. += "#("
+		if(include_link) // show an icon
+			. += "<span class='chat16x16 badge-badge_[C.external_method.get_badge_id()]' style='vertical-align: -3px;'></span>"
+		. += "[C.external_method.format_display_name(C.external_display_name)]"
+		. += ")"
+
+
 	return .
 
-/proc/key_name_admin(whom, include_name = TRUE)
-	return key_name(whom, TRUE, include_name)
+/proc/key_name_admin(whom, include_name = TRUE, include_external_name = TRUE)
+	return key_name(whom, TRUE, include_name, include_external_name = include_external_name)
 
 /proc/loc_name(atom/A)
 	if(!istype(A))

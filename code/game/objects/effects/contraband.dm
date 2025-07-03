@@ -438,6 +438,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	icon_state = "random_official"
 	never_random = TRUE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
+
 /obj/structure/sign/poster/official/here_for_your_safety
 	name = "Here For Your Safety"
 	desc = "A poster glorifying the station's security force."

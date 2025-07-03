@@ -18,12 +18,11 @@
 	var/trauma_flags = TRAUMA_DEFAULT_FLAGS
 
 /datum/brain_trauma/Destroy()
-	if(brain?.traumas)
-		brain.traumas -= src
+	// Handles our references with our brain
+	brain?.remove_trauma_from_traumas(src)
 	if(owner)
 		on_lose()
-	brain = null
-	owner = null
+		owner = null
 	return ..()
 
 /datum/brain_trauma/proc/on_clone()

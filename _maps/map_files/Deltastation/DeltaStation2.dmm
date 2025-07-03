@@ -8508,6 +8508,31 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/hydroponics)
+"beR" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/landmark/start/magician,
+/turf/open/floor/iron,
+/area/crew_quarters/theatre)
 "beT" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/blue,
@@ -45627,6 +45652,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
+"iCI" = (
+/obj/structure/urinal{
+	pixel_y = 28
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/landmark/start/randommaint/backalley_doc,
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "iCJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47843,31 +47876,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"jqZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/landmark/start/magician,
-/turf/open/floor/iron,
-/area/crew_quarters/theatre)
 "jrt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -52470,17 +52478,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
-"kSu" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/obj/structure/chair/stool/bar/directional/south{
-	dir = 1
-	},
-/obj/effect/landmark/start/vip,
-/turf/open/floor/iron,
-/area/crew_quarters/bar/atrium)
 "kSW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -54812,21 +54809,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
-"lHS" = (
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
-/obj/structure/closet/secure_closet/detective,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/light/small,
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
-/turf/open/floor/iron/dark,
-/area/security/detectives_office)
 "lHU" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -59898,14 +59880,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"nkN" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/start/vip,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar/atrium)
 "nkS" = (
 /obj/machinery/light,
 /obj/item/kirbyplants/random,
@@ -63808,6 +63782,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"owt" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair/stool/bar/directional/south{
+	dir = 1
+	},
+/obj/effect/landmark/start/vip,
+/turf/open/floor/iron,
+/area/crew_quarters/bar/atrium)
 "owu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -66484,6 +66469,10 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/security/prison)
+"ptr" = (
+/obj/effect/landmark/start/magician,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/bar/atrium)
 "ptw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67386,6 +67375,14 @@
 /obj/item/pen,
 /turf/open/floor/carpet/grimy,
 /area/library)
+"pHj" = (
+/obj/machinery/holopad,
+/obj/effect/landmark/start/psychiatrist,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/carpet/red,
+/area/medical/exam_room)
 "pHq" = (
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -68221,6 +68218,14 @@
 /obj/structure/chair/office,
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
+"pVF" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/start/vip,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/atrium)
 "pVV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -68652,14 +68657,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
-"qeK" = (
-/obj/structure/urinal{
-	pixel_y = 28
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/landmark/start/randommaint/backalley_doc,
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/restrooms)
 "qeM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -73878,14 +73875,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
-"rIy" = (
-/obj/machinery/holopad,
-/obj/effect/landmark/start/psychiatrist,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/carpet/red,
-/area/medical/exam_room)
 "rIz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -76939,6 +76928,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/atmospherics_engine)
+"sDQ" = (
+/obj/structure/closet/secure_closet/detective,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/light/small,
+/turf/open/floor/iron/dark,
+/area/security/detectives_office)
 "sEd" = (
 /obj/structure/filingcabinet,
 /obj/item/folder/documents,
@@ -80089,10 +80084,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard)
-"tCz" = (
-/obj/effect/landmark/start/magician,
-/turf/open/floor/carpet/purple,
-/area/crew_quarters/bar/atrium)
 "tCA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
@@ -128216,7 +128207,7 @@ alg
 aMX
 spM
 rNb
-jqZ
+beR
 aTx
 aVj
 aMX
@@ -130530,7 +130521,7 @@ uzG
 aOE
 aQn
 hNE
-tCz
+ptr
 aOF
 sBi
 aYC
@@ -131299,7 +131290,7 @@ aDL
 aDL
 jAF
 ejA
-nkN
+pVF
 wgK
 wgK
 dCt
@@ -132066,7 +132057,7 @@ aEW
 nov
 aHB
 icn
-kSu
+owt
 rOT
 xkf
 snE
@@ -139306,7 +139297,7 @@ bHr
 nGr
 kJx
 jDr
-lHS
+sDQ
 bMW
 fHN
 wyY
@@ -140618,7 +140609,7 @@ inw
 inw
 gEX
 jQN
-rIy
+pHj
 yho
 vyB
 sHg
@@ -141374,7 +141365,7 @@ cvM
 qHd
 aTr
 cAm
-qeK
+iCI
 oyy
 cFj
 cAm

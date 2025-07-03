@@ -22,7 +22,7 @@
 	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery/brain_recalibration/can_start(mob/user, mob/living/carbon/target, target_zone)
-	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!B)
 		return FALSE
 	return TRUE
@@ -45,7 +45,7 @@
 	return TRUE
 
 /datum/surgery_step/fix_brain/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	if(target.getorganslot(ORGAN_SLOT_BRAIN))
+	if(target.get_organ_slot(ORGAN_SLOT_BRAIN))
 		display_results(user, target, span_warning("You screw up, causing more damage!"),
 			span_warning("[user] screws up, causing brain damage!"),
 			"[user] completes the surgery on [target]'s brain.")

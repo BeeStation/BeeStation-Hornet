@@ -1,0 +1,60 @@
+2025-07-01:
+  PestoVerde322:
+  - rscadd: Reworked the Trasen-Knox hud, aswell added 3 variants of the Trasen knox
+      (Midnight-Knox, Plasma-Knox and Nyan-Knox)
+  - tweak: The default HUD is now Midnight-Knox
+  - rscdel: Removed the plasmafire, slimecore, operative and retro HUDs
+  rkz, Celotajs, MSO, Wayland-Smithy:
+  - server: converted html changelog to TGUI
+2025-07-02:
+  PinkSuzuki & HowToLolu:
+  - rscdel: Retires the Lapvendor
+  - balance: Reduced the Quality of the parts PDAs come pre-installed with.
+  - tweak: Messenger, Crew Manifest, Notepad and Wiki-app are now deletable and copyable.
+  - tweak: Tablets now offer a small bit more light than PDAs
+  - tweak: Tablets can now be fit with parts meant for Laptops.
+  - tweak: Tablets have 1 more expansion bay.
+  - rscadd: Made Modular Computers rechargeable in Cell Chargers.
+  - code_imp: Now Cell Chargers can now accept any type of item that has a cell in
+      it (provided they are in the "List")
+  - rscadd: Added a Camera Component for Modular Computers however it is currently...
+      useless.
+  - rscadd: Added 17 Tablet Colorizers and put them on the ModularPC vendor.
+  - imageadd: Added a ton of skins for PDAs Tablets and the Contractor Tablet.
+  - tweak: Added almost all PC components to the modularpc vendor. (including things
+      accessible by hacking)
+  - balance: Changed the prices of the items on the ModularPC vendor to be more grounded
+      in reality.
+  - rscadd: Added a 'Tablets for Dummies' box that serves as a tutorial for players.
+  - tweak: Pre-installed Messenger, Crew Manifest, Notepad and Wiki-App into Micro
+      Solid State Drives.
+  - tweak: Inserting a component into a Modular Component now plays a sound.
+  - imageadd: Added program sprites for almost all programs, with special attention
+      to the programs which were supposed to have one but didn't.
+  - bugfix: Fixed Contractor Uplink sprites not displaying properly.
+  - code_imp: Colorizers now have a delete_me variable and text to reflect how many
+      charges they have left.
+  - tweak: Renamed the "Super Hard Disk Drive" to "Super-Advanced Hard Disk Drive"
+      for obvious reasons.
+  - imageadd: Added a sprite for the box that holds the new colorizers.
+  - bugfix: Fixed Identifiers not changing the name of Tablets.
+  - imageadd: Added light, ID and pen overlays to the Tablet and Contractor Tablet.
+  - balance: Decreased the program size of the Cargo App.
+  - tweak: Separated Computer Hardware tech into 4 tiers. Including an Experimental
+      Computer Hardware branch.
+  - tweak: Made all components printable in the circuit printer. (Half were on the
+      Protolathe.)
+  - rscadd: Added Components that were missing in the Techweb and were thus unfabricable.
+  - bugfix: Detomatix now properly checks for if the target has messaging disabled
+      or not.
+  - imageadd: Added a sprite for the No-Relay Network Card.
+  itsmeow:
+  - bugfix: Prevent the server from logging session tokens
+  - bugfix: Fixed FORCE_BYOND_EXTERNAL_AUTH breaking logins if ENABLE_GUEST_EXTERNAL_AUTH
+      was disabled
+  - bugfix: Fixed logins always erroneously determining that a user does not exist
+      in the database.
+2025-07-03:
+  ClownMoff:
+  - rscadd: Added a missing fire alarm in RadStation Brig, in the processing room.
+  - rscdel: Removed an extra unnecesary fire alarm in MetaStation, in medbay.

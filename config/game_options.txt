@@ -78,18 +78,18 @@ HUMANS_NEED_SURNAMES
 
 
 ## ALERT LEVELS ###
-ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced.
+ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are now in effect.
 ALERT_BLUE_UPTO The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted.
 ALERT_BLUE_DOWNTO The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.
-ALERT_RED_UPTO There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.
+ALERT_RED_UPTO The station is now under martial law. There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.
 ALERT_RED_DOWNTO There is still an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
-ALERT_DELTA Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.
-ALERT_ENGINEERING The security alert level has been changed to yellow (Engineering). There is currently a critical engineering issue on the station. All crewmembers are instructed to obey all instructions given by the Chief Engineer for the duration of this alert.
-ALERT_MEDICAL The security alert level has been changed to yellow (Medical). There is an ongoing C-B-R-N threat to the station. Crewmembers are advised to don protective gear, and personal oxygen systems. All crew are instructed to obey all instructions given by the Chief Medical Officer for the duration of this alert.
-ALERT_GAMMA Central Command has ordered the Gamma security level on the station. This station is now under direct central command control. Central command personnel are to be listened to in favor of heads of staff.
-ALERT_BLACK Central Command has detected multiple syndicate infiltrator ships incoming. All crew are to prepare for hostile boarding. Any violations of orders from security personnel are punishable by death. This is not a drill, evacuate the station immediately.
-ALERT_LAMBDA Central Command has detected a large spike of dimensional energy, consistent with the summoning of \[REDACTED\] entities. Any violations of orders from Heads of Staff and security can be punished by death. All crew are recommended to evacuate if possible.
-ALERT_EPSILON Central Command has ordered the Epsilon security level on the station. Consider your contracts terminated.
+ALERT_DELTA Destruction of the station is imminent. Prepare for immediate evacuation. Any violations of orders from Heads of Staff or security are punishable by death.
+ALERT_ENGINEERING The security alert is now Yellow(Engineering). A critical engineering issue is present on the station. Don protective gear and personal oxygen systems. Command authority is transferred to the Chief Engineer for the duration of this alert.
+ALERT_MEDICAL The security alert is now Yellow(Medical). A C-B-R-N threat is present aboard the station. Don protective gear and personal oxygen systems. Command authority is transferred to the Chief Medical Officer for the duration of this alert.
+ALERT_BLACK Command staff has activated "BLACK" security level on the station. All hands are to prepare for combat. Any violations of orders from Heads of Staff or security are punishable by death.
+ALERT_GAMMA Central Command has ordered "GAMMA" security level on the station. The station is now under direct central command control. All central command staff are to be obeyed at all costs.
+ALERT_LAMBDA Central Command has ordered "LAMBDA" security level on the station. Any violations of orders from Heads of Staff or security are punishable by death. All hands, prepare for evacuation.
+ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. Your station is designated as a lost asset. Consider your contracts with Nanotrasen terminated.
 
 ## GAME MODES ###
 

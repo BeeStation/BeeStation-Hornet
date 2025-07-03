@@ -17288,22 +17288,6 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
-"eDs" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "psypriv";
-	name = "Psycology Shutters Control";
-	pixel_x = 26
-	},
-/obj/machinery/newscaster{
-	pixel_y = -31
-	},
-/obj/effect/landmark/start/psychiatrist,
-/turf/open/floor/wood,
-/area/medical/exam_room)
 "eDw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -27060,6 +27044,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
+"gSU" = (
+/obj/effect/landmark/start/magician,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "gSV" = (
 /obj/item/storage/box/papersack{
 	icon_state = "paperbag_NanotrasenStandard_closed"
@@ -30855,6 +30843,17 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"hTv" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/chair/stool/directional/west,
+/obj/effect/landmark/start/vip,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "hTw" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/costume,
@@ -32507,6 +32506,14 @@
 	},
 /turf/open/floor/iron/checker,
 /area/quartermaster/storage)
+"ipE" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/detective,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "ipJ" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -32705,24 +32712,6 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
-"irV" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/closet/secure_closet/detective,
-/obj/item/clothing/under/rank/security/detective{
-	icon_state = "curator"
-	},
-/obj/item/clothing/suit/jacket/det_suit{
-	icon_state = "curator"
-	},
-/obj/item/clothing/head/fedora/det_hat{
-	icon_state = "curator"
-	},
-/obj/item/holosign_creator/security,
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "irW" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
@@ -37084,14 +37073,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
-"jzO" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/chair/stool/directional/west,
-/obj/effect/landmark/start/vip,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "jzQ" = (
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/stripes/line,
@@ -39672,6 +39653,14 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
+"kfr" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/stool/directional/west,
+/obj/effect/landmark/start/vip,
+/turf/open/floor/carpet,
+/area/crew_quarters/bar/atrium)
 "kfE" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/five,
@@ -51496,6 +51485,22 @@
 "nfM" = (
 /turf/closed/wall/rust,
 /area/maintenance/disposal)
+"nfY" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "psypriv";
+	name = "Psycology Shutters Control";
+	pixel_x = 26
+	},
+/obj/machinery/newscaster{
+	pixel_y = -31
+	},
+/obj/effect/landmark/start/psychiatrist,
+/turf/open/floor/wood,
+/area/medical/exam_room)
 "nfZ" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
@@ -53949,14 +53954,6 @@
 "nMw" = (
 /turf/closed/wall,
 /area/crew_quarters/toilet/auxiliary)
-"nMx" = (
-/obj/structure/chair/fancy/sofa/old/left{
-	color = "#742925";
-	dir = 1
-	},
-/obj/effect/landmark/start/randommaint/backalley_doc,
-/turf/open/floor/carpet,
-/area/hallway/secondary/entry)
 "nNh" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/white/line,
@@ -57494,6 +57491,15 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
+"oKv" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/effect/landmark/start/magician,
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/crew_quarters/theatre/backstage)
 "oKz" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
@@ -65828,10 +65834,6 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
-"qSp" = (
-/obj/effect/landmark/start/magician,
-/turf/open/floor/carpet/purple,
-/area/crew_quarters/theatre)
 "qSu" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -73683,6 +73685,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"sSL" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#742925";
+	dir = 1
+	},
+/obj/effect/landmark/start/randommaint/backalley_doc,
+/turf/open/floor/carpet,
+/area/hallway/secondary/entry)
 "sSN" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -79585,13 +79595,6 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/carpet,
 /area/chapel/main)
-"uuA" = (
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 9
-	},
-/obj/machinery/lapvend,
-/turf/open/floor/iron/white,
-/area/science/lobby)
 "uuM" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -80233,17 +80236,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/engine/break_room)
-"uBu" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/chair/stool/directional/west,
-/obj/effect/landmark/start/vip,
-/turf/open/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "uBw" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
@@ -91103,15 +91095,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
-"xap" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/effect/landmark/start/magician,
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
-/area/crew_quarters/theatre/backstage)
 "xav" = (
 /obj/structure/railing{
 	dir = 4
@@ -116751,7 +116734,7 @@ gci
 nnV
 pIR
 mRd
-uBu
+hTv
 nZF
 mRd
 mRd
@@ -117017,7 +117000,7 @@ lru
 vAS
 xqJ
 wsI
-qSp
+gSU
 wsI
 pJi
 qvN
@@ -117522,7 +117505,7 @@ gPw
 sdf
 syY
 mRd
-jzO
+kfr
 kSv
 mRd
 fXw
@@ -117802,7 +117785,7 @@ xTE
 tcR
 slX
 smW
-nMx
+sSL
 kWT
 tPE
 jFe
@@ -119075,7 +119058,7 @@ wdj
 wuq
 wwM
 xio
-xap
+oKv
 xOl
 wwM
 xfd
@@ -123141,7 +123124,7 @@ qHb
 qPX
 fgp
 kTT
-eDs
+nfY
 xLS
 rZN
 dxK
@@ -128591,7 +128574,7 @@ iSJ
 xgk
 iOM
 njq
-irV
+ipE
 hhg
 iSJ
 ery
@@ -132205,7 +132188,7 @@ usO
 okI
 eJJ
 wvE
-uuA
+vJN
 wQP
 hmf
 yiN

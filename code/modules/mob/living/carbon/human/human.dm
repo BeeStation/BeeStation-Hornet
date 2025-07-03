@@ -91,7 +91,7 @@
 			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[round(SN.cell.charge/100)]%")
 			tab_data["Smoke Bombs"] = GENERATE_STAT_TEXT("[SN.s_bombs]")
 			//Ninja status
-			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
+			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.unique_identity)]")
 			tab_data["Unique Identity"] = GENERATE_STAT_TEXT("[dna.unique_enzymes]")
 			tab_data["Overall Status"] = GENERATE_STAT_TEXT("[stat > 1 ? "dead" : "[health]% healthy"]")
 			tab_data["Nutrition Status"] = GENERATE_STAT_TEXT("[nutrition]")
@@ -498,7 +498,7 @@
 			to_chat(src, span_warning("Remove [p_their()] mask first!"))
 			return FALSE
 
-		if (!getorganslot(ORGAN_SLOT_LUNGS))
+		if (!get_organ_slot(ORGAN_SLOT_LUNGS))
 			to_chat(src, span_warning("You have no lungs to breathe with, so you cannot perform CPR!"))
 			return FALSE
 
@@ -522,7 +522,7 @@
 
 		if (HAS_TRAIT(target, TRAIT_NOBREATH))
 			to_chat(target, span_unconscious("You feel a breath of fresh air... which is a sensation you don't recognise..."))
-		else if (!target.getorganslot(ORGAN_SLOT_LUNGS))
+		else if (!target.get_organ_slot(ORGAN_SLOT_LUNGS))
 			to_chat(target, span_unconscious("You feel a breath of fresh air... but you don't feel any better..."))
 		else
 			target.adjustOxyLoss(-min(target.getOxyLoss(), 7))
@@ -752,7 +752,7 @@
 	return TRUE
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
-	if(blood && (NOBLOOD in dna.species.species_traits))
+	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
 							span_userdanger("You try to throw up, but there's nothing in your stomach!"))
@@ -1047,7 +1047,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(battery))
 			battery.adjust_charge_scaled(change)
 		return FALSE
@@ -1057,7 +1057,7 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(battery))
 			battery.set_charge_scaled(change)
 		return FALSE
@@ -1225,6 +1225,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/shadow/nightmare
 	race = /datum/species/shadow/nightmare
+
+/mob/living/carbon/human/species/shadow/blessed
+	race = /datum/species/shadow/blessed
 
 /mob/living/carbon/human/species/skeleton
 	race = /datum/species/skeleton
