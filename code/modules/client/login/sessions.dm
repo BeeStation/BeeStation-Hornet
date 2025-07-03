@@ -164,6 +164,9 @@
 	if(!istext(src.byond_authenticated_key) || !length(src.byond_authenticated_key))
 		// They didn't authenticate with BYOND, we can skip this check.
 		return TRUE
+	// We can only update it if they're actually signing in with their BYOND authenticated key.
+	if(ckey(src.byond_authenticated_key) != ckey(new_key))
+		return TRUE // this check can't be hit at the time of writing, but may be necessary in the future
 	var/external_column = external_method::db_id_column_name
 	if(!istext(external_column) || !length(external_column))
 		return FALSE
