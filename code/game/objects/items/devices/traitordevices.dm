@@ -83,7 +83,7 @@
 	data["scanmode"] = scanmode
 	data["intensity"] = intensity
 	data["wavelength"] = wavelength
-	data["on_cooldown"] = COOLDOWN_FINISHED(src, cooldown)
+	data["on_cooldown"] = !COOLDOWN_FINISHED(src, cooldown)
 	data["cooldown"] = COOLDOWN_TIMELEFT(src, cooldown) SECONDS
 	return data
 
