@@ -162,8 +162,8 @@
 				to_chat(H, span_notice("The shadows overtake your office. They are in your realm now."))
 			else
 				to_chat(H, span_userdanger("The shadows overtake the detective's office. An omnious feeling takes over you"))
-	else
-		to_chat(user, "<span class='warning'>You can not use this outside of your office.</span>")
+	return
+		to_chat(user, ("<span class='warning'>You can not use this outside of your office.</span>"))
 
 /obj/item/clothing/head/fedora/det_hat/CtrlClick(mob/user)
 	..()
