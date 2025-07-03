@@ -206,7 +206,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/create_or_modify_area,
 	#ifdef TESTING
 	/client/proc/check_missing_sprites,
-	/client/proc/run_dynamic_simulations,
 	#endif
 	#ifdef SENDMAPS_PROFILE
 	/client/proc/display_sendmaps,
