@@ -56,12 +56,10 @@
 	serial_code = generate_series_code()
 
 /obj/item/computer_hardware/proc/generate_series_code()	//Generates a code unique to each individual hardware piece. For now used in hardware_id of network cards
-	var/list/charset = list("A","B","C","D","E","F","G","H","I","J","K","L","M",
-							"N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-							"0","1","2","3","4","5","6","7","8","9")
+	var/list/charset = GLOB.alphabet | list("0","1","2","3","4","5","6","7","8","9")
 	var/code = ""
 	for(var/i = 1 to 4)
-		code += pick(charset)
+		code += pick(uppertext(charset))
 	return code
 
 /obj/item/computer_hardware/Destroy()
@@ -227,8 +225,6 @@
 		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>")
 
 /obj/item/computer_hardware/proc/component_qdel()	// Handles deleting a component professionally
-	//if(!src)
-	//	return
 	if(holder)
 		holder.uninstall_component(src)
 	qdel(src)

@@ -323,7 +323,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/turf/t = start
 	var/open_tiles_crossed = 0
 	// Will teleport trough walls untill finding open space, then will subtract from range every open turf
-	for(var/i = 1; i <= 100; i++) // hard limit to avoid infinite loops
+	for(var/i = 1 to 100) // hard limit to avoid infinite loops
 		var/turf/next = get_step(t, direction)
 		if(!isturf(next))
 			break
@@ -704,12 +704,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!length(all_components))
 		balloon_alert(user, "no components installed!")
 		return
-	for(var/h in all_components)
-		var/obj/item/computer_hardware/H = all_components[h]
+	for(var/obj/item/computer_hardware/H as anything in all_components)
 		uninstall_component(H, user, TRUE)
 	tool.play_tool_sound(user, volume=20)
 	ui_update()
-	return
 
 /obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
 	if(!istype(A, /obj/item/computer_hardware))
