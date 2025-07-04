@@ -217,7 +217,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
-	distribute_pressure = 17
+	distribute_pressure = 24
 	volume = 1
 
 /obj/item/tank/internals/emergency_oxygen/clown/populate_gas()
