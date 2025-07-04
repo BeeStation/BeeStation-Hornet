@@ -134,7 +134,7 @@
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
 		return TRUE
-	var/input = tgui_input_number(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption", 0, 100000000, (initial(power_usage) / 2), 0, TRUE)
+	var/input = tgui_input_number(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption", 0, (initial(power_usage) * 5), (initial(power_usage) / 2), 0, TRUE)
 	if(input == null || input == "")
 		return TRUE
 	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
