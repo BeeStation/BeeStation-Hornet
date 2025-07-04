@@ -102,13 +102,13 @@
 	download_netspeed = 0
 	// Speed defines are found in misc.dm
 	switch(ntnet_status)
-		if(1)
+		if(SIGNAL_LOW)
 			download_netspeed = NTNETSPEED_LOWSIGNAL
-		if(2)
+		if(SIGNAL_HIGH)
 			download_netspeed = NTNETSPEED_HIGHSIGNAL
-		if(3)
+		if(SIGNAL_NO_RELAY)
 			download_netspeed = NTNETSPEED_ETHERNET
-		if(4)	// magic numbers
+		if(SIGNAL_HACKED)
 			download_netspeed = NTNETSPEED_ETHERNET
 	download_completion += download_netspeed
 

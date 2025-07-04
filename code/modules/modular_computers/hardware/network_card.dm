@@ -8,7 +8,7 @@
 	var/hardware_id = null	// Identification ID. Technically MAC address of this device. Can't be changed by user.
 	var/identification_string = "nt_card_SFS" 	// Default Identification string, like half an IP.
 	/// Type of signal, High requires no Tcoms in Z-level, Lan is always on
-	var/signal_level = LOW
+	var/signal_level = SIGNAL_LOW
 	malfunction_probability = 1
 	device_type = MC_NET
 	custom_price = 10
@@ -30,21 +30,21 @@
 	to_chat(user, "NIX Identification String: <font color='#ae00ff'>[identification_string]</font>")
 	to_chat(user, "Supported protocols:")
 	switch(signal_level)
-		if(NO_SIGNAL)
+		if(SIGNAL_NO)
 			to_chat(user, "N0 Signal Detected...")
-		if(LOW)
+		if(SIGNAL_LOW)
 			to_chat(user, "511.m SFS (Subspace) - Standard Frequency Spread")
-		if(HIGH)
+		if(SIGNAL_HIGH)
 			to_chat(user, "511.n WFS/HB (Subspace) - Wide Frequency Spread/High Bandiwdth")
-		if(NO_RELAY)
+		if(SIGNAL_NO_RELAY)
 			to_chat(user, "OpenEth (Physical Connection) - Physical network connection port")
-		if(HACKED)
+		if(SIGNAL_HACKED)
 			to_chat(user, "<font color='#d10282'>(!WARN)</font> F.N-<font color='#d10236'>72::BLUESP</font>ΔCE <font color='#02d19d'>LINK_OVRCLK@ERR_0x3F</font>")
 	return
 
 /obj/item/computer_hardware/network_card/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
-		signal_level = HACKED
+		signal_level = SIGNAL_HACKED
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ffd900'>established.</font>")
 	else
 		signal_level = initial(signal_level)
@@ -60,9 +60,9 @@
 		return 0
 	if(!check_functionality())
 		return 0
-	if(signal_level == NO_RELAY)
+	if(signal_level == SIGNAL_NO_RELAY)
 		return 3
-	if(signal_level == HACKED)
+	if(signal_level == SIGNAL_HACKED)
 		return 4
 	if(!SSnetworks.station_network || !SSnetworks.station_network.check_function(specific_action, get_virtual_z_level(), signal_level)) // NTNet is down and we are not connected via wired connection. No signal.
 		return 0
@@ -70,18 +70,18 @@
 		var/turf/T = get_turf(holder)
 		if((T && istype(T)) && (is_station_level(T.z) || is_mining_level(T.z)))
 			// Computer is on station. Low/High signal depending on what type of network card you have
-			if(signal_level == HIGH)
+			if(signal_level == SIGNAL_HIGH)
 				return 2
 			else
 				return 1
-	if(signal_level == HIGH) // Computer is not on station, but it has upgraded network card. Low signal.
+	if(signal_level == SIGNAL_HIGH) // Computer is not on station, but it has upgraded network card. Low signal.
 		return 1
 	return 0 // Computer is not on station and does not have upgraded network card. No signal.
 
 /obj/item/computer_hardware/network_card/advanced
 	name = "advanced network card"
 	desc = "An advanced network card for usage with standard NTNet frequencies. Its transmitter is strong enough to connect even off-station."
-	signal_level = HIGH
+	signal_level = SIGNAL_HIGH
 	power_usage = 100 // Better range but higher power usage.
 	icon_state = "radio"
 	icon_open = "radio_open"
@@ -94,7 +94,7 @@
 /obj/item/computer_hardware/network_card/advanced/norelay
 	name = "ultra-advanced network card"
 	desc = "A prototype card that mimics hardline connectivity using unstable bluespace channels. Impervious to relay interference."
-	signal_level = NO_RELAY
+	signal_level = SIGNAL_NO_RELAY
 	power_usage = 200
 	icon_state = "no-relay"
 	custom_price = 100
@@ -103,7 +103,7 @@
 /obj/item/computer_hardware/network_card/wired
 	name = "wired network card"
 	desc = "An advanced network card for usage with standard NTNet frequencies. This one also supports wired connection."
-	signal_level = NO_RELAY
+	signal_level = SIGNAL_NO_RELAY
 	power_usage = 100 // Better range but higher power usage.
 	icon_state = "net_wired"
 	w_class = WEIGHT_CLASS_NORMAL
