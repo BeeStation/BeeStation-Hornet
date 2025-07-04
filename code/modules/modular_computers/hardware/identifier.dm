@@ -26,7 +26,7 @@
 
 /obj/item/computer_hardware/identifier/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
-		var/input = stripped_input(user, "Device Name Overide: Insert", "NAME DEVICE", "Name", MAX_NAME_LEN)
+		var/input = tgui_input_text(user, "Device Name Overide: Insert", "NAME DEVICE", "Name", MAX_NAME_LEN)
 		if(!input)
 			return
 		stored_name = input

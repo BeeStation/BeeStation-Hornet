@@ -227,7 +227,7 @@ SUBSYSTEM_DEF(networks)
 		log_text += log_string
 		log_string = log_text.Join()
 		logs.Add(log_string)
-		if(logs.len > setting_maxlogcount)
+		if(length(logs) > setting_maxlogcount)
 			logs = logs.Copy(logs.len-setting_maxlogcount,0)
 		return
 	else

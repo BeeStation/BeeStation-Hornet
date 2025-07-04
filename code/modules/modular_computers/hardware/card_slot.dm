@@ -70,8 +70,7 @@
 	else
 		I.forceMove(src)
 	if(fake_card)
-		qdel(fake_card)
-		fake_card = null
+		QDEL_NULL(fake_card)
 	stored_card = I
 	to_chat(user, span_notice("You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
