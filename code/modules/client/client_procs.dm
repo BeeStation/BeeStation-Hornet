@@ -288,10 +288,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	GLOB.mentors -= src
-	// Disassociate, but DON'T DELETE.
-	// These are used to retain telemetry data for disconnected mobs.
-	if(!QDELETED(tgui_panel))
-		tgui_panel.client = null
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
