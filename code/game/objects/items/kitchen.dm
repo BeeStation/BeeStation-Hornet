@@ -70,7 +70,7 @@
 	if (!reagents.total_volume || !M.reagents)
 		return
 	var/amount_inject = amount_per_transfer_from_this
-	if(!M.can_inject(user, 1))
+	if(!M.can_inject(user, user.get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK))
 		amount_inject = 1
 	var/amount = min(amount_inject/reagents.total_volume,1)
 	reagents.expose(M,INJECT,amount)
