@@ -277,7 +277,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(src.logged_in && ismob(mob) && !istype(mob, /mob/dead/new_player/pre_auth))
 		// Don't let the game reassociate with the mob without authenticating again.
 		var/mob/my_mob = src.mob
-		my_mob.key = "@DC![my_mob.key]" // make sure this mob keeps a key that doesn't exist. Very similiar to the adminghost @
+		my_mob.key = "@DC@[my_mob.key]" // make sure this mob keeps a key that doesn't exist. Very similiar to the adminghost @
 		GLOB.disconnected_mobs[src.key] = my_mob // now we know on login that we've signed out from this mob and can reassociate.
 	if(!gc_destroyed)
 		Destroy() //Clean up signals and timers.

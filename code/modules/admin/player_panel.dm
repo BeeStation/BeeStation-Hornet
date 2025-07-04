@@ -42,7 +42,7 @@
 	for(var/mob/player in mobs)
 		if(!player.ckey)
 			continue
-		var/normal_ckey = replacetext(player.ckey, "@DC!", "", 1, 5)
+		var/normal_ckey = replacetext(player.ckey, "@DC@", "", 1, 5)
 		var/list/data_entry = list()
 		if(isliving(player))
 			if(iscarbon(player))
