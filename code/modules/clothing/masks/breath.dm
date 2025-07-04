@@ -13,6 +13,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	visor_flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
+	salvage_material = /obj/item/stack/rods/scrap/plastic
 
 
 /datum/armor/mask_breath

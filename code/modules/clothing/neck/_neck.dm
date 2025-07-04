@@ -5,6 +5,7 @@
 	slot_flags = ITEM_SLOT_NECK
 	strip_delay = 40
 	equip_delay_other = 40
+	salvage_amount = 2
 
 /obj/item/clothing/neck/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
@@ -96,6 +97,7 @@
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
+	salvage_material = /obj/item/stack/rods/scrap
 
 /obj/item/clothing/neck/stethoscope/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] puts \the [src] to [user.p_their()] chest! It looks like [user.p_they()] wont hear much!"))
@@ -235,6 +237,8 @@
 	desc = "Damn, it feels good to be a gangster."
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bling"
+	salvage_material = /obj/item/stack/rods/scrap/gold
+	salvage_amount = 5
 
 /obj/item/clothing/neck/necklace/dope/cross
 	name = "gold cross necklace"

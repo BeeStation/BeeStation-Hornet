@@ -133,6 +133,7 @@
 	color = "#8291a1"
 	armor_type = /datum/armor/hoodie_durathread
 	hoodtype = /obj/item/clothing/head/hooded/hoodie/durathread
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/hoodie_durathread

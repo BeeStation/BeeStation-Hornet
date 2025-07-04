@@ -11,6 +11,10 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 9
+	secondary_salvage_material = /obj/item/stack/rods/scrap/gold
+	secondary_salvage_amount = 5
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot)
 	. = ..()
@@ -22,7 +26,6 @@
 /obj/item/clothing/shoes/magboots/dropped(mob/user)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
-
 
 /datum/armor/shoes_magboots
 	bio = 90

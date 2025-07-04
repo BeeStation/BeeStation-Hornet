@@ -14,6 +14,7 @@
 	armor_type = /datum/armor/suit_armor
 	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/suit_armor
@@ -134,6 +135,8 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	dog_fashion = null
+	secondary_salvage_material = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -144,6 +147,8 @@
 	armor_type = /datum/armor/vest_capcarapace
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 2
 
 
 /datum/armor/vest_capcarapace
@@ -203,6 +208,8 @@
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 2
 
 
 /datum/armor/armor_riot
@@ -224,6 +231,7 @@
 	armor_type = /datum/armor/armor_bone
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
+	salvage_material = /obj/item/stack/sheet/bone
 
 
 /datum/armor/armor_bone
@@ -268,6 +276,7 @@
 	armor_type = /datum/armor/armor_laserproof
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
+	salvage_material = null //I wanted to do something fun with it but sadly its indestructible... maybe in the future...
 
 
 /datum/armor/armor_laserproof
@@ -311,6 +320,8 @@
 	armor_type = /datum/armor/armor_heavy
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
+	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
+	secondary_salvage_amount = 5
 
 
 /datum/armor/armor_heavy
@@ -386,6 +397,10 @@
 	item_state = "knight_green"
 	move_sound = null
 	slowdown = 0.08
+	salvage_material = /obj/item/stack/rods/scrap
+	salvage_amount = 10
+	secondary_salvage_amount = /obj/item/stack/sheet/leather
+	secondary_salvage_amount = 2
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"

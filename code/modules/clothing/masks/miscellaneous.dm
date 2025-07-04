@@ -7,6 +7,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.9
 	equip_delay_other = 20
+	salvage_material = /obj/item/stack/sheet/leather
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/muzzle/attack_paw(mob/user)
 	if(iscarbon(user))
@@ -29,7 +32,9 @@
 	gas_transfer_coefficient = 0.9
 	armor_type = /datum/armor/mask_surgical
 	actions_types = list(/datum/action/item_action/adjust)
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /datum/armor/mask_surgical
 	bio = 100
@@ -42,6 +47,9 @@
 	desc = "Warning: moustache is fake."
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/fakemoustache/italian
 	name = "italian moustache"
@@ -76,6 +84,9 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/joy/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
@@ -109,6 +120,9 @@
 	clothing_flags = VOICEBOX_TOGGLABLE
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/pig/handle_speech(datum/source, list/speech_args)
 	if(!CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED))
@@ -135,6 +149,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = VOICEBOX_TOGGLABLE
 	modifies_speech = TRUE
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/frog/handle_speech(datum/source, list/speech_args) //whenever you speak
 	if(!CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED))
@@ -164,6 +181,9 @@
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/cowmask/handle_speech(datum/source, list/speech_args)
 	if(!CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED))
@@ -189,6 +209,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = VOICEBOX_TOGGLABLE
 	modifies_speech = TRUE
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/horsehead/handle_speech(datum/source, list/speech_args)
 	if(!CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED))
@@ -212,6 +235,9 @@
 	item_state = "rat"
 	flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = MASKCOVERSMOUTH
+	salvage_material = /obj/item/stack/rods/scrap/plastic
+	salvage_amount = 5
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/rat/fox
 	name = "fox mask"
@@ -261,6 +287,9 @@
 	icon_state = "mummy_mask"
 	item_state = "mummy_mask"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/scarecrow
 	name = "sack mask"
@@ -268,6 +297,9 @@
 	icon_state = "scarecrow_sack"
 	item_state = "scarecrow_sack"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/gondola
 	name = "gondola mask"
@@ -277,6 +309,9 @@
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
+	salvage_material = /obj/item/stack/sheet/leather
+	salvage_amount = 2
+	secondary_salvage_material = null
 
 /obj/item/clothing/mask/gondola/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]

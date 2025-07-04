@@ -92,6 +92,7 @@
 		/obj/item/melee/classic_baton,
 		/obj/item/clothing/accessory/holster/detective,
 		) //Trench coats are a little more apt at carrying larger objects.
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 
 /datum/armor/jacket_det_suit
@@ -129,6 +130,7 @@
 	item_state = "sec_helm"//looks kinda similar, I guess
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/storage/firstaid, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/police/telescopic, /obj/item/soap, /obj/item/sensor_device, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	armor_type = /datum/armor/hazardvest_brig_physician
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 //Engineering
 
@@ -265,6 +267,7 @@
 	armor_type = /datum/armor/jacket_curator
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
+	salvage_material = /obj/item/stack/sheet/leather
 
 //Roboticist
 

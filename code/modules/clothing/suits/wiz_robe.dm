@@ -12,7 +12,7 @@
 	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread //No idea what this should be, no magical cloth to my knowledge
 
 /datum/armor/head_wizard
 	melee = 30
@@ -54,6 +54,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/head/wizard/marisa
 	name = "witch hat"
@@ -92,7 +93,7 @@
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
-
+	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
 /datum/armor/suit_wizrobe
 	melee = 30
@@ -170,6 +171,7 @@
 	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/head/wizard/marisa/fake
 	name = "witch hat"
@@ -179,6 +181,7 @@
 	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
 	name = "witch robe"
@@ -189,6 +192,7 @@
 	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/sheet/cotton/cloth
 
 /obj/item/clothing/suit/wizrobe/paper
 	name = "papier-mache robe" // no non-latin characters!
@@ -198,6 +202,7 @@
 	var/robe_charge = TRUE
 	actions_types = list(/datum/action/item_action/stickmen)
 	clothing_flags = NONE
+	salvage_material = /obj/item/stack/rods/scrap/paper
 
 
 /obj/item/clothing/suit/wizrobe/paper/ui_action_click(mob/user, action)
@@ -242,6 +247,7 @@
 	slowdown = 0
 	clothing_flags = CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	salvage_material = /obj/item/stack/rods/scrap/plasteel //As above, no idea what this should be honestly
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard/ComponentInitialize()
 	. = ..()
@@ -283,7 +289,7 @@
 	armor_type = /datum/armor/shielded_wizard
 	actions_types = null //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
+	salvage_material = /obj/item/stack/rods/scrap/plasteel
 
 /datum/armor/shielded_wizard
 	melee = 30
