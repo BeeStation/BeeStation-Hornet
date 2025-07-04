@@ -8,7 +8,7 @@
 	max_capacity = 16
 	device_type = MC_SDD
 	custom_price = 10
-	var/virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/coil
+	var/virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/sledge
 	/// If theres a Virus that activates when hacked
 
 /obj/item/computer_hardware/hard_drive/portable/install_default_programs()
@@ -41,7 +41,7 @@
 	power_usage = 20
 	icon_state = "datadisk5"
 	max_capacity = 64
-	virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/breacher
+	virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/coil
 
 /obj/item/computer_hardware/hard_drive/portable/super
 	name = "super data disk"
@@ -50,4 +50,4 @@
 	icon_state = "datadisk3"
 	max_capacity = 256
 	custom_price = 60
-	virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/sledge
+	virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/breacher
