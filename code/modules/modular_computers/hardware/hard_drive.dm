@@ -19,14 +19,14 @@
 	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
 	var/spam_delay = 0
 	/// The tier of anti virus installed
-	var/virus_defense = 0
+	var/virus_defense = ANTIVIRUS_NONE
 	/// A Virus sent by a computer using this hard drive will be stronger based on this number
 	var/virus_lethality = 0
 	/// If this hard drive has been victim of a trojan then it can't be affected by another one
 	var/trojan
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
-	..()
+	. = ..()
 	remove_from.shutdown_computer()
 
 /obj/item/computer_hardware/hard_drive/on_install(obj/item/modular_computer/install_into, mob/living/user)
@@ -206,6 +206,7 @@
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
+	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
 	..()
 
@@ -265,6 +266,7 @@
 /obj/item/computer_hardware/hard_drive/micro/install_default_programs()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
+	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
 	store_file(new/datum/computer_file/program/ntnetdownload(src))		// NTNet Downloader Utility, allows users to download more software from NTNet repository
 	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar

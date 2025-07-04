@@ -76,6 +76,20 @@
 #define BREACHER "BREACHER"
 #define SLEDGE "SLEDGE"
 
+// Antivirus Defines
+#define ANTIVIRUS_NONE 0
+#define ANTIVIRUS_BASIC 1
+#define ANTIVIRUS_MEDIUM 2
+#define ANTIVIRUS_GOOD 3
+#define ANTIVIRUS_BEST 4
+
+// Part tier defines (now used for battery sizes)
+#define PART_TIER_1 1
+#define PART_TIER_2 2
+#define PART_TIER_3 3
+#define PART_TIER_4 4
+#define PART_TIER_5 5
+
 //! ## NTNet stuff, for modular computers
 //!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
 #define NTNET_SOFTWAREDOWNLOAD 1 	//! Downloads of software from NTNet

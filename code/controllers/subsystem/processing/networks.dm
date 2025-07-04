@@ -218,7 +218,7 @@ SUBSYSTEM_DEF(networks)
  * * log_id = log will not include identification_sting,  hardware_id or network. (For cases where we want to do it manually)
  * * card = network card, will extract identification string and hardware ID from it. (Requires Log_Id TRUE)
  */
-/datum/controller/subsystem/networks/proc/add_log(log_string, network = null , hardware_id = null, log_id = TRUE, obj/item/computer_hardware/network_card/card)
+/datum/controller/subsystem/networks/proc/add_log(log_string, network, hardware_id, log_id = TRUE, obj/item/computer_hardware/network_card/card)
 	set waitfor = FALSE // so process keeps running
 	var/list/log_text = list()
 	log_text += "\[[station_time_timestamp()]\]"

@@ -79,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 750
 	/// Size affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
-	var/size = 3
+	rating = PART_TIER_3
 
 /obj/item/stock_parts/cell/computer/advanced
 	name = "advanced battery"
@@ -88,7 +88,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 1500
 	custom_price = 40
-	size = 4
+	rating = PART_TIER_4
 
 /obj/item/stock_parts/cell/computer/super
 	name = "super battery"
@@ -97,7 +97,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	maxcharge = 2000
 	custom_price = 60
-	size = 5
+	rating = PART_TIER_5
 
 /obj/item/stock_parts/cell/computer/micro
 	name = "micro battery"
@@ -106,7 +106,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	maxcharge = 500
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = 20
-	size = 2
+	rating = PART_TIER_2
 
 /obj/item/stock_parts/cell/computer/nano
 	name = "nano battery"
@@ -115,4 +115,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 300
 	custom_price = 10
-	size = 1
+	rating = PART_TIER_1

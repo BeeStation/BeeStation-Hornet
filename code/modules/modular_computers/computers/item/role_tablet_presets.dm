@@ -68,31 +68,31 @@
 	name = "security PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
 	icon_state = "pda-security"
-	default_virus_defense = 2
+	default_virus_defense = ANTIVIRUS_NONE
 
 /obj/item/modular_computer/tablet/pda/deputy
 	name = "deputy PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
 	icon_state = "pda-deputy"
-	default_virus_defense = 1
+	default_virus_defense = ANTIVIRUS_BASIC
 
 /obj/item/modular_computer/tablet/pda/brig_physician
 	name = "brig physician PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/brig_physician
 	icon_state = "pda-brigphys"
-	default_virus_defense = 1
+	default_virus_defense = ANTIVIRUS_BASIC
 
 /obj/item/modular_computer/tablet/pda/detective
 	name = "detective PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/detective
 	icon_state = "pda-detective"
-	default_virus_defense = 2
+	default_virus_defense = ANTIVIRUS_MEDIUM
 
 /obj/item/modular_computer/tablet/pda/warden
 	name = "warden PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
 	icon_state = "pda-warden"
-	default_virus_defense = 2
+	default_virus_defense = ANTIVIRUS_MEDIUM
 
 /obj/item/modular_computer/tablet/pda/janitor
 	name = "janitor PDA"
@@ -117,7 +117,7 @@
 /obj/item/modular_computer/tablet/pda/heads
 	default_disk = /obj/item/computer_hardware/hard_drive/role/head
 	icon_state = "pda-heads"
-	default_virus_defense = 3
+	default_virus_defense = ANTIVIRUS_GOOD
 
 /obj/item/modular_computer/tablet/pda/heads/Initialize(mapload)
 	. = ..()
@@ -163,7 +163,7 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/captain
 	insert_type = /obj/item/pen/fountain/captain
 	icon_state = "pda-captain"
-	default_virus_defense = 4
+	default_virus_defense = ANTIVIRUS_BEST
 
 /obj/item/modular_computer/tablet/pda/cargo_technician
 	name = "cargo technician PDA"
@@ -179,7 +179,7 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/quartermaster
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-qm"
-	default_virus_defense = 1
+	default_virus_defense = ANTIVIRUS_BASIC
 
 /obj/item/modular_computer/tablet/pda/quartermaster/Initialize(mapload)
 	. = ..()
@@ -204,7 +204,7 @@
 	messenger_invisible = TRUE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
-	default_virus_defense = 4
+	default_virus_defense = ANTIVIRUS_BEST
 
 /obj/item/modular_computer/tablet/pda/syndicate/Initialize(mapload)
 	. = ..()

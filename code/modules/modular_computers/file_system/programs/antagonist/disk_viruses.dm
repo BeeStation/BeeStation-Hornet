@@ -225,7 +225,7 @@
 			computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!", log_id = FALSE)
 		return
 	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
-	drive.virus_defense = 0
+	drive.virus_defense = ANTIVIRUS_NONE
 	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
 	playsound(computer, "sparks", 50)
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)

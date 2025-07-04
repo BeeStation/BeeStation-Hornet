@@ -11,7 +11,7 @@
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 	var/resistcap = 6 //one higher than what it can cure
-	virus_defense = 1
+	virus_defense = ANTIVIRUS_BASIC
 	custom_price = 50
 	dont_instal = TRUE
 	var/sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus
@@ -50,7 +50,7 @@
 	desc = "An NT Brand anti-virus disk. This standard package will be enough to protect your system from most mundane malware."
 	resistcap = 11
 	icon_state = "antivirus2"
-	virus_defense = 2
+	virus_defense = ANTIVIRUS_MEDIUM
 	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_2
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier3
@@ -58,7 +58,7 @@
 	desc = "An NT Brand anti-virus disk. This version actually protects your device."
 	resistcap = 16
 	icon_state = "antivirus3"
-	virus_defense = 3
+	virus_defense = ANTIVIRUS_GOOD
 	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_3
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/tier4
@@ -66,7 +66,7 @@
 	desc = "The most expensive NTOS Virus Buster package. Nothing will top it!"
 	resistcap = INFINITY
 	icon_state = "antivirus4"
-	virus_defense = 4
+	virus_defense = ANTIVIRUS_BEST
 	sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus/tier_4
 
 // Previous Medical use can be found here:

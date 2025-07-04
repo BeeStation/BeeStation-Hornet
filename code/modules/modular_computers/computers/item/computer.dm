@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
-	var/default_virus_defense = 0
+	var/default_virus_defense = ANTIVIRUS_NONE
 
 
 /datum/armor/item_modular_computer
@@ -506,15 +506,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		else
 			data["PC_apclinkicon"] = "power_drain.gif" // If hacked glitches (to make it very obvious its hacked)
 	switch(drive.virus_defense)
-		if(0)
+		if(ANTIVIRUS_NONE)
 			data["PC_AntiVirus"] = "antivirus_0.gif"
-		if(1)
+		if(ANTIVIRUS_BASIC)
 			data["PC_AntiVirus"] = "antivirus_1.gif"
-		if(2)
+		if(ANTIVIRUS_MEDIUM)
 			data["PC_AntiVirus"] = "antivirus_2.gif"
-		if(3)
+		if(ANTIVIRUS_GOOD)
 			data["PC_AntiVirus"] = "antivirus_3.gif"
-		if(4)
+		if(ANTIVIRUS_BEST)
 			data["PC_AntiVirus"] = "antivirus_4.gif"
 
 	switch(get_ntnet_status())
