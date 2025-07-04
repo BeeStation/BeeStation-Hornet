@@ -33,20 +33,17 @@
 	// Both clients will get deleted which should ensure nobody uses a mob they don't have access to...
 	if(!istype(src, /mob/dead/new_player/pre_auth) && !client.logged_in)
 		var/msg = "/mob/Login() was called on [key_name(src)] without the assigned client being authenticated! Possible auth bypass! Caller: [key_name(usr)]"
-		log_admin_private(msg)
+		var/report_info = "Round ID: [GLOB.round_id] \n\
+		CKEY: [client.ckey] \n\
+		Key: [client.key] \n\
+		BYOND Authenticated Key: [client.byond_authenticated_key] \n\
+		External UID: [client.external_uid] \n\
+		Mob Type: [src.type] \n\
+		Mob Name: [src.name]"
+		log_admin_private("[msg]\n[report_info]")
+		send2tgs("Auth", "[msg]\n[report_info]")
 		message_admins(msg) // just so it's more likely to get reported to maints
-		client << browse(HTML_SKELETON_TITLE("Login Error", "<h2>Danger!</h2><p>You were logged into your mob without fully authenticating. Please report this issue to maintainers. \
-		Do not post the contents of this message in a public channel, as they may contain your private information (CID & IP).<br><br>\
-		Round ID: [GLOB.round_id]<br>\
-		Connecting IP: [client.address]<br>\
-		Connecting CID: [client.computer_id]<br>\
-		CKEY: [client.ckey]<br>\
-		Key: [client.key]<br>\
-		BYOND Authenticated Key: [client.byond_authenticated_key]<br>\
-		External UID: [client.external_uid]<br>\
-		Mob Type: [src.type]<br>\
-		Mob Name: [src.name]<br>\
-		</p>"))
+		client << browse(HTML_SKELETON_TITLE("Login Error", "<h2>Danger!</h2><p>You were logged into your mob without fully authenticating. Please report this issue to maintainers.</p><br><br><pre>[report_info]</pre>"))
 		spawn(1)
 			qdel(client)
 		. = FALSE
