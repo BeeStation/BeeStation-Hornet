@@ -277,7 +277,7 @@ w
 	diagonals_possible = FALSE
 
 /obj/structure/railing/glass
-	icon="icons/obj/32x64.dmi"
+	icon="icons/obj/1x2.dmi"
 	icon_state = "glass_railing"
 	density = TRUE
 	climbable = FALSE
