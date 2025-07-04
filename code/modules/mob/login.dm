@@ -40,7 +40,7 @@
 		External UID: [client.external_uid] \n\
 		Mob Type: [src.type] \n\
 		Mob Name: [src.name]"
-		log_admin_private("[msg]\n[report_info]")
+		log_access("[msg]\n[report_info]")
 		send2tgs("Auth", "[msg]\n[report_info]")
 		message_admins(msg) // just so it's more likely to get reported to maints
 		client << browse(HTML_SKELETON_TITLE("Login Error", "<h2>Danger!</h2><p>You were logged into your mob without fully authenticating. Please report this issue to maintainers.</p><br><br><pre>[report_info]</pre>"))
