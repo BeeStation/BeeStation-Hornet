@@ -42,6 +42,7 @@
 	for(var/mob/player in mobs)
 		if(!player.ckey)
 			continue
+		var/normal_ckey = replacetext(player.ckey, "@DC!", "", 1, 5)
 		var/list/data_entry = list()
 		if(isliving(player))
 			if(iscarbon(player))
@@ -74,7 +75,7 @@
 
 		data_entry["name"] = player.name
 		data_entry["real_name"] = player.real_name
-		var/ckey = ckey(player.ckey)
+		var/ckey = ckey(normal_ckey)
 		data_entry["ckey"] = ckey
 		var/search_data = "[player.name] [player.real_name] [ckey] [data_entry["job"]] "
 		var/datum/player_details/P = GLOB.player_details[ckey]
