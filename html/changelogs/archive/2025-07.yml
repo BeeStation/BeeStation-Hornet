@@ -76,3 +76,9 @@
       if they're in combat or not, provided they have line of sight with them
   - balance: Venus Human Trap ranged attack can be broken if something pulls the object/mob
   - balance: Venus Human Traps now prioritize attacking mobs inside vines
+  PowerfulBacon:
+  - balance: Antagonist and heavy armours will now block piercing syringes.
+  - balance: Any clothing that has at least 10 bullet or melee armour will block standard
+      syringes and injections.
+  - bugfix: Fixes multiple incorrect uses of can_inject which would have caused syringe
+      guns not to function
