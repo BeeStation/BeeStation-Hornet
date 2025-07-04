@@ -275,3 +275,9 @@ w
 	icon_state = "railing_wood_end"
 	reverse = TRUE
 	diagonals_possible = FALSE
+
+/obj/structure/railing/glass
+	icon="icons/obj/32x64.dmi"
+	icon_state = "glass_railing"
+	density = TRUE
+	climbable = FALSE
