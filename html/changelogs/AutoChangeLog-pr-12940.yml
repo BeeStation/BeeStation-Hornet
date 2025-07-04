@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Antagonist and heavy armours will now block piercing syringes.
+  - balance: Any clothing that has at least 10 bullet or melee armour will block standard
+      syringes and injections.
+  - bugfix: Fixes multiple incorrect uses of can_inject which would have caused syringe
+      guns not to function
