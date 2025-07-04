@@ -12,8 +12,7 @@
 	size = 8
 	tgui_id = "NtosPowerMonitor"
 	program_icon = "plug"
-
-
+	hardware_requirement = MC_CHARGE
 
 	var/has_alert = 0
 	var/obj/structure/cable/attached_wire
@@ -33,9 +32,6 @@
 	history["demand"] = list()
 	if(istype(computer, /obj/machinery/modular_computer/console)) // This way the console doesn't require a signaller
 		return
-	if(!computer?.get_modular_computer_part(MC_CHARGE)) //Giving a clue to users why the program is spitting out zeros.
-		to_chat(user, span_warning("\The [computer] flashes an error: \"hardware\\recharger_hardware\\power conector :: Not found\"."))
-
 
 /datum/computer_file/program/power_monitor/process_tick()
 	if(!get_powernet())

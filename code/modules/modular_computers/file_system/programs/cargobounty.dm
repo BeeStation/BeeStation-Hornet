@@ -12,6 +12,7 @@
 	size = 4
 	tgui_id = "NtosBountyConsole"
 	program_icon = "tags"
+	hardware_requirement = MC_PRINT
 
 	/// Cooldown var for printing paper sheets.
 	COOLDOWN_DECLARE(printer_ready)

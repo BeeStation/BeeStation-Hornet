@@ -5,7 +5,7 @@
 	category = PROGRAM_CATEGORY_ENGI
 	program_icon_state = "alert-green"
 	extended_desc = "This program provides visual interface for station's alarm system."
-	requires_ntnet = 1
+	requires_ntnet = TRUE
 	network_destination = "alarm monitoring network"
 	size = 4
 	tgui_id = "NtosStationAlertConsole"

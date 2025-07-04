@@ -35,7 +35,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// Color used for the Thinktronic Classic theme.
 	var/classic_color = COLOR_OLIVE
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
-	var/hardware_flag = 0									// A flag that describes this device type
 	var/last_power_usage = 0
 	var/last_battery_percent = 0							// Used for deciding if battery percentage has chandged
 	var/last_world_time = "00:00"
@@ -566,7 +565,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 		return FALSE
 
-	if(!program.is_supported_by_hardware(hardware_flag, 1, user))
+	if(!program.is_supported_by_hardware())
 		return FALSE
 
 	// The program is already running. Resume it.

@@ -16,7 +16,6 @@
 	var/requires_ntnet = 0					// Set to 1 for program to require nonstop NTNet connection to run. If NTNet connection is lost program crashes.
 	var/requires_ntnet_feature = 0			// Optional, if above is set to 1 checks for specific function of NTNet (currently NTNET_SOFTWAREDOWNLOAD, NTNET_PEERTOPEER, NTNET_SYSTEMCONTROL and NTNET_COMMUNICATION)
 	var/ntnet_status = 1					// NTNet status, updated every tick by computer running this program. Don't use this for checks if NTNet works, computers do that. Use this for calculations, etc.
-	var/usage_flags = PROGRAM_ALL			// Bitflags (PROGRAM_CONSOLE, PROGRAM_LAPTOP, PROGRAM_PDA combination) or PROGRAM_ALL
 	var/network_destination = null			// Optional string that describes what NTNet server/system this program connects to. Used in default logging.
 	var/available_on_ntnet = 1				// Whether the program can be downloaded from NTNet. Set to 0 to disable.
 	var/available_on_syndinet = 0			// Whether the program can be downloaded from SyndiNet (accessible via emagging the computer). Set to 1 to enable.
@@ -41,6 +40,8 @@
 	var/sound = FALSE
 	/// The channel of the sound we're playing (usually music)
 	var/sound_channel
+	/// Hardware required to run this program
+	var/hardware_requirement
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
@@ -65,7 +66,7 @@
 	temp.program_icon_state = program_icon_state
 	temp.requires_ntnet = requires_ntnet
 	temp.requires_ntnet_feature = requires_ntnet_feature
-	temp.usage_flags = usage_flags
+	temp.hardware_requirement = hardware_requirement
 	return temp
 
 // Relays icon update to the computer.
@@ -105,12 +106,24 @@
 /datum/computer_file/program/proc/tap(atom/A, mob/living/user, params)
 	return FALSE
 
-/datum/computer_file/program/proc/is_supported_by_hardware(hardware_flag = 0, loud = 0, mob/user = null)
-	if(!(hardware_flag & usage_flags))
-		if(loud && computer && user)
-			to_chat(user, span_danger("\The [computer] flashes an \"Hardware Error - Incompatible software\" warning."))
-		return 0
-	return 1
+
+/**
+ * Called during /obj/item/modular_computer/proc/open_program
+ *
+ * Checks for hardware incompatibilities.
+ * If the current computer doesn't have the hardware matching hardware equipment an error will display and the program wont start.
+ * Arguments:
+ * * user - The mob that started the program
+ **/
+/datum/computer_file/program/proc/is_supported_by_hardware(loud = TRUE)
+	if(!hardware_requirement)
+		return TRUE
+	if(!computer?.get_modular_computer_part(hardware_requirement))
+		if(loud)	// Else fail silently
+			computer.balloon_alert_to_viewers("<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
+			playsound(computer, 'sound/machines/defib_failed.ogg', 25, TRUE)
+		return FALSE
+	return TRUE
 
 /datum/computer_file/program/proc/get_signal(specific_action = 0)
 	if(computer)
@@ -132,6 +145,7 @@
   *transfer, if TRUE and access_to_check is null, will tell this proc to use the program's transfer_access in place of access_to_check
   *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
+
 /datum/computer_file/program/proc/can_run(mob/user, loud = FALSE, access_to_check, transfer = FALSE, var/list/access)
 	if(issilicon(user))
 		return TRUE

@@ -8,6 +8,7 @@
 	available_on_ntnet = FALSE
 	tgui_id = "NtosPhysScanner"
 	program_icon = "barcode"
+	hardware_requirement = MC_SENSORS
 	/// Information from the last scanned person, to display on the app.
 	var/last_record = ""
 

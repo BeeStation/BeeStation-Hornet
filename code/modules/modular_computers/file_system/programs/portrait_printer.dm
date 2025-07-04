@@ -19,6 +19,7 @@
 	size = 10
 	tgui_id = "NtosPortraitPrinter"
 	program_icon = "print"
+	hardware_requirement = MC_PRINT
 	/**
 	* The last input in the search tab, stored here and reused in the UI to show successive users if
 	* the current list of paintings is limited to the results of a search or not.

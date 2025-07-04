@@ -4,7 +4,6 @@
 	icon_state = "tablet-red"
 	icon_state_menu = "menu"
 	worn_icon_state = "pda"
-	hardware_flag = PROGRAM_PDA
 	max_hardware_size = WEIGHT_CLASS_SMALL
 	w_class = WEIGHT_CLASS_SMALL
 	max_bays = 3

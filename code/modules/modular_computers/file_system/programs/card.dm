@@ -16,6 +16,7 @@
 	size = 8
 	tgui_id = "NtosCard"
 	program_icon = "id-card"
+	hardware_requirement = MC_CARD2
 
 
 

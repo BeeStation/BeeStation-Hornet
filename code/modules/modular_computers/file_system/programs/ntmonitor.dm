@@ -9,6 +9,7 @@
 	transfer_access = list(ACCESS_RESEARCH)
 	tgui_id = "NtosNetMonitor"
 	program_icon = "network-wired"
+	hardware_requirement = MC_NET	// It doesn't require a network connection directly but it does require a network card
 
 /datum/computer_file/program/ntnetmonitor/ui_act(action, params)
 	if(..())
