@@ -22,7 +22,6 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	owner_ckey = ckey(client.ckey)
 	window = new(client, id)
 	window.subscribe(src, PROC_REF(on_message))
-	GLOB.tgui_panels += src
 
 /datum/tgui_panel/Del()
 	window.unsubscribe(src)

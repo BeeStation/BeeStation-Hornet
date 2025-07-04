@@ -273,6 +273,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 //////////////
 
 /client/Del()
+	// We have a mob worth keeping and are authenticated
+	if(src.logged_in && ismob(mob) && !istype(mob, /mob/dead/new_player/pre_auth))
+		// Don't let the game reassociate with the mob without authenticating again.
+		var/mob/my_mob = src.mob
+		my_mob.key = "@DC![my_mob.key]" // make sure this mob keeps a key that doesn't exist. Very similiar to the adminghost @
+		GLOB.disconnected_mobs[src.key] = my_mob // now we know on login that we've signed out from this mob and can reassociate.
 	if(!gc_destroyed)
 		Destroy() //Clean up signals and timers.
 	return ..()
@@ -282,6 +288,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	GLOB.mentors -= src
+	// Disassociate, but DON'T DELETE.
+	// These are used to retain telemetry data for disconnected mobs.
+	if(!QDELETED(tgui_panel))
+		tgui_panel.client = null
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
@@ -313,6 +323,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/atom/eye_thing = eye
 		LAZYREMOVE(eye_thing.eye_users, src)
 	GLOB.requests.client_logout(src)
+
 
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()

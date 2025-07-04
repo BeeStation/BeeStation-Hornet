@@ -243,10 +243,23 @@
 	if(QDELETED(src))
 		return FALSE
 
+	var/mob/logout_mob = GLOB.disconnected_mobs[src.key]
+	if(logged_in && istype(logout_mob))
+		var/mob/original_mob = src.mob
+		GLOB.disconnected_mobs -= src.key
+		var/datum/tgui/login_window = SStgui.get_open_ui(original_mob, src.tgui_login)
+		if(istype(login_window) && login_window.window?.id)
+			SStgui.force_close_window(src, login_window.window.id)
+		SStgui.on_transfer(original_mob, logout_mob)
+		logout_mob.key = src.key
+		if(istype(login_window) && login_window.window?.id)
+			SStgui.force_close_window(logout_mob, login_window.window.id)
+		if(isnewplayer(original_mob))
+			qdel(original_mob)
 	// Mob is ready
 	// calls /mob/dead/new_player/authenticated/Login()
 	// creates mind and such
-	if(istype(my_mob, /mob/dead/new_player/pre_auth))
+	else if(istype(my_mob, /mob/dead/new_player/pre_auth))
 		var/mob/dead/new_player/pre_auth/pre_auth_player = my_mob
 		pre_auth_player.convert_to_authed()
 
