@@ -274,13 +274,18 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/Del()
 	// We have a mob worth keeping and are authenticated
-	if(src.logged_in && ismob(mob) && !istype(mob, /mob/dead/new_player/pre_auth))
+	var/mob_logout = FALSE
+	var/mob/my_mob = src.mob
+	if(src.logged_in && ismob(my_mob) && !istype(my_mob, /mob/dead/new_player/pre_auth))
 		// Don't let the game reassociate with the mob without authenticating again.
-		var/mob/my_mob = src.mob
-		my_mob.key = "@DC@[my_mob.key]" // make sure this mob keeps a key that doesn't exist. Very similiar to the adminghost @
+		mob_logout = TRUE
 		GLOB.disconnected_mobs[src.key] = my_mob // now we know on login that we've signed out from this mob and can reassociate.
 	if(!gc_destroyed)
 		Destroy() //Clean up signals and timers.
+	if(mob_logout)
+		// Destroy() has to run first because it cleans up our references on the mob
+		// Changing the key calls /mob/Logout() which is supposed to run AFTER Destroy.
+		my_mob.key = "@DC@[my_mob.key]" // make sure this mob keeps a key that doesn't exist. Very similiar to the adminghost @
 	return ..()
 
 /client/Destroy()

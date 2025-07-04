@@ -66,20 +66,17 @@
 	. = ..()	//calls mob.Login()
 
 	var/mob/logout_mob = GLOB.disconnected_mobs[src.key]
-	if(logged_in && istype(logout_mob))
+	if(logged_in && ismob(logout_mob) && !isnewplayer(logout_mob))
 		var/mob/original_mob = src.mob
 		GLOB.disconnected_mobs -= src.key
-		logout_mob.key = src.key
-		if(isnewplayer(original_mob))
-			qdel(original_mob)
+		transfer_preauthenticated_player_mob(original_mob, logout_mob)
 
 	if(QDELETED(src))
 		return null
 
 	// if the user logged in directly with a valid key, we can convert them now
 	if(logged_in && istype(mob, /mob/dead/new_player/pre_auth))
-		var/mob/dead/new_player/pre_auth/pre_auth_player = mob
-		pre_auth_player.convert_to_authed()
+		transfer_preauthenticated_player_mob(mob, null)
 
 	if(!client_post_login(logged_in, TRUE, logged_in && !!(holder || GLOB.deadmins[ckey])) || QDELETED(src))
 		return null
