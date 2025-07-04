@@ -43,7 +43,6 @@
 	install.holder = src
 	install.forceMove(src)
 	install.on_install(src, user)
-	ui_update()
 	return TRUE
 
 /// Uninstalls component.

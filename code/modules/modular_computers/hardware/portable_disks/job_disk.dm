@@ -33,6 +33,9 @@
 		progs_to_store += new /datum/computer_file/program/supermatter_monitor(src)
 		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
+	if(disk_flags & DISK_NETWORK)	//Put this higher up so players see it easier and try to interact with it
+		progs_to_store += new /datum/computer_file/program/ntnetmonitor(src)
+
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
 		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
@@ -60,9 +63,6 @@
 
 	if(disk_flags & DISK_SIGNAL)
 		progs_to_store += new /datum/computer_file/program/signaller(src)
-
-	if(disk_flags & DISK_NETWORK)
-		progs_to_store += new /datum/computer_file/program/ntnetmonitor(src)
 
 	if(disk_flags & DISK_NEWSCASTER)
 		progs_to_store += new /datum/computer_file/program/newscaster(src)
