@@ -34,7 +34,7 @@ While they hide behind their walls NT keeps reeping in the rewards of
 exploiting the common person, that has nowhere better to be...
 
 Well, their walls are no more. Cus we bring in the SLEDGEHAMMER!
-(This Ones mine!)
+(This ones mine!)
 
 One shot.
 Dual injection.
@@ -56,7 +56,7 @@ Manual Usage:
 Notes:
  • Careful. The virus doesn't stack. So if they have level 3 package they can only go down to 2.
  • This is ideal for manual uninstalls of VB (To set up other viruses)
- • The cartrige will self-detonate on usage.
+ • The cartrige will self-destroy on use.
 
 Let them fear us!
 - Hellraisers  ⧉ 2536

@@ -58,7 +58,7 @@ Manual Usage:
 Notes:
  • BE CREATIVE! NT Security are brainwashed drones, they will not understand this concept!
  • Closing the program early will cause early detonation, but it will be not as strong.
- • The cartrige will self-detonate on usage.
+ • The cartrige will self-destruct on use.
 
 Stick it to the man!!
 - Hellraisers  ⧉ 2536
