@@ -22,9 +22,6 @@
 	if(!. || !client)
 		return FALSE
 
-	if(client.logged_in && client.external_uid)
-		to_chat(src, span_good("Successfully signed in as [span_bold("[client.display_name_chat()]")]"))
-
 	var/motd = global.config.motd
 	if(motd)
 		to_chat(src, "<div class=\"motd\">[motd]</div>", handle_whitespace=FALSE, allow_linkify = TRUE)

@@ -40,11 +40,11 @@
 	var/external_method_db = query_check_token.item[1]
 	var/external_uid = query_check_token.item[2]
 	var/external_display_name = query_check_token.item[3]
+	qdel(query_check_token)
 	var/new_key = ""
 	var/datum/external_login_method/external_method = GLOB.login_methods[external_method_db]
 	if(!istype(external_method) || isnull(external_uid))
 		to_chat_immediate(src, span_userdanger("Invalid login method: '[external_method_db]'."))
-		qdel(query_check_token)
 		return FALSE
 	var/list/existing_user = existing_user_for_uid(external_method, external_uid)
 	if(islist(existing_user) && length(existing_user) == 2) // External user has logged in before
@@ -66,16 +66,42 @@
 		else if(ckey(known_key) != known_ckey)
 			to_chat_immediate(src, span_userdanger("Your associated BYOND key ([known_key]) is inconsistent with your CKEY ([known_ckey]), which should be [ckey(known_key)]. This shouldn't be possible. Help."))
 			return FALSE
-		else
+		// External UID is associated with another account, but we verifiably own the current CKEY.
+		// Note that this occurs after checking if the old account is an external key - we can only unlink from BYOND CKEYs as unlinking an external key would break it.
+		else if(istext(src.byond_authenticated_key) && length(src.byond_authenticated_key) && ckey(src.byond_authenticated_key) != known_ckey)
+			// First let's let the admins know about the old CKEY.
+			message_admins("[key_name_admin(src)] is potentially multikeying. They connected under the BYOND Hub key <b>[byond_authenticated_key]</b>, but their [external_method::name] UID [external_uid] ([external_method.format_display_name(external_display_name)]) is already linked with the key <b>[known_key]</b>. Asking if they wish to unlink their [external_method::name] account from <b>[known_key]</b>.")
+			log_admin_private("POTENTIAL MULTIKEYING: [key_name(src)] authenticated with BYOND key [byond_authenticated_key] but their [external_method::name] UID [external_uid] ([external_method.format_display_name(external_display_name)]) is associated with the key [known_key]")
+			// Prompt user to unlink the external account from the other CKEY.
+			// If they choose not to unlink they will need a new external account to link and the login is cancelled.
+			var/link_choice = tgui_alert(src,
+				"Your [external_method::name] account is already associated with the CKEY \"[known_key]\". \
+				Would you like to unlink it from \"[known_key]\"?",
+				"Previous CKEY",
+				list("Unlink [known_key]", "Cancel Login")
+			)
+			if(link_choice != "Unlink [known_key]")
+				message_admins("[key_name_admin(src)] (authenticated by BYOND Hub as <b>[byond_authenticated_key]</b>) cancelled their login.")
+				return FALSE
+			var/external_column = external_method::db_id_column_name
+			if(!istext(external_column) || !length(external_column))
+				return FALSE
+			var/datum/db_query/query_update_external_uid = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("player")] SET [external_column] = NULL WHERE ckey = :ckey",
+				list("ckey" = known_ckey)
+			)
+			query_update_external_uid.Execute()
+			var/msg = "You have unlinked your [external_method::name] account from the CKEY \"[known_key]\"."
+			to_chat_immediate(src, span_good(msg))
+			tgui_alert_async(src, msg, "Success", list("OK"))
+			qdel(query_update_external_uid)
+			message_admins("[key_name_admin(src)] (authenticated by BYOND Hub as <b>[byond_authenticated_key]</b>) unlinked [external_method::name] UID [external_uid] ([external_method.format_display_name(external_display_name)]) from the BYOND CKEY <b>[known_key]</b>. This is likely because they had a previous CKEY that is no longer used. Check that multikey policy is being followed.")
+			log_admin_private("[key_name(src)] (authenticated by BYOND HUB as [byond_authenticated_key]) unlinked [external_method::name] UID [external_uid] ([external_method.format_display_name(external_display_name)]) from the BYOND CKEY [known_key]")
+			new_key = src.byond_authenticated_key
+		else // The user just has a CKEY tied to this external UID and wants to sign into it. Expected use.
 			new_key = known_key
-			// Login CKEY and saved CKEY differ
-			if(istext(src.byond_authenticated_key) && length(src.byond_authenticated_key) && ckey(src.byond_authenticated_key) != known_ckey)
-				to_chat_immediate(src, span_userdanger("You connected with the key [byond_authenticated_key], but your [external_method::name] account is already linked to [known_key]! You have been signed in as [known_key]."))
-				message_admins("[key_name_admin(src)] is potentially multikeying. They connected under the BYOND key [byond_authenticated_key], but their [external_method::name] UID [external_uid] is already linked with the key [known_key].")
-				log_admin_private("POTENTIAL MULTIKEYING: [key_name(src)] connected with BYOND key [byond_authenticated_key] but their [external_method::name] UID [external_uid] is associated with the key [known_key]")
 	// More than one associated key. AHHHHHHHHHHHHHHHHHHHHHHHHHH
 	else if(isnum(existing_user) && existing_user == TRUE)
-		qdel(query_check_token)
 		var/message = "[key_name(src)] successfully authenticated with [external_method::name] UID [external_uid], but they have more than one associated CKEY!"
 		message_admins("[message] Tell a maintainer immedietaly!")
 		CRASH(message)
@@ -83,28 +109,15 @@
 		new_key = external_method.to_fake_key(external_uid)
 		if(istext(src.byond_authenticated_key) && length(src.byond_authenticated_key)) // they have a key already, let's associate it for them on login
 			new_key = src.byond_authenticated_key
-	if(length(new_key))
-		qdel(query_check_token)
+	if(length(new_key) && src.can_login_as(new_key) && src.byond_authenticated_update_external_uid(new_key, external_method, external_uid, external_display_name))
 		save_session_token(token)
 		return login_as(new_key, external_method, external_uid, external_display_name)
-	qdel(query_check_token)
 	return FALSE
 
-/// Equivalent of /client/New() for token login
-/// Fully migrates a user to the new key
-/client/proc/login_as(new_key, datum/external_login_method/external_method, external_uid, external_display_name)
-	if(IsAdminAdvancedProcCall())
-		log_admin_private("[key_name(usr)] attempted to log in [key_name(src)] as \"[new_key]\" (ckey: [ckey(new_key)])")
-		// WEEEWOOOWEEEEWOOOO
-		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-		message_admins("Auth bypass attempted by [key_name(usr)] for [key_name(src)] (attempted CKEY: [ckey(new_key)])")
-		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-		return FALSE
+/client/proc/can_login_as(new_key)
 	if(!CONFIG_GET(flag/enable_guest_external_auth))
 		return FALSE
 	if(logged_in)
-		return FALSE
-	if(!istype(external_method))
 		return FALSE
 	var/list/ban = world.IsBanned(new_key, src.address, src.computer_id, src.connection, FALSE, from_auth=TRUE)
 	if(islist(ban))
@@ -128,6 +141,83 @@
 		spawn(5 SECONDS)
 			qdel(src)
 		return FALSE
+	return TRUE
+
+/// Allows BYOND authenticated users to relink their External UIDs.
+/// FALSE: No login allowed.
+/// TRUE: Continue
+/client/proc/byond_authenticated_update_external_uid(new_key, datum/external_login_method/external_method, external_uid, external_display_name)
+	if(IsAdminAdvancedProcCall())
+		return FALSE
+	if(IS_GUEST_KEY(new_key))
+		return FALSE
+	if(!SSdbcore.Connect())
+		return FALSE
+	if(!istype(external_method) || isnull(external_uid) || !length(external_uid))
+		return FALSE
+	if(external_method.is_fake_key(new_key))
+		return TRUE
+	// User has to have an authenticated key to overwrite their external UID.
+	// At this point we know that the external UID is not associated with any other account.
+	// We also know that the existing external UID only belongs to this authenticated CKEY
+	// So we can safely dissociate it and lose no data, as we know that the user who originally linked the account is just updating the link.
+	if(!istext(src.byond_authenticated_key) || !length(src.byond_authenticated_key))
+		// They didn't authenticate with BYOND, we can skip this check.
+		return TRUE
+	// We can only update it if they're actually signing in with their BYOND authenticated key.
+	if(ckey(src.byond_authenticated_key) != ckey(new_key))
+		return TRUE // this check can't be hit at the time of writing, but may be necessary in the future
+	var/external_column = external_method::db_id_column_name
+	if(!istext(external_column) || !length(external_column))
+		return FALSE
+	// Check account linking assocation and update if they're BYOND authenticated
+	var/datum/db_query/query_current_external_uid = SSdbcore.NewQuery(
+		"SELECT [external_column] FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey(new_key))
+	)
+	if(!query_current_external_uid.Execute())
+		qdel(query_current_external_uid)
+		return FALSE
+	var/external_uid_from_db = null
+	if(query_current_external_uid.NextRow() && islist(query_current_external_uid.item) && length(query_current_external_uid.item) == 1)
+		external_uid_from_db = query_current_external_uid.item[1]
+	qdel(query_current_external_uid)
+	// CKEY doesn't exist in the database or has no associated external UID. We can associate it with the typical process.
+	if(isnull(external_uid_from_db) || !length(external_uid_from_db))
+		return TRUE
+	if(external_uid != external_uid_from_db)
+		var/formatted_display_name = external_method.format_display_name(external_display_name)
+		var/account_selection = tgui_alert(
+			src,
+			"Linking [external_method::name] account ID \"[external_uid]\" ([formatted_display_name]), \
+			will overwrite previous linked [external_method::name] account ID: \"[external_uid_from_db]\". \n\n\
+			Are you sure you want to unlink your previous [external_method::name] account?",
+			"Account Association",
+			list("Overwrite", "Cancel Login")
+		)
+		if(account_selection != "Overwrite")
+			return FALSE
+		var/datum/db_query/query_update_external_uid = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("player")] SET [external_column] = :external_uid WHERE ckey = :ckey",
+			list("ckey" = ckey(new_key), "external_uid" = external_uid)
+		)
+		query_update_external_uid.Execute()
+		var/msg = "You have overwritten your account's associated [external_method::name] UID to [external_uid] ([external_method.format_display_name(external_display_name)])! Make sure you always log in with this [external_method::name] account from now on to retain your access."
+		to_chat_immediate(src, span_good(msg))
+		tgui_alert_async(src, msg, "Success", list("OK"))
+		qdel(query_update_external_uid)
+	return TRUE
+
+/// Equivalent of /client/New() for token login
+/// Fully migrates a user to the new key
+/client/proc/login_as(new_key, datum/external_login_method/external_method, external_uid, external_display_name)
+	if(IsAdminAdvancedProcCall())
+		log_admin_private("[key_name(usr)] attempted to log in [key_name(src)] as \"[new_key]\" (ckey: [ckey(new_key)])")
+		// WEEEWOOOWEEEEWOOOO
+		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+		message_admins("Auth bypass attempted by [key_name(usr)] for [key_name(src)] (attempted CKEY: [ckey(new_key)])")
+		message_admins("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+		return FALSE
 	token_attempts = 0
 	remove_verb(/client/verb/get_token)
 	remove_verb(/client/verb/use_token)
@@ -140,7 +230,7 @@
 	src.external_uid = external_uid
 	src.external_display_name = external_display_name
 
-	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey]) using [external_method] ID [external_uid]")
+	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey(new_key)]) using [external_method] ID [external_uid]")
 	GLOB.directory -= src.ckey
 	var/mob/my_mob = src.mob
 	src.ckey = ckey
@@ -153,12 +243,16 @@
 	if(QDELETED(src))
 		return FALSE
 
+	var/mob/logout_mob = GLOB.disconnected_mobs[src.ckey]
+	if(ismob(logout_mob) && !isnewplayer(logout_mob))
+		var/mob/original_mob = src.mob
+		GLOB.disconnected_mobs -= src.ckey
+		transfer_preauthenticated_player_mob(original_mob, logout_mob)
 	// Mob is ready
 	// calls /mob/dead/new_player/authenticated/Login()
 	// creates mind and such
-	if(istype(my_mob, /mob/dead/new_player/pre_auth))
-		var/mob/dead/new_player/pre_auth/pre_auth_player = my_mob
-		pre_auth_player.convert_to_authed()
+	else if(istype(my_mob, /mob/dead/new_player/pre_auth))
+		transfer_preauthenticated_player_mob(my_mob, null)
 
 	if(!client_post_login(TRUE, FALSE, !!(holder || GLOB.deadmins[ckey])))
 		return FALSE

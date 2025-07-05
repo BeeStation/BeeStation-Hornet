@@ -1,21 +1,24 @@
-/mob/dead/new_player/pre_auth/proc/convert_to_authed()
+/proc/transfer_preauthenticated_player_mob(mob/source, mob/target)
 	if(IsAdminAdvancedProcCall())
-		log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)] via convert_to_authed()")
+		log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(source)] via transfer_preauthenticated_player_mob()")
 		return
-	if(QDELETED(client))
-		qdel(src)
+	if(isnewplayer(source) && QDELETED(source.client))
+		qdel(source)
 		return
-	var/mob/dead/new_player/authenticated/authed = new()
-	var/key = client.key
-	var/datum/tgui/login_window = SStgui.get_open_ui(src, client.tgui_login)
+	if(!ismob(target))
+		target = new /mob/dead/new_player/authenticated()
+	var/key = source.client.key
+	var/datum/tgui/login_window = SStgui.get_open_ui(source, source.client.tgui_login)
 	if(istype(login_window) && login_window.window?.id)
-		SStgui.force_close_window(src, login_window.window.id)
-	SStgui.on_transfer(src, authed)
-	authed.name = client.display_name()
-	authed.key = key
+		SStgui.force_close_window(source, login_window.window.id)
+	SStgui.on_transfer(source, target)
+	if(isnewplayer(target))
+		target.name = source.client.display_name()
+	target.key = key
 	if(istype(login_window) && login_window.window?.id)
-		SStgui.force_close_window(authed, login_window.window.id)
-	qdel(src)
+		SStgui.force_close_window(target, login_window.window.id)
+	if(isnewplayer(source))
+		qdel(source)
 
 /mob/dead/new_player/pre_auth/vv_edit_var(var_name, var_value)
 	return FALSE

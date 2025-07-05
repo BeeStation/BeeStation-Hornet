@@ -22,6 +22,15 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 	var/admin = FALSE
 	var/ckey = ckey(key)
 	var/client/C = GLOB.directory[ckey]
+#ifdef DISABLE_BYOND_AUTH
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
+		return list("reason"="misconfigured", "desc"="The server is not currently authenticating BYOND connections and does not have any authentication methods enabled. \
+		This is insecure, nobody may connect.")
+	if (C && ckey == C.ckey && CONFIG_GET(flag/enable_guest_external_auth) && !real_bans_only && !from_auth)
+		// Note that it's probably possible to scrape connected CKEYs with this check, but whatever it's public anyway
+		// We have no way of verifying their connection CKEY is who they say they are, and no way to change their CKEY before login
+		return list("reason"="already connected", "desc"="A player is currently connected with your connection CKEY. Connect with a different CKEY or as a guest.")
+#endif
 	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address && !from_auth)
 		return //don't recheck connected clients unless it's from the auth system
 
