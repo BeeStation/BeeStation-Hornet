@@ -160,3 +160,55 @@
 	room_width = 5
 	room_height = 10
 
+/obj/effect/spawner/surface/echo
+	name = "seasonal surface spawner"
+	icon = 'icons/effects/landmarks_static.dmi'
+	icon_state = "random_room_alternative"
+	dir = NORTH
+
+/obj/effect/spawner/surface/echo/Initialize(mapload)
+	var/season = get_current_season()
+	var/list/echo_season = list(
+		"SUMMER" = "summer_surface",
+		"WINTER" = "winter_surface",
+		"SPRING" = "spring_surface",
+		"AUTUMN" = "autumn_surface"
+	)
+
+	if (!(season in echo_season))
+		message_admins("Echo surface spawner error: Unknown season '[season]'")
+		return INITIALIZE_HINT_QDEL
+
+	var/target_room_id = echo_season[season]
+	var/datum/map_template/random_room/template = null
+
+	for (var/datum/map_template/random_room/T in SSmapping.echo_surface_templates)
+		if (T.room_id == target_room_id)
+			template = T
+			break
+
+	if (!template)
+		message_admins("Echo spawner: No surface map found for '[season]' ([target_room_id])")
+		return INITIALIZE_HINT_QDEL
+
+	message_admins("Echo spawner: Loading [template.name]. This may take a moment.")
+
+	var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
+	generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
+
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/surface/echo/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
+	message_admins("Echo spawner: Surface placement complete.")
+
+
+/proc/get_current_season()
+	var/month = text2num(time2text(world.timeofday, "MM"))
+
+	if (month in list(DECEMBER, JANUARY, FEBRUARY))
+		return "WINTER"
+	//if (month in list(MARCH, APRIL, MAY))
+	//	return "SPRING"
+	//if (month in list(SEPTEMBER, OCTOBER, NOVEMBER))
+	//	return "AUTUMN"
+	return "SUMMER" //"SUMMER" by default

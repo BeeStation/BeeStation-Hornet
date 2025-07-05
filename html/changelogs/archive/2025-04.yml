@@ -1,0 +1,214 @@
+2025-04-01:
+  PowerfulBacon:
+  - bugfix: Fixes lavaland armours not having armour penalties while away from lavaland.
+  - tweak: When a crime is added to a player's record which sets them to arrest, the
+      player will be notified and asked to appear before security.
+  - tweak: Not paying a fine within 15 minutes results in an automatic arrest warrant
+      being created for fine avoidance.
+  itsmeow:
+  - code_imp: Updated rust-g to v3.8.0
+  - code_imp: Added 64-bit rustg DLL to the repository
+2025-04-02:
+  Rukofamicom:
+  - bugfix: Syndicate bases no longer spawn bomb cores and instead explode directly
+      when the walls are exposed to explosive force or destroyed.
+2025-04-03:
+  Therealdoooc213:
+  - rscdel: Removes the incursion antagonist & gamemode.
+  mrmanlikesbt:
+  - bugfix: fixed a flaky linter test
+2025-04-04:
+  Fresh839:
+  - bugfix: Fixes the captain's spare ID safe being unlocked at roundstart.
+  PowerfulBacon:
+  - bugfix: Armour readouts will now display colour comparisons again.
+  mrmanlikesbt:
+  - tweak: removed some duplicate MMI emotes
+  - tweak: renames silicon *warn emote to *alarm
+  - bugfix: fixed somebody jumping twice when using the jump emote
+2025-04-05:
+  Electronics:
+  - bugfix: Fixes the RBMK constantly increasing in heat and pressure
+  - bugfix: The RBMK no longer makes the entire station uninhabitable if the engineers
+      screw up
+  - balance: Rebalances the RBMK gas, heat, and power interactions to make them more
+      dependent on each other and generally more interesting to use
+  MarkusLarsson421:
+  - bugfix: Fixed yet another method of getting to CC.
+  TwiggyJrr, ClownMoff:
+  - rscadd: Adds coconut seeds to megaseed vendor
+  - rscadd: Adds a new coconut cup for a more tropical themed cup at the bar.
+  - rscadd: Adds coconut flesh, a new food item, upon processing of the coconut with
+      a hatchet/sharp object.
+  - tweak: changes the bahama mama and pina colada recipe to use coconut milk instead
+      of "creme de coconut"
+2025-04-06:
+  Rukofamicom:
+  - bugfix: fixed an exploit with swarmer replication so they can no longer generate
+      infinite resources
+  - tweak: tweaked the description of swarmer shells so it is better communicated
+      to players that the shells can be deactivated with a screwdriver
+  therealdoooc213, Jacquerel:
+  - code_imp: adds retaliation element
+2025-04-07:
+  beelover, jlsnow301, 00-Steven:
+  - bugfix: Stamps can be placed anywhere on a paper sheet again
+  - bugfix: The type of pencil used when writing on a sheet affects the font and color
+      of the result again
+2025-04-08:
+  Fresh839:
+  - bugfix: Fixed /mob/living/get_contents()
+  VmpOS2NHSkhkejA9:
+  - balance: pizza bombs no longer have a chance to detonate instantly when EMPed
+2025-04-12:
+  Fresh839:
+  - bugfix: fixes the plant analyzer from causing a runtime error when scanning plants
+  MarkusLarsson421:
+  - rscadd: Added a bunch of sounds to the Sound Synthesizer.
+  - rscdel: Removed a bunch of sounds from the Sound Synthesizer.
+  St0rmC4st3r:
+  - rscadd: Added a mapping helper that preserves food.
+  - tweak: Mapped food no longer starts decomposing on mapload. You need to pick it
+      up and put somewhere else first.
+  - tweak: Grown produce no longer starts spoiling on harvest.
+  Therealdoooc213:
+  - bugfix: removes a firelock from KiloStation mining bay dock
+  mrmanlikesbt:
+  - bugfix: fixed the robotics control console not alerting the crew when an unauthorized
+      person prints an upload key
+  rkz,  Ryll/Shaps, SpaceDragon00, TJatPBnJ, EOBGames, GPeckman, LemonInTheDark, SmArtKar, Hatterhat:
+  - rscadd: Combat Information tag for weapons. Shows how many hits or bullets a weapon
+      will take to crit
+  - bugfix: fixes armor comparisions
+  - bugfix: fixes suicides with guns
+  - rscadd: adds shorthands for item flags
+  - rscadd: adds variable on guns to modify bullet power. No weapon has anything except
+      the normal value of 1, this just makes sure if people modify the integrity of
+      guns or the like in the future, they go through this code which is accounted
+      for in the combat tags display
+  - rscadd: pressure/cold/heat-proof clothing now has appropriate display in armor
+      tag examine block
+  rkz, tralezab, ma44, Capybara Holly:
+  - refactor: converts cows to basicmobs
+  - rscadd: moonicorns, aggressive cows that spread fairygrass, and Wisdom cows, passive
+      cows that belt out fortune cookie phrases(currently adminspawn only)
+  - rscadd: mob ai can now plan new actions while performing current actions
+  - rscadd: cows will now seek out wheat, and follow you if you hold it
+  therealdoooc, kawoppi:
+  - bugfix: basic mobs are no longer immune to space
+2025-04-13:
+  Gilgax:
+  - bugfix: AI internal camera no longer has a network so it doesn't display on camera
+      consoles
+  - bugfix: Labor camera console now actually show labor area cameras on it
+  - tweak: EVA storage now shows up on normal camera network instead of the AI sattelite
+      network.
+  - tweak: 'Removes the "Jump to network" function for AI. AIs "Show Camera List"
+      button now shows all cameras on station and LL level no matter their network
+      (note: AI could always see through them, just couldn''t jump to them)'
+  MarkusLarsson421:
+  - rscadd: Added an RBMK core which when map loaded will assemble itself.
+2025-04-14:
+  Gilgax:
+  - imageadd: Added a new HUD button for ghosts (for observing).
+  - rscadd: Added cancel camera view to ghosts tab while observing.
+  RDS88-beeman:
+  - imageadd: The Research Director's labcoat has recieved an upgrade, and is now
+      purple! Don't worry about not being able to see spills on it, it's made of fancy
+      plasma-based textile, it'll be fine...
+  therealdoooc213, Ghommie:
+  - bugfix: caltrop's don't display the floor anymore
+  - code_imp: caltrop's now use span define thing
+2025-04-15:
+  BotTierPC:
+  - tweak: Removed Wheely Heelys from Library Vendor
+  EvilDragonfiend:
+  - bugfix: Fixed RGB hint was not shown in vv
+  PowerfulBacon:
+  - tweak: Reverts back to the brigher pink of dchat.
+  ro5490:
+  - tweak: Tweaks dead chat color from washed out pink to a more legible purple. Maintains
+      WCAG text legibility compliance
+2025-04-16:
+  MarkusLarsson421:
+  - bugfix: fixed Rad mining shuttle docking at Lavaland.
+2025-04-17:
+  wikimody:
+  - bugfix: Atmos resin spread out properly when in fire
+2025-04-18:
+  Wikimody, TwiggyJrr:
+  - bugfix: Processing a coconut in hand will now produce the coconut flesh & cup.
+  - bugfix: Fixed a bug with densified chemicals trait causing runtime errors
+  - rscadd: Coconut cup volume size scales on potency, min 10u max 100u. It can go
+      to 200u if it has densified chems trait
+  - rscadd: Coconut flesh now scales on potency size and also contains the plants
+      reagents
+2025-04-19:
+  BarteG44, PowerfulBacon, Absolucy, Aylong, jlsnow301:
+  - rscadd: Added wall closets
+  - code_imp: Ported \<Dmicon>
+  Programs-The-Station:
+  - rscadd: Added a Wiremod Switch Case component
+  - rscadd: Added a Wiremod String Trim Component
+  - tweak: Wiremod String Concatenate component now has variable number of inputs
+  - tweak: Wiremod Index List component now has variable number of inputs
+  ? axietheaxolotl, PositiveEntropy, Imagonis16, OrionTheFox, Ebin-Halcyon, Gandalf,
+    ElorgRHG, OctusGit, Youtubeboy139, TetraZeta, FuryMcFlurry
+  : - rscadd: New security gear/uniform sprites
+    - rscadd: New spacepol uniform sprites
+    - tweak: Spacepol now spawn with their own uniform / better looking gear
+    - rscdel: Removes the mallcop outfit
+    - rscdel: Removes the deputy outfit
+2025-04-20:
+  PowerfulBacon:
+  - tweak: Tweaks a large portion of playtime requirements to use them as a way of
+      guiding new players through the game.
+  Tsar-Salat:
+  - bugfix: fix buildmode qdel rclick functionality
+  rkz, itseasytosee:
+  - tweak: felinid fall immunity is now stored on the cat tail. If you have a cat
+      tail, you have felinid fall immunity.
+  - balance: strips out felinid flat fall damage reduction. Having a cat tail will
+      only give you the single level immunity. Any fall greater than 1 level, you
+      share the same damage as the rest of the humanoids.
+  - tweak: Consuming chocolate as a catperson will now only deal a flat amount of
+      damage to your stomach. It is no longer possible to get brain damage from your
+      tummyache.
+2025-04-21:
+  PowerfulBacon:
+  - refactor: Improves the quality of guncode.
+  - balance: Improv rounds now damage the gun they are fired from, but aren't significantly
+      weaker than normal rounds.
+  - tweak: Guns will break when they take sufficient damage.
+  - rscdel: Removes dual-wielding
+  wikimody:
+  - rscadd: Added 100u transfer rate for quality of life for coconut cup
+  - bugfix: Fixed the coconut cup volume bug
+2025-04-22:
+  PerishedFraud:
+  - rscdel: unhaunts heck suit
+2025-04-24:
+  DStarsthy:
+  - bugfix: Photos are once again printable at photocopiers
+  - bugfix: Fixed blanks printing without id on photocopiers
+  - tweak: Cyborgs and AIs can use photocopiers properly
+  - bugfix: PAI Messenger is visible now
+  EvilDragonfiend:
+  - code_imp: stack_trace() now individually reports runtimes.
+  - code_imp: runtime viewer now tells how many times an error has occcured
+  wikimody:
+  - balance: reduced bleeding and damaged caused by syringe gun
+2025-04-29:
+  Rukofamicom:
+  - bugfix: Characters which have too many positive quirks saved somehow will now
+      have their quirks reset after the next time that character plays
+  Tsar-Salat:
+  - balance: doubles storage implant total storage to a weight of 16, matching its
+      description
+  wikimody:
+  - rscadd: Added blood filter to surgical toolset implant
+2025-04-30:
+  Gilgax:
+  - bugfix: Ghosts can no longer mess with people in ways they shouldn't (breath masks,
+      t-rayscanners, cigarettes packs, gas injectors, smartfoam upgrades and modulator
+      masks)
