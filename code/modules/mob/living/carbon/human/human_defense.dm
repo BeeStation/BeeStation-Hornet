@@ -872,11 +872,6 @@
 	stoplag(50)
 	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
 
-/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
-	if(user.melee_damage != 0 && !HAS_TRAIT(user, TRAIT_PACIFISM) && check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACK, user.armour_penetration))
-		return FALSE
-	return ..()
-
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
 		return FALSE

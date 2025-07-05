@@ -361,7 +361,7 @@
 					dna.temporary_mutations.Remove(mut)
 					continue
 		for(var/datum/mutation/HM as() in dna.mutations)
-			if(HM?.timed)
+			if(HM?.timeout)
 				dna.remove_mutation(HM.type)
 
 	radiation = max(radiation - (RAD_LOSS_PER_SECOND * delta_time), 0)
