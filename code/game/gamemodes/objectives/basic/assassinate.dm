@@ -1,5 +1,5 @@
 /datum/objective/assassinate
-	name = "assasinate"
+	name = "assassinate"
 	var/target_role_type=FALSE
 
 /datum/objective/assassinate/find_target_by_role(role, role_type=FALSE,invert=FALSE)
