@@ -27,7 +27,7 @@
 	return
 
 /mob/living/carbon/get_organ_by_type(typepath)
-	return (locate(typepath) in internal_organs)
+	return (locate(typepath) in internal_organs/* + external_organs*/)
 
 /mob/living/carbon/get_organs_for_zone(zone, include_children = FALSE)
 	var/valid_organs = list()

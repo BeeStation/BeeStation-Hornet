@@ -1,7 +1,6 @@
 /datum/species/vampire
 	name = "\improper Vampire"
 	id = SPECIES_VAMPIRE
-	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
@@ -31,6 +30,7 @@
 	if(isnull(batform))
 		batform = new
 		batform.Grant(C)
+	C.set_safe_hunger_level()
 
 /datum/species/vampire/on_species_loss(mob/living/carbon/C)
 	. = ..()

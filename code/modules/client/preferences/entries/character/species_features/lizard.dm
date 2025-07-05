@@ -3,7 +3,7 @@
 
 	var/datum/universal_icon/lizard = uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_head", dir = EAST)
 
-	var/datum/universal_icon/eyes = uni_icon('icons/mob/human_face.dmi', "eyes", dir = EAST)
+	var/datum/universal_icon/eyes = uni_icon('icons/mob/species/human/human_face.dmi', "eyes", dir = EAST)
 	eyes.blend_color(COLOR_GRAY, ICON_MULTIPLY)
 	lizard.blend_icon(eyes, ICON_OVERLAY)
 
