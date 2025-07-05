@@ -32,6 +32,7 @@
 					/obj/item/computer_hardware/processor_unit = 3,
 					/obj/item/computer_hardware/processor_unit/photonic/small = 2,
 					/obj/item/computer_hardware/processor_unit/photonic = 1,
+					/obj/item/computer_hardware/hard_drive/role/antivirus = 2,
 					/obj/item/computer_hardware/sensorpackage = 4,
 					/obj/item/computer_hardware/printer/mini = 2,
 					/obj/item/storage/box/tabletcolorizer = 5)

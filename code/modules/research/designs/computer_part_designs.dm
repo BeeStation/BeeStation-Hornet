@@ -283,48 +283,47 @@
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
-//antivirus. While not a computer bit, it makes more flavor-sense in here
-
+//Antivirus. Now actually a computer part
 /datum/design/antivirus1
 	name = "Basic Antivirus"
-	desc = "A licensed copy of NTOS defender"
+	desc = "Basic Subscription package of NTOS Virus Buster."
 	id = "antivirus"
 	build_type = IMPRINTER | AUTOLATHE
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 50, /datum/material/copper = 50)
-	build_path = /obj/item/disk/antivirus
+	build_path = /obj/item/computer_hardware/hard_drive/role/antivirus
 	category = list("Computer Parts","Machinery","initial")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/antivirus2
-	name = "Upgraded Antivirus"
-	desc = "A licensed copy of Ahoy antivirus."
+	name = "Standard Antivirus"
+	desc = "Standard Subscription package of NTOS Virus Buster."
 	id = "antivirus2"
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 150, /datum/material/glass = 100, /datum/material/copper = 100)
-	build_path = /obj/item/disk/antivirus/tier2
+	build_path = /obj/item/computer_hardware/hard_drive/role/antivirus/tier2
 	category = list("Computer Parts")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/antivirus3
-	name = "Robust Antivirus"
-	desc = "A licensed copy of McValosk antivirus."
+	name = "Essential Antivirus"
+	desc = "Essential Subscription package of NTOS Virus Buster."
 	id = "antivirus3"
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 200, /datum/material/glass = 150, /datum/material/silver = 60, /datum/material/copper = 100)
-	build_path = /obj/item/disk/antivirus/tier3
+	build_path = /obj/item/computer_hardware/hard_drive/role/antivirus/tier3
 	category = list("Computer Parts")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/antivirus4
-	name = "Luxury Antivirus"
-	desc = "A licensed copy of Nano-Ton antivirus."
+	name = "Premium Antivirus"
+	desc = "Premium Subscription package of NTOS Virus Buster."
 	id = "antivirus4"
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/diamond = 30, /datum/material/bluespace = 30, /datum/material/copper = 100)
-	build_path = /obj/item/disk/antivirus/tier4
+	build_path = /obj/item/computer_hardware/hard_drive/role/antivirus/tier4
 	category = list("Computer Parts")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL

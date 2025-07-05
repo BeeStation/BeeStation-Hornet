@@ -9,9 +9,10 @@
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_CARGO)
 	network_destination = "cargo claims interface"
-	size = 10
+	size = 4
 	tgui_id = "NtosBountyConsole"
 	program_icon = "tags"
+	hardware_requirement = MC_PRINT
 
 	/// Cooldown var for printing paper sheets.
 	COOLDOWN_DECLARE(printer_ready)

@@ -249,3 +249,13 @@
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
+
+/datum/quirk/computer_whiz
+	name = "Computer Whiz"
+	desc = "You have always had a knack for technologies. You are able to manipulate and alter modular computer parts faster and safely."
+	icon = "microchip"
+	quirk_value = 1
+	mob_trait = TRAIT_COMPUTER_WHIZ
+	gain_text = span_notice("You feel much more confortable around technology.")
+	lose_text = span_danger("You feel your love for technology dissipate.")
+	medical_record_text = "Patient's vocational assessment test shows an affinity for technology."

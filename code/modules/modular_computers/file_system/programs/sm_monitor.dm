@@ -8,7 +8,7 @@
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_CONSTRUCTION)
 	network_destination = "supermatter monitoring system"
-	size = 5
+	size = 4
 	tgui_id = "NtosSupermatterMonitor"
 	program_icon = "radiation"
 	alert_able = TRUE

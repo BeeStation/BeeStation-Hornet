@@ -4,15 +4,9 @@
 	category = PROGRAM_CATEGORY_CREW
 	program_icon_state = "crew"
 	extended_desc = "Program for viewing and printing the current crew manifest"
-	transfer_access = list(ACCESS_HEADS)
-	requires_ntnet = FALSE
-	size = 0
-	undeletable = FALSE // It comes by default in tablets, can't be downloaded, takes no space and is now able to be deleted and transfered. Let players make mistakes.
-	available_on_ntnet = FALSE
+	size = 4
 	tgui_id = "NtosCrewManifest"
 	program_icon = "clipboard-list"
-
-
 
 /datum/computer_file/program/crew_manifest/ui_static_data(mob/user)
 	var/list/data = list()

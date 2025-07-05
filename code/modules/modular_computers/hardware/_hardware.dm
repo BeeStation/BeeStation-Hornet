@@ -3,6 +3,8 @@
 	desc = "Unknown Hardware."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
+	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
+	drop_sound = 'sound/items/handling/tape_drop.ogg'
 
 	/// w_class limits which devices can contain this component. 1: PDAs/Tablets, 2: Laptops, 3-4: Consoles only
 	w_class = WEIGHT_CLASS_TINY
@@ -35,11 +37,32 @@
 	var/device_type
 	/// If the hardware can be "hotswapped" (ejected when another is installed)
 	var/hotswap = FALSE
+	/// If this has been opened by a screwdriver
+	var/open = FALSE
+	/// If this has been opened by a screwdriver
+	var/open_overlay = "comp_open"
+	/// If this can be hacked (This is a temporary flag for PArts that already have an overclocking effect to them)
+	var/can_hack = TRUE
+	/// If this is currently Hacked (Also reffered to as "Overclocking")
+	var/hacked = FALSE
+	/// A Serial Number used in hacking and other niffty things
+	var/serial_code
 
 /obj/item/computer_hardware/New(var/obj/L)
 	..()
 	pixel_x = base_pixel_x + rand(-8, 8)
 	pixel_y = base_pixel_y + rand(-8, 8)
+
+/obj/item/computer_hardware/Initialize(mapload)
+	. = ..()
+	serial_code = generate_series_code()
+
+/obj/item/computer_hardware/proc/generate_series_code()	//Generates a code unique to each individual hardware piece. For now used in hardware_id of network cards
+	var/list/charset = GLOB.alphabet | list("0","1","2","3","4","5","6","7","8","9")
+	var/code = ""
+	for(var/i = 1 to 4)
+		code += pick(uppertext(charset))
+	return code
 
 /obj/item/computer_hardware/Destroy()
 	if(holder)
@@ -52,31 +75,159 @@
 	return
 
 /obj/item/computer_hardware/attackby(obj/item/I, mob/living/user)
-	// Cable coil. Works as repair method, but will probably require multiple applications and more cable.
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/S = I
-		if(atom_integrity == max_integrity)
-			to_chat(user, span_warning("\The [src] doesn't seem to require repairs."))
-			return 1
-		if(S.use(1))
-			to_chat(user, span_notice("You patch up \the [src] with a bit of \the [I]."))
-			atom_integrity = min(atom_integrity + 10, max_integrity)
-		return 1
-
 	if(try_insert(I, user))
 		return TRUE
 
 	return ..()
 
+/obj/item/computer_hardware/welder_act(mob/living/user, obj/item/I)
+	if(atom_integrity == max_integrity)
+		to_chat(user, span_warning("\The [src] doesn't seem to require repairs."))
+		return TRUE
+	if(!I.tool_start_check(user, amount=0))
+		return TRUE
+	user.visible_message(span_notice("[user.name] starts to repair [name]."), \
+	span_notice("You start to repair [src]."), \
+	span_hear("You hear welding."))
+	if(!I.use_tool(src, user, 10, amount=2, volume=20))
+		return
+	atom_integrity = max_integrity
+	to_chat(user, span_notice("The [src] is now fixed."))
+	return TRUE
+
+/obj/item/computer_hardware/update_overlays()
+	. = ..()
+	var/atom/movable/A = src
+	if(hacked)
+		if(!A.get_filter("hacked_glow"))
+			A.add_filter("hacked_glow", 2, list(
+				"type" = "outline",
+				"color" = "#e42828ff",
+				"size" = 1))
+	else
+		A.remove_filter("hacked_glow")
+	if(open)
+		. += mutable_appearance(icon, open_overlay)
+
+/obj/item/computer_hardware/screwdriver_act(mob/living/user, obj/item/I)
+	if(!open)
+		to_chat(user, "You unscrew the [name]'s service panel, exposing its internal ports and configuration nodes")
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		open = TRUE
+	else
+		to_chat(user, "You screw the service panel back into place, sealing the [name]'s internals")
+		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+		open = FALSE
+	update_appearance()
+	return TRUE
+
+/obj/item/computer_hardware/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+	if(!open)
+		to_chat(user, "You must unscrew the service panel in order to fiddle with the [src]'s internals.")
+		return TRUE
+	if(hacked)
+		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 20)
+		return TRUE
+	var/min_power =	initial(power_usage) / 2
+	var/max_power =	initial(power_usage) * 5
+	var/input = tgui_input_number(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption", 0, max_power, min_power, 0, TRUE)
+	if(input == null || input == "")
+		return TRUE
+	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
+		to_chat(user, "Input value too low for current hardware")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 20)
+		return TRUE
+	power_usage = input
+	new /obj/effect/particle_effect/sparks(get_turf(src))
+	playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
+	return TRUE
+
 /obj/item/computer_hardware/multitool_act(mob/living/user, obj/item/I)
 	to_chat(user, "***** DIAGNOSTICS REPORT *****")
 	diagnostics(user)
 	to_chat(user, "******************************")
+	playsound(src, 'sound/effects/fastbeep.ogg', 20)
 	return TRUE
+
+/obj/item/computer_hardware/multitool_act_secondary(mob/living/user, obj/item/tool)
+	var/time_to_hack = 3 SECONDS
+	var/fail_chance = 15
+	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR))	// Scientist buff
+		time_to_hack = 2 SECONDS
+		fail_chance = 5
+	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
+		time_to_hack = 1 SECONDS
+		fail_chance = 0
+	if(!open)
+		to_chat(user, "You must unscrew the service panel in order to fiddle with the [src]'s internals.")
+		return TRUE
+	if(!can_hack)
+		to_chat(user, "\The [src] cannot be overclocked.")
+		return TRUE
+	to_chat(user, "<font color='#12e21d'>Authorization Required. Keygen in progress...</font>")
+	playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, TRUE)
+
+	if(!do_after(user, time_to_hack, src))
+		to_chat(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 40)
+		user.electrocute_act(25, src, 1)
+		return TRUE
+	if(prob(fail_chance))
+		to_chat(user, "<font color='#d80000'>Error:</font> Serial Key provided is invalid.")
+		new /obj/effect/particle_effect/sparks(get_turf(src))
+		playsound(src, "sparks", 40)
+		user.electrocute_act(25, src, 1)
+	else
+		overclock(user, tool)
+		playsound(src, 'sound/effects/fastbeep.ogg', 10)
+	return TRUE
+
+/obj/item/computer_hardware/proc/overclock(mob/living/user, obj/item/tool)
+	if(hacked)
+		hacked = FALSE
+		power_usage = initial(power_usage)
+		to_chat(user, "You returned [src] to safe working parameters.")
+	else
+		hacked = TRUE
+		power_usage = (power_usage * 5)
+		to_chat(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
+	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
+	playsound(src, "sparks", 50)
+	update_appearance()
+	update_overclocking(user, tool)
+
+/obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
+	if(enabled)
+		enabled = FALSE
+		to_chat(user, "The [src] has been disabled.")
+		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+		return TRUE
+	else
+		enabled = TRUE
+		to_chat(user, "The [src] has been enabled.")
+		playsound(src, 'sound/items/handling/wirecutter_pickup.ogg', 50, TRUE)
+		return TRUE
+
+/obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
+	return /// Nothing happens here yet
 
 /// Called on multitool click, prints diagnostic information to the user.
 /obj/item/computer_hardware/proc/diagnostics(mob/user)
 	to_chat(user, "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]")
+	if(!enabled)
+		to_chat(user, "<font color='#e06eb1'>Warning</font> // Hardware Disabled")
+	to_chat(user, "Current power consumption :: [power_usage]")
+	if(hacked)
+		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>")
+
+/obj/item/computer_hardware/proc/component_qdel()	// Handles deleting a component professionally
+	if(holder)
+		holder.uninstall_component(src)
+	qdel(src)
 
 /// Handles damage checks
 /obj/item/computer_hardware/proc/check_functionality()
@@ -103,16 +254,22 @@
 
 /// Component-side compatibility check.
 /obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	if(open)
+		to_chat(user, span_notice("The component doesn't fit! Try closing the maintenance panel with a screwdriver!"))
+		playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
+		return FALSE
 	return can_install
 
 /// Called when component is installed into PC.
 /obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	install_into.ui_update(user)
 	return
 
 /// Called when component is removed from PC.
 /obj/item/computer_hardware/proc/on_remove(obj/item/modular_computer/remove_from, mob/living/user)
 	if(remove_from.physical && !QDELETED(remove_from) && !QDELETED(src))
 		try_eject(forced = TRUE)
+	remove_from.ui_update(user)
 
 /// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
 /obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)
