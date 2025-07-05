@@ -110,8 +110,11 @@
 	icon_state = "detective"
 	item_state = "det_hat"
 	var/candy_cooldown = 0
+	var/adjusted = FALSE
+	var/adjustable = TRUE
+	var/aura_icon_on = "detective_aura"
 	dog_fashion = /datum/dog_fashion/head/detective
-
+	actions_types = list(/datum/action/item_action/noirmode)
 
 /datum/armor/fedora_det_hat
 	melee = 25
@@ -132,7 +135,7 @@
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()
-	. += span_notice("Alt-click to take a candy corn.")
+	. += span_notice("Alt-click to take a candy corn. Control-click to adjust it.")
 
 /obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
 	. = ..()
@@ -146,11 +149,52 @@
 	else
 		to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
 
+/obj/item/clothing/head/fedora/proc/apply_noir_effect(mob/living/L)
+	ADD_TRAIT(L, TRAIT_NOIR, TRAIT_GENERIC)
+	L.add_client_colour(/datum/client_colour/monochrome)
+
+/obj/item/clothing/head/fedora/proc/noir_aura(mob/living/carbon/human/D)
+	var/area/A = get_area(D)
+	if(istype(A, /area/security/detectives_office) || istype(A, /area/security/interrogation_room))
+		var/list/mobs_to_iterate = mobs_in_area_type(list(A))
+		for(var/mob/living/L as() in mobs_to_iterate)
+			apply_noir_effect(L)
+			if(L.mind?.assigned_role == JOB_NAME_DETECTIVE)
+				to_chat(L, span_notice("The shadows overtake the room. They are in your realm now."))
+			else
+				to_chat(L, span_userdanger("The shadows overtake the room. An ominous feeling takes over you."))
+	else
+		to_chat(D, "<span class='warning'>You can only use the noir ability in the detective's office or interrogation room.</span>")
+		return
+
+/obj/item/clothing/head/fedora/det_hat/ui_action_click(mob/user, action)
+	if(user.mind?.assigned_role != JOB_NAME_DETECTIVE)
+		to_chat(user, "<span class='warning'>Only a true detective can use the noir ability.</span>")
+		return
+	noir_aura(user)
+
+/obj/item/clothing/head/fedora/det_hat/CtrlClick(mob/user)
+	..()
+	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
+		flip(user)
+
+/obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
+	if(!user.incapacitated() && adjustable == TRUE)
+		adjusted = !adjusted
+		if(adjusted)
+			worn_icon_state = aura_icon_on
+			to_chat(user, span_notice("You adjust your hat to look more intimidating."))
+		else
+			worn_icon_state = initial(worn_icon_state)
+			to_chat(user, span_notice("You return your hat to its original position."))
+		user.update_inv_head()
+
 /obj/item/clothing/head/fedora/det_hat/noir
 	name = "noir fedora"
 	desc = "An essential accessory for the world-weary private eye."
 	icon_state = "fedora"
 	dog_fashion = /datum/dog_fashion/head/noir
+	aura_icon_on = "fedora_aura"
 
 //Mime
 /obj/item/clothing/head/beret

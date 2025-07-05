@@ -3408,7 +3408,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "aQQ" = (
 /obj/structure/table/wood,
 /obj/item/pneumatic_cannon/pie,
@@ -5406,7 +5406,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "byb" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -12662,7 +12662,7 @@
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "dWW" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
 	dir = 1
@@ -16290,7 +16290,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "fkI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -19237,7 +19237,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "ghR" = (
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -20663,7 +20663,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "gHf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -27974,7 +27974,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "iYQ" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -37882,7 +37882,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "mlh" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -44536,7 +44536,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "owB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -45063,8 +45063,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "oCW" = (
 /turf/closed/wall,
 /area/engine/atmospherics_engine)
@@ -53038,7 +53041,7 @@
 	c_tag = "Interrogation room"
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "rrx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -54965,6 +54968,9 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet)
+"saK" = (
+/turf/open/floor/iron/dark,
+/area/security/interrogation_room)
 "saT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -60577,7 +60583,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "tVy" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
 /turf/open/floor/catwalk_floor/iron,
@@ -61095,7 +61101,7 @@
 "udE" = (
 /obj/structure/chair/office,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "udH" = (
 /obj/machinery/vending/cigarette,
 /turf/open/floor/grass,
@@ -65537,7 +65543,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "vyv" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -65789,7 +65795,7 @@
 	pixel_y = -7
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "vCq" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/white{
@@ -65890,7 +65896,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "vEj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -67298,7 +67304,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "weT" = (
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/circuit/green,
@@ -70182,6 +70188,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
+"xcw" = (
+/turf/closed/wall/r_wall,
+/area/security/interrogation_room)
 "xcK" = (
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/camera/directional/east,
@@ -70264,7 +70273,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "xef" = (
 /obj/machinery/door/window/westleft{
 	dir = 1;
@@ -70355,7 +70364,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "xfN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -70463,6 +70472,16 @@
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/noslip/dark,
 /area/engine/engineering)
+"xiF" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/turf/open/floor/iron/dark,
+/area/security/interrogation_room)
 "xiJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -70635,7 +70654,7 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron/dark,
-/area/security/brig)
+/area/security/interrogation_room)
 "xmJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -109662,13 +109681,13 @@ duF
 duF
 duF
 duF
-duF
-duF
-duF
-duF
-duF
-duF
-duF
+xcw
+xcw
+xcw
+xcw
+xcw
+xcw
+xcw
 agn
 jTU
 ygu
@@ -109919,13 +109938,13 @@ gTW
 gOt
 brY
 rnI
-duF
+xcw
 mla
 vCm
 gGL
-tLs
+saK
 owr
-duF
+xcw
 cUd
 rhu
 hEX
@@ -110176,13 +110195,13 @@ ylO
 tnM
 phz
 wzA
-duF
-mla
+xcw
+xiF
 udE
 dWS
 bya
 owr
-duF
+xcw
 pyu
 yec
 pGN
@@ -110439,7 +110458,7 @@ xeb
 tVv
 aQP
 owr
-duF
+xcw
 ipV
 dpG
 cgt
@@ -110690,7 +110709,7 @@ mFw
 jfh
 lWQ
 oer
-duF
+xcw
 vym
 fkA
 ghP
@@ -110947,13 +110966,13 @@ wQt
 tLs
 tLs
 tLs
-duF
+xcw
 rrr
-tLs
+saK
 xmD
-tLs
+saK
 owr
-duF
+xcw
 wlr
 wod
 cro
