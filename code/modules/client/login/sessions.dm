@@ -230,7 +230,7 @@
 	src.external_uid = external_uid
 	src.external_display_name = external_display_name
 
-	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey]) using [external_method] ID [external_uid]")
+	log_access("Authentication: [key_name(src)] has authenticated as [new_key] (ckey: [ckey(new_key)]) using [external_method] ID [external_uid]")
 	GLOB.directory -= src.ckey
 	var/mob/my_mob = src.mob
 	src.ckey = ckey
