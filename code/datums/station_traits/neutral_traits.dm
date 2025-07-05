@@ -42,10 +42,7 @@
 	weight = 5
 	show_in_report = TRUE
 	report_message = "Our announcement system is under scheduled maintanance at the moment. Thankfully, we have a backup."
-	blacklist = list(
-		/datum/station_trait/announcement_intern,
-		/datum/station_trait/announcement_baystation
-		)
+	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_baystation)
 
 /datum/station_trait/announcement_medbot/New()
 	. = ..()
@@ -57,10 +54,17 @@
 	weight = 5
 	show_in_report = TRUE
 	report_message = "We lost the primary datatape that holds the announcement system's voice responses. We did however find an older backup."
-	blacklist = list(/datum/station_trait/announcement_intern,
-	/datum/station_trait/announcement_medbot
-	)
+	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_medbot)
 
 /datum/station_trait/announcement_baystation/New()
 	. = ..()
 	SSstation.announcer = /datum/centcom_announcer/baystation
+
+/datum/station_trait/unique_ai
+	name = "Unique AI"
+	trait_type = STATION_TRAIT_NEUTRAL
+	weight = 5
+	show_in_report = TRUE
+	report_message = "For experimental purposes, this station AI might show divergence from default lawset. Do not meddle with this experiment, we've removed \
+		access to your set of alternative upload modules because we know you're already thinking about meddling with this experiment."
+	trait_to_give = STATION_TRAIT_UNIQUE_AI
