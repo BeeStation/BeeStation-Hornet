@@ -40,7 +40,7 @@
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
 /obj/projectile/beam/laser/lesslethal
-	damage = 11
+	damage = 6
 	stamina = 22
 	icon_state = "minilaser"
 
