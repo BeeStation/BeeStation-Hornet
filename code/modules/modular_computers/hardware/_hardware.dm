@@ -3,6 +3,8 @@
 	desc = "Unknown Hardware."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
+	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
+	drop_sound = 'sound/items/handling/tape_drop.ogg'
 
 	/// w_class limits which devices can contain this component. 1: PDAs/Tablets, 2: Laptops, 3-4: Consoles only
 	w_class = WEIGHT_CLASS_TINY
@@ -37,8 +39,8 @@
 	var/hotswap = FALSE
 	/// If this has been opened by a screwdriver
 	var/open = FALSE
-	/// The icon used for when this is open
-	var/icon_open
+	/// If this has been opened by a screwdriver
+	var/open_overlay = "comp_open"
 	/// If this can be hacked (This is a temporary flag for PArts that already have an overclocking effect to them)
 	var/can_hack = TRUE
 	/// If this is currently Hacked (Also reffered to as "Overclocking")
@@ -93,23 +95,19 @@
 	to_chat(user, span_notice("The [src] is now fixed."))
 	return TRUE
 
-/obj/item/computer_hardware/update_icon_state()
+/obj/item/computer_hardware/update_overlays()
 	. = ..()
 	var/atom/movable/A = src
 	if(hacked)
-		if(!A.get_filter("hacked_glow"))	//update_overlays()
+		if(!A.get_filter("hacked_glow"))
 			A.add_filter("hacked_glow", 2, list(
 				"type" = "outline",
 				"color" = "#e42828ff",
 				"size" = 1))
 	else
 		A.remove_filter("hacked_glow")
-	if(!icon_open)
-		return
-	if(!open)
-		icon_state = initial(icon_state)
-	else
-		icon_state = icon_open
+	if(open)
+		. += mutable_appearance(icon, open_overlay)
 
 /obj/item/computer_hardware/screwdriver_act(mob/living/user, obj/item/I)
 	if(!open)
@@ -120,7 +118,7 @@
 		to_chat(user, "You screw the service panel back into place, sealing the [name]'s internals")
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 		open = FALSE
-	update_icon_state()	//update_appearance()
+	update_appearance()
 	return TRUE
 
 /obj/item/computer_hardware/screwdriver_act_secondary(mob/living/user, obj/item/tool)
@@ -132,7 +130,9 @@
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
 		return TRUE
-	var/input = tgui_input_number(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption", 0, (initial(power_usage) * 5), (initial(power_usage) / 2), 0, TRUE)
+	var/min_power =	initial(power_usage) / 2
+	var/max_power =	initial(power_usage) * 5
+	var/input = tgui_input_number(usr, "Current Power Consumption Overide // Insert Value.", "Power Consumption", 0, max_power, min_power, 0, TRUE)
 	if(input == null || input == "")
 		return TRUE
 	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
@@ -197,7 +197,7 @@
 		to_chat(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	playsound(src, "sparks", 50)
-	update_icon_state()	//update_appearance()
+	update_appearance()
 	update_overclocking(user, tool)
 
 /obj/item/computer_hardware/wirecutter_act(mob/living/user, obj/item/tool)
@@ -254,6 +254,10 @@
 
 /// Component-side compatibility check.
 /obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	if(open)
+		to_chat(user, span_notice("The component doesn't fit! Try closing the maintenance panel with a screwdriver!"))
+		playsound(src, 'sound/items/handling/tape_drop.ogg', 50, TRUE)
+		return FALSE
 	return can_install
 
 /// Called when component is installed into PC.

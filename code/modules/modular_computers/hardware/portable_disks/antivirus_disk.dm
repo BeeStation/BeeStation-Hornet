@@ -7,13 +7,14 @@
 	max_capacity = 16
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	icon_state = "datadisk0"
+	icon_state = "antivirus1"
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 	var/resistcap = 6 //one higher than what it can cure
 	virus_defense = ANTIVIRUS_BASIC
 	custom_price = 50
 	dont_instal = TRUE
+	open_overlay = "disk_open"
 	var/sender_disk_typepath = /obj/item/computer_hardware/hard_drive/role/virus/antivirus
 
 /obj/item/computer_hardware/hard_drive/role/antivirus/update_overclocking(mob/living/user, obj/item/tool)
@@ -24,7 +25,7 @@
 	new_disk.max_capacity = max_capacity
 	new_disk.icon_state = initial(icon_state)
 	new_disk.icon = initial(icon)
-	new_disk.update_icon_state() // update_appearance()
+	new_disk.update_appearance()
 	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
 	playsound(src, "sparks", 50, 1)
 	qdel(src)

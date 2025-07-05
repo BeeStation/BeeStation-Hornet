@@ -97,7 +97,7 @@
 	new_disk.max_capacity = max_capacity
 	new_disk.icon_state = initial(icon_state)
 	new_disk.icon = initial(icon)
-	new_disk.update_icon_state()
+	new_disk.update_appearance()
 	new_disk.spam_delay = initial(spam_delay)
 	new_disk.can_hack = FALSE
 	new /obj/effect/particle_effect/sparks/red(get_turf(holder))

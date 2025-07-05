@@ -3,7 +3,6 @@
 	desc = "A basic wireless network card for usage with standard NTNet frequencies."
 	power_usage = 50
 	icon_state = "radio_mini"
-	icon_open = "radio_mini_open"
 	network_id = NETWORK_CARDS	// Network we are on
 	var/hardware_id = null	// Identification ID. Technically MAC address of this device. Can't be changed by user.
 	var/identification_string = "nt_card_SFS" 	// Default Identification string, like half an IP.
@@ -84,7 +83,6 @@
 	signal_level = SIGNAL_HIGH
 	power_usage = 100 // Better range but higher power usage.
 	icon_state = "radio"
-	icon_open = "radio_open"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY

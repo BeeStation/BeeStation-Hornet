@@ -703,9 +703,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!length(all_components))
 		balloon_alert(user, "no components installed!")
 		return
-	for(var/obj/item/computer_hardware/H as anything in all_components)
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
 		uninstall_component(H, user, TRUE)
-	tool.play_tool_sound(user, volume=20)
+	tool.play_tool_sound(user, volume = 20)
 	ui_update()
 
 /obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)

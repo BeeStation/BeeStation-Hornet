@@ -8,6 +8,7 @@
 	max_capacity = 16
 	device_type = MC_SDD
 	custom_price = 10
+	open_overlay = "disk_open"
 	var/virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/sledge
 	/// If theres a Virus that activates when hacked
 
