@@ -6,6 +6,7 @@
 // #define FORCE_MAP "boxstation"
 // #define FORCE_MAP "cardinalstation"
 // #define FORCE_MAP "metastation"
+#define FORCE_MAP "multimeta" //test
 // #define FORCE_MAP "deltastation"
 // #define FORCE_MAP "kilostation"
 // #define FORCE_MAP "flandstation"
@@ -20,6 +21,7 @@
 	#ifdef ALL_MAPS
 		#include "map_files\Mining\Lavaland.dmm"
 		#include "map_files\debug\runtimestation.dmm"
+		#include "map_files\MultiMeta\MultiMeta.dmm"
 		#include "map_files\CorgStation\CorgStation.dmm"
 		#include "map_files\Deltastation\DeltaStation2.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
