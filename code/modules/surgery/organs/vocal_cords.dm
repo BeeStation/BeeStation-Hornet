@@ -130,7 +130,7 @@
 
 	var/log_message = uppertext(message)
 	if(!span_list || !span_list.len)
-		if(iscultist(user))
+		if(IS_CULTIST(user))
 			span_list = list("narsiesmall")
 		else
 			span_list = list()
@@ -170,7 +170,7 @@
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
-	if(iscultist(user))
+	if(IS_CULTIST(user))
 		power_multiplier *= 2
 
 	//Try to check if the speaker specified a name or a job to focus on

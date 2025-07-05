@@ -203,7 +203,7 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 	if (!IS_HERETIC(dreamer) || !dreamer.manus_dream_allowed || !GLOB.reality_smash_track.smashes.len)
 		return CALLBACK(pick_weight(GLOB.dreams), PROC_REF(GenerateDream), dreamer)
 
-	dreamer.manus_dream_allowed = FALSE;
+	dreamer.manus_dream_allowed = FALSE
 	addtimer(CALLBACK(dreamer, TYPE_PROC_REF(/mob/living/carbon, finish_manus_dream_cooldown)), 5 MINUTES)
 
 	. = list()
