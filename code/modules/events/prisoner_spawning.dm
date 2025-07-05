@@ -33,7 +33,7 @@
 
 /proc/spawn_prisoners(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/job_check = 0
-	for (var/mob/H in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+	for (var/mob/H in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(H.mind)
 			var/datum/mind/M = H.mind
 			if (M.assigned_role == JOB_NAME_SECURITYOFFICER || M.assigned_role == JOB_NAME_HEADOFSECURITY)

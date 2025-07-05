@@ -91,7 +91,6 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/set_dynex_scale,
 	/client/proc/drop_dynex_bomb,
 	/client/proc/cinematic,
-	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/object_say,
 	/client/proc/toggle_random_events,
@@ -207,7 +206,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/create_or_modify_area,
 	#ifdef TESTING
 	/client/proc/check_missing_sprites,
-	/client/proc/run_dynamic_simulations,
 	#endif
 	#ifdef SENDMAPS_PROFILE
 	/client/proc/display_sendmaps,

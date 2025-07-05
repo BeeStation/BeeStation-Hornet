@@ -39,7 +39,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Show last [length(GLOB.lastsignalers)] signalers", "list_signalers"),
 			list("Show last [length(GLOB.lawchanges)] law changes", "list_lawchanges"),
 			list("Show AI Laws", "showailaws"),
-			list("Show Game Mode", "showgm"),
 			list("Show Crew Manifest", "manifest"),
 			list("List DNA (Blood)", "DNA"),
 			list("List Fingerprints", "fingerprints"),
@@ -292,14 +291,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_ADMIN))
 				return
 			admin_datum.output_ai_laws()
-		if("showgm")
-			if(!check_rights(R_ADMIN))
-				return
-			if(!SSticker.HasRoundStarted())
-				alert("The game hasn't started yet!")
-			else if (SSticker.mode)
-				alert("The game mode is [SSticker.mode.name]")
-			else alert("For some reason there's a SSticker, but not a game mode")
 		if("manifest")
 			if(!check_rights(R_ADMIN))
 				return

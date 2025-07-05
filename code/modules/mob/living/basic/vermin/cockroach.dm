@@ -44,7 +44,7 @@
 		AddComponent(/datum/component/squashable, squash_chance = 50, squash_damage = 1)
 
 /mob/living/basic/cockroach/death(gibbed)
-	if(SSticker.mode?.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+	if(GLOB.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 		return
 	..()
 

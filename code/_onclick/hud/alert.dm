@@ -502,7 +502,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	return ..()
 
 /atom/movable/screen/alert/clockwork/clocksense/process()
-	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
+	var/datum/antagonist/servant_of_ratvar/servant_antagonist = IS_SERVANT_OF_RATVAR(owner)
 	if(!(servant_antagonist?.team))
 		return
 	desc = "Stored Power - <b>[display_power(GLOB.clockcult_power)]</b>.<br>"

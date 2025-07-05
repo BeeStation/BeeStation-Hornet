@@ -35,7 +35,7 @@
 		return
 
 	if(!used)
-		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		if(!ishuman(user) || !user.mind)
 			to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans!"))
 			return
 
@@ -48,7 +48,7 @@
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	. = ..()
-	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+	if(!ishuman(user) || !user.mind)
 		to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans! You should leave it alone."))
 		user.dropItemToGround(src)
 
@@ -186,7 +186,7 @@
 		if(20)
 			//Free wizard!
 			T.visible_message(span_userdanger("Magic flows out of [src] and into [user]!"))
-			user.mind.make_Wizard()
+			user.mind.add_antag_datum(/datum/antagonist/wizard)
 	//roll is completed, allow others players to roll the dice
 	roll_in_progress = FALSE
 

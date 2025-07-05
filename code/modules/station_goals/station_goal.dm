@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY_TYPED(station_goals, /datum/station_goal)
+
 //TODO
 // Admin button to override with your own
 // Sabotage objective for tators
@@ -7,7 +9,6 @@
 	var/name = "Generic Goal"
 	var/weight = 1 //In case of multiple goals later.
 	var/required_crew = 10
-	var/list/gamemode_blacklist = list()
 	var/completed = FALSE
 	var/report_message = "Complete this goal."
 
@@ -36,7 +37,7 @@
 		return "<li>[name] : [span_redtext("Failed!")]</li>"
 
 /datum/station_goal/Destroy()
-	SSticker.mode.station_goals -= src
+	GLOB.station_goals -= src
 	. = ..()
 
 /datum/station_goal/Topic(href, href_list)

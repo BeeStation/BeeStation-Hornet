@@ -222,10 +222,8 @@
 	. = ..()
 	data = list()
 	data["version"] = GLOB.game_version
-	data["mode"] = GLOB.master_mode
 	data["respawn"] = config ? !CONFIG_GET(flag/norespawn) : FALSE
 	data["enter"] = GLOB.enter_allowed
-	data["vote"] = CONFIG_GET(flag/allow_vote_mode)
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null
 	data["round_id"] = text2num(GLOB.round_id) // I don't know who's fault it is that round id is loaded as a string but screw you
@@ -276,8 +274,6 @@
 	. = ..()
 	// Add on a little extra data for our "special" patrons
 	data["active_players"] = get_active_player_count()
-	if(SSticker.HasRoundStarted())
-		data["real_mode"] = SSticker.mode.name
 
 /datum/world_topic/identify_uuid
 	key = "identify_uuid"

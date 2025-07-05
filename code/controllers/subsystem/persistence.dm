@@ -8,7 +8,6 @@ SUBSYSTEM_DEF(persistence)
 	var/list/obj/structure/chisel_message/chisel_messages = list()
 	var/list/saved_messages = list()
 	var/list/saved_modes = list(1,2,3)
-	var/list/saved_dynamic_rulesets = list()
 	var/list/saved_trophies = list()
 	var/list/antag_rep = list()
 	var/list/antag_rep_change = list()
@@ -20,8 +19,6 @@ SUBSYSTEM_DEF(persistence)
 	LoadPoly()
 	LoadChiselMessages()
 	LoadTrophies()
-	LoadRecentModes()
-	LoadRecentDynamicRules()
 	LoadPhotoPersistence()
 	if(CONFIG_GET(flag/use_antag_rep))
 		LoadAntagReputation()
@@ -97,24 +94,6 @@ SUBSYSTEM_DEF(persistence)
 		saved_trophies = json["data"]
 	SetUpTrophies(saved_trophies.Copy())
 
-/datum/controller/subsystem/persistence/proc/LoadRecentModes()
-	var/json_file = file("data/RecentModes.json")
-	if(!fexists(json_file))
-		return
-	var/list/json = json_decode(rustg_file_read(json_file))
-	if(!json)
-		return
-	saved_modes = json["data"]
-
-/datum/controller/subsystem/persistence/proc/LoadRecentDynamicRules()
-	var/json_file = file("data/RecentDynamicRules.json")
-	if(!fexists(json_file))
-		return
-	var/list/json = json_decode(rustg_file_read(json_file))
-	if(!json)
-		return
-	saved_dynamic_rulesets = json["data"]
-
 /datum/controller/subsystem/persistence/proc/LoadAntagReputation()
 	var/json = rustg_file_read(FILE_ANTAG_REP)
 	if(!json)
@@ -154,8 +133,6 @@ SUBSYSTEM_DEF(persistence)
 /datum/controller/subsystem/persistence/proc/CollectData()
 	CollectChiselMessages()
 	CollectTrophies()
-	CollectRoundtype()
-	CollectDynamicRules()
 	SavePhotoPersistence()						//THIS IS PERSISTENCE, NOT THE LOGGING PORTION.
 	if(CONFIG_GET(flag/use_antag_rep))
 		CollectAntagReputation()
@@ -271,33 +248,6 @@ SUBSYSTEM_DEF(persistence)
 		data["message"] = T.trophy_message
 		data["placer_key"] = T.placer_key
 		saved_trophies += list(data)
-
-/datum/controller/subsystem/persistence/proc/CollectRoundtype()
-	saved_modes[3] = saved_modes[2]
-	saved_modes[2] = saved_modes[1]
-	saved_modes[1] = SSticker.mode.config_tag
-	var/json_file = file("data/RecentModes.json")
-	var/list/file_data = list()
-	file_data["data"] = saved_modes
-	fdel(json_file)
-	WRITE_FILE(json_file, json_encode(file_data))
-
-/datum/controller/subsystem/persistence/proc/CollectDynamicRules()
-	var/list/amount_of_rules = length(CONFIG_GET(number_list/repeated_mode_adjust))
-	var/datum/game_mode/dynamic/dynamic = SSticker.mode
-	if(istype(dynamic))
-		var/list/this_round = list()
-		for(var/datum/dynamic_ruleset/rule in dynamic.executed_rules)
-			if(!CHECK_BITFIELD(rule.flags, PERSISTENT_RULESET))
-				continue
-			this_round |= rule.name
-		saved_dynamic_rulesets.Insert(1, list(this_round))
-	if(length(saved_dynamic_rulesets) > amount_of_rules)
-		saved_dynamic_rulesets.Cut(amount_of_rules + 1)
-	fdel("data/RecentDynamicRules.json")
-	rustg_file_write(json_encode(list(
-		"data" = saved_dynamic_rulesets
-	)), "data/RecentDynamicRules.json")
 
 /datum/controller/subsystem/persistence/proc/CollectAntagReputation()
 	var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)

@@ -18,13 +18,6 @@
 
 #undef TRAITOR_DESC
 
-/datum/role_preference/antagonist/internal_affairs
-	name = "Internal Affairs Agent"
-	description = "A traitor who was actually hired by Nanotrasen to stage a Syndicate attack.\n" + TRAITOR_DESC_DETAILS
-	antag_datum = /datum/antagonist/traitor/internal_affairs
-	use_icon = /datum/role_preference/antagonist/traitor
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
 /datum/outfit/traitor
 	name = "Traitor (Preview only)"
 
@@ -220,11 +213,21 @@
 /datum/role_preference/antagonist/heretic
 	name = "Heretic"
 	description = "Find hidden influences and sacrifice crew members to gain magical \
-	powers and ascend as one of several paths. \n\
-	Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces \
-	of decay, but the mansus veil has weakened. We will make them taste fear \
-	again..."
+		powers and ascend as one of several paths. \n\
+		Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces \
+		of decay, but the mansus veil has weakened. We will make them taste fear \
+		again..."
 	antag_datum = /datum/antagonist/heretic
+
+/datum/role_preference/midround_living/heretic
+	name = "Heretic"
+	description = "Find hidden influences and sacrifice crew members to gain magical \
+		powers and ascend as one of several paths. \n\
+		Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces \
+		of decay, but the mansus veil has weakened. We will make them taste fear \
+		again..."
+	antag_datum = /datum/antagonist/heretic
+	use_icon = /datum/role_preference/antagonist/heretic
 
 /datum/role_preference/antagonist/heretic/get_preview_icon()
 	var/icon/icon = render_preview_outfit(/datum/outfit/heretic_preview)

@@ -119,6 +119,9 @@ LOG_ACCESS
 ## log game actions (start of round, results, etc.)
 LOG_GAME
 
+## log dynamic
+LOG_DYNAMIC
+
 ## log antag objectives
 LOG_OBJECTIVE
 

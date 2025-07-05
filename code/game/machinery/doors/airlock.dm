@@ -335,7 +335,7 @@
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)
 	var/obj/machinery/door/airlock/cult/A
-	if(GLOB.cult_narsie)
+	if(GLOB.narsie)
 		var/runed = prob(20)
 		if(glass)
 			if(runed)
