@@ -343,7 +343,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/proc/read_css_from_cache()
 	var/replaced_css = file2text(css_cache_filename())
 
-	var/regex/find_background_urls = regex(@"background:url\('%(.+?)%'\)", "g")
+	var/regex/find_background_urls = regex(@"background-image:url\('%(.+?)%'\)", "g")
 	while (find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
 		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
@@ -351,7 +351,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		var/hash = rustg_hash_file("md5", file_path)
 		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_path, file_hash=hash)
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
-		replaced_css = replacetext(replaced_css, find_background_urls.match, "background:url('[asset_url]')")
+		replaced_css = replacetext(replaced_css, find_background_urls.match, "background-image:url('[asset_url]')")
 		LAZYADD(cached_spritesheets_needed, asset_id)
 
 	var/replaced_css_filename = "data/spritesheets/spritesheet_[name].css"
