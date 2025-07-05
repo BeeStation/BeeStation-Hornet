@@ -227,6 +227,10 @@
 			if(M?.ckey == target_ckey)
 				target_mob = M
 	if(!target_mob)
+		var/mob/disconnected_mob = GLOB.disconnected_mobs[target_ckey]
+		if(disconnected_mob)
+			target_mob = disconnected_mob
+	if(!target_mob)
 		return
 	switch(action)
 		if("open_player_panel")

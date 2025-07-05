@@ -33,9 +33,9 @@
 ///Removes a mob references from the list of external logout mobs
 /mob/proc/remove_from_disconnected_mob_list()
 	var/saved_key = null
-	for(var/key in GLOB.disconnected_mobs)
-		if(GLOB.disconnected_mobs[key] == src)
-			saved_key = key
+	for(var/ckey in GLOB.disconnected_mobs)
+		if(GLOB.disconnected_mobs[ckey] == src)
+			saved_key = ckey
 			break
 	if(!isnull(saved_key))
 		GLOB.disconnected_mobs -= saved_key

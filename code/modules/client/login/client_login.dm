@@ -65,10 +65,10 @@
 
 	. = ..()	//calls mob.Login()
 
-	var/mob/logout_mob = GLOB.disconnected_mobs[src.key]
+	var/mob/logout_mob = GLOB.disconnected_mobs[src.ckey]
 	if(logged_in && ismob(logout_mob) && !isnewplayer(logout_mob))
 		var/mob/original_mob = src.mob
-		GLOB.disconnected_mobs -= src.key
+		GLOB.disconnected_mobs -= src.ckey
 		transfer_preauthenticated_player_mob(original_mob, logout_mob)
 
 	if(QDELETED(src))
