@@ -5,7 +5,7 @@ import { Modal } from '../types';
 /** Sends the current input to byond and purges it */
 export const handleForce = function (this: Modal) {
   const { channel, size } = this.state;
-  const { radioPrefix, value } = this.fields;
+  const { radioPrefix, value, dpi } = this.fields;
   if (value && channel < 2) {
     this.timers.forceDebounce({
       channel: CHANNELS[channel],
@@ -13,7 +13,7 @@ export const handleForce = function (this: Modal) {
     });
     this.events.onReset(channel);
     if (size !== WINDOW_SIZES.small) {
-      windowSet();
+      windowSet(WINDOW_SIZES.small, dpi);
     }
   }
 };
