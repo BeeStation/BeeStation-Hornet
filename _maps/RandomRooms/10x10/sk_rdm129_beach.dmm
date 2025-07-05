@@ -9,6 +9,10 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"d" = (
+/obj/structure/chair,
+/turf/open/floor/plating/beach/sand,
+/area/template_noop)
 "e" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/under/shorts/blue,
@@ -79,11 +83,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/template_noop)
-"D" = (
-/obj/structure/chair,
-/obj/effect/landmark/start/randommaint/vip,
-/turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "F" = (
 /obj/machinery/light{
@@ -215,7 +214,7 @@ f
 f
 w
 u
-D
+d
 n
 n
 n
