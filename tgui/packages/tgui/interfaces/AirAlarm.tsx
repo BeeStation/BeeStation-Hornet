@@ -182,7 +182,8 @@ const AirAlarmControl = (props) => {
   return (
     <Section
       title={route.title}
-      buttons={screen && <Button icon="arrow-left" content="Back" onClick={() => setScreen('home')} />}>
+      buttons={screen && <Button icon="arrow-left" content="Back" onClick={() => setScreen('home')} />}
+      maxWidth="100%">
       <Component />
     </Section>
   );
