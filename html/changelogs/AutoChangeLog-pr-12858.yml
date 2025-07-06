@@ -1,0 +1,11 @@
+author: rkz, Mothblocks, JohnFulpWillard, capsaicinz, Kapu1178
+delete-after: true
+changes:
+  - bugfix: fixes prosthetic surgery not removing the old limb
+  - rscadd: adds text output for failing to attach prosthetics
+  - code_imp: unit tests various surgeries to prevent regressions
+  - refactor: refactors surgery procs to pass args to consider a sterile testing environment
+      (we need our code to actually work in a unit test)
+  - bugfix: cleans up 'repeating' surgeries. Surgeries will try to repeat as a default
+      behavior if they fail at first (like using a kitchen knife as a scalpel for
+      tend wounds)
