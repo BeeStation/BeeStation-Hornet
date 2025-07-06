@@ -44,6 +44,12 @@
 	required_reagents = list(/datum/reagent/ammonia = 1, /datum/reagent/silver = 1, /datum/reagent/sulfur = 1, /datum/reagent/oxygen = 1, /datum/reagent/chlorine = 1)
 	reaction_tags = REACTION_TAG_HEALING | REACTION_TAG_BURN
 
+/datum/chemical_reaction/advanced_burn_gel
+	name = "Advanced Burn Gel"
+	results = list(/datum/reagent/medicine/advanced_burn_gel = 5)
+	required_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 4, /datum/reagent/medicine/terranol = 1)
+	reaction_tags = REACTION_TAG_HEALING | REACTION_TAG_BURN
+
 /datum/chemical_reaction/salglu_solution
 	name = "Saline-Glucose Solution"
 	results = list(/datum/reagent/medicine/salglu_solution = 3)

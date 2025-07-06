@@ -20,6 +20,11 @@
 	/// The health doll state to add
 	var/health_doll_icon = null
 
+/datum/injury/process(delta_time)
+	if (!bodypart.owner)
+		return PROCESS_KILL
+	on_tick(bodypart.owner, delta_time)
+
 /// Called only if we are gained while a human has the bodypart
 /// attached. Not called if a bodypart with the injury is
 /// attached.
@@ -37,11 +42,13 @@
 /datum/injury/proc/apply_to_human(mob/living/carbon/human/target)
 	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(item_interaction))
 	target.update_health_hud()
+	START_PROCESSING(SSinjuries, src)
 
 /// Take the injury away from the person who owns the limb
 /datum/injury/proc/remove_from_human(mob/living/carbon/human/target)
 	UnregisterSignal(target, COMSIG_PARENT_ATTACKBY)
 	target.update_health_hud()
+	STOP_PROCESSING(SSinjuries, src)
 
 /datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
@@ -57,6 +64,7 @@
 
 /// Called when the limb processes, target may be null
 /datum/injury/proc/on_tick(mob/living/carbon/human/target, delta_time)
+	return
 
 /// Transition to a new type of injury state.
 /datum/injury/proc/transition_to(new_type)

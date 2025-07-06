@@ -10,7 +10,6 @@
 		transition_to(/datum/injury/third_degree_burn)
 	return TRUE
 
-
 /datum/injury/second_degree_burns/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
 	to_chat(target, span_userdanger("The burns on your [part.name] intensify."))
 
@@ -32,7 +31,9 @@
 /datum/injury/second_degree_burns/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
 	if (!istype(reagent, /datum/reagent/medicine/advanced_burn_gel))
 		return
-	if (reac_volume < 10)
+	var/total_volume = victim.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) + victim.reagents.get_reagent_amount(/datum/reagent/medicine/advanced_burn_gel)
+	if (total_volume < 5)
+		to_chat(victim, span_warning("The pain in your second-degree burns start to numb, however they do not fully subside. You need more burn gel!"))
 		return
 	if (method != TOUCH && method != PATCH)
 		return

@@ -403,7 +403,7 @@
 				))
 		// Remove all injuries
 		for (var/datum/injury/injury in injuries)
-			injury.remove_from_human(owner)
+			injury.remove_from_human(old_owner)
 	if(owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -699,13 +699,10 @@
 	var/proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	var/sharp_damage = current_damage * proportion
-	// Take sharp damage
+	// Take sharp & blunt damage
 	for (var/datum/injury/injury_graph as anything in injuries)
 		injury_graph.apply_damage(sharp_damage, damage_type, damage_flag, TRUE)
-	// Take burn damage
-	if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
-		for (var/datum/injury/injury_graph as anything in injuries)
-			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
+		injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
 	var/skin_rating = 1
 	var/bone_rating = 1
 	for (var/datum/injury/injury_graph as anything in injuries)
