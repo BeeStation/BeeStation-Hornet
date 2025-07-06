@@ -82,3 +82,10 @@
       syringes and injections.
   - bugfix: Fixes multiple incorrect uses of can_inject which would have caused syringe
       guns not to function
+2025-07-06:
+  Nakalon:
+  - tweak: Cook Vendor is no longer free for cooks and now includes some ingredients
+      and condiments
+  - balance: Reduced Cook Pay
+  - balance: Reduced amount of ingredients available roundstart in freezers
+  - tweak: Changed the name of the cook vendor and restoking unit
