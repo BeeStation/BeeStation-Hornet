@@ -9,9 +9,6 @@
 		if (value)
 			// Delete the menu
 			winset(client, "mainwindow", "menu=\"\"")
-			// Switch to the cool status bar
-			winset(client, "mainwindow", "on-status=\".winset \\\"\[\[*]]=\\\"\\\" ? status_bar.text=\[\[*]] status_bar.is-visible=true : status_bar.is-visible=false\\\"\"")
-			winset(client, "status_bar_wide", "is-visible=false")
 			// Switch to fullscreen mode
 			winset(client, "mainwindow","titlebar=false")
 			winset(client, "mainwindow","can-resize=false")
@@ -26,10 +23,6 @@
 		else
 			// Restore the menu
 			winset(client, "mainwindow", "menu=\"menu\"")
-			// Switch to the lame status bar
-			winset(client, "mainwindow", "on-status=\".winset \\\"status_bar_wide.text = \[\[*]]\\\"\"")
-			winset(client, "status_bar", "is-visible=false")
-			winset(client, "status_bar_wide", "is-visible=true")
 			// Exit fullscreen mode
 			winset(client, "mainwindow","titlebar=true")
 			winset(client, "mainwindow","can-resize=true")
@@ -39,13 +32,8 @@
 	else
 		if(value)
 			winset(client, "mainwindow", "menu=;is-fullscreen=true")
-			winset(client, "status_bar_wide", "is-visible=false")
-			winset(client, "mainwindow", "on-status=\".winset \\\"\[\[*]]=\\\"\\\" ? status_bar.text=\[\[*]] status_bar.is-visible=true : status_bar.is-visible=false\\\"\"")
 		else
 			winset(client, "mainwindow", "menu=\"menu\";is-fullscreen=false")
-			winset(client, "status_bar_wide", "is-visible=true")
-			winset(client, "mainwindow", "on-status=\".winset \\\"status_bar_wide.text = \[\[*]]\\\"\"")
-			winset(client, "status_bar", "is-visible=false")
 
 		if(client.fully_created)
 			INVOKE_ASYNC(client, TYPE_PROC_REF(/client, fit_viewport))
