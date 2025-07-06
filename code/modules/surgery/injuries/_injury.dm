@@ -19,6 +19,8 @@
 	var/severity_level = INJURY_PRIORITY_NONE
 	/// The health doll state to add
 	var/health_doll_icon = null
+	/// How the injury shows up when examined, prefaced by the auxiliary verb
+	var/examine_description = null
 
 /datum/injury/process(delta_time)
 	if (!bodypart.owner)

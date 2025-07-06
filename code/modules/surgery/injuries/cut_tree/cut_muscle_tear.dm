@@ -3,6 +3,7 @@
 	skin_armour_modifier = 0.4
 	severity_level = INJURY_PRIORITY_ACTIVE
 	health_doll_icon = "blood"
+	examine_description = "<b>a muscle tear</b>"
 
 /datum/injury/cut_muscle_tear/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()

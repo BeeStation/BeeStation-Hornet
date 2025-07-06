@@ -87,7 +87,7 @@
 	var/heavy_brute_msg = "mangled"
 
 	var/light_burn_msg = "numb"
-	var/medium_burn_msg = "blistered"
+	var/medium_burn_msg = "burnt"
 	var/heavy_burn_msg = "peeling away"
 
 	/// So we know if we need to scream if this limb hits max damage
@@ -786,6 +786,12 @@
 	return rate
 
 /obj/item/bodypart/proc/check_effectiveness()
+	check_destroyed()
+	if (destroyed)
+		effectiveness = 0
+		clear_effectiveness_modifiers()
+		update_effectiveness()
+		return
 	effectiveness = initial(effectiveness)
 	for (var/datum/injury/injury in injuries)
 		effectiveness *= injury.effectiveness_modifier

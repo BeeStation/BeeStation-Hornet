@@ -1,4 +1,5 @@
 /datum/injury/cut_minor
+	examine_description = "<b>minor cuts</b>"
 
 /datum/injury/cut_minor/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

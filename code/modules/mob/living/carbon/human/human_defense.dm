@@ -678,17 +678,41 @@
 
 			if(status == "")
 				status = "OK"
+		// Get the injury texts for our injuries
+		var/list/injury_texts = list()
+		for (var/datum/injury/injuries in LB.injuries)
+			if (injuries.examine_description)
+				injury_texts += injuries.examine_description
 		var/no_damage
 		if(status == "OK" || status == "no damage")
 			no_damage = TRUE
-		var/isdisabled = " "
+		// Put it into a list
+		var/stringified_injuries = null
+		if (injury_texts)
+			stringified_injuries = injury_texts[1]
+		for (var/i in 2 to length(injury_texts) - 1)
+			stringified_injuries += ", [injury_texts[i]]"
+		if (length(injury_texts) > 1)
+			stringified_injuries += ", and [injury_texts[length(injury_texts)]]"
+		var/auxiliary_verb = self_aware ? "has" : "is"
+		if (no_damage && stringified_injuries)
+			status = stringified_injuries
+			stringified_injuries = null
+			no_damage = FALSE
+			auxiliary_verb = "has"
+		var/isdisabled = ""
 		if(LB.bodypart_disabled)
-			isdisabled = " is disabled "
+			isdisabled = " is disabled"
 			if(no_damage)
-				isdisabled += " but otherwise "
+				isdisabled += " but otherwise"
+			else if (stringified_injuries)
+				isdisabled += ","
 			else
-				isdisabled += " and "
-		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][self_aware ? " has " : " is "][status].</span>")
+				isdisabled += " and"
+		if (LB.destroyed)
+			to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name] is injured beyond treatment.</span>")
+		else
+			to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled] [auxiliary_verb] [status][stringified_injuries ? " and has " : ""][stringified_injuries].</span>")
 
 		if (LB.get_skin_multiplier() < 1 && LB.get_bone_multiplier() < 1)
 			to_chat(src, "\t <span class='warning'>The bones inside your [LB.name] ache and the skin appears damaged.</span>")

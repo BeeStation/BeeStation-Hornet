@@ -728,6 +728,8 @@
 						icon_num = 5
 					if(hal_screwyhud == SCREWYHUD_HEALTHY)
 						icon_num = 0
+					if (BP.bodypart_disabled)
+						icon_num = 7
 					// Add injuries
 					var/highest_injury_level = 0
 					injury_list.Cut()
@@ -742,7 +744,7 @@
 					if (highest_injury_level >= INJURY_PRIORITY_ACTIVE)
 						icon_num = max(1, icon_num)
 					if(icon_num)
-						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone][icon_num]", layer = FLOAT_LAYER + 0.1))
+						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone][icon_num]"))
 					//Stamina Outline (Communicate that we have stamina damage)
 					//Hallucinations will appear as regular damage
 					if(BP.stamina_dam && !hallucination)
@@ -753,8 +755,6 @@
 						hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[BP.body_zone]_[injury_icon]"))
 				for(var/t in get_missing_limbs()) //Missing limbs
 					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]6"))
-				for(var/t in get_disabled_limbs()) //Disabled limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 			else
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
