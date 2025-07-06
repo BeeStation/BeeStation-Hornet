@@ -5,6 +5,8 @@
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
 		return null
 
+	SSmetrics.unauthenticated_connections |= computer_id
+
 #ifdef DISABLE_BYOND_AUTH
 	if(is_localhost() && CONFIG_GET(flag/localhost_auth_bypass))
 		logged_in = TRUE
@@ -299,6 +301,10 @@
 		spawn(2 SECONDS) // wait a sec for the client to send a valid token
 			if(!src.logged_in) // client did not send a valid token in the last 2 seconds
 				tgui_login?.open()
+
+	/// Record the authentication
+	if(authenticated)
+		SSmetrics.authenticated_connections |= ckey
 
 	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
 	mob.UpdateMobStat(TRUE)

@@ -16,6 +16,10 @@ SUBSYSTEM_DEF(metrics)
 	flags = SS_KEEP_TIMING // This needs to ingest every 30 IRL seconds, not ingame seconds.
 	/// The real time of day the server started. Used to calculate time drift
 	var/world_init_time = 0 // Not set in here. Set in world/New()
+	/// Amount of authenticated players who have connected
+	var/authenticated_connections = list()
+	/// Amount of players who have joined without authenticating
+	var/unauthenticated_connections = list()
 
 /datum/controller/subsystem/metrics/Initialize()
 	if(!CONFIG_GET(flag/elasticsearch_metrics_enabled))
@@ -38,7 +42,28 @@ SUBSYSTEM_DEF(metrics)
 	out["maptick"] = world.map_cpu
 	out["elapsed_processed"] = world.time
 	out["elapsed_real"] = (REALTIMEOFDAY - world_init_time)
+	/// Current number of clients in the game
 	out["client_count"] = length(GLOB.clients_unsafe)
+	/// Current number of players who have joined as a standard job
+	out["crew_count"] = length(GLOB.joined_player_list)
+	/// Current number of players who are observers
+	out["observer_count"] = length(GLOB.dead_mob_list)
+	var/player_count = 0
+	var/living_count = 0
+	for (var/mob/player in GLOB.player_list)
+		if (isliving(player))
+			living_count ++
+			player_count ++
+		if (isobserver(player))
+			player_count ++
+	/// Current number of players who are either observing or playing
+	out["player_count"] = player_count
+	/// Current number of players who are alive
+	out["living_count"] = living_count
+	/// Total number of unique clients who connected throughout the round (Caveat: Based entirely on CID)
+	out["total_unique_hardware_connections"] = length(unauthenticated_connections)
+	/// Total number of unique clients who connected and then completed authentication throughout the round
+	out["total_authenticated_connections"] = length(authenticated_connections)
 	out["time_dilation_current"] = SStime_track.time_dilation_current
 	out["time_dilation_1m"] = SStime_track.time_dilation_avg
 	out["time_dilation_5m"] = SStime_track.time_dilation_avg_slow
