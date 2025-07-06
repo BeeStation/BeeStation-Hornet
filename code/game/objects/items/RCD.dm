@@ -790,6 +790,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/rcd/loaded
 	matter = 160
 
+/obj/item/construction/rcd/arcd/loaded
+	matter = 180
+
 /obj/item/construction/rcd/combat
 	name = "industrial RCD"
 	icon_state = "ircd"
@@ -815,37 +818,74 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	custom_materials = list(/datum/material/iron=48000, /datum/material/glass=32000)
 	ammoamt = 160
 
+/obj/item/construction/rcd/arcd
+	name = "Advanced rapid-construction-device (RCD)"
+	desc = "An upgraded version of the rapid-construction-device, for Chief Engineers."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "arcd"
+	worn_icon_state = "ARCD"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	max_matter = 180
+	slot_flags = ITEM_SLOT_BELT
+	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
+	has_ammobar = TRUE
+	ranged = FALSE
+	delay_mod = 0.9 // a little bit faster
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
+	var/range = 2 //so it cant fix stuff from across the room
+
+	// Override range_check to enforce the range limit
+/obj/item/construction/rcd/arcd/range_check(atom/A, mob/user)
+	if(A.z != user.z)
+		return FALSE
+	if(get_dist(user, A) > range)
+		to_chat(user, span_warning("The 'Out of Range' light on [src] blinks."))
+		return FALSE
+	return TRUE
+
+	// Ensure the range is respected in afterattack
+/obj/item/construction/rcd/arcd/afterattack(atom/A, mob/user)
+	. = ..()
+	if(range_check(A, user))
+		pre_attack(A, user)
+
+	// Ensure the range is respected in afterattack_secondary
+/obj/item/construction/rcd/arcd/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	if(range_check(target, user))
+		pre_attack_secondary(target, user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 // Ranged RCD
-/obj/item/construction/rcd/arcd
-	name = "advanced rapid-construction-device (ARCD)"
+/obj/item/construction/rcd/sarcd
+	name = "super advanced rapid-construction-device (ARCD)"
 	desc = "A prototype RCD with ranged capability and extended capacity. Reload with iron, plasteel, glass or compressed matter cartridges."
 	max_matter = 300
 	matter = 300
 	delay_mod = 0.6
 	ranged = TRUE
-	icon_state = "arcd"
+	icon_state = "sarcd"
 	item_state = "oldrcd"
 	has_ammobar = FALSE
 	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 
-/obj/item/construction/rcd/arcd/afterattack(atom/A, mob/user)
+/obj/item/construction/rcd/sarcd/afterattack(atom/A, mob/user)
 	. = ..()
 	if(range_check(A,user))
 		pre_attack(A, user)
 
-/obj/item/construction/rcd/arcd/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/construction/rcd/sarcd/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
 	if(range_check(target,user))
 		pre_attack_secondary(target, user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 
-/obj/item/construction/rcd/arcd/rcd_create(atom/A, mob/user)
+/obj/item/construction/rcd/sarcd/rcd_create(atom/A, mob/user)
 	. = ..()
 	if(.)
 		user.Beam(A,icon_state="rped_upgrade", time = delay_mod * 5 SECONDS) //5 SECONDS * 0.6 = 3 seconds
 
-/obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/construction/rcd/sarcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(ranged && range_check(target, user))
 		mode = RCD_FLOORWALL
 		rcd_create(target, user)
