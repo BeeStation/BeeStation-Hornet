@@ -64,6 +64,7 @@
 	species_r_arm = /obj/item/bodypart/r_arm/ipc
 	species_l_leg = /obj/item/bodypart/l_leg/ipc
 	species_r_leg = /obj/item/bodypart/r_leg/ipc
+	remains_type = /obj/effect/decal/remains/robot
 
 	exotic_blood = /datum/reagent/oil
 	blood_color = "#000000"

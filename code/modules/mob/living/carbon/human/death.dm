@@ -8,15 +8,21 @@
 		if(GIB_TYPE_ROBOTIC)
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
 
-/mob/living/carbon/human/dust_animation()
-	if(!dna)
-		new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
-		return
-	switch(dna.species.species_gibs)
-		if(GIB_TYPE_HUMAN)
-			new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
-		if(GIB_TYPE_ROBOTIC)
-			new /obj/effect/temp_visual/dust_animation(loc, "dust-r")
+/mob/living/carbon/human/dust(just_ash, drop_items, force)
+	death(TRUE)
+
+	if(drop_items)
+		unequip_everything()
+
+	if(buckled)
+		buckled.unbuckle_mob(src, force = TRUE)
+
+	dust_animation()
+	QDEL_IN(src, 20)
+
+/mob/living/carbon/human/spawn_dust(just_ash = FALSE)
+	new dna.species.remains_type(get_turf(src))
+	return TRUE
 
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
 	if(!dna)
@@ -34,19 +40,6 @@
 				new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
 			if(GIB_TYPE_ROBOTIC)
 				new /obj/effect/gibspawner/robot(get_turf(src))
-
-/mob/living/carbon/human/spawn_dust(just_ash = FALSE)
-	if(!dna)
-		new /obj/effect/decal/remains/human(loc)
-		return
-	if(just_ash)
-		new /obj/effect/decal/cleanable/ash(loc)
-	else
-		switch(dna.species.species_gibs)
-			if(GIB_TYPE_HUMAN)
-				new /obj/effect/decal/remains/human(loc)
-			if(GIB_TYPE_ROBOTIC)
-				new /obj/effect/decal/remains/robot(loc)
 
 /mob/living/carbon/human/death(gibbed)
 	if(stat == DEAD)
