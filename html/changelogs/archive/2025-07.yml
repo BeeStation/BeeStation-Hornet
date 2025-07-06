@@ -91,3 +91,5 @@
   - tweak: Changed the name of the cook vendor and restoking unit
   PinkSuzuki:
   - bugfix: Fixes Mimes not being able to send emoji messages
+  PowerfulBacon:
+  - bugfix: Localhost now has an admin rank for debugging again.
