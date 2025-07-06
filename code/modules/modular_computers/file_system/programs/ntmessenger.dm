@@ -357,17 +357,16 @@
 
 	// ---------- NT-Monitor network log ----------
 	// (trim long bodies so logs stay readable)
-	var/_body = html_decode(message)
 	if(length(_body) > 120)
 		_body = copytext(_body, 1, 121) + "…"
 
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(everyone)
-		computer.add_log("MSG log : [card.get_network_tag()] to (all): [_body]", log_id = FALSE)
+		computer.add_log("MSG log : [card.get_network_tag()] to (all): [message]", log_id = FALSE)
 	else if(targets.len == 1)
 		var/obj/item/modular_computer/target_comp = targets[1]
 		var/obj/item/computer_hardware/network_card/t_card = target_comp.all_components[MC_NET]
-		computer.add_log("MSG Log : [card.get_network_tag()] to [t_card.get_network_tag()]: [_body]", log_id = FALSE)
+		computer.add_log("MSG Log : [card.get_network_tag()] to [t_card.get_network_tag()]: [message]", log_id = FALSE)
 	// --------------------------------------------
 
 	// Parse emojis before to_chat
