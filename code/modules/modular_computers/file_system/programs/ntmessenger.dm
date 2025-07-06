@@ -357,8 +357,8 @@
 
 	// ---------- NT-Monitor network log ----------
 	// (trim long bodies so logs stay readable)
-	if(length(_body) > 120)
-		_body = copytext(_body, 1, 121) + "…"
+	if(length(message) > 120)
+		message = copytext(message, 1, 121) + "…"
 
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(everyone)
