@@ -1,0 +1,4 @@
+author: PinkSuzuki
+delete-after: true
+changes:
+  - bugfix: Fixes Mimes not being able to send emoji messages

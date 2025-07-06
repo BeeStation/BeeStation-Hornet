@@ -961,145 +961,141 @@
 		new randomFigure(src)
 
 /obj/item/storage/box/ingredients //This box is for the randomely chosen version the chef spawns with, it shouldn't actually exist.
-	name = "ingredients box"
+	name = "ingredient box"
 	illustration = "fruit"
 	var/theme_name
+	var/list/possible_themes = list("wildcard", "fiesta", "italian", "vegetarian", "american", "fruity", "sweets", "delights", "grains", "carnivore", "exotic")
 
 /obj/item/storage/box/ingredients/Initialize(mapload)
 	. = ..()
-	if(theme_name)
-		name = "[name] ([theme_name])"
-		desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
-		item_state = "syringe_kit"
+	if(!theme_name)
+		theme_name = pick(possible_themes)
+		PopulateContents()
+	name = "[name] ([theme_name])"
+	desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
+	item_state = "syringe_kit"
+
+/obj/item/storage/box/ingredients/PopulateContents()
+	switch(theme_name)
+		if("wildcard")
+			var/list/randomfood = list(
+				/obj/item/food/grown/chili,
+				/obj/item/food/grown/tomato,
+				/obj/item/food/grown/carrot,
+				/obj/item/food/grown/potato,
+				/obj/item/food/grown/potato/sweet,
+				/obj/item/food/grown/apple,
+				/obj/item/food/chocolatebar,
+				/obj/item/food/grown/cherries,
+				/obj/item/food/grown/banana,
+				/obj/item/food/grown/cabbage,
+				/obj/item/food/grown/soybeans,
+				/obj/item/food/grown/corn,
+				/obj/item/food/grown/mushroom/plumphelmet,
+				/obj/item/food/grown/mushroom/chanterelle)
+			for(var/i in 1 to 7)
+				var/food = pick(randomfood)
+				new food(src)
+		if("fiesta")
+			new /obj/item/food/tortilla(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/corn(src)
+				new /obj/item/food/grown/soybeans(src)
+				new /obj/item/food/grown/chili(src)
+		if("italian")
+			new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
+			for(var/i in 1 to 3)
+				new /obj/item/food/grown/tomato(src)
+				new /obj/item/food/meatball(src)
+		if("vegetarian")
+			new /obj/item/food/grown/eggplant(src)
+			new /obj/item/food/grown/potato(src)
+			new /obj/item/food/grown/apple(src)
+			new /obj/item/food/grown/corn(src)
+			new /obj/item/food/grown/tomato(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/carrot(src)
+		if("american")
+			new /obj/item/food/meatball(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/potato(src)
+				new /obj/item/food/grown/tomato(src)
+				new /obj/item/food/grown/corn(src)
+		if("fruity")
+			new /obj/item/food/grown/citrus/lemon(src)
+			new /obj/item/food/grown/citrus/lime(src)
+			new /obj/item/food/grown/watermelon(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/apple(src)
+				new /obj/item/food/grown/citrus/orange(src)
+		if("sweets")
+			new /obj/item/food/chocolatebar(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/grown/apple(src)
+			for(var/i in 1 to 2)
+				new/obj/item/food/grown/cherries(src)
+				new /obj/item/food/grown/banana(src)
+		if("delights")
+			new /obj/item/food/grown/vanillapod(src)
+			new /obj/item/food/grown/cocoapod(src)
+			new /obj/item/food/grown/berries(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/grown/potato/sweet(src)
+				new /obj/item/food/grown/bluecherries(src)
+		if("grains")
+			new /obj/item/food/grown/wheat(src)
+			new /obj/item/food/grown/cocoapod(src))
+      new /obj/item/food/honeycomb(src)
+			new /obj/item/seeds/flower/poppy(src)
+			for(var/i in 1 to 3)
+				new /obj/item/food/grown/oat(src)
+		if("carnivore")
+			new /obj/item/food/meat/slab/bear(src)
+			new /obj/item/food/meat/slab/spider(src)
+			new /obj/item/food/spidereggs(src)
+			new /obj/item/food/fishmeat/carp(src)
+			new /obj/item/food/meat/slab/xeno(src)
+			new /obj/item/food/meat/slab/corgi(src)
+			new /obj/item/food/meatball(src)
+		if("exotic")
+			new /obj/item/food/grown/chili(src)
+			for(var/i in 1 to 2)
+				new /obj/item/food/fishmeat/carp(src)
+				new /obj/item/food/grown/soybeans(src)
+				new /obj/item/food/grown/cabbage(src)
 
 /obj/item/storage/box/ingredients/wildcard
 	theme_name = "wildcard"
 
-/obj/item/storage/box/ingredients/wildcard/PopulateContents()
-	for(var/i in 1 to 7)
-		var/randomFood = pick(
-			/obj/item/food/grown/chili,
-			/obj/item/food/grown/tomato,
-			/obj/item/food/grown/carrot,
-			/obj/item/food/grown/potato,
-			/obj/item/food/grown/potato/sweet,
-			/obj/item/food/grown/apple,
-			/obj/item/food/chocolatebar,
-			/obj/item/food/grown/cherries,
-			/obj/item/food/grown/banana,
-			/obj/item/food/grown/cabbage,
-			/obj/item/food/grown/soybeans,
-			/obj/item/food/grown/corn,
-			/obj/item/food/grown/mushroom/plumphelmet,
-			/obj/item/food/grown/mushroom/chanterelle,)
-		new randomFood(src)
-
 /obj/item/storage/box/ingredients/fiesta
 	theme_name = "fiesta"
-
-/obj/item/storage/box/ingredients/fiesta/PopulateContents()
-	new /obj/item/food/tortilla(src)
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/corn(src)
-		new /obj/item/food/grown/soybeans(src)
-		new /obj/item/food/grown/chili(src)
 
 /obj/item/storage/box/ingredients/italian
 	theme_name = "italian"
 
-/obj/item/storage/box/ingredients/italian/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/food/grown/tomato(src)
-		new /obj/item/food/meatball(src)
-	new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
-
 /obj/item/storage/box/ingredients/vegetarian
 	theme_name = "vegetarian"
-
-/obj/item/storage/box/ingredients/vegetarian/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/carrot(src)
-	new /obj/item/food/grown/eggplant(src)
-	new /obj/item/food/grown/potato(src)
-	new /obj/item/food/grown/apple(src)
-	new /obj/item/food/grown/corn(src)
-	new /obj/item/food/grown/tomato(src)
 
 /obj/item/storage/box/ingredients/american
 	theme_name = "american"
 
-/obj/item/storage/box/ingredients/american/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/potato(src)
-		new /obj/item/food/grown/tomato(src)
-		new /obj/item/food/grown/corn(src)
-	new /obj/item/food/meatball(src)
-
 /obj/item/storage/box/ingredients/fruity
 	theme_name = "fruity"
-
-/obj/item/storage/box/ingredients/fruity/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/apple(src)
-		new /obj/item/food/grown/citrus/orange(src)
-	new /obj/item/food/grown/citrus/lemon(src)
-	new /obj/item/food/grown/citrus/lime(src)
-	new /obj/item/food/grown/watermelon(src)
 
 /obj/item/storage/box/ingredients/sweets
 	theme_name = "sweets"
 
-/obj/item/storage/box/ingredients/sweets/PopulateContents()
-	for(var/i in 1 to 2)
-		new/obj/item/food/grown/cherries(src)
-		new /obj/item/food/grown/banana(src)
-	new /obj/item/food/chocolatebar(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/food/grown/apple(src)
-
 /obj/item/storage/box/ingredients/delights
 	theme_name = "delights"
-
-/obj/item/storage/box/ingredients/delights/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/grown/potato/sweet(src)
-		new /obj/item/food/grown/bluecherries(src)
-	new /obj/item/food/grown/vanillapod(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/food/grown/berries(src)
 
 /obj/item/storage/box/ingredients/grains
 	theme_name = "grains"
 
-/obj/item/storage/box/ingredients/grains/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/food/grown/oat(src)
-	new /obj/item/food/grown/wheat(src)
-	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/food/honeycomb(src)
-	new /obj/item/seeds/flower/poppy(src)
-
 /obj/item/storage/box/ingredients/carnivore
 	theme_name = "carnivore"
 
-/obj/item/storage/box/ingredients/carnivore/PopulateContents()
-	new /obj/item/food/meat/slab/bear(src)
-	new /obj/item/food/meat/slab/spider(src)
-	new /obj/item/food/spidereggs(src)
-	new /obj/item/food/fishmeat/carp(src)
-	new /obj/item/food/meat/slab/xeno(src)
-	new /obj/item/food/meat/slab/corgi(src)
-	new /obj/item/food/meatball(src)
-
 /obj/item/storage/box/ingredients/exotic
 	theme_name = "exotic"
-
-/obj/item/storage/box/ingredients/exotic/PopulateContents()
-	for(var/i in 1 to 2)
-		new /obj/item/food/fishmeat/carp(src)
-		new /obj/item/food/grown/soybeans(src)
-		new /obj/item/food/grown/cabbage(src)
-	new /obj/item/food/grown/chili(src)
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
