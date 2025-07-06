@@ -125,9 +125,9 @@
 		set_macros()
 
 	if(authenticated)
+		//Admin Authorisation
+		setup_holder()
 		if(!IS_GUEST_KEY(key))
-			//Admin Authorisation
-			setup_holder()
 			// This needs to go after admin loading but before prefs
 			assign_mentor_datum_if_exists()
 
@@ -361,25 +361,26 @@
 
 /client/proc/setup_holder()
 	var/connecting_admin = FALSE
-	holder = GLOB.admin_datums[ckey]
-	if(holder)
-		GLOB.admins |= src
-		holder.owner = src
-		connecting_admin = TRUE
-	else if(GLOB.deadmins[ckey])
-		add_verb(/client/proc/readmin)
-		connecting_admin = TRUE
-	if(CONFIG_GET(flag/autoadmin))
-		if(!GLOB.admin_datums[ckey])
-			var/datum/admin_rank/autorank
-			for(var/datum/admin_rank/R in GLOB.admin_ranks)
-				if(R.name == CONFIG_GET(string/autoadmin_rank))
-					autorank = R
-					break
-			if(!autorank)
-				to_chat(world, "Autoadmin rank not found")
-			else
-				new /datum/admins(autorank, ckey)
+	if (!IS_GUEST_KEY(key))
+		holder = GLOB.admin_datums[ckey]
+		if(holder)
+			GLOB.admins |= src
+			holder.owner = src
+			connecting_admin = TRUE
+		else if(GLOB.deadmins[ckey])
+			add_verb(/client/proc/readmin)
+			connecting_admin = TRUE
+		if(CONFIG_GET(flag/autoadmin))
+			if(!GLOB.admin_datums[ckey])
+				var/datum/admin_rank/autorank
+				for(var/datum/admin_rank/R in GLOB.admin_ranks)
+					if(R.name == CONFIG_GET(string/autoadmin_rank))
+						autorank = R
+						break
+				if(!autorank)
+					to_chat(world, "Autoadmin rank not found")
+				else
+					new /datum/admins(autorank, ckey)
 	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin && is_localhost())
 		if(Debugger?.enabled)
 			to_chat_immediate(src, span_userdanger("Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab."))
