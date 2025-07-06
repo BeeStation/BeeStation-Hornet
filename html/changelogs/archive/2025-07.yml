@@ -89,3 +89,5 @@
   - balance: Reduced Cook Pay
   - balance: Reduced amount of ingredients available roundstart in freezers
   - tweak: Changed the name of the cook vendor and restoking unit
+  PinkSuzuki:
+  - bugfix: Fixes Mimes not being able to send emoji messages
