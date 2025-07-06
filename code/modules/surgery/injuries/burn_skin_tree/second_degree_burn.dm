@@ -2,6 +2,7 @@
 	skin_armour_modifier = 0.6
 	effectiveness_modifier = 0.6
 	surgeries_provided = list(/datum/surgery/skin_graft)
+	health_doll_icon = "blood"
 	examine_description = "<b>second-degree burns</b>"
 
 /datum/injury/second_degree_burns/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)

@@ -2,6 +2,7 @@
 	skin_armour_modifier = 0.4
 	effectiveness_modifier = 0
 	surgeries_provided = list(/datum/surgery/skin_graft/third_degree)
+	health_doll_icon = "blood"
 	examine_description = "<b>third-degree burns</b>"
 
 /datum/injury/third_degree_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)

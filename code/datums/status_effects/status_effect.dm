@@ -61,6 +61,8 @@
 		tick()
 		tick_interval = world.time + initial(tick_interval)
 		needs_update = TRUE
+	if (QDELETED(src))
+		return
 	if (needs_update)
 		update_icon()
 	if(duration != -1 && duration < world.time)

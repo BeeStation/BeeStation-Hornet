@@ -40,6 +40,9 @@
 			return (zone ? get_bodyzone_armor_flag(zone, ARMOUR_REFLECTIVITY) : get_average_armor_flag(ARMOUR_REFLECTIVITY)) * 0.5 + (zone ? get_bodyzone_armor_flag(zone, ARMOUR_HEAT) : get_average_armor_flag(ARMOUR_HEAT)) * 0.5
 	CRASH("Could not convert damage flag '[damage_flag]' into an armour value as it is incompatible.")
 
+/mob/living/play_attack_sound(damage_amount, damage_type, damage_flag)
+	return
+
 /// Runs an armour check against a mob and returns the armour value to use.
 /// 0 represents 0% protection, while 100 represents 100% protection.
 /// The return value for this proc can be negative, indicating that the damage values should be increased.

@@ -688,7 +688,7 @@
 			no_damage = TRUE
 		// Put it into a list
 		var/stringified_injuries = null
-		if (injury_texts)
+		if (length(injury_texts))
 			stringified_injuries = injury_texts[1]
 		for (var/i in 2 to length(injury_texts) - 1)
 			stringified_injuries += ", [injury_texts[i]]"
@@ -713,13 +713,6 @@
 			to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name] is injured beyond treatment.</span>")
 		else
 			to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled] [auxiliary_verb] [status][stringified_injuries ? " and has " : ""][stringified_injuries].</span>")
-
-		if (LB.get_skin_multiplier() < 1 && LB.get_bone_multiplier() < 1)
-			to_chat(src, "\t <span class='warning'>The bones inside your [LB.name] ache and the skin appears damaged.</span>")
-		else if (LB.get_skin_multiplier() < 1)
-			to_chat(src, "\t <span class='warning'>The skin on your [LB.name] looks slightly damaged.</span>")
-		else if (LB.get_bone_multiplier() < 1)
-			to_chat(src, "\t <span class='warning'>Your [LB.name] aches and the bone is likely damage.</span>")
 
 		for(var/obj/item/I in LB.embedded_objects)
 			if(I.isEmbedHarmless())
@@ -902,7 +895,7 @@
 	)
 	var/protected = 0
 	for (var/part in zones)
-		for (var/obj/item/clothing/covering_clothes in clothingonpart(part))
+		for (var/obj/item/clothing/covering_clothes in clothingonpart(get_bodypart(part)))
 			if (covering_clothes.rad_flags & RAD_PROTECT_CONTENTS)
 				protected ++
 				break
