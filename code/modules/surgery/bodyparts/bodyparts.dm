@@ -702,7 +702,9 @@
 	// Take sharp & blunt damage
 	for (var/datum/injury/injury_graph as anything in injuries)
 		injury_graph.apply_damage(sharp_damage, damage_type, damage_flag, TRUE)
-		injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
+		// Burn damage affects the skin, not the bones
+		if (damage_type == BURN)
+			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
 	var/skin_rating = 1
 	var/bone_rating = 1
 	for (var/datum/injury/injury_graph as anything in injuries)
@@ -719,9 +721,10 @@
 		return
 	// Bone health
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
-	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
-	for (var/datum/injury/injury_graph as anything in injuries)
-		injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
+	if (damage_type != BURN)
+		blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
+		for (var/datum/injury/injury_graph as anything in injuries)
+			injury_graph.apply_damage(blunt_damage, damage_type, damage_flag, FALSE)
 	// Bone pentration
 	penetration_power -= rand(0, bone_penetration_resistance * bone_rating)
 	current_damage = damage
