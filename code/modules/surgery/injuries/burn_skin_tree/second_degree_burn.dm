@@ -11,11 +11,11 @@
 	return TRUE
 
 /datum/injury/second_degree_burns/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
-	to_chat(target, span_userdanger("The burns on your [part.name] intensify."))
+	to_chat(target, span_userdanger("The burns on your [part.plaintext_zone] intensify."))
 
 /datum/injury/second_degree_burns/on_tick(mob/living/carbon/human/target, delta_time)
 	if (DT_PROB(5, delta_time) && !target.is_bleeding())
-		to_chat(target, span_warning("A red-fluid seeps out of the burns on your [bodypart.name]."))
+		to_chat(target, span_warning("A red-fluid seeps out of the burns on your [bodypart.plaintext_zone]."))
 		target.add_bleeding(BLEED_SURFACE)
 
 /datum/injury/second_degree_burns/apply_to_part(obj/item/bodypart/part)

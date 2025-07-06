@@ -12,7 +12,7 @@
 	return TRUE
 
 /datum/injury/blisters/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
-	to_chat(target, span_userdanger("Your [part.name] blisters from the intense heat!"))
+	to_chat(target, span_userdanger("Your [part.plaintext_zone] blisters from the intense heat!"))
 
 /datum/injury/blisters/apply_to_part(obj/item/bodypart/part)
 	// If we lose the injury, stop the timer

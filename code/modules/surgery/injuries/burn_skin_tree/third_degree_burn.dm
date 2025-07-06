@@ -4,11 +4,11 @@
 	surgeries_provided = list(/datum/surgery/skin_graft/third_degree)
 
 /datum/injury/third_degree_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
-	to_chat(target, span_userdanger("The burns on your [part.name] intensify."))
+	to_chat(target, span_userdanger("The burns on your [part.plaintext_zone] intensify."))
 
 /datum/injury/third_degree_burn/on_tick(mob/living/carbon/human/target, delta_time)
 	if (DT_PROB(10, delta_time) && !target.is_bleeding())
-		to_chat(target, span_warning("A red-fluid seeps out of the burns on your [bodypart.name]."))
+		to_chat(target, span_warning("A red-fluid seeps out of the burns on your [bodypart.plaintext_zone]."))
 		target.add_bleeding(BLEED_CRITICAL)
 	// Gain organ damage over time
 	for (var/slot in bodypart.organ_slots)

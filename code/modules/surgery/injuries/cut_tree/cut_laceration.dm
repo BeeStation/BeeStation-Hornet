@@ -8,9 +8,9 @@
 	. = ..()
 	if (target.get_bleed_rate() >= BLEED_CUT)
 		return
-	if (DT_PROB(10, delta_time))
+	if (DT_PROB(5, delta_time) && !target.is_bandaged())
 		target.add_bleeding(BLEED_CUT)
-		to_chat(target, span_userdanger("Your lacerated [bodypart] starts bleeding!"))
+		to_chat(target, span_userdanger("Your lacerated [bodypart.plaintext_zone] starts bleeding!"))
 
 /datum/injury/cut_laceration/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)

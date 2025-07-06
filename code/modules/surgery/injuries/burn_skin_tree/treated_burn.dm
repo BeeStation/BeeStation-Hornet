@@ -11,7 +11,7 @@
 	return TRUE
 
 /datum/injury/treated_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
-	to_chat(target, span_warning("The blisters on your [part.name] subside."))
+	to_chat(target, span_warning("The blisters on your [part.plaintext_zone] subside."))
 
 /datum/injury/treated_burn/apply_to_part(obj/item/bodypart/part)
 	// If we lose the injury, stop the timer

@@ -9,4 +9,4 @@
 	return TRUE
 
 /datum/injury/healthy_skin_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
-	to_chat(target, span_warning("The blisters on your [part.name] subside."))
+	to_chat(target, span_warning("The blisters on your [part.plaintext_zone] subside."))

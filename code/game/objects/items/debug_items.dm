@@ -325,8 +325,11 @@
 	)
 	var/spacewalk_initial
 
-/obj/item/debug/orb_of_power/pickup(mob/user)
+/obj/item/debug/orb_of_power/equipped(mob/user, slot, initial)
 	. = ..()
+	if (slot != ITEM_SLOT_HANDS && slot != ITEM_SLOT_POCKETS)
+		dropped(user)
+		return
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	grant_all_languages(source = "debug")
