@@ -44,8 +44,8 @@ SUBSYSTEM_DEF(metrics)
 	out["elapsed_real"] = (REALTIMEOFDAY - world_init_time)
 	/// Current number of clients in the game
 	out["client_count"] = length(GLOB.clients_unsafe)
-	/// Current number of players who have joined as a standard job
-	out["crew_count"] = length(GLOB.joined_player_list)
+	/// Total number of players who have joined as a standard job
+	out["total_crew"] = length(GLOB.joined_player_list)
 	var/player_count = 0
 	var/living_count = 0
 	var/observer_count = 0
