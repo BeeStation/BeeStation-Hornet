@@ -191,6 +191,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	user.visible_message(span_suicide("[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
+/obj/item/stack/medical/suture
+	name = "suture kit"
+	singular_name = "suture kit"
+	desc = "An emergency suture kit used to stitch up lacerations, muscle tears, and to stop bleeding."
+	icon_state = "suture"
+	merge_type = /obj/item/stack/medical/suture
+	amount = 5
+	max_amount = 5
+	self_delay = 10 SECONDS
+	stop_bleeding = BLEED_CRITICAL
+	heal_brute = TRUE
+	heal_creatures = TRUE
+
 /obj/item/stack/medical/ointment
 	name = "ointment"
 	desc = "Used to treat those nasty burn wounds."
