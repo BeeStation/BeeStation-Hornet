@@ -651,14 +651,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	SIGNAL_HANDLER
 
 	if(!allow_quick_gather || thing.atom_storage)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return
 
 	if(istype(thing, /turf))
 		INVOKE_ASYNC(src, PROC_REF(collect_on_turf), thing, user)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(!istype(thing, /obj/item))
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return
 
 	if(collection_mode == COLLECT_ONE)
 		attempt_insert(thing, user)
