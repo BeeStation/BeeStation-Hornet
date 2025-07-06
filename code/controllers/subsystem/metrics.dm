@@ -46,16 +46,18 @@ SUBSYSTEM_DEF(metrics)
 	out["client_count"] = length(GLOB.clients_unsafe)
 	/// Current number of players who have joined as a standard job
 	out["crew_count"] = length(GLOB.joined_player_list)
-	/// Current number of players who are observers
-	out["observer_count"] = length(GLOB.dead_mob_list)
 	var/player_count = 0
 	var/living_count = 0
+	var/observer_count = 0
 	for (var/mob/player in GLOB.player_list)
 		if (isliving(player))
 			living_count ++
 			player_count ++
 		if (isobserver(player))
 			player_count ++
+			observer_count ++
+	/// Current number of players who are observers
+	out["observer_count"] = observer_count
 	/// Current number of players who are either observing or playing
 	out["player_count"] = player_count
 	/// Current number of players who are alive
