@@ -46,7 +46,7 @@
 #define BLOCK_GAS_SMOKE_EFFECT	(1<<2)	//! blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define MASKINTERNALS		    (1<<3)	//! mask allows internals
 #define NOSLIP                  (1<<4)  //! prevents from slipping on wet floors, in space etc
-#define THICKMATERIAL			(1<<5)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
+#define THICKMATERIAL			(1<<5)	//! prevent piercing syringes from penetrating them.
 #define VOICEBOX_TOGGLABLE      (1<<6)  //! The voicebox in this clothing can be toggled.
 #define VOICEBOX_DISABLED       (1<<7)  //! The voicebox is currently turned off.
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off

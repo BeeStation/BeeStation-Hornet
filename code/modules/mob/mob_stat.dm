@@ -250,9 +250,10 @@
 	tab_data["divider_2"] = GENERATE_STAT_BLANK
 
 	if(!SSticker.HasRoundStarted())
-		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[GLOB.clients.len]")
+		var/pre_auth = SSticker.totalPlayersPreAuth ? " ([SSticker.totalPlayersPreAuth] pre-auth)" : ""
+		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[SSticker.totalPlayers][pre_auth]")
 	else
-		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
+		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients_unsafe.len]")
 	if(SSticker.round_start_time)
 		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 
@@ -261,7 +262,7 @@
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
-	if (!isnewplayer(src) && SSautotransfer.can_fire)
+	if (!isnewplayer(src) && SSautotransfer.can_fire && client?.player_details)
 		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac() == TRUE) //THIS MUST BE "== TRUE" TO WORK. canEvac() ALWAYS RETURNS A VALUE.
 			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
 		else

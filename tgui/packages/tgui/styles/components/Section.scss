@@ -11,6 +11,7 @@
 $title-text-color: base.$color-fg !default;
 $background-color: base.$color-bg-section !default;
 $separator-color: colors.$primary !default;
+$title-background-color: transparent !default;
 
 .Section {
   position: relative;
@@ -28,6 +29,7 @@ $separator-color: colors.$primary !default;
   position: relative;
   padding: 0.5em;
   border-bottom: base.em(2px) solid $separator-color;
+  background-color: $title-background-color;
 }
 
 .Section__titleText {

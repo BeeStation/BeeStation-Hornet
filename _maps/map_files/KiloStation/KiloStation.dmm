@@ -5768,6 +5768,16 @@
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"biT" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Office";
+	req_one_access_txt = "1;4"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/dark,
+/area/security/main)
 "bjj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -24940,7 +24950,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "geJ" = (
-/obj/machinery/lapvend,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/ue_no{
 	pixel_x = -32
@@ -42011,7 +42020,7 @@
 "lHX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
+	name = "Security Office";
 	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -64637,12 +64646,11 @@
 /area/hallway/primary/central)
 "sVK" = (
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
+	name = "Security Office";
 	req_one_access_txt = "1;4"
 	},
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "sWe" = (
@@ -103641,7 +103649,7 @@ hAb
 ewj
 eUR
 rZH
-sVK
+biT
 keS
 cRG
 gee
@@ -103898,7 +103906,7 @@ vFv
 msV
 mMb
 nQf
-lHX
+sVK
 czT
 dtZ
 dWU

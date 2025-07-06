@@ -42,12 +42,6 @@
 /obj/effect/overlay/palmtree_l,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
-"l" = (
-/turf/open/floor/plating/beach/coastline_t,
-/area/template_noop)
-"m" = (
-/turf/open/floor/plating/beach/coastline_b,
-/area/template_noop)
 "n" = (
 /turf/open/floor/plating/beach/water,
 /area/template_noop)
@@ -174,8 +168,8 @@ f
 f
 f
 f
-l
-m
+n
+n
 n
 W
 "}
@@ -186,8 +180,8 @@ g
 f
 f
 f
-l
-m
+n
+n
 n
 W
 "}
@@ -198,8 +192,8 @@ f
 y
 j
 f
-l
-m
+n
+n
 n
 A
 "}
@@ -210,8 +204,8 @@ f
 f
 k
 x
-l
-m
+n
+n
 n
 W
 "}
@@ -222,8 +216,8 @@ f
 w
 u
 D
-l
-m
+n
+n
 n
 W
 "}
@@ -234,8 +228,8 @@ f
 f
 f
 J
-l
-m
+n
+n
 n
 A
 "}
@@ -246,8 +240,8 @@ f
 i
 f
 g
-l
-m
+n
+n
 n
 W
 "}
@@ -258,8 +252,8 @@ f
 f
 f
 f
-l
-m
+n
+n
 n
 W
 "}

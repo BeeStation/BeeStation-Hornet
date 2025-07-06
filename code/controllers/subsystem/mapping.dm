@@ -59,6 +59,9 @@ SUBSYSTEM_DEF(mapping)
 	///List in the form: list(z level num = max generator gravity in that z level OR the gravity level trait)
 	var/list/gravity_by_z_level = list()
 
+	//Echo surface level templates
+	var/list/echo_surface_templates = list()
+
 /datum/controller/subsystem/mapping/PreInit()
 	..()
 #ifdef FORCE_MAP
@@ -87,6 +90,9 @@ SUBSYSTEM_DEF(mapping)
 	if(map_adjustment)
 		map_adjustment.on_mapping_init()
 		log_world("Applied '[map_adjustment.map_file_name]' map adjustment: on_mapping_init()")
+
+	if(config.map_file == "EchoStation.dmm")
+		echo_surface_templates() //Echo seasonal surface stuff
 
 	initialize_biomes()
 	loadWorld()
@@ -469,13 +475,22 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
-		var/datum/map_template/random_room/room_type = item
-		if(!(initial(room_type.mappath)))
-			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
+		var/datum/map_template/random_room/R = new item()
+		if(!R.mappath || R.mappath == null)
+			world.log << "Skipping template type: [item] (no mappath)"
+			qdel(R)
 			continue
-		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R
 		map_templates[R.room_id] = R
+
+/datum/map_template/random_room
+	var/room_id //The SSmapping random_room_template list is ordered by this var
+	var/spawned //Whether this template (on the random_room template list) has been spawned
+	var/centerspawner = TRUE
+	var/template_height = 0
+	var/template_width = 0
+	var/weight = 10 //weight a room has to appear
+	var/stock = 1 //how many times this room can appear in a round
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -678,3 +693,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	max_gravity = max_gravity || level_trait(z_level_number, ZTRAIT_GRAVITY) || 0 //just to make sure no nulls
 	gravity_by_z_level[z_level_number] = max_gravity
 	return max_gravity
+
+// echo surface templates found in random_rooms.dm
+/datum/controller/subsystem/mapping/proc/echo_surface_templates()
+	for (var/path in typesof(/datum/map_template/random_room/echo))
+		if (ECHO_TEMPLATE_PATH(path))
+			var/datum/map_template/random_room/echo/template = new path()
+			echo_surface_templates += template

@@ -1,0 +1,543 @@
+2023-05-01:
+  CydiaLamiales:
+  - admin: Added logging to clock cult speech
+  - admin: Changed "cult" to "blood cult" in blood cult speech logs
+  - admin: Added logging for blood cult getting red eyes and halos
+  - admin: Added logging for beginning and finishing to inscribe the Narsie summon
+      rune
+  - admin: Added logging for activating the Ark of the Ark of the Clockwork Justiciar
+      and portals appearing after.
+2023-05-02:
+  CydiaLamiales:
+  - bugfix: Added the "ISWEAPON" flag to a bunch of items that should've had it
+  Rukofamicom:
+  - bugfix: Immobilize() procs now work on silicons and simplemobs
+2023-05-04:
+  EvilDragonfiend:
+  - code_imp: get_all_access() proc will give all accesses properly, but also changed
+      some code
+2023-05-07:
+  Absolucy:
+  - bugfix: Inserting a new organ into someone will no longer feed it to them too.
+  - refactor: Slightly refactored brainwashing.
+  - bugfix: You can no longer use mind control nanites to clear a brainwash from another
+      source.
+  - rscadd: Deadchat is now shown the source of an objective when someone is brainwashed.
+  CydiaLamiales:
+  - bugfix: fixed un-monkifying setting that person's species to null sometimes
+  CydiaLamiales, A.C.M.O., Floofies:
+  - rscadd: Hermetically sealed and space-worthy helmets can now be used as breathing
+      apparatuses!
+  - rscadd: Internals air tanks can now be toggled via AltClick.
+  - rscdel: Removed the Breath Mask from the starting plasmaman outfit
+  - refactor: Refactored and deduplicated a significant portion of internal air tank
+      functions.
+  - bugfix: Fixed a bug that caused any type of equipped mask to be auto-adjusted
+      when toggling internals.
+  - bugfix: Fixed a bug that prevented toggling of internals via the stripping menu
+      if the mob only had a breathing tube.
+  - bugfix: Fixed a bug that allowed two mobs to breathe from the same air tank after
+      exchanging it between them.
+  EvilDragonfiend:
+  - rscadd: Orbit panel tracks antag team rather than individual antag name (i.e.
+      ERTs, Abductors)
+  - bugfix: job icon in orbit panel no longer looks horrible
+  - tweak: some antagonists/teams will display some different name in orbit panel
+  - tweak: eldritch horrors are now tracked in antag category in orbit panel
+  PowerfulBacon,CydiaLamiales:
+  - rscadd: Exploration hardsuits now have a HUD which points them towards research
+      disks and item objectives.
+  RKz, Rohesie:
+  - refactor: minor opacity refactor
+  - bugfix: Fixes some atoms_movable related harddels
+  - balance: mechs no longer block sight
+  RKz, TiviPlus, xzaber:
+  - bugfix: silicons will actually QDEL their law datum when they get destroyed
+  - admin: if an AI's law datum gets deleted for spaghetti reasons, a stack_trace
+      will be sent letting you be able to determine when, (and probably) how it occurred
+  Rukofamicom:
+  - balance: Repairing cyborgs now takes half as long per tick, and repairing burnt
+      wires also restores for twice as much on top of this. 2x speed for brute and
+      4x speed for burn repairs overall.
+  - balance: Cyborg self-repair module is much better at doing its job and much less
+      power hungry. It is still greatly outclassed by getting someone else to do repairs,
+      but should be seen as a worthwhile upgrade to install now. The module also has
+      sound effects now.
+  - balance: Cyborgs now slow down gradually as they receive damage
+  - balance: Cyborgs can no longer be stunlocked by flashes - they will be stunned
+      once for five seconds (down from seven) and then immune to further stuns for
+      30 seconds (indicated by flashing lights).
+  - tweak: Successfully opening the cover of a cyborg which is flash stunned will
+      refresh the stun timer to five seconds the first time it happens.
+  - tweak: All silicons take burn damage from EMPs now instead of brute
+  - tweak: Cyborg health HUDs will now more accurately represent their current HP,
+      only blinking red when they are critically close to breaking down instead of
+      at half health.
+  - bugfix: Fixed an exploitable oversight that allowed cyborgs to equip and use modules
+      in slots that are supposed to be deactivated
+  - bugfix: fixed a calculation error regarding the stunning and throwing of buckled
+      mobs when a cyborg is hit with an EMP.
+  Shiraizawa:
+  - spellcheck: fixed a typo in the linguist trait
+  Syrox25, Pirill:
+  - rscadd: 'Adds a new holoform for pAI: Mothroach'
+  itsmeow:
+  - rscadd: 'GlowStation: Replaced the secure elevator staircase with an actual elevator.'
+  - bugfix: Elevator call buttons now work on the top floor.
+  - tweak: Improved elevator call button feedback if the elevator is currently moving.
+  - bugfix: Fixed a TGUI bluescreen when there are no chemicals in a sleeper.
+  - tweak: Having 0% brute/burn/toxin in the sleeper is now shown as green for good.
+  - tweak: Improved text overflow behavior on beaker medicine labels in the sleeper
+      UI.
+2023-05-08:
+  CydiaLamiales:
+  - rscadd: Added a VV dropdown option to generate a random name for humanoids based
+      on their species
+  - bugfix: Fixed Plasmamen with alternative helmet styles spawning without their
+      internals being open
+  HowToLoLu:
+  - bugfix: Suit Storage no longer becomes anonamously locked open when breaking out
+2023-05-10:
+  Crossedfall:
+  - server: The rust_g binary has been replaced with a version that's more compatible
+      with older hardware
+2023-05-13:
+  CydiaLamiales:
+  - bugfix: Fixed the species being set to null after getting umonkified
+  - tweak: Doubled the speed of the Virus Extrapolator, again
+  - rscadd: Added a new lung subtype - Ash Walker lungs, that are adapted to low pressure,
+      low O2 and high CO2 concentrations
+  - tweak: Made the Gladiator Uniform display digitigrade legs
+  - tweak: Replaced the station air around the Ash Walker tendril with lavaland air
+  - balance: Made Ash Walkers have Lavaland adapted lungs rather than not needing
+      to breathe at all
+  - balance: Ash Walkers are now low pressure immune
+  EvilDragonfiend:
+  - bugfix: nukie team will properly display the team name in the orbit panel (including
+      lone operative)
+  RKz, LemonInTheDark:
+  - refactor: refactored the alarm system. Fixed some hard deletes
+  Tyranicranger4:
+  - bugfix: Fixes Stabilized Metal crossbreeds from being able to replicate telecrystals.
+2023-05-14:
+  Absolucy:
+  - balance: Blood and Clock Cult now have a strict minimum population requirement
+      of 24.
+  - balance: Nanite chambers (including public chambers) are now upgradable! Upgraded
+      manipulators result in more "starting" nanites, and upgraded micro-lasers will
+      speed up the chamber.
+  CydiaLamiales:
+  - tweak: Added a murderbone objective check to shuttle hijacking
+  EvilDragonfiend:
+  - tweak: having monitoring nanites can make you trackable by pinpointer. simple/carbon
+      mobs with monitoring nanites are now trackable by pinpointer (as long as they
+      have mind...) Jammer will disable this.
+  - rscadd: pinpointer is now trackable z-levels as long as those z-levels are in
+      the same group (i.e. multi-floored station). Orange bar will appear if your
+      target is within the same type z-level.
+  - imageadd: some pinpointer indicating sprites
+  - refactor: better pinpointer code
+  - rscadd: ChemMaster now says which amount chem units it can hold.
+  - balance: ChemMaster now can hold 100 units more regardless of beakers inside (roundstarts
+      with 200 max units)
+  HowToLoLu:
+  - bugfix: Fixed a runtime involving Plasmamen outfits given by jobs
+  Ivniinvi, EdgeLordExe, Melbert, Imaginos, SpaceManiac, ChungusGamer666, AnturK, ZephyrTFA, coiax, Krysonism:
+  - rscadd: New heretic path - Path of Void- it specializes in being extremely stealthy.
+  - rscadd: Large scale heretic revamp!
+  - rscadd: The Codex Cicatrix is no longer a roundstart heretic item. Research is
+      handled through an action button. Rune drawing is done by using a writing tool
+      with Mansus Grasp active in your offhand. The actual Codex is an unlockable
+      ritual item now.
+  - rscadd: The Living Heart is no longer a roundstart heretic item - their actual
+      heart now becomes their Living Heart, and it makes a sound when triggered. Losing
+      your heart (being disemboweled) will require you to do a ritual to regain it.
+  - rscadd: The Hereic Antag UI has been overhauled, and now hosts much of their mechanics
+      as well as providing some helpful tips for newer players.
+  - rscadd: Most heretic spells now require a focus to cast. All heretics can make
+      a basic focus necklace, and some heretic equipment also functions as a focus.
+      (Credit to Imaginos for the focus sprite!)
+  - rscadd: Heretics now passively gain +1 influence every 20 minutes.
+  - rscadd: Heretic sacrificing has been reworked. You can now sacrifice people who
+      are in soft crit or weaker. Sacrificing someone heals them, cuffs them, and
+      teleports them to the SHADOW REALM, where they must dodge a barrage of hands
+      to survive. Survive long enough and you return without memory - die, and your
+      body will be thrown back.
+  - rscadd: Heretics now have a few new rituals, including the Ritual of Knowledge,
+      a randomly generated ritual that awards knowledge points.
+  - rscadd: Heretic ascension now has a few requirements - you must complete your
+      objectives assigned to you prior to learning the final ritual, and all the final
+      rituals have been changed a bit!
+  - tweak: Used heretic influences can now be removed with a Anomaly Neutralizers.
+  - balance: Some heretic rituals are now limited in the amount they can make. You
+      can only have up to 2 heretic blades crafted at once (3 if you are Path of Flesh).
+  - balance: The Lord of the Night has been buffed to be a little scarier. Did you
+      know the Lord of the Night can eat arms to regain body parts and heal?
+  - balance: Buffed some heretic summons - mostly their health pools.
+  - balance: Nerfed the heretic's Mask of Madness. It can no longer infinite stam-crit
+      you.
+  - balance: Nerfed the heretic's ash mark.
+  - balance: 'Nerfed a bunch of on-hit-heretic-blade effects. Many effects only apply
+      on mark detonation now: Void blade silence, flesh blade wounds, ash blade gasp
+      cooldown refund.'
+  - bugfix: Fixed quite a few bugs and unintended behaviors with heretic code.
+  - refactor: Refactored and improved much of Heretic code. Improved the file structure
+      dramatically.
+  - admin: The heretic's traitor panel has been beefed up a bit.
+  - refactor: Refactored cult rune inscribing into a component
+  - refactor: Refactored null rod rune clearing into a component
+  - code_imp: Rust is now a component
+  - refactor: refactor almost all of the rust heretic atom procs
+  - rscadd: Wirebrush for advanced rust removal
+  - rscadd: 'A new heretic node to replace rust wave: entropic plume.'
+  - rscadd: A small rune visual effects appears 70% of the time when a tile is rusted.
+  - rscdel: Removed the rust wave node.
+  - bugfix: The ash man and rust walker nodes now link to the correct nodes.
+  - rscadd: IPCs who roll heretic now become human with the user's Backup Human Name.
+  - rscadd: Raw Prophets can now toggle their sight range with the Change Sight Range
+      action
+  - tweak: Heretics can no longer hijack the Emergency Shuttle
+  - bugfix: Heretic Smugglers (latejoin heretics) actually spawn influences
+  - bugfix: Fixes a few potential issues with heretic rituals.
+  - code_imp: Adds proper stack support to heretic rituals. Also allows for more specific
+      "ritual failure" feedback.
+  - code_imp: Added an isstack helper
+  - tweak: heretic sacrifices will drop their legcuffs before entering the minigame
+      (bolas, bear traps)
+  - balance: 'Heretic: The Amber Focus is now fireproof.'
+  - balance: 'Heretic: The Eldritch Medallion (thermal vision necklace) is now fireproof,
+      acid proof, and works as a focus.'
+  - balance: 'Heretic: The Void Cloak can carry more things in its pocket, including
+      various ritual components (organs, bodyparts, flowers), small heretic items,
+      and a singular sickly blade. It also functions as a focus while the hood is
+      down.'
+  - balance: 'Heretic: Mawed Crucible potions are now small sized (down from normal).'
+  - tweak: Heretic rituals overhauled slightly. You now pick from a list of all your
+      rituals when invoking a rune to select what ritual you want to do.
+  - bugfix: Minor fixes for the Heretic's Living Heart ritual. Cybernetic organs are
+      now properly detected.
+  - bugfix: Similarly, you cannot feed the mawed crucible cybernetic organs.
+  Rkz, Time-Green, SteelSlayer, floyd, Qustinuus, ArcaneDefence, FlowerCuco:
+  - rscadd: Food storage! Hide some glass in the captains cake! Fuck his digestive
+      system!!! (Not really, accidental consumption isnt active w/o wounds or stomach
+      refactor, so It doesnt do anything yet lmao)
+  - rscadd: Bread, Cake and Spaghetti to Newfood
+  - rscadd: dunkable element. Dunk yo nuggies in the ketchup.
+  - rscadd: some smaller foods can now be eaten whilst on the run! (This ONLY applies
+      to newfood items thus far!)
+  - rscadd: converted edible component to work with newfood
+  - rscdel: oldfood for Bread, Cake and Spaghetti
+  - tweak: edited a few messed up values
+  - tweak: food trash is sensible now. Finishing stuff like cake will actually spawn
+      a plate rubbish. Instead of you eating the plate, fatso, perhaps properly dispose
+      of it!
+  - bugfix: Wildly STUPID item weights. Candycorn and cakes are no longer the SAME
+      size
+2023-05-15:
+  Absolucy:
+  - rscadd: Slime crossbreeds can be scanned for 750 discovery points each.
+  - tweak: Each color slime can be discovery scanned, rather than just scanning a
+      slime once.
+  DarnTheMarn:
+  - rscdel: Removed ACCESS_AUX_BASE, ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING,
+      ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM
+      from HOS access list
+  - rscdel: Removed the ability for all heads to access engilathe on Box, Corg, Delta,
+      Fland, Glow, and Meta.
+  Rukofamicom:
+  - bugfix: Corrects chassis integrity to respect the newer HP formula. Chassis integrity
+      will now report the actual health percentage instead of reporting a range from
+      51% to 151% integrity.
+  WhereAmO, recouped by mystery3525:
+  - tweak: Ecto Sniffer now sends a message over Science Comms
+  uomo91, Elli-Skala:
+  - tweak: Sergeant Araneus is now a proper subtype
+2023-05-17:
+  Absolucy:
+  - rscadd: Added upgraded blood filtering surgeries! These are obtained through the
+      same research as its wound-tending counterparts, and work faster while also
+      removing toxin damage.
+  - balance: Very slightly reduced the amount of reagents that blood filtering purges
+      (by around 2%), to compensate for the increased speed offered by the upgraded
+      surgeries.
+  ? Bobbanz1, Timberpoes, SteelSlayer, twilightwanderer, ShizCalev, timothymtorres,
+    Imaginos16, dragomagol, Jacquerel, Mothblocks, ThePotato97, LemonInTheDark
+  : - rscdel: Removed the ability to scan paper directly into the modular computer
+        notes app as part of paper code rewrite.
+    - refactor: Paper code has been completely refactored.
+    - bugfix: Fixes signatures not working at all. Signatures now only work when %s
+        or %sign is put into an [___] input field.
+    - bugfix: Input fields are now fixed and also work again.
+    - bugfix: Fixes broken command report formatting for station goals.
+    - bugfix: Fixes markdown paragraphing not working in paper code.
+    - refactor: Photocopiers now use TGUI
+    - tweak: You can insert any type of toner cartridge into photocopiers, and regardless
+        of the currently inserted toner's charge level.
+    - tweak: Toner cartridges can be ejected from photocopiers at any time
+    - rscadd: Added a system of forms and the ability to print them
+    - bugfix: Hints in bureaucracy forms
+    - rscadd: Added new VOID stamp
+    - bugfix: Photocopier paperforms
+    - rscadd: Fax Machine
+    - bugfix: Fixes faxes playing the "fax_contain" animation and makes it actually
+        use the "fax_receive" animation when receiving.
+    - imageadd: Resprites fax machines!
+    - admin: fax messages and book printings are now logged in paper.log
+    - admin: renaming fax machines is logged in game log
+    - rscadd: You can now send photos or trading cards through the fax machine.
+    - rscadd: You can now hack the wires of a fax machine to have it throw items harder
+        or accept additional flat input items such as material sheets, ID cards, and
+        pizza slices.
+    - rscadd: Ability to send and receive administrator fax messages.
+    - admin: Panel for easy viewing and sending messages to faxes.
+    - bugfix: Fixes a crash of TGUI fax panel when there is no fax in the network
+    - bugfix: Fixes a crash of the Fax Manager panel when there is no fax machines
+        in the network.
+    - refactor: Rotating stamps on paper by holding shift and moving your mouse.
+    - bugfix: You can no longer remove the toner cartridge from a printer while it's
+        busy printing.
+  CydiaLamiales:
+  - tweak: Chemical fridges can now hold chemical bags
+  - rscadd: Added VV dropdown options to add and remove mutations from carbons
+  EvilDragonfiend:
+  - rscadd: Added one more alert step for putting bag of holding into another BoH.
+  - code_imp: slightly touched BB code
+  - code_imp: slightly touched abductor/changeling greek letter selection code
+  - code_imp: removed SUPERMATTER_IGNORE_1 atom flag. SM has a static list that checks
+      if it should not consume an atom.
+  - bugfix: fixed where SM code causes runtime
+  RKz, Thalpy:
+  - rscadd: Add ease out transitions on TGUI elements. Progress bars will now smoothly
+      update.
+  ShizCalev, ATHATH, OnlineGirlfriend, Iamgoofball, The0bserver, Stewydeadmike, TripleZeta and RKz:
+  - rscadd: A special interaction for trying to put a mushroom on an Arnold pizza
+      has been added.
+  - rscadd: Arnold pizza references its source material more accurately/often now.
+  - rscadd: Chefs can now cook moffins! Yaaay moffins! Check the pastries subsection
+      of the crafting menu to make some! Cutting up clothes and bedsheets can get
+      you started!
+  - rscadd: Adds 3 new plants, and 6 new recipes, as well as a juice reagent. Check
+      out your local Megaseed Vendor today!
+  - bugfix: Fixed Arnold pizza not checking for TRAIT_NODISMEMBER, resulting in a
+      message being sent to the user even if they were fine after eating it.
+  itsmeow:
+  - code_imp: Modularized and documented code relating to multiz movement and falls.
+  mystery3525:
+  - rscdel: Removed the unused password door
+2023-05-18:
+  Absolucy:
+  - tweak: You can now remove individual recipe recordings from chem dispensers!
+  - tweak: Made the confirmation for clearing all chem recipes a part of the tgui
+      itself.
+  - refactor: Refactored tail wagging code a bit.
+  - tweak: All species can now *wag their tail if they have one.
+  - refactor: Slightly refactored brain trauma.
+  - balance: Nanites and viruses can no longer cure an obsession or hypnosis.
+  - rscadd: Oozelings can now hug flaming people to extinguish them!
+  CydiaLamiales:
+  - tweak: Replaced Tricordrazine in survival medipens with Regenerative Jelly
+  - soundadd: Added a sound for the Crew Transfer vote
+  EvilDragonfiend:
+  - balance: Retrovirus uplink item 14 TC -> 12 TC
+  - balance: Spanish flu uplink item 14 TC -> 12 TC
+  - rscdel: removed random virus sample from uplink item list because It's a newbie
+      trap.
+  - code_imp: made mimic code less bad
+  - tweak: mimic mobs (especially, animating venders) will become back to how it was.
+      For Brand Intelligence event, dead mimics will become a destroyed vending machine
+  - tweak: Brand Intelligence targeted vendors no longer explode when the event happens.
+      These will become a stronger version instead. (i.e. more HP, more damage, etc)
+      Otherwise, vending machine mobs have slightly less HP.
+  - tweak: mimic crate will eat items on where it is spawned - including important
+      items like a nuke disk. Still, nuke disk is trackable, and dead mimic will let
+      things out. (Admins can use this to contain stuff into a mimic crate by spawning
+      that mob - but items should be placed on it.)
+  - code_imp: cleaned up some bad coding
+  - refactor: refactored access checking system. checking access is slightly faster
+  - admin: admin can bypass no-respawn with respawn verb
+  - code_imp: toxin naming that is used to plasma is now changed to plasma (i.e. canister/toxins
+      to canister/plasma)
+  - code_imp: fixes card TGUI error
+  - tweak: Chameleon card in PDA works more smoothly. Chameleon Outfit selection will
+      change the chameleon card inside of PDA as well.
+  - bugfix: Fixed a case that a silicon can't state laws permanently
+  - code_imp: 'reverted the access check refactor PR #9027 #9036'
+  RKz, Rohesie. TiviPlus:
+  - bugfix: more reliable CanPass and CanAllowThrough behavior
+  - bugfix: blockers block what they should, not what they shouldnt (like phasing
+      mechs getting stuck on railings and windows???)
+  RKz, timberpoes, Ninjanomnom, CoffeeKat, DoctorSquishy:
+  - bugfix: Fixed runtimes in the air subsystem, where deleted objects were still
+      processed.
+2023-05-20:
+  Absolucy:
+  - bugfix: Advanced/experimental blood filtering now actually requires the appropriate
+      tech.
+  - bugfix: Max-tier blood filtering surgery actually heals toxin now.
+  - rscadd: Added a description to all variations of blood filtering surgery.
+  RKz, Jacquerel:
+  - rscadd: New foodtype, GORE. Split from GROSS, GORE foodtype will be replacing
+      it where the food in particular resembles a corpse or organ. GROSS should only
+      apply to inedible or rotting foods.
+  - balance: All butchered player species are considered to be gore, only preferred
+      by Lizards, Felinids, and Flies. If you like the taste of your fellow crew,
+      prepare accordingly.
+  - balance: Moved food preferences around to make more sense with the current system.
+      Nothing drastic, but species liked foods should be much more immersive in general.
+  Rukofamicom:
+  - rscadd: Adds a new type of reagent, metabolites. Metabolites are produced as a
+      byproduct of any reagent with a metabolite set and can be used to trace what
+      kinds of reagents someone has been exposed to at least somewhat recently. For
+      now metabolites are only implemented for Bicaridine, Kelotane, Antitoxin, Tricordrazine,
+      Styptic Powder and Silver Sulfadiazine.
+  - balance: Bicaridine, Kelotane, Antitoxin and Tricordrazine are equally effective
+      regardless of current HP again, instead having their effects wane as metabolites
+      build up. They will always be useful, but will never be the only thing you need
+      to treat more severe injuries.
+  - tweak: Bruise packs and ointment now utilize reagent code to heal instead of directly
+      healing. Due to overdosing concerns, they heal for half as much per application,
+      but come with twice as many applications per stack to compensate.
+  - balance: Because they now properly utilize medicine, ointments and bruise packs
+      are now very painful! Players will find they are unable to subject themselves
+      to this pain if they try to apply more than one in quick succession. Seek help
+      from others if you need multiple applications!
+  - tweak: Gauze can now heal injured simplemobs just like bruise packs.
+  itsmeow:
+  - bugfix: Martial arts granting books (karate scroll, CQC manual, etc) no longer
+      break permanently if you interrupt it last second.
+2023-05-21:
+  CydiaLamiales:
+  - tweak: Increased the time window for cancelling/changing random events and midround
+      injections from 10 to 30 seconds
+  - soundadd: Added a new sound - adminalert.ogg
+  - admin: Added a new preference for hearing admin alert sounds
+  - admin: Added a sound for the 'x event happening in y seconds' chat message
+  - rscadd: Added a tooltip to the Altar of the Gods showing that you can un/wrench
+      it with the Null Rod
+  - tweak: allowed for the Altar of the Gods to be used on any tile blessed by Holy
+      Water
+  - code_imp: Added a turf proc is_holy(), which checks if said turf is in the chapel
+      area or has the holy effect applied to it
+  - code_imp: Replaced checks for the holy effects with is_holy checks
+  - tweak: Made all holy roles be able to see blessed tiles rather than just the chaplain
+      (This means Holy Undead will be able to see them too)
+  PestoVerde322:
+  - bugfix: finally addressed the floating lattices not connecting to open turfs
+  Tsar-Salat:
+  - bugfix: broken blackberry cake icon_states, leading to invisible cake. Invisible
+      cake couldnt be eaten, very sad.
+  - tweak: added ERROR sprites and description to newfood parents, so it's very visible
+      if the wrong path was used
+  ss13-beebot:
+  - server: TGS DMAPI bumped to 6.4.3
+2023-05-22:
+  BriggsIDP:
+  - rscadd: New map, Radstation
+  - tweak: basemap.dm - added Rad
+  - tweak: maps.txt - added Rad
+  - tweak: decals.dmi - added updated rad sign
+  - imageadd: decals.dmi - added rad shelter sign
+  - tweak: signs_warning.dm - updated rad sign, added rad shelter sign
+  - imageadd: decals.dmi - added minskydorms
+  - imageadd: decals.dmi - added minskyhydrob
+  - imageadd: decals.dmi - added minskyhead
+  - imageadd: decals.dmi - added minskyevac
+  - tweak: signs_departments.dm - added signs listed above
+  - imageadd: 4x7dmi
+  - imageadd: huge ion engine sprite
+  - rscadd: sci smart fridge - for storing components and disks
+  - tweak: adds missing button and fax to rad
+  - tweak: rad viro zoning
+  - tweak: adds clip boards and folders to med
+  - tweak: adds the right tag to commis door
+2023-05-23:
+  Absolucy:
+  - rscadd: Added the Syndicate Surgery Implant to the traitor uplinks of doctors,
+      paramedics, roboticists, and brig physicians for 12 TC. It grants the user perfect
+      surgery knowledge, allowing them to do almost any surgery, anywhere, quickly
+      and free of mistakes. It is however, NOT available to either nuclear operatives
+      or incursion members.
+2023-05-26:
+  Absolucy:
+  - bugfix: Setting DNA (including through cloning) now properly applies the correct
+      gender and skin tone. As a result, cloning will no longer randomize gender and
+      skin tone.
+  PowerfulBacon:
+  - rscdel: Deletes one way road trait and absolution holoparasite ability.
+2023-05-27:
+  BeeLover66:
+  - bugfix: Tagger now sends parcels to the correct destination
+  Crossedfall:
+  - bugfix: fixed bad proc runtimes for SDQL queries using global procs (wrappers)
+  DatBoiTim:
+  - bugfix: 'Color of Lemonade is now yellow instead of #000000'
+  PestoVerde322:
+  - tweak: removed the :^) from the tile_opposing_corners and as it's own tile decal
+  - rscadd: added the :^) and the opposing corners to the tile spriter and all the
+      possible corner options
+  dwasint:
+  - bugfix: You can no longer softlock vending machines using a handdrill
+  imsynthex:
+  - bugfix: Sentient beepsky can stun/cuff people again
+  itsmeow:
+  - bugfix: Having an invalid job will no longer cause a runtime in the orbit menu.
+  - bugfix: Orbit menu now spaces job icons properly and has consistent button height.
+  - rscadd: Orbit menu will now show antag icons for ghost-visible antagonists.
+  - tweak: Orbit menu will now use generic UI theme
+  - tweak: Generic UI theme now colors more elements (Section headers, input outlines,
+      etc)
+  - tweak: Orbit menu sections are now collapsible.
+  - tweak: Orbit menu will now properly update instead of opening new orbit menus
+      when clicked. It will also autoupdate with new data.
+  mystery3525:
+  - balance: Removed the incursion radio implant
+2023-05-28:
+  CydiaLamiales:
+  - rscadd: Added species being logged to manifest.log
+  DatBoiTim:
+  - bugfix: fixed a runtime associated with heretic focus and the void robes
+  itsmeow:
+  - bugfix: Potentially fix singularities eating themselves.
+2023-05-29:
+  Absolucy:
+  - rscadd: Re-added tooltips to the R&D console, so you can now actually see what
+      you're researching!
+  BeeLover66:
+  - bugfix: Trash recycler now works
+  Isy232:
+  - balance: Donator purchasable gangster jumpsuit no longer has armour values.
+  PestoVerde322:
+  - rscdel: Removed Pubby station off the rotation
+  - rscdel: Removed Glow station off the rotation
+  RKz, Timberpoes:
+  - bugfix: reagent food runtime when microwaving
+  St0rmC4st3r:
+  - rscadd: You can now pull out a lighter from a cigarette pack by using Ctrl+Click.
+  ss13-beebot:
+  - server: TGS DMAPI bumped to 6.4.4
+2023-05-30:
+  EvilDragonfiend:
+  - bugfix: Fixed orbit panel shows a mob twice
+2023-05-31:
+  Arkatos, Mothblocks:
+  - refactor: Cyborg Station Alerts UI now uses tgui.
+  - refactor: AI Station Alerts UI now uses tgui.
+  - bugfix: Station alert console will now always show a correct icon when an alert
+      is added or cleared.
+  - bugfix: Station alert console and Canary application icons will no longer get
+      stuck in an alert mode forever.
+  EvilDragonfiend:
+  - bugfix: Fix orbit panel showing invalid job HUDs as blank boxes.
+  Tyranicranger4:
+  - bugfix: Fixed Delimber anomalies actually delimbing people, despite their name
+      this was not their intended behavior
+  - admin: Slightly improved Delimber anomaly logging
+  - tweak: Renamed 'Delimber' anomalies to 'Bioscrambler' anomalies
+  mystery3525:
+  - code_imp: Splits node design IDs into multiple lines in alphabetical order with
+      trailing commas
+  someone543:
+  - tweak: Cyborg total positions set to 1
+  trazelab, RKz:
+  - rscadd: Added some job ban checks to the robot factory! You'll be ghosted if you're
+      cyborg banned.

@@ -658,7 +658,7 @@
  *   Check __DEFINES/injection.dm for more details. Unlike can_inject, the INJECT_TRY_* defines will behave differently.
  */
 /mob/living/proc/try_inject(mob/user, target_zone, injection_flags)
-	return can_inject(user, target_zone, injection_flags)
+	return can_inject(user, target_zone, injection_flags & ~(INJECT_TRY_SHOW_ERROR_MESSAGE))
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
@@ -1864,6 +1864,14 @@
 	if(!apply_change)
 		return BODYTEMP_NORMAL
 	return BODYTEMP_NORMAL + get_body_temp_normal_change()
+
+///Returns the body temperature at which this mob will start taking heat damage.
+/mob/living/proc/get_body_temp_heat_damage_limit()
+	return BODYTEMP_HEAT_DAMAGE_LIMIT
+
+///Returns the body temperature at which this mob will start taking cold damage.
+/mob/living/proc/get_body_temp_cold_damage_limit()
+	return BODYTEMP_COLD_DAMAGE_LIMIT
 
 //Used for applying color correction
 /mob/living/proc/apply_color_correction(datum/source, area/entered)

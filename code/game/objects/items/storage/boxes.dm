@@ -1318,6 +1318,42 @@
 	new /obj/item/encryptionkey/heads/cmo/fake(src)
 	new /obj/item/encryptionkey/heads/hop/fake(src)
 
+//TABLET COLORIZER BOX
+/obj/item/storage/box/tabletcolorizer
+	name = "colorizer box"
+	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colors!"
+	icon_state = "tabletcbox"
+	custom_price = 50
+
+/obj/item/storage/box/tabletcolorizer/PopulateContents()
+	new /obj/item/colorizer/tablet(src)
+	new /obj/item/colorizer/tablet/pink(src)
+	new /obj/item/colorizer/tablet/sand(src)
+	new /obj/item/colorizer/tablet/green(src)
+	new /obj/item/colorizer/tablet/olive(src)
+	new /obj/item/colorizer/tablet/teal(src)
+	new /obj/item/colorizer/tablet/purple(src)
+	new /obj/item/colorizer/tablet/black(src)
+	new /obj/item/colorizer/tablet/white(src)
+
+/obj/item/storage/box/tablet4dummies
+	name = "'Tablets For Dummies'"
+	desc = "First Edition 'Tablets for Dummies' kit. Complete with body, components, and instructions for assembly."
+	icon_state = "radiobox"
+	custom_price = 150
+
+/obj/item/storage/box/tablet4dummies/PopulateContents()
+	new /obj/item/modular_computer/tablet(src)
+	new /obj/item/computer_hardware/battery(src)
+	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/processor_unit/small(src)
+	new /obj/item/computer_hardware/hard_drive/micro(src)
+	new /obj/item/computer_hardware/identifier(src)
+	new /obj/item/computer_hardware/network_card(src)
+	new /obj/item/computer_hardware/card_slot(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/paper/tablet_guide(src)
+
 /obj/item/storage/box/locker
 	name = "locker box"
 	desc = "A solution to locker clutter. A box. Science's best achievement."
@@ -1326,18 +1362,3 @@
 /obj/item/storage/box/locker/security
 	name = "security locker box"
 	icon_state = "secbox"
-
-/obj/item/storage/box/locker/security/detective
-	name = "detective essentials"
-	desc = "The necessary equipment for any detective!"
-	illustration = "fpen"
-
-/obj/item/storage/box/locker/security/detective/PopulateContents()
-	new /obj/item/camera/detective(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/pinpointer/crew(src)
-	new /obj/item/binoculars(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/reagent_containers/peppercloud_deployer(src)

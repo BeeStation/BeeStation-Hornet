@@ -366,10 +366,12 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = poll_ghost_candidates(
-			"Do you want to play as [holopara_name], [user.mind.name]'s [theme.name]?",
-			jobban_type = ROLE_HOLOPARASITE,
-			poll_time = 30 SECONDS
+		candidates = SSpolling.poll_ghost_candidates(
+			check_jobban = ROLE_HOLOPARASITE,
+			poll_time = 30 SECONDS,
+			jump_target = user,
+			role_name_text = "[holopara_name], [user]'s [theme.name]",
+			alert_pic = /mob/living/simple_animal/hostile/holoparasite,
 		)
 	waiting = FALSE
 	if(!length(candidates))
