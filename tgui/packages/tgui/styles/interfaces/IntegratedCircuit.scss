@@ -21,17 +21,6 @@ $fg-map: colors.$fg-map !default;
   -ms-user-select: none;
   user-select: none;
 }
-.ObjectComponent__Greyed_Content {
-  white-space: nowrap;
-  background-color: rgba(19, 19, 19, 0.5);
-  -ms-user-select: none;
-  user-select: none;
-}
-.ObjectComponent__Port {
-  position: relative;
-  width: 13px;
-  height: 13px;
-}
 .ObjectComponent__PortPos {
   position: absolute;
   top: 0;
