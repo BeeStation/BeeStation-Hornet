@@ -4735,8 +4735,48 @@
 "aMB" = (
 /turf/open/floor/iron,
 /area/storage/primary)
+"aMG" = (
+/obj/structure/table,
+/obj/item/aiModule/core/full/asimov,
+/obj/effect/spawner/lootdrop/aimodule_harmless,
+/obj/item/aiModule/core/freeformcore,
+/obj/machinery/door/window{
+	base_state = "right";
+	dir = 4;
+	icon_state = "right";
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/obj/structure/window/reinforced,
+/obj/effect/spawner/lootdrop/aimodule_neutral,
+/obj/item/aiModule/core/full/custom,
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_y = 24
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "aMH" = (
 /turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
+"aMI" = (
+/obj/structure/table,
+/obj/machinery/door/window{
+	dir = 8;
+	name = "High-Risk Modules";
+	req_access_txt = "20"
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_y = 24
+	},
+/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/item/aiModule/supplied/oxygen,
+/obj/item/aiModule/supplied/protectStation,
+/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/reset/purge,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "aMJ" = (
 /obj/item/radio/intercom{
@@ -5319,11 +5359,27 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
+"aPt" = (
+/obj/structure/table,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/item/aiModule/supplied/quarantine,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "aPu" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
+"aPx" = (
+/obj/structure/table,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/item/aiModule/supplied/freeform,
+/turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "aPy" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -5551,6 +5607,21 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron,
 /area/storage/primary)
+"aQz" = (
+/obj/structure/table,
+/obj/item/aiModule/reset,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/status_display/ai{
+	pixel_x = -32
+	},
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_y = -24
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "aQD" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -6730,6 +6801,12 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/turf/open/floor/iron/dark,
+/area/storage/tech)
+"aYn" = (
+/obj/structure/table,
+/obj/item/aicard,
+/obj/item/aiModule/reset,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "aYo" = (
@@ -26593,14 +26670,6 @@
 "faV" = (
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
-"fbb" = (
-/obj/structure/table,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/item/aiModule/supplied/freeform,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "fbm" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white{
@@ -29296,14 +29365,6 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/iron/dark,
 /area/science/server)
-"fYN" = (
-/obj/machinery/lapvend,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/purple,
-/turf/open/floor/iron/white,
-/area/science/research)
 "fZj" = (
 /obj/structure/closet/crate,
 /obj/structure/cable/yellow{
@@ -31868,25 +31929,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
-"hao" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	dir = 8;
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = 24
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmful,
-/obj/item/aiModule/supplied/oxygen,
-/obj/item/aiModule/supplied/protectStation,
-/obj/item/aiModule/zeroth/oneHuman,
-/obj/item/aiModule/reset/purge,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "hbi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -41867,12 +41909,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"kHt" = (
-/obj/structure/table,
-/obj/item/aicard,
-/obj/item/aiModule/reset,
-/turf/open/floor/iron/dark,
-/area/storage/tech)
 "kHK" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Central Primary Hallway - Fore - Starboard Corner"
@@ -55994,13 +56030,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"pOu" = (
-/obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "pOJ" = (
 /obj/machinery/light,
 /obj/structure/rack,
@@ -65523,14 +65552,6 @@
 	},
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
-"tlz" = (
-/obj/structure/table,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/item/aiModule/supplied/quarantine,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "tlP" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -68893,27 +68914,6 @@
 /obj/effect/landmark/loneops,
 /turf/open/space/basic,
 /area/space)
-"uur" = (
-/obj/structure/table,
-/obj/item/aiModule/core/full/asimov,
-/obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/item/aiModule/core/freeformcore,
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/effect/spawner/lootdrop/aimodule_neutral,
-/obj/item/aiModule/core/full/custom,
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = 24
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "uuF" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "transittube";
@@ -71132,21 +71132,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
-"vjr" = (
-/obj/structure/table,
-/obj/item/aiModule/reset,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/status_display/ai{
-	pixel_x = -32
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = -24
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "vkd" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
@@ -71322,6 +71307,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"vmT" = (
+/obj/machinery/lapvend,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/purple,
+/turf/open/floor/iron/white,
+/area/science/research)
 "vmU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -104595,10 +104588,10 @@ aHx
 aaa
 aJS
 aJS
-uur
+aMG
 aOa
-tlz
-vjr
+aPt
+aQz
 aJS
 aaa
 aUv
@@ -104899,7 +104892,7 @@ tMi
 sRD
 eFh
 trD
-pOu
+pmD
 pmD
 uPm
 xSE
@@ -106137,9 +106130,9 @@ aHx
 aaa
 aJS
 aJS
-hao
+aMI
 aOe
-fbb
+aPx
 aQD
 aJS
 aaa
@@ -108749,7 +108742,7 @@ aYX
 ukx
 bXV
 bZj
-fYN
+vmT
 lDD
 qVh
 dUd
@@ -118481,7 +118474,7 @@ pBX
 thN
 qkS
 aWv
-kHt
+aYn
 aZB
 bbr
 bcD

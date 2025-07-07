@@ -4,7 +4,7 @@
 				/datum/surgery_step/incise_heart, /datum/surgery_step/coronary_bypass, /datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 
-/datum/surgery/coronary_bypass/can_start(mob/user, mob/living/carbon/target, target_zone)
+/datum/surgery/coronary_bypass/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/heart/H = target.get_organ_slot(ORGAN_SLOT_HEART)
 	if(H)
 		if(H.damage > 60 && !H.operated)
@@ -22,12 +22,12 @@
 	success_sound = 'sound/surgery/scalpel2.ogg'
 	failure_sound = 'sound/surgery/organ2.ogg'
 
-/datum/surgery_step/incise_heart/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/incise_heart/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to make an incision in [target]'s heart..."),
 		"[user] begins to make an incision in [target]'s heart.",
 		"[user] begins to make an incision in [target]'s heart.")
 
-/datum/surgery_step/incise_heart/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/incise_heart/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if (!HAS_TRAIT(H, TRAIT_NOBLOOD))
@@ -36,9 +36,9 @@
 				"")
 			H.add_bleeding(BLEED_DEEP_WOUND)
 			H.adjustBruteLoss(10)
-	return TRUE
+	return ..()
 
-/datum/surgery_step/incise_heart/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/incise_heart/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		display_results(user, target, span_warning("You screw up, cutting too deeply into the heart!"),
@@ -54,12 +54,12 @@
 	implements = list(TOOL_HEMOSTAT = 90, TOOL_WIRECUTTER = 35, /obj/item/stack/package_wrap = 15, /obj/item/stack/cable_coil = 5)
 	time = 90
 
-/datum/surgery_step/coronary_bypass/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/coronary_bypass/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to graft a bypass onto [target]'s heart..."),
 			"[user] begins to graft something onto [target]'s heart!",
 			"[user] begins to graft something onto [target]'s heart!")
 
-/datum/surgery_step/coronary_bypass/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/coronary_bypass/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	target.setOrganLoss(ORGAN_SLOT_HEART, 60)
 	var/obj/item/organ/heart/heart = target.get_organ_slot(ORGAN_SLOT_HEART)
 	if(heart)	//slightly worrying if we lost our heart mid-operation, but that's life
@@ -67,9 +67,9 @@
 	display_results(user, target, span_notice("You successfully graft a bypass onto [target]'s heart."),
 			"[user] finishes grafting something onto [target]'s heart.",
 			"[user] finishes grafting something onto [target]'s heart.")
-	return TRUE
+	return ..()
 
-/datum/surgery_step/coronary_bypass/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/coronary_bypass/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		display_results(user, target, span_warning("You screw up in attaching the graft, and it tears off, tearing part of the heart!"),

@@ -229,7 +229,7 @@
 
 /obj/item/organ/eyes/robotic/glow/Initialize(mapload)
 	. = ..()
-	mob_overlay = image('icons/mob/human_face.dmi', "eyes_glow_gs")
+	mob_overlay = image('icons/mob/species/human/human_face.dmi', "eyes_glow_gs")
 
 /obj/item/organ/eyes/robotic/glow/Destroy()
 	terminate_effects()
@@ -405,6 +405,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
 	desc = "These eyes seem to have increased sensitivity to bright light, with a small improvement to low light vision."
+	eye_icon_state = "motheyes"
+	icon_state = "eyeballs-moth"
 	see_in_dark = NIGHTVISION_FOV_RANGE/2 //4 tiles compared to 8 of the apids
 	flash_protect = -1
 

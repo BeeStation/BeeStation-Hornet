@@ -54,3 +54,52 @@
       was disabled
   - bugfix: Fixed logins always erroneously determining that a user does not exist
       in the database.
+2025-07-03:
+  ClownMoff:
+  - rscadd: Added a missing fire alarm in RadStation Brig, in the processing room.
+  - rscdel: Removed an extra unnecesary fire alarm in MetaStation, in medbay.
+2025-07-04:
+  Isaacnml, Gilgax:
+  - balance: Replaces the Hardstun of Venus Human Traps with a knockdown ontop of
+      stamina damage
+  - balance: Cyborgs are now slowed down by 50% for 10 seconds upon being hit by  a
+      ranged attack from the vines
+  - balance: Venus Human Traps, Lowers their damage from 25 to 10
+  - balance: Venus Human Traps, Health changed to 100
+  - balance: While a mob is attached to a venus human trap, they receive 10 constant
+      stamina damage until the vine is broken
+  - balance: Lowered the amount of health healed by hitting a mob that is alive to
+      5%
+  - balance: Venus Human Trap ranged attack is only able to hit mobs/objects
+  - balance: Venus Human Traps only heal 5% when inside the vines
+  - balance: Venus Human Trap AI retreats at 50% health back to the vines, regardless
+      if they're in combat or not, provided they have line of sight with them
+  - balance: Venus Human Trap ranged attack can be broken if something pulls the object/mob
+  - balance: Venus Human Traps now prioritize attacking mobs inside vines
+  PowerfulBacon:
+  - balance: Antagonist and heavy armours will now block piercing syringes.
+  - balance: Any clothing that has at least 10 bullet or melee armour will block standard
+      syringes and injections.
+  - bugfix: Fixes multiple incorrect uses of can_inject which would have caused syringe
+      guns not to function
+2025-07-06:
+  Nakalon:
+  - tweak: Cook Vendor is no longer free for cooks and now includes some ingredients
+      and condiments
+  - balance: Reduced Cook Pay
+  - balance: Reduced amount of ingredients available roundstart in freezers
+  - tweak: Changed the name of the cook vendor and restoking unit
+  PinkSuzuki:
+  - bugfix: Fixes Mimes not being able to send emoji messages
+  PowerfulBacon:
+  - bugfix: Localhost now has an admin rank for debugging again.
+2025-07-07:
+  rkz, Mothblocks, JohnFulpWillard, capsaicinz, Kapu1178:
+  - bugfix: fixes prosthetic surgery not removing the old limb
+  - rscadd: adds text output for failing to attach prosthetics
+  - code_imp: unit tests various surgeries to prevent regressions
+  - refactor: refactors surgery procs to pass args to consider a sterile testing environment
+      (we need our code to actually work in a unit test)
+  - bugfix: cleans up 'repeating' surgeries. Surgeries will try to repeat as a default
+      behavior if they fail at first (like using a kitchen knife as a scalpel for
+      tend wounds)
