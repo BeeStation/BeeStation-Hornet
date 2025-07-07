@@ -14,12 +14,12 @@
  */
 /obj/structure/closet/emcloset
 	name = "emergency closet"
-	desc = "It's a storage unit for emergency breath masks and O2 tanks."
+	desc = "It's a storage unit for emergency vacuum exposure."
 	icon_state = "emergency"
 
 /obj/structure/closet/emcloset/empty
 	name = "emergency closet"
-	desc = "It's a storage unit for emergency breath masks and O2 tanks."
+	desc = "It's a storage unit for emergency vacuum exposure."
 	icon_state = "emergency"
 
 /obj/structure/closet/emcloset/empty/PopulateContents()
@@ -35,36 +35,17 @@
 
 /obj/structure/closet/emcloset/PopulateContents()
 	..()
-
-	if (prob(40))
-		new /obj/item/storage/toolbox/emergency(src)
-
-	switch (pick_weight(list("small" = 40, "aid" = 25, "tank" = 20, "both" = 10, "nothing" = 4)))
-		if ("small")
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/clothing/mask/breath(src)
-			new /obj/item/clothing/mask/breath(src)
-			for(var/i in 1 to rand(1,3))
-				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-
-		if ("aid")
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/storage/firstaid/o2(src)
-			new /obj/item/clothing/mask/breath(src)
-			for(var/i in 1 to rand(1,3))
-				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-
-		if ("tank")
-			new /obj/item/tank/internals/air(src)
-			new /obj/item/clothing/mask/breath(src)
-			for(var/i in 1 to rand(1,3))
-				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-
-		if ("both")
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/clothing/mask/breath(src)
-			new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
+	new /obj/item/storage/toolbox/emergency(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
+	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
+	new /obj/item/storage/firstaid/o2/mini(src)
+	new /obj/item/flashlight/oxycandle(src)
+	new /obj/item/flashlight/oxycandle(src)
+	new /obj/item/grenade/chem_grenade/smart_metal_foam(src)
 
 /*
  * Fire Closet
@@ -86,18 +67,17 @@
 	..()
 
 	new /obj/item/clothing/suit/utility/fire/firefighter(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/internals/oxygen/red(src)
-	new /obj/item/extinguisher(src)
-	new /obj/item/clothing/head/utility/hardhat/red(src)
-
-/obj/structure/closet/firecloset/full/PopulateContents()
 	new /obj/item/clothing/suit/utility/fire/firefighter(src)
+	new /obj/item/clothing/head/utility/hardhat/red(src)
+	new /obj/item/clothing/head/utility/hardhat/red(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/flashlight(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
-	new /obj/item/clothing/head/utility/hardhat/red(src)
+	new /obj/item/extinguisher(src)
+	new /obj/item/storage/toolbox/emergency(src)
+	new /obj/item/storage/firstaid/fire/mini(src)
 
 /*
  * Tool Closet
