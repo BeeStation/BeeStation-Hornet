@@ -1,7 +1,6 @@
 import { NtosWindow } from '../layouts';
-import { Section, Box } from '../components';
-import { Component } from 'react';
-import { useBackend } from '../backend';
+import { VirusReadme } from './VirusReadme';
+import './VirusReadme.css';
 
 // Static header always visible
 const header = String.raw`
@@ -27,8 +26,9 @@ Ok!
 
 Gloves are off this time.
 
-We have decided to use our knowledge of NTOS Virus Buster to deliver it's reckoning.
-(or is it reconing? Rekoning? I mean like, it will cease to be.)
+We have decided to use our knowledge of NTOS Virus Buster to
+deliver it's reckoning. (or is it reconing? Rekoning?
+I mean like, it will cease to be.)
 
 While they hide behind their walls NT keeps reeping in the rewards of
 exploiting the common person, that has nowhere better to be...
@@ -54,7 +54,8 @@ Manual Usage:
  3. Completely removes Virus Buster from your device.
 
 Notes:
- • Careful. The virus doesn't stack. So if they have level 3 package they can only go down to 2.
+ • Careful. The virus doesn't stack. So if they have level 3
+   package they can only go down to 2.
  • This is ideal for manual uninstalls of VB (To set up other viruses)
  • The cartrige will self-destroy on use.
 
@@ -62,55 +63,17 @@ Let them fear us!
 - Hellraisers  ⧉ 2536
 `;
 
-const FPS = 150;
-const tickInterval = 1000 / FPS;
+export const VirusReadme_Sledge = () => (
+  <NtosWindow title="Sleghamr-README.txt" width={650} height={560}>
+    <NtosWindow.Content>
+      <VirusReadme
+        header={header}
+        preText={intro}
+        text={body}
+        lineDelay={0.1} // ← tweak this to speed up / slow down */
+      />
+    </NtosWindow.Content>
+  </NtosWindow>
+);
 
-export const VirusReadme_Sledge = (props) => {
-  return (
-    <NtosWindow title="Sleghamr-README.txt" width={650} height={560}>
-      <NtosWindow.Content>
-        <ReadmeScroller text={body} preText={intro} />
-      </NtosWindow.Content>
-    </NtosWindow>
-  );
-};
-
-export class ReadmeScroller extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { idx: 0 };
-    this.timer = null;
-    this.fullText = props.preText + props.text;
-  }
-
-  componentDidMount() {
-    this.timer = setInterval(() => this.tick(), tickInterval);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
-  tick() {
-    const { idx } = this.state;
-    if (idx < this.fullText.length) {
-      this.setState({ idx: idx + 1 });
-    }
-  }
-
-  render() {
-    const display = this.fullText.substring(0, this.state.idx);
-    return (
-      <Section fill scrollable backgroundColor="black">
-        {(header + display).split('\n').map((line, i) => (
-          <Box mb={1} key={i} fontFamily="monospace" color="white" style={{ whiteSpace: 'pre-wrap' }}>
-            {line === '' ? '\u00A0' : line}
-          </Box>
-        ))}
-      </Section>
-    );
-  }
-}
-export const interfaces = {
-  VirusReadme_Sledge,
-};
+export const interfaces = { VirusReadme_Sledge };
