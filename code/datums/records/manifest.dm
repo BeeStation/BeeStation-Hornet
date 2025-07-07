@@ -8,8 +8,8 @@
 
 /// Builds the list of crew records for all crew members.
 /datum/manifest/proc/build()
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/readied_player = i
+	for(var/i in GLOB.auth_new_player_list)
+		var/mob/dead/new_player/authenticated/readied_player = i
 		if(readied_player.new_character)
 			log_manifest(readied_player.ckey,readied_player.new_character.mind,readied_player.new_character)
 		if(ishuman(readied_player.new_character))

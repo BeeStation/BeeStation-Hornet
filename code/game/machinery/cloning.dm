@@ -293,12 +293,19 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
-	if(length(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		H.key = C.key
-		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
-		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		check_jobban = ROLE_EXPERIMENTAL_CLONE,
+		poll_time = 30 SECONDS,
+		checked_target = H,
+		jump_target = H,
+		role_name_text = "[H.real_name]'s experimental clone?",
+		alert_pic = H,
+	)
+	if(candidate)
+		H.key = candidate.key
+
+		log_game("[key_name(candidate)] became [H.real_name]'s experimental clone.")
+		message_admins("[key_name_admin(candidate)] became [H.real_name]'s experimental clone.")
 		to_chat(H, span_warning("You will instantly die if you do 'ghost'. Please stand by until the cloning is done."))
 
 //Grow clones to maturity then kick them out.  FREELOADERS
@@ -372,7 +379,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 					O.Insert(mob_occupant)
 				else if(isbodypart(I))
 					var/obj/item/bodypart/BP = I
-					BP.attach_limb(mob_occupant)
+					BP.try_attach_limb(mob_occupant)
 
 			use_power(5000 * speed_coeff) //This might need tweaking.
 
@@ -390,7 +397,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 					O.Insert(mob_occupant)
 				else if(isbodypart(i))
 					var/obj/item/bodypart/BP = i
-					BP.attach_limb(mob_occupant)
+					BP.try_attach_limb(mob_occupant)
 
 			go_out()
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")

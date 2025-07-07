@@ -58,7 +58,7 @@
 		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()
 	else // it's spawned but someone occupied already
-		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something Interesting!")
 
 
 /mob/living/get_spawner_desc()
