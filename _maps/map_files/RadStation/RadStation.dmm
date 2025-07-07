@@ -31298,6 +31298,17 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"kkY" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/obj/structure/filingcabinet/chestdrawer{
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/iron/dark,
+/area/security/prison)
 "kla" = (
 /turf/open/floor/iron/dark/side{
 	dir = 5
@@ -57703,17 +57714,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor,
 /area/engine/atmos)
-"tdZ" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/obj/structure/filingcabinet/chestdrawer{
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/firealarm/directional/south,
-/turf/open/floor/iron/dark,
-/area/security/prison)
 "teh" = (
 /obj/effect/spawner/lootdrop/techstorage/service,
 /obj/effect/spawner/lootdrop/techstorage/service,
@@ -102790,7 +102790,7 @@ kbT
 erK
 tYT
 csB
-tdZ
+kkY
 qLO
 iSB
 xKe
