@@ -60,8 +60,7 @@
 				loc_display = mob_loc.loc
 
 			dat += "ID: [T.imp_in.name] | Location: [loc_display]<BR>"
-			dat += "<A href='byond://?src=[REF(src)];warn=[REF(T)]'>(<font class='bad'><i>Message Holder</i></font>)</A> |<BR>"
-			dat += "********************************<BR>"
+			dat += "<A href='byond://?src=[REF(src)];warn=[REF(T)]'>(<font class='bad'><i>Send Message</i></font>)</A><BR>"
 		dat += "<HR><A href='byond://?src=[REF(src)];lock=1'>{Log Out}</A>"
 	var/datum/browser/popup = new(user, "computer", "Prisoner Management Console", 400, 500)
 	popup.set_content(dat)
