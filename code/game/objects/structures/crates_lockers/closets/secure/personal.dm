@@ -77,16 +77,16 @@
 	to_chat(user, span_warning("Access denied!"))
 
 /obj/structure/closet/secure_closet/personal/allowed(mob/user)
-    if(issilicon(user) || IsAdminGhost(user))
-        return TRUE
-    if(!registered_name)
-        return ..()
-    var/obj/item/card/id/I = user.get_idcard()
-    if(!I)
-        return FALSE
-    if(I.registered_name == registered_name)
-        return TRUE
-    return FALSE
+	if(issilicon(user) || IsAdminGhost(user))
+		return TRUE
+	if(!registered_name)
+		return ..()
+	var/obj/item/card/id/I = user.get_idcard()
+	if(!I)
+		return FALSE
+	if(I.registered_name == registered_name)
+		return TRUE
+	return FALSE
 
 /obj/structure/closet/secure_closet/personal/togglelock(mob/living/user, finger)
 	if(broken)
