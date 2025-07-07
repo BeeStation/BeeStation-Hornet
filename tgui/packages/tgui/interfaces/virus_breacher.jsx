@@ -28,8 +28,8 @@ const tips = [
 const FPS = 40;
 const tickInterval = 1000 / FPS;
 
-export const breacher_virus = () => (
-  <NtosWindow title="breacher_virus.exe" width={450} height={400}>
+export const virus_breacher = () => (
+  <NtosWindow title="BrexerTrojn.exe" width={450} height={400}>
     <NtosWindow.Content>
       <BreacherConsole />
     </NtosWindow.Content>
@@ -157,5 +157,5 @@ class BreacherConsole extends Component {
 }
 
 export const interfaces = {
-  breacher_virus,
+  virus_breacher,
 };
