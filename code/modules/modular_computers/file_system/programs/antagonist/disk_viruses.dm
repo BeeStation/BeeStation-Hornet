@@ -39,13 +39,12 @@
 	extended_desc = "Virus that causes an EMP type event."
 	size = 0
 	available_on_ntnet = FALSE
-	tgui_id = "coil_virus"
+	tgui_id = "virus_coil"
 	program_icon = "charging-station"
 	var/triggered = FALSE
 
 /datum/computer_file/program/coil_virus/on_start(mob/living/user)
 	. = ..()
-	holder = computer.all_components[MC_HDD_JOB]
 	get_user()
 	if(player)
 		sound_channel = rand(200, 800)
@@ -83,6 +82,7 @@
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.identification_string] (NID ?%&!).", log_id = FALSE)
 		else
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.get_network_tag()].", log_id = FALSE)
+	holder = computer.all_components[MC_HDD_JOB]
 	holder.component_qdel()
 
 /datum/computer_file/program/coil_virus/on_ui_close(mob/user, datum/tgui/tgui)
@@ -99,6 +99,7 @@
 	playsound(computer, "sparks", 50)
 	playsound(computer, 'sound/machines/defib_zap.ogg', 25, TRUE)
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	holder = computer.all_components[MC_HDD_JOB]
 	holder.component_qdel()
 	if(card)
 		computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!", log_id = FALSE)
@@ -110,13 +111,12 @@
 	extended_desc = "Detonates the Computer's battery after an arming period."
 	size = 0
 	available_on_ntnet = FALSE
-	tgui_id = "breacher_virus"
+	tgui_id = "virus_breacher"
 	program_icon = "user-secret"
 	var/triggered = FALSE
 
 /datum/computer_file/program/breacher_virus/on_start(mob/living/user)
 	. = ..()
-	holder = computer.all_components[MC_HDD_JOB]
 	get_user()
 	if(player)
 		sound_channel = rand(200, 800)
@@ -143,6 +143,7 @@
 			playsound(computer, "sparks", 50)
 		computer.power_failure()	// Instant explosion
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	holder = computer.all_components[MC_HDD_JOB]
 	holder.component_qdel()
 
 /datum/computer_file/program/breacher_virus/on_ui_close(mob/user, datum/tgui/tgui)
@@ -166,6 +167,7 @@
 	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
 	playsound(computer, "sparks", 50)
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	holder = computer.all_components[MC_HDD_JOB]
 	holder.component_qdel()
 
 /datum/computer_file/program/breacher_virus/ui_act(action, list/params, datum/tgui/ui)
@@ -191,7 +193,6 @@
 
 /datum/computer_file/program/sledge_virus/on_start(mob/living/user)
 	. = ..()
-	holder = computer.all_components[MC_HDD_JOB]
 	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
 	if(!drive.virus_defense)
 		to_chat(user, "<font color='#ff0000'>ERROR:</font> No traces of NTOS Virus Buster found.")
@@ -235,6 +236,7 @@
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.identification_string] (NID ?%&!).", log_id = FALSE)
 		else
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.get_network_tag()].", log_id = FALSE)
+	holder = computer.all_components[MC_HDD_JOB]
 	holder.component_qdel()
 
 /datum/computer_file/program/sledge_virus/ui_act(action, list/params, datum/tgui/ui)

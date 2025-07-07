@@ -30,11 +30,11 @@ const FPS = 55;
 const tickInterval = 1000 / FPS;
 const colourCycle = ['#00dfff', '#00ff00', '#ffea00', '#ff6b00', '#ff006e'];
 
-export const coil_virus = (_props) => {
+export const virus_coil = (_props) => {
   const { act } = useBackend();
 
   return (
-    <NtosWindow title="coil_virus.exe" width={400} height={550}>
+    <NtosWindow title="Coilvrs.exe" width={400} height={550}>
       <NtosWindow.Content>
         <CoilVirusConsole act={act} />
       </NtosWindow.Content>
