@@ -1,5 +1,5 @@
 import { NtosWindow } from '../layouts';
-import { VirusReadme } from './VirusReadme';
+import { VirusReadme } from './VirusHeader';
 import './VirusReadme.css';
 
 // Static header always visible
