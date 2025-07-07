@@ -195,7 +195,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	name = "suture kit"
 	singular_name = "suture kit"
 	desc = "An emergency suture kit used to stitch up lacerations, muscle tears, and to stop bleeding."
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	icon_state = "suture"
+	item_state = "brutepack"
 	merge_type = /obj/item/stack/medical/suture
 	amount = 5
 	max_amount = 5
