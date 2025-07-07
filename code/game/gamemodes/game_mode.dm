@@ -765,7 +765,7 @@
 
 	GLOB.station_goal_selection_open = TRUE
 	GLOB.selected_station_goal = null
-    //Comms Message
+	//Comms Message
 	var/datum/comm_message/msg = new
 	msg.title = "Nanotrasen Directive Selection"
 	msg.content = "Command staff must select a station directive within 20 minutes. Failure to do so will result in automatic assignment."
