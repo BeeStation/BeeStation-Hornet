@@ -79,6 +79,7 @@ export const RestrictedInput = (props) => {
   };
 
   const handleKeyDown = (e) => {
+
     if (e.key === KEY.Enter) {
       const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
       e.target.value = safeNum;
@@ -102,7 +103,29 @@ export const RestrictedInput = (props) => {
       e.target.blur();
       return;
     }
+
+    let restricted_characters = allowFloats ? /[^\d.-]/g : /[^\d-]/g;
+    let allowed_keys = [
+      KEY.Backspace,
+      KEY.Delete,
+      KEY.ArrowLeft,
+      KEY.ArrowRight,
+      KEY.Tab,
+      KEY.Enter,
+      KEY.Escape,
+    ];
+    if (!allowed_keys.includes(e.key) && e.key.length === 1 && restricted_characters.test(e.key)) {
+      e.preventDefault();
+      return;
+    }
   };
+
+  useEffect(() => {
+    const input = inputRef.current;
+    if (input && !editing) {
+      input.value = getClampedNumber(value?.toString(), minValue, maxValue, allowFloats);
+    }
+  }, [value, minValue, maxValue, allowFloats, editing]);
 
   // Effect for setting the input value
   useEffect(() => {
