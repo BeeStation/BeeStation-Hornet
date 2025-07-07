@@ -10,6 +10,7 @@
 		ENVIROSUIT
 	)
 	inherent_traits = list(
+		TRAIT_GENELESS,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
@@ -25,9 +26,7 @@
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5
-	breathid = "tox"
-	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
-	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
+	breathid = GAS_PLASMA
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
@@ -41,12 +40,20 @@
 	// This effects how fast body temp stabilizes, also if cold resit is lost on the mob
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 50) // about -50c
 
-	species_chest = /obj/item/bodypart/chest/plasmaman
-	species_head = /obj/item/bodypart/head/plasmaman
-	species_l_arm = /obj/item/bodypart/l_arm/plasmaman
-	species_r_arm = /obj/item/bodypart/r_arm/plasmaman
-	species_l_leg = /obj/item/bodypart/l_leg/plasmaman
-	species_r_leg = /obj/item/bodypart/r_leg/plasmaman
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/plasmaman,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/plasmaman,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/plasmaman,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/plasmaman,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/plasmaman,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/plasmaman,
+	)
+
+	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
+
+/datum/species/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.set_safe_hunger_level()
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	var/atmos_sealed = FALSE

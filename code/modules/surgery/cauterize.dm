@@ -9,7 +9,7 @@
 	replaced_by = /datum/surgery
 	ignore_clothes = TRUE
 
-/datum/surgery/cauterize/can_start(mob/user, mob/living/carbon/target, target_zone)
+/datum/surgery/cauterize/can_start(mob/user, mob/living/carbon/target)
 	if (..())
 		return TRUE
 	return target.is_bleeding()

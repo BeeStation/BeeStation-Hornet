@@ -82,3 +82,24 @@
       syringes and injections.
   - bugfix: Fixes multiple incorrect uses of can_inject which would have caused syringe
       guns not to function
+2025-07-06:
+  Nakalon:
+  - tweak: Cook Vendor is no longer free for cooks and now includes some ingredients
+      and condiments
+  - balance: Reduced Cook Pay
+  - balance: Reduced amount of ingredients available roundstart in freezers
+  - tweak: Changed the name of the cook vendor and restoking unit
+  PinkSuzuki:
+  - bugfix: Fixes Mimes not being able to send emoji messages
+  PowerfulBacon:
+  - bugfix: Localhost now has an admin rank for debugging again.
+2025-07-07:
+  rkz, Mothblocks, JohnFulpWillard, capsaicinz, Kapu1178:
+  - bugfix: fixes prosthetic surgery not removing the old limb
+  - rscadd: adds text output for failing to attach prosthetics
+  - code_imp: unit tests various surgeries to prevent regressions
+  - refactor: refactors surgery procs to pass args to consider a sterile testing environment
+      (we need our code to actually work in a unit test)
+  - bugfix: cleans up 'repeating' surgeries. Surgeries will try to repeat as a default
+      behavior if they fail at first (like using a kitchen knife as a scalpel for
+      tend wounds)
