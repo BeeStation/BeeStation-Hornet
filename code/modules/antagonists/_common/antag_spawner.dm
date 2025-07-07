@@ -141,7 +141,7 @@
 		poll_time = 15 SECONDS,
 		jump_target = user,
 		role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]",
-		alert_pic = /mob/living/silicon/robot/modules/syndicate,
+		alert_pic = /mob/living/silicon/robot/model/syndicate,
 	)
 	if(candidate)
 		if(QDELETED(src) || !check_usability(user))
