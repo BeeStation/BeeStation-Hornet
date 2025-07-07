@@ -223,13 +223,9 @@
 	if(istype(module, /obj/item/robot_module/syndicate) || emagged)
 		modularInterface.device_theme = THEME_SYNDICATE
 		modularInterface.icon_state = "tablet-silicon-syndicate"
-		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
-		modularInterface.icon_state_unpowered = "tablet-silicon-syndicate"
 	else
 		modularInterface.device_theme = THEME_NTOS
 		modularInterface.icon_state = "tablet-silicon"
-		modularInterface.icon_state_powered = "tablet-silicon"
-		modularInterface.icon_state_unpowered = "tablet-silicon"
 	modularInterface.update_icon()
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
@@ -262,7 +258,7 @@
 			radio.keyslot.forceMove(T)
 			radio.keyslot = null
 	if(autoclean_toggle)
-		autoclean_toggle.Remove(usr)
+		autoclean_toggle.Remove(src)
 	QDEL_NULL(autoclean_toggle)
 	QDEL_NULL(wires)
 	QDEL_NULL(eye_lights)
@@ -583,7 +579,7 @@
 	if(opened)
 		to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
 	else
-		if(allowed(usr))
+		if(allowed(user))
 			locked = !locked
 			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] [src]'s cover."))
 			update_icons()
@@ -675,11 +671,11 @@
 		add_overlay(head_overlay)
 	update_fire()
 
-/mob/living/silicon/robot/proc/self_destruct(mob/usr)
+/mob/living/silicon/robot/proc/self_destruct(mob/user)
 	var/turf/groundzero = get_turf(src)
-	message_admins(span_notice("[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(src, client)] at [ADMIN_VERBOSEJMP(groundzero)]!"))
-	log_game(span_notice("[key_name(usr)] detonated [key_name(src)]!"))
-	log_combat(usr, src, "detonated cyborg", "cyborg_detonation")
+	message_admins(span_notice("[ADMIN_LOOKUPFLW(user)] detonated [key_name_admin(src, client)] at [ADMIN_VERBOSEJMP(groundzero)]!"))
+	log_game(span_notice("[key_name(user)] detonated [key_name(src)]!"))
+	log_combat(user, src, "detonated cyborg", "cyborg_detonation")
 	if(connected_ai)
 		to_chat(connected_ai, "<br><br>[span_alert("ALERT - Cyborg detonation detected: [name]")]<br>")
 
@@ -1127,12 +1123,12 @@
 	if(module.clean_on_move)
 		AddElement(/datum/element/cleaning)
 		autoclean_toggle = new()
-		autoclean_toggle.toggle_target = usr
-		autoclean_toggle.Grant(usr)
+		autoclean_toggle.toggle_target = src
+		autoclean_toggle.Grant(src)
 	else
 		RemoveElement(/datum/element/cleaning)
 		if(autoclean_toggle)
-			autoclean_toggle.Remove(usr)
+			autoclean_toggle.Remove(src)
 			QDEL_NULL(autoclean_toggle)
 
 	hat_offset = module.hat_offset

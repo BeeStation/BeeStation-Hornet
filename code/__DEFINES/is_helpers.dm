@@ -24,7 +24,11 @@ GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA
 #define iscolortext(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // simple check whether or not a player is a guest using their key
-#define IS_GUEST_KEY(key)	(findtextEx(key, "Guest-", 1, 7))
+#define IS_GUEST_KEY(key) (findtextEx(key, "Guest-", 1, 7))
+/// use client.logged_in where possible
+#define IS_PREAUTH_KEY(key) (findtextEx(key, "Guest-preauth", 1, 14))
+/// use client.logged_in where possible
+#define IS_PREAUTH_CKEY(key) (findtextEx(key, "guestpreauth", 1, 13))
 
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.

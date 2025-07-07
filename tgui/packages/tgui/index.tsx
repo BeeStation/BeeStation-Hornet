@@ -12,6 +12,7 @@ import './styles/themes/cardtable.scss';
 import './styles/themes/clockwork.scss';
 import './styles/themes/elevator.scss';
 import './styles/themes/hackerman.scss';
+import './styles/themes/login.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/narsie.scss';
 import './styles/themes/neutral.scss';
