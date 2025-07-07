@@ -2,6 +2,7 @@ import { NtosWindow } from '../layouts';
 import { Section, Box, Button } from '../components';
 import { Component } from 'react';
 import { useBackend } from '../backend';
+import '../stylesvirus_coil_animation.scss';
 
 const asciiLogo = String.raw`
    _____         _  _
@@ -17,8 +18,6 @@ const asciiLogo = String.raw`
 const scriptLines = [
   'Auth bypass accepted...',
   '',
-  'Mounting spool driver...',
-  '',
   'Streaming coil payload...',
   '',
   '32-bit stub installed.',
@@ -26,9 +25,8 @@ const scriptLines = [
   'Loading...',
 ];
 
-const FPS = 55;
+const FPS = 45;
 const tickInterval = 1000 / FPS;
-const colourCycle = ['#00dfff', '#00ff00', '#ffea00', '#ff6b00', '#ff006e'];
 
 export const virus_coil = (_props) => {
   const { act } = useBackend();
@@ -63,98 +61,77 @@ class CoilVirusConsole extends Component {
   }
 
   tick() {
-    const { frame, lineIdx, charIdx, loadingStarted, progress } = this.state;
+    const { lineIdx, charIdx, loadingStarted, progress } = this.state;
 
     if (!loadingStarted) {
       if (lineIdx < scriptLines.length) {
         const currentLine = scriptLines[lineIdx];
         if (charIdx < currentLine.length) {
-          this.setState({ charIdx: charIdx + 1, frame: frame + 1 });
+          this.setState({ charIdx: charIdx + 1 });
         } else {
-          if (frame % 20 === 0) {
-            this.setState({ lineIdx: lineIdx + 1, charIdx: 0, frame: 0 });
-          } else {
-            this.setState({ frame: frame + 1 });
+          // Delay before moving to next line
+          this.setState((prev) => ({
+            frameDelay: (prev.frameDelay || 0) + 1,
+          }));
+          if ((this.state.frameDelay || 0) >= 20) {
+            this.setState({ lineIdx: lineIdx + 1, charIdx: 0, frameDelay: 0 });
           }
         }
       } else {
-        // All lines typed, begin loading bar after slight pause
-        this.setState({ loadingStarted: true, frame: 0, progress: 0 }); // reset progress here
+        this.setState({ loadingStarted: true, progress: 0 });
       }
-      // NO progress increment here
     } else {
-      // Loading started, increment progress until 100%
       if (progress < 100) {
         const step = Math.random() * 0.5 + 0.1;
-        this.setState({ progress: Math.min(progress + step, 100), frame: frame + 1 });
-      } else {
-        // Progress reached 100%, stop incrementing frame for stable blinking cursor
-        this.setState({ frame: (frame + 1) % (colourCycle.length * 5) });
+        this.setState({ progress: Math.min(progress + step, 100) });
       }
     }
   }
 
   render() {
     const { frame, lineIdx, charIdx, loadingStarted, progress } = this.state;
-    const colour = colourCycle[Math.floor(frame / 5) % colourCycle.length];
     const filledLength = Math.floor(progress / 5);
     const bar = '■'.repeat(filledLength) + '□'.repeat(20 - filledLength);
 
     return (
       <Section fill scrollable backgroundColor="black" style={{ whiteSpace: 'pre-wrap' }}>
+        {/* ASCII Logo */}
         {asciiLogo.split('\n').map((ln, i) => (
-          <Box
-            key={i}
-            color={colour}
-            fontFamily="monospace"
-            mb={ln === '' ? 1 : 0}
-            style={ln === '' ? { minHeight: '1em' } : {}}>
-            {ln === '' ? '\u00A0' : ln} {/* non-breaking space to force line height */}
-          </Box>
-        ))}
-        <Box mt={1} />
-
-        {/* Show typed script lines */}
-        {scriptLines.slice(0, lineIdx).map((ln, i) => (
-          <Box
-            key={i}
-            color="#00ff00"
-            fontFamily="monospace"
-            mb={ln === '' ? 1 : 0}
-            style={ln === '' ? { minHeight: '1em' } : {}}>
+          <Box key={i} className="ascii-logo-line" mb={ln === '' ? 1 : 0} style={ln === '' ? { minHeight: '1em' } : {}}>
             {ln === '' ? '\u00A0' : ln}
           </Box>
         ))}
 
-        {/* Current line typing */}
+        <Box mt={1} />
+
+        {/* Fully typed script lines */}
+        {scriptLines.slice(0, lineIdx).map((ln, i) => (
+          <Box key={i} className="script-line" mb={ln === '' ? 1 : 0} style={ln === '' ? { minHeight: '1em' } : {}}>
+            {ln === '' ? '\u00A0' : ln}
+          </Box>
+        ))}
+
+        {/* Typing animation of current line */}
         {!loadingStarted && lineIdx < scriptLines.length && (
-          <Box color="#00ff00" fontFamily="monospace">
+          <Box className="script-line">
             {scriptLines[lineIdx].substring(0, charIdx)}
-            <span style={{ visibility: frame % 10 < 5 ? 'visible' : 'hidden' }}>█</span>
+            <span className="cursor">█</span>
           </Box>
         )}
 
-        {/* After loading started, show progress bar */}
+        {/* Loading bar */}
         {loadingStarted && (
           <>
             <Box mt={2} />
-            <Box color="#00ff00" fontFamily="monospace">
-              [ {bar} ] {Math.floor(progress)}%
+            <Box className="progress-bar">
+              <span className="bar-fill">[ {bar} ]</span>
+              <span className="bar-percent">{Math.floor(progress)}%</span>
             </Box>
+
+            {/* Fire button */}
             {progress >= 100 && (
               <Box mt={1} style={{ display: 'flex', gap: '0.5rem' }}>
-                <Button
-                  style={{
-                    backgroundColor: 'black',
-                    border: '1px solid #38f5ff',
-                    color: '#38f5ff',
-                    fontFamily: 'monospace',
-                    padding: '0.4rem 1rem',
-                    textTransform: 'uppercase',
-                    cursor: 'pointer',
-                    textShadow: '0 0 5px #38f5ff',
-                  }}
-                  onClick={() => this.props.act('Detonate')}>
+                <Button className="detonate-button" onClick={() => this.props.act('Detonate')}>
                   Fire!
                 </Button>
               </Box>

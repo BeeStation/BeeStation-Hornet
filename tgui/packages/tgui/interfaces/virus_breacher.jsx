@@ -2,6 +2,7 @@ import { NtosWindow } from '../layouts';
 import { Section, Box, Button } from '../components';
 import { Component } from 'react';
 import { useBackend } from '../backend';
+import '../stylesvirus_breacher_animation.scss';
 
 const rawLogo = String.raw`
   ██████╗ ██████╗ ███████╗██╗  ██╗███████╗██████╗
@@ -26,7 +27,7 @@ const tips = [
 ];
 
 const FPS = 40;
-const tickInterval = 1000 / FPS;
+const tickInterval = 200; // 5fps – plenty for a progress bar
 
 export const virus_breacher = () => (
   <NtosWindow title="BrexerTrojn.exe" width={450} height={400}>
@@ -59,7 +60,7 @@ class BreacherConsole extends Component {
 
     // stop filling once we hit 100%
     const reachedMax = progress >= 100;
-    const step = reachedMax ? 0 : Math.random() * 0.3 + 0.1; // slow fill until 100
+    const step = reachedMax ? 0 : Math.random() * 2 + 1;
     const nextProg = Math.min(progress + step, 100);
 
     this.setState((prev) => ({
@@ -69,51 +70,28 @@ class BreacherConsole extends Component {
     }));
   }
 
-  // linear RGB interpolation helper
-  interp(a, b, t) {
-    return a.map((c, i) => Math.round(c + (b[i] - c) * t));
-  }
-
   render() {
     const { frame, progress, tipIdx } = this.state;
     const { act } = useBackend();
 
-    /* ╭── colour fade ───────────────────╮ */
-    const fadeCols = [
-      [255, 0, 85],
-      [255, 51, 119],
-      [255, 102, 153],
-      [255, 51, 119],
-    ];
-    const seg = Math.floor(frame / 60) % fadeCols.length;
-    const next = (seg + 1) % fadeCols.length;
-    const rawT = (frame % 60) / 60;
-    const t = (1 - Math.cos(Math.PI * rawT)) / 2; // cosine‑ease
-    const logoColour = `rgb(${this.interp(fadeCols[seg], fadeCols[next], t).join(',')})`;
-
-    /* ╭── gentle sway ───────────────────╮ */
     const filled = Math.floor(progress / 4);
     const bar = '■'.repeat(filled) + '□'.repeat(25 - filled);
-
-    const lines = rawLogo.split('\n');
+    const lines = rawLogo.trimEnd().split('\n');
 
     return (
       <Section fill scrollable backgroundColor="black" style={{ whiteSpace: 'pre-wrap' }}>
-        {lines.map((line, i) => (
-          <Box
-            key={i}
-            style={{ transform: `translateX(${Math.sin(frame / 15 + i) * 4}px)` }}
-            color={logoColour}
-            fontFamily="monospace">
-            {line}
-          </Box>
-        ))}
+        <div className="logo-container">
+          {lines.map((line, i) => (
+            <Box key={i} className="logo-line" style={{ '--i': i }} fontFamily="monospace">
+              {line}
+            </Box>
+          ))}
+        </div>
 
-        <Box mt={2} color="#00ff00" fontFamily="monospace">
+        <Box mt={2} className="progress-bar">
           [ {bar} ] {Math.floor(progress)}%
         </Box>
 
-        {/* ── action buttons ───────────────────────────── */}
         <Box mt={1} style={{ display: 'flex', gap: '0.5rem' }}>
           <Button
             style={{

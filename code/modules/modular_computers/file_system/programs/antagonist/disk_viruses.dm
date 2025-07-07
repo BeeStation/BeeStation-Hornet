@@ -82,8 +82,8 @@
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.identification_string] (NID ?%&!).", log_id = FALSE)
 		else
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.get_network_tag()].", log_id = FALSE)
-	holder = computer.all_components[MC_HDD_JOB]
-	holder.component_qdel()
+	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
+	disk.component_qdel()
 
 /datum/computer_file/program/coil_virus/on_ui_close(mob/user, datum/tgui/tgui)
 	. = ..()
@@ -99,10 +99,10 @@
 	playsound(computer, "sparks", 50)
 	playsound(computer, 'sound/machines/defib_zap.ogg', 25, TRUE)
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
-	holder = computer.all_components[MC_HDD_JOB]
-	holder.component_qdel()
+	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
 	if(card)
 		computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!", log_id = FALSE)
+	disk.component_qdel()
 
 /datum/computer_file/program/breacher_virus
 	filename = "BrexerTrojn.exe"
@@ -136,15 +136,14 @@
 		dud()
 		return
 	var/obj/item/computer_hardware/battery/controler = computer.all_components[MC_CELL]
-	if(controler)
-		if(!controler.hacked)
-			controler.hacked = TRUE
-			new /obj/effect/particle_effect/sparks/red(get_turf(computer))
-			playsound(computer, "sparks", 50)
-		computer.power_failure()	// Instant explosion
+	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	holder = computer.all_components[MC_HDD_JOB]
-	holder.component_qdel()
+	if(controler)
+		new /obj/effect/particle_effect/sparks/red(get_turf(computer))
+		playsound(computer, "sparks", 50)
+		computer.battery_explosion()	// Instant explosion
+	if(disk)
+		disk.component_qdel()
 
 /datum/computer_file/program/breacher_virus/on_ui_close(mob/user, datum/tgui/tgui)
 	. = ..()
@@ -159,6 +158,7 @@
 /datum/computer_file/program/breacher_virus/proc/dud()
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
 	computer.update_appearance()
 	if(card)
 		card.component_qdel()
@@ -167,8 +167,7 @@
 	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
 	playsound(computer, "sparks", 50)
 	playsound(computer, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	holder = computer.all_components[MC_HDD_JOB]
-	holder.component_qdel()
+	disk.component_qdel()
 
 /datum/computer_file/program/breacher_virus/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
@@ -236,8 +235,8 @@
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.identification_string] (NID ?%&!).", log_id = FALSE)
 		else
 			computer.add_log("SYSnotice :: Executable anomaly detected... Manual execution of *UNKNOWN* at: [card.get_network_tag()].", log_id = FALSE)
-	holder = computer.all_components[MC_HDD_JOB]
-	holder.component_qdel()
+	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
+	disk.component_qdel()
 
 /datum/computer_file/program/sledge_virus/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
