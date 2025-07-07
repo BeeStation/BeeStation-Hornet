@@ -35,8 +35,8 @@
 	if (!istype(reagent, /datum/reagent/medicine/silver_sulfadiazine) && !istype(reagent, /datum/reagent/medicine/advanced_burn_gel))
 		return
 	var/total_volume = victim.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) + victim.reagents.get_reagent_amount(/datum/reagent/medicine/advanced_burn_gel)
-	if (total_volume < 5)
-		to_chat(victim, span_warning("The pain in your blisters start to numb, however they do not fully subside. You need more burn gel!"))
+	if (reac_volume < 5)
+		to_chat(victim, span_warning("The pain in your blisters start to numb, however they do not fully subside. It wasn't enough!"))
 		return
 	if (method != TOUCH && method != PATCH)
 		return
