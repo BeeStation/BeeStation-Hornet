@@ -1,6 +1,6 @@
 import { NtosWindow } from '../layouts';
-import { VirusReadme } from './VirusHeader';
-import './VirusReadme.css';
+import { VirusHeader } from './VirusHeader';
+import '../styles/VirusReadme.scss';
 
 // Static header always visible
 const header = String.raw`
@@ -71,7 +71,7 @@ export const VirusReadme_Breacher = (props) => {
   return (
     <NtosWindow title="BrexerTrojn-README.txt" width={650} height={560}>
       <NtosWindow.Content>
-        <VirusReadme
+        <VirusHeader
           header={header}
           preText={intro}
           text={body}

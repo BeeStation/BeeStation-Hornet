@@ -1,6 +1,6 @@
 // Pure‑CSS scroller (no React timers)
 import { Box } from '../components';
-import './VirusReadme.css';
+import '../styles/VirusReadme.scss';
 
 /**
  * @param header     – static ASCII banner (string)
@@ -8,7 +8,7 @@ import './VirusReadme.css';
  * @param text       – main body (string)
  * @param lineDelay  – seconds between each line (number) –‑ default 0.04s
  */
-export const VirusReadme = ({ header = '', preText = '', text = '', lineDelay = 0.04 }) => {
+export const VirusHeader = ({ header = '', preText = '', text = '', lineDelay = 0.04 }) => {
   const combined = [header, preText, text].join('\n').trimEnd();
   const lines = combined.split('\n');
 
