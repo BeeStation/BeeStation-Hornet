@@ -79,7 +79,6 @@ export const RestrictedInput = (props) => {
   };
 
   const handleKeyDown = (e) => {
-
     if (e.key === KEY.Enter) {
       const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
       e.target.value = safeNum;
@@ -105,15 +104,7 @@ export const RestrictedInput = (props) => {
     }
 
     let restricted_characters = allowFloats ? /[^\d.-]/g : /[^\d-]/g;
-    let allowed_keys = [
-      KEY.Backspace,
-      KEY.Delete,
-      KEY.ArrowLeft,
-      KEY.ArrowRight,
-      KEY.Tab,
-      KEY.Enter,
-      KEY.Escape,
-    ];
+    let allowed_keys = [KEY.Backspace, KEY.Delete, KEY.ArrowLeft, KEY.ArrowRight, KEY.Tab, KEY.Enter, KEY.Escape];
     if (!allowed_keys.includes(e.key) && e.key.length === 1 && restricted_characters.test(e.key)) {
       e.preventDefault();
       return;
