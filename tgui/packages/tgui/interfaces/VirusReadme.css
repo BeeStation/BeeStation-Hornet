@@ -6,7 +6,7 @@
   background: black;
   padding: 0.5rem;
   overflow-y: auto;
-  height: 100%;           /* fill the NTOS content area */
+  height: 100%;
 }
 
 .readme-line {
