@@ -8,15 +8,17 @@
 	item_state = "oxycandle"
 	actions_types = list()
 	/// How many seconds of fuel we have left
-	var/fuel = 0
+	var/fuel = 300
 	var/on_damage = 7
 	var/produce_heat = 1500
+	var/gasmix = "o2=3;co2=1;n2=1.1;water_vapor=0.2;TEMP=345"
 	heat = 1000
 	light_color = LIGHT_COLOR_TUNGSTEN
 	light_system = MOVABLE_LIGHT
 	grind_results = list(/datum/reagent/sulfur = 4, /datum/reagent/chlorine = 7, /datum/reagent/sodium = 11)
 	sound_on = 'sound/items/match_strike.ogg'
 	sound_off = null
+
 
 /obj/item/flashlight/oxycandle/Initialize(mapload)
 	. = ..()
@@ -29,7 +31,7 @@
 	var/turf/open/our_turf = get_turf(src)
 	if(!isturf(our_turf))
 		return
-	our_turf.atmos_spawn_air("o2=3;co2=1;n2=1.1;water_vapor=0.2;TEMP=345")
+	our_turf.atmos_spawn_air(gasmix)
 
 	if(fuel <= 0)
 		turn_off()
@@ -92,3 +94,16 @@
 	user.dropItemToGround(src)
 	C.emote("scream")
 	return
+
+/obj/item/flashlight/oxycandle/hellfire
+	name = "Portable Hellfire"
+	desc = "Some crackhead thought this up, surely. But... why is it so professionally made?"
+	light_range = 7
+	light_color = LIGHT_COLOR_BLOOD_MAGIC
+	gasmix = "o2=5;plasma=10;TEMP=700"
+	icon_state = "hellcandle"
+	item_state = "hellcandle"
+
+/obj/item/flashlight/oxycandle/hellfire/Initialize(mapload)
+	. = ..()
+	fuel = 10

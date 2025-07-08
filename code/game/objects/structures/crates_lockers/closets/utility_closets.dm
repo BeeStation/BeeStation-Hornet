@@ -95,15 +95,13 @@
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
 
-	// Guaranteed but number varies
-	switch(rand(30))
-		if(0 to 10) //  1
+	// Number varies
+	switch(rand(100))
+		if(0 to 50) // Boohoo you lost the lottery
+			new /obj/item/reagent_containers/hypospray/medipen(src)
+		if(51 to 90) // 2
 			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
-		if(11 to 20) // 2
-			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
-			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
-		if(21 to 30) // 3
-			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+		if(91 to 100) // 3
 			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
 			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
 
