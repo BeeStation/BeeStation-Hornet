@@ -35,13 +35,35 @@
 
 /obj/structure/closet/emcloset/PopulateContents()
 	..()
-	new /obj/item/storage/toolbox/emergency(src)
+	// Guaranteed, 2 Suits:
 	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-	new /obj/item/flashlight/oxycandle(src)
-	new /obj/item/flashlight/oxycandle(src)
-	new /obj/item/grenade/chem_grenade/smart_metal_foam(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
+
+	// Guaranteed but number varies
+	switch(rand(30))
+		if(0 to 10) //  1
+			new /obj/item/flashlight/oxycandle(src)
+		if(11 to 20) // 2
+			new /obj/item/flashlight/oxycandle(src)
+			new /obj/item/flashlight/oxycandle(src)
+		if(21 to 30) // 3
+			new /obj/item/flashlight/oxycandle(src)
+			new /obj/item/flashlight/oxycandle(src)
+			new /obj/item/flashlight/oxycandle(src)
+
+	// Roll for 2 supplementary items
+	for(var/i in 1 to 2)
+		switch(rand(30))
+			if(0 to 10) //  1
+				new /obj/item/storage/toolbox/emergency(src)
+			if(11 to 20) // 2
+				new /obj/item/grenade/chem_grenade/smart_metal_foam(src)
+			if(21 to 30) // 3
+				new /obj/item/reagent_containers/hypospray/medipen/vactreat(src)
 
 /*
  * Fire Closet
@@ -61,13 +83,40 @@
 
 /obj/structure/closet/firecloset/PopulateContents()
 	..()
-
+	//Guaranteed, 2 Suits
 	new /obj/item/clothing/suit/utility/fire/firefighter(src)
 	new /obj/item/clothing/head/utility/hardhat/red(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
-	new /obj/item/storage/toolbox/emergency(src)
+	new /obj/item/clothing/suit/utility/fire/firefighter(src)
+	new /obj/item/clothing/head/utility/hardhat/red(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/tank/internals/oxygen/red(src)
+	new /obj/item/extinguisher(src)
+
+	// Guaranteed but number varies
+	switch(rand(30))
+		if(0 to 10) //  1
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+		if(11 to 20) // 2
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+		if(21 to 30) // 3
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+
+
+	// Roll for 2 supplementary items
+	for(var/i in 1 to 2)
+		switch(rand(30))
+			if(0 to 10) //  1
+				new /obj/item/storage/toolbox/emergency(src)
+			if(11 to 20) // 2
+				new /obj/item/extinguisher(src)
+			if(21 to 30) // 3
+				new /obj/item/reagent_containers/hypospray/medipen(src)
 
 /*
  * Tool Closet
