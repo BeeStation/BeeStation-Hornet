@@ -153,6 +153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	set_target(null)
 	set_leader(null)
 	clear_friends()
+	remove_from_spawner_menu()
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
