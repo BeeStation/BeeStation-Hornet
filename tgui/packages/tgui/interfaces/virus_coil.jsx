@@ -2,7 +2,7 @@ import { NtosWindow } from '../layouts';
 import { Section, Box, Button } from '../components';
 import { Component } from 'react';
 import { useBackend } from '../backend';
-import '../stylesvirus_coil_animation.scss';
+import '../styles/virus_coil_animation.scss';
 
 const asciiLogo = String.raw`
    _____         _  _

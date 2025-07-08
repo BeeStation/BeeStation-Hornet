@@ -2,7 +2,7 @@ import { NtosWindow } from '../layouts';
 import { Section, Box, Button } from '../components';
 import { Component } from 'react';
 import { useBackend } from '../backend';
-import '../stylesvirus_sledge_animation.scss';
+import '../styles/virus_sledge_animation.scss';
 
 const asciiLogo = String.raw`
   ________.__                .__
