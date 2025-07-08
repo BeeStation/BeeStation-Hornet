@@ -37,12 +37,8 @@
 	..()
 	new /obj/item/storage/toolbox/emergency(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-	new /obj/item/storage/firstaid/o2/mini(src)
 	new /obj/item/flashlight/oxycandle(src)
 	new /obj/item/flashlight/oxycandle(src)
 	new /obj/item/grenade/chem_grenade/smart_metal_foam(src)
@@ -67,17 +63,11 @@
 	..()
 
 	new /obj/item/clothing/suit/utility/fire/firefighter(src)
-	new /obj/item/clothing/suit/utility/fire/firefighter(src)
-	new /obj/item/clothing/head/utility/hardhat/red(src)
 	new /obj/item/clothing/head/utility/hardhat/red(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
-	new /obj/item/tank/internals/oxygen/red(src)
-	new /obj/item/extinguisher(src)
 	new /obj/item/extinguisher(src)
 	new /obj/item/storage/toolbox/emergency(src)
-	new /obj/item/storage/firstaid/fire/mini(src)
 
 /*
  * Tool Closet
