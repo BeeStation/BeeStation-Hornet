@@ -570,6 +570,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
 	master = user
 
+// edited version of set_playable to prevent spawner menu flooding
+/mob/living/simple_animal/slime/proc/set_playable_slime(ban_type = null, poll_ignore_key = null)
+	playable = TRUE
+	playable_bantype = ban_type
+	if (!key)	//check if there is nobody already inhibiting this mob
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
+		LAZYADD(GLOB.mob_spawners["[master ? "[src.master.real_name]'s slime" : "[name]"]"], src)
+		AddElement(/datum/element/point_of_interest)
+		SSmobs.update_spawners() // else prompt removed, ghosts do not need to know about occupied lab slimes
+
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour = SLIME_TYPE_RAINBOW, new_is_adult)
