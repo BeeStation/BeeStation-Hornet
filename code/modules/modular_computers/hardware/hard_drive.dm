@@ -51,17 +51,18 @@
 /obj/item/computer_hardware/hard_drive/proc/process_pre_attack(atom/target, mob/living/user, params)
 	return TRUE
 
-/obj/item/computer_hardware/hard_drive/diagnostics(var/mob/user)
-	..()
+/obj/item/computer_hardware/hard_drive/diagnostics()
+	. = ..()
 	// 999 is a byond limit that is in place. It's unlikely someone will reach that many files anyway, since you would sooner run out of space.
-	to_chat(user, "NT-NFS File Table Status: [stored_files.len]/999")
-	to_chat(user, "Storage capacity: [used_capacity]/[max_capacity]GQ")
+	. += "NT-NFS File Table Status: [stored_files.len]/999"
+	. += "Storage capacity: [used_capacity]/[max_capacity]GQ"
 	if(virus_defense)
-		to_chat(user, "<font color='#ff1865'>Virus Buster</font> Lvl [virus_defense] :: <font color='#34b600'>Engaged</font>")
+		. += "<font color='#ff1865'>Virus Buster</font> Lvl [virus_defense] :: <font color='#34b600'>Engaged</font>"
 	if(spam_delay)
-		to_chat(user, "<font color='#00c3ff'>Advertisement Messaging</font> Enabled")
+		. += "<font color='#00c3ff'>Advertisement Messaging</font> Enabled"
 	if(virus_lethality)
-		to_chat(user, "Warning: This file exhibits behavior consistent with known malware strains: <font color='#00ff73'>VXPatch.dll</font>")
+		. += "Warning: This file exhibits behavior consistent with known malware strains: <font color='#00ff73'>VXPatch.dll</font>"
+	return
 
 /obj/item/computer_hardware/hard_drive/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
