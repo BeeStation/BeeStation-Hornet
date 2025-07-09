@@ -51,7 +51,7 @@
 /obj/item/computer_hardware/hard_drive/proc/process_pre_attack(atom/target, mob/living/user, params)
 	return TRUE
 
-/obj/item/computer_hardware/hard_drive/diagnostics(var/mob/user)
+/obj/item/computer_hardware/hard_drive/diagnostics()
 	. = ..()
 	// 999 is a byond limit that is in place. It's unlikely someone will reach that many files anyway, since you would sooner run out of space.
 	. += "NT-NFS File Table Status: [stored_files.len]/999"

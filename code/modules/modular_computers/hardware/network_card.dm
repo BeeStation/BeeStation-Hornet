@@ -23,7 +23,7 @@
 	if(!user && install_into && identification_string == initial(identification_string))	//Only overide default string IF its being installed trough code
 		identification_string = "[install_into.icon_state]"
 
-/obj/item/computer_hardware/network_card/diagnostics(var/mob/user)
+/obj/item/computer_hardware/network_card/diagnostics()
 	. = ..()
 	. += "NIX Unique ID: <font color='#ffe600'>[hardware_id]</font>"
 	. += "NIX Identification String: <font color='#ae00ff'>[identification_string]</font>"

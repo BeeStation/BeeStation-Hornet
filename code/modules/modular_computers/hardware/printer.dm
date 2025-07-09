@@ -10,7 +10,7 @@
 	var/max_paper = 30
 	can_hack = FALSE
 
-/obj/item/computer_hardware/printer/diagnostics(mob/living/user)
+/obj/item/computer_hardware/printer/diagnostics()
 	. = ..()
 	. += "Paper level: [stored_paper]/[max_paper]."
 
