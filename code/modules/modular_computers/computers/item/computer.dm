@@ -838,10 +838,12 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(gift_card)
 		new /obj/effect/particle_effect/sparks/red(get_turf(src))
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+		balloon_alert_to_viewers("Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>")
 		to_chat(holder, span_notice("Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>"))
 	else
 		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 		playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+		balloon_alert_to_viewers("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>")
 		to_chat(holder, span_notice("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>"))
 	playsound(src, "sparks", 50, 1)
 
@@ -850,6 +852,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	drive.virus_defense = virus_strength
+	balloon_alert_to_viewers("CONGRATULATIONS! Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>")
 	to_chat(holder, span_notice("CONGRATULATIONS! Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>"))
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
 	playsound(src, "sparks", 50, 1)

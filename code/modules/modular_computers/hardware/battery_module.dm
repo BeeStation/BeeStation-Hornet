@@ -67,8 +67,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 
 /obj/item/computer_hardware/battery/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // <font color='#ff2600'>WARNING</font> // Battery Integrity Sensor DISENGAGED - COMPLETE BATTERY DISCHARGE ILL-ADVISED")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // <font color='#ff2600'>WARNING</font> // Battery Integrity Sensor DISENGAGED - COMPLETE BATTERY DISCHARGE ILL-ADVISED")
 	else
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Battery Integrity Sensor // <font color='#17c011'>Engaged</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Battery Integrity Sensor // <font color='#17c011'>Engaged</font>")
 
 /obj/item/stock_parts/cell/computer
