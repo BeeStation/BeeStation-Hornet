@@ -23,22 +23,22 @@
 	if(!user && install_into && identification_string == initial(identification_string))	//Only overide default string IF its being installed trough code
 		identification_string = "[install_into.icon_state]"
 
-/obj/item/computer_hardware/network_card/diagnostics(var/mob/user)
-	..()
-	to_chat(user, "NIX Unique ID: <font color='#ffe600'>[hardware_id]</font>")
-	to_chat(user, "NIX Identification String: <font color='#ae00ff'>[identification_string]</font>")
-	to_chat(user, "Supported protocols:")
+/obj/item/computer_hardware/network_card/diagnostics()
+	. = ..()
+	. += "NIX Unique ID: <font color='#ffe600'>[hardware_id]</font>"
+	. += "NIX Identification String: <font color='#ae00ff'>[identification_string]</font>"
+	. += "Supported protocols:"
 	switch(signal_level)
 		if(SIGNAL_NO)
-			to_chat(user, "N0 Signal Detected...")
+			. += "N0 Signal Detected..."
 		if(SIGNAL_LOW)
-			to_chat(user, "511.m SFS (Subspace) - Standard Frequency Spread")
+			. += "511.m SFS (Subspace) - Standard Frequency Spread"
 		if(SIGNAL_HIGH)
-			to_chat(user, "511.n WFS/HB (Subspace) - Wide Frequency Spread/High Bandiwdth")
+			. += "511.n WFS/HB (Subspace) - Wide Frequency Spread/High Bandiwdth"
 		if(SIGNAL_NO_RELAY)
-			to_chat(user, "OpenEth (Physical Connection) - Physical network connection port")
+			. += "OpenEth (Physical Connection) - Physical network connection port"
 		if(SIGNAL_HACKED)
-			to_chat(user, "<font color='#d10282'>(!WARN)</font> F.N-<font color='#d10236'>72::BLUESP</font>ΔCE <font color='#02d19d'>LINK_OVRCLK@ERR_0x3F</font>")
+			. += "<font color='#d10282'>(!WARN)</font> F.N-<font color='#d10236'>72::BLUESP</font>ΔCE <font color='#02d19d'>LINK_OVRCLK@ERR_0x3F</font>"
 	return
 
 /obj/item/computer_hardware/network_card/update_overclocking(mob/living/user, obj/item/tool)

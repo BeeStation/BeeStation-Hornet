@@ -148,9 +148,9 @@
 	return TRUE
 
 /obj/item/computer_hardware/multitool_act(mob/living/user, obj/item/I)
-	to_chat(user, "***** DIAGNOSTICS REPORT *****")
-	diagnostics(user)
-	to_chat(user, "******************************")
+	balloon_alert_to_viewers("Diagnostics Retrieved.")
+	var/list/result = diagnostics()
+	to_chat(user, examine_block("<span class='infoplain'>[result.Join("<br>")]</span>"))
 	playsound(src, 'sound/effects/fastbeep.ogg', 20)
 	return TRUE
 
@@ -219,16 +219,19 @@
 		return TRUE
 
 /obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
-	return /// Nothing happens here yet
+	return // Nothing happens here yet
 
-/// Called on multitool click, prints diagnostic information to the user.
-/obj/item/computer_hardware/proc/diagnostics(mob/user)
-	to_chat(user, "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]")
+/// Called on multitool click, returns a string of diagnostic information.
+/obj/item/computer_hardware/proc/diagnostics()
+	. = list()
+	. += "***** DIAGNOSTICS REPORT *****"
+	. += "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]"
 	if(!enabled)
-		to_chat(user, "<font color='#e06eb1'>Warning</font> // Hardware Disabled")
-	to_chat(user, "Current power consumption :: [power_usage]")
+		. += "<font color='#e06eb1'>Warning</font> // Hardware Disabled"
+	. += "Current power consumption :: [power_usage]"
 	if(hacked)
-		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>")
+		. += "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>"
+	return
 
 /obj/item/computer_hardware/proc/component_qdel()	// Handles deleting a component professionally
 	if(holder)
