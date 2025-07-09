@@ -97,15 +97,6 @@
 
 /obj/item/computer_hardware/update_overlays()
 	. = ..()
-	var/atom/movable/A = src
-	if(hacked)
-		if(!A.get_filter("hacked_glow"))
-			A.add_filter("hacked_glow", 2, list(
-				"type" = "outline",
-				"color" = "#e42828ff",
-				"size" = 1))
-	else
-		A.remove_filter("hacked_glow")
 	if(open)
 		. += mutable_appearance(icon, open_overlay)
 
