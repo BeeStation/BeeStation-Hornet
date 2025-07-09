@@ -16,6 +16,7 @@
 	light_color = LIGHT_COLOR_TUNGSTEN
 	light_system = MOVABLE_LIGHT
 	grind_results = list(/datum/reagent/sulfur = 4, /datum/reagent/chlorine = 7, /datum/reagent/sodium = 11)
+	custom_materials = list(/datum/material/iron=50, /datum/material/copper=10)
 	sound_on = 'sound/items/match_strike.ogg'
 	sound_off = null
 
