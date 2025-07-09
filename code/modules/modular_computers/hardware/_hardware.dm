@@ -126,6 +126,7 @@
 		to_chat(user, "You must unscrew the service panel in order to fiddle with the [src]'s internals.")
 		return TRUE
 	if(hacked)
+		balloon_alert_to_viewers("<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
 		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
@@ -136,6 +137,7 @@
 	if(input == null || input == "")
 		return TRUE
 	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
+		balloon_alert_to_viewers("Input value too low for current hardware")
 		to_chat(user, "Input value too low for current hardware")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
@@ -167,16 +169,19 @@
 	if(!can_hack)
 		to_chat(user, "\The [src] cannot be overclocked.")
 		return TRUE
+	balloon_alert_to_viewers("<font color='#12e21d'>Authorization Required. Keygen in progress...</font>")
 	to_chat(user, "<font color='#12e21d'>Authorization Required. Keygen in progress...</font>")
 	playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, TRUE)
 
 	if(!do_after(user, time_to_hack, src))
+		balloon_alert_to_viewers("<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
 		to_chat(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 40)
 		user.electrocute_act(25, src, 1)
 		return TRUE
 	if(prob(fail_chance))
+		balloon_alert_to_viewers("<font color='#d80000'>Error:</font> Serial Key provided is invalid.")
 		to_chat(user, "<font color='#d80000'>Error:</font> Serial Key provided is invalid.")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 40)
@@ -194,6 +199,7 @@
 	else
 		hacked = TRUE
 		power_usage = (power_usage * 5)
+		balloon_alert_to_viewers("<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
 		to_chat(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	playsound(src, "sparks", 50)

@@ -194,6 +194,7 @@
 	. = ..()
 	var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
 	if(!drive.virus_defense)
+		computer.balloon_alert_to_viewers("<font color='#ff0000'>ERROR:</font> No traces of NTOS Virus Buster found.")
 		to_chat(user, "<font color='#ff0000'>ERROR:</font> No traces of NTOS Virus Buster found.")
 		triggered = TRUE
 		kill_program()

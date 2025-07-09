@@ -67,10 +67,12 @@
 /obj/item/computer_hardware/hard_drive/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
 		virus_lethality = 1
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Patch installed // <font color='#00ff73'>VXPatch.dll</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Patch installed // <font color='#00ff73'>VXPatch.dll</font>")
 	else
 		virus_lethality = 0
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Trases of <font color='#00ff73'>VXPatch.dll</font> erased.")
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Traces of <font color='#00ff73'>VXPatch.dll</font> erased.")
+		to_chat(user, "<font color='#e06eb1'>Update:</font> // Traces of <font color='#00ff73'>VXPatch.dll</font> erased.")
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)
