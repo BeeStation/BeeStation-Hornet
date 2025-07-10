@@ -141,7 +141,7 @@
 		poll_time = 15 SECONDS,
 		jump_target = user,
 		role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]",
-		alert_pic = /mob/living/silicon/robot/modules/syndicate,
+		alert_pic = /mob/living/silicon/robot/model/syndicate,
 	)
 	if(candidate)
 		if(QDELETED(src) || !check_usability(user))
@@ -208,18 +208,18 @@
 	borg_to_spawn = "Saboteur"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, kind, datum/mind/user)
-	var/mob/living/silicon/robot/R
-	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop,TRUE)
+	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop, TRUE)
 	if(!creator_op)
 		return
 
+	var/mob/living/silicon/robot/robot
 	switch(borg_to_spawn)
 		if("Medical")
-			R = new /mob/living/silicon/robot/modules/syndicate/medical(T)
+			robot = new /mob/living/silicon/robot/model/syndicate/medical(T)
 		if("Saboteur")
-			R = new /mob/living/silicon/robot/modules/syndicate/saboteur(T)
+			robot = new /mob/living/silicon/robot/model/syndicate/saboteur(T)
 		else
-			R = new /mob/living/silicon/robot/modules/syndicate(T) //Assault borg by default
+			robot = new /mob/living/silicon/robot/model/syndicate(T) //Assault borg by default
 
 	var/brainfirstname = pick(GLOB.first_names_male)
 	if(prob(50))
@@ -229,18 +229,18 @@
 		brainopslastname = creator_op.nuke_team.syndicate_name
 	var/brainopsname = "[brainfirstname] [brainopslastname]"
 
-	R.mmi.name = "[initial(R.mmi.name)]: [brainopsname]"
-	R.mmi.brain.name = "[brainopsname]'s brain"
-	R.mmi.brainmob.real_name = brainopsname
-	R.mmi.brainmob.name = brainopsname
-	R.real_name = R.name
+	robot.mmi.name = "[initial(robot.mmi.name)]: [brainopsname]"
+	robot.mmi.brain.name = "[brainopsname]'s brain"
+	robot.mmi.brainmob.real_name = brainopsname
+	robot.mmi.brainmob.name = brainopsname
+	robot.real_name = robot.name
 
-	R.key = C.key
+	robot.key = C.key
 
 	var/datum/antagonist/nukeop/new_borg = new()
 	new_borg.send_to_spawnpoint = FALSE
-	R.mind.add_antag_datum(new_borg,creator_op.nuke_team)
-	R.mind.special_role = "Syndicate Cyborg"
+	robot.mind.add_antag_datum(new_borg,creator_op.nuke_team)
+	robot.mind.special_role = "Syndicate Cyborg"
 
 ///////////SLAUGHTER DEMON
 
