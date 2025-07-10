@@ -161,8 +161,7 @@ transformative extracts:
 	..()
 	GLOB.poi_list |= S
 	S.make_master(user)
-	LAZYADD(GLOB.mob_spawners["[S.master.real_name]'s slime"], S)
-	SSmobs.update_spawners()
+	S.set_playable_slime(ROLE_SENTIENCE)
 
 /obj/item/slimecross/transformative/adamantine
 	colour = SLIME_TYPE_ADAMANTINE
