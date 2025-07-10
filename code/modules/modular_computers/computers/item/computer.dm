@@ -371,6 +371,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src], but it responds with an error code. It must be damaged."))
 		else
 			to_chat(user, span_warning("You press the power button, but the computer fails to boot up, displaying variety of errors before shutting down again."))
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 		return FALSE
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
@@ -384,6 +385,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		else
 			to_chat(user, span_notice("You press the power button and start up \the [src]."))
 		enabled = 1
+		playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
 		update_appearance()
 		if(open_ui)
 			ui_interact(user)
@@ -393,6 +395,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src] but it does not respond."))
 		else
 			to_chat(user, span_warning("You press the power button but \the [src] does not respond."))
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 	return FALSE
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
@@ -631,6 +634,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// We also return network_card so SSnetworks can extract values from it itself
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
+	playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
 	kill_program(forced = TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
