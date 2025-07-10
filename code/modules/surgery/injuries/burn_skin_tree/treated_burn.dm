@@ -2,6 +2,7 @@
 	severity_level = INJURY_PRIORITY_HEALING
 	health_doll_icon = "bandage"
 	examine_description = "treated burn wounds"
+	healed_type = /datum/injury/repaired_skin_burn
 
 /datum/injury/treated_burn/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)
@@ -19,4 +20,4 @@
 	addtimer(CALLBACK(src, PROC_REF(check_heal), part), rand(3 MINUTES, 8 MINUTES), TIMER_DELETE_ME)
 
 /datum/injury/treated_burn/proc/check_heal(obj/item/bodypart/part)
-	transition_to(/datum/injury/repaired_skin_burn)
+	heal()

@@ -21,6 +21,8 @@
 	var/health_doll_icon = null
 	/// How the injury shows up when examined, prefaced by the auxiliary verb
 	var/examine_description = null
+	/// The type we transition to upon being healed
+	var/healed_type
 
 /datum/injury/process(delta_time)
 	if (!bodypart.owner)
@@ -89,3 +91,8 @@
 /// Adds additional behaviour on top of the standard exposure of the reagent
 /datum/injury/proc/intercept_reagent_exposure(datum/reagent, mob/living/victim, method = TOUCH, reac_volume = 0, touch_protection = 0)
 	return
+
+/// Perform the default heal
+/datum/injury/proc/heal()
+	if (healed_type)
+		transition_to(healed_type)

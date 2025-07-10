@@ -301,6 +301,19 @@
 	. = ..()
 	. = 1
 
+/datum/reagent/medicine/coagen
+	name = "Coagen"
+	desc = "A high-tier medicine which causes rapid coagulation of open wounds. Produced from the sap of Amborsia Vulgaris plants."
+	reagent_state = LIQUID
+	color = "#a61010"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/coagen/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM)
+	. = ..()
+	. = 1
+
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
 	description = "Stimulates the healing of severe burns. Overdosing will double the effectiveness of healing the burns while also dealing toxin and liver damage"

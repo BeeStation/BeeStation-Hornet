@@ -4,6 +4,7 @@
 	surgeries_provided = list(/datum/surgery/skin_graft)
 	health_doll_icon = "blood"
 	examine_description = "<b>blisters</b>"
+	healed_type = /datum/injury/treated_burn
 
 /datum/injury/blisters/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)
@@ -27,17 +28,16 @@
 	transition_to(/datum/injury/repaired_skin_burn)
 
 /datum/injury/blisters/intercept_medical_application(obj/item/stack/medical/medical_item, mob/living/carbon/human/victim, mob/living/carbon/human/actor)
-	if (ispath(medical_item, /datum/reagent/medicine/silver_sulfadiazine))
+	if (ispath(medical_item.reagent, /obj/item/stack/medical/ointment))
 		return MEDICAL_ITEM_VALID
 	return MEDICAL_ITEM_NO_INTERCEPT
 
 /datum/injury/blisters/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
 	if (!istype(reagent, /datum/reagent/medicine/silver_sulfadiazine) && !istype(reagent, /datum/reagent/medicine/advanced_burn_gel))
 		return
-	var/total_volume = victim.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) + victim.reagents.get_reagent_amount(/datum/reagent/medicine/advanced_burn_gel)
 	if (reac_volume < 5)
 		to_chat(victim, span_warning("The pain in your blisters start to numb, however they do not fully subside. It wasn't enough!"))
 		return
 	if (method != TOUCH && method != PATCH)
 		return
-	transition_to(/datum/injury/treated_burn)
+	heal()

@@ -1,9 +1,10 @@
 /datum/injury/third_degree_burn
 	skin_armour_modifier = 0.4
 	effectiveness_modifier = 0
-	surgeries_provided = list(/datum/surgery/skin_graft/third_degree)
+	surgeries_provided = list(/datum/surgery/skin_graft)
 	health_doll_icon = "blood"
 	examine_description = "<b>third-degree burns</b>"
+	healed_type = /datum/injury/restored_skin_burn
 
 /datum/injury/third_degree_burn/gain_message(mob/living/carbon/human/target, obj/item/bodypart/part)
 	to_chat(target, span_userdanger("The burns on your [part.plaintext_zone] intensify."))
