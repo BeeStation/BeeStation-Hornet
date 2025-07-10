@@ -1,7 +1,7 @@
 /obj/structure/railing
 	name = "railing"
 	desc = "Basic railing meant to protect idiots like you from falling."
-	icon = 'icons/obj/fluff.dmi'
+	icon = 'icons/obj/railings.dmi'
 	icon_state = "railing"
 	flags_1 = ON_BORDER_1
 	obj_flags = CAN_BE_HIT | BLOCKS_CONSTRUCTION_DIR
@@ -31,6 +31,17 @@
 	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE
+
+/obj/structure/railing/single_end
+	name = "railing single end"
+	icon_state = "railing_single_end"
+	density = FALSE
+	climbable = FALSE
+w
+/obj/structure/railing/end
+	icon_state = "railing_end"
+	reverse = TRUE
+	diagonals_possible = FALSE
 
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
@@ -199,8 +210,31 @@
 	. = ..()
 	update_perspective()
 
-/obj/structure/railing/perspective/gray
+/obj/structure/railing/white
+	icon_state = "railing_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/white/corner
+	icon_state = "railing_corner_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/white/single_end
+	name = "railing single end"
+	icon_state = "railing_single_end_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/white/end
+	icon_state = "railing_end_white"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/perspective
 	icon_state = "railing_gray"
+	density = FALSE
+	climbable = FALSE
 
 /obj/structure/railing/perspective/gray/corner
 	icon_state = "railing_gray_corner"
@@ -241,3 +275,24 @@
 	icon_state = "railing_wood_end"
 	reverse = TRUE
 	diagonals_possible = FALSE
+
+/obj/structure/railing/glass
+	icon = 'icons/obj/railings_big.dmi'
+	icon_state = "railing_glass"
+	density = TRUE
+	climbable = FALSE
+
+/obj/structure/railing/glass/corner
+	icon_state = "railing_glass_corner"
+	density = TRUE
+	climbable = FALSE
+
+/obj/structure/railing/glass/end
+	icon_state = "railing_glass_end"
+	density = TRUE
+	climbable = FALSE
+
+/obj/structure/railing/glass/end_single
+	icon_state = "railing_glass_end_single"
+	density = TRUE
+	climbable = FALSE
