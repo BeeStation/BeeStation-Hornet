@@ -86,7 +86,7 @@
 	relevant_mutant_bodypart = "moth_wings"
 
 /datum/preference/choiced/moth_wings/init_possible_values()
-	return assoc_to_keys_features(GLOB.moth_wings_roundstart_list)
+	return assoc_to_keys_features(GLOB.moth_wings_list)
 
 /datum/preference/choiced/moth_wings/icon_for(value)
 	var/datum/sprite_accessory/moth_wings = GLOB.moth_wings_list[value]

@@ -98,8 +98,10 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
 
-/datum/species/ethereal/randomize_features(mob/living/carbon/human/human_mob)
-	human_mob.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+/datum/species/ethereal/randomize_features()
+	var/list/features = ..()
+	features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+	return features
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()

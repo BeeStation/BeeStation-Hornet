@@ -16,7 +16,7 @@
 	from doing this unless you absolutely know what you are doing, and have defined a
 	conversion in savefile.dm
 */
-/proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female,roundstart = FALSE, add_blank)//Roundstart argument builds a specific list for roundstart parts where some parts may be locked
+/proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female, add_blank)//Roundstart argument builds a specific list for roundstart parts where some parts may be locked
 	RETURN_TYPE(/list)
 
 	if(!istype(L))
@@ -27,10 +27,6 @@
 		female = list()
 
 	for(var/path in subtypesof(prototype))
-		if(roundstart)
-			var/datum/sprite_accessory/P = path
-			if(initial(P.locked))
-				continue
 		var/datum/sprite_accessory/D = new path()
 
 		if(D.icon_state)
@@ -1683,11 +1679,14 @@
 	icon_state = "default"
 	color_src = HAIR
 
-/datum/sprite_accessory/tails/human/clock
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-	color_src = null
+/datum/sprite_accessory/tails/monkey
+	//icon = 'icons/mob/human/species/monkey/monkey_tail.dmi'
+	color_src = FALSE
+
+/datum/sprite_accessory/tails/monkey/standard
+	name = "Monkey"
+	icon_state = "monkey"
+
 
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'

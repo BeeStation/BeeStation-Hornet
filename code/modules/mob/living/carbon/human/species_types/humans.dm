@@ -18,9 +18,6 @@
 /datum/species/human/get_laugh_sound(mob/living/carbon/user)
 	return user.gender == FEMALE ? 'sound/voice/human/womanlaugh.ogg' : pick('sound/voice/human/manlaugh1.ogg', 'sound/voice/human/manlaugh2.ogg')
 
-/datum/species/human/randomize_features(mob/living/carbon/human/human_mob)
-	human_mob.skin_tone = random_skin_tone()
-
 /datum/species/human/get_scream_sound(mob/living/carbon/user)
 	return user.gender == FEMALE ? pick(
 		'sound/voice/human/femalescream_1.ogg',

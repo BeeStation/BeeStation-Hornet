@@ -267,7 +267,7 @@
 	SIGNAL_HANDLER
 	if(!death_two_electric_boogaloo || !is_active() || HAS_TRAIT(source, TRAIT_NODEATH))
 		return
-	if(IS_IN_STASIS(source))
+	if(HAS_TRAIT(source, TRAIT_STASIS))
 		// Your disintegration is delayed... for now.
 		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
 			if(holopara.stat == DEAD)

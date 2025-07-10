@@ -87,9 +87,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	icon_state = initial(icon_state)
 
 /mob/living/carbon/human/dummy/setup_human_dna()
-	create_dna(src)
-	randomize_human(src)
-	dna.initialize_dna(skip_index = TRUE) //Skip stuff that requires full round init.
+	randomize_human(src, randomize_mutations = FALSE)
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)
@@ -200,6 +198,17 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["diona_antennae"] = "None"
 	target.dna.features["diona_eyes"] = "None"
 	target.dna.features["diona_pbody"] = "None"
+	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
+	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
+	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency
+	var/static/consistent_UF
+	var/static/consistent_UI
+	if(isnull(consistent_UF) || isnull(consistent_UI))
+		consistent_UF = target.dna.unique_features
+		consistent_UI = target.dna.unique_identity
+	else
+		target.dna.unique_features = consistent_UF
+		target.dna.unique_identity = consistent_UI
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent

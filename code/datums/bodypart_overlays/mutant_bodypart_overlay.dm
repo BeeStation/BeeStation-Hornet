@@ -59,7 +59,7 @@
 
 	var/finished_icon_state = icon_state_builder.Join("_")
 
-	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = -image_layer)
+	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(image_layer))
 
 	if(sprite_datum.center)
 		center_image(appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)
@@ -114,16 +114,25 @@
 				return
 			var/mob/living/carbon/human/human_owner = ownerlimb.owner
 			draw_color = human_owner.hair_color
+
 	return TRUE
 
 ///Sprite accessories are singletons, stored list("Big Snout" = instance of /datum/sprite_accessory/snout/big), so here we get that singleton
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum(datum/sprite_accessory/accessory_path)
-	var/list/feature_list = get_global_feature_list()
+	return fetch_sprite_datum_from_name(initial(accessory_path.name))
 
-	return feature_list[initial(accessory_path.name)]
+
 
 ///Get the singleton from the sprite name
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum_from_name(accessory_name)
 	var/list/feature_list = get_global_feature_list()
+	var/found = feature_list[accessory_name]
+	if(found)
+		return found
 
-	return feature_list[accessory_name]
+	if(!length(feature_list))
+		CRASH("External organ [type] returned no sprite datums from get_global_feature_list(), so no accessories could be found!")
+	else if(accessory_name)
+		CRASH("External organ [type] couldn't find sprite accessory [accessory_name]!")
+	else
+		CRASH("External organ [type] had fetch_sprite_datum called with a null accessory name!")

@@ -166,6 +166,7 @@
 				ADD_TRAIT(C, TRAIT_NODROP, CHANGELING_TRAIT)
 
 	user.regenerate_icons()
+	user.name = user.get_visible_name()
 
 
 /datum/game_mode/changeling/generate_credit_text()

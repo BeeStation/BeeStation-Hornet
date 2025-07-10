@@ -177,7 +177,7 @@
 /obj/item/bodypart/head/get_limb_icon(dropped, draw_external_organs)
 	cut_overlays()
 	. = ..()
-	
+
 	if(dropped) //certain overlays only appear when the limb is being detached from its owner.
 
 		if(IS_ORGANIC_LIMB(src)) //having a robotic head hides certain features.
@@ -185,7 +185,7 @@
 			if(facial_hair_style && (FACEHAIR in species_flags_list))
 				var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facial_hair_style]
 				if(S)
-					var/image/facial_overlay = image(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
+					var/image/facial_overlay = image(S.icon, "[S.icon_state]", layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), dir = SOUTH)
 					facial_overlay.color = "#" + facial_hair_color
 					facial_overlay.alpha = hair_alpha
 					. += facial_overlay
@@ -206,19 +206,19 @@
 			else
 				var/datum/sprite_accessory/S2 = GLOB.hair_styles_list[hair_style]
 				if(S2 && (HAIR in species_flags_list))
-					var/image/hair_overlay = image(S2.icon, "[S2.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
+					var/image/hair_overlay = image(S2.icon, "[S2.icon_state]", layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), dir = SOUTH)
 					hair_overlay.color = "#" + hair_color
 					hair_overlay.alpha = hair_alpha
 					. += hair_overlay
 
 			// lipstick
 			if(lip_style)
-				var/image/lips_overlay = image('icons/mob/species/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
+				var/image/lips_overlay = image('icons/mob/species/human/human_face.dmi', "lips_[lip_style]", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
 				lips_overlay.color = lip_color
 				. += lips_overlay
 
 			// eyes
-			var/image/eyes_overlay = image('icons/mob/species/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
+			var/image/eyes_overlay = image('icons/mob/species/human/human_face.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
 			. += eyes_overlay
 			if(eyes)
 				eyes_overlay.icon_state = eyes.eye_icon_state
@@ -234,7 +234,7 @@
 				. += facial_gradient_overlay
 
 		if(show_debrained)
-			. += mutable_appearance('icons/mob/species/human/human_face.dmi', "debrained", HAIR_LAYER)
+			. += mutable_appearance('icons/mob/species/human/human_face.dmi', "debrained", layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 
 		else if(!hair_hidden && hair_overlay && (HAIR in species_flags_list))
 			hair_overlay.alpha = hair_alpha
@@ -276,7 +276,7 @@
 	if(!gradient || gradient.name == "None" || gradient.name == "none")
 		return null
 
-	var/mutable_appearance/gradient_overlay = mutable_appearance(layer = -layer)
+	var/mutable_appearance/gradient_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
 	var/icon/temp = icon(gradient.icon, gradient.icon_state)
 	var/icon/temp_hair = icon(file, icon)
 	temp.Blend(temp_hair, ICON_ADD)

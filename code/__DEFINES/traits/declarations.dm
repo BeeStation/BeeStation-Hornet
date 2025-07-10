@@ -55,18 +55,21 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_DEATHCOMA "deathcoma" //Causes death-like unconsciousness
+/// The mob has the stasis effect.
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
 #define TRAIT_REGEN_COMA "regencoma"
 #define TRAIT_FAKEDEATH "fakedeath" //Makes the owner appear as dead to most forms of medical examination
-#define TRAIT_DISFIGURED		"disfigured"
-#define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
-#define TRAIT_STUNIMMUNE		"stun_immunity"
-#define TRAIT_STUNRESISTANCE    "stun_resistance"
-#define TRAIT_CONFUSEIMMUNE		"confuse_immunity"
-#define TRAIT_SLEEPIMMUNE		"sleep_immunity"
-#define TRAIT_PUSHIMMUNE		"push_immunity"
-#define TRAIT_SHOCKIMMUNE		"shock_immunity"
-#define TRAIT_HOLY				"holy"
-#define TRAIT_ANTIMAGIC			"antimagic" //Unharmable
+#define TRAIT_DISFIGURED "disfigured"
+#define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
+#define TRAIT_STUNIMMUNE "stun_immunity"
+#define TRAIT_STUNRESISTANCE "stun_resistance"
+#define TRAIT_CONFUSEIMMUNE "confuse_immunity"
+#define TRAIT_SLEEPIMMUNE "sleep_immunity"
+#define TRAIT_PUSHIMMUNE "push_immunity"
+#define TRAIT_SHOCKIMMUNE "shock_immunity"
+#define TRAIT_HOLY "holy"
+#define TRAIT_ANTIMAGIC "antimagic" //Unharmable
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic" /// This mob recently blocked magic with some form of antimagic
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock" /// This allows a person who has antimagic to cast spells without getting blocked
 /// Are we immune to specifically tesla / SM shocks?

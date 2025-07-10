@@ -70,7 +70,7 @@
 ///Proc to process the disease and decide on whether to advance, cure or make the sympthoms appear. Returns a boolean on whether to continue acting on the symptoms or not.
 /datum/disease/proc/stage_act(delta_time, times_fired)
 	var/mob/living/L = affected_mob
-	if(IS_IN_STASIS(L))
+	if(HAS_TRAIT(L, TRAIT_STASIS))
 		return
 
 	if(has_cure())

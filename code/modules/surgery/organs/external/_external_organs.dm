@@ -64,9 +64,6 @@
 	return ..()
 
 /obj/item/organ/external/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
-	if(!should_external_organ_apply_to(type, receiver))
-		stack_trace("adding a [type] to a [receiver.type] when it shouldn't be!")
-
 	var/obj/item/bodypart/limb = receiver.get_bodypart(deprecise_zone(zone))
 
 	if(!limb)
@@ -93,10 +90,9 @@
 /obj/item/organ/external/Remove(mob/living/carbon/organ_owner, special, moving)
 	. = ..()
 
-	if(ownerlimb && !moving)
+	if(ownerlimb)
 		remove_from_limb()
-
-		if(use_mob_sprite_as_obj_sprite)
+		if(!moving && use_mob_sprite_as_obj_sprite) //so we're being taken out and dropped
 			update_appearance(UPDATE_OVERLAYS)
 
 	if(organ_owner)
@@ -115,33 +111,18 @@
 		add_to_limb(bodypart)
 
 /obj/item/organ/external/add_to_limb(obj/item/bodypart/bodypart)
+	bodypart.external_organs += src
 	ownerlimb = bodypart
 	ownerlimb.add_bodypart_overlay(bodypart_overlay)
 	return ..()
 
 /obj/item/organ/external/remove_from_limb()
+	ownerlimb.external_organs -= src
 	ownerlimb.remove_bodypart_overlay(bodypart_overlay)
 	if(ownerlimb.owner && external_bodytypes)
 		ownerlimb.synchronize_bodytypes(ownerlimb.owner)
 	ownerlimb = null
 	return ..()
-
-/proc/should_external_organ_apply_to(obj/item/organ/external/organpath, mob/living/carbon/target)
-	if(!initial(organpath.bodypart_overlay))
-		return TRUE
-
-	if(isnull(organpath) || isnull(target))
-		stack_trace("passed a null path or mob to 'should_external_organ_apply_to'")
-		return FALSE
-
-	var/datum/bodypart_overlay/mutant/bodypart_overlay = initial(organpath.bodypart_overlay)
-	var/feature_key = !isnull(bodypart_overlay) && initial(bodypart_overlay.feature_key)
-	if(isnull(feature_key))
-		return TRUE
-
-	if(target.dna.features[feature_key] != SPRITE_ACCESSORY_NONE)
-		return TRUE
-	return FALSE
 
 ///Update our features after something changed our appearance
 /obj/item/organ/external/proc/mutate_feature(features, mob/living/carbon/human/human)
@@ -176,6 +157,8 @@
 	//Build the mob sprite and use it as our overlay
 	for(var/external_layer in bodypart_overlay.all_layers)
 		if(bodypart_overlay.layers & external_layer)
+			if(!ownerlimb)
+				to_chat(world, "No ownerlimb for [bodypart_overlay] [src] to draw overlays on!")
 			. += bodypart_overlay.get_overlay(external_layer, ownerlimb)
 
 ///The horns of a lizard!
@@ -198,9 +181,10 @@
 	feature_key = "horns"
 
 /datum/bodypart_overlay/mutant/horns/can_draw_on_bodypart(mob/living/carbon/human/human)
-	if(!(human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
-		return TRUE
-	return FALSE
+	if((human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
+		return FALSE
+
+	return TRUE
 
 /datum/bodypart_overlay/mutant/horns/get_global_feature_list()
 	return GLOB.horns_list
@@ -283,13 +267,13 @@
 
 /obj/item/organ/external/antennae/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
-
+	if(!.)
+		return
 	RegisterSignal(receiver, COMSIG_HUMAN_BURNING, PROC_REF(try_burn_antennae))
 	RegisterSignal(receiver, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(heal_antennae))
 
 /obj/item/organ/external/antennae/Remove(mob/living/carbon/organ_owner, special, moving)
 	. = ..()
-
 	UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL))
 
 ///check if our antennae can burn off ;_;

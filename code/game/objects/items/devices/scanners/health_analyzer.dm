@@ -173,7 +173,7 @@
 		var/mob/living/carbon/carbontarget = target
 
 		// Ear status
-		var/obj/item/organ/ears/ears = carbontarget.get_organ_slot(ORGAN_SLOT_EARS)
+		var/obj/item/organ/internal/ears/ears = carbontarget.get_organ_slot(ORGAN_SLOT_EARS)
 		if(istype(ears))
 			if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, GENETIC_MUTATION))
 				render_list += "<span class='alert ml-2'>Subject is genetically deaf.\n</span>"
@@ -188,7 +188,7 @@
 					render_list += "<span class='alert ml-2'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.\n</span>"
 
 		// Eye status
-		var/obj/item/organ/eyes/eyes = carbontarget.get_organ_slot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/internal/eyes/eyes = carbontarget.get_organ_slot(ORGAN_SLOT_EYES)
 		if(istype(eyes))
 			if(carbontarget.is_blind())
 				render_list += "<span class='alert ml-2'>Subject is blind.\n</span>"
@@ -231,7 +231,7 @@
 		var/mob/living/carbon/human/humantarget = target
 
 		// Organ damage, missing organs
-		if(humantarget.internal_organs && humantarget.internal_organs.len)
+		if(humantarget.organs && humantarget.organs.len)
 			var/render = FALSE
 			var/toReport = "<span class='info ml-1'>Organs:</span>\
 				<table class='ml-2'><tr>\
@@ -239,7 +239,7 @@
 				[advanced ? "<td style='width:3em;'><font color='#ff0000'><b>Dmg</b></font></td>" : ""]\
 				<td style='width:12em;'><font color='#ff0000'><b>Status</b></font></td>"
 
-			for(var/obj/item/organ/organ as anything in humantarget.internal_organs)
+			for(var/obj/item/organ/organ as anything in humantarget.organs)
 				var/status = organ.get_status_text()
 				if (status != "")
 					render = TRUE
@@ -294,7 +294,7 @@
 			|| targetspecies.mutantliver != initial(targetspecies.mutantliver) \
 			|| targetspecies.mutantstomach != initial(targetspecies.mutantstomach) \
 			|| targetspecies.mutantappendix != initial(targetspecies.mutantappendix) \
-			|| targetspecies.mutantwings != initial(targetspecies.mutantwings)
+			|| istype(humantarget.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS), /obj/item/organ/external/wings/functional)
 
 		render_list += "<span class='info ml-1'>Species: [targetspecies.name][mutant ? "-derived mutant" : ""]</span>\n"
 		var/core_temperature_message = "Core temperature: [round(humantarget.coretemperature-T0C, 0.1)] &deg;C ([round(humantarget.coretemperature*1.8-459.67,0.1)] &deg;F)"
@@ -366,7 +366,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/carbontarget = target
 		var/cyberimp_detect
-		for(var/obj/item/organ/cyberimp/cyberimp in carbontarget.internal_organs)
+		for(var/obj/item/organ/internal/cyberimp/cyberimp in carbontarget.organs)
 			if(cyberimp.status == ORGAN_ROBOTIC && !cyberimp.syndicate_implant)
 				cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.get_examine_string(user)]" : ", [cyberimp.get_examine_string(user)]"]"
 		if(cyberimp_detect)

@@ -14,3 +14,8 @@
 /datum/bodypart_overlay/simple/color_image(image/overlay, layer, obj/item/bodypart/limb)
 
 	overlay.color = draw_color
+
+/datum/bodypart_overlay/simple/generate_icon_cache()
+	. = ..()
+
+	. += "[icon_state]"

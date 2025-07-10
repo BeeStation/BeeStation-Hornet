@@ -50,8 +50,9 @@
 	return ..() //second part of this effect is handled elsewhere
 
 /datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
-	randomize_external_organs(human_mob)
-	return ..()
+	var/list/features = ..()
+	features["ears"] = pick("None", "Cat")
+	return features
 
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)
