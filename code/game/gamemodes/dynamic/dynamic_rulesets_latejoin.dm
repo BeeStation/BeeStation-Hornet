@@ -63,8 +63,34 @@
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
 	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
-	weight = 7
+	weight = 6
 	cost = 8
+	requirements = list(5,5,5,5,5,5,5,5,5,5)
+	repeatable = TRUE
+	flags = INTACT_STATION_RULESET
+	blocking_rules = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/roundstart/nuclear,
+		/datum/dynamic_ruleset/roundstart/wizard,
+		/datum/dynamic_ruleset/roundstart/revs,
+	)
+
+//////////////////////////////////////////////
+//                                          //
+//                 SCAMPS              		//
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/latejoin/scamp
+	name = "Scamp"
+	antag_datum = /datum/antagonist/scamp
+	role_preference = /datum/role_preference/antagonist/scamp
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
+	required_candidates = 1
+	weight = 8
+	cost = 3
 	requirements = list(5,5,5,5,5,5,5,5,5,5)
 	repeatable = TRUE
 	flags = INTACT_STATION_RULESET
@@ -89,7 +115,7 @@
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
-	weight = 4
+	weight = 3
 	cost = 10
 	requirements = list(101,101,101,10,10,10,10,10,10,10)
 	repeatable = TRUE
