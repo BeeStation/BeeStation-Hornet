@@ -54,28 +54,23 @@
 **/
 /datum/dynamic_ruleset/proc/trim_candidates()
 	for(var/mob/candidate in candidates)
-		var/client/client = GET_CLIENT(candidate)
-
 		// Connected?
-		if(!client || !candidate.mind)
+		if(!candidate.client)
 			candidates -= candidate
 			continue
 
 		// Antag banned?
 		// Antag disabled?
 		// Enough hours?
-		if(!client.should_include_for_role(
+#ifndef TESTING_DYNAMIC
+		if(!candidate.client.should_include_for_role(
 			banning_key = antag_datum.banning_key,
 			role_preference_key = role_preference,
 			req_hours = antag_datum.required_living_playtime
 		))
 			candidates -= candidate
 			continue
-
-		// Already assigned antag?
-		if(candidate.mind.special_role)
-			candidates -= candidate
-			continue
+#endif
 
 /**
  * Check if all requirements for this ruleset are met.
@@ -107,8 +102,13 @@
 	if(!length(chosen_candidates))
 		return DYNAMIC_EXECUTE_FAILURE
 
-	for(var/mob/chosen_candidate in chosen_candidates)
-		chosen_candidate.mind.add_antag_datum(antag_datum)
+	// Roundstart rulesets have their candidate bodies deleted before execute so we store a list of minds, not bodies
+	if(istype(src, /datum/dynamic_ruleset/roundstart))
+		for(var/datum/mind/chosen_mind in chosen_candidates)
+			chosen_mind.add_antag_datum(antag_datum)
+	else
+		for(var/mob/chosen_candidate in chosen_candidates)
+			chosen_candidate.mind.add_antag_datum(antag_datum)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 

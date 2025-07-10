@@ -239,7 +239,6 @@
 		return
 
 	var/dat
-	dat += "<a href='byond://?src=[REF(src)];[HrefToken()];dynamic_panel=1'>Dynamic Panel</a><br>"
 
 	dat += {"
 		<A href='byond://?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>

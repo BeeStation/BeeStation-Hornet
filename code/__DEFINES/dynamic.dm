@@ -1,3 +1,8 @@
+#define TESTING_DYNAMIC
+
+#if defined(TESTING_DYNAMIC) && defined(CIBUILDING)
+	#error TESTING_DYNAMIC is enabled, disable this!
+#endif
 
 #define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
 #define DYNAMIC_CATEGORY_MIDROUND "Midround"

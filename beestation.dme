@@ -547,6 +547,7 @@
 #include "code\controllers\subsystem\zclear.dm"
 #include "code\controllers\subsystem\zcopy.dm"
 #include "code\controllers\subsystem\dynamic\dynamic.dm"
+#include "code\controllers\subsystem\dynamic\dynamic_panel.dm"
 #include "code\controllers\subsystem\dynamic\dynamic_rulesets.dm"
 #include "code\controllers\subsystem\dynamic\dynamic_rulesets_latejoin.dm"
 #include "code\controllers\subsystem\dynamic\dynamic_rulesets_midround.dm"

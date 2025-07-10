@@ -99,15 +99,9 @@
 	else if(href_list["editrights"])
 		edit_rights_topic(href_list)
 
-	else if(href_list["dynamic_panel"])
-		if(!check_rights(R_FUN))
-			return
-		SSdynamic.admin_panel()
-
 	else if(href_list["call_shuttle"])
 		if(!check_rights(R_ADMIN))
 			return
-
 
 		switch(href_list["call_shuttle"])
 			if("1")

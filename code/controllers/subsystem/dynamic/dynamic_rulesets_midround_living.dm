@@ -25,6 +25,11 @@
 			candidates -= candidate
 			continue
 
+		// Already assigned antag?
+		if(candidate.mind.special_role && !istype(src, /datum/dynamic_ruleset/midround/living/obsessed))
+			candidates -= candidate
+			continue
+
 /datum/dynamic_ruleset/midround/living/execute()
 	// Get our candidates
 	set_drafted_players_amount()

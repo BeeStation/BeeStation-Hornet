@@ -8,6 +8,19 @@
 /datum/dynamic_ruleset/roundstart/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
 
+/datum/dynamic_ruleset/roundstart/trim_candidates()
+	. = ..()
+	for(var/mob/candidate in candidates)
+		// "Connected"?
+		if(!candidate.mind)
+			candidates -= candidate
+			continue
+
+		// Already an antag?
+		if(candidate.mind.special_role)
+			candidates -= candidate
+			continue
+
 /datum/dynamic_ruleset/roundstart/allowed()
 	. = ..()
 	if(!.)
@@ -318,7 +331,7 @@
 		if(!has_made_leader)
 			has_made_leader = TRUE
 			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
-			leader_datum = leader_datum.nuke_team
+			nuke_team = leader_datum.nuke_team
 		else
 			chosen_mind.add_antag_datum(antag_datum)
 
@@ -377,8 +390,9 @@
 	for(var/obj/machinery/nuclearbomb/syndicate/nuke in GLOB.nuke_list)
 		var/turf/turf = get_turf(nuke)
 		if(turf)
+			var/obj/machinery/nuclearbomb/syndicate/bananium/new_nuke = new(turf)
+			new_nuke.yes_code = nuke.yes_code
 			qdel(nuke)
-			new /obj/machinery/nuclearbomb/syndicate/bananium(turf)
 
 //////////////////////////////////////////////
 //                                          //

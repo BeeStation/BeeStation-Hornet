@@ -15,24 +15,6 @@
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
 	candidates = SSdynamic.current_players[CURRENT_DEAD_PLAYERS] | SSdynamic.current_players[CURRENT_OBSERVERS]
 
-/datum/dynamic_ruleset/midround/ghost/trim_candidates()
-	for(var/mob/candidate in candidates)
-		if(!candidate.client)
-			candidates -= candidate
-			continue
-
-		// Antag banned?
-		// Antag disabled?
-		// Enough hours?
-		if(!candidate.client.should_include_for_role(
-			banning_key = antag_datum.banning_key,
-			role_preference_key = role_preference,
-			req_hours = antag_datum.required_living_playtime
-		))
-			candidates -= candidate
-			continue
-
-
 /datum/dynamic_ruleset/midround/ghost/allowed()
 	. = ..()
 	if(!.)
@@ -100,7 +82,6 @@
 **/
 /datum/dynamic_ruleset/midround/ghost/proc/send_applications()
 	// How?
-	to_chat(world, "[length(candidates)]")
 	if(!length(candidates))
 		return
 
@@ -478,20 +459,15 @@
 	name = "Spider Infestation"
 	severity = DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/spider
-	role_preference = /datum/role_preference/midround_ghost/xenomorph
+	role_preference = /datum/role_preference/midround_ghost/spider
+	drafted_players_amount = 3
 	points_cost = 40
 	weight = 4
-
-	var/feed = TRUE
-	var/directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 
 	var/datum/team/spiders/team
 
 /datum/dynamic_ruleset/midround/ghost/spiders/get_poll_icon()
 	return /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
-
-/datum/dynamic_ruleset/midround/ghost/spiders/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(SSdynamic.roundstart_candidates) / 7)
 
 /datum/dynamic_ruleset/midround/ghost/spiders/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
@@ -501,10 +477,8 @@
 	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new(vent.loc)
 	broodmother_body.forceMove(vent)
 	player_mind.transfer_to(broodmother_body)
-
-	if(feed)
-		broodmother_body.fed += 3
-		broodmother_body.lay_eggs.update_buttons()
+	broodmother_body.fed += 3
+	broodmother_body.lay_eggs.update_buttons()
 
 	return broodmother_body
 
@@ -512,7 +486,7 @@
 	. = ..()
 	if(!team)
 		team = new
-		team.directive = directive
+		team.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 
 	var/datum/antagonist/spider/spider_antag = new_character.mind.has_antag_datum(/datum/antagonist/spider)
 	spider_antag.set_spider_team(team)
@@ -618,7 +592,6 @@
 	role_preference = /datum/role_preference/midround_ghost/prisoner
 	points_cost = 30
 	weight = 4
-	use_spawn_locations = FALSE
 
 /datum/dynamic_ruleset/midround/ghost/prisoners/get_poll_icon()
 	return /obj/item/card/id/prisoner
@@ -659,7 +632,6 @@
 	role_preference = /datum/role_preference/midround_ghost/fugitive
 	points_cost = 30
 	weight = 4
-	use_spawn_locations = FALSE
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_poll_icon()
 	return /obj/item/clothing/mask/gas/tiki_mask
