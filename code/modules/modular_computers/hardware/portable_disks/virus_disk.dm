@@ -12,17 +12,21 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
+		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Could not find device.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Could not find device."))
 		return FALSE
 	if(charges <= 0)
+		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Out of charges.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Out of charges."))
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 	if(trojan && drive.trojan)
+		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Active virus strain already present.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
 		return FALSE
 	if(app.sending_and_receiving == FALSE && !sending_bypass)
+		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
 		return FALSE
 	calculate_strength()
@@ -40,6 +44,7 @@
 	playsound(target, "sparks", 50, 1)
 	playsound(src, "sparks", 50, 1)
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+	balloon_alert_to_viewers("<font color='#ff0000'>Virus deployed.</font> charges left: <font color='#00ff4c'>[charges]</font>.")
 	to_chat(user, span_notice("<font color='#ff0000'>Virus deployed.</font> charges left: <font color='#00ff4c'>[charges]</font>."))
 	nt_log(target, user)
 	return TRUE
@@ -68,6 +73,7 @@
 	new /obj/effect/particle_effect/sparks/red(get_turf(src))
 	playsound(src, "sparks", 50, 1)
 	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+	balloon_alert_to_viewers("<font color='#ff0000'>ERROR: Virus Blocked!</font> charges left: <font color='#00ff4c'>[charges]</font>.")
 	to_chat(user, span_notice("<font color='#ff0000'>ERROR: Virus Blocked!</font> charges left: <font color='#00ff4c'>[charges]</font>."))
 	nt_log(target, user, blocked = TRUE)
 
@@ -93,11 +99,14 @@
 	if(!target_machine.panel_open && !istype(target, /obj/machinery/computer))
 		return TRUE
 	if(!charges)
+		balloon_alert_to_viewers("Out of charge. Please insert a new cartridge.")
 		to_chat(user, span_notice("[src] beeps: 'Out of charge. Please insert a new cartridge.'"))
 		return TRUE
 	if(target.GetComponent(/datum/component/sound_player))
+		balloon_alert_to_viewers("Virus already present on client, aborting.")
 		to_chat(user, span_notice("[src] beeps: 'Virus already present on client, aborting.'"))
 		return TRUE
+	balloon_alert_to_viewers("Upload Successful.")
 	to_chat(user, span_notice("You upload the virus to [target]!"))
 	var/list/sig_list
 	if(istype(target, /obj/machinery/door/airlock))
@@ -264,11 +273,13 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
+		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Could not find device.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Could not find device."))
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 	if(app.sending_and_receiving == FALSE)
+		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
 		return FALSE
 	calculate_strength()
@@ -281,6 +292,7 @@
 		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 		playsound(src, "sparks", 50, 1)
 		nt_log(target, user)
+		balloon_alert_to_viewers("<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!")
 		to_chat(user, span_notice("<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!"))
 		component_qdel()
 
@@ -291,6 +303,7 @@
 	new /obj/effect/particle_effect/sparks/red(get_turf(src))
 	playsound(src, "sparks", 50, 1)
 	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+	balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!")
 	to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!"))
 	nt_log(target, user)
 

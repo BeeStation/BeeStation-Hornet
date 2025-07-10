@@ -176,6 +176,7 @@
 
 		if(!access_card)
 			if(loud)
+				computer.balloon_alert_to_viewers("RFID Error - Unable to scan ID")
 				to_chat(user, span_danger("\The [computer] flashes an \"RFID Error - Unable to scan ID\" warning."))
 			return FALSE
 		access = access_card.GetAccess()
@@ -184,6 +185,7 @@
 		if(singular_access in access)//For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
 			return TRUE
 	if(loud)
+		computer.balloon_alert_to_viewers("Access Denied")
 		to_chat(user, span_danger("\The [computer] flashes an \"Access Denied\" warning."))
 	return FALSE
 

@@ -122,6 +122,7 @@
 			return TRUE
 		if("PDA_sAndR")
 			if(hdd.trojan == BREACHER)	// Button does nothing if trojan is present
+				computer.balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> UNKNOWN ERROR. CONTACT I.T.")
 				to_chat(usr, span_notice("<font color='#c70000'>ERROR:</font> UNKNOWN ERROR. CONTACT I.T."))
 				return TRUE
 			else
@@ -138,6 +139,7 @@
 			return TRUE
 		if("PDA_sendEveryone")
 			if(!sending_and_receiving)
+				computer.balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Device has sending disabled.")
 				to_chat(usr, span_notice("<font color='#c70000'>ERROR:</font> Device has sending disabled."))
 				return
 			var/obj/item/computer_hardware/hard_drive/drive
@@ -159,6 +161,7 @@
 
 			if(targets.len > 0)
 				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay))
+					computer.balloon_alert_to_viewers("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds.")
 					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds."))
 					return
 				send_message(usr, targets, TRUE, multi_delay = drive.spam_delay)

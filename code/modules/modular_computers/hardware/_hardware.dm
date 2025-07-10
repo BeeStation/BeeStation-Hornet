@@ -117,6 +117,7 @@
 		to_chat(user, "You must unscrew the service panel in order to fiddle with the [src]'s internals.")
 		return TRUE
 	if(hacked)
+		balloon_alert_to_viewers("<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
 		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS :: CONSUMPTION INALTERABLE</font>")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
@@ -127,6 +128,7 @@
 	if(input == null || input == "")
 		return TRUE
 	if(input <= ((initial(power_usage) / 2) - 1)) // If SOMEHOW this happens, lets not let it happen.
+		balloon_alert_to_viewers("Input value too low for current hardware")
 		to_chat(user, "Input value too low for current hardware")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 20)
@@ -137,9 +139,9 @@
 	return TRUE
 
 /obj/item/computer_hardware/multitool_act(mob/living/user, obj/item/I)
-	to_chat(user, "***** DIAGNOSTICS REPORT *****")
-	diagnostics(user)
-	to_chat(user, "******************************")
+	balloon_alert_to_viewers("Diagnostics Retrieved.")
+	var/list/result = diagnostics()
+	to_chat(user, examine_block("<span class='infoplain'>[result.Join("<br>")]</span>"))
 	playsound(src, 'sound/effects/fastbeep.ogg', 20)
 	return TRUE
 
@@ -158,16 +160,19 @@
 	if(!can_hack)
 		to_chat(user, "\The [src] cannot be overclocked.")
 		return TRUE
+	balloon_alert_to_viewers("<font color='#12e21d'>Authorization Required. Keygen in progress...</font>")
 	to_chat(user, "<font color='#12e21d'>Authorization Required. Keygen in progress...</font>")
 	playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, TRUE)
 
 	if(!do_after(user, time_to_hack, src))
+		balloon_alert_to_viewers("<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
 		to_chat(user, "<font color='#d80000'>ERROR:</font> Unauthorized access detected!")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 40)
 		user.electrocute_act(25, src, 1)
 		return TRUE
 	if(prob(fail_chance))
+		balloon_alert_to_viewers("<font color='#d80000'>Error:</font> Serial Key provided is invalid.")
 		to_chat(user, "<font color='#d80000'>Error:</font> Serial Key provided is invalid.")
 		new /obj/effect/particle_effect/sparks(get_turf(src))
 		playsound(src, "sparks", 40)
@@ -185,6 +190,7 @@
 	else
 		hacked = TRUE
 		power_usage = (power_usage * 5)
+		balloon_alert_to_viewers("<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
 		to_chat(user, "<font color='#00bb10'>Access Authorized.</font> System overclocking initiated.")
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	playsound(src, "sparks", 50)
@@ -204,16 +210,19 @@
 		return TRUE
 
 /obj/item/computer_hardware/proc/update_overclocking(mob/living/user, obj/item/tool)
-	return /// Nothing happens here yet
+	return // Nothing happens here yet
 
-/// Called on multitool click, prints diagnostic information to the user.
-/obj/item/computer_hardware/proc/diagnostics(mob/user)
-	to_chat(user, "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]")
+/// Called on multitool click, returns a string of diagnostic information.
+/obj/item/computer_hardware/proc/diagnostics()
+	. = list()
+	. += "***** DIAGNOSTICS REPORT *****"
+	. += "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]"
 	if(!enabled)
-		to_chat(user, "<font color='#e06eb1'>Warning</font> // Hardware Disabled")
-	to_chat(user, "Current power consumption :: [power_usage]")
+		. += "<font color='#e06eb1'>Warning</font> // Hardware Disabled"
+	. += "Current power consumption :: [power_usage]"
 	if(hacked)
-		to_chat(user, "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>")
+		. += "<font color='#d10282'>WARNING :: OPERATING BEYOND RATED PARAMETERS</font>"
+	return
 
 /obj/item/computer_hardware/proc/component_qdel()	// Handles deleting a component professionally
 	if(holder)
