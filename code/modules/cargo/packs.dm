@@ -3740,6 +3740,19 @@
 	crate_type = /obj/structure/closet/crate
 
 // Singles start
+
+
+/datum/supply_pack/computer/identifier
+	name = "Identifier crate"
+	desc = "Contains a single identifier chip."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/identifier
+	)
+	crate_name = "identifier crate"
+	crate_type = /obj/structure/closet/crate
+
 /datum/supply_pack/computer/processortier1
 	name = "Microprocessor crate"
 	desc = "Contains a single microprocessor."
