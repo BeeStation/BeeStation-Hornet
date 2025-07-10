@@ -92,6 +92,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		to_chat(user, span_danger("You don't know how to apply \the [src] to [M]!"))
 		M.balloon_alert(user, "You cannot use that.")
 		return
+	if (user.is_blind())
+		to_chat(user, span_danger("You can't use \the [src] if you cannot see!"))
+		user.balloon_alert(user, "Cannot use while blind.")
+		return
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
 	affecting = C.get_bodypart(check_zone(zone_selected))
