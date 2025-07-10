@@ -303,7 +303,7 @@
 
 /datum/reagent/medicine/coagen
 	name = "Coagen"
-	desc = "A high-tier medicine which causes rapid coagulation of open wounds. Produced from the sap of Amborsia Vulgaris plants."
+	description = "A high-tier medicine which causes rapid coagulation of open wounds. Produced from the sap of Amborsia Vulgaris plants."
 	reagent_state = LIQUID
 	color = "#a61010"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE

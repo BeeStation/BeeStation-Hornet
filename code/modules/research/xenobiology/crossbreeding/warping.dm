@@ -228,6 +228,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		/obj/item/stack/medical/gauze,
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/stack/medical/bruise_pack,
+		/obj/item/stack/medical/suture,
 		/obj/item/stack/medical/ointment,
 		/obj/item/reagent_containers/pill/oxandrolone,
 		/obj/item/storage/pill_bottle/charcoal,

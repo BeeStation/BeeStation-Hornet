@@ -123,7 +123,8 @@
 /obj/item/storage/firstaid/medical/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
-		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/suture = 1,
 		/obj/item/stack/medical/ointment = 2,
 		/obj/item/reagent_containers/hypospray/medipen = 1,
 		/obj/item/healthanalyzer = 1,
@@ -192,7 +193,7 @@
 /obj/item/storage/firstaid/medical/paramedic/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
-		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/suture = 1,
 		/obj/item/stack/medical/ointment = 1,
 		/obj/item/healthanalyzer = 1,
 		/obj/item/reagent_containers/cup/bottle/formaldehyde = 1,
@@ -409,6 +410,7 @@
 	var/supplies = list(
 		/obj/item/stack/medical/gauze,
 		/obj/item/stack/medical/bruise_pack,
+		/obj/item/stack/medical/suture,
 		/obj/item/stack/medical/ointment,
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/surgical_drapes,

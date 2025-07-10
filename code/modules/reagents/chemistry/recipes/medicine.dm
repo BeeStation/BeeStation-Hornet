@@ -50,6 +50,12 @@
 	required_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 4, /datum/reagent/medicine/terranol = 1)
 	reaction_tags = REACTION_TAG_HEALING | REACTION_TAG_BURN
 
+/datum/chemical_reaction/coagen
+	name = "Coagen"
+	results = list(/datum/reagent/medicine/coagen = 5)
+	required_reagents = list(/datum/reagent/medicine/synthflesh = 4, /datum/reagent/medicine/terranol = 1)
+	reaction_tags = REACTION_TAG_HEALING | REACTION_TAG_BURN
+
 /datum/chemical_reaction/salglu_solution
 	name = "Saline-Glucose Solution"
 	results = list(/datum/reagent/medicine/salglu_solution = 3)

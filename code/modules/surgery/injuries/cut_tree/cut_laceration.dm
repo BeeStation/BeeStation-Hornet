@@ -21,6 +21,18 @@
 		transition_to(/datum/injury/cut_muscle_tear)
 	return TRUE
 
+/datum/injury/cut_laceration/intercept_medical_application(obj/item/stack/medical/medical_item, mob/living/carbon/human/victim, mob/living/actor)
+	if (istype(medical_item, /obj/item/stack/medical/suture))
+		if (actor == victim)
+			actor.visible_message(span_notice("[actor] starts to apply [medical_item] to [actor.p_them()]self..."), span_notice("You begin applying [medical_item] to yourself..."))
+		else
+			actor.visible_message(span_notice("[actor] starts to suture [victim]'s wounds'."), span_notice("You begin suturing [victim]'s wounds..."))
+		if (!do_after(actor, 6 SECONDS, victim))
+			return MEDICAL_ITEM_FAILED
+		heal()
+		return MEDICAL_ITEM_APPLIED
+	return ..()
+
 /datum/injury/blisters/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
 	if (!istype(reagent, /datum/reagent/medicine/coagen))
 		return

@@ -23,5 +23,5 @@
 
 /datum/surgery_step/incise/skin_graft/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/skin_graft/surgery)
 	. = ..()
-	var/datum/injury/injury = surgery.operated_bodypart.get_injury_by_base(target_injury)
+	var/datum/injury/injury = surgery.operated_bodypart.get_injury_by_base(surgery.target_injury)
 	injury.heal()

@@ -4,6 +4,7 @@
 	surgeries_provided = list(/datum/surgery/skin_graft)
 	health_doll_icon = "blood"
 	examine_description = "<b>second-degree burns</b>"
+	healed_type = /datum/injury/treated_burn
 
 /datum/injury/second_degree_burns/on_damage_taken(total_damage, delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (damage_type != BURN)
@@ -38,4 +39,4 @@
 		return
 	if (method != TOUCH && method != PATCH)
 		return
-	transition_to(/datum/injury/treated_burn)
+	heal()
