@@ -1,5 +1,4 @@
 import { sortBy } from 'common/collections';
-import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';
@@ -9,7 +8,7 @@ import { capitalize } from 'common/string';
 export const FishCatalog = (props) => {
   const { act, data } = useBackend();
   const { fish_info, sponsored_by } = data;
-  const fish_by_name = flow([sortBy((fish) => fish.name)])(data.fish_info || []);
+  const fish_by_name = sortBy(fish_info || [], (fish) => fish.name);
   const [currentFish, setCurrentFish] = useLocalState('currentFish', null);
   return (
     <Window theme="generic" width={500} height={300} resizable>

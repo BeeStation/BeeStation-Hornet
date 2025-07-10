@@ -3,9 +3,9 @@ import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumb
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
-export const XenoartifactConsole = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tab, setTab] = useSharedState(context, 'tab', 'listings');
+export const XenoartifactConsole = (props) => {
+  const { act, data } = useBackend();
+  const [tab, setTab] = useSharedState('tab', 'listings');
   const { stability, money, purchase_radio, solved_radio, current_tab } = data;
   const sellers = data.sellers || [];
   return (
@@ -53,8 +53,8 @@ export const XenoartifactConsole = (props, context) => {
   );
 };
 
-const XenoartifactConsoleSellerTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactConsoleSellerTab = (props) => {
+  const { act, data } = useBackend();
   const { stability, money, purchase_radio, solved_radio, current_tab } = data;
   const sellers = data.sellers || [];
   return (
@@ -66,8 +66,8 @@ const XenoartifactConsoleSellerTab = (props, context) => {
   );
 };
 
-const XenoartifactConsoleSellerEntry = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactConsoleSellerEntry = (props) => {
+  const { act } = useBackend();
   const { value } = props;
   const stock = value['stock'] || [];
   return (
@@ -97,8 +97,8 @@ const XenoartifactConsoleSellerEntry = (props, context) => {
   );
 };
 
-const XenoartifactConsoleRequestsTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactConsoleRequestsTab = (props) => {
+  const { act, data } = useBackend();
   const requests = data.active_request || [];
   return (
     <Table>
@@ -123,8 +123,8 @@ const XenoartifactConsoleRequestsTab = (props, context) => {
   );
 };
 
-const XenoartifactConsoleHistoryTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactConsoleHistoryTab = (props) => {
+  const { act, data } = useBackend();
   const history = data.history || [];
   return (
     <Flex wrap={'wrap'}>
