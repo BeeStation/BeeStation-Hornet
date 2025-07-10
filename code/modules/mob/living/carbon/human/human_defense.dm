@@ -637,6 +637,7 @@
 	var/bleed_msg = harm_descriptors["bleed"]
 
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/list/whole_body_issues = list()
 	for(var/obj/item/bodypart/LB as() in bodyparts)
 		missing -= LB.body_zone
 		if(LB.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
@@ -682,7 +683,10 @@
 		var/list/injury_texts = list()
 		for (var/datum/injury/injuries in LB.injuries)
 			if (injuries.examine_description)
-				injury_texts += injuries.examine_description
+				if (injuries.whole_body)
+					whole_body_issues |= injuries.examine_description
+				else
+					injury_texts += injuries.examine_description
 		var/no_damage
 		if(status == "OK" || status == "no damage")
 			no_damage = TRUE
@@ -719,6 +723,18 @@
 				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
 			else
 				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+
+	// Put it into a list
+	var/stringified_body_injuries = null
+	if (length(whole_body_issues))
+		stringified_body_injuries = whole_body_issues[1]
+	for (var/i in 2 to length(whole_body_issues) - 1)
+		stringified_body_injuries += ", [whole_body_issues[i]]"
+	if (length(whole_body_issues) > 1)
+		stringified_body_injuries += ", and [whole_body_issues[length(whole_body_issues)]]"
+
+	if (stringified_body_injuries)
+		to_chat(src, "\t <span class='warning'>You also have [stringified_body_injuries] across your body.</span>")
 
 	for(var/t in missing)
 		to_chat(src, span_boldannounce("Your [parse_zone(t)] is missing!"))

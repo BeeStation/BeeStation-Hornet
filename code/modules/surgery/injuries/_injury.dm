@@ -21,6 +21,8 @@
 	var/health_doll_icon = null
 	/// How the injury shows up when examined, prefaced by the auxiliary verb
 	var/examine_description = null
+	/// Should we be treated as if we are coming from the body instead?
+	var/whole_body = FALSE
 	/// The type we transition to upon being healed
 	var/healed_type
 
