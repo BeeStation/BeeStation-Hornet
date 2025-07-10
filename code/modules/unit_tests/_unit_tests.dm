@@ -56,6 +56,7 @@
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
+#include "movement_order_sanity.dm"
 #include "mutant_organs.dm"
 #include "ntnetwork_tests.dm"
 #include "organs.dm"
