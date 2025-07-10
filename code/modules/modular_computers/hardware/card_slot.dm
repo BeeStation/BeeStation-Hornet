@@ -5,7 +5,7 @@
 	icon_state = "card_mini"
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
-	custom_price = 20
+	custom_price = PAYCHECK_EASY
 
 	var/obj/item/card/id/stored_card
 	var/obj/item/card/id/fake_card
@@ -160,7 +160,7 @@
 	name = "secondary RFID card module"
 	device_type = MC_CARD2
 	expansion_hw = TRUE
-	custom_price = 100
+	custom_price = PAYCHECK_MEDIUM * 2
 
 /obj/item/computer_hardware/card_slot/secondary/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)

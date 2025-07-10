@@ -1323,7 +1323,7 @@
 	name = "colorizer box"
 	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colors!"
 	icon_state = "tabletcbox"
-	custom_price = 50
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/storage/box/tabletcolorizer/PopulateContents()
 	new /obj/item/colorizer/tablet(src)

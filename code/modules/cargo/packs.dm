@@ -2075,7 +2075,7 @@
 /datum/supply_pack/science/modularpc
 	name = "Deluxe Silicate Selections restocking unit"
 	desc = "What's a computer? Contains Deluxe Silicate Selections restocking unit."
-	cost = 1200
+	cost = 5500
 	max_supply = 4
 	contains = list(/obj/item/vending_refill/modularpc)
 	crate_name = "computer supply crate"
@@ -3562,3 +3562,445 @@
 					/obj/item/toner/large,
 					/obj/item/toner/large)
 	crate_name = "large toner crate"
+
+//////////////////////////////////////////////////////////////////////////////
+////////////////////////// Modular Computers /////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/datum/supply_pack/computer
+	group = "Computer Supplies"
+
+/datum/supply_pack/computer/skins
+	name = "Bulk skin crate"
+	desc = "Contains one of each tablet skin, as well as two general skin boxes."
+	cost = 2000
+	max_supply = 2
+	contains = list(
+					/obj/item/colorizer/tablet/gw,
+					/obj/item/colorizer/tablet/rugged,
+					/obj/item/colorizer/tablet/clearp,
+					/obj/item/colorizer/tablet/clearb,
+					/obj/item/colorizer/tablet/cat,
+					/obj/item/storage/box/tabletcolorizer,
+					/obj/item/storage/box/tabletcolorizer,
+	)
+	crate_name = "Bulk computer supply crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/basics
+	name = "Bulk basics crate"
+	desc = "Contains two of each processor, as well as two laptop and tablet shells."
+	cost = 2500
+	max_supply = 2
+	contains = list(
+					/obj/item/modular_computer/laptop,
+					/obj/item/modular_computer/laptop,
+					/obj/item/modular_computer/tablet,
+					/obj/item/modular_computer/tablet,
+					/obj/item/computer_hardware/processor_unit/small,
+					/obj/item/computer_hardware/processor_unit/small,
+					/obj/item/computer_hardware/processor_unit,
+					/obj/item/computer_hardware/processor_unit,
+					/obj/item/computer_hardware/processor_unit/photonic/small,
+					/obj/item/computer_hardware/processor_unit/photonic/small,
+					/obj/item/computer_hardware/processor_unit/photonic,
+					/obj/item/computer_hardware/processor_unit/photonic
+	)
+	crate_name = "Bulk computer basics crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/power
+	name = "Bulk power crate"
+	desc = "Contains two of each power cell, as well as six power controllers."
+	cost = 2300
+	max_supply = 2
+	contains = list(
+					/obj/item/computer_hardware/battery,
+					/obj/item/computer_hardware/battery,
+					/obj/item/computer_hardware/battery,
+					/obj/item/computer_hardware/battery,
+					/obj/item/computer_hardware/battery,
+					/obj/item/computer_hardware/battery,
+					/obj/item/stock_parts/cell/computer/nano,
+					/obj/item/stock_parts/cell/computer/nano,
+					/obj/item/stock_parts/cell/computer/micro,
+					/obj/item/stock_parts/cell/computer/micro,
+					/obj/item/stock_parts/cell/computer,
+					/obj/item/stock_parts/cell/computer,
+					/obj/item/stock_parts/cell/computer/advanced,
+					/obj/item/stock_parts/cell/computer/advanced,
+					/obj/item/stock_parts/cell/computer/super,
+					/obj/item/stock_parts/cell/computer/super
+	)
+	crate_name = "bulk computer power crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/storage
+	name = "Bulk storage crate"
+	desc = "Contains two of each storage drive."
+	cost = 2200
+	max_supply = 2
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/micro,
+					/obj/item/computer_hardware/hard_drive/micro,
+					/obj/item/computer_hardware/hard_drive/small,
+					/obj/item/computer_hardware/hard_drive/small,
+					/obj/item/computer_hardware/hard_drive,
+					/obj/item/computer_hardware/hard_drive,
+					/obj/item/computer_hardware/hard_drive/advanced,
+					/obj/item/computer_hardware/hard_drive/advanced,
+					/obj/item/computer_hardware/hard_drive/super,
+					/obj/item/computer_hardware/hard_drive/super
+	)
+	crate_name = "bulk computer drives crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/periphery
+	name = "Bulk periphery crate"
+	desc = "Contains two of each periphery, as well as two laptop and tablet shells."
+	cost = 2400
+	max_supply = 2
+	contains = list(
+					/obj/item/computer_hardware/network_card,
+					/obj/item/computer_hardware/network_card,
+					/obj/item/computer_hardware/network_card/advanced,
+					/obj/item/computer_hardware/network_card/advanced,
+					/obj/item/computer_hardware/radio_card,
+					/obj/item/computer_hardware/radio_card,
+					/obj/item/computer_hardware/card_slot,
+					/obj/item/computer_hardware/card_slot,
+					/obj/item/computer_hardware/card_slot/secondary,
+					/obj/item/computer_hardware/card_slot/secondary,
+					/obj/item/computer_hardware/ai_slot,
+					/obj/item/computer_hardware/ai_slot,
+					/obj/item/computer_hardware/sensorpackage,
+					/obj/item/computer_hardware/sensorpackage,
+					/obj/item/computer_hardware/printer/mini,
+					/obj/item/computer_hardware/printer/mini,
+					/obj/item/computer_hardware/printer,
+					/obj/item/computer_hardware/printer
+	)
+	crate_name = "bulk computer periphery crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/disktier1
+	name = "Data disk crate"
+	desc = "Contains 4 standard data disks."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/portable,
+					/obj/item/computer_hardware/hard_drive/portable,
+					/obj/item/computer_hardware/hard_drive/portable,
+					/obj/item/computer_hardware/hard_drive/portable
+	)
+	crate_name = "data disk crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/disktier2
+	name = "Advanced data disk crate"
+	desc = "Contains 4 advanced data disks."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/portable/advanced,
+					/obj/item/computer_hardware/hard_drive/portable/advanced,
+					/obj/item/computer_hardware/hard_drive/portable/advanced,
+					/obj/item/computer_hardware/hard_drive/portable/advanced
+	)
+	crate_name = "advanced data disk crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/disktier3
+	name = "Super data disk crate"
+	desc = "Contains 4 super data disks."
+	cost = 730
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/portable/super,
+					/obj/item/computer_hardware/hard_drive/portable/super,
+					/obj/item/computer_hardware/hard_drive/portable/super,
+					/obj/item/computer_hardware/hard_drive/portable/super
+	)
+	crate_name = "super data disk crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/diskAV
+	name = "NTOS VB Basic crate"
+	desc = "Contains 4 basic level antivirus disk."
+	cost = 740
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/role/antivirus,
+					/obj/item/computer_hardware/hard_drive/role/antivirus,
+					/obj/item/computer_hardware/hard_drive/role/antivirus,
+					/obj/item/computer_hardware/hard_drive/role/antivirus
+	)
+	crate_name = "ntos vb basic disk crate"
+	crate_type = /obj/structure/closet/crate
+
+// Singles start
+/datum/supply_pack/computer/processortier1
+	name = "Microprocessor crate"
+	desc = "Contains a single microprocessor."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/processor_unit/small
+	)
+	crate_name = "microprocessor crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/processortier2
+	name = "Processor board crate"
+	desc = "Contains a single processor board."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/processor_unit
+	)
+	crate_name = "processor board crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/processortier3
+	name = "Photonic microprocessor crate"
+	desc = "Contains a single photonic microprocessor."
+	cost = 730
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/processor_unit/photonic/small
+	)
+	crate_name = "photonic microprocessor crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/processortier4
+	name = "Photonic processor board crate"
+	desc = "Contains a single microprocessor."
+	cost = 740
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/processor_unit/photonic
+	)
+	crate_name = "photonic processor board crate"
+	crate_type = /obj/structure/closet/crate
+
+// Power
+/datum/supply_pack/computer/powercontroller
+	name = "Power cell controller crate"
+	desc = "Contains a single power cell controller."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/battery
+	)
+	crate_name = "power cell controller crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/powercelltier1
+	name = "Nano battery crate"
+	desc = "Contains a single nano battery."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/stock_parts/cell/computer/nano
+	)
+	crate_name = "nano battery crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/powercelltier2
+	name = "Micro battery crate"
+	desc = "Contains a single micro battery."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/stock_parts/cell/computer/micro
+	)
+	crate_name = "micro battery crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/powercelltier3
+	name = "Standard battery crate"
+	desc = "Contains a single standard battery."
+	cost = 730
+	max_supply = 5
+	contains = list(
+					/obj/item/stock_parts/cell/computer
+	)
+	crate_name = "standard battery crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/powercelltier4
+	name = "Advanced battery crate"
+	desc = "Contains a single advanced battery."
+	cost = 740
+	max_supply = 5
+	contains = list(
+					/obj/item/stock_parts/cell/computer/advanced
+	)
+	crate_name = "advanced battery crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/powercelltier5
+	name = "Super battery crate"
+	desc = "Contains a single super battery."
+	cost = 750
+	max_supply = 5
+	contains = list(
+					/obj/item/stock_parts/cell/computer/super
+	)
+	crate_name = "super battery crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/drivetier1
+	name = "Micro solid state drive crate"
+	desc = "Contains a single micro solid state drive."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/micro
+	)
+	crate_name = "micro solid state drive crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/drivetier2
+	name = "Solid state drive crate"
+	desc = "Contains a single  solid state drive."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/small
+	)
+	crate_name = "solid state drive crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/drivetier3
+	name = "Hard disk drive crate"
+	desc = "Contains a single hard disk drive."
+	cost = 730
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive
+	)
+	crate_name = "hard disk drive crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/drivetier4
+	name = "Advanced hard disk drive crate"
+	desc = "Contains a single advanced hard disk drive."
+	cost = 740
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/advanced
+	)
+	crate_name = "advanced hard disk drive crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/drivetier5
+	name = "Cluster hard disk drive crate"
+	desc = "Contains a single hard disk drive cluster."
+	cost = 750
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/hard_drive/cluster
+	)
+	crate_name = "cluster hard disk drive crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/networktier1
+	name = "Network card crate"
+	desc = "Contains a single network card."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/network_card
+	)
+	crate_name = "network card crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/networktier2
+	name = "Advanced network card crate"
+	desc = "Contains a single advanced network card."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/network_card/advanced
+	)
+	crate_name = "advanced network card crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/networktier2
+	name = "Advanced network card crate"
+	desc = "Contains a single advanced network card."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/network_card/advanced
+	)
+	crate_name = "advanced network card crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/cardslottier1
+	name = "Primary RFID card module crate"
+	desc = "Contains a single primary RFID card module."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/card_slot
+	)
+	crate_name = "primary RFID card module crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/cardslottier2
+	name = "Secondary RFID card module crate"
+	desc = "Contains a single secondary RFID card module."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/card_slot/secondary
+	)
+	crate_name = "secondary RFID card module crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/cardslottier2
+	name = "IntelliCard interface slot crate"
+	desc = "Contains a single intelliCard interface slot."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/ai_slot
+	)
+	crate_name = "intelliCard interface slot crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/sensorpackage
+	name = "Sensor package crate"
+	desc = "Contains a single sensor package."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/sensorpackage
+	)
+	crate_name = "sensor package crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/printertier1
+	name = "Miniprinter crate"
+	desc = "Contains a single miniprinter."
+	cost = 710
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/printer/mini
+	)
+	crate_name = "miniprinter crate"
+	crate_type = /obj/structure/closet/crate
+
+/datum/supply_pack/computer/printertier2
+	name = "Printer crate"
+	desc = "Contains a single printer."
+	cost = 720
+	max_supply = 5
+	contains = list(
+					/obj/item/computer_hardware/printer
+	)
+	crate_name = "printer crate"
+	crate_type = /obj/structure/closet/crate

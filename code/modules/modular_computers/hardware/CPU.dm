@@ -11,7 +11,7 @@
 	malfunction_probability = 1
 	var/max_idle_programs = 2 // 2 idle, + 1 active = 3 as said in description.
 	device_type = MC_CPU
-	custom_price = 20
+	custom_price = PAYCHECK_MEDIUM * 2
 
 /obj/item/computer_hardware/processor_unit/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
@@ -29,7 +29,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	power_usage = 25
 	max_idle_programs = 1
-	custom_price = 10
+	custom_price = PAYCHECK_EASY * 2
 
 /obj/item/computer_hardware/processor_unit/photonic
 	name = "photonic processor board"
@@ -38,7 +38,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	power_usage = 250
 	max_idle_programs = 4
-	custom_price = 50
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/computer_hardware/processor_unit/photonic/small
 	name = "photonic microprocessor"
@@ -47,4 +47,4 @@
 	w_class = WEIGHT_CLASS_TINY
 	power_usage = 75
 	max_idle_programs = 2
-	custom_price = 60
+	custom_price = PAYCHECK_MEDIUM * 3
