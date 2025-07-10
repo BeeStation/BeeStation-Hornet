@@ -204,7 +204,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	max_amount = 5
 	self_delay = 10 SECONDS
 	stop_bleeding = BLEED_CRITICAL
-	heal_brute = TRUE
 	heal_creatures = TRUE
 
 /obj/item/stack/medical/ointment
