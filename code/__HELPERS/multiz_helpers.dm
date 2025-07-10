@@ -1,7 +1,7 @@
 GLOBAL_DATUM(temporary_multiz_step_ref, /turf)
 
 #define get_step_multiz(ref, dir) \
-	(dir & UP ? ( \
+	((dir & UP) ? ( \
 		(GLOB.temporary_multiz_step_ref = get_turf(ref)) ? get_step(GET_TURF_ABOVE(GLOB.temporary_multiz_step_ref), dir & ~UP) : null \
 	) : ( \
 		(dir & DOWN) ? ( \
