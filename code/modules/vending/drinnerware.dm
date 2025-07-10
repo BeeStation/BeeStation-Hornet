@@ -47,6 +47,9 @@
 			"products" = list(
 				/obj/item/reagent_containers/condiment/enzyme = 2,
 				/obj/item/reagent_containers/condiment/cherryjelly = 2,
+				/obj/item/reagent_containers/condiment/bbqsauce = 2,
+				/obj/item/reagent_containers/condiment/soysauce = 2,
+				/obj/item/reagent_containers/condiment/mayonnaise = 2,
 				/obj/item/reagent_containers/condiment/honey = 2,
 				/obj/item/reagent_containers/cup/bottle/caramel = 2,
 				/obj/item/reagent_containers/condiment/vanilla = 2,

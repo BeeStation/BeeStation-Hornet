@@ -252,6 +252,7 @@
 	desc = "Hand wipes not included."
 	icon_state = "bbqsauce"
 	list_reagents = list(/datum/reagent/consumable/bbqsauce = 50)
+	custom_price = 25
 
 /obj/item/reagent_containers/condiment/soysauce
 	name = "soy sauce"
@@ -259,6 +260,7 @@
 	icon_state = "soysauce"
 	list_reagents = list(/datum/reagent/consumable/soysauce = 50)
 	fill_icon_thresholds = null
+	custom_price = 25
 
 /obj/item/reagent_containers/condiment/mayonnaise
 	name = "mayonnaise"
@@ -266,6 +268,7 @@
 	icon_state = "mayonnaise"
 	list_reagents = list(/datum/reagent/consumable/mayonnaise = 50)
 	fill_icon_thresholds = null
+	custom_price = 25
 
 /*
 /obj/item/reagent_containers/condiment/vinegar
