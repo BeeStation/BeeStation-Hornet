@@ -83,12 +83,7 @@
 
 /obj/structure/closet/firecloset/PopulateContents()
 	..()
-	//Guaranteed, 2 Suits
-	new /obj/item/clothing/suit/utility/fire/firefighter(src)
-	new /obj/item/clothing/head/utility/hardhat/red(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/internals/oxygen/red(src)
-	new /obj/item/extinguisher(src)
+	//Guaranteed, 1 Suit
 	new /obj/item/clothing/suit/utility/fire/firefighter(src)
 	new /obj/item/clothing/head/utility/hardhat/red(src)
 	new /obj/item/clothing/mask/gas(src)
