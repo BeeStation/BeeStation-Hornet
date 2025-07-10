@@ -1362,6 +1362,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 1
 	surplus = 8
 
+/datum/uplink_item/explosives/pinata
+	name = "Weapons Grade Pinata Kit"
+	desc = "A pinata filled with both candy and explosives as well as two belts to carry them on, crack it open and see what you get!"
+	item = /obj/item/storage/box/syndie_kit/pinata
+	purchasable_from = UPLINK_CLOWN_OPS
+	limited_stock = 1
+	cost = 12 //This is effectively the clown ops version of the grenadier belt where you should on average get 8 explosives if you use a weapon with exactly 10 force.
+	surplus = 0
+
 //Support and Mechs
 /datum/uplink_item/support
 	category = "Support and Exosuits"
@@ -2484,7 +2493,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Balloon"
 	desc = "For showing that you are THE BOSS: A useless red balloon with the Syndicate logo on it. \
 			Can blow the deepest of covers."
-	item = /obj/item/toy/syndicateballoon
+	item = /obj/item/toy/balloon/syndicate
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
