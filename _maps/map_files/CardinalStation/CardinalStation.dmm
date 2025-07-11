@@ -71713,7 +71713,7 @@
 /area/science/nanite)
 "oCx" = (
 /obj/structure/table/wood,
-/obj/item/razor/straightrazor{
+/obj/item/razor{
 	pixel_x = 11
 	},
 /turf/open/floor/concrete/slab,

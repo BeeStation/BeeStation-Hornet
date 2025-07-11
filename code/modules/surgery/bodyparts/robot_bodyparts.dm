@@ -101,7 +101,7 @@
 	attack_verb_simple = list("kicked", "stomped")
 	item_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
-	icon = null
+	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	flags_1 = CONDUCT_1
 	icon_state = "borg_r_leg"
