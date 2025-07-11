@@ -1,12 +1,7 @@
 /datum/species/human
 	name = "\improper Human"
 	id = SPECIES_HUMAN
-	species_traits = list(
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-		LIPS
-	)
+	species_traits = list()
 	inherent_traits = list(
 		TRAIT_CAN_USE_FLIGHT_POTION,
 	)
@@ -51,9 +46,8 @@
 	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
 
 /datum/species/human/prepare_human_for_preview(mob/living/carbon/human/human)
-	human.hair_style = "Business Hair"
-	human.hair_color = "b96" // brown
-	human.update_body_parts()
+	human.set_haircolor("#bb9966", update = FALSE) // brown
+	human.set_hairstyle("Business Hair", update = TRUE)
 
 /datum/species/human/get_species_description()
 	return "Humans are the dominant species in the known galaxy. \

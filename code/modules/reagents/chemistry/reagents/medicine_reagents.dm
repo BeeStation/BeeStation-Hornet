@@ -1691,8 +1691,8 @@
 	if(method == TOUCH || method == VAPOR)
 		if(M && ishuman(M) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/H = M
-			H.hair_color = "92f"
-			H.facial_hair_color = "92f"
+			H.set_facial_haircolor("#9922ff", update = FALSE)
+			H.set_haircolor(color, update = TRUE)
 			H.update_body_parts()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/M, delta_time, times_fired)

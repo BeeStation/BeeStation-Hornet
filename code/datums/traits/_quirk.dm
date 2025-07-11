@@ -1,7 +1,9 @@
 //every quirk in this folder should be coded around being applied on spawn
 //these are NOT "mob quirks" like GOTTAGOFAST, but exist as a medium to apply them and other different effects
 /datum/quirk
+	/// The name of the quirk
 	var/name = "Test Quirk"
+	/// The description of the quirk
 	var/desc = "This is a test quirk."
 	/// The icon to show in the preferences menu.
 	/// This references a tgui icon, so it can be FontAwesome or a tgfont (with a tg- prefix).
@@ -11,14 +13,19 @@
 	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
 	var/list/restricted_species //specifies valid species, use /datum/species/
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
+	/// Text displayed when this quirk is assigned to a mob (and not transferred)
 	var/gain_text
+	/// Text displayed when this quirk is removed from a mob (and not transferred)
 	var/lose_text
-	var/medical_record_text //This text will appear on medical records for the quirk.
+	///This text will appear on medical records for the trait.
+	var/medical_record_text
 	var/mood_quirk = FALSE //if true, this quirk affects mood and is unavailable if moodlets are disabled
-	var/mob_trait //if applicable, apply and remove this mob quirk
+	/// if applicable, apply and remove this mob trait
+	var/mob_trait
 	var/process = FALSE // Does this quirk use on_process()?
 	var/datum/mind/quirk_holder // The mind that contains this quirk
 	var/mob/living/quirk_target // The mob that will be affected by this quirk
+	/// When making an abstract quirk (in OOP terms), don't forget to set this var to the type path for that abstract quirk.
 	var/abstract_parent_type = /datum/quirk
 
 /datum/quirk/New(datum/mind/quirk_mind, mob/living/quirk_mob, spawn_effects)
@@ -45,8 +52,9 @@
 		ADD_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)
 	add()
 	if(spawn_effects)
+		add_unique()
 		on_spawn()
-		addtimer(CALLBACK(src, PROC_REF(post_spawn)), 30)
+		addtimer(CALLBACK(src, PROC_REF(post_add)), 30)
 
 /datum/quirk/Destroy()
 	if(process)
@@ -82,13 +90,28 @@
 		add()
 	on_transfer()
 
-// laid out in chronological order
-/datum/quirk/proc/add() //special "on add" effects
+/// Any effect that should be applied every single time the quirk is added to any mob, even when transferred.
+/datum/quirk/proc/add(client/client_source)
+	return
+
+/// Any effects from the proc that should not be done multiple times if the quirk is transferred between mobs.
+/// Put stuff like spawning items in here.
+/datum/quirk/proc/add_unique(client/client_source)
+	return
+
+/// Removal of any reversible effects added by the quirk.
+/datum/quirk/proc/remove()
+	return
+
+/// Any special effects or chat messages which should be applied.
+/// This proc is guaranteed to run if the mob has a client when the quirk is added.
+/// Otherwise, it runs once on the next COMSIG_MOB_LOGIN.
+/datum/quirk/proc/post_add()
+	return
+
 /datum/quirk/proc/on_spawn() //these should only trigger when the character is being created for the first time, i.e. roundstart/latejoin
-/datum/quirk/proc/post_spawn() //for text, disclaimers etc. given after you spawn in with the quirk
 /datum/quirk/proc/on_process() //process() has some special checks, so this is the actual process
 /datum/quirk/proc/on_transfer() //code called right before the quirk is transferred to a new mob
-/datum/quirk/proc/remove() //special "on remove" effects
 
 /datum/quirk/proc/handle_holder_del()
 	SIGNAL_HANDLER
@@ -120,6 +143,51 @@
 		if(species_whitelist != isvalid)
 			return
 		return TRUE
+
+/// Subtype quirk that has some bonus logic to spawn items for the player.
+/datum/quirk/item_quirk
+	/// Lazylist of strings describing where all the quirk items have been spawned.
+	var/list/where_items_spawned
+	/// If true, the backpack automatically opens on post_add(). Usually set to TRUE when an item is equipped inside the player's backpack.
+	var/open_backpack = FALSE
+	abstract_parent_type = /datum/quirk/item_quirk
+
+/**
+ * Handles inserting an item in any of the valid slots provided, then allows for post_add notification.
+ *
+ * If no valid slot is available for an item, the item is left at the mob's feet.
+ * Arguments:
+ * * quirk_item - The item to give to the quirk holder. If the item is a path, the item will be spawned in first on the player's turf.
+ * * valid_slots - Assoc list of descriptive location strings to item slots that is fed into [/mob/living/carbon/proc/equip_in_one_of_slots]. list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK)
+ * * flavour_text - Optional flavour text to append to the where_items_spawned string after the item's location.
+ * * default_location - If the item isn't possible to equip in a valid slot, this is a description of where the item was spawned.
+ * * notify_player - If TRUE, adds strings to where_items_spawned list to be output to the player in [/datum/quirk/item_quirk/post_add()]
+ */
+/datum/quirk/item_quirk/proc/give_item_to_holder(quirk_item, list/valid_slots, flavour_text = null, default_location = "at your feet", notify_player = TRUE)
+	if(ispath(quirk_item))
+		quirk_item = new quirk_item(get_turf(quirk_holder))
+
+	var/mob/living/carbon/human/human_holder = quirk_holder
+
+	var/where = human_holder.equip_in_one_of_slots(quirk_item, valid_slots, qdel_on_fail = FALSE) || default_location
+
+	if(where == LOCATION_BACKPACK)
+		open_backpack = TRUE
+
+	if(notify_player)
+		LAZYADD(where_items_spawned, span_boldnotice("You have \a [quirk_item] [where]. [flavour_text]"))
+
+/datum/quirk/item_quirk/post_add()
+	if(open_backpack)
+		var/mob/living/carbon/human/human_holder = quirk_holder
+		// post_add() can be called via delayed callback. Check they still have a backpack equipped before trying to open it.
+		if(human_holder.back)
+			human_holder.back.atom_storage.show_contents(human_holder)
+
+	for(var/chat_string in where_items_spawned)
+		to_chat(quirk_holder, chat_string)
+
+	where_items_spawned = null
 
 /**
  * get_quirk_string() is used to get a printable string of all the quirk traits someone has for certain criteria

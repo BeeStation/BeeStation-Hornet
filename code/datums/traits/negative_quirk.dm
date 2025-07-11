@@ -96,7 +96,7 @@
 	)
 	where = H.equip_in_one_of_slots(P, slots, FALSE)
 
-/datum/quirk/brainproblems/post_spawn()
+/datum/quirk/brainproblems/post_add()
 	if(where)
 		to_chat(quirk_target, span_boldnotice("There is a bottle of mannitol [where]. You're going to need it."))
 	else
@@ -233,7 +233,7 @@
 	)
 	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
 
-/datum/quirk/family_heirloom/post_spawn()
+/datum/quirk/family_heirloom/post_add()
 	if(where == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
 		H.back.atom_storage.show_contents(H)
@@ -430,7 +430,7 @@
 	H.del_and_replace_bodypart(prosthetic)
 	medical_record_text = "Patient uses a low-budget prosthetic on the [prosthetic.name]."
 
-/datum/quirk/prosthetic_limb/post_spawn()
+/datum/quirk/prosthetic_limb/post_add()
 	to_chat(quirk_target, span_boldannounce("Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
 	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment."))
 
@@ -465,7 +465,7 @@
 /datum/quirk/insanity/proc/madness()
 	quirk_target.hallucination += rand(10, 25)
 
-/datum/quirk/insanity/post_spawn() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
+/datum/quirk/insanity/post_add() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
 	if(quirk_holder.special_role)
 		return
 	to_chat(quirk_target, span_bigboldinfo("Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
@@ -553,7 +553,7 @@
 		where_accessory = H.equip_in_one_of_slots(accessory_instance, slots, FALSE) || "at your feet"
 	announce_drugs()
 
-/datum/quirk/junkie/post_spawn()
+/datum/quirk/junkie/post_add()
 	if(where_drug == "in your backpack" || where_accessory == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
 		H.back.atom_storage.show_contents(H)
@@ -636,7 +636,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE) || "at your feet"
 
-/datum/quirk/alcoholic/post_spawn()
+/datum/quirk/alcoholic/post_add()
 	to_chat(quirk_target, span_boldnotice("There is a small bottle of [drink_instance] [where_drink]. You only have a single bottle, might have to find some more..."))
 
 /datum/quirk/alcoholic/on_process()

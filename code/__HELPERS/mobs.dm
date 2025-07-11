@@ -55,23 +55,23 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
 	return pick(GLOB.socks_list)
 
-/proc/random_hair_style(gender)
+/proc/random_hairstyle(gender)
 	switch(gender)
 		if(MALE)
 			return pick(GLOB.hair_styles_male_list)
 		if(FEMALE)
 			return pick(GLOB.hair_styles_female_list)
 		else
-			return pick(GLOB.hair_styles_list)
+			return pick(GLOB.hairstyles_list)
 
-/proc/random_facial_hair_style(gender)
+/proc/random_facial_hairstyle(gender)
 	switch(gender)
 		if(MALE)
-			return pick(GLOB.facial_hair_styles_male_list)
+			return pick(GLOB.facial_hairstyles_male_list)
 		if(FEMALE)
-			return pick(GLOB.facial_hair_styles_female_list)
+			return pick(GLOB.facial_hairstyles_female_list)
 		else
-			return pick(GLOB.facial_hair_styles_list)
+			return pick(GLOB.facial_hairstyles_list)
 
 /proc/random_unique_name(gender, attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)

@@ -322,7 +322,10 @@
 /datum/species/golem/alloy
 	name = "Alien Alloy Golem"
 	id = SPECIES_GOLEM_ALLOY
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOTRANSSTING
+	)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/internal/tongue/abductor
 	speedmod = 1 //faster
@@ -586,7 +589,10 @@
 /datum/species/golem/bananium
 	name = "Bananium Golem"
 	id = SPECIES_GOLEM_BANANIUM
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOTRANSSTING
+	)
 	punchdamage = 0
 	meat = /obj/item/stack/ore/bananium
 	mutanttongue = /obj/item/organ/internal/tongue/golem/bananium
@@ -679,7 +685,11 @@
 	id = SPECIES_GOLEM_RUNIC
 	sexes = FALSE
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING) //no mutcolors
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOFLASH,
+		NOTRANSSTING
+	) //no mutcolors
 	prefix = "Runic"
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
@@ -749,7 +759,11 @@
 	name = "Clockwork Golem"
 	id = SPECIES_GOLEM_CLOCKWORK
 	info_text = span_boldalloy("As a " + span_danger("Clockwork Golem") + ", you are faster than other types of golems. On death, you will break down into scrap.")
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOFLASH,
+		NOTRANSSTING
+	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	armor = 20 //Reinforced, but much less so to allow for fast movement
 	attack_verb = "smash"
@@ -1082,7 +1096,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	prefix = "Cardboard"
 	special_names = list("Box")
 	info_text = "As a " + span_danger("Cardboard Golem") + ", you aren't very strong, but you are a bit quicker and can easily create more brethren by using cardboard on yourself."
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOFLASH,
+		NOTRANSSTING
+	)
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,
@@ -1166,7 +1184,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	id = SPECIES_GOLEM_DURATHREAD
 	prefix = "Durathread"
 	special_names = list("Boll","Weave")
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOFLASH,
+		NOTRANSSTING)
 	fixed_mut_color = null
 	inherent_traits = list(
 		TRAIT_NOBREATH,
@@ -1199,7 +1220,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	id = SPECIES_GOLEM_BONE
 	prefix = "Bone"
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOFLASH
+	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/internal/tongue/bone
 	sexes = FALSE
@@ -1301,7 +1325,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	info_text = "As a " + span_danger("Snow Golem") + ", you are extremely vulnerable to burn damage, but you can generate snowballs and shoot cryokinetic beams. You will also turn to snow when dying, preventing any form of recovery."
 	prefix = "Snow"
 	special_names = list("Flake", "Blizzard", "Storm")
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING) //no mutcolors, no eye sprites
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOTRANSSTING
+		) //no mutcolors, no eye sprites
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,

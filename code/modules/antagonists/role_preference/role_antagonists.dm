@@ -38,7 +38,7 @@
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_held_items()
-	H.hair_style = "Messy"
+	H.hairstyle = "Messy"
 	H.hair_color = "431"
 	H.update_body_parts()
 
@@ -87,7 +87,7 @@
 	var/mob/living/carbon/human/dummy/consistent/brother1 = new
 	var/mob/living/carbon/human/dummy/consistent/brother2 = new
 
-	brother1.hair_style = "Pigtails"
+	brother1.hairstyle = "Pigtails"
 	brother1.hair_color = "532"
 	brother1.update_body_parts()
 
@@ -207,7 +207,7 @@
 
 /datum/role_preference/antagonist/revolutionary/proc/make_assistant_icon(hair_style)
 	var/mob/living/carbon/human/dummy/consistent/assistant = new
-	assistant.hair_style = hair_style
+	assistant.hairstyle = hair_style
 	assistant.update_body_parts()
 
 	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)

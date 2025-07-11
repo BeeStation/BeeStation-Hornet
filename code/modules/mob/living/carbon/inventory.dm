@@ -86,15 +86,24 @@
 	var/not_handled = FALSE
 	switch(slot)
 		if(ITEM_SLOT_BACK)
+			if(back)
+				return
 			back = I
 			update_worn_back()
 		if(ITEM_SLOT_MASK)
+			if(wear_mask)
+				return
 			wear_mask = I
 			wear_mask_update(I, toggle_off = 0)
 		if(ITEM_SLOT_HEAD)
+			if(head)
+				return
 			head = I
+			SEND_SIGNAL(src, COMSIG_CARBON_EQUIP_HAT, I)
 			head_update(I)
 		if(ITEM_SLOT_NECK)
+			if(wear_neck)
+				return
 			wear_neck = I
 			update_worn_neck(I)
 		if(ITEM_SLOT_HANDCUFFED)
@@ -127,6 +136,7 @@
 
 	if(I == head)
 		head = null
+		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_HAT, I, force, newloc, no_move, invdrop, silent)
 		if(!QDELETED(src))
 			head_update(I)
 	else if(I == back)

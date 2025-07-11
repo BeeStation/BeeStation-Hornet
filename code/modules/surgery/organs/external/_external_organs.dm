@@ -64,6 +64,9 @@
 	return ..()
 
 /obj/item/organ/external/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+	if(!should_external_organ_apply_to(type, receiver))
+		stack_trace("adding a [type] to a [receiver.type] when it shouldn't be!")
+
 	var/obj/item/bodypart/limb = receiver.get_bodypart(deprecise_zone(zone))
 
 	if(!limb)
@@ -83,7 +86,7 @@
 	add_to_limb(ownerlimb)
 
 	if(external_bodytypes)
-		limb.synchronize_bodytypes(receiver)
+		receiver.synchronize_bodytypes()
 
 	receiver.update_body_parts()
 
@@ -120,9 +123,23 @@
 	ownerlimb.external_organs -= src
 	ownerlimb.remove_bodypart_overlay(bodypart_overlay)
 	if(ownerlimb.owner && external_bodytypes)
-		ownerlimb.synchronize_bodytypes(ownerlimb.owner)
+		ownerlimb.owner.synchronize_bodytypes()
 	ownerlimb = null
 	return ..()
+
+/proc/should_external_organ_apply_to(obj/item/organ/external/organpath, mob/living/carbon/target)
+	if(isnull(organpath) || isnull(target))
+		stack_trace("passed a null path or mob to 'should_external_organ_apply_to'")
+		return FALSE
+
+	var/datum/bodypart_overlay/mutant/bodypart_overlay = initial(organpath.bodypart_overlay)
+	var/feature_key = !isnull(bodypart_overlay) && initial(bodypart_overlay.feature_key)
+	if(isnull(feature_key))
+		return TRUE
+
+	if(target.dna.features[feature_key] != SPRITE_ACCESSORY_NONE)
+		return TRUE
+	return FALSE
 
 ///Update our features after something changed our appearance
 /obj/item/organ/external/proc/mutate_feature(features, mob/living/carbon/human/human)

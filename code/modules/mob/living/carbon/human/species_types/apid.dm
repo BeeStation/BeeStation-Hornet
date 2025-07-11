@@ -3,8 +3,6 @@
 	name = "\improper Apid"
 	id = SPECIES_APID
 	species_traits = list(
-		LIPS,
-		NOEYESPRITES,
 		MUTCOLORS
 	)
 	inherent_traits = list(

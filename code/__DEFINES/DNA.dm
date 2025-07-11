@@ -31,10 +31,10 @@
 
 #define DNA_EYE_COLOR_BLOCK 4
 #define DNA_FACIAL_HAIR_COLOR_BLOCK 2
-#define DNA_FACIAL_HAIR_STYLE_BLOCK 6
+#define DNA_FACIAL_HAIRSTYLE_BLOCK 6
 #define DNA_GENDER_BLOCK 5
 #define DNA_HAIR_COLOR_BLOCK 1
-#define DNA_HAIR_STYLE_BLOCK 7
+#define DNA_HAIRSTYLE_BLOCK 7
 #define DNA_SKIN_TONE_BLOCK 3
 #define DNA_UNI_IDENTITY_BLOCKS 7
 
@@ -89,12 +89,8 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-//! ## species traits for mutantraces
+// species_traits list on /datum/species, please avoid adding more and use inherent_traits instead where possible
 #define MUTCOLORS 1
-#define HAIR 2
-#define FACEHAIR 3
-#define EYECOLOR 4
-#define LIPS 5
 #define NOTRANSSTING 6
 #define NOZOMBIE 8
 #define NO_UNDERWEAR 9
@@ -105,8 +101,6 @@
 #define DYNCOLORS 12
 // No sex!
 #define AGENDER 13
-// Do not draw eyes or eyeless overlay
-#define NOEYESPRITES 14
 // DO NOT PROCESS REAGENTS
 #define NOREAGENTS 15
 // Will revive on heal when healing and total HP > 0.

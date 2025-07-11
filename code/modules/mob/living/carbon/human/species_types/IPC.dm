@@ -5,7 +5,6 @@
 	sexes = FALSE
 	species_traits = list(
 		NOTRANSSTING,
-		NOEYESPRITES,
 		NO_DNA_COPY,
 		NOZOMBIE,
 		MUTCOLORS,

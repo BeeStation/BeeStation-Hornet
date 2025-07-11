@@ -22,13 +22,20 @@
 
 	var/sight_flags = 0
 	var/see_in_dark = 2
+	/// changes how the eyes overlay is applied, makes it apply over the lighting layer
+	var/overlay_ignore_lighting = FALSE
+	/// How much innate tint these eyes have
 	var/tint = 0
+	/// How much innate flash protection these eyes have, usually paired with tint
+	var/flash_protect = 0
+	/// What level of invisibility these eyes can see
+	var/see_invisible = SEE_INVISIBLE_LIVING
+
 	var/eye_color = "" //set to a hex code to override a mob's eye color
 	var/eye_icon_state = "eyes"
 	var/old_eye_color = "fff"
-	var/flash_protect = 0
-	var/see_invisible = SEE_INVISIBLE_LIVING
 	var/lighting_alpha
+
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
 	///the type of overlay we use for this eye's blind effect
@@ -36,32 +43,78 @@
 	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
 	var/can_see = TRUE
 
-/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
+/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE)
+	if(ishuman(eye_recipient))
+		var/mob/living/carbon/human/human_recipient = eye_recipient
+		old_eye_color = human_recipient.eye_color
+		if(HAS_TRAIT(human_recipient, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
+			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
+
 	. = ..()
+
 	if(!.)
 		return
+
+	eye_recipient.cure_blind()
+	refresh(eye_recipient, call_update = TRUE)
+
+/// Refreshes the visuals of the eyes
+/// If call_update is TRUE, we also will call update_body
+/obj/item/organ/internal/eyes/proc/refresh(mob/living/carbon/eye_owner = owner, call_update = TRUE)
+	owner.update_sight()
+	owner.update_tint()
+
+	if(!ishuman(eye_owner))
+		return
+
+	var/mob/living/carbon/human/affected_human = eye_owner
+	if(initial(eye_color))
+		affected_human.eye_color = eye_color
+	else
+		eye_color = affected_human.eye_color
+
+	if(call_update)
+		affected_human.update_body()
+
+/obj/item/organ/internal/eyes/Remove(mob/living/carbon/eye_owner, special = FALSE)
+	. = ..()
 	if(ishuman(eye_owner))
 		var/mob/living/carbon/human/human_owner = eye_owner
-		old_eye_color = human_owner.eye_color
-		if(eye_color)
-			human_owner.eye_color = eye_color
-		else
-			eye_color = human_owner.eye_color
-		if(HAS_TRAIT(human_owner, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
-	eye_owner.update_tint()
-	owner.update_sight()
-	if(eye_owner.has_dna() && ishuman(eye_owner))
-		eye_owner.dna.species.handle_body(eye_owner) //updates eye icon
-
-/obj/item/organ/internal/eyes/Remove(mob/living/carbon/eye_owner, special = 0, pref_load = FALSE)
-	..()
-	if(ishuman(eye_owner) && eye_color)
-		var/mob/living/carbon/human/human_owner = eye_owner
-		human_owner.eye_color = old_eye_color
+		if(initial(eye_color))
+			human_owner.eye_color = old_eye_color
 		human_owner.update_body()
+
 	eye_owner.update_tint()
 	eye_owner.update_sight()
+
+#define OFFSET_X 1
+#define OFFSET_Y 2
+
+/// This proc generates a list of overlays that the eye should be displayed using for the given parent
+/obj/item/organ/internal/eyes/proc/generate_body_overlay(mob/living/carbon/human/parent)
+	if(!istype(parent) || parent.get_organ_by_type(/obj/item/organ/internal/eyes) != src)
+		CRASH("Generating a body overlay for [src] targeting an invalid parent '[parent]'.")
+
+	if(isnull(eye_icon_state))
+		return list()
+
+	var/mutable_appearance/eye_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "[eye_icon_state]", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+	var/list/overlays = list(eye_overlay)
+
+	var/obscured = parent.check_obscured_slots(TRUE)
+	if(overlay_ignore_lighting && !(obscured & ITEM_SLOT_EYES))
+		overlays += emissive_appearance(eye_overlay.icon, eye_overlay.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), alpha = eye_overlay.alpha)
+	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD)
+	if(my_head)
+		if(my_head.head_flags & HEAD_EYECOLOR)
+			eye_overlay.color = eye_color
+		if(my_head.worn_face_offset)
+			my_head.worn_face_offset.apply_offset(eye_overlay)
+
+	return overlays
+
+#undef OFFSET_X
+#undef OFFSET_Y
 
 //Gotta reset the eye color, because that persists
 /obj/item/organ/internal/eyes/enter_wardrobe()

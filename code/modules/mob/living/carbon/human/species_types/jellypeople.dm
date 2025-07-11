@@ -4,20 +4,18 @@
 //Slime people are able to split like slimes, retaining a single mind that can swap between bodies at will, even after death.
 
 /datum/species/oozeling/slime
-	name = "Slimeperson"
+	name = "\improper Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
 	species_traits = list(
 		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
 	)
 	inherent_traits = list(
 		TRAIT_NOBLOOD
 	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body

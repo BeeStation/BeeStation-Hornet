@@ -253,6 +253,8 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	head_flags = HEAD_EYESPRITES
+
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
 
@@ -365,22 +367,22 @@
 
 
 /obj/item/bodypart/head/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/chest/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/l_arm/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/r_arm/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/l_leg/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/r_leg/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 #undef ROBOTIC_LIGHT_BRUTE_MSG
 #undef ROBOTIC_MEDIUM_BRUTE_MSG

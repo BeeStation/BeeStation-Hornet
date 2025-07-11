@@ -89,7 +89,7 @@
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
-	update_limb(TRUE)
+	update_limb(dropping_limb = TRUE)
 	owner.remove_bodypart(src)
 
 	if(held_index)
@@ -129,9 +129,7 @@
 				continue
 			organ.transfer_to_limb(src, phantom_owner)
 
-
 	update_icon_dropped()
-	synchronize_bodytypes(phantom_owner)
 	phantom_owner.update_health_hud() //update the healthdoll
 	phantom_owner.update_body()
 	phantom_owner.update_body_parts()
@@ -187,6 +185,8 @@
 /obj/item/bodypart/chest/drop_limb(special)
 	if(special)
 		return ..()
+	//if this is not a special drop, this is a mistake
+	return FALSE
 
 /obj/item/bodypart/r_arm/drop_limb(special)
 	. = ..()
@@ -296,6 +296,7 @@
 		return FALSE
 
 	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_ATTACH_LIMB, src, special)
+	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, new_limb_owner, special)
 	moveToNullspace()
 	set_owner(new_limb_owner)
 	new_limb_owner.add_bodypart(src)
@@ -326,7 +327,6 @@
 	if(can_be_disabled)
 		update_disabled()
 
-	synchronize_bodytypes(new_limb_owner)
 	new_limb_owner.updatehealth()
 	new_limb_owner.update_body()
 	new_limb_owner.update_damage_overlays()
@@ -334,8 +334,8 @@
 	return TRUE
 
 
-/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE, abort = FALSE)
-	var/real_name = src.real_name
+/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE)
+	var/old_real_name = src.real_name
 
 	. = ..()
 	if(!.)
@@ -358,9 +358,9 @@
 	if(eyes)
 		eyes = null
 
-	if(real_name)
-		new_head_owner.real_name = real_name
-	real_name = ""
+	if(old_real_name)
+		new_head_owner.real_name = old_real_name
+	real_name = new_head_owner.real_name
 
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/P in src)
@@ -372,33 +372,19 @@
 	///Transfer existing hair properties to the new human.
 	if(!special && ishuman(new_head_owner))
 		var/mob/living/carbon/human/sexy_chad = new_head_owner
-		sexy_chad.hair_style = hair_style
+		sexy_chad.hairstyle = hairstyle
 		sexy_chad.hair_color = hair_color
+
+		sexy_chad.facial_hairstyle = facial_hairstyle
 		sexy_chad.facial_hair_color = facial_hair_color
-		sexy_chad.facial_hair_style = facial_hair_style
-		if(hair_gradient_style)
-			LAZYSETLEN(sexy_chad.gradient_style, GRADIENTS_LEN)
-			LAZYSETLEN(sexy_chad.gradient_color, GRADIENTS_LEN)
-			sexy_chad.gradient_style[GRADIENT_HAIR_KEY] =  hair_gradient_style
-			sexy_chad.gradient_color[GRADIENT_HAIR_KEY] =  hair_gradient_color
-			//sexy_chad.gradient_style[GRADIENT_FACIAL_HAIR_KEY] = facial_hair_gradient_style
-			//sexy_chad.gradient_color[GRADIENT_FACIAL_HAIR_KEY] = facial_hair_gradient_color
+		sexy_chad.grad_style = gradient_styles?.Copy()
+		sexy_chad.grad_color = gradient_colors?.Copy()
+		sexy_chad.lip_style = lip_style
+		sexy_chad.lip_color = lip_color
 
 	new_head_owner.updatehealth()
 	new_head_owner.update_body()
 	new_head_owner.update_damage_overlays()
-
-///Makes sure that the owner's bodytype flags match the flags of all of it's parts.
-/obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/carbon_owner)
-	if(!carbon_owner?.dna?.species) //carbon_owner and dna can somehow be null during garbage collection, at which point we don't care anyway.
-		return
-	var/all_limb_flags
-	for(var/obj/item/bodypart/limb as anything in carbon_owner.bodyparts)
-		for(var/obj/item/organ/external/ext_organ as anything in limb.external_organs)
-			all_limb_flags = all_limb_flags | ext_organ.external_bodytypes
-		all_limb_flags = all_limb_flags | limb.bodytype
-
-	carbon_owner.dna.species.bodytype = all_limb_flags
 
 //Regenerates all limbs. Returns amount of limbs regenerated
 /mob/living/proc/regenerate_limbs(list/excluded_zones = list())

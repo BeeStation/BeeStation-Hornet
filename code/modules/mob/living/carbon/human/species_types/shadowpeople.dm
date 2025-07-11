@@ -11,7 +11,6 @@
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
 	species_traits = list(
-		NOEYESPRITES,
 		NOFLASH
 	)
 	inherent_traits = list(
@@ -111,7 +110,6 @@
 		NO_UNDERWEAR,
 		NO_DNA_COPY,
 		NOTRANSSTING,
-		NOEYESPRITES,
 		NOFLASH
 	)
 	inherent_traits = list(

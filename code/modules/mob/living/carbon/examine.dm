@@ -133,3 +133,16 @@
 			if(MOOD_LEVEL_HAPPY4 to INFINITY)
 				. += "[t_He] look[p_s()] ecstatic."
 	. += "</span>"
+
+/mob/living/carbon/examine_more(mob/user)
+	. = ..()
+	. += span_notice("<i>You examine [src] closer, and note the following...</i>")
+
+	if(dna) //not all carbons have it. eg - xenos
+		//On closer inspection, this man isnt a man at all!
+		var/list/covered_zones = get_covered_body_zones()
+		for(var/obj/item/bodypart/part as anything in bodyparts)
+			if(part.body_zone in covered_zones)
+				continue
+			if(part.limb_id != dna.species.examine_limb_id)
+				. += "[span_info("[p_they(TRUE)] [p_have()] \an [part.name].")]"

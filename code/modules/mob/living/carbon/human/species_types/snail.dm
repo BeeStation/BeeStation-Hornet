@@ -1,7 +1,7 @@
 /datum/species/snail
 	name = "Snailperson"
 	plural_form = "Snailpeople"
-	id = SPECIES_SNAILPERSON
+	id = SPECIES_SNAIL
 	species_traits = list(
 		MUTCOLORS,
 		NO_UNDERWEAR

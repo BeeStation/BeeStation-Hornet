@@ -4,9 +4,7 @@
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
 	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		LIPS
+		MUTCOLORS
 	)
 	inherent_traits = list(
 		TRAIT_CAN_USE_FLIGHT_POTION,
@@ -114,8 +112,6 @@
 	examine_limb_id = SPECIES_LIZARD
 	species_traits = list(
 		MUTCOLORS,
-		EYECOLOR,
-		LIPS,
 		NO_UNDERWEAR
 	)
 	inherent_traits = list(

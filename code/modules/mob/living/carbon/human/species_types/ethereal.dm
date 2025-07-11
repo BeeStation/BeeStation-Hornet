@@ -14,7 +14,6 @@
 	species_traits = list(
 		DYNCOLORS,
 		AGENDER,
-		HAIR
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
@@ -28,6 +27,8 @@
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
+	facial_hair_alpha = 140
+
 	swimming_component = /datum/component/swimming/ethereal
 	inert_mutation = /datum/mutation/overload
 
@@ -123,9 +124,8 @@
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = rgb(128,128,128)
-	ethereal.hair_color = current_color
-	ethereal.facial_hair_color = current_color
-	ethereal.update_body()
+	ethereal.set_facial_haircolor(current_color, update = FALSE)
+	ethereal.set_haircolor(current_color, update = TRUE)
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER

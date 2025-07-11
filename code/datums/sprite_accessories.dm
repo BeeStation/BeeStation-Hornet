@@ -66,7 +66,7 @@
 	 * Currently only used by mutantparts so don't worry about hair and stuff.
 	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
 	 */
-	var/color_src = MUTCOLORS
+	var/color_src = MUTANT_COLOR
 	/// Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
 	var/hasinner
 	/// Is this part locked from roundstart selection? Used for parts that apply effects.
@@ -1677,7 +1677,7 @@
 /datum/sprite_accessory/tails/human/cat
 	name = "Cat"
 	icon_state = "default"
-	color_src = HAIR
+	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/tails/monkey
 	//icon = 'icons/mob/human/species/monkey/monkey_tail.dmi'
@@ -1737,7 +1737,7 @@
 	name = "Cat"
 	icon_state = "cat"
 	hasinner = 1
-	color_src = HAIR
+	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/wings
 	icon = 'icons/mob/wings.dmi'
@@ -2301,7 +2301,7 @@
 	icon = 'icons/mob/ipc_accessories.dmi'
 	emissive_state = "m_ipc_screen_emissive"
 	emissive_alpha = 60
-	color_src = EYECOLOR
+	color_src = HEAD_EYECOLOR
 
 /datum/sprite_accessory/ipc_screens/blue
 	name = "Blue"
@@ -2470,7 +2470,7 @@
 
 /datum/sprite_accessory/ipc_antennas
 	icon = 'icons/mob/ipc_accessories.dmi'
-	color_src = HAIR
+	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/ipc_antennas/none
 	name = "None"

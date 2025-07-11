@@ -1,15 +1,10 @@
 ///DO NOT USE set_species(/datum/species/monkey)
 ///USE monkeyize() INSTEAD
 /datum/species/monkey
-	name = "\improper Monkey"
+	name = "Monkey"
 	id = SPECIES_MONKEY
 	skinned_type = /obj/item/stack/sheet/animalhide/
 	changesource_flags = MIRROR_BADMIN
-	offset_features = list(
-		OFFSET_HEAD = list(0,-3),
-		OFFSET_FACEMASK = list(0,-3)
-	)
-	bodytype = BODYTYPE_ORGANIC | BODYTYPE_MONKEY
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey,

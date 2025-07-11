@@ -16,6 +16,21 @@
 
 	var/obj/item/cavity_item
 
+	/// Offset to apply to equipment worn as a uniform
+	var/datum/worn_feature_offset/worn_uniform_offset
+	/// Offset to apply to equipment worn on the id slot
+	var/datum/worn_feature_offset/worn_id_offset
+	/// Offset to apply to equipment worn in the suit slot
+	var/datum/worn_feature_offset/worn_suit_storage_offset
+	/// Offset to apply to equipment worn on the hips
+	var/datum/worn_feature_offset/worn_belt_offset
+	/// Offset to apply to overlays placed on the back
+	var/datum/worn_feature_offset/worn_back_offset
+	/// Offset to apply to equipment worn as a suit
+	var/datum/worn_feature_offset/worn_suit_offset
+	/// Offset to apply to equipment worn on the neck
+	var/datum/worn_feature_offset/worn_neck_offset
+
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
 	if(owner.stat < HARD_CRIT || !get_organs())
 		return FALSE
@@ -23,6 +38,13 @@
 
 /obj/item/bodypart/chest/Destroy()
 	QDEL_NULL(cavity_item)
+	QDEL_NULL(worn_uniform_offset)
+	QDEL_NULL(worn_id_offset)
+	QDEL_NULL(worn_suit_storage_offset)
+	QDEL_NULL(worn_belt_offset)
+	QDEL_NULL(worn_back_offset)
+	QDEL_NULL(worn_suit_offset)
+	QDEL_NULL(worn_neck_offset)
 	return ..()
 
 /obj/item/bodypart/chest/drop_organs(mob/user, violent_removal)
@@ -92,6 +114,15 @@
 	px_y = 0
 	can_be_disabled = TRUE
 
+	/// Datum describing how to offset things worn on the hands of this arm, note that an x offset won't do anything here
+	var/datum/worn_feature_offset/worn_glove_offset
+	/// Datum describing how to offset things held in the hands of this arm, the x offset IS functional here
+	var/datum/worn_feature_offset/held_hand_offset
+
+/obj/item/bodypart/l_arm/Destroy()
+	QDEL_NULL(worn_glove_offset)
+	QDEL_NULL(held_hand_offset)
+	return ..()
 
 /obj/item/bodypart/l_arm/set_owner(new_owner)
 	. = ..()
@@ -196,6 +227,16 @@
 	px_y = 0
 	can_be_disabled = TRUE
 
+	/// Datum describing how to offset things worn on the hands of this arm, note that an x offset won't do anything here
+	var/datum/worn_feature_offset/worn_glove_offset
+	/// Datum describing how to offset things held in the hands of this arm, the x offset IS functional here
+	var/datum/worn_feature_offset/held_hand_offset
+
+/obj/item/bodypart/r_arm/Destroy()
+	QDEL_NULL(worn_glove_offset)
+	QDEL_NULL(held_hand_offset)
+	return ..()
+
 
 /obj/item/bodypart/r_arm/set_owner(new_owner)
 	. = ..()
@@ -298,6 +339,13 @@
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
 
+	/// Datum describing how to offset things worn on the foot of this leg, note that an x offset won't do anything here
+	var/datum/worn_feature_offset/worn_foot_offset
+
+/obj/item/bodypart/l_leg/Destroy()
+	QDEL_NULL(worn_foot_offset)
+	return ..()
+
 
 /obj/item/bodypart/l_leg/set_owner(new_owner)
 	. = ..()
@@ -395,6 +443,13 @@
 	px_y = 12
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
+
+	/// Datum describing how to offset things worn on the foot of this leg, note that an x offset won't do anything here
+	var/datum/worn_feature_offset/worn_foot_offset
+
+/obj/item/bodypart/r_leg/Destroy()
+	QDEL_NULL(worn_foot_offset)
+	return ..()
 
 
 /obj/item/bodypart/r_leg/set_owner(new_owner)

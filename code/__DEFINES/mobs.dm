@@ -89,7 +89,25 @@
 #define LARVA_BODYPART "larva"
 
 //Bodypart change blocking flags
-#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
+#define BP_BLOCK_CHANGE_SPECIES (1<<0)
+
+// Flags for the head_flags var on /obj/item/bodypart/head
+/// Head can have hair
+#define HEAD_HAIR (1<<0)
+/// Head can have facial hair
+#define HEAD_FACIAL_HAIR (1<<1)
+/// Head can have lips
+#define HEAD_LIPS (1<<2)
+/// Head can have eye sprites
+#define HEAD_EYESPRITES (1<<3)
+/// Head will have colored eye sprites
+#define HEAD_EYECOLOR (1<<4)
+/// Head can have eyeholes when missing eyes
+#define HEAD_EYEHOLES (1<<5)
+/// Head can have debrain overlay
+#define HEAD_DEBRAIN (1<<6)
+/// All head flags, default for most heads
+#define HEAD_ALL_FEATURES (HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN)
 
 //Bodytype defines for how things can be worn, surgery, and other misc things.
 ///The limb is organic.
@@ -98,10 +116,10 @@
 #define BODYTYPE_ROBOTIC (1<<1)
 ///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
 #define BODYTYPE_HUMANOID (1<<2)
-///The limb is digitigrade.
-#define BODYTYPE_DIGITIGRADE (1<<3)
 ///The limb fits the monkey mold.
-#define BODYTYPE_MONKEY (1<<4)
+#define BODYTYPE_MONKEY (1<<3)
+///The limb is digitigrade.
+#define BODYTYPE_DIGITIGRADE (1<<4)
 ///The limb is snouted.
 #define BODYTYPE_SNOUTED (1<<5)
 ///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
@@ -396,14 +414,15 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define OFFSET_BACK "back"
 #define OFFSET_SUIT "suit"
 #define OFFSET_NECK "neck"
+#define OFFSET_HELD "held"
 
 //MINOR TWEAKS/MISC
-#define AGE_MIN				18	//! youngest a character can be
-#define AGE_MAX				85	//! oldest a character can be
-#define WIZARD_AGE_MIN		30	//! youngest a wizard can be
-#define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
-#define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
+#define AGE_MIN 18	//! youngest a character can be
+#define AGE_MAX 85	//! oldest a character can be
+#define WIZARD_AGE_MIN 30	//! youngest a wizard can be
+#define APPRENTICE_AGE_MIN 29	//! youngest an apprentice can be
+#define SHOES_SLOWDOWN 0	//! How much shoes slow you down by default. Negative values speed you up
+#define POCKET_STRIP_DELAY (4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases

@@ -472,12 +472,13 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/N = M
-		N.hair_style = "Spiky"
-		N.facial_hair_style = "Shaved"
-		N.facial_hair_color = "000"
-		N.hair_color = "000"
-		if(!(HAIR in N.dna.species.species_traits)) //No hair? No problem!
-			N.dna.species.species_traits += HAIR
+		N.set_hairstyle("Spiky", update = FALSE)
+		N.set_facial_hairstyle("Shaved", update = FALSE)
+		N.set_facial_haircolor("000", update = FALSE)
+		N.set_haircolor("000", update = FALSE)
+		var/obj/item/bodypart/head/head = N.get_bodypart(BODY_ZONE_HEAD)
+		if(head)
+			head.head_flags |= HEAD_HAIR //No hair? No problem!
 		if(N.dna.species.use_skintones)
 			N.skin_tone = "orange"
 		else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
@@ -485,16 +486,27 @@
 		N.regenerate_icons()
 	..()
 
-/datum/reagent/spraytan/overdose_process(mob/living/M, delta_time, times_fired)
-	if(ishuman(M))
-		var/mob/living/carbon/human/N = M
+/datum/reagent/spraytan/overdose_process(mob/living/affected_mob, delta_time, times_fired)
+
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/affected_human = affected_mob
+		var/obj/item/bodypart/head/head = affected_human.get_bodypart(BODY_ZONE_HEAD)
+		if(head)
+			head.head_flags |= HEAD_HAIR //No hair? No problem!
+		if(!HAS_TRAIT(affected_human, TRAIT_SHAVED))
+			affected_human.set_facial_hairstyle("Shaved", update = FALSE)
+		affected_human.set_facial_haircolor("#000000", update = FALSE)
+		if(!HAS_TRAIT(affected_human, TRAIT_BALD))
+			affected_human.set_hairstyle("Spiky", update = FALSE)
+		affected_human.set_haircolor("#000000", update = FALSE)
+		affected_human.update_body(is_creating = TRUE)
 		if(DT_PROB(3.5, delta_time))
-			if(N.w_uniform)
-				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
+			if(affected_human.w_uniform)
+				affected_human.visible_message(pick("<b>[affected_human]</b>'s collar pops up without warning.</span>", "<b>[affected_human]</b> flexes [affected_human.p_their()] arms."))
 			else
-				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
+				affected_human.visible_message("<b>[affected_human]</b> flexes [affected_human.p_their()] arms.")
 		if(DT_PROB(1, delta_time))
-			M.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
+			affected_human.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2
@@ -1773,8 +1785,8 @@
 	if(method == TOUCH || method == VAPOR)
 		if(M && ishuman(M))
 			var/mob/living/carbon/human/H = M
-			H.hair_color = pick(potential_colors)
-			H.facial_hair_color = pick(potential_colors)
+			H.set_facial_haircolor(pick(potential_colors), update = FALSE)
+			H.set_haircolor(pick(potential_colors), update = TRUE)
 			H.update_body_parts()
 
 /datum/reagent/barbers_aid
@@ -1785,15 +1797,16 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
 
-/datum/reagent/barbers_aid/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
-			var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
-			H.hair_style = picked_hair
-			H.facial_hair_style = picked_beard
-			H.update_body_parts()
+/datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
+	if((method != TOUCH || method != VAPOR) || !ishuman(exposed_mob) || HAS_TRAIT(exposed_mob, TRAIT_BALD) || HAS_TRAIT(exposed_mob, TRAIT_SHAVED))
+		return
+
+	var/mob/living/carbon/human/exposed_human = exposed_mob
+	var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hairstyles_list)
+	var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hairstyles_list)
+	to_chat(exposed_human, span_notice("Hair starts sprouting from your scalp."))
+	exposed_human.set_facial_hairstyle(picked_beard, update = FALSE)
+	exposed_human.set_hairstyle(picked_hair, update = TRUE)
 
 /datum/reagent/concentrated_barbers_aid
 	name = "Concentrated Barber's Aid"
@@ -1803,13 +1816,14 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
 
-/datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.hair_style = "Very Long Hair"
-			H.facial_hair_style = "Beard (Very Long)"
-			H.update_body_parts()
+/datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
+	if((method != TOUCH || method != VAPOR) || !ishuman(exposed_mob) || HAS_TRAIT(exposed_mob, TRAIT_BALD) || HAS_TRAIT(exposed_mob, TRAIT_SHAVED))
+		return
+
+	var/mob/living/carbon/human/exposed_human = exposed_mob
+	to_chat(exposed_human, span_notice("Your hair starts growing at an incredible speed!"))
+	exposed_human.set_facial_hairstyle("Beard (Very Long)", update = FALSE)
+	exposed_human.set_hairstyle("Very Long Hair", update = TRUE)
 
 /datum/reagent/concentrated_barbers_aid/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	. = ..()
@@ -1817,19 +1831,17 @@
 		if(!ishuman(M))
 			return
 		var/mob/living/carbon/human/human_mob = M
-		//if(human_mob.mind.has_quirk(/datum/quirk/item_quirk/bald))
-		//	human_mob.mind.remove_quirk(/datum/quirk/item_quirk/bald)
-		var/datum/species/species_datum = human_mob.dna?.species
-		if(!species_datum)
+		if(human_mob.mind.has_quirk(/datum/quirk/item_quirk/bald))
+			human_mob.mind.remove_quirk(/datum/quirk/item_quirk/bald)
+		var/obj/item/bodypart/head/head = human_mob.get_bodypart(BODY_ZONE_HEAD)
+		if(!head || (head.head_flags & HEAD_HAIR))
 			return
-		if(species_datum.species_traits.Find(HAIR))
-			return
-		species_datum.species_traits |= HAIR
+		head.head_flags |= HEAD_HAIR
 		var/message
-		//if(HAS_TRAIT(M, TRAIT_BALD))
-		//	message = span_warning("You feel your scalp mutate, but you are still hopelessly bald.")
-		//else
-		message = span_notice("Your scalp mutates, a full head of hair sprouting from it.")
+		if(HAS_TRAIT(M, TRAIT_BALD))
+			message = span_warning("You feel your scalp mutate, but you are still hopelessly bald.")
+		else
+			message = span_notice("Your scalp mutates, a full head of hair sprouting from it.")
 		to_chat(M, message)
 		human_mob.update_body_parts()
 
@@ -1845,7 +1857,7 @@
 	if(method == TOUCH || method == VAPOR)
 		if(M && ishuman(M))
 			var/mob/living/carbon/human/H = M
-			H.hair_style = "Afro (Large)"
+			H.hairstyle = "Afro (Large)"
 			H.update_body_parts()
 
 /datum/reagent/barbers_shaving_aid
@@ -1860,8 +1872,8 @@
 	if(method == TOUCH || method == VAPOR)
 		if(M && ishuman(M))
 			var/mob/living/carbon/human/H = M
-			H.hair_style = "Bald 2"
-			H.facial_hair_style = "Shaved"
+			H.set_hairstyle("Bald 2", update = FALSE)
+			H.set_facial_hairstyle("Shaved", update = FALSE)
 			H.update_body_parts()
 
 /datum/reagent/saltpetre

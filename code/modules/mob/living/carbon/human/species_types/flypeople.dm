@@ -1,9 +1,8 @@
 /datum/species/fly
 	name = "Flyperson"
 	plural_form = "Flypeople"
-	id = SPECIES_FLY
+	id = SPECIES_FLYPERSON
 	species_traits = list(
-		NOEYESPRITES,
 		NO_UNDERWEAR,
 		TRAIT_BEEFRIEND
 	)

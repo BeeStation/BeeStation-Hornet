@@ -3,9 +3,6 @@
 	id = SPECIES_OOZELING
 	species_traits = list(
 		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
 		NOAUGMENTS
 	)
 	inherent_traits = list(

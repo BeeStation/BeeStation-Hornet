@@ -18,8 +18,8 @@
 	//human.physique = human.gender
 	human.real_name = human.dna?.species.random_name(human.gender) || random_unique_name(human.gender)
 	human.name = human.get_visible_name()
-	human.set_hairstyle(random_hair_style(human.gender), update = FALSE)
-	human.set_facial_hairstyle(random_facial_hair_style(human.gender), update = FALSE)
+	human.set_hairstyle(random_hairstyle(human.gender), update = FALSE)
+	human.set_facial_hairstyle(random_facial_hairstyle(human.gender), update = FALSE)
 	human.set_haircolor("#[random_color()]", update = FALSE)
 	human.set_facial_haircolor(human.hair_color, update = FALSE)
 	human.eye_color = random_eye_color()

@@ -1,49 +1,51 @@
 ///SNAIL
 /obj/item/bodypart/head/snail
-	limb_id = "snail"
+	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
+	head_flags = HEAD_EYESPRITES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/snail
-	limb_id = "snail"
+	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
 
 /obj/item/bodypart/l_arm/snail
-	limb_id = "snail"
+	limb_id = SPECIES_SNAIL
 
 /obj/item/bodypart/r_arm/snail
-	limb_id = "snail"
+	limb_id = SPECIES_SNAIL
 
 /obj/item/bodypart/l_leg/snail
-	limb_id = "snail"
+	limb_id = SPECIES_SNAIL
 
 /obj/item/bodypart/r_leg/snail
-	limb_id = "snail"
+	limb_id = SPECIES_SNAIL
 
 ///ABDUCTCOR
 /obj/item/bodypart/head/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = NONE
 
 /obj/item/bodypart/chest/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 ///SLIME
@@ -51,6 +53,7 @@
 	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	head_flags = HEAD_ALL_FEATURES
 
 /obj/item/bodypart/chest/slime
 	limb_id = SPECIES_SLIMEPERSON
@@ -78,6 +81,7 @@
 	limb_id = SPECIES_LUMINESCENT
 	is_dimorphic = TRUE
 	dmg_overlay_type = null
+	head_flags = HEAD_ALL_FEATURES
 
 /obj/item/bodypart/chest/luminescent
 	limb_id = SPECIES_LUMINESCENT
@@ -102,70 +106,65 @@
 
 ///ZAMBONI
 /obj/item/bodypart/head/zombie
-	limb_id = "zombie"
+	limb_id = SPECIES_ZOMBIE
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-
+	head_flags = HEAD_EYESPRITES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/zombie
-	limb_id = "zombie"
+	limb_id = SPECIES_ZOMBIE
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/zombie
-	limb_id = "zombie"
+	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/zombie
-	limb_id = "zombie"
+	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/zombie
-	limb_id = "zombie"
+	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/zombie
-	limb_id = "zombie"
+	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
 
 ///FLY
 /obj/item/bodypart/head/fly
-	limb_id = "fly"
+	limb_id = SPECIES_FLYPERSON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-
 
 /obj/item/bodypart/chest/fly
-	limb_id = "fly"
+	limb_id = SPECIES_FLYPERSON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
-
 /obj/item/bodypart/l_arm/fly
-	limb_id = "fly"
+	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
-
 
 /obj/item/bodypart/r_arm/fly
-	limb_id = "fly"
+	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
-
 
 /obj/item/bodypart/l_leg/fly
-	limb_id = "fly"
+	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
-
 
 /obj/item/bodypart/r_leg/fly
-	limb_id = "fly"
+	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
-
 
 ///SHADOW
 /obj/item/bodypart/head/shadow
 	limb_id = "shadow"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = NONE
 
 /obj/item/bodypart/chest/shadow
 	limb_id = "shadow"
@@ -194,6 +193,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	head_flags = NONE
 
 /obj/item/bodypart/chest/skeleton
 	limb_id = SPECIES_SKELETON
@@ -221,32 +221,12 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
 
-///MUSHROOM
-/obj/item/bodypart/head/mushroom
-	limb_id = "mush"
-	is_dimorphic = FALSE
-
-/obj/item/bodypart/chest/mushroom
-	limb_id = "mush"
-	is_dimorphic = FALSE
-
-/obj/item/bodypart/l_arm/mushroom
-	limb_id = "mush"
-
-/obj/item/bodypart/r_arm/mushroom
-	limb_id = "mush"
-
-/obj/item/bodypart/l_leg/mushroom
-	limb_id = "mush"
-
-/obj/item/bodypart/r_leg/mushroom
-	limb_id = "mush"
-
 ///GOLEMS (i hate xenobio)
 /obj/item/bodypart/head/golem
 	limb_id = "golem"
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	head_flags = NONE
 
 /obj/item/bodypart/chest/golem
 	limb_id = "golem"

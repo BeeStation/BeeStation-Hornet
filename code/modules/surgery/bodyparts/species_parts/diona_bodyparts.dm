@@ -7,6 +7,7 @@
 	is_dimorphic = FALSE
 	dismemberable = 0
 	is_pseudopart = TRUE
+	head_flags = HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'

@@ -79,6 +79,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// will show the feature as selectable.
 	var/relevant_external_organ = null
 
+	/// If the selected species has this head_flag by default,
+	/// will show the feature as selectable.
+	var/relevant_head_flag = null
+
 	/// Indicates that create_informed_default_value is used.
 	var/informed = FALSE
 

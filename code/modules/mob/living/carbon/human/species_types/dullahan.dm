@@ -1,13 +1,8 @@
 /datum/species/dullahan
-	name = "\improper Dullahan"
+	name = "Dullahan"
 	id = SPECIES_DULLAHAN
 	max_bodypart_count = 5 //No head
-	species_traits = list(
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-		LIPS
-	)
+	species_traits = list()
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
