@@ -17,14 +17,14 @@
 
 	return final_icon
 
-/datum/preference/color_legacy/eye_color
+/datum/preference/color/eye_color
 	db_key = "eye_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_head_flag = HEAD_EYECOLOR
 	priority = PREFERENCE_PRIORITY_EYE_COLOR
 
-/datum/preference/color_legacy/eye_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/eye_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
 		return
 	target.eye_color = value
@@ -35,7 +35,7 @@
 			eyes_organ.eye_color = value
 		eyes_organ.old_eye_color = value
 
-/datum/preference/color_legacy/eye_color/create_default_value()
+/datum/preference/color/eye_color/create_default_value()
 	return random_eye_color()
 
 /datum/preference/choiced/facial_hairstyle
@@ -64,28 +64,28 @@
 
 	return data
 
-/datum/preference/color_legacy/facial_hair_color
+/datum/preference/color/facial_hair_color
 	db_key = "facial_hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_FACIAL_HAIR
 
-/datum/preference/color_legacy/facial_hair_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/facial_hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_haircolor(value, update = TRUE)
 
-/datum/preference/color_legacy/hair_color
+/datum/preference/color/hair_color
 	db_key = "hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_HAIR
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 
-/datum/preference/color_legacy/hair_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
 		return
 	target.set_haircolor(value, update = TRUE)
 
-/datum/preference/color_legacy/hair_color/create_default_value()
+/datum/preference/color/hair_color/create_default_value()
 	return pick(GLOB.natural_hair_colours)
 
 /datum/preference/choiced/hairstyle
@@ -125,13 +125,13 @@
 /datum/preference/choiced/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient(new_style = value, update = TRUE)
 
-/datum/preference/color_legacy/hair_gradient
+/datum/preference/color/hair_gradient
 	db_key = "gradient_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_head_flag = HEAD_HAIR
 
-/datum/preference/color_legacy/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient(new_color = value, update = TRUE)
 
 /datum/preference/choiced/hair_gradient/create_default_value()

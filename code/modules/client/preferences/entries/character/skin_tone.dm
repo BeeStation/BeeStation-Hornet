@@ -13,7 +13,7 @@
 
 	var/list/to_hex = list()
 	for (var/choice in get_choices())
-		var/hex_value = skintone2hex(choice, include_tag = TRUE)
+		var/hex_value = skintone2hex(choice)
 		var/list/hsl = rgb2num(hex_value, COLORSPACE_HSL)
 
 		to_hex[choice] = list(

@@ -61,7 +61,8 @@
 	if(!ishuman(new_ethereal))
 		return
 	var/mob/living/carbon/human/ethereal = new_ethereal
-	default_color = "#[ethereal.dna.features["ethcolor"]]"
+	default_color = ethereal.dna.features["ethcolor"]
+	fixed_hair_color = default_color
 	r1 = GETREDPART(default_color)
 	g1 = GETGREENPART(default_color)
 	b1 = GETBLUEPART(default_color)
@@ -116,12 +117,19 @@
 			current_color = rgb(r2 + ((r1-r2)*healthpercent), g2 + ((g1-g2)*healthpercent), b2 + ((b1-b2)*healthpercent))
 		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
 		ethereal_light.set_light_on(TRUE)
-		fixed_mut_color = copytext_char(current_color, 2)
+		fixed_mut_color = current_color
+		fixed_hair_color = current_color
+		ethereal.update_body()
+		ethereal.set_facial_haircolor(current_color, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(current_color, override = TRUE,  update = TRUE)
 	else
 		ethereal_light.set_light_on(FALSE)
-		fixed_mut_color = rgb(128,128,128)
-	ethereal.set_facial_haircolor(current_color, update = FALSE)
-	ethereal.set_haircolor(current_color, update = TRUE)
+		var/dead_color = rgb(128,128,128)
+		fixed_mut_color = dead_color
+		fixed_hair_color = dead_color
+		ethereal.update_body()
+		ethereal.set_facial_haircolor(dead_color, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(dead_color, override = TRUE, update = TRUE)
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER

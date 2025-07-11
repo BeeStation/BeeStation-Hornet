@@ -80,7 +80,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
 	var/siemens_coeff = 1 //base electrocution coefficient
-	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
+	///To use MUTCOLOR with a fixed color that's independent of the mcolor feature in DNA.
+	var/fixed_mut_color = ""
+	///A fixed hair color that's independent of the mcolor feature in DNA.
+	var/fixed_hair_color = ""
 	var/inert_mutation 	= /datum/mutation/dwarfism //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
 	var/deathsound //used to set the mobs deathsound on species change
 	var/list/special_step_sounds //Sounds to override barefeet walkng
@@ -639,7 +642,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				else
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				if(!underwear.use_static)
-					underwear_overlay.color = "#" + species_human.underwear_color
+					underwear_overlay.color = species_human.underwear_color
 				standing += underwear_overlay
 
 		if(species_human.undershirt)
@@ -820,18 +823,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					switch(accessory.color_src)
 						if(MUTANT_COLOR)
 							if(fixed_mut_color)
-								accessory_overlay.color = "#[fixed_mut_color]"
+								accessory_overlay.color = fixed_mut_color
 							else
-								accessory_overlay.color = "#[source.dna.features["mcolor"]]"
+								accessory_overlay.color = source.dna.features["mcolor"]
 						if(HAIR_COLOR)
 							if(hair_color == "mutcolor")
-								accessory_overlay.color = "#[source.dna.features["mcolor"]]"
+								accessory_overlay.color = source.dna.features["mcolor"]
+							else if(hair_color == "fixedmutcolor")
+								accessory_overlay.color = fixed_hair_color
 							else
-								accessory_overlay.color = "#[source.hair_color]"
+								accessory_overlay.color = source.hair_color
 						if(FACIAL_HAIR_COLOR)
-							accessory_overlay.color = "#[source.facial_hair_color]"
+							accessory_overlay.color = source.facial_hair_color
 						if(EYE_COLOR)
-							accessory_overlay.color = "#[source.eye_color]"
+							accessory_overlay.color = source.eye_color
 				else
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay
@@ -854,7 +859,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	source.apply_overlay(BODY_BEHIND_LAYER)
 	source.apply_overlay(BODY_ADJ_LAYER)
 	source.apply_overlay(BODY_FRONT_LAYER)
-
 
 //This exists so sprite accessories can still be per-layer without having to include that layer's
 //number in their sprite name, which causes issues when those numbers change.

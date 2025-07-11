@@ -10,7 +10,7 @@
 	blocks_emissive = FALSE
 
 	///Hair color
-	var/hair_color = "000"
+	var/hair_color = "#000000"
 	///Hair style
 	var/hairstyle = "Bald"
 	///Colour used for the hair gradient.

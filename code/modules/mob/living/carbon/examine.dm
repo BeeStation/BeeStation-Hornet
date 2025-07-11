@@ -145,4 +145,19 @@
 			if(part.body_zone in covered_zones)
 				continue
 			if(part.limb_id != dna.species.examine_limb_id)
-				. += "[span_info("[p_they(TRUE)] [p_have()] \an [part.name].")]"
+				. += "[span_info("[p_They()] [p_have()] \an [part.name].")]"
+	/*
+	var/list/visible_scars
+	for(var/i in all_scars)
+		var/datum/scar/S = i
+		if(S.is_visible(user))
+			LAZYADD(visible_scars, S)
+
+	for(var/i in visible_scars)
+		var/datum/scar/S = i
+		var/scar_text = S.get_examine_description(user)
+		if(scar_text)
+			. += "[scar_text]"
+	*/
+
+	return .

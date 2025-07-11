@@ -48,7 +48,7 @@
 	worn_icon = 'icons/mob/species/human/human_face.dmi'
 	worn_icon_state = "bald"
 	var/hairstyle = "Very Long Hair"
-	var/hair_color = "#000"
+	var/hair_color = "#000000"
 	var/gradient_style = "None"
 	var/gradient_color = "000"
 	var/adjustablecolor = TRUE //can color be changed manually?
@@ -96,7 +96,7 @@
 		if(picked_gradient_style)
 			gradient_style = picked_gradient_style
 			if(gradient_style != "None")
-				var/picked_hair_gradient = tgui_color_picker(user, "", "Choose Gradient Color", "#" + gradient_color)
+				var/picked_hair_gradient = tgui_color_picker(user, "", "Choose Gradient Color", gradient_color)
 				if(picked_hair_gradient)
 					gradient_color = sanitize_hexcolor(picked_hair_gradient)
 				else
@@ -113,12 +113,12 @@
 	. = ..()
 
 	hairstyle = pick(GLOB.hairstyles_list - "Bald") //Don't want invisible wig
-	hair_color = "#[random_short_color()]"
+	hair_color = random_short_color()
 
 /obj/item/clothing/head/wig/natural
 	name = "natural wig"
 	desc = "A bunch of hair without a head attached. This one changes color to match the hair of the wearer. Nothing natural about that."
-	hair_color = "#FFF"
+	hair_color = "#FFFFFF"
 	adjustablecolor = FALSE
 	custom_price = 25
 
@@ -129,7 +129,7 @@
 /obj/item/clothing/head/wig/natural/equipped(mob/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		var/mob/living/carbon/human/human_mob = user
-		hair_color = "#[human_mob.hair_color]"
+		hair_color = human_mob.hair_color
 		update_icon()
 	. = ..()
 
