@@ -3,6 +3,7 @@
 	name = "Toggle Flight"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_IMMOBILE|AB_CHECK_INCAPACITATED
 	button_icon = 'icons/hud/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
 /datum/action/innate/flight/on_activate(mob/user, atom/target)
@@ -203,7 +204,7 @@
 	sprite_accessory_override = /datum/sprite_accessory/wings/fly
 
 ///Bee wings with special dash ability
-/obj/item/organ/external/wings/bee
+/obj/item/organ/external/wings/functional/bee
 	name = "pair of bee wings"
 	desc = "A pair of bee wings. They seem tiny and undergrown."
 	icon_state = "beewings"
@@ -219,7 +220,7 @@
 
 /datum/action/item_action/organ_action/use/bee_dash/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/human/H = owner
-	var/obj/item/organ/external/wings/bee/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	var/obj/item/organ/external/wings/functional/bee/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	var/jumpdistance = wings.jumpdist
 
 	if(H.buckled)

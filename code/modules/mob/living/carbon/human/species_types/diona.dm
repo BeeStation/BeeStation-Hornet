@@ -85,7 +85,7 @@
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)
-		H.take_overall_damage(1,0)
+		H.take_overall_damage(brute = 1, required_bodytype = BODYTYPE_ORGANIC)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(/datum/status_effect/planthealing)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
@@ -124,7 +124,7 @@
 	//Dionae heal and eat radiation for a living.
 	H.adjust_nutrition(clamp(radiation, 0, 7))
 	if(radiation > 50)
-		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+		H.heal_overall_damage(brute = 1, burn = 1, required_bodytype = BODYTYPE_ORGANIC)
 		H.adjustToxLoss(-2)
 		H.adjustOxyLoss(-1)
 

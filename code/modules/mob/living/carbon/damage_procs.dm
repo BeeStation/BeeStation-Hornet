@@ -60,26 +60,26 @@
 	return amount
 
 
-/mob/living/carbon/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
+/mob/living/carbon/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(amount, 0, 0, updating_health, required_status)
+		take_overall_damage(brute = amount, updating_health = updating_health, required_bodytype = required_bodytype)
 	else
-		if(!required_status)
-			required_status = forced ? null : BODYTYPE_ORGANIC
-		heal_overall_damage(abs(amount), 0, 0, required_status, updating_health)
+		if(!required_bodytype)
+			required_bodytype = forced ? null : BODYTYPE_ORGANIC
+		heal_overall_damage(brute = abs(amount), required_bodytype = required_bodytype, updating_health = updating_health)
 	return amount
 
-/mob/living/carbon/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
+/mob/living/carbon/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(0, amount, 0, updating_health, required_status)
+		take_overall_damage(burn = amount, updating_health = updating_health, required_bodytype = required_bodytype)
 	else
-		if(!required_status)
-			required_status = forced ? null : BODYTYPE_ORGANIC
-		heal_overall_damage(0, abs(amount), 0, required_status, updating_health)
+		if(!required_bodytype)
+			required_bodytype = forced ? null : BODYTYPE_ORGANIC
+		heal_overall_damage(burn = abs(amount), required_bodytype = required_bodytype, updating_health = updating_health)
 	return amount
 
 /mob/living/carbon/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -102,7 +102,7 @@
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(0, 0, amount, updating_health)
+		take_overall_damage(stamina = amount, updating_health = updating_health)
 	else
 		heal_overall_damage(0, 0, abs(amount), null, updating_health)
 	return amount
@@ -194,8 +194,8 @@
 		update_damage_overlays()
 
 //Heal MANY bodyparts, in random order
-/mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
-	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, stamina, required_status)
+/mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_bodytype, updating_health = TRUE)
+	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, stamina, required_bodytype)
 
 	var/update = NONE
 	while(parts.len && (brute > 0 || burn > 0 || stamina > 0))
@@ -205,7 +205,7 @@
 		var/burn_was = picked.burn_dam
 		var/stamina_was = picked.stamina_dam
 
-		update |= picked.heal_damage(brute, burn, stamina, required_status, FALSE)
+		update |= picked.heal_damage(brute, burn, stamina, required_bodytype, FALSE)
 
 		brute = round(brute - (brute_was - picked.brute_dam), DAMAGE_PRECISION)
 		burn = round(burn - (burn_was - picked.burn_dam), DAMAGE_PRECISION)
@@ -219,11 +219,11 @@
 		update_damage_overlays()
 
 // damage MANY bodyparts, in random order
-/mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
+/mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype)
 	if(status_flags & GODMODE)
 		return	//godmode
 
-	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_status)
+	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_bodytype)
 	var/update = 0
 	while(parts.len && (brute > 0 || burn > 0 || stamina > 0))
 		var/obj/item/bodypart/picked = pick(parts)
@@ -236,7 +236,7 @@
 		var/stamina_was = picked.stamina_dam
 
 
-		update |= picked.receive_damage(brute_per_part, burn_per_part, stamina_per_part, FALSE, required_status)
+		update |= picked.receive_damage(brute = brute_per_part, burn = burn_per_part, stamina = stamina_per_part, blocked = FALSE, updating_health = updating_health, required_bodytype =required_bodytype)
 
 		brute	= round(brute - (picked.brute_dam - brute_was), DAMAGE_PRECISION)
 		burn	= round(burn - (picked.burn_dam - burn_was), DAMAGE_PRECISION)

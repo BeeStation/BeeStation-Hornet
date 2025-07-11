@@ -217,7 +217,7 @@
 		/obj/effect/gibspawner/human = 1,
 		/obj/item/organ/external/wings = 1,
 		/obj/item/organ/external/wings/moth = 1,
-		/obj/item/organ/external/wings/bee = 1,
+		/obj/item/organ/external/wings/functional/bee = 1,
 		//obj/item/organ/external/wings/dragon/fake = 1
 	)
 

@@ -202,12 +202,12 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshold)
-		M.heal_overall_damage(power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_damage(power, required_bodytype = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshold)
-		M.heal_overall_damage(burn = power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_damage(burn = power, required_bodytype = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
@@ -570,7 +570,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 									M.grab_ghost()
 								break
 			if(bruteheal)
-				M.heal_overall_damage(2 * power, required_status = BODYTYPE_ORGANIC)
+				M.heal_overall_damage(2 * power, required_bodytype = BODYTYPE_ORGANIC)
 				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
@@ -675,7 +675,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
-						M.heal_overall_damage(2, required_status = BODYTYPE_ORGANIC)
+						M.heal_overall_damage(2, required_bodytype = BODYTYPE_ORGANIC)
 					if(prob(60) && !M.stat)
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
 				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value

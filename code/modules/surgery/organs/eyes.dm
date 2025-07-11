@@ -175,11 +175,6 @@
 	name = "undead eyes"
 	desc = "Somewhat counterintuitively, these half-rotten eyes actually have superior vision to those of a living human."
 
-/obj/item/organ/internal/eyes/night_vision/shadow
-	name = "burning red eyes"
-	desc = "Even without their shadowy owner, looking at these eyes gives you a sense of dread."
-	icon = 'icons/obj/medical/organs/shadow_organs.dmi'
-
 /obj/item/organ/internal/eyes/night_vision/mushroom
 	name = "fung-eye"
 	desc = "While on the outside they look inert and dead, the eyes of mushroom people are actually very advanced."

@@ -8,7 +8,7 @@
 	name = "Shadow"
 	plural_form = "Shadowpeople"
 	id = SPECIES_SHADOW
-	sexes = 0
+	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
 	species_traits = list(
 		NOFLASH
@@ -21,7 +21,9 @@
 	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
-	mutanteyes = /obj/item/organ/internal/eyes/night_vision
+
+	mutantbrain = /obj/item/organ/internal/brain/shadow
+	mutanteyes = /obj/item/organ/internal/eyes/shadow
 	mutantheart = null
 	mutantlungs = null
 
@@ -101,9 +103,36 @@
 
 	return to_add
 
+
+/// the key to some of their powers
+/obj/item/organ/internal/brain/shadow
+	name = "shadowling tumor"
+	desc = "Something that was once a brain, before being remolded by a shadowling. It has adapted to the dark, irreversibly."
+	icon = 'icons/obj/medical/organs/shadow_organs.dmi'
+
+/obj/item/organ/internal/brain/shadow/on_life(delta_time, times_fired)
+	. = ..()
+	var/turf/owner_turf = owner.loc
+	if(!isturf(owner_turf))
+		return
+	var/light_amount = owner_turf.get_lumcount()
+
+	if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
+		owner.take_overall_damage(brute = 0.5 * delta_time, burn = 0.5 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
+	else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
+		owner.heal_overall_damage(brute = 0.5 * delta_time, burn = 0.5 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
+
+/obj/item/organ/internal/eyes/shadow
+	name = "burning red eyes"
+	desc = "Even without their shadowy owner, looking at these eyes gives you a sense of dread."
+	icon = 'icons/obj/medical/organs/shadow_organs.dmi'
+
+
 /datum/species/shadow/nightmare
 	name = "Nightmare"
-	id = "nightmare"
+	id = SPECIES_NIGHTMARE
+	examine_limb_id = SPECIES_SHADOW
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE
 	burnmod = 1.5
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	species_traits = list(
@@ -124,7 +153,7 @@
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
 	)
-	mutanteyes = /obj/item/organ/internal/eyes/night_vision/shadow
+
 	mutantheart = /obj/item/organ/internal/heart/nightmare
 	mutantbrain = /obj/item/organ/internal/brain/nightmare
 	bodypart_overrides = list(

@@ -39,7 +39,7 @@
 		/obj/effect/gibspawner/human,
 		/obj/item/organ/external/wings,
 		/obj/item/organ/external/wings/moth,
-		/obj/item/organ/external/wings/bee,
+		/obj/item/organ/external/wings/functional/bee,
 		/obj/item/organ/external/wings/functional/dragon,
 	)
 	new mail_organminor(loc)
