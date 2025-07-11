@@ -820,15 +820,20 @@
 
 		1 - A Screwdriver.
 
-		Screwdrivers are essential for opening the components up for manipulation. They are also able to alter the power consumption of components, should that ever be of use.
+		Screwdrivers are essential for opening the components up for manipulation.
+		They are also able to alter the power consumption of components, should that ever be of use.
 
 		2 - A Multitool.
 
-		The Multitool is the second part of your essential tool couple, so to speak. The Multitool is able to preform a disgnostical reading of different components. This will reveal relevant information. It is also used to bypass internal component security, this is what we call "manual hacking".
+		The Multitool is the second part of your essential tool couple, so to speak.
+		The Multitool is able to preform a disgnostical reading of different components.
+		This will reveal relevant information. It is also used to bypass
+		internal component security, this is what we call "manual hacking".
 
 		3 - A collection of portable disks.
 
-		We have trough some effort hidden special programing inside the portable disks issued to your station. Such programs can be accessed trough the manual hacking of the disks.
+		We have trough some effort hidden special programing inside the portable disks
+		issued to your station. Such programs can be accessed trough the manual hacking of the disks.
 
 
 		To begin, select a portable disk and open it with the screwdriver.
@@ -843,11 +848,13 @@
 
 		An hacked power cell controler has the ability to detonate its battery, under the right conditions.
 		On movement, an hacked CPU creates tears in bluespace fabric.
-		Hacked job disks not only allow the copying of their stored programs but they also unlock advertisement restrictions on your hard drive.
+		Hacked job disks not only allow the copying of their stored programs
+		but they also unlock advertisement restrictions on your hard drive.
 		An hacked primary ID port may now accept the... "less than eletronic" cards.
 
 
-		There are more parts with interesting behaviour changes that we have discovered. However, we understand that there is fun in experimenting them all for yourself.
+		There are more parts with interesting behaviour changes that we have discovered.
+		However, we understand that there is fun in experimenting them all for yourself.
 
 		Enjoy yourself. And make sure NT pays an hefty price for their hubris.
 

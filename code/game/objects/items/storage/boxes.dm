@@ -1367,7 +1367,7 @@
 	new /obj/item/computer_hardware/hard_drive/portable(src)
 	new /obj/item/computer_hardware/hard_drive/portable/advanced(src)
 	new /obj/item/computer_hardware/hard_drive/portable/super(src)
-	new /obj/item/paper/tablet_guide(src)
+	new /obj/item/paper/manualhacking_guide(src)
 
 /obj/item/storage/box/locker
 	name = "locker box"
