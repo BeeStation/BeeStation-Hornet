@@ -19971,6 +19971,7 @@
 /obj/structure/chair/fancy/corp{
 	dir = 4
 	},
+/obj/effect/landmark/start/vip,
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
 "eeF" = (
@@ -23252,7 +23253,7 @@
 /obj/structure/chair/fancy/corp{
 	dir = 1
 	},
-/obj/effect/landmark/start/randommaint/vip,
+/obj/effect/landmark/start/clown,
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
 "eOG" = (
@@ -43857,17 +43858,9 @@
 /area/maintenance/disposal/incinerator)
 "iLU" = (
 /obj/structure/chair/fancy/corp,
-/obj/effect/turf_decal/siding/dark,
-/obj/effect/landmark/start/vip,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 1
 	},
-/obj/structure/chair/fancy/corp,
 /obj/effect/landmark/start/head_of_personnel,
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
@@ -44993,16 +44986,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/magician,
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/landmark/start/randommaint/magician,
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	color = "#742925"
@@ -81479,18 +81462,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/fitness/recreation)
 "qDT" = (
-/obj/structure/chair/fancy/corp{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 8
-	},
-/obj/effect/landmark/start/clown,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table/wood/poker,
 /obj/item/paper_bin{
 	pixel_y = 11;
@@ -104800,7 +104771,7 @@
 	pixel_x = -13;
 	pixel_y = 11
 	},
-/turf/open/floor/carpet/black,
+/turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
 "vnL" = (
 /obj/effect/turf_decal/edges/borderfloor{
