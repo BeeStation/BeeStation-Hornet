@@ -63,9 +63,9 @@
 			"name" = "Disks",
 			"icon" = "floppy-disk",
 			"products" = list(
-					/obj/item/computer_hardware/hard_drive/portable = 6,
-					/obj/item/computer_hardware/hard_drive/portable/advanced = 6,
-					/obj/item/computer_hardware/hard_drive/portable/super = 6,
+					/obj/item/computer_hardware/hard_drive/portable = 2,
+					/obj/item/computer_hardware/hard_drive/portable/advanced = 2,
+					/obj/item/computer_hardware/hard_drive/portable/super = 2,
 					/obj/item/computer_hardware/hard_drive/role/antivirus = 6,
 			),
 		),
@@ -108,7 +108,7 @@
 
 	contraband = list(
 					/obj/item/computer_hardware/recharger/APC = 2,
-          /obj/item/storage/box/hacking4dummies = 4,
+          			/obj/item/storage/box/hacking4dummies = 4,
 					/obj/item/computer_hardware/radio_card = 1,
 					/obj/item/colorizer/tablet/syndi = 2,
 					/obj/item/colorizer/tablet/contractor = 2,
