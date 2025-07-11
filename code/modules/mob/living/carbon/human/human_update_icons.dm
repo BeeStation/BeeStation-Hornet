@@ -776,3 +776,5 @@ generate/load female uniform sprites matching all previously decided variables
 	add_overlay(my_head.get_limb_icon())
 	update_worn_head()
 	update_worn_mask()
+
+#undef RESOLVE_ICON_STATE
