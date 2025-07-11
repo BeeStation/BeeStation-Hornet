@@ -82,10 +82,6 @@
 
 	burn_datum = fetch_sprite_datum(burn_datum)
 
-/datum/bodypart_overlay/mutant/wings/moth/get_overlay(layer, obj/item/bodypart/limb)
-	to_chat(world, "Drawing moth wings: [sprite_datum.icon_state] on [limb]")
-	return ..()
-
 /datum/bodypart_overlay/mutant/wings/moth/get_global_feature_list()
 	return GLOB.moth_wings_list
 

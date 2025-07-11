@@ -44,3 +44,21 @@
 	TEST_ASSERT_EQUAL(dummy.get_organ_slot(ORGAN_SLOT_HEART), cyber_heart, "Dummy, upon changing species, did not carry over their cybernetic organs!")
 	// They should have appendix damage still
 	TEST_ASSERT_EQUAL(lizard_appendix.damage, 25, "Dummy, upon changing species, did not carry over appendix damage!")
+
+///Gives a Human items in both hands, then swaps them to be another species. Held items should remain.
+/datum/unit_test/species_change_held_items
+
+/datum/unit_test/species_change_held_items/Run()
+	var/mob/living/carbon/human/morphing_human = allocate(/mob/living/carbon/human/dummy/consistent)
+	var/obj/item/item_a = allocate(/obj/item/storage/toolbox)
+	var/obj/item/item_b = allocate(/obj/item/melee/baton/loaded)
+	morphing_human.put_in_hands(item_a)
+	morphing_human.put_in_hands(item_b)
+
+	var/pre_change_num = length(morphing_human.get_empty_held_indexes())
+	TEST_ASSERT_EQUAL(pre_change_num, 0, "Human had empty hands before the species change happened.")
+
+	morphing_human.set_species(/datum/species/lizard)
+
+	var/post_change_num = length(morphing_human.get_empty_held_indexes())
+	TEST_ASSERT_EQUAL(post_change_num, 0, "Human had empty hands after the species change happened, but they should've kept their items.")

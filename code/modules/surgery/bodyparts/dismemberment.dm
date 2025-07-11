@@ -81,7 +81,7 @@
 		. += cavity_item
 		cavity_item = null
 
-//limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
+///limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
 /obj/item/bodypart/proc/drop_limb(special, dismembered)
 	if(!owner)
 		return
@@ -91,13 +91,6 @@
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(dropping_limb = TRUE)
 	owner.remove_bodypart(src)
-
-	if(held_index)
-		if(owner.hand_bodyparts[held_index] == src)
-			// We only want to do this if the limb being removed is the active hand part.
-			// This catches situations where limbs are "hot-swapped" such as augmentations and roundstart prosthetics.
-			owner.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
-			owner.hand_bodyparts[held_index] = null
 
 	for(var/obj/item/organ/external/ext_organ as anything in external_organs)
 		ext_organ.transfer_to_limb(src, null) //Null is the second arg because the bodypart is being removed from it's owner.
@@ -119,7 +112,7 @@
 	if(!special)
 		if(phantom_owner.dna)
 			for(var/datum/mutation/human/mutation as anything in phantom_owner.dna.mutations) //some mutations require having specific limbs to be kept.
-				if(mutation.limb_req && mutation.limb_req == body_zone)
+				if(mutation.limb_req && (mutation.limb_req == body_zone))
 					to_chat(phantom_owner, span_warning("You feel your [mutation] deactivating from the loss of your [body_zone]!"))
 					phantom_owner.dna.force_lose(mutation)
 
@@ -188,59 +181,34 @@
 	//if this is not a special drop, this is a mistake
 	return FALSE
 
-/obj/item/bodypart/arm/right/drop_limb(special)
+/obj/item/bodypart/arm/drop_limb(special)
+	var/mob/living/carbon/arm_owner = owner
 	. = ..()
 
-	var/mob/living/carbon/C = owner
-	if(C && !special)
-		if(C.handcuffed)
-			C.handcuffed.forceMove(drop_location())
-			C.handcuffed.dropped(C)
-			C.set_handcuffed(null)
-			C.update_handcuffed()
-		if(C.hud_used)
-			var/atom/movable/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
-			if(R)
-				R.update_icon()
-		if(C.gloves)
-			C.dropItemToGround(C.gloves, TRUE)
-		C.update_worn_gloves() //to remove the bloody hands overlay
+	if(special || !arm_owner)
+		return
 
+	if(arm_owner.hand_bodyparts[held_index] == src)
+		// We only want to do this if the limb being removed is the active hand part.
+		// This catches situations where limbs are "hot-swapped" such as augmentations and roundstart prosthetics.
+		arm_owner.dropItemToGround(arm_owner.get_item_for_held_index(held_index), 1)
+		arm_owner.hand_bodyparts[held_index] = null
+	if(arm_owner.handcuffed)
+		arm_owner.handcuffed.forceMove(drop_location())
+		arm_owner.handcuffed.dropped(arm_owner)
+		arm_owner.set_handcuffed(null)
+		arm_owner.update_handcuffed()
+	if(arm_owner.hud_used)
+		var/atom/movable/screen/inventory/hand/associated_hand = arm_owner.hud_used.hand_slots["[held_index]"]
+		associated_hand?.update_appearance()
+	if(arm_owner.gloves)
+		arm_owner.dropItemToGround(arm_owner.gloves, TRUE)
+	arm_owner.update_worn_gloves() //to remove the bloody hands overlay
 
-/obj/item/bodypart/arm/left/drop_limb(special)
-	. = ..()
-
-	var/mob/living/carbon/C = owner
-	if(C && !special)
-		if(C.handcuffed)
-			C.handcuffed.forceMove(drop_location())
-			C.handcuffed.dropped(C)
-			C.set_handcuffed(null)
-			C.update_handcuffed()
-		if(C.hud_used)
-			var/atom/movable/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]
-			if(L)
-				L.update_icon()
-		if(C.gloves)
-			C.dropItemToGround(C.gloves, TRUE)
-		C.update_worn_gloves() //to remove the bloody hands overlay
-
-
-/obj/item/bodypart/leg/right/drop_limb(special)
+/obj/item/bodypart/leg/drop_limb(special)
 	if(owner && !special)
 		if(owner.legcuffed)
 			owner.legcuffed.forceMove(owner.drop_location()) //At this point bodypart is still in nullspace
-			owner.legcuffed.dropped(owner)
-			owner.legcuffed = null
-			owner.update_worn_legcuffs()
-		if(owner.shoes)
-			owner.dropItemToGround(owner.shoes, TRUE)
-	return ..()
-
-/obj/item/bodypart/leg/left/drop_limb(special) //copypasta
-	if(owner && !special)
-		if(owner.legcuffed)
-			owner.legcuffed.forceMove(owner.drop_location())
 			owner.legcuffed.dropped(owner)
 			owner.legcuffed = null
 			owner.update_worn_legcuffs()
@@ -377,7 +345,6 @@
 		var/mob/living/carbon/human/sexy_chad = new_head_owner
 		sexy_chad.hairstyle = hairstyle
 		sexy_chad.hair_color = hair_color
-
 		sexy_chad.facial_hairstyle = facial_hairstyle
 		sexy_chad.facial_hair_color = facial_hair_color
 		sexy_chad.grad_style = gradient_styles?.Copy()

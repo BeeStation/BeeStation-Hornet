@@ -201,21 +201,27 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// The priority at which species runs, needed for external organs to apply properly.
 #define PREFERENCE_PRIORITY_SPECIES 2
 
+/**
+ * Some preferences get applied directly to bodyparts (anything head_flags related right now).
+ * These must apply after species, as species gaining might replace the bodyparts of the human.
+ */
+#define PREFERENCE_PRIORITY_BODYPARTS 3
+
 /// The priority at which gender is determined, needed for proper randomization.
-#define PREFERENCE_PRIORITY_GENDER 3
+#define PREFERENCE_PRIORITY_GENDER 4
 
 /// The priority at which body model is decided, applied after gender so we can
 /// make sure they're non-binary.
-#define PREFERENCE_PRIORITY_BODY_MODEL 4
+#define PREFERENCE_PRIORITY_BODY_MODEL 5
 
 /// The priority at which eye color is applied, needed so IPCs get the right screen color.
-#define PREFERENCE_PRIORITY_EYE_COLOR 5
+#define PREFERENCE_PRIORITY_EYE_COLOR 6
 
 /// The priority at which hair color is applied, needed so IPCs get the right antenna color.
-#define PREFERENCE_PRIORITY_HAIR_COLOR 6
+#define PREFERENCE_PRIORITY_HAIR_COLOR 7
 
 /// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 7
+#define PREFERENCE_PRIORITY_NAMES 8
 
 /// The maximum preference priority, keep this updated, but don't use it for `priority`.
 #define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES

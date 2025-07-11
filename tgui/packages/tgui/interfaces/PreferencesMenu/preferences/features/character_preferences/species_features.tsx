@@ -1,7 +1,6 @@
 import { FeatureColorInput, Feature, FeatureChoiced, FeatureValueProps, FeatureButtonedDropdownInput, StandardizedPalette } from '../base';
 
 const eyePresets = {
-  // these need to be short color (3 byte) compatible
   '#aaccff': 'Baby Blue',
   '#0099bb': 'Blue-Green',
   '#3399ff': 'Light Blue',
@@ -50,7 +49,6 @@ export const eye_color: Feature<string> = {
 };
 
 const hairPresets = {
-  // these need to be short color (3 byte) compatible
   '#111111': 'Black',
   '#222222': 'Off Black',
   '#332222': 'Deep Brown',
@@ -122,6 +120,16 @@ export const facial_hair_color: Feature<string> = {
   },
 };
 
+export const facial_hair_gradient: FeatureChoiced = {
+  name: 'Facial hair gradient',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const facial_hair_gradient_color: Feature<string> = {
+  name: 'Facial hair gradient color',
+  component: FeatureColorInput,
+};
+
 export const hair_color: Feature<string> = {
   name: 'Hair Color',
   small_supplemental: false,
@@ -146,8 +154,13 @@ export const hair_color: Feature<string> = {
   },
 };
 
-export const gradient_color: Feature<string> = {
-  name: 'Gradient Color',
+export const hair_gradient: FeatureChoiced = {
+  name: 'Hair gradient',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const hair_gradient_color: Feature<string> = {
+  name: 'Hair gradient color',
   small_supplemental: false,
   predictable: false,
   component: (props: FeatureValueProps<string>) => {

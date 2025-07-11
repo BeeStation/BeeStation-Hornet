@@ -103,6 +103,7 @@
 
 ///Transfers the organ to the limb, and to the limb's owner, if it has one.
 /obj/item/organ/external/transfer_to_limb(obj/item/bodypart/bodypart, mob/living/carbon/bodypart_owner)
+	//to_chat(world, "External organ [src] transferred to [bodypart] (overlay count: [bodypart.bodypart_overlays.len])")
 	if(owner)
 		Remove(owner, moving = TRUE)
 	else if(ownerlimb)
@@ -174,8 +175,6 @@
 	//Build the mob sprite and use it as our overlay
 	for(var/external_layer in bodypart_overlay.all_layers)
 		if(bodypart_overlay.layers & external_layer)
-			if(!ownerlimb)
-				to_chat(world, "No ownerlimb for [bodypart_overlay] [src] to draw overlays on!")
 			. += bodypart_overlay.get_overlay(external_layer, ownerlimb)
 
 ///The horns of a lizard!

@@ -229,7 +229,7 @@
 		if(!contents.len)
 			to_chat(user, span_warning("There is nothing left inside [src]!"))
 			return
-		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		user.visible_message(span_warning("[user] begins to cut open [src]."),\
 			span_notice("You begin to cut open [src]..."))
 		if(do_after(user, 54, target = src))
@@ -253,9 +253,9 @@
 	var/atom/drop_loc = drop_location()
 	if(IS_ORGANIC_LIMB(src))
 		playsound(drop_loc, 'sound/misc/splort.ogg', 50, TRUE, -1)
-	for(var/obj/item/organ/bodypart_organ in get_organs())
+	for(var/obj/item/organ/bodypart_organ as anything in get_organs())
 		bodypart_organ.transfer_to_limb(src, owner)
-	for(var/obj/item/organ/external/external in external_organs)
+	for(var/obj/item/organ/external/external as anything in external_organs)
 		external.remove_from_limb()
 		external.forceMove(drop_loc)
 	for(var/obj/item/item_in_bodypart in src)
@@ -653,13 +653,13 @@
 	if(!standing.len)
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
-	for(var/image/I in standing)
-		I.pixel_x = px_x
-		I.pixel_y = px_y
+	for(var/image/img as anything in standing)
+		img.pixel_x = px_x
+		img.pixel_y = px_y
 	add_overlay(standing)
 
 ///Generates an /image for the limb to be used as an overlay
-/obj/item/bodypart/proc/get_limb_icon(dropped, draw_external_organs)
+/obj/item/bodypart/proc/get_limb_icon(dropped)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
@@ -733,19 +733,20 @@
 			//add two masked images based on the old one
 			. += leg_source.generate_masked_leg(limb_image, image_dir)
 
-	if(!draw_external_organs)
-		return
-
 	// And finally put bodypart_overlays on if not husked
 	if(!is_husked)
+		//var/organ_count = 0
 		//Draw external organs like horns and frills
 		for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
 			if(!dropped && !overlay.can_draw_on_bodypart(owner)) //if you want different checks for dropped bodyparts, you can insert it here
+				//to_chat(world, "Skipped overlay [overlay] because can_draw_on_bodypart returned FALSE")
 				continue
 			//Some externals have multiple layers for background, foreground and between
 			for(var/external_layer in overlay.all_layers)
 				if(overlay.layers & external_layer)
 					. += overlay.get_overlay(external_layer, src)
+					//organ_count++
+		//to_chat(world, "Added [organ_count] organ overlays to [src] (owner: [owner])")
 
 	return .
 
@@ -770,7 +771,7 @@
 	for(var/datum/bodypart_overlay/mutant/overlay in bodypart_overlays)
 		overlay.inherit_color(src, force = TRUE)
 
-///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
+//A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)
 	var/icon_holder
 	if(greyscale)

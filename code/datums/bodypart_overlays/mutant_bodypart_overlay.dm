@@ -59,8 +59,8 @@
 
 	var/finished_icon_state = icon_state_builder.Join("_")
 
-	to_chat(world, "sprite_datum_icon = [sprite_datum.icon] finished_icon_state = [finished_icon_state] layer = [image_layer] OR layer = [CALCULATE_MOB_OVERLAY_LAYER(image_layer)]")
-	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(image_layer))
+	//to_chat(world, "sprite_datum_icon = [sprite_datum.icon] finished_icon_state = [finished_icon_state] layer = [image_layer] OR layer = [CALCULATE_MOB_OVERLAY_LAYER(image_layer)]")
+	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(abs(image_layer)))
 
 	if(sprite_datum.center)
 		center_image(appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)

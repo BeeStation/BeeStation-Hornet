@@ -4,6 +4,7 @@
 	limb_id = SPECIES_APID
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
+	head_flags = HEAD_LIPS|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/apid
 	icon_static = 'icons/mob/species/apid/bodyparts.dmi'
