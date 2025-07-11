@@ -190,7 +190,7 @@ SUBSYSTEM_DEF(dynamic)
 			catch(var/exception/error)
 				stack_trace("Error while loading dynamic config: [error]")
 
-			if(dynamic_configuration && dynamic_configuration["Dynamic"])
+			if(dynamic_configuration?["Dynamic"])
 				for(var/variable in dynamic_configuration["Dynamic"])
 					if(!vars[variable])
 						stack_trace("Invalid dynamic configuration variable: [variable]")
@@ -307,9 +307,6 @@ SUBSYSTEM_DEF(dynamic)
 	var/roundstart_points_left = roundstart_points
 	var/no_other_rulesets = FALSE
 	while(roundstart_points_left > 0)
-		if(no_other_rulesets)
-			break
-
 		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight_allow_zero(possible_rulesets)
 
 		// Ran out of rulesets
@@ -337,13 +334,14 @@ SUBSYSTEM_DEF(dynamic)
 		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
 
-		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
-			no_other_rulesets = TRUE
-
 		roundstart_executed_rulesets[ruleset] += 1
 		ruleset.choose_candidates()
 
 		log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
+
+		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
+			no_other_rulesets = TRUE
+			break
 
 	// Deal with the NO_OTHER_RULESETS flag
 	if(no_other_rulesets)

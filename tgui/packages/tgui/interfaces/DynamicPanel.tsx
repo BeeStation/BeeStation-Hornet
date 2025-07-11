@@ -1,5 +1,4 @@
-import { filterMap } from 'common/collections';
-import { Box, Button, Divider, Dropdown, Stack, Tabs, Chart, Section, Flex, LabeledList, NumberInput } from '../components';
+import { Box, Button, Divider, Dropdown, Tabs, Chart, Section, Flex, LabeledList, NumberInput } from '../components';
 import { exhaustiveCheck } from 'common/exhaustive';
 import { BooleanLike } from 'common/react';
 
@@ -368,16 +367,16 @@ const MidroundPage = () => {
   } = data;
 
   // Convert our logged data into a useable format
-  const light_data = logged_light_chance.map((value, i) => [i, value]);
-  const medium_data = logged_medium_chance.map((value, i) => [i, value]);
-  const heavy_data = logged_heavy_chance.map((value, i) => [i, value]);
+  const light_data = logged_light_chance.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const medium_data = logged_medium_chance.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const heavy_data = logged_heavy_chance.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
 
-  const points_data = logged_points.map((value, i) => [i, value]);
-  const living_data = logged_points_living.map((value, i) => [i, value]);
-  const dead_data = logged_points_dead.map((value, i) => [i, value]);
-  const observer_data = logged_points_observer.map((value, i) => [i, value]);
-  const antag_data = logged_points_antag.map((value, i) => [i, value]);
-  const linear_data = logged_points_linear.map((value, i) => [i, value]);
+  const points_data = logged_points.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const living_data = logged_points_living.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const dead_data = logged_points_dead.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const observer_data = logged_points_observer.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const antag_data = logged_points_antag.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const linear_data = logged_points_linear.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
 
   const midround_rulesets_by_name = Object.fromEntries(
     valid_midround_rulesets.map((ruleset) => {
@@ -387,6 +386,16 @@ const MidroundPage = () => {
 
   const midround_ruleset_names = Object.keys(midround_rulesets_by_name);
   midround_ruleset_names.sort();
+
+  const [show_light, toggle_light_graph] = useLocalState('show_light', true);
+  const [show_medium, toggle_medium_graph] = useLocalState('show_medium', true);
+  const [show_heavy, toggle_heavy_graph] = useLocalState('show_heavy', true);
+
+  const [show_living_delta, toggle_living_graph] = useLocalState('show_living_delta', true);
+  const [show_dead_delta, toggle_dead_graph] = useLocalState('show_dead_delta', true);
+  const [show_observer_delta, toggle_observer_graph] = useLocalState('show_observer_delta', true);
+  const [show_antag_delta, toggle_antag_graph] = useLocalState('show_antag_delta', true);
+  const [show_linear_delta, toggle_linear_graph] = useLocalState('show_linear_delta', true);
 
   return (
     <Flex direction="column">
@@ -547,40 +556,52 @@ const MidroundPage = () => {
                 />
               ))}
             </Box>
-            <Chart.Line
-              fillPositionedParent
-              data={light_data}
-              rangeX={[0, light_data.length - 1]}
-              rangeY={[0, 10]}
-              strokeColor="rgb(38, 191, 74)"
-            />
-            <Chart.Line
-              fillPositionedParent
-              data={medium_data}
-              rangeX={[0, medium_data.length - 1]}
-              rangeY={[0, 10]}
-              strokeColor="rgb(46, 147, 222)"
-            />
-            <Chart.Line
-              fillPositionedParent
-              data={heavy_data}
-              rangeX={[0, heavy_data.length - 1]}
-              rangeY={[0, 10]}
-              strokeColor="rgb(223, 62, 62)"
-            />
+            {show_light && (
+              <Chart.Line
+                fillPositionedParent
+                data={light_data}
+                rangeX={[0, light_data.length - 1]}
+                rangeY={[0, 10]}
+                strokeColor="rgb(38, 191, 74)"
+              />
+            )}
+            {show_medium && (
+              <Chart.Line
+                fillPositionedParent
+                data={medium_data}
+                rangeX={[0, medium_data.length - 1]}
+                rangeY={[0, 10]}
+                strokeColor="rgb(46, 147, 222)"
+              />
+            )}
+            {show_heavy && (
+              <Chart.Line
+                fillPositionedParent
+                data={heavy_data}
+                rangeX={[0, heavy_data.length - 1]}
+                rangeY={[0, 10]}
+                strokeColor="rgb(223, 62, 62)"
+              />
+            )}
           </Section>
         </Flex.Item>
       </Flex>
       <Flex.Item align="center" p={0.5}>
-        <Box inline textColor="green">
-          Light Ruleset Chance
-        </Box>{' '}
-        <Box inline textColor="blue">
-          Medium Ruleset Chance
-        </Box>{' '}
-        <Box inline textColor="red">
-          Heavy Ruleset Chance
-        </Box>{' '}
+        <Button icon={show_light ? 'check-square-o' : 'square-o'} onClick={() => toggle_light_graph(!show_light)}>
+          <Box inline textColor="green">
+            Light Ruleset Chance
+          </Box>
+        </Button>
+        <Button icon={show_medium ? 'check-square-o' : 'square-o'} onClick={() => toggle_medium_graph(!show_medium)}>
+          <Box inline textColor="blue">
+            Medium Ruleset Chance
+          </Box>
+        </Button>
+        <Button icon={show_heavy ? 'check-square-o' : 'square-o'} onClick={() => toggle_heavy_graph(!show_heavy)}>
+          <Box inline textColor="red">
+            Heavy Ruleset Chance
+          </Box>
+        </Button>
       </Flex.Item>
       <Divider />
 
@@ -634,61 +655,88 @@ const MidroundPage = () => {
                 />
               ))}
             </Box>
+
             {/* Chart lines */}
-            <Chart.Line
-              fillPositionedParent
-              data={living_data}
-              rangeX={[0, living_data.length - 1]}
-              rangeY={[-10, 10]}
-              strokeColor="rgb(38, 191, 74)"
-            />
-            <Chart.Line
-              fillPositionedParent
-              data={dead_data}
-              rangeX={[0, dead_data.length - 1]}
-              rangeY={[-10, 10]}
-              strokeColor="rgb(46, 147, 222)"
-            />
-            <Chart.Line
-              fillPositionedParent
-              data={observer_data}
-              rangeX={[0, observer_data.length - 1]}
-              rangeY={[-10, 10]}
-              strokeColor="rgb(127, 127, 127)"
-            />
-            <Chart.Line
-              fillPositionedParent
-              data={antag_data}
-              rangeX={[0, antag_data.length - 1]}
-              rangeY={[-10, 10]}
-              strokeColor="rgb(223, 62, 62)"
-            />
-            <Chart.Line
-              fillPositionedParent
-              data={linear_data}
-              rangeX={[0, linear_data.length - 1]}
-              rangeY={[-10, 10]}
-              strokeColor="rgb(255, 255, 255)"
-            />
+            {show_living_delta && (
+              <Chart.Line
+                fillPositionedParent
+                data={living_data}
+                rangeX={[0, living_data.length - 1]}
+                rangeY={[-10, 10]}
+                strokeColor="rgb(38, 191, 74)"
+              />
+            )}
+            {show_dead_delta && (
+              <Chart.Line
+                fillPositionedParent
+                data={dead_data}
+                rangeX={[0, dead_data.length - 1]}
+                rangeY={[-10, 10]}
+                strokeColor="rgb(46, 147, 222)"
+              />
+            )}
+            {show_observer_delta && (
+              <Chart.Line
+                fillPositionedParent
+                data={observer_data}
+                rangeX={[0, observer_data.length - 1]}
+                rangeY={[-10, 10]}
+                strokeColor="rgb(127, 127, 127)"
+              />
+            )}
+            {show_antag_delta && (
+              <Chart.Line
+                fillPositionedParent
+                data={antag_data}
+                rangeX={[0, antag_data.length - 1]}
+                rangeY={[-10, 10]}
+                strokeColor="rgb(223, 62, 62)"
+              />
+            )}
+            {show_linear_delta && (
+              <Chart.Line
+                fillPositionedParent
+                data={linear_data}
+                rangeX={[0, linear_data.length - 1]}
+                rangeY={[-10, 10]}
+                strokeColor="rgb(255, 255, 255)"
+              />
+            )}
           </Section>
         </Flex.Item>
       </Flex>
       <Flex.Item align="center" p={0.5}>
-        <Box inline textColor="green">
-          Living Delta
-        </Box>{' '}
-        <Box inline textColor="blue">
-          Dead Delta
-        </Box>{' '}
-        <Box inline textColor="grey">
-          Observer Delta
-        </Box>{' '}
-        <Box inline textColor="red">
-          Antag Delta
-        </Box>{' '}
-        <Box inline textColor="white">
-          Linear Delta
-        </Box>{' '}
+        <Button
+          icon={show_living_delta ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_living_graph(!show_living_delta)}>
+          <Box inline textColor="green">
+            Living Delta
+          </Box>
+        </Button>
+        <Button icon={show_dead_delta ? 'check-square-o' : 'square-o'} onClick={() => toggle_dead_graph(!show_dead_delta)}>
+          <Box inline textColor="blue">
+            Dead Delta
+          </Box>
+        </Button>
+        <Button
+          icon={show_observer_delta ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_observer_graph(!show_observer_delta)}>
+          <Box inline textColor="grey">
+            Observer Delta
+          </Box>
+        </Button>
+        <Button icon={show_antag_delta ? 'check-square-o' : 'square-o'} onClick={() => toggle_antag_graph(!show_antag_delta)}>
+          <Box inline textColor="red">
+            Antag Delta
+          </Box>
+        </Button>
+        <Button
+          icon={show_linear_delta ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_linear_graph(!show_linear_delta)}>
+          <Box inline textColor="white">
+            Linear Delta
+          </Box>
+        </Button>
       </Flex.Item>
       <Divider />
 

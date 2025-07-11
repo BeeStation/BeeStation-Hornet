@@ -53,6 +53,8 @@
  * Usually this doesn't need to be changed unless you need some specific requirements from your candidates.
 **/
 /datum/dynamic_ruleset/proc/trim_candidates()
+	SHOULD_CALL_PARENT(TRUE)
+
 	for(var/mob/candidate in candidates)
 		// Connected?
 		if(!candidate.client)

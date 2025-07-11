@@ -369,12 +369,13 @@
 	new_character.mind.special_role = ROLE_ABDUCTOR
 	new_character.mind.assigned_role = ROLE_ABDUCTOR
 
-	if(has_made_leader)
-		return ..()
+	if(!has_made_leader)
+		has_made_leader = TRUE
+		team = new
 
-	has_made_leader = TRUE
-	team = new
-	new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team)
+		new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team)
+	else
+		new_character.mind.add_antag_datum(antag_datum, team)
 
 //////////////////////////////////////////////
 //                                          //
