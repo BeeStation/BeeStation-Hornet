@@ -1862,7 +1862,7 @@
 	center = TRUE
 	dimension_y = 32
 
-/datum/sprite_accessory/wings/apid
+/datum/sprite_accessory/wings/bee
 	name = "Bee"
 	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
 	icon_state = "apid"
@@ -1871,7 +1871,7 @@
 	center = TRUE
 	dimension_y = 32
 
-/datum/sprite_accessory/wings_open/apid
+/datum/sprite_accessory/wings_open/bee
 	name = "Bee"
 	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
 	icon_state = "apid"

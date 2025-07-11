@@ -209,9 +209,11 @@
 	desc = "A pair of bee wings. They seem tiny and undergrown."
 	icon_state = "beewings"
 	//flight_level = WINGS_COSMETIC
-	actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)
+	//actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)
+	sprite_accessory_override = /datum/sprite_accessory/wings/bee
 	var/jumpdist = 3
 
+/*
 /datum/action/item_action/organ_action/use/bee_dash
 	name = "Bee Dash"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_IMMOBILE
@@ -265,6 +267,7 @@
 		H.visible_message(span_danger("[H] crashes into a table, falling over!"),
 			span_userdanger("You violently crash into a table!"))
 		playsound(src,'sound/weapons/punch1.ogg', 50, TRUE)
+*/
 
 ///Cybernetic wings that can malfunction from EMP
 /obj/item/organ/external/wings/functional/cybernetic
