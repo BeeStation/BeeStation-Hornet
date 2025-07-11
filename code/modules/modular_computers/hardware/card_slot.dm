@@ -152,8 +152,10 @@
 
 /obj/item/computer_hardware/battery/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
 	else
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Enabled</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Enabled</font>")
 
 /obj/item/computer_hardware/card_slot/secondary
@@ -164,14 +166,18 @@
 
 /obj/item/computer_hardware/card_slot/secondary/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Access Storing Malfunction // <font color='#cc00ff'>Detected</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Access Storing Malfunction // <font color='#cc00ff'>Detected</font>")
 	else
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Access Storing Component // <font color='#00d41c'>Functional</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Access Storing Component // <font color='#00d41c'>Functional</font>")
 	if(fake_card) // IF theres a fake card inside then it stands to reason the module is being de-hacked, thus, we remove the fake card
 		qdel(fake_card)
 		fake_card = null
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Phantom Card protocol engaged")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol engaged")
 	else
+		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Phantom Card protocol disengaged")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol disengaged")
 
 

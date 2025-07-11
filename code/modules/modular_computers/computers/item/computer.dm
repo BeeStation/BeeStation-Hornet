@@ -371,6 +371,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src], but it responds with an error code. It must be damaged."))
 		else
 			to_chat(user, span_warning("You press the power button, but the computer fails to boot up, displaying variety of errors before shutting down again."))
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 		return FALSE
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
@@ -384,6 +385,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		else
 			to_chat(user, span_notice("You press the power button and start up \the [src]."))
 		enabled = 1
+		playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
 		update_appearance()
 		if(open_ui)
 			ui_interact(user)
@@ -393,6 +395,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			to_chat(user, span_warning("You send an activation signal to \the [src] but it does not respond."))
 		else
 			to_chat(user, span_warning("You press the power button but \the [src] does not respond."))
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 	return FALSE
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
@@ -631,6 +634,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// We also return network_card so SSnetworks can extract values from it itself
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
+	playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
 	kill_program(forced = TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
@@ -718,6 +722,12 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			inserted_hardware.on_inserted(user)
 			ui_update()
 			return TRUE
+
+/obj/item/modular_computer/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_right_click_tool_action("Uninstall all", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Uninstall", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Repair", TOOL_WELDER)
+	context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
 
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
 	// Check for ID first
@@ -838,10 +848,12 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(gift_card)
 		new /obj/effect/particle_effect/sparks/red(get_turf(src))
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
+		balloon_alert_to_viewers("Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>")
 		to_chat(holder, span_notice("Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>"))
 	else
 		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 		playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
+		balloon_alert_to_viewers("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>")
 		to_chat(holder, span_notice("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>"))
 	playsound(src, "sparks", 50, 1)
 
@@ -850,6 +862,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	drive.virus_defense = virus_strength
+	balloon_alert_to_viewers("CONGRATULATIONS! Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>")
 	to_chat(holder, span_notice("CONGRATULATIONS! Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>"))
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
 	playsound(src, "sparks", 50, 1)

@@ -7,6 +7,7 @@
 	product_ads = "Get your gamer gear!;The best GPUs for all of your space-crypto needs!;The most robust cooling!;The finest RGB in space!"
 	vend_reply = "Game on!"
 	light_color = LIGHT_COLOR_WHITE
+
 	product_categories = list(
 
 		list(
@@ -107,6 +108,8 @@
 
 	contraband = list(
 					/obj/item/computer_hardware/recharger/APC = 2,
+          /obj/item/storage/box/hacking4dummies = 4,
+					/obj/item/computer_hardware/radio_card = 1,
 					/obj/item/colorizer/tablet/syndi = 2,
 					/obj/item/colorizer/tablet/contractor = 2,
 					/obj/item/colorizer/tablet/emag = 2
