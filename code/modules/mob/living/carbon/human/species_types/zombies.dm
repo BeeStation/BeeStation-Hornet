@@ -45,10 +45,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/zombie,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zombie,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/zombie,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/zombie,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/zombie,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/zombie
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/zombie,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/zombie,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/zombie,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zombie
 	)
 
 	var/static/list/spooks = list(
@@ -116,7 +116,7 @@
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
 	. = min(20, amount)
 
-/datum/species/zombie/infectious/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
+/datum/species/zombie/infectious/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, spread_damage = FALSE, forced = FALSE, sharpness = NONE, attack_direction = null)
 	. = ..()
 	if(.)
 		COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY)
@@ -180,10 +180,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/zombie,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zombie,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/zombie,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/zombie,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/zombie,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/zombie
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/zombie,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/zombie,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/zombie,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zombie
 	)
 
 /datum/species/human/krokodil_addict/replace_body(mob/living/carbon/target, datum/species/new_species)

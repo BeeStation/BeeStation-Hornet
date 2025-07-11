@@ -188,7 +188,7 @@
 	//if this is not a special drop, this is a mistake
 	return FALSE
 
-/obj/item/bodypart/r_arm/drop_limb(special)
+/obj/item/bodypart/arm/right/drop_limb(special)
 	. = ..()
 
 	var/mob/living/carbon/C = owner
@@ -207,7 +207,7 @@
 		C.update_worn_gloves() //to remove the bloody hands overlay
 
 
-/obj/item/bodypart/l_arm/drop_limb(special)
+/obj/item/bodypart/arm/left/drop_limb(special)
 	. = ..()
 
 	var/mob/living/carbon/C = owner
@@ -226,7 +226,7 @@
 		C.update_worn_gloves() //to remove the bloody hands overlay
 
 
-/obj/item/bodypart/r_leg/drop_limb(special)
+/obj/item/bodypart/leg/right/drop_limb(special)
 	if(owner && !special)
 		if(owner.legcuffed)
 			owner.legcuffed.forceMove(owner.drop_location()) //At this point bodypart is still in nullspace
@@ -237,7 +237,7 @@
 			owner.dropItemToGround(owner.shoes, TRUE)
 	return ..()
 
-/obj/item/bodypart/l_leg/drop_limb(special) //copypasta
+/obj/item/bodypart/leg/left/drop_limb(special) //copypasta
 	if(owner && !special)
 		if(owner.legcuffed)
 			owner.legcuffed.forceMove(owner.drop_location())

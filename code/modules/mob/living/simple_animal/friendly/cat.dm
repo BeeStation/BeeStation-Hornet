@@ -246,8 +246,12 @@
 	health = 50
 	maxHealth = 50
 	gender = FEMALE
-	butcher_results = list(/obj/item/organ/internal/brain = 1, /obj/item/organ/internal/heart = 1, /obj/item/food/cakeslice/birthday = 3,  \
-	/obj/item/food/meat/slab = 2)
+	butcher_results = list(
+		/obj/item/organ/internal/brain = 1,
+		/obj/item/organ/internal/heart = 1,
+		/obj/item/food/cakeslice/birthday = 3,
+		/obj/item/food/meat/slab = 2
+	)
 	response_harm_continuous = "takes a bite out of"
 	response_harm_simple = "take a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'

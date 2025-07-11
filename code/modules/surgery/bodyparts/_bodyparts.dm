@@ -123,6 +123,20 @@
 	///A list of all bodypart overlays to draw
 	var/list/bodypart_overlays = list()
 
+	/// Type of an attack from this limb does. Arms will do punches, Legs for kicks, and head for bites. (TO ADD: tactical chestbumps)
+	var/attack_type = BRUTE
+	/// the verb used for an unarmed attack when using this limb, such as arm.unarmed_attack_verb = punch
+	var/unarmed_attack_verb = "bump"
+	/// what visual effect is used when this limb is used to strike someone.
+	var/unarmed_attack_effect = ATTACK_EFFECT_PUNCH
+	/// Sounds when this bodypart is used in an umarmed attack
+	var/sound/unarmed_attack_sound = 'sound/weapons/punch1.ogg'
+	var/sound/unarmed_miss_sound = 'sound/weapons/punchmiss.ogg'
+	///Lowest possible punch damage this bodypart can give. If this is set to 0, unarmed attacks will always miss.
+	var/unarmed_damage_low = 1
+	///Highest possible punch damage this bodypart can ive.
+	var/unarmed_damage_high = 1
+
 	/// Traits that are given to the holder of the part. If you want an effect that changes this, don't add directly to this. Use the add_bodypart_trait() proc
 	var/list/bodypart_traits = list()
 	/// The name of the trait source that the organ gives. Should not be altered during the events of gameplay, and will cause problems if it is.
@@ -275,7 +289,7 @@
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
 //Cannot apply negative damage
-/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null)
+/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null, sharpness = NONE, attack_direction = null)
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/hit_percent = (100-blocked)/100
@@ -677,7 +691,6 @@
 			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 			. += aux
 			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
-		return .
 
 	// Normal non-husk handling
 	if(!is_husked)
@@ -706,9 +719,9 @@
 			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
 		if(draw_color)
-			limb.color = "#[draw_color]"
+			limb.color = "[draw_color]"
 			if(aux_zone)
-				aux.color = "#[draw_color]"
+				aux.color = "[draw_color]"
 
 	if(!draw_external_organs)
 		return

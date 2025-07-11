@@ -1,16 +1,12 @@
 /datum/species/ethereal
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
-	attack_verb = "burn"
-	attack_sound = 'sound/weapons/etherealhit.ogg'
-	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/internal/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/internal/tongue/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
-	attack_type = BURN //burn bish
 	species_traits = list(
 		DYNCOLORS,
 		AGENDER,
@@ -33,11 +29,11 @@
 	inert_mutation = /datum/mutation/overload
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ethereal,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ethereal,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/ethereal,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/ethereal,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/ethereal,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ethereal,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/ethereal,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/ethereal,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ethereal,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
 	)
 
@@ -238,6 +234,12 @@
 			SPECIES_PERK_ICON = "lightbulb",
 			SPECIES_PERK_NAME = "Disco Ball",
 			SPECIES_PERK_DESC = "Ethereals passively generate their own light.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "fist-raised",
+			SPECIES_PERK_NAME = "Elemental Attacker",
+			SPECIES_PERK_DESC = "Ethereals deal burn damage with their punches instead of brute.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

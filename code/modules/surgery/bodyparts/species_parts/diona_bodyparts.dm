@@ -17,28 +17,36 @@
 	is_dimorphic = FALSE
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/l_arm/diona
+/obj/item/bodypart/arm/left/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_l_arm"
 	limb_id = SPECIES_DIONA
 	is_pseudopart = TRUE
+	unarmed_attack_verb = "slash"
+	unarmed_attack_effect = ATTACK_EFFECT_CLAW
+	unarmed_attack_sound = 'sound/emotes/diona/hit.ogg'
+	unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
 
-/obj/item/bodypart/r_arm/diona
+/obj/item/bodypart/arm/right/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_r_arm"
 	limb_id = SPECIES_DIONA
 	is_pseudopart = TRUE
+	unarmed_attack_verb = "slash"
+	unarmed_attack_effect = ATTACK_EFFECT_CLAW
+	unarmed_attack_sound = 'sound/emotes/diona/hit.ogg'
+	unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
 
-/obj/item/bodypart/l_leg/diona
+/obj/item/bodypart/leg/left/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_l_leg"
 	limb_id = SPECIES_DIONA
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/r_leg/diona
+/obj/item/bodypart/leg/right/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_r_leg"

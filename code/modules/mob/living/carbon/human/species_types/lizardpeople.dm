@@ -27,9 +27,6 @@
 	coldmod = 1.5
 	heatmod = 0.67
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/food/meat/slab/human/mutant/lizard
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	exotic_bloodtype = "L"
@@ -45,10 +42,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/lizard,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/lizard,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/lizard,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/lizard,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/lizard,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/lizard,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/lizard,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/lizard,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/lizard,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/lizard,
 	)
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
@@ -115,12 +112,19 @@
 		NO_UNDERWEAR
 	)
 	inherent_traits = list(
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_VIRUSIMMUNE
 		)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/internal/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/lizard,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/lizard,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/lizard/ashwalker,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/lizard/ashwalker,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/lizard,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/lizard,
+	)
 
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
 	. = ..()

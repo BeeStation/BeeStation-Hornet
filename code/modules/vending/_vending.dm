@@ -637,10 +637,10 @@
 					if(1) // shatter their legs and bleed 'em
 						crit_rebate = 60
 						C.bleed(150)
-						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
+						var/obj/item/bodypart/leg/left/l = C.get_bodypart(BODY_ZONE_L_LEG)
 						if(l)
 							l.receive_damage(brute=200, updating_health=TRUE)
-						var/obj/item/bodypart/r_leg/r = C.get_bodypart(BODY_ZONE_R_LEG)
+						var/obj/item/bodypart/leg/right/r = C.get_bodypart(BODY_ZONE_R_LEG)
 						if(r)
 							r.receive_damage(brute=200, updating_health=TRUE)
 						if(l || r)

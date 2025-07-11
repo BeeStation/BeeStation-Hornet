@@ -31,7 +31,7 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-/obj/item/bodypart/l_arm/ipc
+/obj/item/bodypart/arm/left/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon_state = "synth_l_arm"
@@ -47,7 +47,9 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-/obj/item/bodypart/r_arm/ipc
+	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
+
+/obj/item/bodypart/arm/right/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon_state = "synth_r_arm"
@@ -63,7 +65,9 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-/obj/item/bodypart/l_leg/ipc
+	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
+
+/obj/item/bodypart/leg/left/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon_state = "synth_l_leg"
@@ -79,7 +83,7 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-/obj/item/bodypart/r_leg/ipc
+/obj/item/bodypart/leg/right/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon_state = "synth_r_leg"

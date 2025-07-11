@@ -56,11 +56,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/mutant_organs = list()
 	///The bodyparts this species uses. assoc of bodypart string - bodypart type. Make sure all the fucking entries are in or I'll skin you alive.
 	var/list/bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest,
 	)
 
@@ -79,8 +79,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/clonemod = 1
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
-	var/attack_type = BRUTE //Type of damage attack does
-	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
 	var/inert_mutation 	= /datum/mutation/dwarfism //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
@@ -111,10 +109,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	///List of factions the mob gain upon gaining this species.
 	var/list/inherent_factions
-
-	var/attack_verb = "punch"	// punch-specific attack verb
-	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
-	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
 
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = GAS_O2
@@ -430,8 +424,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Note for future: Potentially add a new C.dna.species() to build a template species for more accurate limb replacement
 
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
-		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/r_leg/digitigrade
-		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/l_leg/digitigrade
+		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
+		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
 	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
 		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
@@ -604,10 +598,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// organic body markings (oh my god this is terrible please rework this to be done on the limbs themselves i beg you)
 		if(HAS_MARKINGS in species_traits)
 			var/obj/item/bodypart/chest/chest = species_human.get_bodypart(BODY_ZONE_CHEST)
-			var/obj/item/bodypart/r_arm/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
-			var/obj/item/bodypart/l_arm/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
-			var/obj/item/bodypart/r_leg/right_leg = species_human.get_bodypart(BODY_ZONE_R_LEG)
-			var/obj/item/bodypart/l_leg/left_leg = species_human.get_bodypart(BODY_ZONE_L_LEG)
+			var/obj/item/bodypart/arm/right/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
+			var/obj/item/bodypart/arm/left/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
+			var/obj/item/bodypart/leg/right/right_leg = species_human.get_bodypart(BODY_ZONE_R_LEG)
+			var/obj/item/bodypart/leg/left/left_leg = species_human.get_bodypart(BODY_ZONE_L_LEG)
 			var/datum/sprite_accessory/markings = GLOB.moth_markings_list[species_human.dna.features["moth_markings"]]
 			if(noggin && (IS_ORGANIC_LIMB(noggin)))
 				var/mutable_appearance/markings_head_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_head", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -1390,26 +1384,34 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return TRUE
 	else
 
-		var/atk_verb = user.dna.species.attack_verb
-		if(target.body_position == LYING_DOWN)
-			atk_verb = ATTACK_EFFECT_KICK
+		var/obj/item/organ/internal/brain/brain = user.get_organ_slot(ORGAN_SLOT_BRAIN)
+		var/obj/item/bodypart/attacking_bodypart
+		if(brain)
+			attacking_bodypart = brain.get_attacking_limb(target)
+		if(!attacking_bodypart)
+			attacking_bodypart = user.get_active_hand()
+		var/atk_verb = attacking_bodypart.unarmed_attack_verb
+		var/atk_effect = attacking_bodypart.unarmed_attack_effect
 
-		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
-			if(ATTACK_EFFECT_KICK)
-				user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-			if(ATTACK_EFFECT_SLASH, ATTACK_EFFECT_CLAW)//smh
-				user.do_attack_animation(target, ATTACK_EFFECT_CLAW)
-			if(ATTACK_EFFECT_SMASH)
-				user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+		if(atk_effect == ATTACK_EFFECT_BITE)
+			if(user.is_mouth_covered(mask_only = TRUE))
+				to_chat(user, span_warning("You can't [atk_verb] with your mouth covered!"))
+				return FALSE
+		user.do_attack_animation(target, atk_effect)
+
+		var/damage = rand(attacking_bodypart.unarmed_damage_low, attacking_bodypart.unarmed_damage_high)
+
+		var/obj/item/bodypart/affecting = target.get_bodypart(target.get_random_valid_zone(target.get_combat_bodyzone(src)))
+
+		var/miss_chance = 100//calculate the odds that a punch misses entirely. considers stamina and brute damage of the puncher. punches miss by default to prevent weird cases
+		if(attacking_bodypart.unarmed_damage_low)
+			if((target.body_position == LYING_DOWN)) //kicks never miss (provided your species deals more than 0 damage)
+				miss_chance = 0
 			else
-				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
+				miss_chance = min((attacking_bodypart.unarmed_damage_high/attacking_bodypart.unarmed_damage_low) + user.getStaminaLoss() + (user.getBruteLoss()*0.5), 100) //old base chance for a miss + various damage. capped at 100 to prevent weirdness in prob()
 
-		var/damage = user.dna.species.punchdamage
-
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
-
-		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
-			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
+		if(!damage || !affecting || prob(miss_chance))//future-proofing for species that have 0 damage/weird cases where no zone is targeted
+			playsound(target.loc, attacking_bodypart.unarmed_miss_sound, 25, TRUE, -1)
 			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
 							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, span_warning("Your [atk_verb] misses [target]!"))
@@ -1418,7 +1420,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/armor_block = target.run_armor_check(affecting, MELEE)
 
-		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
+		playsound(target.loc, attacking_bodypart.unarmed_attack_sound, 25, TRUE, -1)
 
 		target.visible_message(span_danger("[user] [atk_verb]ed [target]!"), \
 						span_userdanger("You're [atk_verb]ed by [user]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
@@ -1431,13 +1433,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
 
-		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
-			if((damage * 1.5) >= 9)
+		var/attack_direction = get_dir(user, target)
+		var/attack_type = attacking_bodypart.attack_type
+		if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
+			if((damage) >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked", "punch")
+			target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block)
+			target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			if(damage >= 9)
 				target.force_say()
@@ -1514,7 +1518,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/armor_block = H.run_armor_check(affecting, MELEE, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"),I.armour_penetration)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
-	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
+	var/attack_direction = get_dir(user, H)
+	apply_damage(I.force, I.damtype, def_zone, armor_block, H, attack_direction = attack_direction)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
@@ -1582,8 +1587,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)
 	return TRUE
 
-/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE)
-	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
+/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE, sharpness = NONE, attack_direction = null)
+	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone, sharpness, attack_direction)
 	var/hit_percent = (100-(blocked+armor))/100
 	hit_percent = (hit_percent * (100-H?.physiology?.damage_resistance))/100
 	if(!damage || (!forced && hit_percent <= 0))
@@ -1605,7 +1610,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.damageoverlaytemp = 20
 			var/damage_amount = forced ? damage : damage * hit_percent * brutemod * H.physiology.brute_mod
 			if(BP)
-				if(BP.receive_damage(damage_amount, 0))
+				if(BP.receive_damage(damage_amount, 0, sharpness = sharpness, attack_direction = attack_direction))
 					H.update_damage_overlays()
 			else//no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount, forced = forced)
@@ -1613,7 +1618,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.damageoverlaytemp = 20
 			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
 			if(BP)
-				if(BP.receive_damage(0, damage_amount))
+				if(BP.receive_damage(0, damage_amount, sharpness = sharpness, attack_direction = attack_direction))
 					H.update_damage_overlays()
 			else
 				H.adjustFireLoss(damage_amount, forced = forced)
@@ -2246,7 +2251,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// and language perk last, as it comes at the end of the perks list
 	species_perks += create_pref_unique_perks()
 	species_perks += create_pref_blood_perks()
-	species_perks += create_pref_combat_perks()
 	species_perks += create_pref_damage_perks()
 	species_perks += create_pref_temperature_perks()
 	species_perks += create_pref_traits_perks()
@@ -2283,25 +2287,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/create_pref_unique_perks()
 	return null
-
-/**
- * Adds adds any perks related to combat.
- * For example, the damage type of their punches.
- *
- * Returns a list containing perks, or an empty list.
- */
-/datum/species/proc/create_pref_combat_perks()
-	var/list/to_add = list()
-
-	if(attack_type != BRUTE)
-		to_add += list(list(
-			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
-			SPECIES_PERK_ICON = "fist-raised",
-			SPECIES_PERK_NAME = "Elemental Attacker",
-			SPECIES_PERK_DESC = "[plural_form] deal [attack_type] damage with their punches instead of brute.",
-		))
-
-	return to_add
 
 /**
  * Adds adds any perks related to sustaining damage.

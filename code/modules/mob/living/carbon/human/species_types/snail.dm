@@ -6,11 +6,9 @@
 		MUTCOLORS,
 		NO_UNDERWEAR
 	)
-	attack_verb = "slap"
 	coldmod = 0.5 //snails only come out when its cold and wet
 	burnmod = 1.5
 	speedmod = 2
-	punchdamage = 3
 	siemens_coeff = 2 //snails are mostly water
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	sexes = FALSE //snails are hermaphrodites
@@ -23,10 +21,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/snail,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/snail,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/snail,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/snail,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/snail,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/snail
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/snail,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/snail,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/snail,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/snail
 	)
 
 /datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)

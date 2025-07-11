@@ -38,8 +38,6 @@
 		/obj/item/organ/nymph_organ/chest
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
-	attack_verb = "slash"
-	attack_sound = 'sound/emotes/diona/hit.ogg'
 	burnmod = 1.25
 	heatmod = 1.5
 	brutemod = 0.8
@@ -68,11 +66,11 @@
 	mutantappendix = null
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/diona,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/diona,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/diona,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/diona,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/diona,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/diona,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/diona,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/diona,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/diona,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/diona,
 	)
 

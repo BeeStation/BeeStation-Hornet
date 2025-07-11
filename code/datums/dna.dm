@@ -477,14 +477,12 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(newblood_type)
 		blood_type = newblood_type
 	if(create_mutation_blocks) //I hate this
-
-
 		generate_dna_blocks()
 	if(randomize_features)
 		var/static/list/all_species_protoypes
 		if(isnull(all_species_protoypes))
 			all_species_protoypes = list()
-			for(var/species_path in subtypesof(/datum/species))
+			for(var/species_path in subtypesof(/datum/species) - /datum/species/monkey)
 				all_species_protoypes += new species_path()
 
 		for(var/datum/species/random_species as anything in all_species_protoypes)

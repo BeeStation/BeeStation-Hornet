@@ -195,7 +195,8 @@
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
 		..(user, 1)
-		playsound(loc, user.dna.species.attack_sound, 25, TRUE, -1)
+		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+		playsound(loc, active_arm.unarmed_attack_sound, 25, TRUE, -1)
 		visible_message(span_danger("[user] [hulk_verb]ed [src]!"), \
 					span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
 		to_chat(user, span_danger("You [hulk_verb] [src]!"))
@@ -241,7 +242,10 @@
 
 	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
-			var/damage = rand(1, 3)
+			var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+			var/damage = rand(active_arm.unarmed_damage_low, active_arm.unarmed_damage_high)
+			if(!damage)
+				return
 			if(stat != DEAD)
 				apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 		return TRUE

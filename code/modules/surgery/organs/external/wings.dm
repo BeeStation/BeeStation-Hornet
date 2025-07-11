@@ -27,4 +27,6 @@
 		return TRUE
 	return FALSE
 
+/datum/bodypart_overlay/mutant/wings/get_global_feature_list()
+	return GLOB.wings_list
 

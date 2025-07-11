@@ -24642,7 +24642,7 @@
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/assembly/prox_sensor,
 /obj/item/mop,
-/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/arm/right/robot,
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/robot_debris,
 /obj/structure/disposalpipe/segment,
@@ -47298,8 +47298,8 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/bodypart/r_arm/robot,
-/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/right/robot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},

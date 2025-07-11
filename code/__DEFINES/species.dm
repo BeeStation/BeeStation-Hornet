@@ -21,7 +21,7 @@
 #define SPECIES_PLASMAMAN "plasmaman"
 #define SPECIES_DIONA "diona"
 #define SPECIES_PUMPKINPERSON "pumpkin_man"
-#define SPECIES_SHADOWPERSON "shadow"
+#define SPECIES_SHADOW "shadow"
 #define SPECIES_SKELETON "skeleton"
 #define SPECIES_SNAIL "snail"
 #define SPECIES_SUPERSOLDIER "supersoldier"

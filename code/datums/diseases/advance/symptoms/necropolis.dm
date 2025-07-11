@@ -58,7 +58,9 @@
 		if(5)
 			if(tendrils)
 				tendril(A)
-			M.dna.species.punchdamage = max(12, M.dna.species.punchdamage)
+			for(var/obj/item/bodypart/arm in M.bodyparts)
+				if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+					arm.unarmed_damage_low = max(12, arm.unarmed_damage_low)
 			M.dna.species.brutemod = min(0.6, M.dna.species.brutemod)
 			M.dna.species.burnmod = min(0.6, M.dna.species.burnmod)
 			M.dna.species.heatmod = min(0.6, M.dna.species.heatmod)
@@ -99,7 +101,11 @@
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	to_chat(M, span_danger("You feel weak and powerless as the necropolis' blessing leaves your body, leaving you quicker but vulnerable."))
-	M.dna.species.punchdamage = initial(M.dna.species.punchdamage)
+	for(var/obj/item/bodypart/arm in M.bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			arm.unarmed_damage_low = initial(arm.unarmed_damage_low)
+			arm.unarmed_damage_high = initial(arm.unarmed_damage_high)
+
 	M.dna.species.brutemod = initial(M.dna.species.heatmod)
 	M.dna.species.burnmod = initial(M.dna.species.heatmod)
 	M.dna.species.heatmod = initial(M.dna.species.heatmod)

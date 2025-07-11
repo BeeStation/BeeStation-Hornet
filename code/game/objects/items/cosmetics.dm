@@ -119,7 +119,7 @@
 
 //you can wipe off lipstick with paper!
 /obj/item/paper/attack(mob/M, mob/user)
-	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || !ishuman(M))
+	if(!user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH) || !ishuman(M))
 		return ..()
 
 	var/mob/living/carbon/human/target = M
@@ -163,7 +163,7 @@
 		return ..()
 	var/mob/living/carbon/human/human_target = target_mob
 	var/obj/item/bodypart/head/noggin =  human_target.get_bodypart(BODY_ZONE_HEAD)
-	var/location = user.zone_selected
+	var/location = user.get_combat_bodyzone(src)
 	var/static/list/head_zones = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_HEAD)
 	if(!noggin && (location in head_zones))
 		to_chat(user, span_warning("[human_target] doesn't have a head!"))

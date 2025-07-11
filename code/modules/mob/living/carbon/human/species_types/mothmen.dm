@@ -25,9 +25,6 @@
 		/obj/item/organ/external/wings/moth = "Plain",
 		/obj/item/organ/external/antennae = "Plain"
 	)
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
 	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/internal/eyes/moth
@@ -41,10 +38,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/moth,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/moth,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/moth,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/moth,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/moth,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/moth,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/moth,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/moth,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/moth,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/moth,
 	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
