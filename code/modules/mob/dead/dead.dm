@@ -34,8 +34,6 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
-	if(!SSticker.hide_mode)
-		tab_data["Game Mode"] = GENERATE_STAT_TEXT("[GLOB.master_mode]")
 
 	if(SSticker.HasRoundStarted())
 		return tab_data

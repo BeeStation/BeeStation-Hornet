@@ -42,8 +42,10 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	. = ..()
 
 /mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/projectile/projectile)
-	if(isliving(projectile.fired_from) && is_servant_of_ratvar(projectile.fired_from))
-		return FALSE
+	if(isliving(projectile.fired_from))
+		var/mob/living/living_firer = projectile.fired_from
+		if(IS_SERVANT_OF_RATVAR(living_firer))
+			return FALSE
 	return TRUE
 
 //====Shell====
@@ -62,7 +64,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
 		return
-	if(!SSticker.mode)
+	if(!SSticker.HasRoundStarted())
 		to_chat(user, "Can't become a cogscarab before the game has started.")
 		return
 	var/be_drone = alert("Become a cogscarab? (Warning, You can no longer be cloned!)",,"Yes","No")

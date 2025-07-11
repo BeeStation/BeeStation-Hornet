@@ -1880,7 +1880,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(I.damtype == BRUTE && (I.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
 		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
-			var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
+			var/datum/antagonist/rev/rev = IS_REVOLUTIONARY(H)
 			if(rev)
 				rev.remove_revolutionary(FALSE, user)
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
