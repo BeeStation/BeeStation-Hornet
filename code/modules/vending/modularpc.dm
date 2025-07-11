@@ -19,9 +19,9 @@
 					/obj/item/computer_hardware/hard_drive/super = 1,
 					/obj/item/computer_hardware/network_card = 8,
 					/obj/item/computer_hardware/network_card/advanced = 4,
-					/obj/item/computer_hardware/hard_drive/portable = 8,
-					/obj/item/computer_hardware/hard_drive/portable/advanced = 4,
-					/obj/item/computer_hardware/hard_drive/portable/super = 2,
+					/obj/item/computer_hardware/hard_drive/portable = 2,
+					/obj/item/computer_hardware/hard_drive/portable/advanced = 2,
+					/obj/item/computer_hardware/hard_drive/portable/super = 1,
 					/obj/item/computer_hardware/battery = 8,
 					/obj/item/stock_parts/cell/computer/nano = 8,
 					/obj/item/stock_parts/cell/computer/micro = 4,
@@ -45,7 +45,8 @@
 					/obj/item/computer_hardware/recharger/APC = 2,
 					/obj/item/computer_hardware/radio_card = 1,
 					/obj/item/paicard = 2)
-	contraband = list(/obj/item/computer_hardware/card_slot/secondary = 1,
+	contraband = list(/obj/item/storage/box/hacking4dummies = 4,
+					/obj/item/computer_hardware/card_slot/secondary = 1,
 					/obj/item/colorizer/tablet/syndi = 2,
 					/obj/item/colorizer/tablet/contractor = 2,
 					/obj/item/colorizer/tablet/emag = 2)
