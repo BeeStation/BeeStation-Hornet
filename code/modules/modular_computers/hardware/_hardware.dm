@@ -182,6 +182,14 @@
 		playsound(src, 'sound/effects/fastbeep.ogg', 10)
 	return TRUE
 
+/obj/item/computer_hardware/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_right_click_tool_action("Overclock", TOOL_MULTITOOL)
+	context.add_left_click_tool_action("Diagnose", TOOL_MULTITOOL)
+	context.add_left_click_tool_action("Open & Close", TOOL_SCREWDRIVER)
+	context.add_right_click_tool_action("Alter Power Consumption", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Repair", TOOL_WELDER)
+	context.add_left_click_tool_action("Enable & Disable", TOOL_WIRECUTTER)
+
 /obj/item/computer_hardware/proc/overclock(mob/living/user, obj/item/tool)
 	if(hacked)
 		hacked = FALSE
