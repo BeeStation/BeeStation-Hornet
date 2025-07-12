@@ -30,6 +30,13 @@
 	/* 4. list of actual href commands */
 DECLARE_HREF_TYPE(hrefcmd) // Only required for NAMEOF_HREF(hrefcmd)
 
+DECLARE_HREF_TYPE(href_login)
+DECLARE_HREF_PARAM(href_login, ip)
+DECLARE_HREF_PARAM(href_login, nonce)
+DECLARE_HREF_PARAM(href_login, seeker_port)
+DECLARE_HREF_PARAM(href_login, session_token)
+DECLARE_HREF_PARAM(href_login, from_ui)
+
 DECLARE_HREF_TYPE(reload_tguipanel)
 
 DECLARE_HREF_TYPE(admin_pm)
