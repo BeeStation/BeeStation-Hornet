@@ -17,7 +17,7 @@
 #define HREF_TYPE(_type_name) ("hrefcmd="+/datum/hrefcmd::##_type_name+"&")
 //! Used to build HREF text based on href type
 //! `HREF_TYPE(_type_name, _param_val)`
-#define HREF_PARAM(_param_key, _param_val) (/datum/hrefcmd/param::##_param_key+"="+(istext(_param_val) ? _param_val : #_param_val)+"&")
+#define HREF_PARAM(_param_key, _param_val) (/datum/hrefcmd/param::##_param_key+"="+(isnum(_param_val) ? "[_param_val]" : istext(_param_val) ? _param_val : #_param_val)+"&")
 
 
 	/* 3. Used to get names and values for code failproofs, usually after topic called. */
@@ -59,6 +59,7 @@ DECLARE_HREF_PARAM(var_edit, target)
 DECLARE_HREF_PARAM(var_edit, target_varname)
 DECLARE_HREF_PARAM(var_edit, dmlist_origin_ref)
 DECLARE_HREF_PARAM(var_edit, dmlist_varname)
+DECLARE_HREF_PARAM(var_edit, list_index)
 DECLARE_HREF_PARAM(var_edit, mobToDamage)
 DECLARE_HREF_PARAM(var_edit, adjustDamage)
 DECLARE_HREF_PARAM(var_edit, datumedit)

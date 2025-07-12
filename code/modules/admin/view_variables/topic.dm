@@ -3,7 +3,7 @@
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	if( (usr.client != src) || !src.holder || !holder.CheckAdminHref(href, href_list))
 		return
-	var/target = GET_VV_TARGET
+	var/target = locate(LOCATE_HREF(var_edit::target, href_list))
 	var/vv_refresh_target /// If this var has a reference, vv window will be auto-refreshed
 
 	vv_do_basic(target, href_list, href)
@@ -13,7 +13,7 @@
 		var/dmlist_varname = LOCATE_HREF(var_edit::dmlist_varname, href_list)
 		if(!isdatum(located) || !GLOB.vv_special_lists[dmlist_varname] || !(dmlist_varname in located.vars))
 			return
-		if(GET_VV_VAR_TARGET || href_list[VV_HK_DO_LIST_EDIT]) // if href_list["target_varname"] exists, we do vv_edit to list. if not, it's just viewing.
+		if(LOCATE_HREF(var_edit::target_varname, href_list) || href_list[VV_HK_DO_LIST_EDIT]) // if href_list["target_varname"] exists, we do vv_edit to list. if not, it's just viewing.
 			vv_do_list(located.vars[dmlist_varname], href_list)
 		GLOB.vv_ghost.mark_special(LOCATE_HREF(var_edit::dmlist_origin_ref, href_list), dmlist_varname)
 		vv_refresh_target = GLOB.vv_ghost

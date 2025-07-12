@@ -3,7 +3,7 @@
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_adminprefix("Advanced ProcCall detected - You shouldn't call /vv_do_list() directly."))
 		return
-	var/target_index = text2num(GET_VV_VAR_TARGET)
+	var/target_index = text2num(LOCATE_HREF(var_edit::target_varname, href_list))
 	if(check_rights(R_VAREDIT))
 		var/dmlist_varname = LOCATE_HREF(var_edit::dmlist_varname, href_list)
 		if(dmlist_varname)

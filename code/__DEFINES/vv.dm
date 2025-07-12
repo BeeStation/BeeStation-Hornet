@@ -39,17 +39,17 @@
 
 //General helpers
 #define VV_HREF_TARGET_INTERNAL(_target, href_key) "?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::target, REF(_target))+"[href_key]=TRUE;[HrefToken()];"
-#define VV_HREF_TARGETREF_INTERNAL(targetref, href_key) "?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::target, REF(targetref))+"[href_key]=TRUE;[HrefToken()];"
+#define VV_HREF_TARGETREF_INTERNAL(targetref, href_key) "?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::target, targetref)+"[href_key]=TRUE;[HrefToken()];"
 #define VV_HREF_TARGET(target, href_key, text) "<a href='byond://[VV_HREF_TARGET_INTERNAL(target, href_key)]'>[text]</a>"
 #define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='byond://[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
-#define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='byond://[VV_HREF_TARGET_INTERNAL(target, href_key)];"+HREF_PARAM(var_edit::target_varname, REF(varname))+"'>[text]</a>"		//for stuff like basic varedits, one variable
-#define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='byond://[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];"+HREF_PARAM(var_edit::target_varname, REF(varname))+"'>[text]</a>"
+#define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='byond://[VV_HREF_TARGET_INTERNAL(target, href_key)];"+HREF_PARAM(var_edit::target_varname, varname)+"'>[text]</a>"		//for stuff like basic varedits, one variable
+#define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='byond://[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];"+HREF_PARAM(var_edit::target_varname, varname)+"'>[text]</a>"
 //! Non-standard helper for special list vv. this doesn't use VV_HK_TARGET and REF because special list doesn't work in a sane sense.
-#define VV_HREF_SPECIAL(_dmlist_origin_ref, href_action, text, list_index, _dmlist_varname) "<a href='byond://?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::dmlist_origin_ref, _dmlist_origin_ref)+HREF_PARAM(var_edit::dmlist_varname, _dmlist_varname)+HREF_PARAM(var_edit::target_varname, REF(list_index))+"[href_action]=TRUE;[HrefToken()]'>[text]</a>"
+#define VV_HREF_SPECIAL(_dmlist_origin_ref, href_action, text, list_index, _dmlist_varname) "<a href='byond://?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::dmlist_origin_ref, _dmlist_origin_ref)+HREF_PARAM(var_edit::dmlist_varname, _dmlist_varname)+HREF_PARAM(var_edit::target_varname, ##list_index)+"[href_action]=TRUE;[HrefToken()]'>[text]</a>"
 #define VV_HREF_SPECIAL_MENU(_dmlist_origin_ref, href_action, _dmlist_varname) "byond://?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::dmlist_origin_ref, _dmlist_origin_ref)+HREF_PARAM(var_edit::dmlist_varname, _dmlist_varname)+"[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;[HrefToken()];"
 
-#define GET_VV_TARGET locate(href_list[NAMEOF_HREF(var_edit::target)])
-#define GET_VV_VAR_TARGET href_list[NAMEOF_HREF(var_edit::target_varname)]
+#define GET_VV_TARGET locate(LOCATE_HREF(var_edit::target, href_list))
+#define GET_VV_VAR_TARGET LOCATE_HREF(var_edit::target_varname, href_list)
 
 //Helper for getting something to vv_do_topic in general
 #define VV_TOPIC_LINK(datum, href_key, text) "<a href='byond://?"+HREF_TYPE(var_edit)+HREF_PARAM(var_edit::target, REF(datum))+"[href_key]=TRUE;[HrefToken()]'>text</a>"
