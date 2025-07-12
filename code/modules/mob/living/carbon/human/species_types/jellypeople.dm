@@ -41,7 +41,7 @@
 	C.blood_volume = min(C.blood_volume, BLOOD_VOLUME_NORMAL)
 	..()
 
-/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/new_slimeperson, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		slime_split = new
@@ -330,7 +330,7 @@
 	QDEL_NULL(extract_minor)
 	return ..()
 
-/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species)
+/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	glow = new_jellyperson.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	update_glow(new_jellyperson)
@@ -496,7 +496,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	/// Special "project thought" telepathy action for stargazers.
 	var/datum/action/innate/project_thought/project_action
 
-/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	project_action = new(src)
 	project_action.Grant(grant_to)

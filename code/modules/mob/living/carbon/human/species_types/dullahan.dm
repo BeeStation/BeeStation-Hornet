@@ -33,7 +33,7 @@
 		return TRUE
 	return ..()
 
-/datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species)
+/datum/species/dullahan/on_species_gain(mob/living/carbon/human/human, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	human.lose_hearing_sensitivity(TRAIT_GENERIC)
 	var/obj/item/bodypart/head/head = human.get_bodypart(BODY_ZONE_HEAD)

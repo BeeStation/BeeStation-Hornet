@@ -269,7 +269,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 //Called when cloning, copies some vars that should be kept
-/datum/species/proc/copy_properties_from(datum/species/old_species)
+/datum/species/proc/copy_properties_from(datum/species/old_species, pref_load, regenerate_icons)
 	return
 
 /**
@@ -436,7 +436,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			new_part.update_limb(is_creating = TRUE)
 			qdel(old_part)
 
-/datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/**
+ * Proc called when a carbon becomes this species.
+ *
+ * This sets up and adds/changes/removes things, qualities, abilities, and traits so that the transformation is as smooth and bugfree as possible.
+ * Produces a [COMSIG_SPECIES_GAIN] signal.
+ * Arguments:
+ * * C - Carbon, this is whoever became the new species.
+ * * old_species - The species that the carbon used to be before becoming this race, used for regenerating organs.
+ * * pref_load - Preferences to be loaded from character setup, loads in preferred mutant things like bodyparts, digilegs, skin color, etc.
+ * * regenerate_icons - Whether or not to update the bodies icons
+ */
+/datum/species/proc/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load, regenerate_icons = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
@@ -514,6 +525,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.grant_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in gaining_holder.blocked_languages)
 		C.add_blocked_language(language, LANGUAGE_SPECIES)
+	if(regenerate_icons)
+		human_who_gained_species.regenerate_icons()
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 

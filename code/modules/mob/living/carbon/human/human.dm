@@ -43,7 +43,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/proc/setup_human_dna()
-	randomize_human(src, randomize_mutations = TRUE)
+	randomize_human(src, randomize_mutations = TRUE, update_body = FALSE)
 
 /mob/living/carbon/human/ComponentInitialize()
 	. = ..()

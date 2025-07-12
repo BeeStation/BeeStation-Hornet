@@ -81,7 +81,7 @@
 	return 'sound/voice/moth/scream_moth.ogg'
 
 /*
-/datum/species/moth/on_species_gain(mob/living/carbon/human/H)
+/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	cocoon_action = new()
 	cocoon_action.Grant(H)

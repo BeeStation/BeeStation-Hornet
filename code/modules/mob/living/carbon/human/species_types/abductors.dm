@@ -26,7 +26,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/abductor,
 	)
 
-/datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.add_hud_to(C)

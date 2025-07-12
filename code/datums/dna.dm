@@ -552,6 +552,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(ispath(mrace))
 		new_race = new mrace
 	else if(istype(mrace))
+		if(QDELING(mrace))
+			CRASH("someone is calling set_species() and is passing it a qdeling species datum, this is VERY bad, stop it")
 		new_race = mrace
 	else
 		CRASH("set_species called with an invalid mrace [mrace]")
@@ -564,7 +566,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if (old_species.properly_gained)
 		old_species.on_species_loss(src, new_race, pref_load)
 
-	dna.species.on_species_gain(src, old_species, pref_load)
+	dna.species.on_species_gain(src, old_species, pref_load, regenerate_icons = icon_update)
 	SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)

@@ -169,7 +169,7 @@
 	var/info_text = "You are a " + span_danger("Nightmare") + ". The ability " + span_warning("shadow walk") + " allows unlimited, unrestricted movement in the dark while activated. \
 					Your " + span_warning("light eater") + " will destroy any light producing objects you attack, as well as destroy any lights a living creature may be holding. You will automatically dodge gunfire and melee attacks when on a dark tile. If killed, you will eventually revive if left in darkness."
 
-/datum/species/shadow/nightmare/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/shadow/nightmare/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	to_chat(C, "[info_text]")
 
