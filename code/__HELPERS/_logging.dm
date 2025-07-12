@@ -275,7 +275,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE, href = "priv_msg", include_external_name = TRUE)
+/proc/key_name(whom, include_link = null, include_name = TRUE, is_mentor_pm=FALSE, include_external_name = TRUE)
 	var/mob/M
 	var/client/C
 	var/key
@@ -300,29 +300,39 @@
 		C = GLOB.directory[ckey]
 		if(C)
 			M = C.mob
-	else if(istype(whom,/datum/mind))
-		var/datum/mind/mind = whom
-		key = mind.key
-		ckey = ckey(key)
-		if(mind.current)
-			M = mind.current
-			if(M.client)
-				C = M.client
-		else
-			fallback_name = mind.name
-	else // Catch-all cases if none of the types above match
-		var/swhom = null
+	else if(!is_mentor_pm) // admin only
+		if(istype(whom,/datum/mind))
+			var/datum/mind/mind = whom
+			key = mind.key
+			ckey = ckey(key)
+			if(mind.current)
+				M = mind.current
+				if(M.client)
+					C = M.client
+			else
+				fallback_name = mind.name
+		else // Catch-all cases if none of the types above match
+			var/swhom = null
 
-		if(istype(whom, /atom))
-			var/atom/A = whom
-			swhom = "[A.name]"
-		else if(istype(whom, /datum))
-			swhom = "[whom]"
+			if(istype(whom, /atom))
+				var/atom/A = whom
+				swhom = "[A.name]"
+			else if(istype(whom, /datum))
+				swhom = "[whom]"
 
-		if(!swhom)
-			swhom = "*invalid*"
+			if(!swhom)
+				swhom = "*invalid*"
 
-		return "\[[swhom]\]"
+			return "\[[swhom]\]"
+
+	var/badge = ""
+	if(include_external_name && C?.key_is_external && istype(C?.external_method))
+		badge += "#("
+		if(include_link) // show an icon
+			badge += "<span class='chat16x16 badge-badge_[C.external_method.get_badge_id()]' style='vertical-align: -3px;'></span>"
+		badge += "[C.external_method.format_display_name(C.external_display_name)]"
+		badge += ")"
+
 
 	. = ""
 
@@ -330,21 +340,30 @@
 		include_link = FALSE
 
 	if(key)
-		if(C?.holder?.fakekey && !include_name)
+		if(is_mentor_pm)
 			if(include_link)
-				. += "<a href='byond://?[href]=[C.findStealthKey()]'>"
-			. += "Administrator"
+				. += "<a href='byond://?[HREF_TYPE(mentor_msg)][HREF_PARAM(mentor_msg::msg_target, ckey)]'>"
+			if(C && C.holder && C.holder.fakekey)
+				. += "Administrator"
 		else
-			if(include_link)
-				. += "<a href='byond://?[href]=[ckey]'>"
-			. += key
+			if(C?.holder?.fakekey && !include_name)
+				if(include_link)
+					. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, C.findStealthKey())]'>"
+				. += "Administrator"
+			else
+				if(include_link)
+					. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, ckey)]'>"
+				. += key
 		if(!C)
 			. += "\[DC\]"
-
 		if(include_link)
 			. += "</a>"
 	else
 		. += "*no key*"
+
+	if(is_mentor_pm)
+		. += badge
+		return .
 
 	if(include_name)
 		if(M)
@@ -355,14 +374,7 @@
 		else if(fallback_name)
 			. += "/([fallback_name])"
 
-	if(include_external_name && C?.key_is_external && istype(C?.external_method))
-		. += "#("
-		if(include_link) // show an icon
-			. += "<span class='chat16x16 badge-badge_[C.external_method.get_badge_id()]' style='vertical-align: -3px;'></span>"
-		. += "[C.external_method.format_display_name(C.external_display_name)]"
-		. += ")"
-
-
+	. += badge
 	return .
 
 /proc/key_name_admin(whom, include_name = TRUE, include_external_name = TRUE)
