@@ -1375,9 +1375,9 @@
 /datum/reagent/nitrium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 
 	//Stopped huffing and wearing off, but not all gone. No more stamina modifiers. Takes ~20 more seconds to fully metabolize
-	if(feeling_high && reagents.get_reagent_amount(/datum/reagent/water/nitrium) <= 2)
+	if(feeling_high && reagents.get_reagent_amount(/datum/reagent/nitrium) <= 2)
 		feeling_high = FALSE
-		L.visible_message(span_warning("You can feel your high starting to wear off"))
+		M.visible_message(span_warning("You can feel your high starting to wear off"))
 
 	//Whether they go back to huffing too soon, or they have just started huffing, this calculation will handle stamina restoration and exhaustion both.
 	else
