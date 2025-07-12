@@ -94,21 +94,56 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NODISMEMBER		"dismember_immunity"
 #define TRAIT_NOFIRE			"nonflammable"
 #define TRAIT_NOGUNS			"no_guns"
-///This carbon doesn't get hungry
+/// Species with this trait are genderless
+#define TRAIT_AGENDER "agender"
+/// Species with this trait have a blood clan mechanic
+#define TRAIT_BLOOD_CLANS "blood_clans"
+/// Species with this trait have markings (this SUCKS, remove this later in favor of bodypart overlays)
+#define TRAIT_HAS_MARKINGS "has_markings"
+/// Species with this trait have mutant colors
+#define TRAIT_MUTANT_COLORS "mutcolors"
+/// Species with this trait have mutant colors that cannot be chosen by the player
+#define TRAIT_FIXED_MUTANT_COLORS "fixed_mutcolors"
+/// Humans with this trait won't get bloody hands, nor bloody feet
+#define TRAIT_NO_BLOOD_OVERLAY "no_blood_overlay"
+/// Humans with this trait cannot have underwear
+#define TRAIT_NO_UNDERWEAR "no_underwear"
+/// Humans with this trait cannot get augmentation surgery
+#define TRAIT_NO_AUGMENTS "no_augments"
+/// This carbon doesn't get hungry
 #define TRAIT_NOHUNGER "no_hunger"
-///This carbon doesn't bleed
+/// This carbon doesn't bleed
 #define TRAIT_NOBLOOD "noblood"
-#define TRAIT_NOMETABOLISM		"no_metabolism"
+/// This just means that the carbon will always have functional liverless metabolism
+#define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
+/// Humans with this trait cannot be turned into zombies
+#define TRAIT_NO_ZOMBIFY "no_zombify"
+/// Humans with this trait cannot be affected by changeling transformation stings
+#define TRAIT_NO_TRANSFORMATION_STING "no_transformation_sting"
+/// Carbons with this trait can't have their DNA copied by diseases nor changelings
+#define TRAIT_NO_DNA_COPY "no_dna_copy"
+/// Carbons with this trait can eat blood to regenerate their own blood volume, instead of injecting it
+#define TRAIT_DRINKS_BLOOD "drinks_blood"
+/// Mob is immune to clone (cellular) damage
+#define TRAIT_NOCLONELOSS "no_cloneloss"
+/// Mob is immune to toxin damage
+#define TRAIT_TOXIMMUNE "toxin_immune"
+/// Mob is immune to oxygen damage, does not need to breathe
+#define TRAIT_NOBREATH "no_breath"
 #define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
-#define TRAIT_NOCLONELOSS		"no_cloneloss"
-#define TRAIT_TOXIMMUNE			"toxin_immune"
+#define TRAIT_NOHUSK "no_husk"
+#define TRAIT_REVIVESBYHEALING "revivesbyhealing"
+#define TRAIT_ENVIROSUIT "envirosuit"
+#define TRAIT_NOFLASH "noflash"
+#define TRAIT_NOMOUTH "nomouth"
+#define TRAIT_NOREAGENTS "noreagents"
+#define TRAIT_NOSOCKS "nosocks"
 #define TRAIT_EASYDISMEMBER		"easy_dismember"
 #define TRAIT_LIMBATTACHMENT 	"limb_attach"
 #define TRAIT_NOLIMBDISABLE		"no_limb_disable"
 #define TRAIT_EASYLIMBDISABLE	"easy_limb_disable"
 #define TRAIT_TOXINLOVER		"toxinlover"
 #define TRAIT_NOHAIRLOSS		"no_hair_loss"
-#define TRAIT_NOBREATH			"no_breath"
 #define TRAIT_SEE_ANTIMAGIC		"see_anti_magic"
 #define TRAIT_DEPRESSION		"depression"
 #define TRAIT_JOLLY				"jolly"

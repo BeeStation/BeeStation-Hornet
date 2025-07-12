@@ -103,9 +103,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// The body temperature limit the body can take before it starts taking damage from cold.
 	var/bodytemp_cold_damage_limit = BODYTEMP_COLD_DAMAGE_LIMIT
 
-	// species-only traits. Can be found in DNA.dm
-	var/list/species_traits = list()
-	// generic traits tied to having the species
+	/// Generic traits tied to having the species.
 	var/list/inherent_traits = list()
 	var/list/inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	///List of factions the mob gain upon gaining this species.
@@ -447,14 +445,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * * pref_load - Preferences to be loaded from character setup, loads in preferred mutant things like bodyparts, digilegs, skin color, etc.
  * * regenerate_icons - Whether or not to update the bodies icons
  */
-/datum/species/proc/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load, regenerate_icons = TRUE)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load, regenerate_icons = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
 
-	// Drop the items the new species can't wear
-	if((AGENDER in species_traits))
-		C.gender = PLURAL
 	for(var/slot_id in no_equip)
 		var/obj/item/thing = C.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src,thing.species_exception)))
@@ -473,7 +468,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
 
-	if(NOMOUTH in species_traits)
+	if(NOMOUTH in inherent_traits)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
 			head.mouth = FALSE
 
@@ -506,7 +501,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(TRAIT_TOXIMMUNE in inherent_traits)
 		C.setToxLoss(0, TRUE, TRUE)
 
-	if(TRAIT_NOMETABOLISM in inherent_traits)
+	if(TRAIT_LIVERLESS_METABOLISM in inherent_traits)
 		C.reagents.end_metabolization(C, keep_liverless = TRUE)
 
 	if(TRAIT_GENELESS in inherent_traits)
@@ -526,7 +521,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	for(var/language in gaining_holder.blocked_languages)
 		C.add_blocked_language(language, LANGUAGE_SPECIES)
 	if(regenerate_icons)
-		human_who_gained_species.regenerate_icons()
+		C.regenerate_icons()
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
@@ -542,7 +537,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(human.dna.species.exotic_bloodtype)
 		human.dna.blood_type = random_blood_type()
 
-	if(NOMOUTH in species_traits)
+	if(TRAIT_NOMOUTH in inherent_traits)
 		for(var/obj/item/bodypart/head/head in human.bodyparts)
 			head.mouth = TRUE
 
@@ -596,7 +591,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					standing += eye_overlay
 
 		// organic body markings (oh my god this is terrible please rework this to be done on the limbs themselves i beg you)
-		if(HAS_MARKINGS in species_traits)
+		if(HAS_TRAIT(species_human, TRAIT_HAS_MARKINGS))
 			var/obj/item/bodypart/chest/chest = species_human.get_bodypart(BODY_ZONE_CHEST)
 			var/obj/item/bodypart/arm/right/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
 			var/obj/item/bodypart/arm/left/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
@@ -629,7 +624,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 	//Underwear, Undershirts & Socks
-	if(!(NO_UNDERWEAR in species_traits))
+	if(!HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR))
 		if(species_human.underwear && !(species_human.bodytype & BODYTYPE_DIGITIGRADE))
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[species_human.underwear]
 			var/mutable_appearance/underwear_overlay
@@ -650,7 +645,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
-		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
+		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodytype & BODYTYPE_DIGITIGRADE) && !(TRAIT_NOSOCKS in inherent_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -2149,7 +2144,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if ( \
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
-			|| (preference.relevant_species_trait in species_traits) \
+			|| (preference.relevant_inherent_trait in inherent_traits) \
 			|| (preference.relevant_external_organ in external_organs) \
 			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
 		)

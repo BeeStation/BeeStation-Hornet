@@ -445,7 +445,8 @@
 					if ("albino")
 						N.skin_tone = "caucasian1"
 
-			if(MUTCOLORS in N.dna.species.species_traits) //take current alien color and darken it slightly
+			//take current alien color and darken it slightly
+			if(HAS_TRAIT(N, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(N, TRAIT_FIXED_MUTANT_COLORS))
 				var/newcolor = ""
 				var/string = N.dna.features["mcolor"]
 				var/len = length(string)
@@ -494,8 +495,8 @@
 			head.head_flags |= HEAD_HAIR //No hair? No problem!
 		if(N.dna.species.use_skintones)
 			N.skin_tone = "orange"
-		else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
-			N.dna.features["mcolor"] = "f80"
+		else if(HAS_TRAIT(N, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(N, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
+			N.dna.features["mcolor"] = "#ff8800"
 		N.regenerate_icons()
 	..()
 

@@ -1,4 +1,4 @@
-#define REGENERATION_DELAY 60  // After taking damage, how long it takes for automatic regeneration to begin
+#define REGENERATION_DELAY 6 SECONDS  // After taking damage, how long it takes for automatic regeneration to begin
 
 /datum/species/zombie
 	// 1spooky
@@ -7,12 +7,9 @@
 	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/internal/tongue/zombie
-	species_traits = list(
-		NOZOMBIE,
-		NOTRANSSTING
-	)
 	inherent_traits = list(
 		// SHARED WITH ALL ZOMBIES
+		TRAIT_NO_ZOMBIFY,
 		TRAIT_EASYDISMEMBER,
 		TRAIT_FAKEDEATH,
 		TRAIT_FAST_CUFF_REMOVAL,
@@ -21,7 +18,7 @@
 		TRAIT_NOCLONELOSS,
 		TRAIT_NODEATH,
 		TRAIT_NOHUNGER,
-		TRAIT_NOMETABOLISM,
+		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOSTASIS,
 		TRAIT_RADIMMUNE,
 		TRAIT_RESISTCOLD,
@@ -29,6 +26,7 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
 		TRAIT_NOSTASIS,
+		TRAIT_NO_TRANSFORMATION_STING,
 		// HIGH FUNCTIONING UNIQUE
 		TRAIT_NOBLOOD,
 	)
@@ -97,7 +95,7 @@
 		TRAIT_NOCLONELOSS,
 		TRAIT_NODEATH,
 		TRAIT_NOHUNGER,
-		TRAIT_NOMETABOLISM,
+		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOSTASIS,
 		TRAIT_RADIMMUNE,
 		TRAIT_RESISTCOLD,
@@ -120,7 +118,7 @@
 
 /datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
-	C.AddComponent(/datum/component/mutant_hands, mutant_hand_path = muthands_path)
+	new_zombie.AddComponent(/datum/component/mutant_hands, mutant_hand_path = muthands_path)
 
 /datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()

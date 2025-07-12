@@ -537,7 +537,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return FALSE
-	if(NO_DNA_COPY in dna.species.species_traits)
+	if(HAS_TRAIT(mob_occupant, TRAIT_NO_DNA_COPY))
 		scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return FALSE

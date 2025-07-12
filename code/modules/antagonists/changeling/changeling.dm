@@ -264,7 +264,7 @@
 		if(verbose)
 			to_chat(user, span_warning("We cannot absorb mechanical entities!"))
 		return
-	if(NO_DNA_COPY in target.dna.species.species_traits)
+	if(HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return
@@ -367,7 +367,7 @@
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	//If you can't be turned into that creature, you shouldnt start as that creature
-	if(NOTRANSSTING in C.dna.species.species_traits)
+	if(TRAIT_NO_TRANSFORMATION_STING in C.dna.species.inherent_traits)
 		C.set_species(/datum/species/human)
 		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 		for(var/datum/record/crew/E in GLOB.manifest.general)

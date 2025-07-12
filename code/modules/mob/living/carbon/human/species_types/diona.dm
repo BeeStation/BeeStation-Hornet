@@ -3,21 +3,18 @@
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
 	sexes = 0 //no sex for bug/plant people!
-	species_traits = list(
-		MUTCOLORS,
-		AGENDER,
-		NOHUSK,
-		NO_DNA_COPY,
-		NO_UNDERWEAR,
-		NOSOCKS,
-		NOTRANSSTING
-	)
 	inherent_traits = list(
+		TRAIT_AGENDER,
 		TRAIT_BEEFRIEND,
+		TRAIT_MUTANT_COLORS,
 		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
-		TRAIT_NORADDAMAGE
+		TRAIT_NORADDAMAGE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOHUSK
 	)
 	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
 	mutant_bodyparts = list(

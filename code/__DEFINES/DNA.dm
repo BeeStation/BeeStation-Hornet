@@ -90,18 +90,8 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-// species_traits list on /datum/species, please avoid adding more and use inherent_traits instead where possible
-#define MUTCOLORS 1
-#define NOTRANSSTING 6
-#define NOZOMBIE 8
-#define NO_UNDERWEAR 9
-#define NO_DNA_COPY 10
 //Flashing has no effect
 #define NOFLASH 11
-// Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
-#define DYNCOLORS 12
-// No sex!
-#define AGENDER 13
 // DO NOT PROCESS REAGENTS
 #define NOREAGENTS 15
 // Will revive on heal when healing and total HP > 0.
@@ -113,8 +103,6 @@
 #define NOSOCKS 19
 // spawns with an envirosuit
 #define ENVIROSUIT 20
-//No augments
-#define NOAUGMENTS 21
 
 /// Used for determining which wounds are applicable to this species.
 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)

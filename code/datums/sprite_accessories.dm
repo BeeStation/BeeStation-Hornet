@@ -2566,7 +2566,7 @@
 /datum/sprite_accessory/ipc_chassis/mcgreyscale
 	name = "Morpheus Cyberkinetics (Custom)"
 	limbs_id = "mcgipc"
-	color_src = MUTCOLORS
+	color_src = MUTANT_COLOR
 
 /datum/sprite_accessory/ipc_chassis/bishopcyberkinetics
 	name = "Bishop Cyberkinetics"
@@ -2608,7 +2608,7 @@
 
 /datum/sprite_accessory/psyphoza_cap
 	icon = 'icons/mob/psyphoza_caps.dmi'
-	color_src = MUTCOLORS
+	color_src = MUTANT_COLOR
 
 /datum/sprite_accessory/psyphoza_cap/wide
 	name = "Portobello"

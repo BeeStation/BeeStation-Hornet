@@ -104,11 +104,6 @@
 	var/px_x = 0
 	var/px_y = 0
 
-	/**
-	 * A copy of the original owner's species datum species_traits list (very hacky)
-	 * It sucks that we have to do this, but due to MUTCOLORS and others, we have to. For now.
-	 */
-	var/species_flags_list = list()
 	///the type of damage overlay (if any) to use when this bodypart is bruised/burned.
 	var/dmg_overlay_type = "human"
 
@@ -368,7 +363,7 @@
 			update_disabled()
 		if(updating_health)
 			owner.updatehealth()
-		if(owner.dna?.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
+		if(owner.dna?.species && (TRAIT_REVIVESBYHEALING in owner.dna.species.inherent_traits))
 			if(owner.health > 0 && !owner.ishellbound())
 				owner.revive(0)
 				owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
@@ -666,7 +661,6 @@
 	// No, xenos don't actually use bodyparts. Don't ask.
 	var/mob/living/carbon/human/human_owner = owner
 	var/datum/species/owner_species = human_owner.dna.species
-	species_flags_list = owner_species.species_traits.Copy()
 	limb_gender = (human_owner.dna.features["body_model"] == MALE) ? "m" : "f"
 
 	if(owner_species.use_skintones)
@@ -674,7 +668,7 @@
 	else
 		skin_tone = ""
 
-	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits))) //Ethereal code. Motherfuckers.
+	if(HAS_TRAIT(owner, TRAIT_MUTANT_COLORS))
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
 		else

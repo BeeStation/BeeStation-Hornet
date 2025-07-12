@@ -240,14 +240,14 @@
 	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER,  PROC_REF(equip_shoecover))
 
 /datum/component/bloodysoles/feet/update_icon()
-	if(ishuman(wielder))
-		// Monkeys get no bloody feet :(
-		if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
-			wielder.remove_overlay(SHOES_LAYER)
-			wielder.overlays_standing[SHOES_LAYER] = bloody_feet
-			wielder.apply_overlay(SHOES_LAYER)
-		else
-			wielder.update_worn_shoes()
+	if(!ishuman(wielder) || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
+		return
+	if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
+		wielder.remove_overlay(SHOES_LAYER)
+		wielder.overlays_standing[SHOES_LAYER] = bloody_feet
+		wielder.apply_overlay(SHOES_LAYER)
+	else
+		wielder.update_worn_shoes()
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/FP)
 	if(ismonkey(wielder))

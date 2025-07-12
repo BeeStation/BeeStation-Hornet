@@ -2,9 +2,9 @@
 	name = "Snailperson"
 	plural_form = "Snailpeople"
 	id = SPECIES_SNAIL
-	species_traits = list(
-		MUTCOLORS,
-		NO_UNDERWEAR
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_UNDERWEAR,
 	)
 	coldmod = 0.5 //snails only come out when its cold and wet
 	burnmod = 1.5
@@ -36,11 +36,11 @@
 
 /datum/species/snail/on_species_gain(mob/living/carbon/new_snailperson, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
-	var/obj/item/storage/backpack/bag = C.get_item_by_slot(ITEM_SLOT_BACK)
+	var/obj/item/storage/backpack/bag = new_snailperson.get_item_by_slot(ITEM_SLOT_BACK)
 	if(!istype(bag, /obj/item/storage/backpack/snail))
-		if(C.dropItemToGround(bag)) //returns TRUE even if its null
-			C.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(C), ITEM_SLOT_BACK)
-	ADD_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
+		if(new_snailperson.dropItemToGround(bag)) //returns TRUE even if its null
+			new_snailperson.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(new_snailperson), ITEM_SLOT_BACK)
+	ADD_TRAIT(new_snailperson, TRAIT_NOSLIPALL, SPECIES_TRAIT)
 
 /datum/species/snail/on_species_loss(mob/living/carbon/C)
 	. = ..()

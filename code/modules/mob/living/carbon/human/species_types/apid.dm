@@ -2,11 +2,9 @@
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "\improper Apid"
 	id = SPECIES_APID
-	species_traits = list(
-		MUTCOLORS
-	)
 	inherent_traits = list(
-		TRAIT_BEEFRIEND
+		TRAIT_BEEFRIEND,
+		TRAIT_MUTANT_COLORS
 	)
 	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
 	mutant_bodyparts = list(

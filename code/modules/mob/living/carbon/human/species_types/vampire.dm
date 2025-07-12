@@ -1,7 +1,6 @@
 /datum/species/vampire
 	name = "Vampire"
 	id = SPECIES_VAMPIRE
-	species_traits = list()
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,

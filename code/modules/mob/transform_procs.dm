@@ -196,7 +196,7 @@
 
 	//handle DNA and other attributes
 	dna.transfer_identity(O)
-	O.dna.species.species_traits += NOTRANSSTING
+	O.add_traits(list(TRAIT_NO_TRANSFORMATION_STING), type)
 	O.updateappearance(icon_update=0)
 
 	if(tr_flags & TR_KEEPSE)

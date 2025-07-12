@@ -4,12 +4,10 @@
 	id = SPECIES_PUMPKINPERSON
 	sexes = 0
 	meat = /obj/item/food/pieslice/pumpkin
-	species_traits = list(
-		MUTCOLORS,
-	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE
+		TRAIT_NONECRODISEASE,
+		TRAIT_MUTANT_COLORS,
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 	burnmod = 1.25

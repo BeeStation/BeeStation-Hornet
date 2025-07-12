@@ -4,16 +4,14 @@
 	id = SPECIES_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
-	species_traits = list(
-		NOTRANSSTING,
-		ENVIROSUIT
-	)
 	inherent_traits = list(
 		TRAIT_GENELESS,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_ENVIROSUIT
 	)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutantlungs = /obj/item/organ/internal/lungs/plasmaman

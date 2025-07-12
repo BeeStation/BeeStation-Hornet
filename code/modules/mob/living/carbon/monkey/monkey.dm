@@ -252,11 +252,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(
-		NOTRANSSTING,
-		NO_DNA_COPY,
-	)
 	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_BLOOD_OVERLAY,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NO_AUGMENTS,
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,

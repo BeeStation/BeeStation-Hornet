@@ -1,15 +1,13 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
-	species_traits = list(
-		MUTCOLORS,
-		NOAUGMENTS
-	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_AUGMENTS
 	)
 	hair_color = "mutcolor"
 	hair_alpha = 150

@@ -10,14 +10,12 @@
 	id = SPECIES_SHADOW
 	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
-	species_traits = list(
-		NOFLASH
-	)
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NOBLOOD,
+		TRAIT_NOFLASH
 	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
@@ -135,13 +133,8 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE
 	burnmod = 1.5
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
-	species_traits = list(
-		NO_UNDERWEAR,
-		NO_DNA_COPY,
-		NOTRANSSTING,
-		NOFLASH
-	)
 	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
 		TRAIT_RESISTHIGHPRESSURE,
@@ -152,6 +145,9 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOFLASH
 	)
 
 	mutantheart = /obj/item/organ/internal/heart/nightmare

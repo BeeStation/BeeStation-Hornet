@@ -189,12 +189,12 @@
 					O.Insert(M, movement_flags = DELETE_IF_REPLACED)
 					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/internal/heart) && !HAS_TRAIT(S, TRAIT_NOBLOOD))
+				if(!M.get_organ_by_type(/obj/item/organ/internal/heart) && !(TRAIT_NOBLOOD in S.inherent_traits))
 					var/obj/item/organ/internal/heart/O = new()
 					O.Insert(M, movement_flags = DELETE_IF_REPLACED)
 					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/internal/liver) && !(TRAIT_NOMETABOLISM in S.inherent_traits))
+				if(!M.get_organ_by_type(/obj/item/organ/internal/liver) && !(TRAIT_LIVERLESS_METABOLISM in S.inherent_traits))
 					var/obj/item/organ/internal/liver/O
 					if(S.mutantliver)
 						O = new S.mutantliver()

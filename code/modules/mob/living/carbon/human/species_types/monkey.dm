@@ -5,6 +5,12 @@
 	id = SPECIES_MONKEY
 	skinned_type = /obj/item/stack/sheet/animalhide/
 	changesource_flags = MIRROR_BADMIN
+	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_BLOOD_OVERLAY,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NO_AUGMENTS,
+	)
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey,

@@ -2,12 +2,6 @@
 	// Animated beings of stone. They have increased defenses, and do not need to breathe. They're also slow as fuuuck.
 	name = "Golem"
 	id = SPECIES_GOLEM
-	species_traits = list(
-		NO_DNA_COPY,
-		MUTCOLORS,
-		NO_UNDERWEAR,
-		NOTRANSSTING
-	)
 	inherent_traits = list(
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
@@ -16,11 +10,14 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
 		TRAIT_RADIMMUNE,
-		NO_DNA_COPY,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NONECRODISEASE,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_UNDERWEAR,
 	)
 	mutantheart = null
 	mutantlungs = null
@@ -338,9 +335,9 @@
 /datum/species/golem/alloy
 	name = "Alien Alloy Golem"
 	id = SPECIES_GOLEM_ALLOY
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOTRANSSTING
+	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_TRANSFORMATION_STING
 	)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/internal/tongue/abductor
@@ -610,9 +607,9 @@
 	name = "Bananium Golem"
 	id = SPECIES_GOLEM_BANANIUM
 	fixed_mut_color = "#ffff00"
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOTRANSSTING
+	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_TRANSFORMATION_STING
 	)
 	meat = /obj/item/stack/ore/bananium
 	mutanttongue = /obj/item/organ/internal/tongue/golem/bananium
@@ -703,10 +700,10 @@
 	id = SPECIES_GOLEM_RUNIC
 	sexes = FALSE
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOFLASH,
-		NOTRANSSTING
+	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOFLASH,
+		TRAIT_NO_TRANSFORMATION_STING
 	) //no mutcolors
 	prefix = "Runic"
 	special_names = null
@@ -777,10 +774,10 @@
 	name = "Clockwork Golem"
 	id = SPECIES_GOLEM_CLOCKWORK
 	info_text = span_boldalloy("As a " + span_danger("Clockwork Golem") + ", you are faster than other types of golems. On death, you will break down into scrap.")
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOFLASH,
-		NOTRANSSTING
+	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOFLASH,
+		TRAIT_NO_TRANSFORMATION_STING
 	)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	armor = 20 //Reinforced, but much less so to allow for fast movement
@@ -839,7 +836,6 @@
 	sexes = FALSE
 	info_text = "As a " + span_danger("Cloth Golem") + ", you are able to reform yourself after death, provided your remains aren't burned or destroyed. You are, of course, very flammable. \
 	Being made of cloth, your body is magic resistant and faster than that of other golems, but weaker and less resilient."
-	species_traits = list(NO_UNDERWEAR,NOTRANSSTING) //no mutcolors, and can burn
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
@@ -849,6 +845,8 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_TRANSFORMATION_STING
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	armor = 15 //feels no pain, but not too resistant
@@ -1108,11 +1106,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	prefix = "Cardboard"
 	special_names = list("Box")
 	info_text = "As a " + span_danger("Cardboard Golem") + ", you aren't very strong, but you are a bit quicker and can easily create more brethren by using cardboard on yourself."
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOFLASH,
-		NOTRANSSTING
-	)
+
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,
@@ -1122,6 +1116,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOFLASH,
 	)
 	fixed_mut_color = null
 	armor = 25
@@ -1189,10 +1186,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	id = SPECIES_GOLEM_DURATHREAD
 	prefix = "Durathread"
 	special_names = list("Boll","Weave")
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOFLASH,
-		NOTRANSSTING)
 	fixed_mut_color = null
 	inherent_traits = list(
 		TRAIT_NOBREATH,
@@ -1203,6 +1196,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOFLASH,
 	)
 	info_text = "As a " + span_danger("Durathread Golem") + ", your strikes will cause those your targets to start choking, but your woven body won't withstand fire as well."
 
@@ -1224,10 +1220,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	id = SPECIES_GOLEM_BONE
 	prefix = "Bone"
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOFLASH
-	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/internal/tongue/bone
 	sexes = FALSE
@@ -1244,6 +1236,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_FAKEDEATH,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_UNDERWEAR
+		TRAIT_NOFLASH
 	)
 	species_language_holder = /datum/language_holder/golem/bone
 	info_text = "As a " + span_danger("Bone Golem") + ", You have a powerful spell that lets you chill your enemies with fear, and milk heals you! Just make sure to watch our for bone-hurting juice."
@@ -1328,10 +1322,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	info_text = "As a " + span_danger("Snow Golem") + ", you are extremely vulnerable to burn damage, but you can generate snowballs and shoot cryokinetic beams. You will also turn to snow when dying, preventing any form of recovery."
 	prefix = "Snow"
 	special_names = list("Flake", "Blizzard", "Storm")
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOTRANSSTING
-		) //no mutcolors, no eye sprites
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,
@@ -1341,6 +1331,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_TRANSFORMATION_STING,
 	)
 
 	/// A ref to our "throw snowball" spell we get on species gain.

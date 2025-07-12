@@ -7,11 +7,10 @@
 	name = "\improper Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
-	species_traits = list(
-		MUTCOLORS,
-	)
 	inherent_traits = list(
-		TRAIT_NOBLOOD
+		TRAIT_MUTANT_COLORS,
+		TRAIT_TOXINLOVER,
+		TRAIT_NOBLOOD,
 	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
@@ -43,16 +42,16 @@
 
 /datum/species/oozeling/slime/on_species_gain(mob/living/carbon/new_slimeperson, datum/species/old_species, pref_load, regenerate_icons)
 	..()
-	if(ishuman(C))
+	if(ishuman(new_slimeperson))
 		slime_split = new
-		slime_split.Grant(C)
+		slime_split.Grant(new_slimeperson)
 		swap_body = new
-		swap_body.Grant(C)
+		swap_body.Grant(new_slimeperson)
 
 		if(!bodies || !bodies.len)
-			bodies = list(C)
+			bodies = list(new_slimeperson)
 		else
-			bodies |= C
+			bodies |= new_slimeperson
 
 /datum/species/oozeling/slime/spec_death(gibbed, mob/living/carbon/human/H)
 	if(slime_split)

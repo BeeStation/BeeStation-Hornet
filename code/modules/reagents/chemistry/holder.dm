@@ -376,7 +376,7 @@
   * * liverless - Stops reagents that aren't set as [/datum/reagent/var/self_consuming] from metabolizing
   */
 /datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE)
-	if(owner?.dna?.species && (NOREAGENTS in owner.dna.species.species_traits))
+	if(owner?.dna?.species && (TRAIT_NOREAGENTS in owner.dna.species.inherent_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list

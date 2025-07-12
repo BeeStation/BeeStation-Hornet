@@ -3,10 +3,8 @@
 	name = "\improper Lizardperson"
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
-	species_traits = list(
-		MUTCOLORS
-	)
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TACKLING_TAILED_DEFENDER,
 	)
@@ -107,11 +105,8 @@
 	name = "Ash Walker"
 	id = SPECIES_LIZARD_ASH
 	examine_limb_id = SPECIES_LIZARD
-	species_traits = list(
-		MUTCOLORS,
-		NO_UNDERWEAR
-	)
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_VIRUSIMMUNE
 		)
 	species_language_holder = /datum/language_holder/lizard/ash
