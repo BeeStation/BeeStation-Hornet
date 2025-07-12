@@ -76,10 +76,8 @@ DECLARE_HREF_PARAM(var_edit, rotatedir)
 #ifdef DEBUG
 #define HREF_DEBUG
 #endif
-#ifdef LOWMEMORYMODE
-#ifndef HREF_DEBUG
+#if defined(LOWMEMORYMODE) && !defined(HREF_DEBUG)
 #define HREF_DEBUG
-#endif
 #endif
 
 #ifdef HREF_DEBUG
