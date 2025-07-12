@@ -148,15 +148,15 @@
 	if(stored_card)
 		. += "There appears to be something loaded in the card slots."
 	if(fake_card)
-		. += "<font color='#33ff00'>ERROR DETECTED:</font> Phantom credentials present in port 2."
+		. += "<span class='cfc_red'>ERROR DETECTED:</span> Phantom credentials present in port 2."
 
 /obj/item/computer_hardware/battery/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Disabled</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Electronic Sensor // <span class='cfc_red'>Disabled</span>")
 	else
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Enabled</font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Enabled</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Electronic Sensor // <font color='#e60000'>Enabled</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Electronic Sensor // <span class='cfc_red'>Enabled</span>")
 
 /obj/item/computer_hardware/card_slot/secondary
 	name = "secondary RFID card module"
@@ -166,18 +166,18 @@
 
 /obj/item/computer_hardware/card_slot/secondary/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Access Storing Malfunction // <font color='#cc00ff'>Detected</font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Access Storing Malfunction // <font color='#cc00ff'>Detected</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Access Storing Malfunction // <font color='#cc00ff'>Detected</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Access Storing Malfunction // <span class='cfc_violet'>Detected</span>")
 	else
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Access Storing Component // <font color='#00d41c'>Functional</font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Access Storing Component // <font color='#00d41c'>Functional</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Access Storing Component // <font color='#00d41c'>Functional</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Access Storing Component // <span class='cfc_violet'>Functional</span>")
 	if(fake_card) // IF theres a fake card inside then it stands to reason the module is being de-hacked, thus, we remove the fake card
 		qdel(fake_card)
 		fake_card = null
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Phantom Card protocol engaged")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol engaged")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol engaged")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Phantom Card protocol engaged")
 	else
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Phantom Card protocol disengaged")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol disengaged")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Phantom Card protocol disengaged")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Phantom Card protocol disengaged")
 
 

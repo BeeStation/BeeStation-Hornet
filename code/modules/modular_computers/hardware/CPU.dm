@@ -15,11 +15,11 @@
 
 /obj/item/computer_hardware/processor_unit/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Processing Power Overload // <font color='#ffffff'>Spatial Stability Compromized</font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Processing Power Overload // <font color='#ffffff'>Spatial Stability Compromized</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Processing Power Overload // <font color='#ffffff'>Spatial Stability Compromized</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Processing Power Overload // <span class='cfc_white'>Spatial Stability Compromized</span>")
 	else
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Values Nominal // <font color='#00d41c'>Stability Regained/font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Values Nominal // <font color='#00d41c'>Stability Regained/font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Values Nominal // <font color='#00d41c'>Stability Regained</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Values Nominal // <span class='cfc_green'>Stability Regained</span>")
 
 /obj/item/computer_hardware/processor_unit/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()

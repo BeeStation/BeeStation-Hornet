@@ -115,12 +115,12 @@
  * Arguments:
  * * user - The mob that started the program
  **/
-/datum/computer_file/program/proc/is_supported_by_hardware(loud = TRUE)
+/datum/computer_file/program/proc/is_supported_by_hardware(mob/living/user, loud = TRUE)
 	if(!hardware_requirement)
 		return TRUE
 	if(!computer?.get_modular_computer_part(hardware_requirement))
 		if(loud)	// Else fail silently
-			computer.balloon_alert_to_viewers("<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
+			computer.balloon_alert(user, "<font color='#d80000'>ERROR:</font> Required hardware type :: <font color='#e65bc3'>[hardware_requirement]</font> not found!")
 			playsound(computer, 'sound/machines/defib_failed.ogg', 25, TRUE)
 		return FALSE
 	return TRUE

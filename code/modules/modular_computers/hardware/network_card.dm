@@ -25,8 +25,8 @@
 
 /obj/item/computer_hardware/network_card/diagnostics()
 	. = ..()
-	. += "NIX Unique ID: <font color='#ffe600'>[hardware_id]</font>"
-	. += "NIX Identification String: <font color='#ae00ff'>[identification_string]</font>"
+	. += "NIX Unique ID: <span class='cfc_soul_glimmer_terracotta'>[hardware_id]</span>"
+	. += "NIX Identification String: <span class='cfc_soul_glimmer_humour'>[identification_string]</span>"
 	. += "Supported protocols:"
 	switch(signal_level)
 		if(SIGNAL_NO)
@@ -38,18 +38,18 @@
 		if(SIGNAL_NO_RELAY)
 			. += "OpenEth (Physical Connection) - Physical network connection port"
 		if(SIGNAL_HACKED)
-			. += "<font color='#d10282'>(!WARN)</font> F.N-<font color='#d10236'>72::BLUESP</font>ΔCE <font color='#02d19d'>LINK_OVRCLK@ERR_0x3F</font>"
+			. += "<span class='cfc_pink'>(!WARN)</span> F.N-<span class='cfc_red'>72::BLUESP</span>ΔCE <span class='cfc_bluegreen'>LINK_OVRCLK@ERR_0x3F</span>"
 	return
 
 /obj/item/computer_hardware/network_card/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
 		signal_level = SIGNAL_HACKED
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ffd900'>established.</font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ffd900'>established.</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ffd900'>established.</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // F.N-Bluespace Connection <span class='cfc_green'>established.</span>")
 	else
 		signal_level = initial(signal_level)
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ff0095'>disabled.</font>.")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ff0095'>disabled.</font>.")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // F.N-Bluespace Connection <font color='#ff0000'>disabled.</font>.")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // F.N-Bluespace Connection <span class='cfc_red'>disabled.</span>.")
 
 // Returns a string identifier of this network card
 /obj/item/computer_hardware/network_card/proc/get_network_tag()

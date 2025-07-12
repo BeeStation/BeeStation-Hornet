@@ -568,7 +568,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 		return FALSE
 
-	if(!program.is_supported_by_hardware())
+	if(!program.is_supported_by_hardware(user))
 		return FALSE
 
 	// The program is already running. Resume it.

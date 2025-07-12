@@ -50,10 +50,10 @@
 
 /obj/item/computer_hardware/recharger/APC/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#ff2600'>Disengaged</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#ff2600'>Disengaged</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#ff2600'>Disengaged</font>")
 	else
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#17c011'>Engaged</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#17c011'>Engaged</font>")
 		to_chat(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#17c011'>Engaged</font>")
 
 /obj/item/computer_hardware/recharger/wired

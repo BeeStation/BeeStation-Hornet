@@ -12,21 +12,21 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
-		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Could not find device.")
+		balloon_alert(user, "<font color='#c70000'>ERROR:</font> Could not find device.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Could not find device."))
 		return FALSE
 	if(charges <= 0)
-		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Out of charges.")
+		balloon_alert(user, "<font color='#c70000'>ERROR:</font> Out of charges.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Out of charges."))
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 	if(trojan && drive.trojan)
-		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Active virus strain already present.")
+		balloon_alert(user, "<font color='#c70000'>ERROR:</font> Active virus strain already present.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Active virus strain already present."))
 		return FALSE
 	if(app.sending_and_receiving == FALSE && !sending_bypass)
-		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED.")
+		balloon_alert(user, "<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
 		return FALSE
 	calculate_strength()
@@ -73,7 +73,7 @@
 	new /obj/effect/particle_effect/sparks/red(get_turf(src))
 	playsound(src, "sparks", 50, 1)
 	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
-	balloon_alert_to_viewers("<font color='#ff0000'>ERROR: Virus Blocked!</font> charges left: <font color='#00ff4c'>[charges]</font>.")
+	balloon_alert(user, "<font color='#ff0000'>ERROR: Virus Blocked!</font> charges left: <font color='#00ff4c'>[charges]</font>.")
 	to_chat(user, span_notice("<font color='#ff0000'>ERROR: Virus Blocked!</font> charges left: <font color='#00ff4c'>[charges]</font>."))
 	nt_log(target, user, blocked = TRUE)
 
@@ -99,14 +99,14 @@
 	if(!target_machine.panel_open && !istype(target, /obj/machinery/computer))
 		return TRUE
 	if(!charges)
-		balloon_alert_to_viewers("Out of charge. Please insert a new cartridge.")
+		balloon_alert(user, "Out of charge. Please insert a new cartridge.")
 		to_chat(user, span_notice("[src] beeps: 'Out of charge. Please insert a new cartridge.'"))
 		return TRUE
 	if(target.GetComponent(/datum/component/sound_player))
-		balloon_alert_to_viewers("Virus already present on client, aborting.")
+		balloon_alert(user, "Virus already present on client, aborting.")
 		to_chat(user, span_notice("[src] beeps: 'Virus already present on client, aborting.'"))
 		return TRUE
-	balloon_alert_to_viewers("Upload Successful.")
+	balloon_alert(user, "Upload Successful.")
 	to_chat(user, span_notice("You upload the virus to [target]!"))
 	var/list/sig_list
 	if(istype(target, /obj/machinery/door/airlock))

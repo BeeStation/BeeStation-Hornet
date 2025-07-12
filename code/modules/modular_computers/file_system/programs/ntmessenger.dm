@@ -122,8 +122,8 @@
 			return TRUE
 		if("PDA_sAndR")
 			if(hdd.trojan == BREACHER)	// Button does nothing if trojan is present
-				computer.balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> UNKNOWN ERROR. CONTACT I.T.")
-				to_chat(usr, span_notice("<font color='#c70000'>ERROR:</font> UNKNOWN ERROR. CONTACT I.T."))
+				computer.balloon_alert(usr, "<font color='#c70000'>ERROR:</font> UNKNOWN ERROR. CONTACT I.T.")
+				to_chat(usr, span_notice("<span class='cfc_red'>ERROR:</span> UNKNOWN ERROR. CONTACT I.T."))
 				return TRUE
 			else
 				sending_and_receiving = !sending_and_receiving
@@ -139,8 +139,8 @@
 			return TRUE
 		if("PDA_sendEveryone")
 			if(!sending_and_receiving)
-				computer.balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Device has sending disabled.")
-				to_chat(usr, span_notice("<font color='#c70000'>ERROR:</font> Device has sending disabled."))
+				computer.balloon_alert(usr, "<font color='#c70000'>ERROR:</font> Device has sending disabled.")
+				to_chat(usr, span_notice("<span class='cfc_red'>ERROR:</span> Device has sending disabled."))
 				return
 			var/obj/item/computer_hardware/hard_drive/drive
 			var/obj/item/computer_hardware/hard_drive/role/role = computer.all_components[MC_HDD_JOB]

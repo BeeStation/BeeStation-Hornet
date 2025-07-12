@@ -57,22 +57,22 @@
 	. += "NT-NFS File Table Status: [stored_files.len]/999"
 	. += "Storage capacity: [used_capacity]/[max_capacity]GQ"
 	if(virus_defense)
-		. += "<font color='#ff1865'>Virus Buster</font> Lvl [virus_defense] :: <font color='#34b600'>Engaged</font>"
+		. += "<span class='cfc_redpurple'>Virus Buster</span> Lvl [virus_defense] :: <span class='cfc_green'>Engaged</span>"
 	if(spam_delay)
-		. += "<font color='#00c3ff'>Advertisement Messaging</font> Enabled"
+		. += "<span class='cfc_cyan'>Advertisement Messaging</span> Enabled"
 	if(virus_lethality)
-		. += "Warning: This file exhibits behavior consistent with known malware strains: <font color='#00ff73'>VXPatch.dll</font>"
+		. += "Warning: This file exhibits behavior consistent with known malware strains: <span class='cfc_bluegreen'>VXPatch.dll</span>"
 	return
 
 /obj/item/computer_hardware/hard_drive/update_overclocking(mob/living/user, obj/item/tool)
 	if(hacked)
 		virus_lethality = 1
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Patch installed // <font color='#00ff73'>VXPatch.dll</font>")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Patch installed // <font color='#00ff73'>VXPatch.dll</font>")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Patch installed // <font color='#00ff73'>VXPatch.dll</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Patch installed // <span class='cfc_bluegreen'>VXPatch.dll</span>")
 	else
 		virus_lethality = 0
-		balloon_alert_to_viewers("<font color='#e06eb1'>Update:</font> // Traces of <font color='#00ff73'>VXPatch.dll</font> erased.")
-		to_chat(user, "<font color='#e06eb1'>Update:</font> // Traces of <font color='#00ff73'>VXPatch.dll</font> erased.")
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Traces of <font color='#00ff73'>VXPatch.dll</font> erased.")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Traces of <span class='cfc_bluegreen'>VXPatch.dll</span> erased.")
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)
