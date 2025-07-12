@@ -164,11 +164,12 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /// Takes in an accessory list and returns the first entry from that list, ensuring that we dont return SPRITE_ACCESSORY_NONE in the process.
 /proc/get_consistent_feature_entry(list/accessory_feature_list)
-	var/consistent_entry = (accessory_feature_list- SPRITE_ACCESSORY_NONE)[1]
-	 if(!length(filtered_list))
+	var/list/filtered_list = accessory_feature_list - SPRITE_ACCESSORY_NONE
+	if(!length(filtered_list))
 		// If the list is empty after removing NONE entries, return a fallback value
 		// For most accessory lists, "None" is a valid option that should exist
 		return "None"
+	var/consistent_entry = filtered_list[1]
 	ASSERT(!isnull(consistent_entry))
 	return consistent_entry
 
