@@ -16,7 +16,7 @@
 		return null
 	var/port_data = ""
 	if(isnum_safe(seeker_port))
-		port_data = HREF_PARAM(href_login::seeker_port, seeker_port)
+		port_data = "[NAMEOF_HREF(href_login::seeker_port)]=[seeker_port]"
 	return "[link]?[HREF_PARAM(href_login::ip, url_encode(ip))][HREF_PARAM(href_login::nonce, session_creation_nonce)][port_data]"
 
 /// use client.key_is_external where possible
