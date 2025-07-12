@@ -482,7 +482,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		var/static/list/all_species_protoypes
 		if(isnull(all_species_protoypes))
 			all_species_protoypes = list()
-			for(var/species_path in subtypesof(/datum/species) - /datum/species/monkey)
+			for(var/species_path in subtypesof(/datum/species))
 				all_species_protoypes += new species_path()
 
 		for(var/datum/species/random_species as anything in all_species_protoypes)

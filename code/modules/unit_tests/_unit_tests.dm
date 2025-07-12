@@ -89,6 +89,7 @@
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"
+#include "tail_wag.dm"
 #include "surgery_linking.dm"
 #include "techweb_sanity.dm"
 #include "teleporters.dm"

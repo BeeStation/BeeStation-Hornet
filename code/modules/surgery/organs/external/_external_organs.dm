@@ -53,6 +53,15 @@
 	if(restyle_flags)
 		RegisterSignal(src, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle))
 
+/obj/item/organ/external/Insert(mob/living/carbon/receiver, special, movement_flags)
+	. = ..()
+	receiver.update_body_parts()
+
+/obj/item/organ/external/Remove(mob/living/carbon/organ_owner, special, movement_flags)
+	. = ..()
+	if(!special)
+		organ_owner.update_body_parts()
+
 /obj/item/organ/external/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	if(!should_external_organ_apply_to(type, receiver))
 		stack_trace("adding a [type] to a [receiver.type] when it shouldn't be!")
@@ -63,8 +72,10 @@
 		return
 
 	if(bodypart_overlay.imprint_on_next_insertion) //We only want this set *once*
-
-		bodypart_overlay.set_appearance_from_name(receiver.dna.features[bodypart_overlay.feature_key])
+		var/feature_name = receiver.dna.features[bodypart_overlay.feature_key]
+		if (isnull(feature_name))
+			feature_name = receiver.dna.species.external_organs[type]
+		bodypart_overlay.set_appearance_from_name(feature_name)
 		bodypart_overlay.imprint_on_next_insertion = FALSE
 
 	if(external_bodytypes)
