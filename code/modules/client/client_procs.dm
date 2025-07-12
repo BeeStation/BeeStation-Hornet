@@ -92,11 +92,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	// #3. Logging
 	//Logs all hrefs, except chat pings and session tokens
 	var/is_chat_ping = href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4
-	var/session_token = LOCATE_HREF(href_login::session_token, href_list)
 	if(!is_chat_ping)
 		var/logged_href = href
-		if(session_token)
-			logged_href = replacetextEx(logged_href, session_token, "TOKEN_REDACTED")
+		if(href_list["session_token"])
+			logged_href = replacetextEx(logged_href, href_list["session_token"], "TOKEN_REDACTED")
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][logged_href]")
 
 		// Prints href params you have taken in the chat window
@@ -106,16 +105,17 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	//-------------------------
 	// #4. Client sesssion management
 	// Run this EARLY so it can't be hijacked by any other topics later on
-	if(session_token)
-		href_list[NAMEOF_HREF(href_login::session_token)] = "" // manual delete
-		href = replacetextEx(href, session_token, "") // manual delete 2
-		login_with_token(session_token, text2num(LOCATE_HREF(href_login::from_ui, href_list)))
+	if(href_list["session_token"])
+		var/token = href_list["session_token"]
+		href_list["session_token"] = ""
+		href = replacetextEx(href, href_list["session_token"], "")
+		login_with_token(token, text2num(href_list["from_ui"]))
 		return
 
-	var/seeker_port = LOCATE_HREF(href_login::seeker_port, href_list)
-	if(seeker_port)
+
+	if(href_list["seeker_port"])
 		winshow(src, "login", FALSE) // make sure this thing is hidden
-		var/port_num = text2num(seeker_port)
+		var/port_num = text2num(href_list["seeker_port"])
 		if(isnum_safe(port_num))
 			seeker_port = port_num
 		if(!logged_in) // the login handler is ready now
