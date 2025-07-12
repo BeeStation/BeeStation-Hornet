@@ -48,9 +48,9 @@
 /obj/item/organ/proc/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(!iscarbon(receiver))
-		stack_trace("Tried to insert organ into non-carbon: [receiver.type]")
-		return
+	//if(!iscarbon(receiver))
+	//	stack_trace("Tried to insert organ into non-carbon: [receiver.type]")
+	//	return
 
 	if(owner == receiver)
 		stack_trace("Organ receiver is already organ owner")

@@ -36,6 +36,7 @@
 		return TRUE
 	return ..()
 
+/*
 /datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	//They can't speak!
@@ -45,6 +46,7 @@
 /datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
+*/
 
 /datum/species/pumpkin_man/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -110,6 +112,7 @@
 
 	return to_add
 
+/*
 //Handler for face carving!
 /datum/species/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
 	//Check if the item is sharp - give owner a random face if applicable
@@ -135,6 +138,7 @@
 				P?.carved = TRUE
 		else
 			to_chat(_user, span_warning("You fail to carve a face into [_source]!"))
+*/
 
 /obj/item/organ/internal/brain/pumpkin_brain
 	name = "pumpkinperson brain"

@@ -684,6 +684,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	item_flags = ISCARVABLE
+	/*
 	///Carved overlay
 	var/image/carved_overlay
 
@@ -696,6 +697,7 @@
 	if(owner)
 		owner.cut_overlay(carved_overlay)
 	. += carved_overlay
+	*/
 
 /obj/item/bodypart/chest/pumpkin_man
 	limb_id = "pumpkin_man"
