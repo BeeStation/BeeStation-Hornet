@@ -19,6 +19,9 @@
 		port_data = "[NAMEOF_HREF(href_login::seeker_port)]=[seeker_port]"
 	return "[link]?[HREF_PARAM(href_login::ip, url_encode(ip))][HREF_PARAM(href_login::nonce, session_creation_nonce)][port_data]"
 
+//		port_data = "&seeker_port=[seeker_port]"
+//	return "[link]?ip=[url_encode(ip)]&nonce=[session_creation_nonce][port_data]"
+
 /// use client.key_is_external where possible
 /datum/external_login_method/proc/is_fake_key(key)
 	CRASH("Unimplemented!")
