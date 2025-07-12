@@ -29,7 +29,7 @@
 	var/ip = isnull(src.address) || src.address == "::1" ? "127.0.0.1" : src.address
 	var/datum/db_query/query_check_token = SSdbcore.NewQuery(
 		"SELECT external_method,external_uid,external_display_name FROM [format_table_name("session")] WHERE `ip` = INET_ATON(:ip) AND `session_token` = :session_token AND `valid_until` > NOW() LIMIT 1",
-		list(NAMEOF_HREF(href_login::ip) = ip, NAMEOF_HREF(href_login::session_token) = hashed_token)
+		list("ip" = ip, "session_token" = hashed_token)
 	)
 	if(!query_check_token.Execute() || !query_check_token.NextRow())
 		to_chat_immediate(src, span_userdanger("Login failed: Invalid session! Log in again with a new token."))
@@ -374,7 +374,7 @@
 	var/nonce = rustg_hash_string(RUSTG_HASH_SHA256, hashtext)
 	var/datum/db_query/insert_nonce_query = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("session_creation_nonce")] (`ip`, `seeker_port`, `session_nonce`) VALUES (:ip, :seeker_port, :nonce)",
-		list(NAMEOF_HREF(href_login::ip) = ip, NAMEOF_HREF(href_login::seeker_port) = seeker_port_in, NAMEOF_HREF(href_login::nonce) = nonce)
+		list("ip" = ip, "seeker_port" = seeker_port_in, "nonce" = nonce)
 	)
 	insert_nonce_query.Execute()
 	qdel(insert_nonce_query)
