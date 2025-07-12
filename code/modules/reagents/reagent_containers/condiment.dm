@@ -312,6 +312,7 @@
 	icon_state = "cherryjelly"
 	list_reagents = list(/datum/reagent/consumable/cherryjelly = 50)
 	fill_icon_thresholds = null
+	custom_price = 25
 
 /obj/item/reagent_containers/condiment/honey
 	name = "honey"
@@ -319,6 +320,7 @@
 	icon_state = "honey"
 	list_reagents = list(/datum/reagent/consumable/honey = 50)
 	fill_icon_thresholds = null
+	custom_price = 25
 
 /obj/item/reagent_containers/condiment/ketchup
 	name = "ketchup"
@@ -340,6 +342,24 @@
 	desc= "Leaves the tongue numb from its passage."
 	icon_state = "coldsauce"
 	list_reagents = list(/datum/reagent/consumable/frostoil = 50)
+
+/// New Tasty
+
+/obj/item/reagent_containers/condiment/vanilla
+	name = "vanilla drops"
+	desc = "A bottle of Vanilla."
+	volume = 20
+	list_reagents = list(/datum/reagent/consumable/vanilla = 20)
+	fill_icon_thresholds = null
+	custom_price = 25
+
+/obj/item/reagent_containers/condiment/cream
+	name = "cream bottle"
+	desc = "A bottle of Cream."
+	volume = 25
+	list_reagents = list(/datum/reagent/consumable/cream = 25)
+	fill_icon_thresholds = null
+	custom_price = 25
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 

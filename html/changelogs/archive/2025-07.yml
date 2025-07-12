@@ -1,0 +1,120 @@
+2025-07-01:
+  PestoVerde322:
+  - rscadd: Reworked the Trasen-Knox hud, aswell added 3 variants of the Trasen knox
+      (Midnight-Knox, Plasma-Knox and Nyan-Knox)
+  - tweak: The default HUD is now Midnight-Knox
+  - rscdel: Removed the plasmafire, slimecore, operative and retro HUDs
+  rkz, Celotajs, MSO, Wayland-Smithy:
+  - server: converted html changelog to TGUI
+2025-07-02:
+  PinkSuzuki & HowToLolu:
+  - rscdel: Retires the Lapvendor
+  - balance: Reduced the Quality of the parts PDAs come pre-installed with.
+  - tweak: Messenger, Crew Manifest, Notepad and Wiki-app are now deletable and copyable.
+  - tweak: Tablets now offer a small bit more light than PDAs
+  - tweak: Tablets can now be fit with parts meant for Laptops.
+  - tweak: Tablets have 1 more expansion bay.
+  - rscadd: Made Modular Computers rechargeable in Cell Chargers.
+  - code_imp: Now Cell Chargers can now accept any type of item that has a cell in
+      it (provided they are in the "List")
+  - rscadd: Added a Camera Component for Modular Computers however it is currently...
+      useless.
+  - rscadd: Added 17 Tablet Colorizers and put them on the ModularPC vendor.
+  - imageadd: Added a ton of skins for PDAs Tablets and the Contractor Tablet.
+  - tweak: Added almost all PC components to the modularpc vendor. (including things
+      accessible by hacking)
+  - balance: Changed the prices of the items on the ModularPC vendor to be more grounded
+      in reality.
+  - rscadd: Added a 'Tablets for Dummies' box that serves as a tutorial for players.
+  - tweak: Pre-installed Messenger, Crew Manifest, Notepad and Wiki-App into Micro
+      Solid State Drives.
+  - tweak: Inserting a component into a Modular Component now plays a sound.
+  - imageadd: Added program sprites for almost all programs, with special attention
+      to the programs which were supposed to have one but didn't.
+  - bugfix: Fixed Contractor Uplink sprites not displaying properly.
+  - code_imp: Colorizers now have a delete_me variable and text to reflect how many
+      charges they have left.
+  - tweak: Renamed the "Super Hard Disk Drive" to "Super-Advanced Hard Disk Drive"
+      for obvious reasons.
+  - imageadd: Added a sprite for the box that holds the new colorizers.
+  - bugfix: Fixed Identifiers not changing the name of Tablets.
+  - imageadd: Added light, ID and pen overlays to the Tablet and Contractor Tablet.
+  - balance: Decreased the program size of the Cargo App.
+  - tweak: Separated Computer Hardware tech into 4 tiers. Including an Experimental
+      Computer Hardware branch.
+  - tweak: Made all components printable in the circuit printer. (Half were on the
+      Protolathe.)
+  - rscadd: Added Components that were missing in the Techweb and were thus unfabricable.
+  - bugfix: Detomatix now properly checks for if the target has messaging disabled
+      or not.
+  - imageadd: Added a sprite for the No-Relay Network Card.
+  itsmeow:
+  - bugfix: Prevent the server from logging session tokens
+  - bugfix: Fixed FORCE_BYOND_EXTERNAL_AUTH breaking logins if ENABLE_GUEST_EXTERNAL_AUTH
+      was disabled
+  - bugfix: Fixed logins always erroneously determining that a user does not exist
+      in the database.
+2025-07-03:
+  ClownMoff:
+  - rscadd: Added a missing fire alarm in RadStation Brig, in the processing room.
+  - rscdel: Removed an extra unnecesary fire alarm in MetaStation, in medbay.
+2025-07-04:
+  Isaacnml, Gilgax:
+  - balance: Replaces the Hardstun of Venus Human Traps with a knockdown ontop of
+      stamina damage
+  - balance: Cyborgs are now slowed down by 50% for 10 seconds upon being hit by  a
+      ranged attack from the vines
+  - balance: Venus Human Traps, Lowers their damage from 25 to 10
+  - balance: Venus Human Traps, Health changed to 100
+  - balance: While a mob is attached to a venus human trap, they receive 10 constant
+      stamina damage until the vine is broken
+  - balance: Lowered the amount of health healed by hitting a mob that is alive to
+      5%
+  - balance: Venus Human Trap ranged attack is only able to hit mobs/objects
+  - balance: Venus Human Traps only heal 5% when inside the vines
+  - balance: Venus Human Trap AI retreats at 50% health back to the vines, regardless
+      if they're in combat or not, provided they have line of sight with them
+  - balance: Venus Human Trap ranged attack can be broken if something pulls the object/mob
+  - balance: Venus Human Traps now prioritize attacking mobs inside vines
+  PowerfulBacon:
+  - balance: Antagonist and heavy armours will now block piercing syringes.
+  - balance: Any clothing that has at least 10 bullet or melee armour will block standard
+      syringes and injections.
+  - bugfix: Fixes multiple incorrect uses of can_inject which would have caused syringe
+      guns not to function
+2025-07-06:
+  Nakalon:
+  - tweak: Cook Vendor is no longer free for cooks and now includes some ingredients
+      and condiments
+  - balance: Reduced Cook Pay
+  - balance: Reduced amount of ingredients available roundstart in freezers
+  - tweak: Changed the name of the cook vendor and restoking unit
+  PinkSuzuki:
+  - bugfix: Fixes Mimes not being able to send emoji messages
+  PowerfulBacon:
+  - bugfix: Localhost now has an admin rank for debugging again.
+2025-07-07:
+  rkz, Mothblocks, JohnFulpWillard, capsaicinz, Kapu1178:
+  - bugfix: fixes prosthetic surgery not removing the old limb
+  - rscadd: adds text output for failing to attach prosthetics
+  - code_imp: unit tests various surgeries to prevent regressions
+  - refactor: refactors surgery procs to pass args to consider a sterile testing environment
+      (we need our code to actually work in a unit test)
+  - bugfix: cleans up 'repeating' surgeries. Surgeries will try to repeat as a default
+      behavior if they fail at first (like using a kitchen knife as a scalpel for
+      tend wounds)
+2025-07-10:
+  itsmeow:
+  - rscadd: You can now relink authenticated BYOND accounts to new Discord accounts
+      at will, and unlink your Discord account from an old CKEY.
+  - bugfix: Fixed unhelpful error message when using a Discord account that is already
+      linked to a different CKEY, or a CKEY already linked to a different Discord
+      than the one you signed in with.
+  - tweak: Adjusted the information given in the login panel to be more useful and
+      easier to understand.
+  - tweak: Improved the look of the login panel's manual token entry input and submit
+      button.
+  - bugfix: When reconnecting, it is no longer possible to be assigned a mob that
+      you aren't authorized to use / logged into.
+  - admin: Disconnected user's mobs will now have their key changed to @DC@Original
+      Key

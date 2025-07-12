@@ -8,7 +8,6 @@
 	size = 1
 	available_on_ntnet = FALSE
 	undeletable = TRUE
-	unsendable = TRUE
 
 /datum/computer_file/program/remote_airlock/ui_data(mob/user)
 	var/list/data = list()
