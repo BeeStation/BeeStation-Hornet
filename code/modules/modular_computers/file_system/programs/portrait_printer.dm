@@ -1,6 +1,6 @@
 
 ///how much paper it takes from the printer to create a canvas.
-#define CANVAS_PAPER_COST 10
+#define CANVAS_PAPER_COST 2	//This was ridiculously, high. Just a bore fitting 10 paper into a printer.
 
 /**
  * ## portrait printer!
@@ -15,11 +15,11 @@
 	program_icon_state = "dummy"
 	extended_desc = "This program connects to a Spinward Sector community art site for viewing and printing art."
 	transfer_access = list(ACCESS_LIBRARY)
-	usage_flags = PROGRAM_CONSOLE
 	requires_ntnet = TRUE
-	size = 9
+	size = 10
 	tgui_id = "NtosPortraitPrinter"
 	program_icon = "print"
+	hardware_requirement = MC_PRINT
 	/**
 	* The last input in the search tab, stored here and reused in the UI to show successive users if
 	* the current list of paintings is limited to the results of a search or not.

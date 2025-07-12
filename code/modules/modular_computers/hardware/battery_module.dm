@@ -4,7 +4,7 @@
 	icon_state = "cell_con"
 	critical = 1
 	malfunction_probability = 1
-	var/obj/item/stock_parts/cell/battery
+	var/obj/item/stock_parts/cell/computer/battery
 	device_type = MC_CELL
 	custom_price = 10
 
@@ -51,7 +51,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 
 	return TRUE
 
-
 /obj/item/computer_hardware/battery/try_eject(mob/living/user = null, forced = FALSE)
 	if(!battery)
 		to_chat(user, span_warning("There is no power cell connected to \the [src]."))
@@ -66,40 +65,56 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 		battery = null
 		return TRUE
 
+/obj/item/computer_hardware/battery/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // <font color='#ff2600'>WARNING</font> // Battery Integrity Sensor DISENGAGED - COMPLETE BATTERY DISCHARGE ILL-ADVISED")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // <span class='cfc_red'>WARNING</span> // Battery Integrity Sensor DISENGAGED - COMPLETE BATTERY DISCHARGE ILL-ADVISED")
+	else
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Battery Integrity Sensor // <font color='#17c011'>Engaged</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Battery Integrity Sensor // <span class='cfc_green'>Engaged</span>")
+
 /obj/item/stock_parts/cell/computer
 	name = "standard battery"
 	desc = "A standard power cell, commonly seen in high-end portable microcomputers or low-end laptops."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cell_mini"
-	w_class = WEIGHT_CLASS_TINY
-	maxcharge = 750
+	w_class = WEIGHT_CLASS_SMALL
+	maxcharge = 1000
+	/// Size affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
+	rating = PART_TIER_3
 
 /obj/item/stock_parts/cell/computer/advanced
 	name = "advanced battery"
-	desc = "An advanced power cell, often used in most laptops. It is too large to be fitted into smaller devices."
+	desc = "An advanced power cell, often used in most laptops, or high-end Tablets."
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 1500
 	custom_price = 40
+	rating = PART_TIER_4
 
 /obj/item/stock_parts/cell/computer/super
 	name = "super battery"
 	desc = "An advanced power cell, often used in high-end laptops."
 	icon_state = "cell"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	maxcharge = 2000
 	custom_price = 60
+	rating = PART_TIER_5
 
 /obj/item/stock_parts/cell/computer/micro
 	name = "micro battery"
 	desc = "A small power cell, commonly seen in most portable microcomputers."
 	icon_state = "cell_micro"
-	maxcharge = 500
+	maxcharge = 750
+	w_class = WEIGHT_CLASS_TINY
 	custom_price = 20
+	rating = PART_TIER_2
 
 /obj/item/stock_parts/cell/computer/nano
 	name = "nano battery"
 	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
 	icon_state = "cell_micro"
-	maxcharge = 300
+	w_class = WEIGHT_CLASS_TINY
+	maxcharge = 500
 	custom_price = 10
+	rating = PART_TIER_1

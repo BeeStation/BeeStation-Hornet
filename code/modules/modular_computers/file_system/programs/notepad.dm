@@ -6,12 +6,9 @@
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "notepad"
 	extended_desc = "Jot down your work-safe thoughts and what not."
-	size = 0
-	undeletable = FALSE // It comes by default in tablets, can't be downloaded, takes no space and is now able to be deleted and transfered. Let players make mistakes.
-	available_on_ntnet = TRUE
+	size = 2
 	tgui_id = "NtosNotepad"
 	program_icon = "book"
-	usage_flags = PROGRAM_PDA
 	/// Cooldown var for printing paper sheets.
 	COOLDOWN_DECLARE(printer_ready)
 

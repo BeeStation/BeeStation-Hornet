@@ -28,10 +28,7 @@ export const NtosNetDownloader = (props) => {
     // This filters the list to only contain verified programs
     !emagged && filter((program) => program.verifiedsource === 1),
     // This sorts all programs in the lists by name and compatibility
-    sortBy(
-      (program) => -program.compatible,
-      (program) => program.filedesc
-    ),
+    sortBy((program) => program.filedesc),
   ])(programs);
   const disk_free_space = downloading ? disk_size - toFixed(disk_used + downloadcompletion) : disk_size - disk_used;
   return (
@@ -113,7 +110,7 @@ const Program = (props) => {
               value={downloadcompletion}
             />
           )) ||
-            (!program.installed && program.compatible && program.access && program.size < disk_free && (
+            (!program.installed && program.access && program.size < disk_free && (
               <Button
                 bold
                 icon="download"
@@ -131,18 +128,10 @@ const Program = (props) => {
               <Button
                 bold
                 icon={program.installed ? 'check' : 'times'}
-                color={program.installed ? 'good' : !program.compatible ? 'bad' : null}
-                disabled={!program.installed && program.compatible}
+                color={program.installed ? 'good' : 'bad'}
+                disabled={!program.installed}
                 content={
-                  program.installed
-                    ? 'Installed'
-                    : !program.compatible
-                      ? 'Incompatible'
-                      : !program.access
-                        ? id_inserted
-                          ? 'No Access'
-                          : 'Insert ID'
-                        : 'No Space'
+                  program.installed ? 'Installed' : !program.access ? (id_inserted ? 'No Access' : 'Insert ID') : 'No Space'
                 }
               />
             )}

@@ -9,7 +9,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	screen_icon_state_menu = "menu"
-	hardware_flag = PROGRAM_CONSOLE
 	density = TRUE
 	base_idle_power_usage = 100
 	base_active_power_usage = 500

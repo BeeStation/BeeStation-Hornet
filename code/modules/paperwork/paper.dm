@@ -805,3 +805,59 @@
 		We wish you good luck and happy tinkering!"}
 
 	return ..()
+
+/obj/item/paper/manualhacking_guide
+	color = COLOR_OFF_WHITE
+	name = "Hacking GUIDE"
+	desc = "Instructions on how to be a very cool hacker."
+
+/obj/item/paper/manualhacking_guide/Initialize(mapload)
+	default_raw_text = {"Greetings initiate. I am xX_Benita_Xx of the Hellraiser team and I will be guiding you on the art of manual hacking.
+
+	Firstly, a warning.
+	Hacking is quite fickle. Expect processes to change and evolve as NT attempts to combat our combined efforts.
+	In this kit you will find:
+
+		1 - A Screwdriver.
+
+		Screwdrivers are essential for opening the components up for manipulation.
+		They are also able to alter the power consumption of components, should that ever be of use.
+
+		2 - A Multitool.
+
+		The Multitool is the second part of your essential tool couple, so to speak.
+		The Multitool is able to preform a disgnostical reading of different components.
+		This will reveal relevant information. It is also used to bypass
+		internal component security, this is what we call "manual hacking".
+
+		3 - A collection of portable disks.
+
+		We have trough some effort hidden special programing inside the portable disks
+		issued to your station. Such programs can be accessed trough the manual hacking of the disks.
+
+
+		To begin, select a portable disk and open it with the screwdriver.
+		Next, utilize the multitool to bypass security.
+		After some time, the disk is now hacked.
+		Insert the disk inside a computer to acess its progamms.
+		A readme.txt file is included inside each disk with instructions regarding use.
+
+
+		However. Do not expect all parts to operate like this.
+		For example:
+
+		An hacked power cell controler has the ability to detonate its battery, under the right conditions.
+		On movement, an hacked CPU creates tears in bluespace fabric.
+		Hacked job disks not only allow the copying of their stored programs
+		but they also unlock advertisement restrictions on your hard drive.
+		An hacked primary ID port may now accept the... "less than eletronic" cards.
+
+
+		There are more parts with interesting behaviour changes that we have discovered.
+		However, we understand that there is fun in experimenting them all for yourself.
+
+		Enjoy yourself. And make sure NT pays an hefty price for their hubris.
+
+		xX_Benita_Xx out."}
+
+	return ..()

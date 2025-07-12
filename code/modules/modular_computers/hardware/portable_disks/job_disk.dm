@@ -10,10 +10,10 @@
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
 	hotswap = TRUE
-
+	var/list/progs_to_store = list()
+	/// Job disk will ignore programs to instal if this is TRUE
+	var/dont_instal = FALSE
 	var/disk_flags = 0 // bit flag for the programs
-	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
-	var/spam_delay = 0
 
 /obj/item/computer_hardware/hard_drive/role/on_inserted(mob/user)
 	..()
@@ -21,16 +21,20 @@
 		playsound(holder, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 /obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
+	remove_from.ui_update(user)
 	return
 
 /obj/item/computer_hardware/hard_drive/role/Initialize(mapload)
 	. = ..()
-	var/list/progs_to_store = list()
-
+	if(dont_instal)
+		return
 	if(disk_flags & DISK_POWER)
 		progs_to_store += new /datum/computer_file/program/power_monitor(src)
 		progs_to_store += new /datum/computer_file/program/supermatter_monitor(src)
 		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
+
+	if(disk_flags & DISK_NETWORK)	//Put this higher up so players see it easier and try to interact with it
+		progs_to_store += new /datum/computer_file/program/ntnetmonitor(src)
 
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
@@ -77,10 +81,28 @@
 		progs_to_store += new /datum/computer_file/program/job_management(src)
 
 	for (var/datum/computer_file/program/prog in progs_to_store)
-		prog.usage_flags = PROGRAM_ALL
 		prog.required_access = list()
 		prog.transfer_access = list()
 		store_file(prog)
+
+/// This creates a clone of the original job disk except its a portable disk (which we use to copy the files that are inside)
+/obj/item/computer_hardware/hard_drive/role/update_overclocking(mob/living/user, obj/item/tool)
+	var/obj/item/computer_hardware/hard_drive/portable/new_disk = new /obj/item/computer_hardware/hard_drive/portable(get_turf(src))
+	for(var/datum/computer_file/program/prog in stored_files)
+		var/datum/computer_file/program/clone = new prog.type(new_disk)
+		new_disk.store_file(clone)
+	new_disk.hacked = TRUE
+	new_disk.name = "modified job data disk"
+	new_disk.desc = "A disk meant to give a worker the needed programs to work, modified to allow the transfer of its programs and now behaves more like a portable disk."
+	new_disk.max_capacity = max_capacity
+	new_disk.icon_state = initial(icon_state)
+	new_disk.icon = initial(icon)
+	new_disk.update_appearance()
+	new_disk.spam_delay = initial(spam_delay)
+	new_disk.can_hack = FALSE
+	new /obj/effect/particle_effect/sparks/red(get_turf(holder))
+	qdel(src)
+	return
 
 // Disk Definitions
 
@@ -154,7 +176,7 @@
 	name = "\improper Signal Ace 2 disk"
 	icon_state = "cart-tox"
 	desc = "Complete with integrated radio signaler!"
-	disk_flags = DISK_ATMOS | DISK_SIGNAL | DISK_CHEM
+	disk_flags = DISK_NETWORK | DISK_ATMOS | DISK_SIGNAL | DISK_CHEM
 
 /obj/item/computer_hardware/hard_drive/role/quartermaster
 	name = "space parts DELUXE disk"
@@ -196,7 +218,7 @@
 /obj/item/computer_hardware/hard_drive/role/rd
 	name = "\improper Signal Ace DELUXE disk"
 	icon_state = "cart-rd"
-	disk_flags = DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL
+	disk_flags = DISK_NETWORK | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL
 
 /obj/item/computer_hardware/hard_drive/role/captain
 	name = "\improper Value-PAK disk"

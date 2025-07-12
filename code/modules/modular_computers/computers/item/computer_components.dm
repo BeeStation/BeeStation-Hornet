@@ -61,6 +61,7 @@
 	if(enabled && !use_power())
 		shutdown_computer()
 	update_icon()
+	ui_update()
 	return TRUE
 
 /// This isn't the "uninstall fully" proc, it just makes the computer lose all its references to the component

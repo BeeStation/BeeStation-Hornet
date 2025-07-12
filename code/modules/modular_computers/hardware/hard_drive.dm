@@ -15,9 +15,18 @@
 	/// If the drive has been installed before (used to prevent re-setting initial ringtone)
 	var/has_been_installed = FALSE
 	/// List of airlocks this disk can control with program/remote_airlock
-	var/list/controllable_airlocks
+	var/list/controllable_airlocks = list()
+	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
+	var/spam_delay = 0
+	/// The tier of anti virus installed
+	var/virus_defense = ANTIVIRUS_NONE
+	/// A Virus sent by a computer using this hard drive will be stronger based on this number
+	var/virus_lethality = 0
+	/// If this hard drive has been victim of a trojan then it can't be affected by another one
+	var/trojan
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
+	. = ..()
 	remove_from.shutdown_computer()
 
 /obj/item/computer_hardware/hard_drive/on_install(obj/item/modular_computer/install_into, mob/living/user)
@@ -42,11 +51,28 @@
 /obj/item/computer_hardware/hard_drive/proc/process_pre_attack(atom/target, mob/living/user, params)
 	return TRUE
 
-/obj/item/computer_hardware/hard_drive/diagnostics(var/mob/user)
-	..()
+/obj/item/computer_hardware/hard_drive/diagnostics()
+	. = ..()
 	// 999 is a byond limit that is in place. It's unlikely someone will reach that many files anyway, since you would sooner run out of space.
-	to_chat(user, "NT-NFS File Table Status: [stored_files.len]/999")
-	to_chat(user, "Storage capacity: [used_capacity]/[max_capacity]GQ")
+	. += "NT-NFS File Table Status: [stored_files.len]/999"
+	. += "Storage capacity: [used_capacity]/[max_capacity]GQ"
+	if(virus_defense)
+		. += "<span class='cfc_redpurple'>Virus Buster</span> Lvl [virus_defense] :: <span class='cfc_green'>Engaged</span>"
+	if(spam_delay)
+		. += "<span class='cfc_cyan'>Advertisement Messaging</span> Enabled"
+	if(virus_lethality)
+		. += "Warning: This file exhibits behavior consistent with known malware strains: <span class='cfc_bluegreen'>VXPatch.dll</span>"
+	return
+
+/obj/item/computer_hardware/hard_drive/update_overclocking(mob/living/user, obj/item/tool)
+	if(hacked)
+		virus_lethality = 1
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Patch installed // <font color='#00ff73'>VXPatch.dll</font>")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Patch installed // <span class='cfc_bluegreen'>VXPatch.dll</span>")
+	else
+		virus_lethality = 0
+		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Traces of <font color='#00ff73'>VXPatch.dll</font> erased.")
+		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Traces of <span class='cfc_bluegreen'>VXPatch.dll</span> erased.")
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
 /obj/item/computer_hardware/hard_drive/proc/store_file(var/datum/computer_file/F)
