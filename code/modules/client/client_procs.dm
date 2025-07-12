@@ -112,6 +112,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		login_with_token(session_token, text2num(LOCATE_HREF(href_login::from_ui, href_list)))
 		return
 
+	var/seeker_port = LOCATE_HREF(href_login::seeker_port, href_list)
+	if(seeker_port)
+		winshow(src, "login", FALSE) // make sure this thing is hidden
+		var/port_num = text2num(seeker_port)
+		if(isnum_safe(port_num))
+			seeker_port = port_num
+		if(!logged_in) // the login handler is ready now
+			src?.send_saved_session_token()
+
 	//-------------------------
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
@@ -133,14 +142,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/hrefcmd_type = LOCATE_HREF(hrefcmd, href_list)
 	if(hrefcmd_type)
 		switch(hrefcmd_type)
-			if(NAMEOF_HREF(href_login))
-				winshow(src, "login", FALSE) // make sure this thing is hidden
-				var/port_num = text2num(LOCATE_HREF(href_login::seeker_port, href_list))
-				if(isnum_safe(port_num))
-					seeker_port = port_num
-				if(!logged_in) // the login handler is ready now
-					src?.send_saved_session_token()
-
 			if(NAMEOF_HREF(admin_pm)) // Admin PM
 				cmd_admin_pm(LOCATE_HREF(admin_pm::msg_target, href_list), null)
 			if(NAMEOF_HREF(mentor_msg)) // Mentor PM
