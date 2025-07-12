@@ -13,12 +13,14 @@
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
 	unarmed_damage_high = 0.5 //snails are soft and squishy
+	speed_modifier = 3 //disgustingly slow
 
 /obj/item/bodypart/arm/right/snail
 	limb_id = SPECIES_SNAIL
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
 	unarmed_damage_high = 0.5
+	speed_modifier = 3 //disgustingly slow
 
 /obj/item/bodypart/leg/left/snail
 	limb_id = SPECIES_SNAIL
@@ -141,6 +143,16 @@
 /obj/item/bodypart/leg/right/zombie
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/leg/left/zombie/infectious
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	speed_modifier = 0.8 //braaaaains
+
+/obj/item/bodypart/leg/right/zombie/infectious
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	speed_modifier = 0.8 //braaaaains
 
 ///FLY
 /obj/item/bodypart/head/fly

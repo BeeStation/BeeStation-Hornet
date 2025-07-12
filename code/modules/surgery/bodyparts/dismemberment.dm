@@ -90,6 +90,7 @@
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(dropping_limb = TRUE)
+	bodypart_flags &= ~BODYPART_IMPLANTED //limb is out and about, it can't really be considered an implant
 	owner.remove_bodypart(src)
 
 	for(var/obj/item/organ/external/ext_organ as anything in external_organs)
@@ -192,7 +193,6 @@
 		// We only want to do this if the limb being removed is the active hand part.
 		// This catches situations where limbs are "hot-swapped" such as augmentations and roundstart prosthetics.
 		arm_owner.dropItemToGround(arm_owner.get_item_for_held_index(held_index), 1)
-		arm_owner.hand_bodyparts[held_index] = null
 	if(arm_owner.handcuffed)
 		arm_owner.handcuffed.forceMove(drop_location())
 		arm_owner.handcuffed.dropped(arm_owner)
@@ -268,17 +268,6 @@
 	moveToNullspace()
 	set_owner(new_limb_owner)
 	new_limb_owner.add_bodypart(src)
-	if(held_index)
-		if(held_index > new_limb_owner.hand_bodyparts.len)
-			new_limb_owner.hand_bodyparts.len = held_index
-		new_limb_owner.hand_bodyparts[held_index] = src
-		if(new_limb_owner.dna.species.mutanthands && !is_pseudopart)
-			new_limb_owner.put_in_hand(new new_limb_owner.dna.species.mutanthands(), held_index)
-		if(new_limb_owner.hud_used)
-			var/atom/movable/screen/inventory/hand/hand = new_limb_owner.hud_used.hand_slots["[held_index]"]
-			if(hand)
-				hand.update_icon()
-		new_limb_owner.update_worn_gloves()
 
 	if(special) //non conventional limb attachment
 		for(var/datum/surgery/attach_surgery as anything in new_limb_owner.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
