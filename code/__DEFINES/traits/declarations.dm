@@ -363,15 +363,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
 #define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
 
-/// some trait sorces dirived from bodyparts BODYPART_TRAIT is generic.
-#define BODYPART_TRAIT "bodypart"
-#define HEAD_TRAIT "head"
-#define CHEST_TRAIT "chest"
-#define RIGHT_ARM_TRAIT "right_arm"
-#define LEFT_ARM_TRAIT "left_arm"
-#define RIGHT_LEG_TRAIT "right_leg"
-#define LEFT_LEG_TRAIT "left_leg"
-
 ///Turf trait for when a turf is transparent
 #define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
 ///Traits given by station traits

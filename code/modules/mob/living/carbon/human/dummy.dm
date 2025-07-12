@@ -165,12 +165,16 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /// Takes in an accessory list and returns the first entry from that list, ensuring that we dont return SPRITE_ACCESSORY_NONE in the process.
 /proc/get_consistent_feature_entry(list/accessory_feature_list)
 	var/consistent_entry = (accessory_feature_list- SPRITE_ACCESSORY_NONE)[1]
+	 if(!length(filtered_list))
+		// If the list is empty after removing NONE entries, return a fallback value
+		// For most accessory lists, "None" is a valid option that should exist
+		return "None"
 	ASSERT(!isnull(consistent_entry))
 	return consistent_entry
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
-	target.dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]
+	target.dna.features["ethcolor"] = COLOR_WHITE
 	target.dna.features["body_markings"] = get_consistent_feature_entry(GLOB.body_markings_list)
 	target.dna.features["ears"] = get_consistent_feature_entry(GLOB.ears_list)
 	target.dna.features["frills"] = get_consistent_feature_entry(GLOB.frills_list)
