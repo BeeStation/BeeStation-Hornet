@@ -14,10 +14,10 @@
 	/* 2. Used to write hyperlink texts */
 //! Used to build HREF text
 //! `HREF_TYPE(_type_name)`
-#define HREF_TYPE(_type_name) ("hrefcmd="+/datum/hrefcmd::##_type_name+";")
+#define HREF_TYPE(_type_name) ("hrefcmd="+/datum/hrefcmd::##_type_name+"&")
 //! Used to build HREF text based on href type
 //! `HREF_TYPE(_type_name, _param_val)`
-#define HREF_PARAM(_param_key, _param_val) (/datum/hrefcmd/param::##_param_key+"="+(istext(_param_val) ? _param_val : #_param_val)+";")
+#define HREF_PARAM(_param_key, _param_val) (/datum/hrefcmd/param::##_param_key+"="+(istext(_param_val) ? _param_val : #_param_val)+"&")
 
 
 	/* 3. Used to get names and values for code failproofs, usually after topic called. */
