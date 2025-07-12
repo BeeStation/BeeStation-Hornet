@@ -1,0 +1,6 @@
+author: Solene
+delete-after: true
+changes:
+  - tweak: tweaked the visual and audio behavior of personal lockers
+  - tweak: Captain, HoP and HoS id's can now wipe a owners registry from a personal
+      locker
