@@ -273,13 +273,13 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
-		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Could not find device.")
+		balloon_alert(user, "<font color='#c70000'>ERROR:</font> Could not find device.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Could not find device."))
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
 	if(app.sending_and_receiving == FALSE)
-		balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED.")
+		balloon_alert(user, "<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED.")
 		to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target has their receiving DISABLED."))
 		return FALSE
 	calculate_strength()
@@ -292,7 +292,7 @@
 		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 		playsound(src, "sparks", 50, 1)
 		nt_log(target, user)
-		balloon_alert_to_viewers("<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!")
+		balloon_alert(user, "<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!")
 		to_chat(user, span_notice("<font color='#1eff00'>SUCCESS!</font> your colleague is now enjoying their new <font color='#00f7ff'>NTOS Virus Buster</font> subscription package!"))
 		component_qdel()
 
@@ -303,7 +303,7 @@
 	new /obj/effect/particle_effect/sparks/red(get_turf(src))
 	playsound(src, "sparks", 50, 1)
 	playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
-	balloon_alert_to_viewers("<font color='#c70000'>ERROR:</font> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!")
+	balloon_alert(user, "<font color='#c70000'>ERROR:</font> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!")
 	to_chat(user, span_notice("<font color='#c70000'>ERROR:</font> Target already has an NTOS Virus Buster Lvl-[drive.virus_defense] package!"))
 	nt_log(target, user)
 

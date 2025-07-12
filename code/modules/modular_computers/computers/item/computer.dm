@@ -724,10 +724,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			return TRUE
 
 /obj/item/modular_computer/add_context_self(datum/screentip_context/context, mob/user)
-	context.add_right_click_tool_action("Uninstall all", TOOL_SCREWDRIVER)
-	context.add_left_click_tool_action("Uninstall", TOOL_SCREWDRIVER)
-	context.add_left_click_tool_action("Repair", TOOL_WELDER)
-	context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
+	if(istype(context.held_item, /obj/item/screwdriver))
+		context.add_right_click_tool_action("Uninstall all", TOOL_SCREWDRIVER)
+		context.add_left_click_tool_action("Uninstall", TOOL_SCREWDRIVER)
+	if(istype(context.held_item, /obj/item/weldingtool) && atom_integrity != max_integrity)
+		context.add_left_click_tool_action("Repair", TOOL_WELDER)
+	if(istype(context.held_item, /obj/item/wrench))
+		context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
 
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
 	// Check for ID first
@@ -843,27 +846,27 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	return ..()
 
 /obj/item/modular_computer/proc/virus_blocked_info(gift_card = FALSE)	// If we caught a Virus, tell the player
-	var/mob/living/holder = loc
+	var/mob/living/holder = src.loc
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	playsound(src, "sparks", 50, 1)
 	if(gift_card)
 		new /obj/effect/particle_effect/sparks/red(get_turf(src))
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, TRUE)
-		balloon_alert_to_viewers("Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>")
-		to_chat(holder, span_notice("Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>"))
+		balloon_alert(holder, "Notification! Someone sent you an <font color='#00f7ff'>NTOS Virus Buster</font> package you already own! Your subscription remains <font color='#00ff2a'>UNALTERED!</font>")
+		to_chat(holder, span_notice("Notification! Someone sent you an <span class='cfc_cyan'>NTOS Virus Buster</span> package you already own! Your subscription remains <span clas='cfc_green'>UNALTERED!</span>"))
 	else
 		new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 		playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
-		balloon_alert_to_viewers("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>")
-		to_chat(holder, span_notice("Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>"))
-	playsound(src, "sparks", 50, 1)
+		balloon_alert(holder, "Virus <font color='#ff0000'>BUSTED!</font> Your <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> kept your data <font color='#00ff2a'>SAFE!</font>")
+		to_chat(holder, span_notice("Virus <span class='cfc_red'>BUSTED!</span> Your <span class='cfc_cyan'>NTOS Virus Buster Lvl-[drive.virus_defense]</span> kept your data <span clas='cfc_green'>SAFE!</span>"))
 
 /obj/item/modular_computer/proc/antivirus_gift(virus_strength = 0)	// If we caught a Virus, tell the player
-	var/mob/living/holder = loc
+	var/mob/living/holder = src.loc
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 	new /obj/effect/particle_effect/sparks/blue(get_turf(src))
 	drive.virus_defense = virus_strength
-	balloon_alert_to_viewers("CONGRATULATIONS! Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>")
-	to_chat(holder, span_notice("CONGRATULATIONS! Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>"))
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, TRUE)
 	playsound(src, "sparks", 50, 1)
+	balloon_alert(holder, "<font color='#00f7ff'>CONGRATULATIONS!</font> Someone has sent you an <font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> subscription package! Your device is now <font color='#00ff2a'>SAFE!</font>")
+	to_chat(holder, span_notice("<span class='cfc_cyan'>CONGRATULATIONS!</span> Someone has sent you an <span class='cfc_cyan'>NTOS Virus Buster Lvl-[drive.virus_defense]</span> subscription package! Your device is now <span clas='cfc_green'>SAFE!</span>"))
 	ui_update(holder)
