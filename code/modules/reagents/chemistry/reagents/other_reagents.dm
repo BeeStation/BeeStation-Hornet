@@ -1372,9 +1372,8 @@
 	return ..()
 
 /datum/reagent/nitrium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustStaminaLoss((-12 + current_cycle) * REM * delta_time, 0)
-
-	if(!warned && current_cycle >= 13)
+	M.adjustStaminaLoss((clamp((-20 + current_cycle), -5, 5)) * REM * delta_time, 0)
+	if(!warned && current_cycle >= 21)
 		M.visible_message(span_danger("Your body aches!"))
 		warned = TRUE
 	return ..()
