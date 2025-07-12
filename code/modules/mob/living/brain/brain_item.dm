@@ -94,7 +94,8 @@
 		trauma.on_gain()
 
 	//Update the body's icon so it doesnt appear debrained anymore
-	brain_owner.update_body_parts()
+	if(!special && !(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		brain_owner.update_body_parts()
 
 /obj/item/organ/internal/brain/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 
@@ -113,7 +114,8 @@
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !(movement_flags & NO_ID_TRANSFER))
 		transfer_identity(organ_owner)
 	if(!special)
-		organ_owner.update_body_parts()
+		if(!(organ_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+			organ_owner.update_body_parts()
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/internal/brain/set_organ_damage(d)

@@ -1692,8 +1692,7 @@
 		if(M && ishuman(M) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/H = M
 			H.set_facial_haircolor("#9922ff", update = FALSE)
-			H.set_haircolor(color, update = TRUE)
-			H.update_body_parts()
+			H.set_haircolor(color) //this will call update_body_parts()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/M, delta_time, times_fired)
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5 * REM * delta_time)

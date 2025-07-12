@@ -1799,8 +1799,7 @@
 		if(M && ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.set_facial_haircolor(pick(potential_colors), update = FALSE)
-			H.set_haircolor(pick(potential_colors), update = TRUE)
-			H.update_body_parts()
+			H.set_haircolor(pick(potential_colors)) //this will call update_body_parts()
 
 /datum/reagent/barbers_aid
 	name = "Barber's Aid"
@@ -1838,25 +1837,23 @@
 	exposed_human.set_facial_hairstyle("Beard (Very Long)", update = FALSE)
 	exposed_human.set_hairstyle("Very Long Hair", update = TRUE)
 
-/datum/reagent/concentrated_barbers_aid/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+/datum/reagent/concentrated_barbers_aid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(current_cycle > 20)
-		if(!ishuman(M))
+		if(!ishuman(affected_mob))
 			return
-		var/mob/living/carbon/human/human_mob = M
+		var/mob/living/carbon/human/human_mob = affected_mob
 		if(human_mob.mind.has_quirk(/datum/quirk/item_quirk/bald))
 			human_mob.mind.remove_quirk(/datum/quirk/item_quirk/bald)
 		var/obj/item/bodypart/head/head = human_mob.get_bodypart(BODY_ZONE_HEAD)
 		if(!head || (head.head_flags & HEAD_HAIR))
 			return
 		head.head_flags |= HEAD_HAIR
-		var/message
-		if(HAS_TRAIT(M, TRAIT_BALD))
-			message = span_warning("You feel your scalp mutate, but you are still hopelessly bald.")
+		if(HAS_TRAIT(affected_mob, TRAIT_BALD))
+			to_chat(affected_mob, span_warning("You feel your scalp mutate, but you are still hopelessly bald."))
 		else
-			message = span_notice("Your scalp mutates, a full head of hair sprouting from it.")
-		to_chat(M, message)
-		human_mob.update_body_parts()
+			to_chat(affected_mob, span_notice("Your scalp mutates, a full head of hair sprouting from it."))
+			human_mob.update_body_parts()
 
 /datum/reagent/barbers_afro_mania
 	name = "Barber's Afro Mania"

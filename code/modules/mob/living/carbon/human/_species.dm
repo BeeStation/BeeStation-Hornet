@@ -438,6 +438,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
+
+	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
+
 	// Drop the items the new species can't wear
 	if((AGENDER in species_traits))
 		C.gender = PLURAL
@@ -516,46 +519,52 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	properly_gained = TRUE
 
-/datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
+
+/datum/species/proc/on_species_loss(mob/living/carbon/human/human, datum/species/new_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	C.butcher_results = null
-	if(C.dna.species.exotic_bloodtype)
-		C.dna.blood_type = random_blood_type()
+
+	human.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay removed.
+	human.butcher_results = null
+	if(human.dna.species.exotic_bloodtype)
+		human.dna.blood_type = random_blood_type()
 
 	if(NOMOUTH in species_traits)
-		for(var/obj/item/bodypart/head/head in C.bodyparts)
+		for(var/obj/item/bodypart/head/head in human.bodyparts)
 			head.mouth = TRUE
 
-	for(var/X in inherent_traits)
-		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
-	for(var/obj/item/organ/external/organ in C.organs)
-		organ.Remove(C)
+	for(var/trait in inherent_traits)
+		REMOVE_TRAIT(human, trait, SPECIES_TRAIT)
+	for(var/obj/item/organ/external/organ in human.organs)
+		organ.Remove(human)
 		qdel(organ)
 
 	//If their inert mutation is not the same, swap it out
-	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(C.dna.mutation_index) && (inert_mutation in C.dna.mutation_index))
-		C.dna.remove_mutation(inert_mutation)
+	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(human.dna.mutation_index) && (inert_mutation in human.dna.mutation_index))
+		human.dna.remove_mutation(inert_mutation)
 		//keep it at the right spot, so we can't have people taking shortcuts
-		var/location = C.dna.mutation_index.Find(inert_mutation)
-		C.dna.mutation_index[location] = new_species.inert_mutation
-		C.dna.default_mutation_genes[location] = C.dna.mutation_index[location]
-		C.dna.mutation_index[new_species.inert_mutation] = create_sequence(new_species.inert_mutation)
-		C.dna.default_mutation_genes[new_species.inert_mutation] = C.dna.mutation_index[new_species.inert_mutation]
+		var/location = human.dna.mutation_index.Find(inert_mutation)
+		human.dna.mutation_index[location] = new_species.inert_mutation
+		human.dna.default_mutation_genes[location] = human.dna.mutation_index[location]
+		human.dna.mutation_index[new_species.inert_mutation] = create_sequence(new_species.inert_mutation)
+		human.dna.default_mutation_genes[new_species.inert_mutation] = human.dna.mutation_index[new_species.inert_mutation]
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
-			C.faction -= i
+			human.faction -= i
 
 	// Removes all languages previously associated with [LANGUAGE_SPECIES], gaining our new species will add new ones back
 	var/datum/language_holder/losing_holder = GLOB.prototype_language_holders[species_language_holder]
 	for(var/language in losing_holder.understood_languages)
-		C.remove_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
+		human.remove_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in losing_holder.spoken_languages)
-		C.remove_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
+		human.remove_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in losing_holder.blocked_languages)
-		C.remove_blocked_language(language, LANGUAGE_SPECIES)
+		human.remove_blocked_language(language, LANGUAGE_SPECIES)
 
-	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
+	SEND_SIGNAL(human, COMSIG_SPECIES_LOSS, src)
+
+	human.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
 /datum/species/proc/handle_body(mob/living/carbon/human/species_human)
 	species_human.remove_overlay(BODY_LAYER)
@@ -1297,8 +1306,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(QDELETED(target)) //may be called from a timer
 		return
 	target.set_facial_hairstyle("Shaved", update = FALSE)
-	target.set_hairstyle("Bald", update = FALSE)
-	target.update_body_parts()
+	target.set_hairstyle("Bald") //This calls update_body_parts()
 
 ////////////////
 // MOVE SPEED //

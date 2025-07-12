@@ -8,6 +8,8 @@
 	usable_legs = 0 //Populated on init through list/bodyparts
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
+	// STOP_OVERLAY_UPDATE_BODY_PARTS is removed after we call update_body_parts() during init.
+	living_flags = STOP_OVERLAY_UPDATE_BODY_PARTS
 	///List of [/obj/item/organ/internal] in the mob. They don't go in the contents for some reason I don't want to know.
 	var/list/obj/item/organ/internal/organs = list()
 	///Same as [above][/mob/living/carbon/var/organs], but stores "slot ID" - "organ" pairs for easy access.
