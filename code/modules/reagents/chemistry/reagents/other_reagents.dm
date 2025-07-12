@@ -481,26 +481,9 @@
 				to_chat(M, span_notice("That tasted horrible."))
 	..()
 
-/datum/reagent/spraytan/overdose_start(mob/living/M)
-	metabolization_rate = 1 * REAGENTS_METABOLISM
-
-	if(ishuman(M))
-		var/mob/living/carbon/human/N = M
-		N.set_hairstyle("Spiky", update = FALSE)
-		N.set_facial_hairstyle("Shaved", update = FALSE)
-		N.set_facial_haircolor("000", update = FALSE)
-		N.set_haircolor("000", update = FALSE)
-		var/obj/item/bodypart/head/head = N.get_bodypart(BODY_ZONE_HEAD)
-		if(head)
-			head.head_flags |= HEAD_HAIR //No hair? No problem!
-		if(HAS_TRAIT(N, TRAIT_USES_SKINTONES))
-			N.skin_tone = "orange"
-		else if(HAS_TRAIT(N, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(N, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
-			N.dna.features["mcolor"] = "#ff8800"
-		N.regenerate_icons()
-	..()
-
 /datum/reagent/spraytan/overdose_process(mob/living/affected_mob, delta_time, times_fired)
+	. = ..()
+	metabolization_rate = 1 * REAGENTS_METABOLISM
 
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob
@@ -509,18 +492,22 @@
 			head.head_flags |= HEAD_HAIR //No hair? No problem!
 		if(!HAS_TRAIT(affected_human, TRAIT_SHAVED))
 			affected_human.set_facial_hairstyle("Shaved", update = FALSE)
-		affected_human.set_facial_haircolor("#000000", update = FALSE)
+		affected_human.set_facial_haircolor(COLOR_BLACK, update = FALSE)
 		if(!HAS_TRAIT(affected_human, TRAIT_BALD))
 			affected_human.set_hairstyle("Spiky", update = FALSE)
-		affected_human.set_haircolor("#000000", update = FALSE)
+		affected_human.set_haircolor(COLOR_BLACK, update = FALSE)
+		if(HAS_TRAIT(affected_human, TRAIT_USES_SKINTONES))
+			affected_human.skin_tone = "orange"
+		else if(HAS_TRAIT(affected_human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(affected_human, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
+			affected_human.dna.features["mcolor"] = "#ff8800"
 		affected_human.update_body(is_creating = TRUE)
 		if(DT_PROB(3.5, delta_time))
 			if(affected_human.w_uniform)
 				affected_human.visible_message(pick("<b>[affected_human]</b>'s collar pops up without warning.</span>", "<b>[affected_human]</b> flexes [affected_human.p_their()] arms."))
 			else
 				affected_human.visible_message("<b>[affected_human]</b> flexes [affected_human.p_their()] arms.")
-		if(DT_PROB(1, delta_time))
-			affected_human.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
+	if(DT_PROB(5, delta_time))
+		affected_mob.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2

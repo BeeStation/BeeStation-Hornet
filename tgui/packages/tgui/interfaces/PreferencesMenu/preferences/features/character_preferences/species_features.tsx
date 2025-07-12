@@ -164,6 +164,16 @@ export const gradient_color: Feature<string> = {
   component: FeatureColorInput,
 };
 
+export const feature_lizard_spines: FeatureChoiced = {
+  name: 'Spines',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_lizard_tail: FeatureChoiced = {
+  name: 'Tail',
+  component: FeatureButtonedDropdownInput,
+};
+
 export const feature_lizard_legs: FeatureChoiced = {
   name: 'Leg Type',
   component: FeatureButtonedDropdownInput,

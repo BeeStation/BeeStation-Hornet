@@ -48,14 +48,14 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "albino")
 			return
-		if(H.dna.features["mcolor"] == "EEE")
+		if(H.dna.features["mcolor"] == "#EEEEEE")
 			return
 		switch(A.stage)
 			if(5)
 				if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 					H.skin_tone = "albino"
 				else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
-					H.dna.features["mcolor"] = "EEE" //pure white.
+					H.dna.features["mcolor"] = "#EEEEEE" //pure white.
 				H.regenerate_icons()
 			else
 				H.visible_message(span_notice("[H] looks a bit pale."), span_notice("Your skin suddenly appears lighter."))
@@ -120,14 +120,14 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "african2")
 			return
-		if(H.dna.features["mcolor"] == "000")
+		if(H.dna.features["mcolor"] == "#000000")
 			return
 		switch(A.stage)
 			if(5)
 				if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 					H.skin_tone = "african2"
 				else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
-					H.dna.features["mcolor"] = "000" //pure black.
+					H.dna.features["mcolor"] = "#000000" //pure black.
 				H.regenerate_icons()
 			else
 				H.visible_message(span_notice("[H] looks a bit dark."), span_notice("Your skin suddenly appears darker."))
