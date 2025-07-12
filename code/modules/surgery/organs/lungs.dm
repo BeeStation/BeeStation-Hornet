@@ -288,12 +288,9 @@
 			H.adjustOrganLoss(ORGAN_SLOT_LUNGS, nitrium_pp * 0.1)
 			to_chat(H, span_notice("You feel a burning sensation in your chest"))
 		gas_breathed = PP(breath, /datum/gas/nitrium)
-		if (nitrium_pp > 5)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_low_metabolization)
-			H.reagents.add_reagent(/datum/reagent/nitrium_low_metabolization, max(0, 2 - existing))
 		if (nitrium_pp > 10)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium_high_metabolization)
-			H.reagents.add_reagent(/datum/reagent/nitrium_high_metabolization, max(0, 1 - existing))
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium)
+			H.reagents.add_reagent(/datum/reagent/nitrium, max(0, 5 - existing))
 
 		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 
