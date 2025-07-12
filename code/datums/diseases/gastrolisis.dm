@@ -38,7 +38,7 @@
 			var/obj/item/organ/internal/eyes/eyes = locate(/obj/item/organ/internal/eyes/snail) in affected_mob.organs
 			if(!eyes && DT_PROB(2.5, delta_time))
 				var/obj/item/organ/internal/eyes/snail/new_eyes = new()
-				new_eyes.Insert(affected_mob, drop_if_replaced = TRUE)
+				new_eyes.Insert(affected_mob)
 				affected_mob.visible_message(span_warning("[affected_mob]'s eyes fall out, with snail eyes taking its place!"), \
 				span_userdanger("You scream in pain as your eyes are pushed out by your new snail eyes!"))
 				affected_mob.emote("scream")

@@ -31,9 +31,10 @@ Bonus
 	symptom_delay_max = 30
 	bodies = list("Lung")
 	suffixes = list(" Tuberculosis")
-	var/paralysis = FALSE
+	required_organ = ORGAN_SLOT_LUNGS
 	threshold_desc = "<b>Stage Speed 8:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
 						<b>Transmission 8:</b> Doubles the damage caused by the symptom."
+	var/paralysis = FALSE
 
 /datum/symptom/asphyxiation/severityset(datum/disease/advance/A)
 	. = ..()

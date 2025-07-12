@@ -86,8 +86,7 @@
 	name = "cybernetic liver"
 	icon_state = "liver-c"
 	desc = "An electronic device designed to mimic the functions of a human liver. Handles toxins slightly better than an organic liver."
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = 1.1 * STANDARD_ORGAN_THRESHOLD
 	toxTolerance = 3.3
 	toxLethality = 0.8 * LIVER_DEFAULT_TOX_LETHALITY //20% less damage than a normal liver
@@ -117,7 +116,6 @@
 	alcohol_tolerance = 0
 	toxTolerance = -1
 	toxLethality = 0
-	status = ORGAN_ROBOTIC
 
 /obj/item/organ/internal/liver/cybernetic/upgraded/ipc/emp_act(severity)
 	if(prob(30/severity))

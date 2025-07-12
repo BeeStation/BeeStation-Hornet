@@ -23,7 +23,6 @@
 	unarmed_damage_high = 3
 	bodypart_trait_source = HEAD_TRAIT
 
-	var/mob/living/brain/brainmob //The current occupant.
 	var/obj/item/organ/internal/brain/brain //The brain organ
 	var/obj/item/organ/internal/eyes/eyes
 	var/obj/item/organ/internal/ears/ears
@@ -92,12 +91,6 @@
 	var/datum/worn_feature_offset/worn_face_offset
 
 /obj/item/bodypart/head/Destroy()
-	QDEL_NULL(brainmob) //order is sensitive, see warning in Exited() below
-	QDEL_NULL(brain)
-	QDEL_NULL(eyes)
-	QDEL_NULL(ears)
-	QDEL_NULL(tongue)
-
 	QDEL_NULL(worn_ears_offset)
 	QDEL_NULL(worn_glasses_offset)
 	QDEL_NULL(worn_mask_offset)
@@ -109,11 +102,6 @@
 	if(A == brain)
 		brain = null
 		update_icon_dropped()
-		if(!QDELETED(brainmob)) //this shouldn't happen without badminnery.
-			message_admins("Brainmob: ([ADMIN_LOOKUPFLW(brainmob)]) was left stranded in [src] at [ADMIN_VERBOSEJMP(src)] without a brain!")
-			log_game("Brainmob: ([key_name(brainmob)]) was left stranded in [src] at [AREACOORD(src)] without a brain!")
-	if(A == brainmob)
-		brainmob = null
 	if(A == eyes)
 		eyes = null
 		update_icon_dropped()
@@ -128,12 +116,12 @@
 	if(show_organs_on_examine && IS_ORGANIC_LIMB(src))
 		if(!brain)
 			. += span_info("The brain has been removed from [src].")
-		else if(brain.suicided || brainmob?.suiciding)
+		else if(brain.suicided || brain.brainmob?.suiciding)
 			. += span_info("There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.")
-		else if(brain.brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD)
-			. += span_info("It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.")
-		else if(brainmob)
-			if(!brainmob.soul_departed())
+		else if(brain.brainmob)
+			if(brain.brainmob?.health <= HEALTH_THRESHOLD_DEAD)
+				. += span_info("It's leaking some kind of... clear fluid? The brain inside must be in pretty bad shape.")
+			if(brain.brainmob.key || brain.brainmob.get_ghost(FALSE, TRUE))
 				. += span_info("Its muscles are still twitching slightly... It still seems to have a bit of life left to it.")
 			else
 				. += span_info("It seems seems particularly lifeless. Perhaps there'll be a chance for them later.")
@@ -158,34 +146,12 @@
 	return ..()
 
 /obj/item/bodypart/head/drop_organs(mob/user, violent_removal)
-	var/turf/T = get_turf(src)
-	for(var/obj/item/I in src)
-		if(I == brain)
-			if(user)
-				user.visible_message(span_warning("[user] saws [src] open and pulls out a brain!"), span_notice("You saw [src] open and pull out a brain."))
-			if(brainmob)
-				brainmob.container = null
-				brainmob.forceMove(brain)
-				brain.brainmob = brainmob
-				brainmob = null
-			if(violent_removal && prob(rand(80, 100))) //ghetto surgery can damage the brain.
-				to_chat(user, span_warning("[brain] was damaged in the process!"))
-				brain.set_organ_damage(brain.maxHealth)
-			brain.forceMove(T)
-			brain = null
-			update_icon_dropped()
-		else
-			if(istype(I, /obj/item/reagent_containers/pill))
-				for(var/datum/action/item_action/hands_free/activate_pill/AP in I.actions)
-					qdel(AP)
-			else if(isorgan(I))
-				var/obj/item/organ/organ = I
-				if(organ.organ_flags & ORGAN_UNREMOVABLE)
-					continue
-			I.forceMove(T)
-	eyes = null
-	ears = null
-	tongue = null
+	if(user)
+		user.visible_message(span_warning("[user] saws [src] open and pulls out a brain!"), span_notice("You saw [src] open and pull out a brain."))
+	if(brain && violent_removal && prob(90)) //ghetto surgery can damage the brain.
+		to_chat(user, span_warning("[brain] was damaged in the process!"))
+		brain.set_organ_damage(brain.maxHealth)
+
 	update_limb()
 	return ..()
 

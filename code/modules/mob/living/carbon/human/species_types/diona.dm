@@ -48,7 +48,6 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
-	speedmod = 1.2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
@@ -294,7 +293,7 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "nymph"
 
-/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
+/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
 		return
@@ -309,10 +308,6 @@
 	QDEL_NULL(body_part)
 	QDEL_NULL(src)
 	organ_owner.update_body()
-
-/obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
-	Remove(C, FALSE)
-	forceMove(LB)
 
 /obj/item/organ/nymph_organ/r_arm
 	zone = BODY_ZONE_R_ARM

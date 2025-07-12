@@ -43,7 +43,7 @@
 	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
 	var/can_see = TRUE
 
-/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE)
+/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	if(ishuman(eye_recipient))
 		var/mob/living/carbon/human/human_recipient = eye_recipient
 		old_eye_color = human_recipient.eye_color
@@ -76,13 +76,14 @@
 	if(call_update)
 		affected_human.update_body()
 
-/obj/item/organ/internal/eyes/Remove(mob/living/carbon/eye_owner, special = FALSE)
+/obj/item/organ/internal/eyes/Remove(mob/living/carbon/eye_owner, special, movement_flags)
 	. = ..()
 	if(ishuman(eye_owner))
 		var/mob/living/carbon/human/human_owner = eye_owner
 		if(initial(eye_color))
 			human_owner.eye_color = old_eye_color
-		human_owner.update_body()
+		if(!special)
+			human_owner.update_body()
 
 	eye_owner.update_tint()
 	eye_owner.update_sight()
@@ -185,12 +186,11 @@
 	name = "robotic eyes"
 	icon_state = "cybernetic_eyeballs"
 	desc = "A very basic set of optical sensors with no extra vision modes or functions."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/internal/eyes/robotic/emp_act(severity)
 	. = ..()
-	if(!owner || . & EMP_PROTECT_SELF)
+	if((. & EMP_PROTECT_SELF) || !owner)
 		return
 	if(prob(30/severity))
 		to_chat(owner, span_warning("Static obfuscates your vision!"))
@@ -231,7 +231,7 @@
 /obj/item/organ/internal/eyes/robotic/flashlight/emp_act(severity)
 	return
 
-/obj/item/organ/internal/eyes/robotic/flashlight/on_insert(mob/living/carbon/victim)
+/obj/item/organ/internal/eyes/robotic/flashlight/on_mob_insert(mob/living/carbon/victim)
 	. = ..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
@@ -241,7 +241,7 @@
 	victim.become_blind("flashlight_eyes")
 
 
-/obj/item/organ/internal/eyes/robotic/flashlight/on_remove(mob/living/carbon/victim)
+/obj/item/organ/internal/eyes/robotic/flashlight/on_mob_remove(mob/living/carbon/victim)
 	. = ..()
 	eye.on = FALSE
 	eye.update_brightness(victim)
@@ -480,7 +480,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	can_see = FALSE
 
-/obj/item/organ/internal/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
+/obj/item/organ/internal/eyes/psyphoza/Insert(mob/living/carbon/M, special, movement_flags)
 	. = ..()
 	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
@@ -490,7 +490,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 		P.Grant(M)
 		P?.removed = FALSE
 
-/obj/item/organ/internal/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+/obj/item/organ/internal/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE)
 	M.cure_blind("uncurable", TRUE)
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
 	P?.remove()

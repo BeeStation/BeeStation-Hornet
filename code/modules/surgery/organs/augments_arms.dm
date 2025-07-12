@@ -97,7 +97,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += span_info("[src] is assembled in the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.")
+	if(IS_ROBOTIC_ORGAN(src))
+		. += span_info("[src] is assembled in the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.")
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -112,14 +113,14 @@
 	to_chat(user, span_notice("You modify [src] to be installed on the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."))
 	update_icon()
 
-/obj/item/organ/internal/cyberimp/arm/on_insert(mob/living/carbon/arm_owner)
+/obj/item/organ/internal/cyberimp/arm/on_mob_insert(mob/living/carbon/arm_owner)
 	. = ..()
 	var/side = zone == BODY_ZONE_R_ARM ? RIGHT_HANDS : LEFT_HANDS
 	register_hand(arm_owner, owner.hand_bodyparts[side])
 	RegisterSignal(arm_owner, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
 	RegisterSignal(arm_owner, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(limb_attached))
 
-/obj/item/organ/internal/cyberimp/arm/on_remove(mob/living/carbon/arm_owner)
+/obj/item/organ/internal/cyberimp/arm/on_mob_remove(mob/living/carbon/arm_owner)
 	. = ..()
 	Retract()
 	unregister_hand(arm_owner)
@@ -169,7 +170,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
 	. = ..()
-	if(. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF || !IS_ROBOTIC_ORGAN(src))
 		return
 	if(prob(80/severity) && owner)
 		to_chat(owner, span_warning("The electro magnetic pulse causes [src] to malfunction!"))

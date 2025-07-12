@@ -27,13 +27,13 @@
 	///Are our wings open or closed?
 	var/wings_open = FALSE
 
-/obj/item/organ/external/wings/functional/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+/obj/item/organ/external/wings/functional/Insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	if(. && isnull(fly))
 		fly = new
 		fly.Grant(receiver)
 
-/obj/item/organ/external/wings/functional/Remove(mob/living/carbon/organ_owner, special, moving)
+/obj/item/organ/external/wings/functional/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 
 	fly.Remove(organ_owner)
@@ -177,6 +177,7 @@
 /obj/item/organ/external/wings/functional/robotic
 	name = "robotic wings"
 	desc = "Using microscopic hover-engines, or \"microwings,\" as they're known in the trade, these tiny devices are able to lift a few grams at a time. Gathering enough of them, and you can lift impressively large things."
+	organ_flags = ORGAN_ROBOTIC
 	sprite_accessory_override = /datum/sprite_accessory/wings/robotic
 
 ///skeletal wings, which relate to skeletal races.
@@ -275,12 +276,11 @@
 	desc = "A compact pair of mechanical wings, which use the atmosphere to create thrust."
 	icon_state = "wingpack"
 	color = "#FFFFFF"
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/external/wings/functional/cybernetic/emp_act(severity)
 	. = ..()
-	if(owner && (organ_flags & ORGAN_SYNTHETIC))
+	if(owner && (organ_flags & ORGAN_ROBOTIC))
 		fly_slip()
 
 ///Advanced alien wings that don't need atmosphere

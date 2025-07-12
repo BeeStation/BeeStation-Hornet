@@ -154,6 +154,16 @@
 	should_draw_greyscale = FALSE
 	speed_modifier = 0.8 //braaaaains
 
+/obj/item/bodypart/leg/left/zombie/viral
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	speed_modifier = 0 //braaaaains
+
+/obj/item/bodypart/leg/right/zombie/viral
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	speed_modifier = 0 //braaaaains
+
 ///FLY
 /obj/item/bodypart/head/fly
 	limb_id = SPECIES_FLYPERSON
@@ -176,10 +186,12 @@
 /obj/item/bodypart/leg/left/fly
 	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
+	speed_modifier = 0.35
 
 /obj/item/bodypart/leg/right/fly
 	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
+	speed_modifier = 0.35
 
 ///SHADOW
 /obj/item/bodypart/head/shadow
@@ -274,12 +286,14 @@
 	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
 	unarmed_damage_low = 5
 	unarmed_damage_high = 14
+	speed_modifier = 1
 
 /obj/item/bodypart/leg/left/golem
 	limb_id = "golem"
 	dmg_overlay_type = null
 	unarmed_damage_low = 7
 	unarmed_damage_high = 21
+	speed_modifier = 1
 
 /obj/item/bodypart/leg/right/golem
 	limb_id = "golem"
@@ -287,7 +301,22 @@
 	unarmed_damage_low = 7
 	unarmed_damage_high = 21
 
-///
+/obj/item/bodypart/leg/left/golem/gold
+	limb_id = "g_golem"
+	speed_modifier = 0.5
+
+/obj/item/bodypart/leg/right/golem/gold
+	limb_id = "g_golem"
+	speed_modifier = 0.5
+
+/obj/item/bodypart/leg/left/golem/copper
+	limb_id = "c_golem"
+	speed_modifier = 0.75
+
+/obj/item/bodypart/leg/right/golem/copper
+	limb_id = "c_golem"
+	speed_modifier = 0.75
+
 /obj/item/bodypart/head/golem/alloy
 	limb_id = "a_golem"
 	is_dimorphic = FALSE
@@ -309,10 +338,12 @@
 /obj/item/bodypart/leg/left/golem/alloy
 	limb_id = "a_golem"
 	should_draw_greyscale = FALSE
+	speed_modifier = 0.5 //faster
 
 /obj/item/bodypart/leg/right/golem/alloy
 	limb_id = "a_golem"
 	should_draw_greyscale = FALSE
+	speed_modifier = 0.5 //faster
 
 ///
 /obj/item/bodypart/head/golem/bananium
@@ -390,11 +421,13 @@
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	speed_modifier = 0
 
 /obj/item/bodypart/leg/left/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	speed_modifier = 0
 
 /obj/item/bodypart/leg/right/golem/clock
 	limb_id = "clockgolem"
@@ -429,12 +462,14 @@
 	should_draw_greyscale = FALSE
 	unarmed_damage_low = 6
 	unarmed_damage_high = 12
+	speed_modifier = 0.5 // not as heavy as stone
 
 /obj/item/bodypart/leg/right/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
 	unarmed_damage_low = 6
 	unarmed_damage_high = 12
+	speed_modifier = 0.5 // not as heavy as stone
 
 ///
 /obj/item/bodypart/head/golem/cardboard
@@ -472,6 +507,7 @@
 	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
 	unarmed_damage_low = 6
 	unarmed_damage_high = 12
+	speed_modifier = 0.75
 
 /obj/item/bodypart/leg/right/golem/cardboard
 	limb_id = "c_golem"
@@ -480,6 +516,7 @@
 	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
 	unarmed_damage_low = 6
 	unarmed_damage_high = 12
+	speed_modifier = 0.75
 
 ///
 /obj/item/bodypart/head/golem/durathread
@@ -601,13 +638,14 @@
 	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
 	unarmed_damage_low = 12
 	unarmed_damage_high = 21
-
+	speed_modifier = 2 //pretty fucking slow
 
 /obj/item/bodypart/leg/left/golem/plasteel
 	unarmed_attack_effect = ATTACK_EFFECT_SMASH
 	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
 	unarmed_damage_low = 18
 	unarmed_damage_high = 32
+	speed_modifier = 2 //pretty fucking slow
 
 /obj/item/bodypart/leg/right/golem/plasteel
 	unarmed_attack_effect = ATTACK_EFFECT_SMASH

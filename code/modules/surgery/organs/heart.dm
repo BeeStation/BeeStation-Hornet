@@ -34,10 +34,10 @@
 	else
 		icon_state = "[icon_base]-off"
 
-/obj/item/organ/internal/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/internal/heart/Remove(mob/living/carbon/heartless, special, movement_flags)
+	. = ..()
 	if(!special)
-		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 12 SECONDS)
 
 /obj/item/organ/internal/heart/proc/stop_if_unowned()
 	if(!owner)
@@ -135,13 +135,13 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/internal/heart/cursed/on_insert(mob/living/carbon/accursed)
+/obj/item/organ/internal/heart/cursed/on_mob_insert(mob/living/carbon/accursed)
 	. = ..()
 	to_chat(accursed, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
-/obj/item/organ/internal/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	M.remove_client_colour(/datum/client_colour/cursed_heart_blood)
+/obj/item/organ/internal/heart/cursed/on_mob_remove(mob/living/carbon/accursed, special = FALSE)
+	. = ..()
+	accursed.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 
 /datum/action/item_action/organ_action/cursed_heart
 	name = "Pump your blood"
@@ -180,8 +180,7 @@
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c-on"
 	icon_base = "heart-c"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC
 	var/dose_available = TRUE
 	var/rid = /datum/reagent/medicine/epinephrine
 	var/ramount = 10
@@ -220,7 +219,7 @@
 /obj/item/organ/internal/heart/freedom
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
-	organ_flags = ORGAN_SYNTHETIC //the power of freedom prevents heart attacks
+	organ_flags = ORGAN_ROBOTIC //the power of freedom prevents heart attacks
 	/// The cooldown until the next time this heart can give the host an adrenaline boost.
 	COOLDOWN_DECLARE(adrenaline_cooldown)
 

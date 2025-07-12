@@ -82,7 +82,7 @@
 			H.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
-/obj/item/organ/internal/stomach/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/stomach/Remove(mob/living/carbon/M, special, movement_flags)
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
 		H.clear_alert("disgust")
@@ -106,12 +106,12 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/internal/stomach/battery/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/internal/stomach/battery/Insert(mob/living/carbon/M, special, movement_flags)
 	. = ..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
-/obj/item/organ/internal/stomach/battery/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/stomach/battery/Remove(mob/living/carbon/M, special, movement_flags)
 	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = 0
@@ -156,8 +156,7 @@
 	attack_verb_continuous = list("assault and batteries")
 	attack_verb_simple = list("assault and battery")
 	desc = "A micro-cell, for IPC use. Do not swallow."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	max_charge = 2750 //50 nutrition from 250 charge
 	charge = 2750
 
@@ -176,11 +175,11 @@
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
 
-/obj/item/organ/internal/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/internal/stomach/battery/ethereal/Insert(mob/living/carbon/M, special, movement_flags)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	return ..()
 
-/obj/item/organ/internal/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 	return ..()
 
@@ -196,7 +195,7 @@
 	name = "basic cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 
 /obj/item/organ/internal/stomach/cybernetic/upgraded

@@ -219,17 +219,17 @@
 
 	if(DT_PROB(2.5, delta_time) && iscarbon(M))
 		var/obj/item/organ/internal/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
-		if(M.is_blind())
-			if(istype(eyes))
+		if(eyes && IS_ORGANIC_ORGAN(eyes)) // doesn't affect robotic eyes
+			if(M.is_blind())
 				eyes.Remove(M)
 				eyes.forceMove(get_turf(M))
 				to_chat(M, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
 				M.emote("scream")
 				M.adjustBruteLoss(15)
-		else
-			to_chat(M, span_userdanger("You scream in terror as you go blind!"))
-			eyes.applyOrganDamage(eyes.maxHealth)
-			M.emote("scream")
+			else
+				to_chat(M, span_userdanger("You scream in terror as you go blind!"))
+				eyes.applyOrganDamage(eyes.maxHealth)
+				M.emote("scream")
 
 	if(DT_PROB(1.5, delta_time) && iscarbon(M))
 		M.visible_message(span_danger("[M] starts having a seizure!"), span_userdanger("You have a seizure!"))

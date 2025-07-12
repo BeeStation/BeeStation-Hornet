@@ -3,8 +3,7 @@
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
-	status = ORGAN_ROBOTIC
-	organ_flags = NONE
+	organ_flags = ORGAN_ROBOTIC // weird?
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
 
@@ -77,7 +76,7 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/internal/heart/gland/Remove(mob/living/carbon/gland_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/internal/heart/gland/Remove(mob/living/carbon/gland_owner, special, movement_flags)
 	. = ..()
 	active = FALSE
 	if(initial(uses) == 1)
@@ -86,7 +85,7 @@
 	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
 
-/obj/item/organ/internal/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 	if(!.)
 		return
@@ -141,12 +140,12 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/internal/heart/gland/slime/on_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/internal/heart/gland/slime/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/internal/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/internal/heart/gland/slime/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	if(!owner) // Add null check
 		return
@@ -310,11 +309,11 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/internal/heart/gland/electric/on_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/internal/heart/gland/electric/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	ADD_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/internal/heart/gland/electric/on_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/internal/heart/gland/electric/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	REMOVE_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 

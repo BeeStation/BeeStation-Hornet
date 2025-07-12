@@ -142,6 +142,10 @@
 		var/brain_holder = istype(AM, /obj/item/organ/internal/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || isbrain(AM) || istype(AM, /obj/item/dullahan_relay)
 		if(brain_holder)
 			emergency_stop(AM)
+		if(isitem(AM))
+			var/obj/item/as_item = AM
+			if(as_item.item_flags & ABSTRACT) //also catches organs and bodyparts *stares*
+				continue
 		else if(isliving(AM))
 			if(obj_flags & EMAGGED)
 				crush_living(AM)

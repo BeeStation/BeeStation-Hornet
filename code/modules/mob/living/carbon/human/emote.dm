@@ -248,7 +248,7 @@
 	if(!..())
 		return FALSE
 	var/obj/item/organ/internal/tongue/T = user.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(T.status == ORGAN_ROBOTIC)
+	if(T.organ_flags == ORGAN_ROBOTIC)
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/beep

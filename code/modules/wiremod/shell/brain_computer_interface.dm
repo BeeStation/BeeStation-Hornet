@@ -16,11 +16,6 @@
 		new /obj/item/circuit_component/bci_core,
 	), SHELL_CAPACITY_SMALL)
 
-/obj/item/organ/internal/cyberimp/bci/on_insert(mob/living/carbon/receiver)
-	. = ..()
-	// Organs are put in nullspace, but this breaks circuit interactions
-	forceMove(receiver)
-
 /obj/item/organ/internal/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
 	if (owner)
 		// Otherwise say_dead will be called.

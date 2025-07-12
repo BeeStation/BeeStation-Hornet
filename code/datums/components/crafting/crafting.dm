@@ -109,6 +109,10 @@
 			. += AM
 		else if(AM.flags_1 & HOLOGRAM_1)
 			continue
+		if(isitem(AM))
+			var/obj/item/item = AM
+			if(item.item_flags & ABSTRACT) //let's not tempt fate, shall we?
+				continue
 		. += AM
 
 

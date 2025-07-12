@@ -17,12 +17,12 @@
 	///A two-way reference between the tail and the spines because of wagging sprites. Bruh.
 	var/obj/item/organ/external/tail/lizard/paired_tail
 
-/obj/item/organ/external/spines/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+/obj/item/organ/external/spines/Insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	if(.)
 		paired_tail = locate(/obj/item/organ/external/tail/lizard) in receiver.organs //We want specifically a lizard tail, so we don't use the slot.
 
-/obj/item/organ/external/spines/Remove(mob/living/carbon/organ_owner, special, moving)
+/obj/item/organ/external/spines/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	if(paired_tail)
 		paired_tail.paired_spines = null

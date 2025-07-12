@@ -99,7 +99,7 @@
 	if(visualsOnly)
 		return
 	var/obj/item/organ/internal/eyes/robotic/glow/eyes = new()
-	eyes.Insert(H, drop_if_replaced = FALSE)
+	eyes.Insert(H, movement_flags = DELETE_IF_REPLACED)
 
 /datum/outfit/russian_hunter
 	name = "Russian Hunter"

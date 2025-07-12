@@ -29,7 +29,7 @@
 	icon_state = "roro core 2"
 	visual = FALSE
 	item_flags = NOBLUDGEON
-	organ_flags = null
+	organ_flags = ORGAN_ORGANIC
 	slot = ORGAN_SLOT_MONSTER_CORE
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
@@ -112,7 +112,7 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/internal/regenerative_core/Insert(mob/living/carbon/target_carbon, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/internal/regenerative_core/Insert(mob/living/carbon/target_carbon, special, movement_flags)
 	. = ..()
 	if(!.)
 		return
@@ -120,7 +120,7 @@
 		preserved(TRUE)
 		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
 
-/obj/item/organ/internal/regenerative_core/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/internal/regenerative_core/Remove(mob/living/carbon/M, special)
 	if(!inert && !special)
 		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()

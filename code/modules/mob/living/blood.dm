@@ -455,7 +455,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return /datum/reagent/blood
 
 /mob/living/carbon/human/get_blood_id()
-	if(HAS_TRAIT(src, TRAIT_HUSK))
+	if(HAS_TRAIT(src, TRAIT_HUSK) || !dna)
 		return
 	if(dna.species.exotic_blood)
 		return dna.species.exotic_blood

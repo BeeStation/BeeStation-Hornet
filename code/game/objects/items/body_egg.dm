@@ -15,7 +15,7 @@
 		src.Insert(loc)
 	return ..()
 
-/obj/item/organ/internal/body_egg/Insert(mob/living/carbon/egg_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/body_egg/Insert(mob/living/carbon/egg_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 	if(!.)
 		return
@@ -25,7 +25,7 @@
 	egg_owner.med_hud_set_status()
 	INVOKE_ASYNC(src, PROC_REF(AddInfectionImages), egg_owner)
 
-/obj/item/organ/internal/body_egg/Remove(mob/living/carbon/egg_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/internal/body_egg/Remove(mob/living/carbon/egg_owner, special, movement_flags)
 	. = ..()
 	if(owner)
 		REMOVE_TRAIT(owner, TRAIT_XENO_HOST, ORGAN_TRAIT)

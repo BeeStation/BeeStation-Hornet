@@ -80,6 +80,7 @@
 	examine_limb_id = SPECIES_ZOMBIE
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
+	var/muthands_path = /obj/item/mutant_hand/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	/// The rate the zombies regenerate at
 	var/heal_rate = 0.5
@@ -119,7 +120,7 @@
 
 /datum/species/zombie/infectious/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.AddComponent(/datum/component/mutant_hands, mutant_hand_path = /obj/item/mutant_hand/zombie)
+	C.AddComponent(/datum/component/mutant_hands, mutant_hand_path = muthands_path)
 
 /datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
@@ -176,10 +177,18 @@
 	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
 	armor = 0
-	speedmod = 0
 	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
-	mutanthands = /obj/item/mutant_hand/zombie/infectious
+	muthands_path = /obj/item/mutant_hand/zombie/infectious
+
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/zombie,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zombie,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/zombie,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/zombie,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/zombie/viral,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zombie/viral
+	)
 
 // Your skin falls off
 /datum/species/human/krokodil_addict

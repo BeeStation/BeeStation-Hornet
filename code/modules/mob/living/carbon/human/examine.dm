@@ -348,11 +348,11 @@
 		if(target_record)
 			. += "[span_deptradio("Rank:")] [target_record.rank]"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
-			var/list/cyberimp_detect = list()
-			for(var/obj/item/organ/internal/cyberimp/CI in organs)
-				if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
-					cyberimp_detect += CI.name
-			if(length(cyberimp_detect))
+			var/cyberimp_detect
+			for(var/obj/item/organ/internal/cyberimp/cyberimp in organs)
+				if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
+					cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.get_examine_string(user)]" : ", [cyberimp.get_examine_string(user)]"]"
+			if(cyberimp_detect)
 				. += "Detected cybernetic modifications: [english_list(cyberimp_detect)]"
 			if(target_record)
 				var/physical_status = target_record.physical_status

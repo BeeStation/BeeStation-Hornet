@@ -451,25 +451,6 @@
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
 
-/mob/living/carbon/human/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_CONTENTS)
-		return
-	var/informed = FALSE
-	for(var/obj/item/bodypart/bodypart as anything in src.bodyparts)
-		if(!IS_ORGANIC_LIMB(bodypart))
-			if(!informed)
-				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
-				informed = TRUE
-			if(prob(30/severity)) //Random chance to disable and burn limbs
-				bodypart.receive_damage(burn = 5)
-				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-			else
-				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
-			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
-				if(prob(5))
-					bodypart.dismember(BRUTE)
-
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
 	var/list/inventory_items_to_kill = list()

@@ -27,7 +27,6 @@
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutant_organs = list(/obj/item/organ/adamantine_resonator)
 	mutanttongue = /obj/item/organ/internal/tongue/golem
-	speedmod = 2
 	armor = 55
 	siemens_coeff = 0
 	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
@@ -194,13 +193,21 @@
 	name = "Gold Golem"
 	id = SPECIES_GOLEM_GOLD
 	fixed_mut_color = "#cccc00"
-	speedmod = 1
 	armor = 25 //down from 55
 	meat = /obj/item/stack/ore/gold
 	info_text = "As a " + span_danger("Gold Golem") + ", you are faster but less resistant than the average golem."
 	prefix = "Golden"
 	special_names = list("Boy")
 	examine_limb_id = SPECIES_GOLEM
+
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/gold,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/gold,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
+	)
 
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
@@ -228,7 +235,6 @@
 	name = "Copper Golem"
 	id = SPECIES_GOLEM_COPPER
 	fixed_mut_color = "#d95802"
-	speedmod = 1.5
 	armor = 30
 	meat = /obj/item/stack/ore/copper
 	siemens_coeff = 1 //set as conductive, next line sets shock immunity
@@ -248,13 +254,21 @@
 	prefix = "Copper"
 	special_names = list("Wire")
 
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/copper,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/copper,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
+	)
+
 //Harder to stun, deals more damage, massively slowpokes, but gravproof and obstructive. Basically, The Wall.
 /datum/species/golem/plasteel
 	name = "Plasteel Golem"
 	id = SPECIES_GOLEM_PLASTEEL
 	fixed_mut_color = "#bbbbbb"
 	stunmod = 0.4
-	speedmod = 4 //pretty fucking slow
 	meat = /obj/item/stack/ore/iron
 	info_text = "As a " + span_danger("Plasteel Golem") + ", you are slower, but harder to stun, and hit very hard when punching. You also magnetically attach to surfaces and so don't float without gravity and cannot have positions swapped with other beings."
 	prefix = "Plasteel"
@@ -330,7 +344,6 @@
 	)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/internal/tongue/abductor
-	speedmod = 1 //faster
 	info_text = "As an " + span_danger("Alloy Golem") + ", you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to be heard by other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
@@ -772,7 +785,6 @@
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	armor = 20 //Reinforced, but much less so to allow for fast movement
 	sexes = FALSE
-	speedmod = 0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
@@ -841,7 +853,6 @@
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	armor = 15 //feels no pain, but not too resistant
 	burnmod = 2 // don't get burned
-	speedmod = 1 // not as heavy as stone
 	prefix = "Cloth"
 	special_names = null
 
@@ -1116,7 +1127,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	armor = 25
 	burnmod = 1.25
 	heatmod = 2
-	speedmod = 1.5
 	var/last_creation = 0
 	var/brother_creation_cooldown = 300
 

@@ -197,7 +197,7 @@
 	icon_state = "brain-x-d"
 	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
 
-/obj/item/organ/internal/brain/nightmare/Insert(mob/living/carbon/brain_owner, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE)
+/obj/item/organ/internal/brain/nightmare/Insert(mob/living/carbon/brain_owner, special, movement_flags)
 	. = ..()
 	if(brain_owner.dna.species.id != SPECIES_NIGHTMARE)
 		brain_owner.set_species(/datum/species/shadow/nightmare)
@@ -236,13 +236,13 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	Insert(user)
 
-/obj/item/organ/internal/heart/nightmare/on_insert(mob/living/carbon/heart_owner, special)
+/obj/item/organ/internal/heart/nightmare/on_mob_insert(mob/living/carbon/heart_owner, special)
 	. = ..()
 	if(special != HEART_SPECIAL_SHADOWIFY)
 		blade = new/obj/item/light_eater
 		heart_owner.put_in_hands(blade)
 
-/obj/item/organ/internal/heart/nightmare/on_remove(mob/living/carbon/heart_owner, special)
+/obj/item/organ/internal/heart/nightmare/on_mob_remove(mob/living/carbon/heart_owner, special)
 	. = ..()
 	respawn_progress = 0
 	if(blade && special != HEART_SPECIAL_SHADOWIFY)
@@ -507,7 +507,7 @@
 /obj/item/organ/internal/heart/shadow_ritual/update_icon()
 	return
 
-/obj/item/organ/internal/heart/shadow_ritual/on_insert(mob/living/carbon/heart_owner)
+/obj/item/organ/internal/heart/shadow_ritual/on_mob_insert(mob/living/carbon/heart_owner)
 	. = ..()
 	if(isblessedshadow(heart_owner))
 		var/mob/living/carbon/human/O = heart_owner
@@ -519,7 +519,7 @@
 		to_chat(heart_owner, span_userdanger("You feel a chill spreading throughout your body..."))
 
 
-/obj/item/organ/internal/heart/shadow_ritual/on_remove(mob/living/carbon/heart_owner)
+/obj/item/organ/internal/heart/shadow_ritual/on_mob_remove(mob/living/carbon/heart_owner)
 	. = ..()
 	if(isblessedshadow(heart_owner))
 		var/mob/living/carbon/human/O = heart_owner
@@ -533,7 +533,7 @@
 		to_chat(heart_owner, span_bigboldinfo("You feel warmth returning to you once more."))
 		shadow_conversion = 0
 
-/obj/item/organ/internal/heart/shadow_ritual/third/on_remove(mob/living/carbon/heart_owner)
+/obj/item/organ/internal/heart/shadow_ritual/third/on_mob_remove(mob/living/carbon/heart_owner)
 	..()
 	respawn_progress = 0
 

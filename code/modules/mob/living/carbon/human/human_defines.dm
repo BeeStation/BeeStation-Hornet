@@ -8,6 +8,7 @@
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
 	blocks_emissive = FALSE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 
 	///Hair color
 	var/hair_color = "#000000"

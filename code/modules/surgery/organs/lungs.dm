@@ -82,7 +82,7 @@
 	. = ..()
 	populate_gas_info()
 
-/obj/item/organ/internal/lungs/Insert(mob/living/carbon/M, special, drop_if_replaced, pref_load)
+/obj/item/organ/internal/lungs/Insert(mob/living/carbon/M, special = FALSE, movement_flags)
 	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
 	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
 	var/new_owner = QDELETED(owner) || owner != M
@@ -92,9 +92,9 @@
 	if(new_owner)
 		RegisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
 
-/obj/item/organ/internal/lungs/Remove(mob/living/carbon/M, special, pref_load)
+/obj/item/organ/internal/lungs/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	UnregisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH))
+	UnregisterSignal(organ_owner, SIGNAL_ADDTRAIT(TRAIT_NOBREATH))
 	LAZYNULL(thrown_alerts)
 
 /obj/item/organ/internal/lungs/proc/populate_gas_info()
@@ -379,8 +379,7 @@
 	name = "cybernetic lungs"
 	desc = "A cybernetic version of the lungs found in traditional humanoid entities. Allows for greater intakes of oxygen than organic lungs, requiring slightly less pressure."
 	icon_state = "lungs-c"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = 1.1 * STANDARD_ORGAN_THRESHOLD
 	safe_breath_min = 13
 	safe_breath_max = 100

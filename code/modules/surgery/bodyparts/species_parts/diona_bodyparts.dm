@@ -45,6 +45,7 @@
 	icon_state = "diona_l_leg"
 	limb_id = SPECIES_DIONA
 	is_pseudopart = TRUE
+	speed_modifier = 0.6 // Dionae are slow.
 
 /obj/item/bodypart/leg/right/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
@@ -52,3 +53,4 @@
 	icon_state = "diona_r_leg"
 	limb_id = SPECIES_DIONA
 	is_pseudopart = TRUE
+	speed_modifier = 0.6 // Dionae are slow.

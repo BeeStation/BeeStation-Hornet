@@ -28,7 +28,7 @@
 				target_human.dna.features["ears"] = "Cat"
 		if(target_human.dna.features["ears"] == "Cat")
 			var/obj/item/organ/internal/ears/cat/ears = new
-			ears.Insert(target_human, drop_if_replaced = FALSE)
+			ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
 		else
 			mutantears = /obj/item/organ/internal/ears
 	return ..()
