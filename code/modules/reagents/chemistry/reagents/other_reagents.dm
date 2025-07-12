@@ -1386,6 +1386,8 @@
 		if(!warned && current_cycle >= 21)
 			M.visible_message(span_danger("Your body aches!"))
 			warned = TRUE
+	
+	return TRUE
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
