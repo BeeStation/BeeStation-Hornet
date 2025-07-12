@@ -1236,7 +1236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_FAKEDEATH,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_UNDERWEAR
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH
 	)
 	species_language_holder = /datum/language_holder/golem/bone

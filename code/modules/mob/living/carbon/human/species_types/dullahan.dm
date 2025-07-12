@@ -6,10 +6,10 @@
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
 		TRAIT_NONECRODISEASE,
+		TRAIT_USES_SKINTONES,
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutant_bodyparts = list("wings" = "None", "body_size" = "Normal")
-	use_skintones = TRUE
 	mutantbrain = /obj/item/organ/internal/brain/dullahan
 	mutanteyes = /obj/item/organ/internal/eyes/dullahan
 	mutanttongue = /obj/item/organ/internal/tongue/dullahan

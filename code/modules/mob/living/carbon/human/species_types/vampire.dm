@@ -4,13 +4,13 @@
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
-		TRAIT_DRINKSBLOOD
+		TRAIT_DRINKSBLOOD,
+		TRAIT_USES_SKINTONES
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutant_bodyparts = list("tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	exotic_bloodtype = "U"
-	use_skintones = TRUE
 	mutantheart = /obj/item/organ/internal/heart/vampire
 	mutanttongue = /obj/item/organ/internal/tongue/vampire
 	mutantstomach = null

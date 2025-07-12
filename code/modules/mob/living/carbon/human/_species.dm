@@ -30,7 +30,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	///Never, Optional, or Forced digi legs?
 	var/digitigrade_customization = DIGITIGRADE_NEVER
-	var/use_skintones = FALSE	// does it use skintones or not? (spoiler alert this is only used by humans)
 	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
 	var/datum/reagent/exotic_blood
 	var/exotic_bloodtype = "" //If your race uses a non standard bloodtype (A+, O-, AB-, etc)

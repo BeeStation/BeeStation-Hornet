@@ -35,7 +35,7 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			cachedcolor = H.skin_tone
 		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			cachedcolor	= H.dna.features["mcolor"]
@@ -52,7 +52,7 @@ BONUS
 			return
 		switch(A.stage)
 			if(5)
-				if(H.dna.species.use_skintones)
+				if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 					H.skin_tone = "albino"
 				else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 					H.dna.features["mcolor"] = "EEE" //pure white.
@@ -65,7 +65,7 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			H.skin_tone = cachedcolor
 		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			H.dna.features["mcolor"] = cachedcolor
@@ -107,7 +107,7 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			cachedcolor = H.skin_tone
 		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			cachedcolor	= H.dna.features["mcolor"]
@@ -124,7 +124,7 @@ BONUS
 			return
 		switch(A.stage)
 			if(5)
-				if(H.dna.species.use_skintones)
+				if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 					H.skin_tone = "african2"
 				else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 					H.dna.features["mcolor"] = "000" //pure black.
@@ -137,7 +137,7 @@ BONUS
 	var/mob/living/M = A.affected_mob
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species.use_skintones)
+		if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 			H.skin_tone = cachedcolor
 		else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
 			H.dna.features["mcolor"] = cachedcolor

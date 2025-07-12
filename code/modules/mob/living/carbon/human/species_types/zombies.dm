@@ -4,7 +4,6 @@
 	// 1spooky
 	name = "High-Functioning Zombie"
 	id = SPECIES_ZOMBIE
-	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/internal/tongue/zombie
 	inherent_traits = list(

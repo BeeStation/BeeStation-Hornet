@@ -11,7 +11,10 @@
 		/obj/item/organ/external/tail/cat = "Cat",
 	)
 	mutanttongue = /obj/item/organ/internal/tongue/cat
-	inherent_traits = list(TRAIT_CAN_USE_FLIGHT_POTION)
+	inherent_traits = list(
+		TRAIT_CAN_USE_FLIGHT_POTION,
+		TRAIT_USES_SKINTONES,
+		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid

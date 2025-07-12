@@ -263,7 +263,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_NONECRODISEASE
 	) //Made of mutated cells
-	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
 	mutantbrain = /obj/item/organ/internal/brain/tumor

@@ -420,7 +420,7 @@
 	if(ishuman(M))
 		if(method == PATCH || method == VAPOR)
 			var/mob/living/carbon/human/N = M
-			if(N.dna.species.id == SPECIES_HUMAN)
+			if(HAS_TRAIT(N, TRAIT_USES_SKINTONES))
 				switch(N.skin_tone)
 					if("african1")
 						N.skin_tone = "african2"
@@ -446,7 +446,7 @@
 						N.skin_tone = "caucasian1"
 
 			//take current alien color and darken it slightly
-			if(HAS_TRAIT(N, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(N, TRAIT_FIXED_MUTANT_COLORS))
+			else if(HAS_TRAIT(N, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(N, TRAIT_FIXED_MUTANT_COLORS))
 				var/newcolor = ""
 				var/string = N.dna.features["mcolor"]
 				var/len = length(string)
@@ -493,7 +493,7 @@
 		var/obj/item/bodypart/head/head = N.get_bodypart(BODY_ZONE_HEAD)
 		if(head)
 			head.head_flags |= HEAD_HAIR //No hair? No problem!
-		if(N.dna.species.use_skintones)
+		if(HAS_TRAIT(N, TRAIT_USES_SKINTONES))
 			N.skin_tone = "orange"
 		else if(HAS_TRAIT(N, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(N, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
 			N.dna.features["mcolor"] = "#ff8800"
