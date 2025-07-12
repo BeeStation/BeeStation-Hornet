@@ -1373,6 +1373,7 @@
 	return ..()
 
 /datum/reagent/nitrium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
 
 	//Stopped huffing and wearing off, but not all gone. No more stamina modifiers. Takes ~20 more seconds to fully metabolize
 	if(feeling_high && M.reagents.get_reagent_amount(/datum/reagent/nitrium) <= 2)
@@ -1385,7 +1386,6 @@
 		if(!warned && current_cycle >= 21)
 			M.visible_message(span_danger("Your body aches!"))
 			warned = TRUE
-	return ..()
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
