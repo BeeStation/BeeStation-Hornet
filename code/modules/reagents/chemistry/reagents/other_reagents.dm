@@ -1351,6 +1351,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	var/warned = FALSE
+	var/feeling_high = FALSE
 
 
 /datum/reagent/nitrium/on_mob_metabolize(mob/living/L)
@@ -1361,6 +1362,7 @@
 	ADD_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	L.visible_message(span_warning("You feel like nothing can stop you!"))
+	feeling_high = TRUE
 
 /datum/reagent/nitrium/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
@@ -1368,14 +1370,21 @@
 	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
-	L.visible_message(span_warning("You can feel your brief high wearing off"))
 	return ..()
 
 /datum/reagent/nitrium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustStaminaLoss((clamp((-20 + current_cycle), -5, 5)) * REM * delta_time, 0)
-	if(!warned && current_cycle >= 21)
-		M.visible_message(span_danger("Your body aches!"))
-		warned = TRUE
+
+	//Stopped huffing and wearing off, but not all gone. No more stamina modifiers. Takes ~20 more seconds to fully metabolize
+	if(feeling_high && reagents.get_reagent_amount(/datum/reagent/water/nitrium) <= 2)
+		feeling_high = FALSE
+		L.visible_message(span_warning("You can feel your high starting to wear off"))
+
+	//Whether they go back to huffing too soon, or they have just started huffing, this calculation will handle stamina restoration and exhaustion both.
+	else
+		M.adjustStaminaLoss((clamp((-20 + current_cycle), -5, 5)) * REM * delta_time, 0)
+		if(!warned && current_cycle >= 21)
+			M.visible_message(span_danger("Your body aches!"))
+			warned = TRUE
 	return ..()
 
 /////////////////////////Colorful Powder////////////////////////////
