@@ -275,7 +275,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE, include_external_name = TRUE)
+/proc/key_name(whom, include_link = null, include_name = TRUE, is_mentor_pm=FALSE, include_external_name = TRUE)
 	var/mob/M
 	var/client/C
 	var/key
@@ -332,11 +332,17 @@
 	if(key)
 		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, C.findStealthKey())]'>"
+				if(is_mentor_pm)
+					. += "<a href='byond://?[HREF_TYPE(mentor_msg)][HREF_PARAM(mentor_msg::msg_target, C.findStealthKey())]'>"
+				else
+					. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, C.findStealthKey())]'>"
 			. += "Administrator"
 		else
 			if(include_link)
-				. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, ckey)]'>"
+				if(is_mentor_pm)
+					. += "<a href='byond://?[HREF_TYPE(mentor_msg)][HREF_PARAM(mentor_msg::msg_target, ckey)]'>"
+				else
+					. += "<a href='byond://?[HREF_TYPE(admin_pm)][HREF_PARAM(admin_pm::msg_target, ckey)]'>"
 			. += key
 		if(!C)
 			. += "\[DC\]"
