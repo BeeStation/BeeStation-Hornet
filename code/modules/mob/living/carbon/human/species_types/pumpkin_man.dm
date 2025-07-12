@@ -36,7 +36,7 @@
 		return TRUE
 	return ..()
 
-/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	//They can't speak!
 	//Register signal for carving

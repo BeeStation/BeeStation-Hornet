@@ -154,33 +154,14 @@ export const hair_color: Feature<string> = {
   },
 };
 
-export const hair_gradient: FeatureChoiced = {
+export const gradient_style: FeatureChoiced = {
   name: 'Hair gradient',
   component: FeatureButtonedDropdownInput,
 };
 
-export const hair_gradient_color: Feature<string> = {
+export const gradient_color: Feature<string> = {
   name: 'Hair gradient color',
-  small_supplemental: false,
-  predictable: false,
-  component: (props: FeatureValueProps<string>) => {
-    const { handleSetValue, value, featureId, act } = props;
-
-    return (
-      <StandardizedPalette
-        choices={Object.keys(hairPresets)}
-        displayNames={hairPresets}
-        onSetValue={handleSetValue}
-        value={value}
-        hex_values
-        allow_custom
-        featureId={featureId}
-        act={act}
-        maxWidth="385px"
-        includeHex
-      />
-    );
-  },
+  component: FeatureColorInput,
 };
 
 export const feature_lizard_legs: FeatureChoiced = {

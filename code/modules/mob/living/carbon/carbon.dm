@@ -1244,23 +1244,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		update_worn_gloves()
 		. = TRUE
 
-/mob/living/carbon/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	var/opposite_gender = gender != ngender
-	. = ..()
-	if(!.)
-		return
-	if(dna && opposite_gender)
-		if(ngender == MALE || ngender == FEMALE)
-			dna.features["body_model"] = ngender
-			if(!silent)
-				var/adj = ngender == MALE ? "masculine" : "feminine"
-				visible_message(span_boldnotice("[src] suddenly looks more [adj]!"), span_boldwarning("You suddenly feel more [adj]!"))
-		else if(ngender == NEUTER)
-			dna.features["body_model"] = MALE
-	if(update_icon)
-		update_body()
-		update_body_parts(TRUE)
-
 /// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
 /mob/living/carbon/proc/set_handcuffed(new_value)
 	if(handcuffed == new_value)

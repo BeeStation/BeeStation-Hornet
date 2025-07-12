@@ -38,7 +38,7 @@
 	//Reference to psychic highlight action
 	var/datum/action/item_action/organ_action/psychic_highlight/PH
 
-/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	PH = locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions
 	ADD_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)

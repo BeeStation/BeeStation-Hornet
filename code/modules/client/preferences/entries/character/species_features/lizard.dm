@@ -109,7 +109,8 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Snout"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "snout"
+	//relevant_mutant_bodypart = "snout"
+	relevant_external_organ = /obj/item/organ/external/snout
 
 /datum/preference/choiced/lizard_snout/init_possible_values()
 	return assoc_to_keys_features(GLOB.snouts_list)
@@ -125,7 +126,8 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Spines"
-	relevant_mutant_bodypart = "spines"
+	//relevant_mutant_bodypart = "spines"
+	relevant_external_organ = /obj/item/organ/external/spines
 
 /datum/preference/choiced/lizard_spines/init_possible_values()
 	return assoc_to_keys_features(GLOB.spines_list)

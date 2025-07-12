@@ -13,15 +13,17 @@
 /**
  * Randomizes everything about a human, including DNA and name
  */
-/proc/randomize_human(mob/living/carbon/human/human, randomize_mutations = FALSE)
+/proc/randomize_human(mob/living/carbon/human/human, randomize_mutations = FALSE, update_body = TRUE)
 	human.gender = human.dna.species.sexes ? pick(MALE, FEMALE, PLURAL, NEUTER) : PLURAL
-	//human.physique = human.gender
+	human.physique = human.gender
 	human.real_name = human.dna?.species.random_name(human.gender) || random_unique_name(human.gender)
 	human.name = human.get_visible_name()
 	human.set_hairstyle(random_hairstyle(human.gender), update = FALSE)
 	human.set_facial_hairstyle(random_facial_hairstyle(human.gender), update = FALSE)
-	human.set_haircolor("#[random_color()]", update = FALSE)
-	human.set_facial_haircolor(human.hair_color, update = FALSE)
+	// No underwear generation handled here
+	var/picked_color = random_hair_color()
+	human.set_haircolor(picked_color, update = FALSE)
+	human.set_facial_haircolor(picked_color, update = FALSE)
 	human.eye_color = random_eye_color()
 	human.skin_tone = random_skin_tone()
 
@@ -31,4 +33,5 @@
 	// Snowflake stuff (ethereals)
 
 	human.dna.species.spec_updatehealth(human)
-	human.updateappearance(mutcolor_update = TRUE)
+	if(update_body)
+		human.updateappearance(mutcolor_update = TRUE)

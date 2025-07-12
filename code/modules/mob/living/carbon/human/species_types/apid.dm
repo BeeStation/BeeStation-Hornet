@@ -86,7 +86,7 @@
 	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
 
-/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
+/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
 

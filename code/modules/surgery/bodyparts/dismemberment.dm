@@ -138,8 +138,15 @@
 	head.tongue = src
 	..()
 
-/obj/item/organ/internal/brain/on_bodypart_insert(obj/item/bodypart/head/head)
-	head.brain = src
+/obj/item/organ/internal/brain/on_bodypart_insert(obj/item/bodypart/bodypart)
+	if(istype(bodypart, /obj/item/bodypart/head))
+		var/obj/item/bodypart/head/head = bodypart
+		head.brain = src
+	//else if(istype(bodypart, /obj/item/bodypart/chest))
+		// For IPCs, who have positronic brains in the chest
+		// The chest doesn't have a brain var, but that's okay
+		// The organ is still stored in the bodypart's contents
+
 	..()
 
 /obj/item/organ/internal/eyes/on_bodypart_remove(obj/item/bodypart/head/head)
@@ -154,8 +161,10 @@
 	head.tongue = null
 	..()
 
-/obj/item/organ/internal/brain/on_bodypart_remove(obj/item/bodypart/head/head)
-	head.brain = null
+/obj/item/organ/internal/brain/on_bodypart_remove(obj/item/bodypart/bodypart)
+	if(istype(bodypart, /obj/item/bodypart/head))
+		var/obj/item/bodypart/head/head = bodypart
+		head.brain = null
 	..()
 
 /obj/item/bodypart/chest/drop_limb(special, dismembered, move_to_floor = TRUE)

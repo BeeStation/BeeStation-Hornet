@@ -46,7 +46,7 @@
 	)
 	examine_limb_id = SPECIES_HUMAN
 
-/datum/species/android/on_species_gain(mob/living/carbon/C)
+/datum/species/android/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
 	C.set_safe_hunger_level()

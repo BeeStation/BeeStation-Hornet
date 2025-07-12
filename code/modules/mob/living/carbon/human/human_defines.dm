@@ -30,6 +30,9 @@
 
 	var/age = 30 //Player's age
 
+	/// Which body type to use
+	var/physique = MALE
+
 	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
 	var/underwear = "Nude" //Which underwear the player wants
 	var/underwear_color = "#000000"

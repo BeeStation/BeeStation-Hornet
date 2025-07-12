@@ -292,14 +292,18 @@
 
 
 /datum/antagonist/changeling/proc/create_profile(mob/living/carbon/human/H, protect = 0)
-	var/datum/changelingprofile/prof = new
+	var/datum/changelingprofile/prof = new()
 
 	H.dna.real_name = H.real_name //Set this again, just to be sure that it's properly set.
+
 	var/datum/dna/new_dna = new H.dna.type
 	H.dna.copy_dna(new_dna)
 	prof.dna = new_dna
 	prof.name = H.real_name
 	prof.protected = protect
+
+	prof.age = H.age
+	prof.physique = H.physique
 
 	prof.underwear = H.underwear
 	prof.undershirt = H.undershirt
@@ -536,31 +540,128 @@
 	C.updateappearance(mutcolor_update = TRUE)
 	C.domutcheck()
 
+/datum/antagonist/changeling/proc/transform(mob/living/carbon/human/user, datum/changelingprofile/chosen_prof)
+	var/static/list/slot2slot = list(
+		"head" = ITEM_SLOT_HEAD,
+		"wear_mask" = ITEM_SLOT_MASK,
+		"neck" = ITEM_SLOT_NECK,
+		"back" = ITEM_SLOT_BACK,
+		"wear_suit" = ITEM_SLOT_OCLOTHING,
+		"w_uniform" = ITEM_SLOT_ICLOTHING,
+		"shoes" = ITEM_SLOT_FEET,
+		"belt" = ITEM_SLOT_BELT,
+		"gloves" = ITEM_SLOT_GLOVES,
+		"glasses" = ITEM_SLOT_EYES,
+		"ears" = ITEM_SLOT_EARS,
+		"wear_id" = ITEM_SLOT_ID,
+		"s_store" = ITEM_SLOT_SUITSTORE,
+	)
+
+	var/datum/dna/chosen_dna = chosen_prof.dna
+	user.real_name = chosen_prof.name
+	user.underwear = chosen_prof.underwear
+	user.underwear_color = chosen_prof.underwear_color
+	user.undershirt = chosen_prof.undershirt
+	user.socks = chosen_prof.socks
+	user.age = chosen_prof.age
+	user.physique = chosen_prof.physique
+
+	chosen_dna.transfer_identity(user, 1)
+
+	for(var/obj/item/bodypart/limb as anything in user.bodyparts)
+		limb.update_limb(is_creating = TRUE)
+
+	user.updateappearance(mutcolor_update=1)
+	user.domutcheck()
+
+	//vars hackery. not pretty, but better than the alternative.
+	for(var/slot in slot2type)
+		if(istype(user.vars[slot], slot2type[slot]) && !(chosen_prof.exists_list[slot])) //remove unnecessary flesh items
+			qdel(user.vars[slot])
+			continue
+
+		if((user.vars[slot] && !istype(user.vars[slot], slot2type[slot])) || !(chosen_prof.exists_list[slot]))
+			continue
+
+		if(istype(user.vars[slot], slot2type[slot]) && slot == "wear_id") //always remove old flesh IDs, so they get properly updated
+			qdel(user.vars[slot])
+
+		var/obj/item/C
+		var/equip = 0
+		if(!user.vars[slot])
+			var/thetype = slot2type[slot]
+			equip = 1
+			C = new thetype(user)
+
+		else if(istype(user.vars[slot], slot2type[slot]))
+			C = user.vars[slot]
+
+		C.appearance = chosen_prof.appearance_list[slot]
+		C.name = chosen_prof.name_list[slot]
+		C.flags_cover = chosen_prof.flags_cover_list[slot]
+		C.lefthand_file = chosen_prof.lefthand_file_list[slot]
+		C.righthand_file = chosen_prof.righthand_file_list[slot]
+		C.item_state = chosen_prof.item_state_list[slot]
+		C.worn_icon = chosen_prof.worn_icon_list[slot]
+		C.worn_icon_state = chosen_prof.worn_icon_state_list[slot]
+
+		if(istype(C, /obj/item/card/id/changeling) && chosen_prof.id_job_name)
+			var/obj/item/card/id/changeling/flesh_id = C
+			flesh_id.assignment = chosen_prof.id_job_name
+			flesh_id.hud_state = chosen_prof.id_hud_state
+
+		if(equip)
+			user.equip_to_slot_or_del(C, slot2slot[slot])
+			if(!QDELETED(C))
+				ADD_TRAIT(C, TRAIT_NODROP, CHANGELING_TRAIT)
+
+	user.regenerate_icons()
+	user.name = user.get_visible_name()
+
 // Profile
 
 /datum/changelingprofile
+	/// The name of the profile / the name of whoever this profile source.
 	var/name = "a bug"
-
-	var/protected = 0
-
-	var/datum/dna/dna = null
-	var/list/name_list = list() //associative list of slotname = itemname
+	/// Whether this profile is protected - if TRUE, it cannot be removed from a changeling's profiles without force
+	var/protected = FALSE
+	/// The DNA datum associated with our profile from the profile source
+	var/datum/dna/dna
+	/// Assoc list of item slot to item name - stores the name of every item of this profile.
+	var/list/name_list = list()
+	/// Assoc list of item slot to apperance - stores the appearance of every item of this profile.
 	var/list/appearance_list = list()
+	/// Assoc list of item slot to flag - stores the flags_cover of every item of this profile.
 	var/list/flags_cover_list = list()
+	/// Assoc list of item slot to boolean - stores whether an item in that slot exists
 	var/list/exists_list = list()
-	var/list/item_state_list = list()
+	/// Assoc list of item slot to file - stores the lefthand file of the item in that slot
 	var/list/lefthand_file_list = list()
+	/// Assoc list of item slot to file - stores the righthand file of the item in that slot
 	var/list/righthand_file_list = list()
+	/// Assoc list of item slot to file - stores the inhand file of the item in that slot
+	var/list/item_state_list = list()
+	/// Assoc list of item slot to file - stores the worn icon file of the item in that slot
 	var/list/worn_icon_list = list()
+	/// Assoc list of item slot to string - stores the worn icon state of the item in that slot
 	var/list/worn_icon_state_list = list()
-
+	/// The underwear worn by the profile source
 	var/underwear
+	/// The colour of the underwear worn by the profile source
+	var/underwear_color
+	/// The undershirt worn by the profile source
 	var/undershirt
+	/// The socks worn by the profile source
 	var/socks
 
 	/// ID HUD icon associated with the profile
 	var/id_job_name
 	var/id_hud_state
+
+	/// The age of the profile source.
+	var/age
+	/// The body type of the profile source.
+	var/physique
 
 /datum/changelingprofile/Destroy()
 	qdel(dna)
@@ -581,10 +682,13 @@
 	newprofile.worn_icon_list = worn_icon_list.Copy()
 	newprofile.worn_icon_state_list = worn_icon_state_list.Copy()
 	newprofile.underwear = underwear
+	newprofile.underwear_color = underwear_color
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
 	newprofile.id_job_name = id_job_name
 	newprofile.id_hud_state = id_hud_state
+	newprofile.age = age
+	newprofile.physique = physique
 
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"

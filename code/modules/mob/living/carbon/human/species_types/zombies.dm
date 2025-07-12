@@ -158,7 +158,7 @@
 	if(infection)
 		qdel(infection)
 
-/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 
 	// Deal with the source of this zombie corruption

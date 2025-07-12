@@ -184,11 +184,13 @@
 		if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 			ContactContractDisease(D)
 
-	for(var/datum/surgery/S in surgeries)
-		if(body_position == LYING_DOWN || !S.lying_required)
-			if(!user.combat_mode)
-				if(S.next_step(user, modifiers))
-					return TRUE
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(body_position != LYING_DOWN || operations.lying_required)
+			continue
+		if(operations.next_step(user, modifiers))
+			return TRUE
 
 	return FALSE
 

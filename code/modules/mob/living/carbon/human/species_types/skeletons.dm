@@ -44,7 +44,7 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/skeleton,
 	)
 
-/datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/skeleton/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.set_safe_hunger_level()
 

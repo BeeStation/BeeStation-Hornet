@@ -49,7 +49,7 @@
 		regenerate_limbs.Remove(C)
 	..()
 
-/datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		regenerate_limbs = new

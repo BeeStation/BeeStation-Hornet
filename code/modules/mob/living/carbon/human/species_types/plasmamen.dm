@@ -48,7 +48,7 @@
 
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 
-/datum/species/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.set_safe_hunger_level()
 

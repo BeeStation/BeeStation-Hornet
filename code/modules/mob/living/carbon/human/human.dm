@@ -461,7 +461,7 @@
 
 //Used for new human mobs created by cloning/goleming/podding
 /mob/living/carbon/human/proc/set_cloned_appearance()
-	if(dna.features["body_model"] == MALE)
+	if(gender == MALE) //Gender instead of physique, because don't want to force facial hair on non-males
 		set_facial_hairstyle("Full Beard", update = FALSE)
 	else
 		set_facial_hairstyle("Shaved", update = FALSE)

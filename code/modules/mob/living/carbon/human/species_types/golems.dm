@@ -92,7 +92,7 @@
 	special_names = null
 	examine_limb_id = SPECIES_GOLEM
 
-/datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE)
 
@@ -146,7 +146,7 @@
 		H.adjust_fire_stacks(0.5 * delta_time)
 	..()
 
-/datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		ignite = new
@@ -217,7 +217,7 @@
 	special_names = list("Surfer", "Chariot", "Lining")
 	examine_limb_id = SPECIES_GOLEM
 
-/datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
 
@@ -283,7 +283,7 @@
 /datum/species/golem/plasteel/negates_gravity(mob/living/carbon/human/H)
 	return TRUE
 
-/datum/species/golem/plasteel/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/plasteel/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	ADD_TRAIT(C, TRAIT_NOMOBSWAP, SPECIES_TRAIT) //THE WALL THE WALL THE WALL
 
@@ -302,7 +302,7 @@
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 
-/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.weather_immunities |= "ash"
 
@@ -321,7 +321,7 @@
 	prefix = "Plastitanium"
 	special_names = null
 
-/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.weather_immunities |= "lava"
 	C.weather_immunities |= "ash"
@@ -557,7 +557,7 @@
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		unstable_teleport = new
@@ -635,7 +635,7 @@
 	/// Same as the uranium golem. I'm pretty sure this is vestigial.
 	var/active = FALSE
 
-/datum/species/golem/bananium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/bananium/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	COOLDOWN_START(src, honkooldown, 0)
 	COOLDOWN_START(src, banana_cooldown, banana_delay)
@@ -732,7 +732,7 @@
 	var/golem_name = "[edgy_first_name] [edgy_last_name]"
 	return golem_name
 
-/datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	// Create our species specific spells here.
 	// Note we link them to the mob, not the mind,
@@ -798,12 +798,12 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/clock
 	)
 
-/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
+/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
-	RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/species/golem/clockwork/on_species_loss(mob/living/carbon/human/H)
-	UnregisterSignal(H, COMSIG_MOB_SAY)
+/datum/species/golem/clockwork/on_species_loss(mob/living/carbon/C)
+	UnregisterSignal(C, COMSIG_MOB_SAY)
 	. = ..()
 
 /datum/species/golem/clockwork/proc/handle_speech(datum/source, list/speech_args)
@@ -863,7 +863,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cloth
 	)
 
-/datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
 
@@ -1023,7 +1023,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	fixed_mut_color = "fffa"
 	info_text = "As a " + span_danger("Plastic Golem") + ", you are capable of ventcrawling and passing through plastic flaps as long as you are naked."
 
-/datum/species/golem/plastic/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/plastic/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.ventcrawler = VENTCRAWLER_NUDE
 
@@ -1252,7 +1252,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/bone
 	)
 
-/datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		bonechill = new
@@ -1358,7 +1358,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	new /obj/item/food/grown/carrot(get_turf(H))
 	qdel(H)
 
-/datum/species/golem/snow/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/golem/snow/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	ADD_TRAIT(grant_to, TRAIT_SNOWSTORM_IMMUNE, SPECIES_TRAIT)
 

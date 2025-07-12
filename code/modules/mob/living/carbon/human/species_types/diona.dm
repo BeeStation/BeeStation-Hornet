@@ -158,25 +158,25 @@
 	QDEL_NULL(H)
 	return
 
-/datum/species/diona/on_species_gain(mob/living/carbon/human/H)
+/datum/species/diona/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	split_ability = new
-	split_ability.Grant(H)
+	split_ability.Grant(C)
 	partition_ability = new
-	partition_ability.Grant(H)
-	ADD_TRAIT(H, TRAIT_MOBILE, "diona")
+	partition_ability.Grant(C)
+	ADD_TRAIT(C, TRAIT_MOBILE, "diona")
 
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
+/datum/species/diona/on_species_loss(mob/living/carbon/C, datum/species/new_species, pref_load)
 	. = ..()
-	split_ability.Remove(H)
+	split_ability.Remove(C)
 	QDEL_NULL(split_ability)
-	partition_ability.Remove(H)
+	partition_ability.Remove(C)
 	QDEL_NULL(partition_ability)
-	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
+	REMOVE_TRAIT(C, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
-	for(var/status_effect as anything in H.status_effects)
+	for(var/status_effect as anything in C.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
-			H.remove_status_effect(/datum/status_effect/planthealing)
+			C.remove_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.diona_names)]"

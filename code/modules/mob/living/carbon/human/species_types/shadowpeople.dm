@@ -434,7 +434,7 @@
 /datum/species/shadow/blessed/check_roundstart_eligible()
 	return FALSE
 
-/datum/species/shadow/blessed/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/shadow/blessed/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
 		change_hearts_ritual(C)

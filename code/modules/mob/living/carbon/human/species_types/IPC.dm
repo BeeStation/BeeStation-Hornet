@@ -77,7 +77,7 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
 
-/datum/species/ipc/on_species_gain(mob/living/carbon/C)
+/datum/species/ipc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	if(ishuman(C) && !change_screen)
 		change_screen = new
