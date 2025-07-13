@@ -7804,16 +7804,11 @@
 /area/science/server)
 "bCK" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard{
-	pixel_y = 5
-	},
 /obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/paper{
-	pixel_y = 5
-	},
-/obj/item/pen/red{
-	pixel_y = 5
+/obj/item/reagent_containers/cup/glass/bottle/champagne{
+	pixel_x = -6;
+	pixel_y = 12
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 6
@@ -9036,7 +9031,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -9051,6 +9045,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "bQS" = (
@@ -9489,6 +9484,9 @@
 /obj/machinery/light/directional/east,
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/railing/perspective/wood/corner{
+	dir = 1
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/hop)
@@ -16823,17 +16821,32 @@
 /area/security/brig/medbay)
 "dqh" = (
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses/advanced/big{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/structure/bookcase,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/structure/railing/perspective/wood{
 	dir = 8
+	},
+/obj/item/clothing/glasses/sunglasses/advanced/big{
+	pixel_x = 1;
+	pixel_y = 16
+	},
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/sopscience,
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/book/manual/wiki/sopengineering,
+/obj/item/book/manual/wiki/sopsecurity,
+/obj/item/book/manual/wiki/sopservice{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/item/book/manual/wiki/sopcommand{
+	pixel_y = 7
+	},
+/obj/item/book/manual/wiki/sopsupply{
+	pixel_x = -6;
+	pixel_y = 9
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
@@ -22855,7 +22868,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -22868,6 +22880,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "eIJ" = (
@@ -23438,7 +23451,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -23454,6 +23466,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "eOg" = (
@@ -25043,6 +25056,7 @@
 /area/hydroponics/garden)
 "fgE" = (
 /obj/structure/filingcabinet/chestdrawer/wheeled,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
@@ -33424,7 +33438,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/structure/railing/perspective/black{
 	dir = 8
 	},
@@ -34075,6 +34089,7 @@
 /area/quartermaster/exploration_prep)
 "gTl" = (
 /obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -41535,6 +41550,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/hop)
@@ -50304,10 +50322,10 @@
 	dir = 1;
 	alpha = 200
 	},
-/obj/structure/window/reinforced/corner{
+/obj/structure/platform/warning/corner{
 	dir = 8
 	},
-/obj/structure/platform/warning/corner{
+/obj/structure/railing/perspective/gray/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -63348,7 +63366,6 @@
 /turf/closed/wall,
 /area/quartermaster/qm_bedroom)
 "mQK" = (
-/obj/machinery/lapvend,
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "mQO" = (
@@ -80754,6 +80771,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/hop)
 "qrw" = (
@@ -82748,7 +82768,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
 	},
@@ -82760,6 +82779,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "qMz" = (
@@ -87314,8 +87334,7 @@
 	name = "emergency supermatter ejection pad"
 	},
 /obj/machinery/power/supermatter_crystal/engine{
-	moveable = 1;
-	anchored = 0
+	moveable = 1
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -93702,7 +93721,7 @@
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
 "tci" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 9
 	},
@@ -99011,7 +99030,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark/filled/line,
 /obj/effect/turf_decal/trimline/dark/filled/mid_joiner,
-/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/trimline/yellow/mid_joiner{
 	dir = 1
@@ -99024,6 +99042,7 @@
 	alpha = 200
 	},
 /obj/structure/platform/warning,
+/obj/structure/railing/perspective/gray,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "ufc" = (
@@ -99186,22 +99205,6 @@
 	},
 /obj/machinery/camera/directional/north,
 /obj/machinery/digital_clock/directional/west,
-/obj/item/book/manual/wiki/sopsupply{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/book/manual/wiki/sopcommand{
-	pixel_y = 7
-	},
-/obj/item/book/manual/wiki/sopservice{
-	pixel_y = 10;
-	pixel_x = 6
-	},
-/obj/item/book/manual/wiki/sopsecurity,
-/obj/item/book/manual/wiki/sopengineering,
-/obj/item/book/manual/wiki/sopmedical,
-/obj/item/book/manual/wiki/sopscience,
-/obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "ufX" = (
@@ -106602,10 +106605,19 @@
 	pixel_x = 8;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/glass/bottle/champagne{
-	pixel_x = -6;
-	pixel_y = 12
+/obj/item/clipboard{
+	pixel_y = 5;
+	pixel_x = -6
 	},
+/obj/item/paper{
+	pixel_y = 5;
+	pixel_x = -6
+	},
+/obj/item/pen/red{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
@@ -106660,6 +106672,18 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark/textured_half,
 /area/medical/chemistry)
+"vDU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/railing/perspective/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "vDW" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 9
@@ -108775,8 +108799,8 @@
 	dir = 1;
 	alpha = 200
 	},
-/obj/structure/window/reinforced/corner,
 /obj/structure/platform/warning/corner,
+/obj/structure/railing/perspective/gray/corner,
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "vYT" = (
@@ -116519,6 +116543,9 @@
 /obj/machinery/status_display/evac/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = -12
 	},
 /obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = -12
@@ -138861,7 +138888,7 @@ twv
 uOP
 otx
 cko
-unN
+vDU
 tXR
 eYi
 eYi

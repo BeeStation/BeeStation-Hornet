@@ -481,7 +481,7 @@
 //Stabilized effects start below.
 /datum/status_effect/stabilized/grey
 	id = "stabilizedgrey"
-	colour = "grey"
+	colour = SLIME_TYPE_GREY
 
 /datum/status_effect/stabilized/grey/tick()
 	for(var/mob/living/simple_animal/slime/S in viewers(1, owner))
@@ -492,7 +492,7 @@
 
 /datum/status_effect/stabilized/orange
 	id = "stabilizedorange"
-	colour = "orange"
+	colour = SLIME_TYPE_ORANGE
 
 /datum/status_effect/stabilized/orange/tick()
 	var/body_temperature_difference = owner.get_body_temp_normal(apply_change=FALSE) - owner.bodytemperature
@@ -504,7 +504,7 @@
 
 /datum/status_effect/stabilized/purple
 	id = "stabilizedpurple"
-	colour = "purple"
+	colour = SLIME_TYPE_PURPLE
 
 /datum/status_effect/stabilized/purple/tick()
 	var/is_healing = FALSE
@@ -526,7 +526,7 @@
 
 /datum/status_effect/stabilized/blue
 	id = "stabilizedblue"
-	colour = "blue"
+	colour = SLIME_TYPE_BLUE
 
 /datum/status_effect/stabilized/blue/on_apply()
 	ADD_TRAIT(owner, TRAIT_NOSLIPWATER, "slimestatus")
@@ -537,7 +537,7 @@
 
 /datum/status_effect/stabilized/metal
 	id = "stabilizedmetal"
-	colour = "metal"
+	colour = SLIME_TYPE_METAL
 	var/cooldown = 30
 	var/max_cooldown = 30
 
@@ -560,7 +560,7 @@
 
 /datum/status_effect/stabilized/yellow
 	id = "stabilizedyellow"
-	colour = "yellow"
+	colour = SLIME_TYPE_YELLOW
 	var/cooldown = 10
 	var/max_cooldown = 10
 	examine_text = span_warning("Nearby electronics seem just a little more charged wherever SUBJECTPRONOUN goes.")
@@ -589,7 +589,7 @@
 
 /datum/status_effect/stabilized/darkpurple
 	id = "stabilizeddarkpurple"
-	colour = "dark purple"
+	colour = SLIME_TYPE_DARK_PURPLE
 	var/obj/item/hothands/fire
 	examine_text = span_notice("Their fingertips burn brightly!")
 
@@ -613,7 +613,7 @@
 
 /datum/status_effect/stabilized/darkblue
 	id = "stabilizeddarkblue"
-	colour = "dark blue"
+	colour = SLIME_TYPE_DARK_BLUE
 
 /datum/status_effect/stabilized/darkblue/tick()
 	if(owner.fire_stacks > 0 && prob(80))
@@ -645,7 +645,7 @@
 
 /datum/status_effect/stabilized/silver
 	id = "stabilizedsilver"
-	colour = "silver"
+	colour = SLIME_TYPE_SILVER
 
 /datum/status_effect/stabilized/silver/on_apply()
 	if(ishuman(owner))
@@ -671,7 +671,7 @@
 
 /datum/status_effect/stabilized/bluespace
 	id = "stabilizedbluespace"
-	colour = "bluespace"
+	colour = SLIME_TYPE_BLUESPACE
 	alert_type = /atom/movable/screen/alert/status_effect/bluespaceslime
 	var/healthcheck
 
@@ -701,7 +701,7 @@
 
 /datum/status_effect/stabilized/sepia
 	id = "stabilizedsepia"
-	colour = "sepia"
+	colour = SLIME_TYPE_SEPIA
 	var/mod = 0
 
 /datum/status_effect/stabilized/sepia/tick()
@@ -719,7 +719,7 @@
 
 /datum/status_effect/stabilized/cerulean
 	id = "stabilizedcerulean"
-	colour = "cerulean"
+	colour = SLIME_TYPE_CERULEAN
 	var/mob/living/clone
 
 /datum/status_effect/stabilized/cerulean/on_apply()
@@ -755,7 +755,7 @@
 
 /datum/status_effect/stabilized/pyrite
 	id = "stabilizedpyrite"
-	colour = "pyrite"
+	colour = SLIME_TYPE_PYRITE
 	var/originalcolor
 
 /datum/status_effect/stabilized/pyrite/on_apply()
@@ -771,7 +771,7 @@
 
 /datum/status_effect/stabilized/red
 	id = "stabilizedred"
-	colour = "red"
+	colour = SLIME_TYPE_RED
 
 /datum/status_effect/stabilized/red/on_apply()
 	. = ..()
@@ -783,7 +783,7 @@
 
 /datum/status_effect/stabilized/green
 	id = "stabilizedgreen"
-	colour = "green"
+	colour = SLIME_TYPE_GREEN
 	var/datum/dna/originalDNA
 	var/originalname
 
@@ -831,7 +831,7 @@
 
 /datum/status_effect/stabilized/pink
 	id = "stabilizedpink"
-	colour = "pink"
+	colour = SLIME_TYPE_PINK
 	var/list/mobs = list()
 	var/faction_name
 
@@ -877,7 +877,7 @@
 
 /datum/status_effect/stabilized/oil
 	id = "stabilizedoil"
-	colour = "oil"
+	colour = SLIME_TYPE_OIL
 	examine_text = span_warning("SUBJECTPRONOUN smells of sulfer and oil!")
 
 /datum/status_effect/stabilized/oil/tick()
@@ -887,7 +887,7 @@
 
 /datum/status_effect/stabilized/black
 	id = "stabilizedblack"
-	colour = "black"
+	colour = SLIME_TYPE_BLACK
 	var/messagedelivered = FALSE
 	var/heal_amount = 1
 
@@ -922,7 +922,7 @@
 
 /datum/status_effect/stabilized/lightpink
 	id = "stabilizedlightpink"
-	colour = "light pink"
+	colour = SLIME_TYPE_LIGHT_PINK
 
 /datum/status_effect/stabilized/lightpink/on_apply()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/lightpink)
@@ -942,12 +942,12 @@
 
 /datum/status_effect/stabilized/adamantine
 	id = "stabilizedadamantine"
-	colour = "adamantine"
+	colour = SLIME_TYPE_ADAMANTINE
 	examine_text = span_warning("SUBJECTPRONOUN has a strange metallic coating on their skin.")
 
 /datum/status_effect/stabilized/gold
 	id = "stabilizedgold"
-	colour = "gold"
+	colour = SLIME_TYPE_GOLD
 	var/mob/living/simple_animal/familiar
 
 /datum/status_effect/stabilized/gold/tick()
@@ -986,7 +986,7 @@
 
 /datum/status_effect/stabilized/rainbow
 	id = "stabilizedrainbow"
-	colour = "rainbow"
+	colour = SLIME_TYPE_RAINBOW
 
 /datum/status_effect/stabilized/rainbow/tick()
 	if(owner.health <= 0)

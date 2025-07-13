@@ -171,15 +171,22 @@
 
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, null, 7.5 SECONDS, soon_to_be_ghoul)
-		if(!LAZYLEN(candidates))
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+			question = "Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?",
+			check_jobban = ROLE_HERETIC,
+			poll_time = 10 SECONDS,
+			checked_target = soon_to_be_ghoul,
+			jump_target = soon_to_be_ghoul,
+			role_name_text = "voiceless dead",
+			alert_pic = soon_to_be_ghoul,
+		)
+		if(!candidate)
 			loc.balloon_alert(user, "Ritual failed, no ghosts")
 			return FALSE
 
-		var/mob/dead/observer/chosen_candidate = pick(candidates)
-		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
 		soon_to_be_ghoul.ghostize(FALSE)
-		soon_to_be_ghoul.key = chosen_candidate.key
+		soon_to_be_ghoul.key = candidate.key
 
 	ADD_TRAIT(soon_to_be_ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 	log_game("[key_name(user)] created a voiceless dead, controlled by [key_name(soon_to_be_ghoul)].")
