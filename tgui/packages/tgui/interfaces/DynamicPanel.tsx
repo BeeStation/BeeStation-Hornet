@@ -530,7 +530,7 @@ const MidroundPage = () => {
           </Section>
         </Flex.Item>
         <Flex.Item grow>
-          <Section fill title="Ruleset Chances:" height="245px" style={{ position: 'relative' }}>
+          <Section fill title="Ruleset Chances:" height="245px" width="633px" style={{ position: 'relative' }}>
             <Box
               style={{
                 position: 'absolute',
@@ -627,7 +627,7 @@ const MidroundPage = () => {
           </Section>
         </Flex.Item>
         <Flex.Item grow>
-          <Section fill title="Point Deltas:" height="245px" style={{ position: 'relative' }}>
+          <Section fill title="Point Deltas:" height="245px" width="633px" style={{ position: 'relative' }}>
             {/* Grid overlay */}
             <Box
               style={{
@@ -762,7 +762,7 @@ const MidroundPage = () => {
           </Section>
         </Flex.Item>
         <Flex.Item grow>
-          <Section fill title="Points:" height="245px" style={{ position: 'relative' }}>
+          <Section fill title="Points:" height="245px" width="633px" style={{ position: 'relative' }}>
             <Box
               style={{
                 position: 'absolute',
