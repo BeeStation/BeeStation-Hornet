@@ -36,13 +36,13 @@
 	var/obj/item/computer_hardware/hard_drive/drive = install_into.all_components[MC_HDD]
 	if(drive.virus_defense >= virus_defense)
 		playsound(install_into, 'sound/machines/defib_saftyOff.ogg', 50, TRUE)
-		balloon_alert(user, "<font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> sucessefuly installed. Your device is now <font color='#00ff2a'>SAFE!</font>")
-		to_chat(user, span_notice("Your device already has a <font color='#00f7ff'>NTOS Virus Buster</font> Subscription Package. Version currently installed <font color='#00f7ff'>Lvl-[drive.virus_defense]</font>."))
+		balloon_alert(user, "Your device already has a <font color='#00f7ff'>NTOS Virus Buster</font> Subscription Package. Version currently installed <font color='#00f7ff'>Lvl-[drive.virus_defense]</font>.")
+		to_chat(user, span_notice("Your device already has a <span class='cfc_cyan'>NTOS Virus Buster</span> Subscription Package. Version currently installed <span class='cfc_cyan'>Lvl-[drive.virus_defense]</span>."))
 	else
 		playsound(install_into, 'sound/machines/defib_success.ogg', 50, TRUE)
 		drive.virus_defense = virus_defense
 		balloon_alert(user, "<font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> sucessefuly installed. Your device is now <font color='#00ff2a'>SAFE!</font>")
-		to_chat(user, span_notice("<font color='#00f7ff'>NTOS Virus Buster Lvl-[drive.virus_defense]</font> sucessefuly installed. Your device is now <font color='#00ff2a'>SAFE!</font>"))
+		to_chat(user, span_notice("<span class='cfc_cyan'>NTOS Virus Buster Lvl-[drive.virus_defense]</span> sucessefuly installed. Your device is now <span class='cfc_green'>SAFE!</span>"))
 		new /obj/effect/particle_effect/sparks/blue(get_turf(holder))
 		playsound(install_into, "sparks", 50, 1)
 		component_qdel()
