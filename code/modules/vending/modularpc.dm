@@ -108,7 +108,7 @@
 
 	contraband = list(
 					/obj/item/computer_hardware/recharger/APC = 2,
-          			/obj/item/storage/box/hacking4dummies = 4,
+					/obj/item/storage/box/hacking4dummies = 4,
 					/obj/item/computer_hardware/radio_card = 1,
 					/obj/item/colorizer/tablet/syndi = 2,
 					/obj/item/colorizer/tablet/contractor = 2,
