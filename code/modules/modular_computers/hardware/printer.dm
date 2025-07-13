@@ -9,6 +9,7 @@
 	var/stored_paper = 20
 	var/max_paper = 30
 	can_hack = FALSE
+	custom_price = PAYCHECK_MEDIUM * 2
 
 /obj/item/computer_hardware/printer/diagnostics()
 	. = ..()
@@ -119,4 +120,4 @@
 	w_class = WEIGHT_CLASS_TINY
 	stored_paper = 5
 	max_paper = 15
-	custom_price = 20
+	custom_price = PAYCHECK_MEDIUM

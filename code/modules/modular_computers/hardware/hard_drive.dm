@@ -24,6 +24,7 @@
 	var/virus_lethality = 0
 	/// If this hard drive has been victim of a trojan then it can't be affected by another one
 	var/trojan
+	custom_price = PAYCHECK_MEDIUM * 2
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	. = ..()
@@ -176,7 +177,7 @@
 	power_usage = 50 					// Hybrid, medium capacity and medium power storage
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = 50
+	custom_price = PAYCHECK_MEDIUM * 3
 
 /obj/item/computer_hardware/hard_drive/super
 	name = "super-advanced hard disk drive"
@@ -185,7 +186,7 @@
 	power_usage = 100					// High-capacity but uses lots of power, shortening battery life. Best used with APC link.
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = 60
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/computer_hardware/hard_drive/cluster
 	name = "cluster hard disk drive"
@@ -194,6 +195,7 @@
 	max_capacity = 2048
 	icon_state = "harddisk"
 	w_class = WEIGHT_CLASS_NORMAL
+	custom_price = PAYCHECK_MEDIUM * 5
 
 // For tablets, etc. - highly power efficient.
 /obj/item/computer_hardware/hard_drive/small
@@ -203,7 +205,7 @@
 	max_capacity = 64
 	icon_state = "ssd_mini"
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = 20
+	custom_price = PAYCHECK_EASY * 2
 
 // PDA Version of the SSD, contains all the programs that PDAs have by default, however with the variables of the SSD.
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()
@@ -263,7 +265,7 @@
 	max_capacity = 32
 	icon_state = "ssd_micro"
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = 10
+	custom_price = PAYCHECK_EASY
 
 // Micro SSD's will now contain all default programs.
 /obj/item/computer_hardware/hard_drive/micro/install_default_programs()

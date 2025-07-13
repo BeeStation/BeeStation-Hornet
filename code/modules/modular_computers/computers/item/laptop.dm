@@ -7,6 +7,7 @@
 	max_hardware_size = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
 	max_bays = 4
+	custom_price = PAYCHECK_MEDIUM * 3
 
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND

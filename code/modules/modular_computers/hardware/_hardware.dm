@@ -5,6 +5,8 @@
 	icon_state = "std_mod"
 	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
 	drop_sound = 'sound/items/handling/tape_drop.ogg'
+	//Two small paychecks as default, with higher level components going up.
+	custom_price = PAYCHECK_EASY * 2
 
 	/// w_class limits which devices can contain this component. 1: PDAs/Tablets, 2: Laptops, 3-4: Consoles only
 	w_class = WEIGHT_CLASS_TINY
