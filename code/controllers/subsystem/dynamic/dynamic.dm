@@ -684,7 +684,7 @@ SUBSYSTEM_DEF(dynamic)
  *  This is mainly used in the situation where someone is drafted for a ruleset despite having the preference disabled (a feature of gamemodes) - we don't want to spend their rep.
 **/
 /datum/controller/subsystem/dynamic/proc/antag_pick(list/datum/candidates, role_preference)
-	if(!CONFIG_GET(flag/use_antag_rep)) // || candidates.len <= 1)
+	if(!CONFIG_GET(flag/use_antag_rep))
 		return pick(candidates)
 
 	// Tickets start at 100

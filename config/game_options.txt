@@ -91,6 +91,9 @@ ALERT_GAMMA Central Command has ordered "GAMMA" security level on the station. T
 ALERT_LAMBDA Central Command has ordered "LAMBDA" security level on the station. Any violations of orders from Heads of Staff or security are punishable by death. All hands, prepare for evacuation.
 ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. Your station is designated as a lost asset. Consider your contracts with Nanotrasen terminated.
 
+## The total weight of station goals possible for a round (allows multiple goals)
+STATION_GOAL_BUDGET 1
+
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
 

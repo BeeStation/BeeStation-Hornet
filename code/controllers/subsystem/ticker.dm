@@ -299,8 +299,29 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/PostSetup()
 	set waitfor = FALSE
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_POST_START)
+
+	// Execute dynamic rulesets
 	SSdynamic.post_setup()
+
+	// Send roundstart report
+	SScommunications.queue_roundstart_report()
+
+	// Handle database
+	if(SSdbcore.Connect())
+		var/list/to_set = list()
+		var/arguments = list()
+		if(GLOB.revdata.originmastercommit)
+			to_set += "commit_hash = :commit_hash"
+			arguments["commit_hash"] = GLOB.revdata.originmastercommit
+		if(to_set.len)
+			arguments["round_id"] = GLOB.round_id
+			var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
+				arguments
+			)
+			query_round_game_mode.Execute()
+			qdel(query_round_game_mode)
+
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 
@@ -309,12 +330,13 @@ SUBSYSTEM_DEF(ticker)
 	send2tgs("Server", "Round [GLOB.round_id ? "#[GLOB.round_id]:" : ""] has started[allmins.len ? "." : " with no active admins online!"]")
 	setup_done = TRUE
 
-	for(var/i in GLOB.start_landmarks_list)
-		var/obj/effect/landmark/start/S = i
-		if(istype(S))							//we can not runtime here. not in this important of a proc.
+	for(var/obj/effect/landmark/start/S as anything in GLOB.start_landmarks_list)
+		if(istype(S)) //we can not runtime here. not in this important of a proc.
 			S.after_round_start()
 		else
 			stack_trace("[S] [S.type] found in start landmarks list, which isn't a start landmark!")
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_POST_START)
 
 //These callbacks will fire after roundstart key transfer
 /datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)
