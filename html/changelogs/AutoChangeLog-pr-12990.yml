@@ -1,4 +1,0 @@
-author: Gilgax
-delete-after: true
-changes:
-  - code_imp: fixed the quickstart setting for easier debugging

@@ -126,6 +126,8 @@
       start with a cabin air pressure of one atmosphere
   ClownMoff:
   - rscadd: 'Added 3 new emojis for Mime''s PDA/LOOC/OOC: captain, mistake and true'
+  Gilgax:
+  - code_imp: fixed the quickstart setting for easier debugging
   Solene:
   - tweak: tweaked the visual and audio behavior of personal lockers
   - tweak: Captain, HoP and HoS id's can now wipe a owners registry from a personal
