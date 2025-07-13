@@ -308,4 +308,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 /datum/movespeed_modifier/self_tend
 	multiplicative_slowdown = 1.5
 
+/obj/item/stack/medical/tourniquet
+	name = "tourniquet"
+	singular_name = "tourniquet"
+	desc = "A tourniquet used for completely stopping the bloodflow in a certain area of the body. Causes a build up of toxins in the affected limb over extended periods of time, which may result in cardiacular issues."
+	icon_state = "tourniquet"
+	merge_type = /obj/item/stack/medical/tourniquet
+	amount = 1
+	max_amount = 1
+	self_delay = 15 SECONDS
+
 #undef REAGENT_AMOUNT_PER_ITEM

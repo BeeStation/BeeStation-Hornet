@@ -683,10 +683,12 @@
 		var/list/injury_texts = list()
 		for (var/datum/injury/injuries in LB.injuries)
 			if (injuries.examine_description)
+				var/tooltip_desc = injuries.examine_description
+				// TODO: When we merge to master, add tooltips for limb effectiveness here
 				if (injuries.whole_body)
-					whole_body_issues |= injuries.examine_description
+					whole_body_issues |= tooltip_desc
 				else
-					injury_texts += injuries.examine_description
+					injury_texts += tooltip_desc
 		var/no_damage
 		if(status == "OK" || status == "no damage")
 			no_damage = TRUE

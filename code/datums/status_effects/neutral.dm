@@ -274,3 +274,50 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+
+/atom/movable/screen/alert/status_effect/tourniquet
+	name = "Tourniquet"
+	desc = "You have a tourniquet applied, click to remove it!"
+	icon_state = "tourniquet"
+
+/atom/movable/screen/alert/status_effect/tourniquet/Click(location, control, params)
+	. = ..()
+	attached_effect
+
+/datum/status_effect/tourniquet
+	id = "tourniquet"
+	duration = -1
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = /atom/movable/screen/alert/status_effect/tourniquet
+	var/bodyzone_target
+	var/time_applied
+
+/datum/status_effect/tourniquet/on_creation(mob/living/new_owner, target_zone)
+	. = ..()
+	bodyzone_target = target_zone
+
+/datum/status_effect/tourniquet/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_NO_BLEEDING, "[type]")
+
+/datum/status_effect/tourniquet/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_NO_BLEEDING, "[type]")
+	var/duration_applied = world.time - time_applied
+	var/message = null
+	// After 6 minutes lactic acid builds up at a rate of 100 every 4 minutes
+	var/lactic_buildup = (duration_applied - (6 MINUTES)) * (100 / (4 MINUTES))
+	if (lactic_buildup > 0)
+		owner.take_overall_damage(stamina = lactic_buildup)
+		message = "As the tourniquet is removed, the lactic acid pooled in your [bodypart.plaintext_zone] rush through your body."
+	// After 8 minutes lactic acid builds up at a rate of 100 every 4 minutes
+	var/toxin_buildup = (duration_applied - (6 MINUTES)) * (100 / (4 MINUTES))
+	if (toxin_buildup > 0)
+		owner.adjustToxLoss(toxin_buildup, forced = TRUE)
+		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush through your body."
+	// After 12 minutes of application, removing it will give us a heart attack
+	if (duration_applied > 12 MINUTES)
+		owner.set_heartattack(TRUE)
+		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush to your heart!"
+	if (message)
+		to_chat(bodypart.owner, span_userdanger(message))

@@ -8,7 +8,9 @@
 
 /datum/injury/cut_laceration/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()
-	if (target.get_bleed_rate() >= BLEED_CUT)
+	if (target.has_status_effect(/datum/status_effect/tourniquet))
+		return
+	if (target.get_bleed_rate() >= BLEED_SURFACE)
 		return
 	if (DT_PROB(5, delta_time) && !target.is_bandaged())
 		target.add_bleeding(BLEED_CUT)
@@ -33,7 +35,7 @@
 		return MEDICAL_ITEM_APPLIED
 	return ..()
 
-/datum/injury/blisters/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
+/datum/injury/cut_laceration/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
 	if (!istype(reagent, /datum/reagent/medicine/coagen))
 		return
 	if (reac_volume < 5)

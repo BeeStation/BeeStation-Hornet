@@ -4,9 +4,15 @@
 	severity_level = INJURY_PRIORITY_ACTIVE
 	health_doll_icon = "blood"
 	examine_description = "<b>a muscle tear</b>"
+	healed_type = /datum/injury/cut_stitched_muscle
+	surgeries_provided = list(
+		/datum/surgery/stitch_muscle
+	)
 
 /datum/injury/cut_muscle_tear/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()
+	if (target.has_status_effect(/datum/status_effect/tourniquet))
+		return
 	if (target.get_bleed_rate() >= BLEED_CUT)
 		return
 	if (DT_PROB(10, delta_time) && !target.is_bandaged())
@@ -19,3 +25,25 @@
 	if (total_damage >= 10)
 		transition_to(/datum/injury/cut_arterial)
 	return TRUE
+
+/datum/injury/cut_muscle_tear/intercept_medical_application(obj/item/stack/medical/medical_item, mob/living/carbon/human/victim, mob/living/actor)
+	if (istype(medical_item, /obj/item/stack/medical/suture))
+		if (actor == victim)
+			actor.visible_message(span_notice("[actor] starts to apply [medical_item] to [actor.p_them()]self..."), span_notice("You begin applying [medical_item] to yourself..."))
+		else
+			actor.visible_message(span_notice("[actor] starts to suture [victim]'s wounds'."), span_notice("You begin suturing [victim]'s wounds..."))
+		if (!do_after(actor, 6 SECONDS, victim))
+			return MEDICAL_ITEM_FAILED
+		transition_to(/datum/injury/cut_bandaged_muscle_tear)
+		return MEDICAL_ITEM_APPLIED
+	return ..()
+
+/datum/injury/cut_muscle_tear/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
+	if (!istype(reagent, /datum/reagent/medicine/coagen))
+		return
+	if (reac_volume < 5)
+		to_chat(victim, span_warning("Your lacerated [bodypart.plaintext_zone] strings, the wound fails to heal. It wasn't enough!"))
+		return
+	if (method != TOUCH && method != PATCH)
+		return
+	transition_to(/datum/injury/cut_bandaged_muscle_tear)
