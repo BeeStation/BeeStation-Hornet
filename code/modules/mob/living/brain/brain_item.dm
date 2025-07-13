@@ -293,7 +293,7 @@
 	if(ishuman(brain_owner))
 		var/mob/living/carbon/human/H = brain_owner
 		if(H.dna?.species)
-			if(REVIVESBYHEALING in H.dna.species.inherent_traits)
+			if(TRAIT_REVIVESBYHEALING in H.dna.species.inherent_traits)
 				if(H.health > 0)
 					H.revive(0)
 

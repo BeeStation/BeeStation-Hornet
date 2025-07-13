@@ -3,7 +3,6 @@
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
 	inherent_traits = list(
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TACKLING_FRAIL_ATTACKER,
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_BEEFRIEND

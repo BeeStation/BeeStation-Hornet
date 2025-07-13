@@ -27,7 +27,6 @@
 	armor = 55
 	siemens_coeff = 0
 	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
-	nojumpsuit = 1
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/golem
@@ -356,6 +355,7 @@
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	H.heal_overall_damage(2,2, 0, BODYTYPE_ORGANIC)
@@ -389,6 +389,7 @@
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -825,7 +826,6 @@
 	id = SPECIES_GOLEM_CLOCKWORK_SERVANT
 	armor = 15 //Balance reasons make this armor weak
 	no_equip = list()
-	nojumpsuit = FALSE
 	has_corpse = TRUE
 	random_eligible = FALSE
 	info_text = span_boldalloy("As a " + span_boldbrass("Clockwork Golem Servant") + ", you are faster than other types of golems.") //warcult golems leave a corpse

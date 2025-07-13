@@ -3,16 +3,13 @@
 	name = "Felinid"
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
-
 	mutant_bodyparts = list("ears" = "Cat", "wings" = "None", "body_size" = "Normal")
-
+	mutanttongue = /obj/item/organ/internal/tongue/cat
 	mutantears = /obj/item/organ/internal/ears/cat
 	external_organs = list(
 		/obj/item/organ/external/tail/cat = "Cat",
 	)
-	mutanttongue = /obj/item/organ/internal/tongue/cat
 	inherent_traits = list(
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_USES_SKINTONES,
 		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
@@ -29,11 +26,11 @@
 			target_human.dna.features["tail_cat"] = "Cat"
 			if(target_human.dna.features["ears"] == "None")
 				target_human.dna.features["ears"] = "Cat"
-		if(target_human.dna.features["ears"] == "Cat")
-			var/obj/item/organ/internal/ears/cat/ears = new
-			ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
-		else
+		if(target_human.dna.features["ears"] == "None")
 			mutantears = /obj/item/organ/internal/ears
+		else
+			var/obj/item/organ/internal/ears/cat/ears = new(FALSE, target_human.dna.features["ears"])
+			ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
 	return ..()
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)

@@ -49,6 +49,7 @@
 */
 
 /datum/species/pumpkin_man/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing

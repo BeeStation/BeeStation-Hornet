@@ -33,7 +33,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	mob_remove(organ_owner, special, movement_flags)
-	bodypart_remove(null, organ_owner, movement_flags)
+	bodypart_remove(limb_owner = organ_owner, movement_flags = movement_flags)
 
 	if(!special && !(organ_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
 		organ_owner.update_body_parts()
@@ -64,12 +64,12 @@
 		else
 			replaced.forceMove(get_turf(receiver))
 
-		if(!IS_ROBOTIC_ORGAN(src) && (organ_flags & ORGAN_VIRGIN))
-			blood_dna_info = receiver.get_blood_dna_list()
-			// need to remove the synethic blood DNA that is initialized
-			// wash also adds the blood dna again
-			wash(CLEAN_TYPE_BLOOD)
-			organ_flags &= ~ORGAN_VIRGIN
+	if(!IS_ROBOTIC_ORGAN(src) && (organ_flags & ORGAN_VIRGIN))
+		blood_dna_info = receiver.get_blood_dna_list()
+		// need to remove the synethic blood DNA that is initialized
+		// wash also adds the blood dna again
+		wash(CLEAN_TYPE_BLOOD)
+		organ_flags &= ~ORGAN_VIRGIN
 
 	receiver.organs |= src
 	receiver.organs_slot[slot] = src
@@ -124,6 +124,7 @@
 
 	item_flags |= ABSTRACT
 	ADD_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
+	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 
 /*
  * Remove the organ from the select mob.
@@ -191,14 +192,13 @@
 /obj/item/organ/proc/bodypart_remove(obj/item/bodypart/limb, mob/living/carbon/limb_owner, movement_flags)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(limb_owner)
+	if(!isnull(limb_owner))
 		limb = limb_owner.get_bodypart(deprecise_zone(zone))
 
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED) //DONT MOVE THIS!!!! we moves the organ right after, so we unregister before we move them physically
 
 	// The true movement is here
 	moveToNullspace()
-	bodypart_owner.contents -= src
 	bodypart_owner = null
 
 	on_bodypart_remove(limb)
@@ -214,6 +214,7 @@
 
 	item_flags &= ~ABSTRACT
 	REMOVE_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
+	interaction_flags_item |= INTERACT_ITEM_ATTACK_HAND_PICKUP
 
 /// In space station videogame, nothing is sacred. If somehow an organ is removed unexpectedly, handle it properly
 /obj/item/organ/proc/forced_removal()
@@ -222,15 +223,20 @@
 	if(owner)
 		Remove(owner)
 	else if(bodypart_owner)
-		bodypart_remove(limb_owner = owner)
+		bodypart_remove(bodypart_owner)
 	else
 		stack_trace("Force removed an already removed organ!")
 
 /**
  * Proc that gets called when the organ is surgically removed by someone, can be used for special effects
- * Currently only used so surplus organs can explode when surgically removed.
  */
 /obj/item/organ/proc/on_surgical_removal(mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
 	SHOULD_CALL_PARENT(TRUE)
 	//SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_REMOVED, user, old_owner, target_zone, tool)
 	RemoveElement(/datum/element/decal/blood)
+/**
+ * Proc that gets called when the organ is surgically inserted by someone. Seem familiar?
+ */
+/obj/item/organ/proc/on_surgical_insertion(mob/living/user, mob/living/carbon/new_owner, target_zone, obj/item/tool)
+	SHOULD_CALL_PARENT(TRUE)
+	//SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_INSERTED, user, new_owner, target_zone, tool)

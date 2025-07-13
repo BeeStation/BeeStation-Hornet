@@ -7,7 +7,6 @@
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
 	inherent_traits = list(
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,

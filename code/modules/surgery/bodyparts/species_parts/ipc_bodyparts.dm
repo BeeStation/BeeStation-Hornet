@@ -14,6 +14,8 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	head_flags = HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN
+
 /obj/item/bodypart/chest/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'

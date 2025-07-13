@@ -12,6 +12,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/plasmaman
 	icon_static = 'icons/mob/species/plasmaman/bodyparts.dmi'

@@ -128,8 +128,6 @@
 #define BRAIN_UNAIDED "brain-unaided"
 /// This mob should never close UI even if it doesn't have a client
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client"
-/// Lets the mob use flight potions
-#define TRAIT_CAN_USE_FLIGHT_POTION "can_use_flight_potion"
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"

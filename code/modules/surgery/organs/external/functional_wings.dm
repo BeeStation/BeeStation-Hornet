@@ -27,6 +27,9 @@
 	///Are our wings open or closed?
 	var/wings_open = FALSE
 
+	// grind_results = list(/datum/reagent/flightpotion = 5)
+	food_reagents = list(/datum/reagent/flightpotion = 5)
+
 /obj/item/organ/external/wings/functional/Insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	if(. && isnull(fly))

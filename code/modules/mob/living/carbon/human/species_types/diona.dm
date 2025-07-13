@@ -48,8 +48,7 @@
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
-	deathsound = "sound/emotes/diona/death.ogg"
-	species_bitflags = NOT_TRANSMORPHIC
+	death_sound = "sound/emotes/diona/death.ogg"
 
 	mutanteyes = /obj/item/organ/internal/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/internal/tongue/diona //Dungeon's sprite
@@ -78,6 +77,7 @@
 	var/informed_nymph = FALSE //If the user was informed that they can release a nymph via food.
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)

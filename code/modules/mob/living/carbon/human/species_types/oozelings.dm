@@ -9,7 +9,7 @@
 		TRAIT_MUTANT_COLORS,
 		TRAIT_NO_AUGMENTS
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/internal/lungs/slime
 	mutanttongue = /obj/item/organ/internal/tongue/slime

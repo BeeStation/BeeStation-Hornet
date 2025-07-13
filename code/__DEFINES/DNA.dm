@@ -90,20 +90,6 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-//Flashing has no effect
-#define NOFLASH 11
-// DO NOT PROCESS REAGENTS
-#define NOREAGENTS 15
-// Will revive on heal when healing and total HP > 0.
-#define REVIVESBYHEALING 16
-// Can't be husked.
-#define NOHUSK 17
-#define NOMOUTH 18
-// You cannot wear socks.
-#define NOSOCKS 19
-// spawns with an envirosuit
-#define ENVIROSUIT 20
-
 /// Used for determining which wounds are applicable to this species.
 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
 // #define HAS_FLESH 23 [add if we ever port TGs wound system]

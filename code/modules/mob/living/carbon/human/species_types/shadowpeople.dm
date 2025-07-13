@@ -36,17 +36,6 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/shadow,
 	)
 
-
-/datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	var/turf/T = H.loc
-	if(istype(T))
-		var/light_amount = T.get_lumcount()
-
-		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
-			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
-		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			H.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
-
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
@@ -160,7 +149,6 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/shadow,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/shadow,
 	)
-	nojumpsuit = 1
 
 	var/info_text = "You are a " + span_danger("Nightmare") + ". The ability " + span_warning("shadow walk") + " allows unlimited, unrestricted movement in the dark while activated. \
 					Your " + span_warning("light eater") + " will destroy any light producing objects you attack, as well as destroy any lights a living creature may be holding. You will automatically dodge gunfire and melee attacks when on a dark tile. If killed, you will eventually revive if left in darkness."
@@ -412,24 +400,28 @@
 	id = "shadow_blessed"
 	var/sect_rituals_completed = 0 // only important if shadow sect is at play, this is a way to check what level of rituals it completed. Used by shadow hearts
 
+/obj/item/organ/internal/brain/shadow/blessed/on_life(delta_time, times_fired)
+	. = ..()
+	var/datum/species/shadow/blessed/sect_species = owner.dna.species
 
-/datum/species/shadow/blessed/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	var/turf/T = H.loc
-	if(istype(T))
-		var/light_amount = T.get_lumcount()
+	var/turf/owner_turf = owner.loc
+	if(!isturf(owner_turf))
+		return
+	var/light_amount = owner_turf.get_lumcount()
 
-		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
-			H.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
-			if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
-				H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
-		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			if(sect_rituals_completed >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
-				H.nutrition += 2 * delta_time
-			H.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
-			if(sect_rituals_completed >= 2)
-				if(sect_rituals_completed == 3)
-					H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+	if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
+		owner.take_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
+		if(owner.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+			owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+	else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
+		if(sect_species.sect_rituals_completed >= 1 && owner.nutrition <= NUTRITION_LEVEL_WELL_FED)
+			owner.nutrition += 2 * delta_time
+		owner.heal_overall_damage((0.5 * delta_time), (0.5 * delta_time), 0, BODYTYPE_ORGANIC)
+		if(sect_species.sect_rituals_completed >= 2)
+			if(sect_species.sect_rituals_completed == 3)
+				owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
+/datum/species/shadow/blessed
 
 /datum/species/shadow/blessed/check_roundstart_eligible()
 	return FALSE
@@ -438,6 +430,7 @@
 	. = ..()
 	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
 		change_hearts_ritual(C)
+	mutantbrain = /obj/item/organ/internal/brain/shadow/blessed
 
 /datum/species/shadow/proc/change_hearts_ritual(mob/living/carbon/C) // This is supposed to be called only for shadow sect
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect

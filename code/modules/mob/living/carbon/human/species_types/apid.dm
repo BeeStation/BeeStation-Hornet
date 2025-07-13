@@ -15,7 +15,7 @@
 	external_organs = list(
 		/obj/item/organ/external/wings/functional/bee = "Bee"
 	)
-	hair_color = "fixedmutcolor"
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/internal/eyes/apid
 	mutantlungs = /obj/item/organ/internal/lungs/apid

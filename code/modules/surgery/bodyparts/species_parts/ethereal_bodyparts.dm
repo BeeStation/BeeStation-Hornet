@@ -20,6 +20,7 @@
 	limb_id = SPECIES_ETHEREAL
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	wing_types = NONE
 
 /obj/item/bodypart/chest/ethereal/update_limb(dropping_limb, is_creating)
 	. = ..()

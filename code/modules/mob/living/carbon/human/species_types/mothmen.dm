@@ -11,7 +11,6 @@
 	id = SPECIES_MOTH
 	inherent_traits = list(
 		TRAIT_HAS_MARKINGS,
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TACKLING_WINGED_ATTACKER,
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
@@ -29,9 +28,8 @@
 	mutanttongue = /obj/item/organ/internal/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	wing_types = list(/obj/item/organ/external/wings/functional/moth/megamoth, /obj/item/organ/external/wings/functional/moth/mothra)
 	//inert_mutation = /datum/mutation/strongwings
-	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
+	death_sound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/moth,

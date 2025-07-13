@@ -7,6 +7,7 @@
 /obj/item/bodypart/chest/snail
 	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/snail
 	limb_id = SPECIES_SNAIL
@@ -41,6 +42,7 @@
 	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -71,6 +73,7 @@
 	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = TRUE
 	dmg_overlay_type = null
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/slime
 	limb_id = SPECIES_SLIMEPERSON
@@ -99,6 +102,7 @@
 	limb_id = SPECIES_LUMINESCENT
 	is_dimorphic = TRUE
 	dmg_overlay_type = null
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/luminescent
 	limb_id = SPECIES_LUMINESCENT
@@ -127,6 +131,7 @@
 	limb_id = SPECIES_ZOMBIE
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/zombie
 	limb_id = SPECIES_ZOMBIE
@@ -174,6 +179,7 @@
 	limb_id = SPECIES_FLYPERSON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	wing_types = list(/obj/item/organ/external/wings/functional/fly)
 
 /obj/item/bodypart/arm/left/fly
 	limb_id = SPECIES_FLYPERSON
@@ -204,6 +210,7 @@
 	limb_id = SPECIES_SHADOW
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	bodypart_traits = list(TRAIT_NO_JUMPSUIT)
 
 /obj/item/bodypart/arm/left/shadow
 	limb_id = SPECIES_SHADOW
@@ -240,6 +247,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	wing_types = list(/obj/item/organ/external/wings/functional/skeleton)
 
 /obj/item/bodypart/arm/left/skeleton
 	limb_id = SPECIES_SKELETON
@@ -272,6 +280,8 @@
 	limb_id = "golem"
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	bodypart_traits = list(TRAIT_NO_JUMPSUIT)
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/golem
 	limb_id = "golem"
