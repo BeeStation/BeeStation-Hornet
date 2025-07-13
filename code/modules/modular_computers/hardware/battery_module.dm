@@ -6,7 +6,7 @@
 	malfunction_probability = 1
 	var/obj/item/stock_parts/cell/computer/battery
 	device_type = MC_CELL
-	custom_price = 10
+	custom_price = PAYCHECK_EASY
 
 /obj/item/computer_hardware/battery/get_cell()
 	return battery
@@ -82,6 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	maxcharge = 1000
 	/// Size affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
 	rating = PART_TIER_3
+	custom_price = PAYCHECK_MEDIUM
 
 /obj/item/stock_parts/cell/computer/advanced
 	name = "advanced battery"
@@ -89,7 +90,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 1500
-	custom_price = 40
+	custom_price = PAYCHECK_MEDIUM * 2
 	rating = PART_TIER_4
 
 /obj/item/stock_parts/cell/computer/super
@@ -98,7 +99,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	maxcharge = 2000
-	custom_price = 60
+	custom_price = PAYCHECK_MEDIUM * 3
 	rating = PART_TIER_5
 
 /obj/item/stock_parts/cell/computer/micro
@@ -107,7 +108,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_micro"
 	maxcharge = 750
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = 20
+	custom_price = PAYCHECK_EASY * 2
 	rating = PART_TIER_2
 
 /obj/item/stock_parts/cell/computer/nano
@@ -116,5 +117,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_micro"
 	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 500
-	custom_price = 10
+	custom_price = PAYCHECK_EASY
 	rating = PART_TIER_1
