@@ -11316,15 +11316,6 @@
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/closet/emcloset,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
 "dxM" = (
@@ -58077,7 +58068,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "sUB" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
 "sUC" = (
@@ -64239,7 +64230,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/firecloset/full,
 /turf/open/floor/noslip/standard,
 /area/hallway/secondary/service)
 "uYo" = (
