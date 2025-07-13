@@ -291,7 +291,12 @@
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
 //Clothing layer is the layer that clothing would usually appear on
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
+
 	. = list()
+	if(blocks_emissive != FALSE)
+		. += emissive_blocker(standing.icon, standing.icon_state, alpha = standing.alpha)
 
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	//Check the cache to see if it needs a new sprite
@@ -367,6 +372,7 @@
 /obj/item/bodypart/proc/generate_husk_key()
 	RETURN_TYPE(/list)
 	. = list()
+	. += "[limb_id]-"
 	. += "[husk_type]"
 	. += "-husk"
 	. += "-[body_zone]"

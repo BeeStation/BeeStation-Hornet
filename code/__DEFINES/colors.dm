@@ -261,3 +261,5 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define CL_MATRIX_CG 18
 #define CL_MATRIX_CB 19
 #define CL_MATRIX_CA 20
+
+#define HUSK_COLOR_TONE rgb(96, 88, 80)

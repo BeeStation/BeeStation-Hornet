@@ -229,7 +229,7 @@ world
 /icon/proc/ColorTone(tone)
 	GrayScale()
 
-	var/list/TONE = ReadRGB(tone)
+	var/list/TONE = rgb2num(tone)
 	var/gray = round(TONE[1]*0.3 + TONE[2]*0.59 + TONE[3]*0.11, 1)
 
 	var/icon/upper = (255-gray) ? new(src) : null
