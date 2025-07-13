@@ -66,7 +66,7 @@
 					/obj/item/computer_hardware/hard_drive/portable = 2,
 					/obj/item/computer_hardware/hard_drive/portable/advanced = 2,
 					/obj/item/computer_hardware/hard_drive/portable/super = 2,
-					/obj/item/computer_hardware/hard_drive/role/antivirus = 6,
+					/obj/item/computer_hardware/hard_drive/role/antivirus = 2,
 			),
 		),
 
