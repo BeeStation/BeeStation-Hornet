@@ -327,12 +327,6 @@
 	source.log_message("[key_name(source)] has been stripped of [item] by [key_name(user)]", LOG_ATTACK, color="red")
 	user.log_message("[key_name(source)] has been stripped of [item] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
 
-	if(istype(item, /obj/item/reagent_containers/syringe/))
-		var/obj/item/reagent_containers/syringe/syringeitem = item
-		syringeitem.embed(user)
-		user.visible_message(span_danger("You see [user] yank their hand out of [source]'s pocket and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
-		user.emote("scream")
-
 	// Updates speed in case stripped speed affecting item
 	source.update_equipment_speed_mods()
 
