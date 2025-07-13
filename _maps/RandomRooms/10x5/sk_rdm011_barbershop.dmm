@@ -176,6 +176,7 @@
 "y" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/blood/bubblegum,
+/obj/item/razor/straightrazor,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "z" = (
