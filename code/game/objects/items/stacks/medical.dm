@@ -108,7 +108,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		C.balloon_alert(user, "[C] has no [parse_zone(zone_selected)]!")
 		return
 
-	var/valid = FALSE
+	var/valid = can_be_applied(mob/living/M, mob/user, zone_selected)
 	var/message = null
 
 	if(stop_bleeding)
@@ -164,12 +164,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	else
 		C.balloon_alert(user, "You apply [src] to [M == user ? "yourself" : M].")
 
+	after_apply(M, user, zone_selected)
+
 	user.visible_message(span_green("[user] applies [src] to [M]."), span_green("You apply [src] to [M]."))
 	if(reagent)
 		reagents.expose(M, PATCH, affecting = affecting)
 		M.reagents.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
 		C.update_damage_overlays()
 	use(1)
+
+/obj/item/stack/medical/proc/can_be_applied(mob/living/M, mob/user, zone_selected)
+	return FALSE
+
+/obj/item/stack/medical/proc/after_apply(mob/living/M, mob/user, zone_selected)
+	return
 
 /obj/item/stack/medical/on_grind()
 	reagents.clear_reagents() //By default grinding returns all contained reagents + grind_results, and for stackable items we only want grind_results
@@ -317,5 +325,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	amount = 1
 	max_amount = 1
 	self_delay = 15 SECONDS
+
+/obj/item/stack/medical/tourniquet/can_be_applied(mob/living/carbon/M, mob/user, zone_selected)
+	return M.is_bleeding()
+
+/obj/item/stack/medical/tourniquet/after_apply(mob/living/carbon/M, mob/user, zone_selected)
+	M.apply_status_effect(/datum/status_effect/tourniquet, zone_selected)
 
 #undef REAGENT_AMOUNT_PER_ITEM

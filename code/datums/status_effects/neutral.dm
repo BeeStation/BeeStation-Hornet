@@ -282,7 +282,14 @@
 
 /atom/movable/screen/alert/status_effect/tourniquet/Click(location, control, params)
 	. = ..()
-	attached_effect
+	var/datum/status_effect/tourniquet/status_effect = attached_effect
+	to_chat(status_effect.owner, span_notice("You start removing the tourniquet on your [parse_zone(status_effect.bodyzone_target)]."))
+	if (!do_after(status_effect.owner, 8 SECONDS, status_effect.owner))
+		return
+	to_chat(status_effect.owner, span_notice("You remove the tourniqet from your [parse_zone(status_effect.bodyzone_target)]!"))
+	var/obj/item/stack/medical/tourniquet/tourniquet = new(get_turf(status_effect.owner), 1)
+	status_effect.owner.put_in_active_hand(tourniquet)
+	qdel(status_effect)
 
 /datum/status_effect/tourniquet
 	id = "tourniquet"
@@ -300,11 +307,20 @@
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_NO_BLEEDING, "[type]")
 
+/datum/status_effect/tourniquet/tick()
+	var/obj/item/bodypart/bodypart = owner.get_bodypart(bodyzone_target)
+	if (!bodypart)
+		qdel(src)
+		return
+
 /datum/status_effect/tourniquet/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_NO_BLEEDING, "[type]")
 	var/duration_applied = world.time - time_applied
 	var/message = null
+	var/obj/item/bodypart/bodypart = owner.get_bodypart(bodyzone_target)
+	if (!bodypart)
+		return
 	// After 6 minutes lactic acid builds up at a rate of 100 every 4 minutes
 	var/lactic_buildup = (duration_applied - (6 MINUTES)) * (100 / (4 MINUTES))
 	if (lactic_buildup > 0)
@@ -317,7 +333,9 @@
 		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush through your body."
 	// After 12 minutes of application, removing it will give us a heart attack
 	if (duration_applied > 12 MINUTES)
-		owner.set_heartattack(TRUE)
+		var/mob/living/carbon/human/human_owner = owner
+		if (istype(human_owner))
+			human_owner.set_heartattack(TRUE)
 		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush to your heart!"
 	if (message)
 		to_chat(bodypart.owner, span_userdanger(message))
