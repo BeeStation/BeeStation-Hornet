@@ -29,6 +29,8 @@
 /datum/injury/process(delta_time)
 	if (!bodypart.owner)
 		return PROCESS_KILL
+	if (bodypart.owner.stat == DEAD || IS_IN_STASIS(bodypart.owner))
+		return
 	on_tick(bodypart.owner, delta_time)
 
 /// Called only if we are gained while a human has the bodypart
