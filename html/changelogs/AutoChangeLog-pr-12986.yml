@@ -1,7 +1,0 @@
-author: Aramix
-delete-after: true
-changes:
-  - bugfix: Sealed mechs will now use internal tank contents to repressurize cabin
-      during internal air tank usage once again
-  - bugfix: Adjusted the initial air moles count in the cabin for sealed mechs to
-      start with a cabin air pressure of one atmosphere
