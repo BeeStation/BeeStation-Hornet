@@ -257,16 +257,6 @@
 		/obj/item/stack/medical/ointment = 2)
 	generate_items_inside(items_inside,src)
 
-/obj/item/storage/firstaid/fire/mini
-	name = "emergency fire kit"
-	desc = "A specialized kit for emergency burn treatment."
-
-/obj/item/storage/firstaid/fire/mini/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/stack/medical/gauze = 2,
-		/obj/item/stack/medical/ointment = 2)
-	generate_items_inside(items_inside,src)
 
 //First toxin kit
 /obj/item/storage/firstaid/toxin
@@ -344,17 +334,6 @@
 	. = ..()
 	icon_state = pick("firstaid-o2","firstaid-o2alt")
 
-/obj/item/storage/firstaid/o2/mini
-	name = "emergency vacuum kit"
-	desc = "A specialized kit for vacuum exposure treatment."
-
-/obj/item/storage/firstaid/o2/mini/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/storage/pill_bottle/salbutamol = 1,
-		/obj/item/stack/medical/ointment = 1,
-		/obj/item/stack/medical/bruise_pack = 1)
-	generate_items_inside(items_inside,src)
 
 //First brute kit
 /obj/item/storage/firstaid/brute
