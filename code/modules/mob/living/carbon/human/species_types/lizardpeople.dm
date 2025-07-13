@@ -9,9 +9,11 @@
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list(
-		"body_markings" = "None",
 		"legs" = "Normal Legs",
 		"body_size" = "Normal"
+	)
+	body_markings = list(
+		/datum/bodypart_overlay/simple/body_marking/lizard = "None"
 	)
 	external_organs = list(
 		/obj/item/organ/external/horns = SPRITE_ACCESSORY_NONE,
@@ -61,7 +63,7 @@
 
 /datum/species/lizard/randomize_features()
 	var/list/features = ..()
-	features["body_markings"] = pick(GLOB.body_markings_list)
+	features["lizard_markings"] = pick(GLOB.lizard_markings_list)
 	return features
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)

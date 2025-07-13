@@ -173,7 +173,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
 	target.dna.features["ethcolor"] = COLOR_WHITE
-	target.dna.features["body_markings"] = "None"
+	target.dna.features["lizard_markings"] = "None"
 	target.dna.features["ears"] = "None"
 	target.dna.features["frills"] = "None"
 	target.dna.features["horns"] = "None"

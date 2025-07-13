@@ -9,11 +9,22 @@
 	///Key of the icon states of all the sprite_datums for easy caching
 	var/cache_key = ""
 
+	/// Whether the overlay blocks emissive light
+	var/blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+
 ///Wrapper for getting the proper image, colored and everything
 /datum/bodypart_overlay/proc/get_overlay(layer, obj/item/bodypart/limb)
 	layer = bitflag_to_layer(layer)
-	. = get_image(layer, limb)
-	color_image(., layer, limb)
+	var/image/main_image = get_image(layer, limb)
+	color_image(main_image, layer, limb)
+	if(blocks_emissive == FALSE || !limb)
+		return main_image
+
+	var/list/all_images = list(
+		main_image,
+		emissive_blocker(main_image.icon, main_image.icon_state, limb, layer = main_image.layer, alpha = main_image.alpha)
+	)
+	return all_images
 
 ///Generate the image. Needs to be overriden
 /datum/bodypart_overlay/proc/get_image(layer, obj/item/bodypart/limb)
@@ -46,8 +57,6 @@
 			return "ADJ"
 		if(-BODY_FRONT_LAYER)
 			return "FRONT"
-		else
-			CRASH("Invalid layer [layer] passed to mutant_bodyparts_layertext() in [type]. This should never happen, report it as soon as possible.")
 
 ///Converts a bitflag to the right layer. I'd love to make this a static index list, but byond made an attempt on my life when i did
 /datum/bodypart_overlay/proc/bitflag_to_layer(layer)
@@ -58,8 +67,6 @@
 			return -BODY_ADJ_LAYER
 		if(EXTERNAL_FRONT)
 			return -BODY_FRONT_LAYER
-		else
-			CRASH("Invalid layer [layer] passed to bitflag_to_layer() in [type]. This should never happen, report it as soon as possible.")
 
 ///Check whether we can draw the overlays. You generally don't want lizard snouts to draw over an EVA suit
 /datum/bodypart_overlay/proc/can_draw_on_bodypart(mob/living/carbon/human/human)
@@ -72,3 +79,7 @@
 ///Generate a unique identifier to cache with. If you change something about the image, but the icon cache stays the same, it'll simply pull the unchanged image out of the cache
 /datum/bodypart_overlay/proc/generate_icon_cache()
 	return list()
+
+/// Additionally color or texture the limb
+/datum/bodypart_overlay/proc/modify_bodypart_appearance(datum/appearance)
+	return

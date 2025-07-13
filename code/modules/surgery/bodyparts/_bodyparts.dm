@@ -106,6 +106,8 @@
 
 	///the type of damage overlay (if any) to use when this bodypart is bruised/burned.
 	var/dmg_overlay_type = "human"
+	///a color (optionally matrix) for the damage overlays to give the limb
+	var/damage_overlay_color
 
 	//Damage messages used by help_shake_act()
 	var/light_brute_msg = "bruised"
@@ -143,6 +145,9 @@
 	/// List of the above datums which have actually been instantiated, managed automatically
 	var/list/feature_offsets = list()
 
+	/// A potential texturing overlay to put on the limb
+	var/datum/bodypart_overlay/texture/texture_bodypart_overlay
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -150,6 +155,10 @@
 		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
 
 	RegisterSignal(src, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle))
+
+	if(texture_bodypart_overlay)
+		texture_bodypart_overlay = new texture_bodypart_overlay()
+		add_bodypart_overlay(texture_bodypart_overlay)
 
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
@@ -775,19 +784,16 @@
 
 	// And finally put bodypart_overlays on if not husked
 	if(!is_husked)
-		//var/organ_count = 0
 		//Draw external organs like horns and frills
 		for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
 			if(!dropped && !overlay.can_draw_on_bodypart(owner)) //if you want different checks for dropped bodyparts, you can insert it here
-				//to_chat(world, "Skipped overlay [overlay] because can_draw_on_bodypart returned FALSE")
 				continue
 			//Some externals have multiple layers for background, foreground and between
 			for(var/external_layer in overlay.all_layers)
 				if(overlay.layers & external_layer)
 					. += overlay.get_overlay(external_layer, src)
-					//organ_count++
-		//to_chat(world, "Added [organ_count] organ overlays to [src] (owner: [owner])")
-
+			for(var/datum/layer in .)
+				overlay.modify_bodypart_appearance(layer)
 	return .
 
 ///Add a bodypart overlay and call the appropriate update procs

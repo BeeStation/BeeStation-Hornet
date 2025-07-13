@@ -10,13 +10,14 @@
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
 	inherent_traits = list(
-		TRAIT_HAS_MARKINGS,
 		TRAIT_TACKLING_WINGED_ATTACKER,
 	)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list(
-		"moth_markings" = "None",
 		"body_size" = "Normal"
+	)
+	body_markings = list(
+		/datum/bodypart_overlay/simple/body_marking/moth = "None"
 	)
 	external_organs = list(
 		/obj/item/organ/external/wings/moth = "Plain",

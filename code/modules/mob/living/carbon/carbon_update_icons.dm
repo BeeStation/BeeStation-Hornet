@@ -174,16 +174,22 @@
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
 
-	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
+	var/mutable_appearance/damage_overlay
+	for(var/obj/item/bodypart/iter_part as anything in bodyparts)
+		if(!iter_part.dmg_overlay_type)
+			continue
+		if(isnull(damage_overlay) && (iter_part.brutestate || iter_part.burnstate))
+			damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", layer = CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
+			damage_overlay.color = iter_part.damage_overlay_color
+		if(iter_part.brutestate)
+			damage_overlay.add_overlay("[iter_part.dmg_overlay_type]_[iter_part.body_zone]_[iter_part.brutestate]0")	//we're adding icon_states of the base image as overlays
+		if(iter_part.burnstate)
+			damage_overlay.add_overlay("[iter_part.dmg_overlay_type]_[iter_part.body_zone]_0[iter_part.burnstate]")
+
+	if(isnull(damage_overlay))
+		return
+
 	overlays_standing[DAMAGE_LAYER] = damage_overlay
-
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP.dmg_overlay_type && !BP.is_husked)
-			if(BP.brutestate)
-				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
-			if(BP.burnstate)
-				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_0[BP.burnstate]")
-
 	apply_overlay(DAMAGE_LAYER)
 
 
@@ -279,7 +285,7 @@
 //update whether our back item appears on our hud.
 /mob/living/carbon/proc/update_hud_back(obj/item/I)
 	return
-	
+
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file

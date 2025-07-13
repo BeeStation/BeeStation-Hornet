@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(body_sizes, list(
 	"Tall" = BODY_SIZE_TALL
 ))
 	//Lizard Bits (all datum lists indexed by name)
-GLOBAL_LIST_EMPTY(body_markings_list)
+GLOBAL_LIST_EMPTY(lizard_markings_list)
 GLOBAL_LIST_EMPTY(snouts_list)
 GLOBAL_LIST_EMPTY(horns_list)
 GLOBAL_LIST_EMPTY(frills_list)

@@ -8,7 +8,7 @@
 
 	///The color this organ draws with. Updated by bodypart/inherit_color()
 	var/draw_color
-	///Where does this organ inherit it's color from?
+	///Where does this organ inherit its color from?
 	var/color_source = ORGAN_COLOR_INHERIT
 	///Take on the dna/preference from whoever we're gonna be inserted in
 	var/imprint_on_next_insertion = TRUE
@@ -59,8 +59,7 @@
 
 	var/finished_icon_state = icon_state_builder.Join("_")
 
-	//to_chat(world, "sprite_datum_icon = [sprite_datum.icon] finished_icon_state = [finished_icon_state] layer = [image_layer] OR layer = [CALCULATE_MOB_OVERLAY_LAYER(image_layer)]")
-	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(abs(image_layer)))
+	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = image_layer)
 
 	if(sprite_datum.center)
 		center_image(appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)
@@ -126,8 +125,6 @@
 ///Sprite accessories are singletons, stored list("Big Snout" = instance of /datum/sprite_accessory/snout/big), so here we get that singleton
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum(datum/sprite_accessory/accessory_path)
 	return fetch_sprite_datum_from_name(initial(accessory_path.name))
-
-
 
 ///Get the singleton from the sprite name
 /datum/bodypart_overlay/mutant/proc/fetch_sprite_datum_from_name(accessory_name)
