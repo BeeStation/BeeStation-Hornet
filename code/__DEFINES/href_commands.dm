@@ -71,9 +71,9 @@ DECLARE_HREF_PARAM(var_edit, rotatedir)
 
 
 //////////////////////////////////////////////////////////////////////////////
-
 // some janky defines for debug purpose. You really don't have to care this
-#if defined(DEBUG) || defined(LOWMEMORYMODE)
+// #define HREF_DEBUG // in case when you want it manually
+#if defined(HREF_DEBUG) || defined(LOWMEMORYMODE)
 /client
 	var/check_my_topic_href = TRUE // handy variable in development to check href values
 #else
