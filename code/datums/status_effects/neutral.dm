@@ -302,6 +302,7 @@
 /datum/status_effect/tourniquet/on_creation(mob/living/new_owner, target_zone)
 	. = ..()
 	bodyzone_target = target_zone
+	time_applied = world.time
 
 /datum/status_effect/tourniquet/on_apply()
 	. = ..()
@@ -329,7 +330,7 @@
 	// After 8 minutes lactic acid builds up at a rate of 100 every 4 minutes
 	var/toxin_buildup = (duration_applied - (6 MINUTES)) * (100 / (4 MINUTES))
 	if (toxin_buildup > 0)
-		owner.adjustToxLoss(toxin_buildup, forced = TRUE)
+		owner.adjustToxLoss(max(toxin_buildup, 50), forced = TRUE)
 		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush through your body."
 	// After 12 minutes of application, removing it will give us a heart attack
 	if (duration_applied > 12 MINUTES)

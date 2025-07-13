@@ -15,7 +15,7 @@
 		if (!DT_PROB_RATE(2, delta_time))
 			return
 		to_chat(target, span_userdanger("The bandages around your [bodypart.plaintext_zone] fail to stop the bleeding, use a tourniquet!"))
-	target.add_bleeding(BLEED_TINY)
+	target.add_bleeding(BLEED_TINY, silent = TRUE)
 
 /datum/injury/cut_arterial/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (!is_sharp)
