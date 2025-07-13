@@ -1,9 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - rscadd: Added oxygen candles. They can make a medium sized room livable without
-      any power or outside help within 5 minutes.
-  - rscadd: Vacuum exposure medpen. A 2 use medipen designed to treat and stabilize
-      people that are or have been exposed to a vacuum. **Broadly toxic. Do not use
-      it unless necessary.**
-  - tweak: tweaked emergency locker contents.
