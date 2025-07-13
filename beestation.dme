@@ -4222,7 +4222,6 @@
 #include "code\modules\surgery\injuries\burn_skin_tree\third_degree_burn.dm"
 #include "code\modules\surgery\injuries\burn_skin_tree\treated_burn.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_arterial.dm"
-#include "code\modules\surgery\injuries\cut_tree\cut_arterial_tourniquet.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_bandaged_muscle_tear.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_healthy.dm"
 #include "code\modules\surgery\injuries\cut_tree\cut_laceration.dm"
