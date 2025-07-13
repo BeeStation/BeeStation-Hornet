@@ -2,7 +2,6 @@
 	name = "\improper Dullahan"
 	id = SPECIES_DULLAHAN
 	max_bodypart_count = 5 //No head
-	default_color = "FFFFFF"
 	species_traits = list(
 		EYECOLOR,
 		HAIR,

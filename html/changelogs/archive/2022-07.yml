@@ -1,0 +1,434 @@
+2022-07-01:
+  Miliviu:
+  - bugfix: fixed Zombie Powder spamming the Death Gasp emote
+  - bugfix: "Fix Spicy-Pocket not needing Chili \U0001F336\uFE0F"
+  PatienceStPim:
+  - rscadd: Miners will now start with a discovery scanner in their bag
+2022-07-02:
+  DrDuckedGoose:
+  - tweak: Lollipops can be inserted into the mask slot
+  - tweak: Lollipops processes when equipped
+  - rscadd: Adds longpop
+  Rukofamicom:
+  - bugfix: Incursion members have functional radios again
+  benbot16:
+  - tweak: Changes/replaces some of the balloon alerts displayed when aiming a gun
+      at someone.
+  lordScrubling:
+  - rscadd: french berets accents hat effects etc. work on envirohelms
+  - rscdel: plasmamen can get shop hats
+  ro5490:
+  - tweak: Observers can now see the AI Detection HUD by using the Toggle AI HUD verb
+      in the ghost tab.
+  williamcll:
+  - rscadd: Single Z-level Corgstation added.
+  - rscadd: Science shuttle access on-station.
+  - tweak: unconnected maintenace wires connected, excess wires removed.
+  - tweak: multi Z-level Corgstation disabled until wire layer adapters are fixed.
+  - bugfix: Supermatter thermomachine pipe overlap fixed.
+2022-07-03:
+  EvilDragonfiend:
+  - rscadd: added 'log_item' proc to track obj.
+  - rscadd: new admin investigate category - items. used to track 'certain' items
+      when it's picked up or dropped.
+  - rscadd: 'automatic investigate log for certain items: most high-risk head items,
+      tracking beacon, budget cards, spare golden card. game will record who picked,
+      and dropped them.'
+  Miliviu:
+  - rscadd: 5 Minutes check to be elegible in Ghost Roles
+  Penwin0:
+  - tweak: Improves Balloon alerts
+  PestoVerde322:
+  - rscadd: Ported the mail system from /tg/.
+  - rscadd: Cargo will gradually receive mail crates over time, which contains letters
+      and packages to and for the crew. Cargo should make an attempt to deliver people's
+      mail.
+  - rscadd: add item scaling, used for the letters when they're on the ground (or
+      the crate)
+  - rscadd: New icons for the mailman outfit, and a new mailman outfit for plasmaman
+  - rscadd: some more stamps compared to the port and a new bag.
+  - tweak: from the port, the mail list has been adjusted and modified from /tg/,
+      each job gets a bigger rooster of items from the item pool (between the generic
+      list and the job dedicated lists).
+  The-Moon-Itself:
+  - bugfix: shuttles can now land in the same custom location multiple times.
+  ivanmixo:
+  - balance: Nerfed most sources of speed up
+  - balance: meth - cut by 33%
+  - balance: amphetamine - cut in half
+  - balance: nuka cola - cut in half
+  - balance: modafinil - cut in half
+  - balance: monkey energy - cut by 66%
+  - balance: ephedrine - cut by ~60%
+  - balance: DNA vault speed buffs. - cut in half
+  - balance: Ninja suit on run speed slowed by 50%
+2022-07-04:
+  PestoVerde322:
+  - rscdel: Removed an unused variable I kept in the Mail PR by accident.
+  PowerfulBacon:
+  - balance: Light EMPs will disable energy weapons and batons for 0-10 seconds as
+      opposed to 30-60 seconds.
+  - balance: Heavy EMPs will disable energy weapons and batons for 0-20 seconds as
+      opposed to 60-120 seconds.
+  Rukofamicom:
+  - rscdel: Removed undocumented and very powerful effect from viral symptom Autophagocytosis
+      Necrosis.
+2022-07-06:
+  EvilDragonfiend:
+  - tweak: Broken Chameleon kit is available to all types of syndicate agents. traitors
+      and incursionists can buy the kit.
+  - balance: Broken Chameleon kit now costs 2 TC.
+  Miliviu:
+  - bugfix: Blood Bolt Barrage can now be fired
+  PestoVerde322:
+  - rscadd: welding now has an animation!
+  Rukofamicom:
+  - tweak: Votes now display a percentage alongside the tally
+  - bugfix: Supplied exploration energy guns are no longer for dueling.
+  - admin: virus logs are much better at tracking the source and progress of viruses
+      created by players.
+  Sarchutar:
+  - rscadd: Nightmares can now break light floor/tiles with their lighteater
+  - rscadd: small description for when the tiles are broken
+  - bugfix: said light floor/tiles can't be turned back on anymore after being broken
+2022-07-08:
+  ro5490:
+  - tweak: Sentient Minebot AI Upgrade now has a cooldown - No more dreaded minebot
+      observer spam
+2022-07-09:
+  EvilDragonfiend:
+  - refactor: rename/repath 'brain_surgery.dm' and brain_surgery path into 'brain_recalibration.dm'
+  - refactor: Amplification module key feature(that allows loud mode) to radio code.
+  - rscadd: 'New key: Amplification module key. It allows you to talk in loud mode
+      through your radio. Useful to Cyborgs and pAIs.'
+  - rscadd: 'New key: Omni radio encryption key. a debug key for admins. Allows you
+      to do everything that related to radio feature.'
+  - rscadd: Box of amplification keys to heads' locker. (contains 2 amplification
+      module keys) Give a key to your trustful crew, and make them after you.
+  - tweak: The operation "Brain Surgery" has been reworded to "Brain Recalibration."
+  LodedDiper69:
+  - rscadd: Adds a new chargable toy batong
+  Miliviu:
+  - tweak: Mobs with jaunt type movement can't strip anymore
+  - rscdel: Temporarily reverts the cooldown to become an antagonist after ghosting
+  Penwin0:
+  - bugfix: Chainsaws no longer become useless when dropped
+  PestoVerde322:
+  - rscadd: Expanded the southern maint in Deltastation, now no longer broken by the
+      random maintenance room, but with a fancy corridor
+  - rscadd: Added cameras in Boxstation's virologyt
+  - bugfix: All the wrong camera address and names in Meta, Delta and Pubby virologies.
+  - bugfix: Broken access on some windoors within some virologies
+  - tweak: Tweaked some maintenance and virology zones, now they should match their
+      corresponding areas well.
+  itsmeow:
+  - rscadd: Brute damage HUD overlay (red vignette) for all simplemobs
+  - bugfix: Vending machines showing wrong stock if there is an item with the same
+      name but different type path
+2022-07-10:
+  Dejaku51:
+  - code_imp: set_security_level() now uses signals instead of multiple loops
+  EvilDragonfiend, PestoVerde322:
+  - rscadd: Hud is now tracked based on your card appearance. HoP is now supposed
+      to repaint crews' card in order to give them correct hud icons, or securities(+ghosts)
+      will blame you.
+  - rscadd: every card now has default hud icons. (i.e. Captain's Spare card has a
+      blank command HUD, budget cards have blank department color HUD)
+  - rscadd: added more PDA style options to PDA painter. (deputy, prisoner, heads,
+      unassigned, etc)
+  - refactor: PDA painter is now easy to recognise colourising style easier.
+  - tweak: Some job HUDs are now only available through emaged ID card repainter.
+  - tweak: crew monitor now tracks crew job color based on hud state.
+  - tweak: Assistant id card crew objective is now greentextable when your card is
+      painted even if the job name is still assistant.
+  - rscadd: hud image based defines
+  - refactor: crew manifest is based on hud state.
+  - refactor: PDA painter machine now updates the crew manifest upon ID repainting
+  - refactor: changes to chameleon code and agent card, to make Hud icon update working.
+      Chameleon agent card has earned QoL. They'll get a default job name of a card
+      type you chose once changed.
+  - rscadd: agent card will be randomised upon EMP. (random hud icon, random job name,
+      random icon)
+  - rscadd: broken chameleon agent card (with all wiped access, and unable to copy
+      accesses from another card)
+  - rscadd: broken chameleon kit will have broken chameleon agent card.
+  - rscadd: new hud icons, new card images (blank symbol department color hud icons,
+      new hudking icon)
+  - rscdel: 9x9 pixel size 'hudking' hud icon
+  - rscadd: New card types for the purpose of chameleon agent card. (i.e. "their majesty's
+      gold identification card")
+  - tweak: Some card types are now blacklisted from chameleon agent card - because
+      they don't make sense. (i.e changeling fake ones)
+  - tweak: your card paycheck department is now re-assigned based on your hud icon
+      state. if your hud icon is red with job name 'not real security', you are paid
+      by the security budget. the process happens when you repaint a card or give
+      a new job name to a card.
+  - tweak: not all gimmicks are in civilian department anymore. Psychiatrist is medical,
+      and Stage Magician is service like their mime/clown fellows. (VIP and barber
+      are still service)
+  itsmeow:
+  - tweak: All fakedeaths show a defib icon on medhuds instead of a skull
+  - tweak: AI alerts menu looks better and is more consistent with other AI menus
+  - bugfix: AI alerts menu will no longer unfocus the game when updating
+  - bugfix: AI alerts menu can now be closed as expected when unconscious or no longer
+      in AI control
+  ivanmixo:
+  - bugfix: attack animations work again
+2022-07-11:
+  itsmeow:
+  - bugfix: Duplicate pastries category in crafting menu
+  - bugfix: Dank-pockets are ordered correctly in the crafting menu
+2022-07-12:
+  EvilDragonfiend:
+  - bugfix: ling's fake ID card no longer shows a grey hud icon
+  itsmeow:
+  - tweak: Monochromacy quirk and cursed heart blood-red client colors now apply to
+      inventory slots
+2022-07-13:
+  benbot16:
+  - bugfix: Failing to get put into a posibrain won't lock you out of other posibrains
+      anymore.
+  itsmeow:
+  - bugfix: Fixes holopad AI message relay using job from crew manifest instead of
+      worn ID
+2022-07-15:
+  EvilDragonfiend:
+  - balance: People's mood is no longer changed/adjusted when they're dead.
+  - refactor: refactored job chat color system to make it following a hud state than
+      a job title. as a result of this, some variables are removed. chat color is
+      now stored in `_DEFINES/jobs.dm` rather than each job dm files.
+  - rscadd: custom jobs now have their own chat color (based on a hud their card has)
+  - tweak: adjusted horrible readability of revenant's dark blue chat color in dark
+      theme chat mode
+  - refactor: some consistent coding in previous custom job title PR to reflect new
+      ones
+  - refactor: procs in "_defines/jobs.dm" are moved to "_helpers/jobs.dm"
+  - bugfix: hotfix for the chat issue
+2022-07-16:
+  ike709:
+  - code_imp: Added a unit test for crafting categories
+  itsmeow:
+  - bugfix: Invisible mobs can now hear speech (includes revenant, AI eye with surveillance
+      upgrade)
+2022-07-17:
+  EvilDragonfiend:
+  - rscadd: 'new uplink item - "Box of Donk Co. toys" 2 TC. Notable toys: fake emag,
+      fake e-sword, fake duel e-sword, fake baton, etc'
+  JohnFulpWillard:
+  - balance: Biosuits can now hold large internals tanks, and not only emergency internals.
+  LodedDiper69:
+  - bugfix: Fixes botany equipment sprites
+  Rukofamicom:
+  - bugfix: Nightmares can no longer accidentally space themselves while jaunted.
+      Rematerializing manually will allow entry into space, which is bright enough
+      to harm and prevent further jaunting
+  - tweak: Nightmares are no longer exposed or harmed when adjacent to space tiles
+  - tweak: Nightmares can no longer enter solid tiles which are bright enough to force
+      rematerialization
+  - rscadd: Light eater can now force doors open, even if they are powered (But not
+      if bolted or welded)
+  - balance: Nightmares are less capable of entering well-lit areas, but are even
+      more slippery than before now that they can reliably re-enter the station from
+      space if they're fast enough and can afford the harm it causes. Nightmares should
+      be almost incapable of killing themselves via lag or accidental mishaps as well
+      now.
+  - code_imp: Due to code shuffling of door prying, changeling armblades now require
+      non-harm intent to open doors.
+  ro5490:
+  - imageadd: Glowshrooms now have a slightly altered sprite so you can click the
+      floor below them a lot easier
+2022-07-18:
+  EvilDragonfiend:
+  - bugfix: Changeling no longer shows a grey hud icon when they copied the appearance
+      of a creature wearing a PDA instead of an ID card
+  benbot16:
+  - bugfix: Fixes posi restrictions, but properly this time.
+2022-07-19:
+  EvilDragonfiend:
+  - tweak: adjusted ghost role spawn character's ID card as it doesn't show grey hud
+      icon. (CentCom commander, Official, etc)
+  - tweak: PDA now has a clickable link to turn on/off PDA auto-update. As long as
+      it's On, PDA is automatically updated when it takes a card (Chameleon PDA still
+      should do a manual update when you change appearance.)
+  - bugfix: Ruin VIP's card gets their owner's name now.
+  wixoa, ported by ike709:
+  - bugfix: Fixed subsystem priority sorting
+2022-07-20:
+  St0rmC4st3r:
+  - bugfix: Camera consoles can no longer be used to metagame a malf AI installing
+      x-ray upgrades.
+  ro5490:
+  - tweak: Slight changes to the Technophile Sect
+  - rscadd: Technophile Sect now has a new rite, Machine Blessing, get your new implants
+      today!
+  - tweak: Sects now run via a TGUI Menu, it looks good
+2022-07-21:
+  EvilDragonfiend:
+  - bugfix: Latejoin now shows Head of Personnel job to Civilian and Cargo categories
+      both along with Command category.
+  - bugfix: When HoP job is in a non-command category, it showed the category as Command.
+      (i.e. Supply as Command) now they're consistently showing proper categories
+      even if HoP is there.
+  benbot16:
+  - bugfix: Fixes xeno infection images sticking around after a larva's been removed
+      from a person.
+  qwertyquerty:
+  - soundadd: Space ambience song "Drifting"
+2022-07-22:
+  EvilDragonfiend:
+  - bugfix: TGUI chat 'Colored names' option no longer shows colored names when it's
+      disabled.
+  - bugfix: Scientist selection in PDA painter no longer gives a non-painted ID card
+2022-07-23:
+  Dejaku51:
+  - code_imp: moved the shuttles to individual folders
+  - config: changed shuttles_illegal.txt and shuttles_unbuyable.txt to point to new
+      shuttles location
+  DrDuckedGoose:
+  - rscadd: Adds lasso items
+  - rscadd: Adds tamed riding component subtype, toggles AI & sometimes spacewalking
+  - rscadd: Adds antag lasso to syndicate uplink
+  - rscadd: Add new AI for tamed animals
+  - rscadd: Add tamed component
+  - bugfix: Fix Carp lassos lassoing people
+  - bugfix: Fix Carp lassos lassoing dead thing
+  - bugfix: Fix riding dead things
+  - bugfix: Fix lassoing unseeable things
+  - bugfix: Fix lasso icon on round end
+  EvilDragonfiend:
+  - rscdel: bartender responsibility crew objective
+  - rscadd: bartender new crew objective "cocktail" - you get 5 random 'drinks', and
+      you need to have 4u for each of them in any kind of chemical container
+  - tweak: adjusted some random chem flags (peach juice is now available from botany
+      RNG)
+  - balance: Brain Tumor will deal 0.1 brain damage at 80% chance. (equals 0.08 damage)
+      previously it was 0.2 damage.
+  - balance: Brain Tumor will not deal brain damage when the quirker has mannitol
+      in their bloodstream.
+  - balance: Mannitol is less effective for Brain Tumor quirker. It only heals 0.5
+      brain damage and special overdose thresholds(35u). on overdose, it will heal
+      only 0.1 brain damage at 10% chance. (equals 0.01 damage) Don't overdose them.
+  - balance: Brain Tumor quirker now starts with 5 pills of 30u mannitol. Each pill
+      keeps you for 150 seconds, in total 750 seconds.
+  - rscadd: Brain Tumor will warn you when you're about to be at a mild trauma threshold.
+      It will notice you when your brain damage is at near zero.
+  - rscadd: Brain Tumor quirker will have a +0 mood event when they eat mannitol.
+      the message will persist for 30~60 seconds longer even if mannitol doesn't exist
+      in your bloodstream.
+  - refactor: better gimmick codes
+  - tweak: gimmick jobs now do have a supervisor. (except for VIP)
+  - tweak: gimmick jobs now have a title from RPG title wizard event.
+  Penwin, TDSS:
+  - rscadd: A new station goal, the bluespace tap. Feed it power for fantastical rewards!
+  PowerfulBacon:
+  - tweak: You can now only view runtimes as a player if you are a ghost, or the round
+      has ended.
+  benbot16:
+  - tweak: Xeno chestbursters no longer gib their hosts.
+  - tweak: Tweaks alien embryo growth logic
+  itsmeow:
+  - admin: Added View Minimal Runtimes verb to OOC tab for non-admins with less details
+  ivanmixo:
+  - rscadd: added blood being smeared on objects when your hands are bloody
+  ro5490:
+  - rscadd: The Chaplain now has access to a Necromancy Sect!
+  - rscadd: Living Sacrifice rite for the Necromancy Sect, Sacrifice Non-Sentient
+      living creatures for favor
+  - rscadd: Raise Dead rite for the Necromancy Sect, Resurrect anyone with the power
+      of god - 2500 Favor cost
+  - rscadd: Raise Undead rite for the Necromancy Sect, Raise a high functioning zombie/skeleton
+      from the observer pool - 1500 Favor cost
+  - rscadd: Necromancy Sect uses the green altar
+  - rscadd: Summoned Undead are sub-chaplains, and have their own clothing and bible!
+2022-07-24:
+  Crossedfall:
+  - server: Upgrades the TGUI dependency terser to 5.14.2
+  dokorwueue, dog132:
+  - tweak: 'Meta Station: Replaces the door to Robotics with a glass version'
+2022-07-25:
+  itsmeow:
+  - bugfix: Can buckle people to stuff again
+2022-07-26:
+  Miliviu:
+  - bugfix: fixes changelings getting stucked in the stasis while being Monkeys
+  itsmeow:
+  - rscadd: Alt-Clicking on the identification console ejects only one id at a time.
+  - tweak: Medical and Security consoles now check access on worn or inhand ID instead
+      of requiring an inserted ID
+  - tweak: HoP console now shows buttons with access as green instead of red
+  - rscadd: Can easily swap out IDs in HoP console by clicking the machine or the
+      UI fields with another ID
+  - rscadd: ID console now names which IDs are added/removed in its visible messages
+  - tweak: Can now use HoP access modification after logging in without an ID in
+  zeskorion:
+  - rscdel: advanced diseases can no longer have airborne spread
+  - balance: Disease transmission has been changed, check the wiki
+  - tweak: simple diseases now spread less frequently
+  - tweak: sneezing and coughing now spread viruses again, at a transmission threshold
+  - tweak: virus symptoms that spread viruses now have a warning before spreading
+      the virus, allowing perceptive players to back away in time
+2022-07-27:
+  EvilDragonfiend:
+  - refactor: refactored job strings into DEFINES.
+  - refactor: relocated some job related code lines
+  - refactor: changed some abbreviation names into correct ones (i.e. hos -> head_of_security)
+  PowerfulBacon:
+  - bugfix: Vortex rifles can now damage mobs
+  - bugfix: Blob ruin generator has been fixed
+  - tweak: Objective payout ranges have been adjusted to always intersect with each
+      other.
+2022-07-28:
+  EvilDragonfiend:
+  - bugfix: player pannel is now working again.
+  - refactor: corrected some wrong usage of job defines.
+  Memendia:
+  - bugfix: Cargo Caps flip again
+  itsmeow:
+  - bugfix: Minimal runtimes menu will no longer show duplicates and lag
+2022-07-29:
+  EvilDragonfiend:
+  - refactor: new mind proc 'is_murderbone()` to check if their mind has murderbone
+      objective, and objective datum has murderbone_flag variable
+  - balance: His Grace / Romerol are now only purchasable to those who have a murderbone
+      objective. (His Grace is still restricted to chaplain)
+  - balance: Romerol is now 20 TC
+  Miliviu:
+  - bugfix: The cancel button no longer spawns antagonists in the create-antagonist
+      menu
+  PestoVerde322, Rukofamicom:
+  - rscadd: Revenants may now reveal themselves at will with a new ability! While
+      corporeal revenants are vulnerable but able to perform the same basic functions
+      that other simplemobs can, such as stripping players and dragging things around.
+  Rukofamicom:
+  - bugfix: fixed viruses spamming deadchat with messages when they have Necrotic
+      Metabolization
+  - tweak: Wizarditis can no longer teleport across Z-levels.
+  ValuedEmployee Justice12354:
+  - rscadd: Added Mothroaches
+  etherware-novice:
+  - rscadd: Added the :d radio channel
+  - tweak: Tweaked the ic notes, traitor splash screen, and code generation to reflect
+      the new uplink
+  ivanmixo:
+  - admin: Moderators' bus perms have been toned down, but they can now rename improperly
+      named characters/mobs
+2022-07-30:
+  PestoVerde322:
+  - bugfix: moved the two MD spawn from the virology ward in Deltastation from virology
+      to medbay's hallways
+  PowerfulBacon:
+  - balance: Cogscarabs can no longer dodge projectiles that aren't fired directly
+      at them.
+  etherware-novice:
+  - rscadd: Added screwdriver pen
+  - rscadd: Added s-pen to maint spawns
+  zeskorion:
+  - tweak: the hysteria symptom has been toned down to avoid lag
+2022-07-31:
+  Ivniinvi (recouped and updated by PestoVerde322):
+  - refactor: Refactored cult rune inscribing into a component
+  - refactor: Refactored null rod rune clearing into a component
+  PowerfulBacon:
+  - rscadd: Adds in a new UI style for non-world UIs
+  etherware-novice:
+  - rscadd: Added the 3 new emotes

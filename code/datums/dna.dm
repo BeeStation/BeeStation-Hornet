@@ -505,6 +505,16 @@
 /mob/living/carbon/has_dna()
 	return dna
 
+/// Returns TRUE if the mob is allowed to mutate via its DNA, or FALSE if otherwise.
+/// Only an organic Carbon with valid DNA may mutate; not robots, AIs, aliens, Ians, or other mobs.
+/mob/proc/can_mutate()
+	return FALSE
+
+/mob/living/carbon/can_mutate()
+	if(!(MOB_ORGANIC in mob_biotypes))
+		return FALSE
+	if(has_dna() && !HAS_TRAIT(src, TRAIT_GENELESS) && !HAS_TRAIT(src, TRAIT_BADDNA))
+		return TRUE
 
 /mob/living/carbon/human/proc/hardset_dna(ui, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/mutations, force_transfer_mutations, list/default_mutation_genes)
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)
@@ -642,19 +652,19 @@
 		dna.features["diona_pbody"] = GLOB.diona_pbody_list[deconstruct_block(getblock(features, DNA_DIONA_PBODY_BLOCK), GLOB.diona_pbody_list.len)]
 
 	// Ensure we update the skin tone of all non-foreign bodyparts
-	for(var/obj/item/bodypart/part in bodyparts)
-		if(part.no_update)
-			continue
-		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
+	//for(var/obj/item/bodypart/part in bodyparts)
+	//	part.update_limb(dropping_limb = FALSE, is_creating = TRUE)
 	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color
+
 	if(icon_update)
+		dna.species.handle_body(src)
 		update_body()
 		update_hair()
 		if(mutcolor_update)
-			update_body_parts()
+			update_body_parts(update_limb_data = TRUE)
 		if(mutations_overlay_update)
 			update_mutations_overlay()
 
