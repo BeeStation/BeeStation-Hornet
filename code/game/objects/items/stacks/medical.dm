@@ -108,7 +108,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		C.balloon_alert(user, "[C] has no [parse_zone(zone_selected)]!")
 		return
 
-	var/valid = can_be_applied(mob/living/M, mob/user, zone_selected)
+	var/valid = can_be_applied(M, user, zone_selected)
 	var/message = null
 
 	if(stop_bleeding)
