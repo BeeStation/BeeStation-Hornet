@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			seeker_port = port_num
 		if(!logged_in) // the login handler is ready now
 			src?.send_saved_session_token()
+		return
 
 	//-------------------------
 	//byond bug ID:2256651
