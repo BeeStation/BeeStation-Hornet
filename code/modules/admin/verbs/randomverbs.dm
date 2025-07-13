@@ -1044,7 +1044,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /datum/admins/proc/modify_goals()
 	var/dat = ""
 	for(var/datum/station_goal/goal as anything in SSstation.get_station_goals())
-		dat += "[goal.name] - <a href='?src=[REF(goal)];[HrefToken()];announce=1'>Announce</a> | <a href='?src=[REF(goal)];[HrefToken()];remove=1'>Remove</a><br>"
+		dat += "[goal.name] - <a href='byond://?src=[REF(goal)];[HrefToken()];announce=1'>Announce</a> | <a href='byond://?src=[REF(goal)];[HrefToken()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='byond://?src=[REF(src)];[HrefToken()];add_station_goal=1'>Add New Goal</a>"
 	var/datum/browser/browser = new(usr, "goals", "Modify Goals", 400, 400)
 	browser.set_content(dat)
