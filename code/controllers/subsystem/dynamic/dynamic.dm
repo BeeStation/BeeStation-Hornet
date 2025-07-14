@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(dynamic)
 	/// Can dynamic actually do stuff? Execute midrounds, latejoins, etc.
 	var/forced_extended = FALSE
 	/// The dynamic configuration file. Used for setting ruleset and dynamic variables
-	var/list/dynamic_configuration = null
+	var/list/dynamic_configuration
 	/// Some rulesets (like revolution) need to process
 	var/list/datum/dynamic_ruleset/rulesets_to_process = list()
 	/// Associative list of current players
@@ -454,6 +454,9 @@ SUBSYSTEM_DEF(dynamic)
  * Generate midround points once per minute based off of each player's status
 **/
 /datum/controller/subsystem/dynamic/proc/update_midround_points()
+	if(world.time - SSticker.round_start_time < midround_grace_period)
+		return
+
 	var/previous_midround_points = midround_points
 
 	var/living_delta = length(current_players[CURRENT_LIVING_PLAYERS]) * midround_living_delta
@@ -571,7 +574,7 @@ SUBSYSTEM_DEF(dynamic)
  * There is a 10% chance for someone to be picked
 **/
 /datum/controller/subsystem/dynamic/proc/make_antag_chance(mob/living/carbon/human/character)
-	if(forced_extended || SSticker.check_finished() ||EMERGENCY_ESCAPED_OR_ENDGAMED)
+	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
 	if(!length(latejoin_configured_rulesets))
@@ -594,19 +597,14 @@ SUBSYSTEM_DEF(dynamic)
 
 		latejoin_forced_ruleset = pick_weight_allow_zero(possible_rulesets)
 
-	if(!latejoin_forced_ruleset)
-		return
-
 	// Check if the ruleset is allowed
 	latejoin_forced_ruleset.candidates = list(character)
 	latejoin_forced_ruleset.trim_candidates()
-
 	if(!latejoin_forced_ruleset.allowed())
 		return
 
 	// Execute our latejoin ruleset
 	var/result = execute_ruleset(latejoin_forced_ruleset)
-
 	message_admins("DYNAMIC: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 	log_dynamic("LATEJOIN: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
