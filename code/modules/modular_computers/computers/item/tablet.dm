@@ -114,11 +114,15 @@
 			return
 	..()
 
-// Eject the pen if the ID was not ejected
+// Eject the PAI then pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
 	if(..() || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
-	remove_pen(user)
+	if(!inserted_item && stored_pai_card)
+		usr.put_in_hands(stored_pai_card)
+		remove_pai()
+	else
+		remove_pen(user)
 
 // Always eject pen with Ctrl+Click
 /obj/item/modular_computer/tablet/CtrlClick(mob/user)

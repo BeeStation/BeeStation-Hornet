@@ -823,6 +823,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	UnregisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING)
 	stored_pai_card = null
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 	update_appearance()
 
 // Used by processor to relay qdel() to machinery type.
