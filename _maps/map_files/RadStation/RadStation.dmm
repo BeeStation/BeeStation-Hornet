@@ -871,7 +871,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "anL" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "aoy" = (
@@ -3723,7 +3723,7 @@
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
 "biX" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/sepia,
 /area/maintenance/port/central)
 "bjt" = (
@@ -21293,7 +21293,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
 "gPh" = (
@@ -41434,7 +41434,7 @@
 /area/engine/engineering)
 "nGL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "nHb" = (
@@ -53639,7 +53639,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "rJX" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "rKk" = (
@@ -54302,7 +54302,7 @@
 /area/security/brig)
 "rXp" = (
 /obj/structure/window/reinforced,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)
@@ -63210,7 +63210,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -70382,7 +70382,7 @@
 	dir = 8;
 	pixel_y = 1
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/central)

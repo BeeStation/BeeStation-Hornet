@@ -103,3 +103,56 @@
   - bugfix: cleans up 'repeating' surgeries. Surgeries will try to repeat as a default
       behavior if they fail at first (like using a kitchen knife as a scalpel for
       tend wounds)
+2025-07-10:
+  itsmeow:
+  - rscadd: You can now relink authenticated BYOND accounts to new Discord accounts
+      at will, and unlink your Discord account from an old CKEY.
+  - bugfix: Fixed unhelpful error message when using a Discord account that is already
+      linked to a different CKEY, or a CKEY already linked to a different Discord
+      than the one you signed in with.
+  - tweak: Adjusted the information given in the login panel to be more useful and
+      easier to understand.
+  - tweak: Improved the look of the login panel's manual token entry input and submit
+      button.
+  - bugfix: When reconnecting, it is no longer possible to be assigned a mob that
+      you aren't authorized to use / logged into.
+  - admin: Disconnected user's mobs will now have their key changed to @DC@Original
+      Key
+2025-07-13:
+  Aramix:
+  - bugfix: Sealed mechs will now use internal tank contents to repressurize cabin
+      during internal air tank usage once again
+  - bugfix: Adjusted the initial air moles count in the cabin for sealed mechs to
+      start with a cabin air pressure of one atmosphere
+  ClownMoff:
+  - rscadd: 'Added 3 new emojis for Mime''s PDA/LOOC/OOC: captain, mistake and true'
+  Gilgax:
+  - code_imp: fixed the quickstart setting for easier debugging
+  Solene:
+  - tweak: tweaked the visual and audio behavior of personal lockers
+  - tweak: Captain, HoP and HoS id's can now wipe a owners registry from a personal
+      locker
+  Solene Yoon:
+  - rscadd: Adds Soy Sauce, BBQ Sauce and Mayonnaise to the Chef Vendor
+  TsunamiAnt:
+  - rscadd: Added oxygen candles. They can make a medium sized room livable without
+      any power or outside help within 5 minutes.
+  - rscadd: Vacuum exposure medpen. A 2 use medipen designed to treat and stabilize
+      people that are or have been exposed to a vacuum. **Broadly toxic. Do not use
+      it unless necessary.**
+  - tweak: tweaked emergency locker contents.
+2025-07-14:
+  ClownMoff:
+  - rscadd: 'BoxStation: Adds navigation marks to places missing them (science, kitchen,etc.)'
+  - rscadd: 'BoxStation: Adds a straight jacket to medbay'
+  - tweak: 'BoxStation: Modernizes and improves cargo''s department layout'
+  - tweak: 'BoxStation: Rearranged some stuff inside and outside the kitchen to have
+      a better layout to work with ingredients'
+  - tweak: 'BoxStation: Opened a direct entrance from the Cargo lobby into the security
+      outpost'
+  - tweak: 'BoxStation: Small change in the torture room all items for the tortured
+      are not on the same tile and you can see them better'
+  - bugfix: 'BoxStation: Fixed service maintenance access and door access between
+      kitchen-bar-botany'
+  - rscdel: 'BoxStation: Removed a table from the security outpost in cargo to open
+      space for a direct entrance from the lobby'

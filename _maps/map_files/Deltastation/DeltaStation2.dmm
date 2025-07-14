@@ -68417,7 +68417,7 @@
 /area/janitor)
 "pZX" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "qae" = (
