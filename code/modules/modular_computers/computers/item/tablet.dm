@@ -20,6 +20,7 @@
 	var/obj/item/insert_type = /obj/item/pen
 	//This is the currently inserted item
 	var/obj/item/inserted_item
+	can_store_pai = TRUE
 
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
@@ -307,7 +308,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	comp_light_luminosity = 2.3
 	max_hardware_size = WEIGHT_CLASS_TINY
-	can_store_pai = TRUE
 
 	var/default_disk = 0
 	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.

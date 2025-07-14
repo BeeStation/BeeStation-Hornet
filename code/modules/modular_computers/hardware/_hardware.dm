@@ -236,6 +236,8 @@
 	if(!enabled)
 		. += "<span class='cfc_soul_glimmer_humour'>Warning</span> // Hardware Disabled"
 	. += "Current power consumption :: [power_usage]"
+	if(expansion_hw)
+		. += "INFO :: Component requires Expansion Bay slot."
 	if(hacked)
 		. += "<span class='cfc_magenta'>WARNING :: OPERATING BEYOND RATED PARAMETERS</span>"
 	return

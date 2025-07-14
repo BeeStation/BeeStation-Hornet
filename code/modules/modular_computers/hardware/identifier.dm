@@ -4,7 +4,6 @@
 	power_usage = 0
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_IDENTIFY
-	expansion_hw = FALSE
 	var/stored_name
 
 /obj/item/computer_hardware/identifier/on_install(obj/item/modular_computer/install_into, mob/living/user)
