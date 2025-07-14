@@ -1,0 +1,308 @@
+2024-03-02:
+  PestoVerde322:
+  - imageadd: Made the Ombre haircut slightly more detailed.
+  - bugfix: fixed a runtime related to Brig cells timers
+  - bugfix: fixed a runtime related to cockroaches
+  PowerfulBacon:
+  - balance: Pepperclouds now have 3 uses before needing to be refilled instead of
+      2.
+  Programs-The-Station:
+  - bugfix: Camouflage spelled correctly
+2024-03-03:
+  HowToLoLu:
+  - rscdel: Removed an offensive word from the list of phobia trigger words.
+  RKz, ShizCalev:
+  - refactor: Converted everything to use setAnchored() as opposed to setting the
+      anchored var directly. This means that COMSIG_MOVABLE_SETANCHORED can now actually
+      be used reliably to track if an object's anchored var has changed.
+  - bugfix: The refactor also means that varediting the anchored var will now properly
+      update most items' other states that rely on it being set a certain way.
+  - bugfix: Fixed bookcases having the incorrect icon when they're unanchored.
+  - bugfix: Fixed bookcases not automatically picking up spellbooks / storage books
+      when made/spawned.
+  - bugfix: Fixed bookcases not dropping spellbooks / storage books when deconstructed.
+  ToasterBan:
+  - rscadd: You can now name a constructed medbot using a pen on it
+  - rscadd: Chemist PDA job disks now also contain robot management
+  - rscadd: Medbot UI now tells you the name of the beaker/chembag that is inserted
+      in it
+  - tweak: Medbots need to be unlocked to have their beaker/chembag removed
+  Tsar-Salat:
+  - rscadd: Full conversion to the new food typepath
+  - bugfix: fixes all instances of machines checking for the old path instead of the
+      new food path, incl. vendors & microwaves
+  - tweak: converts misc.dm to use protein values
+  - tweak: converts snacks_vend.dm to use protein values
+  rkz, Mickyan, Donkie, willox, Timberpoes, Kush1Push1, AnturK:
+  - bugfix: bloody footprints no longer spawn with incorrect steps and don't break
+      when rotated on shuttles
+  - tweak: Blood dripping frequency now scales with blood loss
+  - bugfix: Fixed blood decals occasionally containing more blood than they should
+  - rscadd: Footprints and bloody shoes major update. Hardsuits and bare feet can
+      now get bloody as well. Improved blood spreading behaviour.
+  - bugfix: Shoes will no longer get bloody while wearing something that covers them.
+  - tweak: Blood splatters only make your shoes or feet bloody if the tile is bloody
+      enough,
+  - tweak: Light steps trait prevents clothing from being covered in blood if you
+      step on a bloody tile with your shoes off.
+  - rscadd: Blood dries over time. Usually, 3 or 6 minutes. If a splatter is big enough,
+      it can stay wet up to 15 minutes.
+  - bugfix: The detective's scanner should now always properly output the correct
+      data for scans and should no longer print out blank entries erroneously.
+  rkz, Seris02, ExcessiveUseOfCobblestone:
+  - code_imp: Dehardcodes milkable component reagent
+  - rscadd: Snakes can now be milked for venom. They don't seem to mind.
+  - bugfix: fixed bad qdels with milkable component
+  - admin: converted VV component list input to TGUI
+  rkz, mickyan:
+  - rscadd: randomized pixel shifting when throwing items
+  zeskorion:
+  - rscdel: removes the virologist role. this is config based.
+  - rscdel: Removes most means to customize viruses This is config based. Currently,
+      you can remove up to 2 symptoms from a disease, neuter symptoms, and mix viruses.
+      Symptom removal is not random, with each symptom being removed based on a value
+      given at roundstart.
+  - rscdel: dermagraphic ovulogenesis symptom
+  - tweak: while virus customization is disabled, virus sample crates instead ship
+      5 isolated utility symptoms
+  - rscadd: re-adds viro zombies. They're now weaker, and only spread their diseases,
+      instead of spreading the tumor itself.
+  - rscadd: adds a new chemical reaction, which allows you to remove faltered, immutable,
+      dormant, and carrier status from viruses
+  - balance: random viruses made through events should be more impactful now
+  - balance: some symptom thresholds should be far easier to reach. config controlled.
+  - tweak: toxoplasmosis sapiens is now level 0, and can *technically* appear, but,
+      like all level 0 symptoms, will practically never appear, and will be even less
+      likely to have any significant effect. However, the owo speak effect has been
+      substantially toned down, and should now only impede the speech of certain letters
+      and induce random cat noises, rather than replacing words arbitrarily.
+2024-03-04:
+  EvilDragonfiend:
+  - bugfix: Fixed telekinesis mutation throwing runtime when a holder touches an airlock.
+  - code_imp: Telekinesis effect will be shown on an airlock whenever it's telekinetically
+      interacted
+  Tsar-Salat:
+  - bugfix: fixes bug with cyborg glass stacks when crafting or using on tableframes
+2024-03-05:
+  rkz, Mothblocks, ArcaneDefence:
+  - bugfix: moths can eat clothes again (perhaps to the dismay of a few)
+2024-03-06:
+  Aramix:
+  - bugfix: Admins can now use View Variable's Add Component/Element again (adminbus
+      potential)
+  EvilDragonfiend:
+  - code_imp: Revived 'get_recipes()' proc
+  - code_imp: Base materials now correctly show a dupe version of a craftable object.
+      Currently only a chair is available, and only certain materials like Iron, Plasma
+      sheet, Bananium sheet, etc have this.
+  - bugfix: fixed some materials are not matched to each other
+  ToasterBan:
+  - admin: adding a beaker to a medbot is now logged
+  - rscdel: The "Flow Hair" hairstyle, which was identical to "Short Hair 4"
+2024-03-07:
+  '@BriggsIDP @DrDuckedGoose @HowToLoLu ':
+  - rscadd: added a new subtype of the holodeck, a smaller 7x7 holodeck
+  - rscadd: '4 new shuttles: cargo_tiny, mining_tiny, arrival_tiny and evac_tiny'
+  - rscadd: Edited bimo gen for surface fauna gen
+  - tweak: lighting fixes for dynamic lighting thanks to dakae!
+  - bugfix: fixed some zlevel rendering issues
+  - tweak: tweaked the mapGenerator files biome gen; pixel shifting placed objs
+  - tweak: various turfs for planetary use
+  - rscadd: pool water code to beach/water, you have to climb in it!
+  - tweak: made tesla quieter
+  MarkusLarsson421:
+  - imageadd: Added a map sign for Echo Station able to display any of the four floors
+      for mappers to guide players.
+  MatiAvanti:
+  - config: Replace "Red Dead Redemption Two" and "Yanye Kest" with "Bonkers" and
+      "John Nanotrasen"
+2024-03-09:
+  contributors:
+  - rscdel: removes a lightswitch on fland
+2024-03-10:
+  EvilDragonfiend:
+  - bugfix: 'Fixed runtime `items.dm, line 420: Cannot read null.len`'
+  HowToLoLu:
+  - bugfix: Fixed conflicting holodeck program IDs which resulted in small holodecks
+      overriding the normal sized ones.
+  PestoVerde322:
+  - bugfix: Adjusted the icons for the locker wand
+  - bugfix: Tweaked the fridge door's icon
+  - bugfix: Reimplemented the "soulfull" locker as it's icon was gone
+  - bugfix: Secure crates now have the right door icon
+  - bugfix: The icon for the fishcase is now adressed correctly
+  - imageadd: New tops for the engineering and science secure crates (they didn't
+      even render before)
+  - imageadd: Implemented a visual indicator for loot crates when opened for the first
+      time, aswell fixing the missing "unlocked" icon
+  - imageadd: Reworked a good chunk of the lockers' icons, now security is much redder,
+      aswell rendering some details forgotten in the previous version
+  PowerfulBacon:
+  - rscadd: Adds a system for logging combat interactions for comparison and statistic
+      purposes.
+  "jixs4v, Miliviu, Rat\xF3n":
+  - admin: Added a new Banning Panel created with TGUI, old panel is still available
+      with the verb old-banning-panel
+  rkz, Jacklecroy, MrMelbert, TemporalOroboros:
+  - rscadd: customizable_reagent_holder element
+  - rscadd: customized pizza, bread, salad, and burgers. Put toppings on your margherita
+      pizza, bowls, buns, and bread to make them customized.
+  tonty:
+  - bugfix: roundstart/polymorphed cyborgs are now more spiritually grounded to their
+      MMIs
+2024-03-11:
+  ToasterBan:
+  - bugfix: you can now cook food by lighting it on fire again
+2024-03-12:
+  DrDuckedGoose:
+  - tweak: Make height code use displacement maps
+  - rscadd: Add variable heights to species
+  Miliviu:
+  - admin: You can now issue permanent bans with the TGUI Banning panel
+  XeonMations:
+  - balance: Spacemans can now move when getting up from the ground without their
+      legs giving out.
+2024-03-14:
+  JixS4v:
+  - admin: severity in TGUI ban panel bans forced to "high", fixes severity of "1"
+2024-03-15:
+  EikoBiko:
+  - tweak: tweaked the felinid tailwag sprite
+  EvilDragonfiend:
+  - bugfix: Deconverted cultist's halo is now properly removed
+  - code_imp: slightly moved cultist code to make it easily readible and quick to
+      find additional refs
+  RDS88-beeman:
+  - rscadd: Eldritch kiss reagent that's only given in heretic minigame - it won't
+      kill oozelings by toxin healing. Identical to Atropine.
+  - bugfix: Escaping from a handshake with an elder god no longer causes oozelings
+      toxin damage.
+  TsunamiAnt:
+  - rscadd: Added the Bioscanner, a full-body medical scanning machine that can be
+      ugraded and takes time to scan people.
+  - balance: All medical scans now do slight radiation damage depending on the scanner
+      used.
+  - balance: switched out the CMOs advanced analyzer with a normal one, which will
+      be the only handheld analyzer at shift start, same as the advanced one.
+  - balance: removed advanced analyzer from the techtree and made them admin-only.
+      Moved the normal one to tier 5 and research disk exclusive.
+  - rscdel: removed medical scanning functionality from PDA cartridges. Reagent scanning
+      stays.
+  - balance: medibots are now constructed with health sensors, not analyzers.
+  - rscadd: Echo now has a bioscanner
+  - rscadd: Bioscanner board printing
+2024-03-17:
+  Miliviu:
+  - bugfix: Banning Panel CID check now works as intended (If you don't select the
+      CID, the CID will not be banned)
+2024-03-18:
+  RDS88:
+  - rscadd: You can now print stethoscopes at the medical lathe.
+2024-03-19:
+  Geatish:
+  - tweak: Makes the compact remote small so it is actually compact
+2024-03-20:
+  ClownMoff:
+  - tweak: 'CorgStation: Brig is now usable'
+  - tweak: removes the cargo dorms and puts the QM office where they used to be
+  - tweak: changes hallways  and maintenance around brig
+  - tweak: moves the public garden next to the chapel
+  - tweak: puts the gravity generator in engineering below the SM
+  PowerfulBacon:
+  - rscdel: Removes bioscanners
+  XeonMations:
+  - rscadd: Radstation now has a library scanner in its library.
+2024-03-21:
+  EvilDragonfiend:
+  - bugfix: plumbing grinder no longer grinds ungrindable pills (i.e. floorpills)
+  Miliviu:
+  - bugfix: Explosion Size is now saved in Supply Pods presets
+2024-03-22:
+  ClownMoff:
+  - tweak: Added missing cablework in the gravity generator on Corgstation
+2024-03-23:
+  Aramix:
+  - tweak: shelters cannot be deployed in maze dimension anymore
+  EvilDragonfiend:
+  - bugfix: Stat panel will no longer say Revenant health
+  - bugfix: Revenant spell buttons will now tell you the req to unlock or essence
+      value to cast
+  - bugfix: Revenant will be immediately rejected if their telepathy isn't working
+  - bugfix: Some Revenant spells are now castable by non-revenants, for admeme
+  - bugfix: Revenant won't spawn on a holytile
+  Hardly:
+  - bugfix: Adds the proper carpets for Radstation's maintenance bar closet
+  - tweak: Removes a bit of spaghetti pipe on Boxstation's atmos waste a tiny bit
+  ToasterBan:
+  - rscadd: Chembag crate to cargo, it has 1 chembag for each basic healing chemical
+  - rscadd: cargo medbots now spawn with a bicaridine kelotone mix
+  - rscadd: using a spraycan on a medbot will re-colour it
+  - rscadd: examining a medbot now tells you about re-naming and re-colouring
+2024-03-25:
+  HowToLoLu:
+  - bugfix: Crafting things with stacks leather is now possible again
+  ToasterBan:
+  - tweak: Hypersensitive and Apathetic quirks now only affect negative moodlets
+2024-03-26:
+  PowerfulBacon:
+  - balance: Rebalances the stun baton, reducing its damage and giving it the secondary
+      effect of triggering the disarm effect against opponents.
+  rkz, Shizcalev, ArcaneMusic, Ghommie:
+  - bugfix: Fixed a scenario which could cause floorbots to end up with negative tiles
+      in their inventory.
+  - bugfix: Fixed floorbots not stopping the process of replacing tiles after turning
+      off replace tiles while they're in the middle of replacing
+  - bugfix: Floorbots had had a software update, preventing them from dogpiling on
+      their target as easily as they did before.
+  - soundadd: Floorbots will now play a small chime when stacked on top of each other
+      to indicate that they're moving apart.
+  - bugfix: Fixed floorbots applying floor tiles onto already tiled turfs.
+  - bugfix: Fixed floorbot issues with material tiles.
+  - bugfix: Fixed emagged floorbots spawning lattice when deconstructing floor into
+      plating.
+  - refactor: made floorbot magnets much more reliable
+  rkz, Watermelon914:
+  - server: Refactors dbcore.dm and limits the maximum amount of concurrent async
+      queries to 25.
+2024-03-27:
+  EveLed:
+  - rscadd: Added the Black Beret to the beecoin shop
+  rkz, AdipemDragon:
+  - rscadd: separates xenobread and spiderbread sprites
+  - rscadd: New bread sprites
+2024-03-28:
+  EvilDragonfiend:
+  - tweak: traitor items inside of a box will now get illegal tech bitflag, but there
+      are some items that won't get it. If you want to make it sure, hover your mouse
+      cursor on the item name in uplink. a tooltip will appear if it has illegal tech
+      or not.
+  - tweak: roundend report now tells how effectively a traitor used their TC with
+      sales
+  - refactor: refactored uplink code
+  - balance: some items (i.e. money case) from uplink are no longer illegal tech.
+      basically suspicious boxes.
+  rkz:
+  - code_imp: repaths `/turf/open/floor/plasteel` tiles to `/turf/open/floor/iron`,
+      given they are made out of, of course, iron.
+  rkz, silicons, Rohesie:
+  - refactor: movespeed modifiers are now datums and not lists and support global
+      caching.
+  - server: global caching of movespeed modifiers should both save on performance
+      for modifiers that constantly change (sepia stabilized extract)
+  - bugfix: ignore_slowdown works correctly
+  rkz, timothymtorres, Ghommie, MrMelbert, prodirus:
+  - tweak: Cooking Oil damaging mobs now respects that mobs reagent permeability (i.e.
+      clothing BIO damage resistance)
+  - tweak: upped the damage output by Cooking Oil a tiny bit to account for average
+      crewmembers jumpsuit.
+  - refactor: Turned deepfriedholder into an element. Deepfrying stuff is no longer
+      ancient code, and is much cleaner.
+  - bugfix: Deepfrying respects indestructibility, always.
+  - bugfix: Adding reagents to the Deepfryer will no longer display an attack animation
+  - bugfix: Adds a check that prevents normally deepfryable/edible items that also
+      can store items inside them from being fried. Should stop weird edge-cases where
+      consuming said item would qdel indestructible items inside.
+  - code_imp: our file with defined colors looks less terrible
+2024-03-31:
+  ClownMoff:
+  - rscadd: Adds 4 more cool lobby screens

@@ -631,8 +631,18 @@
 	description = "A crystal toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/golem/random
+	race = /datum/species/golem
 	taste_description = "rocks"
+
+/datum/reagent/mutationtoxin/golem/on_mob_metabolize()
+	var/static/list/random_golem_types
+	random_golem_types = subtypesof(/datum/species/golem) - type
+	for(var/i in random_golem_types)
+		var/datum/species/golem/golem = i
+		if(!initial(golem.random_eligible))
+			random_golem_types -= golem
+	race = pick(random_golem_types)
+	..()
 
 /datum/reagent/mutationtoxin/abductor
 	name = "Abductor Mutation Toxin"
@@ -1971,7 +1981,7 @@
 
 /datum/reagent/romerol/expose_mob(mob/living/carbon/human/H, method=TOUCH, reac_volume)
 	// Silently add the zombie infection organ to be activated upon death
-	if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
+	if(!H.get_organ_slot(ORGAN_SLOT_ZOMBIE))
 		var/obj/item/organ/zombie_infection/nodamage/ZI = new()
 		ZI.Insert(H)
 	..()

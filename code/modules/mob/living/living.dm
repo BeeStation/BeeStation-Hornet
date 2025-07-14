@@ -330,7 +330,7 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
+			if (L.get_organ_by_type(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
 				M.visible_message(span_warning("[src] grabs [L] by [L.p_their()] tail!"),\
 								span_warning(" [src] grabs you by the tail!"), null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, span_notice("You grab [L] by [L.p_their()] tail!"))  //Message sent to grabber
@@ -658,7 +658,7 @@
  *   Check __DEFINES/injection.dm for more details. Unlike can_inject, the INJECT_TRY_* defines will behave differently.
  */
 /mob/living/proc/try_inject(mob/user, target_zone, injection_flags)
-	return can_inject(user, target_zone, injection_flags)
+	return can_inject(user, target_zone, injection_flags & ~(INJECT_TRY_SHOW_ERROR_MESSAGE))
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
@@ -808,7 +808,7 @@
 	set_dizziness(0)
 	cure_nearsighted()
 	//Some eye logic
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	cure_blind(null, eyes?.can_see)
 	cure_husk()
 	hallucination = 0
@@ -909,7 +909,7 @@
 							TH.color = spec_color
 
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
-	if((NOBLOOD in dna.species.species_traits) || !is_bleeding())
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
 	spec_color = dna.species.blood_color
 	..()
@@ -1865,6 +1865,14 @@
 		return BODYTEMP_NORMAL
 	return BODYTEMP_NORMAL + get_body_temp_normal_change()
 
+///Returns the body temperature at which this mob will start taking heat damage.
+/mob/living/proc/get_body_temp_heat_damage_limit()
+	return BODYTEMP_HEAT_DAMAGE_LIMIT
+
+///Returns the body temperature at which this mob will start taking cold damage.
+/mob/living/proc/get_body_temp_cold_damage_limit()
+	return BODYTEMP_COLD_DAMAGE_LIMIT
+
 //Used for applying color correction
 /mob/living/proc/apply_color_correction(datum/source, area/entered)
 	SIGNAL_HANDLER
@@ -1927,6 +1935,25 @@
 	else if(!(movement_type & (FLYING | FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
+/// Sets the mob's hunger levels to a safe overall level. Useful for TRAIT_NOHUNGER species changes.
+/mob/living/proc/set_safe_hunger_level()
+	// Nutrition reset and alert clearing.
+	nutrition = NUTRITION_LEVEL_FED
+	clear_alert("nutrition")
+	satiety = 0
+
+	// Trait removal if obese
+	if(HAS_TRAIT_FROM(src, TRAIT_FAT, OBESITY))
+		if(overeatduration >= (200 SECONDS))
+			to_chat(src, span_notice("Your transformation restores your body's natural fitness!"))
+
+		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
+		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		update_inv_w_uniform()
+		update_inv_wear_suit()
+
+	// Reset overeat duration.
+	overeatduration = 0
 
 /// Changes the value of the [living/body_position] variable.
 /mob/living/proc/set_body_position(new_value)

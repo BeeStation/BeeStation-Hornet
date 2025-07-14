@@ -38,6 +38,8 @@
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
+	if(!.)
+		return
 	if(ishuman(eye_owner))
 		var/mob/living/carbon/human/human_owner = eye_owner
 		old_eye_color = human_owner.eye_color
@@ -181,22 +183,22 @@
 /obj/item/organ/eyes/robotic/flashlight/emp_act(severity)
 	return
 
-/obj/item/organ/eyes/robotic/flashlight/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, pref_load = FALSE)
-	..()
+/obj/item/organ/eyes/robotic/flashlight/on_insert(mob/living/carbon/victim)
+	. = ..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
 	eye.on = TRUE
-	eye.forceMove(M)
-	eye.update_brightness(M)
-	M.become_blind("flashlight_eyes")
+	eye.forceMove(victim)
+	eye.update_brightness(victim)
+	victim.become_blind("flashlight_eyes")
 
 
-/obj/item/organ/eyes/robotic/flashlight/Remove(var/mob/living/carbon/M, var/special = 0, pref_load = FALSE)
+/obj/item/organ/eyes/robotic/flashlight/on_remove(mob/living/carbon/victim)
+	. = ..()
 	eye.on = FALSE
-	eye.update_brightness(M)
+	eye.update_brightness(victim)
 	eye.forceMove(src)
-	M.cure_blind("flashlight_eyes")
-	..()
+	victim.cure_blind("flashlight_eyes")
 
 // Welding shield implant
 /obj/item/organ/eyes/robotic/shield
@@ -227,7 +229,7 @@
 
 /obj/item/organ/eyes/robotic/glow/Initialize(mapload)
 	. = ..()
-	mob_overlay = image('icons/mob/human_face.dmi', "eyes_glow_gs")
+	mob_overlay = image('icons/mob/species/human/human_face.dmi', "eyes_glow_gs")
 
 /obj/item/organ/eyes/robotic/glow/Destroy()
 	terminate_effects()
@@ -403,6 +405,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
 	desc = "These eyes seem to have increased sensitivity to bright light, with a small improvement to low light vision."
+	eye_icon_state = "motheyes"
+	icon_state = "eyeballs-moth"
 	see_in_dark = NIGHTVISION_FOV_RANGE/2 //4 tiles compared to 8 of the apids
 	flash_protect = -1
 

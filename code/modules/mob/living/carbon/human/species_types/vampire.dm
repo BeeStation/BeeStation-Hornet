@@ -1,7 +1,6 @@
 /datum/species/vampire
 	name = "\improper Vampire"
 	id = SPECIES_VAMPIRE
-	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
@@ -11,6 +10,8 @@
 	use_skintones = TRUE
 	mutantheart = /obj/item/organ/heart/vampire
 	mutanttongue = /obj/item/organ/tongue/vampire
+	mutantstomach = null
+	mutantlungs = null
 	examine_limb_id = SPECIES_HUMAN
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	var/info_text = "You are a <span class='danger'>Vampire</span>. You will slowly but constantly lose blood if outside of a coffin. If inside a coffin, you will slowly heal. You may gain more blood by grabbing a live victim and using your drain ability."
@@ -29,6 +30,7 @@
 	if(isnull(batform))
 		batform = new
 		batform.Grant(C)
+	C.set_safe_hunger_level()
 
 /datum/species/vampire/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -151,7 +153,7 @@
 			if(victim.stat == DEAD)
 				to_chat(H, span_notice("You need a living victim!"))
 				return
-			if(!victim.blood_volume || (victim.dna && ((NOBLOOD in victim.dna.species.species_traits) || victim.dna.species.exotic_blood)))
+			if(!victim.blood_volume || (victim.dna && (HAS_TRAIT(victim, TRAIT_NOBLOOD) || victim.dna.species.exotic_blood)))
 				to_chat(H, span_notice("[victim] doesn't have blood!"))
 				return
 			V.drain_cooldown = world.time + 30

@@ -1362,6 +1362,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 1
 	surplus = 8
 
+/datum/uplink_item/explosives/hellfirecandle
+	name = "Portable Hellfire"
+	desc = "This modified oxygen candle is delivered fresh directly off the conveyor at one of our signature warcrime factories. \
+			Pull the tab and watch in glee as a solid quarter of the station becomes uninhabitable."
+	item = /obj/item/flashlight/oxycandle/hellfire
+	player_minimum = 15
+	cost = 10
+
 //Support and Mechs
 /datum/uplink_item/support
 	category = "Support and Exosuits"
@@ -2556,3 +2564,10 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 0
 	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.
 
+/datum/uplink_item/support/nukielawnmower
+	name = "Syndicate Organism Shredder"
+	desc = "An armoured and modified lawn mower that can mow down any organic in its path. It is a fast and armoured to melee and ranged weaponry, but it's extremely vunerable to: bombs, fire, and form of acid"
+	item = /obj/vehicle/ridden/lawnmower/nukie
+	cost = 30
+	surplus = 0
+	purchasable_from = UPLINK_NUKE_OPS

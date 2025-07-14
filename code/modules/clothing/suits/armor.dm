@@ -12,7 +12,6 @@
 	max_integrity = 250
 	resistance_flags = NONE
 	armor_type = /datum/armor/suit_armor
-	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
 	salvage_material = /obj/item/stack/sheet/cotton/cloth/durathread
 
@@ -147,6 +146,7 @@
 	armor_type = /datum/armor/vest_capcarapace
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	clothing_flags = THICKMATERIAL
 	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
 	secondary_salvage_amount = 2
 
@@ -173,6 +173,7 @@
 	icon_state = "capformal"
 	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
+	clothing_flags = NONE
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
@@ -181,6 +182,7 @@
 	item_state = null
 	body_parts_covered = CHEST|ARMS
 	armor_type = /datum/armor/capcarapace_jacket
+	clothing_flags = NONE
 
 
 /datum/armor/capcarapace_jacket
@@ -208,6 +210,7 @@
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	clothing_flags = THICKMATERIAL
 	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
 	secondary_salvage_amount = 2
 
@@ -231,6 +234,7 @@
 	armor_type = /datum/armor/armor_bone
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
+	clothing_flags = THICKMATERIAL
 	salvage_material = /obj/item/stack/sheet/bone
 
 
@@ -254,6 +258,7 @@
 	armor_type = /datum/armor/armor_bulletproof
 	strip_delay = 70
 	equip_delay_other = 50
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/armor_bulletproof
@@ -320,6 +325,7 @@
 	armor_type = /datum/armor/armor_heavy
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
+	clothing_flags = THICKMATERIAL
 	secondary_salvage_material = /obj/item/stack/rods/scrap/plasteel
 	secondary_salvage_amount = 5
 
@@ -425,6 +431,7 @@
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/vest_durathread
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/vest_durathread

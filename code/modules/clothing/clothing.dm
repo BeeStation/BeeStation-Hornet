@@ -133,7 +133,7 @@
 /obj/item/clothing/attack(mob/living/target, mob/living/user, params)
 	if(user.combat_mode)
 		return //combat mode doesnt eat
-	var/obj/item/organ/tongue/tongue = target.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = target.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(!istype(tongue, /obj/item/organ/tongue/moth) && !istype(tongue, /obj/item/organ/tongue/psyphoza))
 		return ..() //Not a clotheater tongue? No Clotheating!
 	if((clothing_flags & NOTCONSUMABLE) && (resistance_flags & INDESTRUCTIBLE) && (get_armor_rating(MELEE) != 0))
@@ -321,7 +321,9 @@
 /obj/item/clothing/examine_tags(mob/user)
 	. = ..()
 	if (clothing_flags & THICKMATERIAL)
-		.["thick"] = "Protects from most injections and sprays."
+		.["thick"] = "Extremely thick, protecting from piercing injections and sprays."
+	else if (get_armor().get_rating(MELEE) >= 10 || get_armor().get_rating(BULLET) >= 10)
+		.["rigid"] = "Protects from some injections and sprays."
 	if (clothing_flags & CASTING_CLOTHES)
 		.["magical"] = "Allows magical beings to cast spells when wearing [src]."
 	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
