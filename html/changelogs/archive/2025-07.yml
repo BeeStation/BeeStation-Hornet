@@ -142,6 +142,11 @@
       it unless necessary.**
   - tweak: tweaked emergency locker contents.
 2025-07-14:
+  '@aramix273 Detective work @DrDuckedGoose Code':
+  - bugfix: Fix artifact trait 'Electrified', no longer runtimes
+  - bugfix: Fix artifact trait 'Exchanging', now properly collects targets
+  - tweak: Adds a better sound indication for 'Exchanging' successfully exchanging
+      damage
   ClownMoff:
   - rscadd: 'BoxStation: Adds navigation marks to places missing them (science, kitchen,etc.)'
   - rscadd: 'BoxStation: Adds a straight jacket to medbay'

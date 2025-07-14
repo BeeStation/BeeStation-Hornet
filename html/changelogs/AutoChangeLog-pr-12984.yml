@@ -1,7 +1,0 @@
-author: '@aramix273 Detective work @DrDuckedGoose Code'
-delete-after: true
-changes:
-  - bugfix: Fix artifact trait 'Electrified', no longer runtimes
-  - bugfix: Fix artifact trait 'Exchanging', now properly collects targets
-  - tweak: Adds a better sound indication for 'Exchanging' successfully exchanging
-      damage
