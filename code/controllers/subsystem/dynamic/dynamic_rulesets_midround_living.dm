@@ -5,7 +5,7 @@
 	var/mob_type = /mob/living/carbon/human
 
 /datum/dynamic_ruleset/midround/living/get_candidates()
-	candidates = SSdynamic.current_players[CURRENT_LIVING_PLAYERS]
+	candidates = list() + SSdynamic.current_players[CURRENT_LIVING_PLAYERS]
 
 /datum/dynamic_ruleset/midround/living/trim_candidates()
 	. = ..()

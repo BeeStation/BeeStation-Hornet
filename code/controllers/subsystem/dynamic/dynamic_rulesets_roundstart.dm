@@ -6,7 +6,7 @@
 	var/minimum_points_required = 0
 
 /datum/dynamic_ruleset/roundstart/get_candidates()
-	candidates = SSdynamic.roundstart_candidates.Copy()
+	candidates = list() + SSdynamic.roundstart_candidates
 
 /datum/dynamic_ruleset/roundstart/trim_candidates()
 	. = ..()
