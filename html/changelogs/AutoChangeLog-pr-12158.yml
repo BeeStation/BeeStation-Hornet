@@ -1,6 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - balance: The vault's bank machine now siphons all station budgets, instead of
-      only cargo's.
-  - refactor: Refactored the vault's bank machine code.
