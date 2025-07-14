@@ -1,0 +1,4 @@
+author: Nakalon
+delete-after: true
+changes:
+  - tweak: Wintercoats and Labcoats now fit normal medkits (and their coloured cousins)
