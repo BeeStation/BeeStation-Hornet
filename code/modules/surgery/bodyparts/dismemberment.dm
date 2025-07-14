@@ -125,54 +125,6 @@
 
 	SEND_SIGNAL(phantom_owner, COMSIG_CARBON_POST_REMOVE_LIMB, src, dismembered)
 
-
-/obj/item/organ/internal/eyes/on_bodypart_insert(obj/item/bodypart/head/head)
-	head.eyes = src
-	..()
-
-/obj/item/organ/internal/ears/on_bodypart_insert(obj/item/bodypart/head/head)
-	head.ears = src
-	..()
-
-/obj/item/organ/internal/tongue/on_bodypart_insert(obj/item/bodypart/head/head)
-	head.tongue = src
-	..()
-
-/obj/item/organ/internal/brain/on_bodypart_insert(obj/item/bodypart/bodypart)
-	if(istype(bodypart, /obj/item/bodypart/head))
-		var/obj/item/bodypart/head/head = bodypart
-		head.brain = src
-	//else if(istype(bodypart, /obj/item/bodypart/chest))
-		// For IPCs, who have positronic brains in the chest
-		// The chest doesn't have a brain var, but that's okay
-		// The organ is still stored in the bodypart's contents
-
-	..()
-
-/obj/item/organ/internal/eyes/on_bodypart_remove(obj/item/bodypart/head/head)
-	head.eyes = null
-	..()
-
-/obj/item/organ/internal/ears/on_bodypart_remove(obj/item/bodypart/head/head)
-	head.ears = null
-	..()
-
-/obj/item/organ/internal/tongue/on_bodypart_remove(obj/item/bodypart/head/head)
-	head.tongue = null
-	..()
-
-/obj/item/organ/internal/brain/on_bodypart_remove(obj/item/bodypart/bodypart)
-	if(istype(bodypart, /obj/item/bodypart/head))
-		var/obj/item/bodypart/head/head = bodypart
-		head.brain = null
-	..()
-
-/obj/item/bodypart/chest/drop_limb(special, dismembered, move_to_floor = TRUE)
-	if(special)
-		return ..()
-	//if this is not a special drop, this is a mistake
-	return FALSE
-
 /obj/item/bodypart/arm/drop_limb(special, dismembered, move_to_floor = TRUE)
 	var/mob/living/carbon/arm_owner = owner
 	. = ..()
@@ -311,8 +263,8 @@
 		sexy_chad.hair_color = hair_color
 		sexy_chad.facial_hairstyle = facial_hairstyle
 		sexy_chad.facial_hair_color = facial_hair_color
-		sexy_chad.grad_style = gradient_styles?.Copy()
-		sexy_chad.grad_color = gradient_colors?.Copy()
+		sexy_chad.grad_style = gradient_styles.Copy()
+		sexy_chad.grad_color = gradient_colors.Copy()
 		sexy_chad.lip_style = lip_style
 		sexy_chad.lip_color = lip_color
 

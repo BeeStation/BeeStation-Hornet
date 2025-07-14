@@ -14,10 +14,16 @@
 	var/hair_color = "#000000"
 	///Hair style
 	var/hairstyle = "Bald"
-	///Colour used for the hair gradient.
-	var/list/grad_color
-	///Style used for the hair gradient.
-	var/list/grad_style
+	//Colours used for hair and facial hair gradients.
+	var/list/grad_color = list(
+		COLOR_BLACK, //Hair Gradient Color
+		COLOR_BLACK, //Facial Hair Gradient Color
+	)
+	///Styles used for hair and facial hair gradients.
+	var/list/grad_style = list(
+		"None", //Hair Gradient Style
+		"None", //Facial Hair Gradient Style
+	)
 	///Facial hair colour
 	var/facial_hair_color = "#000000"
 	///Facial hair style

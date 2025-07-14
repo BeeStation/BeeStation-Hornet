@@ -48,10 +48,12 @@
 			head.speech_span = null
 
 			// We want to give the head some boring old eyes just so it doesn't look too jank on the head sprite.
-			head.eyes = new /obj/item/organ/internal/eyes(head)
-			head.eyes.eye_color = human.eye_color
+			var/obj/item/organ/internal/eyes/eyes = new /obj/item/organ/internal/eyes(head)
+			eyes.eye_color = human.eye_color
+			eyes.bodypart_insert(my_head)
 			human.update_body()
 			head.update_icon_dropped()
+			human.set_safe_hunger_level()
 
 /datum/species/dullahan/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -80,7 +82,8 @@
 		var/obj/item/bodypart/head/detached_head = my_head.loc
 		detached_head.real_name = human.real_name
 		detached_head.name = human.real_name
-		detached_head.brain.name = "[human.name]'s brain"
+		var/obj/item/organ/internal/brain/brain = locate(/obj/item/organ/internal/brain) in detached_head
+		brain.name = "[human.name]'s brain"
 
 	var/obj/item/bodypart/head/illegal_head = human.get_bodypart(BODY_ZONE_HEAD)
 	if(illegal_head)
