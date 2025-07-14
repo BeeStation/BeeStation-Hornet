@@ -141,3 +141,18 @@
       people that are or have been exposed to a vacuum. **Broadly toxic. Do not use
       it unless necessary.**
   - tweak: tweaked emergency locker contents.
+2025-07-14:
+  ClownMoff:
+  - rscadd: 'BoxStation: Adds navigation marks to places missing them (science, kitchen,etc.)'
+  - rscadd: 'BoxStation: Adds a straight jacket to medbay'
+  - tweak: 'BoxStation: Modernizes and improves cargo''s department layout'
+  - tweak: 'BoxStation: Rearranged some stuff inside and outside the kitchen to have
+      a better layout to work with ingredients'
+  - tweak: 'BoxStation: Opened a direct entrance from the Cargo lobby into the security
+      outpost'
+  - tweak: 'BoxStation: Small change in the torture room all items for the tortured
+      are not on the same tile and you can see them better'
+  - bugfix: 'BoxStation: Fixed service maintenance access and door access between
+      kitchen-bar-botany'
+  - rscdel: 'BoxStation: Removed a table from the security outpost in cargo to open
+      space for a direct entrance from the lobby'
