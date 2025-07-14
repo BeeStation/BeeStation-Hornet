@@ -99,7 +99,7 @@
 		current_type = "insert"
 		target_organ = tool
 		if(target_zone != target_organ.zone || target.get_organ_slot(target_organ.slot))
-			if(istype(target_organ, /obj/item/organ/brain/positron) && target.getorganslot(target_organ.slot))
+			if(istype(target_organ, /obj/item/organ/brain/positron) && target.get_organ_slot(target_organ.slot))
 				to_chat(user, span_notice("This body already has a brain!"))
 			else
 				to_chat(user, span_notice("There is no room for [target_organ] in [target]'s [parse_zone(target_zone)]!"))
