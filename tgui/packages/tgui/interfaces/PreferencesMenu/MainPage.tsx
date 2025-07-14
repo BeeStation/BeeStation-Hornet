@@ -239,9 +239,8 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
           <TrackOutsideClicks onOutsideClick={() => setGenderMenuOpen(false)} removeOnOutsideClick>
             <Box className="theme-generic-yellow">
               <Stack className="PopupWindow" ml={0.5} p={0.5}>
-                {[Gender.Male, Gender.Female, Gender.Other, Gender.Other2].map(
-                (gender) => {
-                return (
+                {[Gender.Male, Gender.Female, Gender.Other, Gender.Other2].map((gender) => {
+                  return (
                     <Stack.Item key={gender}>
                       <Button
                         selected={gender === props.gender}

@@ -59,7 +59,7 @@
 
 	var/finished_icon_state = icon_state_builder.Join("_")
 
-	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = image_layer)
+	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, finished_icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(image_layer))
 
 	if(sprite_datum.center)
 		center_image(appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)
@@ -86,6 +86,7 @@
 ///Generate a unique key based on our sprites. So that if we've aleady drawn these sprites, they can be found in the cache and wont have to be drawn again (blessing and curse, but mostly curse)
 /datum/bodypart_overlay/mutant/generate_icon_cache()
 	. = list()
+	to_chat(world, "generating [type] with icon_state = [get_base_icon_state()] and feature_key = [feature_key] and draw_color = [draw_color]")
 	. += "[get_base_icon_state()]"
 	. += "[feature_key]"
 	. += "[draw_color]"

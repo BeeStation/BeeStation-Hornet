@@ -110,6 +110,7 @@
 		TRAIT_MUTANT_COLORS,
 		TRAIT_VIRUSIMMUNE
 		)
+	inherent_factions = list(FACTION_ASHWALKER)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/internal/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
