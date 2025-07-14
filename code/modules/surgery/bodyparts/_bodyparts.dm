@@ -799,7 +799,7 @@
 			//Some externals have multiple layers for background, foreground and between
 			for(var/external_layer in overlay.all_layers)
 				if(overlay.layers & external_layer)
-					. += overlay.get_overlay(CALCULATE_MOB_OVERLAY_LAYER(external_layer), src)
+					. += overlay.get_overlay(external_layer, src)
 			for(var/datum/layer in .)
 				overlay.modify_bodypart_appearance(layer)
 	return .
