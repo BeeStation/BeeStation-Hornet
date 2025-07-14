@@ -143,7 +143,7 @@
 		for(var/atom/target in component_parent.targets)
 			register_target(target)
 	//Handle focus
-	focus = override ? list(override) : targets
+	focus = override ? list(override) : targets.Copy()
 	return
 
 //Most traits will handle this on their own
