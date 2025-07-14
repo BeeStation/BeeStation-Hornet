@@ -123,6 +123,7 @@
 /obj/item/bodypart/proc/setup_injury_trees()
 	apply_injury_tree(/datum/injury/healthy_skin_burn)
 	apply_injury_tree(/datum/injury/cut_healthy)
+	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/Destroy()
 	if(owner)

@@ -182,26 +182,44 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
+/obj/item/bodypart/head/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/chest/skeleton
 	limb_id = "skeleton"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
+/obj/item/bodypart/head/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/l_arm/skeleton
 	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/l_arm/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
 
 /obj/item/bodypart/r_arm/skeleton
 	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
 
+/obj/item/bodypart/r_arm/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/l_leg/skeleton
 	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
 
+/obj/item/bodypart/l_leg/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
+
 /obj/item/bodypart/r_leg/skeleton
 	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/r_leg/skeleton/setup_injury_trees()
+	apply_injury_tree(/datum/injury/trauma_healthy)
 
 ///MUSHROOM
 /obj/item/bodypart/head/mushroom
@@ -229,21 +247,39 @@
 	limb_id = "golem"
 	is_dimorphic = FALSE
 
+/obj/item/bodypart/head/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/chest/golem
 	limb_id = "golem"
 	is_dimorphic = FALSE
 
+/obj/item/bodypart/chest/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/l_arm/golem
 	limb_id = "golem"
+
+/obj/item/bodypart/l_arm/golem/setup_injury_trees()
+	return
 
 /obj/item/bodypart/r_arm/golem
 	limb_id = "golem"
 
+/obj/item/bodypart/r_arm/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/l_leg/golem
 	limb_id = "golem"
 
+/obj/item/bodypart/l_leg/golem/setup_injury_trees()
+	return
+
 /obj/item/bodypart/r_leg/golem
 	limb_id = "golem"
+
+/obj/item/bodypart/r_leg/golem/setup_injury_trees()
+	return
 
 ///
 /obj/item/bodypart/head/golem/alloy

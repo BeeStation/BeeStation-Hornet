@@ -21,6 +21,9 @@
 		ORGAN_SLOT_VOICE
 	)
 
+/obj/item/bodypart/head/ipc/setup_injury_trees()
+	return	// TODO: IPC trees are incomplete as they would need to be unique from organics
+
 /obj/item/bodypart/chest/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -51,6 +54,9 @@
 		ORGAN_SLOT_TAIL
 	)
 
+/obj/item/bodypart/chest/ipc/setup_injury_trees()
+	return	// TODO: IPC trees are incomplete as they would need to be unique from organics
+
 /obj/item/bodypart/l_arm/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -65,6 +71,9 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+/obj/item/bodypart/l_arm/ipc/setup_injury_trees()
+	return	// TODO: IPC trees are incomplete as they would need to be unique from organics
 
 /obj/item/bodypart/r_arm/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -81,6 +90,9 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+/obj/item/bodypart/r_arm/ipc/setup_injury_trees()
+	return	// TODO: IPC trees are incomplete as they would need to be unique from organics
+
 /obj/item/bodypart/l_leg/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -96,6 +108,9 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+/obj/item/bodypart/l_leg/ipc/setup_injury_trees()
+	return	// TODO: IPC trees are incomplete as they would need to be unique from organics
+
 /obj/item/bodypart/r_leg/ipc
 	static_icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -110,3 +125,6 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+/obj/item/bodypart/r_leg/ipc/setup_injury_trees()
+	return	// TODO: IPC trees are incomplete as they would need to be unique from organics
