@@ -289,7 +289,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
-	fuel = rand(1600, 2000)
+	fuel = rand(120, 240)
 
 /obj/item/flashlight/flare/process(delta_time)
 	open_flame(heat)
@@ -333,7 +333,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 	. = ..()
 	// All good, turn it on.
-	if(.)
+	if(!.)
 		user.visible_message(span_notice("[user] lights \the [src]."), span_notice("You light \the [src]!"))
 		force = on_damage
 		damtype = BURN
@@ -464,7 +464,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 
 /obj/item/flashlight/glowstick/Initialize(mapload)
-	fuel = rand(3200, 4000)
+	fuel = rand(60, 240)
 	set_light_color(color)
 	. = ..()
 
@@ -522,7 +522,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 		return
 
 	. = ..()
-	if(.)
+	if(!.)
 		user.visible_message(span_notice("[user] cracks and shakes [src]."), span_notice("You crack and shake [src], turning it on!"))
 		START_PROCESSING(SSobj, src)
 		burn_pickup = FALSE

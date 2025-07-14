@@ -79604,7 +79604,6 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 9
 	},
-/obj/machinery/lapvend,
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "uuM" = (

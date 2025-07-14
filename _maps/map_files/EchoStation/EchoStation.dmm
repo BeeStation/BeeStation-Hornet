@@ -2197,7 +2197,7 @@
 /area/security/detectives_office)
 "aVS" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
 "aVV" = (
@@ -3731,7 +3731,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "bJr" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/red{
 	alpha = 180;
 	dir = 1
@@ -5762,7 +5762,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/structure/railing{
 	dir = 10
 	},
@@ -6606,7 +6606,7 @@
 /turf/open/floor/iron,
 /area/janitor)
 "dmB" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
@@ -8529,7 +8529,7 @@
 /area/engineering/hallway)
 "esW" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
 "etb" = (
@@ -12332,7 +12332,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
 "gnL" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "gnR" = (
@@ -12810,7 +12810,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/white,
 /area/science/research)
 "gAU" = (
@@ -13757,7 +13757,7 @@
 /turf/open/floor/plating/rust,
 /area/science/test_area)
 "han" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
 "haE" = (
@@ -16298,7 +16298,7 @@
 /turf/open/openspace/planetary,
 /area/ai_monitored/turret_protected/aisat_interior)
 "iui" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
 "iuu" = (
@@ -18981,7 +18981,7 @@
 /area/security/execution/education)
 "jOF" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "jON" = (
@@ -19767,7 +19767,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -20323,7 +20323,7 @@
 	icon_state = "8-32"
 	},
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "kyf" = (
@@ -21142,7 +21142,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "kUD" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "kUF" = (
@@ -23094,13 +23094,13 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "lZB" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "mad" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/maintenance/department/science/central)
 "mam" = (
@@ -24475,7 +24475,7 @@
 /area/hallway/primary/aft)
 "mLo" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "mLH" = (
@@ -26342,7 +26342,7 @@
 /turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "nKW" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "nLs" = (
@@ -26847,7 +26847,7 @@
 /area/science/xenobiology)
 "ogC" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/openspace/planetary,
 /area/maintenance/department/engine/atmos)
 "ogE" = (
@@ -29480,7 +29480,7 @@
 "pwh" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
 "pwy" = (
@@ -31089,7 +31089,7 @@
 /turf/open/floor/iron/half,
 /area/engine/engineering)
 "qpq" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "qpS" = (
@@ -36796,7 +36796,7 @@
 "trT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/maint)
 "tsk" = (
@@ -39181,7 +39181,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "uEs" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -39577,7 +39577,7 @@
 /turf/open/floor/glass/reinforced,
 /area/bridge)
 "uLU" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "uNj" = (
@@ -44764,7 +44764,7 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/fitness/recreation)
 "xBU" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/maint)
 "xCe" = (
@@ -45639,7 +45639,7 @@
 /area/paradise)
 "xYM" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)

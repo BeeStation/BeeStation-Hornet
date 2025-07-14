@@ -16,10 +16,10 @@
 	gamemode.set_cooldowns()
 
 /datum/dynamic_simulation/proc/create_candidates(players)
-	GLOB.new_player_list.Cut()
+	GLOB.auth_new_player_list.Cut()
 
 	for (var/_ in 1 to players)
-		var/mob/dead/new_player/mock_new_player = new
+		var/mob/dead/new_player/authenticated/mock_new_player = new
 		mock_new_player.ready = PLAYER_READY_TO_PLAY
 
 		var/datum/mind/mock_mind = new

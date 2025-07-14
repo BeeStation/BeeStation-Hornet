@@ -20,7 +20,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		switch(length(buttons))
 			if(1)
 				return alert(user, message, title, buttons[1])
@@ -60,7 +60,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(length(buttons) == 2)
 			return alert(user, message, title, buttons[1], buttons[2])
 		if(length(buttons) == 3)

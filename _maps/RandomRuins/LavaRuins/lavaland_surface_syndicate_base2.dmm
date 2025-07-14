@@ -2774,7 +2774,7 @@
 /turf/open/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Bs" = (
-/obj/structure/closet/firecloset/full{
+/obj/structure/closet/firecloset{
 	anchored = 1
 	},
 /obj/effect/turf_decal/bot,
