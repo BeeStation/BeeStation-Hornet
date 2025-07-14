@@ -218,6 +218,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 
 /obj/item/modular_computer/tablet/integrated/Destroy()
 	borgo = null
+	for(var/port in all_components)
+		var/obj/item/computer_hardware/component = all_components[port]	//This hopefully stops borgs from just shitting out their parts when they die
+		qdel(component)
+		forget_component(component)
 	return ..()
 
 /obj/item/modular_computer/tablet/integrated/turn_on(mob/user, open_ui = FALSE)
