@@ -147,6 +147,11 @@
   - bugfix: Fix artifact trait 'Exchanging', now properly collects targets
   - tweak: Adds a better sound indication for 'Exchanging' successfully exchanging
       damage
+  Asdfagi:
+  - bugfix: ghost-controllable slimes splitting no longer leaves behind a nullspace
+      slime that breaks the spawner menu
+  - bugfix: the transformative light pink extract now actually allows a slime and
+      its descendants to be controlled by ghosts
   ClownMoff:
   - rscadd: 'BoxStation: Adds navigation marks to places missing them (science, kitchen,etc.)'
   - rscadd: 'BoxStation: Adds a straight jacket to medbay'

@@ -1,7 +1,0 @@
-author: Asdfagi
-delete-after: true
-changes:
-  - bugfix: ghost-controllable slimes splitting no longer leaves behind a nullspace
-      slime that breaks the spawner menu
-  - bugfix: the transformative light pink extract now actually allows a slime and
-      its descendants to be controlled by ghosts
