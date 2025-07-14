@@ -22895,6 +22895,9 @@
 	},
 /area/maintenance/department/science)
 "hsJ" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/stairs/right,
 /area/hallway/primary/central)
 "hsX" = (
@@ -24309,7 +24312,7 @@
 /area/engine/engine_room)
 "hTQ" = (
 /obj/structure/railing/corner{
-	dir = 8
+	dir = 9
 	},
 /turf/open/floor/iron/stairs/left{
 	dir = 1
@@ -55677,6 +55680,9 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet)
 "stl" = (
+/obj/structure/railing/corner{
+	dir = 5
+	},
 /turf/open/floor/iron/stairs/right{
 	dir = 1
 	},
@@ -60769,6 +60775,9 @@
 	},
 /area/medical/sleeper)
 "tWU" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/stairs/left,
 /area/hallway/primary/central)
 "tXK" = (
