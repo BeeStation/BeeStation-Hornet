@@ -161,3 +161,28 @@
       kitchen-bar-botany'
   - rscdel: 'BoxStation: Removed a table from the security outpost in cargo to open
       space for a direct entrance from the lobby'
+  Dejaku51:
+  - rscadd: Ability to collect stuff by directly clicking on turfs
+  Nakalon:
+  - tweak: Wintercoats and Labcoats now fit normal medkits (and their coloured cousins)
+  VmpOS2NHSkhkejA9:
+  - balance: Motorized wheelchair speed has been rebalanced, they can go up to normal
+      run speed at t3 parts without risk of crashing, and can go even faster than
+      regular humans if T4 parts are used and the safeties are overridden with a multitool,
+      at the risk (or bonus, if you see it that way) of crashing violently if they
+      bump into anything.
+  - tweak: Examining motorized wheelchairs gives a more accurate view of their speed,
+      power consumption and shows what tools can be used on them.
+  - tweak: Motorized wheelchairs consume less power with T1 parts, but consume slightly
+      more than before at T4.
+  - bugfix: Motorized wheelchairs consume the correct amount of power when moving,
+      and no longer consume power when dragged, along with no longer causing countless
+      runtimes when dragged around without a cell. They also no longer spam the chat
+      when they are missing a power cell or are simply out of charge.
+  - bugfix: Motorized wheelchairs spawned on maps or by admins are now fully functional,
+      albeit with only T1 parts.
+  wikimody:
+  - rscdel: Removed Hive storage protocol
+  - balance: Severely weakened factory, pyramid, kickstart and zip protocols
+  - balance: Halved bio reconstruction cost and healing
+  - tweak: Moved S.L.O.P over to military tech reflecting its lethality

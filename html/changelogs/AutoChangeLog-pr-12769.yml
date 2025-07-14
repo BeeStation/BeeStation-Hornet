@@ -1,7 +1,0 @@
-author: wikimody
-delete-after: true
-changes:
-  - rscdel: Removed Hive storage protocol
-  - balance: Severely weakened factory, pyramid, kickstart and zip protocols
-  - balance: Halved bio reconstruction cost and healing
-  - tweak: Moved S.L.O.P over to military tech reflecting its lethality
