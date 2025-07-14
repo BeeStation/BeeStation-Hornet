@@ -1,0 +1,6 @@
+author: Solene
+delete-after: true
+changes:
+  - rscadd: Added the Personal Airlock, a claimable type of airlock
+  - tweak: Minor map edits to fit the new airlock and make sure all comissaries are
+      reachable without passing trough maintenance.
