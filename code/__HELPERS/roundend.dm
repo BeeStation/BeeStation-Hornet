@@ -831,7 +831,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(length(roundstart_rule_counts))
 		discordmsg += "Executed roundstart rulesets:\n"
 		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
-			discordmsg += " - [rule.name]" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
+			discordmsg += "[rule.name]" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
 
 	// Midround
 	var/list/midround_rule_counts = list()
@@ -844,7 +844,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(length(midround_rule_counts))
 		discordmsg += "Executed midround rulesets:\n"
 		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			discordmsg += " - [rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
+			discordmsg += "[rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
 
 	// Latejoin
 	var/list/latejoin_rule_counts = list()
@@ -857,7 +857,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(length(latejoin_rule_counts))
 		discordmsg += "Executed latejoin rulesets:\n"
 		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			discordmsg += " - [rule.name]" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
+			discordmsg += "[rule.name]" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
 
 	var/list/ded = SSblackbox.first_death
 	if(ded)
