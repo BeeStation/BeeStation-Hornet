@@ -5,6 +5,7 @@
 	icon_state = "railing"
 	flags_1 = ON_BORDER_1
 	obj_flags = CAN_BE_HIT | BLOCKS_CONSTRUCTION_DIR
+	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
@@ -154,7 +155,6 @@ w
 	name = "checkpoint railing"
 	desc = "A security wall used in checkpoints. It is just small enough that you can climb over..."
 	icon_state = "railing_sec"
-	layer = ABOVE_MOB_LAYER
 
 /obj/structure/railing/sec/corner
 	icon_state = "railing_corner"
