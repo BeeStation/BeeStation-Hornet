@@ -74,7 +74,6 @@
 	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
 	points_cost = 40
-	weight = 2
 	mob_type = /mob/living/silicon/ai
 
 /datum/dynamic_ruleset/midround/living/value_drifted/get_poll_icon()
@@ -91,6 +90,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround_living/traitor
 	antag_datum = /datum/antagonist/traitor
+	weight = 6
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/sleeper_agent/get_poll_icon()
@@ -107,6 +107,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround_living/heretic
 	antag_datum = /datum/antagonist/heretic
+	weight = 6
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/heretic/get_poll_icon()
@@ -137,6 +138,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround_living/obsessed
+	weight = 4
 	points_cost = 20
 
 /datum/dynamic_ruleset/midround/living/obsessed/get_poll_icon()
