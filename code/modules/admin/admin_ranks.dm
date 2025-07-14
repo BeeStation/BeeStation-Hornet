@@ -275,7 +275,7 @@ GLOBAL_PROTECT(protected_ranks)
 	return dbfail
 
 #ifdef TESTING
-/client/verb/changerank(newrank in GLOB.admin_ranks)
+AUTH_CLIENT_VERB(changerank, newrank in GLOB.admin_ranks)
 	if(holder)
 		holder.rank = newrank
 	else
@@ -283,7 +283,7 @@ GLOBAL_PROTECT(protected_ranks)
 	remove_admin_verbs()
 	holder.associate(src)
 
-/client/verb/changerights(newrights as num)
+AUTH_CLIENT_VERB(changerights, newrights as num)
 	if(holder)
 		holder.rank.rights = newrights
 	else

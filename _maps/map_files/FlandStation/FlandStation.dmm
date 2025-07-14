@@ -6553,10 +6553,6 @@
 /turf/open/floor/iron/techmaint,
 /area/tcommsat/computer)
 "bFI" = (
-/obj/machinery/door/airlock{
-	id_tag = "commissarydoor2";
-	name = "Commissary #2"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -6566,6 +6562,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
 	},
 /turf/open/floor/iron/techmaint,
 /area/vacant_room/commissary/commissary2)
@@ -79566,7 +79565,6 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 9
 	},
-/obj/machinery/lapvend,
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "uuM" = (
@@ -83819,10 +83817,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "vsD" = (
-/obj/machinery/door/airlock{
-	id_tag = "commissarydoor1";
-	name = "Commissary #1"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -83832,6 +83826,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor1"
 	},
 /turf/open/floor/iron/techmaint,
 /area/vacant_room/commissary/commissary1)
@@ -85499,12 +85496,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
-"vJN" = (
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 9
-	},
-/turf/open/floor/iron/white,
-/area/science/lobby)
 "vJW" = (
 /turf/open/floor/iron/dark/side{
 	dir = 8
@@ -130896,7 +130887,7 @@ dQo
 dQo
 uma
 wKk
-vJN
+uuA
 bHe
 cvE
 bVQ

@@ -126,6 +126,7 @@
 	spawn_type = /obj/item/food/egg
 	spawn_count = 12
 	contents_tag = "egg"
+	custom_price = 25
 
 /obj/item/storage/fancy/egg_box/Initialize(mapload)
 	. = ..()

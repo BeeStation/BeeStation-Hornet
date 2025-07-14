@@ -45,26 +45,29 @@ Contents:
 		return MAP_ERROR
 
 	//selecting a candidate player
-	var/list/candidates = get_candidates(ROLE_NINJA, /datum/role_preference/midround_ghost/ninja)
-	if(!candidates.len)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		role = /datum/role_preference/midround_ghost/ninja,
+		check_jobban = ROLE_NINJA,
+		poll_time = 30 SECONDS,
+		role_name_text = "space ninja",
+		alert_pic = /obj/item/energy_katana,
+	)
+	if(!candidate)
 		return NOT_ENOUGH_PLAYERS
 
-	var/mob/dead/selected_candidate = pick_n_take(candidates)
-	var/key = selected_candidate.key
-
 	//Prepare ninja player mind
-	var/datum/mind/Mind = new /datum/mind(key)
-	Mind.assigned_role = ROLE_NINJA
-	Mind.special_role = ROLE_NINJA
-	Mind.active = 1
+	var/datum/mind/new_mind = new /datum/mind(candidate.key)
+	new_mind.assigned_role = ROLE_NINJA
+	new_mind.special_role = ROLE_NINJA
+	new_mind.active = TRUE
 
 	//spawn the ninja and assign the candidate
 	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
-	Mind.transfer_to(Ninja)
+	new_mind.transfer_to(Ninja)
 	var/datum/antagonist/ninja/ninjadatum = new
-	Mind.add_antag_datum(ninjadatum)
+	new_mind.add_antag_datum(ninjadatum)
 
-	if(Ninja.mind != Mind)			//something has gone wrong!
+	if(Ninja.mind != new_mind)			//something has gone wrong!
 		CRASH("Ninja created with incorrect mind")
 
 	spawned_mobs += Ninja

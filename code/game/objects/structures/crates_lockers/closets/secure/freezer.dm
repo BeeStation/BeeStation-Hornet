@@ -38,8 +38,7 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/PopulateContents()
 	..()
-	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/condiment/flour(src)
+	new /obj/item/reagent_containers/condiment/flour(src)
 	new /obj/item/reagent_containers/condiment/rice(src)
 	new /obj/item/reagent_containers/condiment/sugar(src)
 
@@ -56,6 +55,7 @@
 		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
+/// Keeping this here so some Chef can ask an assistant to find him one of these
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -66,7 +66,7 @@
 
 /obj/structure/closet/secure_closet/freezer/meat/PopulateContents()
 	..()
-	for(var/i in 1 to 4)
+	for(var/i in 1 to 2)
 		new /obj/item/food/meat/slab/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
@@ -80,12 +80,9 @@
 
 /obj/structure/closet/secure_closet/freezer/fridge/PopulateContents()
 	..()
-	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/condiment/milk(src)
-	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/condiment/soymilk(src)
-	for(var/i in 1 to 2)
-		new /obj/item/storage/fancy/egg_box(src)
+	new /obj/item/reagent_containers/condiment/milk(src)
+	new /obj/item/reagent_containers/condiment/soymilk(src)
+	new /obj/item/storage/fancy/egg_box(src)
 
 /obj/structure/closet/secure_closet/freezer/fridge/open
 	req_access = null
