@@ -47,13 +47,11 @@ export const GameLogin = (props) => {
                   .
                 </Box>
                 {data.authenticated_key ? (
-                  <Box>
-                    Server policy requires that you authorize through Discord due to ongoing authentication issues with BYOND
-                    Hub. Your Discord account will be permanently linked to this CKEY. You may not link more than one CKEY to a
-                    Discord account.
+                  <Box my={1}>
+                    Server policy requires that you link a second account to your CKEY due to ongoing sign-on issues with BYOND.
                   </Box>
                 ) : null}
-                <Box>
+                <Box mt={2.5}>
                   {`${
                     data.byond_enabled && !data.authenticated_key
                       ? ' Reconnect after signing into your BYOND account or '
@@ -92,7 +90,7 @@ export const GameLogin = (props) => {
                       />
                     </Stack.Item>
                     <Stack.Item>
-                      <Button py={0.95} onClick={() => sendToken(inputToken.current)}>
+                      <Button py={0.8} onClick={() => sendToken(inputToken.current)}>
                         Submit
                       </Button>
                     </Stack.Item>

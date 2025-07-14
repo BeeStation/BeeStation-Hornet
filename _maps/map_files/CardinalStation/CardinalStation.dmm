@@ -33457,7 +33457,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/structure/railing/perspective/black{
 	dir = 8
 	},
@@ -63395,7 +63395,6 @@
 /turf/closed/wall,
 /area/quartermaster/qm_bedroom)
 "mQK" = (
-/obj/machinery/lapvend,
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "mQO" = (
@@ -93780,7 +93779,7 @@
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
 "tci" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 9
 	},

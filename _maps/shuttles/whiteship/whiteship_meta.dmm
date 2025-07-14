@@ -194,7 +194,7 @@
 /area/shuttle/abandoned/engine)
 "aB" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/firecloset/full{
+/obj/structure/closet/firecloset{
 	anchored = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -2660,7 +2660,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/firecloset/full{
+/obj/structure/closet/firecloset{
 	anchored = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,

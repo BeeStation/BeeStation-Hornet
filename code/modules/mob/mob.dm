@@ -29,6 +29,8 @@
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_mob_suicide_list()
+	remove_from_disconnected_mob_list()
+
 	focus = null
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
@@ -1171,8 +1173,8 @@
 					break
 				search_id = 0
 
-		else if(search_pda && istype(A, /obj/item/modular_computer/tablet/pda))
-			var/obj/item/modular_computer/tablet/pda/PDA = A
+		else if(search_pda && istype(A, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/PDA = A
 			if(PDA.saved_identification == oldname)
 				PDA.saved_identification = newname
 				PDA.update_id_display()

@@ -6542,7 +6542,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "bQO" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -11093,7 +11093,7 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard/secondary)
 "dwC" = (
@@ -15256,7 +15256,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "eTL" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
 	},
@@ -20072,7 +20072,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "gxn" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -36248,7 +36248,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/noslip/dark,
 /area/engine/engineering)
 "lNJ" = (
@@ -36535,7 +36535,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -48767,7 +48767,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "pTe" = (
@@ -52988,7 +52988,7 @@
 /obj/structure/sign/departments/minsky/supply/cargo{
 	pixel_x = 32
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
@@ -63723,7 +63723,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard/secondary)
 "uUf" = (
@@ -68999,7 +68999,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
