@@ -7,6 +7,7 @@
 	max_hardware_size = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
 	max_bays = 4
+	can_save_id = TRUE
 	custom_price = PAYCHECK_MEDIUM * 3
 
 	// No running around with open laptops in hands.
@@ -21,6 +22,11 @@
 	. = ..()
 	if(screen_on)
 		. += span_notice("Alt-click to close it.")
+
+/obj/item/modular_computer/laptop/ui_static_data(mob/user)	// This ensures players are able to imprint ID. Necessary before Laptops become a subtype of tablet.
+	var/list/data = ..()
+	data["show_imprint"] = TRUE
+	return data
 
 /obj/item/modular_computer/laptop/Initialize(mapload)
 	. = ..()

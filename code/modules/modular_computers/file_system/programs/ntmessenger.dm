@@ -2,7 +2,7 @@
 /datum/computer_file/program/messenger
 	filename = "nt_messenger"
 	filedesc = "Direct Messenger"
-	category = PROGRAM_CATEGORY_MISC
+	category = PROGRAM_CATEGORY_CREW
 	program_icon_state = "pda-r_off"
 	// This should be running when the tablet is created, so it's minimized by default
 	program_state = PROGRAM_STATE_BACKGROUND
