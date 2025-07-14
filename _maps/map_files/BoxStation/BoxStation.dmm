@@ -24321,7 +24321,7 @@
 /obj/structure/chair/fancy/bench/right{
 	dir = 1
 	},
-/obj/structure/railing,
+/obj/structure/railing/single_end,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "goI" = (
@@ -29277,9 +29277,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "ill" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
 /obj/structure/chair/fancy/bench{
 	dir = 1
 	},
