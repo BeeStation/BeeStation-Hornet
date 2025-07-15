@@ -1,4 +1,3 @@
-
 /obj/item/bodypart
 	name = "limb"
 	desc = "Why is it detached..."
@@ -22,6 +21,7 @@
 	/// The mob that "owns" this limb
 	/// DO NOT MODIFY DIRECTLY. Use update_owner()
 	var/mob/living/carbon/owner
+
 	var/needs_processing = FALSE
 
 	///A bitfield of bodytypes for surgery, and misc information
@@ -222,8 +222,13 @@
 		. += span_warning("This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.")
 	if(burn_dam >= DAMAGE_PRECISION)
 		. += span_warning("This limb has [burn_dam > 30 ? "severe" : "minor"] burns.")
-	if(limb_id)
-		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
+
+	/*
+	for(var/datum/wound/wound as anything in wounds)
+		var/wound_desc = wound.get_limb_examine_description()
+		if(wound_desc)
+			. += wound_desc
+	*/
 
 /obj/item/bodypart/blob_act()
 	receive_damage(max_damage)

@@ -330,19 +330,15 @@
 	unarmed_damage_high = 21
 
 /obj/item/bodypart/leg/left/golem/gold
-	limb_id = SPECIES_GOLEM_GOLD
 	movespeed_contribution = 0.5
 
 /obj/item/bodypart/leg/right/golem/gold
-	limb_id = SPECIES_GOLEM_GOLD
 	movespeed_contribution = 0.5
 
 /obj/item/bodypart/leg/left/golem/copper
-	limb_id = SPECIES_GOLEM_COPPER
 	movespeed_contribution = 0.75
 
 /obj/item/bodypart/leg/right/golem/copper
-	limb_id = SPECIES_GOLEM_COPPER
 	movespeed_contribution = 0.75
 
 //Alloy

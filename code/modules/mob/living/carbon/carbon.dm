@@ -28,7 +28,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	QDEL_NULL(dna)
 	GLOB.carbon_list -= src
 
-/mob/living/carbon/swap_hand(held_index)
+/mob/living/carbon/perform_hand_swap(held_index)
 	. = ..()
 	if(!.)
 		var/obj/item/held_item = get_active_held_item()
@@ -944,7 +944,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/on_lost_hand(obj/item/bodypart/arm/lost_hand)
 	hand_bodyparts[lost_hand.held_index] = null
 
-///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/attach_limb()].
+///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/try_attach_limb()].
 /mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
 	SHOULD_NOT_OVERRIDE(TRUE)
 

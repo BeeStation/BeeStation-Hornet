@@ -764,6 +764,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	SEND_SIGNAL(user, COMSIG_LIVING_PICKED_UP_ITEM, src)
 	item_flags |= PICKED_UP
 	if(item_flags & WAS_THROWN)
 		item_flags &= ~WAS_THROWN

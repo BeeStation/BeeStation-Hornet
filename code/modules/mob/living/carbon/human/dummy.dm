@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["moth_wings"] = "Plain"
 	target.dna.features["snout"] = "Round"
 	target.dna.features["spines"] = "None"
-	target.dna.features["tail_cat"] = "None" // it's a lie
+	target.dna.features["tail_cat"] = "Cat" // it's a lie
 	target.dna.features["tail_lizard"] = "Smooth"
 	target.dna.features["apid_stripes"] = "thick"
 	target.dna.features["apid_headstripes"] = "thick"

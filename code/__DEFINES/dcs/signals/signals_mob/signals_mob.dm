@@ -77,9 +77,14 @@
 	#define SPEECH_FORCED 7 */
 	#define SPEECH_RANGE 8
 
-#define COMSIG_MOB_EMOTE "mob_emote" // from /mob/living/emote(): ()
-#define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"        //from base of mob/swap_hand()
-	#define COMPONENT_BLOCK_SWAP 1
+///from /mob/living/emote(): ()
+#define COMSIG_MOB_EMOTE "mob_emote"
+///from base of mob/swap_hand(): (obj/item/currently_held_item)
+#define COMSIG_MOB_SWAPPING_HANDS "mob_swapping_hands"
+	#define COMPONENT_BLOCK_SWAP (1<<0)
+/// from base of mob/swap_hand(): ()
+/// Performed after the hands are swapped.
+#define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 #define COMSIG_MOB_DEADSAY "mob_deadsay" // from /mob/say_dead(): (mob/speaker, message)
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT 1
 #define COMSIG_MOB_POINTED "mob_pointed" //from base of /mob/verb/pointed: (atom/A)
@@ -99,3 +104,9 @@
 /// Called before a mob fires a gun (mob/source, obj/item/gun, atom/target, aimed)
 #define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
 	#define GUN_HIT_SELF (1 << 0)
+
+/// From /obj/item/proc/pickup(): (/obj/item/picked_up_item)
+#define COMSIG_LIVING_PICKED_UP_ITEM "living_picked_up_item"
+
+/// from mob/proc/dropItemToGround()
+#define COMSIG_MOB_DROPPING_ITEM "mob_dropping_item"

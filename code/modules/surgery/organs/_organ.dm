@@ -79,10 +79,11 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/Destroy()
 	if(bodypart_owner && !owner && !QDELETED(bodypart_owner))
 		bodypart_remove(bodypart_owner)
-	else if(owner)
-		// The special flag is important, because otherwise mobs can die
-		// while undergoing transformation into different mobs.
+	else if(owner && QDESTROYING(owner))
+		// The mob is being deleted, don't update the mob
 		Remove(owner, special=TRUE)
+	else if(owner)
+		Remove(owner)
 	else
 		STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -180,8 +181,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	damage = clamp(damage + damage_amount, 0, maximum)
 	var/mess = check_damage_thresholds(owner)
-	check_failing_thresholds()
 	prev_damage = damage
+
+	if(damage >= maxHealth)
+		organ_flags |= ORGAN_FAILING
+	else
+		organ_flags &= ~ORGAN_FAILING
+
 	if(mess && owner && owner.stat <= SOFT_CRIT)
 		to_chat(owner, mess)
 
@@ -214,12 +220,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		if(prev_damage == maxHealth)
 			return now_fixed
 
-///Checks if an organ should/shouldn't be failing and gives the appropriate organ flag
-/obj/item/organ/proc/check_failing_thresholds()
-	if(damage >= maxHealth)
-		organ_flags |= ORGAN_FAILING
-	if(damage < maxHealth)
-		organ_flags &= ~ORGAN_FAILING
 
 //Looking for brains?
 //Try code/modules/mob/living/carbon/brain/brain_item.dm

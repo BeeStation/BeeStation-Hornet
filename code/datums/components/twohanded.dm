@@ -123,9 +123,9 @@
 
 	if(auto_wield)
 		if(slot == ITEM_SLOT_HANDS)
-			RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, PROC_REF(on_swap_hands))
+			RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
 		else
-			UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
+			UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
 	if((auto_wield || require_twohands) && slot == ITEM_SLOT_HANDS) // force equip the item
 		wield(user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
@@ -136,7 +136,7 @@
 	SIGNAL_HANDLER
 
 	if(auto_wield)
-		UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
+		UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
 	if(require_twohands || wielded)
 		unwield()
 
@@ -192,7 +192,7 @@
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(unreference_wielder))
 
 	if(!auto_wield)
-		RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, PROC_REF(on_swap_hands))
+		RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
 
 	// update item stats and name
 	var/obj/item/parent_item = parent
@@ -334,7 +334,7 @@
 /**
  * on_swap_hands Triggers on swapping hands, blocks swap if the other hand is busy
  */
-/datum/component/two_handed/proc/on_swap_hands(mob/user, obj/item/held_item)
+/datum/component/two_handed/proc/on_swapping_hands(mob/user, obj/item/held_item)
 	SIGNAL_HANDLER
 
 	if(!held_item)
