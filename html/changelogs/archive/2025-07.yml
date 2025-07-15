@@ -201,3 +201,7 @@
   - balance: Severely weakened factory, pyramid, kickstart and zip protocols
   - balance: Halved bio reconstruction cost and healing
   - tweak: Moved S.L.O.P over to military tech reflecting its lethality
+2025-07-15:
+  itsmeow:
+  - rscadd: TGUI Say now supports system DPI scaling on BYOND 516, and will no longer
+      display at the incorrect size.

@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: TGUI Say now supports system DPI scaling on BYOND 516, and will no longer
-      display at the incorrect size.
