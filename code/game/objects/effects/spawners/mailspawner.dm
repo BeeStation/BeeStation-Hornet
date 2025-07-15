@@ -50,7 +50,7 @@
 
 /obj/effect/spawner/mail/organmajor/Initialize(mapload)
 	var/static/list/mail_organmajor= pick(
-		/obj/item/organ/adamantine_resonator,
+		/obj/item/organ/internal/adamantine_resonator,
 		/obj/item/organ/internal/ears/penguin,
 		/obj/item/organ/internal/heart/gland/viral,
 		/obj/item/organ/internal/eyes/night_vision,
@@ -63,7 +63,7 @@
 		/obj/item/organ/internal/tongue/alien,
 		/obj/item/organ/internal/tongue/bone,
 		/obj/item/organ/internal/tongue/bone/plasmaman,
-		/obj/item/organ/vocal_cords/adamantine,
+		/obj/item/organ/internal/vocal_cords/adamantine,
 		/obj/effect/gibspawner/xeno,
 		/obj/effect/mob_spawn/human/corpse/assistant,
 		/obj/item/organ/external/wings/moth, //TODO: MAKE USABLE

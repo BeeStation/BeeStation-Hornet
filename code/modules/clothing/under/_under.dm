@@ -117,8 +117,9 @@
 
 	if((supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION) && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.bodytype & BODYTYPE_DIGITIGRADE)
+		if(H.bodyshape & BODYSHAPE_DIGITIGRADE)
 			adjusted = DIGITIGRADE_STYLE
+			update_appearance()
 		H.update_worn_undersuit()
 
 	if(slot == ITEM_SLOT_ICLOTHING)

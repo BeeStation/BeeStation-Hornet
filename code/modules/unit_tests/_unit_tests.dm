@@ -59,6 +59,7 @@
 #include "mutant_organs.dm"
 #include "mutant_hands_consistency.dm"
 #include "ntnetwork_tests.dm"
+#include "organ_bodypart_shuffle.dm"
 #include "organs.dm"
 #include "orphaned_genturf.dm"
 #include "outfit_sanity.dm"

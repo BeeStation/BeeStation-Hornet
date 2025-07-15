@@ -34,7 +34,7 @@
 				continue
 			if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
 				continue
-			if(S.requires_real_bodypart && affecting.is_pseudopart)
+			if(S.requires_real_bodypart && (affecting.bodypart_flags & BODYPART_PSEUDOPART))
 				continue
 		else if(C && S.requires_bodypart) //mob with no limb in surgery zone when we need a limb
 			continue

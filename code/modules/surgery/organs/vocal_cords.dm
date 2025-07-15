@@ -4,7 +4,7 @@
 #define COOLDOWN_NONE 10 SECONDS
 #define VOICE_OF_GOD_MAX_SILENCE_TIME 60
 
-/obj/item/organ/vocal_cords //organs that are activated through speech with the :x/MODE_KEY_VOCALCORDS channel
+/obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x/MODE_KEY_VOCALCORDS channel
 	name = "vocal cords"
 	icon_state = "appendix"
 	visual = FALSE
@@ -15,23 +15,24 @@
 	healing_factor = 0
 	var/list/spans = null
 
-/obj/item/organ/vocal_cords/proc/can_speak_with() //if there is any limitation to speaking with these cords
+/obj/item/organ/internal/vocal_cords/proc/can_speak_with() //if there is any limitation to speaking with these cords
 	return TRUE
 
-/obj/item/organ/vocal_cords/proc/speak_with(message) //do what the organ does
+/obj/item/organ/internal/vocal_cords/proc/speak_with(message) //do what the organ does
 	return
 
-/obj/item/organ/vocal_cords/proc/handle_speech(message) //actually say the message
+/obj/item/organ/internal/vocal_cords/proc/handle_speech(message) //actually say the message
 	owner.say(message, spans = spans, sanitize = FALSE)
 
-/obj/item/organ/adamantine_resonator
+/obj/item/organ/internal/adamantine_resonator
+	visual = FALSE
 	name = "adamantine resonator"
 	desc = "Fragments of adamantine exist in all golems, stemming from their origins as purely magical constructs. These are used to \"hear\" messages from their leaders."
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_ADAMANTINE_RESONATOR
 	icon_state = "adamantine_resonator"
 
-/obj/item/organ/vocal_cords/adamantine
+/obj/item/organ/internal/vocal_cords/adamantine
 	name = "adamantine vocal cords"
 	desc = "When adamantine resonates, it causes all nearby pieces of adamantine to resonate as well. Adamantine golems use this to broadcast messages to nearby golems."
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
@@ -43,7 +44,7 @@
 		return
 	owner.say(".x[message]")
 
-/obj/item/organ/vocal_cords/adamantine/handle_speech(message)
+/obj/item/organ/internal/vocal_cords/adamantine/handle_speech(message)
 	var/msg = span_resonate("[span_name("[owner.real_name]")] [span_message("resonates, \"[message]\"")]")
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
@@ -55,7 +56,7 @@
 			to_chat(m, "[link] [msg]")
 
 //Colossus drop, forces the listeners to obey certain commands
-/obj/item/organ/vocal_cords/colossus
+/obj/item/organ/internal/vocal_cords/colossus
 	name = "divine vocal cords"
 	desc = "They carry the voice of an ancient god."
 	icon_state = "voice_of_god"
@@ -67,12 +68,12 @@
 
 /datum/action/item_action/organ_action/colossus
 	name = "Voice of God"
-	var/obj/item/organ/vocal_cords/colossus/cords = null
+	var/obj/item/organ/internal/vocal_cords/colossus/cords = null
 
 /datum/action/item_action/organ_action/colossus/New()
 	..()
-	if (!istype(master, /obj/item/organ/vocal_cords/colossus))
-		CRASH("/obj/item/organ/vocal_cords/colossus assigned to colossus")
+	if (!istype(master, /obj/item/organ/internal/vocal_cords/colossus))
+		CRASH("/obj/item/organ/internal/vocal_cords/colossus assigned to colossus")
 	cords = master
 
 /datum/action/item_action/organ_action/colossus/is_available()
@@ -97,7 +98,7 @@
 		return
 	owner.say(".x[command]")
 
-/obj/item/organ/vocal_cords/colossus/can_speak_with()
+/obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
 		to_chat(owner, span_notice("You must wait [DisplayTimeText(next_command - world.time)] before Speaking again."))
 		return FALSE
@@ -108,11 +109,11 @@
 		return FALSE
 	return TRUE
 
-/obj/item/organ/vocal_cords/colossus/handle_speech(message)
+/obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
 	return //voice of god speaks for us
 
-/obj/item/organ/vocal_cords/colossus/speak_with(message)
+/obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/cooldown = voice_of_god(uppertext(message), owner, spans, base_multiplier)
 	next_command = world.time + (cooldown * cooldown_mod)
 	for (var/datum/action/item_action/organ_action/colossus/action in actions)

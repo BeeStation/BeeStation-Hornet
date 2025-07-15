@@ -1,15 +1,14 @@
 
-/obj/item/bodypart/proc/can_dismember(obj/item/I)
-	if(dismemberable)
-		return TRUE
+/obj/item/bodypart/proc/can_dismember(obj/item/item)
+	if(bodypart_flags & BODYPART_UNREMOVABLE || (owner && HAS_TRAIT(owner, TRAIT_NODISMEMBER)))
+		return FALSE
+	return TRUE
 
 ///Remove target limb from it's owner, with side effects.
-/obj/item/bodypart/proc/dismember(dam_type = BRUTE)
-	if(!owner)
+/obj/item/bodypart/proc/dismember(dam_type = BRUTE, silent = FALSE)
+	if(!owner || (bodypart_flags & BODYPART_UNREMOVABLE))
 		return FALSE
 	var/mob/living/carbon/C = owner
-	if(!dismemberable)
-		return FALSE
 	if(C.status_flags & GODMODE)
 		return FALSE
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
@@ -17,24 +16,25 @@
 
 	var/obj/item/bodypart/affecting = C.get_bodypart(BODY_ZONE_CHEST)
 	affecting.receive_damage(clamp(brute_dam/2 * affecting.body_damage_coeff, 15, 50), clamp(burn_dam/2 * affecting.body_damage_coeff, 0, 50)) //Damage the chest based on limb's existing damage
-	C.visible_message(span_danger("<B>[C]'s [src.name] has been violently dismembered!</B>"))
+	if(!silent)
+		C.visible_message(span_danger("<B>[C]'s [src.name] has been violently dismembered!</B>"))
 
-	if(C.stat <= SOFT_CRIT)//No more screaming while unconsious
-		if(IS_ORGANIC_LIMB(affecting))//Chest is a good indicator for if a carbon is robotic in nature or not.
-			C.emote("scream")
-
+	INVOKE_ASYNC(C, TYPE_PROC_REF(/mob, emote), "scream")
 	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
-	drop_limb()
+
+	drop_limb(dismembered = TRUE)
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
-	C.add_bleeding(BLEED_CRITICAL)
+	if(can_bleed())
+		C.add_bleeding(BLEED_CRITICAL)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
 	if(dam_type == BURN)
 		burn()
 		return TRUE
-	add_mob_blood(C)
+	if (can_bleed())
+		add_mob_blood(C)
 	var/direction = pick(GLOB.cardinals)
 	var/t_range = rand(2,max(throw_range/2, 2))
 	var/turf/target_turf = get_turf(src)
@@ -53,7 +53,7 @@
 	if(!owner)
 		return FALSE
 	var/mob/living/carbon/chest_owner = owner
-	if(!dismemberable)
+	if(bodypart_flags & BODYPART_UNREMOVABLE)
 		return FALSE
 	if(HAS_TRAIT(chest_owner, TRAIT_NODISMEMBER))
 		return FALSE
@@ -84,7 +84,7 @@
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
 	update_limb(dropping_limb = TRUE)
-	//bodypart_flags &= ~BODYPART_IMPLANTED //limb is out and about, it can't really be considered an implant
+	bodypart_flags &= ~BODYPART_IMPLANTED //limb is out and about, it can't really be considered an implant
 	owner.remove_bodypart(src, special)
 
 	var/mob/living/carbon/phantom_owner = update_owner(null) // so we can still refer to the guy who lost their limb after said limb forgets 'em
@@ -112,7 +112,7 @@
 	phantom_owner.update_health_hud() //update the healthdoll
 	phantom_owner.update_body()
 
-	if(is_pseudopart)
+	if(bodypart_flags & BODYPART_PSEUDOPART)
 		drop_organs(phantom_owner) //Psuedoparts shouldn't have organs, but just in case
 		qdel(src)
 		return
@@ -191,13 +191,22 @@
 	if(!.) //If it failed to replace, re-attach their old limb as if nothing happened.
 		old_limb.try_attach_limb(limb_owner, TRUE)
 
+///Checks if a limb qualifies as a BODYPART_IMPLANTED
+/obj/item/bodypart/proc/check_for_frankenstein(mob/living/carbon/human/monster)
+	if(!istype(monster))
+		return FALSE
+	var/obj/item/bodypart/original_type = monster.dna.species.bodypart_overrides[body_zone]
+	if(!original_type || (limb_id != initial(original_type.limb_id)))
+		return TRUE
+	return FALSE
+
 ///Checks if you can attach a limb, returns TRUE if you can.
 /obj/item/bodypart/proc/can_attach_limb(mob/living/carbon/new_limb_owner, special, is_creating = FALSE)
 	if(SEND_SIGNAL(new_limb_owner, COMSIG_ATTEMPT_CARBON_ATTACH_LIMB, src, special) & COMPONENT_NO_ATTACH)
 		return FALSE
 
 	var/obj/item/bodypart/chest/mob_chest = new_limb_owner.get_bodypart(BODY_ZONE_CHEST)
-	if(mob_chest && !(mob_chest.acceptable_bodytype & bodytype) && !special)
+	if(mob_chest && !(mob_chest.acceptable_bodytype & bodytype) && !(mob_chest.acceptable_bodyshape & bodyshape) && !special)
 		return FALSE
 	return TRUE
 

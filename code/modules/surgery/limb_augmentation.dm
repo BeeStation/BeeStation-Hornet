@@ -69,14 +69,24 @@
 			tool = tool.contents[1]
 		if(istype(tool) && user.temporarilyRemoveItemFromInventory(tool))
 			if(!tool.replace_limb(target))
-				display_results(user, target, span_warning("You fail in replacing [target]'s [parse_zone(target_zone)]! Their body has rejected [tool]!"),
+				display_results(
+					user,
+					target,
+					span_warning("You fail in replacing [target]'s [parse_zone(target_zone)]! Their body has rejected [tool]!"),
 					span_warning("[user] fails to replace [target]'s [parse_zone(target_zone)]!"),
-					span_warning("[user] fails to replaces [target]'s [parse_zone(target_zone)]!"))
+					span_warning("[user] fails to replaces [target]'s [parse_zone(target_zone)]!"),
+				)
 				tool.forceMove(target.loc)
 				return
-		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
-			"[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!",
-			"[user] successfully augments [target]'s [parse_zone(target_zone)]!")
+		if(tool.check_for_frankenstein(target))
+			tool.bodypart_flags |= BODYPART_IMPLANTED
+		display_results(
+			user,
+			target,
+			span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
+			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!"),
+			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)]!"),
+		)
 		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] COMBAT MODE: [uppertext(user.combat_mode)]")
 	else
 		to_chat(user, span_warning("[target] has no organic [parse_zone(target_zone)] there!"))

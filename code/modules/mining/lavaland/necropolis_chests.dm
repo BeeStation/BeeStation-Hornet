@@ -1198,7 +1198,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/structure/closet/crate/necropolis/colossus/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
 	if(..())
-		new /obj/item/organ/vocal_cords/colossus(src)
+		new /obj/item/organ/internal/vocal_cords/colossus(src)
 		new /obj/item/crusher_trophy/blaster_tubes(src)
 
 //Hierophant
