@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/session_token = LOCATE_HREF(href_login::session_token, href_list)
 	if(session_token)
 		LOCATE_HREF(href_login::session_token, href_list) = "TOKEN_REDACTED"
-		href = replacetextEx(logged_href, session_token, "TOKEN_REDACTED")
+		href = replacetextEx(href, session_token, "TOKEN_REDACTED")
 
 	//-------------------------
 	// #3. Logging
