@@ -561,10 +561,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 	return .
 
 /mob/living/simple_animal/slime/get_spawner_desc()
-	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+	return "be a slime[master ? " under the command of [master.real_name]" : " with free will"]."
 
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
-	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": " You are not subject to anyone's commands, but the crew may not take kindly to a murderous slime!"]"
 
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
