@@ -111,30 +111,3 @@
 /// Don't do anything stupid, please
 /obj/item/storage/proc/get_types_to_preload()
 	return
-
-/obj/item/storage/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	var/obj/item/modular_computer/comp
-	for(var/obj/item/modular_computer/M in contents)
-		comp = M
-		break
-	if(!comp)
-		return
-	var/obj/item/computer_hardware/processor_unit/cpu = comp.all_components[MC_CPU]
-	if(!cpu)
-		return
-	if(!cpu.hacked)
-		return
-	if(!comp.enabled)
-		return
-	var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
-	var/turf/start = get_turf(src)
-	if(!target)
-		return
-	if(comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)) // The better the CPU the farther it goes, and the more battery it needs
-		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(start, "sparks", 50, 1)
-		playsound(target, "sparks", 50, 1)
-		do_dash(src, start, target, 0, TRUE)
-	else
-		new /obj/effect/particle_effect/sparks(start)
-		playsound(start, "sparks", 50, 1)
