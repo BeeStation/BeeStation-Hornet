@@ -397,4 +397,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
+
+/// When applied to a bodypart, it will not regenerate stamina damage
+#define TRAIT_BODYPART_NO_STAMINA_REGENERATION "no_stamina_regen"
+
 // END TRAIT DEFINES

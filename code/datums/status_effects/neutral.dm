@@ -277,7 +277,7 @@
 
 /atom/movable/screen/alert/status_effect/tourniquet
 	name = "Tourniquet"
-	desc = "You have a tourniquet applied, click to remove it!"
+	desc = "You have a tourniquet applied, restricting your blood flow and preventing stamina regeneration."
 	icon_state = "tourniquet"
 
 /atom/movable/screen/alert/status_effect/tourniquet/Click(location, control, params)
@@ -298,6 +298,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/tourniquet
 	var/bodyzone_target
 	var/time_applied
+	var/obj/item/bodypart/bodypart = null
 
 /datum/status_effect/tourniquet/on_creation(mob/living/new_owner, target_zone)
 	. = ..()
@@ -306,22 +307,26 @@
 
 /datum/status_effect/tourniquet/on_apply()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_NO_BLEEDING, "[type]")
-
-/datum/status_effect/tourniquet/tick()
-	var/obj/item/bodypart/bodypart = owner.get_bodypart(bodyzone_target)
+	bodypart = owner.get_bodypart(bodyzone_target)
 	if (!bodypart)
 		qdel(src)
 		return
+	ADD_TRAIT(owner, TRAIT_NO_BLEEDING, "[type]")
+	ADD_TRAIT(bodypart, TRAIT_BODYPART_NO_STAMINA_REGENERATION, "[type]")
+
+/datum/status_effect/tourniquet/tick()
+	bodypart = owner.get_bodypart(bodyzone_target)
+	if (!bodypart)
+		qdel(src)
 
 /datum/status_effect/tourniquet/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_NO_BLEEDING, "[type]")
 	var/duration_applied = world.time - time_applied
 	var/message = null
-	var/obj/item/bodypart/bodypart = owner.get_bodypart(bodyzone_target)
 	if (!bodypart)
 		return
+	REMOVE_TRAIT(bodypart, TRAIT_BODYPART_NO_STAMINA_REGENERATION, "[type]")
 	// After 6 minutes lactic acid builds up at a rate of 100 every 4 minutes
 	var/lactic_buildup = (duration_applied - (6 MINUTES)) * (100 / (4 MINUTES))
 	if (lactic_buildup > 0)
@@ -340,3 +345,8 @@
 		message = "As the tourniquet is removed, the built up toxins in your [bodypart.plaintext_zone] rush to your heart!"
 	if (message)
 		to_chat(bodypart.owner, span_userdanger(message))
+
+/datum/status_effect/tourniquet/Destroy()
+	. = ..()
+	// Cleanup references
+	bodypart = null

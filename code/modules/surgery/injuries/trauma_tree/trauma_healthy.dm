@@ -1,4 +1,5 @@
 /datum/injury/trauma_healthy
+	max_absorption = 0
 
 /datum/injury/trauma_healthy/on_damage_taken(total_damage, delta_damage, damage_type, damage_flag, is_sharp)
 	if (is_sharp || damage_type != BRUTE)

@@ -384,3 +384,6 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define INJURY_PRIORITY_HEALING 1
 /// Show these over the top of healing injuries.
 #define INJURY_PRIORITY_ACTIVE 2
+
+/// Injury absorption duration
+#define INJURY_ABSORPTION_DURATION (30 SECONDS)

@@ -1,4 +1,5 @@
 /datum/injury/cut_healthy
+	max_absorption = 0
 
 /datum/injury/cut_healthy/apply_to_human(mob/living/carbon/human/target)
 	. = ..()

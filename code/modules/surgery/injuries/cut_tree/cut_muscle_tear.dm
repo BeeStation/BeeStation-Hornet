@@ -11,7 +11,8 @@
 
 /datum/injury/cut_muscle_tear/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()
-	if (target.has_status_effect(/datum/status_effect/tourniquet))
+	var/datum/status_effect/tourniquet/tourniquet = target.has_status_effect(/datum/status_effect/tourniquet)
+	if (tourniquet && tourniquet.bodyzone_target == bodypart.body_zone)
 		return
 	if (target.get_bleed_rate() >= BLEED_CUT)
 		return

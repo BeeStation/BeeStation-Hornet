@@ -10,15 +10,11 @@
 
 /// Amount of injury damage taken when the damage is blunt
 #define BLUNT_DAMAGE_RATIO 1
-/// Point at which injury damage starts to turn blunt
+/// If the sharpness delta between weapon and armour is below this value, sharpness damage
+/// will start to be converted into blunt damage.
 #define BLUNT_DAMAGE_START 30
-/// Point at which damage can no longer apply
+/// If the sharpness delta between weapon and armour falls below this value, then the
+/// injury damage application process is aborted.
 #define INJURY_PENETRATION_MINIMUM -20
-/// Damage for a minor injury
-#define INJURY_MINOR_DAMAGE 0
-/// Damage for a major injury
-#define INJURY_MAJOR_DAMAGE 15
-/// Damage for a critical injury
-#define INJURY_CRITICAL_DAMAGE 30
 /// The multiplier for organ damage for attacks that penetrate all the way down to them
 #define ORGAN_DAMAGE_MULTIPLIER 3.5

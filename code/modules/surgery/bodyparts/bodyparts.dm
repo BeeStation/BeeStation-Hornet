@@ -280,7 +280,7 @@
 		set_brute_dam(round(max(brute_dam - brute, 0), DAMAGE_PRECISION))
 	if(burn)
 		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
-	if(stamina)
+	if(stamina && !HAS_TRAIT(src, TRAIT_BODYPART_NO_STAMINA_REGENERATION))
 		set_stamina_dam(round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION))
 
 	if(owner)
@@ -734,6 +734,10 @@
 	// Organ damage
 	proportion = CLAMP01(penetration_power / BLUNT_DAMAGE_START)
 	sharp_damage = current_damage * proportion
+	blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
+	// If our bones are destroyed, then they will cause damage to organs when taking blunt hits
+	if (bone_rating <= 0)
+		sharp_damage += blunt_damage
 	// Damage organs
 	for (var/slot in organ_slots)
 		var/obj/item/organ/organ = owner.getorganslot(slot)
@@ -742,6 +746,12 @@
 		if (!prob(organ.organ_size))
 			continue
 		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
+	// Dismemberment
+	var/dismemberment_chance = (1 - bone_rating) * sharpness
+	if (dismemberment_requires_death && bone_rating > 0)
+		dismemberment_chance = 0
+	if (dismemberable && prob(dismemberment_chance))
+		dismember(damage_type)
 
 /// Internal, do not move to transition injuries to another type
 /// since this completely removes the entire damage tree and the
@@ -772,6 +782,7 @@
 	injury.base_type = injury_base_path || injury_path
 	injuries += injury
 	injury.bodypart = src
+	injury.gained_time = world.time
 	injury.apply_to_part(src)
 	if (owner && ishuman(owner))
 		injury.apply_to_human(owner)

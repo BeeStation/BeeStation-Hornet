@@ -25,6 +25,15 @@
 	var/whole_body = FALSE
 	/// The type we transition to upon being healed
 	var/healed_type
+	/// When did we gain this injury?
+	var/gained_time
+	/// How much damage have we absorbed, when injuries are gained for the first time
+	/// there is a short period in which they absorb additional damage, so that a single
+	/// fight doesn't progress you to fatal injuries instantly
+	var/absorbed_damage = 0
+	/// Max amount of damage we can absorb as a fresh injury. This means that new injuries
+	/// have more health than old ones.
+	var/max_absorption = 30
 
 /datum/injury/process(delta_time)
 	if (!bodypart.owner)
@@ -60,8 +69,14 @@
 
 /datum/injury/proc/apply_damage(delta_damage, damage_type = BRUTE, damage_flag = DAMAGE_STANDARD, is_sharp = FALSE)
 	if (on_damage_taken(current_damage + delta_damage, delta_damage, damage_type, damage_flag, is_sharp))
-		message_admins("Injury tree [type] took [delta_damage] damage.")
-		current_damage += delta_damage
+		// Absorb damage if we are a brand new injury.
+		var/duration = world.time - gained_time
+		var/propotion = CLAMP01(1 - (duration / INJURY_ABSORPTION_DURATION))
+		var/absorbed_amount = max(0, min(delta_damage, (max_absorption * propotion) - absorbed_damage))
+		absorbed_damage += absorbed_amount
+		// Increase our total damage amount
+		current_damage += delta_damage - absorbed_amount
+		message_admins("Injury tree [type] took [delta_damage] damage. Now has [current_damage] damage, with [absorbed_amount] absorbed")
 	else
 		message_admins("Injury tree [type] ignored [delta_damage] damage.")
 
