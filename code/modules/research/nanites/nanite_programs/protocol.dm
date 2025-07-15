@@ -22,11 +22,11 @@
 /datum/nanite_program/protocol/kickstart
 	name = "Kickstart Protocol"
 	desc = "Replication Protocol: the nanites focus on early growth, heavily boosting replication rate for a few minutes after the initial implantation, \
-			resulting in an additional 420 nanite volume being produced during the first two minutes."
+			resulting in an additional 210 nanite volume being produced during the first minute."
 	use_rate = 0
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_REPLICATION
-	var/boost_duration = 2 MINUTES
+	var/boost_duration = 1 MINUTES
 
 /datum/nanite_program/protocol/kickstart/check_conditions()
 	if(!(world.time < nanites.start_time + boost_duration))
@@ -40,9 +40,9 @@
 /datum/nanite_program/protocol/factory
 	name = "Factory Protocol"
 	desc = "Replication Protocol: the nanites build a factory matrix within the host, gradually increasing replication speed over time, \
-			granting a maximum of 2 additional nanite production after roughly 17 minutes. \
+			granting a maximum of 0.5 additional nanite production after roughly 17 minutes. \
 			The factory decays if the protocol is not active, or if the nanites are disrupted by shocks or EMPs."
-	use_rate = 0
+	use_rate = 0.3
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_REPLICATION
 	var/factory_efficiency = 0
@@ -67,17 +67,17 @@
 
 /datum/nanite_program/protocol/factory/active_effect()
 	factory_efficiency = min(factory_efficiency + 1, max_efficiency)
-	nanites.adjust_nanites(amount = round(0.002 * factory_efficiency, 0.1))
+	nanites.adjust_nanites(amount = round(0.0008 * factory_efficiency, 0.01))
 
 
 /datum/nanite_program/protocol/pyramid
 	name = "Pyramid Protocol"
 	desc = "Replication Protocol: the nanites implement an alternate cooperative replication protocol that is active as long as the nanite saturation level is above 80%, \
-			resulting in an additional volume production of 1.2 per second."
-	use_rate = 0
+			resulting in an additional volume production of 0.5 per second."
+	use_rate = 0.2
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_REPLICATION
-	var/boost = 1.2
+	var/boost = 0.7
 
 /datum/nanite_program/protocol/pyramid/check_conditions()
 	if((nanites.nanite_volume / nanites.max_nanites) < 0.8)
@@ -106,30 +106,13 @@
 	nanites.adjust_nanites(amount = boost)
 
 
-/datum/nanite_program/protocol/hive
-	name = "Hive Protocol"
-	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume to 750."
-	use_rate = 0
-	rogue_types = list(/datum/nanite_program/necrotic)
-	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 250
-
-/datum/nanite_program/protocol/hive/enable_passive_effect()
-	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites + extra_volume)
-
-/datum/nanite_program/protocol/hive/disable_passive_effect()
-	. = ..()
-	nanites.set_max_volume(amount = nanites.max_nanites - extra_volume)
-
-
 /datum/nanite_program/protocol/zip
 	name = "Zip Protocol"
-	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, increasing the maximum volume to 1000. However, the process slows down their replication rate slightly."
+	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, increasing the maximum volume to 750. However, the process slows down their replication rate slightly."
 	use_rate = 0.2
 	rogue_types = list(/datum/nanite_program/necrotic)
 	protocol_class = NANITE_PROTOCOL_STORAGE
-	var/extra_volume = 500
+	var/extra_volume = 250
 
 /datum/nanite_program/protocol/zip/enable_passive_effect()
 	. = ..()

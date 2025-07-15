@@ -7947,38 +7947,6 @@
 	},
 /turf/open/floor/iron,
 /area/vacant_room/commissary)
-"bfn" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/maintenance{
-	id_tag = "commissarydoor";
-	req_one_access_txt = "12;63;48;50"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/central)
-"bfo" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/grille,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/central)
 "bfp" = (
 /obj/item/flashlight{
 	pixel_x = 1;
@@ -29242,6 +29210,17 @@
 /obj/structure/curtain,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
+"fVh" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/bottle/holywater{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/organ/internal/heart,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/cult,
+/area/chapel/office)
 "fVm" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/carpet/red,
@@ -32973,6 +32952,21 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"htO" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/central)
 "htP" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Storage Room";
@@ -34937,6 +34931,21 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
+"idW" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor"
+	},
+/turf/open/floor/plating,
+/area/vacant_room/commissary)
 "iec" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -44311,17 +44320,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/brig)
-"lGc" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/holywater{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/organ/internal/heart,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/book/granter/action/spell/smoke/lesser,
-/turf/open/floor/cult,
-/area/chapel/office)
 "lGm" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -70273,6 +70271,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"uTs" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/closet/crate/freezer/surplus_limbs,
+/obj/item/organ/internal/ears/cat,
+/obj/machinery/firealarm/directional/east,
+/turf/open/floor/iron/dark,
+/area/medical/surgery)
 "uTW" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
@@ -79645,13 +79650,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
-"ygH" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/closet/crate/freezer/surplus_limbs,
-/obj/item/organ/internal/ears/cat,
-/obj/machinery/firealarm/directional/east,
-/turf/open/floor/iron/dark,
-/area/medical/surgery)
 "ygL" = (
 /obj/structure/table,
 /obj/machinery/firealarm{
@@ -97445,7 +97443,7 @@ bTs
 wJR
 cia
 iCW
-ygH
+uTs
 cLv
 clv
 xaR
@@ -102351,7 +102349,7 @@ cCe
 eEV
 jRz
 cLa
-lGc
+fVh
 cLa
 oUI
 cOh
@@ -104343,7 +104341,7 @@ aZb
 lad
 rrB
 rrB
-bfn
+idW
 rrB
 rrB
 bcg
@@ -104600,7 +104598,7 @@ vzh
 usO
 bcg
 bdE
-bfo
+htO
 aDh
 iPF
 mLq

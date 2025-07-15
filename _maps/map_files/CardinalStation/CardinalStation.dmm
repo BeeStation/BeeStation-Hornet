@@ -13871,14 +13871,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"cMc" = (
-/obj/machinery/door/poddoor/shutters{
-	name = "Vacant Commissary Shutters";
-	id = "commissaryshutters2"
-	},
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/vacant_room/commissary/commissary2)
 "cMf" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -14529,14 +14521,6 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/medical/apothecary)
-"cRO" = (
-/obj/machinery/door/airlock{
-	name = "Food Stall";
-	id_tag = "foodcommissarydoor";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/central)
 "cRW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -19949,6 +19933,28 @@
 	dir = 4
 	},
 /area/hallway/primary/fore)
+"eaj" = (
+/obj/item/organ/internal/heart{
+	pixel_x = -7
+	},
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/radio/intercom/directional/south,
+/obj/item/toy/figure/chaplain{
+	pixel_y = 7
+	},
+/obj/machinery/camera/directional/south,
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/obj/item/reagent_containers/cup/glass/bottle/holywater{
+	pixel_x = 16;
+	pixel_y = 4
+	},
+/turf/open/floor/carpet/red,
+/area/chapel/office)
 "ear" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -30134,6 +30140,21 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/white,
 /area/science/research)
+"gha" = (
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 9
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/structure/closet/firecloset,
+/obj/structure/railing/perspective/black{
+	dir = 8
+	},
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
+/area/maintenance/disposal/incinerator)
 "ghk" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma/flipped{
@@ -33431,21 +33452,6 @@
 /obj/structure/sign/poster/official/random/directional/west,
 /turf/open/floor/iron/smooth_large,
 /area/security/main)
-"gMP" = (
-/obj/effect/turf_decal/edges/borderfloor{
-	dir = 9
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/structure/closet/firecloset/full,
-/obj/structure/railing/perspective/black{
-	dir = 8
-	},
-/turf/open/floor/iron/edge{
-	dir = 1
-	},
-/area/maintenance/disposal/incinerator)
 "gMQ" = (
 /obj/effect/turf_decal/trimline/white/filled/shrink_cw{
 	dir = 4
@@ -42896,6 +42902,12 @@
 	},
 /turf/open/floor/iron/textured_half,
 /area/science/server)
+"iHr" = (
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
+	},
+/turf/open/floor/iron/dark/textured_half,
+/area/vacant_room/commissary/commissary2)
 "iHs" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -45421,20 +45433,6 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/prison/dark,
 /area/teleporter)
-"jhU" = (
-/obj/machinery/door/airlock{
-	name = "Vacant Commissary";
-	req_access_txt = "12";
-	id_tag = "commissarydoor2"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured_half{
-	dir = 1
-	},
-/area/maintenance/central)
 "jia" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/tinted,
@@ -47907,24 +47905,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
-"jLa" = (
-/obj/machinery/door/airlock{
-	name = "Food Stall";
-	id_tag = "foodcommissarydoor"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured_half,
-/area/vacant_room/commissary/commissaryFood)
 "jLe" = (
 /obj/machinery/door/window/eastleft{
 	req_access_txt = "10";
@@ -50399,22 +50379,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
-"kih" = (
-/obj/machinery/door/airlock{
-	name = "Vacant Commissary";
-	id_tag = "commissarydoor2"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/dark/textured_half,
-/area/vacant_room/commissary/commissary2)
 "kip" = (
 /obj/machinery/vendor/exploration,
 /obj/machinery/light/directional/north,
@@ -54068,28 +54032,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"kWV" = (
-/obj/item/organ/internal/heart{
-	pixel_x = -7
-	},
-/obj/structure/table/wood/fancy/royalblack,
-/obj/item/radio/intercom/directional/south,
-/obj/item/toy/figure/chaplain{
-	pixel_y = 7
-	},
-/obj/machinery/camera/directional/south,
-/obj/effect/turf_decal/siding/red{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/obj/item/reagent_containers/cup/glass/bottle/holywater{
-	pixel_x = 16;
-	pixel_y = 4
-	},
-/turf/open/floor/carpet/red,
-/area/chapel/office)
 "kXb" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/sign/warning/securearea{
@@ -55109,6 +55051,14 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
+"lfS" = (
+/obj/effect/spawner/structure/window,
+/obj/machinery/door/poddoor/shutters{
+	name = "Vacant Commissary Shutters";
+	id = "commissaryshutters2"
+	},
+/turf/open/floor/plating,
+/area/vacant_room/commissary/commissary2)
 "lfW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -65021,6 +64971,23 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
+"nim" = (
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/door/airlock/personal{
+	id_tag = "foodcommissarydoor"
+	},
+/turf/open/floor/iron/dark/textured_half,
+/area/vacant_room/commissary/commissaryFood)
 "niw" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -71711,13 +71678,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/nanite)
-"oCx" = (
-/obj/structure/table/wood,
-/obj/item/razor{
-	pixel_x = 11
-	},
-/turf/open/floor/concrete/slab,
-/area/crew_quarters/barbershop)
 "oCA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -88467,6 +88427,12 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
+"rVc" = (
+/obj/machinery/door/airlock/personal{
+	id_tag = "foodcommissarydoor"
+	},
+/turf/open/floor/iron/dark/textured_half,
+/area/vacant_room/commissary/commissaryFood)
 "rVe" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -91569,6 +91535,19 @@
 	},
 /turf/open/floor/concrete/tile,
 /area/teleporter)
+"sEM" = (
+/obj/vehicle/ridden/wheelchair{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 5
+	},
+/obj/machinery/light/small/directional/north,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/wall_closet/freezer/directional/east,
+/obj/item/organ/internal/heart/cybernetic/upgraded,
+/turf/open/floor/noslip/white,
+/area/maintenance/starboard/central)
 "sEO" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -92502,6 +92481,13 @@
 	},
 /turf/open/floor/wood/big,
 /area/medical/exam_room)
+"sOW" = (
+/obj/structure/closet/firecloset,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/service)
 "sPd" = (
 /turf/open/floor/iron/edge{
 	dir = 1
@@ -93720,13 +93706,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
-"tci" = (
-/obj/structure/closet/firecloset/full,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat/service)
 "tcj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -104923,6 +104902,21 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/central)
+"vmU" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/airlock/personal{
+	id_tag = "commissarydoor2"
+	},
+/turf/open/floor/iron/dark/textured_half,
+/area/vacant_room/commissary/commissary2)
 "vmY" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing/perspective/black/corner{
@@ -105298,6 +105292,13 @@
 	},
 /turf/open/water/air/station,
 /area/hydroponics/garden)
+"vqa" = (
+/obj/structure/table/wood,
+/obj/item/razor{
+	pixel_x = 11
+	},
+/turf/open/floor/concrete/slab,
+/area/crew_quarters/barbershop)
 "vqi" = (
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/structure/disposalpipe/segment{
@@ -107279,19 +107280,6 @@
 	},
 /turf/open/space,
 /area/solar/port/fore)
-"vJj" = (
-/obj/vehicle/ridden/wheelchair{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 5
-	},
-/obj/machinery/light/small/directional/north,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/wall_closet/freezer/directional/east,
-/obj/item/organ/internal/heart/cybernetic/upgraded,
-/turf/open/floor/noslip/white,
-/area/maintenance/starboard/central)
 "vJn" = (
 /obj/structure/railing/perspective/gray{
 	dir = 8
@@ -131984,7 +131972,7 @@ xAW
 gFh
 pyG
 iAp
-tci
+sOW
 lKY
 hgZ
 ssQ
@@ -145779,7 +145767,7 @@ bHR
 iKF
 uqs
 akL
-cMc
+lfS
 lgT
 aJb
 btt
@@ -146036,7 +146024,7 @@ oHc
 wQg
 ems
 qSU
-kih
+vmU
 vBm
 nxB
 rzv
@@ -147066,7 +147054,7 @@ rDQ
 sHo
 mlO
 mlO
-jhU
+iHr
 mlO
 gbv
 gbv
@@ -148946,7 +148934,7 @@ wfG
 uDV
 vUM
 stt
-oCx
+vqa
 mgS
 lfm
 asP
@@ -149634,13 +149622,13 @@ kYn
 rGB
 nbn
 otF
-jLa
+nim
 pqn
 hUX
 gOu
 bYE
 qYL
-cRO
+rVc
 mgG
 iQT
 oZr
@@ -159499,7 +159487,7 @@ umg
 oHs
 fcI
 sVr
-gMP
+gha
 uoA
 uoJ
 uKw
@@ -160709,7 +160697,7 @@ wRD
 aHR
 owf
 wWU
-kWV
+eaj
 aHR
 aHR
 aHR
@@ -165886,7 +165874,7 @@ xHv
 msb
 lfW
 puP
-vJj
+sEM
 vAn
 uJQ
 uiE
