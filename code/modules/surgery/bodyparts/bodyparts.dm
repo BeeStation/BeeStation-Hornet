@@ -692,6 +692,10 @@
 	damage += max(0, clamp(penetration_power, 0, 30) / 30 * (UNPROTECTED_SHARPNESS_INJURY_MULTIPLIER - 1) * penetration_power)
 	// Deal with base damage
 	current_damage = damage
+	// Innate resistance to injury damage when dead, prevent being completely impossible to revive
+	// due to so many injuries.
+	if (owner && owner.stat == DEAD)
+		current_damage *= 0.2
 	// Even without penetration, having high damage results in blunt damage falling down
 	if (penetration_power < 0)
 		current_damage += penetration_power
