@@ -100,7 +100,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	//Logs all hrefs, except chat pings and session tokens
 	var/is_chat_ping = href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4
 	if(!is_chat_ping)
-		to_chat(src, span_notice(href))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 		// Prints href params you have taken in the chat window
@@ -111,12 +110,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	// #4. Client sesssion management
 	// Run this EARLY so it can't be hijacked by any other topics later on
 	if(session_token)
-		to_chat(src, span_notice("token1: [session_token]"))
-		to_chat(src, span_notice("token2: [LOCATE_HREF(href_login::session_token, href_list)]"))
-		to_chat(src, span_notice("token3: [href]"))
 		login_with_token(session_token, LOCATE_HREF(href_login::from_ui, href_list))
 		return
-
 
 	if(LOCATE_HREF(href_login::seeker_port, href_list))
 		winshow(src, "login", FALSE) // make sure this thing is hidden
