@@ -5,6 +5,9 @@
 	health_doll_icon = "blood"
 	examine_description = "<b>lacerations</b>"
 	healed_type = /datum/injury/cut_sutured
+	surgeries_provided = list(
+		/datum/surgery/cauterize
+	)
 
 /datum/injury/cut_laceration/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()
@@ -35,6 +38,18 @@
 		heal()
 		return MEDICAL_ITEM_APPLIED
 	return ..()
+
+/datum/injury/cut_laceration/apply_to_human(mob/living/carbon/human/target)
+	. = ..()
+	RegisterSignal(target, COMSIG_CARBON_CAUTERISE_WOUNDS, PROC_REF(check_cauterisation))
+
+/datum/injury/cut_laceration/remove_from_human(mob/living/carbon/human/target)
+	. = ..()
+	UnregisterSignal(target, COMSIG_CARBON_CAUTERISE_WOUNDS)
+
+/datum/injury/cut_laceration/proc/check_cauterisation(mob/living/carbon/target, amount)
+	if (amount > 100 || prob(amount))
+		heal()
 
 /datum/injury/cut_laceration/intercept_reagent_exposure(datum/reagent, mob/living/victim, method, reac_volume, touch_protection)
 	if (!istype(reagent, /datum/reagent/medicine/coagen))

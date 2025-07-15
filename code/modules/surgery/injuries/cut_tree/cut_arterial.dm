@@ -4,6 +4,10 @@
 	severity_level = INJURY_PRIORITY_ACTIVE
 	health_doll_icon = "blood"
 	examine_description = "<b>an arterial cut</b>"
+	surgeries_provided = list(
+		/datum/surgery/cauterize
+	)
+	healed_type = /datum/injury/cut_stitched_muscle
 
 /datum/injury/cut_arterial/on_tick(mob/living/carbon/human/target, delta_time)
 	. = ..()
@@ -24,3 +28,15 @@
 	if (total_damage >= 15)
 		transition_to(/datum/injury/limb_destroyed)
 	return TRUE
+
+/datum/injury/cut_arterial/apply_to_human(mob/living/carbon/human/target)
+	. = ..()
+	RegisterSignal(target, COMSIG_CARBON_CAUTERISE_WOUNDS, PROC_REF(check_cauterisation))
+
+/datum/injury/cut_arterial/remove_from_human(mob/living/carbon/human/target)
+	. = ..()
+	UnregisterSignal(target, COMSIG_CARBON_CAUTERISE_WOUNDS)
+
+/datum/injury/cut_arterial/proc/check_cauterisation(mob/living/carbon/target, amount)
+	if (amount > 100 || prob(amount))
+		heal()

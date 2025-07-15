@@ -327,9 +327,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	self_delay = 15 SECONDS
 
 /obj/item/stack/medical/tourniquet/can_be_applied(mob/living/carbon/M, mob/user, zone_selected)
-	return M.is_bleeding()
+	return M.is_bleeding() || M.is_bandaged()
 
 /obj/item/stack/medical/tourniquet/after_apply(mob/living/carbon/M, mob/user, zone_selected)
 	M.apply_status_effect(/datum/status_effect/tourniquet, zone_selected)
+
+/obj/item/stack/medical/splint
+	name = "splints"
+	singular_name = "splint"
+	desc = "A rigid bandage-like support structure to assist with the restoration of broken or fractured bones."
+	icon_state = "splint"
+	merge_type = /obj/item/stack/medical/splint
+	amount = 3
+	max_amount = 3
+	self_delay = 10 SECONDS
 
 #undef REAGENT_AMOUNT_PER_ITEM

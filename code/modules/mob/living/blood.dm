@@ -199,6 +199,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return "[final_bleed_rate]/s"
 
 /mob/living/carbon/proc/cauterise_wounds(amount = INFINITY)
+	SEND_SIGNAL(src, COMSIG_CARBON_CAUTERISE_WOUNDS, amount)
 	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return FALSE

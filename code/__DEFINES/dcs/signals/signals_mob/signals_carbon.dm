@@ -49,3 +49,6 @@
 	#define VISIBLE_NAME_FORCED 3
 ///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN and it's being overriden: (identity)
 #define COMSIG_HUMAN_GET_FORCED_NAME "human_get_forced_name"
+
+/// Called when wounds are cauterised (mob/living/carbon/source, amount)
+#define COMSIG_CARBON_CAUTERISE_WOUNDS "carbon_cauterise_wounds"

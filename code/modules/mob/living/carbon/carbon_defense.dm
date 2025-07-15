@@ -66,8 +66,11 @@
 			..()
 
 /mob/living/carbon/take_sharpness_damage(amount, type, flag = DAMAGE_STANDARD, zone = null, sharpness = 0)
+	if (amount <= 0)
+		return
 	// Start bleeding
-	add_bleeding(amount / 10)
+	if (amount > 5)
+		add_bleeding(amount / 10)
 	// Handle with adjust loss procs
 	if (!zone)
 		..()

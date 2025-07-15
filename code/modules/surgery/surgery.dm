@@ -49,6 +49,18 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
+	if (requires_injury)
+		var/obj/item/bodypart/part = target.get_bodypart(target_zone)
+		if (!part)
+			return FALSE
+		var/valid = FALSE
+		for (var/datum/injury/injury in part.injuries)
+			if (type in injury.surgeries_provided)
+				valid = TRUE
+				break
+		if (!valid)
+			return FALSE
+
 	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
 		if(replaced_by)
 			return FALSE
@@ -68,18 +80,6 @@
 
 	if(requires_tech)
 		. = FALSE
-
-	if (requires_injury)
-		var/obj/item/bodypart/part = target.get_bodypart(target_zone)
-		if (!part)
-			return FALSE
-		var/valid = FALSE
-		for (var/datum/injury/injury in part.injuries)
-			if (type in injury.surgeries_provided)
-				valid = TRUE
-				break
-		if (!valid)
-			return FALSE
 
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
