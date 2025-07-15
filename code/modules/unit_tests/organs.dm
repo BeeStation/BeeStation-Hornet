@@ -24,7 +24,7 @@
 		/obj/item/organ/internal/alien,
 		/obj/item/organ/nymph_organ,
 		/obj/item/organ/nymph_organ/chest,
-		/obj/item/organ/nymph_organ/r_arm
+		/obj/item/organ/nymph_organ/r_arm,
 		/obj/item/organ/nymph_organ/l_arm,
 		/obj/item/organ/nymph_organ/r_leg,
 		/obj/item/organ/nymph_organ/l_leg,
