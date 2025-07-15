@@ -1,6 +1,6 @@
 /obj/item/organ/internal/eyes
 	name = BODY_ZONE_PRECISE_EYES
-	icon_state = "eyeballs"
+	icon_state = "eyes"
 	desc = "I see you!"
 	visual = TRUE
 	zone = BODY_ZONE_PRECISE_EYES

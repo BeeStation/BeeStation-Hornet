@@ -651,7 +651,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(5) && M.stat != DEAD)
 				to_chat(M, span_warning("[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]"))
 		if(5)
-			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+			ADD_TRAIT(A.affected_mob, TRAIT_DRINKS_BLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
 			if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood)
 				var/missing = BLOOD_VOLUME_NORMAL - M.blood_volume
@@ -686,7 +686,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism/End(datum/disease/advance/A)
 	. = ..()
-	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKS_BLOOD, DISEASE_TRAIT)
 	if(bloodtypearchive && ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.dna.blood_type = bloodtypearchive

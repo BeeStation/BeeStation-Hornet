@@ -113,7 +113,7 @@
 	name = "burning red eyes"
 	desc = "Even without their shadowy owner, looking at these eyes gives you a sense of dread."
 	icon = 'icons/obj/medical/organs/shadow_organs.dmi'
-
+	flash_protect = -1
 
 /datum/species/shadow/nightmare
 	name = "Nightmare"
@@ -397,6 +397,7 @@
 
 /datum/species/shadow/blessed // Shadow person subsiecies with interacts with shadow sect
 	id = "shadow_blessed"
+	mutantbrain = /obj/item/organ/internal/brain/shadow/blessed
 	var/sect_rituals_completed = 0 // only important if shadow sect is at play, this is a way to check what level of rituals it completed. Used by shadow hearts
 
 /obj/item/organ/internal/brain/shadow/blessed/on_life(delta_time, times_fired)
@@ -420,8 +421,6 @@
 			if(sect_species.sect_rituals_completed == 3)
 				owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
-/datum/species/shadow/blessed
-
 /datum/species/shadow/blessed/check_roundstart_eligible()
 	return FALSE
 
@@ -429,7 +428,6 @@
 	. = ..()
 	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
 		change_hearts_ritual(C)
-	mutantbrain = /obj/item/organ/internal/brain/shadow/blessed
 
 /datum/species/shadow/proc/change_hearts_ritual(mob/living/carbon/C) // This is supposed to be called only for shadow sect
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect

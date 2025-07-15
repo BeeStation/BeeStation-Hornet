@@ -4,7 +4,7 @@
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
-		TRAIT_DRINKSBLOOD,
+		TRAIT_DRINKS_BLOOD,
 		TRAIT_USES_SKINTONES
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)

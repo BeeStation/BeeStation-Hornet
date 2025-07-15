@@ -68,9 +68,9 @@
 	clear_alert(ALERT_TOO_MUCH_N2O)
 	clear_alert(ALERT_NOT_ENOUGH_N2O)
 
-	clear_mood_event("chemical_euphoria")
-	clear_mood_event("smell")
-	clear_mood_event("suffocation")
+	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
+	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "smell")
+	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "suffocation")
 
 /**
  * On gain of TRAIT_LIVERLESS_METABOLISM
@@ -80,8 +80,8 @@
 /mob/living/carbon/proc/on_liverless_metabolism_trait_gain(datum/source)
 	SIGNAL_HANDLER
 
-	for(var/addiction_type in subtypesof(/datum/addiction))
-		mind?.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
+	//for(var/addiction_type in subtypesof(/datum/addiction))
+	//	mind?.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
 
 	reagents.end_metabolization(keep_liverless = TRUE)
 

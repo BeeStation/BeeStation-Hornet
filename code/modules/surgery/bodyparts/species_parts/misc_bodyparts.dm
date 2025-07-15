@@ -347,152 +347,140 @@
 
 //Alloy
 /obj/item/bodypart/head/golem/alloy
-	limb_id = SPECIES_GOLEM_ALLOY
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/alloy
-	limb_id = SPECIES_GOLEM_ALLOY
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/left/golem/alloy
-	limb_id = SPECIES_GOLEM_ALLOY
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/right/golem/alloy
-	limb_id = SPECIES_GOLEM_ALLOY
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/left/golem/alloy
-	limb_id = SPECIES_GOLEM_ALLOY
 	should_draw_greyscale = FALSE
 	movespeed_contribution = 0.5 //faster
 
 /obj/item/bodypart/leg/right/golem/alloy
-	limb_id = SPECIES_GOLEM_ALLOY
 	should_draw_greyscale = FALSE
 	movespeed_contribution = 0.5 //faster
 
 //Wood
 /obj/item/bodypart/head/golem/wood
-	limb_id = SPECIES_GOLEM_WOOD
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
 
 /obj/item/bodypart/chest/golem/wood
-	limb_id = SPECIES_GOLEM_WOOD
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/left/golem/wood
-	limb_id = SPECIES_GOLEM_WOOD
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/right/golem/wood
-	limb_id = SPECIES_GOLEM_WOOD
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/left/golem/wood
-	limb_id = SPECIES_GOLEM_WOOD
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/right/golem/wood
-	limb_id = SPECIES_GOLEM_WOOD
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
 
 ///
 /obj/item/bodypart/head/golem/bananium
-	limb_id = SPECIES_GOLEM_BANANIUM
+	limb_id = "ba_golem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/bananium
-	limb_id = SPECIES_GOLEM_BANANIUM
+	limb_id = "ba_golem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/left/golem/bananium
-	limb_id = SPECIES_GOLEM_BANANIUM
+	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/right/golem/bananium
-	limb_id = SPECIES_GOLEM_BANANIUM
+	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/left/golem/bananium
-	limb_id = SPECIES_GOLEM_BANANIUM
+	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/right/golem/bananium
-	limb_id = SPECIES_GOLEM_BANANIUM
+	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/runic
-	limb_id = SPECIES_GOLEM_RUNIC
+	limb_id = "cultgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/runic
-	limb_id = SPECIES_GOLEM_RUNIC
+	limb_id = "cultgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/left/golem/runic
-	limb_id = SPECIES_GOLEM_RUNIC
+	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/right/golem/runic
-	limb_id = SPECIES_GOLEM_RUNIC
+	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/left/golem/runic
-	limb_id = SPECIES_GOLEM_RUNIC
+	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/right/golem/runic
-	limb_id = SPECIES_GOLEM_RUNIC
+	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/clock
-	limb_id = SPECIES_GOLEM_CLOCKWORK
+	limb_id = "clockgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/chest/golem/clock
-	limb_id = SPECIES_GOLEM_CLOCKWORK
+	limb_id = "clockgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/arm/left/golem/clock
-	limb_id = SPECIES_GOLEM_CLOCKWORK
+	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
 
 /obj/item/bodypart/arm/right/golem/clock
-	limb_id = SPECIES_GOLEM_CLOCKWORK
+	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
 	movespeed_contribution = 0
 
 /obj/item/bodypart/leg/left/golem/clock
-	limb_id = SPECIES_GOLEM_CLOCKWORK
+	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
 	movespeed_contribution = 0
 
 /obj/item/bodypart/leg/right/golem/clock
-	limb_id = SPECIES_GOLEM_CLOCKWORK
+	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
 
@@ -681,15 +669,12 @@
 
 ///
 /obj/item/bodypart/head/golem/uranium
-	limb_id = SPECIES_GOLEM_URANIUM
 	brute_modifier = 0.5
 
 /obj/item/bodypart/chest/golem/uranium
-	limb_id = SPECIES_GOLEM_URANIUM
 	brute_modifier = 0.5
 
 /obj/item/bodypart/arm/left/golem/uranium
-	limb_id = SPECIES_GOLEM_URANIUM
 	attack_type = BURN
 	unarmed_attack_verb = "burn"
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
@@ -698,7 +683,6 @@
 	brute_modifier = 0.5
 
 /obj/item/bodypart/arm/right/golem/uranium
-	limb_id = SPECIES_GOLEM_URANIUM
 	attack_type = BURN
 	unarmed_attack_verb = "burn"
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
@@ -707,7 +691,6 @@
 	brute_modifier = 0.5
 
 /obj/item/bodypart/leg/left/golem/uranium
-	limb_id = SPECIES_GOLEM_URANIUM
 	attack_type = BURN
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
 	unarmed_damage_low = 2
@@ -715,7 +698,6 @@
 	brute_modifier = 0.5
 
 /obj/item/bodypart/leg/right/golem/uranium
-	limb_id = SPECIES_GOLEM_URANIUM
 	attack_type = BURN
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
 	unarmed_damage_low = 2
@@ -724,63 +706,51 @@
 
 //Sand
 /obj/item/bodypart/head/golem/sand
-	limb_id = SPECIES_GOLEM_SAND
 	brute_modifier = 3 //melts easily
 	brute_modifier = 0.25
 
 /obj/item/bodypart/chest/golem/sand
-	limb_id = SPECIES_GOLEM_SAND
 	brute_modifier = 3 //melts easily
 	brute_modifier = 0.25
 
 /obj/item/bodypart/arm/left/golem/sand
-	limb_id = SPECIES_GOLEM_SAND
 	brute_modifier = 3 //melts easily
 	brute_modifier = 0.25
 
 /obj/item/bodypart/arm/right/golem/sand
-	limb_id = SPECIES_GOLEM_SAND
 	brute_modifier = 3 //melts easily
 	brute_modifier = 0.25
 
 /obj/item/bodypart/leg/left/golem/sand
-	limb_id = SPECIES_GOLEM_SAND
 	brute_modifier = 3 //melts easily
 	brute_modifier = 0.25
 
 /obj/item/bodypart/leg/right/golem/sand
-	limb_id = SPECIES_GOLEM_SAND
 	brute_modifier = 3 //melts easily
 	brute_modifier = 0.25
 
 //Glass
 /obj/item/bodypart/head/golem/glass
-	limb_id = SPECIES_GOLEM_GLASS
 	brute_modifier = 3 //very fragile
 	burn_modifier = 0.25
 
 /obj/item/bodypart/chest/golem/glass
-	limb_id = SPECIES_GOLEM_GLASS
 	brute_modifier = 3 //very fragile
 	burn_modifier = 0.25
 
 /obj/item/bodypart/arm/left/golem/glass
-	limb_id = SPECIES_GOLEM_GLASS
 	brute_modifier = 3 //very fragile
 	burn_modifier = 0.25
 
 /obj/item/bodypart/arm/right/golem/glass
-	limb_id = SPECIES_GOLEM_GLASS
 	brute_modifier = 3 //very fragile
 	burn_modifier = 0.25
 
 /obj/item/bodypart/leg/left/golem/glass
-	limb_id = SPECIES_GOLEM_GLASS
 	brute_modifier = 3 //very fragile
 	burn_modifier = 0.25
 
 /obj/item/bodypart/leg/right/golem/glass
-	limb_id = SPECIES_GOLEM_GLASS
 	brute_modifier = 3 //very fragile
 	burn_modifier = 0.25
 
@@ -816,53 +786,41 @@
 
 //Titanium
 /obj/item/bodypart/head/golem/titanium
-	limb_id = SPECIES_GOLEM_TITANIUM
 	burn_modifier = 0.9
 
 /obj/item/bodypart/chest/golem/titanium
-	limb_id = SPECIES_GOLEM_TITANIUM
 	burn_modifier = 0.9
 
 /obj/item/bodypart/arm/left/golem/titanium
-	limb_id = SPECIES_GOLEM_TITANIUM
 	burn_modifier = 0.9
 
 /obj/item/bodypart/arm/right/golem/titanium
-	limb_id = SPECIES_GOLEM_TITANIUM
 	burn_modifier = 0.9
 
 /obj/item/bodypart/leg/left/golem/titanium
-	limb_id = SPECIES_GOLEM_TITANIUM
 	burn_modifier = 0.9
 
 /obj/item/bodypart/leg/right/golem/titanium
-	limb_id = SPECIES_GOLEM_TITANIUM
 	burn_modifier = 0.9
 
 
 //Plastitanium
 /obj/item/bodypart/head/golem/plastitanium
-	limb_id = SPECIES_GOLEM_PLASTITANIUM
 	burn_modifier = 0.8
 
 /obj/item/bodypart/chest/golem/plastitanium
-	limb_id = SPECIES_GOLEM_PLASTITANIUM
 	burn_modifier = 0.8
 
 /obj/item/bodypart/arm/left/golem/plastitanium
-	limb_id = SPECIES_GOLEM_PLASTITANIUM
 	burn_modifier = 0.8
 
 /obj/item/bodypart/arm/right/golem/plastitanium
-	limb_id = SPECIES_GOLEM_PLASTITANIUM
 	burn_modifier = 0.8
 
 /obj/item/bodypart/leg/left/golem/plastitanium
-	limb_id = SPECIES_GOLEM_PLASTITANIUM
 	burn_modifier = 0.8
 
 /obj/item/bodypart/leg/right/golem/plastitanium
-	limb_id = SPECIES_GOLEM_PLASTITANIUM
 	burn_modifier = 0.8
 
 /obj/item/bodypart/arm/left/golem/bananium
