@@ -37,11 +37,8 @@
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
-	burnmod = 2
 	heatmod = 1.5
-	brutemod = 1
 	clonemod = 0
-	staminamod = 0.8
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC

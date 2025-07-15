@@ -73,14 +73,15 @@
 	if(method in list(TOUCH, VAPOR, PATCH))
 		M.adjust_fire_stacks(reac_volume / 15)
 
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+		if(!iscarbon(M))
+			return
 
-			for(var/s in C.surgeries)
-				var/datum/surgery/S = s
-				S.speed_modifier = max(0.1*power_multiplier, S.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+		var/mob/living/carbon/C = M
+		var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+
+		for(var/datum/surgery/surgery as anything in C.surgeries)
+			surgery.speed_modifier = max(0.1*power_multiplier, surgery.speed_modifier)
+			// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 	return ..()
 
 /datum/reagent/consumable/ethanol/beer

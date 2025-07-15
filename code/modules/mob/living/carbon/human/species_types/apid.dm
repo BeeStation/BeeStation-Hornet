@@ -20,9 +20,7 @@
 	mutanteyes = /obj/item/organ/internal/eyes/apid
 	mutantlungs = /obj/item/organ/internal/lungs/apid
 	mutanttongue = /obj/item/organ/internal/tongue/bee
-	burnmod = 1.5
 	toxmod = 1.5
-	staminamod = 1.25
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = /datum/mutation/wax_saliva

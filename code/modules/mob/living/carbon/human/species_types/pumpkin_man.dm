@@ -10,7 +10,6 @@
 		TRAIT_MUTANT_COLORS,
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
-	burnmod = 1.25
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT

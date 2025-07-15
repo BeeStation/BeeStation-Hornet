@@ -15,8 +15,6 @@
 	mutantliver = /obj/item/organ/internal/liver/fly
 	mutantstomach = /obj/item/organ/internal/stomach/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
-	burnmod = 1.4
-	brutemod = 1.4
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/fly,

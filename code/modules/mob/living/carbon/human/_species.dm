@@ -103,19 +103,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// Store body marking defines. See mobs.dm for bitflags
 	var/list/body_markings = list()
 
-	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
-	var/brutemod = 1	// multiplier for brute damage
-	var/burnmod = 1		// multiplier for burn damage
+	/**
+	 * Percentage modifier for overall defense of the race, or less defense, if it's negative
+	 * THIS MODIFIES ALL DAMAGE TYPES.
+	 **/
+	var/damage_modifier = 0
 	///multiplier for damage from cold temperature
 	var/coldmod = 1
 	///multiplier for damage from hot temperature
 	var/heatmod = 1
 	///multiplier for stun durations
 	var/stunmod = 1
-	var/oxymod = 1
+	///multiplier for damage from cloning
 	var/clonemod = 1
+	///multiplier for damage from toxins
 	var/toxmod = 1
-	var/staminamod = 1		// multiplier for stun duration
 	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
 	var/siemens_coeff = 1
 	///To use MUTCOLOR with a fixed color that's independent of the mcolor feature in DNA.
@@ -1579,7 +1581,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE, sharpness = NONE, attack_direction = null)
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone, sharpness, attack_direction)
-	var/hit_percent = (100-(blocked+armor))/100
+	var/hit_percent = (100-(damage_modifier+blocked))/100
 	hit_percent = (hit_percent * (100-H?.physiology?.damage_resistance))/100
 	if(!damage || (!forced && hit_percent <= 0))
 		return 0
@@ -1598,7 +1600,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	switch(damagetype)
 		if(BRUTE)
 			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * brutemod * H.physiology.brute_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.brute_mod
 			if(BP)
 				if(BP.receive_damage(damage_amount, 0, sharpness = sharpness, attack_direction = attack_direction))
 					H.update_damage_overlays()
@@ -1606,7 +1608,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				H.adjustBruteLoss(damage_amount, forced = forced)
 		if(BURN)
 			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.burn_mod
 			if(BP)
 				if(BP.receive_damage(0, damage_amount, sharpness = sharpness, attack_direction = attack_direction))
 					H.update_damage_overlays()
@@ -1615,14 +1617,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(TOX)
 			var/damage_amount = forced ? damage : damage * hit_percent * toxmod * H.physiology.tox_mod
 			H.adjustToxLoss(damage_amount, forced = forced)
-		if(OXY)
-			var/damage_amount = forced ? damage : damage * oxymod * hit_percent * H.physiology.oxy_mod
-			H.adjustOxyLoss(damage_amount, forced = forced)
 		if(CLONE)
 			var/damage_amount = forced ? damage : damage * hit_percent * clonemod * H.physiology.clone_mod
 			H.adjustCloneLoss(damage_amount, forced = forced)
 		if(STAMINA)
-			var/damage_amount = forced ? damage : damage * hit_percent * staminamod * H.physiology.stamina_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.stamina_mod
 			if(BP)
 				if(BP.receive_damage(0, 0, damage_amount))
 					H.update_stamina(TRUE)
@@ -2300,38 +2299,41 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Returns a list containing perks, or an empty list.
  */
 /datum/species/proc/create_pref_damage_perks()
+	// We use the chest to figure out brute and burn mod perks
+	var/obj/item/bodypart/chest/fake_chest = bodypart_overrides[BODY_ZONE_CHEST]
+
 	var/list/to_add = list()
 
 	// Brute related
-	if(brutemod > 1)
+	if(initial(fake_chest.brute_modifier) > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "band-aid",
 			SPECIES_PERK_NAME = "Brutal Weakness",
 			SPECIES_PERK_DESC = "[plural_form] are weak to brute damage.",
 		))
-	else if(brutemod < 1)
+	else if(initial(fake_chest.brute_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
 			SPECIES_PERK_NAME = "Brutal Resilience",
-			SPECIES_PERK_DESC = "[plural_form] are resilient to bruising and brute damage.",
+			SPECIES_PERK_DESC = "[plural_form] are resilient to brute damage.",
 		))
 
 	// Burn related
-	if(burnmod > 1)
+	if(initial(fake_chest.burn_modifier) > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "burn",
-			SPECIES_PERK_NAME = "Fire Weakness",
-			SPECIES_PERK_DESC = "[plural_form] are weak to fire and burn damage.",
+			SPECIES_PERK_NAME = "Burn Weakness",
+			SPECIES_PERK_DESC = "[plural_form] are weak to burn damage.",
 		))
-	else if(burnmod < 1)
+	else if(initial(fake_chest.burn_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
-			SPECIES_PERK_NAME = "Fire Resilience",
-			SPECIES_PERK_DESC = "[plural_form] are resilient to flames, and burn damage.",
+			SPECIES_PERK_NAME = "Burn Resilience",
+			SPECIES_PERK_DESC = "[plural_form] are resilient to burn damage.",
 		))
 
 	if(TRAIT_SHOCKIMMUNE in inherent_traits)

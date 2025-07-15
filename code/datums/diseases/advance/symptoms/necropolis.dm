@@ -47,7 +47,9 @@
 /datum/symptom/necroseed/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/carbon/M = A.affected_mob
+	if(!ishuman(A.affected_mob))
+		return
+	var/mob/living/carbon/human/M = A.affected_mob
 	switch(A.stage)
 		if(2)
 			if(prob(base_message_chance) && M.stat != DEAD)
@@ -61,9 +63,9 @@
 			for(var/obj/item/bodypart/arm in M.bodyparts)
 				if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 					arm.unarmed_damage_low = max(12, arm.unarmed_damage_low)
-			M.dna.species.brutemod = min(0.6, M.dna.species.brutemod)
-			M.dna.species.burnmod = min(0.6, M.dna.species.burnmod)
-			M.dna.species.heatmod = min(0.6, M.dna.species.heatmod)
+			M.physiology.brute_mod = min(0.6, M.physiology.brute_mod)
+			M.physiology.burn_mod = min(0.6, M.physiology.burn_mod)
+			M.physiology.heat_mod = min(0.6, M.physiology.heat_mod)
 			M.add_movespeed_modifier(/datum/movespeed_modifier/virus/necro_virus)
 			ADD_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 			if(fireproof)
@@ -99,16 +101,18 @@
 /datum/symptom/necroseed/End(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/carbon/M = A.affected_mob
+	if(!ishuman(A.affected_mob))
+		return
+	var/mob/living/carbon/human/M = A.affected_mob
 	to_chat(M, span_danger("You feel weak and powerless as the necropolis' blessing leaves your body, leaving you quicker but vulnerable."))
 	for(var/obj/item/bodypart/arm in M.bodyparts)
 		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 			arm.unarmed_damage_low = initial(arm.unarmed_damage_low)
 			arm.unarmed_damage_high = initial(arm.unarmed_damage_high)
 
-	M.dna.species.brutemod = initial(M.dna.species.heatmod)
-	M.dna.species.burnmod = initial(M.dna.species.heatmod)
-	M.dna.species.heatmod = initial(M.dna.species.heatmod)
+	M.physiology.brute_mod = initial(M.physiology.heat_mod)
+	M.physiology.burn_mod = initial(M.physiology.heat_mod)
+	M.physiology.heat_mod = initial(M.physiology.heat_mod)
 	M.remove_movespeed_modifier(/datum/movespeed_modifier/virus/necro_virus)
 	REMOVE_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)

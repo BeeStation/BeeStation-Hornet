@@ -54,7 +54,7 @@
 	/// For limbs that don't really exist, eg chainsaws
 	var/is_pseudopart = FALSE
 	/// A speed modifier we apply to the owner when attached, if any. Positive numbers make it move slower, negative numbers make it move faster.
-	var/speed_modifier = 0
+	var/movespeed_contribution = 0
 
 	// Limb disabling variables
 	///Whether it is possible for the limb to be disabled whatsoever. TRUE means that it is possible.
@@ -86,10 +86,20 @@
 	var/brutestate = 0
 	var/burnstate = 0
 
+	//Multiplicative damage modifiers
+	/// Brute damage gets multiplied by this on receive_damage()
+	var/brute_modifier = 1
+	/// Burn damage gets multiplied by this on receive_damage()
+	var/burn_modifier = 1
+	/// Stamina damage gets multiplied by this on receive_damage()
+	var/stamina_modifier = 1
+	/// Stun damage gets multiplied by this on receive_damage()
+	//var/stun_modifier = 1 (this should probably be here. TODO: implement this on limbs rather than species, jackass)
+
 	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
-	///Amount subtracted from brute damage inflicted on the limb.
+	/// Amount subtracted from brute damage inflicted on the limb.
 	var/brute_reduction = 0
-	///Amount subtracted from burn damage inflicted on the limb.
+	/// Amount subtracted from burn damage inflicted on the limb.
 	var/burn_reduction = 0
 
 	//Coloring and proper item icon update
@@ -311,10 +321,10 @@
 	if(required_bodytype && !(bodytype & required_bodytype))
 		return FALSE
 
-	var/dmg_mlt = CONFIG_GET(number/damage_multiplier) * hit_percent
-	brute = round(max(brute * dmg_mlt, 0),DAMAGE_PRECISION)
-	burn = round(max(burn * dmg_mlt, 0),DAMAGE_PRECISION)
-	stamina = round(max(stamina * dmg_mlt, 0),DAMAGE_PRECISION)
+	var/dmg_multi = CONFIG_GET(number/damage_multiplier) * hit_percent
+	brute = round(max(brute * dmg_multi * brute_modifier, 0), DAMAGE_PRECISION)
+	burn = round(max(burn * dmg_multi * burn_modifier, 0), DAMAGE_PRECISION)
+	stamina = round(max(stamina * dmg_multi * stamina_modifier, 0), DAMAGE_PRECISION)
 	brute = max(0, brute - brute_reduction)
 	burn = max(0, burn - burn_reduction)
 	//No stamina scaling.. for now..
@@ -492,8 +502,8 @@
 
 	owner = null
 
-	if(speed_modifier)
-		old_owner.update_bodypart_speed_modifier()
+	if(movespeed_contribution)
+		old_owner.update_bodypart_movespeed_contribution()
 	if(length(bodypart_traits))
 		old_owner.remove_traits(bodypart_traits, bodypart_trait_source)
 
@@ -512,8 +522,8 @@
 
 	owner = new_owner
 
-	if(speed_modifier)
-		owner.update_bodypart_speed_modifier()
+	if(movespeed_contribution)
+		owner.update_bodypart_movespeed_contribution()
 	if(length(bodypart_traits))
 		owner.add_traits(bodypart_traits, bodypart_trait_source)
 

@@ -14,6 +14,10 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 2
+	brute_modifier = 1
+	stamina_modifier = 0.8
+
 	head_flags = HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/ipc
@@ -33,6 +37,10 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 2
+	brute_modifier = 1
+	stamina_modifier = 0.8
+
 /obj/item/bodypart/arm/left/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -50,6 +58,10 @@
 	heavy_burn_msg = "seared"
 
 	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
+
+	burn_modifier = 2
+	brute_modifier = 1
+	stamina_modifier = 0.8
 
 /obj/item/bodypart/arm/right/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -69,6 +81,10 @@
 
 	unarmed_attack_sound = 'sound/items/trayhit1.ogg'
 
+	burn_modifier = 2
+	brute_modifier = 1
+	stamina_modifier = 0.8
+
 /obj/item/bodypart/leg/left/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -85,6 +101,10 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 2
+	brute_modifier = 1
+	stamina_modifier = 0.8
+
 /obj/item/bodypart/leg/right/ipc
 	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
@@ -100,3 +120,7 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+	burn_modifier = 2
+	brute_modifier = 1
+	stamina_modifier = 0.8

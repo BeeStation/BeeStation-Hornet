@@ -11,8 +11,11 @@
 
 	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
-	//initialize limbs first
-	create_bodyparts()
+	//setup_mood()
+	// This needs to be called very very early in human init (before organs / species are created at the minimum)
+	//setup_organless_effects()
+	// Physiology needs to be created before species, as some species modify physiology
+	setup_physiology()
 
 	create_dna()
 	dna.species.create_fresh_body(src)
@@ -24,8 +27,6 @@
 	living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	prepare_huds() //Prevents a nasty runtime on human init
-
-	physiology = new()
 
 	. = ..()
 
@@ -42,6 +43,9 @@
 	AddElement(/datum/element/mechanical_repair)
 	GLOB.human_list += src
 
+/mob/living/carbon/human/proc/setup_physiology()
+	physiology = new()
+
 /mob/living/carbon/human/proc/setup_human_dna()
 	randomize_human(src, randomize_mutations = TRUE, update_body = FALSE)
 
@@ -52,7 +56,8 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
-	QDEL_LIST(bioware)
+	if(biowares)
+		QDEL_LIST(biowares)
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
 	return ..()

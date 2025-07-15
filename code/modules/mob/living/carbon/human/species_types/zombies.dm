@@ -75,7 +75,7 @@
 	name = "Infectious Zombie"
 	id = SPECIES_ZOMBIE_INFECTIOUS
 	examine_limb_id = SPECIES_ZOMBIE
-	armor = 20 // 120 damage to KO a zombie, which kills it
+	damage_modifier = 20 // 120 damage to KO a zombie, which kills it
 	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
 	var/muthands_path = /obj/item/mutant_hand/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
@@ -173,7 +173,7 @@
 /datum/species/zombie/infectious/viral
 	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
-	armor = 0
+	damage_modifier = 0
 	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/internal/eyes/night_vision/zombie
 	muthands_path = /obj/item/mutant_hand/zombie/infectious

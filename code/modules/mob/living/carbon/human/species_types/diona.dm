@@ -35,10 +35,7 @@
 		/obj/item/organ/nymph_organ/chest
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
-	burnmod = 1.25
 	heatmod = 1.5
-	brutemod = 0.8
-	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.

@@ -30,9 +30,6 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/psyphoza
 	)
 
-	//Fire bad!
-	burnmod = 1.25
-
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 	//Reference to psychic highlight action

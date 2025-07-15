@@ -994,10 +994,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	synchronize_bodytypes()
 
 ///Updates the bodypart speed modifier based on our bodyparts.
-/mob/living/carbon/proc/update_bodypart_speed_modifier()
+/mob/living/carbon/proc/update_bodypart_movespeed_contribution()
 	var/final_modification = 0
 	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
-		final_modification += bodypart.speed_modifier
+		final_modification += bodypart.movespeed_contribution
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bodypart, update = TRUE, multiplicative_slowdown = final_modification)
 
 /mob/living/carbon/proc/create_internal_organs()

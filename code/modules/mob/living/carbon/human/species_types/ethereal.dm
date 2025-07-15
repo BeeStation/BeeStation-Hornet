@@ -6,7 +6,6 @@
 	mutanttongue = /obj/item/organ/internal/tongue/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
-	brutemod = 1.25 //They're weak to punches
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
 		TRAIT_FIXED_MUTANT_COLORS,
@@ -85,6 +84,10 @@
 	UnregisterSignal(C, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(C, COMSIG_ATOM_EMP_ACT)
 	QDEL_NULL(ethereal_light)
+	//Is this physiology setter bad and hacky?
+	//Yes. But ethereals suck ass and its better than the alternative of someone
+	//getting stuck with double fucking burn damage when swapping to another species.
+	C.physiology.brute_mod = 1
 	return ..()
 
 /datum/species/ethereal/random_name(gender, unique, lastname, attempts)
@@ -180,7 +183,7 @@
 	H.visible_message(span_danger("[H] stops flickering and goes back to their normal state!"))
 
 /datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
-	brutemod = 1.25
+	H.physiology.brute_mod = 1.25
 	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 		return
 	switch(H.nutrition)
@@ -188,17 +191,17 @@
 			H.clear_alert("nutrition")
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 1)
-			brutemod = 1.5
+			H.physiology.brute_mod = 1.5
 		if(1 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
 			if(H.health > 10.5)
 				apply_damage(0.65, TOX, null, null, H)
-			brutemod = 1.75
+			H.physiology.brute_mod = 1.75
 		else
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 3)
 			if(H.health > 10.5)
 				apply_damage(1, TOX, null, null, H)
-			brutemod = 2
+			H.physiology.brute_mod = 2
 
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)
