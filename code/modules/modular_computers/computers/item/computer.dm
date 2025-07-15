@@ -724,13 +724,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			return TRUE
 
 /obj/item/modular_computer/add_context_self(datum/screentip_context/context, mob/user)
-	if(istype(context.held_item, /obj/item/screwdriver))
-		context.add_right_click_tool_action("Uninstall all", TOOL_SCREWDRIVER)
-		context.add_left_click_tool_action("Uninstall", TOOL_SCREWDRIVER)
-	if(istype(context.held_item, /obj/item/weldingtool) && atom_integrity != max_integrity)
-		context.add_left_click_tool_action("Repair", TOOL_WELDER)
-	if(istype(context.held_item, /obj/item/wrench))
-		context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
+	context.add_right_click_tool_action("Uninstall all", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Uninstall", TOOL_SCREWDRIVER)
+	context.add_left_click_tool_action("Repair", TOOL_WELDER)
+	context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
 
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
 	// Check for ID first
