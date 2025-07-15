@@ -123,7 +123,7 @@
 
 	if(auto_wield)
 		if(slot == ITEM_SLOT_HANDS)
-			RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
+			RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands), TRUE)
 		else
 			UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
 	if((auto_wield || require_twohands) && slot == ITEM_SLOT_HANDS) // force equip the item
@@ -192,7 +192,7 @@
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(unreference_wielder))
 
 	if(!auto_wield)
-		RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
+		RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands), TRUE)
 
 	// update item stats and name
 	var/obj/item/parent_item = parent

@@ -25,6 +25,7 @@
 /obj/item/organ/internal/heart/gland/Initialize(mapload)
 	. = ..()
 	icon_state = pick(list("health", "spider", "slime", "emp", "species", "egg", "vent", "mindshock", "viral"))
+	AddElement(/datum/element/update_icon_blocker)
 
 /obj/item/organ/internal/heart/gland/examine(mob/user)
 	. = ..()
@@ -97,7 +98,6 @@
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/on_life(delta_time, times_fired)
-	SHOULD_CALL_PARENT(FALSE)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE

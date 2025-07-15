@@ -27,7 +27,7 @@
 		addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user.mind), LING_FAKEDEATH_TIME, TIMER_UNIQUE)
 	return TRUE
 
-/datum/action/changeling/fakedeath/proc/revive(mob/living/user)
+/datum/action/changeling/fakedeath/proc/revive(mob/living/carbon/user)
 	if(!user || !istype(user))
 		return
 

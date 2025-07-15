@@ -30,6 +30,7 @@
 #include "create_and_destroy.dm"
 */
 #include "dcs_get_id_from_elements.dm"
+#include "dismemberment.dm"
 #include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "emoting.dm"
