@@ -33,4 +33,5 @@
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
 	S.flavor_text = FLAVOR_TEXT_EVIL
-	S.set_playable(ROLE_PYRO_SLIME)
+	S.transformeffects = SLIME_EFFECT_LIGHT_PINK
+	S.set_playable_slime(ROLE_PYRO_SLIME)
