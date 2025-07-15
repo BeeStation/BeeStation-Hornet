@@ -96,6 +96,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/logged_href = href
 		if(LOCATE_HREF(href_login::session_token, href_list))
 			logged_href = replacetextEx(logged_href, LOCATE_HREF(href_login::session_token, href_list), "TOKEN_REDACTED")
+		to_chat(src, span_notice(logged_href))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][logged_href]")
 
 		// Prints href params you have taken in the chat window
@@ -107,11 +108,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	// Run this EARLY so it can't be hijacked by any other topics later on
 	if(LOCATE_HREF(href_login::session_token, href_list))
 		var/token = LOCATE_HREF(href_login::session_token, href_list)
-		message_admins("token1: [token]")
+		to_chat(src, span_notice("token1: [token]"))
 		LOCATE_HREF(href_login::session_token, href_list) = ""
-		message_admins("token2: [LOCATE_HREF(href_login::session_token, href_list)]")
+		to_chat(src, span_notice("token2: [LOCATE_HREF(href_login::session_token, href_list)]"))
 		href = replacetextEx(href, LOCATE_HREF(href_login::session_token, href_list), "")
-		message_admins("token3: [href]")
+		to_chat(src, span_notice("token3: [href]"))
 		login_with_token(token, LOCATE_HREF(href_login::from_ui, href_list))
 		return
 
