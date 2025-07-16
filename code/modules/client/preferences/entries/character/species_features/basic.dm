@@ -97,11 +97,12 @@
 
 /datum/preference/choiced/facial_hair_gradient
 	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_FEATURES
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient"
 	relevant_head_flag = HEAD_FACIAL_HAIR
 	can_randomize = FALSE
+	should_generate_icons = TRUE
 
 /datum/preference/choiced/facial_hair_gradient/init_possible_values()
 	return assoc_to_keys_features(GLOB.facial_hair_gradients_list)
@@ -109,12 +110,34 @@
 /datum/preference/choiced/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hair_gradient_style(new_style = value, update = FALSE)
 
+/datum/preference/choiced/facial_hair_gradient/icon_for(value)
+	// Generate a simple icon for facial hair gradients - could be enhanced later
+	var/datum/universal_icon/final_icon = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
+	final_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
+	
+	// Add a simple beard representation
+	var/datum/universal_icon/beard_icon = uni_icon('icons/mob/species/human/human_face.dmi', "facial_hair_fullbeard")
+	beard_icon.blend_color(COLOR_DARK_BROWN, ICON_MULTIPLY)
+	final_icon.blend_icon(beard_icon, ICON_OVERLAY)
+	
+	final_icon.crop(10, 19, 22, 31)
+	final_icon.scale(32, 32)
+	
+	return final_icon
+
 /datum/preference/choiced/facial_hair_gradient/create_default_value()
 	return /datum/sprite_accessory/gradient/none::name
 
+/datum/preference/choiced/facial_hair_gradient/compile_constant_data()
+	var/list/data = ..()
+
+	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/facial_hair_gradient::db_key
+
+	return data
+
 /datum/preference/color/facial_hair_gradient
 	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient_color"
 	relevant_head_flag = HEAD_FACIAL_HAIR
@@ -190,10 +213,11 @@
 /datum/preference/choiced/hair_gradient
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	preference_type = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_FEATURES
 	db_key = "gradient_style"
 	relevant_head_flag = HEAD_HAIR
 	can_randomize = FALSE
+	should_generate_icons = TRUE
 
 /datum/preference/choiced/hair_gradient/init_possible_values()
 	return assoc_to_keys_features(GLOB.hair_gradients_list)
@@ -201,14 +225,36 @@
 /datum/preference/choiced/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient_style(new_style = value, update = FALSE)
 
+/datum/preference/choiced/hair_gradient/icon_for(value)
+	// Generate a simple icon for hair gradients - could be enhanced later
+	var/datum/universal_icon/final_icon = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
+	final_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
+	
+	// Add a simple hair representation
+	var/datum/universal_icon/hair_icon = uni_icon('icons/mob/species/human/human_face.dmi', "hair_short")
+	hair_icon.blend_color(COLOR_DARK_BROWN, ICON_MULTIPLY)
+	final_icon.blend_icon(hair_icon, ICON_OVERLAY)
+	
+	final_icon.crop(10, 19, 22, 31)
+	final_icon.scale(32, 32)
+	
+	return final_icon
+
 /datum/preference/choiced/hair_gradient/create_default_value()
 	return /datum/sprite_accessory/gradient/none::name
+
+/datum/preference/choiced/hair_gradient/compile_constant_data()
+	var/list/data = ..()
+
+	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/hair_gradient::db_key
+
+	return data
 
 /datum/preference/color/hair_gradient
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	db_key = "gradient_color"
 	preference_type = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_HAIR
 
 /datum/preference/color/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)

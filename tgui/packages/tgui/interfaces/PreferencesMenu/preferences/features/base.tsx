@@ -339,13 +339,19 @@ export const StandardizedPalette = (props: {
   } = props;
   const choices_to_hex = hex_values ? Object.fromEntries(choices.map((v) => [v, v])) : props.choices_to_hex!;
   const safeHex = (v: string) => {
-    if (v.length === 3) {
-      // sanitize short colors
-      v = v[0] + v[0] + v[1] + v[1] + v[2] + v[2];
-    } else if (v.length === 4) {
-      v = v[1] + v[1] + v[2] + v[2] + v[3] + v[3];
+    // Remove any existing # prefix to normalize
+    const cleanValue = v.startsWith('#') ? v.substring(1) : v;
+
+    let expandedValue = cleanValue;
+    if (cleanValue.length === 3) {
+      // Expand 3-digit hex to 6-digit (e.g., "fff" → "ffffff")
+      expandedValue = cleanValue[0] + cleanValue[0] + cleanValue[1] + cleanValue[1] + cleanValue[2] + cleanValue[2];
+    } else if (cleanValue.length === 6) {
+      // Already 6-digit, use as is
+      expandedValue = cleanValue;
     }
-    return (v.startsWith('#') ? v : `#${v}`).toLowerCase();
+
+    return `#${expandedValue}`.toLowerCase();
   };
   const safeValue = hex_values ? props.value && safeHex(props.value) : props.value;
   return (
