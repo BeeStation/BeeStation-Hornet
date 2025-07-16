@@ -1215,7 +1215,6 @@
 		visible_message(span_warning("[src]'s panel flies open!"))
 		charge.forceMove(drop_location())
 		addtimer(CALLBACK(charge, TYPE_PROC_REF(/obj/item/grenade, prime)), 3)
-//		charge.prime()
 		detonated = 1
 		charge = null
 	if(forced < 2)
