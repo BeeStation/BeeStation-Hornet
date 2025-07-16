@@ -146,9 +146,9 @@
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "friedegg"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment/protein = 6,
-		/datum/reagent/consumable/eggyolk = 2 ,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/eggyolk = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	bite_consumption = 1
 	tastes = list("egg" = 4)

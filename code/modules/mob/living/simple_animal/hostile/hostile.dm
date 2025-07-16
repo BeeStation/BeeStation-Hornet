@@ -416,7 +416,7 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, 1)
-		casing.fire_casing(targeted_atom, src, null, null, null, ran_zone(), 0, 1,  src)
+		casing.fire_casing(targeted_atom, src, zone_override = ran_zone(), fired_from = src)
 	else if(projectiletype)
 		var/obj/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
@@ -610,5 +610,10 @@
 	target = new_target
 	if(target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
+
+/mob/living/simple_animal/hostile/Login(mob/user) // We add a LosetTarget() here to stop the mob from chasing down targets after it has been given over to a player
+	..()
+	LoseTarget()
+	return TRUE
 
 

@@ -85,6 +85,12 @@ GLOBAL_VAR(restart_counter)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
 
+#ifdef DISABLE_BYOND_AUTH
+	CONFIG_SET(flag/guest_ban, FALSE) // no point in banning guests if BYOND auth doesn't exist
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
+		log_world("DANGER: External authorization is disabled while DISABLE_BYOND_AUTH is set. This means connecting CKEYs are blindly trusted and susceptible to spoofing!")
+#endif
+
 	if(fexists(RESTART_COUNTER_PATH))
 		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
 		fdel(RESTART_COUNTER_PATH)
@@ -187,7 +193,8 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.prefs_log)
 
-	GLOB.changelog_hash = md5('html/changelog.html') //for telling if the changelog has changed recently
+	var/latest_changelog = file("[global.config.directory]/../html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
+	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
@@ -223,7 +230,7 @@ GLOBAL_VAR(restart_counter)
 			log_topic("(NON-JSON) \"[topic_decoded]\", from:[addr], master:[master], key:[key]")
 		// Fallback check for spacestation13.com requests
 		if(topic_decoded == "ping")
-			return length(GLOB.clients)
+			return length(GLOB.clients_unsafe)
 		response["statuscode"] = 400
 		response["response"] = "Bad Request - Invalid JSON format"
 		return json_encode(response)
@@ -355,7 +362,7 @@ GLOBAL_VAR(restart_counter)
 	shutdown_logging() // makes sure the thread is closed before end, else we terminate
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
-		LIBCALL(debug_server, "auxtools_shutdown")()
+		call_ext(debug_server, "auxtools_shutdown")()
 	..()
 
 /world/proc/update_status()
@@ -366,7 +373,7 @@ GLOBAL_VAR(restart_counter)
 	var/server_name = CONFIG_GET(string/servername)
 	var/server_tag = CONFIG_GET(string/servertag)
 	var/station_name = station_name()
-	var/players = GLOB.clients.len
+	var/players = GLOB.clients_unsafe.len
 	var/popcaptext = ""
 	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
 	if (popcap)
@@ -481,7 +488,7 @@ GLOBAL_VAR(restart_counter)
 		else
 			CRASH("Unsupported platform: [system_type]")
 
-	var/init_result = LIBCALL(library, "init")("block")
+	var/init_result = call_ext(library, "init")("block")
 	if (init_result != "0")
 		CRASH("Error initializing byond-tracy: [init_result]")
 

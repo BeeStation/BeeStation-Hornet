@@ -54,7 +54,7 @@
 		return
 
 	var/mob/living/carbon/human/moffin_observer = user
-	var/obj/item/organ/tongue/tongue = moffin_observer.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = moffin_observer.get_organ_slot(ORGAN_SLOT_TONGUE)
 
 	if(!tongue) ///no tongue means no taste
 		return
@@ -161,6 +161,27 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
+
+/obj/item/food/fortunecookie/make_edible()
+	AddComponent(/datum/component/edible, \
+		initial_reagents = food_reagents, \
+		food_flags = food_flags, \
+		foodtypes = foodtypes, \
+		volume = max_volume, \
+		eat_time = eat_time, \
+		tastes = tastes, \
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption, \
+		microwaved_type = microwaved_type, \
+		junkiness = junkiness, \
+		on_consume = CALLBACK(src, PROC_REF(on_consume)), \
+	)
+
+/obj/item/food/fortunecookie/proc/on_consume(mob/user)
+	var/obj/item/paper/fortune = locate(/obj/item/paper) in src.contents
+	if(fortune)
+		if(user)
+			user.put_in_hands(fortune)
 
 /obj/item/food/cookie/sugar
 	name = "sugar cookie"

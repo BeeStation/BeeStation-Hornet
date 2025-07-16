@@ -33,12 +33,15 @@
 		return
 	var/mob/new_mob
 	if(prob(95))
-		if(prob(50))
-			new_mob = owner.easy_randmut(NEGATIVE + MINOR_NEGATIVE)
-		else
-			new_mob = owner.randmuti()
+		switch(rand(1,3))
+			if(1)
+				new_mob = owner.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
+			if(2)
+				new_mob = owner.random_mutate_unique_identity()
+			if(3)
+				new_mob = owner.random_mutate_unique_features()
 	else
-		new_mob = owner.easy_randmut(POSITIVE)
+		new_mob = owner.easy_random_mutate(POSITIVE)
 	if(new_mob && ismob(new_mob))
 		owner = new_mob
 	. = owner
@@ -370,7 +373,7 @@
 /datum/mutation/strongwings/on_acquiring()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(!wings)
 		to_chat(owner, span_warning("You don't have wings to strengthen!"))
 		return
@@ -389,7 +392,7 @@
 /datum/mutation/strongwings/on_losing()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(!wings)
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
@@ -404,7 +407,7 @@
 
 /datum/mutation/strongwings/modify()
 	..()
-	var/obj/item/organ/wings/bee/bee_wings = owner.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
 /datum/mutation/catclaws

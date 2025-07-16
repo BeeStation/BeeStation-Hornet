@@ -61,7 +61,7 @@
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
 
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/energy/chrono_gun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(field)
 		field_disconnect(field)
 	..()

@@ -138,7 +138,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	var/obj/item/organ/lungs/living_lungs = human_user.getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs/living_lungs = human_user.get_organ_slot(ORGAN_SLOT_LUNGS)
 	//Early return if its not on the head slot, on a mob that breathes plasma
 	if(slot != ITEM_SLOT_HEAD || living_lungs.breathing_class == /datum/breathing_class/plasma)
 		return

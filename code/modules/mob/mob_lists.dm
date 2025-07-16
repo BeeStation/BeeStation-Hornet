@@ -30,6 +30,16 @@
 /mob/proc/remove_from_mob_suicide_list()
 	GLOB.suicided_mob_list -= src
 
+///Removes a mob references from the list of external logout mobs
+/mob/proc/remove_from_disconnected_mob_list()
+	var/saved_key = null
+	for(var/ckey in GLOB.disconnected_mobs)
+		if(GLOB.disconnected_mobs[ckey] == src)
+			saved_key = ckey
+			break
+	if(!isnull(saved_key))
+		GLOB.disconnected_mobs -= saved_key
+
 ///Adds the mob reference to the list of all the dead mobs. If mob is cliented, it adds it to the list of all dead player-mobs.
 /mob/proc/add_to_dead_mob_list()
 	if(QDELETED(src))

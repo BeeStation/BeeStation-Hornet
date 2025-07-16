@@ -997,7 +997,13 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Built with lightweight materials for easier movement."
 	item_state = "medical_hardsuit"
 	supports_variations = DIGITIGRADE_VARIATION
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals,
+		/obj/item/storage/firstaid,
+		/obj/item/healthanalyzer,
+		/obj/item/stack/medical,
+	)
 	armor_type = /datum/armor/hardsuit_medical
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
@@ -1439,6 +1445,7 @@
 	greyscale_config = /datum/greyscale_config/ctf_standard
 	greyscale_config_worn = /datum/greyscale_config/ctf_standard_worn
 	greyscale_colors = "#ffffff"
+	clothing_flags = THICKMATERIAL
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"

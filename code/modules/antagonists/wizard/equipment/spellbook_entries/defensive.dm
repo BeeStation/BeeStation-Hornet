@@ -98,6 +98,19 @@
 	item_path = /obj/item/scrying
 	category = "Defensive"
 
+/datum/spellbook_entry/item/rewind_camera
+	name = "Rewind Camera"
+	desc = "A camera that reverts the subject of a photo back to when the photo was taken, after a time. Restores limbs and injuries, but not death. Refillable with film, and comes with three shots."
+	item_path = /obj/item/camera/rewind
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/item/rewind_camera/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
+	new /obj/item/camera_film(get_turf(user)) //the camera only natively has one shot, so we'll give some reloads until they can raid the library
+	new /obj/item/camera_film(get_turf(user))
+	new /obj/item/camera_film(get_turf(user))
+	. = ..()
+
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
 	desc = "A collection of wands that allow for a wide variety of utility. \

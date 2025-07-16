@@ -141,7 +141,7 @@
 	READ_FILE(S["lastchangelog"], lastchangelog, null)
 	NEW_QUERY(PREFERENCE_TAG_LAST_CL, owning_ckey, lastchangelog)
 
-	READ_FILE(S["UI_style"], UI_style, "Midnight")
+	READ_FILE(S["UI_style"], UI_style, "Midnight-Knox")
 	NEW_QUERY(PREFERENCE_TAG_UI_STYLE, owning_ckey, UI_style)
 
 	READ_FILE(S["outline_color"], outline_color, "#75A2BB")

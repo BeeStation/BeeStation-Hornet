@@ -159,7 +159,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		add_splatter_floor(src.loc, 1)
 
 /mob/living/carbon/human/add_bleeding(bleed_level)
-	if (NOBLOOD in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
 	..()
 
@@ -261,7 +261,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood(delta_time, times_fired)
 
-	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NOBLOOD))
 		cauterise_wounds()
 		return
 
@@ -338,7 +338,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		// As you get less bloodloss, you bleed slower
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
-		var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 		if (!heart || !heart.beating)
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
@@ -351,7 +351,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
-	if(!(NOBLOOD in dna.species.species_traits))
+	if(!HAS_TRAIT(src, TRAIT_NOBLOOD))
 		..()
 
 /mob/living/proc/restore_blood()
@@ -459,7 +459,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if(dna.species.exotic_blood)
 		return dna.species.exotic_blood
-	else if((NOBLOOD in dna.species.species_traits))
+	else if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
 	return /datum/reagent/blood
 
@@ -525,7 +525,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		B.add_blood_DNA(temp_blood_DNA)
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
-	if(!(NOBLOOD in dna.species.species_traits))
+	if(!HAS_TRAIT(src, TRAIT_NOBLOOD))
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)

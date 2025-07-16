@@ -39,7 +39,6 @@
 #define EXP_TYPE_SECURITY		"Security"
 #define EXP_TYPE_SILICON		"Silicon"
 #define EXP_TYPE_SERVICE		"Service"
-#define EXP_TYPE_GIMMICK		"Gimmick"
 #define EXP_TYPE_ANTAG			"Antag"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_GHOST			"Ghost"
@@ -195,6 +194,9 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 // Priorities must be in order!
 /// The default priority level
 #define PREFERENCE_PRIORITY_DEFAULT 1
+
+/// The priority at which the hotkey preference is set, required for TGUI say special macros
+#define PREFERENCE_PRIORITY_HOTKEYS 2
 
 /// The priority at which species runs, needed for external organs to apply properly.
 #define PREFERENCE_PRIORITY_SPECIES 2

@@ -24,6 +24,8 @@ export { Dropdown } from './Dropdown';
 export { Flex } from './Flex';
 export { FitText } from './FitText';
 export { Grid } from './Grid';
+export { Image } from './Image';
+export { DmIcon } from './DmIcon';
 export { Icon } from './Icon';
 export { InfinitePlane } from './InfinitePlane';
 export { Interactive } from './Interactive';

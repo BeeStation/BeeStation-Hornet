@@ -1,20 +1,14 @@
-/obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, spread_mult = 1, atom/fired_from)
-	distro += variance
+/obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, params, spread, quiet, zone_override, atom/fired_from)
 	var/targloc = get_turf(target)
 	ready_proj(target, user, quiet, zone_override, fired_from)
 	if(pellets == 1)
-		if(distro) //We have to spread a pixel-precision bullet. throw_proj was called before so angles should exist by now...
-			if(randomspread)
-				spread = round((rand() - 0.5) * distro) * spread_mult
-			else //Smart spread
-				spread = round(1 - 0.5) * distro * spread_mult
-		if(!throw_proj(target, targloc, user, params, spread))
+		if(!throw_proj(target, targloc, user, params, (spread + variance) * (rand() - 0.5)))
 			return FALSE
 	else
 		if(isnull(BB))
 			return FALSE
 		AddComponent(/datum/component/pellet_cloud, projectile_type, pellets)
-		SEND_SIGNAL(src, COMSIG_PELLET_CLOUD_INIT, target, user, fired_from, randomspread, spread, zone_override, params, distro)
+		SEND_SIGNAL(src, COMSIG_PELLET_CLOUD_INIT, target, user, fired_from, !even_distribution, spread + variance, zone_override, params)
 	if(click_cooldown_override)
 		user.changeNext_move(click_cooldown_override)
 	else
@@ -35,11 +29,6 @@
 	else
 		BB.def_zone = user.get_combat_bodyzone(target)
 	BB.suppressed = quiet
-
-	if(isgun(fired_from))
-		var/obj/item/gun/G = fired_from
-		BB.damage *= G.projectile_damage_multiplier
-		BB.stamina *= G.projectile_damage_multiplier
 
 	if(reagents && BB.reagents)
 		reagents.trans_to(BB, reagents.total_volume, transfered_by = user) //For chemical darts/bullets

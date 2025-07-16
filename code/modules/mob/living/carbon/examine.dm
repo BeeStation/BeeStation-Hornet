@@ -6,7 +6,7 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 
-	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!>")
 	var/obscured = check_obscured_slots()
 
 	if(handcuffed)
@@ -29,7 +29,7 @@
 	var/appears_dead = 0
 	if(stat == DEAD)
 		appears_dead = 1
-		if(getorgan(/obj/item/organ/brain))
+		if(get_organ_by_type(/obj/item/organ/brain))
 			. += span_deadsay("[t_He] [t_is] limp and unresponsive, with no signs of life.")
 		else if(get_bodypart(BODY_ZONE_HEAD))
 			. += span_deadsay("It appears that [t_his] brain is missing.")

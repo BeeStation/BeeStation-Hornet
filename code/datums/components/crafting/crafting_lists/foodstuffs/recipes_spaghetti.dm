@@ -8,7 +8,7 @@
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
 		/obj/item/food/grown/tomato = 2
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/copypasta
 	name = "Copypasta"
@@ -16,7 +16,7 @@
 	reqs = list(
 		/obj/item/food/spaghetti/pastatomato = 2
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/spaghettimeatball
 	name = "Spaghetti meatball"
@@ -25,7 +25,7 @@
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
 		/obj/item/food/meatball = 2
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/spesslaw
 	name = "Spesslaw"
@@ -34,7 +34,7 @@
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
 		/obj/item/food/meatball = 4
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/beefnoodle
 	name = "Beef noodle"
@@ -45,7 +45,7 @@
 		/obj/item/food/meat/cutlet = 2,
 		/obj/item/food/grown/cabbage = 1
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/chowmein
 	name = "Chowmein"
@@ -56,7 +56,7 @@
 		/obj/item/food/grown/cabbage = 2,
 		/obj/item/food/grown/carrot = 1
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/butternoodles
 	name = "Butter Noodles"
@@ -65,7 +65,7 @@
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
 		/obj/item/food/butter = 1
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/kasespatzle
 	name = "Käsespätzle"
@@ -75,7 +75,7 @@
 		/datum/reagent/consumable/eggyolk = 10,
 		/obj/item/food/cheese/wedge = 1
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/spaghettinapolitan
 	name = "Spaghetti Napolitan"
@@ -86,7 +86,7 @@
 		/obj/item/food/sausage = 1,
 		/obj/item/food/grown/chili = 1
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/lasagna
 	name = "Lasagna"
@@ -97,7 +97,7 @@
 		/obj/item/food/cheese/wedge = 2,
 		/obj/item/food/spaghetti/raw = 1
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/glassnoodles
 	name = "Glass Noodles"
@@ -108,7 +108,7 @@
 		/obj/item/food/tofu = 1,
 		/obj/item/stack/sheet/glass = 1
 	)
-	subcategory = CAT_SPAGHETTI
+	category = CAT_SPAGHETTI
 
 /datum/crafting_recipe/food/carbonara
 	name = "Spaghetti Carbonara"

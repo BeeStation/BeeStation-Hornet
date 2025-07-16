@@ -116,7 +116,13 @@
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
-	candidates = poll_ghost_candidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
+	candidates = SSpolling.poll_ghost_candidates(
+		question = "Looking for volunteers to become [antag_datum] for [name]",
+		role = role_preference,
+		check_jobban = antag_datum.banning_key,
+		poll_time = 30 SECONDS,
+		role_name_text = antag_datum.name,
+	)
 
 	if(!length(candidates))
 		message_admins("The ruleset [name] received no applications.")
@@ -652,7 +658,7 @@
 	candidates = living_players
 	for(var/mob/living/carbon/human/candidate in candidates)
 		if( \
-			!candidate.getorgan(/obj/item/organ/brain) \
+			!candidate.get_organ_by_type(/obj/item/organ/brain) \
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
 			|| !SSjob.GetJob(candidate.mind.assigned_role) \

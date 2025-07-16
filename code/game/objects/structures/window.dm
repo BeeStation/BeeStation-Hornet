@@ -7,6 +7,7 @@
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE //initially is 0 for tile smoothing
 	flags_1 = ON_BORDER_1
+	obj_flags = CAN_BE_HIT | BLOCKS_CONSTRUCTION_DIR | IGNORE_DENSITY
 	max_integrity = 50
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
@@ -42,6 +43,13 @@
 	fire = 80
 	acid = 100
 
+/obj/structure/window/corner
+	icon_state = "window_corner"
+	density = FALSE
+
+/obj/structure/window/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	if(reinf)
@@ -73,6 +81,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 	if(fulltile)
 		setDir()
+		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
+		obj_flags &= ~IGNORE_DENSITY
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -133,6 +143,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if(.)
 		return
 
+	if(!density)
+		return TRUE
+
 	if(fulltile)
 		return FALSE
 
@@ -141,10 +154,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/moved_window = mover
-		return valid_window_location(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
+		return valid_build_direction(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
 
 	if(istype(mover, /obj/structure/windoor_assembly) || istype(mover, /obj/machinery/door/window))
-		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
+		return valid_build_direction(loc, mover.dir, is_fulltile = FALSE)
 
 	return TRUE
 
@@ -442,6 +455,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/reinforced/unanchored
 	anchored = FALSE
 
+/obj/structure/window/reinforced/corner
+	icon_state = "rwindow_corner"
+	density = FALSE
+
+/obj/structure/window/reinforced/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/plasma
 	name = "plasma window"
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
@@ -487,6 +507,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/plasma/unanchored
 	anchored = FALSE
 
+/obj/structure/window/plasma/corner
+	icon_state = "plasmawindow_corner"
+	density = FALSE
+
+/obj/structure/window/plasma/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/plasma/reinforced
 	name = "reinforced plasma window"
 	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
@@ -518,13 +545,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/plasma/reinforced/unanchored
 	anchored = FALSE
 
+/obj/structure/window/plasma/reinforced/corner
+	icon_state = "plasmarwindow_corner"
+	density = FALSE
+
+/obj/structure/window/plasma/reinforced/corner/unanchored
+	anchored = FALSE
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow" //what what, hon hon
 	opacity = TRUE
+
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "twindow"
+
+/obj/structure/window/reinforced/tinted/corner
+	icon_state = "twindow_corner"
+	density = FALSE
 
 /obj/structure/window/depleteduranium
 	name = "depleted uranium window"
@@ -559,6 +598,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/depleteduranium/unanchored
 	anchored = FALSE
 
+/obj/structure/window/depleteduranium/corner
+	icon_state = "duwindow_corner"
+	density = FALSE
+
+/obj/structure/window/depleteduranium/corner/unanchored
+	anchored = FALSE
+
 /* Full Tile Windows (more atom_integrity) */
 
 /obj/structure/window/fulltile
@@ -571,6 +617,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	max_integrity = 100
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	glass_amount = 2
 
 /obj/structure/window/fulltile/unanchored
@@ -586,11 +633,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	max_integrity = 500
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	rad_insulation = RAD_FULL_INSULATION
 	glass_amount = 2
 
 /obj/structure/window/depleteduranium/fulltile/unanchored
 	anchored = FALSE
+
+/obj/structure/window/depleteduranium/fulltile/debug
+	name = "unbreakable depleted uranium window"
+	max_integrity = INFINITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/structure/window/plasma/fulltile
 	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
@@ -602,6 +655,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	max_integrity = 600
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	glass_amount = 2
 
 /obj/structure/window/plasma/fulltile/unanchored
@@ -617,6 +671,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	max_integrity = 4000
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	glass_amount = 2
 
 /obj/structure/window/plasma/reinforced/fulltile/unanchored
@@ -632,6 +687,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	max_integrity = 200
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	glass_amount = 2
 
 /obj/structure/window/reinforced/fulltile/unanchored
@@ -646,7 +702,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	glass_amount = 2
+
+/obj/structure/window/reinforced/tinted/fulltile/nightclub
+	color = "#9b1d70"
 
 /obj/structure/window/reinforced/fulltile/ice
 	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi'
@@ -671,6 +731,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	wtype = "shuttle"
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	reinf = TRUE
 	heat_resistance = 1600
 	armor_type = /datum/armor/window_shuttle
@@ -709,6 +770,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	wtype = "shuttle"
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	reinf = TRUE
 	heat_resistance = 1600
 	armor_type = /datum/armor/window_plastitanium
@@ -740,6 +802,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	max_integrity = 15
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	glass_amount = 2
 	glass_type = /obj/item/stack/sheet/paperframes
 	heat_resistance = 233
@@ -827,8 +890,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	max_integrity = 50
 	glass_amount = 2
 
 /obj/structure/window/bronze/fulltile/unanchored
+	anchored = FALSE
+
+/obj/structure/window/bronze/corner
+	icon_state = "clockwork_window_single_corner"
+	density = FALSE
+
+/obj/structure/window/bronze/corner/unanchored
 	anchored = FALSE

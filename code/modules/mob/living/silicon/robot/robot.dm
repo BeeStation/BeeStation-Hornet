@@ -27,8 +27,8 @@
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
-	///The last time this mob was flashed. Used for flash cooldowns
-	var/last_flashed = 0
+	///The last time this mob was flashed or EMP'd, used to determine flashing red state and certain vulnerabilities
+
 
 
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
@@ -223,13 +223,9 @@
 	if(istype(module, /obj/item/robot_module/syndicate) || emagged)
 		modularInterface.device_theme = THEME_SYNDICATE
 		modularInterface.icon_state = "tablet-silicon-syndicate"
-		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
-		modularInterface.icon_state_unpowered = "tablet-silicon-syndicate"
 	else
 		modularInterface.device_theme = THEME_NTOS
 		modularInterface.icon_state = "tablet-silicon"
-		modularInterface.icon_state_powered = "tablet-silicon"
-		modularInterface.icon_state_unpowered = "tablet-silicon"
 	modularInterface.update_icon()
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
@@ -262,7 +258,7 @@
 			radio.keyslot.forceMove(T)
 			radio.keyslot = null
 	if(autoclean_toggle)
-		autoclean_toggle.Remove(usr)
+		autoclean_toggle.Remove(src)
 	QDEL_NULL(autoclean_toggle)
 	QDEL_NULL(wires)
 	QDEL_NULL(eye_lights)
@@ -451,8 +447,6 @@
 				to_chat(user, span_warning("The cover is locked and cannot be opened!"))
 			else
 				to_chat(user, span_notice("You open the cover."))
-				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
-					Paralyze(5 SECONDS)
 				opened = 1
 				update_icons()
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
@@ -585,7 +579,7 @@
 	if(opened)
 		to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
 	else
-		if(allowed(usr))
+		if(allowed(user))
 			locked = !locked
 			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] [src]'s cover."))
 			update_icons()
@@ -651,7 +645,7 @@
 	if(stat != DEAD && !(IsUnconscious() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(last_flashed && last_flashed + FLASHED_COOLDOWN >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+		if(has_status_effect(/datum/status_effect/cyborg_malfunction)) //Blinky red error lights
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
 		else if(lamp_enabled || lamp_doom)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
@@ -677,11 +671,11 @@
 		add_overlay(head_overlay)
 	update_fire()
 
-/mob/living/silicon/robot/proc/self_destruct(mob/usr)
+/mob/living/silicon/robot/proc/self_destruct(mob/user)
 	var/turf/groundzero = get_turf(src)
-	message_admins(span_notice("[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(src, client)] at [ADMIN_VERBOSEJMP(groundzero)]!"))
-	log_game(span_notice("[key_name(usr)] detonated [key_name(src)]!"))
-	log_combat(usr, src, "detonated cyborg", "cyborg_detonation")
+	message_admins(span_notice("[ADMIN_LOOKUPFLW(user)] detonated [key_name_admin(src, client)] at [ADMIN_VERBOSEJMP(groundzero)]!"))
+	log_game(span_notice("[key_name(user)] detonated [key_name(src)]!"))
+	log_combat(user, src, "detonated cyborg", "cyborg_detonation")
 	if(connected_ai)
 		to_chat(connected_ai, "<br><br>[span_alert("ALERT - Cyborg detonation detected: [name]")]<br>")
 
@@ -1129,12 +1123,12 @@
 	if(module.clean_on_move)
 		AddElement(/datum/element/cleaning)
 		autoclean_toggle = new()
-		autoclean_toggle.toggle_target = usr
-		autoclean_toggle.Grant(usr)
+		autoclean_toggle.toggle_target = src
+		autoclean_toggle.Grant(src)
 	else
 		RemoveElement(/datum/element/cleaning)
 		if(autoclean_toggle)
-			autoclean_toggle.Remove(usr)
+			autoclean_toggle.Remove(src)
 			QDEL_NULL(autoclean_toggle)
 
 	hat_offset = module.hat_offset
@@ -1307,7 +1301,7 @@
 	cell = /obj/item/stock_parts/cell/high
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
-	//Don't try buckling on INTENT_HARM so that silicons can search people's inventories without loading them
+	//Don't try buckling on combat_mode so that silicons can search people's inventories without loading them
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs) && ((user != src) || (!combat_mode)))
 		return user_buckle_mob(M, user, check_loc = FALSE)
 
